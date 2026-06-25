@@ -6,6 +6,7 @@ import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { NewsArticleTracker } from "@/components/analytics/NewsArticleTracker";
 import { CorridorIntelLinks } from "@/components/corridor/CorridorIntelLinks";
 import { NewsArticleBody } from "@/components/news/NewsDigest";
+import { NewsShareBar } from "@/components/news/NewsShareBar";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { NewsHeroVisual } from "@/components/visuals/NewsHeroVisual";
 import { countryCardImage } from "@/lib/brand/country-accents";
@@ -15,7 +16,13 @@ import {
   getPublishedNewsDigestBySlug,
 } from "@/lib/news/digests";
 import { getNewsTopic, newsIndexPath } from "@/lib/news/topics";
-import { DEFAULT_OG_IMAGE, fitMetaDescription, fitSeoTitleAbsolute, hreflangAlternates } from "@/lib/seo";
+import {
+  DEFAULT_OG_IMAGE,
+  fitMetaDescription,
+  fitSeoTitleAbsolute,
+  hreflangAlternates,
+  socialImageMetadata,
+} from "@/lib/seo";
 import { EMIGRO_PUBLISHER, emigroAuthorOrg, schemaImage } from "@/lib/seo/schema";
 import { newsArticleUrl, newsHubUrl, SITE_URL } from "@/lib/site-url";
 
@@ -59,7 +66,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       publishedTime: digest.published_at,
       modifiedTime: digest.updated_at,
       tags: digest.tags,
-      images: [{ url: ogImage, width: 1200, height: 630, alt: title }],
+      images: [socialImageMetadata(ogImage, title)],
     },
     twitter: {
       card: "summary_large_image",
@@ -154,6 +161,8 @@ export default async function NewsArticlePage({ params }: Props) {
               Опубликовано <time dateTime={digest.published_at}>{formatDateRu(digest.published_at)}</time>
             </p>
           </HeroShell>
+
+          <NewsShareBar url={url} title={displayTitle} className="mt-6" />
 
           {digest.key_takeaways.length > 0 && (
             <section className="mt-6 grid gap-3 md:grid-cols-3">

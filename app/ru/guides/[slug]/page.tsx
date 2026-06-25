@@ -3,6 +3,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { ArrowRight, BookOpen, CheckCircle2, Clock, Compass, FileText, Layers, Sparkles } from "lucide-react";
+import { ShareButtons } from "@/components/share/ShareButtons";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { ServiceProvidersSection } from "@/components/providers/ServiceProvidersSection";
@@ -331,6 +332,13 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
         <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_280px] xl:grid-cols-[minmax(0,1fr)_300px]">
           <div className="min-w-0">
             <GuideFeaturedImage coverPath={guide.cover_path} title={guide.title} />
+
+            <ShareButtons
+              url={url}
+              title={guide.title}
+              text={guide.excerpt ?? guide.quick_answer}
+              className="mt-8"
+            />
 
             {guide.quick_answer && (
               <section className="mt-8 rounded-[2rem] border border-corridor-200 bg-gradient-to-br from-white via-corridor-50 to-sky-50 p-6 shadow-sm ring-1 ring-corridor-100 sm:p-7">
