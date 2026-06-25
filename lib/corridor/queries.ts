@@ -5,6 +5,15 @@ export const CORRIDOR_SLUG = "ru-speaking-to-portugal";
 
 export type Locale = "ru" | "en";
 
+type CorridorSummary = {
+  id: string;
+  slug: string;
+  title_ru: string;
+};
+
+const SUMMARY_CACHE_TTL_MS = 5 * 60 * 1000;
+const corridorSummaryCache = new Map<string, { expiresAt: number; value: Promise<CorridorSummary | null> }>();
+
 export function pickLocale<T extends Record<string, string>>(
   locale: Locale,
   en: string,
@@ -75,6 +84,31 @@ export async function getCorridorBySlug(slug: string): Promise<Corridor | null> 
       .filter((p): p is NonNullable<typeof p> => p !== null),
     digest: digest ?? [],
   };
+}
+
+export async function getPublishedCorridorSummaryBySlug(slug: string): Promise<CorridorSummary | null> {
+  const now = Date.now();
+  const hit = corridorSummaryCache.get(slug);
+  if (hit && hit.expiresAt > now) return hit.value;
+
+  const value = (async () => {
+    const supabase = createServerClient();
+    const { data: corridor, error } = await supabase
+      .from("emigro_corridors")
+      .select("id, slug, title_ru")
+      .eq("slug", slug)
+      .eq("is_published", true)
+      .single();
+
+    if (error || !corridor) return null;
+    return corridor;
+  })().catch((error) => {
+    corridorSummaryCache.delete(slug);
+    throw error;
+  });
+
+  corridorSummaryCache.set(slug, { expiresAt: now + SUMMARY_CACHE_TTL_MS, value });
+  return value;
 }
 
 export async function getProgramBySlug(slug: string): Promise<ProgramDetail | null> {

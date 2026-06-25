@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
-import { getCorridorBySlug } from "@/lib/corridor/queries";
+import { getPublishedCorridorSummaryBySlug } from "@/lib/corridor/queries";
 import { createServerClient } from "@/lib/supabase/server";
 
 export async function POST(
   request: Request,
   { params }: { params: { slug: string } }
 ) {
-  const corridor = await getCorridorBySlug(params.slug);
+  const corridor = await getPublishedCorridorSummaryBySlug(params.slug);
   if (!corridor) {
     return NextResponse.json({ error: "Corridor not found" }, { status: 404 });
   }

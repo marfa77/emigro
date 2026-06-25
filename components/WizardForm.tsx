@@ -27,6 +27,7 @@ export function WizardForm({
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
+  const [loadingMessage, setLoadingMessage] = useState("");
   const [error, setError] = useState<string | null>(null);
   const startedRef = useRef(false);
 
@@ -115,6 +116,10 @@ export function WizardForm({
     }
 
     setLoading(true);
+    setLoadingMessage("Сохраняем ответы...");
+    const slowHintTimer = window.setTimeout(() => {
+      setLoadingMessage("Сравниваем ваш профиль с программами. Обычно это занимает несколько секунд.");
+    }, 1000);
     try {
       const postUrl =
         mode === "hub"
@@ -128,6 +133,7 @@ export function WizardForm({
       const sessionData = await sessionRes.json();
       if (!sessionRes.ok) throw new Error(sessionData.error ?? "Session failed");
 
+      setLoadingMessage("Считаем подходящие маршруты...");
       const evalUrl =
         mode === "hub"
           ? `/api/v1/hub/wizard/sessions/${sessionData.id}/evaluate`
@@ -136,6 +142,7 @@ export function WizardForm({
       const evalData = await evalRes.json();
       if (!evalRes.ok) throw new Error(evalData.error ?? "Evaluation failed");
 
+      setLoadingMessage("Готовим страницу результатов...");
       trackEvent("wizard_completed", {
         corridor_slug: scope,
         session_id: sessionData.id,
@@ -148,7 +155,9 @@ export function WizardForm({
       trackEvent("wizard_error", { corridor_slug: scope, message });
       setError(message);
     } finally {
+      window.clearTimeout(slowHintTimer);
       setLoading(false);
+      setLoadingMessage("");
     }
   }
 
@@ -229,11 +238,19 @@ export function WizardForm({
       </div>
 
       {error && <p className="mt-4 text-sm text-red-600">{error}</p>}
+      {loading && (
+        <div className="mt-4 rounded-lg border border-corridor-100 bg-corridor-50 px-4 py-3 text-sm text-corridor-900">
+          <p className="font-medium">{loadingMessage || "Считаем результаты..."}</p>
+          <p className="mt-1 text-corridor-800">
+            Мы проверяем правила программ и сразу покажем результат. Страницу можно не обновлять.
+          </p>
+        </div>
+      )}
 
       <div className="mt-8 flex justify-between">
         <button
           type="button"
-          disabled={step === 0}
+          disabled={step === 0 || loading}
           onClick={() => setStep((s) => s - 1)}
           className="rounded-lg px-4 py-2 text-sm text-slate-600 disabled:opacity-40"
         >
@@ -245,7 +262,7 @@ export function WizardForm({
           disabled={loading}
           className="rounded-lg bg-corridor-600 px-5 py-2 text-sm font-medium text-white hover:bg-corridor-700 disabled:opacity-60"
         >
-          {loading ? "Считаем..." : isLast ? "Показать результаты" : "Далее"}
+          {loading ? "Готовим результаты..." : isLast ? "Показать результаты" : "Далее"}
         </button>
       </div>
     </div>

@@ -24,7 +24,7 @@ export async function POST(
     session.answers as Record<string, unknown>
   );
 
-  await trackServerEvent(
+  void trackServerEvent(
     "wizard_completed",
     {
       session_id: session.id,
@@ -44,6 +44,8 @@ export async function POST(
     answers: session.answers as Record<string, unknown>,
     payload,
     ctx: buildWizardContext(request),
+  }).catch((error) => {
+    console.warn("[wizard-notify] hub completed:", error instanceof Error ? error.message : error);
   });
 
   return NextResponse.json({ session_id: session.id, ...payload });
