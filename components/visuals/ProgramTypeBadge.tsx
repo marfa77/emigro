@@ -1,4 +1,4 @@
-import { Briefcase, Coins, Users } from "lucide-react";
+import { Briefcase, Coins, GraduationCap, Users } from "lucide-react";
 
 const CONFIG: Record<string, { label: string; Icon: typeof Briefcase; className: string }> = {
   LABOR: {
@@ -15,6 +15,11 @@ const CONFIG: Record<string, { label: string; Icon: typeof Briefcase; className:
     label: "Семья / связи",
     Icon: Users,
     className: "bg-violet-50 text-violet-900 border-violet-200",
+  },
+  STUDY: {
+    label: "Учёба / вуз",
+    Icon: GraduationCap,
+    className: "bg-emerald-50 text-emerald-900 border-emerald-200",
   },
 };
 

@@ -150,13 +150,17 @@ function pickRecommendation(
 
   const laborTypes = new Set(["LABOR"]);
   const capitalTypes = new Set(["CAPITAL"]);
+  const studyTypes = new Set(["STUDY"]);
   const invest = Number(facts.willing_to_invest_eur ?? 0);
+  const wantsStudy = facts.wants_study_route === "yes";
 
   const scored = pool.map((m) => {
     let bonus = 0;
     if (goal === "fast" && laborTypes.has(m.programType)) bonus += 0.05;
     if (goal === "citizenship" && m.countrySegment === "portugal") bonus += 0.03;
     if (goal === "residency" && capitalTypes.has(m.programType) && invest >= 250_000) bonus += 0.02;
+    if (goal === "study" && studyTypes.has(m.programType)) bonus += 0.08;
+    if (wantsStudy && studyTypes.has(m.programType)) bonus += 0.06;
     if (invest >= 250_000 && INVESTOR_PROGRAM_SLUGS.has(m.programSlug)) bonus += 0.08;
     return { m, total: m.score + bonus };
   });

@@ -26,6 +26,14 @@ const GOAL_OPTIONS = [
   { value: "residency", label_en: "Residency", label_ru: "ВНЖ / легализация" },
   { value: "citizenship", label_en: "Citizenship path", label_ru: "Путь к гражданству" },
   { value: "fast", label_en: "Speed & predictability", label_ru: "Скорость и предсказуемость" },
+  { value: "study", label_en: "Study / university", label_ru: "Учёба / вуз" },
+];
+
+const STUDY_LEVEL_OPTIONS = [
+  { value: "bachelor", label_en: "Bachelor / undergraduate", label_ru: "Бакалавриат" },
+  { value: "master", label_en: "Master / graduate", label_ru: "Магистратура" },
+  { value: "language", label_en: "Language school", label_ru: "Языковая / подготовительная школа" },
+  { value: "other", label_en: "Other / undecided", label_ru: "Другое / пока не решил(а)" },
 ];
 
 function q(
@@ -128,10 +136,44 @@ export const HUB_WIZARD_MODULES: WizardModule[] = [
     ],
   },
   {
+    id: "hub-study",
+    module_key: "study",
+    title_ru: "Учёба",
+    sort_order: 4,
+    questions: [
+      q("hub-study", "wants_study_route", "single", "Планируете релокацию через учёбу (вуз / языковая школа)?", {
+        helpRu: "Студенческая виза / ВНЖ для зачисления — не удалёнка и не пассивный доход",
+        options: YES_NO,
+        sort: 1,
+      }),
+      q("hub-study", "has_university_admission", "single", "Есть подтверждение зачисления (admission / matrícula)?", {
+        helpRu: "Письмо от вуза, Campus France, Zulassung и т.п.",
+        options: YES_NO,
+        required: false,
+        sort: 2,
+      }),
+      q("hub-study", "study_budget_eur", "number", "Доступные средства на учёбу (EUR)", {
+        helpRu: "Blocked account, сбережения или спонсор — на обучение и проживание",
+        required: false,
+        sort: 3,
+      }),
+      q("hub-study", "can_show_study_funds", "single", "Можете подтвердить источник средств (банк / спонсор)?", {
+        options: YES_NO,
+        required: false,
+        sort: 4,
+      }),
+      q("hub-study", "study_level", "single", "Уровень обучения (необязательно)", {
+        options: STUDY_LEVEL_OPTIONS,
+        required: false,
+        sort: 5,
+      }),
+    ],
+  },
+  {
     id: "hub-bond",
     module_key: "bond",
     title_ru: "Семья и состав",
-    sort_order: 4,
+    sort_order: 5,
     questions: [
       q("hub-bond", "relocating_with_spouse", "single", "Супруг(а) едет вместе с вами?", {
         helpRu: "Супруг обычно оформляется как иждивенец в той же заявке или воссоединение после вашего ВНЖ",

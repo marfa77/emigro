@@ -1,6 +1,7 @@
 /**
  * Generates supabase/migrations/20260625200000_europe_corridors.sql
  * from lib/corridor/seed/europe-corridors.ts (6 corridors, Portugal excluded).
+ * STUDY programs are in lib/corridor/seed/study-programs.ts → 20260625260000_student_visa_programs.sql
  *
  * Run: npx tsx scripts/generate-europe-corridors-sql.ts
  */
@@ -158,17 +159,17 @@ function buildCorridorSql(c: CorridorSeed): string {
         notesEn =
           p.slug === "netherlands-startup-facilitator"
             ? "IND facilitator endorsement required — case-by-case review"
-            : "Verify consulate jurisdiction and current policy";
+            : "Preliminarily possible, subject to consulate jurisdiction and current policy";
         notesRu =
           p.slug === "netherlands-startup-facilitator"
             ? "Нужен одобренный IND facilitator — индивидуальная проверка"
-            : "Уточнить юрисдикцию консульства и актуальную политику";
+            : "Предварительно возможно, но зависит от консульства подачи и текущей политики";
       } else if (passport !== "RU") {
-        notesEn = "Check consulate jurisdiction";
-        notesRu = "Уточнить юрисдикцию консульства";
+        notesEn = "Preliminarily possible, subject to consulate jurisdiction and place of submission";
+        notesRu = "Предварительно возможно, но зависит от консульства подачи и юрисдикции";
       } else if (passport === "RU") {
-        notesEn = "Apply via consulate/VFS where available";
-        notesRu = "Подача через консульство/VFS где доступно";
+        notesEn = "Official program requirements verified; apply via consulate/VFS where available";
+        notesRu = "Официальные требования программы проверены; подача через консульство/VFS где доступно";
       }
       peRows.push(
         `  (${sqlStr(c.versionIds[pi])}, '${passport}', '${status}', ${sqlStr(notesEn)}, ${sqlStr(notesRu)})`

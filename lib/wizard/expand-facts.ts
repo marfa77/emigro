@@ -38,5 +38,9 @@ export function expandHubFacts(answers: Record<string, unknown>): Record<string,
     facts.remote_income = "no";
   }
 
+  if (facts.wants_study_route === undefined) {
+    facts.wants_study_route = "no";
+  }
+
   return facts;
 }

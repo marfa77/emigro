@@ -75,6 +75,21 @@ export function WizardForm({
       if (questionKey === "monthly_income_eur" && answers.remote_income !== "yes") return false;
       if (questionKey === "passive_income_eur" && answers.passive_income !== "yes") return false;
       if (questionKey === "willing_to_invest_eur" && answers.willing_to_invest !== "yes") return false;
+      if (
+        (questionKey === "has_university_admission" ||
+          questionKey === "study_budget_eur" ||
+          questionKey === "can_show_study_funds") &&
+        answers.wants_study_route !== "yes"
+      ) {
+        return false;
+      }
+    }
+    if (
+      questionType === "single" &&
+      (questionKey === "has_university_admission" || questionKey === "can_show_study_funds") &&
+      answers.wants_study_route !== "yes"
+    ) {
+      return false;
     }
     return true;
   }

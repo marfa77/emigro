@@ -86,18 +86,18 @@ INSERT INTO emigro_program_sources (program_version_id, source_url, raw_excerpt,
 ON CONFLICT DO NOTHING;
 
 INSERT INTO emigro_passport_eligibility (program_version_id, passport_iso2, status, notes_en, notes_ru) VALUES
-  ('c0000000-0000-4000-8000-000000000007', 'RU', 'eligible', 'Apply via consulate/VFS where available', 'Подача через консульство/VFS где доступно'),
-  ('c0000000-0000-4000-8000-000000000007', 'BY', 'partial', 'Check consulate jurisdiction', 'Уточнить юрисдикцию консульства'),
-  ('c0000000-0000-4000-8000-000000000007', 'UA', 'partial', 'Check consulate jurisdiction', 'Уточнить юрисдикцию консульства'),
-  ('c0000000-0000-4000-8000-000000000007', 'KZ', 'partial', 'Check consulate jurisdiction', 'Уточнить юрисдикцию консульства'),
-  ('c0000000-0000-4000-8000-000000000008', 'RU', 'eligible', 'Apply via consulate/VFS where available', 'Подача через консульство/VFS где доступно'),
-  ('c0000000-0000-4000-8000-000000000008', 'BY', 'partial', 'Check consulate jurisdiction', 'Уточнить юрисдикцию консульства'),
-  ('c0000000-0000-4000-8000-000000000008', 'UA', 'partial', 'Check consulate jurisdiction', 'Уточнить юрисдикцию консульства'),
-  ('c0000000-0000-4000-8000-000000000008', 'KZ', 'partial', 'Check consulate jurisdiction', 'Уточнить юрисдикцию консульства'),
-  ('c0000000-0000-4000-8000-000000000009', 'RU', 'eligible', 'Apply via consulate/VFS where available', 'Подача через консульство/VFS где доступно'),
-  ('c0000000-0000-4000-8000-000000000009', 'BY', 'partial', 'Check consulate jurisdiction', 'Уточнить юрисдикцию консульства'),
-  ('c0000000-0000-4000-8000-000000000009', 'UA', 'partial', 'Check consulate jurisdiction', 'Уточнить юрисдикцию консульства'),
-  ('c0000000-0000-4000-8000-000000000009', 'KZ', 'partial', 'Check consulate jurisdiction', 'Уточнить юрисдикцию консульства')
+  ('c0000000-0000-4000-8000-000000000007', 'RU', 'eligible', 'Official program requirements verified; apply via consulate/VFS where available', 'Официальные требования программы проверены; подача через консульство/VFS где доступно'),
+  ('c0000000-0000-4000-8000-000000000007', 'BY', 'partial', 'Preliminarily possible, subject to consulate jurisdiction and place of submission', 'Предварительно возможно, но зависит от консульства подачи и юрисдикции'),
+  ('c0000000-0000-4000-8000-000000000007', 'UA', 'partial', 'Preliminarily possible, subject to consulate jurisdiction and place of submission', 'Предварительно возможно, но зависит от консульства подачи и юрисдикции'),
+  ('c0000000-0000-4000-8000-000000000007', 'KZ', 'partial', 'Preliminarily possible, subject to consulate jurisdiction and place of submission', 'Предварительно возможно, но зависит от консульства подачи и юрисдикции'),
+  ('c0000000-0000-4000-8000-000000000008', 'RU', 'eligible', 'Official program requirements verified; apply via consulate/VFS where available', 'Официальные требования программы проверены; подача через консульство/VFS где доступно'),
+  ('c0000000-0000-4000-8000-000000000008', 'BY', 'partial', 'Preliminarily possible, subject to consulate jurisdiction and place of submission', 'Предварительно возможно, но зависит от консульства подачи и юрисдикции'),
+  ('c0000000-0000-4000-8000-000000000008', 'UA', 'partial', 'Preliminarily possible, subject to consulate jurisdiction and place of submission', 'Предварительно возможно, но зависит от консульства подачи и юрисдикции'),
+  ('c0000000-0000-4000-8000-000000000008', 'KZ', 'partial', 'Preliminarily possible, subject to consulate jurisdiction and place of submission', 'Предварительно возможно, но зависит от консульства подачи и юрисдикции'),
+  ('c0000000-0000-4000-8000-000000000009', 'RU', 'eligible', 'Official program requirements verified; apply via consulate/VFS where available', 'Официальные требования программы проверены; подача через консульство/VFS где доступно'),
+  ('c0000000-0000-4000-8000-000000000009', 'BY', 'partial', 'Preliminarily possible, subject to consulate jurisdiction and place of submission', 'Предварительно возможно, но зависит от консульства подачи и юрисдикции'),
+  ('c0000000-0000-4000-8000-000000000009', 'UA', 'partial', 'Preliminarily possible, subject to consulate jurisdiction and place of submission', 'Предварительно возможно, но зависит от консульства подачи и юрисдикции'),
+  ('c0000000-0000-4000-8000-000000000009', 'KZ', 'partial', 'Preliminarily possible, subject to consulate jurisdiction and place of submission', 'Предварительно возможно, но зависит от консульства подачи и юрисдикции')
 ON CONFLICT DO NOTHING;
 
 INSERT INTO emigro_corridor_digest_items (corridor_id, category, title_en, title_ru, body_en, body_ru, source_url, last_verified, sort_order) VALUES
@@ -127,8 +127,12 @@ INSERT INTO emigro_wizard_questions (module_id, question_key, question_type, lab
   ('e0000000-0000-4000-8000-000000000006', 'annual_salary_eur', 'number', 'Annual gross salary in offer (EUR)', 'Годовая брутто-зарплата в оффере (EUR)', NULL, NULL, NULL, 4),
   ('e0000000-0000-4000-8000-000000000007', 'passive_income_eur', 'number', 'Monthly passive income (EUR)', 'Месячный пассивный доход (EUR)', 'Pensions, rent, dividends — not salary', 'Пенсии, аренда, дивиденды — не зарплата', NULL, 1),
   ('e0000000-0000-4000-8000-000000000007', 'savings_eur', 'number', 'Liquid savings (EUR)', 'Ликвидные сбережения (EUR)', NULL, NULL, NULL, 2),
-  ('e0000000-0000-4000-8000-000000000007', 'has_university_degree', 'single', 'Recognised university degree?', 'Признаваемый диплом вуза?', NULL, NULL, '[{"value":"yes","label_en":"Yes","label_ru":"Да"},{"value":"no","label_en":"No","label_ru":"Нет"}]', 3),
-  ('e0000000-0000-4000-8000-000000000008', 'has_family_in_es', 'single', 'Family member legally in Испания?', 'Член семьи легально в стране (Испания)?', 'Resident or citizen who can sponsor reunification', 'Резидент или гражданин для воссоединения', '[{"value":"yes","label_en":"Yes","label_ru":"Да"},{"value":"no","label_en":"No","label_ru":"Нет"}]', 1)
+  ('e0000000-0000-4000-8000-000000000007', 'willing_to_invest_eur', 'number', 'Capital for investment route (EUR)', 'Капитал для инвестиционного маршрута (EUR)', 'Golden Visa / investor visa — not passive income. Real-estate GV closed in PT/ES.', 'Golden Visa / инвесторская виза — не пассивный доход. GV через недвижимость в PT/ES закрыт.', NULL, 3),
+  ('e0000000-0000-4000-8000-000000000007', 'has_university_degree', 'single', 'Recognised university degree?', 'Признаваемый диплом вуза?', NULL, NULL, '[{"value":"yes","label_en":"Yes","label_ru":"Да"},{"value":"no","label_en":"No","label_ru":"Нет"}]', 4),
+  ('e0000000-0000-4000-8000-000000000008', 'relocating_with_spouse', 'single', 'Spouse relocating with you?', 'Супруг(а) едет вместе с вами?', NULL, 'Супруг — иждивенец в заявке или воссоединение после вашего ВНЖ', '[{"value":"yes","label_en":"Yes","label_ru":"Да"},{"value":"no","label_en":"No","label_ru":"Нет"}]', 1),
+  ('e0000000-0000-4000-8000-000000000008', 'relocating_children_count', 'number', 'Children relocating with you', 'Сколько детей едет с вами?', NULL, 'Несовершеннолетние — доп. пороги дохода и жилья', NULL, 2),
+  ('e0000000-0000-4000-8000-000000000008', 'relocating_parents_count', 'number', 'Parents/grandparents relocating', 'Родители или бабушки/дедушки в поездке?', NULL, '0 если никто. Взрослые родственники — сложный кейс, часто отдельное воссоединение', NULL, 3),
+  ('e0000000-0000-4000-8000-000000000008', 'has_family_in_es', 'single', 'Family member legally in Испания?', 'Член семьи уже легально в стране (Испания)?', 'Resident or citizen who can sponsor reunification — if you join them', 'Резидент или гражданин для воссоединения — если вы едете к ним', '[{"value":"yes","label_en":"Yes","label_ru":"Да"},{"value":"no","label_en":"No","label_ru":"Нет"}]', 4)
 ON CONFLICT DO NOTHING;
 
 -- Corridor: ru-speaking-to-france
@@ -205,18 +209,18 @@ INSERT INTO emigro_program_sources (program_version_id, source_url, raw_excerpt,
 ON CONFLICT DO NOTHING;
 
 INSERT INTO emigro_passport_eligibility (program_version_id, passport_iso2, status, notes_en, notes_ru) VALUES
-  ('c0000000-0000-4000-8000-000000000010', 'RU', 'eligible', 'Apply via consulate/VFS where available', 'Подача через консульство/VFS где доступно'),
-  ('c0000000-0000-4000-8000-000000000010', 'BY', 'partial', 'Check consulate jurisdiction', 'Уточнить юрисдикцию консульства'),
-  ('c0000000-0000-4000-8000-000000000010', 'UA', 'partial', 'Check consulate jurisdiction', 'Уточнить юрисдикцию консульства'),
-  ('c0000000-0000-4000-8000-000000000010', 'KZ', 'partial', 'Check consulate jurisdiction', 'Уточнить юрисдикцию консульства'),
-  ('c0000000-0000-4000-8000-000000000011', 'RU', 'eligible', 'Apply via consulate/VFS where available', 'Подача через консульство/VFS где доступно'),
-  ('c0000000-0000-4000-8000-000000000011', 'BY', 'partial', 'Check consulate jurisdiction', 'Уточнить юрисдикцию консульства'),
-  ('c0000000-0000-4000-8000-000000000011', 'UA', 'partial', 'Check consulate jurisdiction', 'Уточнить юрисдикцию консульства'),
-  ('c0000000-0000-4000-8000-000000000011', 'KZ', 'partial', 'Check consulate jurisdiction', 'Уточнить юрисдикцию консульства'),
-  ('c0000000-0000-4000-8000-000000000012', 'RU', 'eligible', 'Apply via consulate/VFS where available', 'Подача через консульство/VFS где доступно'),
-  ('c0000000-0000-4000-8000-000000000012', 'BY', 'partial', 'Check consulate jurisdiction', 'Уточнить юрисдикцию консульства'),
-  ('c0000000-0000-4000-8000-000000000012', 'UA', 'partial', 'Check consulate jurisdiction', 'Уточнить юрисдикцию консульства'),
-  ('c0000000-0000-4000-8000-000000000012', 'KZ', 'partial', 'Check consulate jurisdiction', 'Уточнить юрисдикцию консульства')
+  ('c0000000-0000-4000-8000-000000000010', 'RU', 'eligible', 'Official program requirements verified; apply via consulate/VFS where available', 'Официальные требования программы проверены; подача через консульство/VFS где доступно'),
+  ('c0000000-0000-4000-8000-000000000010', 'BY', 'partial', 'Preliminarily possible, subject to consulate jurisdiction and place of submission', 'Предварительно возможно, но зависит от консульства подачи и юрисдикции'),
+  ('c0000000-0000-4000-8000-000000000010', 'UA', 'partial', 'Preliminarily possible, subject to consulate jurisdiction and place of submission', 'Предварительно возможно, но зависит от консульства подачи и юрисдикции'),
+  ('c0000000-0000-4000-8000-000000000010', 'KZ', 'partial', 'Preliminarily possible, subject to consulate jurisdiction and place of submission', 'Предварительно возможно, но зависит от консульства подачи и юрисдикции'),
+  ('c0000000-0000-4000-8000-000000000011', 'RU', 'eligible', 'Official program requirements verified; apply via consulate/VFS where available', 'Официальные требования программы проверены; подача через консульство/VFS где доступно'),
+  ('c0000000-0000-4000-8000-000000000011', 'BY', 'partial', 'Preliminarily possible, subject to consulate jurisdiction and place of submission', 'Предварительно возможно, но зависит от консульства подачи и юрисдикции'),
+  ('c0000000-0000-4000-8000-000000000011', 'UA', 'partial', 'Preliminarily possible, subject to consulate jurisdiction and place of submission', 'Предварительно возможно, но зависит от консульства подачи и юрисдикции'),
+  ('c0000000-0000-4000-8000-000000000011', 'KZ', 'partial', 'Preliminarily possible, subject to consulate jurisdiction and place of submission', 'Предварительно возможно, но зависит от консульства подачи и юрисдикции'),
+  ('c0000000-0000-4000-8000-000000000012', 'RU', 'eligible', 'Official program requirements verified; apply via consulate/VFS where available', 'Официальные требования программы проверены; подача через консульство/VFS где доступно'),
+  ('c0000000-0000-4000-8000-000000000012', 'BY', 'partial', 'Preliminarily possible, subject to consulate jurisdiction and place of submission', 'Предварительно возможно, но зависит от консульства подачи и юрисдикции'),
+  ('c0000000-0000-4000-8000-000000000012', 'UA', 'partial', 'Preliminarily possible, subject to consulate jurisdiction and place of submission', 'Предварительно возможно, но зависит от консульства подачи и юрисдикции'),
+  ('c0000000-0000-4000-8000-000000000012', 'KZ', 'partial', 'Preliminarily possible, subject to consulate jurisdiction and place of submission', 'Предварительно возможно, но зависит от консульства подачи и юрисдикции')
 ON CONFLICT DO NOTHING;
 
 INSERT INTO emigro_corridor_digest_items (corridor_id, category, title_en, title_ru, body_en, body_ru, source_url, last_verified, sort_order) VALUES
@@ -246,8 +250,12 @@ INSERT INTO emigro_wizard_questions (module_id, question_key, question_type, lab
   ('e0000000-0000-4000-8000-000000000010', 'annual_salary_eur', 'number', 'Annual gross salary in offer (EUR)', 'Годовая брутто-зарплата в оффере (EUR)', NULL, NULL, NULL, 4),
   ('e0000000-0000-4000-8000-000000000011', 'passive_income_eur', 'number', 'Monthly passive income (EUR)', 'Месячный пассивный доход (EUR)', 'Pensions, rent, dividends — not salary', 'Пенсии, аренда, дивиденды — не зарплата', NULL, 1),
   ('e0000000-0000-4000-8000-000000000011', 'savings_eur', 'number', 'Liquid savings (EUR)', 'Ликвидные сбережения (EUR)', NULL, NULL, NULL, 2),
-  ('e0000000-0000-4000-8000-000000000011', 'has_university_degree', 'single', 'Recognised university degree?', 'Признаваемый диплом вуза?', NULL, NULL, '[{"value":"yes","label_en":"Yes","label_ru":"Да"},{"value":"no","label_en":"No","label_ru":"Нет"}]', 3),
-  ('e0000000-0000-4000-8000-000000000012', 'has_family_in_fr', 'single', 'Family member legally in Франция?', 'Член семьи легально в стране (Франция)?', 'Resident or citizen who can sponsor reunification', 'Резидент или гражданин для воссоединения', '[{"value":"yes","label_en":"Yes","label_ru":"Да"},{"value":"no","label_en":"No","label_ru":"Нет"}]', 1)
+  ('e0000000-0000-4000-8000-000000000011', 'willing_to_invest_eur', 'number', 'Capital for investment route (EUR)', 'Капитал для инвестиционного маршрута (EUR)', 'Golden Visa / investor visa — not passive income. Real-estate GV closed in PT/ES.', 'Golden Visa / инвесторская виза — не пассивный доход. GV через недвижимость в PT/ES закрыт.', NULL, 3),
+  ('e0000000-0000-4000-8000-000000000011', 'has_university_degree', 'single', 'Recognised university degree?', 'Признаваемый диплом вуза?', NULL, NULL, '[{"value":"yes","label_en":"Yes","label_ru":"Да"},{"value":"no","label_en":"No","label_ru":"Нет"}]', 4),
+  ('e0000000-0000-4000-8000-000000000012', 'relocating_with_spouse', 'single', 'Spouse relocating with you?', 'Супруг(а) едет вместе с вами?', NULL, 'Супруг — иждивенец в заявке или воссоединение после вашего ВНЖ', '[{"value":"yes","label_en":"Yes","label_ru":"Да"},{"value":"no","label_en":"No","label_ru":"Нет"}]', 1),
+  ('e0000000-0000-4000-8000-000000000012', 'relocating_children_count', 'number', 'Children relocating with you', 'Сколько детей едет с вами?', NULL, 'Несовершеннолетние — доп. пороги дохода и жилья', NULL, 2),
+  ('e0000000-0000-4000-8000-000000000012', 'relocating_parents_count', 'number', 'Parents/grandparents relocating', 'Родители или бабушки/дедушки в поездке?', NULL, '0 если никто. Взрослые родственники — сложный кейс, часто отдельное воссоединение', NULL, 3),
+  ('e0000000-0000-4000-8000-000000000012', 'has_family_in_fr', 'single', 'Family member legally in Франция?', 'Член семьи уже легально в стране (Франция)?', 'Resident or citizen who can sponsor reunification — if you join them', 'Резидент или гражданин для воссоединения — если вы едете к ним', '[{"value":"yes","label_en":"Yes","label_ru":"Да"},{"value":"no","label_en":"No","label_ru":"Нет"}]', 4)
 ON CONFLICT DO NOTHING;
 
 -- Corridor: ru-speaking-to-italy
@@ -322,18 +330,18 @@ INSERT INTO emigro_program_sources (program_version_id, source_url, raw_excerpt,
 ON CONFLICT DO NOTHING;
 
 INSERT INTO emigro_passport_eligibility (program_version_id, passport_iso2, status, notes_en, notes_ru) VALUES
-  ('c0000000-0000-4000-8000-000000000013', 'RU', 'eligible', 'Apply via consulate/VFS where available', 'Подача через консульство/VFS где доступно'),
-  ('c0000000-0000-4000-8000-000000000013', 'BY', 'partial', 'Check consulate jurisdiction', 'Уточнить юрисдикцию консульства'),
-  ('c0000000-0000-4000-8000-000000000013', 'UA', 'partial', 'Check consulate jurisdiction', 'Уточнить юрисдикцию консульства'),
-  ('c0000000-0000-4000-8000-000000000013', 'KZ', 'partial', 'Check consulate jurisdiction', 'Уточнить юрисдикцию консульства'),
-  ('c0000000-0000-4000-8000-000000000014', 'RU', 'eligible', 'Apply via consulate/VFS where available', 'Подача через консульство/VFS где доступно'),
-  ('c0000000-0000-4000-8000-000000000014', 'BY', 'partial', 'Check consulate jurisdiction', 'Уточнить юрисдикцию консульства'),
-  ('c0000000-0000-4000-8000-000000000014', 'UA', 'partial', 'Check consulate jurisdiction', 'Уточнить юрисдикцию консульства'),
-  ('c0000000-0000-4000-8000-000000000014', 'KZ', 'partial', 'Check consulate jurisdiction', 'Уточнить юрисдикцию консульства'),
-  ('c0000000-0000-4000-8000-000000000015', 'RU', 'eligible', 'Apply via consulate/VFS where available', 'Подача через консульство/VFS где доступно'),
-  ('c0000000-0000-4000-8000-000000000015', 'BY', 'partial', 'Check consulate jurisdiction', 'Уточнить юрисдикцию консульства'),
-  ('c0000000-0000-4000-8000-000000000015', 'UA', 'partial', 'Check consulate jurisdiction', 'Уточнить юрисдикцию консульства'),
-  ('c0000000-0000-4000-8000-000000000015', 'KZ', 'partial', 'Check consulate jurisdiction', 'Уточнить юрисдикцию консульства')
+  ('c0000000-0000-4000-8000-000000000013', 'RU', 'eligible', 'Official program requirements verified; apply via consulate/VFS where available', 'Официальные требования программы проверены; подача через консульство/VFS где доступно'),
+  ('c0000000-0000-4000-8000-000000000013', 'BY', 'partial', 'Preliminarily possible, subject to consulate jurisdiction and place of submission', 'Предварительно возможно, но зависит от консульства подачи и юрисдикции'),
+  ('c0000000-0000-4000-8000-000000000013', 'UA', 'partial', 'Preliminarily possible, subject to consulate jurisdiction and place of submission', 'Предварительно возможно, но зависит от консульства подачи и юрисдикции'),
+  ('c0000000-0000-4000-8000-000000000013', 'KZ', 'partial', 'Preliminarily possible, subject to consulate jurisdiction and place of submission', 'Предварительно возможно, но зависит от консульства подачи и юрисдикции'),
+  ('c0000000-0000-4000-8000-000000000014', 'RU', 'eligible', 'Official program requirements verified; apply via consulate/VFS where available', 'Официальные требования программы проверены; подача через консульство/VFS где доступно'),
+  ('c0000000-0000-4000-8000-000000000014', 'BY', 'partial', 'Preliminarily possible, subject to consulate jurisdiction and place of submission', 'Предварительно возможно, но зависит от консульства подачи и юрисдикции'),
+  ('c0000000-0000-4000-8000-000000000014', 'UA', 'partial', 'Preliminarily possible, subject to consulate jurisdiction and place of submission', 'Предварительно возможно, но зависит от консульства подачи и юрисдикции'),
+  ('c0000000-0000-4000-8000-000000000014', 'KZ', 'partial', 'Preliminarily possible, subject to consulate jurisdiction and place of submission', 'Предварительно возможно, но зависит от консульства подачи и юрисдикции'),
+  ('c0000000-0000-4000-8000-000000000015', 'RU', 'eligible', 'Official program requirements verified; apply via consulate/VFS where available', 'Официальные требования программы проверены; подача через консульство/VFS где доступно'),
+  ('c0000000-0000-4000-8000-000000000015', 'BY', 'partial', 'Preliminarily possible, subject to consulate jurisdiction and place of submission', 'Предварительно возможно, но зависит от консульства подачи и юрисдикции'),
+  ('c0000000-0000-4000-8000-000000000015', 'UA', 'partial', 'Preliminarily possible, subject to consulate jurisdiction and place of submission', 'Предварительно возможно, но зависит от консульства подачи и юрисдикции'),
+  ('c0000000-0000-4000-8000-000000000015', 'KZ', 'partial', 'Preliminarily possible, subject to consulate jurisdiction and place of submission', 'Предварительно возможно, но зависит от консульства подачи и юрисдикции')
 ON CONFLICT DO NOTHING;
 
 INSERT INTO emigro_corridor_digest_items (corridor_id, category, title_en, title_ru, body_en, body_ru, source_url, last_verified, sort_order) VALUES
@@ -363,8 +371,12 @@ INSERT INTO emigro_wizard_questions (module_id, question_key, question_type, lab
   ('e0000000-0000-4000-8000-000000000014', 'annual_salary_eur', 'number', 'Annual gross salary in offer (EUR)', 'Годовая брутто-зарплата в оффере (EUR)', NULL, NULL, NULL, 4),
   ('e0000000-0000-4000-8000-000000000015', 'passive_income_eur', 'number', 'Monthly passive income (EUR)', 'Месячный пассивный доход (EUR)', 'Pensions, rent, dividends — not salary', 'Пенсии, аренда, дивиденды — не зарплата', NULL, 1),
   ('e0000000-0000-4000-8000-000000000015', 'savings_eur', 'number', 'Liquid savings (EUR)', 'Ликвидные сбережения (EUR)', NULL, NULL, NULL, 2),
-  ('e0000000-0000-4000-8000-000000000015', 'has_university_degree', 'single', 'Recognised university degree?', 'Признаваемый диплом вуза?', NULL, NULL, '[{"value":"yes","label_en":"Yes","label_ru":"Да"},{"value":"no","label_en":"No","label_ru":"Нет"}]', 3),
-  ('e0000000-0000-4000-8000-000000000016', 'has_family_in_it', 'single', 'Family member legally in Италия?', 'Член семьи легально в стране (Италия)?', 'Resident or citizen who can sponsor reunification', 'Резидент или гражданин для воссоединения', '[{"value":"yes","label_en":"Yes","label_ru":"Да"},{"value":"no","label_en":"No","label_ru":"Нет"}]', 1)
+  ('e0000000-0000-4000-8000-000000000015', 'willing_to_invest_eur', 'number', 'Capital for investment route (EUR)', 'Капитал для инвестиционного маршрута (EUR)', 'Golden Visa / investor visa — not passive income. Real-estate GV closed in PT/ES.', 'Golden Visa / инвесторская виза — не пассивный доход. GV через недвижимость в PT/ES закрыт.', NULL, 3),
+  ('e0000000-0000-4000-8000-000000000015', 'has_university_degree', 'single', 'Recognised university degree?', 'Признаваемый диплом вуза?', NULL, NULL, '[{"value":"yes","label_en":"Yes","label_ru":"Да"},{"value":"no","label_en":"No","label_ru":"Нет"}]', 4),
+  ('e0000000-0000-4000-8000-000000000016', 'relocating_with_spouse', 'single', 'Spouse relocating with you?', 'Супруг(а) едет вместе с вами?', NULL, 'Супруг — иждивенец в заявке или воссоединение после вашего ВНЖ', '[{"value":"yes","label_en":"Yes","label_ru":"Да"},{"value":"no","label_en":"No","label_ru":"Нет"}]', 1),
+  ('e0000000-0000-4000-8000-000000000016', 'relocating_children_count', 'number', 'Children relocating with you', 'Сколько детей едет с вами?', NULL, 'Несовершеннолетние — доп. пороги дохода и жилья', NULL, 2),
+  ('e0000000-0000-4000-8000-000000000016', 'relocating_parents_count', 'number', 'Parents/grandparents relocating', 'Родители или бабушки/дедушки в поездке?', NULL, '0 если никто. Взрослые родственники — сложный кейс, часто отдельное воссоединение', NULL, 3),
+  ('e0000000-0000-4000-8000-000000000016', 'has_family_in_it', 'single', 'Family member legally in Италия?', 'Член семьи уже легально в стране (Италия)?', 'Resident or citizen who can sponsor reunification — if you join them', 'Резидент или гражданин для воссоединения — если вы едете к ним', '[{"value":"yes","label_en":"Yes","label_ru":"Да"},{"value":"no","label_en":"No","label_ru":"Нет"}]', 4)
 ON CONFLICT DO NOTHING;
 
 -- Corridor: ru-speaking-to-germany
@@ -439,18 +451,18 @@ INSERT INTO emigro_program_sources (program_version_id, source_url, raw_excerpt,
 ON CONFLICT DO NOTHING;
 
 INSERT INTO emigro_passport_eligibility (program_version_id, passport_iso2, status, notes_en, notes_ru) VALUES
-  ('c0000000-0000-4000-8000-000000000016', 'RU', 'eligible', 'Apply via consulate/VFS where available', 'Подача через консульство/VFS где доступно'),
-  ('c0000000-0000-4000-8000-000000000016', 'BY', 'partial', 'Check consulate jurisdiction', 'Уточнить юрисдикцию консульства'),
-  ('c0000000-0000-4000-8000-000000000016', 'UA', 'partial', 'Check consulate jurisdiction', 'Уточнить юрисдикцию консульства'),
-  ('c0000000-0000-4000-8000-000000000016', 'KZ', 'partial', 'Check consulate jurisdiction', 'Уточнить юрисдикцию консульства'),
-  ('c0000000-0000-4000-8000-000000000017', 'RU', 'eligible', 'Apply via consulate/VFS where available', 'Подача через консульство/VFS где доступно'),
-  ('c0000000-0000-4000-8000-000000000017', 'BY', 'partial', 'Check consulate jurisdiction', 'Уточнить юрисдикцию консульства'),
-  ('c0000000-0000-4000-8000-000000000017', 'UA', 'partial', 'Check consulate jurisdiction', 'Уточнить юрисдикцию консульства'),
-  ('c0000000-0000-4000-8000-000000000017', 'KZ', 'partial', 'Check consulate jurisdiction', 'Уточнить юрисдикцию консульства'),
-  ('c0000000-0000-4000-8000-000000000018', 'RU', 'eligible', 'Apply via consulate/VFS where available', 'Подача через консульство/VFS где доступно'),
-  ('c0000000-0000-4000-8000-000000000018', 'BY', 'partial', 'Check consulate jurisdiction', 'Уточнить юрисдикцию консульства'),
-  ('c0000000-0000-4000-8000-000000000018', 'UA', 'partial', 'Check consulate jurisdiction', 'Уточнить юрисдикцию консульства'),
-  ('c0000000-0000-4000-8000-000000000018', 'KZ', 'partial', 'Check consulate jurisdiction', 'Уточнить юрисдикцию консульства')
+  ('c0000000-0000-4000-8000-000000000016', 'RU', 'eligible', 'Official program requirements verified; apply via consulate/VFS where available', 'Официальные требования программы проверены; подача через консульство/VFS где доступно'),
+  ('c0000000-0000-4000-8000-000000000016', 'BY', 'partial', 'Preliminarily possible, subject to consulate jurisdiction and place of submission', 'Предварительно возможно, но зависит от консульства подачи и юрисдикции'),
+  ('c0000000-0000-4000-8000-000000000016', 'UA', 'partial', 'Preliminarily possible, subject to consulate jurisdiction and place of submission', 'Предварительно возможно, но зависит от консульства подачи и юрисдикции'),
+  ('c0000000-0000-4000-8000-000000000016', 'KZ', 'partial', 'Preliminarily possible, subject to consulate jurisdiction and place of submission', 'Предварительно возможно, но зависит от консульства подачи и юрисдикции'),
+  ('c0000000-0000-4000-8000-000000000017', 'RU', 'eligible', 'Official program requirements verified; apply via consulate/VFS where available', 'Официальные требования программы проверены; подача через консульство/VFS где доступно'),
+  ('c0000000-0000-4000-8000-000000000017', 'BY', 'partial', 'Preliminarily possible, subject to consulate jurisdiction and place of submission', 'Предварительно возможно, но зависит от консульства подачи и юрисдикции'),
+  ('c0000000-0000-4000-8000-000000000017', 'UA', 'partial', 'Preliminarily possible, subject to consulate jurisdiction and place of submission', 'Предварительно возможно, но зависит от консульства подачи и юрисдикции'),
+  ('c0000000-0000-4000-8000-000000000017', 'KZ', 'partial', 'Preliminarily possible, subject to consulate jurisdiction and place of submission', 'Предварительно возможно, но зависит от консульства подачи и юрисдикции'),
+  ('c0000000-0000-4000-8000-000000000018', 'RU', 'eligible', 'Official program requirements verified; apply via consulate/VFS where available', 'Официальные требования программы проверены; подача через консульство/VFS где доступно'),
+  ('c0000000-0000-4000-8000-000000000018', 'BY', 'partial', 'Preliminarily possible, subject to consulate jurisdiction and place of submission', 'Предварительно возможно, но зависит от консульства подачи и юрисдикции'),
+  ('c0000000-0000-4000-8000-000000000018', 'UA', 'partial', 'Preliminarily possible, subject to consulate jurisdiction and place of submission', 'Предварительно возможно, но зависит от консульства подачи и юрисдикции'),
+  ('c0000000-0000-4000-8000-000000000018', 'KZ', 'partial', 'Preliminarily possible, subject to consulate jurisdiction and place of submission', 'Предварительно возможно, но зависит от консульства подачи и юрисдикции')
 ON CONFLICT DO NOTHING;
 
 INSERT INTO emigro_corridor_digest_items (corridor_id, category, title_en, title_ru, body_en, body_ru, source_url, last_verified, sort_order) VALUES
@@ -480,8 +492,12 @@ INSERT INTO emigro_wizard_questions (module_id, question_key, question_type, lab
   ('e0000000-0000-4000-8000-000000000018', 'annual_salary_eur', 'number', 'Annual gross salary in offer (EUR)', 'Годовая брутто-зарплата в оффере (EUR)', NULL, NULL, NULL, 4),
   ('e0000000-0000-4000-8000-000000000019', 'passive_income_eur', 'number', 'Monthly passive income (EUR)', 'Месячный пассивный доход (EUR)', 'Pensions, rent, dividends — not salary', 'Пенсии, аренда, дивиденды — не зарплата', NULL, 1),
   ('e0000000-0000-4000-8000-000000000019', 'savings_eur', 'number', 'Liquid savings (EUR)', 'Ликвидные сбережения (EUR)', NULL, NULL, NULL, 2),
-  ('e0000000-0000-4000-8000-000000000019', 'has_university_degree', 'single', 'Recognised university degree?', 'Признаваемый диплом вуза?', NULL, NULL, '[{"value":"yes","label_en":"Yes","label_ru":"Да"},{"value":"no","label_en":"No","label_ru":"Нет"}]', 3),
-  ('e0000000-0000-4000-8000-000000000020', 'has_family_in_de', 'single', 'Family member legally in Германия?', 'Член семьи легально в стране (Германия)?', 'Resident or citizen who can sponsor reunification', 'Резидент или гражданин для воссоединения', '[{"value":"yes","label_en":"Yes","label_ru":"Да"},{"value":"no","label_en":"No","label_ru":"Нет"}]', 1)
+  ('e0000000-0000-4000-8000-000000000019', 'willing_to_invest_eur', 'number', 'Capital for investment route (EUR)', 'Капитал для инвестиционного маршрута (EUR)', 'Golden Visa / investor visa — not passive income. Real-estate GV closed in PT/ES.', 'Golden Visa / инвесторская виза — не пассивный доход. GV через недвижимость в PT/ES закрыт.', NULL, 3),
+  ('e0000000-0000-4000-8000-000000000019', 'has_university_degree', 'single', 'Recognised university degree?', 'Признаваемый диплом вуза?', NULL, NULL, '[{"value":"yes","label_en":"Yes","label_ru":"Да"},{"value":"no","label_en":"No","label_ru":"Нет"}]', 4),
+  ('e0000000-0000-4000-8000-000000000020', 'relocating_with_spouse', 'single', 'Spouse relocating with you?', 'Супруг(а) едет вместе с вами?', NULL, 'Супруг — иждивенец в заявке или воссоединение после вашего ВНЖ', '[{"value":"yes","label_en":"Yes","label_ru":"Да"},{"value":"no","label_en":"No","label_ru":"Нет"}]', 1),
+  ('e0000000-0000-4000-8000-000000000020', 'relocating_children_count', 'number', 'Children relocating with you', 'Сколько детей едет с вами?', NULL, 'Несовершеннолетние — доп. пороги дохода и жилья', NULL, 2),
+  ('e0000000-0000-4000-8000-000000000020', 'relocating_parents_count', 'number', 'Parents/grandparents relocating', 'Родители или бабушки/дедушки в поездке?', NULL, '0 если никто. Взрослые родственники — сложный кейс, часто отдельное воссоединение', NULL, 3),
+  ('e0000000-0000-4000-8000-000000000020', 'has_family_in_de', 'single', 'Family member legally in Германия?', 'Член семьи уже легально в стране (Германия)?', 'Resident or citizen who can sponsor reunification — if you join them', 'Резидент или гражданин для воссоединения — если вы едете к ним', '[{"value":"yes","label_en":"Yes","label_ru":"Да"},{"value":"no","label_en":"No","label_ru":"Нет"}]', 4)
 ON CONFLICT DO NOTHING;
 
 -- Corridor: ru-speaking-to-netherlands
@@ -556,18 +572,18 @@ INSERT INTO emigro_program_sources (program_version_id, source_url, raw_excerpt,
 ON CONFLICT DO NOTHING;
 
 INSERT INTO emigro_passport_eligibility (program_version_id, passport_iso2, status, notes_en, notes_ru) VALUES
-  ('c0000000-0000-4000-8000-000000000019', 'RU', 'eligible', 'Apply via consulate/VFS where available', 'Подача через консульство/VFS где доступно'),
-  ('c0000000-0000-4000-8000-000000000019', 'BY', 'partial', 'Check consulate jurisdiction', 'Уточнить юрисдикцию консульства'),
-  ('c0000000-0000-4000-8000-000000000019', 'UA', 'partial', 'Check consulate jurisdiction', 'Уточнить юрисдикцию консульства'),
-  ('c0000000-0000-4000-8000-000000000019', 'KZ', 'partial', 'Check consulate jurisdiction', 'Уточнить юрисдикцию консульства'),
+  ('c0000000-0000-4000-8000-000000000019', 'RU', 'eligible', 'Official program requirements verified; apply via consulate/VFS where available', 'Официальные требования программы проверены; подача через консульство/VFS где доступно'),
+  ('c0000000-0000-4000-8000-000000000019', 'BY', 'partial', 'Preliminarily possible, subject to consulate jurisdiction and place of submission', 'Предварительно возможно, но зависит от консульства подачи и юрисдикции'),
+  ('c0000000-0000-4000-8000-000000000019', 'UA', 'partial', 'Preliminarily possible, subject to consulate jurisdiction and place of submission', 'Предварительно возможно, но зависит от консульства подачи и юрисдикции'),
+  ('c0000000-0000-4000-8000-000000000019', 'KZ', 'partial', 'Preliminarily possible, subject to consulate jurisdiction and place of submission', 'Предварительно возможно, но зависит от консульства подачи и юрисдикции'),
   ('c0000000-0000-4000-8000-000000000020', 'RU', 'partial', 'IND facilitator endorsement required — case-by-case review', 'Нужен одобренный IND facilitator — индивидуальная проверка'),
   ('c0000000-0000-4000-8000-000000000020', 'BY', 'partial', 'IND facilitator endorsement required — case-by-case review', 'Нужен одобренный IND facilitator — индивидуальная проверка'),
   ('c0000000-0000-4000-8000-000000000020', 'UA', 'partial', 'IND facilitator endorsement required — case-by-case review', 'Нужен одобренный IND facilitator — индивидуальная проверка'),
   ('c0000000-0000-4000-8000-000000000020', 'KZ', 'partial', 'IND facilitator endorsement required — case-by-case review', 'Нужен одобренный IND facilitator — индивидуальная проверка'),
-  ('c0000000-0000-4000-8000-000000000021', 'RU', 'eligible', 'Apply via consulate/VFS where available', 'Подача через консульство/VFS где доступно'),
-  ('c0000000-0000-4000-8000-000000000021', 'BY', 'partial', 'Check consulate jurisdiction', 'Уточнить юрисдикцию консульства'),
-  ('c0000000-0000-4000-8000-000000000021', 'UA', 'partial', 'Check consulate jurisdiction', 'Уточнить юрисдикцию консульства'),
-  ('c0000000-0000-4000-8000-000000000021', 'KZ', 'partial', 'Check consulate jurisdiction', 'Уточнить юрисдикцию консульства')
+  ('c0000000-0000-4000-8000-000000000021', 'RU', 'eligible', 'Official program requirements verified; apply via consulate/VFS where available', 'Официальные требования программы проверены; подача через консульство/VFS где доступно'),
+  ('c0000000-0000-4000-8000-000000000021', 'BY', 'partial', 'Preliminarily possible, subject to consulate jurisdiction and place of submission', 'Предварительно возможно, но зависит от консульства подачи и юрисдикции'),
+  ('c0000000-0000-4000-8000-000000000021', 'UA', 'partial', 'Preliminarily possible, subject to consulate jurisdiction and place of submission', 'Предварительно возможно, но зависит от консульства подачи и юрисдикции'),
+  ('c0000000-0000-4000-8000-000000000021', 'KZ', 'partial', 'Preliminarily possible, subject to consulate jurisdiction and place of submission', 'Предварительно возможно, но зависит от консульства подачи и юрисдикции')
 ON CONFLICT DO NOTHING;
 
 INSERT INTO emigro_corridor_digest_items (corridor_id, category, title_en, title_ru, body_en, body_ru, source_url, last_verified, sort_order) VALUES
@@ -597,8 +613,12 @@ INSERT INTO emigro_wizard_questions (module_id, question_key, question_type, lab
   ('e0000000-0000-4000-8000-000000000022', 'annual_salary_eur', 'number', 'Annual gross salary in offer (EUR)', 'Годовая брутто-зарплата в оффере (EUR)', NULL, NULL, NULL, 4),
   ('e0000000-0000-4000-8000-000000000023', 'passive_income_eur', 'number', 'Monthly passive income (EUR)', 'Месячный пассивный доход (EUR)', 'Pensions, rent, dividends — not salary', 'Пенсии, аренда, дивиденды — не зарплата', NULL, 1),
   ('e0000000-0000-4000-8000-000000000023', 'savings_eur', 'number', 'Liquid savings (EUR)', 'Ликвидные сбережения (EUR)', NULL, NULL, NULL, 2),
-  ('e0000000-0000-4000-8000-000000000023', 'has_university_degree', 'single', 'Recognised university degree?', 'Признаваемый диплом вуза?', NULL, NULL, '[{"value":"yes","label_en":"Yes","label_ru":"Да"},{"value":"no","label_en":"No","label_ru":"Нет"}]', 3),
-  ('e0000000-0000-4000-8000-000000000024', 'has_family_in_nl', 'single', 'Family member legally in Нидерланды?', 'Член семьи легально в стране (Нидерланды)?', 'Resident or citizen who can sponsor reunification', 'Резидент или гражданин для воссоединения', '[{"value":"yes","label_en":"Yes","label_ru":"Да"},{"value":"no","label_en":"No","label_ru":"Нет"}]', 1)
+  ('e0000000-0000-4000-8000-000000000023', 'willing_to_invest_eur', 'number', 'Capital for investment route (EUR)', 'Капитал для инвестиционного маршрута (EUR)', 'Golden Visa / investor visa — not passive income. Real-estate GV closed in PT/ES.', 'Golden Visa / инвесторская виза — не пассивный доход. GV через недвижимость в PT/ES закрыт.', NULL, 3),
+  ('e0000000-0000-4000-8000-000000000023', 'has_university_degree', 'single', 'Recognised university degree?', 'Признаваемый диплом вуза?', NULL, NULL, '[{"value":"yes","label_en":"Yes","label_ru":"Да"},{"value":"no","label_en":"No","label_ru":"Нет"}]', 4),
+  ('e0000000-0000-4000-8000-000000000024', 'relocating_with_spouse', 'single', 'Spouse relocating with you?', 'Супруг(а) едет вместе с вами?', NULL, 'Супруг — иждивенец в заявке или воссоединение после вашего ВНЖ', '[{"value":"yes","label_en":"Yes","label_ru":"Да"},{"value":"no","label_en":"No","label_ru":"Нет"}]', 1),
+  ('e0000000-0000-4000-8000-000000000024', 'relocating_children_count', 'number', 'Children relocating with you', 'Сколько детей едет с вами?', NULL, 'Несовершеннолетние — доп. пороги дохода и жилья', NULL, 2),
+  ('e0000000-0000-4000-8000-000000000024', 'relocating_parents_count', 'number', 'Parents/grandparents relocating', 'Родители или бабушки/дедушки в поездке?', NULL, '0 если никто. Взрослые родственники — сложный кейс, часто отдельное воссоединение', NULL, 3),
+  ('e0000000-0000-4000-8000-000000000024', 'has_family_in_nl', 'single', 'Family member legally in Нидерланды?', 'Член семьи уже легально в стране (Нидерланды)?', 'Resident or citizen who can sponsor reunification — if you join them', 'Резидент или гражданин для воссоединения — если вы едете к ним', '[{"value":"yes","label_en":"Yes","label_ru":"Да"},{"value":"no","label_en":"No","label_ru":"Нет"}]', 4)
 ON CONFLICT DO NOTHING;
 
 -- Corridor: ru-speaking-to-scandinavia
@@ -677,18 +697,18 @@ INSERT INTO emigro_program_sources (program_version_id, source_url, raw_excerpt,
 ON CONFLICT DO NOTHING;
 
 INSERT INTO emigro_passport_eligibility (program_version_id, passport_iso2, status, notes_en, notes_ru) VALUES
-  ('c0000000-0000-4000-8000-000000000022', 'RU', 'eligible', 'Apply via consulate/VFS where available', 'Подача через консульство/VFS где доступно'),
-  ('c0000000-0000-4000-8000-000000000022', 'BY', 'partial', 'Check consulate jurisdiction', 'Уточнить юрисдикцию консульства'),
-  ('c0000000-0000-4000-8000-000000000022', 'UA', 'partial', 'Check consulate jurisdiction', 'Уточнить юрисдикцию консульства'),
-  ('c0000000-0000-4000-8000-000000000022', 'KZ', 'partial', 'Check consulate jurisdiction', 'Уточнить юрисдикцию консульства'),
-  ('c0000000-0000-4000-8000-000000000023', 'RU', 'eligible', 'Apply via consulate/VFS where available', 'Подача через консульство/VFS где доступно'),
-  ('c0000000-0000-4000-8000-000000000023', 'BY', 'partial', 'Check consulate jurisdiction', 'Уточнить юрисдикцию консульства'),
-  ('c0000000-0000-4000-8000-000000000023', 'UA', 'partial', 'Check consulate jurisdiction', 'Уточнить юрисдикцию консульства'),
-  ('c0000000-0000-4000-8000-000000000023', 'KZ', 'partial', 'Check consulate jurisdiction', 'Уточнить юрисдикцию консульства'),
-  ('c0000000-0000-4000-8000-000000000024', 'RU', 'eligible', 'Apply via consulate/VFS where available', 'Подача через консульство/VFS где доступно'),
-  ('c0000000-0000-4000-8000-000000000024', 'BY', 'partial', 'Check consulate jurisdiction', 'Уточнить юрисдикцию консульства'),
-  ('c0000000-0000-4000-8000-000000000024', 'UA', 'partial', 'Check consulate jurisdiction', 'Уточнить юрисдикцию консульства'),
-  ('c0000000-0000-4000-8000-000000000024', 'KZ', 'partial', 'Check consulate jurisdiction', 'Уточнить юрисдикцию консульства')
+  ('c0000000-0000-4000-8000-000000000022', 'RU', 'eligible', 'Official program requirements verified; apply via consulate/VFS where available', 'Официальные требования программы проверены; подача через консульство/VFS где доступно'),
+  ('c0000000-0000-4000-8000-000000000022', 'BY', 'partial', 'Preliminarily possible, subject to consulate jurisdiction and place of submission', 'Предварительно возможно, но зависит от консульства подачи и юрисдикции'),
+  ('c0000000-0000-4000-8000-000000000022', 'UA', 'partial', 'Preliminarily possible, subject to consulate jurisdiction and place of submission', 'Предварительно возможно, но зависит от консульства подачи и юрисдикции'),
+  ('c0000000-0000-4000-8000-000000000022', 'KZ', 'partial', 'Preliminarily possible, subject to consulate jurisdiction and place of submission', 'Предварительно возможно, но зависит от консульства подачи и юрисдикции'),
+  ('c0000000-0000-4000-8000-000000000023', 'RU', 'eligible', 'Official program requirements verified; apply via consulate/VFS where available', 'Официальные требования программы проверены; подача через консульство/VFS где доступно'),
+  ('c0000000-0000-4000-8000-000000000023', 'BY', 'partial', 'Preliminarily possible, subject to consulate jurisdiction and place of submission', 'Предварительно возможно, но зависит от консульства подачи и юрисдикции'),
+  ('c0000000-0000-4000-8000-000000000023', 'UA', 'partial', 'Preliminarily possible, subject to consulate jurisdiction and place of submission', 'Предварительно возможно, но зависит от консульства подачи и юрисдикции'),
+  ('c0000000-0000-4000-8000-000000000023', 'KZ', 'partial', 'Preliminarily possible, subject to consulate jurisdiction and place of submission', 'Предварительно возможно, но зависит от консульства подачи и юрисдикции'),
+  ('c0000000-0000-4000-8000-000000000024', 'RU', 'eligible', 'Official program requirements verified; apply via consulate/VFS where available', 'Официальные требования программы проверены; подача через консульство/VFS где доступно'),
+  ('c0000000-0000-4000-8000-000000000024', 'BY', 'partial', 'Preliminarily possible, subject to consulate jurisdiction and place of submission', 'Предварительно возможно, но зависит от консульства подачи и юрисдикции'),
+  ('c0000000-0000-4000-8000-000000000024', 'UA', 'partial', 'Preliminarily possible, subject to consulate jurisdiction and place of submission', 'Предварительно возможно, но зависит от консульства подачи и юрисдикции'),
+  ('c0000000-0000-4000-8000-000000000024', 'KZ', 'partial', 'Preliminarily possible, subject to consulate jurisdiction and place of submission', 'Предварительно возможно, но зависит от консульства подачи и юрисдикции')
 ON CONFLICT DO NOTHING;
 
 INSERT INTO emigro_corridor_digest_items (corridor_id, category, title_en, title_ru, body_en, body_ru, source_url, last_verified, sort_order) VALUES
@@ -718,8 +738,12 @@ INSERT INTO emigro_wizard_questions (module_id, question_key, question_type, lab
   ('e0000000-0000-4000-8000-000000000026', 'annual_salary_eur', 'number', 'Annual gross salary in offer (EUR)', 'Годовая брутто-зарплата в оффере (EUR)', NULL, NULL, NULL, 4),
   ('e0000000-0000-4000-8000-000000000027', 'passive_income_eur', 'number', 'Monthly passive income (EUR)', 'Месячный пассивный доход (EUR)', 'Pensions, rent, dividends — not salary', 'Пенсии, аренда, дивиденды — не зарплата', NULL, 1),
   ('e0000000-0000-4000-8000-000000000027', 'savings_eur', 'number', 'Liquid savings (EUR)', 'Ликвидные сбережения (EUR)', NULL, NULL, NULL, 2),
-  ('e0000000-0000-4000-8000-000000000027', 'has_university_degree', 'single', 'Recognised university degree?', 'Признаваемый диплом вуза?', NULL, NULL, '[{"value":"yes","label_en":"Yes","label_ru":"Да"},{"value":"no","label_en":"No","label_ru":"Нет"}]', 3),
-  ('e0000000-0000-4000-8000-000000000028', 'has_family_in_se', 'single', 'Family member legally in Скандинавия и Север?', 'Член семьи легально в стране (Скандинавия и Север)?', 'Resident or citizen who can sponsor reunification', 'Резидент или гражданин для воссоединения', '[{"value":"yes","label_en":"Yes","label_ru":"Да"},{"value":"no","label_en":"No","label_ru":"Нет"}]', 1)
+  ('e0000000-0000-4000-8000-000000000027', 'willing_to_invest_eur', 'number', 'Capital for investment route (EUR)', 'Капитал для инвестиционного маршрута (EUR)', 'Golden Visa / investor visa — not passive income. Real-estate GV closed in PT/ES.', 'Golden Visa / инвесторская виза — не пассивный доход. GV через недвижимость в PT/ES закрыт.', NULL, 3),
+  ('e0000000-0000-4000-8000-000000000027', 'has_university_degree', 'single', 'Recognised university degree?', 'Признаваемый диплом вуза?', NULL, NULL, '[{"value":"yes","label_en":"Yes","label_ru":"Да"},{"value":"no","label_en":"No","label_ru":"Нет"}]', 4),
+  ('e0000000-0000-4000-8000-000000000028', 'relocating_with_spouse', 'single', 'Spouse relocating with you?', 'Супруг(а) едет вместе с вами?', NULL, 'Супруг — иждивенец в заявке или воссоединение после вашего ВНЖ', '[{"value":"yes","label_en":"Yes","label_ru":"Да"},{"value":"no","label_en":"No","label_ru":"Нет"}]', 1),
+  ('e0000000-0000-4000-8000-000000000028', 'relocating_children_count', 'number', 'Children relocating with you', 'Сколько детей едет с вами?', NULL, 'Несовершеннолетние — доп. пороги дохода и жилья', NULL, 2),
+  ('e0000000-0000-4000-8000-000000000028', 'relocating_parents_count', 'number', 'Parents/grandparents relocating', 'Родители или бабушки/дедушки в поездке?', NULL, '0 если никто. Взрослые родственники — сложный кейс, часто отдельное воссоединение', NULL, 3),
+  ('e0000000-0000-4000-8000-000000000028', 'has_family_in_se', 'single', 'Family member legally in Скандинавия и Север?', 'Член семьи уже легально в стране (Скандинавия и Север)?', 'Resident or citizen who can sponsor reunification — if you join them', 'Резидент или гражданин для воссоединения — если вы едете к ним', '[{"value":"yes","label_en":"Yes","label_ru":"Да"},{"value":"no","label_en":"No","label_ru":"Нет"}]', 4)
 ON CONFLICT DO NOTHING;
 
 -- Activate news topics with corridor site paths

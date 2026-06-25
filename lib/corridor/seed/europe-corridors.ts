@@ -2,7 +2,7 @@
 
 export type ProgramSeed = {
   slug: string;
-  type: "LABOR" | "CAPITAL" | "BOND";
+  type: "LABOR" | "CAPITAL" | "BOND" | "STUDY";
   destinationIso2?: string;
   titleEn: string;
   titleRu: string;
@@ -163,6 +163,49 @@ export function corridorWizardQuestions(
         helpEn: "Resident or citizen who can sponsor reunification — if you join them",
         helpRu: "Резидент или гражданин для воссоединения — если вы едете к ним",
         options: '[{"value":"yes","label_en":"Yes","label_ru":"Да"},{"value":"no","label_en":"No","label_ru":"Нет"}]',
+      },
+    ],
+    study: [
+      {
+        key: "wants_study_route",
+        type: "single",
+        labelEn: "Planning to relocate via study?",
+        labelRu: "Планируете релокацию через учёбу (вуз / языковая школа)?",
+        helpEn: "Student visa — not remote work or passive income",
+        helpRu: "Студенческая виза — не удалёнка и не пассивный доход",
+        options: '[{"value":"yes","label_en":"Yes","label_ru":"Да"},{"value":"no","label_en":"No","label_ru":"Нет"}]',
+      },
+      {
+        key: "has_university_admission",
+        type: "single",
+        labelEn: "Admission / enrollment confirmation?",
+        labelRu: "Есть подтверждение зачисления (admission / matrícula)?",
+        helpEn: "Letter from university or language school",
+        helpRu: "Письмо от вуза или языковой школы",
+        options: '[{"value":"yes","label_en":"Yes","label_ru":"Да"},{"value":"no","label_en":"No","label_ru":"Нет"}]',
+      },
+      {
+        key: "study_budget_eur",
+        type: "number",
+        labelEn: "Available study funds (EUR)",
+        labelRu: "Доступные средства на учёбу (EUR)",
+        helpEn: "Blocked account, savings, or sponsor for tuition + living",
+        helpRu: "Blocked account, сбережения или спонсор — на обучение и проживание",
+      },
+      {
+        key: "can_show_study_funds",
+        type: "single",
+        labelEn: "Can document source of study funds?",
+        labelRu: "Можете подтвердить источник средств (банк / спонсор)?",
+        options: '[{"value":"yes","label_en":"Yes","label_ru":"Да"},{"value":"no","label_en":"No","label_ru":"Нет"}]',
+      },
+      {
+        key: "study_level",
+        type: "single",
+        labelEn: "Study level (optional)",
+        labelRu: "Уровень обучения (необязательно)",
+        options:
+          '[{"value":"bachelor","label_en":"Bachelor","label_ru":"Бакалавриат"},{"value":"master","label_en":"Master","label_ru":"Магистратура"},{"value":"language","label_en":"Language school","label_ru":"Языковая школа"},{"value":"other","label_en":"Other","label_ru":"Другое"}]',
       },
     ],
   };

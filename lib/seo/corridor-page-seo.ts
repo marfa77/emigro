@@ -19,11 +19,12 @@ const PROGRAM_TYPE_LABELS: Record<string, string> = {
   LABOR: "работа / удалёнка",
   CAPITAL: "капитал / пассивный доход",
   BOND: "семья / воссоединение",
+  STUDY: "учёба / студенческая виза",
 };
 
 const PASSPORT_STATUS_LABELS: Record<string, string> = {
   eligible: "подача доступна",
-  partial: "уточняйте в консульстве",
+  partial: "зависит от консульства подачи",
   ineligible: "маршрут недоступен",
 };
 
@@ -61,11 +62,20 @@ function timelineSummary(program: ProgramDetail): string | null {
 
 function passportSummary(program: ProgramDetail): string {
   if (program.passportEligibility.length === 0) {
-    return "Подача зависит от паспорта и юрисдикции консульства — уточняйте актуальные правила.";
+    return "Подача зависит от паспорта и юрисдикции консульства; официальные требования программы сверяются с источниками на странице.";
   }
-  return program.passportEligibility
+  const statuses = program.passportEligibility
     .map((p) => `${passportLabel(p.passport_iso2)}: ${PASSPORT_STATUS_LABELS[p.status] ?? p.status}`)
     .join("; ");
+  const lastVerified = program.sources
+    .map((source) => source.last_verified)
+    .filter(Boolean)
+    .sort()
+    .at(-1);
+  const verification = lastVerified
+    ? ` Проверено по официальным требованиям: ${lastVerified}; консульская юрисдикция остаётся операционным ограничением.`
+    : " Проверено по официальным требованиям программы; консульская юрисдикция остаётся операционным ограничением.";
+  return `${statuses}.${verification}`;
 }
 
 export function programPagePath(topic: NewsTopicConfig, programSlug: string): string {

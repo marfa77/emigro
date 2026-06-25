@@ -8,6 +8,22 @@ const TITLE_SUFFIX = ` | ${SITE_NAME}`;
 export const MAX_TITLE_PART = 52;
 export const MAX_TITLE_ABSOLUTE = 60;
 
+type SocialImageSize = { width: number; height: number };
+
+const SOCIAL_IMAGE_SIZES: Record<string, SocialImageSize> = {
+  "/og-default.svg": { width: 1200, height: 630 },
+  "/images/corridor-france.webp": { width: 900, height: 600 },
+  "/images/corridor-germany.webp": { width: 900, height: 600 },
+  "/images/corridor-italy.webp": { width: 900, height: 600 },
+  "/images/corridor-netherlands.webp": { width: 900, height: 600 },
+  "/images/corridor-portugal.webp": { width: 900, height: 600 },
+  "/images/corridor-scandinavia.webp": { width: 900, height: 600 },
+  "/images/corridor-spain.webp": { width: 900, height: 600 },
+  "/images/emigro-guide-passive-income.webp": { width: 1536, height: 1024 },
+  "/images/emigro-main-hero.webp": { width: 1200, height: 800 },
+  "/images/emigro-news-digest-portugal.webp": { width: 1200, height: 800 },
+};
+
 const SEO_DESC_SUFFIX =
   " Emigro: wizard подбора маршрута, справочники коридоров и еженедельные новости для русскоязычных релокантов.";
 
@@ -57,12 +73,26 @@ export function hreflangAlternates(path: string): Metadata["alternates"] {
   };
 }
 
-function withSocialImages(metadata: Metadata, ogImage = DEFAULT_OG_IMAGE): Metadata {
+function socialImagePath(ogImage: string): string {
+  if (!ogImage.startsWith("http")) return ogImage.startsWith("/") ? ogImage : `/${ogImage}`;
+  try {
+    return new URL(ogImage).pathname;
+  } catch {
+    return ogImage;
+  }
+}
+
+export function socialImageMetadata(ogImage = DEFAULT_OG_IMAGE, alt = SITE_NAME) {
+  const size = SOCIAL_IMAGE_SIZES[socialImagePath(ogImage)] ?? { width: 1200, height: 630 };
+  return { url: ogImage, ...size, alt };
+}
+
+function withSocialImages(metadata: Metadata, ogImage = DEFAULT_OG_IMAGE, alt = SITE_NAME): Metadata {
   return {
     ...metadata,
     openGraph: {
       ...metadata.openGraph,
-      images: [{ url: ogImage, width: 1200, height: 630, alt: SITE_NAME }],
+      images: [socialImageMetadata(ogImage, alt)],
     },
     twitter: {
       ...metadata.twitter,
@@ -78,6 +108,7 @@ export function pageMetadata(input: {
   path: string;
   noIndex?: boolean;
   ogImage?: string;
+  ogImageAlt?: string;
   /** Use when title already includes branding or must not get ` | Emigro`. */
   titleAbsolute?: boolean;
 }): Metadata {
@@ -108,7 +139,8 @@ export function pageMetadata(input: {
         description,
       },
     },
-    ogImage
+    ogImage,
+    input.ogImageAlt
   );
 }
 
