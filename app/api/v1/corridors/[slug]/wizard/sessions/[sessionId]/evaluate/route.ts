@@ -14,7 +14,7 @@ export async function POST(
     getPublishedCorridorSummaryBySlug(params.slug),
     supabase
       .from("emigro_wizard_sessions")
-      .select("*")
+      .select("id, answers")
       .eq("id", params.sessionId)
       .single(),
   ]);

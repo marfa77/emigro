@@ -11,7 +11,7 @@ export async function POST(
   const supabase = createServerClient();
   const { data: session, error } = await supabase
     .from("emigro_hub_wizard_sessions")
-    .select("*")
+    .select("id, answers")
     .eq("id", params.sessionId)
     .single();
 
