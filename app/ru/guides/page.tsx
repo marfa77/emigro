@@ -44,13 +44,13 @@ export default async function GuidesIndexPage() {
             <BookOpen className="h-4 w-4" />
             Библиотека Emigro
           </span>
-          <h1 className="mt-5 max-w-3xl text-4xl font-bold leading-tight sm:text-5xl 2xl:max-w-4xl">Гайды по rелокации и ВНЖ</h1>
+          <h1 className="mt-5 max-w-3xl text-4xl font-bold leading-tight sm:text-5xl 2xl:max-w-4xl">Гайды по релокации и ВНЖ</h1>
           <p className="mt-5 max-w-2xl text-lg leading-relaxed text-corridor-100 2xl:max-w-3xl">
             Практические разборы по маршрутам, доходам, семье, отказам и бюджету. Без воды — с проверкой через wizard.
           </p>
         </HeroShell>
 
-        <div className="mt-10 grid gap-5 md:grid-cols-2">
+        <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
           {guides.map((guide) => (
             <article key={guide.slug} className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:border-corridor-300 hover:shadow-md">
               <Link href={guidePath(guide.slug)} className="block">
