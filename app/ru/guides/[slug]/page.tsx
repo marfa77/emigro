@@ -12,7 +12,7 @@ import type { GuideArticle } from "@/lib/guides/load";
 import { getActiveNewsTopics } from "@/lib/news/topics";
 import type { NewsTopicConfig } from "@/lib/news/topics";
 import { corridorSlugForTopic, findFirstProviderTopicKey } from "@/lib/providers/registry";
-import { pageMetadata } from "@/lib/seo";
+import { pageMetadata, socialImageMetadata } from "@/lib/seo";
 import { EMIGRO_PUBLISHER, emigroAuthorOrg, schemaImage } from "@/lib/seo/schema";
 import { SITE_URL } from "@/lib/site-url";
 
@@ -30,6 +30,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     description: guide.seo_description ?? guide.excerpt ?? guide.quick_answer ?? guide.title,
     path: guidePath(guide.slug),
     ogImage,
+    ogImageAlt: title,
   });
   return {
     ...metadata,
@@ -39,7 +40,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       type: "article",
       publishedTime: guide.date_published,
       modifiedTime: guide.date_modified ?? guide.date_published,
-      images: [{ url: ogImage, width: 1200, height: 630, alt: title }],
+      images: [socialImageMetadata(ogImage, title)],
     },
     twitter: {
       ...metadata.twitter,
