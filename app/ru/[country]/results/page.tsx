@@ -90,6 +90,36 @@ export default async function CountryResultsPage({
     .in("id", programIds);
 
   const programMap = new Map((programs ?? []).map((p) => [p.id, p]));
+  const { data: versions } = await supabase
+    .from("emigro_program_versions")
+    .select("id, program_id")
+    .in("program_id", programIds)
+    .eq("is_published", true)
+    .order("created_at", { ascending: false });
+
+  const latestVersionByProgram = new Map<string, string>();
+  for (const version of versions ?? []) {
+    if (!latestVersionByProgram.has(version.program_id)) {
+      latestVersionByProgram.set(version.program_id, version.id);
+    }
+  }
+
+  const versionIds = Array.from(latestVersionByProgram.values());
+  const { data: sources } = versionIds.length
+    ? await supabase
+        .from("emigro_program_sources")
+        .select("program_version_id, source_url, label_ru, last_verified")
+        .in("program_version_id", versionIds)
+        .order("last_verified", { ascending: false })
+    : { data: [] };
+
+  const sourceByVersion = new Map<string, { source_url: string | null; label_ru: string | null }>();
+  for (const source of sources ?? []) {
+    if (!sourceByVersion.has(source.program_version_id)) {
+      sourceByVersion.set(source.program_version_id, source);
+    }
+  }
+
   const defaultSlug = corridor.programs[0]?.slug ?? "";
 
   const programSlugs = results
@@ -106,7 +136,9 @@ export default async function CountryResultsPage({
       <SiteHeader />
       <main className="mx-auto max-w-5xl px-4 py-10">
         <h1 className="text-3xl font-bold">Ваши маршруты — {topic.countryRu}</h1>
-        <p className="mt-2 text-slate-600">Сравнение по ответам wizard. Не юридическая оценка.</p>
+        <p className="mt-2 text-slate-600">
+          Сравнение по вашим ответам. Это предварительная навигация, не юридическая гарантия.
+        </p>
 
         <HouseholdBanner household={household} />
 
@@ -124,6 +156,7 @@ export default async function CountryResultsPage({
           {results.map((row) => {
             const program = programMap.get(row.program_id);
             if (!program) return null;
+            const source = sourceByVersion.get(latestVersionByProgram.get(row.program_id) ?? "");
             return (
               <WizardOutcomeCard
                 key={row.id}
@@ -132,20 +165,23 @@ export default async function CountryResultsPage({
                 outcome={row.outcome}
                 reasons={Array.isArray(row.reasons) ? (row.reasons as string[]) : undefined}
                 href={`${base}/programs/${program.slug}`}
+                sourceUrl={source?.source_url}
+                sourceLabel={source?.label_ru}
               />
             );
           })}
         </div>
 
-        <section className="mt-12">
-          <h2 className="text-xl font-semibold">Дорожная карта (общая)</h2>
+        <section className="mt-12 rounded-2xl border border-slate-200 bg-white p-6">
+          <h2 className="text-xl font-semibold">Что делать дальше</h2>
           <ol className="mt-4 list-decimal space-y-2 pl-5 text-slate-700">
-            <li>Выбрать маршрут и собрать документы (2–6 недель)</li>
-            <li>Записаться в консульство / миграционную службу</li>
-            <li>Получить ВНЖ и оформить налоговый номер, банк, страховку</li>
-            <li>Изучить языковые требования для долгосрочного статуса и гражданства</li>
+            <li>Выберите маршрут с самым понятным “почему подходит” и откройте страницу программы.</li>
+            <li>Сверьте требования с официальным источником: доход, деньги, семья, место подачи.</li>
+            <li>Соберите документы, которые доказывают ваши ответы: выписки, оффер, договоры, справки.</li>
+            <li>Проверьте консульство или миграционный орган, где именно можно подаваться.</li>
+            <li>Если есть сомнения, отправьте кейс Emigro Assist или профильному провайдеру.</li>
           </ol>
-          <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-sm">
+          <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-sm font-medium">
             {topic.sitePaths.guide && (
               <Link href={topic.sitePaths.guide} className="text-corridor-600 underline">
                 Справочник коридора →
@@ -153,6 +189,9 @@ export default async function CountryResultsPage({
             )}
             <Link href={newsIndexPath(topic.urlSegment)} className="text-corridor-600 underline">
               Новости недели →
+            </Link>
+            <Link href="/ru/assist" className="text-corridor-600 underline">
+              Emigro Assist →
             </Link>
           </div>
         </section>
