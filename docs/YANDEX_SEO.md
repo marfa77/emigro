@@ -8,6 +8,8 @@ Emigro targets Russian-speaking users on **Yandex Search** and **Alice AI**, not
 2. Verify ownership via meta tag:
    - Copy code from **Настройки → Подтверждение прав → Meta-тег**
    - Set `NEXT_PUBLIC_YANDEX_VERIFICATION=<code>` in Vercel env
+   - The app reads this env in `rootMetadata()` and renders the Yandex verification meta tag only when the value is present
+   - Do not commit or invent the token; the value must come from Yandex Webmaster
    - Redeploy
 3. Submit sitemap: `https://www.emigro.online/sitemap.xml`
 4. Enable **IndexNow** in Webmaster (uses the same key as `INDEXNOW_KEY`)

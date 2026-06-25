@@ -1,8 +1,8 @@
-# Emigro — стандарт SEO-гайда (traffic pillar)
+# Emigro — стандарт SEO-гайда
 
-Синтез требований из **Prep2Go/CIPLE A2** (`quick_answer`, signal-gated intent, mock/wizard CTA), **PixID** (`SEO_ARTICLE_STANDARD.md` — 24 пункта head/schema/LLM), **Barakhlo** (pillar-гайды на русском, playbook по странам, `llm-summary` блок).
+Синтез требований из **Prep2Go/CIPLE A2** (`quick_answer`, signal-gated intent, mock/wizard CTA), **PixID** (`SEO_ARTICLE_STANDARD.md` — 24 пункта head/schema/AEO), **Barakhlo** (длинные гайды на русском, playbook по странам, summary-блок).
 
-Гайд ≠ еженедельный news digest. Гайд = **evergreen pillar** на растущий спрос, с чётким geo (ru-RU) и воронкой в **hub wizard** / коридор.
+Гайд ≠ еженедельный news digest. Гайд = **evergreen-материал** на растущий спрос, с чётким geo (ru-RU) и воронкой в **hub wizard** / коридор.
 
 ---
 
@@ -38,8 +38,8 @@
 
 ### LLM / AEO
 
-- `ai:description` — 2–3 предложения: для кого, какие страны/маршруты, что делает Emigro (wizard без выбора страны заранее)
-- Блок **«Краткая выжимка»** в конце (как Barakhlo `llm-summary`) — факты списком для цитирования
+- `ai:description` — sr-only блок на странице: 2–3 предложения для краулеров, без видимого технического заголовка для пользователя
+- Видимый блок **«Коротко для проверки маршрута»** в конце — факты списком для быстрой сверки решения
 - Ссылка на `/llms.txt`
 
 ### Тело (не thin)
@@ -124,7 +124,7 @@ SEO / LLM citation
 - [ ] ≥3 официальных URL в «Источники»
 - [ ] FAQ совпадает со schema FAQPage
 - [ ] CTA на hub wizard
-- [ ] Блок llm-summary в конце
+- [ ] Блок «Коротко для проверки маршрута» в конце
 - [ ] Нет thin: <800 слов только если ultra-narrow FAQ; pillar ≥1200 слов
 
 ---

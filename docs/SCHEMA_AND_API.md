@@ -96,6 +96,9 @@ CREATE TABLE program_sources (
   fetch_schedule  TEXT DEFAULT 'weekly',
   last_fetched    TIMESTAMPTZ,
   last_verified   DATE,
+  review_status   TEXT DEFAULT 'review_needed',
+  source_confidence TEXT DEFAULT 'medium',
+  owner           TEXT,
   content_hash    TEXT,
   is_active       BOOLEAN DEFAULT true
 );
@@ -181,6 +184,17 @@ POST /api/v1/wizard/sessions/{id}/evaluate
 ```
 
 Engine copies `source_url` / `last_verified` from `program_requirements` into result — **never** returns a rule without proof.
+
+### Data-quality fields
+
+Current source-backed tables should carry a small editorial state:
+
+- `last_verified` — date the source still supported the claim.
+- `review_status` — `review_needed`, `verified`, `stale`, or `draft`.
+- `source_confidence` — `high`, `medium`, or `low`; use `high` for official sources that directly support the claim.
+- `owner` — editor or data owner responsible for the next verification pass.
+
+Migration `20260625280000_data_quality_foundations.sql` adds these fields to `emigro_program_sources` and `emigro_corridor_digest_items`. Public UI may show `last_verified` as «Проверено» once present; admin/import tooling can use the other fields for queues and stale-source audits.
 
 ### Ingestion validation (Zod)
 

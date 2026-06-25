@@ -5,6 +5,9 @@ export interface DigestItem {
   body_ru: string;
   source_url: string | null;
   last_verified: string | null;
+  review_status?: "review_needed" | "verified" | "stale" | "draft";
+  source_confidence?: "high" | "medium" | "low";
+  owner?: string | null;
 }
 
 export interface CorridorProgram {
@@ -57,6 +60,9 @@ export interface ProgramSource {
   raw_excerpt: string;
   last_verified: string;
   label_ru: string | null;
+  review_status?: "review_needed" | "verified" | "stale" | "draft";
+  source_confidence?: "high" | "medium" | "low";
+  owner?: string | null;
 }
 
 export interface ProgramPassportEligibility {

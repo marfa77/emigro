@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { BookOpen } from "lucide-react";
+import { BookOpen, CheckCircle2 } from "lucide-react";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { CorridorIntelLinks } from "@/components/corridor/CorridorIntelLinks";
 import { ServiceProvidersSection } from "@/components/providers/ServiceProvidersSection";
@@ -35,6 +35,15 @@ export async function generateMetadata({ params }: { params: { country: string }
   const topic = await getTopicByCountrySegment(params.country);
   if (!topic?.sitePaths?.guide) return {};
   return buildDigestMetadata(topic);
+}
+
+function formatVerifiedDate(date: string | null): string | null {
+  if (!date) return null;
+  return new Intl.DateTimeFormat("ru-RU", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  }).format(new Date(`${date}T00:00:00Z`));
 }
 
 export default async function CountryDigestPage({ params }: { params: { country: string } }) {
@@ -108,15 +117,25 @@ export default async function CountryDigestPage({ params }: { params: { country:
               <p className="text-xs font-medium uppercase text-corridor-600">{item.category}</p>
               <h2 className="mt-2 text-xl font-semibold">{item.title_ru}</h2>
               <p className="mt-3 whitespace-pre-line text-slate-700">{item.body_ru}</p>
-              {item.source_url && (
-                <a
-                  href={item.source_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-3 inline-block text-sm text-corridor-600 underline"
-                >
-                  Источник
-                </a>
+              {(item.last_verified || item.source_url) && (
+                <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm">
+                  {item.last_verified && (
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-medium text-emerald-800">
+                      <CheckCircle2 className="h-3.5 w-3.5" aria-hidden />
+                      Проверено: {formatVerifiedDate(item.last_verified)}
+                    </span>
+                  )}
+                  {item.source_url && (
+                    <a
+                      href={item.source_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-corridor-600 underline"
+                    >
+                      Официальный источник
+                    </a>
+                  )}
+                </div>
               )}
             </article>
           ))}

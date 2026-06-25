@@ -31,7 +31,7 @@ export async function POST(request: Request, { params }: Props) {
   if (!corridor) return NextResponse.json({ error: "corridor not found" }, { status: 404 });
 
   const body = await request.json();
-  const row = {
+  const row: Record<string, unknown> = {
     corridor_id: corridor.id,
     category: String(body.category ?? "general"),
     title_en: String(body.title_en ?? body.title_ru ?? ""),
@@ -43,6 +43,10 @@ export async function POST(request: Request, { params }: Props) {
     sort_order: Number(body.sort_order ?? 99),
     is_published: body.is_published !== false,
   };
+
+  for (const field of ["review_status", "source_confidence", "owner"] as const) {
+    if (body[field] !== undefined) row[field] = body[field];
+  }
 
   if (!row.title_ru || !row.body_ru) {
     return NextResponse.json({ error: "title_ru and body_ru required" }, { status: 400 });

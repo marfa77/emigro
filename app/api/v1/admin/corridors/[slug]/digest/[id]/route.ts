@@ -19,6 +19,9 @@ export async function PATCH(request: Request, { params }: Props) {
     "body_ru",
     "source_url",
     "last_verified",
+    "review_status",
+    "source_confidence",
+    "owner",
     "sort_order",
     "is_published",
   ] as const;
