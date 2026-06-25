@@ -359,7 +359,45 @@ No corridor launches with only program rows. It must have **data + content + pro
 
 ---
 
-## 10. Product positioning
+## 10. Future non-EU / LATAM / South Africa backlog
+
+These regions are **backlog only**. Do not implement pages, program rows, provider flows, or SEO surfaces for them until Portugal validates and the product has bandwidth for a different corridor logic.
+
+### Why not now
+
+- These are not immediate EU-funnel extensions from the Portugal launch.
+- Argentina and Brazil can involve citizenship, birth, family, consular, and long-residence logic rather than a simple transit or visa comparison.
+- South Africa and broader LATAM routes need separate legal sourcing, risk review, provider networks, and local distribution.
+- Emergency / wartime Russian demand may make these valuable later, but the initial product must prove one deep corridor before expanding across legal systems.
+
+### Prioritization hypothesis
+
+| Priority | Region / hub | Category | Hypothesis |
+|----------|--------------|----------|------------|
+| P1 later | Argentina | LATAM citizenship / birth / family corridor | Potentially high demand from Russian-speaking families, but legal and medical risk requires specialist review before any public product surface. |
+| P1 later | Brazil | LATAM citizenship / birth / family corridor | Similar special-case demand; likely not a simple relocation wizard route and should be researched as its own corridor. |
+| P2 later | Uruguay, Paraguay, Chile, Colombia | South America research backlog | Candidates for residence, family, lifestyle, or emergency relocation paths; prioritize only after proof of search/community demand. |
+| P2 later | South Africa (ЮАР) | Remote / lifestyle hub and research backlog | Useful as a non-EU option for lifestyle, English-language environment, and regional access, but not core to the EU residence/citizenship funnel. |
+| P3 later | Mexico | LATAM / North America research backlog | Consider separately from South America; likely stronger as lifestyle / temporary residence research than citizenship-first corridor. |
+
+### Category split
+
+- **LATAM citizenship / birth / family corridors:** Argentina and Brazil first. Treat these as legally sensitive corridors with source-backed explainers, professional review, and explicit risk language before launch.
+- **Remote / lifestyle hubs:** South Africa, Mexico, Uruguay, Chile, and Colombia may be useful for Russian-speaking remote workers or families seeking fast fallback options.
+- **Lower-priority research backlog:** Paraguay and additional South America candidates should stay in discovery until there is clear demand, reliable sources, and provider availability.
+
+### Discovery questions
+
+- Which queries and community discussions show urgent Russian-speaking demand for Argentina, Brazil, South Africa, and other LATAM destinations?
+- Are users seeking citizenship for children/family, temporary safety, tax/lifestyle arbitrage, or a bridge back to Europe?
+- Which routes require licensed legal review before Emigro can safely summarize them?
+- Can we find official sources, local providers, and Russian/English intake support for each corridor?
+- Does any corridor create repeat digest value, or is it mostly one-off research?
+- Should Mexico be grouped with LATAM lifestyle hubs or treated as a separate North America corridor family?
+
+---
+
+## 11. Product positioning
 
 ### Avoid
 
@@ -385,7 +423,7 @@ Or:
 
 ---
 
-## 11. Architecture implications
+## 12. Architecture implications
 
 ### Add now
 
@@ -412,7 +450,7 @@ The universal schema still supports global expansion. Corridor tables act as **c
 
 ---
 
-## 12. Kill criteria for corridor
+## 13. Kill criteria for corridor
 
 Stop or pivot if after 8 weeks:
 
@@ -424,7 +462,7 @@ Stop or pivot if after 8 weeks:
 
 ---
 
-## 13. Decision
+## 14. Decision
 
 **Adopt corridor-first as the launch philosophy.**
 
