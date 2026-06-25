@@ -1,0 +1,32 @@
+# Emigro
+
+> Corridor-first relocation navigator. Users free. First corridor: Russian-speaking applicants → Portugal. Contributor/update API is Phase 2 after corridor validation.
+
+## For LLM agents (Phase 2 corridor updates)
+
+- **Contributor API guide:** /docs/API_CONTRIBUTOR_GUIDE.md
+- **System prompt:** /docs/CONTRIBUTOR_PROMPT.md
+- **Example batch JSON:** /examples/contributor/portugal-d8-batch.json
+- **Architecture:** /docs/ARCHITECTURE.md
+- **Schema:** /docs/SCHEMA_AND_API.md
+
+## API (when live)
+
+- `GET /api/v1/meta/contributor-guide` — this guide as markdown
+- `GET /api/v1/meta/ingest-schema` — JSON Schema for proposals
+- `GET /api/v1/meta/requirement-types` — valid requirement codes
+- `GET /api/v1/corridors/ru-speaking-to-portugal` — active corridor
+- `GET /api/v1/corridors/ru-speaking-to-portugal/gaps` — what corridor data is missing
+- `GET /api/v1/knowledge/exists` — preflight before submit
+- `POST /api/v1/knowledge/proposals/batch` — submit extracted facts
+
+## Rules
+
+1. Official sources only (government, embassy, legislation)
+2. Every proposal: source_url + raw_excerpt (verbatim quote)
+3. Preflight before create; use update for corrections
+4. Submit order: corridor source/digest → program → requirements → costs → passports
+
+## Auth
+
+Register at /contributors → API key → `Authorization: Bearer <key>`

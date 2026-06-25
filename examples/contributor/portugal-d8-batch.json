@@ -1,0 +1,101 @@
+{
+  "_comment": "Example batch for LLM pipelines. Submit: POST /api/v1/knowledge/proposals/batch",
+  "idempotency_key": "550e8400-e29b-41d4-a716-446655440000",
+  "proposals": [
+    {
+      "entity_type": "program",
+      "operation": "create",
+      "natural_key": "portugal-d8-digital-nomad",
+      "payload": {
+        "slug": "portugal-d8-digital-nomad",
+        "country_code": "PT",
+        "program_type": "LABOR",
+        "outcome": "residency",
+        "evaluation_mode": "threshold",
+        "title_i18n": { "en": "Portugal D8 Digital Nomad Visa" },
+        "summary_i18n": {
+          "en": "Residence visa for remote workers with income from outside Portugal."
+        },
+        "eligibility_rules": {
+          "and": [
+            { ">=": [{ "var": "labor.monthly_income_eur" }, 3480] },
+            { "==": [{ "var": "labor.employment_type" }, "remote"] },
+            { "!=": [{ "var": "core.criminal_record" }, true] }
+          ]
+        },
+        "status": "draft"
+      },
+      "provenance": {
+        "source_url": "https://aima.gov.pt/en/residence-permit/residence-visa/temporary-stay-visa/residence-visa-for-digital-nomads",
+        "raw_excerpt": "Minimum monthly income of four times the Portuguese minimum wage...",
+        "source_type": "official",
+        "extracted_at": "2026-06-23T12:00:00Z",
+        "llm_model": "anthropic/claude-sonnet-4",
+        "pipeline_id": "pt-labor-v1",
+        "confidence": 0.93
+      }
+    },
+    {
+      "entity_type": "program_source",
+      "operation": "create",
+      "natural_key": "portugal-d8-digital-nomad:source:aima",
+      "payload": {
+        "program_slug": "portugal-d8-digital-nomad",
+        "url": "https://aima.gov.pt/en/residence-permit/residence-visa/temporary-stay-visa/residence-visa-for-digital-nomads",
+        "title_i18n": { "en": "AIMA — Residence visa for digital nomads" },
+        "source_type": "official",
+        "is_primary": true
+      },
+      "provenance": {
+        "source_url": "https://aima.gov.pt/en/residence-permit/residence-visa/temporary-stay-visa/residence-visa-for-digital-nomads",
+        "raw_excerpt": "Residence visa for digital nomads — official AIMA page",
+        "source_type": "official",
+        "extracted_at": "2026-06-23T12:00:00Z",
+        "llm_model": "anthropic/claude-sonnet-4",
+        "pipeline_id": "pt-labor-v1",
+        "confidence": 1.0
+      }
+    },
+    {
+      "entity_type": "program_requirement",
+      "operation": "create",
+      "natural_key": "portugal-d8-digital-nomad:min_monthly_income_eur",
+      "payload": {
+        "program_slug": "portugal-d8-digital-nomad",
+        "requirement_type": "min_monthly_income_eur",
+        "operator": ">=",
+        "value": 3480,
+        "effective_from": "2026-01-01"
+      },
+      "provenance": {
+        "source_url": "https://aima.gov.pt/en/residence-permit/residence-visa/temporary-stay-visa/residence-visa-for-digital-nomads",
+        "raw_excerpt": "Minimum monthly income of four times the Portuguese minimum wage (€870 x 4 = €3,480).",
+        "source_type": "official",
+        "extracted_at": "2026-06-23T12:00:00Z",
+        "llm_model": "anthropic/claude-sonnet-4",
+        "pipeline_id": "pt-labor-v1",
+        "confidence": 0.95
+      }
+    },
+    {
+      "entity_type": "passport_eligibility",
+      "operation": "create",
+      "natural_key": "portugal-d8-digital-nomad:RU",
+      "payload": {
+        "program_slug": "portugal-d8-digital-nomad",
+        "applicant_passport": "RU",
+        "status": "eligible",
+        "conditions": ["standard_requirements_met", "consulate_application"]
+      },
+      "provenance": {
+        "source_url": "https://aima.gov.pt/en/residence-permit/residence-visa/temporary-stay-visa/residence-visa-for-digital-nomads",
+        "raw_excerpt": "Application submitted at Portuguese consulate in country of residence.",
+        "source_type": "official",
+        "extracted_at": "2026-06-23T12:00:00Z",
+        "llm_model": "anthropic/claude-sonnet-4",
+        "pipeline_id": "pt-labor-v1",
+        "confidence": 0.85
+      }
+    }
+  ]
+}
