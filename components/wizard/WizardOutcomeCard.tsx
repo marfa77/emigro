@@ -33,7 +33,7 @@ export function WizardOutcomeCard({
       <p className="mt-2 text-sm">{OUTCOME_LABELS[outcome] ?? outcome}</p>
       {reasons && reasons.length > 0 && (
         <ul className="mt-3 space-y-1 text-sm opacity-90">
-          {reasons.slice(0, 4).map((reason) => (
+          {reasons.slice(0, 3).map((reason) => (
             <li key={reason}>• {reason}</li>
           ))}
         </ul>

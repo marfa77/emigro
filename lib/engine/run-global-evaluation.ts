@@ -1,7 +1,9 @@
 import { createServerClient } from "@/lib/supabase/server";
 import { corridorSlugToSegment, programPath } from "@/lib/corridor/paths";
-import { evaluateCorridorPrograms } from "@/lib/engine/evaluate-corridor-programs";
+import { getGlobalEvaluationData } from "@/lib/engine/evaluation-data";
+import { adjustEvaluationForHousehold } from "@/lib/engine/household";
 import { describeHousehold, parseHousehold, type HouseholdSummary } from "@/lib/engine/household";
+import { evaluateProgram } from "@/lib/engine/evaluator";
 import type { OutcomeCode } from "@/lib/engine/evaluator";
 import { expandHubFacts } from "@/lib/wizard/expand-facts";
 
@@ -39,50 +41,36 @@ export async function runGlobalEvaluation(
 ): Promise<GlobalEvalPayload> {
   const supabase = createServerClient();
   const facts = expandHubFacts(answers);
-
-  const { data: corridors } = await supabase
-    .from("emigro_corridors")
-    .select("id, slug, title_ru, url_segment, publish_status")
-    .eq("is_published", true)
-    .eq("publish_status", "active");
-
-  const { data: topics } = await supabase
-    .from("emigro_news_topics")
-    .select("corridor_slug, country_ru, url_segment")
-    .eq("status", "active");
-
-  const topicByCorridor = new Map(
-    (topics ?? []).map((t) => [t.corridor_slug, { countryRu: t.country_ru, segment: t.url_segment }])
-  );
+  const passportIso2 = String(facts.passport_iso2 ?? "RU");
+  const corridors = await getGlobalEvaluationData(passportIso2);
 
   const allResults: GlobalEvalResult[] = [];
 
-  for (const corridor of corridors ?? []) {
-    const evals = await evaluateCorridorPrograms(corridor.id, facts);
-    const programIds = evals.map((e) => e.programId);
-    const { data: programRows } = programIds.length
-      ? await supabase
-          .from("emigro_programs")
-          .select("id, slug, title_ru, program_type")
-          .in("id", programIds)
-      : { data: [] };
+  for (const corridor of corridors) {
+    const segment =
+      corridor.countrySegment || corridorSlugToSegment(corridor.corridorSlug) || "";
 
-    const programMap = new Map((programRows ?? []).map((p) => [p.id, p]));
-    const meta = topicByCorridor.get(corridor.slug);
-    const segment = corridor.url_segment || meta?.segment || corridorSlugToSegment(corridor.slug) || "";
-
-    for (const row of evals) {
-      const program = programMap.get(row.programId);
-      if (!program) continue;
+    for (const program of corridor.programs) {
+      const base = evaluateProgram(
+        program.programId,
+        program.programSlug,
+        program.eligibilityRule,
+        facts,
+        program.passportStatus,
+        program.requirements
+      );
+      const row = adjustEvaluationForHousehold(program.programSlug, facts, base);
       allResults.push({
         ...row,
-        programTitleRu: program.title_ru,
-        programType: program.program_type,
-        corridorId: corridor.id,
-        corridorSlug: corridor.slug,
-        countryRu: meta?.countryRu ?? corridor.title_ru,
+        programTitleRu: program.programTitleRu,
+        programType: program.programType,
+        corridorId: corridor.corridorId,
+        corridorSlug: corridor.corridorSlug,
+        countryRu: corridor.countryRu,
         countrySegment: segment,
-        programPath: segment ? `/ru/${segment}/programs/${program.slug}` : programPath(corridor.slug, program.slug),
+        programPath: segment
+          ? `/ru/${segment}/programs/${program.programSlug}`
+          : programPath(corridor.corridorSlug, program.programSlug),
       });
     }
   }
