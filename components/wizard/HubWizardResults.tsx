@@ -60,10 +60,10 @@ export function HubWizardResults({
               </h2>
               <p className="mt-2 text-sm text-slate-600">
                 {pick.outcome === "likely_eligible"
-                  ? "Вероятно подходит"
+                  ? "Подходит по базовым ответам"
                   : pick.outcome === "needs_review"
                     ? "Требует проверки"
-                    : "Маловероятно"}
+                    : "Сейчас не подходит"}
               </p>
               {pick.reasons?.length > 0 && (
                 <ul className="mt-2 space-y-1 text-sm opacity-90">
@@ -178,7 +178,11 @@ function ResultsNextSteps({
     <section className="mt-10 rounded-2xl border border-slate-200 bg-white p-6">
       <h2 className="text-xl font-semibold">Что делать дальше</h2>
       <ol className="mt-4 list-decimal space-y-2 pl-5 text-slate-700">
-        <li>{hasMatches ? "Выберите 1–2 маршрута, которые выглядят реалистично." : "Выберите, что проще изменить: доход, сбережения, учёбу, оффер или страну."}</li>
+        <li>
+          {hasMatches
+            ? "Выберите 1–2 маршрута, которые выглядят реалистично."
+            : "Выберите, что проще изменить: доход, сбережения, учёбу, оффер или страну."}
+        </li>
         <li>Откройте страницу программы и проверьте официальный источник: требования меняются.</li>
         <li>Соберите доказательства цифр: выписки, контракты, оффер, документы о семье или зачислении.</li>
         <li>Проверьте, где именно подаваться: обычно это зависит от законного проживания и консульства.</li>

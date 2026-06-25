@@ -46,19 +46,21 @@ export function evaluateProgram(
       programSlug,
       outcome: "unlikely",
       score: 0,
-      reasons: ["Паспорт не поддерживается для этого маршрута"],
+      reasons: ["С этим паспортом маршрут обычно не открыт или требует другого основания для подачи."],
     };
   }
 
   if (passportStatus === "partial") {
-    reasons.push("Паспорт поддерживается частично — уточните юрисдикцию консульства");
+    reasons.push(
+      "Паспорт может подойти, но место подачи зависит от законного проживания и консульства. Это нужно проверить отдельно."
+    );
   }
 
   const effectiveRule = stripPassportConstraint(rule, passportStatus);
   const passed = evaluateRule(effectiveRule, facts);
 
   if (passed) {
-    reasons.push("Основные критерии по вашим ответам выполнены");
+    reasons.push("По вашим ответам основные базовые условия выглядят выполненными.");
     return {
       programId,
       programSlug,
@@ -143,13 +145,13 @@ function failedRuleReasons(
     .slice(0, 3)
     .map((requirement) =>
       requirement.valueText
-        ? `${requirement.labelRu}: ${requirement.valueText} — не совпало с ответами wizard`
-        : `${requirement.labelRu}: не совпало с ответами wizard`
+        ? `${requirement.labelRu}: требуется ${requirement.valueText}. По вашим ответам это не подтверждено.`
+        : `${requirement.labelRu}: по вашим ответам это не подтверждено.`
     );
 
   return (fallback.length > 0
     ? fallback
-    : ["Не удалось сопоставить одно из правил программы с ответами wizard"]).map(capReason);
+    : ["По вашим ответам программа не проходит базовую проверку. Сравните требования со страницей программы."]).map(capReason);
 }
 
 function explainFailedNode(node: unknown, facts: Record<string, unknown>): string[] {
@@ -275,7 +277,7 @@ function numericMaxReason(
 
 function equalityReason(field: string, actualValue: unknown, expected: unknown): string | null {
   if (String(expected) === "yes" && isFamilyFact(field)) {
-    return "Семья в стране: не указана близкая связь";
+    return "Семья в стране: для этого маршрута нужна близкая связь с резидентом или гражданином, а в ответах она не указана.";
   }
 
   const copy = FACT_COPY[field];
@@ -284,10 +286,10 @@ function equalityReason(field: string, actualValue: unknown, expected: unknown):
 
   if (String(expected) === "yes") {
     const requirement = copy?.requiredYes ?? "нужно значение «Да»";
-    return capReason(`${label}: ${requirement}, выбрано «${actual}»`);
+    return capReason(`${label}: ${requirement}. Сейчас выбрано «${actual}»`);
   }
 
-  return capReason(`${label}: нужно «${optionLabel(field, expected)}», выбрано «${actual}»`);
+  return capReason(`${label}: нужно «${optionLabel(field, expected)}». Сейчас выбрано «${actual}»`);
 }
 
 function notEqualityReason(field: string, actualValue: unknown, blocked: unknown): string {
