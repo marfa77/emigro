@@ -2,6 +2,8 @@
 
 Первая волна: **10 pillar-статей** под спрос «куда валить легально» в русскоязычном сегменте (2026).
 
+Вторая волна: **6 wartime/Russia relocation pillar-статей** под срочный, но легальный funnel: выезд из РФ, безвизовые хабы, легализация после выезда, учебные визы, деньги из России, консульская юрисдикция, документы.
+
 Стандарт: [docs/SEO_GUIDE_STANDARD.md](../../docs/SEO_GUIDE_STANDARD.md)
 
 ## Индекс
@@ -18,6 +20,12 @@
 | 8 | `relokatsiya-s-detmi-evropa-shkoly-vnj-2026` | [relokatsiya-s-detmi-evropa-shkoly-vnj-2026.md](./ru/relokatsiya-s-detmi-evropa-shkoly-vnj-2026.md) | Kids | /ru/wizard |
 | 9 | `otkaz-v-natsionalnoy-vize-konsulstvo-2026` | [otkaz-v-natsionalnoy-vize-konsulstvo-2026.md](./ru/otkaz-v-natsionalnoy-vize-konsulstvo-2026.md) | Refusal | /ru/wizard |
 | 10 | `byudzhet-relokatsii-evropa-2026-po-stranam` | [byudzhet-relokatsii-evropa-2026-po-stranam.md](./ru/byudzhet-relokatsii-evropa-2026-po-stranam.md) | Budget | /ru/wizard |
+| 11 | `kuda-uehat-iz-rossii-srochno-2026-evropa-bezviz-haby` | [kuda-uehat-iz-rossii-srochno-2026-evropa-bezviz-haby.md](./ru/kuda-uehat-iz-rossii-srochno-2026-evropa-bezviz-haby.md) | Urgent exit | /ru/wizard |
+| 12 | `legalizatsiya-v-evrope-posle-vyezda-iz-rossii-2026` | [legalizatsiya-v-evrope-posle-vyezda-iz-rossii-2026.md](./ru/legalizatsiya-v-evrope-posle-vyezda-iz-rossii-2026.md) | Legalization | /ru/wizard |
+| 13 | `uchebnaya-viza-v-evropu-2026-student-visa` | [uchebnaya-viza-v-evropu-2026-student-visa.md](./ru/uchebnaya-viza-v-evropu-2026-student-visa.md) | Study | /ru/wizard |
+| 14 | `podtverdit-dohod-dengi-dlya-vnj-esli-dohod-iz-rossii-2026` | [podtverdit-dohod-dengi-dlya-vnj-esli-dohod-iz-rossii-2026.md](./ru/podtverdit-dohod-dengi-dlya-vnj-esli-dohod-iz-rossii-2026.md) | Funds | /ru/wizard |
+| 15 | `konsulskaya-podacha-rf-by-kz-2026-yurisdiktsiya` | [konsulskaya-podacha-rf-by-kz-2026-yurisdiktsiya.md](./ru/konsulskaya-podacha-rf-by-kz-2026-yurisdiktsiya.md) | Consular jurisdiction | /ru/wizard |
+| 16 | `dokumenty-dlya-pereezda-iz-rossii-2026-apostil-nesudimost` | [dokumenty-dlya-pereezda-iz-rossii-2026-apostil-nesudimost.md](./ru/dokumenty-dlya-pereezda-iz-rossii-2026-apostil-nesudimost.md) | Documents | /ru/wizard |
 
 ## Публикация (следующий шаг)
 
@@ -40,3 +48,9 @@
 - переезд с детьми европа
 - отказ в визе консульство
 - бюджет релокации европа
+- куда уехать из россии срочно 2026
+- легализация в европе после выезда
+- учебная виза в европу 2026
+- подтвердить доход из россии для внж
+- консульская подача рф беларусь казахстан
+- документы для переезда из россии апостиль несудимость

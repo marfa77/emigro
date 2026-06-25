@@ -20,6 +20,12 @@ export const GUIDE_COVER_BY_SLUG: Record<string, string> = {
   "vossoedinenie-semi-evropa-2026": "/images/corridor-germany.webp",
   "ukraintsy-belorusy-vremennaya-zashchita-vs-vnj-2026": "/images/corridor-germany.webp",
   "otkaz-v-natsionalnoy-vize-konsulstvo-2026": "/images/corridor-spain.webp",
+  "kuda-uehat-iz-rossii-srochno-2026-evropa-bezviz-haby": "/images/emigro-main-hero.webp",
+  "legalizatsiya-v-evrope-posle-vyezda-iz-rossii-2026": "/images/corridor-portugal.webp",
+  "uchebnaya-viza-v-evropu-2026-student-visa": "/images/corridor-germany.webp",
+  "podtverdit-dohod-dengi-dlya-vnj-esli-dohod-iz-rossii-2026": "/images/corridor-spain.webp",
+  "konsulskaya-podacha-rf-by-kz-2026-yurisdiktsiya": "/images/corridor-france.webp",
+  "dokumenty-dlya-pereezda-iz-rossii-2026-apostil-nesudimost": "/images/corridor-italy.webp",
 };
 
 export const DEFAULT_GUIDE_COVER = "/images/emigro-main-hero.webp";
