@@ -19,6 +19,7 @@ const ALLOWED: Set<string> = new Set([
   "wizard_results_view",
   "wizard_results_click",
   "lead_submitted",
+  "assist_lead_submitted",
   "lead_error",
   "news_article_view",
   "news_source_click",

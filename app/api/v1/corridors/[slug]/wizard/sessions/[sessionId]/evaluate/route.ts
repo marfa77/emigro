@@ -9,17 +9,19 @@ export async function POST(
   request: Request,
   { params }: { params: { slug: string; sessionId: string } }
 ) {
-  const corridor = await getPublishedCorridorSummaryBySlug(params.slug);
+  const supabase = createServerClient();
+  const [corridor, { data: session, error }] = await Promise.all([
+    getPublishedCorridorSummaryBySlug(params.slug),
+    supabase
+      .from("emigro_wizard_sessions")
+      .select("*")
+      .eq("id", params.sessionId)
+      .single(),
+  ]);
+
   if (!corridor) {
     return NextResponse.json({ error: "Corridor not found" }, { status: 404 });
   }
-
-  const supabase = createServerClient();
-  const { data: session, error } = await supabase
-    .from("emigro_wizard_sessions")
-    .select("*")
-    .eq("id", params.sessionId)
-    .single();
 
   if (error || !session) {
     return NextResponse.json({ error: "Session not found" }, { status: 404 });

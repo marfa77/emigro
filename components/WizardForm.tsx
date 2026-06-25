@@ -36,6 +36,20 @@ export function WizardForm({
 
   const scope = analyticsScope ?? corridorSlug;
 
+  function numberPlaceholder(questionKey: string): string {
+    const placeholders: Record<string, string> = {
+      monthly_income_eur: "Например: 3500",
+      passive_income_eur: "Например: 1200",
+      savings_eur: "Например: 25000",
+      willing_to_invest_eur: "Например: 0 или 250000",
+      annual_salary_eur: "Например: 58000",
+      study_budget_eur: "Например: 12000",
+      relocating_children_count: "0, 1, 2...",
+      relocating_parents_count: "0, 1, 2...",
+    };
+    return placeholders[questionKey] ?? "Введите число";
+  }
+
   useEffect(() => {
     if (startedRef.current) return;
     startedRef.current = true;
@@ -116,9 +130,9 @@ export function WizardForm({
     }
 
     setLoading(true);
-    setLoadingMessage("Сохраняем ответы...");
+    setLoadingMessage("Сверяем ответы с программами, это может занять несколько секунд.");
     const slowHintTimer = window.setTimeout(() => {
-      setLoadingMessage("Сравниваем ваш профиль с программами. Обычно это занимает несколько секунд.");
+      setLoadingMessage("Сверяем ответы с программами, это может занять несколько секунд.");
     }, 1000);
     try {
       const postUrl =
@@ -133,7 +147,7 @@ export function WizardForm({
       const sessionData = await sessionRes.json();
       if (!sessionRes.ok) throw new Error(sessionData.error ?? "Session failed");
 
-      setLoadingMessage("Считаем подходящие маршруты...");
+      setLoadingMessage("Сравниваем доход, сбережения, семью и документы с требованиями программ.");
       const evalUrl =
         mode === "hub"
           ? `/api/v1/hub/wizard/sessions/${sessionData.id}/evaluate`
@@ -142,7 +156,7 @@ export function WizardForm({
       const evalData = await evalRes.json();
       if (!evalRes.ok) throw new Error(evalData.error ?? "Evaluation failed");
 
-      setLoadingMessage("Готовим страницу результатов...");
+      setLoadingMessage("Готовим понятные результаты и следующие шаги.");
       trackEvent("wizard_completed", {
         corridor_slug: scope,
         session_id: sessionData.id,
@@ -162,7 +176,7 @@ export function WizardForm({
   }
 
   return (
-    <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+    <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
       <div className="mb-6 flex gap-2">
         {modules.map((m, i) => (
           <div
@@ -176,6 +190,10 @@ export function WizardForm({
       <p className="text-sm text-slate-500">
         Шаг {step + 1} из {modules.length}
       </p>
+      <div className="mt-3 rounded-lg border border-blue-100 bg-blue-50 px-4 py-3 text-sm leading-relaxed text-blue-950">
+        Если точной цифры нет, укажите примерную сумму в евро. Если вопрос не про вас или ответа нет,
+        выбирайте «Нет» или оставляйте необязательное поле пустым.
+      </div>
 
       <div className="mt-6 space-y-6">
         {currentModule.questions.map((q) => (
@@ -205,7 +223,10 @@ export function WizardForm({
             {q.question_type === "number" && (
               <input
                 type="number"
-                className="mt-2 w-full max-w-xs rounded-lg border border-slate-300 px-3 py-2"
+                inputMode="decimal"
+                min={0}
+                placeholder={numberPlaceholder(q.question_key)}
+                className="mt-2 w-full rounded-lg border border-slate-300 px-3 py-3 text-base sm:max-w-xs sm:py-2 sm:text-sm"
                 value={answers[q.question_key] ?? ""}
                 onChange={(e) => setAnswer(q.question_key, e.target.value)}
               />
@@ -237,22 +258,27 @@ export function WizardForm({
         ))}
       </div>
 
-      {error && <p className="mt-4 text-sm text-red-600">{error}</p>}
+      {error && (
+        <div className="mt-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800">
+          <p className="font-medium">Нужно ещё одно действие</p>
+          <p className="mt-1">{error}</p>
+        </div>
+      )}
       {loading && (
         <div className="mt-4 rounded-lg border border-corridor-100 bg-corridor-50 px-4 py-3 text-sm text-corridor-900">
           <p className="font-medium">{loadingMessage || "Считаем результаты..."}</p>
           <p className="mt-1 text-corridor-800">
-            Мы проверяем правила программ и сразу покажем результат. Страницу можно не обновлять.
+            Мы проверяем правила программ и сразу покажем результат. Страницу можно не обновлять и не закрывать.
           </p>
         </div>
       )}
 
-      <div className="mt-8 flex justify-between">
+      <div className="mt-8 flex flex-col-reverse gap-3 sm:flex-row sm:justify-between">
         <button
           type="button"
           disabled={step === 0 || loading}
           onClick={() => setStep((s) => s - 1)}
-          className="rounded-lg px-4 py-2 text-sm text-slate-600 disabled:opacity-40"
+          className="rounded-lg px-4 py-3 text-sm text-slate-600 disabled:opacity-40 sm:py-2"
         >
           Назад
         </button>
@@ -260,7 +286,7 @@ export function WizardForm({
           type="button"
           onClick={handleNext}
           disabled={loading}
-          className="rounded-lg bg-corridor-600 px-5 py-2 text-sm font-medium text-white hover:bg-corridor-700 disabled:opacity-60"
+          className="rounded-lg bg-corridor-600 px-5 py-3 text-sm font-medium text-white hover:bg-corridor-700 disabled:opacity-60 sm:py-2"
         >
           {loading ? "Готовим результаты..." : isLast ? "Показать результаты" : "Далее"}
         </button>

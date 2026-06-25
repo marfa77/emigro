@@ -11,6 +11,7 @@
     "db:types": "supabase gen types typescript --linked > lib/supabase/database.types.ts",
     "news:weekly": "tsx scripts/run-weekly-news.ts",
     "news:publish-threads": "tsx scripts/publish-threads-digest.ts",
+    "smoke:wizard": "tsx scripts/smoke-wizard-evaluation.ts",
     "seo:indexnow": "tsx scripts/ping-indexnow.ts"
   },
   "dependencies": {

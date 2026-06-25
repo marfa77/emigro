@@ -10,6 +10,7 @@ export type EmigroEventName =
   | "wizard_results_click"
   | "hub_wizard_completed"
   | "lead_submitted"
+  | "assist_lead_submitted"
   | "lead_error"
   | "news_article_view"
   | "news_source_click"

@@ -20,6 +20,8 @@ export type GlobalEvalResult = {
   outcome: OutcomeCode;
   score: number;
   reasons: string[];
+  sourceUrl?: string | null;
+  sourceLabelRu?: string | null;
 };
 
 export type GlobalEvalPayload = {
@@ -71,6 +73,8 @@ export async function runGlobalEvaluation(
         programPath: segment
           ? `/ru/${segment}/programs/${program.programSlug}`
           : programPath(corridor.corridorSlug, program.programSlug),
+        sourceUrl: program.sourceUrl ?? null,
+        sourceLabelRu: program.sourceLabelRu ?? null,
       });
     }
   }

@@ -6,12 +6,14 @@ export async function POST(
   request: Request,
   { params }: { params: { slug: string } }
 ) {
-  const corridor = await getPublishedCorridorSummaryBySlug(params.slug);
+  const [corridor, body] = await Promise.all([
+    getPublishedCorridorSummaryBySlug(params.slug),
+    request.json(),
+  ]);
   if (!corridor) {
     return NextResponse.json({ error: "Corridor not found" }, { status: 404 });
   }
 
-  const body = await request.json();
   const wizardId = body.wizard_id as string;
   const answers = (body.answers ?? {}) as Record<string, unknown>;
 

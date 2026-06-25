@@ -17,6 +17,8 @@ export type EvaluationProgramData = {
   eligibilityRule: Record<string, unknown>;
   passportStatus?: string;
   requirements: EvaluationRequirementData[];
+  sourceUrl?: string | null;
+  sourceLabelRu?: string | null;
 };
 
 export type EvaluationRequirementData = {
@@ -93,6 +95,25 @@ function requirementsByVersion(
   return byVersion;
 }
 
+function sourceByVersion(
+  rows: Array<{
+    program_version_id: string;
+    source_url: string | null;
+    label_ru: string | null;
+    last_verified: string | null;
+  }>
+) {
+  const byVersion = new Map<string, { sourceUrl: string | null; sourceLabelRu: string | null }>();
+  for (const row of rows) {
+    if (byVersion.has(row.program_version_id)) continue;
+    byVersion.set(row.program_version_id, {
+      sourceUrl: row.source_url,
+      sourceLabelRu: row.label_ru,
+    });
+  }
+  return byVersion;
+}
+
 export async function getCorridorEvaluationProgramData(
   corridorId: string,
   passportIso2: string
@@ -127,30 +148,36 @@ export async function getCorridorEvaluationProgramData(
     const latestByProgram = latestVersionsByProgram(versions ?? []);
     const versionIds = Array.from(latestByProgram.values()).map((version) => version.id);
 
-    const { data: passportRows } = versionIds.length
-      ? await supabase
-          .from("emigro_passport_eligibility")
-          .select("program_version_id, status")
-          .in("program_version_id", versionIds)
-          .eq("passport_iso2", passportIso2)
-      : { data: [] };
-
-    const { data: requirementRows } = versionIds.length
-      ? await supabase
-          .from("emigro_program_requirements")
-          .select("program_version_id, label_ru, value_text, sort_order")
-          .in("program_version_id", versionIds)
-          .order("sort_order")
-      : { data: [] };
+    const [{ data: passportRows }, { data: requirementRows }, { data: sourceRows }] = versionIds.length
+      ? await Promise.all([
+          supabase
+            .from("emigro_passport_eligibility")
+            .select("program_version_id, status")
+            .in("program_version_id", versionIds)
+            .eq("passport_iso2", passportIso2),
+          supabase
+            .from("emigro_program_requirements")
+            .select("program_version_id, label_ru, value_text, sort_order")
+            .in("program_version_id", versionIds)
+            .order("sort_order"),
+          supabase
+            .from("emigro_program_sources")
+            .select("program_version_id, source_url, label_ru, last_verified")
+            .in("program_version_id", versionIds)
+            .order("last_verified", { ascending: false }),
+        ])
+      : [{ data: [] }, { data: [] }, { data: [] }];
 
     const statusByVersion = passportStatusByVersion(passportRows ?? []);
     const requirementsByVersionId = requirementsByVersion(requirementRows ?? []);
+    const sourceByVersionId = sourceByVersion(sourceRows ?? []);
     const programById = new Map((programs ?? []).map((program) => [program.id, program]));
 
     return programIds.flatMap((programId) => {
         const program = programById.get(programId);
         const version = latestByProgram.get(programId);
         if (!program || !version) return [];
+        const source = sourceByVersionId.get(version.id);
         return [{
           programId: program.id,
           programSlug: program.slug,
@@ -159,6 +186,8 @@ export async function getCorridorEvaluationProgramData(
           eligibilityRule: version.eligibility_rule,
           passportStatus: statusByVersion.get(version.id),
           requirements: requirementsByVersionId.get(version.id) ?? [],
+          sourceUrl: source?.sourceUrl ?? null,
+          sourceLabelRu: source?.sourceLabelRu ?? null,
         }];
       });
   });
@@ -211,21 +240,25 @@ export async function getGlobalEvaluationData(
 
     const latestByProgram = latestVersionsByProgram(versions ?? []);
     const versionIds = Array.from(latestByProgram.values()).map((version) => version.id);
-    const { data: passportRows } = versionIds.length
-      ? await supabase
-          .from("emigro_passport_eligibility")
-          .select("program_version_id, status")
-          .in("program_version_id", versionIds)
-          .eq("passport_iso2", passportIso2)
-      : { data: [] };
-
-    const { data: requirementRows } = versionIds.length
-      ? await supabase
-          .from("emigro_program_requirements")
-          .select("program_version_id, label_ru, value_text, sort_order")
-          .in("program_version_id", versionIds)
-          .order("sort_order")
-      : { data: [] };
+    const [{ data: passportRows }, { data: requirementRows }, { data: sourceRows }] = versionIds.length
+      ? await Promise.all([
+          supabase
+            .from("emigro_passport_eligibility")
+            .select("program_version_id, status")
+            .in("program_version_id", versionIds)
+            .eq("passport_iso2", passportIso2),
+          supabase
+            .from("emigro_program_requirements")
+            .select("program_version_id, label_ru, value_text, sort_order")
+            .in("program_version_id", versionIds)
+            .order("sort_order"),
+          supabase
+            .from("emigro_program_sources")
+            .select("program_version_id, source_url, label_ru, last_verified")
+            .in("program_version_id", versionIds)
+            .order("last_verified", { ascending: false }),
+        ])
+      : [{ data: [] }, { data: [] }, { data: [] }];
 
     const topicByCorridor = new Map(
       (topics ?? []).map((topic) => [
@@ -236,6 +269,7 @@ export async function getGlobalEvaluationData(
     const programById = new Map((programs ?? []).map((program) => [program.id, program]));
     const statusByVersion = passportStatusByVersion(passportRows ?? []);
     const requirementsByVersionId = requirementsByVersion(requirementRows ?? []);
+    const sourceByVersionId = sourceByVersion(sourceRows ?? []);
     const linksByCorridor = new Map<string, typeof corridorPrograms>();
 
     for (const link of corridorPrograms ?? []) {
@@ -257,6 +291,7 @@ export async function getGlobalEvaluationData(
             const program = programById.get(link.program_id);
             const version = latestByProgram.get(link.program_id);
             if (!program || !version) return [];
+            const source = sourceByVersionId.get(version.id);
             return [{
               programId: program.id,
               programSlug: program.slug,
@@ -265,6 +300,8 @@ export async function getGlobalEvaluationData(
               eligibilityRule: version.eligibility_rule,
               passportStatus: statusByVersion.get(version.id),
               requirements: requirementsByVersionId.get(version.id) ?? [],
+              sourceUrl: source?.sourceUrl ?? null,
+              sourceLabelRu: source?.sourceLabelRu ?? null,
             }];
           }),
       };

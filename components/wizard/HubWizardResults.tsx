@@ -3,7 +3,7 @@ import { ArrowRight, Compass, Sparkles } from "lucide-react";
 import { LeadForm } from "@/components/LeadForm";
 import { ServiceProvidersSection } from "@/components/providers/ServiceProvidersSection";
 import { HouseholdBanner } from "@/components/wizard/HouseholdBanner";
-import { WizardOutcomeCard } from "@/components/wizard/WizardOutcomeCard";
+import { WizardOutcomeCard, readableReason } from "@/components/wizard/WizardOutcomeCard";
 import { corridorWizardPath } from "@/lib/corridor/paths";
 import type { GlobalEvalPayload } from "@/lib/engine/run-global-evaluation";
 import { corridorSlugForTopic, findFirstProviderTopicKey } from "@/lib/providers/registry";
@@ -29,8 +29,8 @@ export function HubWizardResults({
       <header>
         <h1 className="text-3xl font-bold">Ваши маршруты по Европе</h1>
         <p className="mt-2 text-slate-600">
-          Проверено {results.length} программ в {byCountry.length} странах. Совпадений: {matchCount}. Не
-          юридическая оценка.
+          Проверено {results.length} программ. Совпадений: {matchCount}. Это предварительная навигация, не
+          юридическая гарантия.
         </p>
       </header>
 
@@ -68,7 +68,7 @@ export function HubWizardResults({
               {pick.reasons?.length > 0 && (
                 <ul className="mt-2 space-y-1 text-sm opacity-90">
                   {pick.reasons.slice(0, 3).map((reason) => (
-                    <li key={reason}>• {reason}</li>
+                    <li key={reason}>• {readableReason(reason)}</li>
                   ))}
                 </ul>
               )}
@@ -80,6 +80,16 @@ export function HubWizardResults({
                   Подробнее о программе
                   <ArrowRight className="h-4 w-4" />
                 </Link>
+                {pick.sourceUrl && (
+                  <a
+                    href={pick.sourceUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 rounded-lg border border-corridor-300 px-4 py-2 text-sm text-corridor-800 hover:bg-corridor-50"
+                  >
+                    Официальный источник
+                  </a>
+                )}
                 <Link
                   href={corridorWizardPath(pick.corridorSlug)}
                   className="inline-flex items-center gap-1 rounded-lg border border-corridor-300 px-4 py-2 text-sm text-corridor-800 hover:bg-corridor-50"
@@ -93,16 +103,24 @@ export function HubWizardResults({
         </section>
       ) : (
         <section className="mt-8 rounded-xl border border-amber-200 bg-amber-50 p-6 text-amber-950">
-          <p className="font-medium">Явных совпадений по порогам 2026 не найдено.</p>
-          <p className="mt-2 text-sm">
-            Попробуйте скорректировать доход или проверьте маршрут воссоединения семьи. Можно пройти wizard по
-            конкретной стране для детальной проверки.
+          <p className="font-medium">Явных совпадений по текущим ответам не найдено.</p>
+          <p className="mt-2 text-sm leading-relaxed">
+            Это не отказ и не тупик. Обычно варианты такие: увеличить подтверждаемый доход, накопить больше средств,
+            получить рабочий оффер, рассмотреть учебный маршрут, проверить воссоединение семьи или выбрать другую
+            страну. Если есть сложная история с отказами, семьёй или документами, лучше показать кейс провайдеру.
           </p>
-          <Link href="/ru#destinations" className="mt-4 inline-block text-sm font-medium text-corridor-700 underline">
-            Все направления →
-          </Link>
+          <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-sm font-medium">
+            <Link href="/ru#destinations" className="text-corridor-700 underline">
+              Все направления →
+            </Link>
+            <Link href="/ru/assist" className="text-corridor-700 underline">
+              Обсудить с Emigro Assist →
+            </Link>
+          </div>
         </section>
       )}
+
+      <ResultsNextSteps hasMatches={matchCount > 0} providerTopicKey={providerTopicKey} />
 
       {byCountry.length > 0 && (
         <section className="mt-12 space-y-10">
@@ -124,6 +142,8 @@ export function HubWizardResults({
                     outcome={row.outcome}
                     reasons={row.reasons}
                     href={row.programPath}
+                    sourceUrl={row.sourceUrl}
+                    sourceLabel={row.sourceLabelRu}
                   />
                 ))}
               </div>
@@ -144,5 +164,39 @@ export function HubWizardResults({
         </div>
       )}
     </>
+  );
+}
+
+function ResultsNextSteps({
+  hasMatches,
+  providerTopicKey,
+}: {
+  hasMatches: boolean;
+  providerTopicKey?: string;
+}) {
+  return (
+    <section className="mt-10 rounded-2xl border border-slate-200 bg-white p-6">
+      <h2 className="text-xl font-semibold">Что делать дальше</h2>
+      <ol className="mt-4 list-decimal space-y-2 pl-5 text-slate-700">
+        <li>{hasMatches ? "Выберите 1–2 маршрута, которые выглядят реалистично." : "Выберите, что проще изменить: доход, сбережения, учёбу, оффер или страну."}</li>
+        <li>Откройте страницу программы и проверьте официальный источник: требования меняются.</li>
+        <li>Соберите доказательства цифр: выписки, контракты, оффер, документы о семье или зачислении.</li>
+        <li>Проверьте, где именно подаваться: обычно это зависит от законного проживания и консульства.</li>
+        <li>Если сомневаетесь, отправьте короткое описание кейса Emigro Assist или профильному провайдеру.</li>
+      </ol>
+      <div className="mt-5 flex flex-wrap gap-3 text-sm font-medium">
+        <Link href="/ru/assist" className="rounded-lg bg-corridor-600 px-4 py-2 text-white hover:bg-corridor-700">
+          Написать Emigro Assist
+        </Link>
+        {providerTopicKey && (
+          <Link
+            href={`/ru/${providerTopicKey}`}
+            className="rounded-lg border border-corridor-300 px-4 py-2 text-corridor-800 hover:bg-corridor-50"
+          >
+            Посмотреть коридор
+          </Link>
+        )}
+      </div>
+    </section>
   );
 }

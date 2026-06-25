@@ -17,6 +17,8 @@ export type EvaluationRequirement = {
   valueText?: string | null;
 };
 
+const MAX_REASON_LENGTH = 150;
+
 export function evaluateRule(
   rule: Record<string, unknown>,
   facts: Record<string, unknown>
@@ -66,13 +68,13 @@ export function evaluateProgram(
     };
   }
 
-  reasons.push(...failedRuleReasons(rule, facts, requirements));
+  reasons.push(...failedRuleReasons(effectiveRule, facts, requirements));
   return {
     programId,
     programSlug,
     outcome: "unlikely",
     score: 0.2,
-    reasons,
+    reasons: reasons.map(capReason),
   };
 }
 
@@ -96,6 +98,7 @@ const FACT_COPY: Record<
     requiredYes?: string;
   }
 > = {
+  passport_iso2: { label: "Паспорт" },
   remote_income: {
     label: "Удалённый доход",
     requiredYes: "нужен стабильный доход из-за рубежа",
@@ -144,9 +147,9 @@ function failedRuleReasons(
         : `${requirement.labelRu}: не совпало с ответами wizard`
     );
 
-  return fallback.length > 0
+  return (fallback.length > 0
     ? fallback
-    : ["Критерии программы не совпали с ответами wizard"];
+    : ["Не удалось сопоставить одно из правил программы с ответами wizard"]).map(capReason);
 }
 
 function explainFailedNode(node: unknown, facts: Record<string, unknown>): string[] {
@@ -161,7 +164,9 @@ function explainFailedNode(node: unknown, facts: Record<string, unknown>): strin
 
   if (Array.isArray(rule.or)) {
     if (evaluateRuleObject(rule, facts)) return [];
-    return rule.or.flatMap((child) => explainFailedNode(child, facts));
+    const options = rule.or.flatMap((child) => explainFailedNode(child, facts));
+    if (options.length <= 1) return options;
+    return [`Нужно выполнить один из вариантов: ${unique(options).slice(0, 3).join("; ")}`];
   }
 
   const comparison = explainComparison(rule, facts);
@@ -182,11 +187,50 @@ function explainComparison(rule: Record<string, unknown>, facts: Record<string, 
     return numericReason(field, facts[field], required);
   }
 
+  const gt = rule[">"];
+  if (Array.isArray(gt) && gt.length === 2) {
+    const field = varName(gt[0]);
+    const required = numberValue(gt[1]);
+    if (!field || required === null) return null;
+    return numericReason(field, facts[field], required, "больше");
+  }
+
+  const lte = rule["<="];
+  if (Array.isArray(lte) && lte.length === 2) {
+    const field = varName(lte[0]);
+    const max = numberValue(lte[1]);
+    if (!field || max === null) return null;
+    return numericMaxReason(field, facts[field], max);
+  }
+
+  const lt = rule["<"];
+  if (Array.isArray(lt) && lt.length === 2) {
+    const field = varName(lt[0]);
+    const max = numberValue(lt[1]);
+    if (!field || max === null) return null;
+    return numericMaxReason(field, facts[field], max, "меньше");
+  }
+
   const eq = rule["=="];
   if (Array.isArray(eq) && eq.length === 2) {
     const field = varName(eq[0]);
     if (!field) return null;
     return equalityReason(field, facts[field], eq[1]);
+  }
+
+  const notEq = rule["!="];
+  if (Array.isArray(notEq) && notEq.length === 2) {
+    const field = varName(notEq[0]);
+    if (!field) return null;
+    return notEqualityReason(field, facts[field], notEq[1]);
+  }
+
+  const includes = rule.in;
+  if (Array.isArray(includes) && includes.length === 2) {
+    const field = varName(includes[0]);
+    const allowed = Array.isArray(includes[1]) ? includes[1] : null;
+    if (!field || !allowed) return null;
+    return inReason(field, facts[field], allowed);
   }
 
   return null;
@@ -203,17 +247,33 @@ function numberValue(value: unknown): number | null {
   return Number.isFinite(number) ? number : null;
 }
 
-function numericReason(field: string, actualValue: unknown, required: number): string {
+function numericReason(
+  field: string,
+  actualValue: unknown,
+  required: number,
+  comparator = "от"
+): string {
   const copy = FACT_COPY[field];
   const label = copy?.label ?? fieldLabel(field);
   const unit = copy?.unit ?? "";
   const actual = numberValue(actualValue) ?? 0;
-  return `${label}: нужно от ${formatEuro(required)}${unit}, указано ${formatEuro(actual)}${unit}`;
+  return capReason(`${label}: нужно ${comparator} ${formatEuro(required)}${unit}, указано ${formatEuro(actual)}${unit}`);
+}
+
+function numericMaxReason(
+  field: string,
+  actualValue: unknown,
+  max: number,
+  comparator = "не больше"
+): string {
+  const copy = FACT_COPY[field];
+  const label = copy?.label ?? fieldLabel(field);
+  const unit = copy?.unit ?? "";
+  const actual = numberValue(actualValue) ?? 0;
+  return capReason(`${label}: нужно ${comparator} ${formatEuro(max)}${unit}, указано ${formatEuro(actual)}${unit}`);
 }
 
 function equalityReason(field: string, actualValue: unknown, expected: unknown): string | null {
-  if (field === "passport_iso2") return null;
-
   if (String(expected) === "yes" && isFamilyFact(field)) {
     return "Семья в стране: не указана близкая связь";
   }
@@ -224,10 +284,21 @@ function equalityReason(field: string, actualValue: unknown, expected: unknown):
 
   if (String(expected) === "yes") {
     const requirement = copy?.requiredYes ?? "нужно значение «Да»";
-    return `${label}: ${requirement}, выбрано «${actual}»`;
+    return capReason(`${label}: ${requirement}, выбрано «${actual}»`);
   }
 
-  return `${label}: нужно «${optionLabel(field, expected)}», выбрано «${actual}»`;
+  return capReason(`${label}: нужно «${optionLabel(field, expected)}», выбрано «${actual}»`);
+}
+
+function notEqualityReason(field: string, actualValue: unknown, blocked: unknown): string {
+  const label = FACT_COPY[field]?.label ?? fieldLabel(field);
+  return capReason(`${label}: значение «${optionLabel(field, blocked)}» не подходит, выбрано «${optionLabel(field, actualValue)}»`);
+}
+
+function inReason(field: string, actualValue: unknown, allowed: unknown[]): string {
+  const label = FACT_COPY[field]?.label ?? fieldLabel(field);
+  const allowedLabels = allowed.map((value) => optionLabel(field, value)).join(", ");
+  return capReason(`${label}: нужно одно из значений «${allowedLabels}», выбрано «${optionLabel(field, actualValue)}»`);
 }
 
 function isFamilyFact(field: string): boolean {
@@ -251,7 +322,13 @@ function formatEuro(value: number): string {
 }
 
 function unique(values: string[]): string[] {
-  return Array.from(new Set(values.filter(Boolean)));
+  return Array.from(new Set(values.filter(Boolean).map(capReason)));
+}
+
+function capReason(reason: string): string {
+  const compact = reason.replace(/\s+/g, " ").trim();
+  if (compact.length <= MAX_REASON_LENGTH) return compact;
+  return `${compact.slice(0, MAX_REASON_LENGTH - 1).trimEnd()}…`;
 }
 
 export function normalizeFacts(answers: Record<string, unknown>): Record<string, unknown> {

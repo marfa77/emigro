@@ -7,6 +7,7 @@ import { getExamLabelForTopic, type ServiceProvider } from "@/lib/providers/regi
 export type ProviderPlacement =
   | "corridor_landing"
   | "digest"
+  | "guide_article"
   | "guide_sidebar"
   | "wizard_hub_results"
   | "wizard_corridor_results";

@@ -1,8 +1,8 @@
-import { ServiceProviderCard, type ProviderPlacement } from "@/components/providers/ServiceProviderCard";
+import type { ProviderPlacement } from "@/components/providers/ServiceProviderCard";
+import { ProviderRevealList } from "@/components/providers/ProviderRevealList";
 import {
   getProvidersForContext,
-  groupProvidersByCategory,
-  PROVIDER_CATEGORY_LABELS_RU,
+  splitDefaultProviders,
 } from "@/lib/providers/registry";
 
 type Props = {
@@ -25,12 +25,11 @@ export function ServiceProvidersSection({
   const providers = getProvidersForContext({
     corridorSlug,
     topicKey,
-    compact: variant === "compact",
   });
   if (providers.length === 0) return null;
 
-  const groups = groupProvidersByCategory(providers);
-  const showCategoryHeadings = variant === "default" && groups.length > 1;
+  const { visible, hidden } = splitDefaultProviders(providers);
+  const showCategoryHeadings = variant === "default" && providers.length > 1;
 
   return (
     <section className={className}>
@@ -41,29 +40,15 @@ export function ServiceProvidersSection({
           рекомендует провайдеров и не гарантирует результат.
         </p>
       )}
-      <div className={variant === "compact" ? "space-y-3" : "mt-6 space-y-8"}>
-        {groups.map((group) => (
-          <div key={group.category}>
-            {showCategoryHeadings && (
-              <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-500">
-                {PROVIDER_CATEGORY_LABELS_RU[group.category]}
-              </h3>
-            )}
-            <div className={variant === "compact" ? "space-y-3" : "grid gap-4 sm:grid-cols-2"}>
-              {group.providers.map((provider) => (
-                <ServiceProviderCard
-                  key={provider.id}
-                  provider={provider}
-                  placement={placement}
-                  corridorSlug={corridorSlug}
-                  topicKey={topicKey}
-                  variant={variant}
-                />
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
+      <ProviderRevealList
+        visibleProviders={visible}
+        hiddenProviders={hidden}
+        placement={placement}
+        corridorSlug={corridorSlug}
+        topicKey={topicKey}
+        variant={variant}
+        showCategoryHeadings={showCategoryHeadings}
+      />
     </section>
   );
 }

@@ -11,6 +11,18 @@ export type LeadTelegramPayload = {
   sessionId?: string | null;
 };
 
+export type AssistLeadTelegramPayload = {
+  leadId?: string | null;
+  stored: boolean;
+  country: string;
+  corridorSlug?: string | null;
+  programRoute: string;
+  selectedProviders: string[];
+  name: string;
+  contact: string;
+  message: string;
+};
+
 export function formatLeadTelegramMessage(p: LeadTelegramPayload): string {
   const programs =
     p.programSlugs.length > 0 ? p.programSlugs.map((s) => `• ${s}`).join("\n") : "—";
@@ -30,6 +42,31 @@ export function formatLeadTelegramMessage(p: LeadTelegramPayload): string {
     programs,
     p.notes ? `\nКомментарий:\n${p.notes}` : null,
     p.sessionId ? `\nWizard session: ${p.sessionId}` : null,
+  ];
+
+  return lines.filter((line): line is string => line !== null).join("\n");
+}
+
+export function formatAssistLeadTelegramMessage(p: AssistLeadTelegramPayload): string {
+  const providers =
+    p.selectedProviders.length > 0 ? p.selectedProviders.map((provider) => `• ${provider}`).join("\n") : "—";
+
+  const lines = [
+    "🆕 Emigro Assist — заявка",
+    "",
+    p.leadId ? `ID: ${p.leadId}` : null,
+    `Сохранено в Supabase: ${p.stored ? "да" : "нет"}`,
+    `Страна: ${p.country}`,
+    p.corridorSlug ? `Коридор: ${p.corridorSlug}` : null,
+    `Маршрут: ${p.programRoute}`,
+    "",
+    `Имя: ${p.name}`,
+    `Контакт: ${p.contact}`,
+    "",
+    "Выбранные сервисы:",
+    providers,
+    "",
+    `Сообщение:\n${p.message}`,
   ];
 
   return lines.filter((line): line is string => line !== null).join("\n");

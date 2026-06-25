@@ -26,19 +26,28 @@ export async function evaluateCorridorPrograms(
     results.push(evaluation);
   }
 
-  if (options?.persist && options.sessionId && results.length) {
-    const supabase = createServerClient();
-    await supabase.from("emigro_eligibility_results").upsert(
-      results.map((evaluation) => ({
-        session_id: options.sessionId,
-        program_id: evaluation.programId,
-        outcome: evaluation.outcome,
-        score: evaluation.score,
-        reasons: evaluation.reasons,
-      })),
-      { onConflict: "session_id,program_id" }
-    );
+  if (options?.persist && options.sessionId) {
+    await persistEvaluationResults(options.sessionId, results);
   }
 
   return results.sort((a, b) => b.score - a.score);
+}
+
+export async function persistEvaluationResults(
+  sessionId: string,
+  results: EvaluationResult[]
+): Promise<void> {
+  if (!results.length) return;
+
+  const supabase = createServerClient();
+  await supabase.from("emigro_eligibility_results").upsert(
+    results.map((evaluation) => ({
+      session_id: sessionId,
+      program_id: evaluation.programId,
+      outcome: evaluation.outcome,
+      score: evaluation.score,
+      reasons: evaluation.reasons,
+    })),
+    { onConflict: "session_id,program_id" }
+  );
 }
