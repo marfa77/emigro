@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Compass, Sparkles } from "lucide-react";
+import { ArrowRight, Compass, Route, Sparkles } from "lucide-react";
 import { LeadForm } from "@/components/LeadForm";
 import { ServiceProvidersSection } from "@/components/providers/ServiceProvidersSection";
 import { HouseholdBanner } from "@/components/wizard/HouseholdBanner";
@@ -7,6 +7,7 @@ import { WizardOutcomeCard, readableReason } from "@/components/wizard/WizardOut
 import { corridorWizardPath } from "@/lib/corridor/paths";
 import type { GlobalEvalPayload } from "@/lib/engine/run-global-evaluation";
 import { corridorSlugForTopic, findFirstProviderTopicKey } from "@/lib/providers/registry";
+import { TRANSIT_HUBS } from "@/lib/transit-hubs";
 
 export function HubWizardResults({
   sessionId,
@@ -19,6 +20,8 @@ export function HubWizardResults({
 }) {
   const { pick, byCountry, results, household } = payload;
   const matchCount = results.filter((r) => r.outcome !== "unlikely").length;
+  const strongMatchCount = results.filter((r) => r.outcome === "likely_eligible").length;
+  const showTransitFallback = strongMatchCount === 0 || matchCount <= 1;
   const providerTopicKey = findFirstProviderTopicKey([
     ...results.map((r) => r.countrySegment),
     ...byCountry.map((g) => g.corridorSlug?.replace(/^ru-speaking-to-/, "") ?? ""),
@@ -35,6 +38,35 @@ export function HubWizardResults({
       </header>
 
       <HouseholdBanner household={household} />
+
+      {showTransitFallback && (
+        <section className="mt-8 rounded-2xl border border-amber-200 bg-amber-50 p-6 text-amber-950">
+          <div className="flex items-start gap-3">
+            <div className="rounded-lg bg-amber-100 p-2 text-amber-800">
+              <Route className="h-5 w-5" />
+            </div>
+            <div>
+              <p className="font-semibold">EU-маршрут сейчас слабый. Рассмотрите временный хаб на 3–12 месяцев.</p>
+              <p className="mt-2 text-sm leading-relaxed text-amber-900/90">
+                Транзитный хаб — не замена ВНЖ в Европе и не путь к гражданству. Это первый шаг, чтобы выехать,
+                стабилизировать документы, банки и доход, а затем спокойно готовить отдельный EU-маршрут.
+              </p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {TRANSIT_HUBS.map((hub) => (
+                  <Link
+                    key={hub.slug}
+                    href={hub.path}
+                    className="inline-flex items-center gap-1 rounded-lg bg-white px-3 py-2 text-sm font-medium text-corridor-800 shadow-sm hover:bg-corridor-50"
+                  >
+                    {hub.flag} {hub.countryRu}
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       {providerTopicKey && (
         <ServiceProvidersSection

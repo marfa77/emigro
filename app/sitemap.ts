@@ -5,6 +5,7 @@ import { getCorridorBySlug } from "@/lib/corridor/queries";
 import { getPublishedNewsDigests } from "@/lib/news/digests";
 import { getActiveNewsTopics } from "@/lib/news/topics";
 import { newsArticleUrl, newsHubUrl, SITE_URL } from "@/lib/site-url";
+import { TRANSIT_HUBS } from "@/lib/transit-hubs";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const topics = await getActiveNewsTopics();
@@ -23,6 +24,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE_URL}/ru/privacy`, changeFrequency: "yearly", priority: 0.4 },
     { url: `${SITE_URL}/ru/terms`, changeFrequency: "yearly", priority: 0.4 },
     { url: `${SITE_URL}/ru/cookies`, changeFrequency: "yearly", priority: 0.3 },
+    ...TRANSIT_HUBS.map((hub) => ({
+      url: `${SITE_URL}${hub.path}`,
+      changeFrequency: "monthly" as const,
+      priority: 0.82,
+    })),
     ...topics.map((t) => ({
       url: newsHubUrl(t.urlSegment),
       changeFrequency: "daily" as const,

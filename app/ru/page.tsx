@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { BookOpen, Globe2, Newspaper } from "lucide-react";
+import { ArrowRight, BookOpen, Globe2, Newspaper, Route } from "lucide-react";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { DestinationCard } from "@/components/destinations/DestinationCard";
 import { HeroShell } from "@/components/visuals/HeroShell";
@@ -11,6 +11,7 @@ import { HUB_WIZARD_PATH } from "@/lib/corridor/paths";
 import { guidePath, listGuides } from "@/lib/guides/load";
 import { pageMetadata } from "@/lib/seo";
 import { SITE_URL } from "@/lib/site-url";
+import { TRANSIT_HUBS } from "@/lib/transit-hubs";
 
 export const revalidate = 3600;
 
@@ -30,15 +31,25 @@ export default async function RuHubPage() {
   const developingCorridors = topics.filter((t) => t.status === "in_development" && t.sitePaths);
   const newsOnly = topics.filter((t) => t.status === "news_only");
 
+  const itemListElements = [
+    ...topics.map((t) => ({
+      name: t.countryRu,
+      url: `${SITE_URL}${t.sitePaths?.landing ?? newsIndexPath(t.urlSegment)}`,
+    })),
+    ...TRANSIT_HUBS.map((hub) => ({
+      name: `${hub.countryRu} — транзитный хаб`,
+      url: `${SITE_URL}${hub.path}`,
+    })),
+  ];
+
   const itemListSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
     name: "Направления релокации Emigro",
-    itemListElement: topics.map((t, i) => ({
+    itemListElement: itemListElements.map((item, i) => ({
       "@type": "ListItem",
       position: i + 1,
-      name: t.countryRu,
-      url: `${SITE_URL}${t.sitePaths?.landing ?? newsIndexPath(t.urlSegment)}`,
+      ...item,
     })),
   };
 
@@ -107,6 +118,44 @@ export default async function RuHubPage() {
               </div>
             </>
           )}
+
+          <section className="mt-10 rounded-2xl border border-corridor-100 bg-corridor-50/60 p-5">
+            <div className="flex flex-wrap items-start justify-between gap-3">
+              <div>
+                <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-corridor-800">
+                  <Route className="h-4 w-4" />
+                  Транзитные хабы
+                </h3>
+                <p className="mt-2 max-w-2xl text-sm text-slate-600">
+                  Первый шаг на 3–12 месяцев: быстро выехать, стабилизировать документы, банки и доход, а затем
+                  готовить отдельный EU-маршрут. Это не коридоры ВНЖ или гражданства.
+                </p>
+              </div>
+              <Link href="/ru/wizard" className="text-sm font-medium text-corridor-700 hover:underline">
+                Проверить EU-маршрут
+              </Link>
+            </div>
+            <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              {TRANSIT_HUBS.map((hub) => (
+                <Link
+                  key={hub.slug}
+                  href={hub.path}
+                  className="group rounded-xl border border-white bg-white p-4 shadow-sm transition hover:border-corridor-300 hover:shadow-md"
+                >
+                  <span className="text-2xl" aria-hidden>
+                    {hub.flag}
+                  </span>
+                  <h4 className="mt-2 font-semibold text-slate-900">{hub.countryRu}</h4>
+                  <p className="mt-1 text-xs font-medium uppercase tracking-wide text-corridor-700">Транзитный хаб</p>
+                  <p className="mt-2 text-sm text-slate-600">{hub.tagline}</p>
+                  <span className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-corridor-700 group-hover:underline">
+                    Открыть
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </section>
 
           {developingCorridors.length > 0 && (
             <>

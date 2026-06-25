@@ -9,6 +9,7 @@ export type ProviderPlacement =
   | "digest"
   | "guide_article"
   | "guide_sidebar"
+  | "transit_hub_landing"
   | "wizard_hub_results"
   | "wizard_corridor_results";
 
