@@ -1,4 +1,5 @@
 export type ProviderCategory =
+  | "assistance"
   | "legal"
   | "relocation"
   | "translation"
@@ -21,11 +22,13 @@ export type ServiceProvider = {
   topicKeys?: string[];
   examsRu?: ProviderExam[];
   ctaLabelRu: string;
+  isFirstParty?: boolean;
 };
 
 export const PREP2GO_TOPIC_KEYS = ["portugal", "spain", "france", "italy", "germany"] as const;
 
 const CATEGORY_ORDER: ProviderCategory[] = [
+  "assistance",
   "language_courses",
   "relocation",
   "legal",
@@ -34,6 +37,7 @@ const CATEGORY_ORDER: ProviderCategory[] = [
 ];
 
 export const PROVIDER_CATEGORY_LABELS_RU: Record<ProviderCategory, string> = {
+  assistance: "Помощь Emigro",
   language_courses: "Подготовка к языку",
   relocation: "Релокация",
   legal: "Юридические сервисы",
@@ -50,6 +54,27 @@ const PREP2GO_EXAMS: ProviderExam[] = [
 ];
 
 const PROVIDERS: ServiceProvider[] = [
+  {
+    id: "emigro-assist",
+    name: "Emigro Assist",
+    taglineRu: "Помощь в коммуникации с сервис-провайдерами",
+    descriptionRu:
+      "Поможем сформулировать запрос, подготовить вопросы, сравнить ответы провайдеров и вести переписку на английском, португальском, испанском, французском или немецком. Это concierge-поддержка коммуникации: не юридическая консультация и не гарантия результата.",
+    url: "mailto:contact@emigro.online?subject=%D0%9F%D0%BE%D0%BC%D0%BE%D1%89%D1%8C%20%D1%81%20%D0%BF%D1%80%D0%BE%D0%B2%D0%B0%D0%B9%D0%B4%D0%B5%D1%80%D0%B0%D0%BC%D0%B8%20Emigro",
+    category: "assistance",
+    corridorSlugs: [
+      "ru-speaking-to-portugal",
+      "ru-speaking-to-spain",
+      "ru-speaking-to-france",
+      "ru-speaking-to-italy",
+      "ru-speaking-to-germany",
+      "ru-speaking-to-netherlands",
+      "ru-speaking-to-scandinavia",
+    ],
+    topicKeys: ["portugal", "spain", "france", "italy", "germany", "netherlands", "scandinavia"],
+    ctaLabelRu: "Написать Emigro Assist",
+    isFirstParty: true,
+  },
   {
     id: "prep2go",
     name: "Prep2Go",
@@ -259,9 +284,10 @@ export function sortProvidersByCategory(providers: ServiceProvider[]): ServicePr
 
 export function filterCompactProviders(providers: ServiceProvider[]): ServiceProvider[] {
   const sorted = sortProvidersByCategory(providers);
+  const assistance = sorted.filter((p) => p.category === "assistance");
   const languageCourses = sorted.filter((p) => p.category === "language_courses");
   const firstRelocation = sorted.find((p) => p.category === "relocation");
-  return firstRelocation ? [...languageCourses, firstRelocation] : languageCourses;
+  return firstRelocation ? [...assistance, ...languageCourses, firstRelocation] : [...assistance, ...languageCourses];
 }
 
 export function groupProvidersByCategory(

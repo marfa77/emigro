@@ -28,6 +28,9 @@ export function ServiceProviderCard({
 }: Props) {
   const examLabel = topicKey ? getExamLabelForTopic(provider, topicKey) : undefined;
   const allExams = provider.examsRu ?? [];
+  const serviceLabel = provider.isFirstParty ? "Сервис Emigro" : "Партнёрский сервис";
+  const linkTarget = provider.isFirstParty ? undefined : "_blank";
+  const linkRel = provider.isFirstParty ? undefined : "noopener noreferrer sponsored";
   const otherExamLabels = topicKey
     ? allExams.filter((exam) => exam.topicKey !== topicKey).map((exam) => exam.label)
     : [];
@@ -45,7 +48,7 @@ export function ServiceProviderCard({
     return (
       <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white px-4 py-3 shadow-sm">
         <div className="min-w-0">
-          <p className="text-xs font-medium uppercase tracking-wide text-slate-500">Партнёрский сервис</p>
+          <p className="text-xs font-medium uppercase tracking-wide text-slate-500">{serviceLabel}</p>
           <p className="mt-0.5 font-semibold text-slate-900">{provider.name}</p>
           {examLabel ? (
             <p className="text-sm font-medium text-corridor-700">Экзамен: {examLabel}</p>
@@ -58,8 +61,8 @@ export function ServiceProviderCard({
         </div>
         <a
           href={provider.url}
-          target="_blank"
-          rel="noopener noreferrer sponsored"
+          target={linkTarget}
+          rel={linkRel}
           onClick={handleClick}
           className="inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-corridor-600 px-4 py-2 text-sm font-medium text-white hover:bg-corridor-700"
         >
@@ -72,7 +75,7 @@ export function ServiceProviderCard({
 
   return (
     <article className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-      <p className="text-xs font-medium uppercase tracking-wide text-slate-500">Партнёрский сервис</p>
+      <p className="text-xs font-medium uppercase tracking-wide text-slate-500">{serviceLabel}</p>
       <h3 className="mt-2 text-lg font-semibold text-slate-900">{provider.name}</h3>
       <p className="mt-1 text-sm font-medium text-corridor-700">{provider.taglineRu}</p>
       {examLabel && (
@@ -95,8 +98,8 @@ export function ServiceProviderCard({
       )}
       <a
         href={provider.url}
-        target="_blank"
-        rel="noopener noreferrer sponsored"
+        target={linkTarget}
+        rel={linkRel}
         onClick={handleClick}
         className="mt-4 inline-flex items-center gap-1.5 rounded-lg bg-corridor-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-corridor-700"
       >

@@ -37,8 +37,8 @@ export function ServiceProvidersSection({
       {variant === "default" && <h2 className="text-2xl font-semibold">{title}</h2>}
       {variant === "default" && (
         <p className="mt-2 max-w-2xl text-sm text-slate-600">
-          Партнёрские сервисы для шагов на маршруте. Emigro не рекомендует и не гарантирует результат — размещение
-          платное.
+          Помощь Emigro и партнёрские сервисы для шагов на маршруте. Emigro не оказывает юридические услуги, не
+          рекомендует провайдеров и не гарантирует результат.
         </p>
       )}
       <div className={variant === "compact" ? "space-y-3" : "mt-6 space-y-8"}>
