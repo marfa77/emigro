@@ -192,8 +192,13 @@ export function buildProgramMetadata(
     ...(topic.seoTags ?? []).slice(0, 3),
   ];
 
-  const base = pageMetadata({ title: seoTitle, description, path });
-  const url = pageUrl(path);
+  const base = pageMetadata({
+    title: seoTitle,
+    description,
+    path,
+    ogImage: countryCardImage(topic.urlSegment),
+    ogImageAlt: `${topic.countryRu}: ${program.title_ru}`,
+  });
   return {
     ...base,
     keywords,
