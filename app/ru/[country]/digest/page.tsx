@@ -1,15 +1,30 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { BookOpen } from "lucide-react";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { CorridorIntelLinks } from "@/components/corridor/CorridorIntelLinks";
+import { ServiceProvidersSection } from "@/components/providers/ServiceProvidersSection";
 import { CorridorBreadcrumb } from "@/components/corridor/CorridorLanding";
+import { DigestSeoSections } from "@/components/corridor/DigestSeoSections";
+import { HeroShell } from "@/components/visuals/HeroShell";
+import { CorridorHeroVisual } from "@/components/visuals/CorridorHeroVisual";
 import { corridorStaticParamsFromSegments, getPublishedCorridorSegments } from "@/lib/corridor/segments";
 import { LatestNewsTeaser } from "@/components/news/LatestNewsTeaser";
 import { getCorridorBySlug } from "@/lib/corridor/queries";
 import { getTopicByCountrySegment } from "@/lib/corridor/resolve-topic";
 import { isCorridorFull, isCorridorOnSite } from "@/lib/corridor/publish";
-import { pageMetadata } from "@/lib/seo";
+import { countryAccentBarClass } from "@/lib/brand/country-accents";
+import {
+  buildBreadcrumbSchema,
+  buildDigestArticleSchema,
+  buildDigestFaq,
+  buildDigestItemListSchema,
+  buildDigestMetadata,
+  buildFaqSchema,
+  digestPagePath,
+} from "@/lib/seo/corridor-page-seo";
+import { SITE_URL } from "@/lib/site-url";
 
 export async function generateStaticParams() {
   const segments = await getPublishedCorridorSegments();
@@ -18,12 +33,8 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: { country: string } }): Promise<Metadata> {
   const topic = await getTopicByCountrySegment(params.country);
-  if (!topic?.sitePaths) return {};
-  return pageMetadata({
-    title: `Справочник коридора — ${topic.countryRu}`,
-    description: `Проверенные факты по ВНЖ, языку и срокам гражданства для русскоязычных в ${topic.countryRu}.`,
-    path: topic.sitePaths.guide!,
-  });
+  if (!topic?.sitePaths?.guide) return {};
+  return buildDigestMetadata(topic);
 }
 
 export default async function CountryDigestPage({ params }: { params: { country: string } }) {
@@ -35,25 +46,61 @@ export default async function CountryDigestPage({ params }: { params: { country:
     return <p className="p-8 text-center">Дайджест недоступен.</p>;
   }
 
+  const base = topic.sitePaths.landing;
+  const path = digestPagePath(topic);
+  const url = `${SITE_URL}${path}`;
+  const faq = buildDigestFaq(topic, corridor);
+  const heroClass = `from-slate-950 via-corridor-800 to-sky-800 bg-gradient-to-br ${countryAccentBarClass(topic.urlSegment)}`;
+
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: "Emigro", item: SITE_URL },
+    { name: topic.countryRu, item: `${SITE_URL}${base}` },
+    { name: "Справочник", item: url },
+  ]);
+  const articleSchema = buildDigestArticleSchema(topic, corridor, url);
+  const itemListSchema = buildDigestItemListSchema(topic, corridor, url);
+  const faqSchema = buildFaqSchema(faq);
+
   return (
     <>
       <SiteHeader />
-      <main className="mx-auto max-w-3xl px-4 py-10">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }} />
+      {faqSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />}
+      <main className="mx-auto max-w-5xl px-4 py-10">
         <CorridorBreadcrumb topic={topic} current="Справочник" />
 
-        <h1 className="mt-4 text-3xl font-bold">Справочник: {topic.countryRu}</h1>
-        <p className="mt-2 text-slate-600">
-          Практические заметки по гражданству, языку и административным шагам — статический intelligence-слой коридора.
-          Актуальные изменения законов — в{" "}
-          <Link href={`/ru/news?country=${topic.key}`} className="text-corridor-600 underline">
-            еженедельных новостях
-          </Link>
-          .
-        </p>
+        <HeroShell visual={<CorridorHeroVisual segment={topic.urlSegment} />} className={heroClass}>
+          <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-sm text-corridor-50">
+            <BookOpen className="h-4 w-4" />
+            Справочник коридора
+          </span>
+          <h1 className="mt-5 max-w-3xl text-4xl font-bold leading-tight sm:text-5xl">
+            Справочник: {topic.countryRu}
+          </h1>
+          <p className="mt-5 max-w-2xl text-lg leading-relaxed text-corridor-100">
+            Практические заметки по гражданству, языку и административным шагам — статический intelligence-слой коридора
+            для паспортов RU/BY/UA/KZ. Актуальные изменения законов — в{" "}
+            <Link href={`/ru/news?country=${topic.key}`} className="font-medium text-white underline">
+              еженедельных новостях
+            </Link>
+            .
+          </p>
+        </HeroShell>
 
         <div className="mt-8">
           <LatestNewsTeaser topicKey={topic.key} />
         </div>
+
+        <DigestSeoSections topic={topic} corridor={corridor} landingPath={base} />
+
+        <ServiceProvidersSection
+          className="mt-10"
+          corridorSlug={topic.corridorSlug}
+          topicKey={topic.key}
+          placement="digest"
+        />
 
         <div className="mt-10 space-y-6">
           {corridor.digest.map((item) => (

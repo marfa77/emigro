@@ -1,9 +1,10 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, BookOpen, Compass, Construction, Newspaper } from "lucide-react";
 import type { NewsTopicConfig } from "@/lib/news/topics";
 import { newsIndexPath } from "@/lib/news/topics";
 import { corridorStatusBadgeClass, corridorStatusLabelRu, isCorridorFull } from "@/lib/corridor/publish";
-import { countryAccentBarClass } from "@/lib/brand/country-accents";
+import { countryAccentBarClass, countryCardImage } from "@/lib/brand/country-accents";
 
 export function DestinationCard({ topic }: { topic: NewsTopicConfig }) {
   const badgeText = corridorStatusLabelRu(topic.status);
@@ -14,10 +15,19 @@ export function DestinationCard({ topic }: { topic: NewsTopicConfig }) {
 
   return (
     <article className="flex h-full flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition hover:border-corridor-400 hover:shadow-md">
-      <div
-        className={`h-1.5 w-full bg-gradient-to-r ${countryAccentBarClass(topic.urlSegment)}`}
-        aria-hidden
-      />
+      <div className="relative h-36 w-full overflow-hidden bg-slate-100">
+        <Image
+          src={countryCardImage(topic.urlSegment)}
+          alt=""
+          fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          className="object-cover"
+        />
+        <div
+          className={`absolute inset-x-0 bottom-0 h-1.5 bg-gradient-to-r ${countryAccentBarClass(topic.urlSegment)}`}
+          aria-hidden
+        />
+      </div>
       <div className="flex flex-1 flex-col p-5">
       <div className="flex items-start justify-between gap-3">
         <div>

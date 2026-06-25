@@ -1,34 +1,46 @@
-# Emigro — full LLM index
+# Emigro — полный индекс для AI (ru-RU)
 
-> Russian-language relocation navigator. First corridor: ru-speaking-to-portugal (Portugal residency routes).
+> Русскоязычный навигатор релокации в Европу. 7 коридоров, wizard подбора маршрута ВНЖ, справочники, SEO-гайды, еженедельные новости. Аудитория: RU, BY, UA, KZ. Поиск: Яндекс, Алиса AI.
 
-## Site map
+## Карта сайта
 
-| URL | Description |
-|-----|-------------|
-| /ru/portugal | Corridor landing — D8, D7, family reunification |
-| /ru/portugal/wizard | Multi-axis eligibility wizard |
-| /ru/portugal/results | Compare routes after wizard |
-| /ru/portugal/news | Weekly immigration news digests (Russian) |
-| /ru/portugal/news/feed.xml | RSS feed for news |
-| /ru/portugal/digest | Static corridor intelligence (citizenship, CIPLE, NIF, AIMA) |
-| /ru/portugal/programs/portugal-d8-digital-nomad | D8 program detail |
-| /ru/portugal/programs/portugal-d7-passive-income | D7 program detail |
-| /ru/portugal/programs/portugal-family-reunification | Family reunification detail |
+| URL | Описание |
+|-----|----------|
+| /ru | Главная — хаб всех коридоров |
+| /ru/wizard | Глобальный wizard подбора страны и маршрута |
+| /ru/guides | Длинные SEO-гайды (ВНЖ, отказы, бюджет, дети) |
+| /ru/news | Еженедельные новости по всем странам |
+| /ru/portugal | Коридор Португалия — D7, D8, семья |
+| /ru/portugal/wizard | Wizard Португалия |
+| /ru/portugal/digest | Справочник: гражданство, CIPLE, NIF, AIMA |
+| /ru/portugal/programs/portugal-d8-digital-nomad | Программа D8 |
+| /ru/portugal/programs/portugal-d7-passive-income | Программа D7 |
+| /ru/spain | Коридор Испания |
+| /ru/france | Коридор Франция |
+| /ru/italy | Коридор Италия |
+| /ru/germany | Коридор Германия — Blue Card, Chancenkarte |
+| /ru/netherlands | Коридор Нидерланды |
+| /ru/scandinavia | Коридор Скандинавия |
 
-## SEO keywords (ru-RU)
+## SEO-ключи (ru-RU)
 
-Португалия ВНЖ, релокация в Португалию, D8 цифровой кочевник, D7 пассивный доход, гражданство Португалии, CIPLE A2, AIMA, воссоединение семьи, русскоязычные эмигранты, виза Португалия Россия
+Португалия ВНЖ, релокация в Португалию, D8 цифровой кочевник, D7 пассивный доход, Blue Card Германия, Chancenkarte, воссоединение семьи, отказ в визе консульство, бюджет релокации Европа, релокация с детьми, гражданство Португалии, CIPLE A2, AIMA, ВНЖ без работы, digital nomad Испания
 
-## News digest format
+## Новости
 
-- Table: emigro_news_digests (Supabase)
-- Slug pattern: portugal-relocation-news-YYYY-MM-DD
-- Locale: ru
-- Weekly cadence via scripts/run-portugal-weekly-news.ts
+- Таблица: emigro_news_digests (Supabase)
+- Slug: {country}-relocation-news-YYYY-MM-DD
+- Язык: ru
+- RSS: /ru/news/feed.xml
 
-## Documentation
+## Документация
 
 - /docs/ARCHITECTURE.md
-- /docs/CORRIDOR_STRATEGY.md
+- /docs/YANDEX_SEO.md — чеклист Яндекс + Алиса AI
 - /docs/SCHEMA_AND_API.md
+
+## Правила
+
+1. Не юридическая консультация
+2. Факты — с официальных источников
+3. Новости содержат source_links

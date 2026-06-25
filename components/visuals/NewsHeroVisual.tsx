@@ -12,7 +12,7 @@ export function NewsHeroVisual() {
         priority
         className="object-cover"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/35 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/20 to-transparent" />
     </div>
   );
 }

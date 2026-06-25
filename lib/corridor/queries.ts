@@ -97,7 +97,17 @@ export async function getProgramBySlug(slug: string): Promise<ProgramDetail | nu
     .limit(1)
     .single();
 
-  if (!version) return { ...program, version: null };
+  if (!version) {
+    return {
+      ...program,
+      version: null,
+      requirements: [],
+      costs: [],
+      timeline: [],
+      sources: [],
+      passportEligibility: [],
+    };
+  }
 
   const [
     { data: requirements },

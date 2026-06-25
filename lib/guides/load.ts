@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import { getGuideCoverPath } from "@/lib/guides/covers";
 
 export type GuideFrontmatter = {
   slug: string;
@@ -14,6 +15,11 @@ export type GuideFrontmatter = {
   date_published?: string;
   date_modified?: string;
   tags?: string[];
+  topic_keys?: string[];
+  corridor_slugs?: string[];
+  cover_image?: string;
+  /** Resolved cover path (frontmatter or slug map). */
+  cover_path: string;
 };
 
 export type GuideArticle = GuideFrontmatter & {
@@ -49,8 +55,36 @@ function parseFrontmatter(raw: string): { meta: Record<string, string | string[]
 
 function inlineMarkdown(text: string): string {
   return text
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-corridor-700 underline">$1</a>')
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-corridor-700 underline hover:text-corridor-900">$1</a>')
     .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+}
+
+function resolveCoverPath(meta: Record<string, string | string[]>, slug: string): string {
+  const coverImage = meta.cover_image ? String(meta.cover_image) : undefined;
+  const corridorSlugs = Array.isArray(meta.corridor_slugs) ? meta.corridor_slugs.map(String) : undefined;
+  return getGuideCoverPath(slug, { coverImage, corridorSlugs });
+}
+
+function mapFrontmatter(meta: Record<string, string | string[]>, slug: string): GuideFrontmatter {
+  const resolvedSlug = String(meta.slug ?? slug);
+  return {
+    slug: resolvedSlug,
+    title: String(meta.title ?? slug),
+    seo_title: meta.seo_title ? String(meta.seo_title) : undefined,
+    seo_description: meta.seo_description ? String(meta.seo_description) : undefined,
+    excerpt: meta.excerpt ? String(meta.excerpt) : undefined,
+    quick_answer: meta.quick_answer ? String(meta.quick_answer) : undefined,
+    cta_primary: meta.cta_primary ? String(meta.cta_primary) : undefined,
+    cta_secondary: meta.cta_secondary ? String(meta.cta_secondary) : undefined,
+    estimated_minutes: meta.estimated_minutes ? Number(meta.estimated_minutes) : undefined,
+    date_published: meta.date_published ? String(meta.date_published) : undefined,
+    date_modified: meta.date_modified ? String(meta.date_modified) : undefined,
+    tags: Array.isArray(meta.tags) ? meta.tags.map(String) : undefined,
+    topic_keys: Array.isArray(meta.topic_keys) ? meta.topic_keys.map(String) : undefined,
+    corridor_slugs: Array.isArray(meta.corridor_slugs) ? meta.corridor_slugs.map(String) : undefined,
+    cover_image: meta.cover_image ? String(meta.cover_image) : undefined,
+    cover_path: resolveCoverPath(meta, resolvedSlug),
+  };
 }
 
 function markdownToHtml(markdown: string): string {
@@ -73,13 +107,28 @@ function markdownToHtml(markdown: string): string {
     }
   };
 
-  for (const line of lines) {
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
     const trimmed = line.trim();
 
     if (!trimmed) {
       closeList();
       closeTable();
       continue;
+    }
+
+    const faqQuestion = trimmed.match(/^\*\*([^*]+)\*\*$/);
+    if (faqQuestion) {
+      closeList();
+      closeTable();
+      const nextLine = lines[i + 1]?.trim();
+      if (nextLine && !nextLine.startsWith("#") && !nextLine.startsWith("|") && !nextLine.startsWith("- ")) {
+        html.push(
+          `<p class="mt-4 text-slate-700 leading-relaxed"><strong>${faqQuestion[1]}</strong> ${inlineMarkdown(nextLine)}</p>`
+        );
+        i++;
+        continue;
+      }
     }
 
     if (trimmed.startsWith("## ")) {
@@ -141,20 +190,7 @@ export function listGuides(): GuideFrontmatter[] {
     .map((file) => {
       const raw = fs.readFileSync(path.join(GUIDES_DIR, file), "utf8");
       const { meta } = parseFrontmatter(raw);
-      return {
-        slug: String(meta.slug ?? file.replace(/\.md$/, "")),
-        title: String(meta.title ?? file),
-        seo_title: meta.seo_title ? String(meta.seo_title) : undefined,
-        seo_description: meta.seo_description ? String(meta.seo_description) : undefined,
-        excerpt: meta.excerpt ? String(meta.excerpt) : undefined,
-        quick_answer: meta.quick_answer ? String(meta.quick_answer) : undefined,
-        cta_primary: meta.cta_primary ? String(meta.cta_primary) : undefined,
-        cta_secondary: meta.cta_secondary ? String(meta.cta_secondary) : undefined,
-        estimated_minutes: meta.estimated_minutes ? Number(meta.estimated_minutes) : undefined,
-        date_published: meta.date_published ? String(meta.date_published) : undefined,
-        date_modified: meta.date_modified ? String(meta.date_modified) : undefined,
-        tags: Array.isArray(meta.tags) ? meta.tags.map(String) : undefined,
-      };
+      return mapFrontmatter(meta, file.replace(/\.md$/, ""));
     })
     .sort((a, b) => a.title.localeCompare(b.title, "ru"));
 }
@@ -167,22 +203,20 @@ export function loadGuide(slug: string): GuideArticle | null {
   const { meta, body } = parseFrontmatter(raw);
 
   return {
-    slug: String(meta.slug ?? slug),
-    title: String(meta.title ?? slug),
-    seo_title: meta.seo_title ? String(meta.seo_title) : undefined,
-    seo_description: meta.seo_description ? String(meta.seo_description) : undefined,
-    excerpt: meta.excerpt ? String(meta.excerpt) : undefined,
-    quick_answer: meta.quick_answer ? String(meta.quick_answer) : undefined,
-    cta_primary: meta.cta_primary ? String(meta.cta_primary) : undefined,
-    cta_secondary: meta.cta_secondary ? String(meta.cta_secondary) : undefined,
-    estimated_minutes: meta.estimated_minutes ? Number(meta.estimated_minutes) : undefined,
-    date_published: meta.date_published ? String(meta.date_published) : undefined,
-    date_modified: meta.date_modified ? String(meta.date_modified) : undefined,
-    tags: Array.isArray(meta.tags) ? meta.tags.map(String) : undefined,
+    ...mapFrontmatter(meta, slug),
     bodyHtml: markdownToHtml(body),
   };
 }
 
 export function guidePath(slug: string): string {
   return `/ru/guides/${slug}`;
+}
+
+export function getRelatedGuides(currentSlug: string, corridorSlugs?: string[], limit = 4): GuideFrontmatter[] {
+  if (!corridorSlugs?.length) return [];
+  const corridors = new Set(corridorSlugs);
+  return listGuides()
+    .filter((guide) => guide.slug !== currentSlug)
+    .filter((guide) => guide.corridor_slugs?.some((c) => corridors.has(c)))
+    .slice(0, limit);
 }

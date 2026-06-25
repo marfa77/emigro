@@ -1,9 +1,9 @@
 import Image from "next/image";
 
-/** Product dashboard visual — generated WebP, not inline SVG. */
+/** Product visual — no gradient overlay on the image (overlay was hiding the mockup). */
 export function HubHeroVisual() {
   return (
-    <div className="relative aspect-[16/10] w-full max-w-[360px] overflow-hidden rounded-3xl border border-white/15 bg-white/10 shadow-2xl">
+    <div className="relative aspect-[16/10] w-full max-w-[360px] overflow-hidden rounded-3xl border-2 border-white/30 bg-white shadow-2xl">
       <Image
         src="/images/emigro-main-hero.webp"
         alt=""
@@ -12,7 +12,6 @@ export function HubHeroVisual() {
         priority
         className="object-cover"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-corridor-950/30 to-transparent" />
     </div>
   );
 }

@@ -59,6 +59,14 @@ export interface ProgramSource {
   label_ru: string | null;
 }
 
+export interface ProgramPassportEligibility {
+  id: string;
+  passport_iso2: string;
+  status: "eligible" | "partial" | "ineligible";
+  notes_en: string | null;
+  notes_ru: string | null;
+}
+
 export interface ProgramDetail {
   id: string;
   slug: string;
@@ -70,6 +78,7 @@ export interface ProgramDetail {
   timeline: ProgramTimelineStep[];
   costs: ProgramCost[];
   sources: ProgramSource[];
+  passportEligibility: ProgramPassportEligibility[];
 }
 
 export interface WizardQuestion {

@@ -1,33 +1,46 @@
 # Emigro
 
-> Corridor-first relocation navigator for Russian-speaking applicants. Hub wizard at /ru/wizard. Seven EU corridors with programs, digest guides, and weekly news at /ru/news.
+> Русскоязычный навигатор релокации в Европу. Wizard подбора маршрута ВНЖ, справочники по 7 коридорам (Португалия, Испания, Франция, Италия, Германия, Нидерланды, Скандинавия), SEO-гайды и еженедельные новости. Основная аудитория — граждане РФ, РБ, UA, KZ. Поисковый фокус: Яндекс и Алиса AI.
 
-## Public pages
+## Основные страницы
 
-- Hub: /ru
-- Global wizard: /ru/wizard
-- SEO guides: /ru/guides
-- Weekly news hub: /ru/news
-- News by country: /ru/news?country=portugal|spain|france|italy|germany|netherlands|scandinavia
-- Corridor landing: /ru/portugal (and spain, france, italy, germany, netherlands, scandinavia)
-- Corridor digest (справочник): /ru/portugal/digest
-- Programs: /ru/portugal/programs/{slug}
+- Хаб: /ru
+- Глобальный wizard: /ru/wizard
+- SEO-гайды (длинные статьи): /ru/guides
+- Новости: /ru/news
+- Новости по стране: /ru/news?country=portugal|spain|france|italy|germany|netherlands|scandinavia
 
-## News destinations (DB-driven)
+## Коридоры (landing → wizard → digest → programs)
 
-Topics loaded from Supabase `emigro_news_topics` via lib/news/topics/queries.ts — not a static registry file.
+- Португалия: /ru/portugal — D7, D8, воссоединение семьи
+- Испания: /ru/spain — digital nomad, non-lucrative
+- Франция: /ru/france — VLS-TS, talent passport
+- Италия: /ru/italy — lavoro subordinato, elective residence
+- Германия: /ru/germany — Blue Card, Chancenkarte
+- Нидерланды: /ru/netherlands — highly skilled migrant
+- Скандинавия: /ru/scandinavia — Швеция, Дания
 
-## Audience & geo
+Пример структуры коридора:
+- Landing: /ru/portugal
+- Wizard: /ru/portugal/wizard
+- Справочник (digest): /ru/portugal/digest
+- Программы: /ru/portugal/programs/{slug}
 
-- Language: Russian (ru-RU)
-- Passports: RU, BY, UA, KZ
-- Active corridors: PT, ES, FR, IT, DE, NL, Scandinavia
+## Ключевые темы (ru-RU)
 
-## For LLM agents
+ВНЖ без работы, цифровой кочевник, пассивный доход, Blue Card, Chancenkarte, воссоединение семьи, отказ в визе, бюджет релокации, релокация с детьми, гражданство Португалии, CIPLE A2, AIMA
 
-- Contributor API guide: /docs/API_CONTRIBUTOR_GUIDE.md
-- Architecture: /docs/ARCHITECTURE.md
-- Schema: /docs/SCHEMA_AND_API.md
+## Аудитория
+
+- Язык: русский (ru-RU)
+- Паспорта: RU, BY, UA, KZ
+- Поиск: Яндекс, Алиса AI (не Google)
+
+## Для AI-агентов
+
+- Полный индекс: /llms-full.txt
+- API contributor guide: /docs/API_CONTRIBUTOR_GUIDE.md
+- Архитектура: /docs/ARCHITECTURE.md
 
 ## API
 
@@ -36,8 +49,8 @@ Topics loaded from Supabase `emigro_news_topics` via lib/news/topics/queries.ts 
 - GET /api/v1/corridors/{slug}
 - POST /api/v1/corridors/{slug}/wizard/sessions
 
-## Rules
+## Правила цитирования
 
-1. Not legal advice — verify with consulate and licensed professionals
-2. Official sources preferred for factual claims
-3. News digests cite source_links with URLs
+1. Не юридическая консультация — направлять к консульству и лицензированным специалистам
+2. Факты — с официальных источников (консульства, миграционные службы)
+3. Новости содержат source_links с URL первоисточников

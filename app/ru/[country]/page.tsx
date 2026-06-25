@@ -15,8 +15,8 @@ export async function generateMetadata({ params }: { params: { country: string }
   const topic = await getTopicByCountrySegment(params.country);
   if (!topic?.sitePaths) return {};
   return pageMetadata({
-    title: `${topic.countryRu} — коридор релокации для русскоязычных`,
-    description: `${topic.focusHintRu}. Wizard подбора, справочник коридора и еженедельные новости.`,
+    title: `${topic.countryRu} — коридор релокации`,
+    description: `${topic.focusHintRu}. Wizard подбора маршрута ВНЖ, справочник коридора с проверенными фактами и еженедельные новости для паспортов RU/BY/UA/KZ.`,
     path: topic.sitePaths.landing,
   });
 }

@@ -22,10 +22,10 @@ export function HeroShell({
         aria-hidden
       />
 
-      <div className={`relative ${visual ? "grid items-center gap-8 lg:grid-cols-[1fr_280px] xl:grid-cols-[1fr_320px]" : ""}`}>
+      <div className={`relative ${visual ? "grid items-center gap-8 md:grid-cols-[1fr_240px] lg:grid-cols-[1fr_280px] xl:grid-cols-[1fr_320px]" : ""}`}>
         <div>{children}</div>
         {visual && (
-          <div className="hidden justify-center lg:flex" aria-hidden>
+          <div className="flex justify-center md:flex" aria-hidden>
             {visual}
           </div>
         )}

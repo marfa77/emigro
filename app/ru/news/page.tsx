@@ -5,9 +5,10 @@ import { NewsCountryNav } from "@/components/news/NewsCountryNav";
 import { NewsDigestCard } from "@/components/news/NewsDigest";
 import { CorridorIntelLinks } from "@/components/corridor/CorridorIntelLinks";
 import { NewsHeroVisual } from "@/components/visuals/NewsHeroVisual";
+import { pageMetadata } from "@/lib/seo";
 import { getPublishedNewsDigests } from "@/lib/news/digests";
 import { getActiveNewsTopics, resolveNewsTopicFromParam } from "@/lib/news/topics";
-import { newsArticleUrl, newsFeedUrl, newsHubUrl } from "@/lib/site-url";
+import { newsArticleUrl, newsFeedUrl, newsHubUrl, SITE_URL } from "@/lib/site-url";
 
 export const revalidate = 3600;
 
@@ -15,45 +16,39 @@ type Props = { searchParams: { country?: string } };
 
 export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
   const topic = await resolveNewsTopicFromParam(searchParams.country);
-  const hubUrl = newsHubUrl(topic?.urlSegment);
   const allTags = (await getActiveNewsTopics()).flatMap((t) => t.seoTags);
 
   if (topic) {
+    const path = `/ru/news?country=${topic.urlSegment}`;
+    const base = pageMetadata({
+      title: `Новости ${topic.countryRu} — ВНЖ и гражданство`,
+      titleAbsolute: true,
+      description: `Еженедельные обзоры по релокации в ${topic.countryRu} для ${topic.audienceRu}: изменения законов, консульства, пороги ВНЖ и практика подачи с проверенными источниками.`,
+      path,
+    });
     return {
-      title: `Новости ${topic.countryRu} для русскоязычных — ВНЖ, гражданство | Emigro`,
-      description: `Еженедельные обзоры по релокации в ${topic.countryRu} для ${topic.audienceRu}.`,
-      alternates: {
-        canonical: hubUrl,
-        languages: { "ru-RU": hubUrl },
-        types: { "application/rss+xml": newsFeedUrl(topic.urlSegment) },
-      },
+      ...base,
       keywords: topic.seoTags,
-      openGraph: {
-        title: `Новости ${topic.countryRu} — Emigro`,
-        description: `Еженедельный дайджест по релокации в ${topic.countryRu}.`,
-        url: hubUrl,
-        locale: "ru_RU",
-        type: "website",
+      alternates: {
+        ...base.alternates,
+        types: { "application/rss+xml": newsFeedUrl(topic.urlSegment) },
       },
     };
   }
 
-  return {
-    title: "Новости релокации в Европу для русскоязычных | Emigro",
+  const base = pageMetadata({
+    title: "Новости релокации в Европу",
+    titleAbsolute: true,
     description:
-      "Еженедельные обзоры по ВНЖ, визам и гражданству в Португалии, Испании, Франции, Италии, Германии, Нидерландах и Скандинавии.",
-    alternates: {
-      canonical: newsHubUrl(),
-      languages: { "ru-RU": newsHubUrl() },
-      types: { "application/rss+xml": newsFeedUrl() },
-    },
+      "Еженедельные обзоры по ВНЖ, визам и гражданству в Португалии, Испании, Франции, Италии, Германии, Нидерландах и Скандинавии для русскоязычных заявителей.",
+    path: "/ru/news",
+  });
+  return {
+    ...base,
     keywords: allTags,
-    openGraph: {
-      title: "Новости релокации — Emigro",
-      description: "Еженедельные дайджесты по европейским направлениям для русскоязычных.",
-      url: newsHubUrl(),
-      locale: "ru_RU",
-      type: "website",
+    alternates: {
+      ...base.alternates,
+      types: { "application/rss+xml": newsFeedUrl() },
     },
   };
 }
@@ -93,7 +88,7 @@ export default async function NewsIndexPage({ searchParams }: Props) {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Emigro", item: newsHubUrl() },
+      { "@type": "ListItem", position: 1, name: "Emigro", item: `${SITE_URL}/ru` },
       { "@type": "ListItem", position: 2, name: "Новости", item: hubUrl },
     ],
   };

@@ -1,15 +1,15 @@
 /** Accent palette for corridor / country hero visuals */
 export const COUNTRY_ACCENTS: Record<
   string,
-  { from: string; to: string; glow: string; label: string }
+  { from: string; to: string; glow: string; label: string; cardImage: string }
 > = {
-  portugal: { from: "#1d4ed8", to: "#0f766e", glow: "#2dd4bf", label: "Португалия" },
-  spain: { from: "#dc2626", to: "#b45309", glow: "#fbbf24", label: "Испания" },
-  france: { from: "#1d4ed8", to: "#7c3aed", glow: "#93c5fd", label: "Франция" },
-  italy: { from: "#15803d", to: "#b91c1c", glow: "#86efac", label: "Италия" },
-  germany: { from: "#1e293b", to: "#b45309", glow: "#fcd34d", label: "Германия" },
-  netherlands: { from: "#ea580c", to: "#1d4ed8", glow: "#fdba74", label: "Нидерланды" },
-  scandinavia: { from: "#0369a1", to: "#1e3a8a", glow: "#7dd3fc", label: "Скандинавия" },
+  portugal: { from: "#1d4ed8", to: "#0f766e", glow: "#2dd4bf", label: "Португалия", cardImage: "/images/corridor-portugal.webp" },
+  spain: { from: "#dc2626", to: "#b45309", glow: "#fbbf24", label: "Испания", cardImage: "/images/corridor-spain.webp" },
+  france: { from: "#1d4ed8", to: "#7c3aed", glow: "#93c5fd", label: "Франция", cardImage: "/images/corridor-france.webp" },
+  italy: { from: "#15803d", to: "#b91c1c", glow: "#86efac", label: "Италия", cardImage: "/images/corridor-italy.webp" },
+  germany: { from: "#1e293b", to: "#b45309", glow: "#fcd34d", label: "Германия", cardImage: "/images/corridor-germany.webp" },
+  netherlands: { from: "#ea580c", to: "#1d4ed8", glow: "#fdba74", label: "Нидерланды", cardImage: "/images/corridor-netherlands.webp" },
+  scandinavia: { from: "#0369a1", to: "#1e3a8a", glow: "#7dd3fc", label: "Скандинавия", cardImage: "/images/corridor-scandinavia.webp" },
 };
 
 export const HUB_ACCENT = { from: "#1d4ed8", to: "#1e3a5f", glow: "#60a5fa" };
@@ -34,4 +34,9 @@ const BAR_CLASSES: Record<string, string> = {
 export function countryAccentBarClass(segment?: string) {
   if (!segment) return DEFAULT_BAR;
   return BAR_CLASSES[segment] ?? DEFAULT_BAR;
+}
+
+export function countryCardImage(segment?: string) {
+  if (!segment) return "/images/emigro-main-hero.webp";
+  return COUNTRY_ACCENTS[segment]?.cardImage ?? "/images/emigro-main-hero.webp";
 }

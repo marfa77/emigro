@@ -8,12 +8,15 @@ import { CorridorIntelLinks } from "@/components/corridor/CorridorIntelLinks";
 import { NewsArticleBody } from "@/components/news/NewsDigest";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { NewsHeroVisual } from "@/components/visuals/NewsHeroVisual";
+import { countryCardImage } from "@/lib/brand/country-accents";
 import {
   getNewsDisplaySeoTitle,
   getNewsDisplayTitle,
   getPublishedNewsDigestBySlug,
 } from "@/lib/news/digests";
 import { getNewsTopic, newsIndexPath } from "@/lib/news/topics";
+import { DEFAULT_OG_IMAGE, fitMetaDescription, fitSeoTitleAbsolute, hreflangAlternates } from "@/lib/seo";
+import { EMIGRO_PUBLISHER, emigroAuthorOrg, schemaImage } from "@/lib/seo/schema";
 import { newsArticleUrl, newsHubUrl, SITE_URL } from "@/lib/site-url";
 
 type Props = { params: { slug: string } };
@@ -33,27 +36,36 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const digest = await getPublishedNewsDigestBySlug(params.slug);
   if (!digest) return {};
 
+  const topic = await getNewsTopic(digest.topic_key);
   const url = newsArticleUrl(digest.slug);
-  const title = getNewsDisplaySeoTitle(digest);
+  const title = fitSeoTitleAbsolute(getNewsDisplaySeoTitle(digest));
+  const description = fitMetaDescription(digest.seo_description || digest.excerpt);
+  const ogImage = topic?.urlSegment
+    ? schemaImage(countryCardImage(topic.urlSegment))
+    : DEFAULT_OG_IMAGE;
 
   return {
-    title,
-    description: digest.seo_description,
-    alternates: { canonical: url, languages: { "ru-RU": url } },
+    title: { absolute: title },
+    description,
+    alternates: hreflangAlternates(`/ru/news/${digest.slug}`),
     keywords: digest.tags,
     openGraph: {
       title,
-      description: digest.seo_description,
+      description,
       url,
+      siteName: "Emigro",
       locale: "ru_RU",
       type: "article",
       publishedTime: digest.published_at,
+      modifiedTime: digest.updated_at,
       tags: digest.tags,
+      images: [{ url: ogImage, width: 1200, height: 630, alt: title }],
     },
     twitter: {
       card: "summary_large_image",
       title,
-      description: digest.seo_description,
+      description,
+      images: [ogImage],
     },
   };
 }
@@ -68,6 +80,10 @@ export default async function NewsArticlePage({ params }: Props) {
   const displayTitle = getNewsDisplayTitle(digest);
   const backHref = topic ? newsIndexPath(topic.urlSegment) : newsIndexPath();
 
+  const newsImage = topic?.urlSegment
+    ? schemaImage(countryCardImage(topic.urlSegment))
+    : DEFAULT_OG_IMAGE;
+
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "NewsArticle",
@@ -76,18 +92,16 @@ export default async function NewsArticlePage({ params }: Props) {
     inLanguage: "ru-RU",
     datePublished: digest.published_at,
     dateModified: digest.updated_at,
-    author: { "@type": "Organization", name: "Emigro", url: SITE_URL },
-    publisher: { "@type": "Organization", name: "Emigro", url: SITE_URL },
-    mainEntityOfPage: url,
+    author: emigroAuthorOrg(),
+    publisher: EMIGRO_PUBLISHER,
+    mainEntityOfPage: { "@type": "WebPage", "@id": url },
+    image: [newsImage],
     articleSection: `Релокация в ${digest.country}`,
     keywords: digest.tags.join(", "),
     about: digest.tags.map((tag) => ({ "@type": "Thing", name: tag })),
-    citation: digest.source_links.map((s) => s.url),
-    audience: {
-      "@type": "Audience",
-      audienceType: topic?.audienceRu ?? "Russian-speaking relocation applicants",
-      geographicArea: { "@type": "Country", name: topic?.countryEn ?? digest.country },
-    },
+    ...(digest.source_links.length > 0
+      ? { citation: digest.source_links.map((s) => s.url) }
+      : {}),
   };
 
   const breadcrumbSchema = {
@@ -156,7 +170,7 @@ export default async function NewsArticlePage({ params }: Props) {
             <NewsArticleBody digest={digest} />
 
             <aside className="space-y-4 lg:sticky lg:top-24 lg:self-start">
-              {topic && <CorridorIntelLinks topic={topic} />}
+              {topic && <CorridorIntelLinks topic={topic} layout="stack" />}
               <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
                 <h2 className="font-semibold text-slate-900">Что дальше</h2>
                 <p className="mt-2 text-sm leading-relaxed text-slate-600">

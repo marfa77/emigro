@@ -5,8 +5,11 @@ import type { Metadata } from "next";
 import { BookOpen, Clock, Compass, Sparkles } from "lucide-react";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { HeroShell } from "@/components/visuals/HeroShell";
-import { guidePath, listGuides, loadGuide } from "@/lib/guides/load";
-import { pageMetadata } from "@/lib/seo";
+import { ServiceProvidersSection } from "@/components/providers/ServiceProvidersSection";
+import { guidePath, getRelatedGuides, listGuides, loadGuide } from "@/lib/guides/load";
+import { corridorSlugForTopic, findFirstProviderTopicKey } from "@/lib/providers/registry";
+import { pageMetadata, pageUrl } from "@/lib/seo";
+import { EMIGRO_PUBLISHER, emigroAuthorOrg, schemaImage } from "@/lib/seo/schema";
 import { SITE_URL } from "@/lib/site-url";
 
 export function generateStaticParams() {
@@ -18,22 +21,27 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   if (!guide) return {};
   const metadata = pageMetadata({
     title: guide.seo_title ?? guide.title,
-    description: guide.seo_description ?? guide.excerpt ?? guide.title,
+    description: guide.seo_description ?? guide.excerpt ?? guide.quick_answer ?? guide.title,
     path: guidePath(guide.slug),
+    ogImage: schemaImage(guide.cover_path),
   });
-  const url = `${SITE_URL}${guidePath(guide.slug)}`;
   return {
     ...metadata,
     keywords: guide.tags,
-    alternates: { canonical: url, languages: { "ru-RU": url } },
+    openGraph: {
+      ...metadata.openGraph,
+      type: "article",
+      publishedTime: guide.date_published,
+      modifiedTime: guide.date_modified ?? guide.date_published,
+    },
   };
 }
 
-function GuideHeroVisual() {
+function GuideHeroVisual({ coverPath, title }: { coverPath: string; title: string }) {
   return (
     <div className="relative aspect-[16/10] w-full max-w-[360px] overflow-hidden rounded-3xl border border-white/15 bg-white/10 shadow-2xl" aria-hidden>
       <Image
-        src="/images/emigro-guide-passive-income.webp"
+        src={coverPath}
         alt=""
         fill
         sizes="360px"
@@ -44,6 +52,7 @@ function GuideHeroVisual() {
       <div className="absolute right-4 top-4 rounded-full bg-amber-300 px-3 py-1 text-xs font-bold text-slate-950">
         2026
       </div>
+      <span className="sr-only">{title}</span>
     </div>
   );
 }
@@ -59,11 +68,28 @@ function stripHtml(html: string) {
   return html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
 }
 
+function wizardHrefWithInterest(href: string, topicKeys?: string[]): string {
+  const primaryKey = topicKeys?.[0];
+  if (!primaryKey || !href.includes("/wizard")) return href;
+
+  const [path, query = ""] = href.split("?");
+  const params = new URLSearchParams(query);
+  if (!params.has("interest")) {
+    params.set("interest", primaryKey);
+  }
+  const qs = params.toString();
+  return qs ? `${path}?${qs}` : path;
+}
+
 function extractFaq(bodyHtml: string) {
   const faqSection = /<h2[^>]*>\s*FAQ\s*<\/h2>([\s\S]*?)(?=<h2|$)/i.exec(bodyHtml)?.[1] ?? "";
-  const matches = Array.from(
+  const combined = Array.from(
+    faqSection.matchAll(/<p[^>]*>\s*<strong>(.*?)<\/strong>\s+([\s\S]*?)<\/p>/g)
+  );
+  const split = Array.from(
     faqSection.matchAll(/<p[^>]*>\s*<strong>(.*?)<\/strong>\s*<\/p>\s*<p[^>]*>(.*?)<\/p>/g)
   );
+  const matches = combined.length > 0 ? combined : split;
   return matches
     .map((match) => ({
       question: stripHtml(match[1] ?? ""),
@@ -76,6 +102,8 @@ function extractFaq(bodyHtml: string) {
 export default function GuideArticlePage({ params }: { params: { slug: string } }) {
   const guide = loadGuide(params.slug);
   if (!guide) notFound();
+  const relatedGuides = getRelatedGuides(guide.slug, guide.corridor_slugs);
+  const providerTopicKey = findFirstProviderTopicKey(guide.topic_keys ?? []);
   const toc = extractToc(guide.bodyHtml);
   const faqItems = extractFaq(guide.bodyHtml);
   const url = `${SITE_URL}${guidePath(guide.slug)}`;
@@ -84,14 +112,15 @@ export default function GuideArticlePage({ params }: { params: { slug: string } 
     "@context": "https://schema.org",
     "@type": "Article",
     headline: guide.title,
-    description: guide.excerpt,
+    description: guide.excerpt ?? guide.quick_answer,
     datePublished: guide.date_published,
     dateModified: guide.date_modified ?? guide.date_published,
-    author: { "@type": "Organization", name: "Emigro" },
-    publisher: { "@type": "Organization", name: "Emigro", url: SITE_URL },
-    mainEntityOfPage: url,
-    image: `${SITE_URL}/images/emigro-guide-passive-income.webp`,
-    keywords: guide.tags?.join(", "),
+    author: emigroAuthorOrg(),
+    publisher: EMIGRO_PUBLISHER,
+    mainEntityOfPage: { "@type": "WebPage", "@id": url },
+    image: schemaImage(guide.cover_path),
+    inLanguage: "ru-RU",
+    ...(guide.tags?.length ? { keywords: guide.tags.join(", ") } : {}),
   };
 
   const breadcrumbSchema = {
@@ -134,7 +163,7 @@ export default function GuideArticlePage({ params }: { params: { slug: string } 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       {faqSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />}
       <main className="mx-auto max-w-6xl px-4 py-10">
-        <HeroShell visual={<GuideHeroVisual />} className="from-slate-950 via-corridor-800 to-sky-800">
+        <HeroShell visual={<GuideHeroVisual coverPath={guide.cover_path} title={guide.title} />} className="from-slate-950 via-corridor-800 to-sky-800">
           <Link href="/ru/guides" className="text-sm font-medium text-corridor-100 hover:text-white">
             ← Все гайды
           </Link>
@@ -185,6 +214,22 @@ export default function GuideArticlePage({ params }: { params: { slug: string } 
               className="prose prose-slate mt-8 max-w-none rounded-2xl border border-slate-200 bg-white p-6 shadow-sm prose-h2:border-t prose-h2:border-slate-100 prose-h2:pt-8 prose-table:text-sm sm:p-8"
               dangerouslySetInnerHTML={{ __html: guide.bodyHtml }}
             />
+
+            {relatedGuides.length > 0 && (
+              <section className="mt-8 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+                <h2 className="text-xl font-semibold text-slate-900">Читайте также</h2>
+                <ul className="mt-4 space-y-3">
+                  {relatedGuides.map((related) => (
+                    <li key={related.slug}>
+                      <Link href={guidePath(related.slug)} className="font-medium text-corridor-700 hover:underline">
+                        {related.title}
+                      </Link>
+                      {related.excerpt && <p className="mt-1 text-sm text-slate-600">{related.excerpt}</p>}
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
           </div>
 
           <aside className="space-y-4 lg:sticky lg:top-24 lg:self-start">
@@ -213,7 +258,7 @@ export default function GuideArticlePage({ params }: { params: { slug: string } 
               <div className="mt-5 flex flex-col gap-3">
                 {guide.cta_primary && (
                   <Link
-                    href={guide.cta_primary}
+                    href={wizardHrefWithInterest(guide.cta_primary, guide.topic_keys)}
                     className="rounded-lg bg-corridor-600 px-5 py-3 text-center font-medium text-white hover:bg-corridor-700"
                   >
                     Подобрать маршрут
@@ -229,6 +274,15 @@ export default function GuideArticlePage({ params }: { params: { slug: string } 
                 )}
               </div>
             </section>
+
+            {providerTopicKey && (
+              <ServiceProvidersSection
+                corridorSlug={corridorSlugForTopic(providerTopicKey)}
+                topicKey={providerTopicKey}
+                placement="guide_sidebar"
+                title="Сервисы на маршруте"
+              />
+            )}
           </aside>
         </div>
       </main>

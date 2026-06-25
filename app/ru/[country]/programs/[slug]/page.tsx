@@ -3,11 +3,22 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { CorridorIntelLinks } from "@/components/corridor/CorridorIntelLinks";
+import { CorridorBreadcrumb } from "@/components/corridor/CorridorLanding";
+import { ProgramSeoSections } from "@/components/corridor/ProgramSeoSections";
 import { ProgramTypeBadge } from "@/components/visuals/ProgramTypeBadge";
 import { getProgramBySlug, getCorridorBySlug } from "@/lib/corridor/queries";
 import { getTopicByCountrySegment } from "@/lib/corridor/resolve-topic";
 import { isCorridorFull } from "@/lib/corridor/publish";
-import { pageMetadata } from "@/lib/seo";
+import {
+  buildBreadcrumbSchema,
+  buildFaqSchema,
+  buildProgramArticleSchema,
+  buildProgramFaq,
+  buildProgramHowToSchema,
+  buildProgramMetadata,
+  programPagePath,
+} from "@/lib/seo/corridor-page-seo";
+import { SITE_URL } from "@/lib/site-url";
 
 export async function generateMetadata({
   params,
@@ -17,11 +28,7 @@ export async function generateMetadata({
   const program = await getProgramBySlug(params.slug);
   const topic = await getTopicByCountrySegment(params.country);
   if (!program || !topic?.sitePaths) return {};
-  return pageMetadata({
-    title: program.title_ru,
-    description: program.summary_ru,
-    path: `${topic.sitePaths.landing}/programs/${program.slug}`,
-  });
+  return buildProgramMetadata(program, topic);
 }
 
 export default async function CountryProgramPage({
@@ -39,19 +46,38 @@ export default async function CountryProgramPage({
   if (!corridor?.programs.some((p) => p.slug === program.slug)) notFound();
 
   const base = topic.sitePaths.landing;
+  const path = programPagePath(topic, program.slug);
+  const url = `${SITE_URL}${path}`;
+  const faq = buildProgramFaq(program, topic);
+
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: "Emigro", item: SITE_URL },
+    { name: topic.countryRu, item: `${SITE_URL}${base}` },
+    { name: program.title_ru, item: url },
+  ]);
+  const articleSchema = buildProgramArticleSchema(program, topic, url);
+  const howToSchema = buildProgramHowToSchema(program, topic, url);
+  const faqSchema = buildFaqSchema(faq);
 
   return (
     <>
       <SiteHeader />
-      <main className="mx-auto max-w-3xl px-4 py-10">
-        <Link href={base} className="text-sm text-corridor-600 hover:underline">
-          ← Коридор {topic.countryRu}
-        </Link>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+      {howToSchema && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
+      )}
+      {faqSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />}
+      <main className="mx-auto max-w-4xl px-4 py-10">
+        <CorridorBreadcrumb topic={topic} current={program.title_ru} />
+
         <div className="mt-4">
           <ProgramTypeBadge type={program.program_type} />
         </div>
-        <h1 className="mt-2 text-3xl font-bold">{program.title_ru}</h1>
-        <p className="mt-4 text-slate-600">{program.summary_ru}</p>
+        <h1 className="mt-2 text-3xl font-bold sm:text-4xl">{program.title_ru}</h1>
+        <p className="mt-4 text-lg text-slate-600">{program.summary_ru}</p>
+
+        <ProgramSeoSections program={program} topic={topic} landingPath={base} />
 
         <section className="mt-10">
           <h2 className="text-xl font-semibold">Требования</h2>
@@ -94,7 +120,7 @@ export default async function CountryProgramPage({
         </section>
 
         <section className="mt-10">
-          <h2 className="text-xl font-semibold">Источники</h2>
+          <h2 className="text-xl font-semibold">Официальные источники</h2>
           <div className="mt-4 space-y-4">
             {program.sources.map((s) => (
               <blockquote key={s.id} className="rounded-lg border-l-4 border-corridor-500 bg-slate-50 p-4 text-sm">
@@ -111,11 +137,19 @@ export default async function CountryProgramPage({
         </section>
 
         <div className="mt-10 flex flex-wrap gap-3">
+          {topic.sitePaths.wizard && (
+            <Link
+              href={topic.sitePaths.wizard}
+              className="inline-block rounded-lg bg-corridor-600 px-5 py-3 font-medium text-white hover:bg-corridor-700"
+            >
+              Проверить подходит ли вам маршрут
+            </Link>
+          )}
           <Link
-            href={topic.sitePaths.wizard!}
-            className="inline-block rounded-lg bg-corridor-600 px-5 py-3 font-medium text-white hover:bg-corridor-700"
+            href={base}
+            className="inline-block rounded-lg border border-corridor-200 bg-white px-5 py-3 font-medium text-slate-700 hover:border-corridor-400"
           >
-            Проверить подходит ли вам маршрут
+            Коридор {topic.countryRu}
           </Link>
         </div>
 

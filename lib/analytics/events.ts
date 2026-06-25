@@ -5,12 +5,16 @@ export type EmigroEventName =
   | "wizard_step"
   | "wizard_completed"
   | "wizard_error"
+  | "wizard_cta_click"
+  | "wizard_results_view"
+  | "wizard_results_click"
   | "hub_wizard_completed"
   | "lead_submitted"
   | "lead_error"
   | "news_article_view"
   | "news_source_click"
   | "corridor_link_click"
+  | "provider_click"
   | "cron_weekly_news"
   | "cron_weekly_news_error";
 

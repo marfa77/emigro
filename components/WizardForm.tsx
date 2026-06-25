@@ -38,8 +38,20 @@ export function WizardForm({
   useEffect(() => {
     if (startedRef.current) return;
     startedRef.current = true;
-    trackEvent("wizard_started", { corridor_slug: scope, wizard_id: wizardId });
-  }, [scope, wizardId]);
+
+    const search = typeof window !== "undefined" ? window.location.search : "";
+    const interest = new URLSearchParams(search).get("interest");
+
+    trackEvent("wizard_started", {
+      corridor_slug: scope,
+      wizard_id: wizardId,
+      wizard_mode: mode,
+      locale: "ru",
+      page_path: typeof window !== "undefined" ? window.location.pathname + window.location.search : "",
+      referer: typeof document !== "undefined" ? document.referrer : "",
+      ...(interest ? { interest_countries: interest } : {}),
+    });
+  }, [scope, wizardId, mode]);
 
   function setAnswer(key: string, value: string) {
     setAnswers((prev) => ({ ...prev, [key]: value }));

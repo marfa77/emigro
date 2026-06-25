@@ -3,12 +3,14 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { LeadForm } from "@/components/LeadForm";
+import { ServiceProvidersSection } from "@/components/providers/ServiceProvidersSection";
 import { HouseholdBanner } from "@/components/wizard/HouseholdBanner";
 import { WizardOutcomeCard } from "@/components/wizard/WizardOutcomeCard";
 import { corridorWizardPath } from "@/lib/corridor/paths";
 import { getCorridorBySlug } from "@/lib/corridor/queries";
 import { describeHousehold, parseHousehold } from "@/lib/engine/household";
 import { getTopicByCountrySegment } from "@/lib/corridor/resolve-topic";
+import { getProvidersForContext } from "@/lib/providers/registry";
 import { isCorridorFull } from "@/lib/corridor/publish";
 import { createServerClient } from "@/lib/supabase/server";
 import { pageMetadata } from "@/lib/seo";
@@ -107,6 +109,16 @@ export default async function CountryResultsPage({
         <p className="mt-2 text-slate-600">Сравнение по ответам wizard. Не юридическая оценка.</p>
 
         <HouseholdBanner household={household} />
+
+        {getProvidersForContext({ corridorSlug, topicKey: topic.key }).length > 0 && (
+          <ServiceProvidersSection
+            className="mt-8"
+            corridorSlug={corridorSlug}
+            topicKey={topic.key}
+            placement="wizard_corridor_results"
+            variant="compact"
+          />
+        )}
 
         <div className="mt-8 grid gap-4 lg:grid-cols-2">
           {results.map((row) => {

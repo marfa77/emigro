@@ -1,11 +1,12 @@
 import { NextResponse } from "next/server";
 import { trackServerEvent } from "@/lib/analytics/server";
-import { getCorridorBySlug } from "@/lib/corridor/queries";
+import { getCorridorBySlug, getWizardForCorridor } from "@/lib/corridor/queries";
 import { createServerClient } from "@/lib/supabase/server";
 import { runEvaluation } from "@/lib/engine/run-evaluation";
+import { notifyWizardCompleted, buildWizardContext } from "@/lib/wizard/notify-owner";
 
 export async function POST(
-  _request: Request,
+  request: Request,
   { params }: { params: { slug: string; sessionId: string } }
 ) {
   const corridor = await getCorridorBySlug(params.slug);
@@ -30,11 +31,28 @@ export async function POST(
     session.answers as Record<string, unknown>
   );
 
+  const wizard = await getWizardForCorridor(corridor.id);
+
   await trackServerEvent("wizard_completed", {
     corridor_slug: params.slug,
+    wizard_mode: "corridor",
     session_id: session.id,
-    programs_evaluated: results.length,
+    programs_evaluated: String(results.length),
     top_outcome: results[0]?.outcome ?? "none",
+  });
+
+  void notifyWizardCompleted({
+    mode: "corridor",
+    sessionId: session.id,
+    corridorSlug: params.slug,
+    corridorTitleRu: corridor.title_ru,
+    answers: session.answers as Record<string, unknown>,
+    modules: wizard?.modules,
+    corridorResults: results.slice(0, 5).map((r) => ({
+      slug: r.programSlug,
+      outcome: r.outcome,
+    })),
+    ctx: buildWizardContext(request, { corridor_slug: params.slug }),
   });
 
   return NextResponse.json({ session_id: session.id, results });

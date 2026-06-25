@@ -8,9 +8,11 @@ type Props = {
   topic: NewsTopicConfig;
   /** compact = inline links row; full = explanatory cards */
   variant?: "full" | "compact";
+  /** stack = single column (sidebar); grid = multi-column when space allows */
+  layout?: "stack" | "grid";
 };
 
-export function CorridorIntelLinks({ topic, variant = "full" }: Props) {
+export function CorridorIntelLinks({ topic, variant = "full", layout = "grid" }: Props) {
   const newsHref = newsIndexPath(topic.urlSegment);
   const paths = topic.sitePaths;
 
@@ -33,6 +35,10 @@ export function CorridorIntelLinks({ topic, variant = "full" }: Props) {
         <span className="text-slate-300">·</span>
         <Link href={newsHref} className="text-corridor-600 hover:underline">
           Новости
+        </Link>
+        <span className="text-slate-300">·</span>
+        <Link href="/ru/guides" className="text-corridor-600 hover:underline">
+          Гайды
         </Link>
         {paths?.wizard && isCorridorFull(topic.status) && (
           <>
@@ -62,7 +68,26 @@ export function CorridorIntelLinks({ topic, variant = "full" }: Props) {
         </div>
       </div>
 
-      <div className={`mt-5 grid gap-3 ${paths ? "md:grid-cols-3" : "md:grid-cols-2"}`}>
+      <div
+        className={`mt-5 grid gap-3 ${
+          layout === "stack"
+            ? "grid-cols-1"
+            : paths
+              ? "grid-cols-1 sm:grid-cols-2 xl:grid-cols-3"
+              : "grid-cols-1 sm:grid-cols-2"
+        }`}
+      >
+        {paths?.landing && (
+          <Link
+            href={paths.landing}
+            className="group rounded-lg border border-slate-200 bg-white p-4 transition hover:border-corridor-400 hover:shadow-sm"
+          >
+            <Compass className="h-5 w-5 text-corridor-600" />
+            <p className="mt-2 font-medium text-slate-900 group-hover:text-corridor-700">Коридор {topic.countryRu}</p>
+            <p className="mt-1 text-sm text-slate-600">Программы ВНЖ, wizard и обзор маршрутов коридора.</p>
+          </Link>
+        )}
+
         {paths?.guide && (
           <Link
             href={paths.guide}
@@ -99,6 +124,15 @@ export function CorridorIntelLinks({ topic, variant = "full" }: Props) {
             </p>
           </Link>
         )}
+
+        <Link
+          href="/ru/guides"
+          className="group rounded-lg border border-slate-200 bg-white p-4 transition hover:border-corridor-400 hover:shadow-sm"
+        >
+          <BookOpen className="h-5 w-5 text-corridor-600" />
+          <p className="mt-2 font-medium text-slate-900 group-hover:text-corridor-700">Гайды Emigro</p>
+          <p className="mt-1 text-sm text-slate-600">Pillar-разборы: digital nomad, семья, отказы, бюджет.</p>
+        </Link>
       </div>
 
       {topic.status === "in_development" && (

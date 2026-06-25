@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Globe2, Newspaper } from "lucide-react";
+import { BookOpen, Globe2, Newspaper } from "lucide-react";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { DestinationCard } from "@/components/destinations/DestinationCard";
 import { HeroShell } from "@/components/visuals/HeroShell";
@@ -8,26 +8,23 @@ import { HubHeroVisual } from "@/components/visuals/HubHeroVisual";
 import { ProductLevelCards } from "@/components/visuals/ProductLevelCards";
 import { getActiveNewsTopics, newsIndexPath } from "@/lib/news/topics";
 import { HUB_WIZARD_PATH } from "@/lib/corridor/paths";
+import { guidePath, listGuides } from "@/lib/guides/load";
+import { pageMetadata } from "@/lib/seo";
 import { SITE_URL } from "@/lib/site-url";
 
 export const revalidate = 3600;
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Emigro — релокация в Европу для русскоязычных",
+  titleAbsolute: true,
   description:
-    "Навигатор по ВНЖ и гражданству: европейские коридоры для русскоязычных — wizard, справочник и маршруты.",
-  alternates: { canonical: `${SITE_URL}/ru` },
-  openGraph: {
-    title: "Emigro — направления релокации",
-    description: "Европейские направления для русскоязычных заявителей: wizard и коридоры ВНЖ.",
-    url: `${SITE_URL}/ru`,
-    locale: "ru_RU",
-    type: "website",
-  },
-};
+    "Навигатор по ВНЖ и гражданству: европейские коридоры для русскоязычных — wizard подбора, справочники программ и еженедельные новости с источниками.",
+  path: "/ru",
+});
 
 export default async function RuHubPage() {
   const topics = await getActiveNewsTopics();
+  const featuredGuides = listGuides().slice(0, 4);
   const destinationCount = topics.length;
   const fullCorridors = topics.filter((t) => t.status === "active" && t.sitePaths);
   const developingCorridors = topics.filter((t) => t.status === "in_development" && t.sitePaths);
@@ -73,6 +70,13 @@ export default async function RuHubPage() {
             >
               <Newspaper className="h-5 w-5" />
               Все новости
+            </Link>
+            <Link
+              href="/ru/guides"
+              className="inline-flex items-center gap-2 rounded-lg border border-white/40 px-5 py-3 font-medium text-white hover:bg-white/10"
+            >
+              <BookOpen className="h-5 w-5" />
+              Гайды по ВНЖ
             </Link>
             {fullCorridors[0]?.sitePaths?.wizard && fullCorridors[0].key !== "portugal" && (
               <Link
@@ -130,6 +134,34 @@ export default async function RuHubPage() {
             </>
           )}
         </section>
+
+        {featuredGuides.length > 0 && (
+          <section className="mt-14">
+            <h2 className="text-2xl font-semibold text-slate-900">Гайды по релокации</h2>
+            <p className="mt-2 max-w-2xl text-slate-600">
+              Практические разборы: digital nomad, семья, отказы в визах, бюджет и выбор страны — с переходом в{" "}
+              <Link href="/ru/wizard" className="text-corridor-600 hover:underline">
+                hub wizard
+              </Link>
+              .
+            </p>
+            <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+              {featuredGuides.map((guide) => (
+                <li key={guide.slug}>
+                  <Link
+                    href={guidePath(guide.slug)}
+                    className="block rounded-xl border border-slate-200 bg-white px-5 py-4 text-slate-800 transition hover:border-corridor-400 hover:shadow-sm"
+                  >
+                    {guide.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <Link href="/ru/guides" className="mt-4 inline-block text-sm font-medium text-corridor-600 hover:underline">
+              Все гайды →
+            </Link>
+          </section>
+        )}
 
         <section className="mt-14 rounded-xl border border-slate-200 bg-white p-6">
           <h2 className="font-semibold text-slate-900">Три уровня продукта</h2>

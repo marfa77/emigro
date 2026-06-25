@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { Construction } from "lucide-react";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
+import { CorridorIntelLinks } from "@/components/corridor/CorridorIntelLinks";
 import { GuideDigestPreview } from "@/components/corridor/GuideDigestPreview";
 import { LatestNewsTeaser } from "@/components/news/LatestNewsTeaser";
+import { ServiceProvidersSection } from "@/components/providers/ServiceProvidersSection";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { CorridorHeroVisual } from "@/components/visuals/CorridorHeroVisual";
 import { ProgramTypeBadge } from "@/components/visuals/ProgramTypeBadge";
@@ -83,7 +85,7 @@ export async function CorridorLanding({ country }: { country: string }) {
         </HeroShell>
 
         {corridor.programs.length > 0 && (
-          <section className="mt-12">
+          <section id="programs" className="mt-12">
             <h2 className="text-2xl font-semibold">Маршруты в коридоре</h2>
             {!isFull && (
               <p className="mt-2 text-sm text-slate-500">Карточки программ — превью; wizard и детальные страницы после запуска.</p>
@@ -137,23 +139,33 @@ export async function CorridorLanding({ country }: { country: string }) {
           </div>
         </section>
 
-        <section className="mt-12 rounded-xl border border-slate-200 bg-white p-6">
-          <h2 className="text-xl font-semibold">Паспорта в коридоре</h2>
-          <ul className="mt-4 flex flex-wrap gap-2">
-            {corridor.passports.map((p) => (
-              <li
-                key={p.passport_iso2}
-                className={`rounded-full px-3 py-1 text-sm ${
-                  p.support_level === "primary"
-                    ? "bg-corridor-100 text-corridor-800"
-                    : "bg-slate-100 text-slate-700"
-                }`}
-              >
-                {p.passport_iso2}
-                {p.support_level === "primary" ? " (основной)" : ""}
-              </li>
-            ))}
-          </ul>
+        <ServiceProvidersSection
+          className="mt-12"
+          corridorSlug={topic.corridorSlug ?? undefined}
+          topicKey={topic.key}
+          placement="corridor_landing"
+        />
+
+        <div className="mt-12">
+          <CorridorIntelLinks topic={topic} />
+        </div>
+
+        <section className="mt-8 rounded-xl border border-slate-200 bg-white p-5">
+          <h2 className="font-semibold text-slate-900">Другие разделы Emigro</h2>
+          <nav className="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-sm">
+            <Link href="/ru" className="text-corridor-600 hover:underline">
+              Все направления
+            </Link>
+            <Link href="/ru/wizard" className="text-corridor-600 hover:underline">
+              Hub wizard
+            </Link>
+            <Link href="/ru/guides" className="text-corridor-600 hover:underline">
+              Гайды по ВНЖ
+            </Link>
+            <Link href="/ru/news" className="text-corridor-600 hover:underline">
+              Новости Европы
+            </Link>
+          </nav>
         </section>
       </main>
       <SiteFooter />

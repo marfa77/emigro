@@ -1,10 +1,12 @@
 import Link from "next/link";
 import { ArrowRight, Compass, Sparkles } from "lucide-react";
 import { LeadForm } from "@/components/LeadForm";
+import { ServiceProvidersSection } from "@/components/providers/ServiceProvidersSection";
 import { HouseholdBanner } from "@/components/wizard/HouseholdBanner";
 import { WizardOutcomeCard } from "@/components/wizard/WizardOutcomeCard";
 import { corridorWizardPath } from "@/lib/corridor/paths";
 import type { GlobalEvalPayload } from "@/lib/engine/run-global-evaluation";
+import { corridorSlugForTopic, findFirstProviderTopicKey } from "@/lib/providers/registry";
 
 export function HubWizardResults({
   sessionId,
@@ -17,6 +19,10 @@ export function HubWizardResults({
 }) {
   const { pick, byCountry, results, household } = payload;
   const matchCount = results.filter((r) => r.outcome !== "unlikely").length;
+  const providerTopicKey = findFirstProviderTopicKey([
+    ...results.map((r) => r.countrySegment),
+    ...byCountry.map((g) => g.corridorSlug?.replace(/^ru-speaking-to-/, "") ?? ""),
+  ]);
 
   return (
     <>
@@ -29,6 +35,17 @@ export function HubWizardResults({
       </header>
 
       <HouseholdBanner household={household} />
+
+      {providerTopicKey && (
+        <ServiceProvidersSection
+          className="mt-8"
+          corridorSlug={corridorSlugForTopic(providerTopicKey)}
+          topicKey={providerTopicKey}
+          placement="wizard_hub_results"
+          variant="compact"
+          title="Сервисы на маршруте"
+        />
+      )}
 
       {pick ? (
         <section className="mt-8 rounded-2xl border border-corridor-200 bg-gradient-to-br from-corridor-50 to-white p-6">

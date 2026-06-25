@@ -1,11 +1,16 @@
 export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "http://localhost:3000";
 
-/** Canonical URL for news/Telegram — never localhost when generating digests. */
-export function publicNewsSiteUrl(): string {
+/** Canonical production origin for SEO pings (never localhost). */
+export function publicSiteUrl(): string {
   const local = SITE_URL;
   if (local && !/localhost|127\.0\.0\.1/.test(local)) return local;
   return (process.env.EMIGRO_PUBLIC_SITE_URL || "https://www.emigro.online").replace(/\/$/, "");
+}
+
+/** @deprecated use publicSiteUrl */
+export function publicNewsSiteUrl(): string {
+  return publicSiteUrl();
 }
 
 export const NEWS_HUB_PATH = "/ru/news";

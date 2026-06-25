@@ -1,20 +1,23 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
-import { BookOpen, Clock } from "lucide-react";
+import { BookOpen, Clock, MapPin } from "lucide-react";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { guidePath, listGuides } from "@/lib/guides/load";
+import { getActiveNewsTopics } from "@/lib/news/topics";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
   title: "Гайды по релокации и ВНЖ в Европе",
-  description: "Практические pillar-гайды Emigro: куда переехать, digital nomad, семья, отказы в визах, бюджет.",
+  description:
+    "Практические pillar-гайды Emigro: куда переехать из России, digital nomad, семья с детьми, отказы в визах, бюджет релокации и маршруты ВНЖ по странам ЕС.",
   path: "/ru/guides",
 });
 
-export default function GuidesIndexPage() {
+export default async function GuidesIndexPage() {
   const guides = listGuides();
+  const corridors = (await getActiveNewsTopics()).filter((t) => t.sitePaths?.landing).slice(0, 8);
 
   return (
     <>
@@ -24,7 +27,7 @@ export default function GuidesIndexPage() {
           visual={
             <div className="relative aspect-[16/10] w-full max-w-[360px] overflow-hidden rounded-3xl border border-white/15 bg-white/10 shadow-2xl">
               <Image
-                src="/images/emigro-guide-passive-income.webp"
+                src="/images/emigro-main-hero.webp"
                 alt=""
                 fill
                 sizes="360px"
@@ -48,27 +51,64 @@ export default function GuidesIndexPage() {
 
         <div className="mt-10 grid gap-5 md:grid-cols-2">
           {guides.map((guide) => (
-            <article key={guide.slug} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-corridor-300 hover:shadow-md">
-              <Link href={guidePath(guide.slug)} className="text-xl font-semibold text-slate-900 hover:text-corridor-700">
-                {guide.title}
+            <article key={guide.slug} className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:border-corridor-300 hover:shadow-md">
+              <Link href={guidePath(guide.slug)} className="block">
+                <div className="relative aspect-[16/9] w-full bg-slate-100">
+                  <Image
+                    src={guide.cover_path}
+                    alt=""
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-cover"
+                  />
+                </div>
               </Link>
-              {guide.excerpt && <p className="mt-2 text-sm text-slate-600">{guide.excerpt}</p>}
-              <div className="mt-5 flex flex-wrap items-center gap-3 text-sm text-slate-500">
-                {guide.estimated_minutes && (
-                  <span className="inline-flex items-center gap-1">
-                    <Clock className="h-4 w-4" />
-                    {guide.estimated_minutes} мин
-                  </span>
-                )}
-                {guide.cta_primary && (
+              <div className="p-6">
+                <Link href={guidePath(guide.slug)} className="text-xl font-semibold text-slate-900 hover:text-corridor-700">
+                  {guide.title}
+                </Link>
+                {guide.excerpt && <p className="mt-2 text-sm text-slate-600">{guide.excerpt}</p>}
+                <div className="mt-5 flex flex-wrap items-center gap-3 text-sm text-slate-500">
+                  {guide.estimated_minutes && (
+                    <span className="inline-flex items-center gap-1">
+                      <Clock className="h-4 w-4" />
+                      {guide.estimated_minutes} мин
+                    </span>
+                  )}
                   <Link href={guidePath(guide.slug)} className="ml-auto font-medium text-corridor-600 hover:underline">
                     Читать →
                   </Link>
-                )}
+                </div>
               </div>
             </article>
           ))}
         </div>
+
+        {corridors.length > 0 && (
+          <section className="mt-14 rounded-2xl border border-slate-200 bg-slate-50 p-6">
+            <h2 className="flex items-center gap-2 text-xl font-semibold text-slate-900">
+              <MapPin className="h-5 w-5 text-corridor-600" />
+              Коридоры Emigro
+            </h2>
+            <p className="mt-2 text-sm text-slate-600">
+              После гайда проверьте маршрут в wizard или откройте справочник выбранной страны.
+            </p>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {corridors.map((topic) => (
+                <Link
+                  key={topic.key}
+                  href={topic.sitePaths!.landing}
+                  className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm text-slate-700 hover:border-corridor-400"
+                >
+                  {topic.flag} {topic.countryRu}
+                </Link>
+              ))}
+              <Link href="/ru/wizard" className="rounded-full bg-corridor-600 px-4 py-2 text-sm font-medium text-white hover:bg-corridor-700">
+                Hub wizard
+              </Link>
+            </div>
+          </section>
+        )}
       </main>
       <SiteFooter />
     </>
