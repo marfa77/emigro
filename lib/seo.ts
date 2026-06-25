@@ -12,6 +12,17 @@ type SocialImageSize = { width: number; height: number };
 
 const SOCIAL_IMAGE_SIZES: Record<string, SocialImageSize> = {
   "/og-default.svg": { width: 1200, height: 630 },
+  "/images/og/guides-index.jpg": { width: 1200, height: 630 },
+  "/images/og/guide-byudzhet-relokatsii-evropa-2026-po-stranam.jpg": { width: 1200, height: 630 },
+  "/images/og/guide-digital-nomad-portugaliya-ispaniya-italiya-2026.jpg": { width: 1200, height: 630 },
+  "/images/og/guide-germaniya-blue-card-chancenkarte-2026-sng.jpg": { width: 1200, height: 630 },
+  "/images/og/guide-kuda-pereehat-iz-rossii-2026-evropa-vnj.jpg": { width: 1200, height: 630 },
+  "/images/og/guide-otkaz-v-natsionalnoy-vize-konsulstvo-2026.jpg": { width: 1200, height: 630 },
+  "/images/og/guide-relokatsiya-s-detmi-evropa-shkoly-vnj-2026.jpg": { width: 1200, height: 630 },
+  "/images/og/guide-ukraintsy-belorusy-vremennaya-zashchita-vs-vnj-2026.jpg": { width: 1200, height: 630 },
+  "/images/og/guide-vnj-bez-raboty-passivnyy-dohod-sberezheniya-2026.jpg": { width: 1200, height: 630 },
+  "/images/og/guide-vnj-portugaliya-d8-d7-grazhdanstvo-2026.jpg": { width: 1200, height: 630 },
+  "/images/og/guide-vossoedinenie-semi-evropa-2026.jpg": { width: 1200, height: 630 },
   "/images/corridor-france.webp": { width: 900, height: 600 },
   "/images/corridor-germany.webp": { width: 900, height: 600 },
   "/images/corridor-italy.webp": { width: 900, height: 600 },
@@ -82,9 +93,19 @@ function socialImagePath(ogImage: string): string {
   }
 }
 
+function socialImageType(ogImage: string): string | undefined {
+  const path = socialImagePath(ogImage).toLowerCase();
+  if (path.endsWith(".jpg") || path.endsWith(".jpeg")) return "image/jpeg";
+  if (path.endsWith(".png")) return "image/png";
+  if (path.endsWith(".webp")) return "image/webp";
+  if (path.endsWith(".svg")) return "image/svg+xml";
+  return undefined;
+}
+
 export function socialImageMetadata(ogImage = DEFAULT_OG_IMAGE, alt = SITE_NAME) {
   const size = SOCIAL_IMAGE_SIZES[socialImagePath(ogImage)] ?? { width: 1200, height: 630 };
-  return { url: ogImage, ...size, alt };
+  const type = socialImageType(ogImage);
+  return { url: ogImage, secureUrl: ogImage, ...size, ...(type ? { type } : {}), alt };
 }
 
 function withSocialImages(metadata: Metadata, ogImage = DEFAULT_OG_IMAGE, alt = SITE_NAME): Metadata {

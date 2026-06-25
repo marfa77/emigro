@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { getGuideCoverPath } from "@/lib/guides/covers";
+import { getGuideCoverPath, getGuideOgImagePath } from "@/lib/guides/covers";
 
 export type GuideFrontmatter = {
   slug: string;
@@ -20,6 +20,8 @@ export type GuideFrontmatter = {
   cover_image?: string;
   /** Resolved cover path (frontmatter or slug map). */
   cover_path: string;
+  /** 1200x630 raster image for social previews. */
+  og_image_path: string;
 };
 
 export type GuideArticle = GuideFrontmatter & {
@@ -84,6 +86,7 @@ function mapFrontmatter(meta: Record<string, string | string[]>, slug: string): 
     corridor_slugs: Array.isArray(meta.corridor_slugs) ? meta.corridor_slugs.map(String) : undefined,
     cover_image: meta.cover_image ? String(meta.cover_image) : undefined,
     cover_path: resolveCoverPath(meta, resolvedSlug),
+    og_image_path: getGuideOgImagePath(resolvedSlug),
   };
 }
 
@@ -91,19 +94,28 @@ function markdownToHtml(markdown: string): string {
   const lines = markdown.split("\n");
   const html: string[] = [];
   let inList = false;
+  let inOrderedList = false;
   let inTable = false;
+  let tableRowIndex = 0;
 
   const closeList = () => {
     if (inList) {
       html.push("</ul>");
       inList = false;
     }
+    if (inOrderedList) {
+      html.push("</ol>");
+      inOrderedList = false;
+    }
   };
 
   const closeTable = () => {
     if (inTable) {
-      html.push("</tbody></table>");
+      if (tableRowIndex > 1) html.push("</tbody>");
+      html.push("</table>");
+      html.push("</div></div>");
       inTable = false;
+      tableRowIndex = 0;
     }
   };
 
@@ -117,6 +129,13 @@ function markdownToHtml(markdown: string): string {
       continue;
     }
 
+    if (trimmed === "---") {
+      closeList();
+      closeTable();
+      html.push('<div class="my-10 h-px w-full bg-gradient-to-r from-transparent via-corridor-200 to-transparent"></div>');
+      continue;
+    }
+
     const faqQuestion = trimmed.match(/^\*\*([^*]+)\*\*$/);
     if (faqQuestion) {
       closeList();
@@ -124,7 +143,7 @@ function markdownToHtml(markdown: string): string {
       const nextLine = lines[i + 1]?.trim();
       if (nextLine && !nextLine.startsWith("#") && !nextLine.startsWith("|") && !nextLine.startsWith("- ")) {
         html.push(
-          `<p class="mt-4 text-slate-700 leading-relaxed"><strong>${faqQuestion[1]}</strong> ${inlineMarkdown(nextLine)}</p>`
+          `<section class="mt-4 rounded-2xl border border-slate-200 bg-slate-50/80 p-5 shadow-sm"><h3 class="text-base font-semibold text-slate-950">${inlineMarkdown(faqQuestion[1])}</h3><p class="mt-2 text-slate-700 leading-relaxed">${inlineMarkdown(nextLine)}</p></section>`
         );
         i++;
         continue;
@@ -134,7 +153,7 @@ function markdownToHtml(markdown: string): string {
     if (trimmed.startsWith("## ")) {
       closeList();
       closeTable();
-      html.push(`<h2 class="mt-10 text-2xl font-semibold text-slate-900">${inlineMarkdown(trimmed.slice(3))}</h2>`);
+      html.push(`<h2 class="mt-12 flex items-start gap-3 text-2xl font-bold tracking-tight text-slate-950"><span class="mt-2 h-2.5 w-2.5 flex-none rounded-full bg-corridor-500 shadow-[0_0_0_6px_rgba(37,99,235,0.10)]"></span><span>${inlineMarkdown(trimmed.slice(3))}</span></h2>`);
       continue;
     }
 
@@ -153,28 +172,53 @@ function markdownToHtml(markdown: string): string {
         .filter(Boolean);
       if (cells.every((c) => /^-+$/.test(c))) continue;
       if (!inTable) {
-        html.push('<div class="mt-4 overflow-x-auto"><table class="min-w-full text-sm"><tbody>');
+        html.push('<div class="not-prose my-7 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm ring-1 ring-slate-950/5"><div class="overflow-x-auto"><table class="min-w-full border-separate border-spacing-0 text-sm">');
         inTable = true;
       }
+      const isHeader = tableRowIndex === 0;
+      if (isHeader) html.push("<thead>");
+      if (tableRowIndex === 1) html.push("<tbody>");
       html.push(
-        `<tr class="border-b border-slate-200">${cells.map((c) => `<td class="px-3 py-2 align-top">${inlineMarkdown(c)}</td>`).join("")}</tr>`
+        `<tr class="${isHeader ? "bg-slate-950 text-white" : tableRowIndex % 2 === 0 ? "bg-slate-50/70" : "bg-white"}">${cells.map((c, cellIndex) => {
+          const tag = isHeader ? "th" : "td";
+          const align = cellIndex === 0 ? "font-semibold text-slate-900" : "text-slate-700";
+          const base = isHeader
+            ? "px-4 py-3 text-left text-xs font-bold uppercase tracking-wide text-white"
+            : `border-t border-slate-100 px-4 py-3 align-top leading-relaxed ${align}`;
+          return `<${tag} class="${base}">${inlineMarkdown(c)}</${tag}>`;
+        }).join("")}</tr>`
       );
+      if (isHeader) html.push("</thead>");
+      tableRowIndex++;
       continue;
     }
 
     if (trimmed.startsWith("- ")) {
       closeTable();
+      if (inOrderedList) closeList();
       if (!inList) {
-        html.push('<ul class="mt-4 list-disc space-y-2 pl-5 text-slate-700">');
+        html.push('<ul class="mt-4 space-y-3 text-slate-700">');
         inList = true;
       }
-      html.push(`<li>${inlineMarkdown(trimmed.slice(2))}</li>`);
+      html.push(`<li class="flex gap-3 leading-relaxed"><span class="mt-2 h-2 w-2 flex-none rounded-full bg-corridor-500"></span><span>${inlineMarkdown(trimmed.slice(2))}</span></li>`);
+      continue;
+    }
+
+    const orderedItem = trimmed.match(/^\d+\.\s+(.*)$/);
+    if (orderedItem) {
+      closeTable();
+      if (inList) closeList();
+      if (!inOrderedList) {
+        html.push('<ol class="mt-4 list-decimal space-y-3 pl-6 text-slate-700 marker:font-bold marker:text-corridor-600">');
+        inOrderedList = true;
+      }
+      html.push(`<li class="pl-1 leading-relaxed">${inlineMarkdown(orderedItem[1])}</li>`);
       continue;
     }
 
     closeList();
     closeTable();
-    html.push(`<p class="mt-4 text-slate-700 leading-relaxed">${inlineMarkdown(trimmed)}</p>`);
+    html.push(`<p class="mt-5 text-slate-700 leading-8">${inlineMarkdown(trimmed)}</p>`);
   }
 
   closeList();

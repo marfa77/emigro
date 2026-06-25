@@ -24,6 +24,10 @@ export const GUIDE_COVER_BY_SLUG: Record<string, string> = {
 
 export const DEFAULT_GUIDE_COVER = "/images/emigro-main-hero.webp";
 
+export function getGuideOgImagePath(slug: string): string {
+  return `/images/og/guide-${slug}.jpg`;
+}
+
 export function getGuideCoverPath(
   slug: string,
   options?: { coverImage?: string; corridorSlugs?: string[] }

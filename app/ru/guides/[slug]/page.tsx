@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { BookOpen, Clock, Compass, Sparkles } from "lucide-react";
+import { ArrowRight, BookOpen, CheckCircle2, Clock, Compass, FileText, Layers, Sparkles } from "lucide-react";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { ServiceProvidersSection } from "@/components/providers/ServiceProvidersSection";
@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   const guide = loadGuide(params.slug);
   if (!guide) return {};
   const title = guide.seo_title ?? guide.title;
-  const ogImage = schemaImage(guide.cover_path);
+  const ogImage = schemaImage(guide.og_image_path);
   const metadata = pageMetadata({
     title,
     description: guide.seo_description ?? guide.excerpt ?? guide.quick_answer ?? guide.title,
@@ -52,7 +52,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 
 function GuideHeroVisual({ coverPath, title }: { coverPath: string; title: string }) {
   return (
-    <div className="relative aspect-[16/10] w-full max-w-[360px] overflow-hidden rounded-3xl border-2 border-white/30 bg-white shadow-2xl" aria-hidden>
+    <div className="relative aspect-[16/10] w-full max-w-[380px] overflow-hidden rounded-[2rem] border border-white/30 bg-white shadow-2xl ring-1 ring-white/20" aria-hidden>
       <Image
         src={coverPath}
         alt=""
@@ -64,6 +64,10 @@ function GuideHeroVisual({ coverPath, title }: { coverPath: string; title: strin
       <div className="absolute right-4 top-4 rounded-full bg-amber-300 px-3 py-1 text-xs font-bold text-slate-950">
         2026
       </div>
+      <div className="absolute inset-x-4 bottom-4 rounded-2xl border border-white/20 bg-slate-950/55 p-4 text-white shadow-lg backdrop-blur">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-corridor-100">Editorial guide</p>
+        <p className="mt-1 line-clamp-2 text-lg font-bold leading-tight">{title}</p>
+      </div>
       <span className="sr-only">{title}</span>
     </div>
   );
@@ -71,9 +75,13 @@ function GuideHeroVisual({ coverPath, title }: { coverPath: string; title: strin
 
 function GuideFeaturedImage({ coverPath, title }: { coverPath: string; title: string }) {
   return (
-    <figure className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+    <figure className="overflow-hidden rounded-[2rem] border border-white bg-white shadow-xl shadow-slate-200/70 ring-1 ring-slate-950/5">
       <div className="relative aspect-[16/9] w-full">
         <Image src={coverPath} alt={title} fill sizes="(max-width: 1024px) 100vw, (max-width: 1360px) 960px, 1020px" className="object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/45 via-transparent to-transparent" />
+        <figcaption className="absolute bottom-5 left-5 right-5 rounded-2xl bg-white/90 p-4 text-sm font-medium text-slate-700 shadow-lg backdrop-blur">
+          Практический editorial-гайд Emigro: маршруты, цифры, риски и следующие шаги.
+        </figcaption>
       </div>
     </figure>
   );
@@ -82,30 +90,72 @@ function GuideFeaturedImage({ coverPath, title }: { coverPath: string; title: st
 function GuideCorridorVisuals({ topics }: { topics: NewsTopicConfig[] }) {
   if (topics.length === 0) return null;
   return (
-    <section className="mt-8">
-      <h2 className="text-lg font-semibold text-slate-900">Коридоры в этом гайде</h2>
-      <div className="mt-4 flex flex-wrap gap-4">
+    <section className="mt-8 rounded-[2rem] border border-slate-200 bg-white p-5 shadow-sm ring-1 ring-slate-950/5 sm:p-6">
+      <div className="flex items-center justify-between gap-4">
+        <div>
+          <p className="text-sm font-semibold uppercase tracking-wide text-corridor-600">Маршруты</p>
+          <h2 className="mt-1 text-xl font-bold text-slate-950">Коридоры в этом гайде</h2>
+        </div>
+        <Layers className="h-5 w-5 text-corridor-600" />
+      </div>
+      <div className="mt-5 grid gap-4 sm:grid-cols-3">
         {topics.map((topic) => (
           <Link
             key={topic.key}
             href={topic.sitePaths!.landing}
-            className="group w-[140px] overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:border-corridor-300 hover:shadow-md"
+            className="group overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 shadow-sm transition hover:-translate-y-0.5 hover:border-corridor-300 hover:shadow-md"
           >
             <div className="relative aspect-[16/10] w-full bg-slate-100">
               <Image
                 src={countryCardImage(topic.urlSegment)}
                 alt=""
                 fill
-                sizes="140px"
+                sizes="(max-width: 640px) 100vw, 240px"
                 className="object-cover transition group-hover:scale-105"
               />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/55 to-transparent" />
+              <span className="absolute bottom-3 left-3 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-slate-900">
+                {topic.flag} {topic.countryRu}
+              </span>
             </div>
-            <p className="px-3 py-2 text-sm font-medium text-slate-800">
-              {topic.flag} {topic.countryRu}
+            <p className="flex items-center justify-between px-4 py-3 text-sm font-semibold text-slate-800">
+              Открыть коридор
+              <ArrowRight className="h-4 w-4 text-corridor-600 transition group-hover:translate-x-0.5" />
             </p>
           </Link>
         ))}
       </div>
+    </section>
+  );
+}
+
+function GuideFactCards({ guide, corridorCount }: { guide: GuideArticle; corridorCount: number }) {
+  const facts = [
+    guide.estimated_minutes ? { label: "Время", value: `${guide.estimated_minutes} мин`, icon: Clock } : null,
+    guide.date_modified ?? guide.date_published
+      ? { label: "Обновлено", value: guide.date_modified ?? guide.date_published ?? "", icon: FileText }
+      : null,
+    guide.tags?.length ? { label: "Фокус", value: guide.tags.slice(0, 2).join(" / "), icon: CheckCircle2 } : null,
+    corridorCount ? { label: "Коридоры", value: `${corridorCount} маршрута`, icon: Compass } : null,
+  ].filter((item): item is { label: string; value: string; icon: typeof Clock } => Boolean(item));
+
+  if (facts.length === 0) return null;
+
+  return (
+    <section className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4" aria-label="Ключевые факты">
+      {facts.map(({ label, value, icon: Icon }) => (
+        <div key={label} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm ring-1 ring-slate-950/5">
+          <div className="flex items-center gap-3">
+            <span className="rounded-xl bg-corridor-50 p-2 text-corridor-700">
+              <Icon className="h-5 w-5" />
+            </span>
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">{label}</p>
+              <p className="mt-1 text-sm font-bold text-slate-950">{value}</p>
+            </div>
+          </div>
+        </div>
+      ))}
     </section>
   );
 }
@@ -196,7 +246,7 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
     author: emigroAuthorOrg(),
     publisher: EMIGRO_PUBLISHER,
     mainEntityOfPage: { "@type": "WebPage", "@id": url },
-    image: schemaImage(guide.cover_path),
+    image: schemaImage(guide.og_image_path),
     inLanguage: "ru-RU",
     ...(guide.tags?.length ? { keywords: guide.tags.join(", ") } : {}),
   };
@@ -245,7 +295,8 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
         <p>{llmDescription}</p>
         <a href="/llms.txt">llms.txt</a>
       </section>
-      <main className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 2xl:max-w-[1360px]">
+      <main className="bg-[radial-gradient(circle_at_top_left,rgba(37,99,235,0.12),transparent_32rem)]">
+        <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 2xl:max-w-[1360px]">
         <HeroShell visual={<GuideHeroVisual coverPath={guide.cover_path} title={guide.title} />} className="from-slate-950 via-corridor-800 to-sky-800">
           <Link href="/ru/guides" className="text-sm font-medium text-corridor-100 hover:text-white">
             ← Все гайды
@@ -275,49 +326,60 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
           ) : null}
         </HeroShell>
 
+        <GuideFactCards guide={guide} corridorCount={countryTopics.length} />
+
         <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_280px] xl:grid-cols-[minmax(0,1fr)_300px]">
           <div className="min-w-0">
             <GuideFeaturedImage coverPath={guide.cover_path} title={guide.title} />
 
             {guide.quick_answer && (
-              <section className="mt-8 rounded-2xl border border-corridor-200 bg-white p-6 shadow-sm">
+              <section className="mt-8 rounded-[2rem] border border-corridor-200 bg-gradient-to-br from-white via-corridor-50 to-sky-50 p-6 shadow-sm ring-1 ring-corridor-100 sm:p-7">
                 <p className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-corridor-700">
                   <Sparkles className="h-4 w-4" />
                   Короткий ответ
                 </p>
-                <p className="mt-3 text-lg leading-relaxed text-slate-800">{guide.quick_answer}</p>
+                <p className="mt-3 text-xl leading-8 text-slate-800">{guide.quick_answer}</p>
               </section>
             )}
 
             <GuideCorridorVisuals topics={countryTopics} />
 
             <article
-              className="prose prose-lg prose-slate mt-8 max-w-none rounded-2xl border border-slate-200 bg-white p-6 shadow-sm prose-h2:border-t prose-h2:border-slate-100 prose-h2:pt-8 prose-table:block prose-table:overflow-x-auto prose-table:text-sm sm:p-8"
+              className="guide-article prose prose-lg prose-slate mt-8 max-w-none rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm ring-1 ring-slate-950/5 prose-a:font-semibold prose-strong:text-slate-950 sm:p-8 lg:p-10"
               dangerouslySetInnerHTML={{ __html: guide.bodyHtml }}
             />
 
             <section className="mt-10 rounded-2xl border border-slate-200 bg-slate-50 p-6">
               <h2 className="text-lg font-semibold text-slate-900">Краткая выжимка (для LLM)</h2>
-              <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-relaxed text-slate-700">
+              <ul className="mt-4 space-y-2 text-sm leading-relaxed text-slate-700">
                 {llmFacts.map((fact) => (
-                  <li key={fact}>{fact}</li>
+                  <li key={fact} className="flex gap-2">
+                    <CheckCircle2 className="mt-0.5 h-4 w-4 flex-none text-corridor-600" />
+                    <span>{fact}</span>
+                  </li>
                 ))}
               </ul>
             </section>
 
             {relatedGuides.length > 0 && (
-              <section className="mt-8 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
-                <h2 className="text-xl font-semibold text-slate-900">Читайте также</h2>
-                <ul className="mt-4 space-y-3">
+              <section className="mt-8 rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm ring-1 ring-slate-950/5 sm:p-8">
+                <h2 className="text-2xl font-bold text-slate-950">Читайте также</h2>
+                <div className="mt-5 grid gap-4 md:grid-cols-2">
                   {relatedGuides.map((related) => (
-                    <li key={related.slug}>
-                      <Link href={guidePath(related.slug)} className="font-medium text-corridor-700 hover:underline">
-                        {related.title}
+                    <article key={related.slug} className="group overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 transition hover:-translate-y-0.5 hover:border-corridor-300 hover:shadow-md">
+                      <Link href={guidePath(related.slug)} className="block">
+                        <div className="relative aspect-[16/9] bg-slate-100">
+                          <Image src={related.cover_path} alt="" fill sizes="(max-width: 768px) 100vw, 360px" className="object-cover transition group-hover:scale-105" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/55 to-transparent" />
+                        </div>
+                        <div className="p-4">
+                          <h3 className="font-semibold leading-snug text-slate-950 group-hover:text-corridor-700">{related.title}</h3>
+                          {related.excerpt && <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-slate-600">{related.excerpt}</p>}
+                        </div>
                       </Link>
-                      {related.excerpt && <p className="mt-1 text-sm text-slate-600">{related.excerpt}</p>}
-                    </li>
+                    </article>
                   ))}
-                </ul>
+                </div>
               </section>
             )}
 
@@ -326,8 +388,9 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
                 corridorSlug={corridorSlugForTopic(providerTopicKey)}
                 topicKey={providerTopicKey}
                 placement="guide_sidebar"
+                variant="compact"
                 title="Сервисы на маршруте"
-                className="mt-8 hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-sm 2xl:block sm:p-8"
+                className="mt-8 rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm ring-1 ring-slate-950/5"
               />
             )}
           </div>
@@ -380,11 +443,13 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
                 corridorSlug={corridorSlugForTopic(providerTopicKey)}
                 topicKey={providerTopicKey}
                 placement="guide_sidebar"
+                variant="compact"
                 title="Сервисы на маршруте"
-                className="2xl:hidden"
+                className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm lg:hidden"
               />
             )}
           </aside>
+        </div>
         </div>
       </main>
       <SiteFooter />
