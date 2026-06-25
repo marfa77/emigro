@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: { params: { country: string }
   if (hub) {
     return {
       ...pageMetadata({
-        title: `${hub.countryRu}: транзитный хаб`,
+        title: hub.heroTitle ?? `${hub.countryRu}: транзитный хаб`,
         description: `${hub.quickAnswer} Не EU-коридор: первый шаг для стабилизации, документов, банков и подготовки маршрута в Европу.`,
         path: hub.path,
         ogImage: "/images/emigro-main-hero.webp",

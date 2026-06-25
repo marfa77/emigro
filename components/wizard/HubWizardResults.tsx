@@ -22,6 +22,7 @@ export function HubWizardResults({
   const matchCount = results.filter((r) => r.outcome !== "unlikely").length;
   const strongMatchCount = results.filter((r) => r.outcome === "likely_eligible").length;
   const showTransitFallback = strongMatchCount === 0 || matchCount <= 1;
+  const hasRemoteIncome = payload.hasRemoteIncome === true;
   const providerTopicKey = findFirstProviderTopicKey([
     ...results.map((r) => r.countrySegment),
     ...byCountry.map((g) => g.corridorSlug?.replace(/^ru-speaking-to-/, "") ?? ""),
@@ -59,6 +60,9 @@ export function HubWizardResults({
                     className="inline-flex items-center gap-1 rounded-lg bg-white px-3 py-2 text-sm font-medium text-corridor-800 shadow-sm hover:bg-corridor-50"
                   >
                     {hub.flag} {hub.countryRu}
+                    {hasRemoteIncome && hub.wizardNote ? (
+                      <span className="text-xs font-normal text-slate-500">({hub.wizardNote})</span>
+                    ) : null}
                     <ArrowRight className="h-3.5 w-3.5" />
                   </Link>
                 ))}

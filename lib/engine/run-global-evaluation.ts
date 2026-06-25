@@ -35,6 +35,7 @@ export type GlobalEvalPayload = {
     matches: GlobalEvalResult[];
   }>;
   household?: HouseholdSummary;
+  hasRemoteIncome?: boolean;
 };
 
 export async function runGlobalEvaluation(
@@ -109,18 +110,19 @@ export async function runGlobalEvaluation(
   });
 
   const household = describeHousehold(parseHousehold(facts));
+  const hasRemoteIncome = facts.remote_income === "yes";
 
   await supabase
     .from("emigro_hub_wizard_sessions")
     .update({
       answers: facts,
       passport_iso2: String(facts.passport_iso2 ?? ""),
-      results: { results: allResults, pick, byCountry, household },
+      results: { results: allResults, pick, byCountry, household, hasRemoteIncome },
       completed_at: new Date().toISOString(),
     })
     .eq("id", sessionId);
 
-  return { results: allResults, pick, byCountry, household };
+  return { results: allResults, pick, byCountry, household, hasRemoteIncome };
 }
 
 const INVESTOR_PROGRAM_SLUGS = new Set([

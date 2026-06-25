@@ -146,7 +146,9 @@ export default async function RuHubPage() {
                     {hub.flag}
                   </span>
                   <h4 className="mt-2 font-semibold text-slate-900">{hub.countryRu}</h4>
-                  <p className="mt-1 text-xs font-medium uppercase tracking-wide text-corridor-700">Транзитный хаб</p>
+                  <p className="mt-1 text-xs font-medium uppercase tracking-wide text-corridor-700">
+                    {hub.cardLabel ?? "Транзитный хаб"}
+                  </p>
                   <p className="mt-2 text-sm text-slate-600">{hub.tagline}</p>
                   <span className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-corridor-700 group-hover:underline">
                     Открыть

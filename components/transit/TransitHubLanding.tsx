@@ -13,6 +13,9 @@ type Props = {
 };
 
 export function TransitHubLanding({ hub }: Props) {
+  const heroTitle = hub.heroTitle ?? `${hub.countryRu}: транзитный хаб на 3–12 месяцев`;
+  const eyebrow = hub.eyebrow ?? "Транзитный хаб · первый шаг";
+  const articleHeadline = hub.articleHeadline ?? `${hub.countryRu}: транзитный хаб для первого шага`;
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -25,7 +28,7 @@ export function TransitHubLanding({ hub }: Props) {
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "Article",
-    headline: `${hub.countryRu}: транзитный хаб для первого шага`,
+    headline: articleHeadline,
     description: hub.quickAnswer,
     inLanguage: "ru-RU",
     mainEntityOfPage: `${SITE_URL}${hub.path}`,
@@ -67,9 +70,9 @@ export function TransitHubLanding({ hub }: Props) {
         </nav>
 
         <HeroShell visual={<HubHeroVisual />}>
-          <p className="text-sm uppercase tracking-wide text-corridor-100">Транзитный хаб · первый шаг</p>
+          <p className="text-sm uppercase tracking-wide text-corridor-100">{eyebrow}</p>
           <h1 className="mt-2 text-4xl font-bold">
-            {hub.flag} {hub.countryRu}: транзитный хаб на 3–12 месяцев
+            {hub.flag} {heroTitle}
           </h1>
           <p className="mt-4 max-w-2xl text-lg text-corridor-100">{hub.tagline}</p>
           <div className="mt-8 flex flex-wrap gap-3">
