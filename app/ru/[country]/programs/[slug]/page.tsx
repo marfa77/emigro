@@ -20,6 +20,18 @@ import {
 } from "@/lib/seo/corridor-page-seo";
 import { SITE_URL } from "@/lib/site-url";
 
+const COUNTRY_SEGMENT_TO_ISO2: Record<string, string> = {
+  france: "FR",
+  germany: "DE",
+  italy: "IT",
+  portugal: "PT",
+  spain: "ES",
+};
+
+function programMatchesCountrySegment(programIso2: string, countrySegment: string): boolean {
+  return COUNTRY_SEGMENT_TO_ISO2[countrySegment] === programIso2;
+}
+
 export async function generateMetadata({
   params,
 }: {
@@ -43,7 +55,8 @@ export default async function CountryProgramPage({
   if (!program || !program.version) notFound();
 
   const corridor = await getCorridorBySlug(topic.corridorSlug);
-  if (!corridor?.programs.some((p) => p.slug === program.slug)) notFound();
+  const isLinkedToCorridor = corridor?.programs.some((p) => p.slug === program.slug) ?? false;
+  if (!isLinkedToCorridor && !programMatchesCountrySegment(program.destination_iso2, topic.urlSegment)) notFound();
 
   const base = topic.sitePaths.landing;
   const path = programPagePath(topic, program.slug);

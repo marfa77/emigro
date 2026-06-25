@@ -70,6 +70,7 @@ export interface ProgramPassportEligibility {
 export interface ProgramDetail {
   id: string;
   slug: string;
+  destination_iso2: string;
   program_type: string;
   title_ru: string;
   summary_ru: string;
