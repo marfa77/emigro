@@ -16,15 +16,32 @@ export type AssistProviderOption = {
   category: string;
 };
 
+export type AssistPlanTier = "route-check" | "full-assist";
+export type AssistPaymentMethod = "stripe" | "wise" | "telegram_stars" | "crypto";
+
+const PAYMENT_OPTIONS: { value: AssistPaymentMethod; label: string }[] = [
+  { value: "stripe", label: "Stripe (карта, EUR)" },
+  { value: "wise", label: "Wise (банковский перевод)" },
+  { value: "telegram_stars", label: "Telegram Stars" },
+  { value: "crypto", label: "Crypto (USDT / USDC)" },
+];
+
+const PAYMENT_LABELS: Record<AssistPaymentMethod, string> = Object.fromEntries(
+  PAYMENT_OPTIONS.map(({ value, label }) => [value, label])
+) as Record<AssistPaymentMethod, string>;
+
 type Props = {
   countries: AssistCountryOption[];
   providers: AssistProviderOption[];
+  defaultPlanTier?: AssistPlanTier;
 };
 
-export function AssistLeadForm({ countries, providers }: Props) {
+export function AssistLeadForm({ countries, providers, defaultPlanTier = "route-check" }: Props) {
   const [country, setCountry] = useState(countries[0]?.value ?? "");
   const [programRoute, setProgramRoute] = useState("");
   const [selectedProviders, setSelectedProviders] = useState<string[]>([]);
+  const [planTier] = useState<AssistPlanTier>(defaultPlanTier);
+  const [paymentMethod, setPaymentMethod] = useState<AssistPaymentMethod>("stripe");
   const [name, setName] = useState("");
   const [contact, setContact] = useState("");
   const [message, setMessage] = useState("");
@@ -49,6 +66,8 @@ export function AssistLeadForm({ countries, providers }: Props) {
           corridor_slug: countryOption?.corridorSlug,
           program_route: programRoute,
           selected_provider_ids: selectedProviders,
+          plan_tier: planTier,
+          payment_method: paymentMethod,
           name,
           contact,
           message,
@@ -62,9 +81,13 @@ export function AssistLeadForm({ countries, providers }: Props) {
         country,
         corridor_slug: countryOption?.corridorSlug,
         providers: selectedProviders.join(","),
+        plan_tier: planTier,
+        payment_method: paymentMethod,
       });
       setStatus("done");
-      setNotice("Заявка отправлена. Emigro Assist напишет вам и поможет подготовить обращение к сервисам.");
+      setNotice(
+        "Заявка отправлена. Emigro Assist напишет вам, подтвердит слот созвона и отправит ссылку на оплату или реквизиты."
+      );
     } catch (err) {
       const msg = err instanceof Error ? err.message : "Ошибка отправки";
       trackEvent("lead_error", { source: "emigro_assist", country, message: msg });
@@ -79,6 +102,37 @@ export function AssistLeadForm({ countries, providers }: Props) {
 
   return (
     <form onSubmit={submit} className="space-y-5 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+      <input type="hidden" name="plan_tier" value={planTier} />
+
+      <div className="rounded-xl border border-corridor-100 bg-corridor-50/60 px-4 py-3 text-sm text-slate-700">
+        <p className="font-medium text-slate-900">Route Check — €129</p>
+        <p className="mt-1 text-slate-600">45 мин созвон + письменное резюме в течение 48 часов.</p>
+      </div>
+
+      <div>
+        <label className="text-sm font-medium text-slate-800" htmlFor="assist-payment">
+          Предпочитаемый способ оплаты
+        </label>
+        <select
+          id="assist-payment"
+          required
+          value={paymentMethod}
+          onChange={(e) => setPaymentMethod(e.target.value as AssistPaymentMethod)}
+          className="mt-2 w-full rounded-lg border border-slate-300 bg-white px-3 py-2"
+        >
+          {PAYMENT_OPTIONS.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+        <p className="mt-1.5 text-xs text-slate-500">
+          {paymentMethod === "stripe"
+            ? "Ссылку Stripe отправим после подтверждения слота."
+            : `Реквизиты (${PAYMENT_LABELS[paymentMethod]}) вышлем после подтверждения заявки.`}
+        </p>
+      </div>
+
       <div>
         <label className="text-sm font-medium text-slate-800" htmlFor="assist-country">
           Страна / коридор
@@ -174,7 +228,7 @@ export function AssistLeadForm({ countries, providers }: Props) {
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           rows={5}
-          placeholder="Опишите, где вы застряли: выбор провайдера, письмо агентству, сравнение ответов, подготовка вопросов."
+          placeholder="Кратко опишите ситуацию: страна, доход, семья, сроки. Что хотите прояснить на Route Check."
           className="mt-2 w-full rounded-lg border border-slate-300 px-3 py-2"
         />
       </div>
@@ -203,7 +257,7 @@ export function AssistLeadForm({ countries, providers }: Props) {
         disabled={status === "loading"}
         className="w-full rounded-lg bg-corridor-600 px-5 py-3 font-medium text-white hover:bg-corridor-700 disabled:opacity-60"
       >
-        {status === "loading" ? "Отправка..." : "Отправить заявку в Emigro Assist"}
+        {status === "loading" ? "Отправка..." : "Записаться на Route Check — €129"}
       </button>
     </form>
   );

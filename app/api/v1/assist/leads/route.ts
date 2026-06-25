@@ -12,10 +12,24 @@ type AssistLeadBody = {
   corridor_slug?: string;
   program_route?: string;
   selected_provider_ids?: unknown;
+  plan_tier?: string;
+  payment_method?: string;
   name?: string;
   contact?: string;
   message?: string;
   consent?: boolean;
+};
+
+const PLAN_TIER_LABELS: Record<string, string> = {
+  "route-check": "Route Check (€129)",
+  "full-assist": "Full Assist (от €990)",
+};
+
+const PAYMENT_METHOD_LABELS: Record<string, string> = {
+  stripe: "Stripe (EUR)",
+  wise: "Wise",
+  telegram_stars: "Telegram Stars",
+  crypto: "Crypto (USDT/USDC)",
 };
 
 function clean(value: unknown): string {
@@ -45,6 +59,8 @@ export async function POST(request: Request) {
   const country = clean(body.country_label) || clean(body.country);
   const corridorSlug = clean(body.corridor_slug);
   const programRoute = clean(body.program_route);
+  const planTier = clean(body.plan_tier);
+  const paymentMethod = clean(body.payment_method);
   const name = clean(body.name);
   const contact = clean(body.contact);
   const message = clean(body.message);
@@ -65,6 +81,8 @@ export async function POST(request: Request) {
   let storageError: string | null = null;
   const notes = [
     "Source: emigro_assist",
+    `Plan: ${PLAN_TIER_LABELS[planTier] ?? (planTier || "Route Check (€129)")}`,
+    `Payment: ${PAYMENT_METHOD_LABELS[paymentMethod] ?? (paymentMethod || "—")}`,
     `Country: ${country}`,
     `Program/route: ${programRoute}`,
     providers.length ? `Selected providers: ${providers.join(", ")}` : "Selected providers: —",
@@ -117,6 +135,8 @@ export async function POST(request: Request) {
     country,
     corridor_slug: corridorSlug,
     provider_count: providers.length,
+    plan_tier: planTier,
+    payment_method: paymentMethod,
   });
 
   if (storageError) {
@@ -134,6 +154,8 @@ export async function POST(request: Request) {
     country,
     corridorSlug,
     programRoute,
+    planTier: PLAN_TIER_LABELS[planTier] ?? planTier,
+    paymentMethod: PAYMENT_METHOD_LABELS[paymentMethod] ?? paymentMethod,
     selectedProviders: providers,
     name,
     contact,

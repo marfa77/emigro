@@ -17,6 +17,8 @@ export type AssistLeadTelegramPayload = {
   country: string;
   corridorSlug?: string | null;
   programRoute: string;
+  planTier?: string | null;
+  paymentMethod?: string | null;
   selectedProviders: string[];
   name: string;
   contact: string;
@@ -59,6 +61,8 @@ export function formatAssistLeadTelegramMessage(p: AssistLeadTelegramPayload): s
     `Страна: ${p.country}`,
     p.corridorSlug ? `Коридор: ${p.corridorSlug}` : null,
     `Маршрут: ${p.programRoute}`,
+    p.planTier ? `Тариф: ${p.planTier}` : null,
+    p.paymentMethod ? `Оплата: ${p.paymentMethod}` : null,
     "",
     `Имя: ${p.name}`,
     `Контакт: ${p.contact}`,
