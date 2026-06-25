@@ -1,5 +1,9 @@
 import { ServiceProviderCard, type ProviderPlacement } from "@/components/providers/ServiceProviderCard";
-import { getProvidersForContext } from "@/lib/providers/registry";
+import {
+  getProvidersForContext,
+  groupProvidersByCategory,
+  PROVIDER_CATEGORY_LABELS_RU,
+} from "@/lib/providers/registry";
 
 type Props = {
   corridorSlug?: string;
@@ -18,8 +22,15 @@ export function ServiceProvidersSection({
   title = "Сервисы на маршруте",
   className,
 }: Props) {
-  const providers = getProvidersForContext({ corridorSlug, topicKey });
+  const providers = getProvidersForContext({
+    corridorSlug,
+    topicKey,
+    compact: variant === "compact",
+  });
   if (providers.length === 0) return null;
+
+  const groups = groupProvidersByCategory(providers);
+  const showCategoryHeadings = variant === "default" && groups.length > 1;
 
   return (
     <section className={className}>
@@ -30,16 +41,27 @@ export function ServiceProvidersSection({
           платное.
         </p>
       )}
-      <div className={variant === "compact" ? "space-y-3" : "mt-6 grid gap-4 sm:grid-cols-2"}>
-        {providers.map((provider) => (
-          <ServiceProviderCard
-            key={provider.id}
-            provider={provider}
-            placement={placement}
-            corridorSlug={corridorSlug}
-            topicKey={topicKey}
-            variant={variant}
-          />
+      <div className={variant === "compact" ? "space-y-3" : "mt-6 space-y-8"}>
+        {groups.map((group) => (
+          <div key={group.category}>
+            {showCategoryHeadings && (
+              <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-500">
+                {PROVIDER_CATEGORY_LABELS_RU[group.category]}
+              </h3>
+            )}
+            <div className={variant === "compact" ? "space-y-3" : "grid gap-4 sm:grid-cols-2"}>
+              {group.providers.map((provider) => (
+                <ServiceProviderCard
+                  key={provider.id}
+                  provider={provider}
+                  placement={placement}
+                  corridorSlug={corridorSlug}
+                  topicKey={topicKey}
+                  variant={variant}
+                />
+              ))}
+            </div>
+          </div>
         ))}
       </div>
     </section>
