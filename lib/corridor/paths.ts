@@ -1,0 +1,64 @@
+/** Maps corridor slug → public URL segment under /ru/[country]. */
+const CORRIDOR_SLUG_TO_SEGMENT: Record<string, string> = {
+  "ru-speaking-to-portugal": "portugal",
+  "ru-speaking-to-spain": "spain",
+  "ru-speaking-to-france": "france",
+  "ru-speaking-to-italy": "italy",
+  "ru-speaking-to-germany": "germany",
+  "ru-speaking-to-netherlands": "netherlands",
+  "ru-speaking-to-scandinavia": "scandinavia",
+};
+
+export function corridorSlugToSegment(corridorSlug: string): string | null {
+  return CORRIDOR_SLUG_TO_SEGMENT[corridorSlug] ?? null;
+}
+
+export function corridorLandingPath(corridorSlug: string): string {
+  const segment = corridorSlugToSegment(corridorSlug);
+  if (!segment) return "/ru";
+  return `/ru/${segment}`;
+}
+
+export function corridorWizardPath(corridorSlug: string): string {
+  return `${corridorLandingPath(corridorSlug)}/wizard`;
+}
+
+export function corridorResultsPath(corridorSlug: string): string {
+  return `${corridorLandingPath(corridorSlug)}/results`;
+}
+
+export function corridorDigestPath(corridorSlug: string): string {
+  return `${corridorLandingPath(corridorSlug)}/digest`;
+}
+
+export const HUB_WIZARD_PATH = "/ru/wizard";
+export const HUB_WIZARD_RESULTS_PATH = "/ru/wizard/results";
+
+export function programPath(corridorSlug: string, programSlug: string): string {
+  return `${corridorLandingPath(corridorSlug)}/programs/${programSlug}`;
+}
+
+/** @deprecated use programPath(corridorSlug, programSlug) */
+export function programPathLegacy(programSlug: string): string {
+  if (programSlug.startsWith("portugal-")) return `/ru/portugal/programs/${programSlug}`;
+  if (programSlug.startsWith("spain-")) return `/ru/spain/programs/${programSlug}`;
+  if (programSlug.startsWith("france-")) return `/ru/france/programs/${programSlug}`;
+  if (programSlug.startsWith("italy-")) return `/ru/italy/programs/${programSlug}`;
+  if (programSlug.startsWith("germany-")) return `/ru/germany/programs/${programSlug}`;
+  if (programSlug.startsWith("netherlands-")) return `/ru/netherlands/programs/${programSlug}`;
+  if (programSlug.startsWith("sweden-") || programSlug.startsWith("denmark-") || programSlug.startsWith("nordic-")) {
+    return `/ru/scandinavia/programs/${programSlug}`;
+  }
+  return `/ru/programs/${programSlug}`;
+}
+
+/** Ping Google after sitemap-changing publishes (best-effort). */
+export async function pingSearchEnginesSitemap(sitemapUrl: string): Promise<void> {
+  const url = `https://www.google.com/ping?sitemap=${encodeURIComponent(sitemapUrl)}`;
+  try {
+    await fetch(url, { method: "GET", signal: AbortSignal.timeout(8000) });
+    console.info("[seo] sitemap ping sent:", sitemapUrl);
+  } catch (e) {
+    console.warn("[seo] sitemap ping failed:", e instanceof Error ? e.message : e);
+  }
+}

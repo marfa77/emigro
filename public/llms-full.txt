@@ -1,0 +1,34 @@
+# Emigro — full LLM index
+
+> Russian-language relocation navigator. First corridor: ru-speaking-to-portugal (Portugal residency routes).
+
+## Site map
+
+| URL | Description |
+|-----|-------------|
+| /ru/portugal | Corridor landing — D8, D7, family reunification |
+| /ru/portugal/wizard | Multi-axis eligibility wizard |
+| /ru/portugal/results | Compare routes after wizard |
+| /ru/portugal/news | Weekly immigration news digests (Russian) |
+| /ru/portugal/news/feed.xml | RSS feed for news |
+| /ru/portugal/digest | Static corridor intelligence (citizenship, CIPLE, NIF, AIMA) |
+| /ru/portugal/programs/portugal-d8-digital-nomad | D8 program detail |
+| /ru/portugal/programs/portugal-d7-passive-income | D7 program detail |
+| /ru/portugal/programs/portugal-family-reunification | Family reunification detail |
+
+## SEO keywords (ru-RU)
+
+Португалия ВНЖ, релокация в Португалию, D8 цифровой кочевник, D7 пассивный доход, гражданство Португалии, CIPLE A2, AIMA, воссоединение семьи, русскоязычные эмигранты, виза Португалия Россия
+
+## News digest format
+
+- Table: emigro_news_digests (Supabase)
+- Slug pattern: portugal-relocation-news-YYYY-MM-DD
+- Locale: ru
+- Weekly cadence via scripts/run-portugal-weekly-news.ts
+
+## Documentation
+
+- /docs/ARCHITECTURE.md
+- /docs/CORRIDOR_STRATEGY.md
+- /docs/SCHEMA_AND_API.md

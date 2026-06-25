@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" fill="none">
+  <rect width="1200" height="630" fill="#0f172a"/>
+  <rect x="0" y="0" width="1200" height="630" fill="url(#bg)" opacity=".9"/>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="630">
+      <stop offset="0%" stop-color="#1d4ed8"/>
+      <stop offset="100%" stop-color="#0f766e"/>
+    </linearGradient>
+  </defs>
+  <circle cx="980" cy="120" r="180" fill="#fff" fill-opacity=".08"/>
+  <circle cx="180" cy="520" r="140" fill="#60a5fa" fill-opacity=".15"/>
+  <g transform="translate(120 180)">
+    <rect width="96" height="96" rx="24" fill="#fff" fill-opacity=".15"/>
+    <circle cx="48" cy="48" r="26" stroke="#fff" stroke-opacity=".35" stroke-width="2"/>
+    <path d="M48 22 L58 62 L48 52 L38 62 Z" fill="#fff" fill-opacity=".95"/>
+    <path d="M48 74 L38 34 L48 44 L58 34 Z" fill="#fff" fill-opacity=".4"/>
+    <circle cx="48" cy="48" r="5" fill="#fff"/>
+  </g>
+  <text x="240" y="250" fill="#fff" font-family="system-ui,sans-serif" font-size="72" font-weight="700">Emigro</text>
+  <text x="240" y="320" fill="#e2e8f0" font-family="system-ui,sans-serif" font-size="36">02830B>@ @5;>:0F88 2 2@>?C</text>
+  <text x="240" y="390" fill="#cbd5e1" font-family="system-ui,sans-serif" font-size="28">Wizard · :>@84>@K  · A?@02>G=8:</text>
+</svg>

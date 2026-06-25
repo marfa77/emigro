@@ -1,0 +1,184 @@
+import Link from "next/link";
+import { Construction } from "lucide-react";
+import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
+import { GuideDigestPreview } from "@/components/corridor/GuideDigestPreview";
+import { LatestNewsTeaser } from "@/components/news/LatestNewsTeaser";
+import { HeroShell } from "@/components/visuals/HeroShell";
+import { CorridorHeroVisual } from "@/components/visuals/CorridorHeroVisual";
+import { ProgramTypeBadge } from "@/components/visuals/ProgramTypeBadge";
+import { isCorridorFull } from "@/lib/corridor/publish";
+import { getCorridorBySlug } from "@/lib/corridor/queries";
+import { requirePublishedCorridorTopic } from "@/lib/corridor/resolve-topic";
+import type { NewsTopicConfig } from "@/lib/news/topics";
+
+export async function CorridorLanding({ country }: { country: string }) {
+  const topic = await requirePublishedCorridorTopic(country);
+  const corridor = await getCorridorBySlug(topic.corridorSlug!);
+  const isFull = isCorridorFull(topic.status);
+
+  if (!corridor) {
+    return (
+      <>
+        <SiteHeader />
+        <div className="mx-auto max-w-3xl px-4 py-16 text-center">
+          <h1 className="text-2xl font-bold">Коридор не найден</h1>
+          <p className="mt-2 text-slate-600">Данные коридора ещё не загружены в базу.</p>
+        </div>
+        <SiteFooter />
+      </>
+    );
+  }
+
+  const base = topic.sitePaths!.landing;
+
+  return (
+    <>
+      <SiteHeader />
+      <main className="mx-auto max-w-5xl px-4 py-10">
+        <CorridorBreadcrumb topic={topic} current="Коридор" />
+
+        {!isFull && (
+          <div className="mt-4 flex items-start gap-3 rounded-xl border border-amber-200 bg-amber-50 px-5 py-4 text-amber-950">
+            <Construction className="mt-0.5 h-5 w-5 shrink-0" />
+            <div>
+              <p className="font-semibold">Коридор в разработке</p>
+              <p className="mt-1 text-sm text-amber-900/90">
+                Мы наполняем программы, wizard и справочник. Пока доступны новости и частичный справочник — полный
+                подбор маршрута появится после завершения наполнения.
+              </p>
+            </div>
+          </div>
+        )}
+
+        <HeroShell visual={<CorridorHeroVisual segment={topic.urlSegment} />}>
+          <p className="text-sm uppercase tracking-wide text-corridor-100">
+            {isFull ? "Полный коридор Emigro" : "Коридор в разработке"}
+          </p>
+          <h1 className="mt-2 text-4xl font-bold">{corridor.title_ru}</h1>
+          <p className="mt-4 max-w-2xl text-lg text-corridor-100">{corridor.audience_description_ru}</p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            {isFull && topic.sitePaths?.wizard && (
+              <Link
+                href={topic.sitePaths.wizard}
+                className="rounded-lg bg-white px-5 py-3 font-medium text-corridor-900 hover:bg-corridor-50"
+              >
+                Подобрать маршрут
+              </Link>
+            )}
+            <Link
+              href={`/ru/news?country=${topic.key}`}
+              className="rounded-lg border border-white/40 px-5 py-3 font-medium text-white hover:bg-white/10"
+            >
+              Новости недели
+            </Link>
+            {topic.sitePaths?.guide && (
+              <Link
+                href={topic.sitePaths.guide}
+                className="rounded-lg border border-white/40 px-5 py-3 font-medium text-white hover:bg-white/10"
+              >
+                Справочник коридора
+              </Link>
+            )}
+          </div>
+        </HeroShell>
+
+        {corridor.programs.length > 0 && (
+          <section className="mt-12">
+            <h2 className="text-2xl font-semibold">Маршруты в коридоре</h2>
+            {!isFull && (
+              <p className="mt-2 text-sm text-slate-500">Карточки программ — превью; wizard и детальные страницы после запуска.</p>
+            )}
+            <div className="mt-6 grid gap-4 md:grid-cols-3">
+              {corridor.programs.map((program) => {
+                const href = `${base}/programs/${program.slug}`;
+                const card = (
+                  <>
+                    <ProgramTypeBadge type={program.program_type} />
+                    <h3 className="mt-3 text-lg font-semibold">{program.title_ru}</h3>
+                    <p className="mt-2 text-sm text-slate-600">{program.summary_ru}</p>
+                  </>
+                );
+                return isFull ? (
+                  <Link
+                    key={String(program.id)}
+                    href={href}
+                    className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:border-corridor-500 hover:shadow-md"
+                  >
+                    {card}
+                  </Link>
+                ) : (
+                  <div
+                    key={String(program.id)}
+                    className="rounded-xl border border-dashed border-slate-200 bg-slate-50 p-5 opacity-90"
+                  >
+                    {card}
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+        )}
+
+        <section className="mt-12">
+          <h2 className="text-2xl font-semibold">Интеллект коридора</h2>
+          <p className="mt-2 max-w-2xl text-slate-600">
+            Справочник с проверенными фактами и еженедельные новости — два дополняющих слоя.
+            {isFull ? " Wizard опирается на оба." : ""}
+          </p>
+          <div className="mt-6 grid gap-4 lg:grid-cols-2">
+            <LatestNewsTeaser topicKey={topic.key} />
+            {topic.sitePaths?.guide && (
+              <GuideDigestPreview
+                items={corridor.digest}
+                guideHref={topic.sitePaths.guide}
+                countryRu={topic.countryRu}
+              />
+            )}
+          </div>
+        </section>
+
+        <section className="mt-12 rounded-xl border border-slate-200 bg-white p-6">
+          <h2 className="text-xl font-semibold">Паспорта в коридоре</h2>
+          <ul className="mt-4 flex flex-wrap gap-2">
+            {corridor.passports.map((p) => (
+              <li
+                key={p.passport_iso2}
+                className={`rounded-full px-3 py-1 text-sm ${
+                  p.support_level === "primary"
+                    ? "bg-corridor-100 text-corridor-800"
+                    : "bg-slate-100 text-slate-700"
+                }`}
+              >
+                {p.passport_iso2}
+                {p.support_level === "primary" ? " (основной)" : ""}
+              </li>
+            ))}
+          </ul>
+        </section>
+      </main>
+      <SiteFooter />
+    </>
+  );
+}
+
+export function CorridorBreadcrumb({
+  topic,
+  current,
+}: {
+  topic: NewsTopicConfig;
+  current: string;
+}) {
+  return (
+    <nav className="text-sm text-slate-500">
+      <Link href="/ru" className="text-corridor-600 hover:underline">
+        Все направления
+      </Link>
+      <span className="mx-2">/</span>
+      <Link href={topic.sitePaths?.landing ?? `/ru/${topic.urlSegment}`} className="text-corridor-600 hover:underline">
+        {topic.countryRu}
+      </Link>
+      <span className="mx-2">/</span>
+      <span>{current}</span>
+    </nav>
+  );
+}
