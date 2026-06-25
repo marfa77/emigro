@@ -4,6 +4,11 @@ const nextConfig = {
   async redirects() {
     return [
       {
+        source: "/",
+        destination: "/ru",
+        permanent: false,
+      },
+      {
         source: "/:path*",
         has: [{ type: "host", value: "emigro.online" }],
         destination: "https://www.emigro.online/:path*",
