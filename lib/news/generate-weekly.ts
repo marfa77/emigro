@@ -413,7 +413,7 @@ export async function runWeeklyNewsForTopic(
     { topic: topic.key, slug, outcome: "published", source: "generate-weekly" },
     "cron"
   );
-  void pingSearchEnginesSitemap(`${publicNewsSiteUrl()}/sitemap.xml`);
+  void pingSearchEnginesSitemap(`${publicNewsSiteUrl()}/sitemap.xml`, [articleUrl]);
 
   return { outcome: "published", topic: topic.key, slug, articleUrl };
 }

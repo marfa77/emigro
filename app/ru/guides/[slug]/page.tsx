@@ -7,6 +7,7 @@ import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { guidePath, listGuides, loadGuide } from "@/lib/guides/load";
 import { pageMetadata } from "@/lib/seo";
+import { SITE_URL } from "@/lib/site-url";
 
 export function generateStaticParams() {
   return listGuides().map((guide) => ({ slug: guide.slug }));
@@ -15,11 +16,17 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const guide = loadGuide(params.slug);
   if (!guide) return {};
-  return pageMetadata({
+  const metadata = pageMetadata({
     title: guide.seo_title ?? guide.title,
     description: guide.seo_description ?? guide.excerpt ?? guide.title,
     path: guidePath(guide.slug),
   });
+  const url = `${SITE_URL}${guidePath(guide.slug)}`;
+  return {
+    ...metadata,
+    keywords: guide.tags,
+    alternates: { canonical: url, languages: { "ru-RU": url } },
+  };
 }
 
 function GuideHeroVisual() {
@@ -48,10 +55,30 @@ function extractToc(bodyHtml: string) {
     .slice(0, 7);
 }
 
+function stripHtml(html: string) {
+  return html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+}
+
+function extractFaq(bodyHtml: string) {
+  const faqSection = /<h2[^>]*>\s*FAQ\s*<\/h2>([\s\S]*?)(?=<h2|$)/i.exec(bodyHtml)?.[1] ?? "";
+  const matches = Array.from(
+    faqSection.matchAll(/<p[^>]*>\s*<strong>(.*?)<\/strong>\s*<\/p>\s*<p[^>]*>(.*?)<\/p>/g)
+  );
+  return matches
+    .map((match) => ({
+      question: stripHtml(match[1] ?? ""),
+      answer: stripHtml(match[2] ?? ""),
+    }))
+    .filter((item) => item.question && item.answer)
+    .slice(0, 7);
+}
+
 export default function GuideArticlePage({ params }: { params: { slug: string } }) {
   const guide = loadGuide(params.slug);
   if (!guide) notFound();
   const toc = extractToc(guide.bodyHtml);
+  const faqItems = extractFaq(guide.bodyHtml);
+  const url = `${SITE_URL}${guidePath(guide.slug)}`;
 
   const articleSchema = {
     "@context": "https://schema.org",
@@ -61,12 +88,51 @@ export default function GuideArticlePage({ params }: { params: { slug: string } 
     datePublished: guide.date_published,
     dateModified: guide.date_modified ?? guide.date_published,
     author: { "@type": "Organization", name: "Emigro" },
+    publisher: { "@type": "Organization", name: "Emigro", url: SITE_URL },
+    mainEntityOfPage: url,
+    image: `${SITE_URL}/images/emigro-guide-passive-income.webp`,
+    keywords: guide.tags?.join(", "),
   };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Emigro", item: SITE_URL },
+      { "@type": "ListItem", position: 2, name: "Гайды", item: `${SITE_URL}/ru/guides` },
+      { "@type": "ListItem", position: 3, name: guide.title, item: url },
+    ],
+  };
+
+  const faqSchema =
+    faqItems.length >= 2
+      ? {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: faqItems.map((item) => ({
+            "@type": "Question",
+            name: item.question,
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: item.answer,
+            },
+          })),
+        }
+      : null;
+
+  const llmDescription = [
+    guide.quick_answer,
+    "Emigro помогает сравнить маршруты ВНЖ через hub wizard без выбора страны заранее.",
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   return (
     <>
       <SiteHeader />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      {faqSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />}
       <main className="mx-auto max-w-6xl px-4 py-10">
         <HeroShell visual={<GuideHeroVisual />} className="from-slate-950 via-corridor-800 to-sky-800">
           <Link href="/ru/guides" className="text-sm font-medium text-corridor-100 hover:text-white">
@@ -99,6 +165,12 @@ export default function GuideArticlePage({ params }: { params: { slug: string } 
 
         <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_320px]">
           <div>
+            <section className="sr-only" aria-label="AI description">
+              <h2>ai:description</h2>
+              <p>{llmDescription}</p>
+              <a href="/llms.txt">llms.txt</a>
+            </section>
+
             {guide.quick_answer && (
               <section className="rounded-2xl border border-corridor-200 bg-white p-6 shadow-sm">
                 <p className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-corridor-700">

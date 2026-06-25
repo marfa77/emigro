@@ -52,13 +52,19 @@ export function programPathLegacy(programSlug: string): string {
   return `/ru/programs/${programSlug}`;
 }
 
-/** Ping Google after sitemap-changing publishes (best-effort). */
-export async function pingSearchEnginesSitemap(sitemapUrl: string): Promise<void> {
-  const url = `https://www.google.com/ping?sitemap=${encodeURIComponent(sitemapUrl)}`;
+import { pingIndexNow } from "@/lib/seo/indexnow";
+
+/** Ping Google sitemap + IndexNow (Yandex/Bing) after publishes. */
+export async function pingSearchEnginesSitemap(sitemapUrl: string, updatedUrls?: string[]): Promise<void> {
+  const googlePing = `https://www.google.com/ping?sitemap=${encodeURIComponent(sitemapUrl)}`;
   try {
-    await fetch(url, { method: "GET", signal: AbortSignal.timeout(8000) });
+    await fetch(googlePing, { method: "GET", signal: AbortSignal.timeout(8000) });
     console.info("[seo] sitemap ping sent:", sitemapUrl);
   } catch (e) {
     console.warn("[seo] sitemap ping failed:", e instanceof Error ? e.message : e);
+  }
+
+  if (updatedUrls?.length) {
+    await pingIndexNow(updatedUrls);
   }
 }
