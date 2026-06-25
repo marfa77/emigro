@@ -16,10 +16,10 @@ export const GUIDE_COVER_BY_SLUG: Record<string, string> = {
   "vnj-bez-raboty-passivnyy-dohod-sberezheniya-2026": "/images/corridor-portugal.webp",
   "kuda-pereehat-iz-rossii-2026-evropa-vnj": "/images/emigro-main-hero.webp",
   "byudzhet-relokatsii-evropa-2026-po-stranam": "/images/emigro-main-hero.webp",
-  "relokatsiya-s-detmi-evropa-shkoly-vnj-2026": "/images/emigro-main-hero.webp",
-  "vossoedinenie-semi-evropa-2026": "/images/emigro-main-hero.webp",
-  "ukraintsy-belorusy-vremennaya-zashchita-vs-vnj-2026": "/images/emigro-main-hero.webp",
-  "otkaz-v-natsionalnoy-vize-konsulstvo-2026": "/images/emigro-main-hero.webp",
+  "relokatsiya-s-detmi-evropa-shkoly-vnj-2026": "/images/corridor-portugal.webp",
+  "vossoedinenie-semi-evropa-2026": "/images/corridor-germany.webp",
+  "ukraintsy-belorusy-vremennaya-zashchita-vs-vnj-2026": "/images/corridor-germany.webp",
+  "otkaz-v-natsionalnoy-vize-konsulstvo-2026": "/images/corridor-spain.webp",
 };
 
 export const DEFAULT_GUIDE_COVER = "/images/emigro-main-hero.webp";

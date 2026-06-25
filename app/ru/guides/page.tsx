@@ -7,12 +7,14 @@ import { HeroShell } from "@/components/visuals/HeroShell";
 import { guidePath, listGuides } from "@/lib/guides/load";
 import { getActiveNewsTopics } from "@/lib/news/topics";
 import { pageMetadata } from "@/lib/seo";
+import { schemaImage } from "@/lib/seo/schema";
 
 export const metadata: Metadata = pageMetadata({
   title: "Гайды по релокации и ВНЖ в Европе",
   description:
     "Практические pillar-гайды Emigro: куда переехать из России, digital nomad, семья с детьми, отказы в визах, бюджет релокации и маршруты ВНЖ по странам ЕС.",
   path: "/ru/guides",
+  ogImage: schemaImage("/images/emigro-main-hero.webp"),
 });
 
 export default async function GuidesIndexPage() {
@@ -22,10 +24,10 @@ export default async function GuidesIndexPage() {
   return (
     <>
       <SiteHeader />
-      <main className="mx-auto max-w-6xl px-4 py-10">
+      <main className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 2xl:max-w-[1360px]">
         <HeroShell
           visual={
-            <div className="relative aspect-[16/10] w-full max-w-[360px] overflow-hidden rounded-3xl border border-white/15 bg-white/10 shadow-2xl">
+            <div className="relative aspect-[16/10] w-full max-w-[360px] overflow-hidden rounded-3xl border-2 border-white/30 bg-white shadow-2xl" aria-hidden>
               <Image
                 src="/images/emigro-main-hero.webp"
                 alt=""
@@ -34,7 +36,6 @@ export default async function GuidesIndexPage() {
                 priority
                 className="object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/30 to-transparent" />
             </div>
           }
           className="from-slate-950 via-corridor-800 to-sky-800"
@@ -43,8 +44,8 @@ export default async function GuidesIndexPage() {
             <BookOpen className="h-4 w-4" />
             Библиотека Emigro
           </span>
-          <h1 className="mt-5 max-w-3xl text-4xl font-bold leading-tight sm:text-5xl">Гайды по релокации и ВНЖ</h1>
-          <p className="mt-5 max-w-2xl text-lg leading-relaxed text-corridor-100">
+          <h1 className="mt-5 max-w-3xl text-4xl font-bold leading-tight sm:text-5xl 2xl:max-w-4xl">Гайды по rелокации и ВНЖ</h1>
+          <p className="mt-5 max-w-2xl text-lg leading-relaxed text-corridor-100 2xl:max-w-3xl">
             Практические разборы по маршрутам, доходам, семье, отказам и бюджету. Без воды — с проверкой через wizard.
           </p>
         </HeroShell>

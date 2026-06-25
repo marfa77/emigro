@@ -1,4 +1,4 @@
-import { SITE_URL } from "@/lib/site-url";
+import { publicSiteUrl, SITE_URL } from "@/lib/site-url";
 
 export const EMIGRO_LOGO_URL = `${SITE_URL}/icon.svg`;
 
@@ -19,5 +19,6 @@ export function emigroAuthorOrg() {
 }
 
 export function schemaImage(url: string) {
-  return url.startsWith("http") ? url : `${SITE_URL}${url.startsWith("/") ? url : `/${url}`}`;
+  const origin = publicSiteUrl();
+  return url.startsWith("http") ? url : `${origin}${url.startsWith("/") ? url : `/${url}`}`;
 }
