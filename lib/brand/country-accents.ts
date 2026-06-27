@@ -12,7 +12,7 @@ export const COUNTRY_ACCENTS: Record<
   scandinavia: { from: "#0369a1", to: "#1e3a8a", glow: "#7dd3fc", label: "Скандинавия", cardImage: "/images/corridor-scandinavia.webp" },
   poland: { from: "#dc2626", to: "#f8fafc", glow: "#fca5a5", label: "Польша", cardImage: "/images/corridor-poland.webp" },
   czechia: { from: "#1d4ed8", to: "#dc2626", glow: "#93c5fd", label: "Чехия", cardImage: "/images/corridor-czechia.webp" },
-  austria: { from: "#dc2626", to: "#f8fafc", glow: "#fca5a5", label: "Австрия", cardImage: "/images/corridor-germany.webp" },
+  austria: { from: "#dc2626", to: "#f8fafc", glow: "#fca5a5", label: "Австрия", cardImage: "/images/corridor-austria.webp" },
 };
 
 export const HUB_ACCENT = { from: "#1d4ed8", to: "#1e3a5f", glow: "#60a5fa" };

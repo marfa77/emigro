@@ -13,7 +13,7 @@ const CORRIDOR_COVER_IMAGES: Record<string, string> = {
   "ru-speaking-to-scandinavia": "/images/corridor-scandinavia.webp",
   "ru-speaking-to-poland": "/images/corridor-poland.webp",
   "ru-speaking-to-czechia": "/images/corridor-czechia.webp",
-  "ru-speaking-to-austria": "/images/corridor-germany.webp",
+  "ru-speaking-to-austria": "/images/corridor-austria.webp",
 };
 
 /** Per-guide cover when no frontmatter override; reuses corridor photos from public/images/. */
