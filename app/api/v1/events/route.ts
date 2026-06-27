@@ -25,6 +25,7 @@ const ALLOWED: Set<string> = new Set([
   "news_source_click",
   "corridor_link_click",
   "provider_click",
+  "community_join_click",
 ]);
 
 const TELEGRAM_EVENTS: Set<string> = new Set([

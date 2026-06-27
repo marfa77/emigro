@@ -590,11 +590,11 @@ export const EUROPE_CORRIDORS: CorridorSeed[] = [
           and: [
             { "==": [{ var: "passport_iso2" }, "RU"] },
             { "==": [{ var: "remote_income" }, "yes"] },
-            { ">=": [{ var: "monthly_income_eur" }, 2334] },
+            { ">=": [{ var: "monthly_income_eur" }, 2066] },
           ],
         },
         requirements: [
-          { type: "income", labelEn: "Minimum annual income", labelRu: "Минимальный годовой доход", value: "€28,000/year (~€2,334/month net equivalent, 2026)" },
+          { type: "income", labelEn: "Minimum annual income", labelRu: "Минимальный годовой доход", value: "€24,790/year (~€2,066/month; 3× healthcare exemption base, 2026)" },
           { type: "documents", labelEn: "Remote work proof", labelRu: "Подтверждение удалённой работы", value: "Contract, tax returns, professional qualification" },
           { type: "insurance", labelEn: "Health insurance", labelRu: "Медстраховка", value: "Valid in Italy for entire stay" },
         ],
@@ -609,10 +609,10 @@ export const EUROPE_CORRIDORS: CorridorSeed[] = [
         ],
         sources: [
           {
-            url: "https://www.interno.gov.it/it/temi/immigrazione-e-asilo/modalita-dingresso/digital-nomad-visa",
-            excerpt: "Digital nomad visa — minimum income €28,000/year for remote highly qualified workers.",
-            labelEn: "Ministero dell'Interno — digital nomad",
-            labelRu: "Ministero dell'Interno — digital nomad",
+            url: "https://www.integrazionemigranti.gov.it/en-gb/Ricerca-news/Dettaglio-news/id/3835/Who-are-the-digital-nomads-How-can-they-enter-Italy-",
+            excerpt: "Minimum income 3× healthcare exemption base (€8,263.30) = €24,789/year (Decreto Ministero Interno 29 Feb 2024).",
+            labelEn: "Ministero del Lavoro — digital nomad FAQ",
+            labelRu: "Ministero del Lavoro — digital nomad FAQ",
           },
         ],
       },

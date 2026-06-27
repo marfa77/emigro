@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, BookOpen, Globe2, Newspaper, Route } from "lucide-react";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
+import { RelocatorChatPromo } from "@/components/community/RelocatorChatPromo";
 import { DestinationCard } from "@/components/destinations/DestinationCard";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { HubHeroVisual } from "@/components/visuals/HubHeroVisual";
@@ -53,9 +54,32 @@ export default async function RuHubPage() {
     })),
   };
 
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Emigro",
+    url: SITE_URL,
+    inLanguage: "ru-RU",
+    description:
+      "Навигатор релокации для русскоязычных: европейские коридоры ВНЖ, wizard подбора, справочники и еженедельные новости.",
+    publisher: { "@type": "Organization", name: "Emigro", url: SITE_URL },
+  };
+
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Emigro",
+    url: SITE_URL,
+    logo: `${SITE_URL}/icon.svg`,
+    description: "Русскоязычный навигатор релокации в Европу: коридоры ВНЖ, wizard, гайды и новости.",
+    sameAs: ["https://t.me/Emigro_news"],
+  };
+
   return (
     <>
       <SiteHeader />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }} />
       <main className="mx-auto max-w-5xl px-4 py-10">
         <HeroShell visual={<HubHeroVisual />}>
@@ -63,7 +87,7 @@ export default async function RuHubPage() {
             <Globe2 className="h-4 w-4" />
             {destinationCount} направлений
           </div>
-          <h1 className="mt-4 text-4xl font-bold">Emigro</h1>
+          <h1 className="mt-4 text-4xl font-bold">Emigro — релокация и ВНЖ в Европу</h1>
           <p className="mt-4 max-w-2xl text-lg text-corridor-100">
             Навигатор релокации для русскоязычных: еженедельные новости по Европе и полные коридоры с wizard,
             справочником и проверкой маршрутов.
@@ -99,6 +123,53 @@ export default async function RuHubPage() {
             )}
           </div>
         </HeroShell>
+
+        <section className="mt-10">
+          <h2 className="text-xl font-semibold text-slate-900">Выберите ваш паспорт</h2>
+          <p className="mt-1 text-sm text-slate-500">Emigro — для всех русскоязычных из СНГ, не только россиян.</p>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            <Link
+              href="/ru/wizard"
+              className="group flex items-start gap-3 rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition hover:border-corridor-300 hover:shadow-md"
+            >
+              <span className="text-2xl" aria-hidden>🇷🇺</span>
+              <div>
+                <p className="font-semibold text-slate-900">Граждане РФ</p>
+                <p className="mt-0.5 text-xs text-slate-500">Wizard подбора маршрута</p>
+              </div>
+            </Link>
+            <Link
+              href="/ru/ukraine"
+              className="group flex items-start gap-3 rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition hover:border-corridor-300 hover:shadow-md"
+            >
+              <span className="text-2xl" aria-hidden>🇺🇦</span>
+              <div>
+                <p className="font-semibold text-slate-900">Граждане Украины</p>
+                <p className="mt-0.5 text-xs text-slate-500">TP vs ВНЖ · Польша, Чехия, Германия</p>
+              </div>
+            </Link>
+            <Link
+              href="/ru/guides/belorusy-v-evropu-vnj-2026"
+              className="group flex items-start gap-3 rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition hover:border-corridor-300 hover:shadow-md"
+            >
+              <span className="text-2xl" aria-hidden>🇧🇾</span>
+              <div>
+                <p className="font-semibold text-slate-900">Беларусь</p>
+                <p className="mt-0.5 text-xs text-slate-500">Маршруты ВНЖ в ЕС для BY-паспорта</p>
+              </div>
+            </Link>
+            <Link
+              href="/ru/guides/kazahstantsy-v-evropu-vnj-2026"
+              className="group flex items-start gap-3 rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition hover:border-corridor-300 hover:shadow-md"
+            >
+              <span className="text-2xl" aria-hidden>🇰🇿</span>
+              <div>
+                <p className="font-semibold text-slate-900">Казахстан</p>
+                <p className="mt-0.5 text-xs text-slate-500">KZ-паспорт → Европа: безвиз и маршруты</p>
+              </div>
+            </Link>
+          </div>
+        </section>
 
         <section id="destinations" className="mt-14 scroll-mt-20">
           <h2 className="text-2xl font-semibold text-slate-900">Направления</h2>
@@ -213,6 +284,28 @@ export default async function RuHubPage() {
             </Link>
           </section>
         )}
+
+        <RelocatorChatPromo source="homepage" className="mt-14" />
+
+        <section className="mt-14 rounded-2xl border border-corridor-200 bg-gradient-to-br from-corridor-50 to-white p-6 sm:p-8">
+          <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wide text-corridor-600">Emigro Assist</p>
+              <h2 className="mt-1.5 text-xl font-bold text-slate-900">Не знаете, с чего начать?</h2>
+              <p className="mt-2 max-w-lg text-slate-600">
+                Разберём вашу ситуацию за 45 минут: профиль, доход, семья — и 1–2 реалистичных маршрута. Письменное
+                резюме с чек-листом в течение 48 часов.
+              </p>
+            </div>
+            <Link
+              href="/ru/assist"
+              className="inline-flex shrink-0 items-center gap-2 rounded-lg bg-corridor-700 px-5 py-3 font-medium text-white hover:bg-corridor-800"
+            >
+              Route Check — €129
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+        </section>
 
         <section className="mt-14 rounded-xl border border-slate-200 bg-white p-6">
           <h2 className="font-semibold text-slate-900">Три уровня продукта</h2>

@@ -15,11 +15,13 @@ function ownerChatId(): string | undefined {
   return process.env.TELEGRAM_PRIVATE_CHAT_ID?.trim();
 }
 
+type TelegramApiResult = { ok?: boolean; description?: string; result?: { message_id?: number } };
+
 async function sendTelegramPlain(
   token: string,
   chatId: string,
   text: string
-): Promise<{ success: boolean; error?: string }> {
+): Promise<{ success: boolean; error?: string; messageId?: number }> {
   if (!token) return { success: false, error: "bot token missing" };
   if (!chatId) return { success: false, error: "chat id missing" };
 
@@ -33,11 +35,11 @@ async function sendTelegramPlain(
     }),
   });
 
-  const json = (await res.json()) as { ok?: boolean; description?: string };
+  const json = (await res.json()) as TelegramApiResult;
   if (!res.ok || json.ok === false) {
     return { success: false, error: json.description || res.statusText };
   }
-  return { success: true };
+  return { success: true, messageId: json.result?.message_id };
 }
 
 export async function sendTelegramHtmlToChat(
@@ -59,7 +61,7 @@ export async function sendTelegramHtmlToChat(
     }),
   });
 
-  const json = (await res.json()) as { ok?: boolean; description?: string };
+  const json = (await res.json()) as TelegramApiResult;
   if (!res.ok || json.ok === false) {
     return { success: false, error: json.description || res.statusText };
   }
@@ -77,6 +79,15 @@ export async function sendTelegramPlainToChat(
 
 function newsChannelId(): string {
   return (process.env.EMIGRO_NEWS_TELEGRAM_CHANNEL || "@Emigro_news").trim();
+}
+
+/** Public t.me link for the news channel (never localhost). */
+export function newsTelegramChannelUrl(): string {
+  const channel = newsChannelId();
+  if (/^https?:\/\//i.test(channel)) return channel.replace(/\/$/, "");
+  if (channel.startsWith("@")) return `https://t.me/${channel.slice(1)}`;
+  if (channel.startsWith("t.me/")) return `https://${channel}`;
+  return "https://t.me/Emigro_news";
 }
 
 function splitThreadsForTelegram(text: string, max = 4000): string[] {
@@ -124,26 +135,60 @@ async function sendTelegramHtmlWithToken(
       disable_web_page_preview: false,
     }),
   });
-  const json = (await res.json()) as { ok?: boolean; description?: string };
+  const json = (await res.json()) as TelegramApiResult;
   if (!res.ok || json.ok === false) {
     return { success: false, error: json.description || res.statusText };
   }
   return { success: true };
 }
 
+/** Delete previously published channel messages (bot must be channel admin). */
+export async function deleteTelegramChannelMessages(messageIds: number[]): Promise<{
+  deleted: number[];
+  failed: Array<{ messageId: number; error: string }>;
+}> {
+  const token = channelBotToken();
+  if (!token) throw new Error("EMIGRO_NEWS_BOT_TOKEN or TELEGRAM_BOT_TOKEN missing");
+  const channel = newsChannelId();
+
+  const deleted: number[] = [];
+  const failed: Array<{ messageId: number; error: string }> = [];
+
+  for (const messageId of messageIds) {
+    const res = await fetch(`https://api.telegram.org/bot${token}/deleteMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ chat_id: channel, message_id: messageId }),
+    });
+    const json = (await res.json()) as TelegramApiResult;
+    if (res.ok && json.ok !== false) {
+      deleted.push(messageId);
+    } else {
+      failed.push({ messageId, error: json.description || res.statusText });
+    }
+  }
+
+  return { deleted, failed };
+}
+
 /** Publish a readable digest that is also ready to copy into a Threads thread. */
 export async function publishNewsDigestToChannel(
   threadsText: string,
   _options?: { flag?: string; countryRu?: string }
-): Promise<void> {
+): Promise<number[]> {
   const token = channelBotToken();
   if (!token) throw new Error("EMIGRO_NEWS_BOT_TOKEN or TELEGRAM_BOT_TOKEN missing");
   const channel = newsChannelId();
   const messages = splitThreadsForTelegram(threadsText);
+  const messageIds: number[] = [];
+
   for (const msg of messages) {
     const result = await sendTelegramPlain(token, channel, msg);
     if (!result.success) throw new Error(result.error || `Failed to publish to ${channel}`);
+    if (result.messageId != null) messageIds.push(result.messageId);
   }
+
+  return messageIds;
 }
 
 /** Owner DM via CIPLE bot (EMIGRO_NEWS_BOT_TOKEN) — lead shortlist requests, Threads copy. */

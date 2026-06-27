@@ -1,12 +1,28 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { AlertTriangle, ArrowRight, Banknote, CheckCircle2, Clock, FileText, Route } from "lucide-react";
+import { AlertTriangle, ArrowRight, Banknote, BookOpen, CheckCircle2, Clock, FileText, Globe2, Route } from "lucide-react";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { ServiceProvidersSection } from "@/components/providers/ServiceProvidersSection";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { HubHeroVisual } from "@/components/visuals/HubHeroVisual";
 import { TRANSIT_HUBS, type TransitHub } from "@/lib/transit-hubs";
 import { SITE_URL } from "@/lib/site-url";
+
+const EU_CORRIDORS = [
+  { slug: "portugal", label: "Португалия", flag: "🇵🇹", path: "/ru/portugal" },
+  { slug: "spain", label: "Испания", flag: "🇪🇸", path: "/ru/spain" },
+  { slug: "france", label: "Франция", flag: "🇫🇷", path: "/ru/france" },
+  { slug: "germany", label: "Германия", flag: "🇩🇪", path: "/ru/germany" },
+  { slug: "italy", label: "Италия", flag: "🇮🇹", path: "/ru/italy" },
+  { slug: "netherlands", label: "Нидерланды", flag: "🇳🇱", path: "/ru/netherlands" },
+];
+
+const DESTINATION_GUIDES = [
+  { label: "Как выбрать страну для ВНЖ — 2026", href: "/ru/guides/kuda-pereehat-iz-rossii-2026-evropa-vnj" },
+  { label: "ВНЖ без работы: пассивный доход и сбережения", href: "/ru/guides/vnj-bez-raboty-passivnyy-dohod-sberezheniya-2026" },
+  { label: "Португалия vs Испания: что выбрать в 2026", href: "/ru/guides/portugaliya-vs-ispaniya-vnj-2026" },
+  { label: "D7 vs Digital Nomad: полное сравнение", href: "/ru/guides/d7-vs-digital-nomad-visa-sravnenie" },
+];
 
 type Props = {
   hub: TransitHub;
@@ -132,6 +148,46 @@ export function TransitHubLanding({ hub }: Props) {
                 Проверить программы EU в wizard
                 <ArrowRight className="h-4 w-4" />
               </Link>
+            </section>
+
+            <section className="rounded-2xl border border-corridor-100 bg-gradient-to-br from-corridor-50 to-white p-6">
+              <div className="flex items-center gap-2">
+                <Globe2 className="h-5 w-5 text-corridor-600" />
+                <h2 className="text-2xl font-semibold text-slate-900">Следующий шаг: выбери страну назначения</h2>
+              </div>
+              <p className="mt-3 text-sm leading-relaxed text-slate-600">
+                {hub.countryRu} — транзитный хаб, а не финальная цель. Выберите EU-коридор для постоянного ВНЖ.
+              </p>
+              <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3">
+                {EU_CORRIDORS.map((corridor) => (
+                  <Link
+                    key={corridor.slug}
+                    href={corridor.path}
+                    className="flex items-center gap-2 rounded-xl border border-corridor-200 bg-white px-3 py-2.5 text-sm font-medium text-slate-800 shadow-sm hover:border-corridor-400 hover:text-corridor-700 transition-colors"
+                  >
+                    <span className="text-base">{corridor.flag}</span>
+                    <span>{corridor.label}</span>
+                  </Link>
+                ))}
+              </div>
+              <div className="mt-5 border-t border-slate-100 pt-4">
+                <div className="flex items-center gap-2 text-sm font-semibold text-slate-700">
+                  <BookOpen className="h-4 w-4 text-corridor-600" />
+                  Полезные гайды по выбору страны
+                </div>
+                <div className="mt-2 space-y-1.5">
+                  {DESTINATION_GUIDES.map((guide) => (
+                    <Link
+                      key={guide.href}
+                      href={guide.href}
+                      className="flex items-center gap-1.5 text-sm text-corridor-700 hover:underline"
+                    >
+                      <ArrowRight className="h-3.5 w-3.5 shrink-0" />
+                      {guide.label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
             </section>
 
             <section className="rounded-2xl border border-slate-200 bg-white p-6">

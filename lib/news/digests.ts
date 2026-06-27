@@ -31,6 +31,7 @@ export type NewsDigest = {
   source_links: NewsSourceLink[];
   telegram_html: string | null;
   threads_text: string | null;
+  telegram_message_ids: number[] | null;
   week_start: string;
   week_end: string;
   published_at: string;

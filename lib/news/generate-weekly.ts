@@ -37,8 +37,8 @@ import {
 import { buildThreadsThreadFromDigestHtml, buildThreadsFromSiteDigest } from "@/lib/news/threads";
 import { pingSearchEnginesSitemap } from "@/lib/corridor/paths";
 import { trackServerEvent } from "@/lib/analytics/server";
-import { publishNewsDigestToChannel, sendNewsDigestThreadsDm } from "@/lib/telegram";
-import { publicNewsSiteUrl } from "@/lib/site-url";
+import { publishNewsDigestToChannel, newsTelegramChannelUrl } from "@/lib/telegram";
+import { newsArticleUrl, publicSiteUrl } from "@/lib/site-url";
 import type { NewsTopicConfig } from "@/lib/news/topics";
 
 export type WeeklyNewsResult =
@@ -250,7 +250,8 @@ export async function runWeeklyNewsForTopic(
   const weekStartYmd = toYmd(weekFrom);
   const weekEndYmd = toYmd(weekEnd);
   const slug = buildNewsDigestSlug(topic.key, weekEndYmd);
-  const articleUrl = `${publicNewsSiteUrl()}/ru/news/${slug}`;
+  const siteArticleUrl = newsArticleUrl(slug);
+  const channelUrl = newsTelegramChannelUrl();
 
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL?.replace(/\/$/, "");
   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY?.trim();
@@ -331,14 +332,15 @@ export async function runWeeklyNewsForTopic(
 
   const [siteDigest, telegramHtml] = await Promise.all([
     generateSiteDigestRu(topic, selectedRaw, weekStartYmd, weekEndYmd, sourceLinks),
-    generateTelegramHtml(topic, selectedStories, weekFrom, weekEnd, articleUrl, sourceLinks),
+    generateTelegramHtml(topic, selectedStories, weekFrom, weekEnd, siteArticleUrl, sourceLinks),
   ]);
 
   let finalThreadsText = buildThreadsFromSiteDigest({
     topic,
     weekFrom,
     weekEnd,
-    articleUrl,
+    channelUrl,
+    siteArticleUrl,
     title: siteDigest.title,
     excerpt: siteDigest.excerpt,
     keyTakeaways: siteDigest.key_takeaways,
@@ -354,7 +356,9 @@ export async function runWeeklyNewsForTopic(
       digestHtml: telegramHtml,
       weekFrom,
       weekEnd,
-      articleUrl,
+      channelUrl,
+      siteArticleUrl,
+      sourceLinks,
       fallbackTakeaways: siteDigest.key_takeaways,
       fallbackExcerpt: siteDigest.excerpt,
     });
@@ -405,7 +409,6 @@ export async function runWeeklyNewsForTopic(
     } catch (e) {
       console.warn(`[telegram:${topic.key}] channel failed:`, e instanceof Error ? e.message : e);
     }
-    await sendNewsDigestThreadsDm(finalThreadsText);
   }
 
   await trackServerEvent(
@@ -413,9 +416,9 @@ export async function runWeeklyNewsForTopic(
     { topic: topic.key, slug, outcome: "published", source: "generate-weekly" },
     "cron"
   );
-  void pingSearchEnginesSitemap(`${publicNewsSiteUrl()}/sitemap.xml`, [articleUrl]);
+  void pingSearchEnginesSitemap(`${publicSiteUrl()}/sitemap.xml`, [siteArticleUrl]);
 
-  return { outcome: "published", topic: topic.key, slug, articleUrl };
+  return { outcome: "published", topic: topic.key, slug, articleUrl: siteArticleUrl };
 }
 
 export async function runWeeklyNewsForAllTopics(options?: {

@@ -7,7 +7,8 @@ import { HUB_WIZARD_ID, HUB_WIZARD_MODULES } from "@/lib/wizard/hub-definition";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Подбор страны и маршрута ВНЖ — wizard Emigro",
+  title: "Подбор страны и маршрута ВНЖ",
+  titleAbsolute: true,
   description:
     "Ответьте на вопросы о паспорте, доходе, работе и семье — Emigro проверит все европейские коридоры и покажет подходящие программы.",
   path: "/ru/wizard",

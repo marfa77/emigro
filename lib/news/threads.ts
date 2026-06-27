@@ -1,4 +1,6 @@
 import type { NewsTopicConfig } from "@/lib/news/topics";
+import { CHANNEL_STYLE_BANNED_RU } from "@/lib/news/editorial";
+import { domainFromLink, isLowTrustSource } from "@/lib/news/scoring";
 
 export type ThreadsFactBlock = {
   fact: string;
@@ -23,7 +25,32 @@ function stripTelegramHtmlToText(html: string): string {
 }
 
 function compactPlainText(text: string): string {
-  return stripTelegramHtmlToText(text).replace(/[ \t]+/g, " ").trim();
+  return stripTelegramHtmlToText(text)
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+    .replace(/[ \t]+/g, " ")
+    .trim();
+}
+
+const THREADS_WATER_RU =
+  /(?:продолжает курс на привлечение|призваны сделать страну более привлекательн|эти изменения призваны|оста[её]тся одним из ключевых маршрутов|подч[её]ркива(?:ет|ют) важность точного соблюдения|требует тщательного планирования|ключевым компонентом интеграции|в рамках общей европейской политики|эти изменения влияют на мобильность путешественников)/i;
+
+const THREADS_WEAK_SOURCE_DOMAINS = new Set([
+  "mshale.com",
+  "travelandtourworld.com",
+  "m.economictimes.com",
+  "economictimes.com",
+]);
+
+function stripThreadsWater(text: string): string {
+  let s = compactPlainText(text);
+  s = s.replace(new RegExp(CHANNEL_STYLE_BANNED_RU, "gi"), "");
+  if (THREADS_WATER_RU.test(s)) {
+    s = s
+      .split(/(?<=[.!?])\s+/)
+      .filter((sentence) => !THREADS_WATER_RU.test(sentence))
+      .join(" ");
+  }
+  return compactPlainText(s);
 }
 
 function truncateAtSentence(text: string, max: number): string {
@@ -69,7 +96,7 @@ function formatThreadsWeekRange(weekFrom: Date, weekEnd: Date): string {
 }
 
 function buildThreadsPost(parts: string[], max = 500): string {
-  const joined = parts.map(compactPlainText).filter(Boolean).join("\n\n");
+  const joined = parts.map(stripThreadsWater).filter(Boolean).join("\n\n");
   return truncateAtSentence(joined, max);
 }
 
@@ -85,61 +112,100 @@ function buildDigestHeader(topic: NewsTopicConfig, weekFrom: Date, weekEnd: Date
     `${topic.flag} ${topic.countryRu}: главное за неделю`,
     formatThreadsWeekRange(weekFrom, weekEnd),
     "",
-    compactPlainText(excerpt || title),
+    stripThreadsWater(excerpt || title),
   ]
     .filter((part, idx) => idx === 2 || Boolean(part))
     .join("\n");
+}
+
+type SiteContentBlock = {
+  heading: string;
+  paragraphs: string[];
+  bullets?: string[];
+  source_name?: string;
+  source_url?: string;
+};
+
+function isNewsSourceUrl(url: string): boolean {
+  const domain = domainFromLink(url).toLowerCase();
+  if (!domain || domain.includes("lemonsqueezy") || domain.includes("emigro.online")) return false;
+  return !isThreadsWeakSource(url);
+}
+
+function isThreadsWeakSource(url?: string): boolean {
+  if (!url) return false;
+  if (isLowTrustSource(url)) return true;
+  const domain = domainFromLink(url).toLowerCase();
+  return THREADS_WEAK_SOURCE_DOMAINS.has(domain);
+}
+
+function blockScore(block: SiteContentBlock): number {
+  let score = compactPlainText(block.paragraphs.join(" ")).length;
+  if (block.bullets?.length) score += 40;
+  if (block.source_url && isThreadsWeakSource(block.source_url)) score -= 120;
+  if (/консульств|виз[аы]\s+d|шенген|паспорт|гражданств|супруг/i.test(`${block.heading} ${block.paragraphs.join(" ")}`)) {
+    score += 30;
+  }
+  if (THREADS_WATER_RU.test(block.paragraphs.join(" "))) score -= 40;
+  return score;
+}
+
+function buildStoryPost(block: SiteContentBlock): string {
+  const factParts = block.paragraphs.map(stripThreadsWater).filter(Boolean);
+  const bulletLines = (block.bullets ?? []).map((b) => `• ${stripThreadsWater(b)}`).filter((b) => b.length > 3);
+  const sourceName = readableSourceName(block.source_name);
+  const showSource = block.source_url && !isThreadsWeakSource(block.source_url) && sourceName;
+  const source = showSource ? `\nИсточник: ${sourceName}` : "";
+  return buildThreadsPost([block.heading, ...factParts, bulletLines.join("\n"), source]);
+}
+
+function buildSourcesFinalPost(params: {
+  channelUrl: string;
+  siteArticleUrl: string;
+  sourceLinks?: Array<{ title: string; url: string }>;
+}): string {
+  const externalSources = (params.sourceLinks ?? [])
+    .filter((s) => s.url && isNewsSourceUrl(s.url))
+    .slice(0, 4)
+    .map((s) => {
+      const sourceName = readableSourceName(s.title) || domainFromLink(s.url);
+      return `${sourceName}: ${s.url}`;
+    });
+
+  const sourcesLine = [`Emigro: ${params.siteArticleUrl}`, ...externalSources].join("\n");
+
+  return [`Полная версия: ${params.channelUrl}`, `Источники:\n${sourcesLine}`].join("\n");
 }
 
 export function buildThreadsFromSiteDigest(params: {
   topic: NewsTopicConfig;
   weekFrom: Date;
   weekEnd: Date;
-  articleUrl: string;
+  channelUrl: string;
+  siteArticleUrl: string;
   title: string;
   excerpt: string;
   keyTakeaways: string[];
-  contentBlocks: Array<{
-    heading: string;
-    paragraphs: string[];
-    source_name?: string;
-    source_url?: string;
-  }>;
+  contentBlocks: SiteContentBlock[];
   sourceLinks: Array<{ title: string; url: string }>;
 }): string {
-  const { topic, weekFrom, weekEnd, articleUrl, title, excerpt, keyTakeaways, contentBlocks } = params;
+  const { topic, weekFrom, weekEnd, channelUrl, siteArticleUrl, title, excerpt, contentBlocks } = params;
 
-  const storyPosts = contentBlocks.slice(0, 4).map((block) => {
-    const fact = compactPlainText(block.paragraphs.join(" ") || block.heading);
-    const sourceName = readableSourceName(block.source_name);
-    const source = sourceName ? `\nИсточник: ${sourceName}` : "";
-    return buildThreadsPost([block.heading, fact, source]);
-  });
+  const rankedBlocks = [...contentBlocks]
+    .filter((b) => !b.source_url || !isLowTrustSource(b.source_url))
+    .filter((b) => stripThreadsWater(b.paragraphs.join(" ") || b.heading).length > 40)
+    .sort((a, b) => blockScore(b) - blockScore(a))
+    .slice(0, 3);
 
-  const actions = keyTakeaways.slice(0, 3).map((t) => `• ${compactPlainText(t)}`).join("\n");
+  const storyPosts = rankedBlocks.map(buildStoryPost).filter(Boolean);
 
   const posts = [
     buildThreadsPost([buildDigestHeader(topic, weekFrom, weekEnd, excerpt, title)]),
-    ...storyPosts.filter(Boolean),
-    buildThreadsPost([actions || "Проверьте документы и сроки по своему маршруту ВНЖ."]),
+    ...storyPosts,
+    buildSourcesFinalPost({ channelUrl, siteArticleUrl, sourceLinks: params.sourceLinks }),
   ].filter((post) => post.length > 0);
 
-  const sourcesLine = params.sourceLinks
-    .slice(0, 4)
-    .map((s) => {
-      const sourceName = readableSourceName(s.title) || "Источник";
-      return `${sourceName}: ${s.url}`;
-    })
-    .join("\n");
-
-  const finalPost = [
-    `Полная версия: ${articleUrl}`,
-    sourcesLine ? `Источники:\n${sourcesLine}` : "",
-  ]
-    .filter(Boolean)
-    .join("\n");
-
-  const numbered = [...posts, finalPost].map((post, idx, arr) => `${idx + 1}/${arr.length}\n${post}`);
+  const numbered = posts.map((post, idx, arr) => `${idx + 1}/${arr.length}\n${post}`);
   return numbered.join("\n\n");
 }
 
@@ -148,47 +214,29 @@ export function buildThreadsThreadFromDigestHtml(params: {
   digestHtml: string;
   weekFrom: Date;
   weekEnd: Date;
-  articleUrl: string;
+  channelUrl: string;
+  siteArticleUrl: string;
+  sourceLinks?: Array<{ title: string; url: string }>;
   fallbackTakeaways?: string[];
   fallbackExcerpt?: string;
 }): string {
-  const { topic, digestHtml, weekFrom, weekEnd, articleUrl, fallbackTakeaways, fallbackExcerpt } = params;
+  const { topic, digestHtml, weekFrom, weekEnd, channelUrl, siteArticleUrl, fallbackExcerpt } = params;
 
   const hook = compactPlainText(extractTelegramFirstSection(digestHtml, ["Главное", "Hook"])) || fallbackExcerpt || "";
   const factBlocks = extractFactBlocks(digestHtml);
-  const actions = compactPlainText(
-    extractTelegramFirstSection(digestHtml, [
-      "Что проверить сейчас",
-      "Что сделать сейчас",
-      "Критические риски инвестора",
-      "Фокус по стране",
-    ])
-  ) || (fallbackTakeaways?.length ? fallbackTakeaways.map((t) => `• ${t}`).join("\n") : "");
 
-  const firstFact = factBlocks[0]
-    ? `${factBlocks[0].fact}${factBlocks[0].meaning ? ` ${factBlocks[0].meaning}` : ""}`
-    : "";
-
-  const middleFacts = factBlocks.slice(1, 5).map((block) =>
-    [block.fact, block.meaning ? `Что это значит: ${block.meaning}` : ""].filter(Boolean).join("\n")
+  const storyPosts = factBlocks.slice(0, 3).map((block) =>
+    buildThreadsPost(
+      [block.fact, block.meaning ? `Что это значит: ${block.meaning}` : ""].filter(Boolean)
+    )
   );
 
   const posts = [
-    buildThreadsPost([
-      buildDigestHeader(topic, weekFrom, weekEnd, hook || fallbackExcerpt || "", ""),
-      firstFact,
-    ]),
-    buildThreadsPost(middleFacts.slice(0, 2)),
-    buildThreadsPost(middleFacts.slice(2, 4)),
-    buildThreadsPost([actions]),
+    buildThreadsPost([buildDigestHeader(topic, weekFrom, weekEnd, hook || fallbackExcerpt || "", "")]),
+    ...storyPosts,
+    buildSourcesFinalPost({ channelUrl, siteArticleUrl, sourceLinks: params.sourceLinks }),
   ].filter((post) => post.length > 0);
 
-  const channel = (process.env.EMIGRO_NEWS_TELEGRAM_CHANNEL || "@Emigro_news").trim();
-  const finalPost = [
-    `Полная версия: ${articleUrl}`,
-    `Канал: https://t.me/${channel.replace(/^@/, "")}`,
-  ].join("\n");
-
-  const numbered = [...posts, finalPost].map((post, idx, arr) => `${idx + 1}/${arr.length}\n${post}`);
+  const numbered = posts.map((post, idx, arr) => `${idx + 1}/${arr.length}\n${post}`);
   return numbered.join("\n\n");
 }

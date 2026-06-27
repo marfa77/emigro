@@ -5,7 +5,12 @@ import { TransitHubLanding } from "@/components/transit/TransitHubLanding";
 import { corridorStaticParamsFromSegments, getPublishedCorridorSegments } from "@/lib/corridor/segments";
 import { getTopicByCountrySegment } from "@/lib/corridor/resolve-topic";
 import { isCorridorOnSite } from "@/lib/corridor/publish";
-import { pageMetadata } from "@/lib/seo";
+import { getCorridorBySlug } from "@/lib/corridor/queries";
+import { pageMetadata, socialImageMetadata } from "@/lib/seo";
+import {
+  buildCorridorLandingAiDescription,
+  buildCorridorLandingQuickAnswer,
+} from "@/lib/seo/corridor-page-seo";
 import { TRANSIT_HUBS, getTransitHub } from "@/lib/transit-hubs";
 
 export async function generateStaticParams() {
@@ -36,11 +41,33 @@ export async function generateMetadata({ params }: { params: { country: string }
 
   const topic = await getTopicByCountrySegment(params.country);
   if (!topic?.sitePaths) return {};
-  return pageMetadata({
+  const corridor = topic.corridorSlug ? await getCorridorBySlug(topic.corridorSlug) : null;
+  const ogImage = `/images/corridor-${topic.urlSegment}.webp`;
+  const aiDescription = corridor
+    ? buildCorridorLandingAiDescription(topic, corridor)
+    : `${topic.focusHintRu} Wizard подбора маршрута ВНЖ, справочник коридора и еженедельные новости Emigro.`;
+  const llmSummary = corridor
+    ? buildCorridorLandingQuickAnswer(topic, corridor)
+    : topic.focusHintRu;
+
+  const base = pageMetadata({
     title: `${topic.countryRu} — коридор релокации`,
-    description: `${topic.focusHintRu}. Wizard подбора маршрута ВНЖ, справочник коридора с проверенными фактами и еженедельные новости для паспортов RU/BY/UA/KZ.`,
+    description: `${topic.focusHintRu}. Wizard подбора маршрута ВНЖ, справочник коридора с проверенными фактами, программы и еженедельные новости для паспортов RU/BY/UA/KZ. Emigro.`,
     path: topic.sitePaths.landing,
+    ogImage,
+    ogImageAlt: `${topic.countryRu}: коридор релокации Emigro`,
   });
+  return {
+    ...base,
+    other: {
+      "ai:description": aiDescription,
+      "llm-summary": llmSummary,
+    },
+    openGraph: {
+      ...base.openGraph,
+      images: [socialImageMetadata(ogImage, `${topic.countryRu}: коридор релокации Emigro`)],
+    },
+  };
 }
 
 export default async function CountryCorridorPage({ params }: { params: { country: string } }) {

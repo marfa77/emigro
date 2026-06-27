@@ -40,6 +40,34 @@ export function HubWizardResults({
 
       <HouseholdBanner household={household} />
 
+      {passportIso2 === "UA" && (
+        <section className="mt-8 rounded-2xl border border-blue-200 bg-gradient-to-br from-blue-50 to-white p-6">
+          <p className="text-sm font-semibold uppercase tracking-wide text-blue-800">Граждане Украины</p>
+          <h2 className="mt-2 text-xl font-bold text-slate-900">Временная защита vs ВНЖ</h2>
+          <p className="mt-2 text-sm leading-relaxed text-slate-600">
+            Если у вас паспорт UA, сначала сравните Temporary Protection (TP) в Польше, Чехии или Германии с классическими
+            маршрутами ВНЖ — TP быстрее, но не ведёт к ПМЖ и гражданству. Wizard ниже показывает EU-программы; для TP
+            см. отдельный разбор.
+          </p>
+          <div className="mt-4 flex flex-wrap gap-2">
+            <Link
+              href="/ru/ukraine"
+              className="inline-flex items-center gap-1 rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800"
+            >
+              Хаб Украина → ЕС
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+            <Link
+              href="/ru/guides/ukraintsy-belorusy-vremennaya-zashchita-vs-vnj-2026"
+              className="inline-flex items-center gap-1 rounded-lg border border-blue-300 bg-white px-4 py-2 text-sm font-medium text-blue-800 hover:bg-blue-50"
+            >
+              TP vs ВНЖ — гайд
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+        </section>
+      )}
+
       {showTransitFallback && (
         <section className="mt-8 rounded-2xl border border-amber-200 bg-amber-50 p-6 text-amber-950">
           <div className="flex items-start gap-3">
@@ -162,14 +190,14 @@ export function HubWizardResults({
         <section className="mt-12 space-y-10">
           <h2 className="text-2xl font-semibold">По странам</h2>
           {byCountry.map((group) => (
-            <div key={group.corridorSlug}>
-              <div className="flex flex-wrap items-end justify-between gap-2">
+            <div key={group.corridorSlug} className="w-full">
+              <div className="flex w-full flex-wrap items-center justify-between gap-2">
                 <h3 className="text-xl font-semibold">{group.countryRu}</h3>
-                <Link href={group.landingPath} className="text-sm text-corridor-600 hover:underline">
+                <Link href={group.landingPath} className="shrink-0 text-sm text-corridor-600 hover:underline">
                   Коридор {group.countryRu} →
                 </Link>
               </div>
-              <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="mt-4 grid w-full grid-cols-1 gap-4 sm:grid-cols-[repeat(auto-fit,minmax(min(100%,20rem),1fr))]">
                 {group.matches.map((row) => (
                   <WizardOutcomeCard
                     key={`${row.programId}-${row.corridorSlug}`}

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Construction } from "lucide-react";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { CorridorIntelLinks } from "@/components/corridor/CorridorIntelLinks";
+import { CorridorLandingSeoSections } from "@/components/corridor/CorridorLandingSeoSections";
 import { GuideDigestPreview } from "@/components/corridor/GuideDigestPreview";
 import { LatestNewsTeaser } from "@/components/news/LatestNewsTeaser";
 import { ServiceProvidersSection } from "@/components/providers/ServiceProvidersSection";
@@ -12,6 +13,13 @@ import { isCorridorFull } from "@/lib/corridor/publish";
 import { getCorridorBySlug } from "@/lib/corridor/queries";
 import { requirePublishedCorridorTopic } from "@/lib/corridor/resolve-topic";
 import type { NewsTopicConfig } from "@/lib/news/topics";
+import {
+  buildBreadcrumbSchema,
+  buildCorridorLandingArticleSchema,
+  buildFaqSchema,
+  buildCorridorLandingFaq,
+} from "@/lib/seo/corridor-page-seo";
+import { SITE_URL } from "@/lib/site-url";
 
 export async function CorridorLanding({ country }: { country: string }) {
   const topic = await requirePublishedCorridorTopic(country);
@@ -32,10 +40,21 @@ export async function CorridorLanding({ country }: { country: string }) {
   }
 
   const base = topic.sitePaths!.landing;
+  const url = `${SITE_URL}${base}`;
+  const faq = buildCorridorLandingFaq(topic, corridor);
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: "Emigro", item: SITE_URL },
+    { name: topic.countryRu, item: url },
+  ]);
+  const articleSchema = buildCorridorLandingArticleSchema(topic, corridor, url);
+  const faqSchema = buildFaqSchema(faq);
 
   return (
     <>
       <SiteHeader />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+      {faqSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />}
       <main className="mx-auto max-w-5xl px-4 py-10">
         <CorridorBreadcrumb topic={topic} current="Коридор" />
 
@@ -149,6 +168,8 @@ export async function CorridorLanding({ country }: { country: string }) {
         <div className="mt-12">
           <CorridorIntelLinks topic={topic} />
         </div>
+
+        <CorridorLandingSeoSections topic={topic} corridor={corridor} landingPath={base} />
 
         <section className="mt-8 rounded-xl border border-slate-200 bg-white p-5">
           <h2 className="font-semibold text-slate-900">Другие разделы Emigro</h2>

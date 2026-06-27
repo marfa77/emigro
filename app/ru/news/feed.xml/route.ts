@@ -10,7 +10,7 @@ function escapeXml(s: string): string {
     .replace(/"/g, "&quot;");
 }
 
-export const revalidate = 3600;
+export const revalidate = 60;
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);

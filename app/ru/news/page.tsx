@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Newspaper, Rss } from "lucide-react";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
+import { RelocatorChatPromo } from "@/components/community/RelocatorChatPromo";
 import { NewsCountryNav } from "@/components/news/NewsCountryNav";
 import { NewsDigestCard } from "@/components/news/NewsDigest";
 import { CorridorIntelLinks } from "@/components/corridor/CorridorIntelLinks";
@@ -10,7 +11,7 @@ import { getPublishedNewsDigests } from "@/lib/news/digests";
 import { getActiveNewsTopics, resolveNewsTopicFromParam } from "@/lib/news/topics";
 import { newsArticleUrl, newsFeedUrl, newsHubUrl, SITE_URL } from "@/lib/site-url";
 
-export const revalidate = 3600;
+export const revalidate = 60;
 
 type Props = { searchParams: { country?: string } };
 
@@ -42,6 +43,8 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
     description:
       "Еженедельные обзоры по ВНЖ, визам и гражданству в Португалии, Испании, Франции, Италии, Германии, Нидерландах и Скандинавии для русскоязычных заявителей.",
     path: "/ru/news",
+    ogImage: "/images/emigro-news-digest-portugal.webp",
+    ogImageAlt: "Новости релокации Emigro",
   });
   return {
     ...base,
@@ -128,7 +131,8 @@ export default async function NewsIndexPage({ searchParams }: Props) {
 
         {digests.length === 0 ? (
           <div className="mt-12 rounded-xl border border-dashed border-slate-300 bg-white p-10 text-center text-slate-600">
-            Первый выпуск появится после запуска еженедельного дайджеста. Запуск:{" "}
+            Первый выпуск появится после импорта или еженедельного дайджеста. Запуск:{" "}
+            <code className="text-sm">npm run news:import-prep2go</code> или{" "}
             <code className="text-sm">npm run news:weekly</code>
             {topic && (
               <>
@@ -148,6 +152,8 @@ export default async function NewsIndexPage({ searchParams }: Props) {
             ))}
           </div>
         )}
+
+        <RelocatorChatPromo source="news_index" className="mt-12" />
 
         {topic?.corridorSlug && (
           <div className="mt-12">

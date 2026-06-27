@@ -6,7 +6,7 @@ const nextConfig = {
       {
         source: "/",
         destination: "/ru",
-        permanent: false,
+        permanent: true,
       },
       {
         source: "/:path*",

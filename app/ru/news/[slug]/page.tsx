@@ -28,8 +28,7 @@ import { newsArticleUrl, newsHubUrl, SITE_URL } from "@/lib/site-url";
 
 type Props = { params: { slug: string } };
 
-export const dynamic = "force-dynamic";
-export const revalidate = 3600;
+export const revalidate = 60;
 
 function formatDateRu(dateString: string) {
   return new Date(dateString).toLocaleDateString("ru-RU", {

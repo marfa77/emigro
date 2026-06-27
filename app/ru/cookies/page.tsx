@@ -5,7 +5,8 @@ import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
   title: "Политика cookies",
-  description: "Какие cookies и аналогичные технологии использует Emigro и как ими управлять.",
+  description:
+    "Политика cookies Emigro: какие файлы cookies используются, зачем нужны аналитические и функциональные cookies и как ими управлять в настройках браузера.",
   path: "/ru/cookies",
 });
 

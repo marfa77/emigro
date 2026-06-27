@@ -18,12 +18,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE_URL}/ru`, changeFrequency: "weekly", priority: 1 },
     { url: `${SITE_URL}/ru/wizard`, changeFrequency: "monthly", priority: 0.95 },
     { url: `${SITE_URL}/ru/guides`, changeFrequency: "weekly", priority: 0.9 },
+    { url: `${SITE_URL}/ru/community`, changeFrequency: "monthly", priority: 0.75 },
+    { url: `${SITE_URL}/ru/ukraine`, changeFrequency: "monthly", priority: 0.82 },
     { url: newsHubUrl(), changeFrequency: "daily", priority: 0.9 },
     { url: `${SITE_URL}/ru/partners`, changeFrequency: "monthly", priority: 0.7 },
     { url: `${SITE_URL}/ru/contact`, changeFrequency: "monthly", priority: 0.6 },
     { url: `${SITE_URL}/ru/privacy`, changeFrequency: "yearly", priority: 0.4 },
     { url: `${SITE_URL}/ru/terms`, changeFrequency: "yearly", priority: 0.4 },
     { url: `${SITE_URL}/ru/cookies`, changeFrequency: "yearly", priority: 0.3 },
+    { url: `${SITE_URL}/ru/assist`, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${SITE_URL}/ru/assist/sample-plan`, changeFrequency: "monthly", priority: 0.6 },
     ...TRANSIT_HUBS.map((hub) => ({
       url: `${SITE_URL}${hub.path}`,
       changeFrequency: "monthly" as const,
@@ -75,6 +79,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const guideRoutes: MetadataRoute.Sitemap = listGuides().map((guide) => ({
     url: `${SITE_URL}${guidePath(guide.slug)}`,
+    ...(guide.date_modified || guide.date_published
+      ? { lastModified: new Date((guide.date_modified || guide.date_published)!).toISOString() }
+      : {}),
     changeFrequency: "monthly",
     priority: 0.85,
   }));

@@ -6,7 +6,8 @@ import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
   title: "Контакты",
-  description: "Связаться с командой Emigro: вопросы по сервису, партнёрству и обратная связь.",
+  description:
+    "Напишите команде Emigro: вопросы по сервису, предложения о партнёрстве и обратная связь. Обычно отвечаем в течение 1–2 рабочих дней.",
   path: "/ru/contact",
 });
 

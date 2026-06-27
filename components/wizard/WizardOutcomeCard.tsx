@@ -43,7 +43,7 @@ export function WizardOutcomeCard({
   const nextSteps = nextStepsForOutcome(outcome);
 
   return (
-    <div className={`rounded-xl border p-5 ${OUTCOME_COLORS[outcome] ?? "border-slate-200 bg-white"}`}>
+    <div className={`w-full rounded-xl border p-5 ${OUTCOME_COLORS[outcome] ?? "border-slate-200 bg-white"}`}>
       {programType && <ProgramTypeBadge type={programType} />}
       <h2 className={`font-semibold ${programType ? "mt-3" : ""}`}>{title}</h2>
       <p className="mt-2 text-sm font-medium">{OUTCOME_LABELS[outcome] ?? outcome}</p>

@@ -294,7 +294,7 @@ export function buildDigestMetadata(topic: NewsTopicConfig): Metadata {
   const path = digestPagePath(topic);
   const seoTitle = fitTitle(`Справочник ВНЖ ${topic.countryRu} — факты 2026`);
   const description = fitDescription(
-    `Проверенные факты по ВНЖ, гражданству, языку и срокам в ${topic.countryRu} для паспортов RU/BY/UA/KZ. Программы, wizard и новости Emigro.`
+    `Проверенные факты по ВНЖ, гражданству, языку и срокам в ${topic.countryRu} для паспортов RU/BY/UA/KZ. Программы коридора, wizard подбора маршрута и еженедельные новости Emigro.`
   );
   const keywords = [
     `ВНЖ ${topic.countryRu}`,
@@ -305,8 +305,13 @@ export function buildDigestMetadata(topic: NewsTopicConfig): Metadata {
     ...(topic.seoTags ?? []).slice(0, 4),
   ];
 
-  const base = pageMetadata({ title: seoTitle, description, path });
-  const url = pageUrl(path);
+  const base = pageMetadata({
+    title: seoTitle,
+    description,
+    path,
+    ogImage: countryCardImage(topic.urlSegment),
+    ogImageAlt: `Справочник ВНЖ ${topic.countryRu} — Emigro`,
+  });
   return {
     ...base,
     keywords,
@@ -352,7 +357,7 @@ export function buildProgramArticleSchema(
     "@type": "Article",
     headline: program.title_ru,
     description: program.summary_ru,
-    dateModified: "2026-06-26",
+    dateModified: new Date().toISOString(),
     datePublished: "2026-06-01",
     author: emigroAuthorOrg(),
     publisher: EMIGRO_PUBLISHER,
@@ -417,7 +422,7 @@ export function buildDigestArticleSchema(
     "@type": "Article",
     headline: `Справочник коридора ${topic.countryRu}`,
     description: buildDigestQuickAnswer(topic, corridor),
-    dateModified: "2026-06-26",
+    dateModified: new Date().toISOString(),
     datePublished: "2026-06-01",
     author: emigroAuthorOrg(),
     publisher: EMIGRO_PUBLISHER,
@@ -427,3 +432,94 @@ export function buildDigestArticleSchema(
 }
 
 export { PASSPORT_LABELS, PASSPORT_STATUS_LABELS, passportLabel };
+
+export function buildCorridorLandingQuickAnswer(topic: NewsTopicConfig, corridor: Corridor): string {
+  const programs =
+    corridor.programs.length > 0
+      ? `Программы коридора: ${corridor.programs.map((p) => p.title_ru).join(", ")}.`
+      : null;
+  return [
+    `${corridor.title_ru} — коридор Emigro для русскоязычных с паспортами RU/BY/UA/KZ.`,
+    corridor.audience_description_ru,
+    topic.focusHintRu,
+    programs,
+    "Подбор маршрута — wizard коридора или hub wizard /ru/wizard; факты — в справочнике, изменения — в новостях.",
+  ]
+    .filter(Boolean)
+    .join(" ");
+}
+
+export function buildCorridorLandingFaq(topic: NewsTopicConfig, corridor: Corridor): FaqItem[] {
+  const programList =
+    corridor.programs.length > 0
+      ? corridor.programs.map((p) => p.title_ru).join(", ")
+      : `программы коридора ${topic.countryRu} в разработке`;
+
+  return [
+    {
+      question: `Кому подходит коридор ${topic.countryRu} на Emigro?`,
+      answer: `${corridor.audience_description_ru} Коридор ориентирован на паспорта RU/BY/UA/KZ и русскоязычную аудиторию.`,
+    },
+    {
+      question: `Какие программы ВНЖ есть в ${topic.countryRu}?`,
+      answer: `${programList}. Детальные требования, пороги и официальные источники — на страницах программ и в wizard коридора.`,
+    },
+    {
+      question: `Чем коридор ${topic.countryRu} отличается от транзитного хаба?`,
+      answer: `EU-коридор Emigro — это маршрут к ВНЖ и гражданству в ${topic.countryRu}: wizard, справочник, программы и новости. Транзитные хабы (Сербия, Армения и др.) — первый шаг на 3–12 месяцев без EU-статуса.`,
+    },
+    {
+      question: `Как подобрать маршрут в ${topic.countryRu}?`,
+      answer: `Используйте wizard коридора ${topic.countryRu} или hub wizard /ru/wizard — Emigro сопоставит паспорт, доход, семью и сроки с программами без гарантии одобрения.`,
+    },
+    {
+      question: `Где смотреть изменения законов по ${topic.countryRu}?`,
+      answer: `Еженедельные новости Emigro по ${topic.countryRu} с source_links на первоисточники. Справочник коридора — статический intelligence-слой с проверенными фактами.`,
+    },
+    {
+      question: `Это юридическая консультация?`,
+      answer:
+        "Нет. Emigro — навигатор и справочник. Решения сверяйте с консульством, миграционными службами и лицензированными специалистами.",
+    },
+  ];
+}
+
+export function buildCorridorLandingLlmFacts(topic: NewsTopicConfig, corridor: Corridor): string[] {
+  return [
+    `Коридор Emigro: ${topic.countryRu} (2026).`,
+    corridor.audience_description_ru,
+    topic.focusHintRu,
+    corridor.programs.length > 0
+      ? `Программы: ${corridor.programs.map((p) => p.title_ru).join("; ")}.`
+      : "Программы коридора в разработке.",
+    "Emigro: hub wizard /ru/wizard и коридорный wizard для подбора маршрута ВНЖ.",
+    "Не юридическая консультация — сверяйте с официальными источниками.",
+  ];
+}
+
+export function buildCorridorLandingAiDescription(topic: NewsTopicConfig, corridor: Corridor): string {
+  return [
+    buildCorridorLandingQuickAnswer(topic, corridor),
+    "Emigro сопоставляет паспорт, доход, семью и сроки с программами ВНЖ без обещания гарантированного статуса.",
+  ].join(" ");
+}
+
+export function buildCorridorLandingArticleSchema(
+  topic: NewsTopicConfig,
+  corridor: Corridor,
+  url: string
+): Record<string, unknown> {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: corridor.title_ru,
+    description: buildCorridorLandingQuickAnswer(topic, corridor),
+    dateModified: new Date().toISOString(),
+    datePublished: "2026-06-01",
+    author: emigroAuthorOrg(),
+    publisher: EMIGRO_PUBLISHER,
+    mainEntityOfPage: { "@type": "WebPage", "@id": url },
+    image: schemaImage(`/images/corridor-${topic.urlSegment}.webp`),
+    inLanguage: "ru-RU",
+  };
+}

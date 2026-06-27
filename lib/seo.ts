@@ -4,8 +4,8 @@ import { SITE_URL } from "@/lib/site-url";
 export const DEFAULT_OG_IMAGE = `${SITE_URL}/og-default.svg`;
 export const SITE_NAME = "Emigro";
 const TITLE_SUFFIX = ` | ${SITE_NAME}`;
-/** Visible title budget before Next.js appends ` | Emigro`. */
-export const MAX_TITLE_PART = 52;
+/** Visible title budget before Next.js appends ` | Emigro`. 51 + 9 (" | Emigro") = 60 chars total. */
+export const MAX_TITLE_PART = 51;
 export const MAX_TITLE_ABSOLUTE = 60;
 
 type SocialImageSize = { width: number; height: number };
@@ -72,12 +72,13 @@ export function pageUrl(path: string): string {
   return `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`;
 }
 
-/** ru-RU + x-default (RU-first site). */
+/** ru + ru-RU + x-default (RU-first site). Ahrefs requires hreflang="ru" alongside x-default. */
 export function hreflangAlternates(path: string): Metadata["alternates"] {
   const url = pageUrl(path);
   return {
     canonical: url,
     languages: {
+      "ru": url,
       "ru-RU": url,
       "x-default": url,
     },
@@ -105,7 +106,8 @@ function socialImageType(ogImage: string): string | undefined {
 export function socialImageMetadata(ogImage = DEFAULT_OG_IMAGE, alt = SITE_NAME) {
   const size = SOCIAL_IMAGE_SIZES[socialImagePath(ogImage)] ?? { width: 1200, height: 630 };
   const type = socialImageType(ogImage);
-  return { url: ogImage, secureUrl: ogImage, ...size, ...(type ? { type } : {}), alt };
+  const absUrl = ogImage.startsWith("http") ? ogImage : `${SITE_URL}${ogImage.startsWith("/") ? ogImage : `/${ogImage}`}`;
+  return { url: absUrl, secureUrl: absUrl, ...size, ...(type ? { type } : {}), alt };
 }
 
 function withSocialImages(metadata: Metadata, ogImage = DEFAULT_OG_IMAGE, alt = SITE_NAME): Metadata {

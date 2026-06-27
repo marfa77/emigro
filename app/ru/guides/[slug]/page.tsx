@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import { ArrowRight, BookOpen, CheckCircle2, Clock, Compass, FileText, Layers, Sparkles } from "lucide-react";
 import { ShareButtons } from "@/components/share/ShareButtons";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
+import { RelocatorChatPromo } from "@/components/community/RelocatorChatPromo";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { ServiceProvidersSection } from "@/components/providers/ServiceProvidersSection";
 import { countryCardImage } from "@/lib/brand/country-accents";
@@ -78,7 +79,7 @@ function GuideFeaturedImage({ coverPath, title }: { coverPath: string; title: st
   return (
     <figure className="overflow-hidden rounded-[2rem] border border-white bg-white shadow-xl shadow-slate-200/70 ring-1 ring-slate-950/5">
       <div className="relative aspect-[16/9] w-full">
-        <Image src={coverPath} alt={title} fill sizes="(max-width: 1024px) 100vw, (max-width: 1360px) 960px, 1020px" className="object-cover" />
+        <Image src={coverPath} alt={title} fill sizes="(max-width: 1024px) 100vw, (max-width: 1360px) 960px, 1020px" className="object-cover" priority />
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950/45 via-transparent to-transparent" />
         <figcaption className="absolute bottom-5 left-5 right-5 rounded-2xl bg-white/90 p-4 text-sm font-medium text-slate-700 shadow-lg backdrop-blur">
           Практический editorial-гайд Emigro: маршруты, цифры, риски и следующие шаги.
@@ -209,13 +210,34 @@ function wizardHrefWithInterest(href: string, topicKeys?: string[]): string {
 
 function extractFaq(bodyHtml: string) {
   const faqSection = /<h2[^>]*>\s*FAQ\s*<\/h2>([\s\S]*?)(?=<h2|$)/i.exec(bodyHtml)?.[1] ?? "";
-  const combined = Array.from(
+
+  // Primary: markdown processor renders **Q?** as <section>...<h3>Q?</h3><p>Answer</p></section>
+  const sectionMatches = Array.from(
+    faqSection.matchAll(/<section[^>]*>[\s\S]*?<h3[^>]*>([\s\S]*?)<\/h3>[\s\S]*?<p[^>]*>([\s\S]*?)<\/p>[\s\S]*?<\/section>/g)
+  );
+
+  // Fallback: bare <h3>Q?</h3><p>Answer</p> pairs
+  const h3Matches = Array.from(
+    faqSection.matchAll(/<h3[^>]*>([\s\S]*?)<\/h3>\s*<p[^>]*>([\s\S]*?)<\/p>/g)
+  );
+
+  // Legacy fallback: <p><strong>Q</strong> Answer</p> or split pairs
+  const legacyCombined = Array.from(
     faqSection.matchAll(/<p[^>]*>\s*<strong>(.*?)<\/strong>\s+([\s\S]*?)<\/p>/g)
   );
-  const split = Array.from(
+  const legacySplit = Array.from(
     faqSection.matchAll(/<p[^>]*>\s*<strong>(.*?)<\/strong>\s*<\/p>\s*<p[^>]*>(.*?)<\/p>/g)
   );
-  const matches = combined.length > 0 ? combined : split;
+
+  const matches =
+    sectionMatches.length > 0
+      ? sectionMatches
+      : h3Matches.length > 0
+        ? h3Matches
+        : legacyCombined.length > 0
+          ? legacyCombined
+          : legacySplit;
+
   return matches
     .map((match) => ({
       question: stripHtml(match[1] ?? ""),
@@ -369,6 +391,8 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
               </ul>
             </section>
 
+            <RelocatorChatPromo variant="inline" source={`guide_${guide.slug}`} className="mt-8" />
+
             {relatedGuides.length > 0 && (
               <section className="mt-8 rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm ring-1 ring-slate-950/5 sm:p-8">
                 <h2 className="text-2xl font-bold text-slate-950">Читайте также</h2>
@@ -445,6 +469,8 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
                 )}
               </div>
             </section>
+
+            <RelocatorChatPromo variant="sidebar" source={`guide_sidebar_${guide.slug}`} />
 
             {providerTopicKey && (
               <ServiceProvidersSection

@@ -38,17 +38,41 @@ import {
   programPagePath,
 } from "@/lib/seo/corridor-page-seo";
 import { SITE_URL } from "@/lib/site-url";
+import { createServerClient } from "@/lib/supabase/server";
 
-const COUNTRY_SEGMENT_TO_ISO2: Record<string, string> = {
-  france: "FR",
-  germany: "DE",
-  italy: "IT",
-  portugal: "PT",
-  spain: "ES",
+export const revalidate = 3600;
+export const dynamicParams = true;
+
+const ISO2_TO_SEGMENT: Record<string, string> = {
+  FR: "france",
+  DE: "germany",
+  IT: "italy",
+  PT: "portugal",
+  ES: "spain",
 };
 
+export async function generateStaticParams(): Promise<{ country: string; slug: string }[]> {
+  try {
+    const supabase = createServerClient();
+    const { data: programs } = await supabase
+      .from("emigro_programs")
+      .select("slug, destination_iso2")
+      .eq("is_active", true);
+
+    if (!programs?.length) return [];
+
+    return programs.flatMap((p) => {
+      const country = ISO2_TO_SEGMENT[p.destination_iso2 as string];
+      if (!country) return [];
+      return [{ country, slug: p.slug as string }];
+    });
+  } catch {
+    return [];
+  }
+}
+
 function programMatchesCountrySegment(programIso2: string, countrySegment: string): boolean {
-  return COUNTRY_SEGMENT_TO_ISO2[countrySegment] === programIso2;
+  return ISO2_TO_SEGMENT[programIso2] === countrySegment;
 }
 
 function formatCost(cost: ProgramDetail["costs"][number] | undefined): string {
@@ -88,8 +112,10 @@ export async function generateMetadata({
 }: {
   params: { country: string; slug: string };
 }): Promise<Metadata> {
-  const program = await getProgramBySlug(params.slug);
-  const topic = await getTopicByCountrySegment(params.country);
+  const [program, topic] = await Promise.all([
+    getProgramBySlug(params.slug),
+    getTopicByCountrySegment(params.country),
+  ]);
   if (!program || !topic?.sitePaths) return {};
   return buildProgramMetadata(program, topic);
 }
@@ -102,10 +128,11 @@ export default async function CountryProgramPage({
   const topic = await getTopicByCountrySegment(params.country);
   if (!topic?.corridorSlug || !isCorridorFull(topic.status) || !topic.sitePaths) notFound();
 
-  const program = await getProgramBySlug(params.slug);
+  const [program, corridor] = await Promise.all([
+    getProgramBySlug(params.slug),
+    getCorridorBySlug(topic.corridorSlug),
+  ]);
   if (!program || !program.version) notFound();
-
-  const corridor = await getCorridorBySlug(topic.corridorSlug);
   const isLinkedToCorridor = corridor?.programs.some((p) => p.slug === program.slug) ?? false;
   if (!isLinkedToCorridor && !programMatchesCountrySegment(program.destination_iso2, topic.urlSegment)) notFound();
 

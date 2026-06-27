@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: { params: { country: string }
   if (!topic?.sitePaths) return {};
   return pageMetadata({
     title: `Подбор маршрута ВНЖ — ${topic.countryRu}`,
-    description: `Wizard Emigro: сравнение маршрутов ВНЖ в ${topic.countryRu} для вашего профиля.`,
+    description: `Wizard Emigro по коридору ${topic.countryRu}: ответьте на вопросы о паспорте, доходе и семье — получите сравнение программ ВНЖ с требованиями и сроками для паспортов RU/BY/UA/KZ.`,
     path: topic.sitePaths.wizard!,
   });
 }

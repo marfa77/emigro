@@ -16,8 +16,11 @@ export type EmigroEventName =
   | "news_source_click"
   | "corridor_link_click"
   | "provider_click"
+  | "community_join_click"
   | "cron_weekly_news"
-  | "cron_weekly_news_error";
+  | "cron_weekly_news_error"
+  | "cron_prep2go_news"
+  | "cron_prep2go_news_error";
 
 export type EmigroEventProps = Record<string, string | number | boolean | null | undefined>;
 

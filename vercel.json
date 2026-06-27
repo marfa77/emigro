@@ -5,6 +5,10 @@
     {
       "path": "/api/cron/weekly-news",
       "schedule": "0 8 * * 1"
+    },
+    {
+      "path": "/api/cron/prep2go-news",
+      "schedule": "0 9 * * *"
     }
   ]
 }

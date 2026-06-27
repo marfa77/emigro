@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { getGuideCoverPath, getGuideOgImagePath } from "@/lib/guides/covers";
+import { getGuideCoverPath, resolveGuideOgImagePath } from "@/lib/guides/covers";
 
 export type GuideFrontmatter = {
   slug: string;
@@ -17,6 +17,7 @@ export type GuideFrontmatter = {
   tags?: string[];
   topic_keys?: string[];
   corridor_slugs?: string[];
+  primary_intent?: string;
   cover_image?: string;
   /** Resolved cover path (frontmatter or slug map). */
   cover_path: string;
@@ -69,6 +70,7 @@ function resolveCoverPath(meta: Record<string, string | string[]>, slug: string)
 
 function mapFrontmatter(meta: Record<string, string | string[]>, slug: string): GuideFrontmatter {
   const resolvedSlug = String(meta.slug ?? slug);
+  const cover_path = resolveCoverPath(meta, resolvedSlug);
   return {
     slug: resolvedSlug,
     title: String(meta.title ?? slug),
@@ -84,9 +86,10 @@ function mapFrontmatter(meta: Record<string, string | string[]>, slug: string): 
     tags: Array.isArray(meta.tags) ? meta.tags.map(String) : undefined,
     topic_keys: Array.isArray(meta.topic_keys) ? meta.topic_keys.map(String) : undefined,
     corridor_slugs: Array.isArray(meta.corridor_slugs) ? meta.corridor_slugs.map(String) : undefined,
+    primary_intent: meta.primary_intent ? String(meta.primary_intent) : undefined,
     cover_image: meta.cover_image ? String(meta.cover_image) : undefined,
-    cover_path: resolveCoverPath(meta, resolvedSlug),
-    og_image_path: getGuideOgImagePath(resolvedSlug),
+    cover_path,
+    og_image_path: resolveGuideOgImagePath(resolvedSlug, cover_path),
   };
 }
 

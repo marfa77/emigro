@@ -152,7 +152,7 @@ export default async function CountryResultsPage({
           />
         )}
 
-        <div className="mt-8 grid gap-4 lg:grid-cols-2">
+        <div className="mt-8 grid w-full grid-cols-1 gap-4 sm:grid-cols-[repeat(auto-fit,minmax(min(100%,20rem),1fr))]">
           {results.map((row) => {
             const program = programMap.get(row.program_id);
             if (!program) return null;

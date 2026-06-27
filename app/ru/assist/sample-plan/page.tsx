@@ -8,7 +8,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata = pageMetadata({
   title: "Пример плана Emigro Assist",
   description:
-    "Образец персонального PDF-плана релокации: семья из Санкт-Петербурга, Digital Nomad Visa Испания, переезд в Валенсию.",
+    "Образец PDF-плана релокации Emigro Assist: семья из Санкт-Петербурга, Digital Nomad Visa Испания D8, таймлайн, бюджет, документы и провайдеры для переезда в Валенсию.",
   path: "/ru/assist/sample-plan",
 });
 

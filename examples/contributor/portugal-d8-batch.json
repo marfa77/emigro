@@ -18,7 +18,7 @@
         },
         "eligibility_rules": {
           "and": [
-            { ">=": [{ "var": "labor.monthly_income_eur" }, 3480] },
+            { ">=": [{ "var": "labor.monthly_income_eur" }, 3680] },
             { "==": [{ "var": "labor.employment_type" }, "remote"] },
             { "!=": [{ "var": "core.criminal_record" }, true] }
           ]
@@ -64,7 +64,7 @@
         "program_slug": "portugal-d8-digital-nomad",
         "requirement_type": "min_monthly_income_eur",
         "operator": ">=",
-        "value": 3480,
+        "value": 3680,
         "effective_from": "2026-01-01"
       },
       "provenance": {

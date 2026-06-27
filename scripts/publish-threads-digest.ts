@@ -4,7 +4,12 @@ import { resolve } from "path";
 import { createClient } from "@supabase/supabase-js";
 import { getNewsTopic } from "../lib/news/topics";
 import { buildThreadsThreadFromDigestHtml, buildThreadsFromSiteDigest } from "../lib/news/threads";
-import { publishNewsDigestToChannel, sendNewsDigestThreadsDm } from "../lib/telegram";
+import { validateThreadsQuality } from "../lib/news/quality";
+import {
+  deleteTelegramChannelMessages,
+  newsTelegramChannelUrl,
+  publishNewsDigestToChannel,
+} from "../lib/telegram";
 import { newsArticleUrl } from "../lib/site-url";
 
 config({ path: resolve(process.cwd(), ".env.local") });
@@ -12,6 +17,7 @@ config({ path: resolve(process.cwd(), ".env") });
 
 async function main() {
   const slugArg = process.argv[2];
+  const skipPublish = process.argv.includes("--dry-run");
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL!;
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY!;
   const supabase = createClient(url, key);
@@ -36,14 +42,15 @@ async function main() {
     process.exit(1);
   }
 
-  const articleUrl = newsArticleUrl(digest.slug);
+  const channelUrl = newsTelegramChannelUrl();
+  const siteArticleUrl = newsArticleUrl(digest.slug);
   const threadsText =
-    digest.threads_text ||
     buildThreadsFromSiteDigest({
       topic,
       weekFrom: new Date(digest.week_start),
       weekEnd: new Date(digest.week_end),
-      articleUrl,
+      channelUrl,
+      siteArticleUrl,
       title: digest.title,
       excerpt: digest.excerpt,
       keyTakeaways: digest.key_takeaways ?? [],
@@ -55,23 +62,62 @@ async function main() {
       digestHtml: digest.telegram_html || "",
       weekFrom: new Date(digest.week_start),
       weekEnd: new Date(digest.week_end),
-      articleUrl,
+      channelUrl,
+      siteArticleUrl,
+      sourceLinks: digest.source_links ?? [],
       fallbackTakeaways: digest.key_takeaways,
       fallbackExcerpt: digest.excerpt,
     });
 
-  if (!digest.threads_text) {
-    await supabase.from("emigro_news_digests").update({ threads_text: threadsText }).eq("id", digest.id);
+  const qualityErrors = validateThreadsQuality({ threadsText, topic: digest.topic_key });
+  if (qualityErrors.length) {
+    console.warn("[quality] threads issues:", qualityErrors.join("; "));
+  }
+
+  console.log("\n=== THREADS PREVIEW ===\n");
+  console.log(threadsText);
+  console.log("\n=== POST COUNT ===", threadsText.split(/\n\n(?=\d+\/\d+\n)/).length);
+
+  await supabase
+    .from("emigro_news_digests")
+    .update({ threads_text: threadsText, updated_at: new Date().toISOString() })
+    .eq("id", digest.id);
+
+  if (skipPublish) {
+    console.log("\n[dry-run] skipping Telegram publish");
+    return;
+  }
+
+  const previousIds = (digest.telegram_message_ids ?? []) as number[];
+  if (previousIds.length > 0) {
+    try {
+      const { deleted, failed } = await deleteTelegramChannelMessages(previousIds);
+      console.log(`[telegram] deleted ${deleted.length}/${previousIds.length} previous messages`);
+      if (failed.length) {
+        console.warn("[telegram] delete failures:", failed);
+      }
+    } catch (e) {
+      console.warn("[telegram] delete:", e instanceof Error ? e.message : e);
+    }
+  } else {
+    console.warn("[telegram] no stored message_ids — cannot delete previous channel post automatically");
   }
 
   try {
-    await publishNewsDigestToChannel(threadsText, { flag: topic.flag, countryRu: topic.countryRu });
+    const messageIds = await publishNewsDigestToChannel(threadsText, {
+      flag: topic.flag,
+      countryRu: topic.countryRu,
+    });
+    await supabase
+      .from("emigro_news_digests")
+      .update({ telegram_message_ids: messageIds, updated_at: new Date().toISOString() })
+      .eq("id", digest.id);
     console.log(`Published readable digest to ${process.env.EMIGRO_NEWS_TELEGRAM_CHANNEL || "@Emigro_news"}`);
+    console.log(`[telegram] message_ids:`, messageIds);
   } catch (e) {
     console.warn("[telegram] channel:", e instanceof Error ? e.message : e);
   }
 
-  await sendNewsDigestThreadsDm(threadsText);
   console.log(`Digest text for ${digest.slug} (${topic.key})`);
 }
 

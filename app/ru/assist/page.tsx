@@ -23,6 +23,9 @@ const COUNTRY_OPTIONS: AssistCountryOption[] = [
   { value: "germany", label: "Германия", corridorSlug: "ru-speaking-to-germany" },
   { value: "netherlands", label: "Нидерланды", corridorSlug: "ru-speaking-to-netherlands" },
   { value: "scandinavia", label: "Скандинавия", corridorSlug: "ru-speaking-to-scandinavia" },
+  { value: "poland", label: "Польша", corridorSlug: "ru-speaking-to-poland" },
+  { value: "czechia", label: "Чехия", corridorSlug: "ru-speaking-to-czechia" },
+  { value: "austria", label: "Австрия", corridorSlug: "ru-speaking-to-austria" },
 ];
 
 const FLOW_STEPS = [
@@ -146,7 +149,8 @@ export default function AssistPage() {
               <h2 className="mt-3 font-semibold text-slate-950">Честная рамка</h2>
               <p className="mt-2 text-sm leading-relaxed text-slate-600">
                 Emigro Assist — concierge-поддержка и структурированный план. Мы не оказываем юридические услуги, не
-                гарантируем одобрение визы и не получаем комиссий от провайдеров без явного раскрытия.
+                гарантируем одобрение визы и не получаем комиссий от провайдеров без явного раскрытия. Для граждан
+                Украины доступна консультация по Temporary Protection vs классический ВНЖ.
               </p>
             </div>
           </section>

@@ -19,15 +19,17 @@ export const NEWS_HUB_PATH = "/ru/news";
 export const CORRIDOR_NEWS_BASE = `${SITE_URL}${NEWS_HUB_PATH}?country=portugal`;
 
 export function newsHubUrl(country?: string): string {
-  return country ? `${SITE_URL}${NEWS_HUB_PATH}?country=${country}` : `${SITE_URL}${NEWS_HUB_PATH}`;
+  const base = publicSiteUrl();
+  return country ? `${base}${NEWS_HUB_PATH}?country=${country}` : `${base}${NEWS_HUB_PATH}`;
 }
 
 export function newsArticleUrl(slug: string): string {
-  return `${SITE_URL}/ru/news/${slug}`;
+  return `${publicSiteUrl()}/ru/news/${slug}`;
 }
 
 export function newsFeedUrl(country?: string): string {
+  const base = publicSiteUrl();
   return country
-    ? `${SITE_URL}/ru/news/feed.xml?country=${country}`
-    : `${SITE_URL}/ru/news/feed.xml`;
+    ? `${base}/ru/news/feed.xml?country=${country}`
+    : `${base}/ru/news/feed.xml`;
 }
