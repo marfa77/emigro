@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, FileText, MessageCircle, ShieldCheck } from "lucide-react";
+import { ArrowRight, ExternalLink, FileText, MessageCircle, ShieldCheck } from "lucide-react";
 import { AssistLeadForm, type AssistCountryOption, type AssistProviderOption } from "@/components/assist/AssistLeadForm";
 import { AssistPaymentMethods } from "@/components/assist/AssistPaymentMethods";
 import { AssistPricingCards } from "@/components/assist/AssistPricingCards";
@@ -7,6 +7,7 @@ import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { getAllProviders, PROVIDER_CATEGORY_LABELS_RU } from "@/lib/providers/registry";
 import { pageMetadata } from "@/lib/seo";
+import { GUMROAD_ROUTE_CHECK_URL } from "@/lib/site-contact";
 
 export const metadata = pageMetadata({
   title: "Emigro Assist — Route Check €129",
@@ -76,10 +77,19 @@ export default function AssistPage() {
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <a
-              href="#assist-form"
-              className="rounded-lg bg-white px-5 py-3 font-medium text-corridor-900 hover:bg-corridor-50"
+              href={GUMROAD_ROUTE_CHECK_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-lg bg-white px-5 py-3 font-medium text-corridor-900 hover:bg-corridor-50"
             >
-              Записаться — €129
+              Оплатить €129 на Gumroad
+              <ExternalLink className="h-4 w-4" aria-hidden />
+            </a>
+            <a
+              href="#assist-form"
+              className="rounded-lg border border-white/40 px-5 py-3 font-medium text-white hover:bg-white/10"
+            >
+              Оставить заявку
             </a>
             <Link
               href="/ru/assist/sample-plan"
@@ -140,8 +150,8 @@ export default function AssistPage() {
               <MessageCircle className="h-5 w-5 text-corridor-600" aria-hidden />
               <h2 className="mt-3 font-semibold text-slate-950">Что происходит после заявки</h2>
               <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                Оплатили на Gumroad — напишите, чего хотите, по инструкции на email. Оставили заявку на сайте — Emigro
-                подберёт партнёра и пришлёт ссылку на оплату. Партнёр свяжется сам и назначит созвон.
+                Оплатили на Gumroad — напишите, чего хотите, по инструкции на email. Оставили заявку с Wise, Stars или
+                crypto — Emigro подберёт партнёра и пришлёт реквизиты. Партнёр свяжется сам и назначит созвон.
               </p>
             </div>
             <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">

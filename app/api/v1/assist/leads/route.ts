@@ -26,7 +26,7 @@ const PLAN_TIER_LABELS: Record<string, string> = {
 };
 
 const PAYMENT_METHOD_LABELS: Record<string, string> = {
-  stripe: "Stripe (EUR)",
+  gumroad: "Gumroad (EUR)",
   wise: "Wise",
   telegram_stars: "Telegram Stars",
   crypto: "Crypto (USDT/USDC)",

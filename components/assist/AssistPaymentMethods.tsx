@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react";
-import { Bitcoin, Building2, CreditCard, ExternalLink, MessageCircle } from "lucide-react";
+import { Bitcoin, Building2, ExternalLink, MessageCircle } from "lucide-react";
 import { GUMROAD_ROUTE_CHECK_URL } from "@/lib/site-contact";
 
 type PaymentMethod = {
@@ -17,12 +17,6 @@ const METHODS: PaymentMethod[] = [
     description: "€129 картой — дальше опишите цель, Emigro подберёт партнёра.",
     note: "Автоматическая оплата",
     href: GUMROAD_ROUTE_CHECK_URL,
-  },
-  {
-    icon: CreditCard,
-    title: "Stripe (EUR)",
-    description: "Ссылка на оплату картой в EUR — высылаем после подтверждения заявки.",
-    note: "Автоматическая оплата",
   },
   {
     icon: Building2,
@@ -51,7 +45,7 @@ export function AssistPaymentMethods() {
         Способы оплаты
       </h2>
       <p className="mt-2 text-sm text-slate-600">
-        Gumroad и Stripe — €129 сразу. Wise, Telegram Stars и crypto — реквизиты после заявки.
+        Gumroad — €129 картой сразу. Wise, Telegram Stars и crypto — реквизиты после заявки.
       </p>
 
       <ul className="mt-6 grid gap-4 sm:grid-cols-2">
