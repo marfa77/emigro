@@ -1,13 +1,19 @@
 import type { MetadataRoute } from "next";
 import { corridorDigestPath, corridorLandingPath, corridorWizardPath, programPath } from "@/lib/corridor/paths";
+import { getCorridorBySlug, getProgramBySlug } from "@/lib/corridor/queries";
 import { guidePath, listGuides } from "@/lib/guides/load";
-import { getCorridorBySlug } from "@/lib/corridor/queries";
 import { getPublishedNewsDigests } from "@/lib/news/digests";
 import { getActiveNewsTopics } from "@/lib/news/topics";
-import { newsArticleUrl, newsHubUrl, SITE_URL } from "@/lib/site-url";
+import {
+  corridorDigestLastModified,
+  programLastModified,
+  verifiedDateToLastModified,
+} from "@/lib/seo/corridor-page-seo";
+import { newsArticleUrl, newsHubUrl, publicSiteUrl } from "@/lib/site-url";
 import { TRANSIT_HUBS } from "@/lib/transit-hubs";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const origin = publicSiteUrl();
   const topics = await getActiveNewsTopics();
   const fullCorridors = topics.filter((t) => t.status === "active" && t.corridorSlug && t.sitePaths);
   const developingCorridors = topics.filter(
@@ -15,21 +21,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   );
 
   const staticRoutes: MetadataRoute.Sitemap = [
-    { url: `${SITE_URL}/ru`, changeFrequency: "weekly", priority: 1 },
-    { url: `${SITE_URL}/ru/wizard`, changeFrequency: "monthly", priority: 0.95 },
-    { url: `${SITE_URL}/ru/guides`, changeFrequency: "weekly", priority: 0.9 },
-    { url: `${SITE_URL}/ru/community`, changeFrequency: "monthly", priority: 0.75 },
-    { url: `${SITE_URL}/ru/ukraine`, changeFrequency: "monthly", priority: 0.82 },
+    { url: `${origin}/ru`, changeFrequency: "weekly", priority: 1 },
+    { url: `${origin}/ru/wizard`, changeFrequency: "monthly", priority: 0.95 },
+    { url: `${origin}/ru/guides`, changeFrequency: "weekly", priority: 0.9 },
+    { url: `${origin}/ru/community`, changeFrequency: "monthly", priority: 0.75 },
+    { url: `${origin}/ru/ukraine`, changeFrequency: "monthly", priority: 0.82 },
     { url: newsHubUrl(), changeFrequency: "daily", priority: 0.9 },
-    { url: `${SITE_URL}/ru/partners`, changeFrequency: "monthly", priority: 0.7 },
-    { url: `${SITE_URL}/ru/contact`, changeFrequency: "monthly", priority: 0.6 },
-    { url: `${SITE_URL}/ru/privacy`, changeFrequency: "yearly", priority: 0.4 },
-    { url: `${SITE_URL}/ru/terms`, changeFrequency: "yearly", priority: 0.4 },
-    { url: `${SITE_URL}/ru/cookies`, changeFrequency: "yearly", priority: 0.3 },
-    { url: `${SITE_URL}/ru/assist`, changeFrequency: "monthly", priority: 0.6 },
-    { url: `${SITE_URL}/ru/assist/sample-plan`, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${origin}/ru/partners`, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${origin}/ru/contact`, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${origin}/ru/privacy`, changeFrequency: "yearly", priority: 0.4 },
+    { url: `${origin}/ru/terms`, changeFrequency: "yearly", priority: 0.4 },
+    { url: `${origin}/ru/cookies`, changeFrequency: "yearly", priority: 0.3 },
+    { url: `${origin}/ru/assist`, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${origin}/ru/assist/sample-plan`, changeFrequency: "monthly", priority: 0.6 },
     ...TRANSIT_HUBS.map((hub) => ({
-      url: `${SITE_URL}${hub.path}`,
+      url: `${origin}${hub.path}`,
       changeFrequency: "monthly" as const,
       priority: 0.82,
     })),
@@ -45,26 +51,62 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   for (const topic of developingCorridors) {
     const slug = topic.corridorSlug!;
+    const corridor = await getCorridorBySlug(slug);
+    const lastModified = corridor ? verifiedDateToLastModified(corridorDigestLastModified(corridor)) : undefined;
     corridorRoutes.push(
-      { url: `${SITE_URL}${corridorLandingPath(slug)}`, changeFrequency: "weekly", priority: 0.7 },
-      { url: `${SITE_URL}${corridorDigestPath(slug)}`, changeFrequency: "weekly", priority: 0.65 }
+      {
+        url: `${origin}${corridorLandingPath(slug)}`,
+        changeFrequency: "weekly",
+        priority: 0.7,
+        ...(lastModified ? { lastModified } : {}),
+      },
+      {
+        url: `${origin}${corridorDigestPath(slug)}`,
+        changeFrequency: "weekly",
+        priority: 0.65,
+        ...(lastModified ? { lastModified } : {}),
+      }
     );
   }
 
   for (const topic of fullCorridors) {
     const slug = topic.corridorSlug!;
+    const corridor = await getCorridorBySlug(slug);
+    const digestModified = corridor
+      ? verifiedDateToLastModified(corridorDigestLastModified(corridor))
+      : undefined;
+
     corridorRoutes.push(
-      { url: `${SITE_URL}${corridorLandingPath(slug)}`, changeFrequency: "weekly", priority: 0.95 },
-      { url: `${SITE_URL}${corridorWizardPath(slug)}`, changeFrequency: "monthly", priority: 0.85 },
-      { url: `${SITE_URL}${corridorDigestPath(slug)}`, changeFrequency: "weekly", priority: 0.8 }
+      {
+        url: `${origin}${corridorLandingPath(slug)}`,
+        changeFrequency: "weekly",
+        priority: 0.95,
+        ...(digestModified ? { lastModified: digestModified } : {}),
+      },
+      {
+        url: `${origin}${corridorWizardPath(slug)}`,
+        changeFrequency: "monthly",
+        priority: 0.85,
+        ...(digestModified ? { lastModified: digestModified } : {}),
+      },
+      {
+        url: `${origin}${corridorDigestPath(slug)}`,
+        changeFrequency: "weekly",
+        priority: 0.8,
+        ...(digestModified ? { lastModified: digestModified } : {}),
+      }
     );
 
-    const corridor = await getCorridorBySlug(slug);
     for (const p of corridor?.programs ?? []) {
+      const program = await getProgramBySlug(p.slug);
+      const programModified = program
+        ? verifiedDateToLastModified(programLastModified(program))
+        : digestModified;
       programRoutes.push({
-        url: `${SITE_URL}${programPath(slug, p.slug)}`,
+        url: `${origin}${programPath(slug, p.slug)}`,
         changeFrequency: "monthly",
         priority: 0.8,
+        ...(programModified ? { lastModified: programModified } : {}),
       });
     }
   }
@@ -78,7 +120,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   const guideRoutes: MetadataRoute.Sitemap = listGuides().map((guide) => ({
-    url: `${SITE_URL}${guidePath(guide.slug)}`,
+    url: `${origin}${guidePath(guide.slug)}`,
     ...(guide.date_modified || guide.date_published
       ? { lastModified: new Date((guide.date_modified || guide.date_published)!).toISOString() }
       : {}),

@@ -1,11 +1,11 @@
-import { publicSiteUrl, SITE_URL } from "@/lib/site-url";
+import { publicSiteUrl } from "@/lib/site-url";
 
-export const EMIGRO_LOGO_URL = `${SITE_URL}/icon.svg`;
+export const EMIGRO_LOGO_URL = `${publicSiteUrl()}/icon.svg`;
 
 export const EMIGRO_PUBLISHER = {
   "@type": "Organization" as const,
   name: "Emigro",
-  url: SITE_URL,
+  url: publicSiteUrl(),
   logo: {
     "@type": "ImageObject" as const,
     url: EMIGRO_LOGO_URL,

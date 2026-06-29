@@ -6,8 +6,10 @@ import { AssistPricingCards } from "@/components/assist/AssistPricingCards";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { getAllProviders, PROVIDER_CATEGORY_LABELS_RU } from "@/lib/providers/registry";
-import { pageMetadata } from "@/lib/seo";
+import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
+import { pageMetadata, pageUrl } from "@/lib/seo";
 import { GUMROAD_ROUTE_CHECK_URL } from "@/lib/site-contact";
+import { publicSiteUrl } from "@/lib/site-url";
 
 export const metadata = pageMetadata({
   title: "Emigro Assist — Route Check €129",
@@ -56,9 +58,38 @@ export default function AssistPage() {
       category: PROVIDER_CATEGORY_LABELS_RU[provider.category],
     }));
 
+  const origin = publicSiteUrl();
+  const assistUrl = pageUrl("/ru/assist");
+
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: "Emigro", item: pageUrl("/ru") },
+    { name: "Emigro Assist", item: assistUrl },
+  ]);
+
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: "Emigro Route Check",
+    description:
+      "Персональная проверка маршрута ВНЖ: Emigro подбирает партнёра, созвон и PDF-план после встречи.",
+    url: assistUrl,
+    provider: { "@type": "Organization", name: "Emigro", url: origin },
+    areaServed: { "@type": "Place", name: "European Union" },
+    offers: {
+      "@type": "Offer",
+      price: "129",
+      priceCurrency: "EUR",
+      url: GUMROAD_ROUTE_CHECK_URL,
+      availability: "https://schema.org/InStock",
+    },
+    inLanguage: "ru-RU",
+  };
+
   return (
     <>
       <SiteHeader />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
       <main className="mx-auto max-w-5xl px-4 py-10">
         <nav className="text-sm text-slate-500">
           <Link href="/ru" className="text-corridor-600 hover:underline">

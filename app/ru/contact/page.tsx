@@ -2,7 +2,8 @@ import Link from "next/link";
 import { Mail } from "lucide-react";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { CONTACT_EMAIL, MAILTO_CONTACT } from "@/lib/site-contact";
-import { pageMetadata } from "@/lib/seo";
+import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
+import { pageMetadata, pageUrl } from "@/lib/seo";
 
 export const metadata = pageMetadata({
   title: "Контакты",
@@ -12,9 +13,15 @@ export const metadata = pageMetadata({
 });
 
 export default function ContactPage() {
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: "Emigro", item: pageUrl("/ru") },
+    { name: "Контакты", item: pageUrl("/ru/contact") },
+  ]);
+
   return (
     <>
       <SiteHeader />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <main className="mx-auto max-w-3xl px-4 py-10">
         <nav className="text-sm text-slate-500">
           <Link href="/ru" className="text-corridor-600 hover:underline">

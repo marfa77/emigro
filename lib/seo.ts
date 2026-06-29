@@ -71,7 +71,8 @@ export function fitSeoTitleAbsolute(text: string, max = MAX_TITLE_ABSOLUTE): str
 }
 
 export function pageUrl(path: string): string {
-  return `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`;
+  const origin = publicSiteUrl();
+  return `${origin}${path.startsWith("/") ? path : `/${path}`}`;
 }
 
 /** ru + ru-RU + x-default (RU-first site). Ahrefs requires hreflang="ru" alongside x-default. */

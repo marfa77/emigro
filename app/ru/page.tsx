@@ -10,8 +10,8 @@ import { ProductLevelCards } from "@/components/visuals/ProductLevelCards";
 import { getActiveNewsTopics, newsIndexPath } from "@/lib/news/topics";
 import { HUB_WIZARD_PATH } from "@/lib/corridor/paths";
 import { guidePath, listGuides } from "@/lib/guides/load";
-import { pageMetadata } from "@/lib/seo";
-import { SITE_URL } from "@/lib/site-url";
+import { pageMetadata, pageUrl } from "@/lib/seo";
+import { publicSiteUrl } from "@/lib/site-url";
 import { TRANSIT_HUBS } from "@/lib/transit-hubs";
 
 export const revalidate = 3600;
@@ -32,14 +32,16 @@ export default async function RuHubPage() {
   const developingCorridors = topics.filter((t) => t.status === "in_development" && t.sitePaths);
   const newsOnly = topics.filter((t) => t.status === "news_only");
 
+  const origin = publicSiteUrl();
+
   const itemListElements = [
     ...topics.map((t) => ({
       name: t.countryRu,
-      url: `${SITE_URL}${t.sitePaths?.landing ?? newsIndexPath(t.urlSegment)}`,
+      url: pageUrl(t.sitePaths?.landing ?? newsIndexPath(t.urlSegment)),
     })),
     ...TRANSIT_HUBS.map((hub) => ({
       name: `${hub.countryRu} — транзитный хаб`,
-      url: `${SITE_URL}${hub.path}`,
+      url: pageUrl(hub.path),
     })),
   ];
 
@@ -58,19 +60,27 @@ export default async function RuHubPage() {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: "Emigro",
-    url: SITE_URL,
+    url: origin,
     inLanguage: "ru-RU",
     description:
       "Навигатор релокации для русскоязычных за рубежом и в СНГ: европейские коридоры ВНЖ, wizard подбора, справочники и еженедельные новости.",
-    publisher: { "@type": "Organization", name: "Emigro", url: SITE_URL },
+    publisher: { "@type": "Organization", name: "Emigro", url: origin },
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: `${origin}/ru/wizard?q={search_term_string}`,
+      },
+      "query-input": "required name=search_term_string",
+    },
   };
 
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "Emigro",
-    url: SITE_URL,
-    logo: `${SITE_URL}/icon.svg`,
+    url: origin,
+    logo: `${origin}/icon.svg`,
     description: "Русскоязычный навигатор релокации в Европу — для тех, кто уже за границей или планирует переезд: коридоры ВНЖ, wizard, гайды и новости.",
     sameAs: ["https://t.me/Emigro_news"],
   };

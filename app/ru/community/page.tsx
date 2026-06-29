@@ -5,7 +5,8 @@ import { CommunityJoinButton } from "@/components/community/CommunityJoinButton"
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { RELOCATOR_CHAT_LABEL } from "@/lib/community";
-import { pageMetadata } from "@/lib/seo";
+import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
+import { pageMetadata, pageUrl } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
   title: "Чат релокантов Emigro — сообщество в Telegram",
@@ -45,9 +46,15 @@ const RULES = [
 ] as const;
 
 export default function CommunityPage() {
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: "Emigro", item: pageUrl("/ru") },
+    { name: "Чат релокантов", item: pageUrl("/ru/community") },
+  ]);
+
   return (
     <>
       <SiteHeader />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <main className="mx-auto max-w-5xl px-4 py-10">
         <nav className="text-sm text-slate-500">
           <Link href="/ru" className="text-corridor-600 hover:underline">

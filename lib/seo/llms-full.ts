@@ -71,8 +71,8 @@ ${corridorLines}
 ## Для AI-агентов
 
 - Полный индекс: /llms-full.txt
-- API contributor guide: /docs/API_CONTRIBUTOR_GUIDE.md
-- Архитектура: /docs/ARCHITECTURE.md
+- API contributor guide: GET /api/v1/meta/contributor-guide
+- Ingest schema: GET /api/v1/meta/ingest-schema
 
 ## API
 

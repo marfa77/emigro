@@ -1,11 +1,32 @@
-export const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "http://localhost:3000";
+const LOCALHOST_FALLBACK = "http://localhost:3000";
+const PRODUCTION_FALLBACK = "https://www.emigro.online";
 
-/** Canonical production origin for SEO pings (never localhost). */
+function stripTrailingSlash(url: string): string {
+  return url.replace(/\/$/, "");
+}
+
+function isLocalhostUrl(url: string): boolean {
+  return /localhost|127\.0\.0\.1/.test(url);
+}
+
+/** Dev/runtime origin (may be localhost). */
+export const SITE_URL = stripTrailingSlash(process.env.NEXT_PUBLIC_SITE_URL || LOCALHOST_FALLBACK);
+
+/** Canonical public origin for SEO, sitemap, robots, and schema (never localhost in production). */
 export function publicSiteUrl(): string {
-  const local = SITE_URL;
-  if (local && !/localhost|127\.0\.0\.1/.test(local)) return local;
-  return (process.env.EMIGRO_PUBLIC_SITE_URL || "https://www.emigro.online").replace(/\/$/, "");
+  const publicEnv = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+  if (publicEnv && !isLocalhostUrl(publicEnv)) return stripTrailingSlash(publicEnv);
+
+  const serverEnv = process.env.EMIGRO_PUBLIC_SITE_URL?.trim();
+  if (serverEnv) return stripTrailingSlash(serverEnv);
+
+  if (process.env.NODE_ENV === "production") {
+    throw new Error(
+      "Missing canonical site URL: set NEXT_PUBLIC_SITE_URL or EMIGRO_PUBLIC_SITE_URL in production"
+    );
+  }
+
+  return PRODUCTION_FALLBACK;
 }
 
 /** @deprecated use publicSiteUrl */

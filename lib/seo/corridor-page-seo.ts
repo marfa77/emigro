@@ -4,7 +4,31 @@ import type { NewsTopicConfig } from "@/lib/news/topics";
 import { countryCardImage, countryOgImage } from "@/lib/brand/country-accents";
 import { fitMetaDescription, fitSeoTitlePart, hreflangAlternates, pageMetadata, pageUrl } from "@/lib/seo";
 import { EMIGRO_PUBLISHER, emigroAuthorOrg, schemaImage } from "@/lib/seo/schema";
-import { SITE_URL } from "@/lib/site-url";
+
+const SCHEMA_DATE_FALLBACK = "2026-06-01T00:00:00.000Z";
+
+/** Latest verification date from source/digest fields; deterministic fallback when absent. */
+export function latestVerifiedIso(dates: (string | null | undefined)[]): string {
+  const valid = dates.filter((d): d is string => Boolean(d)).sort();
+  const latest = valid.at(-1);
+  if (!latest) return SCHEMA_DATE_FALLBACK;
+  const parsed = new Date(latest);
+  return Number.isNaN(parsed.getTime()) ? SCHEMA_DATE_FALLBACK : parsed.toISOString();
+}
+
+export function corridorDigestLastModified(corridor: Corridor): string {
+  return latestVerifiedIso(corridor.digest.map((item) => item.last_verified));
+}
+
+export function programLastModified(program: ProgramDetail): string {
+  return latestVerifiedIso(program.sources.map((source) => source.last_verified));
+}
+
+export function verifiedDateToLastModified(iso: string): Date | undefined {
+  if (iso === SCHEMA_DATE_FALLBACK) return undefined;
+  const parsed = new Date(iso);
+  return Number.isNaN(parsed.getTime()) ? undefined : parsed;
+}
 
 export type FaqItem = { question: string; answer: string };
 
@@ -357,7 +381,7 @@ export function buildProgramArticleSchema(
     "@type": "Article",
     headline: program.title_ru,
     description: program.summary_ru,
-    dateModified: new Date().toISOString(),
+    dateModified: programLastModified(program),
     datePublished: "2026-06-01",
     author: emigroAuthorOrg(),
     publisher: EMIGRO_PUBLISHER,
@@ -422,7 +446,7 @@ export function buildDigestArticleSchema(
     "@type": "Article",
     headline: `Справочник коридора ${topic.countryRu}`,
     description: buildDigestQuickAnswer(topic, corridor),
-    dateModified: new Date().toISOString(),
+    dateModified: corridorDigestLastModified(corridor),
     datePublished: "2026-06-01",
     author: emigroAuthorOrg(),
     publisher: EMIGRO_PUBLISHER,
@@ -518,7 +542,7 @@ export function buildCorridorLandingArticleSchema(
     "@type": "Article",
     headline: corridor.title_ru,
     description: buildCorridorLandingQuickAnswer(topic, corridor),
-    dateModified: new Date().toISOString(),
+    dateModified: corridorDigestLastModified(corridor),
     datePublished: "2026-06-01",
     author: emigroAuthorOrg(),
     publisher: EMIGRO_PUBLISHER,
