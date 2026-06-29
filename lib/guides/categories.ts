@@ -121,6 +121,7 @@ export function getGuideAudiences(guide: GuideFrontmatter): GuideAudienceId[] {
   const audiences = new Set<GuideAudienceId>();
   const slug = guide.slug.toLowerCase();
   const tags = (guide.tags ?? []).map((t) => t.toLowerCase());
+  const topicKeys = (guide.topic_keys ?? []).map((k) => k.toLowerCase());
 
   if (
     tags.some((t) => t === "рф" || t === "россия") ||
@@ -130,7 +131,11 @@ export function getGuideAudiences(guide: GuideFrontmatter): GuideAudienceId[] {
     audiences.add("ru");
   }
 
-  if (tags.some((t) => t === "украина" || t === "ukraine")) {
+  if (
+    tags.some((t) => t === "украина" || t === "ukraine" || t === "ua") ||
+    topicKeys.includes("ukraine") ||
+    slug.includes("ukrain")
+  ) {
     audiences.add("ua");
   }
 
@@ -171,7 +176,7 @@ export function getGuideCategories(guide: GuideFrontmatter): GuideCategoryId[] {
   const categories = new Set<GuideCategoryId>();
   const { slug, title, tags, topicKeys } = guideHaystack(guide);
 
-  if ((guide.corridor_slugs?.length ?? 0) > 0 || slug.includes("vnj") || title.includes("внж")) {
+  if ((guide.corridor_slugs?.length ?? 0) > 0 || slug.includes("vnj") || slug.includes("grazhdanstvo") || title.includes("внж") || title.includes("гражданств")) {
     categories.add("countries");
   }
 

@@ -37,8 +37,8 @@ const PARTNER_TYPES = [
 
 export default function PartnersPage() {
   const breadcrumbSchema = buildBreadcrumbSchema([
-    { name: "Emigro", item: pageUrl("/ru") },
-    { name: "Партнёрам", item: pageUrl("/ru/partners") },
+    { name: "Все направления", item: pageUrl("/ru") },
+    { name: "Партнёрам" },
   ]);
 
   return (

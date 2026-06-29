@@ -54,7 +54,7 @@ ON CONFLICT DO NOTHING;
 
 INSERT INTO emigro_program_versions (id, program_id, version_label, eligibility_rule) VALUES
   ('c0000000-0000-4000-8000-000000000033', 'b0000000-0000-4000-8000-000000000030', '2026-01', '{"and":[{"==":[{"var":"passport_iso2"},"RU"]},{"==":[{"var":"has_job_offer"},"yes"]},{">=":[{"var":"monthly_income_eur"},1080]}]}'),
-  ('c0000000-0000-4000-8000-000000000034', 'b0000000-0000-4000-8000-000000000031', '2026-01', '{"and":[{"==":[{"var":"passport_iso2"},"RU"]},{"==":[{"var":"has_job_offer"},"yes"]},{">=":[{"var":"annual_salary_eur"},34200]}]}'),
+  ('c0000000-0000-4000-8000-000000000034', 'b0000000-0000-4000-8000-000000000031', '2026-01', '{"and":[{"==":[{"var":"passport_iso2"},"RU"]},{"==":[{"var":"has_job_offer"},"yes"]},{">=":[{"var":"annual_salary_eur"},36240]}]}'),
   ('c0000000-0000-4000-8000-000000000035', 'b0000000-0000-4000-8000-000000000032', '2026-01', '{"and":[{"==":[{"var":"passport_iso2"},"RU"]},{"==":[{"var":"has_family_in_pl"},"yes"]}]}'),
   ('c0000000-0000-4000-8000-000000000036', 'b0000000-0000-4000-8000-000000000033', '2026-01', '{"and":[{"==":[{"var":"passport_iso2"},"RU"]},{"==":[{"var":"wants_study_route"},"yes"]},{"==":[{"var":"has_university_admission"},"yes"]},{"or":[{">=":[{"var":"study_budget_eur"},9600]},{"==":[{"var":"can_show_study_funds"},"yes"]}]}]}'),
   ('c0000000-0000-4000-8000-000000000037', 'b0000000-0000-4000-8000-000000000034', '2026-01', '{"and":[{"==":[{"var":"passport_iso2"},"RU"]},{"or":[{"==":[{"var":"has_job_offer"},"yes"]},{"==":[{"var":"remote_income"},"yes"]}]},{">=":[{"var":"monthly_income_eur"},2500]}]}')

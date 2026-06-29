@@ -14,7 +14,7 @@ import { getCorridorBySlug } from "@/lib/corridor/queries";
 import { requirePublishedCorridorTopic } from "@/lib/corridor/resolve-topic";
 import type { NewsTopicConfig } from "@/lib/news/topics";
 import {
-  buildBreadcrumbSchema,
+  buildCorridorBreadcrumbSchema,
   buildCorridorLandingArticleSchema,
   buildFaqSchema,
   buildCorridorLandingFaq,
@@ -42,10 +42,7 @@ export async function CorridorLanding({ country }: { country: string }) {
   const base = topic.sitePaths!.landing;
   const url = `${SITE_URL}${base}`;
   const faq = buildCorridorLandingFaq(topic, corridor);
-  const breadcrumbSchema = buildBreadcrumbSchema([
-    { name: "Emigro", item: SITE_URL },
-    { name: topic.countryRu, item: url },
-  ]);
+  const breadcrumbSchema = buildCorridorBreadcrumbSchema(topic, "Коридор");
   const articleSchema = buildCorridorLandingArticleSchema(topic, corridor, url);
   const faqSchema = buildFaqSchema(faq);
 

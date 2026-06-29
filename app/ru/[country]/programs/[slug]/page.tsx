@@ -26,7 +26,7 @@ import { getTopicByCountrySegment } from "@/lib/corridor/resolve-topic";
 import { isCorridorFull } from "@/lib/corridor/publish";
 import type { ProgramDetail } from "@/lib/types";
 import {
-  buildBreadcrumbSchema,
+  buildCorridorBreadcrumbSchema,
   buildFaqSchema,
   buildProgramArticleSchema,
   buildProgramFaq,
@@ -149,11 +149,7 @@ export default async function CountryProgramPage({
     "Заложить буфер на запись в консульство, выпуск карты и продление.",
   ];
 
-  const breadcrumbSchema = buildBreadcrumbSchema([
-    { name: "Emigro", item: SITE_URL },
-    { name: topic.countryRu, item: `${SITE_URL}${base}` },
-    { name: program.title_ru, item: url },
-  ]);
+  const breadcrumbSchema = buildCorridorBreadcrumbSchema(topic, program.title_ru, url);
   const articleSchema = buildProgramArticleSchema(program, topic, url);
   const howToSchema = buildProgramHowToSchema(program, topic, url);
   const faqSchema = buildFaqSchema(faq);

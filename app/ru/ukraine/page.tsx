@@ -4,7 +4,8 @@ import { ArrowRight, BookOpen, Compass, FileText, Route } from "lucide-react";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { HubHeroVisual } from "@/components/visuals/HubHeroVisual";
-import { pageMetadata } from "@/lib/seo";
+import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
+import { pageMetadata, pageUrl } from "@/lib/seo";
 import { SITE_URL } from "@/lib/site-url";
 
 export const metadata: Metadata = pageMetadata({
@@ -42,9 +43,13 @@ const EU_CORRIDORS = [
 
 const RELATED_GUIDES = [
   {
+    label: "Украина → ЕС: pillar-гайд 2026",
+    href: "/ru/guides/ukraina-evropa-vnj-marshruty-2026",
+    primary: true,
+  },
+  {
     label: "Временная защита vs ВНЖ (UA + BY)",
     href: "/ru/guides/ukraintsy-belorusy-vremennaya-zashchita-vs-vnj-2026",
-    primary: true,
   },
   {
     label: "Куда переехать из России 2026 — обзор EU-коридоров",
@@ -61,14 +66,10 @@ const RELATED_GUIDES = [
 ] as const;
 
 export default function UkraineHubPage() {
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Emigro", item: `${SITE_URL}/ru` },
-      { "@type": "ListItem", position: 2, name: "Украина → ЕС", item: `${SITE_URL}/ru/ukraine` },
-    ],
-  };
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: "Все направления", item: pageUrl("/ru") },
+    { name: "Украина → ЕС" },
+  ]);
 
   const articleSchema = {
     "@context": "https://schema.org",

@@ -92,7 +92,7 @@ Emigro **не** обещает одинаковый результат для BY
 
 **Плюсы для BY:** voivodeship подача после легального въезда; большой IT-рынок; наземная граница через LT/LV.
 
-Коридор: [/ru/poland](/ru/poland) · [wizard](/ru/poland/wizard) · [первые 30 дней в Португалии как образец чек-листа](/ru/guides/pervye-30-dnej-v-portugalii-2026) (структура похожа на PL meldunek/PESEL).
+Коридор: [/ru/poland](/ru/poland) · [wizard](/ru/poland/wizard) · [ВНЖ Польша 2026](/ru/guides/vnj-polsha-2026) · [первые 30 дней](/ru/guides/pervye-30-dnej-v-polsche-2026).
 
 ---
 
@@ -102,7 +102,7 @@ Emigro **не** обещает одинаковый результат для BY
 
 - **Employee card** + **EU Blue Card** — сильный IT-хаб (Prague, Brno).
 - Консульская практика для BY часто через **Варшаву** или подачу **внутри CZ** после employee card.
-- Коридор: [/ru/czechia](/ru/czechia) · [wizard](/ru/czechia/wizard).
+- Коридор: [/ru/czechia](/ru/czechia) · [wizard](/ru/czechia/wizard) · [ВНЖ Чехия 2026](/ru/guides/vnj-chehiya-2026).
 
 ### Литва и Латвия
 

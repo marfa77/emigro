@@ -8,6 +8,7 @@ import { isCorridorOnSite } from "@/lib/corridor/publish";
 import { getCorridorBySlug } from "@/lib/corridor/queries";
 import { countryOgImage } from "@/lib/brand/country-accents";
 import { pageMetadata, socialImageMetadata } from "@/lib/seo";
+import { getPtLongTailByPath } from "@/lib/seo/pt-longtail";
 import {
   buildCorridorLandingAiDescription,
   buildCorridorLandingQuickAnswer,
@@ -44,6 +45,7 @@ export async function generateMetadata({ params }: { params: { country: string }
   if (!topic?.sitePaths) return {};
   const corridor = topic.corridorSlug ? await getCorridorBySlug(topic.corridorSlug) : null;
   const ogImage = countryOgImage(topic.urlSegment);
+  const ptLongTail = topic.urlSegment === "portugal" ? getPtLongTailByPath(topic.sitePaths.landing) : undefined;
   const aiDescription = corridor
     ? buildCorridorLandingAiDescription(topic, corridor)
     : `${topic.focusHintRu} Wizard подбора маршрута ВНЖ, справочник коридора и еженедельные новости Emigro.`;
@@ -51,15 +53,21 @@ export async function generateMetadata({ params }: { params: { country: string }
     ? buildCorridorLandingQuickAnswer(topic, corridor)
     : topic.focusHintRu;
 
+  const landingTitle = ptLongTail?.seoTitle ?? `${topic.countryRu} — коридор релокации`;
+  const landingDescription =
+    ptLongTail?.seoDescription ??
+    `${topic.focusHintRu}. Wizard подбора маршрута ВНЖ, справочник коридора с проверенными фактами, программы и еженедельные новости для паспортов RU/BY/UA/KZ. Emigro.`;
+
   const base = pageMetadata({
-    title: `${topic.countryRu} — коридор релокации`,
-    description: `${topic.focusHintRu}. Wizard подбора маршрута ВНЖ, справочник коридора с проверенными фактами, программы и еженедельные новости для паспортов RU/BY/UA/KZ. Emigro.`,
+    title: landingTitle,
+    description: landingDescription,
     path: topic.sitePaths.landing,
     ogImage,
     ogImageAlt: `${topic.countryRu}: коридор релокации Emigro`,
   });
   return {
     ...base,
+    keywords: ptLongTail ? [...(topic.seoTags ?? []), ...ptLongTail.queries] : topic.seoTags,
     other: {
       "ai:description": aiDescription,
       "llm-summary": llmSummary,

@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { EmigroLogo } from "@/components/brand/EmigroLogo";
 import { MobileBottomBar, MobileNav } from "@/components/layout/MobileNav";
-import { PartnerRecruitmentBar } from "@/components/partners/PartnerRecruitmentBar";
 import { Disclaimer } from "./Disclaimer";
 import { COMMUNITY_PATH } from "@/lib/community";
 import { CONTACT_EMAIL, MAILTO_CONTACT } from "@/lib/site-contact";
@@ -28,7 +27,6 @@ export function SiteHeader({ locale = "ru" }: { locale?: "ru" | "en" }) {
           <MobileNav links={navLinks} />
         </div>
       </header>
-      {locale === "ru" && <PartnerRecruitmentBar />}
       <MobileBottomBar locale={locale} />
     </>
   );

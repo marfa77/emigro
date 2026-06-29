@@ -11,11 +11,16 @@ import { ServiceProvidersSection } from "@/components/providers/ServiceProviders
 import { countryCardImage } from "@/lib/brand/country-accents";
 import { guidePath, getRelatedGuides, listGuides, loadGuide } from "@/lib/guides/load";
 import type { GuideArticle } from "@/lib/guides/load";
+import { loadGuideLiveDataForGuide } from "@/lib/guides/corridor-live-data";
 import { getActiveNewsTopics } from "@/lib/news/topics";
 import type { NewsTopicConfig } from "@/lib/news/topics";
 import { corridorSlugForTopic, findFirstProviderTopicKey } from "@/lib/providers/registry";
-import { pageMetadata } from "@/lib/seo";
+import { pageMetadata, pageUrl } from "@/lib/seo";
+import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
+import { getPtLongTailByGuideSlug } from "@/lib/seo/pt-longtail";
 import { EMIGRO_PUBLISHER, emigroAuthorOrg, schemaImage } from "@/lib/seo/schema";
+import { GuideCorridorLiveData } from "@/components/guides/GuideCorridorLiveData";
+import { GuideOfficialSources } from "@/components/guides/GuideOfficialSources";
 import { SITE_URL } from "@/lib/site-url";
 
 export function generateStaticParams() {
@@ -25,18 +30,21 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const guide = loadGuide(params.slug);
   if (!guide) return {};
-  const title = guide.seo_title ?? guide.title;
+  const longTail = getPtLongTailByGuideSlug(guide.slug);
+  const title = longTail?.seoTitle ?? guide.seo_title ?? guide.title;
+  const description =
+    longTail?.seoDescription ?? guide.seo_description ?? guide.excerpt ?? guide.quick_answer ?? guide.title;
   const ogImagePath = guide.og_image_path;
   const metadata = pageMetadata({
     title,
-    description: guide.seo_description ?? guide.excerpt ?? guide.quick_answer ?? guide.title,
+    description,
     path: guidePath(guide.slug),
     ogImage: ogImagePath,
     ogImageAlt: title,
   });
   return {
     ...metadata,
-    keywords: guide.tags,
+    keywords: longTail ? [...(guide.tags ?? []), ...longTail.queries] : guide.tags,
     openGraph: {
       ...metadata.openGraph,
       type: "article",
@@ -203,7 +211,9 @@ function wizardHrefWithInterest(href: string, topicKeys?: string[]): string {
 }
 
 function extractFaq(bodyHtml: string) {
-  const faqSection = /<h2[^>]*>\s*FAQ\s*<\/h2>([\s\S]*?)(?=<h2|$)/i.exec(bodyHtml)?.[1] ?? "";
+  // h2 may wrap label in <span> (markdown processor): <h2><span>FAQ</span></h2>
+  const faqSection =
+    /<h2[^>]*>[\s\S]*?FAQ[\s\S]*?<\/h2>([\s\S]*?)(?=<h2|$)/i.exec(bodyHtml)?.[1] ?? "";
 
   // Primary: markdown processor renders **Q?** as <section>...<h3>Q?</h3><p>Answer</p></section>
   const sectionMatches = Array.from(
@@ -252,6 +262,7 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
   const faqItems = extractFaq(guide.bodyHtml);
   const llmFacts = buildGuideLlmFacts(guide);
   const url = `${SITE_URL}${guidePath(guide.slug)}`;
+  const liveData = await loadGuideLiveDataForGuide(guide.corridor_slugs);
 
   const articleSchema = {
     "@context": "https://schema.org",
@@ -268,15 +279,10 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
     ...(guide.tags?.length ? { keywords: guide.tags.join(", ") } : {}),
   };
 
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Emigro", item: SITE_URL },
-      { "@type": "ListItem", position: 2, name: "Гайды", item: `${SITE_URL}/ru/guides` },
-      { "@type": "ListItem", position: 3, name: guide.title, item: url },
-    ],
-  };
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: "Гайды по ВНЖ", item: pageUrl("/ru/guides") },
+    { name: guide.title },
+  ]);
 
   const faqSchema =
     faqItems.length >= 2
@@ -366,12 +372,18 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
               </section>
             )}
 
-            <GuideCorridorVisuals topics={countryTopics} />
+            <GuideCorridorLiveData programs={liveData.programs} meta={liveData.meta} />
 
             <article
               className="guide-article prose prose-lg prose-slate mt-8 max-w-none rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm ring-1 ring-slate-950/5 prose-a:font-semibold prose-strong:text-slate-950 sm:p-8 lg:p-10"
               dangerouslySetInnerHTML={{ __html: guide.bodyHtml }}
             />
+
+            {guide.official_sources && guide.official_sources.length > 0 && (
+              <GuideOfficialSources sources={guide.official_sources} />
+            )}
+
+            <GuideCorridorVisuals topics={countryTopics} />
 
             <section className="mt-10 rounded-2xl border border-slate-200 bg-slate-50 p-6">
               <h2 className="text-lg font-semibold text-slate-900">Коротко для проверки маршрута</h2>

@@ -52,8 +52,8 @@ export default function AssistPage() {
   const assistUrl = pageUrl("/ru/assist");
 
   const breadcrumbSchema = buildBreadcrumbSchema([
-    { name: "Emigro", item: pageUrl("/ru") },
-    { name: "Emigro Assist", item: assistUrl },
+    { name: "Все направления", item: pageUrl("/ru") },
+    { name: "Emigro Assist" },
   ]);
 
   const serviceSchema = {

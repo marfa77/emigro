@@ -21,8 +21,10 @@ import {
   fitMetaDescription,
   fitSeoTitleAbsolute,
   hreflangAlternates,
+  pageUrl,
   socialImageMetadata,
 } from "@/lib/seo";
+import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
 import { EMIGRO_PUBLISHER, emigroAuthorOrg, schemaImage } from "@/lib/seo/schema";
 import { newsArticleUrl, newsHubUrl, SITE_URL } from "@/lib/site-url";
 
@@ -108,23 +110,14 @@ export default async function NewsArticlePage({ params }: Props) {
       : {}),
   };
 
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Emigro", item: SITE_URL },
-      { "@type": "ListItem", position: 2, name: "Новости", item: newsHubUrl() },
-      ...(topic
-        ? [{ "@type": "ListItem", position: 3, name: topic.countryRu, item: newsHubUrl(topic.urlSegment) }]
-        : []),
-      {
-        "@type": "ListItem",
-        position: topic ? 4 : 3,
-        name: displayTitle,
-        item: url,
-      },
-    ],
-  };
+  const breadcrumbItems: { name: string; item?: string }[] = [
+    { name: "Новости", item: newsHubUrl() },
+  ];
+  if (topic) {
+    breadcrumbItems.push({ name: topic.countryRu, item: newsHubUrl(topic.urlSegment) });
+  }
+  breadcrumbItems.push({ name: displayTitle });
+  const breadcrumbSchema = buildBreadcrumbSchema(breadcrumbItems);
 
   return (
     <>

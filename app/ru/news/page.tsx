@@ -6,7 +6,8 @@ import { NewsCountryNav } from "@/components/news/NewsCountryNav";
 import { NewsDigestCard } from "@/components/news/NewsDigest";
 import { CorridorIntelLinks } from "@/components/corridor/CorridorIntelLinks";
 import { NewsHeroVisual } from "@/components/visuals/NewsHeroVisual";
-import { pageMetadata } from "@/lib/seo";
+import { pageMetadata, pageUrl } from "@/lib/seo";
+import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
 import { getPublishedNewsDigests } from "@/lib/news/digests";
 import { getActiveNewsTopics, resolveNewsTopicFromParam } from "@/lib/news/topics";
 import { newsArticleUrl, newsFeedUrl, newsHubUrl, SITE_URL } from "@/lib/site-url";
@@ -87,14 +88,10 @@ export default async function NewsIndexPage({ searchParams }: Props) {
     })),
   };
 
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Emigro", item: `${SITE_URL}/ru` },
-      { "@type": "ListItem", position: 2, name: "Новости", item: hubUrl },
-    ],
-  };
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: "Все направления", item: pageUrl("/ru") },
+    { name: "Новости" },
+  ]);
 
   return (
     <>

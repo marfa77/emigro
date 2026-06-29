@@ -16,7 +16,7 @@ import { getTopicByCountrySegment } from "@/lib/corridor/resolve-topic";
 import { isCorridorFull, isCorridorOnSite } from "@/lib/corridor/publish";
 import { countryAccentBarClass } from "@/lib/brand/country-accents";
 import {
-  buildBreadcrumbSchema,
+  buildCorridorBreadcrumbSchema,
   buildDigestArticleSchema,
   buildDigestFaq,
   buildDigestItemListSchema,
@@ -61,11 +61,7 @@ export default async function CountryDigestPage({ params }: { params: { country:
   const faq = buildDigestFaq(topic, corridor);
   const heroClass = `from-slate-950 via-corridor-800 to-sky-800 bg-gradient-to-br ${countryAccentBarClass(topic.urlSegment)}`;
 
-  const breadcrumbSchema = buildBreadcrumbSchema([
-    { name: "Emigro", item: SITE_URL },
-    { name: topic.countryRu, item: `${SITE_URL}${base}` },
-    { name: "Справочник", item: url },
-  ]);
+  const breadcrumbSchema = buildCorridorBreadcrumbSchema(topic, "Справочник", url);
   const articleSchema = buildDigestArticleSchema(topic, corridor, url);
   const itemListSchema = buildDigestItemListSchema(topic, corridor, url);
   const faqSchema = buildFaqSchema(faq);

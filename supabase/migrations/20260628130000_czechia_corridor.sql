@@ -53,7 +53,7 @@ INSERT INTO emigro_corridor_programs (corridor_id, program_id, sort_order, is_fe
 ON CONFLICT DO NOTHING;
 
 INSERT INTO emigro_program_versions (id, program_id, version_label, eligibility_rule) VALUES
-  ('c0000000-0000-4000-8000-000000000038', 'b0000000-0000-4000-8000-000000000035', '2026-01', '{"and":[{"==":[{"var":"passport_iso2"},"RU"]},{"==":[{"var":"has_job_offer"},"yes"]},{">=":[{"var":"monthly_income_eur"},1100]}]}'),
+  ('c0000000-0000-4000-8000-000000000038', 'b0000000-0000-4000-8000-000000000035', '2026-01', '{"and":[{"==":[{"var":"passport_iso2"},"RU"]},{"==":[{"var":"has_job_offer"},"yes"]},{">=":[{"var":"monthly_income_eur"},900]}]}'),
   ('c0000000-0000-4000-8000-000000000039', 'b0000000-0000-4000-8000-000000000036', '2026-01', '{"and":[{"==":[{"var":"passport_iso2"},"RU"]},{"==":[{"var":"has_job_offer"},"yes"]},{">=":[{"var":"annual_salary_eur"},33000]}]}'),
   ('c0000000-0000-4000-8000-000000000040', 'b0000000-0000-4000-8000-000000000037', '2026-01', '{"and":[{"==":[{"var":"passport_iso2"},"RU"]},{"==":[{"var":"has_family_in_cz"},"yes"]}]}'),
   ('c0000000-0000-4000-8000-000000000041', 'b0000000-0000-4000-8000-000000000038', '2026-01', '{"and":[{"==":[{"var":"passport_iso2"},"RU"]},{"==":[{"var":"wants_study_route"},"yes"]},{"==":[{"var":"has_university_admission"},"yes"]},{"or":[{">=":[{"var":"study_budget_eur"},6200]},{"==":[{"var":"can_show_study_funds"},"yes"]}]}]}'),
@@ -111,7 +111,7 @@ INSERT INTO emigro_program_sources (program_version_id, source_url, raw_excerpt,
   ('c0000000-0000-4000-8000-000000000038', 'https://imigration.gov.cz/en/third-country-nationals/employment/employee-card/', 'Employee card — work permit and residence for employment with Czech employer.', '2026-06-27', 'MOI — employee card', 'MOI — employee card'),
   ('c0000000-0000-4000-8000-000000000038', 'https://ipc.gov.cz/', 'Minimum wage and labour market conditions updated annually.', '2026-06-27', 'IPC — labour market', 'IPC — рынок труда'),
   ('c0000000-0000-4000-8000-000000000039', 'https://imigration.gov.cz/en/third-country-nationals/employment/eu-blue-card/', 'EU Blue Card — higher education + qualified employment above salary threshold.', '2026-06-27', 'MOI — EU Blue Card', 'MOI — EU Blue Card'),
-  ('c0000000-0000-4000-8000-000000000039', 'https://ipc.gov.cz/en/for-the-foreigners/blue-card/', 'Blue Card salary threshold 1.5× average gross remuneration (updated annually).', '2026-06-27', 'Blue Card threshold', 'Порог Blue Card'),
+  ('c0000000-0000-4000-8000-000000000039', 'https://ipc.gov.cz/en/information-for-foreigners/residence-in-the-czech-republic/eu-blue-card/', 'Blue Card salary threshold 1.5× average gross remuneration (updated annually).', '2026-06-27', 'Blue Card threshold', 'Порог Blue Card'),
   ('c0000000-0000-4000-8000-000000000040', 'https://imigration.gov.cz/en/third-country-nationals/family-reunification/', 'Family reunification for spouses and dependants of legal residents.', '2026-06-27', 'MOI — family reunification', 'MOI — воссоединение'),
   ('c0000000-0000-4000-8000-000000000041', 'https://imigration.gov.cz/en/third-country-nationals/study/', 'Temporary residence for study — enrollment and proof of means required.', '2026-06-27', 'MOI — student pobyt', 'MOI — pobyt studium'),
   ('c0000000-0000-4000-8000-000000000042', 'https://imigration.gov.cz/en/third-country-nationals/business/', 'Business residence including trade license (živnost) for self-employed.', '2026-06-27', 'MOI — business/živnost', 'MOI — živnost')

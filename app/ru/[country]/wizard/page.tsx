@@ -10,7 +10,8 @@ import { corridorResultsPath } from "@/lib/corridor/paths";
 import { getCorridorBySlug, getWizardForCorridor } from "@/lib/corridor/queries";
 import { getTopicByCountrySegment } from "@/lib/corridor/resolve-topic";
 import { isCorridorFull } from "@/lib/corridor/publish";
-import { pageMetadata } from "@/lib/seo";
+import { pageMetadata, pageUrl } from "@/lib/seo";
+import { buildCorridorBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
 
 export async function generateStaticParams() {
   const segments = await getActiveCorridorSegments();
@@ -61,9 +62,13 @@ export default async function CountryWizardPage({ params }: { params: { country:
     );
   }
 
+  const wizardPath = topic.sitePaths.wizard!;
+  const breadcrumbSchema = buildCorridorBreadcrumbSchema(topic, "Wizard", pageUrl(wizardPath));
+
   return (
     <>
       <SiteHeader />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <main className="mx-auto max-w-2xl px-4 py-10">
         <CorridorBreadcrumb topic={topic} current="Wizard" />
         <header className="mt-4 overflow-hidden rounded-2xl border border-corridor-100 bg-gradient-to-br from-corridor-50 to-white px-6 py-8">

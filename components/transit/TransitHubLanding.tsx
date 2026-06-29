@@ -6,6 +6,8 @@ import { ServiceProvidersSection } from "@/components/providers/ServiceProviders
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { HubHeroVisual } from "@/components/visuals/HubHeroVisual";
 import { TRANSIT_HUBS, type TransitHub } from "@/lib/transit-hubs";
+import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
+import { pageUrl } from "@/lib/seo";
 import { SITE_URL } from "@/lib/site-url";
 
 const EU_CORRIDORS = [
@@ -32,14 +34,10 @@ export function TransitHubLanding({ hub }: Props) {
   const heroTitle = hub.heroTitle ?? `${hub.countryRu}: транзитный хаб на 3–12 месяцев`;
   const eyebrow = hub.eyebrow ?? "Транзитный хаб · первый шаг";
   const articleHeadline = hub.articleHeadline ?? `${hub.countryRu}: транзитный хаб для первого шага`;
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Emigro", item: `${SITE_URL}/ru` },
-      { "@type": "ListItem", position: 2, name: hub.countryRu, item: `${SITE_URL}${hub.path}` },
-    ],
-  };
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: "Все направления", item: pageUrl("/ru") },
+    { name: hub.countryRu },
+  ]);
 
   const articleSchema = {
     "@context": "https://schema.org",

@@ -202,8 +202,14 @@ export function rootMetadata(): Metadata {
     alternates: hreflangAlternates("/ru"),
     robots: { index: true, follow: true },
     icons: {
-      icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
-      apple: [{ url: "/icon.svg", type: "image/svg+xml" }],
+      icon: [
+        { url: "/favicon.ico", sizes: "any" },
+        { url: "/favicon.svg", type: "image/svg+xml" },
+        { url: "/icon-120.png", sizes: "120x120", type: "image/png" },
+        { url: "/icon-32.png", sizes: "32x32", type: "image/png" },
+      ],
+      apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+      shortcut: [{ url: "/favicon.ico" }],
     },
     ...(Object.keys(verification).length ? { verification } : {}),
     openGraph: {

@@ -14,8 +14,8 @@ export const metadata = pageMetadata({
 
 export default function ContactPage() {
   const breadcrumbSchema = buildBreadcrumbSchema([
-    { name: "Emigro", item: pageUrl("/ru") },
-    { name: "Контакты", item: pageUrl("/ru/contact") },
+    { name: "Все направления", item: pageUrl("/ru") },
+    { name: "Контакты" },
   ]);
 
   return (

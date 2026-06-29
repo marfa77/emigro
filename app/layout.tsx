@@ -5,6 +5,7 @@ import "./globals.css";
 import { rootMetadata } from "@/lib/seo";
 import { WizardFunnelTracker } from "@/components/analytics/WizardFunnelTracker";
 import { SiteAnalytics } from "@/components/analytics/SiteAnalytics";
+import { YandexMetrika } from "@/components/analytics/YandexMetrika";
 
 const GA_MEASUREMENT_ID =
   process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ?? "G-9PYSNNXYLY";
@@ -37,6 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {children}
         <Suspense fallback={null}>
           <SiteAnalytics />
+          <YandexMetrika />
           <WizardFunnelTracker />
         </Suspense>
         <Analytics />

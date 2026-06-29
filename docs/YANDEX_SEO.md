@@ -2,7 +2,17 @@
 
 Emigro targets Russian-speaking users on **Yandex Search** and **Alice AI**, not Google.
 
-## 1. Yandex Webmaster (обязательно)
+## 1. Yandex Metrika (обязательно для ПФ и обхода)
+
+1. Create counter: [metrika.yandex.ru](https://metrika.yandex.ru/) → **Добавить счётчик** → site `https://www.emigro.online`
+2. Copy **numeric ID** (e.g. `12345678`) from **Настройки → Счётчик**
+3. Set in Vercel: `NEXT_PUBLIC_YANDEX_METRIKA_ID=<id>` and redeploy
+4. The app loads Metrika in `app/layout.tsx` via `components/analytics/YandexMetrika.tsx` (SPA hits on route change)
+5. Link to Webmaster (step below) → **Индексирование → Обход по счётчикам → ВКЛ**
+
+Counter is **not** loaded when `NEXT_PUBLIC_YANDEX_METRIKA_ID` is empty (safe for local dev).
+
+## 2. Yandex Webmaster (обязательно)
 
 1. Add site: [webmaster.yandex.ru](https://webmaster.yandex.ru/)
 2. Verify ownership via meta tag:
@@ -12,9 +22,11 @@ Emigro targets Russian-speaking users on **Yandex Search** and **Alice AI**, not
    - Do not commit or invent the token; the value must come from Yandex Webmaster
    - Redeploy
 3. Submit sitemap: `https://www.emigro.online/sitemap.xml`
-4. Enable **IndexNow** in Webmaster (uses the same key as `INDEXNOW_KEY`)
+4. **Привязка Метрики:** Настройки → Привязка к Яндекс.Метрике → добавить ID счётчика → подтвердить в Метрике (если аккаунты разные)
+5. **Обход по счётчикам:** Индексирование → Обход по счетчикам → включить тумблер
+6. Enable **IndexNow** in Webmaster (uses the same key as `INDEXNOW_KEY`)
 
-## 2. IndexNow (Yandex first)
+## 3. IndexNow (Yandex first)
 
 | Endpoint | Role |
 |----------|------|
@@ -32,7 +44,7 @@ npm run seo:indexnow
 
 Check **Yandex Webmaster → Индексирование → IndexNow** for submission status.
 
-## 3. Alice AI visibility
+## 4. Alice AI visibility
 
 Alice cites pages that already rank well in Yandex organic (top ~30). There is no separate "Alice sitemap".
 
@@ -46,18 +58,18 @@ Alice cites pages that already rank well in Yandex organic (top ~30). There is n
 
 `llms.txt` and `llms-full.txt` are maintained for AI agents; Yandex does not officially require them, but they help structure discovery.
 
-## 4. robots.txt & host
+## 5. robots.txt & host
 
 - `app/robots.ts` allows all Yandex bots explicitly
 - `Host` directive points to production domain (Yandex-specific)
 - Sitemap URL in robots
 
-## 5. Google (optional, secondary)
+## 6. Google (optional, secondary)
 
 - `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` — only if you use Search Console
 - `PING_GOOGLE_SITEMAP=1` — opt-in Google sitemap ping on news publish (off by default)
 
-## 6. Post-deploy routine
+## 7. Post-deploy routine
 
 1. `npm run build` — verify no errors
 2. `npm run seo:indexnow` — ping all sitemap URLs to Yandex

@@ -1,0 +1,300 @@
+---
+slug: vnj-polsha-2026
+title: "ВНЖ Польша 2026: work permit, Blue Card и B2B для RU/UA/BY/KZ"
+seo_title: "ВНЖ Польша 2026 — work permit, Blue Card, B2B IT"
+seo_description: "ВНЖ в Польше 2026: work permit Type A, EU Blue Card, B2B/zlecenie для IT, студенты и семья. Пороги зарплат, karta pobytu, сроки для RU/UA/BY/KZ."
+excerpt: "Польша — главный коридор для русскоязычных в Центральную Европу: work permit, Blue Card, B2B IT, учёба и воссоединение семьи — с порогами и сроками 2026."
+quick_answer: "Основные маршруты: (1) work permit Type A + karta pobytu czasowego от польского работодателя (от ~€1 080/мес брутто), (2) EU Blue Card при дипломе и зарплате ~€3 020+/мес, (3) B2B/umowa zlecenie для IT (от ~€2 500/мес), (4) studia, (5) воссоединение семьи. ПМЖ — 5 лет легального pobyt, гражданство — 3–10 лет в зависимости от основания."
+corridor_slugs: [ru-speaking-to-poland]
+topic_keys: [poland, work, visa]
+tags: [Польша, ВНЖ, Blue Card, work permit, B2B, 2026, PL]
+primary_intent: informational
+cta_primary: /ru/poland/wizard
+cta_secondary: /ru/poland
+official_sources:
+  - url: https://www.gov.pl/web/udsc-en/temporary-residence-permit-for-work
+    label: gov.pl — pobyt для работы
+  - url: https://www.gov.pl/web/udsc-en/eu-blue-card
+    label: gov.pl — EU Blue Card
+  - url: https://www.gov.pl/web/family-social-policy/minimum-wage
+    label: Минимальная зарплата PL 2026
+  - url: https://www.gov.pl/web/udsc-en/temporary-residence-permit-for-studies
+    label: gov.pl — pobyt studia
+  - url: https://www.gov.pl/web/udsc-en/temporary-residence-permit-for-family-reunification
+    label: gov.pl — воссоединение семьи
+estimated_minutes: 18
+date_published: 2026-06-29
+date_modified: 2026-06-30
+---
+
+## Кому подходит этот гайд
+
+Этот гайд — для граждан **России, Украины, Беларуси, Казахстана** и других стран вне EU/EEA, которые рассматривают **легальный pobyt (ВНЖ) в Польше** в 2026 году.
+
+**Кому особенно актуально:**
+- IT-специалистам и B2B-подрядчикам (Warsaw, Kraków, Wrocław, Gdańsk — крупнейшее RU/UA сообщество в EU)
+- тем, кто уже в Польше по **temporary protection** (UA) и планирует переход на классический karta pobytu
+- белорусам как на **первый EU-шаг** (work permit culture, близость, русскоязычная инфраструктура)
+- семьям с оффером или супругом-резидентом PL
+
+Чек-лист после прилёта: [первые 30 дней в Польше](/ru/guides/pervye-30-dnej-v-polsche-2026). Сравнение с Чехией: [ВНЖ Чехия 2026](/ru/guides/vnj-chehiya-2026).
+
+---
+
+## Обзор: основные пути ВНЖ в Польше 2026
+
+| Путь | Ключевое требование | Срок рассмотрения | Право работать |
+|------|---------------------|-------------------|----------------|
+| **Work permit + pobyt** | Оффер + Type A zezwolenie | 2–4 мес. | Да (у работодателя) |
+| **EU Blue Card** | Диплом + ~€3 020+/мес | 2–4 мес. | Да (квалифицированная работа) |
+| **B2B / umowa zlecenie** | Договор + NIP/ZUS | 2–4 мес. | Да (по договору) |
+| **Studia (pobyt studia)** | Зачисление + средства | 2–4 мес. | Ограничено |
+| **Family reunification** | Спонсор с karta pobytu | 3–6 мес. | Да (условно) |
+
+Программы коридора: [Польша](/ru/poland) · [wizard](/ru/poland/wizard) · [справочник](/ru/poland/digest).
+
+---
+
+## Work permit (Type A) + karta pobytu czasowego
+
+Классический путь для наёмных сотрудников. Работодатель получает **zezwolenie na pracę typ A** в **Powiatowy Urząd Pracy**, затем вы подаёте на **karta pobytu czasowego** в **Urząd Wojewódzki** (voivodeship).
+
+### Финансовые пороги 2026
+
+| Параметр | Значение |
+|----------|----------|
+| Минимальная зарплата | **PLN 4 666/мес брутто** (~€1 080) с 1 января 2026 |
+| Реальный оффер IT | Часто PLN 8 000–15 000+ брутто |
+| Blue Card (отдельный маршрут) | **150% средней** ≈ PLN 13 041/мес (~€3 020) |
+
+*Источник порогов: [gov.pl — minimum wage](https://www.gov.pl/web/family-social-policy/minimum-wage), [gov.pl — Blue Card](https://www.gov.pl/web/udsc-en/eu-blue-card).*
+
+### Кто может подать
+- Граждане стран, требующих визы D для въезда (RU, BY, UA, KZ и др.)
+- Действующий **umowa o pracę** (трудовой договор) с польским работодателем
+- Work permit, выданный на ваше имя (работодатель подаёт первым)
+
+### Документы (типовой пакет)
+- Паспорт + копии всех страниц
+- Work permit (zezwolenie na pracę) — оригинал
+- Umowa o pracę с указанием зарплаты и должности
+- Подтверждение жилья (umowa najmu, oświadczenie właściciela)
+- Медицинская страховка (NFZ через работодателя или частная до enrollment)
+- Фото, сбор **PLN 340** за karta pobytu
+- Справка о несудимости (если требует voivodeship)
+
+### Срок и стоимость
+| Этап | Срок |
+|------|------|
+| Work permit от urząd pracy | 2–8 недель |
+| Подача в voivodeship | 1–3 месяца рассмотрения |
+| Выдача karta pobytu | 2–6 недель после решения |
+| Сбор work permit | PLN 50 |
+| Сбор karta pobytu | PLN 340 |
+
+**Подача:** часто **внутри Польши** после legal entry (виза D или legal stay). Консульская подача зависит от округа — см. [консульская подача РФ/BY/KZ](/ru/guides/konsulskaya-podacha-rf-by-kz-2026-yurisdiktsiya).
+
+---
+
+## EU Blue Card
+
+Для выпускников вузов с **квалифицированной** работой. Порог зарплаты выше, но маршрут предсказуемее для IT и инженеров.
+
+### Требования
+- Higher education (бакалавр+, 3+ года обучения) или 5 лет профессионального опыта в IT (зависит от voivodeship)
+- Umowa o pracę на квалифицированную должность
+- Зарплата **≥150% средней** в Польше — ориентир **PLN 13 041/мес брутто** (~€3 020/мес, 2026)
+
+### Плюсы Blue Card в PL
+- Упрощённая смена работодателя после 1 года
+- Признание стажа для ПМЖ при непрерывном pobyt
+- Семья — воссоединение по упрощённым правилам EU Blue Card
+
+### Минусы
+- Строже к диплому и должности, чем B2B/zlecenie
+- Voivodeship может запросить nostrification диплoma (признание)
+
+---
+
+## B2B / umowa zlecenie (IT-маршрут)
+
+Популярный путь для IT-фрилансеров и подрядчиков с польским заказчиком.
+
+### Как это работает
+1. **Umowa zlecenie** или **B2B contract** с польским контрагентом (IT-услуги, консалтинг)
+2. Регистрация **NIP** (налоговый номер) и взносы **ZUS** (соцстрах)
+3. Подача на **karta pobytu czasowego** на основании работы/услуг
+4. Бухгалтер (**biuro rachunkowe**) — PLN 200–800/мес
+
+### Финансовый порог
+Ориентир Emigro wizard: **≥€2 500/мес** по контрактам (net/gross зависит от структуры). Voivodeship оценивает **реальность** контракта и налоговую дисциплину.
+
+### Риски
+- Отказ, если контракт выглядит «бумажным» (один клиент, низкая активность)
+- ZUS и PIT должны быть в порядке — проверки при продлении
+- Не путать с **remote work на зарубежного клиента без PL-контракта** — это другой кейс
+
+---
+
+## Студенческий pobyt (studia)
+
+### Требования
+- **Zaświadczenie o przyjęciu** / letter of admission от польского вуза или языковой школы
+- Средства: ориентир **PLN 877/мес × 12** (~€9 600/год на 2026)
+- Жильё, страховка NFZ или частная
+- Сбор PLN 340
+
+### Ограничения
+- Право работы **ограничено** (часто до 20 ч/нед без отдельного permit — проверяйте статус studia)
+- Продление при успешной учёбе
+- Путь к work pobyt после выпуска — отдельная подача
+
+---
+
+## Воссоединение семьи
+
+### Требования к спонсору
+- Действующая **karta pobytu** в Польше
+- Достаточный доход на содержание семьи
+- Жильё, соответствующее числу членов семьи
+
+### Кого можно привезти
+- Супруг/партнёр (зарегистрированный брак или civil partnership)
+- Несовершеннолетние дети
+- Иные иждивенцы — по правилам UDSC
+
+**Срок:** 3–6 месяцев. Сбор ~PLN 340 + PLN 50.
+
+---
+
+## Путь к ПМЖ и гражданству
+
+| Этап | Срок (ориентир) |
+|------|-----------------|
+| Karta pobytu czasowego | 1–3 года (продления) |
+| **Pobyt stały (ПМЖ)** | **5 лет** непрерывного легального pobyt |
+| **Obywatelstwo (гражданство)** | **3 года на ПМЖ** или **10 лет** непрерывного legal stay; **брак** — 3 года + 2 года в PL |
+
+**Язык для гражданства:** **B1 польский** (экзамен państwowy). **Двойное гражданство** PL разрешено; РФ не признаёт второе — юридические последствия на вашей стороне.
+
+Подробнее о гражданстве EU: [Португалия vs Испания — гражданство](/ru/guides/grazhdanstvo-portugaliya-ispaniya-2026) (сравнительный контекст).
+
+---
+
+## Украинцы: TP vs karta pobytu
+
+Граждане UA с **temporary protection** могут работать без отдельного work permit, но TP **не заменяет** karta pobytu для ПМЖ и гражданства.
+
+**Когда переходить:**
+- Стабильный umowa o pracę или B2B-контракт
+- За **6–12 месяцев** до возможного окончания TP
+
+См. [Украина → ЕС: маршруты 2026](/ru/guides/ukraina-evropa-vnj-marshruty-2026) · [TP vs ВНЖ](/ru/guides/ukraintsy-belorusy-vremennaya-zashchita-vs-vnj-2026).
+
+---
+
+## Белорусы и RU: консульская практика
+
+| Локация подачи | Когда актуально |
+|----------------|-----------------|
+| **Warszawa / Kraków** | Work permit, Blue Card, B2B — при legal stay в PL |
+| **Вильнюс / Рига** | Транзит, редкие D-визы |
+| **Стамбул / Ереван / Тбилиси** | Когда EU-консульство не принимает из BY/RU |
+
+Многие BY-заявители получают work permit **удалённо** от PL-работодателя, въезжают по D-визе и подают pobyt **в voivodeship**. Подробнее: [консульская подача](/ru/guides/konsulskaya-podacha-rf-by-kz-2026-yurisdiktsiya) · [белорусы в Европу](/ru/guides/belorusy-v-evropu-vnj-2026).
+
+---
+
+## PL vs CZ: что выбрать
+
+| | Польша | Чехия |
+|---|--------|-------|
+| IT-маршрут | B2B / zlecenie | živnost / employee card |
+| Мин. work salary | ~€1 080/мес | ~€900/мес |
+| Blue Card | ~€3 020/мес | ~€2 750/мес |
+| RU/UA инфраструктура | Warsaw — максимум | Prague — сильное IT |
+| Бюрократия voivodeship/MOI | Очереди в Mazowieckie | Очереди в Prague |
+
+Сравните в [wizard PL](/ru/poland/wizard) и [wizard CZ](/ru/czechia/wizard).
+
+---
+
+## Что проверить перед подачей: чеклист
+
+- [ ] Оффер или B2B-контракт с **конкретной** зарплатой/ставкой
+- [ ] Work permit (если маршрут Type A) — **до** подачи na pobyt
+- [ ] Паспорт действителен ≥6–12 месяцев
+- [ ] Umowa najmu или letter от арендодателя
+- [ ] NFZ или частная страховка
+- [ ] NIP + ZUS (для B2B) — через бухгалтера
+- [ ] Справка о несудимости (apostille + перевод, если требуют)
+- [ ] Запись в voivodeship (Warsaw — очереди на месяцы)
+- [ ] Бюджет: PLN 340 + депозит аренды 2–3 мес.
+
+---
+
+## FAQ
+
+### Можно ли подать на pobyt из России без въезда в PL?
+
+Work permit часто оформляют **до** въезда; karta pobytu — **после** legal entry (виза D или иное legal stay). Консульская D-виза — отдельный этап. Уточняйте voivodeship и консульство.
+
+### PL или PT для IT с доходом €3 000/мес?
+
+PL — быстрее через work/B2B при оффере; PT D8 — если доход **удалённый из-за рубежа** без PL-работодателя. Сравните в [wizard](/ru/wizard).
+
+### Сколько ждать karta pobytu в Warsaw?
+
+Решение voivodeship: **1–3 мес.**; карта +2–6 нед. Mazowieckie urząd — одни из самых загруженных.
+
+### Нужен ли польский язык для work permit?
+
+Для подачи — **нет**. Для гражданства — B1. Для рынка труда — английский часто достаточен в IT.
+
+### Можно ли с TP (UA) сразу подать на Blue Card?
+
+Да, при выполнении условий (оффер, диплом, зарплата). TP не блокирует подачу, но **не засчитывается** как стаж для гражданства автоматически.
+
+### B2B без польского клиента — можно?
+
+Для pobyt по работе нужен **польский** контрагент или работодатель. Remote-only на US/UK клиента без PL-структуры — другой маршрут (часто не подходит для pobyt).
+
+### Сколько стоит переезд по work permit?
+
+Ориентир solo: work permit + pobyt ~€100; аренда Warsaw €800–1 400/мес; депозит 2–3 мес.; бухгалтер B2B PLN 200–800/мес. См. [бюджет релокации](/ru/guides/byudzhet-relokatsii-evropa-2026-po-stranam).
+
+---
+
+## Официальные источники
+
+- **[UDSC / Office for Foreigners](https://www.gov.pl/web/udsc-en/)** — все типы pobyt
+- **[Work residence](https://www.gov.pl/web/udsc-en/temporary-residence-permit-for-work)** — pobyt для работы
+- **[EU Blue Card PL](https://www.gov.pl/web/udsc-en/eu-blue-card)** — Blue Card
+- **[Minimum wage 2026](https://www.gov.pl/web/family-social-policy/minimum-wage)** — PLN 4 666
+- **[Family reunification](https://www.gov.pl/web/udsc-en/temporary-residence-permit-for-family-reunification)** — воссоединение
+
+---
+
+## Emigro wizard: как использовать гайд
+
+На [emigro.online/ru/poland/wizard](https://www.emigro.online/ru/poland/wizard) укажите паспорт (RU/BY/UA/KZ), оффер, доход и семью — система сопоставит work permit, Blue Card и B2B без гарантии одобрения.
+
+Hub wizard без выбора страны: [/ru/wizard](/ru/wizard).
+
+---
+
+## Дисклеймер
+
+Материал подготовлен редакцией Emigro. Это **не** юридическая консультация. Пороги и практика voivodeship меняются — сверяйтесь с [gov.pl/udsc](https://www.gov.pl/web/udsc-en) на дату подачи.
+
+Дата изменения — в шапке страницы. Для отказов и сложных B2B-структур — лицензированный иммиграционный юрист в Польше.
+
+## Связанные гайды
+
+| Тема | Гайд |
+|------|------|
+| Первые 30 дней | [PESEL, meldunek, NFZ](/ru/guides/pervye-30-dnej-v-polsche-2026) |
+| Чехия | [ВНЖ Чехия 2026](/ru/guides/vnj-chehiya-2026) |
+| Украина | [UA → ЕС маршруты](/ru/guides/ukraina-evropa-vnj-marshruty-2026) |
+| BY | [Белорусы в Европу](/ru/guides/belorusy-v-evropu-vnj-2026) |
+| Консульства | [Подача РФ/BY/KZ](/ru/guides/konsulskaya-podacha-rf-by-kz-2026-yurisdiktsiya) |

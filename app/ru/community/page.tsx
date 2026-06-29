@@ -47,8 +47,8 @@ const RULES = [
 
 export default function CommunityPage() {
   const breadcrumbSchema = buildBreadcrumbSchema([
-    { name: "Emigro", item: pageUrl("/ru") },
-    { name: "Чат релокантов", item: pageUrl("/ru/community") },
+    { name: "Все направления", item: pageUrl("/ru") },
+    { name: "Чат релокантов" },
   ]);
 
   return (

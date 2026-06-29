@@ -6,7 +6,6 @@ import { RelocatorChatPromo } from "@/components/community/RelocatorChatPromo";
 import { DestinationCard } from "@/components/destinations/DestinationCard";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { HubHeroVisual } from "@/components/visuals/HubHeroVisual";
-import { ProductLevelCards } from "@/components/visuals/ProductLevelCards";
 import { getActiveNewsTopics, newsIndexPath } from "@/lib/news/topics";
 import { HUB_WIZARD_PATH } from "@/lib/corridor/paths";
 import { guidePath, listGuides } from "@/lib/guides/load";
@@ -20,7 +19,7 @@ export const metadata: Metadata = pageMetadata({
   title: "Emigro — ВНЖ и релокация в Европу",
   titleAbsolute: true,
   description:
-    "Навигатор по ВНЖ и гражданству для русскоязычных за рубежом и в СНГ: европейские коридоры, wizard подбора, справочники программ и еженедельные новости с источниками.",
+    "Навигатор по ВНЖ и гражданству для русскоязычных: коридоры Европы, wizard подбора, справочники программ и еженедельные новости с источниками.",
   path: "/ru",
 });
 
@@ -316,11 +315,6 @@ export default async function RuHubPage() {
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
-        </section>
-
-        <section className="mt-14 rounded-xl border border-slate-200 bg-white p-6">
-          <h2 className="font-semibold text-slate-900">Три уровня продукта</h2>
-          <ProductLevelCards />
         </section>
       </main>
       <SiteFooter />

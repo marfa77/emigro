@@ -41,6 +41,14 @@ export const GUIDE_COVER_BY_SLUG: Record<string, string> = {
   "pervye-30-dnej-v-niderlandah-2026": "/images/corridor-netherlands.webp",
   "pervye-30-dnej-v-frantsii-2026": "/images/corridor-france.webp",
   "belorusy-v-evropu-vnj-2026": "/images/corridor-poland.webp",
+  "vnj-polsha-2026": "/images/corridor-poland.webp",
+  "vnj-chehiya-2026": "/images/corridor-czechia.webp",
+  "grazhdanstvo-portugaliya-ispaniya-2026": "/images/corridor-portugal.webp",
+  "ukraina-evropa-vnj-marshruty-2026": "/images/corridor-germany.webp",
+  "pervye-30-dnej-v-polsche-2026": "/images/corridor-poland.webp",
+  "pervye-30-dnej-v-chehii-2026": "/images/corridor-czechia.webp",
+  "pervye-30-dnej-v-avstrii-2026": "/images/corridor-austria.webp",
+  "vnj-austria-2026": "/images/corridor-austria.webp",
 };
 
 export const DEFAULT_GUIDE_COVER = "/images/emigro-main-hero.webp";
@@ -49,12 +57,17 @@ export function getGuideOgImagePath(slug: string): string {
   return `/images/og/guide-${slug}.jpg`;
 }
 
-/** Prefer dedicated 1200×630 OG JPG; fall back to cover webp when raster OG is missing. */
-export function resolveGuideOgImagePath(slug: string, coverPath: string): string {
+/** Prefer dedicated 1200×630 OG JPG for hero + social when raster exists. */
+export function resolveGuideCoverPath(slug: string, fallbackCover: string): string {
   const jpgPath = getGuideOgImagePath(slug);
   const onDisk = path.join(PUBLIC_DIR, jpgPath.replace(/^\//, ""));
   if (fs.existsSync(onDisk)) return jpgPath;
-  return coverPath;
+  return fallbackCover;
+}
+
+/** Prefer dedicated 1200×630 OG JPG; fall back to cover webp when raster OG is missing. */
+export function resolveGuideOgImagePath(slug: string, coverPath: string): string {
+  return resolveGuideCoverPath(slug, coverPath);
 }
 
 export function getGuideCoverPath(

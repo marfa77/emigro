@@ -358,6 +358,45 @@ export function buildBreadcrumbSchema(
   };
 }
 
+/** Matches visible `CorridorBreadcrumb`: hub → country → current page (≤3 items for Yandex). */
+export function buildCorridorBreadcrumbSchema(
+  topic: Pick<NewsTopicConfig, "countryRu" | "urlSegment"> & {
+    sitePaths?: NewsTopicConfig["sitePaths"];
+  },
+  currentLabel: string,
+  currentUrl?: string
+): Record<string, unknown> {
+  const landingPath = topic.sitePaths?.landing ?? `/ru/${topic.urlSegment}`;
+  const items: { name: string; item?: string }[] = [
+    { name: "Все направления", item: pageUrl("/ru") },
+    { name: topic.countryRu, item: pageUrl(landingPath) },
+  ];
+  if (currentUrl) {
+    items.push({ name: currentLabel, item: currentUrl });
+  } else {
+    items.push({ name: currentLabel });
+  }
+  return buildBreadcrumbSchema(items);
+}
+
+/** Hub section pages: section index → current (no homepage label — Yandex skips it). */
+export function buildHubBreadcrumbSchema(
+  sectionLabel: string,
+  sectionPath: string,
+  currentLabel: string,
+  currentPath?: string
+): Record<string, unknown> {
+  const items: { name: string; item?: string }[] = [
+    { name: sectionLabel, item: pageUrl(sectionPath) },
+  ];
+  if (currentPath) {
+    items.push({ name: currentLabel, item: pageUrl(currentPath) });
+  } else {
+    items.push({ name: currentLabel });
+  }
+  return buildBreadcrumbSchema(items);
+}
+
 export function buildFaqSchema(faq: FaqItem[]): Record<string, unknown> | null {
   if (faq.length < 2) return null;
   return {

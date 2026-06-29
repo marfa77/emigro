@@ -1,6 +1,11 @@
 import fs from "fs";
 import path from "path";
-import { getGuideCoverPath, resolveGuideOgImagePath } from "@/lib/guides/covers";
+import { getGuideCoverPath, resolveGuideCoverPath, resolveGuideOgImagePath } from "@/lib/guides/covers";
+
+export type GuideOfficialSource = {
+  url: string;
+  label: string;
+};
 
 export type GuideFrontmatter = {
   slug: string;
@@ -19,6 +24,7 @@ export type GuideFrontmatter = {
   corridor_slugs?: string[];
   primary_intent?: string;
   cover_image?: string;
+  official_sources?: GuideOfficialSource[];
   /** Resolved cover path (frontmatter or slug map). */
   cover_path: string;
   /** 1200x630 raster image for social previews. */
@@ -56,6 +62,41 @@ function parseFrontmatter(raw: string): { meta: Record<string, string | string[]
   return { meta, body: match[2] };
 }
 
+function parseOfficialSources(frontmatterBlock: string): GuideOfficialSource[] {
+  const sources: GuideOfficialSource[] = [];
+  let inBlock = false;
+  let pendingUrl: string | null = null;
+
+  for (const line of frontmatterBlock.split("\n")) {
+    if (/^official_sources:\s*$/.test(line)) {
+      inBlock = true;
+      continue;
+    }
+    if (!inBlock) continue;
+
+    const urlMatch = line.match(/^\s*-\s*url:\s*(.+)\s*$/);
+    if (urlMatch) {
+      if (pendingUrl) sources.push({ url: pendingUrl, label: pendingUrl });
+      pendingUrl = urlMatch[1].trim();
+      continue;
+    }
+
+    const labelMatch = line.match(/^\s*label:\s*(.+)\s*$/);
+    if (labelMatch && pendingUrl) {
+      let label = labelMatch[1].trim();
+      if (label.startsWith('"') && label.endsWith('"')) label = label.slice(1, -1);
+      sources.push({ url: pendingUrl, label });
+      pendingUrl = null;
+      continue;
+    }
+
+    if (/^[a-zA-Z0-9_]+:/.test(line) && !line.startsWith(" ")) break;
+  }
+
+  if (pendingUrl) sources.push({ url: pendingUrl, label: pendingUrl });
+  return sources;
+}
+
 function inlineMarkdown(text: string): string {
   return text
     .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-corridor-700 underline hover:text-corridor-900">$1</a>')
@@ -68,9 +109,13 @@ function resolveCoverPath(meta: Record<string, string | string[]>, slug: string)
   return getGuideCoverPath(slug, { coverImage, corridorSlugs });
 }
 
-function mapFrontmatter(meta: Record<string, string | string[]>, slug: string): GuideFrontmatter {
+function mapFrontmatter(
+  meta: Record<string, string | string[]>,
+  slug: string,
+  officialSources: GuideOfficialSource[]
+): GuideFrontmatter {
   const resolvedSlug = String(meta.slug ?? slug);
-  const cover_path = resolveCoverPath(meta, resolvedSlug);
+  const cover_path = resolveGuideCoverPath(resolvedSlug, resolveCoverPath(meta, resolvedSlug));
   return {
     slug: resolvedSlug,
     title: String(meta.title ?? slug),
@@ -88,6 +133,7 @@ function mapFrontmatter(meta: Record<string, string | string[]>, slug: string): 
     corridor_slugs: Array.isArray(meta.corridor_slugs) ? meta.corridor_slugs.map(String) : undefined,
     primary_intent: meta.primary_intent ? String(meta.primary_intent) : undefined,
     cover_image: meta.cover_image ? String(meta.cover_image) : undefined,
+    official_sources: officialSources.length > 0 ? officialSources : undefined,
     cover_path,
     og_image_path: resolveGuideOgImagePath(resolvedSlug, cover_path),
   };
@@ -237,7 +283,8 @@ export function listGuides(): GuideFrontmatter[] {
     .map((file) => {
       const raw = fs.readFileSync(path.join(GUIDES_DIR, file), "utf8");
       const { meta } = parseFrontmatter(raw);
-      return mapFrontmatter(meta, file.replace(/\.md$/, ""));
+      const frontmatterBlock = raw.match(/^---\r?\n([\s\S]*?)\r?\n---/)?.[1] ?? "";
+      return mapFrontmatter(meta, file.replace(/\.md$/, ""), parseOfficialSources(frontmatterBlock));
     })
     .sort((a, b) => a.title.localeCompare(b.title, "ru"));
 }
@@ -248,9 +295,11 @@ export function loadGuide(slug: string): GuideArticle | null {
 
   const raw = fs.readFileSync(filePath, "utf8");
   const { meta, body } = parseFrontmatter(raw);
+  const frontmatterBlock = raw.match(/^---\r?\n([\s\S]*?)\r?\n---/)?.[1] ?? "";
+  const officialSources = parseOfficialSources(frontmatterBlock);
 
   return {
-    ...mapFrontmatter(meta, slug),
+    ...mapFrontmatter(meta, slug, officialSources),
     bodyHtml: markdownToHtml(body),
   };
 }

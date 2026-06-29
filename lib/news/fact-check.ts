@@ -226,6 +226,15 @@ function normalizeText(text: string): string {
     .trim();
 }
 
+function mentionsCountryName(text: string, names: string[]): boolean {
+  for (const name of names) {
+    const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const re = new RegExp(`(?:^|[^a-zа-яё])${escaped}(?:[^a-zа-яё]|$)`, "i");
+    if (re.test(text)) return true;
+  }
+  return false;
+}
+
 function stripUrlsAndThreadNumbers(text: string): string {
   return text
     .replace(/https?:\/\/\S+/gi, " ")
@@ -480,9 +489,9 @@ function detectCountryMixups(generatedText: string, sourceText: string, topic: N
 
   for (const country of COUNTRY_ALIASES) {
     if (country.key === topicKey) continue;
-    const generatedMention = country.names.some((name) => generated.includes(name));
+    const generatedMention = mentionsCountryName(generated, country.names);
     if (!generatedMention) continue;
-    const sourceMention = country.names.some((name) => source.includes(name));
+    const sourceMention = mentionsCountryName(source, country.names);
     if (!sourceMention) {
       errors.push(`В тексте есть возможная путаница стран: упомянута ${country.key}, но этого нет в статье Prep2Go.`);
     }
