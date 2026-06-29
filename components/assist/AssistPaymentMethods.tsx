@@ -1,7 +1,16 @@
+import type { LucideIcon } from "lucide-react";
 import { Bitcoin, Building2, CreditCard, ExternalLink, MessageCircle } from "lucide-react";
 import { GUMROAD_ROUTE_CHECK_URL } from "@/lib/site-contact";
 
-const METHODS = [
+type PaymentMethod = {
+  icon: LucideIcon;
+  title: string;
+  description: string;
+  note: string;
+  href?: string;
+};
+
+const METHODS: PaymentMethod[] = [
   {
     icon: ExternalLink,
     title: "Gumroad (EUR)",
@@ -33,7 +42,7 @@ const METHODS = [
     description: "Stablecoins в сети TRC-20 или ERC-20 — реквизиты после заявки.",
     note: "Вручную",
   },
-] as const;
+];
 
 export function AssistPaymentMethods() {
   return (

@@ -2,10 +2,10 @@ import Link from "next/link";
 import { ArrowRight, Handshake } from "lucide-react";
 import type { PartnerRecruitmentBannerCopy } from "@/lib/partners/recruitment-banner";
 
-export function PartnerRecruitmentBanner({ scope, countryPrepositional }: PartnerRecruitmentBannerCopy) {
+export function PartnerRecruitmentBanner(props: PartnerRecruitmentBannerCopy) {
   const message =
-    scope === "local"
-      ? `Ищем локальных партнёров в ${countryPrepositional}`
+    props.scope === "local"
+      ? `Ищем локальных партнёров в ${props.countryPrepositional}`
       : "Ищем глобальных партнёров по релокации";
 
   return (
