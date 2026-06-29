@@ -22,6 +22,7 @@ export type EvaluationProgramData = {
 };
 
 export type EvaluationRequirementData = {
+  requirementType: string;
   labelRu: string;
   valueText?: string | null;
   sortOrder: number;
@@ -74,6 +75,7 @@ function passportStatusByVersion(rows: Array<{ program_version_id: string; statu
 function requirementsByVersion(
   rows: Array<{
     program_version_id: string;
+    requirement_type: string;
     label_ru: string;
     value_text: string | null;
     sort_order: number;
@@ -83,6 +85,7 @@ function requirementsByVersion(
   for (const row of rows) {
     const list = byVersion.get(row.program_version_id) ?? [];
     list.push({
+      requirementType: row.requirement_type,
       labelRu: row.label_ru,
       valueText: row.value_text,
       sortOrder: row.sort_order,
@@ -157,7 +160,7 @@ export async function getCorridorEvaluationProgramData(
             .eq("passport_iso2", passportIso2),
           supabase
             .from("emigro_program_requirements")
-            .select("program_version_id, label_ru, value_text, sort_order")
+            .select("program_version_id, requirement_type, label_ru, value_text, sort_order")
             .in("program_version_id", versionIds)
             .order("sort_order"),
           supabase
@@ -249,7 +252,7 @@ export async function getGlobalEvaluationData(
             .eq("passport_iso2", passportIso2),
           supabase
             .from("emigro_program_requirements")
-            .select("program_version_id, label_ru, value_text, sort_order")
+            .select("program_version_id, requirement_type, label_ru, value_text, sort_order")
             .in("program_version_id", versionIds)
             .order("sort_order"),
           supabase

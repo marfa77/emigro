@@ -13,8 +13,13 @@ export interface EvaluationResult {
 }
 
 export type EvaluationRequirement = {
+  requirementType?: string;
   labelRu: string;
   valueText?: string | null;
+};
+
+export type EvaluationOptions = {
+  answeredKeys?: Iterable<string>;
 };
 
 const MAX_REASON_LENGTH = 150;
@@ -38,7 +43,8 @@ export function evaluateProgram(
   rule: Record<string, unknown>,
   facts: Record<string, unknown>,
   passportStatus?: string,
-  requirements: EvaluationRequirement[] = []
+  requirements: EvaluationRequirement[] = [],
+  options: EvaluationOptions = {}
 ): EvaluationResult {
   const reasons: string[] = [];
 
@@ -72,7 +78,7 @@ export function evaluateProgram(
     };
   }
 
-  reasons.push(...failedRuleReasons(effectiveRule, facts, requirements));
+  reasons.push(...failedRuleReasons(effectiveRule, facts, requirements, options));
   return {
     programId,
     programSlug,
@@ -138,42 +144,43 @@ const FACT_COPY: Record<
 function failedRuleReasons(
   rule: Record<string, unknown>,
   facts: Record<string, unknown>,
-  requirements: EvaluationRequirement[]
+  requirements: EvaluationRequirement[],
+  options: EvaluationOptions
 ): string[] {
-  const detailed = explainFailedNode(rule, facts);
+  const detailed = explainFailedNode(rule, facts, options);
   if (detailed.length > 0) return unique(detailed);
 
   const fallback = requirements
     .slice(0, 3)
-    .map((requirement) =>
-      requirement.valueText
-        ? `${requirement.labelRu}: требуется ${requirement.valueText}. По вашим ответам это не подтверждено.`
-        : `${requirement.labelRu}: по вашим ответам это не подтверждено.`
-    );
+    .map((requirement) => requirementReason(requirement, options));
 
   return (fallback.length > 0
     ? fallback
     : ["По вашим ответам программа не проходит базовую проверку. Сравните требования со страницей программы."]).map(capReason);
 }
 
-function explainFailedNode(node: unknown, facts: Record<string, unknown>): string[] {
+function explainFailedNode(
+  node: unknown,
+  facts: Record<string, unknown>,
+  options: EvaluationOptions
+): string[] {
   if (!node || typeof node !== "object") return [];
   const rule = node as Record<string, unknown>;
 
   if (Array.isArray(rule.and)) {
     return rule.and.flatMap((child) =>
-      evaluateRuleObject(child, facts) ? [] : explainFailedNode(child, facts)
+      evaluateRuleObject(child, facts) ? [] : explainFailedNode(child, facts, options)
     );
   }
 
   if (Array.isArray(rule.or)) {
     if (evaluateRuleObject(rule, facts)) return [];
-    const options = rule.or.flatMap((child) => explainFailedNode(child, facts));
-    if (options.length <= 1) return options;
-    return [`Нужно выполнить один из вариантов: ${unique(options).slice(0, 3).join("; ")}`];
+    const variants = rule.or.flatMap((child) => explainFailedNode(child, facts, options));
+    if (variants.length <= 1) return variants;
+    return [`Нужно выполнить один из вариантов: ${unique(variants).slice(0, 3).join("; ")}`];
   }
 
-  const comparison = explainComparison(rule, facts);
+  const comparison = explainComparison(rule, facts, options);
   return comparison ? [comparison] : [];
 }
 
@@ -182,13 +189,17 @@ function evaluateRuleObject(node: unknown, facts: Record<string, unknown>): bool
   return evaluateRule(node as Record<string, unknown>, facts);
 }
 
-function explainComparison(rule: Record<string, unknown>, facts: Record<string, unknown>): string | null {
+function explainComparison(
+  rule: Record<string, unknown>,
+  facts: Record<string, unknown>,
+  options: EvaluationOptions
+): string | null {
   const gte = rule[">="];
   if (Array.isArray(gte) && gte.length === 2) {
     const field = varName(gte[0]);
     const required = numberValue(gte[1]);
     if (!field || required === null) return null;
-    return numericReason(field, facts[field], required);
+    return numericReason(field, facts[field], required, "от", options);
   }
 
   const gt = rule[">"];
@@ -196,7 +207,7 @@ function explainComparison(rule: Record<string, unknown>, facts: Record<string, 
     const field = varName(gt[0]);
     const required = numberValue(gt[1]);
     if (!field || required === null) return null;
-    return numericReason(field, facts[field], required, "больше");
+    return numericReason(field, facts[field], required, "больше", options);
   }
 
   const lte = rule["<="];
@@ -204,7 +215,7 @@ function explainComparison(rule: Record<string, unknown>, facts: Record<string, 
     const field = varName(lte[0]);
     const max = numberValue(lte[1]);
     if (!field || max === null) return null;
-    return numericMaxReason(field, facts[field], max);
+    return numericMaxReason(field, facts[field], max, "не больше", options);
   }
 
   const lt = rule["<"];
@@ -212,21 +223,21 @@ function explainComparison(rule: Record<string, unknown>, facts: Record<string, 
     const field = varName(lt[0]);
     const max = numberValue(lt[1]);
     if (!field || max === null) return null;
-    return numericMaxReason(field, facts[field], max, "меньше");
+    return numericMaxReason(field, facts[field], max, "меньше", options);
   }
 
   const eq = rule["=="];
   if (Array.isArray(eq) && eq.length === 2) {
     const field = varName(eq[0]);
     if (!field) return null;
-    return equalityReason(field, facts[field], eq[1]);
+    return equalityReason(field, facts[field], eq[1], options);
   }
 
   const notEq = rule["!="];
   if (Array.isArray(notEq) && notEq.length === 2) {
     const field = varName(notEq[0]);
     if (!field) return null;
-    return notEqualityReason(field, facts[field], notEq[1]);
+    return notEqualityReason(field, facts[field], notEq[1], options);
   }
 
   const includes = rule.in;
@@ -234,7 +245,7 @@ function explainComparison(rule: Record<string, unknown>, facts: Record<string, 
     const field = varName(includes[0]);
     const allowed = Array.isArray(includes[1]) ? includes[1] : null;
     if (!field || !allowed) return null;
-    return inReason(field, facts[field], allowed);
+    return inReason(field, facts[field], allowed, options);
   }
 
   return null;
@@ -255,11 +266,15 @@ function numericReason(
   field: string,
   actualValue: unknown,
   required: number,
-  comparator = "от"
+  comparator = "от",
+  options: EvaluationOptions = {}
 ): string {
   const copy = FACT_COPY[field];
   const label = copy?.label ?? fieldLabel(field);
   const unit = copy?.unit ?? "";
+  if (!wasAnswered(field, options)) {
+    return neutralRequirementCopy(label, `порог ${comparator} ${formatEuro(required)}${unit}`);
+  }
   const actual = numberValue(actualValue) ?? 0;
   return capReason(`${label}: нужно ${comparator} ${formatEuro(required)}${unit}, указано ${formatEuro(actual)}${unit}`);
 }
@@ -268,16 +283,30 @@ function numericMaxReason(
   field: string,
   actualValue: unknown,
   max: number,
-  comparator = "не больше"
+  comparator = "не больше",
+  options: EvaluationOptions = {}
 ): string {
   const copy = FACT_COPY[field];
   const label = copy?.label ?? fieldLabel(field);
   const unit = copy?.unit ?? "";
+  if (!wasAnswered(field, options)) {
+    return neutralRequirementCopy(label, `порог ${comparator} ${formatEuro(max)}${unit}`);
+  }
   const actual = numberValue(actualValue) ?? 0;
   return capReason(`${label}: нужно ${comparator} ${formatEuro(max)}${unit}, указано ${formatEuro(actual)}${unit}`);
 }
 
-function equalityReason(field: string, actualValue: unknown, expected: unknown): string | null {
+function equalityReason(
+  field: string,
+  actualValue: unknown,
+  expected: unknown,
+  options: EvaluationOptions
+): string | null {
+  if (!wasAnswered(field, options)) {
+    const label = isFamilyFact(field) ? "Семья в стране" : (FACT_COPY[field]?.label ?? fieldLabel(field));
+    return neutralRequirementCopy(label);
+  }
+
   if (String(expected) === "yes" && isFamilyFact(field)) {
     return "Семья в стране: для этого маршрута нужна близкая связь с резидентом или гражданином, а в ответах она не указана.";
   }
@@ -294,19 +323,79 @@ function equalityReason(field: string, actualValue: unknown, expected: unknown):
   return capReason(`${label}: нужно «${optionLabel(field, expected)}». Сейчас выбрано «${actual}»`);
 }
 
-function notEqualityReason(field: string, actualValue: unknown, blocked: unknown): string {
+function notEqualityReason(
+  field: string,
+  actualValue: unknown,
+  blocked: unknown,
+  options: EvaluationOptions
+): string {
   const label = FACT_COPY[field]?.label ?? fieldLabel(field);
+  if (!wasAnswered(field, options)) return neutralRequirementCopy(label);
   return capReason(`${label}: значение «${optionLabel(field, blocked)}» не подходит, выбрано «${optionLabel(field, actualValue)}»`);
 }
 
-function inReason(field: string, actualValue: unknown, allowed: unknown[]): string {
+function inReason(
+  field: string,
+  actualValue: unknown,
+  allowed: unknown[],
+  options: EvaluationOptions
+): string {
   const label = FACT_COPY[field]?.label ?? fieldLabel(field);
+  if (!wasAnswered(field, options)) return neutralRequirementCopy(label);
   const allowedLabels = allowed.map((value) => optionLabel(field, value)).join(", ");
   return capReason(`${label}: нужно одно из значений «${allowedLabels}», выбрано «${optionLabel(field, actualValue)}»`);
 }
 
 function isFamilyFact(field: string): boolean {
   return /^has_family_in_[a-z]{2}$/i.test(field);
+}
+
+const REQUIREMENT_FACT_KEYS: Record<string, string[]> = {
+  income: ["monthly_income_eur", "passive_income_eur", "annual_salary_eur"],
+  min_monthly_income_eur: ["monthly_income_eur"],
+  passive_income: ["passive_income_eur"],
+  savings: ["savings_eur"],
+  min_savings_eur: ["savings_eur"],
+  job_offer: ["has_job_offer", "annual_salary_eur"],
+  employment: ["has_job_offer", "annual_salary_eur"],
+  remote_work: ["remote_income", "monthly_income_eur"],
+  study_admission: ["has_university_admission"],
+  study_funds: ["study_budget_eur", "can_show_study_funds"],
+  investment: ["willing_to_invest_eur"],
+  min_investment_eur: ["willing_to_invest_eur"],
+};
+
+function requirementReason(
+  requirement: EvaluationRequirement,
+  options: EvaluationOptions
+): string {
+  const factKeys = requirement.requirementType
+    ? REQUIREMENT_FACT_KEYS[requirement.requirementType] ?? []
+    : [];
+  const hasAnsweredFact = factKeys.some((field) => wasAnswered(field, options));
+
+  if (factKeys.length === 0 || !hasAnsweredFact) {
+    return neutralRequirementCopy(requirement.labelRu, requirement.valueText ?? undefined);
+  }
+
+  return requirement.valueText
+    ? `${requirement.labelRu}: требуется ${requirement.valueText}. По вашим ответам это не подтверждено.`
+    : `${requirement.labelRu}: по вашим ответам это не подтверждено.`;
+}
+
+function neutralRequirementCopy(label: string, detail?: string): string {
+  return capReason(
+    detail
+      ? `${label}: ${detail}. Нужно будет подготовить/оформить отдельно.`
+      : `${label}: проверяется на следующем этапе.`
+  );
+}
+
+function wasAnswered(field: string, options: EvaluationOptions): boolean {
+  if (!options.answeredKeys) return true;
+  const answered = new Set(Array.from(options.answeredKeys));
+  if (answered.has(field)) return true;
+  return isFamilyFact(field) && answered.has("family_countries");
 }
 
 function optionLabel(field: string, value: unknown): string {

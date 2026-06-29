@@ -20,6 +20,9 @@ const FAMILY_COUNTRY_OPTIONS = [
   { value: "DE", label_en: "Germany", label_ru: "🇩🇪 Германия" },
   { value: "NL", label_en: "Netherlands", label_ru: "🇳🇱 Нидерланды" },
   { value: "SE", label_en: "Nordics", label_ru: "🇸🇪 Скандинавия" },
+  { value: "PL", label_en: "Poland", label_ru: "🇵🇱 Польша" },
+  { value: "CZ", label_en: "Czechia", label_ru: "🇨🇿 Чехия" },
+  { value: "AT", label_en: "Austria", label_ru: "🇦🇹 Австрия" },
 ];
 
 const GOAL_OPTIONS = [

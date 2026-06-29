@@ -44,6 +44,7 @@ export async function runGlobalEvaluation(
   answers: Record<string, unknown>
 ): Promise<GlobalEvalPayload> {
   const supabase = createServerClient();
+  const answeredKeys = Object.keys(answers);
   const facts = expandHubFacts(answers);
   const passportIso2 = String(facts.passport_iso2 ?? "RU");
   const corridors = await getGlobalEvaluationData(passportIso2);
@@ -61,7 +62,8 @@ export async function runGlobalEvaluation(
         program.eligibilityRule,
         facts,
         program.passportStatus,
-        program.requirements
+        program.requirements,
+        { answeredKeys }
       );
       const row = adjustEvaluationForHousehold(program.programSlug, facts, base);
       allResults.push({

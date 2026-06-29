@@ -1,5 +1,7 @@
 import { performance } from "node:perf_hooks";
+import assert from "node:assert/strict";
 import { evaluateProgram, normalizeFacts } from "../lib/engine/evaluator";
+import { expandHubFacts } from "../lib/wizard/expand-facts";
 
 const facts = normalizeFacts({
   passport_iso2: "BY",
@@ -79,3 +81,49 @@ for (const result of results) {
     console.log(`- ${reason}`);
   }
 }
+
+const expandedFamilyFacts = expandHubFacts({
+  passport_iso2: "RU",
+  family_countries: ["PL", "CZ", "AT"],
+});
+assert.equal(expandedFamilyFacts.has_family_in_pl, "yes");
+assert.equal(expandedFamilyFacts.has_family_in_cz, "yes");
+assert.equal(expandedFamilyFacts.has_family_in_at, "yes");
+
+const spainDnvFacts = normalizeFacts({
+  passport_iso2: "RU",
+  remote_income: "yes",
+  monthly_income_eur: 3500,
+});
+const spainDnv = evaluateProgram(
+  "smoke-spain-dnv",
+  "spain-digital-nomad",
+  {
+    and: [
+      { "==": [{ var: "passport_iso2" }, "RU"] },
+      { "==": [{ var: "remote_income" }, "yes"] },
+      { ">=": [{ var: "monthly_income_eur" }, 2849] },
+    ],
+  },
+  spainDnvFacts,
+  undefined,
+  [
+    { requirementType: "income", labelRu: "Доход", valueText: "€2 849/мес" },
+    { requirementType: "insurance", labelRu: "Медстраховка", valueText: "Полное покрытие в Испании" },
+  ],
+  { answeredKeys: ["remote_income", "monthly_income_eur"] }
+);
+assert.equal(spainDnv.outcome, "likely_eligible");
+assert(!spainDnv.reasons.some((reason) => /доход|удал/i.test(reason) && /не подтверждено|не указан|указано €0/i.test(reason)));
+
+const neutralInsurance = evaluateProgram(
+  "smoke-spain-dnv-docs",
+  "spain-digital-nomad-docs",
+  { and: [false] },
+  spainDnvFacts,
+  undefined,
+  [{ requirementType: "insurance", labelRu: "Медстраховка", valueText: "Полное покрытие в Испании" }],
+  { answeredKeys: ["remote_income", "monthly_income_eur"] }
+);
+assert(neutralInsurance.reasons.some((reason) => reason.includes("Нужно будет подготовить/оформить отдельно")));
+assert(!neutralInsurance.reasons.some((reason) => reason.includes("не подтверждено")));

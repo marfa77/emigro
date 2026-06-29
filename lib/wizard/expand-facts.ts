@@ -10,6 +10,9 @@ export const FAMILY_FACT_BY_DESTINATION: Record<string, string> = {
   DE: "has_family_in_de",
   NL: "has_family_in_nl",
   SE: "has_family_in_se",
+  PL: "has_family_in_pl",
+  CZ: "has_family_in_cz",
+  AT: "has_family_in_at",
 };
 
 const ALL_FAMILY_KEYS = Object.values(FAMILY_FACT_BY_DESTINATION);
