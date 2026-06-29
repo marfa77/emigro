@@ -18,6 +18,17 @@ function isPassportClause(node: unknown): boolean {
 
 function stripPassportNodes(node: unknown): unknown {
   if (!node || typeof node !== "object") return node;
+
+  // Arrays must be mapped element-by-element to preserve their structure. Without this guard the
+  // generic Object.entries loop below converts arrays (e.g. the two-element argument list of a
+  // json-logic operator like `==` or `>=`) into plain objects with numeric string keys ("0", "1",
+  // …). That corrupts the rule so that json-logic can no longer evaluate it and
+  // isPassportClause can no longer recognise the passport clause — every rule then silently fails
+  // and the evaluation fallback fires for every program.
+  if (Array.isArray(node)) {
+    return node.map(stripPassportNodes);
+  }
+
   const obj = node as Record<string, unknown>;
 
   if (Array.isArray(obj.and)) {
