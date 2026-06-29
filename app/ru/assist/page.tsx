@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowRight, ExternalLink, FileText, MessageCircle, ShieldCheck } from "lucide-react";
-import { AssistLeadForm, type AssistCountryOption, type AssistProviderOption } from "@/components/assist/AssistLeadForm";
+import { AssistLeadForm, type AssistProviderOption } from "@/components/assist/AssistLeadForm";
 import { AssistPaymentMethods } from "@/components/assist/AssistPaymentMethods";
 import { AssistPricingCards } from "@/components/assist/AssistPricingCards";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
@@ -9,6 +9,7 @@ import { getAllProviders, PROVIDER_CATEGORY_LABELS_RU } from "@/lib/providers/re
 import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
 import { pageMetadata, pageUrl } from "@/lib/seo";
 import { GUMROAD_ROUTE_CHECK_URL } from "@/lib/site-contact";
+import { getAssistCountryOptions } from "@/lib/corridor/registry";
 import { publicSiteUrl } from "@/lib/site-url";
 
 export const metadata = pageMetadata({
@@ -18,18 +19,7 @@ export const metadata = pageMetadata({
   path: "/ru/assist",
 });
 
-const COUNTRY_OPTIONS: AssistCountryOption[] = [
-  { value: "portugal", label: "Португалия", corridorSlug: "ru-speaking-to-portugal" },
-  { value: "spain", label: "Испания", corridorSlug: "ru-speaking-to-spain" },
-  { value: "france", label: "Франция", corridorSlug: "ru-speaking-to-france" },
-  { value: "italy", label: "Италия", corridorSlug: "ru-speaking-to-italy" },
-  { value: "germany", label: "Германия", corridorSlug: "ru-speaking-to-germany" },
-  { value: "netherlands", label: "Нидерланды", corridorSlug: "ru-speaking-to-netherlands" },
-  { value: "scandinavia", label: "Скандинавия", corridorSlug: "ru-speaking-to-scandinavia" },
-  { value: "poland", label: "Польша", corridorSlug: "ru-speaking-to-poland" },
-  { value: "czechia", label: "Чехия", corridorSlug: "ru-speaking-to-czechia" },
-  { value: "austria", label: "Австрия", corridorSlug: "ru-speaking-to-austria" },
-];
+const COUNTRY_OPTIONS = getAssistCountryOptions();
 
 const FLOW_STEPS = [
   {

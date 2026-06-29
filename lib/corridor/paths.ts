@@ -1,35 +1,15 @@
-/** Maps corridor slug → public URL segment under /ru/[country]. */
-export const CORRIDOR_SLUG_TO_SEGMENT: Record<string, string> = {
-  "ru-speaking-to-portugal": "portugal",
-  "ru-speaking-to-spain": "spain",
-  "ru-speaking-to-france": "france",
-  "ru-speaking-to-italy": "italy",
-  "ru-speaking-to-germany": "germany",
-  "ru-speaking-to-netherlands": "netherlands",
-  "ru-speaking-to-scandinavia": "scandinavia",
-  "ru-speaking-to-poland": "poland",
-  "ru-speaking-to-czechia": "czechia",
-  "ru-speaking-to-austria": "austria",
-};
+export {
+  ACTIVE_CORRIDOR_SLUGS,
+  ASSIST_CORRIDOR_SLUGS,
+  CORRIDOR_SLUG_TO_SEGMENT,
+  ISO2_TO_SEGMENT,
+  WIZARD_CORRIDOR_SLUGS,
+} from "@/lib/corridor/registry";
 
-/** Maps program destination ISO2 → public URL segment (shared by SSG and program pages). */
-export const ISO2_TO_SEGMENT: Record<string, string> = {
-  PT: "portugal",
-  ES: "spain",
-  FR: "france",
-  IT: "italy",
-  DE: "germany",
-  NL: "netherlands",
-  SE: "scandinavia",
-  DK: "scandinavia",
-  NO: "scandinavia",
-  FI: "scandinavia",
-  PL: "poland",
-  CZ: "czechia",
-  AT: "austria",
-};
-
-export const ACTIVE_CORRIDOR_SLUGS = Object.keys(CORRIDOR_SLUG_TO_SEGMENT);
+import {
+  CORRIDOR_SLUG_TO_SEGMENT,
+  ISO2_TO_SEGMENT,
+} from "@/lib/corridor/registry";
 
 export function corridorSlugToSegment(corridorSlug: string): string | null {
   return CORRIDOR_SLUG_TO_SEGMENT[corridorSlug] ?? null;

@@ -73,6 +73,8 @@ ${corridorLines}
 - Полный индекс: /llms-full.txt
 - API contributor guide: GET /api/v1/meta/contributor-guide
 - Ingest schema: GET /api/v1/meta/ingest-schema
+- Meta enums: GET /api/v1/meta/requirement-types, /meta/program-types, /meta/countries, /meta/step-types, /meta/outcomes, /meta/corridors
+- Facts API (RAG): GET /api/v1/facts/corridors, /facts/corridors/{slug}, /facts/programs/{slug}
 
 ## API
 
@@ -80,6 +82,9 @@ ${corridorLines}
 - POST /api/v1/hub/wizard/sessions/{id}/evaluate
 - GET /api/v1/corridors/{slug}
 - POST /api/v1/corridors/{slug}/wizard/sessions
+- GET /api/v1/facts/corridors — список активных коридоров с метаданными
+- GET /api/v1/facts/corridors/{slug} — факты коридора (программы, digest, last_verified)
+- GET /api/v1/facts/programs/{slug} — факты программы (требования, источники, last_verified)
 
 ## Правила цитирования
 
@@ -191,5 +196,22 @@ ${seoTags.join(", ")}
 1. Не юридическая консультация
 2. Факты — с официальных источников
 3. Новости содержат source_links
+4. Facts API: осторожные факты с last_verified; не заменяют официальные источники
+
+## API для агентов
+
+| Endpoint | Описание |
+|----------|----------|
+| GET /api/v1/meta/contributor-guide | Contributor guide (markdown) |
+| GET /api/v1/meta/ingest-schema | JSON Schema для proposals |
+| GET /api/v1/meta/requirement-types | Коды requirement_type |
+| GET /api/v1/meta/program-types | CAPITAL, LABOR, BOND |
+| GET /api/v1/meta/countries | ISO2 стран |
+| GET /api/v1/meta/step-types | Типы шагов timeline |
+| GET /api/v1/meta/outcomes | program_outcomes + evaluation_outcomes |
+| GET /api/v1/meta/corridors | Схема коридоров и ingest enums |
+| GET /api/v1/facts/corridors | Список активных коридоров |
+| GET /api/v1/facts/corridors/{slug} | Факты коридора |
+| GET /api/v1/facts/programs/{slug} | Факты программы |
 `;
 }

@@ -4,27 +4,18 @@
  */
 import {
   ACTIVE_CORRIDOR_SLUGS,
+  ASSIST_CORRIDOR_SLUGS,
+  CORRIDOR_REGISTRY,
   CORRIDOR_SLUG_TO_SEGMENT,
   ISO2_TO_SEGMENT,
+  getAssistCountryOptions,
+} from "../lib/corridor/registry";
+import {
   corridorLandingPath,
   corridorSlugToSegment,
   corridorWizardPath,
 } from "../lib/corridor/paths";
 import { getAllProviders, PREP2GO_TOPIC_KEYS } from "../lib/providers/registry";
-
-/** Keep in sync with COUNTRY_OPTIONS in app/ru/assist/page.tsx */
-const ASSIST_CORRIDOR_SLUGS = [
-  "ru-speaking-to-portugal",
-  "ru-speaking-to-spain",
-  "ru-speaking-to-france",
-  "ru-speaking-to-italy",
-  "ru-speaking-to-germany",
-  "ru-speaking-to-netherlands",
-  "ru-speaking-to-scandinavia",
-  "ru-speaking-to-poland",
-  "ru-speaking-to-czechia",
-  "ru-speaking-to-austria",
-] as const;
 
 const NEWS_ONLY_TOPIC_KEYS = new Set([
   "serbia",
@@ -42,6 +33,23 @@ const REQUIRED_DESTINATION_ISO2 = ["PT", "ES", "FR", "IT", "DE", "NL", "SE", "DK
 function fail(message: string): never {
   console.error(`FAIL: ${message}`);
   process.exit(1);
+}
+
+const segmentSet = new Set<string>();
+for (const entry of CORRIDOR_REGISTRY) {
+  if (!entry.active) continue;
+  if (segmentSet.has(entry.segment)) {
+    fail(`Duplicate registry segment: ${entry.segment}`);
+  }
+  segmentSet.add(entry.segment);
+  if (CORRIDOR_SLUG_TO_SEGMENT[entry.slug] !== entry.segment) {
+    fail(`CORRIDOR_SLUG_TO_SEGMENT drift for ${entry.slug}`);
+  }
+  for (const iso2 of entry.destinationIso2) {
+    if (ISO2_TO_SEGMENT[iso2] !== entry.segment) {
+      fail(`ISO2_TO_SEGMENT drift: ${iso2} should map to ${entry.segment}`);
+    }
+  }
 }
 
 for (const slug of ACTIVE_CORRIDOR_SLUGS) {
@@ -63,6 +71,19 @@ for (const slug of ACTIVE_CORRIDOR_SLUGS) {
 }
 for (const slug of ASSIST_CORRIDOR_SLUGS) {
   if (!activeSet.has(slug)) fail(`Assist page lists unknown corridor ${slug}`);
+}
+
+const assistOptions = getAssistCountryOptions();
+if (assistOptions.length !== ASSIST_CORRIDOR_SLUGS.length) {
+  fail("getAssistCountryOptions() count mismatch with ASSIST_CORRIDOR_SLUGS");
+}
+for (const opt of assistOptions) {
+  if (!assistSet.has(opt.corridorSlug)) {
+    fail(`Assist option references unknown corridor ${opt.corridorSlug}`);
+  }
+  if (corridorSlugToSegment(opt.corridorSlug) !== opt.value) {
+    fail(`Assist option segment mismatch for ${opt.corridorSlug}`);
+  }
 }
 
 const validTopicKeys = new Set([...Object.values(CORRIDOR_SLUG_TO_SEGMENT), ...NEWS_ONLY_TOPIC_KEYS]);

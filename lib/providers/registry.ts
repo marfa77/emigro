@@ -1,3 +1,5 @@
+import { corridorSlugForSegment } from "@/lib/corridor/registry";
+
 export type ProviderCategory =
   | "assistance"
   | "legal"
@@ -383,5 +385,5 @@ export function findFirstProviderTopicKey(topicKeys: string[]): string | undefin
 }
 
 export function corridorSlugForTopic(topicKey: string): string {
-  return `ru-speaking-to-${topicKey}`;
+  return corridorSlugForSegment(topicKey) ?? `ru-speaking-to-${topicKey}`;
 }
