@@ -4,6 +4,10 @@ import { Suspense } from "react";
 import "./globals.css";
 import { rootMetadata } from "@/lib/seo";
 import { WizardFunnelTracker } from "@/components/analytics/WizardFunnelTracker";
+import { SiteAnalytics } from "@/components/analytics/SiteAnalytics";
+
+const GA_MEASUREMENT_ID =
+  process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ?? "G-9PYSNNXYLY";
 
 export const metadata = rootMetadata();
 
@@ -11,6 +15,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ru">
       <head>
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_MEASUREMENT_ID}');
+          `}
+        </Script>
         <Script
           src="https://analytics.ahrefs.com/analytics.js"
           data-key="dRBcrY3DcqZxP4UJpw1KAg"
@@ -20,6 +36,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="min-h-screen bg-slate-50 text-slate-900 antialiased">
         {children}
         <Suspense fallback={null}>
+          <SiteAnalytics />
           <WizardFunnelTracker />
         </Suspense>
         <Analytics />

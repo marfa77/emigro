@@ -1,5 +1,6 @@
 /** Typed product events — client + server. */
 export type EmigroEventName =
+  | "session_start"
   | "page_view"
   | "wizard_started"
   | "wizard_step"

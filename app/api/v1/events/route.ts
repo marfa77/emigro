@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { trackServerEvent } from "@/lib/analytics/server";
 import type { EmigroEventName } from "@/lib/analytics/events";
+import { trackSiteEvent } from "@/lib/analytics/track-site-event";
+import { clientIp } from "@/lib/analytics/geo";
 import {
   buildWizardContext,
   notifyWizardCtaClick,
@@ -10,6 +12,7 @@ import {
 } from "@/lib/wizard/notify-owner";
 
 const ALLOWED: Set<string> = new Set([
+  "session_start",
   "page_view",
   "wizard_cta_click",
   "wizard_started",
@@ -44,37 +47,74 @@ function propsToStrings(props: Record<string, unknown>): Record<string, string> 
   return out;
 }
 
+type SiteEventBody = {
+  session_id?: string;
+  event_name?: string;
+  event?: string;
+  page_path?: string | null;
+  referrer?: string | null;
+  utm_source?: string | null;
+  utm_medium?: string | null;
+  utm_campaign?: string | null;
+  utm_content?: string | null;
+  utm_term?: string | null;
+  properties?: Record<string, unknown>;
+};
+
 export async function POST(request: Request) {
-  let body: { event?: string; properties?: Record<string, unknown> };
+  let body: SiteEventBody;
   try {
     body = await request.json();
   } catch {
     return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
   }
 
-  const event = body.event?.trim();
-  if (!event || !ALLOWED.has(event)) {
+  const eventName = (body.event_name ?? body.event)?.trim();
+  if (!eventName || !ALLOWED.has(eventName)) {
     return NextResponse.json({ error: "Unknown event" }, { status: 400 });
   }
 
-  const props = propsToStrings(body.properties ?? {});
-  await trackServerEvent(event as EmigroEventName, props, "web");
+  const sessionId = body.session_id?.trim();
+  const props = body.properties ?? {};
+  const userAgent = request.headers.get("user-agent");
 
-  if (TELEGRAM_EVENTS.has(event)) {
-    const ctx = buildWizardContext(request, props);
+  if (sessionId && sessionId.length >= 8) {
+    await trackSiteEvent({
+      session_id: sessionId,
+      event_name: eventName,
+      page_path: body.page_path,
+      referrer: body.referrer,
+      utm_source: body.utm_source,
+      utm_medium: body.utm_medium,
+      utm_campaign: body.utm_campaign,
+      utm_content: body.utm_content,
+      utm_term: body.utm_term,
+      properties: props,
+      user_agent: userAgent,
+      ip_address: clientIp(request),
+      request,
+    });
+  } else {
+    const flatProps = propsToStrings(props);
+    await trackServerEvent(eventName as EmigroEventName, flatProps, "web");
+  }
+
+  if (TELEGRAM_EVENTS.has(eventName)) {
+    const flatProps = propsToStrings(props);
+    const ctx = buildWizardContext(request, flatProps);
     void (async () => {
-      switch (event) {
+      switch (eventName) {
         case "wizard_cta_click":
-          await notifyWizardCtaClick(props, ctx);
+          await notifyWizardCtaClick(flatProps, ctx);
           break;
         case "wizard_started":
-          await notifyWizardStarted(props, ctx);
+          await notifyWizardStarted(flatProps, ctx);
           break;
         case "wizard_results_view":
-          await notifyWizardResultsView(props, ctx);
+          await notifyWizardResultsView(flatProps, ctx);
           break;
         case "wizard_results_click":
-          await notifyWizardResultsClick(props, ctx);
+          await notifyWizardResultsClick(flatProps, ctx);
           break;
       }
     })();
