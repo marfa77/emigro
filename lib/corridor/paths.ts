@@ -7,6 +7,9 @@ const CORRIDOR_SLUG_TO_SEGMENT: Record<string, string> = {
   "ru-speaking-to-germany": "germany",
   "ru-speaking-to-netherlands": "netherlands",
   "ru-speaking-to-scandinavia": "scandinavia",
+  "ru-speaking-to-poland": "poland",
+  "ru-speaking-to-czechia": "czechia",
+  "ru-speaking-to-austria": "austria",
 };
 
 export function corridorSlugToSegment(corridorSlug: string): string | null {
@@ -46,6 +49,9 @@ export function programPathLegacy(programSlug: string): string {
   if (programSlug.startsWith("italy-")) return `/ru/italy/programs/${programSlug}`;
   if (programSlug.startsWith("germany-")) return `/ru/germany/programs/${programSlug}`;
   if (programSlug.startsWith("netherlands-")) return `/ru/netherlands/programs/${programSlug}`;
+  if (programSlug.startsWith("poland-")) return `/ru/poland/programs/${programSlug}`;
+  if (programSlug.startsWith("czechia-")) return `/ru/czechia/programs/${programSlug}`;
+  if (programSlug.startsWith("austria-")) return `/ru/austria/programs/${programSlug}`;
   if (programSlug.startsWith("sweden-") || programSlug.startsWith("denmark-") || programSlug.startsWith("nordic-")) {
     return `/ru/scandinavia/programs/${programSlug}`;
   }

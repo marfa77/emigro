@@ -9,7 +9,7 @@ import { NewsArticleBody } from "@/components/news/NewsDigest";
 import { NewsShareBar } from "@/components/news/NewsShareBar";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { NewsHeroVisual } from "@/components/visuals/NewsHeroVisual";
-import { countryCardImage } from "@/lib/brand/country-accents";
+import { countryOgImage } from "@/lib/brand/country-accents";
 import {
   getNewsDisplaySeoTitle,
   getNewsDisplayTitle,
@@ -46,9 +46,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const url = newsArticleUrl(digest.slug);
   const title = fitSeoTitleAbsolute(getNewsDisplaySeoTitle(digest));
   const description = fitMetaDescription(digest.seo_description || digest.excerpt);
-  const ogImage = topic?.urlSegment
-    ? schemaImage(countryCardImage(topic.urlSegment))
-    : DEFAULT_OG_IMAGE;
+  const ogImagePath = topic?.urlSegment ? countryOgImage(topic.urlSegment) : DEFAULT_OG_IMAGE;
+  const ogImage = schemaImage(ogImagePath);
 
   return {
     title: { absolute: title },
@@ -65,13 +64,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       publishedTime: digest.published_at,
       modifiedTime: digest.updated_at,
       tags: digest.tags,
-      images: [socialImageMetadata(ogImage, title)],
+      images: [socialImageMetadata(ogImagePath, title)],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: [ogImage],
+      images: [socialImageMetadata(ogImagePath, title)],
     },
   };
 }
@@ -86,9 +85,8 @@ export default async function NewsArticlePage({ params }: Props) {
   const displayTitle = getNewsDisplayTitle(digest);
   const backHref = topic ? newsIndexPath(topic.urlSegment) : newsIndexPath();
 
-  const newsImage = topic?.urlSegment
-    ? schemaImage(countryCardImage(topic.urlSegment))
-    : DEFAULT_OG_IMAGE;
+  const newsImagePath = topic?.urlSegment ? countryOgImage(topic.urlSegment) : DEFAULT_OG_IMAGE;
+  const newsImage = schemaImage(newsImagePath);
 
   const articleSchema = {
     "@context": "https://schema.org",

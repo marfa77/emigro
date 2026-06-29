@@ -15,6 +15,8 @@ export const TRUSTED_DOMAINS = [
   "expresso.pt",
   "parlamento.pt",
   "dre.pt",
+  "boe.es",
+  "inclusion.gob.es",
   "gov.uk",
   "interior.gob.es",
   "interieur.gouv.fr",
@@ -106,6 +108,22 @@ export function isCriticalInvestorRiskText(text: string): boolean {
   return hasTerm && has5to10;
 }
 
+export function isSpainGoldenVisaBaitText(text: string): boolean {
+  const t = text.toLowerCase();
+  const hasSpain = /spain|spanish|испани/.test(t);
+  const hasGoldenVisa = /golden visa|золот\w*\s+виз|инвесторск\w*\s+виз|residence by investment/.test(t);
+  const hasClosedRealEstateRoute = /real[\s-]?estate|property|недвижимост|покупк\w*\s+жиль/.test(t);
+  const hasBaitFrame =
+    /last chance|closing soon|about to close|still open|still available|hurry|urgent|последн\w*\s+шанс|скоро\s+закро|срочно|успеть\s+подать|ещ[её]\s+открыт/.test(
+      t
+    );
+  const hasTransitionalFrame =
+    /transitional|pending|already filed|before 2025-04-03|до 2025-04-03|до 3 апреля 2025|переходн\w*\s+правил|ранее\s+подан/.test(
+      t
+    );
+  return hasSpain && hasGoldenVisa && hasClosedRealEstateRoute && hasBaitFrame && !hasTransitionalFrame;
+}
+
 function keywordScore(text: string, topic: NewsTopicConfig): number {
   const t = text.toLowerCase();
   let score = 0;
@@ -117,6 +135,7 @@ function keywordScore(text: string, topic: NewsTopicConfig): number {
   for (const token of countryTokens) {
     if (token && t.includes(token)) score += 3;
   }
+  if (topic.key === "spain" && isSpainGoldenVisaBaitText(text)) score -= 18;
   return score;
 }
 

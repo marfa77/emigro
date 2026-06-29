@@ -46,3 +46,9 @@ export function countryCardImage(segment?: string) {
   if (!segment) return "/images/emigro-main-hero.webp";
   return COUNTRY_ACCENTS[segment]?.cardImage ?? "/images/emigro-main-hero.webp";
 }
+
+/** 1200×630 JPG for Open Graph / Twitter Cards (not the UI card webp). */
+export function countryOgImage(segment?: string) {
+  if (!segment) return "/images/og/og-default.jpg";
+  return COUNTRY_ACCENTS[segment] ? `/images/og/corridor-${segment}.jpg` : "/images/og/og-default.jpg";
+}

@@ -11,6 +11,8 @@ import {
   isPortugalPost2026LawWeek,
   portugalSiteDigestFactualGuardrailRu,
   portugalTelegramFactualGuardrailRu,
+  spainGoldenVisaFactualGuardrailRu,
+  spainTelegramFactualGuardrailRu,
 } from "./quality";
 
 export function buildSelectionPrompts(topic: NewsTopicConfig, candidates: RawNewsItem[]) {
@@ -53,6 +55,7 @@ export function buildTelegramPrompts(
     topic.key === "portugal" && isPortugalPost2026LawWeek(weekTo)
       ? `\n${portugalTelegramFactualGuardrailRu()}`
       : "";
+  const spainGuard = topic.key === "spain" ? `\n${spainTelegramFactualGuardrailRu()}` : "";
 
   const linkManifest = selected
     .map((s, i) => `${i + 1}. «${s.source}» — ${s.title}\n   href: ${s.link}`)
@@ -74,6 +77,7 @@ ${AUTHOR_VOICE_RU}
 - В <b>Источники</b> — ссылка на каждую новость с названием издания (не «Google News»)
 - Запрещённые фразы: ${CHANNEL_STYLE_BANNED_RU}
 ${portugalGuard}
+${spainGuard}
 
 Верни JSON: { "digest_html": "..." }`;
 
@@ -110,6 +114,7 @@ export function buildSiteDigestPrompts(
     topic.key === "portugal" && isPortugalPost2026LawWeek(weekEnd)
       ? `\n${portugalSiteDigestFactualGuardrailRu()}`
       : "";
+  const spainGuard = topic.key === "spain" ? `\n${spainGoldenVisaFactualGuardrailRu()}` : "";
 
   const system = `Ты старший редактор Emigro. Пиши на русском для ${topic.audienceRu}.
 Правила:
@@ -123,7 +128,8 @@ export function buildSiteDigestPrompts(
 - seo_title до 70 символов, seo_description до 155
 - title: конкретный заголовок недели (закон, AIMA, консульство) — без «еженедельный обзор»
 - Тон: спокойная экспертиза, без LLM-штампов (${CHANNEL_STYLE_BANNED_RU})
-${portugalGuard}`;
+${portugalGuard}
+${spainGuard}`;
 
   const user = `Страна: ${topic.countryRu}
 Неделя: ${weekStart} — ${weekEnd}

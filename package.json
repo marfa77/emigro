@@ -14,6 +14,7 @@
     "news:import-prep2go:daily": "tsx scripts/import-prep2go-news.ts --daily",
     "news:publish-threads": "tsx scripts/publish-threads-digest.ts",
     "news:test-quality": "tsx scripts/test-news-quality-guards.ts",
+    "news:test-fact-check": "tsx scripts/test-news-fact-check.ts",
     "smoke:wizard": "tsx scripts/smoke-wizard-evaluation.ts",
     "seo:indexnow": "tsx scripts/ping-indexnow.ts",
     "telegram:set-webhook": "tsx scripts/set-telegram-webhook.ts"

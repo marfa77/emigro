@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import type { Corridor, DigestItem, ProgramDetail } from "@/lib/types";
 import type { NewsTopicConfig } from "@/lib/news/topics";
-import { countryCardImage } from "@/lib/brand/country-accents";
+import { countryCardImage, countryOgImage } from "@/lib/brand/country-accents";
 import { fitMetaDescription, fitSeoTitlePart, hreflangAlternates, pageMetadata, pageUrl } from "@/lib/seo";
 import { EMIGRO_PUBLISHER, emigroAuthorOrg, schemaImage } from "@/lib/seo/schema";
 import { SITE_URL } from "@/lib/site-url";
@@ -196,7 +196,7 @@ export function buildProgramMetadata(
     title: seoTitle,
     description,
     path,
-    ogImage: countryCardImage(topic.urlSegment),
+    ogImage: countryOgImage(topic.urlSegment),
     ogImageAlt: `${topic.countryRu}: ${program.title_ru}`,
   });
   return {
@@ -309,7 +309,7 @@ export function buildDigestMetadata(topic: NewsTopicConfig): Metadata {
     title: seoTitle,
     description,
     path,
-    ogImage: countryCardImage(topic.urlSegment),
+    ogImage: countryOgImage(topic.urlSegment),
     ogImageAlt: `Справочник ВНЖ ${topic.countryRu} — Emigro`,
   });
   return {

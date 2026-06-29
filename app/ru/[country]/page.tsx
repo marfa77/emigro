@@ -6,6 +6,7 @@ import { corridorStaticParamsFromSegments, getPublishedCorridorSegments } from "
 import { getTopicByCountrySegment } from "@/lib/corridor/resolve-topic";
 import { isCorridorOnSite } from "@/lib/corridor/publish";
 import { getCorridorBySlug } from "@/lib/corridor/queries";
+import { countryOgImage } from "@/lib/brand/country-accents";
 import { pageMetadata, socialImageMetadata } from "@/lib/seo";
 import {
   buildCorridorLandingAiDescription,
@@ -29,7 +30,7 @@ export async function generateMetadata({ params }: { params: { country: string }
         title: hub.heroTitle ?? `${hub.countryRu}: транзитный хаб`,
         description: `${hub.quickAnswer} Не EU-коридор: первый шаг для стабилизации, документов, банков и подготовки маршрута в Европу.`,
         path: hub.path,
-        ogImage: "/images/emigro-main-hero.webp",
+        ogImage: "/images/og/og-default.jpg",
         ogImageAlt: `${hub.countryRu} как транзитный хаб Emigro`,
       }),
       other: {
@@ -42,7 +43,7 @@ export async function generateMetadata({ params }: { params: { country: string }
   const topic = await getTopicByCountrySegment(params.country);
   if (!topic?.sitePaths) return {};
   const corridor = topic.corridorSlug ? await getCorridorBySlug(topic.corridorSlug) : null;
-  const ogImage = `/images/corridor-${topic.urlSegment}.webp`;
+  const ogImage = countryOgImage(topic.urlSegment);
   const aiDescription = corridor
     ? buildCorridorLandingAiDescription(topic, corridor)
     : `${topic.focusHintRu} Wizard подбора маршрута ВНЖ, справочник коридора и еженедельные новости Emigro.`;

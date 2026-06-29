@@ -18,7 +18,7 @@ export default async function AdminTopicsPage() {
       <main className="mx-auto max-w-5xl px-4 py-10">
         <h1 className="text-2xl font-bold">News destinations</h1>
         <p className="mt-1 text-sm text-slate-500">
-          Таблица <code>emigro_news_topics</code> — сайт, cron и RSS читают отсюда.
+          Таблица <code>emigro_news_topics</code> — сайт и Prep2Go-import читают отсюда; RSS queries остаются только для ручного legacy-скрипта.
         </p>
 
         <div className="mt-8 overflow-x-auto rounded-xl border border-slate-200 bg-white">

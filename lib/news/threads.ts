@@ -109,7 +109,7 @@ function readableSourceName(source?: string): string {
 
 function buildDigestHeader(topic: NewsTopicConfig, weekFrom: Date, weekEnd: Date, excerpt: string, title: string): string {
   return [
-    `${topic.flag} ${topic.countryRu}: главное за неделю`,
+    `${topic.flag} ${topic.countryRu}: ${compactPlainText(title) || "новость Prep2Go"}`,
     formatThreadsWeekRange(weekFrom, weekEnd),
     "",
     stripThreadsWater(excerpt || title),
@@ -172,9 +172,17 @@ function buildSourcesFinalPost(params: {
       return `${sourceName}: ${s.url}`;
     });
 
-  const sourcesLine = [`Emigro: ${params.siteArticleUrl}`, ...externalSources].join("\n");
+  const sources = [`Emigro: ${params.siteArticleUrl}`];
+  for (const source of externalSources) {
+    const next = [...sources, source];
+    const candidate = [`Полная версия: ${params.siteArticleUrl}`, `Канал: ${params.channelUrl}`, `Источники:\n${next.join("\n")}`].join(
+      "\n"
+    );
+    if (candidate.length > 500) break;
+    sources.push(source);
+  }
 
-  return [`Полная версия: ${params.channelUrl}`, `Источники:\n${sourcesLine}`].join("\n");
+  return [`Полная версия: ${params.siteArticleUrl}`, `Канал: ${params.channelUrl}`, `Источники:\n${sources.join("\n")}`].join("\n");
 }
 
 export function buildThreadsFromSiteDigest(params: {

@@ -21,6 +21,7 @@ export type SiteDigestForQuality = {
 };
 
 export const PORTUGAL_2026_NATIONALITY_LAW_SIGNED_AT = Date.UTC(2026, 4, 3);
+export const SPAIN_GOLDEN_VISA_REAL_ESTATE_CLOSED_AT = Date.UTC(2025, 3, 3);
 
 function normalizeText(text: string): string {
   return text.toLowerCase().replace(/\s+/g, " ").trim();
@@ -67,6 +68,18 @@ export function portugalTelegramFactualGuardrailRu(): string {
   return portugalSiteDigestFactualGuardrailRu();
 }
 
+export function spainGoldenVisaFactualGuardrailRu(): string {
+  return `КРИТИЧЕСКИЕ факты по Испании:
+- Spain Golden Visa через недвижимость закрыта с 2025-04-03.
+- НЕ пиши, что маршрут через недвижимость ещё открыт, «скоро закроется», «последний шанс» или что покупатели могут гарантированно успеть подать.
+- Если источник говорит о переходных/ранее поданных кейсах, прямо ограничь формулировку: только заявки/сделки, подпадающие под переходные правила; не для новых покупателей.
+- Предпочитай спокойную формулировку риска: «проверить переходные правила и BOE», а не срочность/страшилки.`;
+}
+
+export function spainTelegramFactualGuardrailRu(): string {
+  return spainGoldenVisaFactualGuardrailRu();
+}
+
 function portugalFactualErrors(text: string): string[] {
   const errors: string[] = [];
   const n = normalizeText(text);
@@ -89,10 +102,110 @@ function portugalFactualErrors(text: string): string[] {
   return Array.from(new Set(errors));
 }
 
+function hasSpainGoldenVisaText(text: string): boolean {
+  return /(?:golden visa|золот\w*\s+виз|инвесторск\w*\s+виз|внж\s+за\s+инвестиц)/i.test(text);
+}
+
+function hasRealEstateText(text: string): boolean {
+  return /(?:real[\s-]?estate|property|недвижимост|покупк\w*\s+жиль|покупател\w*)/i.test(text);
+}
+
+function hasTransitionalLimitation(text: string): boolean {
+  return /(?:переходн\w*\s+правил|только\s+(?:для\s+)?(?:ранее\s+)?подан|ранее\s+подан|уже\s+подан|до\s+2025-04-03|до\s+3\s+апрел[яь]\s+2025|before\s+2025-04-03|transitional|pending|already\s+filed)/i.test(
+    text
+  );
+}
+
+function spainGoldenVisaFactualErrors(text: string): string[] {
+  const errors: string[] = [];
+  const n = normalizeText(text);
+  if (!hasSpainGoldenVisaText(n) || !hasRealEstateText(n)) return errors;
+
+  const impliesOpen =
+    /(?:ещ[её]\s+открыт|оста[её]тся\s+открыт|still\s+(?:open|available)|можно\s+подать|могут\s+подать|can\s+(?:still\s+)?apply|доступн\w*\s+(?:маршрут|программ)|available\s+(?:route|program))/i.test(
+      n
+    );
+  const impliesClosingSoon =
+    /(?:скоро\s+закро|вот-вот\s+закро|на\s+грани\s+закрыт|закроется\s+скоро|about\s+to\s+close|closing\s+soon|last\s+chance|последн\w*\s+шанс|успеть\s+подать|срочно\s+подать)/i.test(
+      n
+    );
+  const impliesGuaranteedFiling =
+    /(?:гарантир\w*.{0,50}подать|гарантир\w*.{0,50}успеть|guarantee\w*.{0,50}(?:filing|apply|application)|buyers?\s+can\s+still\s+secure)/i.test(
+      n
+    );
+
+  if ((impliesOpen || impliesClosingSoon || impliesGuaranteedFiling) && !hasTransitionalLimitation(n)) {
+    errors.push(
+      "Испания: Golden Visa через недвижимость закрыта с 2025-04-03; нельзя писать, что маршрут открыт/скоро закроется/можно гарантированно успеть без явной оговорки о переходных кейсах."
+    );
+  }
+
+  return Array.from(new Set(errors));
+}
+
+const ALARMIST_TONE_MARKERS_RU: RegExp[] = [
+  /(^|[^а-яё])срочно([^а-яё]|$)/i,
+  /(^|[^а-яё])катастрофа([^а-яё]|$)/i,
+  /(^|[^а-яё])шок([^а-яё]|$)/i,
+  /последн\w*\s+шанс/i,
+  /остан(?:е|ё)тесь\s+без/i,
+  /(^|[^а-яё])коллапс([^а-яё]|$)/i,
+  /пока\s+не\s+поздно/i,
+  /вс[её]\s+пропало/i,
+  /(^|[^а-яё])паника([^а-яё]|$)/i,
+  /(^|[^а-яё])крах([^а-яё]|$)/i,
+  /(^|[^а-яё])обвал([^а-яё]|$)/i,
+];
+
+const GENERIC_NEWS_NOISE_MARKERS_RU: RegExp[] = [
+  /кажд[а-яё]*\s+ситуаци[а-яё]*\s+индивидуальн/i,
+  /не\s+являет(?:ся|ься)?\s+юридическ[а-яё]*\s+консультац/i,
+  /проконсультируйт[а-яё]*\s+с\s+(?:юрист|адвокат|специалист)/i,
+  /обратит(?:есь|ься)\s+к\s+(?:юрист|адвокат|специалист)/i,
+  /(?:подготовьт[а-яё]*|соберит[а-яё]*)\s+документ[а-яё]*\s+заранее/i,
+  /планируйт[а-яё]*\s+заранее/i,
+  /следит[а-яё]*\s+за\s+(?:новост|обновлен)/i,
+  /держит[а-яё]*\s+руку\s+на\s+пульс/i,
+  /пошагов[а-яё]*\s+план/i,
+  /универсальн[а-яё]*\s+(?:совет|рекомендац|решени)/i,
+  /общ[а-яё]*\s+рекомендац/i,
+  /инвестор[а-яё]*\s+стоит\s+внимательн[а-яё]*\s+оцен/i,
+];
+
+function isQuotedAndContextualized(text: string, index: number, length: number): boolean {
+  const before = text.slice(Math.max(0, index - 80), index);
+  const after = text.slice(index + length, Math.min(text.length, index + length + 80));
+  const quoted = /[«"“][^»"”]{0,80}$/i.test(before) && /^[^«"“]{0,80}[»"”]/i.test(after);
+  const contextualized = /(?:цитат|цитиру|заголов|формулиров|по\s+словам|так\s+пишет|так\s+назвал)/i.test(
+    `${before} ${after}`
+  );
+  return quoted && contextualized;
+}
+
+function alarmistToneErrors(text: string): string[] {
+  const errors: string[] = [];
+  for (const marker of ALARMIST_TONE_MARKERS_RU) {
+    const match = marker.exec(text);
+    if (!match?.[0]) continue;
+    if (isQuotedAndContextualized(text, match.index, match[0].length)) continue;
+    errors.push(`Убери алармистскую формулировку «${match[0].trim()}» — используй спокойный язык риска.`);
+  }
+  return Array.from(new Set(errors));
+}
+
 function editorialGenericErrors(text: string): string[] {
   const errors: string[] = [];
   const banned = new RegExp(CHANNEL_STYLE_BANNED_RU, "i").exec(text);
   if (banned) errors.push(`Убери LLM-штамп: «${banned[0]}».`);
+  errors.push(...alarmistToneErrors(text));
+  for (const marker of GENERIC_NEWS_NOISE_MARKERS_RU) {
+    const match = marker.exec(text);
+    if (match?.[0]) {
+      errors.push(
+        `Убери общий совет/шум «${match[0].trim()}» — новость должна быть привязана к фактам исходной статьи.`
+      );
+    }
+  }
   const n = normalizeText(text);
   if (/некотор\w+\s+(?:обозревател|эксперт|аналитик)/.test(n)) {
     errors.push("Не пиши «некоторые обозреватели» — назови издание или факт из источника.");
@@ -172,6 +285,9 @@ export function validateSiteDigestQuality(params: {
   if (params.topic.trim().toLowerCase() === "portugal" && isPortugalPost2026LawWeek(params.weekEnd)) {
     errors.push(...portugalFactualErrors(text));
   }
+  if (params.topic.trim().toLowerCase() === "spain") {
+    errors.push(...spainGoldenVisaFactualErrors(text));
+  }
 
   return Array.from(new Set(errors));
 }
@@ -190,6 +306,9 @@ export function validateTelegramDigestQuality(params: {
 
   if (params.topic.trim().toLowerCase() === "portugal" && isPortugalPost2026LawWeek(params.weekEnd)) {
     errors.push(...portugalFactualErrors(text));
+  }
+  if (params.topic.trim().toLowerCase() === "spain") {
+    errors.push(...spainGoldenVisaFactualErrors(text));
   }
 
   if (params.sourceLinks && params.sourceLinks.some((l) => isGoogleNewsUrl(l.url))) {
@@ -228,6 +347,10 @@ export function validateThreadsQuality(params: { threadsText: string; topic: str
 
   if (/(?:mshale\.com|harici\.com\.tr)/i.test(params.threadsText)) {
     errors.push("Threads: слабые/нерелевантные источники не должны попадать в публикацию.");
+  }
+
+  if (params.topic.trim().toLowerCase() === "spain") {
+    errors.push(...spainGoldenVisaFactualErrors(params.threadsText));
   }
 
   return Array.from(new Set(errors));

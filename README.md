@@ -46,18 +46,20 @@ npm run db:push
 | `/admin/topics` | News destinations (из БД) |
 | `/admin/digest` | Справочник коридора (из БД) |
 
-## Weekly news
+## News publishing
 
 ```bash
-npm run news:weekly                              # все страны из registry
-npm run news:weekly -- --topic=spain             # одна страна
-npm run news:weekly -- --dry-run
+npm run news:import-prep2go                      # импорт Prep2Go → сайт + Telegram
+npm run news:import-prep2go -- --topic=spain     # одна страна
+npm run news:import-prep2go -- --dry-run --limit=3
+npm run news:import-prep2go:daily                # daily mode: только свежая статья
 ```
 
-- RSS → Gemini → `emigro_news_digests` + публикация в **@Emigro_news** (формат Threads copy-paste)
-- Дубликат в личку: `TELEGRAM_PRIVATE_CHAT_ID`
+- Production source: Prep2Go article → Gemini translation/adaptation → QA gates → `emigro_news_digests` → **@Emigro_news**.
+- Google News/RSS weekly generation is legacy/manual only: `npm run news:weekly -- --dry-run`. It is not scheduled in production.
+- Content must stay specific to the Prep2Go source article: no generic checklists, investor tips, SEO filler, unsupported risk language, or alarmist framing.
 - Переопубликовать существующий выпуск: `npm run news:publish-threads -- <slug>`
-- Cron: `GET /api/cron/weekly-news` (все) или `?topic=portugal` + `Authorization: Bearer $CRON_SECRET`
+- Cron: `GET /api/cron/prep2go-news` + `Authorization: Bearer $CRON_SECRET`
 - Добавить страну: `POST /api/v1/admin/news-topics` + `EMIGRO_ADMIN_SECRET` (или SQL в `emigro_news_topics`)
 - Справочник: `POST /api/v1/admin/corridors/ru-speaking-to-portugal/digest`
 

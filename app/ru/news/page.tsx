@@ -43,7 +43,7 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
     description:
       "Еженедельные обзоры по ВНЖ, визам и гражданству в Португалии, Испании, Франции, Италии, Германии, Нидерландах и Скандинавии для русскоязычных заявителей.",
     path: "/ru/news",
-    ogImage: "/images/emigro-news-digest-portugal.webp",
+    ogImage: "/images/og/news-digest.jpg",
     ogImageAlt: "Новости релокации Emigro",
   });
   return {
@@ -131,13 +131,12 @@ export default async function NewsIndexPage({ searchParams }: Props) {
 
         {digests.length === 0 ? (
           <div className="mt-12 rounded-xl border border-dashed border-slate-300 bg-white p-10 text-center text-slate-600">
-            Первый выпуск появится после импорта или еженедельного дайджеста. Запуск:{" "}
-            <code className="text-sm">npm run news:import-prep2go</code> или{" "}
-            <code className="text-sm">npm run news:weekly</code>
+            Первый выпуск появится после импорта Prep2Go. Запуск:{" "}
+            <code className="text-sm">npm run news:import-prep2go</code>
             {topic && (
               <>
                 {" "}
-                или <code className="text-sm">npm run news:weekly -- --topic={topic.key}</code>
+                или <code className="text-sm">npm run news:import-prep2go -- --topic={topic.key}</code>
               </>
             )}
           </div>

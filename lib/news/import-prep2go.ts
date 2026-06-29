@@ -12,6 +12,8 @@ import { pingIndexNow } from "@/lib/seo/indexnow";
 import { newsArticleUrl, publicSiteUrl } from "@/lib/site-url";
 import { publishDigestToTelegram } from "@/lib/news/publish-digest-telegram";
 import { buildNewsDigestSlug, getNewsTopicOrThrow } from "@/lib/news/topics";
+import { validateSiteDigestQuality } from "@/lib/news/quality";
+import { assertPrep2GoFactCheck } from "@/lib/news/fact-check";
 
 export type Prep2GoImportResult = {
   prep2goSlug: string;
@@ -118,6 +120,25 @@ export async function importOnePrep2GoItem(
 
     const weekStart = weekStartFromWeekEnd(item.weekEnd);
     const translated = await translatePrep2GoArticle(article, topic, weekStart, resolvedSources);
+    const siteQualityErrors = validateSiteDigestQuality({
+      topic: topic.key,
+      weekEnd: item.weekEnd,
+      digest: translated,
+      selectedCount: Math.min(article.sections.length, 4),
+      sourceLinks: resolvedSources,
+    });
+    if (siteQualityErrors.length > 0) {
+      throw new Error(`Prep2Go digest failed QA: ${siteQualityErrors.join("; ")}`);
+    }
+    await assertPrep2GoFactCheck({
+      stage: "site",
+      article,
+      topic,
+      weekStart,
+      weekEnd: item.weekEnd,
+      sourceLinks: resolvedSources,
+      siteDigest: translated,
+    });
 
     const pubIso = new Date(`${item.weekEnd}T08:00:00.000Z`).toISOString();
 
@@ -162,6 +183,8 @@ export async function importOnePrep2GoItem(
       keyTakeaways: translated.key_takeaways,
       contentBlocks: translated.content_blocks,
       sourceLinks: resolvedSources,
+      sourceArticle: article,
+      siteFactCheckPassed: true,
       skipTelegram: options.skipTelegram,
     });
 

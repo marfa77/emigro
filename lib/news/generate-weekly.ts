@@ -212,10 +212,22 @@ async function generateTelegramHtml(
         );
         continue;
       }
+      if (factualErrors.length > 0) {
+        throw new Error(`Telegram digest failed QA: ${factualErrors.join("; ")}`);
+      }
 
       const viol = digestHtmlFormatViolation(html, selected);
       if (!viol) {
         if (html.length > 3900) html = await compressDigest(html, topic);
+        const finalErrors = validateTelegramDigestQuality({
+          topic: topic.key,
+          weekEnd,
+          digestHtml: html,
+          sourceLinks,
+        });
+        if (finalErrors.length > 0) {
+          throw new Error(`Telegram digest failed QA: ${finalErrors.join("; ")}`);
+        }
         return enforceSinglePostLimit(html);
       }
 
@@ -231,13 +243,32 @@ async function generateTelegramHtml(
 
       html = buildDeterministicDigestFallback(headerLine, selected, topic.countryRu);
       html = addArticleLinkToDigest(html, articleUrl);
+      const fallbackErrors = validateTelegramDigestQuality({
+        topic: topic.key,
+        weekEnd,
+        digestHtml: html,
+        sourceLinks,
+      });
+      if (fallbackErrors.length > 0) {
+        throw new Error(`Telegram digest fallback failed QA: ${fallbackErrors.join("; ")}`);
+      }
       return enforceSinglePostLimit(html);
     }
   }
 
-  return enforceSinglePostLimit(
-    buildDeterministicDigestFallback(headerLine, selected, topic.countryRu)
+  const fallbackHtml = enforceSinglePostLimit(
+    addArticleLinkToDigest(buildDeterministicDigestFallback(headerLine, selected, topic.countryRu), articleUrl)
   );
+  const fallbackErrors = validateTelegramDigestQuality({
+    topic: topic.key,
+    weekEnd,
+    digestHtml: fallbackHtml,
+    sourceLinks,
+  });
+  if (fallbackErrors.length > 0) {
+    throw new Error(`Telegram digest fallback failed QA: ${fallbackErrors.join("; ")}`);
+  }
+  return fallbackHtml;
 }
 
 export async function runWeeklyNewsForTopic(

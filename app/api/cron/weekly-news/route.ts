@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { trackServerEvent } from "@/lib/analytics/server";
-import { runWeeklyNewsForAllTopics, runWeeklyNewsForTopic } from "@/lib/news/generate-weekly";
-import { getNewsTopicKeys } from "@/lib/news/topics";
+import { importLatestPrep2GoNews } from "@/lib/news/import-prep2go";
 
 export const maxDuration = 300;
 
@@ -12,34 +11,25 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const { searchParams } = new URL(request.url);
-  const topicParam = searchParams.get("topic")?.trim().toLowerCase();
-
   try {
-    if (topicParam) {
-      const validKeys = await getNewsTopicKeys();
-      if (!validKeys.includes(topicParam)) {
-        return NextResponse.json(
-          { error: `Invalid topic. Valid: ${validKeys.join(", ")}` },
-          { status: 400 }
-        );
-      }
-      const result = await runWeeklyNewsForTopic(topicParam);
-      await trackServerEvent("cron_weekly_news", { topic: topicParam, outcome: result.outcome }, "cron");
-      return NextResponse.json(result);
-    }
-
-    const results = await runWeeklyNewsForAllTopics();
+    const result = await importLatestPrep2GoNews();
     await trackServerEvent(
       "cron_weekly_news",
       {
-        topics: results.length,
-        published: results.filter((r) => r.outcome === "published").length,
-        skipped: results.filter((r) => r.outcome === "skipped").length,
+        redirectedTo: "prep2go-news",
+        imported: result.imported,
+        skipped: result.skipped,
+        slug: result.slug ?? null,
+        message: result.message ?? null,
+        error: result.error ?? null,
       },
       "cron"
     );
-    return NextResponse.json({ results });
+    return NextResponse.json({
+      ...result,
+      source: "prep2go",
+      deprecated: "/api/cron/weekly-news no longer runs Google News/RSS generation; use /api/cron/prep2go-news.",
+    });
   } catch (e) {
     const message = e instanceof Error ? e.message : "Unknown error";
     await trackServerEvent("cron_weekly_news_error", { message }, "cron");

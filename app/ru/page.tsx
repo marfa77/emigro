@@ -291,10 +291,9 @@ export default async function RuHubPage() {
           <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p className="text-xs font-semibold uppercase tracking-wide text-corridor-600">Emigro Assist</p>
-              <h2 className="mt-1.5 text-xl font-bold text-slate-900">Не знаете, с чего начать?</h2>
+              <h2 className="mt-1.5 text-xl font-bold text-slate-900">Route Check — €129</h2>
               <p className="mt-2 max-w-lg text-slate-600">
-                Разберём вашу ситуацию за 45 минут: профиль, доход, семья — и 1–2 реалистичных маршрута. Письменное
-                резюме с чек-листом в течение 48 часов.
+                Пишете, чего хотите — подбираем партнёра. Он проводит созвон и после встречи присылает PDF.
               </p>
             </div>
             <Link

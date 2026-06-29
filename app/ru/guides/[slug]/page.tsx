@@ -14,7 +14,7 @@ import type { GuideArticle } from "@/lib/guides/load";
 import { getActiveNewsTopics } from "@/lib/news/topics";
 import type { NewsTopicConfig } from "@/lib/news/topics";
 import { corridorSlugForTopic, findFirstProviderTopicKey } from "@/lib/providers/registry";
-import { pageMetadata, socialImageMetadata } from "@/lib/seo";
+import { pageMetadata } from "@/lib/seo";
 import { EMIGRO_PUBLISHER, emigroAuthorOrg, schemaImage } from "@/lib/seo/schema";
 import { SITE_URL } from "@/lib/site-url";
 
@@ -26,12 +26,12 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   const guide = loadGuide(params.slug);
   if (!guide) return {};
   const title = guide.seo_title ?? guide.title;
-  const ogImage = schemaImage(guide.og_image_path);
+  const ogImagePath = guide.og_image_path;
   const metadata = pageMetadata({
     title,
     description: guide.seo_description ?? guide.excerpt ?? guide.quick_answer ?? guide.title,
     path: guidePath(guide.slug),
-    ogImage,
+    ogImage: ogImagePath,
     ogImageAlt: title,
   });
   return {
@@ -42,12 +42,6 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       type: "article",
       publishedTime: guide.date_published,
       modifiedTime: guide.date_modified ?? guide.date_published,
-      images: [socialImageMetadata(ogImage, title)],
-    },
-    twitter: {
-      ...metadata.twitter,
-      card: "summary_large_image",
-      images: [ogImage],
     },
   };
 }

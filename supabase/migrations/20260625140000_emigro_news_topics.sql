@@ -50,7 +50,7 @@ INSERT INTO emigro_news_topics (
   'ВНЖ, digital nomad, воссоединение, DELE/CCSE, сроки натурализации',
   NULL, 'news_only',
   ARRAY['Испания ВНЖ','гражданство Испании','DELE A2','релокация в Испанию','русскоязычные'],
-  ARRAY['Spain immigration law residency','Spain digital nomad visa','Spain citizenship language requirement DELE','Spain golden visa reform residency','Испания ВНЖ иммиграция','Spain consulate visa residence permit'],
+  ARRAY['Spain immigration law residency','Spain digital nomad visa','Spain citizenship language requirement DELE','Spain golden visa transitional cases BOE residency','Испания ВНЖ иммиграция','Spain consulate visa residence permit'],
   NULL, 2
 ),
 (

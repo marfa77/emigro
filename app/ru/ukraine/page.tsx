@@ -12,7 +12,7 @@ export const metadata: Metadata = pageMetadata({
   description:
     "Хаб для граждан Украины: Temporary Protection vs классический ВНЖ, коридоры Польша/Чехия/Германия, wizard подбора маршрута с учётом UA-паспорта. Emigro.",
   path: "/ru/ukraine",
-  ogImage: "/images/corridor-germany.webp",
+  ogImage: "/images/og/corridor-germany.jpg",
   ogImageAlt: "Украина → ЕС: маршруты релокации Emigro",
 });
 

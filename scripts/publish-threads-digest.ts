@@ -71,7 +71,7 @@ async function main() {
 
   const qualityErrors = validateThreadsQuality({ threadsText, topic: digest.topic_key });
   if (qualityErrors.length) {
-    console.warn("[quality] threads issues:", qualityErrors.join("; "));
+    throw new Error(`Threads digest failed QA: ${qualityErrors.join("; ")}`);
   }
 
   console.log("\n=== THREADS PREVIEW ===\n");

@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { SITE_URL } from "@/lib/site-url";
+import { publicSiteUrl, SITE_URL } from "@/lib/site-url";
 
-export const DEFAULT_OG_IMAGE = `${SITE_URL}/og-default.svg`;
+/** 1200×630 JPG — supported by Twitter/X, Threads, Facebook (not SVG). */
+export const DEFAULT_OG_IMAGE = "/images/og/og-default.jpg";
 export const SITE_NAME = "Emigro";
 const TITLE_SUFFIX = ` | ${SITE_NAME}`;
 /** Visible title budget before Next.js appends ` | Emigro`. 51 + 9 (" | Emigro") = 60 chars total. */
@@ -11,7 +12,8 @@ export const MAX_TITLE_ABSOLUTE = 60;
 type SocialImageSize = { width: number; height: number };
 
 const SOCIAL_IMAGE_SIZES: Record<string, SocialImageSize> = {
-  "/og-default.svg": { width: 1200, height: 630 },
+  "/images/og/og-default.jpg": { width: 1200, height: 630 },
+  "/images/og/news-digest.jpg": { width: 1200, height: 630 },
   "/images/og/guides-index.jpg": { width: 1200, height: 630 },
   "/images/og/guide-byudzhet-relokatsii-evropa-2026-po-stranam.jpg": { width: 1200, height: 630 },
   "/images/og/guide-digital-nomad-portugaliya-ispaniya-italiya-2026.jpg": { width: 1200, height: 630 },
@@ -23,17 +25,17 @@ const SOCIAL_IMAGE_SIZES: Record<string, SocialImageSize> = {
   "/images/og/guide-vnj-bez-raboty-passivnyy-dohod-sberezheniya-2026.jpg": { width: 1200, height: 630 },
   "/images/og/guide-vnj-portugaliya-d8-d7-grazhdanstvo-2026.jpg": { width: 1200, height: 630 },
   "/images/og/guide-vossoedinenie-semi-evropa-2026.jpg": { width: 1200, height: 630 },
-  "/images/corridor-france.webp": { width: 900, height: 600 },
-  "/images/corridor-germany.webp": { width: 900, height: 600 },
-  "/images/corridor-italy.webp": { width: 900, height: 600 },
-  "/images/corridor-netherlands.webp": { width: 900, height: 600 },
-  "/images/corridor-portugal.webp": { width: 900, height: 600 },
-  "/images/corridor-scandinavia.webp": { width: 900, height: 600 },
-  "/images/corridor-spain.webp": { width: 900, height: 600 },
-  "/images/emigro-guide-passive-income.webp": { width: 1536, height: 1024 },
   "/images/emigro-main-hero.webp": { width: 1200, height: 800 },
   "/images/emigro-news-digest-portugal.webp": { width: 1200, height: 800 },
 };
+
+function socialImageSize(path: string): SocialImageSize {
+  const known = SOCIAL_IMAGE_SIZES[path];
+  if (known) return known;
+  if (path.startsWith("/images/og/corridor-") && path.endsWith(".jpg")) return { width: 1200, height: 630 };
+  if (path.startsWith("/images/og/guide-") && path.endsWith(".jpg")) return { width: 1200, height: 630 };
+  return { width: 1200, height: 630 };
+}
 
 const SEO_DESC_SUFFIX =
   " Emigro: wizard подбора маршрута, справочники коридоров и еженедельные новости для русскоязычных релокантов.";
@@ -104,23 +106,36 @@ function socialImageType(ogImage: string): string | undefined {
 }
 
 export function socialImageMetadata(ogImage = DEFAULT_OG_IMAGE, alt = SITE_NAME) {
-  const size = SOCIAL_IMAGE_SIZES[socialImagePath(ogImage)] ?? { width: 1200, height: 630 };
+  const path = socialImagePath(ogImage);
+  const size = socialImageSize(path);
   const type = socialImageType(ogImage);
-  const absUrl = ogImage.startsWith("http") ? ogImage : `${SITE_URL}${ogImage.startsWith("/") ? ogImage : `/${ogImage}`}`;
+  const origin = publicSiteUrl();
+  const absUrl = ogImage.startsWith("http") ? ogImage : `${origin}${path.startsWith("/") ? path : `/${path}`}`;
   return { url: absUrl, secureUrl: absUrl, ...size, ...(type ? { type } : {}), alt };
 }
 
+function twitterSiteMetadata(): Pick<NonNullable<Metadata["twitter"]>, "site" | "creator"> {
+  const site = process.env.NEXT_PUBLIC_TWITTER_SITE?.trim();
+  const creator = process.env.NEXT_PUBLIC_TWITTER_CREATOR?.trim();
+  return {
+    ...(site ? { site } : {}),
+    ...(creator ? { creator } : {}),
+  };
+}
+
 function withSocialImages(metadata: Metadata, ogImage = DEFAULT_OG_IMAGE, alt = SITE_NAME): Metadata {
+  const image = socialImageMetadata(ogImage, alt);
   return {
     ...metadata,
     openGraph: {
       ...metadata.openGraph,
-      images: [socialImageMetadata(ogImage, alt)],
+      images: [image],
     },
     twitter: {
       ...metadata.twitter,
+      ...twitterSiteMetadata(),
       card: "summary_large_image",
-      images: [ogImage],
+      images: [image],
     },
   };
 }
@@ -175,7 +190,7 @@ export function rootMetadata(): Metadata {
   if (googleVerification) verification.google = googleVerification;
 
   return withSocialImages({
-    metadataBase: new URL(SITE_URL),
+    metadataBase: new URL(publicSiteUrl()),
     title: {
       default: "Emigro — навигатор релокации в Европу",
       template: `%s${TITLE_SUFFIX}`,

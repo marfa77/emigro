@@ -1,6 +1,9 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { NewsTopicConfig } from "@/lib/news/topics";
+import type { Prep2GoArticle } from "@/lib/news/prep2go-fetch";
 import { buildThreadsFromSiteDigest } from "@/lib/news/threads";
+import { validateThreadsQuality } from "@/lib/news/quality";
+import { assertPrep2GoFactCheck } from "@/lib/news/fact-check";
 import {
   deleteTelegramChannelMessages,
   newsTelegramChannelUrl,
@@ -26,6 +29,13 @@ export type PublishDigestTelegramParams = {
     story_title?: string;
   }>;
   sourceLinks: Array<{ title: string; url: string }>;
+  sourceArticle?: Prep2GoArticle;
+  /**
+   * Site digest already passed the LLM grounded check in this import.
+   * Threads are derived deterministically from that digest, so publish path can
+   * avoid a second LLM call while still running deterministic fact checks.
+   */
+  siteFactCheckPassed?: boolean;
   skipTelegram?: boolean;
 };
 
@@ -73,6 +83,24 @@ export async function publishDigestToTelegram(
     keyTakeaways: params.keyTakeaways,
     contentBlocks: params.contentBlocks,
     sourceLinks: params.sourceLinks,
+  });
+
+  const qualityErrors = validateThreadsQuality({ threadsText, topic: params.topic.key });
+  if (qualityErrors.length > 0) {
+    throw new Error(`Telegram/Threads digest failed QA: ${qualityErrors.join("; ")}`);
+  }
+  if (!params.sourceArticle) {
+    throw new Error("Telegram/Threads fact-check requires the original Prep2Go article.");
+  }
+  await assertPrep2GoFactCheck({
+    stage: "telegram_threads",
+    article: params.sourceArticle,
+    topic: params.topic,
+    weekStart: params.weekStart,
+    weekEnd: params.weekEnd,
+    sourceLinks: params.sourceLinks,
+    threadsText,
+    useLlm: !params.siteFactCheckPassed,
   });
 
   const { error: updateError } = await params.supabase
