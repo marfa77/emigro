@@ -426,6 +426,10 @@ function capReason(reason: string): string {
 
 export function normalizeFacts(answers: Record<string, unknown>): Record<string, unknown> {
   const facts: Record<string, unknown> = { ...answers };
+  const monthlyIncomeWasMissing =
+    facts.monthly_income_eur === "" ||
+    facts.monthly_income_eur === null ||
+    facts.monthly_income_eur === undefined;
 
   for (const key of [
     "monthly_income_eur",
@@ -442,6 +446,15 @@ export function normalizeFacts(answers: Record<string, unknown>): Record<string,
     } else if (typeof val === "string") {
       facts[key] = Number(val) || 0;
     }
+  }
+
+  if (
+    monthlyIncomeWasMissing &&
+    facts.has_job_offer === "yes" &&
+    typeof facts.annual_salary_eur === "number" &&
+    facts.annual_salary_eur > 0
+  ) {
+    facts.monthly_income_eur = facts.annual_salary_eur / 12;
   }
 
   return facts;

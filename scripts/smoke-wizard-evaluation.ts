@@ -90,6 +90,30 @@ assert.equal(expandedFamilyFacts.has_family_in_pl, "yes");
 assert.equal(expandedFamilyFacts.has_family_in_cz, "yes");
 assert.equal(expandedFamilyFacts.has_family_in_at, "yes");
 
+const jobOfferFacts = normalizeFacts({
+  passport_iso2: "RU",
+  remote_income: "no",
+  has_job_offer: "yes",
+  annual_salary_eur: 60_000,
+});
+assert.equal(jobOfferFacts.monthly_income_eur, 5_000);
+const swedenWorkPermit = evaluateProgram(
+  "smoke-sweden-work-permit",
+  "sweden-work-permit",
+  {
+    and: [
+      { "==": [{ var: "passport_iso2" }, "RU"] },
+      { "==": [{ var: "has_job_offer" }, "yes"] },
+      { ">=": [{ var: "monthly_income_eur" }, 3050] },
+    ],
+  },
+  jobOfferFacts,
+  undefined,
+  [{ requirementType: "employment", labelRu: "Оффер", valueText: "зарплата от €3 050/мес" }],
+  { answeredKeys: ["remote_income", "has_job_offer", "annual_salary_eur"] }
+);
+assert.equal(swedenWorkPermit.outcome, "likely_eligible");
+
 const spainDnvFacts = normalizeFacts({
   passport_iso2: "RU",
   remote_income: "yes",
