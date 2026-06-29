@@ -48,9 +48,9 @@ export const PROVIDER_CATEGORY_LABELS_RU: Record<ProviderCategory, string> = {
 const PREP2GO_EXAMS: ProviderExam[] = [
   { topicKey: "portugal", label: "CIPLE A2" },
   { topicKey: "spain", label: "DELE A2" },
-  { topicKey: "france", label: "DELF B2" },
+  { topicKey: "france", label: "DELF B1" },
   { topicKey: "italy", label: "CELI B1" },
-  { topicKey: "germany", label: "DTZ B1" },
+  { topicKey: "germany", label: "Goethe B1 / telc B1" },
 ];
 
 const PROVIDERS: ServiceProvider[] = [
@@ -70,6 +70,9 @@ const PROVIDERS: ServiceProvider[] = [
       "ru-speaking-to-germany",
       "ru-speaking-to-netherlands",
       "ru-speaking-to-scandinavia",
+      "ru-speaking-to-poland",
+      "ru-speaking-to-czechia",
+      "ru-speaking-to-austria",
     ],
     topicKeys: [
       "portugal",
@@ -79,6 +82,9 @@ const PROVIDERS: ServiceProvider[] = [
       "germany",
       "netherlands",
       "scandinavia",
+      "poland",
+      "czechia",
+      "austria",
       "serbia",
       "armenia",
       "uae",
@@ -96,7 +102,7 @@ const PROVIDERS: ServiceProvider[] = [
     name: "Prep2Go",
     taglineRu: "Подготовка к языковым экзаменам для гражданства EU",
     descriptionRu:
-      "Prep2Go — онлайн-подготовка к экзаменам для гражданства: CIPLE A2 (Португалия), DELE A2 (Испания), DELF B2 (Франция), CELI B1 (Италия), DTZ B1 (Германия). Mock-тесты, карточки, формат реального экзамена.",
+      "Prep2Go — онлайн-подготовка к экзаменам для гражданства: CIPLE A2 (Португалия), DELE A2 (Испания), DELF B1 (Франция), CELI B1 (Италия), Goethe B1 / telc B1 (Германия). Mock-тесты, карточки, формат реального экзамена.",
     url: "https://www.prep2go.study",
     category: "language_courses",
     corridorSlugs: [

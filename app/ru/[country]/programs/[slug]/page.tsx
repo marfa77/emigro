@@ -37,19 +37,12 @@ import {
   PASSPORT_STATUS_LABELS,
   programPagePath,
 } from "@/lib/seo/corridor-page-seo";
+import { ISO2_TO_SEGMENT } from "@/lib/corridor/paths";
 import { SITE_URL } from "@/lib/site-url";
 import { createServerClient } from "@/lib/supabase/server";
 
 export const revalidate = 3600;
 export const dynamicParams = true;
-
-const ISO2_TO_SEGMENT: Record<string, string> = {
-  FR: "france",
-  DE: "germany",
-  IT: "italy",
-  PT: "portugal",
-  ES: "spain",
-};
 
 export async function generateStaticParams(): Promise<{ country: string; slug: string }[]> {
   try {

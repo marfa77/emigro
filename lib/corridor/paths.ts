@@ -1,5 +1,5 @@
 /** Maps corridor slug → public URL segment under /ru/[country]. */
-const CORRIDOR_SLUG_TO_SEGMENT: Record<string, string> = {
+export const CORRIDOR_SLUG_TO_SEGMENT: Record<string, string> = {
   "ru-speaking-to-portugal": "portugal",
   "ru-speaking-to-spain": "spain",
   "ru-speaking-to-france": "france",
@@ -12,8 +12,31 @@ const CORRIDOR_SLUG_TO_SEGMENT: Record<string, string> = {
   "ru-speaking-to-austria": "austria",
 };
 
+/** Maps program destination ISO2 → public URL segment (shared by SSG and program pages). */
+export const ISO2_TO_SEGMENT: Record<string, string> = {
+  PT: "portugal",
+  ES: "spain",
+  FR: "france",
+  IT: "italy",
+  DE: "germany",
+  NL: "netherlands",
+  SE: "scandinavia",
+  DK: "scandinavia",
+  NO: "scandinavia",
+  FI: "scandinavia",
+  PL: "poland",
+  CZ: "czechia",
+  AT: "austria",
+};
+
+export const ACTIVE_CORRIDOR_SLUGS = Object.keys(CORRIDOR_SLUG_TO_SEGMENT);
+
 export function corridorSlugToSegment(corridorSlug: string): string | null {
   return CORRIDOR_SLUG_TO_SEGMENT[corridorSlug] ?? null;
+}
+
+export function destinationIso2ToSegment(iso2: string): string | null {
+  return ISO2_TO_SEGMENT[iso2.toUpperCase()] ?? null;
 }
 
 export function corridorLandingPath(corridorSlug: string): string {

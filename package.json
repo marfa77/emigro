@@ -16,6 +16,8 @@
     "news:test-quality": "tsx scripts/test-news-quality-guards.ts",
     "news:test-fact-check": "tsx scripts/test-news-fact-check.ts",
     "smoke:wizard": "tsx scripts/smoke-wizard-evaluation.ts",
+    "validate:site-consistency": "tsx scripts/validate-site-consistency.ts",
+    "wizard:prod-matrix": "tsx scripts/prod-wizard-matrix.ts",
     "seo:indexnow": "tsx scripts/ping-indexnow.ts",
     "telegram:set-webhook": "tsx scripts/set-telegram-webhook.ts"
   },
