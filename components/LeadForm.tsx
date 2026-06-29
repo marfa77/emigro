@@ -63,7 +63,11 @@ export function LeadForm({ corridorSlug, sessionId, programSlugs, defaultPasspor
     <form onSubmit={submit} className="space-y-4 rounded-xl border border-slate-200 bg-white p-6">
       <h3 className="text-lg font-semibold">Получить shortlist провайдеров</h3>
       <p className="text-sm text-slate-600">
-        Бесплатно. Ручной подбор лицензированных специалистов в {countryRu}.
+        Бесплатный shortlist провайдеров после wizard. Детальный разбор маршрута —{" "}
+        <Link href="/ru/assist" className="text-corridor-600 hover:underline">
+          Route Check (€129)
+        </Link>
+        .
       </p>
 
       <input
