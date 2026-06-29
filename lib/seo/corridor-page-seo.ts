@@ -439,7 +439,7 @@ export function buildCorridorLandingQuickAnswer(topic: NewsTopicConfig, corridor
       ? `Программы коридора: ${corridor.programs.map((p) => p.title_ru).join(", ")}.`
       : null;
   return [
-    `${corridor.title_ru} — коридор Emigro для русскоязычных с паспортами RU/BY/UA/KZ.`,
+    `${corridor.title_ru} — коридор Emigro для русскоязычных за рубежом и в СНГ с паспортами RU/BY/UA/KZ.`,
     corridor.audience_description_ru,
     topic.focusHintRu,
     programs,
@@ -458,7 +458,11 @@ export function buildCorridorLandingFaq(topic: NewsTopicConfig, corridor: Corrid
   return [
     {
       question: `Кому подходит коридор ${topic.countryRu} на Emigro?`,
-      answer: `${corridor.audience_description_ru} Коридор ориентирован на паспорта RU/BY/UA/KZ и русскоязычную аудиторию.`,
+      answer: `${corridor.audience_description_ru} Коридор ориентирован на паспорта RU/BY/UA/KZ и русскоязычную аудиторию — в том числе тех, кто уже живёт за границей.`,
+    },
+    {
+      question: `Я уже живу в ЕС. Подойдёт ли коридор ${topic.countryRu}?`,
+      answer: `Wizard и справочник показывают классические маршруты первичной подачи. Если вы уже в Европе, часто актуальны смена основания, переход в ${topic.countryRu}, продление или воссоединение семьи — сверяйте место подачи с официальными источниками или Emigro Assist.`,
     },
     {
       question: `Какие программы ВНЖ есть в ${topic.countryRu}?`,

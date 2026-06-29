@@ -190,7 +190,7 @@ export function AssistLeadForm({ countries, providers, defaultPlanTier = "route-
           required
           value={programRoute}
           onChange={(e) => setProgramRoute(e.target.value)}
-          placeholder="Например: D7, digital nomad, переезд с семьёй в Испанию"
+          placeholder="Например: D7, digital nomad, смена статуса в Испании, переезд с семьёй"
           className="mt-2 w-full rounded-lg border border-slate-300 px-3 py-2"
         />
       </div>

@@ -77,6 +77,10 @@ export async function CorridorLanding({ country }: { country: string }) {
           </p>
           <h1 className="mt-2 text-4xl font-bold">{corridor.title_ru}</h1>
           <p className="mt-4 max-w-2xl text-lg text-corridor-100">{corridor.audience_description_ru}</p>
+          <p className="mt-3 max-w-2xl text-sm text-corridor-100/90">
+            Для русскоязычных за рубежом и в СНГ — в том числе если вы уже в ЕС и ищете смену статуса, переход в{" "}
+            {topic.countryRu} или продление.
+          </p>
           <div className="mt-8 flex flex-wrap gap-3">
             {isFull && topic.sitePaths?.wizard && (
               <Link

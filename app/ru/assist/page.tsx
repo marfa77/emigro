@@ -33,7 +33,7 @@ const FLOW_STEPS = [
   {
     step: "1",
     title: "Оплата €129",
-    text: "Оплачиваете на Gumroad или через заявку — и пишете, чего хотите: страна, ситуация, цель.",
+    text: "Оплачиваете на Gumroad или через заявку — и пишете цель: страна, текущий статус, смена ВНЖ или первичный переезд.",
   },
   {
     step: "2",
@@ -72,8 +72,8 @@ export default function AssistPage() {
           <p className="text-sm uppercase tracking-wide text-corridor-100">Сервис Emigro</p>
           <h1 className="mt-2 text-3xl font-bold sm:text-4xl">Route Check — €129</h1>
           <p className="mt-4 max-w-2xl text-lg text-corridor-100">
-            Вы оплачиваете и пишете, чего хотите. Emigro подбирает партнёра — он проводит созвон и после встречи
-            присылает PDF.
+            Опишите ситуацию — уже в Европе или планируете переезд. Emigro подберёт партнёра: он проведёт созвон и
+            после встречи пришлёт PDF.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <a

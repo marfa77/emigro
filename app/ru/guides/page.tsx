@@ -28,7 +28,7 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
   const metadata = pageMetadata({
     title: "Гайды по релокации и ВНЖ в Европе",
     description:
-      "Практические pillar-гайды Emigro: куда переехать из России, Украины, Беларуси, Казахстана — digital nomad, семья с детьми, отказы в визах, бюджет релокации и маршруты ВНЖ по странам ЕС.",
+      "Практические pillar-гайды Emigro: маршруты для русскоязычных за рубежом и в СНГ — digital nomad, семья с детьми, отказы в визах, бюджет релокации и ВНЖ по странам ЕС.",
     path: "/ru/guides",
     ogImage: schemaImage("/images/og/guides-index.jpg"),
   });
@@ -224,7 +224,7 @@ export default async function GuidesIndexPage({ searchParams }: Props) {
           </span>
           <h1 className="mt-5 max-w-3xl text-4xl font-bold leading-tight sm:text-5xl 2xl:max-w-4xl">Гайды по релокации и ВНЖ</h1>
           <p className="mt-5 max-w-2xl text-lg leading-relaxed text-corridor-100 2xl:max-w-3xl">
-            Практические editorial-разборы для русскоязычных из СНГ: маршруты, доходы, семья, отказы и бюджет. Без воды — с проверкой через wizard.
+            Практические editorial-разборы для русскоязычных за рубежом и в СНГ: маршруты, доходы, семья, отказы и бюджет. Без воды — с проверкой через wizard.
           </p>
         </HeroShell>
 

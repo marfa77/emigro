@@ -71,6 +71,7 @@ export default async function CountryWizardPage({ params }: { params: { country:
           <h1 className="mt-4 text-center text-3xl font-bold">{wizard.title_ru}</h1>
           <p className="mx-auto mt-2 max-w-xl text-center text-slate-600">
             Ответьте на несколько вопросов — мы сопоставим ваш профиль с маршрутами коридора {topic.countryRu}.
+            Подходит и если вы уже за границей, и если планируете первичный переезд.
           </p>
         </header>
         <div className="mt-8">

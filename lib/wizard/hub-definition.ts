@@ -32,6 +32,12 @@ const GOAL_OPTIONS = [
   { value: "study", label_en: "Study / university", label_ru: "Учёба / вуз" },
 ];
 
+const CURRENT_RESIDENCE_OPTIONS = [
+  { value: "abroad_eu", label_en: "Already in EU", label_ru: "Уже живу в стране ЕС" },
+  { value: "abroad_other", label_en: "Abroad outside EU", label_ru: "За границей, но не в ЕС" },
+  { value: "cis_planning", label_en: "In CIS / planning", label_ru: "В СНГ или планирую переезд" },
+];
+
 const STUDY_LEVEL_OPTIONS = [
   { value: "bachelor", label_en: "Bachelor / undergraduate", label_ru: "Бакалавриат" },
   { value: "master", label_en: "Master / graduate", label_ru: "Магистратура" },
@@ -77,10 +83,17 @@ export const HUB_WIZARD_MODULES: WizardModule[] = [
         options: PASSPORT_OPTIONS,
         sort: 1,
       }),
+      q("hub-core", "current_residence", "single", "Где вы сейчас живёте?", {
+        helpRu:
+          "Это помогает понять контекст: смена статуса внутри ЕС, переезд из другой страны или первичная подача из-за рубежа. На подбор программ сейчас не влияет.",
+        options: CURRENT_RESIDENCE_OPTIONS,
+        required: false,
+        sort: 2,
+      }),
       q("hub-core", "relocation_goal", "single", "Главная цель", {
         helpRu: "Это только помогает поставить маршруты в удобный порядок. Страны из-за этого ответа не отсекаются.",
         options: GOAL_OPTIONS,
-        sort: 2,
+        sort: 3,
       }),
     ],
   },
@@ -92,7 +105,7 @@ export const HUB_WIZARD_MODULES: WizardModule[] = [
     questions: [
       q("hub-labor", "remote_income", "single", "Есть стабильный удалённый доход из-за рубежа?", {
         helpRu:
-          "Например зарплата, ИП или фриланс от клиентов не в той стране, куда вы переезжаете. Это важно для виз цифрового кочевника, например D8 в Португалии.",
+          "Например зарплата, ИП или фриланс от клиентов не в той стране, куда вы переезжаете или где подаётесь. Это важно для виз цифрового кочевника, например D8 в Португалии.",
         options: YES_NO,
         sort: 1,
       }),

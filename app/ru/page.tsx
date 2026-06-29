@@ -17,10 +17,10 @@ import { TRANSIT_HUBS } from "@/lib/transit-hubs";
 export const revalidate = 3600;
 
 export const metadata: Metadata = pageMetadata({
-  title: "Emigro — релокация в Европу для русскоязычных",
+  title: "Emigro — ВНЖ и релокация в Европу",
   titleAbsolute: true,
   description:
-    "Навигатор по ВНЖ и гражданству: европейские коридоры для русскоязычных — wizard подбора, справочники программ и еженедельные новости с источниками.",
+    "Навигатор по ВНЖ и гражданству для русскоязычных за рубежом и в СНГ: европейские коридоры, wizard подбора, справочники программ и еженедельные новости с источниками.",
   path: "/ru",
 });
 
@@ -61,7 +61,7 @@ export default async function RuHubPage() {
     url: SITE_URL,
     inLanguage: "ru-RU",
     description:
-      "Навигатор релокации для русскоязычных: европейские коридоры ВНЖ, wizard подбора, справочники и еженедельные новости.",
+      "Навигатор релокации для русскоязычных за рубежом и в СНГ: европейские коридоры ВНЖ, wizard подбора, справочники и еженедельные новости.",
     publisher: { "@type": "Organization", name: "Emigro", url: SITE_URL },
   };
 
@@ -71,7 +71,7 @@ export default async function RuHubPage() {
     name: "Emigro",
     url: SITE_URL,
     logo: `${SITE_URL}/icon.svg`,
-    description: "Русскоязычный навигатор релокации в Европу: коридоры ВНЖ, wizard, гайды и новости.",
+    description: "Русскоязычный навигатор релокации в Европу — для тех, кто уже за границей или планирует переезд: коридоры ВНЖ, wizard, гайды и новости.",
     sameAs: ["https://t.me/Emigro_news"],
   };
 
@@ -87,10 +87,10 @@ export default async function RuHubPage() {
             <Globe2 className="h-4 w-4" />
             {destinationCount} направлений
           </div>
-          <h1 className="mt-4 text-4xl font-bold">Emigro — релокация и ВНЖ в Европу</h1>
+          <h1 className="mt-4 text-4xl font-bold">Emigro — ВНЖ и маршруты в Европу</h1>
           <p className="mt-4 max-w-2xl text-lg text-corridor-100">
-            Навигатор релокации для русскоязычных: еженедельные новости по Европе и полные коридоры с wizard,
-            справочником и проверкой маршрутов.
+            Для русскоязычных за рубежом и в СНГ: уже живёте в Европе или планируете переезд — еженедельные новости,
+            wizard подбора, справочники и проверка маршрутов.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link
@@ -126,7 +126,9 @@ export default async function RuHubPage() {
 
         <section className="mt-10">
           <h2 className="text-xl font-semibold text-slate-900">Выберите ваш паспорт</h2>
-          <p className="mt-1 text-sm text-slate-500">Emigro — для всех русскоязычных из СНГ, не только россиян.</p>
+          <p className="mt-1 text-sm text-slate-500">
+            Emigro — для русскоязычных за рубежом и в СНГ: смена статуса, новая страна ЕС или первый переезд.
+          </p>
           <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             <Link
               href="/ru/wizard"
@@ -198,8 +200,8 @@ export default async function RuHubPage() {
                   Транзитные хабы
                 </h3>
                 <p className="mt-2 max-w-2xl text-sm text-slate-600">
-                  Первый шаг на 3–12 месяцев: быстро выехать, стабилизировать документы, банки и доход, а затем
-                  готовить отдельный EU-маршрут. Это не коридоры ВНЖ или гражданства.
+                  Первый шаг на 3–12 месяцев: стабилизировать документы, банки и доход, если нужен промежуточный хаб
+                  перед EU-маршрутом. Это не коридоры ВНЖ или гражданства.
                 </p>
               </div>
               <Link href="/ru/wizard" className="text-sm font-medium text-corridor-700 hover:underline">

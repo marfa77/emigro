@@ -10,7 +10,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata: Metadata = pageMetadata({
   title: "Чат релокантов Emigro — сообщество в Telegram",
   description:
-    "Живое сообщество релокантов в Telegram: обмен опытом переезда, ответы на вопросы по ВНЖ и маршрутам, новости без спама. Бесплатно для русскоязычных.",
+    "Живое сообщество релокантов в Telegram: обмен опытом для тех, кто уже за границей или планирует переезд — ВНЖ, маршруты, новости без спама.",
   path: "/ru/community",
 });
 
@@ -64,8 +64,8 @@ export default function CommunityPage() {
           </span>
           <h1 className="mt-4 text-3xl font-bold sm:text-4xl">{RELOCATOR_CHAT_LABEL} — живое сообщество</h1>
           <p className="mt-4 max-w-2xl text-lg text-corridor-100">
-            Место, где русскоязычные релоканты делятся опытом, задают вопросы по переезду и следят за изменениями
-            маршрутов. Бесплатно, без спама.
+            Место, где русскоязычные релоканты — уже в Европе или на этапе переезда — делятся опытом, задают вопросы
+            по ВНЖ и следят за изменениями маршрутов. Бесплатно, без спама.
           </p>
           <div className="mt-8">
             <CommunityJoinButton source="community_landing_hero" size="lg" />
