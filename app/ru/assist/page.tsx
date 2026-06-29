@@ -9,9 +9,9 @@ import { getAllProviders, PROVIDER_CATEGORY_LABELS_RU } from "@/lib/providers/re
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
-  title: "Emigro Assist — Route Check и план переезда",
+  title: "Emigro Assist — Route Check €129",
   description:
-    "Emigro Assist: Route Check €129 — созвон 45 мин и резюме за 48 ч. Персональный PDF-план релокации. Оплата: Stripe, Wise, Telegram Stars, crypto.",
+    "€129 — опишите цель, Emigro подберёт партнёра. Партнёр проведёт созвон и пришлёт PDF после встречи.",
   path: "/ru/assist",
 });
 
@@ -31,18 +31,18 @@ const COUNTRY_OPTIONS: AssistCountryOption[] = [
 const FLOW_STEPS = [
   {
     step: "1",
-    title: "Route Check — €129",
-    text: "45-минутный созвон: разбираем профиль, доход, семью и 1–2 реалистичных маршрута. В течение 48 часов — письменное резюме с чек-листом.",
+    title: "Оплата €129",
+    text: "Оплачиваете на Gumroad или через заявку — и пишете, чего хотите: страна, ситуация, цель.",
   },
   {
     step: "2",
-    title: "PDF-план переезда",
-    text: "После Route Check вы получаете детальный документ: таймлайн, бюджет, документы, риски и провайдеры — как в примере для семьи из Петербурга.",
+    title: "Подбор партнёра",
+    text: "Emigro подбирает партнёрского специалиста по вашему маршруту. Дальше работает уже он.",
   },
   {
     step: "3",
-    title: "Full Assist — скоро",
-    text: "Полное сопровождение (от €990) — переписка с gestoría, контроль дедлайнов, эскалация. Сейчас доступен только Route Check.",
+    title: "Созвон и PDF",
+    text: "Партнёр связывается, проводит созвон. После встречи присылает PDF с разбором маршрута.",
   },
 ] as const;
 
@@ -69,10 +69,10 @@ export default function AssistPage() {
 
         <HeroShell className="mt-8">
           <p className="text-sm uppercase tracking-wide text-corridor-100">Сервис Emigro</p>
-          <h1 className="mt-2 text-3xl font-bold sm:text-4xl">Emigro Assist: от созвона к плану переезда</h1>
+          <h1 className="mt-2 text-3xl font-bold sm:text-4xl">Route Check — €129</h1>
           <p className="mt-4 max-w-2xl text-lg text-corridor-100">
-            Сначала Route Check — проверяем маршрут за €129. Затем персональный PDF-план: таймлайн, бюджет, документы и
-            риски под ваш кейс.
+            Вы оплачиваете и пишете, чего хотите. Emigro подбирает партнёра — он проводит созвон и после встречи
+            присылает PDF.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <a
@@ -97,7 +97,7 @@ export default function AssistPage() {
           <h2 id="assist-flow-heading" className="text-2xl font-bold text-slate-950">
             Как это работает
           </h2>
-          <ol className="mt-6 grid gap-4 md:grid-cols-3">
+          <ol className="mt-6 grid gap-4 sm:grid-cols-3">
             {FLOW_STEPS.map(({ step, title, text }) => (
               <li key={step} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
                 <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-corridor-100 text-sm font-bold text-corridor-700">
@@ -140,17 +140,16 @@ export default function AssistPage() {
               <MessageCircle className="h-5 w-5 text-corridor-600" aria-hidden />
               <h2 className="mt-3 font-semibold text-slate-950">Что происходит после заявки</h2>
               <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                Мы свяжемся в Telegram или email, подтвердим слот созвона и отправим ссылку на оплату (Stripe) или
-                реквизиты Wise / crypto / Telegram Stars — в зависимости от вашего выбора.
+                Оплатили на Gumroad — напишите, чего хотите, по инструкции на email. Оставили заявку на сайте — Emigro
+                подберёт партнёра и пришлёт ссылку на оплату. Партнёр свяжется сам и назначит созвон.
               </p>
             </div>
             <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
               <ShieldCheck className="h-5 w-5 text-corridor-600" aria-hidden />
               <h2 className="mt-3 font-semibold text-slate-950">Честная рамка</h2>
               <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                Emigro Assist — concierge-поддержка и структурированный план. Мы не оказываем юридические услуги, не
-                гарантируем одобрение визы и не получаем комиссий от провайдеров без явного раскрытия. Для граждан
-                Украины доступна консультация по Temporary Protection vs классический ВНЖ.
+                Emigro только подбирает партнёра. Созвон и PDF делает партнёр. Мы не оказываем юридические услуги и не
+                гарантируем одобрение визы. Дальше — напрямую с партнёром, если захотите продолжить.
               </p>
             </div>
           </section>

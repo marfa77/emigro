@@ -1,6 +1,14 @@
-import { Bitcoin, Building2, CreditCard, MessageCircle } from "lucide-react";
+import { Bitcoin, Building2, CreditCard, ExternalLink, MessageCircle } from "lucide-react";
+import { GUMROAD_ROUTE_CHECK_URL } from "@/lib/site-contact";
 
 const METHODS = [
+  {
+    icon: ExternalLink,
+    title: "Gumroad (EUR)",
+    description: "€129 картой — дальше опишите цель, Emigro подберёт партнёра.",
+    note: "Автоматическая оплата",
+    href: GUMROAD_ROUTE_CHECK_URL,
+  },
   {
     icon: CreditCard,
     title: "Stripe (EUR)",
@@ -34,12 +42,11 @@ export function AssistPaymentMethods() {
         Способы оплаты
       </h2>
       <p className="mt-2 text-sm text-slate-600">
-        Выберите удобный способ в форме заявки. Stripe работает сразу по ссылке; Wise, Telegram Stars и crypto
-        — реквизиты отправим после подтверждения слота.
+        Gumroad и Stripe — €129 сразу. Wise, Telegram Stars и crypto — реквизиты после заявки.
       </p>
 
       <ul className="mt-6 grid gap-4 sm:grid-cols-2">
-        {METHODS.map(({ icon: Icon, title, description, note }) => (
+        {METHODS.map(({ icon: Icon, title, description, note, href }) => (
           <li key={title} className="rounded-xl border border-slate-100 bg-slate-50/80 p-4">
             <div className="flex items-start gap-3">
               <div className="rounded-lg bg-white p-2 text-corridor-600 shadow-sm">
@@ -47,7 +54,20 @@ export function AssistPaymentMethods() {
               </div>
               <div className="min-w-0">
                 <div className="flex flex-wrap items-center gap-2">
-                  <h3 className="font-semibold text-slate-900">{title}</h3>
+                  <h3 className="font-semibold text-slate-900">
+                    {href ? (
+                      <a
+                        href={href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:text-corridor-700 hover:underline"
+                      >
+                        {title}
+                      </a>
+                    ) : (
+                      title
+                    )}
+                  </h3>
                   <span
                     className={`rounded-full px-2 py-0.5 text-xs font-medium ${
                       note === "Автоматическая оплата"

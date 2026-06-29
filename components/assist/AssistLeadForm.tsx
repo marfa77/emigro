@@ -86,7 +86,7 @@ export function AssistLeadForm({ countries, providers, defaultPlanTier = "route-
       });
       setStatus("done");
       setNotice(
-        "Заявка отправлена. Emigro Assist напишет вам, подтвердит слот созвона и отправит ссылку на оплату или реквизиты."
+        "Заявка отправлена. Emigro подберёт партнёра — он свяжется с вами. После созвона партнёр пришлёт PDF."
       );
     } catch (err) {
       const msg = err instanceof Error ? err.message : "Ошибка отправки";
@@ -106,7 +106,9 @@ export function AssistLeadForm({ countries, providers, defaultPlanTier = "route-
 
       <div className="rounded-xl border border-corridor-100 bg-corridor-50/60 px-4 py-3 text-sm text-slate-700">
         <p className="font-medium text-slate-900">Route Check — €129</p>
-        <p className="mt-1 text-slate-600">45 мин созвон + письменное резюме в течение 48 часов.</p>
+        <p className="mt-1 text-slate-600">
+          €129 — опишите цель, подберём партнёра. Созвон и PDF после встречи — от партнёра.
+        </p>
       </div>
 
       <div>
@@ -154,14 +156,14 @@ export function AssistLeadForm({ countries, providers, defaultPlanTier = "route-
 
       <div>
         <label className="text-sm font-medium text-slate-800" htmlFor="assist-route">
-          Программа или маршрут
+          Что вам нужно
         </label>
         <input
           id="assist-route"
           required
           value={programRoute}
           onChange={(e) => setProgramRoute(e.target.value)}
-          placeholder="Например: D7, digital nomad, Blue Card, языковой экзамен"
+          placeholder="Например: D7, digital nomad, переезд с семьёй в Испанию"
           className="mt-2 w-full rounded-lg border border-slate-300 px-3 py-2"
         />
       </div>
@@ -220,7 +222,7 @@ export function AssistLeadForm({ countries, providers, defaultPlanTier = "route-
 
       <div>
         <label className="text-sm font-medium text-slate-800" htmlFor="assist-message">
-          Сообщение
+          Расскажите подробнее
         </label>
         <textarea
           id="assist-message"
@@ -228,7 +230,7 @@ export function AssistLeadForm({ countries, providers, defaultPlanTier = "route-
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           rows={5}
-          placeholder="Кратко опишите ситуацию: страна, доход, семья, сроки. Что хотите прояснить на Route Check."
+          placeholder="Ситуация, доход, семья, сроки — что хотите прояснить."
           className="mt-2 w-full rounded-lg border border-slate-300 px-3 py-2"
         />
       </div>
@@ -246,7 +248,7 @@ export function AssistLeadForm({ countries, providers, defaultPlanTier = "route-
           <Link href="/ru/privacy" className="text-corridor-600 hover:underline">
             политикой конфиденциальности
           </Link>{" "}
-          и понимаю, что Emigro Assist помогает с коммуникацией, но не оказывает юридические услуги.
+          и понимаю, что Emigro только подбирает партнёра — созвон и PDF делает он.
         </span>
       </label>
 

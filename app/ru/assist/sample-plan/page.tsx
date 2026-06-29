@@ -41,7 +41,7 @@ export default function AssistSamplePlanPage() {
               </h1>
               <p className="mt-2 max-w-2xl text-slate-600">
                 Фиктивный кейс семьи с двумя детьми: Digital Nomad Visa, консульство в Москве, переезд в Валенсию.
-                Так выглядит deliverable после Route Check и полного сопровождения.
+                Так выглядит PDF-разбор, который готовит партнёрский специалист после Route Check.
               </p>
             </div>
             <AssistSamplePlanActions />

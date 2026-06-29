@@ -5,3 +5,6 @@ export const MAILTO_CONTACT = `mailto:${CONTACT_EMAIL}`;
 export const CONTACT_SUBJECT_PARTNERS = encodeURIComponent("Партнёрство Emigro");
 
 export const MAILTO_PARTNERS = `mailto:${CONTACT_EMAIL}?subject=${CONTACT_SUBJECT_PARTNERS}`;
+
+/** Gumroad checkout for Emigro Route Check (€129). Prefer slug URL once published. */
+export const GUMROAD_ROUTE_CHECK_URL = "https://pixidstudio.gumroad.com/l/route-check";
