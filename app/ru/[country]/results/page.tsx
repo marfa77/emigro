@@ -5,6 +5,7 @@ import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { LeadForm } from "@/components/LeadForm";
 import { ServiceProvidersSection } from "@/components/providers/ServiceProvidersSection";
 import { HouseholdBanner } from "@/components/wizard/HouseholdBanner";
+import { TelegramResultsCta } from "@/components/wizard/TelegramResultsCta";
 import { WizardOutcomeCard } from "@/components/wizard/WizardOutcomeCard";
 import { corridorWizardPath } from "@/lib/corridor/paths";
 import { getCorridorBySlug } from "@/lib/corridor/queries";
@@ -130,6 +131,8 @@ export default async function CountryResultsPage({
   const household = describeHousehold(
     parseHousehold((session.answers as Record<string, unknown>) ?? {})
   );
+  const topResult = results[0] ? programMap.get(results[0].program_id) : null;
+  const matchCount = results.filter((r) => r.outcome !== "unlikely").length;
 
   return (
     <>
@@ -141,6 +144,13 @@ export default async function CountryResultsPage({
         </p>
 
         <HouseholdBanner household={household} />
+
+        <TelegramResultsCta
+          mode="corridor"
+          sessionId={sessionId}
+          topRecommendation={topResult ? `${topic.countryRu} — ${topResult.title_ru}` : undefined}
+          matchCount={matchCount}
+        />
 
         {getProvidersForContext({ corridorSlug, topicKey: topic.key }).length > 0 && (
           <ServiceProvidersSection

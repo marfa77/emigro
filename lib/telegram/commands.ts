@@ -22,6 +22,7 @@ export function startWelcomeMessage(): string {
     "• /start — это сообщение",
     "• /stats — статистика сайта (только для админа)",
     "• /status — то же, что /stats",
+    "• кнопка из wizard — сохранить результат и продолжить разбор",
     "",
     "<i>Бот для внутренней аналитики emigro.online</i>",
   ].join("\n");

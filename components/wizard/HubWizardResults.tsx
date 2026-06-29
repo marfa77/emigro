@@ -3,6 +3,7 @@ import { ArrowRight, Compass, Route, Sparkles } from "lucide-react";
 import { LeadForm } from "@/components/LeadForm";
 import { ServiceProvidersSection } from "@/components/providers/ServiceProvidersSection";
 import { HouseholdBanner } from "@/components/wizard/HouseholdBanner";
+import { TelegramResultsCta } from "@/components/wizard/TelegramResultsCta";
 import { WizardOutcomeCard, readableReason } from "@/components/wizard/WizardOutcomeCard";
 import { corridorWizardPath } from "@/lib/corridor/paths";
 import type { GlobalEvalPayload } from "@/lib/engine/run-global-evaluation";
@@ -39,6 +40,13 @@ export function HubWizardResults({
       </header>
 
       <HouseholdBanner household={household} />
+
+      <TelegramResultsCta
+        mode="hub"
+        sessionId={sessionId}
+        topRecommendation={pick ? `${pick.countryRu} — ${pick.programTitleRu}` : undefined}
+        matchCount={matchCount}
+      />
 
       {passportIso2 === "UA" && (
         <section className="mt-8 rounded-2xl border border-blue-200 bg-gradient-to-br from-blue-50 to-white p-6">
