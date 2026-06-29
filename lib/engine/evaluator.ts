@@ -21,11 +21,13 @@ const MAX_REASON_LENGTH = 150;
 
 export function evaluateRule(
   rule: Record<string, unknown>,
-  facts: Record<string, unknown>
+  facts: Record<string, unknown>,
+  programId?: string
 ): boolean {
   try {
     return Boolean(jsonLogic.apply(rule, facts));
-  } catch {
+  } catch (e) {
+    console.error("[evaluator] rule error for program", programId, e);
     return false;
   }
 }
@@ -57,7 +59,7 @@ export function evaluateProgram(
   }
 
   const effectiveRule = stripPassportConstraint(rule, passportStatus);
-  const passed = evaluateRule(effectiveRule, facts);
+  const passed = evaluateRule(effectiveRule, facts, programId);
 
   if (passed) {
     reasons.push("По вашим ответам основные базовые условия выглядят выполненными.");

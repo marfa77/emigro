@@ -1,4 +1,5 @@
 import type { EvaluationResult, OutcomeCode } from "@/lib/engine/evaluator";
+import { INVESTOR_PROGRAM_SLUGS } from "@/lib/engine/constants";
 
 export type HouseholdProfile = {
   spouse: boolean;
@@ -148,12 +149,6 @@ const INCOME_THRESHOLDS: Record<string, ThresholdSpec> = {
 
 const FAMILY_REUNIFICATION_SLUG = "family-reunification";
 
-const INVESTOR_PROGRAM_SLUGS = new Set([
-  "portugal-golden-visa",
-  "spain-residence-by-investment",
-  "italy-investor-visa",
-]);
-
 function num(val: unknown): number {
   if (val === "" || val === null || val === undefined) return 0;
   if (typeof val === "number") return val;
@@ -292,7 +287,7 @@ export function adjustEvaluationForHousehold(
     };
   }
 
-  const gap = Math.max(required - actual, savingsSpec ? savingsRequired - savingsActual : 0);
+  const gap = Math.min(required - actual, savingsSpec ? savingsRequired - savingsActual : Infinity);
   const gapLabel = savingsSpec
     ? `доход ~€${Math.round(required).toLocaleString("ru-RU")} или сбережения ~€${Math.round(savingsRequired).toLocaleString("ru-RU")}`
     : `~€${Math.round(required).toLocaleString("ru-RU")} (${spec.labelRu})`;

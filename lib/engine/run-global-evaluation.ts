@@ -6,6 +6,7 @@ import { describeHousehold, parseHousehold, type HouseholdSummary } from "@/lib/
 import { evaluateProgram } from "@/lib/engine/evaluator";
 import type { OutcomeCode } from "@/lib/engine/evaluator";
 import { expandHubFacts } from "@/lib/wizard/expand-facts";
+import { INVESTOR_PROGRAM_SLUGS } from "@/lib/engine/constants";
 
 export type GlobalEvalResult = {
   programId: string;
@@ -125,12 +126,6 @@ export async function runGlobalEvaluation(
   return { results: allResults, pick, byCountry, household, hasRemoteIncome };
 }
 
-const INVESTOR_PROGRAM_SLUGS = new Set([
-  "portugal-golden-visa",
-  "spain-residence-by-investment",
-  "italy-investor-visa",
-]);
-
 function pickRecommendation(
   matches: GlobalEvalResult[],
   goal: string,
@@ -153,8 +148,7 @@ function pickRecommendation(
     if (goal === "fast" && laborTypes.has(m.programType)) bonus += 0.05;
     if (goal === "citizenship" && m.countrySegment === "portugal") bonus += 0.03;
     if (goal === "residency" && capitalTypes.has(m.programType) && invest >= 250_000) bonus += 0.02;
-    if (goal === "study" && studyTypes.has(m.programType)) bonus += 0.08;
-    if (wantsStudy && studyTypes.has(m.programType)) bonus += 0.06;
+    if ((goal === "study" || wantsStudy) && studyTypes.has(m.programType)) bonus += 0.08;
     if (invest >= 250_000 && INVESTOR_PROGRAM_SLUGS.has(m.programSlug)) bonus += 0.08;
     return { m, total: m.score + bonus };
   });
