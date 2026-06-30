@@ -12,9 +12,14 @@ import { countryCardImage } from "@/lib/brand/country-accents";
 import { guidePath, getRelatedGuides, listGuides, loadGuide } from "@/lib/guides/load";
 import type { GuideArticle } from "@/lib/guides/load";
 import { loadGuideLiveDataForGuide } from "@/lib/guides/corridor-live-data";
+import {
+  firstCountryTopicKeyForWizardInterest,
+  getGuidePassportIso2,
+  getGuideProviderTopicKey,
+} from "@/lib/guides/guide-display";
 import { getActiveNewsTopics } from "@/lib/news/topics";
 import type { NewsTopicConfig } from "@/lib/news/topics";
-import { corridorSlugForTopic, findFirstProviderTopicKey } from "@/lib/providers/registry";
+import { corridorSlugForTopic } from "@/lib/providers/registry";
 import { pageMetadata, pageUrl } from "@/lib/seo";
 import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
 import { getPtLongTailByGuideSlug } from "@/lib/seo/pt-longtail";
@@ -198,7 +203,7 @@ function stripHtml(html: string) {
 }
 
 function wizardHrefWithInterest(href: string, topicKeys?: string[]): string {
-  const primaryKey = topicKeys?.[0];
+  const primaryKey = firstCountryTopicKeyForWizardInterest(topicKeys);
   if (!primaryKey || !href.includes("/wizard")) return href;
 
   const [path, query = ""] = href.split("?");
@@ -257,12 +262,13 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
   const allTopics = await getActiveNewsTopics();
   const countryTopics = resolveCountryTopics(guide.topic_keys, allTopics);
   const relatedGuides = getRelatedGuides(guide.slug, guide.corridor_slugs, guide.topic_keys);
-  const providerTopicKey = findFirstProviderTopicKey(guide.topic_keys ?? []);
+  const providerTopicKey = getGuideProviderTopicKey(guide);
   const toc = extractToc(guide.bodyHtml);
   const faqItems = extractFaq(guide.bodyHtml);
   const llmFacts = buildGuideLlmFacts(guide);
   const url = `${SITE_URL}${guidePath(guide.slug)}`;
-  const liveData = await loadGuideLiveDataForGuide(guide.corridor_slugs, guide.topic_keys);
+  const passportIso2 = getGuidePassportIso2(guide);
+  const liveData = await loadGuideLiveDataForGuide(guide.corridor_slugs, guide.topic_keys, passportIso2);
 
   const articleSchema = {
     "@context": "https://schema.org",
@@ -372,7 +378,7 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
               </section>
             )}
 
-            <GuideCorridorLiveData programs={liveData.programs} meta={liveData.meta} />
+            <GuideCorridorLiveData liveData={liveData} />
 
             <article
               className="guide-article prose prose-lg prose-slate mt-8 max-w-none rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm ring-1 ring-slate-950/5 prose-a:font-semibold prose-strong:text-slate-950 sm:p-8 lg:p-10"

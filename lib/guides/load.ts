@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { getGuideCoverPath, resolveGuideCoverPath, resolveGuideOgImagePath } from "@/lib/guides/covers";
+import { specificGuideTopicKeys } from "@/lib/guides/guide-display";
 
 export type GuideOfficialSource = {
   url: string;
@@ -106,7 +107,9 @@ function inlineMarkdown(text: string): string {
 function resolveCoverPath(meta: Record<string, string | string[]>, slug: string): string {
   const coverImage = meta.cover_image ? String(meta.cover_image) : undefined;
   const corridorSlugs = Array.isArray(meta.corridor_slugs) ? meta.corridor_slugs.map(String) : undefined;
-  return getGuideCoverPath(slug, { coverImage, corridorSlugs });
+  const topicKeys = Array.isArray(meta.topic_keys) ? meta.topic_keys.map(String) : undefined;
+  const primaryIntent = meta.primary_intent ? String(meta.primary_intent) : undefined;
+  return getGuideCoverPath(slug, { coverImage, corridorSlugs, topicKeys, primaryIntent });
 }
 
 function mapFrontmatter(
@@ -306,40 +309,6 @@ export function loadGuide(slug: string): GuideArticle | null {
 
 export function guidePath(slug: string): string {
   return `/ru/guides/${slug}`;
-}
-
-const GENERIC_GUIDE_TOPIC_KEYS = new Set([
-  "relocation",
-  "transit",
-  "visa",
-  "work",
-  "vnj",
-  "europe",
-  "ees",
-  "schengen",
-  "border-control",
-  "entry-exit",
-  "consulate",
-  "banks",
-  "business",
-  "ip",
-  "ip-paushal",
-  "documents",
-  "apostille",
-  "funds",
-  "income",
-  "citizenship",
-  "legalization",
-  "study",
-  "checklist",
-  "arrival",
-  "investment",
-  "digital-nomad",
-  "digital nomad",
-]);
-
-function specificGuideTopicKeys(topicKeys?: string[]): Set<string> {
-  return new Set((topicKeys ?? []).filter((key) => !GENERIC_GUIDE_TOPIC_KEYS.has(key)));
 }
 
 export function getRelatedGuides(

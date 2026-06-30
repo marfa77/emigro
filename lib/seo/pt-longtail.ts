@@ -47,32 +47,6 @@ export const PT_LONG_TAIL_TARGETS: PtLongTailTarget[] = [
     seoDescription:
       "NIF, банк, SIM, SNS и запись AIMA после прилёта в Португалию: пошаговый чек-лист для граждан РФ/BY/UA/KZ с D7 или D8 в 2026 году.",
   },
-  {
-    path: "/ru/guides/podtverdit-dohod-dengi-dlya-vnj-esli-dohod-iz-rossii-2026",
-    guideSlug: "podtverdit-dohod-dengi-dlya-vnj-esli-dohod-iz-rossii-2026",
-    primaryQuery: "как подтвердить доход из россии для d8 португалия",
-    queries: [
-      "как подтвердить доход из россии для d8 португалия",
-      "d8 португалия доход из россии удалёнка выписки",
-      "отказ d7 d8 португалия консульство что делать",
-    ],
-    seoTitle: "Доход из России для D8/D7 Португалия 2026",
-    seoDescription:
-      "Как подтвердить доход и сбережения из РФ для D8/D7 Португалия: выписки, договоры, санкции, типовые ошибки консульства. Для граждан РФ и СНГ.",
-  },
-  {
-    path: "/ru/guides/konsulskaya-podacha-rf-by-kz-2026-yurisdiktsiya",
-    guideSlug: "konsulskaya-podacha-rf-by-kz-2026-yurisdiktsiya",
-    primaryQuery: "консульство португалии подача d8 граждане рф",
-    queries: [
-      "консульство португалии подача d8 граждане рф",
-      "где подать d7 португалия граждане беларуси 2026",
-      "d8 виза португалия требования для россиян 2026",
-    ],
-    seoTitle: "Подать D8/D7 Португалия из РФ — консульство 2026",
-    seoDescription:
-      "Консульская юрисдикция для D8/D7 Португалия: где граждане РФ, Беларуси и Казахстана могут подаваться в 2026, резиденция и типовые ошибки.",
-  },
 ];
 
 export const PT_LONG_TAIL_QUERIES = PT_LONG_TAIL_TARGETS.flatMap((t) => t.queries);

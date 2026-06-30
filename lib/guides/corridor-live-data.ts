@@ -1,5 +1,7 @@
 import { getProgramBySlug } from "@/lib/corridor/queries";
 import { getNewsTopicByCorridorSlug } from "@/lib/news/topics";
+import type { GuidePassportIso2 } from "@/lib/guides/guide-display";
+import { orderedGuideCorridorSlugs, passportColumnLabel } from "@/lib/guides/guide-display";
 import type { ProgramDetail } from "@/lib/types";
 
 const CORRIDOR_PROGRAM_SLUGS: Record<string, readonly string[]> = {
@@ -25,7 +27,7 @@ export type GuideLiveProgramRow = {
   title: string;
   href: string;
   incomeThreshold: string | null;
-  passportRu: string | null;
+  passportStatus: string | null;
   lastVerified: string | null;
 };
 
@@ -34,9 +36,23 @@ export type GuideCorridorLiveMeta = {
   wizardHref: string;
 };
 
-function mapProgram(program: ProgramDetail, landingPath: string): GuideLiveProgramRow {
+export type GuideLiveCorridorBlock = {
+  meta: GuideCorridorLiveMeta;
+  programs: GuideLiveProgramRow[];
+};
+
+export type GuideLiveDataPayload = {
+  blocks: GuideLiveCorridorBlock[];
+  passportLabel: string;
+};
+
+function mapProgram(
+  program: ProgramDetail,
+  landingPath: string,
+  passportIso2: GuidePassportIso2,
+): GuideLiveProgramRow {
   const income = program.requirements.find((r) => /доход|средств|income|salary|зарплат/i.test(r.label_ru));
-  const ruPassport = program.passportEligibility.find((p) => p.passport_iso2 === "RU");
+  const passportRow = program.passportEligibility.find((p) => p.passport_iso2 === passportIso2);
   const lastVerified = program.sources
     .map((s) => s.last_verified)
     .filter(Boolean)
@@ -47,7 +63,7 @@ function mapProgram(program: ProgramDetail, landingPath: string): GuideLiveProgr
     title: program.title_ru,
     href: `${landingPath}/programs/${program.slug}`,
     incomeThreshold: income?.value_text ?? income?.label_ru ?? null,
-    passportRu: ruPassport ? PASSPORT_STATUS_RU[ruPassport.status] ?? ruPassport.status : null,
+    passportStatus: passportRow ? PASSPORT_STATUS_RU[passportRow.status] ?? passportRow.status : null,
     lastVerified: lastVerified ?? null,
   };
 }
@@ -55,6 +71,7 @@ function mapProgram(program: ProgramDetail, landingPath: string): GuideLiveProgr
 /** Live program thresholds from corridor DB — for pillar guides with corridor_slugs. */
 export async function loadGuideCorridorLivePrograms(
   corridorSlug: string,
+  passportIso2: GuidePassportIso2 = "RU",
 ): Promise<{ programs: GuideLiveProgramRow[]; meta: GuideCorridorLiveMeta | null }> {
   const slugs = CORRIDOR_PROGRAM_SLUGS[corridorSlug];
   if (!slugs?.length) return { programs: [], meta: null };
@@ -66,7 +83,7 @@ export async function loadGuideCorridorLivePrograms(
   return {
     programs: programs
       .filter((p): p is ProgramDetail => Boolean(p))
-      .map((program) => mapProgram(program, topic.sitePaths!.landing)),
+      .map((program) => mapProgram(program, topic.sitePaths!.landing, passportIso2)),
     meta: {
       countryNameRu: topic.countryRu,
       wizardHref: topic.sitePaths.wizard,
@@ -91,28 +108,24 @@ export function filterCorridorSlugsForGuideTopics(
   return matched.length > 0 ? matched : [];
 }
 
-function orderCorridorsByTopicKeys(corridorSlugs: string[], topicKeys: string[]): string[] {
-  return [...corridorSlugs].sort((a, b) => {
-    const ai = topicKeys.indexOf(corridorSlugToTopicKey(a));
-    const bi = topicKeys.indexOf(corridorSlugToTopicKey(b));
-    return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
-  });
-}
-
-/** Pick first matching corridor slug on the guide that has live program data. */
+/** Load live blocks for all matching corridors (multi-country guides get one table per country). */
 export async function loadGuideLiveDataForGuide(
   corridorSlugs?: string[],
   topicKeys?: string[],
-) {
-  const filtered = filterCorridorSlugsForGuideTopics(corridorSlugs, topicKeys);
-  const ordered =
-    topicKeys?.length && filtered.length > 1
-      ? orderCorridorsByTopicKeys(filtered, topicKeys)
-      : filtered;
+  passportIso2: GuidePassportIso2 = "RU",
+): Promise<GuideLiveDataPayload> {
+  const ordered = orderedGuideCorridorSlugs(corridorSlugs, topicKeys);
+  const blocks: GuideLiveCorridorBlock[] = [];
 
   for (const slug of ordered) {
-    const data = await loadGuideCorridorLivePrograms(slug);
-    if (data.programs.length > 0) return data;
+    const data = await loadGuideCorridorLivePrograms(slug, passportIso2);
+    if (data.programs.length > 0 && data.meta) {
+      blocks.push({ meta: data.meta, programs: data.programs });
+    }
   }
-  return { programs: [], meta: null };
+
+  return {
+    blocks,
+    passportLabel: passportColumnLabel(passportIso2),
+  };
 }

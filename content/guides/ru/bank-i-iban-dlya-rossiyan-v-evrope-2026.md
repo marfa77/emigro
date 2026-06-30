@@ -6,7 +6,7 @@ seo_description: "Как открыть банковский счёт в ЕС д
 excerpt: "Банковский счёт с европейским IBAN — первое, что нужно для жизни в ЕС. Разбираем варианты для граждан РФ: что открывается без ВНЖ, где сложнее, как пройти KYC."
 quick_answer: "Для россиян в 2026 году наиболее доступны четыре варианта: Wise (мультивалютный счёт, IBAN от BE/LU, открывается онлайн без ВНЖ), Paysera (литовский LT-IBAN, исторически лоялен к СНГ), N26 (немецкий необанк, требует EU-адрес и ВНЖ), Revolut (EU IBAN через литовскую лицензию, требует ID). Российские банки под санкциями (Сбер, ВТБ, Россельхоз, Тинькофф-EU ограничен) — не используйте их для международных расчётов. Главное при KYC: объясните источник дохода, избегайте крупных переводов из РФ без документации, не упоминайте связи с санкционными банками."
 corridor_slugs: [ru-speaking-to-portugal, ru-speaking-to-spain, ru-speaking-to-germany, ru-speaking-to-france, ru-speaking-to-netherlands]
-topic_keys: [portugal, spain, germany, europe]
+topic_keys: [portugal, spain, germany, france, netherlands, europe]
 tags: [банк, IBAN, Wise, Paysera, счёт, 2026]
 primary_intent: informational
 cta_primary: /ru/wizard

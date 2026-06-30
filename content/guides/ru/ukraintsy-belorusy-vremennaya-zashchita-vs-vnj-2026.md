@@ -1,12 +1,12 @@
 ---
 slug: ukraintsy-belorusy-vremennaya-zashchita-vs-vnj-2026
 title: "Украинцы и белорусы в ЕС в 2026: временная защита vs ВНЖ"
-seo_title: "Украинцы в ЕС 2026 — защита или ВНЖ"
+seo_title: "Украинцы и белорусы в ЕС 2026 — защита или ВНЖ"
 seo_description: "Временная защита EU для украинцев vs ВНЖ: кому что, сроки, Португалия и Германия. Белорусы — маршруты без защиты в 2026."
 excerpt: "Разводим два разных статуса: временная защита после 2022 и классический ВНЖ — чтобы не строить планы на иллюзиях."
 quick_answer: "Временная защита (TP) — для граждан Украины, бежавших от войны; даёт право жить и работать в стране ЕС, но это не ПМЖ и не гражданство. Белорусам TP не положена — только обычные визы/ВНЖ (D7, работа, учёба). Когда защита заканчивается или не продлевается — нужен маршрут ВНЖ (работа, учёба, семья, D7/D8)."
 corridor_slugs: [ru-speaking-to-portugal, ru-speaking-to-germany, ru-speaking-to-poland]
-topic_keys: [portugal, germany, europe]
+topic_keys: [portugal, germany, poland, europe]
 tags: [Украина, Беларусь, временная защита, ВНЖ, 2026]
 primary_intent: informational
 cta_primary: /ru/wizard

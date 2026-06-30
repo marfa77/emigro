@@ -72,9 +72,33 @@ export function resolveGuideOgImagePath(slug: string, coverPath: string): string
 
 export function getGuideCoverPath(
   slug: string,
-  options?: { coverImage?: string; corridorSlugs?: string[] }
+  options?: {
+    coverImage?: string;
+    corridorSlugs?: string[];
+    topicKeys?: string[];
+    primaryIntent?: string;
+  },
 ): string {
   if (options?.coverImage) return options.coverImage;
+
+  const countryKeys = (options?.topicKeys ?? []).filter((key) =>
+    [
+      "portugal",
+      "spain",
+      "france",
+      "italy",
+      "germany",
+      "netherlands",
+      "scandinavia",
+      "poland",
+      "czechia",
+      "austria",
+    ].includes(key),
+  );
+  if (options?.primaryIntent === "comparison" || countryKeys.length > 1) {
+    return DEFAULT_GUIDE_COVER;
+  }
+
   if (GUIDE_COVER_BY_SLUG[slug]) return GUIDE_COVER_BY_SLUG[slug];
   for (const corridor of options?.corridorSlugs ?? []) {
     const cover = CORRIDOR_COVER_IMAGES[corridor];

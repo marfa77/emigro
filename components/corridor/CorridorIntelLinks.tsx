@@ -2,6 +2,7 @@ import Link from "next/link";
 import { BookOpen, Compass, Newspaper, Sparkles } from "lucide-react";
 import type { NewsTopicConfig } from "@/lib/news/topics";
 import { newsIndexPath } from "@/lib/news/topics";
+import { corridorWizardBlurb } from "@/lib/guides/guide-display";
 import { isCorridorFull, isCorridorOnSite } from "@/lib/corridor/publish";
 
 type Props = {
@@ -120,7 +121,7 @@ export function CorridorIntelLinks({ topic, variant = "full", layout = "grid" }:
             <Compass className="h-5 w-5 text-corridor-700" />
             <p className="mt-2 font-medium text-corridor-900 group-hover:text-corridor-700">Подбор маршрута</p>
             <p className="mt-1 text-sm text-corridor-800/80">
-              D8, D7, воссоединение — wizard сопоставит профиль с требованиями.
+              {corridorWizardBlurb(topic.urlSegment)}
             </p>
           </Link>
         )}
