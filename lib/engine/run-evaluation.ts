@@ -1,5 +1,4 @@
 import { createServerClient } from "@/lib/supabase/server";
-import { mergeHouseholdFacts } from "@/lib/engine/household";
 import {
   evaluateProgram,
   normalizeFacts,
@@ -9,6 +8,7 @@ import {
   evaluateCorridorPrograms,
   persistEvaluationResults,
 } from "@/lib/engine/evaluate-corridor-programs";
+import { expandHubFacts } from "@/lib/wizard/expand-facts";
 
 export async function runEvaluation(
   sessionId: string,
@@ -16,7 +16,7 @@ export async function runEvaluation(
   answers: Record<string, unknown>
 ): Promise<EvaluationResult[]> {
   const supabase = createServerClient();
-  const facts = normalizeFacts(mergeHouseholdFacts(answers));
+  const facts = expandHubFacts(answers);
 
   const results = await evaluateCorridorPrograms(corridorId, facts);
 

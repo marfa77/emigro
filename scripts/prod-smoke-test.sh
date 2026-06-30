@@ -31,14 +31,14 @@ check_contains() {
 echo "=== Emigro prod smoke: $BASE ==="
 echo ""
 
-# Core pages (root uses Next.js redirect — 307 without follow)
-check_status "page / → /ru redirect" "$BASE/" "307" "no"
+# Core pages (root uses Next.js redirect — 308 on Vercel)
+check_status "page / → /ru redirect" "$BASE/" "308" "no"
 for path in /ru /ru/wizard /ru/guides /ru/news /ru/contact /ru/partners /ru/privacy /ru/terms /ru/cookies; do
   check_status "page $path" "$BASE$path"
 done
 
 # Corridors
-for c in portugal spain france italy germany netherlands scandinavia; do
+for c in portugal spain france italy germany netherlands scandinavia poland czechia austria; do
   check_status "corridor /ru/$c" "$BASE/ru/$c"
   check_status "wizard /ru/$c/wizard" "$BASE/ru/$c/wizard"
   check_status "digest /ru/$c/digest" "$BASE/ru/$c/digest"
@@ -46,7 +46,7 @@ done
 
 # Guides sample
 check_status "guide pillar" "$BASE/ru/guides/kuda-pereehat-iz-rossii-2026-evropa-vnj"
-check_contains "guide content" "$BASE/ru/guides/kuda-pereehat-iz-rossii-2026-evropa-vnj" "wizard"
+check_contains "guide content" "$BASE/ru/guides/kuda-pereehat-iz-rossii-2026-evropa-vnj" "/ru/wizard"
 
 # News article
 check_status "news article" "$BASE/ru/news/portugal-relocation-news-2026-06-24"
@@ -90,21 +90,23 @@ else
   fail "hub wizard session creation"
 fi
 
-# Corridor wizard API (Portugal)
-PT_SESSION=$(curl -sS -X POST "$BASE/api/v1/corridors/ru-speaking-to-portugal/wizard/sessions" \
-  -H "Content-Type: application/json" \
-  -d '{"wizard_id":"00000000-0000-0000-0000-000000000001","answers":{"passport_iso2":"RU","remote_income":"yes","monthly_income_eur":"4000"}}' \
-  2>/dev/null | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('id',''))" 2>/dev/null || echo "")
+# Corridor wizard API (Poland sample for PL/CZ/AT coverage)
+PT_WIZARD_ID=""
+for sample in portugal poland; do
+  WIZARD_JSON=$(curl -sS "$BASE/api/v1/corridors/ru-speaking-to-$sample/wizard" --max-time 20 2>/dev/null || echo "{}")
+  WIZARD_ID=$(echo "$WIZARD_JSON" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('id',''))" 2>/dev/null || echo "")
+  if [[ -n "$WIZARD_ID" ]]; then
+    ok "$sample wizard API ($WIZARD_ID)"
+    [[ "$sample" == "portugal" ]] && PT_WIZARD_ID="$WIZARD_ID"
+  else
+    fail "$sample wizard API — could not fetch wizard id"
+  fi
+done
 
-# Try fetching actual wizard id from API
-WIZARD_JSON=$(curl -sS "$BASE/api/v1/corridors/ru-speaking-to-portugal/wizard" --max-time 20 2>/dev/null || echo "{}")
-WIZARD_ID=$(echo "$WIZARD_JSON" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('id',''))" 2>/dev/null || echo "")
-
-if [[ -n "$WIZARD_ID" ]]; then
-  ok "portugal wizard API ($WIZARD_ID)"
+if [[ -n "$PT_WIZARD_ID" ]]; then
   PT_SESSION=$(curl -sS -X POST "$BASE/api/v1/corridors/ru-speaking-to-portugal/wizard/sessions" \
     -H "Content-Type: application/json" \
-    -d "{\"wizard_id\":\"$WIZARD_ID\",\"answers\":{\"passport_iso2\":\"RU\",\"remote_income\":\"yes\",\"monthly_income_eur\":\"4000\",\"relocating_with_spouse\":\"yes\",\"relocating_children_count\":\"2\"}}" \
+    -d "{\"wizard_id\":\"$PT_WIZARD_ID\",\"answers\":{\"passport_iso2\":\"RU\",\"remote_income\":\"yes\",\"monthly_income_eur\":\"4000\",\"relocating_with_spouse\":\"yes\",\"relocating_children_count\":\"2\"}}" \
     | python3 -c "import sys,json; print(json.load(sys.stdin).get('id',''))" 2>/dev/null || echo "")
   if [[ -n "$PT_SESSION" ]]; then
     ok "portugal wizard session ($PT_SESSION)"

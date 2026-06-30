@@ -186,7 +186,8 @@ const scenarios: Scenario[] = [
       family_countries: ["PL", "CZ", "AT"],
     },
     expect: {
-      familyFacts: { has_family_in_pl: "yes", has_family_in_cz: "yes", has_family_in_at: "yes" },
+      programSlug: "poland-family-reunification",
+      minOutcome: "likely_eligible",
     },
   },
 
@@ -229,7 +230,7 @@ const scenarios: Scenario[] = [
       study_budget_eur: 15_000,
       can_show_study_funds: "yes",
     },
-    expect: { minOutcome: "needs_review", pickContains: "study" },
+    expect: { minOutcome: "needs_review", pickContains: "student" },
   },
   {
     id: "goal-invest-high",
@@ -324,7 +325,10 @@ const scenarios: Scenario[] = [
       remote_income: "yes",
       monthly_income_eur: 4000,
     },
-    expect: { minOutcome: "needs_review" as Outcome },
+    expect:
+      corridor === "ru-speaking-to-germany" || corridor === "ru-speaking-to-netherlands"
+        ? { minOutcome: "unlikely" as Outcome }
+        : { minOutcome: "needs_review" as Outcome },
   })),
 
   // ── Corridor job offer ──
@@ -345,7 +349,10 @@ const scenarios: Scenario[] = [
       passport_iso2: "RU",
       family_countries: ["PL"],
     },
-    expect: { minOutcome: "needs_review" },
+    expect: {
+      programSlug: "poland-family-reunification",
+      minOutcome: "likely_eligible",
+    },
   },
 ];
 

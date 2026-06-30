@@ -152,6 +152,12 @@ function pickRecommendation(
     if (goal === "residency" && capitalTypes.has(m.programType) && invest >= 250_000) bonus += 0.02;
     if ((goal === "study" || wantsStudy) && studyTypes.has(m.programType)) bonus += 0.08;
     if (invest >= 250_000 && INVESTOR_PROGRAM_SLUGS.has(m.programSlug)) bonus += 0.08;
+    if (facts.has_job_offer === "yes" && laborTypes.has(m.programType)) {
+      bonus += 0.05;
+      if (m.programSlug.includes("blue-card") || m.programSlug.includes("chancenkarte")) {
+        bonus += 0.04;
+      }
+    }
     return { m, total: m.score + bonus };
   });
 

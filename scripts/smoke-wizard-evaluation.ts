@@ -90,6 +90,13 @@ assert.equal(expandedFamilyFacts.has_family_in_pl, "yes");
 assert.equal(expandedFamilyFacts.has_family_in_cz, "yes");
 assert.equal(expandedFamilyFacts.has_family_in_at, "yes");
 
+const corridorFamilyFacts = expandHubFacts({
+  passport_iso2: "RU",
+  has_family_in_pl: "yes",
+});
+assert.equal(corridorFamilyFacts.has_family_in_pl, "yes");
+assert.equal(corridorFamilyFacts.has_family_in_cz, "no");
+
 const jobOfferFacts = normalizeFacts({
   passport_iso2: "RU",
   remote_income: "no",

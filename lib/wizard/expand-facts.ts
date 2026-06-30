@@ -29,8 +29,14 @@ export function expandHubFacts(answers: Record<string, unknown>): Record<string,
     for (const v of raw.split(",")) selected.add(v.trim());
   }
 
-  for (const [iso, key] of Object.entries(FAMILY_FACT_BY_DESTINATION)) {
-    facts[key] = selected.has(iso) ? "yes" : "no";
+  const hasFamilyCountriesAnswer =
+    (Array.isArray(raw) && raw.length > 0) ||
+    (typeof raw === "string" && raw.trim().length > 0);
+
+  if (hasFamilyCountriesAnswer) {
+    for (const [iso, key] of Object.entries(FAMILY_FACT_BY_DESTINATION)) {
+      facts[key] = selected.has(iso) ? "yes" : "no";
+    }
   }
 
   for (const key of ALL_FAMILY_KEYS) {
