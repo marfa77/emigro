@@ -308,11 +308,62 @@ export function guidePath(slug: string): string {
   return `/ru/guides/${slug}`;
 }
 
-export function getRelatedGuides(currentSlug: string, corridorSlugs?: string[], limit = 4): GuideFrontmatter[] {
-  if (!corridorSlugs?.length) return [];
-  const corridors = new Set(corridorSlugs);
+const GENERIC_GUIDE_TOPIC_KEYS = new Set([
+  "relocation",
+  "transit",
+  "visa",
+  "work",
+  "vnj",
+  "europe",
+  "ees",
+  "schengen",
+  "border-control",
+  "entry-exit",
+  "consulate",
+  "banks",
+  "business",
+  "ip",
+  "ip-paushal",
+  "documents",
+  "apostille",
+  "funds",
+  "income",
+  "citizenship",
+  "legalization",
+  "study",
+  "checklist",
+  "arrival",
+  "investment",
+  "digital-nomad",
+  "digital nomad",
+]);
+
+function specificGuideTopicKeys(topicKeys?: string[]): Set<string> {
+  return new Set((topicKeys ?? []).filter((key) => !GENERIC_GUIDE_TOPIC_KEYS.has(key)));
+}
+
+export function getRelatedGuides(
+  currentSlug: string,
+  corridorSlugs?: string[],
+  topicKeys?: string[],
+  limit = 4,
+): GuideFrontmatter[] {
+  const corridors = new Set(corridorSlugs ?? []);
+  const topics = specificGuideTopicKeys(topicKeys);
+  if (corridors.size === 0 && topics.size === 0) return [];
+
   return listGuides()
     .filter((guide) => guide.slug !== currentSlug)
-    .filter((guide) => guide.corridor_slugs?.some((c) => corridors.has(c)))
-    .slice(0, limit);
+    .map((guide) => {
+      let score = 0;
+      if (guide.corridor_slugs?.some((c) => corridors.has(c))) score += 2;
+      for (const key of Array.from(specificGuideTopicKeys(guide.topic_keys))) {
+        if (topics.has(key)) score += 1;
+      }
+      return { guide, score };
+    })
+    .filter(({ score }) => score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, limit)
+    .map(({ guide }) => guide);
 }

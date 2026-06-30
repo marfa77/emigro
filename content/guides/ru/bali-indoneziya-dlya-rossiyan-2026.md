@@ -5,7 +5,6 @@ seo_title: "Бали для россиян 2026 — KITAS, B211A, удалённ
 seo_description: "Гайд по Бali и Индонезии для граждан РФ в 2026: VOA 30 дней, B211A, Second Home Visa, KITAS через PT PMA, стоимость жизни на Бали и подготовка EU-маршрута."
 excerpt: "Индонезия / Бали в 2026: VOA, B211A на 60 дней, Second Home Visa, KITAS через компанию — как легально жить на острове удалёнщику и готовить переезд в Европу."
 quick_answer: "Бали в 2026 — один из главных lifestyle-хабов для россиян-удалёнщиков: VOA 30 дней (продление), B211A до 180 дней, Second Home Visa при депозите ~2 млрд IDR (~130k USD), KITAS через PT PMA (иностранная компания). Стоимость жизни от 900 €/мес в Canggu. Риски: частые изменения миграционных правил, депортации при нарушениях, сложность банков для нерезидентов."
-corridor_slugs: [ru-speaking-to-portugal, ru-speaking-to-spain]
 topic_keys: [indonesia, relocation, digital-nomad, transit]
 tags: [Бали, Индонезия, KITAS, B211A, удалёнка, россияне, транзит, 2026]
 primary_intent: how-to

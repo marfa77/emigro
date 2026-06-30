@@ -4,6 +4,12 @@ import type { ProgramDetail } from "@/lib/types";
 
 const CORRIDOR_PROGRAM_SLUGS: Record<string, readonly string[]> = {
   "ru-speaking-to-portugal": ["portugal-d8-digital-nomad", "portugal-d7-passive-income"],
+  "ru-speaking-to-spain": ["spain-digital-nomad", "spain-non-lucrative"],
+  "ru-speaking-to-france": ["france-talent-salarie", "france-vls-ts-visiteur"],
+  "ru-speaking-to-italy": ["italy-digital-nomad", "italy-elective-residence"],
+  "ru-speaking-to-germany": ["germany-eu-blue-card", "germany-chancenkarte"],
+  "ru-speaking-to-netherlands": ["netherlands-hsm", "netherlands-startup-facilitator"],
+  "ru-speaking-to-scandinavia": ["sweden-work-permit", "denmark-work-permit"],
   "ru-speaking-to-poland": ["poland-eu-blue-card", "poland-work-permit"],
   "ru-speaking-to-czechia": ["czechia-eu-blue-card", "czechia-employee-card"],
   "ru-speaking-to-austria": ["austria-eu-blue-card", "austria-rwr-card"],
@@ -68,9 +74,43 @@ export async function loadGuideCorridorLivePrograms(
   };
 }
 
-/** Pick first corridor slug on the guide that has live program data. */
-export async function loadGuideLiveDataForGuide(corridorSlugs?: string[]) {
-  for (const slug of corridorSlugs ?? []) {
+export function corridorSlugToTopicKey(corridorSlug: string): string {
+  return corridorSlug.replace(/^ru-speaking-to-/, "");
+}
+
+/** Only corridors whose destination matches guide topic_keys (e.g. serbia guide ≠ portugal data). */
+export function filterCorridorSlugsForGuideTopics(
+  corridorSlugs: string[] | undefined,
+  topicKeys: string[] | undefined,
+): string[] {
+  const slugs = corridorSlugs ?? [];
+  if (!topicKeys?.length) return slugs;
+
+  const topics = new Set(topicKeys);
+  const matched = slugs.filter((slug) => topics.has(corridorSlugToTopicKey(slug)));
+  return matched.length > 0 ? matched : [];
+}
+
+function orderCorridorsByTopicKeys(corridorSlugs: string[], topicKeys: string[]): string[] {
+  return [...corridorSlugs].sort((a, b) => {
+    const ai = topicKeys.indexOf(corridorSlugToTopicKey(a));
+    const bi = topicKeys.indexOf(corridorSlugToTopicKey(b));
+    return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
+  });
+}
+
+/** Pick first matching corridor slug on the guide that has live program data. */
+export async function loadGuideLiveDataForGuide(
+  corridorSlugs?: string[],
+  topicKeys?: string[],
+) {
+  const filtered = filterCorridorSlugsForGuideTopics(corridorSlugs, topicKeys);
+  const ordered =
+    topicKeys?.length && filtered.length > 1
+      ? orderCorridorsByTopicKeys(filtered, topicKeys)
+      : filtered;
+
+  for (const slug of ordered) {
     const data = await loadGuideCorridorLivePrograms(slug);
     if (data.programs.length > 0) return data;
   }
