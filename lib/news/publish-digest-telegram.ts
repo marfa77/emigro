@@ -3,6 +3,7 @@ import type { NewsTopicConfig } from "@/lib/news/topics";
 import type { Prep2GoArticle } from "@/lib/news/prep2go-fetch";
 import { buildThreadsFromSiteDigest } from "@/lib/news/threads";
 import { validateThreadsQuality } from "@/lib/news/quality";
+import { stripGoogleSourceMentionsFromText } from "@/lib/news/article-resolve";
 import { assertPrep2GoFactCheck } from "@/lib/news/fact-check";
 import {
   deleteTelegramChannelMessages,
@@ -72,18 +73,20 @@ export async function publishDigestToTelegram(
 
   const channelUrl = newsTelegramChannelUrl();
   const siteArticleUrl = newsArticleUrl(params.slug);
-  const threadsText = buildThreadsFromSiteDigest({
-    topic: params.topic,
-    weekFrom: new Date(params.weekStart),
-    weekEnd: new Date(params.weekEnd),
-    channelUrl,
-    siteArticleUrl,
-    title: params.title,
-    excerpt: params.excerpt,
-    keyTakeaways: params.keyTakeaways,
-    contentBlocks: params.contentBlocks,
-    sourceLinks: params.sourceLinks,
-  });
+  const threadsText = stripGoogleSourceMentionsFromText(
+    buildThreadsFromSiteDigest({
+      topic: params.topic,
+      weekFrom: new Date(params.weekStart),
+      weekEnd: new Date(params.weekEnd),
+      channelUrl,
+      siteArticleUrl,
+      title: params.title,
+      excerpt: params.excerpt,
+      keyTakeaways: params.keyTakeaways,
+      contentBlocks: params.contentBlocks,
+      sourceLinks: params.sourceLinks,
+    })
+  );
 
   const qualityErrors = validateThreadsQuality({ threadsText, topic: params.topic.key });
   if (qualityErrors.length > 0) {

@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, MessageCircle, Shield, Users, Zap } from "lucide-react";
+import { ArrowRight, BookOpen, MessageCircle, Shield, Users, Zap } from "lucide-react";
 import { CommunityJoinButton } from "@/components/community/CommunityJoinButton";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { HeroShell } from "@/components/visuals/HeroShell";
-import { RELOCATOR_CHAT_LABEL } from "@/lib/community";
+import { CONTACT_EMAIL } from "@/lib/site-contact";
+import { DZEN_STORIES_URL, NEWS_TELEGRAM_URL, RELOCATOR_CHAT_LABEL, RELOCATOR_CHAT_URL } from "@/lib/community";
 import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
 import { pageMetadata, pageUrl } from "@/lib/seo";
 
@@ -30,6 +31,11 @@ const BENEFITS = [
     icon: Zap,
     title: "Новости маршрутов",
     text: "Изменения в программах ВНЖ, консульства и практика подачи — быстрее, чем ждать еженедельный дайджест.",
+  },
+  {
+    icon: BookOpen,
+    title: "Истории на Дзене",
+    text: "Реальные истории переезда — в формате «как было на самом деле». Можете прислать свою для публикации.",
   },
   {
     icon: Shield,
@@ -71,8 +77,16 @@ export default function CommunityPage() {
           </span>
           <h1 className="mt-4 text-3xl font-bold sm:text-4xl">{RELOCATOR_CHAT_LABEL} — живое сообщество</h1>
           <p className="mt-4 max-w-2xl text-lg text-corridor-100">
-            Место, где русскоязычные релоканты — уже в Европе или на этапе переезда — делятся опытом, задают вопросы
-            по ВНЖ и следят за изменениями маршрутов. Бесплатно, без спама.
+            <strong>@emigro_chat</strong> — дискуссионная группа в Telegram, привязанная к каналу{" "}
+            <strong>@Emigro_news</strong>. Русскоязычные релоканты — уже в Европе или на этапе переезда — делятся
+            опытом, задают вопросы по ВНЖ и следят за изменениями маршрутов. Бесплатно, без спама.
+          </p>
+          <p className="mt-3 text-sm text-corridor-200">
+            Новости и дайджесты — в канале{" "}
+            <a href={NEWS_TELEGRAM_URL} target="_blank" rel="noopener noreferrer" className="underline hover:text-white">
+              @Emigro_news
+            </a>
+            .
           </p>
           <div className="mt-8">
             <CommunityJoinButton source="community_landing_hero" size="lg" />
@@ -116,10 +130,24 @@ export default function CommunityPage() {
         <section className="mt-14 rounded-2xl border border-corridor-200 bg-gradient-to-br from-corridor-50 to-white p-6 text-center sm:p-10">
           <h2 className="text-2xl font-bold text-slate-900">Готовы присоединиться?</h2>
           <p className="mx-auto mt-3 max-w-lg text-slate-600">
-            Вступайте в Telegram-группу — задайте первый вопрос или просто читайте опыт других релокантов.
+            Вступайте в группу <strong>@emigro_chat</strong> — задайте первый вопрос или читайте опыт других
+            релокантов. Новости маршрутов — в канале{" "}
+            <a href={NEWS_TELEGRAM_URL} target="_blank" rel="noopener noreferrer" className="text-sky-700 hover:underline">
+              @Emigro_news
+            </a>
+            .
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
             <CommunityJoinButton source="community_landing_footer" size="lg" />
+            <a
+              href={DZEN_STORIES_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-5 py-3 font-medium text-slate-800 hover:bg-slate-50"
+            >
+              <BookOpen className="h-4 w-4" />
+              Истории на Дзене
+            </a>
             <Link
               href="/ru/wizard"
               className="inline-flex items-center gap-2 rounded-lg border border-corridor-300 px-5 py-3 font-medium text-corridor-700 hover:bg-corridor-50"
@@ -128,6 +156,17 @@ export default function CommunityPage() {
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
+          <p className="mx-auto mt-4 max-w-lg text-sm text-slate-500">
+            Свою историю для Дзена — в{" "}
+            <a href={RELOCATOR_CHAT_URL} target="_blank" rel="noopener noreferrer" className="text-sky-700 hover:underline">
+              @emigro_chat
+            </a>{" "}
+            или на{" "}
+            <a href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("История для Дзена")}`} className="text-sky-700 hover:underline">
+              {CONTACT_EMAIL}
+            </a>
+            .
+          </p>
         </section>
       </main>
       <SiteFooter />

@@ -62,10 +62,111 @@ export function isGoogleNewsUrl(url: string): boolean {
   }
 }
 
+/** Vertex AI Search grounding redirect wrappers — not valid public source URLs. */
+export function isGoogleGroundingRedirectUrl(url: string): boolean {
+  try {
+    const parsed = new URL(url);
+    const host = parsed.hostname.replace(/^www\./, "");
+    if (host === "vertexaisearch.cloud.google.com" || host.endsWith(".vertexaisearch.cloud.google.com")) {
+      return true;
+    }
+    return parsed.pathname.includes("grounding-api-redirect");
+  } catch {
+    return /vertexaisearch\.cloud\.google\.com|grounding-api-redirect/i.test(url);
+  }
+}
+
+export function isBlockedSourceUrl(url: string): boolean {
+  return isGoogleNewsUrl(url) || isGoogleGroundingRedirectUrl(url);
+}
+
+/** google.com and subdomains — not valid outbound links in social posts. */
+export function isGoogleDomainUrl(url: string): boolean {
+  try {
+    const host = new URL(url).hostname.replace(/^www\./, "");
+    return host === "google.com" || host.endsWith(".google.com");
+  } catch {
+    return /(?:^|\/)google\.com/i.test(url);
+  }
+}
+
+export function isDisallowedSocialUrl(url: string): boolean {
+  return isBlockedSourceUrl(url) || isGoogleDomainUrl(url);
+}
+
+const GOOGLE_SOURCE_NAME_RE =
+  /^google(?:\s+(?:news|search|alerts?|discover|feed|alert))?$/i;
+
+/** Publisher label is a Google wrapper, not a real outlet. */
+export function isGoogleSourceName(name: string): boolean {
+  const clean = name.trim();
+  if (!clean) return false;
+  if (GOOGLE_SOURCE_NAME_RE.test(clean)) return true;
+  return /^google\b/i.test(clean) && clean.length <= 24;
+}
+
+export function isBlockedSourceName(name: string): boolean {
+  const clean = name.trim();
+  if (!clean) return true;
+  if (/^(com|www|unknown)$/i.test(clean)) return true;
+  return isGoogleSourceName(clean);
+}
+
+export function isPublishableSourceUrl(url: string): boolean {
+  return Boolean(url?.trim()) && !isBlockedSourceUrl(url);
+}
+
+export function isPublishableSourceLink(link: { title: string; url: string }): boolean {
+  return isPublishableSourceUrl(link.url) && !isBlockedSourceName(link.title);
+}
+
+export function sanitizeSourceLinks<T extends { title: string; url: string }>(links: T[]): T[] {
+  return links.filter((l) => isPublishableSourceLink(l));
+}
+
+const URL_IN_TEXT_RE = /https?:\/\/[^\s<>"')\]]+/gi;
+
+export function findBlockedUrlsInText(text: string): string[] {
+  const matches = text.match(URL_IN_TEXT_RE) ?? [];
+  return matches.filter(isDisallowedSocialUrl);
+}
+
+export function stripBlockedUrlsFromText(text: string): string {
+  let out = text;
+  const matches = text.match(URL_IN_TEXT_RE) ?? [];
+  for (const url of matches) {
+    if (isDisallowedSocialUrl(url)) {
+      out = out.split(url).join("");
+    }
+  }
+  return out
+    .replace(/[ \t]+\n/g, "\n")
+    .replace(/\n{3,}/g, "\n\n")
+    .replace(/^\s+Источники:\s*$/gm, "")
+    .trim();
+}
+
+/** Remove publisher attribution and Google labels from Telegram/Threads copy. */
+export function stripSourceAttributionFromText(text: string): string {
+  return text
+    .replace(/^Источник:\s*.+$/gim, "")
+    .replace(/\nИсточник:\s*.+$/gim, "")
+    .replace(/\bИсточник:\s*Google(?:\s+News)?\b/gi, "")
+    .replace(/^Источники:\s*\n(?:.+\shttps?:\/\/[^\n]+\n?)*/gim, "")
+    .replace(/\nИсточники:\s*\n(?:.+\shttps?:\/\/[^\n]+\n?)*/gim, "")
+    .replace(/[ \t]+\n/g, "\n")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+}
+
+export function stripGoogleSourceMentionsFromText(text: string): string {
+  return stripSourceAttributionFromText(stripBlockedUrlsFromText(text));
+}
+
 async function resolveViaDecoder(url: string): Promise<string | null> {
   try {
     const result = await decoder.decode(url);
-    if (result?.status && result.decoded_url && !isGoogleNewsUrl(result.decoded_url)) {
+    if (result?.status && result.decoded_url && isPublishableSourceUrl(result.decoded_url)) {
       return result.decoded_url;
     }
   } catch (e) {
@@ -86,7 +187,7 @@ async function resolveViaRedirect(url: string): Promise<string | null> {
       },
     });
     const finalUrl = res.url || url;
-    if (!isGoogleNewsUrl(finalUrl)) return finalUrl;
+    if (isPublishableSourceUrl(finalUrl)) return finalUrl;
   } catch (e) {
     console.warn("[news] redirect resolve failed:", url, e instanceof Error ? e.message : e);
   }
@@ -99,7 +200,7 @@ export async function resolveArticleUrl(
 ): Promise<{ url: string; publisher: string; headline: string; resolved: boolean }> {
   const parsed = titleHint ? parseGoogleNewsTitle(titleHint) : { headline: titleHint ?? "", publisher: null };
 
-  if (!isGoogleNewsUrl(url)) {
+  if (isPublishableSourceUrl(url)) {
     return {
       url,
       publisher: parsed.publisher || publisherFromDomain(url),
@@ -164,13 +265,13 @@ export async function enrichStoryLinks<T extends { title: string; link: string; 
 
 export function googleNewsLinkRatio(links: Array<{ url: string }>): number {
   if (links.length === 0) return 1;
-  const google = links.filter((l) => isGoogleNewsUrl(l.url)).length;
-  return google / links.length;
+  const blocked = links.filter((l) => isBlockedSourceUrl(l.url)).length;
+  return blocked / links.length;
 }
 
 /** Stories with direct publisher URLs only — required before generation. */
 export function filterResolvableStories<T extends { resolved_link: string; resolved: boolean }>(
   stories: T[]
 ): T[] {
-  return stories.filter((s) => s.resolved && !isGoogleNewsUrl(s.resolved_link));
+  return stories.filter((s) => s.resolved && isPublishableSourceUrl(s.resolved_link));
 }

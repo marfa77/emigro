@@ -1,4 +1,4 @@
-/** @emigro_chat_bot — community link + admin /stats webhook. Separate from news bot. */
+/** @emigro_chat_bot — wizard session deep links + admin /stats webhook. Discussion group: @emigro_chat. */
 
 export function statsBotToken(): string | undefined {
   const token =

@@ -1,15 +1,15 @@
-import { RELOCATOR_CHAT_URL } from "@/lib/community";
-
 export type WizardTelegramMode = "hub" | "corridor";
 
-const DEFAULT_BOT_URL = "https://t.me/emigro_chat_bot";
+/** Wizard session deep links go to the bot, not the discussion group. */
+const WIZARD_BOT_URL =
+  process.env.EMIGRO_CHAT_BOT_PUBLIC_URL?.trim() ?? "https://t.me/emigro_chat_bot";
 const START_PREFIX: Record<WizardTelegramMode, string> = {
   hub: "wiz_hub_",
   corridor: "wiz_corridor_",
 };
 
 function publicTelegramBotUrl(): string {
-  const raw = RELOCATOR_CHAT_URL.trim();
+  const raw = WIZARD_BOT_URL.trim();
   const value = raw.startsWith("@")
     ? `https://t.me/${raw.slice(1)}`
     : raw.startsWith("t.me/")
@@ -18,12 +18,12 @@ function publicTelegramBotUrl(): string {
 
   try {
     const url = new URL(value);
-    if (url.hostname !== "t.me" && url.hostname !== "telegram.me") return DEFAULT_BOT_URL;
+    if (url.hostname !== "t.me" && url.hostname !== "telegram.me") return WIZARD_BOT_URL;
     url.search = "";
     url.hash = "";
     return url.toString().replace(/\/$/, "");
   } catch {
-    return DEFAULT_BOT_URL;
+    return WIZARD_BOT_URL;
   }
 }
 

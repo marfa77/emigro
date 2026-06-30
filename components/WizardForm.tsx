@@ -42,7 +42,7 @@ export function WizardForm({
       passive_income_eur: "Например: 1200",
       savings_eur: "Например: 25000",
       willing_to_invest_eur: "Например: 0 или 250000",
-      annual_salary_eur: "Например: 58000",
+      annual_salary_eur: "Например: 55678",
       study_budget_eur: "Например: 12000",
       relocating_children_count: "0, 1, 2...",
       relocating_parents_count: "0, 1, 2...",

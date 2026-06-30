@@ -4,7 +4,7 @@ import type { NewsDigest } from "@/lib/news/digests";
 import { getNewsDisplayTitle } from "@/lib/news/digests";
 import type { NewsTopicConfig } from "@/lib/news/topics";
 import { newsArticlePath } from "@/lib/news/topics";
-import { isGoogleNewsUrl } from "@/lib/news/article-resolve";
+import { isPublishableSourceLink, isBlockedSourceName } from "@/lib/news/article-resolve";
 
 function formatDateRu(dateString: string) {
   return new Date(dateString).toLocaleDateString("ru-RU", {
@@ -16,7 +16,7 @@ function formatDateRu(dateString: string) {
 
 function readableSourceTitle(title: string, url: string) {
   const clean = title.trim();
-  if (clean && !/^(com|www|unknown|google news)$/i.test(clean)) return clean;
+  if (clean && !isBlockedSourceName(clean)) return clean;
   try {
     return new URL(url).hostname.replace(/^www\./, "");
   } catch {
@@ -107,7 +107,9 @@ export function NewsArticleBody({ digest }: { digest: NewsDigest }) {
                 ))}
               </ul>
             )}
-            {block.source_url && block.source_name && !isGoogleNewsUrl(block.source_url) && (
+            {block.source_url &&
+              block.source_name &&
+              isPublishableSourceLink({ title: block.source_name, url: block.source_url }) && (
               <p className="not-prose mt-3 text-sm text-slate-500">
                 Источник:{" "}
                 <a
@@ -128,12 +130,12 @@ export function NewsArticleBody({ digest }: { digest: NewsDigest }) {
         ))}
       </div>
 
-      {digest.source_links.filter((s) => s.url && !isGoogleNewsUrl(s.url)).length > 0 && (
+      {digest.source_links.filter((s) => isPublishableSourceLink(s)).length > 0 && (
         <section className="mt-8 rounded-xl border border-slate-200 bg-white p-6">
           <h2 className="text-xl font-semibold">Источники недели</h2>
           <ul className="mt-4 space-y-2">
             {digest.source_links
-              .filter((s) => s.url && !isGoogleNewsUrl(s.url))
+              .filter((s) => isPublishableSourceLink(s))
               .map((s) => (
                 <li key={s.url}>
                   <a

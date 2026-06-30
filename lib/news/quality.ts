@@ -1,5 +1,11 @@
 import { CHANNEL_STYLE_BANNED_RU } from "./editorial";
-import { googleNewsLinkRatio, isGoogleNewsUrl } from "./article-resolve";
+import {
+  findBlockedUrlsInText,
+  googleNewsLinkRatio,
+  isBlockedSourceName,
+  isBlockedSourceUrl,
+  isGoogleGroundingRedirectUrl,
+} from "./article-resolve";
 import { domainFromLink, isLowTrustSource } from "./scoring";
 
 type SiteBlock = {
@@ -232,11 +238,13 @@ export function validateSourceLinksQuality(links: Array<{ title: string; url: st
   if (links.length < 3) errors.push("Нужно минимум 3 источника.");
   const ratio = googleNewsLinkRatio(links.map((l) => ({ url: l.url })));
   if (ratio > 0.34) errors.push(`Слишком много ссылок на Google News (${Math.round(ratio * 100)}%) — нужны прямые URL изданий.`);
-  const badTitles = links.filter((l) => /^google news$/i.test(l.title.trim())).length;
-  if (badTitles > 1) errors.push("Источники не должны называться «Google News» — укажи издание.");
-  const genericTitles = links.filter((l) => /^(com|www|unknown)$/i.test(l.title.trim()));
-  if (genericTitles.length > 0) {
-    errors.push(`Источник не должен называться «${genericTitles[0].title}» — нужно нормальное название издания.`);
+  const grounding = links.filter((l) => isGoogleGroundingRedirectUrl(l.url));
+  if (grounding.length > 0) {
+    errors.push("Источники не должны содержать Vertex AI Search grounding redirect URL — нужны прямые URL изданий.");
+  }
+  const badTitles = links.filter((l) => isBlockedSourceName(l.title));
+  if (badTitles.length > 0) {
+    errors.push(`Источники не должны называться «${badTitles[0].title}» — укажи издание, не Google.`);
   }
   const lowTrust = links.find((l) => isLowTrustSource(l.url));
   if (lowTrust) {
@@ -270,8 +278,11 @@ export function validateSiteDigestQuality(params: {
   }
 
   for (const block of blocks) {
-    if (block.source_url && isGoogleNewsUrl(block.source_url)) {
-      errors.push(`Блок «${block.heading}» ссылается на news.google.com — нужен прямой URL издания.`);
+    if (block.source_url && isBlockedSourceUrl(block.source_url)) {
+      errors.push(`Блок «${block.heading}» ссылается на обёртку Google (${block.source_url}) — нужен прямой URL издания.`);
+    }
+    if (block.source_name && isBlockedSourceName(block.source_name)) {
+      errors.push(`Блок «${block.heading}» использует недопустимое имя источника «${block.source_name}».`);
     }
     if (block.source_url && isLowTrustSource(block.source_url)) {
       errors.push(`Блок «${block.heading}» использует слабый источник: ${domainFromLink(block.source_url)}.`);
@@ -311,8 +322,8 @@ export function validateTelegramDigestQuality(params: {
     errors.push(...spainGoldenVisaFactualErrors(text));
   }
 
-  if (params.sourceLinks && params.sourceLinks.some((l) => isGoogleNewsUrl(l.url))) {
-    errors.push("Telegram: все ссылки должны вести на издания, не на Google News.");
+  if (params.sourceLinks && params.sourceLinks.some((l) => isBlockedSourceUrl(l.url))) {
+    errors.push("Telegram: все ссылки должны вести на издания, не на Google News или grounding redirect.");
   }
 
   return Array.from(new Set(errors));
@@ -322,6 +333,20 @@ export function validateThreadsQuality(params: { threadsText: string; topic: str
   const errors = [...editorialGenericErrors(params.threadsText)];
   const posts = params.threadsText.split(/\n\n(?=\d+\/\d+\n)/).filter(Boolean);
   const numbered = posts.filter((p) => /^\d+\/\d+/.test(p.trim()));
+
+  const blockedUrls = findBlockedUrlsInText(params.threadsText);
+  if (blockedUrls.length > 0) {
+    errors.push(
+      "Threads: запрещены Google, Google News, google.com и Vertex AI grounding redirect — только emigro.online и t.me."
+    );
+  }
+
+  const allowedUrlRe = /^https?:\/\/(?:www\.)?emigro\.online\/|(?:https?:\/\/)?(?:t\.me\/|telegram\.me\/)/i;
+  const allUrls = params.threadsText.match(/https?:\/\/[^\s<>"')\]]+/gi) ?? [];
+  const disallowed = allUrls.filter((url) => !allowedUrlRe.test(url));
+  if (disallowed.length > 0) {
+    errors.push("Threads: в тексте допустимы только ссылки на emigro.online и t.me/telegram.");
+  }
 
   if (numbered.length < 3) {
     errors.push("Threads: нужно минимум 3 нумерованных поста для копипаста.");
@@ -337,12 +362,24 @@ export function validateThreadsQuality(params: { threadsText: string; topic: str
     errors.push("Threads: нет конкретных сущностей (AIMA, D8, консульство, закон).");
   }
 
-  if (/google news/i.test(params.threadsText)) {
-    errors.push("Threads: не должно быть ссылок на Google News — только издания.");
+  if (/\bgoogle(?:\s+news|\s+search)?\b/i.test(params.threadsText)) {
+    errors.push("Threads: не должно быть упоминаний Google как источника.");
   }
 
-  if (/^Источник:\s*(?:Com|Unknown|Google News)\b/im.test(params.threadsText)) {
-    errors.push("Threads: источник не должен называться Com/Unknown/Google News.");
+  if (/^Источник:\s*/im.test(params.threadsText)) {
+    errors.push("Threads: не должно быть строк «Источник: …» — только emigro.online и канал Telegram.");
+  }
+
+  if (/^Источники:/im.test(params.threadsText)) {
+    errors.push("Threads: не должно быть блока «Источники:» — только «Полная версия» и «Канал».");
+  }
+
+  if (/^Emigro:\s*https?:\/\//im.test(params.threadsText)) {
+    errors.push("Threads: не должно быть строк «Emigro: …» — используй «Полная версия».");
+  }
+
+  if (/(?:^|\s)Источник:\s*(?:Com|Unknown|Google(?:\s+News)?)\b/im.test(params.threadsText)) {
+    errors.push("Threads: источник не должен называться Com/Unknown/Google.");
   }
 
   if (/(?:mshale\.com|harici\.com\.tr)/i.test(params.threadsText)) {

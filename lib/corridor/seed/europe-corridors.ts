@@ -867,8 +867,8 @@ export const EUROPE_CORRIDORS: CorridorSeed[] = [
         category: "timeline",
         titleEn: "Blue Card → permanent residence",
         titleRu: "Blue Card → ПМЖ",
-        bodyEn: "Blue Card holders may qualify for Niederlassungserlaubnis after 21–33 months depending on language and pension contributions.",
-        bodyRu: "Держатели Blue Card могут получить Niederlassungserlaubnis через 21–33 мес. при условии языка и взносов.",
+        bodyEn: "Blue Card holders may qualify for Niederlassungserlaubnis after 21–27 months (B1 — 21, A1 — 27; §18c AufenthG, from 01.03.2024) with pension contributions.",
+        bodyRu: "Держатели Blue Card могут получить Niederlassungserlaubnis через 21–27 мес. (B1 — 21, A1 — 27; §18c AufenthG, с 01.03.2024) при взносах в RV.",
       },
       {
         category: "practical",

@@ -1,8 +1,13 @@
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
-import { enrichStoryLinks } from "@/lib/news/article-resolve";
+import { enrichStoryLinks, sanitizeSourceLinks } from "@/lib/news/article-resolve";
 import {
-  fetchPrep2GoArticle,
-  fetchPrep2GoRssItems,
+  fetchPrep2GoArticleContent,
+  fetchPrep2GoListingItems,
+  isPrep2GoDbConfigured,
+  prep2GoListingSource,
+} from "@/lib/news/prep2go-db-fetch";
+import {
+  probePrep2GoArticleForWeekEnd,
   weekStartFromWeekEnd,
   type Prep2GoRssItem,
 } from "@/lib/news/prep2go-fetch";
@@ -77,6 +82,88 @@ function isWithinLastHours(pubDate: string, hours: number): boolean {
   return Date.now() - ts <= hours * 60 * 60 * 1000;
 }
 
+function utcTodayDate(): string {
+  return new Date().toISOString().slice(0, 10);
+}
+
+/** week_end in slug is the editorial date; allow a few days back for timezone / RSS lag. */
+function isRecentWeekEnd(weekEnd: string, maxDaysBack: number): boolean {
+  const endMs = Date.parse(`${weekEnd}T12:00:00.000Z`);
+  if (Number.isNaN(endMs)) return false;
+  const todayMs = Date.parse(`${utcTodayDate()}T12:00:00.000Z`);
+  return endMs >= todayMs - maxDaysBack * 24 * 60 * 60 * 1000;
+}
+
+function compareWeekEndPreference(a: Prep2GoRssItem, b: Prep2GoRssItem, today: string): number {
+  const aToday = a.weekEnd === today ? 1 : 0;
+  const bToday = b.weekEnd === today ? 1 : 0;
+  if (aToday !== bToday) return bToday - aToday;
+  return b.weekEnd.localeCompare(a.weekEnd);
+}
+
+async function filterUnimportedRecentItems(
+  supabase: SupabaseClient,
+  items: Prep2GoRssItem[],
+  maxDaysBack: number
+): Promise<Prep2GoRssItem[]> {
+  const today = utcTodayDate();
+  const unimported: Prep2GoRssItem[] = [];
+
+  for (const item of items) {
+    if (!isRecentWeekEnd(item.weekEnd, maxDaysBack)) continue;
+    const emigroSlug = buildNewsDigestSlug(item.topicKey, item.weekEnd);
+    if (await slugExists(supabase, emigroSlug)) continue;
+    unimported.push(item);
+  }
+
+  unimported.sort((a, b) => compareWeekEndPreference(a, b, today));
+  return unimported;
+}
+
+async function resolveDailyPrep2GoCandidate(supabase: SupabaseClient): Promise<{
+  item: Prep2GoRssItem | null;
+  skipped: number;
+}> {
+  const today = utcTodayDate();
+  const maxDaysBack = 3;
+  let skipped = 0;
+
+  const listingItems = await fetchPrep2GoListingItems();
+  for (const item of listingItems) {
+    if (!isRecentWeekEnd(item.weekEnd, maxDaysBack)) continue;
+    const emigroSlug = buildNewsDigestSlug(item.topicKey, item.weekEnd);
+    if (await slugExists(supabase, emigroSlug)) skipped += 1;
+  }
+
+  const candidates = await filterUnimportedRecentItems(supabase, listingItems, maxDaysBack);
+  if (candidates.length > 0) {
+    return { item: candidates[0], skipped };
+  }
+
+  // When DB is configured it is authoritative; skip URL probes. RSS/HTML probe only as fallback.
+  if (isPrep2GoDbConfigured() && prep2GoListingSource() === "db") {
+    return { item: null, skipped };
+  }
+
+  // RSS may lag behind the site (e.g. Italy published but not yet in feed.xml).
+  for (let daysBack = 0; daysBack <= 1; daysBack += 1) {
+    const probeDate = new Date(`${today}T12:00:00.000Z`);
+    probeDate.setUTCDate(probeDate.getUTCDate() - daysBack);
+    const weekEnd = probeDate.toISOString().slice(0, 10);
+    const probed = await probePrep2GoArticleForWeekEnd(weekEnd);
+    if (!probed) continue;
+
+    const emigroSlug = buildNewsDigestSlug(probed.topicKey, probed.weekEnd);
+    if (await slugExists(supabase, emigroSlug)) {
+      skipped += 1;
+      continue;
+    }
+    return { item: probed, skipped };
+  }
+
+  return { item: null, skipped };
+}
+
 async function slugExists(supabase: SupabaseClient, slug: string): Promise<boolean> {
   const { data } = await supabase.from("emigro_news_digests").select("id").eq("slug", slug).maybeSingle();
   return Boolean(data);
@@ -101,7 +188,7 @@ export async function importOnePrep2GoItem(
     }
 
     const topic = await getNewsTopicOrThrow(item.topicKey);
-    const article = await fetchPrep2GoArticle(item);
+    const article = await fetchPrep2GoArticleContent(item);
 
     if (article.sections.length === 0) {
       return { ...base, status: "skipped", reason: "no content sections parsed" };
@@ -113,10 +200,12 @@ export async function importOnePrep2GoItem(
       source: s.title,
     }));
     const enriched = await enrichStoryLinks(rawSources);
-    const resolvedSources = enriched.map((s) => ({
-      title: s.resolved_source,
-      url: s.resolved_link,
-    }));
+    const resolvedSources = sanitizeSourceLinks(
+      enriched.filter((s) => s.resolved).map((s) => ({
+        title: s.resolved_source,
+        url: s.resolved_link,
+      }))
+    );
 
     const weekStart = weekStartFromWeekEnd(item.weekEnd);
     const translated = await translatePrep2GoArticle(article, topic, weekStart, resolvedSources);
@@ -237,7 +326,7 @@ export async function importPrep2GoNews(options: ImportPrep2GoOptions = {}): Pro
 
   const supabase = createSupabaseAdmin();
 
-  let items = await fetchPrep2GoRssItems();
+  let items = await fetchPrep2GoListingItems();
 
   if (maxAgeHours != null) {
     items = items.filter((i) => isWithinLastHours(i.pubDate, maxAgeHours));
@@ -270,58 +359,42 @@ export async function importPrep2GoNews(options: ImportPrep2GoOptions = {}): Pro
 }
 
 /**
- * Daily cron: import at most one newest Prep2Go article not yet in Supabase.
- * Considers RSS items published in the last 24 hours only.
+ * Daily cron: import at most one Prep2Go article not yet in emigro_news_digests.
+ * Source: CIPLE A2 Supabase `news_digests` (PREP2GO_SUPABASE_*).
+ * Prefers highest recent week_end (today first); RSS/HTML probe only when DB unreachable.
  */
 export async function importLatestPrep2GoNews(): Promise<DailyPrep2GoImportResult> {
   const supabase = createSupabaseAdmin();
-  const maxAgeHours = 24;
+  const { item, skipped } = await resolveDailyPrep2GoCandidate(supabase);
 
-  let items = await fetchPrep2GoRssItems();
-  items = items.filter((i) => isWithinLastHours(i.pubDate, maxAgeHours));
-
-  if (items.length === 0) {
-    return { imported: 0, skipped: 0, message: "nothing new" };
+  if (!item) {
+    return { imported: 0, skipped, message: "nothing new" };
   }
 
-  let skipped = 0;
+  const result = await importOnePrep2GoItem(item, { dryRun: false, force: false, supabase });
 
-  for (const item of items) {
-    const emigroSlug = buildNewsDigestSlug(item.topicKey, item.weekEnd);
-
-    if (await slugExists(supabase, emigroSlug)) {
-      skipped += 1;
-      continue;
-    }
-
-    const result = await importOnePrep2GoItem(item, { dryRun: false, force: false, supabase });
-
-    if (result.status === "imported") {
-      await postImportActions([result]);
-      return {
-        imported: 1,
-        skipped,
-        slug: result.emigroSlug,
-        titleRu: result.titleRu,
-        titleEn: result.titleEn,
-        topic: result.topic,
-      };
-    }
-
-    if (result.status === "skipped") {
-      skipped += 1;
-      continue;
-    }
-
+  if (result.status === "imported") {
+    await postImportActions([result]);
     return {
-      imported: 0,
+      imported: 1,
       skipped,
       slug: result.emigroSlug,
+      titleRu: result.titleRu,
       titleEn: result.titleEn,
       topic: result.topic,
-      error: result.reason,
     };
   }
 
-  return { imported: 0, skipped, message: "nothing new" };
+  if (result.status === "skipped") {
+    return { imported: 0, skipped: skipped + 1, slug: result.emigroSlug, message: result.reason };
+  }
+
+  return {
+    imported: 0,
+    skipped,
+    slug: result.emigroSlug,
+    titleEn: result.titleEn,
+    topic: result.topic,
+    error: result.reason,
+  };
 }

@@ -22,7 +22,7 @@ official_sources:
     label: Польша — Office for Foreigners (UDSC)
 estimated_minutes: 14
 date_published: 2026-06-27
-date_modified: 2026-06-27
+date_modified: 2026-07-01
 ---
 
 ## Прямой ответ
@@ -71,7 +71,7 @@ Emigro wizard учитывает `passport_iso2 = KZ` при оценке про
 | Общий / shortage / новые выпускники | **€45 934/год** брутто |
 | Стандартный порог всех профессий | **€50 700/год** брутто |
 
-**Плюсы для KZ:** сильный IT-рынок; работодатели привыкли к international hire; Blue Card → ПМЖ за 21–33 мес.
+**Плюсы для KZ:** сильный IT-рынок; работодатели привыкли к international hire; Blue Card → ПМЖ за 21–27 мес. (B1 — 21, A1 — 27).
 
 Подробнее: [гайд ВНЖ Германия](/ru/guides/vnj-germaniya-2026) · [коридор](/ru/germany).
 

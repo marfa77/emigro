@@ -1,4 +1,5 @@
 import Parser from "rss-parser";
+import { isPublishableSourceUrl } from "@/lib/news/article-resolve";
 
 const RSS_URL = "https://www.prep2go.study/news/feed.xml";
 const USER_AGENT = "EmigroNewsImport/1.0 (+https://www.emigro.online)";
@@ -25,7 +26,7 @@ export type Prep2GoArticle = Prep2GoRssItem & {
   sources: Array<{ title: string; url: string }>;
 };
 
-const VALID_TOPICS = new Set([
+export const PREP2GO_TOPIC_KEYS = [
   "portugal",
   "spain",
   "france",
@@ -36,7 +37,9 @@ const VALID_TOPICS = new Set([
   "poland",
   "czechia",
   "austria",
-]);
+] as const;
+
+const VALID_TOPICS = new Set<string>(PREP2GO_TOPIC_KEYS);
 
 function stripHtml(html: string): string {
   return html
@@ -61,6 +64,43 @@ export function topicKeyFromPrep2GoSlug(slug: string): string | null {
 export function weekEndFromPrep2GoSlug(slug: string): string | null {
   const match = slug.match(/(\d{4}-\d{2}-\d{2})$/);
   return match?.[1] ?? null;
+}
+
+export function buildPrep2GoNewsLink(topicKey: string, weekEnd: string): string {
+  return `https://www.prep2go.study/news/${topicKey}-citizenship-residency-news-${weekEnd}`;
+}
+
+export function buildPrep2GoNewsSlug(topicKey: string, weekEnd: string): string {
+  return `${topicKey}-citizenship-residency-news-${weekEnd}`;
+}
+
+export async function prep2GoArticleExists(link: string): Promise<boolean> {
+  const res = await fetch(link, {
+    method: "HEAD",
+    headers: { "User-Agent": USER_AGENT },
+    signal: AbortSignal.timeout(10_000),
+  });
+  return res.ok;
+}
+
+/** When RSS lags, probe Prep2Go for an article published on a given week_end date. */
+export async function probePrep2GoArticleForWeekEnd(weekEnd: string): Promise<Prep2GoRssItem | null> {
+  for (const topicKey of PREP2GO_TOPIC_KEYS) {
+    const prep2goSlug = buildPrep2GoNewsSlug(topicKey, weekEnd);
+    const link = buildPrep2GoNewsLink(topicKey, weekEnd);
+    if (!(await prep2GoArticleExists(link))) continue;
+
+    return {
+      title: "",
+      link,
+      pubDate: new Date().toISOString(),
+      excerpt: "",
+      topicKey,
+      weekEnd,
+      prep2goSlug,
+    };
+  }
+  return null;
 }
 
 export async function fetchPrep2GoRssItems(): Promise<Prep2GoRssItem[]> {
@@ -124,7 +164,7 @@ function parseArticleHtml(html: string): Pick<Prep2GoArticle, "keyTakeaways" | "
       for (const m of Array.from(body.matchAll(/<a[^>]+href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/gi))) {
         const url = m[1].trim();
         const title = stripHtml(m[2]);
-        if (url.startsWith("http") && title) sources.push({ title, url });
+        if (url.startsWith("http") && title && isPublishableSourceUrl(url)) sources.push({ title, url });
       }
       continue;
     }

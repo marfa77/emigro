@@ -1,5 +1,6 @@
 import type { NewsTopicConfig } from "@/lib/news/topics";
 import { CHANNEL_STYLE_BANNED_RU } from "@/lib/news/editorial";
+import { stripGoogleSourceMentionsFromText } from "@/lib/news/article-resolve";
 import { domainFromLink, isLowTrustSource } from "@/lib/news/scoring";
 
 export type ThreadsFactBlock = {
@@ -100,13 +101,6 @@ function buildThreadsPost(parts: string[], max = 500): string {
   return truncateAtSentence(joined, max);
 }
 
-function readableSourceName(source?: string): string {
-  const clean = compactPlainText(source ?? "");
-  if (!clean) return "";
-  if (/^(com|www|unknown|google news)$/i.test(clean)) return "";
-  return clean;
-}
-
 function buildDigestHeader(topic: NewsTopicConfig, weekFrom: Date, weekEnd: Date, excerpt: string, title: string): string {
   return [
     `${topic.flag} ${topic.countryRu}: ${compactPlainText(title) || "новость Prep2Go"}`,
@@ -126,10 +120,8 @@ type SiteContentBlock = {
   source_url?: string;
 };
 
-function isNewsSourceUrl(url: string): boolean {
-  const domain = domainFromLink(url).toLowerCase();
-  if (!domain || domain.includes("lemonsqueezy") || domain.includes("emigro.online")) return false;
-  return !isThreadsWeakSource(url);
+function finalizeThreadsText(text: string): string {
+  return stripGoogleSourceMentionsFromText(text);
 }
 
 function isThreadsWeakSource(url?: string): boolean {
@@ -153,36 +145,11 @@ function blockScore(block: SiteContentBlock): number {
 function buildStoryPost(block: SiteContentBlock): string {
   const factParts = block.paragraphs.map(stripThreadsWater).filter(Boolean);
   const bulletLines = (block.bullets ?? []).map((b) => `• ${stripThreadsWater(b)}`).filter((b) => b.length > 3);
-  const sourceName = readableSourceName(block.source_name);
-  const showSource = block.source_url && !isThreadsWeakSource(block.source_url) && sourceName;
-  const source = showSource ? `\nИсточник: ${sourceName}` : "";
-  return buildThreadsPost([block.heading, ...factParts, bulletLines.join("\n"), source]);
+  return buildThreadsPost([block.heading, ...factParts, bulletLines.join("\n")]);
 }
 
-function buildSourcesFinalPost(params: {
-  channelUrl: string;
-  siteArticleUrl: string;
-  sourceLinks?: Array<{ title: string; url: string }>;
-}): string {
-  const externalSources = (params.sourceLinks ?? [])
-    .filter((s) => s.url && isNewsSourceUrl(s.url))
-    .slice(0, 4)
-    .map((s) => {
-      const sourceName = readableSourceName(s.title) || domainFromLink(s.url);
-      return `${sourceName}: ${s.url}`;
-    });
-
-  const sources = [`Emigro: ${params.siteArticleUrl}`];
-  for (const source of externalSources) {
-    const next = [...sources, source];
-    const candidate = [`Полная версия: ${params.siteArticleUrl}`, `Канал: ${params.channelUrl}`, `Источники:\n${next.join("\n")}`].join(
-      "\n"
-    );
-    if (candidate.length > 500) break;
-    sources.push(source);
-  }
-
-  return [`Полная версия: ${params.siteArticleUrl}`, `Канал: ${params.channelUrl}`, `Источники:\n${sources.join("\n")}`].join("\n");
+function buildSourcesFinalPost(params: { channelUrl: string; siteArticleUrl: string }): string {
+  return [`Полная версия: ${params.siteArticleUrl}`, `Канал: ${params.channelUrl}`].join("\n");
 }
 
 export function buildThreadsFromSiteDigest(params: {
@@ -210,11 +177,11 @@ export function buildThreadsFromSiteDigest(params: {
   const posts = [
     buildThreadsPost([buildDigestHeader(topic, weekFrom, weekEnd, excerpt, title)]),
     ...storyPosts,
-    buildSourcesFinalPost({ channelUrl, siteArticleUrl, sourceLinks: params.sourceLinks }),
+    buildSourcesFinalPost({ channelUrl, siteArticleUrl }),
   ].filter((post) => post.length > 0);
 
   const numbered = posts.map((post, idx, arr) => `${idx + 1}/${arr.length}\n${post}`);
-  return numbered.join("\n\n");
+  return finalizeThreadsText(numbered.join("\n\n"));
 }
 
 export function buildThreadsThreadFromDigestHtml(params: {
@@ -242,9 +209,9 @@ export function buildThreadsThreadFromDigestHtml(params: {
   const posts = [
     buildThreadsPost([buildDigestHeader(topic, weekFrom, weekEnd, hook || fallbackExcerpt || "", "")]),
     ...storyPosts,
-    buildSourcesFinalPost({ channelUrl, siteArticleUrl, sourceLinks: params.sourceLinks }),
+    buildSourcesFinalPost({ channelUrl, siteArticleUrl }),
   ].filter((post) => post.length > 0);
 
   const numbered = posts.map((post, idx, arr) => `${idx + 1}/${arr.length}\n${post}`);
-  return numbered.join("\n\n");
+  return finalizeThreadsText(numbered.join("\n\n"));
 }

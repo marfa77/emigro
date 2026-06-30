@@ -20,7 +20,13 @@ import {
   buildTelegramPrompts,
 } from "@/lib/news/prompts";
 import { validateSiteDigestQuality, validateTelegramDigestQuality, validateThreadsQuality } from "@/lib/news/quality";
-import { enrichStoryLinks, filterResolvableStories, googleNewsLinkRatio } from "@/lib/news/article-resolve";
+import {
+  enrichStoryLinks,
+  filterResolvableStories,
+  googleNewsLinkRatio,
+  sanitizeSourceLinks,
+  stripGoogleSourceMentionsFromText,
+} from "@/lib/news/article-resolve";
 import { isLowTrustSource } from "@/lib/news/scoring";
 import { collectNewsItems, isCriticalItem, type RawNewsItem } from "@/lib/news/rss";
 import {
@@ -30,6 +36,7 @@ import {
   enforceSinglePostLimit,
   ensureTelegramHtmlBlockSpacing,
   sanitizeTelegramHtml,
+  sanitizeTelegramHtmlForPublish,
   stripLeadingWeekBannerLine,
   weekHeaderLine,
   type SelectedStory,
@@ -339,7 +346,16 @@ export async function runWeeklyNewsForTopic(
     };
   }
 
-  const sourceLinks = resolvedSelected.map((s) => ({ title: s.resolved_source, url: s.resolved_link }));
+  const sourceLinks = sanitizeSourceLinks(
+    resolvedSelected.map((s) => ({ title: s.resolved_source, url: s.resolved_link }))
+  );
+  if (sourceLinks.length < MIN_SELECTED_FLOOR) {
+    return {
+      outcome: "skipped",
+      topic: topic.key,
+      reason: `not enough publishable source links after filtering (${sourceLinks.length})`,
+    };
+  }
   if (googleNewsLinkRatio(sourceLinks) > 0) {
     return { outcome: "skipped", topic: topic.key, reason: "source links still contain Google News URLs" };
   }
@@ -400,6 +416,9 @@ export async function runWeeklyNewsForTopic(
     throw new Error(`Threads digest failed QA: ${threadsErrors.join("; ")}`);
   }
 
+  finalThreadsText = stripGoogleSourceMentionsFromText(finalThreadsText);
+  const sanitizedTelegramHtml = sanitizeTelegramHtmlForPublish(telegramHtml);
+
   const payload = {
     slug,
     corridor_slug: topic.corridorSlug,
@@ -414,7 +433,7 @@ export async function runWeeklyNewsForTopic(
     key_takeaways: siteDigest.key_takeaways,
     tags: Array.from(new Set([...siteDigest.tags, ...topic.seoTags])).slice(0, 12),
     source_links: sourceLinks,
-    telegram_html: telegramHtml,
+    telegram_html: sanitizedTelegramHtml,
     threads_text: finalThreadsText,
     week_start: weekStartYmd,
     week_end: weekEndYmd,

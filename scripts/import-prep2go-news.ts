@@ -9,7 +9,7 @@
  */
 import { config } from "dotenv";
 import { resolve } from "path";
-import { importPrep2GoNews } from "../lib/news/import-prep2go";
+import { importLatestPrep2GoNews, importPrep2GoNews } from "../lib/news/import-prep2go";
 
 config({ path: resolve(process.cwd(), ".env.local") });
 config({ path: resolve(process.cwd(), ".env") });
@@ -24,8 +24,9 @@ function parseArgs() {
   const concurrency = concurrencyArg ? Math.max(1, Math.min(5, Number(concurrencyArg))) : 2;
   const daily = process.argv.includes("--daily");
   const skipTelegram = process.argv.includes("--skip-telegram");
-  const maxAgeHours = daily ? 24 : undefined;
-  return { dryRun, force, topicArg, limit: daily ? 1 : limit, concurrency, maxAgeHours, daily, skipTelegram };
+  const maxAgeHoursArg = process.argv.find((a) => a.startsWith("--max-age-hours="))?.split("=")[1];
+  const maxAgeHours = maxAgeHoursArg ? Math.max(1, Number(maxAgeHoursArg)) : undefined;
+  return { dryRun, force, topicArg, limit, concurrency, maxAgeHours, daily, skipTelegram };
 }
 
 async function main() {
@@ -35,6 +36,13 @@ async function main() {
   console.log(
     `   concurrency=${concurrency}, dryRun=${dryRun}, force=${force}, skipTelegram=${skipTelegram || dryRun}\n`
   );
+
+  if (daily && !dryRun && !force && !topicArg) {
+    const result = await importLatestPrep2GoNews();
+    console.log("\n=== Daily import ===");
+    console.log(JSON.stringify(result, null, 2));
+    return;
+  }
 
   const summary = await importPrep2GoNews({
     dryRun,

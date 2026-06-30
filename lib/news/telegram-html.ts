@@ -1,5 +1,10 @@
 import { CHANNEL_STYLE_BANNED_RU, TELEGRAM_DIGEST_MAX_CHARS } from "./editorial";
-import { isGoogleNewsUrl } from "./article-resolve";
+import {
+  isBlockedSourceName,
+  isBlockedSourceUrl,
+  isGoogleDomainUrl,
+  stripGoogleSourceMentionsFromText,
+} from "./article-resolve";
 import { isCriticalInvestorRiskText } from "./scoring";
 
 export type SelectedStory = {
@@ -72,10 +77,27 @@ export function digestHtmlFormatViolation(html: string, selected: SelectedStory[
   if (banned) return `avoid LLM style marker: "${banned[0]}"`;
   const googleAnchors = (html.match(/<a\s+href\s*=\s*"([^"]+)"/gi) ?? []).filter((a) => {
     const m = a.match(/href\s*=\s*"([^"]+)"/i);
-    return m && isGoogleNewsUrl(m[1]);
+    return m && (isBlockedSourceUrl(m[1]) || isGoogleDomainUrl(m[1]));
   });
-  if (googleAnchors.length > 1) return `too many Google News links in sources (${googleAnchors.length})`;
+  if (googleAnchors.length > 0) return `blocked Google wrapper links in sources (${googleAnchors.length})`;
+  const googleLabels = (html.match(/<a\s+[^>]*>([\s\S]*?)<\/a>/gi) ?? []).filter((a) => {
+    const m = a.match(/>([\s\S]*?)<\/a>/i);
+    return m && isBlockedSourceName(stripTelegramHtmlToText(m[1]));
+  });
+  if (googleLabels.length > 0) return `blocked Google source labels in anchors (${googleLabels.length})`;
   return null;
+}
+
+export function sanitizeTelegramHtmlForPublish(html: string): string {
+  let out = sanitizeTelegramHtml(html);
+  out = out.replace(/<a\s+[^>]*href\s*=\s*"([^"]+)"[^>]*>([\s\S]*?)<\/a>/gi, (match, href, inner) => {
+    const label = stripTelegramHtmlToText(inner);
+    if (isBlockedSourceUrl(href) || isGoogleDomainUrl(href) || isBlockedSourceName(label)) {
+      return isBlockedSourceName(label) ? "" : label;
+    }
+    return match;
+  });
+  return stripGoogleSourceMentionsFromText(out);
 }
 
 export function buildDeterministicDigestFallback(
