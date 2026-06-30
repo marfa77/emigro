@@ -199,8 +199,6 @@ export function rootMetadata(): Metadata {
     description: fitMetaDescription(
       "Коридорный навигатор для русскоязычных: маршруты ВНЖ, wizard подбора, справочник и еженедельные новости по Европе."
     ),
-    alternates: hreflangAlternates("/ru"),
-    robots: { index: true, follow: true },
     icons: {
       icon: [
         { url: "/favicon.ico", sizes: "any" },
@@ -212,15 +210,5 @@ export function rootMetadata(): Metadata {
       shortcut: [{ url: "/favicon.ico" }],
     },
     ...(Object.keys(verification).length ? { verification } : {}),
-    openGraph: {
-      title: "Emigro — навигатор релокации в Европу",
-      description: fitMetaDescription(
-        "Коридорный навигатор для русскоязычных: маршруты ВНЖ, wizard подбора, справочник и еженедельные новости."
-      ),
-      url: pageUrl("/ru"),
-      siteName: SITE_NAME,
-      locale: "ru_RU",
-      type: "website",
-    },
   });
 }

@@ -33,7 +33,11 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
     ogImage: schemaImage("/images/og/guides-index.jpg"),
   });
 
-  if (searchParams.cat && isGuideCategoryId(searchParams.cat)) {
+  const hasFilter =
+    (searchParams.cat && isGuideCategoryId(searchParams.cat)) ||
+    (searchParams.aud && isGuideAudienceId(searchParams.aud));
+
+  if (hasFilter) {
     return {
       ...metadata,
       alternates: {
