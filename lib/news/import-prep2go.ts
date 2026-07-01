@@ -7,6 +7,7 @@ import {
   prep2GoListingSource,
 } from "@/lib/news/prep2go-db-fetch";
 import {
+  prep2GoRssItemFromUrl,
   probePrep2GoArticleForWeekEnd,
   weekStartFromWeekEnd,
   type Prep2GoRssItem,
@@ -309,6 +310,33 @@ async function postImportActions(imported: Prep2GoImportResult[]): Promise<void>
   const site = publicSiteUrl();
   const urls = [`${site}/ru/news`, ...imported.map((r) => newsArticleUrl(r.emigroSlug))];
   await pingIndexNow(urls);
+}
+
+/** Import a single Prep2Go article by URL (CLI --url). */
+export async function importPrep2GoFromUrl(
+  url: string,
+  options: Pick<ImportPrep2GoOptions, "dryRun" | "force" | "skipTelegram"> = {}
+): Promise<ImportPrep2GoSummary> {
+  const { dryRun = false, force = false, skipTelegram = false } = options;
+  const supabase = createSupabaseAdmin();
+  const item = await prep2GoRssItemFromUrl(url);
+  const result = await importOnePrep2GoItem(item, {
+    dryRun,
+    force,
+    supabase,
+    skipTelegram: dryRun || skipTelegram,
+  });
+
+  if (!dryRun && result.status === "imported") {
+    await postImportActions([result]);
+  }
+
+  return {
+    results: [result],
+    imported: result.status === "imported" ? 1 : 0,
+    skipped: result.status === "skipped" ? 1 : 0,
+    failed: result.status === "failed" ? 1 : 0,
+  };
 }
 
 /** Bulk import from Prep2Go RSS (CLI). */

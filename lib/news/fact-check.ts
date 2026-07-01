@@ -615,7 +615,7 @@ Return JSON:
 - warnings: non-blocking issues only
 - high_risk_claims: one object per visa/residency/citizenship/legal-status claim, with the dimensions requested above`;
 
-  const verdict = await geminiFastJson<LlmFactCheckVerdict>(system, user, SCHEMA_FACT_CHECK, 4096);
+  const verdict = await geminiFastJson<LlmFactCheckVerdict>(system, user, SCHEMA_FACT_CHECK, 8192);
   const claimErrors = (verdict.high_risk_claims ?? [])
     .filter((claim) => claim?.missing_critical_qualifier || claim?.misleading_framing)
     .map((claim) => {
@@ -669,12 +669,34 @@ export async function runPrep2GoFactCheck(params: RunPrep2GoFactCheckParams): Pr
     return deterministic;
   }
 
-  const llm = await llmPrep2GoFactCheck({
-    stage: params.stage,
-    generatedText,
-    sourceText,
-    topic: params.topic,
-  });
+  let llm: Prep2GoFactCheckReport | null = null;
+  let lastLlmError: Error | undefined;
+  for (let attempt = 0; attempt < 3; attempt += 1) {
+    try {
+      llm = await llmPrep2GoFactCheck({
+        stage: params.stage,
+        generatedText,
+        sourceText,
+        topic: params.topic,
+      });
+      lastLlmError = undefined;
+      break;
+    } catch (e) {
+      lastLlmError = e instanceof Error ? e : new Error(String(e));
+      const retryable = /invalid JSON|JSON at position/i.test(lastLlmError.message);
+      if (!retryable || attempt === 2) break;
+    }
+  }
+
+  if (!llm) {
+    if (deterministic.ok) {
+      console.warn(
+        `[fact-check:${params.stage}] LLM check unavailable (${lastLlmError?.message ?? "unknown"}); using deterministic pass`
+      );
+      return deterministic;
+    }
+    throw lastLlmError ?? new Error("LLM fact-check failed");
+  }
 
   return {
     ok: llm.ok,

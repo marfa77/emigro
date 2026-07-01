@@ -6,10 +6,12 @@
  *   npx tsx scripts/import-prep2go-news.ts --dry-run --limit=3
  *   npx tsx scripts/import-prep2go-news.ts --topic=portugal
  *   npx tsx scripts/import-prep2go-news.ts --force
+ *   npx tsx scripts/import-prep2go-news.ts --url=https://www.prep2go.study/news/france-citizenship-residency-news-2026-07-01 --force
+ *   npm run news:import-prep2go -- --url=https://www.prep2go.study/news/... --force --skip-telegram
  */
 import { config } from "dotenv";
 import { resolve } from "path";
-import { importLatestPrep2GoNews, importPrep2GoNews } from "../lib/news/import-prep2go";
+import { importLatestPrep2GoNews, importPrep2GoFromUrl, importPrep2GoNews } from "../lib/news/import-prep2go";
 
 config({ path: resolve(process.cwd(), ".env.local") });
 config({ path: resolve(process.cwd(), ".env") });
@@ -26,16 +28,23 @@ function parseArgs() {
   const skipTelegram = process.argv.includes("--skip-telegram");
   const maxAgeHoursArg = process.argv.find((a) => a.startsWith("--max-age-hours="))?.split("=")[1];
   const maxAgeHours = maxAgeHoursArg ? Math.max(1, Number(maxAgeHoursArg)) : undefined;
-  return { dryRun, force, topicArg, limit, concurrency, maxAgeHours, daily, skipTelegram };
+  const urlArg = process.argv.find((a) => a.startsWith("--url="))?.substring("--url=".length).trim();
+  return { dryRun, force, topicArg, limit, concurrency, maxAgeHours, daily, skipTelegram, urlArg };
 }
 
 async function main() {
-  const { dryRun, force, topicArg, limit, concurrency, maxAgeHours, daily, skipTelegram } = parseArgs();
+  const { dryRun, force, topicArg, limit, concurrency, maxAgeHours, daily, skipTelegram, urlArg } = parseArgs();
 
-  console.log(`📰 Prep2Go import${daily ? " (daily mode)" : ""}`);
+  console.log(`📰 Prep2Go import${daily ? " (daily mode)" : urlArg ? " (single URL)" : ""}`);
   console.log(
-    `   concurrency=${concurrency}, dryRun=${dryRun}, force=${force}, skipTelegram=${skipTelegram || dryRun}\n`
+    `   concurrency=${concurrency}, dryRun=${dryRun}, force=${force}, skipTelegram=${skipTelegram || dryRun}${urlArg ? `, url=${urlArg}` : ""}\n`
   );
+
+  if (urlArg) {
+    const summary = await importPrep2GoFromUrl(urlArg, { dryRun, force, skipTelegram });
+    printSummary(summary);
+    return;
+  }
 
   if (daily && !dryRun && !force && !topicArg) {
     const result = await importLatestPrep2GoNews();
@@ -54,6 +63,10 @@ async function main() {
     skipTelegram,
   });
 
+  printSummary(summary);
+}
+
+function printSummary(summary: Awaited<ReturnType<typeof importPrep2GoNews>>) {
   const imported = summary.results.filter((r) => r.status === "imported");
   const skipped = summary.results.filter((r) => r.status === "skipped");
   const failed = summary.results.filter((r) => r.status === "failed");

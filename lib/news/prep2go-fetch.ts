@@ -74,6 +74,37 @@ export function buildPrep2GoNewsSlug(topicKey: string, weekEnd: string): string 
   return `${topicKey}-citizenship-residency-news-${weekEnd}`;
 }
 
+export async function fetchPrep2GoArticleTitle(link: string): Promise<string> {
+  const res = await fetch(link, {
+    headers: { "User-Agent": USER_AGENT, Accept: "text/html" },
+    signal: AbortSignal.timeout(30_000),
+  });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  const html = await res.text();
+  const og = html.match(/property="og:title"\s+content="([^"]+)"/i)?.[1];
+  const title = html.match(/<title>([^<]+)<\/title>/i)?.[1];
+  return (og ?? title ?? "Prep2Go weekly news").replace(/\s*\|\s*Prep2go\.study\s*$/i, "").trim();
+}
+
+export async function prep2GoRssItemFromUrl(url: string): Promise<Prep2GoRssItem> {
+  const link = url.replace(/\/$/, "");
+  const prep2goSlug = link.split("/news/").pop()?.replace(/\/$/, "") ?? "";
+  const topicKey = topicKeyFromPrep2GoSlug(prep2goSlug);
+  const weekEnd = weekEndFromPrep2GoSlug(prep2goSlug);
+  if (!topicKey || !weekEnd) throw new Error(`Cannot parse Prep2Go URL: ${url}`);
+
+  const title = await fetchPrep2GoArticleTitle(link);
+  return {
+    title,
+    link,
+    pubDate: new Date().toISOString(),
+    excerpt: "",
+    topicKey,
+    weekEnd,
+    prep2goSlug,
+  };
+}
+
 export async function prep2GoArticleExists(link: string): Promise<boolean> {
   const res = await fetch(link, {
     method: "HEAD",

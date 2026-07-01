@@ -46,7 +46,7 @@ export async function geminiJson<T>(
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${key}`;
   let lastError: Error | undefined;
 
-  for (let attempt = 0; attempt < 2; attempt += 1) {
+  for (let attempt = 0; attempt < 5; attempt += 1) {
     try {
       const res = await fetch(url, {
         method: "POST",
@@ -74,7 +74,7 @@ export async function geminiJson<T>(
       return parseJsonRobust<T>(text);
     } catch (e) {
       lastError = e instanceof Error ? e : new Error(String(e));
-      if (attempt === 0) continue;
+      if (attempt < 4) continue;
     }
   }
 
