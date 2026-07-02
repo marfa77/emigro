@@ -8,7 +8,8 @@ import { HeroShell } from "@/components/visuals/HeroShell";
 import { HubHeroVisual } from "@/components/visuals/HubHeroVisual";
 import { getActiveNewsTopics, newsIndexPath } from "@/lib/news/topics";
 import { HUB_WIZARD_PATH } from "@/lib/corridor/paths";
-import { guidePath, listGuides } from "@/lib/guides/load";
+import { guidePath } from "@/lib/guides/load";
+import { listPillarGuides } from "@/lib/guides/pillar-guides";
 import { pageMetadata, pageUrl } from "@/lib/seo";
 import { publicSiteUrl } from "@/lib/site-url";
 import { TRANSIT_HUBS } from "@/lib/transit-hubs";
@@ -25,7 +26,7 @@ export const metadata: Metadata = pageMetadata({
 
 export default async function RuHubPage() {
   const topics = await getActiveNewsTopics();
-  const featuredGuides = listGuides().slice(0, 4);
+  const pillarGuides = listPillarGuides().slice(0, 8);
   const destinationCount = topics.length;
   const fullCorridors = topics.filter((t) => t.status === "active" && t.sitePaths);
   const developingCorridors = topics.filter((t) => t.status === "in_development" && t.sitePaths);
@@ -268,18 +269,18 @@ export default async function RuHubPage() {
           )}
         </section>
 
-        {featuredGuides.length > 0 && (
+        {pillarGuides.length > 0 && (
           <section className="mt-14">
             <h2 className="text-2xl font-semibold text-slate-900">Гайды по релокации</h2>
             <p className="mt-2 max-w-2xl text-slate-600">
-              Практические разборы: digital nomad, семья, отказы в визах, бюджет и выбор страны — с переходом в{" "}
+              Практические pillar-разборы: digital nomad, семья, отказы в визах, бюджет и выбор страны — с переходом в{" "}
               <Link href="/ru/wizard" className="text-corridor-600 hover:underline">
                 hub wizard
               </Link>
               .
             </p>
             <ul className="mt-6 grid gap-3 sm:grid-cols-2">
-              {featuredGuides.map((guide) => (
+              {pillarGuides.map((guide) => (
                 <li key={guide.slug}>
                   <Link
                     href={guidePath(guide.slug)}

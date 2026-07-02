@@ -236,8 +236,20 @@ function guideSortDate(guide: GuideFrontmatter): number {
   return value ? new Date(value).getTime() : 0;
 }
 
+const FEATURED_GUIDE_SLUG_PRIORITY = [
+  "kuda-pereehat-iz-rossii-2026-evropa-vnj",
+  "belorusy-v-evropu-vnj-2026",
+  "vnj-ispaniya-2026",
+  "vnj-portugaliya-d8-d7-grazhdanstvo-2026",
+] as const;
+
 export function pickFeaturedGuide(guides: GuideFrontmatter[]): GuideFrontmatter | null {
   if (guides.length === 0) return null;
+
+  for (const slug of FEATURED_GUIDE_SLUG_PRIORITY) {
+    const match = guides.find((guide) => guide.slug === slug);
+    if (match) return match;
+  }
 
   const generalGuides = guides.filter((guide) => getGuideCategories(guide).includes("general"));
   const pool = generalGuides.length > 0 ? generalGuides : guides;

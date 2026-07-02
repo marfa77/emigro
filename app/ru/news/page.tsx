@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Newspaper, Rss } from "lucide-react";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { RelocatorChatPromo } from "@/components/community/RelocatorChatPromo";
@@ -10,6 +11,8 @@ import { pageMetadata, pageUrl } from "@/lib/seo";
 import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
 import { getPublishedNewsDigests } from "@/lib/news/digests";
 import { getActiveNewsTopics, resolveNewsTopicFromParam } from "@/lib/news/topics";
+import { listPillarGuides } from "@/lib/guides/pillar-guides";
+import { guidePath } from "@/lib/guides/load";
 import { newsArticleUrl, newsFeedUrl, newsHubUrl, SITE_URL } from "@/lib/site-url";
 
 export const revalidate = 60;
@@ -33,6 +36,7 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
       keywords: topic.seoTags,
       alternates: {
         ...base.alternates,
+        canonical: pageUrl("/ru/news"),
         types: { "application/rss+xml": newsFeedUrl(topic.urlSegment) },
       },
     };
@@ -61,6 +65,7 @@ export default async function NewsIndexPage({ searchParams }: Props) {
   const allTopics = await getActiveNewsTopics();
   const topic = await resolveNewsTopicFromParam(searchParams.country);
   const topicByKey = new Map(allTopics.map((t) => [t.key, t]));
+  const pillarGuides = listPillarGuides().slice(0, 6);
   const digests = await getPublishedNewsDigests({
     topicKey: topic?.key,
     limit: topic ? 60 : 120,
@@ -73,7 +78,7 @@ export default async function NewsIndexPage({ searchParams }: Props) {
     : "Новости релокации в Европу";
   const pageDescription = topic
     ? `Изменения по маршрутам для ${topic.audienceRu}. Не юридическая консультация — ориентиры с источниками.`
-    : "Еженедельные обзоры по ВНЖ, визам и гражданству в европейских направлениях Emigro.";
+    : "Еженедельные обзоры Emigro по ВНЖ, визам и гражданству в Португалии, Испании, Германии, Франции, Италии, Польше и других коридорах. Каждый выпуск — проверенные факты, ссылки на BOE, AIMA, BAMF и официальные источники. Для граждан РФ, Беларуси, Украины и Казахстана.";
 
   const itemListSchema = {
     "@context": "https://schema.org",
@@ -150,6 +155,27 @@ export default async function NewsIndexPage({ searchParams }: Props) {
         )}
 
         <RelocatorChatPromo source="news_index" className="mt-12" />
+
+        {!topic && pillarGuides.length > 0 && (
+          <section className="mt-12 rounded-2xl border border-slate-200 bg-slate-50 p-6">
+            <h2 className="text-lg font-semibold text-slate-900">Pillar-гайды Emigro</h2>
+            <p className="mt-1 text-sm text-slate-600">
+              Подробные разборы маршрутов ВНЖ — дополнение к еженедельным новостям.
+            </p>
+            <ul className="mt-4 grid gap-2 sm:grid-cols-2">
+              {pillarGuides.map((guide) => (
+                <li key={guide.slug}>
+                  <Link
+                    href={guidePath(guide.slug)}
+                    className="block rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-800 hover:border-corridor-400"
+                  >
+                    {guide.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
 
         {topic?.corridorSlug && (
           <div className="mt-12">

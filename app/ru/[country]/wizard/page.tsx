@@ -11,6 +11,7 @@ import { getCorridorBySlug, getWizardForCorridor } from "@/lib/corridor/queries"
 import { getTopicByCountrySegment } from "@/lib/corridor/resolve-topic";
 import { isCorridorFull } from "@/lib/corridor/publish";
 import { pageMetadata, pageUrl } from "@/lib/seo";
+import { wizardCorridorDescription } from "@/lib/seo/wizard-corridor-copy";
 import { buildCorridorBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
 
 export async function generateStaticParams() {
@@ -23,7 +24,7 @@ export async function generateMetadata({ params }: { params: { country: string }
   if (!topic?.sitePaths) return {};
   return pageMetadata({
     title: `Подбор маршрута ВНЖ — ${topic.countryRu}`,
-    description: `Wizard Emigro по коридору ${topic.countryRu}: ответьте на вопросы о паспорте, доходе и семье — получите сравнение программ ВНЖ с требованиями и сроками для паспортов RU/BY/UA/KZ.`,
+    description: wizardCorridorDescription(topic.urlSegment, topic.countryRu),
     path: topic.sitePaths.wizard!,
   });
 }

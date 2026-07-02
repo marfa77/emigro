@@ -21,6 +21,7 @@ import {
   type GuideAudienceId,
 } from "@/lib/guides/categories";
 import { guidePath, listGuides, type GuideFrontmatter } from "@/lib/guides/load";
+import { listPillarGuides } from "@/lib/guides/pillar-guides";
 import { getActiveNewsTopics } from "@/lib/news/topics";
 import { pageMetadata, pageUrl } from "@/lib/seo";
 import { schemaImage } from "@/lib/seo/schema";
@@ -206,6 +207,7 @@ export default async function GuidesIndexPage({ searchParams }: Props) {
     : listGuidesExcludingFeatured;
 
   const grouped = groupGuidesByCategory(audienceFiltered);
+  const pillarGuides = listPillarGuides();
   const corridors = (await getActiveNewsTopics()).filter((t) => t.sitePaths?.landing).slice(0, 8);
 
   const filteredGuides = activeCategory
@@ -255,6 +257,26 @@ export default async function GuidesIndexPage({ searchParams }: Props) {
         <Suspense fallback={<div className="mt-8 h-10" aria-hidden />}>
           <GuidesCategoryFilter />
         </Suspense>
+
+        {!activeCategory && !activeAudience && pillarGuides.length > 0 && (
+          <section className="mt-10 rounded-[2rem] border border-corridor-100 bg-corridor-50/50 p-6 sm:p-8">
+            <h2 className="text-xl font-bold text-slate-950">Популярные pillar-гайды</h2>
+            <p className="mt-2 text-sm text-slate-600">
+              Материалы с наибольшим спросом: маршруты по паспортам, digital nomad, странам ЕС и транзитным хабам.
+            </p>
+            <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {pillarGuides.map((guide) => (
+                <Link
+                  key={guide.slug}
+                  href={guidePath(guide.slug)}
+                  className="rounded-xl border border-white bg-white px-4 py-3 text-sm font-semibold text-slate-800 shadow-sm hover:border-corridor-300"
+                >
+                  {guide.title}
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
 
         {showFeatured && featuredGuide && (
           <article className="mt-10 overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-xl shadow-slate-200/70 ring-1 ring-slate-950/5">

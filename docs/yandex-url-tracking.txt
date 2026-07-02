@@ -1,0 +1,111 @@
+# Yandex Webmaster — 100 URL для отслеживания
+# Скопируйте в Вебмастер → Отслеживание изменений на важных страницах
+# Обновлено: 2026-07-02
+
+# === Хабы (5) ===
+/ru
+/ru/wizard
+/ru/guides
+/ru/news
+/ru/community
+
+# === Pillar-гайды (15) ===
+/ru/guides/belorusy-v-evropu-vnj-2026
+/ru/guides/kuda-pereehat-iz-rossii-2026-evropa-vnj
+/ru/guides/vnj-ispaniya-2026
+/ru/guides/vnj-portugaliya-d8-d7-grazhdanstvo-2026
+/ru/guides/vnj-germaniya-2026
+/ru/guides/digital-nomad-portugaliya-ispaniya-italiya-2026
+/ru/guides/digital-nomad-vizy-evropy-sravnenie-2026
+/ru/guides/kazahstantsy-v-evropu-vnj-2026
+/ru/guides/relokatsiya-s-detmi-evropa-shkoly-vnj-2026
+/ru/guides/nalogi-pri-pereezde-v-evropu-2026
+/ru/guides/investitsionnyy-vnj-evropa-golden-visa-2026
+/ru/guides/vnj-polsha-2026
+/ru/guides/germaniya-blue-card-chancenkarte-2026-sng
+/ru/guides/gruziya-dlya-rossiyan-2026
+/ru/guides/bali-indoneziya-dlya-rossiyan-2026
+
+# === Коридоры landing (10) ===
+/ru/portugal
+/ru/spain
+/ru/germany
+/ru/italy
+/ru/france
+/ru/poland
+/ru/czechia
+/ru/austria
+/ru/netherlands
+/ru/scandinavia
+
+# === Top programs (15) ===
+/ru/spain/programs/spain-digital-nomad
+/ru/spain/programs/spain-residence-by-investment
+/ru/portugal/programs/portugal-d8-digital-nomad
+/ru/portugal/programs/portugal-d7-passive-income
+/ru/portugal/programs/portugal-golden-visa
+/ru/germany/programs/germany-eu-blue-card
+/ru/germany/programs/germany-chancenkarte
+/ru/italy/programs/italy-digital-nomad
+/ru/poland/programs/poland-eu-blue-card
+/ru/poland/programs/poland-work-permit
+/ru/poland/programs/poland-b2b-contract
+/ru/czechia/programs/czechia-eu-blue-card
+/ru/czechia/programs/czechia-employee-card
+/ru/austria/programs/austria-rwr-card
+/ru/austria/programs/austria-eu-blue-card
+
+# === Digest (10) ===
+/ru/portugal/digest
+/ru/spain/digest
+/ru/germany/digest
+/ru/italy/digest
+/ru/france/digest
+/ru/poland/digest
+/ru/czechia/digest
+/ru/austria/digest
+/ru/netherlands/digest
+/ru/scandinavia/digest
+
+# === Wizard коридоров (10) ===
+/ru/portugal/wizard
+/ru/spain/wizard
+/ru/germany/wizard
+/ru/italy/wizard
+/ru/france/wizard
+/ru/poland/wizard
+/ru/czechia/wizard
+/ru/austria/wizard
+/ru/netherlands/wizard
+/ru/scandinavia/wizard
+
+# === Транзитные хабы (9) ===
+/ru/serbia
+/ru/georgia
+/ru/armenia
+/ru/montenegro
+/ru/indonesia
+/ru/thailand
+/ru/uae
+/ru/turkey
+/ru/kazakhstan
+
+# === Доп. гайды (11) ===
+/ru/guides/chernogoriya-vnj-dlya-rossiyan-2026
+/ru/guides/portugaliya-vs-ispaniya-vnj-2026
+/ru/guides/germaniya-vs-niderlandy-blue-card
+/ru/guides/d7-vs-digital-nomad-visa-sravnenie
+/ru/guides/byudzhet-relokatsii-evropa-2026-po-stranam
+/ru/guides/bank-i-iban-dlya-rossiyan-v-evrope-2026
+/ru/guides/dokumenty-dlya-pereezda-iz-rossii-2026-apostil-nesudimost
+/ru/guides/ukraintsy-belorusy-vremennaya-zashchita-vs-vnj-2026
+/ru/guides/vnj-chehiya-2026
+/ru/guides/vnj-austria-2026
+/ru/guides/ees-shengenskaya-sistema-2026
+
+# === Сервис (5) ===
+/ru/assist
+/ru/partners
+/ru/ukraine
+/ru/sitemap.xml
+/robots.txt

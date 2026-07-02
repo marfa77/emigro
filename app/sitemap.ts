@@ -39,11 +39,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly" as const,
       priority: 0.82,
     })),
-    ...topics.map((t) => ({
-      url: newsHubUrl(t.urlSegment),
-      changeFrequency: "daily" as const,
-      priority: 0.85,
-    })),
   ];
 
   const corridorRoutes: MetadataRoute.Sitemap = [];
