@@ -99,9 +99,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     for (const p of corridor?.programs ?? []) {
       const program = await getProgramBySlug(p.slug);
-      const programModified = program
-        ? verifiedDateToLastModified(programLastModified(program))
-        : digestModified;
+      if (!program?.version) continue;
+      const programModified = verifiedDateToLastModified(programLastModified(program));
       programRoutes.push({
         url: `${origin}${programPath(slug, p.slug)}`,
         changeFrequency: "monthly",

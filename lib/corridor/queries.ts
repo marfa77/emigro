@@ -56,7 +56,7 @@ export async function getCorridorBySlug(slug: string): Promise<Corridor | null> 
 
   const programIds = (corridorPrograms ?? []).map((r) => r.program_id);
   const { data: programRows } = programIds.length
-    ? await supabase.from("emigro_programs").select("*").in("id", programIds)
+    ? await supabase.from("emigro_programs").select("*").in("id", programIds).eq("is_active", true)
     : { data: [] };
 
   const programMap = new Map((programRows ?? []).map((p) => [p.id, p]));
