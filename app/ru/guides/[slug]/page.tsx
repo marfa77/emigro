@@ -20,13 +20,12 @@ import {
 import { getActiveNewsTopics } from "@/lib/news/topics";
 import type { NewsTopicConfig } from "@/lib/news/topics";
 import { corridorSlugForTopic } from "@/lib/providers/registry";
-import { pageMetadata, pageUrl } from "@/lib/seo";
+import { buildGuideArticleMetadata, pageUrl } from "@/lib/seo";
 import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
 import { getPtLongTailByGuideSlug } from "@/lib/seo/pt-longtail";
 import { EMIGRO_PUBLISHER, emigroAuthorOrg, schemaImage } from "@/lib/seo/schema";
 import { GuideCorridorLiveData } from "@/components/guides/GuideCorridorLiveData";
 import { GuideOfficialSources } from "@/components/guides/GuideOfficialSources";
-import { SITE_URL } from "@/lib/site-url";
 
 export function generateStaticParams() {
   return listGuides().map((guide) => ({ slug: guide.slug }));
@@ -39,24 +38,17 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   const title = longTail?.seoTitle ?? guide.seo_title ?? guide.title;
   const description =
     longTail?.seoDescription ?? guide.seo_description ?? guide.excerpt ?? guide.quick_answer ?? guide.title;
-  const ogImagePath = guide.og_image_path;
-  const metadata = pageMetadata({
+  const path = guidePath(guide.slug);
+  return buildGuideArticleMetadata({
     title,
     description,
-    path: guidePath(guide.slug),
-    ogImage: ogImagePath,
+    path,
+    ogImage: guide.og_image_path,
     ogImageAlt: title,
-  });
-  return {
-    ...metadata,
     keywords: longTail ? [...(guide.tags ?? []), ...longTail.queries] : guide.tags,
-    openGraph: {
-      ...metadata.openGraph,
-      type: "article",
-      publishedTime: guide.date_published,
-      modifiedTime: guide.date_modified ?? guide.date_published,
-    },
-  };
+    publishedTime: guide.date_published,
+    modifiedTime: guide.date_modified ?? guide.date_published,
+  });
 }
 
 function GuideHeroVisual({ coverPath, title }: { coverPath: string; title: string }) {
@@ -266,7 +258,7 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
   const toc = extractToc(guide.bodyHtml);
   const faqItems = extractFaq(guide.bodyHtml);
   const llmFacts = buildGuideLlmFacts(guide);
-  const url = `${SITE_URL}${guidePath(guide.slug)}`;
+  const url = pageUrl(guidePath(guide.slug));
   const passportIso2 = getGuidePassportIso2(guide);
   const liveData = await loadGuideLiveDataForGuide(guide.corridor_slugs, guide.topic_keys, passportIso2);
 
