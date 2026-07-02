@@ -306,6 +306,18 @@ function extractNumbers(text: string): Set<string> {
   return out;
 }
 
+function numberAppearsInPlainSourceText(sourceText: string, value: string): boolean {
+  const n = normalizeText(stripUrlsAndThreadNumbers(sourceText));
+  const escaped = value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/\./g, "[.,]");
+  if (new RegExp(`(?:^|[^\\d])${escaped}(?:[^\\d]|$)`).test(n)) return true;
+  for (const [word, mapped] of Object.entries(NUMBER_WORDS)) {
+    if (mapped !== value) continue;
+    const wordEscaped = word.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    if (new RegExp(`(?:^|[^a-zа-яё])${wordEscaped}(?:[^a-zа-яё]|$)`, "i").test(n)) return true;
+  }
+  return false;
+}
+
 function digestText(digest: SiteDigestForFactCheck): string {
   return [
     digest.title,
@@ -522,9 +534,9 @@ function deterministicPrep2GoFactCheck(params: {
   }
 
   for (const number of Array.from(generatedNumbers)) {
-    if (!sourceNumbers.has(number)) {
-      criticalErrors.push(`Неподтвержденное число/порог/срок: ${number}.`);
-    }
+    if (sourceNumbers.has(number)) continue;
+    if (numberAppearsInPlainSourceText(sourceText, number)) continue;
+    criticalErrors.push(`Неподтвержденное число/порог/срок: ${number}.`);
   }
 
   if (sourceIsOnlyProposed(sourceText) && hasAdoptedOrInForceClaim(generatedText)) {

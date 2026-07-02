@@ -44,11 +44,16 @@ export const GUIDE_COVER_BY_SLUG: Record<string, string> = {
   "vnj-polsha-2026": "/images/corridor-poland.webp",
   "vnj-chehiya-2026": "/images/corridor-czechia.webp",
   "grazhdanstvo-portugaliya-ispaniya-2026": "/images/corridor-portugal.webp",
+  "investitsionnyy-vnj-evropa-golden-visa-2026": "/images/corridor-portugal.webp",
   "ukraina-evropa-vnj-marshruty-2026": "/images/corridor-germany.webp",
   "pervye-30-dnej-v-polsche-2026": "/images/corridor-poland.webp",
   "pervye-30-dnej-v-chehii-2026": "/images/corridor-czechia.webp",
   "pervye-30-dnej-v-avstrii-2026": "/images/corridor-austria.webp",
   "vnj-austria-2026": "/images/corridor-austria.webp",
+  "vnj-skandinaviya-2026": "/images/corridor-scandinavia.webp",
+  "pervye-30-dnej-v-skandinavii-2026": "/images/corridor-scandinavia.webp",
+  "grazhdanstvo-germaniya-polsha-2026": "/images/emigro-main-hero.webp",
+  "shengen-turist-vs-vnzh-2026": "/images/emigro-main-hero.webp",
 };
 
 export const DEFAULT_GUIDE_COVER = "/images/emigro-main-hero.webp";

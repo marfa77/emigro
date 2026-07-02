@@ -200,7 +200,13 @@ export function getGuideCategories(guide: GuideFrontmatter): GuideCategoryId[] {
     categories.add("family");
   }
 
-  if (guide.primary_intent === "comparison" || slug.includes("vs") || slug.includes("sravnenie")) {
+  if (
+    guide.primary_intent === "comparison" ||
+    slug.includes("vs") ||
+    slug.includes("sravnenie") ||
+    slug.includes("investitsionnyy") ||
+    topicKeys.includes("investment")
+  ) {
     categories.add("comparison");
   }
 

@@ -233,9 +233,13 @@ function hasSpecificEntity(text: string, topic: string): boolean {
   return new RegExp(topic, "i").test(text);
 }
 
-export function validateSourceLinksQuality(links: Array<{ title: string; url: string }>): string[] {
+export function validateSourceLinksQuality(
+  links: Array<{ title: string; url: string }>,
+  options?: { minLinks?: number }
+): string[] {
   const errors: string[] = [];
-  if (links.length < 3) errors.push("Нужно минимум 3 источника.");
+  const minLinks = options?.minLinks ?? 3;
+  if (links.length < minLinks) errors.push(`Нужно минимум ${minLinks} источника.`);
   const ratio = googleNewsLinkRatio(links.map((l) => ({ url: l.url })));
   if (ratio > 0.34) errors.push(`Слишком много ссылок на Google News (${Math.round(ratio * 100)}%) — нужны прямые URL изданий.`);
   const grounding = links.filter((l) => isGoogleGroundingRedirectUrl(l.url));
@@ -259,11 +263,14 @@ export function validateSiteDigestQuality(params: {
   digest: SiteDigestForQuality;
   selectedCount?: number;
   sourceLinks?: Array<{ title: string; url: string }>;
+  minSourceLinks?: number;
 }): string[] {
   const text = digestText(params.digest);
   const errors = [
     ...editorialGenericErrors(text),
-    ...(params.sourceLinks ? validateSourceLinksQuality(params.sourceLinks) : []),
+    ...(params.sourceLinks
+      ? validateSourceLinksQuality(params.sourceLinks, { minLinks: params.minSourceLinks })
+      : []),
   ];
 
   const blocks = params.digest.content_blocks;

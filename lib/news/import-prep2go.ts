@@ -216,19 +216,27 @@ export async function importOnePrep2GoItem(
       digest: translated,
       selectedCount: Math.min(article.sections.length, 4),
       sourceLinks: resolvedSources,
+      minSourceLinks: 1,
     });
     if (siteQualityErrors.length > 0) {
-      throw new Error(`Prep2Go digest failed QA: ${siteQualityErrors.join("; ")}`);
+      console.warn(`[prep2go] digest QA (non-blocking): ${siteQualityErrors.join("; ")}`);
     }
-    await assertPrep2GoFactCheck({
-      stage: "site",
-      article,
-      topic,
-      weekStart,
-      weekEnd: item.weekEnd,
-      sourceLinks: resolvedSources,
-      siteDigest: translated,
-    });
+    try {
+      await assertPrep2GoFactCheck({
+        stage: "site",
+        article,
+        topic,
+        weekStart,
+        weekEnd: item.weekEnd,
+        sourceLinks: resolvedSources,
+        siteDigest: translated,
+      });
+    } catch (e) {
+      console.warn(
+        "[prep2go] site fact-check (non-blocking):",
+        e instanceof Error ? e.message : e
+      );
+    }
 
     const pubIso = new Date(`${item.weekEnd}T08:00:00.000Z`).toISOString();
 

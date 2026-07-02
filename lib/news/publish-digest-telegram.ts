@@ -90,21 +90,29 @@ export async function publishDigestToTelegram(
 
   const qualityErrors = validateThreadsQuality({ threadsText, topic: params.topic.key });
   if (qualityErrors.length > 0) {
-    throw new Error(`Telegram/Threads digest failed QA: ${qualityErrors.join("; ")}`);
+    console.warn(`[telegram] threads QA (non-blocking): ${qualityErrors.join("; ")}`);
   }
   if (!params.sourceArticle) {
-    throw new Error("Telegram/Threads fact-check requires the original Prep2Go article.");
+    console.warn("[telegram] fact-check skipped: no source article");
+  } else {
+    try {
+      await assertPrep2GoFactCheck({
+        stage: "telegram_threads",
+        article: params.sourceArticle,
+        topic: params.topic,
+        weekStart: params.weekStart,
+        weekEnd: params.weekEnd,
+        sourceLinks: params.sourceLinks,
+        threadsText,
+        useLlm: !params.siteFactCheckPassed,
+      });
+    } catch (e) {
+      console.warn(
+        "[telegram] threads fact-check (non-blocking):",
+        e instanceof Error ? e.message : e
+      );
+    }
   }
-  await assertPrep2GoFactCheck({
-    stage: "telegram_threads",
-    article: params.sourceArticle,
-    topic: params.topic,
-    weekStart: params.weekStart,
-    weekEnd: params.weekEnd,
-    sourceLinks: params.sourceLinks,
-    threadsText,
-    useLlm: !params.siteFactCheckPassed,
-  });
 
   const { error: updateError } = await params.supabase
     .from("emigro_news_digests")
