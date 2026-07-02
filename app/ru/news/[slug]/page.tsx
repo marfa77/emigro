@@ -46,7 +46,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const topic = await getNewsTopic(digest.topic_key);
   const url = newsArticleUrl(digest.slug);
-  const title = fitSeoTitleAbsolute(getNewsDisplaySeoTitle(digest));
+  const title = fitSeoTitleAbsolute(getNewsDisplaySeoTitle(digest, topic?.countryRu));
   const description = fitMetaDescription(digest.seo_description || digest.excerpt);
   const ogImagePath = topic?.urlSegment ? countryOgImage(topic.urlSegment) : DEFAULT_OG_IMAGE;
   const ogImage = schemaImage(ogImagePath);

@@ -10,6 +10,7 @@ import { HeroShell } from "@/components/visuals/HeroShell";
 import {
   getGuideCategories,
   getGuideCategoryById,
+  getGuideAudienceById,
   groupGuidesByCategory,
   GUIDE_CATEGORIES,
   isGuideCategoryId,
@@ -25,19 +26,38 @@ import { pageMetadata, pageUrl } from "@/lib/seo";
 import { schemaImage } from "@/lib/seo/schema";
 
 export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
+  const activeCategory =
+    searchParams.cat && isGuideCategoryId(searchParams.cat) ? searchParams.cat : undefined;
+  const activeAudience =
+    searchParams.aud && isGuideAudienceId(searchParams.aud) ? searchParams.aud : undefined;
+
+  let title = "Гайды по релокации и ВНЖ в Европе";
+  let description =
+    "Практические pillar-гайды Emigro: маршруты для русскоязычных за рубежом и в СНГ — digital nomad, семья с детьми, отказы в визах, бюджет релокации и ВНЖ по странам ЕС.";
+
+  if (activeCategory && activeAudience) {
+    const category = getGuideCategoryById(activeCategory);
+    const audience = getGuideAudienceById(activeAudience);
+    title = `Гайды: ${category.label} — ${audience.label}`;
+    description = `${category.description} Материалы Emigro для ${audience.label.toLowerCase()}: маршруты ВНЖ, документы и wizard подбора.`;
+  } else if (activeCategory) {
+    const category = getGuideCategoryById(activeCategory);
+    title = `Гайды: ${category.label}`;
+    description = `${category.description} Pillar-гайды Emigro для русскоязычных за рубежом и в СНГ — wizard подбора маршрута ВНЖ.`;
+  } else if (activeAudience) {
+    const audience = getGuideAudienceById(activeAudience);
+    title = `Гайды для ${audience.label}`;
+    description = `Pillar-гайды Emigro для ${audience.label.toLowerCase()}: маршруты ВНЖ, документы, семья и бюджет релокации в Европу.`;
+  }
+
   const metadata = pageMetadata({
-    title: "Гайды по релокации и ВНЖ в Европе",
-    description:
-      "Практические pillar-гайды Emigro: маршруты для русскоязычных за рубежом и в СНГ — digital nomad, семья с детьми, отказы в визах, бюджет релокации и ВНЖ по странам ЕС.",
+    title,
+    description,
     path: "/ru/guides",
     ogImage: schemaImage("/images/og/guides-index.jpg"),
   });
 
-  const hasFilter =
-    (searchParams.cat && isGuideCategoryId(searchParams.cat)) ||
-    (searchParams.aud && isGuideAudienceId(searchParams.aud));
-
-  if (hasFilter) {
+  if (activeCategory || activeAudience) {
     return {
       ...metadata,
       alternates: {

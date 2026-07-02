@@ -66,10 +66,19 @@ export function getNewsDisplayTitle(digest: Pick<NewsDigest, "title" | "week_end
   return `Еженедельный обзор за ${formatNewsWeekEndRu(digest.week_end)}: ${t}`;
 }
 
-export function getNewsDisplaySeoTitle(digest: Pick<NewsDigest, "seo_title" | "title" | "week_end">): string {
+export function getNewsDisplaySeoTitle(
+  digest: Pick<NewsDigest, "seo_title" | "title" | "week_end" | "country">,
+  countryRu?: string
+): string {
   const raw = digest.seo_title.trim() || digest.title.trim();
-  if (/^еженедельный обзор/i.test(raw)) return raw.slice(0, 70);
-  return `Еженедельный обзор: ${raw}`.slice(0, 70);
+  const weekLabel = formatNewsWeekEndRu(digest.week_end);
+  const country = (countryRu ?? digest.country)?.trim();
+  if (/^еженедельный обзор за/i.test(raw)) return raw.slice(0, 70);
+  const topic = raw.replace(/^еженедельный обзор:\s*/i, "").trim() || raw;
+  const prefix = country
+    ? `Еженедельный обзор ${country} за ${weekLabel}:`
+    : `Еженедельный обзор за ${weekLabel}:`;
+  return `${prefix} ${topic}`.slice(0, 70);
 }
 
 export async function getPublishedNewsDigests(options?: {
