@@ -43,3 +43,6 @@ parser/state.json
 parser/tg.session
 parser/*.session
 parser/.venv/
+parser/out/
+tg.session
+*.session
