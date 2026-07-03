@@ -19,7 +19,7 @@ export const PORTUGAL_NOTE_SEED: CommunityNote[] = PORTUGAL_EDITORIAL_SEED.map((
   faq: note.faq,
   official_links: note.official_links,
   source_channel: "chatlisboa+por_tugal",
-  source_label: "Темы из @chatlisboa и @por_tugal — редакция Emigro",
+  source_label: null,
   topic_tags: note.topic_tags,
   hashtags: buildNoteHashtags({ topicTags: note.topic_tags, contentKind: note.content_kind }),
   status: "published" as const,

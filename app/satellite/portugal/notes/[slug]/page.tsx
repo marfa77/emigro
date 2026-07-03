@@ -92,7 +92,6 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
         {note.published_at && (
           <p className="mt-3 text-sm text-slate-500">
             <time dateTime={note.published_at}>{formatDate(note.published_at)}</time>
-            {note.source_label && <> · {note.source_label}</>}
           </p>
         )}
       </header>

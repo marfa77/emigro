@@ -18,9 +18,6 @@ export function PortugalSatelliteHeader() {
           <a href={PORTUGAL_SATELLITE.wizardUrl} className="hover:text-teal-700">
             Wizard
           </a>
-          <a href={PORTUGAL_SATELLITE.sourceChannelUrl} target="_blank" rel="noopener noreferrer" className="hover:text-teal-700">
-            @chatlisboa
-          </a>
         </nav>
       </div>
     </header>
@@ -32,8 +29,8 @@ export function PortugalSatelliteFooter() {
     <footer className="mt-16 border-t border-slate-200 bg-slate-50">
       <div className="mx-auto max-w-3xl space-y-3 px-4 py-8 text-sm text-slate-600">
         <p>
-          Материалы на этом поддомене — <strong>редакционные заметки Emigro</strong>, собранные по темам из
-          обсуждений релокантов. Это не юридическая консультация; сверяйте сроки и суммы с{" "}
+          Материалы на этом поддомене — <strong>редакционные заметки Emigro</strong>. Это не юридическая
+          консультация; сверяйте сроки и суммы с{" "}
           <a href="https://aima.gov.pt/" className="text-teal-700 underline" target="_blank" rel="noopener noreferrer">
             AIMA
           </a>{" "}

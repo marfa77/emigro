@@ -20,6 +20,20 @@ function isPortugalSatelliteHost(host: string): boolean {
   return host === PORTUGAL_SATELLITE_HOST;
 }
 
+/** /notes/* and /tag/* on apex/www belong on the satellite host. */
+function redirectMisplacedSatellitePaths(request: NextRequest): NextResponse | null {
+  const host = hostName(request);
+  if (host !== CANONICAL_HOST && host !== "emigro.online") return null;
+
+  const { pathname } = request.nextUrl;
+  if (!pathname.startsWith("/notes/") && !pathname.startsWith("/tag/")) return null;
+
+  const url = request.nextUrl.clone();
+  url.protocol = "https:";
+  url.host = PORTUGAL_SATELLITE_HOST;
+  return NextResponse.redirect(url, 301);
+}
+
 function rewritePortugalSatellite(request: NextRequest): NextResponse | null {
   const host = hostName(request);
   if (!isPortugalSatelliteHost(host)) return null;
@@ -51,6 +65,9 @@ function shouldRedirectToCanonical(request: NextRequest): URL | null {
 }
 
 export function middleware(request: NextRequest) {
+  const misplaced = redirectMisplacedSatellitePaths(request);
+  if (misplaced) return misplaced;
+
   const satellite = rewritePortugalSatellite(request);
   if (satellite) return satellite;
 

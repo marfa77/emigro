@@ -142,7 +142,7 @@ export async function publishPortugalSeedNotes(): Promise<number> {
       country_key: "portugal",
       city: "lisbon",
       source_channel: "chatlisboa+por_tugal",
-      source_label: "Темы из @chatlisboa и @por_tugal — редакция Emigro",
+      source_label: null,
       status: "published",
       published_at: now,
       updated_at: now,

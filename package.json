@@ -23,7 +23,8 @@
     "guides:og-images": "tsx scripts/generate-guide-og-images.ts",
     "telegram:set-webhook": "tsx scripts/set-telegram-webhook.ts",
     "portugal:community": "tsx scripts/portugal-community-run.ts",
-    "portugal:backfill-tags": "tsx scripts/backfill-community-hashtags.ts"
+    "portugal:backfill-tags": "tsx scripts/backfill-community-hashtags.ts",
+    "portugal:clear-labels": "tsx scripts/clear-community-source-labels.ts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.0",

@@ -28,7 +28,7 @@ export type DraftedNote = {
   topic_tags: string[];
   hashtags: string[];
   source_channel: string;
-  source_label: string;
+  source_label: string | null;
 };
 
 const draftSchema = {
@@ -144,6 +144,6 @@ category: ${TOPIC_LABELS[topic] ?? "Быт в Португалии"}
     topic_tags: topicTags,
     hashtags: buildNoteHashtags({ topicTags, contentKind, extra: inlineTags }),
     source_channel: channels.join("+"),
-    source_label: `Темы из @chatlisboa и @por_tugal — редакция Emigro`,
+    source_label: null,
   };
 }
