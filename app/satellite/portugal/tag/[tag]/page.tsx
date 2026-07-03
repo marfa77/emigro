@@ -58,7 +58,7 @@ export default async function PortugalTagPage({ params }: { params: { tag: strin
       {notes.length === 0 && (
         <p className="mt-8 text-slate-600">
           Пока нет материалов с этим тегом.{" "}
-          <Link href="/" className="text-teal-700 underline">
+          <Link href={portugalHubPath()} className="text-teal-700 underline">
             Смотреть все
           </Link>
         </p>

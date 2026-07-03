@@ -151,7 +151,7 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
       </p>
 
       <p className="mt-8 text-center">
-        <Link href="/" className="text-sm text-teal-700 underline">
+        <Link href={portugalHubPath()} className="text-sm text-teal-700 underline">
           ← Все заметки
         </Link>
         {" · "}
