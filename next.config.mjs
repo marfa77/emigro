@@ -9,6 +9,30 @@ const nextConfig = {
         permanent: false,
       },
       {
+        source: "/notes/:slug",
+        has: [{ type: "host", value: "emigro.online" }],
+        destination: "https://www.emigro.online/satellite/portugal/notes/:slug",
+        permanent: false,
+      },
+      {
+        source: "/notes/:slug",
+        has: [{ type: "host", value: "www.emigro.online" }],
+        destination: "/satellite/portugal/notes/:slug",
+        permanent: false,
+      },
+      {
+        source: "/tag/:tag",
+        has: [{ type: "host", value: "emigro.online" }],
+        destination: "https://www.emigro.online/satellite/portugal/tag/:tag",
+        permanent: false,
+      },
+      {
+        source: "/tag/:tag",
+        has: [{ type: "host", value: "www.emigro.online" }],
+        destination: "/satellite/portugal/tag/:tag",
+        permanent: false,
+      },
+      {
         source: "/",
         missing: [{ type: "host", value: "portugal.emigro.online" }],
         destination: "/ru",

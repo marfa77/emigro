@@ -27,18 +27,18 @@ function redirectMisplacedSatellitePaths(request: NextRequest): NextResponse | n
 
   const { pathname } = request.nextUrl;
   if (pathname.startsWith("/notes/")) {
-    const url = request.nextUrl.clone();
+    const url = new URL(request.url);
     url.protocol = "https:";
     url.host = CANONICAL_HOST;
     url.pathname = `/satellite/portugal${pathname}`;
-    return NextResponse.redirect(url, 301);
+    return NextResponse.redirect(url, 307);
   }
   if (pathname.startsWith("/tag/")) {
-    const url = request.nextUrl.clone();
+    const url = new URL(request.url);
     url.protocol = "https:";
     url.host = CANONICAL_HOST;
     url.pathname = `/satellite/portugal${pathname}`;
-    return NextResponse.redirect(url, 301);
+    return NextResponse.redirect(url, 307);
   }
   return null;
 }
