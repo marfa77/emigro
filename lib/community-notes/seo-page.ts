@@ -174,7 +174,7 @@ export function buildCommunityNoteSchemas(note: CommunityNote) {
     name: note.title,
     speakable: {
       "@type": "SpeakableSpecification",
-      cssSelector: [".community-quick-answer", "h1"],
+      cssSelector: [".community-quick-answer", "h1", "#takeaways-heading"],
     },
   };
 
@@ -186,6 +186,7 @@ export function buildCommunityNoteLlmFacts(note: CommunityNote): string[] {
     note.quick_answer,
     `${CONTENT_KIND_LABELS[note.content_kind]} · ${note.category} · ${GEO.city}, ${GEO.country}`,
     note.excerpt,
+    ...note.key_takeaways,
   ];
   for (const item of note.faq.slice(0, 3)) {
     facts.push(`Q: ${item.q} A: ${item.a}`);

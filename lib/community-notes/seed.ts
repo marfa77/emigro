@@ -16,6 +16,8 @@ export const PORTUGAL_NOTE_SEED: CommunityNote[] = PORTUGAL_EDITORIAL_SEED.map((
   seo_description: note.seo_description,
   quick_answer: note.quick_answer,
   body_paragraphs: note.body_paragraphs,
+  body_sections: note.body_sections ?? [],
+  key_takeaways: note.key_takeaways ?? [],
   faq: note.faq,
   official_links: note.official_links,
   source_channel: "chatlisboa+por_tugal",

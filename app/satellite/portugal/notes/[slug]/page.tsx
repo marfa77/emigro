@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { ContentKindBadge, NoteHashtags } from "@/components/satellite/HashtagNav";
+import { KeyTakeaways, NoteBody } from "@/components/satellite/NoteBody";
 import { RelatedNotes } from "@/components/satellite/RelatedNotes";
 import { Prep2GoPromo } from "@/components/satellite/Prep2GoPromo";
 import { BarakhloPromo } from "@/components/satellite/BarakhloPromo";
@@ -113,13 +114,9 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
 
       <NoteHashtags tags={note.hashtags} className="mt-6" />
 
-      <div className="prose prose-slate mt-8 max-w-none">
-        {note.body_paragraphs.map((paragraph, i) => (
-          <p key={i} className="leading-relaxed text-slate-700">
-            {paragraph}
-          </p>
-        ))}
-      </div>
+      <KeyTakeaways items={note.key_takeaways} />
+
+      <NoteBody sections={note.body_sections} paragraphs={note.body_paragraphs} />
 
       {showPrep2Go && <Prep2GoPromo noteSlug={note.slug} />}
 

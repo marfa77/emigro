@@ -1,6 +1,6 @@
 import { createServerClient } from "@/lib/supabase/server";
 import { buildNoteHashtags } from "@/lib/community-notes/hashtags";
-import type { CommunityNoteFaq, ContentKind } from "@/lib/community-notes/types";
+import type { CommunityNoteFaq, ContentKind, NoteBodySection } from "@/lib/community-notes/types";
 
 type SeedNote = {
   slug: string;
@@ -12,6 +12,8 @@ type SeedNote = {
   seo_description: string;
   quick_answer: string;
   body_paragraphs: string[];
+  body_sections?: NoteBodySection[];
+  key_takeaways?: string[];
   faq: CommunityNoteFaq[];
   official_links: Array<{ title: string; url: string }>;
   topic_tags: string[];

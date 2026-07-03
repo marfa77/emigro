@@ -2,6 +2,12 @@ export type CommunityNoteFaq = { q: string; a: string };
 export type CommunityNoteLink = { title: string; url: string };
 export type ContentKind = "news" | "lifehack" | "tip" | "guide" | "qa";
 
+export type NoteBodySection = {
+  heading: string;
+  paragraphs?: string[];
+  bullets?: string[];
+};
+
 export type CommunityNote = {
   id: string;
   slug: string;
@@ -15,6 +21,8 @@ export type CommunityNote = {
   seo_description: string;
   quick_answer: string;
   body_paragraphs: string[];
+  body_sections: NoteBodySection[];
+  key_takeaways: string[];
   faq: CommunityNoteFaq[];
   official_links: CommunityNoteLink[];
   source_channel: string | null;

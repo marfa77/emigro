@@ -13,7 +13,7 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const maxNotes = Math.min(parseInt(process.env.PORTUGAL_CRON_MAX_NOTES ?? "2", 10) || 2, 5);
+  const maxNotes = Math.min(parseInt(process.env.PORTUGAL_CRON_MAX_NOTES ?? "1", 10) || 1, 3);
 
   try {
     const result = await publishDraftsFromNewSignals(maxNotes);

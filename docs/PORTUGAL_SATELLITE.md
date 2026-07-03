@@ -97,5 +97,9 @@ VPS: `parser/run_daily.sh` — только парсер → POST ingest API.
 
 ```bash
 npm run portugal:repair   # архив off-topic, починка category/links/hashtags
+npm run portugal:rewrite -- --slug=pervyj-mesyac-portugaliya-checklist  # Gemini Pro, секции H2+bullets
+npm run portugal:rewrite -- --all
 npm run portugal:spotlight
 ```
+
+**Редакция:** 1 заметка/день (не 2+), Gemini Pro, quality gate (≥5 секций для guide, 4 FAQ, key_takeaways). Из чатов — max 3 фрагмента intent, не пересказ.

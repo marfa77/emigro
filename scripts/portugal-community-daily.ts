@@ -24,7 +24,7 @@ const ROOT = resolve(process.cwd());
 const SIGNALS_JSON = resolve(ROOT, "parser/out/signals-daily.json");
 const skipDrafts = process.argv.includes("--skip-drafts");
 const maxNotesArg = process.argv.find((a) => a.startsWith("--max-notes="));
-const maxNotes = maxNotesArg ? parseInt(maxNotesArg.split("=")[1] ?? "2", 10) : 2;
+const maxNotes = maxNotesArg ? parseInt(maxNotesArg.split("=")[1] ?? "1", 10) : 1;
 
 function runIncrementalParser(): CommunitySignalIngest[] {
   const py = resolve(ROOT, "parser/main.py");

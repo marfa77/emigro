@@ -17,6 +17,8 @@ function mapNote(row: Record<string, unknown>): CommunityNote {
     seo_description: String(row.seo_description),
     quick_answer: String(row.quick_answer),
     body_paragraphs: (row.body_paragraphs as string[]) ?? [],
+    body_sections: (row.body_sections as CommunityNote["body_sections"]) ?? [],
+    key_takeaways: (row.key_takeaways as string[]) ?? [],
     faq: (row.faq as CommunityNote["faq"]) ?? [],
     official_links: (row.official_links as CommunityNote["official_links"]) ?? [],
     source_channel: (row.source_channel as string | null) ?? null,

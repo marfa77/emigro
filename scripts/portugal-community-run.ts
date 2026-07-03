@@ -29,7 +29,7 @@ const seedOnly = process.argv.includes("--seed-only");
 const sinceDaysArg = process.argv.find((a) => a.startsWith("--since-days="));
 const sinceDays = sinceDaysArg ? parseInt(sinceDaysArg.split("=")[1] ?? "0", 10) : 0;
 const maxNotesArg = process.argv.find((a) => a.startsWith("--max-notes="));
-const maxNotes = maxNotesArg ? parseInt(maxNotesArg.split("=")[1] ?? "3", 10) : 3;
+const maxNotes = maxNotesArg ? parseInt(maxNotesArg.split("=")[1] ?? "1", 10) : 1;
 
 function runParser(): CommunitySignalIngest[] {
   const py = resolve(ROOT, "parser/main.py");
