@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { ContentKindBadge, NoteHashtags } from "@/components/satellite/HashtagNav";
 import { RelatedNotes } from "@/components/satellite/RelatedNotes";
+import { Prep2GoPromo } from "@/components/satellite/Prep2GoPromo";
+import { BarakhloPromo } from "@/components/satellite/BarakhloPromo";
 import {
   buildCommunityNoteLlmDescription,
   buildCommunityNoteLlmFacts,
@@ -12,6 +14,7 @@ import {
 } from "@/lib/community-notes/seo-page";
 import { getPublishedCommunityNoteBySlug, getPublishedCommunityNotes } from "@/lib/community-notes/queries";
 import { getRelatedNotes } from "@/lib/community-notes/repair-note";
+import { shouldShowPrep2GoPromo } from "@/lib/community-notes/sponsor-promo";
 import { PORTUGAL_SATELLITE } from "@/lib/satellite/portugal";
 import { portugalHubPath } from "@/lib/satellite/paths";
 import { portugalSatelliteUrl } from "@/lib/site-url";
@@ -46,6 +49,7 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
   if (!note) notFound();
 
   const related = getRelatedNotes(note, allNotes);
+  const showPrep2Go = shouldShowPrep2GoPromo(note);
 
   const { articleSchema, breadcrumbSchema, faqSchema, speakableSchema } = buildCommunityNoteSchemas(note);
   const llmDescription = buildCommunityNoteLlmDescription(note);
@@ -116,6 +120,10 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
           </p>
         ))}
       </div>
+
+      {showPrep2Go && <Prep2GoPromo noteSlug={note.slug} />}
+
+      <BarakhloPromo context={note.slug} placement="satellite_note" />
 
       {note.official_links.length > 0 && (
         <section className="mt-10">

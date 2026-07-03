@@ -3,6 +3,7 @@ import { DailySpotlightTile } from "@/components/satellite/DailySpotlight";
 import { HashtagNav } from "@/components/satellite/HashtagNav";
 import { NoteCard } from "@/components/satellite/NoteCard";
 import { SatelliteValueProp } from "@/components/satellite/RelatedNotes";
+import { BarakhloPromo } from "@/components/satellite/BarakhloPromo";
 import { getDailySpotlight } from "@/lib/community-notes/daily-spotlight";
 import { getPublishedCommunityNotes } from "@/lib/community-notes/queries";
 import { PORTUGAL_SATELLITE } from "@/lib/satellite/portugal";
@@ -83,6 +84,8 @@ export default async function PortugalSatelliteHomePage() {
       <p className="mt-4 text-lg leading-relaxed text-slate-700">{PORTUGAL_SATELLITE.tagline}</p>
 
       <SatelliteValueProp />
+
+      <BarakhloPromo context="hub" placement="satellite_hub" compact />
 
       {spotlight && (
         <div className="mt-8">
