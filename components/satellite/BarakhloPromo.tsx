@@ -2,16 +2,18 @@
 
 import { ExternalLink } from "lucide-react";
 import { trackEvent } from "@/lib/analytics/client";
-import { barakhloPromoUrl } from "@/lib/community-notes/sponsor-promo";
+import { barakhloPromoUrl, isServiceDiscoveryNote } from "@/lib/community-notes/sponsor-promo";
 
 type BarakhloPromoProps = {
   context: "hub" | string;
   placement: "satellite_hub" | "satellite_note";
   compact?: boolean;
+  category?: string;
 };
 
-export function BarakhloPromo({ context, placement, compact = false }: BarakhloPromoProps) {
+export function BarakhloPromo({ context, placement, compact = false, category = "" }: BarakhloPromoProps) {
   const href = barakhloPromoUrl(context);
+  const serviceNote = context !== "hub" && isServiceDiscoveryNote(context, category);
 
   function handleClick() {
     trackEvent("corridor_link_click", {
@@ -57,8 +59,9 @@ export function BarakhloPromo({ context, placement, compact = false }: BarakhloP
         Барахолка Лиссабона на Barakhlo.online
       </h2>
       <p className="mt-2 text-sm leading-relaxed text-slate-700">
-        Объявления из русскоязычных Telegram-чатов: мебель для новой квартиры, авто, услуги мастеров, детские вещи и
-        электроника. Обновляется автоматически, переход к продавцу — в один клик.
+        {serviceNote
+          ? "На Barakhlo — раздел «Услуги» и объявления мастеров из Telegram-чатов Лиссабона. Удобно сравнить с Google Maps и чатами."
+          : "Объявления из русскоязычных Telegram-чатов: мебель для новой квартиры, авто, услуги мастеров, детские вещи и электроника. Обновляется автоматически, переход к продавцу — в один клик."}
       </p>
       <a
         href={href}

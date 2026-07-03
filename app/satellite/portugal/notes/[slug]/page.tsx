@@ -154,7 +154,7 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
 
       {showPrep2Go && <Prep2GoPromo noteSlug={note.slug} />}
 
-      <BarakhloPromo context={note.slug} placement="satellite_note" />
+      <BarakhloPromo context={note.slug} placement="satellite_note" category={note.category} />
 
       <RelatedNotes notes={related} />
 

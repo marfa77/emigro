@@ -32,6 +32,6 @@ export function barakhloPromoUrl(context: "hub" | string): string {
   return url.toString();
 }
 
-export function getPrep2GoProvider() {
-  return getProviderById("prep2go");
+export function isServiceDiscoveryNote(noteSlug: string, category: string): boolean {
+  return /poisk-mestnyh|uslug|master|маник|ветерин/i.test(`${noteSlug} ${category}`);
 }
