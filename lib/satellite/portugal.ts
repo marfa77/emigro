@@ -8,7 +8,7 @@ export const PORTUGAL_SATELLITE = {
   cityRu: "Лиссабон",
   title: "Португалия — практика из чата",
   tagline:
-    "Короткие заметки по Лиссабону: NIF, AIMA, аренда и бытовые шаги. Темы из обсуждений релокантов — текст редакции Emigro, не копия чата.",
+    "Новости, лайфхаки, советы и гайды по Лиссабону и Португалии — из чатов релокантов, текст редакции Emigro. Навигация по #хэштегам.",
   sourceChannel: "chatlisboa",
   sourceChannels: ["chatlisboa", "por_tugal"] as const,
   sourceChannelUrl: "https://t.me/chatlisboa",

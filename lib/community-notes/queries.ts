@@ -1,6 +1,7 @@
 import { createServerClient } from "@/lib/supabase/server";
+import { normalizeHashtag } from "@/lib/community-notes/hashtags";
 import { PORTUGAL_NOTE_SEED } from "@/lib/community-notes/seed";
-import type { CommunityNote, CommunitySignalIngest } from "@/lib/community-notes/types";
+import type { CommunityNote, CommunitySignalIngest, ContentKind } from "@/lib/community-notes/types";
 
 function mapNote(row: Record<string, unknown>): CommunityNote {
   return {
@@ -9,6 +10,7 @@ function mapNote(row: Record<string, unknown>): CommunityNote {
     country_key: String(row.country_key),
     city: String(row.city),
     category: String(row.category),
+    content_kind: (row.content_kind as ContentKind) ?? "guide",
     title: String(row.title),
     excerpt: String(row.excerpt),
     seo_title: String(row.seo_title),
@@ -20,6 +22,7 @@ function mapNote(row: Record<string, unknown>): CommunityNote {
     source_channel: (row.source_channel as string | null) ?? null,
     source_label: (row.source_label as string | null) ?? null,
     topic_tags: (row.topic_tags as string[]) ?? [],
+    hashtags: (row.hashtags as string[]) ?? [],
     status: row.status as CommunityNote["status"],
     published_at: (row.published_at as string | null) ?? null,
     created_at: String(row.created_at),
@@ -36,7 +39,7 @@ export async function getPublishedCommunityNotes(countryKey = "portugal"): Promi
       .eq("country_key", countryKey)
       .eq("status", "published")
       .order("published_at", { ascending: false })
-      .limit(50);
+      .limit(80);
 
     if (error) {
       if (/community_notes/.test(error.message)) {
@@ -52,6 +55,15 @@ export async function getPublishedCommunityNotes(countryKey = "portugal"): Promi
     console.warn("[community-notes] fallback to seed:", e);
     return PORTUGAL_NOTE_SEED;
   }
+}
+
+export async function getPublishedCommunityNotesByHashtag(
+  tag: string,
+  countryKey = "portugal"
+): Promise<CommunityNote[]> {
+  const normalized = normalizeHashtag(tag);
+  const all = await getPublishedCommunityNotes(countryKey);
+  return all.filter((n) => n.hashtags.some((h) => normalizeHashtag(h) === normalized));
 }
 
 export async function getPublishedCommunityNoteBySlug(
@@ -92,6 +104,8 @@ export async function ingestCommunitySignals(
       post_url: signal.post_url ?? null,
       text: signal.text.trim(),
       topic_hints: signal.topic_hints ?? [],
+      content_kind: signal.content_kind ?? "tip",
+      hashtags: signal.hashtags ?? [],
       city: signal.city ?? "lisbon",
       country_key: signal.country_key ?? "portugal",
       posted_at: signal.posted_at,

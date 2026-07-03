@@ -1,9 +1,11 @@
 import { createServerClient } from "@/lib/supabase/server";
-import type { CommunityNoteFaq } from "@/lib/community-notes/types";
+import { buildNoteHashtags } from "@/lib/community-notes/hashtags";
+import type { CommunityNoteFaq, ContentKind } from "@/lib/community-notes/types";
 
 type SeedNote = {
   slug: string;
   category: string;
+  content_kind: ContentKind;
   title: string;
   excerpt: string;
   seo_title: string;
@@ -20,6 +22,7 @@ export const PORTUGAL_EDITORIAL_SEED: SeedNote[] = [
   {
     slug: "nif-lissabon-chto-puutayut",
     category: "NIF и налоги",
+    content_kind: "guide",
     title: "NIF в Лиссабоне: что чаще всего путают в чате",
     excerpt:
       "Finanças, e-Fatura, представитель и сроки — типичные вопросы из чатов релокантов. Где теряют неделю и что проверить до подачи на ВНЖ.",
@@ -58,6 +61,7 @@ export const PORTUGAL_EDITORIAL_SEED: SeedNote[] = [
   {
     slug: "aima-agora-zapis-2026",
     category: "AIMA и записи",
+    content_kind: "lifehack",
     title: "AIMA и Agora: как не потерять неделю на записи",
     excerpt:
       "Слот исчез, PDF не грузится, «можно без записи?» — разбираем стресс из чатов без мифов про секретные окна.",
@@ -92,6 +96,7 @@ export const PORTUGAL_EDITORIAL_SEED: SeedNote[] = [
   {
     slug: "arenda-lissabon-do-podpisi",
     category: "Аренда",
+    content_kind: "tip",
     title: "Аренда в Лиссабоне: вопросы из чата до подписи",
     excerpt:
       "Caução, fiador, NIF в договоре и регистрация arrendamento — что обсудить до перевода денег.",
@@ -133,6 +138,7 @@ export async function publishPortugalSeedNotes(): Promise<number> {
 
     const { error } = await supabase.from("community_notes").insert({
       ...note,
+      hashtags: buildNoteHashtags({ topicTags: note.topic_tags, contentKind: note.content_kind }),
       country_key: "portugal",
       city: "lisbon",
       source_channel: "chatlisboa+por_tugal",

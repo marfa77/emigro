@@ -30,7 +30,7 @@ from telethon import TelegramClient
 from telethon.tl.types import Message
 
 from sender import send_batch
-from signal_builder import is_relocation_signal, should_skip_text, topic_hints
+from signal_builder import build_hashtags, detect_content_kind, is_useful_signal, should_skip_text, topic_hints
 from storage import get_last_id, set_last_id
 
 ROOT = Path(__file__).resolve().parent
@@ -67,7 +67,7 @@ def build_signal(msg: Message, group_cfg: dict) -> dict | None:
     if skip:
         return None
     hints = topic_hints(text)
-    if not is_relocation_signal(text, hints):
+    if not is_useful_signal(text, hints):
         return None
     if msg.reply_to and getattr(msg.reply_to, "forum_topic", False) is False and msg.reply_to_msg_id:
         # skip thread replies — focus on top-level questions
@@ -78,6 +78,9 @@ def build_signal(msg: Message, group_cfg: dict) -> dict | None:
     if posted.tzinfo is None:
         posted = posted.replace(tzinfo=timezone.utc)
 
+    content_kind = detect_content_kind(text, hints)
+    hashtags = build_hashtags(text, hints, content_kind)
+
     return {
         "message_id": msg.id,
         "channel_username": username,
@@ -85,6 +88,8 @@ def build_signal(msg: Message, group_cfg: dict) -> dict | None:
         "post_url": f"https://t.me/{username}/{msg.id}",
         "text": text,
         "topic_hints": hints,
+        "content_kind": content_kind,
+        "hashtags": hashtags,
         "city": group_cfg.get("city", "lisbon"),
         "country_key": group_cfg.get("country_key", "portugal"),
         "posted_at": posted.isoformat().replace("+00:00", "Z"),

@@ -49,7 +49,23 @@ Env на Vercel: `COMMUNITY_INGEST_API_KEY` (или временно `EMIGRO_ADM
 ## Редакционный цикл
 
 1. Парсер → `community_signals` (`status=new`)
-2. Редактор пишет `community_notes` (SQL / будущий admin UI)
-3. `status=published` → страница `/notes/{slug}` на сателлите
+2. Gemini / редактор → `community_notes` (`status=published`)
+3. Страницы: `/notes/{slug}`, навигация по `/tag/{tag}`
 
 Полный коридор, wizard и news остаются на `www.emigro.online/ru/portugal`.
+
+## Типы контента и хэштеги
+
+Парсер классифицирует сигналы: `news`, `lifehack`, `tip`, `guide`, `qa`.  
+Хэштеги (`hashtags[]`) — из тем сообщения + inline `#теги`; на hub — pills `#nif`, `#aima`, `#лайфхак` и т.д.
+
+```bash
+npm run portugal:backfill-tags   # пересчёт тегов у опубликованных заметок
+npm run portugal:community       # парсер → ingest → черновики
+```
+
+## DNS / субдомен
+
+- CNAME `portugal` → `cname.vercel-dns.com` (Namecheap)
+- Если локально `NXDOMAIN` — кэш роутера/провайдера; проверка: `dig portugal.emigro.online @8.8.8.8 +short`
+- Fallback без DNS: `https://www.emigro.online/satellite/portugal`

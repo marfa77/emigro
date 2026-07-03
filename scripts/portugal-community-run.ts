@@ -72,6 +72,8 @@ async function loadNewSignals(): Promise<CommunitySignalIngest[]> {
     post_url: row.post_url ? String(row.post_url) : undefined,
     text: String(row.text),
     topic_hints: (row.topic_hints as string[]) ?? [],
+    content_kind: (row.content_kind as CommunitySignalIngest["content_kind"]) ?? "tip",
+    hashtags: (row.hashtags as string[]) ?? [],
     city: String(row.city),
     country_key: String(row.country_key),
     posted_at: String(row.posted_at),

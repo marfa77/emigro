@@ -1,5 +1,6 @@
 export type CommunityNoteFaq = { q: string; a: string };
 export type CommunityNoteLink = { title: string; url: string };
+export type ContentKind = "news" | "lifehack" | "tip" | "guide" | "qa";
 
 export type CommunityNote = {
   id: string;
@@ -7,6 +8,7 @@ export type CommunityNote = {
   country_key: string;
   city: string;
   category: string;
+  content_kind: ContentKind;
   title: string;
   excerpt: string;
   seo_title: string;
@@ -18,6 +20,7 @@ export type CommunityNote = {
   source_channel: string | null;
   source_label: string | null;
   topic_tags: string[];
+  hashtags: string[];
   status: "draft" | "published" | "archived";
   published_at: string | null;
   created_at: string;
@@ -32,6 +35,8 @@ export type CommunitySignal = {
   post_url: string | null;
   text: string;
   topic_hints: string[];
+  content_kind: ContentKind;
+  hashtags: string[];
   city: string;
   country_key: string;
   posted_at: string;
@@ -48,6 +53,8 @@ export type CommunitySignalIngest = {
   post_url?: string;
   text: string;
   topic_hints?: string[];
+  content_kind?: ContentKind;
+  hashtags?: string[];
   city?: string;
   country_key?: string;
   posted_at: string;

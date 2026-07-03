@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { ContentKindBadge, NoteHashtags } from "@/components/satellite/HashtagNav";
 import { getPublishedCommunityNoteBySlug, getPublishedCommunityNotes } from "@/lib/community-notes/queries";
 import { PORTUGAL_SATELLITE } from "@/lib/satellite/portugal";
 import { portugalSatelliteUrl } from "@/lib/site-url";
@@ -83,7 +84,10 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
       </nav>
 
       <header className="mt-4">
-        <p className="text-xs font-medium uppercase tracking-wide text-teal-700">{note.category}</p>
+        <div className="flex flex-wrap items-center gap-2">
+          <p className="text-xs font-medium uppercase tracking-wide text-teal-700">{note.category}</p>
+          <ContentKindBadge kind={note.content_kind} />
+        </div>
         <h1 className="mt-2 text-3xl font-bold leading-tight text-slate-900">{note.title}</h1>
         {note.published_at && (
           <p className="mt-3 text-sm text-slate-500">
@@ -97,6 +101,8 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
         <p className="text-xs font-bold uppercase tracking-wide text-emerald-800">Короткий ответ</p>
         <p className="mt-2 leading-relaxed text-slate-800">{note.quick_answer}</p>
       </div>
+
+      <NoteHashtags tags={note.hashtags} className="mt-6" />
 
       <div className="prose prose-slate mt-8 max-w-none">
         {note.body_paragraphs.map((paragraph, i) => (
