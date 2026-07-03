@@ -1,5 +1,6 @@
 import type { ContentKind } from "@/lib/community-notes/types";
 import type { NoteBodySection } from "@/lib/community-notes/types";
+import { fitMetaDescription, fitSeoTitlePart } from "@/lib/seo";
 
 export type DraftQualityInput = {
   content_kind: ContentKind;
@@ -78,4 +79,13 @@ export function flattenBodySections(sections: NoteBodySection[]): string[] {
     ...(s.paragraphs ?? []),
     ...(s.bullets ?? []).map((b) => `• ${b}`),
   ]);
+}
+
+/** Trim Gemini SEO fields to crawl-friendly lengths before quality gate. */
+export function normalizeNoteDraftSeo<T extends { seo_title: string; seo_description: string }>(draft: T): T {
+  return {
+    ...draft,
+    seo_title: fitSeoTitlePart(draft.seo_title),
+    seo_description: fitMetaDescription(draft.seo_description, 140, 160),
+  };
 }

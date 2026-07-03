@@ -118,13 +118,9 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
 
       <NoteBody sections={note.body_sections} paragraphs={note.body_paragraphs} />
 
-      {showPrep2Go && <Prep2GoPromo noteSlug={note.slug} />}
-
-      <BarakhloPromo context={note.slug} placement="satellite_note" />
-
       {note.official_links.length > 0 && (
         <section className="mt-10">
-          <h2 className="text-lg font-semibold text-slate-900">Официальные источники</h2>
+          <h2 className="text-lg font-semibold text-slate-900 sm:text-xl">Официальные источники</h2>
           <ul className="mt-3 space-y-2">
             {note.official_links.map((link) => (
               <li key={link.url}>
@@ -144,7 +140,7 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
 
       {note.faq.length > 0 && (
         <section className="mt-10" id="faq">
-          <h2 className="text-lg font-semibold text-slate-900">FAQ</h2>
+          <h2 className="text-lg font-semibold text-slate-900 sm:text-xl">FAQ</h2>
           <dl className="mt-4 space-y-4">
             {note.faq.map((item) => (
               <div key={item.q} className="rounded-lg border border-slate-200 bg-white p-4">
@@ -155,6 +151,10 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
           </dl>
         </section>
       )}
+
+      {showPrep2Go && <Prep2GoPromo noteSlug={note.slug} />}
+
+      <BarakhloPromo context={note.slug} placement="satellite_note" />
 
       <RelatedNotes notes={related} />
 

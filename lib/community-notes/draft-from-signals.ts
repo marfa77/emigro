@@ -2,6 +2,7 @@ import { geminiProJson } from "@/lib/news/gemini";
 import { buildNoteHashtags } from "@/lib/community-notes/hashtags";
 import {
   flattenBodySections,
+  normalizeNoteDraftSeo,
   validateNoteDraft,
 } from "@/lib/community-notes/editorial-quality";
 import { reconcileTopic } from "@/lib/community-notes/editorial-filter";
@@ -190,7 +191,7 @@ function finalizeDraft(
   const topicTags = resolvedTopic === "general" ? ["portugal"] : [resolvedTopic, "portugal"];
   const bodySections = raw.body_sections ?? [];
 
-  return {
+  return normalizeNoteDraftSeo({
     ...raw,
     slug: slug || `pt-${resolvedTopic}-${contentKind}-2026`,
     category: TOPIC_LABELS[resolvedTopic] ?? "Быт в Португалии",
@@ -203,7 +204,7 @@ function finalizeDraft(
     hashtags: buildNoteHashtags({ topicTags, contentKind, extra: inlineTags }),
     source_channel: channels.join("+"),
     source_label: null,
-  };
+  });
 }
 
 export async function draftNoteFromCluster(cluster: SignalCluster): Promise<DraftedNote> {

@@ -89,7 +89,17 @@ async function main() {
   if (!data?.length) throw new Error("No notes found");
 
   for (const row of data) {
-    await rewriteOne(mapRow(row));
+    const note = mapRow(row);
+    if (all && note.body_sections.length >= 4) {
+      console.log(`[rewrite] skip ${note.slug} (already rich)`);
+      continue;
+    }
+    try {
+      await rewriteOne(note);
+    } catch (e) {
+      const msg = e instanceof Error ? e.message : String(e);
+      console.error(`[rewrite] ✗ ${note.slug}: ${msg}`);
+    }
   }
 }
 
