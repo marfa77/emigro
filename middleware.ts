@@ -20,18 +20,27 @@ function isPortugalSatelliteHost(host: string): boolean {
   return host === PORTUGAL_SATELLITE_HOST;
 }
 
-/** /notes/* and /tag/* on apex/www belong on the satellite host. */
+/** /notes/* and /tag/* on apex/www → www satellite paths (works even when subdomain DNS is stale). */
 function redirectMisplacedSatellitePaths(request: NextRequest): NextResponse | null {
   const host = hostName(request);
   if (host !== CANONICAL_HOST && host !== "emigro.online") return null;
 
   const { pathname } = request.nextUrl;
-  if (!pathname.startsWith("/notes/") && !pathname.startsWith("/tag/")) return null;
-
-  const url = request.nextUrl.clone();
-  url.protocol = "https:";
-  url.host = PORTUGAL_SATELLITE_HOST;
-  return NextResponse.redirect(url, 301);
+  if (pathname.startsWith("/notes/")) {
+    const url = request.nextUrl.clone();
+    url.protocol = "https:";
+    url.host = CANONICAL_HOST;
+    url.pathname = `/satellite/portugal${pathname}`;
+    return NextResponse.redirect(url, 301);
+  }
+  if (pathname.startsWith("/tag/")) {
+    const url = request.nextUrl.clone();
+    url.protocol = "https:";
+    url.host = CANONICAL_HOST;
+    url.pathname = `/satellite/portugal${pathname}`;
+    return NextResponse.redirect(url, 301);
+  }
+  return null;
 }
 
 function rewritePortugalSatellite(request: NextRequest): NextResponse | null {

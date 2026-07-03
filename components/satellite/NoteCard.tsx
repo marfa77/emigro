@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ContentKindBadge, NoteHashtags } from "@/components/satellite/HashtagNav";
 import type { CommunityNote } from "@/lib/community-notes/types";
+import { portugalNotePath } from "@/lib/satellite/paths";
 
 function formatDate(iso: string | null): string {
   if (!iso) return "";
@@ -19,7 +20,7 @@ export function NoteCard({ note }: { note: CommunityNote }) {
         <ContentKindBadge kind={note.content_kind} />
       </div>
       <h3 className="mt-2 text-lg font-semibold">
-        <Link href={`/notes/${note.slug}`} className="text-slate-900 hover:text-teal-800">
+        <Link href={portugalNotePath(note.slug)} className="text-slate-900 hover:text-teal-800">
           {note.title}
         </Link>
       </h3>

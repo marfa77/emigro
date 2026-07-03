@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { collectHashtagCounts, FEATURED_HASHTAGS, hashtagHref, hashtagLabel, normalizeHashtag } from "@/lib/community-notes/hashtags";
+import { collectHashtagCounts, FEATURED_HASHTAGS, hashtagLabel, normalizeHashtag } from "@/lib/community-notes/hashtags";
 import type { CommunityNote } from "@/lib/community-notes/types";
+import { portugalHubPath, portugalTagPath } from "@/lib/satellite/paths";
 
 export function HashtagNav({
   notes,
@@ -27,7 +28,7 @@ export function HashtagNav({
       <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">Навигация</p>
       <div className="mt-3 flex flex-wrap gap-2">
         <Link
-          href="/"
+          href={portugalHubPath()}
           className={`rounded-full px-3 py-1.5 text-sm font-medium transition ${
             !active ? "bg-teal-700 text-white" : "bg-slate-100 text-slate-700 hover:bg-teal-50 hover:text-teal-800"
           }`}
@@ -40,7 +41,7 @@ export function HashtagNav({
           return (
             <Link
               key={tag}
-              href={hashtagHref(tag)}
+              href={portugalTagPath(tag)}
               className={`rounded-full px-3 py-1.5 text-sm font-medium transition ${
                 isActive
                   ? "bg-teal-700 text-white"
@@ -64,7 +65,7 @@ export function NoteHashtags({ tags, className = "" }: { tags: string[]; classNa
       {tags.map((tag) => (
         <Link
           key={tag}
-          href={hashtagHref(tag)}
+          href={portugalTagPath(tag)}
           className="rounded-full bg-teal-50 px-2.5 py-1 text-xs font-medium text-teal-800 hover:bg-teal-100"
         >
           #{hashtagLabel(tag)}

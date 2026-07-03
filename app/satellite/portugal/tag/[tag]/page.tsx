@@ -4,6 +4,7 @@ import { HashtagNav } from "@/components/satellite/HashtagNav";
 import { NoteCard } from "@/components/satellite/NoteCard";
 import { hashtagLabel, normalizeHashtag } from "@/lib/community-notes/hashtags";
 import { getPublishedCommunityNotes, getPublishedCommunityNotesByHashtag } from "@/lib/community-notes/queries";
+import { portugalHubPath } from "@/lib/satellite/paths";
 import { portugalSatelliteUrl } from "@/lib/site-url";
 
 export async function generateStaticParams() {
@@ -32,7 +33,7 @@ export default async function PortugalTagPage({ params }: { params: { tag: strin
   return (
     <main className="mx-auto max-w-3xl px-4 py-10">
       <nav className="text-sm text-slate-500">
-        <Link href="/" className="hover:text-teal-700">
+        <Link href={portugalHubPath()} className="hover:text-teal-700">
           Португалия
         </Link>
         <span aria-hidden="true"> › </span>

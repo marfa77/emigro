@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { PORTUGAL_SATELLITE } from "@/lib/satellite/portugal";
+import { portugalHubPath } from "@/lib/satellite/paths";
 
 export function PortugalSatelliteHeader() {
   return (
@@ -7,7 +8,7 @@ export function PortugalSatelliteHeader() {
       <div className="mx-auto flex max-w-3xl flex-wrap items-center justify-between gap-3 px-4 py-4">
         <div>
           <p className="text-xs font-medium uppercase tracking-wide text-teal-700">Emigro · Лиссабон</p>
-          <Link href="/" className="text-lg font-semibold text-slate-900 hover:text-teal-800">
+          <Link href={portugalHubPath()} className="text-lg font-semibold text-slate-900 hover:text-teal-800">
             {PORTUGAL_SATELLITE.title}
           </Link>
         </div>

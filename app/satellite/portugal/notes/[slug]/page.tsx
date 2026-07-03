@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { ContentKindBadge, NoteHashtags } from "@/components/satellite/HashtagNav";
 import { getPublishedCommunityNoteBySlug, getPublishedCommunityNotes } from "@/lib/community-notes/queries";
 import { PORTUGAL_SATELLITE } from "@/lib/satellite/portugal";
+import { portugalHubPath } from "@/lib/satellite/paths";
 import { portugalSatelliteUrl } from "@/lib/site-url";
 
 export async function generateStaticParams() {
@@ -76,7 +77,7 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
       )}
 
       <nav className="text-sm text-slate-500" aria-label="Breadcrumb">
-        <Link href="/" className="hover:text-teal-700">
+        <Link href={portugalHubPath()} className="hover:text-teal-700">
           {PORTUGAL_SATELLITE.cityRu}
         </Link>
         <span aria-hidden="true"> › </span>
