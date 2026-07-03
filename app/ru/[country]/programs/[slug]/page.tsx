@@ -24,6 +24,8 @@ import { ProgramTypeBadge } from "@/components/visuals/ProgramTypeBadge";
 import { getProgramBySlug, getCorridorBySlug } from "@/lib/corridor/queries";
 import { getTopicByCountrySegment } from "@/lib/corridor/resolve-topic";
 import { isCorridorFull } from "@/lib/corridor/publish";
+import { getPillarGuideSlugForProgram } from "@/lib/guides/program-pillar-guides";
+import { guidePath, loadGuide } from "@/lib/guides/load";
 import type { ProgramDetail } from "@/lib/types";
 import {
   buildCorridorBreadcrumbSchema,
@@ -126,6 +128,8 @@ export default async function CountryProgramPage({
     getCorridorBySlug(topic.corridorSlug),
   ]);
   if (!program || !program.version) notFound();
+  const pillarGuideSlug = getPillarGuideSlugForProgram(program.slug);
+  const pillarGuide = pillarGuideSlug ? loadGuide(pillarGuideSlug) : null;
   const isLinkedToCorridor = corridor?.programs.some((p) => p.slug === program.slug) ?? false;
   if (!isLinkedToCorridor && !programMatchesCountrySegment(program.destination_iso2, topic.urlSegment)) notFound();
 
@@ -205,6 +209,21 @@ export default async function CountryProgramPage({
             )}
           </div>
         </section>
+
+        {pillarGuide && (
+          <section className="mt-10 rounded-3xl border border-corridor-200 bg-corridor-50 p-6 shadow-sm sm:p-8">
+            <p className="text-sm font-semibold uppercase tracking-wide text-corridor-700">Pillar-гайд</p>
+            <h2 className="mt-2 text-2xl font-bold text-slate-900">{pillarGuide.title}</h2>
+            <p className="mt-3 max-w-3xl text-sm leading-relaxed text-slate-700">{pillarGuide.excerpt}</p>
+            <Link
+              href={guidePath(pillarGuide.slug)}
+              className="mt-5 inline-flex items-center gap-2 rounded-lg bg-corridor-600 px-5 py-3 font-medium text-white hover:bg-corridor-700"
+            >
+              Полный разбор маршрута
+              <ArrowRight className="h-4 w-4" aria-hidden />
+            </Link>
+          </section>
+        )}
 
         <section className="mt-10 grid gap-4 md:grid-cols-3">
           <article className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">

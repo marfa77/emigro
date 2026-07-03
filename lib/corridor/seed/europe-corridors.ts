@@ -235,8 +235,10 @@ export const EUROPE_CORRIDORS: CorridorSeed[] = [
         type: "LABOR",
         titleEn: "Spain Digital Nomad (teletrabajo internacional)",
         titleRu: "Испания — digital nomad (teletrabajo)",
-        summaryEn: "Residence for remote workers with foreign income; max 20% income from Spain.",
-        summaryRu: "ВНЖ для удалённых работников с зарубежным доходом; не более 20% дохода из Испании.",
+        summaryEn:
+          "Residence for remote workers with foreign income (Ley 28/2022 teletrabajo); max 20% income from Spain; consulate or UGE route.",
+        summaryRu:
+          "ВНЖ для удалённых работников с зарубежным доходом (Ley 28/2022 teletrabajo); не более 20% дохода из Испании; подача через консульство за рубежом или UGE в Испании.",
         rule: {
           and: [
             { "==": [{ var: "passport_iso2" }, "RU"] },
@@ -246,17 +248,54 @@ export const EUROPE_CORRIDORS: CorridorSeed[] = [
         },
         requirements: [
           { type: "income", labelEn: "Minimum monthly income", labelRu: "Минимальный месячный доход", value: "€2,849 (200% SMI 2026, расчёт UGE по 14 платежам SMI)" },
-          { type: "documents", labelEn: "Remote work proof", labelRu: "Подтверждение удалённой работы", value: "Контракт, инвойсы; работодатель вне Испании" },
-          { type: "insurance", labelEn: "Health insurance", labelRu: "Медстраховка", value: "Полное покрытие в Испании" },
+          {
+            type: "documents",
+            labelEn: "Remote work proof",
+            labelRu: "Подтверждение удалённой работы",
+            value: "Контракт ≥3 мес., инвойсы или письмо работодателя; компания-работодатель существует ≥1 год (для наёмных)",
+          },
+          { type: "insurance", labelEn: "Health insurance", labelRu: "Медстраховка", value: "Полное покрытие в Испании, без copay" },
+          {
+            type: "income",
+            labelEn: "Family income add-on",
+            labelRu: "Доплата за членов семьи",
+            value: "+€916/мес. за первого иждивенца, +€305/мес. за каждого следующего (75%/25% SMI)",
+          },
+          {
+            type: "documents",
+            labelEn: "Spain income cap",
+            labelRu: "Лимит дохода из Испании",
+            value: "Не более 20% дохода от испанских клиентов или работодателя",
+          },
+          {
+            type: "documents",
+            labelEn: "Criminal record",
+            labelRu: "Справка о несудимости",
+            value: "Апостиль + sworn translation на испанский; действует ~3 месяца",
+          },
+          {
+            type: "documents",
+            labelEn: "Submission route",
+            labelRu: "Маршрут подачи",
+            value: "Консульство (виза D, 1 год) или UGE (если уже легально в Испании); TIE после одобрения",
+          },
         ],
         costs: [
           { labelEn: "Consular / UGE fee", labelRu: "Консульский / UGE сбор", amount: "€80–120" },
           { labelEn: "Autónomo social security (if freelance)", labelRu: "Autónomo (если фриланс)", amount: "от ~€453/мес. (2026)" },
+          { labelEn: "TIE issuance fee", labelRu: "Сбор TIE (tarjeta extranjero)", amount: "€16–20" },
+          { labelEn: "Legal assistance (optional)", labelRu: "Юридическое сопровождение", amount: "€800–2 500" },
         ],
         timeline: [
           { step: "document_prep", titleEn: "Income & insurance dossier", titleRu: "Досье дохода и страховки", duration: "2–4 недели" },
-          { step: "application", titleEn: "Consulate / UGE submission", titleRu: "Подача в консульство / UGE", duration: "1–3 месяца" },
-          { step: "residence", titleEn: "TIE residence card", titleRu: "Карта TIE", duration: "2–6 месяцев" },
+          { step: "application", titleEn: "Consulate / UGE submission", titleRu: "Подача в консульство / UGE", duration: "20–60 раб. дней + очередь" },
+          { step: "residence", titleEn: "TIE residence card", titleRu: "Карта TIE (1+2+2 года)", duration: "2–6 месяцев" },
+          {
+            step: "language_requirement",
+            titleEn: "NIE, autónomo & Beckham window",
+            titleRu: "NIE, autónomo и окно Beckham",
+            duration: "В течение 6 мес. после NIE — выбор налогового режима; фрилансерам — alta autónomo",
+          },
         ],
         sources: [
           {
@@ -266,10 +305,16 @@ export const EUROPE_CORRIDORS: CorridorSeed[] = [
             labelRu: "Ley de Startups (BOE)",
           },
           {
-            url: "https://www.thelocal.es/20260216/confirmed-the-financial-requirements-for-spains-digital-nomad-visa-in-2026",
-            excerpt: "2026 DNV threshold €2,849/month based on SMI €1,221 (14 payments).",
-            labelEn: "2026 income threshold",
-            labelRu: "Порог дохода 2026",
+            url: "https://www.boe.es/eli/es/rd/2026/02/18/126/con",
+            excerpt: "Real Decreto 126/2026 — SMI 2026 €1 221/мес (14 pagas). DNV threshold: €1 221 × 14 ÷ 12 × 2 = €2 849/мес.",
+            labelEn: "BOE — SMI 2026",
+            labelRu: "BOE — SMI 2026",
+          },
+          {
+            url: "https://extranjeros.inclusion.gob.es/es/informacioninteres/informacionprocedimientos/ciudadanosnocomunitarios/residencia/trabajadores-altamente-cualificados-y-teletrabajadores-de-caracter-internacional/",
+            excerpt: "Secretaría de Estado de Migraciones — procedimiento teletrabajo de carácter internacional (digital nomad / remote work).",
+            labelEn: "inclusion.gob.es — teletrabajo",
+            labelRu: "inclusion.gob.es — teletrabajo",
           },
         ],
       },
