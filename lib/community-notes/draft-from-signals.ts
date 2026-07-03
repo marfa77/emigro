@@ -74,14 +74,14 @@ export function clusterSignals(signals: CommunitySignalIngest[]): SignalCluster[
     list.push(s);
     buckets.set(topic, list);
   }
-  return [...buckets.entries()]
+  return Array.from(buckets.entries())
     .map(([topic, list]) => ({ topic, signals: list }))
     .sort((a, b) => b.signals.length - a.signals.length);
 }
 
 export async function draftNoteFromCluster(cluster: SignalCluster): Promise<DraftedNote> {
   const topic = cluster.topic;
-  const channels = [...new Set(cluster.signals.map((s) => s.channel_username))];
+  const channels = Array.from(new Set(cluster.signals.map((s) => s.channel_username)));
   const snippets = cluster.signals.slice(0, 8).map((s) => anonymizeSnippet(s.text));
 
   const userPrompt = `Тема кластера: ${TOPIC_LABELS[topic] ?? topic}

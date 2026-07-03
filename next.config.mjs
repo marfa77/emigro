@@ -10,6 +10,7 @@ const nextConfig = {
       },
       {
         source: "/",
+        missing: [{ type: "host", value: "portugal.emigro.online" }],
         destination: "/ru",
         permanent: true,
       },
