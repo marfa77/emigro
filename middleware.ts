@@ -52,6 +52,12 @@ function rewritePortugalSatellite(request: NextRequest): NextResponse | null {
     return NextResponse.next();
   }
 
+  if (pathname === "/llms.txt") {
+    const url = request.nextUrl.clone();
+    url.pathname = "/satellite/portugal/llms";
+    return NextResponse.rewrite(url);
+  }
+
   const url = request.nextUrl.clone();
   url.pathname = `/satellite/portugal${pathname === "/" ? "" : pathname}`;
   return NextResponse.rewrite(url);

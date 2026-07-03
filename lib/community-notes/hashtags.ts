@@ -21,7 +21,7 @@ export const FEATURED_HASHTAGS = [
   "nif",
   "aima",
   "arenda",
-  "банк",
+  "bank",
   "sns",
   "лайфхак",
   "совет",
@@ -75,6 +75,20 @@ export function hashtagHref(tag: string): string {
   return `/tag/${encodeURIComponent(normalizeHashtag(tag))}`;
 }
 
+const KIND_TAG: Record<ContentKind, string> = {
+  news: "новости",
+  lifehack: "лайфхак",
+  tip: "совет",
+  guide: "гайд",
+  qa: "вопрос",
+};
+
+/** English content_kind aliases — never store alongside Russian kind tag. */
+const KIND_ALIASES = new Set(["news", "lifehack", "tip", "guide", "qa", "новости", "лайфхак", "совет", "гайд", "вопрос"]);
+
+/** Geo tags belong in page header, not in every card pill list. */
+const GEO_TAGS = new Set(["portugal", "lisboa", "lisbon"]);
+
 /** Merge topic hints + content kind + inline #tags into deduped list. */
 export function buildNoteHashtags(input: {
   topicTags?: string[];
@@ -82,17 +96,21 @@ export function buildNoteHashtags(input: {
   extra?: string[];
 }): string[] {
   const set = new Set<string>();
-  for (const t of input.topicTags ?? []) set.add(normalizeHashtag(t));
-  for (const t of input.extra ?? []) set.add(normalizeHashtag(t));
-  if (input.contentKind) {
-    set.add(input.contentKind);
-    if (input.contentKind === "lifehack") set.add("лайфхак");
-    if (input.contentKind === "tip") set.add("совет");
-    if (input.contentKind === "news") set.add("новости");
-    if (input.contentKind === "guide") set.add("гайд");
+
+  for (const t of input.topicTags ?? []) {
+    const key = normalizeHashtag(t);
+    if (key && !GEO_TAGS.has(key) && !KIND_ALIASES.has(key)) set.add(key);
   }
+
+  for (const t of input.extra ?? []) {
+    const key = normalizeHashtag(t);
+    if (key && !GEO_TAGS.has(key) && !KIND_ALIASES.has(key)) set.add(key);
+  }
+
+  if (input.contentKind) set.add(KIND_TAG[input.contentKind]);
+
   set.delete("");
-  return Array.from(set).slice(0, 12);
+  return Array.from(set).slice(0, 8);
 }
 
 export function collectHashtagCounts(notes: Array<{ hashtags: string[] }>): Map<string, number> {

@@ -4,8 +4,12 @@ import { HashtagNav } from "@/components/satellite/HashtagNav";
 import { NoteCard } from "@/components/satellite/NoteCard";
 import { hashtagLabel, normalizeHashtag } from "@/lib/community-notes/hashtags";
 import { getPublishedCommunityNotes, getPublishedCommunityNotesByHashtag } from "@/lib/community-notes/queries";
+import { fitMetaDescription } from "@/lib/seo";
+import { DEFAULT_OG_IMAGE, socialImageMetadata } from "@/lib/seo";
 import { portugalHubPath } from "@/lib/satellite/paths";
 import { portugalSatelliteUrl } from "@/lib/site-url";
+
+export const revalidate = 300;
 
 export async function generateStaticParams() {
   const notes = await getPublishedCommunityNotes("portugal");
@@ -18,10 +22,30 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: { tag: string } }): Promise<Metadata> {
   const label = hashtagLabel(params.tag);
+  const url = portugalSatelliteUrl(`/tag/${normalizeHashtag(params.tag)}`);
+  const description = fitMetaDescription(
+    `#${label} — материалы для релокантов в Лиссабоне и Португалии: новости, лайфхаки, советы и гайды. Короткие ответы и FAQ, не юридическая консультация.`
+  );
+  const ogImage = socialImageMetadata(DEFAULT_OG_IMAGE, `#${label} — Португалия`);
   return {
     title: `#${label} — Португалия`,
-    description: `Материалы Emigro по тегу #${label}: новости, лайфхаки, советы и гайды для релокантов в Португалии.`,
-    alternates: { canonical: portugalSatelliteUrl(`/tag/${normalizeHashtag(params.tag)}`) },
+    description,
+    alternates: { canonical: url, languages: { "ru-RU": url, ru: url, "x-default": url } },
+    openGraph: {
+      title: `#${label} — Португалия`,
+      description,
+      url,
+      siteName: "Emigro Portugal",
+      locale: "ru_RU",
+      type: "website",
+      images: [ogImage],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `#${label} — Португалия`,
+      description,
+      images: [ogImage.url],
+    },
   };
 }
 

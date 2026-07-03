@@ -44,6 +44,7 @@ INGEST_API_KEY = os.getenv("COMMUNITY_INGEST_API_KEY", "")
 INCREMENTAL_LIMIT = int(os.getenv("PARSER_INCREMENTAL_LIMIT", "40"))
 BOOTSTRAP_LIMIT = int(os.getenv("PARSER_BOOTSTRAP_LIMIT", "100"))
 MAX_AGE_HOURS = int(os.getenv("PARSER_MAX_AGE_HOURS", "48"))
+SINCE_DAYS_LIMIT = int(os.getenv("PARSER_SINCE_DAYS_LIMIT", "400"))
 
 
 def make_client() -> TelegramClient:
@@ -102,32 +103,49 @@ async def process_group(
     *,
     dry_run: bool = False,
     bootstrap: bool = False,
+    since_days: int = 0,
 ) -> dict:
     username = group_cfg["username"].lstrip("@")
     group_id = group_cfg.get("group_id", username)
-    last_id = 0 if bootstrap else get_last_id(group_id)
+    last_id = 0 if bootstrap or since_days > 0 else get_last_id(group_id)
     cutoff = datetime.now(timezone.utc) - timedelta(hours=MAX_AGE_HOURS)
-    limit = BOOTSTRAP_LIMIT if bootstrap else INCREMENTAL_LIMIT
+    if since_days > 0:
+        cutoff = datetime.now(timezone.utc) - timedelta(days=since_days)
+    limit = SINCE_DAYS_LIMIT if since_days > 0 else (BOOTSTRAP_LIMIT if bootstrap else INCREMENTAL_LIMIT)
 
     entity = await client.get_entity(username)
     signals: list[dict] = []
     max_id = last_id
 
-    kwargs: dict = {"limit": limit, "reverse": not bootstrap}
-    if not bootstrap and last_id > 0:
-        kwargs["min_id"] = last_id
+    if since_days > 0:
+        print(f"  since-days={since_days}: from {cutoff.strftime('%Y-%m-%d %H:%M')} UTC, limit={limit}")
+        async for msg in client.iter_messages(entity, offset_date=cutoff, reverse=True, limit=limit):
+            if not isinstance(msg, Message) or msg.action:
+                continue
+            msg_date = msg.date.replace(tzinfo=timezone.utc) if msg.date.tzinfo is None else msg.date
+            if msg_date < cutoff:
+                continue
+            payload = build_signal(msg, group_cfg)
+            if not payload:
+                continue
+            signals.append(payload)
+            max_id = max(max_id, msg.id)
+    else:
+        kwargs: dict = {"limit": limit, "reverse": not bootstrap}
+        if not bootstrap and last_id > 0:
+            kwargs["min_id"] = last_id
 
-    async for msg in client.iter_messages(entity, **kwargs):
-        if not isinstance(msg, Message) or msg.action:
-            continue
-        msg_date = msg.date.replace(tzinfo=timezone.utc) if msg.date.tzinfo is None else msg.date
-        if msg_date < cutoff:
-            continue
-        payload = build_signal(msg, group_cfg)
-        if not payload:
-            continue
-        signals.append(payload)
-        max_id = max(max_id, msg.id)
+        async for msg in client.iter_messages(entity, **kwargs):
+            if not isinstance(msg, Message) or msg.action:
+                continue
+            msg_date = msg.date.replace(tzinfo=timezone.utc) if msg.date.tzinfo is None else msg.date
+            if msg_date < cutoff:
+                continue
+            payload = build_signal(msg, group_cfg)
+            if not payload:
+                continue
+            signals.append(payload)
+            max_id = max(max_id, msg.id)
 
     print(f"@{username}: {len(signals)} signal(s) (bootstrap={bootstrap}, since_id={last_id})")
 
@@ -142,13 +160,19 @@ async def process_group(
     elif signals:
         print("  skip HTTP ingest: COMMUNITY_INGEST_API_KEY not set")
 
-    if not bootstrap and max_id > last_id:
+    if not bootstrap and not since_days and max_id > last_id:
         set_last_id(group_id, max_id)
 
     return {"group_id": group_id, "signals": signals}
 
 
-async def run(*, dry_run: bool = False, bootstrap: bool = False, json_out: str | None = None) -> None:
+async def run(
+    *,
+    dry_run: bool = False,
+    bootstrap: bool = False,
+    since_days: int = 0,
+    json_out: str | None = None,
+) -> None:
     if not TG_API_ID or not TG_API_HASH:
         raise SystemExit("Set TG_API_ID and TG_API_HASH in parser/.env")
 
@@ -158,7 +182,9 @@ async def run(*, dry_run: bool = False, bootstrap: bool = False, json_out: str |
     all_signals: list[dict] = []
     try:
         for group in groups:
-            result = await process_group(client, group, dry_run=dry_run or bool(json_out), bootstrap=bootstrap)
+            result = await process_group(
+                client, group, dry_run=dry_run or bool(json_out), bootstrap=bootstrap, since_days=since_days
+            )
             all_signals.extend(result.get("signals") or [])
     finally:
         await client.disconnect()
@@ -169,7 +195,7 @@ async def run(*, dry_run: bool = False, bootstrap: bool = False, json_out: str |
         payload = {"fetched_at": datetime.now(timezone.utc).isoformat(), "signals": all_signals}
         out_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
         print(f"Wrote {len(all_signals)} signals → {out_path}")
-        if not bootstrap:
+        if not bootstrap and not since_days:
             for group in groups:
                 gid = group.get("group_id", group["username"])
                 ids = [s["message_id"] for s in all_signals if s["channel_username"] == group["username"].lstrip("@")]
@@ -191,6 +217,7 @@ def main() -> None:
     parser.add_argument("--once", action="store_true", help="Single incremental run (cron)")
     parser.add_argument("--dry-run", action="store_true", help="Fetch without POST")
     parser.add_argument("--bootstrap", action="store_true", help="Recent window, ignore cursor (first fill)")
+    parser.add_argument("--since-days", type=int, default=0, help="Import useful signals since N days ago (e.g. 30)")
     parser.add_argument("--json-out", metavar="PATH", help="Write signals JSON (for TS pipeline)")
     args = parser.parse_args()
 
@@ -202,6 +229,7 @@ def main() -> None:
         run(
             dry_run=args.dry_run,
             bootstrap=args.bootstrap,
+            since_days=args.since_days,
             json_out=args.json_out,
         )
     )

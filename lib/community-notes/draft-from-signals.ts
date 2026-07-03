@@ -1,5 +1,6 @@
 import { geminiJson, FAST_MODEL } from "@/lib/news/gemini";
 import { buildNoteHashtags } from "@/lib/community-notes/hashtags";
+import { reconcileTopic } from "@/lib/community-notes/editorial-filter";
 import {
   PORTUGAL_EDITORIAL_SYSTEM,
   TOPIC_LABELS,
@@ -112,9 +113,12 @@ export async function draftNoteFromCluster(cluster: SignalCluster): Promise<Draf
 ${snippets.map((s, i) => `${i + 1}. ${s}`).join("\n")}
 
 slug: latin kebab-case, уникальный, с темой и годом 2026 если уместно.
-seo_title: ≤55 символов без "| Emigro".
-seo_description: 145–160 символов.
+seo_title: ≤55 символов без "| Emigro", с гео «Португалия» или «Лиссабон» где уместно.
+seo_description: строго 145–160 символов, с intent-запросом и гео (Португалия/Лиссабон).
 category: ${TOPIC_LABELS[topic] ?? "Быт в Португалии"}
+faq: минимум 2 вопроса — формулировки как в Google/Perplexity (AEO).
+
+GEO/AEO: в quick_answer и первом абзаце — город (Лиссабон) и страна (Португалия); аудитория RU/BY/UA/KZ.
 
 Если content_kind=lifehack — первый абзац = конкретный приём в одном предложении.
 Если content_kind=tip — дай честный trade-off (плюс/минус).
@@ -133,14 +137,15 @@ category: ${TOPIC_LABELS[topic] ?? "Быт в Португалии"}
     .replace(/^-|-$/g, "")
     .slice(0, 60);
 
-  const topicTags = topic === "general" ? ["portugal"] : [topic, "portugal"];
+  const resolvedTopic = reconcileTopic(topic, raw.title, slug || `pt-${topic}`);
+  const topicTags = resolvedTopic === "general" ? ["portugal"] : [resolvedTopic, "portugal"];
 
   return {
     ...raw,
-    slug: slug || `pt-${topic}-${contentKind}-2026`,
-    category: TOPIC_LABELS[topic] ?? "Быт в Португалии",
+    slug: slug || `pt-${resolvedTopic}-${contentKind}-2026`,
+    category: TOPIC_LABELS[resolvedTopic] ?? "Быт в Португалии",
     content_kind: contentKind,
-    official_links: TOPIC_OFFICIAL_LINKS[topic] ?? TOPIC_OFFICIAL_LINKS.general,
+    official_links: TOPIC_OFFICIAL_LINKS[resolvedTopic] ?? TOPIC_OFFICIAL_LINKS.general,
     topic_tags: topicTags,
     hashtags: buildNoteHashtags({ topicTags, contentKind, extra: inlineTags }),
     source_channel: channels.join("+"),

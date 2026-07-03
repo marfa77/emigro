@@ -21,7 +21,9 @@ export type EmigroEventName =
   | "cron_weekly_news"
   | "cron_weekly_news_error"
   | "cron_prep2go_news"
-  | "cron_prep2go_news_error";
+  | "cron_prep2go_news_error"
+  | "cron_portugal_community"
+  | "cron_portugal_community_error";
 
 export type EmigroEventProps = Record<string, string | number | boolean | null | undefined>;
 

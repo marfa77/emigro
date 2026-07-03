@@ -55,14 +55,26 @@ export function newsFeedUrl(country?: string): string {
     : `${base}/ru/news/feed.xml`;
 }
 
-const PORTUGAL_SATELLITE_ORIGIN = "https://portugal.emigro.online";
+const PORTUGAL_SATELLITE_SUBDOMAIN = "https://portugal.emigro.online";
+const PORTUGAL_SATELLITE_PATH = "/satellite/portugal";
 
-/** Canonical origin for portugal.emigro.online satellite pages. */
+/** Use subdomain only when DNS is live (`PORTUGAL_SATELLITE_USE_SUBDOMAIN=true`). */
+function portugalSatelliteOrigin(): string {
+  if (process.env.PORTUGAL_SATELLITE_USE_SUBDOMAIN === "true") {
+    return PORTUGAL_SATELLITE_SUBDOMAIN;
+  }
+  if (process.env.NODE_ENV === "production") {
+    return `${publicSiteUrl()}${PORTUGAL_SATELLITE_PATH}`;
+  }
+  return `${stripTrailingSlash(process.env.NEXT_PUBLIC_SITE_URL || LOCALHOST_FALLBACK)}${PORTUGAL_SATELLITE_PATH}`;
+}
+
+/** Canonical URL for Portugal satellite pages (www path until subdomain DNS is configured). */
 export function portugalSatelliteUrl(path = ""): string {
   const normalized = path.startsWith("/") ? path : path ? `/${path}` : "";
-  if (process.env.NODE_ENV !== "production") {
-    const base = stripTrailingSlash(process.env.NEXT_PUBLIC_SITE_URL || LOCALHOST_FALLBACK);
-    return `${base}/satellite/portugal${normalized === "/" ? "" : normalized}`;
+  const origin = portugalSatelliteOrigin();
+  if (origin.endsWith(PORTUGAL_SATELLITE_PATH)) {
+    return `${origin}${normalized === "/" ? "" : normalized}`;
   }
-  return `${PORTUGAL_SATELLITE_ORIGIN}${normalized === "/" ? "" : normalized}`;
+  return `${origin}${normalized === "/" ? "" : normalized}`;
 }

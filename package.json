@@ -23,7 +23,12 @@
     "guides:og-images": "tsx scripts/generate-guide-og-images.ts",
     "telegram:set-webhook": "tsx scripts/set-telegram-webhook.ts",
     "portugal:community": "tsx scripts/portugal-community-run.ts",
+    "portugal:daily": "tsx scripts/portugal-community-daily.ts",
+    "portugal:spotlight": "tsx scripts/portugal-refresh-spotlight.ts",
+    "portugal:repair": "tsx scripts/portugal-repair-notes.ts",
+    "portugal:backfill-month": "tsx scripts/portugal-backfill-month.ts",
     "portugal:backfill-tags": "tsx scripts/backfill-community-hashtags.ts",
+    "portugal:backfill-seo": "tsx scripts/backfill-community-seo.ts",
     "portugal:clear-labels": "tsx scripts/clear-community-source-labels.ts"
   },
   "dependencies": {

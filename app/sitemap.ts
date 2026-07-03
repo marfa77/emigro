@@ -9,7 +9,8 @@ import {
   programLastModified,
   verifiedDateToLastModified,
 } from "@/lib/seo/corridor-page-seo";
-import { newsArticleUrl, newsHubUrl, publicSiteUrl } from "@/lib/site-url";
+import { getPublishedCommunityNotes } from "@/lib/community-notes/queries";
+import { newsArticleUrl, newsHubUrl, publicSiteUrl, portugalSatelliteUrl } from "@/lib/site-url";
 import { TRANSIT_HUBS } from "@/lib/transit-hubs";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -122,5 +123,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.85,
   }));
 
-  return [...staticRoutes, ...corridorRoutes, ...programRoutes, ...guideRoutes, ...newsRoutes];
+  const portugalNotes = await getPublishedCommunityNotes("portugal");
+  const satelliteRoutes: MetadataRoute.Sitemap = [
+    {
+      url: portugalSatelliteUrl("/"),
+      changeFrequency: "daily",
+      priority: 0.9,
+    },
+    {
+      url: portugalSatelliteUrl("/llms"),
+      changeFrequency: "daily",
+      priority: 0.5,
+    },
+    ...portugalNotes.map((note) => ({
+      url: portugalSatelliteUrl(`/notes/${note.slug}`),
+      lastModified: note.updated_at || note.published_at || undefined,
+      changeFrequency: "weekly" as const,
+      priority: note.content_kind === "news" ? 0.85 : 0.75,
+    })),
+  ];
+
+  return [...staticRoutes, ...corridorRoutes, ...programRoutes, ...guideRoutes, ...newsRoutes, ...satelliteRoutes];
 }

@@ -2,10 +2,21 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { ContentKindBadge, NoteHashtags } from "@/components/satellite/HashtagNav";
+import { RelatedNotes } from "@/components/satellite/RelatedNotes";
+import {
+  buildCommunityNoteLlmDescription,
+  buildCommunityNoteLlmFacts,
+  buildCommunityNoteMetadata,
+  buildCommunityNoteSchemas,
+  communityNoteUrl,
+} from "@/lib/community-notes/seo-page";
 import { getPublishedCommunityNoteBySlug, getPublishedCommunityNotes } from "@/lib/community-notes/queries";
+import { getRelatedNotes } from "@/lib/community-notes/repair-note";
 import { PORTUGAL_SATELLITE } from "@/lib/satellite/portugal";
 import { portugalHubPath } from "@/lib/satellite/paths";
 import { portugalSatelliteUrl } from "@/lib/site-url";
+
+export const revalidate = 300;
 
 export async function generateStaticParams() {
   const notes = await getPublishedCommunityNotes("portugal");
@@ -15,18 +26,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const note = await getPublishedCommunityNoteBySlug(params.slug, "portugal");
   if (!note) return {};
-  const url = portugalSatelliteUrl(`/notes/${note.slug}`);
-  return {
-    title: note.seo_title.replace(/\s*\|\s*Emigro.*$/i, ""),
-    description: note.seo_description,
-    alternates: { canonical: url },
-    openGraph: {
-      title: note.title,
-      description: note.excerpt,
-      url,
-      type: "article",
-    },
-  };
+  return buildCommunityNoteMetadata(note);
 }
 
 function formatDate(iso: string | null): string {
@@ -39,42 +39,38 @@ function formatDate(iso: string | null): string {
 }
 
 export default async function PortugalNotePage({ params }: { params: { slug: string } }) {
-  const note = await getPublishedCommunityNoteBySlug(params.slug, "portugal");
+  const [note, allNotes] = await Promise.all([
+    getPublishedCommunityNoteBySlug(params.slug, "portugal"),
+    getPublishedCommunityNotes("portugal"),
+  ]);
   if (!note) notFound();
 
-  const url = portugalSatelliteUrl(`/notes/${note.slug}`);
-  const faqSchema =
-    note.faq.length > 0
-      ? {
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          mainEntity: note.faq.map((item) => ({
-            "@type": "Question",
-            name: item.q,
-            acceptedAnswer: { "@type": "Answer", text: item.a },
-          })),
-        }
-      : null;
+  const related = getRelatedNotes(note, allNotes);
 
-  const articleSchema = {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    headline: note.title,
-    description: note.excerpt,
-    datePublished: note.published_at,
-    dateModified: note.updated_at,
-    author: { "@type": "Organization", name: "Emigro", url: "https://www.emigro.online" },
-    publisher: { "@type": "Organization", name: "Emigro", url: "https://www.emigro.online" },
-    url,
-    inLanguage: "ru-RU",
-  };
+  const { articleSchema, breadcrumbSchema, faqSchema, speakableSchema } = buildCommunityNoteSchemas(note);
+  const llmDescription = buildCommunityNoteLlmDescription(note);
+  const llmFacts = buildCommunityNoteLlmFacts(note);
+  const llmsUrl = portugalSatelliteUrl("/llms");
 
   return (
     <main className="mx-auto max-w-3xl px-4 py-10">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(speakableSchema) }} />
       {faqSchema && (
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       )}
+
+      <section className="sr-only" aria-label="AI description">
+        <h2>ai:description</h2>
+        <p>{llmDescription}</p>
+        <ul>
+          {llmFacts.map((fact) => (
+            <li key={fact}>{fact}</li>
+          ))}
+        </ul>
+        <a href={llmsUrl}>llms.txt</a>
+      </section>
 
       <nav className="text-sm text-slate-500" aria-label="Breadcrumb">
         <Link href={portugalHubPath()} className="hover:text-teal-700">
@@ -90,14 +86,23 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
           <ContentKindBadge kind={note.content_kind} />
         </div>
         <h1 className="mt-2 text-3xl font-bold leading-tight text-slate-900">{note.title}</h1>
+        <p className="mt-2 text-sm text-slate-600">
+          {PORTUGAL_SATELLITE.cityRu}, Португалия · для релокантов RU/BY/UA/KZ
+        </p>
         {note.published_at && (
           <p className="mt-3 text-sm text-slate-500">
             <time dateTime={note.published_at}>{formatDate(note.published_at)}</time>
+            {note.updated_at !== note.published_at && (
+              <>
+                {" · "}
+                <span>обновлено {formatDate(note.updated_at)}</span>
+              </>
+            )}
           </p>
         )}
       </header>
 
-      <div className="mt-8 rounded-xl border border-emerald-100 bg-emerald-50/70 p-5">
+      <div className="community-quick-answer mt-8 rounded-xl border border-emerald-100 bg-emerald-50/70 p-5">
         <p className="text-xs font-bold uppercase tracking-wide text-emerald-800">Короткий ответ</p>
         <p className="mt-2 leading-relaxed text-slate-800">{note.quick_answer}</p>
       </div>
@@ -133,7 +138,7 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
       )}
 
       {note.faq.length > 0 && (
-        <section className="mt-10">
+        <section className="mt-10" id="faq">
           <h2 className="text-lg font-semibold text-slate-900">FAQ</h2>
           <dl className="mt-4 space-y-4">
             {note.faq.map((item) => (
@@ -145,6 +150,8 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
           </dl>
         </section>
       )}
+
+      <RelatedNotes notes={related} />
 
       <p className="mt-12 rounded-lg border border-amber-100 bg-amber-50/80 p-4 text-sm text-amber-950">
         Не юридическая консультация. Проверяйте правила на официальных порталах перед подачей документов.
@@ -158,7 +165,12 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
         <a href={PORTUGAL_SATELLITE.mainSiteUrl} className="text-sm text-teal-700 underline">
           Коридор Португалия на Emigro
         </a>
+        {" · "}
+        <a href={llmsUrl} className="text-sm text-teal-700 underline">
+          llms.txt
+        </a>
       </p>
+      <link rel="canonical" href={communityNoteUrl(note.slug)} />
     </main>
   );
 }

@@ -16,16 +16,18 @@ import dotenv from "dotenv";
 dotenv.config({ path: resolve(process.cwd(), ".env.local") });
 dotenv.config({ path: resolve(process.cwd(), ".env") });
 
-import { clusterSignals, draftNoteFromCluster } from "@/lib/community-notes/draft-from-signals";
+import { publishDraftsFromNewSignals } from "@/lib/community-notes/publish-drafts";
+import { refreshDailySpotlight } from "@/lib/community-notes/daily-spotlight";
 import { ingestCommunitySignals } from "@/lib/community-notes/queries";
 import { publishPortugalSeedNotes } from "@/lib/community-notes/publish-seed";
 import type { CommunitySignalIngest } from "@/lib/community-notes/types";
-import { createServerClient } from "@/lib/supabase/server";
 
 const ROOT = resolve(process.cwd());
 const SIGNALS_JSON = resolve(ROOT, "parser/out/signals-latest.json");
 const skipParser = process.argv.includes("--skip-parser");
 const seedOnly = process.argv.includes("--seed-only");
+const sinceDaysArg = process.argv.find((a) => a.startsWith("--since-days="));
+const sinceDays = sinceDaysArg ? parseInt(sinceDaysArg.split("=")[1] ?? "0", 10) : 0;
 const maxNotesArg = process.argv.find((a) => a.startsWith("--max-notes="));
 const maxNotes = maxNotesArg ? parseInt(maxNotesArg.split("=")[1] ?? "3", 10) : 3;
 
@@ -34,11 +36,19 @@ function runParser(): CommunitySignalIngest[] {
   const venvPython = resolve("/Users/pavelveselov/Projects/barakhlo/parser/.venv/bin/python");
   const python = existsSync(venvPython) ? venvPython : "python3";
 
-  const result = spawnSync(
-    python,
-    [py, "--once", "--json-out", SIGNALS_JSON, "--bootstrap"],
-    { cwd: resolve(ROOT, "parser"), encoding: "utf-8", timeout: 120_000 }
-  );
+  const parserArgs = ["--once", "--json-out", SIGNALS_JSON];
+  if (sinceDays > 0) {
+    parserArgs.length = 0;
+    parserArgs.push("--since-days", String(sinceDays), "--json-out", SIGNALS_JSON);
+  } else {
+    parserArgs.push("--bootstrap");
+  }
+
+  const result = spawnSync(python, [py, ...parserArgs], {
+    cwd: resolve(ROOT, "parser"),
+    encoding: "utf-8",
+    timeout: sinceDays > 0 ? 300_000 : 120_000,
+  });
 
   if (result.status !== 0) {
     console.error(result.stderr || result.stdout);
@@ -53,81 +63,19 @@ function runParser(): CommunitySignalIngest[] {
   return parsed.signals ?? [];
 }
 
-async function loadNewSignals(): Promise<CommunitySignalIngest[]> {
-  const supabase = createServerClient();
-  const { data, error } = await supabase
-    .from("community_signals")
-    .select("*")
-    .eq("status", "new")
-    .eq("country_key", "portugal")
-    .order("posted_at", { ascending: false })
-    .limit(120);
-
-  if (error) throw new Error(error.message);
-
-  return (data ?? []).map((row) => ({
-    message_id: Number(row.message_id),
-    channel_username: String(row.channel_username),
-    channel_title: row.channel_title ? String(row.channel_title) : undefined,
-    post_url: row.post_url ? String(row.post_url) : undefined,
-    text: String(row.text),
-    topic_hints: (row.topic_hints as string[]) ?? [],
-    content_kind: (row.content_kind as CommunitySignalIngest["content_kind"]) ?? "tip",
-    hashtags: (row.hashtags as string[]) ?? [],
-    city: String(row.city),
-    country_key: String(row.country_key),
-    posted_at: String(row.posted_at),
-  }));
-}
-
 async function publishDrafts(max: number) {
-  const signals = await loadNewSignals();
-  if (signals.length === 0) {
-    console.log("[draft] no new signals — skip Gemini");
-    return;
+  const result = await publishDraftsFromNewSignals(max);
+  for (const slug of result.published) {
+    console.log(`[published] /notes/${slug}`);
   }
-
-  const clusters = clusterSignals(signals).filter((c) => c.topic !== "general" || c.signals.length >= 5).slice(0, max);
-  const supabase = createServerClient();
-
-  for (const cluster of clusters) {
-    console.log(`[draft] topic=${cluster.topic} signals=${cluster.signals.length}`);
-    const draft = await draftNoteFromCluster(cluster);
-
-    const { data: existing } = await supabase
-      .from("community_notes")
-      .select("id")
-      .eq("slug", draft.slug)
-      .maybeSingle();
-
-    if (existing) {
-      console.log(`[draft] slug exists, skip: ${draft.slug}`);
-      continue;
-    }
-
-    const now = new Date().toISOString();
-    const { error: insertError } = await supabase.from("community_notes").insert({
-      ...draft,
-      country_key: "portugal",
-      city: cluster.signals[0]?.city ?? "lisbon",
-      status: "published",
-      published_at: now,
-      updated_at: now,
-    });
-
-    if (insertError) {
-      console.error(`[draft] insert failed: ${insertError.message}`);
-      continue;
-    }
-
-    const ids = cluster.signals.map((s) => s.message_id);
-    await supabase
-      .from("community_signals")
-      .update({ status: "reviewed", updated_at: now })
-      .eq("country_key", "portugal")
-      .in("message_id", ids);
-
-    console.log(`[published] /notes/${draft.slug}`);
+  for (const slug of result.skipped) {
+    console.log(`[draft] slug exists, skip: ${slug}`);
+  }
+  for (const err of result.errors) {
+    console.error(`[draft] ${err}`);
+  }
+  if (result.clusters === 0 && result.published.length === 0) {
+    console.log("[draft] no new signals — skip Gemini");
   }
 }
 
@@ -150,6 +98,8 @@ async function main() {
   }
 
   await publishDrafts(maxNotes);
+  const spotlight = await refreshDailySpotlight("portugal");
+  console.log("[spotlight]", spotlight?.note_slug);
   console.log("[done] portugal community pipeline");
 }
 
