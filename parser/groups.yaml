@@ -1,0 +1,13 @@
+groups:
+  - username: chatlisboa
+    group_id: chatlisboa
+    city: lisbon
+    country_key: portugal
+    title: "Чат Лиссабон 🇵🇹"
+    timezone: Europe/Lisbon
+  - username: por_tugal
+    group_id: por_tugal
+    city: portugal
+    country_key: portugal
+    title: "@por_tugal — обсуждения по Португалии"
+    timezone: Europe/Lisbon

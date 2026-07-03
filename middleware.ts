@@ -1,7 +1,12 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { PORTUGAL_SATELLITE_HOST } from "@/lib/satellite/portugal";
 
 const CANONICAL_HOST = "www.emigro.online";
+
+function hostName(request: NextRequest): string {
+  return request.headers.get("host")?.split(":")[0] ?? "";
+}
 
 function isLocalHost(host: string): boolean {
   return !host || host.includes("localhost") || host.includes("127.0.0.1");
@@ -11,9 +16,27 @@ function isPreviewHost(host: string): boolean {
   return host.endsWith(".vercel.app");
 }
 
+function isPortugalSatelliteHost(host: string): boolean {
+  return host === PORTUGAL_SATELLITE_HOST;
+}
+
+function rewritePortugalSatellite(request: NextRequest): NextResponse | null {
+  const host = hostName(request);
+  if (!isPortugalSatelliteHost(host)) return null;
+
+  const { pathname } = request.nextUrl;
+  if (pathname.startsWith("/satellite/portugal")) {
+    return NextResponse.next();
+  }
+
+  const url = request.nextUrl.clone();
+  url.pathname = `/satellite/portugal${pathname === "/" ? "" : pathname}`;
+  return NextResponse.rewrite(url);
+}
+
 function shouldRedirectToCanonical(request: NextRequest): URL | null {
-  const host = request.headers.get("host")?.split(":")[0] ?? "";
-  if (isLocalHost(host) || isPreviewHost(host)) return null;
+  const host = hostName(request);
+  if (isLocalHost(host) || isPreviewHost(host) || isPortugalSatelliteHost(host)) return null;
 
   const proto = request.headers.get("x-forwarded-proto");
   const needsHttps = proto === "http";
@@ -28,6 +51,9 @@ function shouldRedirectToCanonical(request: NextRequest): URL | null {
 }
 
 export function middleware(request: NextRequest) {
+  const satellite = rewritePortugalSatellite(request);
+  if (satellite) return satellite;
+
   const canonicalUrl = shouldRedirectToCanonical(request);
   if (canonicalUrl) {
     return NextResponse.redirect(canonicalUrl, 301);

@@ -54,3 +54,15 @@ export function newsFeedUrl(country?: string): string {
     ? `${base}/ru/news/feed.xml?country=${country}`
     : `${base}/ru/news/feed.xml`;
 }
+
+const PORTUGAL_SATELLITE_ORIGIN = "https://portugal.emigro.online";
+
+/** Canonical origin for portugal.emigro.online satellite pages. */
+export function portugalSatelliteUrl(path = ""): string {
+  const normalized = path.startsWith("/") ? path : path ? `/${path}` : "";
+  if (process.env.NODE_ENV !== "production") {
+    const base = stripTrailingSlash(process.env.NEXT_PUBLIC_SITE_URL || LOCALHOST_FALLBACK);
+    return `${base}/satellite/portugal${normalized === "/" ? "" : normalized}`;
+  }
+  return `${PORTUGAL_SATELLITE_ORIGIN}${normalized === "/" ? "" : normalized}`;
+}
