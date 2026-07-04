@@ -26,10 +26,15 @@ const skipDrafts = process.argv.includes("--skip-drafts");
 const maxNotesArg = process.argv.find((a) => a.startsWith("--max-notes="));
 const maxNotes = maxNotesArg ? parseInt(maxNotesArg.split("=")[1] ?? "1", 10) : 1;
 
+function resolveParserPython(): string {
+  const localVenv = resolve(ROOT, "parser/.venv/bin/python");
+  if (existsSync(localVenv)) return localVenv;
+  return "python3";
+}
+
 function runIncrementalParser(): CommunitySignalIngest[] {
   const py = resolve(ROOT, "parser/main.py");
-  const venvPython = resolve("/Users/pavelveselov/Projects/barakhlo/parser/.venv/bin/python");
-  const python = existsSync(venvPython) ? venvPython : "python3";
+  const python = resolveParserPython();
 
   const result = spawnSync(python, [py, "--json-out", SIGNALS_JSON], {
     cwd: resolve(ROOT, "parser"),

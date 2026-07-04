@@ -76,15 +76,14 @@ npm run portugal:backfill-month  # 30 дней истории
 
 ## Ежедневный cron
 
-**GitHub Actions** (`portugal-community-daily.yml`) — **07:00 UTC**: парсер → ingest → до 2 черновиков.
+**VPS + systemd** (как Barakhlo) — **07:00 UTC** (09:00 Lisbon летом):  
+`emigro-portugal-community.timer` → `parser/run_scheduled.sh` → `npm run portugal:daily`.
 
-Secrets: `NEXT_PUBLIC_SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `GOOGLE_API_KEY`, `TG_API_ID`, `TG_API_HASH`, `TG_SESSION_STRING`, `COMMUNITY_INGEST_API_KEY`.
+Подробно: [PORTUGAL_CRON.md](./PORTUGAL_CRON.md). Деплой: `cd parser && ./deploy.sh`.
 
-**Vercel cron** — `GET /api/cron/portugal-community` **09:30 UTC** (fallback drafts из ingested signals).
+**GitHub Actions** — только ручной (`workflow_dispatch`), schedule отключён (нет подписки).
 
-VPS: `parser/run_daily.sh` — только парсер → POST ingest API.
-
-**Spotlight** — плитка «Лучшее за сегодня» на hub: Threads-текст + кнопка копирования. Обновляется после daily cron (`refreshDailySpotlight`). Ручной прогон: `npm run portugal:spotlight`.
+**Spotlight** — плитка «Лучшее за сегодня» на hub. Обновляется в том же daily-прогоне. Ручной прогон: `npm run portugal:spotlight`.
 
 ## DNS / субдомен
 

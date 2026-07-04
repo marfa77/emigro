@@ -1,9 +1,7 @@
-name: Portugal community daily
+# Manual Portugal daily (emergency / test). Prod schedule: VPS systemd — see docs/PORTUGAL_CRON.md
+name: Portugal community daily (manual)
 
 on:
-  schedule:
-    # 07:00 UTC — свежие сигналы до утреннего трафика EU
-    - cron: "0 7 * * *"
   workflow_dispatch:
 
 concurrency:

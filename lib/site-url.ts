@@ -63,10 +63,18 @@ function portugalSatelliteOrigin(): string {
   if (process.env.PORTUGAL_SATELLITE_USE_SUBDOMAIN === "true") {
     return PORTUGAL_SATELLITE_SUBDOMAIN;
   }
+  const publicEnv = process.env.EMIGRO_PUBLIC_SITE_URL?.trim();
+  if (publicEnv && !isLocalhostUrl(publicEnv)) {
+    return `${stripTrailingSlash(publicEnv)}${PORTUGAL_SATELLITE_PATH}`;
+  }
   if (process.env.NODE_ENV === "production") {
     return `${publicSiteUrl()}${PORTUGAL_SATELLITE_PATH}`;
   }
-  return `${stripTrailingSlash(process.env.NEXT_PUBLIC_SITE_URL || LOCALHOST_FALLBACK)}${PORTUGAL_SATELLITE_PATH}`;
+  const site = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+  if (site && !isLocalhostUrl(site)) {
+    return `${stripTrailingSlash(site)}${PORTUGAL_SATELLITE_PATH}`;
+  }
+  return `${LOCALHOST_FALLBACK}${PORTUGAL_SATELLITE_PATH}`;
 }
 
 /** Canonical URL for Portugal satellite pages (www path until subdomain DNS is configured). */

@@ -20,11 +20,82 @@ const SPOTLIGHT_TZ = process.env.EMIGRO_ANALYTICS_TIMEZONE?.trim() || "Europe/Li
 
 const KIND_SCORE: Record<ContentKind, number> = {
   news: 100,
-  lifehack: 85,
-  tip: 75,
-  qa: 45,
-  guide: 35,
+  lifehack: 90,
+  guide: 80,
+  tip: 65,
+  qa: 40,
 };
+
+/** Relocation topics readers care about most on the hub. */
+const TOPIC_SCORE: Record<string, number> = {
+  nif: 35,
+  aima: 35,
+  arenda: 30,
+  bank: 25,
+  sns: 22,
+  ciple: 22,
+  transport: 12,
+  sim: 10,
+  pets: 10,
+  general: 0,
+};
+
+function publishedOnDate(iso: string | null, dateStr: string): boolean {
+  if (!iso) return false;
+  const day = new Intl.DateTimeFormat("en-CA", { timeZone: SPOTLIGHT_TZ }).format(new Date(iso));
+  return day === dateStr;
+}
+
+function primaryTopic(note: CommunityNote): string {
+  return note.topic_tags.find((t) => t !== "portugal" && t !== "lisboa") ?? "general";
+}
+
+function scoreNote(note: CommunityNote, yesterdaySlug: string | null, today: string): number {
+  if (yesterdaySlug && note.slug === yesterdaySlug) return -1;
+
+  let score = KIND_SCORE[note.content_kind] ?? 30;
+  score += TOPIC_SCORE[primaryTopic(note)] ?? 0;
+
+  if (publishedOnDate(note.published_at, today)) score += 100;
+  else if (note.published_at) {
+    const ageHours = (Date.now() - new Date(note.published_at).getTime()) / 3_600_000;
+    if (ageHours <= 24) score += 50;
+    else if (ageHours <= 72) score += 25;
+    else if (ageHours <= 168) score += 10;
+  }
+
+  if (note.body_sections.length >= 4) score += 20;
+  if (note.key_takeaways.length >= 3) score += 15;
+  if (note.faq.length >= 4) score += 10;
+
+  return score;
+}
+
+function spotlightBody(note: CommunityNote): string {
+  if (note.key_takeaways.length >= 2) {
+    return note.key_takeaways
+      .slice(0, 3)
+      .map((t) => `• ${t.trim()}`)
+      .join("\n");
+  }
+  const hook = note.quick_answer.trim().replace(/\s+/g, " ");
+  return hook.length > 320 ? `${hook.slice(0, 317).trim()}…` : hook;
+}
+
+export function buildThreadsText(note: CommunityNote, noteUrl: string): string {
+  const emoji = CONTENT_KIND_EMOJI[note.content_kind];
+  const body = spotlightBody(note);
+
+  const tagParts = note.hashtags
+    .slice(0, 3)
+    .map((t) => `#${hashtagLabel(normalizeHashtag(t)).replace(/\s+/g, "")}`)
+    .filter((t) => t.length > 1);
+
+  tagParts.push("#Португалия", "#Лиссабон");
+  const uniqueTags = Array.from(new Set(tagParts)).slice(0, 5).join(" ");
+
+  return `${emoji} ${note.title}\n\n${body}\n\n→ ${noteUrl}\n\n${uniqueTags}`;
+}
 
 function todayInTz(): string {
   return new Intl.DateTimeFormat("en-CA", { timeZone: SPOTLIGHT_TZ }).format(new Date());
@@ -43,43 +114,11 @@ export function formatSpotlightDateLabel(isoDate: string): string {
   return formatSpotlightDate(isoDate);
 }
 
-function scoreNote(note: CommunityNote, yesterdaySlug: string | null): number {
-  if (yesterdaySlug && note.slug === yesterdaySlug) return -1;
-
-  let score = KIND_SCORE[note.content_kind] ?? 30;
-  if (!note.published_at) return score;
-
-  const ageHours = (Date.now() - new Date(note.published_at).getTime()) / 3_600_000;
-  if (ageHours <= 24) score += 60;
-  else if (ageHours <= 72) score += 35;
-  else if (ageHours <= 168) score += 15;
-
-  if (note.content_kind === "news") score += 20;
-  return score;
-}
-
-export function buildThreadsText(note: CommunityNote, noteUrl: string): string {
-  const emoji = CONTENT_KIND_EMOJI[note.content_kind];
-  const hook = note.quick_answer.trim().replace(/\s+/g, " ");
-  const body =
-    hook.length > 320 ? `${hook.slice(0, 317).trim()}…` : hook;
-
-  const tagParts = note.hashtags
-    .slice(0, 3)
-    .map((t) => `#${hashtagLabel(normalizeHashtag(t)).replace(/\s+/g, "")}`)
-    .filter((t) => t.length > 1);
-
-  tagParts.push("#Португалия", "#Лиссабон");
-  const uniqueTags = Array.from(new Set(tagParts)).slice(0, 5).join(" ");
-
-  return `${emoji} ${note.title}\n\n${body}\n\n→ ${noteUrl}\n\n${uniqueTags}`;
-}
-
-function pickBestNote(notes: CommunityNote[], yesterdaySlug: string | null): CommunityNote | null {
+function pickBestNote(notes: CommunityNote[], yesterdaySlug: string | null, today: string): CommunityNote | null {
   if (notes.length === 0) return null;
 
   const ranked = notes
-    .map((note) => ({ note, score: scoreNote(note, yesterdaySlug) }))
+    .map((note) => ({ note, score: scoreNote(note, yesterdaySlug, today) }))
     .filter((x) => x.score >= 0)
     .sort((a, b) => b.score - a.score);
 
@@ -121,7 +160,7 @@ export async function refreshDailySpotlight(countryKey = "portugal"): Promise<Da
   const today = todayInTz();
   const notes = await getPublishedCommunityNotes(countryKey);
   const yesterdaySlug = await getYesterdaySlug(countryKey, today);
-  const note = pickBestNote(notes, yesterdaySlug);
+  const note = pickBestNote(notes, yesterdaySlug, today);
   if (!note) return null;
 
   const noteUrl = portugalSatelliteUrl(`/notes/${note.slug}`);

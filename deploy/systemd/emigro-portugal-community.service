@@ -1,0 +1,17 @@
+[Unit]
+Description=Emigro Portugal satellite — daily parser, ingest, Gemini draft, spotlight
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/emigro
+ExecStart=/bin/bash /opt/emigro/parser/run_scheduled.sh
+User=www-data
+EnvironmentFile=-/opt/emigro/parser/.env
+EnvironmentFile=-/opt/emigro/.env
+StandardOutput=append:/opt/emigro/parser/logs/scheduled.log
+StandardError=append:/opt/emigro/parser/logs/scheduled.log
+
+[Install]
+WantedBy=multi-user.target
