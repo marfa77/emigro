@@ -11,3 +11,9 @@ groups:
     country_key: portugal
     title: "@por_tugal — обсуждения по Португалии"
     timezone: Europe/Lisbon
+  - username: lepta
+    group_id: lepta
+    city: lisbon
+    country_key: portugal
+    title: "@lepta"
+    timezone: Europe/Lisbon

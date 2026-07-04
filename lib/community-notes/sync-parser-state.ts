@@ -1,8 +1,9 @@
 import { writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { createServerClient } from "@/lib/supabase/server";
+import { PORTUGAL_SATELLITE } from "@/lib/satellite/portugal";
 
-const CHANNELS = ["chatlisboa", "por_tugal"] as const;
+const CHANNELS = PORTUGAL_SATELLITE.sourceChannels;
 const STATE_FILE = resolve(process.cwd(), "parser/state.json");
 
 /** Align Telethon cursor with max ingested message_id (for CI/cron without local state.json). */

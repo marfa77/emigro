@@ -41,7 +41,7 @@ npm run portugal:backfill-month              # 30 дней → signals → до 
 npm run portugal:backfill-month -- --days=14 --skip-drafts
 ```
 
-Каналы в `parser/groups.yaml`: `@chatlisboa`, `@por_tugal`.
+Каналы в `parser/groups.yaml`: `@chatlisboa`, `@por_tugal`, `@lepta`.
 
 ## Ingest API
 

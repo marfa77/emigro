@@ -10,7 +10,7 @@ export const PORTUGAL_SATELLITE = {
   tagline:
     "Новости, лайфхаки, советы и гайды по Лиссабону и Португалии. Короткие материалы редакции Emigro — навигация по #хэштегам.",
   sourceChannel: "chatlisboa",
-  sourceChannels: ["chatlisboa", "por_tugal"] as const,
+  sourceChannels: ["chatlisboa", "por_tugal", "lepta"] as const,
   mainSiteUrl: "https://www.emigro.online/ru/portugal",
   wizardUrl: "https://www.emigro.online/ru/portugal/wizard",
   digestUrl: "https://www.emigro.online/ru/portugal/digest",
