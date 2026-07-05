@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, FileText, MessageCircle, ShieldCheck } from "lucide-react";
+import { ArrowRight, CheckCircle2, ShieldCheck } from "lucide-react";
 import { AssistLeadForm, type AssistProviderOption } from "@/components/assist/AssistLeadForm";
 import { AssistPaymentMethods } from "@/components/assist/AssistPaymentMethods";
 import { AssistPricingCards } from "@/components/assist/AssistPricingCards";
@@ -12,29 +12,69 @@ import { getAssistCountryOptions } from "@/lib/corridor/registry";
 import { publicSiteUrl } from "@/lib/site-url";
 
 export const metadata = pageMetadata({
-  title: "Emigro Assist — Route Check €129",
+  title: "Emigro Assist — навигация и сопровождение",
   description:
-    "€129 — оставьте заявку, согласуем время созвона. Emigro организует созвон со специалистом. После встречи — PDF с разбором маршрута.",
+    "Emigro Assist — наш сервис: Route Check €129 с PDF-планом, сопровождение €100/час для переписки с консульством и агентствами. Оплата после согласования слота.",
   path: "/ru/assist",
 });
 
 const COUNTRY_OPTIONS = getAssistCountryOptions();
 
+const AUDIENCE_POINTS = [
+  "Планирует переезд в Европу, но не знает, какой маршрут реален именно для его ситуации",
+  "Уже в процессе и застрял — нужен конкретный следующий шаг",
+  "Не говорит по-английски, немецки, португальски — и не может самостоятельно общаться с консульством, юристом или агентством",
+  "Хочет проверить правильность своего плана перед тем как платить юристу",
+] as const;
+
 const FLOW_STEPS = [
   {
     step: "1",
     title: "Заявка",
-    text: "Оставляете заявку и описываете ситуацию: страна, текущий статус, смена ВНЖ или первичный переезд.",
+    text: "Описываете ситуацию — страна, текущий статус, цель, семья, доход, сроки.",
   },
   {
     step: "2",
-    title: "Слот и оплата",
-    text: "Emigro согласует время созвона и специалиста. После этого вышлем реквизиты или ссылку на оплату €129.",
+    title: "Согласование",
+    text: "Emigro подбирает партнёра под ваш коридор и согласует время созвона или формат сопровождения.",
   },
   {
     step: "3",
+    title: "Оплата",
+    text: "После согласования слота — вышлем реквизиты. Wise, Telegram Stars, USDT/USDC.",
+  },
+  {
+    step: "4",
     title: "Созвон и PDF",
-    text: "Специалист связывается, проводит созвон. После встречи присылает PDF с разбором маршрута.",
+    text: "Партнёр проводит встречу на русском. После — PDF с планом (Route Check).",
+  },
+  {
+    step: "5",
+    title: "Дальше",
+    text: "Продолжаете с партнёром напрямую или подключаете сопровождение €100/час, если нужна помощь в коммуникации.",
+  },
+] as const;
+
+const FAQ_ITEMS = [
+  {
+    question: "Чем Route Check отличается от консультации юриста?",
+    answer:
+      "Route Check — это навигация: Emigro разбирает вашу ситуацию, подбирает профильного партнёра из справочника и организует первый созвон. Юридическую консультацию и PDF-план готовит партнёр, не Emigro.",
+  },
+  {
+    question: "Что входит в сопровождение €100/час?",
+    answer:
+      "Коммуникационная поддержка: переписка с консульством, юристом или агентством на нужном языке, подготовка писем и форм, разбор отказов. Это не юридическое представительство и не гарантия одобрения.",
+  },
+  {
+    question: "Когда нужно платить?",
+    answer:
+      "После согласования времени созвона (Route Check) или формата работы (сопровождение). Реквизиты или ссылку вышлем на Wise, Telegram Stars или USDT/USDC.",
+  },
+  {
+    question: "Emigro гарантирует получение визы?",
+    answer:
+      "Нет. Emigro не юридическая фирма и не иммиграционное агентство. Мы не несём ответственности за решения консульства или AIMA. Юридические услуги оказывает партнёр напрямую.",
   },
 ] as const;
 
@@ -58,20 +98,50 @@ export default function AssistPage() {
   const serviceSchema = {
     "@context": "https://schema.org",
     "@type": "Service",
-    name: "Emigro Route Check",
+    name: "Emigro Assist",
     description:
-      "Персональная проверка маршрута ВНЖ: Emigro организует созвон со специалистом и PDF-план после встречи.",
+      "Сервис Emigro: навигация по маршрутам ВНЖ, подбор партнёра, Route Check с PDF-планом и почасовое сопровождение переписки.",
     url: assistUrl,
     provider: { "@type": "Organization", name: "Emigro", url: origin },
     areaServed: { "@type": "Place", name: "European Union" },
-    offers: {
-      "@type": "Offer",
-      price: "129",
-      priceCurrency: "EUR",
-      url: assistUrl,
-      availability: "https://schema.org/InStock",
-    },
+    offers: [
+      {
+        "@type": "Offer",
+        name: "Route Check",
+        price: "129",
+        priceCurrency: "EUR",
+        url: assistUrl,
+        availability: "https://schema.org/InStock",
+      },
+      {
+        "@type": "Offer",
+        name: "Сопровождение",
+        price: "100",
+        priceCurrency: "EUR",
+        url: `${assistUrl}#assist-accompaniment`,
+        availability: "https://schema.org/InStock",
+        priceSpecification: {
+          "@type": "UnitPriceSpecification",
+          price: "100",
+          priceCurrency: "EUR",
+          unitText: "HUR",
+        },
+      },
+    ],
     inLanguage: "ru-RU",
+  };
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: FAQ_ITEMS.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
   };
 
   return (
@@ -79,6 +149,7 @@ export default function AssistPage() {
       <SiteHeader />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <main className="mx-auto max-w-5xl px-4 py-10">
         <nav className="text-sm text-slate-500">
           <Link href="/ru" className="text-corridor-600 hover:underline">
@@ -90,10 +161,12 @@ export default function AssistPage() {
 
         <HeroShell className="mt-8">
           <p className="text-sm uppercase tracking-wide text-corridor-100">Сервис Emigro</p>
-          <h1 className="mt-2 text-3xl font-bold sm:text-4xl">Route Check — €129</h1>
+          <h1 className="mt-2 text-3xl font-bold sm:text-4xl">
+            Разберём вашу ситуацию и найдём нужного специалиста
+          </h1>
           <p className="mt-4 max-w-2xl text-lg text-corridor-100">
-            Опишите ситуацию — уже в Европе или планируете переезд. Согласуем время созвона со специалистом. Оплата
-            €129 — после согласования слота.
+            Не знаете с чего начать. Не говорите на языке страны. Не понимаете, какая виза подходит именно вам — мы
+            берём это на себя.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <a
@@ -102,23 +175,59 @@ export default function AssistPage() {
             >
               Запросить Route Check — €129
             </a>
-            <Link
-              href="/ru/assist/sample-plan"
+            <a
+              href="#assist-form-accompaniment"
               className="inline-flex items-center gap-2 rounded-lg border border-white/40 px-5 py-3 font-medium text-white hover:bg-white/10"
             >
-              <FileText className="h-4 w-4" aria-hidden />
-              Пример плана
-            </Link>
+              Узнать про сопровождение
+            </a>
           </div>
         </HeroShell>
 
+        <section aria-labelledby="assist-audience-heading" className="mt-10 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+          <h2 id="assist-audience-heading" className="text-2xl font-bold text-slate-950">
+            Для кого это
+          </h2>
+          <p className="mt-2 text-slate-600">Emigro Assist для тех, кто:</p>
+          <ul className="mt-5 space-y-3">
+            {AUDIENCE_POINTS.map((point) => (
+              <li key={point} className="flex items-start gap-3 text-sm leading-relaxed text-slate-700">
+                <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-corridor-600" aria-hidden />
+                <span>{point}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+
         <AssistPricingCards />
+
+        <section
+          aria-labelledby="assist-disclaimer-heading"
+          className="mt-10 rounded-2xl border border-amber-200 bg-amber-50/80 p-6"
+        >
+          <div className="flex items-start gap-3">
+            <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-amber-700" aria-hidden />
+            <div>
+              <h2 id="assist-disclaimer-heading" className="text-xl font-bold text-slate-950">
+                Честная рамка
+              </h2>
+              <p className="mt-3 text-sm leading-relaxed text-slate-700">
+                Emigro не юридическая фирма и не иммиграционное агентство. Мы не гарантируем одобрение визы и не несём
+                юридической ответственности за решения консульства или AIMA.
+              </p>
+              <p className="mt-3 text-sm leading-relaxed text-slate-700">
+                Route Check — это навигация и подбор партнёра. Сопровождение — это коммуникационная поддержка.
+                Юридические услуги оказывает партнёр напрямую.
+              </p>
+            </div>
+          </div>
+        </section>
 
         <section aria-labelledby="assist-flow-heading" className="mt-10">
           <h2 id="assist-flow-heading" className="text-2xl font-bold text-slate-950">
             Как это работает
           </h2>
-          <ol className="mt-6 grid gap-4 sm:grid-cols-3">
+          <ol className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
             {FLOW_STEPS.map(({ step, title, text }) => (
               <li key={step} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
                 <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-corridor-100 text-sm font-bold text-corridor-700">
@@ -131,55 +240,44 @@ export default function AssistPage() {
           </ol>
         </section>
 
-        <section className="mt-10 rounded-2xl border border-corridor-200 bg-gradient-to-br from-corridor-50 to-white p-6 shadow-sm">
-          <div className="flex flex-wrap items-start justify-between gap-4">
+        <AssistPaymentMethods />
+
+        <section aria-labelledby="assist-faq-heading" className="mt-10">
+          <h2 id="assist-faq-heading" className="text-2xl font-bold text-slate-950">
+            Частые вопросы
+          </h2>
+          <dl className="mt-6 space-y-4">
+            {FAQ_ITEMS.map((item) => (
+              <div key={item.question} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+                <dt className="font-semibold text-slate-950">{item.question}</dt>
+                <dd className="mt-2 text-sm leading-relaxed text-slate-600">{item.answer}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+
+        <section id="assist-form" className="mt-12 scroll-mt-24">
+          <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-wide text-corridor-700">Пример deliverable</p>
-              <h2 className="mt-2 text-xl font-bold text-slate-950">
-                Максим из Петербурга → Валенсия, Digital Nomad Visa
-              </h2>
-              <p className="mt-2 max-w-xl text-sm leading-relaxed text-slate-600">
-                Семья с двумя детьми: резюме, профиль, таймлайн на 5,5 месяцев, бюджет €8 400, чек-лист документов и
-                риски. Откройте образец или сохраните как PDF.
+              <h2 className="text-2xl font-bold text-slate-950">Заявка в Emigro Assist</h2>
+              <p className="mt-2 max-w-xl text-sm text-slate-600">
+                Выберите Route Check или сопровождение — опишите ситуацию, и мы свяжемся для согласования следующего
+                шага.
               </p>
             </div>
             <Link
               href="/ru/assist/sample-plan"
-              className="inline-flex shrink-0 items-center gap-2 rounded-lg bg-corridor-600 px-5 py-3 text-sm font-medium text-white hover:bg-corridor-700"
+              className="inline-flex shrink-0 items-center gap-2 text-sm font-medium text-corridor-700 hover:underline"
             >
-              Смотреть пример
+              Пример PDF-плана
               <ArrowRight className="h-4 w-4" aria-hidden />
             </Link>
           </div>
+          <span id="assist-form-accompaniment" className="sr-only">
+            Форма с предвыбором сопровождения
+          </span>
+          <AssistLeadForm countries={COUNTRY_OPTIONS} providers={providers} defaultPlanTier="route-check" />
         </section>
-
-        <AssistPaymentMethods />
-
-        <div className="mt-12 grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
-          <section className="space-y-4">
-            <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-              <MessageCircle className="h-5 w-5 text-corridor-600" aria-hidden />
-              <h2 className="mt-3 font-semibold text-slate-950">Что происходит после заявки</h2>
-              <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                Emigro согласует время созвона и специалиста. После этого вышлем реквизиты или ссылку на оплату
-                €129. Специалист свяжется сам и проведёт созвон.
-              </p>
-            </div>
-            <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-              <ShieldCheck className="h-5 w-5 text-corridor-600" aria-hidden />
-              <h2 className="mt-3 font-semibold text-slate-950">Рамка сервиса</h2>
-              <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                Emigro организует созвон со специалистом из справочника. Созвон и PDF делает специалист. Emigro не
-                оказывает юридические услуги. Дальше — напрямую со специалистом, если захотите продолжить.
-              </p>
-            </div>
-          </section>
-
-          <section id="assist-form" className="scroll-mt-24">
-            <h2 className="mb-4 text-xl font-bold text-slate-950">Заявка на Route Check</h2>
-            <AssistLeadForm countries={COUNTRY_OPTIONS} providers={providers} defaultPlanTier="route-check" />
-          </section>
-        </div>
       </main>
       <SiteFooter />
     </>

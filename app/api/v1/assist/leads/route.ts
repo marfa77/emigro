@@ -22,6 +22,7 @@ type AssistLeadBody = {
 
 const PLAN_TIER_LABELS: Record<string, string> = {
   "route-check": "Route Check (€129)",
+  accompaniment: "Сопровождение (€100/час)",
   "full-assist": "Full Assist (от €990)",
 };
 

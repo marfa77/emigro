@@ -11,7 +11,7 @@ const METHODS: PaymentMethod[] = [
   {
     icon: Building2,
     title: "Wise (банковский перевод)",
-    description: "Реквизиты EUR-счёта Wise — после согласования слота созвона.",
+    description: "Реквизиты EUR-счёта Wise — после согласования слота или формата работы.",
   },
   {
     icon: MessageCircle,
@@ -21,7 +21,7 @@ const METHODS: PaymentMethod[] = [
   {
     icon: Bitcoin,
     title: "Crypto (USDT / USDC)",
-    description: "Stablecoins в сети TRC-20 или ERC-20 — реквизиты после заявки.",
+    description: "Stablecoins в сети TRC-20 или ERC-20 — реквизиты после согласования.",
   },
 ];
 
@@ -32,10 +32,11 @@ export function AssistPaymentMethods() {
         Способы оплаты
       </h2>
       <p className="mt-2 text-sm text-slate-600">
-        €129 — оплата после согласования времени созвона. Вышлем реквизиты или ссылку на выбранный способ.
+        Оплата — после согласования времени созвона или формата сопровождения. Вышлем реквизиты или ссылку на выбранный
+        способ: Wise, Telegram Stars, USDT/USDC.
       </p>
 
-      <ul className="mt-6 grid gap-4 sm:grid-cols-2">
+      <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {METHODS.map(({ icon: Icon, title, description }) => (
           <li key={title} className="rounded-xl border border-slate-100 bg-slate-50/80 p-4">
             <div className="flex items-start gap-3">
