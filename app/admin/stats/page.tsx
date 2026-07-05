@@ -1,6 +1,12 @@
 import Link from "next/link";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { buildStatsReport, countryFlag, deltaLine } from "@/lib/analytics/stats";
+import { getProviderById } from "@/lib/providers/registry";
+
+function providerLabel(providerId: string): string {
+  const provider = getProviderById(providerId);
+  return provider ? `${provider.name} (${providerId})` : providerId;
+}
 
 function MetricRow({
   label,
@@ -94,6 +100,7 @@ export default async function AdminStatsPage() {
                 <MetricRow label="Сессии с визардом" value={report.total.wizardStarted} />
                 <MetricRow label="Завершения визарда" value={report.total.wizardCompleted} />
                 <MetricRow label="Лиды" value={report.total.leads} />
+                <MetricRow label="Клики партнёров" value={report.total.providerClicks} />
                 <MetricRow label="Событий в БД" value={report.total.eventsTotal} />
                 <MetricRow label="Боты (исключены)" value={report.botsTotal} />
               </div>
@@ -136,6 +143,11 @@ export default async function AdminStatsPage() {
                   label="Лиды"
                   value={report.today.leads}
                   delta={deltaLine(report.today.leads, report.yesterday.leads)}
+                />
+                <MetricRow
+                  label="Клики партнёров"
+                  value={report.today.providerClicks}
+                  delta={deltaLine(report.today.providerClicks, report.yesterday.providerClicks)}
                 />
                 <MetricRow
                   label="LLM-трафик"
@@ -186,6 +198,14 @@ export default async function AdminStatsPage() {
               <TopList title="Языки сегодня" rows={report.topLangToday} />
               <TopList title="Устройства сегодня" rows={report.topDeviceToday} />
               <TopList title="Браузеры сегодня" rows={report.topBrowserToday} />
+              <TopList
+                title="Клики партнёров сегодня"
+                rows={report.topProvidersToday.map(([id, cnt]) => [providerLabel(id), cnt])}
+              />
+              <TopList
+                title="Клики партнёров всего"
+                rows={report.topProvidersAll.map(([id, cnt]) => [providerLabel(id), cnt])}
+              />
             </div>
 
             <section className="rounded-xl border border-slate-200 bg-white p-5">

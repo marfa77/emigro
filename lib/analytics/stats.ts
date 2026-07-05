@@ -11,6 +11,7 @@ export interface PeriodCounts {
   wizardStarted: number;
   wizardCompleted: number;
   leads: number;
+  providerClicks: number;
   eventsTotal: number;
 }
 
@@ -40,6 +41,8 @@ export interface StatsReport {
   topLangToday: Array<[string, number]>;
   topDeviceToday: Array<[string, number]>;
   topBrowserToday: Array<[string, number]>;
+  topProvidersToday: Array<[string, number]>;
+  topProvidersAll: Array<[string, number]>;
   llmSourcesToday: Array<[string, number]>;
   recentSessions: Array<{
     sessionId: string;
@@ -134,7 +137,7 @@ async function periodCounts(
   end: string | null,
   exclude: string[] = []
 ): Promise<PeriodCounts> {
-  const [visitors, pageViews, newSessions, wizardStarted, wizardCompleted, leads, eventsTotal] =
+  const [visitors, pageViews, newSessions, wizardStarted, wizardCompleted, leads, providerClicks, eventsTotal] =
     await Promise.all([
       rpcCountDistinct(supabase, start, end, [...VISITOR_EVENTS], exclude),
       rpcCountEvents(supabase, start, end, "page_view", exclude),
@@ -144,6 +147,7 @@ async function periodCounts(
       Promise.all(LEAD_EVENTS.map((ev) => rpcCountEvents(supabase, start, end, ev, exclude))).then(
         (counts) => counts.reduce((a, b) => a + b, 0)
       ),
+      rpcCountEvents(supabase, start, end, "provider_click", exclude),
       rpcCountEvents(supabase, start, end, null, exclude),
     ]);
 
@@ -154,6 +158,7 @@ async function periodCounts(
     wizardStarted,
     wizardCompleted,
     leads,
+    providerClicks,
     eventsTotal,
   };
 }
@@ -219,14 +224,15 @@ async function topFromProperties(
   prop: string,
   start: string,
   end: string,
-  limit = 8
+  limit = 8,
+  eventNames: readonly string[] = VISITOR_EVENTS
 ): Promise<Array<[string, number]>> {
   const { data, error } = await supabase
     .from("site_events")
     .select("properties")
     .gte("created_at", start)
     .lt("created_at", end)
-    .in("event_name", [...VISITOR_EVENTS])
+    .in("event_name", [...eventNames])
     .limit(5000);
   if (error) throw new Error(error.message);
 
@@ -235,6 +241,27 @@ async function topFromProperties(
     const val = String((row.properties as Record<string, unknown>)?.[prop] ?? "").trim();
     if (!val) continue;
     counts.set(val, (counts.get(val) ?? 0) + 1);
+  }
+  return Array.from(counts.entries()).sort((a, b) => b[1] - a[1]).slice(0, limit);
+}
+
+async function topProviderClicks(
+  supabase: ReturnType<typeof createAdminClient>,
+  start: string | null,
+  end: string | null,
+  limit = 10
+): Promise<Array<[string, number]>> {
+  let q = supabase.from("site_events").select("properties").eq("event_name", "provider_click");
+  if (start) q = q.gte("created_at", start);
+  if (end) q = q.lt("created_at", end);
+  const { data, error } = await q.limit(10000);
+  if (error) throw new Error(error.message);
+
+  const counts = new Map<string, number>();
+  for (const row of data ?? []) {
+    const providerId = String((row.properties as Record<string, unknown>)?.provider_id ?? "").trim();
+    if (!providerId) continue;
+    counts.set(providerId, (counts.get(providerId) ?? 0) + 1);
   }
   return Array.from(counts.entries()).sort((a, b) => b[1] - a[1]).slice(0, limit);
 }
@@ -311,6 +338,8 @@ export async function buildStatsReport(): Promise<StatsReport> {
     topLangToday,
     topDeviceToday,
     topBrowserToday,
+    topProvidersToday,
+    topProvidersAll,
     recentSessions,
   ] = await Promise.all([
     periodCounts(supabase, null, null),
@@ -338,6 +367,8 @@ export async function buildStatsReport(): Promise<StatsReport> {
     topFromProperties(supabase, "accept_language", todayWin.start, todayWin.end),
     topFromProperties(supabase, "device_type", todayWin.start, todayWin.end),
     topFromProperties(supabase, "browser", todayWin.start, todayWin.end),
+    topProviderClicks(supabase, todayWin.start, todayWin.end),
+    topProviderClicks(supabase, null, null),
     recentSessionsToday(supabase, todayWin.start, todayWin.end),
   ]);
 
@@ -378,6 +409,8 @@ export async function buildStatsReport(): Promise<StatsReport> {
     topLangToday,
     topDeviceToday,
     topBrowserToday,
+    topProvidersToday,
+    topProvidersAll,
     llmSourcesToday,
     recentSessions,
   };

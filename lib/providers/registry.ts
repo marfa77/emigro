@@ -286,6 +286,30 @@ const PROVIDERS: ServiceProvider[] = [
     topicKeys: ["scandinavia"],
     ctaLabelRu: "Сайт агентства",
   },
+  {
+    id: "raidl-austria-legal",
+    name: "Dr. Alexander Raidl",
+    taglineRu: "Иммиграционное право в Австрии",
+    descriptionRu:
+      "Адвокат по иммиграционному праву в Вене: Red-White-Red Card, Blue Card, ПМЖ и гражданство. Клиенты отмечают быстрые ответы и чёткие шаги по документам и срокам.",
+    url: "https://rechtsanwalt-raidl.at",
+    category: "legal",
+    corridorSlugs: ["ru-speaking-to-austria"],
+    topicKeys: ["austria"],
+    ctaLabelRu: "Сайт адвоката",
+  },
+  {
+    id: "hsp-law-austria",
+    name: "HSP.law",
+    taglineRu: "Иммиграционное право в Австрии",
+    descriptionRu:
+      "Более 30 лет практики в австрийском иммиграционном праве. Русскоязычная команда — Sofya Sizova и Viktoriya Jusinger: визы, ВНЖ, ПМЖ, гражданство и сопровождение семьи.",
+    url: "https://hsp.law",
+    category: "legal",
+    corridorSlugs: ["ru-speaking-to-austria"],
+    topicKeys: ["austria"],
+    ctaLabelRu: "Сайт юристов",
+  },
 ];
 
 function categoryRank(category: ProviderCategory): number {
