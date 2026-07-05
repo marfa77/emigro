@@ -2,9 +2,8 @@ import Link from "next/link";
 import { Construction } from "lucide-react";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { CorridorIntelLinks } from "@/components/corridor/CorridorIntelLinks";
-import { PortugalHubShell } from "@/components/portugal/PortugalHubShell";
-import { PortugalHubStack } from "@/components/portugal/PortugalHubStack";
-import { isPortugalHubTopic } from "@/lib/portugal/hub";
+import { CorridorHubShell } from "@/components/corridor/hub/CorridorHubShell";
+import { CorridorHubStack } from "@/components/corridor/hub/CorridorHubStack";
 import { CorridorLandingSeoSections } from "@/components/corridor/CorridorLandingSeoSections";
 import { GuideDigestPreview } from "@/components/corridor/GuideDigestPreview";
 import { LatestNewsTeaser } from "@/components/news/LatestNewsTeaser";
@@ -12,7 +11,7 @@ import { ServiceProvidersSection } from "@/components/providers/ServiceProviders
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { CorridorHeroVisual } from "@/components/visuals/CorridorHeroVisual";
 import { ProgramTypeBadge } from "@/components/visuals/ProgramTypeBadge";
-import { isCorridorFull } from "@/lib/corridor/publish";
+import { isCorridorFull, topicHasLanding } from "@/lib/corridor/publish";
 import { getCorridorBySlug } from "@/lib/corridor/queries";
 import { requirePublishedCorridorTopic } from "@/lib/corridor/resolve-topic";
 import type { NewsTopicConfig } from "@/lib/news/topics";
@@ -43,7 +42,7 @@ export async function CorridorLanding({ country }: { country: string }) {
   const breadcrumbSchema = buildCorridorBreadcrumbSchema(topic, "Коридор");
   const articleSchema = buildCorridorLandingArticleSchema(topic, corridor, url);
   const faqSchema = buildFaqSchema(faq);
-  const isPortugalHub = isPortugalHubTopic(topic);
+  const showHub = topicHasLanding(topic);
 
   return (
     <>
@@ -54,7 +53,7 @@ export async function CorridorLanding({ country }: { country: string }) {
       <main className="mx-auto max-w-5xl px-4 py-10">
         <CorridorBreadcrumb topic={topic} current="Коридор" />
 
-        {isPortugalHub && <PortugalHubShell active="hub" />}
+        {showHub && <CorridorHubShell topic={topic} active="hub" />}
 
         {!isFull && (
           <div className="mt-4 flex items-start gap-3 rounded-xl border border-amber-200 bg-amber-50 px-5 py-4 text-amber-950">
@@ -105,7 +104,7 @@ export async function CorridorLanding({ country }: { country: string }) {
           </div>
         </HeroShell>
 
-        {isPortugalHub && <PortugalHubStack />}
+        {showHub && <CorridorHubStack topic={topic} />}
 
         {corridor.programs.length > 0 && (
           <section id="programs" className="mt-12">
@@ -147,8 +146,8 @@ export async function CorridorLanding({ country }: { country: string }) {
         <section className="mt-12">
           <h2 className="text-2xl font-semibold">Интеллект коридора</h2>
           <p className="mt-2 max-w-2xl text-slate-600">
-            {isPortugalHub
-              ? "Новости и справочник — два слоя Portugal Hub. Wizard, сателлит и Barakhlo дополняют их на каждом этапе переезда."
+            {showHub
+              ? "Маршрут, новости, справочник, практика и барахолка — четыре слоя одного коридора от решения до быта."
               : `Справочник с проверенными фактами и еженедельные новости — два дополняющих слоя.${isFull ? " Wizard опирается на оба." : ""}`}
           </p>
           <div className="mt-6 grid gap-4 lg:grid-cols-2">

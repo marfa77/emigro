@@ -1,5 +1,6 @@
 import { headers } from "next/headers";
 import { PORTUGAL_SATELLITE_HOST } from "@/lib/satellite/portugal";
+import { publicSiteUrl } from "@/lib/site-url";
 
 function requestHost(): string {
   return headers().get("host")?.split(":")[0] ?? "";
@@ -7,6 +8,12 @@ function requestHost(): string {
 
 function onSatelliteHost(): boolean {
   return requestHost() === PORTUGAL_SATELLITE_HOST;
+}
+
+/** Absolute URL on www.emigro.online — use for links from portugal.emigro.online. */
+export function mainSiteUrl(path = ""): string {
+  const normalized = path.startsWith("/") || !path ? path : `/${path}`;
+  return `${publicSiteUrl()}${normalized}`;
 }
 
 /** Home hub — short path on subdomain, full path on www. */

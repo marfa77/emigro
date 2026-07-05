@@ -29,7 +29,13 @@ export type GlobalWizardPulse = {
   remoteIncomeShare: number | null;
 };
 
-export type PortugalWizardPulse = GlobalWizardPulse & {
+export type CorridorWizardPulse = GlobalWizardPulse & {
+  corridorChecks: number;
+  countryLabel: string;
+  topPrograms: PulseShare[];
+};
+
+export type PortugalWizardPulse = CorridorWizardPulse & {
   portugalChecks: number;
   topPortugalPrograms: PulseShare[];
 };
@@ -66,9 +72,10 @@ type PulseData = {
   hubSessions: HubSessionRow[];
   corridorSessions: CorridorSessionRow[];
   eligibilityBySessionId: Map<string, EligibilityRow>;
-  portugalCorridorId: string | null;
+  corridorIdBySlug: Map<string, string>;
   countryByCorridorSlug: Map<string, string>;
   countryByUrlSegment: Map<string, string>;
+  urlSegmentByCorridorSlug: Map<string, string>;
 };
 
 function sinceIso(days: number): string {
@@ -151,22 +158,31 @@ async function loadPulseData(): Promise<PulseData | null> {
 
     const countryByCorridorSlug = new Map<string, string>();
     const countryByUrlSegment = new Map<string, string>();
-    let portugalCorridorId: string | null = null;
+    const urlSegmentByCorridorSlug = new Map<string, string>();
+    const corridorSlugs = new Set<string>();
 
     for (const topic of topics) {
       countryByUrlSegment.set(topic.urlSegment, topic.countryRu);
       if (topic.corridorSlug) {
         countryByCorridorSlug.set(topic.corridorSlug, topic.countryRu);
+        urlSegmentByCorridorSlug.set(topic.corridorSlug, topic.urlSegment);
+        corridorSlugs.add(topic.corridorSlug);
       }
     }
 
-    const { data: portugalCorridor } = await supabase
-      .from("emigro_corridors")
-      .select("id")
-      .eq("slug", PORTUGAL_CORRIDOR_SLUG)
-      .maybeSingle();
+    const corridorIdBySlug = new Map<string, string>();
+    if (corridorSlugs.size > 0) {
+      const { data: corridors } = await supabase
+        .from("emigro_corridors")
+        .select("id, slug")
+        .in("slug", Array.from(corridorSlugs));
 
-    portugalCorridorId = portugalCorridor?.id ?? null;
+      for (const corridor of corridors ?? []) {
+        if (corridor.slug && corridor.id) {
+          corridorIdBySlug.set(corridor.slug, corridor.id);
+        }
+      }
+    }
 
     const [hubRes, corridorRes] = await Promise.all([
       supabase
@@ -207,9 +223,10 @@ async function loadPulseData(): Promise<PulseData | null> {
       hubSessions: (hubRes.data ?? []) as HubSessionRow[],
       corridorSessions,
       eligibilityBySessionId,
-      portugalCorridorId,
+      corridorIdBySlug,
       countryByCorridorSlug,
       countryByUrlSegment,
+      urlSegmentByCorridorSlug,
     };
   } catch {
     return null;
@@ -279,44 +296,70 @@ export async function getGlobalWizardPulse(): Promise<GlobalWizardPulse | null> 
   return buildGlobalPulse(data);
 }
 
-/** Global trends plus Portugal program breakdown for Portugal Hub. */
-export async function getPortugalWizardPulse(): Promise<PortugalWizardPulse | null> {
-  const data = await loadPulseData();
-  if (!data) return null;
-
+function buildCorridorProgramPulse(
+  data: PulseData,
+  urlSegment: string,
+  corridorSlug: string | null
+): CorridorWizardPulse | null {
   const global = buildGlobalPulse(data);
   if (!global) return null;
 
-  const portugalCorridorSessions = data.portugalCorridorId
-    ? data.corridorSessions.filter((s) => s.corridor_id === data.portugalCorridorId)
+  const countryLabel = data.countryByUrlSegment.get(urlSegment) ?? urlSegment;
+  const corridorId = corridorSlug ? data.corridorIdBySlug.get(corridorSlug) ?? null : null;
+
+  const corridorSessions = corridorId
+    ? data.corridorSessions.filter((session) => session.corridor_id === corridorId)
     : [];
 
-  const portugalHubSessions = data.hubSessions.filter(
-    (s) => s.results?.pick?.countrySegment === PORTUGAL_URL_SEGMENT
+  const hubSessions = data.hubSessions.filter(
+    (session) => session.results?.pick?.countrySegment === urlSegment
   );
 
-  const portugalChecks = portugalHubSessions.length + portugalCorridorSessions.length;
+  const corridorChecks = hubSessions.length + corridorSessions.length;
   const programCounts = new Map<string, number>();
 
-  for (const session of portugalHubSessions) {
+  for (const session of hubSessions) {
     const title = session.results?.pick?.programTitleRu?.trim();
     if (title) increment(programCounts, title);
   }
 
-  for (const session of portugalCorridorSessions) {
+  for (const session of corridorSessions) {
     const row = data.eligibilityBySessionId.get(session.id);
     const title = row ? programTitleFromEligibility(row) : null;
     if (title) increment(programCounts, title);
   }
 
-  const topPortugalPrograms =
-    portugalChecks >= WIZARD_PULSE_MIN_BUCKET
-      ? toShares(programCounts, portugalChecks, WIZARD_PULSE_MIN_BUCKET)
+  const topPrograms =
+    corridorChecks >= WIZARD_PULSE_MIN_BUCKET
+      ? toShares(programCounts, corridorChecks, WIZARD_PULSE_MIN_BUCKET)
       : [];
 
   return {
     ...global,
-    portugalChecks,
-    topPortugalPrograms,
+    corridorChecks,
+    countryLabel,
+    topPrograms,
+  };
+}
+
+/** Global trends plus corridor program breakdown for a country hub. */
+export async function getCorridorWizardPulse(
+  urlSegment: string,
+  corridorSlug: string | null
+): Promise<CorridorWizardPulse | null> {
+  const data = await loadPulseData();
+  if (!data) return null;
+  return buildCorridorProgramPulse(data, urlSegment, corridorSlug);
+}
+
+/** Global trends plus Portugal program breakdown for Portugal Hub. */
+export async function getPortugalWizardPulse(): Promise<PortugalWizardPulse | null> {
+  const pulse = await getCorridorWizardPulse(PORTUGAL_URL_SEGMENT, PORTUGAL_CORRIDOR_SLUG);
+  if (!pulse) return null;
+
+  return {
+    ...pulse,
+    portugalChecks: pulse.corridorChecks,
+    topPortugalPrograms: pulse.topPrograms,
   };
 }

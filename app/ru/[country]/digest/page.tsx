@@ -6,8 +6,8 @@ import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { CorridorIntelLinks } from "@/components/corridor/CorridorIntelLinks";
 import { ServiceProvidersSection } from "@/components/providers/ServiceProvidersSection";
 import { CorridorBreadcrumb } from "@/components/corridor/CorridorLanding";
-import { PortugalHubShell } from "@/components/portugal/PortugalHubShell";
-import { isPortugalHubTopic } from "@/lib/portugal/hub";
+import { CorridorHubShell } from "@/components/corridor/hub/CorridorHubShell";
+import { topicHasLanding } from "@/lib/corridor/publish";
 import { DigestSeoSections } from "@/components/corridor/DigestSeoSections";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { CorridorHeroVisual } from "@/components/visuals/CorridorHeroVisual";
@@ -78,7 +78,7 @@ export default async function CountryDigestPage({ params }: { params: { country:
       <main className="mx-auto max-w-5xl px-4 py-10">
         <CorridorBreadcrumb topic={topic} current="Справочник" />
 
-        {isPortugalHubTopic(topic) && <PortugalHubShell active="digest" />}
+        {topicHasLanding(topic) && <CorridorHubShell topic={topic} active="digest" />}
 
         <HeroShell visual={<CorridorHeroVisual segment={topic.urlSegment} />} className={heroClass}>
           <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-sm text-corridor-50">

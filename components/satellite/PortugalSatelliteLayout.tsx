@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { PORTUGAL_SATELLITE } from "@/lib/satellite/portugal";
-import { portugalHubPath } from "@/lib/satellite/paths";
+import { mainSiteUrl, portugalHubPath } from "@/lib/satellite/paths";
 import { PortugalHubShell } from "@/components/portugal/PortugalHubShell";
 import { portugalHubPaths } from "@/lib/portugal/hub";
+
+const MAIN_HUB_URL = mainSiteUrl(portugalHubPaths.landing);
 
 export function PortugalSatelliteHeader() {
   return (
@@ -15,7 +17,7 @@ export function PortugalSatelliteHeader() {
               {PORTUGAL_SATELLITE.title}
             </Link>
           </div>
-          <a href={portugalHubPaths.landing} className="text-sm text-slate-600 hover:text-teal-700">
+          <a href={MAIN_HUB_URL} className="text-sm text-slate-600 hover:text-teal-700">
             emigro.online/ru/portugal
           </a>
         </div>
@@ -49,7 +51,7 @@ export function PortugalSatelliteFooter() {
         </p>
         <p>
           Основной hub:{" "}
-          <a href={portugalHubPaths.landing} className="text-teal-700 underline">
+          <a href={MAIN_HUB_URL} className="text-teal-700 underline">
             emigro.online/ru/portugal
           </a>
         </p>

@@ -3,7 +3,8 @@ import { BookOpen, Compass, Newspaper, ShoppingBag, Sparkles, StickyNote } from 
 import type { NewsTopicConfig } from "@/lib/news/topics";
 import { newsIndexPath } from "@/lib/news/topics";
 import { corridorWizardBlurb } from "@/lib/guides/guide-display";
-import { isCorridorFull, isCorridorOnSite } from "@/lib/corridor/publish";
+import { isCorridorFull, isCorridorOnSite, topicHasLanding } from "@/lib/corridor/publish";
+import { corridorHubLabel } from "@/lib/corridor/hub";
 import { isPortugalHubTopic, portugalHubPaths, portugalSatelliteHubUrl } from "@/lib/portugal/hub";
 
 type Props = {
@@ -18,6 +19,8 @@ export function CorridorIntelLinks({ topic, variant = "full", layout = "grid" }:
   const newsHref = newsIndexPath(topic.urlSegment);
   const paths = topic.sitePaths;
   const isPortugalHub = isPortugalHubTopic(topic);
+  const showHub = topicHasLanding(topic);
+  const hubLabel = corridorHubLabel(topic);
   const satelliteUrl = portugalSatelliteHubUrl();
   const barakhloUrl = portugalHubPaths.barakhlo("intel_links");
 
@@ -77,11 +80,13 @@ export function CorridorIntelLinks({ topic, variant = "full", layout = "grid" }:
         </div>
         <div>
           <h2 className="text-lg font-semibold text-slate-900">
-            {isPortugalHub ? "Portugal Hub — все слои" : `Интеллект Emigro: ${topic.flag} ${topic.countryRu}`}
+            {showHub ? `${hubLabel} — все слои` : `Интеллект Emigro: ${topic.flag} ${topic.countryRu}`}
           </h2>
           <p className="mt-1 text-sm text-slate-600">
-            {isPortugalHub
-              ? "Маршрут, новости, справочник, практика и барахолка — один коридор от решения до быта в Лиссабоне."
+            {showHub
+              ? isPortugalHub
+                ? "Маршрут, новости, справочник, практика и барахолка — один коридор от решения до быта в Лиссабоне."
+                : "Маршрут, новости, справочник — уже доступны. Практика и барахолка для этого коридора — скоро."
               : "Два слоя: справочник с проверенными фактами и еженедельные новости с источниками."}
           </p>
         </div>
@@ -152,6 +157,26 @@ export function CorridorIntelLinks({ topic, variant = "full", layout = "grid" }:
           <p className="mt-2 font-medium text-slate-900 group-hover:text-corridor-700">Гайды Emigro</p>
           <p className="mt-1 text-sm text-slate-600">Pillar-разборы: digital nomad, семья, отказы, бюджет.</p>
         </Link>
+
+        {showHub && !isPortugalHub && (
+          <>
+            <div className="rounded-lg border border-dashed border-slate-200 bg-slate-50 p-4 opacity-90">
+              <StickyNote className="h-5 w-5 text-slate-400" />
+              <p className="mt-2 font-medium text-slate-500">Практика — скоро</p>
+              <p className="mt-1 text-sm text-slate-500">
+                Сателлит с заметками сообщества пока только для Португалии.
+              </p>
+            </div>
+
+            <div className="rounded-lg border border-dashed border-slate-200 bg-slate-50 p-4 opacity-90">
+              <ShoppingBag className="h-5 w-5 text-slate-400" />
+              <p className="mt-2 font-medium text-slate-500">Барахолка — скоро</p>
+              <p className="mt-1 text-sm text-slate-500">
+                Barakhlo пока только для Лиссабона — другие города в планах.
+              </p>
+            </div>
+          </>
+        )}
 
         {isPortugalHub && (
           <>

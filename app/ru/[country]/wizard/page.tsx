@@ -4,8 +4,8 @@ import type { Metadata } from "next";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { WizardForm } from "@/components/WizardForm";
 import { CorridorBreadcrumb } from "@/components/corridor/CorridorLanding";
-import { PortugalHubShell } from "@/components/portugal/PortugalHubShell";
-import { isPortugalHubTopic } from "@/lib/portugal/hub";
+import { CorridorHubShell } from "@/components/corridor/hub/CorridorHubShell";
+import { topicHasLanding } from "@/lib/corridor/publish";
 import { WizardHeroVisual } from "@/components/visuals/WizardHeroVisual";
 import { corridorStaticParamsFromSegments, getActiveCorridorSegments } from "@/lib/corridor/segments";
 import { corridorResultsPath } from "@/lib/corridor/paths";
@@ -74,7 +74,7 @@ export default async function CountryWizardPage({ params }: { params: { country:
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <main className="mx-auto max-w-2xl px-4 py-10">
         <CorridorBreadcrumb topic={topic} current="Wizard" />
-        {isPortugalHubTopic(topic) && <PortugalHubShell active="route" />}
+        {topicHasLanding(topic) && <CorridorHubShell topic={topic} active="route" />}
         <header className="mt-4 overflow-hidden rounded-2xl border border-corridor-100 bg-gradient-to-br from-corridor-50 to-white px-6 py-8">
           <WizardHeroVisual />
           <h1 className="mt-4 text-center text-3xl font-bold">{wizard.title_ru}</h1>

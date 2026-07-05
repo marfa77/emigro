@@ -1,5 +1,6 @@
-import { PortugalHubNav } from "@/components/portugal/PortugalHubNav";
-import type { PortugalHubTab } from "@/lib/portugal/hub";
+import { CorridorHubShell } from "@/components/corridor/hub/CorridorHubShell";
+import { getTopicByCountrySegment } from "@/lib/corridor/resolve-topic";
+import { PORTUGAL_URL_SEGMENT, type PortugalHubTab } from "@/lib/portugal/hub";
 
 type Props = {
   active: PortugalHubTab;
@@ -7,10 +8,8 @@ type Props = {
   className?: string;
 };
 
-export function PortugalHubShell({ active, variant = "corridor", className = "mt-6" }: Props) {
-  return (
-    <div className={`rounded-xl border border-slate-200 bg-white p-4 ${className}`}>
-      <PortugalHubNav active={active} variant={variant} />
-    </div>
-  );
+export async function PortugalHubShell({ active, variant = "corridor", className = "mt-6" }: Props) {
+  const topic = await getTopicByCountrySegment(PORTUGAL_URL_SEGMENT);
+  if (!topic) return null;
+  return <CorridorHubShell topic={topic} active={active} variant={variant} className={className} />;
 }

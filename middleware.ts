@@ -60,6 +60,19 @@ function redirectMisplacedSatellitePaths(request: NextRequest): NextResponse | n
   return null;
 }
 
+/** /ru/* and other main-site sections on satellite host → www (corridor lives on main domain). */
+function redirectSatelliteCorridorPaths(request: NextRequest): NextResponse | null {
+  if (!isPortugalSatelliteHost(hostName(request))) return null;
+
+  const { pathname, search } = request.nextUrl;
+  const mainSitePrefixes = ["/ru", "/admin", "/api/v1", "/llms-full.txt"];
+  if (mainSitePrefixes.some((prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`))) {
+    if (pathname === "/llms.txt") return null;
+    return NextResponse.redirect(`https://${CANONICAL_HOST}${pathname}${search}`, 301);
+  }
+  return null;
+}
+
 function rewritePortugalSatellite(request: NextRequest): NextResponse | null {
   const host = hostName(request);
   if (!isPortugalSatelliteHost(host)) return null;
@@ -102,6 +115,9 @@ export function middleware(request: NextRequest) {
 
   const misplaced = redirectMisplacedSatellitePaths(request);
   if (misplaced) return misplaced;
+
+  const satelliteCorridor = redirectSatelliteCorridorPaths(request);
+  if (satelliteCorridor) return satelliteCorridor;
 
   const satellite = rewritePortugalSatellite(request);
   if (satellite) return satellite;
