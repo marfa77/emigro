@@ -37,7 +37,7 @@ const FLOW_STEPS = [
   {
     step: "2",
     title: "Согласование",
-    text: "Emigro подбирает время, подтверждает слот — затем оплата €129 (Wise, Telegram Stars, USDT/USDC).",
+    text: "Emigro подбирает время, подтверждает слот — затем оплата €129 (PayPal, Telegram Stars, USDT/USDC, карта через Gumroad).",
   },
   {
     step: "3",
@@ -70,7 +70,7 @@ const FAQ_ITEMS = [
   {
     question: "Когда нужно платить?",
     answer:
-      "После согласования времени созвона (Route Check) или формата работы (сопровождение). Реквизиты или ссылку вышлем на Wise, Telegram Stars или USDT/USDC.",
+      "После согласования времени созвона (Route Check) или формата работы (сопровождение). Реквизиты или ссылку вышлем на PayPal, Telegram Stars, USDT/USDC или для оплаты картой — ссылку на Gumroad.",
   },
   {
     question: "Emigro гарантирует получение визы?",

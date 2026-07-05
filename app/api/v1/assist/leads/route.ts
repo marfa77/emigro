@@ -27,9 +27,10 @@ const PLAN_TIER_LABELS: Record<string, string> = {
 };
 
 const PAYMENT_METHOD_LABELS: Record<string, string> = {
-  wise: "Wise",
+  paypal: "PayPal",
   telegram_stars: "Telegram Stars",
   crypto: "Crypto (USDT/USDC)",
+  card: "Оплата картой (Gumroad)",
 };
 
 function clean(value: unknown): string {

@@ -18,12 +18,13 @@ export type AssistProviderOption = {
 
 export type AssistPlanTier = "route-check" | "accompaniment";
 
-export type AssistPaymentMethod = "wise" | "telegram_stars" | "crypto";
+export type AssistPaymentMethod = "paypal" | "telegram_stars" | "crypto" | "card";
 
 const PAYMENT_OPTIONS: { value: AssistPaymentMethod; label: string }[] = [
-  { value: "wise", label: "Wise (банковский перевод)" },
+  { value: "paypal", label: "PayPal" },
   { value: "telegram_stars", label: "Telegram Stars" },
   { value: "crypto", label: "Crypto (USDT / USDC)" },
+  { value: "card", label: "Оплата картой (отправим ссылку на Gumroad)" },
 ];
 
 const PAYMENT_LABELS: Record<AssistPaymentMethod, string> = Object.fromEntries(
@@ -75,7 +76,7 @@ export function AssistLeadForm({ countries, providers, defaultPlanTier = "route-
   const [programRoute, setProgramRoute] = useState("");
   const [selectedProviders, setSelectedProviders] = useState<string[]>([]);
   const [planTier, setPlanTier] = useState<AssistPlanTier>(defaultPlanTier);
-  const [paymentMethod, setPaymentMethod] = useState<AssistPaymentMethod>("wise");
+  const [paymentMethod, setPaymentMethod] = useState<AssistPaymentMethod>("paypal");
   const [name, setName] = useState("");
   const [contact, setContact] = useState("");
   const [message, setMessage] = useState("");

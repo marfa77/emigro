@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react";
-import { Bitcoin, Building2, MessageCircle } from "lucide-react";
+import { Bitcoin, CreditCard, MessageCircle, Wallet } from "lucide-react";
 
 type PaymentMethod = {
   icon: LucideIcon;
@@ -9,9 +9,9 @@ type PaymentMethod = {
 
 const METHODS: PaymentMethod[] = [
   {
-    icon: Building2,
-    title: "Wise (банковский перевод)",
-    description: "Реквизиты EUR-счёта Wise — после согласования слота или формата работы.",
+    icon: Wallet,
+    title: "PayPal",
+    description: "Оплата через PayPal — реквизиты или ссылку вышлем после согласования слота или формата работы.",
   },
   {
     icon: MessageCircle,
@@ -23,6 +23,11 @@ const METHODS: PaymentMethod[] = [
     title: "Crypto (USDT / USDC)",
     description: "Stablecoins в сети TRC-20 или ERC-20 — реквизиты после согласования.",
   },
+  {
+    icon: CreditCard,
+    title: "Оплата картой",
+    description: "Отправим ссылку на Gumroad после согласования времени — оплата картой на стороне Gumroad.",
+  },
 ];
 
 export function AssistPaymentMethods() {
@@ -33,10 +38,10 @@ export function AssistPaymentMethods() {
       </h2>
       <p className="mt-2 text-sm text-slate-600">
         Оплата — после согласования времени созвона или формата сопровождения. Вышлем реквизиты или ссылку на выбранный
-        способ: Wise, Telegram Stars, USDT/USDC.
+        способ: PayPal, Telegram Stars, USDT/USDC, оплата картой через Gumroad.
       </p>
 
-      <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4">
         {METHODS.map(({ icon: Icon, title, description }) => (
           <li key={title} className="rounded-xl border border-slate-100 bg-slate-50/80 p-4">
             <div className="flex items-start gap-3">
