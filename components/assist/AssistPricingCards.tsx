@@ -37,7 +37,7 @@ export function AssistPricingCards({
           <div className="flex items-start justify-between gap-4">
             <div>
               <h3 className="text-xl font-bold text-slate-950">Route Check</h3>
-              <p className="mt-1 text-sm text-slate-600">Первичный разбор ситуации с PDF-планом</p>
+              <p className="mt-1 text-sm text-slate-600">Созвон с командой Emigro + PDF с разбором кейса</p>
             </div>
             <p className="text-right">
               <span className="text-3xl font-bold text-corridor-700">€129</span>
@@ -45,18 +45,18 @@ export function AssistPricingCards({
           </div>
 
           <ul className="mt-6 flex-1 space-y-3 text-sm text-slate-700">
-            <PricingFeature
-              icon={<Check className="h-4 w-4" />}
-              text="Вы описываете ситуацию: страна, статус, доход, семья, сроки"
-            />
+            <PricingFeature icon={<Check className="h-4 w-4" />} text="Вы описываете ситуацию в заявке" />
             <PricingFeature
               icon={<Phone className="h-4 w-4" />}
-              text="Emigro подбирает профильного партнёра под ваш коридор"
+              text="Emigro проводит созвон по структурированному чек-листу"
             />
-            <PricingFeature icon={<MessageSquare className="h-4 w-4" />} text="Партнёр проводит созвон на русском" />
             <PricingFeature
               icon={<FileText className="h-4 w-4" />}
-              text="После встречи — PDF с маршрутом, таймлайном, бюджетом и чек-листом документов"
+              text="После встречи — PDF: маршрут, таймлайн, бюджет, риски, следующие шаги"
+            />
+            <PricingFeature
+              icon={<MessageSquare className="h-4 w-4" />}
+              text="Подбор профильных партнёров под ваш коридор"
             />
             <PricingFeature icon={<Clock className="h-4 w-4" />} text="Оплата после согласования времени" />
           </ul>
@@ -87,7 +87,7 @@ export function AssistPricingCards({
           <div className="flex items-start justify-between gap-4">
             <div>
               <h3 className="text-xl font-bold text-slate-950">Сопровождение</h3>
-              <p className="mt-1 text-sm text-slate-600">Для тех, кто уже знает маршрут, но нужна помощь в процессе</p>
+              <p className="mt-1 text-sm text-slate-600">Помощь в процессе после Route Check</p>
             </div>
             <p className="text-right">
               <span className="text-3xl font-bold text-slate-900">€100</span>
@@ -104,14 +104,10 @@ export function AssistPricingCards({
               icon={<FileText className="h-4 w-4" />}
               text="Подготовка и проверка писем, запросов, форм"
             />
-            <PricingFeature
-              icon={<MessageSquare className="h-4 w-4" />}
-              text="Помощь в формулировке вопросов перед встречей со специалистом"
-            />
             <PricingFeature icon={<Check className="h-4 w-4" />} text="Разбор отказов и следующие шаги" />
             <PricingFeature
-              icon={<Languages className="h-4 w-4" />}
-              text="Сопровождение переписки на английском, португальском, испанском, французском, немецком"
+              icon={<MessageSquare className="h-4 w-4" />}
+              text="Координация с партнёром на этапе подачи и переписки"
             />
           </ul>
 
@@ -138,7 +134,7 @@ export function AssistPricingCards({
           <div className="flex items-start justify-between gap-4">
             <div>
               <h3 className="text-xl font-bold text-slate-500">Full Assist</h3>
-              <p className="mt-1 text-sm text-slate-400">Полное сопровождение от выбора маршрута до получения карты ВНЖ</p>
+              <p className="mt-1 text-sm text-slate-400">Полное сопровождение от маршрута до карты ВНЖ</p>
             </div>
             <p className="text-right">
               <span className="text-3xl font-bold text-slate-400">от €990</span>

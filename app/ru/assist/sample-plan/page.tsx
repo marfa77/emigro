@@ -41,7 +41,7 @@ export default function AssistSamplePlanPage() {
               </h1>
               <p className="mt-2 max-w-2xl text-slate-600">
                 Фиктивный кейс семьи с двумя детьми: Digital Nomad Visa, консульство в Москве, переезд в Валенсию.
-                Так выглядит PDF-разбор, который готовит специалист после Route Check.
+                Так выглядит PDF-разбор, который готовит команда Emigro в течение 48 часов после созвона Route Check.
               </p>
             </div>
             <AssistSamplePlanActions />
