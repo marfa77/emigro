@@ -46,7 +46,7 @@ export function LeadForm({ corridorSlug, sessionId, programSlugs, defaultPasspor
         programs: selected.join(","),
       });
       setStatus("done");
-      setMessage("Заявка отправлена. Мы свяжемся с shortlist провайдеров вручную.");
+      setMessage("Заявка отправлена. Мы свяжемся с выбранными фирмами из справочника.");
     } catch (err) {
       const msg = err instanceof Error ? err.message : "Ошибка";
       trackEvent("lead_error", { corridor_slug: corridorSlug, message: msg });
@@ -61,9 +61,9 @@ export function LeadForm({ corridorSlug, sessionId, programSlugs, defaultPasspor
 
   return (
     <form onSubmit={submit} className="space-y-4 rounded-xl border border-slate-200 bg-white p-6">
-      <h3 className="text-lg font-semibold">Получить shortlist провайдеров</h3>
+      <h3 className="text-lg font-semibold">Запросить контакты из справочника</h3>
       <p className="text-sm text-slate-600">
-        Бесплатный shortlist провайдеров после wizard. Детальный разбор маршрута —{" "}
+        Список фирм из справочника после wizard. Детальный разбор маршрута —{" "}
         <Link href="/ru/assist" className="text-corridor-600 hover:underline">
           Route Check (€129)
         </Link>
@@ -126,14 +126,14 @@ export function LeadForm({ corridorSlug, sessionId, programSlugs, defaultPasspor
         disabled={status === "loading"}
         className="w-full rounded-lg bg-corridor-600 py-3 font-medium text-white hover:bg-corridor-700 disabled:opacity-60"
       >
-        {status === "loading" ? "Отправка..." : "Запросить shortlist"}
+        {status === "loading" ? "Отправка..." : "Запросить контакты"}
       </button>
       <p className="text-xs text-slate-500">
         Отправляя форму, вы соглашаетесь с{" "}
         <Link href="/ru/privacy" className="text-corridor-600 hover:underline">
           политикой конфиденциальности
         </Link>{" "}
-        и передачей контактов партнёрам для обработки заявки.
+        и передачей контактов выбранным фирмам из справочника для обработки заявки.
       </p>
     </form>
   );

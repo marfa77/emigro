@@ -373,7 +373,6 @@ export default async function CountryProgramPage({
           corridorSlug={topic.corridorSlug}
           topicKey={topic.key}
           placement="guide_sidebar"
-          title="Сервисы и помощь на этом маршруте"
         />
 
         <section className="mt-12">

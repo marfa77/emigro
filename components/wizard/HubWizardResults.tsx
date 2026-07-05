@@ -125,7 +125,6 @@ export function HubWizardResults({
           topicKey={providerTopicKey}
           placement="wizard_hub_results"
           variant="compact"
-          title="Сервисы на маршруте"
         />
       )}
 

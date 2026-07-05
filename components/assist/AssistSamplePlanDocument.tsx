@@ -81,7 +81,7 @@ export function AssistSamplePlanDocument() {
       <footer className="border-t border-slate-200 bg-slate-50 px-8 py-6 text-xs leading-relaxed text-slate-500 print:px-6">
         <p className="font-semibold text-slate-700">Дисклеймер</p>
         <p className="mt-2">
-          Демо-документ для иллюстрации формата PDF-разбора от партнёрского специалиста. Это не юридическая консультация.
+          Демо-документ для иллюстрации формата PDF-разбора от специалиста. Это не юридическая консультация.
           Иммиграционные правила, суммы и сроки меняются — перед подачей проверяйте актуальные требования консульства
           и UGE. Emigro не гарантирует одобрение визы или ВНЖ.
         </p>

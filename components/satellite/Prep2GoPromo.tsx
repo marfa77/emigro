@@ -39,7 +39,7 @@ export function Prep2GoPromo({ noteSlug }: { noteSlug: string }) {
         Готовиться к CIPLE на Prep2Go
         <ExternalLink className="h-4 w-4" aria-hidden="true" />
       </a>
-      <p className="mt-3 text-xs text-slate-500">Партнёрский сервис Emigro · не заменяет официальную регистрацию на CAPLE</p>
+      <p className="mt-3 text-xs text-slate-500">Сервис из справочника · не заменяет официальную регистрацию на CAPLE</p>
     </section>
   );
 }

@@ -85,7 +85,7 @@ export function AssistLeadForm({ countries, providers, defaultPlanTier = "route-
       });
       setStatus("done");
       setNotice(
-        "Заявка отправлена. Emigro согласует время созвона и подберёт партнёра. После этого вышлем реквизиты (€129). Партнёр свяжется с вами — после созвона пришлёт PDF."
+        "Заявка отправлена. Emigro согласует время созвона и специалиста. После этого вышлем реквизиты (€129). Специалист свяжется с вами — после созвона пришлёт PDF."
       );
     } catch (err) {
       const msg = err instanceof Error ? err.message : "Ошибка отправки";
@@ -106,8 +106,8 @@ export function AssistLeadForm({ countries, providers, defaultPlanTier = "route-
       <div className="rounded-xl border border-corridor-100 bg-corridor-50/60 px-4 py-3 text-sm text-slate-700">
         <p className="font-medium text-slate-900">Route Check — €129</p>
         <p className="mt-1 text-slate-600">
-          Оставьте заявку и опишите цель — Emigro согласует время созвона и подберёт партнёра. Оплата €129 — после
-          согласования слота. Созвон и PDF после встречи — от партнёра.
+          Оставьте заявку и опишите цель — Emigro согласует время созвона и специалиста. Оплата €129 — после
+          согласования слота. Созвон и PDF после встречи — от специалиста.
         </p>
       </div>
 
@@ -246,7 +246,7 @@ export function AssistLeadForm({ countries, providers, defaultPlanTier = "route-
           <Link href="/ru/privacy" className="text-corridor-600 hover:underline">
             политикой конфиденциальности
           </Link>{" "}
-          и понимаю, что Emigro только подбирает партнёра — созвон и PDF делает он.
+          и понимаю, что Emigro организует созвон со специалистом — созвон и PDF делает он.
         </span>
       </label>
 

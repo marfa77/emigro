@@ -2,7 +2,7 @@
 
 import { ExternalLink } from "lucide-react";
 import { trackEvent } from "@/lib/analytics/client";
-import { getExamLabelForTopic, type ServiceProvider } from "@/lib/providers/registry";
+import { getExamLabelForTopic, PROVIDER_CATEGORY_LABELS_RU, type ServiceProvider } from "@/lib/providers/registry";
 
 export type ProviderPlacement =
   | "corridor_landing"
@@ -31,7 +31,9 @@ export function ServiceProviderCard({
 }: Props) {
   const examLabel = topicKey ? getExamLabelForTopic(provider, topicKey) : undefined;
   const allExams = provider.examsRu ?? [];
-  const serviceLabel = provider.isFirstParty ? "Сервис Emigro" : "Партнёрский сервис";
+  const serviceLabel = provider.isFirstParty
+    ? "Сервис Emigro"
+    : PROVIDER_CATEGORY_LABELS_RU[provider.category];
   const linkTarget = provider.isFirstParty ? undefined : "_blank";
   const linkRel = provider.isFirstParty ? undefined : "noopener noreferrer sponsored";
   const otherExamLabels = topicKey

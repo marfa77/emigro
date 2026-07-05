@@ -425,7 +425,6 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
                 topicKey={providerTopicKey}
                 placement="guide_article"
                 variant="default"
-                title="Сервисы на маршруте"
                 className="mt-8 rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm ring-1 ring-slate-950/5"
               />
             )}
@@ -482,7 +481,6 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
                 topicKey={providerTopicKey}
                 placement="guide_sidebar"
                 variant="compact"
-                title="Сервисы на маршруте"
                 className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm"
               />
             )}

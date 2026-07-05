@@ -14,7 +14,7 @@ import { publicSiteUrl } from "@/lib/site-url";
 export const metadata = pageMetadata({
   title: "Emigro Assist — Route Check €129",
   description:
-    "€129 — оставьте заявку, согласуем время созвона. Emigro подберёт партнёра. Партнёр проведёт созвон и пришлёт PDF после встречи.",
+    "€129 — оставьте заявку, согласуем время созвона. Emigro организует созвон со специалистом. После встречи — PDF с разбором маршрута.",
   path: "/ru/assist",
 });
 
@@ -29,12 +29,12 @@ const FLOW_STEPS = [
   {
     step: "2",
     title: "Слот и оплата",
-    text: "Emigro согласует время созвона и подбирает партнёра. После этого вышлем реквизиты или ссылку на оплату €129.",
+    text: "Emigro согласует время созвона и специалиста. После этого вышлем реквизиты или ссылку на оплату €129.",
   },
   {
     step: "3",
     title: "Созвон и PDF",
-    text: "Партнёр связывается, проводит созвон. После встречи присылает PDF с разбором маршрута.",
+    text: "Специалист связывается, проводит созвон. После встречи присылает PDF с разбором маршрута.",
   },
 ] as const;
 
@@ -60,7 +60,7 @@ export default function AssistPage() {
     "@type": "Service",
     name: "Emigro Route Check",
     description:
-      "Персональная проверка маршрута ВНЖ: Emigro подбирает партнёра, созвон и PDF-план после встречи.",
+      "Персональная проверка маршрута ВНЖ: Emigro организует созвон со специалистом и PDF-план после встречи.",
     url: assistUrl,
     provider: { "@type": "Organization", name: "Emigro", url: origin },
     areaServed: { "@type": "Place", name: "European Union" },
@@ -92,7 +92,7 @@ export default function AssistPage() {
           <p className="text-sm uppercase tracking-wide text-corridor-100">Сервис Emigro</p>
           <h1 className="mt-2 text-3xl font-bold sm:text-4xl">Route Check — €129</h1>
           <p className="mt-4 max-w-2xl text-lg text-corridor-100">
-            Опишите ситуацию — уже в Европе или планируете переезд. Согласуем время созвона, подберём партнёра. Оплата
+            Опишите ситуацию — уже в Европе или планируете переезд. Согласуем время созвона со специалистом. Оплата
             €129 — после согласования слота.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
@@ -161,16 +161,16 @@ export default function AssistPage() {
               <MessageCircle className="h-5 w-5 text-corridor-600" aria-hidden />
               <h2 className="mt-3 font-semibold text-slate-950">Что происходит после заявки</h2>
               <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                Emigro согласует время созвона и подберёт партнёра. После этого вышлем реквизиты или ссылку на оплату
-                €129. Партнёр свяжется сам и проведёт созвон.
+                Emigro согласует время созвона и специалиста. После этого вышлем реквизиты или ссылку на оплату
+                €129. Специалист свяжется сам и проведёт созвон.
               </p>
             </div>
             <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
               <ShieldCheck className="h-5 w-5 text-corridor-600" aria-hidden />
-              <h2 className="mt-3 font-semibold text-slate-950">Честная рамка</h2>
+              <h2 className="mt-3 font-semibold text-slate-950">Рамка сервиса</h2>
               <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                Emigro только подбирает партнёра. Созвон и PDF делает партнёр. Мы не оказываем юридические услуги и не
-                гарантируем одобрение визы. Дальше — напрямую с партнёром, если захотите продолжить.
+                Emigro организует созвон со специалистом из справочника. Созвон и PDF делает специалист. Emigro не
+                оказывает юридические услуги. Дальше — напрямую со специалистом, если захотите продолжить.
               </p>
             </div>
           </section>

@@ -1,5 +1,6 @@
 import type { ProviderPlacement } from "@/components/providers/ServiceProviderCard";
 import { ProviderRevealList } from "@/components/providers/ProviderRevealList";
+import { COUNTRY_ACCENTS } from "@/lib/brand/country-accents";
 import {
   getProvidersForContext,
   splitDefaultProviders,
@@ -14,12 +15,17 @@ type Props = {
   className?: string;
 };
 
+function defaultSectionTitle(topicKey?: string): string {
+  const countryRu = topicKey ? COUNTRY_ACCENTS[topicKey]?.label : undefined;
+  return countryRu ? `Сервисы в ${countryRu}` : "Справочник сервисов";
+}
+
 export function ServiceProvidersSection({
   corridorSlug,
   topicKey,
   placement,
   variant = "default",
-  title = "Сервисы на маршруте",
+  title,
   className,
 }: Props) {
   const providers = getProvidersForContext({
@@ -30,14 +36,17 @@ export function ServiceProvidersSection({
 
   const { visible, hidden } = splitDefaultProviders(providers);
   const showCategoryHeadings = variant === "default" && providers.length > 1;
+  const sectionTitle = title ?? defaultSectionTitle(topicKey);
+  const countryRu = topicKey ? COUNTRY_ACCENTS[topicKey]?.label : undefined;
 
   return (
     <section className={className}>
-      {variant === "default" && <h2 className="text-2xl font-semibold">{title}</h2>}
+      {variant === "default" && <h2 className="text-2xl font-semibold">{sectionTitle}</h2>}
       {variant === "default" && (
         <p className="mt-2 max-w-2xl text-sm text-slate-600">
-          Помощь Emigro и партнёрские сервисы для шагов на маршруте. Emigro не оказывает юридические услуги, не
-          рекомендует провайдеров и не гарантирует результат.
+          {countryRu
+            ? `Справочник местных фирм и сервисов в ${countryRu}.`
+            : "Справочник местных фирм и сервисов на маршруте."}
         </p>
       )}
       <ProviderRevealList

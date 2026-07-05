@@ -305,7 +305,7 @@ export default async function RuHubPage() {
               <p className="text-xs font-semibold uppercase tracking-wide text-corridor-600">Emigro Assist</p>
               <h2 className="mt-1.5 text-xl font-bold text-slate-900">Route Check — €129</h2>
               <p className="mt-2 max-w-lg text-slate-600">
-                Пишете, чего хотите — подбираем партнёра. Он проводит созвон и после встречи присылает PDF.
+                Пишете, чего хотите — согласуем созвон со специалистом. После встречи присылает PDF.
               </p>
             </div>
             <Link

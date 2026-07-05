@@ -13,7 +13,7 @@ export function AssistPricingCards({ formAnchor = "#assist-form" }: Props) {
         Тарифы
       </h2>
       <p className="mt-2 max-w-2xl text-slate-600">
-        €129 — пишете, чего хотите, Emigro подбирает партнёра. Созвон и PDF после встречи — от партнёра. Пример PDF — в{" "}
+        €129 — пишете, чего хотите, Emigro согласует созвон со специалистом. PDF после встречи — от специалиста. Пример PDF — в{" "}
         <Link href="/ru/assist/sample-plan" className="font-medium text-corridor-700 hover:underline">
           демо для семьи из Петербурга
         </Link>
@@ -23,12 +23,12 @@ export function AssistPricingCards({ formAnchor = "#assist-form" }: Props) {
       <div className="mt-6 grid gap-6 md:grid-cols-2">
         <article className="relative flex flex-col rounded-2xl border-2 border-corridor-600 bg-white p-6 shadow-md">
           <span className="absolute -top-3 left-5 rounded-full bg-corridor-600 px-3 py-0.5 text-xs font-semibold uppercase tracking-wide text-white">
-            Рекомендуем
+            Route Check
           </span>
           <div className="flex items-start justify-between gap-4">
             <div>
               <h3 className="text-xl font-bold text-slate-950">Route Check</h3>
-              <p className="mt-1 text-sm text-slate-600">Подбор партнёра + созвон + PDF после встречи</p>
+              <p className="mt-1 text-sm text-slate-600">Созвон со специалистом + PDF после встречи</p>
             </div>
             <p className="text-right">
               <span className="text-3xl font-bold text-corridor-700">€129</span>
@@ -36,10 +36,10 @@ export function AssistPricingCards({ formAnchor = "#assist-form" }: Props) {
           </div>
 
           <ul className="mt-6 flex-1 space-y-3 text-sm text-slate-700">
-            <PricingFeature icon={<Check className="h-4 w-4" />} text="Вы пишете цель — Emigro подбирает партнёра" />
-            <PricingFeature icon={<Phone className="h-4 w-4" />} text="Партнёр проводит созвон (RU/EN)" />
-            <PricingFeature icon={<FileText className="h-4 w-4" />} text="PDF после встречи — от партнёра" />
-            <PricingFeature icon={<Clock className="h-4 w-4" />} text="Партнёр связывается сам" />
+            <PricingFeature icon={<Check className="h-4 w-4" />} text="Вы пишете цель — Emigro согласует специалиста" />
+            <PricingFeature icon={<Phone className="h-4 w-4" />} text="Специалист проводит созвон (RU/EN)" />
+            <PricingFeature icon={<FileText className="h-4 w-4" />} text="PDF после встречи — от специалиста" />
+            <PricingFeature icon={<Clock className="h-4 w-4" />} text="Специалист связывается сам" />
           </ul>
 
           <a
@@ -71,7 +71,7 @@ export function AssistPricingCards({ formAnchor = "#assist-form" }: Props) {
             <PricingFeature icon={<Sparkles className="h-4 w-4" />} text="Детальный PDF-план на 15–25 стр." muted />
             <PricingFeature icon={<FileText className="h-4 w-4" />} text="Таймлайн, бюджет, провайдеры, риски" muted />
             <PricingFeature icon={<Phone className="h-4 w-4" />} text="Сопровождение переписки с gestoría" muted />
-            <PricingFeature icon={<Lock className="h-4 w-4" />} text="Напрямую с партнёром — по вашему решению" muted />
+            <PricingFeature icon={<Lock className="h-4 w-4" />} text="Напрямую со специалистом — по вашему решению" muted />
           </ul>
 
           <button
