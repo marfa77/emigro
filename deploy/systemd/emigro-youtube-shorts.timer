@@ -1,0 +1,10 @@
+[Unit]
+Description=Daily Emigro YouTube Shorts timer (09:15 UTC, after news import cron)
+
+[Timer]
+OnCalendar=*-*-* 09:15:00 UTC
+Persistent=true
+RandomizedDelaySec=120
+
+[Install]
+WantedBy=timers.target

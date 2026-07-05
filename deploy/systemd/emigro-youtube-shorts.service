@@ -1,0 +1,20 @@
+[Unit]
+Description=Emigro YouTube Shorts — daily evergreen tip for @Emigro_news
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=www-data
+WorkingDirectory=/opt/emigro
+EnvironmentFile=-/opt/emigro/.env
+Environment=EMIGRO_YOUTUBE_SHORTS_ENABLED=1
+Environment=EMIGRO_YOUTUBE_SHORTS_OUTPUT_ROOT=/opt/emigro/data/youtube-shorts
+Environment=EMIGRO_YOUTUBE_SHORTS_STATE_FILE=/opt/emigro/data/youtube-shorts-state.json
+Environment=GSUTIL_HOME=/opt/emigro/data
+Environment=CLOUDSDK_CONFIG=/opt/emigro/data/gcloud-config
+Environment=GOOGLE_APPLICATION_CREDENTIALS=/opt/emigro/data/gcs-upload-key.json
+ExecStart=/bin/bash /opt/emigro/deploy/youtube-shorts/run_daily.sh
+
+[Install]
+WantedBy=multi-user.target

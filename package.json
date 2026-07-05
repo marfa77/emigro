@@ -12,6 +12,11 @@
     "news:weekly": "tsx scripts/run-weekly-news.ts",
     "news:import-prep2go": "tsx scripts/import-prep2go-news.ts",
     "news:import-prep2go:daily": "tsx scripts/import-prep2go-news.ts --daily",
+    "news:youtube-short": "tsx scripts/generate-news-youtube-short.ts",
+    "news:youtube-short:daily": "tsx scripts/generate-news-youtube-short.ts",
+    "youtube:oauth-setup": "tsx scripts/youtube-oauth-setup.ts",
+    "youtube:sync-oauth-from-vps": "bash scripts/sync-youtube-oauth-from-vps.sh",
+    "youtube-shorts:deploy": "bash deploy/youtube-shorts/deploy.sh",
     "news:list-prep2go": "tsx scripts/list-prep2go-db-news.ts",
     "news:publish-threads": "tsx scripts/publish-threads-digest.ts",
     "news:test-quality": "tsx scripts/test-news-quality-guards.ts",
@@ -22,6 +27,7 @@
     "seo:indexnow": "tsx scripts/ping-indexnow.ts",
     "guides:og-images": "tsx scripts/generate-guide-og-images.ts",
     "telegram:set-webhook": "tsx scripts/set-telegram-webhook.ts",
+    "social:subscribers": "tsx scripts/social-subscribers-daily.ts",
     "portugal:community": "tsx scripts/portugal-community-run.ts",
     "portugal:daily": "tsx scripts/portugal-community-daily.ts",
     "portugal:spotlight": "tsx scripts/portugal-refresh-spotlight.ts",
@@ -43,7 +49,8 @@
     "next": "14.2.35",
     "react": "^18",
     "react-dom": "^18",
-    "rss-parser": "^3.13.0"
+    "rss-parser": "^3.13.0",
+    "sharp": "^0.35.3"
   },
   "devDependencies": {
     "@types/json-logic-js": "^2.0.8",
