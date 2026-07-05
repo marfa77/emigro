@@ -259,7 +259,7 @@ export default function AssistPage() {
               href="/ru/assist/sample-plan"
               className="inline-flex shrink-0 items-center gap-2 text-sm font-medium text-corridor-700 hover:underline"
             >
-              Пример PDF-плана
+              Пример PDF после Route Check
               <ArrowRight className="h-4 w-4" aria-hidden />
             </Link>
           </div>

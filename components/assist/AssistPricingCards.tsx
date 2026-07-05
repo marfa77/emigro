@@ -10,6 +10,7 @@ import {
   Phone,
   Sparkles,
 } from "lucide-react";
+import { ROUTE_CHECK_PDF_PATH } from "@/lib/assist/sample-plan-data";
 
 type Props = {
   routeCheckFormAnchor?: string;
@@ -62,10 +63,14 @@ export function AssistPricingCards({
           </ul>
 
           <p className="mt-5 rounded-xl border border-corridor-100 bg-corridor-50/60 px-4 py-3 text-xs leading-relaxed text-slate-600">
-            <span className="font-medium text-slate-800">Пример:</span> семья из Петербурга → Валенсия, Digital Nomad
-            Visa. Таймлайн 5,5 месяцев, бюджет €8 400, чек-лист документов.{" "}
+            <span className="font-medium text-slate-800">Пример:</span> IT-фрилансер из Белграда → Валенсия, DNV через
+            консульство в Сербии. Таймлайн 5,5 месяцев, бюджет €6 330–8 630, 8 разделов PDF.{" "}
             <Link href="/ru/assist/sample-plan" className="font-medium text-corridor-700 hover:underline">
-              Смотреть образец PDF
+              Смотреть образец
+            </Link>
+            {" · "}
+            <Link href={ROUTE_CHECK_PDF_PATH} className="font-medium text-corridor-700 hover:underline">
+              PDF
             </Link>
           </p>
 
