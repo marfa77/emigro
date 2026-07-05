@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { publicSiteUrl, SITE_URL } from "@/lib/site-url";
+import { publicSiteUrl } from "@/lib/site-url";
 
 /** 1200×630 JPG — supported by Twitter/X, Threads, Facebook (not SVG). */
 export const DEFAULT_OG_IMAGE = "/images/og/og-default.jpg";

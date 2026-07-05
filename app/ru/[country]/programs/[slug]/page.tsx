@@ -39,8 +39,8 @@ import {
   PASSPORT_STATUS_LABELS,
   programPagePath,
 } from "@/lib/seo/corridor-page-seo";
+import { pageUrl } from "@/lib/seo";
 import { ISO2_TO_SEGMENT } from "@/lib/corridor/paths";
-import { SITE_URL } from "@/lib/site-url";
 import { createServerClient } from "@/lib/supabase/server";
 
 export const revalidate = 3600;
@@ -135,7 +135,7 @@ export default async function CountryProgramPage({
 
   const base = topic.sitePaths.landing;
   const path = programPagePath(topic, program.slug);
-  const url = `${SITE_URL}${path}`;
+  const url = pageUrl(path);
   const faq = buildProgramFaq(program, topic);
   const quickAnswer = buildProgramQuickAnswer(program, topic);
   const incomeRequirement = findRequirement(program, /доход|зарплат|income|salary|средств|сбереж/i);

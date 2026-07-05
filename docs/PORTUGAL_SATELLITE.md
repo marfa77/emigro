@@ -88,9 +88,10 @@ npm run portugal:backfill-month  # 30 дней истории
 ## DNS / субдомен
 
 - CNAME `portugal` → `cname.vercel-dns.com` (Namecheap)
-- **Canonical URL** по умолчанию: `https://www.emigro.online/satellite/portugal` (пока DNS субдомена не настроен)
-- После настройки DNS: `PORTUGAL_SATELLITE_USE_SUBDOMAIN=true` на Vercel
-- Fallback без DNS: `https://www.emigro.online/satellite/portugal`
+- **Canonical URL:** `https://portugal.emigro.online` (production по умолчанию)
+- `PORTUGAL_SATELLITE_USE_SUBDOMAIN=false` — только для локальной разработки без DNS
+- `www.emigro.online/satellite/portugal/*` → **301** на subdomain
+- Локально: `http://localhost:3000/satellite/portugal`
 
 ## Ремонт данных
 

@@ -1,16 +1,31 @@
 import { corridorDigestPath, corridorLandingPath, corridorWizardPath, programPath } from "@/lib/corridor/paths";
 import { guidePath, listGuides } from "@/lib/guides/load";
 import { getCorridorBySlug } from "@/lib/corridor/queries";
+import { normalizeHashtag } from "@/lib/community-notes/hashtags";
+import { getPublishedCommunityNotes } from "@/lib/community-notes/queries";
 import { getPublishedNewsDigests } from "@/lib/news/digests";
-import { getActiveNewsTopics } from "@/lib/news/topics";
-import { newsArticleUrl, newsHubUrl, publicSiteUrl } from "@/lib/site-url";
+import { getActiveNewsTopics, newsIndexPath } from "@/lib/news/topics";
+import { newsArticleUrl, portugalSatelliteUrl, publicSiteUrl } from "@/lib/site-url";
 import { TRANSIT_HUBS } from "@/lib/transit-hubs";
+
+type LlmsRow = { path: string; description: string };
+
+function row(path: string, description: string): LlmsRow {
+  return { path, description };
+}
+
+function llmsPathFromUrl(url: string): string {
+  const origin = publicSiteUrl();
+  return url.startsWith(origin) ? url.slice(origin.length) || "/" : url;
+}
 
 /** Build the short llms.txt (overview) from live data. */
 export async function buildLlmsTxt(): Promise<string> {
   const topics = await getActiveNewsTopics();
   const fullCorridors = topics.filter((t) => t.status === "active" && t.corridorSlug && t.sitePaths);
   const guides = listGuides();
+  const satelliteHub = llmsPathFromUrl(portugalSatelliteUrl("/"));
+  const satelliteLlms = llmsPathFromUrl(portugalSatelliteUrl("/llms"));
 
   const transitHubLines = TRANSIT_HUBS.map(
     (hub) => `- ${hub.countryRu}: ${hub.path} — ${hub.tagline}`
@@ -51,6 +66,11 @@ ${transitHubLines}
 ## Коридоры (landing → wizard → digest → programs)
 
 ${corridorLines}
+
+## Portugal satellite (практика, Лиссабон)
+
+- Hub: ${satelliteHub} — заметки, лайфхаки, #aima #nif #аренда
+- llms: ${satelliteLlms} — индекс для AI-агентов
 
 Пример структуры коридора:
 - Landing: /ru/portugal
@@ -96,12 +116,6 @@ ${corridorLines}
 
 const NEWS_URL_LIMIT = 200;
 
-type LlmsRow = { path: string; description: string };
-
-function row(path: string, description: string): LlmsRow {
-  return { path, description };
-}
-
 /** Build llms-full.txt body from the same sources as sitemap.ts. */
 export async function buildLlmsFullText(): Promise<string> {
   const topics = await getActiveNewsTopics();
@@ -112,8 +126,15 @@ export async function buildLlmsFullText(): Promise<string> {
   const guides = listGuides();
   const digests = await getPublishedNewsDigests();
   const recentNews = digests.slice(0, NEWS_URL_LIMIT);
+  const portugalNotes = await getPublishedCommunityNotes("portugal");
+  const tagSet = new Set<string>();
+  for (const note of portugalNotes) {
+    for (const t of note.hashtags) tagSet.add(normalizeHashtag(t));
+  }
 
   const rows: LlmsRow[] = [
+    row("/llms.txt", "Краткий обзор Emigro для AI-агентов"),
+    row("/llms-full.txt", "Полный индекс URL Emigro для AI-агентов"),
     row("/ru", "Главная — хаб всех коридоров и транзитных направлений"),
     row("/ru/wizard", "Глобальный wizard подбора страны и маршрута ВНЖ"),
     row("/ru/guides", `SEO-гайды (${guides.length} pillar-статей по ВНЖ, хабам, бюджету)`),
@@ -121,12 +142,12 @@ export async function buildLlmsFullText(): Promise<string> {
     row("/ru/community", "Сообщество релокантов Emigro"),
     row("/ru/partners", "Партнёры и сервисы на маршруте"),
     row("/ru/contact", "Контакты Emigro"),
+    row(llmsPathFromUrl(portugalSatelliteUrl("/")), "Portugal satellite — практика релокации в Лиссабоне"),
+    row(llmsPathFromUrl(portugalSatelliteUrl("/llms")), "Portugal satellite llms index"),
     ...TRANSIT_HUBS.map((hub) =>
       row(hub.path, `${hub.countryRu} — транзитный хаб: ${hub.quickAnswer.slice(0, 120)}…`)
     ),
-    ...topics.map((t) =>
-      row(newsHubUrl(t.urlSegment).replace(publicSiteUrl(), ""), `Новости: ${t.countryRu}`)
-    ),
+    ...topics.map((t) => row(newsIndexPath(t.urlSegment), `Новости: ${t.countryRu}`)),
   ];
 
   for (const topic of developingCorridors) {
@@ -161,6 +182,24 @@ export async function buildLlmsFullText(): Promise<string> {
 
   for (const d of recentNews) {
     rows.push(row(newsArticleUrl(d.slug).replace(publicSiteUrl(), ""), d.title ?? d.slug));
+  }
+
+  for (const note of portugalNotes) {
+    rows.push(
+      row(
+        llmsPathFromUrl(portugalSatelliteUrl(`/notes/${note.slug}`)),
+        note.title ?? note.slug
+      )
+    );
+  }
+
+  for (const tag of Array.from(tagSet)) {
+    rows.push(
+      row(
+        llmsPathFromUrl(portugalSatelliteUrl(`/tag/${tag}`)),
+        `#${tag} — Portugal satellite`
+      )
+    );
   }
 
   const table = rows

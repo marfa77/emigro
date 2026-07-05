@@ -283,7 +283,7 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
   ]);
 
   const faqSchema =
-    faqItems.length >= 2
+    faqItems.length >= 5
       ? {
           "@context": "https://schema.org",
           "@type": "FAQPage",

@@ -2,6 +2,9 @@ import Link from "next/link";
 import { Construction } from "lucide-react";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { CorridorIntelLinks } from "@/components/corridor/CorridorIntelLinks";
+import { PortugalHubShell } from "@/components/portugal/PortugalHubShell";
+import { PortugalHubStack } from "@/components/portugal/PortugalHubStack";
+import { isPortugalHubTopic } from "@/lib/portugal/hub";
 import { CorridorLandingSeoSections } from "@/components/corridor/CorridorLandingSeoSections";
 import { GuideDigestPreview } from "@/components/corridor/GuideDigestPreview";
 import { LatestNewsTeaser } from "@/components/news/LatestNewsTeaser";
@@ -13,13 +16,8 @@ import { isCorridorFull } from "@/lib/corridor/publish";
 import { getCorridorBySlug } from "@/lib/corridor/queries";
 import { requirePublishedCorridorTopic } from "@/lib/corridor/resolve-topic";
 import type { NewsTopicConfig } from "@/lib/news/topics";
-import {
-  buildCorridorBreadcrumbSchema,
-  buildCorridorLandingArticleSchema,
-  buildFaqSchema,
-  buildCorridorLandingFaq,
-} from "@/lib/seo/corridor-page-seo";
-import { SITE_URL } from "@/lib/site-url";
+import { buildCorridorBreadcrumbSchema, buildCorridorLandingArticleSchema, buildFaqSchema, buildCorridorLandingFaq } from "@/lib/seo/corridor-page-seo";
+import { pageUrl } from "@/lib/seo";
 
 export async function CorridorLanding({ country }: { country: string }) {
   const topic = await requirePublishedCorridorTopic(country);
@@ -40,11 +38,12 @@ export async function CorridorLanding({ country }: { country: string }) {
   }
 
   const base = topic.sitePaths!.landing;
-  const url = `${SITE_URL}${base}`;
+  const url = pageUrl(base);
   const faq = buildCorridorLandingFaq(topic, corridor);
   const breadcrumbSchema = buildCorridorBreadcrumbSchema(topic, "Коридор");
   const articleSchema = buildCorridorLandingArticleSchema(topic, corridor, url);
   const faqSchema = buildFaqSchema(faq);
+  const isPortugalHub = isPortugalHubTopic(topic);
 
   return (
     <>
@@ -54,6 +53,8 @@ export async function CorridorLanding({ country }: { country: string }) {
       {faqSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />}
       <main className="mx-auto max-w-5xl px-4 py-10">
         <CorridorBreadcrumb topic={topic} current="Коридор" />
+
+        {isPortugalHub && <PortugalHubShell active="hub" />}
 
         {!isFull && (
           <div className="mt-4 flex items-start gap-3 rounded-xl border border-amber-200 bg-amber-50 px-5 py-4 text-amber-950">
@@ -104,6 +105,8 @@ export async function CorridorLanding({ country }: { country: string }) {
           </div>
         </HeroShell>
 
+        {isPortugalHub && <PortugalHubStack />}
+
         {corridor.programs.length > 0 && (
           <section id="programs" className="mt-12">
             <h2 className="text-2xl font-semibold">Маршруты в коридоре</h2>
@@ -144,8 +147,9 @@ export async function CorridorLanding({ country }: { country: string }) {
         <section className="mt-12">
           <h2 className="text-2xl font-semibold">Интеллект коридора</h2>
           <p className="mt-2 max-w-2xl text-slate-600">
-            Справочник с проверенными фактами и еженедельные новости — два дополняющих слоя.
-            {isFull ? " Wizard опирается на оба." : ""}
+            {isPortugalHub
+              ? "Новости и справочник — два слоя Portugal Hub. Wizard, сателлит и Barakhlo дополняют их на каждом этапе переезда."
+              : `Справочник с проверенными фактами и еженедельные новости — два дополняющих слоя.${isFull ? " Wizard опирается на оба." : ""}`}
           </p>
           <div className="mt-6 grid gap-4 lg:grid-cols-2">
             <LatestNewsTeaser topicKey={topic.key} />

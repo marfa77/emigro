@@ -17,6 +17,8 @@ import { createServerClient } from "@/lib/supabase/server";
 import { pageMetadata } from "@/lib/seo";
 import { corridorStaticParamsFromSegments, getActiveCorridorSegments } from "@/lib/corridor/segments";
 import { newsIndexPath } from "@/lib/news/topics";
+import { PortugalHubNextSteps } from "@/components/portugal/PortugalHubNextSteps";
+import { isPortugalHubTopic } from "@/lib/portugal/hub";
 
 export async function generateStaticParams() {
   const segments = await getActiveCorridorSegments();
@@ -181,6 +183,14 @@ export default async function CountryResultsPage({
             );
           })}
         </div>
+
+        {isPortugalHubTopic(topic) && (
+          <PortugalHubNextSteps
+            className="mt-8"
+            guideHref={topic.sitePaths.guide}
+            placement="wizard_corridor_results"
+          />
+        )}
 
         <section className="mt-12 rounded-2xl border border-slate-200 bg-white p-6">
           <h2 className="text-xl font-semibold">Что делать дальше</h2>

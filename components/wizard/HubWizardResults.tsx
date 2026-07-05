@@ -8,6 +8,8 @@ import { WizardOutcomeCard, readableReason } from "@/components/wizard/WizardOut
 import { corridorWizardPath } from "@/lib/corridor/paths";
 import type { GlobalEvalPayload } from "@/lib/engine/run-global-evaluation";
 import { corridorSlugForTopic, findFirstProviderTopicKey } from "@/lib/providers/registry";
+import { PORTUGAL_URL_SEGMENT, portugalHubPaths } from "@/lib/portugal/hub";
+import { PortugalHubNextSteps } from "@/components/portugal/PortugalHubNextSteps";
 import { TRANSIT_HUBS } from "@/lib/transit-hubs";
 
 export function HubWizardResults({
@@ -201,7 +203,11 @@ export function HubWizardResults({
         </section>
       )}
 
-      <ResultsNextSteps hasMatches={matchCount > 0} providerTopicKey={providerTopicKey} />
+      <ResultsNextSteps
+        hasMatches={matchCount > 0}
+        providerTopicKey={providerTopicKey}
+        showPortugalHub={pick?.countrySegment === PORTUGAL_URL_SEGMENT || providerTopicKey === PORTUGAL_URL_SEGMENT}
+      />
 
       {byCountry.length > 0 && (
         <section className="mt-12 space-y-10">
@@ -251,12 +257,18 @@ export function HubWizardResults({
 function ResultsNextSteps({
   hasMatches,
   providerTopicKey,
+  showPortugalHub = false,
 }: {
   hasMatches: boolean;
   providerTopicKey?: string;
+  showPortugalHub?: boolean;
 }) {
   return (
-    <section className="mt-10 rounded-2xl border border-slate-200 bg-white p-6">
+    <>
+      {showPortugalHub && (
+        <PortugalHubNextSteps className="mt-10" guideHref={portugalHubPaths.digest} placement="wizard_hub_results" />
+      )}
+      <section className="mt-10 rounded-2xl border border-slate-200 bg-white p-6">
       <h2 className="text-xl font-semibold">Что делать дальше</h2>
       <ol className="mt-4 list-decimal space-y-2 pl-5 text-slate-700">
         <li>
@@ -286,5 +298,6 @@ function ResultsNextSteps({
         )}
       </div>
     </section>
+    </>
   );
 }

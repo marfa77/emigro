@@ -53,9 +53,39 @@ export default async function PortugalTagPage({ params }: { params: { tag: strin
   const tag = normalizeHashtag(params.tag);
   const allNotes = await getPublishedCommunityNotes("portugal");
   const notes = await getPublishedCommunityNotesByHashtag(tag, "portugal");
+  const url = portugalSatelliteUrl(`/tag/${tag}`);
+  const label = hashtagLabel(tag);
+
+  const collectionSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: `#${label} — Португалия`,
+    description: `Материалы Emigro Portugal satellite с тегом #${label} для релокантов в Лиссабоне.`,
+    inLanguage: "ru-RU",
+    url,
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: notes.length,
+      itemListElement: notes.map((note, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        url: portugalSatelliteUrl(`/notes/${note.slug}`),
+        name: note.title,
+      })),
+    },
+  };
 
   return (
     <main className="mx-auto max-w-3xl px-4 py-10">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }} />
+      <section className="sr-only" aria-label="AI description">
+        <h2>ai:description</h2>
+        <p>
+          #{label} — материалы Portugal satellite Emigro для релокантов в Лиссабоне: новости, лайфхаки, советы и гайды.
+          Не юридическая консультация.
+        </p>
+        <a href={portugalSatelliteUrl("/llms")}>llms.txt</a>
+      </section>
       <nav className="text-sm text-slate-500">
         <Link href={portugalHubPath()} className="hover:text-teal-700">
           Португалия

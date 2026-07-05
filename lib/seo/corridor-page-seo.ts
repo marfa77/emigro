@@ -398,7 +398,7 @@ export function buildHubBreadcrumbSchema(
 }
 
 export function buildFaqSchema(faq: FaqItem[]): Record<string, unknown> | null {
-  if (faq.length < 2) return null;
+  if (faq.length < 5) return null;
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",

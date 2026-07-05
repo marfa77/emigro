@@ -6,6 +6,8 @@ import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { CorridorIntelLinks } from "@/components/corridor/CorridorIntelLinks";
 import { ServiceProvidersSection } from "@/components/providers/ServiceProvidersSection";
 import { CorridorBreadcrumb } from "@/components/corridor/CorridorLanding";
+import { PortugalHubShell } from "@/components/portugal/PortugalHubShell";
+import { isPortugalHubTopic } from "@/lib/portugal/hub";
 import { DigestSeoSections } from "@/components/corridor/DigestSeoSections";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { CorridorHeroVisual } from "@/components/visuals/CorridorHeroVisual";
@@ -24,7 +26,7 @@ import {
   buildFaqSchema,
   digestPagePath,
 } from "@/lib/seo/corridor-page-seo";
-import { SITE_URL } from "@/lib/site-url";
+import { pageUrl } from "@/lib/seo";
 
 export async function generateStaticParams() {
   const segments = await getPublishedCorridorSegments();
@@ -57,7 +59,7 @@ export default async function CountryDigestPage({ params }: { params: { country:
 
   const base = topic.sitePaths.landing;
   const path = digestPagePath(topic);
-  const url = `${SITE_URL}${path}`;
+  const url = pageUrl(path);
   const faq = buildDigestFaq(topic, corridor);
   const heroClass = `from-slate-950 via-corridor-800 to-sky-800 bg-gradient-to-br ${countryAccentBarClass(topic.urlSegment)}`;
 
@@ -75,6 +77,8 @@ export default async function CountryDigestPage({ params }: { params: { country:
       {faqSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />}
       <main className="mx-auto max-w-5xl px-4 py-10">
         <CorridorBreadcrumb topic={topic} current="Справочник" />
+
+        {isPortugalHubTopic(topic) && <PortugalHubShell active="digest" />}
 
         <HeroShell visual={<CorridorHeroVisual segment={topic.urlSegment} />} className={heroClass}>
           <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-sm text-corridor-50">

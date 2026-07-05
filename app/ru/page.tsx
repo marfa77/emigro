@@ -66,12 +66,9 @@ export default async function RuHubPage() {
       "Навигатор релокации для русскоязычных за рубежом и в СНГ: европейские коридоры ВНЖ, wizard подбора, справочники и еженедельные новости.",
     publisher: { "@type": "Organization", name: "Emigro", url: origin },
     potentialAction: {
-      "@type": "SearchAction",
-      target: {
-        "@type": "EntryPoint",
-        urlTemplate: `${origin}/ru/wizard?q={search_term_string}`,
-      },
-      "query-input": "required name=search_term_string",
+      "@type": "ViewAction",
+      name: "Wizard подбора маршрута ВНЖ",
+      target: `${origin}/ru/wizard`,
     },
   };
 

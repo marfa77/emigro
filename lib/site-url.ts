@@ -37,7 +37,7 @@ export function publicNewsSiteUrl(): string {
 export const NEWS_HUB_PATH = "/ru/news";
 
 /** @deprecated use newsHubUrl('portugal') */
-export const CORRIDOR_NEWS_BASE = `${SITE_URL}${NEWS_HUB_PATH}?country=portugal`;
+export const CORRIDOR_NEWS_BASE = `${publicSiteUrl()}${NEWS_HUB_PATH}?country=portugal`;
 
 export function newsHubUrl(country?: string): string {
   const base = publicSiteUrl();
@@ -58,9 +58,16 @@ export function newsFeedUrl(country?: string): string {
 const PORTUGAL_SATELLITE_SUBDOMAIN = "https://portugal.emigro.online";
 const PORTUGAL_SATELLITE_PATH = "/satellite/portugal";
 
-/** Use subdomain only when DNS is live (`PORTUGAL_SATELLITE_USE_SUBDOMAIN=true`). */
+/** Subdomain is live; opt out with PORTUGAL_SATELLITE_USE_SUBDOMAIN=false. */
+export function portugalSatelliteSubdomainEnabled(): boolean {
+  const flag = process.env.PORTUGAL_SATELLITE_USE_SUBDOMAIN?.trim().toLowerCase();
+  if (flag === "false") return false;
+  if (flag === "true") return true;
+  return process.env.NODE_ENV === "production";
+}
+
 function portugalSatelliteOrigin(): string {
-  if (process.env.PORTUGAL_SATELLITE_USE_SUBDOMAIN === "true") {
+  if (portugalSatelliteSubdomainEnabled()) {
     return PORTUGAL_SATELLITE_SUBDOMAIN;
   }
   const publicEnv = process.env.EMIGRO_PUBLIC_SITE_URL?.trim();

@@ -9,11 +9,16 @@ import { CorridorIntelLinks } from "@/components/corridor/CorridorIntelLinks";
 import { NewsHeroVisual } from "@/components/visuals/NewsHeroVisual";
 import { pageMetadata, pageUrl } from "@/lib/seo";
 import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
+import {
+  buildNewsFaqSchema,
+  buildNewsIndexAiDescription,
+  buildNewsIndexFaq,
+} from "@/lib/seo/news-page-seo";
 import { getPublishedNewsDigests } from "@/lib/news/digests";
-import { getActiveNewsTopics, resolveNewsTopicFromParam } from "@/lib/news/topics";
+import { getActiveNewsTopics, newsIndexPath, resolveNewsTopicFromParam } from "@/lib/news/topics";
 import { listPillarGuides } from "@/lib/guides/pillar-guides";
 import { guidePath } from "@/lib/guides/load";
-import { newsArticleUrl, newsFeedUrl, newsHubUrl, SITE_URL } from "@/lib/site-url";
+import { newsArticleUrl, newsFeedUrl } from "@/lib/site-url";
 
 export const revalidate = 60;
 
@@ -24,7 +29,7 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
   const allTags = (await getActiveNewsTopics()).flatMap((t) => t.seoTags);
 
   if (topic) {
-    const path = `/ru/news?country=${topic.urlSegment}`;
+    const path = newsIndexPath(topic.urlSegment);
     const base = pageMetadata({
       title: `Новости ${topic.countryRu} — ВНЖ и гражданство`,
       titleAbsolute: true,
@@ -36,7 +41,6 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
       keywords: topic.seoTags,
       alternates: {
         ...base.alternates,
-        canonical: pageUrl("/ru/news"),
         types: { "application/rss+xml": newsFeedUrl(topic.urlSegment) },
       },
     };
@@ -71,8 +75,10 @@ export default async function NewsIndexPage({ searchParams }: Props) {
     limit: topic ? 60 : 120,
   });
 
-  const hubUrl = newsHubUrl(topic?.urlSegment);
   const feedUrl = newsFeedUrl(topic?.urlSegment);
+  const aiDescription = buildNewsIndexAiDescription(topic ?? null);
+  const faq = buildNewsIndexFaq(topic ?? null);
+  const faqSchema = buildNewsFaqSchema(faq);
   const pageTitle = topic
     ? `Новости ${topic.countryRu} для русскоязычных`
     : "Новости релокации в Европу";
@@ -95,7 +101,8 @@ export default async function NewsIndexPage({ searchParams }: Props) {
 
   const breadcrumbSchema = buildBreadcrumbSchema([
     { name: "Все направления", item: pageUrl("/ru") },
-    { name: "Новости" },
+    { name: "Новости", item: pageUrl("/ru/news") },
+    ...(topic ? [{ name: topic.countryRu }] : []),
   ]);
 
   return (
@@ -103,6 +110,12 @@ export default async function NewsIndexPage({ searchParams }: Props) {
       <SiteHeader />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      {faqSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />}
+      <section className="sr-only" aria-label="AI description">
+        <h2>ai:description</h2>
+        <p>{aiDescription}</p>
+        <a href="/llms.txt">llms.txt</a>
+      </section>
       <main className="mx-auto max-w-5xl px-4 py-10">
         <div className="grid items-start gap-8 lg:grid-cols-[1fr_240px]">
           <div className="max-w-3xl">

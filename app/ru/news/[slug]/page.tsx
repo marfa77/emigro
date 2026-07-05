@@ -24,9 +24,14 @@ import {
   pageUrl,
   socialImageMetadata,
 } from "@/lib/seo";
+import {
+  buildNewsArticleAiDescription,
+  buildNewsArticleFaq,
+  buildNewsFaqSchema,
+} from "@/lib/seo/news-page-seo";
 import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
 import { EMIGRO_PUBLISHER, emigroAuthorOrg, schemaImage } from "@/lib/seo/schema";
-import { newsArticleUrl, newsHubUrl, SITE_URL } from "@/lib/site-url";
+import { newsArticleUrl, newsHubUrl } from "@/lib/site-url";
 
 type Props = { params: { slug: string } };
 
@@ -118,6 +123,9 @@ export default async function NewsArticlePage({ params }: Props) {
   }
   breadcrumbItems.push({ name: displayTitle });
   const breadcrumbSchema = buildBreadcrumbSchema(breadcrumbItems);
+  const faq = buildNewsArticleFaq(digest, topic ?? null);
+  const faqSchema = buildNewsFaqSchema(faq);
+  const aiDescription = buildNewsArticleAiDescription(digest, topic ?? null);
 
   return (
     <>
@@ -125,6 +133,12 @@ export default async function NewsArticlePage({ params }: Props) {
       <SiteHeader />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      {faqSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />}
+      <section className="sr-only" aria-label="AI description">
+        <h2>ai:description</h2>
+        <p>{aiDescription}</p>
+        <a href="/llms.txt">llms.txt</a>
+      </section>
       <main className="mx-auto max-w-6xl px-4 py-10">
         <article>
           <HeroShell visual={<NewsHeroVisual />} className="from-slate-950 via-corridor-800 to-indigo-800">

@@ -1,9 +1,10 @@
 import Link from "next/link";
-import { BookOpen, Compass, Newspaper, Sparkles } from "lucide-react";
+import { BookOpen, Compass, Newspaper, ShoppingBag, Sparkles, StickyNote } from "lucide-react";
 import type { NewsTopicConfig } from "@/lib/news/topics";
 import { newsIndexPath } from "@/lib/news/topics";
 import { corridorWizardBlurb } from "@/lib/guides/guide-display";
 import { isCorridorFull, isCorridorOnSite } from "@/lib/corridor/publish";
+import { isPortugalHubTopic, portugalHubPaths, portugalSatelliteHubUrl } from "@/lib/portugal/hub";
 
 type Props = {
   topic: NewsTopicConfig;
@@ -16,6 +17,9 @@ type Props = {
 export function CorridorIntelLinks({ topic, variant = "full", layout = "grid" }: Props) {
   const newsHref = newsIndexPath(topic.urlSegment);
   const paths = topic.sitePaths;
+  const isPortugalHub = isPortugalHubTopic(topic);
+  const satelliteUrl = portugalSatelliteHubUrl();
+  const barakhloUrl = portugalHubPaths.barakhlo("intel_links");
 
   if (variant === "compact") {
     return (
@@ -49,6 +53,18 @@ export function CorridorIntelLinks({ topic, variant = "full", layout = "grid" }:
             </Link>
           </>
         )}
+        {isPortugalHub && (
+          <>
+            <span className="text-slate-300">·</span>
+            <a href={satelliteUrl} target="_blank" rel="noopener noreferrer" className="text-corridor-600 hover:underline">
+              Практика
+            </a>
+            <span className="text-slate-300">·</span>
+            <a href={barakhloUrl} target="_blank" rel="noopener noreferrer" className="text-corridor-600 hover:underline">
+              Barakhlo
+            </a>
+          </>
+        )}
       </nav>
     );
   }
@@ -61,10 +77,12 @@ export function CorridorIntelLinks({ topic, variant = "full", layout = "grid" }:
         </div>
         <div>
           <h2 className="text-lg font-semibold text-slate-900">
-            Интеллект Emigro: {topic.flag} {topic.countryRu}
+            {isPortugalHub ? "Portugal Hub — все слои" : `Интеллект Emigro: ${topic.flag} ${topic.countryRu}`}
           </h2>
           <p className="mt-1 text-sm text-slate-600">
-            Два слоя: справочник с проверенными фактами и еженедельные новости с источниками.
+            {isPortugalHub
+              ? "Маршрут, новости, справочник, практика и барахолка — один коридор от решения до быта в Лиссабоне."
+              : "Два слоя: справочник с проверенными фактами и еженедельные новости с источниками."}
           </p>
         </div>
       </div>
@@ -134,6 +152,36 @@ export function CorridorIntelLinks({ topic, variant = "full", layout = "grid" }:
           <p className="mt-2 font-medium text-slate-900 group-hover:text-corridor-700">Гайды Emigro</p>
           <p className="mt-1 text-sm text-slate-600">Pillar-разборы: digital nomad, семья, отказы, бюджет.</p>
         </Link>
+
+        {isPortugalHub && (
+          <>
+            <a
+              href={satelliteUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group rounded-lg border border-teal-200 bg-teal-50/50 p-4 transition hover:border-teal-400 hover:shadow-sm"
+            >
+              <StickyNote className="h-5 w-5 text-teal-700" />
+              <p className="mt-2 font-medium text-slate-900 group-hover:text-teal-800">Практика в Португалии</p>
+              <p className="mt-1 text-sm text-slate-600">
+                NIF, AIMA, аренда — заметки из Telegram-сигналов на portugal.emigro.online.
+              </p>
+            </a>
+
+            <a
+              href={barakhloUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group rounded-lg border border-orange-200 bg-orange-50/50 p-4 transition hover:border-orange-400 hover:shadow-sm"
+            >
+              <ShoppingBag className="h-5 w-5 text-orange-700" />
+              <p className="mt-2 font-medium text-slate-900 group-hover:text-orange-800">Барахолка Лиссабона</p>
+              <p className="mt-1 text-sm text-slate-600">
+                Мебель, услуги, авто — объявления из русскоязычных чатов на Barakhlo.
+              </p>
+            </a>
+          </>
+        )}
       </div>
 
       {topic.status === "in_development" && (

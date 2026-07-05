@@ -1,8 +1,10 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { PORTUGAL_SATELLITE_HOST } from "@/lib/satellite/portugal";
+import { portugalSatelliteSubdomainEnabled } from "@/lib/site-url";
 
 const CANONICAL_HOST = "www.emigro.online";
+const PORTUGAL_SATELLITE_ORIGIN = `https://${PORTUGAL_SATELLITE_HOST}`;
 
 function hostName(request: NextRequest): string {
   return request.headers.get("host")?.split(":")[0] ?? "";
@@ -20,25 +22,40 @@ function isPortugalSatelliteHost(host: string): boolean {
   return host === PORTUGAL_SATELLITE_HOST;
 }
 
-/** /notes/* and /tag/* on apex/www → www satellite paths (works even when subdomain DNS is stale). */
+/** /satellite/portugal on www → canonical subdomain (301). */
+function redirectWwwSatelliteToSubdomain(request: NextRequest): NextResponse | null {
+  if (!portugalSatelliteSubdomainEnabled()) return null;
+
+  const host = hostName(request);
+  if (host !== CANONICAL_HOST && host !== "emigro.online") return null;
+
+  const { pathname, search } = request.nextUrl;
+  if (!pathname.startsWith("/satellite/portugal")) return null;
+
+  const subpath = pathname.slice("/satellite/portugal".length) || "/";
+  const destination = `${PORTUGAL_SATELLITE_ORIGIN}${subpath === "/" ? "" : subpath}${search}`;
+  return NextResponse.redirect(destination, 301);
+}
+
+/** /notes/* and /tag/* on apex/www → satellite (subdomain when enabled). */
 function redirectMisplacedSatellitePaths(request: NextRequest): NextResponse | null {
   const host = hostName(request);
   if (host !== CANONICAL_HOST && host !== "emigro.online") return null;
 
-  const { pathname } = request.nextUrl;
+  const { pathname, search } = request.nextUrl;
   if (pathname.startsWith("/notes/")) {
-    const url = new URL(request.url);
-    url.protocol = "https:";
-    url.host = CANONICAL_HOST;
-    url.pathname = `/satellite/portugal${pathname}`;
-    return NextResponse.redirect(url, 307);
+    const subpath = pathname;
+    const destination = portugalSatelliteSubdomainEnabled()
+      ? `${PORTUGAL_SATELLITE_ORIGIN}${subpath}${search}`
+      : `https://${CANONICAL_HOST}/satellite/portugal${subpath}${search}`;
+    return NextResponse.redirect(destination, 301);
   }
   if (pathname.startsWith("/tag/")) {
-    const url = new URL(request.url);
-    url.protocol = "https:";
-    url.host = CANONICAL_HOST;
-    url.pathname = `/satellite/portugal${pathname}`;
-    return NextResponse.redirect(url, 307);
+    const subpath = pathname;
+    const destination = portugalSatelliteSubdomainEnabled()
+      ? `${PORTUGAL_SATELLITE_ORIGIN}${subpath}${search}`
+      : `https://${CANONICAL_HOST}/satellite/portugal${subpath}${search}`;
+    return NextResponse.redirect(destination, 301);
   }
   return null;
 }
@@ -80,6 +97,9 @@ function shouldRedirectToCanonical(request: NextRequest): URL | null {
 }
 
 export function middleware(request: NextRequest) {
+  const wwwSatellite = redirectWwwSatelliteToSubdomain(request);
+  if (wwwSatellite) return wwwSatellite;
+
   const misplaced = redirectMisplacedSatellitePaths(request);
   if (misplaced) return misplaced;
 

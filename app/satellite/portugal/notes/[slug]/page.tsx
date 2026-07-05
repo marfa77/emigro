@@ -175,7 +175,6 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
           llms.txt
         </a>
       </p>
-      <link rel="canonical" href={communityNoteUrl(note.slug)} />
     </main>
   );
 }

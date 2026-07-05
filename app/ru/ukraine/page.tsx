@@ -6,7 +6,6 @@ import { HeroShell } from "@/components/visuals/HeroShell";
 import { HubHeroVisual } from "@/components/visuals/HubHeroVisual";
 import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
 import { pageMetadata, pageUrl } from "@/lib/seo";
-import { SITE_URL } from "@/lib/site-url";
 
 export const metadata: Metadata = pageMetadata({
   title: "Украина → ЕС: временная защита и маршруты ВНЖ 2026",
@@ -78,8 +77,8 @@ export default function UkraineHubPage() {
     description:
       "Навигация для граждан Украины: сравнение Temporary Protection с классическими ВНЖ, коридоры Польша/Чехия/Германия и wizard подбора маршрута.",
     inLanguage: "ru-RU",
-    mainEntityOfPage: `${SITE_URL}/ru/ukraine`,
-    publisher: { "@type": "Organization", name: "Emigro", url: SITE_URL },
+    mainEntityOfPage: pageUrl("/ru/ukraine"),
+    publisher: { "@type": "Organization", name: "Emigro", url: pageUrl("/ru") },
   };
 
   return (

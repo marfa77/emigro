@@ -8,7 +8,6 @@ import { HubHeroVisual } from "@/components/visuals/HubHeroVisual";
 import { TRANSIT_HUBS, type TransitHub } from "@/lib/transit-hubs";
 import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
 import { pageUrl } from "@/lib/seo";
-import { SITE_URL } from "@/lib/site-url";
 
 const EU_CORRIDORS = [
   { slug: "portugal", label: "Португалия", flag: "🇵🇹", path: "/ru/portugal" },
@@ -45,11 +44,11 @@ export function TransitHubLanding({ hub }: Props) {
     headline: articleHeadline,
     description: hub.quickAnswer,
     inLanguage: "ru-RU",
-    mainEntityOfPage: `${SITE_URL}${hub.path}`,
+    mainEntityOfPage: pageUrl(hub.path),
     publisher: {
       "@type": "Organization",
       name: "Emigro",
-      url: SITE_URL,
+      url: pageUrl("/ru"),
     },
   };
 
@@ -74,6 +73,12 @@ export function TransitHubLanding({ hub }: Props) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <section className="sr-only" aria-label="AI description">
+        <h2>ai:description</h2>
+        <p>{hub.quickAnswer}</p>
+        <p>{hub.llmSummary}</p>
+        <a href="/llms.txt">llms.txt</a>
+      </section>
       <main className="mx-auto max-w-5xl px-4 py-10">
         <nav className="text-sm text-slate-500">
           <Link href="/ru" className="text-corridor-600 hover:underline">

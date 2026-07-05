@@ -10,6 +10,8 @@ import {
   verifiedDateToLastModified,
 } from "@/lib/seo/corridor-page-seo";
 import { getPublishedCommunityNotes } from "@/lib/community-notes/queries";
+import { normalizeHashtag } from "@/lib/community-notes/hashtags";
+import { newsIndexPath } from "@/lib/news/topics";
 import { newsArticleUrl, newsHubUrl, publicSiteUrl, portugalSatelliteUrl } from "@/lib/site-url";
 import { TRANSIT_HUBS } from "@/lib/transit-hubs";
 
@@ -23,6 +25,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: `${origin}/ru`, changeFrequency: "weekly", priority: 1 },
+    { url: `${origin}/llms.txt`, changeFrequency: "weekly", priority: 0.4 },
+    { url: `${origin}/llms-full.txt`, changeFrequency: "weekly", priority: 0.4 },
     { url: `${origin}/ru/wizard`, changeFrequency: "monthly", priority: 0.95 },
     { url: `${origin}/ru/guides`, changeFrequency: "weekly", priority: 0.9 },
     { url: `${origin}/ru/community`, changeFrequency: "monthly", priority: 0.75 },
@@ -41,6 +45,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.82,
     })),
   ];
+
+  const countryNewsRoutes: MetadataRoute.Sitemap = topics.map((t) => ({
+    url: `${origin}${newsIndexPath(t.urlSegment)}`,
+    changeFrequency: "daily" as const,
+    priority: 0.85,
+  }));
 
   const corridorRoutes: MetadataRoute.Sitemap = [];
   const programRoutes: MetadataRoute.Sitemap = [];
@@ -124,6 +134,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   const portugalNotes = await getPublishedCommunityNotes("portugal");
+  const tagSet = new Set<string>();
+  for (const note of portugalNotes) {
+    for (const t of note.hashtags) tagSet.add(normalizeHashtag(t));
+  }
   const satelliteRoutes: MetadataRoute.Sitemap = [
     {
       url: portugalSatelliteUrl("/"),
@@ -141,7 +155,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "weekly" as const,
       priority: note.content_kind === "news" ? 0.85 : 0.75,
     })),
+    ...Array.from(tagSet).map((tag) => ({
+      url: portugalSatelliteUrl(`/tag/${tag}`),
+      changeFrequency: "weekly" as const,
+      priority: 0.65,
+    })),
   ];
 
-  return [...staticRoutes, ...corridorRoutes, ...programRoutes, ...guideRoutes, ...newsRoutes, ...satelliteRoutes];
+  return [
+    ...staticRoutes,
+    ...countryNewsRoutes,
+    ...corridorRoutes,
+    ...programRoutes,
+    ...guideRoutes,
+    ...newsRoutes,
+    ...satelliteRoutes,
+  ];
 }

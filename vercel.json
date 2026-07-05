@@ -6,5 +6,8 @@
       "path": "/api/cron/social-subscribers",
       "schedule": "0 7 * * *"
     }
-  ]
+  ],
+  "env": {
+    "PORTUGAL_SATELLITE_USE_SUBDOMAIN": "true"
+  }
 }
