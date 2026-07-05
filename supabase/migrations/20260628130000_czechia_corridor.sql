@@ -121,7 +121,7 @@ INSERT INTO emigro_passport_eligibility (program_version_id, passport_iso2, stat
   ('c0000000-0000-4000-8000-000000000038', 'RU', 'eligible', 'Employee card route open; apply via MOI or consulate where jurisdiction allows', 'Employee Card доступен; подача через MOI или консульство по юрисдикции'),
   ('c0000000-0000-4000-8000-000000000038', 'BY', 'partial', 'Preliminarily possible; verify consulate jurisdiction (often Warsaw/Vilnius routes)', 'Предварительно возможно; проверьте консульство (часто Варшава/Вильнюс)'),
   ('c0000000-0000-4000-8000-000000000038', 'UA', 'partial', 'UA citizens may also qualify for temporary protection — compare routes', 'Граждане UA могут также получить temporary protection — сравните маршруты'),
-  ('c0000000-0000-4000-8000-000000000038', 'KZ', 'partial', 'Preliminarily possible; Schengen visa-free entry does not replace employee card', 'Предварительно возможно; безвиз не заменяет employee card'),
+  ('c0000000-0000-4000-8000-000000000038', 'KZ', 'partial', 'Preliminarily possible; Schengen visa required — visa does not replace employee card', 'Предварительно возможно; нужна шенгенская виза — виза не заменяет employee card'),
   ('c0000000-0000-4000-8000-000000000039', 'RU', 'eligible', 'EU Blue Card route verified for qualified employment', 'EU Blue Card доступен при квалифицированной работе'),
   ('c0000000-0000-4000-8000-000000000039', 'BY', 'partial', 'Subject to consulate jurisdiction and sanctions screening', 'Зависит от консульства и санкционной проверки'),
   ('c0000000-0000-4000-8000-000000000039', 'UA', 'partial', 'Compare with temporary protection if eligible', 'Сравните с temporary protection при наличии права'),

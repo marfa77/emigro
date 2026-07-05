@@ -121,7 +121,7 @@ INSERT INTO emigro_passport_eligibility (program_version_id, passport_iso2, stat
   ('c0000000-0000-4000-8000-000000000043', 'RU', 'eligible', 'RWR Card route open; apply via AMS and local authority', 'RWR Card доступен; подача через AMS и местный Magistrat'),
   ('c0000000-0000-4000-8000-000000000043', 'BY', 'partial', 'Preliminarily possible; verify consulate jurisdiction', 'Предварительно возможно; проверьте консульство'),
   ('c0000000-0000-4000-8000-000000000043', 'UA', 'partial', 'UA citizens may also qualify for temporary protection — compare routes', 'Граждане UA могут также получить temporary protection — сравните маршруты'),
-  ('c0000000-0000-4000-8000-000000000043', 'KZ', 'partial', 'Preliminarily possible; Schengen visa-free entry does not replace work permit', 'Предварительно возможно; безвиз не заменяет work permit'),
+  ('c0000000-0000-4000-8000-000000000043', 'KZ', 'partial', 'Preliminarily possible; Schengen visa required — visa does not replace work permit', 'Предварительно возможно; нужна шенгенская виза — виза не заменяет work permit'),
   ('c0000000-0000-4000-8000-000000000044', 'RU', 'eligible', 'EU Blue Card route verified for qualified employment', 'EU Blue Card доступен при квалифицированной работе'),
   ('c0000000-0000-4000-8000-000000000044', 'BY', 'partial', 'Subject to consulate jurisdiction', 'Зависит от консульства подачи'),
   ('c0000000-0000-4000-8000-000000000044', 'UA', 'partial', 'Compare with temporary protection if eligible', 'Сравните с temporary protection при наличии права'),

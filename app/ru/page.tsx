@@ -177,7 +177,7 @@ export default async function RuHubPage() {
               <span className="text-2xl" aria-hidden>🇰🇿</span>
               <div>
                 <p className="font-semibold text-slate-900">Казахстан</p>
-                <p className="mt-0.5 text-xs text-slate-500">KZ-паспорт → Европа: безвиз и маршруты</p>
+                <p className="mt-0.5 text-xs text-slate-500">KZ-паспорт → Европа: визы и маршруты ВНЖ</p>
               </div>
             </Link>
           </div>
