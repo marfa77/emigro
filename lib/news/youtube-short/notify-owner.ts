@@ -16,12 +16,11 @@ function truncate(text: string, max = 3200): string {
 
 function topicLine(topicId?: string): string | null {
   if (!topicId) return null;
-  try {
-    const topic = getTipTopic(topicId);
+  const topic = getTipTopic(topicId);
+  if (topic) {
     return `Тема: ${topic.id} — ${topic.title}`;
-  } catch {
-    return `Тема: ${topicId}`;
   }
+  return `Тема: ${topicId}`;
 }
 
 function formatSuccess(result: YoutubeShortResult): string {
