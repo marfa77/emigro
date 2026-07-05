@@ -3,8 +3,8 @@
   "framework": "nextjs",
   "crons": [
     {
-      "path": "/api/cron/prep2go-news",
-      "schedule": "0 9 * * *"
+      "path": "/api/cron/social-subscribers",
+      "schedule": "0 7 * * *"
     }
   ]
 }

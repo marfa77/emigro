@@ -1,3 +1,7 @@
+/**
+ * Legacy/manual HTTP trigger. Production daily import runs on VPS via
+ * `emigro-prep2go-news.timer` — see docs/PREP2GO_CRON.md (not Vercel cron).
+ */
 import { NextResponse } from "next/server";
 import { trackServerEvent } from "@/lib/analytics/server";
 import { importLatestPrep2GoNews } from "@/lib/news/import-prep2go";

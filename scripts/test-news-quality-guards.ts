@@ -253,8 +253,8 @@ const vercelConfig = JSON.parse(readFileSync(join(process.cwd(), "vercel.json"),
   crons?: Array<{ path: string; schedule: string }>;
 };
 assert(
-  vercelConfig.crons?.some((cron) => cron.path === "/api/cron/prep2go-news"),
-  "Production cron must import Prep2Go news"
+  !vercelConfig.crons?.some((cron) => cron.path === "/api/cron/prep2go-news"),
+  "Prep2Go news import must run on VPS (not Vercel cron)"
 );
 assert(
   !vercelConfig.crons?.some((cron) => cron.path === "/api/cron/weekly-news"),

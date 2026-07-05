@@ -1,0 +1,16 @@
+[Unit]
+Description=Emigro Prep2Go news — daily import, RU translation, Telegram
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/emigro
+ExecStart=/bin/bash /opt/emigro/deploy/prep2go-news/run_scheduled.sh
+User=www-data
+EnvironmentFile=-/opt/emigro/.env
+StandardOutput=append:/opt/emigro/deploy/prep2go-news/logs/scheduled.log
+StandardError=append:/opt/emigro/deploy/prep2go-news/logs/scheduled.log
+
+[Install]
+WantedBy=multi-user.target

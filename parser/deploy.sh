@@ -6,9 +6,10 @@ PARSER_ROOT="$(cd "$(dirname "$0")" && pwd)"
 REPO_ROOT="$(cd "$PARSER_ROOT/.." && pwd)"
 cd "$REPO_ROOT"
 
+DEPLOY_USER_HOME="$(python3 -c 'import os,pwd; print(pwd.getpwuid(os.getuid()).pw_dir)' 2>/dev/null || echo "/Users/$(whoami)")"
 SERVER_USER="${SERVER_USER:-root}"
 SERVER_HOST="${SERVER_HOST:-37.27.0.210}"
-SSH_KEY="${SSH_KEY:-$HOME/.ssh/id_ed25519_github}"
+SSH_KEY="${SSH_KEY:-${DEPLOY_USER_HOME}/.ssh/id_ed25519_github}"
 REMOTE="${REMOTE:-/opt/emigro}"
 
 echo "🚀 Деплой Emigro Portugal cron → ${SERVER_USER}@${SERVER_HOST}:${REMOTE}"
@@ -45,9 +46,20 @@ ssh -i "${SSH_KEY}" -o StrictHostKeyChecking=no "${SERVER_USER}@${SERVER_HOST}" 
    fi; \
    cp ${REMOTE}/deploy/systemd/emigro-portugal-community.service /etc/systemd/system/; \
    cp ${REMOTE}/deploy/systemd/emigro-portugal-community.timer /etc/systemd/system/; \
+   cp ${REMOTE}/deploy/systemd/emigro-prep2go-news.service /etc/systemd/system/; \
+   cp ${REMOTE}/deploy/systemd/emigro-prep2go-news.timer /etc/systemd/system/; \
+   cp ${REMOTE}/deploy/systemd/emigro-youtube-shorts.service /etc/systemd/system/; \
+   cp ${REMOTE}/deploy/systemd/emigro-youtube-shorts.timer /etc/systemd/system/; \
+   chmod +x ${REMOTE}/deploy/prep2go-news/run_scheduled.sh; \
+   chmod +x ${REMOTE}/deploy/youtube-shorts/run_daily.sh; \
+   mkdir -p ${REMOTE}/deploy/prep2go-news/logs; \
+   mkdir -p ${REMOTE}/data/youtube-shorts/logs; \
+   chown -R www-data:www-data ${REMOTE}/deploy/prep2go-news/logs; \
    systemctl daemon-reload; \
+   systemctl enable --now emigro-prep2go-news.timer; \
    systemctl enable --now emigro-portugal-community.timer; \
-   systemctl list-timers --all | grep emigro-portugal || true"
+   systemctl enable --now emigro-youtube-shorts.timer; \
+   systemctl list-timers --all | grep emigro || true"
 
 echo ""
 echo "✅ Деплой завершён. Проверка: systemctl start emigro-portugal-community.service"
