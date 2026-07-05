@@ -1,10 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { ExternalLink } from "lucide-react";
 import { useState } from "react";
 import { trackEvent } from "@/lib/analytics/client";
-import { GUMROAD_ROUTE_CHECK_URL } from "@/lib/site-contact";
 
 export type AssistCountryOption = {
   label: string;
@@ -19,10 +17,9 @@ export type AssistProviderOption = {
 };
 
 export type AssistPlanTier = "route-check" | "full-assist";
-export type AssistPaymentMethod = "gumroad" | "wise" | "telegram_stars" | "crypto";
+export type AssistPaymentMethod = "wise" | "telegram_stars" | "crypto";
 
 const PAYMENT_OPTIONS: { value: AssistPaymentMethod; label: string }[] = [
-  { value: "gumroad", label: "Gumroad (карта, EUR)" },
   { value: "wise", label: "Wise (банковский перевод)" },
   { value: "telegram_stars", label: "Telegram Stars" },
   { value: "crypto", label: "Crypto (USDT / USDC)" },
@@ -43,7 +40,7 @@ export function AssistLeadForm({ countries, providers, defaultPlanTier = "route-
   const [programRoute, setProgramRoute] = useState("");
   const [selectedProviders, setSelectedProviders] = useState<string[]>([]);
   const [planTier] = useState<AssistPlanTier>(defaultPlanTier);
-  const [paymentMethod, setPaymentMethod] = useState<AssistPaymentMethod>("gumroad");
+  const [paymentMethod, setPaymentMethod] = useState<AssistPaymentMethod>("wise");
   const [name, setName] = useState("");
   const [contact, setContact] = useState("");
   const [message, setMessage] = useState("");
@@ -88,7 +85,7 @@ export function AssistLeadForm({ countries, providers, defaultPlanTier = "route-
       });
       setStatus("done");
       setNotice(
-        "Заявка отправлена. Emigro подберёт партнёра — он свяжется с вами. После созвона партнёр пришлёт PDF."
+        "Заявка отправлена. Emigro согласует время созвона и подберёт партнёра. После этого вышлем реквизиты (€129). Партнёр свяжется с вами — после созвона пришлёт PDF."
       );
     } catch (err) {
       const msg = err instanceof Error ? err.message : "Ошибка отправки";
@@ -109,18 +106,9 @@ export function AssistLeadForm({ countries, providers, defaultPlanTier = "route-
       <div className="rounded-xl border border-corridor-100 bg-corridor-50/60 px-4 py-3 text-sm text-slate-700">
         <p className="font-medium text-slate-900">Route Check — €129</p>
         <p className="mt-1 text-slate-600">
-          Оплатите на Gumroad картой или оставьте заявку — опишите цель, подберём партнёра. Созвон и PDF после
-          встречи — от партнёра.
+          Оставьте заявку и опишите цель — Emigro согласует время созвона и подберёт партнёра. Оплата €129 — после
+          согласования слота. Созвон и PDF после встречи — от партнёра.
         </p>
-        <a
-          href={GUMROAD_ROUTE_CHECK_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-corridor-600 px-4 py-2.5 font-medium text-white hover:bg-corridor-700 sm:w-auto"
-        >
-          Оплатить €129 на Gumroad
-          <ExternalLink className="h-4 w-4" aria-hidden />
-        </a>
       </div>
 
       <div>
@@ -140,26 +128,9 @@ export function AssistLeadForm({ countries, providers, defaultPlanTier = "route-
             </option>
           ))}
         </select>
-        {paymentMethod === "gumroad" ? (
-          <div className="mt-3 rounded-lg border border-green-200 bg-green-50 p-3">
-            <p className="text-sm text-green-900">
-              Оплатите €129 картой на Gumroad — после оплаты напишите, чего хотите, по инструкции на email.
-            </p>
-            <a
-              href={GUMROAD_ROUTE_CHECK_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-2 inline-flex items-center gap-1.5 text-sm font-medium text-corridor-700 hover:text-corridor-900 hover:underline"
-            >
-              Перейти на Gumroad
-              <ExternalLink className="h-3.5 w-3.5" aria-hidden />
-            </a>
-          </div>
-        ) : (
-          <p className="mt-1.5 text-xs text-slate-500">
-            Реквизиты ({PAYMENT_LABELS[paymentMethod]}) вышлем после подтверждения заявки.
-          </p>
-        )}
+        <p className="mt-1.5 text-xs text-slate-500">
+          Реквизиты или ссылку ({PAYMENT_LABELS[paymentMethod]}) вышлем после согласования времени созвона.
+        </p>
       </div>
 
       <div>
@@ -281,27 +252,13 @@ export function AssistLeadForm({ countries, providers, defaultPlanTier = "route-
 
       {status === "error" && <p className="rounded-lg bg-red-50 p-3 text-sm text-red-700">{notice}</p>}
 
-      <div className="space-y-3 border-t border-slate-100 pt-5">
-        <p className="text-center text-sm text-slate-600">
-          Уже оплатили на Gumroad? Заполните форму — мы подберём партнёра. Или оплатите сейчас:
-        </p>
-        <a
-          href={GUMROAD_ROUTE_CHECK_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex w-full items-center justify-center gap-2 rounded-lg border border-corridor-300 bg-white px-5 py-3 font-medium text-corridor-700 hover:bg-corridor-50"
-        >
-          Оплатить €129 на Gumroad
-          <ExternalLink className="h-4 w-4" aria-hidden />
-        </a>
-        <button
-          type="submit"
-          disabled={status === "loading"}
-          className="w-full rounded-lg bg-corridor-600 px-5 py-3 font-medium text-white hover:bg-corridor-700 disabled:opacity-60"
-        >
-          {status === "loading" ? "Отправка..." : "Отправить заявку"}
-        </button>
-      </div>
+      <button
+        type="submit"
+        disabled={status === "loading"}
+        className="w-full rounded-lg bg-corridor-600 px-5 py-3 font-medium text-white hover:bg-corridor-700 disabled:opacity-60"
+      >
+        {status === "loading" ? "Отправка..." : "Запросить Route Check — €129"}
+      </button>
     </form>
   );
 }

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, ExternalLink, FileText, MessageCircle, ShieldCheck } from "lucide-react";
+import { ArrowRight, FileText, MessageCircle, ShieldCheck } from "lucide-react";
 import { AssistLeadForm, type AssistProviderOption } from "@/components/assist/AssistLeadForm";
 import { AssistPaymentMethods } from "@/components/assist/AssistPaymentMethods";
 import { AssistPricingCards } from "@/components/assist/AssistPricingCards";
@@ -8,14 +8,13 @@ import { HeroShell } from "@/components/visuals/HeroShell";
 import { getAllProviders, PROVIDER_CATEGORY_LABELS_RU } from "@/lib/providers/registry";
 import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
 import { pageMetadata, pageUrl } from "@/lib/seo";
-import { GUMROAD_ROUTE_CHECK_URL } from "@/lib/site-contact";
 import { getAssistCountryOptions } from "@/lib/corridor/registry";
 import { publicSiteUrl } from "@/lib/site-url";
 
 export const metadata = pageMetadata({
   title: "Emigro Assist — Route Check €129",
   description:
-    "€129 — опишите цель, Emigro подберёт партнёра. Партнёр проведёт созвон и пришлёт PDF после встречи.",
+    "€129 — оставьте заявку, согласуем время созвона. Emigro подберёт партнёра. Партнёр проведёт созвон и пришлёт PDF после встречи.",
   path: "/ru/assist",
 });
 
@@ -24,13 +23,13 @@ const COUNTRY_OPTIONS = getAssistCountryOptions();
 const FLOW_STEPS = [
   {
     step: "1",
-    title: "Оплата €129",
-    text: "Оплачиваете на Gumroad или через заявку — и пишете цель: страна, текущий статус, смена ВНЖ или первичный переезд.",
+    title: "Заявка",
+    text: "Оставляете заявку и описываете ситуацию: страна, текущий статус, смена ВНЖ или первичный переезд.",
   },
   {
     step: "2",
-    title: "Подбор партнёра",
-    text: "Emigro подбирает партнёрского специалиста по вашему маршруту. Дальше работает уже он.",
+    title: "Слот и оплата",
+    text: "Emigro согласует время созвона и подбирает партнёра. После этого вышлем реквизиты или ссылку на оплату €129.",
   },
   {
     step: "3",
@@ -69,7 +68,7 @@ export default function AssistPage() {
       "@type": "Offer",
       price: "129",
       priceCurrency: "EUR",
-      url: GUMROAD_ROUTE_CHECK_URL,
+      url: assistUrl,
       availability: "https://schema.org/InStock",
     },
     inLanguage: "ru-RU",
@@ -93,24 +92,15 @@ export default function AssistPage() {
           <p className="text-sm uppercase tracking-wide text-corridor-100">Сервис Emigro</p>
           <h1 className="mt-2 text-3xl font-bold sm:text-4xl">Route Check — €129</h1>
           <p className="mt-4 max-w-2xl text-lg text-corridor-100">
-            Опишите ситуацию — уже в Европе или планируете переезд. Emigro подберёт партнёра: он проведёт созвон и
-            после встречи пришлёт PDF.
+            Опишите ситуацию — уже в Европе или планируете переезд. Согласуем время созвона, подберём партнёра. Оплата
+            €129 — после согласования слота.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <a
-              href={GUMROAD_ROUTE_CHECK_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+              href="#assist-form"
               className="inline-flex items-center gap-2 rounded-lg bg-white px-5 py-3 font-medium text-corridor-900 hover:bg-corridor-50"
             >
-              Оплатить €129 на Gumroad
-              <ExternalLink className="h-4 w-4" aria-hidden />
-            </a>
-            <a
-              href="#assist-form"
-              className="rounded-lg border border-white/40 px-5 py-3 font-medium text-white hover:bg-white/10"
-            >
-              Оставить заявку
+              Запросить Route Check — €129
             </a>
             <Link
               href="/ru/assist/sample-plan"
@@ -171,8 +161,8 @@ export default function AssistPage() {
               <MessageCircle className="h-5 w-5 text-corridor-600" aria-hidden />
               <h2 className="mt-3 font-semibold text-slate-950">Что происходит после заявки</h2>
               <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                Оплатили на Gumroad — напишите, чего хотите, по инструкции на email. Оставили заявку с Wise, Stars или
-                crypto — Emigro подберёт партнёра и пришлёт реквизиты. Партнёр свяжется сам и назначит созвон.
+                Emigro согласует время созвона и подберёт партнёра. После этого вышлем реквизиты или ссылку на оплату
+                €129. Партнёр свяжется сам и проведёт созвон.
               </p>
             </div>
             <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">

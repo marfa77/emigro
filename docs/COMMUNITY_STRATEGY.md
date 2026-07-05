@@ -3,7 +3,7 @@
 > **Статус:** план (без реализации в коде)  
 > **Дата:** 2026-06-29  
 > **Аудитория:** русскоязычные релоканты (RU/BY/UA/KZ), уже за границей или на этапе переезда  
-> **Контекст продукта:** corridor-first навигатор, 10 EU-коридоров, wizard, SEO-гайды (47+), дайджесты, Facts API, Contributor API (Phase 2), Route Check €129 (Gumroad), marketplace партнёров
+> **Контекст продукта:** corridor-first навигатор, 10 EU-коридоров, wizard, SEO-гайды (47+), дайджесты, Facts API, Contributor API (Phase 2), Route Check €129 (ручная оплата после согласования слота), marketplace партнёров
 
 **Техническая база (уже на `main`, коммит `041a604`):**
 
@@ -14,7 +14,7 @@
 | Meta / discovery | `GET /api/v1/meta/corridors`, `/meta/contributor-guide`, `/meta/ingest-schema` |
 | LLM-индекс | `/llms.txt`, `/llms-full.txt` — `lib/seo/llms-full.ts` |
 | Telegram-сообщество | `/ru/community` — лендинг + `CommunityJoinButton`, событие `community_join_click` |
-| Route Check | `/ru/assist` — €129 Gumroad, `assist_lead_submitted` |
+| Route Check | `/ru/assist` — €129, заявка → слот → ручная оплата, `assist_lead_submitted` |
 | Партнёры | `/ru/partners`, `lib/providers/registry.ts`, recruitment banner |
 | Contributor pipeline (документирован) | `docs/API_CONTRIBUTOR_GUIDE.md`, `POST /knowledge/proposals/batch`, `POST /knowledge/flags` (в схеме) |
 | Аналитика | `lib/analytics/events.ts` — wizard, news, provider_click, community |
