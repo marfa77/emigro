@@ -4,7 +4,7 @@ title: "ВНЖ Чехия 2026: employee card, Blue Card и živnost для RU/U
 seo_title: "ВНЖ Чехия 2026 — employee card, Blue Card, živnost"
 seo_description: "ВНЖ в Чехии 2026: employee card, EU Blue Card, živnost для IT, studia и семья. Пороги зарплат MOI/MPSV, сроки для RU/UA/BY/KZ."
 excerpt: "Чехия — Prague и Brno для IT: employee card, Blue Card, živnost и учёба — с порогами зарплат и сроками MOI 2026."
-quick_answer: "Основные маршруты: (1) employee card от чешского работодателя (от ~€900/мес брутто), (2) EU Blue Card при дипломе и ~€2 750+/мес, (3) živnost (OSVČ) для IT от ~€2 500/мес, (4) studia, (5) воссоединение. ПМЖ (trvalý pobyt) — 5 лет legal stay; гражданство — 5 лет на ПМЖ + B1 чешский."
+quick_answer: "Основные маршруты: (1) employee card от чешского работодателя (от ~€900/мес брутто), (2) EU Blue Card при дипломе и ~€2 900+/мес (CZK 73 823 с 01.05.2026), (3) živnost (OSVČ) для IT от ~€2 500/мес, (4) studia, (5) воссоединение. ПМЖ (trvalý pobyt) — 5 лет legal stay; гражданство — 5 лет на ПМЖ + B1 чешский."
 corridor_slugs: [ru-speaking-to-czechia]
 topic_keys: [czechia, work, visa]
 tags: [Чехия, ВНЖ, Blue Card, živnost, employee card, 2026, CZ]
@@ -22,7 +22,7 @@ official_sources:
     label: IPC — portal for foreigners (CZ)
 estimated_minutes: 18
 date_published: 2026-06-29
-date_modified: 2026-06-30
+date_modified: 2026-07-05
 ---
 
 ## Кому подходит этот гайд
@@ -44,7 +44,7 @@ date_modified: 2026-06-30
 | Путь | Ключевое требование | Срок рассмотрения | Право работать |
 |------|---------------------|-------------------|----------------|
 | **Employee card** | Оффер + трудовой договор | 2–4 мес. | Да (у работодателя) |
-| **EU Blue Card** | Диплом + ~€2 750+/мес | 2–4 мес. | Да (квалифицированная работа) |
+| **EU Blue Card** | Диплом + ~€2 900+/мес | 2–4 мес. | Да (квалифицированная работа) |
 | **Živnost (OSVČ)** | Trade licence + контракты | 2–4 мес. | Да (самозанятость) |
 | **Studia** | Зачисление + средства | 2–4 мес. | Ограничено |
 | **Family reunification** | Спонсор с pobyt | 3–6 мес. | Да (условно) |
@@ -63,7 +63,7 @@ date_modified: 2026-06-30
 |----------|----------|
 | Минимальная зарплата (employee card) | **CZK 22 400/мес брутто** (~€900) |
 | Реальный оффер IT Prague | CZK 45 000–80 000+ брутто |
-| Blue Card (150% средней) | **CZK 67 500/мес** (~€2 750) |
+| Blue Card (150% средней) | **CZK 73 823/мес** (~€2 900, с 01.05.2026) |
 
 *Источник: [MOI — EU Blue Card](https://imigration.gov.cz/en/third-country-nationals/employment/eu-blue-card/), [MPSV](https://www.mpsv.cz/en/).*
 
@@ -99,7 +99,7 @@ date_modified: 2026-06-30
 ### Требования
 - Higher education (бакалавр+, 3+ года) или 5 лет IT-опыта (по практике MOI)
 - Pracovní smlouva на квалифицированную должность
-- Зарплата **≥150% средней** — ориентир **CZK 67 500/мес** (~€2 750, 2026)
+- Зарплата **≥150% средней** — **CZK 73 823/мес** (~€2 900, с 01.05.2026; до этого CZK 69 247–69 248)
 
 ### Плюсы Blue Card в CZ
 - Смена работодателя после 12 месяцев
@@ -193,7 +193,7 @@ date_modified: 2026-06-30
 |---|-------|--------|
 | IT-маршрут | živnost / employee card | B2B / zlecenie |
 | Мин. work salary | ~€900/мес | ~€1 080/мес |
-| Blue Card | ~€2 750/мес | ~€3 020/мес |
+| Blue Card | ~€2 900/мес | ~€3 020/мес |
 | RU/UA инфраструктура | Prague — сильное IT | Warsaw — максимум |
 | Язык рынка | Чешский + английский | Польский + английский |
 | Бюрократия | MOI Prague — очереди | Mazowieckie — очереди |
@@ -224,7 +224,7 @@ date_modified: 2026-06-30
 
 ### CZ или PL для IT с €2 500/мес?
 
-CZ — ниже порог Blue Card (~€2 750 vs ~€3 020); PL — больше RU/UA инфраструктуры. Сравните в [wizard](/ru/wizard).
+CZ — ниже порог Blue Card (~€2 900 vs ~€3 020); PL — больше RU/UA инфраструктуры. Сравните в [wizard](/ru/wizard).
 
 ### Сколько ждать employee card в Prague?
 

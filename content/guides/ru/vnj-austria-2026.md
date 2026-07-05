@@ -209,7 +209,7 @@ date_modified: 2026-06-30
 |---|---------|-------|--------|
 | IT-маршрут | RWR / Blue Card / Selbständige | živnost / employee card | B2B / zlecenie |
 | Мин. work salary | ~€2 835/мес (RWR) | ~€900/мес | ~€1 080/мес |
-| Blue Card | ~€55 678/год | ~€2 750/мес | ~€3 020/мес |
+| Blue Card | ~€55 678/год | ~€2 900/мес | ~€3 020/мес |
 | Язык для гражданства | B1 немецкий | B1 чешский | B1 польский |
 | Бюрократия | MA35 / AMS | MOI Prague | Urząd Wojewódzki |
 

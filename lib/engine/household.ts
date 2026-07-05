@@ -133,7 +133,7 @@ const INCOME_THRESHOLDS: Record<string, ThresholdSpec> = {
   },
   "czechia-eu-blue-card": {
     field: "annual_salary_eur",
-    solo: 33000,
+    solo: 34800,
     adultAddon: 0,
     childAddon: 0,
     labelRu: "годовая зарплата Blue Card",

@@ -211,7 +211,7 @@ date_modified: 2026-06-30
 |---|--------|-------|
 | IT-маршрут | B2B / zlecenie | živnost / employee card |
 | Мин. work salary | ~€1 080/мес | ~€900/мес |
-| Blue Card | ~€3 020/мес | ~€2 750/мес |
+| Blue Card | ~€3 020/мес | ~€2 900/мес |
 | RU/UA инфраструктура | Warsaw — максимум | Prague — сильное IT |
 | Бюрократия voivodeship/MOI | Очереди в Mazowieckie | Очереди в Prague |
 
