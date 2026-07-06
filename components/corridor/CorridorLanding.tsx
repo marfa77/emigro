@@ -145,11 +145,11 @@ export async function CorridorLanding({ country }: { country: string }) {
 
         <section className="mt-12">
           <h2 className="text-2xl font-semibold">Интеллект коридора</h2>
-          <p className="mt-2 max-w-2xl text-slate-600">
-            {showHub
-              ? "Маршрут, новости, справочник, практика и Barakhlo — четыре слоя одного коридора от решения до быта."
-              : `Справочник с проверенными фактами и еженедельные новости — два дополняющих слоя.${isFull ? " Wizard опирается на оба." : ""}`}
-          </p>
+          {!showHub && (
+            <p className="mt-2 max-w-2xl text-slate-600">
+              {`Справочник с проверенными фактами и еженедельные новости — два дополняющих слоя.${isFull ? " Wizard опирается на оба." : ""}`}
+            </p>
+          )}
           <div className="mt-6 grid gap-4 lg:grid-cols-2">
             <LatestNewsTeaser topicKey={topic.key} />
             {topic.sitePaths?.guide && (

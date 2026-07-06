@@ -351,3 +351,38 @@ export function resolveCorridorHubTiles(
 
   return [routeTile, newsTile, practiceTile, marketTile];
 }
+
+/** One flip tile per country on the homepage — same UX as hub layers, links to corridor landing. */
+export function resolveCorridorCountryTile(
+  topic: NewsTopicConfig,
+  stats: CorridorHubTileStats,
+  features = getCorridorHubFeatures(topic)
+): ResolvedHubTile {
+  const paths = corridorHubPaths(topic);
+  const hubLabel = corridorHubLabel(topic);
+  const cardImage = countryCardImage(topic.urlSegment);
+  const [routeTile] = resolveCorridorHubTiles(topic, stats, features);
+
+  const layerCount = [
+    features.hasWizard,
+    features.hasNews,
+    features.hasPractice,
+    features.hasMarket,
+  ].filter(Boolean).length;
+
+  return {
+    ...routeTile,
+    href: paths.landing,
+    comingSoon: undefined,
+    title: topic.countryRu,
+    subtitle: topic.countryEn,
+    topLeft: features.hasWizard ? String(stats.routeCount) : stats.newsCount ? String(stats.newsCount) : "—",
+    topLeftHint: features.hasWizard ? "маршрута" : "новостей",
+    topRightLabel: features.hasWizard ? "Hub" : "Коридор",
+    bottomLeft: topic.focusHintRu,
+    bottomRight: `${layerCount} слоя`,
+    image: cardImage,
+    imagePosition: "50% 35%",
+    hubLabel,
+  };
+}

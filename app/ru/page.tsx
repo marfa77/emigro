@@ -4,6 +4,7 @@ import { ArrowRight, BookOpen, Globe2, Newspaper, Route } from "lucide-react";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { RelocatorChatPromo } from "@/components/community/RelocatorChatPromo";
 import { WizardPulseSection } from "@/components/wizard/WizardPulseSection";
+import { CorridorHubTilesLegend } from "@/components/corridor/hub/CorridorHubTile";
 import { DestinationCard } from "@/components/destinations/DestinationCard";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { HubHeroVisual } from "@/components/visuals/HubHeroVisual";
@@ -186,7 +187,7 @@ export default async function RuHubPage() {
         <section id="destinations" className="mt-14 scroll-mt-20">
           <h2 className="text-2xl font-semibold text-slate-900">Направления</h2>
           <p className="mt-2 max-w-2xl text-slate-600">
-            Выберите страну: полный коридор с wizard или еженедельные новости по ВНЖ и гражданству.
+            Клик по плитке — рейтинги коридора · Open — открыть hub страну.
           </p>
 
           {fullCorridors.length > 0 && (
@@ -194,11 +195,12 @@ export default async function RuHubPage() {
               <h3 className="mt-8 text-sm font-semibold uppercase tracking-wide text-corridor-700">
                 Полные коридоры ({fullCorridors.length})
               </h3>
-              <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="mt-4 grid grid-cols-2 gap-3 lg:grid-cols-3 lg:gap-4">
                 {fullCorridors.map((topic) => (
                   <DestinationCard key={topic.key} topic={topic} />
                 ))}
               </div>
+              <CorridorHubTilesLegend />
             </>
           )}
 
@@ -247,7 +249,7 @@ export default async function RuHubPage() {
               <h3 className="mt-10 text-sm font-semibold uppercase tracking-wide text-amber-800">
                 Коридоры в разработке ({developingCorridors.length})
               </h3>
-              <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="mt-4 grid grid-cols-2 gap-3 lg:grid-cols-3 lg:gap-4">
                 {developingCorridors.map((topic) => (
                   <DestinationCard key={topic.key} topic={topic} />
                 ))}

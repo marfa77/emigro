@@ -24,9 +24,6 @@ export async function CorridorHubStack({ topic }: Props) {
         <h2 id={headingId} className="text-2xl font-bold text-white">
           {hubLabel}
         </h2>
-        <p className="mt-2 max-w-2xl text-slate-300">
-          Четыре слоя одного коридора — как у Nomads, но про ваш переезд: маршрут, новости, практика и барахолка.
-        </p>
 
         <ol className="mt-6 grid gap-3 sm:grid-cols-3">
           {journey.map((item, index) => (
