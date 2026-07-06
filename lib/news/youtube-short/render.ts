@@ -1,7 +1,12 @@
 import fs from "fs";
 import path from "path";
 import crypto from "crypto";
-import { execFileSync, spawnSync } from "child_process";
+import {
+  MIN_AUDIO_BYTES,
+  assertReadableAudioPart,
+  ffprobeDuration,
+  runFfmpeg,
+} from "./ffmpeg-utils";
 import sharp from "sharp";
 import {
   RU_TTS_SPEED,
@@ -196,16 +201,7 @@ function srtTime(seconds: number): string {
 
 const AUDIO_SAMPLE_RATE = 48_000;
 
-export function ffprobeDuration(filePath: string): number {
-  const out = execFileSync(
-    "ffprobe",
-    ["-v", "error", "-show_entries", "format=duration", "-of", "default=noprint_wrappers=1:nokey=1", filePath],
-    { encoding: "utf8" }
-  );
-  const seconds = Number(out.trim());
-  if (!Number.isFinite(seconds)) throw new Error(`Could not read duration for ${filePath}`);
-  return seconds;
-}
+export { ffprobeDuration };
 
 function countryFlagSvg(topicKey: string, x: number, y: number, scale = 1): string {
   const w = 130 * scale;
@@ -394,8 +390,36 @@ async function renderShortThumbnail(topic: TipShortTopic, outputPath: string, he
   await sharp(Buffer.from(svg)).png().toFile(outputPath);
 }
 
+function cachedAudioUsable(outputPath: string): boolean {
+  return fs.existsSync(outputPath) && fs.statSync(outputPath).size >= MIN_AUDIO_BYTES;
+}
+
+function normalizeAudioPart(inputPath: string, label: string): void {
+  const tmp = `${inputPath}.norm.mp3`;
+  runFfmpeg(
+    [
+      "-y",
+      "-i",
+      inputPath,
+      "-af",
+      `aresample=${AUDIO_SAMPLE_RATE}`,
+      "-c:a",
+      "libmp3lame",
+      "-b:a",
+      "192k",
+      "-ar",
+      String(AUDIO_SAMPLE_RATE),
+      "-ac",
+      "1",
+      tmp,
+    ],
+    `Audio normalize (${label})`
+  );
+  fs.renameSync(tmp, inputPath);
+}
+
 async function openAiTts(text: string, outputPath: string, force = false): Promise<void> {
-  if (fs.existsSync(outputPath) && !force) return;
+  if (cachedAudioUsable(outputPath) && !force) return;
   const response = await fetch("https://api.openai.com/v1/audio/speech", {
     method: "POST",
     headers: {
@@ -415,16 +439,35 @@ async function openAiTts(text: string, outputPath: string, force = false): Promi
   if (!response.ok) {
     throw new Error(`OpenAI TTS failed ${response.status}: ${(await response.text()).slice(0, 500)}`);
   }
-  fs.writeFileSync(outputPath, Buffer.from(await response.arrayBuffer()));
+  const bytes = Buffer.from(await response.arrayBuffer());
+  if (bytes.length < MIN_AUDIO_BYTES) {
+    throw new Error(`OpenAI TTS returned empty audio for ${outputPath}`);
+  }
+  fs.writeFileSync(outputPath, bytes);
 }
 
 function generateSilence(outputPath: string, seconds: number): void {
-  const result = spawnSync(
-    "ffmpeg",
-    ["-y", "-f", "lavfi", "-i", `anullsrc=r=${AUDIO_SAMPLE_RATE}:cl=mono`, "-t", seconds.toFixed(2), "-c:a", "libmp3lame", "-b:a", "128k", outputPath],
-    { stdio: "ignore" }
+  runFfmpeg(
+    [
+      "-y",
+      "-f",
+      "lavfi",
+      "-i",
+      `anullsrc=r=${AUDIO_SAMPLE_RATE}:cl=mono`,
+      "-t",
+      seconds.toFixed(2),
+      "-c:a",
+      "libmp3lame",
+      "-b:a",
+      "128k",
+      "-ar",
+      String(AUDIO_SAMPLE_RATE),
+      "-ac",
+      "1",
+      outputPath,
+    ],
+    `Silence (${seconds.toFixed(2)}s)`
   );
-  if (result.status !== 0) throw new Error(`Failed to create silence: ${outputPath}`);
 }
 
 export async function renderAudio(
@@ -444,13 +487,18 @@ export async function renderAudio(
       .digest("hex")
       .slice(0, 10);
     const partPath = path.join(audioDir, `segment-${String(i + 1).padStart(2, "0")}-${segmentHash}.mp3`);
+    const segmentLabel = `segment-${String(i + 1).padStart(2, "0")}`;
     await openAiTts(segments[i].text, partPath, forceAudio);
-    segmentDurations.push(ffprobeDuration(partPath));
+    normalizeAudioPart(partPath, segmentLabel);
+    segmentDurations.push(assertReadableAudioPart(partPath, segmentLabel));
     lines.push(`file '${partPath.replace(/'/g, "'\\''")}'`);
     if (segments[i].pauseAfter > 0) {
       const pauseHash = crypto.createHash("sha1").update(segments[i].pauseAfter.toFixed(2)).digest("hex").slice(0, 8);
       const silencePath = path.join(audioDir, `pause-${String(i + 1).padStart(2, "0")}-${pauseHash}.mp3`);
-      if (!fs.existsSync(silencePath)) generateSilence(silencePath, segments[i].pauseAfter);
+      const pauseLabel = `pause-${String(i + 1).padStart(2, "0")}`;
+      if (!cachedAudioUsable(silencePath)) generateSilence(silencePath, segments[i].pauseAfter);
+      normalizeAudioPart(silencePath, pauseLabel);
+      assertReadableAudioPart(silencePath, pauseLabel);
       lines.push(`file '${silencePath.replace(/'/g, "'\\''")}'`);
     }
   }
@@ -458,12 +506,8 @@ export async function renderAudio(
   const concatPath = path.join(outputDir, "audio.concat.txt");
   fs.writeFileSync(concatPath, lines.join("\n"));
   const audioPath = path.join(outputDir, "short-voiceover.mp3");
-  const result = spawnSync(
-    "ffmpeg",
-    ["-y", "-f", "concat", "-safe", "0", "-i", concatPath, "-af", `aresample=${AUDIO_SAMPLE_RATE}`, "-c:a", "libmp3lame", "-b:a", "192k", "-ar", String(AUDIO_SAMPLE_RATE), "-ac", "1", audioPath],
-    { stdio: "inherit" }
-  );
-  if (result.status !== 0) throw new Error(`Audio concat failed: ${result.status}`);
+  runFfmpeg(["-y", "-f", "concat", "-safe", "0", "-i", concatPath, "-c", "copy", audioPath], "Audio concat");
+  assertReadableAudioPart(audioPath, "voiceover");
   return { audioPath, segmentDurations };
 }
 
@@ -545,8 +589,7 @@ export function writeSrt(frames: CaptionFrame[], outputPath: string): void {
 }
 
 export function renderVideo(framesConcatPath: string, audioPath: string, outputPath: string): void {
-  const result = spawnSync(
-    "ffmpeg",
+  runFfmpeg(
     [
       "-y",
       "-f",
@@ -572,9 +615,8 @@ export function renderVideo(framesConcatPath: string, audioPath: string, outputP
       "-shortest",
       outputPath,
     ],
-    { stdio: "inherit" }
+    "Video render"
   );
-  if (result.status !== 0) throw new Error(`Video render failed: ${result.status}`);
 }
 
 export function fitVoiceoverToMaxDuration(audioPath: string, maxSeconds: number): number {
@@ -583,8 +625,7 @@ export function fitVoiceoverToMaxDuration(audioPath: string, maxSeconds: number)
 
   const tempo = Math.min(originalDuration / maxSeconds, 1.12);
   const fittedPath = `${audioPath}.fit.mp3`;
-  const result = spawnSync(
-    "ffmpeg",
+  runFfmpeg(
     [
       "-y",
       "-i",
@@ -601,9 +642,8 @@ export function fitVoiceoverToMaxDuration(audioPath: string, maxSeconds: number)
       "1",
       fittedPath,
     ],
-    { stdio: "inherit" }
+    "Audio tempo fit"
   );
-  if (result.status !== 0) throw new Error(`Audio tempo fit failed: ${result.status}`);
 
   fs.renameSync(fittedPath, audioPath);
   const duration = ffprobeDuration(audioPath);
