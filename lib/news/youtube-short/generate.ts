@@ -8,6 +8,7 @@ import {
   isYoutubeShortsEnabled,
   youtubeShortsOutputRoot,
 } from "./config";
+import { runPreflight } from "./health";
 import { artifact, gcsDestination, uploadArtifactsToGcs } from "./gcs";
 import {
   buildTipShortMetadata,
@@ -53,6 +54,16 @@ export type GenerateTipShortOptions = {
 
 function outputDirForTopic(topic: TipShortTopic, custom?: string): string {
   return custom ?? path.join(youtubeShortsOutputRoot(), `${topic.id}-${todayYmd()}`);
+}
+
+function stageError(stage: string, error: unknown): Error {
+  const detail =
+    error instanceof Error
+      ? error.message || error.name || "unknown error"
+      : error == null
+        ? "unknown error"
+        : String(error);
+  return new Error(`[${stage}] ${detail}`);
 }
 
 export async function generateTipYoutubeShort(options: GenerateTipShortOptions = {}): Promise<YoutubeShortResult> {
@@ -108,9 +119,16 @@ export async function generateTipYoutubeShort(options: GenerateTipShortOptions =
   }
 
   fs.mkdirSync(outputDir, { recursive: true });
+  runPreflight(outputDir);
   console.log(`[youtube-short] Topic: ${topic.id} — ${topic.title}`);
 
-  const script = await writeTipShortScript(topic);
+  let script;
+  try {
+    script = await writeTipShortScript(topic);
+  } catch (error) {
+    throw stageError("script", error);
+  }
+
   fs.writeFileSync(path.join(outputDir, "short-script.json"), JSON.stringify(script, null, 2));
   fs.writeFileSync(
     path.join(outputDir, "short-script.txt"),
@@ -129,44 +147,65 @@ export async function generateTipYoutubeShort(options: GenerateTipShortOptions =
     { encoding: "utf8" }
   );
 
-  const { audioPath, segmentDurations: rawSegmentDurations } = await renderAudio(
-    segments,
-    outputDir,
-    options.forceAudio ?? false
-  );
+  let audioPath: string;
+  let segmentDurations: number[];
+  try {
+    const audio = await renderAudio(segments, outputDir, options.forceAudio ?? false);
+    audioPath = audio.audioPath;
+    segmentDurations = audio.segmentDurations;
+  } catch (error) {
+    throw stageError("audio", error);
+  }
+
   const voiceBeforeFit = ffprobeDuration(audioPath);
   fitVoiceoverToMaxDuration(audioPath, SHORT_DURATION_MAX - 0.25);
   const tempoScale = ffprobeDuration(audioPath) / voiceBeforeFit;
-  const segmentDurations =
-    tempoScale < 0.999 ? rawSegmentDurations.map((d) => d * tempoScale) : rawSegmentDurations;
+  const scaledSegmentDurations =
+    tempoScale < 0.999 ? segmentDurations.map((d) => d * tempoScale) : segmentDurations;
   const timedSegments =
     tempoScale < 0.999
       ? segments.map((segment) => ({ ...segment, pauseAfter: segment.pauseAfter * tempoScale }))
       : segments;
-  const shortFrames = await renderShortFrames(topic, timedSegments, segmentDurations, outputDir);
+
+  let shortFrames;
+  try {
+    shortFrames = await renderShortFrames(topic, timedSegments, scaledSegmentDurations, outputDir);
+  } catch (error) {
+    throw stageError("frames", error);
+  }
+
   const shortCaptionsPath = path.join(outputDir, "short-captions.srt");
   writeSrt(shortFrames, shortCaptionsPath);
 
   const shortVideoPath = path.join(outputDir, "short.mp4");
-  if (isDynamicVideoEnabled()) {
-    await composeDynamicVideo({
-      topic,
-      frames: shortFrames,
-      segments: timedSegments,
-      segmentDurations,
-      audioPath,
-      outputPath: shortVideoPath,
-      outputDir,
-    });
-  } else {
-    const framesConcatPath = writeFrameConcat(shortFrames, outputDir);
-    renderVideo(framesConcatPath, audioPath, shortVideoPath);
+  try {
+    if (isDynamicVideoEnabled()) {
+      await composeDynamicVideo({
+        topic,
+        frames: shortFrames,
+        segments: timedSegments,
+        segmentDurations: scaledSegmentDurations,
+        audioPath,
+        outputPath: shortVideoPath,
+        outputDir,
+      });
+    } else {
+      const framesConcatPath = writeFrameConcat(shortFrames, outputDir);
+      renderVideo(framesConcatPath, audioPath, shortVideoPath);
+    }
+  } catch (error) {
+    throw stageError("video", error);
   }
+
   const videoDuration = ffprobeDuration(shortVideoPath);
   assertShortDuration(videoDuration);
 
   const shortThumbnailPath = path.join(outputDir, "short-thumbnail.png");
-  await renderShortThumbnail(topic, shortThumbnailPath, script.visual_hook);
+  try {
+    await renderShortThumbnail(topic, shortThumbnailPath, script.visual_hook);
+  } catch (error) {
+    throw stageError("thumbnail", error);
+  }
 
   const metadata = buildTipShortMetadata(topic, script, videoDuration, dateYmd);
   fs.writeFileSync(shortMetadataPath, JSON.stringify(metadata, null, 2), { encoding: "utf8" });
@@ -203,9 +242,7 @@ export async function generateTipYoutubeShort(options: GenerateTipShortOptions =
         metadata,
       });
     } catch (error) {
-      const msg = error instanceof Error ? error.message : String(error);
-      console.error(`[youtube-upload] Failed: ${msg}`);
-      throw new Error(`YouTube upload failed: ${msg}`);
+      throw stageError("youtube-upload", error);
     }
   }
 
@@ -224,8 +261,12 @@ export async function generateTipYoutubeShort(options: GenerateTipShortOptions =
   });
 
   if (gcsUri) {
-    console.log(`[youtube-short] Uploading to ${gcsUri}`);
-    uploadArtifactsToGcs(artifacts, gcsUri);
+    try {
+      console.log(`[youtube-short] Uploading to ${gcsUri}`);
+      uploadArtifactsToGcs(artifacts, gcsUri);
+    } catch (error) {
+      throw stageError("gcs-upload", error);
+    }
   }
 
   if (!options.skipState) {

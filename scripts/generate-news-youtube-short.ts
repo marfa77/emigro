@@ -8,7 +8,7 @@
  *   npm run news:youtube-short -- --topic=nif-lissabon-chto-puutayut --force
  *   npm run news:youtube-short -- --pick-next
  *   npm run news:youtube-short -- --list-topics
- *   npm run news:youtube-short -- --script-only --topic=d7-vs-d8-one-minute
+ *   npm run news:youtube-short -- --health
  */
 import { config } from "dotenv";
 import { resolve } from "path";
@@ -18,6 +18,7 @@ import { listTipTopics, pickNextTipTopic } from "../lib/news/youtube-short/state
 import { writeTipShortScript } from "../lib/news/youtube-short/script-writer";
 import { getCommunityTipTopic } from "../lib/news/youtube-short/community-topics";
 import { buildTipSegments } from "../lib/news/youtube-short/tip-script";
+import { printHealthReport, runHealthCheck } from "../lib/news/youtube-short/health";
 
 config({ path: resolve(process.cwd(), ".env.local") });
 config({ path: resolve(process.cwd(), ".env") });
@@ -35,6 +36,12 @@ function argValue(name: string): string | undefined {
 }
 
 async function main() {
+  if (process.argv.includes("--health")) {
+    const report = await runHealthCheck();
+    printHealthReport(report);
+    process.exit(report.ok ? 0 : 1);
+  }
+
   if (process.argv.includes("--pick-next")) {
     const topic = await pickNextTipTopic();
     console.log(

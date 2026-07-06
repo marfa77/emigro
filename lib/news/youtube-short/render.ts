@@ -478,6 +478,7 @@ export async function renderAudio(
   const audioDir = path.join(outputDir, "audio-parts");
   fs.mkdirSync(audioDir, { recursive: true });
   const lines: string[] = [];
+  const partPaths: string[] = [];
   const segmentDurations: number[] = [];
 
   for (let i = 0; i < segments.length; i++) {
@@ -491,6 +492,7 @@ export async function renderAudio(
     await openAiTts(segments[i].text, partPath, forceAudio);
     normalizeAudioPart(partPath, segmentLabel);
     segmentDurations.push(assertReadableAudioPart(partPath, segmentLabel));
+    partPaths.push(partPath);
     lines.push(`file '${partPath.replace(/'/g, "'\\''")}'`);
     if (segments[i].pauseAfter > 0) {
       const pauseHash = crypto.createHash("sha1").update(segments[i].pauseAfter.toFixed(2)).digest("hex").slice(0, 8);
@@ -499,16 +501,57 @@ export async function renderAudio(
       if (!cachedAudioUsable(silencePath)) generateSilence(silencePath, segments[i].pauseAfter);
       normalizeAudioPart(silencePath, pauseLabel);
       assertReadableAudioPart(silencePath, pauseLabel);
+      partPaths.push(silencePath);
       lines.push(`file '${silencePath.replace(/'/g, "'\\''")}'`);
     }
+  }
+
+  for (const partPath of partPaths) {
+    assertReadableAudioPart(partPath, path.basename(partPath));
   }
 
   const concatPath = path.join(outputDir, "audio.concat.txt");
   fs.writeFileSync(concatPath, lines.join("\n"));
   const audioPath = path.join(outputDir, "short-voiceover.mp3");
-  runFfmpeg(["-y", "-f", "concat", "-safe", "0", "-i", concatPath, "-c", "copy", audioPath], "Audio concat");
-  assertReadableAudioPart(audioPath, "voiceover");
+  concatAudioWithRetry(concatPath, audioPath, partPaths);
   return { audioPath, segmentDurations };
+}
+
+function concatAudioWithRetry(concatPath: string, audioPath: string, partPaths: string[]): void {
+  try {
+    runFfmpeg(["-y", "-f", "concat", "-safe", "0", "-i", concatPath, "-c", "copy", audioPath], "Audio concat");
+  } catch (firstError) {
+    const reason = firstError instanceof Error ? firstError.message : String(firstError ?? "unknown");
+    console.warn(`[youtube-short] Audio concat copy failed (${reason}); retrying with re-encode`);
+    if (fs.existsSync(audioPath)) fs.unlinkSync(audioPath);
+    runFfmpeg(
+      [
+        "-y",
+        "-f",
+        "concat",
+        "-safe",
+        "0",
+        "-i",
+        concatPath,
+        "-c:a",
+        "libmp3lame",
+        "-b:a",
+        "192k",
+        "-ar",
+        String(AUDIO_SAMPLE_RATE),
+        "-ac",
+        "1",
+        audioPath,
+      ],
+      "Audio concat (re-encode retry)"
+    );
+  }
+  assertReadableAudioPart(audioPath, "voiceover");
+  for (const partPath of partPaths) {
+    if (!fs.existsSync(partPath)) {
+      throw new Error(`Audio concat input missing after merge: ${partPath}`);
+    }
+  }
 }
 
 export async function renderShortFrames(

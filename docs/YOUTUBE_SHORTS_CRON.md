@@ -116,7 +116,44 @@ URL ролика в логе и в `generation-report.json`:
 }
 ```
 
-Артефакты в GCS (бэкап / ручная перезаливка):
+## Надёжность (BMW-level)
+
+Перед каждым рендером:
+
+```bash
+npm run news:youtube-short -- --health
+```
+
+Проверяет: `ffmpeg`, `ffprobe`, `gsutil`, ключи (`OPENAI`, Supabase), запись state/output, количество заметок в Supabase.
+
+Pre-flight перед render (автоматически в `generate.ts`):
+
+- `OPENAI_API_KEY` обязателен
+- минимум **2 GB** свободного места на диске
+- предупреждение при **< 1 GB** свободной RAM (риск SIGTERM)
+
+### Защита от типичных сбоев
+
+| Проблема | Решение |
+|----------|---------|
+| `Audio concat failed: null` | ffmpeg stderr в ошибке; валидация сегментов; retry concat с re-encode |
+| Дубликат тем | `published[]` + atomic write state (temp → rename) |
+| State drift | backfill из local output + GCS (`EMIGRO_YOUTUBE_SHORTS_SYNC_GCS=1` — принудительный sync) |
+| Partial failure → published | `markTopicPublished` только после YouTube + GCS upload |
+| Параллельный cron | `flock` в `run_daily.sh` |
+| Нет logs dir | `mkdir -p data/youtube-shorts/logs` в deploy + run_daily |
+| Непонятная ошибка | стадии: `[script]`, `[audio]`, `[frames]`, `[video]`, `[youtube-upload]`, `[gcs-upload]` |
+
+### Env для sync state
+
+```env
+EMIGRO_YOUTUBE_SHORTS_STATE_FILE=/opt/emigro/data/youtube-shorts-state.json
+EMIGRO_YOUTUBE_SHORTS_OUTPUT_ROOT=/opt/emigro/data/youtube-shorts
+EMIGRO_YOUTUBE_SHORTS_SYNC_GCS=1          # optional: re-sync published[] from GCS on startup
+EMIGRO_YOUTUBE_SHORTS_BACKFILL_GCS=0      # disable GCS backfill entirely
+```
+
+## Артефакты GCS
 
 ```bash
 gsutil ls gs://prep2go/prep2go-podcast/emigro-shorts/tips/portugal/

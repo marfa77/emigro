@@ -32,6 +32,13 @@ export GOOGLE_APPLICATION_CREDENTIALS="${GOOGLE_APPLICATION_CREDENTIALS:-$REPO_R
 
 log "=== Emigro YouTube Shorts daily ==="
 
+if ! npm run news:youtube-short -- --health >/tmp/youtube-shorts-health.log 2>&1; then
+  log "ERROR: health check failed — see /tmp/youtube-shorts-health.log"
+  cat /tmp/youtube-shorts-health.log || true
+  exit 1
+fi
+log "Health check OK"
+
 for bin in ffmpeg ffprobe gsutil npm; do
   if ! command -v "$bin" >/dev/null 2>&1; then
     log "ERROR: missing dependency: $bin"
@@ -54,8 +61,8 @@ fi
 if run_pipeline; then
   log "=== YouTube Shorts daily OK ==="
   exit 0
+else
+  code=$?
+  log "=== YouTube Shorts daily FAILED (exit $code) ==="
+  exit "$code"
 fi
-
-code=$?
-log "=== YouTube Shorts daily FAILED (exit $code) ==="
-exit "$code"

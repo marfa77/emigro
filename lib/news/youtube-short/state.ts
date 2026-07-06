@@ -22,10 +22,23 @@ function isTopicSlug(id: string): boolean {
   return SLUG_PATTERN.test(id);
 }
 
-function statePath(): string {
+export function statePath(): string {
   const custom = process.env.EMIGRO_YOUTUBE_SHORTS_STATE_FILE?.trim();
   if (custom) return custom;
   return path.join(path.dirname(youtubeShortsOutputRoot()), "youtube-shorts-state.json");
+}
+
+export function testStateWritable(): { ok: boolean; error: string } {
+  const file = statePath();
+  try {
+    fs.mkdirSync(path.dirname(file), { recursive: true });
+    const probe = `${file}.health-${process.pid}`;
+    fs.writeFileSync(probe, "{}", { encoding: "utf8" });
+    fs.unlinkSync(probe);
+    return { ok: true, error: "" };
+  } catch (error) {
+    return { ok: false, error: error instanceof Error ? error.message : String(error ?? "unknown") };
+  }
 }
 
 function legacyStatePath(): string {
@@ -63,7 +76,7 @@ function gcsEnv(): NodeJS.ProcessEnv {
 
 function discoverPublishedFromGcs(): Set<string> {
   const found = new Set<string>();
-  if (process.env.EMIGRO_YOUTUBE_SHORTS_BACKFILL_GCS === "0") return found;
+  if (!shouldSyncPublishedFromGcs()) return found;
 
   const bucket = youtubeShortsBucket().replace(/\/+$/g, "");
   if (!bucket.startsWith("gs://")) return found;
@@ -96,19 +109,29 @@ function mergeLegacyStatePublished(state: PublishedState): PublishedState {
   }
 }
 
+function shouldSyncPublishedFromGcs(): boolean {
+  if (process.env.EMIGRO_YOUTUBE_SHORTS_SYNC_GCS === "1") return true;
+  return process.env.EMIGRO_YOUTUBE_SHORTS_BACKFILL_GCS !== "0";
+}
+
 function backfillPublishedState(state: PublishedState): PublishedState {
-  if (state.backfill_migrated_at) return state;
+  const forceGcsSync = process.env.EMIGRO_YOUTUBE_SHORTS_SYNC_GCS === "1";
+  if (state.backfill_migrated_at && !forceGcsSync) return state;
 
   const discovered = new Set(state.published);
   for (const id of Array.from(discoverPublishedFromLocalOutput())) discovered.add(id);
-  for (const id of Array.from(discoverPublishedFromGcs())) discovered.add(id);
+  if (shouldSyncPublishedFromGcs()) {
+    for (const id of Array.from(discoverPublishedFromGcs())) discovered.add(id);
+  }
 
   let next = mergeLegacyStatePublished({ ...state, published: Array.from(discovered) });
   const changed =
     next.published.length !== state.published.length ||
     next.published.some((id, i) => state.published[i] !== id);
 
-  next = { ...next, backfill_migrated_at: new Date().toISOString() };
+  if (!forceGcsSync) {
+    next = { ...next, backfill_migrated_at: new Date().toISOString() };
+  }
   if (changed) {
     next.last_topic_id = next.last_topic_id ?? next.published.at(-1);
     console.log(`[youtube-short] Backfilled published[] from artifacts: ${next.published.join(", ")}`);
@@ -133,7 +156,9 @@ function readState(): PublishedState {
 function writeState(state: PublishedState): void {
   const file = statePath();
   fs.mkdirSync(path.dirname(file), { recursive: true });
-  fs.writeFileSync(file, JSON.stringify(state, null, 2), { encoding: "utf8" });
+  const tmp = `${file}.${process.pid}.${Date.now()}.tmp`;
+  fs.writeFileSync(tmp, JSON.stringify(state, null, 2), { encoding: "utf8" });
+  fs.renameSync(tmp, file);
 }
 
 export function alreadyGeneratedToday(): boolean {
