@@ -38,6 +38,10 @@ export function alreadyGeneratedToday(): boolean {
   return readState().last_success_date === todayYmd();
 }
 
+export function isTopicPublished(topicId: string): boolean {
+  return readState().published.includes(topicId);
+}
+
 export function markTopicPublished(topicId: string): void {
   const state = readState();
   if (!state.published.includes(topicId)) {
@@ -60,9 +64,11 @@ export function pickNextTipTopic(forceTopicId?: string): TipShortTopic {
   const unpublished = TIP_SHORT_TOPICS.filter((t) => !state.published.includes(t.id));
   if (unpublished.length > 0) return unpublished[0];
 
+  // All topics published once — start a new cycle (never repeat yesterday's topic).
   const cycle = TIP_SHORT_TOPICS.filter((t) => t.id !== state.last_topic_id);
+  const next = cycle[0] ?? TIP_SHORT_TOPICS[0];
   writeState({ ...state, published: [], last_topic_id: state.last_topic_id });
-  return cycle[0] ?? TIP_SHORT_TOPICS[0];
+  return next;
 }
 
 export function listTipTopics(): Array<TipShortTopic & { published: boolean }> {

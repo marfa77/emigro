@@ -8,13 +8,13 @@
 |-------|------|-----|
 | **Ежедневно 09:15 UTC** | `emigro-youtube-shorts.timer` | `deploy/youtube-shorts/run_daily.sh` → лайфхак → GCS → **YouTube API** |
 
-Один ролик в день (guard по `last_success_date` в state). Очередь тем — `lib/news/youtube-short/topics.ts` (7 тем, потом цикл заново).
+Один ролик в день (guard по `last_success_date` в state). Очередь тем — `lib/news/youtube-short/topics.ts` (7 тем, потом цикл заново). **Опубликованные темы не повторяются** — только явный `--topic=ID --force`.
 
 ## Что делает прогон
 
 1. Gemini пишет сценарий (крючок + суть + CTA с вопросом, 30–45 сек)
 2. OpenAI TTS (`onyx`) → **B-roll** + Ken Burns + **крупные цифры** + субтитры + **BGM −20 dB** + SFX → `short.mp4`
-3. Upload в `gs://prep2go/prep2go-podcast/emigro-shorts/tips/{topic}/{id}/{date}/`
+3. Upload в `gs://prep2go/prep2go-podcast/emigro-shorts/tips/{country}/{topic_id}/` (одна папка на тему, перезапись)
 4. **Auto-upload на [@Emigro_news](https://www.youtube.com/@Emigro_news)** — видео, превью, субтитры, плейлист
 5. `short-youtube-upload-fields.txt` + `generation-report.json` с `youtube.shortsUrl`
 
@@ -84,8 +84,11 @@ npm run news:youtube-short:daily -- --no-youtube-upload
 # Mac — legacy static slides (без B-roll)
 npm run news:youtube-short -- --static --topic=nif-one-day --force
 
-# Mac — конкретная тема
+# Mac — конкретная тема (перезапись сегодняшнего output + GCS)
 npm run news:youtube-short -- --topic=nif-one-day --force
+
+# Повтор опубликованной темы — только явно:
+npm run news:youtube-short -- --topic=lisbon-rent-2026 --force
 ```
 
 ## После прогона

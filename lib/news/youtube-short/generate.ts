@@ -27,7 +27,12 @@ import {
 } from "./render";
 import { writeTipShortScript } from "./script-writer";
 import { notifyYoutubeShortOwner, isYoutubeShortSkipMessage } from "./notify-owner";
-import { markTopicPublished, pickNextTipTopic, alreadyGeneratedToday } from "./state";
+import {
+  alreadyGeneratedToday,
+  isTopicPublished,
+  markTopicPublished,
+  pickNextTipTopic,
+} from "./state";
 import { assertTipDurationEstimate, buildTipSegments, estimateTipDurationSeconds, wordCount } from "./tip-script";
 import { todayYmd } from "./text-utils";
 import type { YoutubeShortResult } from "./types";
@@ -61,28 +66,39 @@ export async function generateTipYoutubeShort(options: GenerateTipShortOptions =
   }
 
   const topic = pickNextTipTopic(options.topicId);
+  const explicitTopic = Boolean(options.topicId);
+  if (isTopicPublished(topic.id) && !(explicitTopic && options.force)) {
+    throw new Error(
+      `Topic already published: ${topic.id}. Use --topic=${topic.id} --force to re-render.`
+    );
+  }
+
   const outputDir = outputDirForTopic(topic, options.outputDir);
   const existingVideo = path.join(outputDir, "short.mp4");
 
-  if (fs.existsSync(existingVideo) && !options.forceAudio) {
-    console.log(`[youtube-short] Cached: ${existingVideo}`);
-    const metadataPath = path.join(outputDir, "short-youtube-metadata.json");
-    const metadata = JSON.parse(fs.readFileSync(metadataPath, "utf8"));
-    return {
-      topicId: topic.id,
-      outputDir,
-      gcsUri: null,
-      youtube: null,
-      metadata,
-      artifacts: [],
-      report: {
-        word_count: 0,
-        video_duration_seconds: ffprobeDuration(existingVideo),
-        voice: RU_TTS_VOICE,
-        format: topic.format,
-        files: { shortVideo: existingVideo },
-      },
-    };
+  if (fs.existsSync(existingVideo) && !options.forceAudio && !options.force) {
+    if (!isTopicPublished(topic.id)) {
+      console.log(`[youtube-short] Stale cache for unpublished topic ${topic.id}, regenerating`);
+    } else {
+      console.log(`[youtube-short] Cached: ${existingVideo}`);
+      const metadataPath = path.join(outputDir, "short-youtube-metadata.json");
+      const metadata = JSON.parse(fs.readFileSync(metadataPath, "utf8"));
+      return {
+        topicId: topic.id,
+        outputDir,
+        gcsUri: null,
+        youtube: null,
+        metadata,
+        artifacts: [],
+        report: {
+          word_count: 0,
+          video_duration_seconds: ffprobeDuration(existingVideo),
+          voice: RU_TTS_VOICE,
+          format: topic.format,
+          files: { shortVideo: existingVideo },
+        },
+      };
+    }
   }
 
   fs.mkdirSync(outputDir, { recursive: true });
@@ -188,7 +204,7 @@ export async function generateTipYoutubeShort(options: GenerateTipShortOptions =
   }
 
   if (options.uploadGcs !== false && process.env.EMIGRO_YOUTUBE_SHORTS_UPLOAD_GCS !== "0") {
-    gcsUri = gcsDestination(topic, dateYmd);
+    gcsUri = gcsDestination(topic);
   }
 
   writeShortUploadFields({

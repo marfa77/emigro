@@ -55,6 +55,7 @@ export function isYoutubeShortSkipMessage(message: string): boolean {
   return (
     message.includes("Daily short already generated") ||
     message.includes("Already generated today") ||
+    message.includes("Topic already published") ||
     message.includes("already running")
   );
 }

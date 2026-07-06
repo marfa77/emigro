@@ -2,7 +2,6 @@ import fs from "fs";
 import path from "path";
 import { spawnSync } from "child_process";
 import { youtubeShortsBucket, youtubeShortsGcsPrefix } from "./config";
-import { todayYmd } from "./text-utils";
 import type { GeneratedArtifact } from "./types";
 import type { TipShortTopic } from "./topics";
 
@@ -10,12 +9,13 @@ function normalizeGcsBase(raw: string): string {
   return raw.replace(/\/+$/g, "");
 }
 
-export function gcsDestination(topic: TipShortTopic, dateYmd = todayYmd()): string {
+/** One canonical folder per topic — uploads overwrite previous artifacts. */
+export function gcsDestination(topic: TipShortTopic): string {
   const base = normalizeGcsBase(youtubeShortsBucket());
   if (!base.startsWith("gs://")) {
     throw new Error(`GCS bucket must start with gs://, got: ${base}`);
   }
-  return `${base}/${youtubeShortsGcsPrefix()}/tips/${topic.topic_key}/${topic.id}/${dateYmd}`;
+  return `${base}/${youtubeShortsGcsPrefix()}/tips/${topic.topic_key}/${topic.id}`;
 }
 
 function gcsEnv(): NodeJS.ProcessEnv {
