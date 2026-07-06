@@ -91,7 +91,7 @@ export function communityNoteToTipTopic(note: CommunityNote): TipShortTopic | nu
     format: contentKindToFormat(note.content_kind),
     country: "Португалия",
     topic_key: "portugal",
-    note_url: portugalSatelliteUrl(`/notes/${note.slug}`),
+    note_url: `${PORTUGAL_NOTE_ORIGIN}/notes/${note.slug}`,
     note_context: buildNoteContext(note),
     content_kind: note.content_kind,
     facts: extractFacts(note),
