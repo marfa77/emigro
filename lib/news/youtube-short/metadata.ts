@@ -36,7 +36,10 @@ export function buildTipShortMetadata(
   dateYmd: string
 ): YoutubeShortMetadata {
   const title = script.youtube_title.slice(0, 96);
-  const guideLink = topic.guide_slug ? withYoutubeUtm(guideUrl(topic.guide_slug), topic, dateYmd) : `${publicSiteUrl()}/ru/portugal`;
+  const noteLink = topic.note_url ? withYoutubeUtm(topic.note_url, topic, dateYmd) : null;
+  const guideLink = topic.guide_slug
+    ? withYoutubeUtm(guideUrl(topic.guide_slug), topic, dateYmd)
+    : noteLink ?? `${publicSiteUrl()}/ru/portugal`;
   const corridorLink = withYoutubeUtm(`${publicSiteUrl()}/ru/portugal`, topic, dateYmd);
 
   return {
@@ -47,6 +50,7 @@ export function buildTipShortMetadata(
       "В этом Short:",
       ...script.description_bullets.map((b) => `• ${b}`),
       "",
+      noteLink ? `Полная заметка: ${noteLink}` : null,
       `Подробные гайды: ${guideLink}`,
       `Коридор Португалия: ${corridorLink}`,
       `Telegram: https://t.me/Emigro_news`,
@@ -54,7 +58,9 @@ export function buildTipShortMetadata(
       "",
       `Длительность: ${Math.round(durationSeconds)} сек`,
       "#shorts #релокация #португалия #лайфхак",
-    ].join("\n"),
+    ]
+      .filter(Boolean)
+      .join("\n"),
     tags: uniqueTags([
       "релокация",
       "лайфхак",

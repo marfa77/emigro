@@ -65,7 +65,7 @@ export async function generateTipYoutubeShort(options: GenerateTipShortOptions =
     throw new Error(`Daily short already generated for ${todayYmd()}`);
   }
 
-  const topic = pickNextTipTopic(options.topicId);
+  const topic = await pickNextTipTopic(options.topicId);
   const explicitTopic = Boolean(options.topicId);
   if (isTopicPublished(topic.id)) {
     if (explicitTopic && options.force) {

@@ -2,13 +2,24 @@
 
 **Прод:** VPS `37.27.0.210` + **systemd timer** (тот же сервер, что Portugal parser).
 
+## Источник тем
+
+| Слой | Где |
+|------|-----|
+| Сайт | [portugal.emigro.online](https://portugal.emigro.online/) — `/notes/{slug}`, теги `/tag/{tag}` |
+| БД | Supabase `community_notes` (`status=published`, `country_key=portugal`) |
+| Код | `lib/news/youtube-short/community-topics.ts` → `loadCommunityTipTopics()` |
+| Анти-дубликат | `youtube-shorts-state.json` → `published[]` (slug заметки) |
+
+Очередь: **самая старая неопубликованная** заметка (`lifehack` / `tip` / `guide` / `qa`; `news` пропускается). Новые заметки из daily cron `portugal:daily` автоматически попадают в хвост очереди.
+
 ## Расписание
 
 | Когда | Unit | Что |
 |-------|------|-----|
 | **Ежедневно 09:15 UTC** | `emigro-youtube-shorts.timer` | `deploy/youtube-shorts/run_daily.sh` → лайфхак → GCS → **YouTube API** |
 
-Один ролик в день (guard по `last_success_date` в state). Очередь тем — `lib/news/youtube-short/topics.ts` (7 тем). **Опубликованные темы никогда не повторяются автоматически** — только явный `--topic=ID --force`. Флаг `--force` без `--topic` лишь обходит лимит «один ролик в день».
+Один ролик в день (guard по `last_success_date` в state). Очередь тем — **опубликованные заметки** из Supabase `community_notes` (сайт [portugal.emigro.online](https://portugal.emigro.online/)): slug заметки = `topic_id`, title/body/facts из контента заметки. Типы `lifehack`, `tip`, `guide`, `qa` (без `news`). **Опубликованные темы никогда не повторяются автоматически** — только явный `--topic=SLUG --force`. Флаг `--force` без `--topic` лишь обходит лимит «один ролик в день».
 
 ## Что делает прогон
 
@@ -82,13 +93,16 @@ tail -f /opt/emigro/data/youtube-shorts/logs/scheduled-$(date +%Y%m%d).log
 npm run news:youtube-short:daily -- --no-youtube-upload
 
 # Mac — legacy static slides (без B-roll)
-npm run news:youtube-short -- --static --topic=nif-one-day --force
+npm run news:youtube-short -- --static --topic=aima-agora-zapis-2026 --force
 
-# Mac — конкретная тема (перезапись сегодняшнего output + GCS)
-npm run news:youtube-short -- --topic=nif-one-day --force
+# Mac — конкретная заметка (перезапись сегодняшнего output + GCS)
+npm run news:youtube-short -- --topic=nif-lissabon-chto-puutayut --force
 
 # Повтор опубликованной темы — только явно:
-npm run news:youtube-short -- --topic=lisbon-rent-2026 --force
+npm run news:youtube-short -- --topic=arenda-lissabon-do-podpisi --force
+
+# Очередь из portugal.emigro.online
+npm run news:youtube-short -- --list-topics
 ```
 
 ## После прогона

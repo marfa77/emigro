@@ -1,9 +1,10 @@
 import fs from "fs";
 import path from "path";
 import { spawnSync } from "child_process";
+import { loadCommunityTipTopics, getCommunityTipTopic } from "./community-topics";
 import { youtubeShortsBucket, youtubeShortsGcsPrefix, youtubeShortsOutputRoot } from "./config";
 import { todayYmd } from "./text-utils";
-import { TIP_SHORT_TOPICS, type TipShortTopic } from "./topics";
+import type { TipShortTopic } from "./topics";
 
 type PublishedState = {
   published: string[];
@@ -15,7 +16,11 @@ type PublishedState = {
   backfill_migrated_at?: string;
 };
 
-const KNOWN_TOPIC_IDS = new Set(TIP_SHORT_TOPICS.map((t) => t.id));
+const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)+$/;
+
+function isTopicSlug(id: string): boolean {
+  return SLUG_PATTERN.test(id);
+}
 
 function statePath(): string {
   const custom = process.env.EMIGRO_YOUTUBE_SHORTS_STATE_FILE?.trim();
@@ -27,11 +32,6 @@ function legacyStatePath(): string {
   return path.join(process.cwd(), "scripts", "output", "youtube-shorts-state.json");
 }
 
-function orderPublishedIds(ids: Iterable<string>): string[] {
-  const set = new Set(ids);
-  return TIP_SHORT_TOPICS.filter((t) => set.has(t.id)).map((t) => t.id);
-}
-
 function discoverPublishedFromLocalOutput(): Set<string> {
   const found = new Set<string>();
   const outputRoot = youtubeShortsOutputRoot();
@@ -39,7 +39,7 @@ function discoverPublishedFromLocalOutput(): Set<string> {
 
   for (const name of fs.readdirSync(outputRoot)) {
     const match = name.match(/^(.+)-(\d{4}-\d{2}-\d{2})$/);
-    if (!match || !KNOWN_TOPIC_IDS.has(match[1])) continue;
+    if (!match || !isTopicSlug(match[1])) continue;
     const video = path.join(outputRoot, name, "short.mp4");
     if (fs.existsSync(video)) found.add(match[1]);
   }
@@ -78,7 +78,7 @@ function discoverPublishedFromGcs(): Set<string> {
 
   for (const line of result.stdout.split("\n")) {
     const match = line.trim().match(/\/tips\/[^/]+\/([^/]+)\/?$/);
-    if (match && KNOWN_TOPIC_IDS.has(match[1])) found.add(match[1]);
+    if (match && isTopicSlug(match[1])) found.add(match[1]);
   }
   return found;
 }
@@ -88,7 +88,7 @@ function mergeLegacyStatePublished(state: PublishedState): PublishedState {
   if (!fs.existsSync(legacyFile)) return state;
   try {
     const legacy = JSON.parse(fs.readFileSync(legacyFile, "utf8")) as PublishedState;
-    const merged = orderPublishedIds([...state.published, ...(legacy.published ?? [])]);
+    const merged = Array.from(new Set([...state.published, ...(legacy.published ?? [])]));
     if (merged.length === state.published.length) return state;
     return { ...state, published: merged };
   } catch {
@@ -100,10 +100,10 @@ function backfillPublishedState(state: PublishedState): PublishedState {
   if (state.backfill_migrated_at) return state;
 
   const discovered = new Set(state.published);
-  for (const id of discoverPublishedFromLocalOutput()) discovered.add(id);
-  for (const id of discoverPublishedFromGcs()) discovered.add(id);
+  for (const id of Array.from(discoverPublishedFromLocalOutput())) discovered.add(id);
+  for (const id of Array.from(discoverPublishedFromGcs())) discovered.add(id);
 
-  let next = mergeLegacyStatePublished({ ...state, published: orderPublishedIds(discovered) });
+  let next = mergeLegacyStatePublished({ ...state, published: Array.from(discovered) });
   const changed =
     next.published.length !== state.published.length ||
     next.published.some((id, i) => state.published[i] !== id);
@@ -155,26 +155,32 @@ export function markTopicPublished(topicId: string): void {
   writeState(state);
 }
 
-export function pickNextTipTopic(explicitTopicId?: string): TipShortTopic {
+export async function pickNextTipTopic(explicitTopicId?: string): Promise<TipShortTopic> {
   if (explicitTopicId) {
-    const forced = TIP_SHORT_TOPICS.find((t) => t.id === explicitTopicId);
-    if (!forced) throw new Error(`Unknown tip topic: ${explicitTopicId}`);
+    const forced = await getCommunityTipTopic(explicitTopicId);
+    if (!forced) throw new Error(`Unknown tip topic (note slug): ${explicitTopicId}`);
     return forced;
   }
 
+  const topics = await loadCommunityTipTopics();
+  if (topics.length === 0) {
+    throw new Error("No published community notes on portugal.emigro.online suitable for Shorts");
+  }
+
   const state = readState();
-  const unpublished = TIP_SHORT_TOPICS.filter((t) => !state.published.includes(t.id));
+  const unpublished = topics.filter((t) => !state.published.includes(t.id));
   if (unpublished.length === 0) {
     throw new Error(
-      `All ${TIP_SHORT_TOPICS.length} tip topics are published. Use --topic=ID --force to re-render one topic.`
+      `All ${topics.length} community note topics are published. Use --topic=SLUG --force to re-render one note.`
     );
   }
   return unpublished[0];
 }
 
-export function listTipTopics(): Array<TipShortTopic & { published: boolean }> {
+export async function listTipTopics(): Promise<Array<TipShortTopic & { published: boolean }>> {
   const state = readState();
-  return TIP_SHORT_TOPICS.map((t) => ({
+  const topics = await loadCommunityTipTopics();
+  return topics.map((t) => ({
     ...t,
     published: state.published.includes(t.id),
   }));

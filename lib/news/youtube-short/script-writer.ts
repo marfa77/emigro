@@ -88,11 +88,17 @@ function loadGuideContext(slug: string): string {
 
 function userPrompt(topic: TipShortTopic): string {
   const guideContext = topic.guide_slug ? loadGuideContext(topic.guide_slug) : "";
+  const noteContext = topic.note_context
+    ? `\nЗаметка с portugal.emigro.online:\n${topic.note_context.slice(0, 4000)}`
+    : topic.note_url
+      ? `\nИсточник: ${topic.note_url}`
+      : "";
   return [
     `Тема: ${topic.title}`,
     `Формат: ${topic.format}`,
     `Страна: ${topic.country}`,
     `Крючок (энергия): ${topic.hookSeed}`,
+    noteContext,
     "",
     "Факты (используй только проверенное, не выдумывай новые цифры):",
     ...topic.facts.map((f) => `- ${f}`),

@@ -4,8 +4,9 @@
  *
  * Usage:
  *   npm run news:youtube-short:daily          # next topic from queue
- *   npm run news:youtube-short -- --topic=nif-one-day
- *   npm run news:youtube-short -- --topic=lisbon-rent-2026 --force
+ *   npm run news:youtube-short -- --topic=aima-agora-zapis-2026
+ *   npm run news:youtube-short -- --topic=nif-lissabon-chto-puutayut --force
+ *   npm run news:youtube-short -- --pick-next
  *   npm run news:youtube-short -- --list-topics
  *   npm run news:youtube-short -- --script-only --topic=d7-vs-d8-one-minute
  */
@@ -13,9 +14,9 @@ import { config } from "dotenv";
 import { resolve } from "path";
 import { generateTipYoutubeShort } from "../lib/news/youtube-short/generate";
 import { isYoutubeShortSkipMessage, notifyYoutubeShortOwner } from "../lib/news/youtube-short/notify-owner";
-import { listTipTopics } from "../lib/news/youtube-short/state";
+import { listTipTopics, pickNextTipTopic } from "../lib/news/youtube-short/state";
 import { writeTipShortScript } from "../lib/news/youtube-short/script-writer";
-import { getTipTopic } from "../lib/news/youtube-short/topics";
+import { getCommunityTipTopic } from "../lib/news/youtube-short/community-topics";
 import { buildTipSegments } from "../lib/news/youtube-short/tip-script";
 
 config({ path: resolve(process.cwd(), ".env.local") });
@@ -34,8 +35,25 @@ function argValue(name: string): string | undefined {
 }
 
 async function main() {
+  if (process.argv.includes("--pick-next")) {
+    const topic = await pickNextTipTopic();
+    console.log(
+      JSON.stringify(
+        {
+          slug: topic.id,
+          title: topic.title,
+          note_url: topic.note_url,
+          content_kind: topic.content_kind,
+        },
+        null,
+        2
+      )
+    );
+    return;
+  }
+
   if (process.argv.includes("--list-topics")) {
-    const topics = listTipTopics();
+    const topics = await listTipTopics();
     for (const t of topics) {
       console.log(`${t.published ? "✓" : "·"} ${t.id} — ${t.title}`);
     }
@@ -52,9 +70,11 @@ async function main() {
   const outDir = argValue("--out");
 
   if (scriptOnly) {
-    const topic = topicId ? getTipTopic(topicId) : listTipTopics().find((t) => !t.published);
+    const topic = topicId
+      ? await getCommunityTipTopic(topicId)
+      : (await listTipTopics()).find((t) => !t.published);
     if (!topic) {
-      console.error("No topic found. Use --topic=id");
+      console.error("No topic found. Use --topic=note-slug from portugal.emigro.online");
       process.exit(1);
     }
     const script = await writeTipShortScript(topic);

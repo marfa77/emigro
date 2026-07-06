@@ -11,6 +11,11 @@ import type { ScriptSegment } from "./types";
 import type { TipShortScript } from "./script-writer";
 import type { TipShortTopic } from "./topics";
 
+function ctaVisualBody(topic: TipShortTopic): string {
+  if (topic.note_url) return topic.note_url.replace(/^https?:\/\//, "");
+  return "emigro.online/ru/portugal";
+}
+
 export function buildTipSegments(script: TipShortScript, topic: TipShortTopic): ScriptSegment[] {
   const stats = script.highlight_stats ?? [];
   return [
@@ -35,7 +40,7 @@ export function buildTipSegments(script: TipShortScript, topic: TipShortTopic): 
     {
       kind: "cta",
       visualTitle: "Подробнее",
-      visualBody: "emigro.online/ru/portugal",
+      visualBody: ctaVisualBody(topic),
       sourceLabel: "@Emigro_news",
       text: script.cta,
       pauseAfter: 0.35,

@@ -1,5 +1,5 @@
 import { sendOwnerTelegramDm } from "../../telegram";
-import { getTipTopic } from "./topics";
+import { getCommunityTipTopic } from "./community-topics";
 import type { YoutubeShortResult } from "./types";
 
 export type YoutubeShortNotifyStatus = "success" | "error" | "skipped";
@@ -14,20 +14,20 @@ function truncate(text: string, max = 3200): string {
   return `${clean.slice(0, max - 1)}…`;
 }
 
-function topicLine(topicId?: string): string | null {
+async function topicLine(topicId?: string): Promise<string | null> {
   if (!topicId) return null;
-  const topic = getTipTopic(topicId);
+  const topic = await getCommunityTipTopic(topicId);
   if (topic) {
     return `Тема: ${topic.id} — ${topic.title}`;
   }
   return `Тема: ${topicId}`;
 }
 
-function formatSuccess(result: YoutubeShortResult): string {
+async function formatSuccess(result: YoutubeShortResult): Promise<string> {
   const lines = [
     "✅ YouTube Short готов",
     "",
-    topicLine(result.topicId),
+    await topicLine(result.topicId),
     `Заголовок: ${result.metadata.title}`,
     `Длительность: ${Math.round(result.report.video_duration_seconds)} сек`,
   ].filter(Boolean) as string[];
@@ -39,15 +39,15 @@ function formatSuccess(result: YoutubeShortResult): string {
   return lines.join("\n");
 }
 
-function formatError(error: string, topicId?: string): string {
-  const lines = ["❌ YouTube Short — ошибка", "", topicLine(topicId), `Ошибка: ${truncate(error)}`].filter(
+async function formatError(error: string, topicId?: string): Promise<string> {
+  const lines = ["❌ YouTube Short — ошибка", "", await topicLine(topicId), `Ошибка: ${truncate(error)}`].filter(
     Boolean
   ) as string[];
   return lines.join("\n");
 }
 
-function formatSkipped(reason: string, topicId?: string): string {
-  const lines = ["⏭ YouTube Short — пропуск", "", topicLine(topicId), truncate(reason)].filter(Boolean) as string[];
+async function formatSkipped(reason: string, topicId?: string): Promise<string> {
+  const lines = ["⏭ YouTube Short — пропуск", "", await topicLine(topicId), truncate(reason)].filter(Boolean) as string[];
   return lines.join("\n");
 }
 
@@ -56,6 +56,7 @@ export function isYoutubeShortSkipMessage(message: string): boolean {
     message.includes("Daily short already generated") ||
     message.includes("Already generated today") ||
     message.includes("Topic already published") ||
+    message.includes("community note topics are published") ||
     message.includes("tip topics are published") ||
     message.includes("already running")
   );
@@ -71,11 +72,11 @@ export async function notifyYoutubeShortOwner(payload: {
 
   let text: string;
   if (payload.status === "success" && payload.result) {
-    text = formatSuccess(payload.result);
+    text = await formatSuccess(payload.result);
   } else if (payload.status === "skipped") {
-    text = formatSkipped(payload.error ?? "Пропущено", payload.topicId);
+    text = await formatSkipped(payload.error ?? "Пропущено", payload.topicId);
   } else {
-    text = formatError(payload.error ?? "Unknown error", payload.topicId);
+    text = await formatError(payload.error ?? "Unknown error", payload.topicId);
   }
 
   const sent = await sendOwnerTelegramDm(text);
