@@ -6,6 +6,9 @@ Wants=network-online.target
 [Service]
 Type=oneshot
 WorkingDirectory=/opt/emigro
+PermissionsStartOnly=true
+ExecStartPre=/bin/mkdir -p /opt/emigro/deploy/prep2go-news/logs
+ExecStartPre=/bin/chown www-data:www-data /opt/emigro/deploy/prep2go-news/logs
 ExecStart=/bin/bash /opt/emigro/deploy/prep2go-news/run_scheduled.sh
 User=www-data
 EnvironmentFile=-/opt/emigro/.env
