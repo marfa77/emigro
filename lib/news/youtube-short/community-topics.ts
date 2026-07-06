@@ -1,7 +1,9 @@
 import { getPublishedCommunityNotes, getPublishedCommunityNoteBySlug } from "@/lib/community-notes/queries";
 import type { CommunityNote, ContentKind } from "@/lib/community-notes/types";
-import { portugalSatelliteUrl } from "@/lib/site-url";
 import type { TipShortFormat, TipShortTopic } from "./topics";
+
+/** Always use live subdomain in Shorts metadata (cron runs without NODE_ENV=production). */
+const PORTUGAL_NOTE_ORIGIN = "https://portugal.emigro.online";
 
 /** Kinds suitable for evergreen Shorts (skip news — time-sensitive). */
 const SHORT_CONTENT_KINDS = new Set<ContentKind>(["lifehack", "tip", "guide", "qa"]);
