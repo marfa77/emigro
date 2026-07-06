@@ -53,22 +53,21 @@ export function markTopicPublished(topicId: string): void {
   writeState(state);
 }
 
-export function pickNextTipTopic(forceTopicId?: string): TipShortTopic {
-  if (forceTopicId) {
-    const forced = TIP_SHORT_TOPICS.find((t) => t.id === forceTopicId);
-    if (!forced) throw new Error(`Unknown tip topic: ${forceTopicId}`);
+export function pickNextTipTopic(explicitTopicId?: string): TipShortTopic {
+  if (explicitTopicId) {
+    const forced = TIP_SHORT_TOPICS.find((t) => t.id === explicitTopicId);
+    if (!forced) throw new Error(`Unknown tip topic: ${explicitTopicId}`);
     return forced;
   }
 
   const state = readState();
   const unpublished = TIP_SHORT_TOPICS.filter((t) => !state.published.includes(t.id));
-  if (unpublished.length > 0) return unpublished[0];
-
-  // All topics published once — start a new cycle (never repeat yesterday's topic).
-  const cycle = TIP_SHORT_TOPICS.filter((t) => t.id !== state.last_topic_id);
-  const next = cycle[0] ?? TIP_SHORT_TOPICS[0];
-  writeState({ ...state, published: [], last_topic_id: state.last_topic_id });
-  return next;
+  if (unpublished.length === 0) {
+    throw new Error(
+      `All ${TIP_SHORT_TOPICS.length} tip topics are published. Use --topic=ID --force to re-render one topic.`
+    );
+  }
+  return unpublished[0];
 }
 
 export function listTipTopics(): Array<TipShortTopic & { published: boolean }> {

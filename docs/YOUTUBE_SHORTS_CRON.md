@@ -8,7 +8,7 @@
 |-------|------|-----|
 | **Ежедневно 09:15 UTC** | `emigro-youtube-shorts.timer` | `deploy/youtube-shorts/run_daily.sh` → лайфхак → GCS → **YouTube API** |
 
-Один ролик в день (guard по `last_success_date` в state). Очередь тем — `lib/news/youtube-short/topics.ts` (7 тем, потом цикл заново). **Опубликованные темы не повторяются** — только явный `--topic=ID --force`.
+Один ролик в день (guard по `last_success_date` в state). Очередь тем — `lib/news/youtube-short/topics.ts` (7 тем). **Опубликованные темы никогда не повторяются автоматически** — только явный `--topic=ID --force`. Флаг `--force` без `--topic` лишь обходит лимит «один ролик в день».
 
 ## Что делает прогон
 

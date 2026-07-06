@@ -67,10 +67,16 @@ export async function generateTipYoutubeShort(options: GenerateTipShortOptions =
 
   const topic = pickNextTipTopic(options.topicId);
   const explicitTopic = Boolean(options.topicId);
-  if (isTopicPublished(topic.id) && !(explicitTopic && options.force)) {
-    throw new Error(
-      `Topic already published: ${topic.id}. Use --topic=${topic.id} --force to re-render.`
-    );
+  if (isTopicPublished(topic.id)) {
+    if (explicitTopic && options.force) {
+      console.log(`[youtube-short] Re-rendering published topic ${topic.id} (--topic --force)`);
+    } else {
+      const nextHint = explicitTopic
+        ? `Use --topic=${topic.id} --force to re-render intentionally.`
+        : `--force alone does not repeat published topics. Use --topic=${topic.id} --force to re-render, or omit --topic for the next unpublished topic.`;
+      console.error(`[youtube-short] REFUSED: "${topic.id}" is already published. ${nextHint}`);
+      throw new Error(`Topic already published: ${topic.id}. ${nextHint}`);
+    }
   }
 
   const outputDir = outputDirForTopic(topic, options.outputDir);
