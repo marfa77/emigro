@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import {
   ArrowUpRight,
+  BookOpen,
   Compass,
   Heart,
   Newspaper,
@@ -18,6 +19,7 @@ import type { HubTileIcon, ResolvedHubTile } from "@/lib/corridor/hub";
 const TOP_ICONS: Record<HubTileIcon, LucideIcon> = {
   compass: Compass,
   newspaper: Newspaper,
+  book: BookOpen,
   sticky: StickyNote,
   shopping: ShoppingBag,
 };

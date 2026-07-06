@@ -181,7 +181,7 @@ date_modified: 2026-07-05
 
 **Когда переходить:**
 - Стабильный pracovní smlouva или živnost
-- За **6–12 месяцев** до возможного окончания TP
+- За **6–12 месяцев до 4 марта 2027** (ориентир: **с осени 2026**)
 
 См. [Украина → ЕС: маршруты 2026](/ru/guides/ukraina-evropa-vnj-marshruty-2026) · [TP vs ВНЖ](/ru/guides/ukraintsy-belorusy-vremennaya-zashchita-vs-vnj-2026).
 

@@ -39,7 +39,7 @@ export async function CorridorHubStack({ topic }: Props) {
           ))}
         </ol>
 
-        <div className="mt-8 grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4">
+        <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5 lg:gap-4">
           {tiles.map((tile) => (
             <CorridorHubTile key={tile.id} tile={tile} />
           ))}

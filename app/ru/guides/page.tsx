@@ -22,7 +22,8 @@ import {
 } from "@/lib/guides/categories";
 import { guidePath, listGuides, type GuideFrontmatter } from "@/lib/guides/load";
 import { listPillarGuides } from "@/lib/guides/pillar-guides";
-import { getActiveNewsTopics } from "@/lib/news/topics";
+import { listGuidesForTopic } from "@/lib/guides/corridor-guides";
+import { getActiveNewsTopics, getNewsTopic } from "@/lib/news/topics";
 import { pageMetadata, pageUrl } from "@/lib/seo";
 import { schemaImage } from "@/lib/seo/schema";
 
@@ -31,12 +32,17 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
     searchParams.cat && isGuideCategoryId(searchParams.cat) ? searchParams.cat : undefined;
   const activeAudience =
     searchParams.aud && isGuideAudienceId(searchParams.aud) ? searchParams.aud : undefined;
+  const activeTopic = searchParams.topic?.trim().toLowerCase();
+  const topic = activeTopic ? await getNewsTopic(activeTopic) : null;
 
   let title = "Гайды по релокации и ВНЖ в Европе";
   let description =
     "Практические pillar-гайды Emigro: маршруты для русскоязычных за рубежом и в СНГ — digital nomad, семья с детьми, отказы в визах, бюджет релокации и ВНЖ по странам ЕС.";
 
-  if (activeCategory && activeAudience) {
+  if (topic) {
+    title = `Гайды: ${topic.countryRu}`;
+    description = `Pillar-гайды Emigro про ${topic.countryRu}: маршруты ВНЖ, документы, бюджет и практика переезда для русскоязычных.`;
+  } else if (activeCategory && activeAudience) {
     const category = getGuideCategoryById(activeCategory);
     const audience = getGuideAudienceById(activeAudience);
     title = `Гайды: ${category.label} — ${audience.label}`;
@@ -58,7 +64,7 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
     ogImage: schemaImage("/images/og/guides-index.jpg"),
   });
 
-  if (activeCategory || activeAudience) {
+  if (activeCategory || activeAudience || topic) {
     return {
       ...metadata,
       alternates: {
@@ -71,7 +77,7 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
   return metadata;
 }
 
-type Props = { searchParams: { cat?: string; aud?: string } };
+type Props = { searchParams: { cat?: string; aud?: string; topic?: string } };
 
 function guideCountLabel(count: number): string {
   const mod10 = count % 10;
@@ -194,7 +200,10 @@ function CategorySection({
 }
 
 export default async function GuidesIndexPage({ searchParams }: Props) {
-  const guides = listGuides();
+  const activeTopicKey = searchParams.topic?.trim().toLowerCase();
+  const topic = activeTopicKey ? await getNewsTopic(activeTopicKey) : null;
+  const allGuides = listGuides();
+  const guides = topic ? listGuidesForTopic(topic.key, topic.corridorSlug) : allGuides;
   const activeCategory = searchParams.cat && isGuideCategoryId(searchParams.cat) ? searchParams.cat : undefined;
   const activeAudience = searchParams.aud && isGuideAudienceId(searchParams.aud) ? (searchParams.aud as GuideAudienceId) : undefined;
   const featuredGuide = pickFeaturedGuide(guides);
@@ -215,6 +224,7 @@ export default async function GuidesIndexPage({ searchParams }: Props) {
     : [];
 
   const showFeatured =
+    !topic &&
     featuredGuide &&
     (!activeCategory || getGuideCategories(featuredGuide).includes(activeCategory)) &&
     (!activeAudience || getGuideAudiences(featuredGuide).includes(activeAudience));
@@ -248,17 +258,38 @@ export default async function GuidesIndexPage({ searchParams }: Props) {
             <BookOpen className="h-4 w-4" />
             Библиотека Emigro
           </span>
-          <h1 className="mt-5 max-w-3xl text-4xl font-bold leading-tight sm:text-5xl 2xl:max-w-4xl">Гайды по релокации и ВНЖ</h1>
+          <h1 className="mt-5 max-w-3xl text-4xl font-bold leading-tight sm:text-5xl 2xl:max-w-4xl">
+            {topic ? `Гайды: ${topic.flag} ${topic.countryRu}` : "Гайды по релокации и ВНЖ"}
+          </h1>
           <p className="mt-5 max-w-2xl text-lg leading-relaxed text-corridor-100 2xl:max-w-3xl">
-            Практические editorial-разборы для русскоязычных за рубежом и в СНГ: маршруты, доходы, семья, отказы и бюджет. Без воды — с проверкой через wizard.
+            {topic
+              ? `${guideCountLabel(guides.length)} про ${topic.countryRu} — маршруты, документы, бюджет и практика. Сравнительные материалы по нескольким странам тоже попадают в выборку.`
+              : "Практические editorial-разборы для русскоязычных за рубежом и в СНГ: маршруты, доходы, семья, отказы и бюджет. Без воды — с проверкой через wizard."}
           </p>
+          {topic && topic.sitePaths?.landing && (
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link
+                href={topic.sitePaths.landing}
+                className="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-2.5 text-sm font-medium text-corridor-900 hover:bg-corridor-50"
+              >
+                {topic.countryRu} Hub
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link
+                href="/ru/guides"
+                className="inline-flex items-center gap-2 rounded-lg border border-white/40 px-4 py-2.5 text-sm font-medium text-white hover:bg-white/10"
+              >
+                Все гайды
+              </Link>
+            </div>
+          )}
         </HeroShell>
 
         <Suspense fallback={<div className="mt-8 h-10" aria-hidden />}>
           <GuidesCategoryFilter />
         </Suspense>
 
-        {!activeCategory && !activeAudience && pillarGuides.length > 0 && (
+        {!activeCategory && !activeAudience && !topic && pillarGuides.length > 0 && (
           <section className="mt-10 rounded-[2rem] border border-corridor-100 bg-corridor-50/50 p-6 sm:p-8">
             <h2 className="text-xl font-bold text-slate-950">Популярные pillar-гайды</h2>
             <p className="mt-2 text-sm text-slate-600">

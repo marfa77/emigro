@@ -1,6 +1,7 @@
 import { getPublishedCommunityNotes } from "@/lib/community-notes/queries";
 import { getCorridorBySlug } from "@/lib/corridor/queries";
 import type { CorridorHubTileStats } from "@/lib/corridor/hub";
+import { countGuidesForTopic } from "@/lib/guides/corridor-guides";
 import { isPortugalHubTopic } from "@/lib/portugal/hub";
 import { getPublishedNewsDigests } from "@/lib/news/digests";
 import type { NewsTopicConfig } from "@/lib/news/topics/types";
@@ -14,10 +15,12 @@ export async function getCorridorHubTileStats(topic: NewsTopicConfig): Promise<C
   ]);
 
   const lastNews = news[0]?.published_at;
+  const guideCount = countGuidesForTopic(topic.key, corridorSlug);
 
   return {
     routeCount: corridor?.programs.length ?? 0,
     digestCount: corridor?.digest.length ?? 0,
+    guideCount,
     newsCount: news.length,
     practiceNotes: notes.length,
     lastNewsLabel: lastNews

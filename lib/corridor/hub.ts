@@ -1,5 +1,6 @@
 import { barakhloMarketCityLabel } from "@/lib/barakhlo/markets";
 import { barakhloPromoUrl } from "@/lib/community-notes/sponsor-promo";
+import { countGuidesForTopic, guidesTopicFilterHref } from "@/lib/guides/corridor-guides";
 import { countryCardImage } from "@/lib/brand/country-accents";
 import { isCorridorFull, topicHasWizard } from "@/lib/corridor/publish";
 import { newsIndexPath } from "@/lib/news/topics";
@@ -12,11 +13,12 @@ import {
 import { publicSiteUrl } from "@/lib/site-url";
 
 export type CorridorHubTab = "hub" | "route" | "news" | "digest" | "practice" | "market";
-export type CorridorHubLayerId = "route" | "news" | "practice" | "market";
+export type CorridorHubLayerId = "route" | "news" | "guides" | "practice" | "market";
 
 export type CorridorHubTileStats = {
   routeCount: number;
   digestCount: number;
+  guideCount: number;
   newsCount: number;
   practiceNotes: number;
   lastNewsLabel: string | null;
@@ -28,7 +30,7 @@ export type HubTileRating = {
   tone?: "good" | "warn" | "neutral";
 };
 
-export type HubTileIcon = "compass" | "newspaper" | "sticky" | "shopping";
+export type HubTileIcon = "compass" | "newspaper" | "book" | "sticky" | "shopping";
 
 export type CorridorHubFeatures = {
   isPortugal: boolean;
@@ -147,7 +149,7 @@ export function corridorHubJourney(topic: NewsTopicConfig, features = getCorrido
     },
     {
       step: "Подаю документы",
-      detail: "Справочник + program pages — требования, сроки, официальные ссылки.",
+      detail: "Гайды + справочник + program pages — требования, сроки, официальные ссылки.",
     },
     {
       step: `Живу в ${country}`,
@@ -172,6 +174,13 @@ function newsTileImage(topic: NewsTopicConfig): string {
 }
 
 function practiceTileImage(topic: NewsTopicConfig): string {
+  if (topic.urlSegment === PORTUGAL_URL_SEGMENT) {
+    return "/images/og/guide-pervye-30-dnej-v-portugalii-2026.jpg";
+  }
+  return countryCardImage(topic.urlSegment);
+}
+
+function guidesTileImage(topic: NewsTopicConfig): string {
   if (topic.urlSegment === PORTUGAL_URL_SEGMENT) {
     return "/images/og/guide-pervye-30-dnej-v-portugalii-2026.jpg";
   }
@@ -248,12 +257,12 @@ export function resolveCorridorHubTiles(
         topRightIcon: "newspaper",
         topRightLabel: "Weekly",
         bottomLeft: stats.lastNewsLabel ? `Обновлено ${stats.lastNewsLabel}` : topic.focusHintRu,
-        bottomRight: stats.digestCount ? `${stats.digestCount} фактов` : "дайджест",
+        bottomRight: stats.lastNewsLabel ? stats.lastNewsLabel : "еженедельно",
         ratings: [
           { label: "Свежесть", value: 92, tone: "good" },
           { label: "Источники", value: 94, tone: "good" },
           { label: "Законы", value: 88, tone: "good" },
-          { label: "Справочник", value: stats.digestCount ? 85 : 45, tone: stats.digestCount ? "good" : "neutral" },
+          { label: "AIMA", value: topic.urlSegment === PORTUGAL_URL_SEGMENT ? 90 : 75, tone: "good" },
           { label: "RU-слой", value: 96, tone: "good" },
         ],
         hubLabel,
@@ -276,6 +285,55 @@ export function resolveCorridorHubTiles(
         ratings: COMING_SOON_RATINGS,
         hubLabel,
       };
+
+  const guidesTile: ResolvedHubTile =
+    stats.guideCount > 0 || isCorridorFull(topic.status)
+      ? {
+          id: "guides",
+          href: guidesTopicFilterHref(topic.key),
+          image: guidesTileImage(topic),
+          imagePosition: "50% 40%",
+          gradient: "from-violet-950/88 via-purple-950/72 to-slate-950/85",
+          glow: "from-violet-400/25 to-transparent",
+          title: "Гайды",
+          subtitle: topic.countryRu,
+          topLeft: stats.guideCount ? String(stats.guideCount) : "—",
+          topLeftHint: "гайдов",
+          topRightIcon: "book",
+          topRightLabel: "Pillar",
+          bottomLeft:
+            stats.digestCount > 0
+              ? `справочник · ${stats.digestCount} фактов`
+              : "D8 · D7 · документы · бюджет",
+          bottomRight: "Читать",
+          ratings: [
+            { label: "Глубина", value: stats.guideCount >= 10 ? 92 : 78, tone: "good" },
+            { label: "Источники", value: 94, tone: "good" },
+            { label: "Справочник", value: stats.digestCount ? 88 : 55, tone: stats.digestCount ? "good" : "neutral" },
+            { label: "Wizard", value: features.hasWizard ? 90 : 40, tone: features.hasWizard ? "good" : "neutral" },
+            { label: "RU-слой", value: 96, tone: "good" },
+          ],
+          hubLabel,
+        }
+      : {
+          id: "guides",
+          href: guidesTopicFilterHref(topic.key),
+          comingSoon: true,
+          image: guidesTileImage(topic),
+          imagePosition: "50% 40%",
+          gradient: "from-slate-950/88 via-slate-900/72 to-slate-950/85",
+          glow: "from-slate-400/20 to-transparent",
+          title: "Гайды",
+          subtitle: topic.countryRu,
+          topLeft: "Скоро",
+          topLeftHint: "pillar",
+          topRightIcon: "book",
+          topRightLabel: "Pillar",
+          bottomLeft: "разборы маршрутов",
+          bottomRight: "Coming soon",
+          ratings: COMING_SOON_RATINGS,
+          hubLabel,
+        };
 
   const practiceTile: ResolvedHubTile = features.hasPractice
     ? {
@@ -349,7 +407,7 @@ export function resolveCorridorHubTiles(
     hubLabel,
   };
 
-  return [routeTile, newsTile, practiceTile, marketTile];
+  return [routeTile, newsTile, guidesTile, practiceTile, marketTile];
 }
 
 /** One flip tile per country on the homepage — same UX as hub layers, links to corridor landing. */
@@ -366,6 +424,7 @@ export function resolveCorridorCountryTile(
   const layerCount = [
     features.hasWizard,
     features.hasNews,
+    stats.guideCount > 0 || isCorridorFull(topic.status),
     features.hasPractice,
     features.hasMarket,
   ].filter(Boolean).length;
