@@ -4,7 +4,13 @@ import { spawnSync } from "child_process";
 import { ensureBrollClips, pickBrollForSegment, randomBrollOffset } from "./broll";
 import { ensureSwishSfx, mixFinalAudio, segmentTransitionTimes } from "./sfx";
 import { ensureBgmTrack } from "./bgm";
-import { ffprobeDuration } from "./render";
+import {
+  assertReadableVideoFile,
+  ffprobeDuration,
+  ffprobeVideoSize,
+  ffmpegFailureMessage,
+  runFfmpeg,
+} from "./ffmpeg-utils";
 import type { CaptionFrame, ScriptSegment } from "./types";
 import type { TipShortTopic } from "./topics";
 
@@ -12,6 +18,7 @@ const XFADE_DURATION = 0.22;
 const FPS = 30;
 /** VPS-friendly preset (slow OOMs on 4GB RAM during 1080p xfade re-encode). */
 const VIDEO_PRESET = process.env.EMIGRO_YOUTUBE_SHORTS_FFMPEG_PRESET?.trim() || "medium";
+const FFMPEG_THREADS = process.env.EMIGRO_YOUTUBE_SHORTS_FFMPEG_THREADS?.trim() || "2";
 const MIN_SEGMENT_BYTES = 8_192;
 
 function shellPath(p: string): string {
@@ -43,6 +50,140 @@ function writeOverlayConcat(frames: CaptionFrame[], concatPath: string): void {
   fs.writeFileSync(concatPath, lines.join("\n"));
 }
 
+function assertOverlayInputs(frames: CaptionFrame[], segmentLabel: string): void {
+  for (const frame of frames) {
+    if (!fs.existsSync(frame.imagePath)) {
+      throw new Error(`Overlay frame missing (${segmentLabel}): ${frame.imagePath}`);
+    }
+    const bytes = fs.statSync(frame.imagePath).size;
+    if (bytes < 1_024) {
+      throw new Error(`Overlay frame too small (${segmentLabel}, ${bytes} bytes): ${frame.imagePath}`);
+    }
+  }
+}
+
+function assertReadableBroll(brollPath: string, segmentLabel: string): void {
+  assertReadableVideoFile(brollPath, `broll-${segmentLabel}`, { minDuration: 1 });
+}
+
+/** Downscale 4K Pexels clips to 1080p proxy — avoids OOM on 4GB VPS during Ken Burns. */
+function ensureBroll1080Proxy(sourcePath: string, workDir: string, segmentLabel: string): string {
+  const { width, height } = ffprobeVideoSize(sourcePath);
+  if (width <= 1080 && height <= 1920) return sourcePath;
+
+  const proxyPath = path.join(workDir, `broll-1080-${path.basename(sourcePath, path.extname(sourcePath))}.mp4`);
+  if (fs.existsSync(proxyPath)) {
+    try {
+      assertReadableVideoFile(proxyPath, `broll-proxy-${segmentLabel}`, { minDuration: 1 });
+      return proxyPath;
+    } catch {
+      fs.unlinkSync(proxyPath);
+    }
+  }
+
+  console.log(`[video-compose] B-roll proxy ${width}x${height} → 1080p (${segmentLabel})`);
+  runFfmpeg(
+    [
+      "-y",
+      "-threads",
+      FFMPEG_THREADS,
+      "-i",
+      sourcePath,
+      "-an",
+      "-vf",
+      `fps=${FPS},scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,format=yuv420p`,
+      "-c:v",
+      "libx264",
+      "-preset",
+      "ultrafast",
+      "-crf",
+      "23",
+      "-pix_fmt",
+      "yuv420p",
+      "-movflags",
+      "+faststart",
+      proxyPath,
+    ],
+    `B-roll proxy (${segmentLabel})`
+  );
+  return proxyPath;
+}
+
+function buildSegmentFilter(opts: { duration: number; kenBurns: boolean }): string {
+  const dur = opts.duration.toFixed(3);
+  const bgChain = opts.kenBurns
+    ? [
+        `[0:v]fps=${FPS},scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,`,
+        `scale=w='1080*(1+0.08*t/${dur})':h='1920*(1+0.08*t/${dur})':eval=frame,`,
+        `crop=1080:1920:'(iw-1080)/2':'(ih-1920)/2',`,
+        "eq=brightness=-0.05:saturation=1.12,setsar=1[bg];",
+      ].join("")
+    : `[0:v]fps=${FPS},scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,eq=brightness=-0.05:saturation=1.12,setsar=1[bg];`;
+
+  return [
+    bgChain,
+    `[1:v]fps=${FPS},scale=1080:1920,format=rgba[ov];`,
+    "[bg][ov]overlay=0:0:format=auto:shortest=1[vout]",
+  ].join("");
+}
+
+function runSegmentFfmpeg(opts: {
+  brollPath: string;
+  brollOffset: number;
+  overlayConcat: string;
+  outputPath: string;
+  duration: number;
+  segmentLabel: string;
+  kenBurns: boolean;
+  preset: string;
+}): void {
+  const filter = buildSegmentFilter({ duration: opts.duration, kenBurns: opts.kenBurns });
+  runFfmpeg(
+    [
+      "-y",
+      "-threads",
+      FFMPEG_THREADS,
+      "-filter_threads",
+      "1",
+      "-ss",
+      opts.brollOffset.toFixed(2),
+      "-stream_loop",
+      "-1",
+      "-i",
+      opts.brollPath,
+      "-f",
+      "concat",
+      "-safe",
+      "0",
+      "-i",
+      opts.overlayConcat,
+      "-filter_complex",
+      filter,
+      "-map",
+      "[vout]",
+      "-t",
+      opts.duration.toFixed(3),
+      "-an",
+      "-r",
+      String(FPS),
+      "-fps_mode",
+      "cfr",
+      "-c:v",
+      "libx264",
+      "-preset",
+      opts.preset,
+      "-crf",
+      "20",
+      "-pix_fmt",
+      "yuv420p",
+      "-movflags",
+      "+faststart",
+      opts.outputPath,
+    ],
+    `Segment render (${opts.segmentLabel}${opts.kenBurns ? "" : ", lite"})`
+  );
+}
+
 function renderSegmentVideo(opts: {
   brollPath: string;
   brollOffset: number;
@@ -54,92 +195,49 @@ function renderSegmentVideo(opts: {
   const { brollPath, brollOffset, frames, outputPath, workDir, segmentLabel } = opts;
   if (frames.length === 0) throw new Error(`No frames for segment ${segmentLabel}`);
 
+  assertOverlayInputs(frames, segmentLabel);
+  assertReadableBroll(brollPath, segmentLabel);
+  const broll1080 = ensureBroll1080Proxy(brollPath, workDir, segmentLabel);
+
   const duration = segmentDuration(frames);
   const overlayConcat = path.join(workDir, `${segmentLabel}.overlay.txt`);
   writeOverlayConcat(frames, overlayConcat);
 
-  // Smooth Ken Burns on live B-roll: zoom tied to timestamp (not zoompan slideshow mode).
-  const zoomDelta = 0.08;
-  const dur = duration.toFixed(3);
+  if (fs.existsSync(outputPath)) fs.unlinkSync(outputPath);
 
-  const filter = [
-    `[0:v]fps=${FPS},scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,`,
-    `scale=w='1080*(1+${zoomDelta}*t/${dur})':h='1920*(1+${zoomDelta}*t/${dur})':eval=frame,`,
-    `crop=1080:1920:'(iw-1080)/2':'(ih-1920)/2',`,
-    "eq=brightness=-0.05:saturation=1.12,setsar=1[bg];",
-    `[1:v]scale=1080:1920,format=rgba[ov];`,
-    "[bg][ov]overlay=0:0:format=auto:shortest=1[vout]",
-  ].join("");
-
-  const result = spawnSync(
-    "ffmpeg",
-    [
-      "-y",
-      "-ss",
-      brollOffset.toFixed(2),
-      "-stream_loop",
-      "-1",
-      "-i",
-      brollPath,
-      "-f",
-      "concat",
-      "-safe",
-      "0",
-      "-i",
+  try {
+    runSegmentFfmpeg({
+      brollPath: broll1080,
+      brollOffset,
       overlayConcat,
-      "-filter_complex",
-      filter,
-      "-map",
-      "[vout]",
-      "-t",
-      dur,
-      "-an",
-      "-r",
-      String(FPS),
-      "-fps_mode",
-      "cfr",
-      "-c:v",
-      "libx264",
-      "-preset",
-      VIDEO_PRESET,
-      "-crf",
-      "20",
-      "-pix_fmt",
-      "yuv420p",
-      "-movflags",
-      "+faststart",
       outputPath,
-    ],
-    { stdio: "inherit" }
-  );
-
-  if (result.status !== 0) throw new Error(`Segment render failed (${segmentLabel}): ${result.status}`);
-}
-
-function ffmpegErrorDetail(result: ReturnType<typeof spawnSync>): string {
-  const stderr = typeof result.stderr === "string" ? result.stderr : "";
-  const lines = stderr
-    .split("\n")
-    .map((line) => line.trim())
-    .filter((line) => /error|invalid|failed|moov atom|no such file/i.test(line));
-  return lines.slice(-4).join(" ") || "no ffmpeg details";
+      duration,
+      segmentLabel,
+      kenBurns: true,
+      preset: VIDEO_PRESET,
+    });
+  } catch (firstError) {
+    const reason = firstError instanceof Error ? firstError.message : String(firstError ?? "unknown");
+    console.warn(`[video-compose] Segment ${segmentLabel} failed (${reason}); retrying lite profile`);
+    if (fs.existsSync(outputPath)) fs.unlinkSync(outputPath);
+    runSegmentFfmpeg({
+      brollPath: broll1080,
+      brollOffset,
+      overlayConcat,
+      outputPath,
+      duration,
+      segmentLabel,
+      kenBurns: false,
+      preset: "ultrafast",
+    });
+  }
 }
 
 function assertReadableSegment(segmentPath: string, label: string): number {
-  if (!fs.existsSync(segmentPath)) {
-    throw new Error(`Segment file missing (${label}): ${segmentPath}`);
-  }
-  const bytes = fs.statSync(segmentPath).size;
-  if (bytes < MIN_SEGMENT_BYTES) {
-    throw new Error(`Segment file too small (${label}, ${bytes} bytes): ${segmentPath}`);
-  }
-  const duration = ffprobeDuration(segmentPath);
-  if (duration < XFADE_DURATION + 0.05) {
-    throw new Error(
-      `Segment too short for xfade (${label}, ${duration.toFixed(2)}s < ${XFADE_DURATION}s): ${segmentPath}`
-    );
-  }
-  return duration;
+  return assertReadableVideoFile(segmentPath, label, {
+    minBytes: MIN_SEGMENT_BYTES,
+    minDuration: XFADE_DURATION + 0.05,
+  });
 }
 
 function concatSegmentsWithXfade(segmentPaths: string[], outputPath: string): void {
@@ -168,6 +266,10 @@ function concatSegmentsWithXfade(segmentPaths: string[], outputPath: string): vo
     "ffmpeg",
     [
       "-y",
+      "-threads",
+      FFMPEG_THREADS,
+      "-filter_threads",
+      "1",
       ...inputs,
       "-filter_complex",
       filter,
@@ -194,14 +296,12 @@ function concatSegmentsWithXfade(segmentPaths: string[], outputPath: string): vo
   );
 
   if (result.status !== 0) {
-    const code = result.status ?? "signal";
-    throw new Error(`Segment xfade concat failed (${code}): ${ffmpegErrorDetail(result)}`);
+    throw new Error(`Segment xfade concat failed: ${ffmpegFailureMessage("xfade", result)}`);
   }
 }
 
 function muxVideoAudio(videoPath: string, audioPath: string, outputPath: string): void {
-  const result = spawnSync(
-    "ffmpeg",
+  runFfmpeg(
     [
       "-y",
       "-i",
@@ -219,9 +319,8 @@ function muxVideoAudio(videoPath: string, audioPath: string, outputPath: string)
       "-shortest",
       outputPath,
     ],
-    { stdio: "inherit" }
+    "Final mux"
   );
-  if (result.status !== 0) throw new Error(`Final mux failed: ${result.status}`);
 }
 
 export async function composeDynamicVideo(opts: {

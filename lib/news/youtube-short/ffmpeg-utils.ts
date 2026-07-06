@@ -2,6 +2,32 @@ import fs from "fs";
 import { execFileSync, spawnSync } from "child_process";
 
 export const MIN_AUDIO_BYTES = 512;
+export const MIN_VIDEO_BYTES = 8_192;
+
+export function ffprobeVideoSize(filePath: string): { width: number; height: number } {
+  const out = execFileSync(
+    "ffprobe",
+    [
+      "-v",
+      "error",
+      "-select_streams",
+      "v:0",
+      "-show_entries",
+      "stream=width,height",
+      "-of",
+      "csv=p=0:s=x",
+      filePath,
+    ],
+    { encoding: "utf8" }
+  );
+  const [widthRaw, heightRaw] = out.trim().split("x");
+  const width = Number(widthRaw);
+  const height = Number(heightRaw);
+  if (!Number.isFinite(width) || !Number.isFinite(height) || width <= 0 || height <= 0) {
+    throw new Error(`Could not read video dimensions for ${filePath}`);
+  }
+  return { width, height };
+}
 
 export function ffprobeDuration(filePath: string): number {
   const out = execFileSync(
@@ -40,6 +66,27 @@ export function runFfmpeg(args: string[], label: string): void {
   });
   if (result.status === 0 && !result.error) return;
   throw new Error(ffmpegFailureMessage(label, result));
+}
+
+export function assertReadableVideoFile(
+  filePath: string,
+  label: string,
+  opts: { minBytes?: number; minDuration?: number } = {}
+): number {
+  const minBytes = opts.minBytes ?? MIN_VIDEO_BYTES;
+  const minDuration = opts.minDuration ?? 0;
+  if (!fs.existsSync(filePath)) {
+    throw new Error(`Video file missing (${label}): ${filePath}`);
+  }
+  const bytes = fs.statSync(filePath).size;
+  if (bytes < minBytes) {
+    throw new Error(`Video file too small (${label}, ${bytes} bytes): ${filePath}`);
+  }
+  const duration = ffprobeDuration(filePath);
+  if (duration <= minDuration) {
+    throw new Error(`Video file too short (${label}, ${duration.toFixed(2)}s): ${filePath}`);
+  }
+  return duration;
 }
 
 export function assertReadableAudioPart(partPath: string, label: string): number {
