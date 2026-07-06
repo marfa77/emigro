@@ -11,25 +11,48 @@ export const ORCHESTRATOR_MODEL = () =>
 
 type GeminiSchema = Record<string, unknown>;
 
-function parseJsonRobust<T>(text: string): T {
-  const trimmed = text.trim();
+function stripMarkdownJsonFences(text: string): string {
+  let t = text.trim();
+  if (t.startsWith("```")) {
+    t = t.replace(/^```(?:json)?\s*\n?/i, "").replace(/\n?```\s*$/i, "").trim();
+  }
+  return t;
+}
+
+function repairJsonSlice(raw: string): string {
+  return raw
+    .replace(/,\s*([}\]])/g, "$1")
+    .replace(/[\u201c\u201d]/g, '"')
+    .replace(/[\u2018\u2019]/g, "'");
+}
+
+function logInvalidJson(context: string, source: string, err: unknown): void {
+  const preview = source.slice(0, 240).replace(/\s+/g, " ");
+  const tail = source.slice(-240).replace(/\s+/g, " ");
+  const detail = err instanceof Error ? err.message : String(err);
+  console.error(
+    `[gemini] invalid JSON (${context}): len=${source.length} parse=${detail} head=${preview} tail=${tail}`
+  );
+}
+
+function parseJsonRobust<T>(text: string, context = "response"): T {
+  const trimmed = stripMarkdownJsonFences(text);
   try {
     return JSON.parse(trimmed) as T;
-  } catch {
+  } catch (firstErr) {
     const start = trimmed.indexOf("{");
     const end = trimmed.lastIndexOf("}");
     if (start >= 0 && end > start) {
+      const slice = repairJsonSlice(trimmed.slice(start, end + 1));
       try {
-        const slice = trimmed.slice(start, end + 1).replace(/,\s*([}\]])/g, "$1");
         return JSON.parse(slice) as T;
-      } catch (inner) {
-        if (process.env.DEBUG_GEMINI_JSON === "1") {
-          console.error("[gemini] invalid JSON len=", trimmed.length, "tail=", trimmed.slice(-300));
-        }
-        throw inner;
+      } catch (innerErr) {
+        logInvalidJson(context, trimmed, innerErr);
+        throw new Error(`Gemini returned invalid JSON: ${innerErr instanceof Error ? innerErr.message : String(innerErr)}`);
       }
     }
-    throw new Error("Gemini returned invalid JSON");
+    logInvalidJson(context, trimmed, firstErr);
+    throw new Error(`Gemini returned invalid JSON: ${firstErr instanceof Error ? firstErr.message : String(firstErr)}`);
   }
 }
 
@@ -71,7 +94,7 @@ export async function geminiJson<T>(
       if (!res.ok) throw new Error(json.error?.message || `Gemini HTTP ${res.status}`);
       const text = json.candidates?.[0]?.content?.parts?.[0]?.text;
       if (!text) throw new Error("Gemini returned empty response");
-      return parseJsonRobust<T>(text);
+      return parseJsonRobust<T>(text, `${model} attempt ${attempt + 1}`);
     } catch (e) {
       lastError = e instanceof Error ? e : new Error(String(e));
       if (attempt < 4) continue;

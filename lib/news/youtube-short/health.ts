@@ -125,8 +125,10 @@ export function runPreflight(outputDir: string): void {
   fs.unlinkSync(probe);
 
   try {
-    const statfs = (fs as NodeJS.FsStatic & { statfsSync?: (p: string) => { bavail: number; bsize: number } })
-      .statfsSync;
+    type FsWithStatfs = typeof fs & {
+      statfsSync?: (p: string) => { bavail: number; bsize: number };
+    };
+    const statfs = (fs as FsWithStatfs).statfsSync;
     if (statfs) {
       const stat = statfs(outputDir);
       const freeBytes = stat.bavail * stat.bsize;

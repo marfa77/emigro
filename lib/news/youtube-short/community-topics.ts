@@ -40,7 +40,7 @@ function buildNoteContext(note: CommunityNote): string {
     parts.push("", ...note.body_paragraphs);
   }
 
-  return parts.join("\n").slice(0, 6000);
+  return parts.join("\n").slice(0, 3500);
 }
 
 function extractFacts(note: CommunityNote): string[] {

@@ -28,20 +28,20 @@ export type TipShortScript = {
 };
 
 const SCRIPT_SCHEMA = {
-  type: "object",
+  type: "OBJECT",
   properties: {
-    hook: { type: "string" },
-    body: { type: "string" },
-    cta: { type: "string" },
-    visual_hook: { type: "string" },
-    visual_body: { type: "string" },
-    youtube_title: { type: "string" },
-    description_bullets: { type: "array", items: { type: "string" } },
+    hook: { type: "STRING" },
+    body: { type: "STRING" },
+    cta: { type: "STRING" },
+    visual_hook: { type: "STRING" },
+    visual_body: { type: "STRING" },
+    youtube_title: { type: "STRING" },
+    description_bullets: { type: "ARRAY", items: { type: "STRING" } },
     highlight_stats: {
-      type: "array",
+      type: "ARRAY",
       items: {
-        type: "object",
-        properties: { value: { type: "string" }, label: { type: "string" } },
+        type: "OBJECT",
+        properties: { value: { type: "STRING" }, label: { type: "STRING" } },
         required: ["value", "label"],
       },
     },
@@ -89,7 +89,7 @@ function loadGuideContext(slug: string): string {
 function userPrompt(topic: TipShortTopic): string {
   const guideContext = topic.guide_slug ? loadGuideContext(topic.guide_slug) : "";
   const noteContext = topic.note_context
-    ? `\nЗаметка с portugal.emigro.online:\n${topic.note_context.slice(0, 4000)}`
+    ? `\nЗаметка с portugal.emigro.online (кратко):\n${topic.note_context.slice(0, 2000)}`
     : topic.note_url
       ? `\nИсточник: ${topic.note_url}`
       : "";
@@ -102,7 +102,7 @@ function userPrompt(topic: TipShortTopic): string {
     "",
     "Факты (используй только проверенное, не выдумывай новые цифры):",
     ...topic.facts.map((f) => `- ${f}`),
-    guideContext ? `\nКонтекст из гайда Emigro:\n${guideContext.slice(0, 2500)}` : "",
+    guideContext ? `\nКонтекст из гайда Emigro:\n${guideContext.slice(0, topic.note_context ? 1200 : 2500)}` : "",
   ].join("\n");
 }
 
@@ -148,12 +148,31 @@ export async function writeTipShortScript(topic: TipShortTopic): Promise<TipShor
         ? ""
         : `\n\nПредыдущая версия не прошла QA: ${lastErrors.join("; ")}. Цель: ${durationTargetBandLabel()} озвучки (~${minWordsForDuration(SHORT_DURATION_TARGET_MIN)}–${maxWordsForDuration(SHORT_DURATION_ESTIMATE_TARGET)} слов, оценка ≤${SHORT_DURATION_ESTIMATE_TARGET}s). Если слишком коротко — 1–2 факта из темы. Если длинно — сократи body, убери повторы.`;
 
-    const script = await geminiFastJson<TipShortScript>(
-      SYSTEM,
-      userPrompt(topic) + retryHint,
-      SCRIPT_SCHEMA,
-      2048
-    );
+    let script: TipShortScript;
+    let lastJsonError: Error | undefined;
+    for (let jsonAttempt = 0; jsonAttempt < 3; jsonAttempt += 1) {
+      try {
+        script = await geminiFastJson<TipShortScript>(
+          SYSTEM,
+          userPrompt(topic) + retryHint,
+          SCRIPT_SCHEMA,
+          3072
+        );
+        lastJsonError = undefined;
+        break;
+      } catch (error) {
+        lastJsonError = error instanceof Error ? error : new Error(String(error));
+        const retryable =
+          /invalid JSON/i.test(lastJsonError.message) || /empty response/i.test(lastJsonError.message);
+        if (!retryable || jsonAttempt >= 2) throw lastJsonError;
+        console.warn(
+          `[script] Gemini JSON retry ${jsonAttempt + 2}/3 for ${topic.id}: ${lastJsonError.message}`
+        );
+      }
+    }
+    if (!script!) {
+      throw lastJsonError ?? new Error("Gemini script generation failed");
+    }
 
     const fullText = `${script.hook} ${script.body} ${script.cta}`;
     const normalized: TipShortScript = {
