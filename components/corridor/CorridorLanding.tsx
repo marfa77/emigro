@@ -147,7 +147,7 @@ export async function CorridorLanding({ country }: { country: string }) {
           <h2 className="text-2xl font-semibold">Интеллект коридора</h2>
           <p className="mt-2 max-w-2xl text-slate-600">
             {showHub
-              ? "Маршрут, новости, справочник, практика и барахолка — четыре слоя одного коридора от решения до быта."
+              ? "Маршрут, новости, справочник, практика и Barakhlo — четыре слоя одного коридора от решения до быта."
               : `Справочник с проверенными фактами и еженедельные новости — два дополняющих слоя.${isFull ? " Wizard опирается на оба." : ""}`}
           </p>
           <div className="mt-6 grid gap-4 lg:grid-cols-2">

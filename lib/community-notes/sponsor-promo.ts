@@ -2,8 +2,10 @@ import { normalizeHashtag } from "@/lib/community-notes/hashtags";
 import type { CommunityNote } from "@/lib/community-notes/types";
 import { getProviderById } from "@/lib/providers/registry";
 
+import { barakhloMarketUrl } from "@/lib/barakhlo/markets";
+
 const PREP2GO_BASE = "https://www.prep2go.study";
-export const BARAKHLO_LISBON_URL = "https://www.barakhlo.online/portugal/lisbon";
+export const BARAKHLO_LISBON_URL = barakhloMarketUrl("portugal");
 
 /** Notes where Prep2Go CIPLE promo is relevant. */
 export function shouldShowPrep2GoPromo(note: CommunityNote): boolean {
@@ -23,11 +25,11 @@ export function prep2GoPromoUrl(noteSlug: string): string {
   return url.toString();
 }
 
-export function barakhloPromoUrl(context: "hub" | string): string {
-  const url = new URL(BARAKHLO_LISBON_URL);
+export function barakhloPromoUrl(context: string, segment = "portugal", medium: "hub" | "satellite" = "hub"): string {
+  const url = new URL(barakhloMarketUrl(segment));
   url.searchParams.set("utm_source", "emigro");
-  url.searchParams.set("utm_medium", "satellite");
-  url.searchParams.set("utm_campaign", "portugal_lisbon");
+  url.searchParams.set("utm_medium", medium);
+  url.searchParams.set("utm_campaign", segment);
   if (context !== "hub") url.searchParams.set("utm_content", context);
   return url.toString();
 }

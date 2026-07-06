@@ -1,3 +1,4 @@
+import { barakhloMarketCityLabel } from "@/lib/barakhlo/markets";
 import { barakhloPromoUrl } from "@/lib/community-notes/sponsor-promo";
 import { countryCardImage } from "@/lib/brand/country-accents";
 import { isCorridorFull, topicHasWizard } from "@/lib/corridor/publish";
@@ -73,7 +74,7 @@ export function getCorridorHubFeatures(topic: NewsTopicConfig): CorridorHubFeatu
     hasWizard: topicHasWizard(topic),
     hasNews: true,
     hasPractice: isPortugal,
-    hasMarket: isPortugal,
+    hasMarket: true,
   };
 }
 
@@ -84,7 +85,7 @@ export function corridorHubPaths(topic: NewsTopicConfig) {
     wizard: topic.sitePaths?.wizard ?? `${landing}/wizard`,
     digest: topic.sitePaths?.guide ?? `${landing}/digest`,
     news: newsIndexPath(topic.urlSegment),
-    barakhlo: (utmContent: string) => barakhloPromoUrl(utmContent),
+    barakhlo: (utmContent: string) => barakhloPromoUrl(utmContent, topic.urlSegment),
   };
 }
 
@@ -137,7 +138,7 @@ export function corridorHubJourney(topic: NewsTopicConfig, features = getCorrido
   const country = topic.countryRu;
   const liveStep = features.hasPractice
     ? `Сателлит + Barakhlo — быт, услуги, объявления от сообщества.`
-    : `Практика и барахолка для ${country} — скоро на Emigro.`;
+    : `Barakhlo уже работает в вашем городе; практика-слой Emigro для ${country} — скоро.`;
 
   return [
     {
@@ -322,51 +323,31 @@ export function resolveCorridorHubTiles(
         hubLabel,
       };
 
-  const marketTile: ResolvedHubTile = features.hasMarket
-    ? {
-        id: "market",
-        href: paths.barakhlo("hub_tile"),
-        external: true,
-        image: cardImage,
-        imagePosition: "20% 60%",
-        gradient: "from-orange-950/90 via-amber-950/75 to-slate-950/88",
-        glow: "from-orange-300/30 to-transparent",
-        title: "Barakhlo",
-        subtitle: "Lisbon",
-        topLeft: "0%",
-        topLeftHint: "комиссия",
-        topRightIcon: "shopping",
-        topRightLabel: "Market",
-        bottomLeft: "мебель · услуги · авто",
-        bottomRight: "Telegram",
-        ratings: [
-          { label: "Локально", value: 95, tone: "good" },
-          { label: "Услуги", value: 88, tone: "good" },
-          { label: "Цены", value: 82, tone: "good" },
-          { label: "Скорость", value: 90, tone: "good" },
-          { label: "RU-чаты", value: 94, tone: "good" },
-        ],
-        hubLabel,
-      }
-    : {
-        id: "market",
-        href: paths.landing,
-        comingSoon: true,
-        image: cardImage,
-        imagePosition: "20% 60%",
-        gradient: "from-slate-950/90 via-slate-900/75 to-slate-950/88",
-        glow: "from-slate-400/20 to-transparent",
-        title: "Barakhlo",
-        subtitle: topic.countryRu,
-        topLeft: "Скоро",
-        topLeftHint: "market",
-        topRightIcon: "shopping",
-        topRightLabel: "Market",
-        bottomLeft: "мебель · услуги · авто",
-        bottomRight: "Coming soon",
-        ratings: COMING_SOON_RATINGS,
-        hubLabel,
-      };
+  const marketTile: ResolvedHubTile = {
+    id: "market",
+    href: paths.barakhlo("hub_tile"),
+    external: true,
+    image: cardImage,
+    imagePosition: "20% 60%",
+    gradient: "from-orange-950/90 via-amber-950/75 to-slate-950/88",
+    glow: "from-orange-300/30 to-transparent",
+    title: "Barakhlo",
+    subtitle: barakhloMarketCityLabel(topic.urlSegment),
+    topLeft: "0%",
+    topLeftHint: "комиссия",
+    topRightIcon: "shopping",
+    topRightLabel: "Market",
+    bottomLeft: "мебель · услуги · авто",
+    bottomRight: "Telegram",
+    ratings: [
+      { label: "Локально", value: 95, tone: "good" },
+      { label: "Услуги", value: 88, tone: "good" },
+      { label: "Цены", value: 82, tone: "good" },
+      { label: "Скорость", value: 90, tone: "good" },
+      { label: "RU-чаты", value: 94, tone: "good" },
+    ],
+    hubLabel,
+  };
 
   return [routeTile, newsTile, practiceTile, marketTile];
 }

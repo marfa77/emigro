@@ -12,7 +12,7 @@ type BarakhloPromoProps = {
 };
 
 export function BarakhloPromo({ context, placement, compact = false, category = "" }: BarakhloPromoProps) {
-  const href = barakhloPromoUrl(context);
+  const href = barakhloPromoUrl(context, "portugal", "satellite");
   const serviceNote = context !== "hub" && isServiceDiscoveryNote(context, category);
 
   function handleClick() {

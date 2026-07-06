@@ -4,8 +4,10 @@ import type { NewsTopicConfig } from "@/lib/news/topics";
 import { newsIndexPath } from "@/lib/news/topics";
 import { corridorWizardBlurb } from "@/lib/guides/guide-display";
 import { isCorridorFull, isCorridorOnSite, topicHasLanding } from "@/lib/corridor/publish";
+import { barakhloMarketCityLabel } from "@/lib/barakhlo/markets";
+import { barakhloPromoUrl } from "@/lib/community-notes/sponsor-promo";
 import { corridorHubLabel } from "@/lib/corridor/hub";
-import { isPortugalHubTopic, portugalHubPaths, portugalSatelliteHubUrl } from "@/lib/portugal/hub";
+import { isPortugalHubTopic, portugalSatelliteHubUrl } from "@/lib/portugal/hub";
 
 type Props = {
   topic: NewsTopicConfig;
@@ -22,7 +24,8 @@ export function CorridorIntelLinks({ topic, variant = "full", layout = "grid" }:
   const showHub = topicHasLanding(topic);
   const hubLabel = corridorHubLabel(topic);
   const satelliteUrl = portugalSatelliteHubUrl();
-  const barakhloUrl = portugalHubPaths.barakhlo("intel_links");
+  const barakhloUrl = barakhloPromoUrl("intel_links", topic.urlSegment);
+  const barakhloCity = barakhloMarketCityLabel(topic.urlSegment);
 
   if (variant === "compact") {
     return (
@@ -62,6 +65,10 @@ export function CorridorIntelLinks({ topic, variant = "full", layout = "grid" }:
             <a href={satelliteUrl} target="_blank" rel="noopener noreferrer" className="text-corridor-600 hover:underline">
               Практика
             </a>
+          </>
+        )}
+        {showHub && (
+          <>
             <span className="text-slate-300">·</span>
             <a href={barakhloUrl} target="_blank" rel="noopener noreferrer" className="text-corridor-600 hover:underline">
               Barakhlo
@@ -85,8 +92,8 @@ export function CorridorIntelLinks({ topic, variant = "full", layout = "grid" }:
           <p className="mt-1 text-sm text-slate-600">
             {showHub
               ? isPortugalHub
-                ? "Маршрут, новости, справочник, практика и барахолка — один коридор от решения до быта в Лиссабоне."
-                : "Маршрут, новости, справочник — уже доступны. Практика и барахолка для этого коридора — скоро."
+                ? "Маршрут, новости, справочник, практика и Barakhlo — один коридор от решения до быта в Лиссабоне."
+                : "Маршрут, новости, справочник и Barakhlo уже доступны. Практика-слой Emigro для этого коридора — скоро."
               : "Два слоя: справочник с проверенными фактами и еженедельные новости с источниками."}
           </p>
         </div>
@@ -159,53 +166,45 @@ export function CorridorIntelLinks({ topic, variant = "full", layout = "grid" }:
         </Link>
 
         {showHub && !isPortugalHub && (
-          <>
-            <div className="rounded-lg border border-dashed border-slate-200 bg-slate-50 p-4 opacity-90">
-              <StickyNote className="h-5 w-5 text-slate-400" />
-              <p className="mt-2 font-medium text-slate-500">Практика — скоро</p>
-              <p className="mt-1 text-sm text-slate-500">
-                Сателлит с заметками сообщества пока только для Португалии.
-              </p>
-            </div>
+          <div className="rounded-lg border border-dashed border-slate-200 bg-slate-50 p-4 opacity-90">
+            <StickyNote className="h-5 w-5 text-slate-400" />
+            <p className="mt-2 font-medium text-slate-500">Практика — скоро</p>
+            <p className="mt-1 text-sm text-slate-500">
+              Сателлит с заметками сообщества пока только для Португалии.
+            </p>
+          </div>
+        )}
 
-            <div className="rounded-lg border border-dashed border-slate-200 bg-slate-50 p-4 opacity-90">
-              <ShoppingBag className="h-5 w-5 text-slate-400" />
-              <p className="mt-2 font-medium text-slate-500">Барахолка — скоро</p>
-              <p className="mt-1 text-sm text-slate-500">
-                Barakhlo пока только для Лиссабона — другие города в планах.
-              </p>
-            </div>
-          </>
+        {showHub && (
+          <a
+            href={barakhloUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group rounded-lg border border-orange-200 bg-orange-50/50 p-4 transition hover:border-orange-400 hover:shadow-sm"
+          >
+            <ShoppingBag className="h-5 w-5 text-orange-700" />
+            <p className="mt-2 font-medium text-slate-900 group-hover:text-orange-800">
+              Barakhlo · {barakhloCity}
+            </p>
+            <p className="mt-1 text-sm text-slate-600">
+              Мебель, услуги, авто — объявления из русскоязычных чатов {topic.countryRu}.
+            </p>
+          </a>
         )}
 
         {isPortugalHub && (
-          <>
-            <a
-              href={satelliteUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group rounded-lg border border-teal-200 bg-teal-50/50 p-4 transition hover:border-teal-400 hover:shadow-sm"
-            >
-              <StickyNote className="h-5 w-5 text-teal-700" />
-              <p className="mt-2 font-medium text-slate-900 group-hover:text-teal-800">Практика в Португалии</p>
-              <p className="mt-1 text-sm text-slate-600">
-                NIF, AIMA, аренда — заметки из Telegram-сигналов на portugal.emigro.online.
-              </p>
-            </a>
-
-            <a
-              href={barakhloUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group rounded-lg border border-orange-200 bg-orange-50/50 p-4 transition hover:border-orange-400 hover:shadow-sm"
-            >
-              <ShoppingBag className="h-5 w-5 text-orange-700" />
-              <p className="mt-2 font-medium text-slate-900 group-hover:text-orange-800">Барахолка Лиссабона</p>
-              <p className="mt-1 text-sm text-slate-600">
-                Мебель, услуги, авто — объявления из русскоязычных чатов на Barakhlo.
-              </p>
-            </a>
-          </>
+          <a
+            href={satelliteUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group rounded-lg border border-teal-200 bg-teal-50/50 p-4 transition hover:border-teal-400 hover:shadow-sm"
+          >
+            <StickyNote className="h-5 w-5 text-teal-700" />
+            <p className="mt-2 font-medium text-slate-900 group-hover:text-teal-800">Практика в Португалии</p>
+            <p className="mt-1 text-sm text-slate-600">
+              NIF, AIMA, аренда — заметки из Telegram-сигналов на portugal.emigro.online.
+            </p>
+          </a>
         )}
       </div>
 
