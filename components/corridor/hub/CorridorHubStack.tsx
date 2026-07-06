@@ -1,5 +1,4 @@
 import { CorridorHubTile, CorridorHubTilesLegend } from "@/components/corridor/hub/CorridorHubTile";
-import { CorridorHubPulse } from "@/components/corridor/hub/CorridorHubPulse";
 import {
   corridorHubJourney,
   corridorHubLabel,
@@ -50,8 +49,6 @@ export async function CorridorHubStack({ topic }: Props) {
         </div>
 
         <CorridorHubTilesLegend />
-
-        <CorridorHubPulse topic={topic} />
       </div>
     </section>
   );

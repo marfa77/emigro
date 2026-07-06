@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ArrowRight, BookOpen, Globe2, Newspaper, Route } from "lucide-react";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { RelocatorChatPromo } from "@/components/community/RelocatorChatPromo";
-import { HubWizardPulseCompact } from "@/components/wizard/HubWizardPulseCompact";
+import { WizardPulseSection } from "@/components/wizard/WizardPulseSection";
 import { DestinationCard } from "@/components/destinations/DestinationCard";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { HubHeroVisual } from "@/components/visuals/HubHeroVisual";
@@ -132,7 +132,7 @@ export default async function RuHubPage() {
           </div>
         </HeroShell>
 
-        <HubWizardPulseCompact />
+        <WizardPulseSection />
 
         <section className="mt-10">
           <h2 className="text-xl font-semibold text-slate-900">Выберите ваш паспорт</h2>
