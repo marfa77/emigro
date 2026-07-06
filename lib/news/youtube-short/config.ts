@@ -12,8 +12,11 @@ export const SHORT_DURATION_TARGET_MAX = 45;
 /** Pre-render estimate buffer (TTS can differ slightly from estimate). */
 export const SHORT_DURATION_MIN = 28;
 export const SHORT_DURATION_MAX = 48;
+/** Script QA target + hard pre-TTS estimate cap (leave headroom to SHORT_DURATION_MAX). */
 export const SHORT_DURATION_ESTIMATE_TARGET = 42;
-export const SHORT_WORDS_PER_SECOND = 2.35;
+export const SHORT_DURATION_ESTIMATE_MAX = 44;
+/** Empirical RU TTS rate at RU_TTS_SPEED (OpenAI reads slower than English; numbers/pauses add time). */
+export const SHORT_WORDS_PER_SECOND = 1.72;
 
 export const YOUTUBE_CHANNEL_URL = "https://www.youtube.com/@Emigro_news";
 export const YOUTUBE_CHANNEL_HANDLE = "@Emigro_news";

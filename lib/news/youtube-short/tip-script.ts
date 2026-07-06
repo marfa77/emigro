@@ -1,6 +1,6 @@
 import {
   RU_TTS_SPEED,
-  SHORT_DURATION_MAX,
+  SHORT_DURATION_ESTIMATE_MAX,
   SHORT_DURATION_MIN,
   SHORT_DURATION_TARGET_MAX,
   SHORT_DURATION_TARGET_MIN,
@@ -57,15 +57,19 @@ export function minWordsForDuration(seconds: number): number {
   return Math.ceil((seconds - TIP_SEGMENT_PAUSE_TOTAL) * SHORT_WORDS_PER_SECOND * RU_TTS_SPEED);
 }
 
+export function maxWordsForDuration(seconds: number): number {
+  return Math.floor((seconds - TIP_SEGMENT_PAUSE_TOTAL) * SHORT_WORDS_PER_SECOND * RU_TTS_SPEED);
+}
+
 export function durationTargetBandLabel(): string {
   return `${SHORT_DURATION_TARGET_MIN}–${SHORT_DURATION_TARGET_MAX}s`;
 }
 
 export function assertTipDurationEstimate(segments: ScriptSegment[]): void {
   const estimate = estimateTipDurationSeconds(segments);
-  if (estimate < SHORT_DURATION_MIN || estimate > SHORT_DURATION_MAX) {
+  if (estimate < SHORT_DURATION_MIN || estimate > SHORT_DURATION_ESTIMATE_MAX) {
     throw new Error(
-      `Estimated duration ${estimate.toFixed(1)}s outside ${durationTargetBandLabel()} target band`
+      `Estimated duration ${estimate.toFixed(1)}s outside ${SHORT_DURATION_MIN}–${SHORT_DURATION_ESTIMATE_MAX}s pre-render band`
     );
   }
 }

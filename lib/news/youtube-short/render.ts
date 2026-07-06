@@ -577,6 +577,42 @@ export function renderVideo(framesConcatPath: string, audioPath: string, outputP
   if (result.status !== 0) throw new Error(`Video render failed: ${result.status}`);
 }
 
+export function fitVoiceoverToMaxDuration(audioPath: string, maxSeconds: number): number {
+  const originalDuration = ffprobeDuration(audioPath);
+  if (originalDuration <= maxSeconds) return originalDuration;
+
+  const tempo = Math.min(originalDuration / maxSeconds, 1.12);
+  const fittedPath = `${audioPath}.fit.mp3`;
+  const result = spawnSync(
+    "ffmpeg",
+    [
+      "-y",
+      "-i",
+      audioPath,
+      "-af",
+      `atempo=${tempo.toFixed(4)}`,
+      "-c:a",
+      "libmp3lame",
+      "-b:a",
+      "192k",
+      "-ar",
+      String(AUDIO_SAMPLE_RATE),
+      "-ac",
+      "1",
+      fittedPath,
+    ],
+    { stdio: "inherit" }
+  );
+  if (result.status !== 0) throw new Error(`Audio tempo fit failed: ${result.status}`);
+
+  fs.renameSync(fittedPath, audioPath);
+  const duration = ffprobeDuration(audioPath);
+  console.log(
+    `[youtube-short] Voiceover trimmed ${originalDuration.toFixed(1)}s → ${duration.toFixed(1)}s (atempo ${tempo.toFixed(3)})`
+  );
+  return duration;
+}
+
 export function assertShortDuration(seconds: number): void {
   if (seconds > SHORT_DURATION_MAX) {
     throw new Error(`Shorts duration ${seconds.toFixed(1)}s exceeds ${SHORT_DURATION_MAX}s limit`);

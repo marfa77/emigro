@@ -1,12 +1,16 @@
 import fs from "fs";
 import path from "path";
 import { geminiFastJson } from "@/lib/news/gemini";
-import { SHORT_DURATION_TARGET_MAX, SHORT_DURATION_TARGET_MIN } from "./config";
+import {
+  SHORT_DURATION_ESTIMATE_TARGET,
+  SHORT_DURATION_TARGET_MIN,
+} from "./config";
 import { normalizeHighlightStats, type HighlightStat } from "./highlight-stats";
 import {
   buildTipSegments,
   durationTargetBandLabel,
   estimateTipDurationSeconds,
+  maxWordsForDuration,
   minWordsForDuration,
 } from "./tip-script";
 import { compact, wordCount } from "./text-utils";
@@ -48,7 +52,7 @@ const SCRIPT_SCHEMA = {
 const SYSTEM = `Ты пишешь сценарии YouTube Shorts для канала @Emigro_news — русскоязычные релоканты в Европу (фокус: Португалия).
 
 Формат Short:
-- 30–45 секунд озвучки (~70–95 слов всего)
+- 30–45 секунд озвучки (~55–75 слов всего; короче лучше — длинный текст не влезет в Short)
 - Один факт или лайфхак, НЕ новости и НЕ дайджест
 - Крючок в первые 2 секунды — провокационный, конкретный, без «сегодня», «на этой неделе», «новость»
 - После крючка — сразу суть: цифры, шаги, ошибки
@@ -104,10 +108,11 @@ function validateScript(script: TipShortScript, topic: TipShortTopic): string[] 
   const totalWords = wordCount(full);
   const hookWords = wordCount(script.hook);
   const minWords = minWordsForDuration(SHORT_DURATION_TARGET_MIN);
+  const maxWords = maxWordsForDuration(SHORT_DURATION_ESTIMATE_TARGET);
 
   if (hookWords < 5 || hookWords > 16) errors.push(`hook word count ${hookWords} (want 5–16)`);
-  if (totalWords < minWords || totalWords > 105) {
-    errors.push(`total words ${totalWords} (want ${minWords}–105 for ${durationTargetBandLabel()})`);
+  if (totalWords < minWords || totalWords > maxWords) {
+    errors.push(`total words ${totalWords} (want ${minWords}–${maxWords} for ${durationTargetBandLabel()})`);
   }
   if (NEWS_BANNED.test(full)) errors.push("news-style language detected");
   if (!/[.!?…]$/.test(script.hook.trim())) errors.push("hook must end with punctuation");
@@ -119,9 +124,9 @@ function validateScript(script: TipShortScript, topic: TipShortTopic): string[] 
     errors.push(
       `estimated duration ${estimate.toFixed(1)}s too short (need ${durationTargetBandLabel()}, expand body with facts from the topic)`
     );
-  } else if (estimate > SHORT_DURATION_TARGET_MAX) {
+  } else if (estimate > SHORT_DURATION_ESTIMATE_TARGET) {
     errors.push(
-      `estimated duration ${estimate.toFixed(1)}s too long (need ${durationTargetBandLabel()}, shorten body)`
+      `estimated duration ${estimate.toFixed(1)}s too long (need ≤${SHORT_DURATION_ESTIMATE_TARGET}s estimate, ${durationTargetBandLabel()} target band, shorten body)`
     );
   }
 
@@ -135,7 +140,7 @@ export async function writeTipShortScript(topic: TipShortTopic): Promise<TipShor
     const retryHint =
       attempt === 0
         ? ""
-        : `\n\nПредыдущая версия не прошла QA: ${lastErrors.join("; ")}. Цель: ${durationTargetBandLabel()} озвучки (~${minWordsForDuration(SHORT_DURATION_TARGET_MIN)}–95 слов). Если слишком коротко — расширь body конкретными цифрами и деталями из фактов темы. Убери новостной тон.`;
+        : `\n\nПредыдущая версия не прошла QA: ${lastErrors.join("; ")}. Цель: ${durationTargetBandLabel()} озвучки (~${minWordsForDuration(SHORT_DURATION_TARGET_MIN)}–${maxWordsForDuration(SHORT_DURATION_ESTIMATE_TARGET)} слов, оценка ≤${SHORT_DURATION_ESTIMATE_TARGET}s). Если слишком коротко — 1–2 факта из темы. Если длинно — сократи body, убери повторы.`;
 
     const script = await geminiFastJson<TipShortScript>(
       SYSTEM,

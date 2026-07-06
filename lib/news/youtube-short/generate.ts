@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import {
+  SHORT_DURATION_MAX,
   RU_TTS_VOICE,
   canRunYoutubeShortsLocally,
   isDynamicVideoEnabled,
@@ -14,6 +15,7 @@ import {
   writeShortUploadFields,
 } from "./metadata";
 import {
+  fitVoiceoverToMaxDuration,
   assertShortDuration,
   ffprobeDuration,
   renderAudio,
@@ -105,8 +107,21 @@ export async function generateTipYoutubeShort(options: GenerateTipShortOptions =
     { encoding: "utf8" }
   );
 
-  const { audioPath, segmentDurations } = await renderAudio(segments, outputDir, options.forceAudio ?? false);
-  const shortFrames = await renderShortFrames(topic, segments, segmentDurations, outputDir);
+  const { audioPath, segmentDurations: rawSegmentDurations } = await renderAudio(
+    segments,
+    outputDir,
+    options.forceAudio ?? false
+  );
+  const voiceBeforeFit = ffprobeDuration(audioPath);
+  fitVoiceoverToMaxDuration(audioPath, SHORT_DURATION_MAX - 0.25);
+  const tempoScale = ffprobeDuration(audioPath) / voiceBeforeFit;
+  const segmentDurations =
+    tempoScale < 0.999 ? rawSegmentDurations.map((d) => d * tempoScale) : rawSegmentDurations;
+  const timedSegments =
+    tempoScale < 0.999
+      ? segments.map((segment) => ({ ...segment, pauseAfter: segment.pauseAfter * tempoScale }))
+      : segments;
+  const shortFrames = await renderShortFrames(topic, timedSegments, segmentDurations, outputDir);
   const shortCaptionsPath = path.join(outputDir, "short-captions.srt");
   writeSrt(shortFrames, shortCaptionsPath);
 
@@ -115,7 +130,7 @@ export async function generateTipYoutubeShort(options: GenerateTipShortOptions =
     await composeDynamicVideo({
       topic,
       frames: shortFrames,
-      segments,
+      segments: timedSegments,
       segmentDurations,
       audioPath,
       outputPath: shortVideoPath,
