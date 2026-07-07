@@ -6,6 +6,8 @@ export type NoteBodySection = {
   heading: string;
   paragraphs?: string[];
   bullets?: string[];
+  /** official = portal rules; practice = chat/field experience; gap = where they diverge */
+  section_kind?: "official" | "practice" | "gap";
 };
 
 export type CommunityNote = {

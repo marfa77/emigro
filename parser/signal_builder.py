@@ -11,6 +11,7 @@ TOPIC_PATTERNS: list[tuple[str, re.Pattern[str]]] = [
     ("bank", re.compile(r"\bbank\b|банк|conta|revolut|millennium|открыть\s+сч", re.I)),
     ("sns", re.compile(r"\bsns\b|здоров|medico|médico|utente|numero\s+de\s+utente", re.I)),
     ("ciple", re.compile(r"ciple|caple|португал.*язык", re.I)),
+    ("auto", re.compile(r"carta de condu|imt\b|водител|удостоверен|права\b|condutor|troca.*carta|замен.*прав|обмен.*прав", re.I)),
     ("transport", re.compile(r"метро|cp\b|comboios|bolt|uber|carris|viva\s+viagem|проезд", re.I)),
     ("sim", re.compile(r"\bsim\b|vodafone|meo|nos\b|интернет|мобильн", re.I)),
     ("school", re.compile(r"школ|school|детск|садик|kindergarten|colégio", re.I)),
@@ -24,7 +25,7 @@ USEFUL_RE = re.compile(
     r"консул|passaporte|passport|паспорт|граждан|nacionalidade|residenc|"
     r"лайфхак|lifehack|life\s*hack|совет|рекоменд|подскаж|посовет|tip\b|"
     r"фишк|хак\b|как\s+сделать|где\s+лучше|кто\s+знает|стоит\s+ли|"
-    r"метро|sim\b|школ|детск|ресторан|mercad|vet\b",
+    r"метро|sim\b|школ|детск|ресторан|mercad|vet\b|imt\b|carta de condu|водител|удостоверен",
     re.I,
 )
 

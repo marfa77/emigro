@@ -108,7 +108,7 @@ export async function ingestCommunitySignals(
       topic_hints: signal.topic_hints ?? [],
       content_kind: signal.content_kind ?? "tip",
       hashtags: signal.hashtags ?? [],
-      city: signal.city ?? "lisbon",
+      city: signal.city ?? "porto",
       country_key: signal.country_key ?? "portugal",
       posted_at: signal.posted_at,
       status: "new",

@@ -1,43 +1,51 @@
 import type { Metadata } from "next";
 import { CONTENT_KIND_LABELS, hashtagLabel, normalizeHashtag } from "@/lib/community-notes/hashtags";
 import type { CommunityNote, ContentKind } from "@/lib/community-notes/types";
+import { communityNotePublicUrl } from "@/lib/community-notes/note-url";
 import { PORTUGAL_SATELLITE } from "@/lib/satellite/portugal";
 import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
-import { DEFAULT_OG_IMAGE, fitMetaDescription, fitSeoTitlePart, socialImageMetadata } from "@/lib/seo";
+import { resolveNoteOgImage } from "@/lib/community-notes/note-og-image";
+import { fitMetaDescription, fitSeoTitlePart, socialImageMetadata } from "@/lib/seo";
 import { EMIGRO_PUBLISHER, emigroAuthorOrg, schemaImage } from "@/lib/seo/schema";
-import { portugalSatelliteUrl } from "@/lib/site-url";
+import { portugalSatellitePublicUrl } from "@/lib/site-url";
 
 const GEO = {
   country: "Portugal",
   countryCode: "PT",
-  city: "Lisbon",
-  region: "Lisbon Metropolitan Area",
-  latitude: 38.7223,
-  longitude: -9.1393,
-  audience: "Russian-speaking relocants in Portugal (RU, BY, UA, KZ passports)",
+  city: "Porto",
+  region: "Norte",
+  latitude: 41.1579,
+  longitude: -8.6291,
+  audience: "Russian-speaking relocants in Portugal (RU, BY, UA, KZ passports), primarily Norte (Porto, Braga, Minho)",
 } as const;
 
+const CITY_GEO: Record<string, { city: string; region: string; latitude: number; longitude: number }> = {
+  lisbon: { city: "Lisbon", region: "Lisbon Metropolitan Area", latitude: 38.7223, longitude: -9.1393 },
+  porto: { city: "Porto", region: "Norte", latitude: 41.1579, longitude: -8.6291 },
+};
+
 const TOPIC_GEO_KEYWORDS: Record<string, string[]> = {
-  nif: ["NIF Portugal", "Finanças Lisboa", "e-Fatura"],
+  nif: ["NIF Portugal", "Finanças Porto", "e-Fatura"],
   aima: ["AIMA Portugal", "Agora appointment", "VNG Portugal"],
-  arenda: ["rent Lisbon", "arrendamento Portugal"],
+  arenda: ["rent Porto", "arrendamento Portugal", "rent Braga"],
   bank: ["bank account Portugal", "conta bancária"],
   sns: ["SNS Portugal", "numero utente"],
   ciple: ["CIPLE CAPLE Portugal"],
-  transport: ["Lisbon metro CP"],
+  transport: ["Porto metro CP", "transport Norte"],
   sim: ["SIM card Portugal"],
-  school: ["school Lisbon expat"],
-  general: ["Portugal relocation", "Lisbon expat"],
+  school: ["school Porto expat", "international school Braga"],
+  general: ["Portugal relocation", "Norte expat", "Porto expat"],
 };
 
 export function communityNoteUrl(slug: string): string {
-  return portugalSatelliteUrl(`/notes/${slug}`);
+  return communityNotePublicUrl(slug);
 }
 
 export function buildCommunityNoteKeywords(note: CommunityNote): string[] {
   const base = [
     "Португалия",
-    "Лиссабон",
+    "Порту",
+    "Norte",
     "релокация",
     CONTENT_KIND_LABELS[note.content_kind],
     note.category,
@@ -56,7 +64,7 @@ export function buildCommunityNoteMetadata(note: CommunityNote): Metadata {
   const title = fitSeoTitlePart(note.seo_title || note.title);
   const description = fitMetaDescription(note.seo_description || note.excerpt || note.quick_answer);
   const keywords = buildCommunityNoteKeywords(note);
-  const ogImage = socialImageMetadata(DEFAULT_OG_IMAGE, note.title);
+  const ogImage = socialImageMetadata(resolveNoteOgImage(note), note.title);
 
   return {
     title,
@@ -92,7 +100,8 @@ function schemaTypeForKind(kind: ContentKind): "NewsArticle" | "Article" {
 }
 
 function placeSchema(city?: string) {
-  const locality = city === "lisbon" || !city ? GEO.city : GEO.country;
+  const geo = (city && CITY_GEO[city]) ?? CITY_GEO.porto;
+  const locality = geo.city;
   return {
     "@type": "Place" as const,
     name: `${locality}, ${GEO.country}`,
@@ -100,12 +109,12 @@ function placeSchema(city?: string) {
       "@type": "PostalAddress" as const,
       addressCountry: GEO.countryCode,
       addressLocality: locality,
-      addressRegion: GEO.region,
+      addressRegion: geo.region,
     },
     geo: {
       "@type": "GeoCoordinates" as const,
-      latitude: GEO.latitude,
-      longitude: GEO.longitude,
+      latitude: geo.latitude,
+      longitude: geo.longitude,
     },
   };
 }
@@ -126,7 +135,7 @@ export function buildCommunityNoteSchemas(note: CommunityNote) {
     publisher: EMIGRO_PUBLISHER,
     mainEntityOfPage: { "@type": "WebPage", "@id": url },
     url,
-    image: schemaImage(DEFAULT_OG_IMAGE),
+    image: schemaImage(resolveNoteOgImage(note)),
     inLanguage: "ru-RU",
     keywords: buildCommunityNoteKeywords(note).join(", "),
     about: [placeSchema(note.city), ...note.topic_tags.map((t) => ({ "@type": "Thing", name: t }))],
@@ -149,8 +158,8 @@ export function buildCommunityNoteSchemas(note: CommunityNote) {
   };
 
   const breadcrumbSchema = buildBreadcrumbSchema([
-    { name: PORTUGAL_SATELLITE.title, item: portugalSatelliteUrl("/") },
-    { name: note.category, item: portugalSatelliteUrl(`/tag/${note.topic_tags[0] ?? "portugal"}`) },
+    { name: PORTUGAL_SATELLITE.title, item: portugalSatellitePublicUrl("/") },
+    { name: note.category, item: portugalSatellitePublicUrl(`/tag/${note.topic_tags[0] ?? "portugal"}`) },
     { name: note.title },
   ]);
 
@@ -208,7 +217,7 @@ export function buildCommunityNoteLlmDescription(note: CommunityNote): string {
 }
 
 export async function buildPortugalLlmsTxt(notes: CommunityNote[]): Promise<string> {
-  const hub = portugalSatelliteUrl("/");
+  const hub = portugalSatellitePublicUrl("/");
   const lines = [
     "# portugal.emigro.online — практика для релокантов",
     "",

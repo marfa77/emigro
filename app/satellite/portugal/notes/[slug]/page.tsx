@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { ContentKindBadge, NoteHashtags } from "@/components/satellite/HashtagNav";
@@ -16,8 +17,10 @@ import {
 import { getPublishedCommunityNoteBySlug, getPublishedCommunityNotes } from "@/lib/community-notes/queries";
 import { getRelatedNotes } from "@/lib/community-notes/repair-note";
 import { shouldShowPrep2GoPromo } from "@/lib/community-notes/sponsor-promo";
+import { resolveNoteOgImage } from "@/lib/community-notes/note-og-image";
 import { PORTUGAL_SATELLITE } from "@/lib/satellite/portugal";
 import { portugalHubPath } from "@/lib/satellite/paths";
+import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 import { portugalSatelliteUrl } from "@/lib/site-url";
 
 export const revalidate = 300;
@@ -56,6 +59,8 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
   const llmDescription = buildCommunityNoteLlmDescription(note);
   const llmFacts = buildCommunityNoteLlmFacts(note);
   const llmsUrl = portugalSatelliteUrl("/llms");
+  const heroImage = note.content_kind === "guide" ? resolveNoteOgImage(note) : null;
+  const showHero = heroImage != null && heroImage !== DEFAULT_OG_IMAGE;
 
   return (
     <main className="mx-auto max-w-3xl px-4 py-10">
@@ -106,6 +111,19 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
           </p>
         )}
       </header>
+
+      {showHero && (
+        <figure className="mt-6 overflow-hidden rounded-xl border border-slate-200 bg-slate-100">
+          <Image
+            src={heroImage}
+            alt=""
+            width={1200}
+            height={630}
+            className="aspect-[1200/630] w-full object-cover"
+            priority
+          />
+        </figure>
+      )}
 
       <div className="community-quick-answer mt-8 rounded-xl border border-emerald-100 bg-emerald-50/70 p-5">
         <p className="text-xs font-bold uppercase tracking-wide text-emerald-800">Короткий ответ</p>
@@ -159,7 +177,8 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
       <RelatedNotes notes={related} />
 
       <p className="mt-12 rounded-lg border border-amber-100 bg-amber-50/80 p-4 text-sm text-amber-950">
-        Не юридическая консультация. Проверяйте правила на официальных порталах перед подачей документов.
+        Не юридическая консультация. Секции «Официально» — формальные требования порталов; «На практике» — опыт
+        релокантов из чатов и может отличаться от правил. Перед подачей документов сверяйтесь с gov.pt, AIMA и Finanças.
       </p>
 
       <p className="mt-8 text-center">

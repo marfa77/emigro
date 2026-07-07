@@ -14,6 +14,7 @@ dotenv.config({ path: resolve(process.cwd(), ".env.local") });
 dotenv.config({ path: resolve(process.cwd(), "parser/.env") });
 dotenv.config({ path: resolve(process.cwd(), ".env") });
 
+import { ensurePortugalCronEnv } from "@/lib/community-notes/cron-env";
 import { publishDraftsFromNewSignals } from "@/lib/community-notes/publish-drafts";
 import { refreshDailySpotlight } from "@/lib/community-notes/daily-spotlight";
 import { syncParserStateFromSupabase } from "@/lib/community-notes/sync-parser-state";
@@ -61,6 +62,7 @@ function runIncrementalParser(): CommunitySignalIngest[] {
 }
 
 async function main() {
+  ensurePortugalCronEnv();
   const state = await syncParserStateFromSupabase();
   console.log("[cursor]", state);
 

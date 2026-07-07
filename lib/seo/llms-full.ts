@@ -5,7 +5,7 @@ import { normalizeHashtag } from "@/lib/community-notes/hashtags";
 import { getPublishedCommunityNotes } from "@/lib/community-notes/queries";
 import { getPublishedNewsDigests } from "@/lib/news/digests";
 import { getActiveNewsTopics, newsIndexPath } from "@/lib/news/topics";
-import { newsArticleUrl, portugalSatelliteUrl, publicSiteUrl } from "@/lib/site-url";
+import { newsArticleUrl, portugalSatellitePublicUrl, publicSiteUrl } from "@/lib/site-url";
 import { TRANSIT_HUBS } from "@/lib/transit-hubs";
 
 type LlmsRow = { path: string; description: string };
@@ -24,8 +24,8 @@ export async function buildLlmsTxt(): Promise<string> {
   const topics = await getActiveNewsTopics();
   const fullCorridors = topics.filter((t) => t.status === "active" && t.corridorSlug && t.sitePaths);
   const guides = listGuides();
-  const satelliteHub = llmsPathFromUrl(portugalSatelliteUrl("/"));
-  const satelliteLlms = llmsPathFromUrl(portugalSatelliteUrl("/llms"));
+  const satelliteHub = llmsPathFromUrl(portugalSatellitePublicUrl("/"));
+  const satelliteLlms = llmsPathFromUrl(portugalSatellitePublicUrl("/llms"));
 
   const transitHubLines = TRANSIT_HUBS.map(
     (hub) => `- ${hub.countryRu}: ${hub.path} — ${hub.tagline}`
@@ -142,8 +142,8 @@ export async function buildLlmsFullText(): Promise<string> {
     row("/ru/community", "Сообщество релокантов Emigro"),
     row("/ru/partners", "Партнёры и сервисы на маршруте"),
     row("/ru/contact", "Контакты Emigro"),
-    row(llmsPathFromUrl(portugalSatelliteUrl("/")), "Portugal satellite — практика релокации в Лиссабоне"),
-    row(llmsPathFromUrl(portugalSatelliteUrl("/llms")), "Portugal satellite llms index"),
+    row(llmsPathFromUrl(portugalSatellitePublicUrl("/")), "Portugal satellite — практика релокации в Лиссабоне"),
+    row(llmsPathFromUrl(portugalSatellitePublicUrl("/llms")), "Portugal satellite llms index"),
     ...TRANSIT_HUBS.map((hub) =>
       row(hub.path, `${hub.countryRu} — транзитный хаб: ${hub.quickAnswer.slice(0, 120)}…`)
     ),
@@ -187,7 +187,7 @@ export async function buildLlmsFullText(): Promise<string> {
   for (const note of portugalNotes) {
     rows.push(
       row(
-        llmsPathFromUrl(portugalSatelliteUrl(`/notes/${note.slug}`)),
+        llmsPathFromUrl(portugalSatellitePublicUrl(`/notes/${note.slug}`)),
         note.title ?? note.slug
       )
     );
@@ -196,7 +196,7 @@ export async function buildLlmsFullText(): Promise<string> {
   for (const tag of Array.from(tagSet)) {
     rows.push(
       row(
-        llmsPathFromUrl(portugalSatelliteUrl(`/tag/${tag}`)),
+        llmsPathFromUrl(portugalSatellitePublicUrl(`/tag/${tag}`)),
         `#${tag} — Portugal satellite`
       )
     );

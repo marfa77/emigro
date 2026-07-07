@@ -9,7 +9,13 @@ import { resolve } from "node:path";
 
 dotenv.config({ path: resolve(process.cwd(), ".env.local") });
 
+import { ensurePortugalCronEnv } from "@/lib/community-notes/cron-env";
 import { rewriteCommunityNote } from "@/lib/community-notes/draft-from-signals";
+import {
+  isRewritePending,
+  SKIP_REWRITE_SLUGS,
+} from "@/lib/community-notes/rewrite-queue";
+import { refreshDailySpotlight } from "@/lib/community-notes/daily-spotlight";
 import { createServerClient } from "@/lib/supabase/server";
 import type { CommunityNote } from "@/lib/community-notes/types";
 
@@ -72,6 +78,7 @@ async function rewriteOne(note: CommunityNote) {
 }
 
 async function main() {
+  ensurePortugalCronEnv();
   const slugArg = process.argv.find((a) => a.startsWith("--slug="));
   const all = process.argv.includes("--all");
   const slug = slugArg?.split("=")[1];
@@ -90,8 +97,8 @@ async function main() {
 
   for (const row of data) {
     const note = mapRow(row);
-    if (all && note.body_sections.length >= 4) {
-      console.log(`[rewrite] skip ${note.slug} (already rich)`);
+    if (all && (SKIP_REWRITE_SLUGS.has(note.slug) || !isRewritePending(note))) {
+      console.log(`[rewrite] skip ${note.slug} (curated or quality ok)`);
       continue;
     }
     try {
@@ -101,6 +108,9 @@ async function main() {
       console.error(`[rewrite] ✗ ${note.slug}: ${msg}`);
     }
   }
+
+  const spotlight = await refreshDailySpotlight("portugal");
+  console.log("[spotlight]", spotlight?.note_slug);
 }
 
 main().catch((e) => {

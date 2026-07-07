@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { trackServerEvent } from "@/lib/analytics/server";
+import { ensurePortugalCronEnv } from "@/lib/community-notes/cron-env";
 import { publishDraftsFromNewSignals } from "@/lib/community-notes/publish-drafts";
 import { refreshDailySpotlight } from "@/lib/community-notes/daily-spotlight";
 
@@ -16,6 +17,7 @@ export async function GET(request: Request) {
   const maxNotes = Math.min(parseInt(process.env.PORTUGAL_CRON_MAX_NOTES ?? "1", 10) || 1, 3);
 
   try {
+    ensurePortugalCronEnv();
     const result = await publishDraftsFromNewSignals(maxNotes);
     const spotlight = await refreshDailySpotlight("portugal");
 

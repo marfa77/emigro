@@ -435,4 +435,122 @@ Platform optimizes toward **provider retention**, not max short-term CPC:
 
 ---
 
-*Last updated: 2026-06-23*
+## 12. Product roadmap — согласовано (Jul 2026)
+
+> **Статус:** план на будущее. Пока действуют правила §2 и §10 (applicant free). Этот раздел фиксирует порядок запуска, когда будем масштабировать выручку.
+
+### Приоритеты монетизации (по мере роста)
+
+| # | Направление | Суть | Когда |
+|---|-------------|------|-------|
+| 1 | **Emigro Assist** | Платное сопровождение: разбор кейса, Route Check, маршрут, чек-листы, созвон | Уже в продукте; основной B2C/B2B2C revenue рядом с контентом |
+| 2 | **Сопровождение (concierge)** | Углублённое ведение кейса поверх wizard/roadmap — не «юрист вместо вас», а навигация + координация шагов | После валидации Assist; прайс и scope отдельно от бесплатного wizard |
+| 3 | **Продажа лидов партнёрам** | Qualified lead handoff → провайдеры (юристы, релокация, переводы) — см. §3 Manual CPL | Параллельно с Assist; основной B2B revenue |
+| 4 | **Рекламные вставки (native ads)** | Маркированные спонсорские блоки в контенте и hub — не баннерная сеть | По мере роста трафика; масштаб после Assist/CPL |
+| 5 | **Подписка пользователей ~$1/мес** | Лёгкий B2C tier при большом трафике | **Только после** регистрации и достаточного объёма аудитории |
+
+### Шаг 0 — регистрация перед wizard (обязательный prerequisite)
+
+Перед любой платной подпиской или paywall:
+
+```
+1. Ввести регистрацию / аккаунт Emigro
+2. Wizard (и сохранение результатов) — только для залогиненных
+3. Накопить базу: email, corridor intent, повторные визиты
+4. Потом — optional $1/mo tier, когда трафик оправдает friction
+```
+
+**Зачем:** без аккаунта нельзя честно делать подписку, save roadmap, change alerts и remarketing. Регистрация — не монетизация сама по себе, а инфраструктура для Assist, лидов и будущего B2C.
+
+**UX-принцип на запуске регистрации:**
+
+- Новости, справочник, гайды — по-прежнему без логина (SEO + trust)
+- Wizard, results, сохhed roadmap — после sign-up (magic link / OAuth — TBD)
+- Assist и заявка партнёрам — явный opt-in на передачу контакта (см. §7)
+
+### Подписка $1/мес — гипотеза (Phase C, не сейчас)
+
+| Параметр | Решение |
+|----------|---------|
+| Цена | ~**$1/мес** (или экв. €0.99) — psychological tier |
+| Триггер запуска | Существенный органический трафик + стабильная регистрация; метрика TBD (напр. MAU wizard > X) |
+| Что даёт | TBD: save/compare routes, alerts по программам, расширенный pulse, без блокировки базового wizard для free tier — **не повторять NomadList paywall на core path** |
+| Что остаётся free | Eligibility overview, новости, digest, первичный wizard pass — иначе ломаем SEO и миссию «free for applicants» |
+
+**Не делать до Phase C:**
+
+- Paywall на результаты wizard
+- Скрытые программы за деньги
+- Подписку без регистрации и без понятного value prop
+
+### Рекламные вставки (native / sponsored)
+
+**Суть:** редакционные спонсорские блоки внутри полезного контента — не pop-up, не auto-play, не «реклама ради рекламы». Пользователь видит **метку «Реклама» / «Партнёр»** и релевантный оффер по контексту коридора.
+
+**Уже в продукте (Portugal satellite, MVP):**
+
+| Placement | Пример | Паттерн |
+|-----------|--------|---------|
+| Заметка community | Barakhlo — барахолка Лиссабона | `BarakhloPromo` |
+| Заметка CIPLE | Prep2Go — подготовка к экзамену | `Prep2GoPromo` |
+| Hub satellite | Barakhlo compact на главной сателлита | `placement=satellite_hub` |
+
+UTM: `utm_source=emigro`, `utm_medium=satellite|hub`, `utm_campaign=<partner>`, `utm_content=<context>`.
+
+**Куда расширять (roadmap):**
+
+| Слой | Формат | Релевантность |
+|------|--------|---------------|
+| Новости / digest | 1 native block на выпуск или sidebar | языковые школы, переводы, банки, страховки |
+| Гайды (pillar) | спонсор блока «инструменты» | Prep2Go, Barakhlo, fintech, VPN |
+| Wizard results | «Следующий шаг» — partner card | только категория шага (не «лучший юрист») |
+| Hub / intel links | co-marketing Emigro ↔ partner | Barakhlo по всем коридорам (уже live) |
+| Provider directory | sponsored placement | пересекается с §3 CPC — единая политика ranking |
+
+**Правила (не нарушать §6 и §10):**
+
+- Всегда **явная маркировка**: «Реклама», «Партнёр Emigro», `rel="sponsored"`
+- **Контекстная релевантность** — оффер связан со страной/шагом/темой страницы
+- **Не блокировать** wizard, результаты, справочник — вставка между секциями, не paywall
+- **Не vouching** — «спонсорский блок», не «мы рекомендуем этого юриста»
+- **Отдельный inventory** от CPL-лидов: реклама = visibility; лид = opt-in + передача контакта
+- Rate card TBD: flat fee за placement / CPM / CPC на внешний сайт партнёра
+
+**Модели оплаты (TBD):**
+
+| Модель | Когда |
+|--------|-------|
+| Flat fee за месяц слота | первые партнёры, мало трафика |
+| CPC на клик «перейти на сайт партнёра» | когда есть analytics и dedupe |
+| Revshare affiliate | fintech, courses — только с disclosure |
+
+Рекламные вставки — **дополнительный revenue stream**, не замена Assist и CPL. При конфликте приоритет: **качество контента > short-term ad fill**.
+
+### Связка Assist ↔ лиды ↔ реклама ↔ подписка
+
+```
+Трафик (SEO, hub, satellite, news)
+    → регистрация
+    → wizard + results (free)
+    → ветка A: Emigro Assist / сопровождение (direct revenue)
+    → ветка B: opt-in лид партнёру (CPL revenue)
+    → ветка C: native ad / sponsored block (visibility revenue)
+    → ветка D (позже): $1/mo для power users с высоким retention
+```
+
+Assist и CPL — **основная выручка на горизонте 12–18 мес.** Реклама — масштабируемый слой при росте pageviews. Подписка $1 — diversification и LTV, не замена B2B.
+
+### Open decisions (roadmap)
+
+- [ ] Auth provider (email magic link vs Google vs Telegram)
+- [ ] Точный scope free vs $1 tier
+- [ ] MAU / wizard completions threshold для включения подписки
+- [ ] Assist pricing tiers vs единый Route Check
+- [ ] Concierge как отдельный SKU или upsell из Assist
+- [ ] Ad inventory: какие слоты открыть первыми (news vs guides vs wizard results)
+- [ ] Единый rate card для native ads vs provider CPC из §3
+- [ ] CMS / admin для спонсорских блоков без деплоя
+
+---
+
+*Last updated: 2026-07-06*

@@ -32,11 +32,11 @@ export const PORTUGAL_EDITORIAL_SEED: SeedNote[] = [
     seo_description:
       "Чеклист на 30 дней после переезда в Португалии: NIF, e-Fatura, SNS, банк, аренда, AIMA. Практический порядок шагов для Лиссабона.",
     quick_answer:
-      "В первый месяц закройте базу: адрес → NIF и e-Fatura → SNS/utente → банковский счёт → договор аренды с регистрацией → запись AIMA, если срок по визе уже идёт.",
+      "В первый месяц закройте базу: адрес → NIF и e-Fatura → регистрация в centro de saúde (número de utente) → банковский счёт → договор аренды с регистрацией → запись AIMA, если срок по visе уже идёт.",
     body_paragraphs: [
       "Первые 30 дней — не про «успеть всё», а про правильный порядок. Ошибка недели один: сначала аренда без NIF, потом банк, потом выясняется, что адрес не подходит для AIMA.",
       "Неделя 1 — документы и связь. SIM/eSIM, адрес для корrespondência, NIF в Finanças, активация e-Fatura. Без этого сложнее аренда и банк.",
-      "Неделя 2 — жильё и быт. Договор с NIF обеих сторон, caução с назначением платежа, регистрация arrendamento, фото состояния квартиры. Параллельно — SNS (numero de utente) или частная страховка до подключения.",
+      "Неделя 2 — жильё и быт. Договор с NIF обеих сторон, caução с назначением платежа, регистрация arrendamento, фото состояния квартиры. Параллельно — запись в centro de saúde и número de utente do SNS или частная страховка до подключения.",
       "Неделя 3 — деньги и миграция. Банковский счёт (часто нужны NIF + контракт/справка), сбор папки для AIMA/Agora, охота за слотом с готовыми PDF.",
       "Неделя 4 — закрепление. Проверьте сроки по визе/D visa, подтвердите адрес в Finanças, сохраните все квитанции. Не откладывайте AIMA «на потом» — слоты не ждут.",
       "Типичные потери времени: «временный NIF у знакомого», перевод caução на личную карту, поездка в AIMA без записи, VPN при работе с Agora.",
@@ -57,7 +57,7 @@ export const PORTUGAL_EDITORIAL_SEED: SeedNote[] = [
     ],
     official_links: [
       { title: "Portal das Finanças", url: "https://www.portaldasfinancas.gov.pt/" },
-      { title: "SNS — utente", url: "https://www.sns.gov.pt/" },
+      { title: "SNS — número de utente", url: "https://www.sns.gov.pt/" },
       { title: "AIMA", url: "https://aima.gov.pt/" },
       { title: "Agora", url: "https://agora.imigrante.pt/" },
     ],

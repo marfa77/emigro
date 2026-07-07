@@ -1,9 +1,12 @@
+import { communityNotePublicUrl } from "@/lib/community-notes/note-url";
 import { getPublishedCommunityNotes, getPublishedCommunityNoteBySlug } from "@/lib/community-notes/queries";
 import type { CommunityNote, ContentKind } from "@/lib/community-notes/types";
 import type { TipShortFormat, TipShortTopic } from "./topics";
 
 /** Always use live subdomain in Shorts metadata (cron runs without NODE_ENV=production). */
-const PORTUGAL_NOTE_ORIGIN = "https://portugal.emigro.online";
+function portugalNoteUrl(slug: string): string {
+  return communityNotePublicUrl(slug);
+}
 
 /** Kinds suitable for evergreen Shorts (skip news — time-sensitive). */
 const SHORT_CONTENT_KINDS = new Set<ContentKind>(["lifehack", "tip", "guide", "qa"]);
@@ -91,7 +94,7 @@ export function communityNoteToTipTopic(note: CommunityNote): TipShortTopic | nu
     format: contentKindToFormat(note.content_kind),
     country: "Португалия",
     topic_key: "portugal",
-    note_url: `${PORTUGAL_NOTE_ORIGIN}/notes/${note.slug}`,
+    note_url: portugalNoteUrl(note.slug),
     note_context: buildNoteContext(note),
     content_kind: note.content_kind,
     facts: extractFacts(note),

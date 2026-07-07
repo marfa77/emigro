@@ -41,7 +41,7 @@ npm run portugal:backfill-month              # 30 дней → signals → до 
 npm run portugal:backfill-month -- --days=14 --skip-drafts
 ```
 
-Каналы в `parser/groups.yaml`: `@chatlisboa`, `@por_tugal`, `@lepta`.
+Каналы в `parser/groups.yaml`: `@chatlisboa`, `@por_tugal`, `@lepta`, `@autolife_pt`.
 
 ## Ingest API
 
@@ -59,6 +59,8 @@ Env на Vercel: `COMMUNITY_INGEST_API_KEY` (или временно `EMIGRO_ADM
 1. Парсер → `community_signals` (`status=new`)
 2. Gemini / редактор → `community_notes` (`status=published`)
 3. Страницы: `/notes/{slug}`, навигация по `/tag/{tag}`
+
+**Официально vs практика:** сигналы из Telegram — полевой опыт; он часто дополняет или расходится с gov.pt / AIMA. В заметках обязательны отдельные секции `section_kind: official | practice | gap`, а в `key_takeaways` — префиксы «Официально:» / «На практике:». Quality gate в `lib/community-notes/official-vs-practice.ts`.
 
 Полный коридор, wizard и news остаются на `www.emigro.online/ru/portugal`.
 

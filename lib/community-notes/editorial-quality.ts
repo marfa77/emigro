@@ -1,3 +1,5 @@
+import { validateOfficialPracticeCopy } from "@/lib/community-notes/official-vs-practice";
+import { snsTextsFromDraft, validateSnsUtenteCopy } from "@/lib/community-notes/sns-editorial";
 import type { ContentKind } from "@/lib/community-notes/types";
 import type { NoteBodySection } from "@/lib/community-notes/types";
 import { fitMetaDescription, fitSeoTitlePart } from "@/lib/seo";
@@ -50,8 +52,8 @@ export function validateNoteDraft(input: DraftQualityInput): string[] {
   if (input.seo_title.length > 58) {
     errors.push(`seo_title too long (${input.seo_title.length})`);
   }
-  if (!/португал|lisbon|лиссабон/i.test(`${input.quick_answer} ${input.seo_description}`)) {
-    errors.push("missing geo (Португалия/Лиссабон) in quick_answer or seo_description");
+  if (!/португал|lisbon|лиссабон|porto|порту|norte|север|брага|minho/i.test(`${input.quick_answer} ${input.seo_description}`)) {
+    errors.push("missing geo (Португалия/Порту/Norte) in quick_answer or seo_description");
   }
   if (input.body_sections.length < rules.sections) {
     errors.push(`body_sections ${input.body_sections.length} < ${rules.sections}`);
@@ -69,6 +71,15 @@ export function validateNoteDraft(input: DraftQualityInput): string[] {
   if (totalWords(input) < rules.minWords) {
     errors.push(`word count ${totalWords(input)} < ${rules.minWords}`);
   }
+
+  errors.push(...validateSnsUtenteCopy(snsTextsFromDraft(input)));
+  errors.push(
+    ...validateOfficialPracticeCopy({
+      content_kind: input.content_kind,
+      body_sections: input.body_sections,
+      key_takeaways: input.key_takeaways,
+    })
+  );
 
   return errors;
 }

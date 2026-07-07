@@ -17,3 +17,9 @@ groups:
     country_key: portugal
     title: "@lepta"
     timezone: Europe/Lisbon
+  - username: autolife_pt
+    group_id: autolife_pt
+    city: portugal
+    country_key: portugal
+    title: "@autolife_pt — авто и Португалия"
+    timezone: Europe/Lisbon

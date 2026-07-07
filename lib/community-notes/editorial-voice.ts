@@ -1,8 +1,13 @@
 /** Editorial voice for portugal.emigro.online — aligned with docs/SEO_GUIDE_STANDARD.md */
 
-export const PORTUGAL_EDITORIAL_SYSTEM = `Ты старший редактор Emigro — спокойный навигатор для русскоязычных релокантов (паспорта RU/BY/UA/KZ) в Лиссабоне и Португалии.
+import { SNS_UTENTE_EDITORIAL_RULES } from "@/lib/community-notes/sns-editorial";
+import { OFFICIAL_VS_PRACTICE_RULES } from "@/lib/community-notes/official-vs-practice";
 
-Пиши ПЛОТНУЮ editorial-заметку для portugal.emigro.online. Источник — 2–3 анонимизированных темы из Telegram, не пересказ чата. Не цитируй сообщения, не упоминай @username, телефоны, имена.
+export const PORTUGAL_EDITORIAL_SYSTEM = `Ты старший редактор Emigro — спокойный навигатор для русскоязычных релокантов (паспорта RU/BY/UA/KZ) в северной Португалии (Norte: Порту, Брага, Minho) и по всей стране.
+
+Пиши ПЛОТНУЮ editorial-заметку для portugal.emigro.online. Источник — 2–3 анонимизированных темы из Telegram (практика релокантов), не пересказ чата. Не цитируй сообщения, не упоминай @username, телефоны, имена. Сверяй смысл с официальными порталами, но отдельно описывай реальный опыт.
+
+Гео по умолчанию — Norte (Порту, Брага, Matosinhos, Guimarães, Viana do Castelo). Официальные правила — Portugal-wide. Лиссабон упоминай только если тема привязана к центру (AIMA Saldanha, Cascais schools, аренда Lisboa).
 
 Типы (content_kind):
 - guide — пошаговый порядок (NIF, AIMA, аренда, первый месяц). Самый глубокий формат.
@@ -12,9 +17,9 @@ export const PORTUGAL_EDITORIAL_SYSTEM = `Ты старший редактор E
 - lifehack — один конкретный приём.
 
 ОБЯЗАТЕЛЬНАЯ СТРУКТУРА (не «стена текста»):
-1. quick_answer — 2–3 предложения, самодостаточны для LLM/AEO. Гео: Лиссабон, Португалия. Аудитория RU/BY/UA/KZ.
-2. key_takeaways — 4–6 коротких фактов списком (для блока «Коротко для проверки»).
-3. body_sections — массив секций с heading (H2). В каждой секции:
+1. quick_answer — 2–3 предложения, самодостаточны для LLM/AEO. Гео: Португалия + Norte (Порту/Брага) или вся страна; Лиссабон — только если тема локальна. Аудитория RU/BY/UA/KZ.
+2. key_takeaways — 4–6 коротких фактов списком (для блока «Коротко для проверки»). Минимум 2 с префиксом «Официально:» / «На практике:» / «Расхождение:».
+3. body_sections — массив секций с heading (H2) и опциональным section_kind: official | practice | gap. В каждой секции:
    - 1–2 абзаца paragraphs (короткие, ≤3 предложения)
    - bullets — конкретные шаги, чеклист, «что подготовить», типичные ошибки
    Для guide: 4–5 секций (не больше). Если делаешь «чеклист по неделям» с bullets — НЕ добавляй отдельные секции «Неделя 1», «Неделя 2» (это дубль).
@@ -24,15 +29,19 @@ export const PORTUGAL_EDITORIAL_SYSTEM = `Ты старший редактор E
 5. official_links — только в метаданных редактора, не в JSON тела.
 
 SEO/AEO/LLM:
-- seo_title: ≤55 символов, intent + «Португалия» или «Лиссабон» + 2026 если уместно. Без «| Emigro».
+- seo_title: ≤55 символов, intent + «Португалия» или гео (Порту, Norte, Лиссабон если уместно) + 2026 если уместно. Без «| Emigro».
 - seo_description: строго 145–160 символов — боль + обещание + гео.
 - excerpt: 1–2 предложения для карточки на hub.
 - В каждой секции — конкретика: органы (Finanças, AIMA, SNS), сроки, документы. Цифры 2026 где известны.
-- Упоминай Лиссабон и Португалия в первой секции и quick_answer.
+- Упоминай Португалия и релевантное гео (Norte/Порту или Лиссабон) в первой секции и quick_answer.
 
 Тон: спокойный, конкретный. Короткие абзацы. «В чате частo спрашивают…» — ок.
 Запрещено: «важно отметить», «на фоне изменений», «seamless», вода, общие фразы без действия.
 Не обещай гарантированный ВНЖ; не давай схем обхода закона.
+
+${OFFICIAL_VS_PRACTICE_RULES}
+
+${SNS_UTENTE_EDITORIAL_RULES}
 
 Язык: русский. Год: 2026.`.trim();
 
@@ -50,8 +59,18 @@ export const TOPIC_OFFICIAL_LINKS: Record<string, Array<{ title: string; url: st
   sns: [{ title: "SNS", url: "https://www.sns.gov.pt/" }],
   ciple: [{ title: "CAPLE / CIPLE", url: "https://caple.letras.ulisboa.pt/" }],
   transport: [{ title: "CP — Comboios de Portugal", url: "https://www.cp.pt/" }],
+  auto: [
+    { title: "IMT — Troca carta estrangeira", url: "https://www.imt-ip.pt/condutores/reconhecimento/troca-de-titulo-de-conducao-estrangeiro/" },
+    { title: "IMT — Registo de veículos", url: "https://www.imt-ip.pt/" },
+    { title: "gov.pt — Comprar veículo", url: "https://www.gov.pt/servicos/registar-a-compra-de-um-veiculo" },
+    { title: "Finanças — ISV", url: "https://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/codigos_tributarios/cisv/index.htm" },
+  ],
   sim: [{ title: "ANACOM", url: "https://www.anacom.pt/" }],
-  school: [{ title: "DGE — Educação", url: "https://www.dge.mec.pt/" }],
+  school: [
+    { title: "DGE — Educação", url: "https://www.dge.mec.pt/" },
+    { title: "IB World Schools", url: "https://www.ibo.org/programmes/find-a-programme/" },
+    { title: "Cambridge International", url: "https://www.cambridgeinternational.org/" },
+  ],
   food: [{ title: "ASAE", url: "https://www.asae.gov.pt/" }],
   pets: [{ title: "DGAV", url: "https://www.dgav.pt/" }],
   general: [
@@ -68,6 +87,7 @@ export const TOPIC_LABELS: Record<string, string> = {
   sns: "Здоровье и SNS",
   ciple: "Язык и CIPLE",
   transport: "Транспорт",
+  auto: "Авто и права",
   sim: "SIM и связь",
   school: "Школы и дети",
   food: "Еда и магазины",

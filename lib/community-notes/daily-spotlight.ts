@@ -1,7 +1,8 @@
+import { ensurePortugalCronEnv } from "@/lib/community-notes/cron-env";
 import { CONTENT_KIND_EMOJI, CONTENT_KIND_LABELS, hashtagLabel, normalizeHashtag } from "@/lib/community-notes/hashtags";
 import { getPublishedCommunityNotes } from "@/lib/community-notes/queries";
 import type { CommunityNote, ContentKind } from "@/lib/community-notes/types";
-import { portugalSatelliteUrl } from "@/lib/site-url";
+import { portugalSatellitePublicUrl } from "@/lib/site-url";
 import { createServerClient } from "@/lib/supabase/server";
 
 export type DailySpotlight = {
@@ -91,7 +92,7 @@ export function buildThreadsText(note: CommunityNote, noteUrl: string): string {
     .map((t) => `#${hashtagLabel(normalizeHashtag(t)).replace(/\s+/g, "")}`)
     .filter((t) => t.length > 1);
 
-  tagParts.push("#Португалия", "#Лиссабон");
+  tagParts.push("#Португалия", "#Порту");
   const uniqueTags = Array.from(new Set(tagParts)).slice(0, 5).join(" ");
 
   return `${emoji} ${note.title}\n\n${body}\n\n→ ${noteUrl}\n\n${uniqueTags}`;
@@ -125,16 +126,29 @@ function pickBestNote(notes: CommunityNote[], yesterdaySlug: string | null, toda
   return ranked[0]?.note ?? notes[0] ?? null;
 }
 
+function sanitizeSpotlightUrl(url: string, slug: string): string {
+  if (/localhost|127\.0\.0\.1/.test(url)) {
+    return portugalSatellitePublicUrl(`/notes/${slug}`);
+  }
+  return url;
+}
+
+function sanitizeThreadsText(text: string, slug: string): string {
+  const publicUrl = portugalSatellitePublicUrl(`/notes/${slug}`);
+  return text.replace(/https?:\/\/(?:localhost|127\.0\.0\.1)(?::\d+)?\/[^\s]+/g, publicUrl);
+}
+
 function mapSpotlight(row: Record<string, unknown>): DailySpotlight {
+  const slug = String(row.note_slug);
   return {
     id: String(row.id),
     country_key: String(row.country_key),
     spotlight_date: String(row.spotlight_date),
-    note_slug: String(row.note_slug),
+    note_slug: slug,
     content_kind: (row.content_kind as ContentKind) ?? "tip",
     headline: String(row.headline),
-    threads_text: String(row.threads_text),
-    note_url: String(row.note_url),
+    threads_text: sanitizeThreadsText(String(row.threads_text), slug),
+    note_url: sanitizeSpotlightUrl(String(row.note_url), slug),
     updated_at: String(row.updated_at),
   };
 }
@@ -157,13 +171,14 @@ async function getYesterdaySlug(countryKey: string, today: string): Promise<stri
 
 /** Pick today's best note and persist Threads-ready copy. Idempotent per calendar day. */
 export async function refreshDailySpotlight(countryKey = "portugal"): Promise<DailySpotlight | null> {
+  ensurePortugalCronEnv();
   const today = todayInTz();
   const notes = await getPublishedCommunityNotes(countryKey);
   const yesterdaySlug = await getYesterdaySlug(countryKey, today);
   const note = pickBestNote(notes, yesterdaySlug, today);
   if (!note) return null;
 
-  const noteUrl = portugalSatelliteUrl(`/notes/${note.slug}`);
+  const noteUrl = portugalSatellitePublicUrl(`/notes/${note.slug}`);
   const threadsText = buildThreadsText(note, noteUrl);
   const headline = `${CONTENT_KIND_LABELS[note.content_kind]} дня`;
 

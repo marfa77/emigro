@@ -1,9 +1,11 @@
+import { ensurePortugalCronEnv } from "@/lib/community-notes/cron-env";
 import { clusterSignals, draftNoteFromCluster } from "@/lib/community-notes/draft-from-signals";
 import {
   isDuplicateTopic,
   latestSignalPostedAt,
   shouldAutoPublishCluster,
 } from "@/lib/community-notes/editorial-filter";
+import { ensureNoteOgImage } from "@/lib/community-notes/note-og-image";
 import type { CommunitySignalIngest } from "@/lib/community-notes/types";
 import { createServerClient } from "@/lib/supabase/server";
 
@@ -43,6 +45,7 @@ async function loadNewSignals(limit = 120): Promise<CommunitySignalIngest[]> {
 
 /** Gemini editorial drafts from `community_signals` with status=new. */
 export async function publishDraftsFromNewSignals(maxNotes: number): Promise<PublishDraftsResult> {
+  ensurePortugalCronEnv();
   const result: PublishDraftsResult = {
     clusters: 0,
     published: [],
@@ -96,7 +99,7 @@ export async function publishDraftsFromNewSignals(maxNotes: number): Promise<Pub
       const { error: insertError } = await supabase.from("community_notes").insert({
         ...draft,
         country_key: "portugal",
-        city: cluster.signals[0]?.city ?? "lisbon",
+        city: cluster.signals[0]?.city ?? "porto",
         status: "published",
         published_at: publishedAt,
         updated_at: now,
@@ -116,6 +119,13 @@ export async function publishDraftsFromNewSignals(maxNotes: number): Promise<Pub
 
       result.published.push(draft.slug);
       existingTopics.add(primaryTopic);
+
+      try {
+        await ensureNoteOgImage(draft);
+      } catch (ogError) {
+        const msg = ogError instanceof Error ? ogError.message : "og image failed";
+        result.errors.push(`${draft.slug}: og-image: ${msg}`);
+      }
     } catch (e) {
       const message = e instanceof Error ? e.message : "draft failed";
       result.errors.push(message);

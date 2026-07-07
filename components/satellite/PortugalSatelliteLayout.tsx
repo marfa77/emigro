@@ -12,7 +12,7 @@ export function PortugalSatelliteHeader() {
       <div className="mx-auto max-w-3xl space-y-4 px-4 py-4">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
-            <p className="text-xs font-medium uppercase tracking-wide text-teal-700">Emigro · Лиссабон</p>
+            <p className="text-xs font-medium uppercase tracking-wide text-teal-700">Emigro · {PORTUGAL_SATELLITE.countryRu}</p>
             <Link href={portugalHubPath()} className="text-lg font-semibold text-slate-900 hover:text-teal-800">
               {PORTUGAL_SATELLITE.title}
             </Link>

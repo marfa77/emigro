@@ -3,6 +3,8 @@ import {
   isChecklistSection,
   optimizeBodySections,
   parseInlineBold,
+  parseTakeawayPrefix,
+  resolveSectionSurface,
   sectionSlug,
 } from "@/lib/community-notes/note-body-render";
 
@@ -23,13 +25,24 @@ export function NoteBody({ sections, paragraphs }: NoteBodyProps) {
         {optimized.map((section) => {
           const id = `section-${sectionSlug(section.heading)}`;
           const checklist = isChecklistSection(section);
+          const surface = resolveSectionSurface(section);
 
           return (
             <section
               key={section.heading}
               aria-labelledby={id}
-              className={checklist ? "rounded-xl border border-teal-100 bg-teal-50/40 p-5 sm:p-6" : undefined}
+              className={
+                surface?.wrap ??
+                (checklist ? "rounded-xl border border-teal-100 bg-teal-50/40 p-5 sm:p-6" : undefined)
+              }
             >
+              {surface && (
+                <p
+                  className={`mb-2 inline-flex rounded-full px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide ${surface.badgeClass}`}
+                >
+                  {surface.badge}
+                </p>
+              )}
               <h2 id={id} className={SECTION_HEADING}>
                 {section.heading}
               </h2>
@@ -88,12 +101,21 @@ export function KeyTakeaways({ items }: { items: string[] }) {
         Коротко для проверки
       </h2>
       <ul className="mt-4 space-y-2.5">
-        {items.map((item) => (
-          <li key={item.slice(0, 48)} className="flex gap-2.5 text-sm leading-relaxed text-slate-800 sm:text-base">
-            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-teal-600" aria-hidden="true" />
-            {parseInlineBold(item)}
-          </li>
-        ))}
+        {items.map((item) => {
+          const { label, body } = parseTakeawayPrefix(item);
+          return (
+            <li key={item.slice(0, 48)} className="flex gap-2.5 text-sm leading-relaxed text-slate-800 sm:text-base">
+              {label ? (
+                <span className="mt-0.5 shrink-0 rounded bg-slate-200 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-slate-700">
+                  {label}
+                </span>
+              ) : (
+                <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-teal-600" aria-hidden="true" />
+              )}
+              <span className="min-w-0">{parseInlineBold(body)}</span>
+            </li>
+          );
+        })}
       </ul>
     </section>
   );

@@ -84,7 +84,24 @@ function portugalSatelliteOrigin(): string {
   return `${LOCALHOST_FALLBACK}${PORTUGAL_SATELLITE_PATH}`;
 }
 
-/** Canonical URL for Portugal satellite pages (www path until subdomain DNS is configured). */
+/** Canonical URL for Portugal satellite — never localhost (Threads, DB, SEO). */
+export function portugalSatellitePublicUrl(path = ""): string {
+  const normalized = path.startsWith("/") ? path : path ? `/${path}` : "";
+  if (portugalSatelliteSubdomainEnabled()) {
+    return `${PORTUGAL_SATELLITE_SUBDOMAIN}${normalized === "/" ? "" : normalized}`;
+  }
+  const publicEnv = process.env.EMIGRO_PUBLIC_SITE_URL?.trim();
+  if (publicEnv && !isLocalhostUrl(publicEnv)) {
+    return `${stripTrailingSlash(publicEnv)}${PORTUGAL_SATELLITE_PATH}${normalized === "/" ? "" : normalized}`;
+  }
+  const site = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+  if (site && !isLocalhostUrl(site)) {
+    return `${stripTrailingSlash(site)}${PORTUGAL_SATELLITE_PATH}${normalized === "/" ? "" : normalized}`;
+  }
+  return `${PORTUGAL_SATELLITE_SUBDOMAIN}${normalized === "/" ? "" : normalized}`;
+}
+
+/** Runtime URL for Portugal satellite pages (localhost in local dev). */
 export function portugalSatelliteUrl(path = ""): string {
   const normalized = path.startsWith("/") ? path : path ? `/${path}` : "";
   const origin = portugalSatelliteOrigin();

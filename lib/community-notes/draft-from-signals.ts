@@ -1,4 +1,4 @@
-import { geminiProJson } from "@/lib/news/gemini";
+import { geminiFastJson, geminiProJson } from "@/lib/news/gemini";
 import { buildNoteHashtags } from "@/lib/community-notes/hashtags";
 import {
   flattenBodySections,
@@ -6,6 +6,7 @@ import {
   validateNoteDraft,
 } from "@/lib/community-notes/editorial-quality";
 import { reconcileTopic } from "@/lib/community-notes/editorial-filter";
+import { sanitizeSnsFields } from "@/lib/community-notes/sns-editorial";
 import {
   PORTUGAL_EDITORIAL_SYSTEM,
   TOPIC_LABELS,
@@ -61,6 +62,7 @@ const draftSchema = {
         type: "object",
         properties: {
           heading: { type: "string" },
+          section_kind: { type: "string", enum: ["official", "practice", "gap"] },
           paragraphs: { type: "array", items: { type: "string" } },
           bullets: { type: "array", items: { type: "string" } },
         },
@@ -88,6 +90,61 @@ const draftSchema = {
     "faq",
   ],
 };
+
+/** Gemini API schema (uppercase) — tighter JSON for rewrites. */
+const draftSchemaGemini = {
+  type: "OBJECT",
+  properties: {
+    slug: { type: "STRING" },
+    title: { type: "STRING" },
+    excerpt: { type: "STRING" },
+    seo_title: { type: "STRING" },
+    seo_description: { type: "STRING" },
+    quick_answer: { type: "STRING" },
+    key_takeaways: { type: "ARRAY", items: { type: "STRING" } },
+    body_sections: {
+      type: "ARRAY",
+      items: {
+        type: "OBJECT",
+        properties: {
+          heading: { type: "STRING" },
+          section_kind: { type: "STRING", enum: ["official", "practice", "gap"] },
+          paragraphs: { type: "ARRAY", items: { type: "STRING" } },
+          bullets: { type: "ARRAY", items: { type: "STRING" } },
+        },
+        required: ["heading"],
+      },
+    },
+    faq: {
+      type: "ARRAY",
+      items: {
+        type: "OBJECT",
+        properties: { q: { type: "STRING" }, a: { type: "STRING" } },
+        required: ["q", "a"],
+      },
+    },
+  },
+  required: [
+    "slug",
+    "title",
+    "excerpt",
+    "seo_title",
+    "seo_description",
+    "quick_answer",
+    "key_takeaways",
+    "body_sections",
+    "faq",
+  ],
+};
+
+function noteRewriteContext(note: CommunityNote): string {
+  const sectionOutline = note.body_sections
+    .map((s) => `- ${s.heading}${s.section_kind ? ` (${s.section_kind})` : ""}`)
+    .join("\n");
+  return [note.title, note.excerpt, note.quick_answer, sectionOutline, ...note.key_takeaways.slice(0, 4)]
+    .filter(Boolean)
+    .join("\n");
+}
 
 function anonymizeSnippet(text: string): string {
   return text
@@ -146,8 +203,12 @@ ${snippets.map((s, i) => `${i + 1}. ${s}`).join("\n")}
 slug: latin kebab-case, уникальный, тема + 2026 если уместно.
 category: ${TOPIC_LABELS[topic] ?? "Быт в Португалии"}
 
-Напиши ПЛОТНУЮ заметку с body_sections (H2 + bullets). Не дублируй один смысл в разных секциях.
-Для guide про первый месяц / чеклист — секции по неделям + секция «типичные ошибки» с bullets.`;
+Напиши ПЛОТНУЮ заметку с body_sections (H2 + section_kind + bullets). Не дублируй один смысл в разных секциях.
+Обязательно раздели официальные требования (section_kind: official) и практику релокантов (section_kind: practice). Если чат расходится с порталом — секция section_kind: gap.
+В key_takeaways — минимум 2 пункта с префиксами «Официально:» и «На практике:».
+Для guide про первый месяц / чеклист — секции по неделям + секция «типичные ошибки» с bullets.
+
+Гео: аудитория — релоканты в Norte (Порту, Брага, Minho). Примеры практики — Porto, Braga, Matosinhos, Guimarães, Viana. Лиссабон — только если тема центральная (AIMA Saldanha, Cascais, аренда Lisboa).`;
 }
 
 async function generateDraft(cluster: SignalCluster): Promise<Omit<
@@ -207,13 +268,33 @@ function finalizeDraft(
   });
 }
 
+function withSnsSanitize(draft: DraftedNote): DraftedNote {
+  const sns = sanitizeSnsFields({
+    quick_answer: draft.quick_answer,
+    key_takeaways: draft.key_takeaways,
+    body_paragraphs: draft.body_paragraphs,
+    body_sections: draft.body_sections,
+    faq: draft.faq,
+  });
+  if (!sns.changed) return draft;
+  const body_sections = sns.patch.body_sections ?? draft.body_sections;
+  return {
+    ...draft,
+    quick_answer: sns.patch.quick_answer ?? draft.quick_answer,
+    key_takeaways: sns.patch.key_takeaways ?? draft.key_takeaways,
+    body_sections,
+    body_paragraphs: flattenBodySections(body_sections),
+    faq: sns.patch.faq ?? draft.faq,
+  };
+}
+
 export async function draftNoteFromCluster(cluster: SignalCluster): Promise<DraftedNote> {
   const inlineTags = cluster.signals.flatMap((s) => s.hashtags ?? []).slice(0, 6);
   let lastError: string | undefined;
 
   for (let attempt = 0; attempt < 2; attempt += 1) {
     const raw = await generateDraft(cluster);
-    const draft = finalizeDraft(cluster, raw, inlineTags);
+    const draft = withSnsSanitize(finalizeDraft(cluster, raw, inlineTags));
     const errors = validateNoteDraft(draft);
     if (errors.length === 0) return draft;
     lastError = errors.join("; ");
@@ -232,7 +313,7 @@ export async function rewriteCommunityNote(note: CommunityNote): Promise<Drafted
       {
         message_id: 0,
         channel_username: note.source_channel?.split("+")[0] ?? "chatlisboa",
-        text: [note.title, note.excerpt, note.quick_answer, ...note.body_paragraphs].join("\n"),
+        text: noteRewriteContext(note),
         topic_hints: note.topic_tags,
         content_kind: note.content_kind,
         city: note.city,
@@ -246,34 +327,42 @@ export async function rewriteCommunityNote(note: CommunityNote): Promise<Drafted
 
 ПЕРЕПИСЫВАНИЕ существующей заметки. Сохрани slug: ${note.slug}
 Текущий заголовок: ${note.title}
-Улучши глубину, структуру body_sections, SEO/AEO. Не делай текст тоньше — только плотнее и полезнее.`;
+Улучши глубину, структуру body_sections, SEO/AEO. Не делай текст тоньше — только плотнее и полезнее.
+Явно раздели официальные требования и практику из чатов (section_kind + метки в key_takeaways).
 
-  const raw = await geminiProJson<
-    Omit<
-      DraftedNote,
-      | "category"
-      | "content_kind"
-      | "official_links"
-      | "topic_tags"
-      | "hashtags"
-      | "source_channel"
-      | "source_label"
-      | "body_paragraphs"
-    >
-  >(PORTUGAL_EDITORIAL_SYSTEM, userPrompt, draftSchema, 12288);
+КОМПАКТНЫЙ JSON (критично): максимум 5 body_sections, до 5 bullets на секцию, ровно 5 faq, 4–6 key_takeaways. Не дублируй заголовки секций. Без markdown ** в bullets. Минимум 600 слов суммарно для guide.`;
 
-  const draft = finalizeDraft(cluster, { ...raw, slug: note.slug }, note.hashtags);
-  if (note.slug === "pervyj-mesyac-portugaliya-checklist") {
-    draft.category = "Первый месяц";
-  } else if (!note.category.includes("CIPLE")) {
-    draft.category = TOPIC_LABELS[topic] ?? note.category;
-  } else {
-    draft.category = note.category;
+  let lastError: string | undefined;
+  for (let attempt = 0; attempt < 4; attempt += 1) {
+    const retryHint = lastError ? `\n\nИсправь ошибки прошлой попытки: ${lastError}` : "";
+    const call = attempt % 2 === 0 ? geminiProJson : geminiFastJson;
+    const raw = await call<
+      Omit<
+        DraftedNote,
+        | "category"
+        | "content_kind"
+        | "official_links"
+        | "topic_tags"
+        | "hashtags"
+        | "source_channel"
+        | "source_label"
+        | "body_paragraphs"
+      >
+    >(PORTUGAL_EDITORIAL_SYSTEM, userPrompt + retryHint, draftSchemaGemini, 8192);
+
+    const draft = withSnsSanitize(finalizeDraft(cluster, { ...raw, slug: note.slug }, note.hashtags));
+    if (note.slug === "pervyj-mesyac-portugaliya-checklist") {
+      draft.category = "Первый месяц";
+    } else if (!note.category.includes("CIPLE")) {
+      draft.category = TOPIC_LABELS[topic] ?? note.category;
+    } else {
+      draft.category = note.category;
+    }
+
+    const errors = validateNoteDraft(draft);
+    if (errors.length === 0) return draft;
+    lastError = errors.join("; ");
   }
 
-  const errors = validateNoteDraft(draft);
-  if (errors.length > 0) {
-    throw new Error(`Rewrite quality gate failed: ${errors.join("; ")}`);
-  }
-  return draft;
+  throw new Error(`Rewrite quality gate failed: ${lastError ?? "unknown"}`);
 }

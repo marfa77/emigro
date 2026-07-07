@@ -27,8 +27,11 @@ export const FEATURED_HASHTAGS = [
   "совет",
   "новости",
   "транспорт",
+  "auto",
+  "imt",
   "sim",
   "школа",
+  "porto",
   "lisboa",
 ] as const;
 
@@ -51,6 +54,9 @@ export const HASHTAG_LABELS: Record<string, string> = {
   qa: "Q&A",
   transport: "Транспорт",
   транспорт: "Транспорт",
+  auto: "Авто",
+  imt: "IMT",
+  водительские: "Права",
   sim: "SIM",
   school: "Школа",
   школа: "Школа",
@@ -58,6 +64,9 @@ export const HASHTAG_LABELS: Record<string, string> = {
   еда: "Еда",
   pets: "Питомцы",
   portugal: "Португалия",
+  porto: "Порту",
+  norte: "Norte",
+  braga: "Брага",
   lisboa: "Лиссабон",
   lisbon: "Лиссабон",
 };
@@ -87,7 +96,7 @@ const KIND_TAG: Record<ContentKind, string> = {
 const KIND_ALIASES = new Set(["news", "lifehack", "tip", "guide", "qa", "новости", "лайфхак", "совет", "гайд", "вопрос"]);
 
 /** Geo tags belong in page header, not in every card pill list. */
-const GEO_TAGS = new Set(["portugal", "lisboa", "lisbon"]);
+const GEO_TAGS = new Set(["portugal", "porto", "norte", "braga", "lisboa", "lisbon"]);
 
 /** Merge topic hints + content kind + inline #tags into deduped list. */
 export function buildNoteHashtags(input: {

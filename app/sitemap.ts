@@ -12,7 +12,7 @@ import {
 import { getPublishedCommunityNotes } from "@/lib/community-notes/queries";
 import { normalizeHashtag } from "@/lib/community-notes/hashtags";
 import { newsIndexPath } from "@/lib/news/topics";
-import { newsArticleUrl, newsHubUrl, publicSiteUrl, portugalSatelliteUrl } from "@/lib/site-url";
+import { newsArticleUrl, newsHubUrl, publicSiteUrl, portugalSatellitePublicUrl } from "@/lib/site-url";
 import { TRANSIT_HUBS } from "@/lib/transit-hubs";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -140,23 +140,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }
   const satelliteRoutes: MetadataRoute.Sitemap = [
     {
-      url: portugalSatelliteUrl("/"),
+      url: portugalSatellitePublicUrl("/"),
       changeFrequency: "daily",
       priority: 0.9,
     },
     {
-      url: portugalSatelliteUrl("/llms"),
+      url: portugalSatellitePublicUrl("/llms"),
       changeFrequency: "daily",
       priority: 0.5,
     },
     ...portugalNotes.map((note) => ({
-      url: portugalSatelliteUrl(`/notes/${note.slug}`),
+      url: portugalSatellitePublicUrl(`/notes/${note.slug}`),
       lastModified: note.updated_at || note.published_at || undefined,
       changeFrequency: "weekly" as const,
       priority: note.content_kind === "news" ? 0.85 : 0.75,
     })),
     ...Array.from(tagSet).map((tag) => ({
-      url: portugalSatelliteUrl(`/tag/${tag}`),
+      url: portugalSatellitePublicUrl(`/tag/${tag}`),
       changeFrequency: "weekly" as const,
       priority: 0.65,
     })),

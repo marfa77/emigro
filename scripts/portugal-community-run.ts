@@ -17,6 +17,7 @@ dotenv.config({ path: resolve(process.cwd(), ".env.local") });
 dotenv.config({ path: resolve(process.cwd(), ".env") });
 
 import { publishDraftsFromNewSignals } from "@/lib/community-notes/publish-drafts";
+import { ensurePortugalCronEnv } from "@/lib/community-notes/cron-env";
 import { refreshDailySpotlight } from "@/lib/community-notes/daily-spotlight";
 import { ingestCommunitySignals } from "@/lib/community-notes/queries";
 import { publishPortugalSeedNotes } from "@/lib/community-notes/publish-seed";
@@ -80,6 +81,7 @@ async function publishDrafts(max: number) {
 }
 
 async function main() {
+  ensurePortugalCronEnv();
   if (seedOnly) {
     await publishPortugalSeedNotes();
     console.log("[seed] published editorial baseline notes");

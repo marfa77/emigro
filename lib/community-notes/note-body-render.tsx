@@ -1,5 +1,10 @@
 import type { ReactNode } from "react";
 import type { NoteBodySection } from "@/lib/community-notes/types";
+import {
+  inferSectionKind,
+  SECTION_KIND_LABELS,
+  type SectionKind,
+} from "@/lib/community-notes/official-vs-practice";
 
 /** Render **bold** segments from Gemini output. */
 export function parseInlineBold(text: string): ReactNode[] {
@@ -32,4 +37,39 @@ export function sectionSlug(text: string): string {
     .toLowerCase()
     .replace(/[^a-zа-я0-9]+/gi, "-")
     .slice(0, 48);
+}
+
+const TAKEAWAY_PREFIX = /^(Официально|На практике|Расхождение|В чате):\s*/i;
+
+export function parseTakeawayPrefix(text: string): { label: string | null; body: string } {
+  const match = text.trim().match(TAKEAWAY_PREFIX);
+  if (!match) return { label: null, body: text };
+  return { label: match[1], body: text.replace(TAKEAWAY_PREFIX, "").trim() };
+}
+
+const SECTION_SURFACE: Record<
+  SectionKind,
+  { wrap: string; badge: string; badgeClass: string }
+> = {
+  official: {
+    wrap: "rounded-xl border border-slate-200 bg-slate-50/90 p-5 sm:p-6",
+    badge: SECTION_KIND_LABELS.official,
+    badgeClass: "bg-slate-700 text-white",
+  },
+  practice: {
+    wrap: "rounded-xl border border-teal-100 bg-teal-50/50 p-5 sm:p-6",
+    badge: SECTION_KIND_LABELS.practice,
+    badgeClass: "bg-teal-700 text-white",
+  },
+  gap: {
+    wrap: "rounded-xl border border-amber-200 bg-amber-50/80 p-5 sm:p-6",
+    badge: SECTION_KIND_LABELS.gap,
+    badgeClass: "bg-amber-700 text-white",
+  },
+};
+
+export function resolveSectionSurface(section: NoteBodySection) {
+  const kind = inferSectionKind(section);
+  if (!kind) return null;
+  return SECTION_SURFACE[kind];
 }
