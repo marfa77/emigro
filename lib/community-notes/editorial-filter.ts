@@ -46,6 +46,7 @@ export function reconcileTopic(topic: string, title: string, slug: string): stri
 
 export function shouldAutoPublishCluster(cluster: SignalCluster): boolean {
   if (SKIP_AUTO_PUBLISH_TOPICS.has(cluster.topic)) return false;
+  if (cluster.signals.length < 2) return false;
   if (cluster.topic === "general") return cluster.signals.length >= 5;
   return CORE_RELOC_TOPICS.has(cluster.topic) || cluster.topic === "general";
 }

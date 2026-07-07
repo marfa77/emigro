@@ -41,6 +41,7 @@
     "portugal:index-license-history": "tsx scripts/portugal-index-license-history.ts",
     "portugal:rewrite": "tsx scripts/portugal-rewrite-notes.ts",
     "portugal:rewrite-next": "tsx scripts/portugal-rewrite-next.ts",
+    "portugal:enrich-practice": "tsx scripts/portugal-enrich-practice.ts",
     "portugal:backfill-month": "tsx scripts/portugal-backfill-month.ts",
     "portugal:backfill-tags": "tsx scripts/backfill-community-hashtags.ts",
     "portugal:backfill-seo": "tsx scripts/backfill-community-seo.ts",

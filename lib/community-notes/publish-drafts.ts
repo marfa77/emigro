@@ -13,6 +13,7 @@ export type PublishDraftsResult = {
   clusters: number;
   published: string[];
   skipped: string[];
+  blockedPractice: string[];
   errors: string[];
 };
 
@@ -50,6 +51,7 @@ export async function publishDraftsFromNewSignals(maxNotes: number): Promise<Pub
     clusters: 0,
     published: [],
     skipped: [],
+    blockedPractice: [],
     errors: [],
   };
 
@@ -128,7 +130,13 @@ export async function publishDraftsFromNewSignals(maxNotes: number): Promise<Pub
       }
     } catch (e) {
       const message = e instanceof Error ? e.message : "draft failed";
-      result.errors.push(message);
+      if (/practice|official\/practice/i.test(message)) {
+        const label = `${cluster.topic}:blocked-thin-practice`;
+        result.blockedPractice.push(label);
+        console.warn(`[publish] blocked — thin practice for ${cluster.topic}: ${message}`);
+      } else {
+        result.errors.push(message);
+      }
     }
   }
 

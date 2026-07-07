@@ -6,6 +6,10 @@ import {
   validateNoteDraft,
 } from "@/lib/community-notes/editorial-quality";
 import { reconcileTopic } from "@/lib/community-notes/editorial-filter";
+import {
+  enrichDraftPracticeFromSignals,
+  practicePublishGateErrors,
+} from "@/lib/community-notes/practice-enrichment";
 import { sanitizeSnsFields } from "@/lib/community-notes/sns-editorial";
 import {
   PORTUGAL_EDITORIAL_SYSTEM,
@@ -295,8 +299,11 @@ export async function draftNoteFromCluster(cluster: SignalCluster): Promise<Draf
   for (let attempt = 0; attempt < 2; attempt += 1) {
     const raw = await generateDraft(cluster);
     const draft = withSnsSanitize(finalizeDraft(cluster, raw, inlineTags));
-    const errors = validateNoteDraft(draft);
-    if (errors.length === 0) return draft;
+    const enriched = enrichDraftPracticeFromSignals(draft, cluster.signals);
+    const merged: DraftedNote = { ...draft, ...enriched.draft };
+    const errors = validateNoteDraft(merged);
+    errors.push(...practicePublishGateErrors(enriched.audit, enriched.signalBullets));
+    if (errors.length === 0) return merged;
     lastError = errors.join("; ");
   }
 

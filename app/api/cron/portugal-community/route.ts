@@ -27,8 +27,10 @@ export async function GET(request: Request) {
         clusters: result.clusters,
         published: result.published.length,
         skipped: result.skipped.length,
+        blocked_practice: result.blockedPractice.length,
         errors: result.errors.length,
         slugs: result.published.join(",") || null,
+        blocked: result.blockedPractice.join(",") || null,
         spotlight: spotlight?.note_slug ?? null,
       },
       "cron"
