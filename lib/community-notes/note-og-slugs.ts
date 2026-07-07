@@ -1,0 +1,23 @@
+/** Slugs with committed hero/OG WebP in public/images/community-notes/ (regenerate via portugal:generate-note-images). */
+export const COMMITTED_NOTE_OG_SLUGS = new Set([
+  "aima-agora-zapis-2026",
+  "arenda-kvartiry-lisbon-pervyi-mesyac-2026",
+  "arenda-lissabon-do-podpisi",
+  "ciple-guide-2026",
+  "kak-otkryt-bankovskiy-schet-portugalia-2026",
+  "lgoty-s-vnj-kulturnye-mesta-2026",
+  "mashina-portugaliya-kupit-arenda-import-2026",
+  "mezhdunarodnye-shkoly-portugaliya-2026",
+  "nif-lissabon-chto-puutayut",
+  "otkrytie-scheta-kreditnaya-karta-portugaliya-2026",
+  "pervyj-mesyac-portugaliya-checklist",
+  "poisk-mestnyh-uslug-portugaliya-2026",
+  "poterya-pitomtsa-portugaliya-gid-2026",
+  "smena-adresa-nif-financas-2026",
+  "sns-registration-changes-2026",
+  "studencheskiy-vnzh-portugal-mify-aima-2026",
+  "termo-responsabilidade-podtverzhdenie-zhilya-2026",
+  "vozvrat-remont-tovarov-portugaliya-2026",
+  "vybor-internet-provaydera-portugaliya-2026",
+  "zamena-voditelskih-prav-portugaliya-2026",
+]);

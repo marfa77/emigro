@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import sharp from "sharp";
 import type { CommunityNote } from "@/lib/community-notes/types";
+import { COMMITTED_NOTE_OG_SLUGS } from "@/lib/community-notes/note-og-slugs";
 import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 
 const PEXELS_API = "https://api.pexels.com/v1/search";
@@ -63,6 +64,7 @@ export function noteOgImageFilePath(slug: string): string {
 }
 
 export function hasNoteOgImage(slug: string): boolean {
+  if (COMMITTED_NOTE_OG_SLUGS.has(slug)) return true;
   const dest = noteOgImageFilePath(slug);
   return fs.existsSync(dest) && fs.statSync(dest).size > 20_000;
 }
