@@ -1,5 +1,7 @@
 import { createAdminClient } from "@/lib/admin/supabase";
 import { sendStatsBotMessage } from "@/lib/telegram/admin-bot";
+import type { WizardTelegramDeliverySource } from "@/lib/wizard/save-telegram-user";
+import { saveWizardTelegramUserDelivery, type WizardTelegramUserProfile } from "@/lib/wizard/save-telegram-user";
 import { formatUserWizardReportHtml } from "@/lib/wizard/format-user-report";
 import { loadWizardSessionReport } from "@/lib/wizard/session-report";
 
@@ -37,6 +39,8 @@ export async function sendWizardReportToTelegramUser(input: {
   sessionId: string;
   telegramUserId: string | number;
   force?: boolean;
+  profile?: WizardTelegramUserProfile;
+  source?: WizardTelegramDeliverySource;
 }): Promise<{ success: boolean; error?: string; skipped?: boolean }> {
   const sessionId = input.sessionId.trim();
   const telegramUserId = String(input.telegramUserId).trim();
@@ -44,23 +48,36 @@ export async function sendWizardReportToTelegramUser(input: {
     return { success: false, error: "session_id and telegram user id required" };
   }
 
-  if (!input.force && (await userWizardReportAlreadySent(sessionId, telegramUserId))) {
-    return { success: true, skipped: true };
-  }
-
   const loaded = await loadWizardSessionReport(sessionId);
   if (!loaded) {
     return { success: false, error: "wizard session not found" };
+  }
+
+  const persistUser = async (reportSent: boolean) => {
+    if (!input.profile) return;
+    await saveWizardTelegramUserDelivery({
+      profile: input.profile,
+      session: loaded,
+      source: input.source ?? "bot_start",
+      reportSent,
+    });
+  };
+
+  if (!input.force && (await userWizardReportAlreadySent(sessionId, telegramUserId))) {
+    await persistUser(true);
+    return { success: true, skipped: true };
   }
 
   const chunks = formatUserWizardReportHtml(loaded);
   for (const chunk of chunks) {
     const sent = await sendStatsBotMessage(telegramUserId, chunk, { parseMode: "HTML" });
     if (!sent.success) {
+      await persistUser(false);
       return { success: false, error: sent.error ?? "telegram send failed" };
     }
   }
 
   await markUserWizardReportSent(sessionId, telegramUserId);
+  await persistUser(true);
   return { success: true };
 }

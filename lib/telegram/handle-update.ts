@@ -121,6 +121,13 @@ async function handleWizardStartCommand(message: TelegramMessage): Promise<boole
   const delivered = await sendWizardReportToTelegramUser({
     sessionId: parsed.sessionId,
     telegramUserId: userId,
+    profile: {
+      telegramUserId: userId,
+      username: message.from?.username,
+      firstName: message.from?.first_name,
+      lastName: message.from?.last_name,
+    },
+    source: "bot_start",
   });
 
   if (!delivered.success) {

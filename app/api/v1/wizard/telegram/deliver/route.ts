@@ -45,7 +45,17 @@ export async function POST(request: Request) {
   }
 
   const telegramUserId = String(body.id);
-  const result = await sendWizardReportToTelegramUser({ sessionId, telegramUserId });
+  const result = await sendWizardReportToTelegramUser({
+    sessionId,
+    telegramUserId,
+    profile: {
+      telegramUserId,
+      username: body.username,
+      firstName: body.first_name,
+      lastName: body.last_name,
+    },
+    source: "login_widget",
+  });
   if (!result.success) {
     return NextResponse.json({ error: result.error ?? "Delivery failed" }, { status: 500 });
   }
