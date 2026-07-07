@@ -7,13 +7,15 @@ import { HeroShell } from "@/components/visuals/HeroShell";
 import { CONTACT_EMAIL } from "@/lib/site-contact";
 import { DZEN_STORIES_URL, DISCUSSION_ACCESS_HINT, DISCUSSION_GROUP_HANDLE, DISCUSSION_GROUP_LABEL, NEWS_TELEGRAM_URL } from "@/lib/community";
 import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
+import { buildCommunityPageSchema } from "@/lib/seo/community-page-seo";
 import { pageMetadata, pageUrl } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
   title: "Дискуссионная группа Emigro — Telegram",
   description:
-    "Обсуждения Emigro при канале @Emigro_news: подпишитесь на канал и пишите в комментариях к постам — чат @emigro_chat привязан к каналу.",
+    "Официальная страница сообщества Emigro для русскоязычных релокантов: канал @Emigro_news, обсуждения в комментариях, опыт переезда и новости маршрутов ВНЖ в Европе.",
   path: "/ru/community",
+  ogImageAlt: "Сообщество Emigro в Telegram",
 });
 
 const BENEFITS = [
@@ -52,15 +54,24 @@ const RULES = [
 ] as const;
 
 export default function CommunityPage() {
+  const communityUrl = pageUrl("/ru/community");
   const breadcrumbSchema = buildBreadcrumbSchema([
     { name: "Все направления", item: pageUrl("/ru") },
-    { name: "Дискуссионная группа" },
+    { name: "Дискуссионная группа", item: communityUrl },
   ]);
+  const structuredData = buildCommunityPageSchema();
 
   return (
     <>
       <SiteHeader />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      {structuredData.map((schema, index) => (
+        <script
+          key={`community-schema-${index}`}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
+      ))}
       <main className="mx-auto max-w-5xl px-4 py-10">
         <nav className="text-sm text-slate-500">
           <Link href="/ru" className="text-corridor-600 hover:underline">
@@ -119,6 +130,39 @@ export default function CommunityPage() {
               </li>
             ))}
           </ul>
+        </section>
+
+        <section className="mt-14 rounded-2xl border border-slate-200 bg-white p-6 sm:p-8">
+          <h2 className="text-xl font-semibold text-slate-900">Частые вопросы</h2>
+          <dl className="mt-4 space-y-5">
+            <div>
+              <dt className="font-medium text-slate-900">Как попасть в обсуждения?</dt>
+              <dd className="mt-1 text-sm leading-relaxed text-slate-600">
+                Подпишитесь на @Emigro_news и пишите в комментариях к постам — чат @emigro_chat открывается там же.
+              </dd>
+            </div>
+            <div>
+              <dt className="font-medium text-slate-900">Чем это отличается от wizard на сайте?</dt>
+              <dd className="mt-1 text-sm leading-relaxed text-slate-600">
+                Wizard подбирает маршруты ВНЖ по анкете. Telegram — живой опыт, вопросы по конкретным кейсам и быстрые
+                новости от участников.
+              </dd>
+            </div>
+            <div>
+              <dt className="font-medium text-slate-900">Это юридическая консультация?</dt>
+              <dd className="mt-1 text-sm leading-relaxed text-slate-600">
+                Нет. Для официальных решений используйте{" "}
+                <Link href="/ru/partners" className="text-corridor-600 hover:underline">
+                  справочник провайдеров
+                </Link>{" "}
+                или{" "}
+                <Link href="/ru/assist" className="text-corridor-600 hover:underline">
+                  Emigro Assist
+                </Link>
+                .
+              </dd>
+            </div>
+          </dl>
         </section>
 
         <section className="mt-14 rounded-2xl border border-corridor-200 bg-gradient-to-br from-corridor-50 to-white p-6 text-center sm:p-10">
