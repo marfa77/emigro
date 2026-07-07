@@ -1,4 +1,4 @@
-import { CorridorHubTile } from "@/components/corridor/hub/CorridorHubTile";
+import { CorridorHubTile, CorridorHubTileSlot } from "@/components/corridor/hub/CorridorHubTile";
 import { DestinationCardPlain } from "@/components/destinations/DestinationCardPlain";
 import { resolveCorridorCountryTile } from "@/lib/corridor/hub";
 import { getCorridorHubTileStats } from "@/lib/corridor/hub-stats";
@@ -13,5 +13,9 @@ export async function DestinationCard({ topic }: { topic: NewsTopicConfig }) {
   const stats = await getCorridorHubTileStats(topic);
   const tile = resolveCorridorCountryTile(topic, stats);
 
-  return <CorridorHubTile tile={tile} />;
+  return (
+    <CorridorHubTileSlot>
+      <CorridorHubTile tile={tile} />
+    </CorridorHubTileSlot>
+  );
 }

@@ -1,10 +1,14 @@
 /** Canonical URLs in DB/spotlight when cron runs outside Vercel (VPS, local scripts). */
 export function ensurePortugalCronEnv(): void {
-  if (!process.env.PORTUGAL_SATELLITE_USE_SUBDOMAIN?.trim()) {
-    process.env.PORTUGAL_SATELLITE_USE_SUBDOMAIN = "true";
+  const subdomainKey = "PORTUGAL_SATELLITE_USE_SUBDOMAIN";
+  const siteKey = "EMIGRO_PUBLIC_SITE_URL";
+
+  if (!process.env[subdomainKey]?.trim()) {
+    process.env[subdomainKey] = "true";
   }
-  const publicUrl = process.env.EMIGRO_PUBLIC_SITE_URL?.trim();
+
+  const publicUrl = process.env[siteKey]?.trim();
   if (!publicUrl || /localhost|127\.0\.0\.1/.test(publicUrl)) {
-    process.env.EMIGRO_PUBLIC_SITE_URL = "https://www.emigro.online";
+    process.env[siteKey] = "https://www.emigro.online";
   }
 }

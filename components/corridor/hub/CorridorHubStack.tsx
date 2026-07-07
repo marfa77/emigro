@@ -1,4 +1,4 @@
-import { CorridorHubTile, CorridorHubTilesLegend } from "@/components/corridor/hub/CorridorHubTile";
+import { CorridorHubTile, CorridorHubTileSlot, CorridorHubTilesGrid, CorridorHubTilesLegend } from "@/components/corridor/hub/CorridorHubTile";
 import {
   corridorHubJourney,
   corridorHubLabel,
@@ -20,16 +20,16 @@ export async function CorridorHubStack({ topic }: Props) {
 
   return (
     <section className="mt-10" aria-labelledby={headingId}>
-      <div className="rounded-2xl border border-corridor-200 bg-gradient-to-br from-slate-950 via-slate-900 to-corridor-950 p-6 sm:p-8">
-        <h2 id={headingId} className="text-2xl font-bold text-white">
+      <div className="rounded-2xl border border-corridor-200 bg-gradient-to-br from-slate-950 via-slate-900 to-corridor-950 p-4 sm:p-6 md:p-8">
+        <h2 id={headingId} className="text-xl font-bold text-white sm:text-2xl">
           {hubLabel}
         </h2>
 
-        <ol className="mt-6 grid gap-3 sm:grid-cols-3">
+        <ol className="mt-4 grid gap-2 sm:mt-6 sm:grid-cols-3 sm:gap-3">
           {journey.map((item, index) => (
             <li
               key={item.step}
-              className="rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm text-slate-200"
+              className="rounded-lg border border-white/10 bg-white/5 px-3 py-2.5 text-xs text-slate-200 sm:px-4 sm:py-3 sm:text-sm"
             >
               <span className="font-semibold text-white">
                 {index + 1}. {item.step}
@@ -39,11 +39,13 @@ export async function CorridorHubStack({ topic }: Props) {
           ))}
         </ol>
 
-        <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5 lg:gap-4">
+        <CorridorHubTilesGrid>
           {tiles.map((tile) => (
-            <CorridorHubTile key={tile.id} tile={tile} />
+            <CorridorHubTileSlot key={tile.id}>
+              <CorridorHubTile tile={tile} />
+            </CorridorHubTileSlot>
           ))}
-        </div>
+        </CorridorHubTilesGrid>
 
         <CorridorHubTilesLegend />
       </div>

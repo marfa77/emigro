@@ -4,7 +4,7 @@ import { ArrowRight, BookOpen, Globe2, Newspaper, Route } from "lucide-react";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { RelocatorChatPromo } from "@/components/community/RelocatorChatPromo";
 import { WizardPulseSection } from "@/components/wizard/WizardPulseSection";
-import { CorridorHubTilesLegend } from "@/components/corridor/hub/CorridorHubTile";
+import { CorridorHubTilesLegend, CorridorHubTilesGrid } from "@/components/corridor/hub/CorridorHubTile";
 import { DestinationCard } from "@/components/destinations/DestinationCard";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { HubHeroVisual } from "@/components/visuals/HubHeroVisual";
@@ -195,11 +195,11 @@ export default async function RuHubPage() {
               <h3 className="mt-8 text-sm font-semibold uppercase tracking-wide text-corridor-700">
                 Полные коридоры ({fullCorridors.length})
               </h3>
-              <div className="mt-4 grid grid-cols-2 gap-3 lg:grid-cols-3 lg:gap-4">
+              <CorridorHubTilesGrid>
                 {fullCorridors.map((topic) => (
                   <DestinationCard key={topic.key} topic={topic} />
                 ))}
-              </div>
+              </CorridorHubTilesGrid>
               <CorridorHubTilesLegend />
             </>
           )}
@@ -249,11 +249,11 @@ export default async function RuHubPage() {
               <h3 className="mt-10 text-sm font-semibold uppercase tracking-wide text-amber-800">
                 Коридоры в разработке ({developingCorridors.length})
               </h3>
-              <div className="mt-4 grid grid-cols-2 gap-3 lg:grid-cols-3 lg:gap-4">
+              <CorridorHubTilesGrid>
                 {developingCorridors.map((topic) => (
                   <DestinationCard key={topic.key} topic={topic} />
                 ))}
-              </div>
+              </CorridorHubTilesGrid>
             </>
           )}
 

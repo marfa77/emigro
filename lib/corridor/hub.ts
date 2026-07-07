@@ -138,6 +138,7 @@ export function corridorHubNavItems(
 
 export function corridorHubJourney(topic: NewsTopicConfig, features = getCorridorHubFeatures(topic)) {
   const country = topic.countryRu;
+  const countryIn = countryLocativeRu(country);
   const liveStep = features.hasPractice
     ? `Сателлит + Barakhlo — быт, услуги, объявления от сообщества.`
     : `Barakhlo уже работает в вашем городе; практика-слой Emigro для ${country} — скоро.`;
@@ -152,10 +153,45 @@ export function corridorHubJourney(topic: NewsTopicConfig, features = getCorrido
       detail: "Гайды + справочник + program pages — требования, сроки, официальные ссылки.",
     },
     {
-      step: `Живу в ${country}`,
+      step: `Живу в ${countryIn}`,
       detail: liveStep,
     },
   ] as const;
+}
+
+function countryLocativeRu(countryRu: string): string {
+  const map: Record<string, string> = {
+    Португалия: "Португалии",
+    Испания: "Испании",
+    Германия: "Германии",
+    Италия: "Италии",
+    Франция: "Франции",
+    Нидерланды: "Нидерландах",
+    Польша: "Польше",
+    Чехия: "Чехии",
+    Австрия: "Австрии",
+    Греция: "Греции",
+    Хорватия: "Хорватии",
+    Венгрия: "Венгрии",
+    Румыния: "Румынии",
+    Болгария: "Болгарии",
+    Словакия: "Словакии",
+    Словения: "Словении",
+    Эстония: "Эстонии",
+    Латвия: "Латвии",
+    Литва: "Литве",
+    Финляндия: "Финляндии",
+    Швеция: "Швеции",
+    Норвегия: "Норвегии",
+    Дания: "Дании",
+    Ирландия: "Ирландии",
+    Бельгия: "Бельгии",
+    Швейцария: "Швейцарии",
+    Кипр: "Кипре",
+    Мальта: "Мальте",
+    Люксембург: "Люксембурге",
+  };
+  return map[countryRu] ?? countryRu;
 }
 
 const COMING_SOON_RATINGS: HubTileRating[] = [
