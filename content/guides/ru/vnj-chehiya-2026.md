@@ -22,7 +22,7 @@ official_sources:
     label: IPC — portal for foreigners (CZ)
 estimated_minutes: 18
 date_published: 2026-06-29
-date_modified: 2026-07-05
+date_modified: 2026-07-07
 ---
 
 ## Кому подходит этот гайд
@@ -196,7 +196,7 @@ date_modified: 2026-07-05
 | Blue Card | ~€2 900/мес | ~€3 020/мес |
 | RU/UA инфраструктура | Prague — сильное IT | Warsaw — максимум |
 | Язык рынка | Чешский + английский | Польский + английский |
-| Бюрократия | MOI Prague — очереди | Mazowieckie — очереди |
+| Бюрократия | MOI Prague: **60–90 дней** | Mazowieckie: **6–12+ мес.** на практике |
 
 Сравните в [wizard CZ](/ru/czechia/wizard) и [wizard PL](/ru/poland/wizard).
 
@@ -224,7 +224,7 @@ date_modified: 2026-07-05
 
 ### CZ или PL для IT с €2 500/мес?
 
-CZ — ниже порог Blue Card (~€2 900 vs ~€3 020); PL — больше RU/UA инфраструктуры. Сравните в [wizard](/ru/wizard).
+CZ — ниже порог Blue Card (~€2 900 vs ~€3 020) и быстрее MOI (**60–90 дней**); PL — больше RU/UA инфраструктуры, но voivodeship в Варшаве часто **6–12+ мес.** Сравните в [wizard](/ru/wizard).
 
 ### Сколько ждать employee card в Prague?
 
