@@ -3,7 +3,7 @@
 import { ArrowRight } from "lucide-react";
 import { TelegramIcon } from "@/components/news/ShareIcons";
 import { trackEvent } from "@/lib/analytics/client";
-import { RELOCATOR_CHAT_URL } from "@/lib/community";
+import { COMMUNITY_CTA_LABEL, COMMUNITY_CTA_URL } from "@/lib/community";
 
 type Props = {
   source: string;
@@ -19,14 +19,14 @@ export function CommunityJoinButton({ source, size = "md", className = "" }: Pro
 
   return (
     <a
-      href={RELOCATOR_CHAT_URL}
+      href={COMMUNITY_CTA_URL}
       target="_blank"
       rel="noopener noreferrer"
       onClick={() => trackEvent("community_join_click", { source })}
       className={`${sizeClass} ${className}`}
     >
       <TelegramIcon className="h-5 w-5" />
-      Вступить в Telegram
+      {COMMUNITY_CTA_LABEL}
       <ArrowRight className="h-4 w-4" />
     </a>
   );

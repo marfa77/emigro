@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ArrowRight, MessageCircle } from "lucide-react";
 import { TelegramIcon } from "@/components/news/ShareIcons";
 import { trackEvent } from "@/lib/analytics/client";
-import { COMMUNITY_PATH, DISCUSSION_GROUP_LABEL, DISCUSSION_GROUP_URL } from "@/lib/community";
+import { COMMUNITY_CTA_LABEL, COMMUNITY_CTA_URL, COMMUNITY_PATH, DISCUSSION_ACCESS_HINT, DISCUSSION_GROUP_LABEL } from "@/lib/community";
 
 type Variant = "banner" | "inline" | "sidebar";
 
@@ -27,16 +27,16 @@ export function RelocatorChatPromo({ variant = "banner", source, className = "" 
         <TelegramIcon className="h-6 w-6 shrink-0 text-sky-600" />
         <p className="min-w-0 flex-1 text-sm text-slate-700">
           Есть вопрос по переезду?{" "}
-          <span className="font-medium text-slate-900">Спросите в дискуссионной группе</span>
+          <span className="font-medium text-slate-900">Подпишитесь на канал и пишите в комментариях к постам</span>
         </p>
         <a
-          href={DISCUSSION_GROUP_URL}
+          href={COMMUNITY_CTA_URL}
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => trackJoinClick(source)}
           className="inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-sky-600 px-4 py-2 text-sm font-medium text-white hover:bg-sky-700"
         >
-          В Telegram
+          {COMMUNITY_CTA_LABEL}
           <ArrowRight className="h-3.5 w-3.5" />
         </a>
       </aside>
@@ -51,17 +51,17 @@ export function RelocatorChatPromo({ variant = "banner", source, className = "" 
           <h2 className="font-semibold text-slate-900">{DISCUSSION_GROUP_LABEL}</h2>
         </div>
         <p className="mt-2 text-sm leading-relaxed text-slate-600">
-          Есть вопрос по переезду? Задайте его в дискуссионной группе при канале @Emigro_news — обмен опытом без спама.
+          {DISCUSSION_ACCESS_HINT}
         </p>
         <a
-          href={DISCUSSION_GROUP_URL}
+          href={COMMUNITY_CTA_URL}
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => trackJoinClick(source)}
           className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-sky-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-sky-700"
         >
           <TelegramIcon className="h-4 w-4" />
-          Вступить в Telegram
+          {COMMUNITY_CTA_LABEL}
         </a>
         <Link href={COMMUNITY_PATH} className="mt-2 block text-center text-xs text-sky-700 hover:underline">
           Подробнее о сообществе
@@ -83,20 +83,20 @@ export function RelocatorChatPromo({ variant = "banner", source, className = "" 
             <p className="text-xs font-semibold uppercase tracking-wide text-sky-700">{DISCUSSION_GROUP_LABEL}</p>
             <h2 className="mt-1 text-xl font-bold text-slate-900">Есть вопрос по переезду?</h2>
             <p className="mt-2 max-w-lg text-sm text-slate-600">
-              Задайте его в дискуссионной группе при канале @Emigro_news — вопросы, опыт и новости маршрутов. Без спама и рекламы.
+              {DISCUSSION_ACCESS_HINT} Вопросы, опыт и новости маршрутов — без спама и рекламы.
             </p>
           </div>
         </div>
         <div className="flex shrink-0 flex-col gap-2 sm:items-end">
           <a
-            href={DISCUSSION_GROUP_URL}
+            href={COMMUNITY_CTA_URL}
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => trackJoinClick(source)}
             className="inline-flex items-center justify-center gap-2 rounded-lg bg-sky-600 px-5 py-3 font-medium text-white hover:bg-sky-700"
           >
             <TelegramIcon className="h-5 w-5" />
-            Вступить в Telegram
+            {COMMUNITY_CTA_LABEL}
             <ArrowRight className="h-4 w-4" />
           </a>
           <Link href={COMMUNITY_PATH} className="text-center text-sm text-sky-700 hover:underline sm:text-right">
