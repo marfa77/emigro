@@ -23,6 +23,7 @@ import type {
   ContentKind,
   NoteBodySection,
 } from "@/lib/community-notes/types";
+import { filterRelocantSignals } from "@/lib/satellite/portugal";
 
 export type SignalCluster = {
   topic: string;
@@ -176,7 +177,7 @@ function dominantContentKind(signals: CommunitySignalIngest[]): ContentKind {
 
 export function clusterSignals(signals: CommunitySignalIngest[]): SignalCluster[] {
   const buckets = new Map<string, CommunitySignalIngest[]>();
-  for (const s of signals) {
+  for (const s of filterRelocantSignals(signals)) {
     const topic = s.topic_hints?.[0] || "general";
     const list = buckets.get(topic) ?? [];
     list.push(s);

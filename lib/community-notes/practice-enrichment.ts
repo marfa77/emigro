@@ -3,6 +3,7 @@ import {
   bootstrapOfficialPracticeCopy,
   validateOfficialPracticeCopy,
 } from "@/lib/community-notes/official-vs-practice";
+import { filterRelocantSignals } from "@/lib/satellite/portugal";
 import type {
   CommunityNote,
   CommunitySignal,
@@ -332,7 +333,7 @@ export function enrichDraftPracticeFromSignals(
     body_paragraphs: flattenBodySections(bootstrapped.body_sections),
   };
 
-  const signalBullets = extractPracticeBullets(signals, 8);
+  const signalBullets = extractPracticeBullets(filterRelocantSignals(signals), 8);
   const enriched = applyPracticeEnrichment(working, signalBullets);
   working = {
     ...working,

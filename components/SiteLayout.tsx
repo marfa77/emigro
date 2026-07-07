@@ -2,7 +2,7 @@ import Link from "next/link";
 import { EmigroLogo } from "@/components/brand/EmigroLogo";
 import { MobileBottomBar, MobileNav } from "@/components/layout/MobileNav";
 import { Disclaimer } from "./Disclaimer";
-import { COMMUNITY_PATH } from "@/lib/community";
+import { COMMUNITY_PATH, DISCUSSION_GROUP_LABEL } from "@/lib/community";
 import { CONTACT_EMAIL, MAILTO_CONTACT } from "@/lib/site-contact";
 import { getHeaderNavLinks } from "@/lib/site-nav";
 
@@ -102,7 +102,7 @@ export function SiteFooter({ locale = "ru" }: { locale?: "ru" | "en" }) {
           </a>
           {" · "}
           <Link href={COMMUNITY_PATH} className="text-corridor-600 hover:underline">
-            {locale === "ru" ? "Чат релокантов" : "Community chat"}
+            {locale === "ru" ? DISCUSSION_GROUP_LABEL : "Discussion group"}
           </Link>
         </p>
       </div>

@@ -21,6 +21,7 @@ import {
 import { validateOfficialPracticeCopy } from "@/lib/community-notes/official-vs-practice";
 import { flattenBodySections } from "@/lib/community-notes/editorial-quality";
 import { REWRITE_PRIORITY, SKIP_REWRITE_SLUGS } from "@/lib/community-notes/rewrite-queue";
+import { filterRelocantSignals } from "@/lib/satellite/portugal";
 import { createServerClient } from "@/lib/supabase/server";
 import type { CommunityNote, CommunitySignal, NoteBodySection } from "@/lib/community-notes/types";
 
@@ -87,7 +88,7 @@ async function searchSignals(
   const { data, error } = await query;
   if (error) throw new Error(error.message);
 
-  let signals = (data ?? []) as CommunitySignal[];
+  let signals = filterRelocantSignals((data ?? []) as CommunitySignal[]);
 
   if (topic) {
     const topicMatches = signals.filter((s) => s.topic_hints?.includes(topic));

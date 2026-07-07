@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ArrowRight, MessageCircle } from "lucide-react";
 import { TelegramIcon } from "@/components/news/ShareIcons";
 import { trackEvent } from "@/lib/analytics/client";
-import { COMMUNITY_PATH, RELOCATOR_CHAT_LABEL, RELOCATOR_CHAT_URL } from "@/lib/community";
+import { COMMUNITY_PATH, DISCUSSION_GROUP_LABEL, DISCUSSION_GROUP_URL } from "@/lib/community";
 
 type Variant = "banner" | "inline" | "sidebar";
 
@@ -27,10 +27,10 @@ export function RelocatorChatPromo({ variant = "banner", source, className = "" 
         <TelegramIcon className="h-6 w-6 shrink-0 text-sky-600" />
         <p className="min-w-0 flex-1 text-sm text-slate-700">
           Есть вопрос по переезду?{" "}
-          <span className="font-medium text-slate-900">Спросите в чате релокантов</span>
+          <span className="font-medium text-slate-900">Спросите в дискуссионной группе</span>
         </p>
         <a
-          href={RELOCATOR_CHAT_URL}
+          href={DISCUSSION_GROUP_URL}
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => trackJoinClick(source)}
@@ -48,13 +48,13 @@ export function RelocatorChatPromo({ variant = "banner", source, className = "" 
       <section className={`rounded-2xl border border-sky-200 bg-gradient-to-br from-sky-50 to-white p-5 ${className}`}>
         <div className="flex items-center gap-2">
           <MessageCircle className="h-4 w-4 text-sky-600" />
-          <h2 className="font-semibold text-slate-900">{RELOCATOR_CHAT_LABEL}</h2>
+          <h2 className="font-semibold text-slate-900">{DISCUSSION_GROUP_LABEL}</h2>
         </div>
         <p className="mt-2 text-sm leading-relaxed text-slate-600">
-          Есть вопрос по переезду? Спросите в чате релокантов — обмен опытом без спама.
+          Есть вопрос по переезду? Задайте его в дискуссионной группе при канале @Emigro_news — обмен опытом без спама.
         </p>
         <a
-          href={RELOCATOR_CHAT_URL}
+          href={DISCUSSION_GROUP_URL}
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => trackJoinClick(source)}
@@ -80,16 +80,16 @@ export function RelocatorChatPromo({ variant = "banner", source, className = "" 
             <TelegramIcon className="h-7 w-7" />
           </div>
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wide text-sky-700">{RELOCATOR_CHAT_LABEL}</p>
+            <p className="text-xs font-semibold uppercase tracking-wide text-sky-700">{DISCUSSION_GROUP_LABEL}</p>
             <h2 className="mt-1 text-xl font-bold text-slate-900">Есть вопрос по переезду?</h2>
             <p className="mt-2 max-w-lg text-sm text-slate-600">
-              Спросите в чате релокантов — обмен опытом, ответы на вопросы и новости маршрутов. Без спама и рекламы.
+              Задайте его в дискуссионной группе при канале @Emigro_news — вопросы, опыт и новости маршрутов. Без спама и рекламы.
             </p>
           </div>
         </div>
         <div className="flex shrink-0 flex-col gap-2 sm:items-end">
           <a
-            href={RELOCATOR_CHAT_URL}
+            href={DISCUSSION_GROUP_URL}
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => trackJoinClick(source)}

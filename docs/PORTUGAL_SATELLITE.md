@@ -43,7 +43,9 @@ npm run portugal:backfill-month              # 30 дней → signals → до 
 npm run portugal:backfill-month -- --days=14 --skip-drafts
 ```
 
-Каналы в `parser/groups.yaml`: `@chatlisboa`, `@por_tugal`, `@lepta`, `@autolife_pt`.
+Каналы в `parser/groups.yaml` (источники field-practice): `@chatlisboa`, `@por_tugal`, `@lepta`, `@autolife_pt`.
+
+`@emigro_chat` — дискуссионная группа Emigro при канале, **не** парсится и не используется как источник практики.
 
 ## Ingest API
 

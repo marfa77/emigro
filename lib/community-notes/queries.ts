@@ -2,6 +2,7 @@ import { createServerClient } from "@/lib/supabase/server";
 import { normalizeHashtag } from "@/lib/community-notes/hashtags";
 import { PORTUGAL_NOTE_SEED } from "@/lib/community-notes/seed";
 import type { CommunityNote, CommunitySignalIngest, ContentKind } from "@/lib/community-notes/types";
+import { filterRelocantSignals } from "@/lib/satellite/portugal";
 
 function mapNote(row: Record<string, unknown>): CommunityNote {
   return {
@@ -94,11 +95,13 @@ export async function getPublishedCommunityNoteBySlug(
 export async function ingestCommunitySignals(
   signals: CommunitySignalIngest[]
 ): Promise<{ received: number; inserted: number; skipped: number }> {
+  const relocantSignals = filterRelocantSignals(signals);
+  const ownedSkipped = signals.length - relocantSignals.length;
   const supabase = createServerClient();
   let inserted = 0;
-  let skipped = 0;
+  let skipped = ownedSkipped;
 
-  for (const signal of signals) {
+  for (const signal of relocantSignals) {
     const row = {
       channel_username: signal.channel_username.replace(/^@/, ""),
       channel_title: signal.channel_title ?? null,

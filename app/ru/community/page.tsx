@@ -5,14 +5,14 @@ import { CommunityJoinButton } from "@/components/community/CommunityJoinButton"
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { CONTACT_EMAIL } from "@/lib/site-contact";
-import { DZEN_STORIES_URL, NEWS_TELEGRAM_URL, RELOCATOR_CHAT_LABEL, RELOCATOR_CHAT_URL } from "@/lib/community";
+import { DZEN_STORIES_URL, DISCUSSION_GROUP_HANDLE, DISCUSSION_GROUP_LABEL, DISCUSSION_GROUP_URL, NEWS_TELEGRAM_URL } from "@/lib/community";
 import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
 import { pageMetadata, pageUrl } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Чат релокантов Emigro — сообщество в Telegram",
+  title: "Дискуссионная группа Emigro — Telegram",
   description:
-    "Живое сообщество релокантов в Telegram: обмен опытом для тех, кто уже за границей или планирует переезд — ВНЖ, маршруты, новости без спама.",
+    "Дискуссионная группа @emigro_chat при канале @Emigro_news: вопросы по переезду, обмен опытом и новости маршрутов без спама.",
   path: "/ru/community",
 });
 
@@ -54,7 +54,7 @@ const RULES = [
 export default function CommunityPage() {
   const breadcrumbSchema = buildBreadcrumbSchema([
     { name: "Все направления", item: pageUrl("/ru") },
-    { name: "Чат релокантов" },
+    { name: "Дискуссионная группа" },
   ]);
 
   return (
@@ -67,7 +67,7 @@ export default function CommunityPage() {
             Emigro
           </Link>
           <span className="mx-2">/</span>
-          <span>Чат релокантов</span>
+          <span>Дискуссионная группа</span>
         </nav>
 
         <HeroShell className="mt-6">
@@ -75,11 +75,12 @@ export default function CommunityPage() {
             <MessageCircle className="h-4 w-4" />
             Telegram-сообщество
           </span>
-          <h1 className="mt-4 text-3xl font-bold sm:text-4xl">{RELOCATOR_CHAT_LABEL} — живое сообщество</h1>
+          <h1 className="mt-4 text-3xl font-bold sm:text-4xl">{DISCUSSION_GROUP_LABEL}</h1>
           <p className="mt-4 max-w-2xl text-lg text-corridor-100">
-            <strong>@emigro_chat</strong> — дискуссионная группа в Telegram, привязанная к каналу{" "}
-            <strong>@Emigro_news</strong>. Русскоязычные релоканты — уже в Европе или на этапе переезда — делятся
-            опытом, задают вопросы по ВНЖ и следят за изменениями маршрутов. Бесплатно, без спама.
+            <strong>{DISCUSSION_GROUP_HANDLE}</strong> — дискуссионная группа в Telegram, привязанная к каналу{" "}
+            <strong>@Emigro_news</strong>. Здесь можно задать вопрос по переезду, обменяться опытом и следить за
+            изменениями маршрутов. Это не сторонний чат релокантов — а площадка Emigro для читателей канала. Бесплатно,
+            без спама.
           </p>
           <p className="mt-3 text-sm text-corridor-200">
             Новости и дайджесты — в канале{" "}
@@ -130,8 +131,8 @@ export default function CommunityPage() {
         <section className="mt-14 rounded-2xl border border-corridor-200 bg-gradient-to-br from-corridor-50 to-white p-6 text-center sm:p-10">
           <h2 className="text-2xl font-bold text-slate-900">Готовы присоединиться?</h2>
           <p className="mx-auto mt-3 max-w-lg text-slate-600">
-            Вступайте в группу <strong>@emigro_chat</strong> — задайте первый вопрос или читайте опыт других
-            релокантов. Новости маршрутов — в канале{" "}
+            Вступайте в группу <strong>{DISCUSSION_GROUP_HANDLE}</strong> — задайте первый вопрос или читайте обсуждения
+            читателей канала. Новости маршрутов — в канале{" "}
             <a href={NEWS_TELEGRAM_URL} target="_blank" rel="noopener noreferrer" className="text-sky-700 hover:underline">
               @Emigro_news
             </a>
@@ -158,8 +159,8 @@ export default function CommunityPage() {
           </div>
           <p className="mx-auto mt-4 max-w-lg text-sm text-slate-500">
             Свою историю для Дзена — в{" "}
-            <a href={RELOCATOR_CHAT_URL} target="_blank" rel="noopener noreferrer" className="text-sky-700 hover:underline">
-              @emigro_chat
+            <a href={DISCUSSION_GROUP_URL} target="_blank" rel="noopener noreferrer" className="text-sky-700 hover:underline">
+              {DISCUSSION_GROUP_HANDLE}
             </a>{" "}
             или на{" "}
             <a href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("История для Дзена")}`} className="text-sky-700 hover:underline">

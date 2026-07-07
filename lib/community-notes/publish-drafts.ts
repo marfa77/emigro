@@ -7,6 +7,7 @@ import {
 } from "@/lib/community-notes/editorial-filter";
 import { ensureNoteOgImage } from "@/lib/community-notes/note-og-image";
 import type { CommunitySignalIngest } from "@/lib/community-notes/types";
+import { filterRelocantSignals } from "@/lib/satellite/portugal";
 import { createServerClient } from "@/lib/supabase/server";
 
 export type PublishDraftsResult = {
@@ -29,19 +30,21 @@ async function loadNewSignals(limit = 120): Promise<CommunitySignalIngest[]> {
 
   if (error) throw new Error(error.message);
 
-  return (data ?? []).map((row) => ({
-    message_id: Number(row.message_id),
-    channel_username: String(row.channel_username),
-    channel_title: row.channel_title ? String(row.channel_title) : undefined,
-    post_url: row.post_url ? String(row.post_url) : undefined,
-    text: String(row.text),
-    topic_hints: (row.topic_hints as string[]) ?? [],
-    content_kind: (row.content_kind as CommunitySignalIngest["content_kind"]) ?? "tip",
-    hashtags: (row.hashtags as string[]) ?? [],
-    city: String(row.city),
-    country_key: String(row.country_key),
-    posted_at: String(row.posted_at),
-  }));
+  return filterRelocantSignals(
+    (data ?? []).map((row) => ({
+      message_id: Number(row.message_id),
+      channel_username: String(row.channel_username),
+      channel_title: row.channel_title ? String(row.channel_title) : undefined,
+      post_url: row.post_url ? String(row.post_url) : undefined,
+      text: String(row.text),
+      topic_hints: (row.topic_hints as string[]) ?? [],
+      content_kind: (row.content_kind as CommunitySignalIngest["content_kind"]) ?? "tip",
+      hashtags: (row.hashtags as string[]) ?? [],
+      city: String(row.city),
+      country_key: String(row.country_key),
+      posted_at: String(row.posted_at),
+    }))
+  );
 }
 
 /** Gemini editorial drafts from `community_signals` with status=new. */
