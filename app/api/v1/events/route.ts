@@ -92,9 +92,11 @@ export async function POST(request: Request) {
     const flatProps = propsToStrings(props);
     const ctx = buildWizardContext(request, flatProps);
     if (eventName === "wizard_results_view") {
-      void notifyWizardResultsView(flatProps, ctx).catch((error) => {
+      try {
+        await notifyWizardResultsView(flatProps, ctx);
+      } catch (error) {
         console.warn("[wizard-notify] results view:", error instanceof Error ? error.message : error);
-      });
+      }
     }
   }
 
