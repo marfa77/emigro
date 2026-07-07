@@ -18,6 +18,7 @@ export type EmigroEventName =
   | "news_source_click"
   | "corridor_link_click"
   | "provider_click"
+  | "partner_inquiry_submitted"
   | "community_join_click"
   | "cron_weekly_news"
   | "cron_weekly_news_error"

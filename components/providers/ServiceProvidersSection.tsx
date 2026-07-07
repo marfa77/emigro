@@ -1,4 +1,5 @@
 import type { ProviderPlacement } from "@/components/providers/ServiceProviderCard";
+import { ProviderPartnerRecruitment } from "@/components/providers/ProviderPartnerRecruitment";
 import { ProviderRevealList } from "@/components/providers/ProviderRevealList";
 import { COUNTRY_ACCENTS } from "@/lib/brand/country-accents";
 import {
@@ -13,6 +14,7 @@ type Props = {
   variant?: "default" | "compact";
   title?: string;
   className?: string;
+  showPartnerRecruitment?: boolean;
 };
 
 function defaultSectionTitle(topicKey?: string): string {
@@ -27,12 +29,13 @@ export function ServiceProvidersSection({
   variant = "default",
   title,
   className,
+  showPartnerRecruitment = true,
 }: Props) {
   const providers = getProvidersForContext({
     corridorSlug,
     topicKey,
   });
-  if (providers.length === 0) return null;
+  if (providers.length === 0 && !showPartnerRecruitment) return null;
 
   const { visible, hidden } = splitDefaultProviders(providers);
   const showCategoryHeadings = variant === "default" && providers.length > 1;
@@ -49,15 +52,27 @@ export function ServiceProvidersSection({
             : "Справочник местных фирм и сервисов на маршруте."}
         </p>
       )}
-      <ProviderRevealList
-        visibleProviders={visible}
-        hiddenProviders={hidden}
-        placement={placement}
-        corridorSlug={corridorSlug}
-        topicKey={topicKey}
-        variant={variant}
-        showCategoryHeadings={showCategoryHeadings}
-      />
+      {providers.length > 0 && (
+        <ProviderRevealList
+          visibleProviders={visible}
+          hiddenProviders={hidden}
+          placement={placement}
+          corridorSlug={corridorSlug}
+          topicKey={topicKey}
+          variant={variant}
+          showCategoryHeadings={showCategoryHeadings}
+        />
+      )}
+      {showPartnerRecruitment && (
+        <div className={variant === "compact" ? "mt-4" : "mt-8"}>
+          <ProviderPartnerRecruitment
+            placement={placement}
+            corridorSlug={corridorSlug}
+            topicKey={topicKey}
+            countryRu={countryRu}
+          />
+        </div>
+      )}
     </section>
   );
 }
