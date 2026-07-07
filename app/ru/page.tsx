@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, BookOpen, Globe2, Newspaper, Route } from "lucide-react";
+import { ArrowRight, Globe2, Route } from "lucide-react";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { RelocatorChatPromo } from "@/components/community/RelocatorChatPromo";
 import { WizardPulseSection } from "@/components/wizard/WizardPulseSection";
@@ -107,20 +107,6 @@ export default async function RuHubPage() {
               className="inline-flex items-center gap-2 rounded-lg bg-white px-5 py-3 font-medium text-corridor-900 hover:bg-corridor-50"
             >
               Подобрать страну и маршрут
-            </Link>
-            <Link
-              href="/ru/news"
-              className="inline-flex items-center gap-2 rounded-lg border border-white/40 px-5 py-3 font-medium text-white hover:bg-white/10"
-            >
-              <Newspaper className="h-5 w-5" />
-              Все новости
-            </Link>
-            <Link
-              href="/ru/guides"
-              className="inline-flex items-center gap-2 rounded-lg border border-white/40 px-5 py-3 font-medium text-white hover:bg-white/10"
-            >
-              <BookOpen className="h-5 w-5" />
-              Гайды по ВНЖ
             </Link>
             {fullCorridors[0]?.sitePaths?.wizard && fullCorridors[0].key !== "portugal" && (
               <Link
