@@ -100,7 +100,7 @@ function schemaTypeForKind(kind: ContentKind): "NewsArticle" | "Article" {
 }
 
 function placeSchema(city?: string) {
-  const geo = (city && CITY_GEO[city]) ?? CITY_GEO.porto;
+  const geo = (city ? CITY_GEO[city] : undefined) ?? CITY_GEO.porto;
   const locality = geo.city;
   return {
     "@type": "Place" as const,
