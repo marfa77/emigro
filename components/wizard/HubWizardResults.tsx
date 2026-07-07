@@ -1,13 +1,12 @@
 import Link from "next/link";
 import { ArrowRight, Compass, Route, Sparkles } from "lucide-react";
-import { LeadForm } from "@/components/LeadForm";
 import { ServiceProvidersSection } from "@/components/providers/ServiceProvidersSection";
 import { HouseholdBanner } from "@/components/wizard/HouseholdBanner";
 import { WizardTelegramDelivery } from "@/components/wizard/WizardTelegramDelivery";
 import { WizardOutcomeCard, readableReason } from "@/components/wizard/WizardOutcomeCard";
 import { corridorWizardPath } from "@/lib/corridor/paths";
 import type { GlobalEvalPayload } from "@/lib/engine/run-global-evaluation";
-import { corridorSlugForTopic, findFirstProviderTopicKey } from "@/lib/providers/registry";
+import { findFirstProviderTopicKey } from "@/lib/providers/registry";
 import { PORTUGAL_URL_SEGMENT, portugalHubPaths } from "@/lib/portugal/hub";
 import { PortugalHubNextSteps } from "@/components/portugal/PortugalHubNextSteps";
 import { TRANSIT_HUBS } from "@/lib/transit-hubs";
@@ -120,16 +119,6 @@ export function HubWizardResults({
         </section>
       )}
 
-      {providerTopicKey && (
-        <ServiceProvidersSection
-          className="mt-8"
-          corridorSlug={corridorSlugForTopic(providerTopicKey)}
-          topicKey={providerTopicKey}
-          placement="wizard_hub_results"
-          variant="compact"
-        />
-      )}
-
       {pick ? (
         <section className="mt-8 rounded-2xl border border-corridor-200 bg-gradient-to-br from-corridor-50 to-white p-6">
           <div className="flex items-start gap-3">
@@ -240,15 +229,13 @@ export function HubWizardResults({
       )}
 
       {pick && (
-        <div className="mt-12 max-w-lg">
-          <LeadForm
-            corridorSlug={pick.corridorSlug}
-            sessionId={sessionId}
-            programSlugs={[pick.programSlug]}
-            defaultPassport={passportIso2}
-            countryRu={pick.countryRu}
-          />
-        </div>
+        <ServiceProvidersSection
+          className="mt-12"
+          corridorSlug={pick.corridorSlug}
+          topicKey={pick.countrySegment}
+          placement="wizard_hub_results"
+          title={`Провайдеры и сервисы — ${pick.countryRu}`}
+        />
       )}
     </>
   );

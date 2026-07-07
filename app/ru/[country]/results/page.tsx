@@ -2,7 +2,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
-import { LeadForm } from "@/components/LeadForm";
 import { ServiceProvidersSection } from "@/components/providers/ServiceProvidersSection";
 import { HouseholdBanner } from "@/components/wizard/HouseholdBanner";
 import { WizardTelegramDelivery } from "@/components/wizard/WizardTelegramDelivery";
@@ -11,7 +10,6 @@ import { corridorWizardPath } from "@/lib/corridor/paths";
 import { getCorridorBySlug } from "@/lib/corridor/queries";
 import { describeHousehold, parseHousehold } from "@/lib/engine/household";
 import { getTopicByCountrySegment } from "@/lib/corridor/resolve-topic";
-import { getProvidersForContext } from "@/lib/providers/registry";
 import { isCorridorFull } from "@/lib/corridor/publish";
 import { createServerClient } from "@/lib/supabase/server";
 import { pageMetadata } from "@/lib/seo";
@@ -123,13 +121,6 @@ export default async function CountryResultsPage({
     }
   }
 
-  const defaultSlug = corridor.programs[0]?.slug ?? "";
-
-  const programSlugs = results
-    .filter((r) => r.outcome !== "unlikely")
-    .map((r) => programMap.get(r.program_id)?.slug)
-    .filter((s): s is string => Boolean(s));
-
   const household = describeHousehold(
     parseHousehold((session.answers as Record<string, unknown>) ?? {})
   );
@@ -153,16 +144,6 @@ export default async function CountryResultsPage({
           topRecommendation={topResult ? `${topic.countryRu} — ${topResult.title_ru}` : undefined}
           matchCount={matchCount}
         />
-
-        {getProvidersForContext({ corridorSlug, topicKey: topic.key }).length > 0 && (
-          <ServiceProvidersSection
-            className="mt-8"
-            corridorSlug={corridorSlug}
-            topicKey={topic.key}
-            placement="wizard_corridor_results"
-            variant="compact"
-          />
-        )}
 
         <div className="mt-8 grid w-full grid-cols-1 gap-4 sm:grid-cols-[repeat(auto-fit,minmax(min(100%,20rem),1fr))]">
           {results.map((row) => {
@@ -216,15 +197,13 @@ export default async function CountryResultsPage({
           </div>
         </section>
 
-        <div className="mt-12 max-w-lg">
-          <LeadForm
-            corridorSlug={corridorSlug}
-            sessionId={sessionId}
-            programSlugs={programSlugs.length ? programSlugs : defaultSlug ? [defaultSlug] : []}
-            defaultPassport={session.passport_iso2 ?? "RU"}
-            countryRu={topic.countryRu}
-          />
-        </div>
+        <ServiceProvidersSection
+          className="mt-12"
+          corridorSlug={corridorSlug}
+          topicKey={topic.key}
+          placement="wizard_corridor_results"
+          title={`Провайдеры и сервисы — ${topic.countryRu}`}
+        />
       </main>
       <SiteFooter />
     </>
