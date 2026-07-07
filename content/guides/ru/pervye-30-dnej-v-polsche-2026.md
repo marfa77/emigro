@@ -4,7 +4,7 @@ title: "Первые 30 дней в Польше 2026: PESEL, meldunek, банк
 seo_title: "Первые 30 дней в Польше 2026 — PESEL, meldunek, банк"
 seo_description: "Чек-лист после прилёта в Польшу: PESEL, meldunek, банk mBank/PKO, NFZ, SIM, voivodeship. Для RU/UA/BY/KZ с work permit или Blue Card. 2026."
 excerpt: "Work permit или Blue Card одобрен — что делать в первый месяц: PESEL, meldunek, банк, NFZ и запись в voivodeship."
-quick_answer: "Первые 30 дней: (1) meldunek (zameldowanie) в urząd gminy, (2) PESEL при meldunek или отдельно, (3) Polish SIM (Play/Orange/T-Mobile), (4) банк — mBank/PKO/ING (IBAN PL), (5) NFZ или частная страховка до трудоустройства, (6) подача/биометрия karta pobytu в voivodeship. Рассмотрение pobyt — от 1–3 мес. (в Варшаве часто 6–12+ мес.). Без meldunek и PESEL не откроете счёт."
+quick_answer: "Первые 30 дней: (1) meldunek (zameldowanie) в urząd gminy, (2) PESEL при meldunek или отдельно, (3) Polish SIM (Play/Orange/T-Mobile), (4) банк — mBank/PKO/ING (IBAN PL), (5) NFZ или частная страховка до трудоустройства, (6) подача/биометрия karta pobytu в voivodeship. По UoC решение — до 60 дн. / 3 мес.; в Mazowieckie на практике часто год+. Без meldunek и PESEL не откроете счёт."
 corridor_slugs: [ru-speaking-to-poland]
 topic_keys: [poland, checklist, arrival]
 tags: [Польша, чеклист, 2026, PESEL, meldunek, NFZ, karta pobytu]
@@ -108,7 +108,7 @@ date_modified: 2026-07-07
 1. **Запись online / in-person** — в Mazowieckie (Варшава) запись на подачу и биометрию часто занимает **недели–месяцы**; само рассмотрение — ещё дольше.
 2. Подача dossier: паспорт, work permit, umowa, meldunek, NFZ/страховка, фото, сбор **PLN 340**.
 3. **Биометрия** + отпечатки пальцев.
-4. **Potwierdzenie złożenia** — legal stay на время рассмотрения; voivodeship: официально **от 1–3 мес.**, в Варшаве и Кракове нередко **6–12+ мес.**
+4. **Potwierdzenie złożenia** — legal stay на время рассмотрения; **UoC:** до 60 дн. / 3 мес.; **Mazowieckie на практике:** нередко **12+ мес.** — регламент массово не соблюдается
 5. **Karta pobytu** — 2–6 нед. после положительного решения.
 
 **Документы на подачу:** см. [ВНЖ Польша 2026](/ru/guides/vnj-polsha-2026).
@@ -174,7 +174,7 @@ date_modified: 2026-07-07
 
 ### Сколько ждать karta pobytu?
 
-Решение voivodeship: **от 1–3 мес.** (в Варшаве часто **6–12+ мес.**); карта +2–6 нед. Mazowieckie — один из самых загруженных воеводств.
+По **UoC** — до **60 дней** / **3 месяцев**; карта +2–6 нед. **Mazowieckie (Варшава):** на практике нередко **год и больше** — системное нарушение регламента, а не исключение.
 
 ### Можно ли работать до karta pobytu?
 

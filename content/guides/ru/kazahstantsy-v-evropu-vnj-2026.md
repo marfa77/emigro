@@ -116,7 +116,7 @@ Emigro wizard учитывает `passport_iso2 = KZ` при оценке про
 | Work permit Type A | от **PLN 4 806/мес** брутто (минимальная зарплата 2026, ~€1 113) |
 | EU Blue Card | **PLN 13 041/мес** брутто (~150% средней) |
 | B2B / zlecenie (IT) | контракт + ZUS, case-by-case |
-| Срок karta pobytu (voivodeship) | **от 1–3 мес.**; в Варшаве часто **6–12+ мес.** |
+| Срок karta pobytu (voivodeship) | **UoC:** до 60 дн. / 3 мес.; **Mazowieckie:** 12+ мес. на практике |
 
 Подробнее: [коридор Польша](/ru/poland) · [ВНЖ Польша 2026](/ru/guides/vnj-polsha-2026).
 
@@ -129,7 +129,7 @@ Emigro wizard учитывает `passport_iso2 = KZ` при оценке про
 | Германия | Blue Card | Оффер €45 934+ | 1–3 мес | 5 лет (+ B1) |
 | Португалия | D8 | €3 680/мес remote | 2–4 мес | 10 лет |
 | Испания | DNV | €2 849/мес remote | 1–3 мес | ~10 лет |
-| Польша | Work / Blue Card | Оффер / €3 020+ | от 1–3 мес. (Варшава 6–12+ мес.) | 10 лет / 3 с Kartą Polaka |
+| Польша | Work / Blue Card | Оффер / €3 020+ | UoC до 3 мес. (Mazowieckie 12+ мес.) | 10 лет / 3 с Kartą Polaka |
 
 ---
 
