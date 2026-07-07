@@ -120,7 +120,7 @@ date_modified: 2026-06-30
 
 После entry с **visa D**:
 
-1. **Termin** в **MA35** (Vienna) или **Landesausländerbehörde** (другие земли) — очереди **2–4 месяца** (Vienna).
+1. **Termin** в **MA35** (Vienna) или **Landesausländerbehörde** (другие земли) — очереди **3–6 месяца** (Vienna).
 2. Подача: Reisepass, visa, Meldezettel, Dienstvertrag, Krankenkasse, фото, сбор ~€160.
 3. **Biometrie** → **Aufenthaltstitel** (Red-White-Red / Blue Card).
 4. Сроки: **4–12 нед.** после appointment.
@@ -171,7 +171,7 @@ date_modified: 2026-06-30
 1. **Пропуск Meldezettel (3 дня)** — блок SVNR, банка, Krankenkasse.
 2. **Ждать Aufenthaltstitel для банка** — Meldezettel → SVNR → bank.
 3. **Только Revolut** — Gehalt требует **Austrian IBAN**.
-4. **MA35 без Termin** — в Vienna очереди на **2–4 месяца**; бронируйте сразу после visa.
+4. **MA35 без Termin** — в Vienna очереди на **3–6 месяца**; бронируйте сразу после visa.
 5. **Игнорирование B1** — RWR продление может требовать немецкий.
 
 ---

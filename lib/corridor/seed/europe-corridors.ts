@@ -289,7 +289,7 @@ export const EUROPE_CORRIDORS: CorridorSeed[] = [
         timeline: [
           { step: "document_prep", titleEn: "Income & insurance dossier", titleRu: "Досье дохода и страховки", duration: "2–4 недели" },
           { step: "application", titleEn: "Consulate / UGE submission", titleRu: "Подача в консульство / UGE", duration: "2–4 месяца (консульство; UGE быстрее если уже в ES)" },
-          { step: "residence", titleEn: "TIE residence card", titleRu: "Карта TIE (1+2+2 года)", duration: "3–8 мес. (Madrid/BCN часто 4–8)" },
+          { step: "residence", titleEn: "TIE residence card", titleRu: "Карта TIE (1+2+2 года)", duration: "4–12 мес. (Madrid/BCN часто 6–12)" },
           {
             step: "language_requirement",
             titleEn: "NIE, autónomo & Beckham window",
@@ -348,7 +348,7 @@ export const EUROPE_CORRIDORS: CorridorSeed[] = [
         timeline: [
           { step: "document_prep", titleEn: "Passive income proof", titleRu: "Подтверждение пассивного дохода", duration: "2–6 недель" },
           { step: "application", titleEn: "Consulate application", titleRu: "Подача в консульство", duration: "2–4 месяца" },
-          { step: "residence", titleEn: "TIE (1+2+2 years)", titleRu: "TIE (1+2+2 года)", duration: "3–8 мес. (Madrid/BCN часто 4–8)" },
+          { step: "residence", titleEn: "TIE (1+2+2 years)", titleRu: "TIE (1+2+2 года)", duration: "4–12 мес. (Madrid/BCN часто 6–12)" },
         ],
         sources: [
           {
@@ -375,7 +375,7 @@ export const EUROPE_CORRIDORS: CorridorSeed[] = [
         timeline: [
           { step: "document_prep", titleEn: "Relationship proof", titleRu: "Подтверждение родства", duration: "2–6 недель" },
           { step: "application", titleEn: "Family reunification", titleRu: "Подача на воссоединение", duration: "2–4 месяца" },
-          { step: "residence", titleEn: "Family TIE", titleRu: "Семейный TIE", duration: "3–8 мес." },
+          { step: "residence", titleEn: "Family TIE", titleRu: "Семейный TIE", duration: "4–12 мес." },
         ],
         sources: [
           {
@@ -472,7 +472,7 @@ export const EUROPE_CORRIDORS: CorridorSeed[] = [
         timeline: [
           { step: "document_prep", titleEn: "Employer & salary dossier", titleRu: "Досье работодателя и зарплаты", duration: "2–4 weeks" },
           { step: "application", titleEn: "Consulate VLS-TS application", titleRu: "Подача VLS-TS в консульство", duration: "2–4 months" },
-          { step: "residence", titleEn: "Prefecture validation", titleRu: "Валидация в префектуре", duration: "3–8 mo. after arrival (Paris/IDF often 4–8)" },
+          { step: "residence", titleEn: "Prefecture validation", titleRu: "Валидация в префектуре", duration: "4–12 mo. after arrival (Paris/IDF often 6–12)" },
         ],
         sources: [
           {
@@ -519,7 +519,7 @@ export const EUROPE_CORRIDORS: CorridorSeed[] = [
         timeline: [
           { step: "document_prep", titleEn: "Proof of means & insurance", titleRu: "Подтверждение средств и страховки", duration: "2–4 weeks" },
           { step: "application", titleEn: "Consulate submission", titleRu: "Подача в консульство", duration: "2–4 months" },
-          { step: "residence", titleEn: "Visitor titre de séjour", titleRu: "Titre de séjour visiteur", duration: "3–6 mo. after arrival" },
+          { step: "residence", titleEn: "Visitor titre de séjour", titleRu: "Titre de séjour visiteur", duration: "4–9 mo. after arrival" },
         ],
         sources: [
           {
@@ -552,7 +552,7 @@ export const EUROPE_CORRIDORS: CorridorSeed[] = [
         timeline: [
           { step: "document_prep", titleEn: "Family & housing proof", titleRu: "Подтверждение родства и жилья", duration: "2–8 weeks" },
           { step: "application", titleEn: "OFII / consulate process", titleRu: "Процедура OFII / консульство", duration: "4–10 months" },
-          { step: "residence", titleEn: "Family titre de séjour", titleRu: "Семейный titre de séjour", duration: "3–8 months" },
+          { step: "residence", titleEn: "Family titre de séjour", titleRu: "Семейный titre de séjour", duration: "4–12 months" },
         ],
         sources: [
           {
@@ -650,7 +650,7 @@ export const EUROPE_CORRIDORS: CorridorSeed[] = [
         timeline: [
           { step: "document_prep", titleEn: "Income & qualification dossier", titleRu: "Досье дохода и квалификации", duration: "2–4 weeks" },
           { step: "application", titleEn: "Consulate nulla osta / visa", titleRu: "Консульство nulla osta / виза", duration: "2–4 months" },
-          { step: "residence", titleEn: "Permesso di soggiorno", titleRu: "Permesso di soggiorno", duration: "3–8 months (Milan/Rome longer)" },
+          { step: "residence", titleEn: "Permesso di soggiorno", titleRu: "Permesso di soggiorno", duration: "4–12 months (Milan/Rome longer)" },
         ],
         sources: [
           {
@@ -691,7 +691,7 @@ export const EUROPE_CORRIDORS: CorridorSeed[] = [
         timeline: [
           { step: "document_prep", titleEn: "Passive income proof", titleRu: "Подтверждение пассивного дохода", duration: "2–6 weeks" },
           { step: "application", titleEn: "Consulate application", titleRu: "Подача в консульство", duration: "2–4 months" },
-          { step: "residence", titleEn: "Permesso (1+2+2)", titleRu: "Permesso (1+2+2)", duration: "3–8 months" },
+          { step: "residence", titleEn: "Permesso (1+2+2)", titleRu: "Permesso (1+2+2)", duration: "4–12 months" },
         ],
         sources: [
           {
@@ -718,7 +718,7 @@ export const EUROPE_CORRIDORS: CorridorSeed[] = [
         timeline: [
           { step: "document_prep", titleEn: "Nulla osta preparation", titleRu: "Подготовка nulla osta", duration: "2–8 weeks" },
           { step: "application", titleEn: "Family reunification visa", titleRu: "Виза воссоединения", duration: "2–4 months" },
-          { step: "residence", titleEn: "Family permesso", titleRu: "Семейный permesso", duration: "3–8 months" },
+          { step: "residence", titleEn: "Family permesso", titleRu: "Семейный permesso", duration: "4–12 months" },
         ],
         sources: [
           {
@@ -815,7 +815,7 @@ export const EUROPE_CORRIDORS: CorridorSeed[] = [
         timeline: [
           { step: "document_prep", titleEn: "Degree recognition & contract", titleRu: "Признание диплома и контракт", duration: "2–8 weeks" },
           { step: "application", titleEn: "Consulate / Ausländerbehörde", titleRu: "Консульство / Ausländerbehörde", duration: "2–4 months (visa)" },
-          { step: "residence", titleEn: "Blue Card issuance", titleRu: "Выдача Blue Card", duration: "3–8 mo. ABH queue + 4–12 wk card" },
+          { step: "residence", titleEn: "Blue Card issuance", titleRu: "Выдача Blue Card", duration: "4–12 mo. ABH queue + 6–16 wk card" },
         ],
         sources: [
           {
@@ -852,7 +852,7 @@ export const EUROPE_CORRIDORS: CorridorSeed[] = [
         timeline: [
           { step: "document_prep", titleEn: "Points calculation & funds", titleRu: "Расчёт баллов и средств", duration: "2–4 weeks" },
           { step: "application", titleEn: "Consulate application", titleRu: "Подача в консульство", duration: "2–4 months" },
-          { step: "residence", titleEn: "Chancenkarte (up to 12 months)", titleRu: "Chancenkarte (до 12 мес.)", duration: "3–8 mo. ABH queue + card" },
+          { step: "residence", titleEn: "Chancenkarte (up to 12 months)", titleRu: "Chancenkarte (до 12 мес.)", duration: "4–12 mo. ABH queue + card" },
         ],
         sources: [
           {
@@ -879,7 +879,7 @@ export const EUROPE_CORRIDORS: CorridorSeed[] = [
         timeline: [
           { step: "document_prep", titleEn: "Relationship & language proof", titleRu: "Родство и язык", duration: "2–8 weeks" },
           { step: "application", titleEn: "Consulate / embassy", titleRu: "Консульство", duration: "4–8 months" },
-          { step: "residence", titleEn: "Family residence permit", titleRu: "Семейный ВНЖ", duration: "3–8 mo. ABH queue + card" },
+          { step: "residence", titleEn: "Family residence permit", titleRu: "Семейный ВНЖ", duration: "4–12 mo. ABH queue + card" },
         ],
         sources: [
           {
@@ -975,7 +975,7 @@ export const EUROPE_CORRIDORS: CorridorSeed[] = [
         ],
         timeline: [
           { step: "document_prep", titleEn: "Employer sponsorship dossier", titleRu: "Досье спонсорства работодателя", duration: "2–4 weeks" },
-          { step: "application", titleEn: "IND application via sponsor", titleRu: "Подача через спонсора в IND", duration: "4–10 weeks" },
+          { step: "application", titleEn: "IND application via sponsor", titleRu: "Подача через спонсора в IND", duration: "5–14 weeks" },
           { step: "residence", titleEn: "Collect residence permit", titleRu: "Получение ВНЖ", duration: "2–4 weeks" },
         ],
         sources: [
@@ -1137,7 +1137,7 @@ export const EUROPE_CORRIDORS: CorridorSeed[] = [
         ],
         timeline: [
           { step: "document_prep", titleEn: "Employer offer & union terms", titleRu: "Оффер и union terms", duration: "2–6 weeks" },
-          { step: "application", titleEn: "Migrationsverket online", titleRu: "Подача в Migrationsverket", duration: "2–6 months" },
+          { step: "application", titleEn: "Migrationsverket online", titleRu: "Подача в Migrationsverket", duration: "4–10 months" },
           { step: "residence", titleEn: "Work permit & residence", titleRu: "Work permit и ВНЖ", duration: "2–4 weeks after approval" },
         ],
         sources: [
@@ -1175,7 +1175,7 @@ export const EUROPE_CORRIDORS: CorridorSeed[] = [
         ],
         timeline: [
           { step: "document_prep", titleEn: "Employer case & contract", titleRu: "Кейс работодателя и контракт", duration: "2–4 weeks" },
-          { step: "application", titleEn: "SIRI online application", titleRu: "Подача в SIRI", duration: "2–5 months" },
+          { step: "application", titleEn: "SIRI online application", titleRu: "Подача в SIRI", duration: "3–7 months" },
           { step: "residence", titleEn: "Residence permit", titleRu: "ВНЖ", duration: "2–4 weeks" },
         ],
         sources: [
@@ -1202,7 +1202,7 @@ export const EUROPE_CORRIDORS: CorridorSeed[] = [
         costs: [{ labelEn: "Application fees", labelRu: "Сборы за подачу", amount: "SEK/DKK/NOK/EUR varies by country" }],
         timeline: [
           { step: "document_prep", titleEn: "Relationship & housing proof", titleRu: "Родство и жильё", duration: "2–8 weeks" },
-          { step: "application", titleEn: "National authority application", titleRu: "Подача в национальный орган", duration: "3–8 months" },
+          { step: "application", titleEn: "National authority application", titleRu: "Подача в национальный орган", duration: "4–12 months" },
           { step: "residence", titleEn: "Family residence permit", titleRu: "Семейный ВНЖ", duration: "2–8 weeks" },
         ],
         sources: [

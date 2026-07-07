@@ -117,7 +117,7 @@ date_modified: 2026-06-27
 2. Dossier: passport, photos, employment proof, taxes, housing
 3. **Récepissé** — временное подтверждение при ожидании carte
 
-**Сроки:** Paris/IDF — **4–8 месяцев**; province **2–4 месяца** (реалистично 2026).
+**Сроки:** Paris/IDF — **5–10 месяцев**; province **3–6 месяца** (реалистично 2026).
 
 ---
 

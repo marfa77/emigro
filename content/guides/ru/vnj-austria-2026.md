@@ -49,7 +49,7 @@ date_modified: 2026-07-07
 | **EU Blue Card** | Диплом + ~€55 678/год | 2–4 мес. | Да (квалифицированная работа) |
 | **Neue Selbständige** | Gewerbe + бизнес-план + доход | 2–4 мес. | Да (самозанятость) |
 | **Studium** | Зачисление + средства | 2–4 мес. | Ограничено |
-| **Family reunification** | Спонсор с Aufenthaltstitel | 3–6 мес. | Да (условно) |
+| **Family reunification** | Спонсор с Aufenthaltstitel | 4–9 мес. | Да (условно) |
 
 Программы коридора: [Австрия](/ru/austria) · [wizard](/ru/austria/wizard) · [справочник](/ru/austria/digest).
 
@@ -99,8 +99,8 @@ date_modified: 2026-07-07
 | Этап | Срок |
 |------|------|
 | AMS labour market check | 2–8 недель |
-| Подача в Magistrat / BH | **3–6 мес.** (MA35 Vienna **2–4 мес.** на Termin; **по закону: 1–3 мес.** после подачи) |
-| Выдача Aufenthaltstitel | **2–4 мес.** после решения |
+| Подача в Magistrat / BH | **4–9 мес.** (MA35 Vienna **3–6 мес.** на Termin; **по закону: 1–3 мес.** после подачи) |
+| Выдача Aufenthaltstitel | **3–5 мес.** после решения |
 
 **Подача:** чаще **внутри Австрии** после legal entry (national visa D). Консульская подача — см. [консульская подача РФ/BY/KZ](/ru/guides/konsulskaya-podacha-rf-by-kz-2026-yurisdiktsiya).
 
@@ -197,7 +197,7 @@ date_modified: 2026-07-07
 
 **Когда переходить:**
 - Стабильный Arbeitsvertrag или Gewerbe
-- За **6–12 месяцев до 4 марта 2027** (ориентир: **с осени 2026**)
+- За **8–15 месяцев до 4 марта 2027** (ориентир: **с осени 2026**)
 
 См. [Украина → ЕС: маршруты 2026](/ru/guides/ukraina-evropa-vnj-marshruty-2026) · [TP vs ВНЖ](/ru/guides/ukraintsy-belorusy-vremennaya-zashchita-vs-vnj-2026).
 
@@ -221,7 +221,7 @@ date_modified: 2026-07-07
 
 - [ ] Оффер или Gewerbe-контракт с **конкретной** зарплатой/ставкой
 - [ ] AMS-Bewilligung (для RWR) — **до** подачи в Magistrat
-- [ ] Паспорт действителен ≥6–12 месяцев
+- [ ] Паспорт действителен ≥8–15 месяцев
 - [ ] Mietvertrag + Wohnungsgeberbestätigung
 - [ ] Krankenkasse (GKK или коммерческая)
 - [ ] SVS / Finanzamt (для Selbständige)
@@ -243,7 +243,7 @@ DE Blue Card / EU Blue Card — сравнимые пороги; AT — выше
 
 ### Сколько ждать Aufenthaltstitel в Vienna?
 
-AMS: **2–8 нед.**; MA35: **1–3 мес.**; карта +2–6 нед. MA35 — одна из самых загруженных служб.
+AMS: **2–8 нед.**; MA35: **3–6 мес.**; карта +2–6 нед. MA35 — одна из самых загруженных служб.
 
 ### Нужен ли немецкий для RWR?
 

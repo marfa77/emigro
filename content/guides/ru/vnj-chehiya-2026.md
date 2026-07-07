@@ -47,7 +47,7 @@ date_modified: 2026-07-07
 | **EU Blue Card** | Диплом + ~€2 900+/мес | 2–4 мес. | Да (квалифицированная работа) |
 | **Živnost (OSVČ)** | Trade licence + контракты | 2–4 мес. | Да (самозанятость) |
 | **Studia** | Зачисление + средства | 2–4 мес. | Ограничено |
-| **Family reunification** | Спонсор с pobyt | 3–6 мес. | Да (условно) |
+| **Family reunification** | Спонсор с pobyt | 4–9 мес. | Да (условно) |
 
 Программы коридора: [Чехия](/ru/czechia) · [wizard](/ru/czechia/wizard) · [справочник](/ru/czechia/digest).
 
@@ -84,8 +84,8 @@ date_modified: 2026-07-07
 | Этап | Срок |
 |------|------|
 | Úřad práce — одобрение | 2–6 недель |
-| MOI — employee card | **3–6 мес.** (Prague очереди; **по закону: 60 д.** после полной подачи) |
-| Выдача карты | **2–4 мес.** после решения |
+| MOI — employee card | **4–9 мес.** (Prague очереди; **по закону: 60 д.** после полной подачи) |
+| Выдача карты | **3–5 мес.** после решения |
 | Сбор карты | CZK 2 500 |
 
 **Подача:** чаще **внутри Чехии** после legal entry (long-term visa D). Консульская подача — см. [консульская подача](/ru/guides/konsulskaya-podacha-rf-by-kz-2026-yurisdiktsiya).
@@ -181,7 +181,7 @@ date_modified: 2026-07-07
 
 **Когда переходить:**
 - Стабильный pracovní smlouva или živnost
-- За **6–12 месяцев до 4 марта 2027** (ориентир: **с осени 2026**)
+- За **8–15 месяцев до 4 марта 2027** (ориентир: **с осени 2026**)
 
 См. [Украина → ЕС: маршруты 2026](/ru/guides/ukraina-evropa-vnj-marshruty-2026) · [TP vs ВНЖ](/ru/guides/ukraintsy-belorusy-vremennaya-zashchita-vs-vnj-2026).
 
@@ -206,7 +206,7 @@ date_modified: 2026-07-07
 
 - [ ] Pracovní smlouva или živnost contracts с **конкретной** зарплатой/ставкой
 - [ ] Одобрение Úřad práce (employee card) — **до** подачи в MOI
-- [ ] Паспорт действителен ≥6–12 месяцев
+- [ ] Паспорт действителен ≥8–15 месяцев
 - [ ] Nájemní smlouva или souhlas vlastníka
 - [ ] VZP или частная страховка
 - [ ] Živnostenský list + IČO (для živnost)

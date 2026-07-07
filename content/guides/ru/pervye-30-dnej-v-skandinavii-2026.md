@@ -95,7 +95,7 @@ Stockholm и Copenhagen — **дефицит жилья**. Многие рабо
 2. Lejekontrakt
 3. Employment contract
 
-**Срок:** **2–6 недель**. До CPR — **yellow health card** через работодателя или private insurance.
+**Срок:** **3–8 недель**. До CPR — **yellow health card** через работодателя или private insurance.
 
 Официально: [lifeindenmark.dk](https://lifeindenmark.dk/)
 
