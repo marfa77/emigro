@@ -14,13 +14,32 @@ import { publicSiteUrl } from "../lib/site-url";
 config({ path: resolve(process.cwd(), ".env.local") });
 config({ path: resolve(process.cwd(), ".env") });
 
+/** Preserve satellite subdomain canonical URLs; rewrite only same-origin paths to www. */
 function toProductionUrl(url: string, origin: string): string {
   try {
     const parsed = new URL(url);
+    if (parsed.hostname.endsWith(".emigro.online") && parsed.hostname !== new URL(origin).hostname) {
+      return url;
+    }
     return `${origin}${parsed.pathname}${parsed.search}`;
   } catch {
     return url;
   }
+}
+
+function groupUrlsByHost(urls: string[]): Map<string, string[]> {
+  const groups = new Map<string, string[]>();
+  for (const url of urls) {
+    try {
+      const host = new URL(url).hostname;
+      const list = groups.get(host) ?? [];
+      list.push(url);
+      groups.set(host, list);
+    } catch {
+      console.warn("[indexnow] skip invalid URL:", url);
+    }
+  }
+  return groups;
 }
 
 async function sleep(ms: number) {
@@ -60,20 +79,24 @@ async function main() {
   const urls = Array.from(
     new Set(entries.map((e) => toProductionUrl(e.url, origin)))
   ).sort();
+  const byHost = groupUrlsByHost(urls);
 
   console.log(`Origin: ${origin}`);
   console.log(`Key file: ${indexNowKeyFileUrl(origin)}`);
   console.log(`Primary: Yandex (https://yandex.com/indexnow)`);
-  console.log(`Pinging IndexNow for ${urls.length} URLs…\n`);
+  console.log(`Pinging IndexNow for ${urls.length} URLs across ${byHost.size} host(s)…\n`);
 
   const allResults: IndexNowPingResult[] = [];
   const chunkSize = 100;
-  for (let i = 0; i < urls.length; i += chunkSize) {
-    const chunk = urls.slice(i, i + chunkSize);
-    console.log(`Batch ${Math.floor(i / chunkSize) + 1}: ${chunk.length} URLs`);
-    const batchResults = await pingIndexNow(chunk);
-    allResults.push(...batchResults);
-    if (i + chunkSize < urls.length) await sleep(2000);
+  for (const [host, hostUrls] of byHost) {
+    console.log(`Host: ${host} (${hostUrls.length} URLs)`);
+    for (let i = 0; i < hostUrls.length; i += chunkSize) {
+      const chunk = hostUrls.slice(i, i + chunkSize);
+      console.log(`  Batch ${Math.floor(i / chunkSize) + 1}: ${chunk.length} URLs`);
+      const batchResults = await pingIndexNow(chunk);
+      allResults.push(...batchResults);
+      if (i + chunkSize < hostUrls.length) await sleep(2000);
+    }
   }
 
   summarizeYandex(allResults);

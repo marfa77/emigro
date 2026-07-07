@@ -156,7 +156,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: note.content_kind === "news" ? 0.85 : 0.75,
     })),
     ...Array.from(tagSet).map((tag) => ({
-      url: portugalSatellitePublicUrl(`/tag/${tag}`),
+      url: portugalSatellitePublicUrl(`/tag/${encodeURIComponent(tag)}`),
       changeFrequency: "weekly" as const,
       priority: 0.65,
     })),
