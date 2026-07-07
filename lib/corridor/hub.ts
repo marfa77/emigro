@@ -446,7 +446,7 @@ export function resolveCorridorHubTiles(
   return [routeTile, newsTile, guidesTile, practiceTile, marketTile];
 }
 
-/** One flip tile per country on the homepage — same UX as hub layers, links to corridor landing. */
+/** One flip tile per country on the homepage — Open links to corridor wizard when available. */
 export function resolveCorridorCountryTile(
   topic: NewsTopicConfig,
   stats: CorridorHubTileStats,
@@ -467,7 +467,7 @@ export function resolveCorridorCountryTile(
 
   return {
     ...routeTile,
-    href: paths.landing,
+    href: features.hasWizard && paths.wizard ? paths.wizard : paths.landing,
     comingSoon: undefined,
     title: topic.countryRu,
     subtitle: topic.countryEn,

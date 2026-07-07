@@ -13,7 +13,6 @@ import { guidePath, getRelatedGuides, listGuides, loadGuide } from "@/lib/guides
 import type { GuideArticle } from "@/lib/guides/load";
 import { loadGuideLiveDataForGuide } from "@/lib/guides/corridor-live-data";
 import {
-  firstCountryTopicKeyForWizardInterest,
   getGuidePassportIso2,
   getGuideProviderTopicKey,
 } from "@/lib/guides/guide-display";
@@ -26,6 +25,8 @@ import { getPtLongTailByGuideSlug } from "@/lib/seo/pt-longtail";
 import { EMIGRO_PUBLISHER, emigroAuthorOrg, schemaImage } from "@/lib/seo/schema";
 import { GuideCorridorLiveData } from "@/components/guides/GuideCorridorLiveData";
 import { GuideOfficialSources } from "@/components/guides/GuideOfficialSources";
+import { HUB_WIZARD_PATH } from "@/lib/corridor/paths";
+import { resolveGuideWizardHref } from "@/lib/wizard/resolve-href";
 
 export function generateStaticParams() {
   return listGuides().map((guide) => ({ slug: guide.slug }));
@@ -192,19 +193,6 @@ function extractToc(bodyHtml: string) {
 
 function stripHtml(html: string) {
   return html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
-}
-
-function wizardHrefWithInterest(href: string, topicKeys?: string[]): string {
-  const primaryKey = firstCountryTopicKeyForWizardInterest(topicKeys);
-  if (!primaryKey || !href.includes("/wizard")) return href;
-
-  const [path, query = ""] = href.split("?");
-  const params = new URLSearchParams(query);
-  if (!params.has("interest")) {
-    params.set("interest", primaryKey);
-  }
-  const qs = params.toString();
-  return qs ? `${path}?${qs}` : path;
 }
 
 function extractFaq(bodyHtml: string) {
@@ -454,14 +442,12 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
                 Гайд даёт карту маршрутов, а wizard сопоставит паспорт, доход, семью и сроки с программами.
               </p>
               <div className="mt-5 flex flex-col gap-3">
-                {guide.cta_primary && (
-                  <Link
-                    href={wizardHrefWithInterest(guide.cta_primary, guide.topic_keys)}
-                    className="rounded-lg bg-corridor-600 px-5 py-3 text-center font-medium text-white hover:bg-corridor-700"
-                  >
-                    Подобрать маршрут
-                  </Link>
-                )}
+                <Link
+                  href={resolveGuideWizardHref(guide.cta_primary ?? HUB_WIZARD_PATH, guide.topic_keys)}
+                  className="rounded-lg bg-corridor-600 px-5 py-3 text-center font-medium text-white hover:bg-corridor-700"
+                >
+                  Подобрать маршрут
+                </Link>
                 {guide.cta_secondary && (
                   <Link
                     href={guide.cta_secondary}

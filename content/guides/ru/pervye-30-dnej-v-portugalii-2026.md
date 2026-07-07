@@ -9,7 +9,7 @@ corridor_slugs: [ru-speaking-to-portugal]
 topic_keys: [portugal, checklist, arrival]
 tags: [Португалия, чеклист, 2026, NIF, AIMA, SNS]
 primary_intent: how-to
-cta_primary: /ru/portugal
+cta_primary: /ru/portugal/wizard
 cta_secondary: /ru/guides/vnj-portugaliya-d8-d7-grazhdanstvo-2026
 official_sources:
   - url: https://www.portaldasfinancas.gov.pt/

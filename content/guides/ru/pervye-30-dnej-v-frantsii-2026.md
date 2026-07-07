@@ -9,7 +9,7 @@ corridor_slugs: [ru-speaking-to-france]
 topic_keys: [france, checklist, arrival]
 tags: [Франция, чеклист, 2026, OFII, CPAM, préfecture, titre de séjour]
 primary_intent: how-to
-cta_primary: /ru/france
+cta_primary: /ru/france/wizard
 cta_secondary: /ru/guides/vnj-frantsiya-2026-passeport-talent
 official_sources:
   - url: https://administration-etrangers-en-france.interieur.gouv.fr/

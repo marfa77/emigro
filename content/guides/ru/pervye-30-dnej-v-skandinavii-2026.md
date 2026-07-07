@@ -9,7 +9,7 @@ corridor_slugs: [ru-speaking-to-scandinavia]
 topic_keys: [scandinavia, checklist, arrival]
 tags: [Скандинавия, чеклист, 2026, personnummer, CPR, Швеция, Дания]
 primary_intent: how-to
-cta_primary: /ru/scandinavia
+cta_primary: /ru/scandinavia/wizard
 cta_secondary: /ru/guides/vnj-skandinaviya-2026
 official_sources:
   - url: https://www.skatteverket.se/

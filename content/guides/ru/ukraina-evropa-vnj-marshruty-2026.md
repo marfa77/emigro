@@ -9,8 +9,8 @@ corridor_slugs: [ru-speaking-to-poland, ru-speaking-to-czechia, ru-speaking-to-g
 topic_keys: [ukraine, poland, czechia, germany, europe]
 tags: [Украина, UA, temporary protection, ВНЖ, 2026, Польша, Чехия]
 primary_intent: informational
-cta_primary: /ru/ukraine
-cta_secondary: /ru/wizard
+cta_primary: /ru/wizard
+cta_secondary: /ru/ukraine
 official_sources:
   - url: https://home-affairs.ec.europa.eu/policies/migration-and-asylum/asylum-eu/temporary-protection_en
     label: EU — Temporary Protection

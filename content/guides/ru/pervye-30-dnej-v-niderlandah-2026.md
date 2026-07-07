@@ -9,7 +9,7 @@ corridor_slugs: [ru-speaking-to-netherlands]
 topic_keys: [netherlands, checklist, arrival]
 tags: [Нидерланды, чеклист, 2026, BSN, DigiD, IND, zorgverzekering]
 primary_intent: how-to
-cta_primary: /ru/netherlands
+cta_primary: /ru/netherlands/wizard
 cta_secondary: /ru/guides/vnj-niderlandy-2026-highly-skilled
 official_sources:
   - url: https://ind.nl/en

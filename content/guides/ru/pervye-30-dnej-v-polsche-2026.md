@@ -9,7 +9,7 @@ corridor_slugs: [ru-speaking-to-poland]
 topic_keys: [poland, checklist, arrival]
 tags: [Польша, чеклист, 2026, PESEL, meldunek, NFZ, karta pobytu]
 primary_intent: how-to
-cta_primary: /ru/poland
+cta_primary: /ru/poland/wizard
 cta_secondary: /ru/guides/vnj-polsha-2026
 official_sources:
   - url: https://www.gov.pl/web/gov/zameldowanie

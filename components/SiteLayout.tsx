@@ -3,6 +3,7 @@ import { EmigroLogo } from "@/components/brand/EmigroLogo";
 import { MobileBottomBar, MobileNav } from "@/components/layout/MobileNav";
 import { Disclaimer } from "./Disclaimer";
 import { COMMUNITY_PATH, DISCUSSION_GROUP_LABEL } from "@/lib/community";
+import { HUB_WIZARD_PATH } from "@/lib/corridor/paths";
 import { CONTACT_EMAIL, MAILTO_CONTACT } from "@/lib/site-contact";
 import { getHeaderNavLinks } from "@/lib/site-nav";
 
@@ -37,6 +38,9 @@ export function SiteFooter({ locale = "ru" }: { locale?: "ru" | "en" }) {
     <footer className="mt-12 border-t border-slate-200 bg-slate-50 pb-20 md:pb-8">
       <div className="mx-auto max-w-5xl space-y-4 px-4 py-8">
         <nav className="flex flex-wrap gap-x-4 gap-y-2 text-sm text-slate-600" aria-label="Подвал">
+          <Link href={HUB_WIZARD_PATH} className="font-medium text-corridor-700 hover:text-corridor-600">
+            {locale === "ru" ? "Подбор маршрута" : "Route finder"}
+          </Link>
           <Link href="/ru" className="hover:text-corridor-600">
             {locale === "ru" ? "Все направления" : "All destinations"}
           </Link>

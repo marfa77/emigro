@@ -1,4 +1,5 @@
 import { Activity, Globe2, Laptop, MapPin } from "lucide-react";
+import Link from "next/link";
 import { PulseCard, PulseHeader, PulseShareList } from "@/components/wizard/WizardPulseUi";
 import { getGlobalWizardPulse } from "@/lib/wizard/pulse";
 
@@ -41,6 +42,15 @@ export async function WizardPulseSection() {
           <p className="text-3xl font-bold tabular-nums text-white">{pulse.totalChecks}</p>
           <p className="mt-1 text-xs text-slate-400">все коридоры за {pulse.periodDays} дней</p>
         </PulseCard>
+      </div>
+
+      <div className="mt-5 flex justify-center">
+        <Link
+          href="/ru/wizard"
+          className="inline-flex items-center gap-2 rounded-lg bg-teal-500 px-5 py-2.5 text-sm font-medium text-white hover:bg-teal-400"
+        >
+          Запустить wizard
+        </Link>
       </div>
     </section>
   );

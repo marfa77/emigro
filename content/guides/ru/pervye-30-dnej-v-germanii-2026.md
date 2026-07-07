@@ -9,7 +9,7 @@ corridor_slugs: [ru-speaking-to-germany]
 topic_keys: [germany, checklist, arrival]
 tags: [Германия, чеклист, 2026, Anmeldung, Blue Card, Krankenkasse]
 primary_intent: how-to
-cta_primary: /ru/germany
+cta_primary: /ru/germany/wizard
 cta_secondary: /ru/guides/vnj-germaniya-2026
 official_sources:
   - url: https://www.make-it-in-germany.com/

@@ -138,33 +138,33 @@ export default async function RuHubPage() {
               </div>
             </Link>
             <Link
-              href="/ru/ukraine"
+              href="/ru/wizard?interest=poland,czechia,germany"
               className="group flex items-start gap-3 rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition hover:border-corridor-300 hover:shadow-md"
             >
               <span className="text-2xl" aria-hidden>🇺🇦</span>
               <div>
                 <p className="font-semibold text-slate-900">Граждане Украины</p>
-                <p className="mt-0.5 text-xs text-slate-500">TP vs ВНЖ · Польша, Чехия, Германия</p>
+                <p className="mt-0.5 text-xs text-slate-500">Wizard: TP vs ВНЖ · PL, CZ, DE</p>
               </div>
             </Link>
             <Link
-              href="/ru/guides/belorusy-v-evropu-vnj-2026"
+              href="/ru/wizard?interest=poland"
               className="group flex items-start gap-3 rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition hover:border-corridor-300 hover:shadow-md"
             >
               <span className="text-2xl" aria-hidden>🇧🇾</span>
               <div>
                 <p className="font-semibold text-slate-900">Беларусь</p>
-                <p className="mt-0.5 text-xs text-slate-500">Маршруты ВНЖ в ЕС для BY-паспорта</p>
+                <p className="mt-0.5 text-xs text-slate-500">Wizard подбора маршрута ВНЖ</p>
               </div>
             </Link>
             <Link
-              href="/ru/guides/kazahstantsy-v-evropu-vnj-2026"
+              href="/ru/wizard"
               className="group flex items-start gap-3 rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition hover:border-corridor-300 hover:shadow-md"
             >
               <span className="text-2xl" aria-hidden>🇰🇿</span>
               <div>
                 <p className="font-semibold text-slate-900">Казахстан</p>
-                <p className="mt-0.5 text-xs text-slate-500">KZ-паспорт → Европа: визы и маршруты ВНЖ</p>
+                <p className="mt-0.5 text-xs text-slate-500">Wizard подбора маршрута ВНЖ</p>
               </div>
             </Link>
           </div>
@@ -173,7 +173,7 @@ export default async function RuHubPage() {
         <section id="destinations" className="mt-14 scroll-mt-20">
           <h2 className="text-2xl font-semibold text-slate-900">Направления</h2>
           <p className="mt-2 max-w-2xl text-slate-600">
-            Клик по плитке — рейтинги коридора · Open — открыть hub страну.
+            Клик по плитке — рейтинги коридора · Open — запустить wizard.
           </p>
 
           {fullCorridors.length > 0 && (

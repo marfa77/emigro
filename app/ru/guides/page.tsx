@@ -383,7 +383,7 @@ export default async function GuidesIndexPage({ searchParams }: Props) {
               {corridors.map((topic) => (
                 <Link
                   key={topic.key}
-                  href={topic.sitePaths!.landing}
+                  href={topic.sitePaths?.wizard ?? topic.sitePaths!.landing}
                   className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm text-slate-700 hover:border-corridor-400"
                 >
                   {topic.flag} {topic.countryRu}

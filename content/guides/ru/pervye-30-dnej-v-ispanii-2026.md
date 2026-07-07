@@ -9,7 +9,7 @@ corridor_slugs: [ru-speaking-to-spain]
 topic_keys: [spain, checklist, arrival]
 tags: [Испания, чеклист, 2026, NIE, empadronamiento, TIE]
 primary_intent: how-to
-cta_primary: /ru/spain
+cta_primary: /ru/spain/wizard
 cta_secondary: /ru/guides/vnj-ispaniya-2026
 official_sources:
   - url: https://sede.administracionespublicas.gob.es/

@@ -9,8 +9,8 @@ corridor_slugs: [ru-speaking-to-austria]
 topic_keys: [austria, checklist, arrival]
 tags: [Австрия, чеклист, 2026, Meldezettel, SVNR, RWR Card]
 primary_intent: how-to
-cta_primary: /ru/austria
-cta_secondary: /ru/austria/wizard
+cta_primary: /ru/austria/wizard
+cta_secondary: /ru/austria
 official_sources:
   - url: https://www.migration.gv.at/en/types-of-residence/all-types-of-residence/red-white-red-card/
     label: migration.gv.at — RWR Card

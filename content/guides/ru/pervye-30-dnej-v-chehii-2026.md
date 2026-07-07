@@ -9,7 +9,7 @@ corridor_slugs: [ru-speaking-to-czechia]
 topic_keys: [czechia, checklist, arrival]
 tags: [Чехия, чеклист, 2026, rodné číslo, VZP, pobyt]
 primary_intent: how-to
-cta_primary: /ru/czechia
+cta_primary: /ru/czechia/wizard
 cta_secondary: /ru/guides/vnj-chehiya-2026
 official_sources:
   - url: https://imigration.gov.cz/en/third-country-nationals/employment/employee-card/
