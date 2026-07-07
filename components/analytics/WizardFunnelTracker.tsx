@@ -8,6 +8,10 @@ function isWizardHref(href: string): boolean {
   return /\/wizard(\/|$|\?)/.test(href) || href === "/ru/wizard";
 }
 
+function isWizardResultsPath(pathname: string): boolean {
+  return pathname.includes("/wizard/results") || /^\/ru\/[^/]+\/results$/.test(pathname);
+}
+
 function collectLinkMeta(anchor: HTMLAnchorElement) {
   const href = anchor.getAttribute("href") ?? "";
   let interest: string | null = null;
@@ -48,7 +52,7 @@ export function WizardFunnelTracker() {
         return;
       }
 
-      if (pathname.includes("/wizard/results")) {
+      if (isWizardResultsPath(pathname)) {
         trackEvent("wizard_results_click", {
           ...meta,
           session_id: searchParams.get("session") ?? "",
@@ -62,7 +66,7 @@ export function WizardFunnelTracker() {
   }, [pathname, searchParams]);
 
   useEffect(() => {
-    if (!pathname.includes("/wizard/results")) return;
+    if (!isWizardResultsPath(pathname)) return;
     const sessionId = searchParams.get("session");
     if (!sessionId) return;
 

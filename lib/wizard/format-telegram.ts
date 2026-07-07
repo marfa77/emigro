@@ -115,6 +115,7 @@ export function formatWizardCompletedTelegram(input: {
   modules?: WizardModule[];
   corridorResults?: Array<{ slug: string; outcome: string; title?: string }>;
   ctx?: WizardFunnelContext;
+  headline?: string;
 }): string {
   const { mode, sessionId, answers, payload, ctx, corridorResults } = input;
   const resultsUrl =
@@ -125,7 +126,7 @@ export function formatWizardCompletedTelegram(input: {
         : `session ${sessionId}`;
 
   const lines = [
-    "✅ Emigro — wizard завершён",
+    input.headline ?? "✅ Emigro — wizard завершён",
     "",
     `Тип: ${mode === "hub" ? "глобальный hub" : `коридор ${input.corridorTitleRu ?? input.corridorSlug}`}`,
     `Session: ${sessionId}`,

@@ -3,13 +3,7 @@ import { trackServerEvent } from "@/lib/analytics/server";
 import type { EmigroEventName } from "@/lib/analytics/events";
 import { trackSiteEvent } from "@/lib/analytics/track-site-event";
 import { clientIp } from "@/lib/analytics/geo";
-import {
-  buildWizardContext,
-  notifyWizardCtaClick,
-  notifyWizardResultsClick,
-  notifyWizardResultsView,
-  notifyWizardStarted,
-} from "@/lib/wizard/notify-owner";
+import { buildWizardContext, notifyWizardResultsView } from "@/lib/wizard/notify-owner";
 
 const ALLOWED: Set<string> = new Set([
   "session_start",
@@ -31,12 +25,7 @@ const ALLOWED: Set<string> = new Set([
   "community_join_click",
 ]);
 
-const TELEGRAM_EVENTS: Set<string> = new Set([
-  "wizard_cta_click",
-  "wizard_started",
-  "wizard_results_view",
-  "wizard_results_click",
-]);
+const TELEGRAM_EVENTS: Set<string> = new Set(["wizard_results_view"]);
 
 function propsToStrings(props: Record<string, unknown>): Record<string, string> {
   const out: Record<string, string> = {};
@@ -102,22 +91,11 @@ export async function POST(request: Request) {
   if (TELEGRAM_EVENTS.has(eventName)) {
     const flatProps = propsToStrings(props);
     const ctx = buildWizardContext(request, flatProps);
-    void (async () => {
-      switch (eventName) {
-        case "wizard_cta_click":
-          await notifyWizardCtaClick(flatProps, ctx);
-          break;
-        case "wizard_started":
-          await notifyWizardStarted(flatProps, ctx);
-          break;
-        case "wizard_results_view":
-          await notifyWizardResultsView(flatProps, ctx);
-          break;
-        case "wizard_results_click":
-          await notifyWizardResultsClick(flatProps, ctx);
-          break;
-      }
-    })();
+    if (eventName === "wizard_results_view") {
+      void notifyWizardResultsView(flatProps, ctx).catch((error) => {
+        console.warn("[wizard-notify] results view:", error instanceof Error ? error.message : error);
+      });
+    }
   }
 
   return NextResponse.json({ ok: true });
