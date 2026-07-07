@@ -34,7 +34,7 @@ function socialImageSize(path: string): SocialImageSize {
   if (known) return known;
   if (path.startsWith("/images/og/corridor-") && path.endsWith(".jpg")) return { width: 1200, height: 630 };
   if (path.startsWith("/images/og/guide-") && path.endsWith(".jpg")) return { width: 1200, height: 630 };
-  if (path.startsWith("/images/community-notes/") && path.endsWith(".jpg")) return { width: 1200, height: 630 };
+  if (path.startsWith("/images/community-notes/") && path.endsWith(".webp")) return { width: 1200, height: 630 };
   return { width: 1200, height: 630 };
 }
 

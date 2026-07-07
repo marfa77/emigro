@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import sharp from "sharp";
 import type { CommunityNote } from "@/lib/community-notes/types";
 import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 
@@ -54,11 +55,11 @@ type PexelsSearchResponse = {
 };
 
 export function noteOgImagePublicPath(slug: string): string {
-  return `/images/community-notes/${slug}.jpg`;
+  return `/images/community-notes/${slug}.webp`;
 }
 
 export function noteOgImageFilePath(slug: string): string {
-  return path.join(process.cwd(), NOTE_IMAGES_DIR, `${slug}.jpg`);
+  return path.join(process.cwd(), NOTE_IMAGES_DIR, `${slug}.webp`);
 }
 
 export function hasNoteOgImage(slug: string): boolean {
@@ -111,7 +112,11 @@ async function downloadPhoto(url: string, destPath: string): Promise<void> {
   const res = await fetch(url);
   if (!res.ok) throw new Error(`Photo download failed (${res.status}): ${url}`);
   fs.mkdirSync(path.dirname(destPath), { recursive: true });
-  fs.writeFileSync(destPath, Buffer.from(await res.arrayBuffer()));
+  const input = Buffer.from(await res.arrayBuffer());
+  await sharp(input)
+    .resize(1200, 630, { fit: "cover", position: "center" })
+    .webp({ quality: 82 })
+    .toFile(destPath);
 }
 
 export type EnsureNoteOgImageOptions = {
@@ -121,7 +126,7 @@ export type EnsureNoteOgImageOptions = {
 };
 
 /**
- * Downloads a landscape photo from Pexels to public/images/community-notes/{slug}.jpg.
+ * Downloads a landscape photo from Pexels, converts to 1200×630 WebP at public/images/community-notes/{slug}.webp.
  * Skips when file exists unless force=true. Returns the resolved OG path.
  */
 export async function ensureNoteOgImage(

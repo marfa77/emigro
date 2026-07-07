@@ -1,5 +1,5 @@
 /**
- * Backfill OG/hero JPGs for published community notes (Pexels Photos API).
+ * Backfill OG/hero WebPs for published community notes (Pexels Photos API).
  *
  *   npm run portugal:generate-note-images
  *   npm run portugal:generate-note-images -- mashina-portugaliya-kupit-arenda-import-2026
