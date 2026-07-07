@@ -22,7 +22,7 @@ official_sources:
     label: Agencia Tributaria — NIE
 estimated_minutes: 12
 date_published: 2026-06-27
-date_modified: 2026-06-27
+date_modified: 2026-07-07
 ---
 
 ## Кому этот чек-лист
@@ -118,13 +118,15 @@ date_modified: 2026-06-27
 
 ### Cita extranjería (huellas)
 
+> **Сроки (реалистично 2026):** cita previa **1–3 мес.** (Madrid/BCN **2–4 мес.**); полный цикл TIE **3–8 мес.** **(норматив: 30 дней на подачу после въезда)**.
+
 После въезда по **visa D** нужно **подать на TIE** в срок, указанный в visa (обычно **30 дней**):
 
 1. **Cita previa** extranjería — huellas dactilares + фото.
 2. **Tasa 790** + документы (passport, visa, empadronamiento, insurance, proof of means).
 3. **Resguardo** — proof of legal stay пока ждёте TIE.
 
-**Срок TIE:** 1–3 месяца (Madrid/Barcelona дольше).
+**Срок TIE:** **3–8 месяцев** end-to-end (Madrid/Barcelona **4–8**).
 
 Официально: [inclusion.gob.es](https://www.inclusion.gob.es/)
 
@@ -190,7 +192,7 @@ date_modified: 2026-06-27
 Админ-шаги **одинаковы** (NIE, empadronamiento, TIE); отличается insurance и proof of means.
 
 **Сколько ждать cita в Madrid?**  
-2–6 недель — бронируйте **сразу после прилёта**.
+2–4 месяца — бронируйте **сразу после прилёта**.
 
 ---
 

@@ -99,8 +99,8 @@ date_modified: 2026-07-07
 | Этап | Срок |
 |------|------|
 | AMS labour market check | 2–8 недель |
-| Подача в Magistrat / BH | 1–3 месяца |
-| Выдача Aufenthaltstitel | 2–6 недель после решения |
+| Подача в Magistrat / BH | **3–6 мес.** (MA35 Vienna **2–4 мес.** на Termin; **по закону: 1–3 мес.** после подачи) |
+| Выдача Aufenthaltstitel | **2–4 мес.** после решения |
 
 **Подача:** чаще **внутри Австрии** после legal entry (national visa D). Консульская подача — см. [консульская подача РФ/BY/KZ](/ru/guides/konsulskaya-podacha-rf-by-kz-2026-yurisdiktsiya).
 

@@ -120,7 +120,7 @@ date_modified: 2026-06-30
 
 После entry с **visa D**:
 
-1. **Termin** в **MA35** (Vienna) или **Landesausländerbehörde** (другие земли) — очереди **месяцы**.
+1. **Termin** в **MA35** (Vienna) или **Landesausländerbehörde** (другие земли) — очереди **2–4 месяца** (Vienna).
 2. Подача: Reisepass, visa, Meldezettel, Dienstvertrag, Krankenkasse, фото, сбор ~€160.
 3. **Biometrie** → **Aufenthaltstitel** (Red-White-Red / Blue Card).
 4. Сроки: **4–12 нед.** после appointment.

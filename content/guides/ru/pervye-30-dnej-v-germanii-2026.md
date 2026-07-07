@@ -22,7 +22,7 @@ official_sources:
     label: Techniker Krankenkasse (TK)
 estimated_minutes: 12
 date_published: 2026-06-27
-date_modified: 2026-06-27
+date_modified: 2026-07-07
 ---
 
 ## Кому этот чек-лист
@@ -105,15 +105,17 @@ date_modified: 2026-06-27
 
 ## Неделя 3–4: Ausländerbehörde
 
+> **Сроки (реалистично 2026):** запись на Termin **3–8 мес.** (Berlin **5–8**, Munich **6–12**); карта **4–12 нед.** после Termin. Продление — за **8–12 нед.** до истечения permit.
+
 После Anmeldung нужно **получить / продлить Aufenthaltstitel** в местной **Ausländerbehörde**:
 
-1. **Online-Termin** — в Berlin/Munich очереди **2–8 недель** только на запись.
+1. **Online-Termin** — в Berlin/Munich очередь **3–8 месяцев** только на запись.
 2. Подача документов + биометрия.
 3. **Fiktionsbescheinigung** — временное подтверждение статуса, пока ждёте карту.
 
 **Документы:** паспорт, visa, Meldebescheinigung, Krankenkasse proof, employment contract (Blue Card), photos.
 
-**Срок карты:** 4–12 недель после Termin.
+**Срок карты:** **4–12 недель** после Termin (в загруженных городах — верхняя граница).
 
 ---
 
@@ -168,7 +170,7 @@ date_modified: 2026-06-27
 Процедуры **одинаковы** после легального въезда; отличается консульская подача **до** прилёта.
 
 **Сколько ждать Termin в Berlin?**  
-2–8 недель на запись — бронируйте **в день Anmeldung**.
+2–8 месяцев на запись — бронируйте **в день Anmeldung**.
 
 **Chancenkarte — нужен ли Arbeitgeber для Krankenkasse?**  
 Нет — оформите **private accepted by Ausländerbehörde** до Termin.

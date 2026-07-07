@@ -4,7 +4,7 @@ title: "Первые 30 дней в Польше 2026: PESEL, meldunek, банк
 seo_title: "Первые 30 дней в Польше 2026 — PESEL, meldunek, банк"
 seo_description: "Чек-лист после прилёта в Польшу: PESEL, meldunek, банk mBank/PKO, NFZ, SIM, voivodeship. Для RU/UA/BY/KZ с work permit или Blue Card. 2026."
 excerpt: "Work permit или Blue Card одобрен — что делать в первый месяц: PESEL, meldunek, банк, NFZ и запись в voivodeship."
-quick_answer: "Первые 30 дней: (1) meldunek (zameldowanie) в urząd gminy, (2) PESEL при meldunek или отдельно, (3) Polish SIM (Play/Orange/T-Mobile), (4) банк — mBank/PKO/ING (IBAN PL), (5) NFZ или частная страховка до трудоустройства, (6) подача/биометрия karta pobytu в voivodeship. По UoC решение — до 60 дн. / 3 мес.; в Mazowieckie на практике часто год+. Без meldunek и PESEL не откроете счёт."
+quick_answer: "Первые 30 дней: (1) meldunek — **реалистично 2–6 нед.** (zgoda właściciela + запись urząd; закон 30 дн.), (2) PESEL при meldunek, (3) SIM, (4) банк IBAN PL, (5) NFZ, (6) karta pobytu: **4–14 мес.** (Варшава **8–14**; UoC до 3 мес.). Без meldunek и PESEL не откроете счёт."
 corridor_slugs: [ru-speaking-to-poland]
 topic_keys: [poland, checklist, arrival]
 tags: [Польша, чеклист, 2026, PESEL, meldunek, NFZ, karta pobytu]
@@ -60,11 +60,13 @@ date_modified: 2026-07-07
 
 **Zameldowanie (meldunek)** — регистрация адреса в **urząd gminy / miasta**.
 
-**Срок:** **30 дней** после заселения (для резидентов).
+**Срок по закону:** **30 дней** после заселения.
+
+**Реалистично 2026:** **2–6 недель** end-to-end — **zgoda właściciela** (согласие арендодателя) часто **1–3 нед.**, запись в **urząd gminy** в Warsaw/Kraków — **1–4 нед.**, сам meldunek — в день визита.
 
 **Документы:** паспорт, umowa najmu, zgoda właściciela, иногда wypis z księgi wieczystej.
 
-**PESEL** — польский ID-номер (11 цифр). Обычно выдают **при meldunek** или отдельной заявкой в urząd.
+**PESEL** — польский ID-номер (11 цифр). Обычно выдают **при meldunek** в тот же визит; отдельная заявка в urząd — ещё **1–3 нед.** ожидания записи.
 
 | Без PESEL | С PESEL |
 |-----------|---------|
@@ -105,11 +107,11 @@ date_modified: 2026-07-07
 
 Если подача **в Urząd Wojewódzki**:
 
-1. **Запись online / in-person** — в Mazowieckie (Варшава) запись на подачу и биометрию часто занимает **недели–месяцы**; само рассмотрение — ещё дольше.
+1. **Запись online / in-person** — в Mazowieckie (Варшава) слот на **биометрию** часто **1–3 мес.**; в Kraków/Wrocław — **2–8 нед.**
 2. Подача dossier: паспорт, work permit, umowa, meldunek, NFZ/страховка, фото, сбор **PLN 340**.
 3. **Биометрия** + отпечатки пальцев.
-4. **Potwierdzenie złożenia** — legal stay на время рассмотрения; **UoC:** до 60 дн. / 3 мес.; **Mazowieckie на практике:** нередко **12+ мес.** — регламент массово не соблюдается
-5. **Karta pobytu** — 2–6 нед. после положительного решения.
+4. **Potwierdzenie złożenia** — legal stay на время рассмотрения; **реалистично 2026:** решение **4–14 мес.** (Варшава **8–14**; по **UoC** до 60 дн./3 мес.)
+5. **Karta pobytu** — **2–4 мес.** после положительного решения (очередь на выдачу).
 
 **Документы на подачу:** см. [ВНЖ Польша 2026](/ru/guides/vnj-polsha-2026).
 
@@ -174,7 +176,7 @@ date_modified: 2026-07-07
 
 ### Сколько ждать karta pobytu?
 
-По **UoC** — до **60 дней** / **3 месяцев**; карта +2–6 нед. **Mazowieckie (Варшава):** на практике нередко **год и больше** — системное нарушение регламента, а не исключение.
+**Реалистично 2026:** решение **4–14 мес.** (Варшава **8–14**, Краков **4–10**, Wrocław **4–8**; по **UoC** — до **60 дней** / **3 месяцев**). Биометрия до подачи — **1–3 мес.** в крупных городах. Карта — **2–4 мес.** после решения. Сроки по закону; на практике в voivodeship **часто дольше**.
 
 ### Можно ли работать до karta pobytu?
 

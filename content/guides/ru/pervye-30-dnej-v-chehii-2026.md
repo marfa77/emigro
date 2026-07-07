@@ -22,7 +22,7 @@ official_sources:
     label: IPC — portal for foreigners (CZ)
 estimated_minutes: 12
 date_published: 2026-06-29
-date_modified: 2026-06-30
+date_modified: 2026-07-07
 ---
 
 ## Кому этот чек-лист
@@ -185,7 +185,7 @@ Prague — больше IT-вакансий, дольше очереди MOI, д
 
 ### Сколько ждать biometric card?
 
-MOI: **60–90 дней** решение; карта +2–6 нед.
+MOI: **3–6 мес.** реалистично (Prague); **по закону 60 д.** после полной подачи; карта **2–4 мес.** после решения.
 
 ### Можно ли работать до карты?
 
