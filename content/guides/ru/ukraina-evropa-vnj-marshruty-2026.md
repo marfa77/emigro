@@ -26,7 +26,7 @@ official_sources:
     label: BAMF Germany
 estimated_minutes: 17
 date_published: 2026-06-29
-date_modified: 2026-07-06
+date_modified: 2026-07-07
 ---
 
 ## Кому этот гайд
@@ -71,7 +71,7 @@ date_modified: 2026-07-06
 
 | Маршрут | Порог 2026 | Срок pobyt |
 |---------|------------|------------|
-| Work permit Type A | ~€1 080/мес брутто | от 2–4 мес. |
+| Work permit Type A | **PLN 4 806/мес** брутто (~€1 113) | от 2–4 мес. |
 | EU Blue Card | ~€3 020/мес | от 2–4 мес. |
 | B2B / zlecenie IT | ~€2 500/мес | от 2–4 мес. |
 | Studia | ~€9 600/год средств | от 2–4 мес. |
