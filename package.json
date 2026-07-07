@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "deploy:check": "npm run build",
+    "deploy:vercel": "npm run build && vercel --prod",
     "start": "next start",
     "lint": "next lint",
     "db:push": "supabase db push",

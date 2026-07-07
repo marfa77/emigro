@@ -4,6 +4,8 @@
 
 ## Деплой субдомена (Vercel)
 
+Перед любым prod-деплоем: `npm run build` должен пройти локально. Чеклист: [DEPLOY.md](./DEPLOY.md).
+
 1. Vercel → Project **emigro** → Settings → Domains → Add `portugal.emigro.online`
 2. DNS у регистратора: `CNAME portugal → cname.vercel-dns.com` (или значение из Vercel)
 3. `middleware.ts` уже делает rewrite `portugal.emigro.online` → `/satellite/portugal/*`
