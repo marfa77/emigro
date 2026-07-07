@@ -15,6 +15,19 @@ export interface PeriodCounts {
   eventsTotal: number;
 }
 
+export interface WizardTelegramStats {
+  usersTotal: number;
+  deliveriesTotal: number;
+  deliveriesSentTotal: number;
+  deliveriesToday: number;
+  deliveriesYesterday: number;
+  usersNewToday: number;
+  usersNewYesterday: number;
+  resultsViewsTotal: number;
+  resultsViewsToday: number;
+  resultsViewsYesterday: number;
+}
+
 export interface StatsReport {
   timezone: string;
   todayLabel: string;
@@ -52,6 +65,7 @@ export interface StatsReport {
     isReturning: boolean;
     llm: string | null;
   }>;
+  wizardTelegram: WizardTelegramStats;
 }
 
 function analyticsTimezone(): string {
@@ -310,6 +324,68 @@ async function recentSessionsToday(
   return out;
 }
 
+async function countTableRows(
+  supabase: ReturnType<typeof createAdminClient>,
+  table: "emigro_wizard_telegram_users" | "emigro_wizard_telegram_deliveries",
+  start: string | null,
+  end: string | null,
+  filters?: { reportSent?: boolean; dateField?: "created_at" | "first_seen_at" }
+): Promise<number> {
+  const dateField = filters?.dateField ?? "created_at";
+  let q = supabase.from(table).select("*", { count: "exact", head: true });
+  if (filters?.reportSent != null) q = q.eq("report_sent", filters.reportSent);
+  if (start) q = q.gte(dateField, start);
+  if (end) q = q.lt(dateField, end);
+  const { count, error } = await q;
+  if (error) throw new Error(error.message);
+  return Number(count ?? 0);
+}
+
+async function buildWizardTelegramStats(
+  supabase: ReturnType<typeof createAdminClient>,
+  todayStart: string,
+  todayEnd: string,
+  yStart: string,
+  yEnd: string
+): Promise<WizardTelegramStats> {
+  const [
+    usersTotal,
+    deliveriesTotal,
+    deliveriesSentTotal,
+    deliveriesToday,
+    deliveriesYesterday,
+    usersNewToday,
+    usersNewYesterday,
+    resultsViewsTotal,
+    resultsViewsToday,
+    resultsViewsYesterday,
+  ] = await Promise.all([
+    countTableRows(supabase, "emigro_wizard_telegram_users", null, null, { dateField: "first_seen_at" }),
+    countTableRows(supabase, "emigro_wizard_telegram_deliveries", null, null),
+    countTableRows(supabase, "emigro_wizard_telegram_deliveries", null, null, { reportSent: true }),
+    countTableRows(supabase, "emigro_wizard_telegram_deliveries", todayStart, todayEnd, { reportSent: true }),
+    countTableRows(supabase, "emigro_wizard_telegram_deliveries", yStart, yEnd, { reportSent: true }),
+    countTableRows(supabase, "emigro_wizard_telegram_users", todayStart, todayEnd, { dateField: "first_seen_at" }),
+    countTableRows(supabase, "emigro_wizard_telegram_users", yStart, yEnd, { dateField: "first_seen_at" }),
+    rpcCountEvents(supabase, null, null, "wizard_results_view"),
+    rpcCountEvents(supabase, todayStart, todayEnd, "wizard_results_view"),
+    rpcCountEvents(supabase, yStart, yEnd, "wizard_results_view"),
+  ]);
+
+  return {
+    usersTotal,
+    deliveriesTotal,
+    deliveriesSentTotal,
+    deliveriesToday,
+    deliveriesYesterday,
+    usersNewToday,
+    usersNewYesterday,
+    resultsViewsTotal,
+    resultsViewsToday,
+    resultsViewsYesterday,
+  };
+}
+
 export async function buildStatsReport(): Promise<StatsReport> {
   const supabase = createAdminClient();
   const tz = analyticsTimezone();
@@ -341,6 +417,7 @@ export async function buildStatsReport(): Promise<StatsReport> {
     topProvidersToday,
     topProvidersAll,
     recentSessions,
+    wizardTelegram,
   ] = await Promise.all([
     periodCounts(supabase, null, null),
     periodCounts(supabase, todayWin.start, todayWin.end),
@@ -370,6 +447,7 @@ export async function buildStatsReport(): Promise<StatsReport> {
     topProviderClicks(supabase, todayWin.start, todayWin.end),
     topProviderClicks(supabase, null, null),
     recentSessionsToday(supabase, todayWin.start, todayWin.end),
+    buildWizardTelegramStats(supabase, todayWin.start, todayWin.end, yWin.start, yWin.end),
   ]);
 
   const trend = (trendRaw.data ?? []).map(
@@ -413,6 +491,7 @@ export async function buildStatsReport(): Promise<StatsReport> {
     topProvidersAll,
     llmSourcesToday,
     recentSessions,
+    wizardTelegram,
   };
 }
 

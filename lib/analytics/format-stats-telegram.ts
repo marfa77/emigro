@@ -34,8 +34,13 @@ function fmtSessionRow(s: StatsReport["recentSessions"][number]): string {
   return `  ${prefix}<code>${escapeHtml(s.sessionId)}</code> · ${escapeHtml(meta)} · ${escapeHtml(shortPath)}`;
 }
 
+function conversionPct(part: number, whole: number): string {
+  if (whole <= 0) return "—";
+  return `${Math.round((part / whole) * 100)}%`;
+}
+
 export function formatStatsReportTelegram(report: StatsReport): string {
-  const { total, today, yesterday } = report;
+  const { total, today, yesterday, wizardTelegram: tg } = report;
 
   const lines: string[] = [
     "<b>📊 Emigro — статистика</b>",
@@ -47,6 +52,7 @@ export function formatStatsReportTelegram(report: StatsReport): string {
     `Сессии (session_start): <b>${total.newSessions}</b>`,
     `Сессии с визардом: <b>${total.wizardStarted}</b>`,
     `Завершения визарда: <b>${total.wizardCompleted}</b>`,
+    `Отчётов в Telegram: <b>${tg.deliveriesSentTotal}</b> <i>(юзеров ${tg.usersTotal})</i>`,
     `Лиды: <b>${total.leads}</b>`,
     `Событий в БД: <b>${total.eventsTotal}</b>`,
     `Боты (исключены): <b>${report.botsTotal}</b> сессий`,
@@ -58,6 +64,9 @@ export function formatStatsReportTelegram(report: StatsReport): string {
     `Просмотры страниц: <b>${today.pageViews}</b>${deltaHtml(today.pageViews, yesterday.pageViews)}`,
     `Новые сессии: <b>${today.newSessions}</b>${deltaHtml(today.newSessions, yesterday.newSessions)}`,
     `Визард started: <b>${today.wizardStarted}</b>${deltaHtml(today.wizardStarted, yesterday.wizardStarted)}`,
+    `Просмотры результатов: <b>${tg.resultsViewsToday}</b>${deltaHtml(tg.resultsViewsToday, tg.resultsViewsYesterday)}`,
+    `Отчётов в Telegram: <b>${tg.deliveriesToday}</b>${deltaHtml(tg.deliveriesToday, tg.deliveriesYesterday)} <i>(новых юзеров ${tg.usersNewToday})</i>`,
+    `Конверсия results → TG: <b>${escapeHtml(conversionPct(tg.deliveriesToday, tg.resultsViewsToday))}</b>`,
     `Лиды: <b>${today.leads}</b>${deltaHtml(today.leads, yesterday.leads)}`,
     `LLM-трафик: <b>${report.llmToday}</b>${deltaHtml(report.llmToday, report.llmYesterday)} <i>(всего ${report.llmTotal})</i>`,
     `Боты (исключены): <b>${report.botsToday}</b>${deltaHtml(report.botsToday, report.botsYesterday)} <i>(всего ${report.botsTotal})</i>`,

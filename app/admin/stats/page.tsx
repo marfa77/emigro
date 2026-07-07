@@ -99,6 +99,11 @@ export default async function AdminStatsPage() {
                 <MetricRow label="Сессии (session_start)" value={report.total.newSessions} />
                 <MetricRow label="Сессии с визардом" value={report.total.wizardStarted} />
                 <MetricRow label="Завершения визарда" value={report.total.wizardCompleted} />
+                <MetricRow
+                  label="Отчётов в Telegram"
+                  value={report.wizardTelegram.deliveriesSentTotal}
+                  hint={`(юзеров ${report.wizardTelegram.usersTotal})`}
+                />
                 <MetricRow label="Лиды" value={report.total.leads} />
                 <MetricRow label="Клики партнёров" value={report.total.providerClicks} />
                 <MetricRow label="Событий в БД" value={report.total.eventsTotal} />
@@ -138,6 +143,38 @@ export default async function AdminStatsPage() {
                   label="Визард started"
                   value={report.today.wizardStarted}
                   delta={deltaLine(report.today.wizardStarted, report.yesterday.wizardStarted)}
+                />
+                <MetricRow
+                  label="Просмотры результатов"
+                  value={report.wizardTelegram.resultsViewsToday}
+                  delta={deltaLine(
+                    report.wizardTelegram.resultsViewsToday,
+                    report.wizardTelegram.resultsViewsYesterday
+                  )}
+                />
+                <MetricRow
+                  label="Отчётов в Telegram"
+                  value={report.wizardTelegram.deliveriesToday}
+                  delta={deltaLine(
+                    report.wizardTelegram.deliveriesToday,
+                    report.wizardTelegram.deliveriesYesterday
+                  )}
+                  hint={`(новых юзеров ${report.wizardTelegram.usersNewToday})`}
+                />
+                <MetricRow
+                  label="Конверсия results → TG"
+                  value={
+                    report.wizardTelegram.resultsViewsToday > 0
+                      ? Math.round(
+                          (report.wizardTelegram.deliveriesToday /
+                            report.wizardTelegram.resultsViewsToday) *
+                            100
+                        )
+                      : 0
+                  }
+                  hint={
+                    report.wizardTelegram.resultsViewsToday > 0 ? "%" : "(нет просмотров results)"
+                  }
                 />
                 <MetricRow
                   label="Лиды"
