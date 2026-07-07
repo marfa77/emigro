@@ -9,6 +9,7 @@ export type EmigroEventName =
   | "wizard_cta_click"
   | "wizard_results_view"
   | "wizard_results_click"
+  | "wizard_telegram_delivered"
   | "hub_wizard_completed"
   | "lead_submitted"
   | "assist_lead_submitted"

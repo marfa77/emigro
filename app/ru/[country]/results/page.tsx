@@ -5,7 +5,7 @@ import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { LeadForm } from "@/components/LeadForm";
 import { ServiceProvidersSection } from "@/components/providers/ServiceProvidersSection";
 import { HouseholdBanner } from "@/components/wizard/HouseholdBanner";
-import { TelegramResultsCta } from "@/components/wizard/TelegramResultsCta";
+import { WizardTelegramDelivery } from "@/components/wizard/WizardTelegramDelivery";
 import { WizardOutcomeCard } from "@/components/wizard/WizardOutcomeCard";
 import { corridorWizardPath } from "@/lib/corridor/paths";
 import { getCorridorBySlug } from "@/lib/corridor/queries";
@@ -147,7 +147,7 @@ export default async function CountryResultsPage({
 
         <HouseholdBanner household={household} />
 
-        <TelegramResultsCta
+        <WizardTelegramDelivery
           mode="corridor"
           sessionId={sessionId}
           topRecommendation={topResult ? `${topic.countryRu} — ${topResult.title_ru}` : undefined}

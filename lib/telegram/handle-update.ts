@@ -1,9 +1,5 @@
 import { buildTelegramStatsReport } from "@/lib/analytics/format-stats-telegram";
-import { corridorResultsPath } from "@/lib/corridor/paths";
-import { createServerClient } from "@/lib/supabase/server";
-import { SITE_URL } from "@/lib/site-url";
 import { parseWizardTelegramStartPayload } from "@/lib/telegram/deep-link";
-import { sendOwnerTelegramDm } from "@/lib/telegram";
 import {
   isAdminTelegramChat,
   sendStatsBotMessage,
@@ -16,6 +12,7 @@ import {
   isStatsDemoCommand,
   startWelcomeMessage,
 } from "@/lib/telegram/commands";
+import { sendWizardReportToTelegramUser } from "@/lib/wizard/send-telegram-report";
 
 const recentStatsReplies = new Map<string, number>();
 const STATS_REPLY_COOLDOWN_MS = 120_000;
@@ -105,42 +102,9 @@ async function handleStatsCommand(message: TelegramMessage): Promise<boolean> {
   return true;
 }
 
-function escapeHtml(value: string): string {
-  return value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
-}
-
 function startPayload(text: string): string | null {
   const match = text.trim().match(/^\/start(?:@\w+)?\s+(.+)$/i);
   return match?.[1]?.trim() || null;
-}
-
-async function resultUrlForSession(mode: "hub" | "corridor", sessionId: string): Promise<string> {
-  if (mode === "hub") {
-    return `${SITE_URL}/ru/wizard/results?session=${encodeURIComponent(sessionId)}`;
-  }
-
-  const supabase = createServerClient();
-  const { data: session } = await supabase
-    .from("emigro_wizard_sessions")
-    .select("corridor_id")
-    .eq("id", sessionId)
-    .single();
-
-  if (!session?.corridor_id) return `${SITE_URL}/ru`;
-
-  const { data: corridor } = await supabase
-    .from("emigro_corridors")
-    .select("slug")
-    .eq("id", session.corridor_id)
-    .single();
-
-  return corridor?.slug
-    ? `${SITE_URL}${corridorResultsPath(corridor.slug)}?session=${encodeURIComponent(sessionId)}`
-    : `${SITE_URL}/ru`;
 }
 
 async function handleWizardStartCommand(message: TelegramMessage): Promise<boolean> {
@@ -151,44 +115,41 @@ async function handleWizardStartCommand(message: TelegramMessage): Promise<boole
   if (!parsed) return false;
 
   const chatId = message.chat?.id;
-  if (chatId == null) return true;
+  const userId = message.from?.id;
+  if (chatId == null || userId == null) return true;
 
-  const resultUrl = await resultUrlForSession(parsed.mode, parsed.sessionId);
-  const userLabel = [
-    message.from?.username ? `@${message.from.username}` : null,
-    [message.from?.first_name, message.from?.last_name].filter(Boolean).join(" "),
-    message.from?.id ? `id ${message.from.id}` : null,
-  ]
-    .filter(Boolean)
-    .join(" · ");
+  const delivered = await sendWizardReportToTelegramUser({
+    sessionId: parsed.sessionId,
+    telegramUserId: userId,
+  });
+
+  if (!delivered.success) {
+    await sendStatsBotMessage(
+      chatId,
+      [
+        "<b>Не удалось отправить отчёт</b>",
+        "",
+        delivered.error ?? "Проверьте, что wizard завершён на сайте, и попробуйте снова.",
+      ].join("\n"),
+      { parseMode: "HTML" }
+    );
+    return true;
+  }
+
+  if (delivered.skipped) {
+    await sendStatsBotMessage(
+      chatId,
+      "<b>Отчёт уже был отправлен</b> — проверьте сообщения выше или откройте результат на сайте.",
+      { parseMode: "HTML" }
+    );
+    return true;
+  }
 
   await sendStatsBotMessage(
     chatId,
-    [
-      "<b>Результат wizard сохранён</b>",
-      "",
-      "Мы видим вашу сессию и можем продолжить разбор здесь.",
-      `Session: <code>${escapeHtml(parsed.sessionId)}</code>`,
-      "",
-      `<a href="${escapeHtml(resultUrl)}">Открыть результат</a>`,
-    ].join("\n"),
+    "<b>✅ Готово!</b> Полный отчёт по маршрутам — в сообщении выше. Сохраните чат, чтобы вернуться к нему позже.",
     { parseMode: "HTML" }
   );
-
-  const ownerMessage = [
-    "📨 Emigro — результат wizard открыт в Telegram",
-    "",
-    `Тип: ${parsed.mode === "hub" ? "глобальный hub" : "коридор"}`,
-    `Session: ${parsed.sessionId}`,
-    `Результаты: ${resultUrl}`,
-    userLabel ? `Telegram: ${userLabel}` : null,
-    chatId ? `Chat: ${chatId}` : null,
-  ]
-    .filter((line): line is string => Boolean(line))
-    .join("\n");
-
-  const owner = await sendOwnerTelegramDm(ownerMessage);
-  if (!owner.success) console.warn("[telegram] owner wizard handoff:", owner.error);
 
   return true;
 }
