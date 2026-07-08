@@ -1,9 +1,9 @@
 /**
  * Legacy curated topic IDs (pre–community-note Shorts) map to note slugs on portugal.emigro.online.
- * If any slug in a group is published or exists in GCS, treat the whole group as done.
+ * If any slug in a group is published or has a short.mp4 artifact, treat the whole group as done.
  */
 export const TIP_TOPIC_EQUIVALENT_GROUPS: readonly (readonly string[])[] = [
-  ["nif-one-day", "nif-lissabon-chto-puutayut"],
+  ["aima-3-mistakes", "aima-agora-zapis-2026"],
   ["lisbon-rent-2026", "arenda-lissabon-do-podpisi"],
   ["lisbon-free-museums-vnj", "lgoty-s-vnj-kulturnye-mesta-2026"],
 ];

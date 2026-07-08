@@ -37,6 +37,7 @@ import {
   isTopicPublished,
   markTopicPublished,
   pickNextTipTopic,
+  topicDoneReason,
 } from "./state";
 import { assertTipDurationEstimate, buildTipSegments, countSpokenWords, estimateTipDurationSeconds } from "./tip-script";
 import { todayYmd } from "./text-utils";
@@ -87,11 +88,12 @@ export async function generateTipYoutubeShort(options: GenerateTipShortOptions =
     if (explicitTopic && options.force) {
       console.log(`[youtube-short] Re-rendering published topic ${topic.id} (--topic --force)`);
     } else {
+      const reason = topicDoneReason(topic.id) ?? "published artifact";
       const nextHint = explicitTopic
         ? `Use --topic=${topic.id} --force to re-render intentionally.`
         : `--force alone does not repeat published topics. Use --topic=${topic.id} --force to re-render, or omit --topic for the next unpublished topic.`;
-      console.error(`[youtube-short] REFUSED: "${topic.id}" is already published. ${nextHint}`);
-      throw new Error(`Topic already published: ${topic.id}. ${nextHint}`);
+      console.error(`[youtube-short] REFUSED: "${topic.id}" already has a Short (${reason}). ${nextHint}`);
+      throw new Error(`Topic already published: ${topic.id} (${reason}). ${nextHint}`);
     }
   }
 

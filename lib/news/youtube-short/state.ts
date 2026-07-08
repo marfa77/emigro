@@ -75,6 +75,15 @@ function gcsEnv(): NodeJS.ProcessEnv {
   };
 }
 
+function gcsObjectExists(objectPath: string): boolean {
+  const result = spawnSync("gsutil", ["stat", objectPath], {
+    encoding: "utf8",
+    env: gcsEnv(),
+    timeout: 15_000,
+  });
+  return result.status === 0;
+}
+
 function discoverPublishedFromGcs(force = false): { slugs: Set<string>; ok: boolean } {
   const found = new Set<string>();
   if (!force && !shouldSyncPublishedFromGcs()) return { slugs: found, ok: true };
@@ -103,7 +112,10 @@ function discoverPublishedFromGcs(force = false): { slugs: Set<string>; ok: bool
 
   for (const line of result.stdout.split("\n")) {
     const match = line.trim().match(/\/tips\/[^/]+\/([^/]+)\/?$/);
-    if (match && isTopicSlug(match[1])) found.add(match[1]);
+    if (!match || !isTopicSlug(match[1])) continue;
+    const slug = match[1];
+    const shortPath = `${line.trim().replace(/\/$/, "")}/short.mp4`;
+    if (gcsObjectExists(shortPath)) found.add(slug);
   }
   return { slugs: found, ok: true };
 }
@@ -170,30 +182,13 @@ function collectDoneTopicSlugs(state: PublishedState, options?: { refreshGcs?: b
 }
 
 function backfillPublishedState(state: PublishedState): PublishedState {
-  const forceGcsSync = process.env.EMIGRO_YOUTUBE_SHORTS_SYNC_GCS === "1";
-  const skipGcs = state.backfill_migrated_at && !forceGcsSync;
-
-  const discovered = new Set(state.published);
-  for (const id of Array.from(discoverPublishedFromLocalOutput())) discovered.add(id);
-  for (const id of Array.from(discoverPublishedFromGenerationReports())) discovered.add(id);
-
-  let gcsOk = true;
-  if (!skipGcs && shouldSyncPublishedFromGcs()) {
-    const gcs = discoverPublishedFromGcs();
-    gcsOk = gcs.ok;
-    for (const id of Array.from(gcs.slugs)) discovered.add(id);
-  }
-
-  const expandedDiscovered = expandEquivalentTopicSlugs(discovered);
-  let next = mergeLegacyStatePublished({ ...state, published: Array.from(expandedDiscovered) });
+  const discovered = collectDoneTopicSlugs(state, { refreshGcs: true });
+  let next = mergeLegacyStatePublished({ ...state, published: Array.from(discovered) });
   const changed =
     next.published.length !== state.published.length ||
     next.published.some((id, i) => state.published[i] !== id);
 
-  const gcsAttempted = !skipGcs && shouldSyncPublishedFromGcs();
-  if ((gcsAttempted && gcsOk) || (!gcsAttempted && !state.backfill_migrated_at)) {
-    next = { ...next, backfill_migrated_at: new Date().toISOString() };
-  }
+  next = { ...next, backfill_migrated_at: new Date().toISOString() };
 
   if (changed) {
     next.last_topic_id = next.last_topic_id ?? next.published.at(-1);
@@ -231,7 +226,18 @@ export function alreadyGeneratedToday(): boolean {
 }
 
 export function isTopicPublished(topicId: string): boolean {
-  return collectDoneTopicSlugs(readState()).has(topicId);
+  return collectDoneTopicSlugs(readState(), { refreshGcs: true }).has(topicId);
+}
+
+export function topicDoneReason(topicId: string): string | null {
+  const state = readState();
+  if (state.published.includes(topicId)) return "published[] state";
+  if (discoverPublishedFromLocalOutput().has(topicId)) return "local short.mp4";
+  const gcs = discoverPublishedFromGcs(true);
+  if (gcs.slugs.has(topicId)) return "GCS short.mp4";
+  const done = collectDoneTopicSlugs(state, { refreshGcs: false });
+  if (done.has(topicId)) return "legacy slug equivalent";
+  return null;
 }
 
 export function markTopicPublished(topicId: string): void {
