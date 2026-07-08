@@ -4,6 +4,7 @@ import { spawnSync } from "child_process";
 import { loadCommunityTipTopics, getCommunityTipTopic } from "./community-topics";
 import { youtubeShortsBucket, youtubeShortsGcsPrefix, youtubeShortsOutputRoot } from "./config";
 import { todayYmd } from "./text-utils";
+import { expandEquivalentTopicSlugs } from "./topic-equivalents";
 import type { TipShortTopic } from "./topics";
 
 type PublishedState = {
@@ -74,9 +75,9 @@ function gcsEnv(): NodeJS.ProcessEnv {
   };
 }
 
-function discoverPublishedFromGcs(): { slugs: Set<string>; ok: boolean } {
+function discoverPublishedFromGcs(force = false): { slugs: Set<string>; ok: boolean } {
   const found = new Set<string>();
-  if (!shouldSyncPublishedFromGcs()) return { slugs: found, ok: true };
+  if (!force && !shouldSyncPublishedFromGcs()) return { slugs: found, ok: true };
 
   const bucket = youtubeShortsBucket().replace(/\/+$/g, "");
   if (!bucket.startsWith("gs://")) return { slugs: found, ok: true };
@@ -151,6 +152,23 @@ function shouldSyncPublishedFromGcs(): boolean {
   return process.env.EMIGRO_YOUTUBE_SHORTS_BACKFILL_GCS !== "0";
 }
 
+function collectDoneTopicSlugs(state: PublishedState, options?: { refreshGcs?: boolean }): Set<string> {
+  const done = new Set(state.published);
+  for (const id of Array.from(discoverPublishedFromLocalOutput())) done.add(id);
+  for (const id of Array.from(discoverPublishedFromGenerationReports())) done.add(id);
+
+  const refreshGcs = options?.refreshGcs ?? true;
+  if (refreshGcs) {
+    const gcs = discoverPublishedFromGcs(true);
+    for (const id of Array.from(gcs.slugs)) done.add(id);
+  } else if (!state.backfill_migrated_at && shouldSyncPublishedFromGcs()) {
+    const gcs = discoverPublishedFromGcs(false);
+    for (const id of Array.from(gcs.slugs)) done.add(id);
+  }
+
+  return expandEquivalentTopicSlugs(done);
+}
+
 function backfillPublishedState(state: PublishedState): PublishedState {
   const forceGcsSync = process.env.EMIGRO_YOUTUBE_SHORTS_SYNC_GCS === "1";
   const skipGcs = state.backfill_migrated_at && !forceGcsSync;
@@ -166,7 +184,8 @@ function backfillPublishedState(state: PublishedState): PublishedState {
     for (const id of Array.from(gcs.slugs)) discovered.add(id);
   }
 
-  let next = mergeLegacyStatePublished({ ...state, published: Array.from(discovered) });
+  const expandedDiscovered = expandEquivalentTopicSlugs(discovered);
+  let next = mergeLegacyStatePublished({ ...state, published: Array.from(expandedDiscovered) });
   const changed =
     next.published.length !== state.published.length ||
     next.published.some((id, i) => state.published[i] !== id);
@@ -212,7 +231,7 @@ export function alreadyGeneratedToday(): boolean {
 }
 
 export function isTopicPublished(topicId: string): boolean {
-  return readState().published.includes(topicId);
+  return collectDoneTopicSlugs(readState()).has(topicId);
 }
 
 export function markTopicPublished(topicId: string): void {
@@ -238,8 +257,8 @@ export async function pickNextTipTopic(explicitTopicId?: string): Promise<TipSho
     throw new Error("No published community notes on portugal.emigro.online suitable for Shorts");
   }
 
-  const state = readState();
-  const unpublished = topics.filter((t) => !state.published.includes(t.id));
+  const done = collectDoneTopicSlugs(readState(), { refreshGcs: true });
+  const unpublished = topics.filter((t) => !done.has(t.id));
   if (unpublished.length === 0) {
     throw new Error(
       `All ${topics.length} community note topics are published. Use --topic=SLUG --force to re-render one note.`
@@ -249,10 +268,10 @@ export async function pickNextTipTopic(explicitTopicId?: string): Promise<TipSho
 }
 
 export async function listTipTopics(): Promise<Array<TipShortTopic & { published: boolean }>> {
-  const state = readState();
+  const done = collectDoneTopicSlugs(readState(), { refreshGcs: true });
   const topics = await loadCommunityTipTopics();
   return topics.map((t) => ({
     ...t,
-    published: state.published.includes(t.id),
+    published: done.has(t.id),
   }));
 }
