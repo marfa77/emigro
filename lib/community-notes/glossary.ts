@@ -33,21 +33,23 @@ export function hasGlossarySection(sections: NoteBodySection[]): boolean {
   return sections.some(isGlossarySection);
 }
 
-/** Insert glossary before timeline/checklist/errors sections, or at end. */
+/** Move existing glossary section to index 0 (first body_section). */
+export function moveGlossaryToStart(sections: NoteBodySection[]): NoteBodySection[] {
+  const glossary = sections.find(isGlossarySection);
+  if (!glossary) return sections;
+  const without = sections.filter((s) => !isGlossarySection(s));
+  if (sections[0] && isGlossarySection(sections[0])) return sections;
+  return [glossary, ...without];
+}
+
+/** Insert or refresh glossary as the first body_section (after quick_answer / takeaways on the page). */
 export function upsertGlossarySection(
   sections: NoteBodySection[],
   terms: GlossaryTerm[]
 ): NoteBodySection[] {
   const glossary = buildGlossarySection(terms);
   const without = sections.filter((s) => !isGlossarySection(s));
-
-  const insertBeforeRe =
-    /таймлайн|чеклист|типичные ошибки|частые ошибки|итог|резюме|что проверить/i;
-  const idx = without.findIndex((s) => insertBeforeRe.test(s.heading));
-  if (idx >= 0) {
-    return [...without.slice(0, idx), glossary, ...without.slice(idx)];
-  }
-  return [...without, glossary];
+  return [glossary, ...without];
 }
 
 export function countGlossaryTerms(section: NoteBodySection): number {

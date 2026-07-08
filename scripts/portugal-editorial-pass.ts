@@ -12,7 +12,7 @@ dotenv.config({ path: resolve(process.cwd(), ".env.local") });
 
 import { validateNoteDraft, flattenBodySections } from "@/lib/community-notes/editorial-quality";
 import { glossaryForSlug } from "@/lib/community-notes/editorial-glossaries";
-import { hasGlossarySection, upsertGlossarySection } from "@/lib/community-notes/glossary";
+import { isGlossarySection, upsertGlossarySection } from "@/lib/community-notes/glossary";
 import { SKIP_REWRITE_SLUGS } from "@/lib/community-notes/rewrite-queue";
 import { createServerClient } from "@/lib/supabase/server";
 import type { CommunityNote, CommunityNoteFaq, NoteBodySection } from "@/lib/community-notes/types";
@@ -108,12 +108,17 @@ function processNote(note: CommunityNote): { note: CommunityNote; changes: strin
     changes.push("quick_answer geo/typo");
   }
 
-  if (terms && !hasGlossarySection(body_sections)) {
+  if (terms) {
+    const prevIdx = body_sections.findIndex(isGlossarySection);
     body_sections = upsertGlossarySection(body_sections, terms);
-    changes.push(`glossary +${terms.length} terms`);
-  } else if (terms && hasGlossarySection(body_sections)) {
-    changes.push("glossary already present");
-  } else if (!terms) {
+    if (prevIdx < 0) {
+      changes.push(`glossary +${terms.length} terms`);
+    } else if (prevIdx > 0) {
+      changes.push("glossary moved to start");
+    } else {
+      changes.push("glossary already at start");
+    }
+  } else {
     changes.push("no glossary data");
   }
 

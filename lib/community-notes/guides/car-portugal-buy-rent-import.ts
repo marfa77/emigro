@@ -8,6 +8,9 @@ export const CAR_PORTUGAL_GUIDE_SLUG = "mashina-portugaliya-kupit-arenda-import-
 
 const bodySections: NoteBodySection[] = [
   {
+    ...buildGlossarySection(glossaryForSlug(CAR_PORTUGAL_GUIDE_SLUG)!),
+  },
+  {
     heading: "Три сценария: купить, арендовать, привезти из ЕС",
     section_kind: "official",
     paragraphs: [
@@ -79,9 +82,6 @@ const bodySections: NoteBodySection[] = [
       "Забастовки IMT/реестров (@autolife_pt, июнь 2026) — переносите DUA, matrícula и обмен прав на спокойные недели.",
       "Seguro: онлайн дешевле, но для свежего import иногда требуют inspeção — закладывайте время.",
     ],
-  },
-  {
-    ...buildGlossarySection(glossaryForSlug(CAR_PORTUGAL_GUIDE_SLUG)!),
   },
   {
     heading: "Типичные ошибки релокантов",

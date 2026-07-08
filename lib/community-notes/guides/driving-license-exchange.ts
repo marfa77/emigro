@@ -8,6 +8,9 @@ export const DRIVING_LICENSE_GUIDE_SLUG = "zamena-voditelskih-prav-portugaliya-2
 
 const bodySections: NoteBodySection[] = [
   {
+    ...buildGlossarySection(glossaryForSlug(DRIVING_LICENSE_GUIDE_SLUG)!),
+  },
+  {
     heading: "Кому подходит обмен и какая у вас «дорожка»",
     section_kind: "official",
     paragraphs: [
@@ -107,9 +110,6 @@ const bodySections: NoteBodySection[] = [
       "Категория A: при несовпадении с португальской матрицей IMT требует подтверждение/экзамен — не игнорируйте предупреждение в форме.",
       "Regime probatório (новые права PT): в @autolife_pt спрашивали про лимит 70 km/h и 1 пассажира — это отдельный режим для недавно сдавших в PT, не для обмена иностранных.",
     ],
-  },
-  {
-    ...buildGlossarySection(glossaryForSlug(DRIVING_LICENSE_GUIDE_SLUG)!),
   },
   {
     heading: "Типичные ошибки релокантов",

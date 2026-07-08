@@ -1,4 +1,4 @@
-import { validateGuideGlossary } from "@/lib/community-notes/glossary";
+import { validateGuideGlossary, isGlossarySection } from "@/lib/community-notes/glossary";
 import { validateOfficialPracticeCopy } from "@/lib/community-notes/official-vs-practice";
 import { snsTextsFromDraft, validateSnsUtenteCopy } from "@/lib/community-notes/sns-editorial";
 import type { ContentKind } from "@/lib/community-notes/types";
@@ -71,6 +71,10 @@ export function validateNoteDraft(input: DraftQualityInput): string[] {
   }
   if (input.content_kind === "guide") {
     errors.push(...validateGuideGlossary(input.body_sections));
+    const glossaryIdx = input.body_sections.findIndex(isGlossarySection);
+    if (glossaryIdx > 0) {
+      errors.push(`glossary: must be first body_section, got index ${glossaryIdx}`);
+    }
   }
   if (totalWords(input) < rules.minWords) {
     errors.push(`word count ${totalWords(input)} < ${rules.minWords}`);

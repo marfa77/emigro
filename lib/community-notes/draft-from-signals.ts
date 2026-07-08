@@ -1,5 +1,6 @@
 import { geminiFastJson, geminiProJson } from "@/lib/news/gemini";
 import { buildNoteHashtags } from "@/lib/community-notes/hashtags";
+import { moveGlossaryToStart } from "@/lib/community-notes/glossary";
 import {
   flattenBodySections,
   normalizeNoteDraftSeo,
@@ -255,7 +256,7 @@ function finalizeDraft(
 
   const resolvedTopic = reconcileTopic(topic, raw.title, slug || `pt-${topic}`);
   const topicTags = resolvedTopic === "general" ? ["portugal"] : [resolvedTopic, "portugal"];
-  const bodySections = raw.body_sections ?? [];
+  const bodySections = moveGlossaryToStart(raw.body_sections ?? []);
 
   return normalizeNoteDraftSeo({
     ...raw,
