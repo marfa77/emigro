@@ -1,4 +1,6 @@
 import { flattenBodySections } from "@/lib/community-notes/editorial-quality";
+import { glossaryForSlug } from "@/lib/community-notes/editorial-glossaries";
+import { buildGlossarySection } from "@/lib/community-notes/glossary";
 import { buildNoteHashtags } from "@/lib/community-notes/hashtags";
 import type { CommunityNoteFaq, ContentKind, NoteBodySection } from "@/lib/community-notes/types";
 
@@ -105,6 +107,9 @@ const bodySections: NoteBodySection[] = [
       "Категория A: при несовпадении с португальской матрицей IMT требует подтверждение/экзамен — не игнорируйте предупреждение в форме.",
       "Regime probatório (новые права PT): в @autolife_pt спрашивали про лимит 70 km/h и 1 пассажира — это отдельный режим для недавно сдавших в PT, не для обмена иностранных.",
     ],
+  },
+  {
+    ...buildGlossarySection(glossaryForSlug(DRIVING_LICENSE_GUIDE_SLUG)!),
   },
   {
     heading: "Типичные ошибки релокантов",

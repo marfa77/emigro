@@ -1,3 +1,4 @@
+import { validateGuideGlossary } from "@/lib/community-notes/glossary";
 import { validateOfficialPracticeCopy } from "@/lib/community-notes/official-vs-practice";
 import { snsTextsFromDraft, validateSnsUtenteCopy } from "@/lib/community-notes/sns-editorial";
 import type { ContentKind } from "@/lib/community-notes/types";
@@ -67,6 +68,9 @@ export function validateNoteDraft(input: DraftQualityInput): string[] {
   const hasBullets = input.body_sections.some((s) => (s.bullets?.length ?? 0) >= 3);
   if (input.content_kind === "guide" && !hasBullets) {
     errors.push("guide needs at least one section with 3+ bullet items (checklist/steps)");
+  }
+  if (input.content_kind === "guide") {
+    errors.push(...validateGuideGlossary(input.body_sections));
   }
   if (totalWords(input) < rules.minWords) {
     errors.push(`word count ${totalWords(input)} < ${rules.minWords}`);

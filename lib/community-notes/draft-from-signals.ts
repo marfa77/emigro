@@ -67,7 +67,7 @@ const draftSchema = {
         type: "object",
         properties: {
           heading: { type: "string" },
-          section_kind: { type: "string", enum: ["official", "practice", "gap"] },
+          section_kind: { type: "string", enum: ["official", "practice", "gap", "glossary"] },
           paragraphs: { type: "array", items: { type: "string" } },
           bullets: { type: "array", items: { type: "string" } },
         },
@@ -113,7 +113,7 @@ const draftSchemaGemini = {
         type: "OBJECT",
         properties: {
           heading: { type: "STRING" },
-          section_kind: { type: "STRING", enum: ["official", "practice", "gap"] },
+          section_kind: { type: "STRING", enum: ["official", "practice", "gap", "glossary"] },
           paragraphs: { type: "ARRAY", items: { type: "STRING" } },
           bullets: { type: "ARRAY", items: { type: "STRING" } },
         },

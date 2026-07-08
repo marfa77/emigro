@@ -29,6 +29,7 @@ export function optimizeBodySections(sections: NoteBodySection[]): NoteBodySecti
 }
 
 export function isChecklistSection(section: NoteBodySection): boolean {
+  if (section.section_kind === "glossary") return false;
   return (section.bullets?.length ?? 0) >= 3 && /чеклист|недел|шаг/i.test(section.heading);
 }
 
@@ -65,6 +66,11 @@ const SECTION_SURFACE: Record<
     wrap: "rounded-xl border border-amber-200 bg-amber-50/80 p-5 sm:p-6",
     badge: SECTION_KIND_LABELS.gap,
     badgeClass: "bg-amber-700 text-white",
+  },
+  glossary: {
+    wrap: "rounded-xl border border-indigo-100 bg-indigo-50/40 p-5 sm:p-6",
+    badge: SECTION_KIND_LABELS.glossary,
+    badgeClass: "bg-indigo-700 text-white",
   },
 };
 

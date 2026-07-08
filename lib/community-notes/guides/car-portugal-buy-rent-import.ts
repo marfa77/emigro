@@ -1,4 +1,6 @@
 import { flattenBodySections } from "@/lib/community-notes/editorial-quality";
+import { glossaryForSlug } from "@/lib/community-notes/editorial-glossaries";
+import { buildGlossarySection } from "@/lib/community-notes/glossary";
 import { buildNoteHashtags } from "@/lib/community-notes/hashtags";
 import type { CommunityNoteFaq, ContentKind, NoteBodySection } from "@/lib/community-notes/types";
 
@@ -77,6 +79,9 @@ const bodySections: NoteBodySection[] = [
       "Забастовки IMT/реестров (@autolife_pt, июнь 2026) — переносите DUA, matrícula и обмен прав на спокойные недели.",
       "Seguro: онлайн дешевле, но для свежего import иногда требуют inspeção — закладывайте время.",
     ],
+  },
+  {
+    ...buildGlossarySection(glossaryForSlug(CAR_PORTUGAL_GUIDE_SLUG)!),
   },
   {
     heading: "Типичные ошибки релокантов",

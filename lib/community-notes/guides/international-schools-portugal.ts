@@ -1,4 +1,6 @@
 import { flattenBodySections } from "@/lib/community-notes/editorial-quality";
+import { glossaryForSlug } from "@/lib/community-notes/editorial-glossaries";
+import { buildGlossarySection } from "@/lib/community-notes/glossary";
 import { buildNoteHashtags } from "@/lib/community-notes/hashtags";
 import type { CommunityNoteFaq, ContentKind, NoteBodySection } from "@/lib/community-notes/types";
 
@@ -115,6 +117,9 @@ const bodySections: NoteBodySection[] = [
       "CLIP/OBS сайт: «admissions open» → Year 7 и IB DP часто закрыты за 9–12 месяцев; LFIP и Deutsche Schule — мягче, но French/German track требует языка.",
       "CLIB «fees on request» → на практике бюджет ниже Lisboa, но enrollment и bus — отдельно; сравнивайте полный package, а не только tuition.",
     ],
+  },
+  {
+    ...buildGlossarySection(glossaryForSlug(INTERNATIONAL_SCHOOLS_GUIDE_SLUG)!),
   },
   {
     heading: "Таймлайн поступления и типичные ошибки",

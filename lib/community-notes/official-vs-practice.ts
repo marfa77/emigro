@@ -1,6 +1,6 @@
 import type { ContentKind, NoteBodySection } from "@/lib/community-notes/types";
 
-export type SectionKind = "official" | "practice" | "gap";
+export type SectionKind = "official" | "practice" | "gap" | "glossary";
 
 /** Prompt block — Telegram practice vs official portals. */
 export const OFFICIAL_VS_PRACTICE_RULES = `
@@ -28,11 +28,13 @@ const OFFICIAL_HEADING =
 const PRACTICE_HEADING =
   /на практике|как бывает|в чате|реальн|обычно проходит|что делают|опыт релокант/i;
 const GAP_HEADING = /расхожд|формально.*практик|где отличается|ожидание.*реальност|сайт.*деле/i;
+const GLOSSARY_HEADING = /словарь\s+термин/i;
 
 const TAKEAWAY_PREFIX = /^(Официально|На практике|Расхождение|В чате):/i;
 
 export function inferSectionKind(section: NoteBodySection): SectionKind | null {
   if (section.section_kind) return section.section_kind;
+  if (GLOSSARY_HEADING.test(section.heading)) return "glossary";
   if (OFFICIAL_HEADING.test(section.heading)) return "official";
   if (GAP_HEADING.test(section.heading)) return "gap";
   if (PRACTICE_HEADING.test(section.heading)) return "practice";
@@ -200,4 +202,5 @@ export const SECTION_KIND_LABELS: Record<SectionKind, string> = {
   official: "Официально",
   practice: "На практике",
   gap: "Где расходится",
+  glossary: "Словарь",
 };

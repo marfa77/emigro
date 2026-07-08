@@ -2,12 +2,21 @@ export type CommunityNoteFaq = { q: string; a: string };
 export type CommunityNoteLink = { title: string; url: string };
 export type ContentKind = "news" | "lifehack" | "tip" | "guide" | "qa";
 
+export type GlossaryTerm = {
+  /** Portuguese term (PT-PT) */
+  pt: string;
+  /** Russian explanation */
+  ru: string;
+  /** Optional disambiguation or organ name */
+  context?: string;
+};
+
 export type NoteBodySection = {
   heading: string;
   paragraphs?: string[];
   bullets?: string[];
-  /** official = portal rules; practice = chat/field experience; gap = where they diverge */
-  section_kind?: "official" | "practice" | "gap";
+  /** official = portal rules; practice = chat/field experience; gap = where they diverge; glossary = PT-PT terms */
+  section_kind?: "official" | "practice" | "gap" | "glossary";
 };
 
 export type CommunityNote = {
