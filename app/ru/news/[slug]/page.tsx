@@ -17,12 +17,10 @@ import {
 } from "@/lib/news/digests";
 import { getNewsTopic, newsIndexPath } from "@/lib/news/topics";
 import {
+  buildNewsArticleMetadata,
   DEFAULT_OG_IMAGE,
   fitMetaDescription,
   fitSeoTitleAbsolute,
-  hreflangAlternates,
-  pageUrl,
-  socialImageMetadata,
 } from "@/lib/seo";
 import {
   buildNewsArticleAiDescription,
@@ -50,36 +48,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!digest) return {};
 
   const topic = await getNewsTopic(digest.topic_key);
-  const url = newsArticleUrl(digest.slug);
   const title = fitSeoTitleAbsolute(getNewsDisplaySeoTitle(digest, topic?.countryRu));
   const description = fitMetaDescription(digest.seo_description || digest.excerpt);
   const ogImagePath = topic?.urlSegment ? countryOgImage(topic.urlSegment) : DEFAULT_OG_IMAGE;
-  const ogImage = schemaImage(ogImagePath);
 
-  return {
-    title: { absolute: title },
+  return buildNewsArticleMetadata({
+    title,
     description,
-    alternates: hreflangAlternates(`/ru/news/${digest.slug}`),
+    path: `/ru/news/${digest.slug}`,
+    ogImage: ogImagePath,
+    ogImageAlt: title,
     keywords: digest.tags,
-    openGraph: {
-      title,
-      description,
-      url,
-      siteName: "Emigro",
-      locale: "ru_RU",
-      type: "article",
-      publishedTime: digest.published_at,
-      modifiedTime: digest.updated_at,
-      tags: digest.tags,
-      images: [socialImageMetadata(ogImagePath, title)],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-      images: [socialImageMetadata(ogImagePath, title)],
-    },
-  };
+    publishedTime: digest.published_at,
+    modifiedTime: digest.updated_at,
+    tags: digest.tags,
+  });
 }
 
 export default async function NewsArticlePage({ params }: Props) {
@@ -159,7 +142,7 @@ export default async function NewsArticlePage({ params }: Props) {
                 источники проверены
               </span>
             </div>
-            <h1 className="mt-5 max-w-3xl text-4xl font-bold leading-tight sm:text-5xl">{displayTitle}</h1>
+            <h1 className="mt-5 max-w-3xl text-3xl font-bold leading-tight sm:text-4xl lg:text-5xl">{displayTitle}</h1>
             <p className="mt-5 max-w-2xl text-lg leading-relaxed text-corridor-100">{digest.excerpt}</p>
             <p className="mt-5 text-sm text-corridor-100/80">
               Опубликовано <time dateTime={digest.published_at}>{formatDateRu(digest.published_at)}</time>

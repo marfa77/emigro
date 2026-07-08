@@ -142,6 +142,43 @@ function withSocialImages(metadata: Metadata, ogImage = DEFAULT_OG_IMAGE, alt = 
   };
 }
 
+/** News article metadata with explicit canonical, og:url, and index robots. */
+export function buildNewsArticleMetadata(input: {
+  title: string;
+  description: string;
+  path: string;
+  ogImage?: string;
+  ogImageAlt?: string;
+  keywords?: string[];
+  publishedTime?: string;
+  modifiedTime?: string;
+  tags?: string[];
+}): Metadata {
+  const canonicalUrl = pageUrl(input.path);
+  const base = pageMetadata({
+    title: input.title,
+    description: input.description,
+    path: input.path,
+    ogImage: input.ogImage,
+    ogImageAlt: input.ogImageAlt,
+    titleAbsolute: true,
+  });
+
+  return {
+    ...base,
+    ...(input.keywords?.length ? { keywords: input.keywords } : {}),
+    alternates: hreflangAlternates(input.path),
+    openGraph: {
+      ...base.openGraph,
+      url: canonicalUrl,
+      type: "article",
+      ...(input.publishedTime ? { publishedTime: input.publishedTime } : {}),
+      ...(input.modifiedTime ? { modifiedTime: input.modifiedTime } : {}),
+      ...(input.tags?.length ? { tags: input.tags } : {}),
+    },
+  };
+}
+
 /** Article metadata with explicit absolute canonical + og:url (guides, long-form). */
 export function buildGuideArticleMetadata(input: {
   title: string;
