@@ -245,11 +245,15 @@ export function markTopicPublished(topicId: string): void {
   writeState(state);
 }
 
-export async function pickNextTipTopic(explicitTopicId?: string): Promise<TipShortTopic> {
+export function getPublishedTopicSlugs(): string[] {
+  return Array.from(collectDoneTopicSlugs(readState(), { refreshGcs: true })).sort();
+}
+
+export async function pickNextTipTopics(count = 1, explicitTopicId?: string): Promise<TipShortTopic[]> {
   if (explicitTopicId) {
     const forced = await getCommunityTipTopic(explicitTopicId);
     if (!forced) throw new Error(`Unknown tip topic (note slug): ${explicitTopicId}`);
-    return forced;
+    return [forced];
   }
 
   const topics = await loadCommunityTipTopics();
@@ -264,7 +268,12 @@ export async function pickNextTipTopic(explicitTopicId?: string): Promise<TipSho
       `All ${topics.length} community note topics are published. Use --topic=SLUG --force to re-render one note.`
     );
   }
-  return unpublished[0];
+  return unpublished.slice(0, Math.max(1, count));
+}
+
+export async function pickNextTipTopic(explicitTopicId?: string): Promise<TipShortTopic> {
+  const [next] = await pickNextTipTopics(1, explicitTopicId);
+  return next;
 }
 
 export async function listTipTopics(): Promise<Array<TipShortTopic & { published: boolean }>> {

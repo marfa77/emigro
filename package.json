@@ -19,6 +19,7 @@
     "youtube:oauth-setup": "tsx scripts/youtube-oauth-setup.ts",
     "youtube:sync-oauth-from-vps": "bash scripts/sync-youtube-oauth-from-vps.sh",
     "youtube-shorts:deploy": "bash deploy/youtube-shorts/deploy.sh",
+    "youtube-shorts:sync-published": "tsx scripts/sync-youtube-shorts-published-state.ts",
     "news:list-prep2go": "tsx scripts/list-prep2go-db-news.ts",
     "news:publish-threads": "tsx scripts/publish-threads-digest.ts",
     "news:test-quality": "tsx scripts/test-news-quality-guards.ts",

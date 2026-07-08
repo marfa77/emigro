@@ -14,7 +14,7 @@ import { config } from "dotenv";
 import { resolve } from "path";
 import { generateTipYoutubeShort } from "../lib/news/youtube-short/generate";
 import { isYoutubeShortSkipMessage, notifyYoutubeShortOwner, notifyYoutubeShortPipelineStage } from "../lib/news/youtube-short/notify-owner";
-import { listTipTopics, pickNextTipTopic } from "../lib/news/youtube-short/state";
+import { listTipTopics, pickNextTipTopics } from "../lib/news/youtube-short/state";
 import { writeTipShortScript } from "../lib/news/youtube-short/script-writer";
 import { getCommunityTipTopic } from "../lib/news/youtube-short/community-topics";
 import { buildTipSegments } from "../lib/news/youtube-short/tip-script";
@@ -43,19 +43,23 @@ async function main() {
   }
 
   if (process.argv.includes("--pick-next")) {
-    const topic = await pickNextTipTopic();
-    console.log(
-      JSON.stringify(
-        {
-          slug: topic.id,
-          title: topic.title,
-          note_url: topic.note_url,
-          content_kind: topic.content_kind,
-        },
-        null,
-        2
-      )
-    );
+    const nextCount = Math.max(1, Number.parseInt(argValue("--next") ?? "1", 10) || 1);
+    const topics = await pickNextTipTopics(nextCount);
+    const payload =
+      nextCount === 1
+        ? {
+            slug: topics[0].id,
+            title: topics[0].title,
+            note_url: topics[0].note_url,
+            content_kind: topics[0].content_kind,
+          }
+        : topics.map((topic) => ({
+            slug: topic.id,
+            title: topic.title,
+            note_url: topic.note_url,
+            content_kind: topic.content_kind,
+          }));
+    console.log(JSON.stringify(payload, null, 2));
     return;
   }
 

@@ -130,6 +130,37 @@ export async function notifyYoutubeShortOwner(payload: {
   }
 }
 
+export async function notifyYoutubeShortPublishedSync(payload: {
+  syncedSlugs: string[];
+  nextSlug: string;
+  nextTitle: string;
+  nextCandidates?: Array<{ slug: string; title: string }>;
+}): Promise<void> {
+  if (!notifyEnabled()) return;
+
+  const lines = [
+    "🔄 YouTube Shorts — синхронизация published[]",
+    "",
+    `Синхронизировано slug: ${payload.syncedSlugs.length}`,
+    ...payload.syncedSlugs.map((slug) => `• ${slug}`),
+    "",
+    `Следующая тема: ${payload.nextSlug}`,
+    payload.nextTitle,
+  ];
+
+  if (payload.nextCandidates && payload.nextCandidates.length > 1) {
+    lines.push("", "Дальше в очереди:");
+    for (const candidate of payload.nextCandidates.slice(1)) {
+      lines.push(`• ${candidate.slug} — ${candidate.title}`);
+    }
+  }
+
+  const sent = await sendOwnerTelegramDm(lines.join("\n"));
+  if (!sent.success) {
+    console.warn(`[youtube-short] Telegram sync notify failed: ${sent.error ?? "unknown"}`);
+  }
+}
+
 export async function notifyYoutubeShortCronShell(message: string): Promise<void> {
   if (!notifyEnabled()) return;
   const text = ["⚙️ YouTube Short — cron", "", truncate(message, 1200)].join("\n");
