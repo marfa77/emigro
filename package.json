@@ -47,7 +47,8 @@
     "portugal:backfill-month": "tsx scripts/portugal-backfill-month.ts",
     "portugal:backfill-tags": "tsx scripts/backfill-community-hashtags.ts",
     "portugal:backfill-seo": "tsx scripts/backfill-community-seo.ts",
-    "portugal:clear-labels": "tsx scripts/clear-community-source-labels.ts"
+    "portugal:clear-labels": "tsx scripts/clear-community-source-labels.ts",
+    "youtube-short:notify-cron": "tsx scripts/youtube-short-cron-notify.ts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.0",

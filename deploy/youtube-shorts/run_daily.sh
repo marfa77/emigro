@@ -5,16 +5,40 @@ set -euo pipefail
 REPO_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 cd "$REPO_ROOT"
 
+notify_cron_failure() {
+  local detail="$1"
+  if [[ -f "$REPO_ROOT/.env" ]]; then
+    set -a
+    # shellcheck disable=SC1091
+    source "$REPO_ROOT/.env"
+    set +a
+  fi
+  (cd "$REPO_ROOT" && npm run youtube-short:notify-cron -- "$detail") >/dev/null 2>&1 || true
+}
+
 LOG_DIR="$REPO_ROOT/data/youtube-shorts/logs"
 LOCK_FILE="$REPO_ROOT/data/youtube-shorts/.daily.lock"
-mkdir -p "$LOG_DIR" "$REPO_ROOT/data/youtube-shorts" "$REPO_ROOT/data/gcloud-config"
-chmod 775 "$REPO_ROOT/data/youtube-shorts" "$LOG_DIR" 2>/dev/null || true
+DATA_DIR="$REPO_ROOT/data/youtube-shorts"
+mkdir -p "$LOG_DIR" "$DATA_DIR" "$REPO_ROOT/data/gcloud-config"
+
+# Service runs as www-data; dirs must be writable (root-owned dirs break exec redirect).
+if [[ ! -w "$DATA_DIR" || ! -w "$LOG_DIR" ]]; then
+  echo "[$(date '+%Y-%m-%d %H:%M:%S %Z')] ERROR: $DATA_DIR not writable by $(id -un). Fix: chown -R www-data:www-data $DATA_DIR" >&2
+  notify_cron_failure "Нет прав на запись в $DATA_DIR (user $(id -un)). chown www-data."
+  exit 1
+fi
 
 log() {
   echo "[$(date '+%Y-%m-%d %H:%M:%S %Z')] $*"
 }
 
-exec >> "$LOG_DIR/scheduled-$(date +%Y%m%d).log" 2>&1
+LOG_FILE="$LOG_DIR/scheduled-$(date +%Y%m%d).log"
+if ! touch "$LOG_FILE" 2>/dev/null; then
+  echo "[$(date '+%Y-%m-%d %H:%M:%S %Z')] ERROR: cannot write log $LOG_FILE" >&2
+  notify_cron_failure "Не удалось создать лог $LOG_FILE (часто root-owned файл после ручного запуска)."
+  exit 1
+fi
+exec >> "$LOG_FILE" 2>&1
 
 if [[ -f "$REPO_ROOT/.env" ]]; then
   set -a
@@ -30,11 +54,16 @@ export GSUTIL_HOME="${GSUTIL_HOME:-$REPO_ROOT/data}"
 export CLOUDSDK_CONFIG="${CLOUDSDK_CONFIG:-$REPO_ROOT/data/gcloud-config}"
 export GOOGLE_APPLICATION_CREDENTIALS="${GOOGLE_APPLICATION_CREDENTIALS:-$REPO_ROOT/data/gcs-upload-key.json}"
 
+if [[ -f "$GOOGLE_APPLICATION_CREDENTIALS" ]] && command -v gcloud >/dev/null 2>&1; then
+  gcloud auth activate-service-account --key-file="$GOOGLE_APPLICATION_CREDENTIALS" >/dev/null 2>&1 || true
+fi
+
 log "=== Emigro YouTube Shorts daily ==="
 
 if ! npm run news:youtube-short -- --health >/tmp/youtube-shorts-health.log 2>&1; then
   log "ERROR: health check failed — see /tmp/youtube-shorts-health.log"
   cat /tmp/youtube-shorts-health.log || true
+  notify_cron_failure "Health check failed — см. /tmp/youtube-shorts-health.log"
   exit 1
 fi
 log "Health check OK"
@@ -64,5 +93,6 @@ if run_pipeline; then
 else
   code=$?
   log "=== YouTube Shorts daily FAILED (exit $code) ==="
+  notify_cron_failure "Pipeline exit $code — см. $LOG_FILE"
   exit "$code"
 fi

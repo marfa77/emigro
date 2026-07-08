@@ -27,18 +27,23 @@ import {
   writeSrt,
 } from "./render";
 import { writeTipShortScript } from "./script-writer";
-import { notifyYoutubeShortOwner, isYoutubeShortSkipMessage } from "./notify-owner";
+import {
+  notifyYoutubeShortOwner,
+  notifyYoutubeShortPipelineStage,
+  isYoutubeShortSkipMessage,
+} from "./notify-owner";
 import {
   alreadyGeneratedToday,
   isTopicPublished,
   markTopicPublished,
   pickNextTipTopic,
 } from "./state";
-import { assertTipDurationEstimate, buildTipSegments, estimateTipDurationSeconds, wordCount } from "./tip-script";
+import { assertTipDurationEstimate, buildTipSegments, countSpokenWords, estimateTipDurationSeconds } from "./tip-script";
 import { todayYmd } from "./text-utils";
 import type { YoutubeShortResult } from "./types";
 import type { TipShortTopic } from "./topics";
 import { uploadShortToYoutube } from "./youtube-upload";
+import { acquirePipelineLock } from "./pipeline-lock";
 import { composeDynamicVideo } from "./video-compose";
 
 export type GenerateTipShortOptions = {
@@ -90,6 +95,26 @@ export async function generateTipYoutubeShort(options: GenerateTipShortOptions =
     }
   }
 
+  const lock = acquirePipelineLock();
+  try {
+    await notifyYoutubeShortPipelineStage({ stage: "start" });
+    await notifyYoutubeShortPipelineStage({
+      stage: "topic",
+      topicId: topic.id,
+      topicTitle: topic.title,
+    });
+
+    return await generateTipYoutubeShortLocked(topic, options);
+  } finally {
+    lock.release();
+  }
+}
+
+async function generateTipYoutubeShortLocked(
+  topic: TipShortTopic,
+  options: GenerateTipShortOptions
+): Promise<YoutubeShortResult> {
+
   const outputDir = outputDirForTopic(topic, options.outputDir);
   const existingVideo = path.join(outputDir, "short.mp4");
 
@@ -134,6 +159,12 @@ export async function generateTipYoutubeShort(options: GenerateTipShortOptions =
     path.join(outputDir, "short-script.txt"),
     [`[hook]\n${script.hook}`, `[body]\n${script.body}`, `[cta]\n${script.cta}`].join("\n\n") + "\n"
   );
+  await notifyYoutubeShortPipelineStage({
+    stage: "script",
+    topicId: topic.id,
+    topicTitle: topic.title,
+    detail: `${countSpokenWords(script)} слов`,
+  });
 
   const segments = buildTipSegments(script, topic);
   assertTipDurationEstimate(segments);
@@ -199,6 +230,12 @@ export async function generateTipYoutubeShort(options: GenerateTipShortOptions =
 
   const videoDuration = ffprobeDuration(shortVideoPath);
   assertShortDuration(videoDuration);
+  await notifyYoutubeShortPipelineStage({
+    stage: "render",
+    topicId: topic.id,
+    topicTitle: topic.title,
+    detail: `${videoDuration.toFixed(1)} сек`,
+  });
 
   const shortThumbnailPath = path.join(outputDir, "short-thumbnail.png");
   try {
@@ -241,6 +278,12 @@ export async function generateTipYoutubeShort(options: GenerateTipShortOptions =
         captionsPath: shortCaptionsPath,
         metadata,
       });
+      await notifyYoutubeShortPipelineStage({
+        stage: "youtube",
+        topicId: topic.id,
+        topicTitle: topic.title,
+        detail: youtube?.shortsUrl ?? youtube?.videoId ?? "uploaded",
+      });
     } catch (error) {
       throw stageError("youtube-upload", error);
     }
@@ -264,6 +307,12 @@ export async function generateTipYoutubeShort(options: GenerateTipShortOptions =
     try {
       console.log(`[youtube-short] Uploading to ${gcsUri}`);
       uploadArtifactsToGcs(artifacts, gcsUri);
+      await notifyYoutubeShortPipelineStage({
+        stage: "gcs",
+        topicId: topic.id,
+        topicTitle: topic.title,
+        detail: `${gcsUri}/short.mp4`,
+      });
     } catch (error) {
       throw stageError("gcs-upload", error);
     }
@@ -274,7 +323,7 @@ export async function generateTipYoutubeShort(options: GenerateTipShortOptions =
   }
 
   const report = {
-    word_count: wordCount(`${script.hook} ${script.body} ${script.cta}`),
+    word_count: countSpokenWords(script),
     video_duration_seconds: Number(videoDuration.toFixed(2)),
     voice: RU_TTS_VOICE,
     format: topic.format,
@@ -311,7 +360,8 @@ export async function maybeGenerateDailyTipShort(): Promise<boolean> {
     return false;
   }
   try {
-    await generateTipYoutubeShort();
+    const result = await generateTipYoutubeShort();
+    await notifyYoutubeShortOwner({ status: "success", result });
     return true;
   } catch (error) {
     const msg = error instanceof Error ? error.message : String(error);
@@ -321,6 +371,7 @@ export async function maybeGenerateDailyTipShort(): Promise<boolean> {
       return true;
     }
     console.error(`[youtube-short] Failed: ${msg}`);
+    await notifyYoutubeShortPipelineStage({ stage: "error", detail: msg });
     await notifyYoutubeShortOwner({ status: "error", error: msg });
     return false;
   }

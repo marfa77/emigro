@@ -13,7 +13,7 @@
 import { config } from "dotenv";
 import { resolve } from "path";
 import { generateTipYoutubeShort } from "../lib/news/youtube-short/generate";
-import { isYoutubeShortSkipMessage, notifyYoutubeShortOwner } from "../lib/news/youtube-short/notify-owner";
+import { isYoutubeShortSkipMessage, notifyYoutubeShortOwner, notifyYoutubeShortPipelineStage } from "../lib/news/youtube-short/notify-owner";
 import { listTipTopics, pickNextTipTopic } from "../lib/news/youtube-short/state";
 import { writeTipShortScript } from "../lib/news/youtube-short/script-writer";
 import { getCommunityTipTopic } from "../lib/news/youtube-short/community-topics";
@@ -105,6 +105,9 @@ async function main() {
     console.log(JSON.stringify({ ...result.report, youtube: result.youtube }, null, 2));
   } catch (error) {
     const msg = error instanceof Error ? error.message : String(error);
+    if (!isYoutubeShortSkipMessage(msg)) {
+      await notifyYoutubeShortPipelineStage({ stage: "error", topicId, detail: msg });
+    }
     await notifyYoutubeShortOwner({
       status: isYoutubeShortSkipMessage(msg) ? "skipped" : "error",
       topicId,

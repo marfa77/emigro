@@ -4,6 +4,8 @@ import type { YoutubeShortResult } from "./types";
 
 export type YoutubeShortNotifyStatus = "success" | "error" | "skipped";
 
+export type YoutubeShortPipelineStage = "start" | "topic" | "script" | "render" | "youtube" | "gcs" | "error";
+
 function notifyEnabled(): boolean {
   return process.env.EMIGRO_YOUTUBE_SHORTS_NOTIFY !== "0";
 }
@@ -58,8 +60,51 @@ export function isYoutubeShortSkipMessage(message: string): boolean {
     message.includes("Topic already published") ||
     message.includes("community note topics are published") ||
     message.includes("tip topics are published") ||
-    message.includes("already running")
+    message.includes("already running") ||
+    message.includes("pipeline already running")
   );
+}
+
+function stageLabel(stage: YoutubeShortPipelineStage): string {
+  switch (stage) {
+    case "start":
+      return "🎬 YouTube Short — старт";
+    case "topic":
+      return "📌 Тема выбрана";
+    case "script":
+      return "📝 Сценарий готов";
+    case "render":
+      return "🎥 Видео отрендерено";
+    case "youtube":
+      return "📺 YouTube загрузка";
+    case "gcs":
+      return "☁️ GCS загрузка";
+    case "error":
+      return "❌ Ошибка пайплайна";
+  }
+}
+
+export async function notifyYoutubeShortPipelineStage(payload: {
+  stage: YoutubeShortPipelineStage;
+  topicId?: string;
+  topicTitle?: string;
+  detail?: string;
+}): Promise<void> {
+  if (!notifyEnabled()) return;
+
+  const lines = [stageLabel(payload.stage)];
+  const topicLineText = payload.topicTitle
+    ? `Тема: ${payload.topicId ?? "?"} — ${payload.topicTitle}`
+    : payload.topicId
+      ? `Тема: ${payload.topicId}`
+      : null;
+  if (topicLineText) lines.push(topicLineText);
+  if (payload.detail) lines.push(truncate(payload.detail, 800));
+
+  const sent = await sendOwnerTelegramDm(lines.join("\n"));
+  if (!sent.success) {
+    console.warn(`[youtube-short] Telegram stage notify failed (${payload.stage}): ${sent.error ?? "unknown"}`);
+  }
 }
 
 export async function notifyYoutubeShortOwner(payload: {
@@ -84,3 +129,13 @@ export async function notifyYoutubeShortOwner(payload: {
     console.warn(`[youtube-short] Telegram notify failed: ${sent.error ?? "unknown"}`);
   }
 }
+
+export async function notifyYoutubeShortCronShell(message: string): Promise<void> {
+  if (!notifyEnabled()) return;
+  const text = ["⚙️ YouTube Short — cron", "", truncate(message, 1200)].join("\n");
+  const sent = await sendOwnerTelegramDm(text);
+  if (!sent.success) {
+    console.warn(`[youtube-short] Telegram cron notify failed: ${sent.error ?? "unknown"}`);
+  }
+}
+
