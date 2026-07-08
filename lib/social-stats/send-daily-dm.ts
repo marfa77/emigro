@@ -1,17 +1,9 @@
 import { formatSubscriberReportTelegram } from "@/lib/social-stats/format-telegram";
-import {
-  DEFAULT_SOCIAL_CHANNELS,
-  fetchAllSubscriberSnapshots,
-  type SocialChannelTarget,
-} from "@/lib/social-stats/subscribers";
+import { fetchAllSubscriberSnapshots } from "@/lib/social-stats/subscribers";
 import { sendOwnerTelegramDm } from "@/lib/telegram";
 
 function socialStatsEnabled(): boolean {
   return process.env.EMIGRO_SOCIAL_STATS_ENABLED !== "0";
-}
-
-function configuredChannels(): SocialChannelTarget[] {
-  return DEFAULT_SOCIAL_CHANNELS;
 }
 
 export async function sendDailySubscriberDm(): Promise<{
@@ -25,7 +17,7 @@ export async function sendDailySubscriberDm(): Promise<{
     return { sent: false, skipped: "EMIGRO_SOCIAL_STATS_ENABLED=0" };
   }
 
-  const snapshots = await fetchAllSubscriberSnapshots(configuredChannels());
+  const snapshots = await fetchAllSubscriberSnapshots();
   const text = formatSubscriberReportTelegram(snapshots);
   const result = await sendOwnerTelegramDm(text);
 

@@ -18,6 +18,46 @@ export type SubscriberSnapshot = {
   error?: string;
 };
 
+function hasYoutubeStatsCredentials(): boolean {
+  const apiKey =
+    process.env.YOUTUBE_API_KEY?.trim() ||
+    process.env.EMIGRO_YOUTUBE_API_KEY?.trim() ||
+    process.env.GOOGLE_API_KEY?.trim();
+  if (apiKey) return true;
+
+  const hasRefresh =
+    Boolean(process.env.EMIGRO_YOUTUBE_REFRESH_TOKEN?.trim()) ||
+    Boolean(process.env.YOUTUBE_REFRESH_TOKEN?.trim());
+  const hasClient =
+    Boolean(process.env.EMIGRO_YOUTUBE_CLIENT_ID?.trim() || process.env.YOUTUBE_CLIENT_ID?.trim()) &&
+    Boolean(
+      process.env.EMIGRO_YOUTUBE_CLIENT_SECRET?.trim() || process.env.YOUTUBE_CLIENT_SECRET?.trim()
+    );
+  return hasRefresh && hasClient;
+}
+
+/** Platforms without credentials or explicit opt-in are omitted from the daily report. */
+export function isSocialChannelEnabled(channel: SocialChannelTarget): boolean {
+  switch (channel.platform) {
+    case "telegram":
+      return process.env.EMIGRO_SOCIAL_STATS_TELEGRAM !== "0";
+    case "threads":
+      return process.env.EMIGRO_SOCIAL_STATS_THREADS === "1";
+    case "youtube":
+      if (process.env.EMIGRO_SOCIAL_STATS_YOUTUBE !== "1") return false;
+      return hasYoutubeStatsCredentials();
+    case "facebook_group":
+      if (process.env.EMIGRO_SOCIAL_STATS_FACEBOOK === "0") return false;
+      return Boolean(process.env.FACEBOOK_ACCESS_TOKEN?.trim());
+  }
+}
+
+export function enabledSocialChannels(
+  channels: SocialChannelTarget[] = DEFAULT_SOCIAL_CHANNELS
+): SocialChannelTarget[] {
+  return channels.filter(isSocialChannelEnabled);
+}
+
 export const DEFAULT_SOCIAL_CHANNELS: SocialChannelTarget[] = [
   {
     platform: "threads",
@@ -300,7 +340,8 @@ export async function fetchSubscriberSnapshot(channel: SocialChannelTarget): Pro
 }
 
 export async function fetchAllSubscriberSnapshots(
-  channels: SocialChannelTarget[] = DEFAULT_SOCIAL_CHANNELS
+  channels?: SocialChannelTarget[]
 ): Promise<SubscriberSnapshot[]> {
-  return Promise.all(channels.map((channel) => fetchSubscriberSnapshot(channel)));
+  const active = channels ?? enabledSocialChannels();
+  return Promise.all(active.map((channel) => fetchSubscriberSnapshot(channel)));
 }

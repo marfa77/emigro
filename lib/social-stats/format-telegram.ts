@@ -23,13 +23,5 @@ export function formatSubscriberReportTelegram(snapshots: SubscriberSnapshot[], 
     }
   }
 
-  const errors = snapshots.filter((row) => row.error);
-  if (errors.length > 0) {
-    lines.push("");
-    for (const row of errors) {
-      lines.push(`⚠️ ${row.label}: ${row.error}`);
-    }
-  }
-
   return lines.join("\n");
 }
