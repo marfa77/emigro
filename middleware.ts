@@ -60,6 +60,36 @@ function redirectMisplacedSatellitePaths(request: NextRequest): NextResponse | n
   return null;
 }
 
+/** Mirrors programPathLegacy in lib/corridor/paths.ts (kept inline for Edge middleware). */
+function legacyProgramPath(programSlug: string): string {
+  if (programSlug.startsWith("portugal-")) return `/ru/portugal/programs/${programSlug}`;
+  if (programSlug.startsWith("spain-")) return `/ru/spain/programs/${programSlug}`;
+  if (programSlug.startsWith("france-")) return `/ru/france/programs/${programSlug}`;
+  if (programSlug.startsWith("italy-")) return `/ru/italy/programs/${programSlug}`;
+  if (programSlug.startsWith("germany-")) return `/ru/germany/programs/${programSlug}`;
+  if (programSlug.startsWith("netherlands-")) return `/ru/netherlands/programs/${programSlug}`;
+  if (programSlug.startsWith("poland-")) return `/ru/poland/programs/${programSlug}`;
+  if (programSlug.startsWith("czechia-")) return `/ru/czechia/programs/${programSlug}`;
+  if (programSlug.startsWith("austria-")) return `/ru/austria/programs/${programSlug}`;
+  if (programSlug.startsWith("sweden-") || programSlug.startsWith("denmark-") || programSlug.startsWith("nordic-")) {
+    return `/ru/scandinavia/programs/${programSlug}`;
+  }
+  return `/ru/programs/${programSlug}`;
+}
+
+/** Legacy flat /ru/programs/:slug → corridor-scoped program URL (301). */
+function redirectLegacyProgramPaths(request: NextRequest): NextResponse | null {
+  const { pathname, search } = request.nextUrl;
+  const match = pathname.match(/^\/ru\/programs\/([^/]+)$/);
+  if (!match) return null;
+
+  const slug = decodeURIComponent(match[1]);
+  const destination = legacyProgramPath(slug);
+  if (destination === pathname) return null;
+
+  return NextResponse.redirect(new URL(`${destination}${search}`, request.url), 301);
+}
+
 /** /ru/* and other main-site sections on satellite host → www (corridor lives on main domain). */
 function redirectSatelliteCorridorPaths(request: NextRequest): NextResponse | null {
   if (!isPortugalSatelliteHost(hostName(request))) return null;
@@ -115,6 +145,9 @@ export function middleware(request: NextRequest) {
 
   const misplaced = redirectMisplacedSatellitePaths(request);
   if (misplaced) return misplaced;
+
+  const legacyProgram = redirectLegacyProgramPaths(request);
+  if (legacyProgram) return legacyProgram;
 
   const satelliteCorridor = redirectSatelliteCorridorPaths(request);
   if (satelliteCorridor) return satelliteCorridor;
