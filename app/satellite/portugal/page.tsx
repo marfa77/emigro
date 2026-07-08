@@ -10,6 +10,7 @@ import { PORTUGAL_SATELLITE } from "@/lib/satellite/portugal";
 import { fitMetaDescription } from "@/lib/seo";
 import { DEFAULT_OG_IMAGE, socialImageMetadata } from "@/lib/seo";
 import { portugalSatelliteUrl } from "@/lib/site-url";
+import { heroTitle, satelliteMain } from "@/lib/ui/mobile";
 
 export const revalidate = 300;
 
@@ -70,7 +71,7 @@ export default async function PortugalSatelliteHomePage() {
   };
 
   return (
-    <main className="mx-auto max-w-3xl px-4 py-10">
+    <main className={satelliteMain}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }} />
 
       <section className="sr-only" aria-label="AI description">
@@ -81,7 +82,7 @@ export default async function PortugalSatelliteHomePage() {
         </p>
         <a href={llmsUrl}>llms.txt</a>
       </section>
-      <h1 className="text-3xl font-bold leading-tight text-slate-900 sm:text-4xl">{PORTUGAL_SATELLITE.title}</h1>
+      <h1 className={`${heroTitle} leading-tight text-slate-900`}>{PORTUGAL_SATELLITE.title}</h1>
       <p className="mt-4 text-lg leading-relaxed text-slate-700">{PORTUGAL_SATELLITE.tagline}</p>
 
       <SatelliteValueProp />

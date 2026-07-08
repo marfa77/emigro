@@ -97,7 +97,7 @@ export default function UkraineHubPage() {
 
         <HeroShell visual={<HubHeroVisual />} className="mt-6">
           <p className="text-sm uppercase tracking-wide text-corridor-100">Аудитория UA · не EU-коридор</p>
-          <h1 className="mt-2 text-4xl font-bold">🇺🇦 Украина → ЕС: TP и маршруты ВНЖ</h1>
+          <h1 className="mt-2 text-3xl font-bold sm:text-4xl">🇺🇦 Украина → ЕС: TP и маршруты ВНЖ</h1>
           <p className="mt-4 max-w-2xl text-lg text-corridor-100">
             Для граждан Украины часто доступна <strong>временная защита (TP)</strong> — быстрый легальный статус в
             Польше, Чехии, Германии и других странах ЕС. Для долгосрочного планирования (ПМЖ, гражданство) TP не

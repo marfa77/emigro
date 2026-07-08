@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { trackEvent } from "@/lib/analytics/client";
 import type { WizardModule } from "@/lib/types";
+import { tapTarget, tapTargetSmReset } from "@/lib/ui/mobile";
 
 interface WizardProps {
   corridorSlug: string;
@@ -208,7 +209,7 @@ export function WizardForm({
                     key={opt.value}
                     type="button"
                     onClick={() => setAnswer(q.question_key, opt.value)}
-                    className={`rounded-lg border px-4 py-2 text-sm ${
+                    className={`${tapTarget} rounded-lg border px-4 py-2.5 text-sm ${
                       answers[q.question_key] === opt.value
                         ? "border-corridor-500 bg-corridor-50 text-corridor-800"
                         : "border-slate-200 hover:border-corridor-300"
@@ -242,7 +243,7 @@ export function WizardForm({
                       key={opt.value}
                       type="button"
                       onClick={() => toggleMultiAnswer(q.question_key, opt.value)}
-                      className={`rounded-lg border px-4 py-2 text-sm ${
+                      className={`${tapTarget} rounded-lg border px-4 py-2.5 text-sm ${
                         active
                           ? "border-corridor-500 bg-corridor-50 text-corridor-800"
                           : "border-slate-200 hover:border-corridor-300"
@@ -278,7 +279,7 @@ export function WizardForm({
           type="button"
           disabled={step === 0 || loading}
           onClick={() => setStep((s) => s - 1)}
-          className="rounded-lg px-4 py-3 text-sm text-slate-600 disabled:opacity-40 sm:py-2"
+          className={`rounded-lg px-4 py-3 text-sm text-slate-600 disabled:opacity-40 ${tapTargetSmReset} sm:py-2`}
         >
           Назад
         </button>
@@ -286,7 +287,7 @@ export function WizardForm({
           type="button"
           onClick={handleNext}
           disabled={loading}
-          className="rounded-lg bg-corridor-600 px-5 py-3 text-sm font-medium text-white hover:bg-corridor-700 disabled:opacity-60 sm:py-2"
+          className={`${tapTarget} rounded-lg bg-corridor-600 px-5 py-3 text-sm font-medium text-white hover:bg-corridor-700 disabled:opacity-60 ${tapTargetSmReset} sm:py-2`}
         >
           {loading ? "Готовим результаты..." : isLast ? "Показать результаты" : "Далее"}
         </button>

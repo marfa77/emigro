@@ -90,7 +90,7 @@ export function TransitHubLanding({ hub }: Props) {
 
         <HeroShell visual={<HubHeroVisual />}>
           <p className="text-sm uppercase tracking-wide text-corridor-100">{eyebrow}</p>
-          <h1 className="mt-2 text-4xl font-bold">
+          <h1 className="mt-2 text-3xl font-bold sm:text-4xl">
             {hub.flag} {heroTitle}
           </h1>
           <p className="mt-4 max-w-2xl text-lg text-corridor-100">{hub.tagline}</p>

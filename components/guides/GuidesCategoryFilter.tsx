@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { GUIDE_CATEGORIES, GUIDE_AUDIENCES, type GuideCategoryId, type GuideAudienceId } from "@/lib/guides/categories";
+import { tapTarget } from "@/lib/ui/mobile";
 
 export function GuidesCategoryFilter() {
   const searchParams = useSearchParams();
@@ -19,7 +20,7 @@ export function GuidesCategoryFilter() {
     return activeCategory ? `/ru/guides?cat=${activeCategory}&aud=${audience}` : `/ru/guides?aud=${audience}`;
   }
 
-  const chipBase = "rounded-full px-4 py-2 text-sm font-medium transition";
+  const chipBase = `inline-flex ${tapTarget} items-center rounded-full px-4 py-2 text-sm font-medium transition`;
   const chipActive = "bg-corridor-600 text-white shadow-sm shadow-corridor-600/25";
   const chipInactive = "border border-slate-200 bg-white text-slate-700 hover:border-corridor-300 hover:text-corridor-700";
 

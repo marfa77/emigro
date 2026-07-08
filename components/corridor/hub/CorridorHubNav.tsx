@@ -5,6 +5,7 @@ import {
   type CorridorHubTab,
 } from "@/lib/corridor/hub";
 import type { NewsTopicConfig } from "@/lib/news/topics/types";
+import { mobileScrollRow } from "@/lib/ui/mobile";
 
 type Props = {
   topic: NewsTopicConfig;
@@ -13,15 +14,22 @@ type Props = {
   className?: string;
 };
 
+function hubNavItemClass(isActive: boolean, isSatellite: boolean): string {
+  const base = "shrink-0 rounded-full px-3 py-1.5 text-sm font-medium transition";
+  if (isActive) {
+    return isSatellite ? `${base} bg-teal-700 text-white` : `${base} bg-corridor-600 text-white`;
+  }
+  return isSatellite
+    ? `${base} border border-slate-200 bg-white text-slate-700 hover:border-teal-300 hover:text-teal-800`
+    : `${base} border border-slate-200 bg-white text-slate-700 hover:border-corridor-300 hover:text-corridor-800`;
+}
+
 export function CorridorHubNav({ topic, active, variant = "corridor", className }: Props) {
   const items = corridorHubNavItems(topic, undefined, variant);
   const isSatellite = variant === "satellite";
 
   return (
-    <nav
-      className={`flex flex-wrap gap-2 ${className ?? ""}`}
-      aria-label={corridorHubLabel(topic)}
-    >
+    <nav className={`${mobileScrollRow} ${className ?? ""}`} aria-label={corridorHubLabel(topic)}>
       <p
         className={`mr-1 w-full text-xs font-semibold uppercase tracking-wide sm:w-auto sm:self-center ${
           isSatellite ? "text-teal-700" : "text-corridor-700"
@@ -31,19 +39,13 @@ export function CorridorHubNav({ topic, active, variant = "corridor", className 
       </p>
       {items.map((item) => {
         const isActive = item.id === active;
-        const itemClass = isActive
-          ? isSatellite
-            ? "rounded-full bg-teal-700 px-3 py-1.5 text-sm font-medium text-white transition"
-            : "rounded-full bg-corridor-600 px-3 py-1.5 text-sm font-medium text-white transition"
-          : isSatellite
-            ? "rounded-full border border-slate-200 bg-white px-3 py-1.5 text-sm font-medium text-slate-700 transition hover:border-teal-300 hover:text-teal-800"
-            : "rounded-full border border-slate-200 bg-white px-3 py-1.5 text-sm font-medium text-slate-700 transition hover:border-corridor-300 hover:text-corridor-800";
+        const itemClass = hubNavItemClass(isActive, isSatellite);
 
         if (item.comingSoon) {
           return (
             <span
               key={item.id}
-              className="rounded-full border border-dashed border-slate-200 bg-slate-50 px-3 py-1.5 text-sm font-medium text-slate-400"
+              className="shrink-0 rounded-full border border-dashed border-slate-200 bg-slate-50 px-3 py-1.5 text-sm font-medium text-slate-400"
               title="Скоро"
             >
               {item.label}

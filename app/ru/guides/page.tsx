@@ -258,7 +258,7 @@ export default async function GuidesIndexPage({ searchParams }: Props) {
             <BookOpen className="h-4 w-4" />
             Библиотека Emigro
           </span>
-          <h1 className="mt-5 max-w-3xl text-4xl font-bold leading-tight sm:text-5xl 2xl:max-w-4xl">
+          <h1 className="mt-5 max-w-3xl text-3xl font-bold leading-tight sm:text-4xl lg:text-5xl 2xl:max-w-4xl">
             {topic ? `Гайды: ${topic.flag} ${topic.countryRu}` : "Гайды по релокации и ВНЖ"}
           </h1>
           <p className="mt-5 max-w-2xl text-lg leading-relaxed text-corridor-100 2xl:max-w-3xl">

@@ -322,7 +322,7 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
               </span>
             ) : null}
           </div>
-          <h1 className="mt-5 max-w-3xl text-4xl font-bold leading-tight sm:text-5xl 2xl:max-w-4xl">{guide.title}</h1>
+          <h1 className="mt-5 max-w-3xl text-3xl font-bold leading-tight sm:text-4xl lg:text-5xl 2xl:max-w-4xl">{guide.title}</h1>
           {guide.excerpt && <p className="mt-5 max-w-2xl text-lg leading-relaxed text-corridor-100 2xl:max-w-3xl">{guide.excerpt}</p>}
           {guide.tags && guide.tags.length > 0 ? (
             <div className="mt-6 flex flex-wrap gap-2">

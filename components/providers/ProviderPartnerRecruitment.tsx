@@ -5,6 +5,7 @@ import { Building2, ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
 import { trackEvent } from "@/lib/analytics/client";
 import type { ProviderPlacement } from "@/components/providers/ServiceProviderCard";
+import { formFieldWhite } from "@/lib/ui/mobile";
 
 type Props = {
   placement: ProviderPlacement;
@@ -114,14 +115,14 @@ export function ProviderPartnerRecruitment({ placement, corridorSlug, topicKey, 
               placeholder="Название компании"
               value={company}
               onChange={(e) => setCompany(e.target.value)}
-              className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm"
+              className={formFieldWhite}
             />
             <input
               required
               placeholder="Контактное лицо"
               value={contactName}
               onChange={(e) => setContactName(e.target.value)}
-              className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm"
+              className={formFieldWhite}
             />
             <input
               required
@@ -129,26 +130,26 @@ export function ProviderPartnerRecruitment({ placement, corridorSlug, topicKey, 
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm"
+              className={formFieldWhite}
             />
             <input
               placeholder="Telegram (необязательно)"
               value={telegram}
               onChange={(e) => setTelegram(e.target.value)}
-              className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm"
+              className={formFieldWhite}
             />
             <input
               placeholder="Сайт"
               value={website}
               onChange={(e) => setWebsite(e.target.value)}
-              className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm"
+              className={formFieldWhite}
             />
             <input
               required
               placeholder="Страны присутствия"
               value={countries}
               onChange={(e) => setCountries(e.target.value)}
-              className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm"
+              className={formFieldWhite}
             />
           </div>
           <input
@@ -156,14 +157,14 @@ export function ProviderPartnerRecruitment({ placement, corridorSlug, topicKey, 
             placeholder="Тип услуг (ВНЖ, релокация, бухгалтерия, язык…)"
             value={services}
             onChange={(e) => setServices(e.target.value)}
-            className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm"
+            className={formFieldWhite}
           />
           <textarea
             placeholder="Кратко о компании и лицензиях"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             rows={3}
-            className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm"
+            className={formFieldWhite}
           />
 
           {status === "error" && errorMessage && <p className="text-sm text-red-600">{errorMessage}</p>}

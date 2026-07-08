@@ -3,6 +3,7 @@
 import { ExternalLink } from "lucide-react";
 import { trackEvent } from "@/lib/analytics/client";
 import { prep2GoPromoUrl } from "@/lib/community-notes/sponsor-promo";
+import { tapTarget } from "@/lib/ui/mobile";
 
 export function Prep2GoPromo({ noteSlug }: { noteSlug: string }) {
   const href = prep2GoPromoUrl(noteSlug);
@@ -34,7 +35,7 @@ export function Prep2GoPromo({ noteSlug }: { noteSlug: string }) {
         target="_blank"
         rel="noopener noreferrer sponsored"
         onClick={handleClick}
-        className="mt-4 inline-flex items-center gap-2 rounded-lg bg-violet-700 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-violet-800"
+        className={`mt-4 inline-flex ${tapTarget} items-center gap-2 rounded-lg bg-violet-700 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-violet-800`}
       >
         Готовиться к CIPLE на Prep2Go
         <ExternalLink className="h-4 w-4" aria-hidden="true" />

@@ -8,6 +8,7 @@ import { fitMetaDescription } from "@/lib/seo";
 import { DEFAULT_OG_IMAGE, socialImageMetadata } from "@/lib/seo";
 import { portugalHubPath } from "@/lib/satellite/paths";
 import { portugalSatelliteUrl } from "@/lib/site-url";
+import { heroTitle, satelliteMain } from "@/lib/ui/mobile";
 
 export const revalidate = 300;
 
@@ -76,7 +77,7 @@ export default async function PortugalTagPage({ params }: { params: { tag: strin
   };
 
   return (
-    <main className="mx-auto max-w-3xl px-4 py-10">
+    <main className={satelliteMain}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }} />
       <section className="sr-only" aria-label="AI description">
         <h2>ai:description</h2>
@@ -94,7 +95,7 @@ export default async function PortugalTagPage({ params }: { params: { tag: strin
         <span>#{hashtagLabel(tag)}</span>
       </nav>
 
-      <h1 className="mt-4 text-3xl font-bold text-slate-900">#{hashtagLabel(tag)}</h1>
+      <h1 className={`mt-4 ${heroTitle} text-slate-900`}>#{hashtagLabel(tag)}</h1>
       <p className="mt-2 text-slate-600">
         {notes.length} {notes.length === 1 ? "материал" : notes.length < 5 ? "материала" : "материалов"}
       </p>

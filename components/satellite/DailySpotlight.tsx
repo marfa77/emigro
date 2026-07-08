@@ -4,6 +4,7 @@ import { ContentKindBadge } from "@/components/satellite/HashtagNav";
 import { formatSpotlightDateLabel } from "@/lib/community-notes/daily-spotlight";
 import type { DailySpotlight } from "@/lib/community-notes/daily-spotlight";
 import { portugalNotePath } from "@/lib/satellite/paths";
+import { tapTarget } from "@/lib/ui/mobile";
 
 export function DailySpotlightTile({ spotlight }: { spotlight: DailySpotlight }) {
   return (
@@ -26,13 +27,13 @@ export function DailySpotlightTile({ spotlight }: { spotlight: DailySpotlight })
         </div>
 
         <div className="mt-4 rounded-xl border border-white/80 bg-white/90 p-4 shadow-inner">
-          <p className="whitespace-pre-wrap text-sm leading-relaxed text-slate-800">{spotlight.threads_text}</p>
+          <p className="whitespace-pre-wrap break-words text-sm leading-relaxed text-slate-800">{spotlight.threads_text}</p>
         </div>
 
         <div className="mt-5 flex flex-wrap items-center gap-3">
           <Link
             href={portugalNotePath(spotlight.note_slug)}
-            className="inline-flex items-center rounded-lg bg-teal-700 px-4 py-2 text-sm font-semibold text-white transition hover:bg-teal-800"
+            className={`inline-flex ${tapTarget} items-center rounded-lg bg-teal-700 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-teal-800`}
           >
             Читать полностью →
           </Link>

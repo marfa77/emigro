@@ -15,6 +15,7 @@ import { listPillarGuides } from "@/lib/guides/pillar-guides";
 import { pageMetadata, pageUrl } from "@/lib/seo";
 import { publicSiteUrl } from "@/lib/site-url";
 import { TRANSIT_HUBS } from "@/lib/transit-hubs";
+import { heroTitle } from "@/lib/ui/mobile";
 
 export const revalidate = 3600;
 
@@ -96,7 +97,7 @@ export default async function RuHubPage() {
             <Globe2 className="h-4 w-4" />
             {destinationCount} направлений
           </div>
-          <h1 className="mt-4 text-4xl font-bold">Emigro — ВНЖ и маршруты в Европу</h1>
+          <h1 className={`mt-4 ${heroTitle}`}>Emigro — ВНЖ и маршруты в Европу</h1>
           <p className="mt-4 max-w-2xl text-lg text-corridor-100">
             Для русскоязычных за рубежом и в СНГ: уже живёте в Европе или планируете переезд — еженедельные новости,
             wizard подбора, справочники и проверка маршрутов.

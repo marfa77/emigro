@@ -11,6 +11,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { ROUTE_CHECK_PDF_PATH } from "@/lib/assist/sample-plan-data";
+import { pricingCardHeaderRow } from "@/lib/ui/mobile";
 
 type Props = {
   routeCheckFormAnchor?: string;
@@ -35,15 +36,11 @@ export function AssistPricingCards({
           <span className="absolute -top-3 left-5 rounded-full bg-corridor-600 px-3 py-0.5 text-xs font-semibold uppercase tracking-wide text-white">
             Route Check
           </span>
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <h3 className="text-xl font-bold text-slate-950">Route Check</h3>
-              <p className="mt-1 text-sm text-slate-600">Созвон с командой Emigro + PDF с разбором кейса</p>
-            </div>
-            <p className="text-right">
-              <span className="text-3xl font-bold text-corridor-700">€129</span>
-            </p>
-          </div>
+          <PricingCardHeader
+            title="Route Check"
+            subtitle="Созвон с командой Emigro + PDF с разбором кейса"
+            price={<span className="text-3xl font-bold text-corridor-700">€129</span>}
+          />
 
           <ul className="mt-6 flex-1 space-y-3 text-sm text-slate-700">
             <PricingFeature icon={<Check className="h-4 w-4" />} text="Вы описываете ситуацию в заявке" />
@@ -89,16 +86,16 @@ export function AssistPricingCards({
           <span className="absolute -top-3 left-5 rounded-full bg-slate-800 px-3 py-0.5 text-xs font-semibold uppercase tracking-wide text-white">
             Сопровождение
           </span>
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <h3 className="text-xl font-bold text-slate-950">Сопровождение</h3>
-              <p className="mt-1 text-sm text-slate-600">Помощь в процессе после Route Check</p>
-            </div>
-            <p className="text-right">
-              <span className="text-3xl font-bold text-slate-900">€100</span>
-              <span className="block text-xs text-slate-500">/ час</span>
-            </p>
-          </div>
+          <PricingCardHeader
+            title="Сопровождение"
+            subtitle="Помощь в процессе после Route Check"
+            price={
+              <>
+                <span className="text-3xl font-bold text-slate-900">€100</span>
+                <span className="block text-xs text-slate-500">/ час</span>
+              </>
+            }
+          />
 
           <ul className="mt-6 flex-1 space-y-3 text-sm text-slate-700">
             <PricingFeature
@@ -136,15 +133,13 @@ export function AssistPricingCards({
           <span className="absolute -top-3 left-5 rounded-full bg-slate-400 px-3 py-0.5 text-xs font-semibold uppercase tracking-wide text-white">
             Скоро
           </span>
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <h3 className="text-xl font-bold text-slate-500">Full Assist</h3>
-              <p className="mt-1 text-sm text-slate-400">Полное сопровождение от маршрута до карты ВНЖ</p>
-            </div>
-            <p className="text-right">
-              <span className="text-3xl font-bold text-slate-400">от €990</span>
-            </p>
-          </div>
+          <PricingCardHeader
+            title="Full Assist"
+            titleClassName="text-slate-500"
+            subtitle="Полное сопровождение от маршрута до карты ВНЖ"
+            subtitleClassName="text-slate-400"
+            price={<span className="text-3xl font-bold text-slate-400">от €990</span>}
+          />
 
           <ul className="mt-6 flex-1 space-y-3 text-sm text-slate-400">
             <PricingFeature icon={<Sparkles className="h-4 w-4" />} text="Детальный PDF-план 15–25 страниц" muted />
@@ -163,6 +158,30 @@ export function AssistPricingCards({
         </article>
       </div>
     </section>
+  );
+}
+
+function PricingCardHeader({
+  title,
+  subtitle,
+  price,
+  titleClassName = "text-slate-950",
+  subtitleClassName = "text-slate-600",
+}: {
+  title: string;
+  subtitle: string;
+  price: ReactNode;
+  titleClassName?: string;
+  subtitleClassName?: string;
+}) {
+  return (
+    <div className={pricingCardHeaderRow}>
+      <div>
+        <h3 className={`text-xl font-bold ${titleClassName}`}>{title}</h3>
+        <p className={`mt-1 text-sm ${subtitleClassName}`}>{subtitle}</p>
+      </div>
+      <p className="sm:text-right">{price}</p>
+    </div>
   );
 }
 

@@ -3,6 +3,7 @@
 import { ExternalLink } from "lucide-react";
 import { trackEvent } from "@/lib/analytics/client";
 import { barakhloPromoUrl, isServiceDiscoveryNote } from "@/lib/community-notes/sponsor-promo";
+import { tapTarget } from "@/lib/ui/mobile";
 
 type BarakhloPromoProps = {
   context: "hub" | string;
@@ -40,7 +41,7 @@ export function BarakhloPromo({ context, placement, compact = false, category = 
           target="_blank"
           rel="noopener noreferrer"
           onClick={handleClick}
-          className="inline-flex shrink-0 items-center justify-center gap-1.5 rounded-lg bg-orange-600 px-4 py-2 text-sm font-semibold text-white hover:bg-orange-700"
+          className={`inline-flex ${tapTarget} shrink-0 items-center justify-center gap-1.5 rounded-lg bg-orange-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-orange-700`}
         >
           На Barakhlo
           <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
@@ -68,7 +69,7 @@ export function BarakhloPromo({ context, placement, compact = false, category = 
         target="_blank"
         rel="noopener noreferrer"
         onClick={handleClick}
-        className="mt-4 inline-flex items-center gap-2 rounded-lg bg-orange-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-orange-700"
+        className={`mt-4 inline-flex ${tapTarget} items-center gap-2 rounded-lg bg-orange-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-orange-700`}
       >
         Смотреть объявления в Лиссабоне
         <ExternalLink className="h-4 w-4" aria-hidden="true" />

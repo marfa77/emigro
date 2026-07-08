@@ -5,6 +5,7 @@ import { resolveNoteOgImage } from "@/lib/community-notes/note-og-image";
 import type { CommunityNote } from "@/lib/community-notes/types";
 import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 import { portugalNotePath } from "@/lib/satellite/paths";
+import { layoutContain, NOTE_CONTENT_IMAGE_SIZES, noteContentImageClass } from "@/lib/ui/mobile";
 
 function formatDate(iso: string | null): string {
   if (!iso) return "";
@@ -21,15 +22,16 @@ export function NoteCard({ note }: { note: CommunityNote }) {
   const href = portugalNotePath(note.slug);
 
   return (
-    <article className="overflow-hidden rounded-xl border border-slate-200 bg-white transition hover:border-teal-200">
+    <article className={`${layoutContain} overflow-hidden rounded-xl border border-slate-200 bg-white transition hover:border-teal-200`}>
       {showThumbnail && (
-        <Link href={href} className="block">
+        <Link href={href} className={`block ${layoutContain} overflow-hidden`}>
           <Image
             src={thumbnail}
             alt={note.title}
             width={1200}
             height={630}
-            className="aspect-[1200/630] w-full object-cover"
+            sizes={NOTE_CONTENT_IMAGE_SIZES}
+            className={noteContentImageClass}
             loading="lazy"
           />
         </Link>

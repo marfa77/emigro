@@ -6,13 +6,17 @@ import { COMMUNITY_PATH, DISCUSSION_GROUP_LABEL } from "@/lib/community";
 import { HUB_WIZARD_PATH } from "@/lib/corridor/paths";
 import { CONTACT_EMAIL, MAILTO_CONTACT } from "@/lib/site-contact";
 import { getHeaderNavLinks } from "@/lib/site-nav";
+import { safeAreaTopStyle } from "@/lib/ui/mobile";
 
 export function SiteHeader({ locale = "ru" }: { locale?: "ru" | "en" }) {
   const navLinks = getHeaderNavLinks(locale);
 
   return (
     <>
-      <header className="relative z-50 border-b border-slate-200 bg-white">
+      <header
+        className="relative z-50 border-b border-slate-200 bg-white"
+        style={safeAreaTopStyle}
+      >
         <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4">
           <EmigroLogo />
           <nav

@@ -85,7 +85,7 @@ export default async function CountryDigestPage({ params }: { params: { country:
             <BookOpen className="h-4 w-4" />
             Справочник коридора
           </span>
-          <h1 className="mt-5 max-w-3xl text-4xl font-bold leading-tight sm:text-5xl">
+          <h1 className="mt-5 max-w-3xl text-3xl font-bold leading-tight sm:text-4xl lg:text-5xl">
             Справочник: {topic.countryRu}
           </h1>
           <p className="mt-5 max-w-2xl text-lg leading-relaxed text-corridor-100">

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { trackEvent } from "@/lib/analytics/client";
+import { formField, formFieldWhite } from "@/lib/ui/mobile";
 
 export type AssistCountryOption = {
   label: string;
@@ -190,7 +191,7 @@ export function AssistLeadForm({ countries, providers, defaultPlanTier = "route-
           required
           value={paymentMethod}
           onChange={(e) => setPaymentMethod(e.target.value as AssistPaymentMethod)}
-          className="mt-2 w-full rounded-lg border border-slate-300 bg-white px-3 py-2"
+          className={`mt-2 ${formFieldWhite}`}
         >
           {PAYMENT_OPTIONS.map((option) => (
             <option key={option.value} value={option.value}>
@@ -212,7 +213,7 @@ export function AssistLeadForm({ countries, providers, defaultPlanTier = "route-
           required
           value={country}
           onChange={(e) => setCountry(e.target.value)}
-          className="mt-2 w-full rounded-lg border border-slate-300 bg-white px-3 py-2"
+          className={`mt-2 ${formFieldWhite}`}
         >
           {countries.map((option) => (
             <option key={option.value} value={option.value}>
@@ -236,7 +237,7 @@ export function AssistLeadForm({ countries, providers, defaultPlanTier = "route-
               ? "Например: отказ AIMA, нужно написать в консульство, проверить форму D7"
               : "Например: D7, digital nomad, смена статуса в Испании, переезд с семьёй"
           }
-          className="mt-2 w-full rounded-lg border border-slate-300 px-3 py-2"
+          className={`mt-2 ${formField}`}
         />
       </div>
 
@@ -278,7 +279,7 @@ export function AssistLeadForm({ countries, providers, defaultPlanTier = "route-
             required
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="mt-2 w-full rounded-lg border border-slate-300 px-3 py-2"
+            className={`mt-2 ${formField}`}
           />
         </div>
         <div>
@@ -291,7 +292,7 @@ export function AssistLeadForm({ countries, providers, defaultPlanTier = "route-
             value={contact}
             onChange={(e) => setContact(e.target.value)}
             placeholder="name@email.com или @username"
-            className="mt-2 w-full rounded-lg border border-slate-300 px-3 py-2"
+            className={`mt-2 ${formField}`}
           />
         </div>
       </div>
@@ -311,7 +312,7 @@ export function AssistLeadForm({ countries, providers, defaultPlanTier = "route-
               ? "Что уже сделано, где застряли, какие письма или формы нужны, дедлайны."
               : "Ситуация, доход, семья, сроки — что хотите прояснить."
           }
-          className="mt-2 w-full rounded-lg border border-slate-300 px-3 py-2"
+          className={`mt-2 ${formField}`}
         />
       </div>
 

@@ -172,7 +172,7 @@ export default async function CountryProgramPage({
 
         <HeroShell className="mt-5" visual={<CorridorHeroVisual segment={topic.urlSegment} />}>
           <ProgramTypeBadge type={program.program_type} />
-          <h1 className="mt-4 max-w-3xl text-4xl font-bold sm:text-5xl">{program.title_ru}</h1>
+          <h1 className="mt-4 max-w-3xl text-3xl font-bold sm:text-4xl lg:text-5xl">{program.title_ru}</h1>
           <p className="mt-4 max-w-2xl text-lg leading-relaxed text-corridor-100">{program.summary_ru}</p>
           <div className="mt-8 flex flex-wrap gap-3">
             {topic.sitePaths.wizard && (

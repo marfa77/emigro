@@ -22,6 +22,7 @@ import { PORTUGAL_SATELLITE } from "@/lib/satellite/portugal";
 import { portugalHubPath } from "@/lib/satellite/paths";
 import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 import { portugalSatelliteUrl } from "@/lib/site-url";
+import { heroTitle, NOTE_CONTENT_IMAGE_SIZES, noteContentImageClass, satelliteMain } from "@/lib/ui/mobile";
 
 export const revalidate = 300;
 
@@ -63,7 +64,7 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
   const showHero = heroImage != null && heroImage !== DEFAULT_OG_IMAGE;
 
   return (
-    <main className="mx-auto max-w-3xl px-4 py-10">
+    <main className={satelliteMain}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(speakableSchema) }} />
@@ -95,7 +96,7 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
           <p className="text-xs font-medium uppercase tracking-wide text-teal-700">{note.category}</p>
           <ContentKindBadge kind={note.content_kind} />
         </div>
-        <h1 className="mt-2 text-3xl font-bold leading-tight text-slate-900">{note.title}</h1>
+        <h1 className={`mt-2 ${heroTitle} leading-tight text-slate-900`}>{note.title}</h1>
         <p className="mt-2 text-sm text-slate-600">
           {PORTUGAL_SATELLITE.cityRu}, Португалия · для релокантов RU/BY/UA/KZ
         </p>
@@ -119,7 +120,8 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
             alt=""
             width={1200}
             height={630}
-            className="aspect-[1200/630] w-full object-cover"
+            sizes={NOTE_CONTENT_IMAGE_SIZES}
+            className={noteContentImageClass}
             priority
           />
         </figure>

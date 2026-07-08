@@ -17,6 +17,7 @@ import { requirePublishedCorridorTopic } from "@/lib/corridor/resolve-topic";
 import type { NewsTopicConfig } from "@/lib/news/topics";
 import { buildCorridorBreadcrumbSchema, buildCorridorLandingArticleSchema, buildFaqSchema, buildCorridorLandingFaq } from "@/lib/seo/corridor-page-seo";
 import { pageUrl } from "@/lib/seo";
+import { heroTitle } from "@/lib/ui/mobile";
 
 export async function CorridorLanding({ country }: { country: string }) {
   const topic = await requirePublishedCorridorTopic(country);
@@ -72,7 +73,7 @@ export async function CorridorLanding({ country }: { country: string }) {
           <p className="text-sm uppercase tracking-wide text-corridor-100">
             {isFull ? "Полный коридор Emigro" : "Коридор в разработке"}
           </p>
-          <h1 className="mt-2 text-4xl font-bold">{corridor.title_ru}</h1>
+          <h1 className={`mt-2 ${heroTitle}`}>{corridor.title_ru}</h1>
           <p className="mt-4 max-w-2xl text-lg text-corridor-100">{corridor.audience_description_ru}</p>
           <p className="mt-3 max-w-2xl text-sm text-corridor-100/90">
             Для русскоязычных за рубежом и в СНГ — в том числе если вы уже в ЕС и ищете смену статуса, переход в{" "}
