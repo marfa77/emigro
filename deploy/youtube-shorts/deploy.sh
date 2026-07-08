@@ -56,6 +56,8 @@ mkdir -p data/youtube-shorts/logs data/gcloud-config
 if [[ ! -f data/youtube-shorts-state.json && -f scripts/output/youtube-shorts-state.json ]]; then
   cp scripts/output/youtube-shorts-state.json data/youtube-shorts-state.json
 fi
+chown www-data:www-data data/youtube-shorts-state.json 2>/dev/null || true
+find data/youtube-shorts/logs -maxdepth 1 -type f ! -user www-data -exec chown www-data:www-data {} + 2>/dev/null || true
 chown -R www-data:www-data data/youtube-shorts data/gcloud-config
 chown -R www-data:www-data data
 

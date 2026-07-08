@@ -74,12 +74,19 @@ function gcsEnv(): NodeJS.ProcessEnv {
   };
 }
 
-function discoverPublishedFromGcs(): Set<string> {
+function discoverPublishedFromGcs(): { slugs: Set<string>; ok: boolean } {
   const found = new Set<string>();
-  if (!shouldSyncPublishedFromGcs()) return found;
+  if (!shouldSyncPublishedFromGcs()) return { slugs: found, ok: true };
 
   const bucket = youtubeShortsBucket().replace(/\/+$/g, "");
-  if (!bucket.startsWith("gs://")) return found;
+  if (!bucket.startsWith("gs://")) return { slugs: found, ok: true };
+
+  const creds =
+    process.env.GOOGLE_APPLICATION_CREDENTIALS || path.join(process.cwd(), "data/gcs-upload-key.json");
+  if (!fs.existsSync(creds)) {
+    console.warn("[youtube-short] GCS backfill skipped: no credentials file");
+    return { slugs: found, ok: false };
+  }
 
   const prefix = `${bucket}/${youtubeShortsGcsPrefix()}/tips/`;
   const result = spawnSync("gsutil", ["ls", prefix], {
@@ -87,11 +94,41 @@ function discoverPublishedFromGcs(): Set<string> {
     env: gcsEnv(),
     timeout: 30_000,
   });
-  if (result.status !== 0) return found;
+  if (result.status !== 0) {
+    const detail = (result.stderr || result.stdout || "gsutil ls failed").trim().slice(0, 200);
+    console.warn(`[youtube-short] GCS backfill failed: ${detail}`);
+    return { slugs: found, ok: false };
+  }
 
   for (const line of result.stdout.split("\n")) {
     const match = line.trim().match(/\/tips\/[^/]+\/([^/]+)\/?$/);
     if (match && isTopicSlug(match[1])) found.add(match[1]);
+  }
+  return { slugs: found, ok: true };
+}
+
+function discoverPublishedFromGenerationReports(): Set<string> {
+  const found = new Set<string>();
+  const outputRoot = youtubeShortsOutputRoot();
+  if (!fs.existsSync(outputRoot)) return found;
+
+  for (const name of fs.readdirSync(outputRoot)) {
+    const match = name.match(/^(.+)-(\d{4}-\d{2}-\d{2})$/);
+    if (!match || !isTopicSlug(match[1])) continue;
+    const reportPath = path.join(outputRoot, name, "generation-report.json");
+    if (!fs.existsSync(reportPath)) continue;
+    try {
+      const report = JSON.parse(fs.readFileSync(reportPath, "utf8")) as {
+        topic_id?: string;
+        video_duration_seconds?: number;
+        youtube?: { videoId?: string };
+      };
+      if (report.topic_id === match[1] && (report.youtube?.videoId || (report.video_duration_seconds ?? 0) > 0)) {
+        found.add(match[1]);
+      }
+    } catch {
+      /* ignore */
+    }
   }
   return found;
 }
@@ -116,12 +153,17 @@ function shouldSyncPublishedFromGcs(): boolean {
 
 function backfillPublishedState(state: PublishedState): PublishedState {
   const forceGcsSync = process.env.EMIGRO_YOUTUBE_SHORTS_SYNC_GCS === "1";
-  if (state.backfill_migrated_at && !forceGcsSync) return state;
+  const skipGcs = state.backfill_migrated_at && !forceGcsSync;
 
   const discovered = new Set(state.published);
   for (const id of Array.from(discoverPublishedFromLocalOutput())) discovered.add(id);
-  if (shouldSyncPublishedFromGcs()) {
-    for (const id of Array.from(discoverPublishedFromGcs())) discovered.add(id);
+  for (const id of Array.from(discoverPublishedFromGenerationReports())) discovered.add(id);
+
+  let gcsOk = true;
+  if (!skipGcs && shouldSyncPublishedFromGcs()) {
+    const gcs = discoverPublishedFromGcs();
+    gcsOk = gcs.ok;
+    for (const id of Array.from(gcs.slugs)) discovered.add(id);
   }
 
   let next = mergeLegacyStatePublished({ ...state, published: Array.from(discovered) });
@@ -129,14 +171,18 @@ function backfillPublishedState(state: PublishedState): PublishedState {
     next.published.length !== state.published.length ||
     next.published.some((id, i) => state.published[i] !== id);
 
-  if (!forceGcsSync) {
+  const gcsAttempted = !skipGcs && shouldSyncPublishedFromGcs();
+  if ((gcsAttempted && gcsOk) || (!gcsAttempted && !state.backfill_migrated_at)) {
     next = { ...next, backfill_migrated_at: new Date().toISOString() };
   }
+
   if (changed) {
     next.last_topic_id = next.last_topic_id ?? next.published.at(-1);
     console.log(`[youtube-short] Backfilled published[] from artifacts: ${next.published.join(", ")}`);
   }
-  writeState(next);
+  if (changed || !state.backfill_migrated_at) {
+    writeState(next);
+  }
   return next;
 }
 

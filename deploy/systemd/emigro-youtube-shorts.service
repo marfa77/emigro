@@ -14,6 +14,7 @@ Environment=EMIGRO_YOUTUBE_SHORTS_STATE_FILE=/opt/emigro/data/youtube-shorts-sta
 Environment=GSUTIL_HOME=/opt/emigro/data
 Environment=CLOUDSDK_CONFIG=/opt/emigro/data/gcloud-config
 Environment=GOOGLE_APPLICATION_CREDENTIALS=/opt/emigro/data/gcs-upload-key.json
+ExecStartPre=/bin/chown -R www-data:www-data /opt/emigro/data/youtube-shorts /opt/emigro/data/youtube-shorts-state.json
 ExecStart=/bin/bash /opt/emigro/deploy/youtube-shorts/run_daily.sh
 
 [Install]

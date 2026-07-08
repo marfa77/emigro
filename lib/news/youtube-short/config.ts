@@ -17,6 +17,8 @@ export const SHORT_DURATION_ESTIMATE_TARGET = 42;
 export const SHORT_DURATION_ESTIMATE_MAX = 44;
 /** Empirical RU TTS rate at RU_TTS_SPEED (OpenAI reads slower than English; numbers/pauses add time). */
 export const SHORT_WORDS_PER_SECOND = 1.72;
+/** Gemini script QA attempts (too short / too long retries). */
+export const SCRIPT_QA_MAX_ATTEMPTS = 4;
 
 export const YOUTUBE_CHANNEL_URL = "https://www.youtube.com/@Emigro_news";
 export const YOUTUBE_CHANNEL_HANDLE = "@Emigro_news";

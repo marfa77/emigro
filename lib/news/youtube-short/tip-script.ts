@@ -79,4 +79,8 @@ export function assertTipDurationEstimate(segments: ScriptSegment[]): void {
   }
 }
 
+export function countSpokenWords(script: { hook: string; body: string; cta: string }): number {
+  return wordCount(`${script.hook} ${script.body} ${script.cta}`);
+}
+
 export { compact, wordCount };
