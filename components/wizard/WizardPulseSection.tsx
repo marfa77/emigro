@@ -9,7 +9,7 @@ export async function WizardPulseSection() {
 
   return (
     <section
-      className="mt-10 rounded-2xl border border-teal-400/20 bg-gradient-to-br from-teal-950/40 via-slate-900/80 to-slate-950/90 p-5 sm:p-6"
+      className="mt-10 rounded-2xl border border-corridor-500/40 bg-gradient-to-br from-corridor-900 via-slate-900 to-slate-950 p-5 sm:p-6"
       aria-labelledby="hub-wizard-pulse-heading"
     >
       <PulseHeader
@@ -30,24 +30,24 @@ export async function WizardPulseSection() {
         <PulseCard icon={Laptop} title="Удалёнка">
           {pulse.remoteIncomeShare !== null ? (
             <>
-              <p className="text-3xl font-bold tabular-nums text-teal-300">{pulse.remoteIncomeShare}%</p>
-              <p className="mt-1 text-xs text-slate-400">указали удалённый доход</p>
+              <p className="text-3xl font-bold tabular-nums text-white">{pulse.remoteIncomeShare}%</p>
+              <p className="mt-1 text-xs text-slate-200">указали удалённый доход</p>
             </>
           ) : (
-            <p className="text-sm text-slate-400">Пока мало данных</p>
+            <p className="text-sm text-slate-200">Пока мало данных</p>
           )}
         </PulseCard>
 
         <PulseCard icon={Activity} title="Объём">
           <p className="text-3xl font-bold tabular-nums text-white">{pulse.totalChecks}</p>
-          <p className="mt-1 text-xs text-slate-400">все коридоры за {pulse.periodDays} дней</p>
+          <p className="mt-1 text-xs text-slate-200">все коридоры за {pulse.periodDays} дней</p>
         </PulseCard>
       </div>
 
       <div className="mt-5 flex justify-center">
         <Link
           href="/ru/wizard"
-          className="inline-flex items-center gap-2 rounded-lg bg-teal-500 px-5 py-2.5 text-sm font-medium text-white hover:bg-teal-400"
+          className="inline-flex items-center gap-2 rounded-lg bg-corridor-600 px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-corridor-900/30 hover:bg-corridor-500"
         >
           Запустить wizard
         </Link>
