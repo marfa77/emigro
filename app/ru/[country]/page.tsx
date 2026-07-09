@@ -7,7 +7,7 @@ import { getTopicByCountrySegment } from "@/lib/corridor/resolve-topic";
 import { isCorridorOnSite } from "@/lib/corridor/publish";
 import { countryOgImage } from "@/lib/brand/country-accents";
 import { pageMetadata, socialImageMetadata } from "@/lib/seo";
-import { getPtLongTailByPath } from "@/lib/seo/pt-longtail";
+import { getLongTailByPath } from "@/lib/seo/query-longtail";
 import { TRANSIT_HUBS, getTransitHub } from "@/lib/transit-hubs";
 
 export async function generateStaticParams() {
@@ -35,11 +35,11 @@ export async function generateMetadata({ params }: { params: { country: string }
   const topic = await getTopicByCountrySegment(params.country);
   if (!topic?.sitePaths) return {};
   const ogImage = countryOgImage(topic.urlSegment);
-  const ptLongTail = topic.urlSegment === "portugal" ? getPtLongTailByPath(topic.sitePaths.landing) : undefined;
+  const longTail = getLongTailByPath(topic.sitePaths.landing);
 
-  const landingTitle = ptLongTail?.seoTitle ?? `${topic.countryRu} — коридор релокации`;
+  const landingTitle = longTail?.seoTitle ?? `${topic.countryRu} — коридор релокации`;
   const landingDescription =
-    ptLongTail?.seoDescription ??
+    longTail?.seoDescription ??
     `${topic.focusHintRu}. Wizard подбора маршрута ВНЖ, справочник коридора с проверенными фактами, программы и еженедельные новости для паспортов RU/BY/UA/KZ. Emigro.`;
 
   const base = pageMetadata({
@@ -51,7 +51,7 @@ export async function generateMetadata({ params }: { params: { country: string }
   });
   return {
     ...base,
-    keywords: ptLongTail ? [...(topic.seoTags ?? []), ...ptLongTail.queries] : topic.seoTags,
+    keywords: longTail ? [...(topic.seoTags ?? []), ...longTail.queries] : topic.seoTags,
     openGraph: {
       ...base.openGraph,
       images: [socialImageMetadata(ogImage, `${topic.countryRu}: коридор релокации Emigro`)],

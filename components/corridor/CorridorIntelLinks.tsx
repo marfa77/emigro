@@ -8,6 +8,7 @@ import { barakhloMarketCityLabel } from "@/lib/barakhlo/markets";
 import { barakhloPromoUrl } from "@/lib/community-notes/sponsor-promo";
 import { corridorHubLabel } from "@/lib/corridor/hub";
 import { isPortugalHubTopic, portugalSatelliteHubUrl } from "@/lib/portugal/hub";
+import { corridorPillarGuideAnchor, corridorPillarGuideHref } from "@/lib/seo/corridor-pillar-guides";
 
 type Props = {
   topic: NewsTopicConfig;
@@ -26,6 +27,8 @@ export function CorridorIntelLinks({ topic, variant = "full", layout = "grid" }:
   const satelliteUrl = portugalSatelliteHubUrl();
   const barakhloUrl = barakhloPromoUrl("intel_links", topic.urlSegment);
   const barakhloCity = barakhloMarketCityLabel(topic.urlSegment);
+  const pillarGuideHref = corridorPillarGuideHref(topic.urlSegment);
+  const pillarGuideAnchor = corridorPillarGuideAnchor(topic.urlSegment);
 
   if (variant === "compact") {
     return (
@@ -51,6 +54,14 @@ export function CorridorIntelLinks({ topic, variant = "full", layout = "grid" }:
         <Link href="/ru/guides" className="text-corridor-600 hover:underline">
           Гайды
         </Link>
+        {pillarGuideHref && pillarGuideAnchor && (
+          <>
+            <span className="text-slate-300">·</span>
+            <Link href={pillarGuideHref} className="text-corridor-600 hover:underline">
+              {pillarGuideAnchor}
+            </Link>
+          </>
+        )}
         {paths?.wizard && isCorridorFull(topic.status) && (
           <>
             <span className="text-slate-300">·</span>
@@ -129,6 +140,17 @@ export function CorridorIntelLinks({ topic, variant = "full", layout = "grid" }:
             <p className="mt-1 text-sm text-slate-600">
               Гражданство, язык, налоги и административные шаги — статические заметки коридора.
             </p>
+          </Link>
+        )}
+
+        {pillarGuideHref && pillarGuideAnchor && (
+          <Link
+            href={pillarGuideHref}
+            className="group rounded-lg border border-corridor-200 bg-corridor-50/80 p-4 transition hover:border-corridor-400 hover:shadow-sm"
+          >
+            <BookOpen className="h-5 w-5 text-corridor-700" />
+            <p className="mt-2 font-medium text-corridor-900 group-hover:text-corridor-700">Pillar-гайд</p>
+            <p className="mt-1 text-sm text-corridor-900/80">{pillarGuideAnchor}</p>
           </Link>
         )}
 

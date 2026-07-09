@@ -62,6 +62,7 @@ export function programPathLegacy(programSlug: string): string {
 }
 
 import { pingIndexNow } from "@/lib/seo/indexnow";
+import { pingGoogleSitemap } from "@/lib/seo/google-sitemap";
 
 /** Ping IndexNow (Yandex first) after publishes; optional Google sitemap ping. */
 export async function pingSearchEnginesSitemap(sitemapUrl: string, updatedUrls?: string[]): Promise<void> {
@@ -69,13 +70,5 @@ export async function pingSearchEnginesSitemap(sitemapUrl: string, updatedUrls?:
     await pingIndexNow(updatedUrls);
   }
 
-  if (process.env.PING_GOOGLE_SITEMAP === "1") {
-    const googlePing = `https://www.google.com/ping?sitemap=${encodeURIComponent(sitemapUrl)}`;
-    try {
-      await fetch(googlePing, { method: "GET", signal: AbortSignal.timeout(8000) });
-      console.info("[seo] Google sitemap ping (optional):", sitemapUrl);
-    } catch (e) {
-      console.warn("[seo] Google sitemap ping failed:", e instanceof Error ? e.message : e);
-    }
-  }
+  await pingGoogleSitemap(sitemapUrl);
 }

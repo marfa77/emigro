@@ -9,6 +9,7 @@ import {
   indexNowKeyFileUrl,
   type IndexNowPingResult,
 } from "../lib/seo/indexnow";
+import { pingGoogleSitemap } from "../lib/seo/google-sitemap";
 import { publicSiteUrl } from "../lib/site-url";
 
 config({ path: resolve(process.cwd(), ".env.local") });
@@ -100,6 +101,17 @@ async function main() {
   }
 
   summarizeYandex(allResults);
+
+  const sitemapUrl = `${origin}/sitemap.xml`;
+  const googleOk = await pingGoogleSitemap(sitemapUrl);
+  if (googleOk) {
+    console.log("\nGoogle sitemap ping sent. Verify in Search Console → Sitemaps.");
+  } else if (process.env.PING_GOOGLE_SITEMAP === "1" || process.env.PING_GOOGLE_SITEMAP === "true") {
+    console.log("\nGoogle sitemap ping failed or returned non-OK status.");
+  } else {
+    console.log("\nGoogle sitemap ping skipped (set PING_GOOGLE_SITEMAP=1 to enable).");
+  }
+
   console.log("\nDone. Secondary: Bing Webmaster / api.indexnow.org (optional check).");
 }
 

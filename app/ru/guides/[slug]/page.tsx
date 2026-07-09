@@ -21,7 +21,7 @@ import type { NewsTopicConfig } from "@/lib/news/topics";
 import { corridorSlugForTopic } from "@/lib/providers/registry";
 import { buildGuideArticleMetadata, pageUrl } from "@/lib/seo";
 import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
-import { getPtLongTailByGuideSlug } from "@/lib/seo/pt-longtail";
+import { getLongTailByGuideSlug } from "@/lib/seo/query-longtail";
 import { EMIGRO_PUBLISHER, emigroAuthorOrg, schemaImage } from "@/lib/seo/schema";
 import { GuideCorridorLiveData } from "@/components/guides/GuideCorridorLiveData";
 import { GuideOfficialSources } from "@/components/guides/GuideOfficialSources";
@@ -35,7 +35,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const guide = loadGuide(params.slug);
   if (!guide) return {};
-  const longTail = getPtLongTailByGuideSlug(guide.slug);
+  const longTail = getLongTailByGuideSlug(guide.slug);
   const title = longTail?.seoTitle ?? guide.seo_title ?? guide.title;
   const description =
     longTail?.seoDescription ?? guide.seo_description ?? guide.excerpt ?? guide.quick_answer ?? guide.title;

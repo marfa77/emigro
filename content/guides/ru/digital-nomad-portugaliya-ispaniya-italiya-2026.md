@@ -1,8 +1,9 @@
 ---
 slug: digital-nomad-portugaliya-ispaniya-italiya-2026
 title: "Digital nomad в Европе 2026: Португалия vs Испания vs Италия"
-seo_title: "Digital nomad Европа 2026 — PT vs ES vs IT"
-seo_description: "Сравнение digital nomad и удалёнки: Португалия D8, Испания, Италия 2026. Пороги дохода, налоги, сроки ВНЖ, для граждан РФ и СНГ."
+seo_title: "Digital nomad Испания vs Португалия 2026 — сравнение"
+seo_description: "Сравнение digital nomad 2026: Испания €2 849/мес vs Португалия D8 €3 680 vs Италia. Налоги, сроки ВНЖ, гражданство — для граждан РФ и СНГ."
+date_modified: 2026-07-09
 excerpt: "Три главных маршрута для удалёнщиков из русскоязычного сегмента: цифры, плюсы, минусы и кому какой коридор выгоднее в 2026."
 quick_answer: "Португалия D8 — самый проработанный маршрут (≈€3 680/мес). Испания digital nomad — ≈€2 849/мес (200% SMI), сильный рынок, выше жизнь в топ-городах. Италия — виза для remote workers с порогом ~€24 790/год и более тяжёлой бюрократией. Выбор зависит от дохода, семьи и горизонта гражданства (PT — 10 лет после реформы 2026)."
 corridor_slugs: [ru-speaking-to-portugal, ru-speaking-to-spain, ru-speaking-to-italy]
@@ -20,7 +21,6 @@ official_sources:
     label: Италия — визы
 estimated_minutes: 17
 date_published: 2026-06-25
-date_modified: 2026-06-26
 ---
 
 ## Почему digital nomad — главный запрос русскоязычных IT

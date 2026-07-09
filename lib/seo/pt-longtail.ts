@@ -1,60 +1,11 @@
-/** Portugal long-tail SEO cluster — НЧ запросы под один URL каждый. */
-export type PtLongTailTarget = {
-  path: string;
-  guideSlug?: string;
-  primaryQuery: string;
-  queries: string[];
-  seoTitle: string;
-  seoDescription: string;
-};
+/** @deprecated Import from ./query-longtail — kept for backward compatibility. */
+export type { QueryLongTailTarget as PtLongTailTarget } from "./query-longtail";
+export {
+  QUERY_LONG_TAIL_TARGETS as PT_LONG_TAIL_TARGETS,
+  getLongTailByGuideSlug as getPtLongTailByGuideSlug,
+  getLongTailByPath as getPtLongTailByPath,
+} from "./query-longtail";
 
-export const PT_LONG_TAIL_TARGETS: PtLongTailTarget[] = [
-  {
-    path: "/ru/portugal",
-    primaryQuery: "внж португалия d8 d7 2026 для россиян",
-    queries: [
-      "внж португалия d8 d7 2026 для россиян",
-      "переехать в португалию из россии легально 2026",
-      "aima португалия запись биометрия после визы",
-    ],
-    seoTitle: "ВНЖ Португалия D8 и D7 2026 — для граждан РФ",
-    seoDescription:
-      "D8 и D7 Португалия 2026 для граждан РФ, Беларуси, Казахстана: пороги дохода, AIMA, консульство. Программы с проверкой Emigro и wizard подбора маршрута.",
-  },
-  {
-    path: "/ru/guides/vnj-portugaliya-d8-d7-grazhdanstvo-2026",
-    guideSlug: "vnj-portugaliya-d8-d7-grazhdanstvo-2026",
-    primaryQuery: "d8 португалия минимальный доход 2026",
-    queries: [
-      "d8 португалия минимальный доход 2026",
-      "d7 португалия пассивный доход сбережения 2026",
-      "закон о гражданстве португалия 10 лет d8",
-    ],
-    seoTitle: "D8 и D7 Португалия 2026 — доход, AIMA, гражданство",
-    seoDescription:
-      "D8 digital nomad и D7 пассивный доход Португалия 2026: пороги €3 680 / €920, документы, AIMA, гражданство 10 лет. Для паспортов RU/BY/UA/KZ.",
-  },
-  {
-    path: "/ru/guides/pervye-30-dnej-v-portugalii-2026",
-    guideSlug: "pervye-30-dnej-v-portugalii-2026",
-    primaryQuery: "nif португалия гражданин россии как получить",
-    queries: [
-      "nif португалия гражданин россии как получить",
-      "первые 30 дней в португалии после переезда чеклист",
-      "activobank португалия счёт для иностранца",
-    ],
-    seoTitle: "NIF и первые 30 дней в Португалии 2026 — чек-лист",
-    seoDescription:
-      "NIF, банк, SIM, SNS и запись AIMA после прилёта в Португалию: пошаговый чек-лист для граждан РФ/BY/UA/KZ с D7 или D8 в 2026 году.",
-  },
-];
+import { QUERY_LONG_TAIL_TARGETS } from "./query-longtail";
 
-export const PT_LONG_TAIL_QUERIES = PT_LONG_TAIL_TARGETS.flatMap((t) => t.queries);
-
-export function getPtLongTailByGuideSlug(slug: string): PtLongTailTarget | undefined {
-  return PT_LONG_TAIL_TARGETS.find((t) => t.guideSlug === slug);
-}
-
-export function getPtLongTailByPath(path: string): PtLongTailTarget | undefined {
-  return PT_LONG_TAIL_TARGETS.find((t) => t.path === path);
-}
+export const PT_LONG_TAIL_QUERIES = QUERY_LONG_TAIL_TARGETS.flatMap((t) => t.queries);

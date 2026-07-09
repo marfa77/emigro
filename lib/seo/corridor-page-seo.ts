@@ -3,6 +3,7 @@ import type { Corridor, DigestItem, ProgramDetail } from "@/lib/types";
 import type { NewsTopicConfig } from "@/lib/news/topics";
 import { countryCardImage, countryOgImage } from "@/lib/brand/country-accents";
 import { fitMetaDescription, fitSeoTitlePart, hreflangAlternates, pageMetadata, pageUrl } from "@/lib/seo";
+import { getLongTailByProgramSlug } from "@/lib/seo/query-longtail";
 import { EMIGRO_PUBLISHER, emigroAuthorOrg, schemaImage } from "@/lib/seo/schema";
 
 const SCHEMA_DATE_FALLBACK = "2026-06-01T00:00:00.000Z";
@@ -202,9 +203,11 @@ export function buildProgramMetadata(
   topic: NewsTopicConfig
 ): Metadata {
   const path = programPagePath(topic, program.slug);
-  const seoTitle = fitTitle(`${program.title_ru} — ВНЖ ${topic.countryRu} 2026`);
+  const longTail = getLongTailByProgramSlug(program.slug);
+  const seoTitle = longTail?.seoTitle ?? fitTitle(`${program.title_ru} — ВНЖ ${topic.countryRu} 2026`);
   const description = fitDescription(
-    `${program.summary_ru} Требования, сроки, пороги 2026 и официальные источники для паспортов RU/BY/UA/KZ. Wizard Emigro.`
+    longTail?.seoDescription ??
+      `${program.summary_ru} Требования, сроки, пороги 2026 и официальные источники для паспортов RU/BY/UA/KZ. Wizard Emigro.`
   );
   const keywords = [
     `ВНЖ ${topic.countryRu}`,
@@ -213,6 +216,7 @@ export function buildProgramMetadata(
     "русскоязычные",
     "паспорт RU",
     "релокация 2026",
+    ...(longTail?.queries ?? []),
     ...(topic.seoTags ?? []).slice(0, 3),
   ];
 

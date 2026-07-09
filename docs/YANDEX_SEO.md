@@ -64,10 +64,15 @@ Alice cites pages that already rank well in Yandex organic (top ~30). There is n
 - `Host` directive points to production domain (Yandex-specific)
 - Sitemap URL in robots
 
-## 6. Google (optional, secondary)
+## 6. Google Search Console (recommended for ranking)
 
-- `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` — only if you use Search Console
-- `PING_GOOGLE_SITEMAP=1` — opt-in Google sitemap ping on news publish (off by default)
+1. Add property `https://www.emigro.online` in [Search Console](https://search.google.com/search-console)
+2. Verify via HTML meta tag → copy code to Vercel: `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=<code>`
+3. Submit sitemap: `https://www.emigro.online/sitemap.xml`
+4. Enable sitemap ping: `PING_GOOGLE_SITEMAP=1` in Vercel env (also runs on `npm run seo:indexnow`)
+5. Request indexing for pillar URLs (guides, top programs) via URL Inspection
+
+Audience remains Yandex-first; Google is secondary but useful for 177+ indexed pages and long-tail ranking.
 
 ## 7. Post-deploy routine
 
