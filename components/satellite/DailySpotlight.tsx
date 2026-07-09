@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { CopyThreadsButton } from "@/components/satellite/CopyThreadsButton";
 import { ContentKindBadge } from "@/components/satellite/HashtagNav";
 import { formatSpotlightDateLabel } from "@/lib/community-notes/daily-spotlight";
 import type { DailySpotlight } from "@/lib/community-notes/daily-spotlight";
@@ -37,7 +36,6 @@ export function DailySpotlightTile({ spotlight }: { spotlight: DailySpotlight })
           >
             Читать полностью →
           </Link>
-          <CopyThreadsButton text={spotlight.threads_text} />
         </div>
       </div>
     </section>
