@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, BookOpen, MessageCircle, Shield, Users, Zap } from "lucide-react";
+import { ArrowRight, MessageCircle, Shield, Users, Zap, BookOpen } from "lucide-react";
 import { CommunityJoinButton } from "@/components/community/CommunityJoinButton";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { CONTACT_EMAIL } from "@/lib/site-contact";
-import { DZEN_STORIES_URL, DISCUSSION_ACCESS_HINT, DISCUSSION_GROUP_HANDLE, DISCUSSION_GROUP_LABEL, NEWS_TELEGRAM_URL } from "@/lib/community";
+import { DISCUSSION_ACCESS_HINT, DISCUSSION_GROUP_HANDLE, DISCUSSION_GROUP_LABEL, NEWS_TELEGRAM_URL } from "@/lib/community";
+import { guidePath } from "@/lib/guides/load";
+import { listPillarGuides } from "@/lib/guides/pillar-guides";
 import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
 import { buildCommunityPageSchema } from "@/lib/seo/community-page-seo";
 import { pageMetadata, pageUrl } from "@/lib/seo";
@@ -36,8 +38,8 @@ const BENEFITS = [
   },
   {
     icon: BookOpen,
-    title: "Истории на Дзене",
-    text: "Реальные истории переезда — в формате «как было на самом деле». Можете прислать свою для публикации.",
+    title: "Pillar-гайды",
+    text: "Делитесь ссылками на гайды Emigro в комментариях — digital nomad Испания, D8 Португалия, Blue Card и транзитные хабы.",
   },
   {
     icon: Shield,
@@ -55,6 +57,7 @@ const RULES = [
 
 export default function CommunityPage() {
   const communityUrl = pageUrl("/ru/community");
+  const pillarGuides = listPillarGuides().slice(0, 8);
   const breadcrumbSchema = buildBreadcrumbSchema([
     { name: "Все направления", item: pageUrl("/ru") },
     { name: "Дискуссионная группа", item: communityUrl },
@@ -165,6 +168,31 @@ export default function CommunityPage() {
           </dl>
         </section>
 
+        <section className="mt-14">
+          <h2 className="text-2xl font-semibold text-slate-900">Гайды для шаринга в Telegram</h2>
+          <p className="mt-2 max-w-2xl text-sm leading-relaxed text-slate-600">
+            Если гайд помог — отправьте ссылку в комментарии @Emigro_news или в чат релокантов. Это основной канал распространения Emigro (без Дзена и агрегаторов).
+          </p>
+          <ul className="mt-5 grid gap-2 sm:grid-cols-2">
+            {pillarGuides.map((guide) => (
+              <li key={guide.slug}>
+                <Link
+                  href={guidePath(guide.slug)}
+                  className="block rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-corridor-700 hover:border-corridor-300 hover:bg-corridor-50"
+                >
+                  {guide.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-4 text-sm text-slate-500">
+            Все pillar-гайды:{" "}
+            <Link href="/ru/guides" className="text-corridor-600 hover:underline">
+              /ru/guides
+            </Link>
+          </p>
+        </section>
+
         <section className="mt-14 rounded-2xl border border-corridor-200 bg-gradient-to-br from-corridor-50 to-white p-6 text-center sm:p-10">
           <h2 className="text-2xl font-bold text-slate-900">Как попасть в обсуждения</h2>
           <p className="mx-auto mt-3 max-w-lg text-slate-600">
@@ -176,15 +204,6 @@ export default function CommunityPage() {
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
             <CommunityJoinButton source="community_landing_footer" size="lg" />
-            <a
-              href={DZEN_STORIES_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-5 py-3 font-medium text-slate-800 hover:bg-slate-50"
-            >
-              <BookOpen className="h-4 w-4" />
-              Истории на Дзене
-            </a>
             <Link
               href="/ru/wizard"
               className="inline-flex items-center gap-2 rounded-lg border border-corridor-300 px-5 py-3 font-medium text-corridor-700 hover:bg-corridor-50"
@@ -194,8 +213,8 @@ export default function CommunityPage() {
             </Link>
           </div>
           <p className="mx-auto mt-4 max-w-lg text-sm text-slate-500">
-            Свою историю для Дзена — в комментариях к постам канала или на{" "}
-            <a href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("История для Дзена")}`} className="text-sky-700 hover:underline">
+            Истории переезда и фидбек по гайдам — в комментариях к постам канала или на{" "}
+            <a href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("Фидбек по гайду Emigro")}`} className="text-sky-700 hover:underline">
               {CONTACT_EMAIL}
             </a>
             .

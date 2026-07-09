@@ -33,7 +33,7 @@ date_modified: 2026-07-07
 - ждут **TIE** (Tarjeta de Identidad de Extranjero) после консульской визы;
 - переехали по **temporary protection** (UA) и планируют отдельный residency route.
 
-Это **не** гайд по получению визы — см. [ВНЖ Испания 2026](/ru/guides/vnj-ispaniya-2026).
+Это **не** гайд по получению визы — см. [Digital nomad Испания 2026 — полный гид](/ru/guides/vnj-ispaniya-2026).
 
 ---
 

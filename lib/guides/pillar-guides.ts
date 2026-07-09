@@ -19,6 +19,10 @@ export const PILLAR_GUIDE_SLUGS = [
   "germaniya-blue-card-chancenkarte-2026-sng",
 ] as const;
 
+export function isPillarGuideSlug(slug: string): boolean {
+  return (PILLAR_GUIDE_SLUGS as readonly string[]).includes(slug);
+}
+
 export function listPillarGuides(): GuideFrontmatter[] {
   const bySlug = new Map(listGuides().map((g) => [g.slug, g]));
   return PILLAR_GUIDE_SLUGS.flatMap((slug) => {

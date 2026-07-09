@@ -1,8 +1,9 @@
 ---
 slug: bali-indoneziya-dlya-rossiyan-2026
-title: "Бали и Индонезия для россиян 2026: KITAS, B211A, удалёнка"
-seo_title: "Бали для россиян 2026 — KITAS, B211A, удалённая работа"
-seo_description: "Гайд по Бali и Индонезии для граждан РФ в 2026: VOA 30 дней, B211A, Second Home Visa, KITAS через PT PMA, стоимость жизни на Бали и подготовка EU-маршрута."
+title: "Бали для россиян 2026 — E33G, B211A, удалённая работа"
+seo_title: "Бали для россиян 2026 — E33G Remote Worker, B211A"
+seo_description: "Бали для россиян 2026: E33G Remote Worker ($60k/год), B211A до 180 дней, Second Home отдельно. Стоимость жизни, налоги PER-23/PJ/2025 и путь в EU."
+date_modified: 2026-07-09
 excerpt: "Индонезия / Бали в 2026: VOA, B211A на 60 дней, Second Home Visa, KITAS через компанию — как легально жить на острове удалёнщику и готовить переезд в Европу."
 quick_answer: "Бали в 2026 — один из главных lifestyle-хабов для россиян-удалёнщиков: VOA 30 дней (продление), B211A до 180 дней, Second Home Visa при депозите ~2 млрд IDR (~130k USD), KITAS через PT PMA (иностранная компания). Стоимость жизни от 900 €/мес в Canggu. Риски: частые изменения миграционных правил, депортации при нарушениях, сложность банков для нерезидентов."
 topic_keys: [indonesia, relocation, digital-nomad, transit]
@@ -13,18 +14,62 @@ cta_secondary: /ru/indonesia
 official_sources:
   - url: https://www.imigrasi.go.id/
     label: Direktorat Jenderal Imigrasi
+  - url: https://evisa.imigrasi.go.id/
+    label: evisa.imigrasi.go.id — E33G Remote Worker
   - url: https://molina.imigrasi.go.id/
     label: e-VoA Indonesia
 estimated_minutes: 17
 date_published: 2026-06-26
-date_modified: 2026-06-26
 ---
 
-## Прямой ответ
+## Бали для россиян 2026: прямой ответ
 
-Бали — **remote / lifestyle emergency hub** №1 для русскоязычных digital nomad в 2026: коворкинги, комьюнити, низкая стоимость жизни, часовой пояс UTC+8 удобен для Азии и частично EU. Индонезия **не даёт простого «nomad visa»** как Испания или Португалия — легализация идёт через **B211A**, **Second Home**, **KITAS** (работа/инвестиции) или серые схемы (не рекомендуем).
+**Бали для россиян 2026** — главный lifestyle-хаб для удалёнщиков из РФ/СНГ. Легальный год+ stay для наёмных remote workers — **E33G Remote Worker KITAS** (с апреля 2024), **не путать** с Second Home по депозиту. Порог **USD 60 000/год**, контракт с компанией **вне Индонезии**. Краткий визит — VOA/B211A; бизнес — PT PMA + KITAS.
 
-Для EU-ВНЖ используйте [Emigro wizard](/ru/wizard); контекст хаба — [/ru/indonesia](/ru/indonesia).
+Для EU-ВНЖ: [Emigro wizard](/ru/wizard); хаб: [/ru/indonesia](/ru/indonesia).
+
+---
+
+## Прямой ответ (детали)
+
+Бали — **remote / lifestyle emergency hub** №1 для русскоязычных digital nomad в 2026: коворкинги, комьюнити, низкая стоимость жизни, часовой пояс UTC+8 удобен для Азии и частично EU. **E33G Remote Worker** — официальный маршрут для наёмных удалёнщиков; B211A и VOA — только краткий stay без local work.
+
+---
+
+## E33G Remote Worker Visa (digital nomad Бали 2026)
+
+С **апреля 2024** индекс **E33G** — это **Remote Worker KITAS** (Visa Rumah Kedua Pekerja Jarak Jauh), официальный маршрут для удалённых **наёмных** сотрудников. **Не путать** с Second Home по депозиту (см. ниже) — это разные программы.
+
+| Требование | Ориентир 2026 |
+|------------|---------------|
+| Доход | **USD 60 000/год** (~USD 5 000/мес) из-за рубежа |
+| Контракт | Трудовой договор с компанией **вне Индонезии** |
+| Банк | Выписка **≥ USD 2 000** за последние 3 месяца |
+| Паспорт | ≥ 6 месяцев (рекомендуется 12–18) |
+| Страховка | Международная (не travel-only) |
+| Срок | **1 год**, продление — через выезд и новую подачу |
+| Работа в ID | Запрещена для indonesian clients; доход только offshore |
+
+**Фрилансеры:** иммиграция формально требует employment contract; практика для self-employed неоднозначна — проверяйте до подачи.
+
+**Налоги:** с **PER-23/PJ/2025** держатель E33G KITAS может стать налоговым резидентом **с первого дня**, не дожидаясь 183 дней — консультация обязательна.
+
+Подать онлайн: [evisa.imigrasi.go.id](https://evisa.imigrasi.go.id/). Официальная база: Permenkumham 22/2023, ст. 63.
+
+---
+
+## Second Home Visa (отдельно от E33G)
+
+**Second Home / retirement** — **не** remote worker visa. Для runway holders без local work:
+
+| Требование | Ориентир |
+|------------|----------|
+| Депозит в банке Индонезии | ~2 млрд IDR (~130 000 USD) на 1 год |
+| Срок | до 5 лет (программа менялась — сверяйте imigrasi.go.id) |
+| Работа | запрещена |
+| Семья | included |
+
+Подходит при капитале без необходимости local income. **E33G Remote Worker ≠ Second Home.**
 
 ---
 
@@ -40,23 +85,8 @@ date_modified: 2026-06-26
 
 - Оформляется **до въезда** через агента/sponsor.
 - До **60 дней**, продления до **180 дней** total (4× extension).
-- **Запрещена работа** на indonesian clients; удалёнка на зарубеж — серая зона.
+- **Запрещена работа** на indonesian clients; удалёнка на зарубеж — серая зона на B211A; для legal remote work — **E33G**.
 - С 2024–2025 усилили контроль — overstay депортируют и банят на re-entry.
-
----
-
-## Second Home Visa (E33G)
-
-Для **retirees и runway holders**:
-
-| Требование | Ориентир |
-|------------|----------|
-| Депозит в банке Индонезии | ~2 млрд IDR (~130 000 USD) на 1 год |
-| Срок | 5 лет, продление |
-| Работа | запрещена |
-| Семья | included |
-
-Подходит при наличии капитала без необходимости local income.
 
 ---
 
@@ -201,6 +231,12 @@ Cheaper than Dubai, comparable to Thailand outside Bangkok premium zones.
 ---
 
 ## FAQ
+
+**Что такое E33G для россиян на Бали в 2026?**
+E33G — **Remote Worker KITAS**: USD 60 000/год, контракт с компанией вне Индонезии, срок 1 год. **Не** Second Home по депозиту.
+
+**Бали для россиян 2026 — нужен ли PT PMA?**
+Только если ведёте business в Индонезии. Remote employees — **E33G**; краткий stay — VOA/B211A.
 
 **Сколько можно жить на VOA?**
 30 + 30 дней extension = до 60 дней. Дальше — выезд или B211A/KITAS.

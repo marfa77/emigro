@@ -25,6 +25,18 @@ export const CORRIDOR_PILLAR_GUIDES: Record<
     slug: "vnj-chehiya-2026",
     anchor: "ВНЖ Чехия 2026",
   },
+  indonesia: {
+    slug: "bali-indoneziya-dlya-rossiyan-2026",
+    anchor: "Бали для россиян 2026 — E33G Remote Worker",
+  },
+  montenegro: {
+    slug: "chernogoriya-vnj-dlya-rossiyan-2026",
+    anchor: "Черногория ВНЖ для россиян 2026",
+  },
+  georgia: {
+    slug: "gruziya-dlya-rossiyan-2026",
+    anchor: "Грузия для россиян 2026 — въезд и налоги",
+  },
 };
 
 export function corridorPillarGuideHref(segment: string): string | undefined {

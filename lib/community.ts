@@ -36,7 +36,4 @@ export const DISCUSSION_GROUP_LABEL = "Обсуждения при канале 
 /** @deprecated Use DISCUSSION_GROUP_LABEL */
 export const RELOCATOR_CHAT_LABEL = DISCUSSION_GROUP_LABEL;
 
-/** Yandex Dzen — first-person relocation stories. */
-export const DZEN_STORIES_URL = "https://dzen.ru/id/6a429faccdce4a6801ead62d";
-
 export const COMMUNITY_PATH = "/ru/community";

@@ -146,6 +146,46 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     seoDescription:
       "ВНЖ в Европе для белорусов 2026: нет TP, подача через Польшу и Чехию. Work permit, EU Blue Card, B2B IT, D7/D8. Консульства и санкции.",
   },
+  // —— Transit hubs (Google long-tail) ——
+  {
+    path: "/ru/guides/bali-indoneziya-dlya-rossiyan-2026",
+    guideSlug: "bali-indoneziya-dlya-rossiyan-2026",
+    primaryQuery: "бали для россиян 2026",
+    queries: [
+      "бали для россиян 2026",
+      "бали digital nomad 2026",
+      "e33g remote worker indonesia 2026",
+    ],
+    seoTitle: "Бали для россиян 2026 — E33G Remote Worker, B211A",
+    seoDescription:
+      "Бали для россиян 2026: E33G Remote Worker ($60k/год), B211A, Second Home отдельно. Стоимость жизни, налоги и подготовка EU-маршрута.",
+  },
+  {
+    path: "/ru/guides/chernogoriya-vnj-dlya-rossiyan-2026",
+    guideSlug: "chernogoriya-vnj-dlya-rossiyan-2026",
+    primaryQuery: "черногория внж для россиян 2026",
+    queries: [
+      "черногория внж для россиян 2026",
+      "черногория digital nomad 2026",
+      "внж черногория 1800 евро",
+    ],
+    seoTitle: "Черногория ВНЖ для россиян 2026 — nomad €1800, DOO",
+    seoDescription:
+      "ВНЖ Черногория 2026: digital nomad от €1800/мес, DOO, безвиз. Программа до 31.12.2026, Будва, путь в EU.",
+  },
+  {
+    path: "/ru/guides/gruziya-dlya-rossiyan-2026",
+    guideSlug: "gruziya-dlya-rossiyan-2026",
+    primaryQuery: "соглашение об избежании двойного налогообложения россия грузия 2026",
+    queries: [
+      "соглашение об избежании двойного налогообложения россия грузия 2026",
+      "грузия для россиян 2026",
+      "сидн россия грузия действует",
+    ],
+    seoTitle: "Грузия для россиян 2026 — въезд, ВНЖ, СИДН с РФ",
+    seoDescription:
+      "Грузия 2026: въезд, ВНЖ, банки. СИДН Россия–Грузия не ратифицировано — двойное налогообложение возможно. Факты для релокантов.",
+  },
 ];
 
 export function getLongTailByGuideSlug(slug: string): QueryLongTailTarget | undefined {

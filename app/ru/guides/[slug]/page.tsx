@@ -22,6 +22,7 @@ import { corridorSlugForTopic } from "@/lib/providers/registry";
 import { buildGuideArticleMetadata, pageUrl } from "@/lib/seo";
 import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
 import { getLongTailByGuideSlug } from "@/lib/seo/query-longtail";
+import { isPillarGuideSlug } from "@/lib/guides/pillar-guides";
 import { EMIGRO_PUBLISHER, emigroAuthorOrg, schemaImage } from "@/lib/seo/schema";
 import { GuideCorridorLiveData } from "@/components/guides/GuideCorridorLiveData";
 import { GuideOfficialSources } from "@/components/guides/GuideOfficialSources";
@@ -239,6 +240,7 @@ function extractFaq(bodyHtml: string) {
 export default async function GuideArticlePage({ params }: { params: { slug: string } }) {
   const guide = loadGuide(params.slug);
   if (!guide) notFound();
+  const longTail = getLongTailByGuideSlug(guide.slug);
   const allTopics = await getActiveNewsTopics();
   const countryTopics = resolveCountryTopics(guide.topic_keys, allTopics);
   const relatedGuides = getRelatedGuides(guide.slug, guide.corridor_slugs, guide.topic_keys);
@@ -343,10 +345,24 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
 
             <ShareButtons
               url={url}
-              title={guide.title}
-              text={guide.excerpt ?? guide.quick_answer}
+              title={longTail?.seoTitle ?? guide.title}
+              text={
+                isPillarGuideSlug(guide.slug)
+                  ? `${longTail?.primaryQuery ?? guide.title} — гид Emigro. Поделитесь в Telegram, если полезно.`
+                  : (guide.excerpt ?? guide.quick_answer)
+              }
               className="mt-8"
             />
+
+            {isPillarGuideSlug(guide.slug) && (
+              <p className="mt-3 text-sm text-slate-600">
+                Помогите другим релокантам: отправьте ссылку в{" "}
+                <a href="https://t.me/Emigro_news" target="_blank" rel="noopener noreferrer" className="font-medium text-sky-700 hover:underline">
+                  @Emigro_news
+                </a>{" "}
+                или в чатах expat — это главный канал распространения Emigro.
+              </p>
+            )}
 
             {guide.quick_answer && (
               <section className="mt-8 rounded-[2rem] border border-corridor-200 bg-gradient-to-br from-white via-corridor-50 to-sky-50 p-6 shadow-sm ring-1 ring-corridor-100 sm:p-7">

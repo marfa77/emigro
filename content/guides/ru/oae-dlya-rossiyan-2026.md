@@ -155,7 +155,7 @@ Dubai и некоторые фризоны выдают **freelance licence** д
 - **Консульских поездок** — перелёты в EU hub-города (Лиссабон, Мадрид, Берлин, Париж).
 - **Накопления runway** — при нулевом НДФЛ и высоком доходе.
 
-Типичная связка: **6–18 месяцев в ОАЭ** → подача D7/D8 (Португалия), digital nomad (Испания), Blue Card (Германия). Сравните страны в [гайде «Куда переехать из России»](/ru/guides/kuda-pereehat-iz-rossii-2026-evropa-vnj).
+Типичная связка: **6–18 месяцев в ОАЭ** → подача D7/D8 (Португалия), [Digital nomad Испания 2026](/ru/guides/vnj-ispaniya-2026), [Blue Card Германия](/ru/guides/germaniya-blue-card-chancenkarte-2026-sng). Сравните страны в [гайде «Куда переехать из России»](/ru/guides/kuda-pereehat-iz-rossii-2026-evropa-vnj).
 
 ---
 

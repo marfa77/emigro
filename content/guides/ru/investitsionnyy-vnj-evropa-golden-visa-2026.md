@@ -135,7 +135,7 @@ date_modified: 2026-07-02
 
 ### Куда смотреть вместо инвестиций в ES
 
-- **Digital Nomad Visa** — удалённая работа, порог ~€2 849/мес ([подробнее](/ru/guides/vnj-ispaniya-2026)).
+- **Digital Nomad Visa** — удалённая работа, порог ~€2 849/мес ([Digital nomad Испания 2026](/ru/guides/vnj-ispaniya-2026)).
 - **Non-lucrative** — пассивный доход ~€2 400+/мес без права работать ([сравнение пассивных маршрутов](/ru/guides/vnj-bez-raboty-passivnyy-dohod-sberezheniya-2026)).
 - **Entrepreneur / autónomo** — отдельные маршруты с бизнес-планом, не путать с закрытым GV.
 
