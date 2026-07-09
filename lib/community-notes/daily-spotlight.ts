@@ -19,6 +19,13 @@ export type DailySpotlight = {
 
 const SPOTLIGHT_TZ = process.env.EMIGRO_ANALYTICS_TIMEZONE?.trim() || "Europe/Lisbon";
 
+/** Prefer guides published within this window; fall back to 30 days if empty. */
+const RECENT_CANDIDATE_DAYS = 14;
+const FALLBACK_CANDIDATE_DAYS = 30;
+
+/** Skip notes featured in the last N days so the tile rotates. */
+const SPOTLIGHT_COOLDOWN_DAYS = 7;
+
 const KIND_SCORE: Record<ContentKind, number> = {
   news: 100,
   lifehack: 90,
@@ -36,6 +43,7 @@ const TOPIC_SCORE: Record<string, number> = {
   sns: 22,
   ciple: 22,
   transport: 12,
+  auto: 12,
   sim: 10,
   pets: 10,
   general: 0,
@@ -47,29 +55,48 @@ function publishedOnDate(iso: string | null, dateStr: string): boolean {
   return day === dateStr;
 }
 
+function ageInDays(iso: string): number {
+  return (Date.now() - new Date(iso).getTime()) / 86_400_000;
+}
+
 function primaryTopic(note: CommunityNote): string {
   return note.topic_tags.find((t) => t !== "portugal" && t !== "lisboa") ?? "general";
 }
 
-function scoreNote(note: CommunityNote, yesterdaySlug: string | null, today: string): number {
-  if (yesterdaySlug && note.slug === yesterdaySlug) return -1;
+function scoreNote(
+  note: CommunityNote,
+  recentSpotlightSlugs: Set<string>,
+  today: string,
+  maxAgeDays: number
+): number {
+  if (recentSpotlightSlugs.has(note.slug)) return -1;
+  if (!note.published_at) return -1;
 
-  let score = KIND_SCORE[note.content_kind] ?? 30;
+  const ageDays = ageInDays(note.published_at);
+  if (ageDays > maxAgeDays) return -1;
+
+  // Recency dominates so fresh guides beat older enriched NIF/AIMA checklists.
+  let score = Math.max(0, maxAgeDays - ageDays) * 50;
+  if (publishedOnDate(note.published_at, today)) score += 120;
+
+  score += KIND_SCORE[note.content_kind] ?? 30;
   score += TOPIC_SCORE[primaryTopic(note)] ?? 0;
-
-  if (publishedOnDate(note.published_at, today)) score += 100;
-  else if (note.published_at) {
-    const ageHours = (Date.now() - new Date(note.published_at).getTime()) / 3_600_000;
-    if (ageHours <= 24) score += 50;
-    else if (ageHours <= 72) score += 25;
-    else if (ageHours <= 168) score += 10;
-  }
 
   if (note.body_sections.length >= 4) score += 20;
   if (note.key_takeaways.length >= 3) score += 15;
   if (note.faq.length >= 4) score += 10;
 
   return score;
+}
+
+function compareRankedNotes(
+  a: { note: CommunityNote; score: number },
+  b: { note: CommunityNote; score: number }
+): number {
+  if (b.score !== a.score) return b.score - a.score;
+  const aTime = new Date(a.note.published_at ?? 0).getTime();
+  const bTime = new Date(b.note.published_at ?? 0).getTime();
+  return bTime - aTime;
 }
 
 function spotlightBody(note: CommunityNote): string {
@@ -115,15 +142,23 @@ export function formatSpotlightDateLabel(isoDate: string): string {
   return formatSpotlightDate(isoDate);
 }
 
-function pickBestNote(notes: CommunityNote[], yesterdaySlug: string | null, today: string): CommunityNote | null {
+function pickBestNote(
+  notes: CommunityNote[],
+  recentSpotlightSlugs: Set<string>,
+  today: string
+): CommunityNote | null {
   if (notes.length === 0) return null;
 
-  const ranked = notes
-    .map((note) => ({ note, score: scoreNote(note, yesterdaySlug, today) }))
-    .filter((x) => x.score >= 0)
-    .sort((a, b) => b.score - a.score);
+  for (const maxAgeDays of [RECENT_CANDIDATE_DAYS, FALLBACK_CANDIDATE_DAYS]) {
+    const ranked = notes
+      .map((note) => ({ note, score: scoreNote(note, recentSpotlightSlugs, today, maxAgeDays) }))
+      .filter((x) => x.score >= 0)
+      .sort(compareRankedNotes);
 
-  return ranked[0]?.note ?? notes[0] ?? null;
+    if (ranked[0]) return ranked[0].note;
+  }
+
+  return notes[0] ?? null;
 }
 
 function sanitizeSpotlightUrl(url: string, slug: string): string {
@@ -153,20 +188,30 @@ function mapSpotlight(row: Record<string, unknown>): DailySpotlight {
   };
 }
 
-async function getYesterdaySlug(countryKey: string, today: string): Promise<string | null> {
+async function getRecentSpotlightSlugs(countryKey: string, today: string): Promise<Set<string>> {
   const supabase = createServerClient();
-  const yesterday = new Date(`${today}T12:00:00Z`);
-  yesterday.setUTCDate(yesterday.getUTCDate() - 1);
-  const yStr = yesterday.toISOString().slice(0, 10);
+  const start = new Date(`${today}T12:00:00Z`);
+  start.setUTCDate(start.getUTCDate() - SPOTLIGHT_COOLDOWN_DAYS);
+  const startStr = start.toISOString().slice(0, 10);
 
   const { data } = await supabase
     .from("community_daily_spotlight")
     .select("note_slug")
     .eq("country_key", countryKey)
-    .eq("spotlight_date", yStr)
-    .maybeSingle();
+    .gte("spotlight_date", startStr)
+    .lt("spotlight_date", today);
 
-  return data?.note_slug ? String(data.note_slug) : null;
+  return new Set((data ?? []).map((row) => String(row.note_slug)));
+}
+
+function isSpotlightStillBest(
+  storedSlug: string,
+  notes: CommunityNote[],
+  recentSpotlightSlugs: Set<string>,
+  today: string
+): boolean {
+  const best = pickBestNote(notes, recentSpotlightSlugs, today);
+  return best?.slug === storedSlug;
 }
 
 /** Pick today's best note and persist Threads-ready copy. Idempotent per calendar day. */
@@ -174,8 +219,8 @@ export async function refreshDailySpotlight(countryKey = "portugal"): Promise<Da
   ensurePortugalCronEnv();
   const today = todayInTz();
   const notes = await getPublishedCommunityNotes(countryKey);
-  const yesterdaySlug = await getYesterdaySlug(countryKey, today);
-  const note = pickBestNote(notes, yesterdaySlug, today);
+  const recentSpotlightSlugs = await getRecentSpotlightSlugs(countryKey, today);
+  const note = pickBestNote(notes, recentSpotlightSlugs, today);
   if (!note) return null;
 
   const noteUrl = portugalSatellitePublicUrl(`/notes/${note.slug}`);
@@ -226,7 +271,17 @@ export async function getDailySpotlight(countryKey = "portugal"): Promise<DailyS
       return refreshDailySpotlight(countryKey);
     }
 
-    if (data) return mapSpotlight(data);
+    if (data) {
+      const stored = mapSpotlight(data);
+      const [notes, recentSpotlightSlugs] = await Promise.all([
+        getPublishedCommunityNotes(countryKey),
+        getRecentSpotlightSlugs(countryKey, today),
+      ]);
+      if (isSpotlightStillBest(stored.note_slug, notes, recentSpotlightSlugs, today)) {
+        return stored;
+      }
+      return refreshDailySpotlight(countryKey);
+    }
     return refreshDailySpotlight(countryKey);
   } catch {
     return null;
