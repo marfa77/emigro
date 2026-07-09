@@ -1,12 +1,14 @@
+import { validateAgainstBlueprint } from "@/lib/community-notes/article-blueprint";
 import { validateGuideGlossary, isGlossarySection } from "@/lib/community-notes/glossary";
 import { validateOfficialPracticeCopy } from "@/lib/community-notes/official-vs-practice";
 import { snsTextsFromDraft, validateSnsUtenteCopy } from "@/lib/community-notes/sns-editorial";
-import type { ContentKind } from "@/lib/community-notes/types";
+import type { CommunityNoteFaq, CommunityNoteLink, ContentKind } from "@/lib/community-notes/types";
 import type { NoteBodySection } from "@/lib/community-notes/types";
 import { fitMetaDescription, fitSeoTitlePart } from "@/lib/seo";
 
 export type DraftQualityInput = {
   content_kind: ContentKind;
+  slug?: string;
   seo_title: string;
   seo_description: string;
   quick_answer: string;
@@ -14,6 +16,7 @@ export type DraftQualityInput = {
   body_paragraphs: string[];
   faq: Array<{ q: string; a: string }>;
   key_takeaways: string[];
+  official_links?: CommunityNoteLink[];
 };
 
 const MIN_BY_KIND: Record<
@@ -88,6 +91,20 @@ export function validateNoteDraft(input: DraftQualityInput): string[] {
       key_takeaways: input.key_takeaways,
     })
   );
+
+  if (input.content_kind === "guide") {
+    const blueprint = validateAgainstBlueprint({
+      content_kind: input.content_kind,
+      slug: input.slug,
+      quick_answer: input.quick_answer,
+      seo_description: input.seo_description,
+      body_sections: input.body_sections,
+      key_takeaways: input.key_takeaways,
+      faq: input.faq as CommunityNoteFaq[],
+      official_links: input.official_links,
+    });
+    errors.push(...blueprint.errors);
+  }
 
   return errors;
 }

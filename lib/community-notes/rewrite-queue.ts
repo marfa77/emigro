@@ -16,6 +16,7 @@ export const REWRITTEN_SLUGS = new Set([
 
 /** Priority order for one-by-one deep rewrites (highest first). */
 export const REWRITE_PRIORITY: string[] = [
+  "elektromobil-tesla-v-portugalii-2026",
   "pervyj-mesyac-portugaliya-checklist",
   "arenda-lissabon-do-podpisi",
   "kak-otkryt-bankovskiy-schet-portugalia-2026",

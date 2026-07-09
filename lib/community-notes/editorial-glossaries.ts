@@ -242,6 +242,18 @@ export const EDITORIAL_GLOSSARIES: Record<string, GlossaryTerm[]> = {
     { pt: "centro de exames", ru: "аккредитованный центр сдачи CAPLE" },
     { pt: "diploma de português", ru: "сертификат — храните оригинал для AIMA/Conservatória" },
   ],
+  "elektromobil-tesla-v-portugalii-2026": [
+    { pt: "carro elétrico", ru: "электромобиль; в документах IMT и страховке указывается тип de energia" },
+    { pt: "ISV", context: "Imposto Sobre Veículos", ru: "налог при первой регистрации; для чистых EV = 0 €" },
+    { pt: "IUC", context: "Imposto Único de Circulação", ru: "ежегодный дорожный налог; для чистых EV не начисляется" },
+    { pt: "Mobi.E", ru: "национальная сеть публичных зарядных станций" },
+    { pt: "CEME", ru: "коммерческий оператор зарядки; с 2025 прямой контракт не обязателен" },
+    { pt: "carregador doméstico", ru: "домашняя зарядка (wallbox); в condomínio нужно согласование" },
+    { pt: "condomínio", ru: "управление многоквартирного дома" },
+    { pt: "autonomia", ru: "заявленный запас хода" },
+    { pt: "Supercharger", ru: "сеть быстрых зарядок Tesla вдоль магистралей" },
+    { pt: "Miio", ru: "агрегатор зарядок Mobi.E с картой и оплатой" },
+  ],
 };
 
 export function glossaryForSlug(slug: string): GlossaryTerm[] | undefined {

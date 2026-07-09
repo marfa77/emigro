@@ -209,10 +209,10 @@ ${snippets.map((s, i) => `${i + 1}. ${s}`).join("\n")}
 slug: latin kebab-case, уникальный, тема + 2026 если уместно.
 category: ${TOPIC_LABELS[topic] ?? "Быт в Португалии"}
 
-Напиши ПЛОТНУЮ заметку с body_sections (H2 + section_kind + bullets). Не дублируй один смысл в разных секциях.
-Обязательно раздели официальные требования (section_kind: official) и практику релокантов (section_kind: practice). Если чат расходится с порталом — секция section_kind: gap.
-В key_takeaways — минимум 2 пункта с префиксами «Официально:» и «На практике:».
-Для guide про первый месяц / чеклист — секции по неделям + секция «типичные ошибки» с bullets.
+Напиши ПЛОТНУЮ заметку по БЛЮПРИНТУ (эталон — международные школы PT):
+glossary → official (1–2 секции, ≥4 bullets) → practice (2+ секции, ≥8 bullets с Porto/Braga) → gap (≥4 bullets) → типичные ошибки/таймлайн (≥4 bullets).
+Не дублируй один смысл в разных секциях. В key_takeaways — минимум 2 пункта «Официально:» / «На практике:» / «Расхождение:».
+faq: 4–5 вопросов; в ответах — «По правилам…» и «На практике…».
 
 Гео: аудитория — релоканты в Norte (Порту, Брага, Minho). Примеры практики — Porto, Braga, Matosinhos, Guimarães, Viana. Лиссабон — только если тема центральная (AIMA Saldanha, Cascais, аренда Lisboa).`;
 }
@@ -304,7 +304,7 @@ export async function draftNoteFromCluster(cluster: SignalCluster): Promise<Draf
     const enriched = enrichDraftPracticeFromSignals(draft, cluster.signals);
     const merged: DraftedNote = { ...draft, ...enriched.draft };
     const errors = validateNoteDraft(merged);
-    errors.push(...practicePublishGateErrors(enriched.audit, enriched.signalBullets));
+    errors.push(...practicePublishGateErrors(enriched.audit, enriched.signalBullets, merged));
     if (errors.length === 0) return merged;
     lastError = errors.join("; ");
   }

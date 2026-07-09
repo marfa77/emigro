@@ -1,5 +1,6 @@
 /** Editorial voice for portugal.emigro.online — aligned with docs/SEO_GUIDE_STANDARD.md */
 
+import { BLUEPRINT_STRUCTURE_RULES } from "@/lib/community-notes/article-blueprint";
 import { SNS_UTENTE_EDITORIAL_RULES } from "@/lib/community-notes/sns-editorial";
 import { OFFICIAL_VS_PRACTICE_RULES } from "@/lib/community-notes/official-vs-practice";
 
@@ -42,6 +43,8 @@ SEO/AEO/LLM:
 
 ${OFFICIAL_VS_PRACTICE_RULES}
 
+${BLUEPRINT_STRUCTURE_RULES}
+
 ${SNS_UTENTE_EDITORIAL_RULES}
 
 Язык: русский. Год: 2026.`.trim();
@@ -66,7 +69,10 @@ export const TOPIC_OFFICIAL_LINKS: Record<string, Array<{ title: string; url: st
     { title: "gov.pt — Comprar veículo", url: "https://www.gov.pt/servicos/registar-a-compra-de-um-veiculo" },
     { title: "Finanças — ISV", url: "https://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/codigos_tributarios/cisv/index.htm" },
   ],
-  sim: [{ title: "ANACOM", url: "https://www.anacom.pt/" }],
+  sim: [
+    { title: "ANACOM", url: "https://www.anacom.pt/" },
+    { title: "CIAB — арбитраж по связи", url: "https://www.anacom.pt/redeciab" },
+  ],
   school: [
     { title: "DGE — Educação", url: "https://www.dge.mec.pt/" },
     { title: "IB World Schools", url: "https://www.ibo.org/programmes/find-a-programme/" },

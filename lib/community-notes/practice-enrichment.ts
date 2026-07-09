@@ -1,3 +1,4 @@
+import { validateAgainstBlueprint } from "@/lib/community-notes/article-blueprint";
 import { flattenBodySections, type DraftQualityInput } from "@/lib/community-notes/editorial-quality";
 import {
   bootstrapOfficialPracticeCopy,
@@ -140,6 +141,10 @@ export function extractPracticeBullets(
     const sentences = clean.split(/(?<=[.!?])\s+|\n+/).map((s) => s.trim()).filter(Boolean);
     for (const sentence of sentences) {
       if (sentence.length < 30 || sentence.length > 280) continue;
+      if (/\?\s*$/.test(sentence.trim())) continue;
+      if (/^(всем привет|подскажите|кто[- ]нибудь|есть ли|как (вы|выбрать|найти)|где (можно|найти)|скажите|посоветуйте)/i.test(sentence.trim()))
+        continue;
+      if (/вредные советы от|и другие вредные/i.test(sentence)) continue;
       if (!SPECIFIC_RE.test(sentence) && !/на практике|в чате|обычно|рекоменд|совет|штраф|очеред|слот|ждал|месяц|недел/i.test(sentence))
         continue;
       if (/MEO Arena|концерт|Megadeth|Iron Maiden|фестивал|праздник|корабл|кокаин|расизм|Uber|FlixBus|библиотек|комикс/i.test(sentence))
@@ -220,6 +225,12 @@ export const CURATED_PRACTICE: Record<string, string[]> = {
     "Мастера: Fixando.pt и рекомендации в локальных чатах (Oeiras, Cascais, Porto) — для мелкого ремонта (кarnизы, сантехника) быстрее, чем OLX без отзывов.",
     "Цены: за монтаж карнизов/мелкий ремонт в Lx в чатах просят €40–80 за визит + материалы — всегда просите orçamento до начала.",
     "Autorizado vs частник: для гарантийной техники — centro autorizado; для жилья — частный eletricista/canalizador с рекомендацией от соседей по parish.",
+  ],
+  "elektromobil-tesla-v-portugalii-2026": [
+    "autolife_pt (2026): на «obscure» зарядках Mobi.E станция не работает ~1–2 раза из 10; надёжнее Decathlon, крупные ТЦ и Supercharger, чем точки «в глубине» карты.",
+    "Google Maps «last used» для зарядок — в autolife_pt называют ненадёжным; перед выездом проверяйте статус в Miio/PlugShare.",
+    "Model 3 SR в Norte: город 1–2 ч от Порту/Браги + 1–2 поездки в год на юг — типичный сценарий из autolife_pt; дальние маршруты только через Supercharger на A1/A2.",
+    "Decreto 93/2025 (por_tugal): контракт CEME не обязателен — оплата MB Way/QR/картой; MB Way (lepta, 2025) упрощает публичную зарядку.",
   ],
   "vybor-internet-provaydera-portugaliya-2026": [
     "WTF (альтернативный провайдер fibra): в чате отмечают стабильную скорость без перепадов за 3+ месяца, но подключение может затянуться — клиента могут «перекидывать» между отделениями/этапами оформления.",
@@ -361,11 +372,28 @@ export function enrichDraftPracticeFromSignals(
 }
 
 /** Human-readable errors for cron publish gate when practice is thin or generic. */
-export function practicePublishGateErrors(audit: PracticeAuditResult, signalBullets: number): string[] {
-  if (audit.status === "OK") return [];
-  const errors = [...audit.reasons];
+export function practicePublishGateErrors(
+  audit: PracticeAuditResult,
+  signalBullets: number,
+  draft?: DraftQualityInput & { slug?: string; official_links?: Array<{ title: string; url: string }> }
+): string[] {
+  const errors: string[] = [];
+  if (audit.status !== "OK") errors.push(...audit.reasons);
   if (signalBullets === 0) {
     errors.unshift("no practice bullets extracted from cluster signals");
+  }
+  if (draft?.content_kind === "guide") {
+    const blueprint = validateAgainstBlueprint({
+      content_kind: draft.content_kind,
+      slug: draft.slug,
+      quick_answer: draft.quick_answer,
+      seo_description: draft.seo_description,
+      body_sections: draft.body_sections,
+      key_takeaways: draft.key_takeaways,
+      faq: draft.faq,
+      official_links: draft.official_links,
+    });
+    errors.push(...blueprint.errors);
   }
   return errors;
 }
