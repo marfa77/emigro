@@ -41,6 +41,11 @@ const SLUG_PHOTO_QUERIES: Record<string, string[]> = {
     "school porto building",
     "children school playground",
   ],
+  "elektromobil-tesla-v-portugalii-2026": [
+    "tesla electric car charging",
+    "ev charging station",
+    "electric car portugal highway",
+  ],
 };
 
 type PexelsPhotoSrc = {
