@@ -62,8 +62,8 @@ async function main() {
   let generated = 0;
   for (const note of notes) {
     const before = force ? null : note.slug;
-    const path = await ensureNoteOgImage(note, { force });
-    if (path.startsWith("/images/community-notes/")) generated++;
+    const { path, generated: wasGenerated } = await ensureNoteOgImage(note, { force });
+    if (wasGenerated && path.startsWith("/images/community-notes/")) generated++;
     void before;
   }
 

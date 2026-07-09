@@ -248,7 +248,7 @@ async function main() {
   console.log(`[blueprint] score ${scoreBlueprint(draft)}/100`);
 
   try {
-    const ogPath = await ensureNoteOgImage({ slug: SLUG, title: draft.seo_title });
+    const { path: ogPath } = await ensureNoteOgImage({ slug: SLUG, title: draft.seo_title });
     console.log(`[og-image] ${ogPath}`);
   } catch (ogError) {
     const msg = ogError instanceof Error ? ogError.message : "og image failed";

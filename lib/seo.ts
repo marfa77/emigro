@@ -35,6 +35,7 @@ function socialImageSize(path: string): SocialImageSize {
   if (path.startsWith("/images/og/corridor-") && path.endsWith(".jpg")) return { width: 1200, height: 630 };
   if (path.startsWith("/images/og/guide-") && path.endsWith(".jpg")) return { width: 1200, height: 630 };
   if (path.startsWith("/images/community-notes/") && path.endsWith(".webp")) return { width: 1200, height: 630 };
+  if (path.startsWith("/api/community-notes/hero/")) return { width: 1200, height: 630 };
   return { width: 1200, height: 630 };
 }
 
@@ -103,6 +104,7 @@ function socialImageType(ogImage: string): string | undefined {
   if (path.endsWith(".jpg") || path.endsWith(".jpeg")) return "image/jpeg";
   if (path.endsWith(".png")) return "image/png";
   if (path.endsWith(".webp")) return "image/webp";
+  if (path.startsWith("/api/community-notes/hero/")) return "image/webp";
   if (path.endsWith(".svg")) return "image/svg+xml";
   return undefined;
 }

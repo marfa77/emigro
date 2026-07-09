@@ -2,11 +2,12 @@ import fs from "fs";
 import path from "path";
 import sharp from "sharp";
 import type { CommunityNote } from "@/lib/community-notes/types";
-import { COMMITTED_NOTE_OG_SLUGS } from "@/lib/community-notes/note-og-slugs";
+import { appendCommittedNoteOgSlug, COMMITTED_NOTE_OG_SLUGS } from "@/lib/community-notes/note-og-slugs";
 import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 
 const PEXELS_API = "https://api.pexels.com/v1/search";
 const NOTE_IMAGES_DIR = "public/images/community-notes";
+const MIN_WEBP_BYTES = 20_000;
 
 /** Topic → landscape Pexels queries (Norte / Porto bias where relevant). */
 export const TOPIC_PHOTO_QUERIES: Record<string, string[]> = {
@@ -64,28 +65,71 @@ export function noteOgImagePublicPath(slug: string): string {
   return `/images/community-notes/${slug}.webp`;
 }
 
+/** Runtime hero endpoint (Vercel) when WebP is not yet committed to public/. */
+export function noteOgImageDynamicPath(slug: string): string {
+  return `/api/community-notes/hero/${slug}`;
+}
+
 export function noteOgImageFilePath(slug: string): string {
   return path.join(process.cwd(), NOTE_IMAGES_DIR, `${slug}.webp`);
 }
 
-export function hasNoteOgImage(slug: string): boolean {
-  if (COMMITTED_NOTE_OG_SLUGS.has(slug)) return true;
+export function hasNoteOgImageFile(slug: string): boolean {
   const dest = noteOgImageFilePath(slug);
-  return fs.existsSync(dest) && fs.statSync(dest).size > 20_000;
+  return fs.existsSync(dest) && fs.statSync(dest).size > MIN_WEBP_BYTES;
 }
 
-/** Returns local OG path when cached on disk, otherwise site default. */
-export function resolveNoteOgImage(note: Pick<CommunityNote, "slug">): string {
+export function hasNoteOgImage(slug: string): boolean {
+  if (COMMITTED_NOTE_OG_SLUGS.has(slug)) return true;
+  return hasNoteOgImageFile(slug);
+}
+
+function canWriteNoteOgImages(): boolean {
+  try {
+    const dir = path.join(process.cwd(), NOTE_IMAGES_DIR);
+    fs.mkdirSync(dir, { recursive: true });
+    const probe = path.join(dir, ".write-probe");
+    fs.writeFileSync(probe, "ok");
+    fs.unlinkSync(probe);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+/** Returns static, dynamic, or default OG path for a note. */
+export function resolveNoteOgImage(note: Pick<CommunityNote, "slug" | "content_kind">): string {
   if (hasNoteOgImage(note.slug)) return noteOgImagePublicPath(note.slug);
+  if (note.content_kind === "guide") return noteOgImageDynamicPath(note.slug);
   return DEFAULT_OG_IMAGE;
 }
 
-export function queriesForNote(note: Pick<CommunityNote, "slug" | "topic_tags">): string[] {
+function queriesFromTitle(title: string | undefined): string[] {
+  if (!title?.trim()) return [];
+  const cleaned = title
+    .replace(/[«»"—–\-:,]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  if (cleaned.length < 8) return [];
+  const short = cleaned.slice(0, 72);
+  return [`${short} portugal`, `portugal ${short.slice(0, 48)}`];
+}
+
+function queriesFromSlug(slug: string): string[] {
+  const stem = slug.replace(/-20\d{2}$/, "");
+  const words = stem.split("-").filter((w) => w.length > 3 && !/^(portugaliya|portugalii|gid|guide)$/.test(w));
+  if (words.length === 0) return [];
+  return [`portugal ${words.slice(0, 4).join(" ")}`];
+}
+
+export function queriesForNote(note: Pick<CommunityNote, "slug" | "topic_tags" | "title">): string[] {
   const slugQueries = SLUG_PHOTO_QUERIES[note.slug] ?? [];
+  const titleQueries = queriesFromTitle(note.title);
+  const slugKeywordQueries = queriesFromSlug(note.slug);
   const primaryTag = note.topic_tags[0]?.toLowerCase();
   const topicQueries = primaryTag ? (TOPIC_PHOTO_QUERIES[primaryTag] ?? []) : [];
   const general = TOPIC_PHOTO_QUERIES.general;
-  return Array.from(new Set([...slugQueries, ...topicQueries, ...general]));
+  return Array.from(new Set([...slugQueries, ...titleQueries, ...slugKeywordQueries, ...topicQueries, ...general]));
 }
 
 async function searchPexelsPhoto(query: string): Promise<string | null> {
@@ -115,51 +159,35 @@ async function searchPexelsPhoto(query: string): Promise<string | null> {
   return null;
 }
 
-async function downloadPhoto(url: string, destPath: string): Promise<void> {
+async function photoUrlToWebpBuffer(url: string): Promise<Buffer> {
   const res = await fetch(url);
   if (!res.ok) throw new Error(`Photo download failed (${res.status}): ${url}`);
-  fs.mkdirSync(path.dirname(destPath), { recursive: true });
   const input = Buffer.from(await res.arrayBuffer());
-  await sharp(input)
-    .resize(1200, 630, { fit: "cover", position: "center" })
-    .webp({ quality: 82 })
-    .toFile(destPath);
+  return sharp(input).resize(1200, 630, { fit: "cover", position: "center" }).webp({ quality: 82 }).toBuffer();
 }
 
-export type EnsureNoteOgImageOptions = {
-  force?: boolean;
-  /** Delay after a successful Pexels download (rate limit courtesy). */
-  rateLimitMs?: number;
-};
+async function downloadPhoto(url: string, destPath: string): Promise<void> {
+  const webp = await photoUrlToWebpBuffer(url);
+  fs.mkdirSync(path.dirname(destPath), { recursive: true });
+  fs.writeFileSync(destPath, webp);
+}
 
-/**
- * Downloads a landscape photo from Pexels, converts to 1200×630 WebP at public/images/community-notes/{slug}.webp.
- * Skips when file exists unless force=true. Returns the resolved OG path.
- */
-export async function ensureNoteOgImage(
-  note: Pick<CommunityNote, "slug" | "topic_tags" | "title">,
-  options: EnsureNoteOgImageOptions = {}
-): Promise<string> {
-  const { force = false, rateLimitMs = 350 } = options;
-
-  if (!force && hasNoteOgImage(note.slug)) {
-    return noteOgImagePublicPath(note.slug);
-  }
-
+/** Generate 1200×630 WebP from Pexels without writing to disk. */
+export async function generateNoteOgWebp(
+  note: Pick<CommunityNote, "slug" | "topic_tags" | "title">
+): Promise<Buffer | null> {
   const queries = queriesForNote(note);
   for (const query of queries) {
     const url = await searchPexelsPhoto(query);
     if (!url) continue;
-
     try {
-      await downloadPhoto(url, noteOgImageFilePath(note.slug));
-      if (hasNoteOgImage(note.slug)) {
-        console.log(`[note-og] ${note.slug}: "${query}"`);
-        if (rateLimitMs > 0) await new Promise((r) => setTimeout(r, rateLimitMs));
-        return noteOgImagePublicPath(note.slug);
+      const webp = await photoUrlToWebpBuffer(url);
+      if (webp.length >= MIN_WEBP_BYTES) {
+        console.log(`[note-og] ${note.slug}: generated from "${query}"`);
+        return webp;
       }
     } catch (error) {
-      console.warn(`[note-og] download error for "${query}":`, error instanceof Error ? error.message : error);
+      console.warn(`[note-og] buffer error for "${query}":`, error instanceof Error ? error.message : error);
     }
   }
 
@@ -168,5 +196,67 @@ export async function ensureNoteOgImage(
   } else {
     console.warn(`[note-og] ${note.slug}: no photo found`);
   }
-  return resolveNoteOgImage(note);
+  return null;
+}
+
+export type EnsureNoteOgImageOptions = {
+  force?: boolean;
+  /** Delay after a successful Pexels download (rate limit courtesy). */
+  rateLimitMs?: number;
+};
+
+export type EnsureNoteOgImageResult = {
+  path: string;
+  generated: boolean;
+  manifestAppended: boolean;
+};
+
+/**
+ * Downloads a landscape photo from Pexels, converts to 1200×630 WebP at public/images/community-notes/{slug}.webp.
+ * On read-only hosts (Vercel) skips disk write and returns the dynamic hero API path.
+ */
+export async function ensureNoteOgImage(
+  note: Pick<CommunityNote, "slug" | "topic_tags" | "title" | "content_kind">,
+  options: EnsureNoteOgImageOptions = {}
+): Promise<EnsureNoteOgImageResult> {
+  const { force = false, rateLimitMs = 350 } = options;
+
+  if (!force && hasNoteOgImage(note.slug)) {
+    return { path: noteOgImagePublicPath(note.slug), generated: false, manifestAppended: false };
+  }
+
+  const writable = canWriteNoteOgImages();
+  const queries = queriesForNote(note);
+
+  for (const query of queries) {
+    const url = await searchPexelsPhoto(query);
+    if (!url) continue;
+
+    try {
+      if (writable) {
+        await downloadPhoto(url, noteOgImageFilePath(note.slug));
+        if (hasNoteOgImageFile(note.slug)) {
+          const manifestAppended = appendCommittedNoteOgSlug(note.slug);
+          console.log(`[note-og] ${note.slug}: saved "${query}"`);
+          if (rateLimitMs > 0) await new Promise((r) => setTimeout(r, rateLimitMs));
+          return { path: noteOgImagePublicPath(note.slug), generated: true, manifestAppended };
+        }
+      } else {
+        const webp = await photoUrlToWebpBuffer(url);
+        if (webp.length >= MIN_WEBP_BYTES) {
+          console.log(`[note-og] ${note.slug}: generated (dynamic) "${query}"`);
+          if (rateLimitMs > 0) await new Promise((r) => setTimeout(r, rateLimitMs));
+          return {
+            path: resolveNoteOgImage(note),
+            generated: true,
+            manifestAppended: false,
+          };
+        }
+      }
+    } catch (error) {
+      console.warn(`[note-og] download error for "${query}":`, error instanceof Error ? error.message : error);
+    }
+  }
+
+  return { path: resolveNoteOgImage(note), generated: false, manifestAppended: false };
 }

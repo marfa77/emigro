@@ -5,6 +5,10 @@
     {
       "path": "/api/cron/social-subscribers",
       "schedule": "0 7 * * *"
+    },
+    {
+      "path": "/api/cron/portugal-note-images",
+      "schedule": "30 7 * * *"
     }
   ],
   "env": {

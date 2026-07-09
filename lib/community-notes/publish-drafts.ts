@@ -126,7 +126,15 @@ export async function publishDraftsFromNewSignals(maxNotes: number): Promise<Pub
       existingTopics.add(primaryTopic);
 
       try {
-        await ensureNoteOgImage(draft);
+        const og = await ensureNoteOgImage(draft);
+        console.log(
+          `[publish] og-image ${draft.slug}: ${og.path}${og.generated ? " (generated)" : ""}${
+            og.manifestAppended ? " (manifest)" : ""
+          }`
+        );
+        if (!og.generated && og.path.includes("/api/community-notes/hero/")) {
+          console.log(`[publish] og-image ${draft.slug}: Vercel cron will warm dynamic hero`);
+        }
       } catch (ogError) {
         const msg = ogError instanceof Error ? ogError.message : "og image failed";
         result.errors.push(`${draft.slug}: og-image: ${msg}`);

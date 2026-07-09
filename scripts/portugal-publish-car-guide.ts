@@ -64,7 +64,7 @@ async function main() {
 
   const spotlight = await refreshDailySpotlight("portugal");
   console.log("[spotlight]", spotlight?.note_slug);
-  const ogPath = await ensureNoteOgImage(guide);
+  const { path: ogPath } = await ensureNoteOgImage(guide);
   console.log(`[og-image] ${ogPath}`);
   console.log(`\nURL: ${communityNotePublicUrl(guide.slug)}`);
 }

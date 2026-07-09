@@ -1,3 +1,6 @@
+import fs from "fs";
+import path from "path";
+
 /** Slugs with committed hero/OG WebP in public/images/community-notes/ (regenerate via portugal:generate-note-images). */
 export const COMMITTED_NOTE_OG_SLUGS = new Set([
   "aima-agora-zapis-2026",
@@ -22,3 +25,33 @@ export const COMMITTED_NOTE_OG_SLUGS = new Set([
   "vybor-internet-provaydera-portugaliya-2026",
   "zamena-voditelskih-prav-portugaliya-2026",
 ]);
+
+const MANIFEST_PATH = path.join(process.cwd(), "lib/community-notes/note-og-slugs.ts");
+
+/** Append slug to COMMITTED_NOTE_OG_SLUGS manifest when repo filesystem is writable (VPS / local). */
+export function appendCommittedNoteOgSlug(slug: string): boolean {
+  if (COMMITTED_NOTE_OG_SLUGS.has(slug)) return false;
+
+  try {
+    if (!fs.existsSync(MANIFEST_PATH)) return false;
+    const content = fs.readFileSync(MANIFEST_PATH, "utf-8");
+    if (content.includes(`"${slug}"`)) {
+      COMMITTED_NOTE_OG_SLUGS.add(slug);
+      return false;
+    }
+
+    const updated = content.replace(/(\n\]);/, `\n  "${slug}",\n]);`);
+    if (updated === content) return false;
+
+    fs.writeFileSync(MANIFEST_PATH, updated);
+    COMMITTED_NOTE_OG_SLUGS.add(slug);
+    console.log(`[note-og] manifest: appended ${slug} (commit + deploy for static CDN path)`);
+    return true;
+  } catch (error) {
+    console.warn(
+      `[note-og] manifest append skipped for ${slug}:`,
+      error instanceof Error ? error.message : error
+    );
+    return false;
+  }
+}
