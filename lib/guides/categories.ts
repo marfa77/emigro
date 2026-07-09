@@ -237,10 +237,11 @@ function guideSortDate(guide: GuideFrontmatter): number {
 }
 
 const FEATURED_GUIDE_SLUG_PRIORITY = [
+  "vnj-portugaliya-d8-d7-grazhdanstvo-2026",
+  "pervye-30-dnej-v-portugalii-2026",
   "kuda-pereehat-iz-rossii-2026-evropa-vnj",
   "belorusy-v-evropu-vnj-2026",
   "vnj-ispaniya-2026",
-  "vnj-portugaliya-d8-d7-grazhdanstvo-2026",
 ] as const;
 
 export function pickFeaturedGuide(guides: GuideFrontmatter[]): GuideFrontmatter | null {

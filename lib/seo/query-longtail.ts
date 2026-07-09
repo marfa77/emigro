@@ -10,7 +10,7 @@ export type QueryLongTailTarget = {
 };
 
 export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
-  // —— Portugal ——
+  // —— Portugal (flagship) ——
   {
     path: "/ru/portugal",
     primaryQuery: "внж португалия d8 d7 2026 для россиян",
@@ -18,10 +18,11 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "внж португалия d8 d7 2026 для россиян",
       "переехать в португалию из россии легально 2026",
       "aima португалия запись биометрия после визы",
+      "d8 digital nomad португалия 2026",
     ],
-    seoTitle: "ВНЖ Португалия D8 и D7 2026 — для граждан РФ",
+    seoTitle: "ВНЖ Португалия D8 и D7 2026 — коридор №1 Emigro",
     seoDescription:
-      "D8 и D7 Португалия 2026 для граждан РФ, Беларуси, Казахстана: пороги дохода, AIMA, консульство. Программы с проверкой Emigro и wizard подбора маршрута.",
+      "D8 и D7 Португалия 2026: €3 680 / €920, AIMA, NIF, практика сообщества. Самый проработанный коридор Emigro для паспортов RU/BY/UA/KZ.",
   },
   {
     path: "/ru/guides/vnj-portugaliya-d8-d7-grazhdanstvo-2026",
@@ -30,11 +31,39 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     queries: [
       "d8 португалия минимальный доход 2026",
       "d7 португалия пассивный доход сбережения 2026",
+      "внж португалия d8 d7 2026 для россиян",
       "закон о гражданстве португалия 10 лет d8",
+      "aima португалия запись 2026",
     ],
     seoTitle: "D8 и D7 Португалия 2026 — доход, AIMA, гражданство",
     seoDescription:
-      "D8 digital nomad и D7 пассивный доход Португалия 2026: пороги €3 680 / €920, документы, AIMA, гражданство 10 лет. Для паспортов RU/BY/UA/KZ.",
+      "D8 digital nomad и D7 Португалия 2026: €3 680 / €920, AIMA, NIF, гражданство 10 лет. Pillar-гид + практика для RU/BY/UA/KZ.",
+  },
+  {
+    path: "/ru/portugal/programs/portugal-d8-digital-nomad",
+    programSlug: "portugal-d8-digital-nomad",
+    primaryQuery: "d8 digital nomad португалия 2026",
+    queries: [
+      "d8 digital nomad португалия 2026",
+      "d8 португалия минимальный доход 2026",
+      "внж португалия удалённая работа",
+    ],
+    seoTitle: "D8 digital nomad Португалия 2026 — доход и документы",
+    seoDescription:
+      "D8 digital nomad Португалия 2026: ~€3 680/мес, доход из-за рубежа, виза D + AIMA. Для паспортов RU/BY/UA/KZ.",
+  },
+  {
+    path: "/ru/portugal/programs/portugal-d7-passive-income",
+    programSlug: "portugal-d7-passive-income",
+    primaryQuery: "d7 португалия пассивный доход 2026",
+    queries: [
+      "d7 португалия пассивный доход 2026",
+      "d7 португалия сбережения 2026",
+      "внж португалия пенсия россиян",
+    ],
+    seoTitle: "D7 Португалия 2026 — пассивный доход и сбережения",
+    seoDescription:
+      "D7 Португалия 2026: ~€920/мес + сбережения, без работы в PT. Виза D, AIMA для RU/BY/UA/KZ.",
   },
   {
     path: "/ru/guides/pervye-30-dnej-v-portugalii-2026",
@@ -44,6 +73,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "nif португалия гражданин россии как получить",
       "первые 30 дней в португалии после переезда чеклист",
       "activobank португалия счёт для иностранца",
+      "aima биометрия после прилёта",
     ],
     seoTitle: "NIF и первые 30 дней в Португалии 2026 — чек-лист",
     seoDescription:

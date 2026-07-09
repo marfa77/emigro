@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Globe2, Route } from "lucide-react";
+import { ArrowRight, Globe2, Route, Sparkles } from "lucide-react";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { RelocatorChatPromo } from "@/components/community/RelocatorChatPromo";
 import { WizardPulseSection } from "@/components/wizard/WizardPulseSection";
@@ -13,7 +13,7 @@ import { HUB_WIZARD_PATH } from "@/lib/corridor/paths";
 import { guidePath } from "@/lib/guides/load";
 import { listPillarGuides } from "@/lib/guides/pillar-guides";
 import { pageMetadata, pageUrl } from "@/lib/seo";
-import { publicSiteUrl } from "@/lib/site-url";
+import { publicSiteUrl, portugalSatelliteUrl } from "@/lib/site-url";
 import { TRANSIT_HUBS } from "@/lib/transit-hubs";
 import { heroTitle } from "@/lib/ui/mobile";
 
@@ -104,21 +104,69 @@ export default async function RuHubPage() {
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link
-              href={HUB_WIZARD_PATH}
+              href="/ru/portugal/wizard"
               className="inline-flex items-center gap-2 rounded-lg bg-white px-5 py-3 font-medium text-corridor-900 hover:bg-corridor-50"
             >
-              Подобрать страну и маршрут
+              Португалия D8/D7 — подобрать маршрут
             </Link>
-            {fullCorridors[0]?.sitePaths?.wizard && fullCorridors[0].key !== "portugal" && (
-              <Link
-                href={fullCorridors[0].sitePaths!.wizard}
-                className="rounded-lg border border-white/40 px-5 py-3 font-medium text-white hover:bg-white/10"
-              >
-                Подбор маршрута — {fullCorridors[0].countryRu}
-              </Link>
-            )}
+            <Link
+              href={HUB_WIZARD_PATH}
+              className="rounded-lg border border-white/40 px-5 py-3 font-medium text-white hover:bg-white/10"
+            >
+              Все страны — hub wizard
+            </Link>
           </div>
         </HeroShell>
+
+        <section className="mt-10 rounded-2xl border border-emerald-200 bg-gradient-to-br from-emerald-50 via-white to-teal-50 p-6 sm:p-8">
+          <div className="flex flex-wrap items-start gap-3">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-600 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white">
+              <Sparkles className="h-3.5 w-3.5" />
+              Коридор №1
+            </span>
+            <h2 className="text-2xl font-bold text-slate-900">Португалия — самый проработанный маршрут</h2>
+          </div>
+          <p className="mt-3 max-w-2xl text-slate-700">
+            D8 digital nomad и D7 пассивный доход: pillar-гид, wizard, новости AIMA и{" "}
+            <strong>живая практика</strong> (NIF, банк, аренда, биометрия) — то, чего нет у других коридоров.
+          </p>
+          <ul className="mt-5 grid gap-2 sm:grid-cols-2">
+            <li>
+              <Link
+                href={guidePath("vnj-portugaliya-d8-d7-grazhdanstvo-2026")}
+                className="block rounded-lg border border-emerald-100 bg-white px-4 py-3 text-sm font-medium text-emerald-900 hover:border-emerald-300"
+              >
+                D8 и D7 Португалия 2026 — pillar-гид
+              </Link>
+            </li>
+            <li>
+              <Link
+                href={guidePath("pervye-30-dnej-v-portugalii-2026")}
+                className="block rounded-lg border border-emerald-100 bg-white px-4 py-3 text-sm font-medium text-emerald-900 hover:border-emerald-300"
+              >
+                Первые 30 дней: NIF, банк, AIMA
+              </Link>
+            </li>
+            <li>
+              <a
+                href={portugalSatelliteUrl("/")}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block rounded-lg border border-teal-200 bg-teal-50 px-4 py-3 text-sm font-medium text-teal-900 hover:border-teal-400"
+              >
+                Практика — portugal.emigro.online
+              </a>
+            </li>
+            <li>
+              <Link
+                href="/ru/portugal"
+                className="block rounded-lg border border-emerald-100 bg-white px-4 py-3 text-sm font-medium text-emerald-900 hover:border-emerald-300"
+              >
+                Коридор Португалия — обзор
+              </Link>
+            </li>
+          </ul>
+        </section>
 
         <WizardPulseSection />
 
@@ -262,9 +310,9 @@ export default async function RuHubPage() {
           <section className="mt-14">
             <h2 className="text-2xl font-semibold text-slate-900">Гайды по релокации</h2>
             <p className="mt-2 max-w-2xl text-slate-600">
-              Практические pillar-разборы: digital nomad, семья, отказы в визах, бюджет и выбор страны — с переходом в{" "}
+              Начните с Португалии D8/D7 — дальше pillar-разборы по digital nomad, семье, отказам и бюджету.{" "}
               <Link href="/ru/wizard" className="text-corridor-600 hover:underline">
-                hub wizard
+                Hub wizard
               </Link>
               .
             </p>

@@ -1,11 +1,12 @@
 import { listGuides, type GuideFrontmatter } from "@/lib/guides/load";
 
-/** High-intent pillar guides — homepage links, Yandex tracking, featured slots. */
+/** High-intent pillar guides — homepage links, Yandex tracking, featured slots. Portugal first (strongest corridor + practice). */
 export const PILLAR_GUIDE_SLUGS = [
-  "belorusy-v-evropu-vnj-2026",
-  "kuda-pereehat-iz-rossii-2026-evropa-vnj",
-  "vnj-ispaniya-2026",
   "vnj-portugaliya-d8-d7-grazhdanstvo-2026",
+  "pervye-30-dnej-v-portugalii-2026",
+  "kuda-pereehat-iz-rossii-2026-evropa-vnj",
+  "belorusy-v-evropu-vnj-2026",
+  "vnj-ispaniya-2026",
   "vnj-germaniya-2026",
   "digital-nomad-portugaliya-ispaniya-italiya-2026",
   "kazahstantsy-v-evropu-vnj-2026",

@@ -22,7 +22,7 @@ official_sources:
     label: ActivoBank
 estimated_minutes: 12
 date_published: 2026-06-27
-date_modified: 2026-07-07
+date_modified: 2026-07-09
 ---
 
 ## Кому этот чек-лист
@@ -33,7 +33,7 @@ date_modified: 2026-07-07
 - ждут **карту Título de Residência** после консульской визы;
 - переехали на **временную защиту** и планируют легализовать stay через отдельный маршрут.
 
-Это **не** гайд по получению визы — см. [D7/D8 Португалия 2026](/ru/guides/vnj-portugaliya-d8-d7-grazhdanstvo-2026).
+Это **не** гайд по получению визы — см. [D8 и D7 Португалия 2026](/ru/guides/vnj-portugaliya-d8-d7-grazhdanstvo-2026). **Практика NIF/AIMA:** [portugal.emigro.online](https://portugal.emigro.online).
 
 ---
 

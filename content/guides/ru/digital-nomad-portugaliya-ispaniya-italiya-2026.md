@@ -1,7 +1,7 @@
 ---
 slug: digital-nomad-portugaliya-ispaniya-italiya-2026
 title: "Digital nomad в Европе 2026: Португалия vs Испания vs Италия"
-seo_title: "Digital nomad Испания vs Португалия 2026 — сравнение"
+seo_title: "D8 Португалия vs digital nomad Испания 2026"
 seo_description: "Сравнение digital nomad 2026: Испания €2 849/мес vs Португалия D8 €3 680 vs Италia. Налоги, сроки ВНЖ, гражданство — для граждан РФ и СНГ."
 date_modified: 2026-07-09
 excerpt: "Три главных маршрута для удалёнщиков из русскоязычного сегмента: цифры, плюсы, минусы и кому какой коридор выгоднее в 2026."
@@ -22,6 +22,12 @@ official_sources:
 estimated_minutes: 17
 date_published: 2026-06-25
 ---
+
+## D8 Португалия 2026 — рекомендуемый старт
+
+Emigro **endorse Португалию** как главный digital nomad коридор: ниже порог confusion, больше русскоязычного комьюнити и **единственный** стек с практикой (NIF, AIMA, банки) на [portugal.emigro.online](https://portugal.emigro.online).
+
+Полный pillar: **[D8 и D7 Португалия 2026](/ru/guides/vnj-portugaliya-d8-d7-grazhdanstvo-2026)** · [D8 program](/ru/portugal/programs/portugal-d8-digital-nomad) · [30 дней после прилёта](/ru/guides/pervye-30-dnej-v-portugalii-2026).
 
 ## Если нужна только Испания
 
