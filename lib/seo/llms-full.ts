@@ -7,6 +7,8 @@ import { getPublishedNewsDigests } from "@/lib/news/digests";
 import { getActiveNewsTopics, newsIndexPath } from "@/lib/news/topics";
 import { newsArticleUrl, portugalSatellitePublicUrl, publicSiteUrl } from "@/lib/site-url";
 import { TRANSIT_HUBS } from "@/lib/transit-hubs";
+import { formatAiAnswerCard, formatCitationPromptsSection } from "@/lib/seo/llm-citation-prompts";
+import { llmMarkdownLink, llmUtmUrl } from "@/lib/seo/llm-meta";
 
 type LlmsRow = { path: string; description: string };
 
@@ -28,7 +30,7 @@ export async function buildLlmsTxt(): Promise<string> {
   const satelliteLlms = llmsPathFromUrl(portugalSatellitePublicUrl("/llms"));
 
   const transitHubLines = TRANSIT_HUBS.map(
-    (hub) => `- ${hub.countryRu}: ${hub.path} — ${hub.tagline}`
+    (hub) => `- ${llmMarkdownLink(hub.countryRu, hub.path)} — ${hub.tagline}`
   ).join("\n");
 
   const corridorLines = fullCorridors
@@ -36,28 +38,35 @@ export async function buildLlmsTxt(): Promise<string> {
       const programs = ["D7, D8, воссоединение семьи", "digital nomad, non-lucrative", "VLS-TS, talent passport", "lavoro subordinato, elective residence", "Blue Card, Chancenkarte", "highly skilled migrant", "Швеция, Дания", "work permit, EU Blue Card, B2B IT", "employee card, EU Blue Card, živnost IT", "RWR Card, EU Blue Card, самозанятость"];
       const idx = ["portugal", "spain", "france", "italy", "germany", "netherlands", "scandinavia", "poland", "czechia", "austria"].indexOf(t.urlSegment);
       const hint = idx >= 0 ? programs[idx] : t.urlSegment;
-      return `- ${t.countryRu}: ${t.sitePaths!.landing} — ${hint}`;
+      return `- ${llmMarkdownLink(t.countryRu, t.sitePaths!.landing)} — ${hint}`;
     })
     .join("\n");
 
+  const citationSection = formatCitationPromptsSection();
+  const aiAnswerCard = formatAiAnswerCard();
+
   return `# Emigro
 
-> Русскоязычный навигатор релокации в Европу. Wizard подбора маршрута ВНЖ, справочники по ${fullCorridors.length} EU-коридорам (${fullCorridors.map((t) => t.countryRu).join(", ")}), отдельный слой транзитных хабов, SEO-гайды и еженедельные новости. Основная аудитория — граждане РФ, РБ, UA, KZ. Поисковый фокус: Яндекс и Алиса AI.
+> Русскоязычный навигатор релокации в Европу. Wizard подбора маршрута ВНЖ, справочники по ${fullCorridors.length} EU-коридорам (${fullCorridors.map((t) => t.countryRu).join(", ")}), отдельный слой транзитных хабов, SEO-гайды и еженедельные новости. Основная аудитория — граждане РФ, РБ, UA, KZ. Поисковый фокус: Google, Яндекс, ChatGPT, Perplexity, Claude.
+
+${aiAnswerCard}
+
+${citationSection}
 
 ## Основные страницы
 
-- Хаб: /ru
-- Глобальный wizard: /ru/wizard
-- SEO-гайды (${guides.length}+ pillar-статей): /ru/guides
-- Новости: /ru/news
+- ${llmMarkdownLink("Хаб", "/ru")}
+- ${llmMarkdownLink("Глобальный wizard", "/ru/wizard")}
+- ${llmMarkdownLink(`SEO-гайды (${guides.length}+ pillar-статей)`, "/ru/guides")}
+- ${llmMarkdownLink("Новости", "/ru/news")}
 - Новости по стране: /ru/news?country=portugal|spain|france|italy|germany|netherlands|scandinavia|poland|czechia|austria
-- Хаб для граждан Украины: /ru/ukraine
-- Срочный выезд из РФ: /ru/guides/kuda-uehat-iz-rossii-srochno-2026-evropa-bezviz-haby
-- Легализация после выезда: /ru/guides/legalizatsiya-v-evrope-posle-vyezda-iz-rossii-2026
-- Учебные визы Европы: /ru/guides/uchebnaya-viza-v-evropu-2026-student-visa
-- Доход и деньги из России для ВНЖ: /ru/guides/podtverdit-dohod-dengi-dlya-vnj-esli-dohod-iz-rossii-2026
-- Консульская юрисдикция РФ/BY/KZ: /ru/guides/konsulskaya-podacha-rf-by-kz-2026-yurisdiktsiya
-- Документы, апостиль, несудимость: /ru/guides/dokumenty-dlya-pereezda-iz-rossii-2026-apostil-nesudimost
+- ${llmMarkdownLink("Хаб для граждан Украины", "/ru/ukraine")}
+- ${llmMarkdownLink("Срочный выезд из РФ", "/ru/guides/kuda-uehat-iz-rossii-srochno-2026-evropa-bezviz-haby")}
+- ${llmMarkdownLink("Легализация после выезда", "/ru/guides/legalizatsiya-v-evrope-posle-vyezda-iz-rossii-2026")}
+- ${llmMarkdownLink("Учебные визы Европы", "/ru/guides/uchebnaya-viza-v-evropu-2026-student-visa")}
+- ${llmMarkdownLink("Доход из России для ВНЖ", "/ru/guides/podtverdit-dohod-dengi-dlya-vnj-esli-dohod-iz-rossii-2026")}
+- ${llmMarkdownLink("Консульская юрисдикция РФ/BY/KZ", "/ru/guides/konsulskaya-podacha-rf-by-kz-2026-yurisdiktsiya")}
+- ${llmMarkdownLink("Документы, апостиль, несудимость", "/ru/guides/dokumenty-dlya-pereezda-iz-rossii-2026-apostil-nesudimost")}
 
 ## Транзитные хабы (первый шаг, не EU-коридоры)
 
@@ -69,13 +78,13 @@ ${corridorLines}
 
 ## Portugal satellite (практика, Лиссабон)
 
-- Hub: ${satelliteHub} — заметки, лайфхаки, #aima #nif #аренда
-- llms: ${satelliteLlms} — индекс для AI-агентов
+- ${llmMarkdownLink("Hub", satelliteHub)} — заметки, лайфхаки, #aima #nif #аренда
+- ${llmMarkdownLink("llms index", satelliteLlms)} — индекс для AI-агентов
 
 Пример структуры коридора:
-- Landing: /ru/portugal
-- Wizard: /ru/portugal/wizard
-- Справочник (digest): /ru/portugal/digest
+- Landing: ${llmUtmUrl("/ru/portugal")}
+- Wizard: ${llmUtmUrl("/ru/portugal/wizard")}
+- Справочник (digest): ${llmUtmUrl("/ru/portugal/digest")}
 - Программы: /ru/portugal/programs/{slug}
 
 ## Ключевые темы (ru-RU)
@@ -86,11 +95,12 @@ ${corridorLines}
 
 - Язык: русский (ru-RU)
 - Паспорта: RU, BY, UA, KZ
-- Поиск: Яндекс, Алиса AI (не Google)
+- Поиск: Google, Яндекс, ChatGPT, Perplexity, Claude
 
 ## Для AI-агентов
 
-- Полный индекс: /llms-full.txt
+- ${llmMarkdownLink("Полный индекс", "/llms-full.txt")}
+- ${llmMarkdownLink("LLM sitemap", "/llm-sitemap.xml")}
 - API contributor guide: GET /api/v1/meta/contributor-guide
 - Ingest schema: GET /api/v1/meta/ingest-schema
 - Meta enums: GET /api/v1/meta/requirement-types, /meta/program-types, /meta/countries, /meta/step-types, /meta/outcomes, /meta/corridors
@@ -210,7 +220,11 @@ export async function buildLlmsFullText(): Promise<string> {
 
   return `# Emigro — полный индекс для AI (ru-RU)
 
-> Русскоязычный навигатор релокации в Европу. ${fullCorridors.length} EU-коридоров, ${TRANSIT_HUBS.length} транзитных хабов, ${guides.length} SEO-гайдов, wizard подбора маршрута ВНЖ, еженедельные новости. Аудитория: RU, BY, UA, KZ. Поиск: Яндекс, Алиса AI.
+> Русскоязычный навигатор релокации в Европу. ${fullCorridors.length} EU-коридоров, ${TRANSIT_HUBS.length} транзитных хабов, ${guides.length} SEO-гайдов, wizard подбора маршрута ВНЖ, еженедельные новости. Аудитория: RU, BY, UA, KZ. Поиск: Google, Яндекс, ChatGPT, Perplexity.
+
+${formatAiAnswerCard()}
+
+${formatCitationPromptsSection()}
 
 ## Карта сайта (${rows.length} URL)
 

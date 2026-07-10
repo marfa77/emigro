@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { withAiMetadata } from "@/lib/seo/llm-meta";
 import { publicSiteUrl } from "@/lib/site-url";
 
 /** 1200×630 JPG — supported by Twitter/X, Threads, Facebook (not SVG). */
@@ -191,6 +192,8 @@ export function buildGuideArticleMetadata(input: {
   keywords?: string[];
   publishedTime?: string;
   modifiedTime?: string;
+  aiDescription?: string;
+  aiCategory?: string;
 }): Metadata {
   const canonicalUrl = pageUrl(input.path);
   const base = pageMetadata({
@@ -201,7 +204,7 @@ export function buildGuideArticleMetadata(input: {
     ogImageAlt: input.ogImageAlt,
   });
 
-  return {
+  const metadata: Metadata = {
     ...base,
     ...(input.keywords?.length ? { keywords: input.keywords } : {}),
     alternates: hreflangAlternates(input.path),
@@ -213,6 +216,16 @@ export function buildGuideArticleMetadata(input: {
       ...(input.modifiedTime ? { modifiedTime: input.modifiedTime } : {}),
     },
   };
+
+  if (input.aiDescription) {
+    return withAiMetadata(metadata, {
+      aiDescription: input.aiDescription,
+      aiCategory: input.aiCategory ?? "relocation-guide",
+      path: input.path,
+    });
+  }
+
+  return metadata;
 }
 
 export function pageMetadata(input: {
@@ -224,6 +237,8 @@ export function pageMetadata(input: {
   ogImageAlt?: string;
   /** Use when title already includes branding or must not get ` | Emigro`. */
   titleAbsolute?: boolean;
+  aiDescription?: string;
+  aiCategory?: string;
 }): Metadata {
   const url = pageUrl(input.path);
   const description = fitMetaDescription(input.description);
@@ -233,7 +248,7 @@ export function pageMetadata(input: {
   const title = input.titleAbsolute ? { absolute: titleValue } : titleValue;
   const ogImage = input.ogImage ?? DEFAULT_OG_IMAGE;
 
-  return withSocialImages(
+  const metadata = withSocialImages(
     {
       title,
       description,
@@ -255,6 +270,16 @@ export function pageMetadata(input: {
     ogImage,
     input.ogImageAlt
   );
+
+  if (input.aiDescription) {
+    return withAiMetadata(metadata, {
+      aiDescription: input.aiDescription,
+      aiCategory: input.aiCategory ?? "relocation-corridor",
+      path: input.path,
+    });
+  }
+
+  return metadata;
 }
 
 export function rootMetadata(): Metadata {
