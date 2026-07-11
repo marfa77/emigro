@@ -47,6 +47,20 @@ const bodySections: NoteBodySection[] = [
     ],
   },
   {
+    heading: "Пошагово: NIE и padrón в Valencia",
+    section_kind: "practice",
+    paragraphs: [
+      "Типовой маршрут из @valenforum (2025–2026): день 1–3 — cita NIE; день 4–7 — empadronamiento; день 8–14 — банк. Gestoría сокращает NIE, но не заменяет ваш визит в ayuntamiento.",
+    ],
+    bullets: [
+      "Шаг 1: скачайте EX-15, оплатите tasa 790-012, запишитесь на sede (Policía Nacional / Extranjería Valencia).",
+      "Шаг 2: на приёме получите resguardo — сохраните PDF; он нужен банку и TIE до готового NIE.",
+      "Шаг 3: ayuntamiento — cita online «empadronamiento»; contrato + DNI/NIE владельца или autorización firmada.",
+      "Шаг 4: certificado de empadronamiento + historial — запросите сразу; TIE просит актуальный (<3 мес.).",
+      "Шаг 5: с NIE + padrón открывайте ES IBAN — см. [банк и IBAN](/notes/bank-iban-nerezident-ispaniya-2026).",
+    ],
+  },
+  {
     heading: "Типичные ошибки",
     section_kind: "practice",
     bullets: [

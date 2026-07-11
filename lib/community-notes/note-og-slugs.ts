@@ -1,20 +1,26 @@
 import fs from "fs";
 import path from "path";
 
-/** Slugs with committed hero/OG WebP in public/images/community-notes/ (regenerate via portugal:generate-note-images). */
+/** Slugs with committed hero/OG WebP in public/images/community-notes/ (regenerate via portugal/spain:generate-note-images). */
 export const COMMITTED_NOTE_OG_SLUGS = new Set([
   "aima-agora-zapis-2026",
   "arenda-kvartiry-lisbon-pervyi-mesyac-2026",
   "arenda-lissabon-do-podpisi",
+  "arenda-valencia-idealista-2026",
+  "bank-iban-nerezident-ispaniya-2026",
+  "beckham-autonomo-mify-2026",
   "ciple-guide-2026",
+  "dnv-uge-konsulstvo-2026",
   "elektromobil-tesla-v-portugalii-2026",
   "kak-otkryt-bankovskiy-schet-portugalia-2026",
   "klimat-norte-zhara-vlazhnost-plesen-zima-2026",
   "lgoty-s-vnj-kulturnye-mesta-2026",
   "mashina-portugaliya-kupit-arenda-import-2026",
   "mezhdunarodnye-shkoly-portugaliya-2026",
+  "nie-empadronamiento-poryadok-2026",
   "nif-lissabon-chto-puutayut",
   "otkrytie-scheta-kreditnaya-karta-portugaliya-2026",
+  "pervye-30-dnej-v-ispanii-satelit-2026",
   "porto-vs-braga-semya-mezhdunarodnaya-shkola-2026",
   "pervyj-mesyac-portugaliya-checklist",
   "pokupka-zemli-postroyka-doma-norte-portugaliya-2026",
@@ -24,6 +30,7 @@ export const COMMITTED_NOTE_OG_SLUGS = new Set([
   "sns-registration-changes-2026",
   "studencheskiy-vnzh-portugal-mify-aima-2026",
   "termo-responsabilidade-podtverzhdenie-zhilya-2026",
+  "tie-cita-extranjeria-valencia-2026",
   "vozvrat-remont-tovarov-portugaliya-2026",
   "vybor-internet-provaydera-portugaliya-2026",
   "zamena-voditelskih-prav-portugaliya-2026",

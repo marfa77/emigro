@@ -104,17 +104,20 @@ export function validateNoteDraft(
     })
   );
 
-  if (input.content_kind === "guide" && countryKey === "portugal") {
-    const blueprint = validateAgainstBlueprint({
-      content_kind: input.content_kind,
-      slug: input.slug,
-      quick_answer: input.quick_answer,
-      seo_description: input.seo_description,
-      body_sections: input.body_sections,
-      key_takeaways: input.key_takeaways,
-      faq: input.faq as CommunityNoteFaq[],
-      official_links: input.official_links,
-    });
+  if (input.content_kind === "guide") {
+    const blueprint = validateAgainstBlueprint(
+      {
+        content_kind: input.content_kind,
+        slug: input.slug,
+        quick_answer: input.quick_answer,
+        seo_description: input.seo_description,
+        body_sections: input.body_sections,
+        key_takeaways: input.key_takeaways,
+        faq: input.faq as CommunityNoteFaq[],
+        official_links: input.official_links,
+      },
+      countryKey
+    );
     errors.push(...blueprint.errors);
   }
 

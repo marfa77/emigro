@@ -42,6 +42,8 @@ const TIMELINE_HEADING = /таймлайн|сроки|календарь|пош�
 const OFFICIAL_CLAIM_RE =
   /официальн|по правилам|требует|портал|gov\.pt|finanças|aima|imt|sns|dge|sed|decreto|статья|налог|обязател/i;
 const NORTE_RE = /norte|порту|porto|брага|braga|matosinhos|guimarães|minho|foz|boavista|gualtar/i;
+const SPAIN_GEO_RE =
+  /valencia|валенс|madrid|barcelona|barcelon|nie|tie|extranjer[ií]a|comunidad valenciana|испан/i;
 const FAQ_OFFICIAL_PRACTICE_RE = /по правилам|официальн|на практике/i;
 
 export type BlueprintDraftInput = {
@@ -54,6 +56,8 @@ export type BlueprintDraftInput = {
   faq: CommunityNoteFaq[];
   official_links?: CommunityNoteLink[];
 };
+
+export type BlueprintCountryKey = "portugal" | "spain";
 
 export type BlueprintValidation = {
   score: number;
@@ -134,7 +138,10 @@ function scoreComponent(passed: boolean, weight: number): number {
 }
 
 /** 0–100 quality score against the gold-standard blueprint. */
-export function scoreBlueprint(input: BlueprintDraftInput): number {
+export function scoreBlueprint(
+  input: BlueprintDraftInput,
+  countryKey: BlueprintCountryKey = "portugal"
+): number {
   if (input.content_kind !== "guide") return 100;
 
   const sections = input.body_sections;
@@ -174,8 +181,14 @@ export function scoreBlueprint(input: BlueprintDraftInput): number {
   score += scoreComponent(links.length >= BLUEPRINT_MIN.officialLinks, 8);
 
   const geoText = `${input.quick_answer} ${input.seo_description ?? ""}`;
-  score += scoreComponent(/португал/i.test(geoText), 3);
-  score += scoreComponent(NORTE_RE.test(geoText), 3);
+  const practiceText = input.body_sections.flatMap((s) => s.bullets ?? []).join(" ");
+  if (countryKey === "spain") {
+    score += scoreComponent(/испан/i.test(geoText), 3);
+    score += scoreComponent(SPAIN_GEO_RE.test(geoText) || SPAIN_GEO_RE.test(practiceText), 3);
+  } else {
+    score += scoreComponent(/португал/i.test(geoText), 3);
+    score += scoreComponent(NORTE_RE.test(geoText) || NORTE_RE.test(practiceText), 3);
+  }
 
   score += scoreComponent(validateSectionOrder(sections).length === 0, 7);
 
@@ -183,7 +196,10 @@ export function scoreBlueprint(input: BlueprintDraftInput): number {
 }
 
 /** Blocking errors + non-blocking warnings for editorial QA. */
-export function validateAgainstBlueprint(input: BlueprintDraftInput): BlueprintValidation {
+export function validateAgainstBlueprint(
+  input: BlueprintDraftInput,
+  countryKey: BlueprintCountryKey = "portugal"
+): BlueprintValidation {
   const errors: string[] = [];
   const warnings: string[] = [];
 
@@ -245,11 +261,21 @@ export function validateAgainstBlueprint(input: BlueprintDraftInput): BlueprintV
   }
 
   const geoText = `${input.quick_answer} ${input.seo_description ?? ""}`;
-  if (!/португал/i.test(geoText)) {
-    warnings.push("blueprint: quick_answer/seo_description missing Португалия");
-  }
-  if (!NORTE_RE.test(geoText) && !NORTE_RE.test(input.body_sections.flatMap((s) => s.bullets ?? []).join(" "))) {
-    warnings.push("blueprint: missing Norte geo (Порту/Braga) in quick_answer or practice");
+  const practiceText = input.body_sections.flatMap((s) => s.bullets ?? []).join(" ");
+  if (countryKey === "spain") {
+    if (!/испан/i.test(geoText)) {
+      warnings.push("blueprint: quick_answer/seo_description missing Испания");
+    }
+    if (!SPAIN_GEO_RE.test(geoText) && !SPAIN_GEO_RE.test(practiceText)) {
+      warnings.push("blueprint: missing Valencia/Madrid geo in quick_answer or practice");
+    }
+  } else {
+    if (!/португал/i.test(geoText)) {
+      warnings.push("blueprint: quick_answer/seo_description missing Португалия");
+    }
+    if (!NORTE_RE.test(geoText) && !NORTE_RE.test(practiceText)) {
+      warnings.push("blueprint: missing Norte geo (Порту/Braga) in quick_answer or practice");
+    }
   }
 
   const practiceAudit = auditPracticeQuality(
@@ -274,7 +300,7 @@ export function validateAgainstBlueprint(input: BlueprintDraftInput): BlueprintV
   });
   warnings.push(...presentation.warnings);
 
-  const score = scoreBlueprint(input);
+  const score = scoreBlueprint(input, countryKey);
   if (score < BLUEPRINT_PASS_SCORE && errors.length === 0) {
     warnings.push(`blueprint: score ${score} < ${BLUEPRINT_PASS_SCORE}`);
   }

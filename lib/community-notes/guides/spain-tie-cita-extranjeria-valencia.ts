@@ -77,6 +77,10 @@ const faq: CommunityNoteFaq[] = [
     q: "Что делать, если cita пропала?",
     a: "Обновляйте sede несколько раз в день, пробуйте соседние municipios provincia, gestoría или alert-сервисы (осторожно с мошенниками).",
   },
+  {
+    q: "Какие документы на huellas обязательны?",
+    a: "По правилам: pasaporte, visado, empadronamiento, seguro médico, tasa 790, фото. На практике extranjería Valencia дозапрашивает bank statements и contrato trabajo — держите PDF ≤2 MB.",
+  },
 ];
 
 export const TIE_CITA_GUIDE = {
@@ -88,7 +92,7 @@ export const TIE_CITA_GUIDE = {
     "Huellas, resguardo, очереди sede — как не потерять неделю на записи в extranjería без мифов про «живую очередь».",
   seo_title: "TIE extranjería Valencia 2026 — cita и huellas",
   seo_description:
-    "TIE и cita extranjería в Valencia и Barcelona 2026: huellas, resguardo, запись sede. Практика для русскоязычных релокантов с visado D.",
+    "TIE и cita extranjería в Valencia и Barcelona 2026: huellas, resguardo, запись sede. Практика для русскоязычных релокантов с visado D в Испании.",
   quick_answer:
     "TIE оформляется через cita previa на sede, затем huellas. В Valencia слоты ловят утром; Barcelona дольше. Resguardo после huellas часто принимают банк и аренда до пластика.",
   body_sections: bodySections,

@@ -38,6 +38,8 @@ export const GUIDE_COVER_BY_SLUG: Record<string, string> = {
   "pervye-30-dnej-v-portugalii-2026": "/images/corridor-portugal.webp",
   "pervye-30-dnej-v-germanii-2026": "/images/corridor-germany.webp",
   "pervye-30-dnej-v-ispanii-2026": "/images/corridor-spain.webp",
+  "vnj-ispaniya-2026": "/images/corridor-spain.webp",
+  "portugaliya-vs-ispaniya-vnj-2026": "/images/corridor-spain.webp",
   "pervye-30-dnej-v-niderlandah-2026": "/images/corridor-netherlands.webp",
   "pervye-30-dnej-v-frantsii-2026": "/images/corridor-france.webp",
   "belorusy-v-evropu-vnj-2026": "/images/corridor-poland.webp",

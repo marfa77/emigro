@@ -47,6 +47,20 @@ const bodySections: NoteBodySection[] = [
     ],
   },
   {
+    heading: "Пошагово: открытие счёта",
+    section_kind: "practice",
+    paragraphs: [
+      "Маршрут из @spain_granitsa: cita banca online → branch с пакетом → cuenta activa 3–10 дней → tarjeta 7–14 дней. Без empadronamiento branch часто переносит на неделю.",
+    ],
+    bullets: [
+      "Шаг 1: certificado empadronamiento + NIE/resguardo + pasaporte — копии и оригиналы.",
+      "Шаг 2: justificante ingresos — contrato, autónomo modelo 303 или statements 3–6 мес.",
+      "Шаг 3: в branch объясните source of funds для inbound из РФ/РБ — sale, savings, remote salary.",
+      "Шаг 4: попросите IBAN letter на бланке банка — extranjería и agency иногда требуют.",
+      "Шаг 5: domiciliación utilities — Endesa/Iberdrola проще с ES IBAN, не Revolut.",
+    ],
+  },
+  {
     heading: "Типичные ошибки",
     section_kind: "practice",
     bullets: [
@@ -62,6 +76,7 @@ const keyTakeaways = [
   "Официально: для быта в ES нужен IBAN ES…; KYC — pasaporte + NIE + domicilio.",
   "На практике: CaixaBank/Santander + empadronamiento — типовой путь в Valencia.",
   "Расхождение: Revolut «работает» первые недели, но TIE и fianza требуют ES IBAN.",
+  "Официально: cuenta nómina часто требует domiciliación ingresos; non-residente — отдельный продукт.",
 ];
 
 const faq: CommunityNoteFaq[] = [
@@ -92,7 +107,7 @@ export const BANK_IBAN_GUIDE = {
     "CaixaBank, Santander, KYC для RU/BY-паспортов — когда Revolut не заменяет Spanish IBAN для TIE и аренды.",
   seo_title: "Банк Испания 2026 — IBAN для нерезидента",
   seo_description:
-    "Открытие счёта в Испании 2026: IBAN для нерезидента, CaixaBank, Santander, KYC для RU/BY. Практика Valencia — NIE, empadronamiento, TIE.",
+    "Открытие счёта в Испании 2026: IBAN для нерезидента, CaixaBank, Santander, KYC для RU/BY. Практика Valencia — NIE, empadronamiento, TIE и fianza.",
   quick_answer:
     "Для TIE, fianza и utilities в Испании нужен Spanish IBAN (ES…). CaixaBank и Santander в Valencia открывают счёт с NIE/resguardo и empadronamiento; Revolut/N26 — вспомогательно, не замена.",
   body_sections: bodySections,

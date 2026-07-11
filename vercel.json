@@ -9,6 +9,10 @@
     {
       "path": "/api/cron/portugal-note-images",
       "schedule": "30 7 * * *"
+    },
+    {
+      "path": "/api/cron/spain-note-images",
+      "schedule": "45 7 * * *"
     }
   ],
   "env": {

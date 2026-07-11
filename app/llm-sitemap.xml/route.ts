@@ -65,10 +65,10 @@ export async function GET() {
   for (const note of spainNotes) {
     for (const t of note.hashtags) spainTags.add(normalizeHashtag(t));
   }
-  for (const tag of portugalTags) {
+  for (const tag of Array.from(portugalTags)) {
     urls.add(portugalSatellitePublicUrl(`/tag/${encodeURIComponent(tag)}`));
   }
-  for (const tag of spainTags) {
+  for (const tag of Array.from(spainTags)) {
     urls.add(spainSatellitePublicUrl(`/tag/${encodeURIComponent(tag)}`));
   }
 

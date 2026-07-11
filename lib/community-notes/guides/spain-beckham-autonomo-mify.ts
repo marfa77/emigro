@@ -45,6 +45,19 @@ const bodySections: NoteBodySection[] = [
     ],
   },
   {
+    heading: "IRPF и SS: что считать отдельно",
+    section_kind: "official",
+    paragraphs: [
+      "Beckham (modelo 149) и alta autónomo (RETA) — параллельные треки. DNV teletrabajo не освобождает от SS, если доход оформлен как autónomo или есть PE в ES.",
+    ],
+    bullets: [
+      "IRPF impatriados: 24% на eligible income до €600k — не на весь мировой доход автоматически.",
+      "Cuota autónomo 2026: от ~€230/мес. base mínima — платится независимо от Beckham.",
+      "Foreign employer payroll + autónomo — риск двойного учёта; gestoría сверяет modelo 100/303.",
+      "Срок Beckham: заявление в окне после начала работы; пропуск — обычный прогрессив IRPF.",
+    ],
+  },
+  {
     heading: "Что спросить у gestoría",
     section_kind: "practice",
     bullets: [
@@ -74,6 +87,10 @@ const faq: CommunityNoteFaq[] = [
   {
     q: "Сколько стоит gestoría для autónomo?",
     a: "Ориентир €80–150/мес. + SS cuota от ~€230/мес. (2026, зависит от base).",
+  },
+  {
+    q: "Когда подавать заявление Beckham?",
+    a: "По правилам — в срок после начала работы/резидентства в ES. На практике gestoría советует подать в первые 6 месяцев после alta SS или employment.",
   },
 ];
 

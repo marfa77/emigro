@@ -61,6 +61,30 @@ npm run db:push
 - Локально: `http://localhost:3000/satellite/spain`
 - Pillar / wizard / digest на основном сайте: `https://www.emigro.online/ru/spain`
 
+## Quality gate vs Portugal (почему «100× слабее»)
+
+| Слой | Portugal | Spain |
+|------|----------|-------|
+| TG signals (`community_signals`) | ~840+ (4 чата, cron на VPS) | **~0 live** — cron/parser на VPS ещё не крутится стабильно |
+| Editorial seed | 4 baseline + rewrite pipeline | **7 hand-curated guides** (`lib/community-notes/guides/spain-*.ts`) |
+| Blueprint gate | `article-blueprint.ts` + `portugal:blueprint-pass` | **Тот же gate с `countryKey=spain`** (с 2026-07) |
+| Auto-publish filter | `editorial-filter.ts` → `CORE_RELOC_TOPICS` | `SPAIN_CORE_RELOC_TOPICS` (nie, tie, extranjería…) |
+| Sitemap / llms | `app/sitemap.ts`, `llms-full.ts`, `llm-sitemap.xml` | **Parity** — Spain hub, notes, tags |
+| Corridor hub | `PortugalFeaturedNotes` | `SpainFeaturedNotes` на `/ru/spain` |
+
+**Главный разрыв — не SEO-фильтр в коде, а отсутствие live Telegram-сигналов.** Без `community_signals` Spain не получает auto-drafts из чатов; остаётся только editorial seed + ручной cron.
+
+**Что нужно на VPS:** `emigro-spain-community.timer` + Telethon session + `npm run spain:daily` (см. [SPAIN_CRON.md](./SPAIN_CRON.md)).
+
+**Локальные команды:**
+
+```bash
+npm run spain:audit-notes          # quality + blueprint
+npm run spain:upsert-editorial     # push curated guides → Supabase
+npm run spain:generate-note-images # OG WebP
+npx tsx scripts/check-community-stats.ts  # PT vs ES signal counts
+```
+
 ## Связанные файлы
 
 | Что | Путь |

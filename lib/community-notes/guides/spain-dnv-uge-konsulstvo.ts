@@ -47,6 +47,20 @@ const bodySections: NoteBodySection[] = [
     ],
   },
   {
+    heading: "Пакет документов для консульства",
+    section_kind: "practice",
+    paragraphs: [
+      "В @spain_granitsa типичный пакет 2026: контракт/invoice trail 3+ мес., extracts банка, seguro de viaje → seguro de salud, antecedentes с апостилем. Переводы jurado — закладывайте 2 недели.",
+    ],
+    bullets: [
+      "Contrato teletrabajo или client invoices с датами и суммами ≥€2 849/мес.",
+      "Bank statements 3–6 мес. на имя заявителя; crypto-only income — дозапрос.",
+      "Seguro médico privado с repatriación — покрытие на весь срок visado.",
+      "Antecedentes penales РФ/РБ + apostilla + traducción jurada.",
+      "Formulario nacional + EX-01/EX-02 — версия на сайте консульства на дату подачи.",
+    ],
+  },
+  {
     heading: "Типичные ошибки",
     section_kind: "practice",
     bullets: [
@@ -93,7 +107,7 @@ export const DNV_UGE_GUIDE = {
     "Teletrabajo, порог €2 849/мес., пакет документов и когда UGE не заменяет консульскую подачу.",
   seo_title: "DNV Испания 2026 — UGE vs консульство",
   seo_description:
-    "Digital nomad visa Испания 2026: teletrabajo, UGE vs консульство, порог €2 849/мес., 20% rule. Маршрут для RU/BY/UA/KZ с visado D и TIE.",
+    "Digital nomad visa Испания 2026: teletrabajo, UGE vs консульство, порог €2 849/мес., 20% rule. Маршрут для RU/BY/UA/KZ с visado D, TIE и Valencia.",
   quick_answer:
     "Digital nomad (teletrabajo) в Испании 2026: доход от ~€2 849/мес., до 20% из ES. Основной путь для RU/BY — консульство → visado D → TIE. UGE — для легального пребывания уже внутри страны, не замена визы.",
   body_sections: bodySections,

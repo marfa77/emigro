@@ -47,6 +47,20 @@ const bodySections: NoteBodySection[] = [
     ],
   },
   {
+    heading: "Районы и бюджет Valencia",
+    section_kind: "practice",
+    paragraphs: [
+      "В @valenciarusia 2026: T2 в Benimaclet/Campanar €850–1100; Ruzafa €1100–1400; Eixample дороже. Agency fee не входит в renta — заложите +1 mes + IVA в первый месяц.",
+    ],
+    bullets: [
+      "Benimaclet / Algirós — чаще принимают NIE без aval, но проверяйте contrato на empadronamiento.",
+      "Ruzafa / El Carmen — высокий спрос; viewing в тот же день, если NIE + IBAN готовы.",
+      "Fotocasa дублирует Idealista — сравнивайте цену и agency.",
+      "Contrato temporal 11 мес. — уточните prórroga и право padrón для TIE.",
+      "Inventario + фото дефектов — подписывайте в день check-in, не «потом».",
+    ],
+  },
+  {
     heading: "До подписи: чеклист",
     section_kind: "practice",
     bullets: [
@@ -77,6 +91,10 @@ const faq: CommunityNoteFaq[] = [
     q: "Можно ли fianza наличными?",
     a: "Официально fianza через deposito legal. Наличные «на руку» — красный флаг мошенничества.",
   },
+  {
+    q: "Какие районы Valencia проще для первого contrato?",
+    a: "По правилам район не важен. На практике Benimaclet, Campanar и Algirós чаще принимают NIE + IBAN без aval; Ruzafa дороже и конкурентнее.",
+  },
 ];
 
 export const ARENDA_VALENCIA_GUIDE = {
@@ -88,7 +106,7 @@ export const ARENDA_VALENCIA_GUIDE = {
     "Депозит, agency fee, NIE + IBAN до viewing — что проверить на Idealista, чтобы не потерять неделю на отказ agency.",
   seo_title: "Аренда Valencia 2026 — Idealista и contrato",
   seo_description:
-    "Аренда в Valencia 2026: Idealista, fianza, agency fee, NIE и Spanish IBAN до подписи contrato. Практика для русскоязычных релокантов.",
+    "Аренда в Valencia 2026: Idealista, fianza, agency fee, NIE и Spanish IBAN до подписи contrato. Практика для русскоязычных релокантов в Испании.",
   quick_answer:
     "В Valencia agency на Idealista чаще просят NIE и Spanish IBAN до viewing. Fianza — до 1 mes по LAU; agency fee ~1 mes + IVA. Перед подписью проверьте deposito fianza, gastos de comunidad и право на empadronamiento.",
   body_sections: bodySections,

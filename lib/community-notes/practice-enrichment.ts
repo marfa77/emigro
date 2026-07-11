@@ -22,13 +22,13 @@ export type PracticeAuditResult = {
 };
 
 const SPECIFIC_RE =
-  /€|\d+\s*(€|мес|месяц|дн|дней|нед|час|часов|год|лет|%|гб|gb|mb|мб)|Porto|Порту|Braga|Брага|Matosinhos|Guimarães|Viana|Norte|OPO|LIS|Millennium|ActivoBank|Caixa|MEO|NOS|Vodafone|Nowo|WTF|Amigo|AIMA|Finanças|SNS|Junta|IMT|CIAB|ANACOM|Agora|Cascais|Sintra|Coimbra|Évora|\d{4}/i;
+  /€|\d+\s*(€|мес|месяц|дн|дней|нед|час|часов|год|лет|%|гб|gb|mb|мб)|Porto|Порту|Braga|Брага|Matosinhos|Guimarães|Viana|Norte|OPO|LIS|Valencia|Валенс|Barcelona|Madrid|NIE|TIE|extranjer[ií]a|IBAN|CaixaBank|Santander|Idealista|IVAMA|Seguridad Social|gestor[ií]a|€2\s*849|Millennium|ActivoBank|Caixa|MEO|NOS|Vodafone|Nowo|WTF|Amigo|AIMA|Finanças|SNS|Junta|IMT|CIAB|ANACOM|Agora|Cascais|Sintra|Coimbra|Évora|\d{4}/i;
 
 const GENERIC_RE =
   /^(Проверьте|Сравните|Изучите|Уточните|Спросите|Почитайте|Не провер|Не читай|Не сравн|Соглашайтесь|Игнорируйте|Подключайте)/i;
 
 const CHAT_GROUNDED_RE =
-  /€|\d+\s*(€|мес|месяц|дн|дней|нед|час|часов|год|лет|%|гб|gb)|в чате|CIAB|ANACOM|WTF|Amigo|Multicare|Revolut|Idealista|Worten|Fixando|services\.aima|шестую линию|замкнутый круг|Junta de Freguesia|ASSINATURA|rúbrica|утente|SNS24|médico de família/i;
+  /€|\d+\s*(€|мес|месяц|дн|дней|нед|час|часов|год|лет|%|гб|gb)|в чате|CIAB|ANACOM|WTF|Amigo|Multicare|Revolut|Idealista|Worten|Fixando|services\.aima|шестую линию|замкнутый круг|Junta de Freguesia|ASSINATURA|rúbrica|утente|SNS24|médico de família|valenforum|spain_granitsa|spainchats|sede\.administraciones|huellas|empadronamiento|fianza|IVAMA|CaixaBank|extranjer[ií]a|cita previa/i;
 
 const TOPIC_KEYWORDS: Record<string, string[]> = {
   nif: ["nif", "finanças", "financas", "e-fatura", "налог", "financas"],
@@ -41,7 +41,12 @@ const TOPIC_KEYWORDS: Record<string, string[]> = {
   pets: ["pets", "питом", "dgav", "собак", "кошк", "microchip"],
   transport: ["metro", "cp", "comboios", "транспорт", "navegante"],
   auto: ["imt", "машин", "carro", "veículo", "veiculo", "водител", "carta"],
-  school: ["school", "школ", "international", "ib", "escola"],
+  autonomo: ["autónomo", "autonomo", "beckham", "impatriado", "seguridad social", "hacienda"],
+  nie: ["nie", "empadronamiento", "padron", "ex-15", "tasa 790", "extranjería"],
+  tie: ["tie", "huellas", "resguardo", "cita previa", "extranjería"],
+  extranjeria: ["extranjería", "extranjeria", "sede", "cita previa"],
+  dnv: ["dnv", "teletrabajo", "digital nomad", "uge", "startups"],
+  valencia: ["valencia", "валенс", "ruzafa", "benimaclet", "campanar"],
 };
 
 function practiceTexts(note: Pick<CommunityNote, "body_sections" | "key_takeaways">): string[] {

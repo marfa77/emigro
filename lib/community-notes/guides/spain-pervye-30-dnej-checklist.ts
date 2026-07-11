@@ -46,6 +46,16 @@ const bodySections: NoteBodySection[] = [
     ],
   },
   {
+    heading: "Где расходится портал и жизнь",
+    section_kind: "gap",
+    bullets: [
+      "«Можно месяц без TIE» → visado D обычно 30 дней; cita + huellas занимают 4–8 недель.",
+      "«Португальский чеклист подойдёт» → NIF/AIMA ≠ NIE/extranjería; другие формы и сроки.",
+      "«Revolut хватит на всё» → fianza, TIE, utilities просят ES IBAN.",
+      "«Beckham включён в DNV» → налоговый régimen отдельная заявка; см. [Beckham мифы](/notes/beckham-autonomo-mify-2026).",
+    ],
+  },
+  {
     heading: "Типичные ошибки первого месяца",
     section_kind: "practice",
     bullets: [
@@ -92,7 +102,7 @@ export const PERVYE_30_GUIDE = {
     "NIE, empadronamiento, банк, TIE, Seguridad Social — порядок для Valencia после visado D, без путаницы с португальским чеклистом.",
   seo_title: "Первые 30 дней Испания 2026 — чеклист",
   seo_description:
-    "Чеклист первых 30 дней в Испании 2026: NIE, empadronamiento, банк, TIE, Seguridad Social. Практика Valencia для RU/BY/UA/KZ после visado D.",
+    "Чеклист первых 30 дней в Испании 2026: NIE, empadronamiento, банк, TIE, Seguridad Social. Практика Valencia для RU/BY/UA/KZ после visado D в ES.",
   quick_answer:
     "Первый месяц в Испании (Valencia): SIM → NIE → empadronamiento → Spanish IBAN → cita TIE/huellas → SS при employment/autónomo. Срок TIE по visado — не откладывайте. Pillar: emigro.online/ru/guides/pervye-30-dnej-v-ispanii-2026.",
   body_sections: bodySections,

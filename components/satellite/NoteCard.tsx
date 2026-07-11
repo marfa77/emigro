@@ -1,10 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ContentKindBadge, NoteHashtags } from "@/components/satellite/HashtagNav";
-import { resolveNoteOgImage } from "@/lib/community-notes/note-og-image";
+import { resolveNoteCardImage } from "@/lib/community-notes/note-og-image";
 import type { CommunityNote } from "@/lib/community-notes/types";
 import type { SatelliteCountryKey } from "@/lib/community-notes/seed";
-import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 import { satelliteNotePath } from "@/lib/satellite/paths";
 import { layoutContain, NOTE_CONTENT_IMAGE_SIZES, noteContentImageClass } from "@/lib/ui/mobile";
 
@@ -36,27 +35,24 @@ function accentClasses(countryKey: SatelliteCountryKey) {
 }
 
 export function NoteCard({ note }: { note: CommunityNote }) {
-  const thumbnail = resolveNoteOgImage(note);
-  const showThumbnail = thumbnail !== DEFAULT_OG_IMAGE;
+  const thumbnail = resolveNoteCardImage(note);
   const countryKey = noteCountryKey(note);
   const href = satelliteNotePath(note.slug, countryKey);
   const accent = accentClasses(countryKey);
 
   return (
     <article className={`${layoutContain} overflow-hidden rounded-xl border border-slate-200 bg-white transition ${accent.border}`}>
-      {showThumbnail && (
-        <Link href={href} className={`block ${layoutContain} overflow-hidden`}>
-          <Image
-            src={thumbnail}
-            alt={note.title}
-            width={1200}
-            height={630}
-            sizes={NOTE_CONTENT_IMAGE_SIZES}
-            className={noteContentImageClass}
-            loading="lazy"
-          />
-        </Link>
-      )}
+      <Link href={href} className={`block ${layoutContain} overflow-hidden`}>
+        <Image
+          src={thumbnail}
+          alt={note.title}
+          width={1200}
+          height={630}
+          sizes={NOTE_CONTENT_IMAGE_SIZES}
+          className={noteContentImageClass}
+          loading="lazy"
+        />
+      </Link>
       <div className="p-5">
         <div className="flex flex-wrap items-center gap-2">
           <p className={`text-xs font-medium uppercase tracking-wide ${accent.category}`}>{note.category}</p>
