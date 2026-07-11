@@ -18,12 +18,23 @@ export function isStartCommand(text: string): boolean {
 }
 
 export function userWizardLinkMessage(): string {
-  const url = `${publicSiteUrl()}${HUB_WIZARD_PATH}`;
+  const origin = publicSiteUrl();
+  const wizardUrl = `${origin}${HUB_WIZARD_PATH}`;
   return [
-    "<b>Emigro</b>",
+    "<b>Emigro</b> — навигатор по ВНЖ и релокации для русскоязычных.",
     "",
-    "Подбор страны и маршрута ВНЖ — на сайте:",
-    `<a href="${url}">${url}</a>`,
+    "Помогаем разобраться, куда и как переехать: сравниваем маршруты, требования и сроки — без обещаний «гарантированного ВНЖ».",
+    "",
+    "<b>Что есть на сайте:</b>",
+    "• <b>Wizard</b> — подбор страны и программы по вашим ответам",
+    "• <b>Коридоры</b> — Португалия, Испания, Франция и другие направления",
+    "• <b>Гайды</b> — требования, документы, сроки, практика",
+    "• <b>Новости</b> — еженедельные дайджесты с источниками",
+    "",
+    "<b>Начать с wizard:</b>",
+    `<a href="${wizardUrl}">${wizardUrl}</a>`,
+    "",
+    `<a href="${origin}">emigro.online</a> · <a href="https://t.me/Emigro_news">@Emigro_news</a>`,
   ].join("\n");
 }
 
