@@ -14,7 +14,7 @@ export function NoteToc({ sections, hasFaq }: NoteTocProps) {
 
   return (
     <nav
-      className="mt-6 rounded-xl border border-slate-200 bg-slate-50/60 p-4 sm:sticky sm:top-4"
+      className="mt-6 mb-6 rounded-xl border border-slate-200 bg-slate-50/60 p-4"
       aria-label="Содержание гайда"
     >
       <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">Содержание</p>
