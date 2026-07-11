@@ -83,7 +83,7 @@ ${transitHubLines}
 
 ${corridorLines}
 
-## Portugal satellite (практика, Лиссабон)
+## Portugal satellite (практика, Norte / Порту)
 
 - ${llmMarkdownLink("Hub", portugalSatelliteHub)} — заметки, лайфхаки, #aima #nif #аренда
 - ${llmMarkdownLink("llms index", portugalSatelliteLlms)} — индекс для AI-агентов
@@ -171,7 +171,7 @@ export async function buildLlmsFullText(): Promise<string> {
     row("/ru/community", "Сообщество релокантов Emigro"),
     row("/ru/partners", "Партнёры и сервисы на маршруте"),
     row("/ru/contact", "Контакты Emigro"),
-    row(llmsPathFromUrl(portugalSatellitePublicUrl("/")), "Portugal satellite — практика релокации в Лиссабоне"),
+    row(llmsPathFromUrl(portugalSatellitePublicUrl("/")), "Portugal satellite — практика релокации в Norte (Порту, Брага)"),
     row(llmsPathFromUrl(portugalSatellitePublicUrl("/llms")), "Portugal satellite llms index"),
     row(llmsPathFromUrl(spainSatellitePublicUrl("/")), "Spain satellite — практика релокации в Валенсии"),
     row(llmsPathFromUrl(spainSatellitePublicUrl("/llms")), "Spain satellite llms index"),

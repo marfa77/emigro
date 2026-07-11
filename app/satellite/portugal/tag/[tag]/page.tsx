@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: { params: { tag: string } }):
   const label = hashtagLabel(params.tag);
   const url = portugalSatelliteUrl(`/tag/${normalizeHashtag(params.tag)}`);
   const description = fitMetaDescription(
-    `#${label} — материалы для релокантов в Лиссабоне и Португалии: новости, лайфхаки, советы и гайды. Короткие ответы и FAQ, не юридическая консультация.`
+    `#${label} — материалы для релокантов в Португалии (Norte: Порту, Брага, Minho): новости, лайфхаки, советы и гайды. Короткие ответы и FAQ, не юридическая консультация.`
   );
   const ogImage = socialImageMetadata(DEFAULT_OG_IMAGE, `#${label} — Португалия`);
   return {
@@ -61,9 +61,19 @@ export default async function PortugalTagPage({ params }: { params: { tag: strin
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     name: `#${label} — Португалия`,
-    description: `Материалы Emigro Portugal satellite с тегом #${label} для релокантов в Лиссабоне.`,
+    description: `Материалы Emigro Portugal satellite с тегом #${label} для релокантов в Norte (Порту, Брага).`,
     inLanguage: "ru-RU",
     url,
+    about: {
+      "@type": "Place",
+      name: "Porto, Portugal",
+      address: {
+        "@type": "PostalAddress",
+        addressCountry: "PT",
+        addressLocality: "Porto",
+        addressRegion: "Norte",
+      },
+    },
     mainEntity: {
       "@type": "ItemList",
       numberOfItems: notes.length,
@@ -82,7 +92,7 @@ export default async function PortugalTagPage({ params }: { params: { tag: strin
       <section className="sr-only" aria-label="AI description">
         <h2>ai:description</h2>
         <p>
-          #{label} — материалы Portugal satellite Emigro для релокантов в Лиссабоне: новости, лайфхаки, советы и гайды.
+          #{label} — материалы Portugal satellite Emigro для релокантов в Norte (Порту, Брага): новости, лайфхаки, советы и гайды.
           Не юридическая консультация.
         </p>
         <a href={portugalSatelliteUrl("/llms")}>llms.txt</a>

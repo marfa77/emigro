@@ -61,9 +61,19 @@ export default async function SpainTagPage({ params }: { params: { tag: string }
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     name: `#${label} — Испания`,
-    description: `Материалы Emigro Spain satellite с тегом #${label} для релокантов в Испании.`,
+    description: `Материалы Emigro Spain satellite с тегом #${label} для релокантов в Valencia и Испании.`,
     inLanguage: "ru-RU",
     url,
+    about: {
+      "@type": "Place",
+      name: "Valencia, Spain",
+      address: {
+        "@type": "PostalAddress",
+        addressCountry: "ES",
+        addressLocality: "Valencia",
+        addressRegion: "Comunitat Valenciana",
+      },
+    },
     mainEntity: {
       "@type": "ItemList",
       numberOfItems: notes.length,

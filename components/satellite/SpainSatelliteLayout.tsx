@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { SPAIN_SATELLITE } from "@/lib/satellite/spain";
-import { mainSiteUrl } from "@/lib/satellite/paths";
+import { mainSiteUrl, spainHubPath } from "@/lib/satellite/paths";
 import { spainHubPaths } from "@/lib/spain/hub";
 import { SpainHubShell } from "@/components/spain/SpainHubShell";
 import { layoutContain, safeAreaTopStyle } from "@/lib/ui/mobile";
@@ -19,7 +19,7 @@ export function SpainSatelliteHeader() {
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div className="min-w-0 flex-1">
             <p className="text-xs font-medium uppercase tracking-wide text-amber-800">Emigro · {SPAIN_SATELLITE.countryRu}</p>
-            <Link href={spainHubPaths.landing} className="text-lg font-semibold text-slate-900 hover:text-amber-900">
+            <Link href={spainHubPath()} className="text-lg font-semibold text-slate-900 hover:text-amber-900">
               {SPAIN_SATELLITE.title}
             </Link>
           </div>

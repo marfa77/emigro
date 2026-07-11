@@ -65,8 +65,13 @@ export default async function PortugalSatelliteHomePage() {
     inLanguage: "ru-RU",
     about: {
       "@type": "Place",
-      name: "Lisbon, Portugal",
-      address: { "@type": "PostalAddress", addressCountry: "PT", addressLocality: "Lisbon" },
+      name: "Porto, Portugal",
+      address: {
+        "@type": "PostalAddress",
+        addressCountry: "PT",
+        addressLocality: "Porto",
+        addressRegion: "Norte",
+      },
     },
   };
 

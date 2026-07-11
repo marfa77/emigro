@@ -1,11 +1,13 @@
 import Link from "next/link";
 import { PORTUGAL_SATELLITE } from "@/lib/satellite/portugal";
 import { mainSiteUrl, portugalHubPath } from "@/lib/satellite/paths";
+import { spainHubPaths } from "@/lib/spain/hub";
 import { PortugalHubShell } from "@/components/portugal/PortugalHubShell";
 import { portugalHubPaths } from "@/lib/portugal/hub";
 import { layoutContain, safeAreaTopStyle } from "@/lib/ui/mobile";
 
 const MAIN_HUB_URL = mainSiteUrl(portugalHubPaths.landing);
+const SPAIN_HUB_URL = mainSiteUrl(spainHubPaths.landing);
 
 export function PortugalSatelliteHeader() {
   return (
@@ -64,6 +66,10 @@ export function PortugalSatelliteFooter() {
           Основной hub:{" "}
           <a href={MAIN_HUB_URL} className="text-teal-700 underline">
             emigro.online/ru/portugal
+          </a>
+          {" · "}
+          <a href={SPAIN_HUB_URL} className="text-slate-500 underline hover:text-slate-700">
+            Испания
           </a>
         </p>
       </div>

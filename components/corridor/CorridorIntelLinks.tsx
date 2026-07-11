@@ -8,6 +8,7 @@ import { barakhloMarketCityLabel } from "@/lib/barakhlo/markets";
 import { barakhloPromoUrl } from "@/lib/community-notes/sponsor-promo";
 import { corridorHubLabel } from "@/lib/corridor/hub";
 import { isPortugalHubTopic, portugalSatelliteHubUrl } from "@/lib/portugal/hub";
+import { isSpainHubTopic, spainSatelliteHubUrl } from "@/lib/spain/hub";
 import { corridorPillarGuideAnchor, corridorPillarGuideHref } from "@/lib/seo/corridor-pillar-guides";
 
 type Props = {
@@ -22,9 +23,11 @@ export function CorridorIntelLinks({ topic, variant = "full", layout = "grid" }:
   const newsHref = newsIndexPath(topic.urlSegment);
   const paths = topic.sitePaths;
   const isPortugalHub = isPortugalHubTopic(topic);
+  const isSpainHub = isSpainHubTopic(topic);
   const showHub = topicHasLanding(topic);
   const hubLabel = corridorHubLabel(topic);
-  const satelliteUrl = portugalSatelliteHubUrl();
+  const portugalSatelliteUrl = portugalSatelliteHubUrl();
+  const spainSatelliteUrl = spainSatelliteHubUrl();
   const barakhloUrl = barakhloPromoUrl("intel_links", topic.urlSegment);
   const barakhloCity = barakhloMarketCityLabel(topic.urlSegment);
   const pillarGuideHref = corridorPillarGuideHref(topic.urlSegment);
@@ -73,7 +76,15 @@ export function CorridorIntelLinks({ topic, variant = "full", layout = "grid" }:
         {isPortugalHub && (
           <>
             <span className="text-slate-300">·</span>
-            <a href={satelliteUrl} target="_blank" rel="noopener noreferrer" className="text-corridor-600 hover:underline">
+            <a href={portugalSatelliteUrl} target="_blank" rel="noopener noreferrer" className="text-corridor-600 hover:underline">
+              Практика
+            </a>
+          </>
+        )}
+        {isSpainHub && (
+          <>
+            <span className="text-slate-300">·</span>
+            <a href={spainSatelliteUrl} target="_blank" rel="noopener noreferrer" className="text-corridor-600 hover:underline">
               Практика
             </a>
           </>
@@ -187,12 +198,12 @@ export function CorridorIntelLinks({ topic, variant = "full", layout = "grid" }:
           <p className="mt-1 text-sm text-slate-600">Pillar-разборы: digital nomad, семья, отказы, бюджет.</p>
         </Link>
 
-        {showHub && !isPortugalHub && (
+        {showHub && !isPortugalHub && !isSpainHub && (
           <div className="rounded-lg border border-dashed border-slate-200 bg-slate-50 p-4 opacity-90">
             <StickyNote className="h-5 w-5 text-slate-400" />
             <p className="mt-2 font-medium text-slate-500">Практика — скоро</p>
             <p className="mt-1 text-sm text-slate-500">
-              Сателлит с заметками сообщества пока только для Португалии.
+              Сателлит с заметками сообщества пока только для Португалии и Испании.
             </p>
           </div>
         )}
@@ -216,7 +227,7 @@ export function CorridorIntelLinks({ topic, variant = "full", layout = "grid" }:
 
         {isPortugalHub && (
           <a
-            href={satelliteUrl}
+            href={portugalSatelliteUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="group rounded-lg border border-teal-200 bg-teal-50/50 p-4 transition hover:border-teal-400 hover:shadow-sm"
@@ -225,6 +236,21 @@ export function CorridorIntelLinks({ topic, variant = "full", layout = "grid" }:
             <p className="mt-2 font-medium text-slate-900 group-hover:text-teal-800">Практика в Португалии</p>
             <p className="mt-1 text-sm text-slate-600">
               NIF, AIMA, аренда — заметки из Telegram-сигналов на portugal.emigro.online.
+            </p>
+          </a>
+        )}
+
+        {isSpainHub && (
+          <a
+            href={spainSatelliteUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group rounded-lg border border-amber-200 bg-amber-50/50 p-4 transition hover:border-amber-400 hover:shadow-sm"
+          >
+            <StickyNote className="h-5 w-5 text-amber-700" />
+            <p className="mt-2 font-medium text-slate-900 group-hover:text-amber-800">Практика в Испании</p>
+            <p className="mt-1 text-sm text-slate-600">
+              NIE, TIE, extranjería — заметки из Telegram-сигналов на spain.emigro.online.
             </p>
           </a>
         )}
