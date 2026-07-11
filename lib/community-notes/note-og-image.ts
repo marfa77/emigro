@@ -5,6 +5,21 @@ import type { CommunityNote } from "@/lib/community-notes/types";
 import { appendCommittedNoteOgSlug, COMMITTED_NOTE_OG_SLUGS } from "@/lib/community-notes/note-og-slugs";
 import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 
+/** Spain hub card fallback when no committed/dynamic hero exists. */
+export const SPAIN_DEFAULT_OG_IMAGE = "/images/og/corridor-spain.jpg";
+
+/** Curated static OG paths for Spain editorial slugs (non-guide kinds + hero API fallback). */
+/** Distinct pillar OG JPG per Spain editorial slug (no shared vnj-ispaniya for all). */
+export const SPAIN_SLUG_STATIC_FALLBACKS: Record<string, string> = {
+  "nie-empadronamiento-poryadok-2026": "/images/og/guide-vnj-ispaniya-2026.jpg",
+  "tie-cita-extranjeria-valencia-2026": "/images/og/guide-otkaz-v-natsionalnoy-vize-konsulstvo-2026.jpg",
+  "dnv-uge-konsulstvo-2026": "/images/og/guide-digital-nomad-portugaliya-ispaniya-italiya-2026.jpg",
+  "arenda-valencia-idealista-2026": "/images/og/guide-pervye-30-dnej-v-ispanii-2026.jpg",
+  "bank-iban-nerezident-ispaniya-2026": "/images/og/guide-bank-i-iban-dlya-rossiyan-v-evrope-2026.jpg",
+  "beckham-autonomo-mify-2026": "/images/og/guide-grazhdanstvo-portugaliya-ispaniya-2026.jpg",
+  "pervye-30-dnej-v-ispanii-satelit-2026": "/images/og/guide-portugaliya-vs-ispaniya-vnj-2026.jpg",
+};
+
 const PEXELS_API = "https://api.pexels.com/v1/search";
 const NOTE_IMAGES_DIR = "public/images/community-notes";
 const MIN_WEBP_BYTES = 20_000;
@@ -23,6 +38,19 @@ export const TOPIC_PHOTO_QUERIES: Record<string, string[]> = {
   auto: ["portugal highway driving", "car road porto", "portugal car rental"],
   general: ["porto portugal skyline", "douro river porto", "norte portugal landscape"],
   portugal: ["porto portugal city", "douro river bridge", "braga portugal"],
+};
+
+/** Topic → landscape Pexels queries (Valencia / Spain bias). */
+export const SPAIN_TOPIC_PHOTO_QUERIES: Record<string, string[]> = {
+  nie: ["nie spain documents desk", "empadronamiento office spain", "valencia city hall"],
+  tie: ["extranjeria office spain", "immigration documents spain", "residence card spain"],
+  arenda: ["valencia apartment balcony", "rent apartment keys spain", "idealista apartment spain"],
+  bank: ["bank counter spain", "spanish bank office", "credit card payment desk"],
+  dnv: ["digital nomad laptop spain", "remote work valencia", "coworking space spain"],
+  uge: ["spanish consulate building", "visa documents desk", "immigration spain"],
+  autonomo: ["freelancer laptop cafe spain", "self employed spain office", "tax documents desk"],
+  general: ["valencia spain skyline", "spain cityscape sunset", "barcelona architecture"],
+  spain: ["valencia spain city", "spain travel landscape", "madrid skyline"],
 };
 
 /** Slug-specific overrides for hand-curated guides. */
@@ -66,6 +94,41 @@ const SLUG_PHOTO_QUERIES: Record<string, string[]> = {
     "tesla electric car charging",
     "ev charging station",
     "electric car portugal highway",
+  ],
+  "nie-empadronamiento-poryadok-2026": [
+    "nie spain document",
+    "empadronamiento valencia",
+    "spanish bureaucracy office",
+  ],
+  "tie-cita-extranjeria-valencia-2026": [
+    "extranjeria spain queue",
+    "tie card spain",
+    "immigration office valencia",
+  ],
+  "dnv-uge-konsulstvo-2026": [
+    "digital nomad valencia beach",
+    "spanish consulate visa",
+    "remote work spain laptop",
+  ],
+  "arenda-valencia-idealista-2026": [
+    "valencia apartment interior",
+    "rent keys apartment spain",
+    "valencia balcony city view",
+  ],
+  "bank-iban-nerezident-ispaniya-2026": [
+    "bank office spain",
+    "iban documents desk",
+    "spanish bank counter",
+  ],
+  "beckham-autonomo-mify-2026": [
+    "freelancer laptop spain",
+    "tax form documents desk",
+    "valencia coworking",
+  ],
+  "pervye-30-dnej-v-ispanii-satelit-2026": [
+    "valencia spain arrival",
+    "new city expat spain",
+    "valencia street cafe",
   ],
 };
 
@@ -117,14 +180,35 @@ function canWriteNoteOgImages(): boolean {
   }
 }
 
+function noteCountryKey(note: Pick<CommunityNote, "country_key">): "portugal" | "spain" {
+  return note.country_key === "spain" ? "spain" : "portugal";
+}
+
+function spainSlugFallback(slug: string): string {
+  return SPAIN_SLUG_STATIC_FALLBACKS[slug] ?? SPAIN_DEFAULT_OG_IMAGE;
+}
+
 /** Returns static, dynamic, or default OG path for a note. */
-export function resolveNoteOgImage(note: Pick<CommunityNote, "slug" | "content_kind">): string {
+export function resolveNoteOgImage(
+  note: Pick<CommunityNote, "slug" | "content_kind" | "country_key">
+): string {
   if (hasNoteOgImage(note.slug)) return noteOgImagePublicPath(note.slug);
+  if (note.content_kind === "guide") return noteOgImageDynamicPath(note.slug);
+  if (noteCountryKey(note) === "spain") return spainSlugFallback(note.slug);
+  return DEFAULT_OG_IMAGE;
+}
+
+/** Card/list thumbnail — always a displayable static or committed path (no dynamic API). */
+export function resolveNoteCardImage(
+  note: Pick<CommunityNote, "slug" | "content_kind" | "country_key">
+): string {
+  if (hasNoteOgImage(note.slug)) return noteOgImagePublicPath(note.slug);
+  if (noteCountryKey(note) === "spain") return spainSlugFallback(note.slug);
   if (note.content_kind === "guide") return noteOgImageDynamicPath(note.slug);
   return DEFAULT_OG_IMAGE;
 }
 
-function queriesFromTitle(title: string | undefined): string[] {
+function queriesFromTitle(title: string | undefined, countryKey: "portugal" | "spain"): string[] {
   if (!title?.trim()) return [];
   const cleaned = title
     .replace(/[«»"—–\-:,]/g, " ")
@@ -132,23 +216,33 @@ function queriesFromTitle(title: string | undefined): string[] {
     .trim();
   if (cleaned.length < 8) return [];
   const short = cleaned.slice(0, 72);
-  return [`${short} portugal`, `portugal ${short.slice(0, 48)}`];
+  const place = countryKey === "spain" ? "spain" : "portugal";
+  return [`${short} ${place}`, `${place} ${short.slice(0, 48)}`];
 }
 
-function queriesFromSlug(slug: string): string[] {
+function queriesFromSlug(slug: string, countryKey: "portugal" | "spain"): string[] {
   const stem = slug.replace(/-20\d{2}$/, "");
-  const words = stem.split("-").filter((w) => w.length > 3 && !/^(portugaliya|portugalii|gid|guide)$/.test(w));
+  const skip =
+    countryKey === "spain"
+      ? /^(ispaniya|ispanii|gid|guide|spain|satelit)$/
+      : /^(portugaliya|portugalii|gid|guide)$/;
+  const words = stem.split("-").filter((w) => w.length > 3 && !skip.test(w));
   if (words.length === 0) return [];
-  return [`portugal ${words.slice(0, 4).join(" ")}`];
+  const place = countryKey === "spain" ? "spain" : "portugal";
+  return [`${place} ${words.slice(0, 4).join(" ")}`];
 }
 
-export function queriesForNote(note: Pick<CommunityNote, "slug" | "topic_tags" | "title">): string[] {
+export function queriesForNote(
+  note: Pick<CommunityNote, "slug" | "topic_tags" | "title" | "country_key">
+): string[] {
+  const countryKey = noteCountryKey(note);
+  const topicMap = countryKey === "spain" ? SPAIN_TOPIC_PHOTO_QUERIES : TOPIC_PHOTO_QUERIES;
   const slugQueries = SLUG_PHOTO_QUERIES[note.slug] ?? [];
-  const titleQueries = queriesFromTitle(note.title);
-  const slugKeywordQueries = queriesFromSlug(note.slug);
+  const titleQueries = queriesFromTitle(note.title, countryKey);
+  const slugKeywordQueries = queriesFromSlug(note.slug, countryKey);
   const primaryTag = note.topic_tags[0]?.toLowerCase();
-  const topicQueries = primaryTag ? (TOPIC_PHOTO_QUERIES[primaryTag] ?? []) : [];
-  const general = TOPIC_PHOTO_QUERIES.general;
+  const topicQueries = primaryTag ? (topicMap[primaryTag] ?? []) : [];
+  const general = topicMap.general;
   return Array.from(new Set([...slugQueries, ...titleQueries, ...slugKeywordQueries, ...topicQueries, ...general]));
 }
 
@@ -194,7 +288,7 @@ async function downloadPhoto(url: string, destPath: string): Promise<void> {
 
 /** Generate 1200×630 WebP from Pexels without writing to disk. */
 export async function generateNoteOgWebp(
-  note: Pick<CommunityNote, "slug" | "topic_tags" | "title">
+  note: Pick<CommunityNote, "slug" | "topic_tags" | "title" | "country_key">
 ): Promise<Buffer | null> {
   const queries = queriesForNote(note);
   for (const query of queries) {
@@ -236,7 +330,7 @@ export type EnsureNoteOgImageResult = {
  * On read-only hosts (Vercel) skips disk write and returns the dynamic hero API path.
  */
 export async function ensureNoteOgImage(
-  note: Pick<CommunityNote, "slug" | "topic_tags" | "title" | "content_kind">,
+  note: Pick<CommunityNote, "slug" | "topic_tags" | "title" | "content_kind" | "country_key">,
   options: EnsureNoteOgImageOptions = {}
 ): Promise<EnsureNoteOgImageResult> {
   const { force = false, rateLimitMs = 350 } = options;

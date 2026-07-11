@@ -152,7 +152,7 @@ export async function publishDraftsFromNewSignals(
       existingTopics.add(primaryTopic);
 
       try {
-        const og = await ensureNoteOgImage(draft);
+        const og = await ensureNoteOgImage({ ...draft, country_key: countryKey });
         console.log(
           `[publish] og-image ${draft.slug}: ${og.path}${og.generated ? " (generated)" : ""}${
             og.manifestAppended ? " (manifest)" : ""

@@ -1,10 +1,12 @@
 import { corridorLandingPath, corridorWizardPath, corridorDigestPath, programPath } from "@/lib/corridor/paths";
 import { guidePath, listGuides } from "@/lib/guides/load";
 import { getCorridorBySlug } from "@/lib/corridor/queries";
+import { getPublishedCommunityNotes } from "@/lib/community-notes/queries";
+import { normalizeHashtag } from "@/lib/community-notes/hashtags";
 import { getActiveNewsTopics } from "@/lib/news/topics";
 import { pageUrl } from "@/lib/seo";
 import { QUERY_LONG_TAIL_TARGETS } from "@/lib/seo/query-longtail";
-import { portugalSatellitePublicUrl } from "@/lib/site-url";
+import { portugalSatellitePublicUrl, spainSatellitePublicUrl } from "@/lib/site-url";
 
 export const revalidate = 3600;
 
@@ -22,6 +24,7 @@ export async function GET() {
     pageUrl("/ru/wizard"),
     pageUrl("/ru/guides"),
     portugalSatellitePublicUrl("/llms"),
+    spainSatellitePublicUrl("/llms"),
     ...QUERY_LONG_TAIL_TARGETS.filter((t) => t.path).map((t) => pageUrl(t.path!)),
   ]);
 
@@ -40,6 +43,33 @@ export async function GET() {
 
   for (const guide of guides) {
     urls.add(pageUrl(guidePath(guide.slug)));
+  }
+
+  const [portugalNotes, spainNotes] = await Promise.all([
+    getPublishedCommunityNotes("portugal"),
+    getPublishedCommunityNotes("spain"),
+  ]);
+  urls.add(portugalSatellitePublicUrl("/"));
+  urls.add(spainSatellitePublicUrl("/"));
+  for (const note of portugalNotes) {
+    urls.add(portugalSatellitePublicUrl(`/notes/${note.slug}`));
+  }
+  for (const note of spainNotes) {
+    urls.add(spainSatellitePublicUrl(`/notes/${note.slug}`));
+  }
+  const portugalTags = new Set<string>();
+  for (const note of portugalNotes) {
+    for (const t of note.hashtags) portugalTags.add(normalizeHashtag(t));
+  }
+  const spainTags = new Set<string>();
+  for (const note of spainNotes) {
+    for (const t of note.hashtags) spainTags.add(normalizeHashtag(t));
+  }
+  for (const tag of portugalTags) {
+    urls.add(portugalSatellitePublicUrl(`/tag/${encodeURIComponent(tag)}`));
+  }
+  for (const tag of spainTags) {
+    urls.add(spainSatellitePublicUrl(`/tag/${encodeURIComponent(tag)}`));
   }
 
   const body = [

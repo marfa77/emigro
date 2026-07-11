@@ -12,7 +12,13 @@ import {
 import { getPublishedCommunityNotes } from "@/lib/community-notes/queries";
 import { normalizeHashtag } from "@/lib/community-notes/hashtags";
 import { newsIndexPath } from "@/lib/news/topics";
-import { newsArticleUrl, newsHubUrl, publicSiteUrl, portugalSatellitePublicUrl } from "@/lib/site-url";
+import {
+  newsArticleUrl,
+  newsHubUrl,
+  publicSiteUrl,
+  portugalSatellitePublicUrl,
+  spainSatellitePublicUrl,
+} from "@/lib/site-url";
 import { TRANSIT_HUBS } from "@/lib/transit-hubs";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -133,10 +139,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.85,
   }));
 
-  const portugalNotes = await getPublishedCommunityNotes("portugal");
-  const tagSet = new Set<string>();
+  const [portugalNotes, spainNotes] = await Promise.all([
+    getPublishedCommunityNotes("portugal"),
+    getPublishedCommunityNotes("spain"),
+  ]);
+  const portugalTagSet = new Set<string>();
   for (const note of portugalNotes) {
-    for (const t of note.hashtags) tagSet.add(normalizeHashtag(t));
+    for (const t of note.hashtags) portugalTagSet.add(normalizeHashtag(t));
+  }
+  const spainTagSet = new Set<string>();
+  for (const note of spainNotes) {
+    for (const t of note.hashtags) spainTagSet.add(normalizeHashtag(t));
   }
   const satelliteRoutes: MetadataRoute.Sitemap = [
     {
@@ -155,8 +168,29 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "weekly" as const,
       priority: note.content_kind === "news" ? 0.85 : 0.75,
     })),
-    ...Array.from(tagSet).map((tag) => ({
+    ...Array.from(portugalTagSet).map((tag) => ({
       url: portugalSatellitePublicUrl(`/tag/${encodeURIComponent(tag)}`),
+      changeFrequency: "weekly" as const,
+      priority: 0.65,
+    })),
+    {
+      url: spainSatellitePublicUrl("/"),
+      changeFrequency: "daily",
+      priority: 0.9,
+    },
+    {
+      url: spainSatellitePublicUrl("/llms"),
+      changeFrequency: "daily",
+      priority: 0.5,
+    },
+    ...spainNotes.map((note) => ({
+      url: spainSatellitePublicUrl(`/notes/${note.slug}`),
+      lastModified: note.updated_at || note.published_at || undefined,
+      changeFrequency: "weekly" as const,
+      priority: note.content_kind === "news" ? 0.85 : 0.75,
+    })),
+    ...Array.from(spainTagSet).map((tag) => ({
+      url: spainSatellitePublicUrl(`/tag/${encodeURIComponent(tag)}`),
       changeFrequency: "weekly" as const,
       priority: 0.65,
     })),

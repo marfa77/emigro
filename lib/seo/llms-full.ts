@@ -5,7 +5,12 @@ import { normalizeHashtag } from "@/lib/community-notes/hashtags";
 import { getPublishedCommunityNotes } from "@/lib/community-notes/queries";
 import { getPublishedNewsDigests } from "@/lib/news/digests";
 import { getActiveNewsTopics, newsIndexPath } from "@/lib/news/topics";
-import { newsArticleUrl, portugalSatellitePublicUrl, publicSiteUrl } from "@/lib/site-url";
+import {
+  newsArticleUrl,
+  portugalSatellitePublicUrl,
+  publicSiteUrl,
+  spainSatellitePublicUrl,
+} from "@/lib/site-url";
 import { TRANSIT_HUBS } from "@/lib/transit-hubs";
 import { formatAiAnswerCard, formatCitationPromptsSection } from "@/lib/seo/llm-citation-prompts";
 import { llmMarkdownLink, llmUtmUrl } from "@/lib/seo/llm-meta";
@@ -26,8 +31,10 @@ export async function buildLlmsTxt(): Promise<string> {
   const topics = await getActiveNewsTopics();
   const fullCorridors = topics.filter((t) => t.status === "active" && t.corridorSlug && t.sitePaths);
   const guides = listGuides();
-  const satelliteHub = llmsPathFromUrl(portugalSatellitePublicUrl("/"));
-  const satelliteLlms = llmsPathFromUrl(portugalSatellitePublicUrl("/llms"));
+  const portugalSatelliteHub = llmsPathFromUrl(portugalSatellitePublicUrl("/"));
+  const portugalSatelliteLlms = llmsPathFromUrl(portugalSatellitePublicUrl("/llms"));
+  const spainSatelliteHub = llmsPathFromUrl(spainSatellitePublicUrl("/"));
+  const spainSatelliteLlms = llmsPathFromUrl(spainSatellitePublicUrl("/llms"));
 
   const transitHubLines = TRANSIT_HUBS.map(
     (hub) => `- ${llmMarkdownLink(hub.countryRu, hub.path)} — ${hub.tagline}`
@@ -78,8 +85,13 @@ ${corridorLines}
 
 ## Portugal satellite (практика, Лиссабон)
 
-- ${llmMarkdownLink("Hub", satelliteHub)} — заметки, лайфхаки, #aima #nif #аренда
-- ${llmMarkdownLink("llms index", satelliteLlms)} — индекс для AI-агентов
+- ${llmMarkdownLink("Hub", portugalSatelliteHub)} — заметки, лайфхаки, #aima #nif #аренда
+- ${llmMarkdownLink("llms index", portugalSatelliteLlms)} — индекс для AI-агентов
+
+## Spain satellite (практика, Валенсия)
+
+- ${llmMarkdownLink("Hub", spainSatelliteHub)} — заметки, лайфхаки, #nie #extranjeria #аренда
+- ${llmMarkdownLink("llms index", spainSatelliteLlms)} — индекс для AI-агентов
 
 Пример структуры коридора:
 - Landing: ${llmUtmUrl("/ru/portugal")}
@@ -136,10 +148,17 @@ export async function buildLlmsFullText(): Promise<string> {
   const guides = listGuides();
   const digests = await getPublishedNewsDigests();
   const recentNews = digests.slice(0, NEWS_URL_LIMIT);
-  const portugalNotes = await getPublishedCommunityNotes("portugal");
-  const tagSet = new Set<string>();
+  const [portugalNotes, spainNotes] = await Promise.all([
+    getPublishedCommunityNotes("portugal"),
+    getPublishedCommunityNotes("spain"),
+  ]);
+  const portugalTagSet = new Set<string>();
   for (const note of portugalNotes) {
-    for (const t of note.hashtags) tagSet.add(normalizeHashtag(t));
+    for (const t of note.hashtags) portugalTagSet.add(normalizeHashtag(t));
+  }
+  const spainTagSet = new Set<string>();
+  for (const note of spainNotes) {
+    for (const t of note.hashtags) spainTagSet.add(normalizeHashtag(t));
   }
 
   const rows: LlmsRow[] = [
@@ -154,6 +173,8 @@ export async function buildLlmsFullText(): Promise<string> {
     row("/ru/contact", "Контакты Emigro"),
     row(llmsPathFromUrl(portugalSatellitePublicUrl("/")), "Portugal satellite — практика релокации в Лиссабоне"),
     row(llmsPathFromUrl(portugalSatellitePublicUrl("/llms")), "Portugal satellite llms index"),
+    row(llmsPathFromUrl(spainSatellitePublicUrl("/")), "Spain satellite — практика релокации в Валенсии"),
+    row(llmsPathFromUrl(spainSatellitePublicUrl("/llms")), "Spain satellite llms index"),
     ...TRANSIT_HUBS.map((hub) =>
       row(hub.path, `${hub.countryRu} — транзитный хаб: ${hub.quickAnswer.slice(0, 120)}…`)
     ),
@@ -203,11 +224,29 @@ export async function buildLlmsFullText(): Promise<string> {
     );
   }
 
-  for (const tag of Array.from(tagSet)) {
+  for (const tag of Array.from(portugalTagSet)) {
     rows.push(
       row(
         llmsPathFromUrl(portugalSatellitePublicUrl(`/tag/${tag}`)),
         `#${tag} — Portugal satellite`
+      )
+    );
+  }
+
+  for (const note of spainNotes) {
+    rows.push(
+      row(
+        llmsPathFromUrl(spainSatellitePublicUrl(`/notes/${note.slug}`)),
+        note.title ?? note.slug
+      )
+    );
+  }
+
+  for (const tag of Array.from(spainTagSet)) {
+    rows.push(
+      row(
+        llmsPathFromUrl(spainSatellitePublicUrl(`/tag/${tag}`)),
+        `#${tag} — Spain satellite`
       )
     );
   }
