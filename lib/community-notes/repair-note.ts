@@ -166,8 +166,12 @@ export function repairNoteContent(row: {
   return { patch, changed };
 }
 
+const COUNTRY_TOPIC_TAGS = new Set(["portugal", "spain"]);
+
 export function getRelatedNotes(note: CommunityNote, allNotes: CommunityNote[], limit = 3): CommunityNote[] {
-  const topicSet = new Set(note.topic_tags.map((t) => t.toLowerCase()).filter((t) => t !== "portugal"));
+  const topicSet = new Set(
+    note.topic_tags.map((t) => t.toLowerCase()).filter((t) => !COUNTRY_TOPIC_TAGS.has(t))
+  );
   const tagSet = new Set(note.hashtags.map((t) => t.toLowerCase()));
 
   return allNotes

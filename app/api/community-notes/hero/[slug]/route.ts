@@ -23,7 +23,9 @@ export async function GET(_request: Request, { params }: { params: { slug: strin
     return new NextResponse(new Uint8Array(buf), { headers: CACHE_HEADERS });
   }
 
-  const note = await getPublishedCommunityNoteBySlug(slug, "portugal");
+  const note =
+    (await getPublishedCommunityNoteBySlug(slug, "spain")) ??
+    (await getPublishedCommunityNoteBySlug(slug, "portugal"));
   if (!note) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }

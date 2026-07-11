@@ -1,37 +1,12 @@
 import { createServerClient } from "@/lib/supabase/server";
 import { normalizeHashtag } from "@/lib/community-notes/hashtags";
+import {
+  finalizeCommunityNote,
+  mergePublishedNotesWithSeed,
+} from "@/lib/community-notes/normalize-note";
 import { noteSeedFallback } from "@/lib/community-notes/seed";
-import type { CommunityNote, CommunitySignalIngest, ContentKind } from "@/lib/community-notes/types";
+import type { CommunityNote, CommunitySignalIngest } from "@/lib/community-notes/types";
 import { filterRelocantSignals } from "@/lib/satellite/portugal";
-
-function mapNote(row: Record<string, unknown>): CommunityNote {
-  return {
-    id: String(row.id),
-    slug: String(row.slug),
-    country_key: String(row.country_key),
-    city: String(row.city),
-    category: String(row.category),
-    content_kind: (row.content_kind as ContentKind) ?? "guide",
-    title: String(row.title),
-    excerpt: String(row.excerpt),
-    seo_title: String(row.seo_title),
-    seo_description: String(row.seo_description),
-    quick_answer: String(row.quick_answer),
-    body_paragraphs: (row.body_paragraphs as string[]) ?? [],
-    body_sections: (row.body_sections as CommunityNote["body_sections"]) ?? [],
-    key_takeaways: (row.key_takeaways as string[]) ?? [],
-    faq: (row.faq as CommunityNote["faq"]) ?? [],
-    official_links: (row.official_links as CommunityNote["official_links"]) ?? [],
-    source_channel: (row.source_channel as string | null) ?? null,
-    source_label: (row.source_label as string | null) ?? null,
-    topic_tags: (row.topic_tags as string[]) ?? [],
-    hashtags: (row.hashtags as string[]) ?? [],
-    status: row.status as CommunityNote["status"],
-    published_at: (row.published_at as string | null) ?? null,
-    created_at: String(row.created_at),
-    updated_at: String(row.updated_at),
-  };
-}
 
 export async function getPublishedCommunityNotes(countryKey = "portugal"): Promise<CommunityNote[]> {
   try {
@@ -52,8 +27,8 @@ export async function getPublishedCommunityNotes(countryKey = "portugal"): Promi
       return noteSeedFallback(countryKey);
     }
 
-    const notes = (data ?? []).map(mapNote);
-    return notes.length > 0 ? notes : noteSeedFallback(countryKey);
+    const notes = (data ?? []).map((row) => finalizeCommunityNote(row, countryKey));
+    return notes.length > 0 ? mergePublishedNotesWithSeed(notes, countryKey) : noteSeedFallback(countryKey);
   } catch (e) {
     console.warn("[community-notes] fallback to seed:", e);
     return noteSeedFallback(countryKey);
@@ -86,7 +61,7 @@ export async function getPublishedCommunityNoteBySlug(
     if (error || !data) {
       return noteSeedFallback(countryKey).find((n) => n.slug === slug) ?? null;
     }
-    return mapNote(data);
+    return finalizeCommunityNote(data, countryKey);
   } catch {
     return noteSeedFallback(countryKey).find((n) => n.slug === slug) ?? null;
   }

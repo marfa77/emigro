@@ -20,23 +20,43 @@ const GEO = {
   audience: "Russian-speaking relocants in Portugal (RU, BY, UA, KZ passports), primarily Norte (Porto, Braga, Minho)",
 } as const;
 
+const SPAIN_GEO = {
+  country: "Spain",
+  countryCode: "ES",
+  city: "Valencia",
+  region: "Comunitat Valenciana",
+  latitude: 39.4699,
+  longitude: -0.3763,
+  audience:
+    "Russian-speaking relocants in Spain (RU, BY, UA, KZ passports), primarily Valencia, Madrid, Barcelona",
+} as const;
+
 const CITY_GEO: Record<string, { city: string; region: string; latitude: number; longitude: number }> = {
   lisbon: { city: "Lisbon", region: "Lisbon Metropolitan Area", latitude: 38.7223, longitude: -9.1393 },
   porto: { city: "Porto", region: "Norte", latitude: 41.1579, longitude: -8.6291 },
+  valencia: { city: "Valencia", region: "Comunitat Valenciana", latitude: 39.4699, longitude: -0.3763 },
+  madrid: { city: "Madrid", region: "Comunidad de Madrid", latitude: 40.4168, longitude: -3.7038 },
+  barcelona: { city: "Barcelona", region: "Catalonia", latitude: 41.3851, longitude: 2.1734 },
 };
 
 const TOPIC_GEO_KEYWORDS: Record<string, string[]> = {
   nif: ["NIF Portugal", "Finanças Porto", "e-Fatura"],
+  nie: ["NIE Spain", "extranjería Valencia", "empadronamiento Spain"],
+  tie: ["TIE Spain", "cita extranjería", "residencia Spain"],
   aima: ["AIMA Portugal", "Agora appointment", "VNG Portugal"],
-  arenda: ["rent Porto", "arrendamento Portugal", "rent Braga"],
-  bank: ["bank account Portugal", "conta bancária"],
+  arenda: ["rent Porto", "arrendamento Portugal", "rent Braga", "Idealista Valencia", "rent Spain"],
+  bank: ["bank account Portugal", "conta bancária", "IBAN Spain", "cuenta bancaria"],
   sns: ["SNS Portugal", "numero utente"],
   ciple: ["CIPLE CAPLE Portugal"],
   transport: ["Porto metro CP", "transport Norte"],
   sim: ["SIM card Portugal"],
   school: ["school Porto expat", "international school Braga"],
-  general: ["Portugal relocation", "Norte expat", "Porto expat"],
+  general: ["Portugal relocation", "Norte expat", "Porto expat", "Spain relocation", "Valencia expat"],
 };
+
+function geoForNote(note: CommunityNote) {
+  return note.country_key === "spain" ? SPAIN_GEO : GEO;
+}
 
 export function communityNoteUrl(slug: string, countryKey = "portugal"): string {
   return communityNotePublicUrl(slug, countryKey);
@@ -122,22 +142,23 @@ function schemaTypeForKind(kind: ContentKind): "NewsArticle" | "Article" {
   return kind === "news" ? "NewsArticle" : "Article";
 }
 
-function placeSchema(city?: string) {
-  const geo = (city ? CITY_GEO[city] : undefined) ?? CITY_GEO.porto;
-  const locality = geo.city;
+function placeSchema(note: CommunityNote) {
+  const geo = geoForNote(note);
+  const cityGeo = (note.city ? CITY_GEO[note.city] : undefined) ?? CITY_GEO[note.country_key === "spain" ? "valencia" : "porto"];
+  const locality = cityGeo.city;
   return {
     "@type": "Place" as const,
-    name: `${locality}, ${GEO.country}`,
+    name: `${locality}, ${geo.country}`,
     address: {
       "@type": "PostalAddress" as const,
-      addressCountry: GEO.countryCode,
+      addressCountry: geo.countryCode,
       addressLocality: locality,
-      addressRegion: geo.region,
+      addressRegion: cityGeo.region,
     },
     geo: {
       "@type": "GeoCoordinates" as const,
-      latitude: geo.latitude,
-      longitude: geo.longitude,
+      latitude: cityGeo.latitude,
+      longitude: cityGeo.longitude,
     },
   };
 }
@@ -148,6 +169,7 @@ export function buildCommunityNoteSchemas(note: CommunityNote) {
   const hubTitle = note.country_key === "spain" ? SPAIN_SATELLITE.title : PORTUGAL_SATELLITE.title;
   const hubUrl = satelliteHubPublicUrl(note.country_key);
   const defaultTag = note.country_key === "spain" ? "spain" : "portugal";
+  const noteGeo = geoForNote(note);
 
   const articleSchema = {
     "@context": "https://schema.org",
@@ -164,13 +186,13 @@ export function buildCommunityNoteSchemas(note: CommunityNote) {
     image: schemaImage(resolveNoteOgImage(note)),
     inLanguage: "ru-RU",
     keywords: buildCommunityNoteKeywords(note).join(", "),
-    about: [placeSchema(note.city), ...note.topic_tags.map((t) => ({ "@type": "Thing", name: t }))],
-    contentLocation: placeSchema(note.city),
-    spatialCoverage: placeSchema(note.city),
+    about: [placeSchema(note), ...note.topic_tags.map((t) => ({ "@type": "Thing", name: t }))],
+    contentLocation: placeSchema(note),
+    spatialCoverage: placeSchema(note),
     audience: {
       "@type": "Audience",
-      audienceType: GEO.audience,
-      geographicArea: placeSchema(note.city),
+      audienceType: noteGeo.audience,
+      geographicArea: placeSchema(note),
     },
     ...(note.official_links.length
       ? {
@@ -217,9 +239,10 @@ export function buildCommunityNoteSchemas(note: CommunityNote) {
 }
 
 export function buildCommunityNoteLlmFacts(note: CommunityNote): string[] {
+  const noteGeo = geoForNote(note);
   const facts = [
     note.quick_answer,
-    `${CONTENT_KIND_LABELS[note.content_kind]} · ${note.category} · ${GEO.city}, ${GEO.country}`,
+    `${CONTENT_KIND_LABELS[note.content_kind]} · ${note.category} · ${noteGeo.city}, ${noteGeo.country}`,
     note.excerpt,
     ...note.key_takeaways,
   ];
@@ -233,9 +256,10 @@ export function buildCommunityNoteLlmFacts(note: CommunityNote): string[] {
 }
 
 export function buildCommunityNoteLlmDescription(note: CommunityNote): string {
+  const noteGeo = geoForNote(note);
   return [
     note.quick_answer,
-    `География: ${GEO.city}, ${GEO.country}. Аудитория: ${GEO.audience}.`,
+    `География: ${noteGeo.city}, ${noteGeo.country}. Аудитория: ${noteGeo.audience}.`,
     `Emigro — editorial note, not legal advice. Verify on official portals before filing.`,
   ]
     .filter(Boolean)
