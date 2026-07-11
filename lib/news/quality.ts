@@ -67,7 +67,9 @@ export function portugalSiteDigestFactualGuardrailRu(): string {
 - Срок 10 лет для многих заявителей — изменение Nationality Law (подписан 3 мая 2026), а НЕ следствие задержек AIMA.
 - НЕ пиши, что легальное требование остаётся 5 лет (кроме явных переходных правил из источников).
 - Задержки AIMA — отдельный административный риск; они не «превращают» 5 лет в 10.
-- Запрещено: «10 лет из-за AIMA», «AIMA превращает 5 лет в 10».`;
+- Запрещено: «10 лет из-за AIMA», «AIMA превращает 5 лет в 10».
+- Estrutura de Missão AIMA формально прекратила работу 31.12.2025 — только прошедшее время («завершила», «оставила»), не «завершает» / «до августа 2026».
+- В 2026 судебная очередь (133 000+ исков, CSTAF, ~900 новых в день) — более актуальный фактор задержек, чем 30 000 «наследных» дел Estrutura de Missão.`;
 }
 
 export function portugalTelegramFactualGuardrailRu(): string {
@@ -84,6 +86,50 @@ export function spainGoldenVisaFactualGuardrailRu(): string {
 
 export function spainTelegramFactualGuardrailRu(): string {
   return spainGoldenVisaFactualGuardrailRu();
+}
+
+export function germanyCitizenshipFactualGuardrailRu(): string {
+  return `КРИТИЧЕСКИЕ факты по гражданству Германии (StAG, с 27 июня 2024):
+- Стандартная натурализация — 5 лет легального проживания (было 8 лет до реформы).
+- Ускорение — до 3 лет при немецком C1 и особых интеграционных достижениях.
+- НЕ пиши «8 лет» как стандартный/текущий срок для гражданства DE.
+- Допустимо упомянуть «было 8 лет» только в контексте реформы 2024 (сокращение до 5/3).`;
+}
+
+export function scandinaviaSwedenPmjFactualGuardrailRu(): string {
+  return `КРИТИЧЕСКИЕ факты по Швеции (proposition 2025/26:262, с 12 июля 2026, Migrationsverket):
+- С 12 июля 2026 при новых решениях/продлении беженцы, получатели субсидиарной защиты, воссоединившиеся с ними родственники и LTR больше не получают ПМЖ — вместо него пятилетний продлеваемый ВНЖ.
+- Уже выданные ПМЖ НЕ отзываются — меняются только новые решения; аудитория не должна читать это как «забирают ПМЖ у всех».
+- Для гражданства с 12 июля ПМЖ не обязателен: достаточно обоснованных перспектив продления LTR-статуса; при 10 годах легального проживания это условие тоже не требуется.
+- НЕ пиши, что Швеция «отменяет ПМЖ» без оговорки «новые решения / уже выданные не затронуты».
+- Трудовые мигранты и ПМЖ по воссоединению семьи (не с защитным статусом) этой частью изменений не затронуты.`;
+}
+
+export function scandinaviaTelegramFactualGuardrailRu(): string {
+  return scandinaviaSwedenPmjFactualGuardrailRu();
+}
+
+function germanyCitizenshipFactualErrors(text: string): string[] {
+  const errors: string[] = [];
+  const n = normalizeText(text);
+  if (!/(?:герман|germany|bamf|stag|einbürgerung)/i.test(text)) return errors;
+
+  const impliesEightYearStandard =
+    /(?:стандартн\w*|обычн\w*|минимальн\w*|текущ\w*|установлен\w*|bamf).{0,60}8\s*лет/.test(n) ||
+    /8\s*лет.{0,60}(?:натурализац|гражданств|проживан|legal residence|naturalization|citizenship)/.test(n) ||
+    /(?:натурализац|гражданств).{0,60}8\s*лет/.test(n) ||
+    /8\s*years?.{0,60}(?:naturalization|citizenship|legal residence)/.test(n);
+
+  const reformContext =
+    /(?:был[ао]|до реформ|сокращен\w*|вместо прежн\w*|раньше|previously|was 8|reduced from 8|down from 8)/.test(n);
+
+  if (impliesEightYearStandard && !reformContext) {
+    errors.push(
+      "Германия: стандартный срок натурализации — 5 лет (StAG 2024), ускорение до 3 лет при C1; нельзя писать «8 лет» как текущий стандарт."
+    );
+  }
+
+  return Array.from(new Set(errors));
 }
 
 function portugalFactualErrors(text: string): string[] {
@@ -105,6 +151,15 @@ function portugalFactualErrors(text: string): string[] {
     errors.push("Нельзя объяснять 10-летний срок только задержками AIMA — это изменение закона.");
   }
 
+  if (
+    /(?:estrutura de miss[aã]o|спецгрупп\w*\s+aima).{0,80}(?:завершает|завершит|до августа 2026)/.test(n) ||
+    /(?:завершает|завершит).{0,80}(?:estrutura de miss[aã]o|спецгрупп\w*\s+aima)/.test(n)
+  ) {
+    errors.push(
+      "Estrutura de Missão AIMA прекратила работу 31.12.2025 — нельзя писать «завершает работу» или «до августа 2026» в настоящем времени."
+    );
+  }
+
   return Array.from(new Set(errors));
 }
 
@@ -120,6 +175,40 @@ function hasTransitionalLimitation(text: string): boolean {
   return /(?:переходн\w*\s+правил|только\s+(?:для\s+)?(?:ранее\s+)?подан|ранее\s+подан|уже\s+подан|до\s+2025-04-03|до\s+3\s+апрел[яь]\s+2025|before\s+2025-04-03|transitional|pending|already\s+filed)/i.test(
     text
   );
+}
+
+function hasSwedenPmjProtectionTopic(text: string): boolean {
+  if (!/(?:швец|sweden|migrationsverket)/i.test(text)) return false;
+  if (!/(?:пмж|permanent\s+residence|permanent\s+uppehåll|\bput\b)/i.test(text)) return false;
+  return /(?:бежен|защит|убежищ|subsidiary\s+protection|protection[\s-]?status|гуманитар|ltr|долгосрочн\w+\s+резидент)/i.test(
+    text
+  );
+}
+
+function scandinaviaSwedenPmjFactualErrors(text: string): string[] {
+  const errors: string[] = [];
+  if (!hasSwedenPmjProtectionTopic(text)) return errors;
+  const n = normalizeText(text);
+
+  const hasGrandfather =
+    /(?:уже\s+выданн|уже\s+полученн|уже\s+имеющ|не\s+отзыва|не\s+аннулиру|не\s+затрагива\w*\s+уже|не\s+затронут\w*\s+уже|only\s+new\s+decisions|already\s+granted|not\s+affected|новые\s+решени|только\s+нов|сохраня\w*\s+за\s+уже)/i.test(
+      n
+    );
+  if (!hasGrandfather) {
+    errors.push(
+      "Швеция: при отмене ПМЖ для защитных категорий обязательно уточни, что уже выданные ПМЖ не отзываются — меняются только новые решения с 12 июля."
+    );
+  }
+
+  const impliesRevocation =
+    /(?:отзыва\w*|аннулиру\w*|лиша\w*\s+уже|revok\w*|withdraw\w*).{0,40}(?:пмж|permanent)/i.test(n) ||
+    /(?:пмж|permanent).{0,40}(?:отзыва\w*|аннулиру\w*|лиша\w*\s+уже)/i.test(n);
+  const hasRevocationException = /(?:уже\s+выданн|не\s+отзыва|not\s+revoked|not\s+affected)/i.test(n);
+  if (impliesRevocation && !hasRevocationException) {
+    errors.push("Швеция: нельзя писать, что уже выданные ПМЖ отзывают — закон меняет только новые решения.");
+  }
+
+  return Array.from(new Set(errors));
 }
 
 function spainGoldenVisaFactualErrors(text: string): string[] {
@@ -306,6 +395,12 @@ export function validateSiteDigestQuality(params: {
   if (params.topic.trim().toLowerCase() === "spain") {
     errors.push(...spainGoldenVisaFactualErrors(text));
   }
+  if (params.topic.trim().toLowerCase() === "germany") {
+    errors.push(...germanyCitizenshipFactualErrors(text));
+  }
+  if (params.topic.trim().toLowerCase() === "scandinavia") {
+    errors.push(...scandinaviaSwedenPmjFactualErrors(text));
+  }
 
   return Array.from(new Set(errors));
 }
@@ -327,6 +422,12 @@ export function validateTelegramDigestQuality(params: {
   }
   if (params.topic.trim().toLowerCase() === "spain") {
     errors.push(...spainGoldenVisaFactualErrors(text));
+  }
+  if (params.topic.trim().toLowerCase() === "germany") {
+    errors.push(...germanyCitizenshipFactualErrors(text));
+  }
+  if (params.topic.trim().toLowerCase() === "scandinavia") {
+    errors.push(...scandinaviaSwedenPmjFactualErrors(text));
   }
 
   if (params.sourceLinks && params.sourceLinks.some((l) => isBlockedSourceUrl(l.url))) {
@@ -395,6 +496,12 @@ export function validateThreadsQuality(params: { threadsText: string; topic: str
 
   if (params.topic.trim().toLowerCase() === "spain") {
     errors.push(...spainGoldenVisaFactualErrors(params.threadsText));
+  }
+  if (params.topic.trim().toLowerCase() === "germany") {
+    errors.push(...germanyCitizenshipFactualErrors(params.threadsText));
+  }
+  if (params.topic.trim().toLowerCase() === "scandinavia") {
+    errors.push(...scandinaviaSwedenPmjFactualErrors(params.threadsText));
   }
 
   return Array.from(new Set(errors));

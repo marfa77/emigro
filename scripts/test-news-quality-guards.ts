@@ -130,6 +130,119 @@ assert(
   "Threads generic checklist advice must fail QA"
 );
 
+const badGermanyCitizenship = validateSiteDigestQuality({
+  topic: "germany",
+  weekEnd: "2026-07-10",
+  digest: {
+    title: "Германия: BAMF и натурализация",
+    excerpt: "Обзор правил BAMF.",
+    seo_title: "Германия: гражданство",
+    seo_description: "Сроки натурализации в Германии.",
+    key_takeaways: ["Стандартный срок для гражданства — 8 лет законного проживания."],
+    content_blocks: [
+      {
+        heading: "BAMF",
+        paragraphs: ["BAMF определяет критерии натурализации в Германии."],
+        source_name: "BAMF",
+        source_url: "https://www.bamf.de/",
+      },
+    ],
+  },
+});
+assert(
+  badGermanyCitizenship.some((e) => e.includes("5 лет (StAG 2024)")),
+  "Germany 8-year citizenship standard must fail QA"
+);
+
+const goodGermanyCitizenship = validateSiteDigestQuality({
+  topic: "germany",
+  weekEnd: "2026-07-10",
+  digest: {
+    title: "Германия: StAG 2024",
+    excerpt: "Реформа гражданства BAMF.",
+    seo_title: "Германия: гражданство",
+    seo_description: "5 лет стандарт, 3 года ускорение.",
+    key_takeaways: ["Стандартная натурализация — 5 лет; ускорение до 3 лет при C1."],
+    content_blocks: [
+      {
+        heading: "BAMF",
+        paragraphs: ["После реформы StAG 2024 стандарт — 5 лет вместо прежних 8 лет."],
+        source_name: "BAMF",
+        source_url: "https://www.bamf.de/",
+      },
+      {
+        heading: "Blue Card",
+        paragraphs: ["Blue Card остаётся маршрутом для квалифицированных специалистов."],
+        source_name: "Make it in Germany",
+        source_url: "https://www.make-it-in-germany.com/",
+      },
+      {
+        heading: "Chancenkarte",
+        paragraphs: ["Chancenkarte — поиск работы без оффера."],
+        source_name: "Make it in Germany",
+        source_url: "https://www.make-it-in-germany.com/en/visa-residence/",
+      },
+      {
+        heading: "Консульство",
+        paragraphs: ["Заявители сверяют требования в консульстве перед подачей."],
+        source_name: "BAMF",
+        source_url: "https://www.bamf.de/EN/Themen/MigrationAufenthalt/migrationaufenthalt-node.html",
+      },
+    ],
+  },
+  selectedCount: 4,
+  sourceLinks: [
+    { title: "BAMF", url: "https://www.bamf.de/" },
+    { title: "Make it in Germany", url: "https://www.make-it-in-germany.com/" },
+    { title: "BAMF migration", url: "https://www.bamf.de/EN/Themen/MigrationAufenthalt/migrationaufenthalt-node.html" },
+  ],
+});
+assert.equal(goodGermanyCitizenship.length, 0, `Correct Germany 5/3 wording should pass QA: ${goodGermanyCitizenship.join("; ")}`);
+
+const badPortugalEstrutura = validateSiteDigestQuality({
+  topic: "portugal",
+  weekEnd: "2026-07-06",
+  digest: {
+    title: "Португалия: AIMA и гражданство",
+    excerpt: "Обзор задержек AIMA.",
+    seo_title: "Португалия: AIMA",
+    seo_description: "Спецгруппа AIMA завершает работу до августа 2026.",
+    key_takeaways: ["Спецгруппа AIMA (Estrutura de Missão) завершает работу до августа 2026 года."],
+    content_blocks: [
+      {
+        heading: "Спецгруппа AIMA завершает работу",
+        paragraphs: [
+          "Специальная рабочая группа AIMA (Estrutura de Missão) завершает свою работу и передаст 30 000 дел в общую очередь до августа 2026 года.",
+        ],
+        source_name: "Portugal Gov",
+        source_url: "https://portugal.gov.pt/",
+      },
+      {
+        heading: "Golden Visa",
+        paragraphs: ["1260 инвесторов ARI подали жалобу омбудсмену на 10-летний срок по Nationality Law 2026."],
+        source_name: "Observador",
+        source_url: "https://observador.pt/",
+      },
+      {
+        heading: "AIMA portal",
+        paragraphs: ["С 1 июля 2026 портал AIMA принимает заявки на ПМЖ для граждан ЕС."],
+        source_name: "The Portugal News",
+        source_url: "https://www.theportugalnews.com/",
+      },
+    ],
+  },
+  selectedCount: 3,
+  sourceLinks: [
+    { title: "Portugal Gov", url: "https://portugal.gov.pt/" },
+    { title: "Observador", url: "https://observador.pt/" },
+    { title: "The Portugal News", url: "https://www.theportugalnews.com/" },
+  ],
+});
+assert(
+  badPortugalEstrutura.some((e) => e.includes("Estrutura de Missão AIMA прекратила работу 31.12.2025")),
+  "Portugal Estrutura de Missão present-tense framing must fail QA"
+);
+
 assert(
   isSpainGoldenVisaBaitText("Spain Golden Visa real estate still open, last chance to apply"),
   "Scoring helper should identify stale Spain Golden Visa bait"

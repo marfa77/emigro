@@ -4,6 +4,7 @@ import type { NewsContentBlock, NewsSourceLink } from "@/lib/news/digests";
 import type { NewsTopicConfig } from "@/lib/news/topics";
 import type { Prep2GoArticle } from "@/lib/news/prep2go-fetch";
 import {
+  germanyCitizenshipFactualGuardrailRu,
   isPortugalPost2026LawWeek,
   portugalSiteDigestFactualGuardrailRu,
   spainGoldenVisaFactualGuardrailRu,
@@ -48,6 +49,7 @@ export async function translatePrep2GoArticle(
       ? `\n${portugalSiteDigestFactualGuardrailRu()}`
       : "";
   const spainGuard = topic.key === "spain" ? `\n${spainGoldenVisaFactualGuardrailRu()}` : "";
+  const germanyGuard = topic.key === "germany" ? `\n${germanyCitizenshipFactualGuardrailRu()}` : "";
 
   const system = `Ты старший редактор Emigro — медиа о релокации русскоязычных в Европу.
 ${AUTHOR_VOICE_RU}
@@ -71,6 +73,7 @@ ${AUTHOR_VOICE_RU}
 - Акцент на конкретные изменения для русскоязычных релокантов, не на generic expat advice
 ${portugalGuard}
 ${spainGuard}
+${germanyGuard}
 
 Верни строго JSON по схеме.`;
 
