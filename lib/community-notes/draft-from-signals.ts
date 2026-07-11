@@ -18,6 +18,9 @@ import {
 } from "@/lib/community-notes/editorial-presentation";
 import {
   PORTUGAL_EDITORIAL_SYSTEM,
+  SPAIN_EDITORIAL_SYSTEM,
+  SPAIN_TOPIC_LABELS,
+  SPAIN_TOPIC_OFFICIAL_LINKS,
   TOPIC_LABELS,
   TOPIC_OFFICIAL_LINKS,
 } from "@/lib/community-notes/editorial-voice";
@@ -28,7 +31,35 @@ import type {
   ContentKind,
   NoteBodySection,
 } from "@/lib/community-notes/types";
-import { filterRelocantSignals } from "@/lib/satellite/portugal";
+import { filterRelocantSignals as filterPortugalSignals } from "@/lib/satellite/portugal";
+import { filterRelocantSignals as filterSpainSignals } from "@/lib/satellite/spain";
+
+export type SatelliteCountryKey = "portugal" | "spain";
+
+function editorialConfig(countryKey: SatelliteCountryKey) {
+  if (countryKey === "spain") {
+    return {
+      system: SPAIN_EDITORIAL_SYSTEM,
+      topicLabels: SPAIN_TOPIC_LABELS,
+      topicLinks: SPAIN_TOPIC_OFFICIAL_LINKS,
+      countryTag: "spain",
+      slugPrefix: "es",
+      geoHint:
+        "Гео: Valencia, Madrid или Barcelona по теме. Примеры — Valencia, Ruzafa, extranjería Comunidad Valenciana. Не используй NIF, AIMA, Lisboa.",
+      filterSignals: filterSpainSignals,
+    };
+  }
+  return {
+    system: PORTUGAL_EDITORIAL_SYSTEM,
+    topicLabels: TOPIC_LABELS,
+    topicLinks: TOPIC_OFFICIAL_LINKS,
+    countryTag: "portugal",
+    slugPrefix: "pt",
+    geoHint:
+      "Гео: аудитория — релоканты в Norte (Порту, Брага, Minho). Примеры практики — Porto, Braga, Matosinhos, Guimarães, Viana. Лиссабон — только если тема центральная (AIMA Saldanha, Cascais, аренда Lisboa).",
+    filterSignals: filterPortugalSignals,
+  };
+}
 
 export type SignalCluster = {
   topic: string;
@@ -180,9 +211,13 @@ function dominantContentKind(signals: CommunitySignalIngest[]): ContentKind {
   return Array.from(counts.entries()).sort((a, b) => b[1] - a[1])[0]?.[0] ?? "tip";
 }
 
-export function clusterSignals(signals: CommunitySignalIngest[]): SignalCluster[] {
+export function clusterSignals(
+  signals: CommunitySignalIngest[],
+  countryKey: SatelliteCountryKey = "portugal"
+): SignalCluster[] {
+  const { filterSignals } = editorialConfig(countryKey);
   const buckets = new Map<string, CommunitySignalIngest[]>();
-  for (const s of filterRelocantSignals(signals)) {
+  for (const s of filterSignals(signals)) {
     const topic = s.topic_hints?.[0] || "general";
     const list = buckets.get(topic) ?? [];
     list.push(s);
@@ -197,12 +232,17 @@ export function clusterSignals(signals: CommunitySignalIngest[]): SignalCluster[
     .sort((a, b) => b.signals.length - a.signals.length);
 }
 
-function buildUserPrompt(cluster: SignalCluster, snippets: string[]): string {
+function buildUserPrompt(
+  cluster: SignalCluster,
+  snippets: string[],
+  countryKey: SatelliteCountryKey
+): string {
+  const { topicLabels, geoHint } = editorialConfig(countryKey);
   const topic = cluster.topic;
   const contentKind = cluster.contentKind;
   const channels = Array.from(new Set(cluster.signals.map((s) => s.channel_username)));
 
-  return `Тема кластера: ${TOPIC_LABELS[topic] ?? topic}
+  return `Тема кластера: ${topicLabels[topic] ?? topic}
 Тип материала (content_kind): ${contentKind}
 Каналы (метаданные, не цитировать): ${channels.map((c) => `@${c}`).join(", ")}
 Сообщений в кластере: ${cluster.signals.length} (используй только intent, не количество)
@@ -211,9 +251,9 @@ function buildUserPrompt(cluster: SignalCluster, snippets: string[]): string {
 ${snippets.map((s, i) => `${i + 1}. ${s}`).join("\n")}
 
 slug: latin kebab-case, уникальный, тема + 2026 если уместно.
-category: ${TOPIC_LABELS[topic] ?? "Быт в Португалии"}
+category: ${topicLabels[topic] ?? (countryKey === "spain" ? "Быт в Испании" : "Быт в Португалии")}
 
-Напиши заметку по БЛЮПРИНТУ + ПОДАЧЕ ДЛЯ ЧТЕНИЯ (эталон — международные школы PT):
+Напиши заметку по БЛЮПРИНТУ + ПОДАЧЕ ДЛЯ ЧТЕНИЯ:
 glossary (≤8 терминов) → official (lead + ≤5 bullets) → practice (2+ секции) → gap («чат vs сайт») → типичные ошибки.
 quick_answer: 2–3 предложения простым русским. key_takeaways: максимум 4, action-oriented.
 Не дублируй один смысл в разных секциях. В key_takeaways — минимум 2 пункта «Официально:» / «На практике:» / «Расхождение:».
@@ -221,15 +261,19 @@ faq: 4–5 вопросов; ответ начинается с да/нет/ци
 
 ${EDITORIAL_PRESENTATION_RULES}
 
-Гео: аудитория — релоканты в Norte (Порту, Брага, Minho). Примеры практики — Porto, Braga, Matosinhos, Guimarães, Viana. Лиссабон — только если тема центральная (AIMA Saldanha, Cascais, аренда Lisboa).`;
+${geoHint}`;
 }
 
-async function generateDraft(cluster: SignalCluster): Promise<Omit<
+async function generateDraft(
+  cluster: SignalCluster,
+  countryKey: SatelliteCountryKey
+): Promise<Omit<
   DraftedNote,
   "category" | "content_kind" | "official_links" | "topic_tags" | "hashtags" | "source_channel" | "source_label" | "body_paragraphs"
 >> {
   const snippets = pickBestSnippets(cluster.signals, 3);
-  const userPrompt = buildUserPrompt(cluster, snippets);
+  const userPrompt = buildUserPrompt(cluster, snippets, countryKey);
+  const { system } = editorialConfig(countryKey);
 
   return geminiProJson<
     Omit<
@@ -243,14 +287,16 @@ async function generateDraft(cluster: SignalCluster): Promise<Omit<
       | "source_label"
       | "body_paragraphs"
     >
-  >(PORTUGAL_EDITORIAL_SYSTEM, userPrompt, draftSchema, 12288);
+  >(system, userPrompt, draftSchema, 12288);
 }
 
 function finalizeDraft(
   cluster: SignalCluster,
   raw: Awaited<ReturnType<typeof generateDraft>>,
-  inlineTags: string[]
+  inlineTags: string[],
+  countryKey: SatelliteCountryKey
 ): DraftedNote {
+  const { topicLabels, topicLinks, countryTag, slugPrefix } = editorialConfig(countryKey);
   const topic = cluster.topic;
   const contentKind = cluster.contentKind;
   const channels = Array.from(new Set(cluster.signals.map((s) => s.channel_username)));
@@ -261,19 +307,19 @@ function finalizeDraft(
     .replace(/^-|-$/g, "")
     .slice(0, 60);
 
-  const resolvedTopic = reconcileTopic(topic, raw.title, slug || `pt-${topic}`);
-  const topicTags = resolvedTopic === "general" ? ["portugal"] : [resolvedTopic, "portugal"];
+  const resolvedTopic = reconcileTopic(topic, raw.title, slug || `${slugPrefix}-${topic}`, countryKey);
+  const topicTags = resolvedTopic === "general" ? [countryTag] : [resolvedTopic, countryTag];
   const bodySections = moveGlossaryToStart(raw.body_sections ?? []);
 
   return normalizeNoteDraftSeo({
     ...raw,
-    slug: slug || `pt-${resolvedTopic}-${contentKind}-2026`,
-    category: TOPIC_LABELS[resolvedTopic] ?? "Быт в Португалии",
+    slug: slug || `${slugPrefix}-${resolvedTopic}-${contentKind}-2026`,
+    category: topicLabels[resolvedTopic] ?? (countryKey === "spain" ? "Быт в Испании" : "Быт в Португалии"),
     content_kind: contentKind,
     body_sections: bodySections,
     body_paragraphs: flattenBodySections(bodySections),
     key_takeaways: raw.key_takeaways ?? [],
-    official_links: TOPIC_OFFICIAL_LINKS[resolvedTopic] ?? TOPIC_OFFICIAL_LINKS.general,
+    official_links: topicLinks[resolvedTopic] ?? topicLinks.general,
     topic_tags: topicTags,
     hashtags: buildNoteHashtags({ topicTags, contentKind, extra: inlineTags }),
     source_channel: channels.join("+"),
@@ -301,16 +347,19 @@ function withSnsSanitize(draft: DraftedNote): DraftedNote {
   };
 }
 
-export async function draftNoteFromCluster(cluster: SignalCluster): Promise<DraftedNote> {
+export async function draftNoteFromCluster(
+  cluster: SignalCluster,
+  countryKey: SatelliteCountryKey = "portugal"
+): Promise<DraftedNote> {
   const inlineTags = cluster.signals.flatMap((s) => s.hashtags ?? []).slice(0, 6);
   let lastError: string | undefined;
 
   for (let attempt = 0; attempt < 2; attempt += 1) {
-    const raw = await generateDraft(cluster);
-    const draft = withSnsSanitize(finalizeDraft(cluster, raw, inlineTags));
+    const raw = await generateDraft(cluster, countryKey);
+    const draft = withSnsSanitize(finalizeDraft(cluster, raw, inlineTags, countryKey));
     const enriched = enrichDraftPracticeFromSignals(draft, cluster.signals);
     const merged: DraftedNote = { ...draft, ...enriched.draft };
-    const errors = validateNoteDraft(merged);
+    const errors = validateNoteDraft(merged, countryKey);
     errors.push(...practicePublishGateErrors(enriched.audit, enriched.signalBullets, merged));
     if (errors.length === 0) return merged;
     lastError = errors.join("; ");
@@ -321,14 +370,18 @@ export async function draftNoteFromCluster(cluster: SignalCluster): Promise<Draf
 
 /** Rewrite an existing published note to rich editorial format (no new signals). */
 export async function rewriteCommunityNote(note: CommunityNote): Promise<DraftedNote> {
-  const topic = note.topic_tags.find((t) => t !== "portugal") ?? "general";
+  const countryKey: SatelliteCountryKey = note.country_key === "spain" ? "spain" : "portugal";
+  const countryTag = countryKey === "spain" ? "spain" : "portugal";
+  const { topicLabels, system } = editorialConfig(countryKey);
+  const topic = note.topic_tags.find((t) => t !== countryTag) ?? "general";
+  const defaultChannel = countryKey === "spain" ? "spain_granitsa" : "chatlisboa";
   const cluster: SignalCluster = {
     topic,
     contentKind: note.content_kind,
     signals: [
       {
         message_id: 0,
-        channel_username: note.source_channel?.split("+")[0] ?? "chatlisboa",
+        channel_username: note.source_channel?.split("+")[0] ?? defaultChannel,
         text: noteRewriteContext(note),
         topic_hints: note.topic_tags,
         content_kind: note.content_kind,
@@ -339,7 +392,7 @@ export async function rewriteCommunityNote(note: CommunityNote): Promise<Drafted
     ],
   };
 
-  const userPrompt = `${buildUserPrompt(cluster, pickBestSnippets(cluster.signals, 1))}
+  const userPrompt = `${buildUserPrompt(cluster, pickBestSnippets(cluster.signals, 1), countryKey)}
 
 ПЕРЕПИСЫВАНИЕ существующей заметки. Сохрани slug: ${note.slug}
 Текущий заголовок: ${note.title}
@@ -366,18 +419,18 @@ ${PRESENTATION_REWRITE_HINT}
         | "source_label"
         | "body_paragraphs"
       >
-    >(PORTUGAL_EDITORIAL_SYSTEM, userPrompt + retryHint, draftSchemaGemini, 8192);
+    >(system, userPrompt + retryHint, draftSchemaGemini, 8192);
 
-    const draft = withSnsSanitize(finalizeDraft(cluster, { ...raw, slug: note.slug }, note.hashtags));
+    const draft = withSnsSanitize(finalizeDraft(cluster, { ...raw, slug: note.slug }, note.hashtags, countryKey));
     if (note.slug === "pervyj-mesyac-portugaliya-checklist") {
       draft.category = "Первый месяц";
     } else if (!note.category.includes("CIPLE")) {
-      draft.category = TOPIC_LABELS[topic] ?? note.category;
+      draft.category = topicLabels[topic] ?? note.category;
     } else {
       draft.category = note.category;
     }
 
-    const errors = validateNoteDraft(draft);
+    const errors = validateNoteDraft(draft, countryKey);
     if (errors.length === 0) return draft;
     lastError = errors.join("; ");
   }

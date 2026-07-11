@@ -46,7 +46,10 @@ function totalWords(input: DraftQualityInput): number {
 }
 
 /** Returns human-readable quality errors; empty = pass. */
-export function validateNoteDraft(input: DraftQualityInput): string[] {
+export function validateNoteDraft(
+  input: DraftQualityInput,
+  countryKey: "portugal" | "spain" = "portugal"
+): string[] {
   const errors: string[] = [];
   const rules = MIN_BY_KIND[input.content_kind] ?? MIN_BY_KIND.guide;
 
@@ -56,8 +59,17 @@ export function validateNoteDraft(input: DraftQualityInput): string[] {
   if (input.seo_title.length > 58) {
     errors.push(`seo_title too long (${input.seo_title.length})`);
   }
-  if (!/португал|lisbon|лиссабон|porto|порту|norte|север|брага|minho/i.test(`${input.quick_answer} ${input.seo_description}`)) {
-    errors.push("missing geo (Португалия/Порту/Norte) in quick_answer or seo_description");
+  const geoText = `${input.quick_answer} ${input.seo_description}`;
+  const geoOk =
+    countryKey === "spain"
+      ? /испан|valencia|валенс|madrid|barcelona|barcelon|nie|tie|extranjer/i.test(geoText)
+      : /португал|lisbon|лиссабон|porto|порту|norte|север|брага|minho/i.test(geoText);
+  if (!geoOk) {
+    errors.push(
+      countryKey === "spain"
+        ? "missing geo (Испания/Valencia) in quick_answer or seo_description"
+        : "missing geo (Португалия/Порту/Norte) in quick_answer or seo_description"
+    );
   }
   if (input.body_sections.length < rules.sections) {
     errors.push(`body_sections ${input.body_sections.length} < ${rules.sections}`);
@@ -92,7 +104,7 @@ export function validateNoteDraft(input: DraftQualityInput): string[] {
     })
   );
 
-  if (input.content_kind === "guide") {
+  if (input.content_kind === "guide" && countryKey === "portugal") {
     const blueprint = validateAgainstBlueprint({
       content_kind: input.content_kind,
       slug: input.slug,

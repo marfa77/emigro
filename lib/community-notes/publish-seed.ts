@@ -1,5 +1,6 @@
 import { createServerClient } from "@/lib/supabase/server";
 import { buildNoteHashtags } from "@/lib/community-notes/hashtags";
+import { SPAIN_EDITORIAL_SEED } from "@/lib/community-notes/guides/spain-editorial-index";
 import type { CommunityNoteFaq, ContentKind, NoteBodySection } from "@/lib/community-notes/types";
 
 type SeedNote = {
@@ -187,6 +188,40 @@ export async function publishPortugalSeedNotes(): Promise<number> {
       city: "lisbon",
       source_channel: "chatlisboa+por_tugal",
       source_label: null,
+      status: "published",
+      published_at: now,
+      updated_at: now,
+    });
+
+    if (error) {
+      console.warn(`[seed] ${note.slug}: ${error.message}`);
+    } else {
+      published += 1;
+      console.log(`[seed] published ${note.slug}`);
+    }
+  }
+
+  return published;
+}
+
+export async function publishSpainSeedNotes(): Promise<number> {
+  const supabase = createServerClient();
+  const now = new Date().toISOString();
+  let published = 0;
+
+  for (const note of SPAIN_EDITORIAL_SEED) {
+    const { data: existing } = await supabase.from("community_notes").select("id").eq("slug", note.slug).maybeSingle();
+    if (existing) continue;
+
+    const { error } = await supabase.from("community_notes").insert({
+      ...note,
+      body_sections: note.body_sections ?? [],
+      key_takeaways: note.key_takeaways ?? [],
+      hashtags: buildNoteHashtags({ topicTags: note.topic_tags, contentKind: note.content_kind }),
+      country_key: "spain",
+      city: "valencia",
+      source_channel: "valenforum+spain_granitsa+spainchats",
+      source_label: "editorial:spain-seed",
       status: "published",
       published_at: now,
       updated_at: now,

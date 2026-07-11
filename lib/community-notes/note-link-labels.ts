@@ -9,6 +9,13 @@ export const NOTE_LINK_LABELS: Record<string, string> = {
   "mezhdunarodnye-shkoly-portugaliya-2026": "международные школы",
   "zamena-voditelskih-prav-portugaliya-2026": "обмен водительских прав",
   "zamena-zagranpasporta-portugaliya-2026": "замена загранпаспорта",
+  "nie-empadronamiento-poryadok-2026": "NIE и empadronamiento",
+  "tie-cita-extranjeria-valencia-2026": "TIE и cita extranjería",
+  "dnv-uge-konsulstvo-2026": "DNV и UGE",
+  "arenda-valencia-idealista-2026": "аренда Valencia",
+  "bank-iban-nerezident-ispaniya-2026": "банк и IBAN",
+  "beckham-autonomo-mify-2026": "Beckham и autónomo",
+  "pervye-30-dnej-v-ispanii-satelit-2026": "первые 30 дней в Испании",
 };
 
 export function noteLinkLabel(slug: string): string {

@@ -16,6 +16,7 @@ dotenv.config({ path: resolve(process.cwd(), ".env") });
 
 import { ensureSpainCronEnv } from "@/lib/community-notes/cron-env";
 import { publishDraftsFromNewSignals } from "@/lib/community-notes/publish-drafts";
+import { publishSpainSeedNotes } from "@/lib/community-notes/publish-seed";
 import { refreshDailySpotlight } from "@/lib/community-notes/daily-spotlight";
 import { syncParserStateFromSupabase } from "@/lib/community-notes/sync-parser-state";
 import { ingestCommunitySignals } from "@/lib/community-notes/queries";
@@ -64,6 +65,9 @@ function runIncrementalParser(): CommunitySignalIngest[] {
 
 async function main() {
   ensureSpainCronEnv();
+  const seeded = await publishSpainSeedNotes();
+  console.log(`[seed] spain editorial baseline: ${seeded} new notes`);
+
   const state = await syncParserStateFromSupabase();
   console.log("[cursor]", state);
 

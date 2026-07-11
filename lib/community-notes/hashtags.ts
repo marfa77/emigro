@@ -123,7 +123,18 @@ const KIND_TAG: Record<ContentKind, string> = {
 const KIND_ALIASES = new Set(["news", "lifehack", "tip", "guide", "qa", "новости", "лайфхак", "совет", "гайд", "вопрос"]);
 
 /** Geo tags belong in page header, not in every card pill list. */
-const GEO_TAGS = new Set(["portugal", "porto", "norte", "braga", "lisboa", "lisbon"]);
+const GEO_TAGS = new Set([
+  "portugal",
+  "porto",
+  "norte",
+  "braga",
+  "lisboa",
+  "lisbon",
+  "spain",
+  "valencia",
+  "madrid",
+  "barcelona",
+]);
 
 /** Merge topic hints + content kind + inline #tags into deduped list. */
 export function buildNoteHashtags(input: {

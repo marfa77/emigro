@@ -1,5 +1,5 @@
 import { ensurePortugalCronEnv, ensureSpainCronEnv } from "@/lib/community-notes/cron-env";
-import { clusterSignals, draftNoteFromCluster } from "@/lib/community-notes/draft-from-signals";
+import { clusterSignals, draftNoteFromCluster, type SatelliteCountryKey } from "@/lib/community-notes/draft-from-signals";
 import {
   isDuplicateTopic,
   latestSignalPostedAt,
@@ -73,7 +73,7 @@ async function loadNewSignals(countryKey: string, limit = 120): Promise<Communit
 /** Gemini editorial drafts from `community_signals` with status=new. */
 export async function publishDraftsFromNewSignals(
   maxNotes: number,
-  countryKey = "portugal"
+  countryKey: SatelliteCountryKey = "portugal"
 ): Promise<PublishDraftsResult> {
   ensureCronEnvForCountry(countryKey);
   const result: PublishDraftsResult = {
@@ -87,8 +87,8 @@ export async function publishDraftsFromNewSignals(
   const signals = await loadNewSignals(countryKey);
   if (signals.length === 0) return result;
 
-  const clusters = clusterSignals(signals)
-    .filter((c) => shouldAutoPublishCluster(c))
+  const clusters = clusterSignals(signals, countryKey)
+    .filter((c) => shouldAutoPublishCluster(c, countryKey))
     .slice(0, maxNotes);
 
   result.clusters = clusters.length;
@@ -106,7 +106,7 @@ export async function publishDraftsFromNewSignals(
 
   for (const cluster of clusters) {
     try {
-      const draft = await draftNoteFromCluster(cluster);
+      const draft = await draftNoteFromCluster(cluster, countryKey);
       const primaryTopic = draft.topic_tags[0] ?? "general";
 
       if (isDuplicateTopic(primaryTopic, existingTopics, draft.title)) {

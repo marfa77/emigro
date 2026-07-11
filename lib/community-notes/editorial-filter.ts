@@ -1,7 +1,7 @@
 import type { SignalCluster } from "@/lib/community-notes/draft-from-signals";
 import type { ContentKind } from "@/lib/community-notes/types";
 
-/** Topics auto-published from Telegram clusters. */
+/** Topics auto-published from Telegram clusters (Portugal). */
 export const CORE_RELOC_TOPICS = new Set([
   "nif",
   "aima",
@@ -14,13 +14,19 @@ export const CORE_RELOC_TOPICS = new Set([
   "pets",
 ]);
 
-/** Tangential chat topics — skip auto-publish unless manually curated. */
-export const SKIP_AUTO_PUBLISH_TOPICS = new Set(["school", "food"]);
-
-export const ARCHIVE_SLUGS = new Set([
-  "bank-account-portugal-2026",
-  "detskiy-tort-lisabon-zakaz-2026",
-  "restaurantes-condimentos-guide-2026",
+/** Topics auto-published from Telegram clusters (Spain). */
+export const SPAIN_CORE_RELOC_TOPICS = new Set([
+  "nie",
+  "tie",
+  "extranjeria",
+  "empadronamiento",
+  "arenda",
+  "alquiler",
+  "bank",
+  "dnv",
+  "teletrabajo",
+  "autonomo",
+  "valencia",
 ]);
 
 const TOPIC_PATTERNS: Array<{ topic: string; re: RegExp }> = [
@@ -35,20 +41,50 @@ const TOPIC_PATTERNS: Array<{ topic: string; re: RegExp }> = [
   { topic: "transport", re: /\b(metro|cp|транспорт|comboios)\b/i },
 ];
 
+export const SPAIN_TOPIC_PATTERNS: Array<{ topic: string; re: RegExp }> = [
+  { topic: "nie", re: /\b(nie|empadronamiento|padron|ex-15|agencia tributaria)\b/i },
+  { topic: "tie", re: /\b(tie|huellas|resguardo|tarjeta de identidad)\b/i },
+  { topic: "extranjeria", re: /\b(extranjer[ií]a|cita previa|sede)\b/i },
+  { topic: "bank", re: /\b(bank|банк|iban|caixabank|santander|сч[её]t)\b/i },
+  { topic: "arenda", re: /\b(arenda|аренд|alquiler|idealista|fianza)\b/i },
+  { topic: "dnv", re: /\b(dnv|teletrabajo|digital nomad|uge|startups)\b/i },
+  { topic: "autonomo", re: /\b(aut[oó]nomo|beckham|impatriado|seguridad social)\b/i },
+  { topic: "valencia", re: /\b(valencia|валенс|comunidad valenciana)\b/i },
+];
+
+/** Tangential chat topics — skip auto-publish unless manually curated. */
+export const SKIP_AUTO_PUBLISH_TOPICS = new Set(["school", "food"]);
+
+export const ARCHIVE_SLUGS = new Set([
+  "bank-account-portugal-2026",
+  "detskiy-tort-lisabon-zakaz-2026",
+  "restaurantes-condimentos-guide-2026",
+]);
+
 /** Infer primary topic from title/slug when parser topic_hints are wrong. */
-export function reconcileTopic(topic: string, title: string, slug: string): string {
+export function reconcileTopic(
+  topic: string,
+  title: string,
+  slug: string,
+  countryKey: "portugal" | "spain" = "portugal"
+): string {
   const text = `${title} ${slug}`;
-  for (const { topic: inferred, re } of TOPIC_PATTERNS) {
+  const patterns = countryKey === "spain" ? SPAIN_TOPIC_PATTERNS : TOPIC_PATTERNS;
+  for (const { topic: inferred, re } of patterns) {
     if (re.test(text)) return inferred;
   }
   return topic;
 }
 
-export function shouldAutoPublishCluster(cluster: SignalCluster): boolean {
+export function shouldAutoPublishCluster(
+  cluster: SignalCluster,
+  countryKey: "portugal" | "spain" = "portugal"
+): boolean {
   if (SKIP_AUTO_PUBLISH_TOPICS.has(cluster.topic)) return false;
   if (cluster.signals.length < 2) return false;
+  const coreTopics = countryKey === "spain" ? SPAIN_CORE_RELOC_TOPICS : CORE_RELOC_TOPICS;
   if (cluster.topic === "general") return cluster.signals.length >= 5;
-  return CORE_RELOC_TOPICS.has(cluster.topic) || cluster.topic === "general";
+  return coreTopics.has(cluster.topic) || cluster.topic === "general";
 }
 
 export function isDuplicateTopic(

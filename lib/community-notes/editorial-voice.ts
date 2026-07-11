@@ -1,4 +1,4 @@
-/** Editorial voice for portugal.emigro.online — aligned with docs/SEO_GUIDE_STANDARD.md */
+/** Editorial voice for satellite hubs — aligned with docs/SEO_GUIDE_STANDARD.md */
 
 import { BLUEPRINT_STRUCTURE_RULES } from "@/lib/community-notes/article-blueprint";
 import { EDITORIAL_PRESENTATION_RULES } from "@/lib/community-notes/editorial-presentation";
@@ -101,4 +101,79 @@ export const TOPIC_LABELS: Record<string, string> = {
   food: "Еда и магазины",
   pets: "Питомцы",
   general: "Быт в Португалии",
+};
+
+export const SPAIN_EDITORIAL_SYSTEM = `Ты старший редактор Emigro — дружелюбный советник для русскоязычных релокантов (паспорта RU/BY/UA/KZ) в Испании с фокусом на Valencia, Madrid и Barcelona.
+
+Пиши editorial-заметку для spain.emigro.online: факты плотные, подача приятная. Источник — 2–3 анонимизированных темы из сторонних Telegram-чатов (@spain_granitsa, @spainchats, @valenforum, @valenciarusia, @migranty_barselona), не пересказ чата. Не цитируй @username, телефоны, имена. Сверяй с официальными порталами (sede, Agencia Tributaria, extranjería), отдельно — практика.
+
+Гео по умолчанию — Valencia и Comunidad Valenciana. Madrid и Barcelona — когда тема локальна (cita extranjería, аренда). Не используй NIF, AIMA, Lisboa — это Португалия.
+
+Типы (content_kind): guide, qa, news, tip, lifehack — как в PT satellite.
+
+СТРУКТУРА:
+1. quick_answer — 2–3 предложения + гео (Испания, Valencia/Madrid/Barcelona).
+2. key_takeaways — max 4, min 2 с «Официально:» / «На практике:» / «Расхождение:».
+3. body_sections — glossary (первая) → official → practice → gap → ошибки. ES-термины: NIE, TIE, empadronamiento, extranjería, cita previa.
+4. faq — 4–5 вопросов; ответ: да/нет/цифра + «По правилам…» / «На практике…».
+
+SEO: seo_title ≤55 символов, «Испания» или гео + 2026. seo_description 145–160 символов.
+Тон: спокойный, конкретный. Запрещено: вода, схемы обхода закона, обещание гарантированного ВНЖ.
+
+${OFFICIAL_VS_PRACTICE_RULES}
+
+${EDITORIAL_PRESENTATION_RULES}
+
+Язык: русский. Год: 2026.`.trim();
+
+export const SPAIN_TOPIC_OFFICIAL_LINKS: Record<string, Array<{ title: string; url: string }>> = {
+  nie: [
+    { title: "Sede — cita previa", url: "https://sede.administracionespublicas.gob.es/" },
+    { title: "Agencia Tributaria — NIE", url: "https://www.agenciatributaria.gob.es/" },
+  ],
+  tie: [
+    { title: "Ministerio Inclusion — extranjería", url: "https://www.inclusion.gob.es/" },
+    { title: "Sede electrónica", url: "https://sede.administracionespublicas.gob.es/" },
+  ],
+  extranjeria: [
+    { title: "Sede — extranjería", url: "https://sede.administracionespublicas.gob.es/" },
+    { title: "Ministerio Inclusion", url: "https://www.inclusion.gob.es/" },
+  ],
+  arenda: [{ title: "Idealista", url: "https://www.idealista.com/" }],
+  alquiler: [{ title: "Idealista", url: "https://www.idealista.com/" }],
+  bank: [
+    { title: "Banco de España", url: "https://www.bde.es/" },
+    { title: "CaixaBank", url: "https://www.caixabank.es/" },
+  ],
+  dnv: [
+    { title: "UGE / extranjería", url: "https://www.inclusion.gob.es/" },
+    { title: "Consulado España", url: "https://www.exteriores.gob.es/" },
+  ],
+  teletrabajo: [
+    { title: "Ley de Startups — teletrabajo", url: "https://www.inclusion.gob.es/" },
+  ],
+  autonomo: [{ title: "Seguridad Social — autónomos", url: "https://www.seg-social.es/" }],
+  empadronamiento: [{ title: "Padrón municipal", url: "https://www.mpt.gob.es/" }],
+  valencia: [{ title: "Ayuntamiento Valencia", url: "https://www.valencia.es/" }],
+  general: [
+    { title: "sede.administracionespublicas.gob.es", url: "https://sede.administracionespublicas.gob.es/" },
+    { title: "Agencia Tributaria", url: "https://www.agenciatributaria.gob.es/" },
+  ],
+};
+
+export const SPAIN_TOPIC_LABELS: Record<string, string> = {
+  nie: "NIE и padrón",
+  tie: "TIE и extranjería",
+  extranjeria: "Extranjería",
+  arenda: "Аренда",
+  alquiler: "Аренда",
+  bank: "Банки",
+  dnv: "DNV и UGE",
+  teletrabajo: "Teletrabajo",
+  autonomo: "Autónomo и налоги",
+  empadronamiento: "Empadronamiento",
+  valencia: "Valencia",
+  madrid: "Madrid",
+  barcelona: "Barcelona",
+  general: "Быт в Испании",
 };
