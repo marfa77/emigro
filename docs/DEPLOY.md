@@ -23,5 +23,6 @@ Always verify the app builds locally before pushing or deploying to production.
 
 ## Related
 
-- [PORTUGAL_SATELLITE.md](./PORTUGAL_SATELLITE.md) — subdomain DNS and satellite setup
+- [PORTUGAL_SATELLITE.md](./PORTUGAL_SATELLITE.md) — Portugal subdomain DNS and satellite setup
+- [SPAIN_SATELLITE.md](./SPAIN_SATELLITE.md) — Spain subdomain DNS and satellite setup
 - [YANDEX_SEO.md](./YANDEX_SEO.md) — post-deploy SEO routine

@@ -97,7 +97,7 @@ npm run spain:guide-factcheck -- --guide=vnj-ispaniya --seed-only
 
 Community pipeline для Spain **не** дублируется на Vercel — только VPS, как Portugal.
 
-Сайт на Vercel отдаёт страницы `spain.emigro.online` / `/satellite/spain`.
+Сайт на Vercel отдаёт страницы `spain.emigro.online` / `/satellite/spain`. DNS и субдомен: [SPAIN_SATELLITE.md](./SPAIN_SATELLITE.md).
 
 ## Связанные документы
 
