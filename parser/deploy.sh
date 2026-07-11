@@ -46,6 +46,8 @@ ssh -i "${SSH_KEY}" -o StrictHostKeyChecking=no "${SERVER_USER}@${SERVER_HOST}" 
    fi; \
    cp ${REMOTE}/deploy/systemd/emigro-portugal-community.service /etc/systemd/system/; \
    cp ${REMOTE}/deploy/systemd/emigro-portugal-community.timer /etc/systemd/system/; \
+   cp ${REMOTE}/deploy/systemd/emigro-spain-community.service /etc/systemd/system/; \
+   cp ${REMOTE}/deploy/systemd/emigro-spain-community.timer /etc/systemd/system/; \
    cp ${REMOTE}/deploy/systemd/emigro-prep2go-news.service /etc/systemd/system/; \
    cp ${REMOTE}/deploy/systemd/emigro-prep2go-news.timer /etc/systemd/system/; \
    cp ${REMOTE}/deploy/systemd/emigro-youtube-shorts.service /etc/systemd/system/; \
@@ -58,6 +60,7 @@ ssh -i "${SSH_KEY}" -o StrictHostKeyChecking=no "${SERVER_USER}@${SERVER_HOST}" 
    systemctl daemon-reload; \
    systemctl enable --now emigro-prep2go-news.timer; \
    systemctl enable --now emigro-portugal-community.timer; \
+   systemctl enable --now emigro-spain-community.timer; \
    systemctl enable --now emigro-youtube-shorts.timer; \
    systemctl list-timers --all | grep emigro || true"
 
