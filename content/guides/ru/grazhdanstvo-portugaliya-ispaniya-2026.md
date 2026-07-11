@@ -24,7 +24,7 @@ official_sources:
     label: Instituto Cervantes — DELE / CCSE
 estimated_minutes: 18
 date_published: 2026-06-29
-date_modified: 2026-06-30
+date_modified: 2026-07-11
 ---
 
 ## Зачем отдельный гайд по гражданству
@@ -129,7 +129,11 @@ date_modified: 2026-06-30
 - TIE / история продлений
 - Сбор ~€104 (Ministerio de Justicia)
 
+В локальных чатах эмигрантов (@valenciarusia, @valenforum и др.) в 2025–2026 часто предупреждают: certificado de empadronamiento за 10 лет — слабое место пакета; без padrón ayuntamiento может отказать, а Ministerio de Justicia смотрит историю адресов.
+
 **Критично для граждан РФ:** при натурализации Испания **требует отказ** от российского гражданства (исключения — LATAM, Португалия, Andorra, Philippines, Equatorial Guinea, Sephardic). Для многих из СНГ это deal-breaker.
+
+В локальных чатах эмигрантов (@spain_granitsa, @spainchats и др.) в 2025–2026 регулярно обсуждают отказ от РФ-паспорта при nacionalidad ES — для многих из СНГ это ключевой deal-breaker vs Португалия, где двойное гражданство разрешено.
 
 ---
 
@@ -148,6 +152,8 @@ date_modified: 2026-06-30
 
 - **PT Golden Visa:** инвестиции €500k+ (фонды, наука) — **не ускоряет** срок натурализации; тот же 10 лет.
 - **ES:** Golden Visa закрыт для недвижимости; инвестиционные маршруты — отдельный due diligence.
+
+В локальных чатах эмигрантов (@spain_granitsa и др.) в 2025–2026 до сих пор спрашивают про Golden Visa «через €500k недвижимость» — это не ускоряет гражданство; с 3 апреля 2025 все инвестпути в ES закрыты.
 
 ### Sephardic / ancestry
 

@@ -194,6 +194,78 @@ export const SPAIN_GUIDE_FACTCHECK: GuideFactcheckConfig[] = [
       },
     ],
   },
+  {
+    slug: "digital-nomad-portugaliya-ispaniya-italiya-2026",
+    file: "content/guides/ru/digital-nomad-portugaliya-ispaniya-italiya-2026.md",
+    title: "Digital nomad PT vs ES vs IT 2026",
+    aliases: ["digital-nomad-portugaliya", "nomad-pt-es-it", "dnv-comparison"],
+    topics: [
+      {
+        id: "dnv-uge",
+        label: "DNV / UGE (ES)",
+        keywords: ["dnv", "uge", "teletrabajo", "nomad", "digital", "консул", "consulado"],
+        suggestedSections: {
+          spain: "## Испания — когда выбирать",
+        },
+      },
+      {
+        id: "beckham",
+        label: "Beckham / налоги (ES)",
+        keywords: ["beckham", "24%", "irpf", "aeat", "налог"],
+        suggestedSections: {
+          taxes: "## Налоги — не игнорируйте",
+        },
+      },
+      {
+        id: "valencia-rent",
+        label: "Аренда Valencia",
+        keywords: ["valencia", "idealista", "аренд", "alquiler", "iban"],
+        suggestedSections: {
+          cost: "## Сравнение стоимости жизни nomad-семьи (2+1)",
+        },
+      },
+      {
+        id: "tie-extranjeria",
+        label: "TIE / extranjería",
+        keywords: ["tie", "extranjería", "cita", "huellas", "resguardo"],
+        suggestedSections: {
+          renewal: "## Продление nomad-ВНЖ: что проверяют",
+        },
+      },
+    ],
+  },
+  {
+    slug: "grazhdanstvo-portugaliya-ispaniya-2026",
+    file: "content/guides/ru/grazhdanstvo-portugaliya-ispaniya-2026.md",
+    title: "Гражданство PT vs ES 2026",
+    aliases: ["grazhdanstvo-portugaliya", "citizenship-pt-es", "grazhdanstvo-ispaniya"],
+    topics: [
+      {
+        id: "golden-myth",
+        label: "Golden Visa мифы",
+        keywords: ["golden", "инвест", "недвижим", "500", "закрыт"],
+        suggestedSections: {
+          golden: "## Альтернативные пути (кратко)",
+        },
+      },
+      {
+        id: "empadronamiento",
+        label: "Empadronamiento / адреса",
+        keywords: ["empadronamiento", "padrón", "padron", "ayuntamiento", "contrato"],
+        suggestedSections: {
+          docs: "### Документы (типовой пакет ES)",
+        },
+      },
+      {
+        id: "nationality-rf",
+        label: "Отказ от РФ-паспорта",
+        keywords: ["отказ", "паспорт", "двойн", "nacionalidad", "гражданств"],
+        suggestedSections: {
+          rf: "## Испания: DELE + CCSE",
+        },
+      },
+    ],
+  },
 ];
 
 /**
@@ -296,6 +368,70 @@ export const SEED_FACTCHECK_SIGNALS: SeedFactcheckSignal[] = [
     topic_id: "bank-es",
     guide_slug: "portugaliya-vs-ispaniya-vnj-2026",
     suggested_section: "### 7. Банки и финансы для граждан РФ/BY",
+  },
+  {
+    channel_username: "spainchats",
+    posted_at: "2025-12-01T11:00:00Z",
+    text: "DNV через UGE и через консульство — разные пакеты; в чатах путают «подал в консульстве» с «уже в UGE после въезда».",
+    topic_id: "dnv-uge",
+    guide_slug: "digital-nomad-portugaliya-ispaniya-italiya-2026",
+    suggested_section: "## Испания — когда выбирать",
+  },
+  {
+    channel_username: "spainchats",
+    posted_at: "2025-11-22T09:00:00Z",
+    text: "На DNV одной выписки банка мало — просят employment agreement или контракты за 12 мес. с суммами; UGE строже консульства по remote proof.",
+    topic_id: "dnv-uge",
+    guide_slug: "digital-nomad-portugaliya-ispaniya-italiya-2026",
+    suggested_section: "## Испания — когда выбирать",
+  },
+  {
+    channel_username: "spain_granitsa",
+    posted_at: "2025-10-08T13:00:00Z",
+    text: "Beckham Law не включается автоматически — заявление в AEAT в 6 мес. после NIE; миф «24% для любого nomad» повторяется еженедельно.",
+    topic_id: "beckham",
+    guide_slug: "digital-nomad-portugaliya-ispaniya-italiya-2026",
+    suggested_section: "## Налоги — не игнорируйте",
+  },
+  {
+    channel_username: "valenciarusia",
+    posted_at: "2025-11-15T14:00:00Z",
+    text: "В Valencia agencies на Idealista часто требуют NIE + Spanish IBAN ещё до viewing — без этого не показывают квартиры.",
+    topic_id: "valencia-rent",
+    guide_slug: "digital-nomad-portugaliya-ispaniya-italiya-2026",
+    suggested_section: "## Сравнение стоимости жизни nomad-семьи (2+1)",
+  },
+  {
+    channel_username: "migranty_barselona",
+    posted_at: "2026-01-10T09:00:00Z",
+    text: "Cita extranjería в Madrid/BCN — 2–4 мес. ожидания; бронируйте сразу после прилёта, не ждите NIE.",
+    topic_id: "tie-extranjeria",
+    guide_slug: "digital-nomad-portugaliya-ispaniya-italiya-2026",
+    suggested_section: "## Продление nomad-ВНЖ: что проверяют",
+  },
+  {
+    channel_username: "spain_granitsa",
+    posted_at: "2026-03-01T07:00:00Z",
+    text: "Golden Visa «ещё открыта через недвижимость» — устаревший миф; с 3 апр. 2025 все инвестпути закрыты, в чатах до сих пор спрашивают про €500k.",
+    topic_id: "golden-myth",
+    guide_slug: "grazhdanstvo-portugaliya-ispaniya-2026",
+    suggested_section: "## Альтернативные пути (кратко)",
+  },
+  {
+    channel_username: "valenciarusia",
+    posted_at: "2025-09-20T08:00:00Z",
+    text: "Порядок шагов: NIE → empadronamiento → банк; без padrón ayuntamiento может отказать, а extranjería смотрит на certificado.",
+    topic_id: "empadronamiento",
+    guide_slug: "grazhdanstvo-portugaliya-ispaniya-2026",
+    suggested_section: "### Документы (типовой пакет ES)",
+  },
+  {
+    channel_username: "spain_granitsa",
+    posted_at: "2026-06-15T10:00:00Z",
+    text: "При nacionalidad ES граждане РФ обязаны отказаться от паспорта РФ — в чатах регулярно сравнивают с PT, где двойное гражданство разрешено.",
+    topic_id: "nationality-rf",
+    guide_slug: "grazhdanstvo-portugaliya-ispaniya-2026",
+    suggested_section: "## Испания: DELE + CCSE",
   },
 ];
 
