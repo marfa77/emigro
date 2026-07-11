@@ -52,6 +52,11 @@ const SLUG_PHOTO_QUERIES: Record<string, string[]> = {
     "construction land plot",
     "norte portugal landscape",
   ],
+  "klimat-norte-zhara-vlazhnost-plesen-zima-2026": [
+    "porto apartment window rain",
+    "dehumidifier home interior",
+    "portugal winter apartment cozy",
+  ],
   "elektromobil-tesla-v-portugalii-2026": [
     "tesla electric car charging",
     "ev charging station",

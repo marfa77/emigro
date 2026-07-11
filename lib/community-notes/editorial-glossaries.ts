@@ -266,6 +266,18 @@ export const EDITORIAL_GLOSSARIES: Record<string, GlossaryTerm[]> = {
     { pt: "IMT", context: "Imposto Municipal sobre Transmissões", ru: "налог на передачу недвижимости/земли" },
     { pt: "licença de utilização", ru: "разрешение на ввод дома в эксплуатацию (habitação)" },
   ],
+  "klimat-norte-zhara-vlazhnost-plesen-zima-2026": [
+    { pt: "humidade", ru: "влажность воздуха и стен; в Norte атлантическая, осень–весна 80–95%" },
+    { pt: "bolor", ru: "плесень; риск для дыхания по DGS, нужно устранять источник, не только красить" },
+    { pt: "ar condicionado", ru: "кондиционер; split — только instalador certificado DGEG" },
+    { pt: "desumidificador", ru: "осушитель воздуха; €150–350, расход €15–30/мес в сыром сезоне" },
+    { pt: "isolamento", ru: "теплоизоляция; в старых prédios Porto/Braga часто отсутствует" },
+    { pt: "aquecimento", ru: "отопление; central heating редок, чаще bomba de calor или elétrico" },
+    { pt: "bomba de calor", context: "heat pump", ru: "тепловой насос в AC — обогрев эффективнее resistência" },
+    { pt: "condomínio", ru: "ТСЖ; aprovação assembleia для bloco exterior на varanda" },
+    { pt: "ventilação", ru: "проветривание; при 90% humidade снаружи мало без desumidificador" },
+    { pt: "ilhas de calor", ru: "острова тепла в городе; +4–6 °C в бетонном центре Porto" },
+  ],
   "elektromobil-tesla-v-portugalii-2026": [
     { pt: "carro elétrico", ru: "электромобиль; в документах IMT и страховке указывается тип de energia" },
     { pt: "ISV", context: "Imposto Sobre Veículos", ru: "налог при первой регистрации; для чистых EV = 0 €" },

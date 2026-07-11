@@ -9,6 +9,7 @@ export const COMMITTED_NOTE_OG_SLUGS = new Set([
   "ciple-guide-2026",
   "elektromobil-tesla-v-portugalii-2026",
   "kak-otkryt-bankovskiy-schet-portugalia-2026",
+  "klimat-norte-zhara-vlazhnost-plesen-zima-2026",
   "lgoty-s-vnj-kulturnye-mesta-2026",
   "mashina-portugaliya-kupit-arenda-import-2026",
   "mezhdunarodnye-shkoly-portugaliya-2026",
