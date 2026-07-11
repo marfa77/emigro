@@ -13,6 +13,10 @@ import {
 } from "@/lib/community-notes/practice-enrichment";
 import { sanitizeSnsFields } from "@/lib/community-notes/sns-editorial";
 import {
+  EDITORIAL_PRESENTATION_RULES,
+  PRESENTATION_REWRITE_HINT,
+} from "@/lib/community-notes/editorial-presentation";
+import {
   PORTUGAL_EDITORIAL_SYSTEM,
   TOPIC_LABELS,
   TOPIC_OFFICIAL_LINKS,
@@ -209,10 +213,13 @@ ${snippets.map((s, i) => `${i + 1}. ${s}`).join("\n")}
 slug: latin kebab-case, уникальный, тема + 2026 если уместно.
 category: ${TOPIC_LABELS[topic] ?? "Быт в Португалии"}
 
-Напиши ПЛОТНУЮ заметку по БЛЮПРИНТУ (эталон — международные школы PT):
-glossary → official (1–2 секции, ≥4 bullets) → practice (2+ секции, ≥8 bullets с Porto/Braga) → gap (≥4 bullets) → типичные ошибки/таймлайн (≥4 bullets).
+Напиши заметку по БЛЮПРИНТУ + ПОДАЧЕ ДЛЯ ЧТЕНИЯ (эталон — международные школы PT):
+glossary (≤8 терминов) → official (lead + ≤5 bullets) → practice (2+ секции) → gap («чат vs сайт») → типичные ошибки.
+quick_answer: 2–3 предложения простым русским. key_takeaways: максимум 4, action-oriented.
 Не дублируй один смысл в разных секциях. В key_takeaways — минимум 2 пункта «Официально:» / «На практике:» / «Расхождение:».
-faq: 4–5 вопросов; в ответах — «По правилам…» и «На практике…».
+faq: 4–5 вопросов; ответ начинается с да/нет/цифры, затем «По правилам…» / «На практике…».
+
+${EDITORIAL_PRESENTATION_RULES}
 
 Гео: аудитория — релоканты в Norte (Порту, Брага, Minho). Примеры практики — Porto, Braga, Matosinhos, Guimarães, Viana. Лиссабон — только если тема центральная (AIMA Saldanha, Cascais, аренда Lisboa).`;
 }
@@ -336,10 +343,12 @@ export async function rewriteCommunityNote(note: CommunityNote): Promise<Drafted
 
 ПЕРЕПИСЫВАНИЕ существующей заметки. Сохрани slug: ${note.slug}
 Текущий заголовок: ${note.title}
-Улучши глубину, структуру body_sections, SEO/AEO. Не делай текст тоньше — только плотнее и полезнее.
+Улучши подачу для чтения и структуру body_sections. Не теряй факты — сделай текст понятнее и логичнее.
 Явно раздели официальные требования и практику из чатов (section_kind + метки в key_takeaways).
 
-КОМПАКТНЫЙ JSON (критично): максимум 5 body_sections, до 5 bullets на секцию, ровно 5 faq, 4–6 key_takeaways. Не дублируй заголовки секций. Без markdown ** в bullets. Минимум 600 слов суммарно для guide.`;
+${PRESENTATION_REWRITE_HINT}
+
+КОМПАКТНЫЙ JSON (критично): максимум 6 body_sections, до 5 bullets на секцию, lead в каждой секции, 4 key_takeaways, 4–5 faq. Не дублируй заголовки секций. Минимум 600 слов суммарно для guide.`;
 
   let lastError: string | undefined;
   for (let attempt = 0; attempt < 4; attempt += 1) {

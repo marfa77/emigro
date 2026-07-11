@@ -19,6 +19,7 @@ async function main() {
   const guide = INTERNATIONAL_SCHOOLS_GUIDE;
   const errors = validateNoteDraft({
     content_kind: guide.content_kind,
+    slug: guide.slug,
     seo_title: guide.seo_title,
     seo_description: guide.seo_description,
     quick_answer: guide.quick_answer,
@@ -26,6 +27,7 @@ async function main() {
     body_paragraphs: guide.body_paragraphs,
     faq: guide.faq,
     key_takeaways: guide.key_takeaways,
+    official_links: guide.official_links,
   });
   if (errors.length > 0) {
     throw new Error(`Quality gate: ${errors.join("; ")}`);

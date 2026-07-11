@@ -1,3 +1,4 @@
+/** Hand-curated guide — see lib/community-notes/editorial-presentation.ts for writing rules. */
 import { flattenBodySections } from "@/lib/community-notes/editorial-quality";
 import { glossaryForSlug } from "@/lib/community-notes/editorial-glossaries";
 import { buildGlossarySection } from "@/lib/community-notes/glossary";

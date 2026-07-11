@@ -14,6 +14,7 @@ import {
   inferSectionKind,
   validateOfficialPracticeCopy,
 } from "@/lib/community-notes/official-vs-practice";
+import { validateEditorialPresentation } from "@/lib/community-notes/editorial-presentation";
 import { auditPracticeQuality } from "@/lib/community-notes/practice-enrichment";
 import type { CommunityNoteFaq, CommunityNoteLink, ContentKind, NoteBodySection } from "@/lib/community-notes/types";
 
@@ -264,6 +265,15 @@ export function validateAgainstBlueprint(input: BlueprintDraftInput): BlueprintV
     errors.push(...practiceAudit.reasons.map((r) => `blueprint practice: ${r}`));
   }
 
+  const presentation = validateEditorialPresentation({
+    content_kind: input.content_kind,
+    quick_answer: input.quick_answer,
+    key_takeaways: input.key_takeaways,
+    body_sections: input.body_sections,
+    faq: input.faq,
+  });
+  warnings.push(...presentation.warnings);
+
   const score = scoreBlueprint(input);
   if (score < BLUEPRINT_PASS_SCORE && errors.length === 0) {
     warnings.push(`blueprint: score ${score} < ${BLUEPRINT_PASS_SCORE}`);
@@ -283,9 +293,10 @@ export const BLUEPRINT_STRUCTURE_RULES = `
 5. «Типичные ошибки» или «Таймлайн» (practice) — минимум 4 bullets ошибок или шагов по срокам.
 Не смешивай official и practice в одной секции. Не ставь gap до practice.
 
-key_takeaways: 4–6 пунктов, минимум 2 с префиксами «Официально:» / «На практике:» / «Расхождение:».
-faq: 4–5 вопросов; в ответах разделяй «По правилам…» и «На практике…».
-quick_answer: суть + гео (Norte: Порту/Braga) + 1 фраза практики если есть расхождение.
+key_takeaways: максимум 4 пункта («Что решить сегодня»), минимум 2 с префиксами «Официально:» / «На практике:» / «Расхождение:».
+faq: 4–5 вопросов; ответ — сначала да/нет/цифра, затем «По правилам…» / «На практике…».
+quick_answer: 2–3 предложения простым русским + гео (Norte: Порту/Braga).
+Каждая секция: lead «зачем читать» + максимум 5 bullets по 2 строки.
 official_links: не в JSON тела — редактор добавит по теме; в official-секциях ссылайся на порталы по имени (Finanças, AIMA, IMT, DGE…).`.trim();
 
 function gapBulletsFromTakeaways(takeaways: string[]): string[] {

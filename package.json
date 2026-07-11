@@ -50,6 +50,7 @@
     "portugal:enrich-practice": "tsx scripts/portugal-enrich-practice.ts",
     "portugal:editorial-pass": "tsx scripts/portugal-editorial-pass.ts",
     "portugal:blueprint-pass": "tsx scripts/portugal-blueprint-pass.ts",
+    "portugal:presentation-pass": "tsx scripts/portugal-presentation-pass.ts",
     "portugal:enrich-tesla": "tsx scripts/portugal-enrich-tesla-ev-guide.ts",
     "portugal:backfill-month": "tsx scripts/portugal-backfill-month.ts",
     "portugal:backfill-tags": "tsx scripts/backfill-community-hashtags.ts",

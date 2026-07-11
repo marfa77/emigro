@@ -1,3 +1,9 @@
+/**
+ * Hand-curated guide (blueprint reference) — editorial presentation rules:
+ * - quick_answer: 2–3 plain Russian sentences; key_takeaways: max 4 action items
+ * - Each section: lead «зачем читать» + max 5 bullets; gap: «чат vs сайт»
+ * See lib/community-notes/editorial-presentation.ts
+ */
 import { flattenBodySections } from "@/lib/community-notes/editorial-quality";
 import { glossaryForSlug } from "@/lib/community-notes/editorial-glossaries";
 import { buildGlossarySection } from "@/lib/community-notes/glossary";
@@ -14,8 +20,8 @@ const bodySections: NoteBodySection[] = [
     heading: "Три дорожки: pública, privada и internacional",
     section_kind: "official",
     paragraphs: [
+      "Зачем читать: чтобы понять три системы образования и не путать «английскую школу» с бесплатной público по адресу.",
       "В Португалии дети с 6 лет обязаны учиться (ensino básico). Для семьи релоканта выбор — не только «английская школа», а три разных системы с разными правилами поступления и стоимостью.",
-      "Государственная escola pública бесплатна при наличии места в agrupamento по адресу проживания. Частная portuguesa (colégio privado) учит по национальной программе MEC. International school — отдельный сегмент: British, American, IB, French, German; аккредитация Cambridge/IB/neasc и т.д.",
     ],
     bullets: [
       "Escola pública: matrícula через agrupamento / Câmara Municipal; приоритет — дети с адресом в зоне школы.",
@@ -140,21 +146,16 @@ const bodySections: NoteBodySection[] = [
 ];
 
 const keyTakeaways = [
-  "Официально: ensino obrigatório с 6 лет; público бесплатна при наличии vaga в agrupamento по адресу.",
-  "На практике: international schools — прямой договор, waiting list 6–18 мес., бюджет €9k–22k/год.",
-  "Официально: для matrícula нужны NIF, morada, vacinação и документы о предыдущем обучении.",
-  "На практике: многие школы зачисляют по D-visa + AIMA appointment до карты ВНЖ — уточняйте у admissions.",
-  "Расхождение: «английская школа без португальского» — на деле PT уроки обязательны; для público без языка будет тяжело.",
-  "На практике: подавайте заявки за 9–12 месяцев до сентября; open days — февраль–март.",
-  "На практике: в Порту семьи с детьми селятся в Foz/Boavista/Matosinhos — OBS, CLIP, LFIP и Deutsche Schule в 10–20 мин.",
-  "Официально: matrícula в agrupamento do Norte (Porto, Braga) — те же NIF, morada и calendário SED concelho, что и в Lisboa.",
-  "На практике: в Браге основной international — CLIB; при нехватке мест семьи ездят в Porto (CLIP/OBS) или берут público/privada PT.",
+  "Сегодня: оформите NIF ребёнку и соберите transcripts — без них matrícula не закроют.",
+  "Официально: ensino obrigatório с 6 лет; público бесплатна при vaga в agrupamento по morada.",
+  "На практике: international — waiting list 6–18 мес., €9k–22k/год; подавайте за 9–12 месяцев.",
+  "Расхождение: «английская без португальского» — PT уроки обязательны; для público без языка тяжело.",
 ];
 
 const faq: CommunityNoteFaq[] = [
   {
     q: "Можно ли поступить в international school без ВНЖ?",
-    a: "По правилам школы обычно нужен легальный статус: D-visa + запись AIMA или ВНЖ. На практике часть школ даёт conditional place по паспорту и proof of relocation, но NIF и morada всё равно понадобятся до начала занятий.",
+    a: "Часто да — D-visa + запись AIMA или ВНЖ. По правилам школы обычно нужен легальный статус. На практике часть школ даёт conditional place по паспорту и proof of relocation, но NIF и morada всё равно понадобятся до начала занятий.",
   },
   {
     q: "Сколько стоят международные школы в Португалии в 2026?",
@@ -197,7 +198,7 @@ export const INTERNATIONAL_SCHOOLS_GUIDE = {
   seo_description:
     "Гайд по международным школам Португалии 2026: British, IB и French в Порту, Браге и Лиссабоне. Документы NIF, стоимость, waiting list и отличия от escola pública.",
   quick_answer:
-    "В Португалии три дорожки: бесплатная escola pública по адресу, colégio privado с национальной программой и international schools (British, IB, American, French, German). Для поступления нужны NIF ребёнка, morada и school reports; international — прямой контракт, €9k–22k/год, заявки за 9–12 месяцев до сентября. В Norte: Porto — OBS, CLIP, LFIP, Deutsche Schule; Braga — CLIB. В Lisboa/Cascais — St Julian's, IPS, Oeiras International. Matrícula в público do Norte по тем же правилам; многие школы зачисляют по D-visa до пластика ВНЖ.",
+    "В Португалии у семьи с ребёнком три дорожки: бесплатная государственная школа по адресу, частная с португальской программой или international (British, IB, French). Для любой нужны NIF ребёнка и подтверждение адреса; international — от €9 000/год и заявка за 9–12 месяцев до сентября.",
   body_sections: bodySections,
   body_paragraphs: flattenBodySections(bodySections),
   key_takeaways: keyTakeaways,
