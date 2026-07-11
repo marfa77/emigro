@@ -23,7 +23,7 @@ const bodySections: NoteBodySection[] = [
       "**Казахстан** — Embassy в Lisboa (Rua Pêro da Covilhã 20); запись через consul.lisbon@mfa.kz.",
       "**Беларусь** — в PT нет миссии; исторически — Embaixada em Paris. С 2023 г. продление паспорта за рубежом фактически закрыто — см. блок про BY ниже.",
       "Португальский passaporte (Cartão de Cidadão) — отдельный трек через IRN/Siga; этот гайд про паспорт страны гражданства.",
-      "Сначала оформите comprovativo de morada и NIF — без них сложнее банк и часть consular-пакетов; чеклист: /notes/pervyj-mesyac-portugaliya-checklist.",
+      "Сначала оформите comprovativo de morada и NIF — без них сложнее банк и часть consular-пакетов; чеклист: [первый месяц в Португалии](/notes/pervyj-mesyac-portugaliya-checklist).",
     ],
   },
   {
@@ -60,7 +60,7 @@ const bodySections: NoteBodySection[] = [
     heading: "Norte на практике: поездка, очереди, выдача",
     section_kind: "practice",
     paragraphs: [
-      "Для жителей Порту и Braga закладывайте полный день в Lisboa: CP/FlixBus ~3 ч в одну сторону + consulado + запас на пробки. Многие совмещают с AIMA или Finanças — см. /notes/aima-agora-zapis-2026.",
+      "Для жителей Порту и Braga закладывайте полный день в Lisboa: CP/FlixBus ~3 ч в одну сторону + consulado + запас на пробки. Многие совмещают с AIMA или Finanças — см. [запись в AIMA](/notes/aima-agora-zapis-2026).",
     ],
     bullets: [
       "**Запись РФ** — слоты на lisboa.kdmid.ru мониторят неделями; в @chatlisboa (июль 2026) жалуются на сбои e-mail подтверждений — сохраняйте скрин статуса «Проверка записи».",
@@ -68,7 +68,7 @@ const bodySections: NoteBodySection[] = [
       "**«Запись без очереди»** — в @chatlisboa предлагали «контакты»; это не официальный agendamento — риск мошенничества и отказа на входе.",
       "**Выдача passaporte** — второй рейс в Lisboa; утренняя очередь 9:15–12:45, приезжайте к открытию.",
       "**Украинцы в Norte** — Consulado no Porto сокращает логистику vs поездка в Lisboa; уточняйте, какие услуги доступны именно там.",
-      "**Срок vs ВНЖ** — если загран истекает раньше título de residência, параллельно планируйте продление AIMA (/notes/aima-agora-zapis-2026): банки и перелёты смотрят на оба документа.",
+      "**Срок vs ВНЖ** — если загран истекает раньше título de residência, параллельно планируйте продление AIMA ([запись в AIMA](/notes/aima-agora-zapis-2026)): банки и перелёты смотрят на оба документа.",
     ],
   },
   {
@@ -106,7 +106,7 @@ const bodySections: NoteBodySection[] = [
       "Ехать в consulado без проверки праздников PT/RF и забастовок — в @chatlisboa (июнь 2026) спрашивали «работает ли завтра»; сверяйте embrussia.ru.",
       "Неполный пакет «дополним потом» — консульство РФ не принимает частично; потеряете слот.",
       "Доверенность вместо личной выдачи (14+) — passaporte не отдадут родственникам.",
-      "Игнорировать comprovativo de morada — нужен для PT-бюрократии и часто для consular-пакета; см. /notes/nif-lissabon-chto-puutayut.",
+      "Игнорировать comprovativo de morada — нужен для PT-бюрократии и часто для consular-пакета; см. [гайд по NIF](/notes/nif-lissabon-chto-puutayut).",
       "**Ориентир:** за 6–9 мес. до expiry — agendamento; +1–3 мес. изготовление; +1 поездка на выдачу.",
     ],
   },
@@ -130,7 +130,7 @@ const faq: CommunityNoteFaq[] = [
   },
   {
     q: "Нужен ли comprovativo de morada для заграна в консульстве РФ?",
-    a: "Для пакета в PT-residence его готовят: contrato, recibos, declaração de morada. Без morada сложнее и банк, и часть consular-услуг — оформите NIF и адрес по /notes/pervyj-mesyac-portugaliya-checklist.",
+    a: "Для пакета в PT-residence его готовят: contrato, recibos, declaração de morada. Без morada сложнее и банк, и часть consular-услуг — оформите NIF и адрес по [чеклисту первого месяца](/notes/pervyj-mesyac-portugaliya-checklist).",
   },
   {
     q: "Можно ли получить паспорт без личного визита?",

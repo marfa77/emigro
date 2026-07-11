@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { isGlossarySection } from "@/lib/community-notes/glossary";
+import { noteLinkLabel } from "@/lib/community-notes/note-link-labels";
 import type { NoteBodySection } from "@/lib/community-notes/types";
 import {
   inferSectionKind,
@@ -9,9 +10,49 @@ import {
 } from "@/lib/community-notes/official-vs-practice";
 
 const INLINE_MARKDOWN_RE = /(\*\*[^*]+\*\*|\[[^\]]+\]\([^)]+\))/g;
+const BARE_NOTE_PATH_RE =
+  /(?:https?:\/\/)?(?:www\.)?portugal\.emigro\.online\/notes\/([\w-]+)|\/notes\/([\w-]+)/g;
 const LINK_CLASS = "text-teal-700 underline hover:text-teal-900";
 
-function renderInlineSegment(part: string, key: number): ReactNode {
+function notePathHref(slug: string): string {
+  return `/notes/${slug}`;
+}
+
+function renderNotePathLink(slug: string, key: number): ReactNode {
+  return (
+    <Link key={key} href={notePathHref(slug)} className={LINK_CLASS}>
+      {noteLinkLabel(slug)}
+    </Link>
+  );
+}
+
+function renderPlainTextWithNoteLinks(text: string, keyBase: number): ReactNode[] {
+  const nodes: ReactNode[] = [];
+  let lastIndex = 0;
+  let linkIndex = 0;
+  const re = new RegExp(BARE_NOTE_PATH_RE.source, "g");
+
+  let match = re.exec(text);
+  while (match) {
+    const index = match.index;
+    if (index > lastIndex) {
+      nodes.push(text.slice(lastIndex, index));
+    }
+    const slug = match[1] ?? match[2];
+    if (slug) {
+      nodes.push(renderNotePathLink(slug, keyBase * 1000 + linkIndex));
+      linkIndex += 1;
+    }
+    lastIndex = index + match[0].length;
+    match = re.exec(text);
+  }
+
+  if (nodes.length === 0) return [text];
+  if (lastIndex < text.length) nodes.push(text.slice(lastIndex));
+  return nodes;
+}
+
+function renderInlineSegment(part: string, key: number): ReactNode | ReactNode[] {
   if (part.startsWith("**") && part.endsWith("**")) {
     return (
       <strong key={key} className="font-semibold text-slate-900">
@@ -39,13 +80,19 @@ function renderInlineSegment(part: string, key: number): ReactNode {
     }
   }
 
-  return part;
+  return renderPlainTextWithNoteLinks(part, key);
 }
 
-/** Render **bold** and [text](url) inline markdown in note body fields. */
+/** Render **bold**, [text](url), and bare /notes/{slug} paths in note body fields. */
 export function parseInlineMarkdown(text: string): ReactNode[] {
   const parts = text.split(INLINE_MARKDOWN_RE);
-  return parts.map((part, i) => renderInlineSegment(part, i));
+  const nodes: ReactNode[] = [];
+  for (let i = 0; i < parts.length; i++) {
+    const rendered = renderInlineSegment(parts[i], i);
+    if (Array.isArray(rendered)) nodes.push(...rendered);
+    else nodes.push(rendered);
+  }
+  return nodes;
 }
 
 /** @deprecated Prefer parseInlineMarkdown — kept for call sites that only need bold+links. */

@@ -5,8 +5,11 @@ export function RelatedNotes({ notes }: { notes: CommunityNote[] }) {
   if (notes.length === 0) return null;
 
   return (
-    <section className="mt-12" aria-labelledby="related-heading">
-      <h2 id="related-heading" className="text-lg font-semibold text-slate-900">
+    <section
+      className="mt-12 rounded-xl border border-slate-200 bg-slate-50/60 p-5 sm:p-6"
+      aria-labelledby="related-heading"
+    >
+      <h2 id="related-heading" className="text-lg font-semibold text-slate-900 sm:text-xl">
         Читайте также
       </h2>
       <ul className="mt-4 space-y-4">

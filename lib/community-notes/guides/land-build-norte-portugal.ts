@@ -57,7 +57,7 @@ const bodySections: NoteBodySection[] = [
       "Ponte de Lima / Amarante: rustico дешевле, но reconversão solo pode занять 12–24 мес. + €5 000–15 000 юрист/архитектор.",
       "Vila do Conde / Maia: ближе к Porto OPO; lepta: кейс лесопилки в 50 см от дома — всегда проверяйте соседние licenças и PIP.",
       "Очистка участка: lepta — владельцы обязаны чистить terreno от brushwood до срока против пожаров; штрафы за просрочку.",
-      "Связь с бытом: без авто в rural Norte сложно — см. гайд по машине (/notes/" + CAR_PORTUGAL_GUIDE_SLUG + "); OPO 30–60 мин от Minho.",
+      "Связь с бытом: без авто в rural Norte сложно — см. [гайд по машине](/notes/" + CAR_PORTUGAL_GUIDE_SLUG + "); OPO 30–60 мин от Minho.",
     ],
   },
   {
@@ -74,7 +74,7 @@ const bodySections: NoteBodySection[] = [
       "Empreiteiro: берите с alvará и referências в concelho; orçamento фиксируйте в contrato com prazos e penalidades.",
       "Arquiteto: 8–12% от стоимости стройки или фикс €10 000–20 000; ведёт licenciamento и vistorias Câmara.",
       "Topógrafo: €600–1 500 за levantamento; нужен до projeto и для границ при спорах с соседями.",
-      "Первый месяц после сдачи: NIF, morada, utente SNS, электричество EDP/Iberdrola — чеклист /notes/pervyj-mesyac-portugaliya-checklist.",
+      "Первый месяц после сдачи: NIF, morada, utente SNS, электричество EDP/Iberdrola — [чеклист первого месяца](/notes/pervyj-mesyac-portugaliya-checklist).",
     ],
   },
   {

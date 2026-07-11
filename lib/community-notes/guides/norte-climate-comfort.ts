@@ -86,7 +86,7 @@ const bodySections: NoteBodySection[] = [
       "Bolor — первые пятна в casa de banho: anti-bolor + ventilação; если вернётся за 2–3 недели — infiltração.",
       "Roupa внутри — влажная ткань в T1 без extracção = bolor за 48 ч; сушите у открытого окна.",
       "Infiltração vs condensação — капли на стекле = condensação; мокрая штукатурка = infiltração (senhorio).",
-      "Аренда — bolor на acta de entrada; иначе caução при выезде. Чеклист: /notes/pervyj-mesyac-portugaliya-checklist.",
+      "Аренда — bolor на acta de entrada; иначе caução при выезде. Чеклист: [первый месяц в Португалии](/notes/pervyj-mesyac-portugaliya-checklist).",
     ],
   },
   {
@@ -163,7 +163,7 @@ const faq: CommunityNoteFaq[] = [
   },
   {
     q: "Что проверить при аренде с точки зрения климата?",
-    a: "AC (BTU/idade), углы за шкафами, cheiro a humidade, extracção WC/cozinha, exposição (norte = сырее). По contrato — estado das paredes e infiltrações. Чеклисты: /notes/arenda-kvartiry-lisbon-pervyi-mesyac-2026 и /notes/pervyj-mesyac-portugaliya-checklist.",
+    a: "AC (BTU/idade), углы за шкафами, cheiro a humidade, extracção WC/cozinha, exposição (norte = сырее). По contrato — estado das paredes e infiltrações. Чеклисты: [аренда в первый месяц](/notes/arenda-kvartiry-lisbon-pervyi-mesyac-2026) и [первый месяц в Португалии](/notes/pervyj-mesyac-portugaliya-checklist).",
   },
 ];
 

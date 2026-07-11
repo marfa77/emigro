@@ -41,7 +41,7 @@ const bodySections: NoteBodySection[] = [
       "Cedofeita / Clérigos — центр, красиво, но шум и парковка; для семьи с авто см. гайд по машине — в centro histórico парковка боль.",
       "Commute Guimarães/Viana → Porto schools: A7 + 45–60 мин в часы пик; часть семей берут CLIB в Braga вместо ежедневной дороги.",
       "por_tugal (2025): Porto — 3-е место в рейтинге муниципальной конкурентоспособности (61,6 балла) — инфраструктура, культура, но аренда выше Minho.",
-      "Школы: OBS/CLIP waiting list 6–12 мес. на Year 7; подробности fees и документов — в гайде /notes/" + INTERNATIONAL_SCHOOLS_GUIDE_SLUG + ".",
+      "Школы: OBS/CLIP waiting list 6–12 мес. на Year 7; подробности fees и документов — в [гайде по международным школам](/notes/" + INTERNATIONAL_SCHOOLS_GUIDE_SLUG + ").",
     ],
   },
   {
@@ -139,7 +139,7 @@ const faq: CommunityNoteFaq[] = [
   },
   {
     q: "Какие international schools в Norte?",
-    a: "Porto: OBS, CLIP, LFIP, Deutsche Schule. Braga: CLIB. Подробный разбор curriculum, fees и документов — в гайде «Международные школы Португалии 2026» (/notes/" + INTERNATIONAL_SCHOOLS_GUIDE_SLUG + ").",
+    a: "Porto: OBS, CLIP, LFIP, Deutsche Schule. Braga: CLIB. Подробный разбор curriculum, fees и документов — в [гайде по международным школам](/notes/" + INTERNATIONAL_SCHOOLS_GUIDE_SLUG + ").",
   },
   {
     q: "Нужен ли португальский, если ребёнок в British school?",
