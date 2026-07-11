@@ -40,6 +40,8 @@
     "portugal:publish-license-guide": "tsx scripts/portugal-publish-driving-license-guide.ts",
     "portugal:publish-schools-guide": "tsx scripts/portugal-publish-international-schools-guide.ts",
     "portugal:publish-car-guide": "tsx scripts/portugal-publish-car-guide.ts",
+    "portugal:publish-porto-braga-guide": "tsx scripts/portugal-publish-porto-braga-family-guide.ts",
+    "portugal:publish-land-build-guide": "tsx scripts/portugal-publish-land-build-guide.ts",
     "portugal:generate-note-images": "tsx scripts/portugal-generate-note-images.ts",
     "portugal:index-license-history": "tsx scripts/portugal-index-license-history.ts",
     "portugal:rewrite": "tsx scripts/portugal-rewrite-notes.ts",

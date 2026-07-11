@@ -42,6 +42,16 @@ const SLUG_PHOTO_QUERIES: Record<string, string[]> = {
     "school porto building",
     "children school playground",
   ],
+  "porto-vs-braga-semya-mezhdunarodnaya-shkola-2026": [
+    "porto foz douro family",
+    "braga portugal city",
+    "portugal family neighborhood",
+  ],
+  "pokupka-zemli-postroyka-doma-norte-portugaliya-2026": [
+    "portugal countryside house",
+    "construction land plot",
+    "norte portugal landscape",
+  ],
   "elektromobil-tesla-v-portugalii-2026": [
     "tesla electric car charging",
     "ev charging station",

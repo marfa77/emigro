@@ -14,6 +14,8 @@ import { getPublishedCommunityNoteBySlug, getPublishedCommunityNotes } from "@/l
 import { CAR_PORTUGAL_GUIDE } from "@/lib/community-notes/guides/car-portugal-buy-rent-import";
 import { DRIVING_LICENSE_EXCHANGE_GUIDE } from "@/lib/community-notes/guides/driving-license-exchange";
 import { INTERNATIONAL_SCHOOLS_GUIDE } from "@/lib/community-notes/guides/international-schools-portugal";
+import { LAND_BUILD_NORTE_GUIDE } from "@/lib/community-notes/guides/land-build-norte-portugal";
+import { PORTO_VS_BRAGA_FAMILY_SCHOOLS_GUIDE } from "@/lib/community-notes/guides/porto-vs-braga-family-schools";
 import { ensureNoteOgImage } from "@/lib/community-notes/note-og-image";
 import type { CommunityNote } from "@/lib/community-notes/types";
 
@@ -21,6 +23,8 @@ const CURATED_GUIDES: CommunityNote[] = [
   CAR_PORTUGAL_GUIDE as CommunityNote,
   DRIVING_LICENSE_EXCHANGE_GUIDE as CommunityNote,
   INTERNATIONAL_SCHOOLS_GUIDE as CommunityNote,
+  PORTO_VS_BRAGA_FAMILY_SCHOOLS_GUIDE as CommunityNote,
+  LAND_BUILD_NORTE_GUIDE as CommunityNote,
 ];
 
 async function resolveNotes(slugs: string[]): Promise<Array<Pick<CommunityNote, "slug" | "topic_tags" | "title">>> {

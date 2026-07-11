@@ -6,6 +6,8 @@ export const SKIP_REWRITE_SLUGS = new Set([
   "zamena-voditelskih-prav-portugaliya-2026",
   "mezhdunarodnye-shkoly-portugaliya-2026",
   "mashina-portugaliya-kupit-arenda-import-2026",
+  "porto-vs-braga-semya-mezhdunarodnaya-shkola-2026",
+  "pokupka-zemli-postroyka-doma-norte-portugaliya-2026",
 ]);
 
 /** Already deep-rewritten by Gemini (batch or manual). */
