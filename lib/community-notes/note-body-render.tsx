@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { isGlossarySection } from "@/lib/community-notes/glossary";
 import type { NoteBodySection } from "@/lib/community-notes/types";
 import {
   inferSectionKind,
@@ -59,8 +60,37 @@ export function optimizeBodySections(sections: NoteBodySection[]): NoteBodySecti
   const hasWeeklyChecklist = sections.some(
     (s) => /чеклист|по неделям/i.test(s.heading) && (s.bullets?.length ?? 0) >= 3
   );
-  if (!hasWeeklyChecklist) return sections;
-  return sections.filter((s) => !WEEKLY_DETAIL_RE.test(s.heading));
+  const trimmed = hasWeeklyChecklist ? sections.filter((s) => !WEEKLY_DETAIL_RE.test(s.heading)) : sections;
+  return reorderSectionsForReading(trimmed);
+}
+
+/** Glossary at the end so the guide starts with actionable content. */
+export function reorderSectionsForReading(sections: NoteBodySection[]): NoteBodySection[] {
+  const glossary = sections.filter(isGlossarySection);
+  const rest = sections.filter((section) => !isGlossarySection(section));
+  if (glossary.length === 0) return sections;
+  return [...rest, ...glossary];
+}
+
+const COLLAPSE_BULLET_THRESHOLD = 5;
+
+/** Whether the section uses progressive disclosure (details/summary). */
+export function sectionShouldCollapse(section: NoteBodySection): boolean {
+  if (isGlossarySection(section)) return true;
+  if (isChecklistSection(section)) return false;
+  return (section.bullets?.length ?? 0) >= COLLAPSE_BULLET_THRESHOLD;
+}
+
+/** Progressive disclosure: long sections collapse; glossary always collapsed. */
+export function sectionStartsCollapsed(
+  section: NoteBodySection,
+  indexAmongContent: number
+): boolean {
+  if (isGlossarySection(section)) return true;
+  if (isChecklistSection(section)) return false;
+  const bullets = section.bullets?.length ?? 0;
+  if (bullets >= COLLAPSE_BULLET_THRESHOLD) return indexAmongContent >= 2;
+  return indexAmongContent >= 4;
 }
 
 export function isChecklistSection(section: NoteBodySection): boolean {
@@ -88,24 +118,24 @@ const SECTION_SURFACE: Record<
   { wrap: string; badge: string; badgeClass: string }
 > = {
   official: {
-    wrap: "rounded-xl border border-slate-200 bg-slate-50/90 p-5 sm:p-6",
+    wrap: "rounded-xl border border-slate-200/90 bg-white p-5 sm:p-6 border-l-[3px] border-l-slate-300",
     badge: SECTION_KIND_LABELS.official,
-    badgeClass: "bg-slate-700 text-white",
+    badgeClass: "bg-slate-100 text-slate-600 ring-1 ring-slate-200/80",
   },
   practice: {
-    wrap: "rounded-xl border border-teal-100 bg-teal-50/50 p-5 sm:p-6",
+    wrap: "rounded-xl border border-teal-100/90 bg-teal-50/30 p-5 sm:p-6 border-l-[3px] border-l-teal-500",
     badge: SECTION_KIND_LABELS.practice,
-    badgeClass: "bg-teal-700 text-white",
+    badgeClass: "bg-teal-100 text-teal-800 ring-1 ring-teal-200/80",
   },
   gap: {
-    wrap: "rounded-xl border border-amber-200 bg-amber-50/80 p-5 sm:p-6",
+    wrap: "rounded-xl border border-amber-200/90 bg-amber-50/40 p-5 sm:p-6 border-l-[3px] border-l-amber-400",
     badge: SECTION_KIND_LABELS.gap,
-    badgeClass: "bg-amber-700 text-white",
+    badgeClass: "bg-amber-100 text-amber-900 ring-1 ring-amber-200/80",
   },
   glossary: {
-    wrap: "rounded-xl border border-indigo-100 bg-indigo-50/40 p-5 sm:p-6",
+    wrap: "rounded-xl border border-indigo-100/90 bg-indigo-50/20 p-5 sm:p-6",
     badge: SECTION_KIND_LABELS.glossary,
-    badgeClass: "bg-indigo-700 text-white",
+    badgeClass: "bg-indigo-100 text-indigo-800 ring-1 ring-indigo-200/80",
   },
 };
 

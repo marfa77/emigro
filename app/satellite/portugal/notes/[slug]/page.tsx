@@ -4,6 +4,9 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { ContentKindBadge, NoteHashtags } from "@/components/satellite/HashtagNav";
 import { KeyTakeaways, NoteBody } from "@/components/satellite/NoteBody";
+import { NoteFaq } from "@/components/satellite/NoteFaq";
+import { NoteReadingProgress } from "@/components/satellite/NoteReadingProgress";
+import { NoteToc } from "@/components/satellite/NoteToc";
 import { RelatedNotes } from "@/components/satellite/RelatedNotes";
 import { Prep2GoPromo } from "@/components/satellite/Prep2GoPromo";
 import { BarakhloPromo } from "@/components/satellite/BarakhloPromo";
@@ -22,7 +25,7 @@ import { PORTUGAL_SATELLITE } from "@/lib/satellite/portugal";
 import { portugalHubPath } from "@/lib/satellite/paths";
 import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 import { portugalSatelliteUrl } from "@/lib/site-url";
-import { parseInlineMarkdown } from "@/lib/community-notes/note-body-render";
+import { estimateNoteReadMinutes, formatReadTime } from "@/lib/community-notes/read-time";
 import { heroTitle, NOTE_CONTENT_IMAGE_SIZES, noteContentImageClass, satelliteMain } from "@/lib/ui/mobile";
 
 export const revalidate = 300;
@@ -63,9 +66,12 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
   const llmsUrl = portugalSatelliteUrl("/llms");
   const heroImage = note.content_kind === "guide" ? resolveNoteOgImage(note) : null;
   const showHero = heroImage != null && heroImage !== DEFAULT_OG_IMAGE;
+  const readMinutes = estimateNoteReadMinutes(note);
+  const showToc = note.content_kind === "guide";
 
   return (
     <main className={satelliteMain}>
+      <NoteReadingProgress />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(speakableSchema) }} />
@@ -110,6 +116,12 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
                 <span>обновлено {formatDate(note.updated_at)}</span>
               </>
             )}
+            {note.content_kind === "guide" && (
+              <>
+                {" · "}
+                <span>{formatReadTime(readMinutes)}</span>
+              </>
+            )}
           </p>
         )}
       </header>
@@ -137,6 +149,8 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
 
       <KeyTakeaways items={note.key_takeaways} />
 
+      {showToc && <NoteToc sections={note.body_sections} hasFaq={note.faq.length > 0} />}
+
       <NoteBody sections={note.body_sections} paragraphs={note.body_paragraphs} />
 
       {note.official_links.length > 0 && (
@@ -159,19 +173,7 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
         </section>
       )}
 
-      {note.faq.length > 0 && (
-        <section className="mt-10" id="faq">
-          <h2 className="text-lg font-semibold text-slate-900 sm:text-xl">FAQ</h2>
-          <dl className="mt-4 space-y-4">
-            {note.faq.map((item) => (
-              <div key={item.q} className="rounded-lg border border-slate-200 bg-white p-4">
-                <dt className="font-medium text-slate-900">{item.q}</dt>
-                <dd className="mt-2 text-sm leading-relaxed text-slate-700">{parseInlineMarkdown(item.a)}</dd>
-              </div>
-            ))}
-          </dl>
-        </section>
-      )}
+      <NoteFaq items={note.faq} />
 
       {showPrep2Go && <Prep2GoPromo noteSlug={note.slug} />}
 
