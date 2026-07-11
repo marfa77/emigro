@@ -278,6 +278,18 @@ export const EDITORIAL_GLOSSARIES: Record<string, GlossaryTerm[]> = {
     { pt: "ventilação", ru: "проветривание; при 90% humidade снаружи мало без desumidificador" },
     { pt: "ilhas de calor", ru: "острова тепла в городе; +4–6 °C в бетонном центре Porto" },
   ],
+  "zamena-zagranpasporta-portugaliya-2026": [
+    { pt: "passaporte", ru: "загранпаспорт / национальный паспорт страны гражданства" },
+    { pt: "consulado", ru: "консульство; для RU/KZ — Lisboa, для UA — Lisboa или Porto" },
+    { pt: "agendamento", ru: "предварительная запись на приём (lisboa.kdmid.ru и др.)" },
+    { pt: "comprovativo de morada", ru: "подтверждение адреса проживания в Португалии" },
+    { pt: "passaporte biométrico", ru: "биометрический загран РФ на 10 лет; фото в consulado" },
+    { pt: "título de residência", ru: "пластиковая карта ВНЖ; срок часто короче заграна" },
+    { pt: "apostila", ru: "апостиль на португальские документы для consulado РФ" },
+    { pt: "proteção temporária", ru: "временная защита для граждан UA в PT" },
+    { pt: "balcão", ru: "окно выдачи; готовый passaporte — общая очередь без записи" },
+    { pt: "svidetelstvo na vozvrashchenie", ru: "свидетельство на возвращение в РФ при срочном выезде" },
+  ],
   "elektromobil-tesla-v-portugalii-2026": [
     { pt: "carro elétrico", ru: "электромобиль; в документах IMT и страховке указывается тип de energia" },
     { pt: "ISV", context: "Imposto Sobre Veículos", ru: "налог при первой регистрации; для чистых EV = 0 €" },

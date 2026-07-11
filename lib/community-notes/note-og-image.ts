@@ -57,6 +57,11 @@ const SLUG_PHOTO_QUERIES: Record<string, string[]> = {
     "dehumidifier home interior",
     "portugal winter apartment cozy",
   ],
+  "zamena-zagranpasporta-portugaliya-2026": [
+    "passport documents desk",
+    "embassy building lisbon",
+    "travel documents passport",
+  ],
   "elektromobil-tesla-v-portugalii-2026": [
     "tesla electric car charging",
     "ev charging station",

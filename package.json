@@ -43,6 +43,7 @@
     "portugal:publish-porto-braga-guide": "tsx scripts/portugal-publish-porto-braga-family-guide.ts",
     "portugal:publish-land-build-guide": "tsx scripts/portugal-publish-land-build-guide.ts",
     "portugal:publish-norte-climate-guide": "tsx scripts/portugal-publish-norte-climate-guide.ts",
+    "portugal:publish-passport-guide": "tsx scripts/portugal-publish-passport-guide.ts",
     "portugal:generate-note-images": "tsx scripts/portugal-generate-note-images.ts",
     "portugal:index-license-history": "tsx scripts/portugal-index-license-history.ts",
     "portugal:rewrite": "tsx scripts/portugal-rewrite-notes.ts",

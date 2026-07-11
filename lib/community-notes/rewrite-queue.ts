@@ -9,6 +9,7 @@ export const SKIP_REWRITE_SLUGS = new Set([
   "porto-vs-braga-semya-mezhdunarodnaya-shkola-2026",
   "pokupka-zemli-postroyka-doma-norte-portugaliya-2026",
   "klimat-norte-zhara-vlazhnost-plesen-zima-2026",
+  "zamena-zagranpasporta-portugaliya-2026",
 ]);
 
 /** Already deep-rewritten by Gemini (batch or manual). */
