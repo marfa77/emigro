@@ -1,26 +1,32 @@
-import { portugalSatellitePublicUrl } from "@/lib/site-url";
+import { portugalSatellitePublicUrl, spainSatellitePublicUrl } from "@/lib/site-url";
 
 const LOCALHOST_NOTE_RE =
-  /https?:\/\/(?:localhost|127\.0\.0\.1)(?::\d+)?\/satellite\/portugal\/notes\/([a-z0-9-]+)/gi;
+  /https?:\/\/(?:localhost|127\.0\.0\.1)(?::\d+)?\/satellite\/(?:portugal|spain)\/notes\/([a-z0-9-]+)/gi;
 const WWW_PATH_NOTE_RE =
-  /https?:\/\/(?:www\.)?emigro\.online\/satellite\/portugal\/notes\/([a-z0-9-]+)/gi;
+  /https?:\/\/(?:www\.)?emigro\.online\/satellite\/(?:portugal|spain)\/notes\/([a-z0-9-]+)/gi;
 
 /** Canonical public URL for a published community note (never localhost). */
-export function communityNotePublicUrl(slug: string): string {
+export function communityNotePublicUrl(slug: string, countryKey = "portugal"): string {
+  if (countryKey === "spain") {
+    return spainSatellitePublicUrl(`/notes/${slug}`);
+  }
   return portugalSatellitePublicUrl(`/notes/${slug}`);
 }
 
-/** Replace dev / legacy path URLs with portugal.emigro.online. */
-export function sanitizeEmigroNoteUrls(text: string): string {
+/** Replace dev / legacy path URLs with the correct satellite subdomain. */
+export function sanitizeEmigroNoteUrls(text: string, countryKey = "portugal"): string {
   return text
-    .replace(LOCALHOST_NOTE_RE, (_, slug: string) => communityNotePublicUrl(slug))
-    .replace(WWW_PATH_NOTE_RE, (_, slug: string) => communityNotePublicUrl(slug));
+    .replace(LOCALHOST_NOTE_RE, (_, slug: string) => communityNotePublicUrl(slug, countryKey))
+    .replace(WWW_PATH_NOTE_RE, (_, slug: string) => communityNotePublicUrl(slug, countryKey));
 }
 
-export function sanitizeStringArray(items: string[]): { items: string[]; changed: boolean } {
+export function sanitizeStringArray(
+  items: string[],
+  countryKey = "portugal"
+): { items: string[]; changed: boolean } {
   let changed = false;
   const next = items.map((item) => {
-    const sanitized = sanitizeEmigroNoteUrls(item);
+    const sanitized = sanitizeEmigroNoteUrls(item, countryKey);
     if (sanitized !== item) changed = true;
     return sanitized;
   });

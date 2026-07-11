@@ -3,11 +3,12 @@ import { CONTENT_KIND_LABELS, hashtagLabel, normalizeHashtag } from "@/lib/commu
 import type { CommunityNote, ContentKind } from "@/lib/community-notes/types";
 import { communityNotePublicUrl } from "@/lib/community-notes/note-url";
 import { PORTUGAL_SATELLITE } from "@/lib/satellite/portugal";
+import { SPAIN_SATELLITE } from "@/lib/satellite/spain";
 import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
 import { resolveNoteOgImage } from "@/lib/community-notes/note-og-image";
 import { fitMetaDescription, fitSeoTitlePart, socialImageMetadata } from "@/lib/seo";
 import { EMIGRO_PUBLISHER, emigroAuthorOrg, schemaImage } from "@/lib/seo/schema";
-import { portugalSatellitePublicUrl } from "@/lib/site-url";
+import { portugalSatellitePublicUrl, spainSatellitePublicUrl } from "@/lib/site-url";
 
 const GEO = {
   country: "Portugal",
@@ -37,21 +38,42 @@ const TOPIC_GEO_KEYWORDS: Record<string, string[]> = {
   general: ["Portugal relocation", "Norte expat", "Porto expat"],
 };
 
-export function communityNoteUrl(slug: string): string {
-  return communityNotePublicUrl(slug);
+export function communityNoteUrl(slug: string, countryKey = "portugal"): string {
+  return communityNotePublicUrl(slug, countryKey);
+}
+
+function satelliteHubPublicUrl(countryKey: string): string {
+  return countryKey === "spain" ? spainSatellitePublicUrl("/") : portugalSatellitePublicUrl("/");
+}
+
+function satelliteSiteName(countryKey: string): string {
+  return countryKey === "spain" ? "Emigro Spain" : "Emigro Portugal";
 }
 
 export function buildCommunityNoteKeywords(note: CommunityNote): string[] {
-  const base = [
-    "Португалия",
-    "Порту",
-    "Norte",
-    "релокация",
-    CONTENT_KIND_LABELS[note.content_kind],
-    note.category,
+  const base =
+    note.country_key === "spain"
+      ? [
+          "Испания",
+          "Валенсия",
+          "релокация",
+          "NIE Spain",
+          "TIE extranjería",
+          CONTENT_KIND_LABELS[note.content_kind],
+          note.category,
+        ]
+      : [
+          "Португалия",
+          "Порту",
+          "Norte",
+          "релокация",
+          CONTENT_KIND_LABELS[note.content_kind],
+          note.category,
+        ];
+  base.push(
     ...note.topic_tags,
-    ...note.hashtags.map((h) => hashtagLabel(normalizeHashtag(h))),
-  ];
+    ...note.hashtags.map((h) => hashtagLabel(normalizeHashtag(h)))
+  );
   for (const tag of note.topic_tags) {
     const geo = TOPIC_GEO_KEYWORDS[tag];
     if (geo) base.push(...geo);
@@ -60,11 +82,12 @@ export function buildCommunityNoteKeywords(note: CommunityNote): string[] {
 }
 
 export function buildCommunityNoteMetadata(note: CommunityNote): Metadata {
-  const url = communityNoteUrl(note.slug);
+  const url = communityNoteUrl(note.slug, note.country_key);
   const title = fitSeoTitlePart(note.seo_title || note.title);
   const description = fitMetaDescription(note.seo_description || note.excerpt || note.quick_answer);
   const keywords = buildCommunityNoteKeywords(note);
   const ogImage = socialImageMetadata(resolveNoteOgImage(note), note.title);
+  const siteName = satelliteSiteName(note.country_key);
 
   return {
     title,
@@ -79,7 +102,7 @@ export function buildCommunityNoteMetadata(note: CommunityNote): Metadata {
       title: note.title,
       description: note.excerpt || description,
       url,
-      siteName: "Emigro Portugal",
+      siteName,
       locale: "ru_RU",
       type: "article",
       ...(note.published_at ? { publishedTime: note.published_at } : {}),
@@ -120,8 +143,11 @@ function placeSchema(city?: string) {
 }
 
 export function buildCommunityNoteSchemas(note: CommunityNote) {
-  const url = communityNoteUrl(note.slug);
+  const url = communityNoteUrl(note.slug, note.country_key);
   const schemaType = schemaTypeForKind(note.content_kind);
+  const hubTitle = note.country_key === "spain" ? SPAIN_SATELLITE.title : PORTUGAL_SATELLITE.title;
+  const hubUrl = satelliteHubPublicUrl(note.country_key);
+  const defaultTag = note.country_key === "spain" ? "spain" : "portugal";
 
   const articleSchema = {
     "@context": "https://schema.org",
@@ -158,8 +184,8 @@ export function buildCommunityNoteSchemas(note: CommunityNote) {
   };
 
   const breadcrumbSchema = buildBreadcrumbSchema([
-    { name: PORTUGAL_SATELLITE.title, item: portugalSatellitePublicUrl("/") },
-    { name: note.category, item: portugalSatellitePublicUrl(`/tag/${note.topic_tags[0] ?? "portugal"}`) },
+    { name: hubTitle, item: hubUrl },
+    { name: note.category, item: `${hubUrl.replace(/\/$/, "")}/tag/${note.topic_tags[0] ?? defaultTag}` },
     { name: note.title },
   ]);
 
@@ -230,10 +256,32 @@ export async function buildPortugalLlmsTxt(notes: CommunityNote[]): Promise<stri
   ];
 
   for (const note of notes) {
-    const url = communityNoteUrl(note.slug);
+    const url = communityNoteUrl(note.slug, note.country_key);
     lines.push(`- [${note.title}](${url}): ${note.quick_answer.replace(/\s+/g, " ").slice(0, 220)}`);
   }
 
   lines.push("", "## Official corridors", "", `- Portugal corridor: https://www.emigro.online/ru/portugal`, "");
+  return lines.join("\n");
+}
+
+export async function buildSpainLlmsTxt(notes: CommunityNote[]): Promise<string> {
+  const hub = spainSatellitePublicUrl("/");
+  const lines = [
+    "# spain.emigro.online — практика для релокантов",
+    "",
+    `> ${SPAIN_SATELLITE.tagline}`,
+    `> Аудитория: русскоязычные релоканты в Испании (Valencia, Madrid, Barcelona). Не юридическая консультация.`,
+    `> Hub: ${hub}`,
+    "",
+    "## Материалы (editorial notes)",
+    "",
+  ];
+
+  for (const note of notes) {
+    const url = communityNoteUrl(note.slug, "spain");
+    lines.push(`- [${note.title}](${url}): ${note.quick_answer.replace(/\s+/g, " ").slice(0, 220)}`);
+  }
+
+  lines.push("", "## Official corridors", "", `- Spain corridor: https://www.emigro.online/ru/spain`, "");
   return lines.join("\n");
 }

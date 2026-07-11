@@ -2,10 +2,17 @@ import Link from "next/link";
 import { ContentKindBadge } from "@/components/satellite/HashtagNav";
 import { formatSpotlightDateLabel } from "@/lib/community-notes/daily-spotlight";
 import type { DailySpotlight } from "@/lib/community-notes/daily-spotlight";
-import { portugalNotePath } from "@/lib/satellite/paths";
+import { satelliteNotePath } from "@/lib/satellite/paths";
+import type { SatelliteCountryKey } from "@/lib/community-notes/seed";
 import { tapTarget } from "@/lib/ui/mobile";
 
 export function DailySpotlightTile({ spotlight }: { spotlight: DailySpotlight }) {
+  const countryKey: SatelliteCountryKey = spotlight.country_key === "spain" ? "spain" : "portugal";
+  const ctaClass =
+    countryKey === "spain"
+      ? "bg-amber-700 hover:bg-amber-800"
+      : "bg-teal-700 hover:bg-teal-800";
+
   return (
     <section
       className="relative overflow-hidden rounded-2xl border-2 border-amber-300 bg-gradient-to-br from-amber-50 via-white to-teal-50 p-5 shadow-sm sm:p-6"
@@ -31,8 +38,8 @@ export function DailySpotlightTile({ spotlight }: { spotlight: DailySpotlight })
 
         <div className="mt-5 flex flex-wrap items-center gap-3">
           <Link
-            href={portugalNotePath(spotlight.note_slug)}
-            className={`inline-flex ${tapTarget} items-center rounded-lg bg-teal-700 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-teal-800`}
+            href={satelliteNotePath(spotlight.note_slug, countryKey)}
+            className={`inline-flex ${tapTarget} items-center rounded-lg ${ctaClass} px-4 py-2.5 text-sm font-semibold text-white transition`}
           >
             Читать полностью →
           </Link>

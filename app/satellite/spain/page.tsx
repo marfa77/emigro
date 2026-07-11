@@ -84,7 +84,7 @@ export default async function SpainSatelliteHomePage() {
       <h1 className={`${heroTitle} leading-tight text-slate-900`}>{SPAIN_SATELLITE.title}</h1>
       <p className="mt-4 text-lg leading-relaxed text-slate-700">{SPAIN_SATELLITE.tagline}</p>
 
-      <SatelliteValueProp />
+      <SatelliteValueProp countryKey="spain" />
 
       <BarakhloPromo context="hub" placement="satellite_hub" compact />
 
@@ -94,7 +94,7 @@ export default async function SpainSatelliteHomePage() {
         </div>
       )}
 
-      <HashtagNav notes={notes} />
+      <HashtagNav notes={notes} countryKey="spain" />
 
       <section className="mt-10" aria-labelledby="notes-heading">
         <h2 id="notes-heading" className="text-xl font-semibold text-slate-900">

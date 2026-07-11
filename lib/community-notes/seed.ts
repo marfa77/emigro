@@ -2,6 +2,8 @@ import type { CommunityNote } from "@/lib/community-notes/types";
 import { buildNoteHashtags } from "@/lib/community-notes/hashtags";
 import { PORTUGAL_EDITORIAL_SEED } from "@/lib/community-notes/publish-seed";
 
+export type SatelliteCountryKey = "portugal" | "spain";
+
 /** Fallback when Supabase has no published notes yet. */
 export const PORTUGAL_NOTE_SEED: CommunityNote[] = PORTUGAL_EDITORIAL_SEED.map((note, i) => ({
   id: `seed-${i}`,
@@ -29,3 +31,11 @@ export const PORTUGAL_NOTE_SEED: CommunityNote[] = PORTUGAL_EDITORIAL_SEED.map((
   created_at: "2026-07-03T10:00:00.000Z",
   updated_at: "2026-07-03T10:00:00.000Z",
 }));
+
+/** Spain hub has no editorial seed yet — never fall back to Portugal notes. */
+export const SPAIN_NOTE_SEED: CommunityNote[] = [];
+
+export function noteSeedFallback(countryKey: string): CommunityNote[] {
+  if (countryKey === "spain") return SPAIN_NOTE_SEED;
+  return PORTUGAL_NOTE_SEED;
+}

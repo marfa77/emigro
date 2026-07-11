@@ -2,7 +2,7 @@ import { ensurePortugalCronEnv } from "@/lib/community-notes/cron-env";
 import { CONTENT_KIND_EMOJI, CONTENT_KIND_LABELS, hashtagLabel, normalizeHashtag } from "@/lib/community-notes/hashtags";
 import { getPublishedCommunityNotes } from "@/lib/community-notes/queries";
 import type { CommunityNote, ContentKind } from "@/lib/community-notes/types";
-import { portugalSatellitePublicUrl } from "@/lib/site-url";
+import { portugalSatellitePublicUrl, spainSatellitePublicUrl } from "@/lib/site-url";
 import { createServerClient } from "@/lib/supabase/server";
 
 export type DailySpotlight = {
@@ -161,29 +161,35 @@ function pickBestNote(
   return notes[0] ?? null;
 }
 
-function sanitizeSpotlightUrl(url: string, slug: string): string {
+function satellitePublicUrl(countryKey: string, path: string): string {
+  if (countryKey === "spain") return spainSatellitePublicUrl(path);
+  return portugalSatellitePublicUrl(path);
+}
+
+function sanitizeSpotlightUrl(url: string, slug: string, countryKey: string): string {
   if (/localhost|127\.0\.0\.1/.test(url)) {
-    return portugalSatellitePublicUrl(`/notes/${slug}`);
+    return satellitePublicUrl(countryKey, `/notes/${slug}`);
   }
   return url;
 }
 
-function sanitizeThreadsText(text: string, slug: string): string {
-  const publicUrl = portugalSatellitePublicUrl(`/notes/${slug}`);
+function sanitizeThreadsText(text: string, slug: string, countryKey: string): string {
+  const publicUrl = satellitePublicUrl(countryKey, `/notes/${slug}`);
   return text.replace(/https?:\/\/(?:localhost|127\.0\.0\.1)(?::\d+)?\/[^\s]+/g, publicUrl);
 }
 
 function mapSpotlight(row: Record<string, unknown>): DailySpotlight {
   const slug = String(row.note_slug);
+  const countryKey = String(row.country_key);
   return {
     id: String(row.id),
-    country_key: String(row.country_key),
+    country_key: countryKey,
     spotlight_date: String(row.spotlight_date),
     note_slug: slug,
     content_kind: (row.content_kind as ContentKind) ?? "tip",
     headline: String(row.headline),
-    threads_text: sanitizeThreadsText(String(row.threads_text), slug),
-    note_url: sanitizeSpotlightUrl(String(row.note_url), slug),
+    threads_text: sanitizeThreadsText(String(row.threads_text), slug, countryKey),
+    note_url: sanitizeSpotlightUrl(String(row.note_url), slug, countryKey),
     updated_at: String(row.updated_at),
   };
 }
@@ -223,7 +229,7 @@ export async function refreshDailySpotlight(countryKey = "portugal"): Promise<Da
   const note = pickBestNote(notes, recentSpotlightSlugs, today);
   if (!note) return null;
 
-  const noteUrl = portugalSatellitePublicUrl(`/notes/${note.slug}`);
+  const noteUrl = satellitePublicUrl(countryKey, `/notes/${note.slug}`);
   const threadsText = buildThreadsText(note, noteUrl);
   const headline = `${CONTENT_KIND_LABELS[note.content_kind]} дня`;
 

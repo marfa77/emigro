@@ -1,6 +1,6 @@
 import { createServerClient } from "@/lib/supabase/server";
 import { normalizeHashtag } from "@/lib/community-notes/hashtags";
-import { PORTUGAL_NOTE_SEED } from "@/lib/community-notes/seed";
+import { noteSeedFallback } from "@/lib/community-notes/seed";
 import type { CommunityNote, CommunitySignalIngest, ContentKind } from "@/lib/community-notes/types";
 import { filterRelocantSignals } from "@/lib/satellite/portugal";
 
@@ -46,17 +46,17 @@ export async function getPublishedCommunityNotes(countryKey = "portugal"): Promi
 
     if (error) {
       if (/community_notes/.test(error.message)) {
-        return PORTUGAL_NOTE_SEED;
+        return noteSeedFallback(countryKey);
       }
       console.warn("[community-notes] load failed:", error.message);
-      return PORTUGAL_NOTE_SEED;
+      return noteSeedFallback(countryKey);
     }
 
     const notes = (data ?? []).map(mapNote);
-    return notes.length > 0 ? notes : PORTUGAL_NOTE_SEED;
+    return notes.length > 0 ? notes : noteSeedFallback(countryKey);
   } catch (e) {
     console.warn("[community-notes] fallback to seed:", e);
-    return PORTUGAL_NOTE_SEED;
+    return noteSeedFallback(countryKey);
   }
 }
 
@@ -84,11 +84,11 @@ export async function getPublishedCommunityNoteBySlug(
       .maybeSingle();
 
     if (error || !data) {
-      return PORTUGAL_NOTE_SEED.find((n) => n.slug === slug) ?? null;
+      return noteSeedFallback(countryKey).find((n) => n.slug === slug) ?? null;
     }
     return mapNote(data);
   } catch {
-    return PORTUGAL_NOTE_SEED.find((n) => n.slug === slug) ?? null;
+    return noteSeedFallback(countryKey).find((n) => n.slug === slug) ?? null;
   }
 }
 

@@ -23,7 +23,25 @@ export function RelatedNotes({ notes }: { notes: CommunityNote[] }) {
   );
 }
 
-export function SatelliteValueProp() {
+export function SatelliteValueProp({ countryKey = "portugal" }: { countryKey?: "portugal" | "spain" }) {
+  if (countryKey === "spain") {
+    return (
+      <section className="mt-6 rounded-xl border border-amber-100 bg-amber-50/60 p-4 text-sm leading-relaxed text-slate-700">
+        <p>
+          <strong className="text-slate-900">Зачем этот раздел:</strong> короткие ответы на частые вопросы из чатов
+          релокантов — NIE, TIE, extranjería, аренда, банки. Без пересказа Telegram, с официальными ссылками.
+        </p>
+        <p className="mt-2">
+          Полный коридор с новостями, wizard и digest — на{" "}
+          <a href="https://www.emigro.online/ru/spain" className="font-medium text-amber-900 underline hover:text-amber-950">
+            emigro.online/ru/spain
+          </a>
+          .
+        </p>
+      </section>
+    );
+  }
+
   return (
     <section className="mt-6 rounded-xl border border-teal-100 bg-teal-50/60 p-4 text-sm leading-relaxed text-slate-700">
       <p>

@@ -2,16 +2,40 @@ import Link from "next/link";
 import { MobileSwipeHint } from "@/components/layout/MobileSwipeHint";
 import { collectHashtagCounts, FEATURED_HASHTAGS, hashtagLabel, normalizeHashtag } from "@/lib/community-notes/hashtags";
 import type { CommunityNote } from "@/lib/community-notes/types";
-import { portugalHubPath, portugalTagPath } from "@/lib/satellite/paths";
+import type { SatelliteCountryKey } from "@/lib/community-notes/seed";
+import { satelliteHubPath, satelliteTagPath } from "@/lib/satellite/paths";
 import { layoutContain, mobileScrollRow, tapTarget } from "@/lib/ui/mobile";
+
+function resolveCountryKey(notes: CommunityNote[], explicit?: SatelliteCountryKey): SatelliteCountryKey {
+  if (explicit) return explicit;
+  return notes[0]?.country_key === "spain" ? "spain" : "portugal";
+}
+
+function accentClasses(countryKey: SatelliteCountryKey) {
+  return countryKey === "spain"
+    ? {
+        active: "bg-amber-700 text-white",
+        idle: "bg-slate-100 text-slate-700 hover:bg-amber-50 hover:text-amber-900",
+        tag: "bg-amber-50 text-amber-900 hover:bg-amber-100",
+      }
+    : {
+        active: "bg-teal-700 text-white",
+        idle: "bg-slate-100 text-slate-700 hover:bg-teal-50 hover:text-teal-800",
+        tag: "bg-teal-50 text-teal-800 hover:bg-teal-100",
+      };
+}
 
 export function HashtagNav({
   notes,
   activeTag,
+  countryKey,
 }: {
   notes: CommunityNote[];
   activeTag?: string | null;
+  countryKey?: SatelliteCountryKey;
 }) {
+  const resolvedCountry = resolveCountryKey(notes, countryKey);
+  const accent = accentClasses(resolvedCountry);
   const counts = collectHashtagCounts(notes);
   const active = activeTag ? normalizeHashtag(activeTag) : null;
 
@@ -27,23 +51,21 @@ export function HashtagNav({
 
   const chipClass = (isActive: boolean) =>
     `inline-flex shrink-0 items-center ${tapTarget} rounded-full px-3 py-2 text-sm font-medium transition ${
-      isActive
-        ? "bg-teal-700 text-white"
-        : "bg-slate-100 text-slate-700 hover:bg-teal-50 hover:text-teal-800"
+      isActive ? accent.active : accent.idle
     }`;
 
   return (
     <nav className={`mt-8 ${layoutContain}`} aria-label="Хэштеги">
       <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">Навигация</p>
       <div className={`mt-3 ${mobileScrollRow}`}>
-        <Link href={portugalHubPath()} className={chipClass(!active)}>
+        <Link href={satelliteHubPath(resolvedCountry)} className={chipClass(!active)}>
           Все
         </Link>
         {allTags.map((tag) => {
           const isActive = active === tag;
           const count = counts.get(tag) ?? 0;
           return (
-            <Link key={tag} href={portugalTagPath(tag)} className={chipClass(isActive)}>
+            <Link key={tag} href={satelliteTagPath(tag, resolvedCountry)} className={chipClass(isActive)}>
               #{hashtagLabel(tag)}
               {count > 0 && <span className="ml-1 opacity-70">({count})</span>}
             </Link>
@@ -55,15 +77,24 @@ export function HashtagNav({
   );
 }
 
-export function NoteHashtags({ tags, className = "" }: { tags: string[]; className?: string }) {
+export function NoteHashtags({
+  tags,
+  className = "",
+  countryKey = "portugal",
+}: {
+  tags: string[];
+  className?: string;
+  countryKey?: SatelliteCountryKey;
+}) {
   if (!tags.length) return null;
+  const accent = accentClasses(countryKey);
   return (
     <div className={`flex flex-wrap gap-2 ${className}`}>
       {tags.map((tag) => (
         <Link
           key={tag}
-          href={portugalTagPath(tag)}
-          className="rounded-full bg-teal-50 px-2.5 py-1 text-xs font-medium text-teal-800 hover:bg-teal-100"
+          href={satelliteTagPath(tag, countryKey)}
+          className={`rounded-full px-2.5 py-1 text-xs font-medium ${accent.tag}`}
         >
           #{hashtagLabel(tag)}
         </Link>
