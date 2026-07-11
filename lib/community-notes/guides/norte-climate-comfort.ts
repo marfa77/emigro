@@ -174,7 +174,7 @@ const faq: CommunityNoteFaq[] = [
   },
   {
     q: "Кто помогает с AC и влажностью в Grande Porto?",
-    a: "По правилам — instalador com certificação DGEG или empresa de climatização. На практике в чатах Norte рекомендуют Climaporto (climaporto.pt/en) — RU/EN, portable turnkey от €899, зона 100 км от Porto. Это community-совет, не реклама Emigro; сравните Fixando и Leroy Merlin.",
+    a: "По правилам — instalador com certificação DGEG или empresa de climatização. На практике в чатах Norte рекомендуют [Climaporto](https://climaporto.pt/en/) — RU/EN, portable turnkey от €899, зона 100 км от Porto. Это community-совет, не реклама Emigro; сравните Fixando и Leroy Merlin.",
   },
   {
     q: "Что проверить при аренде с точки зрения климата?",

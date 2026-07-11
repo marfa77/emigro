@@ -2,7 +2,7 @@ import type { NoteBodySection } from "@/lib/community-notes/types";
 import {
   isChecklistSection,
   optimizeBodySections,
-  parseInlineBold,
+  parseInlineMarkdown,
   parseTakeawayPrefix,
   resolveSectionSurface,
   sectionSlug,
@@ -48,7 +48,7 @@ export function NoteBody({ sections, paragraphs }: NoteBodyProps) {
               </h2>
               {(section.paragraphs ?? []).map((paragraph) => (
                 <p key={paragraph.slice(0, 48)} className="mt-3 leading-relaxed text-slate-700">
-                  {parseInlineBold(paragraph)}
+                  {parseInlineMarkdown(paragraph)}
                 </p>
               ))}
               {(section.bullets?.length ?? 0) > 0 && (
@@ -66,7 +66,7 @@ export function NoteBody({ sections, paragraphs }: NoteBodyProps) {
                           {index + 1}
                         </span>
                       )}
-                      <span className={checklist ? "pt-0.5" : undefined}>{parseInlineBold(item)}</span>
+                      <span className={checklist ? "pt-0.5" : undefined}>{parseInlineMarkdown(item)}</span>
                     </li>
                   ))}
                 </ol>
@@ -82,7 +82,7 @@ export function NoteBody({ sections, paragraphs }: NoteBodyProps) {
     <div className="prose prose-slate mt-8 max-w-none">
       {paragraphs.map((paragraph) => (
         <p key={paragraph.slice(0, 48)} className="leading-relaxed text-slate-700">
-          {parseInlineBold(paragraph)}
+          {parseInlineMarkdown(paragraph)}
         </p>
       ))}
     </div>
@@ -112,7 +112,7 @@ export function KeyTakeaways({ items }: { items: string[] }) {
               ) : (
                 <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-teal-600" aria-hidden="true" />
               )}
-              <span className="min-w-0">{parseInlineBold(body)}</span>
+              <span className="min-w-0">{parseInlineMarkdown(body)}</span>
             </li>
           );
         })}

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { ReactNode } from "react";
 import type { NoteBodySection } from "@/lib/community-notes/types";
 import {
@@ -6,15 +7,49 @@ import {
   type SectionKind,
 } from "@/lib/community-notes/official-vs-practice";
 
-/** Render **bold** segments from Gemini output. */
-export function parseInlineBold(text: string): ReactNode[] {
-  const parts = text.split(/(\*\*[^*]+\*\*)/g);
-  return parts.map((part, i) => {
-    if (part.startsWith("**") && part.endsWith("**")) {
-      return <strong key={i} className="font-semibold text-slate-900">{part.slice(2, -2)}</strong>;
+const INLINE_MARKDOWN_RE = /(\*\*[^*]+\*\*|\[[^\]]+\]\([^)]+\))/g;
+const LINK_CLASS = "text-teal-700 underline hover:text-teal-900";
+
+function renderInlineSegment(part: string, key: number): ReactNode {
+  if (part.startsWith("**") && part.endsWith("**")) {
+    return (
+      <strong key={key} className="font-semibold text-slate-900">
+        {part.slice(2, -2)}
+      </strong>
+    );
+  }
+
+  const linkMatch = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
+  if (linkMatch) {
+    const [, label, href] = linkMatch;
+    if (/^https?:\/\//i.test(href)) {
+      return (
+        <a key={key} href={href} target="_blank" rel="noopener noreferrer" className={LINK_CLASS}>
+          {label}
+        </a>
+      );
     }
-    return part;
-  });
+    if (href.startsWith("/")) {
+      return (
+        <Link key={key} href={href} className={LINK_CLASS}>
+          {label}
+        </Link>
+      );
+    }
+  }
+
+  return part;
+}
+
+/** Render **bold** and [text](url) inline markdown in note body fields. */
+export function parseInlineMarkdown(text: string): ReactNode[] {
+  const parts = text.split(INLINE_MARKDOWN_RE);
+  return parts.map((part, i) => renderInlineSegment(part, i));
+}
+
+/** @deprecated Prefer parseInlineMarkdown — kept for call sites that only need bold+links. */
+export function parseInlineBold(text: string): ReactNode[] {
+  return parseInlineMarkdown(text);
 }
 
 const WEEKLY_DETAIL_RE = /^Недел[яи]\s+\d/i;

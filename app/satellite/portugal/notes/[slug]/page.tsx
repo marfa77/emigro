@@ -22,6 +22,7 @@ import { PORTUGAL_SATELLITE } from "@/lib/satellite/portugal";
 import { portugalHubPath } from "@/lib/satellite/paths";
 import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 import { portugalSatelliteUrl } from "@/lib/site-url";
+import { parseInlineMarkdown } from "@/lib/community-notes/note-body-render";
 import { heroTitle, NOTE_CONTENT_IMAGE_SIZES, noteContentImageClass, satelliteMain } from "@/lib/ui/mobile";
 
 export const revalidate = 300;
@@ -165,7 +166,7 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
             {note.faq.map((item) => (
               <div key={item.q} className="rounded-lg border border-slate-200 bg-white p-4">
                 <dt className="font-medium text-slate-900">{item.q}</dt>
-                <dd className="mt-2 text-sm leading-relaxed text-slate-700">{item.a}</dd>
+                <dd className="mt-2 text-sm leading-relaxed text-slate-700">{parseInlineMarkdown(item.a)}</dd>
               </div>
             ))}
           </dl>
