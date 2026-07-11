@@ -1,3 +1,6 @@
+import { HUB_WIZARD_PATH } from "@/lib/corridor/paths";
+import { publicSiteUrl } from "@/lib/site-url";
+
 const STATS_RE = /^\/(?:stats|status)(?:@\w+)?$/i;
 const STATS_DEMO_RE = /^\/(?:stats|status)(?:@\w+)?\s+demo$/i;
 const START_RE = /^\/start(?:@\w+)?(?:\s|$)/i;
@@ -14,17 +17,13 @@ export function isStartCommand(text: string): boolean {
   return START_RE.test((text || "").trim());
 }
 
-export function startWelcomeMessage(): string {
+export function userWizardLinkMessage(): string {
+  const url = `${publicSiteUrl()}${HUB_WIZARD_PATH}`;
   return [
-    "<b>Emigro bot</b>",
+    "<b>Emigro</b>",
     "",
-    "Доступные команды:",
-    "• /start — это сообщение",
-    "• /stats — статистика сайта (только для админа)",
-    "• /status — то же, что /stats",
-    "• кнопка из wizard — сохранить результат и продолжить разбор",
-    "",
-    "<i>Бот для внутренней аналитики emigro.online</i>",
+    "Подбор страны и маршрута ВНЖ — на сайте:",
+    `<a href="${url}">${url}</a>`,
   ].join("\n");
 }
 

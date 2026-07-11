@@ -10,7 +10,7 @@ import {
   isStartCommand,
   isStatsCommand,
   isStatsDemoCommand,
-  startWelcomeMessage,
+  userWizardLinkMessage,
 } from "@/lib/telegram/commands";
 import { sendWizardReportToTelegramUser } from "@/lib/wizard/send-telegram-report";
 
@@ -54,6 +54,10 @@ async function sendStatsReply(chatId: string | number, report: string): Promise<
       { parseMode: null }
     );
   }
+}
+
+async function replyWithWizardLink(chatId: string | number): Promise<void> {
+  await sendStatsBotMessage(chatId, userWizardLinkMessage(), { parseMode: "HTML" });
 }
 
 async function handleStatsCommand(message: TelegramMessage): Promise<boolean> {
@@ -166,14 +170,25 @@ async function handleStartCommand(message: TelegramMessage): Promise<boolean> {
   const chatId = message.chat?.id;
   if (chatId == null) return true;
 
-  await sendStatsBotMessage(chatId, startWelcomeMessage(), { parseMode: "HTML" });
+  await replyWithWizardLink(chatId);
   return true;
+}
+
+async function handleUserFallback(message: TelegramMessage): Promise<void> {
+  const chatId = message.chat?.id;
+  const userId = message.from?.id;
+  if (chatId == null) return;
+  if (isAdminTelegramChat(chatId, userId)) return;
+  if (!(message.text || "").trim()) return;
+
+  await replyWithWizardLink(chatId);
 }
 
 export async function processTelegramMessage(message: TelegramMessage): Promise<void> {
   if (await handleStatsCommand(message)) return;
   if (await handleWizardStartCommand(message)) return;
   if (await handleStartCommand(message)) return;
+  await handleUserFallback(message);
 }
 
 export type TelegramUpdate = {
