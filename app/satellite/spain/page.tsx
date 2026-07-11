@@ -86,7 +86,7 @@ export default async function SpainSatelliteHomePage() {
 
       <SatelliteValueProp countryKey="spain" />
 
-      <BarakhloPromo context="hub" placement="satellite_hub" compact />
+      <BarakhloPromo context="hub" placement="satellite_hub" compact countryKey="spain" />
 
       {spotlight && (
         <div className="mt-8">

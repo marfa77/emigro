@@ -170,7 +170,7 @@ export default async function SpainNotePage({ params }: { params: { slug: string
 
       <NoteFaq items={note.faq} />
 
-      <BarakhloPromo context={note.slug} placement="satellite_note" category={note.category} />
+      <BarakhloPromo context={note.slug} placement="satellite_note" category={note.category} countryKey="spain" />
 
       <RelatedNotes notes={related} />
 

@@ -5,6 +5,8 @@ import { spainSatelliteUrl } from "@/lib/site-url";
 export const SPAIN_CORRIDOR_SLUG = "ru-speaking-to-spain";
 export const SPAIN_URL_SEGMENT = "spain";
 
+export type SpainHubTab = "hub" | "route" | "news" | "digest" | "practice" | "market";
+
 /** Canonical URLs — single source for nav, tiles, intel links. */
 export const spainHubPaths = {
   landing: "/ru/spain",

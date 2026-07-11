@@ -2,7 +2,9 @@
 
 import { ExternalLink } from "lucide-react";
 import { trackEvent } from "@/lib/analytics/client";
+import { barakhloMarketCityLabel, barakhloMarketUrl } from "@/lib/barakhlo/markets";
 import { barakhloPromoUrl, isServiceDiscoveryNote } from "@/lib/community-notes/sponsor-promo";
+import type { SatelliteCountryKey } from "@/lib/community-notes/seed";
 import { tapTarget } from "@/lib/ui/mobile";
 
 type BarakhloPromoProps = {
@@ -10,15 +12,25 @@ type BarakhloPromoProps = {
   placement: "satellite_hub" | "satellite_note";
   compact?: boolean;
   category?: string;
+  countryKey?: SatelliteCountryKey;
 };
 
-export function BarakhloPromo({ context, placement, compact = false, category = "" }: BarakhloPromoProps) {
-  const href = barakhloPromoUrl(context, "portugal", "satellite");
+export function BarakhloPromo({
+  context,
+  placement,
+  compact = false,
+  category = "",
+  countryKey = "portugal",
+}: BarakhloPromoProps) {
+  const href = barakhloPromoUrl(context, countryKey, "satellite");
   const serviceNote = context !== "hub" && isServiceDiscoveryNote(context, category);
+  const city = barakhloMarketCityLabel(countryKey);
+  const marketUrl = barakhloMarketUrl(countryKey).replace("https://www.", "");
+  const linkTarget = countryKey === "spain" ? "barakhlo_valencia" : "barakhlo_lisbon";
 
   function handleClick() {
     trackEvent("corridor_link_click", {
-      link_target: "barakhlo_lisbon",
+      link_target: linkTarget,
       placement,
       note_slug: context === "hub" ? null : context,
     });
@@ -31,7 +43,7 @@ export function BarakhloPromo({ context, placement, compact = false, category = 
         aria-labelledby={compact ? undefined : "barakhlo-promo-heading"}
       >
         <div>
-          <p className="text-xs font-bold uppercase tracking-wide text-orange-800">Барахолка Лиссабона</p>
+          <p className="text-xs font-bold uppercase tracking-wide text-orange-800">Барахолка {city}</p>
           <p className="mt-1 text-sm text-slate-800">
             Мебель, авто, услуги и б/у от русскоязычных — без комиссии, из Telegram-чатов.
           </p>
@@ -55,13 +67,13 @@ export function BarakhloPromo({ context, placement, compact = false, category = 
       className="mt-10 rounded-2xl border-2 border-orange-200 bg-gradient-to-br from-orange-50 via-white to-amber-50 p-5 sm:p-6"
       aria-labelledby="barakhlo-promo-heading"
     >
-      <p className="text-xs font-bold uppercase tracking-wider text-orange-800">Сообщество Лиссабона</p>
+      <p className="text-xs font-bold uppercase tracking-wider text-orange-800">Сообщество {city}</p>
       <h2 id="barakhlo-promo-heading" className="mt-2 text-lg font-semibold text-slate-900">
-        Барахолка Лиссабона на Barakhlo.online
+        Барахолка {city} на Barakhlo.online
       </h2>
       <p className="mt-2 text-sm leading-relaxed text-slate-700">
         {serviceNote
-          ? "На Barakhlo — раздел «Услуги» и объявления мастеров из Telegram-чатов Лиссабона. Удобно сравнить с Google Maps и чатами."
+          ? `На Barakhlo — раздел «Услуги» и объявления мастеров из Telegram-чатов ${city}. Удобно сравнить с Google Maps и чатами.`
           : "Объявления из русскоязычных Telegram-чатов: мебель для новой квартиры, авто, услуги мастеров, детские вещи и электроника. Обновляется автоматически, переход к продавцу — в один клик."}
       </p>
       <a
@@ -71,10 +83,10 @@ export function BarakhloPromo({ context, placement, compact = false, category = 
         onClick={handleClick}
         className={`mt-4 inline-flex ${tapTarget} items-center gap-2 rounded-lg bg-orange-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-orange-700`}
       >
-        Смотреть объявления в Лиссабоне
+        Смотреть объявления в {city}
         <ExternalLink className="h-4 w-4" aria-hidden="true" />
       </a>
-      <p className="mt-3 text-xs text-slate-500">Сервис Emigro · barakhlo.online/portugal/lisbon</p>
+      <p className="mt-3 text-xs text-slate-500">Сервис Emigro · {marketUrl}</p>
     </section>
   );
 }

@@ -4,6 +4,7 @@ import {
   corridorHubNavItems,
   type CorridorHubTab,
 } from "@/lib/corridor/hub";
+import { isSpainHubTopic } from "@/lib/spain/hub";
 import type { NewsTopicConfig } from "@/lib/news/topics/types";
 import { mobileScrollRow } from "@/lib/ui/mobile";
 
@@ -14,32 +15,39 @@ type Props = {
   className?: string;
 };
 
-function hubNavItemClass(isActive: boolean, isSatellite: boolean): string {
+function hubNavItemClass(isActive: boolean, isSatellite: boolean, isSpain: boolean): string {
   const base = "shrink-0 rounded-full px-3 py-1.5 text-sm font-medium transition";
   if (isActive) {
-    return isSatellite ? `${base} bg-teal-700 text-white` : `${base} bg-corridor-600 text-white`;
+    if (isSatellite) {
+      return isSpain ? `${base} bg-amber-700 text-white` : `${base} bg-teal-700 text-white`;
+    }
+    return `${base} bg-corridor-600 text-white`;
   }
-  return isSatellite
-    ? `${base} border border-slate-200 bg-white text-slate-700 hover:border-teal-300 hover:text-teal-800`
-    : `${base} border border-slate-200 bg-white text-slate-700 hover:border-corridor-300 hover:text-corridor-800`;
+  if (isSatellite) {
+    return isSpain
+      ? `${base} border border-slate-200 bg-white text-slate-700 hover:border-amber-300 hover:text-amber-900`
+      : `${base} border border-slate-200 bg-white text-slate-700 hover:border-teal-300 hover:text-teal-800`;
+  }
+  return `${base} border border-slate-200 bg-white text-slate-700 hover:border-corridor-300 hover:text-corridor-800`;
 }
 
 export function CorridorHubNav({ topic, active, variant = "corridor", className }: Props) {
   const items = corridorHubNavItems(topic, undefined, variant);
   const isSatellite = variant === "satellite";
+  const isSpain = isSpainHubTopic(topic);
 
   return (
     <nav className={`${mobileScrollRow} ${className ?? ""}`} aria-label={corridorHubLabel(topic)}>
       <p
         className={`mr-1 w-full text-xs font-semibold uppercase tracking-wide sm:w-auto sm:self-center ${
-          isSatellite ? "text-teal-700" : "text-corridor-700"
+          isSatellite ? (isSpain ? "text-amber-800" : "text-teal-700") : "text-corridor-700"
         }`}
       >
         {corridorHubLabel(topic)}
       </p>
       {items.map((item) => {
         const isActive = item.id === active;
-        const itemClass = hubNavItemClass(isActive, isSatellite);
+        const itemClass = hubNavItemClass(isActive, isSatellite, isSpain);
 
         if (item.comingSoon) {
           return (

@@ -35,6 +35,27 @@ export const FEATURED_HASHTAGS = [
   "lisboa",
 ] as const;
 
+export const SPAIN_FEATURED_HASHTAGS = [
+  "nie",
+  "tie",
+  "extranjeria",
+  "arenda",
+  "bank",
+  "valencia",
+  "madrid",
+  "barcelona",
+  "лайфхак",
+  "совет",
+  "новости",
+  "транспорт",
+  "auto",
+  "sim",
+] as const;
+
+export function featuredHashtagsForCountry(countryKey: "portugal" | "spain" = "portugal"): readonly string[] {
+  return countryKey === "spain" ? SPAIN_FEATURED_HASHTAGS : FEATURED_HASHTAGS;
+}
+
 export const HASHTAG_LABELS: Record<string, string> = {
   nif: "NIF",
   aima: "AIMA",
@@ -69,6 +90,12 @@ export const HASHTAG_LABELS: Record<string, string> = {
   braga: "Брага",
   lisboa: "Лиссабон",
   lisbon: "Лиссабон",
+  nie: "NIE",
+  tie: "TIE",
+  extranjeria: "Extranjería",
+  valencia: "Валенсия",
+  madrid: "Мадрид",
+  barcelona: "Барселона",
 };
 
 export function normalizeHashtag(raw: string): string {

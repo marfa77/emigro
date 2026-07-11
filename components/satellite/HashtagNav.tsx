@@ -1,6 +1,11 @@
 import Link from "next/link";
 import { MobileSwipeHint } from "@/components/layout/MobileSwipeHint";
-import { collectHashtagCounts, FEATURED_HASHTAGS, hashtagLabel, normalizeHashtag } from "@/lib/community-notes/hashtags";
+import {
+  collectHashtagCounts,
+  featuredHashtagsForCountry,
+  hashtagLabel,
+  normalizeHashtag,
+} from "@/lib/community-notes/hashtags";
 import type { CommunityNote } from "@/lib/community-notes/types";
 import type { SatelliteCountryKey } from "@/lib/community-notes/seed";
 import { satelliteHubPath, satelliteTagPath } from "@/lib/satellite/paths";
@@ -38,9 +43,10 @@ export function HashtagNav({
   const accent = accentClasses(resolvedCountry);
   const counts = collectHashtagCounts(notes);
   const active = activeTag ? normalizeHashtag(activeTag) : null;
+  const featured = featuredHashtagsForCountry(resolvedCountry);
 
-  const tags = FEATURED_HASHTAGS.filter((t) => (counts.get(t) ?? 0) > 0 || !active);
-  const featuredSet = new Set<string>(FEATURED_HASHTAGS);
+  const tags = featured.filter((t) => (counts.get(t) ?? 0) > 0 || active === t);
+  const featuredSet = new Set<string>(featured);
   const extraTags = Array.from(counts.entries())
     .filter(([t]) => !featuredSet.has(t))
     .sort((a, b) => b[1] - a[1])
@@ -48,6 +54,8 @@ export function HashtagNav({
     .map(([t]) => t);
 
   const allTags = Array.from(new Set([...tags, ...extraTags]));
+
+  if (allTags.length === 0 && !active) return null;
 
   const chipClass = (isActive: boolean) =>
     `inline-flex shrink-0 items-center ${tapTarget} rounded-full px-3 py-2 text-sm font-medium transition ${
