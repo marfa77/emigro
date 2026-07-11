@@ -3,7 +3,7 @@ slug: chernogoriya-vnj-dlya-rossiyan-2026
 title: "Черногория ВНЖ для россиян 2026 — DOO и digital nomad"
 seo_title: "Черногория ВНЖ для россиян 2026 — nomad €1800, DOO"
 seo_description: "ВНЖ Черногория для россиян 2026: digital nomad от €1800/мес, DOO, безвиз 30/90. Программа до 31.12.2026, стоимость жизни в Будве и путь в EU."
-date_modified: 2026-07-09
+date_modified: 2026-07-11
 excerpt: "Черногория 2026: digital nomad от €1800/мес (до 31.12.2026), DOO, безвиз — стоимость жизни в Будве и подготовка EU-маршрута."
 quick_answer: "Черногория внж для россиян 2026: **digital nomad** temporary residence от **€1 800/мес** (до 4 лет, программа до 31.12.2026) или **DOO**. Безвиз 30/90. CBI закрыта; обычная покупка квартиры ≠ ВНЖ. Будва от 900 €/мес, валюта — евро."
 topic_keys: [montenegro, relocation, vnj, transit]
@@ -18,6 +18,8 @@ official_sources:
     label: Digital Nomads Montenegro — официальный портал
   - url: https://www.crps.me/
     label: Business Registers Agency (CRPS)
+  - url: https://www.mup.gov.me/
+    label: MUP — Министерство внутренних дел (ВНЖ)
 estimated_minutes: 16
 date_published: 2026-06-26
 ---
@@ -58,6 +60,18 @@ date_published: 2026-06-26
 **Документы:** паспорт, proof of remote work (контракт / invoices), bank statements, страховка (от €30 000 coverage), аренда, clean criminal record (апостиль), фото. **Подача:** лично в MUP по месту жительства **после въезда**. Сбор ~€67 + €25 за resident card. Портал: [digitalnomads.gov.me](https://digitalnomads.gov.me/).
 
 **Важно:** регистрация DOO или local business **отменяет** статус digital nomad.
+
+### Пошаговый timeline: digital nomad
+
+| Неделя | Действие |
+|--------|----------|
+| 1 | Въезд по безвизу, аренда жилья, proof of remote work |
+| 2 | Сбор bank statements, страховка от €30 000, criminal record (апостиль) |
+| 3 | Подача в MUP по месту жительства, оплата ~€67 |
+| 4–6 | Рассмотрение, биометрия, resident card (~€25) |
+| 24 мес. | Renewal (одно продление до 2 лет; макс. 4 года total) |
+
+**Дедлайн программы:** подавайте до **31.12.2026** — продление правила после этой даты не объявлено.
 
 ---
 
@@ -119,11 +133,21 @@ date_published: 2026-06-26
 
 ## Риски
 
-1. **Малый рынок** — ограниченные услуги и jobs.
-2. **Не EU** — для Шенгена нужна отдельная виза.
-3. **Сезонность tourism economy** — зимой тише.
-4. **Зависимость от company substance** для продления DOO-ВНЖ.
-5. **CBI закрыта** — инвестиционный паспорт недоступен; naturalization — длинный путь (10+ лет при соблюдении условий).
+1. **Sunset digital nomad (31.12.2026)** — новые подачи после даты могут быть закрыты; permit до sunset действует полный срок.
+2. **Малый рынок** — ограниченные услуги и jobs.
+3. **Не EU** — для Шенгена нужна отдельная виза.
+4. **Сезонность tourism economy** — зимой на побережье меньше сервисов.
+5. **DOO substance** — без отчётности риск отказа в продлении residence.
+6. **CBI закрыта** — инвестиционный паспорт недоступен; naturalization — длинный путь (10+ лет).
+7. **Недвижимость ≠ ВНЖ** — покупка без lawyer confirmation — частая ошибка.
+
+## Типичные ошибки
+
+1. **Регистрировать DOO, оставаясь digital nomad.** Local business отменяет nomad-статус — выбирайте один маршрут.
+2. **Покупать квартиру «под визу».** Обычная сделка не даёт ВНЖ; CBI закрыта.
+3. **Опоздать с подачей nomad.** Программа до 31.12.2026 — не откладывайте сбор документов.
+4. **Снимать жильё без договора.** MUP требует lease agreement и proof of address.
+5. **Игнорировать сезонность.** Летняя аренда в Будве +30–40%; годовой контракт с октября дешевле.
 
 ---
 
@@ -281,15 +305,17 @@ Podgorica has some EU embassies; many use Belgrade or Tirana for visa applicatio
 ## Источники
 
 - gov.me: [gov.me](https://www.gov.me/)
+- Digital Nomads Montenegro: [digitalnomads.gov.me](https://digitalnomads.gov.me/)
+- MUP — temporary residence: [mup.gov.me](https://www.mup.gov.me/)
 - CRPS: [crps.me](https://www.crps.me/)
 
 ---
 
 ## Коротко для проверки маршрута
 
-- Безвиз 30/90; ВНЖ чаще через DOO; недвижимость — не «автоматический» путь.
-- Евро; Будва от 900 €/мес.
+- Безвиз 30/90; ВНЖ — digital nomad (от €1 800/мес, до 31.12.2026) или DOO (9% tax).
 - CBI закрыта; обычная покупка квартиры ≠ ВНЖ.
+- Евро; Будва от 900 €/мес.
 - [/ru/wizard](/ru/wizard), [/ru/montenegro](/ru/montenegro).
 
 *Не юридическая консультация.*

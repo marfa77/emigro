@@ -110,3 +110,59 @@ export function portugalSatelliteUrl(path = ""): string {
   }
   return `${origin}${normalized === "/" ? "" : normalized}`;
 }
+
+const SPAIN_SATELLITE_SUBDOMAIN = "https://spain.emigro.online";
+const SPAIN_SATELLITE_PATH = "/satellite/spain";
+
+/** Subdomain is live; opt out with SPAIN_SATELLITE_USE_SUBDOMAIN=false. */
+export function spainSatelliteSubdomainEnabled(): boolean {
+  const flag = process.env.SPAIN_SATELLITE_USE_SUBDOMAIN?.trim().toLowerCase();
+  if (flag === "false") return false;
+  if (flag === "true") return true;
+  return process.env.NODE_ENV === "production";
+}
+
+function spainSatelliteOrigin(): string {
+  if (spainSatelliteSubdomainEnabled()) {
+    return SPAIN_SATELLITE_SUBDOMAIN;
+  }
+  const publicEnv = process.env.EMIGRO_PUBLIC_SITE_URL?.trim();
+  if (publicEnv && !isLocalhostUrl(publicEnv)) {
+    return `${stripTrailingSlash(publicEnv)}${SPAIN_SATELLITE_PATH}`;
+  }
+  if (process.env.NODE_ENV === "production") {
+    return `${publicSiteUrl()}${SPAIN_SATELLITE_PATH}`;
+  }
+  const site = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+  if (site && !isLocalhostUrl(site)) {
+    return `${stripTrailingSlash(site)}${SPAIN_SATELLITE_PATH}`;
+  }
+  return `${LOCALHOST_FALLBACK}${SPAIN_SATELLITE_PATH}`;
+}
+
+/** Canonical URL for Spain satellite — never localhost (Threads, DB, SEO). */
+export function spainSatellitePublicUrl(path = ""): string {
+  const normalized = path.startsWith("/") ? path : path ? `/${path}` : "";
+  if (spainSatelliteSubdomainEnabled()) {
+    return `${SPAIN_SATELLITE_SUBDOMAIN}${normalized === "/" ? "" : normalized}`;
+  }
+  const publicEnv = process.env.EMIGRO_PUBLIC_SITE_URL?.trim();
+  if (publicEnv && !isLocalhostUrl(publicEnv)) {
+    return `${stripTrailingSlash(publicEnv)}${SPAIN_SATELLITE_PATH}${normalized === "/" ? "" : normalized}`;
+  }
+  const site = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+  if (site && !isLocalhostUrl(site)) {
+    return `${stripTrailingSlash(site)}${SPAIN_SATELLITE_PATH}${normalized === "/" ? "" : normalized}`;
+  }
+  return `${SPAIN_SATELLITE_SUBDOMAIN}${normalized === "/" ? "" : normalized}`;
+}
+
+/** Runtime URL for Spain satellite pages (localhost in local dev). */
+export function spainSatelliteUrl(path = ""): string {
+  const normalized = path.startsWith("/") ? path : path ? `/${path}` : "";
+  const origin = spainSatelliteOrigin();
+  if (origin.endsWith(SPAIN_SATELLITE_PATH)) {
+    return `${origin}${normalized === "/" ? "" : normalized}`;
+  }
+  return `${origin}${normalized === "/" ? "" : normalized}`;
+}

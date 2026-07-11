@@ -59,6 +59,8 @@ date_modified: 2026-07-09
 
 **Срок:** 1–3 рабочих дня при личной подаче.
 
+В локальных чатах эмигрантов (@chatlisboa, @por_tugal и др.) в 2025–2026 каждую неделю повторяются одни и те же путаницы: «NIF = право жить» (нет — это налоговый номер) и «NIF только с картой ВНЖ» (на практике NIF можно получить раньше через Finanças или representante fiscal).
+
 Официально: [portaldasfinancas.gov.pt](https://www.portaldasfinancas.gov.pt/)
 
 ---
@@ -77,12 +79,16 @@ date_modified: 2026-07-09
 
 **Срок открытия:** 1–5 дней (online быстрее).
 
+В локальных чатах эмигрантов (@por_tugal, @chatlisboa и др.) в 2025–2026 часто пишут, что ActivoBank (онлайн) проще для expats на старте, а Millennium BCP в Lisbon строже по KYC для RU-паспортов; Revolut по NIF удобен первые недели, но не заменяет PT IBAN для аренды и utilities.
+
 ### Аренда (lease)
 
 - **Idealista / Imovirtual** — основные площадки.
 - Типичный депозит: **2–3 месяца** + первый месяц.
 - Договор (**contrato de arrendamento**) — нужен для AIMA и utilities.
 - **Caução:** депозит хранится по закону; проверяйте Art. 1097 Código Civil.
+
+В локальных чатах эмигрантов (@chatlisboa и др.) в 2025–2026 часто предупреждают: без registo arrendamento в Finanças morada не подтвердите — это слабое место и для AIMA, и для банка.
 
 **Совет:** для D7/D8 многие консульства требуют **12-месячный** contrato — закладывайте это в бюджет.
 
@@ -126,6 +132,8 @@ date_modified: 2026-07-09
 3. Ожидание карты: **3–5 месяца** после биометрии; в Lisboa/Porto полный цикл до карты часто **15–28 месяцев** от прилёта.
 
 **Документы на подачу:** паспорт, visa, NIF, proof of address, insurance, proof of means (D7/D8), criminal record (если не сдавали в консульстве).
+
+В локальных чатах эмигрантов (@chatlisboa и др.) в 2026 часто напоминают, что в Norte balcões AIMA есть в Porto, Braga и Marco de Canaveses — не обязательно ехать в Saldanha (Lisboa).
 
 Официально: [aima.gov.pt](https://www.aima.gov.pt/)
 

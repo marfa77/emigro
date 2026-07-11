@@ -12,6 +12,8 @@ import {
   germanyCitizenshipFactualGuardrailRu,
   portugalSiteDigestFactualGuardrailRu,
   portugalTelegramFactualGuardrailRu,
+  scandinaviaTelegramFactualGuardrailRu,
+  scandinaviaSwedenPmjFactualGuardrailRu,
   spainGoldenVisaFactualGuardrailRu,
   spainTelegramFactualGuardrailRu,
 } from "./quality";
@@ -58,6 +60,7 @@ export function buildTelegramPrompts(
       : "";
   const spainGuard = topic.key === "spain" ? `\n${spainTelegramFactualGuardrailRu()}` : "";
   const germanyGuard = topic.key === "germany" ? `\n${germanyCitizenshipFactualGuardrailRu()}` : "";
+  const scandinaviaGuard = topic.key === "scandinavia" ? `\n${scandinaviaTelegramFactualGuardrailRu()}` : "";
 
   const linkManifest = selected
     .map((s, i) => `${i + 1}. «${s.source}» — ${s.title}\n   href: ${s.link}`)
@@ -81,6 +84,7 @@ ${AUTHOR_VOICE_RU}
 ${portugalGuard}
 ${spainGuard}
 ${germanyGuard}
+${scandinaviaGuard}
 
 Верни JSON: { "digest_html": "..." }`;
 
@@ -119,6 +123,7 @@ export function buildSiteDigestPrompts(
       : "";
   const spainGuard = topic.key === "spain" ? `\n${spainGoldenVisaFactualGuardrailRu()}` : "";
   const germanyGuard = topic.key === "germany" ? `\n${germanyCitizenshipFactualGuardrailRu()}` : "";
+  const scandinaviaGuard = topic.key === "scandinavia" ? `\n${scandinaviaSwedenPmjFactualGuardrailRu()}` : "";
 
   const system = `Ты старший редактор Emigro. Пиши на русском для ${topic.audienceRu}.
 Правила:
@@ -134,7 +139,8 @@ export function buildSiteDigestPrompts(
 - Тон: спокойная экспертиза, без LLM-штампов (${CHANNEL_STYLE_BANNED_RU})
 ${portugalGuard}
 ${spainGuard}
-${germanyGuard}`;
+${germanyGuard}
+${scandinaviaGuard}`;
 
   const user = `Страна: ${topic.countryRu}
 Неделя: ${weekStart} — ${weekEnd}

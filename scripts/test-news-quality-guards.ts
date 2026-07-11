@@ -199,6 +199,96 @@ const goodGermanyCitizenship = validateSiteDigestQuality({
 });
 assert.equal(goodGermanyCitizenship.length, 0, `Correct Germany 5/3 wording should pass QA: ${goodGermanyCitizenship.join("; ")}`);
 
+const badScandinaviaPmj = validateSiteDigestQuality({
+  topic: "scandinavia",
+  weekEnd: "2026-07-05",
+  digest: {
+    title: "Швеция отменяет ПМЖ для беженцев",
+    excerpt: "С 12 июля 2026 Швеция прекращает выдачу ПМЖ обладателям гуманитарных статусов.",
+    seo_title: "Швеция: ПМЖ для беженцев",
+    seo_description: "Отмена ПМЖ для беженцев с 12 июля.",
+    key_takeaways: ["С 12 июля 2026 Швеция отменяет ПМЖ для беженцев и получателей защиты."],
+    content_blocks: [
+      {
+        heading: "Швеция отменяет ПМЖ",
+        paragraphs: [
+          "С 12 июля 2026 в Швеции отменяется постоянный вид на жительство для беженцев и получателей субсидиарной защиты.",
+        ],
+        source_name: "The Local",
+        source_url: "https://www.thelocal.se/",
+      },
+      {
+        heading: "Migrationsverket",
+        paragraphs: ["Migrationsverket обновило правила продления для protection-status категорий."],
+        source_name: "Migrationsverket",
+        source_url: "https://www.migrationsverket.se/",
+      },
+      {
+        heading: "Дания",
+        paragraphs: ["Дания уточнила правила для украинских мужчин 23-60."],
+        source_name: "Nyidanmark",
+        source_url: "https://www.nyidanmark.dk/",
+      },
+      {
+        heading: "Финляндия",
+        paragraphs: ["Migri возобновила рассмотрение заявлений на убежище от граждан Ирана."],
+        source_name: "Migri",
+        source_url: "https://migri.fi/",
+      },
+    ],
+  },
+});
+assert(
+  badScandinaviaPmj.some((e) => e.includes("уже выданные ПМЖ не отзываются")),
+  "Scandinavia PMJ cancellation without grandfather clause must fail QA"
+);
+
+const goodScandinaviaPmj = validateSiteDigestQuality({
+  topic: "scandinavia",
+  weekEnd: "2026-07-05",
+  digest: {
+    title: "Швеция: новые ПМЖ для защитных категорий",
+    excerpt:
+      "С 12 июля 2026 при новых решениях беженцы получают пятилетний ВНЖ вместо ПМЖ; уже выданные ПМЖ сохраняются.",
+    seo_title: "Швеция: ПМЖ и защита",
+    seo_description: "Новые решения без ПМЖ; уже выданные не отзываются.",
+    key_takeaways: [
+      "С 12 июля 2026 при продлении protection-status категории получают пятилетний ВНЖ вместо ПМЖ; уже выданные ПМЖ не отзываются.",
+      "Для гражданства с 12 июля ПМЖ не обязателен при обоснованных перспективах продления LTR.",
+    ],
+    content_blocks: [
+      {
+        heading: "Migrationsverket: protection-status renewals",
+        paragraphs: [
+          "С 12 июля 2026 при новых решениях беженцы и воссоединившиеся с ними родственники получают пятилетний ВНЖ вместо ПМЖ.",
+          "Уже выданные ПМЖ не отзываются — меняются только новые решения.",
+        ],
+        source_name: "Migrationsverket",
+        source_url: "https://www.migrationsverket.se/",
+      },
+      {
+        heading: "Дания",
+        paragraphs: ["Дания уточнила правила для украинских мужчин 23-60."],
+        source_name: "Nyidanmark",
+        source_url: "https://www.nyidanmark.dk/",
+      },
+      {
+        heading: "Финляндия",
+        paragraphs: ["Migri возобновила рассмотрение заявлений на убежище от граждан Ирана."],
+        source_name: "Migri",
+        source_url: "https://migri.fi/",
+      },
+      {
+        heading: "Швеция: госорганы",
+        paragraphs: ["С 13 июля шесть госорганов обязаны сообщать о резидентах без документов."],
+        source_name: "The Local",
+        source_url: "https://www.thelocal.se/",
+      },
+    ],
+  },
+});
+assert.equal(goodScandinaviaPmj.length, 0, `Correct Scandinavia PMJ wording should pass QA: ${goodScandinaviaPmj.join("; ")}`);
+
 const badPortugalEstrutura = validateSiteDigestQuality({
   topic: "portugal",
   weekEnd: "2026-07-06",

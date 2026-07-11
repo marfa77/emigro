@@ -33,6 +33,14 @@ export const CORRIDOR_PILLAR_GUIDES: Record<
     slug: "chernogoriya-vnj-dlya-rossiyan-2026",
     anchor: "Черногория ВНЖ для россиян 2026",
   },
+  uae: {
+    slug: "oae-dlya-rossiyan-2026",
+    anchor: "ОАЭ для россиян 2026 — резиденция и банки",
+  },
+  thailand: {
+    slug: "tailand-dlya-rossiyan-2026",
+    anchor: "Таиланд для россиян 2026 — LTR, Elite, DTV",
+  },
   georgia: {
     slug: "gruziya-dlya-rossiyan-2026",
     anchor: "Грузия для россиян 2026 — въезд и налоги",

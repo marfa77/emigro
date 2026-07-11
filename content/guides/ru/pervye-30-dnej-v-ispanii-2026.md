@@ -59,6 +59,8 @@ date_modified: 2026-07-07
 
 **Срок:** 1–4 недели (Madrid/Barcelona дольше).
 
+В локальных чатах эмигрантов (@spain_granitsa, @valenforum и др.) в 2025–2026 часто пишут, что cita previa на sede ловят ночью/рано утром, а gestoría €300–800 ускоряет NIE в Valencia — официального расписания релиза слотов нет.
+
 Официально: [sede.administracionespublicas.gob.es](https://sede.administracionespublicas.gob.es/)
 
 ---
@@ -75,6 +77,8 @@ date_modified: 2026-07-07
 
 **Срок:** same-day или 1–2 недели в загруженных municipios.
 
+В локальных чатах эмигрантов (@valenforum, @valenciarusia и др.) в 2025–2026 часто предупреждают: без contrato de alquiler или autorización владельца ayuntamiento может отказать в empadronamiento — это блокирует и TIE, и открытие счёта.
+
 ### Банк
 
 | Банк | Плюсы | Минусы |
@@ -86,6 +90,8 @@ date_modified: 2026-07-07
 **Документы:** паспорт, NIE (или proof of application), empadronamiento, income proof.
 
 **Срок открытия:** 3–10 дней.
+
+В локальных чатах эмигрантов (@valenforum, @spain_granitsa и др.) в 2025–2026 часто пишут, что Revolut/N26 помогают первые недели, но extranjería и utilities требуют **Spanish IBAN** — agencies на Idealista в Valencia нередко просят NIE + IBAN ещё до viewing.
 
 ---
 
@@ -127,6 +133,8 @@ date_modified: 2026-07-07
 3. **Resguardo** — proof of legal stay пока ждёте TIE.
 
 **Срок TIE:** **4–12 месяцев** end-to-end (Madrid/Barcelona **6–12**).
+
+В локальных чатах эмигрантов (@spain_granitsa, @spainchats, @migranty_barselona и др.) в 2025–2026 часто напоминают: cita extranjería бронируйте **сразу после прилёта** (в Madrid/BCN 2–4 мес. ожидания), resguardo обязателен для travel до пластика.
 
 Официально: [inclusion.gob.es](https://www.inclusion.gob.es/)
 

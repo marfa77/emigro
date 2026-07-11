@@ -23,3 +23,33 @@ groups:
     country_key: portugal
     title: "@autolife_pt — авто и Португалия"
     timezone: Europe/Lisbon
+  - username: spain_granitsa
+    group_id: spain_granitsa
+    city: spain
+    country_key: spain
+    title: "@spain_granitsa — граница и иммиграция ES"
+    timezone: Europe/Madrid
+  - username: spainchats
+    group_id: spainchats
+    city: spain
+    country_key: spain
+    title: "@spainchats — релоканты Испания Q&A"
+    timezone: Europe/Madrid
+  - username: valenforum
+    group_id: valenforum
+    city: valencia
+    country_key: spain
+    title: "@valenforum — форум Valencia"
+    timezone: Europe/Madrid
+  - username: valenciarusia
+    group_id: valenciarusia
+    city: valencia
+    country_key: spain
+    title: "@valenciarusia — Valencia ВНЖ и быт"
+    timezone: Europe/Madrid
+  - username: migranty_barselona
+    group_id: migranty_barselona
+    city: barcelona
+    country_key: spain
+    title: "@migranty_barselona — extranjería Barcelona"
+    timezone: Europe/Madrid

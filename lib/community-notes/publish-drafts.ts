@@ -1,4 +1,4 @@
-import { ensurePortugalCronEnv } from "@/lib/community-notes/cron-env";
+import { ensurePortugalCronEnv, ensureSpainCronEnv } from "@/lib/community-notes/cron-env";
 import { clusterSignals, draftNoteFromCluster } from "@/lib/community-notes/draft-from-signals";
 import {
   isDuplicateTopic,
@@ -7,8 +7,30 @@ import {
 } from "@/lib/community-notes/editorial-filter";
 import { ensureNoteOgImage } from "@/lib/community-notes/note-og-image";
 import type { CommunitySignalIngest } from "@/lib/community-notes/types";
-import { filterRelocantSignals } from "@/lib/satellite/portugal";
+import { filterRelocantSignals as filterPortugalSignals } from "@/lib/satellite/portugal";
+import { filterRelocantSignals as filterSpainSignals } from "@/lib/satellite/spain";
 import { createServerClient } from "@/lib/supabase/server";
+
+const SATELLITE_DEFAULT_CITY: Record<string, string> = {
+  portugal: "porto",
+  spain: "valencia",
+};
+
+function ensureCronEnvForCountry(countryKey: string): void {
+  if (countryKey === "spain") {
+    ensureSpainCronEnv();
+    return;
+  }
+  ensurePortugalCronEnv();
+}
+
+function filterSignalsForCountry(
+  signals: CommunitySignalIngest[],
+  countryKey: string
+): CommunitySignalIngest[] {
+  if (countryKey === "spain") return filterSpainSignals(signals);
+  return filterPortugalSignals(signals);
+}
 
 export type PublishDraftsResult = {
   clusters: number;
@@ -18,19 +40,19 @@ export type PublishDraftsResult = {
   errors: string[];
 };
 
-async function loadNewSignals(limit = 120): Promise<CommunitySignalIngest[]> {
+async function loadNewSignals(countryKey: string, limit = 120): Promise<CommunitySignalIngest[]> {
   const supabase = createServerClient();
   const { data, error } = await supabase
     .from("community_signals")
     .select("*")
     .eq("status", "new")
-    .eq("country_key", "portugal")
+    .eq("country_key", countryKey)
     .order("posted_at", { ascending: false })
     .limit(limit);
 
   if (error) throw new Error(error.message);
 
-  return filterRelocantSignals(
+  return filterSignalsForCountry(
     (data ?? []).map((row) => ({
       message_id: Number(row.message_id),
       channel_username: String(row.channel_username),
@@ -43,13 +65,17 @@ async function loadNewSignals(limit = 120): Promise<CommunitySignalIngest[]> {
       city: String(row.city),
       country_key: String(row.country_key),
       posted_at: String(row.posted_at),
-    }))
+    })),
+    countryKey
   );
 }
 
 /** Gemini editorial drafts from `community_signals` with status=new. */
-export async function publishDraftsFromNewSignals(maxNotes: number): Promise<PublishDraftsResult> {
-  ensurePortugalCronEnv();
+export async function publishDraftsFromNewSignals(
+  maxNotes: number,
+  countryKey = "portugal"
+): Promise<PublishDraftsResult> {
+  ensureCronEnvForCountry(countryKey);
   const result: PublishDraftsResult = {
     clusters: 0,
     published: [],
@@ -58,7 +84,7 @@ export async function publishDraftsFromNewSignals(maxNotes: number): Promise<Pub
     errors: [],
   };
 
-  const signals = await loadNewSignals();
+  const signals = await loadNewSignals(countryKey);
   if (signals.length === 0) return result;
 
   const clusters = clusterSignals(signals)
@@ -71,7 +97,7 @@ export async function publishDraftsFromNewSignals(maxNotes: number): Promise<Pub
   const { data: existingNotes } = await supabase
     .from("community_notes")
     .select("topic_tags")
-    .eq("country_key", "portugal")
+    .eq("country_key", countryKey)
     .eq("status", "published");
 
   const existingTopics = new Set(
@@ -103,8 +129,8 @@ export async function publishDraftsFromNewSignals(maxNotes: number): Promise<Pub
       const now = new Date().toISOString();
       const { error: insertError } = await supabase.from("community_notes").insert({
         ...draft,
-        country_key: "portugal",
-        city: cluster.signals[0]?.city ?? "porto",
+        country_key: countryKey,
+        city: cluster.signals[0]?.city ?? SATELLITE_DEFAULT_CITY[countryKey] ?? countryKey,
         status: "published",
         published_at: publishedAt,
         updated_at: now,
@@ -119,7 +145,7 @@ export async function publishDraftsFromNewSignals(maxNotes: number): Promise<Pub
       await supabase
         .from("community_signals")
         .update({ status: "reviewed", updated_at: now })
-        .eq("country_key", "portugal")
+        .eq("country_key", countryKey)
         .in("message_id", ids);
 
       result.published.push(draft.slug);

@@ -12,7 +12,7 @@ SERVER_HOST="${SERVER_HOST:-37.27.0.210}"
 SSH_KEY="${SSH_KEY:-${DEPLOY_USER_HOME}/.ssh/id_ed25519_github}"
 REMOTE="${REMOTE:-/opt/emigro}"
 
-echo "🚀 Деплой Emigro Portugal cron → ${SERVER_USER}@${SERVER_HOST}:${REMOTE}"
+echo "🚀 Деплой Emigro parser cron (Portugal + Spain) → ${SERVER_USER}@${SERVER_HOST}:${REMOTE}"
 
 echo "📁 rsync emigro (parser + scripts + lib)..."
 rsync -avz --delete \
@@ -35,7 +35,7 @@ ssh -i "${SSH_KEY}" -o StrictHostKeyChecking=no "${SERVER_USER}@${SERVER_HOST}" 
    . .venv/bin/activate; \
    pip install -q -U pip; \
    pip install -q -r requirements.txt; \
-   chmod +x run_scheduled.sh run_daily.sh deploy.sh; \
+   chmod +x run_scheduled.sh run_scheduled_spain.sh run_daily.sh deploy.sh; \
    mkdir -p logs out; \
    chown -R www-data:www-data logs out; \
    cd ${REMOTE}; \
@@ -63,3 +63,4 @@ ssh -i "${SSH_KEY}" -o StrictHostKeyChecking=no "${SERVER_USER}@${SERVER_HOST}" 
 
 echo ""
 echo "✅ Деплой завершён. Проверка: systemctl start emigro-portugal-community.service"
+echo "   Spain: systemctl start emigro-spain-community.service"

@@ -1,10 +1,12 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { PORTUGAL_SATELLITE_HOST } from "@/lib/satellite/portugal";
-import { portugalSatelliteSubdomainEnabled } from "@/lib/site-url";
+import { SPAIN_SATELLITE_HOST } from "@/lib/satellite/spain";
+import { portugalSatelliteSubdomainEnabled, spainSatelliteSubdomainEnabled } from "@/lib/site-url";
 
 const CANONICAL_HOST = "www.emigro.online";
 const PORTUGAL_SATELLITE_ORIGIN = `https://${PORTUGAL_SATELLITE_HOST}`;
+const SPAIN_SATELLITE_ORIGIN = `https://${SPAIN_SATELLITE_HOST}`;
 
 function hostName(request: NextRequest): string {
   return request.headers.get("host")?.split(":")[0] ?? "";
@@ -22,19 +24,33 @@ function isPortugalSatelliteHost(host: string): boolean {
   return host === PORTUGAL_SATELLITE_HOST;
 }
 
-/** /satellite/portugal on www → canonical subdomain (301). */
-function redirectWwwSatelliteToSubdomain(request: NextRequest): NextResponse | null {
-  if (!portugalSatelliteSubdomainEnabled()) return null;
+function isSpainSatelliteHost(host: string): boolean {
+  return host === SPAIN_SATELLITE_HOST;
+}
 
+function isSatelliteHost(host: string): boolean {
+  return isPortugalSatelliteHost(host) || isSpainSatelliteHost(host);
+}
+
+/** /satellite/{country} on www → canonical subdomain (301). */
+function redirectWwwSatelliteToSubdomain(request: NextRequest): NextResponse | null {
+  const { pathname, search } = request.nextUrl;
   const host = hostName(request);
   if (host !== CANONICAL_HOST && host !== "emigro.online") return null;
 
-  const { pathname, search } = request.nextUrl;
-  if (!pathname.startsWith("/satellite/portugal")) return null;
+  if (pathname.startsWith("/satellite/portugal") && portugalSatelliteSubdomainEnabled()) {
+    const subpath = pathname.slice("/satellite/portugal".length) || "/";
+    const destination = `${PORTUGAL_SATELLITE_ORIGIN}${subpath === "/" ? "" : subpath}${search}`;
+    return NextResponse.redirect(destination, 301);
+  }
 
-  const subpath = pathname.slice("/satellite/portugal".length) || "/";
-  const destination = `${PORTUGAL_SATELLITE_ORIGIN}${subpath === "/" ? "" : subpath}${search}`;
-  return NextResponse.redirect(destination, 301);
+  if (pathname.startsWith("/satellite/spain") && spainSatelliteSubdomainEnabled()) {
+    const subpath = pathname.slice("/satellite/spain".length) || "/";
+    const destination = `${SPAIN_SATELLITE_ORIGIN}${subpath === "/" ? "" : subpath}${search}`;
+    return NextResponse.redirect(destination, 301);
+  }
+
+  return null;
 }
 
 /** /notes/* and /tag/* on apex/www → satellite (subdomain when enabled). */
@@ -92,7 +108,8 @@ function redirectLegacyProgramPaths(request: NextRequest): NextResponse | null {
 
 /** /ru/* and other main-site sections on satellite host → www (corridor lives on main domain). */
 function redirectSatelliteCorridorPaths(request: NextRequest): NextResponse | null {
-  if (!isPortugalSatelliteHost(hostName(request))) return null;
+  const host = hostName(request);
+  if (!isSatelliteHost(host)) return null;
 
   const { pathname, search } = request.nextUrl;
   const mainSitePrefixes = ["/ru", "/admin", "/api/v1", "/llms-full.txt"];
@@ -123,9 +140,29 @@ function rewritePortugalSatellite(request: NextRequest): NextResponse | null {
   return NextResponse.rewrite(url);
 }
 
+function rewriteSpainSatellite(request: NextRequest): NextResponse | null {
+  const host = hostName(request);
+  if (!isSpainSatelliteHost(host)) return null;
+
+  const { pathname } = request.nextUrl;
+  if (pathname.startsWith("/satellite/spain")) {
+    return NextResponse.next();
+  }
+
+  if (pathname === "/llms.txt") {
+    const url = request.nextUrl.clone();
+    url.pathname = "/satellite/spain/llms";
+    return NextResponse.rewrite(url);
+  }
+
+  const url = request.nextUrl.clone();
+  url.pathname = `/satellite/spain${pathname === "/" ? "" : pathname}`;
+  return NextResponse.rewrite(url);
+}
+
 function shouldRedirectToCanonical(request: NextRequest): URL | null {
   const host = hostName(request);
-  if (isLocalHost(host) || isPreviewHost(host) || isPortugalSatelliteHost(host)) return null;
+  if (isLocalHost(host) || isPreviewHost(host) || isSatelliteHost(host)) return null;
 
   const proto = request.headers.get("x-forwarded-proto");
   const needsHttps = proto === "http";
@@ -154,6 +191,9 @@ export function middleware(request: NextRequest) {
 
   const satellite = rewritePortugalSatellite(request);
   if (satellite) return satellite;
+
+  const spainSatellite = rewriteSpainSatellite(request);
+  if (spainSatellite) return spainSatellite;
 
   const canonicalUrl = shouldRedirectToCanonical(request);
   if (canonicalUrl) {

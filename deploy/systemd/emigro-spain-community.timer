@@ -1,0 +1,10 @@
+[Unit]
+Description=Emigro Spain community daily at 07:30 UTC
+
+[Timer]
+OnCalendar=*-*-* 07:30:00 UTC
+Persistent=true
+AccuracySec=5min
+
+[Install]
+WantedBy=timers.target

@@ -5,6 +5,10 @@ import { CorridorIntelLinks } from "@/components/corridor/CorridorIntelLinks";
 import { CorridorHubShell } from "@/components/corridor/hub/CorridorHubShell";
 import { CorridorHubStack } from "@/components/corridor/hub/CorridorHubStack";
 import { CorridorLandingSeoSections } from "@/components/corridor/CorridorLandingSeoSections";
+import { PortugalFeaturedNotes } from "@/components/portugal/PortugalFeaturedNotes";
+import { SpainFeaturedNotes } from "@/components/spain/SpainFeaturedNotes";
+import { isPortugalHubTopic } from "@/lib/portugal/hub";
+import { isSpainHubTopic } from "@/lib/spain/hub";
 import { GuideDigestPreview } from "@/components/corridor/GuideDigestPreview";
 import { LatestNewsTeaser } from "@/components/news/LatestNewsTeaser";
 import { ServiceProvidersSection } from "@/components/providers/ServiceProvidersSection";
@@ -173,6 +177,9 @@ export async function CorridorLanding({ country }: { country: string }) {
         <div className="mt-12">
           <CorridorIntelLinks topic={topic} />
         </div>
+
+        {isPortugalHubTopic(topic) && <PortugalFeaturedNotes />}
+        {isSpainHubTopic(topic) && <SpainFeaturedNotes />}
 
         <CorridorLandingSeoSections topic={topic} corridor={corridor} landingPath={base} />
 

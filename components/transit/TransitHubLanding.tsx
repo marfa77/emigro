@@ -117,6 +117,16 @@ export function TransitHubLanding({ hub }: Props) {
             Это не EU-коридор для ВНЖ или гражданства. Хаб нужен, чтобы спокойно закрыть первые бытовые,
             финансовые и документальные задачи перед отдельным европейским маршрутом.
           </p>
+          {hub.guideHref && hub.guideAnchor && (
+            <Link
+              href={hub.guideHref}
+              className="mt-4 inline-flex items-center gap-1.5 rounded-lg border border-corridor-200 bg-corridor-50 px-4 py-2.5 text-sm font-medium text-corridor-800 hover:border-corridor-400 hover:bg-corridor-100"
+            >
+              <BookOpen className="h-4 w-4 shrink-0" />
+              {hub.guideAnchor}
+              <ArrowRight className="h-4 w-4 shrink-0" />
+            </Link>
+          )}
         </section>
 
         <section className="mt-8 grid gap-4 md:grid-cols-3">

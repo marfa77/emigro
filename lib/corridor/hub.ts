@@ -10,6 +10,11 @@ import {
   portugalSatelliteHubUrl,
   PORTUGAL_URL_SEGMENT,
 } from "@/lib/portugal/hub";
+import {
+  isSpainHubTopic,
+  spainSatelliteHubUrl,
+  SPAIN_URL_SEGMENT,
+} from "@/lib/spain/hub";
 import { publicSiteUrl } from "@/lib/site-url";
 
 export type CorridorHubTab = "hub" | "route" | "news" | "digest" | "practice" | "market";
@@ -34,11 +39,17 @@ export type HubTileIcon = "compass" | "newspaper" | "book" | "sticky" | "shoppin
 
 export type CorridorHubFeatures = {
   isPortugal: boolean;
+  isSpain: boolean;
   hasWizard: boolean;
   hasNews: boolean;
   hasPractice: boolean;
   hasMarket: boolean;
 };
+
+function satellitePracticeHubUrl(topic: NewsTopicConfig): string {
+  if (isSpainHubTopic(topic)) return spainSatelliteHubUrl();
+  return portugalSatelliteHubUrl();
+}
 
 export type ResolvedHubTile = {
   id: CorridorHubLayerId;
@@ -71,11 +82,13 @@ export type CorridorHubNavItem = {
 
 export function getCorridorHubFeatures(topic: NewsTopicConfig): CorridorHubFeatures {
   const isPortugal = isPortugalHubTopic(topic);
+  const isSpain = isSpainHubTopic(topic);
   return {
     isPortugal,
+    isSpain,
     hasWizard: topicHasWizard(topic),
     hasNews: true,
-    hasPractice: isPortugal,
+    hasPractice: isPortugal || isSpain,
     hasMarket: true,
   };
 }
@@ -128,7 +141,7 @@ export function corridorHubNavItems(
     features.hasPractice
       ? context === "satellite"
         ? { id: "practice", label: "Практика", href: "/" }
-        : { id: "practice", label: "Практика", href: portugalSatelliteHubUrl(), external: true }
+        : { id: "practice", label: "Практика", href: satellitePracticeHubUrl(topic), external: true }
       : { id: "practice", label: "Практика", href: paths.landing, comingSoon: true },
     features.hasMarket
       ? { id: "market", label: "Барахолка", href: paths.barakhlo("hub_nav"), external: true }
@@ -212,6 +225,9 @@ function newsTileImage(topic: NewsTopicConfig): string {
 function practiceTileImage(topic: NewsTopicConfig): string {
   if (topic.urlSegment === PORTUGAL_URL_SEGMENT) {
     return "/images/og/guide-pervye-30-dnej-v-portugalii-2026.jpg";
+  }
+  if (topic.urlSegment === SPAIN_URL_SEGMENT) {
+    return "/images/corridor-spain.webp";
   }
   return countryCardImage(topic.urlSegment);
 }
@@ -374,19 +390,21 @@ export function resolveCorridorHubTiles(
   const practiceTile: ResolvedHubTile = features.hasPractice
     ? {
         id: "practice",
-        href: portugalSatelliteHubUrl(),
+        href: satellitePracticeHubUrl(topic),
         external: true,
         image: practiceTileImage(topic),
         imagePosition: "50% 45%",
-        gradient: "from-teal-950/88 via-cyan-950/70 to-slate-950/88",
-        glow: "from-teal-300/25 to-transparent",
+        gradient: features.isSpain
+          ? "from-amber-950/88 via-orange-950/70 to-slate-950/88"
+          : "from-teal-950/88 via-cyan-950/70 to-slate-950/88",
+        glow: features.isSpain ? "from-amber-300/25 to-transparent" : "from-teal-300/25 to-transparent",
         title: "Практика",
-        subtitle: "Lisbon",
+        subtitle: features.isSpain ? "Valencia" : "Lisbon",
         topLeft: String(stats.practiceNotes),
         topLeftHint: "заметок",
         topRightIcon: "sticky",
         topRightLabel: "Live",
-        bottomLeft: "#aima · #nif · #аренда",
+        bottomLeft: features.isSpain ? "#nie · #tie · #аренда" : "#aima · #nif · #аренда",
         bottomRight: "Community",
         ratings: [
           { label: "Практика", value: 90, tone: "good" },

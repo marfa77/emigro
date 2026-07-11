@@ -19,6 +19,7 @@ import {
   isDynamicVideoEnabled,
 } from "./config";
 import { compact, wordCount } from "./text-utils";
+import { prepareTextForRuTts } from "./tts-spoken-text";
 import type { CaptionFrame, ScriptSegment } from "./types";
 import type { TipShortTopic } from "./topics";
 
@@ -420,6 +421,7 @@ function normalizeAudioPart(inputPath: string, label: string): void {
 
 async function openAiTts(text: string, outputPath: string, force = false): Promise<void> {
   if (cachedAudioUsable(outputPath) && !force) return;
+  const spokenText = prepareTextForRuTts(text);
   const response = await fetch("https://api.openai.com/v1/audio/speech", {
     method: "POST",
     headers: {
@@ -429,11 +431,11 @@ async function openAiTts(text: string, outputPath: string, force = false): Promi
     body: JSON.stringify({
       model: "gpt-4o-mini-tts",
       voice: RU_TTS_VOICE,
-      input: text,
+      input: spokenText,
       speed: RU_TTS_SPEED,
       response_format: "mp3",
       instructions:
-        "Говори по-русски как автор YouTube-канала про релокацию. Крючок — быстро и уверенно, суть — чётко, без рекламного тона. Естественный разговорный русский.",
+        "Говори по-русски как автор YouTube-канала про релокацию. Крючок — быстро и уверенно, суть — чётко, без рекламного тона. Естественный разговорный русский. Числа и даты произноси полностью словами; в сложных словах сохраняй букву ё (трёхлетняя, четырёхмесячная).",
     }),
   });
   if (!response.ok) {
@@ -484,7 +486,13 @@ export async function renderAudio(
   for (let i = 0; i < segments.length; i++) {
     const segmentHash = crypto
       .createHash("sha1")
-      .update(JSON.stringify({ text: segments[i].text, voice: RU_TTS_VOICE, speed: RU_TTS_SPEED }))
+      .update(
+        JSON.stringify({
+          text: prepareTextForRuTts(segments[i].text),
+          voice: RU_TTS_VOICE,
+          speed: RU_TTS_SPEED,
+        })
+      )
       .digest("hex")
       .slice(0, 10);
     const partPath = path.join(audioDir, `segment-${String(i + 1).padStart(2, "0")}-${segmentHash}.mp3`);

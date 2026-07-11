@@ -7,6 +7,7 @@ import {
   germanyCitizenshipFactualGuardrailRu,
   isPortugalPost2026LawWeek,
   portugalSiteDigestFactualGuardrailRu,
+  scandinaviaSwedenPmjFactualGuardrailRu,
   spainGoldenVisaFactualGuardrailRu,
 } from "@/lib/news/quality";
 
@@ -50,6 +51,7 @@ export async function translatePrep2GoArticle(
       : "";
   const spainGuard = topic.key === "spain" ? `\n${spainGoldenVisaFactualGuardrailRu()}` : "";
   const germanyGuard = topic.key === "germany" ? `\n${germanyCitizenshipFactualGuardrailRu()}` : "";
+  const scandinaviaGuard = topic.key === "scandinavia" ? `\n${scandinaviaSwedenPmjFactualGuardrailRu()}` : "";
 
   const system = `Ты старший редактор Emigro — медиа о релокации русскоязычных в Европу.
 ${AUTHOR_VOICE_RU}
@@ -74,6 +76,7 @@ ${AUTHOR_VOICE_RU}
 ${portugalGuard}
 ${spainGuard}
 ${germanyGuard}
+${scandinaviaGuard}
 
 Верни строго JSON по схеме.`;
 
