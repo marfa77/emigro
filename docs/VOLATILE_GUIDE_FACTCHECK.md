@@ -39,9 +39,8 @@ Review tiers: `npm run guides:review-tiers` · backlog: `docs/FACTCHECK_BACKLOG.
 
 | Variable | Required | Purpose |
 |----------|----------|---------|
-| **`FACTCHECK_NOTIFY_TELEGRAM_CHAT_ID`** | **Recommended** | Your **numeric Telegram user/chat id** for private DM alerts |
-| `TELEGRAM_PRIVATE_CHAT_ID` | Fallback | Owner DM id (same value if you use one admin account) |
-| `TELEGRAM_ADMIN_CHAT_ID` | Fallback | First id from comma-separated admin list |
+| `TELEGRAM_PRIVATE_CHAT_ID` | Yes (for `--notify`) | Owner DM id — same as news digest / YouTube shorts / lead alerts |
+| `TELEGRAM_ADMIN_CHAT_ID` | Fallback | First id from comma-separated admin list if private id unset |
 | `TELEGRAM_BOT_TOKEN` or `EMIGRO_NEWS_BOT_TOKEN` | Yes (for `--notify`) | Bot token that may message you (start the bot in DM first) |
 | `SUPABASE_SERVICE_ROLE_KEY` | Optional | Enables `community_signals` cross-check |
 
@@ -52,13 +51,13 @@ Review tiers: `npm run guides:review-tiers` · backlog: `docs/FACTCHECK_BACKLOG.
 3. Set on VPS `/opt/emigro/.env`:
 
 ```bash
-FACTCHECK_NOTIFY_TELEGRAM_CHAT_ID=193093189
-TELEGRAM_BOT_TOKEN=...   # or EMIGRO_NEWS_BOT_TOKEN
+TELEGRAM_PRIVATE_CHAT_ID=193093189   # already set for news / admin DMs
+TELEGRAM_BOT_TOKEN=...               # or EMIGRO_NEWS_BOT_TOKEN
 ```
 
 4. Send `/start` to the bot from that account once.
 
-If `FACTCHECK_NOTIFY_TELEGRAM_CHAT_ID` is unset, the script falls back to `TELEGRAM_PRIVATE_CHAT_ID` then `TELEGRAM_ADMIN_CHAT_ID`.
+No extra env vars — reuses `TELEGRAM_PRIVATE_CHAT_ID` (falls back to first `TELEGRAM_ADMIN_CHAT_ID`).
 
 ## Example Telegram message
 
@@ -105,6 +104,6 @@ cd /opt/emigro && npm run guides:volatile-factcheck -- --notify
 ## Workflow
 
 1. Timer runs `guides:volatile-factcheck --notify`.
-2. If issues → DM to `FACTCHECK_NOTIFY_TELEGRAM_CHAT_ID`.
+2. If issues → DM to `TELEGRAM_PRIVATE_CHAT_ID` (owner alerts).
 3. Editor fixes guide → updates `date_modified` → append row to `docs/FACTCHECK_BACKLOG.md` if pattern was new.
 4. Portugal/Spain pillar guides: still use `npm run portugal:guide-factcheck` / `spain:guide-factcheck` for TG citation mining.

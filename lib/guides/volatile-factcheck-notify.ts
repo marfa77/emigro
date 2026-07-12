@@ -6,15 +6,12 @@ import { volatileGuideTitle } from "@/lib/guides/volatile-factcheck";
 
 const MAX_ISSUES_PER_MESSAGE = 5;
 
-/** Chat id for volatile fact-check DMs (private message to admin). */
+/** Chat id for volatile fact-check DMs — same as owner/admin alerts (news bot DM). */
 export function factcheckNotifyTelegramChatId(): string | undefined {
-  const dedicated = process.env.FACTCHECK_NOTIFY_TELEGRAM_CHAT_ID?.trim();
-  if (dedicated) return dedicated;
+  const owner = process.env.TELEGRAM_PRIVATE_CHAT_ID?.trim();
+  if (owner) return owner;
 
-  const admin = process.env.TELEGRAM_ADMIN_CHAT_ID?.split(",")[0]?.trim();
-  if (admin) return admin;
-
-  return process.env.TELEGRAM_PRIVATE_CHAT_ID?.trim();
+  return process.env.TELEGRAM_ADMIN_CHAT_ID?.split(",")[0]?.trim();
 }
 
 function severityLabel(severity: VolatileFactcheckIssue["severity"]): string {
@@ -73,7 +70,11 @@ export async function notifyVolatileFactcheckIssues(
 ): Promise<{ success: boolean; error?: string; skipped?: boolean }> {
   const chatId = factcheckNotifyTelegramChatId();
   if (!chatId) {
-    return { success: false, skipped: true, error: "FACTCHECK_NOTIFY_TELEGRAM_CHAT_ID missing" };
+    return {
+      success: false,
+      skipped: true,
+      error: "TELEGRAM_PRIVATE_CHAT_ID missing (fallback: TELEGRAM_ADMIN_CHAT_ID)",
+    };
   }
 
   const text = formatVolatileFactcheckTelegramDigest(issues, scannedCount);
