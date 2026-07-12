@@ -85,6 +85,11 @@ const SLUG_PHOTO_QUERIES: Record<string, string[]> = {
     "dehumidifier home interior",
     "portugal winter apartment cozy",
   ],
+  "meditsina-norte-sns-chastnaya-stomatologiya-2026": [
+    "hospital porto portugal exterior",
+    "healthcare clinic modern europe",
+    "dental clinic dentist office",
+  ],
   "zamena-zagranpasporta-portugaliya-2026": [
     "passport documents desk",
     "embassy building lisbon",
