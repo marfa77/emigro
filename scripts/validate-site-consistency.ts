@@ -16,6 +16,8 @@ import {
   corridorWizardPath,
 } from "../lib/corridor/paths";
 import { getAllProviders, PREP2GO_TOPIC_KEYS } from "../lib/providers/registry";
+import { listGuides } from "../lib/guides/load";
+import { validateGuideReviewTiers } from "../lib/guides/review-tiers";
 
 const NEWS_ONLY_TOPIC_KEYS = new Set([
   "serbia",
@@ -111,7 +113,14 @@ for (const iso2 of REQUIRED_DESTINATION_ISO2) {
   if (!ISO2_TO_SEGMENT[iso2]) fail(`ISO2_TO_SEGMENT missing ${iso2}`);
 }
 
+const guideSlugs = listGuides().map((g) => g.slug);
+const tierErrors = validateGuideReviewTiers(guideSlugs);
+if (tierErrors.length > 0) {
+  for (const err of tierErrors) fail(err);
+}
+
 console.log("Site consistency: OK");
 console.log(`  active corridors: ${ACTIVE_CORRIDOR_SLUGS.length}`);
 console.log(`  assist corridors: ${ASSIST_CORRIDOR_SLUGS.length}`);
 console.log(`  providers: ${getAllProviders().length}`);
+console.log(`  guides with review tier: ${guideSlugs.length}`);

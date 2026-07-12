@@ -1,4 +1,5 @@
 import { PORTUGAL_SATELLITE } from "@/lib/satellite/portugal";
+import { getFactcheckCadence, getGuideReviewTier, type GuideReviewTier } from "@/lib/guides/review-tiers";
 
 /** Third-party relocant Telegram channels parsed by `npm run portugal:daily`. */
 export const PORTUGAL_CHAT_CHANNELS = PORTUGAL_SATELLITE.sourceChannels;
@@ -27,8 +28,13 @@ export type GuideFactcheckConfig = {
   file: string;
   title: string;
   aliases: string[];
+  /** Review tier hint — volatile guides get quarterly TG fact-check priority. */
+  reviewTier: GuideReviewTier;
+  factcheckCadence: ReturnType<typeof getFactcheckCadence>;
   topics: GuideFactcheckTopic[];
 };
+
+type GuideFactcheckConfigInput = Omit<GuideFactcheckConfig, "reviewTier" | "factcheckCadence">;
 
 export type SeedFactcheckSignal = {
   channel_username: string;
@@ -63,7 +69,7 @@ export function formatPortugalChatCitation(params: PortugalChatCitationParams): 
 }
 
 /** Guide slug aliases for `--guide` filter (partial match). */
-export const PORTUGAL_GUIDE_FACTCHECK: GuideFactcheckConfig[] = [
+export const PORTUGAL_GUIDE_FACTCHECK: GuideFactcheckConfigInput[] = [
   {
     slug: "vnj-portugaliya-d8-d7-grazhdanstvo-2026",
     file: "content/guides/ru/vnj-portugaliya-d8-d7-grazhdanstvo-2026.md",
@@ -368,13 +374,23 @@ export const SEED_FACTCHECK_SIGNALS: SeedFactcheckSignal[] = [
 ];
 
 export function resolveGuideFactcheckConfig(guideFilter?: string): GuideFactcheckConfig[] {
-  if (!guideFilter) return PORTUGAL_GUIDE_FACTCHECK;
-  const q = guideFilter.toLowerCase().replace(/\.md$/, "");
-  return PORTUGAL_GUIDE_FACTCHECK.filter(
-    (g) =>
-      g.slug.includes(q) ||
-      g.aliases.some((a) => a.includes(q) || q.includes(a))
-  );
+  const configs = !guideFilter
+    ? PORTUGAL_GUIDE_FACTCHECK
+    : PORTUGAL_GUIDE_FACTCHECK.filter((g) => {
+        const q = guideFilter.toLowerCase().replace(/\.md$/, "");
+        return g.slug.includes(q) || g.aliases.some((a) => a.includes(q) || q.includes(a));
+      });
+
+  return configs.map(enrichGuideFactcheckConfig);
+}
+
+function enrichGuideFactcheckConfig(config: GuideFactcheckConfigInput): GuideFactcheckConfig {
+  const reviewTier = getGuideReviewTier(config.slug);
+  return {
+    ...config,
+    reviewTier,
+    factcheckCadence: getFactcheckCadence(config.slug, reviewTier),
+  };
 }
 
 export function matchSignalTopic(

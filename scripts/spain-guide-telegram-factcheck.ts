@@ -220,6 +220,10 @@ async function main() {
 
   console.log("---");
   console.log("Guides covered:", configs.map((c) => c.slug).join(", "));
+  console.log(
+    "Review tiers:",
+    configs.map((c) => `${c.slug}=${c.reviewTier}/${c.factcheckCadence}`).join(", ")
+  );
   console.log("Topics:", configs.flatMap((c) => c.topics.map((t: GuideFactcheckTopic) => t.id)).join(", "));
   console.log("\nNext: embed citations with lib/guides/spain-telegram-citations.ts → formatSpainChatCitation()");
   console.log("Docs: docs/SPAIN_GUIDE_FACTCHECK.md");

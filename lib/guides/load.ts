@@ -2,6 +2,9 @@ import fs from "fs";
 import path from "path";
 import { getGuideCoverPath, resolveGuideCoverPath, resolveGuideOgImagePath } from "@/lib/guides/covers";
 import { specificGuideTopicKeys } from "@/lib/guides/guide-display";
+import { getFactcheckCadence, getGuideReviewTier, type FactcheckCadence, type GuideReviewTier } from "@/lib/guides/review-tiers";
+
+export type { FactcheckCadence, GuideReviewTier } from "@/lib/guides/review-tiers";
 
 export type GuideOfficialSource = {
   url: string;
@@ -26,6 +29,10 @@ export type GuideFrontmatter = {
   primary_intent?: string;
   cover_image?: string;
   official_sources?: GuideOfficialSource[];
+  /** Editorial review tier — volatile facts need quarterly checks. */
+  review_tier: GuideReviewTier;
+  /** Derived review schedule from review_tier. */
+  factcheck_cadence: FactcheckCadence;
   /** Resolved cover path (frontmatter or slug map). */
   cover_path: string;
   /** 1200x630 raster image for social previews. */
@@ -119,6 +126,8 @@ function mapFrontmatter(
 ): GuideFrontmatter {
   const resolvedSlug = String(meta.slug ?? slug);
   const cover_path = resolveGuideCoverPath(resolvedSlug, resolveCoverPath(meta, resolvedSlug));
+  const review_tier = getGuideReviewTier(resolvedSlug, meta.review_tier ? String(meta.review_tier) : undefined);
+  const factcheck_cadence = getFactcheckCadence(resolvedSlug, review_tier);
   return {
     slug: resolvedSlug,
     title: String(meta.title ?? slug),
@@ -137,6 +146,8 @@ function mapFrontmatter(
     primary_intent: meta.primary_intent ? String(meta.primary_intent) : undefined,
     cover_image: meta.cover_image ? String(meta.cover_image) : undefined,
     official_sources: officialSources.length > 0 ? officialSources : undefined,
+    review_tier,
+    factcheck_cadence,
     cover_path,
     og_image_path: resolveGuideOgImagePath(resolvedSlug, cover_path),
   };
