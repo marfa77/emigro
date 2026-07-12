@@ -1,0 +1,10 @@
+[Unit]
+Description=Emigro volatile guides fact-check weekly — Monday 08:00 UTC
+
+[Timer]
+OnCalendar=Mon *-*-* 08:00:00 UTC
+Persistent=true
+AccuracySec=5min
+
+[Install]
+WantedBy=timers.target

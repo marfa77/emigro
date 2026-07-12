@@ -31,6 +31,7 @@
     "llm:citation-test": "tsx scripts/llm-citation-test.ts",
     "guides:og-images": "tsx scripts/generate-guide-og-images.ts",
     "guides:review-tiers": "tsx scripts/list-guides-by-review-tier.ts",
+    "guides:volatile-factcheck": "tsx scripts/volatile-guides-factcheck.ts",
     "telegram:set-webhook": "tsx scripts/set-telegram-webhook.ts",
     "telegram:poll-local": "tsx scripts/telegram-poll-local.ts",
     "social:subscribers": "tsx scripts/social-subscribers-daily.ts",

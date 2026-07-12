@@ -1,0 +1,19 @@
+[Unit]
+Description=Emigro volatile guides fact-check — stale dates, backlog patterns, Telegram DM
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/emigro
+PermissionsStartOnly=true
+ExecStartPre=/bin/mkdir -p /opt/emigro/deploy/volatile-guides-factcheck/logs
+ExecStartPre=/bin/chown www-data:www-data /opt/emigro/deploy/volatile-guides-factcheck/logs
+ExecStart=/bin/bash /opt/emigro/deploy/volatile-guides-factcheck/run_scheduled.sh
+User=www-data
+EnvironmentFile=-/opt/emigro/.env
+StandardOutput=append:/opt/emigro/deploy/volatile-guides-factcheck/logs/scheduled.log
+StandardError=append:/opt/emigro/deploy/volatile-guides-factcheck/logs/scheduled.log
+
+[Install]
+WantedBy=multi-user.target
