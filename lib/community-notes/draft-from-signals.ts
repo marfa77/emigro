@@ -1,6 +1,7 @@
+import { applyBlueprintFixes, validateAgainstBlueprint } from "@/lib/community-notes/article-blueprint";
 import { geminiFastJson, geminiProJson } from "@/lib/news/gemini";
 import { buildNoteHashtags } from "@/lib/community-notes/hashtags";
-import { moveGlossaryToStart } from "@/lib/community-notes/glossary";
+import { countGlossaryTerms, isGlossarySection, moveGlossaryToStart } from "@/lib/community-notes/glossary";
 import {
   flattenBodySections,
   normalizeNoteDraftSeo,
@@ -402,16 +403,35 @@ export async function rewriteCommunityNote(
     ],
   };
 
+  const existingContent = options?.voicePass
+    ? `
+
+ТЕКУЩИЙ КОНТЕНТ (ОБЯЗАТЕЛЬНО сохрани ВСЕ факты, цифры, органы, section_kind, порядок секций — только улучши подачу голосом):
+${JSON.stringify(
+  {
+    quick_answer: note.quick_answer,
+    key_takeaways: note.key_takeaways,
+    body_sections: note.body_sections,
+    faq: note.faq,
+  },
+  null,
+  0
+).slice(0, 24000)}`
+    : "";
+
   const userPrompt = `${buildUserPrompt(cluster, pickBestSnippets(cluster.signals, 1), countryKey)}
 
 ПЕРЕПИСЫВАНИЕ существующей заметки. Сохрани slug: ${note.slug}
 Текущий заголовок: ${note.title}
 Улучши подачу для чтения и структуру body_sections. Не теряй факты — сделай текст понятнее и логичнее.
 Явно раздели официальные требования и практику из чатов (section_kind + метки в key_takeaways).
+${existingContent}
 
 ${options?.voicePass ? VOICE_REWRITE_HINT : PRESENTATION_REWRITE_HINT}
 
-КОМПАКТНЫЙ JSON (критично): максимум 6 body_sections, до 5 bullets на секцию, lead в каждой секции, 4 key_takeaways, 4–5 faq. Не дублируй заголовки секций. Минимум 600 слов суммарно для guide.`;
+КОМПАКТНЫЙ JSON (критично): сохрани все секции и факты из текущего контента; до 8 body_sections, до 5 bullets на секцию, glossary 5–8 терминов, 4 key_takeaways, 4–5 faq. Минимум 600 слов суммарно для guide.`;
+
+  const tokenLimit = options?.voicePass ? 12288 : 8192;
 
   let lastError: string | undefined;
   for (let attempt = 0; attempt < 4; attempt += 1) {
@@ -429,9 +449,34 @@ ${options?.voicePass ? VOICE_REWRITE_HINT : PRESENTATION_REWRITE_HINT}
         | "source_label"
         | "body_paragraphs"
       >
-    >(system, userPrompt + retryHint, draftSchemaGemini, 8192);
+    >(system, userPrompt + retryHint, draftSchemaGemini, tokenLimit);
 
     const draft = withSnsSanitize(finalizeDraft(cluster, { ...raw, slug: note.slug }, note.hashtags, countryKey));
+    if (options?.voicePass && draft.content_kind === "guide") {
+      const fixed = applyBlueprintFixes({
+        content_kind: draft.content_kind,
+        quick_answer: draft.quick_answer,
+        key_takeaways: draft.key_takeaways,
+        body_sections: draft.body_sections,
+        faq: draft.faq,
+      });
+      if (fixed.changed) {
+        draft.body_sections = fixed.body_sections;
+        draft.key_takeaways = fixed.key_takeaways;
+        draft.body_paragraphs = flattenBodySections(fixed.body_sections);
+      }
+      const newGlossary = draft.body_sections.find(isGlossarySection);
+      const oldGlossary = note.body_sections.find(isGlossarySection);
+      if (oldGlossary && (!newGlossary || countGlossaryTerms(newGlossary) < 5)) {
+        const merged = {
+          ...oldGlossary,
+          paragraphs: newGlossary?.paragraphs?.length ? newGlossary.paragraphs : oldGlossary.paragraphs,
+        };
+        const without = draft.body_sections.filter((s) => !isGlossarySection(s));
+        draft.body_sections = moveGlossaryToStart([merged, ...without]);
+        draft.body_paragraphs = flattenBodySections(draft.body_sections);
+      }
+    }
     if (note.slug === "pervyj-mesyac-portugaliya-checklist") {
       draft.category = "Первый месяц";
     } else if (!note.category.includes("CIPLE")) {
@@ -441,6 +486,22 @@ ${options?.voicePass ? VOICE_REWRITE_HINT : PRESENTATION_REWRITE_HINT}
     }
 
     const errors = validateNoteDraft(draft, countryKey);
+    if (options?.voicePass && draft.content_kind === "guide") {
+      const blueprint = validateAgainstBlueprint(
+        {
+          content_kind: draft.content_kind,
+          slug: note.slug,
+          quick_answer: draft.quick_answer,
+          seo_description: draft.seo_description,
+          body_sections: draft.body_sections,
+          key_takeaways: draft.key_takeaways,
+          faq: draft.faq,
+          official_links: note.official_links,
+        },
+        countryKey
+      );
+      errors.push(...blueprint.errors);
+    }
     if (errors.length === 0) return draft;
     lastError = errors.join("; ");
   }

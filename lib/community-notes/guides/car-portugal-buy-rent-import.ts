@@ -147,7 +147,7 @@ export const CAR_PORTUGAL_GUIDE = {
   seo_description:
     "Как купить, арендовать или привезти машину в Португалию: ISV, matrícula, IPO, recall, rent-a-car и ввоз из ЕС. Практика релокантов в Norte (Porto, Braga).",
   quick_answer:
-    "В Португалии три пути: купить на месте (DUA + IMT + seguro), арендовать на срок (крупные сети — credit card) или привезти из ЕС без таможни, но с ISV при matrícula. Проверяйте IPO и recall — с 03.2026 невыполненный recall блокирует техосмотр. При mudança de residência ISV может быть снижен, если владели авто ≥6 месяцев в другой стране ЕС. На практике многие месяц сидят на прокате, пока ищут б/у на Standvirtual.",
+    "Standvirtual открыт в третий раз за неделю — а машины всё ещё нет. В Португалии три пути: купить (DUA + IMT + seguro), арендовать на срок или привезти из ЕС с ISV при matrícula. С 03.2026 невыполненный recall блокирует техосмотр; многие месяц сидят на прокате, пока ищут б/у.",
   body_sections: bodySections,
   body_paragraphs: flattenBodySections(bodySections),
   key_takeaways: keyTakeaways,

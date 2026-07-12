@@ -158,7 +158,7 @@ export const TOLLS_FINES_ACCIDENTS_GUIDE = {
   seo_description:
     "Гайд по portagem, Via Verde, штрафам и ДТП в Португалии: A1 Porto–Lisboa, A3 Braga, ex-Scut, radares, declaração amigável и seguro. Norte и практика релокантов.",
   quick_answer:
-    "В Португалии большинство магистралей платные: на электронных участках (A1, A3, A28) нужен Via Verde, EasyToll или оплата на posto в 5 дней — иначе multa. На севере типичны commute Porto–Braga и выезды на юг по A1. При ДТП: безопасность, 112 при травмах, фото, declaração amigável и звонок seguro. Штрафы за скорость и portagem приходят отдельно — проверяйте matrícula на portaldasportagens.pt и morada в Finanças.",
+    "Первый выезд из Porto на юг: на табло A1 мелькает «portagem», а в кармане — только наличные. В Португалии большинство магистралей платные; без Via Verde или оплаты на posto в 5 дней — multa. На севере типичны commute Porto–Braga; при ДТП: 112, фото, declaração amigável и звонок seguro.",
   body_sections: bodySections,
   body_paragraphs: flattenBodySections(bodySections),
   key_takeaways: keyTakeaways,

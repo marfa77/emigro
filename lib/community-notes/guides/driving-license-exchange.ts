@@ -179,7 +179,7 @@ export const DRIVING_LICENSE_EXCHANGE_GUIDE = {
   seo_description:
     "Как обменять иностранные права в Португалии: сроки 90 дней и 2 года, IMT онлайн, медосмотр, authenticity и реальный опыт из чатов релокантов в Norte и по стране.",
   quick_answer:
-    "После ВНЖ — до 90 дней езды на старых правах при поданной troca; до 2 лет — обмен без практического экзамена (RU/BY/UA/KZ в convenções). Подача только через A Minha Carta de Condução; визит в IMT обязателен. По опыту @autolife_pt: медосмотр ~35 €, authenticity через консульство 2–4 недели, Em Análise ~2 недели, временная A4 до пластика. С июня 2026 (DL 114/2026) срок PT прав у не-ЕС может совпадать со сроком ВНЖ.",
+    "Полицейский на A28 кивает на ваши российские права — а у вас уже autorização de residência. После ВНЖ — до 90 дней езды при поданной troca; до 2 лет — обмен без экзамена (RU/BY/UA/KZ). Подача через A Minha Carta de Condução; визит в IMT обязателен. Медосмотр ~35 €, временная A4 до пластика.",
   body_sections: bodySections,
   body_paragraphs: flattenBodySections(bodySections),
   key_takeaways: keyTakeaways,

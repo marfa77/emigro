@@ -185,7 +185,7 @@ export const MEDITSINA_NORTE_HEALTHCARE_GUIDE = {
   seo_description:
     "Гайд по медицине Norte Португалии 2026: SNS utente, Hospital de São João, Braga, Multicare, стomatologia €, urgências и очереди. Porto, Matosinhos, Guimarães, Viana.",
   quick_answer:
-    "На севере Португалии (Порту, Брага, Guimarães, Viana) базовая медицина — через SNS: регистрация в centro de saúde по адресу → número de utente → médico de família. Экстренные случаи — urgências в Hospital de São João или Braga; SNS24 — 808 24 24 24. Стоматология и быстрые специалисты — почти всегда частные (€50–90 за чистку); Multicare популярен у семей, ADSE — только для госслужащих.",
+    "Третий день кашля, а врач записывает через три недели — знакомая картина в Norte. Базовая медицина здесь через SNS: centro de saúde по адресу → número de utente → médico de família. Экстренные — urgências в São João или Braga; SNS24 — 808 24 24 24. Стоматология почти всегда частная (€50–90 за чистку).",
   body_sections: bodySections,
   body_paragraphs: flattenBodySections(bodySections),
   key_takeaways: keyTakeaways,

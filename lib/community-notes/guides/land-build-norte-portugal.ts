@@ -157,7 +157,7 @@ export const LAND_BUILD_NORTE_GUIDE = {
   seo_description:
     "Гайд по покупке земли и строительству дома в Norte Португалии 2026: PDM, licença de construção, IMT, topógrafo, arquiteto, сроки и подводные камни в Braga и Minho.",
   quick_answer:
-    "Покупка terreno и постройка casa в Norte (Braga, Guimarães, Esposende, Viana) начинается с PDM и certidão urbanística в Câmara Municipal. Solo urbano — licença de construção через arquiteto и topógrafo (4–12 мес.); rustico требует reconversão. IMT при покупке — симулятор Finanças. Бюджет участок+дом €200k–450k, срок 18–30 мес. lepta: 30% земель с неизвестным владельцем — advogado обязателен. После сдачи — чеклист первого месяца и машина для rural Norte.",
+    "На карте Esposende — зелёный участок у океана, а в Câmara говорят: сначала PDM и certidão urbanística. Покупка terreno и постройка casa в Norte начинается с муниципалитета; solo urbano — licença через arquiteto (4–12 мес.). Бюджет участок+дом €200k–450k, срок 18–30 мес.; IMT — симулятор Finanças.",
   body_sections: bodySections,
   body_paragraphs: flattenBodySections(bodySections),
   key_takeaways: keyTakeaways,

@@ -66,7 +66,7 @@ export function validateGlossarySection(section: NoteBodySection): string[] {
   const errors: string[] = [];
   if (!isGlossarySection(section)) return errors;
   const count = countGlossaryTerms(section);
-  if (count < 5) errors.push(`glossary: need 5–10 terms, got ${count}`);
+  if (count < 5) errors.push(`glossary: need 5–8 terms, got ${count}`);
   if (count > 10) errors.push(`glossary: max 10 terms, got ${count}`);
   for (const bullet of section.bullets ?? []) {
     if (!/^\*\*.+\*\*/.test(bullet.trim())) {

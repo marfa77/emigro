@@ -198,7 +198,7 @@ export const INTERNATIONAL_SCHOOLS_GUIDE = {
   seo_description:
     "Гайд по международным школам Португалии 2026: British, IB и French в Порту, Браге и Лиссабоне. Документы NIF, стоимость, waiting list и отличия от escola pública.",
   quick_answer:
-    "В Португалии у семьи с ребёнком три дорожки: бесплатная государственная школа по адресу, частная с португальской программой или international (British, IB, French). Для любой нужны NIF ребёнка и подтверждение адреса; international — от €9 000/год и заявка за 9–12 месяцев до сентября.",
+    "Сентябрь уже на календаре, а школа просит заявку за год до поступления. В Португалии у семьи три дорожки: бесплатная pública по адресу, частная с португальской программой или international (British, IB, French). Для любой нужны NIF ребёнка и morada; international — от €9 000/год.",
   body_sections: bodySections,
   body_paragraphs: flattenBodySections(bodySections),
   key_takeaways: keyTakeaways,
