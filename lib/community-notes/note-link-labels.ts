@@ -6,6 +6,7 @@ export const NOTE_LINK_LABELS: Record<string, string> = {
   "arenda-kvartiry-lisbon-pervyi-mesyac-2026": "аренда в первый месяц",
   "arenda-lissabon-do-podpisi": "аренда до подписи",
   "mashina-portugaliya-kupit-arenda-import-2026": "гайд по машине",
+  "platnye-dorogi-shtrafy-avariya-portugaliya-norte-2026": "платные дороги и штрафы",
   "mezhdunarodnye-shkoly-portugaliya-2026": "международные школы",
   "zamena-voditelskih-prav-portugaliya-2026": "обмен водительских прав",
   "zamena-zagranpasporta-portugaliya-2026": "замена загранпаспорта",
