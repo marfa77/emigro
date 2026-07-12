@@ -49,6 +49,7 @@
     "portugal:publish-meditsina-norte-guide": "tsx scripts/portugal-publish-meditsina-norte-guide.ts",
     "portugal:publish-passport-guide": "tsx scripts/portugal-publish-passport-guide.ts",
     "portugal:publish-tolls-guide": "tsx scripts/portugal-publish-tolls-guide.ts",
+    "portugal:publish-domestic-tourism-guide": "tsx scripts/portugal-publish-domestic-tourism-guide.ts",
     "portugal:generate-note-images": "tsx scripts/portugal-generate-note-images.ts",
     "portugal:index-license-history": "tsx scripts/portugal-index-license-history.ts",
     "portugal:rewrite": "tsx scripts/portugal-rewrite-notes.ts",

@@ -17,6 +17,10 @@ export const NOTE_LINK_LABELS: Record<string, string> = {
   "bank-iban-nerezident-ispaniya-2026": "банк и IBAN",
   "beckham-autonomo-mify-2026": "Beckham и autónomo",
   "pervye-30-dnej-v-ispanii-satelit-2026": "первые 30 дней в Испании",
+  "arenda-dolgosrok-porto-braga-2026": "аренда Porto/Braga",
+  "porto-vs-braga-semya-mezhdunarodnaya-shkola-2026": "Порту vs Брага",
+  "klimat-norte-zhara-vlazhnost-plesen-zima-2026": "климат Norte",
+  "kak-otkryt-bankovskiy-schet-portugalia-2026": "открытие счёта",
 };
 
 export function noteLinkLabel(slug: string): string {

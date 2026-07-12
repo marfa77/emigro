@@ -12,6 +12,8 @@ export const SKIP_REWRITE_SLUGS = new Set([
   "meditsina-norte-sns-chastnaya-stomatologiya-2026",
   "zamena-zagranpasporta-portugaliya-2026",
   "platnye-dorogi-shtrafy-avariya-portugaliya-norte-2026",
+  "arenda-dolgosrok-porto-braga-2026",
+  "turizm-vnutri-portugalii-norte-2026",
 ]);
 
 /** Already deep-rewritten by Gemini (batch or manual). */

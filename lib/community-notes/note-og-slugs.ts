@@ -3,6 +3,7 @@ import path from "path";
 
 /** Slugs with committed hero/OG WebP in public/images/community-notes/ (regenerate via portugal/spain:generate-note-images). */
 export const COMMITTED_NOTE_OG_SLUGS = new Set([
+  "arenda-dolgosrok-porto-braga-2026",
   "aima-agora-zapis-2026",
   "arenda-kvartiry-lisbon-pervyi-mesyac-2026",
   "arenda-lissabon-do-podpisi",
@@ -32,6 +33,7 @@ export const COMMITTED_NOTE_OG_SLUGS = new Set([
   "sns-registration-changes-2026",
   "studencheskiy-vnzh-portugal-mify-aima-2026",
   "termo-responsabilidade-podtverzhdenie-zhilya-2026",
+  "turizm-vnutri-portugalii-norte-2026",
   "tie-cita-extranjeria-valencia-2026",
   "vozvrat-remont-tovarov-portugaliya-2026",
   "vybor-internet-provaydera-portugaliya-2026",
