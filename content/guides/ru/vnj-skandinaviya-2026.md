@@ -4,7 +4,7 @@ title: "ВНЖ Скандинавия 2026: Швеция, Дания, Норве
 seo_title: "ВНЖ Скандинавия 2026 — Швеция, Дания, work permit, семья"
 seo_description: "ВНЖ в Скандинавии 2026: шведский work permit от SEK 34 470/мес, датский pay limit DKK 552 000/год, семья, зарплаты, язык, ПМЖ и гражданство. Для RU/BY/UA/KZ."
 excerpt: "Скандинавия — не «дешёвая Европа», но один из самых предсказуемых коридоров для найма: высокие зарплаты, сильная соцзащита и понятные правила work permit в Швеции и Дании."
-quick_answer: "Основные маршруты для граждан СНГ: (1) Sweden work permit — оффер от шведского работодателя, зарплата от SEK 34 470/мес (~€3 050) и условия не хуже коллективного договора; (2) Denmark pay limit — зарплата от DKK 552 000/год (~€74 000); (3) Nordic family reunification — супруг/партнёр с ВНЖ в SE/NO/DK/FI. ПМЖ: Швеция ~4 года work permit; гражданство SE ~5 лет, DK ~9 лет. Подача через Migrationsverket / SIRI."
+quick_answer: "Основные маршруты для граждан СНГ: (1) Sweden work permit — оффер от шведского работодателя, зарплата от SEK 34 470/мес (~€3 050, 90% медианы с 1.06.2026) и условия не хуже коллективного договора; при суммарном легальном пребывании <12 мес — обязательна comprehensive health insurance; (2) Denmark pay limit — зарплата от DKK 552 000/год (~€74 000); (3) Nordic family reunification — супруг/партнёр с ВНЖ в SE/NO/DK/FI. ПМЖ: Швеция ~4 года work permit; гражданство SE ~5 лет, DK ~9 лет. Подача через Migrationsverket / SIRI."
 corridor_slugs: [ru-speaking-to-scandinavia]
 topic_keys: [scandinavia, work, visa]
 tags: [Скандинавия, ВНЖ, Швеция, Дания, work permit, 2026, Nordics]
@@ -14,6 +14,10 @@ cta_secondary: /ru/scandinavia
 official_sources:
   - url: https://www.migrationsverket.se/English/Private-individuals/Working-in-Sweden/Employed/How-to-apply.html
     label: Migrationsverket — work permit Sweden
+  - url: https://www.migrationsverket.se/en/word-explanations/salary-requirements-for-a-work-permit.html
+    label: Migrationsverket — salary requirements 2026
+  - url: https://www.migrationsverket.se/en/news-archive/news/2026-06-01-new-rules-for-labour-immigration-from-1-june.html
+    label: Migrationsverket — reform from 1 June 2026
   - url: https://nyidanmark.dk/en-GB/You-want-to-apply/Work/Pay-limit-scheme
     label: SIRI — Denmark pay limit scheme
   - url: https://www.migrationsverket.se/English/Private-individuals/Moving-to-a-close-relative-in-Sweden.html
@@ -24,7 +28,7 @@ official_sources:
     label: UDI Norway — immigration
 estimated_minutes: 18
 date_published: 2026-07-01
-date_modified: 2026-07-02
+date_modified: 2026-07-12
 ---
 
 ## Кому подходит этот гайд
@@ -64,13 +68,27 @@ Emigro коридор **ru-speaking-to-scandinavia** фокусируется н
 
 | Параметр | Значение |
 |----------|----------|
-| Минимальная зарплата | **SEK 34 470/мес** брутто (~€3 050) |
+| Минимальная зарплата | **SEK 34 470/мес** брутто (~€3 050) — **90% медианы** SCB |
 | Работодатель | Шведская компания с регистрацией |
 | Условия труда | Не хуже **коллективного договора** (kollektivavtal) или отраслевой практики |
-| Страховка | Пенсион, health coverage через employment |
+| Страховка | Пенсион и occupational insurance через employer; при **<12 мес** суммарного легального пребывания — **comprehensive health insurance** |
 | Паспорт | Действителен на весь срок permit |
 
-*Источник: [Migrationsverket — work permit](https://www.migrationsverket.se/English/Private-individuals/Working-in-Sweden/Employed/How-to-apply.html). Порог обновляется ежегодно.*
+*Источник: [Migrationsverket — work permit](https://www.migrationsverket.se/English/Private-individuals/Working-in-Sweden/Employed/How-to-apply.html), [salary requirements](https://www.migrationsverket.se/en/word-explanations/salary-requirements-for-a-work-permit.html). Медиана SCB обновляется ежегодно (с 16 июня 2026 — SEK 38 300 → порог SEK 34 470).*
+
+### Реформа work permit с 1 июня 2026
+
+С **1 июня 2026** Migrationsverket ввёл новые правила для work permit ([новости MV](https://www.migrationsverket.se/en/news-archive/news/2026-06-01-new-rules-for-labour-immigration-from-1-june.html)):
+
+| Изменение | Суть |
+|-----------|------|
+| **Зарплатный порог** | Было **80%** медианы → стало **90%** медианы SCB на дату подачи |
+| **Текущий порог** | С **16 июня 2026** медиана SEK 38 300 → минимум **SEK 34 470/мес** |
+| **Переходный период** | Продление permit, **выданного до 1.06.2026**, поданное **до 1.12.2026** — ещё по старому правилу **80%** (= **SEK 30 640** при текущей медиане) |
+| **С 2 декабря 2026** | Все продления — уже по **90%** |
+| **Медстраховка** | При **<12 мес** суммарного легального пребывания в Швеции — **обязательна comprehensive health insurance** (медицина, госпитализация, экстренная стоматология, medical repatriation); достаточно подтверждения, что полис **оформлен** на весь срок |
+
+**Важно:** новый порог 90% применяется к решениям **с 1 июня 2026**, даже если заявление подано раньше. Для первичных заявок с **16 июня 2026** действует обновлённая медиана SCB.
 
 ### Кто может подать
 - Граждане стран, требующих визу для въезда (RU, BY, UA, KZ)
@@ -233,7 +251,7 @@ Emigro wizard по Nordics: [/ru/scandinavia/wizard](/ru/scandinavia/wizard).
 ## Что проверить перед подачей: чеклист
 
 - [ ] Оффер с зарплатой **выше порога** (SE/DK)
-- [ ] Работодатель подтвердил insurance/pension/kollektivavtal (SE)
+- [ ] Работодатель подтвердил insurance/pension/kollektivavtal (SE); при <12 мес пребывания — comprehensive health insurance
 - [ ] Паспорт действителен ≥12 месяцев
 - [ ] Диплом + CV (перевод при запросе)
 - [ ] Консульская юрисдикция для D-визы (RU/BY — третья страна)

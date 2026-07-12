@@ -1127,9 +1127,9 @@ export const EUROPE_CORRIDORS: CorridorSeed[] = [
           ],
         },
         requirements: [
-          { type: "income", labelEn: "Minimum monthly salary", labelRu: "Минимальная месячная зарплата", value: "SEK 34,470/month (~€3,050, 2026 Migrationsverket minimum)" },
+          { type: "income", labelEn: "Minimum monthly salary", labelRu: "Минимальная месячная зарплата", value: "SEK 34,470/month (~€3,050) — 90% of SCB median from 1 Jun 2026; renewals of pre-reform permits until 1 Dec 2026 may use 80% (SEK 30,640)" },
           { type: "documents", labelEn: "Employment terms", labelRu: "Условия трудоустройства", value: "Insurance, pension, and collective agreement compliance" },
-          { type: "insurance", labelEn: "Health coverage", labelRu: "Медпокрытие", value: "Swedish employment-based coverage" },
+          { type: "insurance", labelEn: "Health coverage", labelRu: "Медпокрытие", value: "Employer occupational insurance; comprehensive health insurance mandatory if cumulative legal stay <12 months (from 1 Jun 2026)" },
         ],
         costs: [
           { labelEn: "Application fee", labelRu: "Сбор за подачу", amount: "SEK 2,200 (~€200)" },
@@ -1143,9 +1143,15 @@ export const EUROPE_CORRIDORS: CorridorSeed[] = [
         sources: [
           {
             url: "https://www.migrationsverket.se/English/Private-individuals/Working-in-Sweden/Employed/How-to-apply.html",
-            excerpt: "Work permit — salary must be at least SEK 34,470 per month (2026 minimum).",
+            excerpt: "Work permit — salary at least 90% of SCB median (SEK 34,470 from 16 Jun 2026); comprehensive health insurance if stay <12 months.",
             labelEn: "Migrationsverket — work permit",
             labelRu: "Migrationsverket — work permit",
+          },
+          {
+            url: "https://www.migrationsverket.se/en/word-explanations/salary-requirements-for-a-work-permit.html",
+            excerpt: "Salary requirements — 90% median from 1 Jun 2026; transitional 80% for pre-reform renewals until 1 Dec 2026.",
+            labelEn: "Migrationsverket — salary requirements",
+            labelRu: "Migrationsverket — salary requirements",
           },
         ],
       },
