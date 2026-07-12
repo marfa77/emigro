@@ -8,7 +8,7 @@ function channelBotToken(): string | undefined {
 }
 
 function dmBotToken(): string | undefined {
-  return (process.env.TELEGRAM_BOT_TOKEN || process.env.EMIGRO_NEWS_BOT_TOKEN)?.trim();
+  return ownerBotToken();
 }
 
 function ownerChatId(): string | undefined {

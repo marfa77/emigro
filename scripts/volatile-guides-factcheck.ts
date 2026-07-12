@@ -26,7 +26,8 @@ function parseArgs() {
   let dryRun = false;
   let notify = false;
   let json = false;
-  let skipCommunity = false;
+  /** community_signals off by default (noisy); pass --community to enable. */
+  let skipCommunity = true;
 
   for (const arg of args) {
     if (arg.startsWith("--slug=")) slug = arg.slice(7);
@@ -34,6 +35,7 @@ function parseArgs() {
     else if (arg === "--notify") notify = true;
     else if (arg === "--json") json = true;
     else if (arg === "--skip-community") skipCommunity = true;
+    else if (arg === "--community") skipCommunity = false;
   }
 
   return { slug, dryRun, notify, json, skipCommunity };
@@ -100,8 +102,10 @@ async function main() {
 
     const result = await notifyVolatileFactcheckIssues(issues, scanned);
     if (result.skipped) {
-      console.warn(`\n--- notify skipped: ${result.error} ---`);
-      process.exit(1);
+      const msg = result.reason ?? result.error ?? "skipped";
+      console.warn(`\n--- notify skipped: ${msg} ---`);
+      if (result.error?.includes("TELEGRAM_PRIVATE_CHAT_ID")) process.exit(1);
+      return;
     }
     if (!result.success) {
       console.error(`\n--- notify failed: ${result.error} ---`);

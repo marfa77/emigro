@@ -12,12 +12,14 @@ export type VolatileFactcheckIssue = {
   issue: string;
   excerpt: string;
   suggestedAction: string;
+  /** High-confidence contradictions / backlog patterns — eligible for Telegram notify. */
+  notifyPriority?: boolean;
 };
 
 export type RunVolatileFactcheckOptions = {
   /** Only these slugs (must be volatile). Default: all volatile guides. */
   slugs?: string[];
-  /** Skip Supabase community_signals cross-check. */
+  /** Include Supabase community_signals cross-check (default: off — noisy). */
   skipCommunitySignals?: boolean;
   /** Reference date for stale checks (default: now). */
   asOf?: Date;
@@ -99,6 +101,35 @@ const COMMUNITY_SIGNAL_KEYWORDS: Record<string, string[]> = {
   france: ["titre de séjour", "passeport talent", "prefecture"],
 };
 
+/** Generic chat questions — not editorial signals. */
+const LOW_VALUE_COMMUNITY_PATTERNS: RegExp[] = [
+  /portaldasfinancas.*(?:адрес|address)|(?:адрес|address).*portaldasfinancas/i,
+  /кто\s+знает.*как/i,
+  /как\s+(?:можно\s+)?(?:поменять|изменить|сменить)/i,
+  /подскажите.*как/i,
+];
+
+const CONTRADICTION_ANCHORS: {
+  label: string;
+  pattern: RegExp;
+  /** D7/D8 € thresholds — Portugal guides only. */
+  ptThresholdOnly?: boolean;
+}[] = [
+  { label: "D7", pattern: /\bd7\b|пассивн/i, ptThresholdOnly: true },
+  { label: "D8", pattern: /\bd8\b|digital\s*nomad|номад/i, ptThresholdOnly: true },
+  { label: "AIMA", pattern: /\baima\b/i },
+  { label: "воссоединение", pattern: /воссоединен|family\s+reun/i },
+  { label: "гражданство FR", pattern: /гражданств[\s\S]{0,40}франц|франц[\s\S]{0,40}гражданств/i },
+  { label: "EES", pattern: /\bees\b|entry.exit/i },
+  { label: "Blue Card", pattern: /blue\s*card|синяя\s*карта/i },
+];
+
+type EuroMention = {
+  value: number;
+  unit: "month" | "year" | "insurance" | "other";
+  lineIndex: number;
+};
+
 function inferCountryKey(slug: string, guide?: GuideFrontmatter): string | null {
   if (SLUG_COUNTRY_KEY[slug]) return SLUG_COUNTRY_KEY[slug];
   const hay = [
@@ -123,6 +154,19 @@ function inferCountryKey(slug: string, guide?: GuideFrontmatter): string | null 
   return null;
 }
 
+function isPortugalThresholdContext(slug: string, guide?: GuideFrontmatter): boolean {
+  if (/portugal|portugaliya|lisboa|aima|pervye-30-dnej-v-portugalii|vnj-portugaliya|d7-vs|portugaliya-vs/i.test(slug)) {
+    return true;
+  }
+  if (guide?.topic_keys?.includes("portugal")) return true;
+  if (guide?.corridor_slugs?.some((s) => /portugal/i.test(s))) return true;
+  return false;
+}
+
+function isComparisonGuide(guide?: GuideFrontmatter): boolean {
+  return guide?.primary_intent === "comparison";
+}
+
 function readGuideMarkdown(slug: string): { raw: string; body: string; quickAnswer: string } | null {
   const filePath = path.join(GUIDES_DIR, `${slug}.md`);
   if (!fs.existsSync(filePath)) return null;
@@ -135,6 +179,11 @@ function readGuideMarkdown(slug: string): { raw: string; body: string; quickAnsw
     quickAnswer = quickAnswer.slice(1, -1);
   }
   return { raw, body, quickAnswer };
+}
+
+/** Body + quick_answer only — excludes seo_title/seo_description YAML noise. */
+function guideScanText(body: string, quickAnswer: string): string {
+  return [body, quickAnswer].filter(Boolean).join("\n");
 }
 
 function excerpt(text: string, max = 180): string {
@@ -165,6 +214,7 @@ function checkStaleGuide(guide: GuideFrontmatter, asOf: Date, staleDays: number)
       issue: "Volatile guide без date_modified",
       excerpt: guide.title,
       suggestedAction: "Добавить date_modified после каждой проверки фактов.",
+      notifyPriority: true,
     };
   }
 
@@ -178,6 +228,7 @@ function checkStaleGuide(guide: GuideFrontmatter, asOf: Date, staleDays: number)
     issue: `date_modified устарел: ${guide.date_modified} (${age} дн., порог ${staleDays})`,
     excerpt: guide.title,
     suggestedAction: "Перепроверить пороги/ставки/дедлайны и обновить date_modified.",
+    notifyPriority: true,
   };
 }
 
@@ -197,6 +248,7 @@ function checkKnownBadPatterns(slug: string, text: string): VolatileFactcheckIss
       issue: pattern.issue,
       excerpt: matchExcerpt(text, pattern.test),
       suggestedAction: pattern.suggestedAction,
+      notifyPriority: true,
     });
   }
 
@@ -207,15 +259,13 @@ function normalizeNumber(value: string): number {
   return Number(value.replace(/\s/g, "").replace(",", "."));
 }
 
-const CONTRADICTION_ANCHORS: { label: string; pattern: RegExp }[] = [
-  { label: "D7", pattern: /\bd7\b|пассивн/i },
-  { label: "D8", pattern: /\bd8\b|digital\s*nomad|номад/i },
-  { label: "AIMA", pattern: /\baima\b/i },
-  { label: "воссоединение", pattern: /воссоединен|family\s+reun/i },
-  { label: "гражданство FR", pattern: /гражданств[\s\S]{0,40}франц|франц[\s\S]{0,40}гражданств/i },
-  { label: "EES", pattern: /\bees\b|entry.exit/i },
-  { label: "Blue Card", pattern: /blue\s*card|синяя\s*карта/i },
-];
+const PT_D7_D8_MONTHLY = new Set([920, 3680]);
+
+function isKnownD7D8ThresholdPair(values: number[]): boolean {
+  const unique = Array.from(new Set(values)).sort((a, b) => a - b);
+  if (unique.length <= 2 && unique.every((v) => PT_D7_D8_MONTHLY.has(v))) return true;
+  return false;
+}
 
 function splitNonTableLines(text: string): string[] {
   return text
@@ -224,48 +274,138 @@ function splitNonTableLines(text: string): string[] {
     .filter((line) => line && !line.startsWith("|"));
 }
 
-function checkInternalContradictions(slug: string, text: string): VolatileFactcheckIssue[] {
+function detectEuroUnit(line: string, matchIndex: number): EuroMention["unit"] {
+  const window = line.slice(matchIndex, matchIndex + 48).toLowerCase();
+  if (/\/\s*мес|в\s*мес|per\s*month|\bpm\b|\/mo\b|месяц/i.test(window)) return "month";
+  if (/\/\s*год|в\s*год|per\s*year|годов|annual/i.test(window)) return "year";
+  if (/страх|insur|coverage|покрыт/i.test(line)) return "insurance";
+  return "other";
+}
+
+function extractEuroMentions(line: string, lineIndex: number): EuroMention[] {
+  const mentions: EuroMention[] = [];
+  for (const match of Array.from(line.matchAll(/€\s*([\d\s.,]+)/g))) {
+    const n = normalizeNumber(match[1]);
+    if (!Number.isFinite(n) || n < 200) continue;
+    mentions.push({
+      value: n,
+      unit: detectEuroUnit(line, match.index ?? 0),
+      lineIndex,
+    });
+  }
+  return mentions;
+}
+
+function euroContradictionHighConfidence(mentions: EuroMention[]): boolean {
+  if (mentions.length < 2) return false;
+
+  const byUnit = new Map<EuroMention["unit"], EuroMention[]>();
+  for (const m of mentions) {
+    const list = byUnit.get(m.unit) ?? [];
+    list.push(m);
+    byUnit.set(m.unit, list);
+  }
+
+  for (const group of Array.from(byUnit.values())) {
+    if (group.length < 2) continue;
+    const values = Array.from(new Set(group.map((m) => m.value))).sort((a, b) => a - b);
+    if (values.length < 2) continue;
+
+    const ratio = values[values.length - 1] / values[0];
+    if (ratio < 3.0) continue;
+
+    const lineIndices = group.map((m) => m.lineIndex);
+    const minLine = Math.min(...lineIndices);
+    const maxLine = Math.max(...lineIndices);
+    if (maxLine - minLine <= 1 || ratio >= 3.0) return true;
+  }
+
+  return false;
+}
+
+function isStagedTimelineLine(line: string): boolean {
+  const lower = line.toLowerCase();
+  const hasEarly = /слот|запис|биометр|консульств|vfs|ожидани/i.test(lower);
+  const hasLate = /карт|выдач|после\s+биометр/i.test(lower);
+  return hasEarly && hasLate;
+}
+
+function isMixedPurposeEuroLine(line: string): boolean {
+  return /golden\s*visa|\bari\b|фонд|сбереж|invest|investic|культур/i.test(line.toLowerCase());
+}
+
+function checkInternalContradictions(
+  slug: string,
+  text: string,
+  guide?: GuideFrontmatter
+): VolatileFactcheckIssue[] {
   const issues: VolatileFactcheckIssue[] = [];
   const lines = splitNonTableLines(text);
+  const comparison = isComparisonGuide(guide);
+  const ptContext = isPortugalThresholdContext(slug, guide);
 
   for (const anchor of CONTRADICTION_ANCHORS) {
-    const scopedLines = lines.filter((line) => anchor.pattern.test(line));
-    if (scopedLines.length < 2) continue;
+    if (anchor.ptThresholdOnly && !ptContext) continue;
 
-    const monthRanges = new Set<string>();
-    const euroValues = new Set<number>();
+    const scopedEntries = lines
+      .map((line, lineIndex) => ({ line, lineIndex }))
+      .filter(({ line }) => anchor.pattern.test(line));
+    if (scopedEntries.length < 2) continue;
 
-    for (const line of scopedLines) {
+    const monthIssues: VolatileFactcheckIssue[] = [];
+    for (const { line } of scopedEntries) {
+      const lineRanges = new Set<string>();
       for (const match of Array.from(line.matchAll(/(\d+)\s*[–-]\s*(\d+)\s*мес/gi))) {
-        monthRanges.add(`${match[1]}-${match[2]}`);
+        lineRanges.add(`${match[1]}-${match[2]}`);
       }
-      for (const match of Array.from(line.matchAll(/€\s*([\d\s.,]+)/g))) {
-        const n = normalizeNumber(match[1]);
-        if (Number.isFinite(n) && n >= 200) euroValues.add(n);
-      }
-    }
+      if (lineRanges.size < 2 || isStagedTimelineLine(line)) continue;
 
-    if (monthRanges.size >= 2) {
-      issues.push({
+      monthIssues.push({
         slug,
         severity: "warning",
-        issue: `Противоречие по «${anchor.label}»: разные сроки (${Array.from(monthRanges).join(" vs ")} мес.)`,
-        excerpt: excerpt(scopedLines.slice(0, 2).join(" · ")),
+        issue: `Противоречие по «${anchor.label}»: разные сроки (${Array.from(lineRanges).join(" vs ")} мес.)`,
+        excerpt: excerpt(line),
         suggestedAction: "Сверить quick_answer и body; оставить одно актуальное значение с датой.",
+        notifyPriority: true,
       });
+    }
+
+    if (monthIssues.length > 0) {
+      issues.push(monthIssues[0]);
       continue;
     }
 
-    if (euroValues.size >= 2) {
-      const sorted = Array.from(euroValues).sort((a, b) => a - b);
-      const ratio = sorted[sorted.length - 1] / sorted[0];
-      if (ratio >= 1.5) {
+    if (comparison) continue;
+
+    for (const { line, lineIndex } of scopedEntries) {
+      if (isMixedPurposeEuroLine(line)) continue;
+
+      const lineMentions = extractEuroMentions(line, lineIndex);
+      const valuesByUnit = new Map<EuroMention["unit"], number[]>();
+      for (const m of lineMentions) {
+        const list = valuesByUnit.get(m.unit) ?? [];
+        list.push(m.value);
+        valuesByUnit.set(m.unit, list);
+      }
+
+      for (const [unit, values] of Array.from(valuesByUnit.entries())) {
+        const unique = Array.from(new Set(values)).sort((a, b) => a - b);
+        if (unique.length < 2) continue;
+
+        if (anchor.ptThresholdOnly && isKnownD7D8ThresholdPair(unique)) continue;
+
+        const unitMentions = lineMentions.filter((m) => m.unit === unit);
+        if (!euroContradictionHighConfidence(unitMentions)) continue;
+
+        const ratio = unique[unique.length - 1] / unique[0];
+        const unitLabel = unit === "month" ? "/мес" : unit === "year" ? "/год" : unit === "insurance" ? "страх." : "";
         issues.push({
           slug,
           severity: "warning",
-          issue: `Противоречие по «${anchor.label}»: разные суммы (€${sorted.join(" vs €")})`,
-          excerpt: excerpt(scopedLines.slice(0, 2).join(" · ")),
+          issue: `Противоречие по «${anchor.label}»: разные суммы (€${unique.join(" vs €")}${unitLabel ? ` ${unitLabel}` : ""})`,
+          excerpt: excerpt(line),
           suggestedAction: "Сверить пороги в prose (не таблица сравнения); уточнить актуальную цифру.",
+          notifyPriority: ratio >= 3.0,
         });
       }
     }
@@ -274,96 +414,144 @@ function checkInternalContradictions(slug: string, text: string): VolatileFactch
   return issues;
 }
 
+function extractMonthRangesNearAnchor(text: string, anchor: RegExp): string[] {
+  const ranges = new Set<string>();
+  for (const line of splitNonTableLines(text)) {
+    if (!anchor.test(line)) continue;
+    for (const match of Array.from(line.matchAll(/(\d+)\s*[–-]\s*(\d+)\s*мес/gi))) {
+      ranges.add(`${match[1]}-${match[2]}`);
+    }
+  }
+  return Array.from(ranges);
+}
+
 function checkQuickAnswerBodyDrift(slug: string, quickAnswer: string, body: string): VolatileFactcheckIssue[] {
   if (!quickAnswer.trim()) return [];
 
   const issues: VolatileFactcheckIssue[] = [];
-  const qaMonths = quickAnswer.match(/(\d+)\s*[–-]\s*(\d+)\s*мес/gi) ?? [];
-  const bodyMonths = body.match(/(\d+)\s*[–-]\s*(\d+)\s*мес/gi) ?? [];
 
-  for (const qa of qaMonths) {
-    if (bodyMonths.length === 0) continue;
-    const normalizedQa = qa.replace(/\s+/g, " ").toLowerCase();
-    const hasMatch = bodyMonths.some((b) => b.replace(/\s+/g, " ").toLowerCase() === normalizedQa);
-    if (!hasMatch && bodyMonths.length >= 1) {
-      issues.push({
-        slug,
-        severity: "warning",
-        issue: "quick_answer и body расходятся по срокам (мес.)",
-        excerpt: `QA: ${qa} · body: ${bodyMonths.slice(0, 2).join(", ")}`,
-        suggestedAction: "Унифицировать сроки в quick_answer и основном тексте.",
-      });
-      break;
-    }
+  for (const anchor of CONTRADICTION_ANCHORS) {
+    if (!anchor.pattern.test(quickAnswer) || !anchor.pattern.test(body)) continue;
+
+    const qaRanges = extractMonthRangesNearAnchor(quickAnswer, anchor.pattern);
+    const bodyRanges = extractMonthRangesNearAnchor(body, anchor.pattern);
+    if (qaRanges.length === 0 || bodyRanges.length === 0) continue;
+
+    const qaSet = new Set(qaRanges);
+    const bodySet = new Set(bodyRanges);
+    const overlap = qaRanges.some((r) => bodySet.has(r));
+    if (overlap) continue;
+
+    issues.push({
+      slug,
+      severity: "warning",
+      issue: `quick_answer и body расходятся по «${anchor.label}» (мес.)`,
+      excerpt: `QA: ${qaRanges.join(", ")} · body: ${bodyRanges.join(", ")}`,
+      suggestedAction: "Унифицировать сроки в quick_answer и основном тексте для одного anchor.",
+      notifyPriority: true,
+    });
   }
 
   return issues;
 }
 
-async function checkCommunitySignals(
-  slug: string,
-  guide: GuideFrontmatter,
-  text: string
+function isLowValueCommunitySignal(text: string): boolean {
+  return LOW_VALUE_COMMUNITY_PATTERNS.some((re) => re.test(text));
+}
+
+async function fetchCommunitySignalsByCountry(
+  countryKey: string,
+  keywords: string[]
+): Promise<{ text: string; posted_at: string; channel_username: string }[]> {
+  const sb = createServerClient();
+  const since = new Date();
+  since.setDate(since.getDate() - 45);
+  const orParts = keywords.map((k) => `text.ilike.%${k.replace(/[%_]/g, "")}%`);
+
+  const { data, error } = await sb
+    .from("community_signals")
+    .select("text, posted_at, channel_username")
+    .eq("country_key", countryKey)
+    .gte("posted_at", since.toISOString())
+    .or(orParts.join(","))
+    .order("posted_at", { ascending: false })
+    .limit(20);
+
+  if (error || !data?.length) return [];
+  return data.map((row) => ({
+    text: String(row.text),
+    posted_at: String(row.posted_at),
+    channel_username: String(row.channel_username),
+  }));
+}
+
+async function checkCommunitySignalsGlobal(
+  guides: GuideFrontmatter[]
 ): Promise<VolatileFactcheckIssue[]> {
-  const countryKey = inferCountryKey(slug, guide);
-  if (!countryKey) return [];
+  const hotKeywords = ["изменил", "новый порог", "с ", "with effect", "с 2026", "больше не", "отмен"];
+  const seenSignalText = new Set<string>();
+  const issues: VolatileFactcheckIssue[] = [];
 
-  const keywords = COMMUNITY_SIGNAL_KEYWORDS[countryKey];
-  if (!keywords?.length) return [];
+  const countryKeys = new Set<string>();
+  for (const guide of guides) {
+    const key = inferCountryKey(guide.slug, guide);
+    if (key) countryKeys.add(key);
+  }
 
-  try {
-    const sb = createServerClient();
-    const since = new Date();
-    since.setDate(since.getDate() - 45);
-    const orParts = keywords.map((k) => `text.ilike.%${k.replace(/[%_]/g, "")}%`);
+  for (const countryKey of Array.from(countryKeys)) {
+    const keywords = COMMUNITY_SIGNAL_KEYWORDS[countryKey];
+    if (!keywords?.length) continue;
 
-    const { data, error } = await sb
-      .from("community_signals")
-      .select("text, posted_at, channel_username")
-      .eq("country_key", countryKey)
-      .gte("posted_at", since.toISOString())
-      .or(orParts.join(","))
-      .order("posted_at", { ascending: false })
-      .limit(8);
+    let rows: Awaited<ReturnType<typeof fetchCommunitySignalsByCountry>>;
+    try {
+      rows = await fetchCommunitySignalsByCountry(countryKey, keywords);
+    } catch {
+      continue;
+    }
 
-    if (error || !data?.length) return [];
-
-    const hotKeywords = ["изменил", "новый порог", "с ", "with effect", "с 2026", "больше не", "отмен"];
-    const relevant = data.filter((row) => {
-      const lower = String(row.text).toLowerCase();
+    const relevant = rows.filter((row) => {
+      const lower = row.text.toLowerCase();
+      if (isLowValueCommunitySignal(row.text)) return false;
       return hotKeywords.some((k) => lower.includes(k));
     });
 
-    if (relevant.length === 0) return [];
+    if (relevant.length === 0) continue;
 
     const signal = relevant[0];
-    const signalText = String(signal.text);
-    const guideDates: string[] = text.match(/20\d{2}/g) ?? [];
-    const signalYear = signalText.match(/20\d{2}/)?.[0];
+    const normalizedSignal = signal.text.replace(/\s+/g, " ").trim().toLowerCase();
+    if (seenSignalText.has(normalizedSignal)) continue;
+    seenSignalText.add(normalizedSignal);
+
+    const countryGuides = guides.filter((g) => inferCountryKey(g.slug, g) === countryKey);
+    const anchorGuide = countryGuides[0];
+    if (!anchorGuide) continue;
+
+    const md = readGuideMarkdown(anchorGuide.slug);
+    const scanText = md ? guideScanText(md.body, md.quickAnswer) : "";
+    const guideDates: string[] = scanText.match(/20\d{2}/g) ?? [];
+    const signalYear = signal.text.match(/20\d{2}/)?.[0];
+
     if (signalYear && guideDates.length > 0 && !guideDates.includes(signalYear)) {
-      return [
-        {
-          slug,
-          severity: "info",
-          issue: `community_signals (${countryKey}): возможное свежее изменение`,
-          excerpt: excerpt(signalText),
-          suggestedAction: `Проверить @${String(signal.channel_username).replace(/^@/, "")} и official_sources.`,
-        },
-      ];
+      issues.push({
+        slug: anchorGuide.slug,
+        severity: "info",
+        issue: `community_signals (${countryKey}): возможное свежее изменение`,
+        excerpt: excerpt(signal.text),
+        suggestedAction: `Проверить @${signal.channel_username.replace(/^@/, "")} и official_sources.`,
+      });
+      continue;
     }
 
-    return [
-      {
-        slug,
-        severity: "info",
-        issue: `community_signals (${countryKey}): ${relevant.length} свежих сигналов по теме`,
-        excerpt: excerpt(signalText),
-        suggestedAction: "Сверить с официальными источниками; при расхождении — обновить guide.",
-      },
-    ];
-  } catch {
-    return [];
+    issues.push({
+      slug: anchorGuide.slug,
+      severity: "info",
+      issue: `community_signals (${countryKey}): ${relevant.length} свежих сигналов по теме`,
+      excerpt: excerpt(signal.text),
+      suggestedAction: "Сверить с официальными источниками; при расхождении — обновить guide.",
+    });
   }
+
+  return issues;
 }
 
 function dedupeIssues(issues: VolatileFactcheckIssue[]): VolatileFactcheckIssue[] {
@@ -407,18 +595,18 @@ export async function runVolatileGuideFactcheck(
     const md = readGuideMarkdown(guide.slug);
     if (!md) continue;
 
-    const text = [md.raw, md.body, md.quickAnswer].join("\n");
+    const scanText = guideScanText(md.body, md.quickAnswer);
 
     const stale = checkStaleGuide(guide, asOf, staleDays);
     if (stale) issues.push(stale);
 
-    issues.push(...checkKnownBadPatterns(guide.slug, text));
-    issues.push(...checkInternalContradictions(guide.slug, text));
+    issues.push(...checkKnownBadPatterns(guide.slug, scanText));
+    issues.push(...checkInternalContradictions(guide.slug, scanText, guide));
     issues.push(...checkQuickAnswerBodyDrift(guide.slug, md.quickAnswer, md.body));
+  }
 
-    if (!options.skipCommunitySignals) {
-      issues.push(...(await checkCommunitySignals(guide.slug, guide, text)));
-    }
+  if (!options.skipCommunitySignals) {
+    issues.push(...(await checkCommunitySignalsGlobal(guides)));
   }
 
   return sortVolatileFactcheckIssues(dedupeIssues(issues));
