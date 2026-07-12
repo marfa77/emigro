@@ -8,7 +8,7 @@ export const SPAIN_SATELLITE = {
   cityRu: "Валенсия",
   title: "Испания — практика для релокантов",
   tagline:
-    "Новости, лайфхаки, советы и гайды по Испании с акцентом на Valencia и крупные города. Короткие материалы редакции Emigro — навигация по #хэштегам.",
+    "Практика для релокантов в Испании (Valencia, Madrid, Barcelona): NIE, TIE, digital nomad €2 849/мес, аренда. Короткие материалы редакции Emigro — навигация по #хэштегам.",
   sourceChannel: "spain_granitsa",
   /** Third-party relocant chats — sole sources for field-practice signals. */
   sourceChannels: [
@@ -19,6 +19,7 @@ export const SPAIN_SATELLITE = {
     "migranty_barselona",
   ] as const,
   mainSiteUrl: "https://www.emigro.online/ru/spain",
+  pillarGuideUrl: "https://www.emigro.online/ru/guides/vnj-ispaniya-2026",
   wizardUrl: "https://www.emigro.online/ru/spain/wizard",
   digestUrl: "https://www.emigro.online/ru/spain/digest",
 } as const;

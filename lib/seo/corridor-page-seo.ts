@@ -522,7 +522,26 @@ export function buildCorridorLandingFaq(topic: NewsTopicConfig, corridor: Corrid
       ? corridor.programs.map((p) => p.title_ru).join(", ")
       : `программы коридора ${topic.countryRu} в разработке`;
 
-  return [
+  const countrySpecific: FaqItem[] =
+    topic.urlSegment === "portugal"
+      ? [
+          {
+            question: "Какой порог дохода D8 и D7 Португалия в 2026?",
+            answer:
+              "D8 digital nomad — ~€3 680/мес (4× RMMG €920). D7 пассивный доход — ~€920/мес + сбережения. После визы D — подача в AIMA для карты Título de Residência. Практика NIF/банк — на portugal.emigro.online.",
+          },
+        ]
+      : topic.urlSegment === "spain"
+        ? [
+            {
+              question: "Какой порог digital nomad Испания в 2026?",
+              answer:
+                "Digital nomad visa (teletrabajo) — от €2 849/мес (200% SMI 2026). До 20% дохода может быть от испанских клиентов. Non-lucrative — ~€2 400+/мес без права работать. Практика NIE/TIE — на spain.emigro.online.",
+            },
+          ]
+        : [];
+
+  const baseFaq: FaqItem[] = [
     {
       question: `Кому подходит коридор ${topic.countryRu} на Emigro?`,
       answer: `${corridor.audience_description_ru} Коридор ориентирован на паспорта RU/BY/UA/KZ и русскоязычную аудиторию — в том числе тех, кто уже живёт за границей.`,
@@ -553,6 +572,8 @@ export function buildCorridorLandingFaq(topic: NewsTopicConfig, corridor: Corrid
         "Нет. Emigro — навигатор и справочник. Решения сверяйте с консульством, миграционными службами и лицензированными специалистами.",
     },
   ];
+
+  return [...countrySpecific, ...baseFaq];
 }
 
 export function buildCorridorLandingLlmFacts(topic: NewsTopicConfig, corridor: Corridor): string[] {

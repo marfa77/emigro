@@ -1,8 +1,8 @@
 ---
 slug: pervye-30-dnej-v-portugalii-2026
 title: "Первые 30 дней в Португалии 2026: чек-лист после прилёта"
-seo_title: "NIF и первые 30 дней в Португалии 2026 — чек-лист"
-seo_description: "NIF, банк, SIM, SNS и запись AIMA после прилёта в Португалию: пошаговый чек-лист для граждан RU/BY/UA/KZ с D7 или D8 в 2026 году."
+seo_title: "NIF Португалия 2026 — 30 дней для RU/BY"
+seo_description: "NIF за 7 дней, банк, SIM, SNS и AIMA после прилёта: пошаговый чек-лист для граждан RU/BY/UA/KZ с D7 или D8 в 2026 году."
 excerpt: "Вы получили D7/D8 или прилетели на подачу — что делать в первый месяц: NIF, банк, SIM, healthcare, жильё и AIMA."
 quick_answer: "Первые 30 дней: (1) NIF через financas.gov.pt или представителя, (2) Portuguese SIM (MEO/NOS/Vodafone), (3) банк — ActivoBank или Millennium (часто проще для non-EU), (4) SNS/ADSE регистрация после NIF, (5) договор аренды + коммунальные, (6) запись AIMA для биометрии Título de Residência. Порядок гибкий, но без NIF не открыть банк и не подписать контракты."
 corridor_slugs: [ru-speaking-to-portugal]
@@ -22,7 +22,7 @@ official_sources:
     label: ActivoBank
 estimated_minutes: 12
 date_published: 2026-06-27
-date_modified: 2026-07-09
+date_modified: 2026-07-12
 ---
 
 ## Кому этот чек-лист

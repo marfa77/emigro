@@ -189,6 +189,10 @@ export default async function SpainNotePage({ params }: { params: { slug: string
           Коридор Испания на Emigro
         </a>
         {" · "}
+        <a href={SPAIN_SATELLITE.pillarGuideUrl} className="text-sm text-amber-900 underline">
+          Digital nomad pillar-гид
+        </a>
+        {" · "}
         <a href={llmsUrl} className="text-sm text-amber-900 underline">
           llms.txt
         </a>

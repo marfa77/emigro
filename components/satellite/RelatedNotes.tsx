@@ -36,6 +36,13 @@ export function SatelliteValueProp({ countryKey = "portugal" }: { countryKey?: "
           <a href="https://www.emigro.online/ru/spain" className="font-medium text-amber-900 underline hover:text-amber-950">
             emigro.online/ru/spain
           </a>
+          . Pillar-гид:{" "}
+          <a
+            href="https://www.emigro.online/ru/guides/vnj-ispaniya-2026"
+            className="font-medium text-amber-900 underline hover:text-amber-950"
+          >
+            Digital nomad Испания 2026
+          </a>
           .
         </p>
       </section>
@@ -52,6 +59,13 @@ export function SatelliteValueProp({ countryKey = "portugal" }: { countryKey?: "
         Полный коридор с новостями, wizard и digest — на{" "}
         <a href="https://www.emigro.online/ru/portugal" className="font-medium text-teal-700 underline hover:text-teal-900">
           emigro.online/ru/portugal
+        </a>
+        . Pillar-гид:{" "}
+        <a
+          href="https://www.emigro.online/ru/guides/vnj-portugaliya-d8-d7-grazhdanstvo-2026"
+          className="font-medium text-teal-700 underline hover:text-teal-900"
+        >
+          D8 и D7 Португалия 2026
         </a>
         .
       </p>

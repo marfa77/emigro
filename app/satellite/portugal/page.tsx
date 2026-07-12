@@ -15,7 +15,7 @@ import { heroTitle, satelliteMain } from "@/lib/ui/mobile";
 export const revalidate = 300;
 
 const HUB_DESCRIPTION =
-  "Практические заметки для русскоязычных релокантов в Португалии (Norte: Порту, Брага, Minho и вся страна): NIF, AIMA, аренда, SNS, банки. Короткие ответы, FAQ и официальные ссылки — не юридическая консультация.";
+  "Практические заметки для русскоязычных релокантов в Португалии (Norte: Порту, Брага, Minho): NIF, AIMA, D8 €3 680/мес, аренда, SNS, банки. Короткие ответы, FAQ и официальные ссылки — не юридическая консультация.";
 
 export const metadata: Metadata = {
   title: PORTUGAL_SATELLITE.title,

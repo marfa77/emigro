@@ -20,9 +20,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "aima португалия запись биометрия после визы",
       "d8 digital nomad португалия 2026",
     ],
-    seoTitle: "ВНЖ Португалия D8 и D7 2026 — коридор №1 Emigro",
+    seoTitle: "ВНЖ Португалия D8/D7 2026 — €3 680 / €920",
     seoDescription:
-      "D8 и D7 Португалия 2026: €3 680 / €920, AIMA, NIF, практика сообщества. Самый проработанный коридор Emigro для паспортов RU/BY/UA/KZ.",
+      "D8 и D7 Португалия 2026: €3 680 / €920, AIMA, NIF, практика сообщества. Коридор №1 Emigro для паспортов RU/BY/UA/KZ.",
   },
   {
     path: "/ru/guides/vnj-portugaliya-d8-d7-grazhdanstvo-2026",
@@ -35,7 +35,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "закон о гражданстве португалия 10 лет d8",
       "aima португалия запись 2026",
     ],
-    seoTitle: "D8 и D7 Португалия 2026 — доход, AIMA, гражданство",
+    seoTitle: "D8 Португалия 2026: €3 680 + AIMA — RU/BY/UA",
     seoDescription:
       "D8 digital nomad и D7 Португалия 2026: €3 680 / €920, AIMA, NIF, гражданство 10 лет. Pillar-гид + практика для RU/BY/UA/KZ.",
   },
@@ -75,9 +75,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "activobank португалия счёт для иностранца",
       "aima биометрия после прилёта",
     ],
-    seoTitle: "NIF и первые 30 дней в Португалии 2026 — чек-лист",
+    seoTitle: "NIF Португалия 2026 — 30 дней для RU/BY",
     seoDescription:
-      "NIF, банк, SIM, SNS и запись AIMA после прилёта в Португалию: пошаговый чек-лист для граждан РФ/BY/UA/KZ с D7 или D8 в 2026 году.",
+      "NIF за 7 дней, банк, SIM, SNS и AIMA после прилёта: пошаговый чек-лист для граждан RU/BY/UA/KZ с D7 или D8 в 2026 году.",
   },
   // —— Spain ——
   {
@@ -88,9 +88,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "внж испания digital nomad 2026",
       "teletrabajo испания внж",
     ],
-    seoTitle: "Digital nomad Испания 2026 — коридор ВНЖ Emigro",
+    seoTitle: "Digital nomad ES 2026: €2 849 — RU/BY",
     seoDescription:
-      "Digital nomad visa Испания 2026: порог €2 849/мес, teletrabajo, Beckham 24%, non-lucrative. Wizard, программы и новости для паспортов RU/BY/UA/KZ.",
+      "Digital nomad visa Испания 2026: порог €2 849/мес, teletrabajo, Beckham 24%, non-lucrative. Wizard, программы и новости для RU/BY/UA/KZ.",
   },
   {
     path: "/ru/guides/vnj-ispaniya-2026",
@@ -101,7 +101,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "digital nomad visa испания для россиян 2026",
       "внж испания teletrabajo порог дохода",
     ],
-    seoTitle: "Digital nomad Испания 2026 — ВНЖ и все маршруты",
+    seoTitle: "Digital nomad ES 2026: €2 849 teletrabajo",
     seoDescription:
       "Digital nomad visa Испания 2026: €2 849/мес, teletrabajo, Beckham, non-lucrative, Golden Visa закрыта. Pillar-гид для граждан РФ, BY, UA, KZ.",
   },
@@ -127,9 +127,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "digital nomad испания vs португалия 2026",
       "куда переехать digital nomad европа 2026",
     ],
-    seoTitle: "Digital nomad Испания vs Португалия 2026 — сравнение",
+    seoTitle: "DN PT vs ES vs IT 2026 — €2 849 vs €3 680",
     seoDescription:
-      "Сравнение digital nomad 2026: Испания €2 849/мес vs Португалия D8 €3 680 vs Италia. Налоги, сроки ВНЖ, гражданство — для граждан РФ и СНГ.",
+      "Сравнение digital nomad 2026: Испания €2 849/мес vs Португалия D8 €3 680 vs Италия. Налоги, сроки ВНЖ, гражданство — для граждан РФ и СНГ.",
   },
   // —— Germany ——
   {
@@ -172,9 +172,88 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "внж в европе для белорусов без temporary protection",
       "беларусь work permit польша 2026",
     ],
-    seoTitle: "Белорусы в Европе 2026 — ВНЖ без TP, Польша",
+    seoTitle: "Белорусы ВНЖ Европа 2026 — без TP",
     seoDescription:
       "ВНЖ в Европе для белорусов 2026: нет TP, подача через Польшу и Чехию. Work permit, EU Blue Card, B2B IT, D7/D8. Консульства и санкции.",
+  },
+  {
+    path: "/ru/guides/podtverdit-dohod-dengi-dlya-vnj-esli-dohod-iz-rossii-2026",
+    guideSlug: "podtverdit-dohod-dengi-dlya-vnj-esli-dohod-iz-rossii-2026",
+    primaryQuery: "подтвердить доход из россии для внж 2026",
+    queries: [
+      "подтвердить доход из россии для внж 2026",
+      "доход из россии d8 d7 португалия",
+      "выписки банка для внж европа",
+      "санкции доход россия внж",
+    ],
+    seoTitle: "Доход из РФ для D8/D7 2026 — документы",
+    seoDescription:
+      "Как подтвердить доход и сбережения из РФ для D8/D7 Португалия: выписки, договоры, санкции, типовые ошибки консульства. Для граждан РФ и СНГ.",
+  },
+  {
+    path: "/ru/guides/d7-vs-digital-nomad-visa-sravnenie",
+    guideSlug: "d7-vs-digital-nomad-visa-sravnenie",
+    primaryQuery: "d7 vs d8 португалия 2026",
+    queries: [
+      "d7 vs d8 португалия 2026",
+      "d7 или digital nomad португалия",
+      "d7 vs digital nomad visa сравнение",
+    ],
+    seoTitle: "D7 vs D8 Португалия 2026 — что выбрать",
+    seoDescription:
+      "D7 (~€920/мес) или D8 (~€3 680/мес): чем отличаются, кому подходит каждый маршрут. Налоги, право на работу — для граждан РФ, BY, KZ в 2026.",
+  },
+  {
+    path: "/ru/guides/portugaliya-vs-ispaniya-vnj-2026",
+    guideSlug: "portugaliya-vs-ispaniya-vnj-2026",
+    primaryQuery: "португалия vs испания внж 2026",
+    queries: [
+      "португалия vs испания внж 2026",
+      "куда переехать португалия или испания 2026",
+      "d8 vs digital nomad испания",
+    ],
+    seoTitle: "Португалия vs Испания ВНЖ 2026 — RU/BY",
+    seoDescription:
+      "Сравнение ВНЖ Португалии и Испании 2026: D8 €3 680 vs DNV €2 849, налоги, сроки, гражданство. Для граждан РФ, BY, UA, KZ.",
+  },
+  {
+    path: "/ru/guides/konsulskaya-podacha-rf-by-kz-2026-yurisdiktsiya",
+    guideSlug: "konsulskaya-podacha-rf-by-kz-2026-yurisdiktsiya",
+    primaryQuery: "консульская подача d виза рф 2026",
+    queries: [
+      "консульская подача d виза рф 2026",
+      "где подавать d8 португалия гражданин россии",
+      "консульская юрисдикция беларусь внж",
+    ],
+    seoTitle: "Консульская подача RU/BY/KZ 2026 — D-виза",
+    seoDescription:
+      "Консульская юрисдикция для D8/D7 Португалия: где граждане РФ, Беларуси и Казахстана могут подаваться в 2026, резиденция и типовые ошибки.",
+  },
+  {
+    path: "/ru/guides/dokumenty-dlya-pereezda-iz-rossii-2026-apostil-nesudimost",
+    guideSlug: "dokumenty-dlya-pereezda-iz-rossii-2026-apostil-nesudimost",
+    primaryQuery: "документы для переезда из россии 2026 апостиль",
+    queries: [
+      "документы для переезда из россии 2026 апостиль",
+      "справка о несудимости для внж европа",
+      "апостиль свидетельство о рождении внж",
+    ],
+    seoTitle: "Документы переезд РФ 2026 — апостиль, ВНЖ",
+    seoDescription:
+      "Какие документы подготовить для переезда из России в Европу: апостиль, справка о несудимости, доверенности, переводы, дети, дипломы, сроки.",
+  },
+  {
+    path: "/ru/guides/pervye-30-dnej-v-ispanii-2026",
+    guideSlug: "pervye-30-dnej-v-ispanii-2026",
+    primaryQuery: "первые 30 дней в испании после прилёта чеклист",
+    queries: [
+      "первые 30 дней в испании после прилёта чеклист",
+      "nie испания гражданин россии как получить",
+      "empadronamiento tie extranjería 2026",
+    ],
+    seoTitle: "NIE Испания 2026 — 30 дней для RU/BY",
+    seoDescription:
+      "NIE, empadronamiento, банк, SIM и extranjería после прилёта: пошаговый чек-лист для граждан RU/BY/UA/KZ с DNV в 2026 году.",
   },
   // —— Transit hubs (Google long-tail) ——
   {

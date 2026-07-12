@@ -195,6 +195,10 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
           Коридор Португалия на Emigro
         </a>
         {" · "}
+        <a href={PORTUGAL_SATELLITE.pillarGuideUrl} className="text-sm text-teal-700 underline">
+          D8/D7 pillar-гид
+        </a>
+        {" · "}
         <a href={llmsUrl} className="text-sm text-teal-700 underline">
           llms.txt
         </a>

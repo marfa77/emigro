@@ -13,7 +13,7 @@ import { HUB_WIZARD_PATH } from "@/lib/corridor/paths";
 import { guidePath } from "@/lib/guides/load";
 import { listPillarGuides } from "@/lib/guides/pillar-guides";
 import { pageMetadata, pageUrl } from "@/lib/seo";
-import { publicSiteUrl, portugalSatelliteUrl } from "@/lib/site-url";
+import { publicSiteUrl, portugalSatelliteUrl, spainSatelliteUrl } from "@/lib/site-url";
 import { TRANSIT_HUBS } from "@/lib/transit-hubs";
 import { heroTitle } from "@/lib/ui/mobile";
 
@@ -168,6 +168,56 @@ export default async function RuHubPage() {
           </ul>
         </section>
 
+        <section className="mt-10 rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50 via-white to-orange-50 p-6 sm:p-8">
+          <div className="flex flex-wrap items-start gap-3">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-600 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white">
+              <Sparkles className="h-3.5 w-3.5" />
+              Коридор №2
+            </span>
+            <h2 className="text-2xl font-bold text-slate-900">Испания — digital nomad €2 849/мес</h2>
+          </div>
+          <p className="mt-3 max-w-2xl text-slate-700">
+            Digital nomad visa (teletrabajo), non-lucrative, Beckham 24%: pillar-гид, wizard, новости extranjería и{" "}
+            <strong>практика</strong> (NIE, TIE, аренда Valencia) на spain.emigro.online.
+          </p>
+          <ul className="mt-5 grid gap-2 sm:grid-cols-2">
+            <li>
+              <Link
+                href={guidePath("vnj-ispaniya-2026")}
+                className="block rounded-lg border border-amber-100 bg-white px-4 py-3 text-sm font-medium text-amber-950 hover:border-amber-300"
+              >
+                Digital nomad Испания 2026 — pillar-гид
+              </Link>
+            </li>
+            <li>
+              <Link
+                href={guidePath("pervye-30-dnej-v-ispanii-2026")}
+                className="block rounded-lg border border-amber-100 bg-white px-4 py-3 text-sm font-medium text-amber-950 hover:border-amber-300"
+              >
+                Первые 30 дней: NIE, TIE, extranjería
+              </Link>
+            </li>
+            <li>
+              <a
+                href={spainSatelliteUrl("/")}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm font-medium text-amber-950 hover:border-amber-400"
+              >
+                Практика — spain.emigro.online
+              </a>
+            </li>
+            <li>
+              <Link
+                href="/ru/spain"
+                className="block rounded-lg border border-amber-100 bg-white px-4 py-3 text-sm font-medium text-amber-950 hover:border-amber-300"
+              >
+                Коридор Испания — обзор
+              </Link>
+            </li>
+          </ul>
+        </section>
+
         <WizardPulseSection />
 
         <section className="mt-10">
@@ -197,13 +247,13 @@ export default async function RuHubPage() {
               </div>
             </Link>
             <Link
-              href="/ru/wizard?interest=poland"
+              href={guidePath("belorusy-v-evropu-vnj-2026")}
               className="group flex items-start gap-3 rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition hover:border-corridor-300 hover:shadow-md"
             >
               <span className="text-2xl" aria-hidden>🇧🇾</span>
               <div>
                 <p className="font-semibold text-slate-900">Беларусь</p>
-                <p className="mt-0.5 text-xs text-slate-500">Wizard подбора маршрута ВНЖ</p>
+                <p className="mt-0.5 text-xs text-slate-500">ВНЖ без TP — Польша, Чехия, D7/D8</p>
               </div>
             </Link>
             <Link

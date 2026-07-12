@@ -1,8 +1,8 @@
 ---
 slug: belorusy-v-evropu-vnj-2026
 title: "Белорусы в Европе 2026: ВНЖ без временной защиты — маршруты и консульства"
-seo_title: "Белорусы в Европе 2026 — ВНЖ без TP, Польша, work permit"
-seo_description: "ВНЖ в Европе для белорусов в 2026: нет temporary protection, подача через Польшу, Литву, Чехию. Work permit, EU Blue Card, B2B IT, D7/D8 Португалия. Консульства и санкции."
+seo_title: "Белорусы ВНЖ Европа 2026 — без TP"
+seo_description: "ВНЖ в Европе для белорусов 2026: нет TP, подача через Польшу и Чехию. Work permit, EU Blue Card, B2B IT, D7/D8. Консульства и санкции."
 excerpt: "BY-паспорт — отдельная аудитория: нет TP, другая консульская карта, часто Польша как первый EU-шаг. Разбор реалистичных маршрутов ВНЖ в 2026."
 quick_answer: "Гражданам Беларуси temporary protection EU не положена — только классические маршруты ВНЖ (работа, учёба, семья, D7/D8). Консульская практика для BY отличается от РФ: часто подача через Варшаву, Вильнюс, Ригу или «третьи страны». Топ-маршруты 2026: Польша (work permit / Blue Card / B2B IT), Чехия (employee card), Португалия D7/D8, Германия Blue Card. Wizard Emigro учитывает passport_iso2=BY отдельно от RU."
 corridor_slugs: [ru-speaking-to-poland, ru-speaking-to-czechia, ru-speaking-to-portugal, ru-speaking-to-germany]
@@ -24,7 +24,7 @@ official_sources:
     label: EU — Temporary protection (UA only)
 estimated_minutes: 16
 date_published: 2026-06-27
-date_modified: 2026-07-07
+date_modified: 2026-07-12
 ---
 
 ## Прямой ответ

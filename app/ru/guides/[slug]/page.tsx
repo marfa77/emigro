@@ -24,8 +24,10 @@ import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
 import { getLongTailByGuideSlug } from "@/lib/seo/query-longtail";
 import { isPillarGuideSlug } from "@/lib/guides/pillar-guides";
 import { EMIGRO_PUBLISHER, emigroAuthorOrg, schemaImage } from "@/lib/seo/schema";
+import { GuideClusterLinks } from "@/components/guides/GuideClusterLinks";
 import { GuideCorridorLiveData } from "@/components/guides/GuideCorridorLiveData";
 import { GuideOfficialSources } from "@/components/guides/GuideOfficialSources";
+import { getClusterForGuide, getComparisonCrossLinks } from "@/lib/seo/cluster-links";
 import { HUB_WIZARD_PATH } from "@/lib/corridor/paths";
 import { resolveGuideWizardHref } from "@/lib/wizard/resolve-href";
 
@@ -249,6 +251,8 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
   const allTopics = await getActiveNewsTopics();
   const countryTopics = resolveCountryTopics(guide.topic_keys, allTopics);
   const relatedGuides = getRelatedGuides(guide.slug, guide.corridor_slugs, guide.topic_keys);
+  const cluster = getClusterForGuide(guide.slug);
+  const comparisonCrossLinks = getComparisonCrossLinks(guide.slug);
   const providerTopicKey = getGuideProviderTopicKey(guide);
   const toc = extractToc(guide.bodyHtml);
   const faqItems = extractFaq(guide.bodyHtml);
@@ -400,6 +404,8 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
             )}
 
             <GuideCorridorVisuals topics={countryTopics} />
+
+            <GuideClusterLinks cluster={cluster} crossLinks={comparisonCrossLinks} />
 
             <section className="mt-10 rounded-2xl border border-slate-200 bg-slate-50 p-6">
               <h2 className="text-lg font-semibold text-slate-900">Коротко для проверки маршрута</h2>

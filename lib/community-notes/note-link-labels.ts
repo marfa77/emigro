@@ -18,6 +18,7 @@ export const NOTE_LINK_LABELS: Record<string, string> = {
   "beckham-autonomo-mify-2026": "Beckham и autónomo",
   "pervye-30-dnej-v-ispanii-satelit-2026": "первые 30 дней в Испании",
   "arenda-dolgosrok-porto-braga-2026": "аренда Porto/Braga",
+  "turizm-vnutri-portugalii-norte-2026": "внутренний туризм PT",
   "porto-vs-braga-semya-mezhdunarodnaya-shkola-2026": "Порту vs Брага",
   "klimat-norte-zhara-vlazhnost-plesen-zima-2026": "климат Norte",
   "kak-otkryt-bankovskiy-schet-portugalia-2026": "открытие счёта",

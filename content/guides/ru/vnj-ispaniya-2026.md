@@ -1,9 +1,9 @@
 ---
 slug: vnj-ispaniya-2026
 title: "Digital nomad Испания 2026 — все пути ВНЖ"
-seo_title: "Digital nomad Испания 2026 — ВНЖ и все маршруты"
-seo_description: "Digital nomad visa Испания 2026: порог €2 849/мес, teletrabajo, Beckham 24%, non-lucrative, Golden Visa закрыта. Полный гид для граждан РФ, BY, UA, KZ."
-date_modified: 2026-07-09
+seo_title: "Digital nomad ES 2026: €2 849 teletrabajo"
+seo_description: "Digital nomad visa Испания 2026: €2 849/мес, teletrabajo, Beckham, non-lucrative, Golden Visa закрыта. Pillar-гид для граждан РФ, BY, UA, KZ."
+date_modified: 2026-07-12
 excerpt: "Испания — популярное направление для релокации из СНГ: Digital Nomad Visa, Non-lucrative и другие пути. (Golden Visa полностью закрыта с апреля 2025.) Разбираем все маршруты на 2026 год."
 quick_answer: "В Испании действуют несколько путей ВНЖ для граждан СНГ: Digital Nomad Visa (удалённая работа, доход €2 849+/мес), Non-lucrative Visa (пассивный доход/накопления, ~€2 400+/мес, без права работать), Golden Visa (полностью закрыта с 3 апреля 2025 — все инвестиционные пути отменены). ПМЖ — через 5 лет проживания, гражданство — через 10 лет. Испанский язык не требуется для въезда, но нужен для гражданства (A2)."
 corridor_slugs: [ru-speaking-to-spain]

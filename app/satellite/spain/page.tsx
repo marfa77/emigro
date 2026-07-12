@@ -15,7 +15,7 @@ import { heroTitle, satelliteMain } from "@/lib/ui/mobile";
 export const revalidate = 300;
 
 const HUB_DESCRIPTION =
-  "Практические заметки для русскоязычных релокантов в Испании (Valencia, Madrid, Barcelona): NIE, TIE, extranjería, аренда, банки. Короткие ответы, FAQ и официальные ссылки — не юридическая консультация.";
+  "Практические заметки для русскоязычных релокантов в Испании (Valencia, Madrid, Barcelona): NIE, TIE, digital nomad €2 849/мес, extranjería, аренда, банки. Короткие ответы, FAQ и официальные ссылки — не юридическая консультация.";
 
 export const metadata: Metadata = {
   title: SPAIN_SATELLITE.title,

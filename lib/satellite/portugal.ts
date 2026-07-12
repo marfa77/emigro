@@ -8,11 +8,12 @@ export const PORTUGAL_SATELLITE = {
   cityRu: "Порту",
   title: "Португалия — практика для релокантов",
   tagline:
-    "Новости, лайфхаки, советы и гайды по Португалии с акцентом на Norte (Порту, Брага, Minho). Короткие материалы редакции Emigro — навигация по #хэштегам.",
+    "Практика для релокантов в Португалии (Norte: Порту, Брага, Minho): NIF, AIMA €3 680/D8, аренда, SNS. Короткие материалы редакции Emigro — навигация по #хэштегам.",
   sourceChannel: "chatlisboa",
   /** Third-party relocant chats — sole sources for field-practice signals. */
   sourceChannels: ["chatlisboa", "por_tugal", "lepta", "autolife_pt"] as const,
   mainSiteUrl: "https://www.emigro.online/ru/portugal",
+  pillarGuideUrl: "https://www.emigro.online/ru/guides/vnj-portugaliya-d8-d7-grazhdanstvo-2026",
   wizardUrl: "https://www.emigro.online/ru/portugal/wizard",
   digestUrl: "https://www.emigro.online/ru/portugal/digest",
 } as const;
