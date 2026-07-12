@@ -322,8 +322,6 @@ export const EDITORIAL_GLOSSARIES: Record<string, GlossaryTerm[]> = {
     { pt: "resguardo", ru: "временная справка после подачи/huellas до пластика" },
     { pt: "sede electrónica", ru: "портал госуслуг и записей" },
     { pt: "Oficina de Extranjería", ru: "офис иммиграции провинции/города" },
-    { pt: "visado D", ru: "национальная виза типа D для въезда на резиденцию" },
-    { pt: "seguro médico", ru: "медстраховка для резидентской процедуры" },
     { pt: "tasa 790", ru: "госпошлина за extranjería-процедуры" },
   ],
   "dnv-uge-konsulstvo-2026": [
