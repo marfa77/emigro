@@ -1,6 +1,6 @@
 import type { ContentKind, NoteBodySection } from "@/lib/community-notes/types";
 
-export type SectionKind = "official" | "practice" | "gap" | "glossary";
+export type SectionKind = "official" | "practice" | "gap" | "glossary" | "action_guide";
 
 /** Prompt block — Telegram practice vs official portals. */
 export const OFFICIAL_VS_PRACTICE_RULES = `
@@ -30,16 +30,19 @@ const PRACTICE_HEADING =
 const GAP_HEADING = /расхожд|формально.*практик|где отличается|ожидание.*реальност|сайт.*деле/i;
 const GLOSSARY_HEADING = /словарь\s+термин/i;
 
-const TAKEAWAY_PREFIX = /^(Официально|На практике|Расхождение|В чате):/i;
+const ACTION_GUIDE_HEADING = /пошагово для новичка|что делать|как сделать/i;
 
 export function inferSectionKind(section: NoteBodySection): SectionKind | null {
   if (section.section_kind) return section.section_kind;
   if (GLOSSARY_HEADING.test(section.heading)) return "glossary";
+  if (ACTION_GUIDE_HEADING.test(section.heading)) return "action_guide";
   if (OFFICIAL_HEADING.test(section.heading)) return "official";
   if (GAP_HEADING.test(section.heading)) return "gap";
   if (PRACTICE_HEADING.test(section.heading)) return "practice";
   return null;
 }
+
+const TAKEAWAY_PREFIX = /^(Официально|На практике|Расхождение|В чате):/i;
 
 export function hasOfficialPracticeSplit(
   contentKind: ContentKind,
@@ -203,4 +206,5 @@ export const SECTION_KIND_LABELS: Record<SectionKind, string> = {
   practice: "На практике",
   gap: "Где расходится",
   glossary: "Словарь",
+  action_guide: "Пошагово",
 };

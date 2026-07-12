@@ -15,8 +15,8 @@ export type NoteBodySection = {
   heading: string;
   paragraphs?: string[];
   bullets?: string[];
-  /** official = portal rules; practice = chat/field experience; gap = where they diverge; glossary = PT-PT terms */
-  section_kind?: "official" | "practice" | "gap" | "glossary";
+  /** official = portal rules; practice = chat/field experience; gap = where they diverge; glossary = PT-PT terms; action_guide = пошагово для новичка */
+  section_kind?: "official" | "practice" | "gap" | "glossary" | "action_guide";
 };
 
 export type CommunityNote = {

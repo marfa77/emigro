@@ -1,119 +1,130 @@
 /**
- * Hand-curated guide — editorial presentation rules:
- * - quick_answer: 2–3 plain Russian sentences (hook first, jargon later)
- * - key_takeaways: max 4 action items («Что решить сегодня»)
- * - Each section: lead «зачем читать» + max 5 bullets (≤2 lines)
- * - gap: «чат vs сайт» framing; faq: direct yes/no/number first
- * See lib/community-notes/editorial-presentation.ts
+ * Hand-curated guide — voice «Опытный релокант за кофе» (lib/community-notes/editorial-voice.ts):
+ * - quick_answer: микросцена-хук + 2 факта
+ * - key_takeaways: max 4; glossary ≤8 с literary intro
+ * - Each section: «зачем вам это сейчас» + «Что/Зачем» + «Главное: …»
  */
 import { flattenBodySections } from "@/lib/community-notes/editorial-quality";
 import { glossaryForSlug } from "@/lib/community-notes/editorial-glossaries";
 import { buildGlossarySection } from "@/lib/community-notes/glossary";
 import { buildNoteHashtags } from "@/lib/community-notes/hashtags";
-import { PORTO_VS_BRAGA_FAMILY_SCHOOLS_SLUG } from "@/lib/community-notes/guides/porto-vs-braga-family-schools";
 import type { CommunityNoteFaq, ContentKind, NoteBodySection } from "@/lib/community-notes/types";
 
 export const NORTE_CLIMATE_COMFORT_SLUG = "klimat-norte-zhara-vlazhnost-plesen-zima-2026";
 
+const CLIMATE_GLOSSARY_INTRO =
+  "Слова, которые услышите у senhorio, в объявлении на Idealista и в разговоре с instalador — разберём заранее, пока не наступило лето или не запахло сыростью.";
+
 const bodySections: NoteBodySection[] = [
   {
-    ...buildGlossarySection(glossaryForSlug(NORTE_CLIMATE_COMFORT_SLUG)!),
+    ...buildGlossarySection(glossaryForSlug(NORTE_CLIMATE_COMFORT_SLUG)!, CLIMATE_GLOSSARY_INTRO),
   },
   {
     heading: "Официально: климат, энергетика и установка HVAC",
     section_kind: "official",
     paragraphs: [
-      "Зачем читать: чтобы понять, что требуют органы при установке кондиционера и какие предупреждения о жаре и влажности действуют на севере Португалии.",
+      "Зачем вам это сейчас: если вы только смотрите квартиры в марте — через три месяца в Porto centro может стать +38 °C, а split без сертификата обернётся штрафом.",
+      "Что делать: подготовиться к жаре и установке кондиционера (ar condicionado) по правилам DGEG — подписка на оповещения IPMA и выбор сертифицированного мастера.",
+      "Зачем: DIY-установка split — штраф и потеря страховки; без alertas вы не узнаете о orange/vermelho заранее.",
+      "Главное: split ставит только técnico certificado — иначе платите дважды: за монтаж и за штраф.",
     ],
     bullets: [
-      "IPMA — метеоопасность (amarelo/laranja/vermelho): подпишитесь на alertas на ipma.pt перед жарой и штормами.",
-      "DGEG — split ar condicionado ставит только técnico certificado (F-gas); DIY — штрафы и потеря гарантии.",
-      "ADENE — certificado energético показывает isolamento; класс E/F типичен для зданий до 1980-х в Porto centro.",
-      "Condomínio — внешний блок на varanda часто требует aprovação assembleia до начала работ.",
-      "Пожарная безопасность — в risco de incêndio запрещены гриль и открытый огонь на varanda.",
+      "Подпишитесь на alertas на ipma.pt перед летом — amarelo/laranja/vermelho.",
+      "Закажите split ar condicionado только у técnico certificado (F-gas) — DIY = штрафы и потеря гарантии.",
+      "Проверьте certificado energético (ADENE) при аренде — класс E/F типичен для зданий до 1980-х в Porto centro.",
+      "Согласуйте внешний блок на varanda с condomínio — assembleia до начала работ.",
+      "Уточните правила risco de incêndio — гриль и открытый огонь на varanda запрещены.",
     ],
   },
   {
     heading: "Официально: влажность, bolor и здоровье",
     section_kind: "official",
     paragraphs: [
-      "Зачем читать: плесень — не «косметика», а вопрос здоровья и ответственности при аренде.",
+      "Зачем вам это сейчас: плесень в углу за шкафом — не «косметика», а повод для спора при выезде и риск для здоровья.",
+      "Что делать: распознать плесень (bolor) как проблему здоровья и зафиксировать её при аренде.",
+      "Зачем: без документов senhorio спишет вину на вас; длительный bolor — риск астмы по DGS.",
+      "Главное: сфотографируйте углы до подписи contrato — это ваша страховка на весь срок аренды.",
     ],
     bullets: [
-      "DGS — длительный bolor повышает риск астмы и аллергий, особенно у детей.",
-      "SNS24 (808 24 24 24) — при кашле и одышке после contacto с humidade/bolor.",
-      "Arrendamento — infiltração estrutural на senhorio; фиксируйте фото и livro de reclamações.",
-      "Ventilação — abertura de janelas + extracção em WC/cozinha — минимальная норма.",
-      "Certificado energético при arrendamento показывает isolamento — спросите при просмотре.",
+      "Проверьте углы за мебелью на bolor при просмотре квартиры.",
+      "Позвоните SNS24 (808 24 24 24) при кашле и одышке после contacto с humidade/bolor.",
+      "Сфотографируйте infiltração и подайте в livro de reclamações — структурная протечка на senhorio.",
+      "Проветривайте janelas и включайте extracção в WC/cozinha ежедневно.",
+      "Спросите certificado energético при arrendamento — он показывает isolamento.",
     ],
   },
   {
     heading: "Климат Norte: что ждать по сезонам",
     section_kind: "practice",
     paragraphs: [
-      "Зачем читать: чтобы заранее понять, как ощущается жизнь в Porto, Braga и на побережье — не по клише «прохладный север».",
+      "Что делать: заранее понять, как ощущается жизнь в Porto, Braga и на побережье по сезонам — не по клише «прохладный север».",
+      "Зачем: без этого выберете квартиру без AC или isolamento и удивитесь счетам и дискомфорту.",
     ],
     bullets: [
-      "Лето — Braga до 40 °C, Porto centro +4–6 °C к зелёным районам (ilhas de calor); tropical nights с июня.",
-      "Осень–весна — humidade 80–95%; Foz/Matosinhos сырость круглый год, condensação на северных стенах.",
-      "Зима — +5–10 °C снаружи, в старых T2 внутри +10–14 °C без aquecimento; betão 1970-х холодный.",
-      "Старые prédios — single-pane janelas, без AC; Cedofeita, Bonfim, Braga centro требуют активного управления климатом.",
-      "Guimarães/Viana — чуть суше Porto, но те же каменные стены; aquecimento elétrico €80–200/мес на T2.",
+      "Закладывайте Braga до 40 °C летом; Porto centro +4–6 °C к зелёным районам (ilhas de calor).",
+      "Планируйте desumidificador с октября — humidade 80–95%; Foz/Matosinhos сырость круглый год.",
+      "Проверьте температуру внутри зимой: в старых T2 +10–14 °C без aquecimento.",
+      "Сравните районы: Cedofeita, Bonfim, Braga centro — старые prédios без AC.",
+      "Уточните счета aquecimento elétrico — €80–200/мес на T2 в Guimarães/Viana.",
     ],
   },
   {
     heading: "Летняя жара: ar condicionado, вентиляция, аренда",
     section_kind: "practice",
     paragraphs: [
-      "Зачем читать: перед жарой и при поиске квартиры — что проверить и как не попасть на штрафы.",
+      "Что делать: перед жарой и при поиске квартиры проверить AC, счета и правила condomínio.",
+      "Зачем: без AC верхние этажи невыносимы; DIY split — штраф DGEG.",
     ],
     bullets: [
-      "Split — только instalador certificado DGEG; «DIY из Leroy Merlin» = штраф + потеря seguro (lepta, 2025-08).",
-      "Аренда — фильтр ar condicionado на Idealista стал стандартом (por_tugal, 2026); без AC верхние этажи невыносимы.",
-      "Portable vs split — condomínio в Ribeira/Foz часто veto на bloco exterior; portable с kit de janela — workaround.",
-      "Счёт — AC 9 000–12 000 BTU ≈ €30–80/мес при 3–4 ч/день; bi-horário снижает ночной расход.",
-      "Просмотр — попросите счёт за июль–август; €200+ без AC = закладывайте установку до подписи contrato.",
+      "Закажите split только у instalador certificado DGEG — DIY из магазина = штраф и потеря seguro.",
+      "Ищите ar condicionado на Idealista — без AC верхние этажи невыносимы в июле.",
+      "Сравните portable vs split — condomínio в Ribeira/Foz часто veto на bloco exterior.",
+      "Закладывайте €30–80/мес на AC 9 000–12 000 BTU при 3–4 ч/день; bi-horário снижает ночной расход.",
+      "Попросите счёт за июль–август при просмотре — €200+ без AC = установка до подписи contrato.",
     ],
   },
   {
     heading: "Осень, весна: humidade, bolor и desumidificador",
     section_kind: "practice",
     paragraphs: [
-      "Зачем читать: с октября по апрель влажность — главная причина плесени и споров с senhorio.",
+      "Что делать: с октября по апрель активно бороться с humidade — desumidificador, ventilação, фиксация bolor.",
+      "Зачем: влажность — главная причина плесени и споров с senhorio при выезде.",
     ],
     bullets: [
-      "Desumidificador 10–20 L/день — €150–350 + €15–30/мес; спасает мебель и roupa в Foz/Matosinhos.",
-      "Bolor — первые пятна в casa de banho: anti-bolor + ventilação; если вернётся за 2–3 недели — infiltração.",
-      "Roupa внутри — влажная ткань в T1 без extracção = bolor за 48 ч; сушите у открытого окна.",
-      "Infiltração vs condensação — капли на стекле = condensação; мокрая штукатурка = infiltração (senhorio).",
-      "Аренда — bolor на acta de entrada; иначе caução при выезде. Чеклист: [первый месяц в Португалии](/notes/pervyj-mesyac-portugaliya-checklist).",
+      "Купите desumidificador 10–20 L/день — €150–350 + €15–30/мес; спасает мебель в Foz/Matosinhos.",
+      "Обработайте первые пятна bolor в casa de banho anti-bolor + ventilação; если вернётся за 2–3 недели — infiltração.",
+      "Сушите roupa у открытого окна — влажная ткань в T1 без extracção = bolor за 48 ч.",
+      "Различите condensação (капли на стекле) и infiltração (мокрая штукатурка) — второе на senhorio.",
+      "Зафиксируйте bolor на acta de entrada; чеклист: [первый месяц в Португалии](/notes/pervyj-mesyac-portugaliya-checklist).",
     ],
   },
   {
     heading: "Зима без central heating и когда нужен специалист",
     section_kind: "practice",
     paragraphs: [
-      "Зачем читать: большинство квартир без central heating — нужно понять варианты обогрева и когда звать мастера.",
+      "Что делать: выбрать способ обогрева без central heating и знать, когда звать специалиста по bolor.",
+      "Зачем: resistência elétrica обходится в €200+/мес; bomba de calor в 2–3 раза эффективнее.",
     ],
     bullets: [
-      "Aquecimento — invertor AC с heat pump в 2–3 раза эффективнее resistência elétrica (shoulder season).",
-      "Счета — €120–200/мес на T2 в Porto без bomba de calor (autolife_pt, 2025–2026).",
-      "Split instalador — Fixando/Worten €400–900 установка + €600–1 500 оборудование; + 3–7 дней и condomínio.",
-      "Climaporto (Porto, 100 km) — community-рекомендация: portable turnkey от €899, RU/EN; не партнёр Emigro.",
-      "Bolor >2 м² — empresa especializada + relatório; не красьте tinta до устранения humidade.",
+      "Сравните invertor AC с heat pump и resistência elétrica — shoulder season выгоднее bomba de calor.",
+      "Закладывайте €120–200/мес на T2 в Porto без bomba de calor — типичный счёт за resistência elétrica.",
+      "Запросите смету у instalador — Fixando/Worten €400–900 + €600–1 500 оборудование; + condomínio.",
+      "Сравните Climaporto (Porto, 100 km) — community-рекомендация: portable turnkey от €899, RU/EN.",
+      "Закажите empresa especializada при bolor >2 м² — не красьте tinta до устранения humidade.",
     ],
   },
   {
     heading: "Где портал и быт расходятся",
     section_kind: "gap",
     paragraphs: [
-      "Зачем читать: типичные расхождения между порталами, объявлениями и тем, что пишут релоканты в чатах Norte.",
+      "Что делать: сверять советы из чатов с порталами и объявлениями — не верить на слово.",
+      "Зачем: типичные расхождения приводят к штрафам, плесени и переплате за «квартиру с AC».",
     ],
     bullets: [
       "Чат: «север не жаркий» → IPMA orange в Braga до 40 °C и tropical nights; Porto centro — ilhas de calor.",
       "Idealista: «ar condicionado» → на деле portable 2010 без heat pump; уточняйте BTU и возраст.",
       "Senhorio: «bolor — ваша вина» → infiltração estrutural — responsabilidade владельца; фото + livro reclamações.",
-      "Магазин: «split в коробке» → без instalador certificado — штраф DGEG (lepta, 2025-08).",
+      "Магазин: «split в коробке» → без instalador certificado — штраф DGEG и отказ страховщика.",
       "DGS: «просто проветривайте» → при 90% humidade ventilação без desumidificador не помогает в Foz.",
     ],
   },
@@ -121,7 +132,8 @@ const bodySections: NoteBodySection[] = [
     heading: "Таймлайн по сезонам и типичные ошибки",
     section_kind: "practice",
     paragraphs: [
-      "Зачем читать: короткий календарь действий и ошибки, которые повторяются в чатах Norte каждый сезон.",
+      "Что делать: следовать сезонному календарю и избегать ошибок, которые повторяются в чатах Norte каждый год.",
+      "Зачем: одна ошибка (аренда без осмотра bolor, DIY split) стоит месяцев споров и € сотен.",
     ],
     bullets: [
       "Ошибка: аренда в марте без осмотра bolor за мебелью — к июню запах и споры с senhorio.",
@@ -151,7 +163,7 @@ const faq: CommunityNoteFaq[] = [
   },
   {
     q: "Можно ли самому установить кондиционер?",
-    a: "Нет для split — только técnico certificado DGEG/F-gas; иначе штрафы (lepta, 2025-08). Portable monobloc с kit de janela можно, но герметизация влияет на КПД на 30–40% — лучше turnkey instalador.",
+    a: "Нет для split — только técnico certificado DGEG/F-gas; иначе штрафы и отказ страховщика. Portable monobloc с kit de janela можно, но герметизация снижает КПД на 30–40% — лучше turnkey instalador.",
   },
   {
     q: "Как обогреть квартиру без central heating?",
@@ -178,7 +190,7 @@ export const NORTE_CLIMATE_COMFORT_GUIDE = {
   seo_description:
     "Гайд по климату Norte Португалии 2026: жара в Braga, влажность в Porto, bolor, зима без отопления. AC, desumidificador, DGEG, IPMA и местные сервисы.",
   quick_answer:
-    "На севере Португалии (Порту, Брага, побережье) лето уже до +40 °C, а зимой в старой квартире может быть +12 °C без отопления. Влажность с октября по апрель — главная причина плесени. Кондиционер (ar condicionado) и осушитель реально нужны; сплит ставит только сертифицированный мастер (DGEG).",
+    "Первое утро в Porto: на термометре +14 °C, а внутри — сырость и запах старой штукатурки. На севере (Порту, Брага, побережье) лето уже до +40 °C, зимой в старой квартире бывает +12 °C без отопления. Кондиционер (ar condicionado) и осушитель — не роскошь; сплит ставит только сертифицированный мастер (DGEG).",
   body_sections: bodySections,
   body_paragraphs: flattenBodySections(bodySections),
   key_takeaways: keyTakeaways,
@@ -198,5 +210,5 @@ export const NORTE_CLIMATE_COMFORT_GUIDE = {
     extra: ["porto", "braga", "norte", "matosinhos", "климат", "жильё", "humidade"],
   }),
   source_channel: "chatlisboa+por_tugal+autolife_pt+lepta",
-  source_label: "editorial:norte-climate",
+  source_label: "editorial:norte-climate+voice-pass",
 };

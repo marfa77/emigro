@@ -2,6 +2,10 @@ import type { GlossaryTerm, NoteBodySection } from "@/lib/community-notes/types"
 
 export const GLOSSARY_SECTION_HEADING = "Словарь терминов";
 
+/** Default literary intro for glossary sections — override per topic in hand guides. */
+export const LITERARY_GLOSSARY_INTRO_DEFAULT =
+  "Слова, которые услышите в balcão, на порталах и в переписке с senhorio — разберём заранее, пока они не всплыли в самый неудобный момент.";
+
 const GLOSSARY_HEADING_RE = /словарь\s+термин/i;
 
 /** Format: **term** — explanation (optional context in parens before em dash). */
@@ -14,13 +18,14 @@ export function formatGlossaryBullet(term: GlossaryTerm): string {
   return `**${pt}** — ${ru}`;
 }
 
-export function buildGlossarySection(terms: GlossaryTerm[]): NoteBodySection {
+export function buildGlossarySection(
+  terms: GlossaryTerm[],
+  intro: string = LITERARY_GLOSSARY_INTRO_DEFAULT
+): NoteBodySection {
   return {
     heading: GLOSSARY_SECTION_HEADING,
     section_kind: "glossary",
-    paragraphs: [
-      "Ключевые термины на португальском (PT-PT) — чтобы читать порталы, договоры и переписку со школами/органами без постоянного перевода.",
-    ],
+    paragraphs: [intro],
     bullets: terms.map(formatGlossaryBullet),
   };
 }
@@ -61,8 +66,8 @@ export function validateGlossarySection(section: NoteBodySection): string[] {
   const errors: string[] = [];
   if (!isGlossarySection(section)) return errors;
   const count = countGlossaryTerms(section);
-  if (count < 5) errors.push(`glossary: need 5–12 terms, got ${count}`);
-  if (count > 12) errors.push(`glossary: max 12 terms, got ${count}`);
+  if (count < 5) errors.push(`glossary: need 5–10 terms, got ${count}`);
+  if (count > 10) errors.push(`glossary: max 10 terms, got ${count}`);
   for (const bullet of section.bullets ?? []) {
     if (!/^\*\*.+\*\*/.test(bullet.trim())) {
       errors.push(`glossary bullet missing PT term bold: ${bullet.slice(0, 40)}…`);

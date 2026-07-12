@@ -13,16 +13,19 @@ import {
 } from "@/lib/community-notes/practice-enrichment";
 import { sanitizeSnsFields } from "@/lib/community-notes/sns-editorial";
 import {
+  EDITORIAL_ACTION_GUIDE_RULES,
   EDITORIAL_PRESENTATION_RULES,
   PRESENTATION_REWRITE_HINT,
 } from "@/lib/community-notes/editorial-presentation";
 import {
+  EDITORIAL_VOICE_PORTUGAL,
   PORTUGAL_EDITORIAL_SYSTEM,
   SPAIN_EDITORIAL_SYSTEM,
   SPAIN_TOPIC_LABELS,
   SPAIN_TOPIC_OFFICIAL_LINKS,
   TOPIC_LABELS,
   TOPIC_OFFICIAL_LINKS,
+  VOICE_REWRITE_HINT,
 } from "@/lib/community-notes/editorial-voice";
 import type {
   CommunityNote,
@@ -253,11 +256,15 @@ ${snippets.map((s, i) => `${i + 1}. ${s}`).join("\n")}
 slug: latin kebab-case, уникальный, тема + 2026 если уместно.
 category: ${topicLabels[topic] ?? (countryKey === "spain" ? "Быт в Испании" : "Быт в Португалии")}
 
-Напиши заметку по БЛЮПРИНТУ + ПОДАЧЕ ДЛЯ ЧТЕНИЯ:
-glossary (≤8 терминов) → official (lead + ≤5 bullets) → practice (2+ секции) → gap («чат vs сайт») → типичные ошибки.
-quick_answer: 2–3 предложения простым русским. key_takeaways: максимум 4, action-oriented.
+Напиши заметку по БЛЮПРИНТУ + ПОДАЧЕ ДЛЯ ЧТЕНИЯ + ГОЛОСУ «Опытный релокант за кофе»:
+glossary (≤8 терминов, literary intro) → official (Что/Как/Зачем + «Главное») → practice (2+ секции) → gap («чат vs сайт») → типичные ошибки.
+quick_answer: микросцена-хук + 2 факта; 2–3 предложения. key_takeaways: максимум 4, action-oriented.
 Не дублируй один смысл в разных секциях. В key_takeaways — минимум 2 пункта «Официально:» / «На практике:» / «Расхождение:».
 faq: 4–5 вопросов; ответ начинается с да/нет/цифры, затем «По правилам…» / «На практике…».
+
+${countryKey === "portugal" ? EDITORIAL_VOICE_PORTUGAL : ""}
+
+${EDITORIAL_ACTION_GUIDE_RULES}
 
 ${EDITORIAL_PRESENTATION_RULES}
 
@@ -369,7 +376,10 @@ export async function draftNoteFromCluster(
 }
 
 /** Rewrite an existing published note to rich editorial format (no new signals). */
-export async function rewriteCommunityNote(note: CommunityNote): Promise<DraftedNote> {
+export async function rewriteCommunityNote(
+  note: CommunityNote,
+  options?: { voicePass?: boolean }
+): Promise<DraftedNote> {
   const countryKey: SatelliteCountryKey = note.country_key === "spain" ? "spain" : "portugal";
   const countryTag = countryKey === "spain" ? "spain" : "portugal";
   const { topicLabels, system } = editorialConfig(countryKey);
@@ -399,7 +409,7 @@ export async function rewriteCommunityNote(note: CommunityNote): Promise<Drafted
 Улучши подачу для чтения и структуру body_sections. Не теряй факты — сделай текст понятнее и логичнее.
 Явно раздели официальные требования и практику из чатов (section_kind + метки в key_takeaways).
 
-${PRESENTATION_REWRITE_HINT}
+${options?.voicePass ? VOICE_REWRITE_HINT : PRESENTATION_REWRITE_HINT}
 
 КОМПАКТНЫЙ JSON (критично): максимум 6 body_sections, до 5 bullets на секцию, lead в каждой секции, 4 key_takeaways, 4–5 faq. Не дублируй заголовки секций. Минимум 600 слов суммарно для guide.`;
 

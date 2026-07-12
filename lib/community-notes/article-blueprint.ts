@@ -14,7 +14,7 @@ import {
   inferSectionKind,
   validateOfficialPracticeCopy,
 } from "@/lib/community-notes/official-vs-practice";
-import { validateEditorialPresentation } from "@/lib/community-notes/editorial-presentation";
+import { validateEditorialPresentation, validateActionGuideSections } from "@/lib/community-notes/editorial-presentation";
 import { auditPracticeQuality } from "@/lib/community-notes/practice-enrichment";
 import type { CommunityNoteFaq, CommunityNoteLink, ContentKind, NoteBodySection } from "@/lib/community-notes/types";
 
@@ -71,7 +71,11 @@ function sectionKinds(sections: NoteBodySection[]): Array<ReturnType<typeof infe
 
 function countBulletsByKind(sections: NoteBodySection[], kind: "official" | "practice" | "gap"): number {
   return sections
-    .filter((s) => inferSectionKind(s) === kind)
+    .filter((s) => {
+      const k = inferSectionKind(s);
+      if (kind === "practice") return k === "practice" || k === "action_guide";
+      return k === kind;
+    })
     .flatMap((s) => s.bullets ?? []).length;
 }
 
@@ -300,6 +304,14 @@ export function validateAgainstBlueprint(
   });
   warnings.push(...presentation.warnings);
 
+  if (countryKey === "portugal") {
+    const actionGuide = validateActionGuideSections(input.body_sections);
+    warnings.push(...actionGuide.warnings);
+    if (actionGuide.errors.length > 0) {
+      errors.push(...actionGuide.errors);
+    }
+  }
+
   const score = scoreBlueprint(input, countryKey);
   if (score < BLUEPRINT_PASS_SCORE && errors.length === 0) {
     warnings.push(`blueprint: score ${score} < ${BLUEPRINT_PASS_SCORE}`);
@@ -312,12 +324,17 @@ export function validateAgainstBlueprint(
 export const BLUEPRINT_STRUCTURE_RULES = `
 СТРУКТУРА ПО БЛЮПРИНТУ (обязательно для guide; эталон — международные школы PT):
 Порядок body_sections (section_kind в скобках):
-1. «Словарь терминов» (glossary) — ПЕРВАЯ секция, 5–12 PT-PT терминов в bullets (**termo** — пояснение).
+1. «Словарь терминов» (glossary) — ПЕРВАЯ секция, 5–8 PT-PT терминов в bullets (**termo** — пояснение); literary intro.
 2. 1–2 секции official — что требуют органы/порталы: документы, сроки, нормы. Минимум 4 bullets суммарно.
+   В каждой: «Что делать» + «Зачем» в lead; bullets = actionable «Как».
 3. 2+ секции practice — опыт релокантов из чатов: Porto/Braga/Norte в примерах, цифры €, сроки, названия органов. Минимум 8 bullets суммарно.
+   - финал «Главное: …» в paragraphs
+   Или section_kind "action_guide" для «Пошагово для новичка».
 4. «Где расходится» / gap — bullets «сайт говорит → на деле» (минимум 4).
 5. «Типичные ошибки» или «Таймлайн» (practice) — минимум 4 bullets ошибок или шагов по срокам.
 Не смешивай official и practice в одной секции. Не ставь gap до practice.
+
+Термины: первое упоминание — termo (расшифровка) или в словаре; словарь ≤8; без необъяснённых AIMA/SNS/NIF.
 
 key_takeaways: максимум 4 пункта («Что решить сегодня»), минимум 2 с префиксами «Официально:» / «На практике:» / «Расхождение:».
 faq: 4–5 вопросов; ответ — сначала да/нет/цифра, затем «По правилам…» / «На практике…».

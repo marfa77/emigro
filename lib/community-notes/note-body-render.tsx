@@ -184,6 +184,11 @@ const SECTION_SURFACE: Record<
     badge: SECTION_KIND_LABELS.glossary,
     badgeClass: "bg-indigo-100 text-indigo-800 ring-1 ring-indigo-200/80",
   },
+  action_guide: {
+    wrap: "rounded-xl border border-emerald-100/90 bg-emerald-50/30 p-5 sm:p-6 border-l-[3px] border-l-emerald-500",
+    badge: SECTION_KIND_LABELS.action_guide,
+    badgeClass: "bg-emerald-100 text-emerald-800 ring-1 ring-emerald-200/80",
+  },
 };
 
 export function resolveSectionSurface(section: NoteBodySection) {
