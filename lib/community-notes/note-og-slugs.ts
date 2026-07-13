@@ -40,6 +40,7 @@ export const COMMITTED_NOTE_OG_SLUGS = new Set([
   "vybor-internet-provaydera-portugaliya-2026",
   "zamena-voditelskih-prav-portugaliya-2026",
   "zamena-zagranpasporta-portugaliya-2026",
+  "regiony-portugalii-ekspaty-klimat-tseny-2026",
 ]);
 
 const MANIFEST_PATH = path.join(process.cwd(), "lib/community-notes/note-og-slugs.ts");

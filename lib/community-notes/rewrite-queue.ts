@@ -15,6 +15,7 @@ export const SKIP_REWRITE_SLUGS = new Set([
   "arenda-dolgosrok-porto-braga-2026",
   "turizm-vnutri-portugalii-norte-2026",
   "kupit-kvartiru-portugaliya-norte-2026",
+  "regiony-portugalii-ekspaty-klimat-tseny-2026",
 ]);
 
 /** Already deep-rewritten by Gemini (batch or manual). */

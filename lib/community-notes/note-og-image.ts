@@ -90,6 +90,11 @@ const SLUG_PHOTO_QUERIES: Record<string, string[]> = {
     "dehumidifier home interior",
     "portugal winter apartment cozy",
   ],
+  "regiony-portugalii-ekspaty-klimat-tseny-2026": [
+    "portugal map regions landscape",
+    "douro river porto skyline",
+    "lisbon algarve portugal coast",
+  ],
   "meditsina-norte-sns-chastnaya-stomatologiya-2026": [
     "hospital porto portugal exterior",
     "healthcare clinic modern europe",

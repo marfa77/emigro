@@ -24,6 +24,7 @@ export const NOTE_LINK_LABELS: Record<string, string> = {
   "kak-otkryt-bankovskiy-schet-portugalia-2026": "открытие счёта",
   "kupit-kvartiru-portugaliya-norte-2026": "покупка квартиры Norte",
   "pokupka-zemli-postroyka-doma-norte-portugaliya-2026": "земля и постройка дома",
+  "regiony-portugalii-ekspaty-klimat-tseny-2026": "регионы Португалии",
 };
 
 export function noteLinkLabel(slug: string): string {

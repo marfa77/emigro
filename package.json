@@ -52,6 +52,7 @@
     "portugal:publish-tolls-guide": "tsx scripts/portugal-publish-tolls-guide.ts",
     "portugal:publish-domestic-tourism-guide": "tsx scripts/portugal-publish-domestic-tourism-guide.ts",
     "portugal:publish-apartment-buying-guide": "tsx scripts/portugal-publish-apartment-buying-guide.ts",
+    "portugal:publish-regions-guide": "tsx scripts/portugal-publish-regions-guide.ts",
     "portugal:generate-note-images": "tsx scripts/portugal-generate-note-images.ts",
     "portugal:index-license-history": "tsx scripts/portugal-index-license-history.ts",
     "portugal:rewrite": "tsx scripts/portugal-rewrite-notes.ts",

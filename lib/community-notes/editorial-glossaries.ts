@@ -416,6 +416,16 @@ export const EDITORIAL_GLOSSARIES: Record<string, GlossaryTerm[]> = {
     { pt: "GNR", context: "Guarda Nacional Republicana", ru: "жандармерия; на трассах Norte чаще GNR" },
     { pt: "EasyToll", ru: "регистрация иностранного номера для оплаты электронных portagens" },
   ],
+  "regiony-portugalii-ekspaty-klimat-tseny-2026": [
+    { pt: "concelho", ru: "муниципалитет; от него зависят IMI, SNS, школы и местный бюджет" },
+    { pt: "NUTS II", ru: "макрорегион ЕС (Norte, Lisboa, Centro и др.) — ориентир для статистики и климата" },
+    { pt: "expat", ru: "иностранный резидент; в PT чаще EU, UK, BR, US — не только русскоязычные" },
+    { pt: "renda", ru: "ежемесячная арендная плата; сильно зависит от региона и сезона" },
+    { pt: "humidade", ru: "влажность; на побережье Norte высокая осень–весна" },
+    { pt: "heat island", ru: "остров тепла в городе; Lisboa centro +4–6 °C к пригородам" },
+    { pt: "coworking", ru: "коворкинг — точка входа в expat-network и nomad-сцену" },
+    { pt: "turismo rural", ru: "сельский туризм; в Alentejo и Centro — quintas и agroturismo" },
+  ],
   "elektromobil-tesla-v-portugalii-2026": [
     { pt: "carro elétrico", ru: "электромобиль; в документах IMT и страховке указывается тип de energia" },
     { pt: "ISV", context: "Imposto Sobre Veículos", ru: "налог при первой регистрации; для чистых EV = 0 €" },
