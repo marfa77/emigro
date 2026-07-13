@@ -6,6 +6,7 @@ import { flattenBodySections } from "@/lib/community-notes/editorial-quality";
 import { glossaryForSlug } from "@/lib/community-notes/editorial-glossaries";
 import { buildGlossarySection } from "@/lib/community-notes/glossary";
 import { buildNoteHashtags } from "@/lib/community-notes/hashtags";
+import { formatPracticeTakeaway } from "@/lib/community-notes/practice-format";
 import type { CommunityNoteFaq, ContentKind, NoteBodySection } from "@/lib/community-notes/types";
 
 export const FOREIGN_PASSPORT_REPLACEMENT_SLUG = "zamena-zagranpasporta-portugaliya-2026";
@@ -124,7 +125,14 @@ const bodySections: NoteBodySection[] = [
 
 const keyTakeaways = [
   "Официально: загран RU/BY/UA/KZ в PT — через посольство в Lisboa (UA также Consulado no Porto); agendamento онлайн обязателен для подачи.",
-  "На практике (@chatlisboa): слот lisboa.kdmid.ru — недели ожидания; закладывайте 2 поездки в Lisboa (подача + выдача) и полный день из Norte.",
+  formatPracticeTakeaway({
+    channels: ["chatlisboa"],
+    period: "2025–2026",
+    claim:
+      "слот на lisboa.kdmid.ru (консульство РФ в Лиссабоне) часто открывается с ожиданием в несколько недель",
+    forReader:
+      "закладывайте минимум 2 поездки в Lisboa — на подачу и на выдачу — плюс полный день, если живёте на Norte",
+  }),
   "Официально: биометрический RU passaporte — 10 лет, zp.midpass.ru, срок до 3 мес.; выдача пн/ср/чт/пт 9:15–12:45 лично.",
   "Расхождение: BY паспорт за рубежом почти не продлевается — параллельно планируйте AIMA/защиту, не только consulado.",
 ];

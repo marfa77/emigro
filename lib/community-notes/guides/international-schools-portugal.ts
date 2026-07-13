@@ -8,6 +8,7 @@ import { flattenBodySections } from "@/lib/community-notes/editorial-quality";
 import { glossaryForSlug } from "@/lib/community-notes/editorial-glossaries";
 import { buildGlossarySection } from "@/lib/community-notes/glossary";
 import { buildNoteHashtags } from "@/lib/community-notes/hashtags";
+import { formatPracticeTakeaway } from "@/lib/community-notes/practice-format";
 import type { CommunityNoteFaq, ContentKind, NoteBodySection } from "@/lib/community-notes/types";
 
 export const INTERNATIONAL_SCHOOLS_GUIDE_SLUG = "mezhdunarodnye-shkoly-portugaliya-2026";
@@ -148,7 +149,13 @@ const bodySections: NoteBodySection[] = [
 const keyTakeaways = [
   "Сегодня: оформите NIF ребёнку и соберите transcripts — без них matrícula не закроют.",
   "Официально: ensino obrigatório с 6 лет; público бесплатна при vaga в agrupamento по morada.",
-  "На практике: international — waiting list 6–18 мес., €9k–22k/год; подавайте за 9–12 месяцев.",
+  formatPracticeTakeaway({
+    channels: ["por_tugal", "chatlisboa"],
+    period: "2025–2026",
+    claim:
+      "в international schools (международных школах) waiting list (очередь) часто 6–18 месяцев, стоимость €9k–22k/год",
+    forReader: "подавайте за 9–12 месяцев до желаемого старта — иначе рискуете годом в público (госшколе) без плана B",
+  }),
   "Расхождение: «английская без португальского» — PT уроки обязательны; для público без языка тяжело.",
 ];
 

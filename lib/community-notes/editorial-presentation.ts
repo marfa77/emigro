@@ -4,7 +4,8 @@
  */
 import type { CommunityNoteFaq, ContentKind, NoteBodySection } from "@/lib/community-notes/types";
 import { isGlossarySection } from "@/lib/community-notes/glossary";
-import { isTelegraphicPractice, PRACTICE_BLOCK_FORMAT_RULES } from "@/lib/community-notes/practice-format";
+import { isTelegraphicEditorial, EDITORIAL_READABILITY_RULES } from "@/lib/community-notes/editorial-readability";
+import { PRACTICE_BLOCK_FORMAT_RULES } from "@/lib/community-notes/practice-format";
 
 export const PRESENTATION_LIMITS = {
   quickAnswerSentences: { min: 2, max: 3 },
@@ -170,9 +171,9 @@ export function validateEditorialPresentation(input: PresentationDraftInput): Pr
   }
 
   for (const takeaway of input.key_takeaways) {
-    if (/^На практике:/i.test(takeaway) && isTelegraphicPractice(takeaway)) {
+    if (isTelegraphicEditorial(takeaway)) {
       warnings.push(
-        "presentation: key_takeaways «На практике» reads telegraphic — use full sentences with reader impact (see PRACTICE_BLOCK_FORMAT_RULES)"
+        "presentation: key_takeaways reads telegraphic — use full sentences with reader impact (see PRACTICE_BLOCK_FORMAT_RULES)"
       );
       score -= 8;
       break;
@@ -217,16 +218,11 @@ export function validateEditorialPresentation(input: PresentationDraftInput): Pr
         score -= 2;
         break;
       }
-      if (section.section_kind === "practice" && isTelegraphicPractice(bullet)) {
+      if (isTelegraphicEditorial(bullet)) {
         warnings.push(
-          `presentation: «${section.heading}» practice bullet is telegraphic — explain what it means for the reader`
+          `presentation: «${section.heading}» bullet is telegraphic — explain what it means for the reader`
         );
         score -= 4;
-        break;
-      }
-      if (CHANNEL_ATTRIB_RE.test(bullet)) {
-        warnings.push(`presentation: «${section.heading}» bullet has channel attribution — weave as story`);
-        score -= 3;
         break;
       }
     }
@@ -305,6 +301,8 @@ export const EDITORIAL_PRESENTATION_RULES = `
    «На практике:» — 1–3 полных предложения: что происходит + что это значит для читателя; без цепочек через «;».
 
 ${PRACTICE_BLOCK_FORMAT_RULES}
+
+${EDITORIAL_READABILITY_RULES}
 
 3. «Словарь» — literary intro («Слова, которые услышите в balcão…»); максимум 8 терминов из текста ниже.
 

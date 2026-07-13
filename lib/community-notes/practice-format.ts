@@ -93,8 +93,12 @@ export function formatPracticeBullet(input: PracticeFormatInput | string): strin
   const core = lead
     ? `${lead} ${capitalizeClaim(claim)}`
     : claim.trim().charAt(0).toUpperCase() + claim.trim().slice(1);
+  const reader = forReader?.trim();
+  const readerSentence = reader
+    ? reader.charAt(0).toUpperCase() + reader.slice(1)
+    : "";
 
-  return joinSentences([core, forReader ?? ""]);
+  return joinSentences([core, readerSentence]);
 }
 
 /** Practice line for key_takeaways — prefixed «На практике:». */
@@ -115,7 +119,7 @@ export function improvePracticeText(text: string): string {
   if (!body) return body;
 
   // «(@chatlisboa, 2025–2026): …» → readable lead
-  const rawAttrib = body.match(/^\(@([\w\d_]+)(?:,\s*([\d–-]+))?\):\s*(.+)$/i);
+  const rawAttrib = body.match(/^\(@([\w\d_]+)(?:,\s*([\d–\-/.\s]+))?\)\s*[:\-—–]?\s*(.+)$/i);
   if (rawAttrib) {
     const [, channel, period, rest] = rawAttrib;
     const lead = formatPracticeChannelLead([channel], period ?? "2025–2026");

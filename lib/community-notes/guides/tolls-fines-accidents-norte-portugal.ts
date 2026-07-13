@@ -3,6 +3,7 @@ import { flattenBodySections } from "@/lib/community-notes/editorial-quality";
 import { glossaryForSlug } from "@/lib/community-notes/editorial-glossaries";
 import { buildGlossarySection } from "@/lib/community-notes/glossary";
 import { buildNoteHashtags } from "@/lib/community-notes/hashtags";
+import { formatPracticeTakeaway } from "@/lib/community-notes/practice-format";
 import { CAR_PORTUGAL_GUIDE_SLUG } from "@/lib/community-notes/guides/car-portugal-buy-rent-import";
 import { DRIVING_LICENSE_GUIDE_SLUG } from "@/lib/community-notes/guides/driving-license-exchange";
 import type { CommunityNoteFaq, ContentKind, NoteBodySection } from "@/lib/community-notes/types";
@@ -111,7 +112,13 @@ const bodySections: NoteBodySection[] = [
 
 const keyTakeaways = [
   "Официально: большинство autoestradas в PT платные; электронные участки требуют Via Verde, EasyToll или оплату на posto в 5 дней.",
-  "На практике (@autolife_pt): после покупки или аренды машины сразу оформите Via Verde или EasyToll — иначе штрафы на A1/A3 копятся незаметно.",
+  formatPracticeTakeaway({
+    channels: ["autolife_pt"],
+    period: "2025–2026",
+    claim:
+      "после покупки или аренды машины нужно сразу оформить Via Verde (транспондер) или EasyToll для иностранных номеров",
+    forReader: "иначе штрафы (multas) за проезд по A1/A3 накапливаются незаметно — счёт может прийти через недели",
+  }),
   "Официально: при ДТП — безопасность, 112 при травмах, declaração amigável и звонок seguro в срок по apólice.",
   "Расхождение: счёт за portagem на иностранный номер часто приходит позже 5 дней — проверяйте matrícula на portaldasportagens.pt вручную.",
 ];

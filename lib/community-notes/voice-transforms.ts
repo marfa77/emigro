@@ -1,23 +1,19 @@
 /**
  * Lightweight programmatic voice transforms — no Gemini.
- * Strips channel attribution, trims takeaways, preserves facts.
+ * Improves readability of editor notes; trims takeaways; preserves facts.
  */
 import { applyBlueprintFixes } from "@/lib/community-notes/article-blueprint";
 import { flattenBodySections } from "@/lib/community-notes/editorial-quality";
+import { improveEditorialText } from "@/lib/community-notes/editorial-readability";
 import { LITERARY_GLOSSARY_INTRO_DEFAULT } from "@/lib/community-notes/glossary";
 import { isGlossarySection } from "@/lib/community-notes/glossary";
 import type { CommunityNote, NoteBodySection } from "@/lib/community-notes/types";
 
-const CHANNEL_ATTRIB_RE = /@[\w\d_]+|\([a-z_]+,\s*20\d{2}[^)]*\)/gi;
 const BUREAUCRACY_RE = /в соответствии с|важно отметить|на фоне изменений/gi;
 
+/** @deprecated use improveEditorialText — kept for callers that only stripped channels */
 export function stripChannelAttribution(text: string): string {
-  return text
-    .replace(CHANNEL_ATTRIB_RE, "")
-    .replace(BUREAUCRACY_RE, "")
-    .replace(/\s{2,}/g, " ")
-    .replace(/\s+([.,;:])/g, "$1")
-    .trim();
+  return improveEditorialText(text.replace(BUREAUCRACY_RE, ""));
 }
 
 function transformSections(sections: NoteBodySection[]): NoteBodySection[] {
@@ -28,11 +24,11 @@ function transformSections(sections: NoteBodySection[]): NoteBodySection[] {
         !intro || intro.startsWith("Ключевые термины") || intro.length < 40;
       return {
         ...section,
-        paragraphs: needsIntro ? [LITERARY_GLOSSARY_INTRO_DEFAULT] : section.paragraphs?.map(stripChannelAttribution),
-        bullets: section.bullets?.map(stripChannelAttribution),
+        paragraphs: needsIntro ? [LITERARY_GLOSSARY_INTRO_DEFAULT] : section.paragraphs?.map(improveEditorialText),
+        bullets: section.bullets?.map(improveEditorialText),
       };
     }
-    const paragraphs = (section.paragraphs ?? []).map(stripChannelAttribution);
+    const paragraphs = (section.paragraphs ?? []).map(improveEditorialText);
     const hasGlavnoe = paragraphs.some((p) => /главное\s*:/i.test(p));
     if (!hasGlavnoe && paragraphs.length > 0) {
       const last = paragraphs[paragraphs.length - 1] ?? "";
@@ -43,7 +39,7 @@ function transformSections(sections: NoteBodySection[]): NoteBodySection[] {
     return {
       ...section,
       paragraphs,
-      bullets: section.bullets?.map(stripChannelAttribution),
+      bullets: section.bullets?.map(improveEditorialText),
     };
   });
 }
@@ -57,12 +53,12 @@ export function applyVoiceTransforms(note: CommunityNote): {
   faq: CommunityNote["faq"];
   changed: boolean;
 } {
-  const quick_answer = stripChannelAttribution(note.quick_answer);
-  const key_takeaways = note.key_takeaways.slice(0, 4).map(stripChannelAttribution);
+  const quick_answer = improveEditorialText(note.quick_answer);
+  const key_takeaways = note.key_takeaways.slice(0, 4).map(improveEditorialText);
   let body_sections = transformSections(note.body_sections);
   const faq = note.faq.map((f) => ({
-    q: stripChannelAttribution(f.q),
-    a: stripChannelAttribution(f.a),
+    q: improveEditorialText(f.q),
+    a: improveEditorialText(f.a),
   }));
 
   const fixed = applyBlueprintFixes({

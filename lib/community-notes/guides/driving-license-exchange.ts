@@ -1,9 +1,8 @@
-/** Hand-curated guide — see lib/community-notes/editorial-presentation.ts for writing rules. */
+import { formatPracticeTakeaway } from "@/lib/community-notes/practice-format";
 import { flattenBodySections } from "@/lib/community-notes/editorial-quality";
 import { glossaryForSlug } from "@/lib/community-notes/editorial-glossaries";
 import { buildGlossarySection } from "@/lib/community-notes/glossary";
 import { buildNoteHashtags } from "@/lib/community-notes/hashtags";
-import { formatPracticeTakeaway } from "@/lib/community-notes/practice-format";
 import type { CommunityNoteFaq, ContentKind, NoteBodySection } from "@/lib/community-notes/types";
 
 export const DRIVING_LICENSE_GUIDE_SLUG = "zamena-voditelskih-prav-portugaliya-2026";
@@ -139,7 +138,10 @@ const keyTakeaways = [
     forReader: "планируйте этот срок заранее — пластиковая carta de condução (водительское) приходит не в первые недели",
   }),
   "Официально: с 21.01.2026 только A Minha Carta de Condução; пошлина 30 € (онлайн ~27 €).",
-  "На практике: после визита выдают временную A4 — ездит только в Португалии, пока нет пластика.",
+  formatPracticeTakeaway({
+    claim:
+      "после визита в balcão IMT выдают временную справку на A4 — ею можно ездить только в Португалии, пока не придёт пластиковая carta de condução",
+  }),
   "Расхождение: перевод «не всегда нужен» vs требование IMT — при расхождении транслитерации лучше tradutor ajuramentado сразу.",
   "Официально (июнь 2026): DL 114/2026 — срок PT прав у не-ЕС может совпадать со сроком ВНЖ (код 794).",
 ];
