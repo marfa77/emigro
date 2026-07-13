@@ -8,7 +8,6 @@ export type SiteNavLink = {
 
 export const HEADER_NAV_LINKS: SiteNavLink[] = [
   { href: "/ru#destinations", labelRu: "Направления", labelEn: "Destinations" },
-  { href: "/ru/ukraine", labelRu: "Украина", labelEn: "Ukraine" },
   { href: "/ru/wizard", labelRu: "Подбор маршрута", labelEn: "Route finder" },
   { href: "/ru/guides", labelRu: "Гайды", labelEn: "Guides" },
   { href: "/ru/news", labelRu: "Новости", labelEn: "News" },
