@@ -272,7 +272,7 @@ export default async function RuHubPage() {
         <section id="destinations" className="mt-14 scroll-mt-20">
           <h2 className="text-2xl font-semibold text-slate-900">Направления</h2>
           <p className="mt-2 max-w-2xl text-slate-600">
-            Клик по плитке — рейтинги коридора · Open — запустить wizard.
+            Клик по плитке — рейтинги коридора · Open — обзор коридора.
           </p>
 
           {fullCorridors.length > 0 && (
