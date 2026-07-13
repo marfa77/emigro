@@ -69,12 +69,30 @@ const bodySections: NoteBodySection[] = [
     bullets: [
       "Hospital de São João (Porto) — крупнейший госпиталь Norte, urgências 24/7, все especialidades; метро IPO/São João.",
       "Hospital Pedro Hispano (Matosinhos) — urgências для побережья; близко Foz/Matosinhos expat-районам.",
-      "Hospital de Braga — главный госпital Braga/Minho interior; urgências и internamento.",
+      "Hospital de Braga — главный госпиталь Braga/Minho interior; urgências и internamento.",
       "Hospital da Senhora da Oliveira (Guimarães) — USF Guimarães направляет сюда сложные случаи.",
       "Hospital de Santa Luzia (Viana do Castelo) — опора Minho litoral; до Porto ~45–60 мин по A28/A3.",
       "CUF Porto — несколько clínicas (Boavista, Gaia, Arrábida); exames, consultas, cirurgia ambulatória.",
       "Hospital Lusíadas Porto — частный hospital с urgências convencionadas; рядом с Hospital da Prelada.",
       "Hospital da Luz Braga / Guimarães — частные urgências и maternidade в Minho.",
+      "Trofa Saúde (Maia, Santo Tirso) — частная сеть с urgências и internamento; популярна у семей в Grande Porto.",
+    ],
+  },
+  {
+    heading: "Госпитализация: от urgências до internamento",
+    section_kind: "practice",
+    paragraphs: [
+      "Пятница, полночь, São João: вы между triagem и результатом анализов и не знаете, оставят на ночь или отпустят домой. Разница centro de saúde / hospital и путь к internamento лучше понять заранее.",
+      "Что делать: при угрозе жизни — 112; при острой боли — SNS24 (808 24 24 24), затем urgências ближайшего hospital; плановую операцию или отделение — только с referenciação от médico de família или especialista SNS.",
+      "Зачем: без utente и referenciação taxa moderadora в urgências выше; «не экстренный» случай — 5+ часов triagem; частный internamento без seguro — €800–2 500/сутки только за палату.",
+      "Главное: на admissão имейте cartão de utente, паспорт, apólice seguro и список лекарств — это ускоряет оформление и снижает copagamento.",
+    ],
+    bullets: [
+      "Centro de saúde — ambulatório: GP, exames, referenciação; hospital urgências — triagem → tratamento или internamento; плановый internamento — com направлением médico de família.",
+      "Referenciação vs emergência: без направления в urgências taxa moderadora ≈ €18–20 (ACSS), но при реальной угрозе не откажут; насморк и лёгкая боль — низкий приоритет triagem.",
+      "Частные CUF, Lusíadas, Trofa Saúde, Hospital da Luz — когда очередь SNS месяцы, нужен parto по договору или семья параллельно едет в частную urgência, не дожидаясь GP.",
+      "Страховка и документы: utente SNS — internamento для residentes с низкой taxa moderadora; Multicare hospitalização — rede convencionada, autorização 24–72 ч на cirurgia; ADSE — только госсектор; туристы EU — EHIC/CESD на экстренное, не заменяет utente. На admissão: cartão de utente, BI/passaporte, título, apólice, alergias; детям — caderneta de vacinas.",
+      "Язык и pediatria/maternidade: госпитальные urgências Norte — в основном португальский; частные — английский на ресепшене; urgência pediátrica — São João, Braga; maternidade — São João, Senhora da Oliveira (Guimarães) или частная Hospital da Luz; регистрация utente — [SNS 2026](/notes/sns-registration-changes-2026), [первый месяц](/notes/pervyj-mesyac-portugaliya-checklist).",
     ],
   },
   {
@@ -142,7 +160,7 @@ const bodySections: NoteBodySection[] = [
 
 const keyTakeaways = [
   "Сегодня: проверьте morada → запишитесь в centro de saúde → сохраните SNS24 808 24 24 24 в телефоне.",
-  "Официально: utente после inscrição в centro de saúde; urgências — Hospital de São João (Porto), Braga, Guimarães, Viana; taxa moderadora по ACSS.",
+  "Официально: utente после inscrição в centro de saúde; urgências → triagem → internamento; referenciação от GP для плановой госпитализации; taxa moderadora по ACSS.",
   "На практике: очереди к especialistas месяцы (lepta, 2025); Multicare 3 для семьи — котировка по idade; стomatologia ≈ €50–90 limpeza.",
   "Расхождение: «SNS бесплатный» — доплаты и почти нет adult dental; ADSE не для expat, только funcionários públicos.",
 ];
@@ -165,6 +183,14 @@ const faq: CommunityNoteFaq[] = [
     a: "Consulta €40–70, limpeza €50–90, plomb €60–120. По правилам SNS детям и льготникам — centro de saúde oral. На практике взрослым импланты и эстетика только privado; Braga на 10–15% дешевле Porto.",
   },
   {
+    q: "Что такое internamento и как попасть в госпиталь SNS?",
+    a: "Internamento — стационар в hospital. По правилам SNS — через urgências после triagem или с referenciação médico de família/especialista. На практике в São João/Braga без utente примут при экстренной угрозе, но taxa выше; cartão de utente ускоряет admissão.",
+  },
+  {
+    q: "Сколько стоит госпитализация в частном hospital Norte?",
+    a: "Палата €800–2 500/сутки без cirurgia; triagem urgências €90–150 + exames отдельно. С Multicare — copagamento по плану после autorização. По правилам SNS resident с utente платит taxa moderadora, не полный счёт за экстренный internamento.",
+  },
+  {
     q: "Multicare и ADSE — это одно и то же?",
     a: "Нет. ADSE — benefício для funcionários públicos (id.gov.pt). Multicare — частный seguro Fidelidade для всех. Expat на D8 ADSE не получает; для семьи смотрят Multicare, Médis или Allianz.",
   },
@@ -180,10 +206,10 @@ export const MEDITSINA_NORTE_HEALTHCARE_GUIDE = {
   content_kind: "guide" as ContentKind,
   title: "Медицина Norte 2026: SNS, частные клиники и стоматология в Порту, Браге и Minho",
   excerpt:
-    "Госпитали São João и Braga, регистрация utente, Multicare vs ADSE, частные CUF/Lusíadas, цены на стomatologia и очереди — практический гайд для релокантов на севере Португалии.",
+    "Госпитализация SNS и частных hospital, São João и Braga, utente, referenciação, Multicare vs ADSE, CUF/Lusíadas/Trofa, стоматология и urgências — практический гайд для релокантов на севере Португалии.",
   seo_title: "Медицина Norte PT 2026 — SNS, стomatologia",
   seo_description:
-    "Гайд по медицине Norte Португалии 2026: SNS utente, Hospital de São João, Braga, Multicare, стomatologia €, urgências и очереди. Porto, Matosinhos, Guimarães, Viana.",
+    "Гайд Norte 2026: SNS utente, госпитализация internamento, urgências São João/Braga, referenciação, Multicare, частные CUF/Lusíadas, стоматология €.",
   quick_answer:
     "Третий день кашля, а врач записывает через три недели — знакомая картина в Norte. Базовая медицина здесь через SNS: centro de saúde по адресу → número de utente → médico de família. Экстренные — urgências в São João или Braga; SNS24 — 808 24 24 24. Стоматология почти всегда частная (€50–90 за чистку).",
   body_sections: bodySections,
