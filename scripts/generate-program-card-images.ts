@@ -29,6 +29,9 @@ const DEFAULT_SLUGS = [
   "portugal-family-reunification",
   "portugal-golden-visa",
   "portugal-student-visa-d4",
+  "spain-digital-nomad",
+  "spain-non-lucrative",
+  "spain-family-reunification",
 ];
 
 type PexelsSearchResponse = {
