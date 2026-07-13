@@ -22,6 +22,8 @@ export const NOTE_LINK_LABELS: Record<string, string> = {
   "porto-vs-braga-semya-mezhdunarodnaya-shkola-2026": "Порту vs Брага",
   "klimat-norte-zhara-vlazhnost-plesen-zima-2026": "климат Norte",
   "kak-otkryt-bankovskiy-schet-portugalia-2026": "открытие счёта",
+  "kupit-kvartiru-portugaliya-norte-2026": "покупка квартиры Norte",
+  "pokupka-zemli-postroyka-doma-norte-portugaliya-2026": "земля и постройка дома",
 };
 
 export function noteLinkLabel(slug: string): string {

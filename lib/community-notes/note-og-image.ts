@@ -80,6 +80,11 @@ const SLUG_PHOTO_QUERIES: Record<string, string[]> = {
     "construction land plot",
     "norte portugal landscape",
   ],
+  "kupit-kvartiru-portugaliya-norte-2026": [
+    "porto apartment building modern",
+    "new apartment construction portugal",
+    "real estate keys apartment",
+  ],
   "klimat-norte-zhara-vlazhnost-plesen-zima-2026": [
     "porto apartment window rain",
     "dehumidifier home interior",
