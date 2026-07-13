@@ -4,374 +4,206 @@ import path from "path";
 /** Landscape card heroes for corridor program tiles (1200×630 WebP). */
 export const PROGRAM_IMAGES_DIR = "public/images/programs";
 
+/** Canonical visa-route image types — one hero per type across all corridors. */
+export type ProgramCardImageType =
+  | "digital-nomad"
+  | "passive-income"
+  | "family-reunification"
+  | "golden-visa"
+  | "student"
+  | "work-permit"
+  | "freelancer"
+  | "startup";
+
 export type ProgramCardImageConfig = {
-  /** Pexels search queries — curated, non-cheesy, country-biased where relevant. */
+  /** Pexels search queries — curated, non-cheesy, type-appropriate. */
   queries: string[];
 };
 
+/** All canonical image types (generation + validation). */
+export const PROGRAM_CARD_IMAGE_TYPES: ProgramCardImageType[] = [
+  "digital-nomad",
+  "passive-income",
+  "family-reunification",
+  "golden-visa",
+  "student",
+  "work-permit",
+  "freelancer",
+  "startup",
+];
+
 /**
- * Single registry of program card heroes keyed by program slug.
- * Used by ProgramRouteCard, image generation, and corridor hubs (all corridors).
+ * Pexels queries keyed by canonical type (not country slug).
+ * Winners picked from PT/ES variants — see commit message for rationale.
  */
-export const PROGRAM_CARD_IMAGES: Record<string, ProgramCardImageConfig> = {
-  // Portugal
-  "portugal-d8-digital-nomad": {
+export const PROGRAM_CARD_IMAGE_CONFIG: Record<ProgramCardImageType, ProgramCardImageConfig> = {
+  "digital-nomad": {
     queries: [
       "laptop coworking lisbon cafe",
       "remote work portugal cafe window",
-      "digital nomad laptop terrace portugal",
+      "digital nomad laptop terrace",
     ],
   },
-  "portugal-d7-passive-income": {
+  "passive-income": {
     queries: [
       "portugal terrace relaxed lifestyle",
-      "portugal balcony sunset cozy",
-      "lisbon apartment terrace morning",
+      "europe balcony sunset cozy",
+      "apartment terrace morning peaceful",
     ],
   },
-  "portugal-family-reunification": {
+  "family-reunification": {
     queries: [
       "family reunion airport warm embrace",
-      "family home portugal living room",
-      "parents children home warm light",
+      "family home warm light",
+      "parents children europe home",
     ],
   },
-  "portugal-golden-visa": {
+  "golden-visa": {
     queries: [
       "investment portfolio financial planning",
-      "lisbon business district modern",
-      "portugal culture museum architecture",
-    ],
-  },
-  "portugal-student-visa-d4": {
-    queries: [
-      "university campus portugal students",
-      "student books library campus europe",
-      "college campus portugal architecture",
-    ],
-  },
-
-  // Spain
-  "spain-digital-nomad": {
-    queries: [
-      "digital nomad laptop valencia cafe",
-      "remote work spain coworking",
-      "laptop beach terrace spain",
-    ],
-  },
-  "spain-non-lucrative": {
-    queries: [
-      "spain terrace relaxed retirement",
-      "valencia balcony peaceful lifestyle",
-      "spain apartment sunny terrace",
-    ],
-  },
-  "spain-family-reunification": {
-    queries: [
-      "family reunion airport spain",
-      "family home spain warm",
-      "parents children europe home",
-    ],
-  },
-  "spain-residence-by-investment": {
-    queries: [
-      "investment portfolio financial spain",
-      "madrid business district modern",
       "financial planning europe capital",
+      "portfolio calculator documents",
     ],
   },
-  "spain-student-visa": {
+  student: {
     queries: [
-      "university campus spain students",
-      "student library madrid campus",
-      "college architecture barcelona students",
+      "university campus students walking",
+      "student books library campus europe",
+      "college campus architecture students",
     ],
   },
-
-  // France
-  "france-talent-salarie": {
+  "work-permit": {
     queries: [
-      "paris office professional work",
-      "french business district modern",
-      "professional workplace paris canal",
+      "modern office professional work",
+      "european workplace coworking",
+      "business district office professional",
     ],
   },
-  "france-vls-ts-visiteur": {
+  freelancer: {
     queries: [
-      "paris terrace relaxed lifestyle",
-      "provence village peaceful lifestyle",
-      "french apartment balcony morning",
+      "freelancer laptop cafe europe",
+      "IT contractor coworking laptop",
+      "self employed cafe laptop work",
     ],
   },
-  "france-family-reunification": {
+  startup: {
     queries: [
-      "family reunion airport france",
-      "family home paris warm light",
-      "parents children europe home",
-    ],
-  },
-  "france-student-visa": {
-    queries: [
-      "sorbonne university paris students",
-      "french university campus library",
-      "student campus france architecture",
-    ],
-  },
-
-  // Italy
-  "italy-digital-nomad": {
-    queries: [
-      "remote work milan cafe laptop",
-      "digital nomad rome coworking",
-      "laptop terrace italy cafe",
-    ],
-  },
-  "italy-elective-residence": {
-    queries: [
-      "italy terrace retirement lifestyle",
-      "tuscan villa peaceful balcony",
-      "italian apartment sunny terrace",
-    ],
-  },
-  "italy-family-reunification": {
-    queries: [
-      "family reunion italy warm",
-      "italian family dinner home",
-      "parents children europe home",
-    ],
-  },
-  "italy-investor-visa": {
-    queries: [
-      "investment portfolio milan finance",
-      "italian startup innovation office",
-      "milan business district modern",
-    ],
-  },
-  "italy-student-visa": {
-    queries: [
-      "university rome campus students",
-      "italian university architecture",
-      "student library campus italy",
-    ],
-  },
-
-  // Germany
-  "germany-eu-blue-card": {
-    queries: [
-      "berlin office professional work",
-      "german workplace modern office",
-      "frankfurt business district",
-    ],
-  },
-  "germany-chancenkarte": {
-    queries: [
-      "berlin young professional career",
-      "job search germany professional",
-      "berlin coworking opportunity",
-    ],
-  },
-  "germany-family-reunification": {
-    queries: [
-      "family reunion germany airport",
-      "family home berlin warm",
-      "parents children europe home",
-    ],
-  },
-  "germany-student-visa": {
-    queries: [
-      "university munich campus students",
-      "german university library students",
-      "student campus germany architecture",
-    ],
-  },
-
-  // Netherlands
-  "netherlands-hsm": {
-    queries: [
-      "amsterdam office canal professional",
-      "dutch workplace modern office",
-      "rotterdam business professional work",
-    ],
-  },
-  "netherlands-startup-facilitator": {
-    queries: [
-      "amsterdam startup office team",
-      "tech startup netherlands innovation",
-      "startup coworking amsterdam",
-    ],
-  },
-  "netherlands-family-reunification": {
-    queries: [
-      "family reunion netherlands warm",
-      "family home amsterdam cozy",
-      "parents children europe home",
-    ],
-  },
-
-  // Scandinavia
-  "sweden-work-permit": {
-    queries: [
-      "stockholm office modern professional",
-      "swedish workplace business district",
-      "stockholm canal office work",
-    ],
-  },
-  "denmark-work-permit": {
-    queries: [
-      "copenhagen office professional work",
-      "danish workplace modern office",
-      "copenhagen canal business district",
-    ],
-  },
-  "nordic-family-reunification": {
-    queries: [
-      "scandinavian family home warm",
-      "family reunion nordic airport",
-      "parents children scandinavia home",
-    ],
-  },
-
-  // Poland
-  "poland-work-permit": {
-    queries: [
-      "warsaw office professional work",
-      "polish workplace modern office",
-      "krakow business office professional",
-    ],
-  },
-  "poland-eu-blue-card": {
-    queries: [
-      "warsaw tech office professional",
-      "polish modern workplace IT",
-      "wroclaw office business district",
-    ],
-  },
-  "poland-b2b-contract": {
-    queries: [
-      "freelancer laptop warsaw cafe",
-      "IT contractor poland coworking",
-      "remote work poland cafe laptop",
-    ],
-  },
-  "poland-family-reunification": {
-    queries: [
-      "family reunion poland warm",
-      "family home warsaw cozy",
-      "parents children europe home",
-    ],
-  },
-  "poland-student-visa": {
-    queries: [
-      "university warsaw campus students",
-      "polish university library students",
-      "student campus krakow architecture",
-    ],
-  },
-
-  // Czechia
-  "czechia-employee-card": {
-    queries: [
-      "prague office professional work",
-      "czech workplace modern office",
-      "prague business district professional",
-    ],
-  },
-  "czechia-eu-blue-card": {
-    queries: [
-      "prague tech office professional",
-      "brno modern workplace office",
-      "czech business district IT work",
-    ],
-  },
-  "czechia-zivnost-freelancer": {
-    queries: [
-      "freelancer laptop prague cafe",
-      "IT freelancer prague coworking",
-      "remote work prague cafe laptop",
-    ],
-  },
-  "czechia-family-reunification": {
-    queries: [
-      "family reunion prague warm",
-      "family home czech cozy",
-      "parents children europe home",
-    ],
-  },
-  "czechia-student-visa": {
-    queries: [
-      "charles university prague students",
-      "czech university campus library",
-      "student campus prague architecture",
-    ],
-  },
-
-  // Austria
-  "austria-rwr-card": {
-    queries: [
-      "vienna office professional work",
-      "austrian workplace modern office",
-      "vienna business district professional",
-    ],
-  },
-  "austria-eu-blue-card": {
-    queries: [
-      "vienna tech office professional",
-      "graz modern workplace office",
-      "austrian qualified work office",
-    ],
-  },
-  "austria-freelancer-self-employed": {
-    queries: [
-      "freelancer laptop vienna cafe",
-      "self employed vienna coworking",
-      "creative freelancer vienna workspace",
-    ],
-  },
-  "austria-family-reunification": {
-    queries: [
-      "family reunion vienna warm",
-      "family home austria cozy",
-      "parents children europe home",
-    ],
-  },
-  "austria-student-visa": {
-    queries: [
-      "university vienna campus students",
-      "austrian university architecture",
-      "student library vienna campus",
+      "startup office team laptop",
+      "tech startup innovation office",
+      "startup coworking young founders",
     ],
   },
 };
 
-/** All program slugs with configured card images (generation + validation). */
-export const PROGRAM_CARD_IMAGE_SLUGS = Object.keys(PROGRAM_CARD_IMAGES);
+/**
+ * Maps every program slug → canonical image type.
+ * Same type always resolves to the same `/images/programs/{type}.webp`.
+ */
+export const PROGRAM_SLUG_TO_IMAGE_TYPE: Record<string, ProgramCardImageType> = {
+  // Portugal
+  "portugal-d8-digital-nomad": "digital-nomad",
+  "portugal-d7-passive-income": "passive-income",
+  "portugal-family-reunification": "family-reunification",
+  "portugal-golden-visa": "golden-visa",
+  "portugal-student-visa-d4": "student",
 
-/** @deprecated Use PROGRAM_CARD_IMAGES[slug].queries — kept for generate script compatibility. */
-export const PROGRAM_PHOTO_QUERIES: Record<string, string[]> = Object.fromEntries(
-  Object.entries(PROGRAM_CARD_IMAGES).map(([slug, cfg]) => [slug, cfg.queries])
+  // Spain
+  "spain-digital-nomad": "digital-nomad",
+  "spain-non-lucrative": "passive-income",
+  "spain-family-reunification": "family-reunification",
+  "spain-residence-by-investment": "golden-visa",
+  "spain-student-visa": "student",
+
+  // France
+  "france-talent-salarie": "work-permit",
+  "france-vls-ts-visiteur": "passive-income",
+  "france-family-reunification": "family-reunification",
+  "france-student-visa": "student",
+
+  // Italy
+  "italy-digital-nomad": "digital-nomad",
+  "italy-elective-residence": "passive-income",
+  "italy-family-reunification": "family-reunification",
+  "italy-investor-visa": "golden-visa",
+  "italy-student-visa": "student",
+
+  // Germany
+  "germany-eu-blue-card": "work-permit",
+  "germany-chancenkarte": "work-permit",
+  "germany-family-reunification": "family-reunification",
+  "germany-student-visa": "student",
+
+  // Netherlands
+  "netherlands-hsm": "work-permit",
+  "netherlands-startup-facilitator": "startup",
+  "netherlands-family-reunification": "family-reunification",
+
+  // Scandinavia
+  "sweden-work-permit": "work-permit",
+  "denmark-work-permit": "work-permit",
+  "nordic-family-reunification": "family-reunification",
+
+  // Poland
+  "poland-work-permit": "work-permit",
+  "poland-eu-blue-card": "work-permit",
+  "poland-b2b-contract": "freelancer",
+  "poland-family-reunification": "family-reunification",
+  "poland-student-visa": "student",
+
+  // Czechia
+  "czechia-employee-card": "work-permit",
+  "czechia-eu-blue-card": "work-permit",
+  "czechia-zivnost-freelancer": "freelancer",
+  "czechia-family-reunification": "family-reunification",
+  "czechia-student-visa": "student",
+
+  // Austria
+  "austria-rwr-card": "work-permit",
+  "austria-eu-blue-card": "work-permit",
+  "austria-freelancer-self-employed": "freelancer",
+  "austria-family-reunification": "family-reunification",
+  "austria-student-visa": "student",
+};
+
+/** @deprecated Use PROGRAM_SLUG_TO_IMAGE_TYPE — kept for scripts that list slugs. */
+export const PROGRAM_CARD_IMAGE_SLUGS = Object.keys(PROGRAM_SLUG_TO_IMAGE_TYPE);
+
+/** @deprecated Use PROGRAM_CARD_IMAGE_CONFIG[type].queries */
+export const PROGRAM_CARD_IMAGES: Record<string, ProgramCardImageConfig> = Object.fromEntries(
+  Object.entries(PROGRAM_SLUG_TO_IMAGE_TYPE).map(([slug, type]) => [slug, PROGRAM_CARD_IMAGE_CONFIG[type]])
 );
 
-export function programCardImagePublicPath(slug: string): string {
-  return `/images/programs/${slug}.webp`;
+/** @deprecated Use PROGRAM_CARD_IMAGE_CONFIG[type].queries */
+export const PROGRAM_PHOTO_QUERIES: Record<string, string[]> = Object.fromEntries(
+  Object.entries(PROGRAM_SLUG_TO_IMAGE_TYPE).map(([slug, type]) => [slug, PROGRAM_CARD_IMAGE_CONFIG[type].queries])
+);
+
+export function getProgramCardImageType(slug: string): ProgramCardImageType | null {
+  return PROGRAM_SLUG_TO_IMAGE_TYPE[slug] ?? null;
 }
 
-export function programCardImageFilePath(slug: string): string {
-  return path.join(process.cwd(), PROGRAM_IMAGES_DIR, `${slug}.webp`);
+export function programCardImagePublicPath(type: ProgramCardImageType): string {
+  return `/images/programs/${type}.webp`;
 }
 
-export function hasProgramCardImage(slug: string): boolean {
+export function programCardImageFilePath(type: ProgramCardImageType): string {
+  return path.join(process.cwd(), PROGRAM_IMAGES_DIR, `${type}.webp`);
+}
+
+export function hasProgramCardImage(type: ProgramCardImageType): boolean {
   try {
-    const file = programCardImageFilePath(slug);
+    const file = programCardImageFilePath(type);
     return fs.existsSync(file) && fs.statSync(file).size >= 15_000;
   } catch {
     return false;
   }
 }
 
-/** Resolved hero for a program card — committed WebP or country corridor fallback. */
+/** Resolved hero for a program card — canonical type WebP or country corridor fallback. */
 export function getProgramCardImage(slug: string, countrySegment?: string): string {
-  if (hasProgramCardImage(slug)) {
-    return programCardImagePublicPath(slug);
+  const type = getProgramCardImageType(slug);
+  if (type && hasProgramCardImage(type)) {
+    return programCardImagePublicPath(type);
   }
   if (countrySegment) {
     const corridor = `/images/corridor-${countrySegment}.webp`;

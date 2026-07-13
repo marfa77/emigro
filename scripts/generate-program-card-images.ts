@@ -1,8 +1,9 @@
 /**
  * Generates 1200×630 WebP heroes for corridor program cards (Pexels Photos API).
+ * One image per canonical visa TYPE — shared across all country slugs of that type.
  *
  *   npm run programs:card-images
- *   npm run programs:card-images -- portugal-d8-digital-nomad
+ *   npm run programs:card-images -- digital-nomad
  *   npm run programs:card-images -- --force
  */
 import dotenv from "dotenv";
@@ -14,11 +15,12 @@ import sharp from "sharp";
 dotenv.config({ path: resolve(process.cwd(), ".env.local") });
 
 import {
-  PROGRAM_CARD_IMAGE_SLUGS,
-  PROGRAM_CARD_IMAGES,
+  PROGRAM_CARD_IMAGE_CONFIG,
+  PROGRAM_CARD_IMAGE_TYPES,
   PROGRAM_IMAGES_DIR,
   programCardImageFilePath,
   programCardImagePublicPath,
+  type ProgramCardImageType,
 } from "@/lib/corridor/program-images";
 
 const PEXELS_API = "https://api.pexels.com/v1/search";
@@ -62,16 +64,16 @@ async function photoUrlToWebpBuffer(url: string): Promise<Buffer> {
   return sharp(input).resize(1200, 630, { fit: "cover", position: "center" }).webp({ quality: 82 }).toBuffer();
 }
 
-async function ensureProgramCardImage(slug: string, force = false): Promise<boolean> {
-  const dest = programCardImageFilePath(slug);
+async function ensureProgramCardImage(type: ProgramCardImageType, force = false): Promise<boolean> {
+  const dest = programCardImageFilePath(type);
   if (!force && fs.existsSync(dest) && fs.statSync(dest).size >= MIN_WEBP_BYTES) {
-    console.log(`[program-card] ${slug}: exists`);
+    console.log(`[program-card] ${type}: exists`);
     return false;
   }
 
-  const queries = PROGRAM_CARD_IMAGES[slug]?.queries;
+  const queries = PROGRAM_CARD_IMAGE_CONFIG[type]?.queries;
   if (!queries?.length) {
-    console.warn(`[program-card] ${slug}: no queries defined`);
+    console.warn(`[program-card] ${type}: no queries defined`);
     return false;
   }
 
@@ -83,23 +85,30 @@ async function ensureProgramCardImage(slug: string, force = false): Promise<bool
       if (webp.length < MIN_WEBP_BYTES) continue;
       fs.mkdirSync(path.join(process.cwd(), PROGRAM_IMAGES_DIR), { recursive: true });
       fs.writeFileSync(dest, webp);
-      console.log(`[program-card] ${slug}: saved from "${query}" → ${programCardImagePublicPath(slug)}`);
+      console.log(`[program-card] ${type}: saved from "${query}" → ${programCardImagePublicPath(type)}`);
       await new Promise((r) => setTimeout(r, 350));
       return true;
     } catch (error) {
-      console.warn(`[program-card] ${slug}: error for "${query}":`, error instanceof Error ? error.message : error);
+      console.warn(`[program-card] ${type}: error for "${query}":`, error instanceof Error ? error.message : error);
     }
   }
 
-  console.warn(`[program-card] ${slug}: no photo found`);
+  console.warn(`[program-card] ${type}: no photo found`);
   return false;
 }
 
 async function main() {
   const args = process.argv.slice(2);
   const force = args.includes("--force");
-  const slugs = args.filter((a) => !a.startsWith("--"));
-  const targets = slugs.length > 0 ? slugs : PROGRAM_CARD_IMAGE_SLUGS;
+  const typeArgs = args.filter((a) => !a.startsWith("--")) as ProgramCardImageType[];
+  const invalid = typeArgs.filter((t) => !PROGRAM_CARD_IMAGE_TYPES.includes(t));
+  if (invalid.length) {
+    console.error(`[program-card] unknown types: ${invalid.join(", ")}`);
+    console.error(`[program-card] valid: ${PROGRAM_CARD_IMAGE_TYPES.join(", ")}`);
+    process.exit(1);
+  }
+
+  const targets = typeArgs.length > 0 ? typeArgs : PROGRAM_CARD_IMAGE_TYPES;
 
   if (!process.env.PEXELS_API_KEY?.trim()) {
     console.error("[program-card] PEXELS_API_KEY missing in .env.local");
@@ -107,8 +116,8 @@ async function main() {
   }
 
   let generated = 0;
-  for (const slug of targets) {
-    if (await ensureProgramCardImage(slug, force)) generated++;
+  for (const type of targets) {
+    if (await ensureProgramCardImage(type, force)) generated++;
   }
 
   console.log(`[program-card] done — ${generated}/${targets.length} generated`);
