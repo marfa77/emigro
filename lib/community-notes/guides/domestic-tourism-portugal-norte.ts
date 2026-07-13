@@ -3,6 +3,7 @@ import { flattenBodySections } from "@/lib/community-notes/editorial-quality";
 import { glossaryForSlug } from "@/lib/community-notes/editorial-glossaries";
 import { buildGlossarySection } from "@/lib/community-notes/glossary";
 import { buildNoteHashtags } from "@/lib/community-notes/hashtags";
+import { formatPracticeTakeaway } from "@/lib/community-notes/practice-format";
 import { CAR_PORTUGAL_GUIDE_SLUG } from "@/lib/community-notes/guides/car-portugal-buy-rent-import";
 import { MEDITSINA_NORTE_HEALTHCARE_SLUG } from "@/lib/community-notes/guides/meditsina-norte-healthcare";
 import { PORTO_VS_BRAGA_FAMILY_SCHOOLS_SLUG } from "@/lib/community-notes/guides/porto-vs-braga-family-schools";
@@ -157,7 +158,13 @@ const bodySections: NoteBodySection[] = [
 
 const keyTakeaways = [
   "Официально: внутренний туризм PT — CP, parques naturais (ICNF), monumentos (DGPC); residente-льготы отдельно от туристических тарифов.",
-  "На практике (@chatlisboa): из Porto на выходные — Minho, Douro, Gerês, Aveiro/Coimbra; юг и острова — 3–5 дней off-season.",
+  formatPracticeTakeaway({
+    channels: ["chatlisboa"],
+    period: "2025–2026",
+    claim:
+      "из Porto на выходные чаще ездят в Minho, Douro, Gerês, Aveiro или Coimbra — это 1–2 дня на дорогу",
+    forReader: "юг Португалии и острова (Madeira, Azores) закладывайте отдельно на 3–5 дней и лучше вне августа — меньше толп и жары",
+  }),
   "Транспорт: машина + Via Verde для гибкости; CP/FlixBus для бюджета; Ryanair OPO–FAR/LIS для дальних маршрутов.",
   "Расхождение: расписание CP и «pet friendly» на Booking часто не совпадают с реальностью — проверяйте greves и пишите хозяину quinta заранее.",
 ];

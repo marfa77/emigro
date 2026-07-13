@@ -3,6 +3,7 @@ import { flattenBodySections } from "@/lib/community-notes/editorial-quality";
 import { glossaryForSlug } from "@/lib/community-notes/editorial-glossaries";
 import { buildGlossarySection } from "@/lib/community-notes/glossary";
 import { buildNoteHashtags } from "@/lib/community-notes/hashtags";
+import { formatPracticeTakeaway } from "@/lib/community-notes/practice-format";
 import type { CommunityNoteFaq, ContentKind, NoteBodySection } from "@/lib/community-notes/types";
 
 export const DRIVING_LICENSE_GUIDE_SLUG = "zamena-voditelskih-prav-portugaliya-2026";
@@ -130,7 +131,13 @@ const bodySections: NoteBodySection[] = [
 
 const keyTakeaways = [
   "Официально: после ВНЖ — до 90 дней езды на иностранных правах при условии поданной troca в IMT.",
-  "На практике (@autolife_pt): закладывайте 2–3 месяца — медосмотр, authenticity в консульстве, Em Análise ~2 недели, потом запись в balcão.",
+  formatPracticeTakeaway({
+    channels: ["autolife_pt"],
+    period: "2025–2026",
+    claim:
+      "полный обмен иностранных прав занимает примерно 2–3 месяца — от медосмотра и authenticity (заверения) в консульстве до статуса Em Análise (~2 недели) и записи в balcão IMT",
+    forReader: "планируйте этот срок заранее — пластиковая carta de condução (водительское) приходит не в первые недели",
+  }),
   "Официально: с 21.01.2026 только A Minha Carta de Condução; пошлина 30 € (онлайн ~27 €).",
   "На практике: после визита выдают временную A4 — ездит только в Португалии, пока нет пластика.",
   "Расхождение: перевод «не всегда нужен» vs требование IMT — при расхождении транслитерации лучше tradutor ajuramentado сразу.",

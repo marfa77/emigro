@@ -9,6 +9,7 @@ import { flattenBodySections } from "@/lib/community-notes/editorial-quality";
 import { glossaryForSlug } from "@/lib/community-notes/editorial-glossaries";
 import { buildGlossarySection } from "@/lib/community-notes/glossary";
 import { buildNoteHashtags } from "@/lib/community-notes/hashtags";
+import { formatPracticeTakeaway } from "@/lib/community-notes/practice-format";
 import type { CommunityNoteFaq, ContentKind, NoteBodySection } from "@/lib/community-notes/types";
 
 export const MEDITSINA_NORTE_HEALTHCARE_SLUG = "meditsina-norte-sns-chastnaya-stomatologiya-2026";
@@ -161,7 +162,14 @@ const bodySections: NoteBodySection[] = [
 const keyTakeaways = [
   "Сегодня: проверьте morada → запишитесь в centro de saúde → сохраните SNS24 808 24 24 24 в телефоне.",
   "Официально: utente после inscrição в centro de saúde; urgências → triagem → internamento; referenciação от GP для плановой госпитализации; taxa moderadora по ACSS.",
-  "На практике: очереди к especialistas месяцы (lepta, 2025); Multicare 3 для семьи — котировка по idade; стomatologia ≈ €50–90 limpeza.",
+  formatPracticeTakeaway({
+    channels: ["lepta", "chatlisboa"],
+    period: "2025–2026",
+    claim:
+      "очередь к especialistas (узким врачам) через SNS часто занимает месяцы, а частная страховка Multicare 3 для семьи сильно зависит от возраста (idade) — цену нужно запрашивать индивидуально",
+    forReader:
+      "заложите simulação у 2–3 посредников до отказа от частной клиники; стоматология (зубы) для взрослых в SNS почти не покрывается — чистка (limpeza) в частной клинике ≈ €50–90",
+  }),
   "Расхождение: «SNS бесплатный» — доплаты и почти нет adult dental; ADSE не для expat, только funcionários públicos.",
 ];
 

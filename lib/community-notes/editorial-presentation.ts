@@ -4,6 +4,7 @@
  */
 import type { CommunityNoteFaq, ContentKind, NoteBodySection } from "@/lib/community-notes/types";
 import { isGlossarySection } from "@/lib/community-notes/glossary";
+import { isTelegraphicPractice, PRACTICE_BLOCK_FORMAT_RULES } from "@/lib/community-notes/practice-format";
 
 export const PRESENTATION_LIMITS = {
   quickAnswerSentences: { min: 2, max: 3 },
@@ -168,6 +169,16 @@ export function validateEditorialPresentation(input: PresentationDraftInput): Pr
     score -= 8;
   }
 
+  for (const takeaway of input.key_takeaways) {
+    if (/^На практике:/i.test(takeaway) && isTelegraphicPractice(takeaway)) {
+      warnings.push(
+        "presentation: key_takeaways «На практике» reads telegraphic — use full sentences with reader impact (see PRACTICE_BLOCK_FORMAT_RULES)"
+      );
+      score -= 8;
+      break;
+    }
+  }
+
   for (const section of input.body_sections) {
     if (isGlossarySection(section)) {
       const terms = section.bullets?.length ?? 0;
@@ -204,6 +215,13 @@ export function validateEditorialPresentation(input: PresentationDraftInput): Pr
       if (countLines(bullet) > PRESENTATION_LIMITS.bulletLinesMax) {
         warnings.push(`presentation: bullet too long in «${section.heading}» (max ${PRESENTATION_LIMITS.bulletLinesMax} lines)`);
         score -= 2;
+        break;
+      }
+      if (section.section_kind === "practice" && isTelegraphicPractice(bullet)) {
+        warnings.push(
+          `presentation: «${section.heading}» practice bullet is telegraphic — explain what it means for the reader`
+        );
+        score -= 4;
         break;
       }
       if (CHANNEL_ATTRIB_RE.test(bullet)) {
@@ -284,6 +302,9 @@ export const EDITORIAL_PRESENTATION_RULES = `
 
 2. key_takeaways («Что решить сегодня») — максимум 4 пункта, глагол действия, без дубля body.
    Минимум 2 с «Официально:» / «На практике:» / «Расхождение:».
+   «На практике:» — 1–3 полных предложения: что происходит + что это значит для читателя; без цепочек через «;».
+
+${PRACTICE_BLOCK_FORMAT_RULES}
 
 3. «Словарь» — literary intro («Слова, которые услышите в balcão…»); максимум 8 терминов из текста ниже.
 
@@ -295,7 +316,8 @@ export const EDITORIAL_PRESENTATION_RULES = `
    Или section_kind "action_guide" / heading «Пошагово для новичка».
 
 5. Bullets — максимум 2 строки. Формат: глагол + **суть** — пояснение; PT-термин в скобках при первом use.
-   Без @username и «(lepta, 2025-08)» — вплетайте смысл в текст.
+   Practice bullets: одна мысль, без «;»-списков; атрибуция чата — «Участники @channel писали, что…».
+   Без @username в скобках и «(lepta, 2025-08)» — вплетайте смысл в текст.
 
 6. gap — «что пишут в чатах / что на сайте / что на деле», не абстрактно.
 
@@ -312,9 +334,11 @@ export const EDITORIAL_PRESENTATION_RULES = `
 export const PRESENTATION_REWRITE_HINT = `
 ПЕРЕПИСЫВАНИЕ ПОДАЧИ (сохрани все факты, цифры, органы, ссылки):
 - Сожми quick_answer до 2–3 предложений простым русским.
-- key_takeaways: максимум 4, action-oriented.
+- key_takeaways: максимум 4, action-oriented; «На практике:» — полные предложения, не «;»-списки.
 - В каждой секции: «Что делать» + «Зачем» в lead; bullets = «Как» с глаголами; ≤5 bullets, ≤2 строки.
 - PT-термины: в словаре (≤10) или inline (расшифровка) при первом упоминании.
 - gap: «чат vs сайт»; faq: ответ с да/нет/цифры в начале.
 - Перелинковка: [читаемый текст](/notes/slug), не голый /notes/slug.
 Не удаляй факты и practice-цитаты — только улучши читаемость.`.trim();
+
+export { PRACTICE_BLOCK_FORMAT_RULES } from "@/lib/community-notes/practice-format";

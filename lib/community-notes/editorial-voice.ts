@@ -7,6 +7,7 @@ import {
 } from "@/lib/community-notes/editorial-presentation";
 import { SNS_UTENTE_EDITORIAL_RULES } from "@/lib/community-notes/sns-editorial";
 import { OFFICIAL_VS_PRACTICE_RULES } from "@/lib/community-notes/official-vs-practice";
+import { PRACTICE_BLOCK_FORMAT_RULES } from "@/lib/community-notes/practice-format";
 
 /**
  * «Опытный релокант за кофе» — Portugal editorial voice.
@@ -48,7 +49,7 @@ export const voiceExamples = {
 export const VOICE_REWRITE_HINT = `
 ПЕРЕПИСЫВАНИЕ ГОЛОСОМ «Опытный релокант за кофе» (сохрани ВСЕ факты, цифры, органы, official_links, practice-данные):
 - quick_answer: микросцена-хук + 2 факта; 2–3 предложения; первая фраза — простой русский без жаргона.
-- key_takeaways: максимум 4, action-oriented, минимум 2 с «Официально:» / «На практике:» / «Расхождение:».
+- key_takeaways: максимум 4, action-oriented, минимум 2 с «Официально:» / «На практике:» / «Расхождение:»; «На практике» — полные предложения, не «;»-списки.
 - Каждая секция: lead «зачем вам это сейчас»; «Что делать» + «Зачем»; bullets ≤5 с глаголом; финал «Главное: …».
 - Словарь: literary intro (не шаблонный канцелярит); ≤8 терминов.
 - Убери @username, «(lepta, 2025-08)» и подобное — вплети смысл в текст.
@@ -97,7 +98,7 @@ ${EDITORIAL_ACTION_GUIDE_RULES}
 
 ${OFFICIAL_VS_PRACTICE_RULES}
 
-${BLUEPRINT_STRUCTURE_RULES}
+${PRACTICE_BLOCK_FORMAT_RULES}
 
 ${EDITORIAL_PRESENTATION_RULES}
 

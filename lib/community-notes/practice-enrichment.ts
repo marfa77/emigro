@@ -4,6 +4,13 @@ import {
   bootstrapOfficialPracticeCopy,
   validateOfficialPracticeCopy,
 } from "@/lib/community-notes/official-vs-practice";
+import {
+  applyPracticeFormatToDraft,
+  formatPracticeBullet,
+  formatPracticeTakeaway,
+  improvePracticeText,
+  isTelegraphicPractice,
+} from "@/lib/community-notes/practice-format";
 import { filterRelocantSignals } from "@/lib/satellite/portugal";
 import type {
   CommunityNote,
@@ -161,7 +168,7 @@ export function extractPracticeBullets(
 
       let bullet = sentence;
       if (/^[-•]\s/.test(bullet)) bullet = bullet.replace(/^[-•]\s*/, "");
-      bullets.push(bullet.charAt(0).toUpperCase() + bullet.slice(1));
+      bullets.push(improvePracticeText(bullet.charAt(0).toUpperCase() + bullet.slice(1)));
       if (bullets.length >= limit) return bullets;
     }
   }
@@ -178,10 +185,29 @@ export const CURATED_PRACTICE: Record<string, string[]> = {
     "Слоты Agora по-прежнему «ловят» ночью/рано утром; мониторинг в несколько браузеров + уведомления — типичная стратегия, официального расписания релиза нет.",
   ],
   "prodlenie-vnzh-portugaliya-aima-2026": [
-    "portal-renovacoes.aima.gov.pt (2026): registo → validação AT/SS → DUC за 24 ч → upload PDF; доступ поэтапно по mês caducidade — следите aima.gov.pt.",
-    "Taxas AIMA обновлены 01.03.2026: renovação trabalho/estudo/reagrupamento — €99,80/acto по comunicado; D7/D8 — своя строка tabela, не суммы из чатов 2024.",
-    "services.aima.gov.pt: просроченные títulos — только после e-mail Estrutura de Missão; без письма форма недоступна (@chatlisboa, 2025–2026).",
-    "Ожидание deferimento онлайн-renovação: участники @chatlisboa и @por_tugal сообщали 30–90 дней в 2025–2026 — не гарантия, consulta advogado.",
+    formatPracticeBullet({
+      claim:
+        "portal-renovacoes.aima.gov.pt (портал продления) открывают поэтапно — по месяцу истечения карты (mês caducidade); следите за новостями на aima.gov.pt, а не за слухами в чате",
+      forReader: "заранее соберите PDF-папку, чтобы не потерять недели, когда откроется ваш месяц",
+    }),
+    formatPracticeBullet({
+      claim: "с 1 марта 2026 AIMA обновила пошлины (taxas): renovação по trabalho/estudo/reagrupamento — €99,80 за acto по comunicado",
+      forReader: "сверяйте сумму в DUC на портале, а не по пересказам из чатов 2024 года",
+    }),
+    formatPracticeBullet({
+      channels: ["chatlisboa"],
+      period: "2025–2026",
+      claim:
+        "если карта уже просрочена, портал services.aima.gov.pt (сервис для caducados) не открывают сразу — ссылку и доступ присылают только после письма от AIMA (Estrutura de Missão) с инструкцией оплатить пошлину",
+      forReader: "без e-mail от AIMA форма недоступна — не тратьте время на поиск кнопки на сайте",
+    }),
+    formatPracticeBullet({
+      channels: ["chatlisboa", "por_tugal"],
+      period: "2025–2026",
+      claim:
+        "от загрузки документов на portal-renovacoes до решения (deferimento) по онлайн-renovação часто проходит 30–90 дней",
+      forReader: "это не гарантия срока — закладывайте запас и держите comprovativo pedido renovação при себе",
+    }),
   ],
   "arenda-lissabon-do-podpisi": [
     "Замкнутый круг в чатах: для аренды нужен местный IBAN/банк, для банка — адрес; выход — посредник по NIF, Termo у знакомого или краткосрочная бронь с регистрацией.",
@@ -263,7 +289,9 @@ export function mergePracticeBullets(
       .flatMap((s) => s.bullets ?? [])
       .map((b) => b.toLowerCase().slice(0, 60))
   );
-  const toAdd = newBullets.filter((b) => !existing.has(b.toLowerCase().slice(0, 60)));
+  const toAdd = newBullets
+    .map((b) => improvePracticeText(b))
+    .filter((b) => !existing.has(b.toLowerCase().slice(0, 60)));
   if (toAdd.length === 0) return sections;
 
   let practiceIdx = sections.findIndex((s) => s.section_kind === "practice");
@@ -293,15 +321,19 @@ export function enrichTakeaways(
   takeaways: string[],
   newBullets: string[]
 ): string[] {
-  const practiceItems = takeaways.filter((t) => /^На практике:/i.test(t));
+  const practiceItems = takeaways
+    .filter((t) => /^На практике:/i.test(t))
+    .map((t) => (isTelegraphicPractice(t) ? formatPracticeTakeaway(t) : t));
   const others = takeaways.filter((t) => !/^На практике:/i.test(t));
   const existingPractice = practiceItems.map((t) => t.replace(/^На практике:\s*/i, "").toLowerCase());
 
   const additions: string[] = [];
   for (const bullet of newBullets.slice(0, 3)) {
-    const short = bullet.length > 200 ? `${bullet.slice(0, 197)}…` : bullet;
-    if (!existingPractice.some((e) => e.includes(short.toLowerCase().slice(0, 40)))) {
-      additions.push(`На практике: ${short}`);
+    const short = bullet.length > 280 ? `${bullet.slice(0, 277)}…` : bullet;
+    const formatted = formatPracticeTakeaway(short);
+    const body = formatted.replace(/^На практике:\s*/i, "").toLowerCase();
+    if (!existingPractice.some((e) => e.includes(body.slice(0, 40)))) {
+      additions.push(formatted);
     }
   }
 
@@ -315,16 +347,21 @@ export function applyPracticeEnrichment(
   note: Pick<CommunityNote, "slug" | "body_sections" | "key_takeaways">,
   bullets: string[]
 ): { body_sections: NoteBodySection[]; key_takeaways: string[]; body_paragraphs: string[]; added: number } {
-  const curated = CURATED_PRACTICE[note.slug] ?? [];
-  const allBullets = [...curated, ...bullets];
-  const body_sections = mergePracticeBullets(note.body_sections, allBullets);
+  const curated = (CURATED_PRACTICE[note.slug] ?? []).map((b) => improvePracticeText(b));
+  const allBullets = [...curated, ...bullets.map((b) => improvePracticeText(b))];
+  const formatted = applyPracticeFormatToDraft({
+    key_takeaways: note.key_takeaways,
+    body_sections: note.body_sections,
+  });
+  const body_sections = mergePracticeBullets(formatted.body_sections, allBullets);
   const before = note.body_sections.flatMap((s) => s.bullets ?? []).length;
   const after = body_sections.flatMap((s) => s.bullets ?? []).length;
-  const key_takeaways = enrichTakeaways(note.key_takeaways, allBullets);
+  const key_takeaways = enrichTakeaways(formatted.key_takeaways, allBullets);
+  const finalFormatted = applyPracticeFormatToDraft({ key_takeaways, body_sections });
   return {
-    body_sections,
-    key_takeaways,
-    body_paragraphs: flattenBodySections(body_sections),
+    body_sections: finalFormatted.body_sections,
+    key_takeaways: finalFormatted.key_takeaways,
+    body_paragraphs: flattenBodySections(finalFormatted.body_sections),
     added: after - before,
   };
 }

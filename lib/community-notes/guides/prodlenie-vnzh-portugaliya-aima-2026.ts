@@ -6,6 +6,7 @@ import { flattenBodySections } from "@/lib/community-notes/editorial-quality";
 import { glossaryForSlug } from "@/lib/community-notes/editorial-glossaries";
 import { buildGlossarySection } from "@/lib/community-notes/glossary";
 import { buildNoteHashtags } from "@/lib/community-notes/hashtags";
+import { formatPracticeBullet, formatPracticeTakeaway } from "@/lib/community-notes/practice-format";
 import type { CommunityNoteFaq, ContentKind, NoteBodySection } from "@/lib/community-notes/types";
 
 export const VNJ_RENEWAL_SLUG = "prodlenie-vnzh-portugaliya-aima-2026";
@@ -71,7 +72,7 @@ const bodySections: NoteBodySection[] = [
     bullets: [
       "portal-renovacoes.aima.gov.pt: registo → validação AT/SS → «Criar pedido» → DUC оплатить за **24 ч** → upload PDF → recibo pedido renovação.",
       "agora.imigrante.pt: слот на presencial, если portal направил или основание требует balcão — см. [запись в AIMA](/notes/aima-agora-zapis-2026).",
-      "services.aima.gov.pt: **только** после e-mail Estrutura de Missão с instruцией оплатить taxa — без письма форма недоступна (@chatlisboa, 2025–2026).",
+      "services.aima.gov.pt (сервис для просроченных карт): форма продления открывается только после e-mail от AIMA (Estrutura de Missão) с инструкцией оплатить пошлину — без письма кнопки на сайте нет.",
       "Не смешивайте первичную biometriю после визы D и renovação — разные filas в чатах, одинаково нервные слоты Agora.",
       "Сохраняйте comprovativo agendamento и recibo renovação — банк и аренда принимают как proof of legal stay.",
     ],
@@ -118,10 +119,22 @@ const bodySections: NoteBodySection[] = [
       "Главное: цифры ниже — **не гарантия**, а диапазоны из чатов; ваш advogado даст прогноз по processo.",
     ],
     bullets: [
-      "В @chatlisboa и @por_tugal (2025–2026) участники сообщали **30–90 дней** от upload документов до deferimento онлайн-renovação.",
-      "Norte (Porto, Braga): часть кейсов получала cartão по correio на morada без второго визита; presencial — если portal запросил.",
-      "Слот Agora для renovação presencial — те же «ночные» стратегии, что при первичной записи — см. [Agora](/notes/aima-agora-zapis-2026).",
-      "LIS аэропорт: держателям ВНЖ выделили отдельную линию паспортного контроля — comprovativo pedido renovação + старый título (@chatlisboa, 2026).",
+      formatPracticeBullet({
+        channels: ["chatlisboa", "por_tugal"],
+        period: "2025–2026",
+        claim:
+          "от загрузки документов на portal-renovacoes до решения (deferimento) по онлайн-renovação часто проходит 30–90 дней",
+        forReader: "закладывайте 1–3 месяца без пластика и держите comprovativo pedido renovação при себе",
+      }),
+      "В Norte (Porto, Braga) часть кейсов получала cartão de residência (карту ВНЖ) по correio на morada без второго визита; presencial — если portal запросил.",
+      "Слот Agora (запись на личный визит) для renovação presencial разбирают так же быстро, как при первичной записи — см. [Agora](/notes/aima-agora-zapis-2026).",
+      formatPracticeBullet({
+        channels: ["chatlisboa"],
+        period: "2026",
+        claim:
+          "в аэропорту LIS держателям ВНЖ выделили отдельную линию паспортного контроля",
+        forReader: "на границе покажите comprovativo pedido renovação и старый título — это не гарантия прохода, но снижает риск вопросов",
+      }),
       "Не планируйте дальний выезд за день до expiry без consulta юриста — EES и авиакомпании смотрят на документы строго.",
     ],
   },
@@ -135,7 +148,13 @@ const bodySections: NoteBodySection[] = [
     ],
     bullets: [
       "Обновите morada на portaldasfinancas.gov.pt и в AIMA **до** «Criar pedido» — см. [смена адреса NIF](/notes/smena-adresa-nif-financas-2026).",
-      "Termo de responsabilidade без contrato registo — риск для AIMA в 2026 (@chatlisboa); безопаснее Atestado Junta.",
+      formatPracticeBullet({
+        channels: ["chatlisboa"],
+        period: "2026",
+        claim:
+          "Termo de responsabilidade (заявление о проживании у друга) без зарегистрированного contrato de arrendamento (договора аренды) AIMA может не принять",
+        forReader: "безопаснее Atestado de Residência из Junta de Freguesia (парафии)",
+      }),
       "Начинайте agendamento consulado за **6–9 мес.** до expiry passaporte — параллельно с renovação ВНЖ.",
       "Первое продление в первый год — см. [первый месяц](/notes/pervyj-mesyac-portugaliya-checklist) и pillar [D7/D8](/ru/guides/vnj-portugaliya-d8-d7-grazhdanstvo-2026).",
       "Сохраните PDF всех шагов — при споре с senhorio или банком comprovativo pedido работает месяцами.",
@@ -151,7 +170,13 @@ const bodySections: NoteBodySection[] = [
     ],
     bullets: [
       "Caducados до 30.06.2025: AIMA уведомляла по e-mail через Estrutura de Missão — следуйте ссылке в письме ([aima.gov.pt](https://aima.gov.pt/pt/noticias/o-portal-das-renovacoes-ja-esta-disponivel)).",
-      "services.aima.gov.pt: форма продления просроченных — **только после** e-mail AIMA с taxa; без письма недоступна (@chatlisboa, 2025–2026).",
+      formatPracticeBullet({
+        channels: ["chatlisboa"],
+        period: "2025–2026",
+        claim:
+          "если карта уже просрочена, портал services.aima.gov.pt не открывают сразу — ссылку и доступ присылают только после письма от AIMA с оплатой пошлины",
+        forReader: "без e-mail от AIMA форма недоступна — не ищите кнопку на сайте вручную",
+      }),
       "В чатах (2025–2026) писали, что portal-renovacoes **не принимает** títulos caducados **>6 meses** — нужен balcão/advogado; **проверьте** на дату вашего кейса.",
       "Миф «просрочка автоматически = deportação» — нет единого сценария; но **stay irregular** — штрафы и проблемы при следующей подаче.",
       "При caducidade + смена основания (D7→trabalho) — часто **nova autorização**, не renovação; не economьте на consulta.",
@@ -199,7 +224,14 @@ const bodySections: NoteBodySection[] = [
 
 const keyTakeaways = [
   "Официально: renovação título — portal-renovacoes.aima.gov.pt (поэтапно по mês caducidade); DUC оплатить за 24 ч; taxas обновлены 01.03.2026 — сверяйте tabela на aima.gov.pt.",
-  "На практике (@chatlisboa, 2025–2026): ожидание решения 30–90 дней; services.aima.gov.pt для просроченных — только после e-mail AIMA; Agora — presencial и слоты.",
+  formatPracticeTakeaway({
+    channels: ["chatlisboa", "por_tugal"],
+    period: "2025–2026",
+    claim:
+      "от загрузки документов до решения по онлайн-renovação часто проходит 30–90 дней",
+    forReader:
+      "если карта уже просрочена, портал services.aima.gov.pt открывают только после письма от AIMA с оплатой пошлины — без письма форма недоступна. Для личного визита через Agora (agendamento presencial) по-прежнему нужна запись, слоты разбирают быстро",
+  }),
   "Официально: trabalho/estudo/reagrupamento renovação — €99,80/acto с 01.03.2026 (comunicado AIMA); Golden Visa/ARI — другие суммы.",
   "Расхождение: «можно без записи» и «просрочка не страшна» — мифы; Emigro проходит продление через advogados — сверяйте кейс с юристом.",
 ];
