@@ -32,6 +32,13 @@ function isSatelliteHost(host: string): boolean {
   return isPortugalSatelliteHost(host) || isSpainSatelliteHost(host);
 }
 
+/** App routes shared across hosts — must not rewrite to /satellite/{country}/…. */
+function isSatelliteSharedPath(pathname: string): boolean {
+  if (pathname === "/icon" || pathname === "/apple-icon") return true;
+  if (pathname.startsWith("/api/")) return true;
+  return false;
+}
+
 /** /satellite/{country} on www → canonical subdomain (301). */
 function redirectWwwSatelliteToSubdomain(request: NextRequest): NextResponse | null {
   const { pathname, search } = request.nextUrl;
@@ -112,7 +119,7 @@ function redirectSatelliteCorridorPaths(request: NextRequest): NextResponse | nu
   if (!isSatelliteHost(host)) return null;
 
   const { pathname, search } = request.nextUrl;
-  const mainSitePrefixes = ["/ru", "/admin", "/api/v1", "/llms-full.txt"];
+  const mainSitePrefixes = ["/ru", "/admin", "/llms-full.txt"];
   if (mainSitePrefixes.some((prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`))) {
     if (pathname === "/llms.txt") return null;
     return NextResponse.redirect(`https://${CANONICAL_HOST}${pathname}${search}`, 301);
@@ -125,6 +132,7 @@ function rewritePortugalSatellite(request: NextRequest): NextResponse | null {
   if (!isPortugalSatelliteHost(host)) return null;
 
   const { pathname } = request.nextUrl;
+  if (isSatelliteSharedPath(pathname)) return NextResponse.next();
   if (pathname.startsWith("/satellite/portugal")) {
     return NextResponse.next();
   }
@@ -145,6 +153,7 @@ function rewriteSpainSatellite(request: NextRequest): NextResponse | null {
   if (!isSpainSatelliteHost(host)) return null;
 
   const { pathname } = request.nextUrl;
+  if (isSatelliteSharedPath(pathname)) return NextResponse.next();
   if (pathname.startsWith("/satellite/spain")) {
     return NextResponse.next();
   }
