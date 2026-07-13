@@ -227,6 +227,72 @@ export const PORTUGAL_GUIDE_FACTCHECK: GuideFactcheckConfigInput[] = [
       },
     ],
   },
+  {
+    slug: "prodlenie-vnzh-portugaliya-aima-2026",
+    file: "content/guides/ru/prodlenie-vnzh-portugaliya-aima-2026.md",
+    title: "Продление ВНЖ Португалия 2026",
+    aliases: ["prodlenie-vnzh", "vnzh-renewal", "renovacao-aima"],
+    topics: [
+      {
+        id: "renovacao-portal",
+        label: "Portal das Renovações",
+        keywords: [
+          "renovação",
+          "renovacao",
+          "portal-renovacoes",
+          "portal renovações",
+          "caducidade",
+          "duc",
+          "taxa",
+        ],
+        suggestedSections: {
+          when: "## Когда начинать продление",
+          channels: "## Куда подавать: три канала",
+        },
+      },
+      {
+        id: "aima-expired",
+        label: "Просроченный / services.aima",
+        keywords: [
+          "просроч",
+          "caducado",
+          "services.aima",
+          "estructura de missão",
+          "expir",
+        ],
+        suggestedSections: {
+          expired: "## Просроченный título",
+        },
+      },
+      {
+        id: "aima-docs",
+        label: "Документы renovação",
+        keywords: [
+          "morada",
+          "rendimentos",
+          "seguro",
+          "extratos",
+          "reagrupamento",
+          "d7",
+          "d8",
+          "trabalho",
+          "estudo",
+        ],
+        suggestedSections: {
+          docs: "## Документы",
+          types: "## Типы ВНЖ: D7, D8, trabalho, estudo, família, EU",
+        },
+      },
+      {
+        id: "aima-agora-renewal",
+        label: "Agora слоты renovação",
+        keywords: ["agora", "слот", "agendamento", "запись", "biometr"],
+        suggestedSections: {
+          agora: "## Куда подавать: три канала",
+        },
+      },
+    ],
+  },
 ];
 
 /**
@@ -370,6 +436,38 @@ export const SEED_FACTCHECK_SIGNALS: SeedFactcheckSignal[] = [
     topic_id: "aima-consulado",
     guide_slug: "d7-vs-digital-nomad-visa-sravnenie",
     suggested_section: "### Процесс подачи",
+  },
+  {
+    channel_username: "chatlisboa",
+    posted_at: "2026-06-01T10:00:00Z",
+    text: "portal-renovacoes.aima.gov.pt: DUC оплатить за 24 часа; без оплаты pedido renovação не идёт в análise.",
+    topic_id: "renovacao-portal",
+    guide_slug: "prodlenie-vnzh-portugaliya-aima-2026",
+    suggested_section: "## Куда подавать: три канала",
+  },
+  {
+    channel_username: "por_tugal",
+    posted_at: "2026-03-05T09:00:00Z",
+    text: "Taxas AIMA с 1 марта 2026 — renovação trabalho €99,80; не платите по старым суммам из чатов 2024.",
+    topic_id: "renovacao-portal",
+    guide_slug: "prodlenie-vnzh-portugaliya-aima-2026",
+    suggested_section: "## Пошлины (taxas) — по состоянию на июль 2026",
+  },
+  {
+    channel_username: "chatlisboa",
+    posted_at: "2025-11-12T14:00:00Z",
+    text: "services.aima.gov.pt для просроченного ВНЖ — только после e-mail AIMA с taxa; без письма форма не открывается.",
+    topic_id: "aima-expired",
+    guide_slug: "prodlenie-vnzh-portugaliya-aima-2026",
+    suggested_section: "## Просроченный título",
+  },
+  {
+    channel_username: "chatlisboa",
+    posted_at: "2026-04-20T11:00:00Z",
+    text: "Renovação онлайн: ждали deferimento 30–90 дней; comprovativo pedido + старый título на границе.",
+    topic_id: "renovacao-portal",
+    guide_slug: "prodlenie-vnzh-portugaliya-aima-2026",
+    suggested_section: "## Сроки ожидания (мягко)",
   },
 ];
 

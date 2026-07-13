@@ -20,6 +20,7 @@ import { PORTO_VS_BRAGA_FAMILY_SCHOOLS_GUIDE } from "@/lib/community-notes/guide
 import { DOMESTIC_TOURISM_NORTE_GUIDE } from "@/lib/community-notes/guides/domestic-tourism-portugal-norte";
 import { PORTUGAL_REGIONS_EXPAT_GUIDE } from "@/lib/community-notes/guides/portugal-regions-expat-guide";
 import { TOLLS_FINES_ACCIDENTS_GUIDE } from "@/lib/community-notes/guides/tolls-fines-accidents-norte-portugal";
+import { VNJ_RENEWAL_GUIDE } from "@/lib/community-notes/guides/prodlenie-vnzh-portugaliya-aima-2026";
 import { ensureNoteOgImage } from "@/lib/community-notes/note-og-image";
 import type { CommunityNote } from "@/lib/community-notes/types";
 
@@ -33,6 +34,7 @@ const CURATED_GUIDES: CommunityNote[] = [
   TOLLS_FINES_ACCIDENTS_GUIDE as CommunityNote,
   DOMESTIC_TOURISM_NORTE_GUIDE as CommunityNote,
   PORTUGAL_REGIONS_EXPAT_GUIDE as CommunityNote,
+  VNJ_RENEWAL_GUIDE as CommunityNote,
 ];
 
 async function resolveNotes(slugs: string[]): Promise<Array<Pick<CommunityNote, "slug" | "topic_tags" | "title">>> {

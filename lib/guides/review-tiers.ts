@@ -62,6 +62,7 @@ export const GUIDE_REVIEW_TIER_BY_SLUG: Record<string, GuideReviewTier> = {
   "vnj-niderlandy-2026-highly-skilled": "volatile",
   "vnj-polsha-2026": "volatile",
   "vnj-portugaliya-d8-d7-grazhdanstvo-2026": "volatile",
+  "prodlenie-vnzh-portugaliya-aima-2026": "volatile",
   "vnj-serbiya-dlya-rossiyan-2026": "volatile",
   "vnj-skandinaviya-2026": "volatile",
   "vossoedinenie-semi-evropa-2026": "volatile",

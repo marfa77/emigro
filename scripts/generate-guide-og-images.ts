@@ -15,6 +15,7 @@ import {
 } from "../lib/brand/guide-og-template";
 
 const NEW_GUIDE_SLUGS = [
+  "prodlenie-vnzh-portugaliya-aima-2026",
   "vnj-polsha-2026",
   "vnj-chehiya-2026",
   "grazhdanstvo-portugaliya-ispaniya-2026",

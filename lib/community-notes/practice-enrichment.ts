@@ -177,6 +177,12 @@ export const CURATED_PRACTICE: Record<string, string[]> = {
     "При риске опоздания на рейс: покажите посадочный сотруднику аэропорта — в чатах не отказывали провести через паспортный контроль и досмотр вне общей очереди.",
     "Слоты Agora по-прежнему «ловят» ночью/рано утром; мониторинг в несколько браузеров + уведомления — типичная стратегия, официального расписания релиза нет.",
   ],
+  "prodlenie-vnzh-portugaliya-aima-2026": [
+    "portal-renovacoes.aima.gov.pt (2026): registo → validação AT/SS → DUC за 24 ч → upload PDF; доступ поэтапно по mês caducidade — следите aima.gov.pt.",
+    "Taxas AIMA обновлены 01.03.2026: renovação trabalho/estudo/reagrupamento — €99,80/acto по comunicado; D7/D8 — своя строка tabela, не суммы из чатов 2024.",
+    "services.aima.gov.pt: просроченные títulos — только после e-mail Estrutura de Missão; без письма форма недоступна (@chatlisboa, 2025–2026).",
+    "Ожидание deferimento онлайн-renovação: участники @chatlisboa и @por_tugal сообщали 30–90 дней в 2025–2026 — не гарантия, consulta advogado.",
+  ],
   "arenda-lissabon-do-podpisi": [
     "Замкнутый круг в чатах: для аренды нужен местный IBAN/банк, для банка — адрес; выход — посредник по NIF, Termo у знакомого или краткосрочная бронь с регистрацией.",
     "С 1 августа 2025 арендатор может сам зарегистрировать Contrato de Arrendamento в Finanças, если арендодатель не сделал это за месяц — нужны данные договора и NIF обеих сторон.",

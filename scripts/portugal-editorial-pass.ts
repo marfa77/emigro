@@ -71,14 +71,28 @@ function applyEditorialPatches(note: CommunityNote): PatchResult {
         quick_answer = `${quick_answer} В Norte (Porto, Braga) порядок тот же: NIF → morada → utente SNS → банк.`;
       }
       break;
-    case "aima-agora-zapis-2026":
+    case "aima-agora-zapis-2026": {
       if (!/Porto|Norte|Braga/i.test(quick_answer)) {
         quick_answer = quick_answer.replace(
           /AIMA/i,
           "AIMA (в Norte balcões в Porto, Braga — те же правила Agora)"
         );
       }
+      const bridge =
+        "Про **папку документов, сроки и каналы renovação** (portal-renovacoes vs Agora vs services.aima) — [гайд по продлению ВНЖ](https://www.emigro.online/ru/guides/prodlenie-vnzh-portugaliya-aima-2026); здесь только охота за слотом Agora.";
+      const paragraphs = sections.flatMap((s) => s.paragraphs ?? []);
+      if (!paragraphs.some((p) => p.includes("prodlenie-vnzh-portugaliya-aima-2026"))) {
+        const lastIdx = sections.length - 1;
+        if (lastIdx >= 0) {
+          sections = sections.map((s, i) =>
+            i === lastIdx
+              ? { ...s, paragraphs: [...(s.paragraphs ?? []), bridge] }
+              : s
+          );
+        }
+      }
       break;
+    }
     default:
       break;
   }

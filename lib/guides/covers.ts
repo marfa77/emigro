@@ -36,6 +36,7 @@ export const GUIDE_COVER_BY_SLUG: Record<string, string> = {
   "dokumenty-dlya-pereezda-iz-rossii-2026-apostil-nesudimost": "/images/corridor-italy.webp",
   "kazahstantsy-v-evropu-vnj-2026": "/images/corridor-germany.webp",
   "pervye-30-dnej-v-portugalii-2026": "/images/corridor-portugal.webp",
+  "prodlenie-vnzh-portugaliya-aima-2026": "/images/corridor-portugal.webp",
   "pervye-30-dnej-v-germanii-2026": "/images/corridor-germany.webp",
   "pervye-30-dnej-v-ispanii-2026": "/images/corridor-spain.webp",
   "vnj-ispaniya-2026": "/images/corridor-spain.webp",

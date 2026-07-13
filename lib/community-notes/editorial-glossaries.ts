@@ -312,6 +312,18 @@ export const EDITORIAL_GLOSSARIES: Record<string, GlossaryTerm[]> = {
     { pt: "ventilação", ru: "проветривание; при 90% humidade снаружи мало без desumidificador" },
     { pt: "ilhas de calor", ru: "острова тепла в городе; +4–6 °C в бетонном центре Porto" },
   ],
+  "prodlenie-vnzh-portugaliya-aima-2026": [
+    { pt: "renovação", ru: "продление autorização de residência / título de residência" },
+    { pt: "título de residência", ru: "пластиковая карта ВНЖ" },
+    { pt: "autorização de residência", ru: "разрешение на проживание (правовое основание карты)" },
+    { pt: "caducidade", ru: "истечение срока título; дата на обратной стороне карты" },
+    { pt: "Portal das Renovações", ru: "онлайн-портал AIMA для pedido renovação" },
+    { pt: "DUC", context: "Documento Único de Cobrança", ru: "квитанция на оплату taxa в AT" },
+    { pt: "taxa", ru: "госпошлина за acto migratório; tabela обновлена 01.03.2026" },
+    { pt: "comprovativo pedido renovação", ru: "recibo после подачи — proof of legal stay на время análise" },
+    { pt: "Estrutura de Missão AIMA", ru: "подразделение для backlog/просроченных; e-mail с instruциями" },
+    { pt: "indeferimento", ru: "отказ в pedido; часто из-за документов или смены основания" },
+  ],
   "zamena-zagranpasporta-portugaliya-2026": [
     { pt: "passaporte", ru: "загранпаспорт / национальный паспорт страны гражданства" },
     { pt: "consulado", ru: "консульство; для RU/KZ — Lisboa, для UA — Lisboa или Porto" },

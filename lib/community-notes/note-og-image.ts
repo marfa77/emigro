@@ -105,6 +105,11 @@ const SLUG_PHOTO_QUERIES: Record<string, string[]> = {
     "embassy building lisbon",
     "travel documents passport",
   ],
+  "prodlenie-vnzh-portugaliya-aima-2026": [
+    "immigration office queue",
+    "residence permit card portugal",
+    "government building portugal documents",
+  ],
   "elektromobil-tesla-v-portugalii-2026": [
     "tesla electric car charging",
     "ev charging station",
