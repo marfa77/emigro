@@ -3,6 +3,7 @@ import { flattenBodySections } from "@/lib/community-notes/editorial-quality";
 import { glossaryForSlug } from "@/lib/community-notes/editorial-glossaries";
 import { buildGlossarySection } from "@/lib/community-notes/glossary";
 import { buildNoteHashtags } from "@/lib/community-notes/hashtags";
+import { formatPracticeTakeaway } from "@/lib/community-notes/practice-format";
 import { NIE_EMPADRONAMIENTO_SLUG } from "@/lib/community-notes/guides/spain-nie-empadronamiento-poryadok";
 import type { CommunityNoteFaq, ContentKind, NoteBodySection } from "@/lib/community-notes/types";
 
@@ -81,7 +82,14 @@ const bodySections: NoteBodySection[] = [
 
 const keyTakeaways = [
   "Официально: TIE подаётся в срок visado через cita previa на sede, затем huellas dactilares.",
-  "На практике: в Valencia слоты ловят утром 08:00–09:00; gestoría €300–600, полный цикл 4–8 мес.",
+  formatPracticeTakeaway({
+    channels: ["valenciarusia"],
+    period: "2025–2026",
+    claim:
+      "в Valencia слоты cita previa (запись в extranjería) чаще появляются утром около 08:00–09:00",
+    forReader:
+      "gestoría (посредник) берёт €300–600, но полный цикл TIE — cita, huellas и пластик — в чатах занимает 4–8 месяцев",
+  }),
   "Расхождение: resguardo после huellas часто принимают банк и аренда — не ждите пластик для бытовых задач.",
   "Официально: без cita previa не примут; certificado de empadronamiento должен быть актуальным (<3 мес.).",
 ];

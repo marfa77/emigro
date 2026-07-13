@@ -3,6 +3,7 @@ import { flattenBodySections } from "@/lib/community-notes/editorial-quality";
 import { glossaryForSlug } from "@/lib/community-notes/editorial-glossaries";
 import { buildGlossarySection } from "@/lib/community-notes/glossary";
 import { buildNoteHashtags } from "@/lib/community-notes/hashtags";
+import { formatPracticeTakeaway } from "@/lib/community-notes/practice-format";
 import type { CommunityNoteFaq, ContentKind, NoteBodySection } from "@/lib/community-notes/types";
 
 export const ARENDA_VALENCIA_SLUG = "arenda-valencia-idealista-2026";
@@ -74,7 +75,13 @@ const bodySections: NoteBodySection[] = [
 
 const keyTakeaways = [
   "Официально: fianza до 1 mes для частного арендодателя; contrato с NIE.",
-  "На практике: agency Valencia просит NIE + IBAN до viewing; fee ~1 mes + IVA.",
+  formatPracticeTakeaway({
+    channels: ["valenciarusia"],
+    period: "2025–2026",
+    claim:
+      "агентства в Valencia часто просят NIE и IBAN ещё до viewing (просмотра квартиры)",
+    forReader: "комиссия agency обычно ~1 mes (месяц аренды) + IVA — закладывайте в бюджет до подписания",
+  }),
   "Расхождение: «sin aval» vs triple fianza/prepago в чатах.",
 ];
 

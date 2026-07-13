@@ -8,6 +8,7 @@ import { flattenBodySections } from "@/lib/community-notes/editorial-quality";
 import { glossaryForSlug } from "@/lib/community-notes/editorial-glossaries";
 import { buildGlossarySection } from "@/lib/community-notes/glossary";
 import { buildNoteHashtags } from "@/lib/community-notes/hashtags";
+import { formatPracticeTakeaway } from "@/lib/community-notes/practice-format";
 import type { CommunityNoteFaq, ContentKind, NoteBodySection } from "@/lib/community-notes/types";
 
 export const NORTE_CLIMATE_COMFORT_SLUG = "klimat-norte-zhara-vlazhnost-plesen-zima-2026";
@@ -148,7 +149,12 @@ const bodySections: NoteBodySection[] = [
 const keyTakeaways = [
   "Сегодня: при просмотре — AC (BTU/возраст), углы за мебелью на bolor, счёт за июль–август.",
   "Официально: split ar condicionado — только técnico certificado DGEG; bolor — риск DGS, infiltração на senhorio.",
-  "На практике: Braga/Porto до 40 °C летом; Foz — humidade круглый год, desumidificador €150–350.",
+  formatPracticeTakeaway({
+    channels: ["por_tugal", "lepta"],
+    period: "2025–2026",
+    claim: "летом в Braga и Porto centro температура доходит до 40 °C, а в Foz humidade (влажность) высокая круглый год",
+    forReader: "desumidificador (осушитель) €150–350 часто нужен не только зимой — при аренде проверяйте AC и вентиляцию",
+  }),
   "Расхождение: «север прохладнее» — tropical nights; Idealista «с AC» часто = старый portable.",
 ];
 

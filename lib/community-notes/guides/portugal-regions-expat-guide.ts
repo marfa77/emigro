@@ -8,6 +8,7 @@ import { flattenBodySections } from "@/lib/community-notes/editorial-quality";
 import { glossaryForSlug } from "@/lib/community-notes/editorial-glossaries";
 import { buildGlossarySection } from "@/lib/community-notes/glossary";
 import { buildNoteHashtags } from "@/lib/community-notes/hashtags";
+import { formatPracticeTakeaway } from "@/lib/community-notes/practice-format";
 import { INTERNATIONAL_SCHOOLS_GUIDE_SLUG } from "@/lib/community-notes/guides/international-schools-portugal";
 import { NORTE_CLIMATE_COMFORT_SLUG } from "@/lib/community-notes/guides/norte-climate-comfort";
 import { PORTO_BRAGA_LONG_TERM_RENT_SLUG } from "@/lib/community-notes/guides/porto-braga-long-term-rent";
@@ -194,7 +195,13 @@ const bodySections: NoteBodySection[] = [
 const keyTakeaways = [
   "Сегодня: определите сценарий (работа/remote/семья/пенсия) — от него зависит shortlist регионов, не наоборот.",
   "Официально: жизнь привязана к concelho (IMI, SNS, школы); NUTS II — макро-ориентир для климата и экономики.",
-  "На практике: Norte — лучший баланс expat-инфраструктуры и цены; Lisboa — карьера и школы дороже; Algarve — сезон.",
+  formatPracticeTakeaway({
+    channels: ["por_tugal", "chatlisboa"],
+    period: "2025–2026",
+    claim: "Norte даёт лучший баланс expat-инфраструктуры и цены аренды",
+    forReader:
+      "Lisboa сильнее для карьеры и international schools, но дороже; Algarve привлекателен сезоном — зимой инфраструктура тоньше",
+  }),
   "Расхождение: «английский везде» и «дешёвая Португалия» — миф; без PT в Centro/Alentejo быт сложнее.",
 ];
 

@@ -3,6 +3,7 @@ import { flattenBodySections } from "@/lib/community-notes/editorial-quality";
 import { glossaryForSlug } from "@/lib/community-notes/editorial-glossaries";
 import { buildGlossarySection } from "@/lib/community-notes/glossary";
 import { buildNoteHashtags } from "@/lib/community-notes/hashtags";
+import { formatPracticeTakeaway } from "@/lib/community-notes/practice-format";
 import type { CommunityNoteFaq, ContentKind, NoteBodySection } from "@/lib/community-notes/types";
 
 export const PERVYE_30_SLUG = "pervye-30-dnej-v-ispanii-satelit-2026";
@@ -69,7 +70,13 @@ const bodySections: NoteBodySection[] = [
 
 const keyTakeaways = [
   "Официально: visado D → TIE в срок; NIE и padrón — параллельно с первой недели.",
-  "На практике: NIE → padrón → IBAN → cita TIE — порядок для Valencia.",
+  formatPracticeTakeaway({
+    channels: ["valenciarusia"],
+    period: "2025–2026",
+    claim:
+      "в Valencia типичный порядок первых недель: NIE (или resguardo), затем empadronamiento (прописка), потом IBAN и cita на TIE",
+    forReader: "не начинайте TIE до padrón — certificado de empadronamiento нужен банку и extranjería",
+  }),
   "Расхождение: «можно месяц без TIE» vs 30-day rule на visado.",
   "Pillar: [ВНЖ Испания 2026](/ru/guides/vnj-ispaniya-2026) для визы и DNV.",
 ];

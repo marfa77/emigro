@@ -3,6 +3,7 @@ import { flattenBodySections } from "@/lib/community-notes/editorial-quality";
 import { glossaryForSlug } from "@/lib/community-notes/editorial-glossaries";
 import { buildGlossarySection } from "@/lib/community-notes/glossary";
 import { buildNoteHashtags } from "@/lib/community-notes/hashtags";
+import { formatPracticeTakeaway } from "@/lib/community-notes/practice-format";
 import type { CommunityNoteFaq, ContentKind, NoteBodySection } from "@/lib/community-notes/types";
 
 export const DNV_UGE_SLUG = "dnv-uge-konsulstvo-2026";
@@ -74,7 +75,13 @@ const bodySections: NoteBodySection[] = [
 
 const keyTakeaways = [
   "Официально: DNV teletrabajo — €2 849/мес., max 20% ES income; visado D через консульство.",
-  "На практике: RU/BY чаще консульство 2–4 мес.; UGE — для уже легального пребывания.",
+  formatPracticeTakeaway({
+    channels: ["spainchats"],
+    period: "2025–2026",
+    claim: "для граждан RU/BY маршрут через консульство часто занимает 2–4 месяца до visado D",
+    forReader:
+      "UGE (резидентская виза для стартапов) — для тех, кто уже легально в Испании; это не shortcut с туристическим входом",
+  }),
   "Расхождение: «UGE быстрее» vs необходимость legal stay — не shortcut с туристическим входом.",
   "Официально: после visado — TIE в 30 дней; см. pillar [ВНЖ Испания 2026](/ru/guides/vnj-ispaniya-2026).",
 ];

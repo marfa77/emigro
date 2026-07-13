@@ -3,6 +3,7 @@ import { flattenBodySections } from "@/lib/community-notes/editorial-quality";
 import { glossaryForSlug } from "@/lib/community-notes/editorial-glossaries";
 import { buildGlossarySection } from "@/lib/community-notes/glossary";
 import { buildNoteHashtags } from "@/lib/community-notes/hashtags";
+import { formatPracticeTakeaway } from "@/lib/community-notes/practice-format";
 import { INTERNATIONAL_SCHOOLS_GUIDE_SLUG } from "@/lib/community-notes/guides/international-schools-portugal";
 import type { CommunityNoteFaq, ContentKind, NoteBodySection } from "@/lib/community-notes/types";
 
@@ -112,12 +113,32 @@ const bodySections: NoteBodySection[] = [
 
 const keyTakeaways = [
   "Официально: matrícula в público — по morada в agrupamento; international — прямой договор, NIF и morada обязательны.",
-  "На практике: в Porto семьи селятся в Foz/Boavista/Matosinhos — 4 international schools в 10–25 мин.",
-  "На практике: в Braga основной вариант — CLIB (Gualtar); аренда на 15–30% ниже Porto, expat-среда компактнее.",
+  formatPracticeTakeaway({
+    channels: ["por_tugal", "chatlisboa"],
+    period: "2025–2026",
+    claim: "в Porto expat-семьи с детьми чаще селятся в Foz, Boavista или Matosinhos — до четырёх international schools 10–25 минут",
+  }),
+  formatPracticeTakeaway({
+    channels: ["por_tugal", "lepta"],
+    period: "2025–2026",
+    claim:
+      "в Braga основной international school — CLIB (Gualtar), аренда T2 на 15–30% ниже Porto",
+    forReader: "expat-среда компактнее — многие семьи сознательно выбирают CLIB и живут в Gualtar или centro Braga",
+  }),
   "Официально: calendário escolar MEC — старт 11–15 сентября; заявки international — за 9–12 месяцев.",
-  "На практике: lepta/Idealista Q2 2025 — спрос на аренду смещается в Braga, Guimarães, Matosinhos, не только Porto centro.",
+  formatPracticeTakeaway({
+    channels: ["lepta"],
+    period: "2025",
+    claim: "по данным Idealista Q2 2025 спрос на аренду смещается в Braga, Guimarães и Matosinhos, а не только в centro Porto",
+    forReader: "сравнивайте commute до школы — экономия на renda может съесться дорогой на A3",
+  }),
   "Расхождение: «дешёвый Matosinhos у моря» — пляж иногда закрывают; Foz дороже, но ближе к OBS/LFIP/Deutsche Schule.",
-  "На практике: commute Braga→Porto schools 45–60 мин — многие остаются в CLIB или переезжают в Matosinhos/Boavista.",
+  formatPracticeTakeaway({
+    channels: ["por_tugal"],
+    period: "2025–2026",
+    claim: "commute из Braga до школ в Porto занимает 45–60 минут",
+    forReader: "многие остаются в CLIB (Braga) или переезжают ближе — в Matosinhos или Boavista",
+  }),
 ];
 
 const faq: CommunityNoteFaq[] = [

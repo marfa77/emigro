@@ -3,6 +3,7 @@ import { flattenBodySections } from "@/lib/community-notes/editorial-quality";
 import { glossaryForSlug } from "@/lib/community-notes/editorial-glossaries";
 import { buildGlossarySection } from "@/lib/community-notes/glossary";
 import { buildNoteHashtags } from "@/lib/community-notes/hashtags";
+import { formatPracticeTakeaway } from "@/lib/community-notes/practice-format";
 import type { CommunityNoteFaq, ContentKind, NoteBodySection } from "@/lib/community-notes/types";
 
 export const CAR_PORTUGAL_GUIDE_SLUG = "mashina-portugaliya-kupit-arenda-import-2026";
@@ -102,10 +103,23 @@ const bodySections: NoteBodySection[] = [
 
 const keyTakeaways = [
   "Официально: любой автомобиль в PT — matrícula, seguro obrigatório, IPO по графику; сделка через DUA в IMT.",
-  "На практике: купить на Standvirtual дешевле, но проверяйте recall, liens и IPO до оплаты.",
+  formatPracticeTakeaway({
+    channels: ["por_tugal", "autolife_pt"],
+    period: "2025–2026",
+    claim: "покупка б/у на Standvirtual часто дешевле дилера, но recall, liens (обременения) и IPO (техосмотр) нужно проверить до оплаты",
+  }),
   "Официально: ввоз из ЕС без таможни, но ISV платится при первой регистрации в Португалии.",
-  "На практике: isenção ISV возможна при mudança de residência, если владели авто ≥6 мес. в другой стране ЕС.",
-  "На практике: rent-a-car на 2–3 недели — credit card обязателен у крупных сетей; debit — только у локалов с депозитом.",
+  formatPracticeTakeaway({
+    claim:
+      "isenção ISV (освобождение от налога на ввоз авто) возможна при mudança de residência, если владели машиной ≥6 мес. в другой стране ЕС",
+    forReader: "сохраните документы владения и регистрации — без них льготу не подтвердят в Finanças",
+  }),
+  formatPracticeTakeaway({
+    channels: ["autolife_pt"],
+    period: "2025–2026",
+    claim: "краткосрочный rent-a-car (аренда на 2–3 недели) у крупных сетей требует credit card (кредитную карту)",
+    forReader: "debit (дебетовую карту) принимают чаще у локальных прокатов — но с крупным депозитом на счёте",
+  }),
   "Расхождение: «пригнать из Германии выгодно» — на старых дизелях ISV часто съедает экономию.",
 ];
 

@@ -6,6 +6,11 @@
 import { execSync } from "node:child_process";
 
 const SCRIPTS = [
+  "portugal:publish-vnj-renewal-guide",
+  "portugal:publish-regions-guide",
+  "portugal:publish-apartment-buying-guide",
+  "portugal:publish-domestic-tourism-guide",
+  "portugal:publish-porto-braga-rent-guide",
   "portugal:publish-norte-climate-guide",
   "portugal:publish-passport-guide",
   "portugal:publish-tolls-guide",

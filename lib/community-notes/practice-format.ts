@@ -18,6 +18,7 @@
  * - Never cite @emigro_chat.
  */
 import { formatChannelHandle } from "@/lib/guides/portugal-telegram-citations";
+import type { NoteBodySection } from "@/lib/community-notes/types";
 
 const TAKEAWAY_PREFIX = /^(Официально|На практике|Расхождение|В чате):\s*/i;
 const BLOCKED_CHANNELS = new Set(["emigro_chat"]);
@@ -159,18 +160,13 @@ export function formatPracticeString(text: string): string {
 
 export type PracticeFormatDraft = {
   key_takeaways: string[];
-  body_sections: Array<{
-    heading: string;
-    section_kind?: string;
-    paragraphs?: string[];
-    bullets?: string[];
-  }>;
+  body_sections: NoteBodySection[];
 };
 
 /** Best-effort pass over takeaways + practice sections (DB cron / batch). */
 export function applyPracticeFormatToDraft(draft: PracticeFormatDraft): {
   key_takeaways: string[];
-  body_sections: PracticeFormatDraft["body_sections"];
+  body_sections: NoteBodySection[];
   changed: number;
 } {
   let changed = 0;

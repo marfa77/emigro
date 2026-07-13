@@ -3,6 +3,7 @@ import { flattenBodySections } from "@/lib/community-notes/editorial-quality";
 import { glossaryForSlug } from "@/lib/community-notes/editorial-glossaries";
 import { buildGlossarySection } from "@/lib/community-notes/glossary";
 import { buildNoteHashtags } from "@/lib/community-notes/hashtags";
+import { formatPracticeTakeaway } from "@/lib/community-notes/practice-format";
 import { CAR_PORTUGAL_GUIDE_SLUG } from "@/lib/community-notes/guides/car-portugal-buy-rent-import";
 import type { CommunityNoteFaq, ContentKind, NoteBodySection } from "@/lib/community-notes/types";
 
@@ -112,11 +113,33 @@ const bodySections: NoteBodySection[] = [
 const keyTakeaways = [
   "Официально: строить можно только при соответствии PDM; certidão urbanística Câmara — первый документ после выбора участка.",
   "Официально: licença de construção требует arquiteto, topógrafo и empreiteiro с alvará; IMT при покупке земли — через Finanças.",
-  "На практике: Norte (Braga, Guimarães, Esposende, Viana) — популярные concelhos; бюджет участок+дом €200k–450k в 2026.",
-  "На практике: lepta — 30% земель с неизвестным владельцем; advogado и certidão permanente до сделки обязательны.",
-  "На практике: срок «под ключ» 18–30 мес.; licença 4–12 мес., стройка 10–18 мес.",
+  formatPracticeTakeaway({
+    channels: ["por_tugal", "lepta"],
+    period: "2026",
+    claim:
+      "в Norte популярны concelhos (муниципалитеты) Braga, Guimarães, Esposende и Viana — бюджет участок+дом €200k–450k",
+    forReader: "сравнивайте не только цену terreno, но и commute и инфраструктуру — дешёвый участок может быть далеко от школ и больниц",
+  }),
+  formatPracticeTakeaway({
+    channels: ["lepta"],
+    period: "2025–2026",
+    claim: "по опыту чатов у ~30% земель в объявлениях владелец неочевиден или спорен",
+    forReader: "advogado (юрист) и certidão permanente (выписка из реестра) до сделки обязательны — иначе риск потерять депозит",
+  }),
+  formatPracticeTakeaway({
+    channels: ["por_tugal", "lepta"],
+    period: "2025–2026",
+    claim: "срок проекта «под ключ» обычно 18–30 месяцев — licença de construção (разрешение) 4–12 мес., стройка 10–18 мес.",
+    forReader: "закладывайте резерв 10–15% на смету — empreiteiro (подрядчик) часто пересматривает цену по ходу obra",
+  }),
   "Расхождение: «terreno com possibilidade de construção» в объявлении → без certidão urbanística это не гарантия licença.",
-  "На практике: rustico дешевле, но reconversão solo по lei dos solos — долго; urbano дороже, но предсказуемее.",
+  formatPracticeTakeaway({
+    channels: ["lepta"],
+    period: "2025–2026",
+    claim:
+      "участок solo rustico (сельхозземля) дешевле, но reconversão (перевод в застройку) по lei dos solos занимает годы",
+    forReader: "solo urbano (земля под застройку) дороже, зато licença предсказуемее — для семьи с детьми это часто безопаснее",
+  }),
 ];
 
 const faq: CommunityNoteFaq[] = [

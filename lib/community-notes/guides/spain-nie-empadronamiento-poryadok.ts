@@ -3,6 +3,7 @@ import { flattenBodySections } from "@/lib/community-notes/editorial-quality";
 import { glossaryForSlug } from "@/lib/community-notes/editorial-glossaries";
 import { buildGlossarySection } from "@/lib/community-notes/glossary";
 import { buildNoteHashtags } from "@/lib/community-notes/hashtags";
+import { formatPracticeTakeaway } from "@/lib/community-notes/practice-format";
 import type { CommunityNoteFaq, ContentKind, NoteBodySection } from "@/lib/community-notes/types";
 
 export const NIE_EMPADRONAMIENTO_SLUG = "nie-empadronamiento-poryadok-2026";
@@ -74,7 +75,13 @@ const bodySections: NoteBodySection[] = [
 
 const keyTakeaways = [
   "Официально: NIE (EX-15 + tasa 790) и empadronamiento — отдельные процедуры в разных органах.",
-  "На практике: NIE/resguardo → empadronamiento → банк → cita extranjería — безопасный порядок в Valencia.",
+  formatPracticeTakeaway({
+    channels: ["valenciarusia"],
+    period: "2025–2026",
+    claim:
+      "безопасный порядок в Valencia: NIE или resguardo, затем empadronamiento, потом банк и cita в extranjería",
+    forReader: "padrón (прописка) нужен почти всегда для IBAN и TIE — «можно без padrón» в чатах не срабатывает на практике",
+  }),
   "Расхождение: «можно без padrón» vs требование банка и TIE — padrón нужен почти всегда.",
   "Официально: certificado de empadronamiento бесплатен; historial — для TIE и школы.",
 ];

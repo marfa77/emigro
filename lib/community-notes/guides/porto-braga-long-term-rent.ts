@@ -8,6 +8,7 @@ import { flattenBodySections } from "@/lib/community-notes/editorial-quality";
 import { glossaryForSlug } from "@/lib/community-notes/editorial-glossaries";
 import { buildGlossarySection } from "@/lib/community-notes/glossary";
 import { buildNoteHashtags } from "@/lib/community-notes/hashtags";
+import { formatPracticeTakeaway } from "@/lib/community-notes/practice-format";
 import { PORTO_VS_BRAGA_FAMILY_SCHOOLS_SLUG } from "@/lib/community-notes/guides/porto-vs-braga-family-schools";
 import { NORTE_CLIMATE_COMFORT_SLUG } from "@/lib/community-notes/guides/norte-climate-comfort";
 import type { CommunityNoteFaq, ContentKind, NoteBodySection } from "@/lib/community-notes/types";
@@ -138,8 +139,20 @@ const bodySections: NoteBodySection[] = [
 
 const keyTakeaways = [
   "Официально: renda — senhorio (IBAN из contrato); condomínio — administrador; Finanças — taxa registo, не ежемесячная renta.",
-  "На практике: transferência bancária + recibo de renda каждый месяц; первый платёж — caução + adiantamento при assinatura.",
-  "На практике: Foz €1 100–1 600, Matosinhos €900–1 300, Bonfim €750–1 100, Braga €700–1 000, Gualtar €650–950 (T2, 2026).",
+  formatPracticeTakeaway({
+    channels: ["por_tugal", "lepta"],
+    period: "2025–2026",
+    claim:
+      "ежемесячную renda (аренду) обычно платят transferência bancária (банковским переводом) с recibo de renda каждый месяц",
+    forReader: "первый платёж при assinatura (подписании) — caução (депозит) + adiantamento (предоплата) за месяц",
+  }),
+  formatPracticeTakeaway({
+    channels: ["por_tugal"],
+    period: "2026",
+    claim:
+      "аренда T2 в 2026: Foz €1 100–1 600, Matosinhos €900–1 300, Bonfim €750–1 100, Braga €700–1 000, Gualtar €650–950",
+    forReader: "сравнивайте не только renda, но и condomínio (взнос в дом) — он идёт отдельным переводом",
+  }),
   "Расхождение: без registo contrato в Finanças morada «не существует» — с 08.2025 inquilino может зарегистрировать сам после 30 дней.",
 ];
 

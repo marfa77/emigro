@@ -3,6 +3,7 @@ import { flattenBodySections } from "@/lib/community-notes/editorial-quality";
 import { glossaryForSlug } from "@/lib/community-notes/editorial-glossaries";
 import { buildGlossarySection } from "@/lib/community-notes/glossary";
 import { buildNoteHashtags } from "@/lib/community-notes/hashtags";
+import { formatPracticeTakeaway } from "@/lib/community-notes/practice-format";
 import { LAND_BUILD_NORTE_GUIDE_SLUG } from "@/lib/community-notes/guides/land-build-norte-portugal";
 import { NORTE_CLIMATE_COMFORT_SLUG } from "@/lib/community-notes/guides/norte-climate-comfort";
 import { PORTO_BRAGA_LONG_TERM_RENT_SLUG } from "@/lib/community-notes/guides/porto-braga-long-term-rent";
@@ -169,8 +170,19 @@ const bodySections: NoteBodySection[] = [
 
 const keyTakeaways = [
   "Официально: CPCV → simulação IMT → escritura → registo na Conservatória; certidão permanente и licença de utilização — до депозита.",
-  "На практике: новостройка Porto €280k–440k (T2), Braga €165k–260k; вторичка дешевле на 15–25%, но ремонт €400–800/m².",
-  "На практике: crédito habitação нерезидентам 60–80% LTV; NIF + conta + comprovativos до CPCV; ставка ≈ 3,5–4,5% в 2026.",
+  formatPracticeTakeaway({
+    channels: ["por_tugal"],
+    period: "2026",
+    claim: "новостройка T2 в Porto стоит примерно €280k–440k, в Braga — €165k–260k",
+    forReader: "вторичка на 15–25% дешевле за m², но ремонт закладывайте от €400–800/m²",
+  }),
+  formatPracticeTakeaway({
+    channels: ["por_tugal"],
+    period: "2026",
+    claim:
+      "банки дают crédito habitação (ипотеку) нерезидентам на 60–80% LTV при NIF, conta и comprovativos до CPCV",
+    forReader: "ставка в 2026 ориентир ≈ 3,5–4,5% — симуляцию делайте до подписания задатка",
+  }),
   "Расхождение: «entrega 2026» у promotor → реально +6–18 мес.; snagging и cláusula atraso — обязательны в CPCV.",
 ];
 
