@@ -31,6 +31,7 @@
     "seo:indexnow": "tsx scripts/ping-indexnow.ts",
     "llm:citation-test": "tsx scripts/llm-citation-test.ts",
     "guides:og-images": "tsx scripts/generate-guide-og-images.ts",
+    "programs:card-images": "tsx scripts/generate-program-card-images.ts",
     "guides:review-tiers": "tsx scripts/list-guides-by-review-tier.ts",
     "guides:volatile-factcheck": "tsx scripts/volatile-guides-factcheck.ts",
     "telegram:set-webhook": "tsx scripts/set-telegram-webhook.ts",

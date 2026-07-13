@@ -14,7 +14,7 @@ import { LatestNewsTeaser } from "@/components/news/LatestNewsTeaser";
 import { ServiceProvidersSection } from "@/components/providers/ServiceProvidersSection";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { CorridorHeroVisual } from "@/components/visuals/CorridorHeroVisual";
-import { ProgramTypeBadge } from "@/components/visuals/ProgramTypeBadge";
+import { ProgramRouteCard } from "@/components/corridor/ProgramRouteCard";
 import { isCorridorFull, topicHasLanding } from "@/lib/corridor/publish";
 import { getCorridorBySlug } from "@/lib/corridor/queries";
 import { requirePublishedCorridorTopic } from "@/lib/corridor/resolve-topic";
@@ -117,33 +117,19 @@ export async function CorridorLanding({ country }: { country: string }) {
             {!isFull && (
               <p className="mt-2 text-sm text-slate-500">Карточки программ — превью; wizard и детальные страницы после запуска.</p>
             )}
-            <div className="mt-6 grid gap-4 md:grid-cols-3">
-              {corridor.programs.map((program) => {
-                const href = `${base}/programs/${program.slug}`;
-                const card = (
-                  <>
-                    <ProgramTypeBadge type={program.program_type} />
-                    <h3 className="mt-3 text-lg font-semibold">{program.title_ru}</h3>
-                    <p className="mt-2 text-sm text-slate-600">{program.summary_ru}</p>
-                  </>
-                );
-                return isFull ? (
-                  <Link
-                    key={String(program.id)}
-                    href={href}
-                    className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:border-corridor-500 hover:shadow-md"
-                  >
-                    {card}
-                  </Link>
-                ) : (
-                  <div
-                    key={String(program.id)}
-                    className="rounded-xl border border-dashed border-slate-200 bg-slate-50 p-5 opacity-90"
-                  >
-                    {card}
-                  </div>
-                );
-              })}
+            <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {corridor.programs.map((program) => (
+                <ProgramRouteCard
+                  key={String(program.id)}
+                  slug={program.slug}
+                  programType={program.program_type}
+                  title={program.title_ru}
+                  summary={program.summary_ru}
+                  href={`${base}/programs/${program.slug}`}
+                  countrySegment={topic.urlSegment}
+                  interactive={isFull}
+                />
+              ))}
             </div>
           </section>
         )}
