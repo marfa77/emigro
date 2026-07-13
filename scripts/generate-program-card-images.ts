@@ -14,25 +14,15 @@ import sharp from "sharp";
 dotenv.config({ path: resolve(process.cwd(), ".env.local") });
 
 import {
+  PROGRAM_CARD_IMAGE_SLUGS,
+  PROGRAM_CARD_IMAGES,
   PROGRAM_IMAGES_DIR,
-  PROGRAM_PHOTO_QUERIES,
   programCardImageFilePath,
   programCardImagePublicPath,
 } from "@/lib/corridor/program-images";
 
 const PEXELS_API = "https://api.pexels.com/v1/search";
 const MIN_WEBP_BYTES = 15_000;
-
-const DEFAULT_SLUGS = [
-  "portugal-d8-digital-nomad",
-  "portugal-d7-passive-income",
-  "portugal-family-reunification",
-  "portugal-golden-visa",
-  "portugal-student-visa-d4",
-  "spain-digital-nomad",
-  "spain-non-lucrative",
-  "spain-family-reunification",
-];
 
 type PexelsSearchResponse = {
   photos?: Array<{ src?: { landscape?: string; large?: string } }>;
@@ -79,7 +69,7 @@ async function ensureProgramCardImage(slug: string, force = false): Promise<bool
     return false;
   }
 
-  const queries = PROGRAM_PHOTO_QUERIES[slug];
+  const queries = PROGRAM_CARD_IMAGES[slug]?.queries;
   if (!queries?.length) {
     console.warn(`[program-card] ${slug}: no queries defined`);
     return false;
@@ -109,7 +99,7 @@ async function main() {
   const args = process.argv.slice(2);
   const force = args.includes("--force");
   const slugs = args.filter((a) => !a.startsWith("--"));
-  const targets = slugs.length > 0 ? slugs : DEFAULT_SLUGS;
+  const targets = slugs.length > 0 ? slugs : PROGRAM_CARD_IMAGE_SLUGS;
 
   if (!process.env.PEXELS_API_KEY?.trim()) {
     console.error("[program-card] PEXELS_API_KEY missing in .env.local");
