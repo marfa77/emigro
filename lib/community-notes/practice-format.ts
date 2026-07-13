@@ -72,12 +72,14 @@ function capitalizeClaim(claim: string): string {
 }
 
 function joinSentences(parts: string[]): string {
-  return parts
+  const normalized = parts
     .map((p) => p.trim())
     .filter(Boolean)
-    .join(" ")
-    .replace(/\s+/g, " ")
-    .trim();
+    .map((p, i, arr) => {
+      if (i < arr.length - 1 && !/[.!?…]$/.test(p)) return `${p}.`;
+      return p;
+    });
+  return normalized.join(" ").replace(/\s+/g, " ").trim();
 }
 
 /** Single practice bullet for body_sections (no «На практике:» prefix). */
