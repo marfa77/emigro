@@ -1,19 +1,19 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Globe2, Route, Sparkles } from "lucide-react";
+import { ArrowRight, Globe2, Sparkles } from "lucide-react";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { RelocatorChatPromo } from "@/components/community/RelocatorChatPromo";
-import { WizardPulseSection } from "@/components/wizard/WizardPulseSection";
-import { CorridorHubTilesLegend, CorridorHubTilesGrid } from "@/components/corridor/hub/CorridorHubTile";
-import { DestinationCard } from "@/components/destinations/DestinationCard";
+import { HubDestinationsSectionSuspense } from "@/components/hub/HubDestinationsSection";
+import { WizardPulseSectionSuspense } from "@/components/wizard/WizardPulseSectionSuspense";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { HubHeroVisual } from "@/components/visuals/HubHeroVisual";
-import { getActiveNewsTopics, newsIndexPath } from "@/lib/news/topics";
 import { HUB_WIZARD_PATH } from "@/lib/corridor/paths";
-import { guidePath } from "@/lib/guides/load";
+import { guidePath } from "@/lib/guides/paths";
 import { listPillarGuides } from "@/lib/guides/pillar-guides";
+import { getActiveNewsTopics, newsIndexPath } from "@/lib/news/topics";
 import { pageMetadata, pageUrl } from "@/lib/seo";
-import { publicSiteUrl, portugalSatelliteUrl, spainSatelliteUrl } from "@/lib/site-url";
+import { buildCollectionPageItemListSchema } from "@/lib/seo/collection-schema";
+import { portugalSatelliteUrl, spainSatelliteUrl } from "@/lib/site-url";
 import { TRANSIT_HUBS } from "@/lib/transit-hubs";
 import { heroTitle } from "@/lib/ui/mobile";
 
@@ -35,8 +35,6 @@ export default async function RuHubPage() {
   const developingCorridors = topics.filter((t) => t.status === "in_development" && t.sitePaths);
   const newsOnly = topics.filter((t) => t.status === "news_only");
 
-  const origin = publicSiteUrl();
-
   const itemListElements = [
     ...topics.map((t) => ({
       name: t.countryRu,
@@ -48,49 +46,22 @@ export default async function RuHubPage() {
     })),
   ];
 
-  const itemListSchema = {
-    "@context": "https://schema.org",
-    "@type": "ItemList",
+  const hubUrl = pageUrl("/ru");
+  const collectionSchema = buildCollectionPageItemListSchema({
     name: "Направления релокации Emigro",
-    itemListElement: itemListElements.map((item, i) => ({
-      "@type": "ListItem",
-      position: i + 1,
-      ...item,
-    })),
-  };
-
-  const websiteSchema = {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: "Emigro",
-    url: origin,
-    inLanguage: "ru-RU",
+    url: hubUrl,
     description:
-      "Навигатор релокации для русскоязычных за рубежом и в СНГ: европейские коридоры ВНЖ, wizard подбора, справочники и еженедельные новости.",
-    publisher: { "@type": "Organization", name: "Emigro", url: origin },
-    potentialAction: {
-      "@type": "ViewAction",
-      name: "Wizard подбора маршрута ВНЖ",
-      target: `${origin}/ru/wizard`,
-    },
-  };
-
-  const organizationSchema = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    name: "Emigro",
-    url: origin,
-    logo: `${origin}/icon.svg`,
-    description: "Русскоязычный навигатор релокации в Европу — для тех, кто уже за границей или планирует переезд: коридоры ВНЖ, wizard, гайды и новости.",
-    sameAs: ["https://t.me/Emigro_news"],
-  };
+      "Навигатор релокации для русскоязычных: европейские коридоры ВНЖ, транзитные хабы, wizard подбора и еженедельные новости.",
+    inLanguage: "ru-RU",
+    items: itemListElements.map((item) => ({ url: item.url, name: item.name })),
+  });
 
   return (
     <>
       <SiteHeader />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }} />
+      {collectionSchema && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }} />
+      )}
       <main className="mx-auto max-w-5xl px-4 py-10">
         <HeroShell visual={<HubHeroVisual />}>
           <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-sm text-corridor-100">
@@ -218,7 +189,7 @@ export default async function RuHubPage() {
           </ul>
         </section>
 
-        <WizardPulseSection />
+        <WizardPulseSectionSuspense />
 
         <section className="mt-10">
           <h2 className="text-xl font-semibold text-slate-900">Выберите ваш паспорт</h2>
@@ -269,92 +240,11 @@ export default async function RuHubPage() {
           </div>
         </section>
 
-        <section id="destinations" className="mt-14 scroll-mt-20">
-          <h2 className="text-2xl font-semibold text-slate-900">Направления</h2>
-          <p className="mt-2 max-w-2xl text-slate-600">
-            Клик по плитке — рейтинги коридора · Open — обзор коридора.
-          </p>
-
-          {fullCorridors.length > 0 && (
-            <>
-              <h3 className="mt-8 text-sm font-semibold uppercase tracking-wide text-corridor-700">
-                Полные коридоры ({fullCorridors.length})
-              </h3>
-              <CorridorHubTilesGrid>
-                {fullCorridors.map((topic) => (
-                  <DestinationCard key={topic.key} topic={topic} />
-                ))}
-              </CorridorHubTilesGrid>
-              <CorridorHubTilesLegend />
-            </>
-          )}
-
-          <section className="mt-10 rounded-2xl border border-corridor-100 bg-corridor-50/60 p-5">
-            <div className="flex flex-wrap items-start justify-between gap-3">
-              <div>
-                <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-corridor-800">
-                  <Route className="h-4 w-4" />
-                  Транзитные хабы
-                </h3>
-                <p className="mt-2 max-w-2xl text-sm text-slate-600">
-                  Первый шаг на 3–12 месяцев: стабилизировать документы, банки и доход, если нужен промежуточный хаб
-                  перед EU-маршрутом. Это не коридоры ВНЖ или гражданства.
-                </p>
-              </div>
-              <Link href="/ru/wizard" className="text-sm font-medium text-corridor-700 hover:underline">
-                Проверить EU-маршрут
-              </Link>
-            </div>
-            <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-              {TRANSIT_HUBS.map((hub) => (
-                <Link
-                  key={hub.slug}
-                  href={hub.path}
-                  className="group rounded-xl border border-white bg-white p-4 shadow-sm transition hover:border-corridor-300 hover:shadow-md"
-                >
-                  <span className="text-2xl" aria-hidden>
-                    {hub.flag}
-                  </span>
-                  <h4 className="mt-2 font-semibold text-slate-900">{hub.countryRu}</h4>
-                  <p className="mt-1 text-xs font-medium uppercase tracking-wide text-corridor-700">
-                    {hub.cardLabel ?? "Транзитный хаб"}
-                  </p>
-                  <p className="mt-2 text-sm text-slate-600">{hub.tagline}</p>
-                  <span className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-corridor-700 group-hover:underline">
-                    Открыть
-                    <ArrowRight className="h-3.5 w-3.5" />
-                  </span>
-                </Link>
-              ))}
-            </div>
-          </section>
-
-          {developingCorridors.length > 0 && (
-            <>
-              <h3 className="mt-10 text-sm font-semibold uppercase tracking-wide text-amber-800">
-                Коридоры в разработке ({developingCorridors.length})
-              </h3>
-              <CorridorHubTilesGrid>
-                {developingCorridors.map((topic) => (
-                  <DestinationCard key={topic.key} topic={topic} />
-                ))}
-              </CorridorHubTilesGrid>
-            </>
-          )}
-
-          {newsOnly.length > 0 && (
-            <>
-              <h3 className="mt-10 text-sm font-semibold uppercase tracking-wide text-slate-500">
-                Только новости ({newsOnly.length})
-              </h3>
-              <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {newsOnly.map((topic) => (
-                  <DestinationCard key={topic.key} topic={topic} />
-                ))}
-              </div>
-            </>
-          )}
-        </section>
+        <HubDestinationsSectionSuspense
+          fullCorridors={fullCorridors}
+          developingCorridors={developingCorridors}
+          newsOnly={newsOnly}
+        />
 
         {pillarGuides.length > 0 && (
           <section className="mt-14">
