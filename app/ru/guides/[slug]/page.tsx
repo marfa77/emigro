@@ -9,7 +9,7 @@ import { RelocatorChatPromo } from "@/components/community/RelocatorChatPromo";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { ServiceProvidersSection } from "@/components/providers/ServiceProvidersSection";
 import { countryCardImage } from "@/lib/brand/country-accents";
-import { guidePath, getRelatedGuides, listGuides, loadGuide } from "@/lib/guides/load";
+import { guidePath, getGuidesIndex, getRelatedGuides, listGuides, loadGuide } from "@/lib/guides/load";
 import type { GuideArticle } from "@/lib/guides/load";
 import { loadGuideLiveDataForGuide } from "@/lib/guides/corridor-live-data";
 import {
@@ -254,12 +254,13 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
   if (!guide) notFound();
   const longTail = getLongTailByGuideSlug(guide.slug);
   const passportIso2 = getGuidePassportIso2(guide);
-  const [allTopics, liveData] = await Promise.all([
+  const [allTopics, liveData, guidesIndex] = await Promise.all([
     getActiveNewsTopics(),
     loadGuideLiveDataForGuide(guide.corridor_slugs, guide.topic_keys, passportIso2),
+    getGuidesIndex(),
   ]);
   const countryTopics = resolveCountryTopics(guide.topic_keys, allTopics);
-  const relatedGuides = getRelatedGuides(guide.slug, guide.corridor_slugs, guide.topic_keys);
+  const relatedGuides = getRelatedGuides(guide.slug, guide.corridor_slugs, guide.topic_keys, 4, guidesIndex);
   const cluster = getClusterForGuide(guide.slug);
   const comparisonCrossLinks = getComparisonCrossLinks(guide.slug);
   const showOriginHubPromo = isPillarGuideSlug(guide.slug) || getGuideAudiences(guide).includes("ru");

@@ -7,6 +7,8 @@ import { HubHeroVisual } from "@/components/visuals/HubHeroVisual";
 import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
 import { pageMetadata, pageUrl } from "@/lib/seo";
 
+export const revalidate = 3600;
+
 export const metadata: Metadata = pageMetadata({
   title: "Украина → ЕС: временная защита и маршруты ВНЖ 2026",
   description:

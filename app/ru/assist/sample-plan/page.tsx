@@ -6,6 +6,8 @@ import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { ROUTE_CHECK_PDF_PATH } from "@/lib/assist/sample-plan-data";
 import { pageMetadata } from "@/lib/seo";
 
+export const revalidate = 86400;
+
 export const metadata = pageMetadata({
   title: "Пример Route Check — Emigro Assist",
   description:

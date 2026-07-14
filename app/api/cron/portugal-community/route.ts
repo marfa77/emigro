@@ -1,5 +1,7 @@
+import { revalidateTag } from "next/cache";
 import { NextResponse } from "next/server";
 import { trackServerEvent } from "@/lib/analytics/server";
+import { CACHE_TAGS } from "@/lib/cache/tags";
 import { ensurePortugalCronEnv } from "@/lib/community-notes/cron-env";
 import { publishDraftsFromNewSignals } from "@/lib/community-notes/publish-drafts";
 import { refreshDailySpotlight } from "@/lib/community-notes/daily-spotlight";
@@ -20,6 +22,9 @@ export async function GET(request: Request) {
     ensurePortugalCronEnv();
     const result = await publishDraftsFromNewSignals(maxNotes);
     const spotlight = await refreshDailySpotlight("portugal");
+
+    revalidateTag(CACHE_TAGS.communityNotes);
+    revalidateTag(`${CACHE_TAGS.communityNotes}-portugal`);
 
     await trackServerEvent(
       "cron_portugal_community",

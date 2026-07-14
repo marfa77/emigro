@@ -30,13 +30,17 @@ export async function GET() {
     ...QUERY_LONG_TAIL_TARGETS.filter((t) => t.path).map((t) => pageUrl(t.path!)),
   ]);
 
+  const corridorSlugs = Array.from(new Set(fullCorridors.map((t) => t.corridorSlug!)));
+  const corridors = await Promise.all(corridorSlugs.map((slug) => getCorridorBySlug(slug)));
+  const corridorBySlug = new Map(corridorSlugs.map((slug, index) => [slug, corridors[index]]));
+
   for (const topic of fullCorridors) {
     const slug = topic.corridorSlug!;
     urls.add(pageUrl(corridorLandingPath(slug)));
     urls.add(pageUrl(corridorWizardPath(slug)));
     urls.add(pageUrl(corridorDigestPath(slug)));
     urls.add(pageUrl(`/api/v1/facts/corridors/${slug}`));
-    const corridor = await getCorridorBySlug(slug);
+    const corridor = corridorBySlug.get(slug);
     for (const p of corridor?.programs ?? []) {
       urls.add(pageUrl(programPath(slug, p.slug)));
       urls.add(pageUrl(`/api/v1/facts/programs/${p.slug}`));

@@ -195,18 +195,22 @@ export async function buildLlmsFullText(): Promise<string> {
     const slug = topic.corridorSlug!;
     rows.push(
       row(corridorLandingPath(slug), `${topic.countryRu} — коридор (в разработке)`),
-      row(corridorDigestPath(slug), `Справочник ${topic.countryRu}`)
+      row(corridorDigestPath(slug), `Справочник ${topic.countryRu}`),
     );
   }
+
+  const corridorSlugs = Array.from(new Set(fullCorridors.map((t) => t.corridorSlug!)));
+  const corridors = await Promise.all(corridorSlugs.map((slug) => getCorridorBySlug(slug)));
+  const corridorBySlug = new Map(corridorSlugs.map((slug, index) => [slug, corridors[index]]));
 
   for (const topic of fullCorridors) {
     const slug = topic.corridorSlug!;
     rows.push(
       row(corridorLandingPath(slug), `${topic.countryRu} — коридор релокации Emigro`),
       row(corridorWizardPath(slug), `Wizard ${topic.countryRu}`),
-      row(corridorDigestPath(slug), `Справочник ВНЖ ${topic.countryRu}`)
+      row(corridorDigestPath(slug), `Справочник ВНЖ ${topic.countryRu}`),
     );
-    const corridor = await getCorridorBySlug(slug);
+    const corridor = corridorBySlug.get(slug);
     for (const p of corridor?.programs ?? []) {
       rows.push(row(programPath(slug, p.slug), `${topic.countryRu}: ${p.title_ru}`));
     }

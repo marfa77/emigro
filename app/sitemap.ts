@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { corridorDigestPath, corridorLandingPath, corridorWizardPath, programPath } from "@/lib/corridor/paths";
-import { getCorridorBySlug, getProgramBySlug } from "@/lib/corridor/queries";
+import { getCorridorBySlug, getProgramsBySlugs } from "@/lib/corridor/queries";
 import { guidePath, listGuides } from "@/lib/guides/load";
 import { getPublishedNewsDigests } from "@/lib/news/digests";
 import { getActiveNewsTopics } from "@/lib/news/topics";
@@ -22,6 +22,8 @@ import {
 import { TRANSIT_HUBS } from "@/lib/transit-hubs";
 import { MIN_TAG_NOTES_INDEXABLE } from "@/lib/seo/thin-content";
 import { ORIGIN_HUB_PATH } from "@/lib/seo/corridor-llm-layer";
+
+export const revalidate = 3600;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const origin = publicSiteUrl();
@@ -60,9 +62,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const corridorRoutes: MetadataRoute.Sitemap = [];
   const programRoutes: MetadataRoute.Sitemap = [];
 
+  const allCorridorTopics = [...developingCorridors, ...fullCorridors];
+  const corridorSlugs = Array.from(new Set(allCorridorTopics.map((t) => t.corridorSlug!)));
+  const corridors = await Promise.all(corridorSlugs.map((slug) => getCorridorBySlug(slug)));
+  const corridorBySlug = new Map(corridorSlugs.map((slug, index) => [slug, corridors[index]]));
+
+  const programSlugs = Array.from(
+    new Set(
+      fullCorridors.flatMap((topic) => {
+        const corridor = corridorBySlug.get(topic.corridorSlug!);
+        return corridor?.programs.map((p) => p.slug) ?? [];
+      }),
+    ),
+  );
+  const programsBySlug = await getProgramsBySlugs(programSlugs);
+
   for (const topic of developingCorridors) {
     const slug = topic.corridorSlug!;
-    const corridor = await getCorridorBySlug(slug);
+    const corridor = corridorBySlug.get(slug);
     const lastModified = corridor ? verifiedDateToLastModified(corridorDigestLastModified(corridor)) : undefined;
     corridorRoutes.push(
       {
@@ -76,13 +93,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         changeFrequency: "weekly",
         priority: 0.65,
         ...(lastModified ? { lastModified } : {}),
-      }
+      },
     );
   }
 
   for (const topic of fullCorridors) {
     const slug = topic.corridorSlug!;
-    const corridor = await getCorridorBySlug(slug);
+    const corridor = corridorBySlug.get(slug);
     const digestModified = corridor
       ? verifiedDateToLastModified(corridorDigestLastModified(corridor))
       : undefined;
@@ -105,11 +122,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         changeFrequency: "weekly",
         priority: 0.8,
         ...(digestModified ? { lastModified: digestModified } : {}),
-      }
+      },
     );
 
     for (const p of corridor?.programs ?? []) {
-      const program = await getProgramBySlug(p.slug);
+      const program = programsBySlug.get(p.slug);
       if (!program?.version) continue;
       const programModified = verifiedDateToLastModified(programLastModified(program));
       programRoutes.push({

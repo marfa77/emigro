@@ -1,11 +1,12 @@
+import { cache } from "react";
 import type { NewsTopicConfig } from "@/lib/news/topics";
-import { getNewsTopicByCorridorSlug, resolveNewsTopicFromParam } from "@/lib/news/topics";
+import { resolveNewsTopicFromParam } from "@/lib/news/topics";
 import { isCorridorFull, isCorridorOnSite } from "@/lib/corridor/publish";
 
 /** Resolve corridor slug from public URL segment (e.g. spain → ru-speaking-to-spain). */
-export async function getTopicByCountrySegment(country: string): Promise<NewsTopicConfig | null> {
+export const getTopicByCountrySegment = cache(async (country: string): Promise<NewsTopicConfig | null> => {
   return resolveNewsTopicFromParam(country);
-}
+});
 
 export async function getCorridorSlugForCountry(country: string): Promise<string | null> {
   const topic = await getTopicByCountrySegment(country);
@@ -30,4 +31,4 @@ export async function requireActiveCorridorTopic(country: string): Promise<NewsT
   return topic;
 }
 
-export { getNewsTopicByCorridorSlug };
+export { getNewsTopicByCorridorSlug } from "@/lib/news/topics";

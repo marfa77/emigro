@@ -11,6 +11,8 @@ import { pageMetadata, pageUrl } from "@/lib/seo";
 import { getAssistCountryOptions } from "@/lib/corridor/registry";
 import { publicSiteUrl } from "@/lib/site-url";
 
+export const revalidate = 3600;
+
 export const metadata = pageMetadata({
   title: "Emigro Assist — навигация и сопровождение",
   description:

@@ -12,6 +12,8 @@ import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
 import { buildCommunityPageSchema } from "@/lib/seo/community-page-seo";
 import { pageMetadata, pageUrl } from "@/lib/seo";
 
+export const revalidate = 86400;
+
 export const metadata: Metadata = pageMetadata({
   title: "Дискуссионная группа Emigro — Telegram",
   description:

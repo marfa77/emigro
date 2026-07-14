@@ -12,7 +12,7 @@ import { DigestSeoSections } from "@/components/corridor/DigestSeoSections";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { CorridorHeroVisual } from "@/components/visuals/CorridorHeroVisual";
 import { corridorStaticParamsFromSegments, getPublishedCorridorSegments } from "@/lib/corridor/segments";
-import { LatestNewsTeaser } from "@/components/news/LatestNewsTeaser";
+import { LatestNewsTeaserSuspense } from "@/components/news/LatestNewsTeaser";
 import { getCorridorBySlug } from "@/lib/corridor/queries";
 import { getTopicByCountrySegment } from "@/lib/corridor/resolve-topic";
 import { isCorridorFull, isCorridorOnSite } from "@/lib/corridor/publish";
@@ -101,7 +101,7 @@ export default async function CountryDigestPage({ params }: { params: { country:
         </HeroShell>
 
         <div className="mt-8">
-          <LatestNewsTeaser topicKey={topic.key} />
+          <LatestNewsTeaserSuspense topicKey={topic.key} />
         </div>
 
         <DigestSeoSections topic={topic} corridor={corridor} landingPath={base} />

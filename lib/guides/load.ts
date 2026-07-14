@@ -1,5 +1,8 @@
 import fs from "fs";
 import path from "path";
+import { cache } from "react";
+import { unstable_cache } from "next/cache";
+import { CACHE_REVALIDATE, CACHE_TAGS } from "@/lib/cache/tags";
 import { getGuideCoverPath, resolveGuideCoverPath, resolveGuideOgImagePath } from "@/lib/guides/covers";
 import { specificGuideTopicKeys } from "@/lib/guides/guide-display";
 import { getFactcheckCadence, getGuideReviewTier, type FactcheckCadence, type GuideReviewTier } from "@/lib/guides/review-tiers";
@@ -270,7 +273,7 @@ export function listGuides(): GuideFrontmatter[] {
     .sort((a, b) => a.title.localeCompare(b.title, "ru"));
 }
 
-export function loadGuide(slug: string): GuideArticle | null {
+export function loadGuideUncached(slug: string): GuideArticle | null {
   const filePath = path.join(GUIDES_DIR, `${slug}.md`);
   if (!fs.existsSync(filePath)) return null;
 
@@ -285,17 +288,28 @@ export function loadGuide(slug: string): GuideArticle | null {
   };
 }
 
+/** Per-request dedupe between generateMetadata and page render. */
+export const loadGuide = cache(loadGuideUncached);
+
+export async function getGuidesIndex(): Promise<GuideFrontmatter[]> {
+  return unstable_cache(async () => listGuides(), ["guides-index"], {
+    revalidate: CACHE_REVALIDATE.guides,
+    tags: [CACHE_TAGS.guides],
+  })();
+}
+
 export function getRelatedGuides(
   currentSlug: string,
   corridorSlugs?: string[],
   topicKeys?: string[],
   limit = 4,
+  allGuides?: GuideFrontmatter[],
 ): GuideFrontmatter[] {
   const corridors = new Set(corridorSlugs ?? []);
   const topics = specificGuideTopicKeys(topicKeys);
   if (corridors.size === 0 && topics.size === 0) return [];
 
-  return listGuides()
+  return (allGuides ?? listGuides())
     .filter((guide) => guide.slug !== currentSlug)
     .map((guide) => {
       let score = 0;

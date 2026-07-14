@@ -133,6 +133,45 @@ export async function getPublishedNewsDigests(options?: {
   )();
 }
 
+async function fetchPublishedNewsDigestCountUncached(options: {
+  topicKey?: string;
+  corridorSlug?: string;
+}): Promise<number> {
+  const supabase = createServerClient();
+  let query = supabase
+    .from("emigro_news_digests")
+    .select("*", { count: "exact", head: true })
+    .eq("status", "published");
+
+  if (options.topicKey) query = query.eq("topic_key", options.topicKey);
+  if (options.corridorSlug) query = query.eq("corridor_slug", options.corridorSlug);
+
+  const { count, error } = await query;
+  if (error) {
+    console.warn("[news] count failed:", error.message);
+    return 0;
+  }
+  return count ?? 0;
+}
+
+export async function getPublishedNewsDigestCount(options?: {
+  topicKey?: string;
+  corridorSlug?: string;
+}): Promise<number> {
+  const topicKey = options?.topicKey ?? "";
+  const corridorSlug = options?.corridorSlug ?? "";
+
+  return unstable_cache(
+    () =>
+      fetchPublishedNewsDigestCountUncached({
+        topicKey: options?.topicKey,
+        corridorSlug: options?.corridorSlug,
+      }),
+    ["news-digest-count", topicKey, corridorSlug],
+    { revalidate: CACHE_REVALIDATE.newsDigests, tags: [CACHE_TAGS.newsDigests] },
+  )();
+}
+
 async function fetchPublishedNewsDigestBySlugUncached(slug: string): Promise<NewsDigest | null> {
   const supabase = createServerClient();
   const { data, error } = await supabase

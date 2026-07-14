@@ -274,7 +274,7 @@ export async function getDailySpotlight(countryKey = "portugal"): Promise<DailyS
     if (error) {
       if (/community_daily_spotlight/.test(error.message)) return null;
       console.warn("[spotlight] load failed:", error.message);
-      return refreshDailySpotlight(countryKey);
+      return null;
     }
 
     if (data) {
@@ -286,9 +286,9 @@ export async function getDailySpotlight(countryKey = "portugal"): Promise<DailyS
       if (isSpotlightStillBest(stored.note_slug, notes, recentSpotlightSlugs, today)) {
         return stored;
       }
-      return refreshDailySpotlight(countryKey);
+      return stored;
     }
-    return refreshDailySpotlight(countryKey);
+    return null;
   } catch {
     return null;
   }

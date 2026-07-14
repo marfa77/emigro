@@ -3,6 +3,8 @@ import { LegalPage, LegalSection } from "@/components/legal/LegalPage";
 import { CONTACT_EMAIL, MAILTO_CONTACT } from "@/lib/site-contact";
 import { pageMetadata } from "@/lib/seo";
 
+export const revalidate = 86400;
+
 export const metadata = pageMetadata({
   title: "Условия использования",
   description:

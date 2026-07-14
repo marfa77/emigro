@@ -1,9 +1,10 @@
 import { unstable_cache } from "next/cache";
 import { getPublishedCommunityNotes } from "@/lib/community-notes/queries";
 import { getCorridorBySlug } from "@/lib/corridor/queries";
+import { CACHE_TAGS } from "@/lib/cache/tags";
 import type { CorridorHubTileStats } from "@/lib/corridor/hub";
 import { countGuidesForTopic } from "@/lib/guides/corridor-guides";
-import { NEWS_INDEX_POOL_LIMIT, getPublishedNewsDigests } from "@/lib/news/digests";
+import { NEWS_INDEX_POOL_LIMIT, getPublishedNewsDigests, getPublishedNewsDigestCount } from "@/lib/news/digests";
 import { isPortugalHubTopic } from "@/lib/portugal/hub";
 import { topicHasLanding } from "@/lib/corridor/publish";
 import type { NewsTopicConfig } from "@/lib/news/topics/types";
@@ -19,13 +20,14 @@ function buildStatsForTopic(
   corridor: Awaited<ReturnType<typeof getCorridorBySlug>>,
   news: { published_at: string }[],
   practiceNotes: number,
+  newsCountOverride?: number,
 ): CorridorHubTileStats {
   const corridorSlug = topic.corridorSlug;
   return {
     routeCount: corridor?.programs.length ?? 0,
     digestCount: corridor?.digest.length ?? 0,
     guideCount: countGuidesForTopic(topic.key, corridorSlug),
-    newsCount: news.length,
+    newsCount: newsCountOverride ?? news.length,
     practiceNotes,
     lastNewsLabel: formatLastNewsLabel(news[0]?.published_at),
   };
@@ -34,7 +36,7 @@ function buildStatsForTopic(
 const getPortugalPracticeNotesCount = unstable_cache(
   async () => (await getPublishedCommunityNotes("portugal")).length,
   ["portugal-practice-notes-count"],
-  { revalidate: 300, tags: ["community-notes"] },
+  { revalidate: 300, tags: [CACHE_TAGS.communityNotes] },
 );
 
 export async function getCorridorHubTileStatsBatch(
@@ -78,11 +80,12 @@ export async function getCorridorHubTileStatsFromCorridor(
   topic: NewsTopicConfig,
   corridor: Corridor,
 ): Promise<CorridorHubTileStats> {
-  const [news, practiceNotes] = await Promise.all([
-    getPublishedNewsDigests({ topicKey: topic.key, limit: NEWS_INDEX_POOL_LIMIT }),
+  const [news, practiceNotes, newsCount] = await Promise.all([
+    getPublishedNewsDigests({ topicKey: topic.key, limit: 1 }),
     isPortugalHubTopic(topic) ? getPortugalPracticeNotesCount() : Promise.resolve(0),
+    getPublishedNewsDigestCount({ topicKey: topic.key }),
   ]);
-  return buildStatsForTopic(topic, corridor, news, practiceNotes);
+  return buildStatsForTopic(topic, corridor, news, practiceNotes, newsCount);
 }
 
 export async function getCorridorHubTileStats(topic: NewsTopicConfig): Promise<CorridorHubTileStats> {

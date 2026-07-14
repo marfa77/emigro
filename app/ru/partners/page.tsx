@@ -5,6 +5,8 @@ import { CONTACT_EMAIL, MAILTO_PARTNERS } from "@/lib/site-contact";
 import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
 import { pageMetadata, pageUrl } from "@/lib/seo";
 
+export const revalidate = 86400;
+
 export const metadata = pageMetadata({
   title: "Партнёрам",
   description:
