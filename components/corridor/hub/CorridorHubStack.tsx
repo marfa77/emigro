@@ -1,18 +1,26 @@
-import { CorridorHubTile, CorridorHubTileSlot, CorridorHubTilesGrid, CorridorHubTilesLegend } from "@/components/corridor/hub/CorridorHubTile";
+import { Suspense } from "react";
+import {
+  CorridorHubTile,
+  CorridorHubTileSlot,
+  CorridorHubTilesGrid,
+  CorridorHubTilesLegend,
+} from "@/components/corridor/hub/CorridorHubTile";
 import {
   corridorHubJourney,
   corridorHubLabel,
+  type CorridorHubTileStats,
   resolveCorridorHubTiles,
 } from "@/lib/corridor/hub";
-import { getCorridorHubTileStats } from "@/lib/corridor/hub-stats";
+import { getCorridorHubTileStats, getCorridorHubTileStatsFromCorridor } from "@/lib/corridor/hub-stats";
 import type { NewsTopicConfig } from "@/lib/news/topics/types";
+import type { Corridor } from "@/lib/types";
 
-type Props = {
+type ViewProps = {
   topic: NewsTopicConfig;
+  stats: CorridorHubTileStats;
 };
 
-export async function CorridorHubStack({ topic }: Props) {
-  const stats = await getCorridorHubTileStats(topic);
+export function CorridorHubStackView({ topic, stats }: ViewProps) {
   const tiles = resolveCorridorHubTiles(topic, stats);
   const journey = corridorHubJourney(topic);
   const hubLabel = corridorHubLabel(topic);
@@ -51,4 +59,54 @@ export async function CorridorHubStack({ topic }: Props) {
       </div>
     </section>
   );
+}
+
+function CorridorHubStackFallback() {
+  return (
+    <section className="mt-10 animate-pulse rounded-2xl border border-slate-200 bg-slate-100 p-8" aria-hidden>
+      <div className="h-7 w-56 rounded bg-slate-200" />
+      <div className="mt-6 grid gap-3 sm:grid-cols-3">
+        {Array.from({ length: 3 }).map((_, index) => (
+          <div key={index} className="h-16 rounded-lg bg-slate-200" />
+        ))}
+      </div>
+      <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        {Array.from({ length: 4 }).map((_, index) => (
+          <div key={index} className="h-28 rounded-xl bg-slate-200" />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/** Loads stats using a preloaded corridor (no duplicate corridor query). */
+export async function CorridorHubStackSection({
+  topic,
+  corridor,
+}: {
+  topic: NewsTopicConfig;
+  corridor: Corridor;
+}) {
+  const stats = await getCorridorHubTileStatsFromCorridor(topic, corridor);
+  return <CorridorHubStackView topic={topic} stats={stats} />;
+}
+
+export function CorridorHubStackSectionSuspense({
+  topic,
+  corridor,
+}: {
+  topic: NewsTopicConfig;
+  corridor: Corridor;
+}) {
+  return (
+    <Suspense fallback={<CorridorHubStackFallback />}>
+      <CorridorHubStackSection topic={topic} corridor={corridor} />
+    </Suspense>
+  );
+}
+
+/** Standalone loader when corridor is not already available (e.g. Portugal hub embed). */
+export async function CorridorHubStack({ topic }: { topic: NewsTopicConfig }) {
+  const stats = await getCorridorHubTileStats(topic);
+  return <CorridorHubStackView topic={topic} stats={stats} />;
 }

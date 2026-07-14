@@ -1,7 +1,9 @@
 import Link from "next/link";
+import { Suspense } from "react";
 import { CalendarDays } from "lucide-react";
-import { getPublishedNewsDigests, getNewsDisplayTitle } from "@/lib/news/digests";
+import { getPublishedNewsDigests, getNewsDisplayTitle, type NewsDigest } from "@/lib/news/digests";
 import { getNewsTopic, newsArticlePath, newsIndexPath } from "@/lib/news/topics";
+import type { NewsTopicConfig } from "@/lib/news/topics/types";
 
 function formatDateRu(dateString: string) {
   return new Date(dateString).toLocaleDateString("ru-RU", {
@@ -11,11 +13,12 @@ function formatDateRu(dateString: string) {
   });
 }
 
-export async function LatestNewsTeaser({ topicKey }: { topicKey: string }) {
-  const topic = await getNewsTopic(topicKey);
-  const [latest] = await getPublishedNewsDigests({ topicKey, limit: 1 });
-  if (!topic) return null;
+type ViewProps = {
+  topic: NewsTopicConfig;
+  latest: NewsDigest | null | undefined;
+};
 
+export function LatestNewsTeaserView({ topic, latest }: ViewProps) {
   if (!latest) {
     return (
       <div className="rounded-xl border border-dashed border-slate-300 bg-white p-6 text-sm text-slate-600">
@@ -49,5 +52,30 @@ export async function LatestNewsTeaser({ topicKey }: { topicKey: string }) {
         </p>
       </Link>
     </div>
+  );
+}
+
+function LatestNewsTeaserFallback() {
+  return (
+    <div className="animate-pulse rounded-xl border border-slate-200 bg-slate-50 p-6" aria-hidden>
+      <div className="h-4 w-40 rounded bg-slate-200" />
+      <div className="mt-4 h-6 w-full rounded bg-slate-200" />
+      <div className="mt-3 h-4 w-full rounded bg-slate-200" />
+    </div>
+  );
+}
+
+export async function LatestNewsTeaser({ topicKey }: { topicKey: string }) {
+  const topic = await getNewsTopic(topicKey);
+  if (!topic) return null;
+  const [latest] = await getPublishedNewsDigests({ topicKey, limit: 1 });
+  return <LatestNewsTeaserView topic={topic} latest={latest} />;
+}
+
+export function LatestNewsTeaserSuspense({ topicKey }: { topicKey: string }) {
+  return (
+    <Suspense fallback={<LatestNewsTeaserFallback />}>
+      <LatestNewsTeaser topicKey={topicKey} />
+    </Suspense>
   );
 }

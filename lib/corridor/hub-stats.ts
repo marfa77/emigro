@@ -7,6 +7,7 @@ import { NEWS_INDEX_POOL_LIMIT, getPublishedNewsDigests } from "@/lib/news/diges
 import { isPortugalHubTopic } from "@/lib/portugal/hub";
 import { topicHasLanding } from "@/lib/corridor/publish";
 import type { NewsTopicConfig } from "@/lib/news/topics/types";
+import type { Corridor } from "@/lib/types";
 
 function formatLastNewsLabel(publishedAt: string | undefined): string | null {
   if (!publishedAt) return null;
@@ -70,6 +71,18 @@ export async function getCorridorHubTileStatsBatch(
   }
 
   return statsMap;
+}
+
+/** Stats from an already-loaded corridor — skips a second getCorridorBySlug round-trip. */
+export async function getCorridorHubTileStatsFromCorridor(
+  topic: NewsTopicConfig,
+  corridor: Corridor,
+): Promise<CorridorHubTileStats> {
+  const [news, practiceNotes] = await Promise.all([
+    getPublishedNewsDigests({ topicKey: topic.key, limit: NEWS_INDEX_POOL_LIMIT }),
+    isPortugalHubTopic(topic) ? getPortugalPracticeNotesCount() : Promise.resolve(0),
+  ]);
+  return buildStatsForTopic(topic, corridor, news, practiceNotes);
 }
 
 export async function getCorridorHubTileStats(topic: NewsTopicConfig): Promise<CorridorHubTileStats> {

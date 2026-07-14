@@ -3,14 +3,14 @@ import { Construction } from "lucide-react";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { CorridorIntelLinks } from "@/components/corridor/CorridorIntelLinks";
 import { CorridorHubShell } from "@/components/corridor/hub/CorridorHubShell";
-import { CorridorHubStack } from "@/components/corridor/hub/CorridorHubStack";
+import { CorridorHubStackSectionSuspense } from "@/components/corridor/hub/CorridorHubStack";
 import { CorridorLandingSeoSections } from "@/components/corridor/CorridorLandingSeoSections";
 import { PortugalFeaturedNotes } from "@/components/portugal/PortugalFeaturedNotes";
 import { SpainFeaturedNotes } from "@/components/spain/SpainFeaturedNotes";
 import { isPortugalHubTopic } from "@/lib/portugal/hub";
 import { isSpainHubTopic } from "@/lib/spain/hub";
 import { GuideDigestPreview } from "@/components/corridor/GuideDigestPreview";
-import { LatestNewsTeaser } from "@/components/news/LatestNewsTeaser";
+import { LatestNewsTeaserSuspense } from "@/components/news/LatestNewsTeaser";
 import { ServiceProvidersSection } from "@/components/providers/ServiceProvidersSection";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { CorridorHeroVisual } from "@/components/visuals/CorridorHeroVisual";
@@ -109,7 +109,7 @@ export async function CorridorLanding({ country }: { country: string }) {
           </div>
         </HeroShell>
 
-        {showHub && <CorridorHubStack topic={topic} />}
+        {showHub && <CorridorHubStackSectionSuspense topic={topic} corridor={corridor} />}
 
         {corridor.programs.length > 0 && (
           <section id="programs" className="mt-12">
@@ -142,7 +142,7 @@ export async function CorridorLanding({ country }: { country: string }) {
             </p>
           )}
           <div className="mt-6 grid gap-4 lg:grid-cols-2">
-            <LatestNewsTeaser topicKey={topic.key} />
+            <LatestNewsTeaserSuspense topicKey={topic.key} />
             {topic.sitePaths?.guide && (
               <GuideDigestPreview
                 items={corridor.digest}
