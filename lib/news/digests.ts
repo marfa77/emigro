@@ -1,7 +1,14 @@
+import { unstable_cache } from "next/cache";
 import { createServerClient } from "@/lib/supabase/server";
+import { CACHE_REVALIDATE, CACHE_TAGS } from "@/lib/cache/tags";
 import { buildNewsDigestSlug as buildSlug } from "@/lib/news/topics/paths";
 
 export type { NewsTopicKey } from "@/lib/news/topics/types";
+
+/** Pool loaded once for index + client-side country filter. */
+export const NEWS_INDEX_POOL_LIMIT = 60;
+/** Default cards shown per view after client filter. */
+export const NEWS_INDEX_DISPLAY_LIMIT = 30;
 
 export type NewsSourceLink = { title: string; url: string };
 
@@ -81,10 +88,10 @@ export function getNewsDisplaySeoTitle(
   return `${prefix} ${topic}`.slice(0, 70);
 }
 
-export async function getPublishedNewsDigests(options?: {
+async function fetchPublishedNewsDigestsUncached(options: {
   topicKey?: string;
   corridorSlug?: string;
-  limit?: number;
+  limit: number;
 }): Promise<NewsDigest[]> {
   const supabase = createServerClient();
   let query = supabase
@@ -92,10 +99,10 @@ export async function getPublishedNewsDigests(options?: {
     .select("*")
     .eq("status", "published")
     .order("published_at", { ascending: false })
-    .limit(options?.limit ?? 120);
+    .limit(options.limit);
 
-  if (options?.topicKey) query = query.eq("topic_key", options.topicKey);
-  if (options?.corridorSlug) query = query.eq("corridor_slug", options.corridorSlug);
+  if (options.topicKey) query = query.eq("topic_key", options.topicKey);
+  if (options.corridorSlug) query = query.eq("corridor_slug", options.corridorSlug);
 
   const { data, error } = await query;
   if (error) {
@@ -105,7 +112,28 @@ export async function getPublishedNewsDigests(options?: {
   return (data ?? []) as NewsDigest[];
 }
 
-export async function getPublishedNewsDigestBySlug(slug: string): Promise<NewsDigest | null> {
+export async function getPublishedNewsDigests(options?: {
+  topicKey?: string;
+  corridorSlug?: string;
+  limit?: number;
+}): Promise<NewsDigest[]> {
+  const limit = options?.limit ?? NEWS_INDEX_POOL_LIMIT;
+  const topicKey = options?.topicKey ?? "";
+  const corridorSlug = options?.corridorSlug ?? "";
+
+  return unstable_cache(
+    () =>
+      fetchPublishedNewsDigestsUncached({
+        topicKey: options?.topicKey,
+        corridorSlug: options?.corridorSlug,
+        limit,
+      }),
+    ["news-digests", topicKey, corridorSlug, String(limit)],
+    { revalidate: CACHE_REVALIDATE.newsDigests, tags: [CACHE_TAGS.newsDigests] },
+  )();
+}
+
+async function fetchPublishedNewsDigestBySlugUncached(slug: string): Promise<NewsDigest | null> {
   const supabase = createServerClient();
   const { data, error } = await supabase
     .from("emigro_news_digests")
@@ -119,4 +147,12 @@ export async function getPublishedNewsDigestBySlug(slug: string): Promise<NewsDi
     return null;
   }
   return (data as NewsDigest | null) ?? null;
+}
+
+export async function getPublishedNewsDigestBySlug(slug: string): Promise<NewsDigest | null> {
+  return unstable_cache(
+    () => fetchPublishedNewsDigestBySlugUncached(slug),
+    ["news-digest-by-slug", slug],
+    { revalidate: CACHE_REVALIDATE.newsDigests, tags: [CACHE_TAGS.newsDigests, `news-${slug}`] },
+  )();
 }

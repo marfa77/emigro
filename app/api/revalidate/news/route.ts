@@ -1,5 +1,6 @@
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { NextResponse } from "next/server";
+import { CACHE_TAGS } from "@/lib/cache/tags";
 import { pingIndexNow } from "@/lib/seo/indexnow";
 import { newsArticleUrl, publicSiteUrl } from "@/lib/site-url";
 
@@ -23,7 +24,7 @@ export async function POST(request: Request) {
     /* empty body ok */
   }
 
-  const paths = new Set<string>(["/ru/news", "/ru/news/feed.xml", "/ru"]);
+  const paths = new Set<string>(["/ru/news", "/ru/news/feed.xml", "/ru", "/ru/guides"]);
   for (const slug of slugs) {
     if (/^[a-z]+-relocation-news-\d{4}-\d{2}-\d{2}$/.test(slug)) {
       paths.add(`/ru/news/${slug}`);
@@ -34,6 +35,9 @@ export async function POST(request: Request) {
   for (const path of pathList) {
     revalidatePath(path);
   }
+
+  revalidateTag(CACHE_TAGS.newsDigests);
+  revalidateTag(CACHE_TAGS.newsTopics);
 
   const site = publicSiteUrl();
   const indexNowUrls = pathList.map((p) => `${site}${p}`);

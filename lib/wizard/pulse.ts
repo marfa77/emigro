@@ -1,6 +1,8 @@
 import { getActiveNewsTopics } from "@/lib/news/topics";
 import { PORTUGAL_CORRIDOR_SLUG, PORTUGAL_URL_SEGMENT } from "@/lib/portugal/hub";
 import { createServerClient } from "@/lib/supabase/server";
+import { unstable_cache } from "next/cache";
+import { CACHE_REVALIDATE, CACHE_TAGS } from "@/lib/cache/tags";
 
 export const WIZARD_PULSE_MIN_TOTAL = 10;
 export const WIZARD_PULSE_MIN_BUCKET = 5;
@@ -291,9 +293,15 @@ function buildGlobalPulse(data: PulseData): GlobalWizardPulse | null {
 
 /** All corridors + hub wizard — for homepage and global context. */
 export async function getGlobalWizardPulse(): Promise<GlobalWizardPulse | null> {
-  const data = await loadPulseData();
-  if (!data) return null;
-  return buildGlobalPulse(data);
+  return unstable_cache(
+    async () => {
+      const data = await loadPulseData();
+      if (!data) return null;
+      return buildGlobalPulse(data);
+    },
+    ["wizard-pulse-global"],
+    { revalidate: CACHE_REVALIDATE.wizardPulse, tags: [CACHE_TAGS.wizardPulse] },
+  )();
 }
 
 function buildCorridorProgramPulse(
@@ -347,9 +355,15 @@ export async function getCorridorWizardPulse(
   urlSegment: string,
   corridorSlug: string | null
 ): Promise<CorridorWizardPulse | null> {
-  const data = await loadPulseData();
-  if (!data) return null;
-  return buildCorridorProgramPulse(data, urlSegment, corridorSlug);
+  return unstable_cache(
+    async () => {
+      const data = await loadPulseData();
+      if (!data) return null;
+      return buildCorridorProgramPulse(data, urlSegment, corridorSlug);
+    },
+    ["wizard-pulse-corridor", urlSegment, corridorSlug ?? "none"],
+    { revalidate: CACHE_REVALIDATE.wizardPulse, tags: [CACHE_TAGS.wizardPulse] },
+  )();
 }
 
 /** Global trends plus Portugal program breakdown for Portugal Hub. */

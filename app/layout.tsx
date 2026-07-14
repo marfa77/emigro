@@ -18,9 +18,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
-        <Script id="google-analytics" strategy="afterInteractive">
+        <Script id="google-analytics" strategy="lazyOnload">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
@@ -31,7 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Script
           src="https://analytics.ahrefs.com/analytics.js"
           data-key="dRBcrY3DcqZxP4UJpw1KAg"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
       </head>
       <body className="min-h-screen bg-slate-50 text-slate-900 antialiased">

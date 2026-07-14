@@ -12,6 +12,8 @@ import { buildCorridorLandingAiDescription } from "@/lib/seo/corridor-page-seo";
 import { getCorridorBySlug } from "@/lib/corridor/queries";
 import { TRANSIT_HUBS, getTransitHub } from "@/lib/transit-hubs";
 
+export const revalidate = 3600;
+
 export async function generateStaticParams() {
   const segments = await getPublishedCorridorSegments();
   return [

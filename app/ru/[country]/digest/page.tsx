@@ -28,6 +28,8 @@ import {
 } from "@/lib/seo/corridor-page-seo";
 import { pageUrl } from "@/lib/seo";
 
+export const revalidate = 3600;
+
 export async function generateStaticParams() {
   const segments = await getPublishedCorridorSegments();
   return corridorStaticParamsFromSegments(segments);

@@ -6,6 +6,8 @@ import { WizardHeroVisual } from "@/components/visuals/WizardHeroVisual";
 import { HUB_WIZARD_ID, HUB_WIZARD_MODULES } from "@/lib/wizard/hub-definition";
 import { pageMetadata } from "@/lib/seo";
 
+export const revalidate = 3600;
+
 export const metadata: Metadata = pageMetadata({
   title: "Подбор страны и маршрута ВНЖ",
   titleAbsolute: true,

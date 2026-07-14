@@ -5,43 +5,10 @@ import { specificGuideTopicKeys } from "@/lib/guides/guide-display";
 import { getFactcheckCadence, getGuideReviewTier, type FactcheckCadence, type GuideReviewTier } from "@/lib/guides/review-tiers";
 
 export type { FactcheckCadence, GuideReviewTier } from "@/lib/guides/review-tiers";
+export type { GuideOfficialSource, GuideFrontmatter, GuideArticle } from "@/lib/guides/types";
+export { guidePath } from "@/lib/guides/paths";
 
-export type GuideOfficialSource = {
-  url: string;
-  label: string;
-};
-
-export type GuideFrontmatter = {
-  slug: string;
-  title: string;
-  seo_title?: string;
-  seo_description?: string;
-  excerpt?: string;
-  quick_answer?: string;
-  cta_primary?: string;
-  cta_secondary?: string;
-  estimated_minutes?: number;
-  date_published?: string;
-  date_modified?: string;
-  tags?: string[];
-  topic_keys?: string[];
-  corridor_slugs?: string[];
-  primary_intent?: string;
-  cover_image?: string;
-  official_sources?: GuideOfficialSource[];
-  /** Editorial review tier — volatile facts need quarterly checks. */
-  review_tier: GuideReviewTier;
-  /** Derived review schedule from review_tier. */
-  factcheck_cadence: FactcheckCadence;
-  /** Resolved cover path (frontmatter or slug map). */
-  cover_path: string;
-  /** 1200x630 raster image for social previews. */
-  og_image_path: string;
-};
-
-export type GuideArticle = GuideFrontmatter & {
-  bodyHtml: string;
-};
+import type { GuideOfficialSource, GuideFrontmatter, GuideArticle } from "@/lib/guides/types";
 
 const GUIDES_DIR = path.join(process.cwd(), "content/guides/ru");
 
@@ -316,10 +283,6 @@ export function loadGuide(slug: string): GuideArticle | null {
     ...mapFrontmatter(meta, slug, officialSources),
     bodyHtml: markdownToHtml(body),
   };
-}
-
-export function guidePath(slug: string): string {
-  return `/ru/guides/${slug}`;
 }
 
 export function getRelatedGuides(

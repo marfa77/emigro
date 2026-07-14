@@ -1,6 +1,6 @@
 import type { LucideIcon } from "lucide-react";
 import { Compass, FileText, GitCompare, MapPin, Plane, Users, Wallet } from "lucide-react";
-import type { GuideFrontmatter } from "@/lib/guides/load";
+import type { GuideFrontmatter } from "@/lib/guides/types";
 
 export type GuideCategoryId =
   | "countries"

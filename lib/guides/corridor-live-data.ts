@@ -1,5 +1,6 @@
-import { getProgramBySlug } from "@/lib/corridor/queries";
-import { getNewsTopicByCorridorSlug } from "@/lib/news/topics";
+import { getProgramsBySlugs } from "@/lib/corridor/queries";
+import { getAllNewsTopics } from "@/lib/news/topics";
+import type { NewsTopicConfig } from "@/lib/news/topics";
 import type { GuidePassportIso2 } from "@/lib/guides/guide-display";
 import { orderedGuideCorridorSlugs, passportColumnLabel } from "@/lib/guides/guide-display";
 import type { ProgramDetail } from "@/lib/types";
@@ -68,26 +69,24 @@ function mapProgram(
   };
 }
 
+function buildTopicByCorridorMap(topics: NewsTopicConfig[]): Map<string, NewsTopicConfig> {
+  return new Map(
+    topics
+      .filter((topic): topic is NewsTopicConfig & { corridorSlug: string } => Boolean(topic.corridorSlug))
+      .map((topic) => [topic.corridorSlug, topic]),
+  );
+}
+
 /** Live program thresholds from corridor DB — for pillar guides with corridor_slugs. */
 export async function loadGuideCorridorLivePrograms(
   corridorSlug: string,
   passportIso2: GuidePassportIso2 = "RU",
 ): Promise<{ programs: GuideLiveProgramRow[]; meta: GuideCorridorLiveMeta | null }> {
-  const slugs = CORRIDOR_PROGRAM_SLUGS[corridorSlug];
-  if (!slugs?.length) return { programs: [], meta: null };
-
-  const topic = await getNewsTopicByCorridorSlug(corridorSlug);
-  if (!topic?.sitePaths?.landing || !topic.sitePaths.wizard) return { programs: [], meta: null };
-
-  const programs = await Promise.all(slugs.map((slug) => getProgramBySlug(slug)));
+  const payload = await loadGuideLiveDataForGuide([corridorSlug], undefined, passportIso2);
+  const block = payload.blocks.find((item) => item.meta.countryNameRu) ?? payload.blocks[0];
   return {
-    programs: programs
-      .filter((p): p is ProgramDetail => Boolean(p))
-      .map((program) => mapProgram(program, topic.sitePaths!.landing, passportIso2)),
-    meta: {
-      countryNameRu: topic.countryRu,
-      wizardHref: topic.sitePaths.wizard,
-    },
+    programs: block?.programs ?? [],
+    meta: block?.meta ?? null,
   };
 }
 
@@ -115,13 +114,37 @@ export async function loadGuideLiveDataForGuide(
   passportIso2: GuidePassportIso2 = "RU",
 ): Promise<GuideLiveDataPayload> {
   const ordered = orderedGuideCorridorSlugs(corridorSlugs, topicKeys);
-  const blocks: GuideLiveCorridorBlock[] = [];
+  if (ordered.length === 0) {
+    return {
+      blocks: [],
+      passportLabel: passportColumnLabel(passportIso2),
+    };
+  }
 
+  const programSlugs = ordered.flatMap((slug) => CORRIDOR_PROGRAM_SLUGS[slug] ?? []);
+  const [topics, programsBySlug] = await Promise.all([getAllNewsTopics(), getProgramsBySlugs(programSlugs)]);
+  const topicByCorridor = buildTopicByCorridorMap(topics);
+
+  const blocks: GuideLiveCorridorBlock[] = [];
   for (const slug of ordered) {
-    const data = await loadGuideCorridorLivePrograms(slug, passportIso2);
-    if (data.programs.length > 0 && data.meta) {
-      blocks.push({ meta: data.meta, programs: data.programs });
-    }
+    const slugs = CORRIDOR_PROGRAM_SLUGS[slug];
+    const topic = topicByCorridor.get(slug);
+    if (!slugs?.length || !topic?.sitePaths?.landing || !topic.sitePaths.wizard) continue;
+
+    const programs = slugs
+      .map((programSlug) => programsBySlug.get(programSlug))
+      .filter((program): program is ProgramDetail => Boolean(program))
+      .map((program) => mapProgram(program, topic.sitePaths!.landing, passportIso2));
+
+    if (programs.length === 0) continue;
+
+    blocks.push({
+      meta: {
+        countryNameRu: topic.countryRu,
+        wizardHref: topic.sitePaths.wizard,
+      },
+      programs,
+    });
   }
 
   return {

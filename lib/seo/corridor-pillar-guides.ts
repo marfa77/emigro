@@ -1,4 +1,4 @@
-import { guidePath } from "@/lib/guides/load";
+import { guidePath } from "@/lib/guides/paths";
 
 /** Primary pillar guide per corridor segment — for internal links from landing/digest/news. */
 export const CORRIDOR_PILLAR_GUIDES: Record<

@@ -16,6 +16,7 @@ import {
   SPAIN_URL_SEGMENT,
 } from "@/lib/spain/hub";
 import { publicSiteUrl } from "@/lib/site-url";
+import { corridorHubLabel } from "@/lib/corridor/hub-label";
 
 export type CorridorHubTab = "hub" | "route" | "news" | "digest" | "practice" | "market";
 export type CorridorHubLayerId = "route" | "news" | "guides" | "practice" | "market";
@@ -104,9 +105,7 @@ export function corridorHubPaths(topic: NewsTopicConfig) {
   };
 }
 
-export function corridorHubLabel(topic: NewsTopicConfig): string {
-  return `${topic.flag} ${topic.countryRu} Hub`;
-}
+export { corridorHubLabel } from "@/lib/corridor/hub-label";
 
 export function corridorMainSiteUrl(path: string): string {
   const normalized = path.startsWith("/") ? path : `/${path}`;

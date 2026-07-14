@@ -1,4 +1,6 @@
+import { unstable_cache } from "next/cache";
 import { createServerClient } from "@/lib/supabase/server";
+import { CACHE_REVALIDATE, CACHE_TAGS } from "@/lib/cache/tags";
 import type { NewsTopicConfig, NewsTopicStatus } from "./types";
 
 export type NewsTopicRow = {
@@ -46,7 +48,7 @@ export function mapNewsTopicRow(row: NewsTopicRow): NewsTopicConfig {
   };
 }
 
-async function fetchPublishedTopics(): Promise<NewsTopicConfig[]> {
+async function fetchPublishedTopicsUncached(): Promise<NewsTopicConfig[]> {
   const supabase = createServerClient();
   const { data, error } = await supabase
     .from("emigro_news_topics")
@@ -60,6 +62,16 @@ async function fetchPublishedTopics(): Promise<NewsTopicConfig[]> {
     return [];
   }
   return (data as NewsTopicRow[]).map(mapNewsTopicRow);
+}
+
+const getPublishedTopicsCached = unstable_cache(
+  fetchPublishedTopicsUncached,
+  ["news-topics-published"],
+  { revalidate: CACHE_REVALIDATE.topics, tags: [CACHE_TAGS.newsTopics] },
+);
+
+async function fetchPublishedTopics(): Promise<NewsTopicConfig[]> {
+  return getPublishedTopicsCached();
 }
 
 export async function getAllNewsTopics(): Promise<NewsTopicConfig[]> {

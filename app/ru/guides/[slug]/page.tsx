@@ -31,6 +31,8 @@ import { getClusterForGuide, getComparisonCrossLinks } from "@/lib/seo/cluster-l
 import { HUB_WIZARD_PATH } from "@/lib/corridor/paths";
 import { resolveGuideWizardHref } from "@/lib/wizard/resolve-href";
 
+export const revalidate = 3600;
+
 export function generateStaticParams() {
   return listGuides().map((guide) => ({ slug: guide.slug }));
 }
@@ -248,7 +250,11 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
   const guide = loadGuide(params.slug);
   if (!guide) notFound();
   const longTail = getLongTailByGuideSlug(guide.slug);
-  const allTopics = await getActiveNewsTopics();
+  const passportIso2 = getGuidePassportIso2(guide);
+  const [allTopics, liveData] = await Promise.all([
+    getActiveNewsTopics(),
+    loadGuideLiveDataForGuide(guide.corridor_slugs, guide.topic_keys, passportIso2),
+  ]);
   const countryTopics = resolveCountryTopics(guide.topic_keys, allTopics);
   const relatedGuides = getRelatedGuides(guide.slug, guide.corridor_slugs, guide.topic_keys);
   const cluster = getClusterForGuide(guide.slug);
@@ -258,8 +264,6 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
   const faqItems = extractFaq(guide.bodyHtml);
   const llmFacts = buildGuideLlmFacts(guide);
   const url = pageUrl(guidePath(guide.slug));
-  const passportIso2 = getGuidePassportIso2(guide);
-  const liveData = await loadGuideLiveDataForGuide(guide.corridor_slugs, guide.topic_keys, passportIso2);
 
   const articleSchema = {
     "@context": "https://schema.org",

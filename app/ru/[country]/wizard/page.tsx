@@ -17,6 +17,8 @@ import { wizardCorridorDescription } from "@/lib/seo/wizard-corridor-copy";
 import { buildCorridorBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
 import { buildWizardPageFaq, buildWizardPageSchema } from "@/lib/seo/wizard-page-seo";
 
+export const revalidate = 3600;
+
 export async function generateStaticParams() {
   const segments = await getActiveCorridorSegments();
   return corridorStaticParamsFromSegments(segments);

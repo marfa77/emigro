@@ -6,7 +6,7 @@ import { corridorWizardBlurb } from "@/lib/guides/guide-display";
 import { isCorridorFull, isCorridorOnSite, topicHasLanding } from "@/lib/corridor/publish";
 import { barakhloMarketCityLabel } from "@/lib/barakhlo/markets";
 import { barakhloPromoUrl } from "@/lib/community-notes/sponsor-promo";
-import { corridorHubLabel } from "@/lib/corridor/hub";
+import { corridorHubLabel } from "@/lib/corridor/hub-label";
 import { isPortugalHubTopic, portugalSatelliteHubUrl } from "@/lib/portugal/hub";
 import { isSpainHubTopic, spainSatelliteHubUrl } from "@/lib/spain/hub";
 import { corridorPillarGuideAnchor, corridorPillarGuideHref } from "@/lib/seo/corridor-pillar-guides";
