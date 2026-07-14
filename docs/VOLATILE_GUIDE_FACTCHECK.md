@@ -66,7 +66,7 @@ Optional: `TELEGRAM_BOT_TOKEN` can stay set for legacy channel publish scripts, 
 
 ### How to get your Telegram chat id
 
-1. Open [@userinfobot](https://t.me/userinfobot) or message the Emigro news bot and read webhook logs / `getUpdates`.
+1. Open [@userinfobot](https://telegram.me/userinfobot) or message the Emigro news bot and read webhook logs / `getUpdates`.
 2. Copy the numeric **id** (e.g. `193093189`).
 3. Send `/start` to the Emigro news bot from that account once.
 

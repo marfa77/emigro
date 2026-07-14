@@ -4,6 +4,7 @@ import { getCorridorBySlug } from "@/lib/corridor/queries";
 import { formatAssistLeadTelegramMessage } from "@/lib/leads/format-telegram";
 import { getProviderById } from "@/lib/providers/registry";
 import { createServerClient } from "@/lib/supabase/server";
+import { looksLikeTelegramPublicContact } from "@/lib/telegram/public-url";
 import { sendOwnerTelegramDm } from "@/lib/telegram";
 
 type AssistLeadBody = {
@@ -46,7 +47,7 @@ function selectedProviderNames(value: unknown): string[] {
 }
 
 function contactLooksTelegram(contact: string): boolean {
-  return contact.startsWith("@") || contact.includes("t.me/");
+  return looksLikeTelegramPublicContact(contact);
 }
 
 export async function POST(request: Request) {

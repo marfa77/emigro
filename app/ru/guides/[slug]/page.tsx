@@ -33,6 +33,7 @@ import { getGuideAudiences } from "@/lib/guides/categories";
 import { ORIGIN_HUB_PATH } from "@/lib/seo/corridor-llm-layer";
 import { HUB_WIZARD_PATH } from "@/lib/corridor/paths";
 import { resolveGuideWizardHref } from "@/lib/wizard/resolve-href";
+import { NEWS_TELEGRAM_URL } from "@/lib/community";
 
 export const revalidate = 3600;
 
@@ -384,7 +385,7 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
             {isPillarGuideSlug(guide.slug) && (
               <p className="mt-3 text-sm text-slate-600">
                 Помогите другим релокантам: отправьте ссылку в{" "}
-                <a href="https://t.me/Emigro_news" target="_blank" rel="noopener noreferrer" className="font-medium text-sky-700 hover:underline">
+                <a href={NEWS_TELEGRAM_URL} target="_blank" rel="noopener noreferrer" className="font-medium text-sky-700 hover:underline">
                   @Emigro_news
                 </a>{" "}
                 или в чатах expat — это главный канал распространения Emigro.

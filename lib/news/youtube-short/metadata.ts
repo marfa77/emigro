@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import { NEWS_TELEGRAM_URL } from "@/lib/community";
 import { publicSiteUrl } from "@/lib/site-url";
 import { YOUTUBE_CHANNEL_URL } from "./config";
 import { compact, limitWords } from "./text-utils";
@@ -53,7 +54,7 @@ export function buildTipShortMetadata(
       noteLink ? `Полная заметка: ${noteLink}` : null,
       `Подробные гайды: ${guideLink}`,
       `Коридор Португалия: ${corridorLink}`,
-      `Telegram: https://t.me/Emigro_news`,
+      `Telegram: ${NEWS_TELEGRAM_URL}`,
       `YouTube: ${YOUTUBE_CHANNEL_URL}`,
       "",
       `Длительность: ${Math.round(durationSeconds)} сек`,

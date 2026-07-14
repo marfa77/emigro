@@ -1,4 +1,6 @@
 /** CIPLE / owner bot — leads + news channel. */
+import { normalizeTelegramPublicUrl, telegramPublicUrl } from "@/lib/telegram/public-url";
+
 function ownerBotToken(): string | undefined {
   return (process.env.EMIGRO_NEWS_BOT_TOKEN || process.env.TELEGRAM_BOT_TOKEN)?.trim();
 }
@@ -81,13 +83,15 @@ function newsChannelId(): string {
   return (process.env.EMIGRO_NEWS_TELEGRAM_CHANNEL || "@Emigro_news").trim();
 }
 
-/** Public t.me link for the news channel (never localhost). */
+/** Public Telegram link for the news channel (never localhost). */
 export function newsTelegramChannelUrl(): string {
   const channel = newsChannelId();
-  if (/^https?:\/\//i.test(channel)) return channel.replace(/\/$/, "");
-  if (channel.startsWith("@")) return `https://t.me/${channel.slice(1)}`;
-  if (channel.startsWith("t.me/")) return `https://${channel}`;
-  return "https://t.me/Emigro_news";
+  if (/^https?:\/\//i.test(channel)) return normalizeTelegramPublicUrl(channel);
+  if (channel.startsWith("@")) return telegramPublicUrl(channel);
+  if (/^t\.me\//i.test(channel) || /^telegram\.me\//i.test(channel)) {
+    return normalizeTelegramPublicUrl(channel);
+  }
+  return telegramPublicUrl("Emigro_news");
 }
 
 function splitThreadsForTelegram(text: string, max = 4000): string[] {

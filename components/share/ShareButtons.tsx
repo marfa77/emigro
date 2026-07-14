@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Check, Link2, Share2 } from "lucide-react";
+import { telegramShareUrl } from "@/lib/telegram/public-url";
 
 type ShareButtonsProps = {
   url: string;
@@ -20,7 +21,7 @@ function shareLinks(url: string, title: string, text?: string) {
   return {
     x: `https://twitter.com/intent/tweet?url=${encode(url)}&text=${encode(message)}`,
     threads: `https://www.threads.net/intent/post?text=${encode(`${message}\n${url}`)}`,
-    telegram: `https://t.me/share/url?url=${encode(url)}&text=${encode(message)}`,
+    telegram: telegramShareUrl({ url, text: message }),
     vk: `https://vk.com/share.php?url=${encode(url)}&title=${encode(title)}${text ? `&comment=${encode(text)}` : ""}`,
   };
 }

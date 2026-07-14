@@ -18,7 +18,7 @@ import {
 import type { NewsTopicConfig } from "../lib/news/topics";
 
 const emigroArticleUrl = "https://www.emigro.online/ru/news/spain-relocation-news-2026-06-27";
-const telegramChannelUrl = "https://t.me/Emigro_news";
+const telegramChannelUrl = "https://telegram.me/Emigro_news";
 const threadsSourcesFooter = `Полная версия: ${emigroArticleUrl}\nКанал: ${telegramChannelUrl}`;
 
 const sourceLinks = [
@@ -436,7 +436,7 @@ const builtThreads = buildThreadsFromSiteDigest({
 });
 assert(!/vertexaisearch|grounding-api-redirect|google\.com/i.test(builtThreads), "Built threads must not contain Google URLs");
 assert(builtThreads.includes("emigro.online"), "Built threads must link to Emigro article");
-assert(builtThreads.includes("t.me/Emigro_news"), "Built threads must link to Telegram channel");
+assert(builtThreads.includes("telegram.me/Emigro_news"), "Built threads must link to Telegram channel");
 assert(!builtThreads.includes("boe.es"), "Built threads must not include external publisher URLs");
 assert(!/^Источник:/im.test(builtThreads), "Built threads must not include source attribution lines");
 assert(!/^Источники:/im.test(builtThreads), "Built threads must not include Источники block");

@@ -1,5 +1,6 @@
 import { CheckCircle2 } from "lucide-react";
 import { CONTACT_EMAIL } from "@/lib/site-contact";
+import { NEWS_TELEGRAM_URL } from "@/lib/community";
 import { SAMPLE_PLAN_META, SAMPLE_PLAN_SECTIONS } from "@/lib/assist/sample-plan-data";
 
 const SEVERITY_STYLES = {
@@ -182,7 +183,7 @@ export function AssistSamplePlanDocument() {
 
       <footer className="border-t border-slate-200 bg-slate-50 px-8 py-6 text-xs leading-relaxed text-slate-500 print:px-6">
         <p>
-          Emigro Assist · emigro.online · {CONTACT_EMAIL} · t.me/Emigro_news
+          Emigro Assist · emigro.online · {CONTACT_EMAIL} · {NEWS_TELEGRAM_URL.replace(/^https:\/\//, "")}
         </p>
         <p className="mt-2">
           Документ не является юридической консультацией. Emigro не несёт ответственности за решения консульства,

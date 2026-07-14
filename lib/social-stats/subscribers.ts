@@ -1,4 +1,5 @@
 import { getYoutubeAccessToken } from "@/lib/news/youtube-short/youtube-api";
+import { NEWS_TELEGRAM_URL } from "@/lib/community";
 
 const YOUTUBE_API = "https://www.googleapis.com/youtube/v3";
 
@@ -68,7 +69,7 @@ export const DEFAULT_SOCIAL_CHANNELS: SocialChannelTarget[] = [
   {
     platform: "telegram",
     handle: "Emigro_news",
-    url: "https://t.me/Emigro_news",
+    url: NEWS_TELEGRAM_URL,
     label: "Telegram @Emigro_news",
   },
   {

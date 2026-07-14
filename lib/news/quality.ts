@@ -445,7 +445,7 @@ export function validateThreadsQuality(params: { threadsText: string; topic: str
   const blockedUrls = findBlockedUrlsInText(params.threadsText);
   if (blockedUrls.length > 0) {
     errors.push(
-      "Threads: запрещены Google, Google News, google.com и Vertex AI grounding redirect — только emigro.online и t.me."
+      "Threads: запрещены Google, Google News, google.com и Vertex AI grounding redirect — только emigro.online и telegram.me."
     );
   }
 
@@ -453,7 +453,7 @@ export function validateThreadsQuality(params: { threadsText: string; topic: str
   const allUrls = params.threadsText.match(/https?:\/\/[^\s<>"')\]]+/gi) ?? [];
   const disallowed = allUrls.filter((url) => !allowedUrlRe.test(url));
   if (disallowed.length > 0) {
-    errors.push("Threads: в тексте допустимы только ссылки на emigro.online и t.me/telegram.");
+    errors.push("Threads: в тексте допустимы только ссылки на emigro.online и telegram.me (t.me устарел).");
   }
 
   if (numbered.length < 3) {

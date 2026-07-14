@@ -86,7 +86,7 @@ def build_signal(msg: Message, group_cfg: dict) -> dict | None:
         "message_id": msg.id,
         "channel_username": username,
         "channel_title": group_cfg.get("title"),
-        "post_url": f"https://t.me/{username}/{msg.id}",
+        "post_url": f"https://telegram.me/{username}/{msg.id}",
         "text": text,
         "topic_hints": hints,
         "content_kind": content_kind,

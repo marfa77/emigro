@@ -1,3 +1,5 @@
+import { telegramShareUrl } from "@/lib/telegram/public-url";
+
 export type ShareNetwork = "x" | "threads" | "telegram" | "vk" | "facebook" | "linkedin";
 
 function encodeUrl(url: string) {
@@ -20,7 +22,7 @@ export function buildShareUrl(network: ShareNetwork, params: { url: string; titl
     case "threads":
       return `https://www.threads.net/intent/post?text=${encodedTitle}&url=${encodedUrl}`;
     case "telegram":
-      return `https://t.me/share/url?url=${encodedUrl}&text=${encodedTitle}`;
+      return telegramShareUrl({ url, text: title });
     case "vk":
       return `https://vk.com/share.php?url=${encodedUrl}&title=${encodedTitle}`;
     case "facebook":

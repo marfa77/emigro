@@ -1,6 +1,8 @@
+import { normalizeTelegramPublicUrl, telegramPublicUrl } from "@/lib/telegram/public-url";
+
 /** Telegram channel — news, digests, route updates. Primary entry for linked discussion chat. */
 export const NEWS_TELEGRAM_CHANNEL = "@Emigro_news";
-export const NEWS_TELEGRAM_URL = "https://t.me/Emigro_news";
+export const NEWS_TELEGRAM_URL = telegramPublicUrl("Emigro_news");
 
 /**
  * Discussion chat linked to @Emigro_news — not a standalone joinable group.
@@ -17,14 +19,14 @@ export const COMMUNITY_CTA_LABEL = "Подписаться на канал";
 export const DISCUSSION_ACCESS_HINT =
   "Отдельно вступить в группу нельзя — чат привязан к каналу. Подпишитесь на @Emigro_news и пишите в комментариях к постам.";
 
-const DISCUSSION_GROUP_DEFAULT = "https://t.me/emigro_chat";
+const DISCUSSION_GROUP_DEFAULT = telegramPublicUrl("emigro_chat");
 
 /** @deprecated Not for public join CTAs — use COMMUNITY_CTA_URL. Kept for internal references. */
 function resolveDiscussionGroupUrl(): string {
   const raw = process.env.NEXT_PUBLIC_RELOCATOR_CHAT_URL?.trim();
   if (!raw) return DISCUSSION_GROUP_DEFAULT;
   if (/emigro_chat_bot|\/[^/]*bot/i.test(raw)) return DISCUSSION_GROUP_DEFAULT;
-  return raw;
+  return normalizeTelegramPublicUrl(raw);
 }
 
 /** @deprecated Use COMMUNITY_CTA_URL for user-facing links. */

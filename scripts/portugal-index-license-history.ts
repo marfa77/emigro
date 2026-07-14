@@ -46,7 +46,7 @@ function rawToIngest(row: {
   return {
     message_id: row.id,
     channel_username: row.channel.replace(/^@/, ""),
-    post_url: `https://t.me/${row.channel.replace(/^@/, "")}/${row.id}`,
+    post_url: `https://telegram.me/${row.channel.replace(/^@/, "")}/${row.id}`,
     text,
     topic_hints: ["auto"],
     content_kind: contentKind,

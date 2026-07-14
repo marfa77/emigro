@@ -1,4 +1,5 @@
 import { HUB_WIZARD_PATH } from "@/lib/corridor/paths";
+import { NEWS_TELEGRAM_URL } from "@/lib/community";
 import { publicSiteUrl } from "@/lib/site-url";
 
 const STATS_RE = /^\/(?:stats|status)(?:@\w+)?$/i;
@@ -34,7 +35,7 @@ export function userWizardLinkMessage(): string {
     "<b>Начать с wizard:</b>",
     `<a href="${wizardUrl}">${wizardUrl}</a>`,
     "",
-    `<a href="${origin}">emigro.online</a> · <a href="https://t.me/Emigro_news">@Emigro_news</a>`,
+    `<a href="${origin}">emigro.online</a> · <a href="${NEWS_TELEGRAM_URL}">@Emigro_news</a>`,
   ].join("\n");
 }
 
