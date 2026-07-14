@@ -27,7 +27,7 @@ date_published: 2026-06-27
 
 ## Digital nomad Испания 2026: кратко
 
-Если вы ищете **digital nomad visa Испания 2026** (teletrabajo / Ley de Startups), это pillar-гид Emigro: порог **€2 849/мес**, до **20% дохода** от испанских клиентов, срок рассмотрения консульства **2–4 месяца** в 2026. Сравнение с Португалией D8: [Испания vs Португалия vs Италия](/ru/guides/digital-nomad-portugaliya-ispaniya-italiya-2026). Программа коридора: [digital nomad teletrabajo](/ru/spain/programs/spain-digital-nomad).
+Если вы ищете **digital nomad visa Испания 2026** (teletrabajo / Ley de Startups), это pillar-гид Emigro: порог **€2 849/мес**, до **20% дохода** от испанских клиентов, срок рассмотрения консульства **2–4 месяца** в 2026. Сравнение с Португалией D8: [Испания vs Португалия vs Италия](/ru/guides/digital-nomad-portugaliya-ispaniya-italiya-2026). Программа коридора: [digital nomad teletrabajo](/ru/spain/programs/spain-digital-nomad). Все EU-коридоры для граждан РФ: [origin hub Emigro](/ru/rossiyane).
 
 ## Кому подходит этот гайд
 

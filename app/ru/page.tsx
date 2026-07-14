@@ -198,13 +198,13 @@ export default async function RuHubPage() {
           </p>
           <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             <Link
-              href="/ru/wizard"
+              href="/ru/rossiyane"
               className="group flex items-start gap-3 rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition hover:border-corridor-300 hover:shadow-md"
             >
               <span className="text-2xl" aria-hidden>🇷🇺</span>
               <div>
                 <p className="font-semibold text-slate-900">Граждане РФ</p>
-                <p className="mt-0.5 text-xs text-slate-500">Wizard подбора маршрута</p>
+                <p className="mt-0.5 text-xs text-slate-500">Origin hub — EU-коридоры, пороги, консульства</p>
               </div>
             </Link>
             <Link
@@ -251,6 +251,10 @@ export default async function RuHubPage() {
             <h2 className="text-2xl font-semibold text-slate-900">Гайды по релокации</h2>
             <p className="mt-2 max-w-2xl text-slate-600">
               Начните с Португалии D8/D7 — дальше pillar-разборы по digital nomad, семье, отказам и бюджету.{" "}
+              <Link href="/ru/rossiyane" className="text-corridor-600 hover:underline">
+                Origin hub для россиян
+              </Link>
+              {" · "}
               <Link href="/ru/wizard" className="text-corridor-600 hover:underline">
                 Hub wizard
               </Link>

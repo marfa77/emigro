@@ -274,7 +274,10 @@ function GuidesIndexBody({ allGuides, pillarGuides, corridors }: Props) {
           <section className="mt-10 rounded-[2rem] border border-corridor-100 bg-corridor-50/50 p-6 sm:p-8">
             <h2 className="text-xl font-bold text-slate-950">Популярные pillar-гайды</h2>
             <p className="mt-2 text-sm text-slate-600">
-              Материалы с наибольшим спросом: маршруты по паспортам, digital nomad, странам ЕС и транзитным хабам.
+              Материалы с наибольшим спросом: маршруты по паспортам, digital nomad, странам ЕС и транзитным хабам.{" "}
+              <Link href="/ru/rossiyane" className="font-semibold text-corridor-700 hover:underline">
+                Origin hub для граждан России →
+              </Link>
             </p>
             <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {pillarGuides.map((guide) => (
@@ -372,6 +375,12 @@ function GuidesIndexBody({ allGuides, pillarGuides, corridors }: Props) {
               ))}
               <Link href="/ru/wizard" className="rounded-full bg-corridor-600 px-4 py-2 text-sm font-medium text-white hover:bg-corridor-700">
                 Hub wizard
+              </Link>
+              <Link
+                href="/ru/rossiyane"
+                className="rounded-full border border-corridor-200 bg-corridor-50 px-4 py-2 text-sm font-medium text-corridor-800 hover:border-corridor-400"
+              >
+                🇷🇺 Origin hub
               </Link>
             </div>
           </section>

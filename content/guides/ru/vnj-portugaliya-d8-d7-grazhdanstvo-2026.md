@@ -31,6 +31,7 @@ date_published: 2026-06-25
 - [D7 пассивный доход — программа](/ru/portugal/programs/portugal-d7-passive-income)
 - [Первые 30 дней: NIF, банк, AIMA](/ru/guides/pervye-30-dnej-v-portugalii-2026)
 - [Wizard Португалия](/ru/portugal/wizard)
+- [Origin hub — все EU-коридоры для россиян](/ru/rossiyane)
 
 ## Что изменилось в мае 2026
 

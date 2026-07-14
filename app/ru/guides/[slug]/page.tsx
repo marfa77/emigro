@@ -25,9 +25,12 @@ import { getLongTailByGuideSlug } from "@/lib/seo/query-longtail";
 import { isPillarGuideSlug } from "@/lib/guides/pillar-guides";
 import { EMIGRO_PUBLISHER, emigroAuthorOrg, schemaImage } from "@/lib/seo/schema";
 import { GuideClusterLinks } from "@/components/guides/GuideClusterLinks";
+import { GuideOriginHubPromo } from "@/components/guides/GuideOriginHubPromo";
 import { GuideCorridorLiveData } from "@/components/guides/GuideCorridorLiveData";
 import { GuideOfficialSources } from "@/components/guides/GuideOfficialSources";
 import { getClusterForGuide, getComparisonCrossLinks } from "@/lib/seo/cluster-links";
+import { getGuideAudiences } from "@/lib/guides/categories";
+import { ORIGIN_HUB_PATH } from "@/lib/seo/corridor-llm-layer";
 import { HUB_WIZARD_PATH } from "@/lib/corridor/paths";
 import { resolveGuideWizardHref } from "@/lib/wizard/resolve-href";
 
@@ -259,6 +262,7 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
   const relatedGuides = getRelatedGuides(guide.slug, guide.corridor_slugs, guide.topic_keys);
   const cluster = getClusterForGuide(guide.slug);
   const comparisonCrossLinks = getComparisonCrossLinks(guide.slug);
+  const showOriginHubPromo = isPillarGuideSlug(guide.slug) || getGuideAudiences(guide).includes("ru");
   const providerTopicKey = getGuideProviderTopicKey(guide);
   const toc = extractToc(guide.bodyHtml);
   const faqItems = extractFaq(guide.bodyHtml);
@@ -396,6 +400,8 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
               </section>
             )}
 
+            {showOriginHubPromo && <GuideOriginHubPromo />}
+
             <GuideCorridorLiveData liveData={liveData} />
 
             <article
@@ -494,6 +500,14 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
                     className="rounded-lg border border-corridor-200 bg-white px-5 py-3 text-center font-medium text-slate-700 hover:border-corridor-400"
                   >
                     Смотреть коридор
+                  </Link>
+                )}
+                {showOriginHubPromo && (
+                  <Link
+                    href={ORIGIN_HUB_PATH}
+                    className="rounded-lg border border-slate-200 bg-white px-5 py-3 text-center text-sm font-medium text-slate-700 hover:border-corridor-400"
+                  >
+                    Origin hub для россиян
                   </Link>
                 )}
               </div>

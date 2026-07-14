@@ -29,7 +29,7 @@ date_modified: 2026-07-09
 
 Этот гайд — не рейтинг «лучших стран». Это карта **реальных коридоров ВНЖ** для граждан РФ, Беларуси, Казахстана и Украины.
 
-**Рекомендация Emigro:** начните с **Португалии D8/D7** — единственный коридор с полным стеком: wizard, новости, pillar-гид и **живая практика** (NIF, AIMA, банки) на [portugal.emigro.online](https://portugal.emigro.online). Pillar: [D8 и D7 Португалия 2026](/ru/guides/vnj-portugaliya-d8-d7-grazhdanstvo-2026).
+**Рекомендация Emigro:** начните с **Португалии D8/D7** — единственный коридор с полным стеком: wizard, новости, pillar-гид и **живая практика** (NIF, AIMA, банки) на [portugal.emigro.online](https://portugal.emigro.online). Pillar: [D8 и D7 Португалия 2026](/ru/guides/vnj-portugaliya-d8-d7-grazhdanstvo-2026). Все EU-коридоры для граждан РФ на одной странице: [origin hub Emigro](/ru/rossiyane).
 
 Для украинцев часто параллельно действует временная защита — см. [отдельный гайд](/ru/guides/ukraintsy-belorusy-vremennaya-zashchita-vs-vnj-2026).
 

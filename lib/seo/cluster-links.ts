@@ -1,5 +1,6 @@
 import { guidePath } from "@/lib/guides/load";
 import { barakhloPromoUrl } from "@/lib/community-notes/sponsor-promo";
+import { ORIGIN_HUB_PATH } from "@/lib/seo/corridor-llm-layer";
 import { portugalSatelliteUrl, spainSatelliteUrl } from "@/lib/site-url";
 
 export type ClusterLink = {
@@ -15,13 +16,45 @@ export type SeoCluster = {
   links: ClusterLink[];
 };
 
-/** Narrow internal-linking clusters — PT / ES / BY corridors. */
+/** Narrow internal-linking clusters — PT / ES / BY / RU corridors. */
 export const SEO_CLUSTERS: Record<string, SeoCluster> = {
+  russia: {
+    id: "russia",
+    title: "Граждане России — EU коридоры",
+    links: [
+      {
+        href: ORIGIN_HUB_PATH,
+        label: "Origin hub для россиян",
+        description: "PT, ES, DE, FR, IT, NL — пороги, консульства, wizard",
+      },
+      {
+        href: guidePath("kuda-pereehat-iz-rossii-2026-evropa-vnj"),
+        label: "Куда переехать из России 2026",
+        description: "Pillar-обзор 7 EU-коридоров",
+      },
+      {
+        href: guidePath("konsulskaya-podacha-rf-by-kz-2026-yurisdiktsiya"),
+        label: "Консульская подача RU/BY/KZ",
+        description: "Москва, Стамбул, юрисдикция",
+      },
+      {
+        href: guidePath("podtverdit-dohod-dengi-dlya-vnj-esli-dohod-iz-rossii-2026"),
+        label: "Доход из России для ВНЖ",
+        description: "Выписки, санкции, типовые ошибки",
+      },
+      { href: "/ru/wizard", label: "Hub wizard", description: "Подбор маршрута по паспорту и доходу" },
+    ],
+  },
   portugal: {
     id: "portugal",
     title: "Коридор Португалия",
     links: [
       { href: "/ru/portugal", label: "Коридор Португалия", description: "Программы D8/D7, wizard, новости" },
+      {
+        href: ORIGIN_HUB_PATH,
+        label: "Origin hub — россияне в EU",
+        description: "Все коридоры из РФ одной страницей",
+      },
       {
         href: guidePath("vnj-portugaliya-d8-d7-grazhdanstvo-2026"),
         label: "D8 и D7 Португалия 2026",
@@ -51,6 +84,11 @@ export const SEO_CLUSTERS: Record<string, SeoCluster> = {
     title: "Коридор Испания",
     links: [
       { href: "/ru/spain", label: "Коридор Испания", description: "Digital nomad, wizard, новости" },
+      {
+        href: ORIGIN_HUB_PATH,
+        label: "Origin hub — россияне в EU",
+        description: "Все коридоры из РФ одной страницей",
+      },
       {
         href: guidePath("vnj-ispaniya-2026"),
         label: "Digital nomad Испания 2026",
@@ -120,6 +158,9 @@ export const COMPARISON_CROSS_LINKS: Record<string, ClusterLink[]> = {
 
 /** Map guide slug → cluster id for sidebar cluster navigation. */
 export const GUIDE_CLUSTER_MAP: Record<string, string> = {
+  "kuda-pereehat-iz-rossii-2026-evropa-vnj": "russia",
+  "germaniya-blue-card-chancenkarte-2026-sng": "russia",
+  "vnj-germaniya-2026": "russia",
   "vnj-portugaliya-d8-d7-grazhdanstvo-2026": "portugal",
   "pervye-30-dnej-v-portugalii-2026": "portugal",
   "d7-vs-digital-nomad-visa-sravnenie": "portugal",
