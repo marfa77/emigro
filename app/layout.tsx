@@ -3,6 +3,7 @@ import Script from "next/script";
 import { Suspense } from "react";
 import "./globals.css";
 import { rootMetadata } from "@/lib/seo";
+import { GlobalJsonLd } from "@/components/seo/GlobalJsonLd";
 import { WizardFunnelTracker } from "@/components/analytics/WizardFunnelTracker";
 import { SiteAnalytics } from "@/components/analytics/SiteAnalytics";
 import { YandexMetrika } from "@/components/analytics/YandexMetrika";
@@ -35,6 +36,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className="min-h-screen bg-slate-50 text-slate-900 antialiased">
+        <GlobalJsonLd />
         {children}
         <Suspense fallback={null}>
           <SiteAnalytics />

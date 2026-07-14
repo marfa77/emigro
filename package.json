@@ -30,6 +30,7 @@
     "wizard:prod-matrix": "tsx scripts/prod-wizard-matrix.ts",
     "seo:indexnow": "tsx scripts/ping-indexnow.ts",
     "llm:citation-test": "tsx scripts/llm-citation-test.ts",
+    "seo:audit-duplicates": "tsx scripts/audit-seo-duplicates.ts",
     "guides:og-images": "tsx scripts/generate-guide-og-images.ts",
     "programs:card-images": "tsx scripts/generate-program-card-images.ts",
     "guides:review-tiers": "tsx scripts/list-guides-by-review-tier.ts",

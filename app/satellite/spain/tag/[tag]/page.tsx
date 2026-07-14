@@ -6,6 +6,8 @@ import { hashtagLabel, normalizeHashtag } from "@/lib/community-notes/hashtags";
 import { getPublishedCommunityNotes, getPublishedCommunityNotesByHashtag } from "@/lib/community-notes/queries";
 import { fitMetaDescription } from "@/lib/seo";
 import { DEFAULT_OG_IMAGE, socialImageMetadata } from "@/lib/seo";
+import { tagPageRobots } from "@/lib/seo/thin-content";
+import { corridorHreflangTag } from "@/lib/seo/hreflang";
 import { spainHubPath } from "@/lib/satellite/paths";
 import { spainSatelliteUrl } from "@/lib/site-url";
 import { heroTitle, satelliteMain } from "@/lib/ui/mobile";
@@ -22,16 +24,22 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: { params: { tag: string } }): Promise<Metadata> {
+  const tag = normalizeHashtag(params.tag);
+  const notes = await getPublishedCommunityNotesByHashtag(tag, "spain");
   const label = hashtagLabel(params.tag);
-  const url = spainSatelliteUrl(`/tag/${normalizeHashtag(params.tag)}`);
+  const url = spainSatelliteUrl(`/tag/${tag}`);
   const description = fitMetaDescription(
     `#${label} — материалы для релокантов в Испании (Valencia, Madrid, Barcelona): новости, лайфхаки, советы и гайды. Короткие ответы и FAQ, не юридическая консультация.`
   );
   const ogImage = socialImageMetadata(DEFAULT_OG_IMAGE, `#${label} — Испания`);
+  const regionTag = corridorHreflangTag("spain");
+  const languages: Record<string, string> = { "ru-RU": url, ru: url, "x-default": url };
+  if (regionTag) languages[regionTag] = url;
   return {
     title: `#${label} — Испания`,
     description,
-    alternates: { canonical: url, languages: { "ru-RU": url, ru: url, "x-default": url } },
+    alternates: { canonical: url, languages },
+    robots: tagPageRobots(notes.length),
     openGraph: {
       title: `#${label} — Испания`,
       description,

@@ -9,6 +9,7 @@ import { getActiveNewsTopics } from "@/lib/news/topics";
 import { listPillarGuides } from "@/lib/guides/pillar-guides";
 import { pageMetadata, pageUrl } from "@/lib/seo";
 import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
+import { buildCollectionPageItemListSchema } from "@/lib/seo/collection-schema";
 import {
   buildNewsFaqSchema,
   buildNewsIndexAiDescription,
@@ -27,6 +28,8 @@ export const metadata: Metadata = {
     path: "/ru/news",
     ogImage: "/images/og/news-digest.jpg",
     ogImageAlt: "Новости релокации Emigro",
+    aiDescription: buildNewsIndexAiDescription(null),
+    aiCategory: "relocation-news-index",
   }),
   alternates: {
     types: { "application/rss+xml": newsFeedUrl() },
@@ -43,19 +46,19 @@ export default async function NewsIndexPage() {
   const aiDescription = buildNewsIndexAiDescription(null);
   const faq = buildNewsIndexFaq(null);
   const faqSchema = buildNewsFaqSchema(faq);
+  const indexUrl = pageUrl("/ru/news");
 
-  const itemListSchema = {
-    "@context": "https://schema.org",
-    "@type": "ItemList",
+  const collectionSchema = buildCollectionPageItemListSchema({
     name: "Новости релокации в Европу",
+    url: indexUrl,
+    description:
+      "Еженедельные обзоры по ВНЖ, визам и гражданству в Португалии, Испании, Франции, Италии, Германии, Нидерландах и Скандинавии для русскоязычных заявителей.",
     inLanguage: "ru-RU",
-    itemListElement: digests.slice(0, 20).map((d, i) => ({
-      "@type": "ListItem",
-      position: i + 1,
+    items: digests.slice(0, 20).map((d) => ({
       url: newsArticleUrl(d.slug),
-      name: d.title,
+      name: d.title ?? d.slug,
     })),
-  };
+  });
 
   const breadcrumbSchema = buildBreadcrumbSchema([
     { name: "Все направления", item: pageUrl("/ru") },
@@ -65,8 +68,10 @@ export default async function NewsIndexPage() {
   return (
     <>
       <SiteHeader />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      {collectionSchema && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }} />
+      )}
       {faqSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />}
       <section className="sr-only" aria-label="AI description">
         <h2>ai:description</h2>

@@ -230,7 +230,7 @@ export function buildProgramMetadata(
   return {
     ...base,
     keywords,
-    alternates: hreflangAlternates(path),
+    alternates: hreflangAlternates(path, topic.urlSegment),
   };
 }
 
@@ -343,7 +343,7 @@ export function buildDigestMetadata(topic: NewsTopicConfig): Metadata {
   return {
     ...base,
     keywords,
-    alternates: hreflangAlternates(path),
+    alternates: hreflangAlternates(path, topic.urlSegment),
   };
 }
 

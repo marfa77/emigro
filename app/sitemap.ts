@@ -20,6 +20,7 @@ import {
   spainSatellitePublicUrl,
 } from "@/lib/site-url";
 import { TRANSIT_HUBS } from "@/lib/transit-hubs";
+import { MIN_TAG_NOTES_INDEXABLE } from "@/lib/seo/thin-content";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const origin = publicSiteUrl();
@@ -40,11 +41,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: newsHubUrl(), changeFrequency: "daily", priority: 0.9 },
     { url: `${origin}/ru/partners`, changeFrequency: "monthly", priority: 0.7 },
     { url: `${origin}/ru/contact`, changeFrequency: "monthly", priority: 0.6 },
-    { url: `${origin}/ru/privacy`, changeFrequency: "yearly", priority: 0.4 },
-    { url: `${origin}/ru/terms`, changeFrequency: "yearly", priority: 0.4 },
-    { url: `${origin}/ru/cookies`, changeFrequency: "yearly", priority: 0.3 },
     { url: `${origin}/ru/assist`, changeFrequency: "monthly", priority: 0.6 },
-    { url: `${origin}/ru/assist/sample-plan`, changeFrequency: "monthly", priority: 0.6 },
     ...TRANSIT_HUBS.map((hub) => ({
       url: `${origin}${hub.path}`,
       changeFrequency: "monthly" as const,
@@ -143,13 +140,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     getPublishedCommunityNotes("portugal"),
     getPublishedCommunityNotes("spain"),
   ]);
-  const portugalTagSet = new Set<string>();
+  const portugalTagCounts = new Map<string, number>();
   for (const note of portugalNotes) {
-    for (const t of note.hashtags) portugalTagSet.add(normalizeHashtag(t));
+    for (const t of note.hashtags) {
+      const tag = normalizeHashtag(t);
+      portugalTagCounts.set(tag, (portugalTagCounts.get(tag) ?? 0) + 1);
+    }
   }
-  const spainTagSet = new Set<string>();
+  const spainTagCounts = new Map<string, number>();
   for (const note of spainNotes) {
-    for (const t of note.hashtags) spainTagSet.add(normalizeHashtag(t));
+    for (const t of note.hashtags) {
+      const tag = normalizeHashtag(t);
+      spainTagCounts.set(tag, (spainTagCounts.get(tag) ?? 0) + 1);
+    }
   }
   const satelliteRoutes: MetadataRoute.Sitemap = [
     {
@@ -168,7 +171,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "weekly" as const,
       priority: note.content_kind === "news" ? 0.85 : 0.75,
     })),
-    ...Array.from(portugalTagSet).map((tag) => ({
+    ...Array.from(portugalTagCounts.entries())
+      .filter(([, count]) => count >= MIN_TAG_NOTES_INDEXABLE)
+      .map(([tag]) => ({
       url: portugalSatellitePublicUrl(`/tag/${encodeURIComponent(tag)}`),
       changeFrequency: "weekly" as const,
       priority: 0.65,
@@ -189,7 +194,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "weekly" as const,
       priority: note.content_kind === "news" ? 0.85 : 0.75,
     })),
-    ...Array.from(spainTagSet).map((tag) => ({
+    ...Array.from(spainTagCounts.entries())
+      .filter(([, count]) => count >= MIN_TAG_NOTES_INDEXABLE)
+      .map(([tag]) => ({
       url: spainSatellitePublicUrl(`/tag/${encodeURIComponent(tag)}`),
       changeFrequency: "weekly" as const,
       priority: 0.65,

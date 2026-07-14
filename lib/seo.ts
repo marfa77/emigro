@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { withAiMetadata } from "@/lib/seo/llm-meta";
+import { hreflangAlternates } from "@/lib/seo/hreflang";
 import { publicSiteUrl } from "@/lib/site-url";
+
+export { hreflangAlternates, corridorHreflangTag, paginationRobots } from "@/lib/seo/hreflang";
 
 /** 1200×630 JPG — supported by Twitter/X, Threads, Facebook (not SVG). */
 export const DEFAULT_OG_IMAGE = "/images/og/og-default.jpg";
@@ -76,19 +79,6 @@ export function fitSeoTitleAbsolute(text: string, max = MAX_TITLE_ABSOLUTE): str
 export function pageUrl(path: string): string {
   const origin = publicSiteUrl();
   return `${origin}${path.startsWith("/") ? path : `/${path}`}`;
-}
-
-/** ru + ru-RU + x-default (RU-first site). Ahrefs requires hreflang="ru" alongside x-default. */
-export function hreflangAlternates(path: string): Metadata["alternates"] {
-  const url = pageUrl(path);
-  return {
-    canonical: url,
-    languages: {
-      "ru": url,
-      "ru-RU": url,
-      "x-default": url,
-    },
-  };
 }
 
 function socialImagePath(ogImage: string): string {
@@ -239,6 +229,8 @@ export function pageMetadata(input: {
   titleAbsolute?: boolean;
   aiDescription?: string;
   aiCategory?: string;
+  /** Corridor / transit urlSegment for ru-{country} hreflang. */
+  countrySegment?: string;
 }): Metadata {
   const url = pageUrl(input.path);
   const description = fitMetaDescription(input.description);
@@ -252,7 +244,7 @@ export function pageMetadata(input: {
     {
       title,
       description,
-      alternates: hreflangAlternates(input.path),
+      alternates: hreflangAlternates(input.path, input.countrySegment),
       robots: input.noIndex ? { index: false, follow: false } : { index: true, follow: true },
       openGraph: {
         title: typeof titleValue === "string" ? titleValue : input.title,

@@ -32,6 +32,7 @@ export async function generateMetadata({ params }: { params: { country: string }
         path: hub.path,
         ogImage: "/images/og/og-default.jpg",
         ogImageAlt: `${hub.countryRu} как транзитный хаб Emigro`,
+        countrySegment: hub.slug,
       }),
     };
   }
@@ -60,6 +61,7 @@ export async function generateMetadata({ params }: { params: { country: string }
     ogImageAlt: `${topic.countryRu}: коридор релокации Emigro`,
     aiDescription,
     aiCategory: `corridor-${topic.urlSegment}`,
+    countrySegment: topic.urlSegment,
   });
   return {
     ...base,

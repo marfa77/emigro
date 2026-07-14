@@ -30,7 +30,7 @@ export default function robots(): MetadataRoute.Robots {
       ...YANDEX_BOTS.map((userAgent) => ({ userAgent, allow: "/" as const })),
       ...AI_CRAWLERS.map((userAgent) => ({ userAgent, allow: "/" as const })),
     ],
-    sitemap: [`${origin}/sitemap.xml`, `${origin}/llm-sitemap.xml`],
+    sitemap: [`${origin}/sitemap.xml`, `${origin}/sitemap/recent.xml`, `${origin}/llm-sitemap.xml`],
     host: origin.replace(/^https?:\/\//, ""),
   };
 }

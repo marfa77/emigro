@@ -6,6 +6,8 @@ import { hashtagLabel, normalizeHashtag } from "@/lib/community-notes/hashtags";
 import { getPublishedCommunityNotes, getPublishedCommunityNotesByHashtag } from "@/lib/community-notes/queries";
 import { fitMetaDescription } from "@/lib/seo";
 import { DEFAULT_OG_IMAGE, socialImageMetadata } from "@/lib/seo";
+import { tagPageRobots } from "@/lib/seo/thin-content";
+import { corridorHreflangTag } from "@/lib/seo/hreflang";
 import { portugalHubPath } from "@/lib/satellite/paths";
 import { portugalSatelliteUrl } from "@/lib/site-url";
 import { heroTitle, satelliteMain } from "@/lib/ui/mobile";
@@ -22,16 +24,22 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: { params: { tag: string } }): Promise<Metadata> {
+  const tag = normalizeHashtag(params.tag);
+  const notes = await getPublishedCommunityNotesByHashtag(tag, "portugal");
   const label = hashtagLabel(params.tag);
-  const url = portugalSatelliteUrl(`/tag/${normalizeHashtag(params.tag)}`);
+  const url = portugalSatelliteUrl(`/tag/${tag}`);
   const description = fitMetaDescription(
     `#${label} — материалы для релокантов в Португалии (Norte: Порту, Брага, Minho): новости, лайфхаки, советы и гайды. Короткие ответы и FAQ, не юридическая консультация.`
   );
   const ogImage = socialImageMetadata(DEFAULT_OG_IMAGE, `#${label} — Португалия`);
+  const regionTag = corridorHreflangTag("portugal");
+  const languages: Record<string, string> = { "ru-RU": url, ru: url, "x-default": url };
+  if (regionTag) languages[regionTag] = url;
   return {
     title: `#${label} — Португалия`,
     description,
-    alternates: { canonical: url, languages: { "ru-RU": url, ru: url, "x-default": url } },
+    alternates: { canonical: url, languages },
+    robots: tagPageRobots(notes.length),
     openGraph: {
       title: `#${label} — Португалия`,
       description,
