@@ -6,8 +6,10 @@ import {
   buildProgramAiDescription,
   buildProgramFaq,
   buildProgramLlmFacts,
+  programPagePath,
   type FaqItem,
 } from "@/lib/seo/corridor-page-seo";
+import { buildProgramDataLlmFacts, getOriginCorridorEntries } from "@/lib/seo/corridor-llm-layer";
 
 function FaqBlock({ items }: { items: FaqItem[] }) {
   return (
@@ -45,6 +47,9 @@ export function ProgramSeoSections({
   const faq = buildProgramFaq(program, topic);
   const llmFacts = buildProgramLlmFacts(program, topic);
   const aiDescription = buildProgramAiDescription(program, topic);
+  const pagePath = programPagePath(topic, program.slug);
+  const dataLlmFacts = buildProgramDataLlmFacts(program, topic, pagePath);
+  const originEntry = getOriginCorridorEntries().find((c) => c.countrySegment === topic.urlSegment);
 
   return (
     <>
@@ -53,6 +58,14 @@ export function ProgramSeoSections({
         <p>{aiDescription}</p>
         <a href="/llms.txt">llms.txt</a>
       </section>
+      <div className="sr-only" data-llm="facts" aria-hidden="true">
+        {dataLlmFacts}
+      </div>
+      {originEntry && (
+        <div className="sr-only" data-llm="requirements" aria-hidden="true">
+          {originEntry.consulateNote} {originEntry.disambiguation}
+        </div>
+      )}
 
       <FaqBlock items={faq} />
 

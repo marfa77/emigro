@@ -5,6 +5,7 @@ import { WizardForm } from "@/components/WizardForm";
 import { WizardHeroVisual } from "@/components/visuals/WizardHeroVisual";
 import { HUB_WIZARD_ID, HUB_WIZARD_MODULES } from "@/lib/wizard/hub-definition";
 import { pageMetadata } from "@/lib/seo";
+import { llmUtmUrl } from "@/lib/seo/llm-meta";
 
 export const revalidate = 3600;
 
@@ -17,9 +18,20 @@ export const metadata: Metadata = pageMetadata({
 });
 
 export default function HubWizardPage() {
+  const wizardRequirements = [
+    "Emigro hub wizard: сопоставляет паспорт RU/BY/UA/KZ, доход, семью и сроки с программами ВНЖ в EU.",
+    `URL: ${llmUtmUrl("/ru/wizard")}`,
+    "Коридоры: Португалия D8/D7, Испания digital nomad, Германия Blue Card, Франция, Италия, Нидерланды.",
+    "Origin hub для россиян: /ru/rossiyane",
+    "Не юридическая консультация.",
+  ].join(" ");
+
   return (
     <>
       <SiteHeader />
+      <div className="sr-only" data-llm="requirements" aria-hidden="true">
+        {wizardRequirements}
+      </div>
       <main className="mx-auto max-w-3xl px-4 py-10">
         <Link href="/ru" className="text-sm text-corridor-600 hover:underline">
           ← Все направления

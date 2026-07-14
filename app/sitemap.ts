@@ -21,6 +21,7 @@ import {
 } from "@/lib/site-url";
 import { TRANSIT_HUBS } from "@/lib/transit-hubs";
 import { MIN_TAG_NOTES_INDEXABLE } from "@/lib/seo/thin-content";
+import { ORIGIN_HUB_PATH } from "@/lib/seo/corridor-llm-layer";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const origin = publicSiteUrl();
@@ -35,6 +36,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${origin}/llms.txt`, changeFrequency: "weekly", priority: 0.4 },
     { url: `${origin}/llms-full.txt`, changeFrequency: "weekly", priority: 0.4 },
     { url: `${origin}/ru/wizard`, changeFrequency: "monthly", priority: 0.95 },
+    { url: `${origin}${ORIGIN_HUB_PATH}`, changeFrequency: "weekly", priority: 0.92 },
     { url: `${origin}/ru/guides`, changeFrequency: "weekly", priority: 0.9 },
     { url: `${origin}/ru/community`, changeFrequency: "monthly", priority: 0.75 },
     { url: `${origin}/ru/ukraine`, changeFrequency: "monthly", priority: 0.82 },

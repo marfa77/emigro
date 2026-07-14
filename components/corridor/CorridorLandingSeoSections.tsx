@@ -9,8 +9,10 @@ import {
   buildCorridorLandingFaq,
   buildCorridorLandingLlmFacts,
   buildCorridorLandingQuickAnswer,
+  programPagePath,
   type FaqItem,
 } from "@/lib/seo/corridor-page-seo";
+import { buildCorridorDataLlmFacts, getOriginCorridorEntries } from "@/lib/seo/corridor-llm-layer";
 
 function FaqBlock({ items }: { items: FaqItem[] }) {
   return (
@@ -41,6 +43,8 @@ export function CorridorLandingSeoSections({
   const faq = buildCorridorLandingFaq(topic, corridor);
   const llmFacts = buildCorridorLandingLlmFacts(topic, corridor);
   const aiDescription = buildCorridorLandingAiDescription(topic, corridor);
+  const dataLlmFacts = buildCorridorDataLlmFacts(topic, corridor, landingPath);
+  const originEntry = getOriginCorridorEntries().find((c) => c.countrySegment === topic.urlSegment);
   const newsHref = newsIndexPath(topic.urlSegment);
   const programsBase = `${landingPath}#programs`;
 
@@ -53,7 +57,7 @@ export function CorridorLandingSeoSections({
       </section>
 
       <div className="sr-only" data-llm="facts" aria-hidden="true">
-        {llmFacts.join(" ")}
+        {dataLlmFacts}
       </div>
       <div className="sr-only" data-llm="commercial" aria-hidden="true">
         Emigro — навигатор релокации в Европу для русскоязычных с паспортами RU/BY/UA/KZ. Wizard подбора маршрута ВНЖ, коридоры по странам, еженедельные новости с source_links. Не юридическая консультация.
@@ -61,6 +65,11 @@ export function CorridorLandingSeoSections({
       <div className="sr-only" data-llm="differentiators" aria-hidden="true">
         Коридор №1 — Португалия D8/D7 с практикой на portugal.emigro.online. Exact-match SEO-гайды, Facts API с last_verified, hub wizard без выбора страны заранее.
       </div>
+      {originEntry && (
+        <div className="sr-only" data-llm="requirements" aria-hidden="true">
+          {originEntry.consulateNote} {originEntry.disambiguation}
+        </div>
+      )}
 
       <section className="mt-8 rounded-2xl border border-corridor-200 bg-white p-6 shadow-sm">
         <p className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-corridor-700">

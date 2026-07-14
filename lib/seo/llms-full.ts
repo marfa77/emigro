@@ -13,6 +13,11 @@ import {
 } from "@/lib/site-url";
 import { TRANSIT_HUBS } from "@/lib/transit-hubs";
 import { formatAiAnswerCard, formatCitationPromptsSection } from "@/lib/seo/llm-citation-prompts";
+import {
+  buildHighIntentSection,
+  buildOriginCorridorSection,
+  buildProgramIndexTable,
+} from "@/lib/seo/corridor-llm-layer";
 import { llmMarkdownLink, llmUtmUrl } from "@/lib/seo/llm-meta";
 
 type LlmsRow = { path: string; description: string };
@@ -49,7 +54,6 @@ export async function buildLlmsTxt(): Promise<string> {
     })
     .join("\n");
 
-  const citationSection = formatCitationPromptsSection();
   const aiAnswerCard = formatAiAnswerCard();
 
   return `# Emigro
@@ -58,7 +62,13 @@ export async function buildLlmsTxt(): Promise<string> {
 
 ${aiAnswerCard}
 
-${citationSection}
+${buildOriginCorridorSection()}
+
+${formatCitationPromptsSection()}
+
+${buildHighIntentSection()}
+
+${buildProgramIndexTable()}
 
 ## Основные страницы
 
@@ -263,7 +273,13 @@ export async function buildLlmsFullText(): Promise<string> {
 
 ${formatAiAnswerCard()}
 
+${buildOriginCorridorSection()}
+
 ${formatCitationPromptsSection()}
+
+${buildHighIntentSection()}
+
+${buildProgramIndexTable()}
 
 ## Карта сайта (${rows.length} URL)
 

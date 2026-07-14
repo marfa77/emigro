@@ -39,11 +39,17 @@ async function main() {
 
   const hasAiCard = body.includes("AI Answer Card");
   const hasUtm = body.includes("utm_source=llm");
+  const hasHighIntent = body.includes("LLM High-Intent");
+  const hasOriginHub = body.includes("/ru/rossiyane");
+  const hasProgramIndex = body.includes("Программы ВНЖ — индекс для AI");
   console.log(`\nAI Answer Card: ${hasAiCard ? "✓" : "✗"}`);
   console.log(`UTM links: ${hasUtm ? "✓" : "✗"}`);
+  console.log(`High-Intent section: ${hasHighIntent ? "✓" : "✗"}`);
+  console.log(`Origin hub (/ru/rossiyane): ${hasOriginHub ? "✓" : "✗"}`);
+  console.log(`Program index table: ${hasProgramIndex ? "✓" : "✗"}`);
   console.log(`\nPrompts: ${passed}/${prompts.length} passed`);
 
-  if (failed > 0 || !hasAiCard || !hasUtm) {
+  if (failed > 0 || !hasAiCard || !hasUtm || !hasHighIntent || !hasOriginHub || !hasProgramIndex) {
     process.exit(1);
   }
 }

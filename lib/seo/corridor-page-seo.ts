@@ -69,7 +69,7 @@ function passportLabel(iso2: string): string {
   return PASSPORT_LABELS[iso2] ?? iso2;
 }
 
-function keyRequirement(program: ProgramDetail): string | null {
+export function keyRequirement(program: ProgramDetail): string | null {
   const income = program.requirements.find((r) =>
     /доход|средств|зарплат|income|salary/i.test(r.label_ru)
   );

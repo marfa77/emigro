@@ -6,6 +6,7 @@ import { normalizeHashtag } from "@/lib/community-notes/hashtags";
 import { getActiveNewsTopics } from "@/lib/news/topics";
 import { pageUrl } from "@/lib/seo";
 import { QUERY_LONG_TAIL_TARGETS } from "@/lib/seo/query-longtail";
+import { ORIGIN_HUB_PATH } from "@/lib/seo/corridor-llm-layer";
 import { portugalSatellitePublicUrl, spainSatellitePublicUrl } from "@/lib/site-url";
 
 export const revalidate = 3600;
@@ -22,6 +23,7 @@ export async function GET() {
     pageUrl("/api/v1/meta/ingest-schema"),
     pageUrl("/api/v1/facts/corridors"),
     pageUrl("/ru/wizard"),
+    pageUrl(ORIGIN_HUB_PATH),
     pageUrl("/ru/guides"),
     portugalSatellitePublicUrl("/llms"),
     spainSatellitePublicUrl("/llms"),
