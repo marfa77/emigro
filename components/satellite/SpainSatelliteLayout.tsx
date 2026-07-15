@@ -68,6 +68,10 @@ export function SpainSatelliteFooter() {
           .
         </p>
         <p>
+          <a href={SPAIN_SATELLITE.wizardUrl} className="font-medium text-amber-900 underline">
+            Подобрать маршрут ВНЖ →
+          </a>
+          {" · "}
           Основной hub:{" "}
           <a href={MAIN_HUB_URL} className="text-amber-900 underline">
             emigro.online/ru/spain

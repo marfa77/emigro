@@ -17,6 +17,6 @@
   ],
   "env": {
     "PORTUGAL_SATELLITE_USE_SUBDOMAIN": "true",
-    "SPAIN_SATELLITE_USE_SUBDOMAIN": "false"
+    "SPAIN_SATELLITE_USE_SUBDOMAIN": "true"
   }
 }

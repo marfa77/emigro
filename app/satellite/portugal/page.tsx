@@ -7,6 +7,7 @@ import { BarakhloPromo } from "@/components/satellite/BarakhloPromo";
 import { getDailySpotlight } from "@/lib/community-notes/daily-spotlight";
 import { getPublishedCommunityNotes } from "@/lib/community-notes/queries";
 import { PORTUGAL_SATELLITE } from "@/lib/satellite/portugal";
+import { buildSatelliteHubPlace } from "@/lib/community-notes/seo-page";
 import { fitMetaDescription } from "@/lib/seo";
 import { DEFAULT_OG_IMAGE, socialImageMetadata } from "@/lib/seo";
 import { portugalSatelliteUrl } from "@/lib/site-url";
@@ -63,16 +64,7 @@ export default async function PortugalSatelliteHomePage() {
     description: HUB_DESCRIPTION,
     url: hubUrl,
     inLanguage: "ru-RU",
-    about: {
-      "@type": "Place",
-      name: "Porto, Portugal",
-      address: {
-        "@type": "PostalAddress",
-        addressCountry: "PT",
-        addressLocality: "Porto",
-        addressRegion: "Norte",
-      },
-    },
+    about: buildSatelliteHubPlace("portugal"),
   };
 
   return (

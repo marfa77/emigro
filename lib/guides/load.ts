@@ -288,8 +288,22 @@ export function loadGuideUncached(slug: string): GuideArticle | null {
   };
 }
 
-/** Per-request dedupe between generateMetadata and page render. */
-export const loadGuide = cache(loadGuideUncached);
+/** Per-request dedupe between generateMetadata and page render. Skips React cache in CLI/scripts. */
+let _loadGuideFn: typeof loadGuideUncached | null = null;
+
+function resolveLoadGuide(): typeof loadGuideUncached {
+  if (_loadGuideFn) return _loadGuideFn;
+  if (process.env.NEXT_RUNTIME) {
+    _loadGuideFn = cache(loadGuideUncached) as typeof loadGuideUncached;
+  } else {
+    _loadGuideFn = loadGuideUncached;
+  }
+  return _loadGuideFn;
+}
+
+export function loadGuide(slug: string): GuideArticle | null {
+  return resolveLoadGuide()(slug);
+}
 
 export async function getGuidesIndex(): Promise<GuideFrontmatter[]> {
   return unstable_cache(async () => listGuides(), ["guides-index"], {

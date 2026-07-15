@@ -6,12 +6,21 @@ function usePortugalSubdomainFlag() {
   return process.env.NODE_ENV === "production";
 }
 
+function useSpainSubdomainFlag() {
+  const flag = process.env.SPAIN_SATELLITE_USE_SUBDOMAIN?.trim()?.toLowerCase();
+  if (flag === "false") return false;
+  if (flag === "true") return true;
+  return process.env.NODE_ENV === "production";
+}
+
 const usePortugalSubdomain = usePortugalSubdomainFlag();
+const useSpainSubdomain = useSpainSubdomainFlag();
 
 const nextConfig = {
   reactStrictMode: true,
   env: {
     PORTUGAL_SATELLITE_USE_SUBDOMAIN: usePortugalSubdomain ? "true" : "false",
+    SPAIN_SATELLITE_USE_SUBDOMAIN: useSpainSubdomain ? "true" : "false",
   },
   async redirects() {
     const satelliteNotes = usePortugalSubdomain
@@ -57,7 +66,10 @@ const nextConfig = {
       },
       {
         source: "/",
-        missing: [{ type: "host", value: "portugal.emigro.online" }],
+        missing: [
+          { type: "host", value: "portugal.emigro.online" },
+          { type: "host", value: "spain.emigro.online" },
+        ],
         destination: "/ru",
         permanent: true,
       },

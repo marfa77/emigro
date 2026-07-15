@@ -7,8 +7,8 @@ import { BarakhloPromo } from "@/components/satellite/BarakhloPromo";
 import { getDailySpotlight } from "@/lib/community-notes/daily-spotlight";
 import { getPublishedCommunityNotes } from "@/lib/community-notes/queries";
 import { SPAIN_SATELLITE } from "@/lib/satellite/spain";
-import { fitMetaDescription } from "@/lib/seo";
-import { DEFAULT_OG_IMAGE, socialImageMetadata } from "@/lib/seo";
+import { buildSatelliteHubPlace } from "@/lib/community-notes/seo-page";
+import { DEFAULT_OG_IMAGE, fitMetaDescription, socialImageMetadata } from "@/lib/seo";
 import { spainSatelliteUrl } from "@/lib/site-url";
 import { heroTitle, satelliteMain } from "@/lib/ui/mobile";
 
@@ -62,11 +62,7 @@ export default async function SpainSatelliteHomePage() {
     description: HUB_DESCRIPTION,
     url: hubUrl,
     inLanguage: "ru-RU",
-    about: {
-      "@type": "Place",
-      name: "Valencia, Spain",
-      address: { "@type": "PostalAddress", addressCountry: "ES", addressLocality: "Valencia" },
-    },
+    about: buildSatelliteHubPlace("spain"),
   };
 
   return (
@@ -120,8 +116,12 @@ export default async function SpainSatelliteHomePage() {
       </section>
 
       <p className="mt-12 text-center text-sm text-slate-500">
+        <a href={SPAIN_SATELLITE.wizardUrl} className="font-medium text-amber-900 underline">
+          Подобрать маршрут ВНЖ →
+        </a>
+        {" · "}
         <a href={SPAIN_SATELLITE.digestUrl} className="text-amber-900 underline">
-          Справочник коридора на emigro.online →
+          Справочник коридора
         </a>
         {" · "}
         <a href={llmsUrl} className="text-amber-900 underline">

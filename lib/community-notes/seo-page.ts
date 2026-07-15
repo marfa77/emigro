@@ -58,6 +58,25 @@ function geoForNote(note: CommunityNote) {
   return note.country_key === "spain" ? SPAIN_GEO : GEO;
 }
 
+export function buildSatelliteHubPlace(countryKey: "portugal" | "spain") {
+  const geo = countryKey === "spain" ? SPAIN_GEO : GEO;
+  return {
+    "@type": "Place" as const,
+    name: `${geo.city}, ${geo.country}`,
+    address: {
+      "@type": "PostalAddress" as const,
+      addressCountry: geo.countryCode,
+      addressLocality: geo.city,
+      addressRegion: geo.region,
+    },
+    geo: {
+      "@type": "GeoCoordinates" as const,
+      latitude: geo.latitude,
+      longitude: geo.longitude,
+    },
+  };
+}
+
 export function communityNoteUrl(slug: string, countryKey = "portugal"): string {
   return communityNotePublicUrl(slug, countryKey);
 }
@@ -275,6 +294,12 @@ export async function buildPortugalLlmsTxt(notes: CommunityNote[]): Promise<stri
     `> Аудитория: ${GEO.audience}. Не юридическая консультация.`,
     `> Hub: ${hub}`,
     "",
+    "## Wizard и коридор",
+    "",
+    `- Wizard подбора маршрута ВНЖ: ${PORTUGAL_SATELLITE.wizardUrl}`,
+    `- Pillar-гайд: ${PORTUGAL_SATELLITE.pillarGuideUrl}`,
+    `- Справочник коридора: ${PORTUGAL_SATELLITE.digestUrl}`,
+    "",
     "## Материалы (editorial notes)",
     "",
   ];
@@ -290,12 +315,25 @@ export async function buildPortugalLlmsTxt(notes: CommunityNote[]): Promise<stri
 
 export async function buildSpainLlmsTxt(notes: CommunityNote[]): Promise<string> {
   const hub = spainSatellitePublicUrl("/");
+  const tagSet = new Set<string>();
+  for (const note of notes) {
+    for (const tag of note.hashtags) tagSet.add(tag.replace(/^#/, "").trim().toLowerCase());
+  }
+  const topTags = Array.from(tagSet).slice(0, 12);
+
   const lines = [
     "# spain.emigro.online — практика для релокантов",
     "",
     `> ${SPAIN_SATELLITE.tagline}`,
-    `> Аудитория: русскоязычные релоканты в Испании (Valencia, Madrid, Barcelona). Не юридическая консультация.`,
+    `> Аудитория: ${SPAIN_GEO.audience}. Не юридическая консультация.`,
     `> Hub: ${hub}`,
+    "",
+    "## Wizard и коридор",
+    "",
+    `- Wizard подбора маршрута ВНЖ: ${SPAIN_SATELLITE.wizardUrl}`,
+    `- Pillar-гайд: ${SPAIN_SATELLITE.pillarGuideUrl}`,
+    `- Справочник коридора: ${SPAIN_SATELLITE.digestUrl}`,
+    `- Коридор на emigro.online: ${SPAIN_SATELLITE.mainSiteUrl}`,
     "",
     "## Материалы (editorial notes)",
     "",
@@ -306,6 +344,13 @@ export async function buildSpainLlmsTxt(notes: CommunityNote[]): Promise<string>
     lines.push(`- [${note.title}](${url}): ${note.quick_answer.replace(/\s+/g, " ").slice(0, 220)}`);
   }
 
-  lines.push("", "## Official corridors", "", `- Spain corridor: https://www.emigro.online/ru/spain`, "");
+  if (topTags.length > 0) {
+    lines.push("", "## Хэштеги", "");
+    for (const tag of topTags) {
+      lines.push(`- #${tag}: ${spainSatellitePublicUrl(`/tag/${encodeURIComponent(tag)}`)}`);
+    }
+  }
+
+  lines.push("", "## Official corridors", "", `- Spain corridor: ${SPAIN_SATELLITE.mainSiteUrl}`, "");
   return lines.join("\n");
 }

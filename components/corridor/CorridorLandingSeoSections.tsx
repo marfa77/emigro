@@ -63,7 +63,11 @@ export function CorridorLandingSeoSections({
         Emigro — навигатор релокации в Европу для русскоязычных с паспортами RU/BY/UA/KZ. Wizard подбора маршрута ВНЖ, коридоры по странам, еженедельные новости с source_links. Не юридическая консультация.
       </div>
       <div className="sr-only" data-llm="differentiators" aria-hidden="true">
-        Коридор №1 — Португалия D8/D7 с практикой на portugal.emigro.online. Exact-match SEO-гайды, Facts API с last_verified, hub wizard без выбора страны заранее.
+        {topic.urlSegment === "spain"
+          ? "Коридор Испания — digital nomad €2 849/мес, NIE/TIE, extranjería Valencia. Практика на spain.emigro.online. Exact-match SEO-гайды, Facts API с last_verified, wizard /ru/spain/wizard."
+          : topic.urlSegment === "portugal"
+            ? "Коридор №1 — Португалия D8/D7 с практикой на portugal.emigro.online. Exact-match SEO-гайды, Facts API с last_verified, hub wizard без выбора страны заранее."
+            : `Коридор ${topic.countryRu} — wizard подбора маршрута ВНЖ, exact-match SEO-гайды, Facts API с last_verified.`}
       </div>
       {originEntry && (
         <div className="sr-only" data-llm="requirements" aria-hidden="true">
