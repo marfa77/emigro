@@ -226,7 +226,7 @@ export const APARTMENT_BUY_NORTE_GUIDE = {
   seo_description:
     "Покупка квартиры в Norte Португалии 2026: новостройка от promotor и вторичка в Porto/Braga. CPCV, escritura, IMT, crédito habitação, vistoria и проверки до сделки.",
   quick_answer:
-    "В шоуруме Matosinhos promotor показывает макет с видом на океан, а в CPCV — entrega «Q4 2027» и sinal 20%. Покупка квартиры в Norte — CPCV, IMT через Finanças, escritura у notário; новостройка Porto от €280k (T2), Braga от €165k. Закладывайте 7–10% сверху на налоги и notário.",
+    "В шоуруме Matosinhos promotor показывает макет с видом на океан — а в CPCV уже entrega «Q4 2027» и sinal 20%. Сначала принцип: сделка в Norte = CPCV → IMT через Finanças → escritura у notário; красивый рендер не заменяет snagging. Новостройка Porto от €280k (T2), Braga от €165k; сверху ещё 7–10% на налоги и notário — иначе «выгодная» цена всплывает на подписи.",
   body_sections: bodySections,
   body_paragraphs: flattenBodySections(bodySections),
   key_takeaways: keyTakeaways,
@@ -246,5 +246,5 @@ export const APARTMENT_BUY_NORTE_GUIDE = {
     extra: ["porto", "braga", "norte", "matosinhos", "gaia", "новостройка", "вторичка", "imóvel", "жильё"],
   }),
   source_channel: "chatlisboa+por_tugal+autolife_pt+lepta",
-  source_label: "editorial:apartment-buy-norte",
+  source_label: "editorial:apartment-buy-norte+voice-pass",
 };

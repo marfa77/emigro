@@ -278,7 +278,7 @@ export const VNJ_RENEWAL_GUIDE = {
   seo_description:
     "Продление ВНЖ Португалия 2026: portal-renovacoes AIMA, Agora, документы D7/D8/work, taxas, просрочка. Официально + чаты; не юридическая консультация.",
   quick_answer:
-    "Вы в Португалии смотрите на дату на título de residência — и понимаете, что Agora это не только «первая запись». По состоянию на июль 2026 renovação идёт через portal-renovacoes.aima.gov.pt (поэтапно), taxas обновлены 01.03.2026, просроченные — часто через e-mail AIMA и services.aima.gov.pt. Мы проходим продление через advogados; сверяйте каждый шаг с aima.gov.pt.",
+    "Дата на título de residência приближается — и чат уже советует «срочно в Agora», будто это единственная дверь. Спокойно: по состоянию на июль 2026 renovação чаще стартует на portal-renovacoes.aima.gov.pt (поэтапно по месяцам expiry), taxas обновлены 01.03.2026, просроченные кейсы — часто через e-mail AIMA и services.aima.gov.pt. Мы в Emigro идём через advogados; вы сверяйте каждый шаг с aima.gov.pt перед «Criar pedido».",
   body_sections: bodySections,
   body_paragraphs: flattenBodySections(bodySections),
   key_takeaways: keyTakeaways,
@@ -304,5 +304,5 @@ export const VNJ_RENEWAL_GUIDE = {
     extra: ["продление", "ВНЖ", "renovação", "AIMA", "2026"],
   }),
   source_channel: "chatlisboa+por_tugal+autolife_pt+lepta",
-  source_label: "editorial:triple-factcheck-jul-2026",
+  source_label: "editorial:triple-factcheck-jul-2026+voice-pass",
 };

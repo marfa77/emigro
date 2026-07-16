@@ -179,7 +179,7 @@ export const PORTO_VS_BRAGA_FAMILY_SCHOOLS_GUIDE = {
   seo_description:
     "Семья в Norte: Порту vs Брага с ребёнком в international school. Foz, Matosinhos, Gualtar — аренда, commute до OBS/CLIP/CLIB и expat-среда 2026.",
   quick_answer:
-    "Утро в Foz: школьный автобус в Porto, а вы в Braga смотрите объявление на €750 за T2. Семье с ребёнком в international school выбор — Порту (OBS, CLIP, LFIP, Deutsche) или Брага (CLIB). Аренда T2: Foz €1 100–1 600, Braga €700–1 000; commute 10–25 мин в Porto vs 45–60 мин из Braga.",
+    "Утро в Foz: школьный автобус в Porto, а вы в Braga смотрите объявление на €750 за T2 — и уже кажется, что «правильное» решение где-то одно. Семье с ребёнком в international school выбор простой по форме и сложный по жизни: Порту (OBS, CLIP, LFIP, Deutsche) или Брага (CLIB). Аренда T2: Foz €1 100–1 600, Braga €700–1 000; commute 10–25 мин в Porto vs 45–60 мин из Braga — считайте не только renda, а неделю семьи.",
   body_sections: bodySections,
   body_paragraphs: flattenBodySections(bodySections),
   key_takeaways: keyTakeaways,
@@ -198,5 +198,5 @@ export const PORTO_VS_BRAGA_FAMILY_SCHOOLS_GUIDE = {
     extra: ["porto", "braga", "norte", "foz", "matosinhos", "дети", "семья"],
   }),
   source_channel: "chatlisboa+por_tugal+lepta",
-  source_label: "editorial:porto-braga-family",
+  source_label: "editorial:porto-braga-family+voice-pass",
 };

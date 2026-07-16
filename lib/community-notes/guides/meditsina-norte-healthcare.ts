@@ -219,7 +219,7 @@ export const MEDITSINA_NORTE_HEALTHCARE_GUIDE = {
   seo_description:
     "Гайд Norte 2026: SNS utente, госпитализация internamento, urgências São João/Braga, referenciação, Multicare, частные CUF/Lusíadas, стоматология €.",
   quick_answer:
-    "Третий день кашля, а врач записывает через три недели — знакомая картина в Norte. Базовая медицина здесь через SNS: centro de saúde по адресу → número de utente → médico de família. Экстренные — urgências в São João или Braga; SNS24 — 808 24 24 24. Стоматология почти всегда частная (€50–90 за чистку).",
+    "Третий день кашля, а врач записывает через три недели — и это не заговор против иммигрантов, а свойство всей системы. Базовая медицина в Norte через SNS: centro de saúde по адресу → número de utente → médico de família. Экстренные — urgências в São João или Braga; SNS24 — 808 24 24 24. Стоматология почти всегда частная (€50–90 за чистку) — закладывайте в бюджет сразу.",
   body_sections: bodySections,
   body_paragraphs: flattenBodySections(bodySections),
   key_takeaways: keyTakeaways,
@@ -241,5 +241,5 @@ export const MEDITSINA_NORTE_HEALTHCARE_GUIDE = {
     extra: ["porto", "braga", "norte", "matosinhos", "guimarães", "стоматология", "здоровье", "multicare"],
   }),
   source_channel: "chatlisboa+por_tugal+autolife_pt+lepta",
-  source_label: "editorial:meditsina-norte",
+  source_label: "editorial:meditsina-norte+voice-pass",
 };

@@ -116,7 +116,7 @@ export const DNV_UGE_GUIDE = {
   seo_description:
     "Digital nomad visa Испания 2026: teletrabajo, UGE vs консульство, порог €2 849/мес., 20% rule. Маршрут для RU/BY/UA/KZ с visado D, TIE и Valencia.",
   quick_answer:
-    "Digital nomad (teletrabajo) в Испании 2026: доход от ~€2 849/мес., до 20% из ES. Основной путь для RU/BY — консульство → visado D → TIE. UGE — для легального пребывания уже внутри страны, не замена визы.",
+    "«Подамся через UGE изнутри — так быстрее» — частая надежда, которая ломается о консульский трек. Digital nomad (teletrabajo) в Испании 2026: доход от ~€2 849/мес., до 20% из ES. Для RU/BY основной путь — консульство → visado D → TIE; UGE — для уже легального пребывания внутри, не замена визы.",
   body_sections: bodySections,
   body_paragraphs: flattenBodySections(bodySections),
   key_takeaways: keyTakeaways,
@@ -132,6 +132,6 @@ export const DNV_UGE_GUIDE = {
     extra: ["uge", "extranjeria"],
   }),
   source_channel: "spain_granitsa+spainchats",
-  source_label: "editorial:dnv-uge",
+  source_label: "editorial:dnv-uge+voice-pass",
   pillar_guide_slug: "vnj-ispaniya-2026",
 };

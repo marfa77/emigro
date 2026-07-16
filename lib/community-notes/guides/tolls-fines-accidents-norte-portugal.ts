@@ -165,7 +165,7 @@ export const TOLLS_FINES_ACCIDENTS_GUIDE = {
   seo_description:
     "Гайд по portagem, Via Verde, штрафам и ДТП в Португалии: A1 Porto–Lisboa, A3 Braga, ex-Scut, radares, declaração amigável и seguro. Norte и практика релокантов.",
   quick_answer:
-    "Первый выезд из Porto на юг: на табло A1 мелькает «portagem», а в кармане — только наличные. В Португалии большинство магистралей платные; без Via Verde или оплаты на posto в 5 дней — multa. На севере типичны commute Porto–Braga; при ДТП: 112, фото, declaração amigável и звонок seguro.",
+    "Первый выезд из Porto на юг: на табло A1 мелькает «portagem», а в кармане — только наличные. Спокойно, это не ловушка специально для вас — большинство магистралей платные. Без Via Verde или оплаты на posto в 5 дней придёт multa. На севере типичны commute Porto–Braga; при ДТП: 112, фото, declaração amigável и звонок seguro.",
   body_sections: bodySections,
   body_paragraphs: flattenBodySections(bodySections),
   key_takeaways: keyTakeaways,
@@ -187,7 +187,7 @@ export const TOLLS_FINES_ACCIDENTS_GUIDE = {
     extra: ["portagem", "viaverde", "multa", "дтп", "norte", "autolife"],
   }),
   source_channel: "chatlisboa+por_tugal+autolife_pt+lepta",
-  source_label: "editorial:50-signals",
+  source_label: "editorial:50-signals+voice-pass",
 };
 
 /** Cross-link slugs for related guides */

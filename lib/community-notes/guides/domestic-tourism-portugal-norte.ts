@@ -211,7 +211,7 @@ export const DOMESTIC_TOURISM_NORTE_GUIDE = {
   seo_description:
     "Практический гайд по внутреннему туризму из Porto 2026: Minho, Douro, Gerês, CP и FlixBus, Ryanair, turismo rural, parques naturais и льготы с ВНЖ на monumentos.",
   quick_answer:
-    "Пятница вечером вы смотрите на карту: Braga уже были десять раз, в Algarve все едут в августе, а вы — residente с работой в понедельник. Из Porto на выходные логичны Minho, Douro и Gerês на машине или CP; Aveiro и Coimbra — день поездом. Юг и Azores — off-season и Ryanair. Бронируйте turismo rural заранее; льготы на музеи — с ВНЖ.",
+    "Пятница вечером вы смотрите на карту: Braga уже были десять раз, в Algarve все едут в августе, а вы — residente с работой в понедельник. Из Porto на выходные логичны Minho, Douro и Gerês на машине или CP; Aveiro и Coimbra — день поездом. Юг и Azores — off-season и Ryanair, иначе вы платите за чужой пик сезона. Бронируйте turismo rural заранее; льготы на музеи — с ВНЖ.",
   body_sections: bodySections,
   body_paragraphs: flattenBodySections(bodySections),
   key_takeaways: keyTakeaways,
@@ -233,5 +233,5 @@ export const DOMESTIC_TOURISM_NORTE_GUIDE = {
     extra: ["porto", "norte", "douro", "minho", "algarve", "выходные", "cp", "turismorural"],
   }),
   source_channel: "chatlisboa+por_tugal+autolife_pt+lepta",
-  source_label: "editorial:50-signals",
+  source_label: "editorial:50-signals+voice-pass",
 };

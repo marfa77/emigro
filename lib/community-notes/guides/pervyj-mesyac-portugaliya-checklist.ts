@@ -1,6 +1,7 @@
 /**
  * Hand-curated guide — first month checklist for a Golden Visa family in Norte.
- * Voice «Опытный релокант за кофе» (lib/community-notes/editorial-voice.ts).
+ * Voice «Опытный релокант за кофе» — warm relocant-blogger rhythm
+ * (lib/community-notes/editorial-voice.ts; style inspired by @portugal_and_me, not cited).
  *
  * Assumptions (stated in quick_answer and body):
  * - Family of 3: typically 2 adults + 1 school-age child
@@ -271,12 +272,12 @@ export const PERVYJ_MESYAC_CHECKLIST_GUIDE = {
   content_kind: "guide" as ContentKind,
   title: "Первый месяц в Португалии: чеклист семьи с Golden Visa (Porto / Braga)",
   excerpt:
-    "Семья из трёх, ARI, Norte: до прилёта, дни 1–3, недели 1–4 — школа в приоритете, аренда авто, NIF, SNS, Portal ARI. Porto vs Braga и чем GV отличается от D7/D8.",
+    "Первый месяц семьи с Golden Visa в Porto/Braga без паники из чатов: школа раньше Idealista, потом NIF и SNS, Portal ARI — отдельно. По дням и неделям.",
   seo_title: "Первый месяц PT 2026 — семья GV Porto/Braga",
   seo_description:
     "Семья из трёх с Golden Visa в Португалии (Porto или Braga): чеклист первого месяца — школа в приоритете, аренда авто, NIF, SNS, AIMA. По дням и неделям.",
   quick_answer:
-    "Вы выходите из OPO с двумя чемоданами и детским креслом — и едете сразу в Porto или Braga, не в Lisboa. Для семьи из трёх с Golden Visa (ARI) в Португалии первый месяц — школа в приоритете, NIF и temporary morada в неделю 1, SNS и шаги Portal ARI в неделю 2, long-term жильё и решение по машине к неделям 3–4. Правила ARI меняются: сверяйте aima.gov.pt и адвоката.",
+    "Первый месяц в Португалии пугает не таможней — а списком из двадцати «обязательных» шагов в чатах. Спокойно: для семьи из трёх с Golden Visa (ARI) в Porto или Braga хватает одной логики — сначала школа и temporary адрес, затем NIF/SNS, long-term жильё ближе к неделям 3–4. Portal ARI живёт своей жизнью: сверяйте aima.gov.pt и advogado, не пересказ чата.",
   body_sections: bodySections,
   body_paragraphs: flattenBodySections(bodySections),
   key_takeaways: keyTakeaways,
@@ -299,5 +300,5 @@ export const PERVYJ_MESYAC_CHECKLIST_GUIDE = {
     extra: ["porto", "braga", "norte", "golden-visa", "ari", "familia", "escola", "checklist"],
   }),
   source_channel: "chatlisboa+por_tugal+lepta",
-  source_label: "editorial:pervyj-mesyac-gv-norte",
+  source_label: "editorial:pervyj-mesyac-gv-norte+voice-pass",
 };

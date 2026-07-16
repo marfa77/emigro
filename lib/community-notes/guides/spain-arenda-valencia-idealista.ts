@@ -115,7 +115,7 @@ export const ARENDA_VALENCIA_GUIDE = {
   seo_description:
     "Аренда в Valencia 2026: Idealista, fianza, agency fee, NIE и Spanish IBAN до подписи contrato. Практика для русскоязычных релокантов в Испании.",
   quick_answer:
-    "В Valencia agency на Idealista чаще просят NIE и Spanish IBAN до viewing. Fianza — до 1 mes по LAU; agency fee ~1 mes + IVA. Перед подписью проверьте deposito fianza, gastos de comunidad и право на empadronamiento.",
+    "В Valencia agency на Idealista чаще просят NIE и Spanish IBAN ещё до viewing — и это не «развод», а фильтр рынка. Fianza — до 1 mes по LAU; agency fee ~1 mes + IVA. Перед подписью проверьте deposito fianza, gastos de comunidad и право на empadronamiento — иначе ключи есть, а padrón нет.",
   body_sections: bodySections,
   body_paragraphs: flattenBodySections(bodySections),
   key_takeaways: keyTakeaways,
@@ -131,6 +131,6 @@ export const ARENDA_VALENCIA_GUIDE = {
     extra: ["idealista", "nie"],
   }),
   source_channel: "valenciarusia+valenforum",
-  source_label: "editorial:alquiler-valencia",
+  source_label: "editorial:alquiler-valencia+voice-pass",
   pillar_guide_slug: "pervye-30-dnej-v-ispanii-2026",
 };

@@ -109,7 +109,7 @@ export const BANK_IBAN_GUIDE = {
   seo_description:
     "Открытие счёта в Испании 2026: IBAN для нерезидента, CaixaBank, Santander, KYC для RU/BY. Практика Valencia — NIE, empadronamiento, TIE и fianza.",
   quick_answer:
-    "Для TIE, fianza и utilities в Испании нужен Spanish IBAN (ES…). CaixaBank и Santander в Valencia открывают счёт с NIE/resguardo и empadronamiento; Revolut/N26 — вспомогательно, не замена.",
+    "Без Spanish IBAN (ES…) в Valencia спотыкаются и аренда, и TIE, и свет — даже если Revolut «вроде хватает». CaixaBank и Santander открывают счёт с NIE/resguardo и empadronamiento; Revolut/N26 — удобный мост, не замена local IBAN.",
   body_sections: bodySections,
   body_paragraphs: flattenBodySections(bodySections),
   key_takeaways: keyTakeaways,
@@ -125,6 +125,6 @@ export const BANK_IBAN_GUIDE = {
     extra: ["iban", "caixabank"],
   }),
   source_channel: "spain_granitsa+valenforum",
-  source_label: "editorial:bank-iban",
+  source_label: "editorial:bank-iban+voice-pass",
   pillar_guide_slug: "pervye-30-dnej-v-ispanii-2026",
 };

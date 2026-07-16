@@ -150,7 +150,7 @@ export const BECKHAM_GUIDE = {
   seo_description:
     "Beckham Law и autónomo в Испании 2026: мифы из Telegram-чатов, 24% impatriados vs DNV teletrabajo. Когда нужен alta SS — для RU/BY релокантов в Valencia.",
   quick_answer:
-    "Beckham (régimen impatriados) — не автоматически с digital nomad visa. Нужны eligibility и заявление в Agencia Tributaria. Autónomo и Seguridad Social — отдельный обязательный трек для многих freelancers, не «миф gestoría».",
+    "«Мне же положен Beckham с digital nomad» — частая фраза, от которой потом больно в Agencia Tributaria. Régimen impatriados не включается автоматом с DNV: нужны eligibility и отдельное заявление. Autónomo и Seguridad Social — свой обязательный трек для многих freelancers, не «миф gestoría».",
   body_sections: bodySections,
   body_paragraphs: flattenBodySections(bodySections),
   key_takeaways: keyTakeaways,

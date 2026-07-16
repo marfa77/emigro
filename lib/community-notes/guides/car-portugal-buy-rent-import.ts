@@ -161,7 +161,7 @@ export const CAR_PORTUGAL_GUIDE = {
   seo_description:
     "Как купить, арендовать или привезти машину в Португалию: ISV, matrícula, IPO, recall, rent-a-car и ввоз из ЕС. Практика релокантов в Norte (Porto, Braga).",
   quick_answer:
-    "Standvirtual открыт в третий раз за неделю — а машины всё ещё нет. В Португалии три пути: купить (DUA + IMT + seguro), арендовать на срок или привезти из ЕС с ISV при matrícula. С 03.2026 невыполненный recall блокирует техосмотр; многие месяц сидят на прокате, пока ищут б/у.",
+    "Standvirtual открыт в третий раз за неделю — а машины всё ещё нет, и это уже почти ритуал переезда. В Португалии три пути: купить (DUA + IMT + seguro), арендовать на срок или привезти из ЕС с ISV при matrícula. С 03.2026 невыполненный recall блокирует техосмотр; многие месяц сидят на прокате, пока ищут б/у — заложите это в план, не в нервы.",
   body_sections: bodySections,
   body_paragraphs: flattenBodySections(bodySections),
   key_takeaways: keyTakeaways,
@@ -181,5 +181,5 @@ export const CAR_PORTUGAL_GUIDE = {
     extra: ["машина", "isv", "аренда", "autolife", "транспорт"],
   }),
   source_channel: "chatlisboa+autolife_pt+por_tugal",
-  source_label: "editorial:auto-signals",
+  source_label: "editorial:auto-signals+voice-pass",
 };

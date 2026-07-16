@@ -135,7 +135,7 @@ export const NIE_EMPADRONAMIENTO_GUIDE = {
   seo_description:
     "NIE и empadronamiento в Испании 2026: порядок шагов для Valencia, cita previa, EX-15, certificado de empadronamiento. Практика для RU/BY/UA/KZ.",
   quick_answer:
-    "В Valencia и большинстве городов Испании сначала подайте на NIE (EX-15 + tasa 790), получите resguardo, затем empadronamiento в ayuntamiento с contrato или autorización владельца. Без padrón сложнее банк, TIE и utilities.",
+    "В чатах спорят, что раньше — NIE или padrón — будто от порядка зависит вся Испания. Спокойно: в Valencia и большинстве городов сначала NIE (EX-15 + tasa 790) и resguardo, затем empadronamiento в ayuntamiento с contrato или autorización владельца. Без padrón сложнее банк, TIE и utilities — это не теория, а очередь в ayuntamiento.",
   body_sections: bodySections,
   body_paragraphs: flattenBodySections(bodySections),
   key_takeaways: keyTakeaways,

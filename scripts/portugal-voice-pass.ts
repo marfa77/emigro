@@ -1,11 +1,13 @@
 /**
- * Voice pass: rewrite Portugal guides with «Опытный релокант за кофе» editorial voice.
+ * Voice pass: rewrite Portugal guides with «Опытный релокант за кофе» editorial voice
+ * (warm relocant-blogger rhythm inspired by @portugal_and_me — style only; see editorial-voice.ts).
  *
  *   npm run portugal:voice-pass -- --audit
  *   npm run portugal:voice-pass -- --slug=aima-agora-zapis-2026
  *   npm run portugal:voice-pass -- --all
  *   npm run portugal:voice-pass -- --next --try=3
  *   npm run portugal:voice-pass -- --all --dry-run
+ *   npm run portugal:voice-pass -- --all --local-only
  */
 import dotenv from "dotenv";
 import { resolve } from "node:path";

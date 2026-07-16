@@ -310,7 +310,7 @@ export const LAND_BUILD_NORTE_GUIDE = {
   seo_description:
     "Гайд по покупке земли и стройке дома в Norte 2026: PDM, licença de construção, кейс двух домов на участке, чеклист до escritura, бюджет и риски в Braga.",
   quick_answer:
-    "На Idealista — зелёный участок в Guimarães, а в Câmara вопрос не про вид, а про PDM: можно ли два жилья и где água. Покупка terreno в Norte начинается с certidão urbanística; кейс «гостевой 60 m² → основной 120 m²» — 24–36 мес., €340k–520k. До escritura проверьте servidão и коммуникации; IMT — симулятор Finanças.",
+    "На Idealista — зелёный участок в Guimarães с «видом на forever», а в Câmara вопрос не про закат, а про PDM: можно ли два жилья и где água. Спокойно: покупка terreno в Norte начинается с certidão urbanística, не с задатка в WhatsApp. Кейс «гостевой 60 m² → основной 120 m²» — 24–36 мес. и €340k–520k; до escritura проверьте servidão и коммуникации, IMT — симулятор Finanças.",
   body_sections: bodySections,
   body_paragraphs: flattenBodySections(bodySections),
   key_takeaways: keyTakeaways,
@@ -330,5 +330,5 @@ export const LAND_BUILD_NORTE_GUIDE = {
     extra: ["porto", "braga", "norte", "terreno", "строительство", "жильё"],
   }),
   source_channel: "chatlisboa+por_tugal+lepta",
-  source_label: "editorial:land-build-norte",
+  source_label: "editorial:land-build-norte+voice-pass",
 };

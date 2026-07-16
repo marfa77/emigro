@@ -146,7 +146,7 @@ export const TIE_CITA_GUIDE = {
   seo_description:
     "TIE и cita extranjería в Valencia 2026: huellas, resguardo, запись sede, документы и сроки. Практика для русскоязычных релокантов с visado D в provincia Valencia.",
   quick_answer:
-    "После въезда по visado D запишитесь на cita previa для TIE на sede и сдайте huellas в Comisaría de Extranjería Valencia. Слоты ловят утром 08:00–09:00; после huellas получите resguardo — его часто принимают банк и аренда до пластика.",
+    "Visado D в паспорте есть — а пластик TIE ещё «где-то в системе», и это нормальная испанская пауза, не конец света. После въезда ловите cita previa на sede и сдайте huellas в Comisaría de Extranjería Valencia; слоты чаще утром 08:00–09:00. После huellas — resguardo: его часто принимают банк и аренда до пластика.",
   body_sections: bodySections,
   body_paragraphs: flattenBodySections(bodySections),
   key_takeaways: keyTakeaways,

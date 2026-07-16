@@ -243,7 +243,7 @@ export const PORTUGAL_REGIONS_EXPAT_GUIDE = {
   seo_description:
     "Где жить в Португалии 2026: регионы, экспаты, климат, аренда T2 и вайб. Norte, Lisboa, Algarve, Centro, Alentejo, острова — честный гид для релокантов.",
   quick_answer:
-    "Вы листаете Idealista и не понимаете: Porto, Cascais и Faro — это три разных страны в одной визе. В Norte expat-плотность и international schools без цен Lisboa; в Algarve — солнце и сезонность; в Centro — бюджет, но мало инфраструктуры. Аренда T2: Braga от €700, Cascais до €2 500.",
+    "Вы листаете Idealista и ловите себя на мысли: Porto, Cascais и Faro — будто три разные страны в одной визе. Так и есть по быту. В Norte — expat-плотность и international schools без цен Lisboa; в Algarve — солнце и сезонность; в Centro — бюджет, но меньше инфраструктуры. Аренда T2: Braga от €700, Cascais до €2 500 — выбирайте не «красивое фото», а неделю семьи.",
   body_sections: bodySections,
   body_paragraphs: flattenBodySections(bodySections),
   key_takeaways: keyTakeaways,
@@ -262,5 +262,5 @@ export const PORTUGAL_REGIONS_EXPAT_GUIDE = {
     extra: ["регионы", "porto", "lisboa", "algarve", "экспаты", "климат", "norte"],
   }),
   source_channel: "chatlisboa+por_tugal+lepta",
-  source_label: "editorial:portugal-regions",
+  source_label: "editorial:portugal-regions+voice-pass",
 };

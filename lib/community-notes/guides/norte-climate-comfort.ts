@@ -1,6 +1,7 @@
 /**
- * Hand-curated guide — voice «Опытный релокант за кофе» (lib/community-notes/editorial-voice.ts):
- * - quick_answer: микросцена-хук + 2 факта
+ * Hand-curated guide — voice «Опытный релокант за кофе»
+ * (lib/community-notes/editorial-voice.ts; warm relocant-blogger rhythm, style-only).
+ * - quick_answer: сцена + 2 факта
  * - key_takeaways: max 4; glossary ≤8 с literary intro
  * - Each section: «зачем вам это сейчас» + «Что/Зачем» + «Главное: …»
  */
@@ -196,7 +197,7 @@ export const NORTE_CLIMATE_COMFORT_GUIDE = {
   seo_description:
     "Гайд по климату Norte Португалии 2026: жара в Braga, влажность в Porto, bolor, зима без отопления. AC, desumidificador, DGEG, IPMA и местные сервисы.",
   quick_answer:
-    "Первое утро в Porto: на термометре +14 °C, а внутри — сырость и запах старой штукатурки. На севере (Порту, Брага, побережье) лето уже до +40 °C, зимой в старой квартире бывает +12 °C без отопления. Кондиционер (ar condicionado) и осушитель — не роскошь; сплит ставит только сертифицированный мастер (DGEG).",
+    "Первое утро в Porto: на термометре +14 °C, а внутри — сырость и запах старой штукатурки. Это не «прохладный север из брошюры» — humidade здесь главный бытовой враг. Лето в Norte уже до +40 °C, зимой в старой квартире бывает +12 °C без отопления; ar condicionado и desumidificador — не роскошь, а план B. Сплит ставит только сертифицированный мастер (DGEG).",
   body_sections: bodySections,
   body_paragraphs: flattenBodySections(bodySections),
   key_takeaways: keyTakeaways,

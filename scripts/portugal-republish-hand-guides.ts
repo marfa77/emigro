@@ -24,9 +24,20 @@ const SCRIPTS = [
 ];
 
 async function main() {
+  const failed: string[] = [];
   for (const script of SCRIPTS) {
     console.log(`\n=== ${script} ===`);
-    execSync(`npm run ${script}`, { stdio: "inherit", cwd: process.cwd() });
+    try {
+      execSync(`npm run ${script}`, { stdio: "inherit", cwd: process.cwd() });
+    } catch (e) {
+      const msg = e instanceof Error ? e.message : String(e);
+      console.error(`[republish] ${script} failed: ${msg.slice(0, 200)}`);
+      failed.push(script);
+    }
+  }
+  if (failed.length) {
+    console.error(`\n[republish] finished with ${failed.length} failures: ${failed.join(", ")}`);
+    process.exit(1);
   }
   console.log("\n[republish] all hand guides done");
 }

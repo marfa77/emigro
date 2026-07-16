@@ -216,7 +216,7 @@ export const INTERNATIONAL_SCHOOLS_GUIDE = {
   seo_description:
     "Гайд по международным школам Португалии 2026: British, IB и French в Порту, Браге и Лиссабоне. Документы NIF, стоимость, waiting list и отличия от escola pública.",
   quick_answer:
-    "Сентябрь уже на календаре, а школа просит заявку за год до поступления. В Португалии у семьи три дорожки: бесплатная pública по адресу, частная с португальской программой или international (British, IB, French). Для любой нужны NIF ребёнка и morada; international — от €9 000/год.",
+    "Сентябрь уже на календаре, а школа спокойно просит заявку за год — типичная португальская административная вежливость. У семьи три дорожки: pública по адресу, частная с PT-программой или international (British, IB, French). Для любой нужны NIF ребёнка и morada; international в Norte — от €9 000/год плюс waiting list на популярные классы.",
   body_sections: bodySections,
   body_paragraphs: flattenBodySections(bodySections),
   key_takeaways: keyTakeaways,
@@ -238,5 +238,5 @@ export const INTERNATIONAL_SCHOOLS_GUIDE = {
     extra: ["школа", "дети", "cascais", "lisboa", "porto", "braga", "ib"],
   }),
   source_channel: "chatlisboa+por_tugal+lepta",
-  source_label: "editorial:school-research",
+  source_label: "editorial:school-research+voice-pass",
 };

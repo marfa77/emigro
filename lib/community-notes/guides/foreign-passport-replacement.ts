@@ -179,7 +179,7 @@ export const FOREIGN_PASSPORT_REPLACEMENT_GUIDE = {
   seo_description:
     "Как заменить загран RU/BY/UA/KZ в Португалии: consulado Lisboa, agendamento kdmid, документы, сроки, выдача и опыт релокантов из Porto и Norte.",
   quick_answer:
-    "Вы сидите в кафе в Cedofeita, открываете consulado.ru — и видите: одно посольство на всю Португалию, в Lisboa. Загранпаспорт RU/BY/UA/KZ оформляется только через него; украинцам доступен ещё consulado в Porto. Запись (agendamento) онлайн обязательна: из Norte закладывайте две поездки — подача и личная выдача, изготовление до 3 месяцев.",
+    "Вы сидите в кафе в Cedofeita, открываете consulado.ru — и понимаете неприятную географию: одно посольство на всю Португалию, в Lisboa. Загранпаспорт RU/BY/UA/KZ оформляется только через него; украинцам доступен ещё consulado в Porto. Agendamento онлайн обязателен: из Norte закладывайте две поездки — подача и личная выдача, изготовление до 3 месяцев.",
   body_sections: bodySections,
   body_paragraphs: flattenBodySections(bodySections),
   key_takeaways: keyTakeaways,
@@ -199,5 +199,5 @@ export const FOREIGN_PASSPORT_REPLACEMENT_GUIDE = {
     extra: ["загранпаспорт", "консульство", "паспорт", "lisboa"],
   }),
   source_channel: "chatlisboa+por_tugal+autolife_pt+lepta",
-  source_label: "editorial:19-signals+consulates",
+  source_label: "editorial:19-signals+consulates+voice-pass",
 };

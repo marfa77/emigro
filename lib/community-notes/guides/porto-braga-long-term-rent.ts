@@ -1,6 +1,7 @@
 /**
- * Hand-curated guide — voice «Опытный релокант за кофе» (lib/community-notes/editorial-voice.ts):
- * - quick_answer: микросцена-хук + 2 факта
+ * Hand-curated guide — voice «Опытный релокант за кофе»
+ * (lib/community-notes/editorial-voice.ts; warm relocant-blogger rhythm, style-only).
+ * - quick_answer: demystify / сцена + 2 факта
  * - key_takeaways: max 4; glossary 8–10 с literary intro
  * - Each section: «зачем вам это сейчас» + «Что/Зачем» + «Главное: …»
  */
@@ -198,7 +199,7 @@ export const PORTO_BRAGA_LONG_TERM_RENT_GUIDE = {
   seo_description:
     "Долгосрочная аренда в Порту и Браге: senhorio, condomínio, IBAN, transferência, recibo de renda, caução, registo Finanças. Foz, Matosinhos, Gualtar — бюджеты 2026.",
   quick_answer:
-    "Первый вечер в Bonfim: senhorio присылает IBAN и просит «caução + dois meses» на MB Way. В Norte renda идёт senhorio (proprietário), condomínio — отдельно administrador, Finanças — разовая taxa registo contrato. Платите transferência bancária с morada в descrição и требуйте recibo de renda каждый месяц.",
+    "Первый вечер в Bonfim: senhorio присылает IBAN и просит «caução + dois meses» на MB Way — и вот уже паника «а это вообще законно?». Спокойно: в Norte renda идёт senhorio (proprietário), condomínio — отдельно administrador, Finanças — разовая taxa registo contrato. Платите transferência bancária с morada в descrição и требуйте recibo de renda каждый месяц — без recibo вы «невидимы» для IRS и AIMA.",
   body_sections: bodySections,
   body_paragraphs: flattenBodySections(bodySections),
   key_takeaways: keyTakeaways,
@@ -217,5 +218,5 @@ export const PORTO_BRAGA_LONG_TERM_RENT_GUIDE = {
     extra: ["porto", "braga", "norte", "foz", "matosinhos", "bonfim", "gualtar", "renda", "iban"],
   }),
   source_channel: "chatlisboa+por_tugal+autolife_pt+lepta",
-  source_label: "editorial:porto-braga-rent",
+  source_label: "editorial:porto-braga-rent+voice-pass",
 };

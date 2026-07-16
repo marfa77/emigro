@@ -111,7 +111,7 @@ export const PERVYE_30_GUIDE = {
   seo_description:
     "Чеклист первых 30 дней в Испании 2026: NIE, empadronamiento, банк, TIE, Seguridad Social. Практика Valencia для RU/BY/UA/KZ после visado D в ES.",
   quick_answer:
-    "Первый месяц в Испании (Valencia): SIM → NIE → empadronamiento → Spanish IBAN → cita TIE/huellas → SS при employment/autónomo. Срок TIE по visado — не откладывайте. Pillar: emigro.online/ru/guides/pervye-30-dnej-v-ispanii-2026.",
+    "Первый месяц в Valencia пугает не столько extranjería, сколько ощущением, что всё нужно «вчера». Логика проще списка из чата: SIM → NIE → empadronamiento → Spanish IBAN → cita TIE/huellas → SS при employment/autónomo. Срок TIE по visado не откладывайте — слоты не ждут вашего идеального порядка.",
   body_sections: bodySections,
   body_paragraphs: flattenBodySections(bodySections),
   key_takeaways: keyTakeaways,
@@ -128,6 +128,6 @@ export const PERVYE_30_GUIDE = {
     extra: ["checklist", "extranjeria"],
   }),
   source_channel: "spain_granitsa+valenforum+spainchats",
-  source_label: "editorial:30-days",
+  source_label: "editorial:30-days+voice-pass",
   pillar_guide_slug: "pervye-30-dnej-v-ispanii-2026",
 };

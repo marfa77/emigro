@@ -27,6 +27,7 @@ import {
   TOPIC_LABELS,
   TOPIC_OFFICIAL_LINKS,
   VOICE_REWRITE_HINT,
+  VOICE_REWRITE_HINT_SPAIN,
 } from "@/lib/community-notes/editorial-voice";
 import type {
   CommunityNote,
@@ -427,7 +428,13 @@ ${JSON.stringify(
 Явно раздели официальные требования и практику из чатов (section_kind + метки в key_takeaways).
 ${existingContent}
 
-${options?.voicePass ? VOICE_REWRITE_HINT : PRESENTATION_REWRITE_HINT}
+${
+  options?.voicePass
+    ? countryKey === "spain"
+      ? VOICE_REWRITE_HINT_SPAIN
+      : VOICE_REWRITE_HINT
+    : PRESENTATION_REWRITE_HINT
+}
 
 КОМПАКТНЫЙ JSON (критично): сохрани все секции и факты из текущего контента; до 8 body_sections, до 5 bullets на секцию, glossary 5–8 терминов, 4 key_takeaways, 4–5 faq. Минимум 600 слов суммарно для guide.`;
 
