@@ -15,6 +15,7 @@ const ALLOWED: Set<string> = new Set([
   "wizard_error",
   "wizard_results_view",
   "wizard_results_click",
+  "assist_cta_click",
   "lead_submitted",
   "assist_lead_submitted",
   "lead_error",

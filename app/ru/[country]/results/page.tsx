@@ -3,9 +3,11 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { ServiceProvidersSection } from "@/components/providers/ServiceProvidersSection";
+import { AssistResultsCta } from "@/components/wizard/AssistResultsCta";
 import { HouseholdBanner } from "@/components/wizard/HouseholdBanner";
 import { WizardTelegramDelivery } from "@/components/wizard/WizardTelegramDelivery";
 import { WizardOutcomeCard } from "@/components/wizard/WizardOutcomeCard";
+import { buildAssistUrl } from "@/lib/assist/build-url";
 import { corridorWizardPath } from "@/lib/corridor/paths";
 import { getCorridorBySlug } from "@/lib/corridor/queries";
 import { describeHousehold, parseHousehold } from "@/lib/engine/household";
@@ -138,6 +140,14 @@ export default async function CountryResultsPage({
 
         <HouseholdBanner household={household} />
 
+        <AssistResultsCta
+          sessionId={sessionId}
+          placement="wizard_corridor_results"
+          country={topic.urlSegment}
+          countryRu={topic.countryRu}
+          programTitle={topResult?.title_ru}
+        />
+
         <WizardTelegramDelivery
           mode="corridor"
           sessionId={sessionId}
@@ -191,8 +201,15 @@ export default async function CountryResultsPage({
             <Link href={newsIndexPath(topic.urlSegment)} className="text-corridor-600 underline">
               Новости недели →
             </Link>
-            <Link href="/ru/assist" className="text-corridor-600 underline">
-              Emigro Assist →
+            <Link
+              href={buildAssistUrl({
+                sessionId,
+                country: topic.urlSegment,
+                program: topResult?.title_ru,
+              })}
+              className="inline-flex min-h-11 items-center rounded-lg bg-corridor-600 px-4 py-2 text-white hover:bg-corridor-700"
+            >
+              Route Check — €129
             </Link>
           </div>
         </section>

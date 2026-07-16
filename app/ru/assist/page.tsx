@@ -81,7 +81,11 @@ const FAQ_ITEMS = [
   },
 ] as const;
 
-export default function AssistPage() {
+export default function AssistPage({
+  searchParams,
+}: {
+  searchParams: { session?: string; country?: string; program?: string };
+}) {
   const providers: AssistProviderOption[] = getAllProviders()
     .filter((provider) => !provider.isFirstParty)
     .map((provider) => ({
@@ -176,6 +180,12 @@ export default function AssistPage() {
             >
               Запросить Route Check — €129
             </a>
+            <Link
+              href="/ru/wizard"
+              className="inline-flex items-center gap-2 rounded-lg border border-white/40 px-5 py-3 font-medium text-white hover:bg-white/10"
+            >
+              Сначала пройти wizard бесплатно
+            </Link>
           </div>
         </HeroShell>
 
@@ -268,7 +278,14 @@ export default function AssistPage() {
           <span id="assist-form-accompaniment" className="sr-only">
             Форма с предвыбором сопровождения
           </span>
-          <AssistLeadForm countries={COUNTRY_OPTIONS} providers={providers} defaultPlanTier="route-check" />
+          <AssistLeadForm
+            countries={COUNTRY_OPTIONS}
+            providers={providers}
+            defaultPlanTier="route-check"
+            initialSessionId={searchParams.session}
+            initialCountry={searchParams.country}
+            initialProgramRoute={searchParams.program}
+          />
         </section>
       </main>
       <SiteFooter />

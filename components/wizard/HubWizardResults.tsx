@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { ArrowRight, Compass, Route, Sparkles } from "lucide-react";
 import { ServiceProvidersSection } from "@/components/providers/ServiceProvidersSection";
+import { AssistResultsCta } from "@/components/wizard/AssistResultsCta";
 import { HouseholdBanner } from "@/components/wizard/HouseholdBanner";
 import { WizardTelegramDelivery } from "@/components/wizard/WizardTelegramDelivery";
+import { buildAssistUrl } from "@/lib/assist/build-url";
 import { WizardOutcomeCard, readableReason } from "@/components/wizard/WizardOutcomeCard";
 import { corridorWizardPath } from "@/lib/corridor/paths";
 import type { GlobalEvalPayload } from "@/lib/engine/run-global-evaluation";
@@ -51,6 +53,14 @@ export function HubWizardResults({
       </section>
 
       <HouseholdBanner household={household} />
+
+      <AssistResultsCta
+        sessionId={sessionId}
+        placement="wizard_hub_results"
+        country={pick?.countrySegment}
+        countryRu={pick?.countryRu}
+        programTitle={pick?.programTitleRu}
+      />
 
       <WizardTelegramDelivery
         mode="hub"
@@ -185,7 +195,7 @@ export function HubWizardResults({
             <Link href="/ru#destinations" className="text-corridor-700 underline">
               Все направления →
             </Link>
-            <Link href="/ru/assist" className="text-corridor-700 underline">
+            <Link href={buildAssistUrl({ sessionId })} className="text-corridor-700 underline">
               Обсудить с Emigro Assist →
             </Link>
           </div>
@@ -193,8 +203,11 @@ export function HubWizardResults({
       )}
 
       <ResultsNextSteps
+        sessionId={sessionId}
         hasMatches={matchCount > 0}
         providerTopicKey={providerTopicKey}
+        country={pick?.countrySegment}
+        programTitle={pick?.programTitleRu}
         showPortugalHub={pick?.countrySegment === PORTUGAL_URL_SEGMENT || providerTopicKey === PORTUGAL_URL_SEGMENT}
       />
 
@@ -242,12 +255,18 @@ export function HubWizardResults({
 }
 
 function ResultsNextSteps({
+  sessionId,
   hasMatches,
   providerTopicKey,
+  country,
+  programTitle,
   showPortugalHub = false,
 }: {
+  sessionId: string;
   hasMatches: boolean;
   providerTopicKey?: string;
+  country?: string;
+  programTitle?: string;
   showPortugalHub?: boolean;
 }) {
   return (
@@ -272,8 +291,11 @@ function ResultsNextSteps({
         <li>Если сомневаетесь, отправьте короткое описание кейса Emigro Assist или профильному провайдеру.</li>
       </ol>
       <div className="mt-5 flex flex-wrap gap-3 text-sm font-medium">
-        <Link href="/ru/assist" className="rounded-lg bg-corridor-600 px-4 py-2 text-white hover:bg-corridor-700">
-          Написать Emigro Assist
+        <Link
+          href={buildAssistUrl({ sessionId, country, program: programTitle })}
+          className="rounded-lg bg-corridor-600 px-4 py-2 text-white hover:bg-corridor-700"
+        >
+          Route Check — €129
         </Link>
         {providerTopicKey && (
           <Link

@@ -70,11 +70,25 @@ type Props = {
   countries: AssistCountryOption[];
   providers: AssistProviderOption[];
   defaultPlanTier?: AssistPlanTier;
+  initialSessionId?: string;
+  initialCountry?: string;
+  initialProgramRoute?: string;
 };
 
-export function AssistLeadForm({ countries, providers, defaultPlanTier = "route-check" }: Props) {
-  const [country, setCountry] = useState(countries[0]?.value ?? "");
-  const [programRoute, setProgramRoute] = useState("");
+export function AssistLeadForm({
+  countries,
+  providers,
+  defaultPlanTier = "route-check",
+  initialSessionId,
+  initialCountry,
+  initialProgramRoute,
+}: Props) {
+  const validInitialCountry =
+    initialCountry && countries.some((option) => option.value === initialCountry)
+      ? initialCountry
+      : countries[0]?.value ?? "";
+  const [country, setCountry] = useState(validInitialCountry);
+  const [programRoute, setProgramRoute] = useState(initialProgramRoute ?? "");
   const [selectedProviders, setSelectedProviders] = useState<string[]>([]);
   const [planTier, setPlanTier] = useState<AssistPlanTier>(defaultPlanTier);
   const [paymentMethod, setPaymentMethod] = useState<AssistPaymentMethod>("paypal");
@@ -87,6 +101,7 @@ export function AssistLeadForm({ countries, providers, defaultPlanTier = "route-
 
   const countryOption = countries.find((option) => option.value === country) ?? countries[0];
   const selectedTier = PLAN_TIER_OPTIONS.find((option) => option.value === planTier) ?? PLAN_TIER_OPTIONS[0];
+  const wizardSessionId = initialSessionId?.trim() ?? "";
 
   useEffect(() => {
     const applyHash = () => {
@@ -120,6 +135,7 @@ export function AssistLeadForm({ countries, providers, defaultPlanTier = "route-
           contact,
           message,
           consent,
+          session_id: wizardSessionId || undefined,
         }),
       });
       const data = await res.json();
@@ -131,6 +147,7 @@ export function AssistLeadForm({ countries, providers, defaultPlanTier = "route-
         providers: selectedProviders.join(","),
         plan_tier: planTier,
         payment_method: paymentMethod,
+        session_id: wizardSessionId,
       });
       setStatus("done");
       setNotice(SUCCESS_MESSAGES[planTier]);

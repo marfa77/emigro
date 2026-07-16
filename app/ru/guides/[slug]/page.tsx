@@ -496,6 +496,12 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
                 >
                   Подобрать маршрут
                 </Link>
+                <Link
+                  href="/ru/assist#assist-form"
+                  className="rounded-lg border border-corridor-200 bg-white px-5 py-3 text-center text-sm font-medium text-slate-700 hover:border-corridor-400"
+                >
+                  Route Check — €129
+                </Link>
                 {guide.cta_secondary && (
                   <Link
                     href={guide.cta_secondary}

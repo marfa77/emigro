@@ -102,10 +102,10 @@ export function TransitHubLanding({ hub }: Props) {
               Проверить EU-маршрут
             </Link>
             <Link
-              href="/ru/contact"
+              href="/ru/assist"
               className="rounded-lg border border-white/40 px-5 py-3 font-medium text-white hover:bg-white/10"
             >
-              Обсудить Emigro Assist
+              Route Check — €129
             </Link>
           </div>
         </HeroShell>

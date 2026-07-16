@@ -108,6 +108,10 @@ export default async function PortugalSatelliteHomePage() {
       </section>
 
       <p className="mt-12 text-center text-sm text-slate-500">
+        <a href={PORTUGAL_SATELLITE.wizardUrl} className="font-medium text-teal-700 underline">
+          Подобрать маршрут ВНЖ →
+        </a>
+        {" · "}
         <a href={PORTUGAL_SATELLITE.digestUrl} className="text-teal-700 underline">
           Справочник коридора на emigro.online →
         </a>

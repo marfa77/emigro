@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { isValidWizardSessionId } from "@/lib/assist/session-id";
 import { trackServerEvent } from "@/lib/analytics/server";
 import { getCorridorBySlug } from "@/lib/corridor/queries";
 import { formatAssistLeadTelegramMessage } from "@/lib/leads/format-telegram";
@@ -19,6 +20,7 @@ type AssistLeadBody = {
   contact?: string;
   message?: string;
   consent?: boolean;
+  session_id?: string;
 };
 
 const PLAN_TIER_LABELS: Record<string, string> = {
@@ -67,6 +69,8 @@ export async function POST(request: Request) {
   const contact = clean(body.contact);
   const message = clean(body.message);
   const providers = selectedProviderNames(body.selected_provider_ids);
+  const rawSessionId = clean(body.session_id);
+  const sessionId = isValidWizardSessionId(rawSessionId) ? rawSessionId : null;
 
   if (!country || !programRoute || !name || !contact || !message) {
     return NextResponse.json(
@@ -101,7 +105,7 @@ export async function POST(request: Request) {
           .from("emigro_manual_leads")
           .insert({
             corridor_id: corridor.id,
-            session_id: null,
+            session_id: sessionId,
             name,
             email: contact,
             telegram: contactLooksTelegram(contact) ? contact : null,
@@ -139,6 +143,7 @@ export async function POST(request: Request) {
     provider_count: providers.length,
     plan_tier: planTier,
     payment_method: paymentMethod,
+    session_id: sessionId ?? "",
   });
 
   if (storageError) {
