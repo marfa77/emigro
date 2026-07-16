@@ -137,6 +137,6 @@ export function normalizeNoteDraftSeo<T extends { seo_title: string; seo_descrip
   return {
     ...draft,
     seo_title: fitSeoTitlePart(draft.seo_title),
-    seo_description: fitMetaDescription(draft.seo_description, 140, 160),
+    seo_description: fitMetaDescription(draft.seo_description, 145, 160),
   };
 }

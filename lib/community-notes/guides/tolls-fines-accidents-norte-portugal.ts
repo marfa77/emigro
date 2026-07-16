@@ -90,7 +90,7 @@ const bodySections: NoteBodySection[] = [
     heading: "Где официальные правила и жизнь расходятся",
     section_kind: "gap",
     bullets: [
-      "Сайт: «оплата portagem в 5 дней» → письмо на иностранный номер идёт 2–6 недель; проверяйте matrícula на portaldasportagens.pt раз в неделю.",
+      "На сайте звучит как «оплата portagem в 5 дней», а письмо на иностранный номер идёт 2–6 недель; проверяйте matrícula на portaldasportagens.pt раз в неделю.",
       "Симулятор toll → реальный счёт Via Verde выше на 5–15% из-за classe e peso.",
       "«Штраф придёт по почте» → уведомление в Via Verde app быстрее; без подписки — multa с наценкой.",
       "Declaração amigável «не обязательна» → без неё страховая тянет 3–6 месяцев (@autolife_pt).",

@@ -2,7 +2,7 @@
  * Editorial readability — convert telegraphic editor notes into reader-facing prose.
  *
  * Covers: «На практике (@channel, 2025): …», semicolon chains, «channel (2025-07):»,
- * inline @lepta 08.2025, gap «Чат:» / «Сайт:» bullets, FAQ practice tails.
+ * mid-sentence «lepta (2025):», inline @lepta 08.2025, gap «Чат:» / «Сайт:» bullets, FAQ practice tails.
  */
 import {
   formatPracticeChannelLead,
@@ -14,17 +14,23 @@ import type { CommunityNote, CommunityNoteFaq, NoteBodySection } from "@/lib/com
 
 const ALLOWED_CHANNELS = new Set(["chatlisboa", "por_tugal", "autolife_pt", "lepta"]);
 const TAKEAWAY_PREFIX = /^(Официально|На практике|Расхождение|В чате):\s*/i;
-const GAP_CHAT_PREFIX = /^(Чат|Сайт|Портал|Официально|На деле):\s*/i;
+/** Gap editor prefixes only — not takeaway labels «Официально:» / «На практике:». */
+const GAP_CHAT_PREFIX = /^(Чат|Сайт|Портал|На деле):\s*/i;
+const CHANNEL_ALT = "lepta|chatlisboa|por_tugal|autolife_pt";
 
 /** Detect telegraphic editor-note style (broader than practice-only). */
 export function isTelegraphicEditorial(text: string): boolean {
   const t = text.trim();
   if (!t) return false;
   if (isTelegraphicPractice(t)) return true;
-  if (/^(lepta|chatlisboa|por_tugal|autolife_pt)\s*\(\d{4}/i.test(t)) return true;
+  if (new RegExp(`^(${CHANNEL_ALT})\\s*\\(\\d{4}`, "i").test(t)) return true;
+  // Mid-sentence / inline editor attribution
+  if (new RegExp(`(?:^|[.;!?…]\\s+|—\\s+)(${CHANNEL_ALT})\\s*\\(\\d{4}`, "i").test(t)) return true;
+  if (new RegExp(`(?:^|[.;!?…]\\s+)(${CHANNEL_ALT})\\s*[:\\-—–]`, "i").test(t)) return true;
   if (/\(@[\w\d_]+,\s*\d{4}/.test(t)) return true;
   if (/@(lepta|chatlisboa|por_tugal|autolife_pt)\s+\d{2}\.\d{4}/i.test(t)) return true;
-  if (GAP_CHAT_PREFIX.test(t) && t.length < 120) return true;
+  // Short cryptic gap bullets only (long prose with «Чат:» still rewritten by improveEditorialText)
+  if (GAP_CHAT_PREFIX.test(t) && t.length < 160) return true;
   const body = t.replace(TAKEAWAY_PREFIX, "");
   const semicolons = (body.match(/;/g) ?? []).length;
   if (semicolons >= 2 && body.length < 280 && !/\[[^\]]+\]\([^)]+\)/.test(body)) return true;
@@ -58,9 +64,9 @@ function capitalizeClaim(claim: string): string {
 function rewriteChannelDateLead(text: string): string {
   let body = text;
 
-  // «lepta (2025-07): …» / «chatlisboa (2025-06): …»
+  // «lepta (2025-07): …» / «chatlisboa (2025-06): …» at start
   const namedDate = body.match(
-    /^(lepta|chatlisboa|por_tugal|autolife_pt)\s*\(([^)]+)\)\s*[:\-—–]\s*(.+)$/i
+    new RegExp(`^(${CHANNEL_ALT})\\s*\\(([^)]+)\\)\\s*[:\\-—–]\\s*(.+)$`, "i")
   );
   if (namedDate) {
     const ch = normalizeChannelName(namedDate[1]);
@@ -69,6 +75,28 @@ function rewriteChannelDateLead(text: string): string {
       return `${lead} ${capitalizeClaim(namedDate[3])}`;
     }
   }
+
+  // Mid-sentence «… lepta (2025): claim» / «… lepta (2025-07): claim»
+  body = body.replace(
+    new RegExp(`([.;!?…]\\s+|\\s+|—\\s*)(${CHANNEL_ALT})\\s*\\(([^)]+)\\)\\s*[:\\-—–]\\s*`, "gi"),
+    (full, _sep: string, chRaw: string, dateRaw: string) => {
+      const ch = normalizeChannelName(chRaw);
+      if (!ch) return full;
+      const lead = formatPracticeChannelLead([ch], periodFromDate(dateRaw));
+      return `. ${lead} `;
+    }
+  );
+
+  // Bare mid-sentence «lepta: claim» / «por_tugal: claim» (no year)
+  body = body.replace(
+    new RegExp(`([.;!?…]\\s+|\\s+|—\\s*)(${CHANNEL_ALT})\\s*[:\\-—–]\\s*(?=\\S)`, "gi"),
+    (full, _sep: string, chRaw: string) => {
+      const ch = normalizeChannelName(chRaw);
+      if (!ch) return full;
+      const lead = formatPracticeChannelLead([ch], "2025–2026");
+      return `. ${lead} `;
+    }
+  );
 
   // «(@channel, 2025–2026): …» or «На практике (@channel): …»
   const parenAttrib = body.match(/^\(@([\w\d_]+)(?:,\s*([\d–\-/.\s]+))?\)\s*[:\-—–]?\s*(.+)$/i);
@@ -79,6 +107,13 @@ function rewriteChannelDateLead(text: string): string {
       return `${lead} ${capitalizeClaim(parenAttrib[3])}`;
     }
   }
+
+  // Mid-string «(@channel, 2025):»
+  body = body.replace(/\(@([\w\d_]+)(?:,\s*([\d–\-/.\s]+))?\)\s*[:\-—–]?\s*/gi, (full, chRaw, dateRaw) => {
+    const ch = normalizeChannelName(chRaw);
+    if (!ch) return full;
+    return `${formatPracticeChannelLead([ch], periodFromDate(dateRaw ?? "2025"))} `;
+  });
 
   // «На практике @por_tugal: …»
   const atColon = body.match(/^@([\w\d_]+)\s*[:\-—–]\s*(.+)$/i);
@@ -102,17 +137,27 @@ function rewriteChannelDateLead(text: string): string {
     return formatPracticeChannelLead([norm], periodFromDate(date)).replace(/ писали, что$/, " отмечали");
   });
 
-  // «@por_tugal 12.2025» without paren
-  body = body.replace(/@([\w\d_]+)\s+(\d{2}\.\d{4})/gi, (_, ch, date) => {
-    const norm = normalizeChannelName(ch);
-    if (!norm) return `@${ch} ${date}`;
-    return formatPracticeChannelLead([norm], periodFromDate(date)).replace(/ писали, что$/, " отмечали");
-  });
-
   return body.replace(/\s{2,}/g, " ").trim();
 }
 
+function stripWrappingQuotes(s: string): string {
+  return s.trim().replace(/^[«"']+|['"»]+$/g, "").trim();
+}
+
 function rewriteGapBullet(text: string): string {
+  // «Сайт: X → Y» / «Чат: X → Y» — common gap pattern
+  const arrow = text.match(/^(Чат|Сайт|Портал|На деле):\s*(.+?)\s*→\s*(.+)$/i);
+  if (arrow) {
+    const [, label, left, right] = arrow;
+    const leftClean = stripWrappingQuotes(left);
+    const rightClean = right.trim().replace(/[.!?…]+$/, "");
+    const isSite = /сайт|портал/i.test(label);
+    if (isSite) {
+      return `На сайте звучит как «${leftClean}», а на деле ${capitalizeClaim(rightClean)}.`;
+    }
+    return `В чатах релокантов часто пишут «${leftClean}», но на практике ${capitalizeClaim(rightClean)}.`;
+  }
+
   const m = text.match(/^(Чат|Сайт|Портал|На деле):\s*(.+)$/i);
   if (!m) return text;
   const [, label, rest] = m;
@@ -135,12 +180,18 @@ export function improveEditorialText(text: string): string {
   body = rewriteGapBullet(body);
   body = improvePracticeText(body);
 
+  const cleaned = body
+    .replace(/\.{2,}/g, ".")
+    .replace(/\s+\./g, ".")
+    .replace(/\s{2,}/g, " ")
+    .trim();
+
   // «На практике: …» takeaway — ensure full sentences
   if (/^На практике/i.test(prefix)) {
-    return formatPracticeTakeaway(body);
+    return formatPracticeTakeaway(cleaned);
   }
-  if (prefix) return `${prefix}${body}`;
-  return body;
+  if (prefix) return `${prefix}${cleaned}`;
+  return cleaned;
 }
 
 function transformSections(sections: NoteBodySection[]): NoteBodySection[] {

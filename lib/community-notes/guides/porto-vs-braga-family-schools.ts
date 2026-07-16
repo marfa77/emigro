@@ -37,7 +37,7 @@ const bodySections: NoteBodySection[] = [
     bullets: [
       "Foz do Douro — «золотой стандарт»: 10–15 мин пешком/автобусом до OBS, LFIP, Deutsche Schule; аренда T2 €1 100–1 600/мес (2026, Idealista), парковка сложная.",
       "Boavista / Aldoar — рядом с CLIP (~1 000 учеников); семьи ценят зелень Parque da Cidade и меньше туристической суеты, чем Ribeira.",
-      "Matosinhos — lepta (2025): пляж часто закрывают из-за загрязнения, но жильё на 10–20% дешевле Foz; school bus CLIP/OBS €80–200/мес.",
+      "Matosinhos — участники @lepta в 2025 писали, что пляж часто закрывают из-за загрязнения, но жильё на 10–20% дешевле Foz; school bus CLIP/OBS €80–200/мес.",
       "Bonfim / Campanhã — аренда T2 €750–1 100; Metro до Boavista 10–15 мин, до Foz 20–25 мин; expat-сообщество меньше, зато бюджет.",
       "Cedofeita / Clérigos — центр, красиво, но шум и парковка; для семьи с авто см. гайд по машине — в centro histórico парковка боль.",
       "Commute Guimarães/Viana → Porto schools: A7 + 45–60 мин в часы пик; часть семей берут CLIB в Braga вместо ежедневной дороги.",
@@ -57,7 +57,7 @@ const bodySections: NoteBodySection[] = [
       "Esposende / Viana do Castelo — море и спокойствие; commute до CLIB 25–40 мин, до CLIP/OBS Porto 50–70 мин по A3.",
       "Guimarães — lepta/Idealista Q2 2025: спрос на аренду растёт, цены ниже Porto; CLIB 20–30 мин, público vaga находят быстрее, чем в Lisboa.",
       "Minho expat-сообщество: Telegram/Facebook-группы Braga/Guimarães; детские кружки на PT, английский — через CLIB parent network.",
-      "Escola pública plan B: matrícula через agrupamento Braga/Guimarães — lepta (2025): больше медиаторов для иностранных учеников в público.",
+      "Escola pública plan B: matrícula через agrupamento Braga/Guimarães — участники @lepta в 2025 писали, что в público больше медиаторов для иностранных учеников.",
       "Летняя жара: lepta/IPMA — Braga в зоне orange heat alerts; кампусы без кондиционера редкость, но проверяйте классы при open day.",
       "Если CLIB заполнен — типичный сценарий из @por_tugal: год в público/privada PT + репетитор EN, параллельно waiting list CLIP/OBS.",
     ],

@@ -379,6 +379,44 @@ function ensureOfficialBullets(sections: NoteBodySection[]): { sections: NoteBod
   return { sections: next, changed };
 }
 
+/** Move mistakes/timeline after gap; keep glossary first. Soft facts untouched. */
+export function reorderSectionsCanonical(sections: NoteBodySection[]): {
+  sections: NoteBodySection[];
+  changed: boolean;
+} {
+  if (sections.length < 2) return { sections, changed: false };
+  const glossary: NoteBodySection[] = [];
+  const official: NoteBodySection[] = [];
+  const practice: NoteBodySection[] = [];
+  const gap: NoteBodySection[] = [];
+  const mistakes: NoteBodySection[] = [];
+  const other: NoteBodySection[] = [];
+
+  for (const s of sections) {
+    const kind = inferSectionKind(s);
+    if (kind === "glossary" || isGlossarySection(s)) {
+      glossary.push(s);
+    } else if (kind === "gap") {
+      gap.push(s);
+    } else if (
+      kind === "practice" &&
+      (MISTAKES_HEADING.test(s.heading) || TIMELINE_HEADING.test(s.heading))
+    ) {
+      mistakes.push(s);
+    } else if (kind === "official") {
+      official.push(s);
+    } else if (kind === "practice" || kind === "action_guide") {
+      practice.push(s);
+    } else {
+      other.push(s);
+    }
+  }
+
+  const next = [...glossary, ...official, ...practice, ...other, ...gap, ...mistakes];
+  const changed = next.map((s) => s.heading).join("|") !== sections.map((s) => s.heading).join("|");
+  return { sections: next, changed };
+}
+
 /** Best-effort structural fixes without Gemini rewrite. */
 export function applyBlueprintFixes(input: {
   content_kind: ContentKind;
@@ -464,9 +502,9 @@ export function applyBlueprintFixes(input: {
           section_kind: "gap" as const,
           bullets: [
             "Портал: формальные сроки и список документов — на деле очереди и дозапросы типичны в Norte (Porto, Braga).",
-            "Сайт: «всё онлайн» — финальный визит или бумажный шаг часто обязателен по опыту чатов 2026.",
+            "На сайте звучит как «всё онлайн», а финальный визит или бумажный шаг часто обязателен по опыту чатов 2026.",
             "Ожидание: единые правила по всей PT — на практике сроки IMT/AIMA/Finanças в Lisboa и Porto различаются.",
-            "Чат: «у всех прокатило» — индивидуальный кейс; сверяйте с gov.pt и держите plan B по срокам.",
+            "В чатах релокантов часто пишут «у всех прокатило», но это индивидуальный кейс; сверяйте с gov.pt и держите plan B по срокам.",
           ],
         },
       ];
@@ -504,6 +542,12 @@ export function applyBlueprintFixes(input: {
       ];
       changed = true;
     }
+  }
+
+  const reordered = reorderSectionsCanonical(sections);
+  if (reordered.changed) {
+    sections = reordered.sections;
+    changed = true;
   }
 
   return { body_sections: sections, key_takeaways: takeaways, changed };

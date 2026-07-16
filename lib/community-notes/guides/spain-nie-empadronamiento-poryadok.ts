@@ -14,7 +14,10 @@ const bodySections: NoteBodySection[] = [
     heading: "Официально: что такое NIE и empadronamiento",
     section_kind: "official",
     paragraphs: [
-      "NIE — налоговый идентификатор иностранца (Agencia Tributaria). Empadronamiento — регистрация по адресу в ayuntamiento (padrón municipal). Оба нужны для банка, аренды, TIE и большинства suministros.",
+      "Зачем вам это сейчас: без NIE и padrón в Valencia почти не открыть банк, не закрыть аренду и не подать на TIE.",
+      "Что делать: оформите NIE (EX-15 + tasa 790) и empadronamiento в ayuntamiento как два отдельных шага.",
+      "Зачем: это разные органы — Agencia Tributaria / Policía и ayuntamiento; путаница порядка стоит недели.",
+      "Главное: NIE — налоговый ID; empadronamiento — регистрация по адресу; оба нужны для быта и extranjería.",
     ],
     bullets: [
       "NIE: форма EX-15, tasa 790 код 012, паспорт, motivo (аренда, TIE, работа).",
@@ -27,7 +30,10 @@ const bodySections: NoteBodySection[] = [
     heading: "Практика Valencia: порядок шагов",
     section_kind: "practice",
     paragraphs: [
-      "В чатах @valenforum и @spain_granitsa в 2025–2026 чаще рекомендуют: сначала NIE (или resguardo подачи), затем empadronamiento, затем банк и cita TIE. Обратный порядок часто стопорит банк и utilities.",
+      "Зачем вам это сейчас: в @valenforum и @spain_granitsa в 2025–2026 чаще рекомендуют NIE → padrón → банк → cita TIE.",
+      "Что делать: сначала NIE или resguardo подачи, затем empadronamiento, потом банк.",
+      "Зачем: обратный порядок часто стопорит банк и utilities на повторный визит в ayuntamiento.",
+      "Главное: безопасный порядок в Valencia — NIE/resguardo, затем padrón, потом IBAN и TIE.",
     ],
     bullets: [
       "Cita previa на NIE: sede electrónica, Oficina de Extranjería или Policía — слоты ловят ночью/утром.",
@@ -40,10 +46,15 @@ const bodySections: NoteBodySection[] = [
   {
     heading: "Где сайт и практика расходятся",
     section_kind: "gap",
+    paragraphs: [
+      "Что делать: не копируйте «любой порядок» с сайта — в Valencia банк и gestoría просят NIE + padrón вместе.",
+      "Зачем: слоты и Airbnb-кейсы из чатов расходятся с формальными правилами сильнее всего.",
+      "Главное: сайт описывает процедуры; жизнь требует последовательности и актуального certificado.",
+    ],
     bullets: [
-      "Сайт: «NIE и empadronamiento в любой последовательности» → банки и gestorías в Valencia просят NIE + padrón вместе.",
-      "Сайт: cita previa «доступна» → слоты на extranjería в пиковые недели исчезают за минуты.",
-      "Чат: «empadronamiento по Airbnb» → ayuntamiento часто требует contrato ≥6 мес. или autorización propietario.",
+      "На сайте звучит как «NIE и empadronamiento в любой последовательности», а банки и gestorías в Valencia просят NIE + padrón вместе.",
+      "На сайте cita previa «доступна», а слоты на extranjería в пиковые недели исчезают за минуты.",
+      "В чатах релокантов часто пишут «empadronamiento по Airbnb», но ayuntamiento часто требует contrato ≥6 мес. или autorización propietario.",
       "Ожидание: NIE за 1 день → в Madrid/Barcelona 2–4 недели; Valencia обычно 1–2 недели при gestoría.",
     ],
   },
@@ -51,7 +62,10 @@ const bodySections: NoteBodySection[] = [
     heading: "Пошагово: NIE и padrón в Valencia",
     section_kind: "practice",
     paragraphs: [
-      "Типовой маршрут из @valenforum (2025–2026): день 1–3 — cita NIE; день 4–7 — empadronamiento; день 8–14 — банк. Gestoría сокращает NIE, но не заменяет ваш визит в ayuntamiento.",
+      "Зачем вам это сейчас: типовой маршрут из @valenforum — день 1–3 cita NIE, день 4–7 padrón, день 8–14 банк.",
+      "Что делать: пройдите пять шагов; gestoría сокращает NIE, но не заменяет визит в ayuntamiento.",
+      "Зачем: без historial empadronamiento TIE часто дозапрашивает актуальный certificado.",
+      "Главное: сохраните resguardo EX-15 в облако — он нужен банку и TIE до готового NIE.",
     ],
     bullets: [
       "Шаг 1: скачайте EX-15, оплатите tasa 790-012, запишитесь на sede (Policía Nacional / Extranjería Valencia).",
@@ -64,6 +78,11 @@ const bodySections: NoteBodySection[] = [
   {
     heading: "Типичные ошибки",
     section_kind: "practice",
+    paragraphs: [
+      "Что делать: проверьте список до перевода fianza и до записи на TIE.",
+      "Зачем: повторный визит в ayuntamiento и отказ арендодателя — самые частые потери первой недели.",
+      "Главное: не ждите «готовый NIE» для всего — resguardo + padrón часто открывают банк и cita TIE.",
+    ],
     bullets: [
       "Ошибка: empadronamiento до NIE — теряете неделю на повторный визит в ayuntamiento.",
       "Ошибка: перевод caução без Spanish IBAN — арендодатель отказывает до NIE.",
@@ -133,6 +152,6 @@ export const NIE_EMPADRONAMIENTO_GUIDE = {
     extra: ["extranjeria", "padron"],
   }),
   source_channel: "valenforum+spain_granitsa",
-  source_label: "editorial:nie-padron",
+  source_label: "editorial:nie-padron+voice-pass",
   pillar_guide_slug: "pervye-30-dnej-v-ispanii-2026",
 };

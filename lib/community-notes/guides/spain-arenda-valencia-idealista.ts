@@ -43,7 +43,7 @@ const bodySections: NoteBodySection[] = [
     bullets: [
       "Idealista: «disponible ya» → flat уже сдан, объявление не снято.",
       "«Sin aval» → всё равно просят 3 meses fianza или prepago.",
-      "Чат: «наличные fianza» → риск без IVAMA deposit; официально fianza через organismo.",
+      "В чатах релокантов часто пишут «наличные fianza», но на практике риск без IVAMA deposit — официально fianza через organismo.",
       "Airbnb long-term — не всегда годится для empadronamiento/TIE.",
     ],
   },

@@ -15,8 +15,11 @@ const bodySections: NoteBodySection[] = [
     heading: "Официально: TIE, cita previa и huellas",
     section_kind: "official",
     paragraphs: [
-      "Зачем читать: после въезда по visado D у вас ограниченный срок на подачу Tarjeta de Identidad de Extranjero (TIE) — без записи на cita previa и huellas dactilares вы рискуете штрафом и проблемами при проверке статуса.",
-      "Официально TIE — пластиковая карта резидента; до неё выдают resguardo после сдачи отпечатков. Запись идёт через sede electrónica в Oficina de Extranjería или Comisaría de Policía по provincia.",
+      "Зачем вам это сейчас: после въезда по visado D срок на подачу TIE ограничен — без cita previa и huellas рискуете штрафом и проблемами при проверке статуса.",
+      "Что делать: запишитесь на sede electrónica (Oficina de Extranjería / Comisaría) и соберите паспорт, visado, padrón, seguro, tasa 790, фото.",
+      "Зачем: без resguardo cita previa в Valencia живой очереди нет — развернут в дверях.",
+      "Официально TIE — пластиковая карта резидента; до неё выдают resguardo после сдачи отпечатков.",
+      "Главное: cita previa обязательна; срок подачи обычно указан в visado D (часто 30 дней с въезда).",
     ],
     bullets: [
       "Visado D — национальная виза; в ней указан срок подачи на TIE (обычно 30 дней с въезда).",
@@ -30,7 +33,10 @@ const bodySections: NoteBodySection[] = [
     heading: "На практике: cita и очереди в Valencia",
     section_kind: "practice",
     paragraphs: [
-      "Зачем читать: в @valenforum, @valenciarusia и @spain_granitsa три боли 2025–2026 — «слот исчез за секунду», «huellas без cita», «resguardo не принимают в банке». Valencia быстрее Madrid/Barcelona, но cita всё равно конкурентная.",
+      "Зачем вам это сейчас: в @valenforum, @valenciarusia и @spain_granitsa три боли 2025–2026 — «слот исчез», «huellas без cita», «resguardo не принимают в банке».",
+      "Что делать: ловите слоты утром 08:00–09:00 Europe/Madrid и держите PDF-пакет ≤2 MB.",
+      "Зачем: Valencia быстрее Madrid/Barcelona, но cita всё равно конкурентная — без запаса недель не уложитесь в visado.",
+      "Главное: полный цикл TIE в чатах Valencia — 4–8 месяцев; gestoría €300–600 помогает с записью, но не даёт «VIP-окна».",
     ],
     bullets: [
       "Cita на sede — ловят слоты 08:00–09:00 Europe/Madrid; VPN и мобильный браузер иногда ломают портал.",
@@ -43,21 +49,28 @@ const bodySections: NoteBodySection[] = [
   {
     heading: "Где сайт и практика расходятся",
     section_kind: "gap",
+    paragraphs: [
+      "Что делать: не верьте «есть citas» на sede и «можно без записи» из чата — бронируйте в первую неделю после прилёта.",
+      "Зачем: пиковые месяцы (сентябрь–ноябрь) обнуляют слоты за минуты; опоздание с TIE бьёт по статусу.",
+      "Главное: сайт показывает формальные 30 дней; на деле закладывайте 6–8 недель минимум на cita + huellas.",
+    ],
     bullets: [
-      "Sede: «есть свободные citas» → на экране 0 слотов на всю неделю в пиковые месяцы (сентябрь–ноябрь).",
-      "Чат: «можно без записи в Valencia» → развернут без resguardo cita previa; живой очереди нет.",
-      "Сайт: 30 дней на TIE → gestoría говорит «2 недели на cita + ещё на huellas» — закладывайте 6–8 недель минимум.",
+      "На сайте sede звучит как «есть свободные citas», а на экране 0 слотов на всю неделю в пиковые месяцы.",
+      "В чатах релокантов часто пишут «можно без записи в Valencia», но на практике развернут без resguardo cita previa — живой очереди нет.",
+      "На сайте 30 дней на TIE, а gestoría говорит «2 недели на cita + ещё на huellas» — закладывайте 6–8 недель минимум.",
       "Ожидание: resguardo = TIE → utilities и некоторые банки требуют уже пластик или NIE definitivo.",
-      "Чат Madrid/BCN: cita 2–4 мес. (@migranty_barselona) → в Valencia обычно 1–3 недели, но не гарантия.",
+      "В чатах Madrid/BCN cita 2–4 мес. — в Valencia обычно 1–3 недели, но это не гарантия.",
     ],
   },
   {
     heading: "Пошагово: TIE в Valencia",
     section_kind: "practice",
     paragraphs: [
-      "Зачем читать: типовой маршрут из @valenforum (2025–2026) — от прилёта до resguardo. Предполагается, что NIE и empadronamiento уже есть — см. [NIE и padrón](/notes/" +
-        NIE_EMPADRONAMIENTO_SLUG +
-        ").",
+      "Зачем вам это сейчас: типовой маршрут от прилёта до resguardo — при условии, что NIE и empadronamiento уже есть.",
+      "Что делать: пройдите пять шагов ниже; параллельно держите open вкладку sede.",
+      "Зачем: откладывать cita «пока устроюсь» — самый дорогой совет из чатов.",
+      "См. также [NIE и padrón](/notes/" + NIE_EMPADRONAMIENTO_SLUG + ").",
+      "Главное: resguardo после huellas часто достаточно для банка и аренды — не ждите пластик для быта.",
     ],
     bullets: [
       "Шаг 1: сразу после прилёта — регистрируйтесь на sede (Extranjería → huellas / TIE); не ждите готовый NIE.",
@@ -70,12 +83,17 @@ const bodySections: NoteBodySection[] = [
   {
     heading: "Типичные ошибки релокантов",
     section_kind: "practice",
+    paragraphs: [
+      "Что делать: проверьте список до поездки в extranjería и до оплаты gestoría.",
+      "Зачем: одна ошибка с padrón или seguro — повторный визит и потерянный слот.",
+      "Главное: cita previa + актуальный padrón + читаемый PDF — три фильтра, без которых huellas не случится.",
+    ],
     bullets: [
-      "Ехать в extranjería без cita previa — потерянный день; в Valencia живой очереди нет.",
-      "Empadronamiento старше 3 мес. без обновления certificado — дозапрос и перенос huellas.",
-      "Seguro médico не на испанском / без repatriación — отказ или повторный визит.",
-      "Ждать пластик TIE для банка — resguardo + NIE часто достаточно в Valencia.",
-      "Откладывать cita «пока устроюсь» — слоты исчезают; бронируйте в первую неделю после прилёта.",
+      "Ошибка: ехать в extranjería без cita previa — потерянный день; в Valencia живой очереди нет.",
+      "Ошибка: empadronamiento старше 3 мес. без обновления certificado — дозапрос и перенос huellas.",
+      "Ошибка: seguro médico не на испанском / без repatriación — отказ или повторный визит.",
+      "Ошибка: ждать пластик TIE для банка — resguardo + NIE часто достаточно в Valencia.",
+      "Ошибка: откладывать cita «пока устроюсь» — слоты исчезают; бронируйте в первую неделю.",
     ],
   },
 ];
@@ -145,6 +163,6 @@ export const TIE_CITA_GUIDE = {
     extra: ["huellas", "cita"],
   }),
   source_channel: "valenforum+valenciarusia+spain_granitsa",
-  source_label: "editorial:tie-cita",
+  source_label: "editorial:tie-cita+voice-pass",
   pillar_guide_slug: "vnj-ispaniya-2026",
 };

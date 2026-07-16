@@ -55,8 +55,8 @@ const bodySections: NoteBodySection[] = [
     bullets: [
       "Inscrição: centro de saúde по morada (USF Porto Ocidental, USF Braga, USF Guimarães и др.); Atestado de Residência в Junta — 3–14 дней, без него часть balcões откладывают, но utente обязаны выдать (por_tugal, 2025).",
       "Norte vs Lisboa: очереди в Finanças/Junta в Braga/Guimarães часто короче; SNS-регистрация по тому же правилу — morada определяет centro de saúde.",
-      "Дефицит персонала: lepta (2025-07) — SNS не хватает ~14 000 enfermeiros; очереди к especialistas реальны, не «миф чата».",
-      "Специалисты: lepta (2025-07) — вместо чисто хронологической очереди вводят triagem по клинической необходимости; сроки по-прежнему месяцы на ортопедию/дерматологию.",
+      "Дефицит персонала: участники @lepta в 2025 писали, что SNS не хватает ~14 000 enfermeiros; очереди к especialistas реальны, не «миф чата».",
+      "Специалисты: участники @lepta в 2025 отмечали, что вместо чисто хронологической очереди вводят triagem по клинической необходимости; сроки по-прежнему месяцы на ортопедию/дерматологию.",
       "Острые случаи: por_tugal (2025-10) — при отравлении у подростка семья параллельно звонила SNS24 и ехала в частную urgência, не дожидаясь médico de família.",
       "Первый месяц: чеклист utente + NIF + morada — в [первый месяц в Португалии](/notes/pervyj-mesyac-portugaliya-checklist); изменения правил SNS — [регистрация SNS 2026](/notes/sns-registration-changes-2026).",
     ],
@@ -135,8 +135,8 @@ const bodySections: NoteBodySection[] = [
     ],
     bullets: [
       "Портал: «inscrição online за 5 минут» → на деле нужны morada, NIF и иногда Atestado; в Porto centro balcão — очередь 30–90 мин.",
-      "Чат: «SNS бесплатный» → taxa moderadora €4,50–20 за визит + лекарства; стоматология взрослым почти всегда paid.",
-      "Чат: «Multicare = ADSE» → разные системы; ADSE только госслужба, Multicare — частный seguro для всех.",
+      "В чатах релокантов часто пишут «SNS бесплатный», но на практике taxa moderadora €4,50–20 за визит + лекарства; стоматология взрослым почти всегда paid.",
+      "В чатах путают Multicare и ADSE — разные системы; ADSE только госслужба, Multicare — частный seguro для всех.",
       "SNS: «médico de família за неделю» → в USF перегруженных Porto/Braga attach 2–8 недель; без GP urgências дороже.",
       "Страховка: «Multicare покрывает всё» → implantes, ortodontia, психотерапия часто с limites; simulação обязательна.",
       "Norte: «в Braga всё быстрее» → Junta/Finanças да, но Hospital de Braga urgências в сезон гриппа — 4–8 ч ожидания.",

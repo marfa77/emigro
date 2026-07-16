@@ -122,7 +122,7 @@ const bodySections: NoteBodySection[] = [
       "Зачем: типичные расхождения приводят к штрафам, плесени и переплате за «квартиру с AC».",
     ],
     bullets: [
-      "Чат: «север не жаркий» → IPMA orange в Braga до 40 °C и tropical nights; Porto centro — ilhas de calor.",
+      "В чатах релокантов часто пишут «север не жаркий», но IPMA orange в Braga до 40 °C и tropical nights; Porto centro — ilhas de calor.",
       "Idealista: «ar condicionado» → на деле portable 2010 без heat pump; уточняйте BTU и возраст.",
       "Senhorio: «bolor — ваша вина» → infiltração estrutural — responsabilidade владельца; фото + livro reclamações.",
       "Магазин: «split в коробке» → без instalador certificado — штраф DGEG и отказ страховщика.",

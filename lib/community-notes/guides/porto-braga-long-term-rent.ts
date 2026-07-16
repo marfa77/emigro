@@ -65,7 +65,7 @@ const bodySections: NoteBodySection[] = [
     ],
     bullets: [
       "Foz do Douro — T2 €1 100–1 600/мес (Idealista 2026); renda senhorio, condomínio отдельно €60–120; imobiliária в Foz часто берёт 1 mes + IVA.",
-      "Matosinhos — T2 €900–1 300; lepta (2025): пляж периодически закрывают, зато renda на 10–20% ниже Foz; проверьте, кто платит água condomínio.",
+      "Matosinhos — T2 €900–1 300; участники @lepta в 2025 писали, что пляж периодически закрывают, зато renda на 10–20% ниже Foz; проверьте, кто платит água condomínio.",
       "Bonfim / Campanhã — T2 €750–1 100; Metro 10–15 мин до centro; senhorio часто частник — перевод на IBAN pessoal, recibo вручную.",
       "Cedofeita / Clérigos — центр, шум; condomínio в histórico выше из-за manutenção fachada; уточните atas до assinatura.",
       "На практике @por_tugal: Idealista + Rentalia — один агрегатор с 2025; фильтруйте arrendamento, не férias/AL.",

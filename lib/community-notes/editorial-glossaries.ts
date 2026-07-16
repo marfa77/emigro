@@ -334,6 +334,18 @@ export const EDITORIAL_GLOSSARIES: Record<string, GlossaryTerm[]> = {
     { pt: "balcão", ru: "окно выдачи; готовый passaporte — общая очередь без записи" },
     { pt: "svidetelstvo na vozvrashchenie", ru: "свидетельство на возвращение в РФ при срочном выезде" },
   ],
+  "beckham-autonomo-mify-2026": [
+    { pt: "régimen impatriados", ru: "особый налоговый режим для новых резидентов (Beckham Law)" },
+    { pt: "IRPF", context: "Impuesto sobre la Renta de las Personas Físicas", ru: "подоходный налог физлиц в Испании" },
+    { pt: "autónomo", ru: "самозанятый; alta в RETA / Seguridad Social" },
+    { pt: "RETA", context: "Régimen Especial de Trabajadores Autónomos", ru: "спецрежим соцстраха для самозанятых" },
+    { pt: "modelo 149", ru: "заявление на применение régimen impatriados" },
+    { pt: "cuota autónomo", ru: "ежемесячный взнос самозанятого в Seguridad Social" },
+    { pt: "gestoría", ru: "административный/налоговый посредник" },
+    { pt: "DNV", context: "digital nomad visa / teletrabajo", ru: "виза удалённой работы — иммиграция, не налог" },
+    { pt: "Agencia Tributaria", ru: "налоговая служба Испании (Hacienda)" },
+    { pt: "Seguridad Social", ru: "система соцстраха; alta обязательна для многих freelancers" },
+  ],
   "nie-empadronamiento-poryadok-2026": [
     { pt: "NIE", context: "Número de Identificación de Extranjero", ru: "налоговый ID иностранца в Испании" },
     { pt: "empadronamiento", ru: "регистрация по адресу в ayuntamiento (padrón municipal)" },

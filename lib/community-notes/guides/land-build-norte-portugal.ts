@@ -58,12 +58,12 @@ const bodySections: NoteBodySection[] = [
     ],
     bullets: [
       "Idealista / Imovirtual — основные порталы; фильтр «terreno» + concelho; цены rustico в Minho от €15–40/м², urbano выше.",
-      "lepta (2025): ~30% земель в PT с неизвестными владельцами — перед сделкой certidão permanente и advogado обязательны.",
-      "Braga / Guimarães: PSD силён на севере (por_tugal, выборы 2025) — муниципалитеты консервативнее в выдаче licenças, чем «на словах» обещают.",
+      "Участники @lepta в 2025–2026 писали, что около 30% земель в PT с неизвестными владельцами — перед сделкой certidão permanente и advogado обязательны.",
+      "Braga / Guimarães: PSD силён на севере (по разборам @por_tugal после выборов 2025) — муниципалитеты консервативнее в выдаче licenças, чем «на словах» обещают.",
       "Esposende / Ofir: terreno у моря дороже; проверяйте PDM на flood/coastal constraints — не всё «с видом на океан» можно застроить.",
       "Ponte de Lima / Amarante: rustico дешевле, но reconversão solo pode занять 12–24 мес. + €5 000–15 000 юрист/архитектор.",
-      "Vila do Conde / Maia: ближе к Porto OPO; lepta: кейс лесопилки в 50 см от дома — всегда проверяйте соседние licenças и PIP.",
-      "Очистка участка: lepta — владельцы обязаны чистить terreno от brushwood до срока против пожаров; штрафы за просрочку.",
+      "Vila do Conde / Maia: ближе к Porto OPO. Участники @lepta описывали кейс лесопилки в 50 см от дома — всегда проверяйте соседние licenças и PIP.",
+      "Очистка участка: по опыту @lepta владельцы обязаны чистить terreno от brushwood до срока против пожаров; штрафы за просрочку.",
       "Связь с бытом: без авто в rural Norte сложно — см. [гайд по машине](/notes/" + CAR_PORTUGAL_GUIDE_SLUG + "); OPO 30–60 мин от Minho.",
     ],
   },
@@ -71,7 +71,7 @@ const bodySections: NoteBodySection[] = [
     heading: "Бюджет строительства и подрядчики",
     section_kind: "practice",
     paragraphs: [
-      "В чатах @chatlisboa и @por_tugal типичный бюджет «участок + дом под ключ» в Norte 2026 — €200 000–450 000 в зависимости от м², отделки и близости к Porto. lepta (2025): правительство признало рост цен на стройматериалы — закладывайте инфляцию 5–10% в смету.",
+      "В чатах @chatlisboa и @por_tugal типичный бюджет «участок + дом под ключ» в Norte 2026 — €200 000–450 000 в зависимости от м², отделки и близости к Porto. Участники @lepta в 2025–2026 писали, что правительство признало рост цен на стройматериалы — закладывайте инфляцию 5–10% в смету.",
     ],
     bullets: [
       "Terreno urbano 500–1 000 m² в Braga/Guimarães: €50 000–120 000; rustico с reconversão — дешевле участок, дороже согласования.",
@@ -162,7 +162,7 @@ const bodySections: NoteBodySection[] = [
     heading: "Бюджет кейса Norte 2026: земля → гостевой → основной",
     section_kind: "practice",
     paragraphs: [
-      "Что делать: считайте четыре корзины — terreno, бюро (arquiteto/topógrafo/licenças), гостевой 60 m², основной 120 m² — плюс 12–15% резерв на инфляцию материалов (lepta, 2025).",
+      "Что делать: считайте четыре корзины — terreno, бюро (arquiteto/topógrafo/licenças), гостевой 60 m², основной 120 m² — плюс 12–15% резерв на инфляцию материалов (по сигналам @lepta, 2025).",
       "Зачем: «участок дешёвый» часто компенсируется acesso água/luz и reconversão; гостевой не всегда дешевле за m², если нужен качественный фундамент под влажный Norte.",
       "Главное: мягкие вилки ниже — для solo urbano Braga/Guimarães с коммуникациями; rustico, reconversão или AL добавят €15 000–40 000 сверху.",
     ],

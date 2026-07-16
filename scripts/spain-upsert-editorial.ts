@@ -15,7 +15,9 @@ import {
   validateNoteDraft,
 } from "@/lib/community-notes/editorial-quality";
 import { validateAgainstBlueprint } from "@/lib/community-notes/article-blueprint";
+import { applyReadabilityToDraft } from "@/lib/community-notes/editorial-readability";
 import { SPAIN_EDITORIAL_GUIDES } from "@/lib/community-notes/guides/spain-editorial-index";
+import { ensureSectionVoiceClose } from "@/lib/community-notes/voice-transforms";
 import { createServerClient } from "@/lib/supabase/server";
 
 const dryRun = process.argv.includes("--dry-run");
@@ -31,10 +33,15 @@ async function main() {
       seo_title: guide.seo_title,
       seo_description: guide.seo_description,
     });
-    const draft = {
+    const readable = applyReadabilityToDraft({
       ...guide,
       ...seo,
-      body_paragraphs: flattenBodySections(guide.body_sections),
+    });
+    const body_sections = (readable.body_sections ?? []).map(ensureSectionVoiceClose);
+    const draft = {
+      ...readable,
+      body_sections,
+      body_paragraphs: flattenBodySections(body_sections),
     };
 
     const gateErrors = validateNoteDraft(
@@ -47,16 +54,16 @@ async function main() {
       continue;
     }
 
-    if (guide.content_kind === "guide") {
+    if (draft.content_kind === "guide") {
       const blueprint = validateAgainstBlueprint(
         {
-          content_kind: guide.content_kind,
-          slug: guide.slug,
-          quick_answer: guide.quick_answer,
-          seo_description: seo.seo_description,
-          body_sections: guide.body_sections,
-          key_takeaways: guide.key_takeaways,
-          faq: guide.faq,
+          content_kind: draft.content_kind,
+          slug: draft.slug,
+          quick_answer: draft.quick_answer,
+          seo_description: draft.seo_description,
+          body_sections: draft.body_sections,
+          key_takeaways: draft.key_takeaways,
+          faq: draft.faq,
           official_links: guide.official_links,
         },
         "spain"
@@ -69,18 +76,18 @@ async function main() {
     }
 
     const row = {
-      slug: guide.slug,
-      category: guide.category,
-      content_kind: guide.content_kind,
-      title: guide.title,
-      excerpt: guide.excerpt,
-      seo_title: seo.seo_title,
-      seo_description: seo.seo_description,
-      quick_answer: guide.quick_answer,
-      body_sections: guide.body_sections,
+      slug: draft.slug,
+      category: draft.category,
+      content_kind: draft.content_kind,
+      title: draft.title,
+      excerpt: draft.excerpt,
+      seo_title: draft.seo_title,
+      seo_description: draft.seo_description,
+      quick_answer: draft.quick_answer,
+      body_sections: draft.body_sections,
       body_paragraphs: draft.body_paragraphs,
-      key_takeaways: guide.key_takeaways,
-      faq: guide.faq,
+      key_takeaways: draft.key_takeaways,
+      faq: draft.faq,
       official_links: guide.official_links,
       topic_tags: guide.topic_tags,
       hashtags: guide.hashtags,

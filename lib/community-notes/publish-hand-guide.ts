@@ -1,16 +1,23 @@
 /**
  * Shared publish helper for hand-curated Portugal guides.
  */
-import { validateNoteDraft } from "@/lib/community-notes/editorial-quality";
+import { flattenBodySections, validateNoteDraft } from "@/lib/community-notes/editorial-quality";
 import { applyReadabilityToDraft } from "@/lib/community-notes/editorial-readability";
 import { refreshDailySpotlight } from "@/lib/community-notes/daily-spotlight";
 import { ensureNoteOgImage } from "@/lib/community-notes/note-og-image";
 import { communityNotePublicUrl } from "@/lib/community-notes/note-url";
+import { ensureSectionVoiceClose } from "@/lib/community-notes/voice-transforms";
 import { createServerClient } from "@/lib/supabase/server";
 import type { CommunityNote } from "@/lib/community-notes/types";
 
 export async function publishHandGuide(raw: Omit<CommunityNote, "id" | "created_at" | "updated_at">) {
-  const guide = applyReadabilityToDraft(raw);
+  const readable = applyReadabilityToDraft(raw);
+  const body_sections = (readable.body_sections ?? []).map(ensureSectionVoiceClose);
+  const guide = {
+    ...readable,
+    body_sections,
+    body_paragraphs: flattenBodySections(body_sections),
+  };
 
   const errors = validateNoteDraft({
     content_kind: guide.content_kind,
