@@ -284,8 +284,8 @@ export const EDITORIAL_GLOSSARIES: Record<string, GlossaryTerm[]> = {
     { pt: "certidão de informação urbanística", ru: "справка муниципалитета: можно ли строить на участке" },
     { pt: "topógrafo", ru: "геодезист; съёмка границ и привязка к PDM" },
     { pt: "arquiteto", ru: "архитектор OA; проект и подача licença" },
-    { pt: "empreiteiro", ru: "подрядчик строительства с alvará" },
-    { pt: "IMT", context: "Imposto Municipal sobre Transmissões", ru: "налог на передачу недвижимости/земли" },
+    { pt: "servidão de passagem", ru: "сервитут прохода — право доступа к участку через чужую землю" },
+    { pt: "AL", context: "Alojamento Local", ru: "краткосрочная аренда жилья; отдельная licença в concelho" },
     { pt: "licença de utilização", ru: "разрешение на ввод дома в эксплуатацию (habitação)" },
   ],
   "meditsina-norte-sns-chastnaya-stomatologiya-2026": [
