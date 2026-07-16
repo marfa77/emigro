@@ -20,6 +20,7 @@ const SCRIPTS = [
   "portugal:publish-license-guide",
   "portugal:publish-car-guide",
   "portugal:publish-schools-guide",
+  "portugal:publish-first-month-checklist",
 ];
 
 async function main() {

@@ -57,6 +57,7 @@
     "portugal:publish-apartment-buying-guide": "tsx scripts/portugal-publish-apartment-buying-guide.ts",
     "portugal:publish-regions-guide": "tsx scripts/portugal-publish-regions-guide.ts",
     "portugal:publish-vnj-renewal-guide": "tsx scripts/portugal-publish-vnj-renewal-guide.ts",
+    "portugal:publish-first-month-checklist": "tsx scripts/portugal-publish-first-month-checklist.ts",
     "portugal:generate-note-images": "tsx scripts/portugal-generate-note-images.ts",
     "portugal:index-license-history": "tsx scripts/portugal-index-license-history.ts",
     "portugal:rewrite": "tsx scripts/portugal-rewrite-notes.ts",

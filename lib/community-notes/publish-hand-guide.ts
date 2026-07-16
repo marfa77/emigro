@@ -59,8 +59,12 @@ export async function publishHandGuide(raw: Omit<CommunityNote, "id" | "created_
     console.log(`[publish] created ${guide.slug}`);
   }
 
-  const spotlight = await refreshDailySpotlight("portugal");
-  console.log("[spotlight]", spotlight?.note_slug);
+  try {
+    const spotlight = await refreshDailySpotlight("portugal");
+    console.log("[spotlight]", spotlight?.note_slug);
+  } catch (e) {
+    console.warn("[spotlight] skipped:", e instanceof Error ? e.message : e);
+  }
   const { path: ogPath } = await ensureNoteOgImage(guide);
   console.log(`[og-image] ${ogPath}`);
   console.log(`\nSatellite URL: ${communityNotePublicUrl(guide.slug)}`);

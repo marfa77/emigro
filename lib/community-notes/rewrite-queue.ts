@@ -17,6 +17,7 @@ export const SKIP_REWRITE_SLUGS = new Set([
   "kupit-kvartiru-portugaliya-norte-2026",
   "regiony-portugalii-ekspaty-klimat-tseny-2026",
   "prodlenie-vnzh-portugaliya-aima-2026",
+  "pervyj-mesyac-portugaliya-checklist",
 ]);
 
 /** Already deep-rewritten by Gemini (batch or manual). */
@@ -28,7 +29,6 @@ export const REWRITTEN_SLUGS = new Set([
 /** Priority order for one-by-one deep rewrites (highest first). */
 export const REWRITE_PRIORITY: string[] = [
   "elektromobil-tesla-v-portugalii-2026",
-  "pervyj-mesyac-portugaliya-checklist",
   "arenda-lissabon-do-podpisi",
   "kak-otkryt-bankovskiy-schet-portugalia-2026",
   "sns-registration-changes-2026",

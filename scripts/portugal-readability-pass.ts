@@ -37,8 +37,10 @@ import { PORTO_VS_BRAGA_FAMILY_SCHOOLS_GUIDE } from "@/lib/community-notes/guide
 import { PORTUGAL_REGIONS_EXPAT_GUIDE } from "@/lib/community-notes/guides/portugal-regions-expat-guide";
 import { VNJ_RENEWAL_GUIDE } from "@/lib/community-notes/guides/prodlenie-vnzh-portugaliya-aima-2026";
 import { TOLLS_FINES_ACCIDENTS_GUIDE } from "@/lib/community-notes/guides/tolls-fines-accidents-norte-portugal";
+import { PERVYJ_MESYAC_CHECKLIST_GUIDE } from "@/lib/community-notes/guides/pervyj-mesyac-portugaliya-checklist";
 
 const HAND_GUIDES: Omit<CommunityNote, "id" | "created_at" | "updated_at">[] = [
+  PERVYJ_MESYAC_CHECKLIST_GUIDE,
   VNJ_RENEWAL_GUIDE,
   DRIVING_LICENSE_EXCHANGE_GUIDE,
   MEDITSINA_NORTE_HEALTHCARE_GUIDE,

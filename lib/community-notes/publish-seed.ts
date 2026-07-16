@@ -1,5 +1,6 @@
 import { createServerClient } from "@/lib/supabase/server";
 import { buildNoteHashtags } from "@/lib/community-notes/hashtags";
+import { PERVYJ_MESYAC_CHECKLIST_GUIDE } from "@/lib/community-notes/guides/pervyj-mesyac-portugaliya-checklist";
 import { SPAIN_EDITORIAL_SEED } from "@/lib/community-notes/guides/spain-editorial-index";
 import type { CommunityNoteFaq, ContentKind, NoteBodySection } from "@/lib/community-notes/types";
 
@@ -23,46 +24,20 @@ type SeedNote = {
 /** Baseline editorial notes — full voice, not truncated seed fallback. */
 export const PORTUGAL_EDITORIAL_SEED: SeedNote[] = [
   {
-    slug: "pervyj-mesyac-portugaliya-checklist",
-    category: "Первый месяц",
-    content_kind: "guide",
-    title: "Первый месяц в Португалии: чеклист миграции",
-    excerpt:
-      "NIF, SNS, банк, адрес, AIMA — что закрыть в первые 30 дней после прилёта, чтобы не потерять неделю на типичных ошибках.",
-    seo_title: "Первый месяц в Португалии 2026 — чеклист релоканта",
-    seo_description:
-      "Чеклист на 30 дней после переезда в Португалии: NIF, e-Fatura, SNS, банк, аренда, AIMA. Практический порядок шагов для Лиссабона.",
-    quick_answer:
-      "В первый месяц закройте базу: адрес → NIF и e-Fatura → регистрация в centro de saúde (número de utente) → банковский счёт → договор аренды с регистрацией → запись AIMA, если срок по visе уже идёт.",
-    body_paragraphs: [
-      "Первые 30 дней — не про «успеть всё», а про правильный порядок. Ошибка недели один: сначала аренда без NIF, потом банк, потом выясняется, что адрес не подходит для AIMA.",
-      "Неделя 1 — документы и связь. SIM/eSIM, адрес для корrespondência, NIF в Finanças, активация e-Fatura. Без этого сложнее аренда и банк.",
-      "Неделя 2 — жильё и быт. Договор с NIF обеих сторон, caução с назначением платежа, регистрация arrendamento, фото состояния квартиры. Параллельно — запись в centro de saúde и número de utente do SNS или частная страховка до подключения.",
-      "Неделя 3 — деньги и миграция. Банковский счёт (часто нужны NIF + контракт/справка), сбор папки для AIMA/Agora, охота за слотом с готовыми PDF.",
-      "Неделя 4 — закрепление. Проверьте сроки по визе/D visa, подтвердите адрес в Finanças, сохраните все квитанции. Не откладывайте AIMA «на потом» — слоты не ждут.",
-      "Типичные потери времени: «временный NIF у знакомого», перевод caução на личную карту, поездка в AIMA без записи, VPN при работе с Agora.",
-    ],
-    faq: [
-      {
-        q: "С чего начать в первый день?",
-        a: "SIM и адрес для корrespondência, затем запись на NIF. Не переводите крупные суммы за аренду до проверки договора.",
-      },
-      {
-        q: "Можно отложить AIMA на второй месяц?",
-        a: "Зависит от типа визы и сроков. Сверьте дедлайн в документах — просрочка часто дороже, чем ранняя подготовка PDF.",
-      },
-      {
-        q: "Нужен ли банк в первый месяц?",
-        a: "Не всегда обязателен, но сильно упрощает аренду, подписки и подтверждение платежей. NIF обычно нужен раньше банка.",
-      },
-    ],
-    official_links: [
-      { title: "Portal das Finanças", url: "https://www.portaldasfinancas.gov.pt/" },
-      { title: "SNS — número de utente", url: "https://www.sns.gov.pt/" },
-      { title: "AIMA", url: "https://aima.gov.pt/" },
-      { title: "Agora", url: "https://agora.imigrante.pt/" },
-    ],
-    topic_tags: ["nif", "aima", "sns", "bank", "arenda"],
+    slug: PERVYJ_MESYAC_CHECKLIST_GUIDE.slug,
+    category: PERVYJ_MESYAC_CHECKLIST_GUIDE.category,
+    content_kind: PERVYJ_MESYAC_CHECKLIST_GUIDE.content_kind,
+    title: PERVYJ_MESYAC_CHECKLIST_GUIDE.title,
+    excerpt: PERVYJ_MESYAC_CHECKLIST_GUIDE.excerpt,
+    seo_title: PERVYJ_MESYAC_CHECKLIST_GUIDE.seo_title,
+    seo_description: PERVYJ_MESYAC_CHECKLIST_GUIDE.seo_description,
+    quick_answer: PERVYJ_MESYAC_CHECKLIST_GUIDE.quick_answer,
+    body_paragraphs: PERVYJ_MESYAC_CHECKLIST_GUIDE.body_paragraphs,
+    body_sections: PERVYJ_MESYAC_CHECKLIST_GUIDE.body_sections,
+    key_takeaways: PERVYJ_MESYAC_CHECKLIST_GUIDE.key_takeaways,
+    faq: PERVYJ_MESYAC_CHECKLIST_GUIDE.faq,
+    official_links: PERVYJ_MESYAC_CHECKLIST_GUIDE.official_links,
+    topic_tags: PERVYJ_MESYAC_CHECKLIST_GUIDE.topic_tags,
   },
   {
     slug: "nif-lissabon-chto-puutayut",
