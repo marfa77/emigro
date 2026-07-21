@@ -280,7 +280,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     ],
     seoTitle: "Черногория ВНЖ для россиян 2026 — nomad €1800, DOO",
     seoDescription:
-      "ВНЖ Черногория 2026: digital nomad от €1800/мес, DOO, безвиз. Программа до 31.12.2026, Будва, путь в EU.",
+      "ВНЖ Черногория 2026: digital nomad от €1800/мес — подавать до октября 2026; DOO после 17.01.2026 дороже для non-EU. Безвиз 30/90, Будва.",
   },
   {
     path: "/ru/guides/gruziya-dlya-rossiyan-2026",
