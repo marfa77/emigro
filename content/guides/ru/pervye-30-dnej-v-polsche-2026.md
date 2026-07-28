@@ -2,9 +2,9 @@
 slug: pervye-30-dnej-v-polsche-2026
 title: "Первые 30 дней в Польше 2026: PESEL, meldunek, банк, NFZ"
 seo_title: "Первые 30 дней в Польше 2026 — PESEL, meldunek, банк"
-seo_description: "Чек-лист после прилёта в Польшу: PESEL, meldunek, банk mBank/PKO, NFZ, SIM, voivodeship. Для RU/UA/BY/KZ с work permit или Blue Card. 2026."
-excerpt: "Work permit или Blue Card одобрен — что делать в первый месяц: PESEL, meldunek, банк, NFZ и запись в voivodeship."
-quick_answer: "Первые 30 дней: (1) meldunek — **реалистично 2–6 нед.** (zgoda właściciela + запись urząd; закон 30 дн.), (2) PESEL при meldunek, (3) SIM, (4) банк IBAN PL, (5) NFZ, (6) karta pobytu: **6–18 мес.** (Варшава **12–18+**; UoC до 3 мес.). Без meldunek и PESEL не откроете счёт."
+seo_description: "Чек-лист после прилёта в Польшу: PESEL, meldunek за 4 дня для non-EU, банк mBank/PKO, NFZ, SIM, voivodeship. Для RU/UA/BY/KZ. 2026."
+excerpt: "Work permit или Blue Card одобрен — что делать в первый месяц: PESEL, meldunek (4 дня для third-country), банк, NFZ и запись в voivodeship."
+quick_answer: "Первые недели: (1) **meldunek** — для RU/BY/UA/KZ по закону **не позднее 4-го дня** после заселения (ст. 41 u.e.l.; у EU/EFTA — 30 дн.); реалистично запись в urząd **1–4 нед.**, (2) PESEL при meldunek, (3) SIM, (4) банк IBAN PL, (5) NFZ, (6) karta pobytu: **6–18 мес.** (Варшава **12–18+**; UoC до 3 мес.). Основание для meldunek — **umowa najmu**; отдельная zgoda właściciela **не нужна**."
 corridor_slugs: [ru-speaking-to-poland]
 topic_keys: [poland, checklist, arrival]
 tags: [Польша, чеклист, 2026, PESEL, meldunek, NFZ, karta pobytu]
@@ -20,7 +20,7 @@ official_sources:
     label: NFZ — медстраховка
 estimated_minutes: 12
 date_published: 2026-06-29
-date_modified: 2026-07-07
+date_modified: 2026-07-28
 ---
 
 ## Кому этот чек-лист
@@ -43,28 +43,38 @@ date_modified: 2026-07-07
 |-----|----------|--------|
 | SIM | Play, Orange, Plus, T-Mobile | Prepaid от PLN 20; eSIM доступен |
 | Uber/Bolt | Установить | Такси в Warsaw/Kraków |
-| Жильё | Airbnb / coliving | Временно — для meldunek нужен umowa najmu |
+| Жильё | Airbnb / coliving | Только bridge; для meldunek нужна **umowa najmu** в **первые 4 дня** |
 
-### День 3–7: umowa najmu
+### День 1–4: umowa najmu (срочно — под meldunek)
+
+Для граждан **третьих стран** (RU/BY/UA/KZ и др. вне EU/EFTA/CH) срок meldunek жёсткий — **не позже 4-го дня** после заселения. Поэтому договор аренды нужен **сразу**, не «на второй неделе».
 
 - **OLX / Otodom / Facebook groups** — основные площадки.
 - Типичный депозит: **2–3 месяца** + первый месяц.
-- Договор (**umowa najmu**) + **zgoda właściciela** на meldunek — обязательны.
+- Договор (**umowa najmu**) — **достаточное юридическое основание** для meldunek (ст. 28 u.e.l.). Отдельная **zgoda właściciela не требуется**.
 - Warsaw 1-bed: PLN 3 500–6 000/мес; Kraków: PLN 2 800–4 500.
 
-**Совет:** без **zgoda właściciela** urząd gminy может отказать в meldunek.
+**Миф vs закон:** арендодатель **не может** «запретить» meldunek. Meldunek — чисто административная запись факта проживания и **не создаёт прав на жильё** (ст. 28 п. 4). На бланке иногда просят **potwierdzenie pobytu** (подпись, что вы реально живёте по адресу) — это не «согласие на прописку». Если хозяин отказывается подписать при действующей umowa najmu, urząd может провести проверку и оформить meldunek решением; не откладывайте подачу из‑за отказа арендодателя.
 
 ---
 
-## Неделя 1–2: meldunek и PESEL
+## Неделя 1: meldunek и PESEL
 
 **Zameldowanie (meldunek)** — регистрация адреса в **urząd gminy / miasta**.
 
-**Срок по закону:** **30 дней** после заселения.
+**Срок по закону (Ustawa o ewidencji ludności, art. 41):**
 
-**Реалистично 2026:** **3–8 недель** end-to-end — **zgoda właściciela** (согласие арендодателя) часто **1–3 нед.**, запись в **urząd gminy** в Warsaw/Kraków — **1–4 нед.**, сам meldunek — в день визита.
+| Кто | Срок meldunek |
+|-----|----------------|
+| **Граждане третьих стран** (RU, BY, UA, KZ…) | **Не позднее 4-го дня** после прибытия на адрес |
+| Граждане EU / EFTA / Швейцарии (+ члены семьи по спецправилам) | **30 дней** |
+| Краткий stay в PL **≤ 30 дней** | Часто освобождение от обязанности — уточняйте; для work/Blue Card / karta pobytu это **не** ваш случай |
 
-**Документы:** паспорт, umowa najmu, zgoda właściciela, иногда wypis z księgi wieczystej.
+Формула «30 дней», которую часто пишут в общих гайдах, относится к полякам/EU — **не** к аудитории Emigro. Пропуск срока для third-country — wykroczenie; на практике риск штрафа и негативный сигнал при проверке / на фоне легализации pobyt.
+
+**Реалистично 2026:** запись в **urząd gminy** в Warsaw/Kraków — **1–4 нед.**; сам meldunek — в день визита. Не ждите «идеального» пакета от арендодателя — идите с **umowa najmu** (лучше с nr KW) и паспортом; параллельно бронируйте слот **в первые дни**.
+
+**Документы:** паспорт (+ виза / stamp / potwierdzenie), **umowa najmu** (титул правny do lokalu). Иногда urząd просит wypis z księgi wieczystej или доп. подтверждение факта проживания — не путайте с обязательной zgoda.
 
 **PESEL** — польский ID-номер (11 цифр). Обычно выдают **при meldunek** в тот же визит; отдельная заявка в urząd — ещё **1–3 нед.** ожидания записи.
 
@@ -146,8 +156,8 @@ date_modified: 2026-07-07
 ## Чек-лист «30 дней» (копируйте)
 
 - [ ] SIM-карта PL
-- [ ] Umowa najmu + zgoda właściciela
-- [ ] Meldunek (zameldowanie) в urząd
+- [ ] Umowa najmu (без ожидания «zgoda» арендодателя)
+- [ ] Meldunek в urząd — **цель: в первые 4 дня** (third-country)
 - [ ] PESEL получен
 - [ ] Банковский счёт (IBAN PL)
 - [ ] NFZ или частная страховка активна
@@ -161,10 +171,11 @@ date_modified: 2026-07-07
 ## Частые ошибки
 
 1. **Ждать karta pobytu, чтобы открыть банк** — порядок: meldunek → PESEL → bank.
-2. **Аренда без zgoda właściciela** — meldunek откажут.
-3. **Только Revolut** — для ZUS/NFZ нужен **Polish IBAN**.
-4. **Пропуск ZUS при B2B** — штрафы и риск отказа в продлении pobyt.
-5. **Опоздание с meldunek** — штраф до PLN 5 000 (теоретически).
+2. **Считать, что без zgoda właściciela meldunek невозможен** — по закону достаточно **umowa najmu**; отказ хозяина не отменяет обязанность и не даёт urząd автоматического права отказать.
+3. **Ориентироваться на «30 дней» как у EU** — для RU/BY/UA/KZ срок **4 дня** (art. 41).
+4. **Только Revolut** — для ZUS/NFZ нужен **Polish IBAN**.
+5. **Пропуск ZUS при B2B** — штрафы и риск отказа в продлении pobyt.
+6. **Опоздание с meldunek** — wykroczenie; штраф (на практике чаще при проверке) + лишний риск при легализации.
 
 ---
 
@@ -184,7 +195,15 @@ date_modified: 2026-07-07
 
 ### BY/UA/KZ — отличия?
 
-Процедуры **одинаковы**; отличается консульская подача до прилёта.
+Консульская подача до прилёта отличается; **meldunek после заселения** — те же **4 дня**, что и для RU (граждане третьих стран).
+
+### Нужна ли zgoda właściciela на meldunek?
+
+**Нет.** Достаточно **umowa najmu** как титула правny do lokalu. Подпись владельца на бланке (если просят) — подтверждение факта проживания, не «разрешение». Meldunek не даёт прав на квартиру.
+
+### Сколько дней на meldunek у non-EU?
+
+По **art. 41** u.e.l. — **не позднее 4-го дня** после прибытия на адрес (кроме краткого stay ≤30 дней и статуса EU/EFTA/CH). Сверяйте [gov.pl — zameldowanie](https://www.gov.pl/web/gov/zameldowanie).
 
 ### Нужен ли польский язык?
 
@@ -197,6 +216,7 @@ date_modified: 2026-07-07
 - [gov.pl — zameldowanie](https://www.gov.pl/web/gov/zameldowanie)
 - [gov.pl / UDSC](https://www.gov.pl/web/udsc-en)
 - [NFZ](https://www.nfz.gov.pl/)
+- Срок для cudzoziemców: **Ustawa o ewidencji ludności, art. 41** (4 дня third-country / 30 дней EU–EFTA–CH)
 
 ---
 
