@@ -5,6 +5,7 @@ import { getNewsDisplayTitle } from "@/lib/news/digests";
 import type { NewsTopicConfig } from "@/lib/news/topics";
 import { newsArticlePath } from "@/lib/news/topics";
 import { isPublishableSourceLink, isBlockedSourceName } from "@/lib/news/article-resolve";
+import { sourceLinkRel } from "@/lib/partners/link";
 
 function formatDateRu(dateString: string) {
   return new Date(dateString).toLocaleDateString("ru-RU", {
@@ -115,7 +116,7 @@ export function NewsArticleBody({ digest }: { digest: NewsDigest }) {
                 <a
                   href={block.source_url}
                   target="_blank"
-                  rel="noopener noreferrer nofollow"
+                  rel={sourceLinkRel(block.source_url)}
                   className="inline-flex items-center gap-1 text-corridor-700 hover:underline"
                 >
                   {readableSourceTitle(block.source_name, block.source_url)}
@@ -141,7 +142,7 @@ export function NewsArticleBody({ digest }: { digest: NewsDigest }) {
                   <a
                     href={s.url}
                     target="_blank"
-                    rel="noopener noreferrer nofollow"
+                    rel={sourceLinkRel(s.url)}
                     className="inline-flex items-center gap-2 text-corridor-700 hover:underline"
                   >
                     {readableSourceTitle(s.title, s.url)}

@@ -38,7 +38,13 @@ export function emigroGlobalJsonLd(): Record<string, unknown>[] {
     url,
     logo: EMIGRO_LOGO_URL,
     description: SERVICE_TAGLINE,
-    sameAs: [] as string[],
+    sameAs: [
+      "https://www.pixid.studio/",
+      "https://www.prep2go.study/",
+      "https://uniprep2go.study/",
+      "https://www.barakhlo.online/",
+      "https://www.webmorp.art/",
+    ],
   };
 
   const website = {
