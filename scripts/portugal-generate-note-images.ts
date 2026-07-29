@@ -10,7 +10,7 @@ import { resolve } from "node:path";
 
 dotenv.config({ path: resolve(process.cwd(), ".env.local") });
 
-import { getPublishedCommunityNoteBySlug, getPublishedCommunityNotes } from "@/lib/community-notes/queries";
+import { getPublishedCommunityNoteBySlugUncached, getPublishedCommunityNotesUncached } from "@/lib/community-notes/queries";
 import { CAR_PORTUGAL_GUIDE } from "@/lib/community-notes/guides/car-portugal-buy-rent-import";
 import { DRIVING_LICENSE_EXCHANGE_GUIDE } from "@/lib/community-notes/guides/driving-license-exchange";
 import { INTERNATIONAL_SCHOOLS_GUIDE } from "@/lib/community-notes/guides/international-schools-portugal";
@@ -37,17 +37,19 @@ const CURATED_GUIDES: CommunityNote[] = [
   VNJ_RENEWAL_GUIDE as CommunityNote,
 ];
 
-async function resolveNotes(slugs: string[]): Promise<Array<Pick<CommunityNote, "slug" | "topic_tags" | "title">>> {
+async function resolveNotes(
+  slugs: string[]
+): Promise<Array<Pick<CommunityNote, "slug" | "topic_tags" | "title" | "content_kind" | "country_key">>> {
   if (slugs.length === 0) {
-    const published = await getPublishedCommunityNotes("portugal");
+    const published = await getPublishedCommunityNotesUncached("portugal");
     if (published.length > 0) return published;
     console.warn("[note-og] no published notes in DB — using curated guides");
     return CURATED_GUIDES;
   }
 
-  const notes: Array<Pick<CommunityNote, "slug" | "topic_tags" | "title">> = [];
+  const notes: Array<Pick<CommunityNote, "slug" | "topic_tags" | "title" | "content_kind" | "country_key">> = [];
   for (const slug of slugs) {
-    const fromDb = await getPublishedCommunityNoteBySlug(slug, "portugal");
+    const fromDb = await getPublishedCommunityNoteBySlugUncached(slug, "portugal");
     if (fromDb) {
       notes.push(fromDb);
       continue;

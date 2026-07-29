@@ -87,6 +87,13 @@ async function fetchPublishedCommunityNoteBySlugUncached(
   }
 }
 
+export async function getPublishedCommunityNoteBySlugUncached(
+  slug: string,
+  countryKey = "portugal",
+): Promise<CommunityNote | null> {
+  return fetchPublishedCommunityNoteBySlugUncached(slug, countryKey);
+}
+
 export async function getPublishedCommunityNoteBySlug(
   slug: string,
   countryKey = "portugal",
