@@ -4,6 +4,7 @@ import {
   corridorHubNavItems,
   type CorridorHubTab,
 } from "@/lib/corridor/hub";
+import { externalLinkRel } from "@/lib/partners/link";
 import { isSpainHubTopic } from "@/lib/spain/hub";
 import type { NewsTopicConfig } from "@/lib/news/topics/types";
 import { mobileScrollRow } from "@/lib/ui/mobile";
@@ -67,7 +68,7 @@ export function CorridorHubNav({ topic, active, variant = "corridor", className 
               key={item.id}
               href={item.href}
               target={isSatellite && item.id !== "market" ? undefined : "_blank"}
-              rel={isSatellite && item.id !== "market" ? undefined : "noopener noreferrer"}
+              rel={isSatellite && item.id !== "market" ? undefined : externalLinkRel(item.href)}
               className={itemClass}
               aria-current={isActive ? "page" : undefined}
             >

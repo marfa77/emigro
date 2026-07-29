@@ -3,6 +3,7 @@ import {
   portugalHubNavItems,
   type PortugalHubTab,
 } from "@/lib/portugal/hub";
+import { externalLinkRel } from "@/lib/partners/link";
 
 type Props = {
   active: PortugalHubTab;
@@ -43,7 +44,7 @@ export function PortugalHubNav({ active, variant = "corridor", className }: Prop
               key={item.id}
               href={item.href}
               target="_blank"
-              rel="noopener noreferrer"
+              rel={externalLinkRel(item.href)}
               className={itemClass}
             >
               {item.label}

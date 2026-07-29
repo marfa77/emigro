@@ -5,6 +5,7 @@ import { trackEvent } from "@/lib/analytics/client";
 import { barakhloMarketCityLabel, barakhloMarketUrl } from "@/lib/barakhlo/markets";
 import { barakhloPromoUrl, isServiceDiscoveryNote } from "@/lib/community-notes/sponsor-promo";
 import type { SatelliteCountryKey } from "@/lib/community-notes/seed";
+import { PARTNER_LINK_REL } from "@/lib/partners/link";
 import { tapTarget } from "@/lib/ui/mobile";
 
 type BarakhloPromoProps = {
@@ -51,7 +52,7 @@ export function BarakhloPromo({
         <a
           href={href}
           target="_blank"
-          rel="noopener noreferrer"
+          rel={PARTNER_LINK_REL}
           onClick={handleClick}
           className={`inline-flex ${tapTarget} shrink-0 items-center justify-center gap-1.5 rounded-lg bg-orange-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-orange-700`}
         >
@@ -79,7 +80,7 @@ export function BarakhloPromo({
       <a
         href={href}
         target="_blank"
-        rel="noopener noreferrer"
+        rel={PARTNER_LINK_REL}
         onClick={handleClick}
         className={`mt-4 inline-flex ${tapTarget} items-center gap-2 rounded-lg bg-orange-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-orange-700`}
       >

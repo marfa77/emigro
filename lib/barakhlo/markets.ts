@@ -11,7 +11,7 @@ export type BarakhloMarket = {
 export const BARAKHLO_MARKETS: Record<string, BarakhloMarket> = {
   portugal: { path: "/portugal/lisbon", cityRu: "Лиссабон", cityEn: "Lisbon" },
   spain: { path: "/spain/valencia", cityRu: "Валенсия", cityEn: "Valencia" },
-  france: { path: "/france/paris", cityRu: "Париж", cityEn: "Paris" },
+  france: { path: "/france/nice", cityRu: "Ницца", cityEn: "Nice" },
   italy: { path: "/italy/milan", cityRu: "Милан", cityEn: "Milan" },
   germany: { path: "/germany/berlin", cityRu: "Берлин", cityEn: "Berlin" },
   netherlands: { path: "/netherlands/amsterdam", cityRu: "Амстердам", cityEn: "Amsterdam" },

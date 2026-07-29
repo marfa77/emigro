@@ -2,6 +2,7 @@
 
 import { ExternalLink } from "lucide-react";
 import { trackEvent } from "@/lib/analytics/client";
+import { externalLinkRel } from "@/lib/partners/link";
 import { getExamLabelForTopic, PROVIDER_CATEGORY_LABELS_RU, type ServiceProvider } from "@/lib/providers/registry";
 import { getUniPrepOfferForTopic, withPrep2GoUtm, withUniPrepUtm } from "@/lib/uniprep2go/catalog";
 
@@ -60,7 +61,7 @@ export function ServiceProviderCard({
     : PROVIDER_CATEGORY_LABELS_RU[provider.category];
   const href = resolveProviderHref(provider, topicKey, placement);
   const linkTarget = provider.isFirstParty ? undefined : "_blank";
-  const linkRel = provider.isFirstParty ? undefined : "noopener noreferrer sponsored";
+  const linkRel = provider.isFirstParty ? undefined : externalLinkRel(href, { sponsored: true });
   const otherExamLabels = topicKey
     ? allExams.filter((exam) => exam.topicKey !== topicKey).map((exam) => exam.label)
     : [];

@@ -14,6 +14,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import type { HubTileIcon, ResolvedHubTile } from "@/lib/portugal/hub";
+import { externalLinkRel } from "@/lib/partners/link";
 
 const TOP_ICONS: Record<HubTileIcon, LucideIcon> = {
   compass: Compass,
@@ -74,7 +75,7 @@ function OpenLink({ href, external }: { href: string; external?: boolean }) {
 
   if (external) {
     return (
-      <a href={href} target="_blank" rel="noopener noreferrer" className={className} onClick={(e) => e.stopPropagation()}>
+      <a href={href} target="_blank" rel={externalLinkRel(href)} className={className} onClick={(e) => e.stopPropagation()}>
         Open
         <ArrowUpRight className="h-3 w-3" aria-hidden="true" />
       </a>

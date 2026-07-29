@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Route } from "lucide-react";
+import { externalLinkRel } from "@/lib/partners/link";
 import type { ClusterLink as ClusterLinkType, SeoCluster } from "@/lib/seo/cluster-links";
 
 type Props = {
@@ -13,7 +14,7 @@ function ClusterLinkItem({ link }: { link: ClusterLinkType }) {
 
   if (link.external) {
     return (
-      <a href={link.href} target="_blank" rel="noopener noreferrer" className={className}>
+      <a href={link.href} target="_blank" rel={externalLinkRel(link.href)} className={className}>
         <p className="font-medium text-slate-900 group-hover:text-corridor-700">{link.label}</p>
         {link.description && <p className="mt-1 text-xs text-slate-600">{link.description}</p>}
       </a>
@@ -70,7 +71,7 @@ export function GuideClusterLinks({ cluster, crossLinks = [] }: Props) {
                   key={link.href}
                   href={link.href}
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel={externalLinkRel(link.href)}
                   className="font-medium text-corridor-700 hover:underline"
                 >
                   {link.label}

@@ -7,6 +7,7 @@ import { isCorridorFull, isCorridorOnSite, topicHasLanding } from "@/lib/corrido
 import { barakhloMarketCityLabel } from "@/lib/barakhlo/markets";
 import { barakhloPromoUrl } from "@/lib/community-notes/sponsor-promo";
 import { corridorHubLabel } from "@/lib/corridor/hub-label";
+import { externalLinkRel } from "@/lib/partners/link";
 import { isPortugalHubTopic, portugalSatelliteHubUrl } from "@/lib/portugal/hub";
 import { isSpainHubTopic, spainSatelliteHubUrl } from "@/lib/spain/hub";
 import { corridorPillarGuideAnchor, corridorPillarGuideHref } from "@/lib/seo/corridor-pillar-guides";
@@ -92,7 +93,7 @@ export function CorridorIntelLinks({ topic, variant = "full", layout = "grid" }:
         {showHub && (
           <>
             <span className="text-slate-300">·</span>
-            <a href={barakhloUrl} target="_blank" rel="noopener noreferrer" className="text-corridor-600 hover:underline">
+            <a href={barakhloUrl} target="_blank" rel={externalLinkRel(barakhloUrl)} className="text-corridor-600 hover:underline">
               Barakhlo
             </a>
           </>
@@ -212,7 +213,7 @@ export function CorridorIntelLinks({ topic, variant = "full", layout = "grid" }:
           <a
             href={barakhloUrl}
             target="_blank"
-            rel="noopener noreferrer"
+            rel={externalLinkRel(barakhloUrl)}
             className="group rounded-lg border border-orange-200 bg-orange-50/50 p-4 transition hover:border-orange-400 hover:shadow-sm"
           >
             <ShoppingBag className="h-5 w-5 text-orange-700" />

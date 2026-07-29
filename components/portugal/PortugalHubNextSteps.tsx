@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ExternalLink } from "lucide-react";
 import { PORTUGAL_HUB_NEXT_STEPS, portugalHubPaths } from "@/lib/portugal/hub";
+import { externalLinkRel } from "@/lib/partners/link";
 
 type Props = {
   guideHref?: string;
@@ -39,7 +40,7 @@ export function PortugalHubNextSteps({
                 <a
                   href={href}
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel={externalLinkRel(href)}
                   className={`inline-flex items-center gap-1 ${linkClass}`}
                 >
                   {step.title}

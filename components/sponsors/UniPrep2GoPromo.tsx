@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { BookOpen, ExternalLink, FlaskConical } from "lucide-react";
 import { trackEvent } from "@/lib/analytics/client";
 import { tapTarget } from "@/lib/ui/mobile";
+import { PARTNER_LINK_REL } from "@/lib/partners/link";
 import {
   type UniPrepOffer,
   UNIPREP_CITIZENSHIP_HUB,
@@ -74,7 +75,7 @@ function CtaLink({
     <a
       href={href}
       target="_blank"
-      rel="noopener noreferrer sponsored"
+      rel={PARTNER_LINK_REL}
       onClick={onClick}
       className={`inline-flex ${tapTarget} items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition ${base}`}
     >
@@ -110,7 +111,7 @@ export function UniPrepCitizenshipHubPromo({
       className={`rounded-2xl border-2 border-teal-200 bg-gradient-to-br from-teal-50 via-white to-cyan-50 p-5 sm:p-6 ${className}`}
       aria-labelledby="uniprep-hub-heading"
     >
-      <p className="text-xs font-bold uppercase tracking-wider text-teal-800">Реклама · UniPrep2Go</p>
+      <p className="text-xs font-bold uppercase tracking-wider text-teal-800">Сестринский продукт · UniPrep2Go</p>
       <h2 id="uniprep-hub-heading" className="mt-2 text-lg font-semibold text-slate-900">
         Моки и Anki-колоды для натурализации
       </h2>
@@ -150,7 +151,7 @@ export function UniPrepCitizenshipHubPromo({
           Anki-колоды
         </CtaLink>
       </div>
-      <p className="mt-3 text-xs text-slate-500">uniprep2go.study · партнёр Emigro · не заменяет официальную запись на экзамен</p>
+      <p className="mt-3 text-xs text-slate-500">uniprep2go.study · семейство PixID Studio · не заменяет официальную запись на экзамен</p>
     </section>
   );
 }
@@ -191,14 +192,14 @@ export function UniPrep2GoPromo({
     return (
       <section
         className={`rounded-xl border border-teal-200 bg-teal-50/80 p-4 ${className}`}
-        aria-label="Реклама UniPrep2Go"
+        aria-label="UniPrep2Go — сестринский продукт"
       >
-        <p className="text-xs font-bold uppercase tracking-wide text-teal-800">Реклама · {offer.examLabelRu}</p>
+        <p className="text-xs font-bold uppercase tracking-wide text-teal-800">Рекомендуем · {offer.examLabelRu}</p>
         <p className="mt-1 text-sm font-medium text-slate-900">{offer.headlineRu}</p>
         <a
           href={primaryHref}
           target="_blank"
-          rel="noopener noreferrer sponsored"
+          rel={PARTNER_LINK_REL}
           onClick={() =>
             trackClick({
               placement,
@@ -222,7 +223,7 @@ export function UniPrep2GoPromo({
       className={`rounded-2xl border-2 border-teal-200 bg-gradient-to-br from-teal-50 via-white to-cyan-50 p-5 sm:p-6 ${className}`}
       aria-labelledby={`uniprep-promo-${offer.topicKey}`}
     >
-      <p className="text-xs font-bold uppercase tracking-wider text-teal-800">Реклама · UniPrep2Go</p>
+      <p className="text-xs font-bold uppercase tracking-wider text-teal-800">Сестринский продукт · UniPrep2Go</p>
       <h2 id={`uniprep-promo-${offer.topicKey}`} className="mt-2 text-lg font-semibold text-slate-900">
         {offer.headlineRu}
       </h2>
@@ -310,7 +311,7 @@ export function UniPrep2GoPromo({
         )}
       </div>
       <p className="mt-3 text-xs text-slate-500">
-        uniprep2go.study · партнёр Emigro · учебные материалы, не официальный экзамен
+        uniprep2go.study · семейство PixID Studio · учебные материалы, не официальный экзамен
       </p>
     </section>
   );
