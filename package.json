@@ -52,6 +52,7 @@
     "portugal:publish-norte-climate-guide": "tsx scripts/portugal-publish-norte-climate-guide.ts",
     "portugal:publish-meditsina-norte-guide": "tsx scripts/portugal-publish-meditsina-norte-guide.ts",
     "portugal:publish-passport-guide": "tsx scripts/portugal-publish-passport-guide.ts",
+    "portugal:publish-embassy-appointment-guide": "tsx scripts/portugal-publish-embassy-appointment-guide.ts",
     "portugal:publish-tolls-guide": "tsx scripts/portugal-publish-tolls-guide.ts",
     "portugal:publish-domestic-tourism-guide": "tsx scripts/portugal-publish-domestic-tourism-guide.ts",
     "portugal:publish-apartment-buying-guide": "tsx scripts/portugal-publish-apartment-buying-guide.ts",

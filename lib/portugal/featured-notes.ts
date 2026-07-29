@@ -17,6 +17,11 @@ export const PORTUGAL_FEATURED_NOTES: PortugalFeaturedNote[] = [
     description: "Консульство Lisboa, agendamento, практика для Norte.",
   },
   {
+    slug: "zapis-v-konsulstvo-portugaliya-2026",
+    title: "Запись в консульство: услуги и очередь",
+    description: "kdmid Lisboa, подтверждение визита, день из Porto.",
+  },
+  {
     slug: "arenda-kvartiry-lisbon-pervyi-mesyac-2026",
     title: "Аренда квартиры: первый месяц",
     description: "Idealista, NIF, Termo, проверки до подписи contrato.",

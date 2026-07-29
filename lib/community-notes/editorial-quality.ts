@@ -2,6 +2,10 @@ import { validateAgainstBlueprint } from "@/lib/community-notes/article-blueprin
 import { ephemeralRelativeTimeErrors } from "@/lib/community-notes/evergreen";
 import { validateGuideGlossary, isGlossarySection } from "@/lib/community-notes/glossary";
 import { validateOfficialPracticeCopy } from "@/lib/community-notes/official-vs-practice";
+import {
+  looksLikeEphemeralPolitics,
+  POLITICS_GUIDE_TITLE_RE,
+} from "@/lib/community-notes/politics-news";
 import { snsTextsFromDraft, validateSnsUtenteCopy } from "@/lib/community-notes/sns-editorial";
 import type { CommunityNoteFaq, CommunityNoteLink, ContentKind } from "@/lib/community-notes/types";
 import type { NoteBodySection } from "@/lib/community-notes/types";
@@ -44,6 +48,43 @@ function totalWords(input: DraftQualityInput): number {
     ...input.key_takeaways,
   ];
   return parts.reduce((sum, t) => sum + wordCount(t), 0);
+}
+
+function sectionSubstance(section: NoteBodySection): number {
+  return [...(section.paragraphs ?? []), ...(section.bullets ?? [])]
+    .map((t) => t.trim())
+    .filter(Boolean).length;
+}
+
+/** Reject headings-only / empty-body drafts that padded word count via FAQ. */
+export function hollowBodySectionErrors(
+  sections: NoteBodySection[],
+  contentKind: ContentKind
+): string[] {
+  const errors: string[] = [];
+  const hollow = sections.filter((s) => sectionSubstance(s) === 0);
+  if (hollow.length > 0) {
+    errors.push(
+      `hollow body_sections (${hollow.length}): ${hollow
+        .map((s) => s.heading.slice(0, 40))
+        .join("; ")}`
+    );
+  }
+  const substantial = sections.filter((s) => sectionSubstance(s) >= 2).length;
+  const minSubstantial = contentKind === "guide" ? 4 : contentKind === "news" ? 2 : 2;
+  if (substantial < minSubstantial) {
+    errors.push(`substantial body_sections ${substantial} < ${minSubstantial}`);
+  }
+  return errors;
+}
+
+function politicsAsGuideErrors(input: DraftQualityInput): string[] {
+  if (input.content_kind !== "guide") return [];
+  const blob = `${input.slug ?? ""} ${input.seo_title} ${input.quick_answer}`;
+  if (POLITICS_GUIDE_TITLE_RE.test(blob) || looksLikeEphemeralPolitics(blob)) {
+    return ["ephemeral politics must be content_kind=news, not guide"];
+  }
+  return [];
 }
 
 /** Returns human-readable quality errors; empty = pass. */
@@ -92,6 +133,8 @@ export function validateNoteDraft(
       errors.push(`glossary: must be first body_section, got index ${glossaryIdx}`);
     }
   }
+  errors.push(...hollowBodySectionErrors(input.body_sections, input.content_kind));
+  errors.push(...politicsAsGuideErrors(input));
   if (totalWords(input) < rules.minWords) {
     errors.push(`word count ${totalWords(input)} < ${rules.minWords}`);
   }

@@ -1,4 +1,5 @@
 import type { SignalCluster } from "@/lib/community-notes/draft-from-signals";
+import { looksLikeEphemeralPolitics } from "@/lib/community-notes/politics-news";
 import type { ContentKind } from "@/lib/community-notes/types";
 
 /** Topics auto-published from Telegram clusters (Portugal). */
@@ -82,7 +83,7 @@ const NEWS_NOISE_RE =
 
 /** Civic / relocant-relevant news worth a satellite + Threads post. */
 const NEWS_RELOC_RE =
-  /закон\s+о\s+граждан|aima|внж|\bvng\b|\bnif\b|гражданств|национал|транспорт|бесплатн|\bsns\b|utente|finanç|financas|миграц|виз[аыуе]|multa|штраф|метро|residenc|imigr|\bd8\b|\bd7\b|паспорт|консул|\biban\b|банк(?:овск|ир|ов)|аренд|arrendamento|номер\s+utente|agora\.imigrante|portal-renov/i;
+  /закон\s+о\s+граждан|aima|внж|\bvng\b|\bnif\b|гражданств|национал|транспорт|бесплатн|\bsns\b|utente|finanç|financas|миграц|виз[аыуе]|multa|штраф|метро|residenc|imigr|\bd8\b|\bd7\b|паспорт|консул|\biban\b|банк(?:овск|ир|ов)|аренд|arrendamento|номер\s+utente|agora\.imigrante|portal-renov|министерств\w*\s+внутрен|administração interna|\bmai\b/i;
 
 /** Ignore stale channel digests sitting in status=new for months. */
 const NEWS_MAX_AGE_DAYS = 45;
@@ -117,6 +118,11 @@ export function shouldAutoPublishCluster(
   cluster: SignalCluster,
   countryKey: "portugal" | "spain" = "portugal"
 ): boolean {
+  const text = cluster.signals.map((s) => s.text).join("\n");
+  // Ephemeral politics/scandal → news only (never guide/tip padding).
+  if (looksLikeEphemeralPolitics(text) && cluster.contentKind !== "news") {
+    return false;
+  }
   if (cluster.contentKind === "news") {
     return isPublishableNewsCluster(cluster, countryKey);
   }

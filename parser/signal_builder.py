@@ -38,7 +38,12 @@ NOISE_RE = re.compile(
 
 HASHTAG_RE = re.compile(r"#[\w\u0400-\u04ff]{2,32}", re.UNICODE)
 
-KIND_NEWS = re.compile(r"новост|изменил|закон|принят|с\s+1\s|с\s+\d+\s|объявил|aima\s+сообщ", re.I)
+KIND_NEWS = re.compile(
+    r"новост|изменил|закон|принят|с\s+1\s|с\s+\d+\s|объявил|aima\s+сообщ|"
+    r"министр|правительств|отставк|скандал|коррупц|парламент|"
+    r"ministro|governo|demissão|inquérito|administração\s+interna",
+    re.I,
+)
 KIND_LIFEHACK = re.compile(r"лайфхак|lifehack|life\s*hack|фишк|\bхак\b|life\s*tip", re.I)
 KIND_TIP = re.compile(r"совет|рекоменд|подскаж|посовет|tip\b|кто\s+знает|поделитесь|стоит\s+ли", re.I)
 KIND_QA = re.compile(r"\?\s*$|подскажите|как\s+получить|можно\s+ли|где\s+(?:взять|найти|оформ)", re.I)

@@ -18,6 +18,7 @@ import {
   EDITORIAL_PRESENTATION_RULES,
   PRESENTATION_REWRITE_HINT,
 } from "@/lib/community-notes/editorial-presentation";
+import { politicsForcedNewsKind } from "@/lib/community-notes/politics-news";
 import {
   EDITORIAL_VOICE_PORTUGAL,
   PORTUGAL_EDITORIAL_SYSTEM,
@@ -223,10 +224,13 @@ export function clusterSignals(
   const { filterSignals } = editorialConfig(countryKey);
   const filtered = filterSignals(signals);
 
+  const isNewsSignal = (s: CommunitySignalIngest) =>
+    (s.content_kind ?? "tip") === "news" || politicsForcedNewsKind(s.text);
+
   // News digests are standalone channel posts — keep them out of topic buckets
   // so a single lepta headline is not drowned by tip/guide chat threads.
   const newsClusters: SignalCluster[] = filtered
-    .filter((s) => (s.content_kind ?? "tip") === "news")
+    .filter(isNewsSignal)
     .map((s) => ({
       topic: s.topic_hints?.[0] || "general",
       contentKind: "news" as ContentKind,
@@ -235,7 +239,7 @@ export function clusterSignals(
 
   const buckets = new Map<string, CommunitySignalIngest[]>();
   for (const s of filtered) {
-    if ((s.content_kind ?? "tip") === "news") continue;
+    if (isNewsSignal(s)) continue;
     const topic = s.topic_hints?.[0] || "general";
     const list = buckets.get(topic) ?? [];
     list.push(s);
@@ -261,7 +265,7 @@ function buildUserPrompt(
   const contentKind = cluster.contentKind;
   const channels = Array.from(new Set(cluster.signals.map((s) => s.channel_username)));
 
-  return `Тема кластера: ${topicLabels[topic] ?? topic}
+  const sharedHead = `Тема кластера: ${topicLabels[topic] ?? topic}
 Тип материала (content_kind): ${contentKind}
 Каналы (метаданные, не цитировать): ${channels.map((c) => `@${c}`).join(", ")}
 Сообщений в кластере: ${cluster.signals.length} (используй только intent, не количество)
@@ -270,7 +274,28 @@ function buildUserPrompt(
 ${snippets.map((s, i) => `${i + 1}. ${s}`).join("\n")}
 
 slug: latin kebab-case, уникальный, тема + 2026 если уместно.
-category: ${topicLabels[topic] ?? (countryKey === "spain" ? "Быт в Испании" : "Быт в Португалии")}
+category: ${topicLabels[topic] ?? (countryKey === "spain" ? "Быт в Испании" : "Быт в Португалии")}`;
+
+  if (contentKind === "news") {
+    return `${sharedHead}
+
+Это НОВОСТЬ, не evergreen-гайд. Не делай «Словарь» и blueprint гайда.
+Структура body_sections (3–4 секции, КАЖДАЯ с paragraphs и/или bullets — пустые заголовки запрещены):
+1) Что произошло — факты с датами/цифрами
+2) Что уже известно / цифры
+3) Что это значит для релокантов (AIMA/NIF/быт) — без паники, без выдуманных задержек
+4) Что сделать сейчас — короткий чеклист
+quick_answer: хук + 2 факта; 2–3 предложения. key_takeaways: ровно 3–4, с «Официально:» / «На практике:».
+faq: 4 вопроса. official_links: 2+ реальных источника (gov.pt / AIMA / СМИ с фактами).
+Evergreen-даты: запрещены «вчера/сегодня/завтра»; пиши «в июле 2026», «с февраля 2026».
+Не раздувай политический скандал в «гайд по иммиграции». Если нет иммиграционного хука — пиши коротко и честно.
+
+${countryKey === "portugal" ? EDITORIAL_VOICE_PORTUGAL : ""}
+
+${geoHint}`;
+  }
+
+  return `${sharedHead}
 
 Напиши заметку по БЛЮПРИНТУ + ПОДАЧЕ ДЛЯ ЧТЕНИЯ + ГОЛОСУ «Опытный релокант за кофе»:
 glossary (≤8 терминов, literary intro) → official (Что/Как/Зачем + «Главное») → practice (2+ секции) → gap («чат vs сайт») → типичные ошибки.
@@ -278,6 +303,7 @@ quick_answer: микросцена-хук + 2 факта; 2–3 предложе
 Не дублируй один смысл в разных секциях. В key_takeaways — минимум 2 пункта «Официально:» / «На практике:» / «Расхождение:».
 faq: 4–5 вопросов; ответ начинается с да/нет/цифры, затем «По правилам…» / «На практике…».
 Evergreen: запрещены «вчера / сегодня / завтра / со вчерашнего дня». Факты — с календарной датой или стабильной формулировкой («с июля 2026», «программа действует»). Не копируй сырой lead канала в bullets.
+Запрещено: политический скандал / отставка министра как content_kind=guide — такие темы только news.
 
 ${countryKey === "portugal" ? EDITORIAL_VOICE_PORTUGAL : ""}
 

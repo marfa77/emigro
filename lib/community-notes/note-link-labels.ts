@@ -11,6 +11,7 @@ export const NOTE_LINK_LABELS: Record<string, string> = {
   "mezhdunarodnye-shkoly-portugaliya-2026": "международные школы",
   "zamena-voditelskih-prav-portugaliya-2026": "обмен водительских прав",
   "zamena-zagranpasporta-portugaliya-2026": "замена загранпаспорта",
+  "zapis-v-konsulstvo-portugaliya-2026": "запись в консульство",
   "nie-empadronamiento-poryadok-2026": "NIE и empadronamiento",
   "tie-cita-extranjeria-valencia-2026": "TIE и cita extranjería",
   "dnv-uge-konsulstvo-2026": "DNV и UGE",

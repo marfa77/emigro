@@ -334,6 +334,18 @@ export const EDITORIAL_GLOSSARIES: Record<string, GlossaryTerm[]> = {
     { pt: "balcão", ru: "окно выдачи; готовый passaporte — общая очередь без записи" },
     { pt: "svidetelstvo na vozvrashchenie", ru: "свидетельство на возвращение в РФ при срочном выезде" },
   ],
+  "zapis-v-konsulstvo-portugaliya-2026": [
+    { pt: "agendamento", ru: "предварительная онлайн-запись на приём в consulado" },
+    { pt: "consulado", ru: "консульский отдел; для РФ в PT — Lisboa (Restelo)" },
+    { pt: "kdmid", ru: "система очереди МИД РФ (lisboa.kdmid.ru/queue)" },
+    { pt: "confirmação da visita", ru: "подтверждение визита по ссылке из письма (~за 5 дней)" },
+    { pt: "pedido", ru: "заявка/номер записи в очереди; её нужно периодически открывать" },
+    { pt: "serviço consular", ru: "консульская услуга в меню очереди (паспорт, нотариат и др.)" },
+    { pt: "embaixada", ru: "посольство; приём граждан РФ по записи, не «с улицы»" },
+    { pt: "taxa consular", ru: "консульский сбор; способ оплаты смотрите на сайте накануне" },
+    { pt: "CP", context: "Comboios de Portugal", ru: "поезда Porto ↔ Lisboa для дня визита из Norte" },
+    { pt: "balcão", ru: "окно приёма в день визита по назначенному слоту" },
+  ],
   "beckham-autonomo-mify-2026": [
     { pt: "régimen impatriados", ru: "особый налоговый режим для новых резидентов (Beckham Law)" },
     { pt: "IRPF", context: "Impuesto sobre la Renta de las Personas Físicas", ru: "подоходный налог физлиц в Испании" },

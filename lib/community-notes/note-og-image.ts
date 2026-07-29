@@ -21,8 +21,20 @@ export const SPAIN_SLUG_STATIC_FALLBACKS: Record<string, string> = {
 };
 
 const PEXELS_API = "https://api.pexels.com/v1/search";
+const PEXELS_PHOTO_API = "https://api.pexels.com/v1/photos";
 const NOTE_IMAGES_DIR = "public/images/community-notes";
 const MIN_WEBP_BYTES = 20_000;
+
+/**
+ * Pinned Pexels photo IDs — curated stock only (no AI, no random first hit).
+ * Verify on pexels.com/photo/{id}/ before adding.
+ */
+const SLUG_PEXELS_PHOTO_IDS: Record<string, number> = {
+  // Application form at desk — agendamento / consulate paperwork
+  "zapis-v-konsulstvo-portugaliya-2026": 8441786,
+  // Passport + notebook on wooden desk
+  "zamena-zagranpasporta-portugaliya-2026": 164645,
+};
 
 /** Topic → landscape Pexels queries (Norte / Porto bias where relevant). */
 export const TOPIC_PHOTO_QUERIES: Record<string, string[]> = {
@@ -188,9 +200,14 @@ const SLUG_PHOTO_QUERIES: Record<string, string[]> = {
     "dental clinic dentist office",
   ],
   "zamena-zagranpasporta-portugaliya-2026": [
-    "passport documents desk",
-    "embassy building europe exterior",
-    "travel documents passport stamp",
+    "passport documents on wooden desk",
+    "hand holding open passport stamps",
+    "visa application form desk",
+  ],
+  "zapis-v-konsulstvo-portugaliya-2026": [
+    "visa application form desk",
+    "passport documents on wooden desk",
+    "appointment calendar documents desk",
   ],
   "prodlenie-vnzh-portugaliya-aima-2026": [
     "immigration office queue europe",
@@ -479,6 +496,21 @@ export function queriesForNote(
   );
 }
 
+async function fetchPexelsPhotoById(photoId: number): Promise<string | null> {
+  const apiKey = process.env.PEXELS_API_KEY?.trim();
+  if (!apiKey) return null;
+
+  const res = await fetch(`${PEXELS_PHOTO_API}/${photoId}`, {
+    headers: { Authorization: apiKey },
+  });
+  if (!res.ok) {
+    console.warn(`[note-og] Pexels photo ${photoId} failed (${res.status})`);
+    return null;
+  }
+  const json = (await res.json()) as { src?: { landscape?: string; large?: string } };
+  return json.src?.landscape || json.src?.large || null;
+}
+
 async function searchPexelsPhoto(query: string): Promise<string | null> {
   const apiKey = process.env.PEXELS_API_KEY?.trim();
   if (!apiKey) return null;
@@ -513,6 +545,22 @@ async function searchPexelsPhoto(query: string): Promise<string | null> {
   return null;
 }
 
+/** Resolve stock photo URL: pinned Pexels id first, then search queries. */
+async function resolvePexelsPhotoUrl(
+  note: Pick<CommunityNote, "slug" | "topic_tags" | "title" | "country_key">
+): Promise<{ url: string; label: string } | null> {
+  const pinnedId = SLUG_PEXELS_PHOTO_IDS[note.slug];
+  if (pinnedId) {
+    const url = await fetchPexelsPhotoById(pinnedId);
+    if (url) return { url, label: `pexels:${pinnedId}` };
+  }
+  for (const query of queriesForNote(note)) {
+    const url = await searchPexelsPhoto(query);
+    if (url) return { url, label: query };
+  }
+  return null;
+}
+
 async function photoUrlToWebpBuffer(url: string): Promise<Buffer> {
   const res = await fetch(url);
   if (!res.ok) throw new Error(`Photo download failed (${res.status}): ${url}`);
@@ -526,29 +574,27 @@ async function downloadPhoto(url: string, destPath: string): Promise<void> {
   fs.writeFileSync(destPath, webp);
 }
 
-/** Generate 1200×630 WebP from Pexels without writing to disk. */
+/** Fetch 1200×630 WebP from Pexels stock (pinned id or search) without writing to disk. */
 export async function generateNoteOgWebp(
   note: Pick<CommunityNote, "slug" | "topic_tags" | "title" | "country_key">
 ): Promise<Buffer | null> {
-  const queries = queriesForNote(note);
-  for (const query of queries) {
-    const url = await searchPexelsPhoto(query);
-    if (!url) continue;
-    try {
-      const webp = await photoUrlToWebpBuffer(url);
-      if (webp.length >= MIN_WEBP_BYTES) {
-        console.log(`[note-og] ${note.slug}: generated from "${query}"`);
-        return webp;
-      }
-    } catch (error) {
-      console.warn(`[note-og] buffer error for "${query}":`, error instanceof Error ? error.message : error);
+  const resolved = await resolvePexelsPhotoUrl(note);
+  if (!resolved) {
+    if (!process.env.PEXELS_API_KEY?.trim()) {
+      console.warn(`[note-og] ${note.slug}: no PEXELS_API_KEY`);
+    } else {
+      console.warn(`[note-og] ${note.slug}: no photo found`);
     }
+    return null;
   }
-
-  if (!process.env.PEXELS_API_KEY?.trim()) {
-    console.warn(`[note-og] ${note.slug}: no PEXELS_API_KEY`);
-  } else {
-    console.warn(`[note-og] ${note.slug}: no photo found`);
+  try {
+    const webp = await photoUrlToWebpBuffer(resolved.url);
+    if (webp.length >= MIN_WEBP_BYTES) {
+      console.log(`[note-og] ${note.slug}: stock from "${resolved.label}"`);
+      return webp;
+    }
+  } catch (error) {
+    console.warn(`[note-og] buffer error for "${resolved.label}":`, error instanceof Error ? error.message : error);
   }
   return null;
 }
@@ -566,7 +612,7 @@ export type EnsureNoteOgImageResult = {
 };
 
 /**
- * Downloads a landscape photo from Pexels, converts to 1200×630 WebP at public/images/community-notes/{slug}.webp.
+ * Downloads a landscape photo from Pexels stock, converts to 1200×630 WebP at public/images/community-notes/{slug}.webp.
  * On read-only hosts (Vercel) skips disk write and returns the dynamic hero API path.
  */
 export async function ensureNoteOgImage(
@@ -580,36 +626,34 @@ export async function ensureNoteOgImage(
   }
 
   const writable = canWriteNoteOgImages();
-  const queries = queriesForNote(note);
+  const resolved = await resolvePexelsPhotoUrl(note);
+  if (!resolved) {
+    return { path: resolveNoteOgImage(note), generated: false, manifestAppended: false };
+  }
 
-  for (const query of queries) {
-    const url = await searchPexelsPhoto(query);
-    if (!url) continue;
-
-    try {
-      if (writable) {
-        await downloadPhoto(url, noteOgImageFilePath(note.slug));
-        if (hasNoteOgImageFile(note.slug)) {
-          const manifestAppended = appendCommittedNoteOgSlug(note.slug);
-          console.log(`[note-og] ${note.slug}: saved "${query}"`);
-          if (rateLimitMs > 0) await new Promise((r) => setTimeout(r, rateLimitMs));
-          return { path: noteOgImagePublicPath(note.slug), generated: true, manifestAppended };
-        }
-      } else {
-        const webp = await photoUrlToWebpBuffer(url);
-        if (webp.length >= MIN_WEBP_BYTES) {
-          console.log(`[note-og] ${note.slug}: generated (dynamic) "${query}"`);
-          if (rateLimitMs > 0) await new Promise((r) => setTimeout(r, rateLimitMs));
-          return {
-            path: resolveNoteOgImage(note),
-            generated: true,
-            manifestAppended: false,
-          };
-        }
+  try {
+    if (writable) {
+      await downloadPhoto(resolved.url, noteOgImageFilePath(note.slug));
+      if (hasNoteOgImageFile(note.slug)) {
+        const manifestAppended = appendCommittedNoteOgSlug(note.slug);
+        console.log(`[note-og] ${note.slug}: saved stock "${resolved.label}"`);
+        if (rateLimitMs > 0) await new Promise((r) => setTimeout(r, rateLimitMs));
+        return { path: noteOgImagePublicPath(note.slug), generated: true, manifestAppended };
       }
-    } catch (error) {
-      console.warn(`[note-og] download error for "${query}":`, error instanceof Error ? error.message : error);
+    } else {
+      const webp = await photoUrlToWebpBuffer(resolved.url);
+      if (webp.length >= MIN_WEBP_BYTES) {
+        console.log(`[note-og] ${note.slug}: stock (dynamic) "${resolved.label}"`);
+        if (rateLimitMs > 0) await new Promise((r) => setTimeout(r, rateLimitMs));
+        return {
+          path: resolveNoteOgImage(note),
+          generated: true,
+          manifestAppended: false,
+        };
+      }
     }
+  } catch (error) {
+    console.warn(`[note-og] download error for "${resolved.label}":`, error instanceof Error ? error.message : error);
   }
 
   return { path: resolveNoteOgImage(note), generated: false, manifestAppended: false };
