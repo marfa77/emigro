@@ -21,6 +21,18 @@ export const COUNTRY_ACCENTS: Record<
   croatia: { from: "#0e7490", to: "#1d4ed8", glow: "#67e8f9", label: "Хорватия", cardImage: "/images/corridor-croatia.webp" },
   slovenia: { from: "#0057b8", to: "#ffcd00", glow: "#93c5fd", label: "Словения", cardImage: "/images/corridor-slovenia.webp" },
   estonia: { from: "#0072ce", to: "#000000", glow: "#93c5fd", label: "Эстония", cardImage: "/images/corridor-estonia.webp" },
+  // Transit hubs
+  serbia: { from: "#0c4a6e", to: "#c8102e", glow: "#7dd3fc", label: "Сербия", cardImage: "/images/corridor-serbia.webp" },
+  armenia: { from: "#d90012", to: "#0033a0", glow: "#fca5a5", label: "Армения", cardImage: "/images/corridor-armenia.webp" },
+  georgia: { from: "#e8112d", to: "#0ea5e9", glow: "#fca5a5", label: "Грузия", cardImage: "/images/corridor-georgia.webp" },
+  turkey: { from: "#e30a17", to: "#0f172a", glow: "#fca5a5", label: "Турция", cardImage: "/images/corridor-turkey.webp" },
+  montenegro: { from: "#c40308", to: "#0c4a6e", glow: "#fca5a5", label: "Черногория", cardImage: "/images/corridor-montenegro.webp" },
+  kazakhstan: { from: "#00afca", to: "#fac50f", glow: "#67e8f9", label: "Казахстан", cardImage: "/images/corridor-kazakhstan.webp" },
+  uae: { from: "#00732f", to: "#000000", glow: "#6ee7b7", label: "ОАЭ", cardImage: "/images/corridor-uae.webp" },
+  thailand: { from: "#a51931", to: "#2d2a4a", glow: "#fca5a5", label: "Таиланд", cardImage: "/images/corridor-thailand.webp" },
+  indonesia: { from: "#e30613", to: "#0ea5e9", glow: "#fca5a5", label: "Индонезия", cardImage: "/images/corridor-indonesia.webp" },
+  switzerland: { from: "#d52b1e", to: "#ffffff", glow: "#fca5a5", label: "Швейцария", cardImage: "/images/corridor-switzerland.webp" },
+  uk: { from: "#012169", to: "#c8102e", glow: "#93c5fd", label: "Великобритания", cardImage: "/images/corridor-uk.webp" },
 };
 
 export const HUB_ACCENT = { from: "#1d4ed8", to: "#1e3a5f", glow: "#60a5fa" };
@@ -51,6 +63,17 @@ const BAR_CLASSES: Record<string, string> = {
   croatia: "from-cyan-800 via-sky-500 to-blue-800",
   slovenia: "from-blue-700 via-sky-500 to-amber-400",
   estonia: "from-blue-700 via-sky-600 to-slate-900",
+  serbia: "from-sky-900 via-red-600 to-sky-800",
+  armenia: "from-red-700 via-blue-700 to-orange-500",
+  georgia: "from-red-700 via-sky-500 to-red-800",
+  turkey: "from-red-700 via-slate-900 to-red-800",
+  montenegro: "from-red-800 via-sky-800 to-slate-900",
+  kazakhstan: "from-cyan-600 via-sky-500 to-amber-400",
+  uae: "from-emerald-800 via-slate-900 to-emerald-700",
+  thailand: "from-red-700 via-indigo-900 to-blue-800",
+  indonesia: "from-red-600 via-sky-500 to-teal-700",
+  switzerland: "from-red-700 via-white to-red-600",
+  uk: "from-blue-900 via-red-700 to-blue-800",
 };
 
 export function countryAccentBarClass(segment?: string) {

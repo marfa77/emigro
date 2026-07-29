@@ -24,25 +24,60 @@ const CORRIDOR_COVER_IMAGES: Record<string, string> = {
   "ru-speaking-to-estonia": "/images/corridor-estonia.webp",
 };
 
+/** topic_keys country → cover photo (for guides without corridor_slugs). */
+const TOPIC_COVER_IMAGES: Record<string, string> = {
+  portugal: "/images/corridor-portugal.webp",
+  spain: "/images/corridor-spain.webp",
+  france: "/images/corridor-france.webp",
+  italy: "/images/corridor-italy.webp",
+  germany: "/images/corridor-germany.webp",
+  netherlands: "/images/corridor-netherlands.webp",
+  scandinavia: "/images/corridor-scandinavia.webp",
+  poland: "/images/corridor-poland.webp",
+  czechia: "/images/corridor-czechia.webp",
+  austria: "/images/corridor-austria.webp",
+  greece: "/images/corridor-greece.webp",
+  cyprus: "/images/corridor-cyprus.webp",
+  hungary: "/images/corridor-hungary.webp",
+  malta: "/images/corridor-malta.webp",
+  bulgaria: "/images/corridor-bulgaria.webp",
+  croatia: "/images/corridor-croatia.webp",
+  slovenia: "/images/corridor-slovenia.webp",
+  estonia: "/images/corridor-estonia.webp",
+  georgia: "/images/corridor-georgia.webp",
+  montenegro: "/images/corridor-montenegro.webp",
+  switzerland: "/images/corridor-switzerland.webp",
+  uk: "/images/corridor-uk.webp",
+  armenia: "/images/corridor-armenia.webp",
+  turkey: "/images/corridor-turkey.webp",
+  serbia: "/images/corridor-serbia.webp",
+  kazakhstan: "/images/corridor-kazakhstan.webp",
+  uae: "/images/corridor-uae.webp",
+  thailand: "/images/corridor-thailand.webp",
+  indonesia: "/images/corridor-indonesia.webp",
+};
+
+const COUNTRY_TOPIC_KEYS = new Set(Object.keys(TOPIC_COVER_IMAGES));
+
 /** Per-guide cover when no frontmatter override; reuses corridor photos from public/images/. */
 export const GUIDE_COVER_BY_SLUG: Record<string, string> = {
   "vnj-portugaliya-d8-d7-grazhdanstvo-2026": "/images/corridor-portugal.webp",
   "digital-nomad-portugaliya-ispaniya-italiya-2026": "/images/corridor-portugal.webp",
   "germaniya-blue-card-chancenkarte-2026-sng": "/images/corridor-germany.webp",
-  "vnj-bez-raboty-passivnyy-dohod-sberezheniya-2026": "/images/corridor-portugal.webp",
-  "kuda-pereehat-iz-rossii-2026-evropa-vnj": "/images/emigro-main-hero.webp",
-  "byudzhet-relokatsii-evropa-2026-po-stranam": "/images/emigro-main-hero.webp",
+  "vnj-bez-raboty-passivnyy-dohod-sberezheniya-2026": "/images/emigro-guide-passive-income.webp",
+  "kuda-pereehat-iz-rossii-2026-evropa-vnj": "/images/corridor-germany.webp",
+  "byudzhet-relokatsii-evropa-2026-po-stranam": "/images/emigro-guide-passive-income.webp",
   "relokatsiya-s-detmi-evropa-shkoly-vnj-2026": "/images/corridor-portugal.webp",
   "vossoedinenie-semi-evropa-2026": "/images/corridor-germany.webp",
   "ukraintsy-belorusy-vremennaya-zashchita-vs-vnj-2026": "/images/corridor-germany.webp",
   "otkaz-v-natsionalnoy-vize-konsulstvo-2026": "/images/corridor-spain.webp",
-  "kuda-uehat-iz-rossii-srochno-2026-evropa-bezviz-haby": "/images/emigro-main-hero.webp",
+  "kuda-uehat-iz-rossii-srochno-2026-evropa-bezviz-haby": "/images/corridor-georgia.webp",
   "legalizatsiya-v-evrope-posle-vyezda-iz-rossii-2026": "/images/corridor-portugal.webp",
   "uchebnaya-viza-v-evropu-2026-student-visa": "/images/corridor-germany.webp",
-  "podtverdit-dohod-dengi-dlya-vnj-esli-dohod-iz-rossii-2026": "/images/corridor-spain.webp",
+  "podtverdit-dohod-dengi-dlya-vnj-esli-dohod-iz-rossii-2026": "/images/emigro-guide-passive-income.webp",
   "konsulskaya-podacha-rf-by-kz-2026-yurisdiktsiya": "/images/corridor-france.webp",
   "dokumenty-dlya-pereezda-iz-rossii-2026-apostil-nesudimost": "/images/corridor-italy.webp",
-  "kazahstantsy-v-evropu-vnj-2026": "/images/corridor-germany.webp",
+  "kazahstantsy-v-evropu-vnj-2026": "/images/corridor-kazakhstan.webp",
   "pervye-30-dnej-v-portugalii-2026": "/images/corridor-portugal.webp",
   "prodlenie-vnzh-portugaliya-aima-2026": "/images/corridor-portugal.webp",
   "pervye-30-dnej-v-germanii-2026": "/images/corridor-germany.webp",
@@ -74,16 +109,28 @@ export const GUIDE_COVER_BY_SLUG: Record<string, string> = {
   "vnj-horvatiya-2026-digital-nomad": "/images/corridor-croatia.webp",
   "vnj-sloveniya-2026-digital-nomad-sp": "/images/corridor-slovenia.webp",
   "vnj-estoniya-2026-digital-nomad-e-residency": "/images/corridor-estonia.webp",
-  "nalogovye-spetsrezhimy-es-2026": "/images/emigro-main-hero.webp",
-  "nalogi-pri-pereezde-v-evropu-2026": "/images/emigro-main-hero.webp",
-  "vnj-shveytsariya-2026-b-permit-lump-sum-taxation": "/images/emigro-main-hero.webp",
-  "velikobritaniya-2026-skilled-worker-global-talent-ilr": "/images/emigro-main-hero.webp",
+  "nalogovye-spetsrezhimy-es-2026": "/images/emigro-guide-passive-income.webp",
+  "nalogi-pri-pereezde-v-evropu-2026": "/images/emigro-guide-passive-income.webp",
+  "vnj-shveytsariya-2026-b-permit-lump-sum-taxation": "/images/corridor-switzerland.webp",
+  "velikobritaniya-2026-skilled-worker-global-talent-ilr": "/images/corridor-uk.webp",
   "vnj-italiya-2026-elective-residency": "/images/corridor-italy.webp",
   "vnj-italiya-2026-digital-nomad": "/images/corridor-italy.webp",
   "vnj-skandinaviya-2026": "/images/corridor-scandinavia.webp",
   "pervye-30-dnej-v-skandinavii-2026": "/images/corridor-scandinavia.webp",
-  "grazhdanstvo-germaniya-polsha-2026": "/images/emigro-main-hero.webp",
-  "shengen-turist-vs-vnzh-2026": "/images/emigro-main-hero.webp",
+  "grazhdanstvo-germaniya-polsha-2026": "/images/corridor-germany.webp",
+  "shengen-turist-vs-vnzh-2026": "/images/corridor-france.webp",
+  "ees-shengenskaya-sistema-2026": "/images/corridor-france.webp",
+  "gruziya-dlya-rossiyan-2026": "/images/corridor-georgia.webp",
+  "chernogoriya-vnj-dlya-rossiyan-2026": "/images/corridor-montenegro.webp",
+  "armeniya-dlya-rossiyan-2026": "/images/corridor-armenia.webp",
+  "turciya-dlya-rossiyan-2026": "/images/corridor-turkey.webp",
+  "vnj-serbiya-dlya-rossiyan-2026": "/images/corridor-serbia.webp",
+  "kazahstan-dlya-rossiyan-2026": "/images/corridor-kazakhstan.webp",
+  "oae-dlya-rossiyan-2026": "/images/corridor-uae.webp",
+  "tailand-dlya-rossiyan-2026": "/images/corridor-thailand.webp",
+  "bali-indoneziya-dlya-rossiyan-2026": "/images/corridor-indonesia.webp",
+  "kak-otkryt-ip-za-rubezhom-rossiyane-2026": "/images/corridor-serbia.webp",
+  "digital-nomad-vizy-evropy-sravnenie-2026": "/images/corridor-spain.webp",
 };
 
 export const DEFAULT_GUIDE_COVER = "/images/emigro-main-hero.webp";
@@ -116,32 +163,19 @@ export function getGuideCoverPath(
 ): string {
   if (options?.coverImage) return options.coverImage;
 
-  const countryKeys = (options?.topicKeys ?? []).filter((key) =>
-    [
-      "portugal",
-      "spain",
-      "france",
-      "italy",
-      "germany",
-      "netherlands",
-      "scandinavia",
-      "poland",
-      "czechia",
-      "austria",
-      "greece",
-      "cyprus",
-      "hungary",
-      "malta",
-      "bulgaria",
-      "croatia",
-      "slovenia",
-    ].includes(key),
-  );
+  // Explicit slug map wins over multi-country / comparison defaults.
+  if (GUIDE_COVER_BY_SLUG[slug]) return GUIDE_COVER_BY_SLUG[slug];
+
+  const countryKeys = (options?.topicKeys ?? []).filter((key) => COUNTRY_TOPIC_KEYS.has(key));
+  if (countryKeys.length === 1) {
+    const cover = TOPIC_COVER_IMAGES[countryKeys[0]];
+    if (cover) return cover;
+  }
+
   if (options?.primaryIntent === "comparison" || countryKeys.length > 1) {
     return DEFAULT_GUIDE_COVER;
   }
 
-  if (GUIDE_COVER_BY_SLUG[slug]) return GUIDE_COVER_BY_SLUG[slug];
   for (const corridor of options?.corridorSlugs ?? []) {
     const cover = CORRIDOR_COVER_IMAGES[corridor];
     if (cover) return cover;

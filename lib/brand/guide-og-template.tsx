@@ -15,8 +15,9 @@ function truncate(text: string, max: number): string {
 }
 
 export function corridorWebpToOgJpg(coverWebp: string): string {
-  const match = coverWebp.match(/corridor-([a-z]+)\.webp$/);
-  if (match) return `corridor-${match[1]}.jpg`;
+  const corridor = coverWebp.match(/corridor-([a-z0-9-]+)\.webp$/i);
+  if (corridor) return `corridor-${corridor[1]}.jpg`;
+  if (coverWebp.includes("emigro-guide-passive-income")) return "guide-passive-income.jpg";
   return "og-default.jpg";
 }
 
