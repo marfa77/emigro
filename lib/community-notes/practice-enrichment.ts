@@ -1,5 +1,6 @@
 import { validateAgainstBlueprint } from "@/lib/community-notes/article-blueprint";
 import { flattenBodySections, type DraftQualityInput } from "@/lib/community-notes/editorial-quality";
+import { filterEphemeralLines, hasEphemeralRelativeTime } from "@/lib/community-notes/evergreen";
 import {
   bootstrapOfficialPracticeCopy,
   validateOfficialPracticeCopy,
@@ -297,6 +298,7 @@ export function mergePracticeBullets(
   );
   const toAdd = newBullets
     .map((b) => improvePracticeText(b))
+    .filter((b) => b.length > 24 && !hasEphemeralRelativeTime(b))
     .filter((b) => !existing.has(b.toLowerCase().slice(0, 60)));
   if (toAdd.length === 0) return sections;
 
@@ -334,9 +336,10 @@ export function enrichTakeaways(
   const existingPractice = practiceItems.map((t) => t.replace(/^На практике:\s*/i, "").toLowerCase());
 
   const additions: string[] = [];
-  for (const bullet of newBullets.slice(0, 3)) {
+  for (const bullet of filterEphemeralLines(newBullets.slice(0, 3))) {
     const short = bullet.length > 280 ? `${bullet.slice(0, 277)}…` : bullet;
     const formatted = formatPracticeTakeaway(short);
+    if (hasEphemeralRelativeTime(formatted)) continue;
     const body = formatted.replace(/^На практике:\s*/i, "").toLowerCase();
     if (!existingPractice.some((e) => e.includes(body.slice(0, 40)))) {
       additions.push(formatted);
@@ -431,6 +434,9 @@ export function practicePublishGateErrors(
   signalBullets: number,
   draft?: DraftQualityInput & { slug?: string; official_links?: Array<{ title: string; url: string }> }
 ): string[] {
+  // News is announcement-led (Lepta / por_tugal digests) — not chat practice.
+  if (draft?.content_kind === "news") return [];
+
   const errors: string[] = [];
   if (audit.status !== "OK") errors.push(...audit.reasons);
   if (signalBullets === 0) {

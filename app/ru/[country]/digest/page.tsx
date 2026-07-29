@@ -5,6 +5,7 @@ import { BookOpen, CheckCircle2 } from "lucide-react";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { CorridorIntelLinks } from "@/components/corridor/CorridorIntelLinks";
 import { ServiceProvidersSection } from "@/components/providers/ServiceProvidersSection";
+import { UniPrep2GoPromo } from "@/components/sponsors/UniPrep2GoPromo";
 import { CorridorBreadcrumb } from "@/components/corridor/CorridorLanding";
 import { CorridorHubShell } from "@/components/corridor/hub/CorridorHubShell";
 import { topicHasLanding } from "@/lib/corridor/publish";
@@ -17,6 +18,7 @@ import { getCorridorBySlug } from "@/lib/corridor/queries";
 import { getTopicByCountrySegment } from "@/lib/corridor/resolve-topic";
 import { isCorridorFull, isCorridorOnSite } from "@/lib/corridor/publish";
 import { countryAccentBarClass } from "@/lib/brand/country-accents";
+import { getUniPrepOfferForTopic } from "@/lib/uniprep2go/catalog";
 import {
   buildCorridorBreadcrumbSchema,
   buildDigestArticleSchema,
@@ -105,6 +107,15 @@ export default async function CountryDigestPage({ params }: { params: { country:
         </div>
 
         <DigestSeoSections topic={topic} corridor={corridor} landingPath={base} />
+
+        {getUniPrepOfferForTopic(topic.key) && (
+          <UniPrep2GoPromo
+            placement="digest"
+            topicKey={topic.key}
+            contentId={`digest_${topic.key}`}
+            className="mt-10"
+          />
+        )}
 
         <ServiceProvidersSection
           className="mt-10"

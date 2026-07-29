@@ -1,0 +1,25 @@
+---
+description: Never publish shortened versions of user-provided guides
+alwaysApply: true
+---
+
+# Full guides only — no shortened versions
+
+When the user pastes a pillar / how-to guide draft (or asks to publish one from chat / `_user-drafts`):
+
+## Do
+
+- Keep the **full body** one-to-one: all parts, tables, checklists, budgets, addresses, error lists.
+- Add Emigro **frontmatter**, official_sources, CTA, covers / review-tiers, and cross-links.
+- Soften only what fact-check requires (wrong thresholds, outdated law, absolute street addresses if unverified) — as short overlays or footnotes, **not** by cutting sections.
+- Prefer the user's structure and wording over a condensed Emigro rewrite.
+
+## Do not
+
+- Create “практическая выжимка”, abbreviated Parts, or “ориентир-таблицы вместо полного текста”.
+- Drop sections to “match” shorter guides or reduce token/file size.
+- Replace a full draft with a summary and call it published.
+
+## If unsure
+
+Ship the full paste with frontmatter first; fact-check patches second. Never shorten first.

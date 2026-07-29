@@ -20,7 +20,7 @@ const bodySections: NoteBodySection[] = [
     paragraphs: [
       "Зачем вам это сейчас: régimen especial impatriados — не автомат с digital nomad visa и не замена autónomo.",
       "Что делать: проверьте eligibility (не резидент ES 5 лет, qualifying income) и срок заявления в Agencia Tributaria.",
-      "Зачем: без одобренного régimen вы на обычном прогрессивном IRPF — разница тысячи евро в год.",
+      "Зачем: без одобренного régimen (налогового режима) вы на обычном прогрессивном IRPF — разница тысячи евро в год.",
       "Главное: Beckham 24% до €600k — отдельное заявление; DNV — иммиграция, не налог.",
     ],
     bullets: [
@@ -69,7 +69,7 @@ const bodySections: NoteBodySection[] = [
     paragraphs: [
       "Зачем вам это сейчас: Beckham (modelo 149) и alta autónomo (RETA) — параллельные треки.",
       "Что делать: посчитайте IRPF impatriados и cuota autónomo отдельно — не «в одном флаконе».",
-      "Зачем: DNV teletrabajo не освобождает от SS, если доход оформлен как autónomo.",
+      "Зачем: DNV teletrabajo (удалённая работа) не освобождает от SS, если доход оформлен как autónomo (ИП).",
       "Главное: 24% на eligible income ≠ отмена Seguridad Social.",
     ],
     bullets: [
@@ -100,7 +100,7 @@ const bodySections: NoteBodySection[] = [
     section_kind: "practice",
     paragraphs: [
       "Что делать: пройдите список до первого invoice и до заявления Beckham.",
-      "Зачем: штрафы SS и пересчёт IRPF бьют сильнее, чем «сэкономить на gestoría».",
+      "Зачем: штрафы SS и пересчёт IRPF бьют сильнее, чем «сэкономить на gestoría (бухгалтерии)».",
       "Главное: не путайте DNV, Beckham и autónomo — это три разных трека.",
     ],
     bullets: [

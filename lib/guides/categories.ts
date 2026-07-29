@@ -155,7 +155,14 @@ export function getGuideCategoryById(id: GuideCategoryId): GuideCategory {
 }
 
 function matchesNeedles(value: string, needles: readonly string[]): boolean {
-  return needles.some((needle) => value.includes(needle));
+  return needles.some((needle) => {
+    // "ip" слишком короткий и матчится внутри других аббревиатур (например, FIP → ...ip...).
+    // Делаем отдельный матч только для латинской "ip" как токена: окружённого не-буквенными символами.
+    if (needle === "ip") {
+      return /(^|[^a-z])ip([^a-z]|$)/i.test(value);
+    }
+    return value.includes(needle);
+  });
 }
 
 function guideHaystack(guide: GuideFrontmatter): {

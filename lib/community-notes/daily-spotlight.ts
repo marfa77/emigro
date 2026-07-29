@@ -1,6 +1,9 @@
 import { ensurePortugalCronEnv } from "@/lib/community-notes/cron-env";
 import { CONTENT_KIND_EMOJI, CONTENT_KIND_LABELS, hashtagLabel, normalizeHashtag } from "@/lib/community-notes/hashtags";
-import { getPublishedCommunityNotes } from "@/lib/community-notes/queries";
+import {
+  getPublishedCommunityNotes,
+  getPublishedCommunityNotesUncached,
+} from "@/lib/community-notes/queries";
 import type { CommunityNote, ContentKind } from "@/lib/community-notes/types";
 import { portugalSatellitePublicUrl, spainSatellitePublicUrl } from "@/lib/site-url";
 import { createServerClient } from "@/lib/supabase/server";
@@ -22,9 +25,13 @@ const SPOTLIGHT_TZ = process.env.EMIGRO_ANALYTICS_TIMEZONE?.trim() || "Europe/Li
 /** Prefer guides published within this window; fall back to 30 days if empty. */
 const RECENT_CANDIDATE_DAYS = 14;
 const FALLBACK_CANDIDATE_DAYS = 30;
+/** News stays eligible longer so the Threads tile can keep rotating civic digests. */
+const NEWS_CANDIDATE_DAYS = 90;
 
 /** Skip notes featured in the last N days so the tile rotates. */
 const SPOTLIGHT_COOLDOWN_DAYS = 7;
+/** News rotates faster — one Threads post should not block the rubric for a week. */
+const NEWS_SPOTLIGHT_COOLDOWN_DAYS = 3;
 
 const KIND_SCORE: Record<ContentKind, number> = {
   news: 100,
@@ -67,9 +74,14 @@ function scoreNote(
   note: CommunityNote,
   recentSpotlightSlugs: Set<string>,
   today: string,
-  maxAgeDays: number
+  maxAgeDays: number,
+  recentNewsSpotlightSlugs?: Set<string>
 ): number {
-  if (recentSpotlightSlugs.has(note.slug)) return -1;
+  const onCooldown =
+    note.content_kind === "news"
+      ? (recentNewsSpotlightSlugs ?? recentSpotlightSlugs).has(note.slug)
+      : recentSpotlightSlugs.has(note.slug);
+  if (onCooldown) return -1;
   if (!note.published_at) return -1;
 
   const ageDays = ageInDays(note.published_at);
@@ -101,10 +113,19 @@ function compareRankedNotes(
 
 function spotlightBody(note: CommunityNote): string {
   if (note.key_takeaways.length >= 2) {
-    return note.key_takeaways
-      .slice(0, 3)
-      .map((t) => `• ${t.trim()}`)
-      .join("\n");
+    const bullets = note.key_takeaways
+      .map((t) => t.trim())
+      .filter(
+        (t) =>
+          t.length > 0 &&
+          !/(?:со?\s+вчерашнего\s+дня|(?:^|[\s])вчера(?:[\s,.]|$)|завтра|на\s+этой\s+неделе)/i.test(
+            t.replace(/^(Официально|На практике|Расхождение|В чате|Сегодня):\s*/i, "")
+          )
+      )
+      .slice(0, 3);
+    if (bullets.length >= 2) {
+      return bullets.map((t) => `• ${t}`).join("\n");
+    }
   }
   const hook = note.quick_answer.trim().replace(/\s+/g, " ");
   return hook.length > 320 ? `${hook.slice(0, 317).trim()}…` : hook;
@@ -145,9 +166,24 @@ export function formatSpotlightDateLabel(isoDate: string): string {
 function pickBestNote(
   notes: CommunityNote[],
   recentSpotlightSlugs: Set<string>,
-  today: string
+  today: string,
+  recentNewsSpotlightSlugs: Set<string> = recentSpotlightSlugs
 ): CommunityNote | null {
   if (notes.length === 0) return null;
+
+  // Threads tile: prefer news that still have cooldown room, then fall back to guides/tips.
+  for (const maxAgeDays of [RECENT_CANDIDATE_DAYS, FALLBACK_CANDIDATE_DAYS, NEWS_CANDIDATE_DAYS]) {
+    const newsRanked = notes
+      .filter((note) => note.content_kind === "news")
+      .map((note) => ({
+        note,
+        score: scoreNote(note, recentSpotlightSlugs, today, maxAgeDays, recentNewsSpotlightSlugs),
+      }))
+      .filter((x) => x.score >= 0)
+      .sort(compareRankedNotes);
+
+    if (newsRanked[0]) return newsRanked[0].note;
+  }
 
   for (const maxAgeDays of [RECENT_CANDIDATE_DAYS, FALLBACK_CANDIDATE_DAYS]) {
     const ranked = notes
@@ -194,10 +230,14 @@ function mapSpotlight(row: Record<string, unknown>): DailySpotlight {
   };
 }
 
-async function getRecentSpotlightSlugs(countryKey: string, today: string): Promise<Set<string>> {
+async function getRecentSpotlightSlugs(
+  countryKey: string,
+  today: string,
+  cooldownDays = SPOTLIGHT_COOLDOWN_DAYS
+): Promise<Set<string>> {
   const supabase = createServerClient();
   const start = new Date(`${today}T12:00:00Z`);
-  start.setUTCDate(start.getUTCDate() - SPOTLIGHT_COOLDOWN_DAYS);
+  start.setUTCDate(start.getUTCDate() - cooldownDays);
   const startStr = start.toISOString().slice(0, 10);
 
   const { data } = await supabase
@@ -214,9 +254,10 @@ function isSpotlightStillBest(
   storedSlug: string,
   notes: CommunityNote[],
   recentSpotlightSlugs: Set<string>,
-  today: string
+  today: string,
+  recentNewsSpotlightSlugs: Set<string>
 ): boolean {
-  const best = pickBestNote(notes, recentSpotlightSlugs, today);
+  const best = pickBestNote(notes, recentSpotlightSlugs, today, recentNewsSpotlightSlugs);
   return best?.slug === storedSlug;
 }
 
@@ -224,9 +265,13 @@ function isSpotlightStillBest(
 export async function refreshDailySpotlight(countryKey = "portugal"): Promise<DailySpotlight | null> {
   ensurePortugalCronEnv();
   const today = todayInTz();
-  const notes = await getPublishedCommunityNotes(countryKey);
-  const recentSpotlightSlugs = await getRecentSpotlightSlugs(countryKey, today);
-  const note = pickBestNote(notes, recentSpotlightSlugs, today);
+  // Uncached: cron/CLI has no Next.js incrementalCache.
+  const notes = await getPublishedCommunityNotesUncached(countryKey);
+  const [recentSpotlightSlugs, recentNewsSpotlightSlugs] = await Promise.all([
+    getRecentSpotlightSlugs(countryKey, today, SPOTLIGHT_COOLDOWN_DAYS),
+    getRecentSpotlightSlugs(countryKey, today, NEWS_SPOTLIGHT_COOLDOWN_DAYS),
+  ]);
+  const note = pickBestNote(notes, recentSpotlightSlugs, today, recentNewsSpotlightSlugs);
   if (!note) return null;
 
   const noteUrl = satellitePublicUrl(countryKey, `/notes/${note.slug}`);
@@ -279,12 +324,26 @@ export async function getDailySpotlight(countryKey = "portugal"): Promise<DailyS
 
     if (data) {
       const stored = mapSpotlight(data);
-      const [notes, recentSpotlightSlugs] = await Promise.all([
-        getPublishedCommunityNotes(countryKey),
-        getRecentSpotlightSlugs(countryKey, today),
-      ]);
-      if (isSpotlightStillBest(stored.note_slug, notes, recentSpotlightSlugs, today)) {
-        return stored;
+      // Mid-day upgrade when fresher news appears (best-effort; cron remains source of truth).
+      try {
+        const [notes, recentSpotlightSlugs, recentNewsSpotlightSlugs] = await Promise.all([
+          getPublishedCommunityNotes(countryKey),
+          getRecentSpotlightSlugs(countryKey, today, SPOTLIGHT_COOLDOWN_DAYS),
+          getRecentSpotlightSlugs(countryKey, today, NEWS_SPOTLIGHT_COOLDOWN_DAYS),
+        ]);
+        if (
+          !isSpotlightStillBest(
+            stored.note_slug,
+            notes,
+            recentSpotlightSlugs,
+            today,
+            recentNewsSpotlightSlugs
+          )
+        ) {
+          return (await refreshDailySpotlight(countryKey)) ?? stored;
+        }
+      } catch {
+        /* read-only deploy / missing service role */
       }
       return stored;
     }

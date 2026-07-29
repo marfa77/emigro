@@ -18,6 +18,7 @@
  * - Never cite @emigro_chat.
  */
 import { formatChannelHandle } from "@/lib/guides/portugal-telegram-citations";
+import { scrubEphemeralRelativeTime } from "@/lib/community-notes/evergreen";
 import type { NoteBodySection } from "@/lib/community-notes/types";
 
 const TAKEAWAY_PREFIX = /^(Официально|На практике|Расхождение|В чате):\s*/i;
@@ -148,7 +149,7 @@ export function improvePracticeText(text: string): string {
     body = parts.join(" ");
   }
 
-  return body.replace(/\s+/g, " ").trim();
+  return scrubEphemeralRelativeTime(body.replace(/\s+/g, " ").trim());
 }
 
 /** Format a single string if it is a telegraphic practice line. */

@@ -16,11 +16,27 @@ const EU_CORRIDORS = [
   { slug: "germany", label: "Германия", flag: "🇩🇪", path: "/ru/germany" },
   { slug: "italy", label: "Италия", flag: "🇮🇹", path: "/ru/italy" },
   { slug: "netherlands", label: "Нидерланды", flag: "🇳🇱", path: "/ru/netherlands" },
+  { slug: "greece", label: "Греция", flag: "🇬🇷", path: "/ru/greece" },
+  { slug: "cyprus", label: "Кипр", flag: "🇨🇾", path: "/ru/cyprus" },
+  { slug: "hungary", label: "Венгрия", flag: "🇭🇺", path: "/ru/hungary" },
+  { slug: "malta", label: "Мальта", flag: "🇲🇹", path: "/ru/malta" },
+  { slug: "bulgaria", label: "Болгария", flag: "🇧🇬", path: "/ru/bulgaria" },
+  { slug: "croatia", label: "Хорватия", flag: "🇭🇷", path: "/ru/croatia" },
+  { slug: "slovenia", label: "Словения", flag: "🇸🇮", path: "/ru/slovenia" },
+  { slug: "estonia", label: "Эстония", flag: "🇪🇪", path: "/ru/estonia" },
 ];
 
 const DESTINATION_GUIDES = [
   { label: "Как выбрать страну для ВНЖ — 2026", href: "/ru/guides/kuda-pereehat-iz-rossii-2026-evropa-vnj" },
   { label: "ВНЖ без работы: пассивный доход и сбережения", href: "/ru/guides/vnj-bez-raboty-passivnyy-dohod-sberezheniya-2026" },
+  { label: "ВНЖ Греция 2026: Digital Nomad, FIP, Golden Visa", href: "/ru/guides/vnj-gretsiya-2026-digital-nomad-fip-golden-visa" },
+  { label: "ВНЖ Кипр 2026: Digital Nomad, Category F, Non-Dom", href: "/ru/guides/vnj-kipr-2026-digital-nomad-fip-non-dom" },
+  { label: "ВНЖ Венгрия 2026: White Card, Guest Investor", href: "/ru/guides/vnj-vengriya-2026-white-card-guest-investor" },
+  { label: "ВНЖ Мальта 2026: NRP, MPRP, Non-Dom", href: "/ru/guides/vnj-malta-2026-nomad-mprp-non-dom" },
+  { label: "ВНЖ Болгария 2026: Type D, DN, EOOD", href: "/ru/guides/vnj-bolgariya-2026-type-d-digital-nomad-eood" },
+  { label: "ВНЖ Хорватия 2026: Digital Nomad", href: "/ru/guides/vnj-horvatiya-2026-digital-nomad" },
+  { label: "ВНЖ Словения 2026: Digital Nomad + s.p.", href: "/ru/guides/vnj-sloveniya-2026-digital-nomad-sp" },
+  { label: "Эстония 2026: Digital Nomad Visa + e-Residency", href: "/ru/guides/vnj-estoniya-2026-digital-nomad-e-residency" },
   { label: "Португалия vs Испания: что выбрать в 2026", href: "/ru/guides/portugaliya-vs-ispaniya-vnj-2026" },
   { label: "D7 vs Digital Nomad: полное сравнение", href: "/ru/guides/d7-vs-digital-nomad-visa-sravnenie" },
 ];

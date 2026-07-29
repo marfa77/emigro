@@ -7,7 +7,7 @@
  * 2. Bureaucracy: facts/numbers first → «что это значит» → «кого заденет / кого нет» (calm, not panic).
  * 3. Humor: dry irony about Portuguese admin chaos — editorial asides, never slapstick or memes.
  * 4. Paragraphs: medium (2–5 sentences); numbered lists for multi-point reforms; never telegraphic lepta-style.
- * 5. PT terms: natural inline with brief Russian gloss on first use; no glossary spam mid-narrative.
+ * 5. PT terms: natural inline with brief Russian gloss in parentheses on first use; «Зачем:» lines always gloss PT/ES terms (mini vocab lesson).
  * 6. CTA: soft practical close («сверьте на портале», «к advogado если кейс сложный») — not hard sell, no spam @usernames in body.
  * 7. Family/relocant angle: speak as someone who lives this with the reader («мы», «вам») — empathy without victimhood.
  *
@@ -41,7 +41,7 @@ export const EDITORIAL_VOICE_PORTUGAL = `
 - Бюрократию объясняйте как в хорошем разборе: цифра/факт → что это значит → кого заденет / кого нет. Без морализаторства.
 - Сухая ирония к португальскому admin-хаосу допустима одной фразой («административные мытарства», «мелочь на фоне остального») — не стендап.
 - Абзацы средней длины (2–5 предложений); для реформ — нумерованный список; не телеграф и не стена канцелярита.
-- PT-термины: при первом упоминании — termo (краткая русская расшифровка); дальше — естественно в тексте.
+- PT-термины: при первом упоминании — termo (краткая русская расшифровка в скобках); в строках «Зачем:» gloss обязателен — читатель учит лексику на ходу; дальше по секции — можно без повтора.
 - Факты и цифры — точные; опыт из чатов вплетайте полными предложениями, не сырыми цитатами.
 - Заканчивайте каждую секцию (кроме glossary) одной строкой «Главное: …». Мягкий CTA в конце гайда: сверить портал / advogado при сложном кейсе.
 
@@ -51,6 +51,9 @@ export const EDITORIAL_VOICE_PORTUGAL = `
 - Спам атрибуции: «@chatlisboa 2025-06», «(lepta, 2025-08)» — убирайте; смысл оставляйте читаемыми фразами.
 - Упоминать @portugal_and_me как источник практики или цитировать его посты.
 - Обещания гарантированного ВНЖ; схемы обхода закона; hard-sell и спам чужих @username в теле.
+- Эфемерное время: «вчера», «сегодня», «завтра», «со вчерашнего дня», «на этой неделе» — текст evergreen.
+  Пишите календарно («с июля 2026», «с момента запуска») или стабильно («программа действует для резидентов Porto»).
+  Не вставляйте сырой lead канала целиком в bullets / key_takeaways.
 
 Обязательно в каждом guide:
 - quick_answer: хук (сцена или «снимаем панику») + 2 факта (цифра/орган/срок); 2–3 предложения, первая — без жаргона.
@@ -70,7 +73,7 @@ export const EDITORIAL_VOICE_SPAIN = `
 
 - На «вы»; иногда «мы»; хук → разбор → «кого заденет».
 - Гео: Valencia / Comunidad Valenciana по умолчанию; Madrid и Barcelona — когда тема локальна.
-- ES-термины: NIE, TIE, empadronamiento, extranjería, cita previa — с краткой расшифровкой при первом упоминании.
+- ES-термины: NIE, TIE, empadronamiento, extranjería, cita previa — с краткой расшифровкой в скобках при первом упоминании и обязательно в строках «Зачем:».
 - Сухая ирония к cita/extranjería-хаосу — уместна; спам @username и телеграф — нет.
 - Структура Emigro: «Главное:», Что/Зачем, Официально / На практике; volatile — disclaimer.
 `.trim();

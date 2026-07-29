@@ -16,6 +16,14 @@ const CORRIDOR_PROGRAM_SLUGS: Record<string, readonly string[]> = {
   "ru-speaking-to-poland": ["poland-eu-blue-card", "poland-work-permit"],
   "ru-speaking-to-czechia": ["czechia-eu-blue-card", "czechia-employee-card"],
   "ru-speaking-to-austria": ["austria-eu-blue-card", "austria-rwr-card"],
+  "ru-speaking-to-greece": ["greece-digital-nomad", "greece-fip", "greece-golden-visa"],
+  "ru-speaking-to-cyprus": ["cyprus-digital-nomad", "cyprus-category-f"],
+  "ru-speaking-to-hungary": ["hungary-white-card", "hungary-guest-investor"],
+  "ru-speaking-to-malta": ["malta-nrp", "malta-mprp"],
+  "ru-speaking-to-bulgaria": ["bulgaria-digital-nomad", "bulgaria-eood"],
+  "ru-speaking-to-croatia": ["croatia-digital-nomad", "croatia-family-reunification"],
+  "ru-speaking-to-slovenia": ["slovenia-digital-nomad", "slovenia-self-employed-sp", "slovenia-family-reunification"],
+  "ru-speaking-to-estonia": ["estonia-digital-nomad", "estonia-e-residency-ou", "estonia-family-reunification"],
 };
 
 const PASSPORT_STATUS_RU: Record<string, string> = {

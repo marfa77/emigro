@@ -76,6 +76,8 @@ Pillar-гайды Emigro фокусируются на **ВНЖ**. Но запр
 | Судимость | Чистая |
 | Двойное гражданство | **Можно сохранить РФ-паспорт** |
 
+Практика civics: [Leben in Deutschland mock на UniPrep2Go](https://uniprep2go.study/mock-exams/leben-in-deutschland-readiness-check?utm_source=emigro&utm_medium=guide&utm_campaign=citizenship_de_pl) · [German A2 Anki (RU)](https://uniprep2go.study/decks/german-a2-for-russian-speakers-anki-deck?utm_source=emigro&utm_medium=guide&utm_campaign=citizenship_de_pl) · [DTZ B1 mock на Prep2Go](https://www.prep2go.study/dtz-b1-mock-test?utm_source=emigro&utm_medium=guide&utm_campaign=citizenship_de_pl).
+
 ### Ускоренная натурализация: 3 года
 
 Доступна при **особых интеграционных достижениях**, например:

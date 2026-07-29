@@ -3,4 +3,8 @@
 export const INVESTOR_PROGRAM_SLUGS = new Set([
   "portugal-golden-visa",
   "italy-investor-visa",
+  "greece-golden-visa",
+  "hungary-guest-investor",
+  "malta-mprp",
+  "bulgaria-eood",
 ]);

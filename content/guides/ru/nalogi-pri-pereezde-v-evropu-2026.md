@@ -221,6 +221,7 @@ date_modified: 2026-07-12
 
 | Тема | Гайд |
 |------|------|
+| Спецрежимы ЕС (Beckham, NHR, Non-Dom…) | [Налоговые спецрежимы ЕС 2026](/ru/guides/nalogovye-spetsrezhimy-es-2026) |
 | Подтверждение дохода для ВНЖ | [Как подтвердить доход из России для ВНЖ](/ru/guides/podtverdit-dohod-dengi-dlya-vnj-esli-dohod-iz-rossii-2026) |
 | ВНЖ без работы | [Пассивный доход и сбережения для ВНЖ](/ru/guides/vnj-bez-raboty-passivnyy-dohod-sberezheniya-2026) |
 | Открытие ИП за рубежом | [ИП в Сербии, Армении, ОАЭ](/ru/guides/kak-otkryt-ip-za-rubezhom-rossiyane-2026) |

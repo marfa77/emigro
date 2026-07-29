@@ -13,6 +13,14 @@ export const COUNTRY_ACCENTS: Record<
   poland: { from: "#dc2626", to: "#f8fafc", glow: "#fca5a5", label: "Польша", cardImage: "/images/corridor-poland.webp" },
   czechia: { from: "#1d4ed8", to: "#dc2626", glow: "#93c5fd", label: "Чехия", cardImage: "/images/corridor-czechia.webp" },
   austria: { from: "#dc2626", to: "#f8fafc", glow: "#fca5a5", label: "Австрия", cardImage: "/images/corridor-austria.webp" },
+  greece: { from: "#0c4a6e", to: "#fbbf24", glow: "#7dd3fc", label: "Греция", cardImage: "/images/corridor-greece.webp" },
+  cyprus: { from: "#0e7490", to: "#f59e0b", glow: "#67e8f9", label: "Кипр", cardImage: "/images/corridor-cyprus.webp" },
+  hungary: { from: "#14532d", to: "#dc2626", glow: "#86efac", label: "Венгрия", cardImage: "/images/corridor-hungary.webp" },
+  malta: { from: "#dc2626", to: "#fbbf24", glow: "#fca5a5", label: "Мальта", cardImage: "/images/corridor-malta.webp" },
+  bulgaria: { from: "#00966e", to: "#d62612", glow: "#6ee7b7", label: "Болгария", cardImage: "/images/corridor-bulgaria.webp" },
+  croatia: { from: "#0e7490", to: "#1d4ed8", glow: "#67e8f9", label: "Хорватия", cardImage: "/images/corridor-croatia.webp" },
+  slovenia: { from: "#0057b8", to: "#ffcd00", glow: "#93c5fd", label: "Словения", cardImage: "/images/corridor-slovenia.webp" },
+  estonia: { from: "#0072ce", to: "#000000", glow: "#93c5fd", label: "Эстония", cardImage: "/images/corridor-estonia.webp" },
 };
 
 export const HUB_ACCENT = { from: "#1d4ed8", to: "#1e3a5f", glow: "#60a5fa" };
@@ -35,6 +43,14 @@ const BAR_CLASSES: Record<string, string> = {
   poland: "from-red-700 via-slate-100 to-red-600",
   czechia: "from-blue-700 via-red-500 to-blue-800",
   austria: "from-red-700 via-white to-red-600",
+  greece: "from-sky-900 via-amber-400 to-sky-700",
+  cyprus: "from-cyan-800 via-amber-400 to-cyan-700",
+  hungary: "from-green-900 via-red-600 to-green-800",
+  malta: "from-red-700 via-amber-400 to-red-600",
+  bulgaria: "from-emerald-700 via-red-600 to-emerald-800",
+  croatia: "from-cyan-800 via-sky-500 to-blue-800",
+  slovenia: "from-blue-700 via-sky-500 to-amber-400",
+  estonia: "from-blue-700 via-sky-600 to-slate-900",
 };
 
 export function countryAccentBarClass(segment?: string) {
@@ -50,5 +66,14 @@ export function countryCardImage(segment?: string) {
 /** 1200×630 JPG for Open Graph / Twitter Cards (not the UI card webp). */
 export function countryOgImage(segment?: string) {
   if (!segment) return "/images/og/og-default.jpg";
-  return COUNTRY_ACCENTS[segment] ? `/images/og/corridor-${segment}.jpg` : "/images/og/og-default.jpg";
+  const accent = COUNTRY_ACCENTS[segment];
+  if (!accent) return "/images/og/og-default.jpg";
+
+  // Keep OG image aligned with the actual chosen `cardImage` (in case a segment uses a placeholder from
+  // another corridor image file).
+  const match = accent.cardImage.match(/^\/images\/corridor-([a-z0-9-]+)\.webp$/i);
+  const ogSegment = match?.[1];
+  if (ogSegment) return `/images/og/corridor-${ogSegment}.jpg`;
+
+  return `/images/og/corridor-${segment}.jpg`;
 }

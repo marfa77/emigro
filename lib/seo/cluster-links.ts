@@ -145,6 +145,7 @@ export const COMPARISON_CROSS_LINKS: Record<string, ClusterLink[]> = {
   "digital-nomad-portugaliya-ispaniya-italiya-2026": [
     { href: guidePath("vnj-portugaliya-d8-d7-grazhdanstvo-2026"), label: "D8 Португалия 2026" },
     { href: guidePath("vnj-ispaniya-2026"), label: "Digital nomad Испания 2026" },
+    { href: guidePath("vnj-italiya-2026-digital-nomad"), label: "Digital Nomad Италия 2026" },
     { href: guidePath("portugaliya-vs-ispaniya-vnj-2026"), label: "Португалия vs Испания ВНЖ" },
     { href: guidePath("d7-vs-digital-nomad-visa-sravnenie"), label: "D7 vs D8 Португалия" },
   ],

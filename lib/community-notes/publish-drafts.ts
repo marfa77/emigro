@@ -89,6 +89,12 @@ export async function publishDraftsFromNewSignals(
 
   const clusters = clusterSignals(signals, countryKey)
     .filter((c) => shouldAutoPublishCluster(c, countryKey))
+    .sort((a, b) => {
+      const newsBoost = (kind: string) => (kind === "news" ? 1 : 0);
+      const byKind = newsBoost(b.contentKind) - newsBoost(a.contentKind);
+      if (byKind !== 0) return byKind;
+      return b.signals.length - a.signals.length;
+    })
     .slice(0, maxNotes);
 
   result.clusters = clusters.length;

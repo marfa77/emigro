@@ -13,6 +13,13 @@ export const FAMILY_FACT_BY_DESTINATION: Record<string, string> = {
   PL: "has_family_in_pl",
   CZ: "has_family_in_cz",
   AT: "has_family_in_at",
+  GR: "has_family_in_gr",
+  CY: "has_family_in_cy",
+  HU: "has_family_in_hu",
+  MT: "has_family_in_mt",
+  BG: "has_family_in_bg",
+  HR: "has_family_in_hr",
+  SI: "has_family_in_si",
 };
 
 const ALL_FAMILY_KEYS = Object.values(FAMILY_FACT_BY_DESTINATION);

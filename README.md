@@ -30,6 +30,14 @@ supabase link --project-ref wcwadwcjqutdxwbrkyai
 npm run db:push
 ```
 
+Schema changes only via `supabase/migrations/` (never SQL Editor on prod). Backups: [docs/BACKUPS.md](./docs/BACKUPS.md).
+
+```bash
+# Weekly or pre-migration snapshot (needs SUPABASE_DB_PASSWORD in .env.local)
+npm run db:backup
+npm run db:backup -- --tag before-risky-migration
+```
+
 ## MVP-A routes
 
 | Path | Purpose |

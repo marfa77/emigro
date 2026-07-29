@@ -22,7 +22,7 @@ official_sources:
     label: Министерство внутренних дел Италии
 estimated_minutes: 19
 date_published: 2026-06-25
-date_modified: 2026-07-21
+date_modified: 2026-07-28
 ---
 
 ## Италия в 2026: три маршрута для русскоязычных
@@ -75,19 +75,19 @@ date_modified: 2026-07-21
 | Выписки из банка | Накопления для подтверждения стабильности |
 
 ### После въезда: процедура в Questura
-В течение 8 дней после прибытия нужно подать на **Permesso di Soggiorno** в местной Questura (полицейском управлении) через почтовые отделения (Sportello Amico / Poste Italiane). Срок ВНЖ — 1 год с продлением до 2 лет.
+В течение 8 **рабочих** дней после прибытия нужно подать на **Permesso di Soggiorno** через почтовые отделения (**Sportello Amico** / Kit Giallo). Срок первого Permesso — обычно 1 год с продлением. Пошаговая практика: [первые 30 дней в Италии](/ru/guides/pervye-30-dnej-v-italii-2026).
 
 ---
 
 ## Digital Nomad Visa Италия 2026
 
-С 2024 года действует отдельная **Visto per Lavoro Autonomo — Nomadi Digitali**:
-- **Порог дохода:** **€24 790/год** (~€2 066/мес) — официальный минимум (3× база освобождения от взносов в здравоохранение)
-- **Право работать:** на иностранных работодателей/клиентов
-- **Срок:** 1 год с возможностью продления
-- **Требование:** быть самозанятым или удалённым сотрудником иностранной компании
+С 2024 года действует отдельная **Visto per nomadi digitali / lavoratori da remoto** (Type D **до** въезда):
+- **Порог дохода:** ориентир **~€24 789/год** (3× esenzione sanitaria); консульства часто **€25 500–€28 000+**; remote workers (найм) — ещё планка CCNL/ISTAT (~€33k)
+- **Право работать:** только remote на **иностранных** работодателей/клиентов
+- **Срок Permesso:** 1 год + продление при сохранении условий
+- **Impatriati 50%:** отдельный налоговый режим, не бонус визы
 
-Это **лучший вариант для удалённых специалистов**, чем Elective Residency. Подробнее в сравнительном гиде [Digital Nomad визы Европы](/ru/guides/digital-nomad-vizy-evropy-sravnenie-2026).
+Полный разбор документов, Kit Giallo и налогов: **[Digital Nomad Италия 2026](/ru/guides/vnj-italiya-2026-digital-nomad)**. Сравнение с ES/PT/GR: [DN Европы](/ru/guides/digital-nomad-vizy-evropy-sravnenie-2026).
 
 ---
 
@@ -242,9 +242,9 @@ IT — «несезонная» категория с отдельной неб�
 
 ## Итог: какой маршрут выбрать
 
-- **Пассивный доход €31 000+/год** → Elective Residency или Digital Nomad Visa
+- **Пассивный доход €31 000+/год** → Elective Residency (не Digital Nomad)
 - **Оффер от итальянской компании** → Decreto Flussi (запасной вариант — Blue Card EU через Германию/Нидерланды)
 - **Капитал €250 000+** → Investor Visa (стартап-трек)
-- **Удалёнщик** → Digital Nomad Visa (с 2024 года, €24 790/год по данным [integrazionemigranti.gov.it](https://www.integrazionemigranti.gov.it/en-gb/Ricerca-news/Dettaglio-news/id/3835/Who-are-the-digital-nomads-How-can-they-enter-Italy-))
+- **Удалёнщик** → [Digital Nomad Италия](/ru/guides/vnj-italiya-2026-digital-nomad) (~€24 789+/год; [integrazionemigranti.gov.it](https://www.integrazionemigranti.gov.it/en-gb/Ricerca-news/Dettaglio-news/id/3835/Who-are-the-digital-nomads-How-can-they-enter-Italy-))
 
-Перейдите к [мастеру Emigro](/ru/wizard), чтобы сравнить итальянский маршрут с другими под ваш профиль, или изучите [страницу коридора Италия](/ru/italy).
+Перейдите к [мастеру Emigro](/ru/wizard), чтобы сравнить итальянский маршрут с другими под ваш профиль, или изучите [страницу коридора Италия](/ru/italy). После прилёта: [первые 30 дней в Италии](/ru/guides/pervye-30-dnej-v-italii-2026).

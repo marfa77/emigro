@@ -103,7 +103,10 @@ for (const provider of getAllProviders()) {
     }
   }
   for (const exam of provider.examsRu ?? []) {
-    if (!prep2goTopics.has(exam.topicKey)) {
+    if (!validTopicKeys.has(exam.topicKey)) {
+      fail(`Provider ${provider.id}: exam topicKey ${exam.topicKey} not in valid topics`);
+    }
+    if (provider.id === "prep2go" && !prep2goTopics.has(exam.topicKey)) {
       fail(`Provider ${provider.id}: exam topicKey ${exam.topicKey} not in PREP2GO_TOPIC_KEYS`);
     }
   }

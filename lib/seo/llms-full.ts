@@ -47,8 +47,27 @@ export async function buildLlmsTxt(): Promise<string> {
 
   const corridorLines = fullCorridors
     .map((t) => {
-      const programs = ["D7, D8, воссоединение семьи", "digital nomad, non-lucrative", "VLS-TS, talent passport", "lavoro subordinato, elective residence", "Blue Card, Chancenkarte", "highly skilled migrant", "Швеция, Дания", "work permit, EU Blue Card, B2B IT", "employee card, EU Blue Card, živnost IT", "RWR Card, EU Blue Card, самозанятость"];
-      const idx = ["portugal", "spain", "france", "italy", "germany", "netherlands", "scandinavia", "poland", "czechia", "austria"].indexOf(t.urlSegment);
+      const programs = [
+        "D7, D8, воссоединение семьи",
+        "digital nomad, non-lucrative",
+        "VLS-TS, talent passport",
+        "lavoro subordinato, elective residence",
+        "Blue Card, Chancenkarte",
+        "highly skilled migrant",
+        "Швеция, Дания",
+        "work permit, EU Blue Card, B2B IT",
+        "employee card, EU Blue Card, živnost IT",
+        "RWR Card, EU Blue Card, самозанятость",
+        "Digital Nomad, FIP, Golden Visa",
+        "Digital Nomad, Category F, Non-Dom",
+        "White Card, Guest Investor",
+        "NRP, MPRP, Non-Dom",
+        "Digital Nomad, EOOD",
+        "Digital Nomad (18 мес)",
+        "Digital Nomad (12 мес) / s.p.",
+        "DNV / e-Residency",
+      ];
+      const idx = ["portugal", "spain", "france", "italy", "germany", "netherlands", "scandinavia", "poland", "czechia", "austria", "greece", "cyprus", "hungary", "malta", "bulgaria", "croatia", "slovenia", "estonia"].indexOf(t.urlSegment);
       const hint = idx >= 0 ? programs[idx] : t.urlSegment;
       return `- ${llmMarkdownLink(t.countryRu, t.sitePaths!.landing)} — ${hint}`;
     })
@@ -76,7 +95,7 @@ ${buildProgramIndexTable()}
 - ${llmMarkdownLink("Глобальный wizard", "/ru/wizard")}
 - ${llmMarkdownLink(`SEO-гайды (${guides.length}+ pillar-статей)`, "/ru/guides")}
 - ${llmMarkdownLink("Новости", "/ru/news")}
-- Новости по стране: /ru/news?country=portugal|spain|france|italy|germany|netherlands|scandinavia|poland|czechia|austria
+- Новости по стране: /ru/news?country=portugal|spain|france|italy|germany|netherlands|scandinavia|poland|czechia|austria|greece|cyprus|hungary|malta|bulgaria|croatia|slovenia|estonia
 - ${llmMarkdownLink("Хаб для граждан Украины", "/ru/ukraine")}
 - ${llmMarkdownLink("Срочный выезд из РФ", "/ru/guides/kuda-uehat-iz-rossii-srochno-2026-evropa-bezviz-haby")}
 - ${llmMarkdownLink("Легализация после выезда", "/ru/guides/legalizatsiya-v-evrope-posle-vyezda-iz-rossii-2026")}

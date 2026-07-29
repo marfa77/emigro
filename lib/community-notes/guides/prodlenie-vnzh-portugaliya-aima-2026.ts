@@ -33,7 +33,7 @@ const bodySections: NoteBodySection[] = [
     section_kind: "official",
     paragraphs: [
       "Что делать: отметьте дату на обратной стороне título de residência и поставьте напоминание за **2–3 месяца** — не за последнюю неделю.",
-      "Зачем: AIMA открывает **Portal das Renovações** поэтапно, по месяцам истечения карты; без регистрации и оплаты taxa процесс не стартует.",
+      "Зачем: AIMA открывает **Portal das Renovações** (портал продлений) поэтапно, по месяцам истечения карты; без регистрации и оплаты taxa (госпошлины) процесс не стартует.",
       "Главное: по состоянию на **июль 2026** онлайн-продление идёт через [portal-renovacoes.aima.gov.pt](https://portal-renovacoes.aima.gov.pt/) — см. [новость AIMA](https://aima.gov.pt/pt/noticias/o-portal-das-renovacoes-ja-esta-disponivel); доступ расширяется по cohorts, не для всех сразу.",
     ],
     bullets: [
@@ -49,7 +49,7 @@ const bodySections: NoteBodySection[] = [
     section_kind: "official",
     paragraphs: [
       "Что делать: определить, **renovação** (то же основание) или **nova autorização** (смена категории) — это разные trâmites и taxas.",
-      "Зачем: подать «как D7», когда вы уже работаете в PT по contrato — типичная причина pedido de indeferimento.",
+      "Зачем: подать «как D7», когда вы уже работаете в PT по contrato (трудовому договору) — типичная причина pedido de indeferimento (отказа по заявлению).",
       "Главное: hard-требования — на [aima.gov.pt](https://aima.gov.pt/) и в Portaria n.º 307/2023; ниже — ориентиры по состоянию на июль 2026.",
     ],
     bullets: [
@@ -82,7 +82,7 @@ const bodySections: NoteBodySection[] = [
     section_kind: "official",
     paragraphs: [
       "Что делать: собрать **цифровую папку PDF** до открытия portal — размер и читаемость скана = частая техническая причина отказа.",
-      "Зачем: AIMA валидирует morada через Finanças/Junta; доход — через extratos и contratos; seguro — на весь срок autorização.",
+      "Зачем: AIMA валидирует morada (адрес проживания) через Finanças/Junta; доход — через extratos (выписки) и contratos (договоры); seguro (страховка) — на весь срок autorização (разрешения).",
       "Главное: список зависит от tipo autorização — сверяйте checklist в portal на дату подачи.",
     ],
     bullets: [
@@ -99,7 +99,7 @@ const bodySections: NoteBodySection[] = [
     section_kind: "official",
     paragraphs: [
       "Что делать: перед оплатой DUC откройте **Tabela de Taxas** на aima.gov.pt — не ориентируйтесь на суммы из чатов 2024 года.",
-      "Зачем: с **1 марта 2026** AIMA обновила taxas по Portaria n.º 307/2023; ошибка в valor = pedido не анализируют.",
+      "Зачем: с **1 марта 2026** AIMA обновила taxas (пошлины) по Portaria n.º 307/2023; ошибка в valor (сумме) = pedido (заявление) не анализируют.",
       "Главное: по состоянию на **июль 2026** типовая renovação trabalho/estudo/reagrupamento — **€99,80** за acto ([comunicado AIMA, março 2026](https://aima.gov.pt/)); Golden Visa и иные ARI — отдельная шкала (тысячи €) — не путать с D7/D8.",
     ],
     bullets: [
@@ -115,7 +115,7 @@ const bodySections: NoteBodySection[] = [
     section_kind: "practice",
     paragraphs: [
       "Что делать: после recibo pedido renovação планируйте жизнь **без пластика** 1–3 месяца — comprovativo pedido + старый título держите при себе.",
-      "Зачем: закон говорит о prazo análise ~60 dias, практика длиннее; регион и tipo autorização влияют.",
+      "Зачем: закон говорит о prazo análise (сроке рассмотрения) ~60 dias, практика длиннее; регион и tipo autorização (тип разрешения) влияют.",
       "Главное: цифры ниже — **не гарантия**, а диапазоны из чатов; ваш advogado даст прогноз по processo.",
     ],
     bullets: [
@@ -143,7 +143,7 @@ const bodySections: NoteBodySection[] = [
     section_kind: "practice",
     paragraphs: [
       "Что делать: синхронизировать обновление morada, заграна и pedido renovação — AIMA шлёт cartão на адрес из базы.",
-      "Зачем: cartão уйдёт на старый адрес; новый passaporte без обновления в processo — mismatch на границе.",
+      "Зачем: cartão (карта ВНЖ) уйдёт на старый адрес; новый passaporte (паспорт) без обновления в processo (деле) — mismatch на границе.",
       "Главное: morada — Finanças + AIMA; passaporte — consulado Lisboa/Porto — см. [замена заграна](/notes/zamena-zagranpasporta-portugaliya-2026).",
     ],
     bullets: [
@@ -165,7 +165,7 @@ const bodySections: NoteBodySection[] = [
     section_kind: "gap",
     paragraphs: [
       "Что делать: если карта уже **caducada**, не исчезайте — но и не подавайте «как будто в сроке» без инструкции AIMA.",
-      "Зачем: неправильный канал = indeferimento; длительная просрочка может потребовать **nova autorização** или advogado.",
+      "Зачем: неправильный канал = indeferimento (отказ); длительная просрочка может потребовать **nova autorização** (новое разрешение) или advogado (адвоката).",
       "Главное: Emigro **не** советует «просто лететь в Schengen с просроченной картой» — это риск отказа во въезде; сверяйтесь с AIMA и advogado.",
     ],
     bullets: [
@@ -204,7 +204,7 @@ const bodySections: NoteBodySection[] = [
     section_kind: "action_guide",
     paragraphs: [
       "Что делать: пройти типовой онлайн-маршрут, когда AIMA открыла ваш mês de caducidade.",
-      "Зачем: каждый шаг оставляет след — recibo, DUC, upload — без них advogado не восстановит хронологию.",
+      "Зачем: каждый шаг оставляет след — recibo (квитанция), DUC (платёжное поручение), upload — без них advogado (адвокат) не восстановит хронологию.",
       "Главное: при блокировке на validação AT/SS — сначала Finanças/Segurança Social, потом повтор pedido.",
     ],
     bullets: [

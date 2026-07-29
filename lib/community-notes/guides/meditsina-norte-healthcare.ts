@@ -85,7 +85,7 @@ const bodySections: NoteBodySection[] = [
     paragraphs: [
       "Пятница, полночь, São João: вы между triagem и результатом анализов и не знаете, оставят на ночь или отпустят домой. Разница centro de saúde / hospital и путь к internamento лучше понять заранее.",
       "Что делать: при угрозе жизни — 112; при острой боли — SNS24 (808 24 24 24), затем urgências ближайшего hospital; плановую операцию или отделение — только с referenciação от médico de família или especialista SNS.",
-      "Зачем: без utente и referenciação taxa moderadora в urgências выше; «не экстренный» случай — 5+ часов triagem; частный internamento без seguro — €800–2 500/сутки только за палату.",
+      "Зачем: без utente (номера пациента) и referenciação (направления) taxa moderadora (соплатеж) в urgências (приёмном) выше; «не экстренный» случай — 5+ часов triagem (сортировки); частный internamento (госпитализация) без seguro (страховки) — €800–2 500/сутки только за палату.",
       "Главное: на admissão имейте cartão de utente, паспорт, apólice seguro и список лекарств — это ускоряет оформление и снижает copagamento.",
     ],
     bullets: [

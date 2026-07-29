@@ -42,23 +42,34 @@ export EMIGRO_PUBLIC_SITE_URL="${EMIGRO_PUBLIC_SITE_URL:-https://www.emigro.onli
 
 log "=== Emigro Portugal daily (age<=${PARSER_MAX_AGE_HOURS}h, limit=${PARSER_INCREMENTAL_LIMIT}/ch) ==="
 
-RUN_DAILY="cd '$REPO_ROOT' && npm run portugal:daily"
-
-if ! command -v flock >/dev/null 2>&1; then
-  RUN=(bash -c "$RUN_DAILY")
-else
-  RUN=(flock -n "$LOCK_FILE" bash -c "$RUN_DAILY")
+# Keep out/ writable for User=www-data even after root/rsync deploys.
+mkdir -p "$PARSER_ROOT/out" "$LOG_DIR"
+if [[ -w "$PARSER_ROOT/out" ]]; then
+  :
+elif command -v chmod >/dev/null 2>&1; then
+  chmod u+rwX "$PARSER_ROOT/out" 2>/dev/null || true
 fi
 
-if "${RUN[@]}"; then
-  log "=== Portugal daily finished OK ==="
-  exit 0
-else
-  code=$?
-  if [[ "$code" -eq 1 ]]; then
+if command -v flock >/dev/null 2>&1; then
+  exec 9>"$LOCK_FILE"
+  if ! flock -n 9; then
     log "=== Portugal daily skipped (already running) ==="
     exit 0
   fi
-  log "=== Portugal daily FAILED (exit $code) ==="
-  exit "$code"
 fi
+
+set +e
+(
+  cd "$REPO_ROOT"
+  npm run portugal:daily
+)
+code=$?
+set -e
+
+if [[ "$code" -eq 0 ]]; then
+  log "=== Portugal daily finished OK ==="
+  exit 0
+fi
+
+log "=== Portugal daily FAILED (exit $code) ==="
+exit "$code"

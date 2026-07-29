@@ -23,6 +23,11 @@ const FAMILY_COUNTRY_OPTIONS = [
   { value: "PL", label_en: "Poland", label_ru: "🇵🇱 Польша" },
   { value: "CZ", label_en: "Czechia", label_ru: "🇨🇿 Чехия" },
   { value: "AT", label_en: "Austria", label_ru: "🇦🇹 Австрия" },
+  { value: "GR", label_en: "Greece", label_ru: "🇬🇷 Греция" },
+  { value: "CY", label_en: "Cyprus", label_ru: "🇨🇾 Кипр" },
+  { value: "HU", label_en: "Hungary", label_ru: "🇭🇺 Венгрия" },
+  { value: "MT", label_en: "Malta", label_ru: "🇲🇹 Мальта" },
+  { value: "BG", label_en: "Bulgaria", label_ru: "🇧🇬 Болгария" },
 ];
 
 const GOAL_OPTIONS = [

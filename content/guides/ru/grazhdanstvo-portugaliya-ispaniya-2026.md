@@ -98,7 +98,7 @@ date_modified: 2026-07-11
 
 **Совет:** начинайте CIPLE на **3–4 году** проживания — не откладывайте на год 9.
 
-Подготовка: [Prep2Go CIPLE A2](https://www.prep2go.study) · коридор [Португалия](/ru/portugal/digest).
+Подготовка: [CIPLE mock на Prep2Go](https://www.prep2go.study/ciple-a2-mock-test?utm_source=emigro&utm_medium=guide&utm_campaign=citizenship_pt_es) · [Anki CIPLE на UniPrep2Go](https://uniprep2go.study/decks/ciple-a2-european-portuguese-anki-deck?utm_source=emigro&utm_medium=guide&utm_campaign=citizenship_pt_es) · коридор [Португалия](/ru/portugal/digest).
 
 ---
 
@@ -109,7 +109,7 @@ date_modified: 2026-07-11
 | **DELE A2** | Испанский язык | €100–130 |
 | **CCSE** | Конституция, культура, география ES | ~€85 |
 
-Оба обязательны. CCSE — тест Instituto Cervantes, 25 вопросов, 45 мин.
+Оба обязательны. CCSE — тест Instituto Cervantes, 25 вопросов, 45 мин. Практика: [CCSE mock на UniPrep2Go](https://uniprep2go.study/mock-exams/ccse-espana-readiness-check?utm_source=emigro&utm_medium=guide&utm_campaign=citizenship_pt_es) · [DELE A2 Anki](https://uniprep2go.study/decks/dele-a2-spanish-anki-deck?utm_source=emigro&utm_medium=guide&utm_campaign=citizenship_pt_es) · [DELE mock на Prep2Go](https://www.prep2go.study/dele-a2-mock-test?utm_source=emigro&utm_medium=guide&utm_campaign=citizenship_pt_es).
 
 ### Кто может подать (ES)
 
@@ -150,7 +150,7 @@ date_modified: 2026-07-11
 
 ### Golden Visa / инвестиции
 
-- **PT Golden Visa:** инвестиции €500k+ (фонды, наука) — **не ускоряет** срок натурализации; тот же 10 лет.
+- **PT Golden Visa:** инвестиции €500k+ (фонды, наука) — **не ускоряет** срок натурализации; тот же 10 лет для новых nationality-файлов. Держатели ARI 2021–2022: [отдельный гайд](/ru/guides/grazhdanstvo-portugalii-golden-visa-ari-2021-2022-2026).
 - **ES:** Golden Visa закрыт для недвижимости; инвестиционные маршруты — отдельный due diligence.
 
 В локальных чатах эмигрантов (@spain_granitsa и др.) в 2025–2026 до сих пор спрашивают про Golden Visa «через €500k недвижимость» — это не ускоряет гражданство; с 3 апреля 2025 все инвестпути в ES закрыты.

@@ -221,20 +221,34 @@ export function clusterSignals(
   countryKey: SatelliteCountryKey = "portugal"
 ): SignalCluster[] {
   const { filterSignals } = editorialConfig(countryKey);
+  const filtered = filterSignals(signals);
+
+  // News digests are standalone channel posts — keep them out of topic buckets
+  // so a single lepta headline is not drowned by tip/guide chat threads.
+  const newsClusters: SignalCluster[] = filtered
+    .filter((s) => (s.content_kind ?? "tip") === "news")
+    .map((s) => ({
+      topic: s.topic_hints?.[0] || "general",
+      contentKind: "news" as ContentKind,
+      signals: [s],
+    }));
+
   const buckets = new Map<string, CommunitySignalIngest[]>();
-  for (const s of filterSignals(signals)) {
+  for (const s of filtered) {
+    if ((s.content_kind ?? "tip") === "news") continue;
     const topic = s.topic_hints?.[0] || "general";
     const list = buckets.get(topic) ?? [];
     list.push(s);
     buckets.set(topic, list);
   }
-  return Array.from(buckets.entries())
-    .map(([topic, list]) => ({
-      topic,
-      contentKind: dominantContentKind(list),
-      signals: list,
-    }))
-    .sort((a, b) => b.signals.length - a.signals.length);
+
+  const topicClusters = Array.from(buckets.entries()).map(([topic, list]) => ({
+    topic,
+    contentKind: dominantContentKind(list),
+    signals: list,
+  }));
+
+  return [...newsClusters, ...topicClusters].sort((a, b) => b.signals.length - a.signals.length);
 }
 
 function buildUserPrompt(
@@ -263,6 +277,7 @@ glossary (≤8 терминов, literary intro) → official (Что/Как/З�
 quick_answer: микросцена-хук + 2 факта; 2–3 предложения. key_takeaways: максимум 4, action-oriented.
 Не дублируй один смысл в разных секциях. В key_takeaways — минимум 2 пункта «Официально:» / «На практике:» / «Расхождение:».
 faq: 4–5 вопросов; ответ начинается с да/нет/цифры, затем «По правилам…» / «На практике…».
+Evergreen: запрещены «вчера / сегодня / завтра / со вчерашнего дня». Факты — с календарной датой или стабильной формулировкой («с июля 2026», «программа действует»). Не копируй сырой lead канала в bullets.
 
 ${countryKey === "portugal" ? EDITORIAL_VOICE_PORTUGAL : ""}
 

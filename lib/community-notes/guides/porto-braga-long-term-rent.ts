@@ -46,7 +46,7 @@ const bodySections: NoteBodySection[] = [
     paragraphs: [
       "Зачем вам это сейчас: без PT IBAN и trace платежа senhorio может «не видеть» оплату — а вы без recibo для Finanças и AIMA.",
       "Что делать: открыть conta à ordem с IBAN PT50… и платить transferência bancária; требовать recibo de renda каждый месяц.",
-      "Зачем: наличные и MB Way без recibo — слабое доказательство; для IRS-вычета арендатору нужен зарегистрированный contrato.",
+      "Зачем: наличные и MB Way без recibo (квитанции) — слабое доказательство; для IRS-вычета арендатору нужен зарегистрированный contrato (договор).",
       "Главное: первый платёж при assinatura — caução + первый/последний mes; дальше — только по реквизитам из contrato.",
     ],
     bullets: [
@@ -62,7 +62,7 @@ const bodySections: NoteBodySection[] = [
     section_kind: "practice",
     paragraphs: [
       "Что делать: выбрать bairro под бюджет и commute, сверить в contrato — condomínio включён или отдельный IBAN administrador.",
-      "Зачем: в Foz renda выше, но condomínio в prédio de luxo может добавить €80–150/мес сверху; в Bonfim чаще старый prédio без administrador.",
+      "Зачем: в Foz renda (аренда) выше, но condomínio (общие расходы) в prédio de luxo (премиум-доме) может добавить €80–150/мес сверху; в Bonfim чаще старый prédio (здание) без administrador (управляющего).",
     ],
     bullets: [
       "Foz do Douro — T2 €1 100–1 600/мес (Idealista 2026); renda senhorio, condomínio отдельно €60–120; imobiliária в Foz часто берёт 1 mes + IVA.",
@@ -78,7 +78,7 @@ const bodySections: NoteBodySection[] = [
     section_kind: "practice",
     paragraphs: [
       "Что делать: сравнить Braga centro и Gualtar по renda + commute; в Minho condomínio часто ниже Porto, но heating elétrico зимой — отдельная статья.",
-      "Зачем: экономия на renta съедается, если ездите в Porto каждый день; для жизни в Braga платите местному senhorio, не «посреднику из Lx».",
+      "Зачем: экономия на renta (аренде) съедается, если ездите в Porto каждый день; для жизни в Braga платите местному senhorio (арендодателю), не «посреднику из Lx».",
     ],
     bullets: [
       "Braga centro — T2 €700–1 000/мес; senhorio + administrador condomínio (если prédio com elevador) — два IBAN в contrato или annex.",
@@ -94,7 +94,7 @@ const bodySections: NoteBodySection[] = [
     paragraphs: [
       "Зачем вам это сейчас: без порядка шагов вы переведёте caução до проверки senhorio и останетесь без registo в Finanças.",
       "Что делать: поиск → просмотр → contrato → оплата → registo → ежемесячные transferências с recibo.",
-      "Зачем: registo contrato даёт morada для NIF, SNS, AIMA; с 08.2025 inquilino может зарегистрировать сам, если senhorio тянет.",
+      "Зачем: registo contrato (регистрация договора) даёт morada (адрес) для NIF, SNS, AIMA; с 08.2025 inquilino (арендатор) может зарегистрировать сам, если senhorio (арендодатель) тянет.",
       "Главное: не платите caução без NIF обеих сторон в contrato и certidão permanente / ID senhorio.",
     ],
     bullets: [

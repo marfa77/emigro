@@ -75,6 +75,14 @@ const PROVIDERS: ServiceProvider[] = [
       "ru-speaking-to-poland",
       "ru-speaking-to-czechia",
       "ru-speaking-to-austria",
+      "ru-speaking-to-greece",
+      "ru-speaking-to-cyprus",
+      "ru-speaking-to-hungary",
+      "ru-speaking-to-malta",
+      "ru-speaking-to-bulgaria",
+      "ru-speaking-to-croatia",
+      "ru-speaking-to-slovenia",
+      "ru-speaking-to-estonia",
     ],
     topicKeys: [
       "portugal",
@@ -87,6 +95,14 @@ const PROVIDERS: ServiceProvider[] = [
       "poland",
       "czechia",
       "austria",
+      "greece",
+      "cyprus",
+      "hungary",
+      "malta",
+      "bulgaria",
+      "croatia",
+      "slovenia",
+      "estonia",
       "serbia",
       "armenia",
       "uae",
@@ -102,9 +118,9 @@ const PROVIDERS: ServiceProvider[] = [
   {
     id: "prep2go",
     name: "Prep2Go",
-    taglineRu: "Подготовка к языковым экзаменам для гражданства EU",
+    taglineRu: "Mock-экзамены для гражданства EU",
     descriptionRu:
-      "Prep2Go — онлайн-подготовка к экзаменам для гражданства: CIPLE A2 (Португалия), DELE A2 (Испания), DELF B2 (Франция), CELI B1 (Италия), Goethe B1 / telc B1 (Германия). Mock-тесты, карточки, формат реального экзамена.",
+      "Prep2Go — timed mock-тесты для CIPLE A2, DELE A2, DELF B2, CELI 2 и DTZ B1: AI scoring, формат реального экзамена. Anki-колоды и civics-моки — на сестринском UniPrep2Go.",
     url: "https://www.prep2go.study",
     category: "language_courses",
     corridorSlugs: [
@@ -116,7 +132,53 @@ const PROVIDERS: ServiceProvider[] = [
     ],
     topicKeys: [...PREP2GO_TOPIC_KEYS],
     examsRu: PREP2GO_EXAMS,
-    ctaLabelRu: "Перейти на сайт",
+    ctaLabelRu: "Открыть mock",
+  },
+  {
+    id: "uniprep2go",
+    name: "UniPrep2Go",
+    taglineRu: "Моки натурализации + Anki-колоды",
+    descriptionRu:
+      "UniPrep2Go — бесплатные readiness mocks (CCSE, Leben in Deutschland, naturalisation FR, PL, CZ…) и Anki-колоды для языковых экзаменов гражданства (CIPLE, DELE, CELI, DELF, German A2). Не официальные экзамены.",
+    url: "https://uniprep2go.study/mock-exams/v/citizenship",
+    category: "language_courses",
+    corridorSlugs: [
+      "ru-speaking-to-portugal",
+      "ru-speaking-to-spain",
+      "ru-speaking-to-france",
+      "ru-speaking-to-italy",
+      "ru-speaking-to-germany",
+      "ru-speaking-to-netherlands",
+      "ru-speaking-to-czechia",
+      "ru-speaking-to-poland",
+      "ru-speaking-to-greece",
+      "ru-speaking-to-scandinavia",
+    ],
+    topicKeys: [
+      "portugal",
+      "spain",
+      "france",
+      "italy",
+      "germany",
+      "netherlands",
+      "czechia",
+      "poland",
+      "greece",
+      "scandinavia",
+    ],
+    examsRu: [
+      { topicKey: "portugal", label: "CIPLE Anki" },
+      { topicKey: "spain", label: "CCSE mock + DELE Anki" },
+      { topicKey: "germany", label: "LID mock + German A2" },
+      { topicKey: "france", label: "Naturalisation + DELF" },
+      { topicKey: "italy", label: "CELI B1 Anki" },
+      { topicKey: "netherlands", label: "Inburgering A2" },
+      { topicKey: "czechia", label: "Citizenship + CCE A2" },
+      { topicKey: "poland", label: "Citizenship + A2" },
+      { topicKey: "greece", label: "Ellinomatheia A2" },
+      { topicKey: "scandinavia", label: "DK/NO/SE A2 Anki" },
+    ],
+    ctaLabelRu: "Моки и колоды",
   },
   {
     id: "ei-migration-portugal",
@@ -549,7 +611,7 @@ export function sortProvidersByCategory(providers: ServiceProvider[]): ServicePr
 export function filterCompactProviders(providers: ServiceProvider[]): ServiceProvider[] {
   const sorted = sortProvidersByCategory(providers);
   const assistance = sorted.filter((p) => p.category === "assistance");
-  const languageCourses = sorted.filter((p) => p.category === "language_courses").slice(0, 1);
+  const languageCourses = sorted.filter((p) => p.category === "language_courses").slice(0, 2);
   const firstRelocation = sorted.find((p) => p.category === "relocation");
   return firstRelocation ? [...assistance, ...languageCourses, firstRelocation] : [...assistance, ...languageCourses];
 }

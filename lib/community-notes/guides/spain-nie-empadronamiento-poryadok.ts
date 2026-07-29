@@ -16,7 +16,7 @@ const bodySections: NoteBodySection[] = [
     paragraphs: [
       "Зачем вам это сейчас: без NIE и padrón в Valencia почти не открыть банк, не закрыть аренду и не подать на TIE.",
       "Что делать: оформите NIE (EX-15 + tasa 790) и empadronamiento в ayuntamiento как два отдельных шага.",
-      "Зачем: это разные органы — Agencia Tributaria / Policía и ayuntamiento; путаница порядка стоит недели.",
+      "Зачем: это разные органы — Agencia Tributaria / Policía и ayuntamiento (мэрия); путаница порядка стоит недели.",
       "Главное: NIE — налоговый ID; empadronamiento — регистрация по адресу; оба нужны для быта и extranjería.",
     ],
     bullets: [
@@ -32,7 +32,7 @@ const bodySections: NoteBodySection[] = [
     paragraphs: [
       "Зачем вам это сейчас: в @valenforum и @spain_granitsa в 2025–2026 чаще рекомендуют NIE → padrón → банк → cita TIE.",
       "Что делать: сначала NIE или resguardo подачи, затем empadronamiento, потом банк.",
-      "Зачем: обратный порядок часто стопорит банк и utilities на повторный визит в ayuntamiento.",
+      "Зачем: обратный порядок часто стопорит банк и utilities на повторный визит в ayuntamiento (мэрию).",
       "Главное: безопасный порядок в Valencia — NIE/resguardo, затем padrón, потом IBAN и TIE.",
     ],
     bullets: [
@@ -64,7 +64,7 @@ const bodySections: NoteBodySection[] = [
     paragraphs: [
       "Зачем вам это сейчас: типовой маршрут из @valenforum — день 1–3 cita NIE, день 4–7 padrón, день 8–14 банк.",
       "Что делать: пройдите пять шагов; gestoría сокращает NIE, но не заменяет визит в ayuntamiento.",
-      "Зачем: без historial empadronamiento TIE часто дозапрашивает актуальный certificado.",
+      "Зачем: без historial empadronamiento (истории прописки) TIE часто дозапрашивает актуальный certificado (справку).",
       "Главное: сохраните resguardo EX-15 в облако — он нужен банку и TIE до готового NIE.",
     ],
     bullets: [
@@ -80,7 +80,7 @@ const bodySections: NoteBodySection[] = [
     section_kind: "practice",
     paragraphs: [
       "Что делать: проверьте список до перевода fianza и до записи на TIE.",
-      "Зачем: повторный визит в ayuntamiento и отказ арендодателя — самые частые потери первой недели.",
+      "Зачем: повторный визит в ayuntamiento (мэрию) и отказ арендодателя — самые частые потери первой недели.",
       "Главное: не ждите «готовый NIE» для всего — resguardo + padrón часто открывают банк и cita TIE.",
     ],
     bullets: [

@@ -46,7 +46,7 @@ const bodySections: NoteBodySection[] = [
     section_kind: "official",
     paragraphs: [
       "Что делать: закрыть базовый контур документов на троих — налоговый номер, адрес, здоровье и статус ARI — в порядке, который принимают Finanças, школа и AIMA.",
-      "Зачем: без NIF и comprovativo de morada не откроете счёт и не закроете matrícula; без трека Portal ARI семья рискует пропустить biometria.",
+      "Зачем: без NIF и comprovativo de morada (подтверждения адреса) не откроете счёт и не закроете matrícula (зачисление); без трека Portal ARI семья рискует пропустить biometria (биометрию).",
       "Главное: hard-правила ARI — только на [aima.gov.pt Portal ARI](https://aima.gov.pt/pt/viver/autorizacao-de-residencia-para-investimento-art-90-o-a/portal-ari); ниже — официальный каркас быта.",
     ],
     bullets: [
@@ -84,7 +84,7 @@ const bodySections: NoteBodySection[] = [
     section_kind: "practice",
     paragraphs: [
       "Что делать: забрать авто, доехать до temporary, активировать связь и закрыть NIF (если ещё нет) — без марафона по Lisboa.",
-      "Зачем: без NIF и адреса для correspondência школа, Finanças и банк встанут; без Via Verde на A3/A28 счета за portagens придут поздно и дороже.",
+      "Зачем: без NIF и адреса для correspondência (корреспонденции) школа, Finanças и банк встанут; без Via Verde на A3/A28 счета за portagens (платные дороги) придут поздно и дороже.",
       "Главное: первые три дня — логистика семьи, не «закрыть всю бюрократию».",
     ],
     bullets: [
@@ -124,7 +124,7 @@ const bodySections: NoteBodySection[] = [
     section_kind: "practice",
     paragraphs: [
       "Что делать: зарегистрировать utente SNS по morada, сверить статус ARI/Portal ARI с адвокатом и подключить utilities на имя арендатора.",
-      "Зачем: ребёнок без número de utente и без частной страховки — риск платить полный счёт в urgências; пропуск biometria/agenda ARI дороже любой Idealista-сделки.",
+      "Зачем: ребёнок без número de utente (номера пациента SNS) и без частной страховки — риск платить полный счёт в urgências (приёмном); пропуск biometria/agenda ARI дороже любой Idealista-сделки.",
       "Главное: здоровье и статус проживания — на той же неделе, что и Wi‑Fi.",
     ],
     bullets: [

@@ -12,6 +12,7 @@ import { isSpainHubTopic } from "@/lib/spain/hub";
 import { GuideDigestPreview } from "@/components/corridor/GuideDigestPreview";
 import { LatestNewsTeaserSuspense } from "@/components/news/LatestNewsTeaser";
 import { ServiceProvidersSection } from "@/components/providers/ServiceProvidersSection";
+import { UniPrep2GoPromo } from "@/components/sponsors/UniPrep2GoPromo";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { CorridorHeroVisual } from "@/components/visuals/CorridorHeroVisual";
 import { ProgramRouteCard } from "@/components/corridor/ProgramRouteCard";
@@ -22,6 +23,7 @@ import type { NewsTopicConfig } from "@/lib/news/topics";
 import { buildCorridorBreadcrumbSchema, buildCorridorLandingArticleSchema, buildFaqSchema, buildCorridorLandingFaq } from "@/lib/seo/corridor-page-seo";
 import { pageUrl } from "@/lib/seo";
 import { heroTitle } from "@/lib/ui/mobile";
+import { getUniPrepOfferForTopic } from "@/lib/uniprep2go/catalog";
 
 export async function CorridorLanding({ country }: { country: string }) {
   const topic = await requirePublishedCorridorTopic(country);
@@ -48,6 +50,7 @@ export async function CorridorLanding({ country }: { country: string }) {
   const articleSchema = buildCorridorLandingArticleSchema(topic, corridor, url);
   const faqSchema = buildFaqSchema(faq);
   const showHub = topicHasLanding(topic);
+  const uniPrepOffer = getUniPrepOfferForTopic(topic.key);
 
   return (
     <>
@@ -152,6 +155,15 @@ export async function CorridorLanding({ country }: { country: string }) {
             )}
           </div>
         </section>
+
+        {uniPrepOffer && (
+          <UniPrep2GoPromo
+            placement="corridor_landing"
+            offer={uniPrepOffer}
+            contentId={topic.key}
+            className="mt-12"
+          />
+        )}
 
         <ServiceProvidersSection
           className="mt-12"

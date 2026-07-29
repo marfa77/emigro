@@ -17,7 +17,7 @@ const bodySections: NoteBodySection[] = [
     paragraphs: [
       "Зачем вам это сейчас: после въезда по visado D срок на подачу TIE ограничен — без cita previa и huellas рискуете штрафом и проблемами при проверке статуса.",
       "Что делать: запишитесь на sede electrónica (Oficina de Extranjería / Comisaría) и соберите паспорт, visado, padrón, seguro, tasa 790, фото.",
-      "Зачем: без resguardo cita previa в Valencia живой очереди нет — развернут в дверях.",
+      "Зачем: без resguardo cita previa (подтверждения записи) в Valencia живой очереди нет — развернут в дверях.",
       "Официально TIE — пластиковая карта резидента; до неё выдают resguardo после сдачи отпечатков.",
       "Главное: cita previa обязательна; срок подачи обычно указан в visado D (часто 30 дней с въезда).",
     ],
@@ -35,7 +35,7 @@ const bodySections: NoteBodySection[] = [
     paragraphs: [
       "Зачем вам это сейчас: в @valenforum, @valenciarusia и @spain_granitsa три боли 2025–2026 — «слот исчез», «huellas без cita», «resguardo не принимают в банке».",
       "Что делать: ловите слоты утром 08:00–09:00 Europe/Madrid и держите PDF-пакет ≤2 MB.",
-      "Зачем: Valencia быстрее Madrid/Barcelona, но cita всё равно конкурентная — без запаса недель не уложитесь в visado.",
+      "Зачем: Valencia быстрее Madrid/Barcelona, но cita (запись) всё равно конкурентная — без запаса недель не уложитесь в visado (визу).",
       "Главное: полный цикл TIE в чатах Valencia — 4–8 месяцев; gestoría €300–600 помогает с записью, но не даёт «VIP-окна».",
     ],
     bullets: [
@@ -68,7 +68,7 @@ const bodySections: NoteBodySection[] = [
     paragraphs: [
       "Зачем вам это сейчас: типовой маршрут от прилёта до resguardo — при условии, что NIE и empadronamiento уже есть.",
       "Что делать: пройдите пять шагов ниже; параллельно держите open вкладку sede.",
-      "Зачем: откладывать cita «пока устроюсь» — самый дорогой совет из чатов.",
+      "Зачем: откладывать cita (запись) «пока устроюсь» — самый дорогой совет из чатов.",
       "См. также [NIE и padrón](/notes/" + NIE_EMPADRONAMIENTO_SLUG + ").",
       "Главное: resguardo после huellas часто достаточно для банка и аренды — не ждите пластик для быта.",
     ],
@@ -85,7 +85,7 @@ const bodySections: NoteBodySection[] = [
     section_kind: "practice",
     paragraphs: [
       "Что делать: проверьте список до поездки в extranjería и до оплаты gestoría.",
-      "Зачем: одна ошибка с padrón или seguro — повторный визит и потерянный слот.",
+      "Зачем: одна ошибка с padrón (пропиской) или seguro (страховкой) — повторный визит и потерянный слот.",
       "Главное: cita previa + актуальный padrón + читаемый PDF — три фильтра, без которых huellas не случится.",
     ],
     bullets: [

@@ -36,6 +36,7 @@ next-env.d.ts
 
 # supabase
 supabase/.temp/
+backups/
 
 # telegram parser (portugal satellite)
 parser/.env

@@ -150,6 +150,14 @@ function inferCountryKey(slug: string, guide?: GuideFrontmatter): string | null 
   if (/cheh|czech|praha/.test(hay)) return "czechia";
   if (/niderland|netherlands|holland/.test(hay)) return "netherlands";
   if (/avstri|austria|wien/.test(hay)) return "austria";
+  if (/grets|greece|hellas|афин|athen/.test(hay)) return "greece";
+  if (/kipr|cyprus|никос|лимасс|limassol|nicosia/.test(hay)) return "cyprus";
+  if (/vengr|hungary|будапешт|budapest|white.?card/.test(hay)) return "hungary";
+  if (/malta|мальт|valletta|sliema|mprp|nomad residence/.test(hay)) return "malta";
+  if (/bolgar|bulgaria|софи|sofia|eood|пловдив/.test(hay)) return "bulgaria";
+  if (/horvat|croatia|zagreb|загреб|split|mup\.gov\.hr/.test(hay)) return "croatia";
+  if (/sloven|slovenia|ljubljana|люблян|gov\.si|normiranec|upravna/.test(hay)) return "slovenia";
+  if (/eston|эстон|tallinn|таллин|e-?residenc|politsei|vm\.ee/.test(hay)) return "estonia";
   if (/skandinav|sweden|norway|denmark/.test(hay)) return "sweden";
   return null;
 }

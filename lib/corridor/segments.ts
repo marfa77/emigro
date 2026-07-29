@@ -41,7 +41,7 @@ async function fetchActiveCorridorSegmentsUncached(): Promise<string[]> {
 
 /** URL segments for corridors visible on site (in_development or active). */
 export async function getPublishedCorridorSegments(): Promise<string[]> {
-  return unstable_cache(fetchPublishedCorridorSegmentsUncached, ["corridor-segments-published"], {
+  return unstable_cache(fetchPublishedCorridorSegmentsUncached, ["corridor-segments-published", "v2026-07-29-estonia"], {
     revalidate: CACHE_REVALIDATE.corridorSegments,
     tags: [CACHE_TAGS.corridorSegments, CACHE_TAGS.corridors],
   })();
@@ -49,7 +49,7 @@ export async function getPublishedCorridorSegments(): Promise<string[]> {
 
 /** URL segments for full corridors (active only — wizard, programs). */
 export async function getActiveCorridorSegments(): Promise<string[]> {
-  return unstable_cache(fetchActiveCorridorSegmentsUncached, ["corridor-segments-active"], {
+  return unstable_cache(fetchActiveCorridorSegmentsUncached, ["corridor-segments-active", "v2026-07-29-estonia"], {
     revalidate: CACHE_REVALIDATE.corridorSegments,
     tags: [CACHE_TAGS.corridorSegments, CACHE_TAGS.corridors],
   })();

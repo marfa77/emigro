@@ -76,10 +76,50 @@ export function reconcileTopic(
   return topic;
 }
 
+/** Chat fluff / off-topic posts wrongly tagged as news by the parser. */
+const NEWS_NOISE_RE =
+  /турагент|ниче не продаю|экскурсия в ссср|утопить щенк|коробк[иае]\s+передач|bmw\s*x\d|механическ\w*\s+разблок|ikea|шампунь|отельн\w*\s+косметик|посуд[аыеу]|флакон/i;
+
+/** Civic / relocant-relevant news worth a satellite + Threads post. */
+const NEWS_RELOC_RE =
+  /закон\s+о\s+граждан|aima|внж|\bvng\b|\bnif\b|гражданств|национал|транспорт|бесплатн|\bsns\b|utente|finanç|financas|миграц|виз[аыуе]|multa|штраф|метро|residenc|imigr|\bd8\b|\bd7\b|паспорт|консул|\biban\b|банк(?:овск|ир|ов)|аренд|arrendamento|номер\s+utente|agora\.imigrante|portal-renov/i;
+
+/** Ignore stale channel digests sitting in status=new for months. */
+const NEWS_MAX_AGE_DAYS = 45;
+
+/** Single-signal channel digests can become news notes (unlike practice guides). */
+export function isPublishableNewsCluster(
+  cluster: SignalCluster,
+  countryKey: "portugal" | "spain" = "portugal"
+): boolean {
+  if (cluster.contentKind !== "news") return false;
+  if (cluster.signals.length < 1) return false;
+
+  const newest = cluster.signals
+    .map((s) => new Date(s.posted_at).getTime())
+    .filter((t) => Number.isFinite(t))
+    .sort((a, b) => b - a)[0];
+  if (newest && Date.now() - newest > NEWS_MAX_AGE_DAYS * 86_400_000) return false;
+
+  const text = cluster.signals.map((s) => s.text).join("\n");
+  if (NEWS_NOISE_RE.test(text)) return false;
+  // Text must match — parser topic_hints often false-positive (auto/food on lifestyle posts).
+  if (!NEWS_RELOC_RE.test(text)) return false;
+
+  const coreTopics = countryKey === "spain" ? SPAIN_CORE_RELOC_TOPICS : CORE_RELOC_TOPICS;
+  if (SKIP_AUTO_PUBLISH_TOPICS.has(cluster.topic) && !coreTopics.has(cluster.topic)) {
+    return false;
+  }
+  return true;
+}
+
 export function shouldAutoPublishCluster(
   cluster: SignalCluster,
   countryKey: "portugal" | "spain" = "portugal"
 ): boolean {
+  if (cluster.contentKind === "news") {
+    return isPublishableNewsCluster(cluster, countryKey);
+  }
   if (SKIP_AUTO_PUBLISH_TOPICS.has(cluster.topic)) return false;
   if (cluster.signals.length < 2) return false;
   const coreTopics = countryKey === "spain" ? SPAIN_CORE_RELOC_TOPICS : CORE_RELOC_TOPICS;

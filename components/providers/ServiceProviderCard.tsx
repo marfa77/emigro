@@ -3,6 +3,7 @@
 import { ExternalLink } from "lucide-react";
 import { trackEvent } from "@/lib/analytics/client";
 import { getExamLabelForTopic, PROVIDER_CATEGORY_LABELS_RU, type ServiceProvider } from "@/lib/providers/registry";
+import { getUniPrepOfferForTopic, withPrep2GoUtm, withUniPrepUtm } from "@/lib/uniprep2go/catalog";
 
 export type ProviderPlacement =
   | "corridor_landing"
@@ -22,6 +23,29 @@ type Props = {
   variant?: "default" | "compact";
 };
 
+function resolveProviderHref(provider: ServiceProvider, topicKey?: string, placement?: ProviderPlacement): string {
+  const medium = placement ?? "provider_card";
+  if (provider.id === "prep2go") {
+    const offer = getUniPrepOfferForTopic(topicKey);
+    const path = offer?.prep2goMock?.path ?? "/";
+    return withPrep2GoUtm(path, {
+      medium,
+      campaign: topicKey ? `prep2go_${topicKey}` : "prep2go",
+      content: "provider_card",
+    });
+  }
+  if (provider.id === "uniprep2go") {
+    const offer = getUniPrepOfferForTopic(topicKey);
+    const path = offer?.mock?.path ?? offer?.deck?.path ?? "/mock-exams/v/citizenship";
+    return withUniPrepUtm(path, {
+      medium,
+      campaign: topicKey ? `uniprep_${topicKey}` : "uniprep_hub",
+      content: "provider_card",
+    });
+  }
+  return provider.url;
+}
+
 export function ServiceProviderCard({
   provider,
   placement,
@@ -34,6 +58,7 @@ export function ServiceProviderCard({
   const serviceLabel = provider.isFirstParty
     ? "Сервис Emigro"
     : PROVIDER_CATEGORY_LABELS_RU[provider.category];
+  const href = resolveProviderHref(provider, topicKey, placement);
   const linkTarget = provider.isFirstParty ? undefined : "_blank";
   const linkRel = provider.isFirstParty ? undefined : "noopener noreferrer sponsored";
   const otherExamLabels = topicKey
@@ -65,7 +90,7 @@ export function ServiceProviderCard({
           )}
         </div>
         <a
-          href={provider.url}
+          href={href}
           target={linkTarget}
           rel={linkRel}
           onClick={handleClick}
@@ -102,7 +127,7 @@ export function ServiceProviderCard({
         </div>
       )}
       <a
-        href={provider.url}
+        href={href}
         target={linkTarget}
         rel={linkRel}
         onClick={handleClick}

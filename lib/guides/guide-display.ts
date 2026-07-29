@@ -44,6 +44,14 @@ export const EU_COUNTRY_TOPIC_KEYS = new Set([
   "poland",
   "czechia",
   "austria",
+  "greece",
+  "cyprus",
+  "hungary",
+  "malta",
+  "bulgaria",
+  "croatia",
+  "slovenia",
+  "estonia",
 ]);
 
 export function specificGuideTopicKeys(topicKeys?: string[]): Set<string> {
@@ -135,6 +143,14 @@ export function corridorWizardBlurb(urlSegment: string): string {
     poland: "Blue Card, work permit, семья — wizard сопоставит профиль с требованиями.",
     czechia: "Employee card, Blue Card, семья — wizard сопоставит профиль с требованиями.",
     austria: "RWR card, Blue Card, семья — wizard сопоставит профиль с требованиями.",
+    greece: "Digital Nomad, FIP, Golden Visa — wizard сопоставит профиль с требованиями.",
+    cyprus: "Digital Nomad, Category F, семья — wizard сопоставит профиль с требованиями.",
+    hungary: "White Card, Guest Investor — wizard сопоставит профиль с требованиями.",
+    malta: "NRP (закрыт для РФ/BY), MPRP — wizard сопоставит профиль с требованиями.",
+    bulgaria: "Digital Nomad, EOOD, семья — wizard сопоставит профиль с требованиями.",
+    croatia: "Digital Nomad (€3 622,50/мес, 18 мес), семья — wizard сопоставит профиль с требованиями.",
+    slovenia: "Digital Nomad (~€3 200/мес, 12 мес) или s.p. — wizard сопоставит профиль с требованиями.",
+    estonia: "DNV €4 500/мес (РФ/BY почти закрыты) или e-Residency + OÜ — wizard сопоставит профиль.",
   };
   return blurbs[urlSegment] ?? "Wizard сопоставит ваш профиль с программами ВНЖ коридора.";
 }

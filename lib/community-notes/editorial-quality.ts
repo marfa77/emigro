@@ -1,4 +1,5 @@
 import { validateAgainstBlueprint } from "@/lib/community-notes/article-blueprint";
+import { ephemeralRelativeTimeErrors } from "@/lib/community-notes/evergreen";
 import { validateGuideGlossary, isGlossarySection } from "@/lib/community-notes/glossary";
 import { validateOfficialPracticeCopy } from "@/lib/community-notes/official-vs-practice";
 import { snsTextsFromDraft, validateSnsUtenteCopy } from "@/lib/community-notes/sns-editorial";
@@ -102,6 +103,14 @@ export function validateNoteDraft(
       body_sections: input.body_sections,
       key_takeaways: input.key_takeaways,
     })
+  );
+  errors.push(
+    ...ephemeralRelativeTimeErrors([
+      input.quick_answer,
+      ...input.key_takeaways,
+      ...input.body_sections.flatMap((s) => [...(s.paragraphs ?? []), ...(s.bullets ?? [])]),
+      ...input.faq.flatMap((f) => [f.q, f.a]),
+    ])
   );
 
   if (input.content_kind === "guide") {

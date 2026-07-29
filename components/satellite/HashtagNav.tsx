@@ -45,7 +45,11 @@ export function HashtagNav({
   const active = activeTag ? normalizeHashtag(activeTag) : null;
   const featured = featuredHashtagsForCountry(resolvedCountry);
 
-  const tags = featured.filter((t) => (counts.get(t) ?? 0) > 0 || active === t);
+  // Keep kind rubrics (новости / лайфхак / совет) visible even when the backlog is thin.
+  const alwaysVisible = new Set(["новости", "лайфхак", "совет"]);
+  const tags = featured.filter(
+    (t) => (counts.get(t) ?? 0) > 0 || active === t || alwaysVisible.has(t)
+  );
   const featuredSet = new Set<string>(featured);
   const extraTags = Array.from(counts.entries())
     .filter(([t]) => !featuredSet.has(t))

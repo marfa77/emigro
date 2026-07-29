@@ -16,8 +16,8 @@ export function shouldShowPrep2GoPromo(note: CommunityNote): boolean {
   return /\b(ciple|caple)\b/i.test(`${note.title} ${note.slug}`);
 }
 
-export function prep2GoPromoUrl(noteSlug: string): string {
-  const url = new URL(PREP2GO_BASE);
+export function prep2GoPromoUrl(noteSlug: string, path = "/"): string {
+  const url = new URL(path, PREP2GO_BASE);
   url.searchParams.set("utm_source", "emigro");
   url.searchParams.set("utm_medium", "satellite");
   url.searchParams.set("utm_campaign", "ciple_note");

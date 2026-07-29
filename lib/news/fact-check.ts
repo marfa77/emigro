@@ -215,6 +215,14 @@ const COUNTRY_ALIASES: Array<{ key: string; names: string[] }> = [
   { key: "poland", names: ["poland", "польш"] },
   { key: "czechia", names: ["czech", "чех"] },
   { key: "austria", names: ["austria", "австри"] },
+  { key: "greece", names: ["greece", "грец", "hellas"] },
+  { key: "cyprus", names: ["cyprus", "кипр", "kipr"] },
+  { key: "hungary", names: ["hungary", "венгр", "будапешт", "budapest"] },
+  { key: "malta", names: ["malta", "мальт", "valletta", "sliema"] },
+  { key: "bulgaria", names: ["bulgaria", "болгар", "софи", "sofia", "eood"] },
+  { key: "croatia", names: ["croatia", "хорват", "zagreb", "загреб", "split", "сплит", "mup", "dubrovnik", "дубровник"] },
+  { key: "slovenia", names: ["slovenia", "словен", "ljubljana", "люблян", "gov.si", "upravna", "normiranec"] },
+  { key: "estonia", names: ["estonia", "эстон", "tallinn", "таллин", "e-residency", "e-resident", "politsei", "vm.ee"] },
   { key: "scandinavia", names: ["sweden", "norway", "denmark", "finland", "швец", "норвег", "дани", "финлянд"] },
 ];
 

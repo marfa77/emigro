@@ -25,7 +25,7 @@ const bodySections: NoteBodySection[] = [
     paragraphs: [
       "Зачем вам это сейчас: без понимания этапов вы подпишете CPCV с депозитом 10–20%, не зная, что IMT и Imposto do Selo платятся до escritura.",
       "Что делать: сверить цепочку CPCV → due diligence → simulação IMT → escritura в Conservatória / notário.",
-      "Зачем: promotor и частник используют одни и те же формальные шаги; разница — в гарантиях, сроках сдачи и проверках.",
+      "Зачем: promotor (застройщик) и частник используют одни и те же формальные шаги; разница — в гарантиях, сроках сдачи и проверках.",
       "Главное: CPCV — обязательство купить; escritura — переход права собственности; IMT — налог на передачу, считайте до депозита.",
     ],
     bullets: [
@@ -42,7 +42,7 @@ const bodySections: NoteBodySection[] = [
     paragraphs: [
       "Зачем вам это сейчас: certidão permanente и caderneta predial показывают, кому реально принадлежит квартира и есть ли долги.",
       "Что делать: заказать certidão permanente, caderneta predial, licença de utilização и certificado energético до подписи CPCV.",
-      "Зачем: без due diligence вы можете купить квартиру с hipoteca, dívidas de condomínio или без licença de utilização.",
+      "Зачем: без due diligence вы можете купить квартиру с hipoteca (ипотекой), dívidas de condomínio (долгами по общему имуществу) или без licença de utilização (лицензии на проживание).",
       "Главное: advogado (advogado) или solicitador проверяет registo predial — это не опция, а страховка на €200k+ сделки.",
     ],
     bullets: [
@@ -58,7 +58,7 @@ const bodySections: NoteBodySection[] = [
     section_kind: "practice",
     paragraphs: [
       "Что делать: сравнить empreendimentos в Porto, Matosinhos, Gaia, Braga, Guimarães и Vila Nova de Famalicão — цена за m², срок entrega, garantias.",
-      "Зачем: у promotor другие риски, чем у частника: задержка obra, изменение планировки, condomínio в новом prédio.",
+      "Зачем: у promotor (застройщика) другие риски, чем у частника: задержка obra (стройки), изменение планировки, condomínio (общие расходы) в новом prédio (здании).",
       "Главное: сравнивайте €/m² и срок entrega — не макет в шоуруме, а cláusulas CPCV и histórico promotor.",
     ],
     bullets: [
@@ -75,7 +75,7 @@ const bodySections: NoteBodySection[] = [
     section_kind: "practice",
     paragraphs: [
       "Что делать: искать на Idealista/Imovirtual, проверять registo predial и долги condomínio; для старых домов — осмотр на humidade.",
-      "Зачем: вторичка в Norte часто дешевле новостройки на 15–25%, но ремонт и bolor могут съесть экономию.",
+      "Зачем: вторичка в Norte часто дешевле новостройки на 15–25%, но ремонт и bolor (плесень) могут съесть экономию.",
       "Главное: осмотр зимой и проверка atas condomínio — два фильтра, которые отсекают половину «выгодных» объявлений.",
     ],
     bullets: [
@@ -94,7 +94,7 @@ const bodySections: NoteBodySection[] = [
     section_kind: "practice",
     paragraphs: [
       "Что делать: открыть conta, получить NIF, собрать comprovativos дохода и подать simulação в 2–3 банка (Millennium, Caixa, Santander, Novo Banco).",
-      "Зачем: без предодобрения crédito вы рискуете CPCV с жёстким сроком, а банк откажет из-за формата дохода.",
+      "Зачем: без предодобрения crédito (кредита) вы рискуете CPCV (предварительным договором) с жёстким сроком, а банк откажет из-за формата дохода.",
       "Главное: simulação в двух банках до CPCV — это ваш рычаг, а не «потом разберёмся».",
     ],
     bullets: [
@@ -112,7 +112,7 @@ const bodySections: NoteBodySection[] = [
     paragraphs: [
       "Зачем вам это сейчас: покупка — цепочка из 8–12 шагов; пропуск due diligence стоит дороже, чем advogado.",
       "Что делать: NIF → предодобрение банка → поиск → due diligence → CPCV → IMT → escritura → registo → chaves.",
-      "Зачем: каждый шаг даёт leverage — до CPCV вы ещё можете выйти; после sinal 10–20% — штраф.",
+      "Зачем: каждый шаг даёт leverage — до CPCV (предварительного договора) вы ещё можете выйти; после sinal (задатка) 10–20% — штраф.",
       "Главное: не подписывайте CPCV без certidão permanente, licença de utilização и simulação IMT в руках.",
     ],
     bullets: [
@@ -133,7 +133,7 @@ const bodySections: NoteBodySection[] = [
     section_kind: "gap",
     paragraphs: [
       "Что делать: сверять обещания promotor и объявления Idealista с документами и опытом релокантов в Norte.",
-      "Зачем: маркетинговые формулировки («pronto a habitar», «entrega 2026») редко совпадают с cláusulas CPCV и реальными сроками.",
+      "Зачем: маркетинговые формулировки («pronto a habitar» — готово к заселению, «entrega 2026» — сдача) редко совпадают с cláusulas CPCV (пунктами договора) и реальными сроками.",
       "Главное: если обещание не вписано в CPCV — это не обещание, а реклама.",
     ],
     bullets: [

@@ -37,6 +37,13 @@ async function fetchPublishedCommunityNotesUncached(countryKey: string): Promise
   }
 }
 
+/** Direct DB load for cron/CLI (no Next.js `unstable_cache`). */
+export async function getPublishedCommunityNotesUncached(
+  countryKey = "portugal"
+): Promise<CommunityNote[]> {
+  return fetchPublishedCommunityNotesUncached(countryKey);
+}
+
 export async function getPublishedCommunityNotes(countryKey = "portugal"): Promise<CommunityNote[]> {
   return unstable_cache(
     () => fetchPublishedCommunityNotesUncached(countryKey),

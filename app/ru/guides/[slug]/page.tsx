@@ -6,6 +6,7 @@ import { ArrowRight, BookOpen, CheckCircle2, Clock, Compass, FileText, Layers, S
 import { ShareButtons } from "@/components/share/ShareButtons";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { RelocatorChatPromo } from "@/components/community/RelocatorChatPromo";
+import { UniPrep2GoPromo, UniPrepCitizenshipHubPromo } from "@/components/sponsors/UniPrep2GoPromo";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { ServiceProvidersSection } from "@/components/providers/ServiceProvidersSection";
 import { countryCardImage } from "@/lib/brand/country-accents";
@@ -16,6 +17,10 @@ import {
   getGuidePassportIso2,
   getGuideProviderTopicKey,
 } from "@/lib/guides/guide-display";
+import {
+  getUniPrepOfferForTopics,
+  shouldShowUniPrepOnGuide,
+} from "@/lib/uniprep2go/catalog";
 import { getActiveNewsTopics } from "@/lib/news/topics";
 import type { NewsTopicConfig } from "@/lib/news/topics";
 import { corridorSlugForTopic } from "@/lib/providers/registry";
@@ -28,6 +33,7 @@ import { GuideClusterLinks } from "@/components/guides/GuideClusterLinks";
 import { GuideOriginHubPromo } from "@/components/guides/GuideOriginHubPromo";
 import { GuideCorridorLiveData } from "@/components/guides/GuideCorridorLiveData";
 import { GuideOfficialSources } from "@/components/guides/GuideOfficialSources";
+import { GuideFeedbackButtons } from "@/components/guides/GuideFeedbackButtons";
 import { getClusterForGuide, getComparisonCrossLinks } from "@/lib/seo/cluster-links";
 import { getGuideAudiences } from "@/lib/guides/categories";
 import { ORIGIN_HUB_PATH } from "@/lib/seo/corridor-llm-layer";
@@ -266,6 +272,17 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
   const comparisonCrossLinks = getComparisonCrossLinks(guide.slug);
   const showOriginHubPromo = isPillarGuideSlug(guide.slug) || getGuideAudiences(guide).includes("ru");
   const providerTopicKey = getGuideProviderTopicKey(guide);
+  const showUniPrep = shouldShowUniPrepOnGuide(guide);
+  const uniPrepOffer = getUniPrepOfferForTopics(guide.topic_keys);
+  const uniPrepTopicCount = new Set(
+    (guide.topic_keys ?? [])
+      .map((key) => getUniPrepOfferForTopics([key])?.topicKey)
+      .filter(Boolean)
+  ).size;
+  const showUniPrepHub =
+    showUniPrep &&
+    (uniPrepTopicCount >= 2 ||
+      /grazhdanstvo-portugaliya-ispaniya|grazhdanstvo-germaniya-polsha/.test(guide.slug));
   const toc = extractToc(guide.bodyHtml);
   const faqItems = extractFaq(guide.bodyHtml);
   const llmFacts = buildGuideLlmFacts(guide);
@@ -411,6 +428,28 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
               dangerouslySetInnerHTML={{ __html: guide.bodyHtml }}
             />
 
+            <GuideFeedbackButtons
+              slug={guide.slug}
+              title={guide.title}
+              path={guidePath(guide.slug)}
+              className="mt-8"
+            />
+
+            {showUniPrepHub ? (
+              <UniPrepCitizenshipHubPromo
+                placement="guide_article"
+                contentId={guide.slug}
+                className="mt-8"
+              />
+            ) : showUniPrep && uniPrepOffer ? (
+              <UniPrep2GoPromo
+                placement="guide_article"
+                offer={uniPrepOffer}
+                contentId={guide.slug}
+                className="mt-8"
+              />
+            ) : null}
+
             {guide.official_sources && guide.official_sources.length > 0 && (
               <GuideOfficialSources sources={guide.official_sources} />
             )}
@@ -522,6 +561,20 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
             </section>
 
             <RelocatorChatPromo variant="sidebar" source={`guide_sidebar_${guide.slug}`} />
+
+            {showUniPrepHub ? (
+              <UniPrepCitizenshipHubPromo
+                placement="guide_sidebar"
+                contentId={`sidebar_${guide.slug}`}
+              />
+            ) : showUniPrep && uniPrepOffer ? (
+              <UniPrep2GoPromo
+                placement="guide_sidebar"
+                offer={uniPrepOffer}
+                contentId={`sidebar_${guide.slug}`}
+                compact
+              />
+            ) : null}
 
             {providerTopicKey && (
               <ServiceProvidersSection

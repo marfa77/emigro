@@ -19,7 +19,8 @@ rsync -avz --delete \
   --exclude 'node_modules' --exclude '.next' --exclude '.git' \
   --exclude 'parser/.venv' --exclude 'parser/media' --exclude 'parser/tg.session' \
   --exclude 'parser/__pycache__' --exclude 'parser/logs' --exclude 'parser/.env' \
-  --exclude 'parser/state.json' --exclude 'parser/.scheduled.lock' \
+  --exclude 'parser/out' --exclude 'parser/state.json' \
+  --exclude 'parser/.scheduled.lock' --exclude 'parser/.scheduled-spain.lock' \
   --exclude '.env' --exclude '.env.local' \
   --exclude '.DS_Store' \
   -e "ssh -i ${SSH_KEY} -o StrictHostKeyChecking=no" \
@@ -30,6 +31,9 @@ ssh -i "${SSH_KEY}" -o StrictHostKeyChecking=no "${SERVER_USER}@${SERVER_HOST}" 
   "set -euo pipefail; \
    cd ${REMOTE}; \
    chown -R www-data:www-data ${REMOTE}; \
+   mkdir -p ${REMOTE}/parser/out ${REMOTE}/parser/logs; \
+   chown -R www-data:www-data ${REMOTE}/parser/out ${REMOTE}/parser/logs; \
+   chmod -R u+rwX ${REMOTE}/parser/out ${REMOTE}/parser/logs; \
    cd parser; \
    python3 -m venv .venv; \
    . .venv/bin/activate; \

@@ -37,6 +37,14 @@ export const PREP2GO_TOPIC_KEYS = [
   "poland",
   "czechia",
   "austria",
+  "greece",
+  "cyprus",
+  "hungary",
+  "malta",
+  "bulgaria",
+  "croatia",
+  "slovenia",
+  "estonia",
 ] as const;
 
 const VALID_TOPICS = new Set<string>(PREP2GO_TOPIC_KEYS);

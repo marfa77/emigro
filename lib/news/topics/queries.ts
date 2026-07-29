@@ -66,7 +66,7 @@ async function fetchPublishedTopicsUncached(): Promise<NewsTopicConfig[]> {
 
 const getPublishedTopicsCached = unstable_cache(
   fetchPublishedTopicsUncached,
-  ["news-topics-published"],
+  ["news-topics-published", "v2026-07-29-estonia"],
   { revalidate: CACHE_REVALIDATE.topics, tags: [CACHE_TAGS.newsTopics] },
 );
 
