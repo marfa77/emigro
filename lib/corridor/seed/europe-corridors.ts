@@ -1240,8 +1240,8 @@ export const EUROPE_CORRIDORS: CorridorSeed[] = [
         category: "citizenship",
         titleEn: "Nordic citizenship timelines",
         titleRu: "Сроки гражданства в Nordics",
-        bodyEn: "Sweden: ~5 years habitual residence. Denmark: 9 years (with exceptions). Norway: 7 years. Finland: 5 years. Language tests apply.",
-        bodyRu: "Швеция: ~5 лет. Дания: 9 лет. Норвегия: 7 лет. Финляндия: 5 лет. Нужны языковые экзамены.",
+        bodyEn: "Sweden: 8 years habitual residence from 6 Jun 2026 (plus income ~SEK 20k/mo and language/civics). Denmark: ~9 years. Norway: ~7–8 years. Finland: ~5 years. Language tests apply.",
+        bodyRu: "Швеция: **8 лет** с 06.06.2026 (+ доход ~SEK 20 000/мес и язык/общество). Дания: ~9 лет. Норвегия: ~7–8 лет. Финляндия: ~5 лет. Нужны языковые экзамены.",
         sourceUrl: "https://www.migrationsverket.se/",
       },
       {

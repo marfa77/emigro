@@ -117,6 +117,7 @@ export const GUIDE_COVER_BY_SLUG: Record<string, string> = {
   "vnj-italiya-2026-elective-residency": "/images/corridor-italy.webp",
   "vnj-italiya-2026-digital-nomad": "/images/corridor-italy.webp",
   "vnj-skandinaviya-2026": "/images/corridor-scandinavia.webp",
+  "vnj-shvetsiya-2026-work-permit-grazhdanstvo": "/images/corridor-scandinavia.webp",
   "pervye-30-dnej-v-skandinavii-2026": "/images/corridor-scandinavia.webp",
   "grazhdanstvo-germaniya-polsha-2026": "/images/corridor-germany.webp",
   "shengen-turist-vs-vnzh-2026": "/images/corridor-france.webp",

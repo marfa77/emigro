@@ -4,13 +4,13 @@ title: "ВНЖ Скандинавия 2026: Швеция, Дания, Норве
 seo_title: "ВНЖ Скандинавия 2026 — Швеция, Дания, work permit, семья"
 seo_description: "ВНЖ в Скандинавии 2026: шведский work permit от SEK 34 470/мес, датский pay limit DKK 552 000/год, семья, зарплаты, язык, ПМЖ и гражданство. Для RU/BY/UA/KZ."
 excerpt: "Скандинавия — не «дешёвая Европа», но один из самых предсказуемых коридоров для найма: высокие зарплаты, сильная соцзащита и понятные правила work permit в Швеции и Дании."
-quick_answer: "Основные маршруты для граждан СНГ: (1) Sweden work permit — оффер от шведского работодателя, зарплата от SEK 34 470/мес (~€3 050, 90% медианы с 1.06.2026) и условия не хуже коллективного договора; при суммарном легальном пребывании <12 мес — обязательна comprehensive health insurance; (2) Denmark pay limit — зарплата от DKK 552 000/год (~€74 000); (3) Nordic family reunification — супруг/партнёр с ВНЖ в SE/NO/DK/FI. ПМЖ: Швеция ~4 года work permit; гражданство SE ~5 лет, DK ~9 лет. Подача через Migrationsverket / SIRI."
+quick_answer: "Основные маршруты для граждан СНГ: (1) Sweden work permit — оффер, зарплата от SEK 34 470/мес (~€3 050, 90% медианы SCB с 16.06.2026) и условия не хуже kollektivavtal; при суммарном легальном пребывании <12 мес — comprehensive health insurance; (2) Denmark pay limit — от DKK 552 000/год (~€74 000); (3) Nordic family reunification. ПМЖ Швеция: обычно 4 года work permit. Гражданство SE с 06.06.2026 — **8 лет** + доход ~SEK 20 000/мес + язык/общество. Pillar Швеции: /ru/guides/vnj-shvetsiya-2026-work-permit-grazhdanstvo. Подача: Migrationsverket / SIRI."
 corridor_slugs: [ru-speaking-to-scandinavia]
 topic_keys: [scandinavia, work, visa]
 tags: [Скандинавия, ВНЖ, Швеция, Дания, work permit, 2026, Nordics]
 primary_intent: informational
 cta_primary: /ru/scandinavia/wizard
-cta_secondary: /ru/scandinavia
+cta_secondary: /ru/guides/vnj-shvetsiya-2026-work-permit-grazhdanstvo
 official_sources:
   - url: https://www.migrationsverket.se/English/Private-individuals/Working-in-Sweden/Employed/How-to-apply.html
     label: Migrationsverket — work permit Sweden
@@ -18,6 +18,8 @@ official_sources:
     label: Migrationsverket — salary requirements 2026
   - url: https://www.migrationsverket.se/en/news-archive/news/2026-06-01-new-rules-for-labour-immigration-from-1-june.html
     label: Migrationsverket — reform from 1 June 2026
+  - url: https://www.migrationsverket.se/en/news-archive/news/2026-05-06-new-rules-for-swedish-citizenship-from-6-june-2026.html
+    label: Migrationsverket — citizenship from 6 June 2026
   - url: https://nyidanmark.dk/en-GB/You-want-to-apply/Work/Pay-limit-scheme
     label: SIRI — Denmark pay limit scheme
   - url: https://www.migrationsverket.se/English/Private-individuals/Moving-to-a-close-relative-in-Sweden.html
@@ -28,7 +30,7 @@ official_sources:
     label: UDI Norway — immigration
 estimated_minutes: 18
 date_published: 2026-07-01
-date_modified: 2026-07-12
+date_modified: 2026-07-30
 ---
 
 ## Кому подходит этот гайд
@@ -41,7 +43,7 @@ date_modified: 2026-07-12
 - семьям, готовым к **высоким расходам** на жильё и высоким зарплатным порогам
 - тем, кто сравнивает Nordics с [Германией Blue Card](/ru/guides/vnj-germaniya-2026) или [Нидерландами HSM](/ru/guides/vnj-niderlandy-2026-highly-skilled)
 
-Чек-лист после прилёта: [первые 30 дней в Скандинавии](/ru/guides/pervye-30-dnej-v-skandinavii-2026). Общий обзор семи коридоров: [куда переехать из России](/ru/guides/kuda-pereehat-iz-rossii-2026-evropa-vnj).
+Чек-лист после прилёта: [первые 30 дней в Скандинавии](/ru/guides/pervye-30-dnej-v-skandinavii-2026). Глубокий разбор Швеции (Blue Card, self-employed, гражданство 8 лет): [ВНЖ Швеция 2026](/ru/guides/vnj-shvetsiya-2026-work-permit-grazhdanstvo). Общий обзор семи коридоров: [куда переехать из России](/ru/guides/kuda-pereehat-iz-rossii-2026-evropa-vnj).
 
 ---
 
@@ -188,7 +190,7 @@ Emigro wizard по Nordics: [/ru/scandinavia/wizard](/ru/scandinavia/wizard).
 | Work permit | Английский достаточен в IT | Английский в IT |
 | Быт / интеграция | Шведский A2–B1 помогает | Датский A2–B1 |
 | ПМЖ / гражданство | Шведский B1+ (SFI → higher) | Prøve i Dansk 3 (PD3) |
-| Гражданство | ~5 лет habitual residence | ~9 лет (исключения есть) |
+| Гражданство | **8 лет** с 06.06.2026 + доход/язык | ~9 лет (исключения есть) |
 
 **SFI (Swedish for Immigrants)** — бесплатные курсы для ВНЖ-держателей. Начинайте в первый год — это ускорит интеграцию и путь к паспорту.
 
