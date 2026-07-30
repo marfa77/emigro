@@ -55,7 +55,7 @@ const bodySections: NoteBodySection[] = [
     ],
   },
   {
-    heading: "Рейтинг international schools: от сильных к более узким",
+    heading: "Рейтинг школ: от лучших к более узким",
     section_kind: "practice",
     paragraphs: [
       "Что делать: пройти список сверху вниз и выписать 2–3 школы под ваш curriculum и город — потом open day.",

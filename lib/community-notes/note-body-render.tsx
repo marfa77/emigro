@@ -121,10 +121,16 @@ export function reorderSectionsForReading(sections: NoteBodySection[]): NoteBody
 
 const COLLAPSE_BULLET_THRESHOLD = 5;
 
+/** Ranking / ordered shortlists must stay visible — that's the deliverable of the guide. */
+function isRankingSection(section: NoteBodySection): boolean {
+  return /рейтинг|ранжир|от сильн|от лучш|по убыван/i.test(section.heading);
+}
+
 /** Whether the section uses progressive disclosure (details/summary). */
 export function sectionShouldCollapse(section: NoteBodySection): boolean {
   if (isGlossarySection(section)) return true;
   if (isChecklistSection(section)) return false;
+  if (isRankingSection(section)) return false;
   return (section.bullets?.length ?? 0) >= COLLAPSE_BULLET_THRESHOLD;
 }
 
@@ -135,6 +141,7 @@ export function sectionStartsCollapsed(
 ): boolean {
   if (isGlossarySection(section)) return true;
   if (isChecklistSection(section)) return false;
+  if (isRankingSection(section)) return false;
   const bullets = section.bullets?.length ?? 0;
   if (bullets >= COLLAPSE_BULLET_THRESHOLD) return indexAmongContent >= 2;
   return indexAmongContent >= 4;
