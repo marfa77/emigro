@@ -2,7 +2,14 @@ import type { ReactNode } from "react";
 import type { NoteBodySection } from "@/lib/community-notes/types";
 import { isGlossarySection } from "@/lib/community-notes/glossary";
 import {
+  extractMarkdownHttpLinks,
+  getLinkPreviews,
+  type LinkPreview,
+} from "@/lib/link-preview";
+import { LinkPreviewThumb } from "@/components/satellite/LinkPreviewThumb";
+import {
   isChecklistSection,
+  isRankingSection,
   optimizeBodySections,
   parseInlineMarkdown,
   parseTakeawayPrefix,
@@ -63,7 +70,67 @@ function SectionBullets({
   );
 }
 
-function SectionContent({ section, checklist }: { section: NoteBodySection; checklist: boolean }) {
+async function RankingBulletsWithPreviews({ bullets }: { bullets: string[] }) {
+  const linksPerBullet = bullets.map((item) => extractMarkdownHttpLinks(item));
+  const allUrls = linksPerBullet.flatMap((links) => links.map((l) => l.url));
+  const previews = await getLinkPreviews(allUrls);
+
+  return (
+    <ol className="mt-4 space-y-4">
+      {bullets.map((item, index) => {
+        const links = linksPerBullet[index] ?? [];
+        const primary = links[0]
+          ? previews.get(links[0].url) ?? previewFallback(links[0].url)
+          : null;
+
+        return (
+          <li
+            key={item.slice(0, 48)}
+            className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm"
+          >
+            <div className="flex flex-col gap-3 p-3 sm:flex-row sm:items-start sm:gap-4 sm:p-4">
+              {primary && (
+                <div className="sm:w-40 sm:shrink-0">
+                  <LinkPreviewThumb
+                    href={primary.url}
+                    hostname={primary.hostname}
+                    imageUrl={primary.imageUrl}
+                    label={links[0]?.label ?? primary.hostname}
+                    size="sm"
+                  />
+                </div>
+              )}
+              <div className="min-w-0 flex-1 text-[15px] leading-[1.65] text-slate-700 sm:text-base sm:leading-relaxed [&_a]:break-words">
+                {parseInlineMarkdown(item)}
+              </div>
+            </div>
+          </li>
+        );
+      })}
+    </ol>
+  );
+}
+
+function previewFallback(url: string): LinkPreview {
+  let hostname = "site";
+  try {
+    hostname = new URL(url).hostname.replace(/^www\./, "");
+  } catch {
+    /* keep default */
+  }
+  return { url, hostname, imageUrl: null, siteName: null };
+}
+
+async function SectionContent({
+  section,
+  checklist,
+}: {
+  section: NoteBodySection;
+  checklist: boolean;
+}) {
+  const ranking = isRankingSection(section);
+  const bullets = section.bullets ?? [];
+
   return (
     <>
       {(section.paragraphs ?? []).map((paragraph) => (
@@ -74,9 +141,12 @@ function SectionContent({ section, checklist }: { section: NoteBodySection; chec
           {parseInlineMarkdown(paragraph)}
         </p>
       ))}
-      {(section.bullets?.length ?? 0) > 0 && (
-        <SectionBullets bullets={section.bullets!} checklist={checklist} />
-      )}
+      {bullets.length > 0 &&
+        (ranking ? (
+          <RankingBulletsWithPreviews bullets={bullets} />
+        ) : (
+          <SectionBullets bullets={bullets} checklist={checklist} />
+        ))}
     </>
   );
 }
@@ -130,23 +200,29 @@ function CollapsibleSection({
   );
 }
 
-export function NoteBody({ sections, paragraphs }: NoteBodyProps) {
+export async function NoteBody({ sections, paragraphs }: NoteBodyProps) {
   const optimized = optimizeBodySections(sections);
-  let contentIndex = 0;
 
   if (optimized.length > 0) {
+    let contentIndex = 0;
+    const prepared = optimized.map((section) => {
+      const glossary = isGlossarySection(section);
+      const indexAmongContent = glossary ? -1 : contentIndex++;
+      return {
+        section,
+        id: `section-${sectionSlug(section.heading)}`,
+        checklist: isChecklistSection(section),
+        surface: resolveSectionSurface(section),
+        glossary,
+        collapsed: glossary ? true : sectionStartsCollapsed(section, indexAmongContent),
+        useCollapsible: sectionShouldCollapse(section),
+      };
+    });
+
     return (
       <div className="mt-8 space-y-6 sm:space-y-7">
-        {optimized.map((section) => {
-          const id = `section-${sectionSlug(section.heading)}`;
-          const checklist = isChecklistSection(section);
-          const surface = resolveSectionSurface(section);
-          const glossary = isGlossarySection(section);
-          const indexAmongContent = glossary ? -1 : contentIndex++;
-          const collapsed = glossary
-            ? true
-            : sectionStartsCollapsed(section, indexAmongContent);
-          const useCollapsible = sectionShouldCollapse(section);
+        {prepared.map(({ section, id, checklist, surface, collapsed, useCollapsible }) => {
+          const content = <SectionContent section={section} checklist={checklist} />;
 
           return (
             <section
@@ -163,7 +239,7 @@ export function NoteBody({ sections, paragraphs }: NoteBodyProps) {
                   collapsed={collapsed}
                   surface={surface}
                 >
-                  <SectionContent section={section} checklist={checklist} />
+                  {content}
                 </CollapsibleSection>
               ) : (
                 <>
@@ -173,7 +249,7 @@ export function NoteBody({ sections, paragraphs }: NoteBodyProps) {
                   <h2 id={id} className={SECTION_HEADING}>
                     {section.heading}
                   </h2>
-                  <SectionContent section={section} checklist={checklist} />
+                  {content}
                 </>
               )}
             </section>

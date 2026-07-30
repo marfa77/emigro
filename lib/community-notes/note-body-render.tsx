@@ -122,7 +122,7 @@ export function reorderSectionsForReading(sections: NoteBodySection[]): NoteBody
 const COLLAPSE_BULLET_THRESHOLD = 5;
 
 /** Ranking / ordered shortlists must stay visible — that's the deliverable of the guide. */
-function isRankingSection(section: NoteBodySection): boolean {
+export function isRankingSection(section: NoteBodySection): boolean {
   return /рейтинг|ранжир|от сильн|от лучш|по убыван/i.test(section.heading);
 }
 

@@ -3,6 +3,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { ContentKindBadge, NoteHashtags } from "@/components/satellite/HashtagNav";
+import { OfficialLinksPreview } from "@/components/satellite/OfficialLinksPreview";
 import { KeyTakeaways, NoteBody } from "@/components/satellite/NoteBody";
 import { NoteFaq } from "@/components/satellite/NoteFaq";
 import { NoteReadingProgress } from "@/components/satellite/NoteReadingProgress";
@@ -149,23 +150,10 @@ export default async function SpainNotePage({ params }: { params: { slug: string
       <NoteBody sections={note.body_sections} paragraphs={note.body_paragraphs} />
 
       {note.official_links.length > 0 && (
-        <section className="mt-10">
-          <h2 className="text-lg font-semibold text-slate-900 sm:text-xl">Официальные источники</h2>
-          <ul className="mt-3 space-y-2">
-            {note.official_links.map((link) => (
-              <li key={link.url}>
-                <a
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-amber-900 underline hover:text-amber-950"
-                >
-                  {link.title}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </section>
+        <OfficialLinksPreview
+          links={note.official_links}
+          accentClassName="text-amber-900 underline hover:text-amber-950"
+        />
       )}
 
       <NoteFaq items={note.faq} />
