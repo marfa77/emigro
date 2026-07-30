@@ -14,7 +14,7 @@ Timer с **`Persistent=true`** — пропуск догоняется посл�
 ## Что делает прогон
 
 1. Синхронизация cursor Telethon из Supabase (`community_signals`)
-2. Парсер `@chatlisboa`, `@por_tugal`, `@lepta`, `@autolife_pt` → JSON
+2. Парсер `@chatlisboa`, `@por_tugal`, `@lepta`, `@autolife_pt`, `@braga_pt_rus` → JSON
 3. Ingest в `community_signals` (direct Supabase, без Vercel HTTP)
 4. До **1** Gemini-черновика → `community_notes` (`published`)
 5. Обновление daily spotlight на hub

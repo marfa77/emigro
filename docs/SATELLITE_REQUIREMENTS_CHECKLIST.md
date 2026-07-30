@@ -10,7 +10,7 @@
 
 | Критерий | Portugal (эталон) | Spain (текущий) | Gap |
 |----------|-------------------|-----------------|-----|
-| **Parser channels** | 4 (`@chatlisboa`, `@por_tugal`, `@lepta`, `@autolife_pt`) | 5 (`@spain_granitsa`, `@spainchats`, `@valenforum`, `@valenciarusia`, `@migranty_barselona`) | ✅ |
+| **Parser channels** | 5 (`@chatlisboa`, `@por_tugal`, `@lepta`, `@autolife_pt`, `@braga_pt_rus`) | 5 (`@spain_granitsa`, `@spainchats`, `@valenforum`, `@valenciarusia`, `@migranty_barselona`) | ✅ |
 | **Daily cron (VPS)** | `emigro-portugal-community.timer` 07:00 UTC | `emigro-spain-community.timer` 07:30 UTC | ✅ |
 | **Editorial seed notes** | 4 в `publish-seed.ts` + 6 hand-curated blueprints | 7 hand-curated blueprints (`SPAIN_EDITORIAL_GUIDES`) | ✅ (≥7) |
 | **body_sections (guide)** | ≥5 секций + glossary first | 5–6 секций + glossary | ✅ |

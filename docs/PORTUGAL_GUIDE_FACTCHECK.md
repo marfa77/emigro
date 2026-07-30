@@ -10,6 +10,7 @@ Workflow for grounding **pillar guides** on [emigro.online](https://www.emigro.o
 | `@por_tugal` | News + practical PT discussion |
 | `@lepta` | PT politics, housing, Norte |
 | `@autolife_pt` | Auto, IMT, transport |
+| `@braga_pt_rus` | Braga / Minho relocants |
 
 Configured in `parser/groups.yaml`. Ingest: `npm run portugal:daily` → table `community_signals` (Supabase).
 

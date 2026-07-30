@@ -104,6 +104,7 @@ Every non-official factual claim must trace to **at least one** of:
 | `@por_tugal` | News + practical PT discussion |
 | `@autolife_pt` | Auto, IMT, transport (peripheral renewal trips) |
 | `@lepta` | PT politics, housing, Norte |
+| `@braga_pt_rus` | Braga / Minho relocants (schools, rent, local practice) |
 
 Configured in `parser/groups.yaml`. Ingest: `npm run portugal:daily`. Helper: `lib/guides/portugal-telegram-citations.ts`.
 

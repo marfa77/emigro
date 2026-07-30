@@ -23,6 +23,12 @@ groups:
     country_key: portugal
     title: "@autolife_pt — авто и Португалия"
     timezone: Europe/Lisbon
+  - username: braga_pt_rus
+    group_id: braga_pt_rus
+    city: braga
+    country_key: portugal
+    title: "@braga_pt_rus — Брага и Minho"
+    timezone: Europe/Lisbon
   - username: spain_granitsa
     group_id: spain_granitsa
     city: spain

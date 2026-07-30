@@ -11,7 +11,7 @@ export const PORTUGAL_SATELLITE = {
     "Практика для релокантов в Португалии (Norte: Порту, Брага, Minho): NIF, AIMA €3 680/D8, аренда, SNS. Короткие материалы редакции Emigro — навигация по #хэштегам.",
   sourceChannel: "chatlisboa",
   /** Third-party relocant chats — sole sources for field-practice signals. */
-  sourceChannels: ["chatlisboa", "por_tugal", "lepta", "autolife_pt"] as const,
+  sourceChannels: ["chatlisboa", "por_tugal", "lepta", "autolife_pt", "braga_pt_rus"] as const,
   mainSiteUrl: "https://www.emigro.online/ru/portugal",
   pillarGuideUrl: "https://www.emigro.online/ru/guides/vnj-portugaliya-d8-d7-grazhdanstvo-2026",
   wizardUrl: "https://www.emigro.online/ru/portugal/wizard",

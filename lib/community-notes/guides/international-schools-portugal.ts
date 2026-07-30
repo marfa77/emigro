@@ -1,8 +1,8 @@
 /**
  * Hand-curated guide (blueprint reference) — editorial presentation rules:
  * - quick_answer: 2–3 plain Russian sentences; key_takeaways: max 4 action items
- * - Each section: lead «зачем читать» + max 5 bullets; gap: «чат vs сайт»
- * See lib/community-notes/editorial-presentation.ts
+ * - Each section: lead «зачем читать» + actionable bullets; gap: «чат vs сайт»
+ * Ranking: Emigro composite for relocants (not an official league table).
  */
 import { flattenBodySections } from "@/lib/community-notes/editorial-quality";
 import { glossaryForSlug } from "@/lib/community-notes/editorial-glossaries";
@@ -15,193 +15,163 @@ export const INTERNATIONAL_SCHOOLS_GUIDE_SLUG = "mezhdunarodnye-shkoly-portugali
 
 const bodySections: NoteBodySection[] = [
   {
-    ...buildGlossarySection(glossaryForSlug(INTERNATIONAL_SCHOOLS_GUIDE_SLUG)!),
+    ...buildGlossarySection(
+      glossaryForSlug(INTERNATIONAL_SCHOOLS_GUIDE_SLUG)!,
+      "Термины с сайтов школ, DGE и из переписки admissions — разберём до open day, пока waiting list не съел сентябрь."
+    ),
   },
   {
     heading: "Три дорожки: pública, privada и internacional",
     section_kind: "official",
     paragraphs: [
-      "Зачем вам это сейчас: чтобы не путать «английскую школу» с бесплатной público по адресу и не арендовать квартиру «на глаз».",
-      "Что делать: выберите одну из трёх систем — escola pública, colégio privado PT или international — до поиска жилья.",
-      "Зачем: от выбора зависят morada (район проживания), бюджет и waiting list (лист ожидания); смена трека mid-year почти всегда болезненна.",
+      "Что делать: выбрать систему — escola pública, colégio privado PT или international — до поиска жилья и shortlist школ.",
+      "Зачем: от выбора зависят morada, бюджет и waiting list; смена трека mid-year почти всегда болезненна.",
       "В Португалии дети с 6 лет обязаны учиться (ensino básico). Для семьи релоканта это не «одна английская школа», а три разных правила поступления.",
       "Главное: сначала система и горизонт переезда (2 года vs навсегда), потом район и Idealista.",
     ],
     bullets: [
-      "Escola pública: matrícula через agrupamento / Câmara Municipal; приоритет — дети с адресом в зоне школы.",
+      "Escola pública: matrícula через agrupamento / Câmara; приоритет — дети с адресом в зоне школы (SED / GEC).",
       "Colégio privado PT: договор с учреждением, португальский язык, подготовка к exames nacionais.",
-      "International: прямой контракт со школой, английский/французский/немецкий + португальский как второй язык.",
-      "Ensino básico: 1.º–3.º ciclo (примерно 6–15 лет); secundário — до 18 лет.",
-      "Для поступления в любую систему обычно нужны: паспорт ребёнка, NIF, comprovativo de morada, calendário vacinação, предыдущий school report.",
+      "International: прямой контракт со школой; English/French/German + португальский как второй язык почти всегда обязателен.",
+      "Пакет почти везде: паспорт ребёнка, NIF ребёнка и родителя, comprovativo de morada, calendário vacinação, school report / transcripts.",
+      "Официальные рамки: DGE (Direção-Geral da Educação), calendário escolar MEC; international — свои admissions + аккредитации IB / Cambridge / AEFE.",
     ],
   },
   {
-    heading: "Что требуют школы и муниципалитет по документам",
+    heading: "Как мы ранжируем (и чего рейтинг не делает)",
     section_kind: "official",
     paragraphs: [
-      "Зачем вам это сейчас: без NIF ребёнка и morada matrícula не закроют — ни в público, ни в international.",
-      "Что делать: соберите пакет NIF + comprovativo de morada + transcripts до open day и дедлайна SED.",
-      "Зачем: D-visa + AIMA appointment часто хватает для provisional place, но без NIF договор не подпишут.",
-      "Официальная запись в público идёт через SED / agrupamento escolar. International schools работают по своим регламентам, но почти всегда просят подтверждение легального пребывания.",
-      "Главное: NIF ребёнка оформляйте раньше application deadline — родительский NIF его не заменяет.",
+      "Что делать: читать Emigro-ранг как shortlist для релоканта, а не как «официальную таблицу MEC».",
+      "Зачем: в PT нет публичного league table для international schools как в UK; Google-звёзды легко искажаются туристами и троллями.",
+      "Критерии Emigro (2026): институциональная репутация (Spear’s / IB scores / аккредитации) → давление waiting list → объём и тон отзывов (Google + school aggregators) → пригодность для RU/BY/UA/KZ-семей (язык, fees, Norte vs Lisboa).",
+      "Главное: ранг ниже — от сильного «якоря» для мобильных семей к более узким или новым опциям; всегда подтверждайте fees и места письмом admissions.",
     ],
     bullets: [
-      "NIF ребёнка и родителя — нужен для matrícula и договора (Finanças / Loja de Cidadão).",
-      "Comprovativo de morada: договор arrendamento с registo na Finanças или справка freguesia.",
-      "Autorização de residência / D-visa + AIMA appointment — для подтверждения легального статуса (требование зависит от школы).",
-      "Boletim / transcripts: перевод на PT или EN; для IB/British — часто достаточно английского отчёта.",
-      "Calendário vacinação (Plano Nacional de Vacinação) — сверка с SNS; прививки можно донести после зачисления.",
+      "Официально сильнее всего: IB Diploma averages выше world average (~30), статус IB World School / Cambridge / AEFE / US State Department.",
+      "На практике Google Maps: смотрите и ★, и число отзывов; 4.9 из двух отзывов ≠ надёжнее 3.7 из 80.",
+      "Спрос (waiting list 9–18 мес.) — косвенный сигнал репутации, но и барьер входа.",
+      "Language-track (French/German) поднимаем в ранге только если язык семьи совпадает — иначе это не «хуже», а «не ваш трек».",
+      "Сверяйте цифры на сайте школы и fee schedule 2025/26–2026/27 — tuition меняют каждый год.",
     ],
   },
   {
-    heading: "Как выбрать: international vs portuguesa",
+    heading: "Рейтинг international schools: от сильных к более узким",
     section_kind: "practice",
     paragraphs: [
-      "Зачем вам это сейчас: в @por_tugal и @chatlisboa спор сводится к горизонту — «переходный год на английском» vs «сразу в локальную систему».",
-      "Что делать: зафиксируйте горизонт (2–4 года vs долго), бюджет tuition и commute до shortlist школ.",
-      "Зачем: в Norte семьи чаще селятся в Foz, Boavista, Matosinhos или Gualtar — район без школы превращается в ежедневный стресс.",
-      "Главное: international имеет смысл при коротком горизонте или IB/A-Levels за рубежом; иначе pública/privada PT + репетитор часто выгоднее.",
+      "Что делать: пройти список сверху вниз и выписать 2–3 школы под ваш curriculum и город — потом open day.",
+      "Зачем: в @por_tugal и семейных разборах Norte/Lisboa повторяется одно: «не выбирайте по красивому сайту — смотрите IB/аккредитацию, commute и лист ожидания».",
+      "Ориентиры Google / агрегаторов — на июль 2026; перед решением откройте карточку школы в Maps сами.",
     ],
     bullets: [
-      "International — если переезд на 2–4 года, ребёнок старше 10–12 лет или нужен IB/A-Levels/AP для университета за рубежом.",
-      "Escola pública / privada PT — если планируете жить долго, важен португальский и местный круг; бюджет ограничен.",
-      "Гибрид: 1–2 года international + португальский репетитор, затем transfer в privada PT — частый сценарий в Кашкайше/Синтре.",
-      "Смотрите commute: St Julian's / IPS — Cascais line; в Порту — OBS/CLIP в Foz/Boavista; в Браге — CLIB в Gualtar.",
-      "Стоимость international 2026: ориентир €9 000–22 000/год + enrollment €500–3 000 + автобус/питание; в Norte British/IB чуть ниже Lisboa.",
+      "1) St. Julian’s School (Carcavelos) — British → IGCSE → IB; Spear’s Schools Index: European Top 10 и единственная PT-школа в global Top 100 (4-й год подряд, март 2026). IB average ориентир 34.5–35.7. Google ~3.7★ / ~86 отзывов (смесь «сильная академия» и жалоб на bullying). Fees в верхнем сегменте Lisboa (~€13k–30k по годам). Waiting list жёсткий — подавайте за 12+ мес.",
+      "2) CAISL — Carlucci American (Linho / Sintra) — единственная US State Department-sponsored школа в PT; American Diploma + IB/AP. IB avg ~34.3. iSchoolAdvisor ~4.65★ (13 отзывов). Для семей с треком US-вузов — часто №1 по смыслу, не по «британскому престижу».",
+      "3) Oeiras International School (OIS) — IB continuum (PYP/MYP/DP), сильный спрос Oeiras/Queijas. iSchoolAdvisor ~4.37★ / 24 отзыва (высокие баллы за academics/teachers). Хороший баланс IB без «старого клуба» Cascais line.",
+      "4) Oporto British School — OBS (Foz) — с 1894, старейшая British на материковой Европе; единственный IB Diploma в Norte. Fees 2025/26 ~€8 990–14 585. Агрегаторы: ~3.8–4.9★ при малой выборке; родители хвалят community и pastoral care. Класс меньше CLIP — плюс для одних, минус для других.",
+      "5) CLIP — Oporto International School (Aldoar/Boavista) — крупнее OBS (~800–1000+), Cambridge/British track, IGCSE/A-Levels; fees ~€9 140–15 190. На aggregators десятки отзывов (guiaempresas ~87); хвалят кампус и extracurriculars, в негативе — sixth form / язык учителей. Более «международно-разнообразный» состав, чем OBS.",
+      "6) Lycée Français Charles Lepierre (Lisboa) / LFIP Porto + Deutsche Schule Lisboa/Porto — AEFE / немецкий Abitur. Fees LFIP Porto ~€4 915–6 214 (часто ниже British/IB; субсидии для граждан FR). Ранг высокий при French/German дома; для англоязычных релокантов — осознанный выбор языка, не «запасной вариант».",
+      "7) King’s College Cascais / United Lisbon / IPS Cascais (primary) — растущие кампусы British/IB; на International Schools Database у King’s встречались очень низкие выборки отзывов (ориентир ~1.4★ / 2 отзыва — не приговор, а сигнал «мало данных»). Посещайте лично, не доверяйте двум звёздам.",
+      "8) CLIB — Braga International School (Gualtar) — главный полноценный British в Minho (IGCSE/AICE, 3–18). Fees «on request», ориентир семей €7k–12k. Публичных Google-обзоров мало — оценивайте open day + plan B (Porto commute 45–60 мин или pública).",
+      "9) CJD International (Porto) и другие новые Cambridge-ветки — открытие ~2023/24, fees ориентир €9.3k–11k. Track record короче; подходит как запасной слот, если OBS/CLIP закрыты.",
     ],
   },
   {
-    heading: "Лиссабон и linha de Cascais: куда смотреть",
+    heading: "Norte vs Lisboa: куда смотреть по городу",
     section_kind: "practice",
     paragraphs: [
-      "Зачем вам это сейчас: большинство русскоязычных семей концентрируются в Cascais, Oeiras, Sintra и Lisbon — waiting list там самый жёсткий.",
-      "Что делать: shortlist 2–3 школ на linha de Cascais / Oeiras и подавайте за 9–12 месяцев до сентября.",
-      "Зачем: «places available» на сайте часто не значит место в вашем year group — Year 7 и IB DP закрываются раньше всех.",
-      "Главное: ориентиры ниже — не рейтинг; состав классов и лист ожидания меняются ежегодно.",
-    ],
-    bullets: [
-      "St. Julian's School (Carcavelos) — British, сильная репутация, высокий спрос, ранний application.",
-      "International Preparatory School / IPS (Cascais) — primary, British, компактные классы.",
-      "Oeiras International School — IB continuum, популярен у семей в Oeiras/Queijas.",
-      "Carlucci American International School (Lisbon) — American + IB options, крупный кампус.",
-      "United Lisbon / Astoria / King's College Cascais — растущие кампусы; LFIP и Deutsche Schule — для French/German track.",
-    ],
-  },
-  {
-    heading: "Порту: OBS, CLIP и french/german track",
-    section_kind: "practice",
-    paragraphs: [
-      "Зачем вам это сейчас: в Порту четыре устоявшихся international schools — большинство семей с детьми селятся в Foz, Boavista или Matosinhos.",
-      "Что делать: сравните OBS, CLIP, LFIP и Deutsche Schule по curriculum, fees и commute 10–20 минут до кампуса.",
+      "Что делать: если цель — Norte, shortlist OBS/CLIP (+ LFIP/Deutsche при языке) или CLIB в Braga; Lisboa/Cascais — St Julian’s, OIS, CAISL.",
       "Зачем: аренда в Foz/Boavista ниже Cascais на 15–25%, но waiting list OBS/CLIP на Year 7 всё равно 6–12 месяцев.",
-      "Главное: matrícula в público — через GEC Porto по morada; international — прямой application + NIF ребёнка.",
+      "Районы и аренда T2 — в [Porto vs Braga для семьи со школой](/notes/porto-vs-braga-semya-mezhdunarodnaya-shkola-2026).",
     ],
     bullets: [
-      "Oporto British School (OBS, Foz) — British + IB Diploma; €9 700–17 300/год, высокий спрос на Year 7.",
-      "CLIP (Boavista/Aldoar) — Cambridge/IB, ~1 000 учеников; €9 100–15 200/год.",
-      "Lycée Français International de Porto (LFIP, Foz) — AEFE; €5 100–6 200/год для французских граждан с субсидиями.",
-      "Deutsche Schule zu Porto (Foz) — German Abitur / DSD; ориентир €5 000–10 000/год для семей из DACH.",
-      "Waiting list OBS/CLIP: подавайте за 9–12 месяцев; mid-year мягче в младших классах.",
+      "Porto: OBS/LFIP/Deutsche в Foz; CLIP у Boavista — семьи селятся в Foz, Boavista, Matosinhos.",
+      "Braga: CLIB в Gualtar; иначе A3/A7 до Porto schools ~45–60 мин в пик.",
+      "Lisboa line: Cascais / Carcavelos / Oeiras / Sintra — St Julian’s, IPS, OIS, CAISL; подача за 9–12 мес. до сентября.",
+      "В @braga_pt_rus (июль 2026) чаще разбирают не CLIB, а pública/colégios: Quinta da Veiga (ремонт ~2 года, временная площадка у Taberna Belga, agrupamento Francisco Sanches), Santa Tecla (компактная, мало кружков), Enguardas, creche Lamaçães / Colégio Leonardo da Vinci.",
+      "Secundário 10–12: сначала curso/направление (~4), потом школа — в конкретной escola нужного направления может не быть; secundário «одна на район».",
+      "Pública básica: несколько школ в порядке предпочтения по morada; к июлю jardim/creche часто уже распределены — сначала квартира + визит в agrupamento.",
+      "Полная стоимость British/IB в Porto (tuition + bus + lunch + enrollment): часто €25k–30k/год на двоих детей в primary — не «цена с сайта».",
+      "Pública plan B: PLNM в Porto растёт; lepta 2025 — больше медиаторов, но качество зависит от agrupamento.",
     ],
   },
   {
-    heading: "Брага и Minho: CLIB и соседние варианты",
-    section_kind: "practice",
-    paragraphs: [
-      "Зачем вам это сейчас: в Minho один полноценный British international school — CLIB; иначе commute в Porto 45–60 минут.",
-      "Что делать: запросите fee schedule у CLIB admissions и параллельно plan B — CLIP/OBS или pública по адресу.",
-      "Зачем: expat-сообщество меньше Lisboa/Porto; без plan B семья зависает на год в «временной» школе.",
-      "Главное: CLIB в Gualtar — главный вариант в Braga; при заполненных местах смотрите Porto или colégio privado PT.",
-    ],
-    bullets: [
-      "CLIB (Gualtar) — British National Curriculum, IGCSE/AICE; 3–18 лет; admission через assessment + interview.",
-      "Fees CLIB «on request» — ориентир семей €7 000–12 000/год; enrollment и bus считайте отдельно.",
-      "Альтернатива: CLIP/OBS в Porto по A3/A7; часть семей год в CLIB, затем transfer для IB.",
-      "Escola pública в Braga/Guimarães: matrícula через agrupamento — vaga находят быстрее, чем в Lisboa.",
-      "Сроки: popular year groups — contact за 6–9 месяцев до сентября.",
-    ],
-  },
-  {
-    heading: "Где портал и реальность расходятся",
+    heading: "Официально vs Google и чаты",
     section_kind: "gap",
     paragraphs: [
-      "Что делать: сверяйте сайт школы и SED с письмом admissions — не с чужим кейсом из чата.",
-      "Зачем: «места есть» и «ВНЖ обязателен» часто значат другое для вашего year group и статуса.",
-      "Главное: waiting list и NIF решают больше, чем красивая страница Admissions.",
+      "Что делать: сверяйте fee schedule и письмо admissions с карточкой Google — не с одним яростным отзывом.",
+      "Зачем: «места есть» на сайте и 1★ про bullying в Maps решают разные вопросы.",
     ],
     bullets: [
-      "На сайте SED звучит как «место по адресу», а в Lisboa/Cascais в popular agrupamentos очередь — иногда направляют в соседнюю escola.",
-      "На сайте школы звучит как «places available», а на деле waiting list 6–18 месяцев; Year 7 / Grade 6 — самый конкурентный.",
-      "Формально D-visa + AIMA appointment часто достаточно для provisional enrollment; без NIF matrícula не закроют.",
-      "«Свободный перевод оценок» — international просят notarized translation + иногда apostille на предыдущий отчёт.",
-      "Португальский «не нужен» в international — на практике PT lessons обязательны с 1 класса.",
-      "SED Porto/Braga: в Foz и Gualtar популярные школы заполняются к июню; иногда предлагают соседний agrupamento.",
+      "Официально: IB/Cambridge/AEFE и calendário MEC задают рамку; Google не аккредитует школу.",
+      "На практике: St Julian’s при Spear’s Top 100 имеет Google ~3.7 — престиж и «токсичные» отзывы сосуществуют; читайте свежие parent reviews, не только ★.",
+      "На сайте «places available» ≠ место в вашем year group; Year 7 / IB DP закрываются раньше.",
+      "В чатах Lisboa/Porto мало разборов конкретных школ; в @braga_pt_rus (2026) живая практика по pública Braga (Veiga, Sanches, Santa Tecla) и creche — CLIB упоминают реже, чем госшколы района.",
+      "D-visa + AIMA receipt часто хватает для provisional place; без NIF ребёнка договор не закроют.",
+      "«Английская без португальского» — миф: PT lessons обязательны почти везде с младших классов.",
     ],
   },
   {
-    heading: "Таймлайн поступления и типичные ошибки",
+    heading: "Таймлайн и типичные ошибки",
     section_kind: "practice",
     paragraphs: [
-      "Зачем вам это сейчас: оптимально начинать за 9–12 месяцев до сентября — иначе сентябрь уходит на público без plan B.",
-      "Что делать: open days в феврале–марте, assessment весной, контракт и депозит до лета; для público — calendário matrículas concelho.",
-      "Зачем: типичные ошибки ниже съедают семестр и депозит enrollment.",
-      "Главное: NIF ребёнка + transcripts + проверка commute до подписи аренды — три фильтра, которые нельзя откладывать.",
+      "Что делать: старт за 9–12 месяцев до сентября — contact → assessment → депозит; для público — calendário matrículas concelho.",
+      "Зачем: ошибки ниже съедают семестр и enrollment fee.",
     ],
     bullets: [
-      "Ошибка: аренда без проверки catchment público / commute до выбранной international.",
-      "Ошибка: один NIF только у родителя — оформите NIF ребёнку до application deadline.",
-      "Ошибка: ждать ВНЖ в пластике — многие школы зачисляют по D-visa + AIMA receipt, но уточняйте письменно.",
-      "Ошибка: не готовить transcripts — запросите apostilled report заранее (2–8 недель).",
-      "Ошибка: игнорировать PT и bus fee — даже в British school нужен базовый португальский; автобус €100–250/мес.",
+      "Ошибка: аренда без проверки commute до выбранной школы / catchment público.",
+      "Ошибка: NIF только у родителя — оформите NIF ребёнку до deadline.",
+      "Ошибка: верить только Google ★ при выборке <10 отзывов.",
+      "Ошибка: один shortlist без plan B (публичная / другая international / другой город).",
+      "Ошибка: игнорировать bus + lunch + exam fees — к tuition легко добавить €3k–6k/год.",
+      "Ошибка: ждать пластик ВНЖ — многие школы берут D-visa + AIMA receipt, но фиксируйте письменно.",
     ],
   },
 ];
 
 const keyTakeaways = [
-  "Сегодня: оформите NIF ребёнку и соберите transcripts — без них matrícula не закроют.",
-  "Официально: ensino obrigatório с 6 лет; público бесплатна при vaga в agrupamento по morada.",
+  "Официально: ensino obrigatório с 6 лет; internacional — контракт со школой + NIF ребёнка и morada; pública — matrícula по адресу в agrupamento.",
   formatPracticeTakeaway({
-    channels: ["por_tugal", "chatlisboa"],
+    channels: ["por_tugal"],
     period: "2025–2026",
     claim:
-      "в international schools (международных школах) waiting list (очередь) часто 6–18 месяцев, стоимость €9k–22k/год",
-    forReader: "подавайте за 9–12 месяцев до желаемого старта — иначе рискуете годом в público (госшколе) без плана B",
+      "waiting list в топ-школах (St Julian’s, OBS, CLIP, OIS) часто 6–18 месяцев, а полная стоимость British/IB в Porto на двоих детей ближе к €25k–30k/год",
+    forReader: "подавайте за 9–12 месяцев и закладывайте bus/lunch/enrollment сверх tuition с сайта",
   }),
-  "Расхождение: «английская без португальского» — PT уроки обязательны; для público без языка тяжело.",
+  "Официально: St Julian’s — единственная PT-школа в Spear’s global Top 100 (март 2026); IB averages ~34–36 выше world average.",
+  "Расхождение: высокий престиж ≠ высокие Google ★; читайте число отзывов и свежие parent reviews, не одну цифру.",
 ];
 
 const faq: CommunityNoteFaq[] = [
   {
-    q: "Можно ли поступить в international school без ВНЖ?",
-    a: "Часто да — D-visa + запись AIMA или ВНЖ. По правилам школы обычно нужен легальный статус. На практике часть школ даёт conditional place по паспорту и proof of relocation, но NIF и morada всё равно понадобятся до начала занятий.",
+    q: "Какая международная школа в Португалии «лучшая»?",
+    a: "Официального MEC-рейтинга нет. По институциональной репутации для мобильных семей чаще ставят St Julian’s (Spear’s Top 100, сильный IB). Для US-трека — CAISL. В Norte якоря — OBS (IB DP) и CLIP. Выбор = curriculum + город + waiting list, не одна звезда Google.",
   },
   {
-    q: "Сколько стоят международные школы в Португалии в 2026?",
-    a: "Ориентир €9 000–22 000 в год tuition плюс enrollment fee, транспорт и питание. В Norte (Porto/Braga) British/IB часто на 10–20% ниже Lisboa/Cascais; LFIP/Deutsche Schule — от €5k. Уточняйте fee schedule на сайте школы.",
+    q: "Как читать Google-рейтинг школы?",
+    a: "Смотрите ★ и число отзывов. 4.9 из двух отзывов слабее 3.7 из 80. У St Julian’s смешанные Google-отзывы при сильной академической репутации — типичный разрыв «престиж vs Maps».",
+  },
+  {
+    q: "Можно ли поступить в international school без ВНЖ?",
+    a: "Часто да — D-visa + запись AIMA. По правилам школы нужен легальный статус. На практике conditional place возможен, но NIF и morada понадобятся до старта занятий.",
+  },
+  {
+    q: "Сколько стоят международные школы в 2026?",
+    a: "British/IB tuition ориентир €9k–22k/год (Lisboa выше Norte). LFIP Porto ~€5–6k. Полный бюджет с bus/lunch/enrollment часто на 20–40% выше tuition. Уточняйте fee schedule школы.",
+  },
+  {
+    q: "Какие школы в Порту и Браге?",
+    a: "Porto: OBS, CLIP, LFIP, Deutsche Schule (+ новые вроде CJD). Braga: CLIB в Gualtar. Районы и аренда — в гайде Porto vs Braga для семьи со школой.",
   },
   {
     q: "Чем IB отличается от British curriculum?",
-    a: "British (National Curriculum / IGCSE / A-Levels) — линейная система UK. IB (PYP/MYP/DP) — международный диплом, популярен для поступления в EU/US. В Португалии оба трека есть; выбор зависит от целевого университета ребёнка.",
+    a: "British (National Curriculum / IGCSE / A-Levels) — линейная UK-система. IB (PYP/MYP/DP) — международный диплом для EU/US вузов. В PT оба трека есть; St Julian’s и OBS закрывают путь к IB Diploma.",
   },
   {
-    q: "Нужен ли ребёнку NIF для школы?",
-    a: "Да, для matrícula в público и для договора в private/international. Оформите NIF ребёнку в Finanças или Loja de Cidadão — родительский NIF не заменяет.",
+    q: "Нужен ли ребёнку NIF?",
+    a: "Да — для matrícula público и договора private/international. Родительский NIF не заменяет. Finanças / Loja de Cidadão.",
   },
   {
-    q: "Когда подавать документы на сентябрь?",
-    a: "International: за 9–12 месяцев, активная фаза — январь–март (open days, assessment). Público: calendário matrículas concelho (часто апрель–июнь). Mid-year возможен, но меньше мест.",
-  },
-  {
-    q: "Можно ли после international перейти в португальскую школу?",
-    a: "Да, через equivalência de estudos в agrupamento. На практике потребуется португальский на уровне класса и сверка предметов; проще переход в 1.º–2.º ciclo, сложнее в 3.º ciclo / secundário.",
-  },
-  {
-    q: "Какие international schools есть в Порту?",
-    a: "Четыре основных: Oporto British School (British + IB DP, Foz), CLIP (Cambridge/IB, Boavista), Lycée Français International de Porto (French AEFE, Foz) и Deutsche Schule zu Porto (German Abitur, Foz). Все требуют NIF и morada; OBS и CLIP — waiting list 6–12 месяцев на популярные классы.",
-  },
-  {
-    q: "Есть ли международная школа в Браге?",
-    a: "Да — CLIB (Braga International School) в Gualtar: British curriculum, IGCSE/AICE, 3–18 лет. Это главный вариант в Minho; при заполненных местах семьи ездят в CLIP/OBS (Porto, ~45–60 мин) или записываются в escola pública/privada PT по адресу.",
+    q: "Когда подавать на сентябрь?",
+    a: "International: за 9–12 месяцев, пик январь–март (open days, assessment). Público: calendário matrículas concelho (часто апрель–июнь). Mid-year — меньше мест.",
   },
 ];
 
@@ -209,25 +179,27 @@ export const INTERNATIONAL_SCHOOLS_GUIDE = {
   slug: INTERNATIONAL_SCHOOLS_GUIDE_SLUG,
   category: "Школы и дети",
   content_kind: "guide" as ContentKind,
-  title: "Международные школы в Португалии 2026: British, IB, American и поступление",
+  title: "Международные школы в Португалии 2026: рейтинг, Google-отзывы и поступление",
   excerpt:
-    "International schools в Порту, Браге и Лиссабоне: British, IB, French, German — документы, сроки, бюджет, waiting list и отличия от escola pública для семей релокантов.",
-  seo_title: "Международные школы Португалии 2026 — гайд",
+    "Ранжирование international schools от St Julian’s и CAISL до OBS, CLIP и CLIB: Spear’s/IB, Google-оценки, fees, waiting list и практика для семей в Norte и Lisboa.",
+  seo_title: "Рейтинг международных школ PT 2026",
   seo_description:
-    "Гайд по международным школам Португалии 2026: British, IB и French в Порту, Браге и Лиссабоне. Документы NIF, стоимость, waiting list и отличия от escola pública.",
+    "Рейтинг международных школ Португалии 2026: St Julian’s, CAISL, OBS, CLIP, CLIB. IB, Spear’s, Google-отзывы, стоимость и waiting list для релокантов Norte/Lisboa.",
   quick_answer:
-    "Сентябрь уже на календаре, а школа спокойно просит заявку за год — типичная португальская административная вежливость. У семьи три дорожки: pública по адресу, частная с PT-программой или international (British, IB, French). Для любой нужны NIF ребёнка и morada; international в Norte — от €9 000/год плюс waiting list на популярные классы.",
+    "Вы открываете Maps у Carcavelos и видите 3.7★ у школы из Spear’s Top 100 — и понимаете, что одна цифра не выбирает школу. Для релокантов Emigro ранжирует от St Julian’s и CAISL к OBS/CLIP в Porto и CLIB в Braga: престиж и IB, спрос waiting list, отзывы с размером выборки. Без NIF ребёнка и подачи за 9–12 месяцев сентябрь всё равно ускользнёт.",
   body_sections: bodySections,
   body_paragraphs: flattenBodySections(bodySections),
   key_takeaways: keyTakeaways,
   faq,
   official_links: [
     { title: "DGE — Direção-Geral da Educação", url: "https://www.dge.mec.pt/" },
-    { title: "gov.pt — Educação", url: "https://www.gov.pt/pt/servicos" },
-    { title: "IB World Schools", url: "https://www.ibo.org/programmes/find-a-programme/" },
-    { title: "Cambridge International Education", url: "https://www.cambridgeinternational.org/" },
-    { title: "Cascais — Educação", url: "https://www.cascais.pt/educacao" },
-    { title: "Oeiras — Educação", url: "https://www.oeiras.pt/viver/educacao" },
+    { title: "IB — Find a programme", url: "https://www.ibo.org/programmes/find-a-programme/" },
+    { title: "Cambridge International", url: "https://www.cambridgeinternational.org/" },
+    { title: "St Julian’s School", url: "https://www.stjulians.com/" },
+    { title: "CAISL Lisbon", url: "https://www.caislisbon.org/" },
+    { title: "Oporto British School", url: "https://www.obs.edu.pt/" },
+    { title: "CLIP Porto", url: "https://www.clip.edu.pt/" },
+    { title: "CLIB Braga", url: "https://www.clib.edu.pt/" },
     { title: "Porto — Educação", url: "https://www.porto.pt/educacao" },
     { title: "Braga — Educação", url: "https://www.cm-braga.pt/pt/101/educacao-e-ensino" },
   ],
@@ -235,8 +207,8 @@ export const INTERNATIONAL_SCHOOLS_GUIDE = {
   hashtags: buildNoteHashtags({
     topicTags: ["school", "portugal"],
     contentKind: "guide",
-    extra: ["школа", "дети", "cascais", "lisboa", "porto", "braga", "ib"],
+    extra: ["школа", "дети", "рейтинг", "ib", "porto", "braga", "cascais"],
   }),
-  source_channel: "chatlisboa+por_tugal+lepta",
-  source_label: "editorial:school-research+voice-pass",
+  source_channel: "por_tugal+chatlisboa+lepta+braga_pt_rus+spears+google-aggregators",
+  source_label: "editorial:ranking-pass+braga-chat+ib-spears+google-2026",
 };

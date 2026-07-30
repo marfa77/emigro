@@ -53,13 +53,16 @@ const bodySections: NoteBodySection[] = [
     ],
     bullets: [
       "Gualtar (CLIB) — кампус в 10 мин от Braga centro; fees ориентир €7 000–12 000/год (запрос у admissions), классы до ~27.",
+      "В @braga_pt_rus (июль 2026) семьи чаще обсуждают pública: Quinta da Veiga (основной кампус на ремонте ~2 года с февраля 2026, временная школа у Taberna Belga, agrupamento Francisco Sanches — Sanches сам с 5 класса / 2.º–3.º ciclo), Santa Tecla (компактная «как семья», мало кружков), Enguardas, creche Lamaçães и Colégio Leonardo da Vinci (3 года).",
+      "Secundário после 9 класса РФ: сначала curso/направление (~4), потом школа — нужного направления в ближайшей escola может не быть; secundário «одна на район».",
+      "Pública: записывают по morada, несколько школ в приоритете; к июлю jardim уже распределены — сначала аренда, потом agrupamento. Перевод внутри одного agrupamento (напр. в Lamaçães) школа иногда оформляет сама.",
       "Braga centro — T2 €700–1 000/мес; пешком/автобус до Gualtar 15–20 мин; expat-комьюнити меньше, зато сильная местная инфраструктура (больницы, спорт).",
       "Esposende / Viana do Castelo — море и спокойствие; commute до CLIB 25–40 мин, до CLIP/OBS Porto 50–70 мин по A3.",
       "Guimarães — lepta/Idealista Q2 2025: спрос на аренду растёт, цены ниже Porto; CLIB 20–30 мин, público vaga находят быстрее, чем в Lisboa.",
-      "Minho expat-сообщество: Telegram/Facebook-группы Braga/Guimarães; детские кружки на PT, английский — через CLIB parent network.",
-      "Escola pública plan B: matrícula через agrupamento Braga/Guimarães — участники @lepta в 2025 писали, что в público больше медиаторов для иностранных учеников.",
+      "Minho expat-сообщество: @braga_pt_rus + Facebook Braga/Guimarães; детские кружки на PT, English track — через CLIB parent network.",
+      "Escola pública plan B: matrícula через agrupamento Braga — участники @braga_pt_rus: «начальные в целом хорошие», смотрите конкретный район и ремонт кампуса.",
       "Летняя жара: lepta/IPMA — Braga в зоне orange heat alerts; кампусы без кондиционера редкость, но проверяйте классы при open day.",
-      "Если CLIB заполнен — типичный сценарий из @por_tugal: год в público/privada PT + репетитор EN, параллельно waiting list CLIP/OBS.",
+      "Если CLIB заполнен — типичный сценарий: год в pública/privada PT (Veiga/Sanches/Leonardo) + репетитор EN, параллельно waiting list CLIP/OBS.",
     ],
   },
   {
@@ -119,11 +122,11 @@ const keyTakeaways = [
     claim: "в Porto expat-семьи с детьми чаще селятся в Foz, Boavista или Matosinhos — до четырёх international schools 10–25 минут",
   }),
   formatPracticeTakeaway({
-    channels: ["por_tugal", "lepta"],
+    channels: ["braga_pt_rus", "por_tugal"],
     period: "2025–2026",
     claim:
-      "в Braga основной international school — CLIB (Gualtar), аренда T2 на 15–30% ниже Porto",
-    forReader: "expat-среда компактнее — многие семьи сознательно выбирают CLIB и живут в Gualtar или centro Braga",
+      "в Braga основной international school — CLIB (Gualtar), а в @braga_pt_rus чаще разбирают pública (Veiga, Sanches, Santa Tecla) и creche; аренда T2 на 15–30% ниже Porto",
+    forReader: "сначала morada и agrupamento, потом CLIB или plan B в госшколе района — не наоборот",
   }),
   "Официально: calendário escolar MEC — старт 11–15 сентября; заявки international — за 9–12 месяцев.",
   formatPracticeTakeaway({
@@ -197,6 +200,6 @@ export const PORTO_VS_BRAGA_FAMILY_SCHOOLS_GUIDE = {
     contentKind: "guide",
     extra: ["porto", "braga", "norte", "foz", "matosinhos", "дети", "семья"],
   }),
-  source_channel: "chatlisboa+por_tugal+lepta",
-  source_label: "editorial:porto-braga-family+voice-pass",
+  source_channel: "chatlisboa+por_tugal+lepta+braga_pt_rus",
+  source_label: "editorial:porto-braga-family+braga-chat+voice-pass",
 };
