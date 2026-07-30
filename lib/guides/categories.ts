@@ -80,6 +80,7 @@ const TRANSIT_TOPIC_KEYS = [
   "montenegro",
   "kazakhstan",
   "indonesia",
+  "south-africa",
 ] as const;
 
 const TRANSIT_SLUG_FRAGMENTS = [
@@ -93,6 +94,7 @@ const TRANSIT_SLUG_FRAGMENTS = [
   "kazahstan",
   "bali-indoneziya",
   "indoneziya",
+  "yuar",
 ] as const;
 
 const FINANCE_NEEDLES = ["nalogi", "bank", "ip", "dohod", "byudzhet", "bank-i-iban"] as const;

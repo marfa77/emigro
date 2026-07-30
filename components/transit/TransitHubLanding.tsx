@@ -27,6 +27,7 @@ const EU_CORRIDORS = [
 ];
 
 const DESTINATION_GUIDES = [
+  { label: "ЮАР 2026: Critical Skills, школы Кейптауна, MBA UCT GSB", href: "/ru/guides/yuar-dlya-rossiyan-ukraintsev-belorusov-kazahstantsev-2026" },
   { label: "Как выбрать страну для ВНЖ — 2026", href: "/ru/guides/kuda-pereehat-iz-rossii-2026-evropa-vnj" },
   { label: "ВНЖ без работы: пассивный доход и сбережения", href: "/ru/guides/vnj-bez-raboty-passivnyy-dohod-sberezheniya-2026" },
   { label: "ВНЖ Греция 2026: Digital Nomad, FIP, Golden Visa", href: "/ru/guides/vnj-gretsiya-2026-digital-nomad-fip-golden-visa" },

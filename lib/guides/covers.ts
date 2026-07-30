@@ -55,6 +55,7 @@ const TOPIC_COVER_IMAGES: Record<string, string> = {
   uae: "/images/corridor-uae.webp",
   thailand: "/images/corridor-thailand.webp",
   indonesia: "/images/corridor-indonesia.webp",
+  "south-africa": "/images/corridor-south-africa.webp",
 };
 
 const COUNTRY_TOPIC_KEYS = new Set(Object.keys(TOPIC_COVER_IMAGES));
@@ -129,6 +130,7 @@ export const GUIDE_COVER_BY_SLUG: Record<string, string> = {
   "oae-dlya-rossiyan-2026": "/images/corridor-uae.webp",
   "tailand-dlya-rossiyan-2026": "/images/corridor-thailand.webp",
   "bali-indoneziya-dlya-rossiyan-2026": "/images/corridor-indonesia.webp",
+  "yuar-dlya-rossiyan-ukraintsev-belorusov-kazahstantsev-2026": "/images/corridor-south-africa.webp",
   "kak-otkryt-ip-za-rubezhom-rossiyane-2026": "/images/corridor-serbia.webp",
   "digital-nomad-vizy-evropy-sravnenie-2026": "/images/corridor-spain.webp",
 };
