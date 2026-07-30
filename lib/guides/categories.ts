@@ -1,9 +1,10 @@
 import type { LucideIcon } from "lucide-react";
-import { Compass, FileText, GitCompare, MapPin, Plane, Users, Wallet } from "lucide-react";
+import { Compass, FileText, GitCompare, Globe2, MapPin, Plane, Users, Wallet } from "lucide-react";
 import type { GuideFrontmatter } from "@/lib/guides/types";
 
 export type GuideCategoryId =
   | "countries"
+  | "settle"
   | "transit"
   | "finance"
   | "documents"
@@ -32,6 +33,13 @@ export const GUIDE_CATEGORIES: GuideCategory[] = [
     label: "Страны и ВНЖ",
     description: "Маршруты ВНЖ и программы по конкретным странам ЕС.",
     icon: MapPin,
+  },
+  {
+    id: "settle",
+    label: "Страны для жизни",
+    description:
+      "Направления вне ЕС, где можно строить долгую жизнь, статус и интеграцию — не только транзит в Европу.",
+    icon: Globe2,
   },
   {
     id: "transit",
@@ -71,29 +79,39 @@ export const GUIDE_CATEGORIES: GuideCategory[] = [
   },
 ];
 
+/** Short/medium bridge hubs before an EU route. */
 const TRANSIT_TOPIC_KEYS = [
   "serbia",
   "georgia",
   "armenia",
-  "uae",
-  "thailand",
   "montenegro",
   "kazakhstan",
-  "indonesia",
-  "south-africa",
 ] as const;
 
 const TRANSIT_SLUG_FRAGMENTS = [
   "serbiya",
   "gruziya",
   "armeniya",
-  "oae",
-  "tailand",
-  "turciya",
   "chernogoriya",
   "kazahstan",
+] as const;
+
+/** Outside EU: long-stay / integrate / possible PR-passport destinations. */
+const SETTLE_TOPIC_KEYS = [
+  "thailand",
+  "indonesia",
+  "uae",
+  "turkey",
+  "south-africa",
+] as const;
+
+const SETTLE_SLUG_FRAGMENTS = [
+  "tailand",
+  "bali",
   "bali-indoneziya",
   "indoneziya",
+  "oae",
+  "turciya",
   "yuar",
 ] as const;
 
@@ -181,21 +199,42 @@ function guideHaystack(guide: GuideFrontmatter): {
   };
 }
 
+function matchesTopicOrSlug(
+  topicKeys: string[],
+  tags: string[],
+  slug: string,
+  keys: readonly string[],
+  fragments: readonly string[],
+): boolean {
+  if (topicKeys.some((key) => keys.includes(key))) return true;
+  if (tags.some((tag) => keys.some((key) => tag.includes(key)))) return true;
+  return fragments.some((fragment) => slug.includes(fragment));
+}
+
 export function getGuideCategories(guide: GuideFrontmatter): GuideCategoryId[] {
   const categories = new Set<GuideCategoryId>();
   const { slug, title, tags, topicKeys } = guideHaystack(guide);
 
-  if ((guide.corridor_slugs?.length ?? 0) > 0 || slug.includes("vnj") || slug.includes("grazhdanstvo") || title.includes("внж") || title.includes("гражданств")) {
+  if (
+    (guide.corridor_slugs?.length ?? 0) > 0 ||
+    slug.includes("vnj") ||
+    slug.includes("grazhdanstvo") ||
+    title.includes("внж") ||
+    title.includes("гражданств")
+  ) {
     categories.add("countries");
   }
 
-  if (
-    topicKeys.some((key) => TRANSIT_TOPIC_KEYS.includes(key as (typeof TRANSIT_TOPIC_KEYS)[number])) ||
-    tags.some((tag) => TRANSIT_TOPIC_KEYS.some((key) => tag.includes(key))) ||
-    TRANSIT_SLUG_FRAGMENTS.some((fragment) => slug.includes(fragment))
-  ) {
-    categories.add("transit");
-  }
+  const isSettle =
+    topicKeys.includes("settle") ||
+    matchesTopicOrSlug(topicKeys, tags, slug, SETTLE_TOPIC_KEYS, SETTLE_SLUG_FRAGMENTS);
+  const isTransit =
+    !isSettle &&
+    (topicKeys.includes("transit") ||
+      matchesTopicOrSlug(topicKeys, tags, slug, TRANSIT_TOPIC_KEYS, TRANSIT_SLUG_FRAGMENTS));
+
+  if (isSettle) categories.add("settle");
+  if (isTransit) categories.add("transit");
 
   if (matchesNeedles(slug, FINANCE_NEEDLES) || tags.some((tag) => matchesNeedles(tag, FINANCE_NEEDLES))) {
     categories.add("finance");
@@ -227,9 +266,7 @@ export function getGuideCategories(guide: GuideFrontmatter): GuideCategoryId[] {
 }
 
 export function groupGuidesByCategory(guides: GuideFrontmatter[]): Map<GuideCategoryId, GuideFrontmatter[]> {
-  const grouped = new Map<GuideCategoryId, GuideFrontmatter[]>(
-    CATEGORY_ORDER.map((id) => [id, []]),
-  );
+  const grouped = new Map<GuideCategoryId, GuideFrontmatter[]>(CATEGORY_ORDER.map((id) => [id, []]));
 
   for (const guide of guides) {
     for (const categoryId of getGuideCategories(guide)) {

@@ -1,11 +1,11 @@
 import { Suspense } from "react";
 import Link from "next/link";
-import { ArrowRight, Route } from "lucide-react";
+import { ArrowRight, Globe2, Route } from "lucide-react";
 import { DestinationCard } from "@/components/destinations/DestinationCard";
 import { CorridorHubTilesGrid, CorridorHubTilesLegend } from "@/components/corridor/hub/CorridorHubTile";
 import { getCorridorHubTileStatsBatch } from "@/lib/corridor/hub-stats";
 import type { NewsTopicConfig } from "@/lib/news/topics";
-import { TRANSIT_HUBS } from "@/lib/transit-hubs";
+import { getHubsByKind, hubKindLabel, type TransitHub } from "@/lib/transit-hubs";
 import { HUB_WIZARD_PATH } from "@/lib/corridor/paths";
 
 type Props = {
@@ -14,9 +14,38 @@ type Props = {
   newsOnly: NewsTopicConfig[];
 };
 
+function HubCardsGrid({ hubs }: { hubs: TransitHub[] }) {
+  return (
+    <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      {hubs.map((hub) => (
+        <Link
+          key={hub.slug}
+          href={hub.path}
+          className="group rounded-xl border border-white bg-white p-4 shadow-sm transition hover:border-corridor-300 hover:shadow-md"
+        >
+          <span className="text-2xl" aria-hidden>
+            {hub.flag}
+          </span>
+          <h4 className="mt-2 font-semibold text-slate-900">{hub.countryRu}</h4>
+          <p className="mt-1 text-xs font-medium uppercase tracking-wide text-corridor-700">
+            {hub.cardLabel ?? hubKindLabel(hub.kind)}
+          </p>
+          <p className="mt-2 text-sm text-slate-600">{hub.tagline}</p>
+          <span className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-corridor-700 group-hover:underline">
+            Открыть
+            <ArrowRight className="h-3.5 w-3.5" />
+          </span>
+        </Link>
+      ))}
+    </div>
+  );
+}
+
 export async function HubDestinationsSection({ fullCorridors, developingCorridors, newsOnly }: Props) {
   const allTopics = [...fullCorridors, ...developingCorridors, ...newsOnly];
   const statsByTopic = await getCorridorHubTileStatsBatch(allTopics);
+  const settleHubs = getHubsByKind("settle");
+  const transitHubs = getHubsByKind("transit");
 
   return (
     <section id="destinations" className="mt-14 scroll-mt-20">
@@ -39,45 +68,46 @@ export async function HubDestinationsSection({ fullCorridors, developingCorridor
         </>
       )}
 
-      <section className="mt-10 rounded-2xl border border-corridor-100 bg-corridor-50/60 p-5">
-        <div className="flex flex-wrap items-start justify-between gap-3">
-          <div>
-            <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-corridor-800">
-              <Route className="h-4 w-4" />
-              Транзитные хабы
-            </h3>
-            <p className="mt-2 max-w-2xl text-sm text-slate-600">
-              Первый шаг на 3–12 месяцев: стабилизировать документы, банки и доход, если нужен промежуточный хаб
-              перед EU-маршрутом. Это не коридоры ВНЖ или гражданства.
-            </p>
-          </div>
-          <Link href={HUB_WIZARD_PATH} className="text-sm font-medium text-corridor-700 hover:underline">
-            Проверить EU-маршрут
-          </Link>
-        </div>
-        <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {TRANSIT_HUBS.map((hub) => (
-            <Link
-              key={hub.slug}
-              href={hub.path}
-              className="group rounded-xl border border-white bg-white p-4 shadow-sm transition hover:border-corridor-300 hover:shadow-md"
-            >
-              <span className="text-2xl" aria-hidden>
-                {hub.flag}
-              </span>
-              <h4 className="mt-2 font-semibold text-slate-900">{hub.countryRu}</h4>
-              <p className="mt-1 text-xs font-medium uppercase tracking-wide text-corridor-700">
-                {hub.cardLabel ?? "Транзитный хаб"}
+      {settleHubs.length > 0 && (
+        <section className="mt-10 rounded-2xl border border-teal-100 bg-teal-50/50 p-5">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-teal-900">
+                <Globe2 className="h-4 w-4" />
+                Страны для жизни
+              </h3>
+              <p className="mt-2 max-w-2xl text-sm text-slate-600">
+                Направления вне ЕС, где можно строить долгую жизнь, статус и интеграцию — не только транзит в Европу.
               </p>
-              <p className="mt-2 text-sm text-slate-600">{hub.tagline}</p>
-              <span className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-corridor-700 group-hover:underline">
-                Открыть
-                <ArrowRight className="h-3.5 w-3.5" />
-              </span>
+            </div>
+            <Link href="/ru/guides?cat=settle" className="text-sm font-medium text-teal-800 hover:underline">
+              Гайды категории
             </Link>
-          ))}
-        </div>
-      </section>
+          </div>
+          <HubCardsGrid hubs={settleHubs} />
+        </section>
+      )}
+
+      {transitHubs.length > 0 && (
+        <section className="mt-10 rounded-2xl border border-corridor-100 bg-corridor-50/60 p-5">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-corridor-800">
+                <Route className="h-4 w-4" />
+                Транзитные хабы
+              </h3>
+              <p className="mt-2 max-w-2xl text-sm text-slate-600">
+                Первый шаг на 3–12 месяцев: стабилизировать документы, банки и доход перед EU-маршрутом. Это не
+                коридоры ВНЖ или гражданства.
+              </p>
+            </div>
+            <Link href={HUB_WIZARD_PATH} className="text-sm font-medium text-corridor-700 hover:underline">
+              Проверить EU-маршрут
+            </Link>
+          </div>
+          <HubCardsGrid hubs={transitHubs} />
+        </section>
+      )}
 
       {developingCorridors.length > 0 && (
         <>

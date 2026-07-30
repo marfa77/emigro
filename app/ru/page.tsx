@@ -14,7 +14,7 @@ import { getActiveNewsTopics, newsIndexPath } from "@/lib/news/topics";
 import { pageMetadata, pageUrl } from "@/lib/seo";
 import { buildCollectionPageItemListSchema } from "@/lib/seo/collection-schema";
 import { portugalSatelliteUrl, spainSatelliteUrl } from "@/lib/site-url";
-import { TRANSIT_HUBS } from "@/lib/transit-hubs";
+import { TRANSIT_HUBS, hubKindLabel } from "@/lib/transit-hubs";
 import { heroTitle } from "@/lib/ui/mobile";
 
 export const revalidate = 3600;
@@ -41,7 +41,7 @@ export default async function RuHubPage() {
       url: pageUrl(t.sitePaths?.landing ?? newsIndexPath(t.urlSegment)),
     })),
     ...TRANSIT_HUBS.map((hub) => ({
-      name: `${hub.countryRu} — транзитный хаб`,
+      name: `${hub.countryRu} — ${hubKindLabel(hub.kind).toLowerCase()}`,
       url: pageUrl(hub.path),
     })),
   ];
@@ -51,7 +51,7 @@ export default async function RuHubPage() {
     name: "Направления релокации Emigro",
     url: hubUrl,
     description:
-      "Навигатор релокации для русскоязычных: европейские коридоры ВНЖ, транзитные хабы, wizard подбора и еженедельные новости.",
+      "Навигатор релокации для русскоязычных: европейские коридоры ВНЖ, страны для жизни вне ЕС, транзитные хабы, wizard подбора и еженедельные новости.",
     inLanguage: "ru-RU",
     items: itemListElements.map((item) => ({ url: item.url, name: item.name })),
   });

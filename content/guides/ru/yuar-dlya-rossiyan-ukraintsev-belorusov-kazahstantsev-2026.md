@@ -5,11 +5,11 @@ seo_title: "ЮАР для россиян и СНГ 2026 — визы, Critical S
 seo_description: "Релокация в ЮАР 2026 для RU/UA/BY/KZ: безвиз 90 дней для РФ, Critical Skills, Retirement R37k/мес, школы Кейптауна, университеты и MBA UCT GSB. Не EU-коридор Emigro."
 excerpt: "Южно-Африканская Республика вне EU-коридоров Emigro, но рабочий маршрут для Critical Skills, retirement и учёбы: визы по 4 паспортам, практика первых 30 дней, школы Кейптауна и MBA UCT GSB."
 quick_answer: "ЮАР — не европейский коридор Emigro. 🇷🇺 РФ: безвиз до 90 дней (туризм/дело с 2017; работа/учёба — виза). 🇺🇦 UA / 🇧🇾 BY (обычный паспорт) / 🇰🇿 KZ: виза заранее. Рабочие маршруты: Critical Skills Work Visa (список DHA + SAQA + часто профрегистрация), General Work, Retirement от ~R37 000/мес пассивного дохода, Financial Independence (~R12 млн активов + сбор при PR), spousal. Revised White Paper (кабинет апр. 2026) планирует PBS, remote/start-up visas и объединение skilled categories — сверяйте статус внедрения. Для семей: международные школы Кейптауна (AISCT, ISCT, Reddam, Bishops/Herschel). MBA: UCT Graduate School of Business (GSB) — FT/модульный; по опыту программы можно спросить выпускника Павла в Telegram @pavel_ct."
-topic_keys: [south-africa, relocation, critical-skills, education, transit]
+topic_keys: [south-africa, relocation, critical-skills, education, settle]
 tags: [ЮАР, Южная Африка, Critical Skills, Кейптаун, MBA, UCT GSB, школы, россияне, Украина, Беларусь, Казахстан, 2026]
 primary_intent: how-to
 cta_primary: /ru/wizard
-cta_secondary: /ru/guides
+cta_secondary: /ru/south-africa
 official_sources:
   - url: http://www.saembassy.ru/immigration-civic-services/visas
     label: Посольство ЮАР в РФ — визы / безвиз
@@ -33,11 +33,11 @@ cover_image: /images/corridor-south-africa.webp
 
 ## Прямой ответ
 
-**ЮАР (Южно-Африканская Республика)** на Emigro — **не EU-коридор**: wizard и хабы Португалии/Испании/Германии сюда не ведут. Это отдельный англоязычный маршрут: Critical Skills / работа, retirement, семья, учёба (включая **MBA UCT GSB** в Кейптауне).
+**ЮАР (Южно-Африканская Республика)** на Emigro — направление в категории **[«Страны для жизни»](/ru/guides?cat=settle)**: не EU-коридор и не транзитный хаб на 3–12 месяцев. Хаб: [/ru/south-africa](/ru/south-africa). Это англоязычный маршрут для Critical Skills / работы, retirement, семьи, учёбы (включая **MBA UCT GSB** в Кейптауне).
 
 Для граждан **РФ** ключевой плюс — **безвизовый въезд до 90 дней** на отдых и деловые визиты (с 2017; [посольство ЮАР в РФ](http://www.saembassy.ru/immigration-civic-services/visas)). Работа, учёба и пребывание дольше 90 дней — только по визе. Для **UA / BY (обычный паспорт) / KZ** безвиза нет: туристическая или национальная виза заранее.
 
-EU-маршрут по-прежнему выбирайте в [wizard Emigro](/ru/wizard) и [каталоге гайдов](/ru/guides).
+EU-маршрут по-прежнему опционален: [wizard Emigro](/ru/wizard) и [каталог гайдов](/ru/guides).
 
 ---
 

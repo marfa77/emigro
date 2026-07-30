@@ -10,7 +10,7 @@ import { pageMetadata, socialImageMetadata } from "@/lib/seo";
 import { getLongTailByPath } from "@/lib/seo/query-longtail";
 import { buildCorridorLandingAiDescription } from "@/lib/seo/corridor-page-seo";
 import { getCorridorBySlug } from "@/lib/corridor/queries";
-import { TRANSIT_HUBS, getTransitHub } from "@/lib/transit-hubs";
+import { TRANSIT_HUBS, getTransitHub, hubKindLabel } from "@/lib/transit-hubs";
 
 export const revalidate = 3600;
 
@@ -25,13 +25,19 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: { country: string } }): Promise<Metadata> {
   const hub = getTransitHub(params.country);
   if (hub) {
+    const isSettle = hub.kind === "settle";
+    const title =
+      hub.heroTitle ?? (isSettle ? `${hub.countryRu}: страна для жизни` : `${hub.countryRu}: транзитный хаб`);
+    const description = isSettle
+      ? `${hub.quickAnswer} Направление Emigro «Страны для жизни»: долгий статус вне ЕС, не транзитный хаб на 3–12 месяцев.`
+      : `${hub.quickAnswer} Не EU-коридор: первый шаг для стабилизации, документов, банков и подготовки маршрута в Европу.`;
     return {
       ...pageMetadata({
-        title: hub.heroTitle ?? `${hub.countryRu}: транзитный хаб`,
-        description: `${hub.quickAnswer} Не EU-коридор: первый шаг для стабилизации, документов, банков и подготовки маршрута в Европу.`,
+        title,
+        description,
         path: hub.path,
         ogImage: "/images/og/og-default.jpg",
-        ogImageAlt: `${hub.countryRu} как транзитный хаб Emigro`,
+        ogImageAlt: `${hub.countryRu} — ${hubKindLabel(hub.kind)} Emigro`,
         countrySegment: hub.slug,
       }),
     };

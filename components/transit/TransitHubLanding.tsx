@@ -5,7 +5,7 @@ import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { ServiceProvidersSection } from "@/components/providers/ServiceProvidersSection";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { HubHeroVisual } from "@/components/visuals/HubHeroVisual";
-import { TRANSIT_HUBS, type TransitHub } from "@/lib/transit-hubs";
+import { getHubsByKind, hubKindLabel, type TransitHub } from "@/lib/transit-hubs";
 import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
 import { pageUrl } from "@/lib/seo";
 
@@ -26,8 +26,7 @@ const EU_CORRIDORS = [
   { slug: "estonia", label: "Эстония", flag: "🇪🇪", path: "/ru/estonia" },
 ];
 
-const DESTINATION_GUIDES = [
-  { label: "ЮАР 2026: Critical Skills, школы Кейптауна, MBA UCT GSB", href: "/ru/guides/yuar-dlya-rossiyan-ukraintsev-belorusov-kazahstantsev-2026" },
+const TRANSIT_DESTINATION_GUIDES = [
   { label: "Как выбрать страну для ВНЖ — 2026", href: "/ru/guides/kuda-pereehat-iz-rossii-2026-evropa-vnj" },
   { label: "ВНЖ без работы: пассивный доход и сбережения", href: "/ru/guides/vnj-bez-raboty-passivnyy-dohod-sberezheniya-2026" },
   { label: "ВНЖ Греция 2026: Digital Nomad, FIP, Golden Visa", href: "/ru/guides/vnj-gretsiya-2026-digital-nomad-fip-golden-visa" },
@@ -42,14 +41,28 @@ const DESTINATION_GUIDES = [
   { label: "D7 vs Digital Nomad: полное сравнение", href: "/ru/guides/d7-vs-digital-nomad-visa-sravnenie" },
 ];
 
+const SETTLE_DESTINATION_GUIDES = [
+  { label: "ЮАР 2026: Critical Skills, школы, MBA UCT GSB", href: "/ru/guides/yuar-dlya-rossiyan-ukraintsev-belorusov-kazahstantsev-2026" },
+  { label: "Таиланд для россиян 2026 — LTR, Elite, DTV", href: "/ru/guides/tailand-dlya-rossiyan-2026" },
+  { label: "Бали / Индонезия для россиян 2026", href: "/ru/guides/bali-indoneziya-dlya-rossiyan-2026" },
+  { label: "ОАЭ для россиян 2026 — резиденция, бизнес, банки", href: "/ru/guides/oae-dlya-rossiyan-2026" },
+  { label: "Турция для россиян 2026 — ikamet, банки", href: "/ru/guides/turciya-dlya-rossiyan-2026" },
+  { label: "Как выбрать страну для ВНЖ — 2026", href: "/ru/guides/kuda-pereehat-iz-rossii-2026-evropa-vnj" },
+];
+
 type Props = {
   hub: TransitHub;
 };
 
 export function TransitHubLanding({ hub }: Props) {
-  const heroTitle = hub.heroTitle ?? `${hub.countryRu}: транзитный хаб на 3–12 месяцев`;
-  const eyebrow = hub.eyebrow ?? "Транзитный хаб · первый шаг";
-  const articleHeadline = hub.articleHeadline ?? `${hub.countryRu}: транзитный хаб для первого шага`;
+  const isSettle = hub.kind === "settle";
+  const heroTitle =
+    hub.heroTitle ??
+    (isSettle ? `${hub.countryRu}: страна для жизни` : `${hub.countryRu}: транзитный хаб на 3–12 месяцев`);
+  const eyebrow = hub.eyebrow ?? (isSettle ? "Страна для жизни · вне ЕС" : "Транзитный хаб · первый шаг");
+  const articleHeadline =
+    hub.articleHeadline ??
+    (isSettle ? `${hub.countryRu}: страна для жизни вне ЕС` : `${hub.countryRu}: транзитный хаб для первого шага`);
   const breadcrumbSchema = buildBreadcrumbSchema([
     { name: "Все направления", item: pageUrl("/ru") },
     { name: hub.countryRu },
@@ -82,7 +95,8 @@ export function TransitHubLanding({ hub }: Props) {
     })),
   };
 
-  const otherHubs = TRANSIT_HUBS.filter((item) => item.slug !== hub.slug);
+  const otherHubs = getHubsByKind(hub.kind).filter((item) => item.slug !== hub.slug);
+  const relatedGuides = isSettle ? SETTLE_DESTINATION_GUIDES : TRANSIT_DESTINATION_GUIDES;
 
   return (
     <>
@@ -112,17 +126,26 @@ export function TransitHubLanding({ hub }: Props) {
           </h1>
           <p className="mt-4 max-w-2xl text-lg text-corridor-100">{hub.tagline}</p>
           <div className="mt-8 flex flex-wrap gap-3">
+            {hub.guideHref ? (
+              <Link
+                href={hub.guideHref}
+                className="rounded-lg bg-white px-5 py-3 font-medium text-corridor-900 hover:bg-corridor-50"
+              >
+                {isSettle ? "Читать pillar-гайд" : "Гайд по направлению"}
+              </Link>
+            ) : (
+              <Link
+                href="/ru/wizard"
+                className="rounded-lg bg-white px-5 py-3 font-medium text-corridor-900 hover:bg-corridor-50"
+              >
+                Проверить EU-маршрут
+              </Link>
+            )}
             <Link
-              href="/ru/wizard"
-              className="rounded-lg bg-white px-5 py-3 font-medium text-corridor-900 hover:bg-corridor-50"
-            >
-              Проверить EU-маршрут
-            </Link>
-            <Link
-              href="/ru/assist"
+              href={isSettle ? "/ru/wizard" : "/ru/assist"}
               className="rounded-lg border border-white/40 px-5 py-3 font-medium text-white hover:bg-white/10"
             >
-              Route Check — €129
+              {isSettle ? "Опционально: EU wizard" : "Route Check — €129"}
             </Link>
           </div>
         </HeroShell>
@@ -131,8 +154,9 @@ export function TransitHubLanding({ hub }: Props) {
           <p className="text-sm font-semibold uppercase tracking-wide text-corridor-700">Короткий ответ</p>
           <p className="mt-2 text-lg leading-relaxed text-slate-800">{hub.quickAnswer}</p>
           <p className="mt-3 text-sm text-slate-500">
-            Это не EU-коридор для ВНЖ или гражданства. Хаб нужен, чтобы спокойно закрыть первые бытовые,
-            финансовые и документальные задачи перед отдельным европейским маршрутом.
+            {isSettle
+              ? "Это не EU-коридор Emigro. Направление в категории «Страны для жизни»: долгий статус, быт и интеграция вне Европы. EU-маршрут — опция, не обязательная цель."
+              : "Это не EU-коридор для ВНЖ или гражданства. Хаб нужен, чтобы спокойно закрыть первые бытовые, финансовые и документальные задачи перед отдельным европейским маршрутом."}
           </p>
           {hub.guideHref && hub.guideAnchor && (
             <Link
@@ -171,11 +195,16 @@ export function TransitHubLanding({ hub }: Props) {
             <section className="rounded-2xl border border-slate-200 bg-white p-6">
               <div className="flex items-center gap-2">
                 <Route className="h-5 w-5 text-corridor-600" />
-                <h2 className="text-2xl font-semibold text-slate-900">Путь дальше в Европу</h2>
+                <h2 className="text-2xl font-semibold text-slate-900">
+                  {isSettle ? "Если позже нужен Европа" : "Путь дальше в Европу"}
+                </h2>
               </div>
               <p className="mt-4 text-sm leading-relaxed text-slate-700">{hub.onwardEu}</p>
-              <Link href="/ru/wizard" className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-corridor-700 hover:underline">
-                Проверить программы EU в wizard
+              <Link
+                href="/ru/wizard"
+                className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-corridor-700 hover:underline"
+              >
+                {isSettle ? "Опционально: программы EU в wizard" : "Проверить программы EU в wizard"}
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </section>
@@ -183,17 +212,21 @@ export function TransitHubLanding({ hub }: Props) {
             <section className="rounded-2xl border border-corridor-100 bg-gradient-to-br from-corridor-50 to-white p-6">
               <div className="flex items-center gap-2">
                 <Globe2 className="h-5 w-5 text-corridor-600" />
-                <h2 className="text-2xl font-semibold text-slate-900">Следующий шаг: выбери страну назначения</h2>
+                <h2 className="text-2xl font-semibold text-slate-900">
+                  {isSettle ? "Сравните с EU-коридорами" : "Следующий шаг: выбери страну назначения"}
+                </h2>
               </div>
               <p className="mt-3 text-sm leading-relaxed text-slate-600">
-                {hub.countryRu} — транзитный хаб, а не финальная цель. Выберите EU-коридор для постоянного ВНЖ.
+                {isSettle
+                  ? `${hub.countryRu} — страна для жизни вне ЕС. Если цель всё же европейский ВНЖ — сравните коридоры ниже.`
+                  : `${hub.countryRu} — транзитный хаб, а не финальная цель. Выберите EU-коридор для постоянного ВНЖ.`}
               </p>
               <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3">
                 {EU_CORRIDORS.map((corridor) => (
                   <Link
                     key={corridor.slug}
                     href={corridor.path}
-                    className="flex items-center gap-2 rounded-xl border border-corridor-200 bg-white px-3 py-2.5 text-sm font-medium text-slate-800 shadow-sm hover:border-corridor-400 hover:text-corridor-700 transition-colors"
+                    className="flex items-center gap-2 rounded-xl border border-corridor-200 bg-white px-3 py-2.5 text-sm font-medium text-slate-800 shadow-sm transition-colors hover:border-corridor-400 hover:text-corridor-700"
                   >
                     <span className="text-base">{corridor.flag}</span>
                     <span>{corridor.label}</span>
@@ -203,10 +236,10 @@ export function TransitHubLanding({ hub }: Props) {
               <div className="mt-5 border-t border-slate-100 pt-4">
                 <div className="flex items-center gap-2 text-sm font-semibold text-slate-700">
                   <BookOpen className="h-4 w-4 text-corridor-600" />
-                  Полезные гайды по выбору страны
+                  {isSettle ? "Гайды по странам для жизни и EU" : "Полезные гайды по выбору страны"}
                 </div>
                 <div className="mt-2 space-y-1.5">
-                  {DESTINATION_GUIDES.map((guide) => (
+                  {relatedGuides.map((guide) => (
                     <Link
                       key={guide.href}
                       href={guide.href}
@@ -250,7 +283,9 @@ export function TransitHubLanding({ hub }: Props) {
             />
 
             <section className="rounded-2xl border border-slate-200 bg-white p-5">
-              <h2 className="font-semibold text-slate-900">Другие транзитные хабы</h2>
+              <h2 className="font-semibold text-slate-900">
+                {isSettle ? "Другие страны для жизни" : "Другие транзитные хабы"}
+              </h2>
               <div className="mt-3 space-y-2">
                 {otherHubs.map((item) => (
                   <Link
@@ -260,6 +295,7 @@ export function TransitHubLanding({ hub }: Props) {
                   >
                     <span>
                       {item.flag} {item.countryRu}
+                      <span className="ml-1.5 text-xs text-slate-400">{hubKindLabel(item.kind)}</span>
                     </span>
                     <ArrowRight className="h-3.5 w-3.5" />
                   </Link>

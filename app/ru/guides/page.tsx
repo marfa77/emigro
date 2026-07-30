@@ -11,10 +11,10 @@ import { schemaImage } from "@/lib/seo/schema";
 export const revalidate = 3600;
 
 const GUIDES_INDEX_DESCRIPTION =
-  "Практические pillar-гайды Emigro: маршруты для русскоязычных за рубежом и в СНГ — digital nomad, семья с детьми, отказы в визах, бюджет релокации и ВНЖ по странам ЕС.";
+  "Практические pillar-гайды Emigro: Европа, страны для жизни вне ЕС и транзитные хабы — digital nomad, семья с детьми, отказы в визах, бюджет релокации и ВНЖ.";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Гайды по релокации и ВНЖ в Европе",
+  title: "Гайды по релокации, ВНЖ и странам для жизни",
   description: GUIDES_INDEX_DESCRIPTION,
   path: "/ru/guides",
   ogImage: schemaImage("/images/og/guides-index.jpg"),
@@ -39,7 +39,7 @@ export default async function GuidesIndexPage() {
 
   const indexUrl = pageUrl("/ru/guides");
   const collectionSchema = buildCollectionPageItemListSchema({
-    name: "Гайды по релокации и ВНЖ в Европе",
+    name: "Гайды по релокации, ВНЖ и странам для жизни",
     url: indexUrl,
     description: GUIDES_INDEX_DESCRIPTION,
     inLanguage: "ru-RU",
