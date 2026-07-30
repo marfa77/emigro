@@ -39,7 +39,7 @@ date_modified: 2026-07-28
 - в заявке есть **супруг и несовершеннолетние дети**;
 - параллельно думаете о переезде в 2026–2027 (Порту / Брага и т.п.).
 
-Общий обзор гражданства PT/ES: [Гражданство Португалии и Испании 2026](/ru/guides/grazhdanstvo-portugaliya-ispaniya-2026). Инвестпрограммы шире: [Golden Visa Европа](/ru/guides/investitsionnyy-vnj-evropa-golden-visa-2026). ВНЖ без инвестиций: [D8/D7](/ru/guides/vnj-portugaliya-d8-d7-grazhdanstvo-2026).
+Общий обзор гражданства PT/ES: [Гражданство Португалии и Испании 2026](/ru/guides/grazhdanstvo-portugaliya-ispaniya-2026). Инвестпрограммы шире: [Golden Visa Европа](/ru/guides/investitsionnyy-vnj-evropa-golden-visa-2026). ВНЖ без инвестиций: [D8/D7](/ru/guides/vnj-portugaliya-d8-d7-grazhdanstvo-2026). Рождение ребёнка при ARI &lt; 5 лет: [Golden Visa + ребёнок](/ru/guides/golden-visa-portugal-rozhdenie-rebenka-grazhdanstvo-2026).
 
 **Не юридическая консультация.** Сроки и трактовки Lei Orgânica 1/2026 для «residency-stage» держателей ARI ещё уточняются — опирайтесь на своего юриста и IRN/AIMA.
 
@@ -226,6 +226,7 @@ IRN часто принимает PT, EN, FR, ES; для натурализац�
 - Nationality **до 18.05.2026** → обычно старый **5-летний** режим.  
 - ARI 2021–22 **без** nationality-файла → **серая зона**, не «авто-подача в ноябре 2026».  
 - ARI **не ускоряет** паспорт; ПМЖ ~5 лет отдельно.  
+- Рождение ребёнка при ARI &lt; 5 лет **не** даёт PT-паспорт при рождении (порог родителя **5 лет** с 19.05.2026): [гайд](/ru/guides/golden-visa-portugal-rozhdenie-rebenka-grazhdanstvo-2026).  
 - Язык: **CIPLE A2** или согласованный эквивалент (**PLA** — уточнять).  
 - Ofício IRN: ориентир **~30** рабочих дней; несудимости — «свежие».  
 - Документы РФ: Госуслуги + доверенное лицо + апостиль + перевод PT.  
