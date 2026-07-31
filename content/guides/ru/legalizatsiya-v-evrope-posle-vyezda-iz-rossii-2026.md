@@ -5,8 +5,8 @@ seo_title: "Легализация в Европе после выезда из 
 seo_description: "Как перейти от шенгена или безвиза к легальному статусу в Европе: визы D, ВНЖ, учёба, работа, семья, риски overstay и консульства."
 excerpt: "Пошаговый план для тех, кто уже выехал из России и теперь хочет остаться в Европе законно: какие маршруты возможны, где нельзя продлить статус и как не испортить историю."
 quick_answer: "После выезда из РФ легализация в Европе обычно требует не продления туристического пребывания, а перехода в конкретную категорию: работа, учёба, digital nomad, пассивный доход, семья или защита. Во многих странах национальную визу D нужно получать через консульство за пределами страны назначения, поэтому важно проверить юрисдикцию до истечения 90/180."
-corridor_slugs: [ru-speaking-to-portugal, ru-speaking-to-spain, ru-speaking-to-germany, ru-speaking-to-italy, ru-speaking-to-france, ru-speaking-to-netherlands, ru-speaking-to-scandinavia]
-topic_keys: [portugal, spain, germany, italy, france, netherlands, scandinavia, legalization]
+corridor_slugs: [ru-speaking-to-portugal, ru-speaking-to-spain, ru-speaking-to-germany, ru-speaking-to-italy, ru-speaking-to-france, ru-speaking-to-netherlands, ru-speaking-to-sweden, ru-speaking-to-norway, ru-speaking-to-finland, ru-speaking-to-denmark]
+topic_keys: [portugal, spain, germany, italy, france, netherlands, sweden, norway, finland, denmark, legalization]
 tags: [легализация, ВНЖ, безвиз, шенген, Россия, 2026]
 primary_intent: checklist
 cta_primary: /ru/wizard

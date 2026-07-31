@@ -36,7 +36,10 @@
 /ru/czechia
 /ru/austria
 /ru/netherlands
-/ru/scandinavia
+/ru/sweden
+/ru/norway
+/ru/finland
+/ru/denmark
 
 # === Top programs (15) ===
 /ru/spain/programs/spain-digital-nomad
@@ -65,7 +68,10 @@
 /ru/czechia/digest
 /ru/austria/digest
 /ru/netherlands/digest
-/ru/scandinavia/digest
+/ru/sweden/digest
+/ru/norway/digest
+/ru/finland/digest
+/ru/denmark/digest
 
 # === Wizard коридоров (10) ===
 /ru/portugal/wizard
@@ -77,7 +83,10 @@
 /ru/czechia/wizard
 /ru/austria/wizard
 /ru/netherlands/wizard
-/ru/scandinavia/wizard
+/ru/sweden/wizard
+/ru/norway/wizard
+/ru/finland/wizard
+/ru/denmark/wizard
 
 # === Транзитные хабы (9) ===
 /ru/serbia

@@ -34,8 +34,14 @@ export const WIZARD_CORRIDOR_DESCRIPTIONS: Record<string, string> = {
     "Wizard Emigro по Словении: Digital Nomad ~€3 200/мес (2× avg net, макс. 12 мес), s.p. self-employment, семья. GOV.SI с 21.11.2025 — для паспортов RU/BY/UA/KZ.",
   estonia:
     "Wizard Emigro по Эстонии: Digital Nomad Visa €4 500/мес (РФ/BY почти закрыты по MFA), e-Residency + OÜ (€150, не ВНЖ). Для паспортов RU/BY/UA/KZ.",
-  scandinavia:
-    "Wizard Emigro по Скандинавии: work permit Швеции, pay limit scheme Дании, воссоединение семьи. Пороги зарплаты и сроки для паспортов RU/BY/UA/KZ.",
+  sweden:
+    "Wizard Emigro по Швеции: work permit SEK 34 470, EU Blue Card, воссоединение семьи. Пороги Migrationsverket и сроки для паспортов RU/BY/UA/KZ.",
+  norway:
+    "Wizard Emigro по Норвегии: UDI skilled worker, EU Blue Card, воссоединение семьи. Soft-пороги — сверяйте udi.no; для паспортов RU/BY/UA/KZ.",
+  finland:
+    "Wizard Emigro по Финляндии: Migri work/specialist, startup residence, воссоединение семьи. Soft-пороги migri.fi для паспортов RU/BY/UA/KZ.",
+  denmark:
+    "Wizard Emigro по Дании: pay limit DKK 552 000/год, Fast-track, воссоединение семьи. Пороги SIRI и сроки для паспортов RU/BY/UA/KZ.",
 };
 
 export function wizardCorridorDescription(countrySegment: string, countryRu: string): string {

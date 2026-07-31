@@ -221,6 +221,54 @@ export const UNIPREP_OFFERS_BY_TOPIC: Record<string, UniPrepOffer> = {
       blurbRu: "Также доступны Danish A2 и Norwegian A2 на UniPrep2Go",
     },
   },
+  sweden: {
+    topicKey: "sweden",
+    countryRu: "Швеция",
+    examLabelRu: "Swedish A2 / SFI",
+    headlineRu: "Swedish A2 SFI — Anki-колода",
+    bodyRu: "Для интеграции / гражданства в Швеции — языковая A2 колода SFI на UniPrep2Go.",
+    deck: {
+      path: "/decks/swedish-a2-sfi-anki-deck",
+      titleRu: "Swedish A2 SFI Anki",
+      blurbRu: "SFI / Swedish A2",
+    },
+  },
+  norway: {
+    topicKey: "norway",
+    countryRu: "Норвегия",
+    examLabelRu: "Norskprøve A2",
+    headlineRu: "Norwegian A2 — Anki-колода",
+    bodyRu: "Для интеграции / гражданства в Норвегии — языковая A2 колода Norskprøve на UniPrep2Go.",
+    deck: {
+      path: "/decks/norwegian-a2-norskprove-anki-deck",
+      titleRu: "Norwegian A2 Anki",
+      blurbRu: "Norskprøve A2",
+    },
+  },
+  finland: {
+    topicKey: "finland",
+    countryRu: "Финляндия",
+    examLabelRu: "Finnish A2",
+    headlineRu: "Finnish A2 — Anki-колода",
+    bodyRu: "Для интеграции / гражданства в Финляндии — языковая A2 колода на UniPrep2Go.",
+    deck: {
+      path: "/decks/finnish-a2-anki-deck",
+      titleRu: "Finnish A2 Anki",
+      blurbRu: "Finnish A2",
+    },
+  },
+  denmark: {
+    topicKey: "denmark",
+    countryRu: "Дания",
+    examLabelRu: "Prøve i Dansk A2",
+    headlineRu: "Danish A2 — Anki-колода",
+    bodyRu: "Для интеграции / гражданства в Дании — языковая A2 колода Prøve i Dansk на UniPrep2Go.",
+    deck: {
+      path: "/decks/danish-a2-prove-i-dansk-anki-deck",
+      titleRu: "Danish A2 Anki",
+      blurbRu: "Prøve i Dansk A2",
+    },
+  },
 };
 
 const CITIZENSHIP_GUIDE_HINT =

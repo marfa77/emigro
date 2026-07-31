@@ -25,15 +25,15 @@ const sourceLinks = [
   { title: "The Local Spain", url: "https://www.thelocal.es/example" },
 ];
 
-const scandinaviaTopic: NewsTopicConfig = {
-  key: "scandinavia",
-  urlSegment: "scandinavia",
-  countryRu: "Скандинавия",
-  countryEn: "Scandinavia",
+const swedenTopic: NewsTopicConfig = {
+  key: "sweden",
+  urlSegment: "sweden",
+  countryRu: "Швеция",
+  countryEn: "Sweden",
   flag: "🇸🇪",
   audienceRu: "русскоязычных заявителей",
-  focusHintRu: "ВНЖ и гражданство Скандинавии",
-  corridorSlug: "ru-speaking-to-scandinavia",
+  focusHintRu: "ВНЖ и гражданство Швеции",
+  corridorSlug: "ru-speaking-to-sweden",
   status: "active",
   seoTags: [],
   rssQueries: [],
@@ -160,7 +160,7 @@ async function main(): Promise<void> {
     title: "Sweden long-term resident permits update",
     excerpt:
       "Under proposition 2025/26:262, from 12 July 2026 protection-status holders such as refugees and subsidiary protection holders receive temporary five-year permits on renewal instead of indefinite or permanent permits.",
-    topicKey: "scandinavia",
+    topicKey: "sweden",
     keyTakeaways: [
       "The change affects protection-status holders on renewals from 12 July 2026.",
       "Labour migrants and family reunification permanent residence are not currently affected.",
@@ -182,7 +182,7 @@ async function main(): Promise<void> {
       "Швеция: пятилетний ВНЖ"
     ),
     swedenSource,
-    scandinaviaTopic
+    swedenTopic
   );
   assert(
     broadSwedenFraming.criticalErrors.some(
@@ -197,7 +197,7 @@ async function main(): Promise<void> {
       "Швеция: продления для держателей защиты"
     ),
     swedenSource,
-    scandinaviaTopic
+    swedenTopic
   );
   assert.equal(
     correctedSwedenFraming.ok,

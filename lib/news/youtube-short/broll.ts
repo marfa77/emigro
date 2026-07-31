@@ -13,6 +13,10 @@ const FALLBACK_BG: Record<string, string> = {
   italy: "0x065f46",
   netherlands: "0x1d4ed8",
   scandinavia: "0x075985",
+  sweden: "0x075985",
+  norway: "0x7f1d1d",
+  finland: "0x1e3a8a",
+  denmark: "0x991b1b",
 };
 
 const PEXELS_API = "https://api.pexels.com/videos/search";
@@ -26,6 +30,10 @@ const COUNTRY_BROLL: Record<string, string[]> = {
   italy: ["rome street vertical", "milan city"],
   netherlands: ["amsterdam canal vertical", "amsterdam bike"],
   scandinavia: ["copenhagen street vertical", "oslo fjord"],
+  sweden: ["stockholm street vertical", "sweden archipelago"],
+  norway: ["oslo fjord", "bergen street vertical"],
+  finland: ["helsinki street vertical", "finland lake"],
+  denmark: ["copenhagen street vertical", "copenhagen canal"],
 };
 
 /** Topic-specific queries layered on top of country clips. */

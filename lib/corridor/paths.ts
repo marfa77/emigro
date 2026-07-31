@@ -63,8 +63,12 @@ export function programPathLegacy(programSlug: string): string {
   if (programSlug.startsWith("croatia-")) return `/ru/croatia/programs/${programSlug}`;
   if (programSlug.startsWith("slovenia-")) return `/ru/slovenia/programs/${programSlug}`;
   if (programSlug.startsWith("estonia-")) return `/ru/estonia/programs/${programSlug}`;
-  if (programSlug.startsWith("sweden-") || programSlug.startsWith("denmark-") || programSlug.startsWith("nordic-")) {
-    return `/ru/scandinavia/programs/${programSlug}`;
+  if (programSlug.startsWith("sweden-")) return `/ru/sweden/programs/${programSlug}`;
+  if (programSlug.startsWith("norway-")) return `/ru/norway/programs/${programSlug}`;
+  if (programSlug.startsWith("finland-")) return `/ru/finland/programs/${programSlug}`;
+  if (programSlug.startsWith("denmark-")) return `/ru/denmark/programs/${programSlug}`;
+  if (programSlug.startsWith("nordic-")) {
+    return `/ru/sweden/programs/sweden-family-reunification`;
   }
   return `/ru/programs/${programSlug}`;
 }

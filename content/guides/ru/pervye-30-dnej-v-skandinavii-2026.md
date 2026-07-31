@@ -5,11 +5,11 @@ seo_title: "Первые 30 дней в Скандинавии 2026 — personnu
 seo_description: "Чек-лист после прилёта в Швецию и Данию: personnummer, CPR, Skatteverket, банк, SIM, жильё, Migrationsverket/SIRI. Для RU/BY/UA/KZ. 2026."
 excerpt: "Вы получили work permit и прилетели в Stockholm или Copenhagen — что делать в первый месяц: personnummer/CPR, банк, SIM, регистрация и запись в миграционную службу."
 quick_answer: "Первые 30 дней: (1) Swedish SIM / датский SIM, (2) регистрация адреса — Skatteverket (SE) или kommune (DK), (3) personnummer (SE) или CPR (DK) — ключ к банку и healthcare, (4) банк — Swedbank/SEB или Danske Bank, (5) Folkbokföring / folkeregister, (6) запись в Migrationsverket/SIRI если нужна карта. Без personnummer/CPR не откроете полноценный счёт."
-corridor_slugs: [ru-speaking-to-scandinavia]
-topic_keys: [scandinavia, checklist, arrival]
+corridor_slugs: [ru-speaking-to-sweden, ru-speaking-to-norway, ru-speaking-to-finland, ru-speaking-to-denmark]
+topic_keys: [scandinavia, sweden, norway, finland, denmark, checklist, arrival]
 tags: [Скандинавия, чеклист, 2026, personnummer, CPR, Швеция, Дания]
 primary_intent: how-to
-cta_primary: /ru/scandinavia/wizard
+cta_primary: /ru/sweden/wizard
 cta_secondary: /ru/guides/vnj-skandinaviya-2026
 official_sources:
   - url: https://www.skatteverket.se/
@@ -215,7 +215,7 @@ BankID (SE) / MitID (DK) — для e-government и банков. Оформля
 
 - [ВНЖ Скандинавия 2026](/ru/guides/vnj-skandinaviya-2026)
 - [Работа в Европе](/ru/guides/rabota-v-evrope-dlya-rossiyan-2026)
-- [Коридор Скандинавия](/ru/scandinavia) · [wizard](/ru/scandinavia/wizard)
+- [Коридор Швеция](/ru/sweden) · [wizard](/ru/sweden/wizard)
 - [Первые 30 дней в Германии](/ru/guides/pervye-30-dnej-v-germanii-2026) — для сравнения Anmeldung vs personnummer
 
 *Не юридическая консультация. Сроки Skatteverket и kommune меняются — проверяйте официальные порталы.*

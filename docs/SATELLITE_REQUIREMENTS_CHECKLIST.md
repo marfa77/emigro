@@ -96,8 +96,9 @@
 
 ## 4. SEO
 
-- [ ] `app/sitemap.ts` — satellite hub, `/llms`, `/notes/{slug}`, `/tag/{tag}`
-- [ ] `app/llm-sitemap.xml/route.ts` — satellite llms URLs
+- [ ] `app/sitemap.ts` — host-aware: www = main only; `portugal.`/`spain.` = hub, `/llms`, notes, tags
+- [ ] `app/robots.ts` — satellite Host + same-host Sitemap
+- [ ] `app/llm-sitemap.xml/route.ts` — satellite llms URLs (on www)
 - [ ] `lib/seo/llms-full.ts` — полный llms с заметками
 - [ ] Canonical: `{country}.emigro.online` (env `*_SATELLITE_USE_SUBDOMAIN`)
 - [ ] `middleware.ts` — 301 `www.../satellite/{country}` → subdomain

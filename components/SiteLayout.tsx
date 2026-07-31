@@ -69,8 +69,17 @@ export function SiteFooter({ locale = "ru" }: { locale?: "ru" | "en" }) {
           <Link href="/ru/netherlands" className="hover:text-corridor-600">
             {locale === "ru" ? "🇳🇱 Нидерланды" : "🇳🇱 Netherlands"}
           </Link>
-          <Link href="/ru/scandinavia" className="hover:text-corridor-600">
-            {locale === "ru" ? "Скандинавия" : "Scandinavia"}
+          <Link href="/ru/sweden" className="hover:text-corridor-600">
+            {locale === "ru" ? "🇸🇪 Швеция" : "🇸🇪 Sweden"}
+          </Link>
+          <Link href="/ru/norway" className="hover:text-corridor-600">
+            {locale === "ru" ? "🇳🇴 Норвегия" : "🇳🇴 Norway"}
+          </Link>
+          <Link href="/ru/finland" className="hover:text-corridor-600">
+            {locale === "ru" ? "🇫🇮 Финляндия" : "🇫🇮 Finland"}
+          </Link>
+          <Link href="/ru/denmark" className="hover:text-corridor-600">
+            {locale === "ru" ? "🇩🇰 Дания" : "🇩🇰 Denmark"}
           </Link>
           <Link href="/ru/guides" className="hover:text-corridor-600">
             {locale === "ru" ? "Гайды" : "Guides"}

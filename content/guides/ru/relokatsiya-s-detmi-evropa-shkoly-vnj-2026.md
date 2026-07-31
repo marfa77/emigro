@@ -55,7 +55,7 @@ date_modified: 2026-06-26
 
 1. **Вместе с родителем** при первичной подаче (если программа позволяет).
 2. **Family reunification** после стабилизации спонсора.
-3. **Рождение в EU** — не даёт автоматически гражданство (кроме узких случаев jus soli).
+3. **Рождение в EU** — почти никогда не даёт автогражданство туристам; полный разбор jus soli (LATAM / US / CA / EU): [где рожать ради паспорта](/ru/guides/gde-rozhat-rebenka-dlya-pasporta-2026).
 
 **Документы ребёнка:** свидетельство о рождении с апостилем, перевод, прививки (календарь EU), медосмотр, фото, копия паспорта родителя-спонсора. Для несовершеннолетних — согласие второго родителя на выезд и на проживание в EU.
 
@@ -230,7 +230,8 @@ EU — inclusive education; документы медицинские с пер�
 |------|------|
 | Выбор страны | [Куда переехать из России в 2026](/ru/guides/kuda-pereehat-iz-rossii-2026-evropa-vnj) |
 | Бюджет | [Сколько денег на релокацию 2026](/ru/guides/byudzhet-relokatsii-evropa-2026-po-stranam) |
-| Семья | [Воссоединение и релокация с детьми](/ru/guides/vossoedinenie-semi-evropa-2026) |
+| Семья | [Воссоединение семьи](/ru/guides/vossoedinenie-semi-evropa-2026) |
+| Jus soli / паспорт ребёнку | [Где рожать ради паспорта 2026](/ru/guides/gde-rozhat-rebenka-dlya-pasporta-2026) |
 | Отказы | [Отказ в национальной визе 2026](/ru/guides/otkaz-v-natsionalnoy-vize-konsulstvo-2026) |
 | Португалия | [D8/D7 и гражданство](/ru/guides/vnj-portugaliya-d8-d7-grazhdanstvo-2026) |
 | Германия | [Blue Card и Chancenkarte](/ru/guides/germaniya-blue-card-chancenkarte-2026-sng) |

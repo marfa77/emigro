@@ -28,6 +28,13 @@ check_contains() {
   if echo "$body" | grep -q "$needle"; then ok "$label"; else fail "$label — missing '$needle' in $url"; fi
 }
 
+check_absent() {
+  local label="$1" url="$2" needle="$3"
+  local body
+  body=$(curl -sS -L --max-time 25 "$url" || true)
+  if echo "$body" | grep -q "$needle"; then fail "$label — unexpected '$needle' in $url"; else ok "$label"; fi
+}
+
 echo "=== Emigro prod smoke: $BASE ==="
 echo ""
 
@@ -38,7 +45,7 @@ for path in /ru /ru/wizard /ru/guides /ru/news /ru/contact /ru/partners /ru/priv
 done
 
 # Corridors
-for c in portugal spain france italy germany netherlands scandinavia poland czechia austria; do
+for c in portugal spain france italy germany netherlands sweden norway finland denmark poland czechia austria; do
   check_status "corridor /ru/$c" "$BASE/ru/$c"
   check_status "wizard /ru/$c/wizard" "$BASE/ru/$c/wizard"
   check_status "digest /ru/$c/digest" "$BASE/ru/$c/digest"
@@ -60,6 +67,15 @@ check_status "sitemap" "$BASE/sitemap.xml"
 check_contains "sitemap guides" "$BASE/sitemap.xml" "/ru/guides/"
 check_status "robots" "$BASE/robots.txt"
 check_contains "robots admin disallow" "$BASE/robots.txt" "admin"
+
+# Satellite host-aware sitemap (must list same-host notes, not www corridors)
+check_status "PT satellite sitemap" "https://portugal.emigro.online/sitemap.xml"
+check_contains "PT sitemap notes" "https://portugal.emigro.online/sitemap.xml" "portugal.emigro.online/notes/"
+check_absent "PT sitemap no www guides" "https://portugal.emigro.online/sitemap.xml" "www.emigro.online/ru/guides"
+check_status "ES satellite sitemap" "https://spain.emigro.online/sitemap.xml"
+check_contains "ES sitemap notes" "https://spain.emigro.online/sitemap.xml" "spain.emigro.online/notes/"
+check_contains "PT robots sitemap host" "https://portugal.emigro.online/robots.txt" "portugal.emigro.online/sitemap.xml"
+check_contains "ES robots sitemap host" "https://spain.emigro.online/robots.txt" "spain.emigro.online/sitemap.xml"
 
 # Assets
 check_status "favicon" "$BASE/favicon.svg"

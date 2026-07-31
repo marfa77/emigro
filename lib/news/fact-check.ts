@@ -223,7 +223,10 @@ const COUNTRY_ALIASES: Array<{ key: string; names: string[] }> = [
   { key: "croatia", names: ["croatia", "хорват", "zagreb", "загреб", "split", "сплит", "mup", "dubrovnik", "дубровник"] },
   { key: "slovenia", names: ["slovenia", "словен", "ljubljana", "люблян", "gov.si", "upravna", "normiranec"] },
   { key: "estonia", names: ["estonia", "эстон", "tallinn", "таллин", "e-residency", "e-resident", "politsei", "vm.ee"] },
-  { key: "scandinavia", names: ["sweden", "norway", "denmark", "finland", "швец", "норвег", "дани", "финлянд"] },
+  { key: "sweden", names: ["sweden", "швец", "migrationsverket", "stockholm"] },
+  { key: "norway", names: ["norway", "норвег", "udi", "oslo"] },
+  { key: "finland", names: ["finland", "финлянд", "migri", "helsinki"] },
+  { key: "denmark", names: ["denmark", "дани", "siri", "copenhagen", "nyidanmark"] },
 ];
 
 function normalizeText(text: string): string {

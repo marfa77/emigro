@@ -119,7 +119,22 @@ const FINANCE_NEEDLES = ["nalogi", "bank", "ip", "dohod", "byudzhet", "bank-i-ib
 
 const DOCUMENT_NEEDLES = ["dokumenty", "apostil", "konsul", "otkaz", "legaliz"] as const;
 
-const FAMILY_NEEDLES = ["deti", "semya", "vossoedinenie", "uchebn"] as const;
+const FAMILY_NEEDLES = [
+  "deti",
+  "semya",
+  "vossoedinenie",
+  "uchebn",
+  "rebenka",
+  "rebenok",
+  "rozhat",
+  "rozhden",
+  "дети",
+  "семья",
+  "ребён",
+  "ребен",
+  "рожать",
+  "рождени",
+] as const;
 
 const CATEGORY_ORDER = GUIDE_CATEGORIES.map((category) => category.id);
 
@@ -219,8 +234,12 @@ export function getGuideCategories(guide: GuideFrontmatter): GuideCategoryId[] {
     (guide.corridor_slugs?.length ?? 0) > 0 ||
     slug.includes("vnj") ||
     slug.includes("grazhdanstvo") ||
+    slug.includes("pasporta") ||
     title.includes("внж") ||
-    title.includes("гражданств")
+    title.includes("гражданств") ||
+    title.includes("паспорт") ||
+    topicKeys.includes("citizenship") ||
+    tags.some((tag) => tag.includes("гражданств") || tag.includes("паспорт"))
   ) {
     categories.add("countries");
   }
@@ -244,7 +263,12 @@ export function getGuideCategories(guide: GuideFrontmatter): GuideCategoryId[] {
     categories.add("documents");
   }
 
-  if (matchesNeedles(slug, FAMILY_NEEDLES) || tags.some((tag) => matchesNeedles(tag, FAMILY_NEEDLES))) {
+  if (
+    topicKeys.includes("family") ||
+    matchesNeedles(slug, FAMILY_NEEDLES) ||
+    matchesNeedles(title, FAMILY_NEEDLES) ||
+    tags.some((tag) => matchesNeedles(tag, FAMILY_NEEDLES))
+  ) {
     categories.add("family");
   }
 

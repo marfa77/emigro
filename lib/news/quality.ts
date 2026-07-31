@@ -398,7 +398,7 @@ export function validateSiteDigestQuality(params: {
   if (params.topic.trim().toLowerCase() === "germany") {
     errors.push(...germanyCitizenshipFactualErrors(text));
   }
-  if (params.topic.trim().toLowerCase() === "scandinavia") {
+  if (params.topic.trim().toLowerCase() === "sweden") {
     errors.push(...scandinaviaSwedenPmjFactualErrors(text));
   }
 
@@ -426,7 +426,7 @@ export function validateTelegramDigestQuality(params: {
   if (params.topic.trim().toLowerCase() === "germany") {
     errors.push(...germanyCitizenshipFactualErrors(text));
   }
-  if (params.topic.trim().toLowerCase() === "scandinavia") {
+  if (params.topic.trim().toLowerCase() === "sweden") {
     errors.push(...scandinaviaSwedenPmjFactualErrors(text));
   }
 
@@ -500,7 +500,7 @@ export function validateThreadsQuality(params: { threadsText: string; topic: str
   if (params.topic.trim().toLowerCase() === "germany") {
     errors.push(...germanyCitizenshipFactualErrors(params.threadsText));
   }
-  if (params.topic.trim().toLowerCase() === "scandinavia") {
+  if (params.topic.trim().toLowerCase() === "sweden") {
     errors.push(...scandinaviaSwedenPmjFactualErrors(params.threadsText));
   }
 

@@ -5,8 +5,8 @@ seo_title: "Бюджет релокации в Европу 2026 — по стр
 seo_description: "Сколько денег нужно на переезд в ЕС в 2026: Португалия, Испания, Германия, стартовый капитал, жизнь в месяц, визовые расходы для семьи из СНГ."
 excerpt: "Честные цифры: не только «порог визы», но и переезд, депозиты, первые 6 месяцев без стабильного дохода в новой валюте."
 quick_answer: "Стартовый капитал на семью из 3 человек: Португалия €25 000–40 000, Испания €30 000–50 000, Германия €35 000–55 000 (виза + 6 мес. жизни + депозиты). Месячные расходы: Лиссабон €2 500–4 000, Мадрид €3 000–5 000, Берлин €3 500–5 500. Порог визы D7/D8 — минимум, не реальный бюджет жизни."
-corridor_slugs: [ru-speaking-to-portugal, ru-speaking-to-spain, ru-speaking-to-germany, ru-speaking-to-italy, ru-speaking-to-france, ru-speaking-to-netherlands, ru-speaking-to-scandinavia]
-topic_keys: [portugal, spain, germany, italy, france, netherlands, scandinavia, europe]
+corridor_slugs: [ru-speaking-to-portugal, ru-speaking-to-spain, ru-speaking-to-germany, ru-speaking-to-italy, ru-speaking-to-france, ru-speaking-to-netherlands, ru-speaking-to-sweden, ru-speaking-to-norway, ru-speaking-to-finland, ru-speaking-to-denmark]
+topic_keys: [portugal, spain, germany, italy, france, netherlands, sweden, norway, finland, denmark, europe]
 tags: [бюджет, деньги, релокация, стоимость, 2026]
 primary_intent: comparison
 cta_primary: /ru/wizard

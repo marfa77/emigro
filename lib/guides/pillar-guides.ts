@@ -11,13 +11,17 @@ export const PILLAR_GUIDE_SLUGS = [
   "digital-nomad-portugaliya-ispaniya-italiya-2026",
   "kazahstantsy-v-evropu-vnj-2026",
   "relokatsiya-s-detmi-evropa-shkoly-vnj-2026",
+  "gde-rozhat-rebenka-dlya-pasporta-2026",
   "nalogi-pri-pereezde-v-evropu-2026",
   "investitsionnyy-vnj-evropa-golden-visa-2026",
   "vnj-polsha-2026",
   "gruziya-dlya-rossiyan-2026",
   "bali-indoneziya-dlya-rossiyan-2026",
+  "oae-dlya-rossiyan-2026",
   "chernogoriya-vnj-dlya-rossiyan-2026",
   "germaniya-blue-card-chancenkarte-2026-sng",
+  "vnj-norvegiya-2026",
+  "vnj-shvetsiya-2026-work-permit-grazhdanstvo",
 ] as const;
 
 export function isPillarGuideSlug(slug: string): boolean {

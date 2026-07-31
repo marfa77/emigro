@@ -5,11 +5,11 @@ seo_title: "ВНЖ Швеция 2026 — work permit SEK 34 470, граждан�
 seo_description: "Швеция 2026 для RU/UA/BY/KZ: work permit от SEK 34 470 (90% медианы), Blue Card SEK 53 625, self-employed, учёба, семья. ПМЖ ~4 года, гражданство 8 лет с 06.06.2026."
 excerpt: "Коридор для высокооплачиваемых специалистов: без квот на work permit, но с растущим зарплатным порогом и 8 годами до паспорта после реформы июня 2026."
 quick_answer: "Основной маршрут — work permit с оффером: зарплата ≥ SEK 34 470/мес (90% медианы SCB с 16.06.2026) + условия не хуже kollektivavtal. Льготный 75% (= SEK 28 725) — для списка дефицитных профессий, бывших студентов/исследователей, TPD, ряда медспециалистов и сотрудников young tech/life-science. EU Blue Card: до 4 лет, порог SEK 53 625/мес (с 15.07.2026). Digital nomad visa нет. ПМЖ после work: обычно 4 из последних 7 лет работы по permit. Гражданство с 06.06.2026: **8 лет** (общее правило) + самообеспечение ~SEK 20 000/мес + знания языка/общества (тесты поэтапно)."
-corridor_slugs: [ru-speaking-to-scandinavia]
-topic_keys: [scandinavia, sweden, work, visa]
+corridor_slugs: [ru-speaking-to-sweden]
+topic_keys: [sweden, work, visa]
 tags: [Швеция, ВНЖ, work permit, гражданство, Migrationsverket, 2026, Скандинавия]
 primary_intent: informational
-cta_primary: /ru/scandinavia/wizard
+cta_primary: /ru/sweden/wizard
 cta_secondary: /ru/guides/vnj-skandinaviya-2026
 review_tier: volatile
 cover_image: /images/corridor-scandinavia.webp
@@ -40,7 +40,7 @@ date_modified: 2026-07-30
 - Гражданство: **8 лет** + самообеспечение + знания языка/общества с **6 июня 2026**
 - **Digital Nomad Visa нет**
 
-Смежные гайды: [ВНЖ Скандинавия](/ru/guides/vnj-skandinaviya-2026) · [первые 30 дней](/ru/guides/pervye-30-dnej-v-skandinavii-2026) · [wizard](/ru/scandinavia/wizard) · [коридор](/ru/scandinavia).
+Смежные гайды: [ВНЖ Скандинавия](/ru/guides/vnj-skandinaviya-2026) · [ВНЖ Норвегия](/ru/guides/vnj-norvegiya-2026) · [первые 30 дней](/ru/guides/pervye-30-dnej-v-skandinavii-2026) · [wizard](/ru/sweden/wizard) · [коридор](/ru/sweden).
 
 *Не юридическая консультация. Сверяйте Migrationsverket на дату подачи — медиана SCB обновляется ежегодно.*
 
@@ -254,4 +254,4 @@ date_modified: 2026-07-30
 - дети — отдельные nationality-файлы
 - Стокгольм: закладывайте andrahand минимум на первый год
 
-Дальше: [wizard Скандинавии](/ru/scandinavia/wizard) · [Assist](/ru/assist).
+Дальше: [wizard Швеции](/ru/sweden/wizard) · [Assist](/ru/assist).

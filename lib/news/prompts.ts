@@ -60,7 +60,7 @@ export function buildTelegramPrompts(
       : "";
   const spainGuard = topic.key === "spain" ? `\n${spainTelegramFactualGuardrailRu()}` : "";
   const germanyGuard = topic.key === "germany" ? `\n${germanyCitizenshipFactualGuardrailRu()}` : "";
-  const scandinaviaGuard = topic.key === "scandinavia" ? `\n${scandinaviaTelegramFactualGuardrailRu()}` : "";
+  const scandinaviaGuard = topic.key === "sweden" ? `\n${scandinaviaTelegramFactualGuardrailRu()}` : "";
 
   const linkManifest = selected
     .map((s, i) => `${i + 1}. «${s.source}» — ${s.title}\n   href: ${s.link}`)
@@ -123,7 +123,7 @@ export function buildSiteDigestPrompts(
       : "";
   const spainGuard = topic.key === "spain" ? `\n${spainGoldenVisaFactualGuardrailRu()}` : "";
   const germanyGuard = topic.key === "germany" ? `\n${germanyCitizenshipFactualGuardrailRu()}` : "";
-  const scandinaviaGuard = topic.key === "scandinavia" ? `\n${scandinaviaSwedenPmjFactualGuardrailRu()}` : "";
+  const scandinaviaGuard = topic.key === "sweden" ? `\n${scandinaviaSwedenPmjFactualGuardrailRu()}` : "";
 
   const system = `Ты старший редактор Emigro. Пиши на русском для ${topic.audienceRu}.
 Правила:

@@ -79,16 +79,22 @@
 
 ## Sitemap counts (structure)
 
-Both satellites share the same sitemap generator (`app/sitemap.ts`):
+`app/sitemap.ts` + `app/robots.ts` are **host-aware** (`lib/seo/request-host.ts`):
 
-| URL pattern | PT | ES | Priority |
-|-------------|----|----|----------|
-| Hub `/` | 1 | 1 | 0.9 |
-| `/llms` | 1 | 1 | 0.5 |
-| `/notes/{slug}` | N_pt | N_es | 0.75–0.85 |
-| `/tag/{tag}` | T_pt | T_es | 0.65 |
+| Host | Sitemap contents |
+|------|------------------|
+| `www.emigro.online` | Main site only (corridors, guides, news) — **no** satellite note URLs |
+| `portugal.emigro.online` | PT hub + `/llms` + notes + indexable tags |
+| `spain.emigro.online` | ES hub + `/llms` + notes + indexable tags |
 
-`llm-sitemap.xml` mirrors note/tag/hub URLs for both countries plus global LLM endpoints.
+| URL pattern (satellite host) | Priority |
+|------------------------------|----------|
+| Hub `/` | 0.9 |
+| `/llms` | 0.5 |
+| `/notes/{slug}` | 0.75–0.85 |
+| `/tag/{tag}` (≥2 notes) | 0.65 |
+
+`llm-sitemap.xml` on **www** still lists satellite URLs for LLM discovery. Satellite `robots.txt` points only to same-host `/sitemap.xml` (fix: previously satellites served the www sitemap → crawled-not-indexed / wrong property).
 
 ---
 

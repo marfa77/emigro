@@ -23,7 +23,10 @@ const SLUG_COUNTRY_HEURISTICS: Array<{ pattern: RegExp; countryRu: string }> = [
   { pattern: /ital/i, countryRu: "Италия" },
   { pattern: /franc/i, countryRu: "Франция" },
   { pattern: /niderland|netherland/i, countryRu: "Нидерланды" },
-  { pattern: /skandinav/i, countryRu: "Скандинавия" },
+  { pattern: /skandinav|shvets|sweden/i, countryRu: "Швеция" },
+  { pattern: /norveg|norway/i, countryRu: "Норвегия" },
+  { pattern: /finlyand|finland/i, countryRu: "Финляндия" },
+  { pattern: /dani|denmark/i, countryRu: "Дания" },
   { pattern: /evrop/i, countryRu: "Европа" },
 ];
 

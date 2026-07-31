@@ -200,7 +200,7 @@ const goodGermanyCitizenship = validateSiteDigestQuality({
 assert.equal(goodGermanyCitizenship.length, 0, `Correct Germany 5/3 wording should pass QA: ${goodGermanyCitizenship.join("; ")}`);
 
 const badScandinaviaPmj = validateSiteDigestQuality({
-  topic: "scandinavia",
+  topic: "sweden",
   weekEnd: "2026-07-05",
   digest: {
     title: "Швеция отменяет ПМЖ для беженцев",
@@ -244,7 +244,7 @@ assert(
 );
 
 const goodScandinaviaPmj = validateSiteDigestQuality({
-  topic: "scandinavia",
+  topic: "sweden",
   weekEnd: "2026-07-05",
   digest: {
     title: "Швеция: новые ПМЖ для защитных категорий",

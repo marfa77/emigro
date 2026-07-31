@@ -138,9 +138,19 @@ export const PROGRAM_SLUG_TO_IMAGE_TYPE: Record<string, ProgramCardImageType> = 
   "netherlands-startup-facilitator": "startup",
   "netherlands-family-reunification": "family-reunification",
 
-  // Scandinavia
+  // Sweden / Norway / Finland / Denmark
   "sweden-work-permit": "work-permit",
+  "sweden-family-reunification": "family-reunification",
+  "sweden-eu-blue-card": "work-permit",
+  "norway-skilled-worker": "work-permit",
+  "norway-family-reunification": "family-reunification",
+  "norway-eu-blue-card": "work-permit",
+  "finland-work-permit": "work-permit",
+  "finland-family-reunification": "family-reunification",
+  "finland-startup": "startup",
   "denmark-work-permit": "work-permit",
+  "denmark-family-reunification": "family-reunification",
+  "denmark-fast-track": "work-permit",
   "nordic-family-reunification": "family-reunification",
 
   // Poland

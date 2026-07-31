@@ -5,11 +5,11 @@ seo_title: "ВНЖ Скандинавия 2026 — Швеция, Дания, wor
 seo_description: "ВНЖ в Скандинавии 2026: шведский work permit от SEK 34 470/мес, датский pay limit DKK 552 000/год, семья, зарплаты, язык, ПМЖ и гражданство. Для RU/BY/UA/KZ."
 excerpt: "Скандинавия — не «дешёвая Европа», но один из самых предсказуемых коридоров для найма: высокие зарплаты, сильная соцзащита и понятные правила work permit в Швеции и Дании."
 quick_answer: "Основные маршруты для граждан СНГ: (1) Sweden work permit — оффер, зарплата от SEK 34 470/мес (~€3 050, 90% медианы SCB с 16.06.2026) и условия не хуже kollektivavtal; при суммарном легальном пребывании <12 мес — comprehensive health insurance; (2) Denmark pay limit — от DKK 552 000/год (~€74 000); (3) Nordic family reunification. ПМЖ Швеция: обычно 4 года work permit. Гражданство SE с 06.06.2026 — **8 лет** + доход ~SEK 20 000/мес + язык/общество. Pillar Швеции: /ru/guides/vnj-shvetsiya-2026-work-permit-grazhdanstvo. Подача: Migrationsverket / SIRI."
-corridor_slugs: [ru-speaking-to-scandinavia]
-topic_keys: [scandinavia, work, visa]
+corridor_slugs: [ru-speaking-to-sweden, ru-speaking-to-norway, ru-speaking-to-finland, ru-speaking-to-denmark]
+topic_keys: [scandinavia, sweden, norway, finland, denmark, work, visa]
 tags: [Скандинавия, ВНЖ, Швеция, Дания, work permit, 2026, Nordics]
 primary_intent: informational
-cta_primary: /ru/scandinavia/wizard
+cta_primary: /ru/sweden/wizard
 cta_secondary: /ru/guides/vnj-shvetsiya-2026-work-permit-grazhdanstvo
 official_sources:
   - url: https://www.migrationsverket.se/English/Private-individuals/Working-in-Sweden/Employed/How-to-apply.html
@@ -43,7 +43,7 @@ date_modified: 2026-07-30
 - семьям, готовым к **высоким расходам** на жильё и высоким зарплатным порогам
 - тем, кто сравнивает Nordics с [Германией Blue Card](/ru/guides/vnj-germaniya-2026) или [Нидерландами HSM](/ru/guides/vnj-niderlandy-2026-highly-skilled)
 
-Чек-лист после прилёта: [первые 30 дней в Скандинавии](/ru/guides/pervye-30-dnej-v-skandinavii-2026). Глубокий разбор Швеции (Blue Card, self-employed, гражданство 8 лет): [ВНЖ Швеция 2026](/ru/guides/vnj-shvetsiya-2026-work-permit-grazhdanstvo). Общий обзор семи коридоров: [куда переехать из России](/ru/guides/kuda-pereehat-iz-rossii-2026-evropa-vnj).
+Чек-лист после прилёта: [первые 30 дней в Скандинавии](/ru/guides/pervye-30-dnej-v-skandinavii-2026). Глубокий разбор Швеции: [ВНЖ Швеция 2026](/ru/guides/vnj-shvetsiya-2026-work-permit-grazhdanstvo). Норвегия (Skilled Worker, ПМЖ 3 года): [ВНЖ Норвегия 2026](/ru/guides/vnj-norvegiya-2026). Обзор коридоров: [куда переехать из России](/ru/guides/kuda-pereehat-iz-rossii-2026-evropa-vnj).
 
 ---
 
@@ -58,7 +58,7 @@ date_modified: 2026-07-30
 | **Норвегия (NO)** | EEA, не EU | Skilled worker | Высокий порог + employer sponsorship |
 | **Финляндия (FI)** | EU | Specialist permit | Зависит от отрасли и UDI-эквивалента |
 
-Emigro коридор **ru-speaking-to-scandinavia** фокусируется на **SE и DK** — самых востребованных маршрутах с понятной процедурой. Программы: [Скандинавия](/ru/scandinavia) · [wizard](/ru/scandinavia/wizard) · [digest](/ru/scandinavia/digest).
+Emigro разделил Nordics на **четыре коридора** ([Швеция](/ru/sweden), [Норвегия](/ru/norway), [Финляндия](/ru/finland), [Дания](/ru/denmark)) — этот гайд остаётся сравнительным обзором. Основной CTA wizard: [Швеция](/ru/sweden/wizard) · также [Дания](/ru/denmark/wizard).
 
 ---
 
@@ -179,7 +179,7 @@ Emigro коридор **ru-speaking-to-scandinavia** фокусируется н
 
 **Финляндия** — specialist residence permit через **Migri**; часто требуется диплом и salary above threshold. Helsinki — растущий IT-hub, но конкуренция с EU Blue Card маршрутами.
 
-Emigro wizard по Nordics: [/ru/scandinavia/wizard](/ru/scandinavia/wizard).
+Emigro wizard по Nordics: [/ru/sweden/wizard](/ru/sweden/wizard).
 
 ---
 
@@ -307,7 +307,7 @@ Emigro wizard по Nordics: [/ru/scandinavia/wizard](/ru/scandinavia/wizard).
 
 ## Emigro wizard
 
-На [emigro.online/ru/scandinavia/wizard](https://www.emigro.online/ru/scandinavia/wizard) укажите паспорт, оффер, зарплату и семью — система сопоставит Sweden work permit, Denmark pay limit и family reunification.
+На [emigro.online/ru/sweden/wizard](https://www.emigro.online/ru/sweden/wizard) укажите паспорт, оффер, зарплату и семью — система сопоставит Sweden work permit, Denmark pay limit и family reunification.
 
 Hub без выбора страны: [/ru/wizard](/ru/wizard).
 

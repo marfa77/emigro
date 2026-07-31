@@ -54,7 +54,10 @@ export async function buildLlmsTxt(): Promise<string> {
         "lavoro subordinato, elective residence",
         "Blue Card, Chancenkarte",
         "highly skilled migrant",
-        "Швеция, Дания",
+        "work permit / Blue Card SE",
+        "skilled worker / Blue Card NO",
+        "work / specialist / startup FI",
+        "pay limit / Fast-track DK",
         "work permit, EU Blue Card, B2B IT",
         "employee card, EU Blue Card, živnost IT",
         "RWR Card, EU Blue Card, самозанятость",
@@ -67,7 +70,7 @@ export async function buildLlmsTxt(): Promise<string> {
         "Digital Nomad (12 мес) / s.p.",
         "DNV / e-Residency",
       ];
-      const idx = ["portugal", "spain", "france", "italy", "germany", "netherlands", "scandinavia", "poland", "czechia", "austria", "greece", "cyprus", "hungary", "malta", "bulgaria", "croatia", "slovenia", "estonia"].indexOf(t.urlSegment);
+      const idx = ["portugal", "spain", "france", "italy", "germany", "netherlands", "sweden", "norway", "finland", "denmark", "poland", "czechia", "austria", "greece", "cyprus", "hungary", "malta", "bulgaria", "croatia", "slovenia", "estonia"].indexOf(t.urlSegment);
       const hint = idx >= 0 ? programs[idx] : t.urlSegment;
       return `- ${llmMarkdownLink(t.countryRu, t.sitePaths!.landing)} — ${hint}`;
     })
@@ -95,7 +98,7 @@ ${buildProgramIndexTable()}
 - ${llmMarkdownLink("Глобальный wizard", "/ru/wizard")}
 - ${llmMarkdownLink(`SEO-гайды (${guides.length}+ pillar-статей)`, "/ru/guides")}
 - ${llmMarkdownLink("Новости", "/ru/news")}
-- Новости по стране: /ru/news?country=portugal|spain|france|italy|germany|netherlands|scandinavia|poland|czechia|austria|greece|cyprus|hungary|malta|bulgaria|croatia|slovenia|estonia
+- Новости по стране: /ru/news?country=portugal|spain|france|italy|germany|netherlands|sweden|norway|finland|denmark|poland|czechia|austria|greece|cyprus|hungary|malta|bulgaria|croatia|slovenia|estonia
 - ${llmMarkdownLink("Хаб для граждан Украины", "/ru/ukraine")}
 - ${llmMarkdownLink("Срочный выезд из РФ", "/ru/guides/kuda-uehat-iz-rossii-srochno-2026-evropa-bezviz-haby")}
 - ${llmMarkdownLink("Легализация после выезда", "/ru/guides/legalizatsiya-v-evrope-posle-vyezda-iz-rossii-2026")}

@@ -19,6 +19,10 @@ export const BARAKHLO_MARKETS: Record<string, BarakhloMarket> = {
   austria: { path: "/austria/vienna", cityRu: "Вена", cityEn: "Vienna" },
   czechia: { path: "", cityRu: "EU", cityEn: "EU" },
   scandinavia: { path: "", cityRu: "EU", cityEn: "EU" },
+  sweden: { path: "", cityRu: "Стокгольм", cityEn: "Stockholm" },
+  norway: { path: "", cityRu: "Осло", cityEn: "Oslo" },
+  finland: { path: "", cityRu: "Хельсинки", cityEn: "Helsinki" },
+  denmark: { path: "", cityRu: "Копенгаген", cityEn: "Copenhagen" },
 };
 
 export function barakhloMarketForSegment(segment: string): BarakhloMarket {

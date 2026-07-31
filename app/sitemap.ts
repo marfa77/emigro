@@ -9,23 +9,16 @@ import {
   programLastModified,
   verifiedDateToLastModified,
 } from "@/lib/seo/corridor-page-seo";
-import { getPublishedCommunityNotes } from "@/lib/community-notes/queries";
-import { normalizeHashtag } from "@/lib/community-notes/hashtags";
 import { newsIndexPath } from "@/lib/news/topics";
-import {
-  newsArticleUrl,
-  newsHubUrl,
-  publicSiteUrl,
-  portugalSatellitePublicUrl,
-  spainSatellitePublicUrl,
-} from "@/lib/site-url";
+import { newsArticleUrl, newsHubUrl, publicSiteUrl } from "@/lib/site-url";
 import { TRANSIT_HUBS } from "@/lib/transit-hubs";
-import { MIN_TAG_NOTES_INDEXABLE } from "@/lib/seo/thin-content";
 import { ORIGIN_HUB_PATH } from "@/lib/seo/corridor-llm-layer";
+import { publicHostKind } from "@/lib/seo/request-host";
+import { buildSatelliteSitemapEntries } from "@/lib/seo/satellite-sitemap-entries";
 
 export const revalidate = 3600;
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+async function buildWwwSitemap(): Promise<MetadataRoute.Sitemap> {
   const origin = publicSiteUrl();
   const topics = await getActiveNewsTopics();
   const fullCorridors = topics.filter((t) => t.status === "active" && t.corridorSlug && t.sitePaths);
@@ -155,73 +148,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.85,
   }));
 
-  const [portugalNotes, spainNotes] = await Promise.all([
-    getPublishedCommunityNotes("portugal"),
-    getPublishedCommunityNotes("spain"),
-  ]);
-  const portugalTagCounts = new Map<string, number>();
-  for (const note of portugalNotes) {
-    for (const t of note.hashtags) {
-      const tag = normalizeHashtag(t);
-      portugalTagCounts.set(tag, (portugalTagCounts.get(tag) ?? 0) + 1);
-    }
-  }
-  const spainTagCounts = new Map<string, number>();
-  for (const note of spainNotes) {
-    for (const t of note.hashtags) {
-      const tag = normalizeHashtag(t);
-      spainTagCounts.set(tag, (spainTagCounts.get(tag) ?? 0) + 1);
-    }
-  }
-  const satelliteRoutes: MetadataRoute.Sitemap = [
-    {
-      url: portugalSatellitePublicUrl("/"),
-      changeFrequency: "daily",
-      priority: 0.9,
-    },
-    {
-      url: portugalSatellitePublicUrl("/llms"),
-      changeFrequency: "daily",
-      priority: 0.5,
-    },
-    ...portugalNotes.map((note) => ({
-      url: portugalSatellitePublicUrl(`/notes/${note.slug}`),
-      lastModified: note.updated_at || note.published_at || undefined,
-      changeFrequency: "weekly" as const,
-      priority: note.content_kind === "news" ? 0.85 : 0.75,
-    })),
-    ...Array.from(portugalTagCounts.entries())
-      .filter(([, count]) => count >= MIN_TAG_NOTES_INDEXABLE)
-      .map(([tag]) => ({
-      url: portugalSatellitePublicUrl(`/tag/${encodeURIComponent(tag)}`),
-      changeFrequency: "weekly" as const,
-      priority: 0.65,
-    })),
-    {
-      url: spainSatellitePublicUrl("/"),
-      changeFrequency: "daily",
-      priority: 0.9,
-    },
-    {
-      url: spainSatellitePublicUrl("/llms"),
-      changeFrequency: "daily",
-      priority: 0.5,
-    },
-    ...spainNotes.map((note) => ({
-      url: spainSatellitePublicUrl(`/notes/${note.slug}`),
-      lastModified: note.updated_at || note.published_at || undefined,
-      changeFrequency: "weekly" as const,
-      priority: note.content_kind === "news" ? 0.85 : 0.75,
-    })),
-    ...Array.from(spainTagCounts.entries())
-      .filter(([, count]) => count >= MIN_TAG_NOTES_INDEXABLE)
-      .map(([tag]) => ({
-      url: spainSatellitePublicUrl(`/tag/${encodeURIComponent(tag)}`),
-      changeFrequency: "weekly" as const,
-      priority: 0.65,
-    })),
-  ];
-
+  // Satellite note URLs live on portugal./spain.emigro.online — listed only in those hosts' sitemaps.
   return [
     ...staticRoutes,
     ...countryNewsRoutes,
@@ -229,6 +156,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...programRoutes,
     ...guideRoutes,
     ...newsRoutes,
-    ...satelliteRoutes,
   ];
+}
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const kind = publicHostKind();
+  if (kind === "portugal-satellite") {
+    return buildSatelliteSitemapEntries("portugal");
+  }
+  if (kind === "spain-satellite") {
+    return buildSatelliteSitemapEntries("spain");
+  }
+  return buildWwwSitemap();
 }

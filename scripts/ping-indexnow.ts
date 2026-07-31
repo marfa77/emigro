@@ -10,6 +10,9 @@ import {
   type IndexNowPingResult,
 } from "../lib/seo/indexnow";
 import { pingGoogleSitemap } from "../lib/seo/google-sitemap";
+import { buildSatelliteSitemapEntries } from "../lib/seo/satellite-sitemap-entries";
+import { PORTUGAL_SATELLITE_HOST } from "../lib/satellite/portugal";
+import { SPAIN_SATELLITE_HOST } from "../lib/satellite/spain";
 import { publicSiteUrl } from "../lib/site-url";
 
 config({ path: resolve(process.cwd(), ".env.local") });
@@ -76,7 +79,13 @@ async function main() {
   }
 
   const origin = publicSiteUrl();
-  const entries = await sitemap();
+  // CLI has no Host header → sitemap() is www-only; merge satellite hosts explicitly.
+  const [wwwEntries, portugalEntries, spainEntries] = await Promise.all([
+    sitemap(),
+    buildSatelliteSitemapEntries("portugal"),
+    buildSatelliteSitemapEntries("spain"),
+  ]);
+  const entries = [...wwwEntries, ...portugalEntries, ...spainEntries];
   const urls = Array.from(
     new Set(entries.map((e) => toProductionUrl(e.url, origin)))
   ).sort();
@@ -102,12 +111,18 @@ async function main() {
 
   summarizeYandex(allResults);
 
-  const sitemapUrl = `${origin}/sitemap.xml`;
-  const googleOk = await pingGoogleSitemap(sitemapUrl);
-  if (googleOk) {
-    console.log("\nGoogle sitemap ping sent. Verify in Search Console → Sitemaps.");
-  } else if (process.env.PING_GOOGLE_SITEMAP === "1" || process.env.PING_GOOGLE_SITEMAP === "true") {
-    console.log("\nGoogle sitemap ping failed or returned non-OK status.");
+  const sitemapUrls = [
+    `${origin}/sitemap.xml`,
+    `https://${PORTUGAL_SATELLITE_HOST}/sitemap.xml`,
+    `https://${SPAIN_SATELLITE_HOST}/sitemap.xml`,
+  ];
+  if (process.env.PING_GOOGLE_SITEMAP === "1" || process.env.PING_GOOGLE_SITEMAP === "true") {
+    console.log("\nGoogle sitemap pings:");
+    for (const sitemapUrl of sitemapUrls) {
+      const googleOk = await pingGoogleSitemap(sitemapUrl);
+      console.log(`  ${sitemapUrl} → ${googleOk ? "OK" : "failed"}`);
+    }
+    console.log("Verify in Search Console → Sitemaps (www + portugal + spain properties).");
   } else {
     console.log("\nGoogle sitemap ping skipped (set PING_GOOGLE_SITEMAP=1 to enable).");
   }

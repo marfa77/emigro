@@ -51,7 +51,7 @@ export async function translatePrep2GoArticle(
       : "";
   const spainGuard = topic.key === "spain" ? `\n${spainGoldenVisaFactualGuardrailRu()}` : "";
   const germanyGuard = topic.key === "germany" ? `\n${germanyCitizenshipFactualGuardrailRu()}` : "";
-  const scandinaviaGuard = topic.key === "scandinavia" ? `\n${scandinaviaSwedenPmjFactualGuardrailRu()}` : "";
+  const scandinaviaGuard = topic.key === "sweden" ? `\n${scandinaviaSwedenPmjFactualGuardrailRu()}` : "";
 
   const system = `Ты старший редактор Emigro — медиа о релокации русскоязычных в Европу.
 ${AUTHOR_VOICE_RU}

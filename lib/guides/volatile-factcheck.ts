@@ -46,10 +46,20 @@ export const FACTCHECK_BACKLOG_PATTERNS: KnownBadPattern[] = [
     severity: "critical",
     slugHints: [/gruziya|nomad|digital-nomad|evropy-sravnenie/i],
     test: /(?:номад|digital\s*nomad|удалённ\w*|dn\b)[\s\S]{0,120}?7\s*%|7\s*%[\s\S]{0,120}?(?:номад|digital\s*nomad|удалённ\w*)/i,
-    unless: /пенсион|pension|не\s+для\s+номад|не\s+nomad|50\s*%\s*скид/i,
+    unless: /пенсион|pension|не\s+для\s+номад|не\s+nomad|50\s*%|ст\.?\s*5[CcСс]|atomiki|EoR|структур/i,
     issue: "Греция: flat 7% для digital nomads (7% — режим пенсионеров)",
     suggestedAction:
-      "Заменить на 50% скидку на прогрессивный налог (7 лет); явно отделить от пенсионного 7%.",
+      "Заменить на ст. 5C (50% на квалифицированный доход, 7 лет) + оговорка DNV≠5C (Atomiki/EoR); явно отделить от пенсионного 7%.",
+  },
+  {
+    id: "greece-5c-auto-with-dnv",
+    severity: "critical",
+    slugHints: [/gretsi|greece|digital-nomad|nalogovye-spets|pervye-30-dnej-v-grets/i],
+    test: /(?:50\s*%|ст\.?\s*5[CcСс])[\s\S]{0,100}?(?:автоматическ|в\s+комплекте\s+с\s+(?:DN|виз)|просто\s+жить\s+по\s+DN)|(?:Digital\s*Nomad|DNV|DN-виз)[\s\S]{0,80}?50\s*%\s*скидк[\s\S]{0,60}?(?:7\s*лет|автомат)/i,
+    unless: /не\s+автомат|не\s+в\s+комплекте|Atomiki|EoR|regulatory\s+clash|структур|foreign\s+payroll|не\s+проходит/i,
+    issue: "Греция: 50%/5C описаны как автомат с DNV без оговорки про clash",
+    suggestedAction:
+      "Добавить: DNV≠5C; foreign payroll без Atomiki/EoR → полная шкала; как IFICI≠D8.",
   },
   {
     id: "france-naturalization-b1",

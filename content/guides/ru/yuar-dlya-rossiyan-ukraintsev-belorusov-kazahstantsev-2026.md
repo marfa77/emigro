@@ -4,7 +4,7 @@ title: "ЮАР 2026: Critical Skills, пенсия, школы Кейптаун�
 seo_title: "ЮАР для россиян и СНГ 2026 — визы, Critical Skills, школы, MBA"
 seo_description: "Релокация в ЮАР 2026 для RU/UA/BY/KZ: безвиз 90 дней для РФ, Critical Skills, Retirement R37k/мес, школы Кейптауна, университеты и MBA UCT GSB. Не EU-коридор Emigro."
 excerpt: "Южно-Африканская Республика вне EU-коридоров Emigro, но рабочий маршрут для Critical Skills, retirement и учёбы: визы по 4 паспортам, практика первых 30 дней, школы Кейптауна и MBA UCT GSB."
-quick_answer: "ЮАР — не европейский коридор Emigro. 🇷🇺 РФ: безвиз до 90 дней (туризм/дело с 2017; работа/учёба — виза). 🇺🇦 UA / 🇧🇾 BY (обычный паспорт) / 🇰🇿 KZ: виза заранее. Рабочие маршруты: Critical Skills Work Visa (список DHA + SAQA + часто профрегистрация), General Work, Retirement от ~R37 000/мес пассивного дохода, Financial Independence (~R12 млн активов + сбор при PR), spousal. Revised White Paper (кабинет апр. 2026) планирует PBS, remote/start-up visas и объединение skilled categories — сверяйте статус внедрения. Для семей: международные школы Кейптауна (AISCT, ISCT, Reddam, Bishops/Herschel). MBA: UCT Graduate School of Business (GSB) — FT/модульный; по опыту программы можно спросить выпускника Павла в Telegram @pavel_ct."
+quick_answer: "ЮАР — не европейский коридор Emigro. 🇷🇺 РФ: безвиз до 90 дней (туризм/дело с 2017; работа/учёба — виза). 🇺🇦 UA / 🇧🇾 BY (обычный паспорт) / 🇰🇿 KZ: виза заранее. Рабочие маршруты: Critical Skills Work Visa (список DHA + SAQA + часто профрегистрация), General Work, Retirement от ~R37 000/мес пассивного дохода, Financial Independence (~R12 млн активов + сбор при PR), spousal. Revised White Paper (кабинет апр. 2026) планирует PBS, remote/start-up visas и объединение skilled categories — сверяйте статус внедрения. Для семей: школы Кейптауна — AISCT, ISCT, **Hout Bay International (IB continuum)**, Reddam, Bishops/Herschel. MBA: UCT Graduate School of Business (GSB) — FT/модульный; по опыту программы можно спросить выпускника Павла в Telegram @pavel_ct."
 topic_keys: [south-africa, relocation, critical-skills, education, settle]
 tags: [ЮАР, Южная Африка, Critical Skills, Кейптаун, MBA, UCT GSB, школы, россияне, Украина, Беларусь, Казахстан, 2026]
 primary_intent: how-to
@@ -25,9 +25,11 @@ official_sources:
     label: UCT GSB — Full-time MBA
   - url: https://www.aisct.org/
     label: American International School of Cape Town
+  - url: https://houtbayinternational.co.za/
+    label: Hout Bay International School (IB continuum)
 estimated_minutes: 24
 date_published: 2026-07-30
-date_modified: 2026-07-30
+date_modified: 2026-07-31
 cover_image: /images/corridor-south-africa.webp
 ---
 
@@ -171,18 +173,20 @@ EU-маршрут по-прежнему опционален: [wizard Emigro](/r
 |-------|---------|------------------------|
 | **[AISCT](https://www.aisct.org/)** — American International School of Cape Town | US curriculum + IB Diploma в старших; сильный expat-поток | ~**R110k–R275k+** по грейдам (плюс capital fee; см. fee schedule школы) |
 | **ISCT** — International School of Cape Town | Cambridge / IB, ориентир на международных учеников | Часто **~R120k–R200k** |
+| **[Hout Bay International School](https://houtbayinternational.co.za/)** (HBIS) | Единственная в ЮАР **IB Continuum** (PYP + MYP + Diploma); кампус в **Hout Bay** — удобно Atlantic Seaboard / South Peninsula | **2026/27** ориентир ~**R79k–R191k** (nursery → Grade 12; плюс placement / foreign levy) |
 | **Reddam House** (Constantia / Atlantic Seaboard и др.) | Independent; сильная подготовка к matric / uni | Пример Constantia 2026: Grade R ~**R98k**, Grade 12 ~**R195k** |
 | **Bishops (Diocesan College)** | Престижная boys’ school, NSC/Matric | Day/boarding часто **~R130k–R220k+** |
 | **Herschel Girls** | Топ girls’ school | 2026 Senior ~**R171k**/год + capital levy |
 
 **Практика для релокантов:**
 
-1. Начинайте admissions **за 6–12 месяцев** — waitlist на AISCT / топ independent реальны  
+1. Начинайте admissions **за 6–12 месяцев** — waitlist на AISCT / топ independent / HBIS реальны  
 2. Нужны transcripts за **2–3 года**, рекомендации, иногда assessment / ELL  
-3. Государственные школы (WCED) дешевле, но очередь, язык и качество сильно зависят от района  
-4. Школьные взносы **не** входят в «минимальный» визовый бюджет — закладывайте отдельно  
+3. Живёте в **Hout Bay / Llandudno / Noordhoek / Kommetjie** — смотрите **HBIS** раньше, чем «центральные» AISCT/Constantia (логистика и сообщество)  
+4. Государственные школы (WCED) дешевле, но очередь, язык и качество сильно зависят от района  
+5. Школьные взносы **не** входят в «минимальный» визовый бюджет — закладывайте отдельно  
 
-Сравнение с Португалией: в Лиссабоне аналог «американской» премиум-школы — CAISL; в Кейптауне по роли ближе **AISCT**, но рынок шире за счёт сильных local independent (Reddam, Bishops, Herschel).
+Сравнение с Португалией: в Лиссабоне аналог «американской» премиум-школы — CAISL; в Кейптауне по роли ближе **AISCT**, плюс полный IB-трек в **Hout Bay (HBIS)** и сильные local independent (Reddam, Bishops, Herschel).
 
 ---
 

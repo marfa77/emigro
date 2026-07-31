@@ -101,7 +101,7 @@ const ORIGIN_CORRIDORS: OriginCorridorEntry[] = [
     programTitle: "Digital Nomad Visa",
     threshold: "€3 500/мес (DN/FIP); GV €250k–€800k",
     consulateNote: "Греческое консульство по юрисдикции проживания; с фев. 2026 DN только Type D до въезда (Law 5275/2026)",
-    disambiguation: "Digital Nomad (удалёнка) ≠ FIP (пассивный доход) ≠ Golden Visa (инвестиции); налог 50% nomads ≠ 7% пенсионеры",
+    disambiguation: "Digital Nomad (удалёнка) ≠ FIP (пассивный доход) ≠ Golden Visa (инвестиции); налог 50% (ст. 5C) ≠ 7% пенсионеры и ≠ автомат с DNV (нужна греч. структура Atomiki/EoR)",
   },
   {
     countryRu: "Кипр",

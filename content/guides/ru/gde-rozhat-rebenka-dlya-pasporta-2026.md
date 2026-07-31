@@ -36,7 +36,7 @@ date_modified: 2026-07-30
 
 Этот гайд — **юридический и миграционный анализ**, не инструкция к действию. **Рождение ребёнка за границей само по себе законно.** Незаконно — визовый фрод (сокрытие цели поездки, поддельные документы, неоплата медицинских счетов). В 2026 году многие страны усилили контроль за «birth tourism». Любое решение — с иммиграционным юристом конкретной страны.
 
-Смежные гайды Emigro: [релокация с детьми в ЕС](/ru/guides/relokatsiya-s-detmi-evropa-shkoly-vnj-2026) · [воссоединение семьи](/ru/guides/vossoedinenie-semi-evropa-2026) · [гражданство PT/ES](/ru/guides/grazhdanstvo-portugaliya-ispaniya-2026) · [гражданство DE/PL](/ru/guides/grazhdanstvo-germaniya-polsha-2026).
+Смежные гайды Emigro: [релокация с детьми в ЕС](/ru/guides/relokatsiya-s-detmi-evropa-shkoly-vnj-2026) · [воссоединение семьи](/ru/guides/vossoedinenie-semi-evropa-2026) · [гражданство PT/ES](/ru/guides/grazhdanstvo-portugaliya-ispaniya-2026) · [гражданство DE/PL](/ru/guides/grazhdanstvo-germaniya-polsha-2026) · [Golden Visa PT + рождение](/ru/guides/golden-visa-portugal-rozhdenie-rebenka-grazhdanstvo-2026).
 
 ---
 

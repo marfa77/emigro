@@ -102,10 +102,53 @@ function legacyProgramPath(programSlug: string): string {
   if (programSlug.startsWith("croatia-")) return `/ru/croatia/programs/${programSlug}`;
   if (programSlug.startsWith("slovenia-")) return `/ru/slovenia/programs/${programSlug}`;
   if (programSlug.startsWith("estonia-")) return `/ru/estonia/programs/${programSlug}`;
-  if (programSlug.startsWith("sweden-") || programSlug.startsWith("denmark-") || programSlug.startsWith("nordic-")) {
-    return `/ru/scandinavia/programs/${programSlug}`;
+  if (programSlug.startsWith("sweden-")) return `/ru/sweden/programs/${programSlug}`;
+  if (programSlug.startsWith("norway-")) return `/ru/norway/programs/${programSlug}`;
+  if (programSlug.startsWith("finland-")) return `/ru/finland/programs/${programSlug}`;
+  if (programSlug.startsWith("denmark-")) return `/ru/denmark/programs/${programSlug}`;
+  if (programSlug.startsWith("nordic-")) {
+    return `/ru/sweden/programs/sweden-family-reunification`;
   }
   return `/ru/programs/${programSlug}`;
+}
+
+/** Legacy /ru/scandinavia* → per-country Nordic corridors (301). */
+function redirectScandinaviaPaths(request: NextRequest): NextResponse | null {
+  const { pathname, search } = request.nextUrl;
+  if (!pathname.startsWith("/ru/scandinavia")) return null;
+
+  let destination: string | null = null;
+
+  const programMatch = pathname.match(/^\/ru\/scandinavia\/programs\/([^/]+)\/?$/);
+  if (programMatch) {
+    const slug = decodeURIComponent(programMatch[1]);
+    if (slug.startsWith("denmark-")) {
+      destination = `/ru/denmark/programs/${slug}`;
+    } else if (slug.startsWith("sweden-")) {
+      destination = `/ru/sweden/programs/${slug}`;
+    } else if (slug.startsWith("nordic-")) {
+      destination = `/ru/sweden/programs/sweden-family-reunification`;
+    } else if (slug.startsWith("norway-")) {
+      destination = `/ru/norway/programs/${slug}`;
+    } else if (slug.startsWith("finland-")) {
+      destination = `/ru/finland/programs/${slug}`;
+    } else {
+      destination = `/ru/sweden/programs/${slug}`;
+    }
+  } else if (pathname === "/ru/scandinavia" || pathname === "/ru/scandinavia/") {
+    destination = "/ru/sweden";
+  } else if (pathname === "/ru/scandinavia/wizard" || pathname.startsWith("/ru/scandinavia/wizard/")) {
+    destination = "/ru/sweden/wizard";
+  } else if (pathname === "/ru/scandinavia/digest" || pathname.startsWith("/ru/scandinavia/digest/")) {
+    destination = "/ru/sweden/digest";
+  } else if (pathname === "/ru/scandinavia/results" || pathname.startsWith("/ru/scandinavia/results/")) {
+    destination = "/ru/sweden/results";
+  } else {
+    destination = `/ru/sweden${pathname.slice("/ru/scandinavia".length)}`;
+  }
+
+  if (!destination || destination === pathname) return null;
+  return NextResponse.redirect(new URL(`${destination}${search}`, request.url), 301);
 }
 
 /** Legacy flat /ru/programs/:slug → corridor-scoped program URL (301). */
@@ -202,6 +245,9 @@ export function middleware(request: NextRequest) {
 
   const legacyProgram = redirectLegacyProgramPaths(request);
   if (legacyProgram) return legacyProgram;
+
+  const scandinavia = redirectScandinaviaPaths(request);
+  if (scandinavia) return scandinavia;
 
   const satelliteCorridor = redirectSatelliteCorridorPaths(request);
   if (satelliteCorridor) return satelliteCorridor;

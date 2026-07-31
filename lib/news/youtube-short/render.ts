@@ -121,6 +121,54 @@ const TOPIC_THEMES: Record<string, VisualTheme> = {
     accentCta: "#fef08a",
     softText: "#e0f2fe",
   },
+  sweden: {
+    bg0: "#0f172a",
+    bg1: "#075985",
+    bg2: "#134e4a",
+    orb1: "#38bdf8",
+    orb2: "#14b8a6",
+    label: "#bae6fd",
+    accentHook: "#38bdf8",
+    accentStory: "#99f6e4",
+    accentCta: "#fef08a",
+    softText: "#e0f2fe",
+  },
+  norway: {
+    bg0: "#0f172a",
+    bg1: "#7f1d1d",
+    bg2: "#1e3a8a",
+    orb1: "#f87171",
+    orb2: "#60a5fa",
+    label: "#fecaca",
+    accentHook: "#f87171",
+    accentStory: "#93c5fd",
+    accentCta: "#fef08a",
+    softText: "#e0f2fe",
+  },
+  finland: {
+    bg0: "#0f172a",
+    bg1: "#1e3a8a",
+    bg2: "#0ea5e9",
+    orb1: "#60a5fa",
+    orb2: "#e2e8f0",
+    label: "#bfdbfe",
+    accentHook: "#38bdf8",
+    accentStory: "#93c5fd",
+    accentCta: "#ffffff",
+    softText: "#e0f2fe",
+  },
+  denmark: {
+    bg0: "#0f172a",
+    bg1: "#7f1d1d",
+    bg2: "#450a0a",
+    orb1: "#f87171",
+    orb2: "#fca5a5",
+    label: "#fecaca",
+    accentHook: "#f87171",
+    accentStory: "#fda4af",
+    accentCta: "#ffffff",
+    softText: "#fee2e2",
+  },
 };
 
 const DEFAULT_THEME: VisualTheme = {
@@ -227,12 +275,33 @@ function countryFlagSvg(topicKey: string, x: number, y: number, scale = 1): stri
   if (c.includes("netherlands")) {
     return `<rect x="${x}" y="${y}" width="${w}" height="${h / 3}" rx="${rx}" fill="#AE1C28"/><rect x="${x}" y="${y + h / 3}" width="${w}" height="${h / 3}" fill="#fff"/><rect x="${x}" y="${y + (2 * h) / 3}" width="${w}" height="${h / 3}" rx="${rx}" fill="#21468B"/>`;
   }
-  if (c.includes("scandinavia")) {
+  if (c.includes("scandinavia") || c.includes("sweden")) {
     const crossX = x + w * 0.34;
     const crossW = w * 0.14;
     const crossY = y + h * 0.42;
     const crossH = h * 0.18;
     return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${rx}" fill="#0B5AA9"/><rect x="${crossX}" y="${y}" width="${crossW}" height="${h}" fill="#FCD116"/><rect x="${x}" y="${crossY}" width="${w}" height="${crossH}" fill="#FCD116"/>`;
+  }
+  if (c.includes("norway")) {
+    const crossX = x + w * 0.28;
+    const crossW = w * 0.16;
+    const crossY = y + h * 0.38;
+    const crossH = h * 0.22;
+    return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${rx}" fill="#BA0C2F"/><rect x="${crossX}" y="${y}" width="${crossW}" height="${h}" fill="#00205B"/><rect x="${x}" y="${crossY}" width="${w}" height="${crossH}" fill="#00205B"/><rect x="${crossX + crossW * 0.28}" y="${y}" width="${crossW * 0.44}" height="${h}" fill="#fff"/><rect x="${x}" y="${crossY + crossH * 0.28}" width="${w}" height="${crossH * 0.44}" fill="#fff"/>`;
+  }
+  if (c.includes("finland")) {
+    const crossX = x + w * 0.3;
+    const crossW = w * 0.18;
+    const crossY = y + h * 0.38;
+    const crossH = h * 0.22;
+    return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${rx}" fill="#fff"/><rect x="${crossX}" y="${y}" width="${crossW}" height="${h}" fill="#003580"/><rect x="${x}" y="${crossY}" width="${w}" height="${crossH}" fill="#003580"/>`;
+  }
+  if (c.includes("denmark")) {
+    const crossX = x + w * 0.34;
+    const crossW = w * 0.14;
+    const crossY = y + h * 0.42;
+    const crossH = h * 0.18;
+    return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${rx}" fill="#C8102E"/><rect x="${crossX}" y="${y}" width="${crossW}" height="${h}" fill="#fff"/><rect x="${x}" y="${crossY}" width="${w}" height="${crossH}" fill="#fff"/>`;
   }
   return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${rx}" fill="#2563eb"/>`;
 }

@@ -31,8 +31,10 @@ const TOPIC_DIRECT_FEEDS: Record<string, DirectFeed[]> = {
   netherlands: [
     { url: "https://www.thelocal.nl/feeds/rss.php", label: "The Local Netherlands" },
   ],
-  scandinavia: [
+  sweden: [
     { url: "https://www.thelocal.se/feeds/rss.php", label: "The Local Sweden" },
+  ],
+  denmark: [
     { url: "https://www.thelocal.dk/feeds/rss.php", label: "The Local Denmark" },
   ],
 };
