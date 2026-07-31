@@ -38,6 +38,21 @@ export async function POST(request: Request) {
 
   revalidateTag(CACHE_TAGS.newsDigests);
   revalidateTag(CACHE_TAGS.newsTopics);
+  revalidateTag(CACHE_TAGS.corridors);
+  revalidateTag(CACHE_TAGS.corridorSegments);
+
+  for (const path of [
+    "/ru/sweden",
+    "/ru/norway",
+    "/ru/finland",
+    "/ru/denmark",
+    "/ru/sweden/wizard",
+    "/ru/norway/wizard",
+    "/ru/finland/wizard",
+    "/ru/denmark/wizard",
+  ]) {
+    revalidatePath(path);
+  }
 
   const site = publicSiteUrl();
   const indexNowUrls = pathList.map((p) => `${site}${p}`);
