@@ -81,7 +81,7 @@ JOIN emigro_programs p ON p.slug = v.slug
 ON CONFLICT DO NOTHING;
 
 INSERT INTO emigro_program_versions (id, program_id, version_label, eligibility_rule)
-SELECT v.id, p.id, '2026-07', v.rule::jsonb
+SELECT v.id::uuid, p.id, '2026-07', v.rule::jsonb
 FROM (VALUES
   ('c0000000-0000-4000-8000-000000000100', 'sweden-work-permit', '{"and":[{"==":[{"var":"passport_iso2"},"RU"]},{"==":[{"var":"has_job_offer"},"yes"]},{">=":[{"var":"monthly_income_eur"},3050]}]}'::text),
   ('c0000000-0000-4000-8000-000000000101', 'sweden-family-reunification', '{"and":[{"==":[{"var":"passport_iso2"},"RU"]},{"==":[{"var":"has_family_in_se"},"yes"]}]}'::text),
@@ -263,7 +263,7 @@ JOIN emigro_programs p ON p.slug = v.slug
 ON CONFLICT DO NOTHING;
 
 INSERT INTO emigro_program_versions (id, program_id, version_label, eligibility_rule)
-SELECT v.id, p.id, '2026-07', v.rule::jsonb
+SELECT v.id::uuid, p.id, '2026-07', v.rule::jsonb
 FROM (VALUES
   ('c0000000-0000-4000-8000-000000000103', 'norway-skilled-worker', '{"and":[{"==":[{"var":"passport_iso2"},"RU"]},{"==":[{"var":"has_job_offer"},"yes"]},{">=":[{"var":"monthly_income_eur"},3500]}]}'::text),
   ('c0000000-0000-4000-8000-000000000104', 'norway-family-reunification', '{"and":[{"==":[{"var":"passport_iso2"},"RU"]},{"==":[{"var":"has_family_in_no"},"yes"]}]}'::text),
@@ -442,7 +442,7 @@ JOIN emigro_programs p ON p.slug = v.slug
 ON CONFLICT DO NOTHING;
 
 INSERT INTO emigro_program_versions (id, program_id, version_label, eligibility_rule)
-SELECT v.id, p.id, '2026-07', v.rule::jsonb
+SELECT v.id::uuid, p.id, '2026-07', v.rule::jsonb
 FROM (VALUES
   ('c0000000-0000-4000-8000-000000000106', 'finland-work-permit', '{"and":[{"==":[{"var":"passport_iso2"},"RU"]},{"==":[{"var":"has_job_offer"},"yes"]},{">=":[{"var":"monthly_income_eur"},2800]}]}'::text),
   ('c0000000-0000-4000-8000-000000000107', 'finland-family-reunification', '{"and":[{"==":[{"var":"passport_iso2"},"RU"]},{"==":[{"var":"has_family_in_fi"},"yes"]}]}'::text),
@@ -621,7 +621,7 @@ JOIN emigro_programs p ON p.slug = v.slug
 ON CONFLICT DO NOTHING;
 
 INSERT INTO emigro_program_versions (id, program_id, version_label, eligibility_rule)
-SELECT v.id, p.id, '2026-07', v.rule::jsonb
+SELECT v.id::uuid, p.id, '2026-07', v.rule::jsonb
 FROM (VALUES
   ('c0000000-0000-4000-8000-000000000109', 'denmark-work-permit', '{"and":[{"==":[{"var":"passport_iso2"},"RU"]},{"==":[{"var":"has_job_offer"},"yes"]},{">=":[{"var":"annual_salary_eur"},74000]}]}'::text),
   ('c0000000-0000-4000-8000-000000000110', 'denmark-family-reunification', '{"and":[{"==":[{"var":"passport_iso2"},"RU"]},{"==":[{"var":"has_family_in_dk"},"yes"]}]}'::text),
