@@ -1,10 +1,10 @@
 ---
 slug: kazahstan-dlya-rossiyan-2026
 title: "Казахстан для россиян 2026: ВНЖ, РВП, банки — полный гайд"
-seo_title: "Казахстан для россиян 2026 — ВНЖ, РВП, банки Kaspi"
-seo_description: "Гайд по Казахстану для граждан РФ в 2026: въезд по заграну 90/180, пилотный проект РВП/ВНЖ до 31.12.2026, KAZTEST A1, банки Kaspi и Halyk, стоимость жизни в Алматы и Астане."
-excerpt: "Казахстан в 2026: близкий русскоязычный хаб — но с 2026 года пилотный проект резко ужесточил РВП и ВНЖ. Въезд, банки, сроки и подготовка EU-маршрута."
-quick_answer: "Казахстан в 2026 — ближайший русскоязычный хаб: загран даёт безвиз до 90 дней (правило 90/180), внутренний паспорт РФ — только 30 дней. Стандартный путь: РВП 1 год → ВНЖ (на 10 лет) → гражданство через 5 лет с ВНЖ (~6 лет суммарно). С 2026 действует пилотный проект до 31.12.2026: KAZTEST A1, проверка спецслужб, справка банка на 5,7 млн ₸ (~$11 000). Kaspi и Halyk — основные банки; Алматы от 600 €/мес."
+seo_title: "Казахстан для россиян 2026 — ВНЖ, РВП, банки"
+seo_description: "Казахстан 2026 для РФ: 90/180, пилот РВП/ВНЖ, KAZTEST A1. Kaspi — быт; SWIFT из РФ часто нет (список банков). Halyk/Forte/Bereke."
+excerpt: "Казахстан в 2026: близкий русскоязычный хаб — но пилот ужесточил РВП/ВНЖ, а Kaspi больше нельзя считать «лёгким SWIFT из РФ»."
+quick_answer: "Казахстан в 2026 — ближайший русскоязычный хаб: загран до 90 дней (90/180), внутренний паспорт РФ — 30 дней. Путь: РВП 1 год → ВНЖ → гражданство через ~5 лет с ВНЖ. Пилот до 31.12.2026: KAZTEST A1, проверка спецслужб, справка банка 5,7 млн ₸. **Kaspi** — быт/QR; для переводов из крупных банков РФ SWIFT часто закрыт (официальный список Kaspi, обн. 27.07.2026). Для wire смотрите Halyk, Forte, Bereke — и сверяйте статус. Алматы от ~600 €/мес."
 topic_keys: [kazakhstan, relocation, vnj, transit]
 tags: [Казахстан, ВНЖ, РВП, Kaspi, россияне, транзит, 2026, Алматы]
 primary_intent: how-to
@@ -17,9 +17,11 @@ official_sources:
     label: Комитет миграции МВД РК
   - url: https://kaspi.kz/
     label: Kaspi Bank
+  - url: https://guide.kaspi.kz/client/ru/transfers/services/swift/q17144
+    label: Kaspi — ограничения переводов по банкам РФ/BY (обн. 27.07.2026)
 estimated_minutes: 16
 date_published: 2026-06-26
-date_modified: 2026-07-11
+date_modified: 2026-08-01
 ---
 
 ## Прямой ответ
@@ -118,13 +120,13 @@ EU-маршрут: [Emigro wizard](/ru/wizard); хаб: [/ru/kazakhstan](/ru/kaz
 
 ---
 
-## Банки: Kaspi и Halyk
+## Банки: Kaspi ≠ SWIFT из РФ
 
-**Kaspi.kz** — доминирующая экосystem: счёт, переводы, payments, marketplace. Открытие через приложение при **ИИН** (individual identification number) и регистрации.
+**Kaspi.kz** — доминирующая *бытовая* экосистема: счёт, QR, payments, marketplace. Открытие через приложение при **ИИН** и регистрации. Без Kaspi в Алматы/Астане жить неудобно — это правда.
 
-**Halyk Bank**, **ForteBank**, **BCC** — альтернативы для business accounts.
+**Но для proof of funds / транзита в ЕС в 2025–2026:** Kaspi **не** «открой и пролей SWIFT из Сбера». Официально: [список банков РФ/BY с ограничением переводов](https://guide.kaspi.kz/client/ru/transfers/services/swift/q17144) (обновление **27.07.2026**) — Сбер, ВТБ, Альфа, Т-Банк, Газпромбанк и десятки других. Практика: Kaspi / Jusan / Altyn часто бесполезны как RU↔KZ wire; для банковских переводов чаще смотрят **Halyk, Forte, Bereke, BCC**. Каналы меняются — проверяйте *до* открытия счёта «под визу». Подробнее: [подтвердить доход из РФ](/ru/guides/podtverdit-dohod-dengi-dlya-vnj-esli-dohod-iz-rossii-2026).
 
-Для граждан РФ: нужны паспорт, ИИН, local phone, иногда РВП/registration. SWIFT ограничен, но internal transfers и часть international routes работают.
+Для граждан РФ: нужны паспорт, ИИН, local phone, иногда РВП/registration.
 
 ---
 
@@ -169,7 +171,7 @@ EU-маршрут: [Emigro wizard](/ru/wizard); хаб: [/ru/kazakhstan](/ru/kaz
 - **Накопления runway** при низких расходах.
 - **Подготовки документов** (апostille через MFA РК).
 
-EU-консульства: **Almaty** — визовые центры ряда EU-стран. Сравните маршруты: [Германия Blue Card](/ru/guides/germaniya-blue-card-chancenkarte-2026-sng), [консульская юрисдикция](/ru/guides/konsulskaya-podacha-rf-by-kz-2026-yurisdiktsiya).
+EU-консульства: **Almaty** — визовые центры ряда EU-стран. Сравните маршруты: [Германия Blue Card](/ru/guides/vnj-germaniya-2026), [консульская юрисдикция](/ru/guides/konsulskaya-podacha-rf-by-kz-2026-yurisdiktsiya).
 
 ---
 
@@ -260,8 +262,8 @@ Cheapest full-year legal hub among options in this guide series for single remot
 **Срок РВП?**
 **1 год** с продлением; путь к ВНЖ — **после 1 года РВП** (не 2 года). ВНЖ выдаётся на **10 лет**.
 
-**Kaspi vs Halyk для business?**
-Kaspi — consumer; Halyk/BCC — larger business accounts and SWIFT.
+**Kaspi vs Halyk для business / wire?**  
+Kaspi — consumer и быт. Halyk / Forte / Bereke / BCC — чаще business и международные переводы. Не стройте EU-пакет на «только Kaspi SWIFT из РФ».
 
 ---
 
@@ -294,8 +296,8 @@ Minimal state fee; main cost — accountant if needed (~30 000–50 000 KZT/mont
 **Можно ли получить РВП без работы в KZ company?**
 ИП с real activity — yes; fictitious employment — risk of rejection.
 
-**Как перевести деньги из России?**
-Limited direct channels; use legal routes — consult bank on current SWIFT/correspondent options.
+**Как перевести деньги из России?**  
+Не через «дефолтный Kaspi SWIFT»: у Kaspi длинный список банков РФ/BY с ограничением (обн. 27.07.2026). Спрашивайте актуальный канал в Halyk/Forte/Bereke/BCC или агентских сервисах; для EU-пакета — [гайд по доходу из РФ](/ru/guides/podtverdit-dohod-dengi-dlya-vnj-esli-dohod-iz-rossii-2026).
 
 **Нужен ли Kazakh language?**
 Для повседневной жизни в городах — русского достаточно. Для **РВП/ВНЖ в 2026** — обязателен **KAZTEST A1** (пилотный проект до 31.12.2026).
@@ -318,7 +320,7 @@ EU via [wizard](/ru/wizard) — Germany, Portugal common targets for KZ/RU passp
 - **Загран** — безвиз до 90 дней (90/180); **внутренний паспорт** — 30 дней; визараны с 2023 не работают.
 - **Пилот 2026 (до 31.12):** KAZTEST A1, справка банка 5,7 млн ₸, проверка спецслужб.
 - РВП **1 год** → ВНЖ (на **10 лет**) → гражданство через **5 лет с ВНЖ** (~6 лет суммарно).
-- Kaspi — ключевой банк; Алматы от 600 €/мес.
+- Kaspi — ключевой *бытовой* банк; для wire из РФ смотрите Halyk/Forte/Bereke. Алматы от 600 €/мес.
 - Русскоязычная среда; не EU.
 - EU-маршрут: [/ru/wizard](/ru/wizard), [/ru/kazakhstan](/ru/kazakhstan).
 
