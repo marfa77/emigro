@@ -158,7 +158,7 @@ const bodySections: NoteBodySection[] = [
       "Если смотрите покупку жилья под жизнь (не обязательно под ARI-инвест): ритуал CPCV/escritura — [купить квартиру Norte](/notes/" +
         APARTMENT_BUY_NORTE_GUIDE_SLUG +
         ").",
-      "Отметьте expiry título и горизонт renovação — общий порядок в [продлении ВНЖ](/notes/" + VNJ_RENEWAL_SLUG + "); для ARI taxas другие, чем €99,80 у D7.",
+      "Отметьте expiry título и горизонт renovação — общий порядок в [продлении ВНЖ](/notes/" + VNJ_RENEWAL_SLUG + "); для ARI taxas (~€4 210) другие, чем типовой пакет D7/D8 (~€440).",
     ],
   },
   {
@@ -174,7 +174,7 @@ const bodySections: NoteBodySection[] = [
       "В чатах пишут «нужно жить 183 дня как D7», а у ARI минимальное пребывание исторически мягче (ориентир «несколько дней в году» в старых правилах); актуальный mínimo сверяйте в условиях вашего título и у advogado.",
       "Официально: agregado familiar (супруг/дети) идут в том же investment-кейсе через Portal ARI — у каждого свой pedido/taxas; список PDF — на портале на дату подачи.",
       "Расхождение: «SNS и банк ждут карту» → NIF + comprovativo legal stay часто хватает раньше пластика; карту не откладывайте, но быт не стопорите.",
-      "Продление и taxas ARI — отдельная шкала (тысячи €), не путать с renovação D7/D8 за €99,80 — см. [продление ВНЖ](/notes/" + VNJ_RENEWAL_SLUG + ").",
+      "Продление ARI — ориентир **€4 210,30**; temporary D7/D8 renovação — ~**€440,20** (€133 + €307,20) — см. [продление ВНЖ](/notes/" + VNJ_RENEWAL_SLUG + ").",
     ],
   },
   {

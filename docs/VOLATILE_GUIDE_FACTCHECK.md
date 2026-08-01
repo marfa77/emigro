@@ -7,7 +7,7 @@ Automated **lazy** fact-check for guides with `review_tier: volatile` — thresh
 | Check | Severity | Description |
 |-------|----------|-------------|
 | Stale `date_modified` | warning / critical | Volatile guide not updated in **>90 days** (critical if >180) |
-| FACTCHECK backlog patterns | critical | Known bad claims from [FACTCHECK_BACKLOG.md](./FACTCHECK_BACKLOG.md): Greece 7% nomad, France B1 citizenship, EES «апрель = старт», Tinkoff «без санкций» |
+| FACTCHECK backlog patterns | critical | Known bad claims from [FACTCHECK_BACKLOG.md](./FACTCHECK_BACKLOG.md): Greece 7% nomad, France B1 citizenship, EES «апрель = старт», Tinkoff «без санкций», PT renovação «€99,80 за всё» |
 | Internal contradictions | warning | Same anchor (D7, D8, AIMA, воссоединение…) with conflicting numbers in **body + quick_answer** (not seo_title/seo_description) |
 | quick_answer vs body | warning | Mismatch on month ranges **only when the same anchor** appears in both |
 | community_signals | info | Recent Supabase signals — **off by default**; deduped by signal text, generic chat questions filtered |

@@ -55,9 +55,9 @@ const bodySections: NoteBodySection[] = [
     bullets: [
       "**D7 (rendimentos próprios):** comprovativo rendimentos recorrentes (~€920/мес по RMMG 2026), extratos 3–6 мес., morada, seguro — без trabalho dependente в PT.",
       "**D8 (teletrabalho):** contrato/ invoices из-за рубежа, доход ~4× RMMG, подтверждение налогового резидентства за рубежом где применимо.",
-      "**Trabalho (atividade profissional):** contrato de trabalho или recibos verdes + declaração Segurança Social/Finanças; taxa renovação **€99,80** с 01.03.2026 ([comunicado AIMA](https://aima.gov.pt/)).",
+      "**Trabalho (atividade profissional):** contrato de trabalho или recibos verdes + declaração Segurança Social/Finanças; taxas renovação — типовой пакет **€133 + €307,20 ≈ €440,20** с 01.03.2026 ([Tabela AIMA](https://aima.gov.pt/pt/noticias/atualizacao-da-tabela-de-taxas)).",
       "**Estudo:** comprovativo matrícula, progresso académico, meios de subsistência; часто stricter morada — см. [студенческий ВНЖ](/notes/studencheskiy-vnzh-portugal-mify-aima-2026).",
-      "**Reagrupamento familiar:** vínculo + rendimentos agregado familiar; taxa **€99,80/pessoa** с 01.03.2026 по обновлённой tabela.",
+      "**Reagrupamento familiar:** vínculo + rendimentos agregado familiar; те же типовые taxas на pessoa — сверяйте DUC (не устаревшее «€99,80 за всё»).",
       "**Cidadão UE / CPLP:** outros formulários на portal-renovacoes — не путать с маршрутом D-visa СНГ.",
     ],
   },
@@ -100,14 +100,14 @@ const bodySections: NoteBodySection[] = [
     paragraphs: [
       "Что делать: перед оплатой DUC откройте **Tabela de Taxas** на aima.gov.pt — не ориентируйтесь на суммы из чатов 2024 года.",
       "Зачем: с **1 марта 2026** AIMA обновила taxas (пошлины) по Portaria n.º 307/2023; ошибка в valor (сумме) = pedido (заявление) не анализируют.",
-      "Главное: по состоянию на **июль 2026** типовая renovação trabalho/estudo/reagrupamento — **€99,80** за acto ([comunicado AIMA, março 2026](https://aima.gov.pt/)); Golden Visa и иные ARI — отдельная шкала (тысячи €) — не путать с D7/D8.",
+      "Главное: с **01.03.2026** типовая temporary renovação — **два платежа**: **€133** (receção e análise) + **€307,20** (concessão/renovação) ≈ **€440,20** ([AIMA](https://aima.gov.pt/pt/noticias/atualizacao-da-tabela-de-taxas)); ARI/Golden Visa renovação — ориентир **€4 210,30**. Не путать с устаревшим «€99,80 за acto».",
     ],
     bullets: [
       "Оплата DUC — в течение **24 часов** после emissão guia на portal-renovacoes ([aima.gov.pt](https://aima.gov.pt/pt/noticias/o-portal-das-renovacoes-ja-esta-disponivel)).",
       "Сохраните recibo и número processo — для advogado и повторных обращений.",
-      "Taxa emissão cartão может идти отдельной строкой — смотрите полный DUC, не только «análise».",
+      "Taxa emissão cartão / иные actos могут дать дополнительные строки — смотрите полный DUC.",
       "Не переводите «наличными знакомому» — только официальные каналы AT/AIMA.",
-      "При сомнении в сумме — advogado сверит acto administrativo в письме AIMA.",
+      "При сомнении в сумме — advogado сверит acto administrativo в письме AIMA + DUC.",
     ],
   },
   {
@@ -232,7 +232,7 @@ const keyTakeaways = [
     forReader:
       "если карта уже просрочена, портал services.aima.gov.pt открывают только после письма от AIMA с оплатой пошлины — без письма форма недоступна. Для личного визита через Agora (agendamento presencial) по-прежнему нужна запись, слоты разбирают быстро",
   }),
-  "Официально: trabalho/estudo/reagrupamento renovação — €99,80/acto с 01.03.2026 (comunicado AIMA); Golden Visa/ARI — другие суммы.",
+  "Официально: temporary renovação с 01.03.2026 — €133 + €307,20 ≈ €440,20; ARI renovação — ориентир €4 210,30 (не «€99,80 за всё»).",
   "Расхождение: «можно без записи» и «просрочка не страшна» — мифы; Emigro проходит продление через advogados — сверяйте кейс с юристом.",
 ];
 
@@ -247,7 +247,7 @@ const faq: CommunityNoteFaq[] = [
   },
   {
     q: "Сколько стоит продление D7/D8 в 2026?",
-    a: "По состоянию на июль 2026 сверяйте Tabela de Taxas на aima.gov.pt — суммы зависят от acto. Для trabalho/estudo/reagrupamento AIMA указала €99,80 с 01.03.2026. D7/D8 могут иметь другую строку — только официальная tabela + DUC в pedido.",
+    a: "С 01.03.2026 типовой пакет temporary renovação: €133 (análise) + €307,20 (renovação) ≈ €440,20. ARI — ориентир €4 210,30. Сверяйте Tabela de Taxas на aima.gov.pt и **DUC в своём pedido** — не устаревшее «€99,80 за acto».",
   },
   {
     q: "Карта просрочена — можно летать?",
@@ -278,7 +278,7 @@ export const VNJ_RENEWAL_GUIDE = {
   seo_description:
     "Продление ВНЖ Португалия 2026: portal-renovacoes AIMA, Agora, документы D7/D8/work, taxas, просрочка. Официально + чаты; не юридическая консультация.",
   quick_answer:
-    "Дата на título de residência приближается — и чат уже советует «срочно в Agora», будто это единственная дверь. Спокойно: по состоянию на июль 2026 renovação чаще стартует на portal-renovacoes.aima.gov.pt (поэтапно по месяцам expiry), taxas обновлены 01.03.2026, просроченные кейсы — часто через e-mail AIMA и services.aima.gov.pt. Мы в Emigro идём через advogados; вы сверяйте каждый шаг с aima.gov.pt перед «Criar pedido».",
+    "Дата на título de residência приближается — и чат уже советует «срочно в Agora», будто это единственная дверь. Спокойно: renovação чаще стартует на portal-renovacoes.aima.gov.pt (поэтапно по месяцам expiry); с 01.03.2026 типовой пакет temporary renovação ≈ €440,20 (€133 + €307,20), ARI ≈ €4 210,30; просроченные кейсы — часто через e-mail AIMA и services.aima.gov.pt. Мы в Emigro идём через advogados; сверяйте DUC и aima.gov.pt перед «Criar pedido».",
   body_sections: bodySections,
   body_paragraphs: flattenBodySections(bodySections),
   key_takeaways: keyTakeaways,
@@ -304,5 +304,5 @@ export const VNJ_RENEWAL_GUIDE = {
     extra: ["продление", "ВНЖ", "renovação", "AIMA", "2026"],
   }),
   source_channel: "chatlisboa+por_tugal+autolife_pt+lepta",
-  source_label: "editorial:triple-factcheck-jul-2026+voice-pass",
+  source_label: "editorial:taxas-fix-aug-2026+voice-pass",
 };

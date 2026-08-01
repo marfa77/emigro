@@ -198,8 +198,9 @@ export const CURATED_PRACTICE: Record<string, string[]> = {
       forReader: "заранее соберите PDF-папку, чтобы не потерять недели, когда откроется ваш месяц",
     }),
     formatPracticeBullet({
-      claim: "с 1 марта 2026 AIMA обновила пошлины (taxas): renovação по trabalho/estudo/reagrupamento — €99,80 за acto по comunicado",
-      forReader: "сверяйте сумму в DUC на портале, а не по пересказам из чатов 2024 года",
+      claim:
+        "с 1 марта 2026 AIMA обновила taxas: temporary renovação — €133 (receção/análise) + €307,20 (concessão/renovação) ≈ €440,20; ARI renovação — ориентир €4 210,30",
+      forReader: "сверяйте строки в DUC на портале; «€99,80 за всё» — устаревший ориентир, не полный пакет",
     }),
     formatPracticeBullet({
       channels: ["chatlisboa"],

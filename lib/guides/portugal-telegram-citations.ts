@@ -448,10 +448,10 @@ export const SEED_FACTCHECK_SIGNALS: SeedFactcheckSignal[] = [
   {
     channel_username: "por_tugal",
     posted_at: "2026-03-05T09:00:00Z",
-    text: "Taxas AIMA с 1 марта 2026 — renovação trabalho €99,80; не платите по старым суммам из чатов 2024.",
+    text: "Taxas AIMA с 1 марта 2026 — temporary renovação ≈ €440,20 (€133 + €307,20); ARI renovação ≈ €4 210,30. Не ориентируйтесь на «€99,80 за всё».",
     topic_id: "renovacao-portal",
     guide_slug: "prodlenie-vnzh-portugaliya-aima-2026",
-    suggested_section: "## Пошлины (taxas) — по состоянию на июль 2026",
+    suggested_section: "## Пошлины (taxas) — по состоянию на август 2026",
   },
   {
     channel_username: "chatlisboa",

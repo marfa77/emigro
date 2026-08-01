@@ -90,6 +90,17 @@ export const FACTCHECK_BACKLOG_PATTERNS: KnownBadPattern[] = [
     suggestedAction:
       "Указать EU (Feb 2023), US (Jul 2023), UK (Dec 2023) sanctions; EU ops ceased, redomiciled RU 2024.",
   },
+  {
+    id: "pt-renovacao-fee-9980-only",
+    severity: "critical",
+    slugHints: [/prodlenie-vnzh|portugali|aima|renova|d7|d8|pervy/i],
+    test: /(?:renova|продлен\w*\s+внж|taxas?\s+renova|taxa\s+renova)[\s\S]{0,100}?€?\s*99[,.\s]?80|€?\s*99[,.\s]?80[\s\S]{0,80}?(?:renova|за\s+acto|\/acto|продлен)/i,
+    unless:
+      /не\s+|устаревш|заниж|ошибк|факт-?check|не\s+«?полная|не\s+полный|не\s+ориентир|два\s+платеж|€?\s*133|€?\s*307|440|4210|4[\s ]?210/i,
+    issue: "PT renovação: €99,80 как полная цена (с 01.03.2026 типовой пакет ≈ €440,20)",
+    suggestedAction:
+      "Указать €133 (receção/análise) + €307,20 (concessão/renovação) ≈ €440,20; ARI renovação ≈ €4 210,30; сверять DUC.",
+  },
 ];
 
 const GUIDES_DIR = path.join(process.cwd(), "content/guides/ru");

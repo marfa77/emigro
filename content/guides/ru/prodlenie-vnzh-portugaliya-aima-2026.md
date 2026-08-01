@@ -2,11 +2,11 @@
 slug: prodlenie-vnzh-portugaliya-aima-2026
 title: "Продление ВНЖ Португалия 2026 — AIMA, Agora и portal-renovacoes"
 seo_title: "Продление ВНЖ Португалия 2026 — AIMA renovação"
-seo_description: "Renovação título de residência AIMA 2026: portal-renovacoes, Agora, документы D7/D8/work, taxas с 01.03.2026, просроченный ВНЖ. Официально + практика чатов."
-date_modified: 2026-07-13
+seo_description: "Renovação AIMA 2026: portal-renovacoes, Agora, документы D7/D8/work. Taxas с 01.03.2026: ~€440 temporary (€133+€307), ARI ~€4210. Просроченный ВНЖ — практика + официально."
+date_modified: 2026-08-01
 review_tier: volatile
 excerpt: "Когда начинать renovação, какие документы по типу D7/D8/trabalho/estudo, куда подавать — portal-renovacoes, Agora или services.aima — и что делать с просроченной картой."
-quick_answer: "По состоянию на июль 2026 продление título de residência идёт через portal-renovacoes.aima.gov.pt (поэтапно по месяцу expiry), taxas обновлены 01.03.2026. Agora — presencial и слоты; services.aima.gov.pt — просроченные после e-mail AIMA. Emigro проходит продление через advogados — сверяйте каждый шаг с aima.gov.pt."
+quick_answer: "Продление título — portal-renovacoes.aima.gov.pt (поэтапно по месяцу expiry). С 01.03.2026 типовой пакет temporary renovação ≈ €440,20 (€133 + €307,20); ARI ≈ €4 210,30 — сверяйте DUC. Agora — presencial; services.aima.gov.pt — просроченные после e-mail AIMA. Emigro проходит через advogados — сверяйте aima.gov.pt."
 corridor_slugs: [ru-speaking-to-portugal]
 topic_keys: [portugal, aima, renewal]
 tags: [Португалия, ВНЖ, AIMA, renovação, 2026]
@@ -57,13 +57,13 @@ date_published: 2026-07-13
 
 **Renovação** = то же основание. **Nova autorização** = смена категории (например D8 → contrato trabalho в PT) — другой trâmite и taxa.
 
-| Тип | Ориентир документов (июль 2026) |
+| Тип | Ориентир документов (авг 2026) |
 |-----|----------------------------------|
 | **D7** | Rendimentos recorrentes (~€920/мес RMMG), extratos 3–6 мес., morada, seguro — без trabalho dependente в PT |
 | **D8** | Contrato/invoices из-за рубежа, ~4× RMMG, подтверждение резидентства за рубежом |
-| **Trabalho** | Contrato ou recibos verdes + SS/Finanças; taxa renovação **€99,80** с 01.03.2026 ([AIMA](https://aima.gov.pt/)) |
+| **Trabalho** | Contrato ou recibos verdes + SS/Finanças; taxas renovação — см. раздел «Пошлины» (~**€440,20** типовой пакет с 01.03.2026) |
 | **Estudo** | Matrícula, progresso, meios subsistência — [студенческий ВНЖ](https://portugal.emigro.online/notes/studencheskiy-vnzh-portugal-mify-aima-2026) |
-| **Reagrupamento** | Vínculo + rendimentos agregado; **€99,80/pessoa** с 01.03.2026 |
+| **Reagrupamento** | Vínculo + rendimentos agregado; те же типовые taxas на человека — сверяйте DUC |
 | **EU / CPLP** | Отдельные formulários portal-renovacoes — не путать с D-visa СНГ |
 
 Hard-требования — только на [aima.gov.pt](https://aima.gov.pt/) и Portaria n.º 307/2023.
@@ -99,14 +99,24 @@ Checklist в portal на **дату подачи** — единственный 
 
 ---
 
-## Пошлины (taxas) — по состоянию на июль 2026
+## Пошлины (taxas) — по состоянию на август 2026
 
-С **1 марта 2026** AIMA обновила Tabela de Taxas (Portaria n.º 307/2023). **Сверяйте DUC** в pedido — не суммы из чатов 2024.
+С **1 марта 2026** действует обновлённая Tabela de Taxas ([новость AIMA](https://aima.gov.pt/pt/noticias/atualizacao-da-tabela-de-taxas), Portaria n.º 307/2023). **Сверяйте DUC** в своём pedido — не чаты и не устаревшие «€99,80 за всё».
 
-- **Trabalho / estudo / reagrupamento renovação:** **€99,80** за acto ([comunicado AIMA](https://aima.gov.pt/))
-- **Golden Visa / ARI:** отдельная шкала (тысячи €) — не путать с D7/D8
+Для большинства **временных** autorizações (trabalho, estudo, reagrupamento и аналогичные D7/D8 на том же основании) renovação — это **два платежа**, не одна «taxa €99,80»:
+
+| Acto | Ориентир с 01.03.2026 |
+|------|------------------------|
+| **Taxa de receção e análise** (приём и анализ) | **€133** |
+| **Taxa de concessão ou renovação** (выдача / продление) | **€307,20** |
+| **Итого типовой пакет** | **€440,20** |
+
+- **ARI / Golden Visa renovação:** ориентир **€4 210,30** (не путать с D7/D8)
 - Оплата DUC — **24 часа** после emissão ([Portal das Renovações](https://aima.gov.pt/pt/noticias/o-portal-das-renovacoes-ja-esta-disponivel))
-- Emissão cartão может быть отдельной строкой в DUC
+- Emissão cartão / иные actos могут дать **дополнительные** строки в DUC
+- Строка **€99,80** в части таблиц/медиа — **не** «полная цена renovação»; ориентируйтесь на DUC и [Tabela de Taxas](https://aima.gov.pt/)
+
+> **Fact-check Emigro (авг 2026):** раньше в гайде ошибочно стояло «€99,80 за acto renovação» — это занижало бюджет **в ~4 раза**. Исправлено на €133 + €307,20.
 
 ---
 
@@ -160,7 +170,7 @@ Renovação онлайн — portal когда mês доступен. Agora — 
 
 ### Сколько стоит D7/D8 renovação?
 
-Tabela на aima.gov.pt + DUC в pedido. Trabalho/estudo/reagrupamento — €99,80 с 01.03.2026. D7/D8 — своя строка tabela.
+Tabela на aima.gov.pt + **DUC в pedido**. Типовой пакет temporary renovação с 01.03.2026: **€133** (análise) + **€307,20** (renovação) ≈ **€440,20**. ARI — ориентир **€4 210,30**. Не ориентируйтесь на устаревшее «€99,80 за всё».
 
 ### Карта просрочена — можно летать?
 
