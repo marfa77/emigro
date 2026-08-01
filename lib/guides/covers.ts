@@ -70,7 +70,7 @@ const COUNTRY_TOPIC_KEYS = new Set(Object.keys(TOPIC_COVER_IMAGES));
 /** Per-guide cover when no frontmatter override; reuses corridor photos from public/images/. */
 export const GUIDE_COVER_BY_SLUG: Record<string, string> = {
   "vnj-portugaliya-d8-d7-grazhdanstvo-2026": "/images/corridor-portugal.webp",
-  "digital-nomad-portugaliya-ispaniya-italiya-2026": "/images/corridor-portugal.webp",
+  "digital-nomad-vizy-evropy-sravnenie-2026": "/images/corridor-portugal.webp",
   "germaniya-blue-card-chancenkarte-2026-sng": "/images/corridor-germany.webp",
   "vnj-bez-raboty-passivnyy-dohod-sberezheniya-2026": "/images/emigro-guide-passive-income.webp",
   "kuda-pereehat-iz-rossii-2026-evropa-vnj": "/images/corridor-germany.webp",
@@ -141,7 +141,6 @@ export const GUIDE_COVER_BY_SLUG: Record<string, string> = {
   "bali-indoneziya-dlya-rossiyan-2026": "/images/corridor-indonesia.webp",
   "yuar-dlya-rossiyan-ukraintsev-belorusov-kazahstantsev-2026": "/images/corridor-south-africa.webp",
   "kak-otkryt-ip-za-rubezhom-rossiyane-2026": "/images/corridor-serbia.webp",
-  "digital-nomad-vizy-evropy-sravnenie-2026": "/images/corridor-spain.webp",
 };
 
 export const DEFAULT_GUIDE_COVER = "/images/emigro-main-hero.webp";
