@@ -30,7 +30,6 @@ export const COMMITTED_NOTE_OG_SLUGS = new Set([
   "mezhdunarodnye-shkoly-portugaliya-2026",
   "nie-empadronamiento-poryadok-2026",
   "nif-lissabon-chto-puutayut",
-  "otkrytie-scheta-kreditnaya-karta-portugaliya-2026",
   "pervye-30-dnej-v-ispanii-satelit-2026",
   "porto-vs-braga-semya-mezhdunarodnaya-shkola-2026",
   "pervyj-mesyac-portugaliya-checklist",

@@ -33,8 +33,8 @@ export const PORTUGAL_FEATURED_NOTES: PortugalFeaturedNote[] = [
   },
   {
     slug: "kak-otkryt-bankovskiy-schet-portugalia-2026",
-    title: "Банковский счёт в Португалии",
-    description: "NIF, документы, ActivoBank и практика из чатов.",
+    title: "Банковский счёт и кредитная карта",
+    description: "NIF, ActivoBank, Millennium, Revolut MB Way и первая кредитка.",
   },
   {
     slug: "aima-agora-zapis-2026",

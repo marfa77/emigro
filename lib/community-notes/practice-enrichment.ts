@@ -248,6 +248,14 @@ export const CURATED_PRACTICE: Record<string, string[]> = {
     "Заверение в Junta: €10–20 за autenticação de assinatura; Notário дороже, но принимают везде — для AIMA в аэропорту OPO/LIS часто хватает цветного скана, оригинал надёжнее.",
     "Título de Residência vs паспорт: для Termo достаточно копии ВНЖ приглашающего; разворот загранпаспорта — если нет PT-карты, но адрес подтверждён Atestado.",
   ],
+  "kak-otkryt-bankovskiy-schet-portugalia-2026": [
+    "RU-паспорт без ВНЖ (@chatlisboa, 2026): португальский IBAN почти не открывают — подтверждают отказы; Revolut с PT IBAN как мост.",
+    "ActivoBank / Millennium — частый plan A; Santander жёстче KYC; всегда бронируйте второе отделение.",
+    "Millennium + РФ/ОАЭ: на практике запрашивали certificado de registo criminal из обеих стран с apostille и нотариальным переводом — закладывайте 2–6 недель.",
+    "Revolut + MB Way (por_tugal, 10.2025): QR, Multibanco, налоги — но senhorio часто всё равно просит «банковский» IBAN.",
+    "Кредитка (@chatlisboa, 2026): без зарплаты в PT разговор обрывают; сначала 2–3 месяца активности по счёту.",
+    "CGD-письма о закрытии счетов россиян (обсуждение 06.2026) — действуйте по своему письму и дублируйте банк.",
+  ],
   "nif-lissabon-chto-puutayut": [
     "Миф «NIF только с ВНЖ»: в чатах студенты открывают счёт по студенческой визе — NIF можно получить раньше ВНЖ через Finanças или представителя.",
     "Смена адреса: после переезда обновите morada на portaldasfinancas.gov.pt — иначе e-Fatura и связь с Junta/SNS идут на старый адрес.",

@@ -49,6 +49,7 @@
     "portugal:publish-porto-braga-guide": "tsx scripts/portugal-publish-porto-braga-family-guide.ts",
     "portugal:publish-porto-braga-rent-guide": "tsx scripts/portugal-publish-porto-braga-rent-guide.ts",
     "portugal:publish-lisbon-rent-guide": "tsx scripts/portugal-publish-lisbon-rent-guide.ts",
+    "portugal:publish-bank-guide": "tsx scripts/portugal-publish-bank-guide.ts",
     "portugal:publish-land-build-guide": "tsx scripts/portugal-publish-land-build-guide.ts",
     "portugal:publish-norte-climate-guide": "tsx scripts/portugal-publish-norte-climate-guide.ts",
     "portugal:publish-meditsina-norte-guide": "tsx scripts/portugal-publish-meditsina-norte-guide.ts",

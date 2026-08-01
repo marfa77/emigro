@@ -99,6 +99,29 @@ const nextConfig = {
         destination: "/api/cron/weekly-news?topic=portugal",
         permanent: false,
       },
+      // Merged into kak-otkryt-bankovskiy-schet-portugalia-2026
+      {
+        source: "/notes/otkrytie-scheta-kreditnaya-karta-portugaliya-2026",
+        has: [{ type: "host", value: "portugal.emigro.online" }],
+        destination: "/notes/kak-otkryt-bankovskiy-schet-portugalia-2026",
+        permanent: true,
+      },
+      {
+        source: "/satellite/portugal/notes/otkrytie-scheta-kreditnaya-karta-portugaliya-2026",
+        destination: "/satellite/portugal/notes/kak-otkryt-bankovskiy-schet-portugalia-2026",
+        permanent: true,
+      },
+      {
+        source: "/ru/guides/otkrytie-scheta-kreditnaya-karta-portugaliya-2026",
+        destination: "/ru/guides/kak-otkryt-bankovskiy-schet-portugalia-2026",
+        permanent: true,
+      },
+      // Merged into digital-nomad-vizy-evropy-sravnenie-2026 (canonical DN comparison)
+      {
+        source: "/ru/guides/digital-nomad-vizy-evropy-sravnenie-2026",
+        destination: "/ru/guides/digital-nomad-vizy-evropy-sravnenie-2026",
+        permanent: true,
+      },
     ];
   },
 };

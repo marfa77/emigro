@@ -43,7 +43,6 @@ export const REWRITE_PRIORITY: string[] = [
   "vozvrat-remont-tovarov-portugaliya-2026",
   "poterya-pitomtsa-portugaliya-gid-2026",
   "ciple-guide-2026",
-  "otkrytie-scheta-kreditnaya-karta-portugaliya-2026",
 ];
 
 export const REWRITE_SOURCE_LABEL = "rewrite:gemini";

@@ -83,7 +83,7 @@ const bodySections: NoteBodySection[] = [
       }),
       "Папка на просмотр: паспорт + NIF + IBAN proof + 3–6 мес. выписок + proof of income + D-visa/AIMA receipt/ВНЖ + (желательно) reference letter.",
       "Банк: Millennium BCP и ActivoBank чаще лояльны к D7/D8; Santander жёстче KYC. Наличные за аренду — красный флаг; целевой способ — transferência / domiciliação.",
-      "Замкнутый круг банк↔адрес: сначала NIF + онлайн-счёт (ActivoBank/Revolut с PT IBAN), затем Termo или краткая аренда для morada — детали в [открытии счёта](/notes/otkrytie-scheta-kreditnaya-karta-portugaliya-2026).",
+      "Замкнутый круг банк↔адрес: сначала NIF + онлайн-счёт (ActivoBank/Revolut с PT IBAN), затем Termo или краткая аренда для morada — детали в [открытии счёта](/notes/kak-otkryt-bankovskiy-schet-portugalia-2026).",
       "Ориентиры цен 2026 (запрашиваемая): Baixa/Chiado T1 €1 500–2 200; Arroios/Anjos T1 €1 000–1 600; Campo de Ourique T1 €1 100–1 700; Almada T1 €800–1 300; медиана Lx ~€21.8/м² (май 2026).",
       "Spotahome / Uniplaces — без fiador, но дороже и не всегда принимают как «традиционный» lease для AIMA/консульства.",
       "Чеклист до подписи (вода, luz, humidade, NIF senhorio): [аренда до подписи](/notes/arenda-lissabon-do-podpisi). Для Porto/Braga бюджеты — [аренда Norte](/notes/" +
