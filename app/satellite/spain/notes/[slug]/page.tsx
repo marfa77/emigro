@@ -10,6 +10,7 @@ import { NoteReadingProgress } from "@/components/satellite/NoteReadingProgress"
 import { NoteToc } from "@/components/satellite/NoteToc";
 import { RelatedNotes } from "@/components/satellite/RelatedNotes";
 import { BarakhloPromo } from "@/components/satellite/BarakhloPromo";
+import { PixIDPromo } from "@/components/satellite/PixIDPromo";
 import {
   buildCommunityNoteLlmDescription,
   buildCommunityNoteLlmFacts,
@@ -19,6 +20,7 @@ import {
 import { getPublishedCommunityNoteBySlug, getPublishedCommunityNotes } from "@/lib/community-notes/queries";
 import { getRelatedNotes } from "@/lib/community-notes/repair-note";
 import { resolveNoteOgImage } from "@/lib/community-notes/note-og-image";
+import { shouldShowPixIdPromo } from "@/lib/community-notes/sponsor-promo";
 import { SPAIN_SATELLITE } from "@/lib/satellite/spain";
 import { spainHubPath } from "@/lib/satellite/paths";
 import { DEFAULT_OG_IMAGE } from "@/lib/seo";
@@ -56,6 +58,7 @@ export default async function SpainNotePage({ params }: { params: { slug: string
   if (!note) notFound();
 
   const related = getRelatedNotes(note, allNotes);
+  const showPixId = shouldShowPixIdPromo(note);
   const { articleSchema, breadcrumbSchema, faqSchema, speakableSchema } = buildCommunityNoteSchemas(note);
   const llmDescription = buildCommunityNoteLlmDescription(note);
   const llmFacts = buildCommunityNoteLlmFacts(note);
@@ -157,6 +160,8 @@ export default async function SpainNotePage({ params }: { params: { slug: string
       )}
 
       <NoteFaq items={note.faq} />
+
+      {showPixId && <PixIDPromo noteSlug={note.slug} topicKey="spain" />}
 
       <BarakhloPromo context={note.slug} placement="satellite_note" category={note.category} countryKey="spain" />
 

@@ -10,6 +10,7 @@ import { NoteReadingProgress } from "@/components/satellite/NoteReadingProgress"
 import { NoteToc } from "@/components/satellite/NoteToc";
 import { RelatedNotes } from "@/components/satellite/RelatedNotes";
 import { Prep2GoPromo } from "@/components/satellite/Prep2GoPromo";
+import { PixIDPromo } from "@/components/satellite/PixIDPromo";
 import { BarakhloPromo } from "@/components/satellite/BarakhloPromo";
 import {
   buildCommunityNoteLlmDescription,
@@ -20,7 +21,7 @@ import {
 } from "@/lib/community-notes/seo-page";
 import { getPublishedCommunityNoteBySlug, getPublishedCommunityNotes } from "@/lib/community-notes/queries";
 import { getRelatedNotes } from "@/lib/community-notes/repair-note";
-import { shouldShowPrep2GoPromo } from "@/lib/community-notes/sponsor-promo";
+import { shouldShowPixIdPromo, shouldShowPrep2GoPromo } from "@/lib/community-notes/sponsor-promo";
 import { resolveNoteOgImage } from "@/lib/community-notes/note-og-image";
 import { PORTUGAL_SATELLITE } from "@/lib/satellite/portugal";
 import { portugalHubPath } from "@/lib/satellite/paths";
@@ -60,6 +61,7 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
 
   const related = getRelatedNotes(note, allNotes);
   const showPrep2Go = shouldShowPrep2GoPromo(note);
+  const showPixId = shouldShowPixIdPromo(note);
 
   const { articleSchema, breadcrumbSchema, faqSchema, speakableSchema } = buildCommunityNoteSchemas(note);
   const llmDescription = buildCommunityNoteLlmDescription(note);
@@ -159,6 +161,7 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
       <NoteFaq items={note.faq} />
 
       {showPrep2Go && <Prep2GoPromo noteSlug={note.slug} />}
+      {showPixId && <PixIDPromo noteSlug={note.slug} topicKey="portugal" />}
 
       <BarakhloPromo context={note.slug} placement="satellite_note" category={note.category} />
 

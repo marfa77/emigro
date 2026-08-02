@@ -4,6 +4,7 @@ import { ExternalLink } from "lucide-react";
 import { trackEvent } from "@/lib/analytics/client";
 import { externalLinkRel } from "@/lib/partners/link";
 import { getExamLabelForTopic, PROVIDER_CATEGORY_LABELS_RU, type ServiceProvider } from "@/lib/providers/registry";
+import { pixIdPhotoUrl } from "@/lib/pixid/catalog";
 import { getUniPrepOfferForTopic, withPrep2GoUtm, withUniPrepUtm } from "@/lib/uniprep2go/catalog";
 
 export type ProviderPlacement =
@@ -41,6 +42,14 @@ function resolveProviderHref(provider: ServiceProvider, topicKey?: string, place
     return withUniPrepUtm(path, {
       medium,
       campaign: topicKey ? `uniprep_${topicKey}` : "uniprep_hub",
+      content: "provider_card",
+    });
+  }
+  if (provider.id === "pixid") {
+    return pixIdPhotoUrl({
+      topicKey,
+      medium,
+      campaign: topicKey ? `pixid_${topicKey}` : "pixid_photo",
       content: "provider_card",
     });
   }

@@ -202,7 +202,11 @@ export const SAMPLE_PLAN_SECTIONS: SamplePlanSection[] = [
       { document: "Медицинская страховка (покрытие Испания)", status: "todo", statusLabel: "Нужно оформить" },
       { document: "Договор аренды в Испании (предварительный)", status: "todo", statusLabel: "Нужно найти" },
       { document: "Мотивационное письмо на испанском", status: "todo", statusLabel: "Нужно написать" },
-      { document: "Биометрические фото", status: "todo", statusLabel: "Нужно сделать" },
+      {
+        document: "Биометрические фото (Spain Visa Schengen 35×45 мм; для TIE часто 32×26 мм)",
+        status: "todo",
+        statusLabel: "Нужно сделать",
+      },
     ],
   },
   {
@@ -219,6 +223,13 @@ export const SAMPLE_PLAN_SECTIONS: SamplePlanSection[] = [
         criteria:
           "Опыт с клиентами из третьих стран (не ЕС), кейсы DNV 2025–2026, понимание фриланс-структуры.",
         cost: "€800–1 500",
+      },
+      {
+        title: "PixID — фото на визу / паспорт",
+        scope: "Biometric JPEG под Spain Visa (Schengen) и TIE/DNI размеры",
+        criteria:
+          "Нужен compliant файл без AI-ретуши лица: пресет страны, проверка размера/фона/позы. Сестринский продукт Emigro: pixid.studio/idphoto.",
+        cost: "~$4.99",
       },
       {
         title: "Нотариальный переводчик (Белград)",

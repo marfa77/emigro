@@ -1,6 +1,5 @@
 import { normalizeHashtag } from "@/lib/community-notes/hashtags";
 import type { CommunityNote } from "@/lib/community-notes/types";
-import { getProviderById } from "@/lib/providers/registry";
 
 import { barakhloMarketUrl } from "@/lib/barakhlo/markets";
 
@@ -14,6 +13,17 @@ export function shouldShowPrep2GoPromo(note: CommunityNote): boolean {
   if (note.category.toLowerCase().includes("ciple")) return true;
   if (note.hashtags.some((t) => normalizeHashtag(t) === "ciple")) return true;
   return /\b(ciple|caple)\b/i.test(`${note.title} ${note.slug}`);
+}
+
+/** Notes where PixID visa/passport photo promo is relevant (document-photo moment only). */
+export function shouldShowPixIdPromo(note: CommunityNote): boolean {
+  if (note.hashtags.some((t) => /^(foto|photo|passport-photo|биометр)/i.test(normalizeHashtag(t)))) {
+    return true;
+  }
+  const blob = `${note.title} ${note.slug}`;
+  return /(zagran|passport|passaporte|foto[-_]|photo[-_]|биометр|biometric|tie-cita|huellas|foto\s+на|фото\s+на)/i.test(
+    blob
+  );
 }
 
 export function prep2GoPromoUrl(noteSlug: string, path = "/"): string {

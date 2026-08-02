@@ -31,11 +31,11 @@ export const PREP2GO_TOPIC_KEYS = ["portugal", "spain", "france", "italy", "germ
 
 const CATEGORY_ORDER: ProviderCategory[] = [
   "assistance",
+  "photos",
   "language_courses",
   "relocation",
   "legal",
   "translation",
-  "photos",
 ];
 
 export const PROVIDER_CATEGORY_LABELS_RU: Record<ProviderCategory, string> = {
@@ -194,6 +194,70 @@ const PROVIDERS: ServiceProvider[] = [
       { topicKey: "denmark", label: "Danish A2 Anki" },
     ],
     ctaLabelRu: "Моки и колоды",
+  },
+  {
+    id: "pixid",
+    name: "PixID",
+    taglineRu: "Фото на визу и паспорт онлайн",
+    descriptionRu:
+      "PixID.studio — compliant фото на визу, паспорт и ВНЖ: 100 проверок + AI vision, без ретуши лица (безопасно для правил 2026). Цифровой файл ~$4.99, пресеты для Schengen / PT / ES / DE / FR и 60+ стран. Сестринский продукт Emigro.",
+    url: "https://www.pixid.studio/idphoto",
+    category: "photos",
+    corridorSlugs: [
+      "ru-speaking-to-portugal",
+      "ru-speaking-to-spain",
+      "ru-speaking-to-france",
+      "ru-speaking-to-italy",
+      "ru-speaking-to-germany",
+      "ru-speaking-to-netherlands",
+      "ru-speaking-to-sweden",
+      "ru-speaking-to-norway",
+      "ru-speaking-to-finland",
+      "ru-speaking-to-denmark",
+      "ru-speaking-to-poland",
+      "ru-speaking-to-czechia",
+      "ru-speaking-to-austria",
+      "ru-speaking-to-greece",
+      "ru-speaking-to-cyprus",
+      "ru-speaking-to-hungary",
+      "ru-speaking-to-malta",
+      "ru-speaking-to-bulgaria",
+      "ru-speaking-to-croatia",
+      "ru-speaking-to-slovenia",
+      "ru-speaking-to-estonia",
+    ],
+    topicKeys: [
+      "portugal",
+      "spain",
+      "france",
+      "italy",
+      "germany",
+      "netherlands",
+      "sweden",
+      "norway",
+      "finland",
+      "denmark",
+      "poland",
+      "czechia",
+      "austria",
+      "greece",
+      "cyprus",
+      "hungary",
+      "malta",
+      "bulgaria",
+      "croatia",
+      "slovenia",
+      "estonia",
+      "serbia",
+      "armenia",
+      "uae",
+      "thailand",
+      "georgia",
+      "turkey",
+      "montenegro",
+      "kazakhstan",
+    ],
+    ctaLabelRu: "Сделать фото на PixID",
   },
   {
     id: "ei-migration-portugal",
@@ -638,9 +702,11 @@ export function sortProvidersByCategory(providers: ServiceProvider[]): ServicePr
 export function filterCompactProviders(providers: ServiceProvider[]): ServiceProvider[] {
   const sorted = sortProvidersByCategory(providers);
   const assistance = sorted.filter((p) => p.category === "assistance");
+  const photos = sorted.filter((p) => p.category === "photos").slice(0, 1);
   const languageCourses = sorted.filter((p) => p.category === "language_courses").slice(0, 2);
   const firstRelocation = sorted.find((p) => p.category === "relocation");
-  return firstRelocation ? [...assistance, ...languageCourses, firstRelocation] : [...assistance, ...languageCourses];
+  const core = [...assistance, ...photos, ...languageCourses];
+  return firstRelocation ? [...core, firstRelocation] : core;
 }
 
 export function splitDefaultProviders(providers: ServiceProvider[]): {

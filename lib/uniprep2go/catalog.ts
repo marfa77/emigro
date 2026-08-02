@@ -271,8 +271,9 @@ export const UNIPREP_OFFERS_BY_TOPIC: Record<string, UniPrepOffer> = {
   },
 };
 
+/** Explicit citizenship / naturalization intent — not “any country topic”. */
 const CITIZENSHIP_GUIDE_HINT =
-  /grazhdanstvo|гражданств|натурализ|ciple|dele|ccse|celi|delf|einb[uü]rger|leben.in.deutschland|inburger|civics|nationalit/i;
+  /grazhdanstvo|гражданств|натурализ|einb[uü]rger|leben.in.deutschland|inburger|civics|nationalit|nacionalidad|citizenship|ciple|ccse|celi|delf|dele[-_]?a2/i;
 
 export function getUniPrepOfferForTopic(topicKey: string | undefined | null): UniPrepOffer | null {
   if (!topicKey) return null;
@@ -289,18 +290,24 @@ export function getUniPrepOfferForTopics(topicKeys: string[] | undefined | null)
   return null;
 }
 
+/**
+ * True only for naturalization / citizenship exam intent.
+ * Country topic alone (portugal, spain…) is NOT enough — that used to spray UniPrep on bank/tax/DN guides.
+ */
 export function guideLooksCitizenshipRelated(guide: {
   slug: string;
   title?: string;
   tags?: string[];
   topic_keys?: string[];
 }): boolean {
+  if (guide.topic_keys?.includes("citizenship")) return true;
   if (CITIZENSHIP_GUIDE_HINT.test(guide.slug)) return true;
   if (guide.title && CITIZENSHIP_GUIDE_HINT.test(guide.title)) return true;
   if (guide.tags?.some((t) => CITIZENSHIP_GUIDE_HINT.test(t))) return true;
-  return Boolean(getUniPrepOfferForTopics(guide.topic_keys));
+  return false;
 }
 
+/** Show UniPrep promo on a guide only when citizenship-related AND we have a country offer (deck/mock). */
 export function shouldShowUniPrepOnGuide(guide: {
   slug: string;
   title?: string;
@@ -308,7 +315,7 @@ export function shouldShowUniPrepOnGuide(guide: {
   topic_keys?: string[];
 }): boolean {
   if (!guideLooksCitizenshipRelated(guide)) return false;
-  return Boolean(getUniPrepOfferForTopics(guide.topic_keys)) || CITIZENSHIP_GUIDE_HINT.test(guide.slug);
+  return Boolean(getUniPrepOfferForTopics(guide.topic_keys));
 }
 
 export function withUniPrepUtm(

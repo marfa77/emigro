@@ -39,7 +39,7 @@ const bodySections: NoteBodySection[] = [
     ],
     bullets: [
       "Подготовьте **РФ биометрия (10 лет)**: загран + внутренний паспорт, анкета zp.midpass.ru (штрих-код), comprovativo de morada.",
-      "Для **РФ 5 лет**: 4 фото 3,5×4,5 см + анкета passportzu.kdmid.ru (форма 2П, 2 экз.).",
+      "Для **РФ 5 лет**: 4 фото 3,5×4,5 см + анкета passportzu.kdmid.ru (форма 2П, 2 экз.). Compliant JPEG можно собрать на PixID (сестринский продукт Emigro) и распечатать.",
       "Возьмите ребёнка до 18 и обоих родителей (или нотариальное согласие) — после 14 лет отдельный passaporte.",
       "Заверьте PT-документы: certidão, contrato — apostila + перевод на русский (embrussia.ru).",
       "Уточните сборы на embrussia.ru — на практике часто наличные € в consulado.",
