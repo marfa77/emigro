@@ -1,292 +1,288 @@
 ---
 slug: vnj-austria-2026
-title: "ВНЖ Австрия 2026: RWR Card, Blue Card и самозанятость для RU/UA/BY/KZ"
-seo_title: "ВНЖ Австрия 2026 — RWR Card, Blue Card, самозанятость"
-seo_description: "ВНЖ в Австрии 2026: Red-White-Red Card, EU Blue Card, Neue Selbständige, studium и семья. Пороги зарплат AMS, Aufenthaltstitel, сроки для RU/UA/BY/KZ."
-excerpt: "Австрия — Vienna и Salzburg для квалифицированных специалистов: RWR Card, Blue Card, самозанятость, учёба и воссоединение — с порогами и сроками 2026."
-quick_answer: "Основные маршруты: (1) Red-White-Red Card (Other Key Workers) от ~€2 835/мес брутто, (2) EU Blue Card при дипломе и ~€55 678/год (~€3 977/мес на 14 выплат), (3) Neue Selbständige / фриланс от ~€2 500/мес с бизнес-планом, (4) studium, (5) воссоединение. ПМЖ (Daueraufenthalt) — 5 лет legal stay; гражданство — 10 лет + B1 немецкий."
+title: "ВНЖ Австрия 2026: RWR Card, Blue Card — без digital nomad"
+seo_title: "ВНЖ Австрия 2026 — RWR €3465, Blue Card, без DNV"
+seo_description: "Австрия 2026: нет DNV. RWR Other Key Workers €3 465/мес, Blue Card €55 678/год. Self-Employed Key Worker ≠ фриланс (€100k/макропольза). SVS, 45+, RWR Plus."
+excerpt: "Честный гайд: Австрия без digital nomad визы. RWR/Blue Card с оффером; самозанятость — только Key Worker/стартап с капиталом. Налоги SVS+PIT, не «открой ИП»."
+quick_answer: "**Digital nomad визы в Австрии нет.** Легально жить и работать (в т.ч. удалённо на foreign employer) с территории AT нельзя без подходящего Aufenthaltstitel — туризм/Schengen C и «excepted from gainful employment» работу запрещают. Основные пути 2026: **RWR Other Key Workers** — оффер + AMS + **≥€3 465/мес брутто** + баллы; **EU Blue Card** — **≥€55 678/год**; shortage / graduates / Very Highly Qualified — отдельные сетки. **Self-Employed Key Worker ≠ фриланс с ноутбуком:** нужен макроэкономический эффект (**€100 000** капитала **или** рабочие места / know-how / региональное значение). **Start-up Founder:** €30k + ≥50% equity + **50/85** баллов + инновация. Сначала **RWR 24 мес**, затем **RWR Card Plus**. **45+** first-time — часто зарплата/пенсия как в DE-логике. Подача из РФ — через третьи страны. ПМЖ ~5 лет; гражданство ~10 лет + B1."
 corridor_slugs: [ru-speaking-to-austria]
 topic_keys: [austria, work, visa]
-tags: [Австрия, ВНЖ, Blue Card, RWR Card, самозанятость, 2026, AT]
+tags: [Австрия, ВНЖ, Blue Card, RWR Card, 2026, AT, без digital nomad]
 primary_intent: informational
 cta_primary: /ru/austria/wizard
 cta_secondary: /ru/austria
 official_sources:
-  - url: https://www.migration.gv.at/en/types-of-residence/all-types-of-residence/red-white-red-card/
-    label: migration.gv.at — RWR Card
+  - url: https://www.migration.gv.at/en/types-of-immigration/permanent-immigration/other-key-workers/
+    label: migration.gv.at — Other Key Workers
+  - url: https://www.migration.gv.at/en/types-of-immigration/permanent-immigration-red-white-red-card/self-employed-key-workers.html
+    label: migration.gv.at — Self-employed Key Workers
+  - url: https://www.migration.gv.at/en/types-of-immigration/permanent-immigration-red-white-red-card/start-up-founders.html
+    label: migration.gv.at — Start-up Founders
   - url: https://www.migration.gv.at/en/types-of-residence/all-types-of-residence/eu-blue-card/
     label: migration.gv.at — EU Blue Card
-  - url: https://www.migration.gv.at/en/types-of-residence/all-types-of-residence/self-employed-key-workers/
-    label: migration.gv.at — самозанятость
-  - url: https://www.migration.gv.at/en/types-of-residence/all-types-of-residence/students/
-    label: migration.gv.at — studium
   - url: https://www.migration.gv.at/en/types-of-residence/all-types-of-residence/family-reunification/
     label: migration.gv.at — воссоединение семьи
-estimated_minutes: 18
+estimated_minutes: 20
 date_published: 2026-06-29
-date_modified: 2026-07-07
+date_modified: 2026-08-02
+---
+
+## Главный вердикт (прочитайте первым)
+
+**Австрия — плохой выбор для «классического digital nomad’а»** (ноутбук + иностранный работодатель/клиенты без австрийского оффера).
+
+| Миф | Факт |
+|-----|------|
+| «Есть фриланс-виза / Neue Selbständige = ВНЖ» | **Нет DNV.** Self-Employed Key Worker — про **€100k / макропользу**, не про дизайнера с Upwork |
+| «Открою ИП и буду жить» | Сначала нужен **миграционный** титул; Gewerbe/SVS — уже **после** (или вместе) с правильным статусом |
+| «На туристах тихо поработаю remote» | Работа с территории AT требует разрешения; Schengen C **не** даёт права работать |
+| «RWR сразу со свободой смены работы» | Сначала **RWR Card ~24 мес** (привязка к работодателю/цели), потом **RWR Card Plus** |
+
+Если у вас нет австрийского оффера / стартап-капитала / семьи-спонсора — смотрите [DE](/ru/guides/vnj-germaniya-2026), [PT D8](/ru/guides/digital-nomad-vizy-evropy-sravnenie-2026), [хабы](/ru/guides/kuda-uehat-iz-rossii-srochno-2026-evropa-bezviz-haby), а не «обход» через Австрию.
+
+Чек-лист после легального въезда: [первые 30 дней в Австрии](/ru/guides/pervye-30-dnej-v-avstrii-2026).
+
 ---
 
 ## Кому подходит этот гайд
 
-Этот гайд — для граждан **России, Украины, Беларуси, Казахстана** и других стран вне EU/EEA, которые рассматривают **легальный Aufenthaltstitel (ВНЖ) в Австрии** в 2026 году.
+Граждане **RU / UA / BY / KZ** (и другие non-EU), которые:
 
-**Кому особенно актуально:**
-- квалифицированным специалистам с оффером в **Vienna, Salzburg, Graz, Linz**
-- IT и инженерам, сравнивающим **AT vs DE vs CZ** по порогам и бюрократии
-- фрилансерам с австрийским клиентом (Neue Selbständige / Gewerbe)
-- семьям с супругом-резидентом AT или оффером у одного из супругов
-
-Чек-лист после прилёта: [первые 30 дней в Австрии](/ru/guides/pervye-30-dnej-v-avstrii-2026). Сравнение с Чехией: [ВНЖ Чехия 2026](/ru/guides/vnj-chehiya-2026) · с Польшей: [ВНЖ Польша 2026](/ru/guides/vnj-polsha-2026).
+- имеют или ищут **оффер** австрийского работодателя (Vienna, Salzburg, Graz, Linz);
+- сравнивают **AT vs DE vs CZ** по порогам;
+- думают о **стартапе / Self-Employed Key Worker** с реальным капиталом;
+- **не** ищут «визу кочевника» — её здесь нет.
 
 ---
 
-## Обзор: основные пути ВНЖ в Австрии 2026
+## Обзор маршрутов 2026
 
-| Путь | Ключевое требование | Срок рассмотрения | Право работать |
-|------|---------------------|-------------------|----------------|
-| **Red-White-Red Card (RWR)** | Оффер + AMS + порог зарплаты | 2–4 мес. | Да (у работодателя) |
-| **EU Blue Card** | Диплом + ~€55 678/год | 2–4 мес. | Да (квалифицированная работа) |
-| **Neue Selbständige** | Gewerbe + бизнес-план + доход | 2–4 мес. | Да (самозанятость) |
-| **Studium** | Зачисление + средства | 2–4 мес. | Ограничено |
-| **Family reunification** | Спонсор с Aufenthaltstitel | 4–9 мес. | Да (условно) |
+| Путь | Ключевое | Срок (реалистично) | Работа |
+|------|----------|--------------------|--------|
+| **RWR Other Key Workers** | Оффер + AMS + **€3 465/мес** + ≥55 баллов | **4–8 мес.** (виза + AMS + MA35) | У указанного работодателя |
+| **RWR Shortage** | Профессия в списке AMS + баллы | **4–8 мес.** | Да |
+| **EU Blue Card** | Диплом + **€55 678/год** | **4–8 мес.** | Квалифицированная работа |
+| **Self-Employed Key Worker** | **€100k** **или** jobs/know-how/регион | **4–8 мес.** (AMS opinion ~3 нед.) | Только заявленная самозанятость |
+| **Start-up Founder** | €30k + ≥50% equity + 50/85 + инновация | **4–8 мес.** | Самозанятость по плану |
+| **Studium** | Зачисление + средства | **2–4 мес.** | Ограничено |
+| **Family reunification** | Спонсор с титулом | **4–9 мес.** | По правилам семьи |
+| **«Remote на foreign employer без титула»** | — | — | **Нет легального маршрута** |
 
-Программы коридора: [Австрия](/ru/austria) · [wizard](/ru/austria/wizard) · [справочник](/ru/austria/digest).
+Коридор: [Австрия](/ru/austria) · [wizard](/ru/austria/wizard).
 
 ---
 
 ## Red-White-Red Card (RWR)
 
-Классический путь для **квалифицированных** работников. Работодатель и **AMS** (Arbeitsmarktservice) проверяют рынок труда; затем подача в **Magistrat** (Vienna — MA35) или **Bezirkshauptmannschaft**.
+Основной points-based маршрут. Работодатель + **AMS** (labour market test где нужен) → residence authority (**MA35** в Вене / BH в землях).
 
-### Категории RWR (кратко)
+### Категории (кратко)
 
 | Категория | Суть |
 |-----------|------|
-| **Very Highly Qualified Workers** | Очки (образование, опыт, язык, зарплата) |
-| **Skilled Workers in Shortage Occupations** | Профессии из списка AMS — порог зарплаты ниже |
-| **Other Key Workers** | Квалифицированная работа с минимальным порогом |
-| **Graduates of Austrian universities** | Выпускники AT-вузов |
-| **Start-up founders** | Отдельный маршрут с бизнес-планом |
+| **Very Highly Qualified** | Высокий балл (часто Job Seeker Visa 6 мес.) |
+| **Skilled Workers in Shortage Occupations** | Список AMS; часто без полного LMT |
+| **Other Key Workers** | Общий skilled + **€3 465/мес** (2026) + ≥55 баллов + LMT |
+| **Graduates of Austrian universities** | Выпускники AT |
+| **Self-Employed Key Workers** | Макропольза (не «фриланс») |
+| **Start-up Founders** | Инновационный бизнес |
+| **Tourism / agriculture** | Квоты, отраслевые минимумы |
 
-Для большинства IT-офферов извне EU актуальны **Other Key Workers** или **Shortage** (если профессия в списке).
-
-### Финансовые пороги 2026
+### Пороги зарплаты 2026
 
 | Параметр | Значение |
 |----------|----------|
-| Other Key Workers (ориентир) | **€2 835/мес брутто** |
-| Shortage occupations | Ниже — по списку AMS на год |
-| Реальный оффер IT Vienna | €3 500–6 000+ брутто |
+| **Other Key Workers** | **€3 465/мес брутто** (было €3 225 в 2025) |
+| **EU Blue Card** | **€55 678/год** брутто (часто считают с 14 выплатами) |
+| Реальный IT Vienna | часто €3 500–6 000+/мес |
 
-*Источник: [migration.gv.at — RWR Card](https://www.migration.gv.at/en/types-of-residence/all-types-of-residence/red-white-red-card/), [oesterreich.gv.at — working in Austria](https://www.oesterreich.gv.at/en/topics/working_in_austria).*
+Источники: [Other Key Workers](https://www.migration.gv.at/en/types-of-immigration/permanent-immigration/other-key-workers/), [migration.gv.at](https://www.migration.gv.at/).
 
-### Кто может подать
-- Граждане стран, требующих визы D для long-term stay
-- **Arbeitsvertrag** (трудовой договор) с австрийским работодателем
-- Положительное решение **AMS** по конкретной позиции
+### Возраст 45+
 
-### Документы (типовой пакет)
-- Паспорт + копии
-- Arbeitsvertrag с зарплатой и должностью
-- AMS-Bewilligung / подтверждение labour market check
-- Подтверждение жилья (**Mietvertrag**, Wohnungsgeberbestätigung)
-- Медстраховка (**Gebietskrankenkasse** или коммерческая до enrollment)
-- Справка о несудимости (apostille + перевод)
-- Сбор **€160** (Bundesverwaltungsabgabe) + **€120–160** за карту
+При **первой** выдаче многих рабочих титулов часто требуется повышенная зарплата / **proof of adequate pension** (в обзорах фигурирует ориентир порядка **€55 770+/год** — по аналогии с соседними режимами; **сверяйте** с AMS/консульством для вашей категории). Для «лёгкого» фриланс-кейса 45+ без капитала Self-Employed Key Worker практически нереален.
 
-### Срок и стоимость
-| Этап | Срок |
-|------|------|
-| AMS labour market check | 2–8 недель |
-| Подача в Magistrat / BH | **4–9 мес.** (MA35 Vienna **3–6 мес.** на Termin; **по закону: 1–3 мес.** после подачи) |
-| Выдача Aufenthaltstitel | **3–5 мес.** после решения |
+### RWR Card → RWR Card Plus
 
-**Подача:** чаще **внутри Австрии** после legal entry (national visa D). Консульская подача — см. [консульская подача РФ/BY/KZ](/ru/guides/konsulskaya-podacha-rf-by-kz-2026-yurisdiktsiya).
+1. **RWR Card** — обычно до **24 месяцев**, привязка к цели/работодателю (subsidiary self-employment — только если разрешено и вторично).
+2. **RWR Card Plus** — после выполнения условий (часто после ~2 лет): шире доступ к рынку труда, смена работодателя, self-employment.
+
+Не обещайте «сразу Plus».
+
+### Документы и сроки
+
+Типовой пакет: паспорт, Arbeitsvertrag, AMS, жильё, страховка, несудимость, fees (ориентир application **€218** + карта).
+
+| Этап | Ориентир |
+|------|----------|
+| AMS (employment / LMT) | недели–месяцы |
+| AMS opinion (self-employed / startup) | часто **~3 недели** |
+| Termin MA35 Vienna | **3–6 мес.** только на запись |
+| Полный цикл консульство → карта | **4–8 мес.** |
+
+«2–4 месяца end-to-end» — оптимизм для спокойных земель / идеального пакета.
+
+**Подача из РФ:** визовые секции AT в РФ закрыты — через **третью страну** с легальным пребыванием. См. [консульская подача](/ru/guides/konsulskaya-podacha-rf-by-kz-2026-yurisdiktsiya).
 
 ---
 
 ## EU Blue Card
 
-Для выпускников вузов с **квалифицированной** работой. Порог зарплаты **выше**, чем у базового RWR, но маршрут предсказуем для senior IT и инженеров.
-
-### Требования
-- Higher education (бакалавр+, 3+ года) или 5 лет профессионального опыта (по практике AMS)
-- Arbeitsvertrag на квалифицированную должность
-- Зарплата **≥€55 678/год брутто** (~€3 977/мес на 14 выплат, 2026; migration.gv.at)
-- Для **shortage occupations** — сниженный порог (проверяйте список AMS на год)
-
-### Плюсы Blue Card в AT
-- Упрощённая смена работодателя после 12 месяцев (EU rules)
-- Семья — воссоединение по правилам EU Blue Card
-- Признание для **Daueraufenthalt** при непрерывном legal stay
-
-### Минусы
-- Высокий порог зарплаты vs PL/CZ
-- MA35 Vienna — очереди на подачу и продление
-- Nostrification диплoma (Anerkennung) может потребоваться для regulated professions
+- Higher education (или эквивалент по практике) + оффер на квалифицированную должность
+- Зарплата **≥ €55 678/год** (2026)
+- Shortage — возможен сниженный порог (сверяйте AMS/год)
+- Плюсы: предсказуемость для senior, семья по правилам Blue Card, путь к Daueraufenthalt
+- Минусы: порог выше PL/CZ; очереди MA35; regulated professions — Anerkennung
 
 ---
 
-## Neue Selbständige / фриланс (IT-маршрут)
+## Самозанятость: миграция ≠ налоговый статус
 
-Путь для **самозанятых** и фрилансеров с австрийским экономическим интересом.
+### 1) Миграционный титул: Self-Employed Key Worker
 
-### Как это работает
-1. **Gewerbeanmeldung** или статус **Neue Selbständige** с бизнес-планом
-2. Контракты с австрийскими клиентами (IT, consulting, design)
-3. Подача на **Aufenthaltstitel** для self-employed key workers
-4. Регистрация **UID**, **Finanzamt**, взносы **SVS**
+Официально: деятельность должна давать **макроэкономическую пользу** сверх собственной выгоды:
 
-### Финансовый порог
-Ориентир Emigro wizard: **≥€2 500/мес** по контрактам. Magistrat оценивает **Nachweis wirtschaftlicher Nutzen** — реальность бизнеса, налоги, SVS.
+- перевод капитала **≥ €100 000**, **или**
+- создание / сохранение рабочих мест в AT, **или**
+- transfer of know-how / новые технологии, **или**
+- существенное значение для региона.
 
-### Риски
-- Отказ при «бумажном» Gewerbe (один клиент, минимальная активность)
-- SVS взносы обязательны даже при низком доходе
-- Remote-only на зарубежного клиента **без AT-структуры** — не подходит для этого маршрута
+Это **не** «я дизайнер на Upwork». Без одного из пунктов выше маршрут обычно закрыт.
+
+Карта на **24 месяца** под заявленную деятельность; смена на employment — через Zweckwechsel на подходящий RWR.
+
+### 2) Start-up Founder
+
+- Инновационный продукт/сервис/технология (не «ещё одна кофейня»)
+- Бизнес-план + **controlling influence**
+- Капитал **≥ €30 000**, equity **≥ 50%**
+- **≥ 50 баллов из 85** (образование, опыт, язык, возраст ≤35, incubator, доп. капитал…)
+- Подача часто через представительство AT; AMS даёт expertise за ~3 недели
+
+### 3) Налоговые/правовые формы бизнеса (после/вместе со статусом)
+
+Путать их с «визой фрилансера» нельзя:
+
+| Категория | Кто типично | Gewerbeschein / WKO | Соцстрахование |
+|-----------|-------------|---------------------|----------------|
+| **Gewerbetreibende** | IT, консалтинг, маркетинг, дизайн (часто) | Да / WKO | **SVS (GSVG)** ~**26.83%** |
+| **Neue Selbständige** | Журналисты, писатели, лекторы, художники… | Обычно нет | SVS при доходе выше порога (~€6 613/год ориентир) |
+| **Freiberufler** | Врачи, юристы, нотариусы, архитекторы… | Нет (свои палаты) | **FSVG** и др. |
+
+Неправильная регистрация → переплата, штрафы, проблемы с продлением.
+
+### 4) Полная налоговая нагрузка (не только «до 55%»)
+
+| Компонент | Ориентир |
+|-----------|----------|
+| **SVS** (пенсия + здоровье + Unfall) | ~**26.83%** базы (GSVG) |
+| **Einkommensteuer** | 0 → 20 → 30 → 40 → 48 → 50 → **55%** (верхний порог для очень высоких доходов) |
+| **USt (VAT)** | **20%** (льготы 10%/13%); **Kleinunternehmer** — освобождение до оборота ~**€55 000**/год (+tolerance) |
+| **Gewinnfreibetrag** | **15%** на прибыль до ~**€33 000** (автоматически снижает базу ~до €4 950) |
+
+**Пример (иллюстрация, не расчёт Finanzamt):** IT-консультант, оборот €85k, расходы €12k → SVS порядка ~€19–20k + PIT → суммарно часто **~35–40%+ от оборота** уходит в налоги/взносы; net сильно ниже «€85k на руки».
+
+Без SVS+VAT в гайде Австрия выглядит «доходнее», чем есть.
 
 ---
 
-## Студенческий Aufenthaltstitel (studium)
+## Studium и семья
 
-### Требования
-- **Zulassungsbescheid** / letter of admission от австрийского вуза
-- Средства: ориентир **~€12 000/год** (~€1 000/мес на 2026)
-- Жильё, медстраховка (studentische или kommerzielle)
-- Сбор **€120–160**
+**Studium:** Zulassung + средства (~€12k/год ориентир) + жильё + страховка; работа ограничена (~20 ч/нед). После выпуска — отдельный RWR/Blue Card при оффере.
 
-### Ограничения
-- Право работы **ограничено** (до 20 ч/нед — проверяйте тип studium)
-- Продление при успешной учёбе
-- После выпуска — отдельная подача на RWR или Blue Card при оффере
+**Семья:** спонсор с титулом, доход, жильё; сроки часто **4–9 мес.**
 
 ---
 
-## Воссоединение семьи
+## ПМЖ и гражданство
 
-### Требования к спонсору
-- Действующий **Aufenthaltstitel** в Австрии
-- Достаточный доход на содержание семьи (ориентиры по Bundesministerium)
-- Жильё по нормам (Wohnraumgesetz)
-
-### Кого можно привезти
-- Супруг/партнёр (зарегистрированный брак или eingetragene Partnerschaft)
-- Несовершеннолетние дети
-- Иные иждивенцы — по правилам migration.gv.at
-
-**Срок:** 3–6 месяцев. Сбор ~€120–160 + €160.
-
----
-
-## Путь к ПМЖ и гражданству
-
-| Этап | Срок (ориентир) |
-|------|-----------------|
-| Aufenthaltstitel (временный) | 1–2 года (продления) |
-| **Daueraufenthalt (ПМЖ)** | **5 лет** непрерывного легального проживания |
-| **Staatsbürgerschaft (гражданство)** | **10 лет** legal stay (стандарт); ускорения — по отдельным основаниям |
-
-**Язык для гражданства и ПМЖ:** **B1 немецкий** (ÖSD / Goethe). **Двойное гражданство** AT возможно в отдельных случаях; РФ не признаёт второе — юридические последствия на вашей стороне.
+| Этап | Ориентир |
+|------|----------|
+| **Daueraufenthalt-EU / ПМЖ** | **~5 лет** непрерывного legal stay (+условия) |
+| **Staatsbürgerschaft** | **~10 лет** + **B1** немецкий + тест; ускорения — отдельно |
+| Dual citizenship | AT ограниченно; последствия для РФ — на вашей стороне |
 
 ---
 
 ## Украинцы: TP vs Aufenthaltstitel
 
-Граждане UA с **temporary protection** могут работать и жить в AT без отдельного RWR, но TP **не заменяет** Daueraufenthalt для гражданства.
-
-**Когда переходить:**
-- Стабильный Arbeitsvertrag или Gewerbe
-- За **8–15 месяцев до 4 марта 2027** (ориентир: **с осени 2026**)
-
-См. [Украина → ЕС: маршруты 2026](/ru/guides/ukraina-evropa-vnj-marshruty-2026) · [TP vs ВНЖ](/ru/guides/ukraintsy-belorusy-vremennaya-zashchita-vs-vnj-2026).
+TP даёт жить/работать без RWR, но **не заменяет** Daueraufenthalt для гражданства. Переход на классический титул планируйте заранее. См. [TP vs ВНЖ](/ru/guides/ukraintsy-belorusy-vremennaya-zashchita-vs-vnj-2026).
 
 ---
 
-## AT vs CZ vs PL: что выбрать
+## AT vs CZ vs PL
 
 | | Австрия | Чехия | Польша |
-|---|---------|-------|--------|
-| IT-маршрут | RWR / Blue Card / Selbständige | živnost / employee card | B2B / zlecenie |
-| Мин. work salary | ~€2 835/мес (RWR) | ~€900/мес | ~€1 113/мес |
-| Blue Card | ~€55 678/год | ~€2 900/мес | ~€3 020/мес |
-| Язык для гражданства | B1 немецкий | B1 чешский | B1 польский |
-| Бюрократия | MA35 / AMS | MOI Prague | Urząd Wojewódzki |
+|--|---------|-------|--------|
+| Remote без оффера | **Нет** | Живность / другие пути проще | B2B проще войти |
+| Мин. work (ориентир) | **€3 465/мес** RWR | ниже | ниже |
+| Blue Card | **€55 678/год** | ниже порог | ниже порог |
+| Язык → паспорт | B1 DE | B1 CZ | B1 PL |
+| Бюрократия | AMS + MA35 | MOI | Urząd |
 
-Сравните в [wizard AT](/ru/austria/wizard), [wizard CZ](/ru/czechia/wizard) и [wizard PL](/ru/poland/wizard).
+Wizard: [AT](/ru/austria/wizard) · [CZ](/ru/czechia/wizard) · [PL](/ru/poland/wizard) · [DE](/ru/germany/wizard).
 
 ---
 
-## Что проверить перед подачей: чеклист
+## Чеклист перед подачей
 
-- [ ] Оффер или Gewerbe-контракт с **конкретной** зарплатой/ставкой
-- [ ] AMS-Bewilligung (для RWR) — **до** подачи в Magistrat
-- [ ] Паспорт действителен ≥8–15 месяцев
-- [ ] Mietvertrag + Wohnungsgeberbestätigung
-- [ ] Krankenkasse (GKK или коммерческая)
-- [ ] SVS / Finanzamt (для Selbständige)
-- [ ] Справка о несудимости (apostille + перевод)
-- [ ] Запись в MA35 / BH (Vienna — очереди)
-- [ ] Бюджет: €160 + €120–160 + депозит аренды 2–3 мес.
+- [ ] Есть **австрийский оффер** / капитал Key Worker / стартап — иначе стоп
+- [ ] Зарплата ≥ **€3 465** (RWR Other) или ≥ **€55 678**/год (Blue Card); для **45+** — проверьте повышенный порог/пенсию
+- [ ] Не путаете **Self-Employed Key Worker** с «фриланс-визой»
+- [ ] Считаете **SVS + PIT + VAT**, не только Einkommensteuer
+- [ ] AMS / консульство / Termin MA35 в календаре (**месяцы**)
+- [ ] Жильё, страховка, несудимость, бюджет fees + депозит аренды
+- [ ] Нет плана «работаю на туристах remote»
 
 ---
 
 ## FAQ
 
-### Можно ли подать на RWR из России без въезда в AT?
+### Есть ли в Австрии digital nomad visa?
 
-National visa D часто требует **положительного AMS** и пакета документов; подача **в консульстве** или **после legal entry** — зависит от округа. Уточняйте MA35 и консульство.
+**Нет.** Remote на foreign employer без подходящего титула — нелегальная схема.
 
-### AT или DE для IT с €4 500/мес?
+### Можно ли въехать как Neue Selbständige?
 
-DE Blue Card / EU Blue Card — сравнимые пороги; AT — выше living cost в Vienna, но меньше конкуренция в некоторых niches. Сравните в [wizard DE](/ru/germany/wizard) и [wizard AT](/ru/austria/wizard).
+**Neue Selbständige** — налогово-страховая категория, не «виза». Миграционно смотрите **Self-Employed Key Worker** / Start-up / employment RWR.
 
-### Сколько ждать Aufenthaltstitel в Vienna?
+### Сколько нужно для Self-Employed Key Worker?
 
-AMS: **2–8 нед.**; MA35: **3–6 мес.**; карта +2–6 нед. MA35 — одна из самых загруженных служб.
+Либо **€100 000** капитала, либо доказуемые jobs / know-how / региональная значимость. «Контракты на €2 500/мес» сами по себе **не** заменяют это.
 
-### Нужен ли немецкий для RWR?
+### Когда появляется RWR Card Plus?
 
-Для подачи — **не всегда** (зависит от категории RWR). Для рынка труда и интеграции — **да**. Для гражданства — B1 обязателен.
+Обычно после **~2 лет** на RWR Card при выполнении условий — не с первого дня.
 
-### Можно ли совмещать studium и подработку?
+### Можно ли подать из России?
 
-Ограниченно (до ~20 ч/нед). Превышение без разрешения — риск для продления.
+Секции в РФ закрыты — через **третью страну** с легальным статусом.
+
+### AT или DE для IT с €4 500/мес?
+
+Оба требуют оффер. DE: [гайд Германия](/ru/guides/vnj-germaniya-2026). AT дороже Vienna + AMS/MA35. Сравните wizard DE/AT.
 
 ---
 
 ## Официальные источники
 
-- **[migration.gv.at](https://www.migration.gv.at/)** — все типы Aufenthalt
-- **[RWR Card](https://www.migration.gv.at/en/types-of-residence/all-types-of-residence/red-white-red-card/)** — Red-White-Red
-- **[EU Blue Card AT](https://www.migration.gv.at/en/types-of-residence/all-types-of-residence/eu-blue-card/)** — Blue Card
-- **[Self-employed](https://www.migration.gv.at/en/types-of-residence/all-types-of-residence/self-employed-key-workers/)** — Neue Selbständige
-- **[Students](https://www.migration.gv.at/en/types-of-residence/all-types-of-residence/students/)** — studium
-- **[Family reunification](https://www.migration.gv.at/en/types-of-residence/all-types-of-residence/family-reunification/)** — воссоединение
+- [migration.gv.at](https://www.migration.gv.at/)
+- [Other Key Workers](https://www.migration.gv.at/en/types-of-immigration/permanent-immigration/other-key-workers/)
+- [Self-employed Key Workers](https://www.migration.gv.at/en/types-of-immigration/permanent-immigration-red-white-red-card/self-employed-key-workers.html)
+- [Start-up Founders](https://www.migration.gv.at/en/types-of-immigration/permanent-immigration-red-white-red-card/start-up-founders.html)
+- [EU Blue Card](https://www.migration.gv.at/en/types-of-residence/all-types-of-residence/eu-blue-card/)
 
 ---
 
-## Emigro wizard: как использовать гайд
+## Коротко для проверки маршрута
 
-На [emigro.online/ru/austria/wizard](https://www.emigro.online/ru/austria/wizard) укажите паспорт (RU/BY/UA/KZ), оффер, доход, учёбу и семью — система сопоставит RWR, Blue Card и Selbständige без гарантии одобрения.
+- **Нет DNV** — remote без титула нельзя.
+- RWR Other: **€3 465/мес** (2026); Blue Card: **€55 678/год**.
+- Self-Employed Key Worker: **€100k / макропольза**, не ноутбук.
+- Start-up: **€30k + 50% equity + 50 баллов + инновация**.
+- RWR **24 мес** → затем **Plus**.
+- Налоги: **SVS ~27%** + PIT + VAT; Kleinunternehmer ~€55k; Gewinnfreibetrag 15%.
+- MA35 / полный цикл: **месяцы**, не «пара недель».
+- Wizard: [/ru/austria/wizard](/ru/austria/wizard) · хаб [/ru/austria](/ru/austria).
 
-Hub wizard без выбора страны: [/ru/wizard](/ru/wizard).
-
----
-
-## Дисклеймер
-
-Материал подготовлен редакцией Emigro. Это **не** юридическая консультация. Пороги AMS и практика MA35 меняются — сверяйтесь с [migration.gv.at](https://www.migration.gv.at/) на дату подачи.
-
-Дата изменения — в шапке страницы. Для отказов и сложных Gewerbe-структур — лицензированный иммиграционный юрист в Австрии.
-
-## Связанные гайды
-
-| Тема | Гайд |
-|------|------|
-| Первые 30 дней | [Meldezettel, SVNR, Krankenkasse](/ru/guides/pervye-30-dnej-v-avstrii-2026) |
-| Чехия | [ВНЖ Чехия 2026](/ru/guides/vnj-chehiya-2026) |
-| Польша | [ВНЖ Польша 2026](/ru/guides/vnj-polsha-2026) |
-| Украина | [UA → ЕС маршруты](/ru/guides/ukraina-evropa-vnj-marshruty-2026) |
-| BY | [Белорусы в Европу](/ru/guides/belorusy-v-evropu-vnj-2026) |
-| Консульства | [Подача РФ/BY/KZ](/ru/guides/konsulskaya-podacha-rf-by-kz-2026-yurisdiktsiya) |
+*Не юридическая и налоговая консультация. Пороги AMS и практика MA35 меняются — сверяйте migration.gv.at на дату подачи.*
