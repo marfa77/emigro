@@ -123,7 +123,7 @@
 | `vnj-portugaliya-d8-d7-grazhdanstvo-2026` | `vnj-ispaniya-2026` |
 | `pervye-30-dnej-v-portugalii-2026` | `pervye-30-dnej-v-ispanii-2026` |
 | `portugaliya-vs-ispaniya-vnj-2026` | тот же + ES-сигналы |
-| `d7-vs-digital-nomad-visa-sravnenie` | `digital-nomad-portugaliya-ispaniya-italiya-2026` |
+| `d7-vs-digital-nomad-visa-sravnenie` | `digital-nomad-vizy-evropy-sravnenie-2026` |
 | `grazhdanstvo-portugaliya-ispaniya-2026` | тот же |
 
 ---

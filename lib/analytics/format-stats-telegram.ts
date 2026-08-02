@@ -26,9 +26,19 @@ function fmtTop(title: string, rows: Array<[string, number]>): string[] {
   return lines;
 }
 
+function channelLabel(s: StatsReport["recentSessions"][number]): string {
+  if (s.channel === "llm") return s.llm || "llm";
+  if (s.channel === "search") return "search";
+  if (s.channel === "direct") return "direct";
+  if (s.channel === "social") return "social";
+  if (s.channel === "referral") return "referral";
+  if (s.channel === "internal") return "internal";
+  return s.channel;
+}
+
 function fmtSessionRow(s: StatsReport["recentSessions"][number]): string {
   const prefix = s.isReturning ? "↩ " : "✨ ";
-  const meta = [s.country, s.llm, s.referrer].filter(Boolean).join(" · ") || "direct";
+  const meta = [s.country, channelLabel(s), s.referrer].filter(Boolean).join(" · ") || "direct";
   const path = s.pagePath ?? "—";
   const shortPath = path.length > 40 ? `${path.slice(0, 37)}…` : path;
   return `  ${prefix}<code>${escapeHtml(s.sessionId)}</code> · ${escapeHtml(meta)} · ${escapeHtml(shortPath)}`;
@@ -80,9 +90,23 @@ export function formatStatsReportTelegram(report: StatsReport): string {
   }
 
   lines.push("");
-  lines.push(...fmtTop("Топ страниц сегодня", report.topPagesToday));
+  lines.push(...fmtTop("Топ из поиска сегодня", report.topPagesSearchToday));
   lines.push("");
-  lines.push(...fmtTop("Топ страниц всего", report.topPagesAll));
+  lines.push(...fmtTop("Топ из LLM сегодня", report.topPagesLlmToday));
+  if (report.llmSourcesToday.length > 0) {
+    lines.push("");
+    lines.push(...fmtTop("LLM-источники сегодня", report.llmSourcesToday));
+  }
+  if (report.channelMixToday.length > 0) {
+    lines.push("");
+    lines.push(...fmtTop("Каналы сегодня (сессии)", report.channelMixToday));
+  }
+  lines.push("");
+  lines.push(...fmtTop("Топ поиск+LLM всего", report.topPagesDiscoveryAll));
+  lines.push("");
+  lines.push(...fmtTop("Топ страниц сегодня (все источники)", report.topPagesToday));
+  lines.push("");
+  lines.push(...fmtTop("Топ страниц всего (все источники)", report.topPagesAll));
 
   if (report.topReferrersToday.length > 0) {
     lines.push("");

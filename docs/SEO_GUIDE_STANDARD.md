@@ -15,6 +15,16 @@
 | «Что случилось» | «Что делать мне» |
 | `/ru/news/[slug]` | `/ru/guides/[slug]` |
 
+### Canonical vs partial comparison
+
+Если уже есть **полный** comparison/pillar по теме — **не** держим отдельный partial («PT vs ES vs IT», когда есть «DN Европы»). Черновик и узкий shortlist → усиливают канон; старый slug → **301** в `next.config.mjs`, внутренние ссылки → на канон.
+
+Карта канонов и watchlist: [GUIDE_CANNIBALIZATION.md](./GUIDE_CANNIBALIZATION.md).
+
+Примеры слияний: DN PT/ES/IT → Europe DN; Blue Card DE → `vnj-germaniya`; DE vs NL → `rabota-v-evrope`.
+
+Узкие гайды с **другим** intent оставляем (`d7-vs-digital-nomad-visa-sravnenie`, `portugaliya-vs-ispaniya-vnj-2026`, tax RU-exit vs EU special regimes).
+
 ---
 
 ## 2. Обязательная структура страницы

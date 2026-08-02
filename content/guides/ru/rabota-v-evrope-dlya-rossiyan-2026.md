@@ -22,7 +22,7 @@ official_sources:
     label: EU Blue Card — официальный портал
 estimated_minutes: 18
 date_published: 2026-06-25
-date_modified: 2026-07-07
+date_modified: 2026-08-01
 ---
 
 ## Реальное положение дел для граждан РФ в 2026
@@ -133,6 +133,19 @@ date_modified: 2026-07-07
 Для большинства — HSM проще и быстрее. Blue Card выгоднее, если в планах переезд в Германию через год.
 
 Подробно о нидерландском маршруте — в гиде [ВНЖ Нидерланды 2026: Highly Skilled Migrant](/ru/guides/vnj-niderlandy-2026-highly-skilled).
+
+### Shortlist: Германия vs Нидерланды (бывший отдельный гайд)
+
+| Критерий | Германия Blue Card | Нидерланды HSM / Blue Card |
+|----------|--------------------|----------------------------|
+| Порог 2026 | €50 700 / €45 934 STEM | HSM €5 942/мес (30+) / €4 357 (&lt;30) |
+| Язык для визы | Не нужен | Не нужен |
+| ПМЖ | **21–27 мес.** (Blue Card + язык) | 5 лет |
+| Гражданство | 5 лет (ускорение при C1) | 5 лет; отказ от иного гражданства часто обязателен |
+| Налоги | Прогрессия, без DN-льготы | **30% ruling** (условия, пороги Belastingdienst) |
+| Рабочий язык IT | EN в Berlin/startup; DE шире | EN в Amsterdam почти норма |
+
+**Вердикт 2026:** быстрее до ПМЖ и ниже порог → Германия. Чистыми на сопоставимом брутто и английский быт → Нидерланды (с оговоркой про натурализацию). Полный DE-ландшафт (фриланс, семья, §18): [ВНЖ Германия](/ru/guides/vnj-germaniya-2026).
 
 ---
 
@@ -317,4 +330,4 @@ date_modified: 2026-07-07
 
 **Шаг 5:** Параллельно изучайте язык страны назначения — для интеграции и ускоренного ПМЖ.
 
-Связанные гиды: [ВНЖ Нидерланды: Highly Skilled Migrant](/ru/guides/vnj-niderlandy-2026-highly-skilled) · [Германия: Blue Card и Chancenkarte](/ru/guides/germaniya-blue-card-chancenkarte-2026-sng) · [ВНЖ Франция: Passeport Talent](/ru/guides/vnj-frantsiya-2026-passeport-talent)
+Связанные гиды: [ВНЖ Нидерланды: Highly Skilled Migrant](/ru/guides/vnj-niderlandy-2026-highly-skilled) · [ВНЖ Германия](/ru/guides/vnj-germaniya-2026) · [ВНЖ Франция: Passeport Talent](/ru/guides/vnj-frantsiya-2026-passeport-talent)

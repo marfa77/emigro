@@ -4,8 +4,8 @@ export const PROGRAM_PILLAR_GUIDES: Record<string, string> = {
   "spain-non-lucrative": "vnj-ispaniya-2026",
   "portugal-d8-digital-nomad": "vnj-portugaliya-d8-d7-grazhdanstvo-2026",
   "portugal-d7-passive-income": "vnj-portugaliya-d8-d7-grazhdanstvo-2026",
-  "germany-eu-blue-card": "germaniya-blue-card-chancenkarte-2026-sng",
-  "germany-chancenkarte": "germaniya-blue-card-chancenkarte-2026-sng",
+  "germany-eu-blue-card": "vnj-germaniya-2026",
+  "germany-chancenkarte": "vnj-germaniya-2026",
   "poland-work-permit": "vnj-polsha-2026",
   "poland-eu-blue-card": "vnj-polsha-2026",
 };

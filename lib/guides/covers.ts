@@ -71,7 +71,7 @@ const COUNTRY_TOPIC_KEYS = new Set(Object.keys(TOPIC_COVER_IMAGES));
 export const GUIDE_COVER_BY_SLUG: Record<string, string> = {
   "vnj-portugaliya-d8-d7-grazhdanstvo-2026": "/images/corridor-portugal.webp",
   "digital-nomad-vizy-evropy-sravnenie-2026": "/images/corridor-portugal.webp",
-  "germaniya-blue-card-chancenkarte-2026-sng": "/images/corridor-germany.webp",
+  "vnj-germaniya-2026": "/images/corridor-germany.webp",
   "vnj-bez-raboty-passivnyy-dohod-sberezheniya-2026": "/images/emigro-guide-passive-income.webp",
   "kuda-pereehat-iz-rossii-2026-evropa-vnj": "/images/corridor-germany.webp",
   "byudzhet-relokatsii-evropa-2026-po-stranam": "/images/emigro-guide-passive-income.webp",

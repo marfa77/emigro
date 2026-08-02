@@ -167,7 +167,7 @@ Pillar-гайды Emigro фокусируются на **ВНЖ**. Но запр
 | Язык проще для старта | PL (B1) vs DE (B1 + test) — субъективно |
 | Уже в PL по work/B2B | **Польша** — логичное продолжение |
 
-Сравнение ВНЖ: [Германия](/ru/guides/vnj-germaniya-2026) · [Польша](/ru/guides/vnj-polsha-2026) · [Blue Card DE vs NL](/ru/guides/germaniya-vs-niderlandy-blue-card).
+Сравнение ВНЖ: [Германия](/ru/guides/vnj-germaniya-2026) · [Польша](/ru/guides/vnj-polsha-2026) · [Blue Card DE vs NL](/ru/guides/rabota-v-evrope-dlya-rossiyan-2026).
 
 ---
 

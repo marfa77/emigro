@@ -118,8 +118,20 @@ const nextConfig = {
       },
       // Merged into digital-nomad-vizy-evropy-sravnenie-2026 (canonical DN comparison)
       {
-        source: "/ru/guides/digital-nomad-vizy-evropy-sravnenie-2026",
+        source: "/ru/guides/digital-nomad-portugaliya-ispaniya-italiya-2026",
         destination: "/ru/guides/digital-nomad-vizy-evropy-sravnenie-2026",
+        permanent: true,
+      },
+      // Merged into vnj-germaniya-2026 (canonical Germany VNJ)
+      {
+        source: "/ru/guides/germaniya-blue-card-chancenkarte-2026-sng",
+        destination: "/ru/guides/vnj-germaniya-2026",
+        permanent: true,
+      },
+      // Merged into rabota-v-evrope-dlya-rossiyan-2026 (canonical EU work comparison)
+      {
+        source: "/ru/guides/germaniya-vs-niderlandy-blue-card",
+        destination: "/ru/guides/rabota-v-evrope-dlya-rossiyan-2026",
         permanent: true,
       },
     ];

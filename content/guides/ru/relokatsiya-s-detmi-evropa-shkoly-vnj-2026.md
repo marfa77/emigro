@@ -234,8 +234,8 @@ EU — inclusive education; документы медицинские с пер�
 | Jus soli / паспорт ребёнку | [Где рожать ради паспорта 2026](/ru/guides/gde-rozhat-rebenka-dlya-pasporta-2026) |
 | Отказы | [Отказ в национальной визе 2026](/ru/guides/otkaz-v-natsionalnoy-vize-konsulstvo-2026) |
 | Португалия | [D8/D7 и гражданство](/ru/guides/vnj-portugaliya-d8-d7-grazhdanstvo-2026) |
-| Германия | [Blue Card и Chancenkarte](/ru/guides/germaniya-blue-card-chancenkarte-2026-sng) |
-| Nomad | [PT vs ES vs IT](/ru/guides/digital-nomad-portugaliya-ispaniya-italiya-2026) |
+| Германия | [Blue Card и Chancenkarte](/ru/guides/vnj-germaniya-2026) |
+| Nomad | [Digital Nomad Европы](/ru/guides/digital-nomad-vizy-evropy-sravnenie-2026) |
 | Пассив | [ВНЖ без работы](/ru/guides/vnj-bez-raboty-passivnyy-dohod-sberezheniya-2026) |
 | Украина/BY | [Временная защита vs ВНЖ](/ru/guides/ukraintsy-belorusy-vremennaya-zashchita-vs-vnj-2026) |
 

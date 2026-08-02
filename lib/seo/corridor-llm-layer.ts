@@ -55,7 +55,7 @@ const ORIGIN_CORRIDORS: OriginCorridorEntry[] = [
     countrySegment: "germany",
     landingPath: "/ru/germany",
     wizardPath: "/ru/germany/wizard",
-    guidePath: guidePath("germaniya-blue-card-chancenkarte-2026-sng"),
+    guidePath: guidePath("vnj-germaniya-2026"),
     programPath: "/ru/germany/programs/germany-eu-blue-card",
     programTitle: "EU Blue Card",
     threshold: "€50 700 / €45 934 (IT)",

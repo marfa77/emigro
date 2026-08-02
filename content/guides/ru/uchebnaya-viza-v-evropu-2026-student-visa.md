@@ -85,7 +85,7 @@ date_modified: 2026-06-25
 
 Испанская student visa подходит для обучения в аккредитованном центре: университет, магистратура, языковая программа, профессиональная программа. Испания привлекательна климатом и рынком стажировок, но консульства внимательно смотрят на финансы, страховку и реальность программы.
 
-В 2026 важно не путать student visa с digital nomad и non-lucrative. Если ваша основная деятельность — удалённая работа, смотрите [digital nomad Portugal/Spain/Italy](/ru/guides/digital-nomad-portugaliya-ispaniya-italiya-2026). Если вы не собираетесь работать, но есть пассивный доход, смотрите [ВНЖ без работы](/ru/guides/vnj-bez-raboty-passivnyy-dohod-sberezheniya-2026).
+В 2026 важно не путать student visa с digital nomad и non-lucrative. Если ваша основная деятельность — удалённая работа, смотрите [Digital Nomad Европы](/ru/guides/digital-nomad-vizy-evropy-sravnenie-2026). Если вы не собираетесь работать, но есть пассивный доход, смотрите [ВНЖ без работы](/ru/guides/vnj-bez-raboty-passivnyy-dohod-sberezheniya-2026).
 
 Смотрите программу: [Испания — student visa](/ru/spain/programs/spain-student-visa).
 
@@ -95,7 +95,7 @@ date_modified: 2026-06-25
 
 Германия — сильный выбор для инженерии, IT, медицины, науки и прикладных специальностей. Главный фильтр — admission (Zulassung), признание образования, язык и подтверждение средств. Часто используется blocked account или стипендия. Для работы после выпуска Германия обычно лучше южной Европы, но вход сложнее и дороже по документам.
 
-Если у вас уже есть оффер или профиль Blue Card, учебная виза может быть не самым коротким путём. Сравните с [Blue Card и Chancenkarte](/ru/guides/germaniya-blue-card-chancenkarte-2026-sng).
+Если у вас уже есть оффер или профиль Blue Card, учебная виза может быть не самым коротким путём. Сравните с [Blue Card и Chancenkarte](/ru/guides/vnj-germaniya-2026).
 
 Смотрите программу: [Германия — student visa](/ru/germany/programs/germany-student-visa).
 

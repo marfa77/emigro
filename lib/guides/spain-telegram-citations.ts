@@ -201,17 +201,17 @@ export const SPAIN_GUIDE_FACTCHECK: GuideFactcheckConfigInput[] = [
     ],
   },
   {
-    slug: "digital-nomad-portugaliya-ispaniya-italiya-2026",
-    file: "content/guides/ru/digital-nomad-portugaliya-ispaniya-italiya-2026.md",
-    title: "Digital nomad PT vs ES vs IT 2026",
-    aliases: ["digital-nomad-portugaliya", "nomad-pt-es-it", "dnv-comparison"],
+    slug: "digital-nomad-vizy-evropy-sravnenie-2026",
+    file: "content/guides/ru/digital-nomad-vizy-evropy-sravnenie-2026.md",
+    title: "Digital Nomad визы Европы 2026",
+    aliases: ["digital-nomad-portugaliya", "nomad-pt-es-it", "dnv-comparison", "digital-nomad-portugaliya-ispaniya-italiya"],
     topics: [
       {
         id: "dnv-uge",
         label: "DNV / UGE (ES)",
         keywords: ["dnv", "uge", "teletrabajo", "nomad", "digital", "консул", "consulado"],
         suggestedSections: {
-          spain: "## Испания — когда выбирать",
+          spain: "## Испания: Digital Nomad Visa",
         },
       },
       {
@@ -219,7 +219,7 @@ export const SPAIN_GUIDE_FACTCHECK: GuideFactcheckConfigInput[] = [
         label: "Beckham / налоги (ES)",
         keywords: ["beckham", "24%", "irpf", "aeat", "налог"],
         suggestedSections: {
-          taxes: "## Налоги — не игнорируйте",
+          taxes: "## Испания: Digital Nomad Visa",
         },
       },
       {
@@ -227,7 +227,7 @@ export const SPAIN_GUIDE_FACTCHECK: GuideFactcheckConfigInput[] = [
         label: "Аренда Valencia",
         keywords: ["valencia", "idealista", "аренд", "alquiler", "iban"],
         suggestedSections: {
-          cost: "## Сравнение стоимости жизни nomad-семьи (2+1)",
+          cost: "## Shortlist «остаться»: Португалия vs Испания vs Италия",
         },
       },
       {
@@ -235,7 +235,7 @@ export const SPAIN_GUIDE_FACTCHECK: GuideFactcheckConfigInput[] = [
         label: "TIE / extranjería",
         keywords: ["tie", "extranjería", "cita", "huellas", "resguardo"],
         suggestedSections: {
-          renewal: "## Продление nomad-ВНЖ: что проверяют",
+          renewal: "## Shortlist «остаться»: Португалия vs Испания vs Италия",
         },
       },
     ],
@@ -380,7 +380,7 @@ export const SEED_FACTCHECK_SIGNALS: SeedFactcheckSignal[] = [
     posted_at: "2025-12-01T11:00:00Z",
     text: "DNV через UGE и через консульство — разные пакеты; в чатах путают «подал в консульстве» с «уже в UGE после въезда».",
     topic_id: "dnv-uge",
-    guide_slug: "digital-nomad-portugaliya-ispaniya-italiya-2026",
+    guide_slug: "digital-nomad-vizy-evropy-sravnenie-2026",
     suggested_section: "## Испания — когда выбирать",
   },
   {
@@ -388,7 +388,7 @@ export const SEED_FACTCHECK_SIGNALS: SeedFactcheckSignal[] = [
     posted_at: "2025-11-22T09:00:00Z",
     text: "На DNV одной выписки банка мало — просят employment agreement или контракты за 12 мес. с суммами; UGE строже консульства по remote proof.",
     topic_id: "dnv-uge",
-    guide_slug: "digital-nomad-portugaliya-ispaniya-italiya-2026",
+    guide_slug: "digital-nomad-vizy-evropy-sravnenie-2026",
     suggested_section: "## Испания — когда выбирать",
   },
   {
@@ -396,7 +396,7 @@ export const SEED_FACTCHECK_SIGNALS: SeedFactcheckSignal[] = [
     posted_at: "2025-10-08T13:00:00Z",
     text: "Beckham Law не включается автоматически — заявление в AEAT в 6 мес. после NIE; миф «24% для любого nomad» повторяется еженедельно.",
     topic_id: "beckham",
-    guide_slug: "digital-nomad-portugaliya-ispaniya-italiya-2026",
+    guide_slug: "digital-nomad-vizy-evropy-sravnenie-2026",
     suggested_section: "## Налоги — не игнорируйте",
   },
   {
@@ -404,7 +404,7 @@ export const SEED_FACTCHECK_SIGNALS: SeedFactcheckSignal[] = [
     posted_at: "2025-11-15T14:00:00Z",
     text: "В Valencia agencies на Idealista часто требуют NIE + Spanish IBAN ещё до viewing — без этого не показывают квартиры.",
     topic_id: "valencia-rent",
-    guide_slug: "digital-nomad-portugaliya-ispaniya-italiya-2026",
+    guide_slug: "digital-nomad-vizy-evropy-sravnenie-2026",
     suggested_section: "## Сравнение стоимости жизни nomad-семьи (2+1)",
   },
   {
@@ -412,7 +412,7 @@ export const SEED_FACTCHECK_SIGNALS: SeedFactcheckSignal[] = [
     posted_at: "2026-01-10T09:00:00Z",
     text: "Cita extranjería в Madrid/BCN — 2–4 мес. ожидания; бронируйте сразу после прилёта, не ждите NIE.",
     topic_id: "tie-extranjeria",
-    guide_slug: "digital-nomad-portugaliya-ispaniya-italiya-2026",
+    guide_slug: "digital-nomad-vizy-evropy-sravnenie-2026",
     suggested_section: "## Продление nomad-ВНЖ: что проверяют",
   },
   {

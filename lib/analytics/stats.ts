@@ -1,5 +1,6 @@
 import { createAdminClient } from "@/lib/admin/supabase";
 import { classifyLlmAttribution } from "@/lib/analytics/llm-attribution";
+import { classifyTrafficChannel, type TrafficChannel } from "@/lib/analytics/traffic-channel";
 
 const VISITOR_EVENTS = ["session_start", "page_view"] as const;
 const LEAD_EVENTS = ["lead_submitted", "assist_lead_submitted"] as const;
@@ -47,6 +48,15 @@ export interface StatsReport {
   trend: Array<{ dayLabel: string; visitors: number; pageViews: number }>;
   topPagesToday: Array<[string, number]>;
   topPagesAll: Array<[string, number]>;
+  /** Landing pages from search engines (excl. direct / internal). */
+  topPagesSearchToday: Array<[string, number]>;
+  topPagesSearchAll: Array<[string, number]>;
+  /** Landing pages attributed to LLM (ChatGPT, Perplexity, llms.txt, …). */
+  topPagesLlmToday: Array<[string, number]>;
+  topPagesLlmAll: Array<[string, number]>;
+  /** Combined discovery: search + LLM landings (no direct). */
+  topPagesDiscoveryToday: Array<[string, number]>;
+  topPagesDiscoveryAll: Array<[string, number]>;
   topReferrersToday: Array<[string, number]>;
   topUtmToday: Array<[string, number]>;
   topCountriesToday: Array<[string, number]>;
@@ -57,6 +67,7 @@ export interface StatsReport {
   topProvidersToday: Array<[string, number]>;
   topProvidersAll: Array<[string, number]>;
   llmSourcesToday: Array<[string, number]>;
+  channelMixToday: Array<[string, number]>;
   recentSessions: Array<{
     sessionId: string;
     pagePath: string | null;
@@ -64,6 +75,7 @@ export interface StatsReport {
     country: string | null;
     isReturning: boolean;
     llm: string | null;
+    channel: TrafficChannel;
   }>;
   wizardTelegram: WizardTelegramStats;
 }
@@ -280,28 +292,137 @@ async function topProviderClicks(
   return Array.from(counts.entries()).sort((a, b) => b[1] - a[1]).slice(0, limit);
 }
 
+type VisitorHit = {
+  session_id: string;
+  page_path: string | null;
+  referrer: string | null;
+  utm_source: string | null;
+  utm_medium: string | null;
+  properties: Record<string, unknown> | null;
+  created_at: string;
+  event_name: string;
+};
+
+async function fetchVisitorHits(
+  supabase: ReturnType<typeof createAdminClient>,
+  start: string | null,
+  end: string | null,
+  limit = 10000
+): Promise<VisitorHit[]> {
+  let q = supabase
+    .from("site_events")
+    .select("session_id, page_path, referrer, utm_source, utm_medium, properties, created_at, event_name")
+    .in("event_name", [...VISITOR_EVENTS])
+    .order("created_at", { ascending: true })
+    .limit(limit);
+  if (start) q = q.gte("created_at", start);
+  if (end) q = q.lt("created_at", end);
+  const { data, error } = await q;
+  if (error) throw new Error(error.message);
+  return (data ?? []) as VisitorHit[];
+}
+
+/** First hit per session = landing (for channel / discovery tops). */
+function sessionLandings(hits: VisitorHit[]): Map<string, VisitorHit> {
+  const landings = new Map<string, VisitorHit>();
+  for (const hit of hits) {
+    if (!hit.session_id || landings.has(hit.session_id)) continue;
+    landings.set(hit.session_id, hit);
+  }
+  return landings;
+}
+
+function topFromMap(counts: Map<string, number>, limit: number): Array<[string, number]> {
+  return Array.from(counts.entries())
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, limit);
+}
+
+function bump(counts: Map<string, number>, key: string) {
+  if (!key) return;
+  counts.set(key, (counts.get(key) ?? 0) + 1);
+}
+
+async function fetchSessionStarts(
+  supabase: ReturnType<typeof createAdminClient>,
+  start: string | null,
+  end: string | null,
+  limit = 10000
+): Promise<VisitorHit[]> {
+  // Newest first so all-time sample reflects recent traffic, not the oldest 10k rows.
+  let q = supabase
+    .from("site_events")
+    .select("session_id, page_path, referrer, utm_source, utm_medium, properties, created_at, event_name")
+    .eq("event_name", "session_start")
+    .order("created_at", { ascending: false })
+    .limit(limit);
+  if (start) q = q.gte("created_at", start);
+  if (end) q = q.lt("created_at", end);
+  const { data, error } = await q;
+  if (error) throw new Error(error.message);
+  return (data ?? []) as VisitorHit[];
+}
+
+async function discoveryLandingTops(
+  supabase: ReturnType<typeof createAdminClient>,
+  start: string | null,
+  end: string | null,
+  limit = 8
+): Promise<{
+  search: Array<[string, number]>;
+  llm: Array<[string, number]>;
+  discovery: Array<[string, number]>;
+  llmSources: Array<[string, number]>;
+  channelMix: Array<[string, number]>;
+}> {
+  // session_start = landing (referrer/utm preserved); one row per session.
+  const landings = await fetchSessionStarts(supabase, start, end);
+
+  const search = new Map<string, number>();
+  const llm = new Map<string, number>();
+  const discovery = new Map<string, number>();
+  const llmSources = new Map<string, number>();
+  const channelMix = new Map<string, number>();
+
+  for (const hit of landings) {
+    const { channel, label } = classifyTrafficChannel(hit.referrer, hit.utm_source, hit.utm_medium);
+    bump(channelMix, channel);
+
+    const path = (hit.page_path || "").trim() || "/";
+    if (channel === "search") {
+      bump(search, path);
+      bump(discovery, path);
+    } else if (channel === "llm") {
+      bump(llm, path);
+      bump(discovery, path);
+      bump(llmSources, label);
+    }
+  }
+
+  return {
+    search: topFromMap(search, limit),
+    llm: topFromMap(llm, limit),
+    discovery: topFromMap(discovery, limit),
+    llmSources: topFromMap(llmSources, 6),
+    channelMix: topFromMap(channelMix, 8),
+  };
+}
+
 async function recentSessionsToday(
   supabase: ReturnType<typeof createAdminClient>,
   start: string,
   end: string
 ): Promise<StatsReport["recentSessions"]> {
-  const { data, error } = await supabase
-    .from("site_events")
-    .select("session_id, page_path, referrer, utm_source, utm_medium, properties, created_at")
-    .gte("created_at", start)
-    .lt("created_at", end)
-    .in("event_name", [...VISITOR_EVENTS])
-    .order("created_at", { ascending: false })
-    .limit(200);
-  if (error) throw new Error(error.message);
+  const hits = await fetchVisitorHits(supabase, start, end, 2000);
+  const landings = sessionLandings(hits);
 
-  const seen = new Set<string>();
+  // Newest sessions first for the feed
+  const ordered = Array.from(landings.values()).sort(
+    (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+  );
+
   const out: StatsReport["recentSessions"] = [];
-
-  for (const row of data ?? []) {
-    if (seen.has(row.session_id)) continue;
-    seen.add(row.session_id);
-
+  for (const row of ordered) {
     const { data: prior } = await supabase
       .from("site_events")
       .select("id")
@@ -311,13 +432,17 @@ async function recentSessionsToday(
       .limit(1);
 
     const props = (row.properties ?? {}) as Record<string, unknown>;
+    const { channel, label } = classifyTrafficChannel(row.referrer, row.utm_source, row.utm_medium);
+    const llm = channel === "llm" ? label : classifyLlmAttribution(row.referrer, row.utm_source, row.utm_medium);
+
     out.push({
       sessionId: row.session_id.slice(0, 8) + "…",
       pagePath: row.page_path,
       referrer: row.referrer,
       country: typeof props.country === "string" ? props.country : null,
       isReturning: (prior?.length ?? 0) > 0,
-      llm: classifyLlmAttribution(row.referrer, row.utm_source, row.utm_medium),
+      llm,
+      channel,
     });
     if (out.length >= 12) break;
   }
@@ -407,6 +532,8 @@ export async function buildStatsReport(): Promise<StatsReport> {
     trendRaw,
     topPagesToday,
     topPagesAll,
+    discoveryToday,
+    discoveryAll,
     topReferrersToday,
     topUtmToday,
     topCountriesToday,
@@ -437,6 +564,8 @@ export async function buildStatsReport(): Promise<StatsReport> {
     supabase.rpc("emigro_daily_visitor_trend", { p_days: 7, p_tz: tz, p_exclude_sessions: [] }),
     rpcTop(supabase, "page_path", todayWin.start, todayWin.end),
     rpcTop(supabase, "page_path", null, null),
+    discoveryLandingTops(supabase, todayWin.start, todayWin.end),
+    discoveryLandingTops(supabase, null, null),
     rpcTop(supabase, "referrer", todayWin.start, todayWin.end, "session_start", 5),
     rpcTop(supabase, "utm_source", todayWin.start, todayWin.end, null, 4),
     topFromProperties(supabase, "country", todayWin.start, todayWin.end),
@@ -458,9 +587,6 @@ export async function buildStatsReport(): Promise<StatsReport> {
     })
   );
 
-  const llmSourcesToday: Array<[string, number]> = [];
-  // computed from recent if needed — skip for MVP
-
   return {
     timezone: tz,
     todayLabel: todayWin.label,
@@ -480,6 +606,12 @@ export async function buildStatsReport(): Promise<StatsReport> {
     trend,
     topPagesToday,
     topPagesAll,
+    topPagesSearchToday: discoveryToday.search,
+    topPagesSearchAll: discoveryAll.search,
+    topPagesLlmToday: discoveryToday.llm,
+    topPagesLlmAll: discoveryAll.llm,
+    topPagesDiscoveryToday: discoveryToday.discovery,
+    topPagesDiscoveryAll: discoveryAll.discovery,
     topReferrersToday,
     topUtmToday,
     topCountriesToday,
@@ -489,7 +621,8 @@ export async function buildStatsReport(): Promise<StatsReport> {
     topBrowserToday,
     topProvidersToday,
     topProvidersAll,
-    llmSourcesToday,
+    llmSourcesToday: discoveryToday.llmSources,
+    channelMixToday: discoveryToday.channelMix,
     recentSessions,
     wizardTelegram,
   };

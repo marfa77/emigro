@@ -12,9 +12,9 @@
 |---|------|------|--------|-----|
 | 1 | `kuda-pereehat-iz-rossii-2026-evropa-vnj` | [kuda-pereehat-iz-rossii-2026-evropa-vnj.md](./ru/kuda-pereehat-iz-rossii-2026-evropa-vnj.md) | Pillar | /ru/wizard |
 | 2 | `vnj-portugaliya-d8-d7-grazhdanstvo-2026` | [vnj-portugaliya-d8-d7-grazhdanstvo-2026.md](./ru/vnj-portugaliya-d8-d7-grazhdanstvo-2026.md) | PT deep | /ru/portugal |
-| 3 | `digital-nomad-portugaliya-ispaniya-italiya-2026` | [digital-nomad-portugaliya-ispaniya-italiya-2026.md](./ru/digital-nomad-portugaliya-ispaniya-italiya-2026.md) | Comparison | /ru/wizard |
+| 3 | `digital-nomad-vizy-evropy-sravnenie-2026` | [digital-nomad-vizy-evropy-sravnenie-2026.md](./ru/digital-nomad-vizy-evropy-sravnenie-2026.md) | Comparison | /ru/wizard |
 | 4 | `ukraintsy-belorusy-vremennaya-zashchita-vs-vnj-2026` | [ukraintsy-belorusy-vremennaya-zashchita-vs-vnj-2026.md](./ru/ukraintsy-belorusy-vremennaya-zashchita-vs-vnj-2026.md) | UA/BY | /ru/wizard |
-| 5 | `germaniya-blue-card-chancenkarte-2026-sng` | [germaniya-blue-card-chancenkarte-2026-sng.md](./ru/germaniya-blue-card-chancenkarte-2026-sng.md) | DE work | /ru/germany |
+| 5 | `vnj-germaniya-2026` | [vnj-germaniya-2026.md](./ru/vnj-germaniya-2026.md) | DE work | /ru/germany |
 | 6 | `vnj-bez-raboty-passivnyy-dohod-sberezheniya-2026` | [vnj-bez-raboty-passivnyy-dohod-sberezheniya-2026.md](./ru/vnj-bez-raboty-passivnyy-dohod-sberezheniya-2026.md) | Passive | /ru/portugal |
 | 7 | `vossoedinenie-semi-evropa-2026` | [vossoedinenie-semi-evropa-2026.md](./ru/vossoedinenie-semi-evropa-2026.md) | Family | /ru/wizard |
 | 8 | `relokatsiya-s-detmi-evropa-shkoly-vnj-2026` | [relokatsiya-s-detmi-evropa-shkoly-vnj-2026.md](./ru/relokatsiya-s-detmi-evropa-shkoly-vnj-2026.md) | Kids | /ru/wizard |

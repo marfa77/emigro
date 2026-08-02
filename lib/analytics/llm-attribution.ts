@@ -25,7 +25,7 @@ const LLM_REFERRER_HOSTS: Array<[string, string]> = [
   ["gemini.google.com", "Gemini"],
   ["bard.google.com", "Gemini"],
   ["copilot.microsoft.com", "Copilot"],
-  ["bing.com", "Copilot"],
+  // Do not map bare bing.com → Copilot (organic Bing search ≠ LLM)
   ["phind.com", "Phind"],
   ["poe.com", "Poe"],
   ["you.com", "You.com"],
@@ -61,6 +61,10 @@ export function classifyLlmAttribution(
   if (host) {
     for (const [needle, label] of LLM_REFERRER_HOSTS) {
       if (host.includes(needle)) return label;
+    }
+    // Bing Chat / Copilot entry points (not generic bing.com SERP)
+    if (host.includes("bing.com") && /\/chat|\/copilot|edgeservices/i.test(referrer || "")) {
+      return "Copilot";
     }
   }
   return null;

@@ -281,7 +281,7 @@ D8 введена в 2022 году специально для **удалённ�
 | Тема | Гайд |
 |------|------|
 | ВНЖ без работы | [Пассивный доход и D7](/ru/guides/vnj-bez-raboty-passivnyy-dohod-sberezheniya-2026) |
-| Digital nomad PT vs ES vs IT | [Сравнение трёх стран](/ru/guides/digital-nomad-portugaliya-ispaniya-italiya-2026) |
+| Digital Nomad Европы | [Сравнение DN Европы](/ru/guides/digital-nomad-vizy-evropy-sravnenie-2026) |
 | PT vs ES для ВНЖ | [Португалия vs Испания 2026](/ru/guides/portugaliya-vs-ispaniya-vnj-2026) |
 | Доход и документы | [Подтвердить доход для ВНЖ](/ru/guides/podtverdit-dohod-dengi-dlya-vnj-esli-dohod-iz-rossii-2026) |
 | Полный путь по Португалии | [D8/D7 и гражданство PT](/ru/guides/vnj-portugaliya-d8-d7-grazhdanstvo-2026) |

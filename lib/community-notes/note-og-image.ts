@@ -13,7 +13,7 @@ export const SPAIN_DEFAULT_OG_IMAGE = "/images/og/corridor-spain.jpg";
 export const SPAIN_SLUG_STATIC_FALLBACKS: Record<string, string> = {
   "nie-empadronamiento-poryadok-2026": "/images/og/guide-vnj-ispaniya-2026.jpg",
   "tie-cita-extranjeria-valencia-2026": "/images/og/guide-otkaz-v-natsionalnoy-vize-konsulstvo-2026.jpg",
-  "dnv-uge-konsulstvo-2026": "/images/og/guide-digital-nomad-portugaliya-ispaniya-italiya-2026.jpg",
+  "dnv-uge-konsulstvo-2026": "/images/og/guide-digital-nomad-vizy-evropy-sravnenie-2026.jpg",
   "arenda-valencia-idealista-2026": "/images/og/guide-pervye-30-dnej-v-ispanii-2026.jpg",
   "bank-iban-nerezident-ispaniya-2026": "/images/og/guide-bank-i-iban-dlya-rossiyan-v-evrope-2026.jpg",
   "beckham-autonomo-mify-2026": "/images/og/guide-grazhdanstvo-portugaliya-ispaniya-2026.jpg",

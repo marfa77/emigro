@@ -113,9 +113,9 @@ date_modified: 2026-06-25
 
 **Португалия D8/D7.** Подходит удалёнщикам и людям с пассивным доходом. Нужно доказать доход, жильё, страховку, чистую историю и способность содержать семью. Подробнее: [ВНЖ Португалии D8/D7](/ru/guides/vnj-portugaliya-d8-d7-grazhdanstvo-2026).
 
-**Испания digital nomad или non-lucrative.** Digital nomad требует доход от иностранных клиентов/работодателя; non-lucrative — пассивные средства и запрет на работу. Сравнение nomad-маршрутов: [Portugal vs Spain vs Italy](/ru/guides/digital-nomad-portugaliya-ispaniya-italiya-2026).
+**Испания digital nomad или non-lucrative.** Digital nomad требует доход от иностранных клиентов/работодателя; non-lucrative — пассивные средства и запрет на работу. Сравнение nomad-маршрутов: [Digital Nomad Европы](/ru/guides/digital-nomad-vizy-evropy-sravnenie-2026).
 
-**Германия Blue Card/Chancenkarte.** Хороший путь при профессии, дипломе/квалификации и оффере. Без работодателя Германия сложнее, но Chancenkarte может быть мостом для поиска. Подробнее: [Blue Card и Chancenkarte](/ru/guides/germaniya-blue-card-chancenkarte-2026-sng).
+**Германия Blue Card/Chancenkarte.** Хороший путь при профессии, дипломе/квалификации и оффере. Без работодателя Германия сложнее, но Chancenkarte может быть мостом для поиска. Подробнее: [Blue Card и Chancenkarte](/ru/guides/vnj-germaniya-2026).
 
 **Учёба.** Работает, если нет высокого дохода, но есть деньги на tuition и жизнь. Это не «лёгкий обход», а полноценная академическая траектория с зачислением, посещаемостью и дальнейшей модификацией статуса. Смотрите [учебные визы в Европу](/ru/guides/uchebnaya-viza-v-evropu-2026-student-visa).
 

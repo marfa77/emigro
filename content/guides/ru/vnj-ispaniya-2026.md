@@ -27,7 +27,7 @@ date_published: 2026-06-27
 
 ## Digital nomad Испания 2026: кратко
 
-Если вы ищете **digital nomad visa Испания 2026** (teletrabajo / Ley de Startups), это pillar-гид Emigro: порог **€2 849/мес**, до **20% дохода** от испанских клиентов, срок рассмотрения консульства **2–4 месяца** в 2026. Сравнение с Португалией D8: [Испания vs Португалия vs Италия](/ru/guides/digital-nomad-portugaliya-ispaniya-italiya-2026). Программа коридора: [digital nomad teletrabajo](/ru/spain/programs/spain-digital-nomad). Все EU-коридоры для граждан РФ: [origin hub Emigro](/ru/rossiyane).
+Если вы ищете **digital nomad visa Испания 2026** (teletrabajo / Ley de Startups), это pillar-гид Emigro: порог **€2 849/мес**, до **20% дохода** от испанских клиентов, срок рассмотрения консульства **2–4 месяца** в 2026. Сравнение с Португалией D8: [Digital Nomad визы Европы](/ru/guides/digital-nomad-vizy-evropy-sravnenie-2026). Программа коридора: [digital nomad teletrabajo](/ru/spain/programs/spain-digital-nomad). Все EU-коридоры для граждан РФ: [origin hub Emigro](/ru/rossiyane).
 
 ## Кому подходит этот гайд
 
@@ -333,6 +333,6 @@ Arraigo social — не путь для «первого» переезда. Э�
 
 - [Digital nomad visa — программа коридора](/ru/spain/programs/spain-digital-nomad)
 - [Коридор Испания — wizard и программы](/ru/spain)
-- [Digital nomad: Испания vs Португалия vs Италия](/ru/guides/digital-nomad-portugaliya-ispaniya-italiya-2026)
+- [Digital Nomad визы Европы](/ru/guides/digital-nomad-vizy-evropy-sravnenie-2026)
 - [Первые 30 дней в Испании](/ru/guides/pervye-30-dnej-v-ispanii-2026)
 - [Hub wizard Emigro](/ru/wizard)

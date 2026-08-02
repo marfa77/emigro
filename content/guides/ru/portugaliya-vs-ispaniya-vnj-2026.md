@@ -263,7 +263,7 @@ date_modified: 2026-07-12
 
 | Тема | Гайд |
 |------|------|
-| Digital nomad PT vs ES vs IT | [Сравнение цифровых кочевников](/ru/guides/digital-nomad-portugaliya-ispaniya-italiya-2026) |
+| Digital Nomad Европы | [Сравнение DN Европы](/ru/guides/digital-nomad-vizy-evropy-sravnenie-2026) |
 | D7 vs Digital Nomad | [D7 vs Digital Nomad: что выбрать](/ru/guides/d7-vs-digital-nomad-visa-sravnenie) |
 | ВНЖ без работы | [Пассивный доход и сбережения](/ru/guides/vnj-bez-raboty-passivnyy-dohod-sberezheniya-2026) |
 | Бюджет релокации | [Бюджет 2026 по странам](/ru/guides/byudzhet-relokatsii-evropa-2026-po-stranam) |

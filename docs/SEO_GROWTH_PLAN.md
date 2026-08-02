@@ -45,7 +45,7 @@
 
 ### Comparison cross-links
 
-- `portugaliya-vs-ispaniya-vnj-2026` ↔ `digital-nomad-portugaliya-ispaniya-italiya-2026` ↔ `d7-vs-digital-nomad-visa-sravnenie`
+- `portugaliya-vs-ispaniya-vnj-2026` ↔ `digital-nomad-vizy-evropy-sravnenie-2026` ↔ `d7-vs-digital-nomad-visa-sravnenie`
 - Each links to both PT and ES pillar guides
 
 ## Priority URLs — CTR hooks (implemented)
@@ -60,7 +60,7 @@
 | `/ru/guides/konsulskaya-podacha-…` | Консульская подача RU/BY/KZ 2026 — D-виза |
 | `/ru/guides/dokumenty-dlya-pereezda-…` | Документы переезд РФ 2026 — апостиль, ВНЖ |
 | `/ru/guides/vnj-portugaliya-d8-d7-grazhdanstvo-2026` | D8 Португалия 2026: €3 680 + AIMA — RU/BY/UA |
-| `/ru/guides/digital-nomad-portugaliya-ispaniya-italiya-2026` | DN PT vs ES vs IT 2026 — €2 849 vs €3 680 |
+| `/ru/guides/digital-nomad-vizy-evropy-sravnenie-2026` | Digital Nomad визы Европы 2026 (canonical; PT/ES/IT merged) |
 | `/ru/portugal`, `/ru/spain` | Corridor landings with 2026 threshold FAQ |
 
 ## Code touchpoints

@@ -139,10 +139,10 @@ export const COMPARISON_CROSS_LINKS: Record<string, ClusterLink[]> = {
   "portugaliya-vs-ispaniya-vnj-2026": [
     { href: guidePath("vnj-portugaliya-d8-d7-grazhdanstvo-2026"), label: "D8/D7 Португалия 2026" },
     { href: guidePath("vnj-ispaniya-2026"), label: "Digital nomad Испания 2026" },
-    { href: guidePath("digital-nomad-portugaliya-ispaniya-italiya-2026"), label: "DN: PT vs ES vs IT" },
+    { href: guidePath("digital-nomad-vizy-evropy-sravnenie-2026"), label: "Digital Nomad визы Европы" },
     { href: guidePath("d7-vs-digital-nomad-visa-sravnenie"), label: "D7 vs D8 Португалия" },
   ],
-  "digital-nomad-portugaliya-ispaniya-italiya-2026": [
+  "digital-nomad-vizy-evropy-sravnenie-2026": [
     { href: guidePath("vnj-portugaliya-d8-d7-grazhdanstvo-2026"), label: "D8 Португалия 2026" },
     { href: guidePath("vnj-ispaniya-2026"), label: "Digital nomad Испания 2026" },
     { href: guidePath("vnj-italiya-2026-digital-nomad"), label: "Digital Nomad Италия 2026" },
@@ -152,7 +152,7 @@ export const COMPARISON_CROSS_LINKS: Record<string, ClusterLink[]> = {
   "d7-vs-digital-nomad-visa-sravnenie": [
     { href: guidePath("vnj-portugaliya-d8-d7-grazhdanstvo-2026"), label: "D8 и D7 Португалия 2026" },
     { href: guidePath("portugaliya-vs-ispaniya-vnj-2026"), label: "Португалия vs Испания" },
-    { href: guidePath("digital-nomad-portugaliya-ispaniya-italiya-2026"), label: "DN: PT vs ES vs IT" },
+    { href: guidePath("digital-nomad-vizy-evropy-sravnenie-2026"), label: "Digital Nomad визы Европы" },
     { href: "/ru/portugal/programs/portugal-d8-digital-nomad", label: "Программа D8" },
   ],
 };
@@ -160,8 +160,8 @@ export const COMPARISON_CROSS_LINKS: Record<string, ClusterLink[]> = {
 /** Map guide slug → cluster id for sidebar cluster navigation. */
 export const GUIDE_CLUSTER_MAP: Record<string, string> = {
   "kuda-pereehat-iz-rossii-2026-evropa-vnj": "russia",
-  "germaniya-blue-card-chancenkarte-2026-sng": "russia",
   "vnj-germaniya-2026": "russia",
+  "rabota-v-evrope-dlya-rossiyan-2026": "russia",
   "vnj-portugaliya-d8-d7-grazhdanstvo-2026": "portugal",
   "pervye-30-dnej-v-portugalii-2026": "portugal",
   "d7-vs-digital-nomad-visa-sravnenie": "portugal",

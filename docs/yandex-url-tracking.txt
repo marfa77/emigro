@@ -15,14 +15,13 @@
 /ru/guides/vnj-ispaniya-2026
 /ru/guides/vnj-portugaliya-d8-d7-grazhdanstvo-2026
 /ru/guides/vnj-germaniya-2026
-/ru/guides/digital-nomad-portugaliya-ispaniya-italiya-2026
 /ru/guides/digital-nomad-vizy-evropy-sravnenie-2026
 /ru/guides/kazahstantsy-v-evropu-vnj-2026
 /ru/guides/relokatsiya-s-detmi-evropa-shkoly-vnj-2026
 /ru/guides/nalogi-pri-pereezde-v-evropu-2026
 /ru/guides/investitsionnyy-vnj-evropa-golden-visa-2026
 /ru/guides/vnj-polsha-2026
-/ru/guides/germaniya-blue-card-chancenkarte-2026-sng
+/ru/guides/rabota-v-evrope-dlya-rossiyan-2026
 /ru/guides/gruziya-dlya-rossiyan-2026
 /ru/guides/bali-indoneziya-dlya-rossiyan-2026
 
@@ -102,7 +101,7 @@
 # === Доп. гайды (11) ===
 /ru/guides/chernogoriya-vnj-dlya-rossiyan-2026
 /ru/guides/portugaliya-vs-ispaniya-vnj-2026
-/ru/guides/germaniya-vs-niderlandy-blue-card
+/ru/guides/rabota-v-evrope-dlya-rossiyan-2026
 /ru/guides/d7-vs-digital-nomad-visa-sravnenie
 /ru/guides/byudzhet-relokatsii-evropa-2026-po-stranam
 /ru/guides/bank-i-iban-dlya-rossiyan-v-evrope-2026

@@ -1,10 +1,10 @@
 ---
 slug: vnj-skandinaviya-2026
 title: "ВНЖ Скандинавия 2026: Швеция, Дания, Норвегия — work permit и семья для RU/BY/UA/KZ"
-seo_title: "ВНЖ Скандинавия 2026 — Швеция, Дания, work permit, семья"
-seo_description: "ВНЖ в Скандинавии 2026: шведский work permit от SEK 34 470/мес, датский pay limit DKK 552 000/год, семья, зарплаты, язык, ПМЖ и гражданство. Для RU/BY/UA/KZ."
-excerpt: "Скандинавия — не «дешёвая Европа», но один из самых предсказуемых коридоров для найма: высокие зарплаты, сильная соцзащита и понятные правила work permit в Швеции и Дании."
-quick_answer: "Основные маршруты для граждан СНГ: (1) Sweden work permit — оффер, зарплата от SEK 34 470/мес (~€3 050, 90% медианы SCB с 16.06.2026) и условия не хуже kollektivavtal; при суммарном легальном пребывании <12 мес — comprehensive health insurance; (2) Denmark pay limit — от DKK 552 000/год (~€74 000); (3) Nordic family reunification. ПМЖ Швеция: обычно 4 года work permit. Гражданство SE с 06.06.2026 — **8 лет** + доход ~SEK 20 000/мес + язык/общество. Pillar Швеции: /ru/guides/vnj-shvetsiya-2026-work-permit-grazhdanstvo. Подача: Migrationsverket / SIRI."
+seo_title: "ВНЖ Nordics 2026 — сравнение SE/DK/NO/FI (хаб)"
+seo_description: "Хаб Nordics 2026: куда смотреть в SE/DK/NO/FI. Детали Швеции и Норвегии — в country-pillars; здесь сравнение порогов и семьи для RU/BY/UA/KZ."
+excerpt: "Хаб сравнения Nordics: work permit / pay limit / семья. Глубина по стране — в pillar Швеции и Норвегии, не дублируем их цифры здесь."
+quick_answer: "Это **хаб сравнения** SE/DK/NO/FI, не замена country-гайдам. SE work permit ≥ SEK 34 470/мес (90% медианы с 16.06.2026) — полный разбор: [ВНЖ Швеция](/ru/guides/vnj-shvetsiya-2026-work-permit-grazhdanstvo). NO Skilled Worker — [ВНЖ Норвегия](/ru/guides/vnj-norvegiya-2026). DK pay limit ~DKK 552 000/год. FI pillar пока тоньше — ориентир через коридор. Семья/ПМЖ/гражданство — только в country-гайде на дату подачи."
 corridor_slugs: [ru-speaking-to-sweden, ru-speaking-to-norway, ru-speaking-to-finland, ru-speaking-to-denmark]
 topic_keys: [scandinavia, sweden, norway, finland, denmark, work, visa]
 tags: [Скандинавия, ВНЖ, Швеция, Дания, work permit, 2026, Nordics]
@@ -30,7 +30,7 @@ official_sources:
     label: UDI Norway — immigration
 estimated_minutes: 18
 date_published: 2026-07-01
-date_modified: 2026-07-30
+date_modified: 2026-08-01
 ---
 
 ## Кому подходит этот гайд

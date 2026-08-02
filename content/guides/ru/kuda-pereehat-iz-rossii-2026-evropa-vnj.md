@@ -67,7 +67,7 @@ date_modified: 2026-07-09
 
 Испания ужесточила, но сохранила привлекательные маршруты: **digital nomad visa** (доход от иностранных источников), **non-lucrative** (без права работы в Испании), **highly qualified professional**. Мадрид и Барселона — дороже Лиссабона; регионы (Валенсия, Андалусия) — мягче по жизни.
 
-Сравнение nomad-маршрутов: [отдельный гайд Portugal vs Spain vs Italy](/ru/guides/digital-nomad-portugaliya-ispaniya-italiya-2026).
+Сравнение nomad-маршрутов: [сравнение Digital Nomad Европы](/ru/guides/digital-nomad-vizy-evropy-sravnenie-2026).
 
 ---
 
@@ -75,7 +75,7 @@ date_modified: 2026-07-09
 
 Для граждан РФ **рабочий маршрут** — один из самых устойчивых: Chancenkarte (поиск работы на месте) или Blue Card при оффере. Немецкий язык не всегда обязателен в IT, но сильно повышает шансы. Семья часто едет по dependent permit.
 
-[Германия Blue Card и Chancenkarte 2026](/ru/guides/germaniya-blue-card-chancenkarte-2026-sng).
+[Германия Blue Card и Chancenkarte 2026](/ru/guides/vnj-germaniya-2026).
 
 ---
 

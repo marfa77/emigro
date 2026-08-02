@@ -8,7 +8,7 @@ export const PILLAR_GUIDE_SLUGS = [
   "belorusy-v-evropu-vnj-2026",
   "vnj-ispaniya-2026",
   "vnj-germaniya-2026",
-  "digital-nomad-portugaliya-ispaniya-italiya-2026",
+  "digital-nomad-vizy-evropy-sravnenie-2026",
   "kazahstantsy-v-evropu-vnj-2026",
   "relokatsiya-s-detmi-evropa-shkoly-vnj-2026",
   "gde-rozhat-rebenka-dlya-pasporta-2026",
@@ -19,7 +19,7 @@ export const PILLAR_GUIDE_SLUGS = [
   "bali-indoneziya-dlya-rossiyan-2026",
   "oae-dlya-rossiyan-2026",
   "chernogoriya-vnj-dlya-rossiyan-2026",
-  "germaniya-blue-card-chancenkarte-2026-sng",
+  "rabota-v-evrope-dlya-rossiyan-2026",
   "vnj-norvegiya-2026",
   "vnj-shvetsiya-2026-work-permit-grazhdanstvo",
 ] as const;

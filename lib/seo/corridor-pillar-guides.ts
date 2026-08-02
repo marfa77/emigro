@@ -14,7 +14,7 @@ export const CORRIDOR_PILLAR_GUIDES: Record<
     anchor: "D8 и D7 Португалия 2026 — полный гид + практика AIMA",
   },
   germany: {
-    slug: "germaniya-blue-card-chancenkarte-2026-sng",
+    slug: "vnj-germaniya-2026",
     anchor: "EU Blue Card и Chancenkarte 2026",
   },
   italy: {

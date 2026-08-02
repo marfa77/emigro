@@ -109,7 +109,7 @@ const SLUG_COUNTRY_KEY: Record<string, string> = {
   "vnj-portugaliya-d8-d7-grazhdanstvo-2026": "portugal",
   "portugaliya-vs-ispaniya-vnj-2026": "portugal",
   "grazhdanstvo-portugaliya-ispaniya-2026": "portugal",
-  "digital-nomad-portugaliya-ispaniya-italiya-2026": "portugal",
+  "digital-nomad-vizy-evropy-sravnenie-2026": "portugal",
   "vnj-ispaniya-2026": "spain",
   "vnj-frantsiya-2026-passeport-talent": "france",
   "pervye-30-dnej-v-portugalii-2026": "portugal",

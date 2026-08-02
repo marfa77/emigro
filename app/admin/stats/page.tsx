@@ -221,8 +221,13 @@ export default async function AdminStatsPage() {
             </section>
 
             <div className="grid gap-6 md:grid-cols-2">
-              <TopList title="Топ страниц сегодня" rows={report.topPagesToday} />
-              <TopList title="Топ страниц всего" rows={report.topPagesAll} />
+              <TopList title="Топ из поиска сегодня" rows={report.topPagesSearchToday} />
+              <TopList title="Топ из LLM сегодня" rows={report.topPagesLlmToday} />
+              <TopList title="LLM-источники сегодня" rows={report.llmSourcesToday} />
+              <TopList title="Каналы сегодня (сессии)" rows={report.channelMixToday} />
+              <TopList title="Топ поиск+LLM всего" rows={report.topPagesDiscoveryAll} />
+              <TopList title="Топ страниц сегодня (все источники)" rows={report.topPagesToday} />
+              <TopList title="Топ страниц всего (все источники)" rows={report.topPagesAll} />
               <TopList title="Referrer сегодня" rows={report.topReferrersToday} />
               <TopList title="UTM source сегодня" rows={report.topUtmToday} />
               <TopList
@@ -261,7 +266,8 @@ export default async function AdminStatsPage() {
                       </span>
                       <div className="mt-1 truncate text-slate-800">{s.pagePath ?? "—"}</div>
                       <div className="mt-0.5 text-xs text-slate-500">
-                        {[s.country, s.llm, s.referrer].filter(Boolean).join(" · ") || "direct"}
+                        {[s.country, s.llm || s.channel, s.referrer].filter(Boolean).join(" · ") ||
+                          "direct"}
                       </div>
                     </li>
                   ))}

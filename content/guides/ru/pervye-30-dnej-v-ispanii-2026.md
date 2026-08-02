@@ -208,7 +208,7 @@ date_modified: 2026-07-12
 
 - [ВНЖ Испания 2026](/ru/guides/vnj-ispaniya-2026)
 - [Португалия vs Испания](/ru/guides/portugaliya-vs-ispaniya-vnj-2026)
-- [Digital nomad сравнение](/ru/guides/digital-nomad-portugaliya-ispaniya-italiya-2026)
+- [Digital nomad сравнение](/ru/guides/digital-nomad-vizy-evropy-sravnenie-2026)
 - [Коридор Испания](/ru/spain) · [wizard](/ru/spain/wizard)
 
 *Не юридическая консультация. Сроки extranjería меняются — проверяйте sede.administracionespublicas.gob.es.*

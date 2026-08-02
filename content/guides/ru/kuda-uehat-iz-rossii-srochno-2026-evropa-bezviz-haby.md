@@ -59,7 +59,7 @@ date_modified: 2026-07-29
 
 - [куда переехать из России в Европу 2026](/ru/guides/kuda-pereehat-iz-rossii-2026-evropa-vnj);
 - [ВНЖ без работы: пассивный доход и сбережения](/ru/guides/vnj-bez-raboty-passivnyy-dohod-sberezheniya-2026);
-- [Германия Blue Card и Chancenkarte](/ru/guides/germaniya-blue-card-chancenkarte-2026-sng).
+- [Германия Blue Card и Chancenkarte](/ru/guides/vnj-germaniya-2026).
 
 ### 2. Безвизовый или условно простой хаб
 
@@ -134,9 +134,9 @@ Emigro не заменяет адвоката по asylum/protection. Мы мо�
 
 | Профиль | Реалистичный коридор | Куда читать дальше |
 |---------|----------------------|--------------------|
-| Удалённая работа, доход из-за рубежа | Португалия D8, Испания digital nomad | [digital nomad PT/ES/IT](/ru/guides/digital-nomad-portugaliya-ispaniya-italiya-2026) |
+| Удалённая работа, доход из-за рубежа | Португалия D8, Испания digital nomad | [Digital Nomad Европы](/ru/guides/digital-nomad-vizy-evropy-sravnenie-2026) |
 | Пассивный доход, пенсия, аренда | Португалия D7, Испания non-lucrative, Италия elective | [ВНЖ без работы](/ru/guides/vnj-bez-raboty-passivnyy-dohod-sberezheniya-2026) |
-| Оффер в ЕС | Германия Blue Card, Франция talent, Нидерланды HSM | [Германия Blue Card](/ru/guides/germaniya-blue-card-chancenkarte-2026-sng) |
+| Оффер в ЕС | Германия Blue Card, Франция talent, Нидерланды HSM | [Германия Blue Card](/ru/guides/vnj-germaniya-2026) |
 | Нет дохода, но есть бюджет на обучение | Student visa | [учебная виза в Европу](/ru/guides/uchebnaya-viza-v-evropu-2026-student-visa) |
 | Семья уже в ЕС | Воссоединение семьи | [воссоединение семьи](/ru/guides/vossoedinenie-semi-evropa-2026) |
 

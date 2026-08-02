@@ -180,7 +180,7 @@ date_modified: 2026-07-07
 ## Связанные материалы
 
 - [ВНЖ Германия 2026](/ru/guides/vnj-germaniya-2026)
-- [Blue Card vs Chancenkarte](/ru/guides/germaniya-blue-card-chancenkarte-2026-sng)
+- [Blue Card vs Chancenkarte](/ru/guides/vnj-germaniya-2026)
 - [Коридор Германия](/ru/germany) · [wizard](/ru/germany/wizard)
 
 *Не юридическая консультация. Сроки Ausländerbehörde меняются — проверяйте make-it-in-germany.com.*

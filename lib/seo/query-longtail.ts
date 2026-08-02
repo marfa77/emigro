@@ -119,17 +119,18 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "ВНЖ digital nomad (teletrabajo) в Испании 2026: доход от €2 849/мес, до 20% из ES, медстраховка, сроки подачи. Для паспортов RU/BY/UA/KZ.",
   },
   {
-    path: "/ru/guides/digital-nomad-portugaliya-ispaniya-italiya-2026",
-    guideSlug: "digital-nomad-portugaliya-ispaniya-italiya-2026",
+    path: "/ru/guides/digital-nomad-vizy-evropy-sravnenie-2026",
+    guideSlug: "digital-nomad-vizy-evropy-sravnenie-2026",
     primaryQuery: "digital nomad европа 2026 сравнение",
     queries: [
+      "digital nomad визы европа сравнение 2026",
       "digital nomad португалия испания италия 2026",
       "digital nomad испания vs португалия 2026",
       "куда переехать digital nomad европа 2026",
     ],
-    seoTitle: "DN PT vs ES vs IT 2026 — €2 849 vs €3 680",
+    seoTitle: "Digital Nomad визы Европы 2026 — полное сравнение",
     seoDescription:
-      "Сравнение digital nomad 2026: Испания €2 849/мес vs Португалия D8 €3 680 vs Италия. Налоги, сроки ВНЖ, гражданство — для граждан РФ и СНГ.",
+      "Сравнение Digital Nomad 2026: PT D8, ES, IT, GR, HR, MT, HU, CY и др. Пороги, налоги, ПМЖ, матрица RU/UA/BY/KZ.",
   },
   // —— Germany ——
   {
@@ -141,17 +142,18 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "Blue Card и Chancenkarte Германия 2026: пороги €50 700 / €45 934, документы, ПМЖ за 21–27 мес. Wizard и программы для паспортов RU/BY/UA/KZ.",
   },
   {
-    path: "/ru/guides/germaniya-blue-card-chancenkarte-2026-sng",
-    guideSlug: "germaniya-blue-card-chancenkarte-2026-sng",
-    primaryQuery: "миграция через blue card eu",
+    path: "/ru/guides/vnj-germaniya-2026",
+    guideSlug: "vnj-germaniya-2026",
+    primaryQuery: "внж германия 2026",
     queries: [
-      "миграция через blue card eu",
-      "germany blue card 2026 для россиян",
+      "внж германия 2026",
+      "blue card германия 2026 для россиян",
       "chancenkarte германия 2026",
+      "миграция через blue card eu",
     ],
-    seoTitle: "EU Blue Card Германия 2026 — работа для СНГ",
+    seoTitle: "ВНЖ Германия 2026 — Blue Card, Chancenkarte, §21",
     seoDescription:
-      "EU Blue Card и Chancenkarte 2026: пороги зарплаты, документы, IT без диплома, Chancenkarte. Легальный ВНЖ через работу для граждан РФ, BY, UA, KZ.",
+      "Все пути ВНЖ Германия 2026: Blue Card €50 700/€45 934, Chancenkarte, фриланс §21, семья, ПМЖ 21–27 мес. Для RU/BY/UA/KZ.",
   },
   {
     path: "/ru/germany/programs/germany-eu-blue-card",
@@ -292,10 +294,12 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "сидн россия грузия действует",
       "медстраховка грузия 2026",
       "work permit грузия 2026",
+      "внж грузия недвижимость 150000",
+      "it residence permit грузия",
     ],
-    seoTitle: "Грузия для россиян 2026 — въезд, ВНЖ, СИДН с РФ",
+    seoTitle: "Грузия для россиян 2026 — ВНЖ $150k, IT permit, СИДН",
     seoDescription:
-      "Грузия 2026: обязательная медстраховка на въезд, work permit с 1.03, ВНЖ, банки. СИДН Россия–Грузия не ратифицировано — двойное налогообложение возможно.",
+      "Грузия 2026: медстраховка на въезд, work permit с 1.03, ВНЖ по недвижимости от $150 000, IT Residence Permit $25k/год. СИДН с РФ не действует.",
   },
 ];
 

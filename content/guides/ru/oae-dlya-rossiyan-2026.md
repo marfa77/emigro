@@ -342,7 +342,7 @@ App → тип счёта → паспорт + виза → видеозвоно
 
 ОАЭ удобны для: спокойного досье (апостиль, переводы), консульских рейсов в Лиссабон / Мадрид / Берлин / Париж / Вену, накопления runway при 0% PIT.
 
-Типичная связка: **6–18 мес. в ОАЭ** → [D8/D7 Португалия](/ru/guides/vnj-portugaliya-d8-d7-grazhdanstvo-2026), [DN Испания](/ru/guides/vnj-ispaniya-2026), [Blue Card / Chancenkarte](/ru/guides/germaniya-blue-card-chancenkarte-2026-sng). Обзор стран: [куда переехать](/ru/guides/kuda-pereehat-iz-rossii-2026-evropa-vnj).
+Типичная связка: **6–18 мес. в ОАЭ** → [D8/D7 Португалия](/ru/guides/vnj-portugaliya-d8-d7-grazhdanstvo-2026), [DN Испания](/ru/guides/vnj-ispaniya-2026), [Blue Card / Chancenkarte](/ru/guides/vnj-germaniya-2026). Обзор стран: [куда переехать](/ru/guides/kuda-pereehat-iz-rossii-2026-evropa-vnj).
 
 ---
 
