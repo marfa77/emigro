@@ -103,9 +103,8 @@ export default function StoryPage({ params }: { params: { slug: string } }) {
               </span>
             ) : null}
           </p>
-          <p className="mt-4 rounded-xl border border-amber-200 bg-amber-50/80 px-4 py-3 text-sm leading-relaxed text-amber-950">
-            Личный опыт автора. Это не юридическая консультация и не официальная позиция Emigro по порогам и срокам —
-            сверяйте факты с гайдами и первоисточниками.
+          <p className="mt-4 text-xs leading-relaxed text-slate-500">
+            Личный опыт автора · не юридическая консультация · цифры и сроки у вас могут отличаться
           </p>
           <div className="mt-4">
             <ShareButtons url={url} title={story.title} />
