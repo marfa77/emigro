@@ -170,6 +170,28 @@ export default function CommunityPage() {
           </dl>
         </section>
 
+        <section className="mt-14 rounded-2xl border border-corridor-200 bg-gradient-to-br from-white via-corridor-50 to-sky-50 p-6 sm:p-8">
+          <h2 className="text-xl font-semibold text-slate-900">Истории на сайте</h2>
+          <p className="mt-2 text-sm leading-relaxed text-slate-600">
+            Короткий кейс или контрапункт к гайду — публикуем после модерации с вашим именем и ссылкой. Уже есть четыре
+            затравки: успех, провал, спор и лайфхак.
+          </p>
+          <div className="mt-4 flex flex-wrap gap-2">
+            <Link
+              href="/ru/stories"
+              className="inline-flex rounded-full bg-corridor-700 px-4 py-2.5 text-sm font-medium text-white hover:bg-corridor-800"
+            >
+              Читать истории
+            </Link>
+            <Link
+              href="/ru/stories/submit"
+              className="inline-flex rounded-full border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-slate-800 hover:bg-slate-50"
+            >
+              Отправить свою
+            </Link>
+          </div>
+        </section>
+
         <section className="mt-14">
           <h2 className="text-2xl font-semibold text-slate-900">Гайды для шаринга в Telegram</h2>
           <p className="mt-2 max-w-2xl text-sm leading-relaxed text-slate-600">

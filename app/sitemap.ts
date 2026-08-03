@@ -2,6 +2,8 @@ import type { MetadataRoute } from "next";
 import { corridorDigestPath, corridorLandingPath, corridorWizardPath, programPath } from "@/lib/corridor/paths";
 import { getCorridorBySlug, getProgramsBySlugs } from "@/lib/corridor/queries";
 import { guidePath, listGuides } from "@/lib/guides/load";
+import { listStories } from "@/lib/stories/load";
+import { storyPath, STORIES_INDEX_PATH } from "@/lib/stories/paths";
 import { getPublishedNewsDigests } from "@/lib/news/digests";
 import { getActiveNewsTopics } from "@/lib/news/topics";
 import {
@@ -33,6 +35,7 @@ async function buildWwwSitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${origin}/ru/wizard`, changeFrequency: "monthly", priority: 0.95 },
     { url: `${origin}${ORIGIN_HUB_PATH}`, changeFrequency: "weekly", priority: 0.92 },
     { url: `${origin}/ru/guides`, changeFrequency: "weekly", priority: 0.9 },
+    { url: `${origin}${STORIES_INDEX_PATH}`, changeFrequency: "weekly", priority: 0.8 },
     { url: `${origin}/ru/community`, changeFrequency: "monthly", priority: 0.75 },
     { url: `${origin}/ru/ukraine`, changeFrequency: "monthly", priority: 0.82 },
     { url: newsHubUrl(), changeFrequency: "daily", priority: 0.9 },
@@ -148,6 +151,15 @@ async function buildWwwSitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.85,
   }));
 
+  const storyRoutes: MetadataRoute.Sitemap = listStories().map((story) => ({
+    url: `${origin}${storyPath(story.slug)}`,
+    ...(story.date_modified || story.date_published
+      ? { lastModified: new Date((story.date_modified || story.date_published)!).toISOString() }
+      : {}),
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
   // Satellite note URLs live on portugal./spain.emigro.online — listed only in those hosts' sitemaps.
   return [
     ...staticRoutes,
@@ -155,6 +167,7 @@ async function buildWwwSitemap(): Promise<MetadataRoute.Sitemap> {
     ...corridorRoutes,
     ...programRoutes,
     ...guideRoutes,
+    ...storyRoutes,
     ...newsRoutes,
   ];
 }

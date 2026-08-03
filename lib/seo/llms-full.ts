@@ -97,6 +97,7 @@ ${buildProgramIndexTable()}
 - ${llmMarkdownLink("Хаб", "/ru")}
 - ${llmMarkdownLink("Глобальный wizard", "/ru/wizard")}
 - ${llmMarkdownLink(`SEO-гайды (${guides.length}+ pillar-статей)`, "/ru/guides")}
+- ${llmMarkdownLink("Истории читателей (курируемые кейсы)", "/ru/stories")}
 - ${llmMarkdownLink("Новости", "/ru/news")}
 - Новости по стране: /ru/news?country=portugal|spain|france|italy|germany|netherlands|sweden|norway|finland|denmark|poland|czechia|austria|greece|cyprus|hungary|malta|bulgaria|croatia|slovenia|estonia
 - ${llmMarkdownLink("Хаб для граждан Украины", "/ru/ukraine")}
@@ -199,6 +200,7 @@ export async function buildLlmsFullText(): Promise<string> {
     row("/ru", "Главная — хаб всех коридоров и транзитных направлений"),
     row("/ru/wizard", "Глобальный wizard подбора страны и маршрута ВНЖ"),
     row("/ru/guides", `SEO-гайды (${guides.length} pillar-статей по ВНЖ, хабам, бюджету)`),
+    row("/ru/stories", "Курируемые истории читателей о релокации"),
     row("/ru/news", "Еженедельные новости по всем странам"),
     row("/ru/community", "Сообщество релокантов Emigro"),
     row("/ru/partners", "Партнёры и сервисы на маршруте"),

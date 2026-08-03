@@ -34,6 +34,9 @@ import { GuideOriginHubPromo } from "@/components/guides/GuideOriginHubPromo";
 import { GuideCorridorLiveData } from "@/components/guides/GuideCorridorLiveData";
 import { GuideOfficialSources } from "@/components/guides/GuideOfficialSources";
 import { GuideFeedbackButtons } from "@/components/guides/GuideFeedbackButtons";
+import { GuideRelatedStories } from "@/components/stories/GuideRelatedStories";
+import { GuideStoriesCta } from "@/components/stories/GuideStoriesCta";
+import { countStoriesForGuide, listStoriesForGuide } from "@/lib/stories/load";
 import { getClusterForGuide, getComparisonCrossLinks } from "@/lib/seo/cluster-links";
 import { getGuideAudiences } from "@/lib/guides/categories";
 import { ORIGIN_HUB_PATH } from "@/lib/seo/corridor-llm-layer";
@@ -434,6 +437,15 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
               path={guidePath(guide.slug)}
               className="mt-8"
             />
+
+            <GuideRelatedStories
+              stories={listStoriesForGuide(guide.slug, 3)}
+              totalCount={countStoriesForGuide(guide.slug)}
+              guideSlug={guide.slug}
+              className="mt-8"
+            />
+
+            <GuideStoriesCta guideSlug={guide.slug} className="mt-8" />
 
             {showUniPrepHub ? (
               <UniPrepCitizenshipHubPromo

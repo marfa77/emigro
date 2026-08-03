@@ -22,6 +22,7 @@ export type EmigroEventName =
   | "partner_inquiry_submitted"
   | "community_join_click"
   | "guide_feedback"
+  | "story_submitted"
   | "cron_weekly_news"
   | "cron_weekly_news_error"
   | "cron_prep2go_news"

@@ -1,7 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { AlertTriangle, Check, Loader2, ThumbsUp } from "lucide-react";
+import { storySubmitPath } from "@/lib/stories/paths";
 
 type GuideFeedbackButtonsProps = {
   slug: string;
@@ -61,6 +63,18 @@ export function GuideFeedbackButtons({ slug, title, path, className = "" }: Guid
             ? "Спасибо — отметили, что гайд полезен."
             : "Спасибо — сигнал об устаревшей информации отправлен."}
         </p>
+        {sentKind === "outdated" ? (
+          <p className="mt-3 leading-relaxed text-emerald-900/90">
+            Если у вас есть 10 минут — напишите краткую историю, что изменилось. Опубликуем как дополнение к гайду с
+            вашим именем.{" "}
+            <Link
+              href={storySubmitPath({ guide: slug, disagree: true })}
+              className="font-semibold underline decoration-emerald-700/40 underline-offset-2 hover:decoration-emerald-900"
+            >
+              Добавить мою версию событий
+            </Link>
+          </p>
+        ) : null}
       </section>
     );
   }
