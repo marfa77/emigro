@@ -18,6 +18,10 @@ official_sources:
     label: Make it in Germany
   - url: https://www.inclusion.gob.es/
     label: Испания — миграция
+  - url: https://ind.nl/en/news/fees-and-required-amounts-for-2026-known
+    label: IND — пороги HSM / Blue Card 2026
+  - url: https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000052158121
+    label: Франция — arrêté 21.08.2025 (Talent / Carte Bleue)
 estimated_minutes: 16
 date_published: 2026-06-25
 date_modified: 2026-08-04
