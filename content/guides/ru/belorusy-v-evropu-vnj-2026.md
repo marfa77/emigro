@@ -1,10 +1,10 @@
 ---
 slug: belorusy-v-evropu-vnj-2026
 title: "Белорусы в Европе 2026: ВНЖ без временной защиты — маршруты и консульства"
-seo_title: "Белорусы ВНЖ Европа 2026 — без TP"
-seo_description: "ВНЖ в Европе для белорусов 2026: нет TP, подача через Польшу и Чехию. Work permit, EU Blue Card, B2B IT, D7/D8. Консульства и санкции."
+seo_title: "Белорусы ВНЖ Европа 2026 — без TP, Польша первым шагом"
+seo_description: "BY без temporary protection: work permit/Blue Card PL, employee card CZ, D7/D8 PT. Консульства Варшава/Вильнюс — сравните в /ru/wizard."
 excerpt: "BY-паспорт — отдельная аудитория: нет TP, другая консульская карта, часто Польша как первый EU-шаг. Разбор реалистичных маршрутов ВНЖ в 2026."
-quick_answer: "Гражданам Беларуси temporary protection EU не положена — только классические маршруты ВНЖ (работа, учёба, семья, D7/D8). Консульская практика для BY отличается от РФ: часто подача через Варшаву, Вильнюс, Ригу или «третьи страны». Топ-маршруты 2026: Польша (work permit / Blue Card / B2B IT), Чехия (employee card), Португалия D7/D8, Германия Blue Card. Wizard Emigro учитывает passport_iso2=BY отдельно от RU."
+quick_answer: "Гражданам Беларуси temporary protection EU не положена — только классические маршруты ВНЖ (работа, учёба, семья, D7/D8). Консульская практика для BY отличается от РФ: часто подача через Варшаву, Вильнюс, Ригу или «третьи страны». Топ-маршруты 2026: Польша (work permit / Blue Card / B2B IT), Чехия (employee card), Португалия D7/D8, Германия Blue Card. Сравните с passport_iso2=BY в /ru/wizard — отдельно от RU и UA."
 corridor_slugs: [ru-speaking-to-poland, ru-speaking-to-czechia, ru-speaking-to-portugal, ru-speaking-to-germany]
 topic_keys: [poland, czechia, portugal, germany, europe]
 tags: ["Беларусь", "ВНЖ", "Европа", "2026"]
@@ -20,11 +20,11 @@ official_sources:
     label: Germany EU Blue Card
   - url: https://www.aima.gov.pt/
     label: AIMA Portugal
-  - url: https://ec.europa.eu/info/strategy/priorities-2019-2024/stand-europeans/ukraine_en
-    label: EU — Temporary protection (UA only)
+  - url: https://home-affairs.ec.europa.eu/policies/migration-and-asylum/common-european-asylum-system/temporary-protection_en
+    label: EU — Temporary protection (UA context)
 estimated_minutes: 16
 date_published: 2026-06-27
-date_modified: 2026-07-12
+date_modified: 2026-08-04
 ---
 
 ## Прямой ответ
@@ -174,14 +174,17 @@ PL — больше русскоязычной инфраструктуры и B
 
 ---
 
-## Связанные материалы
+## Связанные материалы (кластер BY → EU)
 
-- [ВНЖ Польша 2026 — work permit и Blue Card](/ru/guides/vnj-polsha-2026)
-- [ВНЖ Германия 2026 — Blue Card и Chancenkarte](/ru/guides/vnj-germaniya-2026)
-- [Куда переехать из России 2026 — обзор EU-маршрутов](/ru/guides/kuda-pereehat-iz-rossii-2026-evropa-vnj)
-- [TP vs ВНЖ (UA + BY контекст)](/ru/guides/ukraintsy-belorusy-vremennaya-zashchita-vs-vnj-2026)
-- [Коридор Польша](/ru/poland) · [Коридор Чехия](/ru/czechia) · [Коридор Португалия](/ru/portugal)
-- [Консульская юрисдикция](/ru/guides/konsulskaya-podacha-rf-by-kz-2026-yurisdiktsiya)
-- [Hub wizard](/ru/wizard)
+| Тема | Куда |
+|------|------|
+| Польша — главный первый шаг | [ВНЖ Польша 2026](/ru/guides/vnj-polsha-2026) · [/ru/poland/wizard](/ru/poland/wizard) |
+| Чехия — альтернатива PL | [ВНЖ Чехия 2026](/ru/guides/vnj-chehiya-2026) · [/ru/czechia/wizard](/ru/czechia/wizard) |
+| Доход / деньги для консульства | [Подтвердить доход из РФ/СНГ](/ru/guides/podtverdit-dohod-dengi-dlya-vnj-esli-dohod-iz-rossii-2026) |
+| TP vs ВНЖ (не путать с UA) | [Украинцы и белорусы: TP vs ВНЖ](/ru/guides/ukraintsy-belorusy-vremennaya-zashchita-vs-vnj-2026) |
+| Консульская юрисдикция | [Подача РФ/BY/KZ](/ru/guides/konsulskaya-podacha-rf-by-kz-2026-yurisdiktsiya) |
+| Германия / обзор EU | [ВНЖ Германия](/ru/guides/vnj-germaniya-2026) · [Куда переехать 2026](/ru/guides/kuda-pereehat-iz-rossii-2026-evropa-vnj) |
+| Коридоры | [/ru/poland](/ru/poland) · [/ru/czechia](/ru/czechia) · [/ru/portugal](/ru/portugal) |
+| Hub wizard (passport=BY) | [/ru/wizard](/ru/wizard) |
 
 *Не юридическая консультация. Санкции и консульская практика меняются — проверяйте официальные источники.*
