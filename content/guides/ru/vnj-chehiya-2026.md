@@ -1,16 +1,16 @@
 ---
 slug: vnj-chehiya-2026
 title: "ВНЖ Чехия 2026: employee card, Blue Card и živnost для RU/UA/BY/KZ"
-seo_title: "ВНЖ Чехия 2026 — employee card, Blue Card, živnost"
-seo_description: "ВНЖ в Чехии 2026: employee card, EU Blue Card, živnost для IT, studia и семья. Пороги зарплат MOI/MPSV, сроки для RU/UA/BY/KZ."
+seo_title: "ВНЖ Чехия 2026 — employee card и Blue Card пороги"
+seo_description: "ВНЖ Чехия 2026 для RU/UA/BY/KZ: employee card от CZK 22 400, Blue Card CZK 73 823 с 01.05.2026, živnost IT. Сроки MOI и wizard."
 excerpt: "Чехия — Prague и Brno для IT: employee card, Blue Card, živnost и учёба — с порогами зарплат и сроками MOI 2026."
-quick_answer: "Основные маршруты: (1) employee card от чешского работодателя (от ~€900/мес брутто), (2) EU Blue Card при дипломе и ~€2 900+/мес (CZK 73 823 с 01.05.2026), (3) živnost (OSVČ) для IT от ~€2 500/мес, (4) studia, (5) воссоединение. ПМЖ (trvalý pobyt) — 5 лет legal stay; гражданство — 5 лет на ПМЖ + B1 чешский."
+quick_answer: "Основные маршруты: (1) employee card от чешского работодателя (мин. CZK 22 400/мес брутто), (2) EU Blue Card при дипломе и CZK 73 823/мес (~€2 900 с 01.05.2026), (3) živnost (OSVČ) для IT от ориентира €2 500/мес, (4) studia, (5) семья. ПМЖ (trvalý pobyt) — 5 лет legal stay; гражданство — 5 лет на ПМЖ + B1 чешский. Сравните CZ vs PL в /ru/czechia/wizard или hub /ru/wizard."
 corridor_slugs: [ru-speaking-to-czechia]
 topic_keys: [czechia, work, visa]
 tags: [Чехия, ВНЖ, Blue Card, živnost, employee card, 2026, CZ]
 primary_intent: informational
 cta_primary: /ru/czechia/wizard
-cta_secondary: /ru/czechia
+cta_secondary: /ru/wizard
 official_sources:
   - url: https://imigration.gov.cz/en/third-country-nationals/employment/employee-card/
     label: MOI — employee card
@@ -22,7 +22,7 @@ official_sources:
     label: IPC — portal for foreigners (CZ)
 estimated_minutes: 18
 date_published: 2026-06-29
-date_modified: 2026-07-07
+date_modified: 2026-08-04
 ---
 
 ## Кому подходит этот гайд
@@ -271,12 +271,15 @@ Hub wizard: [/ru/wizard](/ru/wizard).
 
 Материал подготовлен редакцией Emigro. Это **не** юридическая консультация. Пороги MOI/MPSV меняются — сверяйтесь с [imigration.gov.cz](https://imigration.gov.cz/en/) на дату подачи.
 
-## Связанные гайды
+## Связанные гайды (кластер CZ / CEE)
 
 | Тема | Гайд |
 |------|------|
 | Первые 30 дней | [IČO, pojištění, banka](/ru/guides/pervye-30-dnej-v-chehii-2026) |
-| Польша | [ВНЖ Польша 2026](/ru/guides/vnj-polsha-2026) |
+| Польша (сравнение) | [ВНЖ Польша 2026](/ru/guides/vnj-polsha-2026) |
+| Белорусы → EU | [Белорусы ВНЖ без TP](/ru/guides/belorusy-v-evropu-vnj-2026) |
+| Казахстан → EU | [KZ: виза и маршруты](/ru/guides/kazahstantsy-v-evropu-vnj-2026) |
+| Доход из РФ | [Подтвердить доход / деньги](/ru/guides/podtverdit-dohod-dengi-dlya-vnj-esli-dohod-iz-rossii-2026) |
 | Украина | [UA → ЕС маршруты](/ru/guides/ukraina-evropa-vnj-marshruty-2026) |
-| BY | [Белорусы в Европу](/ru/guides/belorusy-v-evropu-vnj-2026) |
 | Консульства | [Подача РФ/BY/KZ](/ru/guides/konsulskaya-podacha-rf-by-kz-2026-yurisdiktsiya) |
+| Hub wizard | [/ru/wizard](/ru/wizard) · [/ru/czechia/wizard](/ru/czechia/wizard) |

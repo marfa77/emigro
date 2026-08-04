@@ -1,16 +1,16 @@
 ---
 slug: vnj-polsha-2026
 title: "ВНЖ Польша 2026: work permit, Blue Card и B2B для RU/UA/BY/KZ"
-seo_title: "ВНЖ Польша 2026 — work permit, Blue Card, B2B IT"
-seo_description: "ВНЖ в Польше 2026: work permit Type A, EU Blue Card, B2B/zlecenie для IT, студенты и семья. Пороги зарплат, karta pobytu, сроки для RU/UA/BY/KZ."
+seo_title: "ВНЖ Польша 2026 — work permit, Blue Card, сроки"
+seo_description: "ВНЖ Польша 2026 для RU/UA/BY/KZ: Type A от PLN 4 806, Blue Card ~€3 020/мес, B2B IT. Сроки по этапам: консульство, карта pobytu, Варшава."
 excerpt: "Польша — главный коридор для русскоязычных в Центральную Европу: work permit, Blue Card, B2B IT, учёба и воссоединение семьи — с порогами и сроками 2026."
-quick_answer: "Основные маршруты: (1) work permit Type A + karta pobytu czasowego (от **PLN 4 806/мес брутто**, ~€1 113), (2) EU Blue Card (~€3 020+/мес), (3) B2B/zlecenie IT (~€2 500/мес), (4) studia, (5) семья. **Реалистично 2026:** D-виза в консульстве **3–6 мес.**; karta pobytu **6–18 мес.** (Варшава **12–18+**, Краков **6–12**; по UoC до 60 дн./3 мес.). ПМЖ — 5 лет pobyt; гражданство — **1 год** на ПМЖ по Karcie Polaka, **3 года** на ПМЖ (общее упрощённое, без Karty Polaka) или **10 лет** legal stay; решение wojewoda **15–30 мес.**"
+quick_answer: "Основные маршруты: (1) work permit Type A + карта pobytu czasowego (от PLN 4 806/мес брутто, ~€1 113), (2) EU Blue Card (~€3 020+/мес), (3) B2B/zlecenie IT (~€2 500/мес), (4) studia, (5) семья. Реалистично 2026 по этапам: слот и D-виза в консульстве 3–6 мес.; решение и выдача карты pobytu 6–18 мес. (Варшава 12–18+, Краков 6–12; UoC до 60 дн./3 мес.). ПМЖ — 5 лет; гражданство — 1 год на ПМЖ по Karcie Polaka, 3 года на ПМЖ (упрощённое) или 10 лет legal stay; решение wojewoda по гражданству 15–30 мес. Сравните в /ru/poland/wizard."
 corridor_slugs: [ru-speaking-to-poland]
 topic_keys: [poland, work, visa]
 tags: [Польша, ВНЖ, Blue Card, work permit, B2B, 2026, PL]
 primary_intent: informational
 cta_primary: /ru/poland/wizard
-cta_secondary: /ru/poland
+cta_secondary: /ru/wizard
 official_sources:
   - url: https://www.gov.pl/web/udsc-en/temporary-residence-permit-for-work
     label: gov.pl — pobyt для работы
@@ -24,7 +24,7 @@ official_sources:
     label: gov.pl — воссоединение семьи
 estimated_minutes: 18
 date_published: 2026-06-29
-date_modified: 2026-07-28
+date_modified: 2026-08-04
 ---
 
 ## Кому подходит этот гайд
@@ -130,7 +130,7 @@ date_modified: 2026-07-28
 ### Минусы
 - Строже к диплому и должности, чем B2B/zlecenie
 - Voivodeship может запросить nostrification диплoma (признание)
-- **Реалистично 2026:** решение **8–18 мес.** (Варшава **12–18+**); слоты на **биометрию** в Mazowieckie/Małopolskie — **2–4 мес.** ожидания до подачи (по UoC до 3 мес.)
+- **Реалистично 2026 (этапы, не один срок):** слот на биометрию в Mazowieckie/Małopolskie — **2–4 мес.** ожидания до подачи; решение и выдача карты — **6–18 мес.** суммарно (Варшава **12–18+**; по UoC до 3 мес.)
 
 ---
 

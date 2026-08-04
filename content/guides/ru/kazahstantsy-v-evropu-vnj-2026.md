@@ -1,10 +1,10 @@
 ---
 slug: kazahstantsy-v-evropu-vnj-2026
 title: "Казахстан → Европа 2026: ВНЖ для граждан KZ — визы, маршруты, консульства"
-seo_title: "Казахстан → Европа 2026 — ВНЖ для граждан KZ"
-seo_description: "Гайд для граждан Казахстана: шенгенская и национальная виза D, консульская подача из KZ vs РФ, Blue Card Германия, D8 Португалия, DNV Испания, work permit Польша. 2026."
+seo_title: "Казахстан → Европа 2026 — виза и ВНЖ без безвиза"
+seo_description: "KZ → EU 2026: нет безвиза в Шенген; подача из Алматы/Астаны. Blue Card DE, D8 PT, DNV ES, work permit PL — сравните в wizard."
 excerpt: "Граждане KZ въезжают в Шенген по визе — безвизового режима нет. Разбор реалистичных путей к ВНЖ в 2026: Германия, Португалия, Испания, Польша."
-quick_answer: "Паспорт KZ не даёт безвиз в Шенген — для въезда в EU нужна шенгенская виза (C) или национальная виза D под ВНЖ. Топ-маршруты 2026: Germany EU Blue Card (€45 934+), Portugal D8 (€3 680/мес), Spain DNV (~€2 849/мес), Poland work permit / EU Blue Card. Плюс KZ: часто можно подавать из Алматы/Астаны без «третьей страны», как для РФ. Wizard Emigro учитывает passport_iso2=KZ."
+quick_answer: "Паспорт KZ не даёт безвиз в Шенген — нужна виза C или national D под ВНЖ. Топ-маршруты 2026: Germany EU Blue Card (порог shortage около €45 934 в год брутто); Portugal D8 и Spain DNV — отдельные месячные пороги в гайдах PT/ES; Poland work permit / Blue Card. Плюс KZ: часто подача из Алматы/Астаны без «третьей страны». Сравните программы в /ru/wizard с passport_iso2=KZ."
 corridor_slugs: [ru-speaking-to-germany, ru-speaking-to-portugal, ru-speaking-to-spain, ru-speaking-to-poland]
 topic_keys: [kazakhstan, germany, portugal, spain, poland, europe, visa, work]
 tags: [Казахстан, KZ, ВНЖ, Европа, 2026, Blue Card, D8, Шенген, виза]
@@ -16,13 +16,13 @@ official_sources:
     label: EU — Schengen visa policy
   - url: https://www.make-it-in-germany.com/en/visa-residence/types/eu-blue-card
     label: Germany EU Blue Card
-  - url: https://www.imigrante.sef.pt/en/s/arrival/residence-visa/
-    label: AIMA / SEF Portugal
+  - url: https://aima.gov.pt/
+    label: AIMA Portugal
   - url: https://www.gov.pl/web/udsc-en
     label: Польша — Office for Foreigners (UDSC)
 estimated_minutes: 14
 date_published: 2026-06-27
-date_modified: 2026-07-07
+date_modified: 2026-08-04
 ---
 
 ## Прямой ответ
@@ -162,6 +162,9 @@ Emigro wizard учитывает `passport_iso2 = KZ` при оценке про
 
 **Можно ли подать из Алматы?**  
 Для большинства маршрутов — **да**, через консульство/VFS страны назначения в KZ. Это часто проще, чем маршрут «третья страна» для граждан РФ.
+
+**Какой порог дохода смотреть первым?**  
+Не смешивайте годовые и месячные цифры в одной строке расчёта. Germany Blue Card — годовой брутто (shortage/стандарт на make-it-in-germany). Portugal D8 и Spain DNV — месячные пороги в [гайде D8/D7](/ru/guides/vnj-portugaliya-d8-d7-grazhdanstvo-2026) и [DNV Европы](/ru/guides/digital-nomad-vizy-evropy-sravnenie-2026). Poland work permit — от PLN 4 806/мес. Сверьте профиль в [/ru/wizard](/ru/wizard).
 
 **KZ лучше, чем RU для EU?**  
 Консульская доступность из KZ — **плюс**. Но **виза обязательна** для обоих, и пороги дохода программ **одинаковы** для всех паспортов.
