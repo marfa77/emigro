@@ -52,6 +52,8 @@ export const metadata: Metadata = {
 export default async function SpainSatelliteHomePage() {
   const [spotlight, notes] = await Promise.all([getDailySpotlight("spain"), getPublishedCommunityNotes("spain")]);
   const listNotes = spotlight ? notes.filter((n) => n.slug !== spotlight.note_slug) : notes;
+  const guideNotes = listNotes.filter((n) => n.content_kind === "guide");
+  const feedNotes = listNotes.filter((n) => n.content_kind !== "guide");
   const llmsUrl = spainSatelliteUrl("/llms");
   const hubUrl = spainSatelliteUrl("/");
 
@@ -107,9 +109,24 @@ export default async function SpainSatelliteHomePage() {
 
       <HashtagNav notes={notes} countryKey="spain" />
 
+      {guideNotes.length > 0 && (
+        <section className="mt-10" aria-labelledby="guides-heading">
+          <h2 id="guides-heading" className="text-xl font-semibold text-slate-900">
+            Гайды ({guideNotes.length})
+          </h2>
+          <ul className="mt-6 space-y-4">
+            {guideNotes.map((note) => (
+              <li key={note.slug}>
+                <NoteCard note={note} />
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
       <section className="mt-10" aria-labelledby="notes-heading">
         <h2 id="notes-heading" className="text-xl font-semibold text-slate-900">
-          Материалы
+          {feedNotes.length > 0 ? `Новости и заметки (${feedNotes.length})` : "Материалы"}
         </h2>
         {listNotes.length === 0 ? (
           <p className="mt-4 text-sm text-slate-600">
@@ -119,9 +136,9 @@ export default async function SpainSatelliteHomePage() {
             </a>
             .
           </p>
-        ) : (
+        ) : feedNotes.length === 0 ? null : (
           <ul className="mt-6 space-y-4">
-            {listNotes.map((note) => (
+            {feedNotes.map((note) => (
               <li key={note.slug}>
                 <NoteCard note={note} />
               </li>

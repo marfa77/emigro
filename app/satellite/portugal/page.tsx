@@ -54,6 +54,8 @@ export const metadata: Metadata = {
 export default async function PortugalSatelliteHomePage() {
   const [spotlight, notes] = await Promise.all([getDailySpotlight("portugal"), getPublishedCommunityNotes("portugal")]);
   const listNotes = spotlight ? notes.filter((n) => n.slug !== spotlight.note_slug) : notes;
+  const guideNotes = listNotes.filter((n) => n.content_kind === "guide");
+  const feedNotes = listNotes.filter((n) => n.content_kind !== "guide");
   const llmsUrl = portugalSatelliteUrl("/llms");
   const hubUrl = portugalSatelliteUrl("/");
 
@@ -109,18 +111,35 @@ export default async function PortugalSatelliteHomePage() {
 
       <HashtagNav notes={notes} />
 
-      <section className="mt-10" aria-labelledby="notes-heading">
-        <h2 id="notes-heading" className="text-xl font-semibold text-slate-900">
-          Материалы
-        </h2>
-        <ul className="mt-6 space-y-4">
-          {listNotes.map((note) => (
-            <li key={note.slug}>
-              <NoteCard note={note} />
-            </li>
-          ))}
-        </ul>
-      </section>
+      {guideNotes.length > 0 && (
+        <section className="mt-10" aria-labelledby="guides-heading">
+          <h2 id="guides-heading" className="text-xl font-semibold text-slate-900">
+            Гайды ({guideNotes.length})
+          </h2>
+          <ul className="mt-6 space-y-4">
+            {guideNotes.map((note) => (
+              <li key={note.slug}>
+                <NoteCard note={note} />
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {feedNotes.length > 0 && (
+        <section className="mt-10" aria-labelledby="notes-heading">
+          <h2 id="notes-heading" className="text-xl font-semibold text-slate-900">
+            Новости и заметки ({feedNotes.length})
+          </h2>
+          <ul className="mt-6 space-y-4">
+            {feedNotes.map((note) => (
+              <li key={note.slug}>
+                <NoteCard note={note} />
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       <p className="mt-12 text-center text-sm text-slate-500">
         <a href={PORTUGAL_SATELLITE.wizardUrl} className="font-medium text-teal-700 underline">
