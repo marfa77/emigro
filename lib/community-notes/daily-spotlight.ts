@@ -25,8 +25,13 @@ const SPOTLIGHT_TZ = process.env.EMIGRO_ANALYTICS_TIMEZONE?.trim() || "Europe/Li
 /** Prefer guides published within this window; fall back to 30 days if empty. */
 const RECENT_CANDIDATE_DAYS = 14;
 const FALLBACK_CANDIDATE_DAYS = 30;
-/** News stays eligible longer so the Threads tile can keep rotating civic digests. */
-const NEWS_CANDIDATE_DAYS = 90;
+/**
+ * News only gets a priority lane when this fresh.
+ * Older digests compete with guides by recency — avoids “Лучшее за сегодня” recycling week-old news.
+ */
+const NEWS_PRIORITY_DAYS = 4;
+/** Hard cap for any news candidate (was 90 — too long for the hub tile). */
+const NEWS_CANDIDATE_DAYS = 14;
 
 /** Skip notes featured in the last N days so the tile rotates. */
 const SPOTLIGHT_COOLDOWN_DAYS = 7;
@@ -171,23 +176,30 @@ function pickBestNote(
 ): CommunityNote | null {
   if (notes.length === 0) return null;
 
-  // Threads tile: prefer news that still have cooldown room, then fall back to guides/tips.
+  // Hub/Threads tile: only prioritize news that is actually fresh.
+  const freshNews = notes
+    .filter((note) => note.content_kind === "news")
+    .map((note) => ({
+      note,
+      score: scoreNote(note, recentSpotlightSlugs, today, NEWS_PRIORITY_DAYS, recentNewsSpotlightSlugs),
+    }))
+    .filter((x) => x.score >= 0)
+    .sort(compareRankedNotes);
+  if (freshNews[0]) return freshNews[0].note;
+
+  // Otherwise pick the strongest recent guide/tip/news by recency + topic (no 90-day news dig).
   for (const maxAgeDays of [RECENT_CANDIDATE_DAYS, FALLBACK_CANDIDATE_DAYS, NEWS_CANDIDATE_DAYS]) {
-    const newsRanked = notes
-      .filter((note) => note.content_kind === "news")
+    const ranked = notes
       .map((note) => ({
         note,
-        score: scoreNote(note, recentSpotlightSlugs, today, maxAgeDays, recentNewsSpotlightSlugs),
+        score: scoreNote(
+          note,
+          recentSpotlightSlugs,
+          today,
+          note.content_kind === "news" ? Math.min(maxAgeDays, NEWS_CANDIDATE_DAYS) : maxAgeDays,
+          recentNewsSpotlightSlugs
+        ),
       }))
-      .filter((x) => x.score >= 0)
-      .sort(compareRankedNotes);
-
-    if (newsRanked[0]) return newsRanked[0].note;
-  }
-
-  for (const maxAgeDays of [RECENT_CANDIDATE_DAYS, FALLBACK_CANDIDATE_DAYS]) {
-    const ranked = notes
-      .map((note) => ({ note, score: scoreNote(note, recentSpotlightSlugs, today, maxAgeDays) }))
       .filter((x) => x.score >= 0)
       .sort(compareRankedNotes);
 
