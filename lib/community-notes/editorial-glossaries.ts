@@ -86,6 +86,18 @@ export const EDITORIAL_GLOSSARIES: Record<string, GlossaryTerm[]> = {
     { pt: "T0 / T1 / T2", ru: "студия / 1-спальня / 2-спальни" },
     { pt: "comprovativo de morada", ru: "подтверждение адреса для NIF, SNS, банка, AIMA" },
   ],
+  "zheltye-stranitsy-relokanta-portugaliya-2026": [
+    { pt: "AIMA", ru: "агентство миграции: ВНЖ, biometria, renovação" },
+    { pt: "Finanças / AT", ru: "налоговая: NIF, IRS, e-arrendamento" },
+    { pt: "Segurança Social", ru: "соцстрах: NISS, взносы работника/empresa" },
+    { pt: "SNS / SNS 24", ru: "госмедицина и телефонный триаж 808 24 24 24" },
+    { pt: "Loja do Cidadão", ru: "one-stop госуслуг в одном здании" },
+    { pt: "Junta de Freguesia", ru: "районный орган: Atestado de Residência" },
+    { pt: "IMT", ru: "транспорт и водительские права" },
+    { pt: "IRN", ru: "регистры и нотариальные услуги Justiça" },
+    { pt: "ePortugal", ru: "единый госпортал поиска услуг" },
+    { pt: "Agora", ru: "запись на личный приём AIMA / balcão" },
+  ],
   "kak-otkryt-bankovskiy-schet-portugalia-2026": [
     { pt: "IBAN", ru: "международный номер счёта PT50…" },
     { pt: "conta à ordem", ru: "текущий расчётный счёт" },

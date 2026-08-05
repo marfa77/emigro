@@ -7,6 +7,11 @@ export type PortugalFeaturedNote = {
 
 export const PORTUGAL_FEATURED_NOTES: PortugalFeaturedNote[] = [
   {
+    slug: "zheltye-stranitsy-relokanta-portugaliya-2026",
+    title: "Жёлтые страницы релоканта",
+    description: "AIMA, Finanças, SNS 24, Junta, IMT — кто есть кто и зачем.",
+  },
+  {
     slug: "klimat-norte-zhara-vlazhnost-plesen-zima-2026",
     title: "Климат Norte: жара, влажность, плесень",
     description: "Porto, Braga, Matosinhos — AC, desumidificador, зима без отопления.",

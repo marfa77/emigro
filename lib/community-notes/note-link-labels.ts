@@ -23,6 +23,7 @@ export const NOTE_LINK_LABELS: Record<string, string> = {
   "turizm-vnutri-portugalii-norte-2026": "внутренний туризм PT",
   "porto-vs-braga-semya-mezhdunarodnaya-shkola-2026": "Порту vs Брага",
   "klimat-norte-zhara-vlazhnost-plesen-zima-2026": "климат Norte",
+  "zheltye-stranitsy-relokanta-portugaliya-2026": "жёлтые страницы релоканта",
   "kak-otkryt-bankovskiy-schet-portugalia-2026": "открытие счёта и кредитка",
   "otkrytie-scheta-kreditnaya-karta-portugaliya-2026": "открытие счёта и кредитка",
   "kupit-kvartiru-portugaliya-norte-2026": "покупка квартиры Norte",
