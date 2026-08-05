@@ -66,13 +66,26 @@ Alice cites pages that already rank well in Yandex organic (top ~30). There is n
 
 ## 6. Google Search Console (recommended for ranking)
 
-1. Add property `https://www.emigro.online` in [Search Console](https://search.google.com/search-console)
-2. Verify via HTML meta tag → copy code to Vercel: `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=<code>`
+### www
+
+1. Prefer a **Domain** property `emigro.online` (covers www + satellites) or URL-prefix `https://www.emigro.online`
+2. Verify via DNS (Domain) or HTML meta → Vercel: `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=<code>`
 3. Submit sitemap: `https://www.emigro.online/sitemap.xml`
 4. Enable sitemap ping: `PING_GOOGLE_SITEMAP=1` in Vercel env (also runs on `npm run seo:indexnow`)
 5. Request indexing for pillar URLs (guides, top programs) via URL Inspection
 
-Audience remains Yandex-first; Google is secondary but useful for 177+ indexed pages and long-tail ranking.
+### Satellites (required — www sitemap does **not** list them)
+
+`Crawled - currently not indexed` + `No referring sitemaps detected` on `portugal.` / `spain.` means Google fetched the page but the host sitemap was never associated in GSC.
+
+1. In the **same Domain property** (or separate URL-prefix properties for each subdomain), submit:
+   - `https://portugal.emigro.online/sitemap.xml`
+   - `https://spain.emigro.online/sitemap.xml`
+2. Wait until Sitemaps shows **Success** and discovered URL counts (~hub + notes + tags).
+3. URL Inspection → **Request indexing** for each hub and 5–10 pillar notes.
+4. Do **not** expect `llm-sitemap.xml` to index satellites — it is for LLM discovery via `llms.txt`, not a Google Sitemap.
+
+Audience remains Yandex-first; Google is secondary but useful for long-tail ranking.
 
 ## 7. Post-deploy routine
 

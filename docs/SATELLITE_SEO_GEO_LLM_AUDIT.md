@@ -94,7 +94,9 @@
 | `/notes/{slug}` | 0.75–0.85 |
 | `/tag/{tag}` (≥2 notes) | 0.65 |
 
-`llm-sitemap.xml` on **www** still lists satellite URLs for LLM discovery. Satellite `robots.txt` points only to same-host `/sitemap.xml` (fix: previously satellites served the www sitemap → crawled-not-indexed / wrong property).
+`llm-sitemap.xml` on **www** still lists satellite URLs for **LLM** discovery via `llms.txt`. It must **not** be declared as a Google `Sitemap:` in `robots.txt` (cross-host noise → GSC “No referring sitemaps” on subdomains).
+
+Satellite `robots.txt` points to same-host `/sitemap.xml`. www `robots.txt` also lists both satellite sitemaps for crawl discovery. **GSC still requires submitting** `https://portugal.emigro.online/sitemap.xml` and `https://spain.emigro.online/sitemap.xml` on the Domain (or URL-prefix) property.
 
 ---
 

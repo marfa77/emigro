@@ -57,6 +57,11 @@ export default async function PortugalSatelliteHomePage() {
   const llmsUrl = portugalSatelliteUrl("/llms");
   const hubUrl = portugalSatelliteUrl("/");
 
+  const listForSchema = (spotlight ? [spotlight.note_slug, ...listNotes.map((n) => n.slug)] : listNotes.map((n) => n.slug))
+    .map((slug) => notes.find((n) => n.slug === slug))
+    .filter(Boolean)
+    .slice(0, 20);
+
   const collectionSchema = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
@@ -65,6 +70,16 @@ export default async function PortugalSatelliteHomePage() {
     url: hubUrl,
     inLanguage: "ru-RU",
     about: buildSatelliteHubPlace("portugal"),
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: notes.length,
+      itemListElement: listForSchema.map((note, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        url: portugalSatelliteUrl(`/notes/${note!.slug}`),
+        name: note!.title,
+      })),
+    },
   };
 
   return (

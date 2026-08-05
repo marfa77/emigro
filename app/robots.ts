@@ -57,7 +57,14 @@ export default function robots(): MetadataRoute.Robots {
   const origin = publicSiteUrl();
   return {
     rules: sharedRules(),
-    sitemap: [`${origin}/sitemap.xml`, `${origin}/sitemap/recent.xml`, `${origin}/llm-sitemap.xml`],
+    // llm-sitemap.xml stays reachable via llms.txt — do not declare it as a Google Sitemap:
+    // it mixes www + satellite hosts and GSC then reports "no referring sitemaps" for subdomains.
+    sitemap: [
+      `${origin}/sitemap.xml`,
+      `${origin}/sitemap/recent.xml`,
+      `https://${PORTUGAL_SATELLITE_HOST}/sitemap.xml`,
+      `https://${SPAIN_SATELLITE_HOST}/sitemap.xml`,
+    ],
     host: origin.replace(/^https?:\/\//, ""),
   };
 }

@@ -55,6 +55,11 @@ export default async function SpainSatelliteHomePage() {
   const llmsUrl = spainSatelliteUrl("/llms");
   const hubUrl = spainSatelliteUrl("/");
 
+  const listForSchema = (spotlight ? [spotlight.note_slug, ...listNotes.map((n) => n.slug)] : listNotes.map((n) => n.slug))
+    .map((slug) => notes.find((n) => n.slug === slug))
+    .filter(Boolean)
+    .slice(0, 20);
+
   const collectionSchema = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
@@ -63,6 +68,16 @@ export default async function SpainSatelliteHomePage() {
     url: hubUrl,
     inLanguage: "ru-RU",
     about: buildSatelliteHubPlace("spain"),
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: notes.length,
+      itemListElement: listForSchema.map((note, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        url: spainSatelliteUrl(`/notes/${note!.slug}`),
+        name: note!.title,
+      })),
+    },
   };
 
   return (
