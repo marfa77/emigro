@@ -1,36 +1,49 @@
 ---
-description: Require local build success before Vercel production deploy
+description: Safe Vercel production deploy — one path, no double deploys
 alwaysApply: true
 ---
 
 # Vercel production deploy
 
-Never deploy broken builds to production.
+Never deploy broken builds. Never start two production deploys for the same change.
 
-## Before deploy
+## Default ship (use this almost always)
 
-1. Run `npm run build` locally and confirm exit code 0.
-2. Fix all TypeScript and Next.js build errors before proceeding.
-3. Prefer `npm run deploy:check` (build only) or `npm run deploy:vercel` (build then `vercel --prod`).
+`main` is connected to Vercel Git. One change → one Production build.
+
+1. `npm run deploy:check` (or `npm run build`) — exit 0 required.
+2. Commit (when the user asked).
+3. `git push origin main`.
+4. **Stop.** Wait for the Git-triggered deploy to become **Ready** (`npm run deploy:status` or dashboard).
+5. Do **not** run `vercel --prod` / `npm run deploy:cli` in the same turn as a push to `main`.
+
+## Emergency CLI-only (rare)
+
+Use only when Git integration is down, or the user explicitly asks for a CLI deploy **without** a fresh push of the same commit.
+
+1. Confirm no Production deploy is already **Building** (`npm run deploy:status`).
+2. `npm run deploy:cli` (local build, then `vercel --prod`).
+3. Never combine with `git push` of the same change in the same session.
 
 ## Do not
 
-- Run `vercel --prod` if `npm run build` fails locally.
-- Push to the production branch expecting a green Vercel deploy without a local build first.
-- Deploy with known TS/build errors "to fix in prod."
+- Run `vercel --prod` if local `npm run build` fails.
+- Push to `main` **and** run `vercel --prod` for the same commit (double Production builds → races, timeouts, false “deploy broken”).
+- Ship known TS/build errors “to fix in prod.”
+- Interrupt a Building Production deploy and immediately start another.
 
 ## Commit hygiene
 
-- One coherent commit per deploy when possible.
-- Deploy only code that already passes `npm run build`.
+- One coherent commit per ship when possible.
+- Deploy only code that already passes local `npm run build`.
 
-## Workflow
+## Known Vercel failure mode
 
-```bash
-npm run build          # or: npm run deploy:check
-git add … && git commit -m "…"
-git push
-npm run deploy:vercel  # optional if deploy is push-triggered; build still runs first
-```
+Cold Turbo builds used to fail with Next `static-page-generation-timeout` (60s) on `/ru/[country]` and satellite routes. Repo sets `staticPageGenerationTimeout: 180` in `next.config.mjs`. If Error logs show page-data SIGTERM again, raise timeout or reduce SSG work — do not spam retry deploys.
+
+## CLI notes
+
+- Prefer a current Vercel CLI (`vercel --version` ≥ 58). Outdated local CLI can fail with `Retrieving project… Error: Response Error` before upload.
+- `.vercel/project.json` must include `projectId` + `orgId` (see `.vercel/repo.json`).
 
 See `docs/DEPLOY.md` for the full checklist.
