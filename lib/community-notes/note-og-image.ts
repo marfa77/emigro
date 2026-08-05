@@ -314,6 +314,103 @@ const SLUG_PHOTO_QUERIES: Record<string, string[]> = {
     "valencia street cafe spain",
     "new city expat spain luggage",
   ],
+  // News notes that were falling back to og-default.jpg
+  "algarve-border-control-news-2026": [
+    "portugal border control checkpoint",
+    "passport control airport europe",
+    "algarve portugal highway border",
+  ],
+  "lost-passport-portugal-what-to-do-2026": [
+    "lost passport documents desk",
+    "police station europe exterior",
+    "passport and wallet travel desk",
+  ],
+  "lisbon-metro-cais-sodre-closure-august-2026": [
+    "lisbon metro station underground",
+    "lisbon tram yellow street",
+    "lisbon public transport station",
+  ],
+  "portugal-justice-system-fines-2026": [
+    "courthouse portugal exterior",
+    "judge gavel documents desk",
+    "lisbon court building architecture",
+  ],
+  "pogodnye-preduprezhdeniya-portugalia-znoj": [
+    "portugal heatwave summer sun",
+    "lisbon hot summer street empty",
+    "thermometer heat outdoor europe",
+  ],
+  "ipoteka-portugal-stavki-rastut-2026": [
+    "mortgage house keys documents",
+    "porto apartment building finance",
+    "bank mortgage paperwork desk",
+  ],
+  "tax-debt-portugal-what-to-know-2026": [
+    "tax debt documents calculator desk",
+    "financas portugal office paperwork",
+    "unpaid tax invoice documents",
+  ],
+  // Break identical stock reused across unrelated notes
+  "nif-lissabon-chto-puutayut": [
+    "tax id documents portugal desk",
+    "financas office counter portugal",
+    "nif paperwork portuguese desk",
+  ],
+  "studencheskiy-vnzh-portugal-mify-aima-2026": [
+    "university student portugal campus",
+    "student visa documents desk europe",
+    "porto university campus exterior",
+  ],
+  "smena-adresa-nif-financas-2026": [
+    "moving boxes apartment address change",
+    "mailbox portugal residential street",
+    "change of address form documents",
+  ],
+  "pervyj-mesyac-portugaliya-checklist": [
+    "expat packing luggage portugal arrival",
+    "checklist notebook suitcase travel",
+    "porto arrival suitcase apartment keys",
+  ],
+  "poisk-mestnyh-uslug-portugaliya-2026": [
+    "local services portugal street shop",
+    "handyman tools apartment portugal",
+    "porto neighborhood small business",
+  ],
+  "poterya-pitomtsa-portugaliya-gid-2026": [
+    "lost dog portugal street search",
+    "pet cat collar portugal",
+    "animal shelter europe dogs",
+  ],
+  "vozvrat-remont-tovarov-portugaliya-2026": [
+    "product return shopping bag receipt",
+    "electronics repair desk europe",
+    "store customer service counter",
+  ],
+  "aima-agora-zapis-2026": [
+    "online appointment laptop calendar",
+    "immigration booking computer screen",
+    "queue ticket government office europe",
+  ],
+  "lgoty-s-vnj-kulturnye-mesta-2026": [
+    "museum ticket portugal discount",
+    "cultural site portugal visitors",
+    "lisbon museum exterior tourists",
+  ],
+  "arenda-lissabon-do-podpisi": [
+    "lisbon apartment lease signing",
+    "rental contract apartment keys lisbon",
+    "lisbon flat interior viewing",
+  ],
+  "termo-responsabilidade-podtverzhdenie-zhilya-2026": [
+    "apartment lease contract signing portugal",
+    "notary documents signature desk europe",
+    "rental guarantee paperwork keys apartment",
+  ],
+  "arenda-kvartiry-lisbon-pervyi-mesyac-2026": [
+    "lisbon apartment balcony first month",
+    "lisbon alfama apartment rent",
+    "moving into lisbon flat boxes",
+  ],
 };
 
 type PexelsPhotoSrc = {
@@ -511,7 +608,13 @@ async function fetchPexelsPhotoById(photoId: number): Promise<string | null> {
   return json.src?.landscape || json.src?.large || null;
 }
 
-async function searchPexelsPhoto(query: string): Promise<string | null> {
+function slugPickIndex(slug: string, modulo: number): number {
+  let h = 0;
+  for (let i = 0; i < slug.length; i++) h = (h * 31 + slug.charCodeAt(i)) >>> 0;
+  return modulo > 0 ? h % modulo : 0;
+}
+
+async function searchPexelsPhoto(query: string, pickIndex = 0): Promise<string | null> {
   const apiKey = process.env.PEXELS_API_KEY?.trim();
   if (!apiKey) return null;
 
@@ -525,7 +628,7 @@ async function searchPexelsPhoto(query: string): Promise<string | null> {
     query,
     orientation: "landscape",
     locale: "en-US",
-    per_page: "12",
+    per_page: "15",
   });
 
   const res = await fetch(`${PEXELS_API}?${params}`, {
@@ -538,11 +641,10 @@ async function searchPexelsPhoto(query: string): Promise<string | null> {
   }
 
   const json = (await res.json()) as PexelsSearchResponse;
-  for (const photo of json.photos ?? []) {
-    const url = photo.src?.landscape || photo.src?.large;
-    if (url) return url;
-  }
-  return null;
+  const photos = (json.photos ?? []).filter((p) => p.src?.landscape || p.src?.large);
+  if (photos.length === 0) return null;
+  const photo = photos[pickIndex % photos.length] ?? photos[0];
+  return photo.src?.landscape || photo.src?.large || null;
 }
 
 /** Resolve stock photo URL: pinned Pexels id first, then search queries. */
@@ -554,8 +656,9 @@ async function resolvePexelsPhotoUrl(
     const url = await fetchPexelsPhotoById(pinnedId);
     if (url) return { url, label: `pexels:${pinnedId}` };
   }
+  const pick = slugPickIndex(note.slug, 15);
   for (const query of queriesForNote(note)) {
-    const url = await searchPexelsPhoto(query);
+    const url = await searchPexelsPhoto(query, pick);
     if (url) return { url, label: query };
   }
   return null;
@@ -626,34 +729,55 @@ export async function ensureNoteOgImage(
   }
 
   const writable = canWriteNoteOgImages();
-  const resolved = await resolvePexelsPhotoUrl(note);
-  if (!resolved) {
+  const dest = noteOgImageFilePath(note.slug);
+  const pick = slugPickIndex(note.slug, 15);
+
+  const pinnedId = SLUG_PEXELS_PHOTO_IDS[note.slug];
+  const candidates: Array<{ url: string; label: string }> = [];
+  if (pinnedId) {
+    const url = await fetchPexelsPhotoById(pinnedId);
+    if (url) candidates.push({ url, label: `pexels:${pinnedId}` });
+  }
+  for (const query of queriesForNote(note)) {
+    const url = await searchPexelsPhoto(query, pick);
+    if (url) candidates.push({ url, label: query });
+  }
+
+  if (candidates.length === 0) {
     return { path: resolveNoteOgImage(note), generated: false, manifestAppended: false };
   }
 
-  try {
-    if (writable) {
-      await downloadPhoto(resolved.url, noteOgImageFilePath(note.slug));
-      if (hasNoteOgImageFile(note.slug)) {
-        const manifestAppended = appendCommittedNoteOgSlug(note.slug);
-        console.log(`[note-og] ${note.slug}: saved stock "${resolved.label}"`);
-        if (rateLimitMs > 0) await new Promise((r) => setTimeout(r, rateLimitMs));
-        return { path: noteOgImagePublicPath(note.slug), generated: true, manifestAppended };
+  for (const resolved of candidates) {
+    try {
+      if (writable) {
+        await downloadPhoto(resolved.url, dest);
+        if (hasNoteOgImageFile(note.slug)) {
+          const manifestAppended = appendCommittedNoteOgSlug(note.slug);
+          console.log(`[note-og] ${note.slug}: saved stock "${resolved.label}"`);
+          if (rateLimitMs > 0) await new Promise((r) => setTimeout(r, rateLimitMs));
+          return { path: noteOgImagePublicPath(note.slug), generated: true, manifestAppended };
+        }
+        try {
+          fs.unlinkSync(dest);
+        } catch {
+          /* ignore */
+        }
+        console.warn(`[note-og] ${note.slug}: stock too small from "${resolved.label}", trying next`);
+      } else {
+        const webp = await photoUrlToWebpBuffer(resolved.url);
+        if (webp.length >= MIN_WEBP_BYTES) {
+          console.log(`[note-og] ${note.slug}: stock (dynamic) "${resolved.label}"`);
+          if (rateLimitMs > 0) await new Promise((r) => setTimeout(r, rateLimitMs));
+          return {
+            path: resolveNoteOgImage(note),
+            generated: true,
+            manifestAppended: false,
+          };
+        }
       }
-    } else {
-      const webp = await photoUrlToWebpBuffer(resolved.url);
-      if (webp.length >= MIN_WEBP_BYTES) {
-        console.log(`[note-og] ${note.slug}: stock (dynamic) "${resolved.label}"`);
-        if (rateLimitMs > 0) await new Promise((r) => setTimeout(r, rateLimitMs));
-        return {
-          path: resolveNoteOgImage(note),
-          generated: true,
-          manifestAppended: false,
-        };
-      }
+    } catch (error) {
+      console.warn(`[note-og] download error for "${resolved.label}":`, error instanceof Error ? error.message : error);
     }
-  } catch (error) {
-    console.warn(`[note-og] download error for "${resolved.label}":`, error instanceof Error ? error.message : error);
   }
 
   return { path: resolveNoteOgImage(note), generated: false, manifestAppended: false };

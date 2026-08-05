@@ -54,6 +54,13 @@ export const COMMITTED_NOTE_OG_SLUGS = new Set([
   "regiony-portugalii-ekspaty-klimat-tseny-2026",
   "prodlenie-vnzh-portugaliya-aima-2026",
   "zapis-v-konsulstvo-portugaliya-2026",
+  "algarve-border-control-news-2026",
+  "lost-passport-portugal-what-to-do-2026",
+  "lisbon-metro-cais-sodre-closure-august-2026",
+  "portugal-justice-system-fines-2026",
+  "pogodnye-preduprezhdeniya-portugalia-znoj",
+  "ipoteka-portugal-stavki-rastut-2026",
+  "tax-debt-portugal-what-to-know-2026",
 ]);
 
 const MANIFEST_PATH = path.join(process.cwd(), "lib/community-notes/note-og-slugs.ts");
