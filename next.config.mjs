@@ -18,6 +18,8 @@ const useSpainSubdomain = useSpainSubdomainFlag();
 
 const nextConfig = {
   reactStrictMode: true,
+  // Satellite + corridor SSG can exceed the default 60s on cold Turbo builds.
+  staticPageGenerationTimeout: 180,
   env: {
     PORTUGAL_SATELLITE_USE_SUBDOMAIN: usePortugalSubdomain ? "true" : "false",
     SPAIN_SATELLITE_USE_SUBDOMAIN: useSpainSubdomain ? "true" : "false",
