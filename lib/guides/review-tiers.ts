@@ -77,6 +77,7 @@ export const GUIDE_REVIEW_TIER_BY_SLUG: Record<string, GuideReviewTier> = {
   "vnj-skandinaviya-2026": "volatile",
   "vossoedinenie-semi-evropa-2026": "volatile",
   "nebezopasnye-goroda-evropy-2026": "volatile",
+  "tyurmy-evropy-2026-usloviya-ekstraditsiya-migranty": "volatile",
   "gde-rozhat-rebenka-dlya-pasporta-2026": "volatile",
   "golden-visa-portugal-rozhdenie-rebenka-grazhdanstvo-2026": "volatile",
   "vnj-norvegiya-2026": "volatile",
