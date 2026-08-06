@@ -76,6 +76,12 @@ export const GUIDE_REVIEW_TIER_BY_SLUG: Record<string, GuideReviewTier> = {
   "vnj-serbiya-dlya-rossiyan-2026": "volatile",
   "vnj-skandinaviya-2026": "volatile",
   "vossoedinenie-semi-evropa-2026": "volatile",
+  "nebezopasnye-goroda-evropy-2026": "volatile",
+  "gde-rozhat-rebenka-dlya-pasporta-2026": "volatile",
+  "golden-visa-portugal-rozhdenie-rebenka-grazhdanstvo-2026": "volatile",
+  "vnj-norvegiya-2026": "volatile",
+  "vnj-shvetsiya-2026-work-permit-grazhdanstvo": "volatile",
+  "yuar-dlya-rossiyan-ukraintsev-belorusov-kazahstantsev-2026": "volatile",
 
   // --- Evergreen: process/checklist, slow-changing mechanics, comparison methodology ---
   "dokumenty-dlya-pereezda-iz-rossii-2026-apostil-nesudimost": "evergreen",
