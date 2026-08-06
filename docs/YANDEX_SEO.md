@@ -78,13 +78,13 @@ Alice cites pages that already rank well in Yandex organic (top ~30). There is n
 
 `Crawled - currently not indexed` + `No referring sitemaps detected` on `portugal.` / `spain.` means Google fetched the page but the host sitemap was never associated in GSC.
 
-`Duplicate without user-selected canonical` on the hub = slash mismatch. Next metadata emits canonical **without** trailing slash (`https://portugal.emigro.online`), while Googlebot often inspects **with** slash (`…/`). Middleware 301s `…/` → no-slash so one URL remains.
+`Duplicate without user-selected canonical` on the hub = slash mismatch between Googlebot (`…/`) and Next’s HTML canonical (no slash). We emit matching sitemap locs + an HTTP `Link: rel=canonical` on the hub; submit the satellite sitemap in GSC and Request indexing on `https://portugal.emigro.online`.
 
 1. In the **same Domain property** (or separate URL-prefix properties for each subdomain), submit:
    - `https://portugal.emigro.online/sitemap.xml`
    - `https://spain.emigro.online/sitemap.xml`
 2. Wait until Sitemaps shows **Success** and discovered URL counts (~hub + notes + tags).
-3. URL Inspection on `https://portugal.emigro.online` (no trailing slash) → confirm **User-declared canonical** matches → **Request indexing**.
+3. URL Inspection → confirm **User-declared canonical** → **Request indexing**.
 4. Do **not** expect `llm-sitemap.xml` to index satellites — it is for LLM discovery via `llms.txt`, not a Google Sitemap.
 
 Audience remains Yandex-first; Google is secondary but useful for long-tail ranking.

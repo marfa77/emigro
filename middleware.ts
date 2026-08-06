@@ -244,31 +244,9 @@ function shouldRedirectToCanonical(request: NextRequest): URL | null {
   return url;
 }
 
-/**
- * Satellite hub: collapse trailing slash → no slash.
- * Next.js metadata (trailingSlash:false) emits canonical without `/`;
- * Googlebot often inspects `https://host/` — dual 200 → "Duplicate without user-selected canonical".
- * Use a string Location (not `new URL`) so the target is not normalized back to `…/`.
- */
-function redirectSatelliteHubTrailingSlash(request: NextRequest): NextResponse | null {
-  const host = hostName(request);
-  if (!isPortugalSatelliteHost(host) && !isSpainSatelliteHost(host)) return null;
-  if (request.nextUrl.pathname !== "/") return null;
-
-  const raw = request.url;
-  const hasTrailingSlash = /:\/\/[^/?#]+\/(?:\?|#|$)/.test(raw);
-  if (!hasTrailingSlash) return null;
-
-  const location = `https://${host}${request.nextUrl.search || ""}`;
-  return NextResponse.redirect(location, 301);
-}
-
 export function middleware(request: NextRequest) {
   const wwwSatellite = redirectWwwSatelliteToSubdomain(request);
   if (wwwSatellite) return wwwSatellite;
-
-  const hubSlash = redirectSatelliteHubTrailingSlash(request);
-  if (hubSlash) return hubSlash;
 
   const misplaced = redirectMisplacedSatellitePaths(request);
   if (misplaced) return misplaced;
