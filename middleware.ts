@@ -47,13 +47,13 @@ function redirectWwwSatelliteToSubdomain(request: NextRequest): NextResponse | n
 
   if (pathname.startsWith("/satellite/portugal") && portugalSatelliteSubdomainEnabled()) {
     const subpath = pathname.slice("/satellite/portugal".length) || "/";
-    const destination = `${PORTUGAL_SATELLITE_ORIGIN}${subpath === "/" ? "" : subpath}${search}`;
+    const destination = `${PORTUGAL_SATELLITE_ORIGIN}${subpath === "/" ? "/" : subpath}${search}`;
     return NextResponse.redirect(destination, 301);
   }
 
   if (pathname.startsWith("/satellite/spain") && spainSatelliteSubdomainEnabled()) {
     const subpath = pathname.slice("/satellite/spain".length) || "/";
-    const destination = `${SPAIN_SATELLITE_ORIGIN}${subpath === "/" ? "" : subpath}${search}`;
+    const destination = `${SPAIN_SATELLITE_ORIGIN}${subpath === "/" ? "/" : subpath}${search}`;
     return NextResponse.redirect(destination, 301);
   }
 
@@ -236,9 +236,28 @@ function shouldRedirectToCanonical(request: NextRequest): URL | null {
   return url;
 }
 
+/** Satellite hub: force trailing slash so canonical matches GSC/Googlebot (`https://host/`). */
+function redirectSatelliteHubTrailingSlash(request: NextRequest): NextResponse | null {
+  const host = hostName(request);
+  if (!isPortugalSatelliteHost(host) && !isSpainSatelliteHost(host)) return null;
+  if (request.nextUrl.pathname !== "/") return null;
+
+  const raw = request.url;
+  // `https://host` or `https://host?x` → 301 to `https://host/` (keep query).
+  const hasTrailingSlash = /:\/\/[^/?#]+\/(?:\?|#|$)/.test(raw);
+  if (hasTrailingSlash) return null;
+
+  const dest = new URL(`https://${host}/`);
+  dest.search = request.nextUrl.search;
+  return NextResponse.redirect(dest, 301);
+}
+
 export function middleware(request: NextRequest) {
   const wwwSatellite = redirectWwwSatelliteToSubdomain(request);
   if (wwwSatellite) return wwwSatellite;
+
+  const hubSlash = redirectSatelliteHubTrailingSlash(request);
+  if (hubSlash) return hubSlash;
 
   const misplaced = redirectMisplacedSatellitePaths(request);
   if (misplaced) return misplaced;
