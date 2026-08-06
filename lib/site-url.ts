@@ -87,31 +87,30 @@ function portugalSatelliteOrigin(): string {
 /** Canonical URL for Portugal satellite — never localhost (Threads, DB, SEO). */
 export function portugalSatellitePublicUrl(path = ""): string {
   const normalized = path.startsWith("/") ? path : path ? `/${path}` : "";
-  // Hub uses trailing slash so canonical matches Googlebot/GSC (`…online/`).
-  const suffix = !normalized || normalized === "/" ? "/" : normalized;
+  // Hub without trailing slash — Next metadata strips `/` when trailingSlash:false;
+  // keep sitemap/canonical aligned and 301 `…online/` → `…online` in middleware.
   if (portugalSatelliteSubdomainEnabled()) {
-    return `${PORTUGAL_SATELLITE_SUBDOMAIN}${suffix}`;
+    return `${PORTUGAL_SATELLITE_SUBDOMAIN}${normalized === "/" ? "" : normalized}`;
   }
   const publicEnv = process.env.EMIGRO_PUBLIC_SITE_URL?.trim();
   if (publicEnv && !isLocalhostUrl(publicEnv)) {
-    return `${stripTrailingSlash(publicEnv)}${PORTUGAL_SATELLITE_PATH}${suffix === "/" ? "" : suffix}`;
+    return `${stripTrailingSlash(publicEnv)}${PORTUGAL_SATELLITE_PATH}${normalized === "/" ? "" : normalized}`;
   }
   const site = process.env.NEXT_PUBLIC_SITE_URL?.trim();
   if (site && !isLocalhostUrl(site)) {
-    return `${stripTrailingSlash(site)}${PORTUGAL_SATELLITE_PATH}${suffix === "/" ? "" : suffix}`;
+    return `${stripTrailingSlash(site)}${PORTUGAL_SATELLITE_PATH}${normalized === "/" ? "" : normalized}`;
   }
-  return `${PORTUGAL_SATELLITE_SUBDOMAIN}${suffix}`;
+  return `${PORTUGAL_SATELLITE_SUBDOMAIN}${normalized === "/" ? "" : normalized}`;
 }
 
 /** Runtime URL for Portugal satellite pages (localhost in local dev). */
 export function portugalSatelliteUrl(path = ""): string {
   const normalized = path.startsWith("/") ? path : path ? `/${path}` : "";
   const origin = portugalSatelliteOrigin();
-  const suffix = !normalized || normalized === "/" ? "/" : normalized;
   if (origin.endsWith(PORTUGAL_SATELLITE_PATH)) {
-    return `${origin}${suffix === "/" ? "" : suffix}`;
+    return `${origin}${normalized === "/" ? "" : normalized}`;
   }
-  return `${origin}${suffix}`;
+  return `${origin}${normalized === "/" ? "" : normalized}`;
 }
 
 const SPAIN_SATELLITE_SUBDOMAIN = "https://spain.emigro.online";
@@ -146,28 +145,26 @@ function spainSatelliteOrigin(): string {
 /** Canonical URL for Spain satellite — never localhost (Threads, DB, SEO). */
 export function spainSatellitePublicUrl(path = ""): string {
   const normalized = path.startsWith("/") ? path : path ? `/${path}` : "";
-  const suffix = !normalized || normalized === "/" ? "/" : normalized;
   if (spainSatelliteSubdomainEnabled()) {
-    return `${SPAIN_SATELLITE_SUBDOMAIN}${suffix}`;
+    return `${SPAIN_SATELLITE_SUBDOMAIN}${normalized === "/" ? "" : normalized}`;
   }
   const publicEnv = process.env.EMIGRO_PUBLIC_SITE_URL?.trim();
   if (publicEnv && !isLocalhostUrl(publicEnv)) {
-    return `${stripTrailingSlash(publicEnv)}${SPAIN_SATELLITE_PATH}${suffix === "/" ? "" : suffix}`;
+    return `${stripTrailingSlash(publicEnv)}${SPAIN_SATELLITE_PATH}${normalized === "/" ? "" : normalized}`;
   }
   const site = process.env.NEXT_PUBLIC_SITE_URL?.trim();
   if (site && !isLocalhostUrl(site)) {
-    return `${stripTrailingSlash(site)}${SPAIN_SATELLITE_PATH}${suffix === "/" ? "" : suffix}`;
+    return `${stripTrailingSlash(site)}${SPAIN_SATELLITE_PATH}${normalized === "/" ? "" : normalized}`;
   }
-  return `${SPAIN_SATELLITE_SUBDOMAIN}${suffix}`;
+  return `${SPAIN_SATELLITE_SUBDOMAIN}${normalized === "/" ? "" : normalized}`;
 }
 
 /** Runtime URL for Spain satellite pages (localhost in local dev). */
 export function spainSatelliteUrl(path = ""): string {
   const normalized = path.startsWith("/") ? path : path ? `/${path}` : "";
   const origin = spainSatelliteOrigin();
-  const suffix = !normalized || normalized === "/" ? "/" : normalized;
   if (origin.endsWith(SPAIN_SATELLITE_PATH)) {
-    return `${origin}${suffix === "/" ? "" : suffix}`;
+    return `${origin}${normalized === "/" ? "" : normalized}`;
   }
-  return `${origin}${suffix}`;
+  return `${origin}${normalized === "/" ? "" : normalized}`;
 }
