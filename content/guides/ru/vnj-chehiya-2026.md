@@ -4,7 +4,7 @@ title: "ВНЖ Чехия 2026: employee card, Blue Card и živnost для RU/U
 seo_title: "ВНЖ Чехия 2026 — employee card и Blue Card пороги"
 seo_description: "ВНЖ Чехия 2026 для RU/UA/BY/KZ: employee card от CZK 22 400, Blue Card CZK 73 823 с 01.05.2026, živnost IT. Сроки MOI и wizard."
 excerpt: "Чехия — Prague и Brno для IT: employee card, Blue Card, živnost и учёба — с порогами зарплат и сроками MOI 2026."
-quick_answer: "Основные маршруты: (1) employee card от чешского работодателя (мин. CZK 22 400/мес брутто), (2) EU Blue Card при дипломе и CZK 73 823/мес (~€2 900 с 01.05.2026), (3) živnost (OSVČ) для IT от ориентира €2 500/мес, (4) studia, (5) семья. ПМЖ (trvalý pobyt) — 5 лет legal stay; гражданство — 5 лет на ПМЖ + B1 чешский. Сравните CZ vs PL в /ru/czechia/wizard или hub /ru/wizard."
+quick_answer: "Основные маршруты: (1) employee card (мин. CZK 22 400/мес брутто), (2) EU Blue Card CZK 73 823/мес с 01.05.2026, (3) živnost IT ~€2 500/мес (ориентир), (4) studia — средства по формуле MOI ~**CZK 115 810**/12 мес (не 149k); accredited degree — работа **без** лимита 20 ч/нед, (5) семья. ПМЖ ~5 лет. Гражданство: **5 лет на ПМЖ** + B1 **или** ПМЖ + предшествующий legal stay ≥ **10 лет** суммарно (zákon 186/2013). CZ vs PL — /ru/czechia/wizard."
 corridor_slugs: [ru-speaking-to-czechia]
 topic_keys: [czechia, work, visa]
 tags: [Чехия, ВНЖ, Blue Card, živnost, employee card, 2026, CZ]
@@ -20,9 +20,15 @@ official_sources:
     label: MOI — živnost / business
   - url: https://ipc.gov.cz/en/
     label: IPC — portal for foreigners (CZ)
+  - url: https://mv.gov.cz/mvcren/article/proof-of-funds-for-the-purposes-of-a-long-term-visa.aspx
+    label: MOI — proof of funds (долгосрочная виза)
+  - url: https://www.studyin.cz/live-work/work/
+    label: Study in Czechia — работа во время учёбы
+  - url: https://portal.gov.cz/en/sluzby-vs/S10108
+    label: gov.cz — гражданство (условия проживания)
 estimated_minutes: 18
 date_published: 2026-06-29
-date_modified: 2026-08-04
+date_modified: 2026-08-07
 ---
 
 ## Кому подходит этот гайд
@@ -46,7 +52,7 @@ date_modified: 2026-08-04
 | **Employee card** | Оффер + трудовой договор | 2–4 мес. | Да (у работодателя) |
 | **EU Blue Card** | Диплом + ~€2 900+/мес | 2–4 мес. | Да (квалифицированная работа) |
 | **Živnost (OSVČ)** | Trade licence + контракты | 2–4 мес. | Да (самозанятость) |
-| **Studia** | Зачисление + средства | 2–4 мес. | Ограничено |
+| **Studia** | Зачисление + средства (~CZK 116k/12 мес.) | 2–4 мес. | Accredited degree: volný přístup (без лимита 20 ч) |
 | **Family reunification** | Спонсор с pobyt | 4–9 мес. | Да (условно) |
 
 Программы коридора: [Чехия](/ru/czechia) · [wizard](/ru/czechia/wizard) · [справочник](/ru/czechia/digest).
@@ -128,7 +134,7 @@ date_modified: 2026-08-04
 ### Риски
 - Отказ при «бумажном» контракте (один клиент, минимальная активность)
 - Обязательные взносы **ČSSZ + VZP** даже при низком доходе
-- Remote-only на зарубежного клиента без CZ-структуры — не подходит для živnost pobyt
+- Remote-only **без** чешской структуры (živnostenské oprávnění / IČO и реального бизнеса в CZ) — обычно **не** тянет živnost-pobyt. Remote на EU/зарубежного клиента **через** ваше чешское OSVČ/юрлицо — другой кейс (substance, налоги, realism контрактов); не путать с «только иностранный payroll без CZ»
 
 ---
 
@@ -136,14 +142,18 @@ date_modified: 2026-08-04
 
 ### Требования
 - **Potvrzení o studiu** / letter of admission от чешского вуза
-- Средства: ориентир **CZK 149 100/год** (~€6 200 на 2026)
-- Жильё, страховка VZP или частная
-- Сбор CZK 2 500
+- Средства ([MOI proof of funds](https://mv.gov.cz/mvcren/article/proof-of-funds-for-the-purposes-of-a-long-term-visa.aspx)): **15×** existenční minimum (**CZK 3 130**) за первый месяц + **2×** minimum за каждый следующий полный месяц. Для типичного **12-месячного** stay: (15×3 130) + (11×2×3 130) = **CZK 115 810** (~€4 800). Семестр ~6 мес. → **CZK 78 250**. Цифры **CZK 149 100** (старый ориентир Emigro) и часто встречающиеся **~124 500** — **не** эта формула; сверяйте срок stay и страницу MOI. Стипендия/залог вуза может закрыть часть суммы
+- Жильё, страховка (требования консульства / VZP)
+- Сбор ориентир **CZK 2 500**
 
-### Ограничения
-- Право работы **ограничено** (до 20 ч/нед без отдельного permit — проверяйте тип studia)
+### Работа во время учёбы
+- Full-time **аккредитованная** степень / дневная форма (§ 98 zákon o zaměstnanosti): **volný přístup** на рынок труда — **отдельный work permit не нужен**, **нет** законного потолка «20 ч/нед» (это миф из других стран EU). Учёба должна оставаться целью pobytu; работодатель уведомляет Úřad práce
+- Иные студенты (не accredited / distance и т.п.): узкие исключения (часто до 26 лет, короткие подработки) — иначе нужен permit
+- «~20 ч/нед» у вузов — **практическая** рекомендация, не лимит закона
+
+### После выпуска
 - Продление при успешной учёбе
-- После выпуска — отдельная подача на employee card или živnost
+- Отдельная подача на employee card / Blue Card / živnost / job-seeker residence (по правилам MOI)
 
 ---
 
@@ -168,10 +178,18 @@ date_modified: 2026-08-04
 | Этап | Срок (ориентир) |
 |------|-----------------|
 | Long-term residence | 1–2 года (продления) |
-| **Trvalý pobyt (ПМЖ)** | **5 лет** непрерывного легального pobyt |
-| **Občanství (гражданство)** | **5 лет** на ПМЖ + B1; типичный путь ~10 лет (5 temp + 5 permanent) |
+| **Trvalý pobyt (ПМЖ)** | Обычно **5 лет** непрерывного легального pobyt |
+| **Občanství** | См. ниже — не только «5 лет на ПМЖ» |
 
-**Язык для гражданства:** **B1 чешский** (zkouška z českého jazyka). **Двойное гражданство** CZ разрешено с 2014 года.
+### Гражданство (zákon č. 186/2013, [gov.cz](https://portal.gov.cz/en/sluzby-vs/S10108))
+
+На день подачи нужен **trvalý pobyt**, плюс один из треков:
+1. **5 лет** непрерывно на ПМЖ (non-EU); для граждан EU — часто **3 года** на ПМЖ
+2. **Альтернатива:** уже есть ПМЖ, и **ПМЖ + непосредственно предшествующий** legal stay вместе дают **≥10 лет** — годы на employee card / živnost / studia **до** ПМЖ здесь считаются
+
+Типичный «5 лет temp → 5 лет ПМЖ → паспорт» ≈ **10 лет** — это путь (1). Путь (2) важен, если ПМЖ получили раньше / иначе, но суммарный continuous legal stay уже длинный.
+
+**Язык / civics:** **B1** чешский + тест о жизни в CZ (стандарт). **Dual citizenship** разрешён с **2014**.
 
 ---
 
@@ -196,7 +214,7 @@ date_modified: 2026-08-04
 | Blue Card | ~€2 900/мес | PLN 13 355 (~€3 110) |
 | RU/UA инфраструктура | Prague — сильное IT | Warsaw — максимум |
 | Язык рынка | Чешский + английский | Польский + английский |
-| Бюрократия | MOI Prague: **60–90 дней** | UoC до 3 мес.; Mazowieckie **12+ мес.** — системно |
+| Бюрократия | По закону часто **60 дн.**; практика Prague **60–90**, в пике до **~120** | UoC до 3 мес.; **Mazowieckie** часто **12+**; Kraków/Wrocław ближе к CZ |
 
 Сравните в [wizard CZ](/ru/czechia/wizard) и [wizard PL](/ru/poland/wizard).
 
@@ -224,11 +242,11 @@ date_modified: 2026-08-04
 
 ### CZ или PL для IT с €2 500/мес?
 
-CZ — ниже порог Blue Card (~€2 900 vs ~PLN 13 355 / €3 110 в PL) и быстрее MOI (**60–90 дней**); PL — больше RU/UA инфраструктуры, но **Mazowieckie** на практике нередко **год+** (регламент UoC массово не соблюдается). Сравните в [wizard](/ru/wizard).
+CZ — ниже порог Blue Card (~€2 900 vs ~PLN 13 355 / €3 110 в PL) и обычно быстрее MOI (**60–90**, пик ~**120**); PL — больше RU/UA инфраструктуры; **Mazowieckie** нередко **год+**, но Kraków/Wrocław ближе к CZ. Сравните в [wizard](/ru/wizard).
 
 ### Сколько ждать employee card в Prague?
 
-MOI: **60–90 дней** стандарт; карта +2–4 нед. Prague — одни из самых загруженных отделений.
+По закону часто **60 дн.**; практика **60–90**, в загруженные периоды до **~120**. Карта +2–4 нед.
 
 ### Нужен ли чешский для employee card?
 
@@ -240,7 +258,7 @@ MOI: **60–90 дней** стандарт; карта +2–4 нед. Prague —
 
 ### Živnost без чешского клиента — можно?
 
-Нужен **чешский** контрагент или структура в CZ. Remote-only на US/UK — другой кейс.
+Нужна **реальная CZ-структура** (živnost / IČO, налоги, substance). Remote на EU/зарубежных клиентов **через** ваше чешское OSVČ иногда проходит; «только иностранный payroll без CZ» — обычно нет.
 
 ### Сколько стоит переезд по employee card?
 
