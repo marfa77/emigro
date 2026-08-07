@@ -84,6 +84,9 @@ export function SiteFooter({ locale = "ru" }: { locale?: "ru" | "en" }) {
           <Link href="/ru/guides" className="hover:text-corridor-600">
             {locale === "ru" ? "Гайды" : "Guides"}
           </Link>
+          <Link href="/ru/role-radar" className="hover:text-corridor-600">
+            Role Radar
+          </Link>
           <Link href="/ru/stories" className="hover:text-corridor-600">
             {locale === "ru" ? "Истории" : "Stories"}
           </Link>

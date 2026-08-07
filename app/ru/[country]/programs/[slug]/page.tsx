@@ -17,7 +17,9 @@ import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { CorridorIntelLinks } from "@/components/corridor/CorridorIntelLinks";
 import { CorridorBreadcrumb } from "@/components/corridor/CorridorLanding";
 import { ProgramSeoSections } from "@/components/corridor/ProgramSeoSections";
+import { RoleRadarPromo } from "@/components/sponsors/RoleRadarPromo";
 import { ServiceProvidersSection } from "@/components/providers/ServiceProvidersSection";
+import { shouldShowRoleRadarOnProgram } from "@/lib/role-radar";
 import { CorridorHeroVisual } from "@/components/visuals/CorridorHeroVisual";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { ProgramTypeBadge } from "@/components/visuals/ProgramTypeBadge";
@@ -223,6 +225,14 @@ export default async function CountryProgramPage({
               <ArrowRight className="h-4 w-4" aria-hidden />
             </Link>
           </section>
+        )}
+
+        {shouldShowRoleRadarOnProgram(program.slug) && (
+          <RoleRadarPromo
+            medium="program_page"
+            content={program.slug}
+            className="mt-10"
+          />
         )}
 
         <section className="mt-10 grid gap-4 md:grid-cols-3">

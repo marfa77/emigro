@@ -7,6 +7,8 @@ import { ShareButtons } from "@/components/share/ShareButtons";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { RelocatorChatPromo } from "@/components/community/RelocatorChatPromo";
 import { UniPrep2GoPromo, UniPrepCitizenshipHubPromo } from "@/components/sponsors/UniPrep2GoPromo";
+import { RoleRadarPromo } from "@/components/sponsors/RoleRadarPromo";
+import { shouldShowRoleRadarOnGuide } from "@/lib/role-radar";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { ServiceProvidersSection } from "@/components/providers/ServiceProvidersSection";
 import { countryCardImage } from "@/lib/brand/country-accents";
@@ -276,6 +278,7 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
   const showOriginHubPromo = isPillarGuideSlug(guide.slug) || getGuideAudiences(guide).includes("ru");
   const providerTopicKey = getGuideProviderTopicKey(guide);
   const showUniPrep = shouldShowUniPrepOnGuide(guide);
+  const showRoleRadar = shouldShowRoleRadarOnGuide(guide.slug);
   const uniPrepOffer = getUniPrepOfferForTopics(guide.topic_keys);
   const uniPrepTopicCount = new Set(
     (guide.topic_keys ?? [])
@@ -462,6 +465,14 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
               />
             ) : null}
 
+            {showRoleRadar ? (
+              <RoleRadarPromo
+                medium="guide_article"
+                content={guide.slug}
+                className="mt-8"
+              />
+            ) : null}
+
             {guide.official_sources && guide.official_sources.length > 0 && (
               <GuideOfficialSources sources={guide.official_sources} />
             )}
@@ -584,6 +595,14 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
                 placement="guide_sidebar"
                 offer={uniPrepOffer}
                 contentId={`sidebar_${guide.slug}`}
+                compact
+              />
+            ) : null}
+
+            {showRoleRadar ? (
+              <RoleRadarPromo
+                medium="guide_sidebar"
+                content={`sidebar_${guide.slug}`}
                 compact
               />
             ) : null}

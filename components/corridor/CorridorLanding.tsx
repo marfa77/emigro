@@ -13,6 +13,7 @@ import { GuideDigestPreview } from "@/components/corridor/GuideDigestPreview";
 import { LatestNewsTeaserSuspense } from "@/components/news/LatestNewsTeaser";
 import { ServiceProvidersSection } from "@/components/providers/ServiceProvidersSection";
 import { UniPrep2GoPromo } from "@/components/sponsors/UniPrep2GoPromo";
+import { RoleRadarPromo } from "@/components/sponsors/RoleRadarPromo";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { CorridorHeroVisual } from "@/components/visuals/CorridorHeroVisual";
 import { ProgramRouteCard } from "@/components/corridor/ProgramRouteCard";
@@ -24,6 +25,7 @@ import { buildCorridorBreadcrumbSchema, buildCorridorLandingArticleSchema, build
 import { pageUrl } from "@/lib/seo";
 import { heroTitle } from "@/lib/ui/mobile";
 import { getUniPrepOfferForTopic } from "@/lib/uniprep2go/catalog";
+import { shouldShowRoleRadarOnCorridor } from "@/lib/role-radar";
 
 export async function CorridorLanding({ country }: { country: string }) {
   const topic = await requirePublishedCorridorTopic(country);
@@ -161,6 +163,14 @@ export async function CorridorLanding({ country }: { country: string }) {
             placement="corridor_landing"
             offer={uniPrepOffer}
             contentId={topic.key}
+            className="mt-12"
+          />
+        )}
+
+        {shouldShowRoleRadarOnCorridor(topic.key) && (
+          <RoleRadarPromo
+            medium="corridor_landing"
+            content={topic.key}
             className="mt-12"
           />
         )}
