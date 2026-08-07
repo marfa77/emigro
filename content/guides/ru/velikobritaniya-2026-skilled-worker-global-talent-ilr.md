@@ -4,7 +4,7 @@ title: "Великобритания 2026: Skilled Worker, Global Talent, Gradua
 seo_title: "Великобритания 2026 — Skilled Worker £41 700, Global Talent, ILR"
 seo_description: "UK 2026: Skilled Worker £41 700, Health & Care £25 000, HPI (B2, eligible list), Graduate 2г/18м, Family £29 000, Global Talent, ILR. Dual nationality OK. Для RU/BY/UA/KZ."
 excerpt: "Pillar по UK points-based routes 2026: пороги зарплат, HPI/Graduate, семья, NHS/IHS, первые 30 дней и безопасные формулировки по ILR/гражданству."
-quick_answer: "**Skilled Worker:** обычно **£41 700**/год или going rate (выше) + licensed sponsor. **Health & Care:** обычно **£25 000**, IHS exempt. **Global Talent:** endorsement (digital → Tech Nation review) или eligible prize; ILR 3–5 лет. **Graduate:** 2 года если подать до **31.12.2026**, **18 мес** с **01.01.2027** (PhD 3 года); dependants если eligible. **HPI:** eligible university list (не UK), English **B2**, dependants OK. **Family partner:** **£29 000** flat для новых с 11.04.2024; child increments — transitional. UK **разрешает dual nationality**. Не EU/Шенген."
+quick_answer: "**Skilled Worker:** **£41 700**/год или going rate + sponsor; fees с 8.04.2026 **£819/£1 618** (out) / **£943/£1 865** (in); ISL **£628/£1 235**. **Health & Care:** **£25 000**, IHS exempt, fee **£324/£628**; care **6135/6136** overseas closed с 22.07.2025 (in-country до 22.07.2028). **Graduate £937**; **Scale-up £937**; **Family** out **£2 064**; **ILR £3 226**; naturalisation **£1 709**(+£130). Student dependants: research PG / gov-sponsored only. UK dual nationality OK. Не EU/Шенген."
 topic_keys: [europe, uk, visa, relocation]
 tags: [Великобритания, UK, Skilled Worker, Global Talent, Graduate, HPI, Family visa, ILR, 2026]
 primary_intent: informational
@@ -25,15 +25,17 @@ official_sources:
     label: gov.uk — Family visa financial requirement
   - url: https://www.gov.uk/dual-citizenship
     label: gov.uk — Dual citizenship
+  - url: https://www.gov.uk/government/publications/visa-regulations-revised-table/home-office-immigration-and-nationality-fees-8-april-2026
+    label: Home Office fees — 8 April 2026
 estimated_minutes: 24
 date_published: 2026-07-29
-date_modified: 2026-07-29
+date_modified: 2026-08-07
 ---
 
 ## TL;DR — все маршруты в одной таблице
 
 
-> **Fact-check (июль 2026):** пороги и семья сверены с gov.uk. Не EU / не Шенген — отдельная визовая система UK. UK **разрешает dual nationality**.
+> **Fact-check (авг. 2026):** fees с **8 Apr 2026** (Home Office table); care worker overseas closed **22 Jul 2025**. Не EU / не Шенген. UK **разрешает dual nationality**.
 
 Сравнение EU DN → [Digital Nomad визы Европы](/ru/guides/digital-nomad-vizy-evropy-sravnenie-2026) · налоги EU → [спецрежимы](/ru/guides/nalogovye-spetsrezhimy-es-2026). Wizard: [/ru/wizard](/ru/wizard).
 
@@ -46,8 +48,8 @@ date_modified: 2026-07-29
 | **High Potential Individual** | Выпускники **eligible university list** (не UK) | Нет | 2 / 3 года (PhD) | ❌ Нет | ✅ dependants |
 | **Scale-up** | Работники fast-growth компаний | £39,100/год | 2 года + 3 года | ✅ 5 лет | ✅ |
 | **Family (Spouse/Partner)** | Супруги/партнёры британцев/ILR | £29,000/год (sponsor) | 2.5 года | ✅ 5 лет | ✅ |
-| **Health and Care Worker** | Медики / adult social care | **£25,000**/год (или going rate) | До 5 лет | ✅ обычно 5 лет | ✅ |
-| **Student** | Студенты | Достаточно средств | Длительность курса | ❌ Нет | ❌ Нет |
+| **Health and Care Worker** | Медики / eligible care roles | **£25,000**/год (или going rate) | До 5 лет | ✅ обычно 5 лет | ✅ (ограничения для care) |
+| **Student** | Студенты | Достаточно средств | Длительность курса | ❌ Нет | ⚠️ Только postgraduate **research** (PhD / research-based higher degree) или **government-sponsored**; taught master’s с **01.01.2024** — dependants нельзя |
 
 ---
 
@@ -81,10 +83,20 @@ date_modified: 2026-07-29
 | **Salary** | Обычно **£41,700/год** или going rate — **whichever is higher** ([gov.uk](https://www.gov.uk/skilled-worker-visa/your-job)) |
 | **Going rate** | Варьируется по SOC code: IT — £35,000–45,000, инженеры — £32,000–40,000, медсёстры — £28,000–35,000 |
 | **English** | B1 (CEFR) — Secure English Language Test (SELT) |
-| **Maintenance** | £1,270 на счету 28 дней (или sponsor подтверждает maintenance) |
+| **Maintenance** | Main: **£1,270** (28 дней) или sponsor certifies. Dependants: partner **£285**, first child **£315**, each additional child **£200** |
 | **Срок** | До 5 лет, продлевается |
 
 **Важно:** стандартный порог обновлён: с **22 июля 2025** на gov.uk указано **£41,700** (ранее после апр. 2024 часто цитировали **£38,700**). Есть сценарии с **более низким** floor (например около **£33,400** или transitional/extend) — сверяйте таблицу «when you can be paid less» и going rate по SOC. Medium-skilled / immigration salary list / temporary shortage — отдельные правила.
+
+### Visa fees (с 8 апреля 2026)
+
+| | Outside UK | Inside UK (extend/switch) |
+|---|---|---|
+| **Standard** ≤3 years | **£819** | **£943** |
+| **Standard** >3 years | **£1,618** | **£1,865** |
+| **Immigration Salary List** ≤3 / >3 years | **£628** / **£1,235** (same in/out) | same |
+
+Плюс **IHS £1,035**/год (если не exempt). Старые £719 / £1,420 — не использовать.
 
 ### Процесс
 
@@ -92,7 +104,7 @@ date_modified: 2026-07-29
 2. Получить job offer и Certificate of Sponsorship
 3. Сдать SELT (если нет exempt degree)
 4. Подать онлайн на gov.uk (в UK или за рубежом)
-5. Оплатить: visa fee £719 (3 года) / £1,420 (5 лет) + IHS £1,035/год
+5. Оплатить visa fee (таблица выше) + IHS
 6. Биометрия в VFS Global или UKVCAS
 7. Решение: 3–8 недель (priority — 5 рабочих дней, super priority — 1 рабочий день)
 8. Получение **eVisa / digital status** (физический BRP для многих заявок уже не выдают)
@@ -166,9 +178,10 @@ date_modified: 2026-07-29
 | Параметр | Требование |
 |---|---|
 | **Business idea** | Innovative, viable, scalable — подтверждено endorsing body |
-| **Endorsement** | Письмо от approved endorsing body |
+| **Endorsement** | Письмо от approved body; fee **£1,000** + **£500**/contact-point meeting |
 | **English** | B2 (CEFR) — SELT с 8 января 2026 |
-| **Maintenance** | £1,270 на счету 28 дней |
+| **Maintenance** | £1,270 на счету 28 дней (+ dependants: £285 / £315 / £200) |
+| **Visa fee** | **£1,357** outside UK / **£1,693** inside UK (с 8 Apr 2026) |
 | **Investment** | Нет фиксированного минимума (раньше £50,000) |
 | **Role** | Sole founder или instrumental member of founding team |
 | **Day-to-day involvement** | Должен быть активно вовлечён |
@@ -204,6 +217,7 @@ date_modified: 2026-07-29
 | **Job offer** | Не требуется |
 | **English** | Не требуется (уже подтверждено через учёбу) |
 | **Maintenance** | Не требуется |
+| **Visa fee** | **£937** + IHS (£1,035/год; ориентир IHS 18 мес / 2г / 3г — на gov.uk) |
 
 ### Что можно делать
 
@@ -273,6 +287,7 @@ date_modified: 2026-07-29
 | **Salary** | **£39,100/год** или going rate, whichever is higher |
 | **English** | B2 (CEFR) |
 | **Certificate of Sponsorship** | Для первого application |
+| **Visa fee** | **£937**/чел. + IHS |
 | **Срок** | 2 года + extension 3 года |
 
 ### Главное преимущество
@@ -311,6 +326,7 @@ date_modified: 2026-07-29
 | **Children (новые заявки)** | Для заявок **с 11.04.2024** — flat **£29,000**, **без** надбавок за детей |
 | **English** | A1 (entry), A2 (extension), B1 (settlement) |
 | **Accommodation** | Suitable — не переполненная, безопасная |
+| **Visa fee** | **£2,064** outside UK / **£1,407** inside UK (partner/parent/child; + IHS) |
 | **Срок** | 2.5 года, затем extension ещё на 2.5 года |
 
 ### Транзитные правила (дети / порог)
@@ -330,26 +346,29 @@ date_modified: 2026-07-29
 
 ### Для кого
 
-Квалифицированные медицинские и социальные работники.
+Квалифицированные медицинские и eligible social care professionals с job offer от approved NHS / NHS supplier / adult social care sponsor.
+
+> **⚠️ Care worker / senior care worker (SOC 6135 / 6136):** с **22 июля 2025** **новые overseas** заявки на эти коды **закрыты**. На gov.uk 6135/6136 — только для **extend / update / switch in-country** (switch: обычно ≥3 месяца у того же sponsor). Transitional окно до **22 июля 2028**. Не планируйте «приехать из-за рубежа care worker на H&C» как открытый маршрут. Nurses, doctors и другие коды из списка eligible для entry clearance — отдельно.
 
 ### Требования
 
 | Параметр | Требование |
 |---|---|
-| **Job** | Eligible health or social care role (doctor, nurse, health professional, adult social care) |
-| **Employer** | NHS, NHS supplier, adult social care provider с Sponsor Licence |
+| **Job** | Код из списка eligible для **entry** — или 6135/6136 только для in-country transitional |
+| **Employer** | NHS, NHS supplier, adult social care provider с Sponsor Licence (+ CQC для care в England) |
 | **Certificate of Sponsorship** | Да |
 | **Salary** | Обычно минимум **£25,000**/год или going rate / national pay scale — **whichever is higher** |
-| **English** | B1 (CEFR) |
-| **Maintenance** | £1,270 (или sponsor подтверждает) |
+| **English** | B1 (CEFR) — сверяйте актуальный уровень для вашей роли |
+| **Maintenance** | £1,270 (или sponsor подтверждает); dependants £285 / £315 / £200 |
+| **Visa fee** | **£324** (≤3 years) / **£628** (>3 years) — same in/out UK |
 
-### Преимущества
+### Преимущества (для eligible roles)
 
 - **Ниже стандартного Skilled Worker floor** (£25,000 vs **£41,700**; going rate / pay band всё равно может быть выше)
-- **Низкая visa fee** (£298 vs £719)
+- **Низкая visa fee** (£324 / £628 vs standard Skilled Worker)
 - **Exempt from IHS** (Immigration Health Surcharge) — экономия £1,035/год
 - **Путь к ILR** через 5 лет
-- **Семья** может работать и учиться 
+- **Семья** — часто можно, но у care workers с Mar 2024 жёсткие ограничения на новых dependants
 
 ---
 
@@ -502,9 +521,11 @@ date_modified: 2026-07-29
 - **Life in the UK test** — тест на знание истории, культуры, законов
 - **Чистая судимость**
 - **Financial:** Для Family visa — £29,000/год
+- **Fee (с 8 Apr 2026):** **£3,226**/чел. (main + каждый dependant; IHS на ILR нет)
 
-### Citizenship
+### Citizenship (naturalisation)
 
+- **Fee:** **£1,709** application + **£130** citizenship ceremony (= **£1,839** total на gov.uk)
 - **1 год** на ILR + **всего 5 лет** legal residence (для work/family visas)
 - Или **3 года** legal residence, если супруг/партнёр британского гражданина
 - **English B1**
@@ -520,7 +541,7 @@ date_modified: 2026-07-29
 
 | Статья | Сумма (£) |
 |---|---|
-| Visa fee (3 years) | £719 |
+| Visa fee (≤3 years, outside UK) | **£819** (ISL: **£628**) |
 | IHS (3 years × £1,035) | £3,105 |
 | Переводы, апостили | £200–400 |
 | Авиабилеты | £300–800 |
@@ -534,12 +555,12 @@ date_modified: 2026-07-29
 
 | Статья | Сумма (£) |
 |---|---|
-| Endorsement | £456 |
-| Visa fee | £1,191 |
+| Endorsement | **£1,000** (+ £500× meetings) |
+| Visa fee (outside UK) | **£1,357** |
 | IHS (3 years) | £3,105 |
 | Business setup | £500–2,000 |
 | Аренда, быт | £5,000–10,000 |
-| **Итого минимум** | **£10,000–17,000** |
+| **Итого минимум** | **£11,000–18,000** |
 
 ---
 
@@ -566,7 +587,7 @@ date_modified: 2026-07-29
 - **У вас innovative business idea** → Innovator Founder
 - **Вы выпускник UK вуза** → Graduate Visa → switch на Skilled Worker
 - **Выпуск eligible university (не UK) за 5 лет** → HPI → switch на Skilled Worker / другой route
-- **Вы медик/соцработник** → Health and Care Worker (дешевле, быстрее, exempt IHS)
+- **Вы медик / eligible health role (не overseas care 6135/6136)** → Health and Care Worker (ниже fee, IHS exempt)
 - **Ваш супруг/партнёр — британец или имеет ILR** → Family Visa
 - **Вы работаете в fast-growth компании** → Scale-up (гибкость после 6 мес)
 
@@ -576,17 +597,13 @@ date_modified: 2026-07-29
 
 ## Коротко для проверки маршрута
 
-1. Skilled Worker standard floor: **£41,700** или going rate (выше).
-2. Health & Care: обычно **£25,000** + IHS exempt.
-3. HPI: eligible list по award year, English **B2**, dependants OK; не UK degree.
-4. Graduate: 2 года до 31.12.2026 / 18 мес с 01.01.2027; dependants если eligible; **не** ILR-track.
-5. Family MIR: **£29,000** flat для новых; child increments — mainly transitional pre-11.04.2024.
-6. UK **allows dual nationality**; ILR/citizenship — сверяйте continuous residence и Life in the UK.
-7. Приоритет всегда: [gov.uk](https://www.gov.uk/).
+1. Skilled Worker: **£41,700** / going rate; fees **£819–£1,865** (+ ISL **£628/£1,235**); English **B1**.
+2. Health & Care: **£25,000** + IHS exempt; fee **£324/£628**; **care 6135/6136 overseas closed** (transitional in-country → Jul 2028).
+3. Student dependants: research PG / government-sponsored only (taught master’s с 2024 — нет); fee **£558**.
+4. Graduate **£937**; Scale-up **£937**; Family outside **£2,064**; ILR **£3,226**; naturalisation **£1,709** (+£130 ceremony).
+5. HPI: eligible list, English **B2**; Graduate 2y/18m; Family MIR **£29,000** flat (новые).
+6. UK **allows dual nationality**. Приоритет: [gov.uk](https://www.gov.uk/).
 
-*Июль 2026. Не юридическая консультация. Пороги, fees и endorsing bodies меняются — сверяйте gov.uk перед подачей.*  
-    # Великобритания 2026 — Skilled Worker, Global Talent, Innovator Founder, Graduate, Family
-
-**Pillar-гид: все маршруты, points-based system, NHS, аренда и путь к британскому паспорту**
+*Август 2026. Не юридическая консультация. Fees с 8 Apr 2026 — сверяйте Home Office table перед подачей.*
 
 ---
