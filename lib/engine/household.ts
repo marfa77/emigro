@@ -119,7 +119,7 @@ const INCOME_THRESHOLDS: Record<string, ThresholdSpec> = {
   },
   "poland-eu-blue-card": {
     field: "annual_salary_eur",
-    solo: 36240,
+    solo: 37356, // PLN 13 355,34/мес ×12 ≈ €3 113/мес (GUS 2026)
     adultAddon: 0,
     childAddon: 0,
     labelRu: "годовая зарплата Blue Card",
