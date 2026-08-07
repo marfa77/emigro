@@ -40,7 +40,7 @@ const FOR_WHO = [
   "Senior / Staff / Principal / Head of / Eng Manager и рядом — ищете роль, а не «любую вакансию»",
   "Смотрите EU / UK / remote и готовы фильтровать по региону и уровню",
   "Хотите процесс в Telegram, без ещё одного кабинета на сайте",
-  "Планируете работу + релокацию (Blue Card / work permit) и уже читаете гайды Emigro",
+  "Планируете работу + релокацию (Blue Card / work permit / Critical Skills / ОАЭ employment) и уже читаете гайды Emigro",
 ] as const;
 
 const NOT_FOR = [

@@ -3,8 +3,10 @@ import type { ReactNode } from "react";
 import { AlertTriangle, ArrowRight, Banknote, BookOpen, CheckCircle2, Clock, FileText, Globe2, Route } from "lucide-react";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { ServiceProvidersSection } from "@/components/providers/ServiceProvidersSection";
+import { RoleRadarPromo } from "@/components/sponsors/RoleRadarPromo";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { HubHeroVisual } from "@/components/visuals/HubHeroVisual";
+import { shouldShowRoleRadarOnHub } from "@/lib/role-radar";
 import { getHubsByKind, hubKindLabel, type TransitHub } from "@/lib/transit-hubs";
 import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
 import { pageUrl } from "@/lib/seo";
@@ -281,6 +283,14 @@ export function TransitHubLanding({ hub }: Props) {
               variant="compact"
               title="Emigro Assist"
             />
+
+            {shouldShowRoleRadarOnHub(hub.slug) ? (
+              <RoleRadarPromo
+                medium="transit_hub_landing"
+                content={hub.slug}
+                compact
+              />
+            ) : null}
 
             <section className="rounded-2xl border border-slate-200 bg-white p-5">
               <h2 className="font-semibold text-slate-900">

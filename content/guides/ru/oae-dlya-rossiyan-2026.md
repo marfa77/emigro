@@ -30,7 +30,7 @@ official_sources:
 cover_image: /images/corridor-uae.webp
 estimated_minutes: 28
 date_published: 2026-06-26
-date_modified: 2026-07-31
+date_modified: 2026-08-07
 review_tier: volatile
 ---
 
@@ -126,6 +126,8 @@ Emirates NBD, ADCB, FAB, Mashreq, WIO — счета резидентам пос
 | Family sponsorship | Ориентиры зарплаты ~**AED 4 000–5 000+**/мес — сверяйте GDRFA |
 | Банк | Зарплатный счёт через employer — самый простой путь для RU |
 | Риск | Увольнение → отмена визы; grace period ориентир **~30 дней** |
+
+Ищете **senior IT**-роль (Dubai / remote / EU-UK) параллельно с визой? Сестринский продукт Emigro — **[Role Radar](/ru/role-radar)**: дайджест под ваше CV в Telegram (не общий канал вакансий). Не заменяет sponsorship и KYC банка — только поиск роли.
 
 ---
 
@@ -401,6 +403,7 @@ Employment, фризона, freelance, Green Visa, Remote Work.
 - PIT 0%; mainland CT 9% >375k; **QFZP** — не автомат.  
 - Банки почти только с визой + Emirates ID.  
 - Дубай: ~2.5–4k € одному, семья от ~4.5k €.  
-- EU — отдельно: [/ru/wizard](/ru/wizard) · хаб [/ru/uae](/ru/uae).
+- EU — отдельно: [/ru/wizard](/ru/wizard) · хаб [/ru/uae](/ru/uae).  
+- Senior job hunt (remote / EU-UK): [Role Radar](/ru/role-radar).
 
-*Не юридическая и налоговая консультация. Правила виз, банков и CT меняются — сверяйте [u.ae](https://u.ae/), [gdrfad.gov.ae](https://www.gdrfad.gov.ae/), [dubailand.gov.ae](https://dubailand.gov.ae/), [icp.gov.ae](https://icp.gov.ae/), [tax.gov.ae](https://tax.gov.ae/) перед решением. Цифры — июль 2026.*
+*Не юридическая и налоговая консультация. Правила виз, банков и CT меняются — сверяйте [u.ae](https://u.ae/), [gdrfad.gov.ae](https://www.gdrfad.gov.ae/), [dubailand.gov.ae](https://dubailand.gov.ae/), [icp.gov.ae](https://icp.gov.ae/), [tax.gov.ae](https://tax.gov.ae/) перед решением. Цифры — август 2026.*

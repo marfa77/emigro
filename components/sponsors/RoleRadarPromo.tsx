@@ -32,7 +32,7 @@ export function RoleRadarPromo({
             Role Radar
           </Link>
           {" — "}
-          senior-дайджесты вакансий в Telegram под ваше CV.
+          senior-роли под CV в Telegram (EU, UK, remote).
         </p>
       </aside>
     );
@@ -47,8 +47,8 @@ export function RoleRadarPromo({
         <p className="text-xs font-semibold uppercase tracking-[0.14em] text-sky-700/90">Сестринский продукт</p>
         <h3 className="mt-2 text-xl font-semibold tracking-tight text-slate-900">Role Radar</h3>
         <p className="mt-2 max-w-xl text-sm leading-relaxed text-slate-600">
-          Подборка senior-ролей под ваше резюме — в Telegram. Регионы, уровень и фильтр «Build CV» для
-          Founder/Operator. Бесплатный старт, Scout и Operator — по желанию.
+          Подборка senior-ролей под ваше резюме — в Telegram. Фильтры: EU, UK, remote и уровень.
+          Бесплатный старт; Scout / Operator — по желанию (Build CV на Operator).
         </p>
         <Link
           href={href}
