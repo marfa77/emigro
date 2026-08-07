@@ -4,7 +4,7 @@ title: "ВНЖ Скандинавия 2026: Швеция, Дания, Норве
 seo_title: "ВНЖ Nordics 2026 — сравнение SE/DK/NO/FI (хаб)"
 seo_description: "Хаб Nordics 2026: куда смотреть в SE/DK/NO/FI. Детали Швеции и Норвегии — в country-pillars; здесь сравнение порогов и семьи для RU/BY/UA/KZ."
 excerpt: "Хаб сравнения Nordics: work permit / pay limit / семья. Глубина по стране — в pillar Швеции и Норвегии, не дублируем их цифры здесь."
-quick_answer: "Это **хаб сравнения** SE/DK/NO/FI, не замена country-гайдам. SE work permit ≥ SEK 34 470/мес (90% медианы с 16.06.2026) — полный разбор: [ВНЖ Швеция](/ru/guides/vnj-shvetsiya-2026-work-permit-grazhdanstvo). NO Skilled Worker — [ВНЖ Норвегия](/ru/guides/vnj-norvegiya-2026). DK pay limit ~DKK 552 000/год. FI pillar пока тоньше — ориентир через коридор. Семья/ПМЖ/гражданство — только в country-гайде на дату подачи."
+quick_answer: "Хаб SE/DK/NO/FI. SE work permit ≥ **SEK 34 470**/мес; Blue Card SE ≥ **SEK 53 625**/мес (с 15.07.2026). DK pay limit ~**DKK 552 000**/год. Гражданство: SE **8 лет** (с 06.06.2026); NO обычно **8 из 11**; FI **8 лет** (с 01.10.2024, Migri); DK ~**9 лет**. Двойное гражданство DK — с **01.09.2015** (не «с 2024»). Глубина: [Швеция](/ru/guides/vnj-shvetsiya-2026-work-permit-grazhdanstvo), [Норвегия](/ru/guides/vnj-norvegiya-2026)."
 corridor_slugs: [ru-speaking-to-sweden, ru-speaking-to-norway, ru-speaking-to-finland, ru-speaking-to-denmark]
 topic_keys: [scandinavia, sweden, norway, finland, denmark, work, visa]
 tags: [Скандинавия, ВНЖ, Швеция, Дания, work permit, 2026, Nordics]
@@ -28,9 +28,13 @@ official_sources:
     label: SIRI — family reunification Denmark
   - url: https://www.udi.no/
     label: UDI Norway — immigration
+  - url: https://migri.fi/en/-/longer-period-of-residence-required-for-citizenship-as-of-1-october-2024
+    label: Migri — citizenship residence 8 years from 01.10.2024
+  - url: https://www.migrationsverket.se/en/you-want-to-apply/work/employee-or-self-employed/eu-blue-cards.html
+    label: Migrationsverket — EU Blue Card SEK 53 625
 estimated_minutes: 18
 date_published: 2026-07-01
-date_modified: 2026-08-01
+date_modified: 2026-08-07
 ---
 
 ## Кому подходит этот гайд
@@ -53,10 +57,10 @@ date_modified: 2026-08-01
 
 | Страна | EU/EEA | Главный маршрут для СНГ | Зарплатный порог 2026 |
 |--------|--------|-------------------------|------------------------|
-| **Швеция (SE)** | EU | Work permit | **SEK 34 470/мес** (~€3 050) |
+| **Швеция (SE)** | EU | Work permit / Blue Card | **SEK 34 470**/мес; Blue Card **SEK 53 625**/мес |
 | **Дания (DK)** | EU | Pay limit scheme | **DKK 552 000/год** (~€74 000) |
 | **Норвегия (NO)** | EEA, не EU | Skilled worker | Высокий порог + employer sponsorship |
-| **Финляндия (FI)** | EU | Specialist permit | Зависит от отрасли и UDI-эквивалента |
+| **Финляндия (FI)** | EU | Specialist / work (Migri) | Порог по типу permit; гражданство **8 лет** |
 
 Emigro разделил Nordics на **четыре коридора** ([Швеция](/ru/sweden), [Норвегия](/ru/norway), [Финляндия](/ru/finland), [Дания](/ru/denmark)) — этот гайд остаётся сравнительным обзором. Основной CTA wizard: [Швеция](/ru/sweden/wizard) · также [Дания](/ru/denmark/wizard).
 
@@ -109,7 +113,7 @@ Emigro разделил Nordics на **четыре коридора** ([Шве�
 | Этап | Срок |
 |------|------|
 | Подготовка оффера + union terms | 2–6 недель |
-| Рассмотрение Migrationsverket | **4–12 месяцев** |
+| Рассмотрение Migrationsverket | типично **1–4 месяца**; пики и сложные кейсы длиннее (редко до ~12) |
 | Виза D / въезд / карта | 2–4 недели после approval |
 | Сбор за permit | **SEK 2 200** (~€200) |
 
@@ -158,16 +162,16 @@ Emigro разделил Nordics на **четыре коридора** ([Шве�
 Если у вас есть **супруг, зарегистрированный партнёр или ребёнок** с легальным residence permit в SE/DK/NO/FI — маршрут **family reunification**.
 
 ### Швеция
-- Спонсор: человек с **permanent** или **temporary** permit (work, study — с ограничениями)
+- Спонсор: человек с **permanent** или **temporary** permit (work; study — **строже**, часто с ограничениями)
 - Доказательства отношений: брак, civil partnership, совместное проживание
-- **Maintenance requirement:** спонсор должен обеспечить жильё и доход (проверяется Migrationsverket)
-- Срок: **4–12 месяцев**
+- **Maintenance requirement:** спонсор должен закрыть жильё + доход по правилам Migrationsverket (не «достаточно ВНЖ»)
+- Срок решения: часто **несколько месяцев**; сложные кейсы дольше
 
 ### Дания
 - Спонсор с Danish residence
 - **24-årreglen** и другие ограничения для молодых пар — проверяйте актуальные правила SIRI
 - Integration requirements (языковые курсы) для супруга после приезда
-- Срок: **4–12 месяцев**
+- Срок: часто **несколько месяцев**; сложные кейсы дольше
 
 Подробнее о семье в EU: [воссоединение семьи в Европе](/ru/guides/vossoedinenie-semi-evropa-2026).
 
@@ -175,9 +179,9 @@ Emigro разделил Nordics на **четыре коридора** ([Шве�
 
 ## Норвегия и Финляндия — кратко
 
-**Норвегия** — в EEA, но **не в EU**. Skilled worker permit через **UDI**; работодатель доказывает, что кандидат не найден в NO/EEA. Зарплатные ожидания высокие; русскоязычное комьюнити меньше, чем в SE.
+**Норвегия** — в EEA, но **не в EU**. Skilled worker через **UDI**; детали и пороги — [ВНЖ Норвегия](/ru/guides/vnj-norvegiya-2026). Гражданство обычно **8 из последних 11 лет** (не «7 лет»).
 
-**Финляндия** — specialist residence permit через **Migri**; часто требуется диплом и salary above threshold. Helsinki — растущий IT-hub, но конкуренция с EU Blue Card маршрутами.
+**Финляндия** — work/specialist через **Migri** (не UDI). Helsinki — IT-hub. Гражданство с **01.10.2024**: обычно **8 лет** легального проживания ([Migri](https://migri.fi/en/-/longer-period-of-residence-required-for-citizenship-as-of-1-october-2024)) — формулировка «5 лет» **устарела**.
 
 Emigro wizard по Nordics: [/ru/sweden/wizard](/ru/sweden/wizard).
 
@@ -189,8 +193,8 @@ Emigro wizard по Nordics: [/ru/sweden/wizard](/ru/sweden/wizard).
 |------|--------|-------|
 | Work permit | Английский достаточен в IT | Английский в IT |
 | Быт / интеграция | Шведский A2–B1 помогает | Датский A2–B1 |
-| ПМЖ / гражданство | Шведский B1+ (SFI → higher) | Prøve i Dansk 3 (PD3) |
-| Гражданство | **8 лет** с 06.06.2026 + доход/язык | ~9 лет (исключения есть) |
+| ПМЖ / гражданство | знания языка и общества (тесты **поэтапно** с 06.06.2026; «B1+» — ориентир, не единственный способ) | Prøve i Dansk 3 (PD3) |
+| Гражданство | **8 лет** с 06.06.2026 + самообеспечение + язык/общество | ~9 лет (исключения есть) |
 
 **SFI (Swedish for Immigrants)** — бесплатные курсы для ВНЖ-держателей. Начинайте в первый год — это ускорит интеграцию и путь к паспорту.
 
@@ -200,12 +204,12 @@ Emigro wizard по Nordics: [/ru/sweden/wizard](/ru/sweden/wizard).
 
 | Страна | ПМЖ (permanent) | Гражданство | Язык |
 |--------|-----------------|-------------|------|
-| **Швеция** | ~**4 года** на work permit | **8 лет** с 06.06.2026 (+ доход/язык) | Шведский B1+ |
-| **Дания** | Зависит от scheme | ~**9 лет** (исключения: брак, дети) | PD3 / эквivalent |
-| **Норвегия** | 3 года на permit | **7 лет** | Bokmål/Nynorsk B1 |
-| **Финляндия** | 4 года A-permit | **5 лет** | Finnish/Swedish B1 |
+| **Швеция** | ~**4 года** на work permit | **8 лет** с 06.06.2026 (+ доход + язык/общество) | тесты поэтапно / достаточные знания |
+| **Дания** | Зависит от scheme | ~**9 лет** (исключения: брак, дети) | PD3 / эквивалент |
+| **Норвегия** | 3 года на permit (+ доход 2.5 G) | **8 из 11 лет** (иногда **6 из 10** при доходе) | Bokmål/Nynorsk B1 |
+| **Финляндия** | 4 года A-permit (ориентир) | **8 лет** с **01.10.2024** (исключения короче) | Finnish/Swedish |
 
-**Двойное гражданство:** Швеция, Дания, Финляндия **разрешают** (с 2024+ в DK — расширение). Россия **не признаёт** второе гражданство de facto — юридические последствия на вашей стороне.
+**Двойное гражданство:** SE и FI разрешают. **Дания разрешает multiple nationality с 01.09.2015** — это не новинка 2024. Окно до **30.06.2026** — для **reacquisition** датского гражданства теми, кто потерял его до 2015, а не «новое разрешение dual». РФ **не признаёт** второе гражданство de facto — последствия на вашей стороне.
 
 Подробнее по гражданству в Центральной Европе: [Германия + Польша](/ru/guides/grazhdanstvo-germaniya-polsha-2026).
 
@@ -266,23 +270,23 @@ Emigro wizard по Nordics: [/ru/sweden/wizard](/ru/sweden/wizard).
 
 ### Можно ли получить ВНЖ в Nordics без работодателя?
 
-Для граждан СНГ **практически нет** массовых маршрутов без оффера (в отличие от PT D8 или DE Chancenkarte). Исключения — семья, учёба, отдельные research permits.
+Для граждан СНГ **почти нет** массовых маршрутов без оффера (в отличие от PT D8 / DE Chancenkarte). Исключения: семья, учёба, research; в SE у выпускников вузов есть **job-seeker** residence после учёбы (сроки зависят от степени — сверяйте Migrationsverket), это не «открытый номад».
 
 ### Швеция или Германия для IT с €50 000/год?
 
-При €50k Germany Blue Card **формально доступен** (shortage €45 934). Швеция — ниже порог, но netto и соцзащита сопоставимы. Сравните налоги и город: Stockholm vs Berlin.
+При €50k Germany Blue Card **формально доступен** (shortage €45 934). В SE обычный work permit порог ниже; **EU Blue Card SE** — отдельно, **SEK 53 625**/мес с 15.07.2026. Сравните налоги и город: Stockholm vs Berlin.
 
 ### Нужен ли шведский для work permit?
 
-**Нет** — для подачи и работы в IT английский достаточен. Для ПМЖ и гражданства — шведский B1+.
+**Нет** для подачи/IT. Для гражданства с 06.06.2026 — знания языка и общества (тесты вводятся поэтапно; «B1+» — удобный ориентир подготовки, не единственный официальный ярлык).
 
 ### Сколько ждать Migrationsverket?
 
-**1–4 месяца** — типичный диапазон. Пиковые периоды (август–октябрь) длиннее.
+Типично **1–4 месяца** для work permit. Старая формулировка «4–12 месяцев» в теле гайда относилась к худшим кейсам/пикам — не к норме. Сверяйте очередь на сайте MV на дату подачи.
 
 ### Можно ли перевести work permit на другого работодателя?
 
-**Да**, но нужно **новое одобрение** Migrationsverket до начала работы у нового employer. Не увольняйтесь до approval.
+На дату сверки: обычно нужна **новая заявка / одобрение** Migrationsverket до старта у нового employer — не увольняйтесь «вслепую». Следите за реформой labour immigration (portability / уведомления) — правила могут смягчиться; сверяйте MV перед сменой.
 
 ### Разрешено ли двойное гражданство SE + РФ?
 

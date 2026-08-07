@@ -1393,8 +1393,8 @@ export const EUROPE_CORRIDORS: CorridorSeed[] = [
         category: "citizenship",
         titleEn: "Norwegian citizenship timeline",
         titleRu: "Срок гражданства Норвегии",
-        bodyEn: "Norway: typically ~7–8 years legal residence plus language/civics requirements — verify UDI.",
-        bodyRu: "Норвегия: обычно ~7–8 лет легального проживания + язык/общество — сверяйте UDI.",
+        bodyEn: "Norway: usually 8 of the last 11 years (sometimes 6 of 10 with sufficient income) plus language/civics — verify UDI.",
+        bodyRu: "Норвегия: обычно 8 из последних 11 лет (иногда 6 из 10 при достаточном доходе) + язык/общество — сверяйте UDI.",
         sourceUrl: "https://www.udi.no/",
       },
       {
@@ -1543,9 +1543,9 @@ export const EUROPE_CORRIDORS: CorridorSeed[] = [
         category: "citizenship",
         titleEn: "Finnish citizenship timeline",
         titleRu: "Срок гражданства Финляндии",
-        bodyEn: "Finland: typically ~5 years legal residence plus language requirements — verify Migri.",
-        bodyRu: "Финляндия: обычно ~5 лет легального проживания + язык — сверяйте Migri.",
-        sourceUrl: "https://migri.fi/",
+        bodyEn: "Finland: usually 8 years legal residence since 1 Oct 2024 (shorter in exceptions) plus language — verify Migri.",
+        bodyRu: "Финляндия: обычно **8 лет** легального проживания с 01.10.2024 (есть укорочения) + язык — сверяйте Migri.",
+        sourceUrl: "https://migri.fi/en/-/longer-period-of-residence-required-for-citizenship-as-of-1-october-2024",
       },
       {
         category: "exam",
