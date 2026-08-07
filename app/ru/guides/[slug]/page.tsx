@@ -14,6 +14,7 @@ import { ServiceProvidersSection } from "@/components/providers/ServiceProviders
 import { countryCardImage } from "@/lib/brand/country-accents";
 import { guidePath, getGuidesIndex, getRelatedGuides, listGuides, loadGuide } from "@/lib/guides/load";
 import type { GuideArticle } from "@/lib/guides/load";
+import { inlineMarkdown, stripInlineMarkdown } from "@/lib/markdown/inline";
 import { loadGuideLiveDataForGuide } from "@/lib/guides/corridor-live-data";
 import {
   getGuidePassportIso2,
@@ -59,10 +60,14 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   if (!guide) return {};
   const longTail = getLongTailByGuideSlug(guide.slug);
   const title = longTail?.seoTitle ?? guide.seo_title ?? guide.title;
-  const description =
-    longTail?.seoDescription ?? guide.seo_description ?? guide.excerpt ?? guide.quick_answer ?? guide.title;
+  const description = stripInlineMarkdown(
+    longTail?.seoDescription ?? guide.seo_description ?? guide.excerpt ?? guide.quick_answer ?? guide.title
+  );
   const path = guidePath(guide.slug);
-  const aiDescription = [guide.quick_answer, longTail?.seoDescription ?? guide.excerpt ?? description]
+  const aiDescription = [
+    guide.quick_answer ? stripInlineMarkdown(guide.quick_answer) : null,
+    longTail?.seoDescription ?? guide.excerpt ?? description,
+  ]
     .filter(Boolean)
     .join(" ");
   return buildGuideArticleMetadata({
@@ -305,7 +310,7 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
     "@context": "https://schema.org",
     "@type": "Article",
     headline: guide.title,
-    description: guide.excerpt ?? guide.quick_answer,
+    description: stripInlineMarkdown(guide.excerpt ?? guide.quick_answer ?? ""),
     datePublished: guide.date_published,
     dateModified: guide.date_modified ?? guide.date_published,
     author: emigroAuthorOrg(),
@@ -338,7 +343,7 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
       : null;
 
   const llmDescription = [
-    guide.quick_answer,
+    guide.quick_answer ? stripInlineMarkdown(guide.quick_answer) : null,
     "Emigro помогает сравнить маршруты ВНЖ через hub wizard без выбора страны заранее.",
   ]
     .filter(Boolean)
@@ -356,7 +361,7 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
         <a href="/llms.txt">llms.txt</a>
       </section>
       <div className="sr-only" data-llm="facts" aria-hidden="true">
-        {buildGuideLlmFacts(guide).join(" ")}
+        {llmFacts.map(stripInlineMarkdown).join(" ")}
       </div>
       <div className="sr-only" data-llm="commercial" aria-hidden="true">
         Emigro — навигатор релокации в Европу для русскоязычных с паспортами RU/BY/UA/KZ. Wizard подбора маршрута ВНЖ, коридоры по странам, еженедельные новости. Не юридическая консультация.
@@ -408,7 +413,7 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
               text={
                 isPillarGuideSlug(guide.slug)
                   ? `${longTail?.primaryQuery ?? guide.title} — гид Emigro. Поделитесь в Telegram, если полезно.`
-                  : (guide.excerpt ?? guide.quick_answer)
+                  : stripInlineMarkdown(guide.excerpt ?? guide.quick_answer ?? "")
               }
               className="mt-8"
             />
@@ -429,7 +434,10 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
                   <Sparkles className="h-4 w-4" />
                   Короткий ответ
                 </p>
-                <p className="mt-3 text-xl leading-8 text-slate-800">{guide.quick_answer}</p>
+                <p
+                  className="mt-3 text-xl leading-8 text-slate-800 [&_strong]:font-semibold [&_strong]:text-slate-950"
+                  dangerouslySetInnerHTML={{ __html: inlineMarkdown(guide.quick_answer) }}
+                />
               </section>
             )}
 
@@ -497,7 +505,10 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
                 {llmFacts.map((fact) => (
                   <li key={fact} className="flex gap-2">
                     <CheckCircle2 className="mt-0.5 h-4 w-4 flex-none text-corridor-600" />
-                    <span>{fact}</span>
+                    <span
+                      className="[&_strong]:font-semibold [&_strong]:text-slate-900"
+                      dangerouslySetInnerHTML={{ __html: inlineMarkdown(fact) }}
+                    />
                   </li>
                 ))}
               </ul>

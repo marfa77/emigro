@@ -1,5 +1,6 @@
 import { corridorDigestPath, corridorLandingPath, corridorWizardPath, programPath } from "@/lib/corridor/paths";
 import { guidePath, listGuides } from "@/lib/guides/load";
+import { stripInlineMarkdown } from "@/lib/markdown/inline";
 import { getCorridorBySlug } from "@/lib/corridor/queries";
 import { normalizeHashtag } from "@/lib/community-notes/hashtags";
 import { getPublishedCommunityNotes } from "@/lib/community-notes/queries";
@@ -244,7 +245,7 @@ export async function buildLlmsFullText(): Promise<string> {
     rows.push(
       row(
         guidePath(guide.slug),
-        guide.excerpt ?? guide.quick_answer ?? guide.title
+        stripInlineMarkdown(guide.excerpt ?? guide.quick_answer ?? guide.title)
       )
     );
   }

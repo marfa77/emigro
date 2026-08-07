@@ -12,6 +12,7 @@ export type { GuideOfficialSource, GuideFrontmatter, GuideArticle } from "@/lib/
 export { guidePath } from "@/lib/guides/paths";
 
 import type { GuideOfficialSource, GuideFrontmatter, GuideArticle } from "@/lib/guides/types";
+import { inlineMarkdown } from "@/lib/markdown/inline";
 
 const GUIDES_DIR = path.join(process.cwd(), "content/guides/ru");
 
@@ -73,12 +74,6 @@ function parseOfficialSources(frontmatterBlock: string): GuideOfficialSource[] {
 
   if (pendingUrl) sources.push({ url: pendingUrl, label: pendingUrl });
   return sources;
-}
-
-function inlineMarkdown(text: string): string {
-  return text
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-corridor-700 underline hover:text-corridor-900">$1</a>')
-    .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
 }
 
 function resolveCoverPath(meta: Record<string, string | string[]>, slug: string): string {

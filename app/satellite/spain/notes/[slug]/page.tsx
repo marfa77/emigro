@@ -26,6 +26,7 @@ import { spainHubPath } from "@/lib/satellite/paths";
 import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 import { spainSatelliteUrl } from "@/lib/site-url";
 import { estimateNoteReadMinutes, formatReadTime } from "@/lib/community-notes/read-time";
+import { inlineMarkdown } from "@/lib/markdown/inline";
 import { heroTitle, NOTE_CONTENT_IMAGE_SIZES, noteContentImageClass, satelliteMain } from "@/lib/ui/mobile";
 
 export const revalidate = 300;
@@ -141,7 +142,10 @@ export default async function SpainNotePage({ params }: { params: { slug: string
 
       <div className="community-quick-answer mt-8 rounded-xl border border-amber-100 bg-amber-50/70 p-5">
         <p className="text-xs font-bold uppercase tracking-wide text-amber-900">Короткий ответ</p>
-        <p className="mt-2 leading-relaxed text-slate-800">{note.quick_answer}</p>
+        <p
+          className="mt-2 leading-relaxed text-slate-800 [&_strong]:font-semibold [&_strong]:text-slate-950"
+          dangerouslySetInnerHTML={{ __html: inlineMarkdown(note.quick_answer) }}
+        />
       </div>
 
       <NoteHashtags tags={note.hashtags} className="mt-6" countryKey="spain" />
