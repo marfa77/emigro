@@ -501,20 +501,20 @@ export const EUROPE_CORRIDORS: CorridorSeed[] = [
             { "==": [{ var: "passport_iso2" }, "RU"] },
             {
               or: [
-                { ">=": [{ var: "passive_income_eur" }, 1823] },
-                { ">=": [{ var: "savings_eur" }, 21876] },
+                { ">=": [{ var: "passive_income_eur" }, 1867] },
+                { ">=": [{ var: "savings_eur" }, 22404] },
               ],
             },
           ],
         },
         requirements: [
-          { type: "income", labelEn: "Financial means", labelRu: "Финансовые средства", value: "€21,876/year (SMIC annuel 2026) — ~€1,823/month passive or equivalent savings" },
+          { type: "income", labelEn: "Financial means", labelRu: "Финансовые средства", value: "€22,404/year (SMIC annuel from 01.06.2026) — €1,867.02/month passive or equivalent savings" },
           { type: "documents", labelEn: "No employment in France", labelRu: "Без работы во Франции", value: "Attestation of sufficient resources; no salaried activity" },
           { type: "insurance", labelEn: "Health insurance", labelRu: "Медстраховка", value: "Full coverage in France for entire stay" },
         ],
         costs: [
           { labelEn: "Visa fee", labelRu: "Визовый сбор", amount: "€99" },
-          { labelEn: "Prefecture renewal", labelRu: "Продление в префектуре", amount: "€225 (indicative)" },
+          { labelEn: "First titre / VLS-TS taxes", labelRu: "1re délivrance / VLS-TS", amount: "€350 (€300+€50) from 01.05.2026" },
         ],
         timeline: [
           { step: "document_prep", titleEn: "Proof of means & insurance", titleRu: "Подтверждение средств и страховки", duration: "2–4 weeks" },
@@ -529,10 +529,10 @@ export const EUROPE_CORRIDORS: CorridorSeed[] = [
             labelRu: "France-Visas visiteur",
           },
           {
-            url: "https://www.service-public.fr/particuliers/vosdroits/F302",
-            excerpt: "SMIC 2026 — reference for minimum resources (€21,876/year gross SMIC).",
-            labelEn: "Service-Public SMIC",
-            labelRu: "Service-Public SMIC",
+            url: "https://www.info.gouv.fr/actualite/le-smic-revalorise-le-1er-juin-2026",
+            excerpt: "SMIC from 01.06.2026: €12.31/h, €1,867.02/month (€22,404/year).",
+            labelEn: "info.gouv.fr SMIC",
+            labelRu: "info.gouv.fr SMIC",
           },
         ],
       },

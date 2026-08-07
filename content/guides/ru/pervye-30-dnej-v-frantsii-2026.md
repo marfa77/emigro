@@ -22,7 +22,7 @@ official_sources:
     label: CAF — housing benefits
 estimated_minutes: 12
 date_published: 2026-06-27
-date_modified: 2026-06-27
+date_modified: 2026-08-07
 ---
 
 ## Кому этот чек-лист
@@ -63,7 +63,7 @@ date_modified: 2026-06-27
 **Шаги:**
 
 1. Онлайн на [administration-etrangers-en-france.interieur.gouv.fr](https://administration-etrangers-en-france.interieur.gouv.fr/) — подать данные VLS-TS.
-2. Оплатить **taxe OFII** (~€200, зависит от категории).
+2. Оплатить taxe / timbres (с **01.05.2026** нормальный тариф 1re délivrance часто **€300 + €50 = €350**; VLS-TS taxe **€300** — сверяйте SMS/ANEF).
 3. **Visite médicale OFII** — назначение по SMS/email.
 4. **Cours civique** (если требуется по категории).
 
@@ -127,7 +127,7 @@ date_modified: 2026-06-27
 |--------|-------------|-----------------|
 | Аренда 1-bed | €1 400–2 000 | €700–1 100 |
 | Дépôt + agency | €1 400–4 000 | €700–2 200 |
-| OFII taxe | ~€200 one-off | ~€200 |
+| Taxe titre / VLS-TS (с 01.05.2026) | часто €300–€350 | €300–€350 |
 | Mutuelle / CPAM gap | €30–80 | €30–80 |
 | SIM + internet | €30–50 | €25–45 |
 | Navigo / transport | €88 | €60–70 |

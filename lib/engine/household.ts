@@ -77,13 +77,13 @@ const INCOME_THRESHOLDS: Record<string, ThresholdSpec> = {
   },
   "france-vls-ts-visiteur": {
     field: "passive_income_eur",
-    solo: 1823,
+    solo: 1867, // SMIC mensuel brut from 01.06.2026
     adultAddon: 600,
     childAddon: 350,
     labelRu: "средства visiteur",
     savingsAlt: {
       field: "savings_eur",
-      solo: 21876,
+      solo: 22404, // 12 × €1 867,02
       adultAddon: 7200,
       childAddon: 4200,
       labelRu: "сбережения visiteur",
