@@ -5,6 +5,7 @@ import type {
   CommunityNoteFaq,
   CommunityNoteLink,
   ContentKind,
+  NoteBodyImage,
   NoteBodySection,
 } from "@/lib/community-notes/types";
 
@@ -26,10 +27,31 @@ function asContentKind(value: unknown): ContentKind {
 }
 
 function asSectionKind(value: unknown): NoteBodySection["section_kind"] {
-  if (value === "official" || value === "practice" || value === "gap" || value === "glossary") {
+  if (
+    value === "official" ||
+    value === "practice" ||
+    value === "gap" ||
+    value === "glossary" ||
+    value === "action_guide"
+  ) {
     return value;
   }
   return undefined;
+}
+
+function asBodyImages(value: unknown): NoteBodyImage[] | undefined {
+  if (!Array.isArray(value)) return undefined;
+  const images = value
+    .filter((item): item is Record<string, unknown> => item != null && typeof item === "object")
+    .map((item) => ({
+      src: asString(item.src),
+      alt: asString(item.alt),
+      caption: asString(item.caption) || undefined,
+      credit: asString(item.credit) || undefined,
+      creditUrl: asString(item.creditUrl) || undefined,
+    }))
+    .filter((item) => item.src.length > 0 && item.alt.length > 0);
+  return images.length > 0 ? images : undefined;
 }
 
 function asBodySections(value: unknown): NoteBodySection[] {
@@ -40,6 +62,7 @@ function asBodySections(value: unknown): NoteBodySection[] {
       heading: asString(section.heading, "Раздел"),
       paragraphs: section.paragraphs ? asStringArray(section.paragraphs) : undefined,
       bullets: section.bullets ? asStringArray(section.bullets) : undefined,
+      images: asBodyImages(section.images),
       section_kind: asSectionKind(section.section_kind),
     }))
     .filter((section) => section.heading.length > 0);

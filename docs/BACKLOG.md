@@ -165,3 +165,40 @@ Set `review_tier: volatile` in frontmatter (fees, AIMA procedures, timelines).
 
 - Recorded: 2026-07-13.
 - User requirement (RU): тройной проход факт-чека; каждое утверждение сверено с каналами; 100% точность или мягкие формулировки + дисклеймеры при неуверенности.
+
+---
+
+## CM-001 — Country-page community directory (opt-in via Telegram)
+
+| Field | Value |
+|-------|-------|
+| **Status** | `idea` |
+| **Priority** | Backlog — after corridor content + Telegram CTA baseline |
+| **Surface** | Main site corridor landings (`/ru/[country]`, e.g. `/ru/cyprus`) |
+| **Related docs** | [COMMUNITY_STRATEGY.md](./COMMUNITY_STRATEGY.md), [PT-001](#pt-001--entrepreneur-registry--founders-community-portugal-satellite) |
+
+### Idea
+
+On country pages: button «Вступить в сообщество» → short Telegram onboarding (переехал? / ВНЖ? / чем могу помочь) → show opt-in avatars + names in a «Сообщество» section so visitors can contact members via Telegram.
+
+**Verdict:** Worth building as a **people directory** (distinct from channel/comments). Not open import from Telegram chat; curated / consent-first.
+
+### Suggested MVP (when picked up)
+
+1. Seed: country CTA → bot/form (4–5 questions), no public list until ≥5–8 opt-ins per country
+2. Block on `CorridorLanding`: avatars, display name, tags (переехал / ВНЖ / ищу жильё…), `t.me/username` only if consented
+3. Hide or fallback (editorial ambassadors) when below threshold — empty block is worse than none
+4. Reuse Telegram Login / wizard TG patterns; new table e.g. `community_members` (country, tags, consent, publish status)
+
+### Explicitly out of scope (now)
+
+- Open join to unmoderated country groups
+- Auto-roster from Telegram discussion chat
+- Full social graph / feed
+- Public listing without explicit publish consent
+
+### Notes
+
+- Distinct from PT-001 founders registry (satellite curated entrepreneurs) and from current `/ru/community` (= channel subscribe + post comments).
+- Country landings today omit `RelocatorChatPromo` / `CommunityJoinButton` — easy interim CTA if needed before directory.
+- Recorded: 2026-08-07 (analysis only; deferred to backlog).

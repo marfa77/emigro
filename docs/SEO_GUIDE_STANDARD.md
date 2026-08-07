@@ -108,9 +108,11 @@ official_sources:
     label: AIMA
 estimated_minutes: 12
 date_published: 2026-06-25
-date_modified: 2026-06-25
+date_modified: 2026-06-25   # обязателен: UI показывает «Актуально на …» крупно (hero, баннер, sidebar, индекс)
 ---
 ```
+
+При каждом fact-check / правке порогов обновляйте `date_modified`. Шаблон гайда читает эту дату и выводит её читателю крупно — не прячьте актуальность только в frontmatter.
 
 ---
 

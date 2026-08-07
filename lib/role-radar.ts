@@ -16,10 +16,23 @@ export const ROLE_RADAR_GUIDE_SLUGS = new Set([
   "velikobritaniya-2026-skilled-worker-global-talent-ilr",
   "oae-dlya-rossiyan-2026",
   "yuar-dlya-rossiyan-ukraintsev-belorusov-kazahstantsev-2026",
+  "vnj-serbiya-dlya-rossiyan-2026",
+  "armeniya-dlya-rossiyan-2026",
+  "gruziya-dlya-rossiyan-2026",
+  "chernogoriya-vnj-dlya-rossiyan-2026",
+  "kazahstan-dlya-rossiyan-2026",
 ]);
 
 /** Settle / transit hub slugs (`/ru/[country]`) with employment or remote job intent. */
-export const ROLE_RADAR_HUB_SLUGS = new Set(["uae", "south-africa"]);
+export const ROLE_RADAR_HUB_SLUGS = new Set([
+  "uae",
+  "south-africa",
+  "serbia",
+  "armenia",
+  "georgia",
+  "montenegro",
+  "kazakhstan",
+]);
 
 export const ROLE_RADAR_PROGRAM_SLUGS = new Set([
   "germany-eu-blue-card",

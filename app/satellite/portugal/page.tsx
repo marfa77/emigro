@@ -5,7 +5,7 @@ import { NoteCard } from "@/components/satellite/NoteCard";
 import { SatelliteValueProp } from "@/components/satellite/RelatedNotes";
 import { BarakhloPromo } from "@/components/satellite/BarakhloPromo";
 import { getDailySpotlight } from "@/lib/community-notes/daily-spotlight";
-import { getPublishedCommunityNotes } from "@/lib/community-notes/queries";
+import { requirePublishedCommunityNotes } from "@/lib/community-notes/queries";
 import { PORTUGAL_SATELLITE } from "@/lib/satellite/portugal";
 import { buildSatelliteHubPlace } from "@/lib/community-notes/seo-page";
 import { fitMetaDescription } from "@/lib/seo";
@@ -52,7 +52,10 @@ export const metadata: Metadata = {
 };
 
 export default async function PortugalSatelliteHomePage() {
-  const [spotlight, notes] = await Promise.all([getDailySpotlight("portugal"), getPublishedCommunityNotes("portugal")]);
+  const [spotlight, notes] = await Promise.all([
+    getDailySpotlight("portugal"),
+    requirePublishedCommunityNotes("portugal"),
+  ]);
   const listNotes = spotlight ? notes.filter((n) => n.slug !== spotlight.note_slug) : notes;
   const guideNotes = listNotes.filter((n) => n.content_kind === "guide");
   const feedNotes = listNotes.filter((n) => n.content_kind !== "guide");

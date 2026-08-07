@@ -35,7 +35,9 @@ import { GuideClusterLinks } from "@/components/guides/GuideClusterLinks";
 import { GuideOriginHubPromo } from "@/components/guides/GuideOriginHubPromo";
 import { GuideCorridorLiveData } from "@/components/guides/GuideCorridorLiveData";
 import { GuideOfficialSources } from "@/components/guides/GuideOfficialSources";
+import { GuideAsOfBadge } from "@/components/guides/GuideAsOfBadge";
 import { GuideFeedbackButtons } from "@/components/guides/GuideFeedbackButtons";
+import { formatGuideAsOfDateRu, guideAsOfIso } from "@/lib/guides/guide-dates";
 import { GuideRelatedStories } from "@/components/stories/GuideRelatedStories";
 import { GuideStoriesCta } from "@/components/stories/GuideStoriesCta";
 import { countStoriesForGuide, listStoriesForGuide } from "@/lib/stories/load";
@@ -157,10 +159,12 @@ function GuideCorridorVisuals({ topics }: { topics: NewsTopicConfig[] }) {
 }
 
 function GuideFactCards({ guide, corridorCount }: { guide: GuideArticle; corridorCount: number }) {
+  const asOfIso = guideAsOfIso(guide);
+  const asOfRu = formatGuideAsOfDateRu(asOfIso);
   const facts = [
     guide.estimated_minutes ? { label: "Время", value: `${guide.estimated_minutes} мин`, icon: Clock } : null,
-    guide.date_modified ?? guide.date_published
-      ? { label: "Обновлено", value: guide.date_modified ?? guide.date_published ?? "", icon: FileText }
+    asOfRu
+      ? { label: "Актуально на", value: asOfRu, icon: FileText }
       : null,
     guide.tags?.length ? { label: "Фокус", value: guide.tags.slice(0, 2).join(" / "), icon: CheckCircle2 } : null,
     corridorCount ? { label: "Коридоры", value: `${corridorCount} маршрута`, icon: Compass } : null,
@@ -192,8 +196,10 @@ function buildGuideLlmFacts(guide: GuideArticle): string[] {
   if (guide.quick_answer) facts.push(guide.quick_answer);
   if (guide.tags?.length) facts.push(`Теги: ${guide.tags.join(", ")}`);
   if (guide.estimated_minutes) facts.push(`Время чтения: ~${guide.estimated_minutes} мин`);
-  if (guide.date_modified ?? guide.date_published) {
-    facts.push(`Обновлено: ${guide.date_modified ?? guide.date_published}`);
+  const asOfIso = guideAsOfIso(guide);
+  const asOfRu = formatGuideAsOfDateRu(asOfIso);
+  if (asOfIso && asOfRu) {
+    facts.push(`Актуально на ${asOfRu} (${asOfIso}).`);
   }
   facts.push("Emigro: hub wizard для подбора маршрута ВНЖ без выбора страны заранее.");
   return facts;
@@ -292,6 +298,7 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
   const toc = extractToc(guide.bodyHtml);
   const faqItems = extractFaq(guide.bodyHtml);
   const llmFacts = buildGuideLlmFacts(guide);
+  const asOfIso = guideAsOfIso(guide);
   const url = pageUrl(guidePath(guide.slug));
 
   const articleSchema = {
@@ -376,6 +383,7 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
             ) : null}
           </div>
           <h1 className="mt-5 max-w-3xl text-3xl font-bold leading-tight sm:text-4xl lg:text-5xl 2xl:max-w-4xl">{guide.title}</h1>
+          {asOfIso ? <GuideAsOfBadge dateIso={asOfIso} variant="hero" /> : null}
           {guide.excerpt && <p className="mt-5 max-w-2xl text-lg leading-relaxed text-corridor-100 2xl:max-w-3xl">{guide.excerpt}</p>}
           {guide.tags && guide.tags.length > 0 ? (
             <div className="mt-6 flex flex-wrap gap-2">
@@ -424,6 +432,8 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
                 <p className="mt-3 text-xl leading-8 text-slate-800">{guide.quick_answer}</p>
               </section>
             )}
+
+            {asOfIso ? <GuideAsOfBadge dateIso={asOfIso} variant="banner" className="mt-8" /> : null}
 
             {showOriginHubPromo && <GuideOriginHubPromo />}
 
@@ -529,6 +539,7 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
           </div>
 
           <aside className="space-y-4 lg:sticky lg:top-24 lg:self-start">
+            {asOfIso ? <GuideAsOfBadge dateIso={asOfIso} variant="sidebar" /> : null}
             {toc.length > 0 && (
               <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
                 <h2 className="flex items-center gap-2 font-semibold text-slate-900">

@@ -74,18 +74,38 @@ const bodySections: NoteBodySection[] = [
     ],
   },
   {
-    heading: "Брага: centro, Gualtar — бюджеты и платежи",
+    heading: "Брага: centro, Gualtar, Real (Parque Norte) — бюджеты и платежи",
     section_kind: "practice",
     paragraphs: [
-      "Что делать: сравнить Braga centro и Gualtar по renda + commute; в Minho condomínio часто ниже Porto, но heating elétrico зимой — отдельная статья.",
-      "Зачем: экономия на renta (аренде) съедается, если ездите в Porto каждый день; для жизни в Braga платите местному senhorio (арендодателю), не «посреднику из Lx».",
+      "Что делать: сравнить Braga centro, Gualtar и Real/Cancela (Rua do Parque Norte и соседние) по renda + condomínio + commute; в Minho старый prédio дешевле, новый condomínio fechado — спокойнее, но взнос выше.",
+      "Зачем: экономия на renta (аренде) съедается, если ездите в Porto каждый день; в Real (freguesia Real, Dume e Semelhe) часто новее жильё у семей с детьми — ближе Quinta Pedagógica и Estádio, ~5–10 мин на авто до centro.",
     ],
     bullets: [
       "Braga centro — T2 €700–1 000/мес; senhorio + administrador condomínio (если prédio com elevador) — два IBAN в contrato или annex.",
       "Gualtar — T2 €650–950; рядом с CLIB; expat-плотность ниже Porto; imobiliária реже, чаще прямой senhorio.",
+      "Real / Cancela / Rua do Parque Norte — ряд современных prédio (типа Green Terrace C1–C4, 2023+): T2–T3 с varanda, garagem box, часто piscina/parque infantil в condomínio; на Idealista ищите freguesia «Real, Dume e Semelhe» + «condomínio fechado» / «Green Terrace».",
+      "Ориентир по Real: T3 в новом condomínio на практике 2025–2026 уходит в вилку выше centro (часто €1 200–2 000+ mobilado); заложите condomínio отдельно — в закрытых urbanizações он заметно выше «старого» prédio без piscina.",
       "Guimarães / Viana — lepta/Idealista Q2 2025: спрос на аренду растёт, цены ниже Porto; renda €600–900 T2, commute до Porto 45–60 мин.",
       "Сравнение бюджетов Norte: подробнее в [Порту vs Брага](/notes/" + PORTO_VS_BRAGA_FAMILY_SCHOOLS_SLUG + ") — те же ориентиры по районам.",
       "AIMA Norte: comprovativo morada из registo contrato; с 2025 могут просить declaração senhorio (lepta, 2025) — заложите в переговоры.",
+    ],
+  },
+  {
+    heading: "Новые condomínios fechados в Norte: как искать «как на Parque Norte»",
+    section_kind: "practice",
+    paragraphs: [
+      "Что делать: если вам нравятся ряды новых 5–7-этажных prédio с varanda, garagem subterrânea и общим двором — фильтруйте Idealista по nova construção / condomínio fechado / piscina, а не только по centro.",
+      "Зачем: в Bonfim и старом Braga centro чаще humidade и без AC; в Real (Braga) и Senhora da Hora (Matosinhos) — другой класс жилья и другой чек condomínio.",
+      "Главное: красивый фасад ≠ «condomínio incluído в renda» — в atas/regulamento смотрите piscina, elevador, limpeza, seguro; IBAN administrador отдельный.",
+    ],
+    bullets: [
+      "Braga Real — Green Terrace и аналоги на Rua do Parque Norte / Quinta dos Lagos: AC, garagem, детская зона; удобно семьям, кто не хочет Foz-цены Porto.",
+      "Matosinhos / Senhora da Hora — Condomínio do Sobreiro (метро ~100 м), Eleven и другие nova construção у Circunvalação: commute в Porto на Metro, NorteShopping рядом.",
+      "Matosinhos / Foz periphery — новые prédio у пляжа и Av. da República; renda ближе к Foz, проверяйте risco inundação и condomínio за elevador+garagem.",
+      "Guimarães / Famalicão — реже «luxury row», чаще andar-moradia и новый T3 дешевле Real; commute к Porto длиннее.",
+      "Поиск на Idealista: Arrendar → município Braga/Matosinhos → фильтры «com garagem», «com piscina» (если критично), «última década» / ano de construção; ключевые слова «condomínio fechado», «Green Terrace», «nova construção».",
+      "На просмотре: спросите valor condomínio/mês, что входит (água das partes comuns, piscina sazonal), и есть ли atas com obras — unexpected obra elevador бьёт по карману сильнее +€50 renda.",
+      "Мобированный T3 в Real часто сдают через imobiliária: honorários 1 mes + IVA — заложите в стартовый бюджет вместе с caução.",
     ],
   },
   {
@@ -98,8 +118,8 @@ const bodySections: NoteBodySection[] = [
       "Главное: не платите caução без NIF обеих сторон в contrato и certidão permanente / ID senhorio.",
     ],
     bullets: [
-      "Шаг 1 — Поиск: Idealista.pt + Rentalia (por_tugal, 2025); фильтр arrendamento, freguesia Foz/Matosinhos/Bonfim/Braga/Gualtar.",
-      "Шаг 2 — Просмотр: вода, luz, humidade, bolor — чеклист в [климат Norte](/notes/" + NORTE_CLIMATE_COMFORT_SLUG + "); сфотографируйте углы до assinatura.",
+      "Шаг 1 — Поиск: Idealista.pt + Rentalia (por_tugal, 2025); фильтр arrendamento; freguesia Foz/Matosinhos/Bonfim/Braga centro/Gualtar/Real (Dume e Semelhe).",
+      "Шаг 2 — Просмотр: вода, luz, humidade, bolor — чеклист в [климат Norte](/notes/" + NORTE_CLIMATE_COMFORT_SLUG + "); в новом condomínio спросите AC и valor condomínio; сфотографируйте углы до assinatura.",
       "Шаг 3 — Contrato: NIF inquilino и senhorio, caução (1–2 meses), fiador или предоплата; сверьте [аренду до подписи](/notes/arenda-lissabon-do-podpisi).",
       "Шаг 4 — Первый платёж: caução + renda adiantada на IBAN из contrato; descrição с morada; не наличные без recibo.",
       "Шаг 5 — Registo Finanças: senhorio или вы после 30 дней (lepta, 08.2025); нужен для morada и IRS.",
@@ -133,6 +153,7 @@ const bodySections: NoteBodySection[] = [
       "Ошибка: игнорировать registo contrato — morada не обновится в Finanças; с 08.2025 можно зарегистрировать самим.",
       "Ошибка: один платёж «caução+renda+condomínio» без разбивки — при споре не докажете, что оплатили renda.",
       "Ошибка: аренда в Bonfim без осмотра humidade — к осени bolor и спор с senhorio; см. [климат Norte](/notes/" + NORTE_CLIMATE_COMFORT_SLUG + ").",
+      "Ошибка: смотреть только renda на Green Terrace / Sobreiro — забытый condomínio (piscina, elevador, limpeza) съедает «экономию» vs Bonfim.",
       "Ошибка: ждать PT банк для просмотра — NIF + онлайн-счёт первым шагом; детали в [аренда первый месяц Lx](/notes/arenda-kvartiry-lisbon-pervyi-mesyac-2026) (те же правила оплаты).",
     ],
   },
@@ -151,8 +172,8 @@ const keyTakeaways = [
     channels: ["por_tugal"],
     period: "2026",
     claim:
-      "аренда T2 в 2026: Foz €1 100–1 600, Matosinhos €900–1 300, Bonfim €750–1 100, Braga €700–1 000, Gualtar €650–950",
-    forReader: "сравнивайте не только renda, но и condomínio (взнос в дом) — он идёт отдельным переводом",
+      "аренда T2 в 2026: Foz €1 100–1 600, Matosinhos €900–1 300, Bonfim €750–1 100, Braga centro €700–1 000, Gualtar €650–950; новые condomínios в Real (Braga) и Senhora da Hora часто дороже centro из‑за AC/garagem/piscina",
+    forReader: "сравнивайте не только renda, но и condomínio (взнос в дом) — в Green Terrace‑типе он выше «старого» prédio",
   }),
   "Расхождение: без registo contrato в Finanças morada «не существует» — с 08.2025 inquilino может зарегистрировать сам после 30 дней.",
 ];
@@ -184,7 +205,11 @@ const faq: CommunityNoteFaq[] = [
   },
   {
     q: "Где искать долгосрочную аренду в Norte?",
-    a: "Idealista.pt и Rentalia (интеграция с 2025). Районы: Foz, Matosinhos, Bonfim (Porto), Braga centro, Gualtar. Бюджеты и commute — в [Порту vs Брага](/notes/" + PORTO_VS_BRAGA_FAMILY_SCHOOLS_SLUG + "). Осмотр на влажность — [климат Norte](/notes/" + NORTE_CLIMATE_COMFORT_SLUG + ").",
+    a: "Idealista.pt и Rentalia (интеграция с 2025). Районы: Foz, Matosinhos, Bonfim (Porto), Braga centro, Gualtar, Real/Cancela (Rua do Parque Norte — Green Terrace и аналоги). Бюджеты и commute — в [Порту vs Брага](/notes/" + PORTO_VS_BRAGA_FAMILY_SCHOOLS_SLUG + "). Осмотр на влажность — [климат Norte](/notes/" + NORTE_CLIMATE_COMFORT_SLUG + ").",
+  },
+  {
+    q: "Что за дома на Rua do Parque Norte в Braga и где ещё такие в Norte?",
+    a: "Это современные condomínios fechados в freguesia Real, Dume e Semelhe (Cancela) — ряд prédio вроде Green Terrace: varanda, garagem, часто piscina и parque infantil. Похожий класс ищите в Senhora da Hora / Matosinhos (Condomínio do Sobreiro, Eleven и другая nova construção у Metro). На Idealista — фильтры «com garagem», «piscina», freguesia Real или Senhora da Hora; заложите отдельный condomínio и honorários imobiliária.",
   },
 ];
 
@@ -194,12 +219,12 @@ export const PORTO_BRAGA_LONG_TERM_RENT_GUIDE = {
   content_kind: "guide" as ContentKind,
   title: "Долгосрочная аренда в Порту и Браге 2026: кому платить, как платить, районы и бюджеты",
   excerpt:
-    "Senhorio, imobiliária, condomínio, Finanças — кому и как платить за аренду в Norte. IBAN, transferência, recibo, caução, Idealista и районы Foz, Matosinhos, Bonfim, Braga, Gualtar.",
+    "Senhorio, imobiliária, condomínio, Finanças — кому и как платить за аренду в Norte. Idealista: Foz, Matosinhos, Bonfim, Braga centro, Gualtar и Real (Parque Norte / Green Terrace), плюс похожие nova construção в Senhora da Hora.",
   seo_title: "Аренда Porto/Braga 2026 — кому и как платить",
   seo_description:
-    "Долгосрочная аренда в Порту и Браге: senhorio, condomínio, IBAN, transferência, recibo de renda, caução, registo Finanças. Foz, Matosinhos, Gualtar — бюджеты 2026.",
+    "Аренда Porto/Braga 2026: senhorio, condomínio, IBAN, recibo, caução. Foz, Matosinhos, Gualtar, Real (Parque Norte) и condomínios fechados — бюджеты.",
   quick_answer:
-    "Первый вечер в Bonfim: senhorio присылает IBAN и просит «caução + dois meses» на MB Way — и вот уже паника «а это вообще законно?». Спокойно: в Norte renda идёт senhorio (proprietário), condomínio — отдельно administrador, Finanças — разовая taxa registo contrato. Платите transferência bancária с morada в descrição и требуйте recibo de renda каждый месяц — без recibo вы «невидимы» для IRS и AIMA.",
+    "Первый вечер в Bonfim: senhorio присылает IBAN и просит «caução + dois meses» на MB Way — и вот уже паника «а это вообще законно?». Спокойно: в Norte renda идёт senhorio (proprietário), condomínio — отдельно administrador, Finanças — разовая taxa registo contrato. Платите transferência bancária с morada в descrição и требуйте recibo de renda каждый месяц — без recibo вы «невидимы» для IRS и AIMA. Если смотрите «красивые ряды» как на Rua do Parque Norte в Braga (Green Terrace) — заложите выше condomínio и garagem, чем в старом centro.",
   body_sections: bodySections,
   body_paragraphs: flattenBodySections(bodySections),
   key_takeaways: keyTakeaways,
@@ -215,7 +240,7 @@ export const PORTO_BRAGA_LONG_TERM_RENT_GUIDE = {
   hashtags: buildNoteHashtags({
     topicTags: ["arenda", "portugal"],
     contentKind: "guide",
-    extra: ["porto", "braga", "norte", "foz", "matosinhos", "bonfim", "gualtar", "renda", "iban"],
+    extra: ["porto", "braga", "norte", "foz", "matosinhos", "bonfim", "gualtar", "real", "renda", "iban", "condominio"],
   }),
   source_channel: "chatlisboa+por_tugal+autolife_pt+lepta",
   source_label: "editorial:porto-braga-rent+voice-pass",

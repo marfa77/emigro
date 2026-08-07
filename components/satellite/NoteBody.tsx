@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
-import type { NoteBodySection } from "@/lib/community-notes/types";
+import Image from "next/image";
+import type { NoteBodyImage, NoteBodySection } from "@/lib/community-notes/types";
 import { isGlossarySection } from "@/lib/community-notes/glossary";
 import {
   extractMarkdownHttpLinks,
@@ -121,6 +122,57 @@ function previewFallback(url: string): LinkPreview {
   return { url, hostname, imageUrl: null, siteName: null };
 }
 
+function SectionImages({ images }: { images: NoteBodyImage[] }) {
+  if (images.length === 0) return null;
+
+  return (
+    <div
+      className={`mt-5 grid gap-4 ${
+        images.length > 1 ? "sm:grid-cols-2" : "grid-cols-1"
+      }`}
+    >
+      {images.map((image) => (
+        <figure
+          key={image.src}
+          className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm"
+        >
+          <div className="relative aspect-[16/10] w-full bg-slate-100">
+            <Image
+              src={image.src}
+              alt={image.alt}
+              fill
+              sizes="(max-width: 640px) 100vw, 560px"
+              className="object-cover"
+            />
+          </div>
+          {(image.caption || image.credit) && (
+            <figcaption className="space-y-0.5 px-3 py-2.5 text-xs leading-relaxed text-slate-500 sm:text-[13px]">
+              {image.caption && <p className="text-slate-600">{image.caption}</p>}
+              {image.credit && (
+                <p>
+                  Фото:{" "}
+                  {image.creditUrl ? (
+                    <a
+                      href={image.creditUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-teal-700 underline hover:text-teal-900"
+                    >
+                      {image.credit}
+                    </a>
+                  ) : (
+                    image.credit
+                  )}
+                </p>
+              )}
+            </figcaption>
+          )}
+        </figure>
+      ))}
+    </div>
+  );
+}
+
 async function SectionContent({
   section,
   checklist,
@@ -130,6 +182,7 @@ async function SectionContent({
 }) {
   const ranking = isRankingSection(section);
   const bullets = section.bullets ?? [];
+  const images = section.images ?? [];
 
   return (
     <>
@@ -141,6 +194,7 @@ async function SectionContent({
           {parseInlineMarkdown(paragraph)}
         </p>
       ))}
+      {images.length > 0 && <SectionImages images={images} />}
       {bullets.length > 0 &&
         (ranking ? (
           <RankingBulletsWithPreviews bullets={bullets} />

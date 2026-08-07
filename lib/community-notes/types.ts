@@ -11,10 +11,22 @@ export type GlossaryTerm = {
   context?: string;
 };
 
+/** Inline figure for guide sections (hosted under /images/…). */
+export type NoteBodyImage = {
+  src: string;
+  alt: string;
+  caption?: string;
+  /** Producer / rights line, e.g. "Taylor's" */
+  credit?: string;
+  /** Link to the source page on the producer site */
+  creditUrl?: string;
+};
+
 export type NoteBodySection = {
   heading: string;
   paragraphs?: string[];
   bullets?: string[];
+  images?: NoteBodyImage[];
   /** official = portal rules; practice = chat/field experience; gap = where they diverge; glossary = PT-PT terms; action_guide = пошагово для новичка */
   section_kind?: "official" | "practice" | "gap" | "glossary" | "action_guide";
 };

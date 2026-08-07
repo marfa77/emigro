@@ -45,10 +45,13 @@ function formatAnswersBlock(
   modules: WizardModule[] = HUB_WIZARD_MODULES
 ): string {
   const lines: string[] = [];
+  const seenKeys = new Set<string>();
   for (const mod of modules) {
     for (const q of mod.questions) {
+      if (seenKeys.has(q.question_key)) continue;
       const raw = answers[q.question_key];
       if (raw === undefined || raw === null || raw === "") continue;
+      seenKeys.add(q.question_key);
       const value = labelForValue(modules, q.question_key, String(raw));
       lines.push(`• ${q.label_ru}: ${value}`);
     }

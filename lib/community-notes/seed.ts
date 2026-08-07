@@ -65,3 +65,8 @@ export function noteSeedFallback(countryKey: string): CommunityNote[] {
   if (countryKey === "spain") return SPAIN_NOTE_SEED;
   return PORTUGAL_NOTE_SEED;
 }
+
+/** True when the list is only in-memory seed (DB down / empty) — never cache or index as the real hub. */
+export function isCommunityNotesSeedOnly(notes: CommunityNote[]): boolean {
+  return notes.length > 0 && notes.every((n) => n.id.startsWith("seed-"));
+}

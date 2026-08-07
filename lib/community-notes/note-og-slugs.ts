@@ -61,6 +61,12 @@ export const COMMITTED_NOTE_OG_SLUGS = new Set([
   "pogodnye-preduprezhdeniya-portugalia-znoj",
   "ipoteka-portugal-stavki-rastut-2026",
   "tax-debt-portugal-what-to-know-2026",
+  "narkotiki-portugaliya-norte-zakon-mify-2026",
+  "festivali-portugalii-2026-muzyka-porto-norte",
+  "kluby-portugalii-tehno-underground-2026",
+  "zheltye-stranitsy-relokanta-portugaliya-2026",
+  "vina-vinodelni-norte-douro-vinho-verde-2026",
+  "gastronomiya-norte-porto-braga-restorany-2026",
 ]);
 
 const MANIFEST_PATH = path.join(process.cwd(), "lib/community-notes/note-og-slugs.ts");

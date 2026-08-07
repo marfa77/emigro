@@ -38,7 +38,7 @@ date_modified: 2026-08-06
 | **Тип риска** | Карманники / ночные грабежи / нарко-разборки / мафия vs бизнес |
 | **Почтовый индекс / utsatta områden** | Выбор жилья важнее «бренда города» |
 
-Рядом: [небезопасные города](/ru/guides/nebezopasnye-goroda-evropy-2026) · [тюрьмы Европы](/ru/guides/tyurmy-evropy-2026-usloviya-ekstraditsiya-migranty) · [куда переехать](/ru/guides/kuda-pereehat-iz-rossii-2026-evropa-vnj) · wizard [/ru/wizard](/ru/wizard).
+Рядом: [тюрьмы Европы](/ru/guides/tyurmy-evropy-2026-usloviya-ekstraditsiya-migranty) · [куда переехать](/ru/guides/kuda-pereehat-iz-rossii-2026-evropa-vnj) · [бюджет](/ru/guides/byudzhet-relokatsii-evropa-2026-po-stranam) · wizard [/ru/wizard](/ru/wizard).
 
 ---
 

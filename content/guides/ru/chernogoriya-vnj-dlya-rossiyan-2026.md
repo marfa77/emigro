@@ -3,7 +3,7 @@ slug: chernogoriya-vnj-dlya-rossiyan-2026
 title: "Черногория ВНЖ для россиян 2026 — DOO и digital nomad"
 seo_title: "Черногория ВНЖ для россиян 2026 — nomad €1800, DOO"
 seo_description: "ВНЖ Черногория 2026: nomad €1800, DOO после 17.01.2026. Безвиз РФ до 31.10.2026; с 01.11.2026 нужна въездная виза (гармонизация с EU)."
-date_modified: 2026-07-29
+date_modified: 2026-08-07
 excerpt: "Черногория 2026: безвиз для РФ до 31.10.2026, с 01.11.2026 — виза на въезд; digital nomad до 31.12.2026; DOO дороже после 17.01.2026."
 quick_answer: "Черногория внж для россиян 2026: **digital nomad** от **€1 800/мес** (до 4 лет; sunset **31.12.2026** — подавайте до **октября 2026**) или **DOO**. С **17.01.2026** для non-EU: DOO — мин. **€5 000/год** соцвзносов директора; недвижимость — tax value **≥ €150 000**. **Въезд:** безвиз до **30 дней** действует **до 31.10.2026**; с **01.11.2026** гражданам РФ/BY нужна **черногорская виза** (не путать с sunset nomad). CBI закрыта. Будва от 900 €/мес."
 topic_keys: [montenegro, relocation, vnj, transit]
@@ -185,6 +185,8 @@ date_published: 2026-06-26
 
 Сравните: [Италия elective residency](/ru/guides/vnj-italiya-2026-elective-residency), [Португалия vs Испания](/ru/guides/portugaliya-vs-ispaniya-vnj-2026).
 
+Из ME как хаба для **senior IT** параллельно имеет смысл смотреть EU / UK / remote-роли через **[Role Radar](/ru/role-radar)** — бот не заменяет DOO/nomad, только поиск оффера.
+
 ---
 
 ## Семья и дети
@@ -344,6 +346,6 @@ Podgorica has some EU embassies; many use Belgrade or Tirana for visa applicatio
 - ВНЖ — digital nomad (от €1 800/мес; подавать до **октября 2026**, sunset 31.12.2026) или DOO (9% tax + с 17.01.2026 мин. €5 000/год соцвзносов для non-EU).
 - CBI закрыта; недвижимость → ВНЖ для non-EU: tax value ≥ €150 000 (с 17.01.2026).
 - Евро; Будва от 900 €/мес.
-- [/ru/wizard](/ru/wizard), [/ru/montenegro](/ru/montenegro).
+- [/ru/wizard](/ru/wizard) · [Role Radar](/ru/role-radar) · [/ru/montenegro](/ru/montenegro).
 
 *Не юридическая консультация.*

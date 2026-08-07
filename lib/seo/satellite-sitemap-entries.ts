@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { getPublishedCommunityNotes } from "@/lib/community-notes/queries";
+import { requirePublishedCommunityNotes } from "@/lib/community-notes/queries";
 import { normalizeHashtag } from "@/lib/community-notes/hashtags";
 import { MIN_TAG_NOTES_INDEXABLE } from "@/lib/seo/thin-content";
 import { portugalSatellitePublicUrl, spainSatellitePublicUrl } from "@/lib/site-url";
@@ -14,7 +14,9 @@ function publicUrl(country: SatelliteCountry, path: string): string {
 export async function buildSatelliteSitemapEntries(
   country: SatelliteCountry,
 ): Promise<MetadataRoute.Sitemap> {
-  const notes = await getPublishedCommunityNotes(country);
+  // Refuse seed-only lists — a 4-URL stub sitemap triggers GSC "Temporary processing error"
+  // / thin discovery. Prefer 5xx so Google retries when Supabase is up.
+  const notes = await requirePublishedCommunityNotes(country);
   const tagCounts = new Map<string, number>();
   for (const note of notes) {
     for (const t of note.hashtags) {

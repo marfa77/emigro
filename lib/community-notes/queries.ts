@@ -6,53 +6,120 @@ import {
   finalizeCommunityNote,
   mergePublishedNotesWithSeed,
 } from "@/lib/community-notes/normalize-note";
-import { noteSeedFallback } from "@/lib/community-notes/seed";
+import { isCommunityNotesSeedOnly, noteSeedFallback } from "@/lib/community-notes/seed";
 import type { CommunityNote, CommunitySignalIngest } from "@/lib/community-notes/types";
 import { filterRelocantSignals } from "@/lib/satellite/portugal";
 
-async function fetchPublishedCommunityNotesUncached(countryKey: string): Promise<CommunityNote[]> {
+/** List/hub/sitemap — skip fat body/faq JSON that blows micro statement_timeout. */
+const COMMUNITY_NOTE_LIST_COLUMNS = [
+  "id",
+  "slug",
+  "country_key",
+  "city",
+  "category",
+  "content_kind",
+  "title",
+  "excerpt",
+  "seo_title",
+  "seo_description",
+  "quick_answer",
+  "key_takeaways",
+  "source_channel",
+  "source_label",
+  "topic_tags",
+  "hashtags",
+  "status",
+  "published_at",
+  "created_at",
+  "updated_at",
+].join(",");
+
+/**
+ * Load published notes from Supabase. Throws on error/empty so callers (and
+ * `unstable_cache`) never persist the 4-note seed stub that Googlebot indexes as thin.
+ */
+async function fetchPublishedCommunityNotesFromDb(countryKey: string): Promise<CommunityNote[]> {
+  const supabase = createServerClient();
+  const { data, error } = await supabase
+    .from("community_notes")
+    .select(COMMUNITY_NOTE_LIST_COLUMNS)
+    .eq("country_key", countryKey)
+    .eq("status", "published")
+    .order("published_at", { ascending: false })
+    .limit(80);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  const rows = (data ?? []) as unknown as Record<string, unknown>[];
+  if (rows.length === 0) {
+    throw new Error(`community_notes empty for ${countryKey}`);
+  }
+
+  const notes = rows.map((row) => finalizeCommunityNote(row, countryKey));
+  const merged = mergePublishedNotesWithSeed(notes, countryKey);
+  if (isCommunityNotesSeedOnly(merged)) {
+    throw new Error(`community_notes seed-only for ${countryKey}`);
+  }
+  return merged;
+}
+
+/** Direct DB load for cron/CLI — falls back to seed when DB is down. */
+export async function getPublishedCommunityNotesUncached(
+  countryKey = "portugal",
+): Promise<CommunityNote[]> {
   try {
-    const supabase = createServerClient();
-    const { data, error } = await supabase
-      .from("community_notes")
-      .select("*")
-      .eq("country_key", countryKey)
-      .eq("status", "published")
-      .order("published_at", { ascending: false })
-      .limit(80);
-
-    if (error) {
-      if (/community_notes/.test(error.message)) {
-        return noteSeedFallback(countryKey);
-      }
-      console.warn("[community-notes] load failed:", error.message);
-      return noteSeedFallback(countryKey);
-    }
-
-    const notes = (data ?? []).map((row) => finalizeCommunityNote(row, countryKey));
-    return notes.length > 0 ? mergePublishedNotesWithSeed(notes, countryKey) : noteSeedFallback(countryKey);
+    return await fetchPublishedCommunityNotesFromDb(countryKey);
   } catch (e) {
     console.warn("[community-notes] fallback to seed:", e);
     return noteSeedFallback(countryKey);
   }
 }
 
-/** Direct DB load for cron/CLI (no Next.js `unstable_cache`). */
-export async function getPublishedCommunityNotesUncached(
-  countryKey = "portugal"
-): Promise<CommunityNote[]> {
-  return fetchPublishedCommunityNotesUncached(countryKey);
+/**
+ * Cached list for hub/sitemap/tags.
+ * Failures are not written into the Data Cache (throw inside `unstable_cache`).
+ * One uncached retry, then seed for soft UX — indexable surfaces must call
+ * {@link requirePublishedCommunityNotes} instead.
+ */
+export async function getPublishedCommunityNotes(countryKey = "portugal"): Promise<CommunityNote[]> {
+  try {
+    return await unstable_cache(
+      () => fetchPublishedCommunityNotesFromDb(countryKey),
+      ["community-notes", countryKey],
+      {
+        revalidate: CACHE_REVALIDATE.communityNotes,
+        tags: [CACHE_TAGS.communityNotes, `${CACHE_TAGS.communityNotes}-${countryKey}`],
+      },
+    )();
+  } catch (first) {
+    console.warn("[community-notes] cache miss/error, retry uncached:", first);
+    try {
+      return await fetchPublishedCommunityNotesFromDb(countryKey);
+    } catch (e) {
+      console.warn("[community-notes] fallback to seed (uncached):", e);
+      return noteSeedFallback(countryKey);
+    }
+  }
 }
 
-export async function getPublishedCommunityNotes(countryKey = "portugal"): Promise<CommunityNote[]> {
-  return unstable_cache(
-    () => fetchPublishedCommunityNotesUncached(countryKey),
-    ["community-notes", countryKey],
-    {
-      revalidate: CACHE_REVALIDATE.communityNotes,
-      tags: [CACHE_TAGS.communityNotes, `${CACHE_TAGS.communityNotes}-${countryKey}`],
-    },
-  )();
+/**
+ * For SEO surfaces (hub, sitemap): never render/list seed-only stubs.
+ * Throws after retry so Next returns 5xx and Google retries instead of indexing thin HTML.
+ */
+export async function requirePublishedCommunityNotes(
+  countryKey = "portugal",
+): Promise<CommunityNote[]> {
+  const notes = await getPublishedCommunityNotes(countryKey);
+  if (!isCommunityNotesSeedOnly(notes)) return notes;
+
+  try {
+    return await fetchPublishedCommunityNotesFromDb(countryKey);
+  } catch (e) {
+    console.error("[community-notes] refusing seed-only for indexable surface:", e);
+    throw new Error(`Community notes unavailable for ${countryKey}`);
+  }
 }
 
 export async function getPublishedCommunityNotesByHashtag(

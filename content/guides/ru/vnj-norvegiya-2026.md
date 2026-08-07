@@ -2,9 +2,9 @@
 slug: vnj-norvegiya-2026
 title: "ВНЖ Норвегия 2026: Skilled Worker, семья, ПМЖ за 3 года"
 seo_title: "ВНЖ Норвегия 2026 — Skilled Worker NOK 545 400, ПМЖ 3 года"
-seo_description: "Норвегия 2026 для RU/UA/BY/KZ: Skilled Worker от NOK 545 400/624 700, Job Seeker, self-employed, семья. ПМЖ 3 года, гражданство 7 лет. UDI, без digital nomad."
-excerpt: "Коридор EEA/Schengen для специалистов с оффером: высокие пороги зарплаты, быстрый ПМЖ за 3 года и wealth tax на капитал."
-quick_answer: "Норвегия — **не ЕС**, но **ЕЭА + Шенген**. Основной маршрут — **Skilled Worker** с оффером: при отсутствии kollektivavtal пороги с **01.05.2026** — **NOK 545 400/год** (бакалавр) / **NOK 624 700** (магистр). Digital nomad visa **нет**. ПМЖ ориентир **3 года**; гражданство **7 лет** (иногда 6 при доходе). EU Blue Card как отдельная EU-программа **не** основной путь — смотрите UDI skilled worker. Wizard: /ru/norway/wizard."
+seo_description: "Норвегия 2026: Skilled Worker NOK 545 400/624 700, семья 436 957, ПМЖ 341 373, гражданство 8/11 лет. UDI для RU/UA/BY/KZ, без digital nomad."
+excerpt: "Коридор EEA/Schengen для специалистов с оффером: высокие пороги зарплаты, ПМЖ за 3 года, гражданство обычно 8 из 11 лет и wealth tax с NOK 1.9M."
+quick_answer: "Норвегия — **не ЕС**, но **ЕЭА + Шенген**. Основной маршрут — **Skilled Worker** с оффером: без kollektivavtal с **01.05.2026** — **NOK 545 400/год** (bachelor) / **NOK 624 700** (master). Digital nomad visa **нет**. ПМЖ ориентир **3 года** + доход **NOK 341 373**/12 мес (2.5 G). Гражданство обычно **8 из последних 11 лет** (иногда **6 из 10** при достаточном доходе). Family: future income спонсора **NOK 436 957** (3.2 G). Wizard: /ru/norway/wizard."
 corridor_slugs: [ru-speaking-to-norway]
 topic_keys: [norway, work, visa]
 tags: [Норвегия, ВНЖ, Skilled Worker, UDI, ПМЖ, гражданство, 2026, Скандинавия]
@@ -14,24 +14,28 @@ cta_secondary: /ru/guides/vnj-skandinaviya-2026
 review_tier: volatile
 cover_image: /images/corridor-scandinavia.webp
 official_sources:
-  - url: https://www.udi.no/en/want-to-apply/work-immigration/
-    label: UDI — work immigration
-  - url: https://www.udi.no/en/want-to-apply/family-immigration/
-    label: UDI — family immigration
+  - url: https://www.udi.no/en/want-to-apply/work-immigration/skilled-workers/
+    label: UDI — skilled workers / self-employed
+  - url: https://www.udi.no/en/word-definitions/pay-and-working-conditions-in-norway/
+    label: UDI — pay floors bachelor/master
+  - url: https://www.udi.no/en/important-messages/changed-income-requirement-in-family-immigration-cases/
+    label: UDI — family income 3.2 G / NOK 436 957
+  - url: https://www.udi.no/en/word-definitions/requirement-to-financially-support-yourself-in-order-to-get-a-permanent-residence-permit/
+    label: UDI — permanent residence income NOK 341 373
+  - url: https://www.udi.no/en/want-to-apply/work-immigration/job-seekers/
+    label: UDI — job seekers subsistence
+  - url: https://www.udi.no/en/want-to-apply/studies/studietillatelse/
+    label: UDI — study permit funds
+  - url: https://www.skatteetaten.no/en/rates/wealth-tax/
+    label: Skatteetaten — wealth tax 2026 (NOK 1.9M)
   - url: https://www.udi.no/
     label: UDI — Norwegian Directorate of Immigration
-  - url: https://www.skatteetaten.no/
-    label: Skatteetaten — tax / D-number
-  - url: https://www.helsenorge.no/
-    label: Helsenorge — healthcare
-  - url: https://www.nav.no/
-    label: NAV — social security
 estimated_minutes: 22
 date_published: 2026-07-31
-date_modified: 2026-07-31
+date_modified: 2026-08-07
 ---
 
-> **Fact-check Emigro (июль 2026):** зарплатные полы Skilled Worker без kollektivavtal — **NOK 545 400** (bachelor-level) / **NOK 624 700** (master-level) с **1 мая 2026** (публикация UDI-ориентиров в июне 2026). Старые **522 600 / 599 200** — предыдущий цикл. При наличии тарифного соглашения действует **тариф**, не «пол». Цифры Job Seeker / family / ПМЖ / гражданства / wealth tax — ориентиры; сверяйте [udi.no](https://www.udi.no/) и [skatteetaten.no](https://www.skatteetaten.no/) на дату подачи. EU Blue Card в seed Emigro помечен **soft** — в практике non-EU обычно идут через Skilled Worker.
+> **Fact-check Emigro (август 2026, сверка UDI/Skatteetaten):** Skilled Worker без kollektivavtal — **NOK 545 400** (bachelor) / **NOK 624 700** (master) с **01.05.2026**. Self-employed / ПМЖ / Job Seeker (год) — **NOK 341 373** (2.5 G с 01.05.2026). Family future income — **NOK 436 957** (3.2 G с 01.02.2025; May-adjust). Student (вуз, 2026/27) — **NOK 170 368**/год. Гражданство: обычно **8 из 11 лет**, сокращение до **6 из 10** при достаточном доходе (не «базовые 7»). Wealth tax 2026: порог **NOK 1 900 000** (single). Сверяйте [udi.no](https://www.udi.no/) и [skatteetaten.no](https://www.skatteetaten.no/) на дату подачи.
 
 Смежные: [ВНЖ Швеция](/ru/guides/vnj-shvetsiya-2026-work-permit-grazhdanstvo) · [Скандинавия обзор](/ru/guides/vnj-skandinaviya-2026) · [первые 30 дней Nordics](/ru/guides/pervye-30-dnej-v-skandinavii-2026) · [коридор](/ru/norway) · [wizard](/ru/norway/wizard).
 
@@ -45,9 +49,9 @@ date_modified: 2026-07-31
 
 **Ключевые особенности 2026:**
 - Годовых квот на Skilled Worker, как правило, **нет** — решение по соответствию требованиям
-- Пороги зарплаты (без kollektivavtal) выросли с **1 мая 2026**: **NOK 545 400** / **NOK 624 700**
-- Работодатель подтверждает оффер в процессах UDI (антифрод; детали и даты — на udi.no)
-- **Early employment start** — в ряде кейсов можно начать работу после полной подачи, не дожидаясь финального решения (условия — у UDI / работодателя)
+- Пороги зарплаты (без kollektivavtal) с **1 мая 2026**: **NOK 545 400** / **NOK 624 700**
+- Многие «содержательные» пороги (ПМЖ, self-employed, Job Seeker) завязаны на **G** и обновляются **1 мая**
+- **Early employment start** — в ряде кейсов можно начать работу после полной подачи / подтверждения полиции (условия — у UDI / работодателя)
 - **Digital nomad visa нет** — удалёнка только на иностранных клиентах без NO-оффера не закрывает маршрут
 
 ---
@@ -62,25 +66,33 @@ date_modified: 2026-07-31
 |-----------------|------------------------------------------------------|--------------|
 | Bachelor-level | **NOK 545 400** | ~NOK 45 450 |
 | Master-level | **NOK 624 700** | ~NOK 52 060 |
-| Vocational / отдельные категории (напр. self-employed floor) | Сверяйте UDI; ориентир самозанятости ~**NOK 325 400** прибыли | — |
+| Self-employed (прибыль бизнеса) | **NOK 341 373** (2.5 G) | — |
+
+При наличии **kollektivavtal** действует **тариф**, не «пол» bachelor/master.
 
 **Срок:** часто до **3 лет** (высшее образование), короче для vocational; затем продление.
 
-**Смена работодателя:**
-- skilled с высшим образованием — типично уведомление полиции в короткий срок (ориентир **7 дней**), смена в той же категории без нового разрешения — **сверяйте UDI**
-- vocational — часто нужно **новое** разрешение
+**Смена работодателя (UDI):**
+- skilled с высшим образованием, **та же категория работы** — можно без нового разрешения; уведомление полиции обычно **в течение 7 дней** после старта
+- vocational / смена типа работы — часто нужно **новое** заявление на разрешение
 
-**ПМЖ:** ориентир **3 года** непрерывного легального проживания.
+**ПМЖ:** ориентир **3 года** непрерывного легального проживания (+ отдельные требования, см. ниже).
 
 ---
 
 ### B. Job Seeker (поиск работы)
 
-**Кто:** квалифицированные специалисты, ищущие работу **на месте**.
+**Кто:** квалифицированные специалисты в **ограниченных** треках UDI (выпускник NO / researcher / visa-free skilled и т.п. — не «любой с LinkedIn»).
 
-**Ориентиры:** образование / vocational; средства на содержание (часто называют порядка **NOK 150–200k** на счету — **не** фиксируйте без UDI); страховка.
+**Средства на содержание (UDI, срез 2026):**
+- **NOK 28 448/мес** — базовая месячная норма
+- трек до **1 года**: **NOK 341 373**/год
+- visa-free skilled на **6 месяцев**: **NOK 155 034** за полгода (28 448 × 6)
+- бывший PhD на skilled: пониженный ориентир **NOK 85 344** (независимо от длины в части треков)
 
-**Срок:** часто **6 месяцев**. Работа до Skilled Worker — обычно **нельзя**. Нашли оффер → подача Skilled Worker изнутри NO.
+Деньги обычно **свои** и часто на **норвежском** счёте. Старый ориентир «NOK 150–200k» **не** используйте как универсальный.
+
+**Срок:** до **6 мес.** (visa-free) или до **1 года** (graduate/researcher-треки). Работа «пока ищете skilled» — зависит от трека (в visa-free 6-мес. часто **нельзя** работать до Skilled Worker).
 
 ---
 
@@ -88,7 +100,7 @@ date_modified: 2026-07-31
 
 **Кто:** ИП (sole proprietorship), не AS/ООО как основной «self-employed skilled» трек.
 
-**Ориентир:** бизнес требует skilled-квалификации; прогнозируемая прибыль от ~**NOK 325 400**/год.
+**Прибыль (business income):** вероятно не ниже **NOK 341 373**/год pre-tax (UDI, 2.5 G с 01.05.2026). Старый ориентир ~325 400 — прошлый цикл G.
 
 **ПМЖ:** ориентир **3 года**.
 
@@ -96,17 +108,24 @@ date_modified: 2026-07-31
 
 ### D. Student
 
-Зачисление в аккредитованный вуз + средства (ориентир ~**NOK 140 000**/год — уточняйте UDI) + страховка.
+Зачисление в аккредитованный вуз/college + средства + жильё.
 
-Работа: часто до **20 ч/нед** в семестр, полный день в каникулы. После выпуска — период поиска работы (часто до **1 года**), затем Skilled Worker с оффером.
+**Средства (UDI, academic year 2026/27, вуз):** **NOK 15 488/мес** = **NOK 170 368**/год. Один семестр: осень **NOK 77 440** / весна **NOK 92 928**. Tuition — **отдельно**. Folk high school — другой порог (~**NOK 130 745** на 2026/27).
+
+Работа: до **20 ч/нед** в семестр + полный день в каникулы. Период study permit **не** идёт в стаж ПМЖ. После выпуска — Job Seeker (до 1 года в части треков) → Skilled Worker с оффером.
 
 ---
 
 ### E. Family reunification
 
-Супруги/партнёры и дети держателя work/residence.
+Супруги/партнёры и дети держателя work/residence или гражданина NO/Nordic.
 
-**Спонсор (ориентиры):** доход порядка **NOK 334 876**/год; «достаточное» жильё; возрастные правила для супругов (часто **24+**, с исключениями при общем ребёнке / долгом совместном проживании) — **сверяйте UDI Family**.
+**Доход спонсора (reference person), заявки с 01.02.2025:**
+- **Future income:** **NOK 436 957**/год pre-tax (**3.2 G**; May-adjust)
+- плюс требование по **доходу прошлого года** (ставки зависят от даты fee/обработки — см. [UDI important message](https://www.udi.no/en/important-messages/changed-income-requirement-in-family-immigration-cases/))
+- renewal / заявки до 01.02.2025 могут жить на старых суммах (~**NOK 368 683** future) — не путайте треки
+
+**Возраст 24+:** не «всегда для любой семьи». UDI применяет правило **в части** дел супругов/сожителей/женихов (антипринудительный брак) — зависит от того, когда заключили брак/начали жить вместе относительно переезда в NO, есть ли общие дети и т.д. Есть исключения. Не сводите к «только если спонсор — гражданин NO»: смотрите [UDI 24-year rule](https://www.udi.no/en/word-definitions/requirement-to-be-at-least-24-years-old-in-applications-for-family-immigration/).
 
 Права семьи: работа и учёба обычно без отдельного work permit.
 
@@ -114,7 +133,7 @@ date_modified: 2026-07-31
 
 ### F. «EU Blue Card»
 
-Норвегия не в ЕС. Отдельная EU Blue Card **не** является главным коридором Emigro для NO: высококвалифицированные non-EU идут через **Skilled Worker**. Любые EEA/Blue Card формулировки на udi.no проверяйте отдельно — в нашем seed маршрут помечен soft.
+Норвегия не в ЕС. Отдельная EU Blue Card **не** является главным коридором Emigro для NO: высококвалифицированные non-EU идут через **Skilled Worker**. В seed Emigro маршрут помечен soft.
 
 ---
 
@@ -123,18 +142,18 @@ date_modified: 2026-07-31
 ### Permanent residence (permanent oppholdstillatelse)
 
 - Срок: ориентир **3 года** непрерывного проживания
-- Доход: ориентир **NOK 310 070**/год
-- Язык: устный **A2** (Norskprøven)
-- Соцтест: в ряде случаев можно не на норвежском — уточняйте правила года
+- **Self-support:** возраст 18–67 — свой доход за последние **12 месяцев** не ниже **NOK 341 373** pre-tax (2.5 G с 01.05.2026). Деньги супруга / «просто на счету» **не** считаются
+- Язык: устный **A2** + social studies test (с 01.09.2025 — по правилам UDI)
 - Пребывание вне NO: лимиты (часто порядка **≤7 месяцев** за 3 года) — сверяйте UDI
 
 ### Гражданство (statsborgerskap)
 
-- Ориентир **7 лет** (иногда **6** при достаточном доходе / специальных условиях)
-- ПМЖ или право на него
-- Устный норвежский **B1**; письменные компоненты часто **A2**
-- Тест по обществознанию **на норвежском**
-- Чистая судимость; возрастные освобождения от языка — по правилам года
+- **Обычное правило:** проживание **8 из последних 11 лет** с подходящими разрешениями (не «7 лет» как база)
+- **Сокращение:** **6 из последних 10 лет** при **достаточном доходе** (ориентир 3× среднегодового G в tax settlement; для tax 2025 — порог **NOK 384 348** «Sum inntekter» — см. [UDI sufficient income](https://www.udi.no/en/important-messages/Sufficient-income-for-reduced-residence-time-when-applying-for-citizenship/)). Это **исключение**, не дефолт
+- Нужно соответствовать условиям ПМЖ на момент решения
+- Устный норвежский **B1**; reading/listening/writing часто **A2**
+- Тест по обществознанию; чистая судимость
+- Предложения ужесточить «8 continuous years» (июнь 2026) — следите за Storting; пока ориентир — действующая норма UDI
 
 ---
 
@@ -166,13 +185,13 @@ date_modified: 2026-07-31
 | **Solo** | **~NOK 22–28k (~€2 000–2 500)** |
 | **Семья 2+1** | **~NOK 35–45k (~€3 150–4 050)** |
 
-Bergen / Trondheim часто **на 15–25% дешевле**.
+Bergen / Trondheim часто **на 15–25% дешевле**. Цифры COL — ориентир, не UDI.
 
 ### Налоги (иллюстрация, NOK 600 000 брутто/год)
 
-Ориентир нетто порядка **~NOK 430k+/год** (~**NOK 36k**/мес) после trygdeavgift + налог + trinnskatt — **не** калькулятор UDI. Эффективная ставка на средних зарплатах часто **~28–32%**.
+Ориентир нетто порядка **~NOK 430k+/год** (~**NOK 36k**/мес) после trygdeavgift + налог + trinnskatt — **не** калькулятор. Эффективная ставка на средних зарплатах часто **~28–32%** (сильно зависит от вычетов и kommune).
 
-**Wealth tax:** ориентир **~1%** на чистое состояние выше порога (в черновиках 2026 — около **NOK 1.76M**) — критично при переносе капитала. Сверяйте Skatteetaten.
+**Wealth tax (formuesskatt), income year 2026 (Skatteetaten):** порог **NOK 1 900 000** (single) / **NOK 3 800 000** (совместная оценка супругов). Ставка суммарно порядка **1.0%** (муниципалитет 0.35% + государство 0.65%), выше ~**NOK 21.5M** — до **~1.1%**. Старый ориентир **NOK 1.76M** — порог **2025**.
 
 ---
 
@@ -180,9 +199,9 @@ Bergen / Trondheim часто **на 15–25% дешевле**.
 
 | Паспорт | Практика |
 |---------|----------|
-| **RU** | Schengen C для собеседований / Job Seeker; Work Permit только с оффером. Подача часто через VFS/хабы. KYC у работодателей строже из‑за санкций; IT/energy/maritime открыты избирательно |
+| **RU** | Schengen C для собеседований / отдельных Job Seeker-треков; Work Permit только с оффером. Подача часто через VFS/хабы. KYC у работодателей строже из‑за санкций |
 | **UA** | Отдельный NO-маршрут; TP в другом ЕС ≠ автоматический ВНЖ NO |
-| **BY** | Процедура близка к RU; меньше «санкционного» шума, proof of funds всё равно нужен |
+| **BY** | Процедура близка к RU; proof of funds всё равно нужен |
 | **KZ** | Обычно без санкционного шума; оффер обязателен |
 
 ---
@@ -192,22 +211,22 @@ Bergen / Trondheim часто **на 15–25% дешевле**.
 | | Норвегия | Швеция | Дания | Финляндия |
 |--|----------|--------|-------|-----------|
 | Порог work | NOK 545 400 / 624 700 в год | **SEK 34 470**/мес (с 16.06.2026) | Pay limit ориентир **DKK 552 000**/год (сверяйте SIRI) | Soft — Migri |
-| ПМЖ | **~3 года** | ~4 года work | Дольше / сложнее | Soft 4–5 лет |
-| Гражданство | **~7 лет** | **8 лет** (с 06.06.2026) | Дольше | Soft ~5 лет |
+| ПМЖ | **~3 года** + доход **341 373** | ~4 года work | Дольше / сложнее | Soft 4–5 лет |
+| Гражданство | **8/11** (иногда **6/10** при доходе) | **8 лет** (правила SE) | Дольше | Soft ~5 лет |
 | Digital nomad | Нет | Нет | Нет | Нет |
-| Wealth tax | Да (порог сверяйте) | Нет | Нет | Нет |
+| Wealth tax | Да, порог **1.9M** (2026) | Нет | Нет | Нет |
 
-Цифры SE — из [pillar Швеции](/ru/guides/vnj-shvetsiya-2026-work-permit-grazhdanstvo). DK/FI без отдельных Emigro-pillars: только ориентир, не «закрытый скоуп».
+Цифры SE — из [pillar Швеции](/ru/guides/vnj-shvetsiya-2026-work-permit-grazhdanstvo). DK/FI без отдельных Emigro-pillars: только ориентир.
 
-**Вывод:** NO — один из самых быстрых **ПМЖ** в Nordics при высоком пороге входа и wealth tax. Для IT с оффером **выше** NOK 545 400 — сильный коридор.
+**Вывод:** NO — один из самых быстрых **ПМЖ** в Nordics при высоком пороге входа и wealth tax. Для IT с оффером **выше** NOK 545 400 — сильный коридор; паспорт обычно **дольше**, чем «7 лет» в старых гайдах.
 
 ---
 
 ## 8. Плюсы и минусы
 
-**Плюсы:** ПМЖ ~3 года; гражданство быстрее SE/DK в типичном сценарии; нет квот на skilled; early start; высокие зарплаты; work–life balance; английский в международных компаниях.
+**Плюсы:** ПМЖ ~3 года; нет квот на skilled; early start; высокие зарплаты; work–life balance; английский в международных компаниях.
 
-**Минусы:** высокий порог; нужен оффер **до** подачи; нет nomad-визы; wealth tax; дорогой Oslo; язык до B1 для паспорта; vocational — жёстче смена работодателя; family — возрастные правила.
+**Минусы:** высокий порог; нужен оффер **до** подачи (кроме узких Job Seeker); нет nomad-визы; wealth tax с **1.9M**; дорогой Oslo; язык до B1 для паспорта; vocational — жёстче смена работодателя; family — **436 957** + возможные правила 24+.
 
 ---
 
@@ -215,12 +234,12 @@ Bergen / Trondheim часто **на 15–25% дешевле**.
 
 | Маршрут | ПМЖ | Гражданство | Порог | Риск |
 |---------|-----|-------------|-------|------|
-| Skilled bachelor | ~3 г. | ~7 л. | NOK 545 400 | Увольнение → окно на новый оффер |
-| Skilled master | ~3 г. | ~7 л. | NOK 624 700 | То же |
-| Job Seeker | — | — | Средства на срок визы | Не найти работу → выезд |
-| Self-employed | ~3 г. | ~7 л. | ~NOK 325 400 прибыль | Бизнес не подтвердился |
-| Student → work | после оффера | ~7 л. | порог skilled | Нет оффера после учёбы |
-| Family | ~3 г. | ~7 л. | доход спонсора | Потеря основания брака |
+| Skilled bachelor | ~3 г. | обычно 8/11 | NOK 545 400 | Увольнение → окно на новый оффер |
+| Skilled master | ~3 г. | обычно 8/11 | NOK 624 700 | То же |
+| Job Seeker | — | — | **28 448**/мес (год = **341 373**) | Не найти работу → выезд |
+| Self-employed | ~3 г. | обычно 8/11 | **NOK 341 373** прибыль | Бизнес не подтвердился |
+| Student → work | после оффера | обычно 8/11 | student **170 368**/год | Нет оффера после учёбы |
+| Family | ~3 г. | обычно 8/11 | спонсор **436 957** future | Потеря основания брака |
 
 ---
 
@@ -229,9 +248,10 @@ Bergen / Trondheim часто **на 15–25% дешевле**.
 - EEA + Schengen, **не** ЕС  
 - Skilled Worker + оффер; **NOK 545 400 / 624 700** с 01.05.2026 без kollektivavtal  
 - Нет digital nomad  
-- ПМЖ ~**3** года; гражданство ~**7** (иногда 6)  
-- Wealth tax учитывайте при капитале  
-- Oslo solo ~**€2–2.5k**/мес  
+- ПМЖ ~**3** года + доход **341 373**/12 мес  
+- Гражданство: **8 из 11** (иногда **6 из 10** при доходе)  
+- Family future income **436 957**; student **170 368**; Job Seeker **28 448**/мес  
+- Wealth tax порог **1.9M** (2026)  
 
 Wizard: [/ru/norway/wizard](/ru/norway/wizard) · коридор [/ru/norway](/ru/norway).
 
@@ -244,4 +264,4 @@ Wizard: [/ru/norway/wizard](/ru/norway/wizard) · коридор [/ru/norway](/r
 - [Первые 30 дней в Скандинавии](/ru/guides/pervye-30-dnej-v-skandinavii-2026)
 - [Куда переехать из России](/ru/guides/kuda-pereehat-iz-rossii-2026-evropa-vnj)
 
-*Не юридическая и не налоговая консультация. Пороги UDI и налоги меняются — верьте [udi.no](https://www.udi.no/), [skatteetaten.no](https://www.skatteetaten.no/), [helsenorge.no](https://www.helsenorge.no/), [nav.no](https://www.nav.no/).*
+*Не юридическая и не налоговая консультация. Пороги UDI и налоги меняются (часто с 1 мая по G) — верьте [udi.no](https://www.udi.no/) и [skatteetaten.no](https://www.skatteetaten.no/) на дату подачи.*

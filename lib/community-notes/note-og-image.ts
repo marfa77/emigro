@@ -34,6 +34,16 @@ const SLUG_PEXELS_PHOTO_IDS: Record<string, number> = {
   "zapis-v-konsulstvo-portugaliya-2026": 8441786,
   // Passport + notebook on wooden desk
   "zamena-zagranpasporta-portugaliya-2026": 164645,
+  // Bright civic plaza (not gloomy Ribeira) — law / safety guide
+  "narkotiki-portugaliya-norte-zakon-mify-2026": 31825641,
+  // Sunny outdoor festival crowd
+  "festivali-portugalii-2026-muzyka-porto-norte": 32072177,
+  // Colorful Lisbon evening street — nightlife without grey overcast stock
+  "kluby-portugalii-tehno-underground-2026": 17080139,
+  // Sunny terraced vineyards at Peso da Régua (Douro) — wine guide
+  "vina-vinodelni-norte-douro-vinho-verde-2026": 11033039,
+  // Grilled seafood / Porto food stall energy — gastronomy guide
+  "gastronomiya-norte-porto-braga-restorany-2026": 24916887,
 };
 
 /** Topic → landscape Pexels queries (Norte / Porto bias where relevant). */
@@ -48,8 +58,8 @@ export const TOPIC_PHOTO_QUERIES: Record<string, string[]> = {
   sim: ["smartphone sim card desk", "fiber internet router home", "telecom store portugal"],
   school: ["international school portugal campus", "porto school building exterior", "children classroom europe"],
   auto: ["portugal highway car driving", "porto street parked car", "car rental portugal airport"],
-  general: ["porto portugal ribeira skyline", "douro river porto bridge", "braga portugal city square"],
-  portugal: ["porto portugal cityscape", "douro river porto", "lisbon portugal alfama"],
+  general: ["porto portugal sunny ribeira colorful", "douro river porto sunny day", "braga portugal city square sunny"],
+  portugal: ["lisbon rossio square sunny", "porto portugal sunny cityscape", "lisbon portugal alfama sunny street"],
 };
 
 /** Topic → landscape Pexels queries (Valencia / Spain bias). */
@@ -148,7 +158,47 @@ const TITLE_CONCEPT_QUERIES: Array<{ re: RegExp; queries: string[] }> = [
   },
   {
     re: /туриз|douro|algarve|выходн/i,
-    queries: ["douro river valley portugal", "porto ribeira tourism", "algarve portugal coast"],
+    queries: ["douro river valley portugal sunny", "porto ribeira tourism sunny day", "algarve portugal coast blue sky"],
+  },
+  {
+    re: /наркот|dekri|cdt|sicad|веществ|traffico|tráfico|фетиш|fetish|консенс/i,
+    queries: [
+      "lisbon rossio square sunny plaza",
+      "porto portugal sunny city plaza people",
+      "portugal government building exterior daylight",
+    ],
+  },
+  {
+    re: /фестивал|festival|primavera|neopop|концерт/i,
+    queries: [
+      "outdoor music festival crowd sunny",
+      "portugal music festival daylight stage",
+      "paredes de coura festival outdoor",
+    ],
+  },
+  {
+    re: /клуб|techno|nightlife|тусов|андеграунд|underground.*club|gare|kremlin/i,
+    queries: [
+      "lisbon colorful nightlife street evening",
+      "colorful dj mixer club lights",
+      "porto nightlife street lights colorful",
+    ],
+  },
+  {
+    re: /вин|wine|douro|vinho|quinta|enotur|портвейн|port wine|винодел/i,
+    queries: [
+      "douro valley vineyard portugal sunny",
+      "peso da regua vineyard terraces blue sky",
+      "porto wine cellar barrels gaia",
+    ],
+  },
+  {
+    re: /гастро|gastronom|francesinha|ресторан|restaurante|кухн|рецепт|еда|food|seafood|bacalhau/i,
+    queries: [
+      "porto portugal grilled fish seafood sunny",
+      "portuguese food seafood platter grill",
+      "porto restaurant food outdoor terrace",
+    ],
   },
 ];
 
@@ -268,6 +318,31 @@ const SLUG_PHOTO_QUERIES: Record<string, string[]> = {
     "porto apartment interior young renters",
     "porto loft apartment balcony",
     "apartment keys porto portugal",
+  ],
+  "narkotiki-portugaliya-norte-zakon-mify-2026": [
+    "lisbon rossio square sunny plaza",
+    "porto portugal sunny city plaza",
+    "portugal courthouse exterior daylight",
+  ],
+  "festivali-portugalii-2026-muzyka-porto-norte": [
+    "outdoor music festival crowd sunny",
+    "portugal festival stage daylight",
+    "concert crowd outdoor sunny europe",
+  ],
+  "kluby-portugalii-tehno-underground-2026": [
+    "lisbon colorful nightlife street evening",
+    "colorful dj booth neon lights",
+    "porto nightlife street colorful lights",
+  ],
+  "vina-vinodelni-norte-douro-vinho-verde-2026": [
+    "douro valley vineyard portugal sunny terraces",
+    "peso da regua vineyard blue sky",
+    "porto wine barrels cellar tasting",
+  ],
+  "gastronomiya-norte-porto-braga-restorany-2026": [
+    "porto portugal grilled fish seafood sunny",
+    "portuguese francesinha food restaurant",
+    "matosinhos seafood grill porto",
   ],
   "maternity-care-law-change-portugal-2026": [
     "maternity hospital europe",

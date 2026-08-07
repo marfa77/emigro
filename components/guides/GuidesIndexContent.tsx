@@ -6,8 +6,10 @@ import { Suspense, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import { ArrowRight, BookOpen, Clock, MapPin, Sparkles } from "lucide-react";
 import { RelocatorChatPromo } from "@/components/community/RelocatorChatPromo";
+import { GuideAsOfBadge } from "@/components/guides/GuideAsOfBadge";
 import { GuidesCategoryFilter } from "@/components/guides/GuidesCategoryFilter";
 import { HeroShell } from "@/components/visuals/HeroShell";
+import { guideAsOfIso } from "@/lib/guides/guide-dates";
 import {
   getGuideCategories,
   getGuideCategoryById,
@@ -62,6 +64,7 @@ function filterGuidesForTopic(
 
 function GuideCard({ guide }: { guide: GuideFrontmatter }) {
   const categories = getGuideCategories(guide).filter((id) => id !== "general").slice(0, 2);
+  const asOfIso = guideAsOfIso(guide);
 
   return (
     <article className="group overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white shadow-sm ring-1 ring-slate-950/5 transition hover:-translate-y-1 hover:border-corridor-300 hover:shadow-xl hover:shadow-slate-200/70">
@@ -94,6 +97,11 @@ function GuideCard({ guide }: { guide: GuideFrontmatter }) {
               </span>
             )}
           </div>
+          {asOfIso ? (
+            <div className="absolute right-3 top-3 rounded-full bg-amber-300 px-3 py-1.5 shadow-sm">
+              <GuideAsOfBadge dateIso={asOfIso} variant="compact" />
+            </div>
+          ) : null}
         </div>
       </Link>
       <div className="p-6">

@@ -23,7 +23,7 @@ official_sources:
     label: Inecobank
 estimated_minutes: 20
 date_published: 2026-06-25
-date_modified: 2026-08-02
+date_modified: 2026-08-07
 ---
 
 ## Прямой ответ
@@ -238,7 +238,7 @@ date_modified: 2026-08-02
 
 Армянский ВНЖ **не даёт** Шенген сам по себе, но даёт адрес/статус для пакета. Используйте AM для: выписок Ameria/Ineco на **8–15 мес**, апостилей через РФ, налоговой истории ИП.
 
-Подбор программы: [Emigro wizard](/ru/wizard). Юрисдикция подачи: [консульская подача](/ru/guides/konsulskaya-podacha-rf-by-kz-2026-yurisdiktsiya).
+Подбор программы: [Emigro wizard](/ru/wizard). Юрисдикция подачи: [консульская подача](/ru/guides/konsulskaya-podacha-rf-by-kz-2026-yurisdiktsiya). Senior IT в поиске оффера (EU / UK / remote) параллельно с хабом — **[Role Radar](/ru/role-radar)**.
 
 ---
 
@@ -288,6 +288,6 @@ date_modified: 2026-08-02
 - Инвестиции «от $100k» — **не опирайтесь** без актуального декрета.
 - Банки: Ameria / Ineco / Evoca; «Мир» — ВТБ AM.
 - Консульства: **нет PT** в Ереване для D7/D8; проверяйте ES/GR.
-- Wizard: [/ru/wizard](/ru/wizard) · хаб: [/ru/armenia](/ru/armenia).
+- Wizard: [/ru/wizard](/ru/wizard) · senior IT: [Role Radar](/ru/role-radar) · хаб: [/ru/armenia](/ru/armenia).
 
 *Не юридическая, налоговая или военная консультация. Налоги SRC, миграционные пороги и консульские юрисдикции меняются — сверяйте официальные источники и специалиста перед подачей.*
