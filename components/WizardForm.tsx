@@ -1,10 +1,14 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { trackEvent } from "@/lib/analytics/client";
-import type { WizardModule } from "@/lib/types";
+import type { WizardModule, WizardQuestion } from "@/lib/types";
 import { tapTarget, tapTargetSmReset } from "@/lib/ui/mobile";
+import {
+  interestIso2ToSegments,
+  parseInterestParam,
+} from "@/lib/wizard/interest-prefill";
 
 interface WizardProps {
   corridorSlug: string;
@@ -16,6 +20,63 @@ interface WizardProps {
   analyticsScope?: string;
 }
 
+type DraftPayload = {
+  step: number;
+  answers: Record<string, string>;
+  savedAt: number;
+};
+
+function draftStorageKey(mode: string, corridorSlug: string, wizardId: string) {
+  return `emigro-wizard-draft:v1:${mode}:${corridorSlug}:${wizardId}`;
+}
+
+function isQuestionVisible(questionKey: string, answers: Record<string, string>): boolean {
+  if (questionKey === "annual_salary_eur") return answers.has_job_offer === "yes";
+  if (questionKey === "monthly_income_eur") return answers.remote_income === "yes";
+  if (
+    questionKey === "has_university_admission" ||
+    questionKey === "study_budget_eur" ||
+    questionKey === "can_show_study_funds" ||
+    questionKey === "study_level"
+  ) {
+    return answers.wants_study_route === "yes";
+  }
+  return true;
+}
+
+function isQuestionRequired(
+  questionKey: string,
+  questionType: string,
+  required: boolean,
+  answers: Record<string, string>
+): boolean {
+  if (!required) return false;
+  if (questionType === "multi") return false;
+  if (!isQuestionVisible(questionKey, answers)) return false;
+  return true;
+}
+
+function clearDependentAnswers(
+  key: string,
+  value: string,
+  prev: Record<string, string>
+): Record<string, string> {
+  const next = { ...prev, [key]: value };
+  if (key === "has_job_offer" && value !== "yes") {
+    delete next.annual_salary_eur;
+  }
+  if (key === "remote_income" && value !== "yes") {
+    delete next.monthly_income_eur;
+  }
+  if (key === "wants_study_route" && value !== "yes") {
+    delete next.has_university_admission;
+    delete next.study_budget_eur;
+    delete next.can_show_study_funds;
+    delete next.study_level;
+  }
+  return next;
+}
+
 export function WizardForm({
   corridorSlug,
   wizardId,
@@ -25,17 +86,29 @@ export function WizardForm({
   analyticsScope,
 }: WizardProps) {
   const router = useRouter();
+  const formId = useId();
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
   const [loadingMessage, setLoadingMessage] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [interestLabels, setInterestLabels] = useState<string[]>([]);
+  const [draftRestored, setDraftRestored] = useState(false);
   const startedRef = useRef(false);
+  const hydratedRef = useRef(false);
 
   const currentModule = modules[step];
   const isLast = step === modules.length - 1;
-
   const scope = analyticsScope ?? corridorSlug;
+  const storageKey = useMemo(
+    () => draftStorageKey(mode, corridorSlug, wizardId),
+    [mode, corridorSlug, wizardId]
+  );
+
+  const visibleQuestions = useMemo(
+    () => currentModule.questions.filter((q) => isQuestionVisible(q.question_key, answers)),
+    [currentModule, answers]
+  );
 
   function numberPlaceholder(questionKey: string): string {
     const placeholders: Record<string, string> = {
@@ -50,6 +123,45 @@ export function WizardForm({
     };
     return placeholders[questionKey] ?? "Введите число";
   }
+
+  useEffect(() => {
+    if (hydratedRef.current) return;
+    hydratedRef.current = true;
+
+    const search = typeof window !== "undefined" ? window.location.search : "";
+    const interest = parseInterestParam(search);
+    setInterestLabels(interest.labelsRu);
+
+    let initial: Record<string, string> = {};
+    if (interest.iso2.length > 0) {
+      initial.interest_countries = interest.iso2.join(",");
+      initial.interest_segments = interestIso2ToSegments(interest.iso2).join(",");
+    }
+
+    try {
+      const raw = window.localStorage.getItem(storageKey);
+      if (raw) {
+        const draft = JSON.parse(raw) as DraftPayload;
+        if (
+          draft &&
+          typeof draft.step === "number" &&
+          draft.answers &&
+          typeof draft.answers === "object" &&
+          Date.now() - (draft.savedAt ?? 0) < 1000 * 60 * 60 * 24 * 7
+        ) {
+          initial = { ...draft.answers, ...initial };
+          setStep(Math.min(Math.max(0, draft.step), modules.length - 1));
+          setDraftRestored(true);
+        }
+      }
+    } catch {
+      // ignore corrupt draft
+    }
+
+    if (Object.keys(initial).length > 0) {
+      setAnswers(initial);
+    }
+  }, [storageKey, modules.length]);
 
   useEffect(() => {
     if (startedRef.current) return;
@@ -69,8 +181,24 @@ export function WizardForm({
     });
   }, [scope, wizardId, mode]);
 
+  useEffect(() => {
+    if (!hydratedRef.current) return;
+    if (Object.keys(answers).length === 0 && step === 0) return;
+    try {
+      const payload: DraftPayload = { step, answers, savedAt: Date.now() };
+      window.localStorage.setItem(storageKey, JSON.stringify(payload));
+    } catch {
+      // quota / private mode
+    }
+  }, [answers, step, storageKey]);
+
+  useEffect(() => {
+    const heading = document.getElementById(`${formId}-step-title`);
+    heading?.focus({ preventScroll: true });
+  }, [step, formId]);
+
   function setAnswer(key: string, value: string) {
-    setAnswers((prev) => ({ ...prev, [key]: value }));
+    setAnswers((prev) => clearDependentAnswers(key, value, prev));
   }
 
   function toggleMultiAnswer(key: string, value: string) {
@@ -83,36 +211,9 @@ export function WizardForm({
     });
   }
 
-  function isQuestionRequired(questionKey: string, questionType: string, required: boolean): boolean {
-    if (!required) return false;
-    if (questionType === "multi") return false;
-    if (questionType === "number") {
-      if (questionKey === "annual_salary_eur" && answers.has_job_offer !== "yes") return false;
-      if (questionKey === "monthly_income_eur" && answers.remote_income !== "yes") return false;
-      if (questionKey === "passive_income_eur" && answers.passive_income !== "yes") return false;
-      if (questionKey === "willing_to_invest_eur" && answers.willing_to_invest !== "yes") return false;
-      if (
-        (questionKey === "has_university_admission" ||
-          questionKey === "study_budget_eur" ||
-          questionKey === "can_show_study_funds") &&
-        answers.wants_study_route !== "yes"
-      ) {
-        return false;
-      }
-    }
-    if (
-      questionType === "single" &&
-      (questionKey === "has_university_admission" || questionKey === "can_show_study_funds") &&
-      answers.wants_study_route !== "yes"
-    ) {
-      return false;
-    }
-    return true;
-  }
-
   async function handleNext() {
     for (const q of currentModule.questions) {
-      if (!isQuestionRequired(q.question_key, q.question_type, q.required)) continue;
+      if (!isQuestionRequired(q.question_key, q.question_type, q.required, answers)) continue;
       if (!answers[q.question_key]) {
         setError(`Ответьте на вопрос: ${q.label_ru}`);
         return;
@@ -164,6 +265,12 @@ export function WizardForm({
         programs_evaluated: String(evalData.results?.length ?? 0),
       });
 
+      try {
+        window.localStorage.removeItem(storageKey);
+      } catch {
+        // ignore
+      }
+
       router.push(`${resultsPath}?session=${sessionData.id}`);
     } catch (e) {
       const message = e instanceof Error ? e.message : "Ошибка";
@@ -176,97 +283,152 @@ export function WizardForm({
     }
   }
 
+  function renderQuestion(q: WizardQuestion) {
+    const groupId = `${formId}-${q.question_key}`;
+    const labelId = `${groupId}-label`;
+
+    return (
+      <div key={q.id}>
+        <div id={labelId} className="block font-medium">
+          {q.label_ru}
+        </div>
+        {q.help_ru && <p className="mt-1 text-sm text-slate-500">{q.help_ru}</p>}
+
+        {q.question_type === "single" && q.options && (
+          <div
+            className="mt-2 flex flex-wrap gap-2"
+            role="radiogroup"
+            aria-labelledby={labelId}
+          >
+            {q.options.map((opt) => {
+              const selected = answers[q.question_key] === opt.value;
+              return (
+                <button
+                  key={opt.value}
+                  type="button"
+                  role="radio"
+                  aria-checked={selected}
+                  onClick={() => setAnswer(q.question_key, opt.value)}
+                  className={`${tapTarget} rounded-lg border px-4 py-2.5 text-sm ${
+                    selected
+                      ? "border-corridor-500 bg-corridor-50 text-corridor-800"
+                      : "border-slate-200 hover:border-corridor-300"
+                  }`}
+                >
+                  {opt.label_ru}
+                </button>
+              );
+            })}
+          </div>
+        )}
+
+        {q.question_type === "number" && (
+          <input
+            id={groupId}
+            type="number"
+            inputMode="decimal"
+            min={0}
+            aria-labelledby={labelId}
+            placeholder={numberPlaceholder(q.question_key)}
+            className="mt-2 w-full rounded-lg border border-slate-300 px-3 py-3 text-base sm:max-w-xs sm:py-2 sm:text-sm"
+            value={answers[q.question_key] ?? ""}
+            onChange={(e) => setAnswer(q.question_key, e.target.value)}
+          />
+        )}
+
+        {q.question_type === "multi" && q.options && (
+          <div
+            className="mt-2 flex flex-wrap gap-2"
+            role="group"
+            aria-labelledby={labelId}
+          >
+            {q.options.map((opt) => {
+              const selected = (answers[q.question_key] ?? "").split(",").filter(Boolean);
+              const active = selected.includes(opt.value);
+              return (
+                <button
+                  key={opt.value}
+                  type="button"
+                  role="checkbox"
+                  aria-checked={active}
+                  onClick={() => toggleMultiAnswer(q.question_key, opt.value)}
+                  className={`${tapTarget} rounded-lg border px-4 py-2.5 text-sm ${
+                    active
+                      ? "border-corridor-500 bg-corridor-50 text-corridor-800"
+                      : "border-slate-200 hover:border-corridor-300"
+                  }`}
+                >
+                  {opt.label_ru}
+                </button>
+              );
+            })}
+          </div>
+        )}
+      </div>
+    );
+  }
+
   return (
     <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
-      <div className="mb-6 flex gap-2">
+      <div className="mb-6 flex gap-2" role="list" aria-label="Прогресс wizard">
         {modules.map((m, i) => (
           <div
             key={m.id}
+            role="listitem"
+            aria-current={i === step ? "step" : undefined}
+            title={m.title_ru}
             className={`h-2 flex-1 rounded-full ${i <= step ? "bg-corridor-500" : "bg-slate-200"}`}
           />
         ))}
       </div>
 
-      <h2 className="text-xl font-semibold">{currentModule.title_ru}</h2>
+      <h2
+        id={`${formId}-step-title`}
+        tabIndex={-1}
+        className="text-xl font-semibold outline-none"
+      >
+        {currentModule.title_ru}
+      </h2>
       <p className="text-sm text-slate-500">
         Шаг {step + 1} из {modules.length}
       </p>
+
+      {interestLabels.length > 0 && (
+        <div className="mt-3 rounded-lg border border-amber-100 bg-amber-50 px-4 py-3 text-sm leading-relaxed text-amber-950">
+          Учитываем ваш интерес к: {interestLabels.join(", ")}. Подбор всё равно по всем коридорам — интерес
+          только слегка поднимает релевантные страны в выдаче.
+        </div>
+      )}
+
+      {draftRestored && (
+        <div className="mt-3 rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700">
+          Восстановили ваши прошлые ответы с этого устройства. Можно продолжить или изменить любой шаг.
+        </div>
+      )}
+
       <div className="mt-3 rounded-lg border border-blue-100 bg-blue-50 px-4 py-3 text-sm leading-relaxed text-blue-950">
         Если точной цифры нет, укажите примерную сумму в евро. Если вопрос не про вас или ответа нет,
         выбирайте «Нет» или оставляйте необязательное поле пустым.
       </div>
 
-      <div className="mt-6 space-y-6">
-        {currentModule.questions.map((q) => (
-          <div key={q.id}>
-            <label className="block font-medium">{q.label_ru}</label>
-            {q.help_ru && <p className="mt-1 text-sm text-slate-500">{q.help_ru}</p>}
-
-            {q.question_type === "single" && q.options && (
-              <div className="mt-2 flex flex-wrap gap-2">
-                {q.options.map((opt) => (
-                  <button
-                    key={opt.value}
-                    type="button"
-                    onClick={() => setAnswer(q.question_key, opt.value)}
-                    className={`${tapTarget} rounded-lg border px-4 py-2.5 text-sm ${
-                      answers[q.question_key] === opt.value
-                        ? "border-corridor-500 bg-corridor-50 text-corridor-800"
-                        : "border-slate-200 hover:border-corridor-300"
-                    }`}
-                  >
-                    {opt.label_ru}
-                  </button>
-                ))}
-              </div>
-            )}
-
-            {q.question_type === "number" && (
-              <input
-                type="number"
-                inputMode="decimal"
-                min={0}
-                placeholder={numberPlaceholder(q.question_key)}
-                className="mt-2 w-full rounded-lg border border-slate-300 px-3 py-3 text-base sm:max-w-xs sm:py-2 sm:text-sm"
-                value={answers[q.question_key] ?? ""}
-                onChange={(e) => setAnswer(q.question_key, e.target.value)}
-              />
-            )}
-
-            {q.question_type === "multi" && q.options && (
-              <div className="mt-2 flex flex-wrap gap-2">
-                {q.options.map((opt) => {
-                  const selected = (answers[q.question_key] ?? "").split(",").filter(Boolean);
-                  const active = selected.includes(opt.value);
-                  return (
-                    <button
-                      key={opt.value}
-                      type="button"
-                      onClick={() => toggleMultiAnswer(q.question_key, opt.value)}
-                      className={`${tapTarget} rounded-lg border px-4 py-2.5 text-sm ${
-                        active
-                          ? "border-corridor-500 bg-corridor-50 text-corridor-800"
-                          : "border-slate-200 hover:border-corridor-300"
-                      }`}
-                    >
-                      {opt.label_ru}
-                    </button>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
+      <div className="mt-6 space-y-6">{visibleQuestions.map(renderQuestion)}</div>
 
       {error && (
-        <div className="mt-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800">
+        <div
+          className="mt-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800"
+          role="alert"
+          aria-live="assertive"
+        >
           <p className="font-medium">Нужно ещё одно действие</p>
           <p className="mt-1">{error}</p>
         </div>
       )}
       {loading && (
-        <div className="mt-4 rounded-lg border border-corridor-100 bg-corridor-50 px-4 py-3 text-sm text-corridor-900">
+        <div
+          className="mt-4 rounded-lg border border-corridor-100 bg-corridor-50 px-4 py-3 text-sm text-corridor-900"
+          role="status"
+          aria-live="polite"
+        >
           <p className="font-medium">{loadingMessage || "Считаем результаты..."}</p>
           <p className="mt-1 text-corridor-800">
             Мы проверяем правила программ и сразу покажем результат. Страницу можно не обновлять и не закрывать.

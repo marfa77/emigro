@@ -5,6 +5,7 @@ import { CorridorIntelLinks } from "@/components/corridor/CorridorIntelLinks";
 import { CorridorHubShell } from "@/components/corridor/hub/CorridorHubShell";
 import { CorridorHubStackSectionSuspense } from "@/components/corridor/hub/CorridorHubStack";
 import { CorridorLandingSeoSections } from "@/components/corridor/CorridorLandingSeoSections";
+import { CorridorWizardPulseSectionSuspense } from "@/components/wizard/CorridorWizardPulseSection";
 import { PortugalFeaturedNotes } from "@/components/portugal/PortugalFeaturedNotes";
 import { SpainFeaturedNotes } from "@/components/spain/SpainFeaturedNotes";
 import { isPortugalHubTopic } from "@/lib/portugal/hub";
@@ -115,6 +116,8 @@ export async function CorridorLanding({ country }: { country: string }) {
         </HeroShell>
 
         {showHub && <CorridorHubStackSectionSuspense topic={topic} corridor={corridor} />}
+
+        {isFull && <CorridorWizardPulseSectionSuspense topic={topic} />}
 
         {corridor.programs.length > 0 && (
           <section id="programs" className="mt-12">

@@ -1,4 +1,4 @@
-import { Activity, Globe2, Laptop, MapPin } from "lucide-react";
+import { Activity, Globe2, Laptop, MapPin, Route } from "lucide-react";
 import Link from "next/link";
 import { PulseCard, PulseHeader, PulseShareList } from "@/components/wizard/WizardPulseUi";
 import { getGlobalWizardPulse } from "@/lib/wizard/pulse";
@@ -18,7 +18,14 @@ export async function WizardPulseSection() {
         headingId="hub-wizard-pulse-heading"
       />
 
-      <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <PulseCard icon={Route} title="Популярные маршруты">
+          <PulseShareList
+            items={pulse.topRoutes}
+            emptyLabel="Пока мало данных по итогам подбора"
+          />
+        </PulseCard>
+
         <PulseCard icon={Globe2} title="Страны">
           <PulseShareList items={pulse.topCountries} emptyLabel="Пока мало данных по странам" />
         </PulseCard>

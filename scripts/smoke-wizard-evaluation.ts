@@ -84,11 +84,15 @@ for (const result of results) {
 
 const expandedFamilyFacts = expandHubFacts({
   passport_iso2: "RU",
-  family_countries: ["PL", "CZ", "AT"],
+  family_countries: ["PL", "CZ", "AT", "HR", "NO", "EE"],
 });
 assert.equal(expandedFamilyFacts.has_family_in_pl, "yes");
 assert.equal(expandedFamilyFacts.has_family_in_cz, "yes");
 assert.equal(expandedFamilyFacts.has_family_in_at, "yes");
+assert.equal(expandedFamilyFacts.has_family_in_hr, "yes");
+assert.equal(expandedFamilyFacts.has_family_in_no, "yes");
+assert.equal(expandedFamilyFacts.has_family_in_ee, "yes");
+assert.equal(expandedFamilyFacts.has_family_in_se, "no");
 
 const corridorFamilyFacts = expandHubFacts({
   passport_iso2: "RU",

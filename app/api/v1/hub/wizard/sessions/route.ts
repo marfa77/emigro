@@ -1,9 +1,24 @@
 import { NextResponse } from "next/server";
 import { createServerClient } from "@/lib/supabase/server";
+import { validateWizardAnswers } from "@/lib/wizard/validate-answers";
 
 export async function POST(request: Request) {
-  const body = await request.json();
-  const answers = (body.answers ?? {}) as Record<string, unknown>;
+  let body: unknown;
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
+  }
+
+  const rawAnswers =
+    typeof body === "object" && body !== null && "answers" in body
+      ? (body as { answers?: unknown }).answers
+      : {};
+  const validated = validateWizardAnswers(rawAnswers ?? {});
+  if (!validated.ok) {
+    return NextResponse.json({ error: validated.error }, { status: 400 });
+  }
+  const answers = validated.answers;
 
   const supabase = createServerClient();
   const { data, error } = await supabase

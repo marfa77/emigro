@@ -12,22 +12,29 @@ const YES_NO = [
   { value: "no", label_en: "No", label_ru: "Нет" },
 ];
 
+/** Keep in sync with FAMILY_FACT_BY_DESTINATION in expand-facts.ts */
 const FAMILY_COUNTRY_OPTIONS = [
-  { value: "PT", label_en: "Portugal", label_ru: "🇵🇹 Португалия" },
-  { value: "ES", label_en: "Spain", label_ru: "🇪🇸 Испания" },
-  { value: "FR", label_en: "France", label_ru: "🇫🇷 Франция" },
-  { value: "IT", label_en: "Italy", label_ru: "🇮🇹 Италия" },
-  { value: "DE", label_en: "Germany", label_ru: "🇩🇪 Германия" },
-  { value: "NL", label_en: "Netherlands", label_ru: "🇳🇱 Нидерланды" },
-  { value: "SE", label_en: "Nordics", label_ru: "🇸🇪 Скандинавия" },
-  { value: "PL", label_en: "Poland", label_ru: "🇵🇱 Польша" },
-  { value: "CZ", label_en: "Czechia", label_ru: "🇨🇿 Чехия" },
-  { value: "AT", label_en: "Austria", label_ru: "🇦🇹 Австрия" },
-  { value: "GR", label_en: "Greece", label_ru: "🇬🇷 Греция" },
-  { value: "CY", label_en: "Cyprus", label_ru: "🇨🇾 Кипр" },
-  { value: "HU", label_en: "Hungary", label_ru: "🇭🇺 Венгрия" },
-  { value: "MT", label_en: "Malta", label_ru: "🇲🇹 Мальта" },
-  { value: "BG", label_en: "Bulgaria", label_ru: "🇧🇬 Болгария" },
+  { value: "PT", label_en: "Portugal", label_ru: "Португалия" },
+  { value: "ES", label_en: "Spain", label_ru: "Испания" },
+  { value: "FR", label_en: "France", label_ru: "Франция" },
+  { value: "IT", label_en: "Italy", label_ru: "Италия" },
+  { value: "DE", label_en: "Germany", label_ru: "Германия" },
+  { value: "NL", label_en: "Netherlands", label_ru: "Нидерланды" },
+  { value: "SE", label_en: "Sweden", label_ru: "Швеция" },
+  { value: "NO", label_en: "Norway", label_ru: "Норвегия" },
+  { value: "FI", label_en: "Finland", label_ru: "Финляндия" },
+  { value: "DK", label_en: "Denmark", label_ru: "Дания" },
+  { value: "PL", label_en: "Poland", label_ru: "Польша" },
+  { value: "CZ", label_en: "Czechia", label_ru: "Чехия" },
+  { value: "AT", label_en: "Austria", label_ru: "Австрия" },
+  { value: "GR", label_en: "Greece", label_ru: "Греция" },
+  { value: "CY", label_en: "Cyprus", label_ru: "Кипр" },
+  { value: "HU", label_en: "Hungary", label_ru: "Венгрия" },
+  { value: "MT", label_en: "Malta", label_ru: "Мальта" },
+  { value: "BG", label_en: "Bulgaria", label_ru: "Болгария" },
+  { value: "HR", label_en: "Croatia", label_ru: "Хорватия" },
+  { value: "SI", label_en: "Slovenia", label_ru: "Словения" },
+  { value: "EE", label_en: "Estonia", label_ru: "Эстония" },
 ];
 
 const GOAL_OPTIONS = [
@@ -35,12 +42,6 @@ const GOAL_OPTIONS = [
   { value: "citizenship", label_en: "Citizenship path", label_ru: "Путь к гражданству" },
   { value: "fast", label_en: "Speed & predictability", label_ru: "Скорость и предсказуемость" },
   { value: "study", label_en: "Study / university", label_ru: "Учёба / вуз" },
-];
-
-const CURRENT_RESIDENCE_OPTIONS = [
-  { value: "abroad_eu", label_en: "Already in EU", label_ru: "Уже живу в стране ЕС" },
-  { value: "abroad_other", label_en: "Abroad outside EU", label_ru: "За границей, но не в ЕС" },
-  { value: "cis_planning", label_en: "In CIS / planning", label_ru: "В СНГ или планирую переезд" },
 ];
 
 const STUDY_LEVEL_OPTIONS = [
@@ -88,17 +89,10 @@ export const HUB_WIZARD_MODULES: WizardModule[] = [
         options: PASSPORT_OPTIONS,
         sort: 1,
       }),
-      q("hub-core", "current_residence", "single", "Где вы сейчас живёте?", {
-        helpRu:
-          "Это помогает понять контекст: смена статуса внутри ЕС, переезд из другой страны или первичная подача из-за рубежа. На подбор программ сейчас не влияет.",
-        options: CURRENT_RESIDENCE_OPTIONS,
-        required: false,
-        sort: 2,
-      }),
       q("hub-core", "relocation_goal", "single", "Главная цель", {
         helpRu: "Это только помогает поставить маршруты в удобный порядок. Страны из-за этого ответа не отсекаются.",
         options: GOAL_OPTIONS,
-        sort: 3,
+        sort: 2,
       }),
     ],
   },

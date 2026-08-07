@@ -145,6 +145,13 @@ function pickRecommendation(
   const invest = Number(facts.willing_to_invest_eur ?? 0);
   const wantsStudy = facts.wants_study_route === "yes";
 
+  const interestSegments = new Set(
+    String(facts.interest_segments ?? "")
+      .split(",")
+      .map((s) => s.trim())
+      .filter(Boolean)
+  );
+
   const scored = pool.map((m) => {
     let bonus = 0;
     if (goal === "fast" && laborTypes.has(m.programType)) bonus += 0.05;
@@ -157,6 +164,9 @@ function pickRecommendation(
       if (m.programSlug.includes("blue-card") || m.programSlug.includes("chancenkarte")) {
         bonus += 0.04;
       }
+    }
+    if (interestSegments.size > 0 && interestSegments.has(m.countrySegment)) {
+      bonus += 0.04;
     }
     return { m, total: m.score + bonus };
   });

@@ -27,6 +27,8 @@ export type GlobalWizardPulse = {
   hubChecks: number;
   corridorChecks: number;
   topCountries: PulseShare[];
+  /** Popular programs / routes from hub picks + best corridor eligibility outcomes. */
+  topRoutes: PulseShare[];
   topPassports: PulseShare[];
   remoteIncomeShare: number | null;
 };
@@ -235,18 +237,36 @@ async function loadPulseData(): Promise<PulseData | null> {
   }
 }
 
+function hubRouteLabel(session: HubSessionRow): string | null {
+  const pick = session.results?.pick;
+  if (!pick) return null;
+  const program = pick.programTitleRu?.trim();
+  const country = pick.countryRu?.trim();
+  if (program && country) return `${country}: ${program}`;
+  if (program) return program;
+  return country || null;
+}
+
 function buildGlobalPulse(data: PulseData): GlobalWizardPulse | null {
-  const { hubSessions, corridorSessions } = data;
+  const { hubSessions, corridorSessions, eligibilityBySessionId } = data;
   const totalChecks = hubSessions.length + corridorSessions.length;
   if (totalChecks < WIZARD_PULSE_MIN_TOTAL) return null;
 
   const countryCounts = new Map<string, number>();
+  const routeCounts = new Map<string, number>();
   const passportCounts = new Map<string, number>();
   let remoteIncomeCount = 0;
+  let routeDenom = 0;
 
   for (const session of hubSessions) {
     const country = hubCountryLabel(session, data.countryByUrlSegment);
     if (country) increment(countryCounts, country);
+
+    const route = hubRouteLabel(session);
+    if (route) {
+      increment(routeCounts, route);
+      routeDenom += 1;
+    }
 
     const passport = passportLabel(session.passport_iso2);
     if (passport) increment(passportCounts, passport);
@@ -261,6 +281,16 @@ function buildGlobalPulse(data: PulseData): GlobalWizardPulse | null {
     const country = slug ? data.countryByCorridorSlug.get(slug) : null;
     if (country) increment(countryCounts, country);
 
+    const eligibility = eligibilityBySessionId.get(session.id);
+    const program = eligibility ? programTitleFromEligibility(eligibility) : null;
+    if (program && country) {
+      increment(routeCounts, `${country}: ${program}`);
+      routeDenom += 1;
+    } else if (program) {
+      increment(routeCounts, program);
+      routeDenom += 1;
+    }
+
     const passport = passportLabel(session.passport_iso2);
     if (passport) increment(passportCounts, passport);
 
@@ -270,13 +300,19 @@ function buildGlobalPulse(data: PulseData): GlobalWizardPulse | null {
   }
 
   const topCountries = toShares(countryCounts, totalChecks, WIZARD_PULSE_MIN_BUCKET);
+  const topRoutes = toShares(routeCounts, Math.max(routeDenom, 1), WIZARD_PULSE_MIN_BUCKET, 5);
   const topPassports = toShares(passportCounts, totalChecks, WIZARD_PULSE_MIN_BUCKET);
   const remoteIncomeShare =
     remoteIncomeCount >= WIZARD_PULSE_MIN_BUCKET
       ? Math.round((remoteIncomeCount / totalChecks) * 100)
       : null;
 
-  if (topCountries.length === 0 && topPassports.length === 0 && remoteIncomeShare === null) {
+  if (
+    topCountries.length === 0 &&
+    topRoutes.length === 0 &&
+    topPassports.length === 0 &&
+    remoteIncomeShare === null
+  ) {
     return null;
   }
 
@@ -286,6 +322,7 @@ function buildGlobalPulse(data: PulseData): GlobalWizardPulse | null {
     hubChecks: hubSessions.length,
     corridorChecks: corridorSessions.length,
     topCountries,
+    topRoutes,
     topPassports,
     remoteIncomeShare,
   };
