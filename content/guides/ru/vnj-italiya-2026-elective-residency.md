@@ -22,7 +22,7 @@ official_sources:
     label: Министерство внутренних дел Италии
 estimated_minutes: 19
 date_published: 2026-06-25
-date_modified: 2026-07-28
+date_modified: 2026-08-07
 ---
 
 ## Италия в 2026: три маршрута для русскоязычных
@@ -82,7 +82,7 @@ date_modified: 2026-07-28
 ## Digital Nomad Visa Италия 2026
 
 С 2024 года действует отдельная **Visto per nomadi digitali / lavoratori da remoto** (Type D **до** въезда):
-- **Порог дохода:** ориентир **~€24 789/год** (3× esenzione sanitaria); консульства часто **€25 500–€28 000+**; remote workers (найм) — ещё планка CCNL/ISTAT (~€33k)
+- **Порог дохода:** 3× esenzione sanitaria; практика 2026 часто **~€28–28,5k/год** (старые ~€24 789 — не «безопасный пол»); remote workers (найм) — ещё планка CCNL/ISTAT (~€33k)
 - **Право работать:** только remote на **иностранных** работодателей/клиентов
 - **Срок Permesso:** 1 год + продление при сохранении условий
 - **Impatriati 50%:** отдельный налоговый режим, не бонус визы
@@ -245,6 +245,6 @@ IT — «несезонная» категория с отдельной неб�
 - **Пассивный доход €31 000+/год** → Elective Residency (не Digital Nomad)
 - **Оффер от итальянской компании** → Decreto Flussi (запасной вариант — Blue Card EU через Германию/Нидерланды)
 - **Капитал €250 000+** → Investor Visa (стартап-трек)
-- **Удалёнщик** → [Digital Nomad Италия](/ru/guides/vnj-italiya-2026-digital-nomad) (~€24 789+/год; [integrazionemigranti.gov.it](https://www.integrazionemigranti.gov.it/en-gb/Ricerca-news/Dettaglio-news/id/3835/Who-are-the-digital-nomads-How-can-they-enter-Italy-))
+- **Удалёнщик** → [Digital Nomad Италия](/ru/guides/vnj-italiya-2026-digital-nomad) (~€28k+/год практ.; [integrazionemigranti.gov.it](https://www.integrazionemigranti.gov.it/en-gb/Ricerca-news/Dettaglio-news/id/3835/Who-are-the-digital-nomads-How-can-they-enter-Italy-))
 
 Перейдите к [мастеру Emigro](/ru/wizard), чтобы сравнить итальянский маршрут с другими под ваш профиль, или изучите [страницу коридора Италия](/ru/italy). После прилёта: [первые 30 дней в Италии](/ru/guides/pervye-30-dnej-v-italii-2026).
