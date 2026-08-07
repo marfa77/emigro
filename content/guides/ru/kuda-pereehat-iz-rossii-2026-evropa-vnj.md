@@ -24,7 +24,7 @@ official_sources:
     label: Франция — arrêté 21.08.2025 (Talent / Carte Bleue)
 estimated_minutes: 16
 date_published: 2026-06-25
-date_modified: 2026-08-04
+date_modified: 2026-08-07
 ---
 
 ## Почему вопрос «куда валить» в 2026 звучит иначе
@@ -46,7 +46,7 @@ date_modified: 2026-08-04
 | **Португалия** ⭐ | D8 (удалёнка), D7 (пассивный доход), D2 | IT, фриланс, пенсионеры | D8 ~€3 680/мес. **Pillar + практика:** [D8/D7 2026](/ru/guides/vnj-portugaliya-d8-d7-grazhdanstvo-2026) · [portugal.emigro.online](https://portugal.emigro.online) |
 | **Испания** | Digital nomad, non-lucrative, highly qualified | Удалёнщики, специалисты, пассивный доход | Digital nomad: ~€2 849/мес (200% SMI). Pillar: [Digital nomad Испания 2026](/ru/guides/vnj-ispaniya-2026) |
 | **Германия** | EU Blue Card, Chancenkarte, работа | Найм, STEM, опыт 3+ года | Blue Card: €45 934+/год (shortage) или €50 700+/год (общий) |
-| **Италия** | Digital Nomad, lavoro subordinato, elective residence | Удалёнка, контракт, пассивный доход | DN ~€24 789/год (3× esenzione; консульства часто выше). Pillar: [DN Италия](/ru/guides/vnj-italiya-2026-digital-nomad) |
+| **Италия** | Digital Nomad, lavoro subordinato, elective residence | Удалёнка, контракт, пассивный доход | DN **~€28–28,5k/год** (практ.); формула ≈€24 789 — не бюджет. Pillar: [DN Италия](/ru/guides/vnj-italiya-2026-digital-nomad) |
 | **Франция** | Passeport Talent, VLS-TS salarié | Квалифицированные специалисты, стартапы | Talent Salarié: €39 582+/год; Carte Bleue: €59 373+/год (1,5× reference, arrêté 21.08.2025) |
 | **Нидерланды** | Highly Skilled Migrant (HSM) | Найм у признанного спонсора | Порог €5 942/мес (2026, 30+) / €4 357 (<30); без holiday allowance |
 | **Скандинавия** | Work permit / Blue Card (SE, DK); Skilled Worker (NO) | Найм, IT, инженерия | SE work ≥ **SEK 34 470**/мес (90% медианы с 16.06.2026); NO floors **NOK 545 400 / 624 700** (с 01.05.2026, без kollektivavtal) |
@@ -85,14 +85,14 @@ date_modified: 2026-08-04
 
 ## Италия, Франция, Нидерланды, Скандинавия — когда смотреть
 
-- **Италия** — Digital Nomad (~€24 789/год) и elective residence для пассивного дохода; бюрократия тяжелее PT/ES.
+- **Италия** — Digital Nomad (**~€28–28,5k/год** на практике; €24 789 — только формула) и elective residence для пассивного дохода; бюрократия тяжелее PT/ES.
 - **Франция** — Passeport Talent для специалистов; высокие налоги, сильный рынок труда в Париже.
-- **Нидерланды** — только при оффере от employer-sponsor; 30% ruling для expats (ступенчато сокращён с 2024).
+- **Нидерланды** — только при оффере от employer-sponsor; **30% ruling** в 2025–26 снова **flat 30%** (ступень 30→20→10 отменена); с **01.01.2027** — обычно **27%**.
 - **Скандинавия** — высокий доход, высокие расходы, сильная соцзащита; Danish/Swedish work permit через работодателя; Норвегия — Skilled Worker (не «DN»).
 
 **Франция (Passeport Talent):** **Talent — salarié qualifié** от **€39 582/год** брутто; **Talent — carte bleue européenne** от **€59 373/год** (1,5× reference salary, [arrêté du 21 août 2025](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000052158121)). Париж — €3 500–6 000/мес. на семью; провинция дешевле. Гражданство — **5 лет** (2 года для выпускников французского вуза); с **01.01.2026** — **B2** французский (устный и письменный), обязательный **examen civique** (40 вопросов, мин. 32/40, ~€70), пошлина **€255** с **01.05.2026**; рассмотрение 12–24 мес. Подробно: [ВНЖ Франция 2026](/ru/guides/vnj-frantsiya-2026-passeport-talent).
 
-**Нидерланды (HSM):** спонсор-работодатель из списка IND; порог **€5 942/мес** (30+) / **€4 357/мес** (<30), без holiday allowance ([IND 2026](https://ind.nl/en/news/fees-and-required-amounts-for-2026-known)). Без оффера — practically нет маршрута для СНГ. 30% ruling сокращён с 2024 — проверяйте налоговый эффект. Подробно: [ВНЖ Нидерланды 2026](/ru/guides/vnj-niderlandy-2026-highly-skilled).
+**Нидерланды (HSM):** спонсор-работодатель из списка IND; порог **€5 942/мес** (30+) / **€4 357/мес** (<30), без holiday allowance ([IND 2026](https://ind.nl/en/news/fees-and-required-amounts-for-2026-known)). Без оффера — practically нет маршрута для СНГ. **30% ruling:** 2026 — **30% flat**; с 2027 — **27%** для большинства (≤2023 часто grandfathered 30%). Подробно: [ВНЖ Нидерланды 2026](/ru/guides/vnj-niderlandy-2026-highly-skilled) · [работа в Европе](/ru/guides/rabota-v-evrope-dlya-rossiyan-2026).
 
 **Скандинавия:** Швеция — work permit ≥ **SEK 34 470/мес** с 16.06.2026 (90% медианы); Дания — pay-limit orient ~DKK 552 000/год; Норвегия вне EU (EEA) — Skilled Worker **NOK 545 400 / 624 700** с 01.05.2026 без kollektivavtal. Аренда в Копенгагене/Стокгольме сопоставима с Лондоном; русскоязычное комьюнити меньше, чем в PT/ES. Подробно: [ВНЖ Скандинавия 2026](/ru/guides/vnj-skandinaviya-2026) · [Швеция](/ru/guides/vnj-shvetsiya-2026-work-permit-grazhdanstvo) · [Норвегия](/ru/guides/vnj-norvegiya-2026) · [первые 30 дней](/ru/guides/pervye-30-dnej-v-skandinavii-2026).
 

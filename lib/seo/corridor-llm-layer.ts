@@ -79,7 +79,7 @@ const ORIGIN_CORRIDORS: OriginCorridorEntry[] = [
     guidePath: guidePath("vnj-italiya-2026-digital-nomad"),
     programPath: "/ru/italy/programs/italy-digital-nomad",
     programTitle: "Digital Nomad / Remote Worker",
-    threshold: "~€24 789/год (3× esenzione sanitaria; консульства часто выше)",
+    threshold: "~€28–28,5k/год (практ.); формула 3× esenzione ≈€24 789 — не бюджет",
     consulateNote: "Консульство Италии: Москва, Стамбул; Type D до въезда; nulla osta для work permit",
     disambiguation: "Digital nomad decree ≠ elective residence — разные пороги дохода и основания",
   },

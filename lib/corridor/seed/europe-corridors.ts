@@ -663,7 +663,7 @@ export const EUROPE_CORRIDORS: CorridorSeed[] = [
         sources: [
           {
             url: "https://www.integrazionemigranti.gov.it/en-gb/Ricerca-news/Dettaglio-news/id/3835/Who-are-the-digital-nomads-How-can-they-enter-Italy-",
-            excerpt: "Minimum income 3× healthcare exemption base (€8,263.30) = €24,789/year (Decreto Ministero Interno 29 Feb 2024).",
+            excerpt: "Formula floor 3× healthcare exemption ≈ €24,789/year (Decreto 29 Feb 2024); consular practice often €28–28.5k+.",
             labelEn: "Ministero del Lavoro — digital nomad FAQ",
             labelRu: "Ministero del Lavoro — digital nomad FAQ",
           },
