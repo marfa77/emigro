@@ -277,7 +277,7 @@ date_modified: 2026-08-07
 
 **Правило:** для national D почти всегда нужен **proof of legal stay** в Сербии (ВНЖ или устойчивая пријава + аренда). «Турист на 30 дней» — слабое основание.
 
-Пока готовите пакет: senior IT — параллельно **[Role Radar](/ru/role-radar)** (EU / UK / remote под CV).
+Пока готовите пакет: параллельно можно смотреть вакансии через **[Role Radar](/ru/role-radar)** (подбор под CV в Telegram).
 
 ---
 
@@ -414,7 +414,7 @@ date_modified: 2026-08-07
 - Law on Foreigners amendments 2023 (срок ВНЖ до 3 лет, ПМЖ 3 года, Unified Permit)  
 - IP Box / CIT incentives — Corporate Income Tax Law + правило о qualified income  
 
-Подбор EU-программы: [Emigro wizard](/ru/wizard). Senior IT: [Role Radar](/ru/role-radar). Хаб: [/ru/serbia](/ru/serbia). Срочный выезд / хабы: [куда уехать срочно](/ru/guides/kuda-uehat-iz-rossii-srochno-2026-evropa-bezviz-haby).
+Подбор EU-программы: [Emigro wizard](/ru/wizard). Поиск оффера: [Role Radar](/ru/role-radar). Хаб: [/ru/serbia](/ru/serbia). Срочный выезд / хабы: [куда уехать срочно](/ru/guides/kuda-uehat-iz-rossii-srochno-2026-evropa-bezviz-haby).
 
 ---
 

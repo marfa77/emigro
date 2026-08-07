@@ -173,7 +173,7 @@ EU-маршрут: [Emigro wizard](/ru/wizard); хаб: [/ru/kazakhstan](/ru/kaz
 
 EU-консульства: **Almaty** — визовые центры ряда EU-стран. Сравните маршруты: [Германия Blue Card](/ru/guides/vnj-germaniya-2026), [консульская юрисдикция](/ru/guides/konsulskaya-podacha-rf-by-kz-2026-yurisdiktsiya).
 
-Senior IT из Алматы/Астаны: параллельно с пакетом — **[Role Radar](/ru/role-radar)** (дайджест под CV; EU / UK / remote).
+Из Алматы/Астаны параллельно с пакетом — **[Role Radar](/ru/role-radar)** (дайджест вакансий под CV).
 
 ---
 
@@ -324,6 +324,6 @@ EU via [wizard](/ru/wizard) — Germany, Portugal common targets for KZ/RU passp
 - РВП **1 год** → ВНЖ (на **10 лет**) → гражданство через **5 лет с ВНЖ** (~6 лет суммарно).
 - Kaspi — ключевой *бытовой* банк; для wire из РФ смотрите Halyk/Forte/Bereke. Алматы от 600 €/мес.
 - Русскоязычная среда; не EU.
-- EU-маршрут: [/ru/wizard](/ru/wizard) · senior IT: [Role Radar](/ru/role-radar) · [/ru/kazakhstan](/ru/kazakhstan).
+- EU-маршрут: [/ru/wizard](/ru/wizard) · оффер: [Role Radar](/ru/role-radar) · [/ru/kazakhstan](/ru/kazakhstan).
 
 *Не юридическая консультация.*

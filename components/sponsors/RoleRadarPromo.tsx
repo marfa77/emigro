@@ -10,7 +10,7 @@ type RoleRadarPromoProps = {
 };
 
 /**
- * Sister promo for Role Radar (Telegram senior digests).
+ * Sister promo for Role Radar (Telegram job digests matched to CV).
  * Links to Emigro landing — not straight to the bot.
  */
 export function RoleRadarPromo({
@@ -32,7 +32,7 @@ export function RoleRadarPromo({
             Role Radar
           </Link>
           {" — "}
-          senior-роли под CV в Telegram (EU, UK, remote).
+          вакансии под ваше CV в Telegram (регионы на выбор).
         </p>
       </aside>
     );
@@ -47,8 +47,8 @@ export function RoleRadarPromo({
         <p className="text-xs font-semibold uppercase tracking-[0.14em] text-sky-700/90">Сестринский продукт</p>
         <h3 className="mt-2 text-xl font-semibold tracking-tight text-slate-900">Role Radar</h3>
         <p className="mt-2 max-w-xl text-sm leading-relaxed text-slate-600">
-          Подборка senior-ролей под ваше резюме — в Telegram. Фильтры: EU, UK, remote и уровень.
-          Бесплатный старт; Scout / Operator — по желанию (Build CV на Operator).
+          Подборка вакансий под ваше резюме — в Telegram. Любые роли и регионы по фильтрам в боте, не общая лента
+          канала. Бесплатный старт; Scout / Operator — по желанию (Build CV на Operator).
         </p>
         <Link
           href={href}

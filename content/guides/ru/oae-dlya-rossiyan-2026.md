@@ -127,7 +127,7 @@ Emirates NBD, ADCB, FAB, Mashreq, WIO — счета резидентам пос
 | Банк | Зарплатный счёт через employer — самый простой путь для RU |
 | Риск | Увольнение → отмена визы; grace period ориентир **~30 дней** |
 
-Ищете **senior IT**-роль (Dubai / remote / EU-UK) параллельно с визой? Сестринский продукт Emigro — **[Role Radar](/ru/role-radar)**: дайджест под ваше CV в Telegram (не общий канал вакансий). Не заменяет sponsorship и KYC банка — только поиск роли.
+Ищете роль (Dubai / remote / EU-UK) параллельно с визой? Сестринский продукт Emigro — **[Role Radar](/ru/role-radar)**: дайджест вакансий под ваше CV в Telegram (не общий канал). Не заменяет sponsorship и KYC банка — только поиск роли.
 
 ---
 
@@ -404,6 +404,6 @@ Employment, фризона, freelance, Green Visa, Remote Work.
 - Банки почти только с визой + Emirates ID.  
 - Дубай: ~2.5–4k € одному, семья от ~4.5k €.  
 - EU — отдельно: [/ru/wizard](/ru/wizard) · хаб [/ru/uae](/ru/uae).  
-- Senior job hunt (remote / EU-UK): [Role Radar](/ru/role-radar).
+- Поиск работы (remote / EU-UK): [Role Radar](/ru/role-radar).
 
 *Не юридическая и налоговая консультация. Правила виз, банков и CT меняются — сверяйте [u.ae](https://u.ae/), [gdrfad.gov.ae](https://www.gdrfad.gov.ae/), [dubailand.gov.ae](https://dubailand.gov.ae/), [icp.gov.ae](https://icp.gov.ae/), [tax.gov.ae](https://tax.gov.ae/) перед решением. Цифры — август 2026.*

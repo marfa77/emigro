@@ -2,9 +2,9 @@
 slug: rabota-v-evrope-dlya-rossiyan-2026
 title: "Работа в Европе для россиян в 2026: Blue Card, Chancenkarte и где реально найти оффер"
 seo_title: "Работа в Европе для россиян 2026 — Blue Card, оффер, Role Radar"
-seo_description: "Как найти работу в ЕС в 2026 с паспортом РФ: Blue Card/HSM/Talent, пороги DE NL PL FR, Chancenkarte, стратегии поиска и Role Radar — дайджест senior-ролей под CV."
-excerpt: "Рабочий ВНЖ в ЕС начинается с оффера. Разбор Blue Card / HSM / Talent, реалистичные пороги 2026, ошибки RU-кандидатов и Role Radar — Telegram-подбор senior IT под ваше резюме."
-quick_answer: "Сначала **оффер** (или Chancenkarte / job-seeker), потом виза. **Blue Card DE** 2026: **€50 700** / shortage **€45 934**. **NL HSM:** **€4 357**/мес (&lt;30) / **€5 942** (30+). **PL Blue Card:** **PLN 13 355**/мес (~€3 110). **FR Talent:** от **€39 582**/год. Для senior IT Emigro рекомендует параллельно: LinkedIn + **[Role Radar](/ru/role-radar)** (дайджест под CV в Telegram) → оффер → wizard по стране. Подача из РФ часто через третьи страны."
+seo_description: "Как найти работу в ЕС в 2026 с паспортом РФ: Blue Card/HSM/Talent, пороги DE NL PL FR, Chancenkarte, стратегии поиска и Role Radar — дайджест вакансий под CV."
+excerpt: "Рабочий ВНЖ в ЕС начинается с оффера. Разбор Blue Card / HSM / Talent, реалистичные пороги 2026, ошибки RU-кандидатов и Role Radar — Telegram-подбор вакансий под ваше резюме."
+quick_answer: "Сначала **оффер** (или Chancenkarte / job-seeker), потом виза. **Blue Card DE** 2026: **€50 700** / shortage **€45 934**. **NL HSM:** **€4 357**/мес (&lt;30) / **€5 942** (30+). **PL Blue Card:** **PLN 13 355**/мес (~€3 110). **FR Talent:** от **€39 582**/год. Параллельно: LinkedIn + **[Role Radar](/ru/role-radar)** (дайджест вакансий под CV в Telegram) → оффер → wizard по стране. Подача из РФ часто через третьи страны."
 corridor_slugs: [ru-speaking-to-germany, ru-speaking-to-netherlands, ru-speaking-to-france, ru-speaking-to-poland, ru-speaking-to-sweden]
 topic_keys: [germany, netherlands, france, poland, sweden, work]
 tags: [работа, Европа, Blue Card, Chancenkarte, IT, Role Radar, 2026]
@@ -33,7 +33,7 @@ date_modified: 2026-08-07
 
 | Цель | Что делать |
 |---|---|
-| **Найти оффер из РФ / хаба** | LinkedIn + локальные job boards + **[Role Radar](/ru/role-radar)** (senior IT под CV) |
+| **Найти оффер из РФ / хаба** | LinkedIn + локальные job boards + **[Role Radar](/ru/role-radar)** (вакансии под CV) |
 | **Уже есть оффер ≥ порога** | Blue Card / HSM / Talent — см. таблицу порогов → [wizard](/ru/wizard) |
 | **Оффера нет, готовы ехать искать** | **Chancenkarte** (DE) или Zoekjaar (NL, узкий кейс) |
 | **IT без «западного» порога** | PL work permit / B2B, CZ, иногда SE — ниже зарплата, свои сроки |
@@ -56,14 +56,14 @@ date_modified: 2026-08-07
 
 ---
 
-## Role Radar — поиск senior-роли под CV (сестринский продукт Emigro)
+## Role Radar — поиск вакансий под CV (сестринский продукт Emigro)
 
-Если вы **senior / staff / principal / EM / head** и смотрите **EU / UK / remote**, не начинайте только с хаотичного LinkedIn.
+Не начинайте только с хаотичного LinkedIn — подключите матч по резюме.
 
 **[Role Radar](/ru/role-radar)** — Telegram-бот Emigro:
 
 1. Загружаете CV (PDF/DOCX)
-2. Задаёте регионы и уровень
+2. Задаёте регионы, уровень и роли (любые — не только senior IT)
 3. Получаете **дайджест совпадений под ваше резюме** — не общий канал «всем одно и то же»
 
 | План | Зачем |
@@ -72,8 +72,8 @@ date_modified: 2026-08-07
 | **Scout** | Активный поиск, чаще и прицельнее (Telegram Stars, 30 дней или год) |
 | **Operator** | Приоритет + **Build CV** под конкретную JD |
 
-**Для кого:** senior IT и соседние лидерские роли.  
-**Не для:** junior / «скачать все вакансии Европы». UI бота на **английском**; лендинг Emigro — на русском.
+**Для кого:** кто ищет работу по своему CV и готов задать фильтры в боте.  
+**Не для:** «скачать все вакансии мира» без профиля; оформление визы бот не делает. UI бота на **английском**; лендинг Emigro — на русском.
 
 → [Открыть Role Radar](/ru/role-radar) · бот: [t.me/letsfinddreamjob_bot](https://t.me/letsfinddreamjob_bot?start=guide_rabota_eu)
 
@@ -279,7 +279,7 @@ date_modified: 2026-08-07
 Частный tech — да. Defense / gov / clearance — почти нет. Политика HR индивидуальна; хаб и сильное EN помогают.
 
 **Что такое Role Radar и чем не LinkedIn?**  
-Сестринский Telegram-бот Emigro: матчит **senior**-роли под **ваше CV**. Не лента и не канал вакансий. [Лендинг](/ru/role-radar).
+Сестринский Telegram-бот Emigro: матчит вакансии под **ваше CV** (роли и регионы — фильтрами в боте). Не лента и не канал вакансий. [Лендинг](/ru/role-radar).
 
 **Нужно ли признавать российский IT-диплом для Blue Card DE?**  
 Часто достаточно anabin H+; полное ZAB — не всегда. NL HSM — своя логика sponsor/IND.
@@ -304,7 +304,7 @@ EN LinkedIn + Role Radar + хаб при возможности + компани
 ## Итог: с чего начать сегодня
 
 1. **Упакуйте CV/LinkedIn** под 1–2 целевые страны.  
-2. Запустите **[Role Radar](/ru/role-radar)** (если senior IT) + ежедневный LinkedIn.  
+2. Запустите **[Role Radar](/ru/role-radar)** + ежедневный LinkedIn.  
 3. Когда появится оффер ≥ порога — [wizard Emigro](/ru/wizard) и country-гайд.  
 4. Не увольняйтесь, пока нет ясного визового таймлайна.  
 5. Параллельно язык страны — для быта и (в DE) ускоренного ПМЖ.
@@ -319,7 +319,7 @@ EN LinkedIn + Role Radar + хаб при возможности + компани
 - DE Blue Card: **€50 700 / €45 934**; ПМЖ 21/27 мес.
 - NL: чаще **HSM** €4 357 / €5 942; 30% → часто **27%** с 2027.
 - PL Blue Card: **PLN 13 355**/мес ≈ **€37 300**/год; CZ Blue Card ≈ **€34 800**/год (CZK 73 823/мес).
-- Senior IT: **[Role Radar](/ru/role-radar)** + LinkedIn; junior — другие каналы.
+- Поиск оффера: **[Role Radar](/ru/role-radar)** + LinkedIn.
 - Wizard: [/ru/wizard](/ru/wizard) после оффера или выбора страны.
 
 *Не юридическая и не карьерная консультация. Сверяйте IND / Make it in Germany / gov.pl и условия оффера на дату подачи.*

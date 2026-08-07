@@ -9,12 +9,12 @@ import { roleRadarBotHref } from "@/lib/role-radar";
 export const revalidate = 3600;
 
 export const metadata = pageMetadata({
-  title: "Role Radar — senior IT-вакансии под CV в Telegram",
+  title: "Role Radar — вакансии под CV в Telegram",
   description:
-    "Role Radar — Telegram-бот для senior IT: дайджест вакансий под ваше резюме (EU, UK, remote). Free, Scout и Operator за Stars. Не подписка с автосписанием. Build CV для Operator.",
+    "Role Radar — Telegram-бот: дайджест вакансий под ваше резюме (любые роли и регионы по фильтрам). Free, Scout и Operator за Stars. Не подписка с автосписанием. Build CV для Operator.",
   path: "/ru/role-radar",
   aiDescription:
-    "Role Radar matches senior IT roles to an uploaded CV and sends digests in Telegram. Plans: Free (1 digest / 10 days), Scout, Operator. Payment via Telegram Stars for 30 days or 1 year (−20%). Not a job board channel. Sister product of Emigro for EU work / Blue Card seekers.",
+    "Role Radar matches jobs to an uploaded CV and sends digests in Telegram. Any role/level and region filters in the bot. Plans: Free (1 digest / 10 days), Scout, Operator. Payment via Telegram Stars for 30 days or 1 year (−20%). Not a job board channel. Sister product of Emigro.",
   aiCategory: "Jobs",
 });
 
@@ -27,7 +27,7 @@ const STEPS = [
   {
     step: "2",
     title: "Задаёте фильтры",
-    text: "Регионы (EU, UK, remote), уровень и заголовки ролей — без общего шумного канала.",
+    text: "Регионы, уровень и заголовки ролей — бот ищет под ваш профиль, не шлёт общую ленту канала.",
   },
   {
     step: "3",
@@ -37,15 +37,15 @@ const STEPS = [
 ] as const;
 
 const FOR_WHO = [
-  "Senior / Staff / Principal / Head of / Eng Manager и рядом — ищете роль, а не «любую вакансию»",
-  "Смотрите EU / UK / remote и готовы фильтровать по региону и уровню",
-  "Хотите процесс в Telegram, без ещё одного кабинета на сайте",
-  "Планируете работу + релокацию (Blue Card / work permit / Critical Skills / ОАЭ employment) и уже читаете гайды Emigro",
+  "Ищете работу по своему CV — IT и не только, любой уровень, который задаёте в фильтрах",
+  "Смотрите разные регионы (в т.ч. EU / UK / remote) и хотите матч, а не чужую ленту",
+  "Удобнее вести поиск в Telegram, без ещё одного кабинета на сайте",
+  "Параллельно с релокацией: оффер + маршрут ВНЖ / work permit в гайдах Emigro",
 ] as const;
 
 const NOT_FOR = [
-  "Junior / старт карьеры — продукт заточен под senior-профиль",
-  "Массовый парсинг «всех IT-вакансий Европы» без фильтра по CV",
+  "Массовый парсинг «всех вакансий мира» без фильтра по вашему CV",
+  "Ожидание, что бот оформит визу или ВНЖ — он только помогает найти роль",
   "Русскоязычный интерфейс бота: UI и ответы бота на английском",
 ] as const;
 
@@ -86,7 +86,7 @@ const FAQ_ITEMS = [
   {
     question: "Что такое Role Radar?",
     answer:
-      "Role Radar — Telegram-бот, который подбирает senior IT-роли под ваше резюме и присылает дайджест в чат. Это сестринский продукт Emigro: страница на русском, сам бот на английском.",
+      "Role Radar — Telegram-бот, который подбирает вакансии под ваше резюме и присылает дайджест в чат. Роли и регионы задаёте фильтрами в боте. Сестринский продукт Emigro: страница на русском, сам бот на английском.",
   },
   {
     question: "Чем это отличается от канала вакансий или LinkedIn?",
@@ -96,7 +96,7 @@ const FAQ_ITEMS = [
   {
     question: "Для кого продукт, а для кого нет?",
     answer:
-      "Для senior IT-лидеров и сильных специалистов (Staff/Principal/Head/EM и рядом), которые смотрят EU, UK или remote. Не для junior-поиска и не для «скачать все вакансии Европы» без фильтра по CV.",
+      "Для тех, кто ищет работу по своему CV и готов задать фильтры в боте. Не замена иммиграционному разбору и не «скачать все вакансии» без профиля.",
   },
   {
     question: "Сколько стоит и это подписка?",
@@ -143,7 +143,7 @@ export default function RoleRadarPage() {
     applicationCategory: "BusinessApplication",
     operatingSystem: "Telegram",
     description:
-      "Telegram-бот для senior IT: дайджесты вакансий, подобранные под CV. Free, Scout и Operator. Оплата Telegram Stars на 30 дней или год.",
+      "Telegram-бот: дайджесты вакансий, подобранные под CV. Free, Scout и Operator. Оплата Telegram Stars на 30 дней или год.",
     url,
     offers: [
       {
@@ -216,11 +216,11 @@ export default function RoleRadarPage() {
           <div className="mx-auto max-w-3xl px-4 pb-16 pt-14 sm:px-6 sm:pb-20 sm:pt-20">
             <p className="text-sm font-semibold uppercase tracking-[0.18em] text-sky-800">Role Radar</p>
             <h1 className="mt-4 text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl">
-              Senior IT-роли под ваше CV — в Telegram
+              Вакансии под ваше CV — в Telegram
             </h1>
             <p className="mt-4 max-w-xl text-lg leading-relaxed text-slate-600">
-              Дайджест совпадений для IT-лидеров: EU, UK, remote. Не общий канал вакансий — матч по резюме и
-              фильтрам. Бот на английском.
+              Дайджест совпадений по резюме и фильтрам: роли и регионы на ваш выбор. Не общий канал вакансий. Бот на
+              английском.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <a
@@ -263,7 +263,7 @@ export default function RoleRadarPage() {
         <section className="border-y border-slate-200/80 bg-white/70">
           <div className="mx-auto max-w-3xl px-4 py-14 sm:px-6">
             <h2 className="text-2xl font-semibold tracking-tight text-slate-900">Для кого</h2>
-            <p className="mt-2 text-slate-600">Коротко: senior-поиск роли, не массовый джобборд.</p>
+            <p className="mt-2 text-slate-600">Коротко: поиск роли под CV, не массовый джобборд.</p>
             <ul className="mt-8 space-y-3">
               {FOR_WHO.map((item) => (
                 <li key={item} className="flex gap-3 text-sm leading-relaxed text-slate-700">

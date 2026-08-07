@@ -1,4 +1,4 @@
-/** Role Radar — sister Telegram job digest for senior IT leaders. */
+/** Role Radar — sister Telegram bot: job digests matched to an uploaded CV. */
 
 export const ROLE_RADAR_LANDING_PATH = "/ru/role-radar";
 export const ROLE_RADAR_BOT_BASE = "https://t.me/letsfinddreamjob_bot";

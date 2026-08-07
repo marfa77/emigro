@@ -185,7 +185,7 @@ date_published: 2026-06-26
 
 Сравните: [Италия elective residency](/ru/guides/vnj-italiya-2026-elective-residency), [Португалия vs Испания](/ru/guides/portugaliya-vs-ispaniya-vnj-2026).
 
-Из ME как хаба для **senior IT** параллельно имеет смысл смотреть EU / UK / remote-роли через **[Role Radar](/ru/role-radar)** — бот не заменяет DOO/nomad, только поиск оффера.
+Из ME как хаба параллельно имеет смысл смотреть вакансии через **[Role Radar](/ru/role-radar)** — бот не заменяет DOO/nomad, только поиск оффера под CV.
 
 ---
 
