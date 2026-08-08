@@ -21,7 +21,7 @@ export type StorySourceConfig = {
   linkHostIncludes: string;
 };
 
-/** Countries enabled for story tiles (noise OK). */
+/** Preferred publisher RSS — stories only for these (no Google News). */
 export const STORY_SOURCES: StorySourceConfig[] = [
   {
     topicKey: "portugal",
@@ -52,6 +52,24 @@ export const STORY_SOURCES: StorySourceConfig[] = [
     feedUrl: "https://www.thelocal.fr/feeds/rss.php",
     sourceLabel: "The Local France",
     linkHostIncludes: "thelocal.fr",
+  },
+  {
+    topicKey: "italy",
+    feedUrl: "https://www.thelocal.it/feeds/rss.php",
+    sourceLabel: "The Local Italy",
+    linkHostIncludes: "thelocal.it",
+  },
+  {
+    topicKey: "sweden",
+    feedUrl: "https://www.thelocal.se/feeds/rss.php",
+    sourceLabel: "The Local Sweden",
+    linkHostIncludes: "thelocal.se",
+  },
+  {
+    topicKey: "denmark",
+    feedUrl: "https://www.thelocal.dk/feeds/rss.php",
+    sourceLabel: "The Local Denmark",
+    linkHostIncludes: "thelocal.dk",
   },
 ];
 

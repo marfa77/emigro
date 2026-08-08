@@ -1,40 +1,38 @@
-# Country news stories cron (Observador + The Local)
+# Country news stories cron (direct RSS only)
 
-Daily VPS job that publishes short RU story tiles (`format=story`) for:
+Daily VPS job → short RU story tiles (`format=story`) **only** for corridors with a publisher RSS (no Google News).
 
 | Topic | Source |
 |-------|--------|
-| portugal | Observador RSS |
-| netherlands | DutchNews RSS |
+| portugal | Observador |
+| netherlands | DutchNews |
 | spain | The Local ES |
 | germany | The Local DE |
 | france | The Local FR |
+| italy | The Local IT |
+| sweden | The Local SE |
+| denmark | The Local DK |
 
 ## Cadence
 
-- Timer: **10:00 UTC** daily (`emigro-portugal-news-stories.timer` — name kept for continuity)
+- Timer: **10:00 UTC** (`emigro-portugal-news-stories.timer`)
 - Per country: ≤3/day, ≤15/week
-- Cheap path: RSS → score → lead → one Flash batch
+- Cheap: RSS → **relocator filter** → lead → Flash batch
 
-Does **not** touch weekly digests / Prep2Go.
+Does **not** touch weekly digests / Prep2Go. Other corridors stay digest-only until they get a direct feed.
 
 ## Commands
 
 ```bash
 npm run news:stories -- --dry-run
 npm run news:stories
-npm run news:stories -- --topic=netherlands,spain --max=2
-npm run news:portugal-stories   # portugal only alias
+npm run news:stories -- --topic=italy,sweden --max=2
 ```
 
 ## systemd
 
 ```bash
 bash deploy/portugal-news-stories/deploy.sh
-# or full: cd parser && ./deploy.sh
 ```
 
-Manual: `systemctl start emigro-portugal-news-stories.service`  
-Logs: `/opt/emigro/deploy/portugal-news-stories/logs/`
-
-Set `CRON_SECRET` in `/opt/emigro/.env` so post-publish revalidate works.
+`CRON_SECRET` must be set in `/opt/emigro/.env` for post-publish revalidate.
