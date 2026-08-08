@@ -2,7 +2,7 @@
  * Multi-country single-story tiles (cheap).
  * RSS → score → lead fetch → Gemini Flash batch → emigro_news_digests(format=story).
  *
- * v1 sources: Portugal=Observador; NL/ES/DE/FR=The Local.
+ * Direct publisher RSS only (no Google News).
  */
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { fetchArticleLead } from "@/lib/news/fetch-lead";
@@ -72,6 +72,54 @@ export const STORY_SOURCES: StorySourceConfig[] = [
     sourceLabel: "The Local Denmark",
     linkHostIncludes: "thelocal.dk",
   },
+  {
+    topicKey: "norway",
+    feedUrl: "https://www.thelocal.no/feeds/rss.php",
+    sourceLabel: "The Local Norway",
+    linkHostIncludes: "thelocal.no",
+  },
+  {
+    topicKey: "austria",
+    feedUrl: "https://www.thelocal.at/feeds/rss.php",
+    sourceLabel: "The Local Austria",
+    linkHostIncludes: "thelocal.at",
+  },
+  {
+    topicKey: "poland",
+    feedUrl: "https://notesfrompoland.com/feed/",
+    sourceLabel: "Notes from Poland",
+    linkHostIncludes: "notesfrompoland.com",
+  },
+  {
+    topicKey: "czechia",
+    feedUrl: "https://english.radio.cz/rss.xml",
+    sourceLabel: "Radio Prague International",
+    linkHostIncludes: "radio.cz",
+  },
+  {
+    topicKey: "cyprus",
+    feedUrl: "https://cyprus-mail.com/feed/",
+    sourceLabel: "Cyprus Mail",
+    linkHostIncludes: "cyprus-mail.com",
+  },
+  {
+    topicKey: "hungary",
+    feedUrl: "https://hungarytoday.hu/feed/",
+    sourceLabel: "Hungary Today",
+    linkHostIncludes: "hungarytoday.hu",
+  },
+  {
+    topicKey: "croatia",
+    feedUrl: "https://www.total-croatia-news.com/feed",
+    sourceLabel: "Total Croatia News",
+    linkHostIncludes: "total-croatia-news.com",
+  },
+  {
+    topicKey: "estonia",
+    feedUrl: "https://news.err.ee/rss",
+    sourceLabel: "ERR News",
+    linkHostIncludes: "news.err.ee",
+  },
 ];
 
 const LOOKBACK_DAYS = 3;
@@ -122,6 +170,35 @@ const CORE_HINTS = [
   "refugee",
   "reagrup",
   "family reunif",
+  // Norway / Austria / CEE corridors
+  "udi",
+  "udi.no",
+  "d-number",
+  "d number",
+  "rwr",
+  "red-white-red",
+  "niederlass",
+  "ma35",
+  "ma 35",
+  "karta pobytu",
+  "karta stałego",
+  "zezwolen",
+  "wojewod",
+  "cizineck",
+  "mvcr",
+  "white card",
+  "guest investor",
+  "oif",
+  "orfk",
+  "mup.gov",
+  "boraviš",
+  "boravis",
+  "e-residenc",
+  "eresidency",
+  "politsei",
+  "ppa ",
+  "migration department",
+  "civil registry",
   "внж",
   "гражданств",
   "иммиграц",

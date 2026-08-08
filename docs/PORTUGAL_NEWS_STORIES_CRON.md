@@ -12,6 +12,14 @@ Daily VPS job → short RU story tiles (`format=story`) **only** for corridors w
 | italy | The Local IT |
 | sweden | The Local SE |
 | denmark | The Local DK |
+| norway | The Local NO |
+| austria | The Local AT |
+| poland | Notes from Poland |
+| czechia | Radio Prague International |
+| cyprus | Cyprus Mail |
+| hungary | Hungary Today |
+| croatia | Total Croatia News |
+| estonia | ERR News |
 
 ## Cadence
 
@@ -19,7 +27,7 @@ Daily VPS job → short RU story tiles (`format=story`) **only** for corridors w
 - Per country: ≤3/day, ≤15/week
 - Cheap: RSS → **relocator filter** → lead → Flash batch
 
-Does **not** touch weekly digests / Prep2Go. Other corridors stay digest-only until they get a direct feed.
+Does **not** touch weekly digests / Prep2Go. Still digest-only (no story RSS wired): Finland, Greece, Malta, Bulgaria, Slovenia.
 
 ## Editorial voice
 
@@ -30,7 +38,7 @@ Story copy uses the same Emigro voice as community notes (`lib/community-notes/e
 ```bash
 npm run news:stories -- --dry-run
 npm run news:stories
-npm run news:stories -- --topic=italy,sweden --max=2
+npm run news:stories -- --topic=norway,austria,poland --max=2
 ```
 
 ## systemd
