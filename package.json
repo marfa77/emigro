@@ -21,6 +21,7 @@
     "news:stories": "tsx scripts/run-country-news-stories.ts",
     "news:lightning": "tsx scripts/run-news-lightning.ts",
     "news:soft-promo": "tsx scripts/run-news-soft-promo.ts",
+    "telegram:news-webhook": "tsx scripts/set-news-bot-webhook.ts",
     "news:youtube-short": "tsx scripts/generate-news-youtube-short.ts",
     "news:youtube-short:daily": "tsx scripts/generate-news-youtube-short.ts",
     "youtube:oauth-setup": "tsx scripts/youtube-oauth-setup.ts",

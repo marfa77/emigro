@@ -28,24 +28,16 @@ Daily VPS job → short RU story tiles (`format=story`) **only** for corridors w
 
 ## 2) Channel «молния» — `news:lightning` (separate)
 
-Spaced posts to `@Emigro_news` so nothing dumps in a batch at 10:00.
+Spaced **approval requests** to your Telegram DM (not auto-dump into the channel).
 
 - Timer: **11 / 13 / 15 / 17 / 19 UTC** (`emigro-news-lightning.timer`)
-- **1 post per tick**, FIFO from recent story tiles
-- Gate: keyword immigration → **Gemini Flash** (практическая польза релоканту, conf ≥ 0.75; при сомнении / ошибке API — skip)
-- Cap: **≤5 / day** channel-wide
-- Needs `EMIGRO_NEWS_BOT_TOKEN` + `GOOGLE_API_KEY` on VPS
+- **1 candidate per tick** after keyword + Gemini Flash gates
+- DM: draft + buttons **✅ В канал** / **❌ Пропуск** (fallback `/молния_да` `/молния_нет`)
+- Cap: **≤5 published / day** to `@Emigro_news` (pending approvals also reserve a slot)
+- Needs `EMIGRO_NEWS_BOT_TOKEN`, `TELEGRAM_PRIVATE_CHAT_ID`, `GOOGLE_API_KEY`
+- News-bot webhook: `npx tsx scripts/set-news-bot-webhook.ts` → `/api/telegram/news-webhook`
 
-Format:
-
-```
-⚡ #молния · 🇵🇹 Португалия
-Заголовок
-Excerpt
-Читать на Emigro
-```
-
-Non-immigration stories are marked `__skip_lightning__` so the queue does not re-check them forever.
+Pending marker: `threads_text=__lightning_pending__` + draft in `telegram_html`.
 
 ## 3) Soft promo (weekly) — `news:soft-promo`
 

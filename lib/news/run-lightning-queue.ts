@@ -7,13 +7,14 @@ import {
 } from "@/lib/news/publish-story-telegram";
 import {
   LIGHTNING_MAX_PER_DAY,
+  LIGHTNING_PENDING_MARK,
   LIGHTNING_SKIP_MARK,
   isLightningImmigrationText,
   scoreLightningWithLlm,
 } from "@/lib/news/story-lightning";
 
 const LOOKBACK_DAYS = 5;
-/** One post per cron tick — keeps @Emigro_news from dumping a batch. */
+/** One approval request per cron tick — keeps DMs from stacking. */
 export const LIGHTNING_PER_RUN = 1;
 
 type StoryRow = {
@@ -22,6 +23,7 @@ type StoryRow = {
   title: string;
   excerpt: string | null;
   telegram_html: string | null;
+  threads_text: string | null;
   telegram_message_ids: number[] | null;
   source_links: Array<{ title?: string; url?: string }> | null;
   content_blocks: Array<{
@@ -53,10 +55,11 @@ async function loadTopic(supabase: SupabaseClient, topicKey: string): Promise<Ne
   return mapNewsTopicRow(data as NewsTopicRow);
 }
 
-function alreadySentOrSkipped(row: StoryRow): boolean {
+function alreadyHandled(row: StoryRow): boolean {
   const ids = row.telegram_message_ids ?? [];
   if (ids.length > 0) return true;
   if ((row.telegram_html ?? "").trim() === LIGHTNING_SKIP_MARK) return true;
+  if ((row.threads_text ?? "").trim() === LIGHTNING_PENDING_MARK) return true;
   return false;
 }
 
@@ -68,19 +71,25 @@ function gateTextForRow(row: StoryRow): string {
 async function markLightningSkip(supabase: SupabaseClient, slug: string): Promise<void> {
   await supabase
     .from("emigro_news_digests")
-    .update({ telegram_html: LIGHTNING_SKIP_MARK, updated_at: new Date().toISOString() })
+    .update({
+      telegram_html: LIGHTNING_SKIP_MARK,
+      threads_text: null,
+      updated_at: new Date().toISOString(),
+    })
     .eq("slug", slug);
 }
 
 export type LightningQueueResult = {
   considered: number;
+  /** Slugs sent to owner DM for approval (not yet in channel). */
+  awaitingApproval: string[];
   published: string[];
   skipped: string[];
   remainingToday: number;
   dryRun: boolean;
 };
 
-/** Drain at most `maxPublish` pending immigration stories into @Emigro_news (#молния). */
+/** Queue #молния candidates → owner DM approval (no auto channel publish). */
 export async function runLightningTelegramQueue(options?: {
   dryRun?: boolean;
   maxPublish?: number;
@@ -94,14 +103,21 @@ export async function runLightningTelegramQueue(options?: {
   console.log(`[lightning] budget today ${remaining}/${LIGHTNING_MAX_PER_DAY} (already ${sentToday})`);
 
   if (remaining <= 0) {
-    return { considered: 0, published: [], skipped: ["daily-cap"], remainingToday: 0, dryRun };
+    return {
+      considered: 0,
+      awaitingApproval: [],
+      published: [],
+      skipped: ["daily-cap"],
+      remainingToday: 0,
+      dryRun,
+    };
   }
 
   const since = new Date(Date.now() - LOOKBACK_DAYS * 24 * 60 * 60 * 1000).toISOString();
   const { data, error } = await supabase
     .from("emigro_news_digests")
     .select(
-      "slug, topic_key, title, excerpt, telegram_html, telegram_message_ids, source_links, content_blocks, published_at"
+      "slug, topic_key, title, excerpt, telegram_html, threads_text, telegram_message_ids, source_links, content_blocks, published_at"
     )
     .eq("format", "story")
     .eq("status", "published")
@@ -111,15 +127,16 @@ export async function runLightningTelegramQueue(options?: {
 
   if (error) throw new Error(`lightning queue load failed: ${error.message}`);
 
-  const pending = ((data ?? []) as StoryRow[]).filter((row) => !alreadySentOrSkipped(row));
-  console.log(`[lightning] pending candidates=${pending.length} (lookback ${LOOKBACK_DAYS}d)`);
+  const candidates = ((data ?? []) as StoryRow[]).filter((row) => !alreadyHandled(row));
+  console.log(`[lightning] open candidates=${candidates.length} (lookback ${LOOKBACK_DAYS}d)`);
 
+  const awaitingApproval: string[] = [];
   const published: string[] = [];
   const skipped: string[] = [];
   let considered = 0;
 
-  for (const row of pending) {
-    if (published.length >= maxPublish || remaining <= 0) break;
+  for (const row of candidates) {
+    if (awaitingApproval.length >= maxPublish || remaining <= 0) break;
     considered += 1;
 
     const gateText = gateTextForRow(row);
@@ -170,15 +187,17 @@ export async function runLightningTelegramQueue(options?: {
       storyScore: 99,
       dryRun,
       remainingToday: remaining,
+      llmReason: llm.reason,
     });
 
-    if (tg.published || (dryRun && tg.html)) {
-      published.push(row.slug);
+    if (tg.awaitingApproval) {
+      awaitingApproval.push(row.slug);
+      // Reserve budget slot so we don't spam approvals beyond daily channel cap.
       remaining = Math.max(0, remaining - 1);
     } else if (tg.reason) {
       skipped.push(`${row.slug}:${tg.reason}`);
     }
   }
 
-  return { considered, published, skipped, remainingToday: remaining, dryRun };
+  return { considered, awaitingApproval, published, skipped, remainingToday: remaining, dryRun };
 }

@@ -26,6 +26,9 @@ async function main() {
   console.log(`⚡ Lightning queue${dryRun ? " [dry-run]" : ""}`);
   const result = await runLightningTelegramQueue({ dryRun, maxPublish });
   console.log(JSON.stringify(result, null, 2));
+  if (result.awaitingApproval.length) {
+    console.log(`Awaiting owner DM approval: ${result.awaitingApproval.join(", ")}`);
+  }
 }
 
 main().catch((err) => {

@@ -17,7 +17,11 @@ function ownerChatId(): string | undefined {
   return process.env.TELEGRAM_PRIVATE_CHAT_ID?.trim();
 }
 
-type TelegramApiResult = { ok?: boolean; description?: string; result?: { message_id?: number } };
+type TelegramApiResult = {
+  ok?: boolean;
+  description?: string;
+  result?: { message_id?: number };
+};
 
 async function sendTelegramPlain(
   token: string,
@@ -208,6 +212,83 @@ export async function sendOwnerTelegramDm(text: string): Promise<{ success: bool
   if (!token) return { success: false, error: "EMIGRO_NEWS_BOT_TOKEN missing" };
   if (!chatId) return { success: false, error: "TELEGRAM_PRIVATE_CHAT_ID missing" };
   return sendTelegramPlain(token, chatId, text);
+}
+
+export type TelegramInlineButton = { text: string; callback_data: string };
+
+/** Owner DM (HTML) with inline keyboard — news bot. */
+export async function sendOwnerTelegramHtmlWithButtons(
+  html: string,
+  keyboard: TelegramInlineButton[][]
+): Promise<{ success: boolean; error?: string; messageId?: number }> {
+  const token = ownerBotToken();
+  const chatId = ownerChatId();
+  if (!token) return { success: false, error: "EMIGRO_NEWS_BOT_TOKEN missing" };
+  if (!chatId) return { success: false, error: "TELEGRAM_PRIVATE_CHAT_ID missing" };
+
+  const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      chat_id: chatId,
+      text: html.slice(0, 4096),
+      parse_mode: "HTML",
+      disable_web_page_preview: false,
+      reply_markup: { inline_keyboard: keyboard },
+    }),
+  });
+  const json = (await res.json()) as TelegramApiResult;
+  if (!res.ok || json.ok === false) {
+    return { success: false, error: json.description || res.statusText };
+  }
+  return { success: true, messageId: json.result?.message_id };
+}
+
+export async function answerNewsBotCallback(
+  callbackQueryId: string,
+  text?: string
+): Promise<void> {
+  const token = ownerBotToken();
+  if (!token) return;
+  await fetch(`https://api.telegram.org/bot${token}/answerCallbackQuery`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      callback_query_id: callbackQueryId,
+      text: text?.slice(0, 200),
+      show_alert: false,
+    }),
+  });
+}
+
+export async function editNewsBotMessageHtml(
+  chatId: string | number,
+  messageId: number,
+  html: string
+): Promise<{ success: boolean; error?: string }> {
+  const token = ownerBotToken();
+  if (!token) return { success: false, error: "bot token missing" };
+  const res = await fetch(`https://api.telegram.org/bot${token}/editMessageText`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      chat_id: chatId,
+      message_id: messageId,
+      text: html.slice(0, 4096),
+      parse_mode: "HTML",
+      disable_web_page_preview: true,
+    }),
+  });
+  const json = (await res.json()) as TelegramApiResult;
+  if (!res.ok || json.ok === false) {
+    return { success: false, error: json.description || res.statusText };
+  }
+  return { success: true };
+}
+
+/** News bot token (same as channel / owner DM). */
+export function newsBotToken(): string | undefined {
+  return ownerBotToken();
 }
 
 /** @deprecated use sendOwnerTelegramDm */

@@ -96,6 +96,9 @@ export const LIGHTNING_MAX_PER_DAY = 5;
 /** Stored in telegram_html when story was evaluated and is not for the channel. */
 export const LIGHTNING_SKIP_MARK = "__skip_lightning__";
 
+/** Stored in threads_text while awaiting owner DM approval (telegram_html = draft). */
+export const LIGHTNING_PENDING_MARK = "__lightning_pending__";
+
 export function isLightningImmigrationText(text: string): boolean {
   const t = text.toLowerCase();
   if (LIGHTNING_REJECT.some((h) => t.includes(h))) return false;
