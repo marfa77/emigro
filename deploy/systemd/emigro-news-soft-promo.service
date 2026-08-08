@@ -1,0 +1,19 @@
+[Unit]
+Description=Emigro weekly soft promo — product post to @Emigro_news
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/emigro
+PermissionsStartOnly=true
+ExecStartPre=/bin/mkdir -p /opt/emigro/deploy/news-soft-promo/logs
+ExecStartPre=/bin/chown www-data:www-data /opt/emigro/deploy/news-soft-promo/logs
+ExecStart=/bin/bash /opt/emigro/deploy/news-soft-promo/run_scheduled.sh
+User=www-data
+EnvironmentFile=-/opt/emigro/.env
+StandardOutput=append:/opt/emigro/deploy/news-soft-promo/logs/scheduled.log
+StandardError=append:/opt/emigro/deploy/news-soft-promo/logs/scheduled.log
+
+[Install]
+WantedBy=multi-user.target

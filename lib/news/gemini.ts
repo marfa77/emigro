@@ -61,7 +61,8 @@ export async function geminiJson<T>(
   system: string,
   user: string,
   schema: GeminiSchema,
-  maxOutputTokens = 8192
+  maxOutputTokens = 8192,
+  opts?: { thinkingBudget?: number }
 ): Promise<T> {
   const key = GOOGLE_API_KEY();
   if (!key) throw new Error("GOOGLE_API_KEY is required for news generation");
@@ -71,18 +72,23 @@ export async function geminiJson<T>(
 
   for (let attempt = 0; attempt < 5; attempt += 1) {
     try {
+      const generationConfig: Record<string, unknown> = {
+        temperature: 0.2,
+        maxOutputTokens,
+        responseMimeType: "application/json",
+        responseSchema: schema,
+      };
+      if (opts?.thinkingBudget != null) {
+        generationConfig.thinkingConfig = { thinkingBudget: opts.thinkingBudget };
+      }
+
       const res = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           systemInstruction: { parts: [{ text: system }] },
           contents: [{ role: "user", parts: [{ text: user }] }],
-          generationConfig: {
-            temperature: 0.2,
-            maxOutputTokens,
-            responseMimeType: "application/json",
-            responseSchema: schema,
-          },
+          generationConfig,
         }),
       });
 
@@ -104,8 +110,13 @@ export async function geminiJson<T>(
   throw lastError ?? new Error("Gemini request failed");
 }
 
-export const geminiFastJson = <T>(system: string, user: string, schema: GeminiSchema, max = 4096) =>
-  geminiJson<T>(FAST_MODEL(), system, user, schema, max);
+export const geminiFastJson = <T>(
+  system: string,
+  user: string,
+  schema: GeminiSchema,
+  max = 4096,
+  opts?: { thinkingBudget?: number }
+) => geminiJson<T>(FAST_MODEL(), system, user, schema, max, opts);
 
 export const geminiProJson = <T>(system: string, user: string, schema: GeminiSchema, max = 12288) =>
   geminiJson<T>(ORCHESTRATOR_MODEL(), system, user, schema, max);

@@ -47,6 +47,27 @@ Excerpt
 
 Non-immigration stories are marked `__skip_lightning__` so the queue does not re-check them forever.
 
+## 3) Soft promo (weekly) — `news:soft-promo`
+
+Once per ISO week → soft editorial post (not banner ad) about one of:
+
+| Week mod 4 | Product |
+|------------|---------|
+| 0 | Route Check €129 |
+| 1 | джоб-бот Role Radar |
+| 2 | Barakhlo |
+| 3 | Emigro Assist |
+
+- Timer: **Mon–Fri 09:00 UTC** + up to **8h** random delay (`emigro-news-soft-promo.timer`)
+- Script rolls `1/remaining weekdays` so the day is random; skips if already posted this week
+- Gemini Flash picks a fresh format each time (сцена / совет / вопрос / чеклист…)
+- State: `deploy/news-soft-promo/.last-iso-week`
+
+```bash
+npm run news:soft-promo -- --dry-run --force
+bash deploy/news-soft-promo/deploy.sh
+```
+
 ## Commands
 
 ```bash

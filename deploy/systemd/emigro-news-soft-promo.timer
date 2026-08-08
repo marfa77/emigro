@@ -1,0 +1,13 @@
+[Unit]
+Description=Emigro soft promo — Mon–Fri morning window, random delay; script posts ≤1/week
+
+[Timer]
+# Fires each weekday; RandomizedDelaySec spreads clock time.
+# Script rolls 1/remaining-weekdays and skips if already posted this ISO week.
+OnCalendar=Mon..Fri *-*-* 09:00:00 UTC
+Persistent=true
+RandomizedDelaySec=28800
+AccuracySec=5min
+
+[Install]
+WantedBy=timers.target
