@@ -32,9 +32,9 @@ Spaced posts to `@Emigro_news` so nothing dumps in a batch at 10:00.
 
 - Timer: **11 / 13 / 15 / 17 / 19 UTC** (`emigro-news-lightning.timer`)
 - **1 post per tick**, FIFO from recent story tiles
-- Gate: visa / ВНЖ / гражданство / work permit / asylum (not housing/tax/crime)
+- Gate: keyword immigration → **Gemini Flash** (практическая польза релоканту, conf ≥ 0.75; при сомнении / ошибке API — skip)
 - Cap: **≤5 / day** channel-wide
-- Needs `EMIGRO_NEWS_BOT_TOKEN` on VPS
+- Needs `EMIGRO_NEWS_BOT_TOKEN` + `GOOGLE_API_KEY` on VPS
 
 Format:
 

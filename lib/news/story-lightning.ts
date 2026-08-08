@@ -102,6 +102,83 @@ export function isLightningImmigrationText(text: string): boolean {
   return LIGHTNING_IMMIGRATION_HINTS.some((h) => t.includes(h));
 }
 
+export type LightningLlmVerdict = {
+  publish: boolean;
+  confidence: number;
+  reason: string;
+};
+
+const LLM_MIN_CONFIDENCE = 0.75;
+
+/**
+ * Second gate (Gemini Flash): actionable immigration news for RU relocators only.
+ * Fail-closed on API/parse errors — better miss a post than spam the channel.
+ */
+export async function scoreLightningWithLlm(params: {
+  countryRu: string;
+  title: string;
+  excerpt: string;
+  originalTitle?: string;
+  paragraphs?: string[];
+}): Promise<LightningLlmVerdict> {
+  const { geminiFastJson } = await import("@/lib/news/gemini");
+
+  const system = `You are the final moderator for Emigro Telegram channel @Emigro_news («молния»).
+Audience: Russian-speaking relocators (RU/BY/UA/KZ) planning visas / residence / citizenship in Europe.
+
+APPROVE only if the item is PRACTICAL immigration news:
+- visa / residence permit / work permit / Blue Card / citizenship / naturalization rules
+- quotas, fees, processing times, agency procedure changes (AIMA, IND, UDI, BAMF, prefecture…)
+- enforcement that clearly changes relocator options (illegal stay crackdown with new rules)
+
+REJECT:
+- party politics / election interviews without a concrete rule change for applicants
+- crime, drugs, sport, celebs, weather, cyber, transport fluff
+- housing/rent/tax alone (without visa/residency angle)
+- vague opinion, culture, tourism, jobs-market fluff without permit/visa link
+- anything not useful for someone choosing or holding a relocation route
+
+Be strict. When unsure → publish=false.
+Reply with JSON only matching the schema (no prose, no markdown).`;
+
+  const user = `Decide publish true/false for this story.\n${JSON.stringify({
+    country: params.countryRu,
+    title: params.title,
+    excerpt: params.excerpt,
+    original_title: params.originalTitle ?? "",
+    body_preview: (params.paragraphs ?? []).slice(0, 2).join("\n").slice(0, 800),
+  })}`;
+
+  const schema = {
+    type: "OBJECT",
+    properties: {
+      publish: { type: "BOOLEAN" },
+      confidence: { type: "NUMBER" },
+      reason: { type: "STRING" },
+    },
+    required: ["publish", "confidence", "reason"],
+  };
+
+  try {
+    // Flash 2.5 uses thinking tokens — keep headroom so JSON is not truncated.
+    const result = await geminiFastJson<LightningLlmVerdict>(system, user, schema, 2048);
+    const confidence = Number(result.confidence);
+    const conf = Number.isFinite(confidence) ? Math.max(0, Math.min(1, confidence)) : 0;
+    const publish = Boolean(result.publish) && conf >= LLM_MIN_CONFIDENCE;
+    return {
+      publish,
+      confidence: conf,
+      reason: String(result.reason || "").slice(0, 200) || (publish ? "ok" : "rejected"),
+    };
+  } catch (e) {
+    return {
+      publish: false,
+      confidence: 0,
+      reason: `llm-error:${e instanceof Error ? e.message : String(e)}`.slice(0, 200),
+    };
+  }
+}
+
 export function escapeTelegramHtml(text: string): string {
   return text
     .replace(/&/g, "&amp;")

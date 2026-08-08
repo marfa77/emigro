@@ -9,6 +9,7 @@ import {
   LIGHTNING_MAX_PER_DAY,
   LIGHTNING_SKIP_MARK,
   isLightningImmigrationText,
+  scoreLightningWithLlm,
 } from "@/lib/news/story-lightning";
 
 const LOOKBACK_DAYS = 5;
@@ -23,7 +24,11 @@ type StoryRow = {
   telegram_html: string | null;
   telegram_message_ids: number[] | null;
   source_links: Array<{ title?: string; url?: string }> | null;
-  content_blocks: Array<{ story_title?: string; source_name?: string }> | null;
+  content_blocks: Array<{
+    story_title?: string;
+    source_name?: string;
+    paragraphs?: string[];
+  }> | null;
   published_at: string;
 };
 
@@ -131,6 +136,24 @@ export async function runLightningTelegramQueue(options?: {
       continue;
     }
 
+    const llm = await scoreLightningWithLlm({
+      countryRu: topic.countryRu,
+      title: row.title,
+      excerpt: (row.excerpt ?? "").trim() || row.title,
+      originalTitle: row.content_blocks?.[0]?.story_title,
+      paragraphs: row.content_blocks?.[0]?.paragraphs,
+    });
+    console.log(
+      `[lightning] llm ${row.slug}: publish=${llm.publish} conf=${llm.confidence.toFixed(2)} — ${llm.reason}`
+    );
+
+    if (!llm.publish) {
+      skipped.push(`${row.slug}:llm:${llm.reason}`);
+      if (!dryRun) await markLightningSkip(supabase, row.slug);
+      else console.log(`[lightning] dry-run would skip ${row.slug} (llm)`);
+      continue;
+    }
+
     const sourceLabel =
       row.source_links?.[0]?.title ||
       row.content_blocks?.[0]?.source_name ||
@@ -144,7 +167,6 @@ export async function runLightningTelegramQueue(options?: {
       excerpt: (row.excerpt ?? "").trim() || row.title,
       sourceLabel,
       gateText,
-      // Already on site; queue gate is keyword-only.
       storyScore: 99,
       dryRun,
       remainingToday: remaining,
