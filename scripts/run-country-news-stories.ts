@@ -50,7 +50,9 @@ async function main() {
   console.log("\n=== Results ===");
   console.log(JSON.stringify(results, null, 2));
   const published = results.reduce((n, r) => n + r.published.length, 0);
+  const telegram = results.reduce((n, r) => n + r.telegramPublished.length, 0);
   console.log(`\nTotal published: ${published}`);
+  console.log(`Telegram #молния: ${telegram}`);
 }
 
 main().catch((err) => {

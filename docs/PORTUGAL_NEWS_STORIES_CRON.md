@@ -29,6 +29,17 @@ Daily VPS job → short RU story tiles (`format=story`) **only** for corridors w
 
 Does **not** touch weekly digests / Prep2Go. Still digest-only (no story RSS wired): Finland, Greece, Malta, Bulgaria, Slovenia.
 
+## Telegram «молния» (@Emigro_news)
+
+После публикации на сайте **лучшие** story (строго визы / ВНЖ / гражданство / work permit / asylum — не жильё и не налоги) уходят в канал:
+
+- Формат: `⚡ #молния · 🇵🇹 Португалия` + заголовок + excerpt + ссылка на Emigro
+- Gate: immigration keywords + score ≥ 14 (как у плиток; отбор — по смыслу «виза/ВНЖ»)
+- Лимит: **≤5 постов/день** на весь канал (не на страну)
+- Нужен `EMIGRO_NEWS_BOT_TOKEN` (или `TELEGRAM_BOT_TOKEN`) на VPS
+
+Дайджесты Prep2Go по-прежнему публикуются отдельно своим пайплайном.
+
 ## Editorial voice
 
 Story copy uses the same Emigro voice as community notes (`lib/community-notes/editorial-voice.ts` via `lib/news/story-editorial-voice.ts`): warm «опытный релокант за кофе», not telegraphic chat/lepta attribution style.

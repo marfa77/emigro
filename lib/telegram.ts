@@ -114,6 +114,11 @@ function splitThreadsForTelegram(text: string, max = 4000): string[] {
 
 /** Publish editorial HTML digest to @Emigro_news (like CIPLE — one rich post). */
 export async function publishNewsDigestHtmlToChannel(html: string): Promise<void> {
+  await publishNewsHtmlToChannel(html);
+}
+
+/** Publish HTML to @Emigro_news; returns Telegram message_id(s). */
+export async function publishNewsHtmlToChannel(html: string): Promise<number[]> {
   const token = channelBotToken();
   if (!token) throw new Error("EMIGRO_NEWS_BOT_TOKEN or TELEGRAM_BOT_TOKEN missing");
 
@@ -122,13 +127,14 @@ export async function publishNewsDigestHtmlToChannel(html: string): Promise<void
   if (!result.success) {
     throw new Error(result.error || `Failed to publish to ${channel}`);
   }
+  return result.messageId != null ? [result.messageId] : [];
 }
 
 async function sendTelegramHtmlWithToken(
   token: string,
   chatId: string,
   text: string
-): Promise<{ success: boolean; error?: string }> {
+): Promise<{ success: boolean; error?: string; messageId?: number }> {
   const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -143,7 +149,7 @@ async function sendTelegramHtmlWithToken(
   if (!res.ok || json.ok === false) {
     return { success: false, error: json.description || res.statusText };
   }
-  return { success: true };
+  return { success: true, messageId: json.result?.message_id };
 }
 
 /** Delete previously published channel messages (bot must be channel admin). */
