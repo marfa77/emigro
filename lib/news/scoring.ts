@@ -13,6 +13,8 @@ export const TRUSTED_DOMAINS = [
   "thelocal.pt",
   "publico.pt",
   "expresso.pt",
+  "observador.pt",
+  "portugal.gov.pt",
   "parlamento.pt",
   "dre.pt",
   "boe.es",

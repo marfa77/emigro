@@ -14,6 +14,7 @@ import {
   getNewsDisplaySeoTitle,
   getNewsDisplayTitle,
   getPublishedNewsDigestBySlug,
+  isNewsStory,
 } from "@/lib/news/digests";
 import { getNewsTopic, newsIndexPath } from "@/lib/news/topics";
 import {
@@ -74,6 +75,7 @@ export default async function NewsArticlePage({ params }: Props) {
   const url = newsArticleUrl(digest.slug);
   const displayTitle = getNewsDisplayTitle(digest);
   const backHref = topic ? newsIndexPath(topic.urlSegment) : newsIndexPath();
+  const story = isNewsStory(digest);
 
   const newsImagePath = topic?.urlSegment ? countryOgImage(topic.urlSegment) : DEFAULT_OG_IMAGE;
   const newsImage = schemaImage(newsImagePath);
@@ -131,15 +133,17 @@ export default async function NewsArticlePage({ params }: Props) {
             <div className="mt-5 flex flex-wrap gap-2 text-sm">
               <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 font-medium text-corridor-50">
                 <Newspaper className="h-4 w-4" />
-                {flag} {digest.country}
+                {story ? "Кратко" : "Дайджест"} · {flag} {digest.country}
               </span>
               <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-corridor-50">
                 <CalendarDays className="h-4 w-4" />
-                неделя до {formatDateRu(digest.week_end)}
+                {story
+                  ? formatDateRu(digest.published_at || digest.week_end)
+                  : `неделя до ${formatDateRu(digest.week_end)}`}
               </span>
               <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-corridor-50">
                 <ShieldCheck className="h-4 w-4" />
-                источники проверены
+                {story ? "саммари + оригинал" : "источники проверены"}
               </span>
             </div>
             <h1 className="mt-5 max-w-3xl text-3xl font-bold leading-tight sm:text-4xl lg:text-5xl">{displayTitle}</h1>
@@ -151,7 +155,7 @@ export default async function NewsArticlePage({ params }: Props) {
 
           <NewsShareBar url={url} title={displayTitle} className="mt-6" />
 
-          {digest.key_takeaways.length > 0 && (
+          {digest.key_takeaways.length > 0 && !story && (
             <section className="mt-6 grid gap-3 md:grid-cols-3">
               {digest.key_takeaways.slice(0, 3).map((item, index) => (
                 <div key={item} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">

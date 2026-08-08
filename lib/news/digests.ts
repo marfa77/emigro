@@ -21,6 +21,8 @@ export type NewsContentBlock = {
   story_title?: string;
 };
 
+export type NewsDigestFormat = "digest" | "story";
+
 export type NewsDigest = {
   id: string;
   slug: string;
@@ -43,11 +45,19 @@ export type NewsDigest = {
   week_end: string;
   published_at: string;
   status: "draft" | "published" | "archived";
+  /** weekly multi-story digest (default) vs single-story tile */
+  format: NewsDigestFormat;
   created_at: string;
   updated_at: string;
 };
 
 export { buildSlug as buildNewsDigestSlug };
+
+export function isNewsStory(digest: Pick<NewsDigest, "format" | "slug">): boolean {
+  if (digest.format === "story") return true;
+  if (digest.format === "digest") return false;
+  return /^[a-z]+-story-/.test(digest.slug);
+}
 
 function toYmd(dateLike: string | Date): string {
   const date = typeof dateLike === "string" ? new Date(dateLike) : dateLike;
@@ -67,16 +77,22 @@ export function formatNewsWeekEndRu(weekEnd: string | Date): string {
   });
 }
 
-export function getNewsDisplayTitle(digest: Pick<NewsDigest, "title" | "week_end">): string {
+export function getNewsDisplayTitle(
+  digest: Pick<NewsDigest, "title" | "week_end" | "format" | "slug">
+): string {
+  if (isNewsStory(digest)) return digest.title.trim();
   const t = digest.title.trim();
   if (/^еженедельный обзор/i.test(t)) return t;
   return `Еженедельный обзор за ${formatNewsWeekEndRu(digest.week_end)}: ${t}`;
 }
 
 export function getNewsDisplaySeoTitle(
-  digest: Pick<NewsDigest, "seo_title" | "title" | "week_end" | "country">,
+  digest: Pick<NewsDigest, "seo_title" | "title" | "week_end" | "country" | "format" | "slug">,
   countryRu?: string
 ): string {
+  if (isNewsStory(digest)) {
+    return (digest.seo_title.trim() || digest.title.trim()).slice(0, 70);
+  }
   const raw = digest.seo_title.trim() || digest.title.trim();
   const weekLabel = formatNewsWeekEndRu(digest.week_end);
   const country = (countryRu ?? digest.country)?.trim();
@@ -109,7 +125,19 @@ async function fetchPublishedNewsDigestsUncached(options: {
     console.warn("[news] load failed:", error.message);
     return [];
   }
-  return (data ?? []) as NewsDigest[];
+  return (data ?? []).map((row) => normalizeNewsDigest(row));
+}
+
+function normalizeNewsDigest(row: unknown): NewsDigest {
+  const r = row as NewsDigest & { format?: NewsDigestFormat | null };
+  return {
+    ...r,
+    format: r.format === "story" ? "story" : "digest",
+    content_blocks: Array.isArray(r.content_blocks) ? r.content_blocks : [],
+    key_takeaways: Array.isArray(r.key_takeaways) ? r.key_takeaways : [],
+    tags: Array.isArray(r.tags) ? r.tags : [],
+    source_links: Array.isArray(r.source_links) ? r.source_links : [],
+  };
 }
 
 export async function getPublishedNewsDigests(options?: {
@@ -185,7 +213,7 @@ async function fetchPublishedNewsDigestBySlugUncached(slug: string): Promise<New
     console.warn("[news] slug load failed:", error.message);
     return null;
   }
-  return (data as NewsDigest | null) ?? null;
+  return (data as NewsDigest | null) ? normalizeNewsDigest(data) : null;
 }
 
 export async function getPublishedNewsDigestBySlug(slug: string): Promise<NewsDigest | null> {

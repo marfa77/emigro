@@ -12,7 +12,7 @@ type DirectFeed = {
 const TOPIC_DIRECT_FEEDS: Record<string, DirectFeed[]> = {
   portugal: [
     { url: "https://www.publico.pt/rss", label: "Público" },
-    { url: "https://www.theportugalnews.com/rss.xml", label: "The Portugal News" },
+    { url: "https://www.theportugalnews.com/rss", label: "The Portugal News" },
     { url: "https://www.thelocal.pt/feeds/rss.php", label: "The Local Portugal" },
   ],
   spain: [

@@ -1,6 +1,10 @@
 export type { NewsTopicConfig, NewsTopicKey, NewsTopicStatus, NewsTopicUpsert } from "./types";
 export {
   buildNewsDigestSlug,
+  buildNewsStorySlug,
+  isNewsDigestSlug,
+  isNewsStorySlug,
+  isRevalidatableNewsSlug,
   newsArticlePath,
   newsIndexPath,
 } from "./paths";

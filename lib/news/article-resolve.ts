@@ -4,6 +4,7 @@ import { domainFromLink } from "./scoring";
 const PUBLISHER_LABELS: Record<string, string> = {
   "publico.pt": "Público",
   "expresso.pt": "Expresso",
+  "observador.pt": "Observador",
   "theportugalnews.com": "The Portugal News",
   "reuters.com": "Reuters",
   "ft.com": "Financial Times",

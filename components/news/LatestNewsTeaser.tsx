@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Suspense } from "react";
 import { CalendarDays } from "lucide-react";
-import { getPublishedNewsDigests, getNewsDisplayTitle, type NewsDigest } from "@/lib/news/digests";
+import { getPublishedNewsDigests, getNewsDisplayTitle, isNewsStory, type NewsDigest } from "@/lib/news/digests";
 import { getNewsTopic, newsArticlePath, newsIndexPath } from "@/lib/news/topics";
 import type { NewsTopicConfig } from "@/lib/news/topics/types";
 
@@ -23,9 +23,9 @@ export function LatestNewsTeaserView({ topic, latest }: ViewProps) {
     return (
       <div className="rounded-xl border border-dashed border-slate-300 bg-white p-6 text-sm text-slate-600">
         <p className="font-medium text-slate-800">
-          Новости недели — {topic.flag} {topic.countryRu}
+          Новости — {topic.flag} {topic.countryRu}
         </p>
-        <p className="mt-2">Первый выпуск появится после запуска еженедельного дайджеста.</p>
+        <p className="mt-2">Свежие материалы появятся здесь после публикации.</p>
         <Link href={newsIndexPath(topic.urlSegment)} className="mt-3 inline-block text-corridor-600 hover:underline">
           Раздел новостей →
         </Link>
@@ -33,10 +33,14 @@ export function LatestNewsTeaserView({ topic, latest }: ViewProps) {
     );
   }
 
+  const story = isNewsStory(latest);
+
   return (
     <div className="rounded-xl border border-slate-200 bg-white p-6">
       <div className="flex items-center justify-between gap-3">
-        <p className="text-sm font-medium text-corridor-700">{topic.flag} Последний дайджест</p>
+        <p className="text-sm font-medium text-corridor-700">
+          {topic.flag} {story ? "Последняя новость" : "Последний дайджест"}
+        </p>
         <Link href={newsIndexPath(topic.urlSegment)} className="text-xs text-corridor-600 hover:underline">
           Все выпуски →
         </Link>
@@ -48,7 +52,9 @@ export function LatestNewsTeaserView({ topic, latest }: ViewProps) {
         <p className="mt-2 line-clamp-2 text-sm text-slate-600">{latest.excerpt}</p>
         <p className="mt-3 inline-flex items-center gap-1 text-xs text-slate-500">
           <CalendarDays className="h-3.5 w-3.5" />
-          неделя до {formatDateRu(latest.week_end)}
+          {story
+            ? formatDateRu(latest.published_at || latest.week_end)
+            : `неделя до ${formatDateRu(latest.week_end)}`}
         </p>
       </Link>
     </div>
