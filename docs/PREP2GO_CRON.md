@@ -17,7 +17,7 @@ YouTube Shorts (`emigro-youtube-shorts.timer`, 09:15 UTC) стартует **п�
 
 1. Читает свежий digest из Prep2Go Supabase (`news_digests`, проект CIPLE A2) или RSS fallback
 2. Gemini-перевод → `emigro_news_digests` (Emigro Supabase)
-3. Публикация в Telegram `@Emigro_news` (если токен задан)
+3. Черновик в Telegram DM → owner ✅/❌ → `@Emigro_news` (без автопубликации)
 4. Revalidate кэша страниц новостей на Vercel (через `CRON_SECRET` / admin secret)
 
 ## Переменные на VPS

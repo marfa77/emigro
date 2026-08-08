@@ -1,23 +1,23 @@
 #!/usr/bin/env npx tsx
+/**
+ * Rebuild Threads text for a digest and queue owner DM approval (default).
+ * Emergency direct channel publish: --force-publish
+ */
 import { config } from "dotenv";
 import { resolve } from "path";
 import { createClient } from "@supabase/supabase-js";
 import { getNewsTopic } from "../lib/news/topics";
-import { buildThreadsThreadFromDigestHtml, buildThreadsFromSiteDigest } from "../lib/news/threads";
-import { validateThreadsQuality } from "../lib/news/quality";
-import {
-  deleteTelegramChannelMessages,
-  newsTelegramChannelUrl,
-  publishNewsDigestToChannel,
-} from "../lib/telegram";
-import { newsArticleUrl } from "../lib/site-url";
+import { publishDigestToTelegram } from "../lib/news/publish-digest-telegram";
 
 config({ path: resolve(process.cwd(), ".env.local") });
 config({ path: resolve(process.cwd(), ".env") });
 
 async function main() {
-  const slugArg = process.argv[2];
-  const skipPublish = process.argv.includes("--dry-run");
+  const args = process.argv.slice(2).filter((a) => !a.startsWith("--"));
+  const slugArg = args[0];
+  const dryRun = process.argv.includes("--dry-run");
+  const forcePublish = process.argv.includes("--force-publish");
+
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL!;
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY!;
   const supabase = createClient(url, key);
@@ -42,69 +42,21 @@ async function main() {
     process.exit(1);
   }
 
-  const channelUrl = newsTelegramChannelUrl();
-  const siteArticleUrl = newsArticleUrl(digest.slug);
-  const threadsText =
-    buildThreadsFromSiteDigest({
-      topic,
-      weekFrom: new Date(digest.week_start),
-      weekEnd: new Date(digest.week_end),
-      channelUrl,
-      siteArticleUrl,
-      title: digest.title,
-      excerpt: digest.excerpt,
-      keyTakeaways: digest.key_takeaways ?? [],
-      contentBlocks: digest.content_blocks ?? [],
-      sourceLinks: digest.source_links ?? [],
-    }) ||
-    buildThreadsThreadFromDigestHtml({
-      topic,
-      digestHtml: digest.telegram_html || "",
-      weekFrom: new Date(digest.week_start),
-      weekEnd: new Date(digest.week_end),
-      channelUrl,
-      siteArticleUrl,
-      sourceLinks: digest.source_links ?? [],
-      fallbackTakeaways: digest.key_takeaways,
-      fallbackExcerpt: digest.excerpt,
-    });
-
-  const qualityErrors = validateThreadsQuality({ threadsText, topic: digest.topic_key });
-  if (qualityErrors.length) {
-    throw new Error(`Threads digest failed QA: ${qualityErrors.join("; ")}`);
-  }
-
-  console.log("\n=== THREADS PREVIEW ===\n");
-  console.log(threadsText);
-  console.log("\n=== POST COUNT ===", threadsText.split(/\n\n(?=\d+\/\d+\n)/).length);
-
-  await supabase
-    .from("emigro_news_digests")
-    .update({ threads_text: threadsText, updated_at: new Date().toISOString() })
-    .eq("id", digest.id);
-
-  if (skipPublish) {
-    console.log("\n[dry-run] skipping Telegram publish");
-    return;
-  }
-
-  const previousIds = (digest.telegram_message_ids ?? []) as number[];
-  if (previousIds.length > 0) {
-    try {
-      const { deleted, failed } = await deleteTelegramChannelMessages(previousIds);
-      console.log(`[telegram] deleted ${deleted.length}/${previousIds.length} previous messages`);
-      if (failed.length) {
-        console.warn("[telegram] delete failures:", failed);
-      }
-    } catch (e) {
-      console.warn("[telegram] delete:", e instanceof Error ? e.message : e);
+  if (forcePublish) {
+    console.warn("⚠️ --force-publish: direct channel post (bypass approval)");
+    const { publishNewsDigestToChannel } = await import("../lib/telegram");
+    const threads =
+      (digest.threads_text as string) ||
+      "Missing threads_text — run without --force-publish first to rebuild.";
+    if (!digest.threads_text) {
+      console.error(threads);
+      process.exit(1);
     }
-  } else {
-    console.warn("[telegram] no stored message_ids — cannot delete previous channel post automatically");
-  }
-
-  try {
-    const messageIds = await publishNewsDigestToChannel(threadsText, {
+    if (dryRun) {
+      console.log(threads);
+      return;
+    }
+    const messageIds = await publishNewsDigestToChannel(threads, {
       flag: topic.flag,
       countryRu: topic.countryRu,
     });
@@ -112,13 +64,29 @@ async function main() {
       .from("emigro_news_digests")
       .update({ telegram_message_ids: messageIds, updated_at: new Date().toISOString() })
       .eq("id", digest.id);
-    console.log(`Published readable digest to ${process.env.EMIGRO_NEWS_TELEGRAM_CHANNEL || "@Emigro_news"}`);
-    console.log(`[telegram] message_ids:`, messageIds);
-  } catch (e) {
-    console.warn("[telegram] channel:", e instanceof Error ? e.message : e);
+    console.log("Published:", messageIds);
+    return;
   }
 
-  console.log(`Digest text for ${digest.slug} (${topic.key})`);
+  const result = await publishDigestToTelegram({
+    supabase,
+    slug: digest.slug,
+    topic,
+    weekStart: digest.week_start,
+    weekEnd: digest.week_end,
+    title: digest.title,
+    excerpt: digest.excerpt,
+    keyTakeaways: digest.key_takeaways ?? [],
+    contentBlocks: digest.content_blocks ?? [],
+    sourceLinks: digest.source_links ?? [],
+    skipTelegram: dryRun,
+  });
+
+  console.log(JSON.stringify(result, null, 2));
+  if (result.threadsText) {
+    console.log("\n=== THREADS PREVIEW ===\n");
+    console.log(result.threadsText);
+  }
 }
 
 main().catch((e) => {

@@ -6,11 +6,12 @@ import { validateThreadsQuality } from "@/lib/news/quality";
 import { stripGoogleSourceMentionsFromText } from "@/lib/news/article-resolve";
 import { assertPrep2GoFactCheck } from "@/lib/news/fact-check";
 import {
-  deleteTelegramChannelMessages,
-  newsTelegramChannelUrl,
-  publishNewsDigestToChannel,
-} from "@/lib/telegram";
+  GUIDE_CB_OK_PREFIX,
+  GUIDE_CB_SKIP_PREFIX,
+} from "@/lib/news/run-guide-telegram-queue";
+import { newsTelegramChannelUrl, sendOwnerTelegramHtmlWithButtons } from "@/lib/telegram";
 import { newsArticleUrl } from "@/lib/site-url";
+import { escapeTelegramHtml } from "@/lib/news/story-lightning";
 
 export type PublishDigestTelegramParams = {
   supabase: SupabaseClient;
@@ -43,6 +44,7 @@ export type PublishDigestTelegramParams = {
 export type PublishDigestTelegramResult = {
   threadsText: string | null;
   channelPublished: boolean;
+  awaitingApproval: boolean;
   ownerDmSent: boolean;
   skipped: boolean;
   reason?: string;
@@ -52,12 +54,19 @@ function hasTelegramBotToken(): boolean {
   return Boolean((process.env.EMIGRO_NEWS_BOT_TOKEN || process.env.TELEGRAM_BOT_TOKEN)?.trim());
 }
 
-/** Build threads text, persist to digest row, publish to @Emigro_news. */
+/** Build threads text, persist to digest row, request owner DM approval (no auto channel). */
 export async function publishDigestToTelegram(
   params: PublishDigestTelegramParams
 ): Promise<PublishDigestTelegramResult> {
   if (params.skipTelegram) {
-    return { threadsText: null, channelPublished: false, ownerDmSent: false, skipped: true, reason: "skipTelegram" };
+    return {
+      threadsText: null,
+      channelPublished: false,
+      awaitingApproval: false,
+      ownerDmSent: false,
+      skipped: true,
+      reason: "skipTelegram",
+    };
   }
 
   if (!hasTelegramBotToken()) {
@@ -65,9 +74,21 @@ export async function publishDigestToTelegram(
     return {
       threadsText: null,
       channelPublished: false,
+      awaitingApproval: false,
       ownerDmSent: false,
       skipped: true,
       reason: "bot token missing",
+    };
+  }
+
+  if (!process.env.TELEGRAM_PRIVATE_CHAT_ID?.trim()) {
+    return {
+      threadsText: null,
+      channelPublished: false,
+      awaitingApproval: false,
+      ownerDmSent: false,
+      skipped: true,
+      reason: "TELEGRAM_PRIVATE_CHAT_ID missing",
     };
   }
 
@@ -123,53 +144,102 @@ export async function publishDigestToTelegram(
     console.warn(`[telegram] failed to save threads_text for ${params.slug}:`, updateError.message);
   }
 
-  const { data: existing } = await params.supabase
-    .from("emigro_news_digests")
-    .select("telegram_message_ids")
-    .eq("slug", params.slug)
+  const { data: pending } = await params.supabase
+    .from("guide_telegram_drafts")
+    .select("id, slug")
+    .eq("status", "pending")
+    .limit(1)
     .maybeSingle();
-
-  const previousIds = (existing?.telegram_message_ids ?? []) as number[];
-  if (previousIds.length > 0) {
-    try {
-      const { deleted, failed } = await deleteTelegramChannelMessages(previousIds);
-      console.log(`[telegram] deleted ${deleted.length}/${previousIds.length} previous messages for ${params.slug}`);
-      if (failed.length) {
-        console.warn(
-          `[telegram] delete failed for ${params.slug}:`,
-          failed.map((f) => `${f.messageId}: ${f.error}`).join("; ")
-        );
-      }
-    } catch (e) {
-      console.warn(
-        `[telegram] could not delete previous messages for ${params.slug}:`,
-        e instanceof Error ? e.message : e
-      );
-    }
+  if (pending?.id) {
+    console.log(`[telegram] skip digest DM — pending draft exists (${pending.slug})`);
+    return {
+      threadsText,
+      channelPublished: false,
+      awaitingApproval: false,
+      ownerDmSent: false,
+      skipped: true,
+      reason: `pending-exists:${pending.slug}`,
+    };
   }
 
-  let channelPublished = false;
-  let messageIds: number[] = [];
-  try {
-    messageIds = await publishNewsDigestToChannel(threadsText, {
-      flag: params.topic.flag,
-      countryRu: params.topic.countryRu,
-    });
-    channelPublished = true;
-    console.log(
-      `[telegram] published to ${process.env.EMIGRO_NEWS_TELEGRAM_CHANNEL || "@Emigro_news"}: ${params.slug}`
-    );
+  const { data: row, error } = await params.supabase
+    .from("guide_telegram_drafts")
+    .insert({
+      slug: params.slug,
+      title: params.title,
+      html: threadsText,
+      status: "pending",
+      publish_mode: "threads",
+      meta: {
+        flag: params.topic.flag,
+        countryRu: params.topic.countryRu,
+        digestSlug: params.slug,
+      },
+      factcheck_notes: `digest:${params.topic.key}`,
+    })
+    .select("id")
+    .single();
 
+  if (error || !row) {
+    console.error(`[telegram] draft insert failed for ${params.slug}:`, error?.message);
+    return {
+      threadsText,
+      channelPublished: false,
+      awaitingApproval: false,
+      ownerDmSent: false,
+      skipped: true,
+      reason: `insert:${error?.message || "unknown"}`,
+    };
+  }
+
+  const id = row.id as string;
+  const preview = escapeTelegramHtml(threadsText.slice(0, 3200));
+  const preface = [
+    `📰 <b>Согласование дайджеста</b>`,
+    `<code>${escapeTelegramHtml(params.slug)}</code>`,
+    `${escapeTelegramHtml(params.topic.flag || "")} ${escapeTelegramHtml(params.topic.countryRu || params.topic.key)}`,
+    "",
+    "— черновик —",
+    "",
+    `<pre>${preview}</pre>`,
+    "",
+    "— — —",
+    "✅ в канал · ❌ пропуск",
+  ].join("\n");
+
+  const dm = await sendOwnerTelegramHtmlWithButtons(preface.slice(0, 4096), [
+    [
+      { text: "✅ В канал", callback_data: `${GUIDE_CB_OK_PREFIX}${id}` },
+      { text: "❌ Пропуск", callback_data: `${GUIDE_CB_SKIP_PREFIX}${id}` },
+    ],
+  ]);
+
+  if (!dm.success) {
     await params.supabase
-      .from("emigro_news_digests")
-      .update({ telegram_message_ids: messageIds, updated_at: new Date().toISOString() })
-      .eq("slug", params.slug);
-  } catch (e) {
-    console.error(
-      `[telegram] channel publish failed for ${params.slug}:`,
-      e instanceof Error ? e.message : e
-    );
+      .from("guide_telegram_drafts")
+      .update({
+        status: "skipped",
+        factcheck_notes: dm.error,
+        resolved_at: new Date().toISOString(),
+      })
+      .eq("id", id);
+    return {
+      threadsText,
+      channelPublished: false,
+      awaitingApproval: false,
+      ownerDmSent: false,
+      skipped: true,
+      reason: `dm:${dm.error}`,
+    };
   }
 
-  return { threadsText, channelPublished, ownerDmSent: false, skipped: false };
+  console.log(`[telegram] awaiting owner approval for digest ${params.slug} id=${id}`);
+  return {
+    threadsText,
+    channelPublished: false,
+    awaitingApproval: true,
+    ownerDmSent: true,
+    skipped: false,
+    reason: "awaiting-owner",
+  };
 }

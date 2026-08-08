@@ -4,7 +4,7 @@
 # Prod: systemd timer emigro-prep2go-news.timer (09:00 UTC).
 # See docs/PREP2GO_CRON.md.
 #
-# Flow: fetch latest Prep2Go digest → Gemini RU translation → emigro_news_digests → Telegram.
+# Flow: Prep2Go → Gemini RU → emigro_news_digests → owner DM approve → @Emigro_news.
 
 set -euo pipefail
 

@@ -41,7 +41,7 @@ Pending marker: `threads_text=__lightning_pending__` + draft in `telegram_html`.
 
 ## 3) Soft promo (weekly) — `news:soft-promo`
 
-Once per ISO week → soft editorial post (not banner ad) about one of:
+Once per ISO week → soft editorial draft → **owner DM ✅/❌** → `@Emigro_news` (no auto-publish).
 
 | Week mod 4 | Product |
 |------------|---------|
@@ -51,9 +51,10 @@ Once per ISO week → soft editorial post (not banner ad) about one of:
 | 3 | Emigro Assist |
 
 - Timer: **Mon–Fri 09:00 UTC** + up to **8h** random delay (`emigro-news-soft-promo.timer`)
-- Script rolls `1/remaining weekdays` so the day is random; skips if already posted this week
+- Script rolls `1/remaining weekdays` so the day is random; skips if already queued this week
 - Gemini Flash picks a fresh format each time (сцена / совет / вопрос / чеклист…)
-- State: `deploy/news-soft-promo/.last-iso-week`
+- Draft in `guide_telegram_drafts` (`soft-promo-{week}-{product}`), same `gd:ok:` / `gd:no:` as guides
+- State: `deploy/news-soft-promo/.last-iso-week` (written when DM is sent)
 
 ```bash
 npm run news:soft-promo -- --dry-run --force
@@ -62,13 +63,15 @@ bash deploy/news-soft-promo/deploy.sh
 
 ## 4) Guide promo (daily) — `news:guide-promo`
 
-SEO pillars only (`content/guides/ru/*`) → fact-check → owner DM ✅/❌ → `@Emigro_news`.
+SEO pillars only (`content/guides/ru/*`) → fact-check → owner DM ✅/❌ → `@Emigro_news` (no auto-publish).
 
 - Table: `guide_telegram_drafts` (Approach A; callbacks `gd:ok:<uuid>` / `gd:no:<uuid>`)
 - Critical fact-check → DM alert + try next guide (≤5 tries/run)
-- Caps: ≤1 **published**/day; ≤1 **pending** at a time
+- Caps: ≤1 **published**/day from this table; ≤1 **pending** at a time (shared with soft promo)
 - Timer: **12:30 UTC** + up to **2h** random (`emigro-news-guide-promo.timer`)
 - Same news-bot webhook as lightning: `/api/telegram/news-webhook`
+
+**Channel rule:** lightning, soft promo, and guide posts all require owner approve before `@Emigro_news`.
 
 ```bash
 npm run news:guide-promo -- --dry-run

@@ -44,7 +44,8 @@ import {
 import { buildThreadsThreadFromDigestHtml, buildThreadsFromSiteDigest } from "@/lib/news/threads";
 import { pingSearchEnginesSitemap } from "@/lib/corridor/paths";
 import { trackServerEvent } from "@/lib/analytics/server";
-import { publishNewsDigestToChannel, newsTelegramChannelUrl } from "@/lib/telegram";
+import { newsTelegramChannelUrl } from "@/lib/telegram";
+import { publishDigestToTelegram } from "@/lib/news/publish-digest-telegram";
 import { newsArticleUrl, publicSiteUrl } from "@/lib/site-url";
 import type { NewsTopicConfig } from "@/lib/news/topics";
 
@@ -452,12 +453,26 @@ export async function runWeeklyNewsForTopic(
 
   if (!options?.skipTelegram) {
     try {
-      await publishNewsDigestToChannel(finalThreadsText, {
-        flag: topic.flag,
-        countryRu: topic.countryRu,
+      const tg = await publishDigestToTelegram({
+        supabase,
+        slug,
+        topic,
+        weekStart: weekStartYmd,
+        weekEnd: weekEndYmd,
+        title: payload.title,
+        excerpt: payload.excerpt,
+        keyTakeaways: payload.key_takeaways,
+        contentBlocks: payload.content_blocks,
+        sourceLinks,
+        siteFactCheckPassed: true,
       });
+      if (tg.awaitingApproval) {
+        console.log(`[telegram:${topic.key}] awaiting owner approval`);
+      } else if (tg.skipped) {
+        console.warn(`[telegram:${topic.key}] skipped: ${tg.reason}`);
+      }
     } catch (e) {
-      console.warn(`[telegram:${topic.key}] channel failed:`, e instanceof Error ? e.message : e);
+      console.warn(`[telegram:${topic.key}] approval queue failed:`, e instanceof Error ? e.message : e);
     }
   }
 

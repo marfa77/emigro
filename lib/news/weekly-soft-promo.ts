@@ -1,6 +1,7 @@
 /**
- * Soft weekly product posts for @Emigro_news — not hard-sell ads.
+ * Soft weekly product drafts for @Emigro_news — not hard-sell ads.
  * One product per ISO week; Gemini writes a different editorial format each time.
+ * Channel publish only after owner DM approve (see run-weekly-soft-promo).
  */
 import { barakhloMarketUrl } from "@/lib/barakhlo/markets";
 import { ROLE_RADAR_BOT_BASE, ROLE_RADAR_LANDING_PATH } from "@/lib/role-radar";

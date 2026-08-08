@@ -11,6 +11,7 @@ import {
 import {
   answerNewsBotCallback,
   editNewsBotMessageHtml,
+  publishNewsDigestToChannel,
   publishNewsHtmlToChannel,
   sendOwnerTelegramDm,
   sendOwnerTelegramHtmlWithButtons,
@@ -29,6 +30,15 @@ type DraftRow = {
   title: string;
   html: string;
   status: string;
+  publish_mode?: string | null;
+  meta?: {
+    flag?: string;
+    countryRu?: string;
+    digestSlug?: string;
+    kind?: string;
+    productId?: string;
+    week?: string;
+  } | null;
 };
 
 function createSupabaseAdmin(): SupabaseClient {
@@ -155,6 +165,8 @@ export async function runGuideTelegramQueue(options?: {
         title: guide.title,
         html: draft.html,
         status: "pending",
+        publish_mode: "html",
+        meta: { kind: "guide" },
         factcheck_notes: issues.length ? issues.map((i) => `${i.severity}:${i.issue}`).join("; ") : null,
       })
       .select("id, slug")
@@ -206,7 +218,7 @@ export async function runGuideTelegramQueue(options?: {
 async function loadDraft(supabase: SupabaseClient, id: string): Promise<DraftRow | null> {
   const { data } = await supabase
     .from("guide_telegram_drafts")
-    .select("id, slug, title, html, status")
+    .select("id, slug, title, html, status, publish_mode, meta")
     .eq("id", id)
     .maybeSingle();
   return (data as DraftRow | null) ?? null;
@@ -220,7 +232,16 @@ export async function approveGuideDraft(id: string): Promise<{ ok: boolean; slug
   if (!draft.html?.trim()) return { ok: false, error: "empty-html", slug: draft.slug };
 
   try {
-    const messageIds = await publishNewsHtmlToChannel(draft.html);
+    const mode = (draft.publish_mode || "html").trim();
+    const meta = draft.meta ?? {};
+    const messageIds =
+      mode === "threads"
+        ? await publishNewsDigestToChannel(draft.html, {
+            flag: meta.flag,
+            countryRu: meta.countryRu,
+          })
+        : await publishNewsHtmlToChannel(draft.html);
+
     await supabase
       .from("guide_telegram_drafts")
       .update({
@@ -230,6 +251,18 @@ export async function approveGuideDraft(id: string): Promise<{ ok: boolean; slug
         updated_at: new Date().toISOString(),
       })
       .eq("id", id);
+
+    const digestSlug = meta.digestSlug || (mode === "threads" ? draft.slug : null);
+    if (digestSlug) {
+      await supabase
+        .from("emigro_news_digests")
+        .update({
+          telegram_message_ids: messageIds,
+          updated_at: new Date().toISOString(),
+        })
+        .eq("slug", digestSlug);
+    }
+
     return { ok: true, slug: draft.slug };
   } catch (e) {
     return { ok: false, slug: draft.slug, error: e instanceof Error ? e.message : String(e) };

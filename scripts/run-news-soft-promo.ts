@@ -1,7 +1,6 @@
 #!/usr/bin/env npx tsx
 /**
- * Weekly soft promo to @Emigro_news (job bot / Barakhlo / Assist / Route Check).
- * Not a hard-sell ad — Gemini writes a different editorial format each time.
+ * Weekly soft promo → owner DM approve → @Emigro_news (no auto-publish).
  *
  *   npm run news:soft-promo -- --dry-run --force
  *   npm run news:soft-promo -- --force
