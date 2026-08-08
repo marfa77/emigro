@@ -58,14 +58,18 @@ export const STORY_SOURCES: StorySourceConfig[] = [
 const LOOKBACK_DAYS = 3;
 const MAX_PER_DAY = 3;
 const MAX_PER_WEEK = 15;
-const MIN_SCORE = 8;
+/** Floor after trusted-domain boost — weak hits must not publish. */
+const MIN_SCORE = 14;
 const MAX_CANDIDATES_FOR_LEAD = 8;
 
-const RELEVANCE_HINTS = [
+/** At least one required — immigration / visa / residency / expat admin. */
+const CORE_HINTS = [
   "immigra",
   "visa",
   "visto",
-  "resid",
+  "residenc",
+  "residence permit",
+  "work permit",
   "citizen",
   "nationalit",
   "naturaliz",
@@ -77,57 +81,85 @@ const RELEVANCE_HINTS = [
   "nie",
   "expat",
   "foreigner",
-  "permit",
-  "work visa",
+  "estrangeiro",
+  "extranjer",
+  "ausländer",
+  "auslaender",
   "blue card",
+  "eu blue",
   "schengen",
-  "housing",
-  "rent",
-  "landlord",
-  "habitação",
-  "habitacao",
-  "arrend",
-  "alquiler",
-  "miete",
-  "huur",
-  "tax",
-  "imposto",
-  "irs",
-  "ifi",
-  "nhr",
-  "30%",
-  "ruling",
-  "salary",
-  "wage",
-  "minimum wage",
-  "trabalho",
-  "emprego",
-  "arbeit",
-  "emploi",
-  "werk",
-  "school",
-  "bank",
-  "social security",
-  "segurança social",
-  "seguranca social",
-  "gesetz",
-  "loi ",
-  "decreto",
-  "parliament",
-  "parlamento",
-  "governo",
-  "regierung",
-  "gouvernement",
+  "golden visa",
+  "nomad",
+  "highly skilled",
+  "kennismigrant",
+  "startup visa",
+  "d7",
+  "d8",
   "ind ",
   "bamf",
   "prefecture",
   "préfecture",
-  "golden visa",
-  "nomad",
+  "asylum",
+  "refugee",
+  "reagrup",
+  "family reunif",
   "внж",
   "гражданств",
   "иммиграц",
   "виз",
+  "натурализ",
+];
+
+/** Housing / relocator-tax (ok without visa word). */
+const LIFE_HINTS = [
+  "housing crisis",
+  "rental market",
+  "rent cap",
+  "rent control",
+  "landlord",
+  "tenant rights",
+  "alquiler",
+  "arrend",
+  "miete",
+  "huurprijs",
+  "habitação",
+  "habitacao",
+  "nhr",
+  "ifi",
+  "30% ruling",
+  "30 percent ruling",
+  "tax residency",
+  "non-habitual",
+  "impatriat",
+];
+
+/** Hard reject — sport, celebs, cyber noise, disasters-alone, transport fluff. */
+const REJECT_HINTS = [
+  "football",
+  "soccer",
+  "ajax",
+  "premier league",
+  "champions league",
+  "world cup",
+  "olympic",
+  "celebrity",
+  "data breach",
+  "cyberattack",
+  "ransomware",
+  "eclipse",
+  "wildfire",
+  "forest fire",
+  "incendio forest",
+  "bushfire",
+  "cigarette",
+  "tobacco",
+  "fuel price",
+  "petrol price",
+  "gasoline price",
+  "eurotram",
+  "overheating",
+  "lottery",
+  "horoscope",
 ];
 
 type RawCandidate = {
@@ -193,9 +225,13 @@ function daysAgoUtc(days: number): Date {
   return new Date(Date.now() - days * 24 * 60 * 60 * 1000);
 }
 
-function looksRelevant(text: string): boolean {
+/** Free keyword gate: core relocator signal required; reject obvious junk. */
+export function isRelocationStoryCandidate(text: string): boolean {
   const t = text.toLowerCase();
-  return RELEVANCE_HINTS.some((h) => t.includes(h));
+  if (REJECT_HINTS.some((h) => t.includes(h))) return false;
+  if (CORE_HINTS.some((h) => t.includes(h))) return true;
+  if (LIFE_HINTS.some((h) => t.includes(h))) return true;
+  return false;
 }
 
 async function fetchFeedItems(
@@ -231,7 +267,7 @@ async function fetchFeedItems(
       .trim()
       .slice(0, 500);
 
-    if (!looksRelevant(`${title} ${snippet}`)) continue;
+    if (!isRelocationStoryCandidate(`${title} ${snippet}`)) continue;
 
     const score = computeNewsScore(title, snippet, link, pub.toISOString(), topic) + 8;
     if (score < MIN_SCORE) continue;
@@ -344,6 +380,7 @@ Rules:
 - Russian language only.
 - Facts only from the provided title/snippet/lead. Do not invent numbers, dates, or legal thresholds.
 - Calm tone. Not a how-to guide or checklist.
+- ONLY summarize items about immigration, visas, residency, citizenship, housing for movers, relocator taxes, work permits, or expat admin. If an item is sport, celebs, cyber breach, wildfire, transport fluff, or unrelated politics — OMIT it (do not include in stories[]).
 - title: ≤80 chars, specific.
 - excerpt: 1–2 sentences for the card.
 - paragraphs: 2–4 short paragraphs, total ~800–1200 characters.
@@ -354,7 +391,7 @@ Rules:
 - Also set candidate_idx to the input idx number.
 - Skip inventing "official" claims. If unclear, stay vague.`;
 
-  const user = `Summarize these items for Emigro ${topic.countryRu} news tiles. Return one story per useful item.\n\n${JSON.stringify(payload)}`;
+  const user = `Summarize only relocator-relevant items for Emigro ${topic.countryRu}. Omit the rest.\n\n${JSON.stringify(payload)}`;
 
   const schema = {
     type: "OBJECT",
