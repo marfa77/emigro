@@ -56,19 +56,25 @@ ssh -i "${SSH_KEY}" -o StrictHostKeyChecking=no "${SERVER_USER}@${SERVER_HOST}" 
    cp ${REMOTE}/deploy/systemd/emigro-prep2go-news.timer /etc/systemd/system/; \
    cp ${REMOTE}/deploy/systemd/emigro-portugal-news-stories.service /etc/systemd/system/; \
    cp ${REMOTE}/deploy/systemd/emigro-portugal-news-stories.timer /etc/systemd/system/; \
+   cp ${REMOTE}/deploy/systemd/emigro-news-lightning.service /etc/systemd/system/; \
+   cp ${REMOTE}/deploy/systemd/emigro-news-lightning.timer /etc/systemd/system/; \
    cp ${REMOTE}/deploy/systemd/emigro-youtube-shorts.service /etc/systemd/system/; \
    cp ${REMOTE}/deploy/systemd/emigro-youtube-shorts.timer /etc/systemd/system/; \
    chmod +x ${REMOTE}/deploy/prep2go-news/run_scheduled.sh; \
    chmod +x ${REMOTE}/deploy/portugal-news-stories/run_scheduled.sh; \
+   chmod +x ${REMOTE}/deploy/news-lightning/run_scheduled.sh; \
    chmod +x ${REMOTE}/deploy/youtube-shorts/run_daily.sh; \
    mkdir -p ${REMOTE}/deploy/prep2go-news/logs; \
    mkdir -p ${REMOTE}/deploy/portugal-news-stories/logs; \
+   mkdir -p ${REMOTE}/deploy/news-lightning/logs; \
    mkdir -p ${REMOTE}/data/youtube-shorts/logs; \
    chown -R www-data:www-data ${REMOTE}/deploy/prep2go-news/logs; \
    chown -R www-data:www-data ${REMOTE}/deploy/portugal-news-stories/logs; \
+   chown -R www-data:www-data ${REMOTE}/deploy/news-lightning/logs; \
    systemctl daemon-reload; \
    systemctl enable --now emigro-prep2go-news.timer; \
    systemctl enable --now emigro-portugal-news-stories.timer; \
+   systemctl enable --now emigro-news-lightning.timer; \
    systemctl enable --now emigro-portugal-community.timer; \
    systemctl enable --now emigro-spain-community.timer; \
    systemctl enable --now emigro-youtube-shorts.timer; \

@@ -1,0 +1,34 @@
+#!/usr/bin/env npx tsx
+/**
+ * Drain one (default) immigration story into @Emigro_news as ⚡ #молния.
+ * Separate from news:stories so the channel is not flooded at 10:00 UTC.
+ *
+ *   npm run news:lightning -- --dry-run
+ *   npm run news:lightning
+ *   npm run news:lightning -- --max=1
+ */
+import { config } from "dotenv";
+import { resolve } from "path";
+import { runLightningTelegramQueue } from "../lib/news/run-lightning-queue";
+
+config({ path: resolve(process.cwd(), ".env.local") });
+config({ path: resolve(process.cwd(), ".env") });
+
+function parseArgs() {
+  const dryRun = process.argv.includes("--dry-run");
+  const maxArg = process.argv.find((a) => a.startsWith("--max="))?.split("=")[1];
+  const maxPublish = maxArg ? Math.max(1, Number(maxArg)) : undefined;
+  return { dryRun, maxPublish };
+}
+
+async function main() {
+  const { dryRun, maxPublish } = parseArgs();
+  console.log(`⚡ Lightning queue${dryRun ? " [dry-run]" : ""}`);
+  const result = await runLightningTelegramQueue({ dryRun, maxPublish });
+  console.log(JSON.stringify(result, null, 2));
+}
+
+main().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});

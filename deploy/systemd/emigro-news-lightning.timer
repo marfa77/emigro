@@ -1,0 +1,15 @@
+[Unit]
+Description=Emigro news lightning — spaced #молния posts (not a 10:00 dump)
+
+[Timer]
+# One post per tick, ≤5/day. After stories cron (10:00) starts filling the queue.
+OnCalendar=*-*-* 11:00:00 UTC
+OnCalendar=*-*-* 13:00:00 UTC
+OnCalendar=*-*-* 15:00:00 UTC
+OnCalendar=*-*-* 17:00:00 UTC
+OnCalendar=*-*-* 19:00:00 UTC
+Persistent=true
+AccuracySec=5min
+
+[Install]
+WantedBy=timers.target

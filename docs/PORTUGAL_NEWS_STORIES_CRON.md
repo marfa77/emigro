@@ -1,6 +1,8 @@
-# Country news stories cron (direct RSS only)
+# Country news stories + Telegram #молния (separate crons)
 
-Daily VPS job → short RU story tiles (`format=story`) **only** for corridors with a publisher RSS (no Google News).
+## 1) Site tiles — `news:stories`
+
+Daily VPS job → short RU story tiles (`format=story`) **only** for corridors with a publisher RSS (no Google News). **Does not post to Telegram.**
 
 | Topic | Source |
 |-------|--------|
@@ -21,41 +23,49 @@ Daily VPS job → short RU story tiles (`format=story`) **only** for corridors w
 | croatia | Total Croatia News |
 | estonia | ERR News |
 
-## Cadence
-
 - Timer: **10:00 UTC** (`emigro-portugal-news-stories.timer`)
 - Per country: ≤3/day, ≤15/week
-- Cheap: RSS → **relocator filter** → lead → Flash batch
 
-Does **not** touch weekly digests / Prep2Go. Still digest-only (no story RSS wired): Finland, Greece, Malta, Bulgaria, Slovenia.
+## 2) Channel «молния» — `news:lightning` (separate)
 
-## Telegram «молния» (@Emigro_news)
+Spaced posts to `@Emigro_news` so nothing dumps in a batch at 10:00.
 
-После публикации на сайте **лучшие** story (строго визы / ВНЖ / гражданство / work permit / asylum — не жильё и не налоги) уходят в канал:
+- Timer: **11 / 13 / 15 / 17 / 19 UTC** (`emigro-news-lightning.timer`)
+- **1 post per tick**, FIFO from recent story tiles
+- Gate: visa / ВНЖ / гражданство / work permit / asylum (not housing/tax/crime)
+- Cap: **≤5 / day** channel-wide
+- Needs `EMIGRO_NEWS_BOT_TOKEN` on VPS
 
-- Формат: `⚡ #молния · 🇵🇹 Португалия` + заголовок + excerpt + ссылка на Emigro
-- Gate: immigration keywords + score ≥ 14 (как у плиток; отбор — по смыслу «виза/ВНЖ»)
-- Лимит: **≤5 постов/день** на весь канал (не на страну)
-- Нужен `EMIGRO_NEWS_BOT_TOKEN` (или `TELEGRAM_BOT_TOKEN`) на VPS
+Format:
 
-Дайджесты Prep2Go по-прежнему публикуются отдельно своим пайплайном.
+```
+⚡ #молния · 🇵🇹 Португалия
+Заголовок
+Excerpt
+Читать на Emigro
+```
 
-## Editorial voice
-
-Story copy uses the same Emigro voice as community notes (`lib/community-notes/editorial-voice.ts` via `lib/news/story-editorial-voice.ts`): warm «опытный релокант за кофе», not telegraphic chat/lepta attribution style.
+Non-immigration stories are marked `__skip_lightning__` so the queue does not re-check them forever.
 
 ## Commands
 
 ```bash
+# Site only
 npm run news:stories -- --dry-run
 npm run news:stories
-npm run news:stories -- --topic=norway,austria,poland --max=2
+
+# Telegram queue (1 post)
+npm run news:lightning -- --dry-run
+npm run news:lightning
 ```
 
-## systemd
+## systemd deploy
 
 ```bash
 bash deploy/portugal-news-stories/deploy.sh
+bash deploy/news-lightning/deploy.sh
 ```
 
-`CRON_SECRET` must be set in `/opt/emigro/.env` for post-publish revalidate.
+`CRON_SECRET` must be set in `/opt/emigro/.env` for post-publish revalidate (stories).
+
+Still digest-only (no story RSS): Finland, Greece, Malta, Bulgaria, Slovenia.

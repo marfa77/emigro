@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# Daily Portugal story tiles from Observador (VPS systemd).
+# Spaced #молния posts to @Emigro_news (separate from news:stories).
 #
-# Prod: systemd timer emigro-portugal-news-stories.timer (10:00 UTC).
+# Prod: systemd timer emigro-news-lightning.timer (11/13/15/17/19 UTC).
 # See docs/PORTUGAL_NEWS_STORIES_CRON.md.
 
 set -euo pipefail
@@ -33,9 +33,9 @@ if [[ -f "$REPO_ROOT/.env" ]]; then
   set +a
 fi
 
-log "=== Emigro country news stories (site tiles only; Telegram = news:lightning) ==="
+log "=== Emigro news lightning (#молния → @Emigro_news) ==="
 
-RUN_CMD="cd '$REPO_ROOT' && npm run news:stories"
+RUN_CMD="cd '$REPO_ROOT' && npm run news:lightning"
 
 if ! command -v flock >/dev/null 2>&1; then
   RUN=(bash -c "$RUN_CMD")
@@ -44,14 +44,14 @@ else
 fi
 
 if "${RUN[@]}"; then
-  log "=== Country news stories finished OK ==="
+  log "=== News lightning finished OK ==="
   exit 0
 else
   code=$?
   if [[ "$code" -eq 1 ]]; then
-    log "=== Country news stories skipped (already running) ==="
+    log "=== News lightning skipped (already running) ==="
     exit 0
   fi
-  log "=== Country news stories FAILED (exit $code) ==="
+  log "=== News lightning FAILED (exit $code) ==="
   exit "$code"
 fi

@@ -7,13 +7,8 @@
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { fetchArticleLead } from "@/lib/news/fetch-lead";
 import { geminiFastJson } from "@/lib/news/gemini";
-import {
-  countLightningTelegramToday,
-  publishStoryLightningToTelegram,
-} from "@/lib/news/publish-story-telegram";
 import { revalidateNewsPages } from "@/lib/news/revalidate-cache";
 import { computeNewsScore, normalizeLink } from "@/lib/news/scoring";
-import { LIGHTNING_MAX_PER_DAY } from "@/lib/news/story-lightning";
 import { storyEditorialVoiceForTopic } from "@/lib/news/story-editorial-voice";
 import { mapNewsTopicRow, type NewsTopicRow } from "@/lib/news/topics/queries";
 import { buildNewsStorySlug } from "@/lib/news/topics/paths";
@@ -289,7 +284,6 @@ export type CountryStoriesResult = {
   scanned: number;
   candidates: number;
   published: string[];
-  telegramPublished: string[];
   skipped: string[];
   dryRun: boolean;
 };
@@ -572,18 +566,13 @@ function storyDateYmd(pubDate: string): string {
 
 export async function generateCountryStories(
   source: StorySourceConfig,
-  options?: { dryRun?: boolean; maxPublish?: number; lightningRemaining?: { value: number } }
+  options?: { dryRun?: boolean; maxPublish?: number }
 ): Promise<CountryStoriesResult> {
   const dryRun = Boolean(options?.dryRun);
   const maxPublish = Math.max(1, Math.min(MAX_PER_DAY, options?.maxPublish ?? MAX_PER_DAY));
   const supabase = createSupabaseAdmin();
   const topic = await loadTopic(supabase, source.topicKey);
   const log = `[stories:${source.topicKey}]`;
-  const lightningBudget =
-    options?.lightningRemaining ??
-    ({ value: Math.max(0, LIGHTNING_MAX_PER_DAY - (await countLightningTelegramToday(supabase))) } as {
-      value: number;
-    });
 
   const todayCount = await countRecentStories(supabase, source.topicKey, `${ymdUtc()}T00:00:00.000Z`);
   const weekCount = await countRecentStories(
@@ -602,7 +591,6 @@ export async function generateCountryStories(
       scanned: 0,
       candidates: 0,
       published: [],
-      telegramPublished: [],
       skipped: ["budget"],
       dryRun,
     };
@@ -633,7 +621,6 @@ export async function generateCountryStories(
       scanned: raw.length,
       candidates: 0,
       published: [],
-      telegramPublished: [],
       skipped: ["no-lead"],
       dryRun,
     };
@@ -659,14 +646,12 @@ export async function generateCountryStories(
       scanned: raw.length,
       candidates: withLead.length,
       published: [],
-      telegramPublished: [],
       skipped: ["no-drafts"],
       dryRun,
     };
   }
 
   const published: string[] = [];
-  const telegramPublished: string[] = [];
   const skipped: string[] = [];
 
   for (const draft of drafts.slice(0, budget)) {
@@ -719,38 +704,17 @@ export async function generateCountryStories(
     if (dryRun) {
       console.log(`${log} dry-run would publish ${slug}`);
       published.push(slug);
-    } else {
-      const { error } = await supabase.from("emigro_news_digests").upsert(payload, { onConflict: "slug" });
-      if (error) {
-        console.warn(`${log} upsert failed ${slug}:`, error.message);
-        skipped.push(`${slug}:${error.message}`);
-        continue;
-      }
-      published.push(slug);
-      console.log(`${log} published ${slug}`);
+      continue;
     }
 
-    const gateText = [sourceItem.title, sourceItem.snippet, draft.title, draft.excerpt].join(" ");
-
-    const tg = await publishStoryLightningToTelegram({
-      supabase,
-      slug,
-      topic,
-      title: draft.title.replace(/^\[dry-run\]\s*/i, ""),
-      excerpt: draft.excerpt,
-      sourceLabel: source.sourceLabel,
-      gateText,
-      storyScore: sourceItem.score,
-      dryRun,
-      remainingToday: lightningBudget.value,
-    });
-    if (tg.published || (dryRun && tg.reason === "dry-run" && tg.html)) {
-      telegramPublished.push(slug);
-      if (!dryRun && tg.published) lightningBudget.value = Math.max(0, lightningBudget.value - 1);
-      if (dryRun && tg.html) lightningBudget.value = Math.max(0, lightningBudget.value - 1);
-    } else if (tg.reason && tg.reason !== "dry-run") {
-      console.log(`${log} telegram skip ${slug}: ${tg.reason}`);
+    const { error } = await supabase.from("emigro_news_digests").upsert(payload, { onConflict: "slug" });
+    if (error) {
+      console.warn(`${log} upsert failed ${slug}:`, error.message);
+      skipped.push(`${slug}:${error.message}`);
+      continue;
     }
+    published.push(slug);
+    console.log(`${log} published ${slug}`);
   }
 
   if (!dryRun && published.length > 0) {
@@ -762,7 +726,6 @@ export async function generateCountryStories(
     scanned: raw.length,
     candidates: withLead.length,
     published,
-    telegramPublished,
     skipped,
     dryRun,
   };
@@ -778,21 +741,10 @@ export async function generateAllCountryStories(options?: {
     ? STORY_SOURCES.filter((s) => wanted.includes(s.topicKey))
     : STORY_SOURCES;
 
-  const supabase = createSupabaseAdmin();
-  const lightningRemaining = {
-    value: Math.max(0, LIGHTNING_MAX_PER_DAY - (await countLightningTelegramToday(supabase))),
-  };
-  console.log(`[stories] lightning telegram budget today: ${lightningRemaining.value}/${LIGHTNING_MAX_PER_DAY}`);
-
   const results: CountryStoriesResult[] = [];
   for (const source of sources) {
     try {
-      results.push(
-        await generateCountryStories(source, {
-          ...options,
-          lightningRemaining,
-        })
-      );
+      results.push(await generateCountryStories(source, options));
     } catch (e) {
       console.error(`[stories:${source.topicKey}] failed:`, e instanceof Error ? e.message : e);
       results.push({
@@ -800,7 +752,6 @@ export async function generateAllCountryStories(options?: {
         scanned: 0,
         candidates: 0,
         published: [],
-        telegramPublished: [],
         skipped: [e instanceof Error ? e.message : String(e)],
         dryRun: Boolean(options?.dryRun),
       });

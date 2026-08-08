@@ -93,6 +93,9 @@ export const LIGHTNING_MIN_STORY_SCORE = 14;
 /** Channel-wide daily cap for lightning posts (all corridors). */
 export const LIGHTNING_MAX_PER_DAY = 5;
 
+/** Stored in telegram_html when story was evaluated and is not for the channel. */
+export const LIGHTNING_SKIP_MARK = "__skip_lightning__";
+
 export function isLightningImmigrationText(text: string): boolean {
   const t = text.toLowerCase();
   if (LIGHTNING_REJECT.some((h) => t.includes(h))) return false;
