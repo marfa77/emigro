@@ -75,9 +75,14 @@ export async function publishStoryLightningToTelegram(
     return { published: false, skipped: true, reason: "daily-cap" };
   }
 
+  const countryRu = (params.topic.countryRu || params.topic.countryEn || "").trim();
+  if (!countryRu) {
+    return { published: false, skipped: true, reason: "missing-country" };
+  }
+
   const html = buildLightningTelegramHtml({
     flag: params.topic.flag,
-    countryRu: params.topic.countryRu,
+    countryRu,
     title: params.title,
     excerpt: params.excerpt,
     articleUrl: newsArticleUrl(params.slug),
