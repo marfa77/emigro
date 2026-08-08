@@ -9,6 +9,7 @@ import { fetchArticleLead } from "@/lib/news/fetch-lead";
 import { geminiFastJson } from "@/lib/news/gemini";
 import { revalidateNewsPages } from "@/lib/news/revalidate-cache";
 import { computeNewsScore, normalizeLink } from "@/lib/news/scoring";
+import { storyEditorialVoiceForTopic } from "@/lib/news/story-editorial-voice";
 import { mapNewsTopicRow, type NewsTopicRow } from "@/lib/news/topics/queries";
 import { buildNewsStorySlug } from "@/lib/news/topics/paths";
 import type { NewsTopicConfig } from "@/lib/news/topics/types";
@@ -394,22 +395,24 @@ async function summarizeBatch(
   const system = `You write short RU news summaries for Emigro (relocation portal for Russian speakers).
 Country corridor: ${topic.countryRu} (${topic.countryEn}).
 Source outlet: ${sourceLabel}.
+
+${storyEditorialVoiceForTopic(topic.key)}
+
 Rules:
-- Russian language only.
+- Russian language only; follow the editorial voice above.
 - Facts only from the provided title/snippet/lead. Do not invent numbers, dates, or legal thresholds.
-- Calm tone. Not a how-to guide or checklist.
 - ONLY summarize items about immigration, visas, residency, citizenship, housing for movers, relocator taxes, work permits, or expat admin. If an item is sport, celebs, cyber breach, wildfire, transport fluff, or unrelated politics — OMIT it (do not include in stories[]).
-- title: ≤80 chars, specific.
-- excerpt: 1–2 sentences for the card.
-- paragraphs: 2–4 short paragraphs, total ~800–1200 characters.
-- key_takeaways: 2–3 bullets "для кого важно" for relocators only if grounded in the source.
+- title: ≤80 chars, specific, human — not a press-release headline clone.
+- excerpt: 1–2 sentences for the card (hook + one fact).
+- paragraphs: 2–4 short paragraphs, total ~800–1200 characters — demystify then explain impact.
+- key_takeaways: 2–3 bullets «для кого важно» as full sentences for relocators only if grounded in the source.
 - tags: 2–5 short RU tags.
 - seo_title ≤70 chars; seo_description ≤155 chars.
 - Keep source_url EXACTLY identical to the input source_url string.
 - Also set candidate_idx to the input idx number.
-- Skip inventing "official" claims. If unclear, stay vague.`;
+- No @username, no «гарантированный ВНЖ», no hard-sell.`;
 
-  const user = `Summarize only relocator-relevant items for Emigro ${topic.countryRu}. Omit the rest.\n\n${JSON.stringify(payload)}`;
+  const user = `Напиши плитки голосом Emigro только по relocator-релевантным пунктам для ${topic.countryRu}. Остальное пропусти.\n\n${JSON.stringify(payload)}`;
 
   const schema = {
     type: "OBJECT",

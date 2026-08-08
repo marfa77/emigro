@@ -21,6 +21,10 @@ Daily VPS job → short RU story tiles (`format=story`) **only** for corridors w
 
 Does **not** touch weekly digests / Prep2Go. Other corridors stay digest-only until they get a direct feed.
 
+## Editorial voice
+
+Story copy uses the same Emigro voice as community notes (`lib/community-notes/editorial-voice.ts` via `lib/news/story-editorial-voice.ts`): warm «опытный релокант за кофе», not telegraphic chat/lepta attribution style.
+
 ## Commands
 
 ```bash
