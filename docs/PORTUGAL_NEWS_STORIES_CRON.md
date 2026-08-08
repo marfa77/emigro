@@ -60,6 +60,24 @@ npm run news:soft-promo -- --dry-run --force
 bash deploy/news-soft-promo/deploy.sh
 ```
 
+## 4) Guide promo (daily) — `news:guide-promo`
+
+SEO pillars only (`content/guides/ru/*`) → fact-check → owner DM ✅/❌ → `@Emigro_news`.
+
+- Table: `guide_telegram_drafts` (Approach A; callbacks `gd:ok:<uuid>` / `gd:no:<uuid>`)
+- Critical fact-check → DM alert + try next guide (≤5 tries/run)
+- Caps: ≤1 **published**/day; ≤1 **pending** at a time
+- Timer: **12:30 UTC** + up to **2h** random (`emigro-news-guide-promo.timer`)
+- Same news-bot webhook as lightning: `/api/telegram/news-webhook`
+
+```bash
+npm run news:guide-promo -- --dry-run
+npm run news:guide-promo
+bash deploy/news-guide-promo/deploy.sh
+```
+
+Spec: `docs/superpowers/specs/2026-08-08-guide-telegram-approval-design.md`
+
 ## Commands
 
 ```bash
@@ -70,6 +88,10 @@ npm run news:stories
 # Telegram queue (1 post)
 npm run news:lightning -- --dry-run
 npm run news:lightning
+
+# Guide soft post → DM approve
+npm run news:guide-promo -- --dry-run
+npm run news:guide-promo
 ```
 
 ## systemd deploy
@@ -77,6 +99,7 @@ npm run news:lightning
 ```bash
 bash deploy/portugal-news-stories/deploy.sh
 bash deploy/news-lightning/deploy.sh
+bash deploy/news-guide-promo/deploy.sh
 ```
 
 `CRON_SECRET` must be set in `/opt/emigro/.env` for post-publish revalidate (stories).

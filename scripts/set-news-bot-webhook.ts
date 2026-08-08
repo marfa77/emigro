@@ -1,7 +1,10 @@
 #!/usr/bin/env tsx
 /**
  * Register Telegram webhook for Emigro news bot (EMIGRO_NEWS_BOT_TOKEN).
- * Used for #молния owner approval callbacks.
+ * Handles #молния / guide approval callbacks AND /stats (same token as EMIGRO_CHAT_BOT_TOKEN).
+ *
+ * Do not point this bot at /api/telegram/webhook — that drops approval callbacks.
+ * Keep webhook at /api/telegram/news-webhook (unified handler).
  *
  *   npx tsx scripts/set-news-bot-webhook.ts
  *   npx tsx scripts/set-news-bot-webhook.ts --delete

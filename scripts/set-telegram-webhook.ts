@@ -51,12 +51,29 @@ async function main(): Promise<number> {
     .trim()
     .replace(/\/$/, "");
 
-  const webhookUrl = urlArg || `${site}/api/telegram/webhook`;
-  const secret = process.env.TELEGRAM_WEBHOOK_SECRET?.trim();
+  const newsToken = (process.env.EMIGRO_NEWS_BOT_TOKEN || "").trim();
+  const sharedWithNews = Boolean(newsToken && newsToken === token);
+  // Same physical bot as news: must use unified news-webhook or /stats breaks.
+  const webhookUrl =
+    urlArg ||
+    (sharedWithNews ? `${site}/api/telegram/news-webhook` : `${site}/api/telegram/webhook`);
+  const secret = (
+    sharedWithNews
+      ? process.env.TELEGRAM_NEWS_WEBHOOK_SECRET?.trim() || process.env.TELEGRAM_WEBHOOK_SECRET?.trim()
+      : process.env.TELEGRAM_WEBHOOK_SECRET?.trim()
+  );
+
+  if (sharedWithNews && !urlArg) {
+    console.warn(
+      "EMIGRO_CHAT_BOT_TOKEN === EMIGRO_NEWS_BOT_TOKEN → using /api/telegram/news-webhook (unified)"
+    );
+  }
 
   const body: Record<string, unknown> = {
     url: webhookUrl,
-    allowed_updates: ["message", "edited_message"],
+    allowed_updates: sharedWithNews
+      ? ["message", "edited_message", "callback_query"]
+      : ["message", "edited_message"],
     drop_pending_updates: false,
   };
   if (secret) {

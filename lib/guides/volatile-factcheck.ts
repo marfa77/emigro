@@ -641,6 +641,56 @@ export async function runVolatileGuideFactcheck(
   return sortVolatileFactcheckIssues(dedupeIssues(issues));
 }
 
+/**
+ * Fact-check any SEO guide before Telegram promo (not only volatile tier).
+ * Always: backlog patterns + contradictions + QA drift.
+ * Volatile: also stale date_modified.
+ */
+export async function factcheckGuideForTelegram(slug: string): Promise<VolatileFactcheckIssue[]> {
+  const guide = listGuides().find((g) => g.slug === slug);
+  if (!guide) {
+    return [
+      {
+        slug,
+        severity: "critical",
+        issue: "Guide missing from content/guides/ru",
+        excerpt: slug,
+        suggestedAction: "Remove from queue or add the MD file.",
+        notifyPriority: true,
+      },
+    ];
+  }
+
+  const md = readGuideMarkdown(slug);
+  if (!md) {
+    return [
+      {
+        slug,
+        severity: "critical",
+        issue: "Cannot read guide markdown",
+        excerpt: slug,
+        suggestedAction: "Check file on disk.",
+        notifyPriority: true,
+      },
+    ];
+  }
+
+  const scanText = guideScanText(md.body, md.quickAnswer);
+  const issues: VolatileFactcheckIssue[] = [];
+  const volatileSlugs = new Set(listVolatileGuides(listGuides()).map((g) => g.slug));
+
+  if (volatileSlugs.has(slug)) {
+    const stale = checkStaleGuide(guide, new Date(), 90);
+    if (stale) issues.push(stale);
+  }
+
+  issues.push(...checkKnownBadPatterns(slug, scanText));
+  issues.push(...checkInternalContradictions(slug, scanText, guide));
+  issues.push(...checkQuickAnswerBodyDrift(slug, md.quickAnswer, md.body));
+
+  return sortVolatileFactcheckIssues(dedupeIssues(issues));
+}
+
 /** Resolve guide title for notifications. */
 export function volatileGuideTitle(slug: string): string {
   return loadGuide(slug)?.title ?? slug;

@@ -1,0 +1,12 @@
+[Unit]
+Description=Emigro guide telegram promo — daily 12:30 UTC (+ random delay)
+
+[Timer]
+# After stories (10:00) and before afternoon lightning; 1 approval DM/day max.
+OnCalendar=*-*-* 12:30:00 UTC
+Persistent=true
+RandomizedDelaySec=7200
+AccuracySec=5min
+
+[Install]
+WantedBy=timers.target
