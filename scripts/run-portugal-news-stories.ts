@@ -1,14 +1,8 @@
 #!/usr/bin/env npx tsx
-/**
- * Portugal single-story tiles from Observador (cheap daily pipeline).
- *
- *   npm run news:portugal-stories -- --dry-run
- *   npm run news:portugal-stories
- *   npm run news:portugal-stories -- --max=2
- */
+/** Alias: Portugal-only story tiles. Prefer `npm run news:stories`. */
 import { config } from "dotenv";
 import { resolve } from "path";
-import { generatePortugalStories } from "../lib/news/generate-portugal-stories";
+import { generatePortugalStories } from "../lib/news/generate-country-stories";
 
 config({ path: resolve(process.cwd(), ".env.local") });
 config({ path: resolve(process.cwd(), ".env") });

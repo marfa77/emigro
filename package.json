@@ -18,6 +18,7 @@
     "news:import-prep2go": "tsx scripts/import-prep2go-news.ts",
     "news:import-prep2go:daily": "tsx scripts/import-prep2go-news.ts --daily",
     "news:portugal-stories": "tsx scripts/run-portugal-news-stories.ts",
+    "news:stories": "tsx scripts/run-country-news-stories.ts",
     "news:youtube-short": "tsx scripts/generate-news-youtube-short.ts",
     "news:youtube-short:daily": "tsx scripts/generate-news-youtube-short.ts",
     "youtube:oauth-setup": "tsx scripts/youtube-oauth-setup.ts",

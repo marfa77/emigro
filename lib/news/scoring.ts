@@ -11,6 +11,8 @@ export const TRUSTED_DOMAINS = [
   "theportugalnews.com",
   "portugalresident.com",
   "thelocal.pt",
+  "dutchnews.nl",
+  "nltimes.nl",
   "publico.pt",
   "expresso.pt",
   "observador.pt",

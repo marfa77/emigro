@@ -1,42 +1,40 @@
-# Portugal news stories cron (Observador)
+# Country news stories cron (Observador + The Local)
 
-Daily VPS job that publishes short RU story tiles to `emigro_news_digests` (`format=story`) from **Observador** RSS only.
+Daily VPS job that publishes short RU story tiles (`format=story`) for:
 
-## What it does
+| Topic | Source |
+|-------|--------|
+| portugal | Observador RSS |
+| netherlands | DutchNews RSS |
+| spain | The Local ES |
+| germany | The Local DE |
+| france | The Local FR |
 
-1. Fetch `https://observador.pt/feed/`
-2. Soft relevance filter + score (noise OK)
-3. Cap: ≤3/day, ≤15/week
-4. Fetch lead paragraph for candidates that passed score
-5. One Gemini Flash batch → RU summary
-6. Upsert published story + revalidate `/ru/news`
+## Cadence
 
-Does **not** touch weekly digests or Prep2Go.
+- Timer: **10:00 UTC** daily (`emigro-portugal-news-stories.timer` — name kept for continuity)
+- Per country: ≤3/day, ≤15/week
+- Cheap path: RSS → score → lead → one Flash batch
+
+Does **not** touch weekly digests / Prep2Go.
 
 ## Commands
 
 ```bash
-npm run news:portugal-stories -- --dry-run
-npm run news:portugal-stories
-npm run news:portugal-stories -- --max=2
+npm run news:stories -- --dry-run
+npm run news:stories
+npm run news:stories -- --topic=netherlands,spain --max=2
+npm run news:portugal-stories   # portugal only alias
 ```
 
-## systemd (VPS `/opt/emigro`)
+## systemd
 
 ```bash
-sudo cp deploy/systemd/emigro-portugal-news-stories.service /etc/systemd/system/
-sudo cp deploy/systemd/emigro-portugal-news-stories.timer /etc/systemd/system/
-sudo systemctl daemon-reload
-sudo systemctl enable --now emigro-portugal-news-stories.timer
-sudo systemctl list-timers | grep portugal-news-stories
+bash deploy/portugal-news-stories/deploy.sh
+# or full: cd parser && ./deploy.sh
 ```
 
-Timer: **10:00 UTC** daily (after Prep2Go at 09:00).
+Manual: `systemctl start emigro-portugal-news-stories.service`  
+Logs: `/opt/emigro/deploy/portugal-news-stories/logs/`
 
-## DB
-
-Apply migration `supabase/migrations/20260808160000_emigro_news_digest_format.sql` (`format` column).
-
-## Later
-
-Add The Portugal News / portugal.gov.pt as extra feeds once Observador cadence looks good.
+Set `CRON_SECRET` in `/opt/emigro/.env` so post-publish revalidate works.

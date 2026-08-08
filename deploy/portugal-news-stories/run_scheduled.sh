@@ -33,9 +33,9 @@ if [[ -f "$REPO_ROOT/.env" ]]; then
   set +a
 fi
 
-log "=== Emigro Portugal news stories (Observador) ==="
+log "=== Emigro country news stories (PT/NL/ES/DE/FR) ==="
 
-RUN_CMD="cd '$REPO_ROOT' && npm run news:portugal-stories"
+RUN_CMD="cd '$REPO_ROOT' && npm run news:stories"
 
 if ! command -v flock >/dev/null 2>&1; then
   RUN=(bash -c "$RUN_CMD")
@@ -44,14 +44,14 @@ else
 fi
 
 if "${RUN[@]}"; then
-  log "=== Portugal news stories finished OK ==="
+  log "=== Country news stories finished OK ==="
   exit 0
 else
   code=$?
   if [[ "$code" -eq 1 ]]; then
-    log "=== Portugal news stories skipped (already running) ==="
+    log "=== Country news stories skipped (already running) ==="
     exit 0
   fi
-  log "=== Portugal news stories FAILED (exit $code) ==="
+  log "=== Country news stories FAILED (exit $code) ==="
   exit "$code"
 fi
