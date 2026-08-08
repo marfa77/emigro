@@ -47,13 +47,20 @@ export type TelegramMessage = {
 
 async function sendStatsReply(chatId: string | number, report: string): Promise<void> {
   const result = await sendStatsBotMessage(chatId, report, { parseMode: "HTML" });
-  if (!result.success) {
-    await sendStatsBotMessage(
-      chatId,
-      "Не удалось отправить отчёт (проверьте EMIGRO_CHAT_BOT_TOKEN на сервере).",
-      { parseMode: null }
-    );
-  }
+  if (result.success) return;
+
+  console.error("[telegram] stats HTML send failed:", result.error);
+  // HTML entity parse / length edge cases — retry as plain text.
+  const plain = report.replace(/<\/?[^>]+>/g, "");
+  const plainResult = await sendStatsBotMessage(chatId, plain, { parseMode: null });
+  if (plainResult.success) return;
+
+  console.error("[telegram] stats plain send failed:", plainResult.error);
+  await sendStatsBotMessage(
+    chatId,
+    `Не удалось отправить отчёт: ${plainResult.error || result.error || "unknown"}`,
+    { parseMode: null }
+  );
 }
 
 async function replyWithWizardLink(chatId: string | number): Promise<void> {

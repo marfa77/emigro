@@ -3,8 +3,27 @@
 export function statsBotToken(): string | undefined {
   const token =
     process.env.EMIGRO_CHAT_BOT_TOKEN?.trim() ||
-    process.env.EMIGRO_BOT_TOKEN?.trim();
+    process.env.EMIGRO_NEWS_BOT_TOKEN?.trim() ||
+    process.env.EMIGRO_BOT_TOKEN?.trim() ||
+    process.env.TELEGRAM_BOT_TOKEN?.trim();
   return token || undefined;
+}
+
+/** Split long Telegram text on newlines without cutting mid-line (keeps HTML tags intact). */
+export function splitTelegramTextChunks(text: string, maxLen = 3500): string[] {
+  const trimmed = text.trimEnd();
+  if (trimmed.length <= maxLen) return [trimmed];
+
+  const chunks: string[] = [];
+  let rest = trimmed;
+  while (rest.length > maxLen) {
+    let cut = rest.lastIndexOf("\n", maxLen);
+    if (cut < Math.floor(maxLen * 0.5)) cut = maxLen;
+    chunks.push(rest.slice(0, cut).trimEnd());
+    rest = rest.slice(cut).replace(/^\n+/, "");
+  }
+  if (rest.trim()) chunks.push(rest.trimEnd());
+  return chunks;
 }
 
 export function telegramAdminChatIds(): Set<string> {
@@ -41,24 +60,30 @@ export async function sendStatsBotMessage(
   const token = statsBotToken();
   if (!token) return { success: false, error: "EMIGRO_CHAT_BOT_TOKEN missing" };
 
-  const body: Record<string, unknown> = {
-    chat_id: chatId,
-    text: text.slice(0, 4096),
-    disable_web_page_preview: true,
-  };
-  if (options?.parseMode === "HTML") {
-    body.parse_mode = "HTML";
-  }
+  const chunks = splitTelegramTextChunks(text, 3500);
+  for (let i = 0; i < chunks.length; i++) {
+    const body: Record<string, unknown> = {
+      chat_id: chatId,
+      text: chunks[i],
+      disable_web_page_preview: true,
+    };
+    if (options?.parseMode === "HTML") {
+      body.parse_mode = "HTML";
+    }
 
-  const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(body),
-  });
+    const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
 
-  const json = (await res.json()) as TelegramApiResult;
-  if (!res.ok || json.ok === false) {
-    return { success: false, error: json.description || res.statusText };
+    const json = (await res.json()) as TelegramApiResult;
+    if (!res.ok || json.ok === false) {
+      return {
+        success: false,
+        error: `${json.description || res.statusText} (chunk ${i + 1}/${chunks.length})`,
+      };
+    }
   }
   return { success: true };
 }
