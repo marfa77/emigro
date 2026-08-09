@@ -276,6 +276,122 @@ export const EMIGRO_SCORE_REGISTRY: Record<string, EmigroCountryScore> = {
     ],
     { sourceGuide: "/ru/guides/yuar-dlya-rossiyan-ukraintsev-belorusov-kazahstantsev-2026" }
   ),
+  austria: score(
+    "austria",
+    "Red-White-Red и работа сильны при оффере; вход визовый, банки жёсткие.",
+    [50, 60, 40, 50, 80],
+    [
+      "Нацвиза / D; безвиз Шенген только краткосрочный.",
+      "RWR Card и employment — основной mass path при квалификации.",
+      "Банки для РФ — высокий friction и долгое KYC.",
+      "Прогрессивный налог; предсказуемо при advisor.",
+      "Полноценный EU-коридор при успешном статусе.",
+    ]
+  ),
+  greece: score(
+    "greece",
+    "DN, FIP и Golden Visa — рабочие треки; налоги и art.5C не путать.",
+    [50, 60, 50, 50, 70],
+    [
+      "Нацвиза / консульская подача для долгосрочных программ.",
+      "Digital Nomad, FIP и GV tiers — реальные, но разные аудитории.",
+      "Счёт возможен; KYC для РФ case-by-case.",
+      "Спецрежим 50% ≠ «7% для всех»; foreign payroll ≠ art.5C.",
+      "EU при статусе; сильная практика на Emigro.",
+    ],
+    { sourceGuide: "/ru/guides/vnj-gretsiya-2026-digital-nomad-fip-golden-visa" }
+  ),
+  cyprus: score(
+    "cyprus",
+    "DN квота 500 / макс 3y; Non-Dom силён, Category F в бэклоге.",
+    [50, 50, 40, 70, 60],
+    [
+      "Виза/разрешение; не «лёгкий» безвизный хаб.",
+      "DN ограничен квотой и сроком; FIP/Pink Slip — отдельные риски.",
+      "Банки после KYC; РФ — усиленный due diligence.",
+      "Non-Dom / SDC — сильная налоговая история при корректном статусе.",
+      "Вне Шенгена; EU-путь слабее PT/ES, но EU-член.",
+    ],
+    { sourceGuide: "/ru/guides/vnj-kipr-2026-digital-nomad-fip-non-dom" }
+  ),
+  hungary: score(
+    "hungary",
+    "White Card и Guest Investor — узкие, но рабочие; банки осторожны.",
+    [50, 60, 40, 60, 70],
+    [
+      "Виза / подача по программе; безвиз не заменяет ВНЖ.",
+      "White Card remote и инвестиционные треки — не для всех бюджетов.",
+      "Банковский onboarding для РФ часто тяжёлый.",
+      "Спецрежимы (в т.ч. KATA-контекст) менялись — нужен advisor.",
+      "EU при статусе; коридор на Emigro развивается.",
+    ],
+    { sourceGuide: "/ru/guides/vnj-vengriya-2026-white-card-guest-investor" }
+  ),
+  malta: score(
+    "malta",
+    "NRP для многих RU/BY недоступен; nomad/MPRP — дорогие ниши.",
+    [50, 40, 40, 60, 60],
+    [
+      "Виза / residence application; не mass безвиз.",
+      "Nomad и MPRP узкие; NRP часто закрыт для RU/BY.",
+      "Банки строгие; без residence сложно.",
+      "Non-Dom / tax — отдельно от ВНЖ; не путать.",
+      "EU-член; путь дорогой и селективный.",
+    ],
+    { sourceGuide: "/ru/guides/vnj-malta-2026-nomad-mprp-non-dom" }
+  ),
+  bulgaria: score(
+    "bulgaria",
+    "Type D, DN и EOOD 10% — доступный EU-вход при оффере/бизнесе.",
+    [50, 60, 50, 70, 70],
+    [
+      "Виза D / подача; евро с 2026 упрощает быт.",
+      "DN 1+1 и EOOD — рабочие; DN ≠ прямой путь в PR.",
+      "Банки открывают чаще «старой» EU-15, но KYC есть.",
+      "CIT 10% и предсказуемая админка — плюс для компании.",
+      "EU; гражданство долгое, часто с отказом от другого паспорта.",
+    ],
+    { sourceGuide: "/ru/guides/vnj-bolgariya-2026-type-d-digital-nomad-eood" }
+  ),
+  croatia: score(
+    "croatia",
+    "DN с высоким порогом и max 18 мес; 0% на foreign work income.",
+    [50, 50, 50, 80, 60],
+    [
+      "Виза/разрешение после въезда по правилам MUP.",
+      "Digital Nomad ≤18 мес + cooling-off; нет PR на DN.",
+      "Счета при статусе; комплаенс средний для региона.",
+      "0% PIT на foreign work income при nomad — сильный плюс.",
+      "EU/Шенген-контекст; DN не трамплин в гражданство.",
+    ],
+    { sourceGuide: "/ru/guides/vnj-horvatiya-2026-digital-nomad" }
+  ),
+  slovenia: score(
+    "slovenia",
+    "DN на 12 мес без продления; s.p./normiranec — отдельный трек.",
+    [50, 50, 40, 60, 70],
+    [
+      "Виза / temporary residence; вход не безвизный хаб.",
+      "DN max 12 мес без extend; s.p. — другой маршрут.",
+      "Банки для РФ осторожны.",
+      "Normiranec и соцвзносы — считать отдельно от «~4%».",
+      "EU; семья на DN относительно благоприятна.",
+    ],
+    { sourceGuide: "/ru/guides/vnj-sloveniya-2026-digital-nomad-sp" }
+  ),
+  estonia: score(
+    "estonia",
+    "Для РФ MFA почти блокирует C/D; e-Residency ≠ ВНЖ.",
+    [30, 30, 30, 50, 40],
+    [
+      "Для граждан РФ визы C/D почти недоступны (MFA).",
+      "DNV формально есть, но вход для RU на практике закрыт.",
+      "Банки/финтех для РФ после 2022 крайне жёсткие.",
+      "Корпоративный налог на распределение предсказуем при компании.",
+      "EU силён на бумаге; для RU baseline Score низкий честно.",
+    ],
+    { sourceGuide: "/ru/guides/vnj-estoniya-2026-digital-nomad-e-residency" }
+  ),
 };
 
 export function getEmigroScore(countryId: string): EmigroCountryScore | null {

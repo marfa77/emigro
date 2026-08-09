@@ -14,6 +14,15 @@ const CORRIDOR_LABELS: Record<string, { ru: string; flag: string; path: string }
   norway: { ru: "Норвегия", flag: "🇳🇴", path: "/ru/norway" },
   finland: { ru: "Финляндия", flag: "🇫🇮", path: "/ru/finland" },
   denmark: { ru: "Дания", flag: "🇩🇰", path: "/ru/denmark" },
+  austria: { ru: "Австрия", flag: "🇦🇹", path: "/ru/austria" },
+  greece: { ru: "Греция", flag: "🇬🇷", path: "/ru/greece" },
+  cyprus: { ru: "Кипр", flag: "🇨🇾", path: "/ru/cyprus" },
+  hungary: { ru: "Венгрия", flag: "🇭🇺", path: "/ru/hungary" },
+  malta: { ru: "Мальта", flag: "🇲🇹", path: "/ru/malta" },
+  bulgaria: { ru: "Болгария", flag: "🇧🇬", path: "/ru/bulgaria" },
+  croatia: { ru: "Хорватия", flag: "🇭🇷", path: "/ru/croatia" },
+  slovenia: { ru: "Словения", flag: "🇸🇮", path: "/ru/slovenia" },
+  estonia: { ru: "Эстония", flag: "🇪🇪", path: "/ru/estonia" },
 };
 
 export type EmigroScoreCatalogRow = {

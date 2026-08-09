@@ -20,6 +20,15 @@ const CORRIDOR_SEGMENTS = [
   "norway",
   "finland",
   "denmark",
+  "austria",
+  "greece",
+  "cyprus",
+  "hungary",
+  "malta",
+  "bulgaria",
+  "croatia",
+  "slovenia",
+  "estonia",
 ];
 
 for (const id of listEmigroScoreCountryIds()) {
