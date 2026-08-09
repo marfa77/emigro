@@ -96,6 +96,8 @@ function socialImageType(ogImage: string): string | undefined {
   if (path.endsWith(".png")) return "image/png";
   if (path.endsWith(".webp")) return "image/webp";
   if (path.startsWith("/api/community-notes/hero/")) return "image/webp";
+  // Next.js file-convention OG routes (e.g. /ru/news/{slug}/opengraph-image)
+  if (path.endsWith("/opengraph-image") || path.includes("/opengraph-image?")) return "image/png";
   if (path.endsWith(".svg")) return "image/svg+xml";
   return undefined;
 }

@@ -51,7 +51,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const topic = await getNewsTopic(digest.topic_key);
   const title = fitSeoTitleAbsolute(getNewsDisplaySeoTitle(digest, topic?.countryRu));
   const description = fitMetaDescription(digest.seo_description || digest.excerpt);
-  const ogImagePath = topic?.urlSegment ? countryOgImage(topic.urlSegment) : DEFAULT_OG_IMAGE;
+  const story = isNewsStory(digest);
+  // Stories: dynamic opengraph-image (per-country accent + title). Digests: static corridor JPG.
+  const ogImagePath = story
+    ? `/ru/news/${digest.slug}/opengraph-image`
+    : topic?.urlSegment
+      ? countryOgImage(topic.urlSegment)
+      : DEFAULT_OG_IMAGE;
 
   return buildNewsArticleMetadata({
     title,
