@@ -1,4 +1,5 @@
 import { barakhloPromoUrl, BARAKHLO_LISBON_URL } from "@/lib/community-notes/sponsor-promo";
+import { getEmigroScore, toEmigroScoreView, type EmigroScoreView } from "@/lib/emigro-score";
 import { newsIndexPath } from "@/lib/news/topics";
 import { PORTUGAL_SATELLITE } from "@/lib/satellite/portugal";
 import { portugalSatelliteUrl } from "@/lib/site-url";
@@ -20,7 +21,7 @@ export type PortugalHubTileStats = {
 export type HubTileRating = {
   label: string;
   value: number;
-  tone?: "good" | "warn" | "neutral";
+  tone?: "good" | "warn" | "critical" | "neutral";
 };
 
 export type HubTileIcon = "compass" | "newspaper" | "sticky" | "shopping";
@@ -49,15 +50,33 @@ export type ResolvedHubTile = Omit<HubTileConfig, "topLeft" | "bottomLeft" | "bo
   topLeft: string;
   bottomLeft: string;
   bottomRight: string;
+  emigroScore?: EmigroScoreView;
 };
 
 export function resolvePortugalHubTiles(stats: PortugalHubTileStats): ResolvedHubTile[] {
-  return PORTUGAL_HUB_TILES.map(({ topLeft, bottomLeft, bottomRight, ...tile }) => ({
-    ...tile,
-    topLeft: topLeft(stats),
-    bottomLeft: bottomLeft(stats),
-    bottomRight: bottomRight(stats),
-  }));
+  const emigro = getEmigroScore("portugal");
+  const emigroScore = emigro ? toEmigroScoreView(emigro) : undefined;
+
+  return PORTUGAL_HUB_TILES.map(({ topLeft, bottomLeft, bottomRight, ...tile }) => {
+    const base = {
+      ...tile,
+      topLeft: topLeft(stats),
+      bottomLeft: bottomLeft(stats),
+      bottomRight: bottomRight(stats),
+    };
+    if (tile.id !== "route" || !emigroScore) return base;
+    return {
+      ...base,
+      topLeft: String(emigroScore.overall100),
+      topLeftHint: "Emigro Score",
+      ratings: emigroScore.axes.map((a) => ({
+        label: a.label,
+        value: a.value,
+        tone: a.tone,
+      })),
+      emigroScore,
+    };
+  });
 }
 
 export type PortugalHubNavItem = {
@@ -127,13 +146,7 @@ export const PORTUGAL_HUB_TILES: HubTileConfig[] = [
     topRightLabel: "Wizard",
     bottomLeft: () => "RU · BY · UA · KZ",
     bottomRight: () => "Бесплатно",
-    ratings: [
-      { label: "Покрытие", value: 88, tone: "good" },
-      { label: "Источники", value: 95, tone: "good" },
-      { label: "Wizard", value: 90, tone: "good" },
-      { label: "Сложность", value: 62, tone: "warn" },
-      { label: "Assist", value: 78, tone: "good" },
-    ],
+    ratings: [],
   },
   {
     id: "news",
@@ -150,13 +163,7 @@ export const PORTUGAL_HUB_TILES: HubTileConfig[] = [
     topRightLabel: "Weekly",
     bottomLeft: (s) => (s.lastNewsLabel ? `Обновлено ${s.lastNewsLabel}` : "AIMA · законы"),
     bottomRight: (s) => `${s.digestCount} фактов`,
-    ratings: [
-      { label: "Свежесть", value: 92, tone: "good" },
-      { label: "Источники", value: 94, tone: "good" },
-      { label: "AIMA", value: 88, tone: "good" },
-      { label: "Справочник", value: 85, tone: "good" },
-      { label: "RU-слой", value: 96, tone: "good" },
-    ],
+    ratings: [],
   },
   {
     id: "practice",
@@ -174,13 +181,7 @@ export const PORTUGAL_HUB_TILES: HubTileConfig[] = [
     topRightLabel: "Live",
     bottomLeft: () => "#aima · #nif · #аренда",
     bottomRight: () => "Community",
-    ratings: [
-      { label: "Практика", value: 90, tone: "good" },
-      { label: "Локально", value: 93, tone: "good" },
-      { label: "Свежесть", value: 86, tone: "good" },
-      { label: "Telegram", value: 91, tone: "good" },
-      { label: "Глубина", value: 74, tone: "neutral" },
-    ],
+    ratings: [],
   },
   {
     id: "market",
@@ -198,13 +199,7 @@ export const PORTUGAL_HUB_TILES: HubTileConfig[] = [
     topRightLabel: "Market",
     bottomLeft: () => "мебель · услуги · авто",
     bottomRight: () => "Telegram",
-    ratings: [
-      { label: "Локально", value: 95, tone: "good" },
-      { label: "Услуги", value: 88, tone: "good" },
-      { label: "Цены", value: 82, tone: "good" },
-      { label: "Скорость", value: 90, tone: "good" },
-      { label: "RU-чаты", value: 94, tone: "good" },
-    ],
+    ratings: [],
   },
 ];
 

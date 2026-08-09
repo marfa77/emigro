@@ -1,11 +1,13 @@
 import { Suspense } from "react";
 import Link from "next/link";
-import { ArrowRight, Globe2, Route } from "lucide-react";
+import { Globe2, Route } from "lucide-react";
 import { DestinationCard } from "@/components/destinations/DestinationCard";
 import { CorridorHubTilesGrid, CorridorHubTilesLegend } from "@/components/corridor/hub/CorridorHubTile";
+import { EmigroScoreLinkCard } from "@/components/emigro-score/EmigroScoreLinkCard";
 import { getCorridorHubTileStatsBatch } from "@/lib/corridor/hub-stats";
 import type { NewsTopicConfig } from "@/lib/news/topics";
-import { getHubsByKind, hubKindLabel, type TransitHub } from "@/lib/transit-hubs";
+import { EMIGRO_SCORE_PATH } from "@/lib/emigro-score";
+import { getHubsByKind, type TransitHub } from "@/lib/transit-hubs";
 import { HUB_WIZARD_PATH } from "@/lib/corridor/paths";
 
 type Props = {
@@ -16,26 +18,9 @@ type Props = {
 
 function HubCardsGrid({ hubs }: { hubs: TransitHub[] }) {
   return (
-    <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+    <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {hubs.map((hub) => (
-        <Link
-          key={hub.slug}
-          href={hub.path}
-          className="group rounded-xl border border-white bg-white p-4 shadow-sm transition hover:border-corridor-300 hover:shadow-md"
-        >
-          <span className="text-2xl" aria-hidden>
-            {hub.flag}
-          </span>
-          <h4 className="mt-2 font-semibold text-slate-900">{hub.countryRu}</h4>
-          <p className="mt-1 text-xs font-medium uppercase tracking-wide text-corridor-700">
-            {hub.cardLabel ?? hubKindLabel(hub.kind)}
-          </p>
-          <p className="mt-2 text-sm text-slate-600">{hub.tagline}</p>
-          <span className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-corridor-700 group-hover:underline">
-            Открыть
-            <ArrowRight className="h-3.5 w-3.5" />
-          </span>
-        </Link>
+        <EmigroScoreLinkCard key={hub.slug} hub={hub} />
       ))}
     </div>
   );
@@ -49,10 +34,21 @@ export async function HubDestinationsSection({ fullCorridors, developingCorridor
 
   return (
     <section id="destinations" className="mt-14 scroll-mt-20">
-      <h2 className="text-2xl font-semibold text-slate-900">Направления</h2>
-      <p className="mt-2 max-w-2xl text-slate-600">
-        Клик по плитке — рейтинги коридора · Open — обзор коридора.
-      </p>
+      <div className="flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <h2 className="text-2xl font-semibold text-slate-900">Направления</h2>
+          <p className="mt-2 max-w-2xl text-slate-600">
+            Emigro Score /100 — насколько страна рабочая для релоканта с паспортом РФ (база). Клик — оси · Open —
+            обзор.
+          </p>
+        </div>
+        <Link
+          href={EMIGRO_SCORE_PATH}
+          className="shrink-0 text-sm font-medium text-corridor-700 hover:underline"
+        >
+          Методология Score
+        </Link>
+      </div>
 
       {fullCorridors.length > 0 && (
         <>

@@ -6,6 +6,9 @@ import { ServiceProvidersSection } from "@/components/providers/ServiceProviders
 import { RoleRadarPromo } from "@/components/sponsors/RoleRadarPromo";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { HubHeroVisual } from "@/components/visuals/HubHeroVisual";
+import { EmigroScoreAxes } from "@/components/emigro-score/EmigroScoreAxes";
+import { EmigroScoreFace } from "@/components/emigro-score/EmigroScoreFace";
+import { EMIGRO_SCORE_PATH, getEmigroScore, toEmigroScoreView } from "@/lib/emigro-score";
 import { shouldShowRoleRadarOnHub } from "@/lib/role-radar";
 import { getHubsByKind, hubKindLabel, type TransitHub } from "@/lib/transit-hubs";
 import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
@@ -99,6 +102,8 @@ export function TransitHubLanding({ hub }: Props) {
 
   const otherHubs = getHubsByKind(hub.kind).filter((item) => item.slug !== hub.slug);
   const relatedGuides = isSettle ? SETTLE_DESTINATION_GUIDES : TRANSIT_DESTINATION_GUIDES;
+  const scoreRaw = getEmigroScore(hub.slug);
+  const emigroScore = scoreRaw ? toEmigroScoreView(scoreRaw) : null;
 
   return (
     <>
@@ -127,6 +132,12 @@ export function TransitHubLanding({ hub }: Props) {
             {hub.flag} {heroTitle}
           </h1>
           <p className="mt-4 max-w-2xl text-lg text-corridor-100">{hub.tagline}</p>
+          {emigroScore && (
+            <div className="mt-6 inline-flex items-end gap-4 rounded-2xl border border-white/20 bg-black/25 px-5 py-4 backdrop-blur-sm">
+              <EmigroScoreFace overall100={emigroScore.overall100} tone={emigroScore.tone} size="card" />
+              <p className="max-w-xs pb-1 text-sm leading-snug text-corridor-50/90">{emigroScore.summary}</p>
+            </div>
+          )}
           <div className="mt-8 flex flex-wrap gap-3">
             {hub.guideHref ? (
               <Link
@@ -151,6 +162,25 @@ export function TransitHubLanding({ hub }: Props) {
             </Link>
           </div>
         </HeroShell>
+
+        {emigroScore && (
+          <section className="mt-8 overflow-hidden rounded-2xl border border-slate-800 bg-slate-950 p-6 text-white shadow-sm">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <p className="text-sm font-semibold uppercase tracking-wide text-emerald-300/90">Emigro Score</p>
+              <Link href={EMIGRO_SCORE_PATH} className="text-xs font-medium text-emerald-300/80 hover:underline">
+                Методология
+              </Link>
+            </div>
+            <div className="mt-4 grid gap-6 md:grid-cols-[200px_1fr] md:items-start">
+              <EmigroScoreFace overall100={emigroScore.overall100} tone={emigroScore.tone} size="hero" />
+              <EmigroScoreAxes
+                axes={emigroScore.axes}
+                asOf={emigroScore.asOf}
+                summary={emigroScore.summary}
+              />
+            </div>
+          </section>
+        )}
 
         <section className="mt-8 rounded-2xl border border-corridor-200 bg-white p-6 shadow-sm">
           <p className="text-sm font-semibold uppercase tracking-wide text-corridor-700">Короткий ответ</p>

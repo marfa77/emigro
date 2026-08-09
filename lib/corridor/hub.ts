@@ -17,6 +17,7 @@ import {
 } from "@/lib/spain/hub";
 import { publicSiteUrl } from "@/lib/site-url";
 import { corridorHubLabel } from "@/lib/corridor/hub-label";
+import { getEmigroScore, toEmigroScoreView, type EmigroScoreView } from "@/lib/emigro-score";
 
 export type CorridorHubTab = "hub" | "route" | "news" | "digest" | "practice" | "market";
 export type CorridorHubLayerId = "route" | "news" | "guides" | "practice" | "market";
@@ -33,7 +34,7 @@ export type CorridorHubTileStats = {
 export type HubTileRating = {
   label: string;
   value: number;
-  tone?: "good" | "warn" | "neutral";
+  tone?: "good" | "warn" | "critical" | "neutral";
 };
 
 export type HubTileIcon = "compass" | "newspaper" | "book" | "sticky" | "shopping";
@@ -71,6 +72,10 @@ export type ResolvedHubTile = {
   bottomRight: string;
   ratings: HubTileRating[];
   hubLabel: string;
+  /** Country fitness — when set, front shows hero Emigro Score instead of product vanity bars. */
+  emigroScore?: EmigroScoreView;
+  /** Destination / country card (homepage) vs hub layer tile */
+  faceMode?: "layer" | "country";
 };
 
 export type CorridorHubNavItem = {
@@ -206,13 +211,20 @@ function countryLocativeRu(countryRu: string): string {
   return map[countryRu] ?? countryRu;
 }
 
-const COMING_SOON_RATINGS: HubTileRating[] = [
-  { label: "Покрытие", value: 35, tone: "neutral" },
-  { label: "Источники", value: 40, tone: "neutral" },
-  { label: "Wizard", value: 30, tone: "neutral" },
-  { label: "Сложность", value: 50, tone: "warn" },
-  { label: "Assist", value: 45, tone: "neutral" },
-];
+const COMING_SOON_RATINGS: HubTileRating[] = [];
+
+function scoreForTopic(topic: NewsTopicConfig): EmigroScoreView | undefined {
+  const raw = getEmigroScore(topic.urlSegment);
+  return raw ? toEmigroScoreView(raw) : undefined;
+}
+
+function emigroRatings(view: EmigroScoreView): HubTileRating[] {
+  return view.axes.map((a) => ({
+    label: a.label,
+    value: a.value,
+    tone: a.tone,
+  }));
+}
 
 function newsTileImage(topic: NewsTopicConfig): string {
   if (topic.urlSegment === PORTUGAL_URL_SEGMENT) {
@@ -247,6 +259,7 @@ export function resolveCorridorHubTiles(
   const hubLabel = corridorHubLabel(topic);
   const cardImage = countryCardImage(topic.urlSegment);
   const subtitle = topic.countryEn;
+  const emigroScore = scoreForTopic(topic);
 
   const routeTile: ResolvedHubTile = features.hasWizard
     ? {
@@ -258,20 +271,16 @@ export function resolveCorridorHubTiles(
         glow: "from-emerald-400/30 to-transparent",
         title: "Маршрут",
         subtitle,
-        topLeft: String(stats.routeCount),
-        topLeftHint: "маршрута",
+        topLeft: emigroScore ? String(emigroScore.overall100) : String(stats.routeCount),
+        topLeftHint: emigroScore ? "Emigro Score" : "маршрута",
         topRightIcon: "compass",
         topRightLabel: "Wizard",
         bottomLeft: "RU · BY · UA · KZ",
         bottomRight: "Бесплатно",
-        ratings: [
-          { label: "Покрытие", value: 88, tone: "good" },
-          { label: "Источники", value: 95, tone: "good" },
-          { label: "Wizard", value: 90, tone: "good" },
-          { label: "Сложность", value: 62, tone: "warn" },
-          { label: "Assist", value: 78, tone: "good" },
-        ],
+        ratings: emigroScore ? emigroRatings(emigroScore) : COMING_SOON_RATINGS,
         hubLabel,
+        emigroScore,
+        faceMode: "layer",
       }
     : {
         id: "route",
@@ -283,14 +292,16 @@ export function resolveCorridorHubTiles(
         glow: "from-slate-400/20 to-transparent",
         title: "Маршрут",
         subtitle,
-        topLeft: "Скоро",
-        topLeftHint: "wizard",
+        topLeft: emigroScore ? String(emigroScore.overall100) : "Скоро",
+        topLeftHint: emigroScore ? "Emigro Score" : "wizard",
         topRightIcon: "compass",
         topRightLabel: "Wizard",
         bottomLeft: "RU · BY · UA · KZ",
         bottomRight: "Coming soon",
-        ratings: COMING_SOON_RATINGS,
+        ratings: emigroScore ? emigroRatings(emigroScore) : COMING_SOON_RATINGS,
         hubLabel,
+        emigroScore,
+        faceMode: "layer",
       };
 
   const newsTile: ResolvedHubTile = features.hasNews
@@ -309,13 +320,7 @@ export function resolveCorridorHubTiles(
         topRightLabel: "Weekly",
         bottomLeft: stats.lastNewsLabel ? `Обновлено ${stats.lastNewsLabel}` : topic.focusHintRu,
         bottomRight: stats.lastNewsLabel ? stats.lastNewsLabel : "еженедельно",
-        ratings: [
-          { label: "Свежесть", value: 92, tone: "good" },
-          { label: "Источники", value: 94, tone: "good" },
-          { label: "Законы", value: 88, tone: "good" },
-          { label: "AIMA", value: topic.urlSegment === PORTUGAL_URL_SEGMENT ? 90 : 75, tone: "good" },
-          { label: "RU-слой", value: 96, tone: "good" },
-        ],
+        ratings: [],
         hubLabel,
       }
     : {
@@ -333,7 +338,7 @@ export function resolveCorridorHubTiles(
         topRightLabel: "Weekly",
         bottomLeft: topic.focusHintRu,
         bottomRight: "Coming soon",
-        ratings: COMING_SOON_RATINGS,
+        ratings: [],
         hubLabel,
       };
 
@@ -357,13 +362,7 @@ export function resolveCorridorHubTiles(
               ? `справочник · ${stats.digestCount} фактов`
               : "D8 · D7 · документы · бюджет",
           bottomRight: "Читать",
-          ratings: [
-            { label: "Глубина", value: stats.guideCount >= 10 ? 92 : 78, tone: "good" },
-            { label: "Источники", value: 94, tone: "good" },
-            { label: "Справочник", value: stats.digestCount ? 88 : 55, tone: stats.digestCount ? "good" : "neutral" },
-            { label: "Wizard", value: features.hasWizard ? 90 : 40, tone: features.hasWizard ? "good" : "neutral" },
-            { label: "RU-слой", value: 96, tone: "good" },
-          ],
+          ratings: [],
           hubLabel,
         }
       : {
@@ -382,7 +381,7 @@ export function resolveCorridorHubTiles(
           topRightLabel: "Pillar",
           bottomLeft: "разборы маршрутов",
           bottomRight: "Coming soon",
-          ratings: COMING_SOON_RATINGS,
+          ratings: [],
           hubLabel,
         };
 
@@ -405,13 +404,7 @@ export function resolveCorridorHubTiles(
         topRightLabel: "Live",
         bottomLeft: features.isSpain ? "#nie · #tie · #аренда" : "#aima · #nif · #аренда",
         bottomRight: "Community",
-        ratings: [
-          { label: "Практика", value: 90, tone: "good" },
-          { label: "Локально", value: 93, tone: "good" },
-          { label: "Свежесть", value: 86, tone: "good" },
-          { label: "Telegram", value: 91, tone: "good" },
-          { label: "Глубина", value: 74, tone: "neutral" },
-        ],
+        ratings: [],
         hubLabel,
       }
     : {
@@ -430,7 +423,7 @@ export function resolveCorridorHubTiles(
         topRightLabel: "Live",
         bottomLeft: "NIF · аренда · быт",
         bottomRight: "Coming soon",
-        ratings: COMING_SOON_RATINGS,
+        ratings: [],
         hubLabel,
       };
 
@@ -450,13 +443,7 @@ export function resolveCorridorHubTiles(
     topRightLabel: "Market",
     bottomLeft: "мебель · услуги · авто",
     bottomRight: "Telegram",
-    ratings: [
-      { label: "Локально", value: 95, tone: "good" },
-      { label: "Услуги", value: 88, tone: "good" },
-      { label: "Цены", value: 82, tone: "good" },
-      { label: "Скорость", value: 90, tone: "good" },
-      { label: "RU-чаты", value: 94, tone: "good" },
-    ],
+    ratings: [],
     hubLabel,
   };
 
@@ -482,19 +469,30 @@ export function resolveCorridorCountryTile(
     features.hasMarket,
   ].filter(Boolean).length;
 
+  const emigroScore = scoreForTopic(topic);
+
   return {
     ...routeTile,
     href: paths.landing,
     comingSoon: undefined,
     title: topic.countryRu,
     subtitle: topic.countryEn,
-    topLeft: features.hasWizard ? String(stats.routeCount) : stats.newsCount ? String(stats.newsCount) : "—",
-    topLeftHint: features.hasWizard ? "маршрута" : "новостей",
+    topLeft: emigroScore
+      ? String(emigroScore.overall100)
+      : features.hasWizard
+        ? String(stats.routeCount)
+        : stats.newsCount
+          ? String(stats.newsCount)
+          : "—",
+    topLeftHint: emigroScore ? "Emigro Score" : features.hasWizard ? "маршрута" : "новостей",
     topRightLabel: features.hasWizard ? "Hub" : "Коридор",
-    bottomLeft: topic.focusHintRu,
+    bottomLeft: emigroScore?.summary ?? topic.focusHintRu,
     bottomRight: `${layerCount} слоя`,
     image: cardImage,
     imagePosition: "50% 35%",
     hubLabel,
+    emigroScore,
+    faceMode: "country",
+    ratings: emigroScore ? emigroRatings(emigroScore) : routeTile.ratings,
   };
 }
