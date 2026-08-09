@@ -52,6 +52,7 @@ const HOUSE_STYLE = `
 2) body — 2–4 плотных абзаца: цифры, пороги, порядок шагов, ловушки.
    Только факты из входа (title / excerpt / quick_answer). На «вы».
    Каждый абзац — польза: число, правило или порядок действий. Без воды.
+   В посте между headline, абзацами и ссылкой — пустые строки (не стена текста).
 
 3) Без CTA-крика и без «читайте гайд / наш визард». Ссылка ставится кодом в конце.
 
@@ -122,13 +123,13 @@ ${HOUSE_STYLE}
   }
 
   const href = guidePublicUrl(guide.slug).replace(/"/g, "&quot;");
-  const html = [
+  // Blank line between every block (headline / paras / link) — not a wall of text.
+  const blocks = [
     `<b>${escapeTelegramHtml(headline.slice(0, 180))}</b>`,
-    "",
     ...paragraphs.map((p) => escapeTelegramHtml(p.slice(0, 500))),
-    "",
     `<a href="${href}">${escapeTelegramHtml(guide.title.slice(0, 90))}</a>`,
-  ].join("\n");
+  ];
+  const html = blocks.join("\n\n");
 
   return {
     html: html.slice(0, 3500),
