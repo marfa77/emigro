@@ -41,32 +41,40 @@ async function main() {
   const slugs = await fetchChannelGuideSlugs();
   console.log(`Found ${slugs.length} guide links on ${CHANNEL_PREVIEW}`);
 
-  const now = new Date().toISOString();
+  // Backdate so archive seeds never trip the daily published-cap.
+  const archiveAt = "2026-01-01T00:00:00.000Z";
   let inserted = 0;
   let updated = 0;
 
   for (const slug of slugs) {
     const { data: existing } = await supabase
       .from("guide_telegram_drafts")
-      .select("id, status")
+      .select("id, status, factcheck_notes")
       .eq("slug", slug)
       .maybeSingle();
 
-    if (existing?.status === "published") continue;
+    if (existing?.status === "published" && String(existing.factcheck_notes || "").includes("seeded")) {
+      continue;
+    }
+    if (existing?.status === "published" && !String(existing.factcheck_notes || "").includes("seeded")) {
+      // Real publish already — leave alone.
+      continue;
+    }
 
     if (existing) {
       const { error } = await supabase
         .from("guide_telegram_drafts")
         .update({
           status: "published",
+          html: "(seeded: already in @Emigro_news)",
           factcheck_notes: "seeded from @Emigro_news — no repeat promo",
-          resolved_at: now,
-          updated_at: now,
+          resolved_at: archiveAt,
+          updated_at: archiveAt,
         })
         .eq("id", existing.id);
       if (error) throw error;
       updated += 1;
-      console.log("→ published", slug);
+      console.log("→ published (archive)", slug);
       continue;
     }
 
@@ -76,11 +84,11 @@ async function main() {
       html: "(seeded: already in @Emigro_news)",
       status: "published",
       factcheck_notes: "seeded from @Emigro_news — no repeat promo",
-      resolved_at: now,
+      resolved_at: archiveAt,
     });
     if (error) throw error;
     inserted += 1;
-    console.log("+ published", slug);
+    console.log("+ published (archive)", slug);
   }
 
   console.log(JSON.stringify({ inserted, updated, scanned: slugs.length }, null, 2));

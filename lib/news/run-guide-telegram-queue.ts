@@ -71,12 +71,20 @@ async function hasPendingDraft(supabase: SupabaseClient): Promise<boolean> {
 
 async function countPublishedToday(supabase: SupabaseClient): Promise<number> {
   const since = `${new Date().toISOString().slice(0, 10)}T00:00:00.000Z`;
-  const { count } = await supabase
+  // Ignore archive seeds ("seeded from @Emigro_news") — only real channel publishes.
+  const { data } = await supabase
     .from("guide_telegram_drafts")
-    .select("*", { count: "exact", head: true })
+    .select("id, factcheck_notes, html")
     .eq("status", "published")
-    .gte("resolved_at", since);
-  return count ?? 0;
+    .gte("resolved_at", since)
+    .limit(20);
+  return (data ?? []).filter((row) => {
+    const notes = String(row.factcheck_notes || "");
+    const html = String(row.html || "");
+    if (notes.includes("seeded")) return false;
+    if (html.startsWith("(seeded")) return false;
+    return true;
+  }).length;
 }
 
 export type GuideTelegramQueueResult = {
