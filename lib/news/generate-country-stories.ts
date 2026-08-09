@@ -565,7 +565,7 @@ ${storyEditorialVoiceForTopic(topic.key)}
 /** Second pass: kill press-wire tone if Flash slipped into it. */
 async function rewriteStoryVoice(topic: NewsTopicConfig, draft: StoryDraft): Promise<StoryDraft> {
   const pressy =
-    /выражает опасения|подчеркивает|это заявление|в соответствии с|важно отметить|на данный момент|отражает стремление|стало известно|серьезные опасения/i.test(
+    /выражает опасения|подчеркивает|это заявление|в соответствии с|важно отметить|на данный момент|отражает стремление|стало известно|серьезные опасения|Представьте:|сильно напугала|усердно строил|казалось бы|будущее .+ под вопросом|Давайте разбер|избежать подобных сюрпризов|именно с такой ситуацией/i.test(
       [draft.title, draft.excerpt, ...draft.paragraphs, ...draft.key_takeaways].join("\n")
     );
   if (!pressy) return draft;
