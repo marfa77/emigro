@@ -153,7 +153,9 @@ export async function runGuideTelegramQueue(options?: {
 
     const draft = await writeGuideTelegramPost(guide);
     if (dryRun) {
-      console.log(`[guide-tg] dry-run draft ${guide.slug} format=${draft.format}\n${draft.html}`);
+      console.log(
+        `[guide-tg] dry-run draft ${guide.slug} format=${draft.format} model=${draft.model}\n${draft.html}`
+      );
       awaitingApproval.push(guide.slug);
       break;
     }
@@ -181,7 +183,7 @@ export async function runGuideTelegramQueue(options?: {
     const preface = [
       `📘 <b>Согласование гайда</b>`,
       `<code>${escapeTelegramHtml(guide.slug)}</code>`,
-      `<i>format:</i> ${escapeTelegramHtml(draft.format)}`,
+      `<i>format:</i> ${escapeTelegramHtml(draft.format)} · <i>model:</i> ${escapeTelegramHtml(draft.model)}`,
       "",
       "— черновик —",
       "",

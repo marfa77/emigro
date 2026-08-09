@@ -2,11 +2,20 @@
  * Soft channel posts from SEO pillar guides (content/guides/ru).
  * House style must match dozens of existing @Emigro_news guide posts:
  * sharp title-thesis → dense facts/numbers → link. No first-person memoir.
+ *
+ * Writer: OpenRouter (Claude Sonnet by default) — not Gemini Flash.
  */
+import { openrouterJson } from "@/lib/llm/openrouter";
 import { listGuides, type GuideFrontmatter } from "@/lib/guides/load";
 import { guidePath } from "@/lib/guides/paths";
 import { escapeTelegramHtml } from "@/lib/news/story-lightning";
 import { publicSiteUrl } from "@/lib/site-url";
+
+export const DEFAULT_GUIDE_PROMO_MODEL = "anthropic/claude-sonnet-4.5";
+
+export function guidePromoModel(): string {
+  return (process.env.EMIGRO_GUIDE_PROMO_MODEL || DEFAULT_GUIDE_PROMO_MODEL).trim();
+}
 
 export function guidePublicUrl(slug: string): string {
   const u = new URL(guidePath(slug), publicSiteUrl());
@@ -55,13 +64,23 @@ const HOUSE_STYLE = `
 - АКЦИЯ, гарантируем ВНЖ, капс
 `.trim();
 
+type GuidePromoLlm = {
+  headline: string;
+  paragraphs: string[];
+  format_used: string;
+};
+
 export async function writeGuideTelegramPost(guide: GuideFrontmatter): Promise<{
   html: string;
   format: string;
+  model: string;
 }> {
-  const { geminiFastJson } = await import("@/lib/news/gemini");
+  if (!(process.env.OPENROUTER_API_KEY || "").trim()) {
+    throw new Error("OPENROUTER_API_KEY required for guide Telegram posts");
+  }
 
   const format = "kanal_gajd";
+  const model = guidePromoModel();
 
   const system = `Ты редактор канала @Emigro_news. Пишешь пост по SEO-гайду Emigro строго в house style канала.
 
@@ -77,28 +96,23 @@ ${HOUSE_STYLE}
     seo_description: guide.seo_description || "",
   });
 
-  const schema = {
-    type: "OBJECT",
-    properties: {
-      headline: { type: "STRING" },
-      paragraphs: { type: "ARRAY", items: { type: "STRING" } },
-      format_used: { type: "STRING" },
-    },
-    required: ["headline", "paragraphs", "format_used"],
-  };
+  const { data: result, model: used } = await openrouterJson<GuidePromoLlm>(
+    model,
+    system,
+    user,
+    4096,
+    { temperature: 0.35 }
+  );
 
-  const result = await geminiFastJson<{
-    headline: string;
-    paragraphs: string[];
-    format_used: string;
-  }>(system, user, schema, 4096, { thinkingBudget: 0 });
-
-  const headline = String(result.headline || "").trim();
-  const paragraphs = (result.paragraphs ?? []).map((p) => String(p).trim()).filter(Boolean).slice(0, 4);
+  const stripMd = (s: string) => s.replace(/\*\*/g, "").replace(/__/g, "").trim();
+  const headline = stripMd(String(result.headline || ""));
+  const paragraphs = (result.paragraphs ?? [])
+    .map((p) => stripMd(String(p || "")))
+    .filter(Boolean)
+    .slice(0, 4);
 
   if (!headline || paragraphs.length === 0) throw new Error("guide promo draft incomplete");
 
-  // Reject first-person memoir slips before DM
   const joined = [headline, ...paragraphs].join("\n");
   if (/\b(я|мне|меня|мной|помню|сидел|сидела|потягивал|кафе в)\b/i.test(joined)) {
     throw new Error("guide promo rejected: first-person / memoir tone");
@@ -116,5 +130,9 @@ ${HOUSE_STYLE}
     `<a href="${href}">${escapeTelegramHtml(guide.title.slice(0, 90))}</a>`,
   ].join("\n");
 
-  return { html: html.slice(0, 3500), format: String(result.format_used || format) };
+  return {
+    html: html.slice(0, 3500),
+    format: String(result.format_used || format),
+    model: used || model,
+  };
 }

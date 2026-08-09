@@ -67,6 +67,7 @@ bash deploy/news-soft-promo/deploy.sh
 
 SEO pillars only (`content/guides/ru/*`) → fact-check → owner DM ✅/❌ → `@Emigro_news` (no auto-publish).
 Post copy = channel house style (title-thesis + dense facts), not creative first-person scenes.
+Writer: OpenRouter `EMIGRO_GUIDE_PROMO_MODEL` (default `anthropic/claude-sonnet-4.5`), not Gemini Flash.
 
 - Table: `guide_telegram_drafts` (Approach A; callbacks `gd:ok:<uuid>` / `gd:no:<uuid>`)
 - Critical fact-check → DM alert + try next guide (≤5 tries/run)
