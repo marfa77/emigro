@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { COUNTRY_ACCENTS } from "../lib/brand/country-accents";
 import {
   EMIGRO_SCORE_REGISTRY,
   emigroScoreOverall100,
@@ -9,27 +10,8 @@ import {
 } from "../lib/emigro-score";
 import { TRANSIT_HUBS } from "../lib/transit-hubs";
 
-const CORRIDOR_SEGMENTS = [
-  "portugal",
-  "spain",
-  "france",
-  "italy",
-  "germany",
-  "netherlands",
-  "sweden",
-  "norway",
-  "finland",
-  "denmark",
-  "austria",
-  "greece",
-  "cyprus",
-  "hungary",
-  "malta",
-  "bulgaria",
-  "croatia",
-  "slovenia",
-  "estonia",
-];
+/** Aggregate / non-country keys in accents that do not need a Score. */
+const ACCENT_SCORE_SKIP = new Set(["scandinavia"]);
 
 for (const id of listEmigroScoreCountryIds()) {
   const score = EMIGRO_SCORE_REGISTRY[id];
@@ -42,8 +24,9 @@ for (const id of listEmigroScoreCountryIds()) {
   assert.equal(view.axes.length, 5);
 }
 
-for (const segment of CORRIDOR_SEGMENTS) {
-  assert.ok(getEmigroScore(segment), `missing corridor score: ${segment}`);
+for (const segment of Object.keys(COUNTRY_ACCENTS)) {
+  if (ACCENT_SCORE_SKIP.has(segment)) continue;
+  assert.ok(getEmigroScore(segment), `missing score for country accent: ${segment}`);
 }
 
 for (const hub of TRANSIT_HUBS) {
@@ -52,4 +35,4 @@ for (const hub of TRANSIT_HUBS) {
 
 assert.equal(getEmigroScore("nope"), null);
 
-console.log(`ok: ${listEmigroScoreCountryIds().length} Emigro Scores validated`);
+console.log(`ok: ${listEmigroScoreCountryIds().length} Emigro Scores validated (full accent coverage)`);

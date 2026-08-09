@@ -477,14 +477,8 @@ export function resolveCorridorCountryTile(
     comingSoon: undefined,
     title: topic.countryRu,
     subtitle: topic.countryEn,
-    topLeft: emigroScore
-      ? String(emigroScore.overall100)
-      : features.hasWizard
-        ? String(stats.routeCount)
-        : stats.newsCount
-          ? String(stats.newsCount)
-          : "—",
-    topLeftHint: emigroScore ? "Emigro Score" : features.hasWizard ? "маршрута" : "новостей",
+    topLeft: emigroScore ? String(emigroScore.overall100) : "—",
+    topLeftHint: "Emigro Score",
     topRightLabel: features.hasWizard ? "Hub" : "Коридор",
     bottomLeft: emigroScore?.summary ?? topic.focusHintRu,
     bottomRight: `${layerCount} слоя`,
@@ -493,6 +487,6 @@ export function resolveCorridorCountryTile(
     hubLabel,
     emigroScore,
     faceMode: "country",
-    ratings: emigroScore ? emigroRatings(emigroScore) : routeTile.ratings,
+    ratings: emigroScore ? emigroRatings(emigroScore) : [],
   };
 }

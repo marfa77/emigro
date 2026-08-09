@@ -5,12 +5,15 @@ import type { NewsTopicConfig } from "@/lib/news/topics";
 import { newsIndexPath } from "@/lib/news/topics";
 import { corridorStatusBadgeClass, corridorStatusLabelRu } from "@/lib/corridor/publish";
 import { countryAccentBarClass, countryCardImage } from "@/lib/brand/country-accents";
+import { getEmigroScore, toEmigroScoreView } from "@/lib/emigro-score";
 
 /** Static card for news-only directions without a corridor landing. */
 export function DestinationCardPlain({ topic }: { topic: NewsTopicConfig }) {
   const badgeText = corridorStatusLabelRu(topic.status);
   const badgeClass = corridorStatusBadgeClass(topic.status);
   const newsHref = newsIndexPath(topic.urlSegment);
+  const scoreRaw = getEmigroScore(topic.urlSegment);
+  const score = scoreRaw ? toEmigroScoreView(scoreRaw) : null;
 
   return (
     <article className="flex h-full flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition hover:border-corridor-400 hover:shadow-md">
@@ -26,6 +29,16 @@ export function DestinationCardPlain({ topic }: { topic: NewsTopicConfig }) {
           className={`absolute inset-x-0 bottom-0 h-1.5 bg-gradient-to-r ${countryAccentBarClass(topic.urlSegment)}`}
           aria-hidden
         />
+        {score ? (
+          <div className="absolute right-3 top-3 rounded-full bg-slate-950/75 px-2.5 py-1 text-sm font-bold tabular-nums text-white backdrop-blur-sm">
+            {score.overall100}
+            <span className="ml-1 text-[10px] font-semibold uppercase tracking-wider text-white/60">/100</span>
+          </div>
+        ) : (
+          <div className="absolute right-3 top-3 rounded-full bg-slate-950/60 px-2.5 py-1 text-[10px] font-medium uppercase tracking-wide text-white/70 backdrop-blur-sm">
+            Score скоро
+          </div>
+        )}
       </div>
       <div className="flex flex-1 flex-col p-5">
         <div className="flex items-start justify-between gap-3">
@@ -40,7 +53,7 @@ export function DestinationCardPlain({ topic }: { topic: NewsTopicConfig }) {
           </span>
         </div>
 
-        <p className="mt-3 flex-1 text-sm text-slate-600">{topic.audienceRu}</p>
+        <p className="mt-3 flex-1 text-sm text-slate-600">{score?.summary ?? topic.audienceRu}</p>
         <p className="mt-2 text-xs text-slate-500">{topic.focusHintRu}</p>
 
         <div className="mt-5 flex flex-wrap gap-2">

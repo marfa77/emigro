@@ -136,7 +136,7 @@ export function CorridorHubTile({ tile }: Props) {
   const [flipped, setFlipped] = useState(false);
   const TopIcon = TOP_ICONS[tile.topRightIcon];
   const score = tile.emigroScore;
-  const isCountryFace = tile.faceMode === "country" && score;
+  const isCountryFace = tile.faceMode === "country";
   const canFlip = Boolean(score) || tile.ratings.length > 0;
   const frontFaceClass = flipped
     ? `${TILE_SHELL} pointer-events-none scale-[0.98] opacity-0`
@@ -186,7 +186,16 @@ export function CorridorHubTile({ tile }: Props) {
               </div>
 
               <div className="flex flex-1 flex-col justify-center py-2">
-                <EmigroScoreFace overall100={score.overall100} tone={score.tone} size="card" />
+                {score ? (
+                  <EmigroScoreFace overall100={score.overall100} tone={score.tone} size="card" />
+                ) : (
+                  <div className="relative">
+                    <p className="text-4xl font-bold tabular-nums tracking-tight text-white/35 sm:text-5xl">—</p>
+                    <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/45">
+                      Оценка формируется
+                    </p>
+                  </div>
+                )}
               </div>
 
               <div className="flex items-end justify-between gap-2">
