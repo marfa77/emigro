@@ -66,6 +66,7 @@ bash deploy/news-soft-promo/deploy.sh
 ## 4) Guide promo (daily) — `news:guide-promo`
 
 SEO pillars only (`content/guides/ru/*`) → fact-check → owner DM ✅/❌ → `@Emigro_news` (no auto-publish).
+Post copy = channel house style (title-thesis + dense facts), not creative first-person scenes.
 
 - Table: `guide_telegram_drafts` (Approach A; callbacks `gd:ok:<uuid>` / `gd:no:<uuid>`)
 - Critical fact-check → DM alert + try next guide (≤5 tries/run)

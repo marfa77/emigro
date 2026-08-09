@@ -11,7 +11,7 @@
 | Approval | Approach A — Supabase `guide_telegram_drafts` + inline ✅/❌ |
 | Fact-check | Critical gate before DM; on critical → owner DM alert + try next guide |
 | Cadence | ≤1 **published** channel post / day; ≤1 **pending** approval at a time |
-| Format | Soft editorial (spotlight-like): hook + 2–3 takeaways + link to `/ru/guides/{slug}` |
+| Format | House style @Emigro_news: sharp title-thesis + dense fact paragraphs + link (no first-person memoir) |
 | Bot | Same Emigro news bot + `/api/telegram/news-webhook` |
 
 ## Flow
