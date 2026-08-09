@@ -44,6 +44,10 @@ const SLUG_PEXELS_PHOTO_IDS: Record<string, number> = {
   "vina-vinodelni-norte-douro-vinho-verde-2026": 11033039,
   // Grilled seafood / Porto food stall energy — gastronomy guide
   "gastronomiya-norte-porto-braga-restorany-2026": 24916887,
+  // Bom Jesus do Monte sunny — Braga districts guide
+  "braga-rajony-arenda-parki-sport-2026": 32763714,
+  // Ribeira waterfront sunny — Porto districts / schools guide
+  "porto-rajony-arenda-shkoly-parki-sport-2026": 28882396,
 };
 
 /** Topic → landscape Pexels queries (Norte / Porto bias where relevant). */
@@ -343,6 +347,16 @@ const SLUG_PHOTO_QUERIES: Record<string, string[]> = {
     "porto portugal grilled fish seafood sunny",
     "portuguese francesinha food restaurant",
     "matosinhos seafood grill porto",
+  ],
+  "braga-rajony-arenda-parki-sport-2026": [
+    "braga portugal bom jesus sunny",
+    "braga portugal city square sunny",
+    "braga portugal sanctuary hill view",
+  ],
+  "porto-rajony-arenda-shkoly-parki-sport-2026": [
+    "porto portugal ribeira sunny colorful",
+    "porto portugal douro riverfront sunny",
+    "porto portugal foz ocean promenade",
   ],
   "maternity-care-law-change-portugal-2026": [
     "maternity hospital europe",
