@@ -4,6 +4,8 @@
 
 Daily VPS job → short RU story tiles (`format=story`) **only** for corridors with a publisher RSS (no Google News). **Does not post to Telegram.**
 
+Pipeline: Gemini Flash (dry facts) → OpenRouter voice (`EMIGRO_STORY_VOICE_MODEL`, default `anthropic/claude-haiku-4.5`). Needs `OPENROUTER_API_KEY` in `/opt/emigro/.env` (falls back to Flash voice if missing).
+
 | Topic | Source |
 |-------|--------|
 | portugal | Observador |

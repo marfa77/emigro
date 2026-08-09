@@ -61,9 +61,11 @@ export async function openrouterJson<T>(
   model: string,
   system: string,
   user: string,
-  maxTokens = 8192
+  maxTokens = 8192,
+  options?: { temperature?: number }
 ): Promise<OpenRouterResult<T>> {
   const key = apiKey();
+  const temperature = options?.temperature ?? 0.2;
   let lastError: Error | undefined;
 
   for (let attempt = 0; attempt < 3; attempt += 1) {
@@ -82,7 +84,7 @@ export async function openrouterJson<T>(
             { role: "system", content: system },
             { role: "user", content: user },
           ],
-          temperature: 0.2,
+          temperature,
           max_tokens: maxTokens,
           response_format: { type: "json_object" },
         }),

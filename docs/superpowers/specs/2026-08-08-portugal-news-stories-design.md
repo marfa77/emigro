@@ -44,7 +44,7 @@ RSS (Observador — v1 single source)
   → dedupe + score
   → cap (≤3/day, ≤15/week)
   → fetch lead paragraph (passed only)
-  → geminiFastJson batch → story fields
+  → geminiFastJson batch (facts) → OpenRouter voice (Haiku) → story fields
   → insert emigro_news_digests (format=story, status=published)
   → revalidate + optional Telegram
 ```

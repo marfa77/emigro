@@ -1,6 +1,6 @@
 /**
  * Multi-country single-story tiles (cheap).
- * RSS → score → lead fetch → Gemini Flash batch → emigro_news_digests(format=story).
+ * RSS → score → lead fetch → Gemini Flash (facts) → OpenRouter voice → emigro_news_digests(format=story).
  *
  * Direct publisher RSS only (no Google News).
  */
@@ -9,7 +9,7 @@ import { fetchArticleLead } from "@/lib/news/fetch-lead";
 import { geminiFastJson } from "@/lib/news/gemini";
 import { revalidateNewsPages } from "@/lib/news/revalidate-cache";
 import { computeNewsScore, normalizeLink } from "@/lib/news/scoring";
-import { storyEditorialVoiceForTopic } from "@/lib/news/story-editorial-voice";
+import { rewriteStoryVoiceFields } from "@/lib/news/story-voice-rewrite";
 import { mapNewsTopicRow, type NewsTopicRow } from "@/lib/news/topics/queries";
 import { buildNewsStorySlug } from "@/lib/news/topics/paths";
 import type { NewsTopicConfig } from "@/lib/news/topics/types";
@@ -469,23 +469,23 @@ async function summarizeBatch(
     lead: c.lead,
   }));
 
-  const system = `Ты редактор Emigro — пишешь короткие RU-плитки новостей для релокантов (${topic.countryRu} / ${topic.countryEn}).
+  const system = `Ты факт-экстрактор Emigro для коротких RU-плиток новостей (${topic.countryRu} / ${topic.countryEn}).
 Источник: ${sourceLabel}.
 
-${storyEditorialVoiceForTopic(topic.key)}
+Пиши СУХО и нейтрально — тон/голос наложит второй проход. Не пытайся звучать «как блогер» и не копируй пресс-релиз.
 
 Правила содержания:
 - Только факты из title/snippet/lead. Не выдумывай цифры, даты и пороги.
 - Только immigration / visa / ВНЖ / гражданство / жильё для переезжающих / налоги релоканта / work permit / expat admin. Спорт, знаменитости, кибер-утечки, лесные пожары, транспортный fluff, политика без правил для релоканта — НЕ включай в stories[].
-- title ≤80: живой, конкретный, не клон заголовка агентства.
-- excerpt: 1–2 предложения — хук + один факт.
-- paragraphs: 2–4 абзаца, ~800–1200 символов суммарно.
+- title ≤80: конкретный, с сутью события (кто/что/когда), не кликбейт.
+- excerpt: 1–2 предложения — что случилось + один проверяемый факт.
+- paragraphs: 2–4 абзаца, ~800–1200 символов суммарно: факт → что меняется → кого заденет.
 - key_takeaways: 2–3 полных предложения «для кого важно».
 - tags: 2–5 коротких RU-тегов; seo_title ≤70; seo_description ≤155.
 - source_url — ТОЧНО как во входе; candidate_idx = idx входа.
 - Без @username, без «гарантированный ВНЖ», без hard-sell.`;
 
-  const user = `Напиши плитки голосом «релокант за кофе» только по relocator-релевантным пунктам для ${topic.countryRu}. Остальное пропусти.\n\n${JSON.stringify(payload)}`;
+  const user = `Собери сухие фактические плитки только по relocator-релевантным пунктам для ${topic.countryRu}. Остальное пропусти.\n\n${JSON.stringify(payload)}`;
 
   const schema = {
     type: "OBJECT",
@@ -562,57 +562,14 @@ ${storyEditorialVoiceForTopic(topic.key)}
   return out;
 }
 
-/** Second pass: kill press-wire tone if Flash slipped into it. */
+/** Second pass: OpenRouter Haiku (or Gemini fallback) → relocant voice. */
 async function rewriteStoryVoice(topic: NewsTopicConfig, draft: StoryDraft): Promise<StoryDraft> {
-  const pressy =
-    /выражает опасения|подчеркивает|это заявление|в соответствии с|важно отметить|на данный момент|отражает стремление|стало известно|серьезные опасения|Представьте:|сильно напугала|усердно строил|казалось бы|будущее .+ под вопросом|Давайте разбер|избежать подобных сюрпризов|именно с такой ситуацией/i.test(
-      [draft.title, draft.excerpt, ...draft.paragraphs, ...draft.key_takeaways].join("\n")
-    );
-  if (!pressy) return draft;
-
-  const system = `Перепиши новостную плитку Emigro голосом ниже. Сохрани ВСЕ факты, имена, цифры, даты. Не добавляй нового.
-${storyEditorialVoiceForTopic(topic.key)}
-Верни тот же JSON-набор полей.`;
-
-  const schema = {
-    type: "OBJECT",
-    properties: {
-      title: { type: "STRING" },
-      excerpt: { type: "STRING" },
-      seo_title: { type: "STRING" },
-      seo_description: { type: "STRING" },
-      paragraphs: { type: "ARRAY", items: { type: "STRING" } },
-      key_takeaways: { type: "ARRAY", items: { type: "STRING" } },
-      tags: { type: "ARRAY", items: { type: "STRING" } },
-    },
-    required: ["title", "excerpt", "seo_title", "seo_description", "paragraphs", "key_takeaways", "tags"],
-  };
-
-  try {
-    const rewritten = await geminiFastJson<Omit<StoryDraft, "source_url">>(
-      system,
-      JSON.stringify(draft),
-      schema,
-      3072,
-      { thinkingBudget: 0 }
-    );
-    if (!rewritten.title?.trim() || !rewritten.excerpt?.trim() || !rewritten.paragraphs?.length) {
-      return draft;
-    }
-    return {
-      source_url: draft.source_url,
-      title: rewritten.title.trim().slice(0, 120),
-      excerpt: rewritten.excerpt.trim().slice(0, 320),
-      seo_title: (rewritten.seo_title || rewritten.title).trim().slice(0, 70),
-      seo_description: (rewritten.seo_description || rewritten.excerpt).trim().slice(0, 155),
-      paragraphs: rewritten.paragraphs.map((p) => p.trim()).filter(Boolean).slice(0, 4),
-      key_takeaways: (rewritten.key_takeaways ?? []).map((t) => t.trim()).filter(Boolean).slice(0, 3),
-      tags: (rewritten.tags ?? draft.tags).map((t) => t.trim()).filter(Boolean).slice(0, 5),
-    };
-  } catch (e) {
-    console.warn(`[stories:${topic.key}] voice rewrite failed:`, e instanceof Error ? e.message : e);
-    return draft;
-  }
+  const { fields, provider, model } = await rewriteStoryVoiceFields(topic.key, draft, {
+    countryRu: topic.countryRu,
+    logPrefix: `[stories:${topic.key}]`,
+  });
+  console.log(`[stories:${topic.key}] voice via ${provider}${model ? ` (${model})` : ""}`);
+  return { source_url: draft.source_url, ...fields };
 }
 
 function storyDateYmd(pubDate: string): string {

@@ -1,14 +1,14 @@
 #!/usr/bin/env npx tsx
 /**
- * One-off: rewrite published story tiles that slipped into press-wire tone.
+ * One-off: rewrite published story tiles into Emigro relocant voice
+ * (OpenRouter Haiku by default; Gemini if OPENROUTER_API_KEY missing).
  *
  *   npx tsx scripts/rewrite-story-voice.ts sweden-story-2026-08-06-1scadi portugal-story-2026-08-08-1dwd14
  */
 import { config } from "dotenv";
 import { resolve } from "path";
 import { createClient } from "@supabase/supabase-js";
-import { storyEditorialVoiceForTopic } from "../lib/news/story-editorial-voice";
-import { geminiFastJson } from "../lib/news/gemini";
+import { rewriteStoryVoiceFields } from "../lib/news/story-voice-rewrite";
 import { mapNewsTopicRow, type NewsTopicRow } from "../lib/news/topics/queries";
 
 config({ path: resolve(process.cwd(), ".env.local") });
@@ -57,46 +57,28 @@ async function main() {
       tags: (row.tags as string[]) ?? [],
     };
 
-    const system = `Перепиши новостную плитку Emigro. Сохрани ВСЕ факты, имена, цифры, даты. Не добавляй нового.
-Коридор: ${topic?.countryRu || topicKey}.
-${storyEditorialVoiceForTopic(topicKey)}
-Верни JSON с полями title, excerpt, seo_title, seo_description, paragraphs, key_takeaways, tags.`;
-
-    const schema = {
-      type: "OBJECT",
-      properties: {
-        title: { type: "STRING" },
-        excerpt: { type: "STRING" },
-        seo_title: { type: "STRING" },
-        seo_description: { type: "STRING" },
-        paragraphs: { type: "ARRAY", items: { type: "STRING" } },
-        key_takeaways: { type: "ARRAY", items: { type: "STRING" } },
-        tags: { type: "ARRAY", items: { type: "STRING" } },
-      },
-      required: ["title", "excerpt", "seo_title", "seo_description", "paragraphs", "key_takeaways", "tags"],
-    };
-
-    const rewritten = await geminiFastJson<typeof draft>(system, JSON.stringify(draft), schema, 3072, {
-      thinkingBudget: 0,
+    const { fields: rewritten, provider, model } = await rewriteStoryVoiceFields(topicKey, draft, {
+      countryRu: topic?.countryRu,
+      logPrefix: `[rewrite:${slug}]`,
     });
 
     const content_blocks = [
       {
         ...(row.content_blocks?.[0] || {}),
         heading: rewritten.title.slice(0, 80),
-        paragraphs: rewritten.paragraphs.map((p) => p.trim()).filter(Boolean).slice(0, 4),
+        paragraphs: rewritten.paragraphs,
       },
     ];
 
     const { error: upErr } = await supabase
       .from("emigro_news_digests")
       .update({
-        title: rewritten.title.trim().slice(0, 120),
-        excerpt: rewritten.excerpt.trim().slice(0, 320),
-        seo_title: (rewritten.seo_title || rewritten.title).trim().slice(0, 70),
-        seo_description: (rewritten.seo_description || rewritten.excerpt).trim().slice(0, 155),
-        key_takeaways: (rewritten.key_takeaways ?? []).map((t) => t.trim()).filter(Boolean).slice(0, 3),
-        tags: (rewritten.tags ?? draft.tags).map((t) => t.trim()).filter(Boolean).slice(0, 5),
+        title: rewritten.title,
+        excerpt: rewritten.excerpt,
+        seo_title: rewritten.seo_title,
+        seo_description: rewritten.seo_description,
+        key_takeaways: rewritten.key_takeaways,
+        tags: rewritten.tags,
         content_blocks,
         updated_at: new Date().toISOString(),
       })
@@ -106,7 +88,7 @@ ${storyEditorialVoiceForTopic(topicKey)}
       console.error("update failed", slug, upErr.message);
       continue;
     }
-    console.log("✓", slug);
+    console.log("✓", slug, `(${provider}${model ? ` ${model}` : ""})`);
     console.log("  title:", rewritten.title);
     console.log("  excerpt:", rewritten.excerpt);
     console.log("  p0:", rewritten.paragraphs[0]?.slice(0, 160));
