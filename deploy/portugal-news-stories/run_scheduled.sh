@@ -11,7 +11,8 @@ REPO_ROOT="$(cd "$SCRIPT_ROOT/../.." && pwd)"
 cd "$REPO_ROOT"
 
 LOG_DIR="$SCRIPT_ROOT/logs"
-LOCK_FILE="$SCRIPT_ROOT/.scheduled.lock"
+# Lock must live in logs/ — www-data can write there; parent dir is often root-owned after rsync.
+LOCK_FILE="$LOG_DIR/.scheduled.lock"
 mkdir -p "$LOG_DIR"
 
 log() {

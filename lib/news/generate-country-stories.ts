@@ -469,27 +469,23 @@ async function summarizeBatch(
     lead: c.lead,
   }));
 
-  const system = `You write short RU news summaries for Emigro (relocation portal for Russian speakers).
-Country corridor: ${topic.countryRu} (${topic.countryEn}).
-Source outlet: ${sourceLabel}.
+  const system = `Ты редактор Emigro — пишешь короткие RU-плитки новостей для релокантов (${topic.countryRu} / ${topic.countryEn}).
+Источник: ${sourceLabel}.
 
 ${storyEditorialVoiceForTopic(topic.key)}
 
-Rules:
-- Russian language only; follow the editorial voice above.
-- Facts only from the provided title/snippet/lead. Do not invent numbers, dates, or legal thresholds.
-- ONLY summarize items about immigration, visas, residency, citizenship, housing for movers, relocator taxes, work permits, or expat admin. If an item is sport, celebs, cyber breach, wildfire, transport fluff, or unrelated politics — OMIT it (do not include in stories[]).
-- title: ≤80 chars, specific, human — not a press-release headline clone.
-- excerpt: 1–2 sentences for the card (hook + one fact).
-- paragraphs: 2–4 short paragraphs, total ~800–1200 characters — demystify then explain impact.
-- key_takeaways: 2–3 bullets «для кого важно» as full sentences for relocators only if grounded in the source.
-- tags: 2–5 short RU tags.
-- seo_title ≤70 chars; seo_description ≤155 chars.
-- Keep source_url EXACTLY identical to the input source_url string.
-- Also set candidate_idx to the input idx number.
-- No @username, no «гарантированный ВНЖ», no hard-sell.`;
+Правила содержания:
+- Только факты из title/snippet/lead. Не выдумывай цифры, даты и пороги.
+- Только immigration / visa / ВНЖ / гражданство / жильё для переезжающих / налоги релоканта / work permit / expat admin. Спорт, знаменитости, кибер-утечки, лесные пожары, транспортный fluff, политика без правил для релоканта — НЕ включай в stories[].
+- title ≤80: живой, конкретный, не клон заголовка агентства.
+- excerpt: 1–2 предложения — хук + один факт.
+- paragraphs: 2–4 абзаца, ~800–1200 символов суммарно.
+- key_takeaways: 2–3 полных предложения «для кого важно».
+- tags: 2–5 коротких RU-тегов; seo_title ≤70; seo_description ≤155.
+- source_url — ТОЧНО как во входе; candidate_idx = idx входа.
+- Без @username, без «гарантированный ВНЖ», без hard-sell.`;
 
-  const user = `Напиши плитки голосом Emigro только по relocator-релевантным пунктам для ${topic.countryRu}. Остальное пропусти.\n\n${JSON.stringify(payload)}`;
+  const user = `Напиши плитки голосом «релокант за кофе» только по relocator-релевантным пунктам для ${topic.countryRu}. Остальное пропусти.\n\n${JSON.stringify(payload)}`;
 
   const schema = {
     type: "OBJECT",
@@ -527,7 +523,13 @@ Rules:
   };
 
   type RawStory = StoryDraft & { candidate_idx?: number };
-  const result = await geminiFastJson<{ stories: RawStory[] }>(system, user, schema, 4096);
+  const result = await geminiFastJson<{ stories: RawStory[] }>(
+    system,
+    user,
+    schema,
+    4096,
+    { thinkingBudget: 0 }
+  );
   console.log(`[stories:${topic.key}] gemini returned ${(result.stories ?? []).length} stories`);
 
   const out: StoryDraft[] = [];
@@ -545,7 +547,7 @@ Rules:
     if (!s.title?.trim() || !s.excerpt?.trim() || !Array.isArray(s.paragraphs) || s.paragraphs.length === 0) {
       continue;
     }
-    out.push({
+    const draft: StoryDraft = {
       source_url: matched.link,
       title: s.title.trim().slice(0, 120),
       excerpt: s.excerpt.trim().slice(0, 320),
@@ -554,9 +556,63 @@ Rules:
       paragraphs: s.paragraphs.map((p) => p.trim()).filter(Boolean).slice(0, 4),
       key_takeaways: (s.key_takeaways ?? []).map((t) => t.trim()).filter(Boolean).slice(0, 3),
       tags: (s.tags ?? []).map((t) => t.trim()).filter(Boolean).slice(0, 5),
-    });
+    };
+    out.push(await rewriteStoryVoice(topic, draft));
   }
   return out;
+}
+
+/** Second pass: kill press-wire tone if Flash slipped into it. */
+async function rewriteStoryVoice(topic: NewsTopicConfig, draft: StoryDraft): Promise<StoryDraft> {
+  const pressy =
+    /выражает опасения|подчеркивает|это заявление|в соответствии с|важно отметить|на данный момент|отражает стремление|стало известно|серьезные опасения/i.test(
+      [draft.title, draft.excerpt, ...draft.paragraphs, ...draft.key_takeaways].join("\n")
+    );
+  if (!pressy) return draft;
+
+  const system = `Перепиши новостную плитку Emigro голосом ниже. Сохрани ВСЕ факты, имена, цифры, даты. Не добавляй нового.
+${storyEditorialVoiceForTopic(topic.key)}
+Верни тот же JSON-набор полей.`;
+
+  const schema = {
+    type: "OBJECT",
+    properties: {
+      title: { type: "STRING" },
+      excerpt: { type: "STRING" },
+      seo_title: { type: "STRING" },
+      seo_description: { type: "STRING" },
+      paragraphs: { type: "ARRAY", items: { type: "STRING" } },
+      key_takeaways: { type: "ARRAY", items: { type: "STRING" } },
+      tags: { type: "ARRAY", items: { type: "STRING" } },
+    },
+    required: ["title", "excerpt", "seo_title", "seo_description", "paragraphs", "key_takeaways", "tags"],
+  };
+
+  try {
+    const rewritten = await geminiFastJson<Omit<StoryDraft, "source_url">>(
+      system,
+      JSON.stringify(draft),
+      schema,
+      3072,
+      { thinkingBudget: 0 }
+    );
+    if (!rewritten.title?.trim() || !rewritten.excerpt?.trim() || !rewritten.paragraphs?.length) {
+      return draft;
+    }
+    return {
+      source_url: draft.source_url,
+      title: rewritten.title.trim().slice(0, 120),
+      excerpt: rewritten.excerpt.trim().slice(0, 320),
+      seo_title: (rewritten.seo_title || rewritten.title).trim().slice(0, 70),
+      seo_description: (rewritten.seo_description || rewritten.excerpt).trim().slice(0, 155),
+      paragraphs: rewritten.paragraphs.map((p) => p.trim()).filter(Boolean).slice(0, 4),
+      key_takeaways: (rewritten.key_takeaways ?? []).map((t) => t.trim()).filter(Boolean).slice(0, 3),
+      tags: (rewritten.tags ?? draft.tags).map((t) => t.trim()).filter(Boolean).slice(0, 5),
+    };
+  } catch (e) {
+    console.warn(`[stories:${topic.key}] voice rewrite failed:`, e instanceof Error ? e.message : e);
+    return draft;
+  }
 }
 
 function storyDateYmd(pubDate: string): string {
