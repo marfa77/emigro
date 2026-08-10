@@ -1,6 +1,5 @@
 import type { GlobalEvalPayload } from "@/lib/engine/run-global-evaluation";
 import { corridorResultsPath } from "@/lib/corridor/paths";
-import { HUB_WIZARD_MODULES } from "@/lib/wizard/hub-definition";
 import type { WizardModule } from "@/lib/types";
 import { SITE_URL } from "@/lib/site-url";
 
@@ -20,49 +19,6 @@ const OUTCOME_RU: Record<string, string> = {
   needs_review: "требует проверки",
   unlikely: "маловероятно",
 };
-
-function labelForValue(modules: WizardModule[], key: string, raw: string): string {
-  for (const mod of modules) {
-    const question = mod.questions.find((q) => q.question_key === key);
-    if (!question) continue;
-    if (question.options?.length) {
-      if (question.question_type === "multi") {
-        return raw
-          .split(",")
-          .filter(Boolean)
-          .map((v) => question.options!.find((o) => o.value === v)?.label_ru ?? v)
-          .join(", ");
-      }
-      return question.options.find((o) => o.value === raw)?.label_ru ?? raw;
-    }
-    return raw;
-  }
-  return raw;
-}
-
-function formatAnswersBlock(
-  answers: Record<string, unknown>,
-  modules: WizardModule[] = HUB_WIZARD_MODULES
-): string {
-  const lines: string[] = [];
-  const seenKeys = new Set<string>();
-  for (const mod of modules) {
-    for (const q of mod.questions) {
-      if (seenKeys.has(q.question_key)) continue;
-      const raw = answers[q.question_key];
-      if (raw === undefined || raw === null || raw === "") continue;
-      seenKeys.add(q.question_key);
-      const value = labelForValue(modules, q.question_key, String(raw));
-      lines.push(`• ${q.label_ru}: ${value}`);
-    }
-  }
-  if (lines.length === 0) {
-    for (const [k, v] of Object.entries(answers)) {
-      if (v !== undefined && v !== null && v !== "") lines.push(`• ${k}: ${v}`);
-    }
-  }
-  return lines.length ? lines.join("\n") : "—";
-}
 
 function contextBlock(ctx?: WizardFunnelContext): string {
   if (!ctx) return "";
@@ -108,6 +64,7 @@ export function formatWizardStartedTelegram(props: Record<string, string>, ctx?:
     .join("\n");
 }
 
+/** Short owner DM (3–5 lines). Full answers live on the results page. */
 export function formatWizardCompletedTelegram(input: {
   mode: "hub" | "corridor";
   sessionId: string;
@@ -120,7 +77,7 @@ export function formatWizardCompletedTelegram(input: {
   ctx?: WizardFunnelContext;
   headline?: string;
 }): string {
-  const { mode, sessionId, answers, payload, ctx, corridorResults } = input;
+  const { mode, sessionId, payload, ctx, corridorResults } = input;
   const resultsUrl =
     mode === "hub"
       ? `${SITE_URL}/ru/wizard/results?session=${sessionId}`
@@ -128,48 +85,32 @@ export function formatWizardCompletedTelegram(input: {
         ? `${SITE_URL}${corridorResultsPath(input.corridorSlug)}?session=${sessionId}`
         : `session ${sessionId}`;
 
-  const lines = [
-    input.headline ?? "✅ Emigro — wizard завершён",
-    "",
-    `Тип: ${mode === "hub" ? "глобальный hub" : `коридор ${input.corridorTitleRu ?? input.corridorSlug}`}`,
-    `Session: ${sessionId}`,
-    `Результаты: ${resultsUrl}`,
-    "",
-    "Ответы:",
-    formatAnswersBlock(answers, input.modules),
-  ];
+  const typeLabel =
+    mode === "hub" ? "hub" : `коридор ${input.corridorTitleRu ?? input.corridorSlug ?? "—"}`;
 
-  if (payload) {
+  let pickLine = "Топ: —";
+  if (payload?.pick) {
     const matchCount = payload.results.filter((r) => r.outcome !== "unlikely").length;
-    lines.push("", `Совпадений: ${matchCount} из ${payload.results.length}`);
-    if (payload.pick) {
-      lines.push(
-        "",
-        "Топ-выбор:",
-        `• ${payload.pick.countryRu} — ${payload.pick.programTitleRu}`,
-        `• Исход: ${OUTCOME_RU[payload.pick.outcome] ?? payload.pick.outcome}`,
-        `• Программа: ${SITE_URL}${payload.pick.programPath}`
-      );
-    }
-    const top = payload.results
-      .filter((r) => r.outcome !== "unlikely")
-      .slice(0, 5)
-      .map((r) => `• ${r.countryRu}: ${r.programTitleRu} (${OUTCOME_RU[r.outcome] ?? r.outcome})`);
-    if (top.length) {
-      lines.push("", "Топ маршруты:", ...top);
-    }
+    pickLine = `Топ: ${payload.pick.countryRu} — ${payload.pick.programTitleRu} (${OUTCOME_RU[payload.pick.outcome] ?? payload.pick.outcome}) · ${matchCount}/${payload.results.length}`;
   } else if (corridorResults?.length) {
-    lines.push(
-      "",
-      "Топ программы:",
-      ...corridorResults.map(
-        (r) => `• ${r.title ?? r.slug} (${OUTCOME_RU[r.outcome] ?? r.outcome})`
-      )
-    );
+    const top = corridorResults[0];
+    pickLine = `Топ: ${top.title ?? top.slug} (${OUTCOME_RU[top.outcome] ?? top.outcome})`;
   }
 
-  lines.push(contextBlock(ctx));
-  return lines.filter(Boolean).join("\n");
+  const meta = [
+    ctx?.interestCountriesRu?.length ? `интерес: ${ctx.interestCountriesRu.join(", ")}` : null,
+    ctx?.geoCountryRu ? `гео: ${ctx.geoCountryRu}` : null,
+    ctx?.entrySource ? `вход: ${ctx.entrySource}` : null,
+  ].filter(Boolean);
+
+  return [
+    input.headline ?? "✅ Emigro — wizard завершён",
+    `${typeLabel} · ${pickLine}`,
+    meta.length ? meta.join(" · ") : null,
+    resultsUrl,
+  ]
+    .filter((l): l is string => Boolean(l))
+    .join("\n");
 }
 
 export function formatWizardResultsClickTelegram(props: Record<string, string>, ctx?: WizardFunnelContext): string {
