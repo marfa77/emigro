@@ -18,12 +18,12 @@ export const revalidate = 3600;
 export const metadata: Metadata = pageMetadata({
   title: "Residencia en España para peruanos 2026",
   description:
-    "Cómo emigrar a España desde Perú 2026: turista Schengen ≠ residencia. Nómada digital (~€2.849), no lucrativa y nacionalidad en 2 años (art. 22).",
+    "Cómo emigrar a España desde Perú 2026: Schengen 90 días ≠ residencia. Nómada digital (~€2.849), no lucrativa, Lima/apostilla y nacionalidad en 2 años (art. 22).",
   path: ES_PATHS.peru,
   locale: "es",
   esHreflang: { originIso: "PE", destinationIso: "ES" },
   aiDescription:
-    "Peru→Spain hub: short Schengen stay vs national residence (digital nomad, non-lucrative), arrival checklist, Spanish nationality ~2 years (art. 22).",
+    "Peru→Spain hub: Schengen visa-free short stay vs national residence. Digital nomad (~€2.849/mo via UGE or Lima), non-lucrative consulate-first, dual nationality convenio PE–ES, Spanish nationality ~2 years (art. 22). Not legal advice.",
   aiCategory: "origin-corridor-hub",
 });
 

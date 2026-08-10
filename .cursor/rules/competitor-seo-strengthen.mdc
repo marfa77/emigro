@@ -1,0 +1,27 @@
+---
+description: Always competitor-check SERP and strengthen meta + LLM before shipping guides
+alwaysApply: true
+---
+
+# Competitor SEO — always check and strengthen
+
+Before publishing or shipping SEO/meta changes for guides (especially `/es` LATAM → España/Portugal and RU pillars):
+
+## Do
+
+1. **SERP scan** for the primary queries (country + residencia / nómada / nacionalidad 2 años / year).
+2. Note competitor title/description hooks (demonym, «2 años», thresholds, consulado, Schengen ≠ residencia).
+3. Ship **stronger** Emigro `seo_title`, `seo_description`, `excerpt`, `quick_answer`, hub metadata, and LLM layers (`llms.txt` / long-tails / `aiDescription`) — beat their hooks with official sources + Emigro evaluator, without inventing law.
+4. Keep full user draft body; fact-check only via short overlays (see `full-guides-no-shorten`).
+
+## Do not
+
+- Ship weak meta like «España desde X 2026: residencia XX» when SERP uses demonyms + 2 años + visa names.
+- Skip competitor check because «we already have meta».
+- Shorten the guide to chase SERP length.
+
+## LATAM ES defaults that beat lawyers/blogs
+
+- Title: demonym + 2026 + hook (`2 años` / `nómada` / Schengen).
+- Description ≤~160: Schengen ≠ residencia · ~€2.849 · NL/IPREM · art. 22 · consulado city.
+- `quick_answer` / `aiDescription`: same facts + CTA `/es/wizard`.

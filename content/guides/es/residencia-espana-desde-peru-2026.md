@@ -1,174 +1,335 @@
 ---
 slug: residencia-espana-desde-peru-2026
 title: "Residencia en España para peruanos 2026"
-seo_title: "Residencia España Perú 2026 — 2 años art.22"
-seo_description: "Peruanos en España 2026: turista Schengen ≠ residencia. Nómada digital (~€2.849), no lucrativa, trabajo y nacionalidad en 2 años (art. 22). Fuentes oficiales."
-excerpt: "Pasaporte peruano: suele visitar Schengen en corta estancia; vivir exige residencia. Rutas 2026 + horizonte de nacionalidad."
-quick_answer: "Perú suele entrar a Schengen como turista (corta estancia; ETIAS puede llegar), pero residir exige vía nacional: nómada digital (~€2.849+/mes 2026), no lucrativa, trabajo, estudios o reagrupación. Art. 22: ~2 años de residencia legal continua para nacionalidad — no automática. Emigro: pilares LATAM + evaluador /es/wizard."
-corridor_slugs: [es-speaking-peru-to-spain]
+seo_title: "Residencia España peruanos 2026 — 2 años"
+seo_description: "Cómo emigrar a España desde Perú 2026: Schengen 90 días ≠ residencia. Nómada digital (~€2.849), no lucrativa, Lima, apostilla y nacionalidad en 2 años (art. 22)."
+excerpt: "Guía pillar: turista Schengen vs vivir en España con pasaporte PE. Rutas 2026, documentos desde Perú y horizonte de nacionalidad española a 2 años."
+quick_answer: "Perú suele entrar a Schengen sin visado (90/180), pero residir exige vía nacional: nómada digital (~€2.849/mes 2026; UGE o consulado Lima), no lucrativa (consulado primero), trabajo, estudios o reagrupación. Art. 22: ~2 años de residencia legal para nacionalidad (CCSE; DELE suele exento). Convenio dualidad PE–ES 1960. Emigro: pilares + evaluador /es/wizard."
+corridor_slugs: [es-speaking-peru-to-spain, es-speaking-latam-to-europe]
 topic_keys: [spain, peru, visa, residence]
 tags: [España, Perú, residencia, nómada digital, no lucrativa, nacionalidad, 2026, pe]
 primary_intent: informational
 cta_primary: /es/peru
 cta_secondary: /es/spain
 official_sources:
+  - url: https://www.exteriores.gob.es/Consulados/lima
+    label: Consulado General de España en Lima
   - url: https://www.exteriores.gob.es/
     label: Ministerio de Asuntos Exteriores (España)
   - url: https://extranjeros.inclusion.gob.es/
-    label: Secretaría de Estado de Migraciones — extranjería
-  - url: https://www.boe.es/eli/es/rd/2026/02/18/126/con
-    label: BOE — SMI 2026 (Real Decreto 126/2026)
+    label: Secretaría de Estado de Migraciones
+  - url: https://www.boe.es/buscar/doc.php?id=BOE-A-1960-5625
+    label: BOE — Convenio doble nacionalidad España–Perú
   - url: https://www.mjusticia.gob.es/
-    label: Ministerio de Justicia — nacionalidad
+    label: Justicia — nacionalidad
   - url: https://www.gob.pe/
-    label: Portal oficial del Estado peruano
-estimated_minutes: 16
+    label: Portal oficial del Estado peruano (apostilla / RREE)
+estimated_minutes: 20
 date_published: 2026-08-10
 date_modified: 2026-08-10
 ---
 
-## Para quién es esta guía
+## Nota Emigro (fact-check agosto 2026)
 
-Peruanos (pasaporte **PE**) que quieren **vivir** en España en 2026: remote workers, rentistas, familias, estudiantes o quienes ya visitan Schengen y buscan pasar a residencia.
+- Perú: **exención Schengen** corta 90/180 (desde ~2016). Eso **no** autoriza residir/trabajar. ETIAS puede llegar a nacionalidades exentas — confirme MAEUEC.
+- **No lucrativa inicial:** consulado Lima — **no** «turista → NL» por defecto. No copie el proceso de la DN.
+- **Nómada digital:** vía **UGE-CE** (si ya está legal en España) o **visto nacional** en Lima. Consulado ~1 año; UGE a menudo hasta **3 años**. No asuma «cualquier Extranjería provincial» para todos los DN.
+- Estancia por **estudios = 0%** para nacionalidad art. 22 (el **50%** es para **larga duración-UE**, no nacionalidad).
+- Ausencias: no use la regla «6/10 meses» de larga duración como si fuera art. 22; lo crítico es **continuidad efectiva** de la residencia legal.
+- Dualidad: **Convenio España–Perú** (BOE) — en la práctica suele conservarse la peruana; confirme inscripción/Registro Civil.
+- Dirección consular Lima en esta guía: **Av. Jorge Basadre 498, San Isidro** — verifique siempre la web oficial (puede moverse o usar citas externas).
+- Plazo legal nacionalidad: **1 año** para resolver (RD 1004/2015) + silencio negativo; práctica a menudo 1–3+ años.
 
-Corredor Emigro: **Perú → España** (wedge de demanda real con SEO menos saturado que MX/AR/VE). Hubs: [Perú](/es/peru) · [España](/es/spain) · [Nómada digital](/es/guides/visa-nomada-digital-espana-latam-2026) · [No lucrativa](/es/guides/visado-no-lucrativa-espana-latam-2026) · [Primeros 30 días](/es/guides/primeros-30-dias-en-espana-2026).
+*No es asesoría jurídica.* Hubs: [Perú](/es/peru) · [España](/es/spain) · [Nómada digital](/es/guides/visa-nomada-digital-espana-latam-2026) · [No lucrativa](/es/guides/visado-no-lucrativa-espana-latam-2026) · [Nacionalidad](/es/guides/nacionalidad-espanola-latam-2026) · [30 días](/es/guides/primeros-30-dias-en-espana-2026) · [Evaluador](/es/wizard).
 
----
+## Para quién es esto
 
-## Por qué este corredor
+Si tienes pasaporte peruano y estás pensando en vivir legalmente en España, este texto te dice qué visas puedes pedir, cuánto dinero necesitas, dónde tramitar y qué errores evitar.
 
-Hay comunidad peruana grande en España y mucha búsqueda orgánica, pero el SERP genérico lo dominan México, Colombia, Argentina y Venezuela. Emigro cubre el pasaporte **PE** con profundidad de corredor: umbrales, consulado, apostilla y llegada.
-
-Comparación rápida:
-
-| Origen | Schengen corto (orientación) | Ángulo Emigro |
-|--------|------------------------------|---------------|
-| [Uruguay](/es/guides/residencia-espana-desde-uruguay-2026) | Suele visa-free | Nicho limpio |
-| [Ecuador](/es/guides/residencia-espana-desde-ecuador-2026) | Suele **necesitar visado** | Diferenciador fuerte |
-| **Perú** | Suele visa-free (confirme; ETIAS puede llegar a exentos) | Demanda + nicho usable |
-| [Paraguay](/es/guides/residencia-espana-desde-paraguay-2026) | Suele visa-free | Nicho muy limpio |
-| [Colombia](/es/guides/residencia-espana-desde-colombia-2026) | Suele visa-free | Alta demanda + art. 22 |
+Como peruano, tienes una ventaja clave: **2 años de residencia legal en España te dan derecho a solicitar la nacionalidad española** (Art. 22.1 del Código Civil). No necesitas 10 años ni examen DELE A2. **No es automática:** CCSE, buena conducta y continuidad de la residencia legal.
 
 ---
 
-## Turista / estancia corta vs residencia
+## Respuesta rápida
 
-| Situación | Qué permite | Qué no permite |
-|-----------|-------------|----------------|
-| **Estancia corta (Schengen)** | Visitar, turismo, reuniones puntuales (según régimen aplicable a PE) | Trabajar de forma regular, empadronarse como residente, TIE de larga duración |
-| **Residencia (visado nacional / autorización)** | Vivir, y según la vía: teletrabajar, no trabajar, o trabajar por cuenta ajena | Depende del tipo de autorización |
-
-Regla práctica: si su plan es **más de 90 días** o **trabajar/teletrabajar desde España**, planifique una **vía de residencia** antes de llegar (salvo excepciones legales concretas que debe confirmar el consulado).
-
----
-
-## Rutas principales 2026 para peruanos
-
-| Ruta | Perfil | Trabajo en España | Señal de ingreso |
-|------|--------|-------------------|------------------|
-| **Nómada digital (teletrabajo)** | Empleado/freelance remoto con clientes fuera de ES | Solo remoto; límite de ingresos de clientes españoles (típicamente ≤20%) | ~**€2 849**/mes titular (200% SMI mensual equivalente 2026) |
-| **No lucrativa** | Rentas pasivas / ahorros | **No** | Medios económicos suficientes (IPREM × múltiplos; verifique consulado) |
-| **Cuenta ajena** | Oferta de empleador español | Sí | Contrato + autorización |
-| **Estudios** | Matrícula en centro reconocido | Limitado | Medios + matrícula |
-| **Reagrupación** | Familiar de residente/ciudadano | Según caso | Vínculo + solvencia del reagrupante |
-
-*Golden Visa / inversión inmobiliaria como vía residencial: **cerrada** en España desde abril 2025. No la use como plan 2026.*
-
-Detalle del teletrabajo: [Visa nómada digital España (LATAM)](/es/guides/visa-nomada-digital-espana-latam-2026).
+| Pregunta | Respuesta |
+|---|---|
+| ¿Necesito visado para entrar a España? | **No** (corta estancia). Perú suele tener **sin visado** Schengen hasta **90 días** cada 180 |
+| ¿Puedo pedir residencia desde dentro de España? | **Depende de la vía.** **DN:** a menudo **UGE** si ya está legal. **NL:** **consulado Lima** primero — no planifique turista→NL |
+| ¿Cuánto tiempo hasta la nacionalidad? | **2 años** de residencia legal continuada (solicitud; no automática) |
+| ¿Necesito examen de español? | **No** (exento DELE A2). Sí necesitas **CCSE** |
+| ¿Dónde tramito? | Consulado General de España en **Lima** (visto D) o **UGE**/extranjería solo si la norma de su vía lo permite |
 
 ---
 
-## Documentos típicos desde Perú
+## Tu pasaporte: qué te abre
 
-Prepare con tiempo (apostilla / legalización según documento):
+### Sin visado Schengen
 
-1. **Pasaporte** vigente con margen de validez
-2. **Antecedentes penales** (Perú + países de residencia reciente) apostillados
-3. **Medios económicos**: extractos, contratos, facturas, cartas de empresa
-4. **Seguro médico** que cumpla el listado del consulado
-5. **Formularios** del visado nacional correspondiente
-6. **Cita** en el consulado/sección consular española competente para su domicilio (p. ej. Lima)
+Perú tiene acuerdo de exención de visado Schengen desde 2016. Puedes entrar a España (y a cualquier país Schengen) como turista por hasta **90 días cada 180 días**.
 
-El consulado puede pedir traducciones juradas al español. Confirme la lista exacta en la página del consulado el día de la cita.
+**Esto significa:**
+- No necesitas visado de turista.
+- Puedes entrar a España, alquilar, abrir cuenta bancaria (con limitaciones), y — **si tu vía lo permite** (p. ej. nómada digital ante UGE) — presentar solicitud **desde dentro** estando en situación regular.
+- Pero no puedes trabajar ni residir más de 90 días sin cambiar tu estatus. **Residencia ≠ turista.**
+
+### Nacionalidad en 2 años
+
+El **Artículo 22.1 del Código Civil español** reduce a **2 años** el plazo de residencia legal para obtener la nacionalidad española si eres de un país iberoamericano. Perú está en la lista.
+
+**Requisitos para los 2 años:**
+- Residencia legal y continuada en España.
+- Empadronamiento (padrón municipal) durante esos 2 años (prueba fuerte de vida en España).
+- CCSE aprobado.
+- Antecedentes penales limpios.
+- Continuidad efectiva de la residencia legal (no confunda con los límites de ausencia de **larga duración** tipo «6/10 meses»).
+
+Detalle: [Nacionalidad española LATAM](/es/guides/nacionalidad-espanola-latam-2026).
 
 ---
 
-## Orden recomendado
+## Visas disponibles para peruanos
 
-1. Elegir ruta (ingresos remotos → nómada; solo patrimonio → no lucrativa; oferta ES → cuenta ajena)
-2. Calcular umbrales con **margen** (consulados suelen preferir holgura)
-3. Apostillar y traducir
-4. Cita y presentación
-5. Viaje con visado D / autorización
-6. Primer mes en España: NIE, empadronamiento, TIE — [checklist 30 días](/es/guides/primeros-30-dias-en-espana-2026)
+### 1. Nómada Digital (DN)
+
+| Aspecto | Detalle |
+|---|---|
+| ¿Para quién? | Trabajadores remotos para empresas **fuera de España** |
+| Ingresos mínimos | **€2,849/mes** (200% del SMI prorrateado, 2026) |
+| ¿Puedes trabajar en España? | Teletrabajo para el extranjero; límite habitual ≤**20%** ingresos de clientes españoles |
+| ¿Cuenta para los 2 años de nacionalidad? | **Sí** |
+| Duración | Consulado: ~**1 año**. UGE (desde España): a menudo hasta **3 años** |
+
+**Proceso (orientativo):**
+1. Confirme vía: **visto nacional en Lima** **o** autorización de teletrabajo internacional ante **UGE-CE** (si ya está legalmente en España, p. ej. como turista dentro de 90/180).
+2. Documentos típicos: contratos/relación remota (≥3 meses suele pedirse), extractos bancarios (últimos meses), seguro médico, alojamiento, pasaporte, antecedentes apostillados si piden, titulación o experiencia.
+3. Recibes resguardo / resolución según canal. No ancle un único calendario.
+4. Tras resolución favorable: huellas / **TIE**.
+
+Pillar compartido: [Visa nómada digital España LATAM](/es/guides/visa-nomada-digital-espana-latam-2026).
+
+### 2. No Lucrativa (NL)
+
+| Aspecto | Detalle |
+|---|---|
+| ¿Para quién? | Personas con ingresos pasivos (pensiones, alquileres, ahorros) |
+| Ingresos mínimos | **€2,400/mes** (400% IPREM) para el titular. **+€600/mes** por cada familiar (orientativo) |
+| ¿Puedes trabajar en España? | **No** |
+| ¿Cuenta para los 2 años? | **Sí** |
+| Duración | 1 año, renovable (condiciones de presencia/renovación — confirme norma vigente) |
+
+**Proceso:** **Consulado en Lima** con expediente de rentas pasivas / medios. **No** es el mismo camino in-country que un DN por UGE. No planifique «entro de turista y convierto a NL».
+
+Pillar: [Visado no lucrativa España LATAM](/es/guides/visado-no-lucrativa-espana-latam-2026).
+
+### 3. Trabajo por cuenta ajena
+
+Si tienes una oferta laboral de una empresa española, esta es la vía más segura.
+
+- La empresa solicita la autorización de trabajo.
+- Tú presentas la visa en el consulado (o el cambio desde dentro **solo si** la norma lo permite en tu caso).
+- Ingresos: según convenio colectivo (mínimo ~€1,221/mes SMI 2026).
+
+### 4. Estudiante
+
+- Inscripción en centro educativo reconocido en España.
+- Ingresos: ~€7,200/año (100% IPREM × 12) — oriente; confirme listado.
+- Puedes trabajar hasta **30 horas/semana** (según autorización vigente).
+- Los años de **estancia por estudios no computan** para la nacionalidad art. 22 (**0%**). El «50%» corresponde a **residencia de larga duración-UE**, no a nacionalidad. Ver [nacionalidad LATAM](/es/guides/nacionalidad-espanola-latam-2026).
+
+### 5. Emprendedor
+
+- Proyecto de interés económico aprobado por ENISA o Dirección General de Comercio.
+- Requiere plan de negocio, inversión y creación de empleo.
 
 ---
 
-## Nacionalidad española: plazo de 2 años (iberoamericanos)
+## Documentos desde Perú
 
-Para muchos peruanos la residencia no es el final: el **Código Civil (art. 22)** reduce el plazo general de **10 años** a **2 años** de residencia **legal, continuada e inmediatamente anterior** a la solicitud para nacionales de origen de países **iberoamericanos** (Perú incluido), Andorra, Filipinas, Guinea Ecuatorial, Portugal o sefardíes.
+### Apostilla
 
-| Concepto | Qué significa en la práctica |
-|----------|------------------------------|
-| **2 años** | Sobre **residencia legal** (TIE / autorización), no sobre días de turista Schengen |
-| **No es automático** | Cumplir el plazo ≠ concesión: buena conducta cívica + integración suficiente |
-| **CCSE** | Examen de conocimientos constitucionales y socioculturales (Instituto Cervantes), salvo exenciones |
-| **DELE A2** | Suele **no** exigirse a nacionales de países donde el español es lengua oficial (PE); confirme la lista vigente |
-| **Otras vías** | 1 año en supuestos concretos (p. ej. cónyuge de español/a); **Ley de Memoria Democrática** es un camino distinto (descendientes) |
+Perú es parte de la **Convención de La Haya de 1961**. Tus documentos peruanos necesitan **apostilla** para ser válidos en España.
 
-| Ruta de residencia | Encaje hacia nacionalidad (orientativo) |
-|--------------------|-----------------------------------------|
-| Nómada digital / teletrabajo | Sí, si mantiene residencia legal continua |
-| No lucrativa | Sí, misma lógica de residencia legal |
-| Cuenta ajena / estudios / reagrupación | Sí, según autorización y continuidad |
+Documentos que normalmente necesitas apostillar:
 
-*No es asesoría jurídica.* Detalle: [Nacionalidad española LATAM](/es/guides/nacionalidad-espanola-latam-2026). Fuentes: [Código Civil — nacionalidad](https://www.boe.es/biblioteca_juridica/codigos/codigo.php?id=42&modo=2&nota=0) · [Ministerio de Justicia](https://www.mjusticia.gob.es/).
+- **Partida de nacimiento** (Registro Nacional de Identificación y Estado Civil — RENIEC).
+- **Certificado de antecedentes penales** (Policía Nacional del Perú o Ministerio Público).
+- **Certificado de estado civil** (soltería, matrimonio, divorcio).
+- **Títulos universitarios** (si aplica).
+
+**Dónde apostillar en Perú:**
+- **Ministerio de Relaciones Exteriores (RREE)**: sede en Lima (Jr. Lampa 545, Lima — confirme) y delegaciones en regiones.
+- **Online**: algunos documentos se pueden apostillar por la plataforma del Ministerio.
+- Costo: aproximadamente S/ 30–60 por documento (orientativo).
+
+### Traducción jurada
+
+Todos los documentos apostillados deben traducirse al español por un **traductor jurado** reconocido por el Ministerio de Asuntos Exteriores de España.
+
+- En Perú: hay traductores jurados en Lima, Arequipa, Trujillo.
+- En España: también puedes traducir aquí, pero es más caro.
+
+**Coste orientativo:** €30–60 por página.
+
+---
+
+## Dónde tramitar
+
+### Desde Perú
+
+**Consulado General de España en Lima**
+- Dirección (verifique web): Av. Jorge Basadre 498, San Isidro, Lima.
+- Web: [www.exteriores.gob.es/Consulados/lima](https://www.exteriores.gob.es/Consulados/lima)
+- Cita previa obligatoria para visados nacionales (D).
+
+**Nota:** Algunos trámites de nacionalidad por la Ley de Memoria Democrática también se hacían en este consulado, pero esa ley **cerró el 22 de octubre de 2025**. Estado LMD: [Ley de Memoria Democrática LATAM](/es/guides/ley-memoria-democratica-latam-2026).
+
+### Desde España
+
+Desde España **solo** cuando la norma lo permita (p. ej. autorización de nómada digital ante **UGE-CE** estando en situación regular):
+
+- **UGE / portal telemático** — DN teletrabajo internacional.
+- **Oficina de Extranjería** — solo para procedimientos que admitan in-country.
+- **Policía Nacional** — TIE tras resolución favorable.
+- Cita previa / certificado digital según canal.
+
+Default seguro para **NL** y muchos casos desde Perú: **visto D en Lima**.
+
+---
+
+## Costes orientativos 2026
+
+| Concepto | Importe |
+|---|---|
+| Tasa consular (visado D) | €80–€160 |
+| Tasa TIE (tarjeta) | €15–€20 |
+| Seguro médico privado | €600–1,800/año |
+| Apostilla (por documento) | S/ 30–60 (~€7–15) |
+| Traducción jurada | €30–€60/página |
+| Certificado médico | €50–€100 |
+| Antecedentes penales (Perú) | Bajo costo o gratuito |
+| Gestor/abogado (opcional) | €500–2,000 |
+
+---
+
+## Primeros 30 días en España
+
+Si entra con **visto D / autorización** (o ya presentó una vía in-country permitida):
+
+1. **Día 1–3:** Alquiler y empadronamiento en el Ayuntamiento.
+2. **Día 3–7:** Seguro médico privado contratado / activo.
+3. **Día 7–14:** Citas Policía / UGE / extranjería según su resolución (TIE, huellas).
+4. **Día 14–30:** Abrir cuenta bancaria como residente; organizar documentación.
+
+Si aún es **turista** Schengen: use los 90 días para **preparar** el expediente correcto (p. ej. DN ante UGE), no para improvisar una NL. Ver guía detallada: [Primeros 30 días en España](/es/guides/primeros-30-dias-en-espana-2026).
 
 ---
 
 ## Errores frecuentes
 
-- Confundir **90 días Schengen** con permiso para **vivir**
-- Contar el plazo de **nacionalidad** desde el primer viaje de turista (no cuenta)
-- Llegar a «arreglar papeles» sin vía clara
-- Subestimar demoras de apostilla y cita consular en Lima u otras oficinas
-- Usar umbrales de blogs desactualizados (revise SMI/IPREM oficiales)
-- Ignorar el límite de clientes españoles en nómada digital
+### 1. "Puedo quedarme más de 90 días como turista"
+
+**No.** Los 90 días son un límite estricto de Schengen. Si te quedas más sin cambiar a residencia, entras en situación irregular y eso puede inhabilitarte para futuras visas y nacionalidad.
+
+### 2. "Los años como turista cuentan para la nacionalidad"
+
+**No.** Solo cuenta la **residencia legal**. Turista no es residencia.
+
+### 3. "Puedo trabajar remoto en España con la No Lucrativa"
+
+Es una mala idea. La NL **prohíbe actividad laboral** en el sentido de la autorización. Si tu ingreso principal es trabajo remoto, pide la **Nómada Digital**.
+
+### 4. "No necesito empadronarme"
+
+El padrón es obligatorio en la práctica y es la prueba de que vives en España. Sin padrón, se atascan banco, TIE y el expediente de nacionalidad.
+
+### 5. "Puedo presentar documentos sin apostilla"
+
+**No.** Los documentos peruanos deben estar apostillados. Sin apostilla, Extranjería o el consulado no los aceptan.
+
+### 6. "El CCSE es fácil, lo dejo para el final"
+
+El CCSE tiene 25 preguntas y necesitas 15 aciertos. No es difícil, pero requiere estudiar. Sácalo antes de cumplir los 2 años de residencia para no retrasar la nacionalidad.
+
+### 7. "Turista → No Lucrativa en Extranjería"
+
+**No** como plan por defecto. NL inicial: **consulado**. DN: confirme **UGE** vs Lima.
 
 ---
 
-## FAQ
+## Comparativa: España vs Portugal desde Perú
 
-**¿Puedo entrar como turista y luego cambiar a residencia?**  
-A veces hay vías in-country, pero no es el plan por defecto. Muchos perfiles deben obtener el visado nacional **antes** de viajar. Pregunte al consulado según su caso.
+| Aspecto | España | Portugal |
+|---|---|---|
+| Sin visado Schengen | ✅ 90 días (orientativo) | ✅ 90 días (orientativo) |
+| Nómada digital | €2,849/mes | €3,680/mes (D8) |
+| No lucrativa / rentista | €2,400/mes | €920/mes (D7) |
+| Nacionalidad | **~2 años** (art. 22) | ~10 años (PE no CPLP) |
+| Idioma para nacionalidad | Exento DELE (CCSE sí) | A2 portugués |
+| Impuestos especiales | Beckham (24% flat, si aplica) | NHR cerrado / confirme régimen vigente |
+| Coste de vida (capital) | €1,500–2,500/mes | €1,500–2,500/mes |
+| Reagrupación familiar | Según vía (confirme) | Confirme reglas AIMA / D8–D7 |
 
-**¿Cuánto tarda?**  
-Varía por consulado y tipo de visado: planifique **meses**, no semanas, para documentos + cita + resolución.
-
-**¿Necesito español para la residencia?**  
-Para la residencia inicial suele no exigirse DELE. Para **nacionalidad**, los peruanos suelen estar exentos del DELE A2, pero **sí** suelen necesitar el **CCSE**.
-
-**¿Tras 2 años de nómada digital ya soy español?**  
-No. Tras ~2 años de residencia **legal** continua puede **solicitar** nacionalidad (art. 22); la resolución es un trámite aparte.
-
-**¿Y ETIAS?**  
-ETIAS es una autorización electrónica prevista para nacionalidades **exentas** de visado Schengen corto — no sustituye un visado nacional de residencia. Confirme fechas y requisitos oficiales antes de viajar como turista.
+Pillar PT: [Portugal D8/D7 LATAM](/es/guides/portugal-d8-d7-latam-2026).
 
 ---
 
-## También en Emigro ES
+## Preguntas frecuentes
 
-- [No lucrativa](/es/guides/visado-no-lucrativa-espana-latam-2026) · [Nacionalidad 2 años](/es/guides/nacionalidad-espanola-latam-2026)
-- [Beckham](/es/guides/impuestos-beckham-espana-latam-2026) · [Portugal D8/D7](/es/guides/portugal-d8-d7-latam-2026)
-- [Colombia](/es/guides/residencia-espana-desde-colombia-2026) · [LMD cerrada](/es/guides/ley-memoria-democratica-latam-2026) · [Evaluador](/es/wizard)
+### ¿Puedo pedir la nacionalidad después de 2 años de estudiante?
+
+**No** vía el mito del «50%». La estancia por estudios **no computa** para nacionalidad art. 22. El 50% aplica a **larga duración-UE**. Para nacionalidad en ~2 años necesita **residencia legal** (DN, NL, trabajo, etc.).
+
+### ¿Necesito renunciar a la nacionalidad peruana?
+
+**No** en el esquema del **convenio de doble nacionalidad España–Perú** (BOE). Conservas el pasaporte peruano en la práctica habitual; confirme inscripción y efectos en Registro Civil / autoridades peruanas.
+
+### ¿Puedo traer a mi familia desde el inicio?
+
+**Sí, según vía.** Con nómada digital o no lucrativa suele poder solicitarse familiar con solvencia adicional (+€600/mes por familiar orientativo en NL; DN tiene % familia — confirme listado UGE/consulado).
+
+### ¿Cuánto tarda el trámite de nacionalidad después de los 2 años?
+
+Plazo legal de resolución: **1 año** (con silencio negativo). En la práctica muchos expedientes tardan **1 a 3+ años**.
+
+### ¿Puedo abrir una empresa en España?
+
+Sí, pero necesita el marco migratorio correcto. Con la NL no puedes trabajar ni ser autónomo en España. Con la DN el teletrabajo es para fuera de España (límite clientes ES). Para autónomo/cuenta propia en España: vía específica de trabajo/emprendedor.
+
+### ¿El SMI es suficiente para vivir en Madrid?
+
+El SMI 2026 es ~€1,221/mes (14 pagas). Vivir en Madrid cuesta €1,500–2,000/mes mínimo orientativo. El SMI no es un ingreso viable de plan de vida; es el mínimo legal de referencia laboral.
 
 ---
 
-## Corto para verificar su ruta
+## Fuentes oficiales
 
-- PE ≠ residencia automática en España
-- Elija vía: nómada / no lucrativa / trabajo / estudios / familia
-- Umbrales 2026 ligados a SMI/IPREM — confirme en BOE y consulado
-- Apostilla + seguro + cita consular (**NL inicial = consulado**)
-- Tras llegar: NIE, padrón, TIE
-- Horizonte: **2 años** de residencia legal → posible solicitud de nacionalidad (art. 22), no automática
+- **Ministerio de Asuntos Exteriores, Unión Europea y Cooperación (España):** [www.exteriores.gob.es](https://www.exteriores.gob.es)
+- **Consulado General de España en Lima:** [Consulados/lima](https://www.exteriores.gob.es/Consulados/lima)
+- **Dirección General / Secretaría de Migraciones:** requisitos de visados y extranjería.
+- **Código Civil, Artículo 22.1:** nacionalidad en 2 años para iberoamericanos.
+- **Convenio doble nacionalidad España–Perú:** [BOE-A-1960-5625](https://www.boe.es/buscar/doc.php?id=BOE-A-1960-5625)
+- **Instituto Cervantes:** exámenes CCSE.
+- **Ministerio de Relaciones Exteriores del Perú:** apostilla de documentos.
+
+---
+
+## ¿Y ahora qué?
+
+1. **Decide tu visa:** [Nómada digital](/es/guides/visa-nomada-digital-espana-latam-2026), [No lucrativa](/es/guides/visado-no-lucrativa-espana-latam-2026), trabajo o estudios.
+2. **Prepara documentos:** apostilla y traducción jurada desde Perú.
+3. **Tramite bien el canal:** visto D en **Lima**, o **UGE** solo si su vía (p. ej. DN) lo permite in-country.
+4. **Empadrónate** en el primer mes.
+5. **Planifica la nacionalidad:** CCSE antes de cumplir 2 años — [nacionalidad LATAM](/es/guides/nacionalidad-espanola-latam-2026).
+
+Consulta también:
+- [Primeros 30 días en España](/es/guides/primeros-30-dias-en-espana-2026)
+- [Régimen Beckham e impuestos](/es/guides/impuestos-beckham-espana-latam-2026)
+- [Portugal D8/D7](/es/guides/portugal-d8-d7-latam-2026)
+- [Colombia](/es/guides/residencia-espana-desde-colombia-2026) · [Uruguay](/es/guides/residencia-espana-desde-uruguay-2026) · [Ecuador](/es/guides/residencia-espana-desde-ecuador-2026) · [Paraguay](/es/guides/residencia-espana-desde-paraguay-2026)
+
+¿No sabes qué visa te conviene? Usa el [evaluador](/es/wizard).
+
+---
+
+*Última actualización: agosto 2026. Verifica siempre con fuentes oficiales antes de tomar decisiones. Emigro no es asesoría jurídica.*

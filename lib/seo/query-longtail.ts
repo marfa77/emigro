@@ -365,9 +365,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "emigrar a España desde Perú requisitos",
       "nacionalidad española peruanos 2 años",
     ],
-    seoTitle: "Residencia España Perú 2026 — 2 años art.22",
+    seoTitle: "Residencia España peruanos 2026 — 2 años",
     seoDescription:
-      "Peruanos en España 2026: turista Schengen ≠ residencia. Nómada digital, no lucrativa y nacionalidad en 2 años (art. 22).",
+      "Cómo emigrar a España desde Perú 2026: Schengen ≠ residencia. Nómada (~€2.849), no lucrativa, Lima y nacionalidad en 2 años (art. 22).",
   },
   {
     path: "/es/guides/residencia-espana-desde-paraguay-2026",
