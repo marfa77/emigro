@@ -1,10 +1,10 @@
 ---
 slug: vnj-austria-2026
 title: "ВНЖ Австрия 2026: RWR Card, Blue Card — без digital nomad"
-seo_title: "ВНЖ Австрия 2026 — RWR €3465, Blue Card, без DNV"
-seo_description: "Австрия 2026: нет DNV. RWR Other Key Workers €3 465/мес, Blue Card €55 678/год. Self-Employed Key Worker ≠ фриланс (€100k/макропольза). SVS, 45+, RWR Plus."
+seo_title: "ВНЖ Австрия 2026 — RWR €3 465/мес, без DNV"
+seo_description: "Австрия 2026 без digital nomad: RWR Other Key Workers €3 465/мес брутто, EU Blue Card €55 678/год. Self-Employed Key Worker ≠ фриланс (€100k). Wizard AT."
 excerpt: "Честный гайд: Австрия без digital nomad визы. RWR/Blue Card с оффером; самозанятость — только Key Worker/стартап с капиталом. Налоги SVS+PIT, не «открой ИП»."
-quick_answer: "**Digital nomad визы в Австрии нет.** Легально жить и работать (в т.ч. удалённо на foreign employer) с территории AT нельзя без подходящего Aufenthaltstitel — туризм/Schengen C и «excepted from gainful employment» работу запрещают. Основные пути 2026: **RWR Other Key Workers** — оффер + AMS + **≥€3 465/мес брутто** + баллы; **EU Blue Card** — **≥€55 678/год**; shortage / graduates / Very Highly Qualified — отдельные сетки. **Self-Employed Key Worker ≠ фриланс с ноутбуком:** нужен макроэкономический эффект (**€100 000** капитала **или** рабочие места / know-how / региональное значение). **Start-up Founder:** €30k + ≥50% equity + **50/85** баллов + инновация. Сначала **RWR 24 мес**, затем **RWR Card Plus**. **45+** first-time — часто зарплата/пенсия как в DE-логике. Подача из РФ — через третьи страны. ПМЖ ~5 лет; гражданство ~10 лет + B1."
+quick_answer: "**Digital nomad визы в Австрии нет.** Легально жить и работать (в т.ч. удалённо на foreign employer) с территории AT нельзя без подходящего Aufenthaltstitel — туризм/Schengen C и «excepted from gainful employment» работу запрещают. **RWR Other Key Workers 2026:** оффер + AMS + **≥€3 465/мес брутто** + баллы. **EU Blue Card AT 2026 (отдельный трек):** **≥€55 678 в год** брутто — не пересчитывайте из месячного RWR. Shortage / graduates / Very Highly Qualified — отдельные сетки. **Self-Employed Key Worker ≠ фриланс с ноутбуком:** нужен макроэкономический эффект (**€100 000** капитала **или** рабочие места / know-how / региональное значение). **Start-up Founder:** €30k + ≥50% equity + **50/85** баллов + инновация. Сначала **RWR 24 мес**, затем **RWR Card Plus**. **45+** first-time — сверяйте повышенную зарплату/пенсию с AMS (не копируйте DE-цифру вслепую). Подача из РФ — через третьи страны. ПМЖ ~5 лет; гражданство ~10 лет + B1."
 corridor_slugs: [ru-speaking-to-austria]
 topic_keys: [austria, work, visa]
 tags: [Австрия, ВНЖ, Blue Card, RWR Card, 2026, AT, без digital nomad]
@@ -24,8 +24,10 @@ official_sources:
     label: migration.gv.at — воссоединение семьи
 estimated_minutes: 20
 date_published: 2026-06-29
-date_modified: 2026-08-02
+date_modified: 2026-08-10
 ---
+
+> **Fact-check Emigro (10.08.2026):** RWR Other Key Workers — **€3 465**/мес брутто (2026, migration.gv.at). EU Blue Card AT — **€55 678**/год брутто (отдельная программа; часто с 14 выплатами). Self-Employed Key Worker — **€100k** капитала **или** макропольза, не «фриланс-виза». Источник: [Other Key Workers](https://www.migration.gv.at/en/types-of-immigration/permanent-immigration/other-key-workers/), [EU Blue Card](https://www.migration.gv.at/en/types-of-residence/all-types-of-residence/eu-blue-card/).
 
 ## Главный вердикт (прочитайте первым)
 
@@ -100,7 +102,7 @@ date_modified: 2026-08-02
 
 ### Возраст 45+
 
-При **первой** выдаче многих рабочих титулов часто требуется повышенная зарплата / **proof of adequate pension** (в обзорах фигурирует ориентир порядка **€55 770+/год** — по аналогии с соседними режимами; **сверяйте** с AMS/консульством для вашей категории). Для «лёгкого» фриланс-кейса 45+ без капитала Self-Employed Key Worker практически нереален.
+При **первой** выдаче многих рабочих титулов AMS/консульство могут запросить повышенную зарплату или **proof of adequate pension**. Цифра «как в DE ~€55 770» — **только ориентир соседнего режима**, не австрийский закон; **сверяйте** актуальный порог для вашей категории на migration.gv.at / с AMS. Для «лёгкого» фриланс-кейса 45+ без капитала Self-Employed Key Worker практически нереален.
 
 ### RWR Card → RWR Card Plus
 
@@ -227,7 +229,9 @@ Wizard: [AT](/ru/austria/wizard) · [CZ](/ru/czechia/wizard) · [PL](/ru/poland/
 ## Чеклист перед подачей
 
 - [ ] Есть **австрийский оффер** / капитал Key Worker / стартап — иначе стоп
-- [ ] Зарплата ≥ **€3 465** (RWR Other) или ≥ **€55 678**/год (Blue Card); для **45+** — проверьте повышенный порог/пенсию
+- [ ] **RWR Other:** зарплата ≥ **€3 465**/мес брутто (2026)
+- [ ] **EU Blue Card (отдельный трек):** зарплата ≥ **€55 678**/год брутто (2026)
+- [ ] Для **45+** first-time — проверьте у AMS повышенный порог/пенсию (не копируйте чужие страны)
 - [ ] Не путаете **Self-Employed Key Worker** с «фриланс-визой»
 - [ ] Считаете **SVS + PIT + VAT**, не только Einkommensteuer
 - [ ] AMS / консульство / Termin MA35 в календаре (**месяцы**)
@@ -277,7 +281,8 @@ Wizard: [AT](/ru/austria/wizard) · [CZ](/ru/czechia/wizard) · [PL](/ru/poland/
 ## Коротко для проверки маршрута
 
 - **Нет DNV** — remote без титула нельзя.
-- RWR Other: **€3 465/мес** (2026); Blue Card: **€55 678/год**.
+- RWR Other 2026: **€3 465/мес** брутто.
+- EU Blue Card AT 2026: **€55 678 в год** брутто.
 - Self-Employed Key Worker: **€100k / макропольза**, не ноутбук.
 - Start-up: **€30k + 50% equity + 50 баллов + инновация**.
 - RWR **24 мес** → затем **Plus**.

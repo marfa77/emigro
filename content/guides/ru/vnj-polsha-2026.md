@@ -2,9 +2,9 @@
 slug: vnj-polsha-2026
 title: "ВНЖ Польша 2026: work permit, Blue Card и B2B для RU/UA/BY/KZ"
 seo_title: "ВНЖ Польша 2026 — work permit, Blue Card, сроки"
-seo_description: "ВНЖ Польша 2026 для RU/UA/BY/KZ: Type A от PLN 4 806, Blue Card PLN 13 355,34/мес, B2B IT. Сроки по этапам: консульство, карта pobytu, Варшава."
+seo_description: "ВНЖ Польша 2026 для RU/UA/BY/KZ: Type A от PLN 4 806, Blue Card PLN 13 355,34/мес (GUS×1,5), B2B IT. Сроки: консульство → pobyt → Варшава 12–18+."
 excerpt: "Польша — главный коридор для русскоязычных в Центральную Европу: work permit, Blue Card, B2B IT, учёба и воссоединение семьи — с порогами и сроками 2026."
-quick_answer: "Основные маршруты: (1) work permit Type A + карта pobytu czasowego (от PLN 4 806/мес брутто), (2) EU Blue Card **PLN 13 355,34/мес** брутто (150% средней GUS 2025; ~€3 110), (3) B2B/zlecenie IT (~€2 500/мес — ориентир, не закон), (4) studia (средства от **PLN 1 010/мес** solo + жильё/дорога), (5) семья. Этапы: D-виза 3–6 мес.; карта pobytu 6–18 мес. (Варшава 12–18+). ПМЖ ~5 лет. Гражданство (uznanie art. 30): Karta Polaka — 1 год на ПМЖ; **3 года уже на ПМЖ** (часто суммарно ~8 лет после въезда) или 10 лет legal stay + ПМЖ — не «паспорт за 3 года с прибытия». Dual PL обычно без отказа от другого паспорта. /ru/poland/wizard."
+quick_answer: "Маршруты 2026: Type A + karta pobytu (от **PLN 4 806**/мес брутто); EU Blue Card — зарплата **PLN 13 355,34**/мес брутто (150% GUS 2025; ~€3 110); B2B/zlecenie IT (~€2 500/мес — ориентир рынка, не закон); studia от **PLN 1 010**/мес solo + жильё/дорога; семья. **Сроки по этапам (не суммировать в одну цифру):** слот+консульство D-виза **3–6 мес.**; решение karta pobytu / Blue Card **6–18 мес.** (Варшава **12–18+**, Kraków часто **8–15 мес.**, биометрия **2–4 мес.**, выдача карты ещё **3–5 мес.**); семья в Mazowieckie часто **12–18+**. ПМЖ ~5 лет. Гражданство art. 30: Karta Polaka — 1 год на ПМЖ; **3 года уже на ПМЖ** (часто ~8 лет с въезда) или 10 лет legal stay + ПМЖ. Dual PL обычно без отказа. [/ru/poland/wizard](/ru/poland/wizard)."
 corridor_slugs: [ru-speaking-to-poland]
 topic_keys: [poland, work, visa]
 tags: [Польша, ВНЖ, Blue Card, work permit, B2B, 2026, PL]
@@ -26,8 +26,10 @@ official_sources:
     label: Ustawa o obywatelstwie polskim — art. 30
 estimated_minutes: 18
 date_published: 2026-06-29
-date_modified: 2026-08-07
+date_modified: 2026-08-10
 ---
+
+> **Fact-check Emigro (10.08.2026):** мин. зарплата Type A — **PLN 4 806**/мес с 01.01.2026 (Dz.U. 2025 poz. 1242). Blue Card 2026 — **PLN 13 355,34**/мес (150% przeciętnego GUS **2025** = PLN 8 903,56; коммюнике GUS **09.02.2026**). Сроки в тексте — **по этапам** (консульство / voivodeship / биометрия / выдача), не «одна цифра Blue Card». Studia means: **PLN 1 010**/мес solo с 01.01.2025. Источники: [gov.pl minimum wage](https://www.gov.pl/web/family-social-policy/minimum-wage), [UDSC Blue Card](https://www.gov.pl/web/udsc-en/eu-blue-card), [stat.gov.pl](https://stat.gov.pl/).
 
 ## Кому подходит этот гайд
 
@@ -183,7 +185,7 @@ date_modified: 2026-08-07
 - Несовершеннолетние дети
 - Иные иждивенцы — по правилам UDSC
 
-**Срок:** **реалистично 2026: 8–15 мес.** (Mazowieckie **12–18+**; по UoC до 3 мес.). Для семьи держателя **Blue Card** сроки часто короче общего трека — сверяйте UDSC / voivodeship. Сбор ~PLN 340 + PLN 50.
+**Срок:** **реалистично 2026: 8–15 мес.** (Mazowieckie **12–18+**; по UoC до 3 мес.). Для семьи держателя высококвалифицированного разрешения (EU Blue Card track) сроки часто короче общего трека — сверяйте UDSC / voivodeship. Сбор ~PLN 340 + PLN 50.
 
 ---
 
@@ -313,6 +315,17 @@ PL — быстрее через work/B2B при оффере; PT D8 — есл�
 На [emigro.online/ru/poland/wizard](https://www.emigro.online/ru/poland/wizard) укажите паспорт (RU/BY/UA/KZ), оффер, доход и семью — система сопоставит work permit, Blue Card и B2B без гарантии одобрения.
 
 Hub wizard без выбора страны: [/ru/wizard](/ru/wizard).
+
+---
+
+## Коротко для проверки маршрута
+
+- Type A: от **PLN 4 806**/мес брутто (2026).
+- Blue Card: **PLN 13 355,34**/мес брутто (заявки 2026).
+- Studia: от **PLN 1 010**/мес solo + жильё/дорога.
+- Этапы: D-виза **3–6** → решение pobytu **6–18** (Warsaw **12–18+**) → выдача карты **3–5**.
+- ПМЖ ~5 лет; гражданство art. 30 — не «паспорт за 3 года с прибытия».
+- CTA: [/ru/poland/wizard](/ru/poland/wizard) · хаб [/ru/wizard](/ru/wizard).
 
 ---
 
