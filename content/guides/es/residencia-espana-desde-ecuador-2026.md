@@ -1,10 +1,10 @@
 ---
 slug: residencia-espana-desde-ecuador-2026
-title: "Residencia en España desde Ecuador 2026: rutas para ecuatorianos"
-seo_title: "España desde Ecuador 2026: residencia EC"
-seo_description: "Ecuatorianos en España 2026: visado Schengen vs residencia, nómada digital, no lucrativa, trabajo y nacionalidad a 2 años (art. 22)."
-excerpt: "Pasaporte ecuatoriano: demanda alta hacia España, pero hay que separar turista/Schengen de residencia real. Rutas 2026 + horizonte de nacionalidad."
-quick_answer: "Ciudadanos ecuatorianos suelen necesitar visado Schengen para estancias cortas y, para vivir/trabajar, una vía de residencia: nómada digital (~€2 849+/mes en 2026), no lucrativa, trabajo por cuenta ajena, estudios o reagrupación. Como iberoamericanos, tras ~2 años de residencia legal continua pueden solicitar nacionalidad española (art. 22 CC) — no automática. Tramite en el consulado español competente en Ecuador."
+title: "Residencia en España para ecuatorianos 2026"
+seo_title: "Residencia España Ecuador 2026 — Schengen"
+seo_description: "Ecuatorianos en España 2026: visado Schengen vs residencia. Nómada digital (~€2.849), no lucrativa, trabajo y nacionalidad en 2 años (art. 22)."
+excerpt: "Pasaporte ecuatoriano: alta demanda hacia España; separar turista/Schengen de residencia real. Rutas 2026 + nacionalidad a 2 años."
+quick_answer: "Ecuador suele necesitar visado Schengen para estancias cortas y, para vivir/trabajar, una vía de residencia: nómada digital (~€2.849+/mes 2026), no lucrativa, trabajo, estudios o reagrupación. Art. 22: ~2 años de residencia legal para nacionalidad (CCSE; DELE suele exento). Trámite en consulado español competente en Ecuador. Emigro: guía por origen + evaluador."
 corridor_slugs: [es-speaking-ecuador-to-spain]
 topic_keys: [spain, ecuador, visa, residence]
 tags: [España, Ecuador, residencia, nómada digital, no lucrativa, nacionalidad, 2026, ec]
@@ -31,7 +31,7 @@ date_modified: 2026-08-10
 
 Ecuatorianos (pasaporte **EC**) que quieren **vivir** en España en 2026: remote workers, familias, estudiantes o quienes ya tienen red en Madrid, Murcia, Valencia u otras ciudades con comunidad ecuatoriana.
 
-Corredor Emigro: **Ecuador → España** (segundo wedge LATAM tras Uruguay). Hubs: [Ecuador](/es/ecuador) · [España](/es/spain) · [Nómada digital LATAM](/es/guides/visa-nomada-digital-espana-latam-2026) · [30 días](/es/guides/primeros-30-dias-en-espana-2026).
+Corredor Emigro: **Ecuador → España** (segundo wedge LATAM tras Uruguay). Hubs: [Ecuador](/es/ecuador) · [España](/es/spain) · [Nómada digital](/es/guides/visa-nomada-digital-espana-latam-2026) · [No lucrativa](/es/guides/visado-no-lucrativa-espana-latam-2026) · [30 días](/es/guides/primeros-30-dias-en-espana-2026).
 
 ---
 
@@ -147,14 +147,22 @@ Los ecuatorianos suelen estar **exentos del DELE A2**, pero **sí** suelen neces
 Sí, amplia. Eso ayuda en red práctica, no sustituye papeles.
 
 **¿Y Portugal?**  
-Segundo destino del marco Emigro ES (evaluador). La nacionalidad portuguesa sigue **otras** reglas y plazos — no confunda con el art. 22 español.
+Segundo destino del marco Emigro ES. Detalle: [Portugal D8/D7 LATAM](/es/guides/portugal-d8-d7-latam-2026). La nacionalidad portuguesa sigue **otras** reglas (7/10 años) — no confunda con el art. 22 español.
+
+---
+
+## También en Emigro ES
+
+- [No lucrativa](/es/guides/visado-no-lucrativa-espana-latam-2026) · [Nacionalidad 2 años](/es/guides/nacionalidad-espanola-latam-2026)
+- [Beckham](/es/guides/impuestos-beckham-espana-latam-2026) · [LMD cerrada](/es/guides/ley-memoria-democratica-latam-2026)
+- [Colombia](/es/guides/residencia-espana-desde-colombia-2026) · [Evaluador](/es/wizard)
 
 ---
 
 ## Corto para verificar
 
-- EC: Schengen corto ≠ residencia
-- Elija vía y umbral 2026
+- EC: Schengen corto ≠ residencia (suele **necesitar visado** Schengen)
+- Elija vía y umbral 2026; **NL = consulado** (no turista→NL)
 - Apostilla + seguro + cita
 - Tras llegar: NIE / padrón / TIE
 - Horizonte: **2 años** de residencia legal → posible solicitud de nacionalidad (art. 22), no automática

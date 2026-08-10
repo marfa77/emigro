@@ -18,13 +18,16 @@ import { heroTitle } from "@/lib/ui/mobile";
 export const revalidate = 3600;
 
 export const metadata: Metadata = pageMetadata({
-  title: "Emigro — LATAM → España y Portugal",
+  title: "Emigro — LATAM → España y Portugal 2026",
   titleAbsolute: true,
   description:
-    "Residencia para hispanohablantes: UY/EC/PE/PY/CO → España y Portugal. Evaluador, pilares y horizonte de nacionalidad española a 2 años (art. 22).",
+    "Emigrar a España o Portugal desde Latinoamérica 2026: nómada digital, no lucrativa, D8/D7. UY/EC/PE/PY/CO + nacionalidad española ~2 años (art. 22). Evaluador gratis.",
   path: ES_PATHS.home,
   locale: "es",
   esHreflang: { destinationIso: "ES" },
+  aiDescription:
+    "Emigro ES: residence navigator for Latin American passports to Spain and Portugal. Pillars with official sources, route evaluator, Spanish nationality art. 22 (~2 years for iberoamericans). Not legal advice.",
+  aiCategory: "latam-spain-portugal-hub",
 });
 
 const ORIGIN_CARDS = [
@@ -107,7 +110,7 @@ export default function EsHubPage() {
           </div>
           <h1 className={`mt-4 ${heroTitle}`}>Residencia en España y Portugal para hispanohablantes</h1>
           <p className="mt-4 max-w-2xl text-lg text-corridor-100">
-            Orígenes activos: Uruguay, Ecuador, Perú y Paraguay. Destinos profundos: España y luego
+            Orígenes activos: Uruguay, Ecuador, Perú, Paraguay y Colombia. Destinos profundos: España y luego
             Portugal — no una mini-rejilla de 20 países UE.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
@@ -258,8 +261,8 @@ export default function EsHubPage() {
         <section className="mt-12 rounded-2xl border border-amber-200 bg-amber-50/80 p-6">
           <h2 className="text-lg font-bold text-slate-950">Expansión</h2>
           <p className="mt-2 text-sm text-slate-700">
-            Siguiente: CO (cuando lleguen los pilares), luego AR/MX/VE. Destinos: profundizar España,
-            luego pilares Portugal. Cada origen = hub + 1 pilar.
+            Activos: UY / EC / PE / PY / CO. Siguiente: AR / MX / VE (hub + 1 pilar de origen). Shared
+            ya live: nómada digital, no lucrativa, nacionalidad, LMD, Beckham, Portugal D8/D7, 30 días.
           </p>
         </section>
       </main>

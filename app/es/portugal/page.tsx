@@ -10,12 +10,15 @@ import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
 export const revalidate = 3600;
 
 export const metadata: Metadata = pageMetadata({
-  title: "Portugal para hispanohablantes LATAM 2026",
+  title: "Portugal para latinoamericanos 2026 — D8/D7",
   description:
-    "Portugal como segundo destino Emigro ES: D8 nómada digital, D7 ingresos pasivos, estudios y familia. Evaluador UY/EC/PE/PY/CO.",
+    "Portugal D8 (~€3.680) y D7 (~€920) para LATAM 2026: AIMA, familia y comparación con España (nacionalidad ~2 años art. 22).",
   path: ES_PATHS.portugal,
   locale: "es",
   esHreflang: { destinationIso: "PT" },
+  aiDescription:
+    "Portugal destination hub for LATAM: D8 digital nomad ~€3.680/mo, D7 passive ~€920/mo, AIMA path; compare nationality horizon vs Spain art. 22 (~2 years).",
+  aiCategory: "destination-hub",
 });
 
 const ROUTES = [

@@ -16,12 +16,15 @@ import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
 export const revalidate = 3600;
 
 export const metadata: Metadata = pageMetadata({
-  title: "Ecuador → España: residencia y rutas 2026",
+  title: "Residencia en España para ecuatorianos 2026",
   description:
-    "Hub para ecuatorianos que quieren vivir en España: visado Schengen vs residencia, nómada digital, no lucrativa y checklist de llegada.",
+    "Cómo emigrar a España desde Ecuador 2026: visado Schengen vs residencia. Nómada digital (~€2.849), no lucrativa y nacionalidad en 2 años (art. 22).",
   path: ES_PATHS.ecuador,
   locale: "es",
   esHreflang: { originIso: "EC", destinationIso: "ES" },
+  aiDescription:
+    "Ecuador→Spain hub: short-stay Schengen visa often required vs national residence routes (digital nomad ~€2.849/mo, non-lucrative), nationality ~2 years (art. 22).",
+  aiCategory: "origin-corridor-hub",
 });
 
 export default function EsEcuadorHubPage() {

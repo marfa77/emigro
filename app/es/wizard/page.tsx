@@ -11,13 +11,16 @@ import { llmUtmUrl } from "@/lib/seo/llm-meta";
 export const revalidate = 3600;
 
 export const metadata: Metadata = pageMetadata({
-  title: "Evaluador: residencia España y Portugal (LATAM)",
+  title: "Evaluador LATAM → España y Portugal 2026",
   titleAbsolute: true,
   description:
-    "Responda sobre pasaporte UY/EC/PE/PY/CO, ingresos y familia. Emigro compara rutas de residencia en España y Portugal.",
+    "Compare rutas de residencia en España y Portugal con pasaporte UY/EC/PE/PY/CO: nómada digital, no lucrativa, D8/D7 y horizonte de nacionalidad.",
   path: ES_PATHS.wizard,
   locale: "es",
   esHreflang: { destinationIso: "ES" },
+  aiDescription:
+    "Emigro ES route evaluator: Latin American passports UY/EC/PE/PY/CO → Spain (digital nomad, non-lucrative, study, family) and Portugal (D8, D7, D4). Not legal advice.",
+  aiCategory: "route-evaluator",
 });
 
 export default function EsHubWizardPage() {

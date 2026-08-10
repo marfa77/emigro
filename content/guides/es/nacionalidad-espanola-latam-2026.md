@@ -1,10 +1,10 @@
 ---
 slug: nacionalidad-espanola-latam-2026
-title: "Nacionalidad española LATAM 2026: 2 años (art. 22)"
-seo_title: "Nacionalidad española LATAM 2026 — 2 años"
-seo_description: "Nacionalidad española por residencia para iberoamericanos 2026: 2 años (art. 22), CCSE, DELE, plazos, dualidad y errores frecuentes. Fuentes oficiales."
-excerpt: "Pillar canónico: de residencia legal a nacionalidad española en ~2 años para pasaportes iberoamericanos — requisitos, exámenes y timeline realista."
-quick_answer: "Si es nacional de origen de un país iberoamericano, el Código Civil (art. 22) permite solicitar la nacionalidad española tras 2 años de residencia legal, continuada e inmediatamente anterior a la petición (frente a 10 años de la regla general). No es automática: hacen falta buena conducta e integración (CCSE; DELE A2 suele no exigirse si el español es lengua oficial de su país). La estancia por estudios no computa. Confirme tasas y plazos en Justicia."
+title: "Nacionalidad española para latinoamericanos 2026: 2 años"
+seo_title: "Nacionalidad española LATAM: 2 años art. 22"
+seo_description: "Nacionalidad española por residencia 2026: 2 años para iberoamericanos (art. 22), CCSE, DELE, ausencias, dualidad y errores. Fuentes Justicia — no automática."
+excerpt: "De residencia legal a pasaporte español en ~2 años para iberoamericanos: requisitos, exámenes y timeline realista."
+quick_answer: "Nacionales de origen iberoamericano pueden solicitar nacionalidad tras 2 años de residencia legal, continuada e inmediatamente anterior (frente a 10 años general). No es automática: buena conducta + integración (CCSE; DELE A2 suele no exigirse si el español es lengua oficial). Estudios no computan. Ausencias y apostillas importan. Confirme tasas/plazos en Justicia."
 corridor_slugs:
   [
     es-speaking-uruguay-to-spain,

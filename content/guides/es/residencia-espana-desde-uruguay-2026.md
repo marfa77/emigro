@@ -1,10 +1,10 @@
 ---
 slug: residencia-espana-desde-uruguay-2026
-title: "Residencia en España desde Uruguay 2026: rutas para uruguayos"
-seo_title: "España desde Uruguay 2026: residencia UY"
-seo_description: "Uruguayos en España 2026: turista vs residencia, nómada digital, no lucrativa, trabajo y nacionalidad a 2 años (art. 22)."
-excerpt: "Pasaporte uruguayo: puede visitar Schengen, pero vivir en España exige una vía de residencia. Rutas 2026 + horizonte de nacionalidad."
-quick_answer: "Ciudadanos uruguayos suelen poder entrar a Schengen como turistas (estancia corta), pero residir y trabajar requiere visado/autorización nacional: nómada digital (~€2 849+/mes en 2026), no lucrativa, trabajo, estudios o reagrupación. Como iberoamericanos, tras ~2 años de residencia legal continua pueden solicitar nacionalidad española (art. 22 CC) — no automática."
+title: "Residencia en España para uruguayos 2026"
+seo_title: "Residencia España Uruguay 2026 — rutas UY"
+seo_description: "Uruguayos en España 2026: Schengen corto ≠ residencia. Nómada digital (~€2.849), no lucrativa, trabajo y nacionalidad en 2 años (art. 22). Fuentes oficiales."
+excerpt: "Pasaporte uruguayo: puede visitar Schengen, pero vivir exige residencia. Rutas 2026 + horizonte de nacionalidad española a 2 años."
+quick_answer: "Ciudadanos uruguayos suelen entrar a Schengen como turistas (estancia corta; ETIAS puede llegar a exentos), pero residir/trabajar exige visado nacional: nómada digital (~€2.849+/mes 2026), no lucrativa, trabajo, estudios o reagrupación. Como iberoamericanos, tras ~2 años de residencia legal continua pueden solicitar nacionalidad (art. 22) — no automática. Emigro: pilares + evaluador LATAM."
 corridor_slugs: [es-speaking-uruguay-to-spain]
 topic_keys: [spain, uruguay, visa, residence]
 tags: [España, Uruguay, residencia, nómada digital, no lucrativa, nacionalidad, 2026, uy]
@@ -31,9 +31,9 @@ date_modified: 2026-08-10
 
 Uruguayos (pasaporte **UY**) que quieren **vivir** en España en 2026: remote workers, rentistas, familias, o quienes ya visitan Schengen y buscan pasar a residencia.
 
-No es una guía para la audiencia rusófona de Emigro. El corredor semilla es **Uruguay → España**; la misma lógica se expandirá a AR/MX/CO/VE.
+No es una guía para la audiencia rusófona de Emigro. El corredor semilla es **Uruguay → España**; también hay hubs para EC/PE/PY/CO (AR/MX/VE después).
 
-Hubs: [Uruguay](/es/uruguay) · [España](/es/spain) · [Nómada digital LATAM](/es/guides/visa-nomada-digital-espana-latam-2026) · [Primeros 30 días](/es/guides/primeros-30-dias-en-espana-2026).
+Hubs: [Uruguay](/es/uruguay) · [España](/es/spain) · [Nómada digital](/es/guides/visa-nomada-digital-espana-latam-2026) · [No lucrativa](/es/guides/visado-no-lucrativa-espana-latam-2026) · [Primeros 30 días](/es/guides/primeros-30-dias-en-espana-2026).
 
 ---
 
@@ -140,7 +140,15 @@ Para la residencia inicial suele no exigirse DELE. Para **nacionalidad por resid
 No. Tras ~2 años de residencia **legal** continua puede **solicitar** nacionalidad por el art. 22; la resolución y el juramento son pasos aparte y pueden alargarse.
 
 **¿Sirve esta guía para argentinos o mexicanos?**  
-La lógica de rutas y del plazo de 2 años es similar; los hubs de origen AR/MX llegarán después. Hoy el corredor profundo es UY.
+La lógica de rutas y del plazo de 2 años es similar; hubs AR/MX llegan después. Mientras: [España](/es/spain) + [evaluador](/es/wizard).
+
+---
+
+## También en Emigro ES
+
+- [No lucrativa LATAM](/es/guides/visado-no-lucrativa-espana-latam-2026) · [Nacionalidad 2 años](/es/guides/nacionalidad-espanola-latam-2026)
+- [Beckham / impatriados](/es/guides/impuestos-beckham-espana-latam-2026) · [Portugal D8/D7](/es/guides/portugal-d8-d7-latam-2026)
+- [LMD (plazo cerrado)](/es/guides/ley-memoria-democratica-latam-2026) · [Colombia](/es/guides/residencia-espana-desde-colombia-2026) · [Evaluador](/es/wizard)
 
 ---
 
@@ -149,6 +157,6 @@ La lógica de rutas y del plazo de 2 años es similar; los hubs de origen AR/MX 
 - UY ≠ residencia automática en España
 - Elija vía: nómada / no lucrativa / trabajo / estudios / familia
 - Umbrales 2026 ligados a SMI/IPREM — confirme en BOE y consulado
-- Apostilla + seguro + cita consular
+- Apostilla + seguro + cita consular (**NL inicial = consulado**, no turista→NL)
 - Tras llegar: NIE, padrón, TIE
 - Horizonte: **2 años** de residencia legal → posible solicitud de nacionalidad (art. 22), no automática

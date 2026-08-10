@@ -301,6 +301,154 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     seoDescription:
       "Грузия 2026: медстраховка на въезд, work permit с 1.03, ВНЖ по недвижимости от $150 000, IT Residence Permit $25k/год. СИДН с РФ не действует.",
   },
+
+  // —— Spanish LATAM corridor (/es) ——
+  {
+    path: "/es",
+    primaryQuery: "residencia España latinoamericanos 2026",
+    queries: [
+      "residencia España latinoamericanos 2026",
+      "emigrar a España desde Latinoamérica 2026",
+      "nacionalidad española 2 años iberoamericanos",
+      "nómada digital España LATAM 2026",
+    ],
+    seoTitle: "LATAM → España y Portugal 2026 — Emigro",
+    seoDescription:
+      "Residencia para hispanohablantes LATAM: UY/EC/PE/PY/CO → España y Portugal. Evaluador, pilares y nacionalidad española ~2 años (art. 22).",
+  },
+  {
+    path: "/es/guides/residencia-espana-desde-colombia-2026",
+    guideSlug: "residencia-espana-desde-colombia-2026",
+    primaryQuery: "residencia en España para colombianos 2026",
+    queries: [
+      "residencia en España para colombianos 2026",
+      "visa nómada digital España colombianos",
+      "nacionalidad española colombianos 2 años",
+      "emigrar a España desde Colombia requisitos",
+    ],
+    seoTitle: "Residencia España colombianos 2026 — 2 años",
+    seoDescription:
+      "Colombianos en España 2026: Schengen ≠ residencia. Nómada digital (~€2.849), no lucrativa, Bogotá/BLS y nacionalidad en 2 años (art. 22).",
+  },
+  {
+    path: "/es/guides/residencia-espana-desde-uruguay-2026",
+    guideSlug: "residencia-espana-desde-uruguay-2026",
+    primaryQuery: "residencia en España para uruguayos 2026",
+    queries: [
+      "residencia en España para uruguayos 2026",
+      "emigrar a España desde Uruguay",
+      "visa nómada digital España uruguayos",
+    ],
+    seoTitle: "Residencia España Uruguay 2026 — rutas UY",
+    seoDescription:
+      "Uruguayos en España 2026: Schengen corto ≠ residencia. Nómada digital, no lucrativa y nacionalidad en 2 años (art. 22).",
+  },
+  {
+    path: "/es/guides/residencia-espana-desde-ecuador-2026",
+    guideSlug: "residencia-espana-desde-ecuador-2026",
+    primaryQuery: "residencia en España para ecuatorianos 2026",
+    queries: [
+      "residencia en España para ecuatorianos 2026",
+      "visado Schengen Ecuador España residencia",
+      "nómada digital España ecuatorianos",
+    ],
+    seoTitle: "Residencia España Ecuador 2026 — Schengen",
+    seoDescription:
+      "Ecuatorianos en España 2026: visado Schengen vs residencia. Nómada digital, no lucrativa y nacionalidad en 2 años (art. 22).",
+  },
+  {
+    path: "/es/guides/residencia-espana-desde-peru-2026",
+    guideSlug: "residencia-espana-desde-peru-2026",
+    primaryQuery: "residencia en España para peruanos 2026",
+    queries: [
+      "residencia en España para peruanos 2026",
+      "emigrar a España desde Perú requisitos",
+      "nacionalidad española peruanos 2 años",
+    ],
+    seoTitle: "Residencia España Perú 2026 — 2 años art.22",
+    seoDescription:
+      "Peruanos en España 2026: turista Schengen ≠ residencia. Nómada digital, no lucrativa y nacionalidad en 2 años (art. 22).",
+  },
+  {
+    path: "/es/guides/residencia-espana-desde-paraguay-2026",
+    guideSlug: "residencia-espana-desde-paraguay-2026",
+    primaryQuery: "residencia en España para paraguayos 2026",
+    queries: [
+      "residencia en España para paraguayos 2026",
+      "emigrar a España desde Paraguay",
+      "visa nómada digital España paraguayos",
+    ],
+    seoTitle: "Residencia España Paraguay 2026 — rutas PY",
+    seoDescription:
+      "Paraguayos en España 2026: Schengen ≠ residencia. Nómada digital, no lucrativa y nacionalidad en 2 años (art. 22).",
+  },
+  {
+    path: "/es/guides/visa-nomada-digital-espana-latam-2026",
+    guideSlug: "visa-nomada-digital-espana-latam-2026",
+    primaryQuery: "visa nómada digital España 2026 requisitos LATAM",
+    queries: [
+      "visa nómada digital España 2026 requisitos",
+      "nómada digital España 2849 euros",
+      "UGE nómada digital España desde turista",
+      "teletrabajo España latinoamericanos",
+    ],
+    seoTitle: "Nómada digital España LATAM 2026 — €2.849",
+    seoDescription:
+      "Teletrabajo España 2026 para LATAM: ~€2.849/mes (200% SMI), UGE vs consulado, ≤20% clientes ES y cómputo a nacionalidad en 2 años.",
+  },
+  {
+    path: "/es/guides/visado-no-lucrativa-espana-latam-2026",
+    guideSlug: "visado-no-lucrativa-espana-latam-2026",
+    primaryQuery: "residencia no lucrativa España 2026 requisitos",
+    queries: [
+      "residencia no lucrativa España 2026 requisitos",
+      "no lucrativa España IPREM 400%",
+      "visado no lucrativa Latinoamérica",
+    ],
+    seoTitle: "No lucrativa España 2026 — IPREM LATAM",
+    seoDescription:
+      "No lucrativa España 2026 para LATAM: ~€2.400/mes (400% IPREM), consulado primero, familia y camino a nacionalidad en 2 años.",
+  },
+  {
+    path: "/es/guides/nacionalidad-espanola-latam-2026",
+    guideSlug: "nacionalidad-espanola-latam-2026",
+    primaryQuery: "nacionalidad española 2 años latinoamericanos",
+    queries: [
+      "nacionalidad española 2 años latinoamericanos",
+      "nacionalidad española art 22 iberoamericanos",
+      "CCSE DELE nacionalidad española LATAM",
+      "nacionalidad española colombianos venezolanos mexicanos",
+    ],
+    seoTitle: "Nacionalidad española LATAM: 2 años art. 22",
+    seoDescription:
+      "Nacionalidad por residencia 2026: 2 años para iberoamericanos (art. 22), CCSE, DELE, ausencias y dualidad. Fuentes Justicia — no automática.",
+  },
+  {
+    path: "/es/guides/portugal-d8-d7-latam-2026",
+    guideSlug: "portugal-d8-d7-latam-2026",
+    primaryQuery: "Portugal D8 D7 latinoamericanos 2026",
+    queries: [
+      "Portugal D8 D7 latinoamericanos 2026",
+      "nómada digital Portugal D8 LATAM",
+      "D7 Portugal rentista latinoamericanos",
+      "Portugal vs España nacionalidad años",
+    ],
+    seoTitle: "Portugal D8/D7 LATAM 2026 vs España 2 años",
+    seoDescription:
+      "D8 (~€3.680) y D7 (~€920) para LATAM 2026: AIMA, familia. Nacionalidad PT 7/10 años vs España art. 22 (~2 años).",
+  },
+  {
+    path: "/es/wizard",
+    primaryQuery: "evaluador residencia España Portugal LATAM",
+    queries: [
+      "evaluador residencia España Portugal LATAM",
+      "comparar nómada digital España Portugal",
+      "ruta residencia España desde Colombia Uruguay",
+    ],
+    seoTitle: "Evaluador LATAM → España y Portugal",
+    seoDescription:
+      "Compare rutas de residencia ES/PT con pasaporte UY/EC/PE/PY/CO: ingresos, familia y horizonte de nacionalidad.",
+  },
 ];
 
 export function getLongTailByGuideSlug(slug: string): QueryLongTailTarget | undefined {

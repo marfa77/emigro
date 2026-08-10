@@ -10,10 +10,10 @@ import { buildCollectionPageItemListSchema } from "@/lib/seo/collection-schema";
 export const revalidate = 3600;
 
 const DESCRIPTION =
-  "Pilares Emigro en español: Uruguay y Ecuador → España, nómada digital LATAM y primeros 30 días — con fuentes oficiales e imágenes.";
+  "Guías pillar Emigro en español 2026: residencia España desde UY/EC/PE/PY/CO, nómada digital, no lucrativa, nacionalidad art. 22, Beckham, Portugal D8/D7 — fuentes oficiales.";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Guías pillar de residencia (español)",
+  title: "Guías residencia España LATAM 2026",
   description: DESCRIPTION,
   path: ES_PATHS.guides,
   locale: "es",

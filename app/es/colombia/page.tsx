@@ -16,12 +16,15 @@ import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
 export const revalidate = 3600;
 
 export const metadata: Metadata = pageMetadata({
-  title: "Colombia → España: residencia y rutas 2026",
+  title: "Residencia en España para colombianos 2026",
   description:
-    "Hub para colombianos que quieren vivir en España: Schengen 90 días vs residencia, nómada digital, no lucrativa, nacionalidad a 2 años (art. 22).",
+    "Cómo emigrar a España desde Colombia 2026: Schengen 90 días ≠ residencia. Nómada digital (~€2.849), no lucrativa, Bogotá/BLS y nacionalidad en 2 años (art. 22).",
   path: ES_PATHS.colombia,
   locale: "es",
   esHreflang: { originIso: "CO", destinationIso: "ES" },
+  aiDescription:
+    "Colombia→Spain hub: Schengen visa-free short stay vs national residence routes (digital nomad ~€2.849/mo, non-lucrative), Bogotá/BLS, apostille, Spanish nationality after ~2 years (art. 22).",
+  aiCategory: "origin-corridor-hub",
 });
 
 export default function EsColombiaHubPage() {

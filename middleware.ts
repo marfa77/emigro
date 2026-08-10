@@ -272,14 +272,25 @@ export function middleware(request: NextRequest) {
   }
 
   const { pathname } = request.nextUrl;
-  if (!pathname.startsWith("/admin")) return NextResponse.next();
-  if (pathname === "/admin/login") return NextResponse.next();
+  const isEs = pathname === "/es" || pathname.startsWith("/es/");
+
+  function nextWithEsHints(): NextResponse {
+    const res = NextResponse.next();
+    if (isEs) {
+      // Crawl signal without forcing root layout into dynamic rendering via headers().
+      res.headers.set("Content-Language", "es");
+    }
+    return res;
+  }
+
+  if (!pathname.startsWith("/admin")) return nextWithEsHints();
+  if (pathname === "/admin/login") return nextWithEsHints();
 
   const secret = process.env.EMIGRO_ADMIN_SECRET?.trim();
-  if (!secret) return NextResponse.next();
+  if (!secret) return nextWithEsHints();
 
   const token = request.cookies.get("emigro_admin")?.value;
-  if (token === secret) return NextResponse.next();
+  if (token === secret) return nextWithEsHints();
 
   const loginUrl = request.nextUrl.clone();
   loginUrl.pathname = "/admin/login";

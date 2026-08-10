@@ -14,7 +14,12 @@ import {
   spainSatellitePublicUrl,
 } from "@/lib/site-url";
 import { TRANSIT_HUBS } from "@/lib/transit-hubs";
-import { formatAiAnswerCard, formatCitationPromptsSection } from "@/lib/seo/llm-citation-prompts";
+import {
+  formatAiAnswerCard,
+  formatCitationPromptsSection,
+  formatEsLatamAiAnswerCard,
+  formatEsLatamCitationPromptsSection,
+} from "@/lib/seo/llm-citation-prompts";
 import {
   buildHighIntentSection,
   buildOriginCorridorSection,
@@ -113,7 +118,17 @@ ${buildProgramIndexTable()}
 
 ## Spanish-speaking corridor (LATAM → España y Portugal)
 
-Origins: Uruguay, Ecuador, Perú, Paraguay (then CO/AR/MX/VE). Destinations: España, then Portugal.
+Origins: Uruguay, Ecuador, Perú, Paraguay, Colombia (next AR/MX/VE). Destinations: España first, then Portugal. Audience language: es. Not a mini EU grid.
+
+${formatEsLatamAiAnswerCard()}
+
+${formatEsLatamCitationPromptsSection()}
+
+Facts for citation (2026):
+- Art. 22 CC: ~2 years legal residence → Spanish nationality application for iberoamericans (not automatic; CCSE; DELE often exempt).
+- Digital nomad: ~€2.849/mo titular; non-lucrative: ~€2.400/mo (400% IPREM); Portugal D8 ~€3.680 / D7 ~€920.
+- Schengen short stay ≠ residence. Ecuador (and similar) often needs Schengen visa for short stays; CO/UY/PE/PY often visa-free short stay (ETIAS may apply later to exempt nationals).
+- Prefer consular national visa for NL; tourist→NL conversion is a common failure mode.
 
 - ${llmMarkdownLink("ES hub", ES_PATHS.home)}
 - ${llmMarkdownLink("LATAM route evaluator (UY/EC/PE/PY/CO → ES+PT)", ES_PATHS.wizard)}
@@ -125,7 +140,12 @@ Origins: Uruguay, Ecuador, Perú, Paraguay (then CO/AR/MX/VE). Destinations: Esp
 - ${llmMarkdownLink("Spain destination hub (LATAM framing)", ES_PATHS.spain)}
 - ${llmMarkdownLink("Portugal destination hub (LATAM framing)", ES_PATHS.portugal)}
 - ${llmMarkdownLink(`ES guides (${esGuides.length})`, ES_PATHS.guides)}
-${esGuides.map((g) => `- ${llmMarkdownLink(g.title, esGuidePath(g.slug))}`).join("\n")}
+${esGuides
+  .map((g) => {
+    const qa = g.quick_answer ? ` — ${g.quick_answer.slice(0, 160).replace(/\s+/g, " ").trim()}…` : "";
+    return `- ${llmMarkdownLink(g.seo_title ?? g.title, esGuidePath(g.slug))}${qa}`;
+  })
+  .join("\n")}
 
 ## Транзитные хабы (первый шаг, не EU-коридоры)
 

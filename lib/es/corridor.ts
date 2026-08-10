@@ -1,6 +1,6 @@
 /**
  * Spanish-speaking LATAM → España y Portugal.
- * Origins expand (UY, EC, PE, PY, …); destinations stay ES then PT — not a mini EU grid.
+ * Origins expand (UY, EC, PE, PY, CO, …); destinations stay ES then PT — not a mini EU grid.
  * SEO + product surface under `/es`. Pillars only + covers/OG. See docs/ES_SEO_CORRIDOR.md.
  *
  * Wizard reuses `ru-speaking-to-spain` / `ru-speaking-to-portugal` program rules

@@ -1,10 +1,10 @@
 ---
 slug: residencia-espana-desde-peru-2026
-title: "Residencia en España desde Perú 2026: rutas para peruanos"
-seo_title: "España desde Perú 2026: residencia PE"
-seo_description: "Peruanos en España 2026: turista/Schengen vs residencia, nómada digital, no lucrativa, trabajo y nacionalidad a 2 años (art. 22)."
-excerpt: "Pasaporte peruano: suele poder visitar Schengen en corta estancia, pero vivir en España exige residencia. Rutas 2026 + horizonte de nacionalidad."
-quick_answer: "Ciudadanos peruanos suelen poder entrar a Schengen como turistas (estancia corta; ETIAS puede aplicarse más adelante a nacionalidades exentas), pero residir y trabajar requiere visado/autorización nacional: nómada digital (~€2 849+/mes en 2026), no lucrativa, trabajo, estudios o reagrupación. Como iberoamericanos, tras ~2 años de residencia legal continua pueden solicitar nacionalidad española (art. 22 CC) — no automática."
+title: "Residencia en España para peruanos 2026"
+seo_title: "Residencia España Perú 2026 — 2 años art.22"
+seo_description: "Peruanos en España 2026: turista Schengen ≠ residencia. Nómada digital (~€2.849), no lucrativa, trabajo y nacionalidad en 2 años (art. 22). Fuentes oficiales."
+excerpt: "Pasaporte peruano: suele visitar Schengen en corta estancia; vivir exige residencia. Rutas 2026 + horizonte de nacionalidad."
+quick_answer: "Perú suele entrar a Schengen como turista (corta estancia; ETIAS puede llegar), pero residir exige vía nacional: nómada digital (~€2.849+/mes 2026), no lucrativa, trabajo, estudios o reagrupación. Art. 22: ~2 años de residencia legal continua para nacionalidad — no automática. Emigro: pilares LATAM + evaluador /es/wizard."
 corridor_slugs: [es-speaking-peru-to-spain]
 topic_keys: [spain, peru, visa, residence]
 tags: [España, Perú, residencia, nómada digital, no lucrativa, nacionalidad, 2026, pe]
@@ -31,7 +31,7 @@ date_modified: 2026-08-10
 
 Peruanos (pasaporte **PE**) que quieren **vivir** en España en 2026: remote workers, rentistas, familias, estudiantes o quienes ya visitan Schengen y buscan pasar a residencia.
 
-Corredor Emigro: **Perú → España** (wedge de demanda real con SEO menos saturado que MX/CO/AR/VE). Hubs: [Perú](/es/peru) · [España](/es/spain) · [Nómada digital LATAM](/es/guides/visa-nomada-digital-espana-latam-2026) · [Primeros 30 días](/es/guides/primeros-30-dias-en-espana-2026).
+Corredor Emigro: **Perú → España** (wedge de demanda real con SEO menos saturado que MX/AR/VE). Hubs: [Perú](/es/peru) · [España](/es/spain) · [Nómada digital](/es/guides/visa-nomada-digital-espana-latam-2026) · [No lucrativa](/es/guides/visado-no-lucrativa-espana-latam-2026) · [Primeros 30 días](/es/guides/primeros-30-dias-en-espana-2026).
 
 ---
 
@@ -47,6 +47,7 @@ Comparación rápida:
 | [Ecuador](/es/guides/residencia-espana-desde-ecuador-2026) | Suele **necesitar visado** | Diferenciador fuerte |
 | **Perú** | Suele visa-free (confirme; ETIAS puede llegar a exentos) | Demanda + nicho usable |
 | [Paraguay](/es/guides/residencia-espana-desde-paraguay-2026) | Suele visa-free | Nicho muy limpio |
+| [Colombia](/es/guides/residencia-espana-desde-colombia-2026) | Suele visa-free | Alta demanda + art. 22 |
 
 ---
 
@@ -155,11 +156,19 @@ ETIAS es una autorización electrónica prevista para nacionalidades **exentas**
 
 ---
 
+## También en Emigro ES
+
+- [No lucrativa](/es/guides/visado-no-lucrativa-espana-latam-2026) · [Nacionalidad 2 años](/es/guides/nacionalidad-espanola-latam-2026)
+- [Beckham](/es/guides/impuestos-beckham-espana-latam-2026) · [Portugal D8/D7](/es/guides/portugal-d8-d7-latam-2026)
+- [Colombia](/es/guides/residencia-espana-desde-colombia-2026) · [LMD cerrada](/es/guides/ley-memoria-democratica-latam-2026) · [Evaluador](/es/wizard)
+
+---
+
 ## Corto para verificar su ruta
 
 - PE ≠ residencia automática en España
 - Elija vía: nómada / no lucrativa / trabajo / estudios / familia
 - Umbrales 2026 ligados a SMI/IPREM — confirme en BOE y consulado
-- Apostilla + seguro + cita consular
+- Apostilla + seguro + cita consular (**NL inicial = consulado**)
 - Tras llegar: NIE, padrón, TIE
 - Horizonte: **2 años** de residencia legal → posible solicitud de nacionalidad (art. 22), no automática

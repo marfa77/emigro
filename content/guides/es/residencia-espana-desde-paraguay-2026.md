@@ -1,10 +1,10 @@
 ---
 slug: residencia-espana-desde-paraguay-2026
-title: "Residencia en España desde Paraguay 2026: rutas para paraguayos"
-seo_title: "España desde Paraguay 2026: residencia PY"
-seo_description: "Paraguayos en España 2026: turista/Schengen vs residencia, nómada digital, no lucrativa, trabajo y nacionalidad a 2 años (art. 22)."
-excerpt: "Pasaporte paraguayo: nicho limpio hacia España. Visitar Schengen ≠ vivir. Rutas 2026 + horizonte de nacionalidad."
-quick_answer: "Ciudadanos paraguayos suelen poder entrar a Schengen como turistas (estancia corta; ETIAS puede aplicarse más adelante a nacionalidades exentas), pero residir y trabajar requiere visado/autorización nacional: nómada digital (~€2 849+/mes en 2026), no lucrativa, trabajo, estudios o reagrupación. Como iberoamericanos, tras ~2 años de residencia legal continua pueden solicitar nacionalidad española (art. 22 CC) — no automática."
+title: "Residencia en España para paraguayos 2026"
+seo_title: "Residencia España Paraguay 2026 — rutas PY"
+seo_description: "Paraguayos en España 2026: Schengen corto ≠ residencia. Nómada digital (~€2.849), no lucrativa, trabajo y nacionalidad en 2 años (art. 22). Nicho limpio."
+excerpt: "Pasaporte paraguayo: wedge limpio hacia España. Visitar Schengen ≠ vivir. Rutas 2026 + horizonte de nacionalidad."
+quick_answer: "Paraguay suele entrar a Schengen como turista (corta estancia), pero residir exige visado nacional: nómada digital (~€2.849+/mes 2026), no lucrativa, trabajo, estudios o reagrupación. Art. 22: ~2 años de residencia legal para nacionalidad española. Emigro: guía por origen + evaluador LATAM."
 corridor_slugs: [es-speaking-paraguay-to-spain]
 topic_keys: [spain, paraguay, visa, residence]
 tags: [España, Paraguay, residencia, nómada digital, no lucrativa, nacionalidad, 2026, py]
@@ -31,7 +31,7 @@ date_modified: 2026-08-10
 
 Paraguayos (pasaporte **PY**) que quieren **vivir** en España en 2026: remote workers, rentistas, familias o quienes ya visitan Schengen y buscan residencia.
 
-Corredor Emigro: **Paraguay → España** — wedge de baja competencia SEO (hermano lógico de Uruguay). Hubs: [Paraguay](/es/paraguay) · [España](/es/spain) · [Nómada digital LATAM](/es/guides/visa-nomada-digital-espana-latam-2026) · [30 días](/es/guides/primeros-30-dias-en-espana-2026).
+Corredor Emigro: **Paraguay → España** — wedge de baja competencia SEO (hermano lógico de Uruguay). Hubs: [Paraguay](/es/paraguay) · [España](/es/spain) · [Nómada digital](/es/guides/visa-nomada-digital-espana-latam-2026) · [No lucrativa](/es/guides/visado-no-lucrativa-espana-latam-2026) · [30 días](/es/guides/primeros-30-dias-en-espana-2026).
 
 ---
 
@@ -47,6 +47,7 @@ Comparación rápida:
 | **Paraguay** | Segundo wedge limpio del Cono Sur |
 | [Perú](/es/guides/residencia-espana-desde-peru-2026) | Más demanda, SERP más disputado |
 | [Ecuador](/es/guides/residencia-espana-desde-ecuador-2026) | Schengen corto suele exigir visado |
+| [Colombia](/es/guides/residencia-espana-desde-colombia-2026) | Alta demanda; Schengen suele visa-free |
 
 ---
 
@@ -153,11 +154,19 @@ Autorización electrónica prevista para nacionalidades **exentas** de visado Sc
 
 ---
 
+## También en Emigro ES
+
+- [No lucrativa](/es/guides/visado-no-lucrativa-espana-latam-2026) · [Nacionalidad 2 años](/es/guides/nacionalidad-espanola-latam-2026)
+- [Beckham](/es/guides/impuestos-beckham-espana-latam-2026) · [Portugal D8/D7](/es/guides/portugal-d8-d7-latam-2026)
+- [Colombia](/es/guides/residencia-espana-desde-colombia-2026) · [LMD cerrada](/es/guides/ley-memoria-democratica-latam-2026) · [Evaluador](/es/wizard)
+
+---
+
 ## Corto para verificar su ruta
 
 - PY ≠ residencia automática en España
 - Elija vía: nómada / no lucrativa / trabajo / estudios / familia
-- Umbrales 2026 → BOE + consulado
+- Umbrales 2026 → BOE + consulado (**NL inicial = consulado**)
 - Apostilla + seguro + cita
 - Tras llegar: NIE, padrón, TIE
 - Horizonte: **2 años** de residencia legal → posible solicitud de nacionalidad (art. 22), no automática

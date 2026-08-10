@@ -16,12 +16,15 @@ import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
 export const revalidate = 3600;
 
 export const metadata: Metadata = pageMetadata({
-  title: "Paraguay → España: residencia y rutas 2026",
+  title: "Residencia en España para paraguayos 2026",
   description:
-    "Hub para paraguayos que quieren vivir en España: estancia corta vs residencia, nómada digital, no lucrativa y checklist de llegada.",
+    "Cómo emigrar a España desde Paraguay 2026: Schengen corto ≠ residencia. Nómada digital (~€2.849), no lucrativa y nacionalidad en 2 años (art. 22).",
   path: ES_PATHS.paraguay,
   locale: "es",
   esHreflang: { originIso: "PY", destinationIso: "ES" },
+  aiDescription:
+    "Paraguay→Spain hub: short Schengen stay vs national residence (digital nomad, non-lucrative), Spanish nationality ~2 years (art. 22). Clean niche Cono Sur wedge.",
+  aiCategory: "origin-corridor-hub",
 });
 
 export default function EsParaguayHubPage() {

@@ -1,10 +1,10 @@
 ---
 slug: visado-no-lucrativa-espana-latam-2026
 title: "Visado no lucrativa España 2026 para latinoamericanos"
-seo_title: "No lucrativa España LATAM 2026 — IPREM y consulado"
-seo_description: "Residencia no lucrativa España 2026 para LATAM: €2.400/mes (400% IPREM), consulado, renovación >183 días, familia y camino a nacionalidad en 2 años."
-excerpt: "Pillar canónico: vivir en España con rentas pasivas sin trabajar — umbrales IPREM, documentos, consulado y errores (no turista→NL)."
-quick_answer: "La no lucrativa permite residir en España sin actividad laboral. Orientativo 2026: ~€2.400/mes titular (400% IPREM) + ~€600/mes por familiar. Inicial: consulado (visado D). No es la vía para teletrabajo (use nómada digital). Cuenta para nacionalidad art. 22 (~2 años iberoamericanos)."
+seo_title: "No lucrativa España 2026 — IPREM LATAM"
+seo_description: "Residencia no lucrativa España 2026 para LATAM: ~€2.400/mes (400% IPREM), consulado primero, renovación >183 días, familia y camino a nacionalidad en 2 años."
+excerpt: "Vivir en España con rentas pasivas sin trabajar: umbrales IPREM, documentos, consulado y error crítico (no turista→NL)."
+quick_answer: "La no lucrativa permite residir sin actividad laboral. Orientativo 2026: ~€2.400/mes titular (400% IPREM) + ~€600/mes por familiar. Inicial: consulado (visado D) — no use la estancia turística para “convertir” a NL. No es la vía de teletrabajo (use nómada digital). Computa para nacionalidad art. 22 (~2 años iberoamericanos)."
 corridor_slugs:
   [
     es-speaking-uruguay-to-spain,

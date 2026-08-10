@@ -1,10 +1,10 @@
 ---
 slug: visa-nomada-digital-espana-latam-2026
-title: "Visa nómada digital España 2026 para LATAM"
-seo_title: "Nómada digital España 2026 — LATAM"
-seo_description: "Teletrabajo / nómada digital en España 2026 para pasaportes LATAM (UY, EC, PE, PY y más): umbral ~€2 849/mes, documentos, consulado y límite de clientes españoles."
-excerpt: "Pillar canónico del visado de teletrabajo (Ley de Startups) para hispanohablantes LATAM: umbrales 2026, requisitos y pasos."
-quick_answer: "La vía de nómada digital (teletrabajo internacional) encaja si trabaja en remoto para empleador o clientes fuera de España, con ingresos del titular en torno a €2 849/mes en 2026 (200% del equivalente mensual del SMI) y normalmente ≤20% de ingresos de clientes españoles. Uruguayos, ecuatorianos, peruanos y paraguayos (y otros LATAM) presentan en el consulado español competente — confirme el canal oficial."
+title: "Visa nómada digital España 2026 para latinoamericanos"
+seo_title: "Nómada digital España LATAM 2026 — €2.849"
+seo_description: "Nómada digital / teletrabajo España 2026 para LATAM: ~€2.849/mes (200% SMI), UGE vs consulado, ≤20% clientes ES y cómputo hacia nacionalidad en 2 años."
+excerpt: "Pillar canónico Ley de Startups para hispanohablantes LATAM: umbrales 2026, documentos, consulado/UGE y errores frecuentes."
+quick_answer: "Encaja si teletrabaja para empleador/clientes fuera de España, con ingresos del titular ~€2.849/mes en 2026 (200% SMI) y normalmente ≤20% de ingresos de clientes españoles. Consulado: visado ~1 año; desde España (UGE, situación regular): autorización hasta 3 años. Computa para nacionalidad art. 22 (~2 años iberoamericanos). Confirme canal oficial por país."
 corridor_slugs: [es-speaking-uruguay-to-spain, es-speaking-ecuador-to-spain, es-speaking-peru-to-spain, es-speaking-paraguay-to-spain, es-speaking-latam-to-europe]
 topic_keys: [spain, uruguay, ecuador, peru, paraguay, work, visa, digital-nomad]
 tags: [España, LATAM, Uruguay, Ecuador, Perú, Paraguay, nómada digital, teletrabajo, 2026]
@@ -111,7 +111,7 @@ Lista exacta: página del **consulado español** competente para su país y domi
 4. Viaje con visado nacional
 5. En España: [primeros 30 días](/es/guides/primeros-30-dias-en-espana-2026) (NIE, padrón, TIE)
 
-Horizonte (España): con residencia **legal** continua, muchos pasaportes LATAM pueden **solicitar** nacionalidad española tras **~2 años** (Código Civil art. 22). El visado de nómada digital no concede nacionalidad por sí solo — [pilar nacionalidad LATAM](/es/guides/nacionalidad-espanola-latam-2026) y pilares de origen (UY/EC/PE/PY).
+Horizonte (España): con residencia **legal** continua, muchos pasaportes LATAM pueden **solicitar** nacionalidad española tras **~2 años** (Código Civil art. 22). El visado de nómada digital no concede nacionalidad por sí solo — [pilar nacionalidad LATAM](/es/guides/nacionalidad-espanola-latam-2026) y pilares de origen (UY/EC/PE/PY/CO).
 
 ---
 
@@ -127,13 +127,16 @@ De forma limitada (~20%). No convierta España en su mercado principal bajo esta
 Sí, con incrementos de medios económicos.
 
 **¿Beckham / IRNR?**  
-Régimen fiscal aparte del visado. Consulte asesor colegiado.
+Régimen fiscal aparte del visado: [Beckham / impatriados LATAM](/es/guides/impuestos-beckham-espana-latam-2026). Consulte asesor colegiado.
 
 **¿La nómada digital cuenta para los 2 años de nacionalidad?**  
 Sí, **si** mantiene residencia legal continua con la autorización correspondiente. Los días de turista no cuentan. Confirme el cómputo en Justicia.
 
-**¿Y México / Colombia / Argentina?**  
-Misma lógica de umbrales; hubs de origen llegarán después. Mientras tanto use este pillar + hub [España](/es/spain).
+**¿Y México / Argentina / Venezuela?**  
+Misma lógica de umbrales; hubs AR/MX/VE llegan después. Colombia ya tiene [pilar de origen](/es/guides/residencia-espana-desde-colombia-2026). Mientras use este pillar + [España](/es/spain) + [evaluador](/es/wizard).
+
+**¿Y si tengo rentas pasivas, no remote?**  
+Vea [no lucrativa LATAM](/es/guides/visado-no-lucrativa-espana-latam-2026) (solicitud típica en consulado). Comparar Portugal: [D8/D7](/es/guides/portugal-d8-d7-latam-2026).
 
 ---
 

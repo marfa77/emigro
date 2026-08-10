@@ -11,23 +11,26 @@ import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
 export const revalidate = 3600;
 
 export const metadata: Metadata = pageMetadata({
-  title: "España para hispanohablantes LATAM 2026",
+  title: "España para latinoamericanos 2026 — residencia",
   description:
-    "España como destino de residencia para LATAM: nómada digital, no lucrativa, trabajo, llegada y nacionalidad a 2 años (art. 22) para iberoamericanos.",
+    "Vivir en España siendo latinoamericano 2026: nómada digital (~€2.849), no lucrativa, trabajo, llegada NIE/TIE y nacionalidad en 2 años (art. 22).",
   path: ES_PATHS.spain,
   locale: "es",
   esHreflang: { destinationIso: "ES" },
+  aiDescription:
+    "Spain destination hub for LATAM: digital nomad, non-lucrative, work/study/family routes, first 30 days, Spanish nationality art. 22 (~2 years for iberoamericans).",
+  aiCategory: "destination-hub",
 });
 
 const ROUTES = [
   {
     title: "Nómada digital (teletrabajo)",
-    body: "Ingresos remotos desde fuera de España; umbral ligado al SMI. Pilar LATAM compartido (UY/EC/PE/PY/CO).",
+    body: "Ingresos remotos desde fuera de España; umbral ~€2.849/mes (200% SMI 2026). Pilar LATAM compartido (UY/EC/PE/PY/CO).",
     href: esGuidePath("visa-nomada-digital-espana-latam-2026"),
   },
   {
     title: "Residencia — overview por origen",
-    body: "Elija su pasaporte: Uruguay, Ecuador, Perú o Paraguay. Mismas rutas españolas; distinto consulado y Schengen corto.",
+    body: "Elija su pasaporte: Uruguay, Ecuador, Perú, Paraguay o Colombia. Mismas rutas españolas; distinto consulado y Schengen corto.",
     href: ES_PATHS.home,
   },
   {

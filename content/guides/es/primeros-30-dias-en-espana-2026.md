@@ -1,10 +1,10 @@
 ---
 slug: primeros-30-dias-en-espana-2026
 title: "Primeros 30 días en España 2026: checklist de llegada"
-seo_title: "NIE y TIE España — primeros 30 días"
-seo_description: "Checklist de llegada a España 2026: NIE, empadronamiento, SIM, banco, cita de extranjería y TIE. Pensado para uruguayos y LATAM con visado nacional."
+seo_title: "NIE y TIE España 2026 — primeros 30 días"
+seo_description: "Checklist llegada España 2026 para LATAM con visado nacional: empadronamiento, NIE, SIM, banco, cita extranjería y TIE. Evite bloqueos de alquiler/banco."
 excerpt: "Qué hacer el primer mes tras llegar con visado de residencia: NIE, padrón, banco, SIM y TIE."
-quick_answer: "En los primeros 30 días priorice: (1) empadronamiento en el ayuntamiento, (2) NIE/cita de extranjería según su caso, (3) SIM española, (4) cuenta bancaria, (5) huellas/TIE cuando corresponda. Sin padrón y número de identificación extranjero se atascan banco, alquiler y trámites."
+quick_answer: "Priorice en ~30 días: (1) empadronamiento, (2) NIE/cita de extranjería según su caso, (3) SIM española, (4) cuenta bancaria, (5) huellas/TIE cuando corresponda. Sin padrón y NIE se atascan banco, alquiler y renovaciones. Aplica a UY/EC/PE/PY/CO y resto LATAM con visado nacional."
 corridor_slugs: [es-speaking-uruguay-to-spain, es-speaking-ecuador-to-spain, es-speaking-latam-to-europe]
 topic_keys: [spain, checklist, arrival, uruguay, ecuador]
 tags: [España, checklist, NIE, TIE, empadronamiento, 2026, LATAM, Uruguay, Ecuador]
@@ -111,13 +111,16 @@ La TIE y el padrón son la base práctica para que el tiempo en España cuente c
 Depende del estado de su autorización y documentos de viaje. No asuma libertad total hasta entender su estatus; pregunte en extranjería o a un profesional.
 
 **¿Sirve este checklist si soy argentino/mexicano/ecuatoriano?**  
-Sí en lo esencial (padrón, NIE/TIE, banco). Emigro tiene hubs profundos para [Uruguay](/es/uruguay), [Ecuador](/es/ecuador), [Perú](/es/peru) y [Paraguay](/es/paraguay); la llegada a España es compartida.
+Sí en lo esencial (padrón, NIE/TIE, banco). Emigro tiene hubs para [Uruguay](/es/uruguay), [Ecuador](/es/ecuador), [Perú](/es/peru), [Paraguay](/es/paraguay) y [Colombia](/es/colombia); la llegada a España es compartida.
 
 **¿Cuánto tarda la TIE?**  
 Semanas a meses según provincia y carga de citas. Empiece ya en la semana 1–2.
 
 **¿El padrón cuenta para la nacionalidad?**  
 El padrón ayuda en la vida práctica; el cómputo de nacionalidad se basa en **residencia legal** (autorización / TIE) continua. Detalle: [Nacionalidad española LATAM](/es/guides/nacionalidad-espanola-latam-2026) y [hub España](/es/spain).
+
+**¿Vengo con no lucrativa o nómada digital?**  
+Use también [no lucrativa](/es/guides/visado-no-lucrativa-espana-latam-2026) o [nómada digital](/es/guides/visa-nomada-digital-espana-latam-2026) según su vía. Evaluador: [/es/wizard](/es/wizard).
 
 ---
 

@@ -47,7 +47,7 @@ function socialImageSize(path: string): SocialImageSize {
 const SEO_DESC_SUFFIX_RU =
   " Emigro: wizard подбора маршрута, справочники коридоров и еженедельные новости для русскоязычных релокантов.";
 const SEO_DESC_SUFFIX_ES =
-  " Emigro: guías de residencia en Europa para hispanohablantes, con fuentes oficiales y pasos prácticos.";
+  " Emigro: guías de residencia España/Portugal para hispanohablantes LATAM, con fuentes oficiales.";
 
 function truncateAtWord(text: string, max: number, suffix = "…"): string {
   const trimmed = text.trim();
@@ -68,7 +68,7 @@ export function fitMetaDescription(
   const pad = locale === "es" ? SEO_DESC_SUFFIX_ES : SEO_DESC_SUFFIX_RU;
   const extra =
     locale === "es"
-      ? " Revise el corredor Uruguay → España en Emigro."
+      ? " Revise el evaluador LATAM → España y Portugal en Emigro."
       : " Проверьте маршрут ВНЖ через hub wizard.";
   if (base.length < min) {
     base = `${base}${pad}`.replace(/\s+/g, " ").trim();

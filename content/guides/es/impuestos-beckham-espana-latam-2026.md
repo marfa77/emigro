@@ -1,10 +1,10 @@
 ---
 slug: impuestos-beckham-espana-latam-2026
-title: "Régimen Beckham e impuestos para latinoamericanos en España 2026"
+title: "Régimen Beckham e impuestos España 2026 para LATAM"
 seo_title: "Beckham / impatriados España LATAM 2026"
-seo_description: "Régimen de impatriados (Beckham) 2026 para LATAM: 24%, 6 años, Modelo 149, familia, nómada digital y límites. Fuentes AEAT / art. 93 LIRPF."
-excerpt: "Mapa fiscal del régimen de impatriados: quién puede acogarse, tipos, plazos Modelo 149 y errores frecuentes para perfiles LATAM."
-quick_answer: "El régimen de impatriados (art. 93 LIRPF) permite tributar rentas del trabajo al 24% (hasta el umbral) durante el año de llegada + 5. Requiere no residencia fiscal previa ~5 años, desplazamiento con causalidad y Modelo 149 en 6 meses desde el alta. Familia: base liquidable del familiar < principal. No es asesoría fiscal."
+seo_description: "Régimen impatriados (Beckham) 2026 para LATAM: 24%, 6 años, Modelo 149, familia, nómada digital y límites. Fuentes AEAT / art. 93 LIRPF — no asesoría."
+excerpt: "Mapa fiscal impatriados: quién puede acogarse, tipos, plazos Modelo 149 y errores frecuentes para perfiles LATAM."
+quick_answer: "Art. 93 LIRPF: tributar rentas del trabajo al 24% (hasta umbral) el año de llegada + 5. Requiere no residencia fiscal previa ~5 años, desplazamiento con causalidad y Modelo 149 en 6 meses desde el alta. Familia: base del familiar < principal. Compatible a menudo con nómada digital, pero no es asesoría fiscal — confirme AEAT/asesor."
 corridor_slugs:
   [
     es-speaking-uruguay-to-spain,

@@ -29,7 +29,13 @@ export function esLatamProgramHref(segment: string, programSlug: string): string
   if (programSlug === "spain-digital-nomad") {
     return esGuidePath("visa-nomada-digital-espana-latam-2026");
   }
-  if (programSlug === "spain-non-lucrative" || programSlug.startsWith("spain-")) {
+  if (programSlug === "spain-non-lucrative") {
+    return esGuidePath("visado-no-lucrativa-espana-latam-2026");
+  }
+  if (programSlug === "portugal-d8-digital-nomad" || programSlug === "portugal-d7-passive-income") {
+    return esGuidePath("portugal-d8-d7-latam-2026");
+  }
+  if (programSlug.startsWith("spain-")) {
     return ES_PATHS.spain;
   }
   if (segment === "portugal" || programSlug.startsWith("portugal-")) {
