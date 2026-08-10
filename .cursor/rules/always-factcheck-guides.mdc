@@ -1,0 +1,32 @@
+---
+description: Always fact-check guide claims against official sources before publishing
+alwaysApply: true
+---
+
+# Always fact-check guides
+
+When the user pastes a guide, asks to publish from `_user-drafts`, or ships origin/shared pillars:
+
+## Do (before commit / push)
+
+1. **Claim inventory** — thresholds (€/IPREM/SMI), Schengen vs residence, consulate addresses, dual nationality, exams (CCSE/DELE), what counts for nationality, in-country conversion myths.
+2. **Official sources first** — BOE, exteriores.gob.es consulate page, Justicia, Cervantes, host-country gov portals. Lawyer blogs are secondary.
+3. **Overlays, not cuts** — keep full user body; put corrections in a short **Nota Emigro (fact-check)** and inline soft fixes (see `full-guides-no-shorten`).
+4. **Known hard fails** (LATAM→ES):
+   - Estancia por estudios → **0%** for nacionalidad art. 22 (50% = larga duración-UE only).
+   - No lucrativa inicial → **consulado**, not tourist→NL.
+   - Nómada digital → **UGE** and/or consulado; do not assume generic Extranjería for all cases.
+   - Absences «6/10 months» → do not treat as art. 22 rule.
+   - Street addresses → verify current consulate page; soft-verify if unsure.
+5. **Record status** in the Nota: OK / soft / fixed, with source hint.
+6. Also run **competitor SEO strengthen** (`competitor-seo-strengthen.mdc`) in the same ship.
+
+## Do not
+
+- Publish on trust because “it looks like Colombia/Peru blogs”.
+- Delete sections to “fix” wrong claims — overlay and correct.
+- Invent law or thresholds without BOE / official page.
+
+## If blocked
+
+Ship full paste + honest Nota listing unchecked items; never silent-guess.

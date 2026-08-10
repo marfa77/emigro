@@ -13,15 +13,21 @@ cta_primary: /es/peru
 cta_secondary: /es/spain
 official_sources:
   - url: https://www.exteriores.gob.es/Consulados/lima
-    label: Consulado General de España en Lima
+    label: Consulado General de España en Lima (Los Pinos 490)
+  - url: https://www.boe.es/eli/es/rd/2026/02/18/126
+    label: BOE — SMI 2026 (Real Decreto 126/2026)
   - url: https://www.exteriores.gob.es/
     label: Ministerio de Asuntos Exteriores (España)
   - url: https://extranjeros.inclusion.gob.es/
     label: Secretaría de Estado de Migraciones
   - url: https://www.boe.es/buscar/doc.php?id=BOE-A-1960-5625
     label: BOE — Convenio doble nacionalidad España–Perú
+  - url: https://examenes.cervantes.es/es/ccse/preguntas-frecuentes
+    label: Instituto Cervantes — FAQ CCSE
   - url: https://www.mjusticia.gob.es/
     label: Justicia — nacionalidad
+  - url: https://www.gob.pe/100157-europa-sin-visa
+    label: Perú RREE — Europa sin visa (Schengen)
   - url: https://www.gob.pe/
     label: Portal oficial del Estado peruano (apostilla / RREE)
 estimated_minutes: 20
@@ -31,14 +37,24 @@ date_modified: 2026-08-10
 
 ## Nota Emigro (fact-check agosto 2026)
 
-- Perú: **exención Schengen** corta 90/180 (desde ~2016). Eso **no** autoriza residir/trabajar. ETIAS puede llegar a nacionalidades exentas — confirme MAEUEC.
-- **No lucrativa inicial:** consulado Lima — **no** «turista → NL» por defecto. No copie el proceso de la DN.
-- **Nómada digital:** vía **UGE-CE** (si ya está legal en España) o **visto nacional** en Lima. Consulado ~1 año; UGE a menudo hasta **3 años**. No asuma «cualquier Extranjería provincial» para todos los DN.
-- Estancia por **estudios = 0%** para nacionalidad art. 22 (el **50%** es para **larga duración-UE**, no nacionalidad).
-- Ausencias: no use la regla «6/10 meses» de larga duración como si fuera art. 22; lo crítico es **continuidad efectiva** de la residencia legal.
-- Dualidad: **Convenio España–Perú** (BOE) — en la práctica suele conservarse la peruana; confirme inscripción/Registro Civil.
-- Dirección consular Lima en esta guía: **Av. Jorge Basadre 498, San Isidro** — verifique siempre la web oficial (puede moverse o usar citas externas).
-- Plazo legal nacionalidad: **1 año** para resolver (RD 1004/2015) + silencio negativo; práctica a menudo 1–3+ años.
+Tabla de verificación (oficial primero; overlays en el cuerpo):
+
+| Claim | Status | Fuente / corrección |
+|-------|--------|---------------------|
+| Exención Schengen PE 90/180 desde **15 mar 2016** | **OK** | Acuerdo PE–UE / gob.pe «Europa sin visa» — **no** residir ni trabajar |
+| DN ~**€2.849**/mes (200% SMI) | **OK** | SMI 2026 **€1.221×14** (RD 126/2026) → 200% ≈ €2.849/mes |
+| Familia DN: no uses solo «+€600» | **Soft** | Orientativo DN: **+75% SMI** 1.º familiar (~€916) y **+25%** siguientes (~€305) — confirme UGE |
+| NL ~**€2.400**/mes (400% IPREM) + €600 familiar | **OK** | IPREM 2026 **€600**/mes → 400% = €2.400; +100% = €600/familiar |
+| NL inicial desde turista / Extranjería | **FAIL → overlay** | **Consulado Lima** primero |
+| DN desde turista | **OK soft** | **UGE-CE** si situación regular; o visto D Lima (~1 año vs UGE ~3 años) |
+| Estudios → nacionalidad «50%» | **FAIL → 0%** | Estancia ≠ residencia art. 22; el 50% es **larga duración-UE** |
+| Ausencias «6/10 meses» = art. 22 | **FAIL soft** | Regla típica de **larga duración**; art. 22 = continuidad efectiva |
+| Dualidad PE–ES | **OK** | Convenio BOE-A-1960-5625 |
+| Dirección consulado Lima | **FIXED** | Oficial: **Calle Los Pinos 490, San Isidro, 15073 Lima** (no Basadre 498) |
+| Apostilla RREE | **Soft** | Tasas orient. **S/18 digital / S/31 presencial**. Sede/MAC: confirme [gob.pe](https://www.gob.pe/) |
+| CCSE 25 / 15 aciertos | **OK** | Instituto Cervantes |
+| Plazo legal nacionalidad 1 año | **OK** | RD 1004/2015 + silencio negativo; práctica 1–3+ años |
+| ETIAS | **Soft** | Puede llegar a exentos — confirme MAEUEC |
 
 *No es asesoría jurídica.* Hubs: [Perú](/es/peru) · [España](/es/spain) · [Nómada digital](/es/guides/visa-nomada-digital-espana-latam-2026) · [No lucrativa](/es/guides/visado-no-lucrativa-espana-latam-2026) · [Nacionalidad](/es/guides/nacionalidad-espanola-latam-2026) · [30 días](/es/guides/primeros-30-dias-en-espana-2026) · [Evaluador](/es/wizard).
 
@@ -95,7 +111,7 @@ Detalle: [Nacionalidad española LATAM](/es/guides/nacionalidad-espanola-latam-2
 | Aspecto | Detalle |
 |---|---|
 | ¿Para quién? | Trabajadores remotos para empresas **fuera de España** |
-| Ingresos mínimos | **€2,849/mes** (200% del SMI prorrateado, 2026) |
+| Ingresos mínimos | **€2,849/mes** titular (200% SMI 2026). Familia: ~**+€916** 1.º / ~**+€305** siguientes (75%/25% SMI) |
 | ¿Puedes trabajar en España? | Teletrabajo para el extranjero; límite habitual ≤**20%** ingresos de clientes españoles |
 | ¿Cuenta para los 2 años de nacionalidad? | **Sí** |
 | Duración | Consulado: ~**1 año**. UGE (desde España): a menudo hasta **3 años** |
@@ -158,9 +174,8 @@ Documentos que normalmente necesitas apostillar:
 - **Títulos universitarios** (si aplica).
 
 **Dónde apostillar en Perú:**
-- **Ministerio de Relaciones Exteriores (RREE)**: sede en Lima (Jr. Lampa 545, Lima — confirme) y delegaciones en regiones.
-- **Online**: algunos documentos se pueden apostillar por la plataforma del Ministerio.
-- Costo: aproximadamente S/ 30–60 por documento (orientativo).
+- **Ministerio de Relaciones Exteriores (RREE)**: presencial en sede/MAC Lima y oficinas desconcentradas; también **apostilla digital** en el portal de servicios.
+- Costo orientativo 2026: **~S/18 digital** / **~S/31 presencial** (grados/títulos con constancia SUNEDU suelen ser gratuitos — confirme gob.pe / RREE).
 
 ### Traducción jurada
 
@@ -178,7 +193,7 @@ Todos los documentos apostillados deben traducirse al español por un **traducto
 ### Desde Perú
 
 **Consulado General de España en Lima**
-- Dirección (verifique web): Av. Jorge Basadre 498, San Isidro, Lima.
+- Dirección oficial (ago 2026): **Calle Los Pinos 490, San Isidro, 15073 Lima** (no use direcciones antiguas tipo Basadre).
 - Web: [www.exteriores.gob.es/Consulados/lima](https://www.exteriores.gob.es/Consulados/lima)
 - Cita previa obligatoria para visados nacionales (D).
 
@@ -204,7 +219,7 @@ Default seguro para **NL** y muchos casos desde Perú: **visto D en Lima**.
 | Tasa consular (visado D) | €80–€160 |
 | Tasa TIE (tarjeta) | €15–€20 |
 | Seguro médico privado | €600–1,800/año |
-| Apostilla (por documento) | S/ 30–60 (~€7–15) |
+| Apostilla (por documento) | ~S/18 digital / ~S/31 presencial |
 | Traducción jurada | €30–€60/página |
 | Certificado médico | €50–€100 |
 | Antecedentes penales (Perú) | Bajo costo o gratuito |
@@ -286,7 +301,7 @@ Pillar PT: [Portugal D8/D7 LATAM](/es/guides/portugal-d8-d7-latam-2026).
 
 ### ¿Puedo traer a mi familia desde el inicio?
 
-**Sí, según vía.** Con nómada digital o no lucrativa suele poder solicitarse familiar con solvencia adicional (+€600/mes por familiar orientativo en NL; DN tiene % familia — confirme listado UGE/consulado).
+**Sí, según vía.** NL: +**€600**/mes por familiar (100% IPREM). DN: orientativo **+75% SMI** (~€916) el primero y **+25%** (~€305) cada adicional — confirme UGE/consulado.
 
 ### ¿Cuánto tarda el trámite de nacionalidad después de los 2 años?
 
