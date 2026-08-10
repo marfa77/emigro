@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { corridorDigestPath, corridorLandingPath, corridorWizardPath, programPath } from "@/lib/corridor/paths";
 import { getCorridorBySlug, getProgramsBySlugs } from "@/lib/corridor/queries";
+import { ES_PATHS, esGuidePath } from "@/lib/es/corridor";
 import { guidePath, listGuides } from "@/lib/guides/load";
 import { listStories } from "@/lib/stories/load";
 import { storyPath, STORIES_INDEX_PATH } from "@/lib/stories/paths";
@@ -30,11 +31,19 @@ async function buildWwwSitemap(): Promise<MetadataRoute.Sitemap> {
 
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: `${origin}/ru`, changeFrequency: "weekly", priority: 1 },
+    { url: `${origin}${ES_PATHS.home}`, changeFrequency: "weekly", priority: 0.95 },
     { url: `${origin}/llms.txt`, changeFrequency: "weekly", priority: 0.4 },
     { url: `${origin}/llms-full.txt`, changeFrequency: "weekly", priority: 0.4 },
     { url: `${origin}/ru/wizard`, changeFrequency: "monthly", priority: 0.95 },
     { url: `${origin}${ORIGIN_HUB_PATH}`, changeFrequency: "weekly", priority: 0.92 },
     { url: `${origin}/ru/guides`, changeFrequency: "weekly", priority: 0.9 },
+    { url: `${origin}${ES_PATHS.guides}`, changeFrequency: "weekly", priority: 0.9 },
+    { url: `${origin}${ES_PATHS.uruguay}`, changeFrequency: "weekly", priority: 0.92 },
+    { url: `${origin}${ES_PATHS.ecuador}`, changeFrequency: "weekly", priority: 0.92 },
+    { url: `${origin}${ES_PATHS.spain}`, changeFrequency: "weekly", priority: 0.92 },
+    { url: `${origin}${ES_PATHS.contact}`, changeFrequency: "monthly", priority: 0.55 },
+    { url: `${origin}${ES_PATHS.privacy}`, changeFrequency: "yearly", priority: 0.3 },
+    { url: `${origin}${ES_PATHS.terms}`, changeFrequency: "yearly", priority: 0.3 },
     { url: `${origin}${STORIES_INDEX_PATH}`, changeFrequency: "weekly", priority: 0.8 },
     { url: `${origin}/ru/community`, changeFrequency: "monthly", priority: 0.75 },
     { url: `${origin}/ru/ukraine`, changeFrequency: "monthly", priority: 0.82 },
@@ -142,14 +151,24 @@ async function buildWwwSitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.75,
   }));
 
-  const guideRoutes: MetadataRoute.Sitemap = listGuides().map((guide) => ({
-    url: `${origin}${guidePath(guide.slug)}`,
-    ...(guide.date_modified || guide.date_published
-      ? { lastModified: new Date((guide.date_modified || guide.date_published)!).toISOString() }
-      : {}),
-    changeFrequency: "monthly",
-    priority: 0.85,
-  }));
+  const guideRoutes: MetadataRoute.Sitemap = [
+    ...listGuides("ru").map((guide) => ({
+      url: `${origin}${guidePath(guide.slug, "ru")}`,
+      ...(guide.date_modified || guide.date_published
+        ? { lastModified: new Date((guide.date_modified || guide.date_published)!).toISOString() }
+        : {}),
+      changeFrequency: "monthly" as const,
+      priority: 0.85,
+    })),
+    ...listGuides("es").map((guide) => ({
+      url: `${origin}${esGuidePath(guide.slug)}`,
+      ...(guide.date_modified || guide.date_published
+        ? { lastModified: new Date((guide.date_modified || guide.date_published)!).toISOString() }
+        : {}),
+      changeFrequency: "monthly" as const,
+      priority: 0.88,
+    })),
+  ];
 
   const storyRoutes: MetadataRoute.Sitemap = listStories().map((story) => ({
     url: `${origin}${storyPath(story.slug)}`,

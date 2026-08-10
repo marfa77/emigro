@@ -6,6 +6,9 @@ const PUBLIC_DIR = path.join(process.cwd(), "public");
 const CORRIDOR_COVER_IMAGES: Record<string, string> = {
   "ru-speaking-to-portugal": "/images/corridor-portugal.webp",
   "ru-speaking-to-spain": "/images/corridor-spain.webp",
+  "es-speaking-uruguay-to-spain": "/images/corridor-spain.webp",
+  "es-speaking-ecuador-to-spain": "/images/corridor-spain.webp",
+  "es-speaking-latam-to-europe": "/images/corridor-spain.webp",
   "ru-speaking-to-germany": "/images/corridor-germany.webp",
   "ru-speaking-to-italy": "/images/corridor-italy.webp",
   "ru-speaking-to-france": "/images/corridor-france.webp",

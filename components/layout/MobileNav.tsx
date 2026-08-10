@@ -4,6 +4,8 @@ import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { COMMUNITY_PATH } from "@/lib/community";
+import { ES_PATHS } from "@/lib/es/corridor";
+import type { UiLocale } from "@/lib/locale";
 
 type NavLink = {
   href: string;
@@ -12,9 +14,10 @@ type NavLink = {
 
 type MobileNavProps = {
   links: NavLink[];
+  locale?: UiLocale;
 };
 
-export function MobileNav({ links }: MobileNavProps) {
+export function MobileNav({ links, locale = "ru" }: MobileNavProps) {
   const [open, setOpen] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -69,6 +72,11 @@ export function MobileNav({ links }: MobileNavProps) {
     return () => document.removeEventListener("keydown", onKeyDown);
   }, [open]);
 
+  const openLabel = locale === "es" ? "Abrir menú" : locale === "en" ? "Open menu" : "Открыть меню";
+  const closeLabel = locale === "es" ? "Cerrar menú" : locale === "en" ? "Close menu" : "Закрыть меню";
+  const closeShort = locale === "es" ? "Cerrar" : locale === "en" ? "Close" : "Закрыть";
+  const mobileNavLabel = locale === "es" ? "Menú móvil" : "Мобильное меню";
+
   return (
     <div className="md:hidden">
       <button
@@ -77,7 +85,7 @@ export function MobileNav({ links }: MobileNavProps) {
         className="inline-flex h-10 w-10 items-center justify-center rounded-lg text-slate-600 hover:bg-slate-100 hover:text-corridor-600"
         aria-expanded={open}
         aria-controls="mobile-nav-panel"
-        aria-label={open ? "Закрыть меню" : "Открыть меню"}
+        aria-label={open ? closeLabel : openLabel}
         onClick={() => setOpen((value) => !value)}
       >
         {open ? <X className="h-5 w-5" aria-hidden="true" /> : <Menu className="h-5 w-5" aria-hidden="true" />}
@@ -88,7 +96,7 @@ export function MobileNav({ links }: MobileNavProps) {
           <button
             type="button"
             className="fixed inset-0 z-40 bg-slate-900/20"
-            aria-label="Закрыть меню"
+            aria-label={closeLabel}
             onClick={close}
           />
           <div
@@ -96,7 +104,7 @@ export function MobileNav({ links }: MobileNavProps) {
             ref={panelRef}
             className="absolute left-0 right-0 top-full z-50 border-b border-slate-200 bg-white shadow-lg"
           >
-            <nav className="flex flex-col px-4 py-3" aria-label="Мобильное меню">
+            <nav className="flex flex-col px-4 py-3" aria-label={mobileNavLabel}>
               {links.map((link) => (
                 <Link
                   key={link.href}
@@ -115,7 +123,7 @@ export function MobileNav({ links }: MobileNavProps) {
                 onClick={close}
               >
                 <X className="h-4 w-4" aria-hidden="true" />
-                Закрыть
+                {closeShort}
               </button>
             </div>
           </div>
@@ -126,11 +134,14 @@ export function MobileNav({ links }: MobileNavProps) {
 }
 
 type MobileBottomBarProps = {
-  locale?: "ru" | "en";
+  locale?: UiLocale;
 };
 
 export function MobileBottomBar({ locale = "ru" }: MobileBottomBarProps) {
-  const chatLabel = locale === "ru" ? "Чат" : "Chat";
+  const chatLabel = locale === "es" ? "Guías" : locale === "ru" ? "Чат" : "Chat";
+  const primaryHref = locale === "es" ? ES_PATHS.spain : "/ru/wizard";
+  const primaryLabel = locale === "es" ? "España" : "Wizard";
+  const secondaryHref = locale === "es" ? ES_PATHS.guides : COMMUNITY_PATH;
 
   return (
     <div className="fixed inset-x-0 bottom-0 z-30 border-t border-slate-200 bg-white/95 backdrop-blur md:hidden">
@@ -139,13 +150,13 @@ export function MobileBottomBar({ locale = "ru" }: MobileBottomBarProps) {
         style={{ paddingBottom: "max(0.5rem, env(safe-area-inset-bottom))" }}
       >
         <Link
-          href="/ru/wizard"
+          href={primaryHref}
           className="flex flex-1 items-center justify-center rounded-lg bg-corridor-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-corridor-700"
         >
-          Wizard
+          {primaryLabel}
         </Link>
         <Link
-          href={COMMUNITY_PATH}
+          href={secondaryHref}
           className="flex flex-1 items-center justify-center rounded-lg border border-corridor-200 bg-white px-4 py-2.5 text-sm font-medium text-corridor-700 hover:border-corridor-300 hover:bg-corridor-50"
         >
           {chatLabel}

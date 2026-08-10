@@ -33,6 +33,8 @@ const COUNTRY_SEGMENT_ISO: Record<string, string> = {
   turkey: "TR",
   montenegro: "ME",
   kazakhstan: "KZ",
+  uruguay: "UY",
+  ecuador: "EC",
 };
 
 export function corridorHreflangTag(countrySegment: string): string | null {
@@ -53,6 +55,24 @@ export function hreflangAlternates(path: string, countrySegment?: string): Metad
     "x-default": url,
   };
   if (regionTag) languages[regionTag] = url;
+  return { canonical: url, languages };
+}
+
+/**
+ * Spanish locale pages — do not invent RU↔ES pairs until true translations exist.
+ * originIso → es-UY (etc.); destinationIso → es-ES.
+ */
+export function esHreflangAlternates(
+  path: string,
+  opts?: { originIso?: string; destinationIso?: string },
+): Metadata["alternates"] {
+  const url = pageUrl(path);
+  const languages: Record<string, string> = {
+    es: url,
+    "x-default": url,
+  };
+  if (opts?.originIso) languages[`es-${opts.originIso.toUpperCase()}`] = url;
+  if (opts?.destinationIso) languages[`es-${opts.destinationIso.toUpperCase()}`] = url;
   return { canonical: url, languages };
 }
 

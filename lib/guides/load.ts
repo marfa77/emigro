@@ -12,9 +12,12 @@ export type { GuideOfficialSource, GuideFrontmatter, GuideArticle } from "@/lib/
 export { guidePath } from "@/lib/guides/paths";
 
 import type { GuideOfficialSource, GuideFrontmatter, GuideArticle } from "@/lib/guides/types";
+import type { GuideLocale } from "@/lib/locale";
 import { inlineMarkdown } from "@/lib/markdown/inline";
 
-const GUIDES_DIR = path.join(process.cwd(), "content/guides/ru");
+function guidesDir(locale: GuideLocale = "ru"): string {
+  return path.join(process.cwd(), "content/guides", locale);
+}
 
 function parseFrontmatter(raw: string): { meta: Record<string, string | string[]>; body: string } {
   const match = raw.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/);
@@ -254,22 +257,24 @@ function markdownToHtml(markdown: string): string {
   return html.join("\n");
 }
 
-export function listGuides(): GuideFrontmatter[] {
-  if (!fs.existsSync(GUIDES_DIR)) return [];
+export function listGuides(locale: GuideLocale = "ru"): GuideFrontmatter[] {
+  const dir = guidesDir(locale);
+  if (!fs.existsSync(dir)) return [];
+  const collatorLocale = locale === "es" ? "es" : "ru";
   return fs
-    .readdirSync(GUIDES_DIR)
+    .readdirSync(dir)
     .filter((f) => f.endsWith(".md"))
     .map((file) => {
-      const raw = fs.readFileSync(path.join(GUIDES_DIR, file), "utf8");
+      const raw = fs.readFileSync(path.join(dir, file), "utf8");
       const { meta } = parseFrontmatter(raw);
       const frontmatterBlock = raw.match(/^---\r?\n([\s\S]*?)\r?\n---/)?.[1] ?? "";
       return mapFrontmatter(meta, file.replace(/\.md$/, ""), parseOfficialSources(frontmatterBlock));
     })
-    .sort((a, b) => a.title.localeCompare(b.title, "ru"));
+    .sort((a, b) => a.title.localeCompare(b.title, collatorLocale));
 }
 
-export function loadGuideUncached(slug: string): GuideArticle | null {
-  const filePath = path.join(GUIDES_DIR, `${slug}.md`);
+export function loadGuideUncached(slug: string, locale: GuideLocale = "ru"): GuideArticle | null {
+  const filePath = path.join(guidesDir(locale), `${slug}.md`);
   if (!fs.existsSync(filePath)) return null;
 
   const raw = fs.readFileSync(filePath, "utf8");
@@ -296,12 +301,12 @@ function resolveLoadGuide(): typeof loadGuideUncached {
   return _loadGuideFn;
 }
 
-export function loadGuide(slug: string): GuideArticle | null {
-  return resolveLoadGuide()(slug);
+export function loadGuide(slug: string, locale: GuideLocale = "ru"): GuideArticle | null {
+  return resolveLoadGuide()(slug, locale);
 }
 
-export async function getGuidesIndex(): Promise<GuideFrontmatter[]> {
-  return unstable_cache(async () => listGuides(), ["guides-index"], {
+export async function getGuidesIndex(locale: GuideLocale = "ru"): Promise<GuideFrontmatter[]> {
+  return unstable_cache(async () => listGuides(locale), [`guides-index-${locale}`], {
     revalidate: CACHE_REVALIDATE.guides,
     tags: [CACHE_TAGS.guides],
   })();
@@ -313,12 +318,13 @@ export function getRelatedGuides(
   topicKeys?: string[],
   limit = 4,
   allGuides?: GuideFrontmatter[],
+  locale: GuideLocale = "ru",
 ): GuideFrontmatter[] {
   const corridors = new Set(corridorSlugs ?? []);
   const topics = specificGuideTopicKeys(topicKeys);
   if (corridors.size === 0 && topics.size === 0) return [];
 
-  return (allGuides ?? listGuides())
+  return (allGuides ?? listGuides(locale))
     .filter((guide) => guide.slug !== currentSlug)
     .map((guide) => {
       let score = 0;

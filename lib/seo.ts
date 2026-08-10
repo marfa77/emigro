@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
+import type { SiteLocale } from "@/lib/locale";
 import { withAiMetadata } from "@/lib/seo/llm-meta";
-import { hreflangAlternates } from "@/lib/seo/hreflang";
+import { esHreflangAlternates, hreflangAlternates } from "@/lib/seo/hreflang";
 import { publicSiteUrl } from "@/lib/site-url";
 
-export { hreflangAlternates, corridorHreflangTag, paginationRobots } from "@/lib/seo/hreflang";
+export { hreflangAlternates, esHreflangAlternates, corridorHreflangTag, paginationRobots } from "@/lib/seo/hreflang";
 
 /** 1200×630 JPG — supported by Twitter/X, Threads, Facebook (not SVG). */
 export const DEFAULT_OG_IMAGE = "/images/og/og-default.jpg";
@@ -43,8 +44,10 @@ function socialImageSize(path: string): SocialImageSize {
   return { width: 1200, height: 630 };
 }
 
-const SEO_DESC_SUFFIX =
+const SEO_DESC_SUFFIX_RU =
   " Emigro: wizard подбора маршрута, справочники коридоров и еженедельные новости для русскоязычных релокантов.";
+const SEO_DESC_SUFFIX_ES =
+  " Emigro: guías de residencia en Europa para hispanohablantes, con fuentes oficiales y pasos prácticos.";
 
 function truncateAtWord(text: string, max: number, suffix = "…"): string {
   const trimmed = text.trim();
@@ -55,13 +58,23 @@ function truncateAtWord(text: string, max: number, suffix = "…"): string {
 }
 
 /** Meta description: min ~120 for crawlers, target ≤160. */
-export function fitMetaDescription(text: string, min = 120, max = 160): string {
+export function fitMetaDescription(
+  text: string,
+  min = 120,
+  max = 160,
+  locale: SiteLocale = "ru",
+): string {
   let base = text.replace(/\s+/g, " ").trim();
+  const pad = locale === "es" ? SEO_DESC_SUFFIX_ES : SEO_DESC_SUFFIX_RU;
+  const extra =
+    locale === "es"
+      ? " Revise el corredor Uruguay → España en Emigro."
+      : " Проверьте маршрут ВНЖ через hub wizard.";
   if (base.length < min) {
-    base = `${base}${SEO_DESC_SUFFIX}`.replace(/\s+/g, " ").trim();
+    base = `${base}${pad}`.replace(/\s+/g, " ").trim();
   }
   if (base.length < min) {
-    base = `${base} Проверьте маршрут ВНЖ через hub wizard.`;
+    base = `${base}${extra}`;
   }
   if (base.length <= max) return base;
   return truncateAtWord(base, max);
@@ -186,20 +199,28 @@ export function buildGuideArticleMetadata(input: {
   modifiedTime?: string;
   aiDescription?: string;
   aiCategory?: string;
+  locale?: SiteLocale;
+  esHreflang?: { originIso?: string; destinationIso?: string };
 }): Metadata {
   const canonicalUrl = pageUrl(input.path);
+  const locale = input.locale ?? (input.path.startsWith("/es") ? "es" : "ru");
   const base = pageMetadata({
     title: input.title,
     description: input.description,
     path: input.path,
     ogImage: input.ogImage,
     ogImageAlt: input.ogImageAlt,
+    locale,
+    esHreflang: input.esHreflang,
   });
 
   const metadata: Metadata = {
     ...base,
     ...(input.keywords?.length ? { keywords: input.keywords } : {}),
-    alternates: hreflangAlternates(input.path),
+    alternates:
+      locale === "es"
+        ? esHreflangAlternates(input.path, input.esHreflang)
+        : hreflangAlternates(input.path),
     openGraph: {
       ...base.openGraph,
       url: canonicalUrl,
@@ -233,27 +254,42 @@ export function pageMetadata(input: {
   aiCategory?: string;
   /** Corridor / transit urlSegment for ru-{country} hreflang. */
   countrySegment?: string;
+  /** Public locale surface. Defaults to ru; ES uses Spanish hreflang + OG locale. */
+  locale?: SiteLocale;
+  /** ES-only regional tags (es-UY, es-ES). Ignored for ru. */
+  esHreflang?: { originIso?: string; destinationIso?: string };
 }): Metadata {
+  const locale = input.locale ?? (input.path.startsWith("/es") ? "es" : "ru");
   const url = pageUrl(input.path);
-  const description = fitMetaDescription(input.description);
+  const description = fitMetaDescription(input.description, 120, 160, locale);
   const titleValue = input.titleAbsolute
     ? fitSeoTitleAbsolute(input.title)
     : fitSeoTitlePart(input.title);
   const title = input.titleAbsolute ? { absolute: titleValue } : titleValue;
   const ogImage = input.ogImage ?? DEFAULT_OG_IMAGE;
+  const alternates =
+    locale === "es"
+      ? esHreflangAlternates(input.path, input.esHreflang)
+      : hreflangAlternates(input.path, input.countrySegment);
+  const ogLocale =
+    locale === "es"
+      ? input.esHreflang?.originIso
+        ? `es_${input.esHreflang.originIso.toUpperCase()}`
+        : "es_ES"
+      : "ru_RU";
 
   const metadata = withSocialImages(
     {
       title,
       description,
-      alternates: hreflangAlternates(input.path, input.countrySegment),
+      alternates,
       robots: input.noIndex ? { index: false, follow: false } : { index: true, follow: true },
       openGraph: {
         title: typeof titleValue === "string" ? titleValue : input.title,
         description,
         url,
         siteName: SITE_NAME,
-        locale: "ru_RU",
+        locale: ogLocale,
         type: "website",
       },
       twitter: {

@@ -1,14 +1,25 @@
 import type { GuideOfficialSource } from "@/lib/guides/load";
+import type { SiteLocale } from "@/lib/locale";
 
-export function GuideOfficialSources({ sources }: { sources: GuideOfficialSource[] }) {
+export function GuideOfficialSources({
+  sources,
+  locale = "ru",
+}: {
+  sources: GuideOfficialSource[];
+  locale?: SiteLocale;
+}) {
   if (sources.length === 0) return null;
+
+  const title = locale === "es" ? "Fuentes oficiales" : "Официальные источники";
+  const blurb =
+    locale === "es"
+      ? "Verifique umbrales y trámites en la fecha de presentación — enlaces a las fuentes primarias:"
+      : "Проверяйте пороги и процедуры на дату подачи — ссылки на первоисточники:";
 
   return (
     <section className="mt-10 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm ring-1 ring-slate-950/5">
-      <h2 className="text-xl font-semibold text-slate-900">Официальные источники</h2>
-      <p className="mt-2 text-sm leading-relaxed text-slate-600">
-        Проверяйте пороги и процедуры на дату подачи — ссылки на первоисточники:
-      </p>
+      <h2 className="text-xl font-semibold text-slate-900">{title}</h2>
+      <p className="mt-2 text-sm leading-relaxed text-slate-600">{blurb}</p>
       <ul className="mt-5 space-y-3">
         {sources.map((source) => (
           <li key={source.url}>

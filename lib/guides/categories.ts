@@ -12,7 +12,7 @@ export type GuideCategoryId =
   | "comparison"
   | "general";
 
-export type GuideAudienceId = "ru" | "ua" | "by_kz";
+export type GuideAudienceId = "ru" | "ua" | "by_kz" | "uy" | "ec" | "ar" | "mx" | "co";
 
 export type GuideCategory = {
   id: GuideCategoryId;
@@ -146,6 +146,11 @@ export const GUIDE_AUDIENCES: GuideAudience[] = [
   { id: "ru", label: "Граждане РФ", flag: "🇷🇺" },
   { id: "ua", label: "Граждане Украины", flag: "🇺🇦" },
   { id: "by_kz", label: "Беларусь и КЗ", flag: "🇧🇾🇰🇿" },
+  { id: "uy", label: "Uruguay", flag: "🇺🇾" },
+  { id: "ec", label: "Ecuador", flag: "🇪🇨" },
+  { id: "ar", label: "Argentina", flag: "🇦🇷" },
+  { id: "mx", label: "México", flag: "🇲🇽" },
+  { id: "co", label: "Colombia", flag: "🇨🇴" },
 ];
 
 export function isGuideAudienceId(value: string): value is GuideAudienceId {
@@ -176,6 +181,48 @@ export function getGuideAudiences(guide: GuideFrontmatter): GuideAudienceId[] {
 
   if (tags.some((t) => t === "беларусь" || t === "казахстан" || t === "by" || t === "kz")) {
     audiences.add("by_kz");
+  }
+
+  if (
+    tags.some((t) => t === "uruguay" || t === "uruguayos" || t === "uy") ||
+    topicKeys.includes("uruguay") ||
+    slug.includes("uruguay")
+  ) {
+    audiences.add("uy");
+  }
+
+  if (
+    tags.some((t) => t === "ecuador" || t === "ecuatorianos" || t === "ec") ||
+    topicKeys.includes("ecuador") ||
+    slug.includes("ecuador") ||
+    slug.includes("ecuatorian")
+  ) {
+    audiences.add("ec");
+  }
+
+  if (
+    tags.some((t) => t === "argentina" || t === "argentinos" || t === "ar") ||
+    topicKeys.includes("argentina") ||
+    slug.includes("argentina")
+  ) {
+    audiences.add("ar");
+  }
+
+  if (
+    tags.some((t) => t === "mexico" || t === "méxico" || t === "mexicanos" || t === "mx") ||
+    topicKeys.includes("mexico") ||
+    slug.includes("mexico") ||
+    slug.includes("mexico")
+  ) {
+    audiences.add("mx");
+  }
+
+  if (
+    tags.some((t) => t === "colombia" || t === "colombianos" || t === "co") ||
+    topicKeys.includes("colombia") ||
+    slug.includes("colombia")
+  ) {
+    audiences.add("co");
   }
 
   return Array.from(audiences);

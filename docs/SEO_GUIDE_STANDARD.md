@@ -40,6 +40,8 @@
 | `hreflang` | `ru-RU` |
 | `robots` | index, follow |
 
+**Локаль ES** (второе направление: клинья Uruguay → España и Ecuador → España): те же поля frontmatter, `canonical` → `/es/guides/{slug}`, `hreflang` → `es` + `es-UY`/`es-EC`/`es-ES`. Подробно: [ES_SEO_CORRIDOR.md](./ES_SEO_CORRIDOR.md).
+
 ### Schema.org
 
 - `Article` — headline, datePublished, dateModified, author Emigro, publisher

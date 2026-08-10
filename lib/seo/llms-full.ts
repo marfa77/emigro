@@ -1,5 +1,6 @@
 import { corridorDigestPath, corridorLandingPath, corridorWizardPath, programPath } from "@/lib/corridor/paths";
 import { guidePath, listGuides } from "@/lib/guides/load";
+import { ES_PATHS, esGuidePath } from "@/lib/es/corridor";
 import { stripInlineMarkdown } from "@/lib/markdown/inline";
 import { getCorridorBySlug } from "@/lib/corridor/queries";
 import { normalizeHashtag } from "@/lib/community-notes/hashtags";
@@ -37,6 +38,7 @@ export async function buildLlmsTxt(): Promise<string> {
   const topics = await getActiveNewsTopics();
   const fullCorridors = topics.filter((t) => t.status === "active" && t.corridorSlug && t.sitePaths);
   const guides = listGuides();
+  const esGuides = listGuides("es");
   const portugalSatelliteHub = llmsPathFromUrl(portugalSatellitePublicUrl("/"));
   const portugalSatelliteLlms = llmsPathFromUrl(portugalSatellitePublicUrl("/llms"));
   const spainSatelliteHub = llmsPathFromUrl(spainSatellitePublicUrl("/"));
@@ -108,6 +110,17 @@ ${buildProgramIndexTable()}
 - ${llmMarkdownLink("Доход из России для ВНЖ", "/ru/guides/podtverdit-dohod-dengi-dlya-vnj-esli-dohod-iz-rossii-2026")}
 - ${llmMarkdownLink("Консульская юрисдикция РФ/BY/KZ", "/ru/guides/konsulskaya-podacha-rf-by-kz-2026-yurisdiktsiya")}
 - ${llmMarkdownLink("Документы, апостиль, несудимость", "/ru/guides/dokumenty-dlya-pereezda-iz-rossii-2026-apostil-nesudimost")}
+
+## Spanish-speaking corridor (LATAM → Europe)
+
+Seed wedge: Uruguay → Spain. Expansion family: es-speaking-latam-to-europe.
+
+- ${llmMarkdownLink("ES hub", ES_PATHS.home)}
+- ${llmMarkdownLink("Uruguay origin hub", ES_PATHS.uruguay)}
+- ${llmMarkdownLink("Ecuador origin hub", ES_PATHS.ecuador)}
+- ${llmMarkdownLink("Spain destination hub (LATAM framing)", ES_PATHS.spain)}
+- ${llmMarkdownLink(`ES guides (${esGuides.length})`, ES_PATHS.guides)}
+${esGuides.map((g) => `- ${llmMarkdownLink(g.title, esGuidePath(g.slug))}`).join("\n")}
 
 ## Транзитные хабы (первый шаг, не EU-коридоры)
 

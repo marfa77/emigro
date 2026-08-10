@@ -1,0 +1,125 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
+import { Disclaimer } from "@/components/Disclaimer";
+import {
+  ES_EC_GUIDE_SLUGS,
+  ES_EC_SPAIN_CORRIDOR,
+  ES_PATHS,
+  esGuidePath,
+} from "@/lib/es/corridor";
+import { listGuides } from "@/lib/guides/load";
+import { pageMetadata, pageUrl } from "@/lib/seo";
+import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
+
+export const revalidate = 3600;
+
+export const metadata: Metadata = pageMetadata({
+  title: "Ecuador → España: residencia y rutas 2026",
+  description:
+    "Hub para ecuatorianos que quieren vivir en España: visado Schengen vs residencia, nómada digital, no lucrativa y checklist de llegada.",
+  path: ES_PATHS.ecuador,
+  locale: "es",
+  esHreflang: { originIso: "EC", destinationIso: "ES" },
+});
+
+export default function EsEcuadorHubPage() {
+  const guides = listGuides("es").filter((g) =>
+    (ES_EC_GUIDE_SLUGS as readonly string[]).includes(g.slug),
+  );
+
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: "Emigro ES", item: pageUrl(ES_PATHS.home) },
+    { name: "Ecuador" },
+  ]);
+
+  return (
+    <>
+      <SiteHeader locale="es" />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <main className="mx-auto max-w-3xl px-4 py-10">
+        <nav className="text-sm text-slate-500">
+          <Link href={ES_PATHS.home} className="text-corridor-600 hover:underline">
+            Emigro ES
+          </Link>
+          <span className="mx-2">/</span>
+          <span>Ecuador</span>
+        </nav>
+
+        <p className="mt-4 text-xs font-semibold uppercase tracking-wide text-corridor-600">
+          Corredor {ES_EC_SPAIN_CORRIDOR.slug}
+        </p>
+        <h1 className="mt-2 text-3xl font-bold text-slate-950 sm:text-4xl">
+          Ecuador → España
+        </h1>
+        <p className="mt-4 text-lg text-slate-700">
+          Pasaporte ecuatoriano: la comunidad en España es grande y el interés alto, pero el SEO
+          genérico está saturado por MX/CO/AR/VE. Aquí profundizamos el corredor{" "}
+          <strong>EC → ES</strong> con fuentes oficiales.
+        </p>
+
+        <aside className="mt-6 rounded-2xl border border-amber-200 bg-amber-50/90 p-5 text-sm text-amber-950">
+          <p className="font-semibold">Diferencia clave vs Uruguay</p>
+          <p className="mt-2">
+            Para estancias cortas en Schengen, los ciudadanos de Ecuador{" "}
+            <strong>suelen necesitar visado</strong> (confirme en el consulado). Vivir y trabajar
+            exige además una vía de residencia (nómada digital, no lucrativa, trabajo, etc.).
+          </p>
+        </aside>
+
+        <section className="mt-8 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+          <h2 className="text-xl font-semibold text-slate-950">Qué cubrimos</h2>
+          <ul className="mt-4 space-y-2 text-slate-700">
+            <li>• Visado Schengen de corta duración vs residencia</li>
+            <li>• Rutas 2026 para pasaporte EC</li>
+            <li>• Nómada digital (teletrabajo)</li>
+            <li>• Primeros 30 días (NIE, padrón, TIE)</li>
+          </ul>
+          <div className="mt-5 flex flex-wrap gap-4 text-sm font-medium">
+            <Link href={ES_PATHS.spain} className="inline-flex items-center gap-2 text-corridor-700 hover:underline">
+              Hub España
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+            <Link href={ES_PATHS.uruguay} className="inline-flex items-center gap-2 text-corridor-700 hover:underline">
+              Comparar con Uruguay → ES
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+        </section>
+
+        <section className="mt-10">
+          <h2 className="text-xl font-semibold text-slate-950">Guías del corredor</h2>
+          <ul className="mt-4 space-y-3">
+            {guides.map((guide) => (
+              <li key={guide.slug}>
+                <Link
+                  href={esGuidePath(guide.slug)}
+                  className="flex items-start justify-between gap-3 rounded-xl border border-slate-200 bg-white px-4 py-4 hover:border-corridor-300"
+                >
+                  <div>
+                    <p className="font-semibold text-slate-900">{guide.title}</p>
+                    {guide.excerpt ? <p className="mt-1 text-sm text-slate-600">{guide.excerpt}</p> : null}
+                  </div>
+                  <ArrowRight className="mt-1 h-4 w-4 shrink-0 text-corridor-600" />
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section className="mt-10 rounded-2xl border border-slate-200 bg-slate-50 p-5 text-sm text-slate-700">
+          <p>
+            Pasaportes: <strong>{ES_EC_SPAIN_CORRIDOR.passports.join(", ")}</strong>. Familia:{" "}
+            <code className="text-xs">{ES_EC_SPAIN_CORRIDOR.expansionFamily}</code>.
+          </p>
+        </section>
+
+        <div className="mt-8">
+          <Disclaimer locale="es" />
+        </div>
+      </main>
+      <SiteFooter locale="es" />
+    </>
+  );
+}

@@ -1,8 +1,12 @@
-export function Disclaimer({ locale = "ru" }: { locale?: "ru" | "en" }) {
+import type { UiLocale } from "@/lib/locale";
+
+export function Disclaimer({ locale = "ru" }: { locale?: UiLocale }) {
   const text =
-    locale === "ru"
-      ? "Emigro не является юридической консультацией. Информация носит справочный характер — проверяйте требования в консульстве и у лицензированных специалистов."
-      : "Emigro is not legal advice. Information is indicative — verify requirements with the consulate and licensed professionals.";
+    locale === "es"
+      ? "Emigro no es asesoramiento jurídico. La información es orientativa: verifique los requisitos en el consulado y con profesionales colegiados."
+      : locale === "ru"
+        ? "Emigro не является юридической консультацией. Информация носит справочный характер — проверяйте требования в консульстве и у лицензированных специалистов."
+        : "Emigro is not legal advice. Information is indicative — verify requirements with the consulate and licensed professionals.";
 
   return (
     <aside className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">

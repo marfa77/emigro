@@ -4,12 +4,21 @@ import { MobileBottomBar, MobileNav } from "@/components/layout/MobileNav";
 import { Disclaimer } from "./Disclaimer";
 import { COMMUNITY_PATH, DISCUSSION_GROUP_LABEL } from "@/lib/community";
 import { HUB_WIZARD_PATH } from "@/lib/corridor/paths";
+import { ES_PATHS } from "@/lib/es/corridor";
+import type { UiLocale } from "@/lib/locale";
 import { CONTACT_EMAIL, MAILTO_CONTACT } from "@/lib/site-contact";
 import { getHeaderNavLinks } from "@/lib/site-nav";
 import { safeAreaTopStyle } from "@/lib/ui/mobile";
 
-export function SiteHeader({ locale = "ru" }: { locale?: "ru" | "en" }) {
+function navAriaLabel(locale: UiLocale): string {
+  if (locale === "es") return "Menú principal";
+  if (locale === "en") return "Main navigation";
+  return "Основное меню";
+}
+
+export function SiteHeader({ locale = "ru" }: { locale?: UiLocale }) {
   const navLinks = getHeaderNavLinks(locale);
+  const homeHref = locale === "es" ? ES_PATHS.home : "/ru";
 
   return (
     <>
@@ -18,10 +27,10 @@ export function SiteHeader({ locale = "ru" }: { locale?: "ru" | "en" }) {
         style={safeAreaTopStyle}
       >
         <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4">
-          <EmigroLogo />
+          <EmigroLogo href={homeHref} />
           <nav
             className="hidden gap-x-4 text-sm text-slate-600 md:flex"
-            aria-label={locale === "ru" ? "Основное меню" : "Main navigation"}
+            aria-label={navAriaLabel(locale)}
           >
             {navLinks.map((link) => (
               <Link key={link.href} href={link.href} className="hover:text-corridor-600">
@@ -29,7 +38,7 @@ export function SiteHeader({ locale = "ru" }: { locale?: "ru" | "en" }) {
               </Link>
             ))}
           </nav>
-          <MobileNav links={navLinks} />
+          <MobileNav links={navLinks} locale={locale} />
         </div>
       </header>
       <MobileBottomBar locale={locale} />
@@ -37,7 +46,54 @@ export function SiteHeader({ locale = "ru" }: { locale?: "ru" | "en" }) {
   );
 }
 
-export function SiteFooter({ locale = "ru" }: { locale?: "ru" | "en" }) {
+function EsSiteFooter() {
+  return (
+    <footer className="mt-12 border-t border-slate-200 bg-slate-50 pb-20 md:pb-8">
+      <div className="mx-auto max-w-5xl space-y-4 px-4 py-8">
+        <nav className="flex flex-wrap gap-x-4 gap-y-2 text-sm text-slate-600" aria-label="Pie de página">
+          <Link href={ES_PATHS.home} className="font-medium text-corridor-700 hover:text-corridor-600">
+            Emigro ES
+          </Link>
+          <Link href={ES_PATHS.uruguay} className="hover:text-corridor-600">
+            🇺🇾 Uruguay
+          </Link>
+          <Link href={ES_PATHS.ecuador} className="hover:text-corridor-600">
+            🇪🇨 Ecuador
+          </Link>
+          <Link href={ES_PATHS.spain} className="hover:text-corridor-600">
+            🇪🇸 España
+          </Link>
+          <Link href={ES_PATHS.guides} className="hover:text-corridor-600">
+            Guías
+          </Link>
+          <Link href={ES_PATHS.contact} className="hover:text-corridor-600">
+            Contacto
+          </Link>
+          <Link href={ES_PATHS.privacy} className="hover:text-corridor-600">
+            Privacidad
+          </Link>
+          <Link href={ES_PATHS.terms} className="hover:text-corridor-600">
+            Términos
+          </Link>
+          <Link href="/ru" className="hover:text-corridor-600">
+            Versión en ruso
+          </Link>
+        </nav>
+        <Disclaimer locale="es" />
+        <p className="text-xs text-slate-500">
+          © {new Date().getFullYear()} Emigro ·{" "}
+          <a href={MAILTO_CONTACT} className="text-corridor-600 hover:underline">
+            {CONTACT_EMAIL}
+          </a>
+        </p>
+      </div>
+    </footer>
+  );
+}
+
+export function SiteFooter({ locale = "ru" }: { locale?: UiLocale }) {
+  if (locale === "es") return <EsSiteFooter />;
+
   return (
     <footer className="mt-12 border-t border-slate-200 bg-slate-50 pb-20 md:pb-8">
       <div className="mx-auto max-w-5xl space-y-4 px-4 py-8">
@@ -104,6 +160,9 @@ export function SiteFooter({ locale = "ru" }: { locale?: "ru" | "en" }) {
           </Link>
           <Link href="/ru/cookies" className="hover:text-corridor-600">
             Cookies
+          </Link>
+          <Link href={ES_PATHS.home} className="hover:text-corridor-600">
+            {locale === "ru" ? "Español (LATAM → Europa)" : "Spanish (LATAM → Europe)"}
           </Link>
         </nav>
         <nav className="flex flex-wrap gap-x-4 gap-y-2 text-sm text-slate-600" aria-label="Транзитные хабы">

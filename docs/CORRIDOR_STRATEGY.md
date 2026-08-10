@@ -342,8 +342,13 @@ MVP-C: manual provider revenue
 Expansion 1: RU-speaking → Spain
 Expansion 2: RU-speaking → France
 Expansion 3: Spanish-speaking LATAM → Spain/Portugal
+  └─ Wedges (now): Uruguay → Spain + Ecuador → Spain SEO surface `/es`
+     family: es-speaking-latam-to-europe
+     then: PY/PE → ES, AR/MX/CO/VE → ES, later LATAM → PT
 Expansion 4: French-speaking Maghreb/Africa → France/Canada
 ```
+
+**Expansion 3 wedges (2026-08):** locale + SEO trust — `/es`, origin hubs `/es/uruguay` + `/es/ecuador`, destination `/es/spain`, seed guides — before full wizard/providers for ES. Ecuador = higher demand than UY, still niche vs MX/AR/CO/VE. See [ES_SEO_CORRIDOR.md](./ES_SEO_CORRIDOR.md).
 
 Each new corridor gets:
 
@@ -355,7 +360,7 @@ Each new corridor gets:
 - localized landing
 - distribution channel
 
-No corridor launches with only program rows. It must have **data + content + providers + distribution**.
+No corridor launches with only program rows. It must have **data + content + providers + distribution**. The ES wedge intentionally starts with **content + landing + distribution (organic SEO)**; providers and wizard follow after indexing proof.
 
 ---
 
