@@ -40,7 +40,7 @@
 | `hreflang` | `ru-RU` |
 | `robots` | index, follow |
 
-**Локаль ES** (второе направление: клинья Uruguay → España и Ecuador → España): те же поля frontmatter, `canonical` → `/es/guides/{slug}`, `hreflang` → `es` + `es-UY`/`es-EC`/`es-ES`. Подробно: [ES_SEO_CORRIDOR.md](./ES_SEO_CORRIDOR.md).
+**Локаль ES** (второе направление: клинья Uruguay → España и Ecuador → España): **только pillar-гайды** + обязательные cover/OG/hero; `canonical` → `/es/guides/{slug}`, `hreflang` → `es` + `es-UY`/`es-EC`/`es-ES`. Без thin informational satellites. Подробно: [ES_SEO_CORRIDOR.md](./ES_SEO_CORRIDOR.md).
 
 ### Schema.org
 

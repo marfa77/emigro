@@ -111,14 +111,16 @@ ${buildProgramIndexTable()}
 - ${llmMarkdownLink("Консульская юрисдикция РФ/BY/KZ", "/ru/guides/konsulskaya-podacha-rf-by-kz-2026-yurisdiktsiya")}
 - ${llmMarkdownLink("Документы, апостиль, несудимость", "/ru/guides/dokumenty-dlya-pereezda-iz-rossii-2026-apostil-nesudimost")}
 
-## Spanish-speaking corridor (LATAM → Europe)
+## Spanish-speaking corridor (LATAM → España y Portugal)
 
-Seed wedge: Uruguay → Spain. Expansion family: es-speaking-latam-to-europe.
+Origins: Uruguay, Ecuador (then PY/PE, AR/MX/CO/VE). Destinations: España, then Portugal.
 
 - ${llmMarkdownLink("ES hub", ES_PATHS.home)}
+- ${llmMarkdownLink("LATAM route evaluator (UY/EC → ES+PT)", ES_PATHS.wizard)}
 - ${llmMarkdownLink("Uruguay origin hub", ES_PATHS.uruguay)}
 - ${llmMarkdownLink("Ecuador origin hub", ES_PATHS.ecuador)}
 - ${llmMarkdownLink("Spain destination hub (LATAM framing)", ES_PATHS.spain)}
+- ${llmMarkdownLink("Portugal destination hub (LATAM framing)", ES_PATHS.portugal)}
 - ${llmMarkdownLink(`ES guides (${esGuides.length})`, ES_PATHS.guides)}
 ${esGuides.map((g) => `- ${llmMarkdownLink(g.title, esGuidePath(g.slug))}`).join("\n")}
 

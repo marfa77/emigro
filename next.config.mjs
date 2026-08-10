@@ -136,6 +136,17 @@ const nextConfig = {
         destination: "/ru/guides/rabota-v-evrope-dlya-rossiyan-2026",
         permanent: true,
       },
+      // Merged into visa-nomada-digital-espana-latam-2026 (canonical DN LATAM pillar)
+      {
+        source: "/es/guides/visa-nomada-digital-espana-uruguayos-2026",
+        destination: "/es/guides/visa-nomada-digital-espana-latam-2026",
+        permanent: true,
+      },
+      {
+        source: "/es/guides/visa-nomada-digital-espana-ecuatorianos-2026",
+        destination: "/es/guides/visa-nomada-digital-espana-latam-2026",
+        permanent: true,
+      },
     ];
   },
 };

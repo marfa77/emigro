@@ -29,7 +29,7 @@ date_modified: 2026-08-10
 
 Personas con **visado nacional / autorización de residencia** (nómada digital, no lucrativa, trabajo, etc.) que acaban de llegar a España — en especial desde **Uruguay** o **Ecuador**, y en general LATAM.
 
-No sustituye la guía de obtención del visado: [Residencia desde Uruguay](/es/guides/residencia-espana-desde-uruguay-2026) · [Residencia desde Ecuador](/es/guides/residencia-espana-desde-ecuador-2026) · [Nómada digital UY](/es/guides/visa-nomada-digital-espana-uruguayos-2026) · [Nómada digital EC](/es/guides/visa-nomada-digital-espana-ecuatorianos-2026).
+No sustituye la guía de obtención del visado: [Residencia desde Uruguay](/es/guides/residencia-espana-desde-uruguay-2026) · [Residencia desde Ecuador](/es/guides/residencia-espana-desde-ecuador-2026) · [Nómada digital LATAM](/es/guides/visa-nomada-digital-espana-latam-2026).
 
 ---
 

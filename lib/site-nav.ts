@@ -21,9 +21,11 @@ export const HEADER_NAV_LINKS: SiteNavLink[] = [
 
 export const ES_HEADER_NAV_LINKS: SiteNavLink[] = [
   { href: ES_PATHS.home, labelRu: "Inicio", labelEn: "Home", labelEs: "Inicio" },
+  { href: ES_PATHS.wizard, labelRu: "Evaluador", labelEn: "Route finder", labelEs: "Evaluador" },
+  { href: ES_PATHS.spain, labelRu: "España", labelEn: "Spain", labelEs: "España" },
+  { href: ES_PATHS.portugal, labelRu: "Portugal", labelEn: "Portugal", labelEs: "Portugal" },
   { href: ES_PATHS.uruguay, labelRu: "Uruguay", labelEn: "Uruguay", labelEs: "Uruguay" },
   { href: ES_PATHS.ecuador, labelRu: "Ecuador", labelEn: "Ecuador", labelEs: "Ecuador" },
-  { href: ES_PATHS.spain, labelRu: "España", labelEn: "Spain", labelEs: "España" },
   { href: ES_PATHS.guides, labelRu: "Guías", labelEn: "Guides", labelEs: "Guías" },
   { href: ES_PATHS.contact, labelRu: "Contacto", labelEn: "Contact", labelEs: "Contacto" },
 ];

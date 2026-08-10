@@ -1,6 +1,15 @@
-# Emigro ES — SEO corridor (Spanish-speaking → Europe)
+# Emigro ES — SEO corridor (LATAM → España y Portugal)
 
-Second site direction: **hispanohablantes → Europa**. Primary product remains RU; `/` still redirects to `/ru`.
+Second site direction: **hispanohablantes → España y Portugal**. Primary product remains RU; `/` still redirects to `/ru`.
+
+Frame: origins expand (UY, EC, then PY/PE/AR/MX/CO/VE); destinations stay **ES then PT** — not a mini EU country grid.
+
+## Content policy (locked)
+
+- **Pillars only** — full guides (≥~1200 words, tables/FAQ/`official_sources`). No thin informational satellites.
+- **One intent → one canonical pillar** (merge duplicates; 301 old slugs).
+- **Images required** — dedicated cover map + `public/images/og/guide-{slug}.jpg` (1200×630) + hero on the guide page.
+- Target set stays small (~6–8 pillars), not a RU-scale library.
 
 ## Active wedges
 
@@ -8,60 +17,66 @@ Second site direction: **hispanohablantes → Europa**. Primary product remains 
 |--|------------------|------------------|
 | Corridor slug | `es-speaking-uruguay-to-spain` | `es-speaking-ecuador-to-spain` |
 | Passports | `UY` | `EC` |
-| Why | Lowest SEO competition, clean passport story | Higher demand than UY; still far less saturated than MX/AR/CO/VE |
+| Why | Lowest SEO competition | Higher demand than UY; less saturated than MX/AR/CO/VE |
 | Differentiator | Often Schengen short-stay visa-free | Short Schengen stay usually needs visa |
 | Origin hub | `/es/uruguay` | `/es/ecuador` |
 
-Shared:
+Shared: family `es-speaking-latam-to-europe` → next PY/PE, then AR/MX/CO/VE; destination ES then PT.
 
-| Field | Value |
-|-------|--------|
-| Expansion family | `es-speaking-latam-to-europe` |
-| Audience language | `es` |
-| Destination | `ES` (then `PT`) |
-| Next origins | PY, PE, then AR/MX/CO/VE |
+Config: [`lib/es/corridor.ts`](../lib/es/corridor.ts) (`ES_PILLAR_GUIDE_SLUGS`, `ES_PATHS`).
 
-Config: [`lib/es/corridor.ts`](../lib/es/corridor.ts)
+## Product Phase 1 (shipped)
+
+| Path | Role |
+|------|------|
+| `/es/wizard` (+ `/results`) | Hub evaluator: passports UY/EC → **Spain + Portugal** programs |
+| `/es/spain` | Destination hub + wizard CTA |
+| `/es/portugal` | Thin destination hub (D8/D7 framing) + wizard CTA |
+
+Engine: reuses published `ru-speaking-to-spain` / `ru-speaking-to-portugal` program rules with `hub_audience=latam` filter. Passport rows for UY/EC: migration `20260810190000_latam_passport_eligibility_es_pt.sql`.
+
+Out of Phase 1: Assist ES, `/es/spain/programs/*`, full DB `es-speaking-*` corridor packs, Portugal pillars, news/Telegram ES.
+
+## Canonical pillars (now)
+
+| Slug | Role |
+|------|------|
+| `residencia-espana-desde-uruguay-2026` | Origin pillar UY |
+| `residencia-espana-desde-ecuador-2026` | Origin pillar EC |
+| `visa-nomada-digital-espana-latam-2026` | Shared DN pillar (UY+EC; 301 from old per-passport DN) |
+| `primeros-30-dias-en-espana-2026` | Settle checklist |
+
+Later (still pillars only): España vs Portugal LATAM; Portugal D8/D7; optional no-lucrativa deep only if it cannot live inside residencia.
+
+## Images
+
+```bash
+npx tsx scripts/generate-guide-og-images.ts --locale=es
+```
+
+Covers: `GUIDE_COVER_BY_SLUG` in [`lib/guides/covers.ts`](../lib/guides/covers.ts).  
+UI: hero + featured image on [`app/es/guides/[slug]/page.tsx`](../app/es/guides/[slug]/page.tsx); cards on guides index.
 
 ## Indexable surface
 
 | Path | Role |
 |------|------|
-| `/es` | Hub LATAM → Europa |
-| `/es/uruguay` | Origin hub UY |
-| `/es/ecuador` | Origin hub EC |
-| `/es/spain` | Destination hub (LATAM framing) |
-| `/es/guides` | Guide index |
+| `/es` | Hub LATAM → España y Portugal |
+| `/es/wizard` | Route evaluator (UY/EC) |
+| `/es/uruguay` / `/es/ecuador` | Origin hubs |
+| `/es/spain` / `/es/portugal` | Destination hubs |
+| `/es/guides` | Pillar index (with covers) |
 | `/es/guides/{slug}` | Pillars |
-| `/es/contact`, `/es/privacy`, `/es/terms` | Trust |
-
-Content: `content/guides/es/`. Loaders: `listGuides("es")`, `guidePath(slug, "es")`.
+| `/es/contact`, privacy, terms | Trust |
 
 ## hreflang
 
-ES pages emit `es` + optional `es-UY` / `es-EC` / `es-ES` + `x-default` → same URL.
-
-Do **not** invent RU↔ES `hreflang` pairs until true translation equivalents exist.
-
-## Guide SEO (ES)
-
-Same Emigro frontmatter as RU ([SEO_GUIDE_STANDARD.md](./SEO_GUIDE_STANDARD.md)), with:
-
-- `corridor_slugs: [es-speaking-uruguay-to-spain]` or `[es-speaking-ecuador-to-spain]`
-- Keywords in Spanish
-- `official_sources` required
-- Canonical under `https://www.emigro.online/es/guides/{slug}`
+`es` + optional `es-UY` / `es-EC` / `es-ES` / `es-PT` + `x-default` → same URL. No RU↔ES pairs until true translations.
 
 ## Expansion (content-only)
 
-To add Paraguay (example):
+New origin = **1 hub + 1 origin pillar** (link shared DN + 30 días). No satellite FAQ guides.
 
-1. `content/guides/es/residencia-espana-desde-paraguay-2026.md`
-2. `/es/paraguay` (copy Ecuador/Uruguay hub)
-3. Reuse `/es/spain` + 30-days guide
-4. Sitemap + `es-PY` hreflang
-5. No new locale machinery
+## Out of scope (for now)
 
-## Out of scope (this phase)
-
-Full ES wizard, Assist, marketplace, Spain satellite in Spanish, EN locale, mass MT of RU guides.
+Full Assist ES, marketplace, Spain satellite in Spanish, EN locale, mass MT of RU guides, 20 EU corridor landings for ES.

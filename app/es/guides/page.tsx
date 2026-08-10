@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
-import { ES_PATHS, esGuidePath } from "@/lib/es/corridor";
+import { ES_PATHS, ES_PILLAR_GUIDE_SLUGS, esGuidePath } from "@/lib/es/corridor";
 import { listGuides } from "@/lib/guides/load";
 import { pageMetadata, pageUrl } from "@/lib/seo";
 import { buildCollectionPageItemListSchema } from "@/lib/seo/collection-schema";
@@ -9,23 +10,25 @@ import { buildCollectionPageItemListSchema } from "@/lib/seo/collection-schema";
 export const revalidate = 3600;
 
 const DESCRIPTION =
-  "Guías Emigro en español: residencia en España desde Uruguay, nómada digital y primeros 30 días — con fuentes oficiales.";
+  "Pilares Emigro en español: Uruguay y Ecuador → España, nómada digital LATAM y primeros 30 días — con fuentes oficiales e imágenes.";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Guías de residencia en Europa (español)",
+  title: "Guías pillar de residencia (español)",
   description: DESCRIPTION,
   path: ES_PATHS.guides,
   locale: "es",
-  esHreflang: { originIso: "UY", destinationIso: "ES" },
+  esHreflang: { destinationIso: "ES" },
   aiDescription: DESCRIPTION,
   aiCategory: "relocation-guides-index",
 });
 
 export default function EsGuidesIndexPage() {
-  const guides = listGuides("es");
+  const guides = listGuides("es").filter((g) =>
+    (ES_PILLAR_GUIDE_SLUGS as readonly string[]).includes(g.slug),
+  );
 
   const collectionSchema = buildCollectionPageItemListSchema({
-    name: "Guías de residencia Emigro (ES)",
+    name: "Guías pillar Emigro (ES)",
     url: pageUrl(ES_PATHS.guides),
     description: DESCRIPTION,
     inLanguage: "es",
@@ -49,26 +52,40 @@ export default function EsGuidesIndexPage() {
           <span className="mx-2">/</span>
           <span>Guías</span>
         </nav>
-        <h1 className="mt-4 text-3xl font-bold text-slate-950">Guías</h1>
+        <h1 className="mt-4 text-3xl font-bold text-slate-950">Pilares</h1>
         <p className="mt-3 max-w-2xl text-slate-600">{DESCRIPTION}</p>
 
-        <ul className="mt-8 space-y-4">
-          {guides.map((guide) => (
-            <li key={guide.slug}>
-              <Link
-                href={esGuidePath(guide.slug)}
-                className="block rounded-2xl border border-slate-200 bg-white p-5 shadow-sm ring-1 ring-slate-950/5 transition hover:border-corridor-300"
-              >
-                <h2 className="text-lg font-semibold text-slate-950">{guide.title}</h2>
-                {guide.excerpt ? <p className="mt-2 text-sm text-slate-600">{guide.excerpt}</p> : null}
-                {guide.estimated_minutes ? (
-                  <p className="mt-3 text-xs font-medium uppercase tracking-wide text-slate-400">
-                    ~{guide.estimated_minutes} min
-                  </p>
-                ) : null}
-              </Link>
-            </li>
-          ))}
+        <ul className="mt-8 grid gap-5 sm:grid-cols-2">
+          {guides.map((guide) => {
+            const cover = guide.og_image_path ?? guide.cover_path;
+            return (
+              <li key={guide.slug}>
+                <Link
+                  href={esGuidePath(guide.slug)}
+                  className="group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm ring-1 ring-slate-950/5 transition hover:border-corridor-300 hover:shadow-md"
+                >
+                  <div className="relative aspect-[16/10] w-full bg-slate-100">
+                    <Image
+                      src={cover}
+                      alt=""
+                      fill
+                      sizes="(max-width: 640px) 100vw, 50vw"
+                      className="object-cover transition group-hover:scale-[1.02]"
+                    />
+                  </div>
+                  <div className="flex flex-1 flex-col p-5">
+                    <h2 className="text-lg font-semibold text-slate-950">{guide.title}</h2>
+                    {guide.excerpt ? <p className="mt-2 text-sm text-slate-600">{guide.excerpt}</p> : null}
+                    {guide.estimated_minutes ? (
+                      <p className="mt-auto pt-3 text-xs font-medium uppercase tracking-wide text-slate-400">
+                        ~{guide.estimated_minutes} min
+                      </p>
+                    ) : null}
+                  </div>
+                </Link>
+              </li>
+            );
+          })}
         </ul>
       </main>
       <SiteFooter locale="es" />

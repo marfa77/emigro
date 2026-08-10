@@ -77,6 +77,10 @@ export default function EsEcuadorHubPage() {
             <li>• Primeros 30 días (NIE, padrón, TIE)</li>
           </ul>
           <div className="mt-5 flex flex-wrap gap-4 text-sm font-medium">
+            <Link href={ES_PATHS.wizard} className="inline-flex items-center gap-2 text-corridor-700 hover:underline">
+              Evaluar mi ruta
+              <ArrowRight className="h-4 w-4" />
+            </Link>
             <Link href={ES_PATHS.spain} className="inline-flex items-center gap-2 text-corridor-700 hover:underline">
               Hub España
               <ArrowRight className="h-4 w-4" />

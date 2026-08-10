@@ -31,7 +31,7 @@ Uruguayos (pasaporte **UY**) que quieren **vivir** en España en 2026: remote wo
 
 No es una guía para la audiencia rusófona de Emigro. El corredor semilla es **Uruguay → España**; la misma lógica se expandirá a AR/MX/CO/VE.
 
-Hubs: [Uruguay](/es/uruguay) · [España](/es/spain) · [Nómada digital](/es/guides/visa-nomada-digital-espana-uruguayos-2026) · [Primeros 30 días](/es/guides/primeros-30-dias-en-espana-2026).
+Hubs: [Uruguay](/es/uruguay) · [España](/es/spain) · [Nómada digital LATAM](/es/guides/visa-nomada-digital-espana-latam-2026) · [Primeros 30 días](/es/guides/primeros-30-dias-en-espana-2026).
 
 ---
 
@@ -58,7 +58,7 @@ Regla práctica: si su plan es **más de 90 días** o **trabajar/teletrabajar de
 
 *Golden Visa / inversión inmobiliaria como vía residencial: **cerrada** en España desde abril 2025. No la use como plan 2026.*
 
-Detalle del teletrabajo: [Visa nómada digital España para uruguayos](/es/guides/visa-nomada-digital-espana-uruguayos-2026).
+Detalle del teletrabajo: [Visa nómada digital España (LATAM)](/es/guides/visa-nomada-digital-espana-latam-2026).
 
 ---
 

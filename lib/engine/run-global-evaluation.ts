@@ -7,6 +7,14 @@ import { evaluateProgram } from "@/lib/engine/evaluator";
 import type { OutcomeCode } from "@/lib/engine/evaluator";
 import { expandHubFacts } from "@/lib/wizard/expand-facts";
 import { INVESTOR_PROGRAM_SLUGS } from "@/lib/engine/constants";
+import { ES_PATHS } from "@/lib/es/corridor";
+import { esLatamLandingHref, esLatamProgramHref } from "@/lib/es/program-labels";
+
+/** Hub wizard LATAM: evaluate Spain + Portugal only (reuse RU corridor program packs). */
+const LATAM_HUB_CORRIDOR_SLUGS = new Set([
+  "ru-speaking-to-spain",
+  "ru-speaking-to-portugal",
+]);
 
 export type GlobalEvalResult = {
   programId: string;
@@ -47,7 +55,11 @@ export async function runGlobalEvaluation(
   const answeredKeys = Object.keys(answers);
   const facts = expandHubFacts(answers);
   const passportIso2 = String(facts.passport_iso2 ?? "RU");
-  const corridors = await getGlobalEvaluationData(passportIso2);
+  const isLatamHub = String(facts.hub_audience ?? "") === "latam";
+  let corridors = await getGlobalEvaluationData(passportIso2);
+  if (isLatamHub) {
+    corridors = corridors.filter((c) => LATAM_HUB_CORRIDOR_SLUGS.has(c.corridorSlug));
+  }
 
   const allResults: GlobalEvalResult[] = [];
 
@@ -66,6 +78,9 @@ export async function runGlobalEvaluation(
         { answeredKeys }
       );
       const row = adjustEvaluationForHousehold(program.programSlug, facts, base);
+      const defaultProgramPath = segment
+        ? `/ru/${segment}/programs/${program.programSlug}`
+        : programPath(corridor.corridorSlug, program.programSlug);
       allResults.push({
         ...row,
         programTitleRu: program.programTitleRu,
@@ -74,9 +89,9 @@ export async function runGlobalEvaluation(
         corridorSlug: corridor.corridorSlug,
         countryRu: corridor.countryRu,
         countrySegment: segment,
-        programPath: segment
-          ? `/ru/${segment}/programs/${program.programSlug}`
-          : programPath(corridor.corridorSlug, program.programSlug),
+        programPath: isLatamHub
+          ? esLatamProgramHref(segment, program.programSlug)
+          : defaultProgramPath,
         sourceUrl: program.sourceUrl ?? null,
         sourceLabelRu: program.sourceLabelRu ?? null,
       });
@@ -101,7 +116,11 @@ export async function runGlobalEvaluation(
       countryRu: first.countryRu,
       countrySegment: first.countrySegment,
       corridorSlug,
-      landingPath: first.countrySegment ? `/ru/${first.countrySegment}` : "/ru",
+      landingPath: isLatamHub
+        ? esLatamLandingHref(first.countrySegment) || ES_PATHS.home
+        : first.countrySegment
+          ? `/ru/${first.countrySegment}`
+          : "/ru",
       matches: rows.sort((a: GlobalEvalResult, b: GlobalEvalResult) => b.score - a.score),
     };
   });

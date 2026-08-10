@@ -67,13 +67,22 @@ export default function EsUruguayHubPage() {
             <li>• Visado de nómada digital (teletrabajo)</li>
             <li>• Primeros 30 días en España (NIE, empadronamiento, TIE)</li>
           </ul>
-          <Link
-            href={ES_PATHS.spain}
-            className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-corridor-700 hover:underline"
-          >
-            Ver hub España (destino)
-            <ArrowRight className="h-4 w-4" />
-          </Link>
+          <div className="mt-5 flex flex-wrap gap-4 text-sm font-medium">
+            <Link
+              href={ES_PATHS.wizard}
+              className="inline-flex items-center gap-2 text-sm font-medium text-corridor-700 hover:underline"
+            >
+              Evaluar mi ruta
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+            <Link
+              href={ES_PATHS.spain}
+              className="inline-flex items-center gap-2 text-sm font-medium text-corridor-700 hover:underline"
+            >
+              Ver hub España (destino)
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
         </section>
 
         <section className="mt-10">

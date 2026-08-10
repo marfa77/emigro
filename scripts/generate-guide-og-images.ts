@@ -2,8 +2,9 @@
  * Generates 1200×630 OG hero JPGs for guide pages (same layout as existing pillar guides).
  * Run: npm run guides:og-images
  * Optional: npm run guides:og-images -- vnj-polsha-2026 another-slug
+ * ES locale: npm run guides:og-images -- --locale=es
  */
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import React from "react";
 import { ImageResponse } from "next/og";
@@ -25,6 +26,13 @@ const NEW_GUIDE_SLUGS = [
   "ukraina-evropa-vnj-marshruty-2026",
 ];
 
+const ES_PILLAR_OG_SLUGS = [
+  "residencia-espana-desde-uruguay-2026",
+  "residencia-espana-desde-ecuador-2026",
+  "visa-nomada-digital-espana-latam-2026",
+  "primeros-30-dias-en-espana-2026",
+];
+
 type GuideMeta = {
   title: string;
   seo_title?: string;
@@ -34,8 +42,12 @@ type GuideMeta = {
   corridor_slugs?: string[];
 };
 
-function parseGuideMeta(slug: string): GuideMeta {
-  const raw = readFileSync(path.join(process.cwd(), "content/guides/ru", `${slug}.md`), "utf8");
+function parseGuideMeta(slug: string, locale: "ru" | "es"): GuideMeta {
+  const filePath = path.join(process.cwd(), "content/guides", locale, `${slug}.md`);
+  if (!existsSync(filePath)) {
+    throw new Error(`Guide not found: ${filePath}`);
+  }
+  const raw = readFileSync(filePath, "utf8");
   const match = raw.match(/^---\r?\n([\s\S]*?)\r?\n---/);
   const meta: GuideMeta = { title: slug };
   if (!match) return meta;
@@ -53,15 +65,21 @@ function parseGuideMeta(slug: string): GuideMeta {
         .split(",")
         .map((s) => s.trim())
         .filter(Boolean);
-    } else if (key === "title" || key === "seo_title" || key === "excerpt" || key === "seo_description" || key === "cover_image") {
+    } else if (
+      key === "title" ||
+      key === "seo_title" ||
+      key === "excerpt" ||
+      key === "seo_description" ||
+      key === "cover_image"
+    ) {
       (meta as Record<string, string | string[]>)[key] = value;
     }
   }
   return meta;
 }
 
-async function renderGuideOg(slug: string): Promise<void> {
-  const meta = parseGuideMeta(slug);
+async function renderGuideOg(slug: string, locale: "ru" | "es"): Promise<void> {
+  const meta = parseGuideMeta(slug, locale);
   const coverWebp = getGuideCoverPath(slug, {
     coverImage: meta.cover_image,
     corridorSlugs: meta.corridor_slugs,
@@ -73,7 +91,7 @@ async function renderGuideOg(slug: string): Promise<void> {
 
   const res = new ImageResponse(
     React.createElement(GuideOgTemplate, { title, subtitle, backgroundDataUrl }),
-    { width: 1200, height: 630 }
+    { width: 1200, height: 630 },
   );
 
   const outDir = path.join(process.cwd(), "public/images/og");
@@ -84,9 +102,14 @@ async function renderGuideOg(slug: string): Promise<void> {
 }
 
 async function main() {
-  const slugs = process.argv.slice(2).length > 0 ? process.argv.slice(2) : NEW_GUIDE_SLUGS;
-  for (const slug of slugs) {
-    await renderGuideOg(slug);
+  const args = process.argv.slice(2);
+  const localeArg = args.find((a) => a.startsWith("--locale="));
+  const locale = (localeArg?.split("=")[1] === "es" ? "es" : "ru") as "ru" | "es";
+  const slugs = args.filter((a) => !a.startsWith("--"));
+  const targets =
+    slugs.length > 0 ? slugs : locale === "es" ? ES_PILLAR_OG_SLUGS : NEW_GUIDE_SLUGS;
+  for (const slug of targets) {
+    await renderGuideOg(slug, locale);
   }
 }
 

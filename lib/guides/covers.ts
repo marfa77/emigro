@@ -144,6 +144,11 @@ export const GUIDE_COVER_BY_SLUG: Record<string, string> = {
   "bali-indoneziya-dlya-rossiyan-2026": "/images/corridor-indonesia.webp",
   "yuar-dlya-rossiyan-ukraintsev-belorusov-kazahstantsev-2026": "/images/corridor-south-africa.webp",
   "kak-otkryt-ip-za-rubezhom-rossiyane-2026": "/images/corridor-serbia.webp",
+  // ES pillars (LATAM → España)
+  "residencia-espana-desde-uruguay-2026": "/images/corridor-spain.webp",
+  "residencia-espana-desde-ecuador-2026": "/images/corridor-spain.webp",
+  "visa-nomada-digital-espana-latam-2026": "/images/emigro-guide-passive-income.webp",
+  "primeros-30-dias-en-espana-2026": "/images/corridor-spain.webp",
 };
 
 export const DEFAULT_GUIDE_COVER = "/images/emigro-main-hero.webp";

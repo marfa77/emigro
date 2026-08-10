@@ -18,6 +18,13 @@ interface WizardProps {
   /** Hub wizard uses /api/v1/hub/wizard/* endpoints. */
   mode?: "corridor" | "hub";
   analyticsScope?: string;
+  /** UI locale for chrome strings; question copy still comes from modules. */
+  locale?: "ru" | "es";
+  /**
+   * Extra answers merged on submit (e.g. hub_audience=latam for ES wizard).
+   * Not shown in the form.
+   */
+  hiddenAnswers?: Record<string, string>;
 }
 
 type DraftPayload = {
@@ -84,6 +91,8 @@ export function WizardForm({
   resultsPath,
   mode = "corridor",
   analyticsScope,
+  locale = "ru",
+  hiddenAnswers,
 }: WizardProps) {
   const router = useRouter();
   const formId = useId();
@@ -96,6 +105,74 @@ export function WizardForm({
   const [draftRestored, setDraftRestored] = useState(false);
   const startedRef = useRef(false);
   const hydratedRef = useRef(false);
+  const isEs = locale === "es";
+
+  const ui = isEs
+    ? {
+        progressLabel: "Progreso del evaluador",
+        stepOf: (n: number, total: number) => `Paso ${n} de ${total}`,
+        interestPrefix: "Tenemos en cuenta su interés en:",
+        interestSuffix:
+          "El emparejamiento sigue centrado en España y Portugal; el interés solo ordena un poco.",
+        draftRestored:
+          "Restauramos sus respuestas anteriores en este dispositivo. Puede continuar o cambiar cualquier paso.",
+        tip: "Si no tiene la cifra exacta, indique una aproximación en euros. Si la pregunta no aplica, elija «No» o deje vacío el campo opcional.",
+        answerRequired: (label: string) => `Responda: ${label}`,
+        loading1: "Comparamos sus respuestas con los programas; puede tardar unos segundos.",
+        loading2: "Comparamos ingresos, ahorros, familia y documentos con los requisitos.",
+        loading3: "Preparamos resultados claros y próximos pasos.",
+        loadingIdle: "Calculando resultados...",
+        loadingHint: "Comprobamos las reglas; no cierre ni actualice la página.",
+        errorTitle: "Falta un paso",
+        back: "Atrás",
+        next: "Siguiente",
+        showResults: "Ver resultados",
+        preparing: "Preparando resultados...",
+        numberFallback: "Introduzca un número",
+        numberExamples: {
+          monthly_income_eur: "Ej.: 3500",
+          passive_income_eur: "Ej.: 1200",
+          savings_eur: "Ej.: 25000",
+          willing_to_invest_eur: "Ej.: 0 o 250000",
+          annual_salary_eur: "Ej.: 55678",
+          study_budget_eur: "Ej.: 12000",
+          relocating_children_count: "0, 1, 2...",
+          relocating_parents_count: "0, 1, 2...",
+        } as Record<string, string>,
+      }
+    : {
+        progressLabel: "Прогресс wizard",
+        stepOf: (n: number, total: number) => `Шаг ${n} из ${total}`,
+        interestPrefix: "Учитываем ваш интерес к:",
+        interestSuffix:
+          "Подбор всё равно по всем коридорам — интерес только слегка поднимает релевантные страны в выдаче.",
+        draftRestored:
+          "Восстановили ваши прошлые ответы с этого устройства. Можно продолжить или изменить любой шаг.",
+        tip: "Если точной цифры нет, укажите примерную сумму в евро. Если вопрос не про вас или ответа нет, выбирайте «Нет» или оставляйте необязательное поле пустым.",
+        answerRequired: (label: string) => `Ответьте на вопрос: ${label}`,
+        loading1: "Сверяем ответы с программами, это может занять несколько секунд.",
+        loading2: "Сравниваем доход, сбережения, семью и документы с требованиями программ.",
+        loading3: "Готовим понятные результаты и следующие шаги.",
+        loadingIdle: "Считаем результаты...",
+        loadingHint:
+          "Мы проверяем правила программ и сразу покажем результат. Страницу можно не обновлять и не закрывать.",
+        errorTitle: "Нужно ещё одно действие",
+        back: "Назад",
+        next: "Далее",
+        showResults: "Показать результаты",
+        preparing: "Готовим результаты...",
+        numberFallback: "Введите число",
+        numberExamples: {
+          monthly_income_eur: "Например: 3500",
+          passive_income_eur: "Например: 1200",
+          savings_eur: "Например: 25000",
+          willing_to_invest_eur: "Например: 0 или 250000",
+          annual_salary_eur: "Например: 55678",
+          study_budget_eur: "Например: 12000",
+          relocating_children_count: "0, 1, 2...",
+          relocating_parents_count: "0, 1, 2...",
+        } as Record<string, string>,
+      };
 
   const currentModule = modules[step];
   const isLast = step === modules.length - 1;
@@ -111,17 +188,7 @@ export function WizardForm({
   );
 
   function numberPlaceholder(questionKey: string): string {
-    const placeholders: Record<string, string> = {
-      monthly_income_eur: "Например: 3500",
-      passive_income_eur: "Например: 1200",
-      savings_eur: "Например: 25000",
-      willing_to_invest_eur: "Например: 0 или 250000",
-      annual_salary_eur: "Например: 55678",
-      study_budget_eur: "Например: 12000",
-      relocating_children_count: "0, 1, 2...",
-      relocating_parents_count: "0, 1, 2...",
-    };
-    return placeholders[questionKey] ?? "Введите число";
+    return ui.numberExamples[questionKey] ?? ui.numberFallback;
   }
 
   useEffect(() => {
@@ -174,12 +241,12 @@ export function WizardForm({
       corridor_slug: scope,
       wizard_id: wizardId,
       wizard_mode: mode,
-      locale: "ru",
+      locale: locale,
       page_path: typeof window !== "undefined" ? window.location.pathname + window.location.search : "",
       referer: typeof document !== "undefined" ? document.referrer : "",
       ...(interest ? { interest_countries: interest } : {}),
     });
-  }, [scope, wizardId, mode]);
+  }, [scope, wizardId, mode, locale]);
 
   useEffect(() => {
     if (!hydratedRef.current) return;
@@ -215,7 +282,7 @@ export function WizardForm({
     for (const q of currentModule.questions) {
       if (!isQuestionRequired(q.question_key, q.question_type, q.required, answers)) continue;
       if (!answers[q.question_key]) {
-        setError(`Ответьте на вопрос: ${q.label_ru}`);
+        setError(ui.answerRequired(q.label_ru));
         return;
       }
     }
@@ -232,24 +299,25 @@ export function WizardForm({
     }
 
     setLoading(true);
-    setLoadingMessage("Сверяем ответы с программами, это может занять несколько секунд.");
+    setLoadingMessage(ui.loading1);
     const slowHintTimer = window.setTimeout(() => {
-      setLoadingMessage("Сверяем ответы с программами, это может занять несколько секунд.");
+      setLoadingMessage(ui.loading1);
     }, 1000);
     try {
       const postUrl =
         mode === "hub"
           ? "/api/v1/hub/wizard/sessions"
           : `/api/v1/corridors/${corridorSlug}/wizard/sessions`;
+      const payloadAnswers = { ...answers, ...(hiddenAnswers ?? {}) };
       const sessionRes = await fetch(postUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ wizard_id: wizardId, answers }),
+        body: JSON.stringify({ wizard_id: wizardId, answers: payloadAnswers }),
       });
       const sessionData = await sessionRes.json();
       if (!sessionRes.ok) throw new Error(sessionData.error ?? "Session failed");
 
-      setLoadingMessage("Сравниваем доход, сбережения, семью и документы с требованиями программ.");
+      setLoadingMessage(ui.loading2);
       const evalUrl =
         mode === "hub"
           ? `/api/v1/hub/wizard/sessions/${sessionData.id}/evaluate`
@@ -258,7 +326,7 @@ export function WizardForm({
       const evalData = await evalRes.json();
       if (!evalRes.ok) throw new Error(evalData.error ?? "Evaluation failed");
 
-      setLoadingMessage("Готовим понятные результаты и следующие шаги.");
+      setLoadingMessage(ui.loading3);
       trackEvent("wizard_completed", {
         corridor_slug: scope,
         session_id: sessionData.id,
@@ -273,7 +341,7 @@ export function WizardForm({
 
       router.push(`${resultsPath}?session=${sessionData.id}`);
     } catch (e) {
-      const message = e instanceof Error ? e.message : "Ошибка";
+      const message = e instanceof Error ? e.message : isEs ? "Error" : "Ошибка";
       trackEvent("wizard_error", { corridor_slug: scope, message });
       setError(message);
     } finally {
@@ -370,7 +438,7 @@ export function WizardForm({
 
   return (
     <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
-      <div className="mb-6 flex gap-2" role="list" aria-label="Прогресс wizard">
+      <div className="mb-6 flex gap-2" role="list" aria-label={ui.progressLabel}>
         {modules.map((m, i) => (
           <div
             key={m.id}
@@ -390,25 +458,23 @@ export function WizardForm({
         {currentModule.title_ru}
       </h2>
       <p className="text-sm text-slate-500">
-        Шаг {step + 1} из {modules.length}
+        {ui.stepOf(step + 1, modules.length)}
       </p>
 
       {interestLabels.length > 0 && (
         <div className="mt-3 rounded-lg border border-amber-100 bg-amber-50 px-4 py-3 text-sm leading-relaxed text-amber-950">
-          Учитываем ваш интерес к: {interestLabels.join(", ")}. Подбор всё равно по всем коридорам — интерес
-          только слегка поднимает релевантные страны в выдаче.
+          {ui.interestPrefix} {interestLabels.join(", ")}. {ui.interestSuffix}
         </div>
       )}
 
       {draftRestored && (
         <div className="mt-3 rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700">
-          Восстановили ваши прошлые ответы с этого устройства. Можно продолжить или изменить любой шаг.
+          {ui.draftRestored}
         </div>
       )}
 
       <div className="mt-3 rounded-lg border border-blue-100 bg-blue-50 px-4 py-3 text-sm leading-relaxed text-blue-950">
-        Если точной цифры нет, укажите примерную сумму в евро. Если вопрос не про вас или ответа нет,
-        выбирайте «Нет» или оставляйте необязательное поле пустым.
+        {ui.tip}
       </div>
 
       <div className="mt-6 space-y-6">{visibleQuestions.map(renderQuestion)}</div>
@@ -419,7 +485,7 @@ export function WizardForm({
           role="alert"
           aria-live="assertive"
         >
-          <p className="font-medium">Нужно ещё одно действие</p>
+          <p className="font-medium">{ui.errorTitle}</p>
           <p className="mt-1">{error}</p>
         </div>
       )}
@@ -429,10 +495,8 @@ export function WizardForm({
           role="status"
           aria-live="polite"
         >
-          <p className="font-medium">{loadingMessage || "Считаем результаты..."}</p>
-          <p className="mt-1 text-corridor-800">
-            Мы проверяем правила программ и сразу покажем результат. Страницу можно не обновлять и не закрывать.
-          </p>
+          <p className="font-medium">{loadingMessage || ui.loadingIdle}</p>
+          <p className="mt-1 text-corridor-800">{ui.loadingHint}</p>
         </div>
       )}
 
@@ -443,7 +507,7 @@ export function WizardForm({
           onClick={() => setStep((s) => s - 1)}
           className={`rounded-lg px-4 py-3 text-sm text-slate-600 disabled:opacity-40 ${tapTargetSmReset} sm:py-2`}
         >
-          Назад
+          {ui.back}
         </button>
         <button
           type="button"
@@ -451,7 +515,7 @@ export function WizardForm({
           disabled={loading}
           className={`${tapTarget} rounded-lg bg-corridor-600 px-5 py-3 text-sm font-medium text-white hover:bg-corridor-700 disabled:opacity-60 ${tapTargetSmReset} sm:py-2`}
         >
-          {loading ? "Готовим результаты..." : isLast ? "Показать результаты" : "Далее"}
+          {loading ? ui.preparing : isLast ? ui.showResults : ui.next}
         </button>
       </div>
     </div>

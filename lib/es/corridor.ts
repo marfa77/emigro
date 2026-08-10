@@ -1,9 +1,16 @@
 /**
- * Spanish-speaking LATAM → Europe — seed wedges + expansion rails.
- * Data-light config (no DB corridor pack yet). SEO surface under `/es`.
+ * Spanish-speaking LATAM → España y Portugal.
+ * Origins expand (UY, EC, …); destinations stay ES then PT — not a mini EU grid.
+ * SEO + product surface under `/es`. Pillars only + covers/OG. See docs/ES_SEO_CORRIDOR.md.
+ *
+ * Wizard Phase 1 reuses `ru-speaking-to-spain` / `ru-speaking-to-portugal` program rules
+ * with UY/EC passport eligibility (hub_audience=latam).
  */
 
 export const ES_CORRIDOR_FAMILY = "es-speaking-latam-to-europe" as const;
+
+/** Product destinations for LATAM contour (deep ES, then PT). */
+export const ES_DESTINATIONS = ["ES", "PT"] as const;
 
 export const ES_UY_SPAIN_CORRIDOR = {
   slug: "es-speaking-uruguay-to-spain",
@@ -40,31 +47,43 @@ export const ES_PATHS = {
   uruguay: "/es/uruguay",
   ecuador: "/es/ecuador",
   spain: "/es/spain",
+  portugal: "/es/portugal",
+  wizard: "/es/wizard",
+  wizardResults: "/es/wizard/results",
   contact: "/es/contact",
   privacy: "/es/privacy",
   terms: "/es/terms",
 } as const;
 
-export const ES_SEED_GUIDE_SLUGS = [
+/** Canonical ES pillars only — keep this list short. */
+export const ES_PILLAR_GUIDE_SLUGS = [
   "residencia-espana-desde-uruguay-2026",
-  "visa-nomada-digital-espana-uruguayos-2026",
   "residencia-espana-desde-ecuador-2026",
-  "visa-nomada-digital-espana-ecuatorianos-2026",
+  "visa-nomada-digital-espana-latam-2026",
   "primeros-30-dias-en-espana-2026",
 ] as const;
 
+/** @deprecated use ES_PILLAR_GUIDE_SLUGS */
+export const ES_SEED_GUIDE_SLUGS = ES_PILLAR_GUIDE_SLUGS;
+
 export const ES_UY_GUIDE_SLUGS = [
   "residencia-espana-desde-uruguay-2026",
-  "visa-nomada-digital-espana-uruguayos-2026",
+  "visa-nomada-digital-espana-latam-2026",
   "primeros-30-dias-en-espana-2026",
 ] as const;
 
 export const ES_EC_GUIDE_SLUGS = [
   "residencia-espana-desde-ecuador-2026",
-  "visa-nomada-digital-espana-ecuatorianos-2026",
+  "visa-nomada-digital-espana-latam-2026",
   "primeros-30-dias-en-espana-2026",
 ] as const;
 
+export const ES_DN_CANONICAL_SLUG = "visa-nomada-digital-espana-latam-2026" as const;
+
 export function esGuidePath(slug: string): string {
   return `/es/guides/${slug}`;
+}
+
+export function isEsPillarGuideSlug(slug: string): boolean {
+  return (ES_PILLAR_GUIDE_SLUGS as readonly string[]).includes(slug);
 }

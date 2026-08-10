@@ -29,7 +29,7 @@ date_modified: 2026-08-10
 
 Ecuatorianos (pasaporte **EC**) que quieren **vivir** en España en 2026: remote workers, familias, estudiantes o quienes ya tienen red en Madrid, Murcia, Valencia u otras ciudades con comunidad ecuatoriana.
 
-Corredor Emigro: **Ecuador → España** (segundo wedge LATAM tras Uruguay). Hubs: [Ecuador](/es/ecuador) · [España](/es/spain) · [Nómada digital EC](/es/guides/visa-nomada-digital-espana-ecuatorianos-2026) · [30 días](/es/guides/primeros-30-dias-en-espana-2026).
+Corredor Emigro: **Ecuador → España** (segundo wedge LATAM tras Uruguay). Hubs: [Ecuador](/es/ecuador) · [España](/es/spain) · [Nómada digital LATAM](/es/guides/visa-nomada-digital-espana-latam-2026) · [30 días](/es/guides/primeros-30-dias-en-espana-2026).
 
 ---
 
@@ -66,7 +66,7 @@ No confunda un viaje corto con un plan de vida. Si el objetivo es **más de 90 d
 
 Golden Visa / inversión inmobiliaria residencial: **cerrada** desde 2025.
 
-Detalle teletrabajo: [Nómada digital para ecuatorianos](/es/guides/visa-nomada-digital-espana-ecuatorianos-2026).
+Detalle teletrabajo: [Nómada digital España (LATAM)](/es/guides/visa-nomada-digital-espana-latam-2026).
 
 ---
 

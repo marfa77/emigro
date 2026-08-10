@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Globe2, MapPin } from "lucide-react";
+import { ArrowRight, Compass, Globe2, MapPin } from "lucide-react";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { HubHeroVisual } from "@/components/visuals/HubHeroVisual";
 import {
   ES_EC_SPAIN_CORRIDOR,
   ES_PATHS,
-  ES_SEED_GUIDE_SLUGS,
+  ES_PILLAR_GUIDE_SLUGS,
   ES_UY_SPAIN_CORRIDOR,
   esGuidePath,
 } from "@/lib/es/corridor";
@@ -19,10 +19,10 @@ import { heroTitle } from "@/lib/ui/mobile";
 export const revalidate = 3600;
 
 export const metadata: Metadata = pageMetadata({
-  title: "Emigro — Residencia en Europa para hispanohablantes",
+  title: "Emigro — LATAM → España y Portugal",
   titleAbsolute: true,
   description:
-    "Corredores Uruguay y Ecuador → España: residencia, nómada digital y primeros 30 días con fuentes oficiales. Base LATAM → Europa.",
+    "Residencia para hispanohablantes: Uruguay y Ecuador → España, con Portugal como segundo destino. Evaluador UY/EC + pilares con fuentes oficiales.",
   path: ES_PATHS.home,
   locale: "es",
   esHreflang: { destinationIso: "ES" },
@@ -30,19 +30,21 @@ export const metadata: Metadata = pageMetadata({
 
 export default function EsHubPage() {
   const guides = listGuides("es").filter((g) =>
-    (ES_SEED_GUIDE_SLUGS as readonly string[]).includes(g.slug),
+    (ES_PILLAR_GUIDE_SLUGS as readonly string[]).includes(g.slug),
   );
 
   const collectionSchema = buildCollectionPageItemListSchema({
-    name: "Emigro — hispanohablantes hacia Europa",
+    name: "Emigro — LATAM → España y Portugal",
     url: pageUrl(ES_PATHS.home),
     description:
-      "Guías de residencia en España para ciudadanos de Uruguay y Ecuador, con expansión prevista a otros pasaportes LATAM.",
+      "Guías y evaluador de residencia en España y Portugal para ciudadanos de Uruguay y Ecuador.",
     inLanguage: "es",
     items: [
+      { url: pageUrl(ES_PATHS.wizard), name: "Evaluador España y Portugal" },
       { url: pageUrl(ES_PATHS.uruguay), name: ES_UY_SPAIN_CORRIDOR.title },
       { url: pageUrl(ES_PATHS.ecuador), name: ES_EC_SPAIN_CORRIDOR.title },
       { url: pageUrl(ES_PATHS.spain), name: "España para LATAM" },
+      { url: pageUrl(ES_PATHS.portugal), name: "Portugal para LATAM" },
       ...guides.map((g) => ({ url: pageUrl(esGuidePath(g.slug)), name: g.title })),
     ],
   });
@@ -57,32 +59,38 @@ export default function EsHubPage() {
         <HeroShell visual={<HubHeroVisual />}>
           <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-sm text-corridor-100">
             <Globe2 className="h-4 w-4" />
-            Wedges: {ES_UY_SPAIN_CORRIDOR.title} · {ES_EC_SPAIN_CORRIDOR.title}
+            LATAM → España y Portugal
           </div>
-          <h1 className={`mt-4 ${heroTitle}`}>Residencia en Europa para hispanohablantes</h1>
+          <h1 className={`mt-4 ${heroTitle}`}>Residencia en España y Portugal para hispanohablantes</h1>
           <p className="mt-4 max-w-2xl text-lg text-corridor-100">
-            Segunda dirección de Emigro: corredores LATAM → España (luego Portugal). Empezamos por
-            nichos con demanda real y baja saturación SEO — no por MX/CO/AR genéricos.
+            Segunda dirección de Emigro: orígenes LATAM (hoy Uruguay y Ecuador), destinos profundos
+            España y luego Portugal — no una mini-rejilla de 20 países UE.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link
-              href={ES_PATHS.uruguay}
+              href={ES_PATHS.wizard}
               className="inline-flex items-center gap-2 rounded-lg bg-white px-5 py-3 font-medium text-corridor-900 hover:bg-corridor-50"
             >
-              Uruguay → España
+              <Compass className="h-4 w-4" />
+              Evaluar mi ruta
               <ArrowRight className="h-4 w-4" />
             </Link>
             <Link
-              href={ES_PATHS.ecuador}
+              href={ES_PATHS.spain}
               className="inline-flex items-center gap-2 rounded-lg border border-white/40 px-5 py-3 font-medium text-white hover:bg-white/10"
             >
-              Ecuador → España
-              <ArrowRight className="h-4 w-4" />
+              Hub España
+            </Link>
+            <Link
+              href={ES_PATHS.portugal}
+              className="inline-flex items-center gap-2 rounded-lg border border-white/40 px-5 py-3 font-medium text-white hover:bg-white/10"
+            >
+              Hub Portugal
             </Link>
           </div>
         </HeroShell>
 
-        <section className="mt-10 grid gap-4 sm:grid-cols-3">
+        <section className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <Link
             href={ES_PATHS.uruguay}
             className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm ring-1 ring-slate-950/5 transition hover:border-corridor-300"
@@ -93,7 +101,7 @@ export default function EsHubPage() {
               Uruguay
             </h2>
             <p className="mt-3 text-slate-600">
-              Nicho limpio: pasaporte UY, baja competencia, rutas claras hacia España.
+              Nicho limpio: pasaporte UY, baja competencia SEO hacia España.
             </p>
           </Link>
           <Link
@@ -106,28 +114,56 @@ export default function EsHubPage() {
               Ecuador
             </h2>
             <p className="mt-3 text-slate-600">
-              Más demanda que UY, menos saturación que MX/CO/AR/VE. Schengen corto ≠ residencia.
+              Más demanda que UY; Schengen corto suele necesitar visado.
             </p>
           </Link>
           <Link
             href={ES_PATHS.spain}
             className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm ring-1 ring-slate-950/5 transition hover:border-corridor-300"
           >
-            <p className="text-sm font-semibold uppercase tracking-wide text-corridor-600">Destino</p>
+            <p className="text-sm font-semibold uppercase tracking-wide text-corridor-600">Destino 1</p>
             <h2 className="mt-2 flex items-center gap-2 text-xl font-bold text-slate-950">
               <MapPin className="h-5 w-5 text-corridor-600" />
               España
             </h2>
             <p className="mt-3 text-slate-600">
-              Nómada digital, no lucrativa, trabajo — enmarcado para LATAM.
+              Nómada digital, no lucrativa, estudios, familia — pilares LATAM.
+            </p>
+          </Link>
+          <Link
+            href={ES_PATHS.portugal}
+            className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm ring-1 ring-slate-950/5 transition hover:border-corridor-300"
+          >
+            <p className="text-sm font-semibold uppercase tracking-wide text-corridor-600">Destino 2</p>
+            <h2 className="mt-2 flex items-center gap-2 text-xl font-bold text-slate-950">
+              <MapPin className="h-5 w-5 text-corridor-600" />
+              Portugal
+            </h2>
+            <p className="mt-3 text-slate-600">
+              D8 / D7 / estudios — compare con España en el mismo evaluador.
             </p>
           </Link>
         </section>
 
+        <section className="mt-12 rounded-2xl border border-corridor-200 bg-corridor-50/80 p-6">
+          <h2 className="text-xl font-bold text-slate-950">Evaluador (pasaportes UY / EC)</h2>
+          <p className="mt-2 text-slate-700">
+            Responda sobre ingresos, trabajo, familia y estudios. Emigro compara programas de
+            España y Portugal y le señala el mejor encaje preliminar.
+          </p>
+          <Link
+            href={ES_PATHS.wizard}
+            className="mt-4 inline-flex items-center gap-2 rounded-lg bg-corridor-600 px-5 py-3 text-sm font-medium text-white hover:bg-corridor-700"
+          >
+            Empezar evaluador
+            <ArrowRight className="h-4 w-4" />
+          </Link>
+        </section>
+
         <section className="mt-12">
-          <h2 className="text-2xl font-bold text-slate-950">Guías</h2>
+          <h2 className="text-2xl font-bold text-slate-950">Pilares</h2>
           <p className="mt-2 text-slate-600">
-            Evergreen con fuentes oficiales. Evaluador en español: próximamente.
+            Guías profundas con fuentes oficiales — sin satélites informativos finos.
           </p>
           <ul className="mt-6 space-y-3">
             {guides.map((guide) => (
@@ -152,8 +188,8 @@ export default function EsHubPage() {
         <section className="mt-12 rounded-2xl border border-amber-200 bg-amber-50/80 p-6">
           <h2 className="text-lg font-bold text-slate-950">Expansión</h2>
           <p className="mt-2 text-sm text-slate-700">
-            Siguiente: PY/PE y luego AR/MX/CO/VE → España; después LATAM → Portugal. Cada origen =
-            hub + guías, sin rehacer el locale.
+            Siguientes orígenes: PY/PE y luego AR/MX/CO/VE. Destinos: profundizar España, luego
+            pilares Portugal. Cada origen = hub + 1 pilar — sin clonar 20 países UE.
           </p>
         </section>
       </main>

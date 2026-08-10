@@ -139,8 +139,8 @@ type MobileBottomBarProps = {
 
 export function MobileBottomBar({ locale = "ru" }: MobileBottomBarProps) {
   const chatLabel = locale === "es" ? "Guías" : locale === "ru" ? "Чат" : "Chat";
-  const primaryHref = locale === "es" ? ES_PATHS.spain : "/ru/wizard";
-  const primaryLabel = locale === "es" ? "España" : "Wizard";
+  const primaryHref = locale === "es" ? ES_PATHS.wizard : "/ru/wizard";
+  const primaryLabel = locale === "es" ? "Evaluador" : "Wizard";
   const secondaryHref = locale === "es" ? ES_PATHS.guides : COMMUNITY_PATH;
 
   return (
