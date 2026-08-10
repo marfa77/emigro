@@ -61,6 +61,16 @@ export const LIGHTNING_IMMIGRATION_HINTS = [
   "натурализ",
   "пмж",
   "вид на житель",
+  // Schengen / borders (often missed: no «виз»/«внж» in the title)
+  "шенген",
+  "schengen",
+  "пограничн",
+  "border control",
+  "contrôles aux frontières",
+  "controles en frontera",
+  "controles fronter",
+  "reintroduc",
+  "temporary controls",
 ];
 
 /** Soft / life topics — OK on site tiles, NOT enough alone for #молния. */
