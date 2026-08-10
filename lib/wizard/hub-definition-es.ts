@@ -12,6 +12,7 @@ const PASSPORT_OPTIONS = [
   { value: "PE", label_en: "Peru", label_ru: "Perú" },
   { value: "PY", label_en: "Paraguay", label_ru: "Paraguay" },
   { value: "CO", label_en: "Colombia", label_ru: "Colombia" },
+  { value: "CL", label_en: "Chile", label_ru: "Chile" },
 ];
 
 const YES_NO = [
@@ -74,7 +75,7 @@ export const HUB_ES_WIZARD_MODULES: WizardModule[] = [
     questions: [
       q("hub-es-core", "passport_iso2", "single", "Su pasaporte", {
         helpRu:
-          "Pasaporte con el que presentará la solicitud. Emigro ES cubre Uruguay, Ecuador, Perú, Paraguay y Colombia; otros LATAM llegan después.",
+          "Pasaporte con el que presentará la solicitud. Emigro ES cubre Uruguay, Ecuador, Perú, Paraguay, Colombia y Chile; otros LATAM llegan después.",
         options: PASSPORT_OPTIONS,
         sort: 1,
       }),

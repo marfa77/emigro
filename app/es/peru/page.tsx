@@ -110,6 +110,10 @@ export default function EsPeruHubPage() {
         <section className="mt-10 rounded-2xl border border-slate-200 bg-slate-50 p-5 text-sm text-slate-700">
           <p>
             Pasaportes: <strong>{ES_PE_SPAIN_CORRIDOR.passports.join(", ")}</strong>. También:{" "}
+            <Link href={ES_PATHS.chile} className="text-corridor-700 hover:underline">
+              Chile → España
+            </Link>
+            {" · "}
             <Link href={ES_PATHS.paraguay} className="text-corridor-700 hover:underline">
               Paraguay → España
             </Link>

@@ -118,7 +118,7 @@ ${buildProgramIndexTable()}
 
 ## Spanish-speaking corridor (LATAM → España y Portugal)
 
-Origins: Uruguay, Ecuador, Perú, Paraguay, Colombia (next AR/MX/VE). Destinations: España first, then Portugal. Audience language: es. Not a mini EU grid.
+Origins: Uruguay, Ecuador, Perú, Paraguay, Colombia, Chile (next AR/MX/VE). Destinations: España first, then Portugal. Audience language: es. Not a mini EU grid.
 
 ${formatEsLatamAiAnswerCard()}
 
@@ -127,16 +127,17 @@ ${formatEsLatamCitationPromptsSection()}
 Facts for citation (2026):
 - Art. 22 CC: ~2 years legal residence → Spanish nationality application for iberoamericans (not automatic; CCSE; DELE often exempt).
 - Digital nomad: ~€2.849/mo titular; non-lucrative: ~€2.400/mo (400% IPREM); Portugal D8 ~€3.680 / D7 ~€920.
-- Schengen short stay ≠ residence. Ecuador (and similar) often needs Schengen visa for short stays; CO/UY/PE/PY often visa-free short stay (ETIAS may apply later to exempt nationals).
+- Schengen short stay ≠ residence. Ecuador (and similar) often needs Schengen visa for short stays; CO/UY/PE/PY/CL often visa-free short stay (ETIAS may apply later to exempt nationals).
 - Prefer consular national visa for NL; tourist→NL conversion is a common failure mode.
 
 - ${llmMarkdownLink("ES hub", ES_PATHS.home)}
-- ${llmMarkdownLink("LATAM route evaluator (UY/EC/PE/PY/CO → ES+PT)", ES_PATHS.wizard)}
+- ${llmMarkdownLink("LATAM route evaluator (UY/EC/PE/PY/CO/CL → ES+PT)", ES_PATHS.wizard)}
 - ${llmMarkdownLink("Uruguay origin hub", ES_PATHS.uruguay)}
 - ${llmMarkdownLink("Ecuador origin hub", ES_PATHS.ecuador)}
 - ${llmMarkdownLink("Peru origin hub", ES_PATHS.peru)}
 - ${llmMarkdownLink("Paraguay origin hub", ES_PATHS.paraguay)}
 - ${llmMarkdownLink("Colombia origin hub", ES_PATHS.colombia)}
+- ${llmMarkdownLink("Chile origin hub", ES_PATHS.chile)}
 - ${llmMarkdownLink("Spain destination hub (LATAM framing)", ES_PATHS.spain)}
 - ${llmMarkdownLink("Portugal destination hub (LATAM framing)", ES_PATHS.portugal)}
 - ${llmMarkdownLink(`ES guides (${esGuides.length})`, ES_PATHS.guides)}

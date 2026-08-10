@@ -114,6 +114,14 @@ export default function EsUruguayHubPage() {
             Pasaportes: <strong>{ES_UY_SPAIN_CORRIDOR.passports.join(", ")}</strong>. Familia de
             expansión: <code className="text-xs">{ES_UY_SPAIN_CORRIDOR.expansionFamily}</code>.
             También:{" "}
+            <Link href={ES_PATHS.chile} className="text-corridor-700 hover:underline">
+              Chile → España
+            </Link>
+            {" · "}
+            <Link href={ES_PATHS.paraguay} className="text-corridor-700 hover:underline">
+              Paraguay → España
+            </Link>
+            {" · "}
             <Link href={ES_PATHS.ecuador} className="text-corridor-700 hover:underline">
               Ecuador → España
             </Link>

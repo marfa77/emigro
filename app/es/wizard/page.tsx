@@ -14,18 +14,18 @@ export const metadata: Metadata = pageMetadata({
   title: "Evaluador LATAM → España y Portugal 2026",
   titleAbsolute: true,
   description:
-    "Compare rutas de residencia en España y Portugal con pasaporte UY/EC/PE/PY/CO: nómada digital, no lucrativa, D8/D7 y horizonte de nacionalidad.",
+    "Compare rutas de residencia en España y Portugal con pasaporte UY/EC/PE/PY/CO/CL: nómada digital, no lucrativa, D8/D7 y horizonte de nacionalidad.",
   path: ES_PATHS.wizard,
   locale: "es",
   esHreflang: { destinationIso: "ES" },
   aiDescription:
-    "Emigro ES route evaluator: Latin American passports UY/EC/PE/PY/CO → Spain (digital nomad, non-lucrative, study, family) and Portugal (D8, D7, D4). Not legal advice.",
+    "Emigro ES route evaluator: Latin American passports UY/EC/PE/PY/CO/CL → Spain (digital nomad, non-lucrative, study, family) and Portugal (D8, D7, D4). Not legal advice.",
   aiCategory: "route-evaluator",
 });
 
 export default function EsHubWizardPage() {
   const wizardRequirements = [
-    "Emigro ES hub wizard: passports UY/EC/PE/PY/CO → Spain and Portugal residence routes.",
+    "Emigro ES hub wizard: passports UY/EC/PE/PY/CO/CL → Spain and Portugal residence routes.",
     `URL: ${llmUtmUrl(ES_PATHS.wizard)}`,
     "Destinations: España (nómada digital, no lucrativa, estudios, familia) and Portugal (D8, D7, D4, Golden Visa, familia).",
     "Not legal advice.",
@@ -49,9 +49,12 @@ export default function EsHubWizardPage() {
           </p>
           <h1 className="mt-2 text-center text-3xl font-bold">¿Qué ruta de residencia le encaja?</h1>
           <p className="mx-auto mt-3 max-w-xl text-center text-slate-600">
-            Un evaluador para pasaportes Uruguay, Ecuador, Perú, Paraguay y Colombia. Comparamos umbrales de
-            España y Portugal (nómada digital, no lucrativa/D7, estudios, familia, inversión). Sin
-            Assist todavía — resultado + pilares oficiales.
+            Un evaluador para pasaportes Uruguay, Ecuador, Perú, Paraguay, Colombia y Chile. Comparamos umbrales de
+            España y Portugal (nómada digital, no lucrativa/D7, estudios, familia). Tras el resultado puede pedir{" "}
+            <Link href={ES_PATHS.assist} className="font-medium text-corridor-700 hover:underline">
+              Emigro Assist
+            </Link>{" "}
+            (Route Check €129).
           </p>
         </header>
 

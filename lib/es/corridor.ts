@@ -81,12 +81,27 @@ export const ES_CO_SPAIN_CORRIDOR = {
   shortStayVisaLikely: false,
 } as const;
 
+/** Cono Sur wedge: Schengen visa-free; Convenio dualidad 1958 + art. 22. */
+export const ES_CL_SPAIN_CORRIDOR = {
+  slug: "es-speaking-chile-to-spain",
+  audienceLanguage: "es" as const,
+  passports: ["CL"] as const,
+  destinations: ["ES"] as const,
+  expansionFamily: ES_CORRIDOR_FAMILY,
+  nextOrigins: ["AR", "MX", "VE"] as const,
+  nextDestinations: ["PT"] as const,
+  title: "Chile → España",
+  titleLong: "Residencia en España para chilenos",
+  shortStayVisaLikely: false,
+} as const;
+
 export const ES_ACTIVE_CORRIDORS = [
   ES_UY_SPAIN_CORRIDOR,
   ES_EC_SPAIN_CORRIDOR,
   ES_PE_SPAIN_CORRIDOR,
   ES_PY_SPAIN_CORRIDOR,
   ES_CO_SPAIN_CORRIDOR,
+  ES_CL_SPAIN_CORRIDOR,
 ] as const;
 
 export const ES_PATHS = {
@@ -97,10 +112,13 @@ export const ES_PATHS = {
   peru: "/es/peru",
   paraguay: "/es/paraguay",
   colombia: "/es/colombia",
+  chile: "/es/chile",
   spain: "/es/spain",
   portugal: "/es/portugal",
   wizard: "/es/wizard",
   wizardResults: "/es/wizard/results",
+  roleRadar: "/es/role-radar",
+  assist: "/es/assist",
   contact: "/es/contact",
   privacy: "/es/privacy",
   terms: "/es/terms",
@@ -113,6 +131,7 @@ export const ES_PILLAR_GUIDE_SLUGS = [
   "residencia-espana-desde-peru-2026",
   "residencia-espana-desde-paraguay-2026",
   "residencia-espana-desde-colombia-2026",
+  "residencia-espana-desde-chile-2026",
   "visa-nomada-digital-espana-latam-2026",
   "visado-no-lucrativa-espana-latam-2026",
   "nacionalidad-espanola-latam-2026",
@@ -159,6 +178,15 @@ export const ES_PY_GUIDE_SLUGS = [
 
 export const ES_CO_GUIDE_SLUGS = [
   "residencia-espana-desde-colombia-2026",
+  "visa-nomada-digital-espana-latam-2026",
+  "visado-no-lucrativa-espana-latam-2026",
+  "nacionalidad-espanola-latam-2026",
+  "impuestos-beckham-espana-latam-2026",
+  "primeros-30-dias-en-espana-2026",
+] as const;
+
+export const ES_CL_GUIDE_SLUGS = [
+  "residencia-espana-desde-chile-2026",
   "visa-nomada-digital-espana-latam-2026",
   "visado-no-lucrativa-espana-latam-2026",
   "nacionalidad-espanola-latam-2026",

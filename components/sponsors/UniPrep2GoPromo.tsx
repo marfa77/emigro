@@ -6,10 +6,14 @@ import { trackEvent } from "@/lib/analytics/client";
 import { tapTarget } from "@/lib/ui/mobile";
 import { PARTNER_LINK_REL } from "@/lib/partners/link";
 import {
+  type UniPrepLocale,
   type UniPrepOffer,
   UNIPREP_CITIZENSHIP_HUB,
   getUniPrepOfferForTopic,
   getUniPrepOfferForTopics,
+  uniPrepLinkBlurb,
+  uniPrepLinkTitle,
+  uniPrepOfferCopy,
   withPrep2GoUtm,
   withUniPrepUtm,
 } from "@/lib/uniprep2go/catalog";
@@ -20,7 +24,8 @@ export type UniPrepPlacement =
   | "corridor_landing"
   | "digest"
   | "wizard_results"
-  | "citizenship_hub";
+  | "citizenship_hub"
+  | "destination_hub";
 
 type Props = {
   placement: UniPrepPlacement;
@@ -31,6 +36,7 @@ type Props = {
   contentId?: string;
   compact?: boolean;
   className?: string;
+  locale?: UniPrepLocale;
 };
 
 function resolveOffer(props: Props): UniPrepOffer | null {
@@ -90,10 +96,12 @@ export function UniPrepCitizenshipHubPromo({
   placement,
   contentId,
   className = "",
+  locale = "ru",
 }: {
   placement: UniPrepPlacement;
   contentId?: string;
   className?: string;
+  locale?: UniPrepLocale;
 }) {
   const hubHref = withUniPrepUtm(UNIPREP_CITIZENSHIP_HUB.path, {
     medium: placement,
@@ -106,19 +114,23 @@ export function UniPrepCitizenshipHubPromo({
     content: contentId ? `${contentId}_decks` : "decks",
   });
 
+  const isEs = locale === "es";
+
   return (
     <section
       className={`rounded-2xl border-2 border-teal-200 bg-gradient-to-br from-teal-50 via-white to-cyan-50 p-5 sm:p-6 ${className}`}
       aria-labelledby="uniprep-hub-heading"
     >
-      <p className="text-xs font-bold uppercase tracking-wider text-teal-800">Сестринский продукт · UniPrep2Go</p>
+      <p className="text-xs font-bold uppercase tracking-wider text-teal-800">
+        {isEs ? "Producto hermano · UniPrep2Go" : "Сестринский продукт · UniPrep2Go"}
+      </p>
       <h2 id="uniprep-hub-heading" className="mt-2 text-lg font-semibold text-slate-900">
-        Моки и Anki-колоды для натурализации
+        {isEs ? "Mocks y mazos Anki para naturalización" : "Моки и Anki-колоды для натурализации"}
       </h2>
       <p className="mt-2 text-sm leading-relaxed text-slate-700">
-        Бесплатные timed readiness checks (CCSE, Leben in Deutschland, naturalisation FR, PL, CZ…) и Anki-колоды
-        для языковых экзаменов (CIPLE, DELE, CELI, DELF, German A2). Не официальные экзамены — учебные материалы
-        UniPrep2Go.
+        {isEs
+          ? "Checks timed gratuitos (CCSE, Leben in Deutschland, naturalisation FR, PL, CZ…) y mazos Anki para exámenes de idioma (CIPLE, DELE, CELI, DELF, German A2). No son exámenes oficiales — material de estudio UniPrep2Go."
+          : "Бесплатные timed readiness checks (CCSE, Leben in Deutschland, naturalisation FR, PL, CZ…) и Anki-колоды для языковых экзаменов (CIPLE, DELE, CELI, DELF, German A2). Не официальные экзамены — учебные материалы UniPrep2Go."}
       </p>
       <div className="mt-4 flex flex-wrap gap-3">
         <CtaLink
@@ -133,7 +145,7 @@ export function UniPrepCitizenshipHubPromo({
           }
         >
           <FlaskConical className="h-4 w-4" aria-hidden="true" />
-          Смотреть моки
+          {isEs ? "Ver mocks" : "Смотреть моки"}
         </CtaLink>
         <CtaLink
           href={decksHref}
@@ -148,10 +160,14 @@ export function UniPrepCitizenshipHubPromo({
           }
         >
           <BookOpen className="h-4 w-4" aria-hidden="true" />
-          Anki-колоды
+          {isEs ? "Mazos Anki" : "Anki-колоды"}
         </CtaLink>
       </div>
-      <p className="mt-3 text-xs text-slate-500">uniprep2go.study · семейство PixID Studio · не заменяет официальную запись на экзамен</p>
+      <p className="mt-3 text-xs text-slate-500">
+        {isEs
+          ? "uniprep2go.study · familia PixID Studio · no sustituye la inscripción oficial al examen"
+          : "uniprep2go.study · семейство PixID Studio · не заменяет официальную запись на экзамен"}
+      </p>
     </section>
   );
 }
@@ -164,12 +180,15 @@ export function UniPrep2GoPromo({
   contentId,
   compact = false,
   className = "",
+  locale = "ru",
 }: Props) {
   const offer = resolveOffer({ placement, topicKey, topicKeys, offer: offerProp });
   if (!offer) return null;
 
+  const copy = uniPrepOfferCopy(offer, locale);
   const campaign = `uniprep_${offer.topicKey}`;
   const content = contentId ?? offer.topicKey;
+  const isEs = locale === "es";
 
   const mockHref = offer.mock
     ? withUniPrepUtm(offer.mock.path, { medium: placement, campaign, content: `${content}_mock` })
@@ -187,15 +206,23 @@ export function UniPrep2GoPromo({
 
   if (compact) {
     const primaryHref = mockHref ?? deckHref ?? prep2goHref;
-    const primaryLabel = offer.mock?.titleRu ?? offer.deck?.titleRu ?? offer.prep2goMock?.titleRu ?? "UniPrep2Go";
+    const primaryLabel = offer.mock
+      ? uniPrepLinkTitle(offer.mock, locale)
+      : offer.deck
+        ? uniPrepLinkTitle(offer.deck, locale)
+        : offer.prep2goMock
+          ? uniPrepLinkTitle(offer.prep2goMock, locale)
+          : "UniPrep2Go";
     if (!primaryHref) return null;
     return (
       <section
         className={`rounded-xl border border-teal-200 bg-teal-50/80 p-4 ${className}`}
-        aria-label="UniPrep2Go — сестринский продукт"
+        aria-label="UniPrep2Go"
       >
-        <p className="text-xs font-bold uppercase tracking-wide text-teal-800">Рекомендуем · {offer.examLabelRu}</p>
-        <p className="mt-1 text-sm font-medium text-slate-900">{offer.headlineRu}</p>
+        <p className="text-xs font-bold uppercase tracking-wide text-teal-800">
+          {isEs ? `Recomendamos · ${copy.examLabel}` : `Рекомендуем · ${copy.examLabel}`}
+        </p>
+        <p className="mt-1 text-sm font-medium text-slate-900">{copy.headline}</p>
         <a
           href={primaryHref}
           target="_blank"
@@ -223,18 +250,20 @@ export function UniPrep2GoPromo({
       className={`rounded-2xl border-2 border-teal-200 bg-gradient-to-br from-teal-50 via-white to-cyan-50 p-5 sm:p-6 ${className}`}
       aria-labelledby={`uniprep-promo-${offer.topicKey}`}
     >
-      <p className="text-xs font-bold uppercase tracking-wider text-teal-800">Сестринский продукт · UniPrep2Go</p>
+      <p className="text-xs font-bold uppercase tracking-wider text-teal-800">
+        {isEs ? "Producto hermano · UniPrep2Go" : "Сестринский продукт · UniPrep2Go"}
+      </p>
       <h2 id={`uniprep-promo-${offer.topicKey}`} className="mt-2 text-lg font-semibold text-slate-900">
-        {offer.headlineRu}
+        {copy.headline}
       </h2>
-      <p className="mt-2 text-sm leading-relaxed text-slate-700">{offer.bodyRu}</p>
+      <p className="mt-2 text-sm leading-relaxed text-slate-700">{copy.body}</p>
 
       <ul className="mt-4 space-y-2 text-sm text-slate-700">
         {offer.mock && (
           <li className="flex gap-2">
             <FlaskConical className="mt-0.5 h-4 w-4 shrink-0 text-teal-700" aria-hidden="true" />
             <span>
-              <strong>{offer.mock.titleRu}</strong> — {offer.mock.blurbRu}
+              <strong>{uniPrepLinkTitle(offer.mock, locale)}</strong> — {uniPrepLinkBlurb(offer.mock, locale)}
             </span>
           </li>
         )}
@@ -242,7 +271,7 @@ export function UniPrep2GoPromo({
           <li className="flex gap-2">
             <BookOpen className="mt-0.5 h-4 w-4 shrink-0 text-teal-700" aria-hidden="true" />
             <span>
-              <strong>{offer.deck.titleRu}</strong> — {offer.deck.blurbRu}
+              <strong>{uniPrepLinkTitle(offer.deck, locale)}</strong> — {uniPrepLinkBlurb(offer.deck, locale)}
             </span>
           </li>
         )}
@@ -250,7 +279,8 @@ export function UniPrep2GoPromo({
           <li className="flex gap-2">
             <FlaskConical className="mt-0.5 h-4 w-4 shrink-0 text-violet-700" aria-hidden="true" />
             <span>
-              <strong>{offer.prep2goMock.titleRu}</strong> — {offer.prep2goMock.blurbRu}
+              <strong>{uniPrepLinkTitle(offer.prep2goMock, locale)}</strong> —{" "}
+              {uniPrepLinkBlurb(offer.prep2goMock, locale)}
             </span>
           </li>
         )}
@@ -271,7 +301,7 @@ export function UniPrep2GoPromo({
             }
           >
             <FlaskConical className="h-4 w-4" aria-hidden="true" />
-            {offer.mock.titleRu}
+            {uniPrepLinkTitle(offer.mock, locale)}
           </CtaLink>
         )}
         {deckHref && offer.deck && (
@@ -289,7 +319,7 @@ export function UniPrep2GoPromo({
             }
           >
             <BookOpen className="h-4 w-4" aria-hidden="true" />
-            {offer.deck.titleRu}
+            {uniPrepLinkTitle(offer.deck, locale)}
           </CtaLink>
         )}
         {prep2goHref && offer.prep2goMock && (
@@ -306,12 +336,14 @@ export function UniPrep2GoPromo({
               })
             }
           >
-            {offer.prep2goMock.titleRu}
+            {uniPrepLinkTitle(offer.prep2goMock, locale)}
           </CtaLink>
         )}
       </div>
       <p className="mt-3 text-xs text-slate-500">
-        uniprep2go.study · семейство PixID Studio · учебные материалы, не официальный экзамен
+        {isEs
+          ? "uniprep2go.study · familia PixID Studio · material de estudio, no examen oficial"
+          : "uniprep2go.study · семейство PixID Studio · учебные материалы, не официальный экзамен"}
       </p>
     </section>
   );

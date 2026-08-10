@@ -1,0 +1,34 @@
+---
+description: Maximize monetization from every Emigro surface and ship
+alwaysApply: true
+---
+
+# Monetization first — every surface converts
+
+Emigro is not a thin content layer. Every guide, hub, wizard result, and SEO ship must **surface and convert** sister products and Assist — without inventing law or shortening pillars.
+
+## Products (convert in this priority)
+
+1. **UniPrep2Go** — CCSE / civics / language mocks + Anki (ES nacionalidad, RU citizenship guides).
+2. **Prep2Go** — CIPLE / DELE timed mocks (PT surfaces, DELE when needed).
+3. **Role Radar** — job digests under CV (DN / work / remote guides).
+4. **Emigro Assist** — Route Check €129 + hourly accompaniment (wizard results, guide CTAs, `/es/assist` + `/ru/assist`).
+
+## Do (on every relevant ship)
+
+- Wire the **highest-fit CTA** on the page (not only footer): UniPrep on nationality / origin ES pillars; Prep2Go on PT hubs/guides; Role Radar on DN/work; Assist on wizard results + “Siguiente paso”.
+- Keep **Spanish (LATAM) / Russian** promo copy for the audience of that surface (`locale="es"` / `"ru"`).
+- Preserve UTM (`utm_source=emigro`, medium, campaign, content = slug).
+- When adding a new origin hub or pillar, **include monetization in the same PR** — not a follow-up “later”.
+- Update `docs/ES_SEO_CORRIDOR.md` (and RU equivalents) so Assist / sister products stay **in scope** once shipped.
+
+## Do not
+
+- Ship “Sin Assist todavía” / empty next-step blocks when Assist exists for that locale.
+- Spray UniPrep on bank/tax/Beckham-only pages (citizenship / exam intent only — see `shouldShowUniPrepOnGuide` / ES helpers).
+- Drop monetization “to keep the guide pure” — overlays and CTAs after the full body are required.
+- Treat `/es` as SEO-only: pillars + wizard without conversion is incomplete.
+
+## Depth signal (not thin layer)
+
+On hubs (`/es`, `/ru`), show **real inventory**: pillar counts, origin hubs, destinations, sister tools — so users and LLMs see Emigro as a stocked navigator, not a 3-page affiliate shell. Prefer live counts from `listGuides` / corridor config over hardcoded marketing fluff.

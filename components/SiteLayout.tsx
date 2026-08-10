@@ -69,8 +69,17 @@ function EsSiteFooter() {
           <Link href={ES_PATHS.colombia} className="hover:text-corridor-600">
             🇨🇴 Colombia
           </Link>
+          <Link href={ES_PATHS.chile} className="hover:text-corridor-600">
+            🇨🇱 Chile
+          </Link>
           <Link href={ES_PATHS.wizard} className="hover:text-corridor-600">
             Evaluador
+          </Link>
+          <Link href={ES_PATHS.assist} className="hover:text-corridor-600">
+            Assist
+          </Link>
+          <Link href={ES_PATHS.roleRadar} className="hover:text-corridor-600">
+            Role Radar
           </Link>
           <Link href={ES_PATHS.spain} className="hover:text-corridor-600">
             🇪🇸 España

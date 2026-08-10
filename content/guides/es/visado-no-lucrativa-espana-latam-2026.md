@@ -353,7 +353,10 @@ Consulta nuestros hubs de origen:
 
 - [Uruguay → España](/es/guides/residencia-espana-desde-uruguay-2026)
 - [Ecuador → España](/es/guides/residencia-espana-desde-ecuador-2026)
+- [Perú → España](/es/guides/residencia-espana-desde-peru-2026)
+- [Paraguay → España](/es/guides/residencia-espana-desde-paraguay-2026)
 - [Colombia → España](/es/guides/residencia-espana-desde-colombia-2026)
+- [Chile → España](/es/guides/residencia-espana-desde-chile-2026)
 - [Nómada digital LATAM](/es/guides/visa-nomada-digital-espana-latam-2026)
 - [Primeros 30 días en España](/es/guides/primeros-30-dias-en-espana-2026)
 

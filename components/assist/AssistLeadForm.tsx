@@ -21,18 +21,21 @@ export type AssistPlanTier = "route-check" | "accompaniment";
 
 export type AssistPaymentMethod = "paypal" | "telegram_stars" | "crypto" | "card";
 
-const PAYMENT_OPTIONS: { value: AssistPaymentMethod; label: string }[] = [
+const PAYMENT_OPTIONS_RU: { value: AssistPaymentMethod; label: string }[] = [
   { value: "paypal", label: "PayPal" },
   { value: "telegram_stars", label: "Telegram Stars" },
   { value: "crypto", label: "Crypto (USDT / USDC)" },
   { value: "card", label: "Оплата картой (отправим ссылку на Gumroad)" },
 ];
 
-const PAYMENT_LABELS: Record<AssistPaymentMethod, string> = Object.fromEntries(
-  PAYMENT_OPTIONS.map(({ value, label }) => [value, label])
-) as Record<AssistPaymentMethod, string>;
+const PAYMENT_OPTIONS_ES: { value: AssistPaymentMethod; label: string }[] = [
+  { value: "paypal", label: "PayPal" },
+  { value: "telegram_stars", label: "Telegram Stars" },
+  { value: "crypto", label: "Crypto (USDT / USDC)" },
+  { value: "card", label: "Tarjeta (enviaremos enlace de Gumroad)" },
+];
 
-const PLAN_TIER_OPTIONS: { value: AssistPlanTier; label: string; summary: string }[] = [
+const PLAN_TIER_OPTIONS_RU: { value: AssistPlanTier; label: string; summary: string }[] = [
   {
     value: "route-check",
     label: "Route Check — €129",
@@ -47,16 +50,43 @@ const PLAN_TIER_OPTIONS: { value: AssistPlanTier; label: string; summary: string
   },
 ];
 
-const SUCCESS_MESSAGES: Record<AssistPlanTier, string> = {
+const PLAN_TIER_OPTIONS_ES: { value: AssistPlanTier; label: string; summary: string }[] = [
+  {
+    value: "route-check",
+    label: "Route Check — €129",
+    summary:
+      "Llamada con el equipo Emigro según checklist, PDF del caso en 48 h y selección de partners. Pago tras confirmar el slot.",
+  },
+  {
+    value: "accompaniment",
+    label: "Acompañamiento — €100/hora",
+    summary:
+      "Apoyo de comunicación: correo con consulado, abogado o agencia, cartas, formularios, análisis de denegaciones. Pago tras acordar el formato.",
+  },
+];
+
+const SUCCESS_MESSAGES_RU: Record<AssistPlanTier, string> = {
   "route-check":
     "Заявка отправлена. Emigro согласует время созвона с командой. После подтверждения слота вышлем реквизиты (€129). Команда Emigro проведёт встречу и пришлёт PDF с разбором кейса и контактами партнёров в течение 48 часов.",
   accompaniment:
     "Заявка отправлена. Emigro свяжется с вами, уточнит задачу и согласует формат работы. Оплата €100/час — после согласования.",
 };
 
-const SUBMIT_LABELS: Record<AssistPlanTier, string> = {
+const SUCCESS_MESSAGES_ES: Record<AssistPlanTier, string> = {
+  "route-check":
+    "Solicitud enviada. Emigro acordará la hora de la llamada. Tras confirmar el slot, enviaremos los datos de pago (€129). Tras la reunión recibirá el PDF y contactos de partners en 48 h.",
+  accompaniment:
+    "Solicitud enviada. Emigro contactará para aclarar la tarea y el formato. Pago €100/hora tras el acuerdo.",
+};
+
+const SUBMIT_LABELS_RU: Record<AssistPlanTier, string> = {
   "route-check": "Запросить Route Check — €129",
   accompaniment: "Запросить сопровождение",
+};
+
+const SUBMIT_LABELS_ES: Record<AssistPlanTier, string> = {
+  "route-check": "Solicitar Route Check — €129",
+  accompaniment: "Solicitar acompañamiento",
 };
 
 function tierFromHash(hash: string): AssistPlanTier | null {
@@ -73,6 +103,7 @@ type Props = {
   initialSessionId?: string;
   initialCountry?: string;
   initialProgramRoute?: string;
+  locale?: "ru" | "es";
 };
 
 export function AssistLeadForm({
@@ -82,7 +113,17 @@ export function AssistLeadForm({
   initialSessionId,
   initialCountry,
   initialProgramRoute,
+  locale = "ru",
 }: Props) {
+  const isEs = locale === "es";
+  const PAYMENT_OPTIONS = isEs ? PAYMENT_OPTIONS_ES : PAYMENT_OPTIONS_RU;
+  const PLAN_TIER_OPTIONS = isEs ? PLAN_TIER_OPTIONS_ES : PLAN_TIER_OPTIONS_RU;
+  const SUCCESS_MESSAGES = isEs ? SUCCESS_MESSAGES_ES : SUCCESS_MESSAGES_RU;
+  const SUBMIT_LABELS = isEs ? SUBMIT_LABELS_ES : SUBMIT_LABELS_RU;
+  const PAYMENT_LABELS = Object.fromEntries(
+    PAYMENT_OPTIONS.map(({ value, label }) => [value, label])
+  ) as Record<AssistPaymentMethod, string>;
+
   const validInitialCountry =
     initialCountry && countries.some((option) => option.value === initialCountry)
       ? initialCountry
@@ -136,10 +177,12 @@ export function AssistLeadForm({
           message,
           consent,
           session_id: wizardSessionId || undefined,
+          preferred_language: locale,
+          audience: isEs ? "latam" : "ru",
         }),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error ?? "Не удалось отправить заявку");
+      if (!res.ok) throw new Error(data.error ?? (isEs ? "No se pudo enviar la solicitud" : "Не удалось отправить заявку"));
 
       trackEvent("assist_lead_submitted", {
         country,
@@ -148,12 +191,13 @@ export function AssistLeadForm({
         plan_tier: planTier,
         payment_method: paymentMethod,
         session_id: wizardSessionId,
+        locale,
       });
       setStatus("done");
       setNotice(SUCCESS_MESSAGES[planTier]);
     } catch (err) {
-      const msg = err instanceof Error ? err.message : "Ошибка отправки";
-      trackEvent("lead_error", { source: "emigro_assist", country, message: msg });
+      const msg = err instanceof Error ? err.message : (isEs ? "Error al enviar" : "Ошибка отправки");
+      trackEvent("lead_error", { source: isEs ? "emigro_assist_es" : "emigro_assist", country, message: msg });
       setStatus("error");
       setNotice(msg);
     }
@@ -166,7 +210,7 @@ export function AssistLeadForm({
   return (
     <form onSubmit={submit} className="space-y-5 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
       <fieldset>
-        <legend className="text-sm font-medium text-slate-800">Что вас интересует</legend>
+        <legend className="text-sm font-medium text-slate-800">{isEs ? "Qué le interesa" : "Что вас интересует"}</legend>
         <div className="mt-3 space-y-2">
           {PLAN_TIER_OPTIONS.map((option) => (
             <label
@@ -201,7 +245,7 @@ export function AssistLeadForm({
 
       <div>
         <label className="text-sm font-medium text-slate-800" htmlFor="assist-payment">
-          Предпочитаемый способ оплаты
+          {isEs ? "Método de pago preferido" : "Предпочитаемый способ оплаты"}
         </label>
         <select
           id="assist-payment"
@@ -217,13 +261,15 @@ export function AssistLeadForm({
           ))}
         </select>
         <p className="mt-1.5 text-xs text-slate-500">
-          Реквизиты или ссылку ({PAYMENT_LABELS[paymentMethod]}) вышлем после согласования времени или формата работы.
+          {isEs
+            ? `Enviaremos los datos o el enlace (${PAYMENT_LABELS[paymentMethod]}) tras acordar hora o formato.`
+            : `Реквизиты или ссылку (${PAYMENT_LABELS[paymentMethod]}) вышлем после согласования времени или формата работы.`}
         </p>
       </div>
 
       <div>
         <label className="text-sm font-medium text-slate-800" htmlFor="assist-country">
-          Страна / коридор
+          {isEs ? "País / corredor" : "Страна / коридор"}
         </label>
         <select
           id="assist-country"
@@ -242,7 +288,13 @@ export function AssistLeadForm({
 
       <div>
         <label className="text-sm font-medium text-slate-800" htmlFor="assist-route">
-          {planTier === "accompaniment" ? "Ваш маршрут и задача" : "Что вам нужно"}
+          {planTier === "accompaniment"
+            ? isEs
+              ? "Su ruta y tarea"
+              : "Ваш маршрут и задача"
+            : isEs
+              ? "Qué necesita"
+              : "Что вам нужно"}
         </label>
         <input
           id="assist-route"
@@ -251,8 +303,12 @@ export function AssistLeadForm({
           onChange={(e) => setProgramRoute(e.target.value)}
           placeholder={
             planTier === "accompaniment"
-              ? "Например: отказ AIMA, нужно написать в консульство, проверить форму D7"
-              : "Например: D7, digital nomad, смена статуса в Испании, переезд с семьёй"
+              ? isEs
+                ? "Ej.: denegación AIMA, escribir al consulado, revisar formulario D7"
+                : "Например: отказ AIMA, нужно написать в консульство, проверить форму D7"
+              : isEs
+                ? "Ej.: D7, nómada digital, cambio de estatus en España, mudanza con familia"
+                : "Например: D7, digital nomad, смена статуса в Испании, переезд с семьёй"
           }
           className={`mt-2 ${formField}`}
         />
@@ -261,7 +317,7 @@ export function AssistLeadForm({
       {planTier === "route-check" && (
         <fieldset>
           <legend className="text-sm font-medium text-slate-800">
-            Какие сервисы уже рассматриваете (необязательно)
+            {isEs ? "Servicios que ya contempla (opcional)" : "Какие сервисы уже рассматриваете (необязательно)"}
           </legend>
           <div className="mt-3 grid gap-2 sm:grid-cols-2">
             {providers.map((provider) => (
@@ -289,7 +345,7 @@ export function AssistLeadForm({
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
           <label className="text-sm font-medium text-slate-800" htmlFor="assist-name">
-            Имя
+            {isEs ? "Nombre" : "Имя"}
           </label>
           <input
             id="assist-name"
@@ -301,14 +357,14 @@ export function AssistLeadForm({
         </div>
         <div>
           <label className="text-sm font-medium text-slate-800" htmlFor="assist-contact">
-            Email или Telegram
+            {isEs ? "Email o Telegram" : "Email или Telegram"}
           </label>
           <input
             id="assist-contact"
             required
             value={contact}
             onChange={(e) => setContact(e.target.value)}
-            placeholder="name@email.com или @username"
+            placeholder={isEs ? "name@email.com o @username" : "name@email.com или @username"}
             className={`mt-2 ${formField}`}
           />
         </div>
@@ -316,7 +372,7 @@ export function AssistLeadForm({
 
       <div>
         <label className="text-sm font-medium text-slate-800" htmlFor="assist-message">
-          Расскажите подробнее
+          {isEs ? "Cuéntenos más" : "Расскажите подробнее"}
         </label>
         <textarea
           id="assist-message"
@@ -326,8 +382,12 @@ export function AssistLeadForm({
           rows={5}
           placeholder={
             planTier === "accompaniment"
-              ? "Что уже сделано, где застряли, какие письма или формы нужны, дедлайны."
-              : "Ситуация, доход, семья, сроки — что хотите прояснить."
+              ? isEs
+                ? "Qué ya hizo, dónde se trabó, qué cartas o formularios necesita, plazos."
+                : "Что уже сделано, где застряли, какие письма или формы нужны, дедлайны."
+              : isEs
+                ? "Situación, ingresos, familia, plazos — qué quiere aclarar."
+                : "Ситуация, доход, семья, сроки — что хотите прояснить."
           }
           className={`mt-2 ${formField}`}
         />
@@ -342,13 +402,27 @@ export function AssistLeadForm({
           className="mt-1"
         />
         <span>
-          Я согласен(на) с{" "}
-          <Link href="/ru/privacy" className="text-corridor-600 hover:underline">
-            политикой конфиденциальности
-          </Link>{" "}
-          и понимаю, что Emigro не юридическая фирма: Route Check — структурированный разбор ситуации и навигация к
-          специалистам, сопровождение — коммуникационная поддержка. Юридическую ответственность несёт партнёр, которого
-          вы выбираете.
+          {isEs ? (
+            <>
+              Acepto la{" "}
+              <Link href="/es/privacy" className="text-corridor-600 hover:underline">
+                política de privacidad
+              </Link>{" "}
+              y entiendo que Emigro no es un bufete: Route Check es un análisis estructurado y navegación hacia
+              especialistas; el acompañamiento es apoyo de comunicación. La responsabilidad jurídica es del partner
+              que usted elija.
+            </>
+          ) : (
+            <>
+              Я согласен(на) с{" "}
+              <Link href="/ru/privacy" className="text-corridor-600 hover:underline">
+                политикой конфиденциальности
+              </Link>{" "}
+              и понимаю, что Emigro не юридическая фирма: Route Check — структурированный разбор ситуации и навигация к
+              специалистам, сопровождение — коммуникационная поддержка. Юридическую ответственность несёт партнёр, которого
+              вы выбираете.
+            </>
+          )}
         </span>
       </label>
 
@@ -359,7 +433,7 @@ export function AssistLeadForm({
         disabled={status === "loading"}
         className="w-full rounded-lg bg-corridor-600 px-5 py-3 font-medium text-white hover:bg-corridor-700 disabled:opacity-60"
       >
-        {status === "loading" ? "Отправка..." : SUBMIT_LABELS[planTier]}
+        {status === "loading" ? (isEs ? "Enviando…" : "Отправка...") : SUBMIT_LABELS[planTier]}
       </button>
     </form>
   );

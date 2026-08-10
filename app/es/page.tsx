@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Compass, Globe2, MapPin } from "lucide-react";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
+import { EmigroDepthStrip } from "@/components/EmigroDepthStrip";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { HubHeroVisual } from "@/components/visuals/HubHeroVisual";
 import {
@@ -21,7 +22,7 @@ export const metadata: Metadata = pageMetadata({
   title: "Emigro — LATAM → España y Portugal 2026",
   titleAbsolute: true,
   description:
-    "Emigrar a España o Portugal desde Latinoamérica 2026: nómada digital, no lucrativa, D8/D7. UY/EC/PE/PY/CO + nacionalidad española ~2 años (art. 22). Evaluador gratis.",
+    "Emigrar a España o Portugal desde Latinoamérica 2026: nómada digital, no lucrativa, D8/D7. UY/EC/PE/PY/CO/CL + nacionalidad española ~2 años (art. 22). Evaluador gratis.",
   path: ES_PATHS.home,
   locale: "es",
   esHreflang: { destinationIso: "ES" },
@@ -61,6 +62,12 @@ const ORIGIN_CARDS = [
     title: "Colombia",
     body: "Alta demanda: Schengen visa-free + nacionalidad en ~2 años (art. 22).",
   },
+  {
+    href: ES_PATHS.chile,
+    label: "Origen",
+    title: "Chile",
+    body: "Cono Sur: Schengen visa-free + Convenio dualidad 1958 + art. 22.",
+  },
 ] as const;
 
 export default function EsHubPage() {
@@ -72,24 +79,24 @@ export default function EsHubPage() {
     name: "Emigro — LATAM → España y Portugal",
     url: pageUrl(ES_PATHS.home),
     description:
-      "Guías y evaluador de residencia en España y Portugal para ciudadanos de Uruguay, Ecuador, Perú, Paraguay y Colombia.",
+      "Guías y evaluador de residencia en España y Portugal para ciudadanos de Uruguay, Ecuador, Perú, Paraguay, Colombia y Chile.",
     inLanguage: "es",
     items: [
       { url: pageUrl(ES_PATHS.wizard), name: "Evaluador España y Portugal" },
-      ...ES_ACTIVE_CORRIDORS.map((c) => ({
-        url: pageUrl(
-          c.passports[0] === "UY"
-            ? ES_PATHS.uruguay
-            : c.passports[0] === "EC"
-              ? ES_PATHS.ecuador
-              : c.passports[0] === "PE"
-                ? ES_PATHS.peru
-                : c.passports[0] === "CO"
-                  ? ES_PATHS.colombia
-                  : ES_PATHS.paraguay,
-        ),
-        name: c.title,
-      })),
+      ...ES_ACTIVE_CORRIDORS.map((c) => {
+        const pathByPassport: Record<string, string> = {
+          UY: ES_PATHS.uruguay,
+          EC: ES_PATHS.ecuador,
+          PE: ES_PATHS.peru,
+          PY: ES_PATHS.paraguay,
+          CO: ES_PATHS.colombia,
+          CL: ES_PATHS.chile,
+        };
+        return {
+          url: pageUrl(pathByPassport[c.passports[0]] ?? ES_PATHS.home),
+          name: c.title,
+        };
+      }),
       { url: pageUrl(ES_PATHS.spain), name: "España para LATAM" },
       { url: pageUrl(ES_PATHS.portugal), name: "Portugal para LATAM" },
       ...guides.map((g) => ({ url: pageUrl(esGuidePath(g.slug)), name: g.title })),
@@ -110,8 +117,8 @@ export default function EsHubPage() {
           </div>
           <h1 className={`mt-4 ${heroTitle}`}>Residencia en España y Portugal para hispanohablantes</h1>
           <p className="mt-4 max-w-2xl text-lg text-corridor-100">
-            Orígenes activos: Uruguay, Ecuador, Perú, Paraguay y Colombia. Destinos profundos: España y luego
-            Portugal — no una mini-rejilla de 20 países UE.
+            Orígenes activos: Uruguay, Ecuador, Perú, Paraguay, Colombia y Chile. Destinos profundos: España y
+            luego Portugal — no una mini-rejilla de 20 países UE.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link
@@ -136,6 +143,8 @@ export default function EsHubPage() {
             </Link>
           </div>
         </HeroShell>
+
+        <EmigroDepthStrip locale="es" className="mt-8" />
 
         <section className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {ORIGIN_CARDS.map((card) => (
@@ -219,7 +228,7 @@ export default function EsHubPage() {
         </section>
 
         <section className="mt-12 rounded-2xl border border-corridor-200 bg-corridor-50/80 p-6">
-          <h2 className="text-xl font-bold text-slate-950">Evaluador (UY / EC / PE / PY / CO)</h2>
+          <h2 className="text-xl font-bold text-slate-950">Evaluador (UY / EC / PE / PY / CO / CL)</h2>
           <p className="mt-2 text-slate-700">
             Responda sobre ingresos, trabajo, familia y estudios. Emigro compara programas de
             España y Portugal y le señala el mejor encaje preliminar.
@@ -261,7 +270,7 @@ export default function EsHubPage() {
         <section className="mt-12 rounded-2xl border border-amber-200 bg-amber-50/80 p-6">
           <h2 className="text-lg font-bold text-slate-950">Expansión</h2>
           <p className="mt-2 text-sm text-slate-700">
-            Activos: UY / EC / PE / PY / CO. Siguiente: AR / MX / VE (hub + 1 pilar de origen). Shared
+            Activos: UY / EC / PE / PY / CO / CL. Siguiente: AR / MX / VE (hub + 1 pilar de origen). Shared
             ya live: nómada digital, no lucrativa, nacionalidad, LMD, Beckham, Portugal D8/D7, 30 días.
           </p>
         </section>

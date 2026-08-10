@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowRight, Compass } from "lucide-react";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { Disclaimer } from "@/components/Disclaimer";
+import { UniPrep2GoPromo } from "@/components/sponsors/UniPrep2GoPromo";
 import { ES_PATHS, ES_PILLAR_GUIDE_SLUGS, esGuidePath } from "@/lib/es/corridor";
 import { listGuides } from "@/lib/guides/load";
 import { pageMetadata, pageUrl } from "@/lib/seo";
@@ -25,12 +26,12 @@ export const metadata: Metadata = pageMetadata({
 const ROUTES = [
   {
     title: "Nómada digital (teletrabajo)",
-    body: "Ingresos remotos desde fuera de España; umbral ~€2.849/mes (200% SMI 2026). Pilar LATAM compartido (UY/EC/PE/PY/CO).",
+    body: "Ingresos remotos desde fuera de España; umbral ~€2.849/mes (200% SMI 2026). Pilar LATAM compartido (UY/EC/PE/PY/CO/CL).",
     href: esGuidePath("visa-nomada-digital-espana-latam-2026"),
   },
   {
     title: "Residencia — overview por origen",
-    body: "Elija su pasaporte: Uruguay, Ecuador, Perú, Paraguay o Colombia. Mismas rutas españolas; distinto consulado y Schengen corto.",
+    body: "Elija su pasaporte: Uruguay, Ecuador, Perú, Paraguay, Colombia o Chile. Mismas rutas españolas; distinto consulado y Schengen corto.",
     href: ES_PATHS.home,
   },
   {
@@ -106,6 +107,21 @@ export default function EsSpainHubPage() {
           >
             Hub Portugal
           </Link>
+          <Link
+            href={ES_PATHS.assist}
+            className="inline-flex items-center gap-2 rounded-lg border border-corridor-300 px-5 py-3 text-sm font-medium text-corridor-800 hover:bg-corridor-50"
+          >
+            Assist — Route Check
+          </Link>
+        </div>
+
+        <div className="mt-8">
+          <UniPrep2GoPromo
+            placement="destination_hub"
+            topicKey="spain"
+            contentId="es_spain_hub"
+            locale="es"
+          />
         </div>
 
         <section className="mt-10 rounded-2xl border border-amber-200 bg-amber-50/80 p-5">
@@ -115,7 +131,7 @@ export default function EsSpainHubPage() {
           <p className="mt-3 text-sm text-slate-700">
             El <strong>Código Civil (art. 22)</strong> permite solicitar la nacionalidad española
             tras <strong>2 años</strong> de residencia <strong>legal y continua</strong> a
-            nacionales de origen de países iberoamericanos (UY, EC, PE, PY, CO y otros), frente a los{" "}
+            nacionales de origen de países iberoamericanos (UY, EC, PE, PY, CO, CL y otros), frente a los{" "}
             <strong>10 años</strong> de la regla general. No es automática: hacen falta buena
             conducta e integración (típicamente <strong>CCSE</strong>; el <strong>DELE A2</strong>{" "}
             suele no exigirse si el español es lengua oficial de su país). Los días de turista{" "}

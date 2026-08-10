@@ -1,6 +1,7 @@
 /** Role Radar — sister Telegram bot: job digests matched to an uploaded CV. */
 
 export const ROLE_RADAR_LANDING_PATH = "/ru/role-radar";
+export const ROLE_RADAR_LANDING_PATH_ES = "/es/role-radar";
 export const ROLE_RADAR_BOT_BASE = "https://t.me/letsfinddreamjob_bot";
 
 /**
@@ -21,6 +22,9 @@ export const ROLE_RADAR_GUIDE_SLUGS = new Set([
   "gruziya-dlya-rossiyan-2026",
   "chernogoriya-vnj-dlya-rossiyan-2026",
   "kazahstan-dlya-rossiyan-2026",
+  // Emigro ES — remote / work intent
+  "visa-nomada-digital-espana-latam-2026",
+  "portugal-d8-d7-latam-2026",
 ]);
 
 /** Settle / transit hub slugs (`/ru/[country]`) with employment or remote job intent. */
@@ -46,7 +50,7 @@ export function roleRadarBotHref(start = "web"): string {
 
 export function withRoleRadarLandingUtm(
   medium: string,
-  opts?: { content?: string; campaign?: string }
+  opts?: { content?: string; campaign?: string; locale?: "ru" | "es" }
 ): string {
   const params = new URLSearchParams({
     utm_source: "emigro",
@@ -54,7 +58,8 @@ export function withRoleRadarLandingUtm(
     utm_campaign: opts?.campaign || "role_radar",
   });
   if (opts?.content) params.set("utm_content", opts.content);
-  return `${ROLE_RADAR_LANDING_PATH}?${params.toString()}`;
+  const path = opts?.locale === "es" ? ROLE_RADAR_LANDING_PATH_ES : ROLE_RADAR_LANDING_PATH;
+  return `${path}?${params.toString()}`;
 }
 
 export function shouldShowRoleRadarOnGuide(slug: string): boolean {

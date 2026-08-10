@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Globe2, Sparkles } from "lucide-react";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
+import { EmigroDepthStrip } from "@/components/EmigroDepthStrip";
 import { RelocatorChatPromo } from "@/components/community/RelocatorChatPromo";
 import { HubDestinationsSectionSuspense } from "@/components/hub/HubDestinationsSection";
 import { WizardPulseSectionSuspense } from "@/components/wizard/WizardPulseSectionSuspense";
@@ -88,6 +89,8 @@ export default async function RuHubPage() {
             </Link>
           </div>
         </HeroShell>
+
+        <EmigroDepthStrip locale="ru" className="mt-8" />
 
         <section className="mt-10 rounded-2xl border border-emerald-200 bg-gradient-to-br from-emerald-50 via-white to-teal-50 p-6 sm:p-8">
           <div className="flex flex-wrap items-start gap-3">

@@ -7,20 +7,53 @@ export type UniPrepLink = {
   path: string;
   titleRu: string;
   blurbRu: string;
+  titleEs?: string;
+  blurbEs?: string;
 };
 
 export type UniPrepOffer = {
   topicKey: string;
   countryRu: string;
+  countryEs?: string;
   /** Short exam / test label for badges */
   examLabelRu: string;
+  examLabelEs?: string;
   headlineRu: string;
+  headlineEs?: string;
   bodyRu: string;
+  bodyEs?: string;
   mock?: UniPrepLink;
   deck?: UniPrepLink;
   /** Optional Prep2Go language mock (sister product) */
   prep2goMock?: UniPrepLink;
 };
+
+export type UniPrepLocale = "ru" | "es";
+
+export function uniPrepLinkTitle(link: UniPrepLink, locale: UniPrepLocale = "ru"): string {
+  return locale === "es" && link.titleEs ? link.titleEs : link.titleRu;
+}
+
+export function uniPrepLinkBlurb(link: UniPrepLink, locale: UniPrepLocale = "ru"): string {
+  return locale === "es" && link.blurbEs ? link.blurbEs : link.blurbRu;
+}
+
+export function uniPrepOfferCopy(offer: UniPrepOffer, locale: UniPrepLocale = "ru") {
+  if (locale === "es") {
+    return {
+      country: offer.countryEs ?? offer.countryRu,
+      examLabel: offer.examLabelEs ?? offer.examLabelRu,
+      headline: offer.headlineEs ?? offer.headlineRu,
+      body: offer.bodyEs ?? offer.bodyRu,
+    };
+  }
+  return {
+    country: offer.countryRu,
+    examLabel: offer.examLabelRu,
+    headline: offer.headlineRu,
+    body: offer.bodyRu,
+  };
+}
 
 const BASE = "https://uniprep2go.study";
 const PREP2GO_BASE = "https://www.prep2go.study";
@@ -33,54 +66,78 @@ export const UNIPREP_CITIZENSHIP_HUB: UniPrepLink = {
   path: "/mock-exams/v/citizenship",
   titleRu: "Все моки по натурализации",
   blurbRu: "Бесплатные timed readiness checks: DE, ES, FR, PL, CZ и др.",
+  titleEs: "Todos los mocks de naturalización",
+  blurbEs: "Checks timed gratuitos: DE, ES, FR, PL, CZ y más.",
 };
 
 export const UNIPREP_LANGUAGE_DECKS_HUB: UniPrepLink = {
   path: "/language-certification-decks",
   titleRu: "Anki-колоды для языковых экзаменов",
   blurbRu: "CIPLE, DELE, CELI, DELF, German A2, Dutch A2 и др.",
+  titleEs: "Mazos Anki para exámenes de idioma",
+  blurbEs: "CIPLE, DELE, CELI, DELF, German A2, Dutch A2 y más.",
 };
 
 export const UNIPREP_OFFERS_BY_TOPIC: Record<string, UniPrepOffer> = {
   portugal: {
     topicKey: "portugal",
     countryRu: "Португалия",
+    countryEs: "Portugal",
     examLabelRu: "CIPLE A2",
+    examLabelEs: "CIPLE A2",
     headlineRu: "CIPLE A2: колода Anki + mock на Prep2Go",
+    headlineEs: "CIPLE A2: mazo Anki + mock en Prep2Go",
     bodyRu:
       "Для гражданства PT нужен португальский A2. На UniPrep2Go — Anki-колода European Portuguese; полный timed mock CIPLE — на Prep2Go.",
+    bodyEs:
+      "Para la nacionalidad portuguesa suele hacer falta portugués A2. En UniPrep2Go: mazo Anki de European Portuguese; el mock timed completo CIPLE está en Prep2Go. Plazos PT (7/10 años) ≠ art. 22 España (~2 años).",
     deck: {
       path: "/decks/ciple-a2-european-portuguese-anki-deck",
       titleRu: "CIPLE A2 Anki-колода",
       blurbRu: "European Portuguese · темы CAPLE",
+      titleEs: "Mazo Anki CIPLE A2",
+      blurbEs: "European Portuguese · temas CAPLE",
     },
     prep2goMock: {
       path: "/ciple-a2-mock-test",
       titleRu: "CIPLE A2 mock (Prep2Go)",
       blurbRu: "Формат экзамена · AI scoring · без регистрации на preview",
+      titleEs: "Mock CIPLE A2 (Prep2Go)",
+      blurbEs: "Formato de examen · AI scoring · preview sin registro",
     },
   },
   spain: {
     topicKey: "spain",
     countryRu: "Испания",
+    countryEs: "España",
     examLabelRu: "CCSE + DELE A2",
+    examLabelEs: "CCSE (+ DELE si aplica)",
     headlineRu: "CCSE mock + DELE A2 колода",
+    headlineEs: "Mock CCSE + mazo DELE A2",
     bodyRu:
       "Для nacionalidad ES нужны DELE A2 и CCSE. Бесплатный CCSE readiness check на UniPrep2Go; Anki DELE A2 — отдельно; полный DELE mock — на Prep2Go.",
+    bodyEs:
+      "Para nacionalidad española (art. 22) casi siempre hace falta CCSE. Si el español es lengua oficial en tu país, DELE A2 suele estar exento — confirma en Justicia. Mock CCSE gratis en UniPrep2Go; mazo DELE y mock DELE completo en Prep2Go si te aplica.",
     mock: {
       path: "/mock-exams/ccse-espana-readiness-check",
       titleRu: "CCSE España mock",
       blurbRu: "Конституция и культура · timed readiness",
+      titleEs: "Mock CCSE España",
+      blurbEs: "Constitución y cultura · readiness timed",
     },
     deck: {
       path: "/decks/dele-a2-spanish-anki-deck",
       titleRu: "DELE A2 Anki-колода",
       blurbRu: "Лексика и темы A2 для Cervantes",
+      titleEs: "Mazo Anki DELE A2",
+      blurbEs: "Léxico y temas A2 (Cervantes)",
     },
     prep2goMock: {
       path: "/dele-a2-mock-test",
       titleRu: "DELE A2 mock (Prep2Go)",
       blurbRu: "Полный timed mock · AI writing & speaking",
+      titleEs: "Mock DELE A2 (Prep2Go)",
+      blurbEs: "Mock timed completo · writing y speaking con AI",
     },
   },
   germany: {
@@ -316,6 +373,33 @@ export function shouldShowUniPrepOnGuide(guide: {
 }): boolean {
   if (!guideLooksCitizenshipRelated(guide)) return false;
   return Boolean(getUniPrepOfferForTopics(guide.topic_keys));
+}
+
+/**
+ * ES corridor: show UniPrep on nationality pillar, origin residencia (CCSE path), and Portugal CIPLE pillar.
+ */
+export function shouldShowUniPrepOnEsGuide(guide: {
+  slug: string;
+  title?: string;
+  tags?: string[];
+  topic_keys?: string[];
+}): boolean {
+  if (shouldShowUniPrepOnGuide(guide)) return true;
+  if (/^residencia-espana-desde-/.test(guide.slug)) return Boolean(getUniPrepOfferForTopic("spain"));
+  if (guide.slug === "portugal-d8-d7-latam-2026") return Boolean(getUniPrepOfferForTopic("portugal"));
+  return false;
+}
+
+/** Resolve ES offer: PT guide → portugal (CIPLE/Prep2Go); ES origin/nacionalidad → spain (CCSE). */
+export function resolveUniPrepOfferForEsGuide(guide: {
+  slug: string;
+  topic_keys?: string[];
+}): UniPrepOffer | null {
+  if (guide.slug === "portugal-d8-d7-latam-2026") return getUniPrepOfferForTopic("portugal");
+  if (/^residencia-espana-desde-/.test(guide.slug) || /nacionalidad/.test(guide.slug)) {
+    return getUniPrepOfferForTopic("spain") ?? getUniPrepOfferForTopics(guide.topic_keys);
+  }
+  return getUniPrepOfferForTopics(guide.topic_keys);
 }
 
 export function withUniPrepUtm(

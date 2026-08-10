@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowRight, Sparkles } from "lucide-react";
+import { AssistResultsCta } from "@/components/wizard/AssistResultsCta";
 import { WizardOutcomeCard } from "@/components/wizard/WizardOutcomeCard";
 import type { GlobalEvalPayload } from "@/lib/engine/run-global-evaluation";
 import {
@@ -12,6 +13,8 @@ import { ES_PATHS } from "@/lib/es/corridor";
 import { CONTACT_EMAIL, MAILTO_CONTACT } from "@/lib/site-contact";
 
 export function EsHubWizardResults({
+  sessionId,
+  passportIso2,
   payload,
 }: {
   sessionId: string;
@@ -20,6 +23,12 @@ export function EsHubWizardResults({
 }) {
   const { pick, byCountry, results } = payload;
   const matchCount = results.filter((r) => r.outcome !== "unlikely").length;
+  const pickCountryLabel = pick
+    ? esCountryLabel(pick.countrySegment, pick.countryRu)
+    : undefined;
+  const pickProgramTitle = pick
+    ? esProgramTitle(pick.programSlug, pick.programTitleRu)
+    : undefined;
 
   return (
     <>
@@ -27,7 +36,7 @@ export function EsHubWizardResults({
         <h1 className="text-3xl font-bold">Sus rutas: España y Portugal</h1>
         <p className="mt-2 text-slate-600">
           Revisamos {results.length} programas. Coincidencias: {matchCount}. Navegación previa, no
-          asesoría jurídica.
+          asesoría jurídica. Pasaporte: {passportIso2}.
         </p>
       </header>
 
@@ -37,7 +46,7 @@ export function EsHubWizardResults({
         </p>
         <p className="mt-2 text-sm leading-relaxed text-slate-700">
           América Latina → <strong>España y Portugal</strong>. El evaluador reutiliza los umbrales
-          oficiales de esos destinos para pasaportes UY/EC/PE/PY/CO. Confirme siempre el consulado y el
+          oficiales de esos destinos para pasaportes UY/EC/PE/PY/CO/CL. Confirme siempre el consulado y el
           régimen Schengen corto (y ETIAS si aplica).
         </p>
       </section>
@@ -53,8 +62,7 @@ export function EsHubWizardResults({
                 Mejor encaje
               </p>
               <h2 className="mt-1 text-xl font-bold text-slate-900">
-                {esCountryLabel(pick.countrySegment, pick.countryRu)} —{" "}
-                {esProgramTitle(pick.programSlug, pick.programTitleRu)}
+                {pickCountryLabel} — {pickProgramTitle}
               </h2>
               <p className="mt-2 text-sm text-slate-600">
                 {pick.outcome === "likely_eligible"
@@ -85,7 +93,7 @@ export function EsHubWizardResults({
                   href={esLatamLandingHref(pick.countrySegment)}
                   className="inline-flex items-center gap-1 rounded-lg border border-corridor-300 px-4 py-2 text-sm text-corridor-800 hover:bg-corridor-50"
                 >
-                  Hub {esCountryLabel(pick.countrySegment, pick.countryRu)}
+                  Hub {pickCountryLabel}
                 </Link>
               </div>
             </div>
@@ -113,6 +121,15 @@ export function EsHubWizardResults({
         </section>
       )}
 
+      <AssistResultsCta
+        sessionId={sessionId}
+        placement="wizard_hub_results"
+        country={pick?.countrySegment === "portugal" ? "portugal" : "spain"}
+        countryLabel={pickCountryLabel}
+        programTitle={pickProgramTitle}
+        locale="es"
+      />
+
       <section className="mt-10 rounded-2xl border border-slate-200 bg-white p-6">
         <h2 className="text-xl font-semibold">Siguiente paso</h2>
         <ol className="mt-4 list-decimal space-y-2 pl-5 text-slate-700">
@@ -131,6 +148,12 @@ export function EsHubWizardResults({
             className="rounded-lg bg-corridor-600 px-4 py-2 text-white hover:bg-corridor-700"
           >
             Ver pilares
+          </Link>
+          <Link
+            href={ES_PATHS.assist}
+            className="rounded-lg border border-corridor-300 px-4 py-2 text-corridor-800 hover:bg-corridor-50"
+          >
+            Assist
           </Link>
           <a
             href={MAILTO_CONTACT}

@@ -7,6 +7,7 @@ type RoleRadarPromoProps = {
   content?: string;
   compact?: boolean;
   className?: string;
+  locale?: "ru" | "es";
 };
 
 /**
@@ -18,8 +19,10 @@ export function RoleRadarPromo({
   content,
   compact = false,
   className = "",
+  locale = "ru",
 }: RoleRadarPromoProps) {
-  const href = withRoleRadarLandingUtm(medium, { content });
+  const href = withRoleRadarLandingUtm(medium, { content, locale });
+  const isEs = locale === "es";
 
   if (compact) {
     return (
@@ -32,7 +35,9 @@ export function RoleRadarPromo({
             Role Radar
           </Link>
           {" — "}
-          вакансии под ваше CV в Telegram (регионы на выбор).
+          {isEs
+            ? "vacantes según tu CV en Telegram (regiones a elegir)."
+            : "вакансии под ваше CV в Telegram (регионы на выбор)."}
         </p>
       </aside>
     );
@@ -44,17 +49,20 @@ export function RoleRadarPromo({
       data-sponsor="role-radar"
     >
       <div className="px-5 py-5 sm:px-6 sm:py-6">
-        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-sky-700/90">Сестринский продукт</p>
+        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-sky-700/90">
+          {isEs ? "Producto hermano" : "Сестринский продукт"}
+        </p>
         <h3 className="mt-2 text-xl font-semibold tracking-tight text-slate-900">Role Radar</h3>
         <p className="mt-2 max-w-xl text-sm leading-relaxed text-slate-600">
-          Подборка вакансий под ваше резюме — в Telegram. Любые роли и регионы по фильтрам в боте, не общая лента
-          канала. Бесплатный старт; Scout / Operator — по желанию (Build CV на Operator).
+          {isEs
+            ? "Selección de vacantes según tu currículum — en Telegram. Cualquier rol y región con filtros en el bot, no un feed genérico de canal. Inicio gratis; Scout / Operator opcionales (Build CV en Operator). El bot está en inglés."
+            : "Подборка вакансий под ваше резюме — в Telegram. Любые роли и регионы по фильтрам в боте, не общая лента канала. Бесплатный старт; Scout / Operator — по желанию (Build CV на Operator)."}
         </p>
         <Link
           href={href}
           className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-sky-800 hover:text-sky-950"
         >
-          Смотреть Role Radar
+          {isEs ? "Ver Role Radar" : "Смотреть Role Radar"}
           <ArrowRight className="h-4 w-4" aria-hidden />
         </Link>
       </div>

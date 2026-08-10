@@ -26,6 +26,7 @@ export const ES_HEADER_NAV_LINKS: SiteNavLink[] = [
   { href: ES_PATHS.portugal, labelRu: "Portugal", labelEn: "Portugal", labelEs: "Portugal" },
   { href: ES_PATHS.peru, labelRu: "Perú", labelEn: "Peru", labelEs: "Perú" },
   { href: ES_PATHS.colombia, labelRu: "Colombia", labelEn: "Colombia", labelEs: "Colombia" },
+  { href: ES_PATHS.chile, labelRu: "Chile", labelEn: "Chile", labelEs: "Chile" },
   { href: ES_PATHS.paraguay, labelRu: "Paraguay", labelEn: "Paraguay", labelEs: "Paraguay" },
   { href: ES_PATHS.guides, labelRu: "Guías", labelEn: "Guides", labelEs: "Guías" },
   { href: ES_PATHS.contact, labelRu: "Contacto", labelEn: "Contact", labelEs: "Contacto" },

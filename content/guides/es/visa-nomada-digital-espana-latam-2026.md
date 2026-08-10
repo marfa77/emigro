@@ -32,7 +32,7 @@ España reguló el **teletrabajo internacional** (a menudo llamado *digital noma
 Este es el **pillar canónico** Emigro para LATAM. No mantenemos guías DN separadas por cada pasaporte: los umbrales españoles son los mismos; lo que cambia es el consulado y el régimen de estancia corta.
 
 Hubs de origen: [Uruguay](/es/uruguay) · [Ecuador](/es/ecuador) · [Perú](/es/peru) · [Paraguay](/es/paraguay) · destino [España](/es/spain).  
-Overview por pasaporte: [Residencia desde Uruguay](/es/guides/residencia-espana-desde-uruguay-2026) · [Residencia desde Ecuador](/es/guides/residencia-espana-desde-ecuador-2026) · [Residencia desde Perú](/es/guides/residencia-espana-desde-peru-2026) · [Residencia desde Paraguay](/es/guides/residencia-espana-desde-paraguay-2026).
+Overview por pasaporte: [Residencia desde Uruguay](/es/guides/residencia-espana-desde-uruguay-2026) · [Residencia desde Ecuador](/es/guides/residencia-espana-desde-ecuador-2026) · [Residencia desde Perú](/es/guides/residencia-espana-desde-peru-2026) · [Residencia desde Paraguay](/es/guides/residencia-espana-desde-paraguay-2026) · [Residencia desde Colombia](/es/guides/residencia-espana-desde-colombia-2026) · [Residencia desde Chile](/es/guides/residencia-espana-desde-chile-2026).
 
 ---
 
@@ -133,7 +133,7 @@ Régimen fiscal aparte del visado: [Beckham / impatriados LATAM](/es/guides/impu
 Sí, **si** mantiene residencia legal continua con la autorización correspondiente. Los días de turista no cuentan. Confirme el cómputo en Justicia.
 
 **¿Y México / Argentina / Venezuela?**  
-Misma lógica de umbrales; hubs AR/MX/VE llegan después. Colombia ya tiene [pilar de origen](/es/guides/residencia-espana-desde-colombia-2026). Mientras use este pillar + [España](/es/spain) + [evaluador](/es/wizard).
+Misma lógica de umbrales; hubs AR/MX/VE llegan después. Chile y Colombia ya tienen pilar de origen. Use este pillar + [España](/es/spain) + [evaluador](/es/wizard).
 
 **¿Y si tengo rentas pasivas, no remote?**  
 Vea [no lucrativa LATAM](/es/guides/visado-no-lucrativa-espana-latam-2026) (solicitud típica en consulado). Comparar Portugal: [D8/D7](/es/guides/portugal-d8-d7-latam-2026).

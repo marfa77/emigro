@@ -1,0 +1,24 @@
+---
+description: LATAM Spanish register — no Iberian vosotros, match vos/tú, no AI ears
+globs: content/guides/es/**/*.md
+alwaysApply: false
+---
+
+# ES LATAM guides — register and AI ears
+
+## Register
+
+- **UY / PY (and AR later):** voseo in body (`tenés`, `podés`, `pedí`).
+- **CL / PE / EC / CO / MX / shared LATAM:** tuteo or neutral usted — stay consistent inside one guide.
+- **Never** peninsular `vosotros` / `tenéis` / `os conviene` in LATAM pillars.
+
+## Fact-check overlays
+
+- Nota Emigro and soft fixes must use the **same person** as the guide body (vos or tú), not sudden `confirme`/`verifique` usted if the draft is vos/tú — or use a short neutral note block labeled as such.
+- Prefer **€2.849** (dot thousands) to match ES meta; avoid mixing `€2,849` and `€2.849` in one guide.
+- Avoid ✅/❌ decoration in comparison tables when plain text works.
+
+## Do not
+
+- Rewrite full drafts into Iberian or “ChatGPT essay” fillers (`en conclusión`, `cabe destacar`, `sumérgete`).
+- Shorten guides to “fix” register — overlays only (`full-guides-no-shorten`).

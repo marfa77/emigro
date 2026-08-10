@@ -20,6 +20,8 @@ type AssistLeadBody = {
   contact?: string;
   message?: string;
   consent?: boolean;
+  preferred_language?: string;
+  audience?: string;
   session_id?: string;
 };
 
@@ -71,6 +73,9 @@ export async function POST(request: Request) {
   const providers = selectedProviderNames(body.selected_provider_ids);
   const rawSessionId = clean(body.session_id);
   const sessionId = isValidWizardSessionId(rawSessionId) ? rawSessionId : null;
+  const preferredLanguage = clean(body.preferred_language) === "es" ? "es" : "ru";
+  const audience = clean(body.audience) === "latam" ? "latam" : "ru";
+  const assistSource = audience === "latam" ? "emigro_assist_es" : "emigro_assist";
 
   if (!country || !programRoute || !name || !contact || !message) {
     return NextResponse.json(
@@ -110,9 +115,9 @@ export async function POST(request: Request) {
             email: contact,
             telegram: contactLooksTelegram(contact) ? contact : null,
             notes,
-            passport_iso2: "RU",
+            passport_iso2: preferredLanguage === "es" ? null : "RU",
             selected_program_slugs: [programRoute],
-            preferred_language: "ru",
+            preferred_language: preferredLanguage,
             status: "new",
           })
           .select("id")
@@ -135,7 +140,7 @@ export async function POST(request: Request) {
   }
 
   await trackServerEvent("assist_lead_submitted", {
-    source: "emigro_assist",
+    source: assistSource,
     lead_id: leadId ?? "",
     stored,
     country,
@@ -148,7 +153,7 @@ export async function POST(request: Request) {
 
   if (storageError) {
     await trackServerEvent("lead_error", {
-      source: "emigro_assist",
+      source: assistSource,
       country,
       corridor_slug: corridorSlug,
       message: storageError,

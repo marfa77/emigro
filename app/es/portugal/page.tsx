@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { Disclaimer } from "@/components/Disclaimer";
+import { UniPrep2GoPromo } from "@/components/sponsors/UniPrep2GoPromo";
 import { ES_PATHS } from "@/lib/es/corridor";
 import { pageMetadata, pageUrl } from "@/lib/seo";
 import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
@@ -86,6 +87,15 @@ export default function EsPortugalHubPage() {
             Evaluar España vs Portugal
             <ArrowRight className="h-4 w-4" />
           </Link>
+        </div>
+
+        <div className="mt-8">
+          <UniPrep2GoPromo
+            placement="destination_hub"
+            topicKey="portugal"
+            contentId="es_portugal_hub"
+            locale="es"
+          />
         </div>
 
         <section className="mt-8 space-y-4">
