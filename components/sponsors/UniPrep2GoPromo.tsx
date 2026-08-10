@@ -115,6 +115,7 @@ export function UniPrepCitizenshipHubPromo({
   });
 
   const isEs = locale === "es";
+  const isFr = locale === "fr";
 
   return (
     <section
@@ -122,15 +123,25 @@ export function UniPrepCitizenshipHubPromo({
       aria-labelledby="uniprep-hub-heading"
     >
       <p className="text-xs font-bold uppercase tracking-wider text-teal-800">
-        {isEs ? "Producto hermano · UniPrep2Go" : "Сестринский продукт · UniPrep2Go"}
+        {isEs
+          ? "Producto hermano · UniPrep2Go"
+          : isFr
+            ? "Produit frère · UniPrep2Go"
+            : "Сестринский продукт · UniPrep2Go"}
       </p>
       <h2 id="uniprep-hub-heading" className="mt-2 text-lg font-semibold text-slate-900">
-        {isEs ? "Mocks y mazos Anki para naturalización" : "Моки и Anki-колоды для натурализации"}
+        {isEs
+          ? "Mocks y mazos Anki para naturalización"
+          : isFr
+            ? "Mocks et decks Anki pour la naturalisation"
+            : "Моки и Anki-колоды для натурализации"}
       </h2>
       <p className="mt-2 text-sm leading-relaxed text-slate-700">
         {isEs
           ? "Checks timed gratuitos (CCSE, Leben in Deutschland, naturalisation FR, PL, CZ…) y mazos Anki para exámenes de idioma (CIPLE, DELE, CELI, DELF, German A2). No son exámenes oficiales — material de estudio UniPrep2Go."
-          : "Бесплатные timed readiness checks (CCSE, Leben in Deutschland, naturalisation FR, PL, CZ…) и Anki-колоды для языковых экзаменов (CIPLE, DELE, CELI, DELF, German A2). Не официальные экзамены — учебные материалы UniPrep2Go."}
+          : isFr
+            ? "Checks timed gratuits (CCSE, Leben in Deutschland, naturalisation FR, PL, CZ…) et decks Anki pour examens de langue (CIPLE, DELE, CELI, DELF…). Ce ne sont pas des examens officiels — matériel UniPrep2Go."
+            : "Бесплатные timed readiness checks (CCSE, Leben in Deutschland, naturalisation FR, PL, CZ…) и Anki-колоды для языковых экзаменов (CIPLE, DELE, CELI, DELF, German A2). Не официальные экзамены — учебные материалы UniPrep2Go."}
       </p>
       <div className="mt-4 flex flex-wrap gap-3">
         <CtaLink
@@ -145,7 +156,7 @@ export function UniPrepCitizenshipHubPromo({
           }
         >
           <FlaskConical className="h-4 w-4" aria-hidden="true" />
-          {isEs ? "Ver mocks" : "Смотреть моки"}
+          {isEs ? "Ver mocks" : isFr ? "Voir les mocks" : "Смотреть моки"}
         </CtaLink>
         <CtaLink
           href={decksHref}
@@ -160,13 +171,15 @@ export function UniPrepCitizenshipHubPromo({
           }
         >
           <BookOpen className="h-4 w-4" aria-hidden="true" />
-          {isEs ? "Mazos Anki" : "Anki-колоды"}
+          {isEs ? "Mazos Anki" : isFr ? "Decks Anki" : "Anki-колоды"}
         </CtaLink>
       </div>
       <p className="mt-3 text-xs text-slate-500">
         {isEs
           ? "uniprep2go.study · familia PixID Studio · no sustituye la inscripción oficial al examen"
-          : "uniprep2go.study · семейство PixID Studio · не заменяет официальную запись на экзамен"}
+          : isFr
+            ? "uniprep2go.study · famille PixID Studio · ne remplace pas l'inscription officielle à l'examen"
+            : "uniprep2go.study · семейство PixID Studio · не заменяет официальную запись на экзамен"}
       </p>
     </section>
   );
@@ -189,7 +202,15 @@ export function UniPrep2GoPromo({
   const campaign = `uniprep_${offer.topicKey}`;
   const content = contentId ?? offer.topicKey;
   const isEs = locale === "es";
-
+  const isFr = locale === "fr";
+  const chrome = {
+    brother: isEs
+      ? "Producto hermano · UniPrep2Go"
+      : isFr
+        ? "Produit frère · UniPrep2Go"
+        : "Сестринский продукт · UniPrep2Go",
+    recommend: isEs ? "Recomendamos" : isFr ? "Nous recommandons" : "Рекомендуем",
+  };
   const mockHref = offer.mock
     ? withUniPrepUtm(offer.mock.path, { medium: placement, campaign, content: `${content}_mock` })
     : null;
@@ -220,7 +241,7 @@ export function UniPrep2GoPromo({
         aria-label="UniPrep2Go"
       >
         <p className="text-xs font-bold uppercase tracking-wide text-teal-800">
-          {isEs ? `Recomendamos · ${copy.examLabel}` : `Рекомендуем · ${copy.examLabel}`}
+          {chrome.recommend} · {copy.examLabel}
         </p>
         <p className="mt-1 text-sm font-medium text-slate-900">{copy.headline}</p>
         <a
@@ -251,7 +272,7 @@ export function UniPrep2GoPromo({
       aria-labelledby={`uniprep-promo-${offer.topicKey}`}
     >
       <p className="text-xs font-bold uppercase tracking-wider text-teal-800">
-        {isEs ? "Producto hermano · UniPrep2Go" : "Сестринский продукт · UniPrep2Go"}
+        {chrome.brother}
       </p>
       <h2 id={`uniprep-promo-${offer.topicKey}`} className="mt-2 text-lg font-semibold text-slate-900">
         {copy.headline}
@@ -343,7 +364,9 @@ export function UniPrep2GoPromo({
       <p className="mt-3 text-xs text-slate-500">
         {isEs
           ? "uniprep2go.study · familia PixID Studio · material de estudio, no examen oficial"
-          : "uniprep2go.study · семейство PixID Studio · учебные материалы, не официальный экзамен"}
+          : isFr
+            ? "uniprep2go.study · famille PixID Studio · matériel d'étude, pas un examen officiel"
+            : "uniprep2go.study · семейство PixID Studio · учебные материалы, не официальный экзамен"}
       </p>
     </section>
   );

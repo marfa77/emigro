@@ -3,6 +3,7 @@
  * Run: npm run guides:og-images
  * Optional: npm run guides:og-images -- vnj-polsha-2026 another-slug
  * ES locale: npm run guides:og-images -- --locale=es
+ * FR locale: npm run guides:og-images -- --locale=fr
  */
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
@@ -14,6 +15,7 @@ import {
   GuideOgTemplate,
   loadOgBackgroundDataUrl,
 } from "../lib/brand/guide-og-template";
+import { FR_PILLAR_GUIDE_SLUGS } from "../lib/fr/corridor";
 
 const NEW_GUIDE_SLUGS = [
   "prodlenie-vnzh-portugaliya-aima-2026",
@@ -42,6 +44,8 @@ const ES_PILLAR_OG_SLUGS = [
   "primeros-30-dias-en-espana-2026",
 ];
 
+const FR_PILLAR_OG_SLUGS = [...FR_PILLAR_GUIDE_SLUGS];
+
 type GuideMeta = {
   title: string;
   seo_title?: string;
@@ -51,7 +55,7 @@ type GuideMeta = {
   corridor_slugs?: string[];
 };
 
-function parseGuideMeta(slug: string, locale: "ru" | "es"): GuideMeta {
+function parseGuideMeta(slug: string, locale: "ru" | "es" | "fr"): GuideMeta {
   const filePath = path.join(process.cwd(), "content/guides", locale, `${slug}.md`);
   if (!existsSync(filePath)) {
     throw new Error(`Guide not found: ${filePath}`);
@@ -87,7 +91,7 @@ function parseGuideMeta(slug: string, locale: "ru" | "es"): GuideMeta {
   return meta;
 }
 
-async function renderGuideOg(slug: string, locale: "ru" | "es"): Promise<void> {
+async function renderGuideOg(slug: string, locale: "ru" | "es" | "fr"): Promise<void> {
   const meta = parseGuideMeta(slug, locale);
   const coverWebp = getGuideCoverPath(slug, {
     coverImage: meta.cover_image,
@@ -113,10 +117,17 @@ async function renderGuideOg(slug: string, locale: "ru" | "es"): Promise<void> {
 async function main() {
   const args = process.argv.slice(2);
   const localeArg = args.find((a) => a.startsWith("--locale="));
-  const locale = (localeArg?.split("=")[1] === "es" ? "es" : "ru") as "ru" | "es";
+  const localeRaw = localeArg?.split("=")[1];
+  const locale = (localeRaw === "es" || localeRaw === "fr" ? localeRaw : "ru") as "ru" | "es" | "fr";
   const slugs = args.filter((a) => !a.startsWith("--"));
   const targets =
-    slugs.length > 0 ? slugs : locale === "es" ? ES_PILLAR_OG_SLUGS : NEW_GUIDE_SLUGS;
+    slugs.length > 0
+      ? slugs
+      : locale === "es"
+        ? ES_PILLAR_OG_SLUGS
+        : locale === "fr"
+          ? FR_PILLAR_OG_SLUGS
+          : NEW_GUIDE_SLUGS;
   for (const slug of targets) {
     await renderGuideOg(slug, locale);
   }

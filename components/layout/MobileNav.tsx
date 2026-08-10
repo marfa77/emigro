@@ -5,6 +5,7 @@ import { Menu, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { COMMUNITY_PATH } from "@/lib/community";
 import { ES_PATHS } from "@/lib/es/corridor";
+import { FR_PATHS } from "@/lib/fr/corridor";
 import type { UiLocale } from "@/lib/locale";
 
 type NavLink = {
@@ -72,10 +73,13 @@ export function MobileNav({ links, locale = "ru" }: MobileNavProps) {
     return () => document.removeEventListener("keydown", onKeyDown);
   }, [open]);
 
-  const openLabel = locale === "es" ? "Abrir menú" : locale === "en" ? "Open menu" : "Открыть меню";
-  const closeLabel = locale === "es" ? "Cerrar menú" : locale === "en" ? "Close menu" : "Закрыть меню";
-  const closeShort = locale === "es" ? "Cerrar" : locale === "en" ? "Close" : "Закрыть";
-  const mobileNavLabel = locale === "es" ? "Menú móvil" : "Мобильное меню";
+  const openLabel =
+    locale === "es" ? "Abrir menú" : locale === "fr" ? "Ouvrir le menu" : locale === "en" ? "Open menu" : "Открыть меню";
+  const closeLabel =
+    locale === "es" ? "Cerrar menú" : locale === "fr" ? "Fermer le menu" : locale === "en" ? "Close menu" : "Закрыть меню";
+  const closeShort = locale === "es" ? "Cerrar" : locale === "fr" ? "Fermer" : locale === "en" ? "Close" : "Закрыть";
+  const mobileNavLabel =
+    locale === "es" ? "Menú móvil" : locale === "fr" ? "Menu mobile" : "Мобильное меню";
 
   return (
     <div className="md:hidden">
@@ -138,10 +142,14 @@ type MobileBottomBarProps = {
 };
 
 export function MobileBottomBar({ locale = "ru" }: MobileBottomBarProps) {
-  const chatLabel = locale === "es" ? "Guías" : locale === "ru" ? "Чат" : "Chat";
-  const primaryHref = locale === "es" ? ES_PATHS.wizard : "/ru/wizard";
-  const primaryLabel = locale === "es" ? "Evaluador" : "Wizard";
-  const secondaryHref = locale === "es" ? ES_PATHS.guides : COMMUNITY_PATH;
+  const chatLabel =
+    locale === "es" ? "Guías" : locale === "fr" ? "Guides" : locale === "ru" ? "Чат" : "Chat";
+  const primaryHref =
+    locale === "es" ? ES_PATHS.wizard : locale === "fr" ? FR_PATHS.wizard : "/ru/wizard";
+  const primaryLabel =
+    locale === "es" ? "Evaluador" : locale === "fr" ? "Évaluateur" : "Wizard";
+  const secondaryHref =
+    locale === "es" ? ES_PATHS.guides : locale === "fr" ? FR_PATHS.guides : COMMUNITY_PATH;
 
   return (
     <div className="fixed inset-x-0 bottom-0 z-30 border-t border-slate-200 bg-white/95 backdrop-blur md:hidden">

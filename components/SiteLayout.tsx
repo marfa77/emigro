@@ -5,6 +5,7 @@ import { Disclaimer } from "./Disclaimer";
 import { COMMUNITY_PATH, DISCUSSION_GROUP_LABEL } from "@/lib/community";
 import { HUB_WIZARD_PATH } from "@/lib/corridor/paths";
 import { ES_PATHS } from "@/lib/es/corridor";
+import { FR_PATHS } from "@/lib/fr/corridor";
 import type { UiLocale } from "@/lib/locale";
 import { CONTACT_EMAIL, MAILTO_CONTACT } from "@/lib/site-contact";
 import { getHeaderNavLinks } from "@/lib/site-nav";
@@ -12,13 +13,15 @@ import { safeAreaTopStyle } from "@/lib/ui/mobile";
 
 function navAriaLabel(locale: UiLocale): string {
   if (locale === "es") return "Menú principal";
+  if (locale === "fr") return "Menu principal";
   if (locale === "en") return "Main navigation";
   return "Основное меню";
 }
 
 export function SiteHeader({ locale = "ru" }: { locale?: UiLocale }) {
   const navLinks = getHeaderNavLinks(locale);
-  const homeHref = locale === "es" ? ES_PATHS.home : "/ru";
+  const homeHref =
+    locale === "es" ? ES_PATHS.home : locale === "fr" ? FR_PATHS.home : "/ru";
 
   return (
     <>
@@ -115,8 +118,69 @@ function EsSiteFooter() {
   );
 }
 
+function FrSiteFooter() {
+  return (
+    <footer className="mt-12 border-t border-slate-200 bg-slate-50 pb-20 md:pb-8">
+      <div className="mx-auto max-w-5xl space-y-4 px-4 py-8">
+        <nav className="flex flex-wrap gap-x-4 gap-y-2 text-sm text-slate-600" aria-label="Pied de page">
+          <Link href={FR_PATHS.home} className="font-medium text-corridor-700 hover:text-corridor-600">
+            Emigro FR
+          </Link>
+          <Link href={FR_PATHS.maroc} className="hover:text-corridor-600">
+            Maroc
+          </Link>
+          <Link href={FR_PATHS.algerie} className="hover:text-corridor-600">
+            Algérie
+          </Link>
+          <Link href={FR_PATHS.tunisie} className="hover:text-corridor-600">
+            Tunisie
+          </Link>
+          <Link href={FR_PATHS.senegal} className="hover:text-corridor-600">
+            Sénégal
+          </Link>
+          <Link href={FR_PATHS.france} className="hover:text-corridor-600">
+            France
+          </Link>
+          <Link href={FR_PATHS.guides} className="hover:text-corridor-600">
+            Guides
+          </Link>
+          <Link href={FR_PATHS.wizard} className="hover:text-corridor-600">
+            Évaluateur
+          </Link>
+          <Link href={FR_PATHS.contact} className="hover:text-corridor-600">
+            Contact
+          </Link>
+          <Link href="/ru/assist" className="hover:text-corridor-600">
+            Assist
+          </Link>
+          <Link href={FR_PATHS.privacy} className="hover:text-corridor-600">
+            Confidentialité
+          </Link>
+          <Link href={FR_PATHS.terms} className="hover:text-corridor-600">
+            Conditions
+          </Link>
+          <Link href="/ru" className="hover:text-corridor-600">
+            Version russe
+          </Link>
+          <Link href={ES_PATHS.home} className="hover:text-corridor-600">
+            Español (LATAM)
+          </Link>
+        </nav>
+        <Disclaimer locale="fr" />
+        <p className="text-xs text-slate-500">
+          © {new Date().getFullYear()} Emigro ·{" "}
+          <a href={MAILTO_CONTACT} className="text-corridor-600 hover:underline">
+            {CONTACT_EMAIL}
+          </a>
+        </p>
+      </div>
+    </footer>
+  );
+}
+
 export function SiteFooter({ locale = "ru" }: { locale?: UiLocale }) {
   if (locale === "es") return <EsSiteFooter />;
+  if (locale === "fr") return <FrSiteFooter />;
 
   return (
     <footer className="mt-12 border-t border-slate-200 bg-slate-50 pb-20 md:pb-8">
@@ -187,6 +251,9 @@ export function SiteFooter({ locale = "ru" }: { locale?: UiLocale }) {
           </Link>
           <Link href={ES_PATHS.home} className="hover:text-corridor-600">
             {locale === "ru" ? "Español (LATAM → Europa)" : "Spanish (LATAM → Europe)"}
+          </Link>
+          <Link href={FR_PATHS.home} className="hover:text-corridor-600">
+            {locale === "ru" ? "Français (Afrique → France)" : "French (Afrique → France)"}
           </Link>
         </nav>
         <nav className="flex flex-wrap gap-x-4 gap-y-2 text-sm text-slate-600" aria-label="Транзитные хабы">

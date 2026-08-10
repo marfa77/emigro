@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { corridorDigestPath, corridorLandingPath, corridorWizardPath, programPath } from "@/lib/corridor/paths";
 import { getCorridorBySlug, getProgramsBySlugs } from "@/lib/corridor/queries";
 import { ES_PATHS, esGuidePath } from "@/lib/es/corridor";
+import { FR_PATHS, frGuidePath } from "@/lib/fr/corridor";
 import { guidePath, listGuides } from "@/lib/guides/load";
 import { listStories } from "@/lib/stories/load";
 import { storyPath, STORIES_INDEX_PATH } from "@/lib/stories/paths";
@@ -32,6 +33,7 @@ async function buildWwwSitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: `${origin}/ru`, changeFrequency: "weekly", priority: 1 },
     { url: `${origin}${ES_PATHS.home}`, changeFrequency: "weekly", priority: 0.95 },
+    { url: `${origin}${FR_PATHS.home}`, changeFrequency: "weekly", priority: 0.94 },
     { url: `${origin}/llms.txt`, changeFrequency: "weekly", priority: 0.4 },
     { url: `${origin}/llms-full.txt`, changeFrequency: "weekly", priority: 0.4 },
     { url: `${origin}/ru/wizard`, changeFrequency: "monthly", priority: 0.95 },
@@ -52,6 +54,16 @@ async function buildWwwSitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${origin}${ES_PATHS.contact}`, changeFrequency: "monthly", priority: 0.55 },
     { url: `${origin}${ES_PATHS.privacy}`, changeFrequency: "yearly", priority: 0.3 },
     { url: `${origin}${ES_PATHS.terms}`, changeFrequency: "yearly", priority: 0.3 },
+    { url: `${origin}${FR_PATHS.guides}`, changeFrequency: "weekly", priority: 0.88 },
+    { url: `${origin}${FR_PATHS.maroc}`, changeFrequency: "weekly", priority: 0.91 },
+    { url: `${origin}${FR_PATHS.algerie}`, changeFrequency: "weekly", priority: 0.91 },
+    { url: `${origin}${FR_PATHS.tunisie}`, changeFrequency: "weekly", priority: 0.91 },
+    { url: `${origin}${FR_PATHS.senegal}`, changeFrequency: "weekly", priority: 0.91 },
+    { url: `${origin}${FR_PATHS.france}`, changeFrequency: "weekly", priority: 0.91 },
+    { url: `${origin}${FR_PATHS.wizard}`, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${origin}${FR_PATHS.contact}`, changeFrequency: "monthly", priority: 0.5 },
+    { url: `${origin}${FR_PATHS.privacy}`, changeFrequency: "yearly", priority: 0.3 },
+    { url: `${origin}${FR_PATHS.terms}`, changeFrequency: "yearly", priority: 0.3 },
     { url: `${origin}${STORIES_INDEX_PATH}`, changeFrequency: "weekly", priority: 0.8 },
     { url: `${origin}/ru/community`, changeFrequency: "monthly", priority: 0.75 },
     { url: `${origin}/ru/ukraine`, changeFrequency: "monthly", priority: 0.82 },
@@ -175,6 +187,14 @@ async function buildWwwSitemap(): Promise<MetadataRoute.Sitemap> {
         : {}),
       changeFrequency: "monthly" as const,
       priority: 0.88,
+    })),
+    ...listGuides("fr").map((guide) => ({
+      url: `${origin}${frGuidePath(guide.slug)}`,
+      ...(guide.date_modified || guide.date_published
+        ? { lastModified: new Date((guide.date_modified || guide.date_published)!).toISOString() }
+        : {}),
+      changeFrequency: "monthly" as const,
+      priority: 0.87,
     })),
   ];
 

@@ -1,5 +1,6 @@
 import { COMMUNITY_PATH } from "@/lib/community";
 import { ES_PATHS } from "@/lib/es/corridor";
+import { FR_PATHS } from "@/lib/fr/corridor";
 import type { UiLocale } from "@/lib/locale";
 
 export type SiteNavLink = {
@@ -7,6 +8,7 @@ export type SiteNavLink = {
   labelRu: string;
   labelEn: string;
   labelEs?: string;
+  labelFr?: string;
 };
 
 export const HEADER_NAV_LINKS: SiteNavLink[] = [
@@ -32,14 +34,27 @@ export const ES_HEADER_NAV_LINKS: SiteNavLink[] = [
   { href: ES_PATHS.contact, labelRu: "Contacto", labelEn: "Contact", labelEs: "Contacto" },
 ];
 
+export const FR_HEADER_NAV_LINKS: SiteNavLink[] = [
+  { href: FR_PATHS.home, labelRu: "Accueil", labelEn: "Home", labelFr: "Accueil" },
+  { href: FR_PATHS.france, labelRu: "France", labelEn: "France", labelFr: "France" },
+  { href: FR_PATHS.maroc, labelRu: "Maroc", labelEn: "Morocco", labelFr: "Maroc" },
+  { href: FR_PATHS.algerie, labelRu: "Algérie", labelEn: "Algeria", labelFr: "Algérie" },
+  { href: FR_PATHS.tunisie, labelRu: "Tunisie", labelEn: "Tunisia", labelFr: "Tunisie" },
+  { href: FR_PATHS.senegal, labelRu: "Sénégal", labelEn: "Senegal", labelFr: "Sénégal" },
+  { href: FR_PATHS.guides, labelRu: "Guides", labelEn: "Guides", labelFr: "Guides" },
+  { href: FR_PATHS.contact, labelRu: "Contact", labelEn: "Contact", labelFr: "Contact" },
+];
+
 function pickLabel(link: SiteNavLink, locale: UiLocale): string {
   if (locale === "es") return link.labelEs ?? link.labelEn;
+  if (locale === "fr") return link.labelFr ?? link.labelEn;
   if (locale === "ru") return link.labelRu;
   return link.labelEn;
 }
 
 export function getHeaderNavLinks(locale: UiLocale) {
-  const source = locale === "es" ? ES_HEADER_NAV_LINKS : HEADER_NAV_LINKS;
+  const source =
+    locale === "es" ? ES_HEADER_NAV_LINKS : locale === "fr" ? FR_HEADER_NAV_LINKS : HEADER_NAV_LINKS;
   return source.map((link) => ({
     href: link.href,
     label: pickLabel(link, locale),

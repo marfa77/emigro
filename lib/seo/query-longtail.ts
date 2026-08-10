@@ -419,6 +419,58 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     seoDescription:
       "Compare rutas de residencia ES/PT con pasaporte UY/EC/PE/PY/CO/CL: ingresos, familia y horizonte de nacionalidad.",
   },
+  // —— FR Afrique → France ——
+  {
+    path: "/fr",
+    primaryQuery: "résidence France Maghreb 2026",
+    queries: [
+      "résidence France Maghreb 2026",
+      "émigrer en France depuis le Maroc Algérie Tunisie",
+      "VLS-TS France Afrique francophone",
+    ],
+    seoTitle: "Afrique francophone → France 2026",
+    seoDescription:
+      "Hub Emigro FR: VLS-TS, Passeport Talent, naturalisation ~5 ans pour MA/DZ/TN/SN — sources officielles.",
+  },
+  {
+    path: "/fr/guides/residence-france-depuis-maroc-2026",
+    guideSlug: "residence-france-depuis-maroc-2026",
+    primaryQuery: "résidence France Marocains 2026",
+    queries: [
+      "résidence France Marocains 2026",
+      "visa long séjour France depuis Maroc",
+      "Passeport Talent Maroc France",
+    ],
+    seoTitle: "Résidence France Marocains 2026 — VLS-TS",
+    seoDescription:
+      "Émigrer en France depuis le Maroc 2026 : visa obligatoire, VLS-TS, Talent, naturalisation ~5 ans.",
+  },
+  {
+    path: "/fr/guides/passeport-talent-france-afrique-2026",
+    guideSlug: "passeport-talent-france-afrique-2026",
+    primaryQuery: "Passeport Talent France salaire 2026",
+    queries: [
+      "Passeport Talent France salaire 2026",
+      "Passeport Talent 39582 euros",
+      "titre Talent salarié qualifié France Maghreb",
+    ],
+    seoTitle: "Passeport Talent France 2026 — Afrique",
+    seoDescription:
+      "Passeport Talent pour Maghreb/Sénégal : seuils ~€39.582, catégories, VLS-TS — confirmez service-public.",
+  },
+  {
+    path: "/fr/guides/naturalisation-france-afrique-2026",
+    guideSlug: "naturalisation-france-afrique-2026",
+    primaryQuery: "naturalisation France 5 ans Maghreb",
+    queries: [
+      "naturalisation France 5 ans Maghreb",
+      "nationalité française après résidence Maghreb",
+      "examen civique naturalisation France 2026",
+    ],
+    seoTitle: "Naturalisation France ~5 ans — Afrique",
+    seoDescription:
+      "Naturalisation française ~5 ans (pas 2 ans Maghreb) : langue, civique, résidence régulière — service-public.",
+  },
 ];
 
 export function getLongTailByGuideSlug(slug: string): QueryLongTailTarget | undefined {

@@ -12,6 +12,11 @@ const CORRIDOR_COVER_IMAGES: Record<string, string> = {
   "es-speaking-paraguay-to-spain": "/images/corridor-spain.webp",
   "es-speaking-colombia-to-spain": "/images/corridor-spain.webp",
   "es-speaking-latam-to-europe": "/images/corridor-spain.webp",
+  "fr-speaking-africa-to-europe": "/images/corridor-france.webp",
+  "fr-speaking-maroc-to-france": "/images/corridor-france.webp",
+  "fr-speaking-algerie-to-france": "/images/corridor-france.webp",
+  "fr-speaking-tunisie-to-france": "/images/corridor-france.webp",
+  "fr-speaking-senegal-to-france": "/images/corridor-france.webp",
   "ru-speaking-to-germany": "/images/corridor-germany.webp",
   "ru-speaking-to-italy": "/images/corridor-italy.webp",
   "ru-speaking-to-france": "/images/corridor-france.webp",
@@ -161,6 +166,14 @@ export const GUIDE_COVER_BY_SLUG: Record<string, string> = {
   "impuestos-beckham-espana-latam-2026": "/images/emigro-guide-passive-income.webp",
   "portugal-d8-d7-latam-2026": "/images/corridor-portugal.webp",
   "primeros-30-dias-en-espana-2026": "/images/corridor-spain.webp",
+  // FR pillars (Afrique → France)
+  "residence-france-depuis-maroc-2026": "/images/corridor-france.webp",
+  "residence-france-depuis-algerie-2026": "/images/corridor-france.webp",
+  "residence-france-depuis-tunisie-2026": "/images/corridor-france.webp",
+  "residence-france-depuis-senegal-2026": "/images/corridor-france.webp",
+  "residence-france-afrique-francophone-2026": "/images/corridor-france.webp",
+  "passeport-talent-france-afrique-2026": "/images/corridor-france.webp",
+  "naturalisation-france-afrique-2026": "/images/corridor-france.webp",
 };
 
 export const DEFAULT_GUIDE_COVER = "/images/emigro-main-hero.webp";

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { ES_PATHS } from "@/lib/es/corridor";
+import { FR_PATHS } from "@/lib/fr/corridor";
 import type { SiteLocale } from "@/lib/locale";
 
 export function LegalPage({
@@ -14,8 +15,9 @@ export function LegalPage({
   children: React.ReactNode;
   locale?: SiteLocale;
 }) {
-  const home = locale === "es" ? ES_PATHS.home : "/ru";
-  const updatedLabel = locale === "es" ? "Actualizado:" : "Обновлено:";
+  const home = locale === "es" ? ES_PATHS.home : locale === "fr" ? FR_PATHS.home : "/ru";
+  const updatedLabel =
+    locale === "es" ? "Actualizado:" : locale === "fr" ? "Mis à jour :" : "Обновлено:";
 
   return (
     <>

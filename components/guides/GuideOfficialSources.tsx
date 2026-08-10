@@ -10,11 +10,13 @@ export function GuideOfficialSources({
 }) {
   if (sources.length === 0) return null;
 
-  const title = locale === "es" ? "Fuentes oficiales" : "Официальные источники";
+  const title = locale === "es" ? "Fuentes oficiales" : locale === "fr" ? "Sources officielles" : "Официальные источники";
   const blurb =
     locale === "es"
       ? "Verifique umbrales y trámites en la fecha de presentación — enlaces a las fuentes primarias:"
-      : "Проверяйте пороги и процедуры на дату подачи — ссылки на первоисточники:";
+      : locale === "fr"
+        ? "Vérifiez seuils et démarches à la date du dépôt — liens vers les sources primaires :"
+        : "Проверяйте пороги и процедуры на дату подачи — ссылки на первоисточники:";
 
   return (
     <section className="mt-10 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm ring-1 ring-slate-950/5">

@@ -1,6 +1,7 @@
 import { corridorDigestPath, corridorLandingPath, corridorWizardPath, programPath } from "@/lib/corridor/paths";
 import { guidePath, listGuides } from "@/lib/guides/load";
 import { ES_PATHS, esGuidePath } from "@/lib/es/corridor";
+import { FR_PATHS, frGuidePath } from "@/lib/fr/corridor";
 import { stripInlineMarkdown } from "@/lib/markdown/inline";
 import { getCorridorBySlug } from "@/lib/corridor/queries";
 import { normalizeHashtag } from "@/lib/community-notes/hashtags";
@@ -19,6 +20,8 @@ import {
   formatCitationPromptsSection,
   formatEsLatamAiAnswerCard,
   formatEsLatamCitationPromptsSection,
+  formatFrAfriqueAiAnswerCard,
+  formatFrAfriqueCitationPromptsSection,
 } from "@/lib/seo/llm-citation-prompts";
 import {
   buildHighIntentSection,
@@ -44,6 +47,7 @@ export async function buildLlmsTxt(): Promise<string> {
   const fullCorridors = topics.filter((t) => t.status === "active" && t.corridorSlug && t.sitePaths);
   const guides = listGuides();
   const esGuides = listGuides("es");
+  const frGuides = listGuides("fr");
   const portugalSatelliteHub = llmsPathFromUrl(portugalSatellitePublicUrl("/"));
   const portugalSatelliteLlms = llmsPathFromUrl(portugalSatellitePublicUrl("/llms"));
   const spainSatelliteHub = llmsPathFromUrl(spainSatellitePublicUrl("/"));
@@ -148,6 +152,34 @@ ${esGuides
   })
   .join("\n")}
 
+## Francophone corridor (Afrique → France)
+
+Origins: Maroc, Algérie, Tunisie, Sénégal (next CI/CM…). Destination: France first. Audience language: fr. Not a mini EU grid.
+
+${formatFrAfriqueAiAnswerCard()}
+
+${formatFrAfriqueCitationPromptsSection()}
+
+Facts for citation (2026):
+- Naturalisation: ~5 years regular residence (not a Maghreb 2-year hook).
+- VLS-TS / consulate-first for most residence routes; short-stay visa usually required for MA/DZ/TN/SN.
+- Passeport Talent salarié qualifié: often ~€39.582 brut/an reference — confirm service-public.
+- Apostille: MA/TN/SN parties; DZ in force from 9 July 2026 (HCCH).
+
+- ${llmMarkdownLink("FR hub", FR_PATHS.home)}
+- ${llmMarkdownLink("France destination hub", FR_PATHS.france)}
+- ${llmMarkdownLink("Maroc origin hub", FR_PATHS.maroc)}
+- ${llmMarkdownLink("Algérie origin hub", FR_PATHS.algerie)}
+- ${llmMarkdownLink("Tunisie origin hub", FR_PATHS.tunisie)}
+- ${llmMarkdownLink("Sénégal origin hub", FR_PATHS.senegal)}
+- ${llmMarkdownLink(`FR guides (${frGuides.length})`, FR_PATHS.guides)}
+${frGuides
+  .map((g) => {
+    const qa = g.quick_answer ? ` — ${g.quick_answer.slice(0, 160).replace(/\s+/g, " ").trim()}…` : "";
+    return `- ${llmMarkdownLink(g.seo_title ?? g.title, frGuidePath(g.slug))}${qa}`;
+  })
+  .join("\n")}
+
 ## Транзитные хабы (первый шаг, не EU-коридоры)
 
 ${transitHubLines}
@@ -245,6 +277,13 @@ export async function buildLlmsFullText(): Promise<string> {
     row("/ru/community", "Сообщество релокантов Emigro"),
     row("/ru/partners", "Партнёры и сервисы на маршруте"),
     row("/ru/contact", "Контакты Emigro"),
+    row(ES_PATHS.home, "Emigro ES — LATAM → España y Portugal"),
+    row(FR_PATHS.home, "Emigro FR — Afrique francophone → France"),
+    row(FR_PATHS.france, "France destination hub (FR)"),
+    row(FR_PATHS.maroc, "Maroc → France origin hub"),
+    row(FR_PATHS.algerie, "Algérie → France origin hub"),
+    row(FR_PATHS.tunisie, "Tunisie → France origin hub"),
+    row(FR_PATHS.senegal, "Sénégal → France origin hub"),
     row(llmsPathFromUrl(portugalSatellitePublicUrl("/")), "Portugal satellite — практика релокации в Norte (Порту, Брага)"),
     row(llmsPathFromUrl(portugalSatellitePublicUrl("/llms")), "Portugal satellite llms index"),
     row(llmsPathFromUrl(spainSatellitePublicUrl("/")), "Spain satellite — практика релокации в Валенсии"),
@@ -284,6 +323,24 @@ export async function buildLlmsFullText(): Promise<string> {
     rows.push(
       row(
         guidePath(guide.slug),
+        stripInlineMarkdown(guide.excerpt ?? guide.quick_answer ?? guide.title)
+      )
+    );
+  }
+
+  for (const guide of listGuides("es").sort((a, b) => a.title.localeCompare(b.title, "es"))) {
+    rows.push(
+      row(
+        esGuidePath(guide.slug),
+        stripInlineMarkdown(guide.excerpt ?? guide.quick_answer ?? guide.title)
+      )
+    );
+  }
+
+  for (const guide of listGuides("fr").sort((a, b) => a.title.localeCompare(b.title, "fr"))) {
+    rows.push(
+      row(
+        frGuidePath(guide.slug),
         stripInlineMarkdown(guide.excerpt ?? guide.quick_answer ?? guide.title)
       )
     );

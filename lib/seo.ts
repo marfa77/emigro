@@ -48,6 +48,8 @@ const SEO_DESC_SUFFIX_RU =
   " Emigro: wizard подбора маршрута, справочники коридоров и еженедельные новости для русскоязычных релокантов.";
 const SEO_DESC_SUFFIX_ES =
   " Emigro: guías de residencia España/Portugal para hispanohablantes LATAM, con fuentes oficiales.";
+const SEO_DESC_SUFFIX_FR =
+  " Emigro: guides résidence France pour Afrique francophone, sources officielles.";
 
 function truncateAtWord(text: string, max: number, suffix = "…"): string {
   const trimmed = text.trim();
@@ -65,11 +67,14 @@ export function fitMetaDescription(
   locale: SiteLocale = "ru",
 ): string {
   let base = text.replace(/\s+/g, " ").trim();
-  const pad = locale === "es" ? SEO_DESC_SUFFIX_ES : SEO_DESC_SUFFIX_RU;
+  const pad =
+    locale === "es" ? SEO_DESC_SUFFIX_ES : locale === "fr" ? SEO_DESC_SUFFIX_FR : SEO_DESC_SUFFIX_RU;
   const extra =
     locale === "es"
       ? " Revise el evaluador LATAM → España y Portugal en Emigro."
-      : " Проверьте маршрут ВНЖ через hub wizard.";
+      : locale === "fr"
+        ? " Consultez les hubs Maroc / Algérie / Tunisie / Sénégal → France."
+        : " Проверьте маршрут ВНЖ через hub wizard.";
   if (base.length < min) {
     base = `${base}${pad}`.replace(/\s+/g, " ").trim();
   }
@@ -203,7 +208,9 @@ export function buildGuideArticleMetadata(input: {
   esHreflang?: { originIso?: string; destinationIso?: string };
 }): Metadata {
   const canonicalUrl = pageUrl(input.path);
-  const locale = input.locale ?? (input.path.startsWith("/es") ? "es" : "ru");
+  const locale =
+    input.locale ??
+    (input.path.startsWith("/es") ? "es" : input.path.startsWith("/fr") ? "fr" : "ru");
   const base = pageMetadata({
     title: input.title,
     description: input.description,
@@ -259,7 +266,9 @@ export function pageMetadata(input: {
   /** ES-only regional tags (es-UY, es-ES). Ignored for ru. */
   esHreflang?: { originIso?: string; destinationIso?: string };
 }): Metadata {
-  const locale = input.locale ?? (input.path.startsWith("/es") ? "es" : "ru");
+  const locale =
+    input.locale ??
+    (input.path.startsWith("/es") ? "es" : input.path.startsWith("/fr") ? "fr" : "ru");
   const url = pageUrl(input.path);
   const description = fitMetaDescription(input.description, 120, 160, locale);
   const titleValue = input.titleAbsolute
@@ -276,7 +285,9 @@ export function pageMetadata(input: {
       ? input.esHreflang?.originIso
         ? `es_${input.esHreflang.originIso.toUpperCase()}`
         : "es_ES"
-      : "ru_RU";
+      : locale === "fr"
+        ? "fr_FR"
+        : "ru_RU";
 
   const metadata = withSocialImages(
     {

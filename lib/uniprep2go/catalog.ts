@@ -9,33 +9,43 @@ export type UniPrepLink = {
   blurbRu: string;
   titleEs?: string;
   blurbEs?: string;
+  titleFr?: string;
+  blurbFr?: string;
 };
 
 export type UniPrepOffer = {
   topicKey: string;
   countryRu: string;
   countryEs?: string;
+  countryFr?: string;
   /** Short exam / test label for badges */
   examLabelRu: string;
   examLabelEs?: string;
+  examLabelFr?: string;
   headlineRu: string;
   headlineEs?: string;
+  headlineFr?: string;
   bodyRu: string;
   bodyEs?: string;
+  bodyFr?: string;
   mock?: UniPrepLink;
   deck?: UniPrepLink;
   /** Optional Prep2Go language mock (sister product) */
   prep2goMock?: UniPrepLink;
 };
 
-export type UniPrepLocale = "ru" | "es";
+export type UniPrepLocale = "ru" | "es" | "fr";
 
 export function uniPrepLinkTitle(link: UniPrepLink, locale: UniPrepLocale = "ru"): string {
-  return locale === "es" && link.titleEs ? link.titleEs : link.titleRu;
+  if (locale === "es" && link.titleEs) return link.titleEs;
+  if (locale === "fr" && link.titleFr) return link.titleFr;
+  return link.titleRu;
 }
 
 export function uniPrepLinkBlurb(link: UniPrepLink, locale: UniPrepLocale = "ru"): string {
-  return locale === "es" && link.blurbEs ? link.blurbEs : link.blurbRu;
+  if (locale === "es" && link.blurbEs) return link.blurbEs;
+  if (locale === "fr" && link.blurbFr) return link.blurbFr;
+  return link.blurbRu;
 }
 
 export function uniPrepOfferCopy(offer: UniPrepOffer, locale: UniPrepLocale = "ru") {
@@ -45,6 +55,14 @@ export function uniPrepOfferCopy(offer: UniPrepOffer, locale: UniPrepLocale = "r
       examLabel: offer.examLabelEs ?? offer.examLabelRu,
       headline: offer.headlineEs ?? offer.headlineRu,
       body: offer.bodyEs ?? offer.bodyRu,
+    };
+  }
+  if (locale === "fr") {
+    return {
+      country: offer.countryFr ?? offer.countryRu,
+      examLabel: offer.examLabelFr ?? offer.examLabelRu,
+      headline: offer.headlineFr ?? offer.headlineRu,
+      body: offer.bodyFr ?? offer.bodyRu,
     };
   }
   return {
@@ -68,6 +86,8 @@ export const UNIPREP_CITIZENSHIP_HUB: UniPrepLink = {
   blurbRu: "Бесплатные timed readiness checks: DE, ES, FR, PL, CZ и др.",
   titleEs: "Todos los mocks de naturalización",
   blurbEs: "Checks timed gratuitos: DE, ES, FR, PL, CZ y más.",
+  titleFr: "Tous les mocks de naturalisation",
+  blurbFr: "Checks timed gratuits : DE, ES, FR, PL, CZ…",
 };
 
 export const UNIPREP_LANGUAGE_DECKS_HUB: UniPrepLink = {
@@ -76,6 +96,8 @@ export const UNIPREP_LANGUAGE_DECKS_HUB: UniPrepLink = {
   blurbRu: "CIPLE, DELE, CELI, DELF, German A2, Dutch A2 и др.",
   titleEs: "Mazos Anki para exámenes de idioma",
   blurbEs: "CIPLE, DELE, CELI, DELF, German A2, Dutch A2 y más.",
+  titleFr: "Decks Anki pour examens de langue",
+  blurbFr: "CIPLE, DELE, CELI, DELF, German A2, Dutch A2…",
 };
 
 export const UNIPREP_OFFERS_BY_TOPIC: Record<string, UniPrepOffer> = {
@@ -166,24 +188,35 @@ export const UNIPREP_OFFERS_BY_TOPIC: Record<string, UniPrepOffer> = {
   france: {
     topicKey: "france",
     countryRu: "Франция",
+    countryFr: "France",
     examLabelRu: "Examen civique + DELF",
+    examLabelFr: "Examen civique + DELF",
     headlineRu: "Naturalisation FR mock + DELF B2 колода",
+    headlineFr: "Mock naturalisation FR + deck DELF B2",
     bodyRu:
       "С 2026 для натурализации FR — civic exam и язык (часто B2). Бесплатный readiness check + Anki DELF B2; timed DELF mock — на Prep2Go.",
+    bodyFr:
+      "Pour la naturalisation française : examen civique et niveau de langue (souvent B2 — confirmez service-public). Check gratuit UniPrep2Go + deck Anki DELF B2 ; mock DELF timed sur Prep2Go. Délai général ~5 ans — pas un raccourci « 2 ans Maghreb ».",
     mock: {
       path: "/mock-exams/naturalisation-francaise-readiness-check",
       titleRu: "Naturalisation française mock",
       blurbRu: "Civics readiness · timed",
+      titleFr: "Mock naturalisation française",
+      blurbFr: "Civique · timed",
     },
     deck: {
       path: "/decks/delf-b2-french-anki-deck",
       titleRu: "DELF B2 Anki-колода",
       blurbRu: "Лексика и темы B2",
+      titleFr: "Deck Anki DELF B2",
+      blurbFr: "Lexique et thèmes B2",
     },
     prep2goMock: {
       path: "/delf-b2-mock-test",
       titleRu: "DELF B2 mock (Prep2Go)",
       blurbRu: "Полный timed mock · AI scoring",
+      titleFr: "Mock DELF B2 (Prep2Go)",
+      blurbFr: "Mock timed complet · AI scoring",
     },
   },
   italy: {
@@ -398,6 +431,35 @@ export function resolveUniPrepOfferForEsGuide(guide: {
   if (guide.slug === "portugal-d8-d7-latam-2026") return getUniPrepOfferForTopic("portugal");
   if (/^residencia-espana-desde-/.test(guide.slug) || /nacionalidad/.test(guide.slug)) {
     return getUniPrepOfferForTopic("spain") ?? getUniPrepOfferForTopics(guide.topic_keys);
+  }
+  return getUniPrepOfferForTopics(guide.topic_keys);
+}
+
+/**
+ * FR corridor: UniPrep on naturalisation pillar (civic + DELF) and origin résidence with citizenship horizon.
+ */
+export function shouldShowUniPrepOnFrGuide(guide: {
+  slug: string;
+  title?: string;
+  tags?: string[];
+  topic_keys?: string[];
+}): boolean {
+  if (shouldShowUniPrepOnGuide(guide)) return true;
+  if (guide.slug === "naturalisation-france-afrique-2026") return Boolean(getUniPrepOfferForTopic("france"));
+  if (/^residence-france-depuis-/.test(guide.slug)) return Boolean(getUniPrepOfferForTopic("france"));
+  return false;
+}
+
+export function resolveUniPrepOfferForFrGuide(guide: {
+  slug: string;
+  topic_keys?: string[];
+}): UniPrepOffer | null {
+  if (
+    guide.slug === "naturalisation-france-afrique-2026" ||
+    /^residence-france-depuis-/.test(guide.slug) ||
+    guide.slug === "residence-france-afrique-francophone-2026"
+  ) {
+    return getUniPrepOfferForTopic("france") ?? getUniPrepOfferForTopics(guide.topic_keys);
   }
   return getUniPrepOfferForTopics(guide.topic_keys);
 }

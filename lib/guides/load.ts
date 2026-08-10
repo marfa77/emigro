@@ -260,7 +260,7 @@ function markdownToHtml(markdown: string): string {
 export function listGuides(locale: GuideLocale = "ru"): GuideFrontmatter[] {
   const dir = guidesDir(locale);
   if (!fs.existsSync(dir)) return [];
-  const collatorLocale = locale === "es" ? "es" : "ru";
+  const collatorLocale = locale === "es" ? "es" : locale === "fr" ? "fr" : "ru";
   return fs
     .readdirSync(dir)
     .filter((f) => f.endsWith(".md"))

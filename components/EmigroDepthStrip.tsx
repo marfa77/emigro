@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { getEmigroInventory } from "@/lib/emigro-inventory";
 import { ES_PATHS } from "@/lib/es/corridor";
+import { FR_PATHS } from "@/lib/fr/corridor";
 
 type Props = {
-  locale: "es" | "ru";
+  locale: "es" | "ru" | "fr";
   className?: string;
 };
 
@@ -44,6 +45,41 @@ export function EmigroDepthStrip({ locale, className = "" }: Props) {
     );
   }
 
+  if (locale === "fr") {
+    return (
+      <section
+        className={`rounded-2xl border border-slate-200 bg-slate-50/90 px-5 py-5 ${className}`}
+        aria-label="Périmètre Emigro"
+      >
+        <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+          Pas une landing fine
+        </p>
+        <p className="mt-2 text-sm leading-relaxed text-slate-700">
+          Emigro FR: <strong>{inv.frPillars} piliers</strong> ·{" "}
+          <strong>{inv.frOriginHubs} origines</strong> (MA/DZ/TN/SN) ·{" "}
+          <strong>{inv.frDestinations} destination</strong> (France) ·{" "}
+          <Link href="/ru/assist" className="font-medium text-corridor-700 hover:underline">
+            Assist
+          </Link>
+          {" · "}
+          UniPrep naturalisation. Même maison que{" "}
+          <Link href={ES_PATHS.home} className="font-medium text-corridor-700 hover:underline">
+            ES LATAM ({inv.esPillars} piliers)
+          </Link>{" "}
+          et{" "}
+          <Link href="/ru" className="font-medium text-corridor-700 hover:underline">
+            RU ({inv.ruGuides}+ guides)
+          </Link>
+          . Hubs :{" "}
+          <Link href={FR_PATHS.home} className="font-medium text-corridor-700 hover:underline">
+            /fr
+          </Link>
+          .
+        </p>
+      </section>
+    );
+  }
+
   return (
     <section
       className={`rounded-2xl border border-slate-200 bg-slate-50/90 px-5 py-5 ${className}`}
@@ -59,7 +95,11 @@ export function EmigroDepthStrip({ locale, className = "" }: Props) {
         <Link href={ES_PATHS.home} className="font-medium text-corridor-700 hover:underline">
           {inv.esPillars} pilares ES
         </Link>
-        , {inv.esOriginHubs} origin hubs.
+        , {inv.esOriginHubs} origin hubs. Франкофонный Maghreb→France:{" "}
+        <Link href={FR_PATHS.home} className="font-medium text-corridor-700 hover:underline">
+          {inv.frPillars} piliers FR
+        </Link>
+        .
       </p>
     </section>
   );

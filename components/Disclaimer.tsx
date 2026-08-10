@@ -4,6 +4,8 @@ export function Disclaimer({ locale = "ru" }: { locale?: UiLocale }) {
   const text =
     locale === "es"
       ? "Emigro no es asesoramiento jurídico. La información es orientativa: verifique los requisitos en el consulado y con profesionales colegiados."
+      : locale === "fr"
+        ? "Emigro n'est pas un conseil juridique. Information indicative : vérifiez les exigences auprès du consulat et de professionnels."
       : locale === "ru"
         ? "Emigro не является юридической консультацией. Информация носит справочный характер — проверяйте требования в консульстве и у лицензированных специалистов."
         : "Emigro is not legal advice. Information is indicative — verify requirements with the consulate and licensed professionals.";
