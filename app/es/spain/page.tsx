@@ -22,7 +22,7 @@ export const metadata: Metadata = pageMetadata({
 const ROUTES = [
   {
     title: "Nómada digital (teletrabajo)",
-    body: "Ingresos remotos desde fuera de España; umbral ligado al SMI. Pilar LATAM compartido (UY/EC/PE/PY).",
+    body: "Ingresos remotos desde fuera de España; umbral ligado al SMI. Pilar LATAM compartido (UY/EC/PE/PY/CO).",
     href: esGuidePath("visa-nomada-digital-espana-latam-2026"),
   },
   {
@@ -112,7 +112,7 @@ export default function EsSpainHubPage() {
           <p className="mt-3 text-sm text-slate-700">
             El <strong>Código Civil (art. 22)</strong> permite solicitar la nacionalidad española
             tras <strong>2 años</strong> de residencia <strong>legal y continua</strong> a
-            nacionales de origen de países iberoamericanos (UY, EC, PE, PY y otros), frente a los{" "}
+            nacionales de origen de países iberoamericanos (UY, EC, PE, PY, CO y otros), frente a los{" "}
             <strong>10 años</strong> de la regla general. No es automática: hacen falta buena
             conducta e integración (típicamente <strong>CCSE</strong>; el <strong>DELE A2</strong>{" "}
             suele no exigirse si el español es lengua oficial de su país). Los días de turista{" "}
@@ -183,7 +183,11 @@ export default function EsSpainHubPage() {
             <Link href={ES_PATHS.paraguay} className="font-medium text-corridor-700 hover:underline">
               Paraguay → España
             </Link>
-            . Después: CO/AR/MX/VE.
+            {" · "}
+            <Link href={ES_PATHS.colombia} className="font-medium text-corridor-700 hover:underline">
+              Colombia → España
+            </Link>
+            . Después: AR/MX/VE.
           </p>
         </section>
 

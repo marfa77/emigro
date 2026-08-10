@@ -21,7 +21,7 @@ export const metadata: Metadata = pageMetadata({
   title: "Emigro — LATAM → España y Portugal",
   titleAbsolute: true,
   description:
-    "Residencia para hispanohablantes: UY/EC/PE/PY → España y Portugal. Evaluador, pilares y horizonte de nacionalidad española a 2 años (art. 22).",
+    "Residencia para hispanohablantes: UY/EC/PE/PY/CO → España y Portugal. Evaluador, pilares y horizonte de nacionalidad española a 2 años (art. 22).",
   path: ES_PATHS.home,
   locale: "es",
   esHreflang: { destinationIso: "ES" },
@@ -44,13 +44,19 @@ const ORIGIN_CARDS = [
     href: ES_PATHS.peru,
     label: "Origen",
     title: "Perú",
-    body: "Demanda alta, SERP más usable que MX/CO/AR/VE.",
+    body: "Demanda alta, SERP más usable que MX/AR/VE.",
   },
   {
     href: ES_PATHS.paraguay,
     label: "Origen",
     title: "Paraguay",
     body: "Wedge limpio del Cono Sur — hermano lógico de Uruguay.",
+  },
+  {
+    href: ES_PATHS.colombia,
+    label: "Origen",
+    title: "Colombia",
+    body: "Alta demanda: Schengen visa-free + nacionalidad en ~2 años (art. 22).",
   },
 ] as const;
 
@@ -63,7 +69,7 @@ export default function EsHubPage() {
     name: "Emigro — LATAM → España y Portugal",
     url: pageUrl(ES_PATHS.home),
     description:
-      "Guías y evaluador de residencia en España y Portugal para ciudadanos de Uruguay, Ecuador, Perú y Paraguay.",
+      "Guías y evaluador de residencia en España y Portugal para ciudadanos de Uruguay, Ecuador, Perú, Paraguay y Colombia.",
     inLanguage: "es",
     items: [
       { url: pageUrl(ES_PATHS.wizard), name: "Evaluador España y Portugal" },
@@ -75,7 +81,9 @@ export default function EsHubPage() {
               ? ES_PATHS.ecuador
               : c.passports[0] === "PE"
                 ? ES_PATHS.peru
-                : ES_PATHS.paraguay,
+                : c.passports[0] === "CO"
+                  ? ES_PATHS.colombia
+                  : ES_PATHS.paraguay,
         ),
         name: c.title,
       })),
@@ -177,7 +185,7 @@ export default function EsHubPage() {
         <section className="mt-12 rounded-2xl border border-amber-200 bg-amber-50/80 p-6">
           <h2 className="text-xl font-bold text-slate-950">Nacionalidad española a 2 años</h2>
           <p className="mt-2 text-slate-700">
-            Si su plan es España, los pasaportes iberoamericanos (UY, EC, PE, PY, …) suelen poder{" "}
+            Si su plan es España, los pasaportes iberoamericanos (UY, EC, PE, PY, CO, …) suelen poder{" "}
             <strong>solicitar</strong> nacionalidad tras <strong>2 años</strong> de residencia
             legal continua (Código Civil art. 22), frente a 10 años de la regla general. No
             sustituye elegir bien la vía de residencia —{" "}
@@ -208,7 +216,7 @@ export default function EsHubPage() {
         </section>
 
         <section className="mt-12 rounded-2xl border border-corridor-200 bg-corridor-50/80 p-6">
-          <h2 className="text-xl font-bold text-slate-950">Evaluador (UY / EC / PE / PY)</h2>
+          <h2 className="text-xl font-bold text-slate-950">Evaluador (UY / EC / PE / PY / CO)</h2>
           <p className="mt-2 text-slate-700">
             Responda sobre ingresos, trabajo, familia y estudios. Emigro compara programas de
             España y Portugal y le señala el mejor encaje preliminar.

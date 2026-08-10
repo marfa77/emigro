@@ -8,6 +8,7 @@ import { GuideOfficialSources } from "@/components/guides/GuideOfficialSources";
 import { Disclaimer } from "@/components/Disclaimer";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import {
+  ES_CO_SPAIN_CORRIDOR,
   ES_EC_SPAIN_CORRIDOR,
   ES_PATHS,
   ES_PE_SPAIN_CORRIDOR,
@@ -25,13 +26,14 @@ import { heroTitle } from "@/lib/ui/mobile";
 
 export const revalidate = 3600;
 
-function originIsoForGuide(corridorSlugs?: string[]): "UY" | "EC" | "PE" | "PY" | undefined {
+function originIsoForGuide(corridorSlugs?: string[]): "UY" | "EC" | "PE" | "PY" | "CO" | undefined {
   const matches = [
     corridorSlugs?.includes(ES_EC_SPAIN_CORRIDOR.slug) ? ("EC" as const) : null,
     corridorSlugs?.includes(ES_UY_SPAIN_CORRIDOR.slug) ? ("UY" as const) : null,
     corridorSlugs?.includes(ES_PE_SPAIN_CORRIDOR.slug) ? ("PE" as const) : null,
     corridorSlugs?.includes(ES_PY_SPAIN_CORRIDOR.slug) ? ("PY" as const) : null,
-  ].filter(Boolean) as Array<"UY" | "EC" | "PE" | "PY">;
+    corridorSlugs?.includes(ES_CO_SPAIN_CORRIDOR.slug) ? ("CO" as const) : null,
+  ].filter(Boolean) as Array<"UY" | "EC" | "PE" | "PY" | "CO">;
   return matches.length === 1 ? matches[0] : undefined;
 }
 
@@ -41,6 +43,7 @@ function corridorBadge(corridorSlugs?: string[]): string {
   if (corridorSlugs?.includes(ES_EC_SPAIN_CORRIDOR.slug)) titles.push(ES_EC_SPAIN_CORRIDOR.title);
   if (corridorSlugs?.includes(ES_PE_SPAIN_CORRIDOR.slug)) titles.push(ES_PE_SPAIN_CORRIDOR.title);
   if (corridorSlugs?.includes(ES_PY_SPAIN_CORRIDOR.slug)) titles.push(ES_PY_SPAIN_CORRIDOR.title);
+  if (corridorSlugs?.includes(ES_CO_SPAIN_CORRIDOR.slug)) titles.push(ES_CO_SPAIN_CORRIDOR.title);
   if (titles.length === 0) return "LATAM → España";
   if (titles.length === 1) return titles[0];
   return "LATAM → España";
@@ -52,6 +55,7 @@ function hubCtaForGuide(corridorSlugs?: string[]): string {
 
   if (only(ES_PE_SPAIN_CORRIDOR.slug)) return ES_PATHS.peru;
   if (only(ES_PY_SPAIN_CORRIDOR.slug)) return ES_PATHS.paraguay;
+  if (only(ES_CO_SPAIN_CORRIDOR.slug)) return ES_PATHS.colombia;
   if (only(ES_EC_SPAIN_CORRIDOR.slug)) return ES_PATHS.ecuador;
   if (only(ES_UY_SPAIN_CORRIDOR.slug)) return ES_PATHS.uruguay;
   return ES_PATHS.spain;

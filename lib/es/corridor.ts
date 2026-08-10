@@ -67,11 +67,26 @@ export const ES_PY_SPAIN_CORRIDOR = {
   shortStayVisaLikely: false,
 } as const;
 
+/** High demand; Schengen visa-free (unlike EC); art. 22 + dualidad CO–ES. */
+export const ES_CO_SPAIN_CORRIDOR = {
+  slug: "es-speaking-colombia-to-spain",
+  audienceLanguage: "es" as const,
+  passports: ["CO"] as const,
+  destinations: ["ES"] as const,
+  expansionFamily: ES_CORRIDOR_FAMILY,
+  nextOrigins: ["AR", "MX", "VE"] as const,
+  nextDestinations: ["PT"] as const,
+  title: "Colombia → España",
+  titleLong: "Residencia en España para colombianos",
+  shortStayVisaLikely: false,
+} as const;
+
 export const ES_ACTIVE_CORRIDORS = [
   ES_UY_SPAIN_CORRIDOR,
   ES_EC_SPAIN_CORRIDOR,
   ES_PE_SPAIN_CORRIDOR,
   ES_PY_SPAIN_CORRIDOR,
+  ES_CO_SPAIN_CORRIDOR,
 ] as const;
 
 export const ES_PATHS = {
@@ -81,6 +96,7 @@ export const ES_PATHS = {
   ecuador: "/es/ecuador",
   peru: "/es/peru",
   paraguay: "/es/paraguay",
+  colombia: "/es/colombia",
   spain: "/es/spain",
   portugal: "/es/portugal",
   wizard: "/es/wizard",
@@ -96,8 +112,13 @@ export const ES_PILLAR_GUIDE_SLUGS = [
   "residencia-espana-desde-ecuador-2026",
   "residencia-espana-desde-peru-2026",
   "residencia-espana-desde-paraguay-2026",
+  "residencia-espana-desde-colombia-2026",
   "visa-nomada-digital-espana-latam-2026",
+  "visado-no-lucrativa-espana-latam-2026",
   "nacionalidad-espanola-latam-2026",
+  "ley-memoria-democratica-latam-2026",
+  "impuestos-beckham-espana-latam-2026",
+  "portugal-d8-d7-latam-2026",
   "primeros-30-dias-en-espana-2026",
 ] as const;
 
@@ -107,6 +128,7 @@ export const ES_SEED_GUIDE_SLUGS = ES_PILLAR_GUIDE_SLUGS;
 export const ES_UY_GUIDE_SLUGS = [
   "residencia-espana-desde-uruguay-2026",
   "visa-nomada-digital-espana-latam-2026",
+  "visado-no-lucrativa-espana-latam-2026",
   "nacionalidad-espanola-latam-2026",
   "primeros-30-dias-en-espana-2026",
 ] as const;
@@ -114,6 +136,7 @@ export const ES_UY_GUIDE_SLUGS = [
 export const ES_EC_GUIDE_SLUGS = [
   "residencia-espana-desde-ecuador-2026",
   "visa-nomada-digital-espana-latam-2026",
+  "visado-no-lucrativa-espana-latam-2026",
   "nacionalidad-espanola-latam-2026",
   "primeros-30-dias-en-espana-2026",
 ] as const;
@@ -121,6 +144,7 @@ export const ES_EC_GUIDE_SLUGS = [
 export const ES_PE_GUIDE_SLUGS = [
   "residencia-espana-desde-peru-2026",
   "visa-nomada-digital-espana-latam-2026",
+  "visado-no-lucrativa-espana-latam-2026",
   "nacionalidad-espanola-latam-2026",
   "primeros-30-dias-en-espana-2026",
 ] as const;
@@ -128,7 +152,28 @@ export const ES_PE_GUIDE_SLUGS = [
 export const ES_PY_GUIDE_SLUGS = [
   "residencia-espana-desde-paraguay-2026",
   "visa-nomada-digital-espana-latam-2026",
+  "visado-no-lucrativa-espana-latam-2026",
   "nacionalidad-espanola-latam-2026",
+  "primeros-30-dias-en-espana-2026",
+] as const;
+
+export const ES_CO_GUIDE_SLUGS = [
+  "residencia-espana-desde-colombia-2026",
+  "visa-nomada-digital-espana-latam-2026",
+  "visado-no-lucrativa-espana-latam-2026",
+  "nacionalidad-espanola-latam-2026",
+  "impuestos-beckham-espana-latam-2026",
+  "primeros-30-dias-en-espana-2026",
+] as const;
+
+/** Shared thematic pillars shown on origin hubs when relevant. */
+export const ES_SHARED_LATAM_GUIDE_SLUGS = [
+  "visa-nomada-digital-espana-latam-2026",
+  "visado-no-lucrativa-espana-latam-2026",
+  "nacionalidad-espanola-latam-2026",
+  "ley-memoria-democratica-latam-2026",
+  "impuestos-beckham-espana-latam-2026",
+  "portugal-d8-d7-latam-2026",
   "primeros-30-dias-en-espana-2026",
 ] as const;
 

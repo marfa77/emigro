@@ -31,8 +31,13 @@ const ES_PILLAR_OG_SLUGS = [
   "residencia-espana-desde-ecuador-2026",
   "residencia-espana-desde-peru-2026",
   "residencia-espana-desde-paraguay-2026",
+  "residencia-espana-desde-colombia-2026",
   "visa-nomada-digital-espana-latam-2026",
+  "visado-no-lucrativa-espana-latam-2026",
   "nacionalidad-espanola-latam-2026",
+  "ley-memoria-democratica-latam-2026",
+  "impuestos-beckham-espana-latam-2026",
+  "portugal-d8-d7-latam-2026",
   "primeros-30-dias-en-espana-2026",
 ];
 

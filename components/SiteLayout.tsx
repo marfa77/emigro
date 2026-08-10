@@ -66,6 +66,9 @@ function EsSiteFooter() {
           <Link href={ES_PATHS.paraguay} className="hover:text-corridor-600">
             🇵🇾 Paraguay
           </Link>
+          <Link href={ES_PATHS.colombia} className="hover:text-corridor-600">
+            🇨🇴 Colombia
+          </Link>
           <Link href={ES_PATHS.wizard} className="hover:text-corridor-600">
             Evaluador
           </Link>

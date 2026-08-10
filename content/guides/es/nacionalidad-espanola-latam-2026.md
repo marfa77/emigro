@@ -11,9 +11,10 @@ corridor_slugs:
     es-speaking-ecuador-to-spain,
     es-speaking-peru-to-spain,
     es-speaking-paraguay-to-spain,
+    es-speaking-colombia-to-spain,
     es-speaking-latam-to-europe,
   ]
-topic_keys: [spain, uruguay, ecuador, peru, paraguay, citizenship]
+topic_keys: [spain, uruguay, ecuador, peru, paraguay, colombia, citizenship]
 tags: [España, LATAM, nacionalidad, ciudadanía, art. 22, CCSE, 2026]
 primary_intent: how-to
 cta_primary: /es/wizard
@@ -40,7 +41,7 @@ Si tiene pasaporte de un país **iberoamericano** y ya vive (o planea vivir) en 
 
 No importa si entró con visa nómada digital, no lucrativa, trabajo o reagrupación. Lo que cuenta es que su situación sea **residencia legal y continuada** (no turista, no estancia por estudios).
 
-Pillar canónico Emigro ES. Overviews por origen: [Uruguay](/es/guides/residencia-espana-desde-uruguay-2026) · [Ecuador](/es/guides/residencia-espana-desde-ecuador-2026) · [Perú](/es/guides/residencia-espana-desde-peru-2026) · [Paraguay](/es/guides/residencia-espana-desde-paraguay-2026). Hub destino: [España](/es/spain). Evaluador: [/es/wizard](/es/wizard).
+Pillar canónico Emigro ES. Overviews por origen: [Uruguay](/es/guides/residencia-espana-desde-uruguay-2026) · [Ecuador](/es/guides/residencia-espana-desde-ecuador-2026) · [Perú](/es/guides/residencia-espana-desde-peru-2026) · [Paraguay](/es/guides/residencia-espana-desde-paraguay-2026) · [Colombia](/es/guides/residencia-espana-desde-colombia-2026). Relacionados: [No lucrativa](/es/guides/visado-no-lucrativa-espana-latam-2026) · [LMD (cerrada)](/es/guides/ley-memoria-democratica-latam-2026) · [Beckham](/es/guides/impuestos-beckham-espana-latam-2026). Hub destino: [España](/es/spain). Evaluador: [/es/wizard](/es/wizard).
 
 *No es asesoría jurídica. Verifique siempre en Justicia / BOE antes de presentar.*
 

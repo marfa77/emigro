@@ -37,7 +37,7 @@ export function EsHubWizardResults({
         </p>
         <p className="mt-2 text-sm leading-relaxed text-slate-700">
           América Latina → <strong>España y Portugal</strong>. El evaluador reutiliza los umbrales
-          oficiales de esos destinos para pasaportes UY/EC/PE/PY. Confirme siempre el consulado y el
+          oficiales de esos destinos para pasaportes UY/EC/PE/PY/CO. Confirme siempre el consulado y el
           régimen Schengen corto (y ETIAS si aplica).
         </p>
       </section>

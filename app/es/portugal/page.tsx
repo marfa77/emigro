@@ -12,7 +12,7 @@ export const revalidate = 3600;
 export const metadata: Metadata = pageMetadata({
   title: "Portugal para hispanohablantes LATAM 2026",
   description:
-    "Portugal como segundo destino Emigro ES: D8 nómada digital, D7 ingresos pasivos, estudios y familia. Use el evaluador UY/EC.",
+    "Portugal como segundo destino Emigro ES: D8 nómada digital, D7 ingresos pasivos, estudios y familia. Evaluador UY/EC/PE/PY/CO.",
   path: ES_PATHS.portugal,
   locale: "es",
   esHreflang: { destinationIso: "PT" },
@@ -21,7 +21,7 @@ export const metadata: Metadata = pageMetadata({
 const ROUTES = [
   {
     title: "D8 — nómada digital",
-    body: "Ingresos remotos desde fuera de Portugal. Umbrales distintos a España; compare en el evaluador.",
+    body: "Ingresos remotos desde fuera de Portugal. Umbrales distintos a España; compare en el evaluador y en el pilar D8/D7.",
   },
   {
     title: "D7 — ingresos pasivos",
@@ -56,9 +56,14 @@ export default function EsPortugalHubPage() {
           Portugal para hispanohablantes
         </h1>
         <p className="mt-4 text-lg text-slate-700">
-          Segundo destino del marco <strong>LATAM → España y Portugal</strong>. Los pilares
-          profundos en español llegan después; hoy puede evaluar D8/D7/estudios/familia junto a
-          España en el mismo wizard.
+          Segundo destino del marco <strong>LATAM → España y Portugal</strong>. Pilar canónico:{" "}
+          <Link
+            href="/es/guides/portugal-d8-d7-latam-2026"
+            className="font-medium text-corridor-700 hover:underline"
+          >
+            Portugal D8 y D7 para latinoamericanos 2026
+          </Link>
+          . Evalúe D8/D7/estudios/familia junto a España en el mismo wizard.
         </p>
         <p className="mt-3 text-sm text-slate-600">
           Nota: la <strong>nacionalidad portuguesa</strong> tiene plazos y requisitos propios —
@@ -109,6 +114,17 @@ export default function EsPortugalHubPage() {
             {" · "}
             <Link href={ES_PATHS.ecuador} className="font-medium text-corridor-700 hover:underline">
               Ecuador
+            </Link>
+            {" · "}
+            <Link href={ES_PATHS.colombia} className="font-medium text-corridor-700 hover:underline">
+              Colombia
+            </Link>
+            {" · "}
+            <Link
+              href="/es/guides/portugal-d8-d7-latam-2026"
+              className="font-medium text-corridor-700 hover:underline"
+            >
+              Guía D8/D7
             </Link>
           </p>
         </section>
