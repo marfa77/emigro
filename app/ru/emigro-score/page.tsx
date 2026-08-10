@@ -180,38 +180,39 @@ export default function EmigroScoreMethodologyPage() {
           </div>
         </section>
 
-        <section className="mt-12 rounded-2xl border border-slate-200 bg-slate-50 p-6">
-          <h2 className="text-xl font-semibold text-slate-900">Формула overall</h2>
-          <pre className="mt-4 overflow-x-auto rounded-xl bg-slate-950 p-4 text-sm leading-relaxed text-emerald-200">
-            {`overall = round(
-  0.25×Въезд + 0.30×Статус
-  + 0.15×Банки + 0.15×Налоги + 0.15×Перспектива
-)`}
-          </pre>
-          <ul className="mt-4 space-y-2 text-sm text-slate-700">
-            <li>
-              <strong className="text-slate-900">≥75</strong> — зелёный (good)
-            </li>
-            <li>
-              <strong className="text-slate-900">45–74</strong> — янтарный (warn)
-            </li>
-            <li>
-              <strong className="text-slate-900">&lt;45</strong> — красный (critical), не «нейтрально»
-            </li>
+        <section className="mt-12 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+          <h2 className="text-xl font-semibold text-slate-900">Как считается overall</h2>
+          <p className="mt-2 text-sm text-slate-600">
+            Score /100 — взвешенное среднее пяти осей, округлённое до целого.
+          </p>
+          <ul className="mt-5 divide-y divide-slate-100 rounded-xl border border-slate-100">
+            {[
+              { label: "Въезд", weight: "25%" },
+              { label: "Статус", weight: "30%" },
+              { label: "Банки", weight: "15%" },
+              { label: "Налоги", weight: "15%" },
+              { label: "Перспектива", weight: "15%" },
+            ].map((row) => (
+              <li key={row.label} className="flex items-center justify-between gap-3 px-4 py-3 text-sm">
+                <span className="font-medium text-slate-800">{row.label}</span>
+                <span className="tabular-nums text-slate-500">{row.weight}</span>
+              </li>
+            ))}
           </ul>
+          <div className="mt-5 flex flex-wrap gap-2 text-sm">
+            <span className="rounded-full bg-emerald-100 px-3 py-1 font-medium text-emerald-900">≥75 зелёный</span>
+            <span className="rounded-full bg-amber-100 px-3 py-1 font-medium text-amber-900">45–74 янтарный</span>
+            <span className="rounded-full bg-rose-100 px-3 py-1 font-medium text-rose-900">&lt;45 красный</span>
+          </div>
         </section>
 
         <section className="mt-12">
-          <h2 className="text-2xl font-semibold text-slate-900">Как обновляем</h2>
+          <h2 className="text-2xl font-semibold text-slate-900">Что Score не измеряет</h2>
           <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-relaxed text-slate-700">
-            <li>Score меняется в том же PR, что и перепись гайда / хаба по стране.</li>
-            <li>
-              Поле <code className="rounded bg-slate-100 px-1">asOf</code> — дата редакционной проверки; при
-              известных дедлайнах (виза, sunset программы) задаём{" "}
-              <code className="rounded bg-slate-100 px-1">validUntil</code>.
-            </li>
-            <li>При конфликте гайда и цифры побеждает гайд — Score правят до мержа.</li>
-            <li>Это не автоскоринг и не API Nomad List.</li>
+            <li>Климат, тусовку, Wi‑Fi и «кайф жизни» — это не lifestyle-индекс.</li>
+            <li>Cost of living и зарплаты на локальном рынке.</li>
+            <li>Индивидуальный кейс: другой паспорт, семья, оффер от работодателя могут сдвинуть картину.</li>
+            <li>Юридическую гарантию одобрения визы или счёта в банке.</li>
           </ul>
         </section>
 

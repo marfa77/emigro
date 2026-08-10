@@ -23,4 +23,9 @@ export {
   type EmigroScoreAxisDoc,
   type EmigroScoreRubricRow,
 } from "./methodology";
-export { listEmigroScoreCatalog, type EmigroScoreCatalogRow } from "./catalog";
+export {
+  listEmigroScoreCatalog,
+  emigroScoreRank,
+  sortByEmigroScoreDesc,
+  type EmigroScoreCatalogRow,
+} from "./catalog";

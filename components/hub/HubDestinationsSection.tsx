@@ -6,7 +6,7 @@ import { CorridorHubTilesGrid, CorridorHubTilesLegend } from "@/components/corri
 import { EmigroScoreLinkCard } from "@/components/emigro-score/EmigroScoreLinkCard";
 import { getCorridorHubTileStatsBatch } from "@/lib/corridor/hub-stats";
 import type { NewsTopicConfig } from "@/lib/news/topics";
-import { EMIGRO_SCORE_PATH } from "@/lib/emigro-score";
+import { EMIGRO_SCORE_PATH, sortByEmigroScoreDesc } from "@/lib/emigro-score";
 import { getHubsByKind, type TransitHub } from "@/lib/transit-hubs";
 import { HUB_WIZARD_PATH } from "@/lib/corridor/paths";
 
@@ -29,8 +29,12 @@ function HubCardsGrid({ hubs }: { hubs: TransitHub[] }) {
 export async function HubDestinationsSection({ fullCorridors, developingCorridors, newsOnly }: Props) {
   const allTopics = [...fullCorridors, ...developingCorridors, ...newsOnly];
   const statsByTopic = await getCorridorHubTileStatsBatch(allTopics);
-  const settleHubs = getHubsByKind("settle");
-  const transitHubs = getHubsByKind("transit");
+  const byScoreTopic = (t: NewsTopicConfig) => t.urlSegment;
+  const fullSorted = sortByEmigroScoreDesc(fullCorridors, byScoreTopic);
+  const developingSorted = sortByEmigroScoreDesc(developingCorridors, byScoreTopic);
+  const newsSorted = sortByEmigroScoreDesc(newsOnly, byScoreTopic);
+  const settleHubs = sortByEmigroScoreDesc(getHubsByKind("settle"), (h) => h.slug);
+  const transitHubs = sortByEmigroScoreDesc(getHubsByKind("transit"), (h) => h.slug);
 
   return (
     <section id="destinations" className="mt-14 scroll-mt-20">
@@ -38,8 +42,7 @@ export async function HubDestinationsSection({ fullCorridors, developingCorridor
         <div>
           <h2 className="text-2xl font-semibold text-slate-900">Направления</h2>
           <p className="mt-2 max-w-2xl text-slate-600">
-            Emigro Score /100 — насколько страна рабочая для релоканта с паспортом РФ (база). Клик — оси · Open —
-            обзор.
+            Emigro Score /100 — сортировка по убыванию рейтинга (база: паспорт РФ). Клик — оси · Open — обзор.
           </p>
         </div>
         <Link
@@ -50,13 +53,13 @@ export async function HubDestinationsSection({ fullCorridors, developingCorridor
         </Link>
       </div>
 
-      {fullCorridors.length > 0 && (
+      {fullSorted.length > 0 && (
         <>
           <h3 className="mt-8 text-sm font-semibold uppercase tracking-wide text-corridor-700">
-            Полные коридоры ({fullCorridors.length})
+            Полные коридоры ({fullSorted.length})
           </h3>
           <CorridorHubTilesGrid>
-            {fullCorridors.map((topic) => (
+            {fullSorted.map((topic) => (
               <DestinationCard key={topic.key} topic={topic} stats={statsByTopic.get(topic.key)} />
             ))}
           </CorridorHubTilesGrid>
@@ -105,26 +108,26 @@ export async function HubDestinationsSection({ fullCorridors, developingCorridor
         </section>
       )}
 
-      {developingCorridors.length > 0 && (
+      {developingSorted.length > 0 && (
         <>
           <h3 className="mt-10 text-sm font-semibold uppercase tracking-wide text-amber-800">
-            Коридоры в разработке ({developingCorridors.length})
+            Коридоры в разработке ({developingSorted.length})
           </h3>
           <CorridorHubTilesGrid>
-            {developingCorridors.map((topic) => (
+            {developingSorted.map((topic) => (
               <DestinationCard key={topic.key} topic={topic} stats={statsByTopic.get(topic.key)} />
             ))}
           </CorridorHubTilesGrid>
         </>
       )}
 
-      {newsOnly.length > 0 && (
+      {newsSorted.length > 0 && (
         <>
           <h3 className="mt-10 text-sm font-semibold uppercase tracking-wide text-slate-500">
-            Только новости ({newsOnly.length})
+            Только новости ({newsSorted.length})
           </h3>
           <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {newsOnly.map((topic) => (
+            {newsSorted.map((topic) => (
               <DestinationCard key={topic.key} topic={topic} stats={statsByTopic.get(topic.key)} />
             ))}
           </div>

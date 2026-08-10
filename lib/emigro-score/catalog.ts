@@ -1,7 +1,21 @@
 import { TRANSIT_HUBS } from "@/lib/transit-hubs";
-import { EMIGRO_SCORE_REGISTRY } from "./registry";
+import { getEmigroScore, EMIGRO_SCORE_REGISTRY } from "./registry";
 import { emigroScoreOverall100, emigroScoreTone, toEmigroScoreView } from "./score";
 import type { EmigroScoreTone } from "./types";
+
+/** Higher Score first; missing Score → -1 (sorts last). */
+export function emigroScoreRank(countryId: string): number {
+  const score = getEmigroScore(countryId);
+  return score ? emigroScoreOverall100(score) : -1;
+}
+
+export function sortByEmigroScoreDesc<T>(items: T[], countryId: (item: T) => string): T[] {
+  return [...items].sort((a, b) => {
+    const diff = emigroScoreRank(countryId(b)) - emigroScoreRank(countryId(a));
+    if (diff !== 0) return diff;
+    return countryId(a).localeCompare(countryId(b));
+  });
+}
 
 const CORRIDOR_LABELS: Record<string, { ru: string; flag: string; path: string }> = {
   portugal: { ru: "Португалия", flag: "🇵🇹", path: "/ru/portugal" },

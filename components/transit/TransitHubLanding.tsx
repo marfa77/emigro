@@ -8,7 +8,12 @@ import { HeroShell } from "@/components/visuals/HeroShell";
 import { HubHeroVisual } from "@/components/visuals/HubHeroVisual";
 import { EmigroScoreAxes } from "@/components/emigro-score/EmigroScoreAxes";
 import { EmigroScoreFace } from "@/components/emigro-score/EmigroScoreFace";
-import { EMIGRO_SCORE_PATH, getEmigroScore, toEmigroScoreView } from "@/lib/emigro-score";
+import {
+  EMIGRO_SCORE_PATH,
+  getEmigroScore,
+  sortByEmigroScoreDesc,
+  toEmigroScoreView,
+} from "@/lib/emigro-score";
 import { shouldShowRoleRadarOnHub } from "@/lib/role-radar";
 import { getHubsByKind, hubKindLabel, type TransitHub } from "@/lib/transit-hubs";
 import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
@@ -100,7 +105,10 @@ export function TransitHubLanding({ hub }: Props) {
     })),
   };
 
-  const otherHubs = getHubsByKind(hub.kind).filter((item) => item.slug !== hub.slug);
+  const otherHubs = sortByEmigroScoreDesc(
+    getHubsByKind(hub.kind).filter((item) => item.slug !== hub.slug),
+    (item) => item.slug
+  );
   const relatedGuides = isSettle ? SETTLE_DESTINATION_GUIDES : TRANSIT_DESTINATION_GUIDES;
   const scoreRaw = getEmigroScore(hub.slug);
   const emigroScore = scoreRaw ? toEmigroScoreView(scoreRaw) : null;

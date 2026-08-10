@@ -3,8 +3,10 @@ import { COUNTRY_ACCENTS } from "../lib/brand/country-accents";
 import {
   EMIGRO_SCORE_REGISTRY,
   emigroScoreOverall100,
+  emigroScoreRank,
   getEmigroScore,
   listEmigroScoreCountryIds,
+  sortByEmigroScoreDesc,
   toEmigroScoreView,
   validateEmigroCountryScore,
 } from "../lib/emigro-score";
@@ -34,5 +36,14 @@ for (const hub of TRANSIT_HUBS) {
 }
 
 assert.equal(getEmigroScore("nope"), null);
+assert.equal(emigroScoreRank("nope"), -1);
+
+const ranked = sortByEmigroScoreDesc(listEmigroScoreCountryIds(), (id) => id);
+for (let i = 1; i < ranked.length; i++) {
+  assert.ok(
+    emigroScoreRank(ranked[i - 1]!) >= emigroScoreRank(ranked[i]!),
+    `sort desc broken at ${ranked[i - 1]} → ${ranked[i]}`
+  );
+}
 
 console.log(`ok: ${listEmigroScoreCountryIds().length} Emigro Scores validated (full accent coverage)`);
