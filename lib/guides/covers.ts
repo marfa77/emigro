@@ -8,6 +8,8 @@ const CORRIDOR_COVER_IMAGES: Record<string, string> = {
   "ru-speaking-to-spain": "/images/corridor-spain.webp",
   "es-speaking-uruguay-to-spain": "/images/corridor-spain.webp",
   "es-speaking-ecuador-to-spain": "/images/corridor-spain.webp",
+  "es-speaking-peru-to-spain": "/images/corridor-spain.webp",
+  "es-speaking-paraguay-to-spain": "/images/corridor-spain.webp",
   "es-speaking-latam-to-europe": "/images/corridor-spain.webp",
   "ru-speaking-to-germany": "/images/corridor-germany.webp",
   "ru-speaking-to-italy": "/images/corridor-italy.webp",
@@ -147,6 +149,8 @@ export const GUIDE_COVER_BY_SLUG: Record<string, string> = {
   // ES pillars (LATAM → España)
   "residencia-espana-desde-uruguay-2026": "/images/corridor-spain.webp",
   "residencia-espana-desde-ecuador-2026": "/images/corridor-spain.webp",
+  "residencia-espana-desde-peru-2026": "/images/corridor-spain.webp",
+  "residencia-espana-desde-paraguay-2026": "/images/corridor-spain.webp",
   "visa-nomada-digital-espana-latam-2026": "/images/emigro-guide-passive-income.webp",
   "primeros-30-dias-en-espana-2026": "/images/corridor-spain.webp",
 };

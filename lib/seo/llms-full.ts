@@ -113,12 +113,14 @@ ${buildProgramIndexTable()}
 
 ## Spanish-speaking corridor (LATAM → España y Portugal)
 
-Origins: Uruguay, Ecuador (then PY/PE, AR/MX/CO/VE). Destinations: España, then Portugal.
+Origins: Uruguay, Ecuador, Perú, Paraguay (then CO/AR/MX/VE). Destinations: España, then Portugal.
 
 - ${llmMarkdownLink("ES hub", ES_PATHS.home)}
-- ${llmMarkdownLink("LATAM route evaluator (UY/EC → ES+PT)", ES_PATHS.wizard)}
+- ${llmMarkdownLink("LATAM route evaluator (UY/EC/PE/PY → ES+PT)", ES_PATHS.wizard)}
 - ${llmMarkdownLink("Uruguay origin hub", ES_PATHS.uruguay)}
 - ${llmMarkdownLink("Ecuador origin hub", ES_PATHS.ecuador)}
+- ${llmMarkdownLink("Peru origin hub", ES_PATHS.peru)}
+- ${llmMarkdownLink("Paraguay origin hub", ES_PATHS.paraguay)}
 - ${llmMarkdownLink("Spain destination hub (LATAM framing)", ES_PATHS.spain)}
 - ${llmMarkdownLink("Portugal destination hub (LATAM framing)", ES_PATHS.portugal)}
 - ${llmMarkdownLink(`ES guides (${esGuides.length})`, ES_PATHS.guides)}

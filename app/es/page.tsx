@@ -5,10 +5,9 @@ import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { HubHeroVisual } from "@/components/visuals/HubHeroVisual";
 import {
-  ES_EC_SPAIN_CORRIDOR,
+  ES_ACTIVE_CORRIDORS,
   ES_PATHS,
   ES_PILLAR_GUIDE_SLUGS,
-  ES_UY_SPAIN_CORRIDOR,
   esGuidePath,
 } from "@/lib/es/corridor";
 import { listGuides } from "@/lib/guides/load";
@@ -22,11 +21,38 @@ export const metadata: Metadata = pageMetadata({
   title: "Emigro — LATAM → España y Portugal",
   titleAbsolute: true,
   description:
-    "Residencia para hispanohablantes: Uruguay y Ecuador → España, con Portugal como segundo destino. Evaluador UY/EC + pilares con fuentes oficiales.",
+    "Residencia para hispanohablantes: Uruguay, Ecuador, Perú y Paraguay → España, con Portugal como segundo destino. Evaluador + pilares oficiales.",
   path: ES_PATHS.home,
   locale: "es",
   esHreflang: { destinationIso: "ES" },
 });
+
+const ORIGIN_CARDS = [
+  {
+    href: ES_PATHS.uruguay,
+    label: "Origen",
+    title: "Uruguay",
+    body: "Nicho limpio: pasaporte UY, baja competencia SEO hacia España.",
+  },
+  {
+    href: ES_PATHS.ecuador,
+    label: "Origen",
+    title: "Ecuador",
+    body: "Más demanda; Schengen corto suele necesitar visado.",
+  },
+  {
+    href: ES_PATHS.peru,
+    label: "Origen",
+    title: "Perú",
+    body: "Demanda alta, SERP más usable que MX/CO/AR/VE.",
+  },
+  {
+    href: ES_PATHS.paraguay,
+    label: "Origen",
+    title: "Paraguay",
+    body: "Wedge limpio del Cono Sur — hermano lógico de Uruguay.",
+  },
+] as const;
 
 export default function EsHubPage() {
   const guides = listGuides("es").filter((g) =>
@@ -37,12 +63,22 @@ export default function EsHubPage() {
     name: "Emigro — LATAM → España y Portugal",
     url: pageUrl(ES_PATHS.home),
     description:
-      "Guías y evaluador de residencia en España y Portugal para ciudadanos de Uruguay y Ecuador.",
+      "Guías y evaluador de residencia en España y Portugal para ciudadanos de Uruguay, Ecuador, Perú y Paraguay.",
     inLanguage: "es",
     items: [
       { url: pageUrl(ES_PATHS.wizard), name: "Evaluador España y Portugal" },
-      { url: pageUrl(ES_PATHS.uruguay), name: ES_UY_SPAIN_CORRIDOR.title },
-      { url: pageUrl(ES_PATHS.ecuador), name: ES_EC_SPAIN_CORRIDOR.title },
+      ...ES_ACTIVE_CORRIDORS.map((c) => ({
+        url: pageUrl(
+          c.passports[0] === "UY"
+            ? ES_PATHS.uruguay
+            : c.passports[0] === "EC"
+              ? ES_PATHS.ecuador
+              : c.passports[0] === "PE"
+                ? ES_PATHS.peru
+                : ES_PATHS.paraguay,
+        ),
+        name: c.title,
+      })),
       { url: pageUrl(ES_PATHS.spain), name: "España para LATAM" },
       { url: pageUrl(ES_PATHS.portugal), name: "Portugal para LATAM" },
       ...guides.map((g) => ({ url: pageUrl(esGuidePath(g.slug)), name: g.title })),
@@ -63,8 +99,8 @@ export default function EsHubPage() {
           </div>
           <h1 className={`mt-4 ${heroTitle}`}>Residencia en España y Portugal para hispanohablantes</h1>
           <p className="mt-4 max-w-2xl text-lg text-corridor-100">
-            Segunda dirección de Emigro: orígenes LATAM (hoy Uruguay y Ecuador), destinos profundos
-            España y luego Portugal — no una mini-rejilla de 20 países UE.
+            Orígenes activos: Uruguay, Ecuador, Perú y Paraguay. Destinos profundos: España y luego
+            Portugal — no una mini-rejilla de 20 países UE.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link
@@ -91,32 +127,23 @@ export default function EsHubPage() {
         </HeroShell>
 
         <section className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <Link
-            href={ES_PATHS.uruguay}
-            className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm ring-1 ring-slate-950/5 transition hover:border-corridor-300"
-          >
-            <p className="text-sm font-semibold uppercase tracking-wide text-corridor-600">Origen 1</p>
-            <h2 className="mt-2 flex items-center gap-2 text-xl font-bold text-slate-950">
-              <MapPin className="h-5 w-5 text-corridor-600" />
-              Uruguay
-            </h2>
-            <p className="mt-3 text-slate-600">
-              Nicho limpio: pasaporte UY, baja competencia SEO hacia España.
-            </p>
-          </Link>
-          <Link
-            href={ES_PATHS.ecuador}
-            className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm ring-1 ring-slate-950/5 transition hover:border-corridor-300"
-          >
-            <p className="text-sm font-semibold uppercase tracking-wide text-corridor-600">Origen 2</p>
-            <h2 className="mt-2 flex items-center gap-2 text-xl font-bold text-slate-950">
-              <MapPin className="h-5 w-5 text-corridor-600" />
-              Ecuador
-            </h2>
-            <p className="mt-3 text-slate-600">
-              Más demanda que UY; Schengen corto suele necesitar visado.
-            </p>
-          </Link>
+          {ORIGIN_CARDS.map((card) => (
+            <Link
+              key={card.href}
+              href={card.href}
+              className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm ring-1 ring-slate-950/5 transition hover:border-corridor-300"
+            >
+              <p className="text-sm font-semibold uppercase tracking-wide text-corridor-600">{card.label}</p>
+              <h2 className="mt-2 flex items-center gap-2 text-xl font-bold text-slate-950">
+                <MapPin className="h-5 w-5 text-corridor-600" />
+                {card.title}
+              </h2>
+              <p className="mt-3 text-slate-600">{card.body}</p>
+            </Link>
+          ))}
+        </section>
+
+        <section className="mt-6 grid gap-4 sm:grid-cols-2">
           <Link
             href={ES_PATHS.spain}
             className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm ring-1 ring-slate-950/5 transition hover:border-corridor-300"
@@ -146,7 +173,7 @@ export default function EsHubPage() {
         </section>
 
         <section className="mt-12 rounded-2xl border border-corridor-200 bg-corridor-50/80 p-6">
-          <h2 className="text-xl font-bold text-slate-950">Evaluador (pasaportes UY / EC)</h2>
+          <h2 className="text-xl font-bold text-slate-950">Evaluador (UY / EC / PE / PY)</h2>
           <p className="mt-2 text-slate-700">
             Responda sobre ingresos, trabajo, familia y estudios. Emigro compara programas de
             España y Portugal y le señala el mejor encaje preliminar.
@@ -188,8 +215,8 @@ export default function EsHubPage() {
         <section className="mt-12 rounded-2xl border border-amber-200 bg-amber-50/80 p-6">
           <h2 className="text-lg font-bold text-slate-950">Expansión</h2>
           <p className="mt-2 text-sm text-slate-700">
-            Siguientes orígenes: PY/PE y luego AR/MX/CO/VE. Destinos: profundizar España, luego
-            pilares Portugal. Cada origen = hub + 1 pilar — sin clonar 20 países UE.
+            Siguiente: CO (cuando lleguen los pilares), luego AR/MX/VE. Destinos: profundizar España,
+            luego pilares Portugal. Cada origen = hub + 1 pilar.
           </p>
         </section>
       </main>

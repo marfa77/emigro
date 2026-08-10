@@ -29,6 +29,8 @@ const NEW_GUIDE_SLUGS = [
 const ES_PILLAR_OG_SLUGS = [
   "residencia-espana-desde-uruguay-2026",
   "residencia-espana-desde-ecuador-2026",
+  "residencia-espana-desde-peru-2026",
+  "residencia-espana-desde-paraguay-2026",
   "visa-nomada-digital-espana-latam-2026",
   "primeros-30-dias-en-espana-2026",
 ];

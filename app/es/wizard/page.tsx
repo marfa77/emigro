@@ -14,7 +14,7 @@ export const metadata: Metadata = pageMetadata({
   title: "Evaluador: residencia España y Portugal (LATAM)",
   titleAbsolute: true,
   description:
-    "Responda sobre pasaporte UY/EC, ingresos y familia. Emigro compara rutas de residencia en España y Portugal.",
+    "Responda sobre pasaporte UY/EC/PE/PY, ingresos y familia. Emigro compara rutas de residencia en España y Portugal.",
   path: ES_PATHS.wizard,
   locale: "es",
   esHreflang: { destinationIso: "ES" },
@@ -22,7 +22,7 @@ export const metadata: Metadata = pageMetadata({
 
 export default function EsHubWizardPage() {
   const wizardRequirements = [
-    "Emigro ES hub wizard: passports UY/EC → Spain and Portugal residence routes.",
+    "Emigro ES hub wizard: passports UY/EC/PE/PY → Spain and Portugal residence routes.",
     `URL: ${llmUtmUrl(ES_PATHS.wizard)}`,
     "Destinations: España (nómada digital, no lucrativa, estudios, familia) and Portugal (D8, D7, D4, Golden Visa, familia).",
     "Not legal advice.",
@@ -46,9 +46,9 @@ export default function EsHubWizardPage() {
           </p>
           <h1 className="mt-2 text-center text-3xl font-bold">¿Qué ruta de residencia le encaja?</h1>
           <p className="mx-auto mt-3 max-w-xl text-center text-slate-600">
-            Un evaluador para pasaportes Uruguay y Ecuador. Comparamos umbrales de España y
-            Portugal (nómada digital, no lucrativa/D7, estudios, familia, inversión). Sin Assist
-            todavía — resultado + pilares oficiales.
+            Un evaluador para pasaportes Uruguay, Ecuador, Perú y Paraguay. Comparamos umbrales de
+            España y Portugal (nómada digital, no lucrativa/D7, estudios, familia, inversión). Sin
+            Assist todavía — resultado + pilares oficiales.
           </p>
         </header>
 

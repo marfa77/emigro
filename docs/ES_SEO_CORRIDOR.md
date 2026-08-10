@@ -2,7 +2,7 @@
 
 Second site direction: **hispanohablantes → España y Portugal**. Primary product remains RU; `/` still redirects to `/ru`.
 
-Frame: origins expand (UY, EC, then PY/PE/AR/MX/CO/VE); destinations stay **ES then PT** — not a mini EU country grid.
+Frame: origins expand (UY, EC, PE, PY, then CO/AR/MX/VE); destinations stay **ES then PT** — not a mini EU country grid.
 
 ## Content policy (locked)
 
@@ -13,29 +13,27 @@ Frame: origins expand (UY, EC, then PY/PE/AR/MX/CO/VE); destinations stay **ES t
 
 ## Active wedges
 
-| | Uruguay → España | Ecuador → España |
-|--|------------------|------------------|
-| Corridor slug | `es-speaking-uruguay-to-spain` | `es-speaking-ecuador-to-spain` |
-| Passports | `UY` | `EC` |
-| Why | Lowest SEO competition | Higher demand than UY; less saturated than MX/AR/CO/VE |
-| Differentiator | Often Schengen short-stay visa-free | Short Schengen stay usually needs visa |
-| Origin hub | `/es/uruguay` | `/es/ecuador` |
+| | Uruguay | Ecuador | Perú | Paraguay |
+|--|---------|---------|------|----------|
+| Corridor slug | `es-speaking-uruguay-to-spain` | `es-speaking-ecuador-to-spain` | `es-speaking-peru-to-spain` | `es-speaking-paraguay-to-spain` |
+| Passports | `UY` | `EC` | `PE` | `PY` |
+| Why | Lowest SEO competition | Higher demand than UY; niche vs MX/AR/CO/VE | Higher demand; cleaner SERP than big-4 | Clean niche like UY (Cono Sur) |
+| Schengen corto | Often visa-free | Usually needs visa | Often visa-free (+ ETIAS later) | Often visa-free (+ ETIAS later) |
+| Origin hub | `/es/uruguay` | `/es/ecuador` | `/es/peru` | `/es/paraguay` |
 
-Shared: family `es-speaking-latam-to-europe` → next PY/PE, then AR/MX/CO/VE; destination ES then PT.
+Shared: family `es-speaking-latam-to-europe` → next CO (user drafts), then AR/MX/VE; destination ES then PT.
 
 Config: [`lib/es/corridor.ts`](../lib/es/corridor.ts) (`ES_PILLAR_GUIDE_SLUGS`, `ES_PATHS`).
 
-## Product Phase 1 (shipped)
+## Product (shipped)
 
 | Path | Role |
 |------|------|
-| `/es/wizard` (+ `/results`) | Hub evaluator: passports UY/EC → **Spain + Portugal** programs |
+| `/es/wizard` (+ `/results`) | Hub evaluator: passports UY/EC/PE/PY → **Spain + Portugal** |
 | `/es/spain` | Destination hub + wizard CTA |
 | `/es/portugal` | Thin destination hub (D8/D7 framing) + wizard CTA |
 
-Engine: reuses published `ru-speaking-to-spain` / `ru-speaking-to-portugal` program rules with `hub_audience=latam` filter. Passport rows for UY/EC: migration `20260810190000_latam_passport_eligibility_es_pt.sql`.
-
-Out of Phase 1: Assist ES, `/es/spain/programs/*`, full DB `es-speaking-*` corridor packs, Portugal pillars, news/Telegram ES.
+Engine: reuses `ru-speaking-to-spain` / `ru-speaking-to-portugal` with `hub_audience=latam`. Passport rows: migrations `…_es_pt.sql` (UY/EC) and `…_pe_py.sql` (PE/PY).
 
 ## Canonical pillars (now)
 
@@ -43,10 +41,12 @@ Out of Phase 1: Assist ES, `/es/spain/programs/*`, full DB `es-speaking-*` corri
 |------|------|
 | `residencia-espana-desde-uruguay-2026` | Origin pillar UY |
 | `residencia-espana-desde-ecuador-2026` | Origin pillar EC |
-| `visa-nomada-digital-espana-latam-2026` | Shared DN pillar (UY+EC; 301 from old per-passport DN) |
+| `residencia-espana-desde-peru-2026` | Origin pillar PE |
+| `residencia-espana-desde-paraguay-2026` | Origin pillar PY |
+| `visa-nomada-digital-espana-latam-2026` | Shared DN pillar |
 | `primeros-30-dias-en-espana-2026` | Settle checklist |
 
-Later (still pillars only): España vs Portugal LATAM; Portugal D8/D7; optional no-lucrativa deep only if it cannot live inside residencia.
+Later: Colombia pillars (user drafts); España vs Portugal LATAM; Portugal D8/D7.
 
 ## Images
 
@@ -54,29 +54,25 @@ Later (still pillars only): España vs Portugal LATAM; Portugal D8/D7; optional 
 npx tsx scripts/generate-guide-og-images.ts --locale=es
 ```
 
-Covers: `GUIDE_COVER_BY_SLUG` in [`lib/guides/covers.ts`](../lib/guides/covers.ts).  
-UI: hero + featured image on [`app/es/guides/[slug]/page.tsx`](../app/es/guides/[slug]/page.tsx); cards on guides index.
-
 ## Indexable surface
 
 | Path | Role |
 |------|------|
 | `/es` | Hub LATAM → España y Portugal |
-| `/es/wizard` | Route evaluator (UY/EC) |
-| `/es/uruguay` / `/es/ecuador` | Origin hubs |
-| `/es/spain` / `/es/portugal` | Destination hubs |
-| `/es/guides` | Pillar index (with covers) |
-| `/es/guides/{slug}` | Pillars |
+| `/es/wizard` | Route evaluator |
+| `/es/uruguay` `/es/ecuador` `/es/peru` `/es/paraguay` | Origin hubs |
+| `/es/spain` `/es/portugal` | Destination hubs |
+| `/es/guides` + `/es/guides/{slug}` | Pillars |
 | `/es/contact`, privacy, terms | Trust |
 
 ## hreflang
 
-`es` + optional `es-UY` / `es-EC` / `es-ES` / `es-PT` + `x-default` → same URL. No RU↔ES pairs until true translations.
+`es` + optional `es-UY` / `es-EC` / `es-PE` / `es-PY` / `es-ES` / `es-PT` + `x-default`.
 
-## Expansion (content-only)
+## Expansion
 
 New origin = **1 hub + 1 origin pillar** (link shared DN + 30 días). No satellite FAQ guides.
 
 ## Out of scope (for now)
 
-Full Assist ES, marketplace, Spain satellite in Spanish, EN locale, mass MT of RU guides, 20 EU corridor landings for ES.
+Assist ES, marketplace, Spain satellite in Spanish, EN locale, mass MT of RU guides, 20 EU corridor landings for ES.

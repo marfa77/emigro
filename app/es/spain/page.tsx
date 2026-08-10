@@ -13,7 +13,7 @@ export const revalidate = 3600;
 export const metadata: Metadata = pageMetadata({
   title: "España para hispanohablantes LATAM 2026",
   description:
-    "Hub España: nómada digital, no lucrativa, estudios y llegada. Evaluador UY/EC vs Portugal. Corredores Uruguay y Ecuador.",
+    "España como destino de residencia para LATAM: nómada digital, no lucrativa, trabajo y llegada. Corredores UY/EC/PE/PY → España.",
   path: ES_PATHS.spain,
   locale: "es",
   esHreflang: { destinationIso: "ES" },
@@ -22,7 +22,7 @@ export const metadata: Metadata = pageMetadata({
 const ROUTES = [
   {
     title: "Nómada digital (teletrabajo)",
-    body: "Ingresos remotos desde fuera de España; umbral ligado al SMI. Pilar LATAM compartido UY+EC.",
+    body: "Ingresos remotos desde fuera de España; umbral ligado al SMI. Pilar LATAM compartido (UY/EC/PE/PY).",
     href: esGuidePath("visa-nomada-digital-espana-latam-2026"),
   },
   {
@@ -145,7 +145,15 @@ export default function EsSpainHubPage() {
             <Link href={ES_PATHS.ecuador} className="font-medium text-corridor-700 hover:underline">
               Ecuador → España
             </Link>
-            . Después: PY/PE y los grandes (AR/MX/CO/VE).
+            {" · "}
+            <Link href={ES_PATHS.peru} className="font-medium text-corridor-700 hover:underline">
+              Perú → España
+            </Link>
+            {" · "}
+            <Link href={ES_PATHS.paraguay} className="font-medium text-corridor-700 hover:underline">
+              Paraguay → España
+            </Link>
+            . Después: CO/AR/MX/VE.
           </p>
         </section>
 

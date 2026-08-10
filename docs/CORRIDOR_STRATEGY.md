@@ -348,7 +348,7 @@ Expansion 3: Spanish-speaking LATAM → Spain/Portugal
 Expansion 4: French-speaking Maghreb/Africa → France/Canada
 ```
 
-**Expansion 3 wedges (2026-08):** locale + SEO trust — `/es`, origin hubs `/es/uruguay` + `/es/ecuador`, destinations `/es/spain` + `/es/portugal`, pillars, and Phase 1 product core `/es/wizard` (UY/EC → ES+PT). Frame stays LATAM → España y Portugal (not a mini EU grid). See [ES_SEO_CORRIDOR.md](./ES_SEO_CORRIDOR.md).
+**Expansion 3 wedges (2026-08):** locale + SEO trust — `/es`, origin hubs UY/EC/PE/PY, destinations `/es/spain` + `/es/portugal`, pillars, and `/es/wizard` (UY/EC/PE/PY → ES+PT). Frame stays LATAM → España y Portugal (not a mini EU grid). See [ES_SEO_CORRIDOR.md](./ES_SEO_CORRIDOR.md).
 
 Each new corridor gets:
 

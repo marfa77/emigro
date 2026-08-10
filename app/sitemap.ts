@@ -40,6 +40,8 @@ async function buildWwwSitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${origin}${ES_PATHS.guides}`, changeFrequency: "weekly", priority: 0.9 },
     { url: `${origin}${ES_PATHS.uruguay}`, changeFrequency: "weekly", priority: 0.92 },
     { url: `${origin}${ES_PATHS.ecuador}`, changeFrequency: "weekly", priority: 0.92 },
+    { url: `${origin}${ES_PATHS.peru}`, changeFrequency: "weekly", priority: 0.92 },
+    { url: `${origin}${ES_PATHS.paraguay}`, changeFrequency: "weekly", priority: 0.92 },
     { url: `${origin}${ES_PATHS.spain}`, changeFrequency: "weekly", priority: 0.92 },
     { url: `${origin}${ES_PATHS.portugal}`, changeFrequency: "weekly", priority: 0.9 },
     { url: `${origin}${ES_PATHS.wizard}`, changeFrequency: "monthly", priority: 0.93 },

@@ -7,7 +7,14 @@ import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { GuideOfficialSources } from "@/components/guides/GuideOfficialSources";
 import { Disclaimer } from "@/components/Disclaimer";
 import { HeroShell } from "@/components/visuals/HeroShell";
-import { ES_EC_SPAIN_CORRIDOR, ES_PATHS, ES_UY_SPAIN_CORRIDOR, esGuidePath } from "@/lib/es/corridor";
+import {
+  ES_EC_SPAIN_CORRIDOR,
+  ES_PATHS,
+  ES_PE_SPAIN_CORRIDOR,
+  ES_PY_SPAIN_CORRIDOR,
+  ES_UY_SPAIN_CORRIDOR,
+  esGuidePath,
+} from "@/lib/es/corridor";
 import { getRelatedGuides, listGuides, loadGuide } from "@/lib/guides/load";
 import { stripInlineMarkdown } from "@/lib/markdown/inline";
 import { buildGuideArticleMetadata, pageUrl } from "@/lib/seo";
@@ -18,31 +25,35 @@ import { heroTitle } from "@/lib/ui/mobile";
 
 export const revalidate = 3600;
 
-function originIsoForGuide(corridorSlugs?: string[]): "UY" | "EC" | undefined {
-  const hasEc = corridorSlugs?.includes(ES_EC_SPAIN_CORRIDOR.slug);
-  const hasUy = corridorSlugs?.includes(ES_UY_SPAIN_CORRIDOR.slug);
-  if (hasEc && hasUy) return undefined;
-  if (hasEc) return "EC";
-  if (hasUy) return "UY";
-  return undefined;
+function originIsoForGuide(corridorSlugs?: string[]): "UY" | "EC" | "PE" | "PY" | undefined {
+  const matches = [
+    corridorSlugs?.includes(ES_EC_SPAIN_CORRIDOR.slug) ? ("EC" as const) : null,
+    corridorSlugs?.includes(ES_UY_SPAIN_CORRIDOR.slug) ? ("UY" as const) : null,
+    corridorSlugs?.includes(ES_PE_SPAIN_CORRIDOR.slug) ? ("PE" as const) : null,
+    corridorSlugs?.includes(ES_PY_SPAIN_CORRIDOR.slug) ? ("PY" as const) : null,
+  ].filter(Boolean) as Array<"UY" | "EC" | "PE" | "PY">;
+  return matches.length === 1 ? matches[0] : undefined;
 }
 
 function corridorBadge(corridorSlugs?: string[]): string {
-  if (corridorSlugs?.includes(ES_EC_SPAIN_CORRIDOR.slug) && corridorSlugs?.includes(ES_UY_SPAIN_CORRIDOR.slug)) {
-    return `${ES_UY_SPAIN_CORRIDOR.title} · ${ES_EC_SPAIN_CORRIDOR.title}`;
-  }
-  if (corridorSlugs?.includes(ES_EC_SPAIN_CORRIDOR.slug)) return ES_EC_SPAIN_CORRIDOR.title;
-  if (corridorSlugs?.includes(ES_UY_SPAIN_CORRIDOR.slug)) return ES_UY_SPAIN_CORRIDOR.title;
+  const titles: string[] = [];
+  if (corridorSlugs?.includes(ES_UY_SPAIN_CORRIDOR.slug)) titles.push(ES_UY_SPAIN_CORRIDOR.title);
+  if (corridorSlugs?.includes(ES_EC_SPAIN_CORRIDOR.slug)) titles.push(ES_EC_SPAIN_CORRIDOR.title);
+  if (corridorSlugs?.includes(ES_PE_SPAIN_CORRIDOR.slug)) titles.push(ES_PE_SPAIN_CORRIDOR.title);
+  if (corridorSlugs?.includes(ES_PY_SPAIN_CORRIDOR.slug)) titles.push(ES_PY_SPAIN_CORRIDOR.title);
+  if (titles.length === 0) return "LATAM → España";
+  if (titles.length === 1) return titles[0];
   return "LATAM → España";
 }
 
 function hubCtaForGuide(corridorSlugs?: string[]): string {
-  if (corridorSlugs?.includes(ES_EC_SPAIN_CORRIDOR.slug) && !corridorSlugs?.includes(ES_UY_SPAIN_CORRIDOR.slug)) {
-    return ES_PATHS.ecuador;
-  }
-  if (corridorSlugs?.includes(ES_UY_SPAIN_CORRIDOR.slug) && !corridorSlugs?.includes(ES_EC_SPAIN_CORRIDOR.slug)) {
-    return ES_PATHS.uruguay;
-  }
+  const slugs = corridorSlugs ?? [];
+  const only = (slug: string) => slugs.includes(slug) && slugs.filter((s) => s.startsWith("es-speaking-") && s !== "es-speaking-latam-to-europe").length === 1;
+
+  if (only(ES_PE_SPAIN_CORRIDOR.slug)) return ES_PATHS.peru;
+  if (only(ES_PY_SPAIN_CORRIDOR.slug)) return ES_PATHS.paraguay;
+  if (only(ES_EC_SPAIN_CORRIDOR.slug)) return ES_PATHS.ecuador;
+  if (only(ES_UY_SPAIN_CORRIDOR.slug)) return ES_PATHS.uruguay;
   return ES_PATHS.spain;
 }
 

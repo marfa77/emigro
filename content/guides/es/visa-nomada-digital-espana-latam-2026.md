@@ -2,12 +2,12 @@
 slug: visa-nomada-digital-espana-latam-2026
 title: "Visa nómada digital España 2026 para LATAM"
 seo_title: "Nómada digital España 2026 — LATAM"
-seo_description: "Teletrabajo / nómada digital en España 2026 para pasaportes LATAM (UY, EC y más): umbral ~€2 849/mes, documentos, consulado y límite de clientes españoles."
+seo_description: "Teletrabajo / nómada digital en España 2026 para pasaportes LATAM (UY, EC, PE, PY y más): umbral ~€2 849/mes, documentos, consulado y límite de clientes españoles."
 excerpt: "Pillar canónico del visado de teletrabajo (Ley de Startups) para hispanohablantes LATAM: umbrales 2026, requisitos y pasos."
-quick_answer: "La vía de nómada digital (teletrabajo internacional) encaja si trabaja en remoto para empleador o clientes fuera de España, con ingresos del titular en torno a €2 849/mes en 2026 (200% del equivalente mensual del SMI) y normalmente ≤20% de ingresos de clientes españoles. Uruguayos y ecuatorianos (y otros LATAM) presentan en el consulado español competente — confirme el canal oficial."
-corridor_slugs: [es-speaking-uruguay-to-spain, es-speaking-ecuador-to-spain, es-speaking-latam-to-europe]
-topic_keys: [spain, uruguay, ecuador, work, visa, digital-nomad]
-tags: [España, LATAM, Uruguay, Ecuador, nómada digital, teletrabajo, 2026]
+quick_answer: "La vía de nómada digital (teletrabajo internacional) encaja si trabaja en remoto para empleador o clientes fuera de España, con ingresos del titular en torno a €2 849/mes en 2026 (200% del equivalente mensual del SMI) y normalmente ≤20% de ingresos de clientes españoles. Uruguayos, ecuatorianos, peruanos y paraguayos (y otros LATAM) presentan en el consulado español competente — confirme el canal oficial."
+corridor_slugs: [es-speaking-uruguay-to-spain, es-speaking-ecuador-to-spain, es-speaking-peru-to-spain, es-speaking-paraguay-to-spain, es-speaking-latam-to-europe]
+topic_keys: [spain, uruguay, ecuador, peru, paraguay, work, visa, digital-nomad]
+tags: [España, LATAM, Uruguay, Ecuador, Perú, Paraguay, nómada digital, teletrabajo, 2026]
 primary_intent: how-to
 cta_primary: /es/spain
 cta_secondary: /es/guides/primeros-30-dias-en-espana-2026
@@ -31,8 +31,8 @@ España reguló el **teletrabajo internacional** (a menudo llamado *digital noma
 
 Este es el **pillar canónico** Emigro para LATAM. No mantenemos guías DN separadas por cada pasaporte: los umbrales españoles son los mismos; lo que cambia es el consulado y el régimen de estancia corta.
 
-Hubs de origen: [Uruguay](/es/uruguay) · [Ecuador](/es/ecuador) · destino [España](/es/spain).  
-Overview por pasaporte: [Residencia desde Uruguay](/es/guides/residencia-espana-desde-uruguay-2026) · [Residencia desde Ecuador](/es/guides/residencia-espana-desde-ecuador-2026).
+Hubs de origen: [Uruguay](/es/uruguay) · [Ecuador](/es/ecuador) · [Perú](/es/peru) · [Paraguay](/es/paraguay) · destino [España](/es/spain).  
+Overview por pasaporte: [Residencia desde Uruguay](/es/guides/residencia-espana-desde-uruguay-2026) · [Residencia desde Ecuador](/es/guides/residencia-espana-desde-ecuador-2026) · [Residencia desde Perú](/es/guides/residencia-espana-desde-peru-2026) · [Residencia desde Paraguay](/es/guides/residencia-espana-desde-paraguay-2026).
 
 ---
 
