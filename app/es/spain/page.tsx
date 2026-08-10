@@ -13,7 +13,7 @@ export const revalidate = 3600;
 export const metadata: Metadata = pageMetadata({
   title: "España para hispanohablantes LATAM 2026",
   description:
-    "España como destino de residencia para LATAM: nómada digital, no lucrativa, trabajo y llegada. Corredores UY/EC/PE/PY → España.",
+    "España como destino de residencia para LATAM: nómada digital, no lucrativa, trabajo, llegada y nacionalidad a 2 años (art. 22) para iberoamericanos.",
   path: ES_PATHS.spain,
   locale: "es",
   esHreflang: { destinationIso: "ES" },
@@ -27,8 +27,13 @@ const ROUTES = [
   },
   {
     title: "Residencia — overview por origen",
-    body: "Elija su pasaporte: Uruguay o Ecuador. Mismas rutas españolas, distinto consulado y Schengen corto.",
-    href: ES_PATHS.ecuador,
+    body: "Elija su pasaporte: Uruguay, Ecuador, Perú o Paraguay. Mismas rutas españolas; distinto consulado y Schengen corto.",
+    href: ES_PATHS.home,
+  },
+  {
+    title: "Nacionalidad a 2 años (art. 22)",
+    body: "De residencia legal a ciudadanía española para iberoamericanos: CCSE, plazos y errores frecuentes.",
+    href: esGuidePath("nacionalidad-espanola-latam-2026"),
   },
   {
     title: "Primeros 30 días",
@@ -99,6 +104,31 @@ export default function EsSpainHubPage() {
             Hub Portugal
           </Link>
         </div>
+
+        <section className="mt-10 rounded-2xl border border-amber-200 bg-amber-50/80 p-5">
+          <h2 className="text-xl font-semibold text-slate-950">
+            Nacionalidad a 2 años (iberoamericanos)
+          </h2>
+          <p className="mt-3 text-sm text-slate-700">
+            El <strong>Código Civil (art. 22)</strong> permite solicitar la nacionalidad española
+            tras <strong>2 años</strong> de residencia <strong>legal y continua</strong> a
+            nacionales de origen de países iberoamericanos (UY, EC, PE, PY y otros), frente a los{" "}
+            <strong>10 años</strong> de la regla general. No es automática: hacen falta buena
+            conducta e integración (típicamente <strong>CCSE</strong>; el <strong>DELE A2</strong>{" "}
+            suele no exigirse si el español es lengua oficial de su país). Los días de turista{" "}
+            <strong>no</strong> cuentan. Guía completa:{" "}
+            <Link
+              href={esGuidePath("nacionalidad-espanola-latam-2026")}
+              className="font-medium text-corridor-700 hover:underline"
+            >
+              Nacionalidad española LATAM
+            </Link>
+            .
+          </p>
+          <p className="mt-3 text-xs text-slate-600">
+            Fuentes: Ministerio de Justicia · Código Civil. No es asesoría jurídica.
+          </p>
+        </section>
 
         <section className="mt-10 space-y-4">
           <h2 className="text-xl font-semibold text-slate-950">Pilares y rutas</h2>

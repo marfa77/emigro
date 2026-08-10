@@ -101,6 +101,8 @@ Lleve: pasaporte, NIE (si ya lo tiene), padrón, contrato de alquiler, justifica
 - Usar dirección falsa (riesgo grave)
 - Ignorar vencimientos del visado de entrada antes de tener TIE
 
+La TIE y el padrón son la base práctica para que el tiempo en España cuente como **residencia legal** — relevante si más adelante solicita nacionalidad (muchos iberoamericanos: **~2 años**, art. 22 CC).
+
 ---
 
 ## FAQ
@@ -109,10 +111,13 @@ Lleve: pasaporte, NIE (si ya lo tiene), padrón, contrato de alquiler, justifica
 Depende del estado de su autorización y documentos de viaje. No asuma libertad total hasta entender su estatus; pregunte en extranjería o a un profesional.
 
 **¿Sirve este checklist si soy argentino/mexicano/ecuatoriano?**  
-Sí en lo esencial (padrón, NIE/TIE, banco). Emigro tiene hubs profundos para [Uruguay](/es/uruguay) y [Ecuador](/es/ecuador); la llegada a España es compartida.
+Sí en lo esencial (padrón, NIE/TIE, banco). Emigro tiene hubs profundos para [Uruguay](/es/uruguay), [Ecuador](/es/ecuador), [Perú](/es/peru) y [Paraguay](/es/paraguay); la llegada a España es compartida.
 
 **¿Cuánto tarda la TIE?**  
 Semanas a meses según provincia y carga de citas. Empiece ya en la semana 1–2.
+
+**¿El padrón cuenta para la nacionalidad?**  
+El padrón ayuda en la vida práctica; el cómputo de nacionalidad se basa en **residencia legal** (autorización / TIE) continua. Detalle: [Nacionalidad española LATAM](/es/guides/nacionalidad-espanola-latam-2026) y [hub España](/es/spain).
 
 ---
 
@@ -123,3 +128,4 @@ Semanas a meses según provincia y carga de citas. Empiece ya en la semana 1–2
 - SIM + banco
 - Seguro vigente
 - PDF de todo
+- Base para horizonte de nacionalidad ES (si aplica): residencia legal continua

@@ -75,6 +75,7 @@ export default function EsEcuadorHubPage() {
             <li>• Rutas 2026 para pasaporte EC</li>
             <li>• Nómada digital (teletrabajo)</li>
             <li>• Primeros 30 días (NIE, padrón, TIE)</li>
+            <li>• Horizonte de nacionalidad española (~2 años, art. 22 CC)</li>
           </ul>
           <div className="mt-5 flex flex-wrap gap-4 text-sm font-medium">
             <Link href={ES_PATHS.wizard} className="inline-flex items-center gap-2 text-corridor-700 hover:underline">

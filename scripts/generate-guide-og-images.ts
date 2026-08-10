@@ -32,6 +32,7 @@ const ES_PILLAR_OG_SLUGS = [
   "residencia-espana-desde-peru-2026",
   "residencia-espana-desde-paraguay-2026",
   "visa-nomada-digital-espana-latam-2026",
+  "nacionalidad-espanola-latam-2026",
   "primeros-30-dias-en-espana-2026",
 ];
 

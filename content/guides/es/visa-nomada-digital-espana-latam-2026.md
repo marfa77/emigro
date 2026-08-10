@@ -111,6 +111,8 @@ Lista exacta: página del **consulado español** competente para su país y domi
 4. Viaje con visado nacional
 5. En España: [primeros 30 días](/es/guides/primeros-30-dias-en-espana-2026) (NIE, padrón, TIE)
 
+Horizonte (España): con residencia **legal** continua, muchos pasaportes LATAM pueden **solicitar** nacionalidad española tras **~2 años** (Código Civil art. 22). El visado de nómada digital no concede nacionalidad por sí solo — [pilar nacionalidad LATAM](/es/guides/nacionalidad-espanola-latam-2026) y pilares de origen (UY/EC/PE/PY).
+
 ---
 
 ## FAQ
@@ -127,6 +129,9 @@ Sí, con incrementos de medios económicos.
 **¿Beckham / IRNR?**  
 Régimen fiscal aparte del visado. Consulte asesor colegiado.
 
+**¿La nómada digital cuenta para los 2 años de nacionalidad?**  
+Sí, **si** mantiene residencia legal continua con la autorización correspondiente. Los días de turista no cuentan. Confirme el cómputo en Justicia.
+
 **¿Y México / Colombia / Argentina?**  
 Misma lógica de umbrales; hubs de origen llegarán después. Mientras tanto use este pillar + hub [España](/es/spain).
 
@@ -139,3 +144,4 @@ Misma lógica de umbrales; hubs de origen llegarán después. Mientras tanto use
 - ≤~20% ingresos de clientes españoles
 - Apostilla + seguro + cita en su consulado
 - Tras llegada: NIE / padrón / TIE
+- Si mira nacionalidad ES: ~2 años de residencia legal (art. 22), no automática

@@ -145,6 +145,40 @@ export default async function AdminStatsPage() {
                   delta={deltaLine(report.today.wizardStarted, report.yesterday.wizardStarted)}
                 />
                 <MetricRow
+                  label="🇪🇸 ES wizard started"
+                  value={report.localeSplit.today.es.wizardStarted}
+                  delta={deltaLine(
+                    report.localeSplit.today.es.wizardStarted,
+                    report.localeSplit.yesterday.es.wizardStarted
+                  )}
+                  hint={`(всего ${report.localeSplit.total.es.wizardStarted})`}
+                />
+                <MetricRow
+                  label="🇷🇺 RU wizard started"
+                  value={report.localeSplit.today.ru.wizardStarted}
+                  delta={deltaLine(
+                    report.localeSplit.today.ru.wizardStarted,
+                    report.localeSplit.yesterday.ru.wizardStarted
+                  )}
+                  hint={`(всего ${report.localeSplit.total.ru.wizardStarted})`}
+                />
+                <MetricRow
+                  label="🇪🇸 ES page views"
+                  value={report.localeSplit.today.es.pageViews}
+                  delta={deltaLine(
+                    report.localeSplit.today.es.pageViews,
+                    report.localeSplit.yesterday.es.pageViews
+                  )}
+                />
+                <MetricRow
+                  label="🇷🇺 RU page views"
+                  value={report.localeSplit.today.ru.pageViews}
+                  delta={deltaLine(
+                    report.localeSplit.today.ru.pageViews,
+                    report.localeSplit.yesterday.ru.pageViews
+                  )}
+                />
+                <MetricRow
                   label="Просмотры результатов"
                   value={report.wizardTelegram.resultsViewsToday}
                   delta={deltaLine(

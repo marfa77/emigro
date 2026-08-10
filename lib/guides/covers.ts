@@ -152,6 +152,7 @@ export const GUIDE_COVER_BY_SLUG: Record<string, string> = {
   "residencia-espana-desde-peru-2026": "/images/corridor-spain.webp",
   "residencia-espana-desde-paraguay-2026": "/images/corridor-spain.webp",
   "visa-nomada-digital-espana-latam-2026": "/images/emigro-guide-passive-income.webp",
+  "nacionalidad-espanola-latam-2026": "/images/corridor-spain.webp",
   "primeros-30-dias-en-espana-2026": "/images/corridor-spain.webp",
 };
 

@@ -49,6 +49,40 @@ function conversionPct(part: number, whole: number): string {
   return `${Math.round((part / whole) * 100)}%`;
 }
 
+function fmtLocaleBucket(
+  label: string,
+  today: StatsReport["localeSplit"]["today"]["es"],
+  yesterday: StatsReport["localeSplit"]["yesterday"]["es"],
+  total: StatsReport["localeSplit"]["total"]["es"]
+): string[] {
+  return [
+    `<b>${label}</b>`,
+    `  PV сегодня: <b>${today.pageViews}</b>${deltaHtml(today.pageViews, yesterday.pageViews)} <i>(всего ${total.pageViews})</i>`,
+    `  Wizard started: <b>${today.wizardStarted}</b>${deltaHtml(today.wizardStarted, yesterday.wizardStarted)} <i>(всего ${total.wizardStarted})</i>`,
+    `  Wizard done: <b>${today.wizardCompleted}</b>${deltaHtml(today.wizardCompleted, yesterday.wizardCompleted)} <i>(всего ${total.wizardCompleted})</i>`,
+    `  Results view: <b>${today.resultsViews}</b>${deltaHtml(today.resultsViews, yesterday.resultsViews)} <i>(всего ${total.resultsViews})</i>`,
+  ];
+}
+
+function fmtLocaleSplit(report: StatsReport): string[] {
+  const { today, yesterday, total } = report.localeSplit;
+  const lines = [
+    "<b>RU vs ES (LATAM)</b>",
+    "<i>ES = /es/* или locale=es / hub-es-latam</i>",
+    ...fmtLocaleBucket("🇷🇺 RU", today.ru, yesterday.ru, total.ru),
+    ...fmtLocaleBucket("🇪🇸 ES / LATAM", today.es, yesterday.es, total.es),
+  ];
+  const otherToday =
+    today.other.pageViews +
+    today.other.wizardStarted +
+    today.other.wizardCompleted +
+    today.other.resultsViews;
+  if (otherToday > 0 || total.other.pageViews > 0) {
+    lines.push(...fmtLocaleBucket("Other", today.other, yesterday.other, total.other));
+  }
+  return lines;
+}
+
 export function formatStatsReportTelegram(report: StatsReport): string {
   const { total, today, yesterday, wizardTelegram: tg } = report;
 
@@ -80,6 +114,8 @@ export function formatStatsReportTelegram(report: StatsReport): string {
     `Лиды: <b>${today.leads}</b>${deltaHtml(today.leads, yesterday.leads)}`,
     `LLM-трафик: <b>${report.llmToday}</b>${deltaHtml(report.llmToday, report.llmYesterday)} <i>(всего ${report.llmTotal})</i>`,
     `Боты (исключены): <b>${report.botsToday}</b>${deltaHtml(report.botsToday, report.botsYesterday)} <i>(всего ${report.botsTotal})</i>`,
+    "",
+    ...fmtLocaleSplit(report),
     "",
     "<b>Динамика 7 дней</b> (посетители / просмотры)",
   ];

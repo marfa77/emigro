@@ -60,6 +60,15 @@ export default function EsPortugalHubPage() {
           profundos en español llegan después; hoy puede evaluar D8/D7/estudios/familia junto a
           España en el mismo wizard.
         </p>
+        <p className="mt-3 text-sm text-slate-600">
+          Nota: la <strong>nacionalidad portuguesa</strong> tiene plazos y requisitos propios —
+          no confunda con el plazo de <strong>2 años</strong> del art. 22 del Código Civil español
+          para iberoamericanos. Si su horizonte es el pasaporte ES, priorice el{" "}
+          <Link href={ES_PATHS.spain} className="font-medium text-corridor-700 hover:underline">
+            hub España
+          </Link>
+          .
+        </p>
 
         <div className="mt-8">
           <Link

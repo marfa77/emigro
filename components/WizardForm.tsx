@@ -331,6 +331,7 @@ export function WizardForm({
         corridor_slug: scope,
         session_id: sessionData.id,
         programs_evaluated: String(evalData.results?.length ?? 0),
+        locale,
       });
 
       try {

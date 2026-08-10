@@ -22,12 +22,15 @@ function collectLinkMeta(anchor: HTMLAnchorElement) {
     interest = null;
   }
 
+  const path = typeof window !== "undefined" ? window.location.pathname : "";
+  const locale = path === "/es" || path.startsWith("/es/") ? "es" : "ru";
+
   return {
     target_path: href,
     link_text: (anchor.textContent ?? "").replace(/\s+/g, " ").trim().slice(0, 120),
     page_path: typeof window !== "undefined" ? window.location.pathname + window.location.search : "",
     referer: typeof document !== "undefined" ? document.referrer : "",
-    locale: "ru",
+    locale,
     ...(interest ? { interest_countries: interest } : {}),
   };
 }
@@ -74,7 +77,7 @@ export function WizardFunnelTracker() {
       session_id: sessionId,
       page_path: pathname + (searchParams.toString() ? `?${searchParams.toString()}` : ""),
       referer: typeof document !== "undefined" ? document.referrer : "",
-      locale: "ru",
+      locale: pathname === "/es" || pathname.startsWith("/es/") ? "es" : "ru",
     });
   }, [pathname, searchParams]);
 

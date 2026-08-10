@@ -29,6 +29,29 @@ export interface WizardTelegramStats {
   resultsViewsYesterday: number;
 }
 
+/** RU vs ES (/es LATAM) funnel slice for /stats. */
+export type LocaleBucket = "es" | "ru" | "other";
+
+export interface LocaleFunnelCounts {
+  pageViews: number;
+  /** Distinct sessions with wizard_started */
+  wizardStarted: number;
+  wizardCompleted: number;
+  resultsViews: number;
+}
+
+export interface LocaleSplitPeriod {
+  es: LocaleFunnelCounts;
+  ru: LocaleFunnelCounts;
+  other: LocaleFunnelCounts;
+}
+
+export interface LocaleSplit {
+  today: LocaleSplitPeriod;
+  yesterday: LocaleSplitPeriod;
+  total: LocaleSplitPeriod;
+}
+
 export interface StatsReport {
   timezone: string;
   todayLabel: string;
@@ -78,10 +101,87 @@ export interface StatsReport {
     channel: TrafficChannel;
   }>;
   wizardTelegram: WizardTelegramStats;
+  localeSplit: LocaleSplit;
 }
 
 function analyticsTimezone(): string {
   return process.env.EMIGRO_ANALYTICS_TIMEZONE?.trim() || "Europe/Lisbon";
+}
+
+function emptyLocaleFunnel(): LocaleFunnelCounts {
+  return { pageViews: 0, wizardStarted: 0, wizardCompleted: 0, resultsViews: 0 };
+}
+
+function emptyLocaleSplitPeriod(): LocaleSplitPeriod {
+  return { es: emptyLocaleFunnel(), ru: emptyLocaleFunnel(), other: emptyLocaleFunnel() };
+}
+
+/** Classify site_events row as ES (LATAM /es) vs RU product surface. */
+export function classifyEventLocale(
+  pagePath: string | null | undefined,
+  properties: Record<string, unknown> | null | undefined
+): LocaleBucket {
+  const locale = String(properties?.locale ?? "").toLowerCase();
+  if (locale === "es" || locale.startsWith("es-")) return "es";
+  if (locale === "ru" || locale.startsWith("ru-")) return "ru";
+
+  const corridor = String(properties?.corridor_slug ?? properties?.analytics_scope ?? "").toLowerCase();
+  if (corridor.includes("hub-es") || corridor.startsWith("es-speaking") || corridor === "hub-es-latam") {
+    return "es";
+  }
+
+  const path = (pagePath || "").split("?")[0];
+  if (path === "/es" || path.startsWith("/es/")) return "es";
+  if (path === "/ru" || path.startsWith("/ru/") || path.startsWith("/satellite/")) return "ru";
+  return "other";
+}
+
+async function localeFunnelCounts(
+  supabase: ReturnType<typeof createAdminClient>,
+  start: string | null,
+  end: string | null
+): Promise<LocaleSplitPeriod> {
+  const out = emptyLocaleSplitPeriod();
+  const startedSessions: Record<LocaleBucket, Set<string>> = {
+    es: new Set(),
+    ru: new Set(),
+    other: new Set(),
+  };
+
+  let q = supabase
+    .from("site_events")
+    .select("session_id, event_name, page_path, properties")
+    .in("event_name", ["page_view", "wizard_started", "wizard_completed", "wizard_results_view"]);
+  if (start) q = q.gte("created_at", start);
+  if (end) q = q.lt("created_at", end);
+
+  const { data, error } = await q.limit(25000);
+  if (error) throw new Error(error.message);
+
+  for (const row of data ?? []) {
+    const bucket = classifyEventLocale(
+      row.page_path,
+      (row.properties ?? null) as Record<string, unknown> | null
+    );
+    const funnel = out[bucket];
+    const name = row.event_name;
+
+    if (name === "page_view") {
+      funnel.pageViews += 1;
+    } else if (name === "wizard_started") {
+      const sid = String(row.session_id ?? "").trim();
+      if (sid && !startedSessions[bucket].has(sid)) {
+        startedSessions[bucket].add(sid);
+        funnel.wizardStarted += 1;
+      }
+    } else if (name === "wizard_completed") {
+      funnel.wizardCompleted += 1;
+    } else if (name === "wizard_results_view") {
+      funnel.resultsViews += 1;
+    }
+  }
+
+  return out;
 }
 
 async function dayWindow(
@@ -579,6 +679,12 @@ export async function buildStatsReport(): Promise<StatsReport> {
     buildWizardTelegramStats(supabase, todayWin.start, todayWin.end, yWin.start, yWin.end),
   ]);
 
+  const [localeToday, localeYesterday, localeTotal] = await Promise.all([
+    localeFunnelCounts(supabase, todayWin.start, todayWin.end),
+    localeFunnelCounts(supabase, yWin.start, yWin.end),
+    localeFunnelCounts(supabase, null, null),
+  ]);
+
   const trend = (trendRaw.data ?? []).map(
     (row: { day_label: string; visitors: number; page_views: number }) => ({
       dayLabel: row.day_label,
@@ -625,6 +731,11 @@ export async function buildStatsReport(): Promise<StatsReport> {
     channelMixToday: discoveryToday.channelMix,
     recentSessions,
     wizardTelegram,
+    localeSplit: {
+      today: localeToday,
+      yesterday: localeYesterday,
+      total: localeTotal,
+    },
   };
 }
 

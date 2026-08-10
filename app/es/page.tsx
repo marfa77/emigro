@@ -21,7 +21,7 @@ export const metadata: Metadata = pageMetadata({
   title: "Emigro — LATAM → España y Portugal",
   titleAbsolute: true,
   description:
-    "Residencia para hispanohablantes: Uruguay, Ecuador, Perú y Paraguay → España, con Portugal como segundo destino. Evaluador + pilares oficiales.",
+    "Residencia para hispanohablantes: UY/EC/PE/PY → España y Portugal. Evaluador, pilares y horizonte de nacionalidad española a 2 años (art. 22).",
   path: ES_PATHS.home,
   locale: "es",
   esHreflang: { destinationIso: "ES" },
@@ -154,7 +154,8 @@ export default function EsHubPage() {
               España
             </h2>
             <p className="mt-3 text-slate-600">
-              Nómada digital, no lucrativa, estudios, familia — pilares LATAM.
+              Nómada digital, no lucrativa, estudios, familia — y nacionalidad a 2 años (art. 22)
+              para iberoamericanos.
             </p>
           </Link>
           <Link
@@ -167,9 +168,43 @@ export default function EsHubPage() {
               Portugal
             </h2>
             <p className="mt-3 text-slate-600">
-              D8 / D7 / estudios — compare con España en el mismo evaluador.
+              D8 / D7 / estudios — compare con España en el mismo evaluador. Ciudadanía PT: otras
+              reglas (no es el art. 22 español).
             </p>
           </Link>
+        </section>
+
+        <section className="mt-12 rounded-2xl border border-amber-200 bg-amber-50/80 p-6">
+          <h2 className="text-xl font-bold text-slate-950">Nacionalidad española a 2 años</h2>
+          <p className="mt-2 text-slate-700">
+            Si su plan es España, los pasaportes iberoamericanos (UY, EC, PE, PY, …) suelen poder{" "}
+            <strong>solicitar</strong> nacionalidad tras <strong>2 años</strong> de residencia
+            legal continua (Código Civil art. 22), frente a 10 años de la regla general. No
+            sustituye elegir bien la vía de residencia —{" "}
+            <Link
+              href={esGuidePath("nacionalidad-espanola-latam-2026")}
+              className="font-medium text-corridor-700 hover:underline"
+            >
+              guía completa de nacionalidad
+            </Link>
+            .
+          </p>
+          <div className="mt-4 flex flex-wrap gap-4">
+            <Link
+              href={esGuidePath("nacionalidad-espanola-latam-2026")}
+              className="inline-flex items-center gap-2 text-sm font-medium text-corridor-700 hover:underline"
+            >
+              Leer pilar nacionalidad
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+            <Link
+              href={ES_PATHS.spain}
+              className="inline-flex items-center gap-2 text-sm font-medium text-corridor-700 hover:underline"
+            >
+              Hub España
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
         </section>
 
         <section className="mt-12 rounded-2xl border border-corridor-200 bg-corridor-50/80 p-6">

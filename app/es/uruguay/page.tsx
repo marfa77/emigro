@@ -18,7 +18,7 @@ export const revalidate = 3600;
 export const metadata: Metadata = pageMetadata({
   title: "Uruguay → España: residencia y rutas 2026",
   description:
-    "Hub para uruguayos que quieren vivir en España: estancia corta vs residencia, nómada digital, no lucrativa y checklist de llegada.",
+    "Hub para uruguayos que quieren vivir en España: estancia corta vs residencia, nómada digital, no lucrativa, llegada y nacionalidad a 2 años (art. 22).",
   path: ES_PATHS.uruguay,
   locale: "es",
   esHreflang: { originIso: "UY", destinationIso: "ES" },
@@ -66,6 +66,7 @@ export default function EsUruguayHubPage() {
             <li>• Rutas principales 2026 para ciudadanos UY</li>
             <li>• Visado de nómada digital (teletrabajo)</li>
             <li>• Primeros 30 días en España (NIE, empadronamiento, TIE)</li>
+            <li>• Horizonte de nacionalidad española (~2 años, art. 22 CC)</li>
           </ul>
           <div className="mt-5 flex flex-wrap gap-4 text-sm font-medium">
             <Link

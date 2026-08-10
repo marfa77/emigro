@@ -97,6 +97,7 @@ export const ES_PILLAR_GUIDE_SLUGS = [
   "residencia-espana-desde-peru-2026",
   "residencia-espana-desde-paraguay-2026",
   "visa-nomada-digital-espana-latam-2026",
+  "nacionalidad-espanola-latam-2026",
   "primeros-30-dias-en-espana-2026",
 ] as const;
 
@@ -106,24 +107,28 @@ export const ES_SEED_GUIDE_SLUGS = ES_PILLAR_GUIDE_SLUGS;
 export const ES_UY_GUIDE_SLUGS = [
   "residencia-espana-desde-uruguay-2026",
   "visa-nomada-digital-espana-latam-2026",
+  "nacionalidad-espanola-latam-2026",
   "primeros-30-dias-en-espana-2026",
 ] as const;
 
 export const ES_EC_GUIDE_SLUGS = [
   "residencia-espana-desde-ecuador-2026",
   "visa-nomada-digital-espana-latam-2026",
+  "nacionalidad-espanola-latam-2026",
   "primeros-30-dias-en-espana-2026",
 ] as const;
 
 export const ES_PE_GUIDE_SLUGS = [
   "residencia-espana-desde-peru-2026",
   "visa-nomada-digital-espana-latam-2026",
+  "nacionalidad-espanola-latam-2026",
   "primeros-30-dias-en-espana-2026",
 ] as const;
 
 export const ES_PY_GUIDE_SLUGS = [
   "residencia-espana-desde-paraguay-2026",
   "visa-nomada-digital-espana-latam-2026",
+  "nacionalidad-espanola-latam-2026",
   "primeros-30-dias-en-espana-2026",
 ] as const;
 

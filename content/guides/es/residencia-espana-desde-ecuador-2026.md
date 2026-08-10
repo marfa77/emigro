@@ -2,12 +2,12 @@
 slug: residencia-espana-desde-ecuador-2026
 title: "Residencia en España desde Ecuador 2026: rutas para ecuatorianos"
 seo_title: "España desde Ecuador 2026: residencia EC"
-seo_description: "Ecuatorianos en España 2026: visado Schengen vs residencia, nómada digital, no lucrativa, trabajo. Pasos, umbrales y fuentes oficiales."
-excerpt: "Pasaporte ecuatoriano: demanda alta hacia España, pero hay que separar turista/Schengen de residencia real. Rutas 2026 claras."
-quick_answer: "Ciudadanos ecuatorianos suelen necesitar visado Schengen para estancias cortas y, para vivir/trabajar, una vía de residencia: nómada digital (~€2 849+/mes en 2026), no lucrativa, trabajo por cuenta ajena, estudios o reagrupación. Tramite en el consulado español competente en Ecuador (p. ej. Quito/Guayaquil según domicilio) y prepare apostillas."
+seo_description: "Ecuatorianos en España 2026: visado Schengen vs residencia, nómada digital, no lucrativa, trabajo y nacionalidad a 2 años (art. 22)."
+excerpt: "Pasaporte ecuatoriano: demanda alta hacia España, pero hay que separar turista/Schengen de residencia real. Rutas 2026 + horizonte de nacionalidad."
+quick_answer: "Ciudadanos ecuatorianos suelen necesitar visado Schengen para estancias cortas y, para vivir/trabajar, una vía de residencia: nómada digital (~€2 849+/mes en 2026), no lucrativa, trabajo por cuenta ajena, estudios o reagrupación. Como iberoamericanos, tras ~2 años de residencia legal continua pueden solicitar nacionalidad española (art. 22 CC) — no automática. Tramite en el consulado español competente en Ecuador."
 corridor_slugs: [es-speaking-ecuador-to-spain]
 topic_keys: [spain, ecuador, visa, residence]
-tags: [España, Ecuador, residencia, nómada digital, no lucrativa, 2026, ec]
+tags: [España, Ecuador, residencia, nómada digital, no lucrativa, nacionalidad, 2026, ec]
 primary_intent: informational
 cta_primary: /es/ecuador
 cta_secondary: /es/spain
@@ -18,9 +18,11 @@ official_sources:
     label: Secretaría de Estado de Migraciones — extranjería
   - url: https://www.boe.es/eli/es/rd/2026/02/18/126/con
     label: BOE — SMI 2026 (Real Decreto 126/2026)
+  - url: https://www.mjusticia.gob.es/
+    label: Ministerio de Justicia — nacionalidad
   - url: https://www.cancilleria.gob.ec/
     label: Cancillería del Ecuador
-estimated_minutes: 14
+estimated_minutes: 16
 date_published: 2026-08-10
 date_modified: 2026-08-10
 ---
@@ -93,9 +95,34 @@ Traducciones juradas al español cuando se exijan. Lista exacta = página del co
 
 ---
 
+## Nacionalidad española: plazo de 2 años (iberoamericanos)
+
+Para muchos ecuatorianos la residencia es un paso hacia el pasaporte español. El **Código Civil (art. 22)** reduce el plazo general de **10 años** a **2 años** de residencia **legal, continuada e inmediatamente anterior** a la solicitud para nacionales de origen de países **iberoamericanos** (Ecuador incluido), Andorra, Filipinas, Guinea Ecuatorial, Portugal o sefardíes.
+
+| Concepto | Qué significa en la práctica |
+|----------|------------------------------|
+| **2 años** | Sobre **residencia legal** (TIE / autorización), no sobre días de turista o Schengen corto |
+| **No es automático** | Cumplir el plazo ≠ concesión: buena conducta cívica + integración suficiente |
+| **CCSE** | Examen de conocimientos constitucionales y socioculturales (Instituto Cervantes), salvo exenciones |
+| **DELE A2** | Suele **no** exigirse a nacionales de países donde el español es lengua oficial (EC); confirme la lista vigente |
+| **Otras vías** | 1 año en supuestos concretos (p. ej. cónyuge de español/a); **Ley de Memoria Democrática** es un camino distinto (descendientes) |
+
+Relación con las rutas de esta guía:
+
+| Ruta de residencia | Encaje hacia nacionalidad (orientativo) |
+|--------------------|-----------------------------------------|
+| Nómada digital / teletrabajo | Sí, si mantiene residencia legal continua |
+| No lucrativa | Sí, misma lógica de residencia legal |
+| Cuenta ajena / estudios / reagrupación | Sí, según autorización y continuidad |
+
+*No es asesoría jurídica.* Detalle: [Nacionalidad española LATAM](/es/guides/nacionalidad-espanola-latam-2026). Fuentes: [Código Civil — nacionalidad](https://www.boe.es/biblioteca_juridica/codigos/codigo.php?id=42&modo=2&nota=0) · [Ministerio de Justicia](https://www.mjusticia.gob.es/).
+
+---
+
 ## Errores frecuentes
 
 - Entrar «a probar» sin vía de residencia
+- Contar el plazo de **nacionalidad** desde el primer viaje (el turista/Schengen corto **no** cuenta)
 - Subestimar citas y apostillas en Ecuador
 - Copiar umbrales de blogs MX/CO sin verificar SMI/IPREM 2026
 - Ignorar el tope de clientes españoles en nómada digital
@@ -110,11 +137,17 @@ En la mayoría de escenarios recientes, sí — confirme en exteriores/consulado
 **¿Puedo cambiar de turista a residencia dentro de España?**  
 A veces existen vías in-country; no es el plan por defecto. Pregunte al consulado según su perfil.
 
+**¿Tras 2 años ya soy español?**  
+No. Tras ~2 años de residencia **legal** continua puede **solicitar** nacionalidad (art. 22); resolución y juramento son pasos aparte.
+
+**¿Necesito DELE para nacionalidad?**  
+Los ecuatorianos suelen estar **exentos del DELE A2**, pero **sí** suelen necesitar el **CCSE** (salvo exenciones). Confirme en Justicia / Cervantes.
+
 **¿Hay comunidad ecuatoriana?**  
 Sí, amplia. Eso ayuda en red práctica, no sustituye papeles.
 
 **¿Y Portugal?**  
-Llegará en la expansión LATAM → PT. Hoy el destino deep es España.
+Segundo destino del marco Emigro ES (evaluador). La nacionalidad portuguesa sigue **otras** reglas y plazos — no confunda con el art. 22 español.
 
 ---
 
@@ -124,3 +157,4 @@ Llegará en la expansión LATAM → PT. Hoy el destino deep es España.
 - Elija vía y umbral 2026
 - Apostilla + seguro + cita
 - Tras llegar: NIE / padrón / TIE
+- Horizonte: **2 años** de residencia legal → posible solicitud de nacionalidad (art. 22), no automática

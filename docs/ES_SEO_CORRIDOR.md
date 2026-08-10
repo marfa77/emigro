@@ -44,9 +44,19 @@ Engine: reuses `ru-speaking-to-spain` / `ru-speaking-to-portugal` with `hub_audi
 | `residencia-espana-desde-peru-2026` | Origin pillar PE |
 | `residencia-espana-desde-paraguay-2026` | Origin pillar PY |
 | `visa-nomada-digital-espana-latam-2026` | Shared DN pillar |
+| `nacionalidad-espanola-latam-2026` | Shared nationality pillar (art. 22 / 2 años) |
 | `primeros-30-dias-en-espana-2026` | Settle checklist |
 
-Later: Colombia pillars (user drafts); España vs Portugal LATAM; Portugal D8/D7.
+Later: Colombia pillars (user drafts); España vs Portugal LATAM; Portugal D8/D7; no lucrativa / Beckham.
+
+## Nationality note (2026)
+
+Ibero-American passports (UY/EC/PE/PY, …): Código Civil **art. 22** — request Spanish nationality after **~2 years** of legal continuous residence (vs 10 years general).
+
+- Surfaced on origin pillars + `/es` + `/es/spain`
+- Canonical pillar: [`nacionalidad-espanola-latam-2026`](../content/guides/es/nacionalidad-espanola-latam-2026.md)
+- Portugal hub clarifies PT citizenship ≠ art. 22
+- Fact-check notes: student stay = **0%** for nationality (50% is long-term EU residence only); DELE exemption = Spanish-official-language list (not PT/PH/BR)
 
 ## Images
 
