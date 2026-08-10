@@ -2,9 +2,9 @@
 slug: belorusy-v-evropu-vnj-2026
 title: "Белорусы в Европе 2026: ВНЖ без временной защиты — маршруты и консульства"
 seo_title: "Белорусы ВНЖ Европа 2026 — без TP, Польша первым шагом"
-seo_description: "BY без temporary protection: work permit/Blue Card PL, employee card CZ, D7/D8 PT. Консульства Варшава/Вильнюс — сравните в /ru/wizard."
+seo_description: "Белорусы ВНЖ Европа 2026 без TP: PL Type A PLN 4 806 / Blue Card PLN 13 355, CZ employee card, PT D7/D8. Консульства + /ru/wizard для BY."
 excerpt: "BY-паспорт — отдельная аудитория: нет TP, другая консульская карта, часто Польша как первый EU-шаг. Разбор реалистичных маршрутов ВНЖ в 2026."
-quick_answer: "Гражданам Беларуси temporary protection EU не положена — только классические маршруты ВНЖ (работа, учёба, семья, D7/D8). Консульская практика для BY отличается от РФ: часто подача через Варшаву, Вильнюс, Ригу или «третьи страны». Топ-маршруты 2026: Польша (work permit / Blue Card / B2B IT), Чехия (employee card), Португалия D7/D8, Германия Blue Card. Сравните с passport_iso2=BY в /ru/wizard — отдельно от RU и UA."
+quick_answer: "Гражданам Беларуси temporary protection EU **не положена** — только классические маршруты ВНЖ (работа, учёба, семья, D7/D8). Консульская практика для BY отличается от РФ: часто Варшава, Вильнюс, Рига или «третьи страны». Топ-2026: Польша (Type A от **PLN 4 806**/мес; Blue Card **PLN 13 355,34**/мес; B2B IT) как первый шаг; далее Чехия (employee card), Португалия D7/D8, Германия Blue Card — пороги в таблице и pillar-гайдах ниже. Сравните с `passport_iso2=BY` в [/ru/wizard](/ru/wizard) — отдельно от RU и UA."
 corridor_slugs: [ru-speaking-to-poland, ru-speaking-to-czechia, ru-speaking-to-portugal, ru-speaking-to-germany]
 topic_keys: [poland, czechia, portugal, germany, europe]
 tags: ["Беларусь", "ВНЖ", "Европа", "2026"]
@@ -24,8 +24,10 @@ official_sources:
     label: EU — Temporary protection (UA context)
 estimated_minutes: 16
 date_published: 2026-06-27
-date_modified: 2026-08-07
+date_modified: 2026-08-10
 ---
+
+> **Fact-check Emigro (10.08.2026):** TP EU — только контекст **UA**, не BY ([EC temporary protection](https://home-affairs.ec.europa.eu/policies/migration-and-asylum/common-european-asylum-system/temporary-protection_en)). Пороги PL в таблице: Type A **PLN 4 806**, Blue Card **PLN 13 355,34** (GUS 2025×1,5). Пороги PT/DE — в pillar-гайдах и таблице маршрутов (не смешивать в одной строке). Не путайте с [TP vs ВНЖ](/ru/guides/ukraintsy-belorusy-vremennaya-zashchita-vs-vnj-2026).
 
 ## Прямой ответ
 
@@ -154,23 +156,39 @@ Emigro **не** обещает одинаковый результат для BY
 
 ## FAQ
 
-**Есть ли temporary protection для белорусов?**  
+### Есть ли temporary protection для белорусов?
+
 Нет. TP — режим для граждан **Украины** при определённых условиях. BY — только классические маршруты ВНЖ.
 
-**Чем этот гайд отличается от «украинцы и белорусы TP vs ВНЖ»?**  
+### Чем этот гайд отличается от «украинцы и белорусы TP vs ВНЖ»?
+
 Тот гайд — про **сравнение TP (UA) и ВНЖ**. Этот — **только BY-паспорт**: консульства, PL-маршруты, санкции, wizard.
 
-**Можно ли подать из Беларуси?**  
+### Можно ли подать из Беларуси?
+
 Иногда — на national visa D. Чаще надёжнее: work permit от EU-работодателя + подача в **стране назначения** или консульстве PL/LT.
 
-**BY и RU — одинаковые шансы в wizard?**  
+### BY и RU — одинаковые шансы в wizard?
+
 Логика порогов **похожа**, но статус `partial` для BY в программах означает **проверьте консульство** — не гарантию отказа.
 
-**Польша или Чехия для IT?**  
-PL — больше русскоязычной инфраструктуры и B2B/zlecenie. CZ — employee card + živnost, сильный Prague IT. Сравните в [wizard PL](/ru/poland/wizard) и [wizard CZ](/ru/czechia/wizard).
+### Польша или Чехия для IT?
 
-**Нужен ли адвокат?**  
+PL — больше русскоязычной инфраструктуры и B2B/zlecenie; пороги 2026: Type A **PLN 4 806**, Blue Card **PLN 13 355,34**/мес. CZ — employee card + živnost, сильный Prague IT. Сравните в [wizard PL](/ru/poland/wizard) и [wizard CZ](/ru/czechia/wizard).
+
+### Нужен ли адвокат?
+
 Не обязателен для work permit, но ускоряет voivodeship/MOI paperwork. Emigro Assist: [/ru/assist](/ru/assist).
+
+---
+
+## Коротко для проверки маршрута
+
+- **BY ≠ TP.** Только national visa D / work / учёба / семья / D7/D8.
+- **PL first step:** Type A **PLN 4 806** · Blue Card **PLN 13 355,34**/мес · B2B IT.
+- **CZ / PT / DE** — альтернативы; пороги в таблице выше и в pillar-гайдах.
+- Консульства: Варшава / Вильнюс / Рига / третьи страны — не копируйте RU-юрисдикцию.
+- CTA: [/ru/wizard](/ru/wizard) · [/ru/poland/wizard](/ru/poland/wizard) · [/ru/czechia/wizard](/ru/czechia/wizard).
 
 ---
 
