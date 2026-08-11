@@ -154,6 +154,15 @@ export default async function AdminStatsPage() {
                   hint={`(всего ${report.localeSplit.total.es.wizardStarted})`}
                 />
                 <MetricRow
+                  label="🇫🇷 FR wizard started"
+                  value={report.localeSplit.today.fr.wizardStarted}
+                  delta={deltaLine(
+                    report.localeSplit.today.fr.wizardStarted,
+                    report.localeSplit.yesterday.fr.wizardStarted
+                  )}
+                  hint={`(всего ${report.localeSplit.total.fr.wizardStarted})`}
+                />
+                <MetricRow
                   label="🇷🇺 RU wizard started"
                   value={report.localeSplit.today.ru.wizardStarted}
                   delta={deltaLine(
@@ -168,6 +177,14 @@ export default async function AdminStatsPage() {
                   delta={deltaLine(
                     report.localeSplit.today.es.pageViews,
                     report.localeSplit.yesterday.es.pageViews
+                  )}
+                />
+                <MetricRow
+                  label="🇫🇷 FR page views"
+                  value={report.localeSplit.today.fr.pageViews}
+                  delta={deltaLine(
+                    report.localeSplit.today.fr.pageViews,
+                    report.localeSplit.yesterday.fr.pageViews
                   )}
                 />
                 <MetricRow

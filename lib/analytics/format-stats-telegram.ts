@@ -67,10 +67,11 @@ function fmtLocaleBucket(
 function fmtLocaleSplit(report: StatsReport): string[] {
   const { today, yesterday, total } = report.localeSplit;
   const lines = [
-    "<b>RU vs ES (LATAM)</b>",
-    "<i>ES = /es/* или locale=es / hub-es-latam</i>",
+    "<b>RU / ES / FR</b>",
+    "<i>ES=/es/* · FR=/fr/* · RU=/ru/* (+ satellite)</i>",
     ...fmtLocaleBucket("🇷🇺 RU", today.ru, yesterday.ru, total.ru),
     ...fmtLocaleBucket("🇪🇸 ES / LATAM", today.es, yesterday.es, total.es),
+    ...fmtLocaleBucket("🇫🇷 FR / Afrique", today.fr, yesterday.fr, total.fr),
   ];
   const otherToday =
     today.other.pageViews +

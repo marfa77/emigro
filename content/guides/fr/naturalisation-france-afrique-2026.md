@@ -18,21 +18,23 @@ official_sources:
     label: service-public — niveau de français
 estimated_minutes: 14
 date_published: 2026-08-10
-date_modified: 2026-08-10
+date_modified: 2026-08-11
 ---
 
 ## Nota Emigro (fact-check août 2026)
 
 | Claim | Status | Source / correction |
 |---|---|---|
-| Naturalisation générale ~5 ans | **OK soft** | [service-public — naturalisation](https://www.service-public.fr/particuliers/vosdroits/F2213) / Code civil — **pas** un « 2 ans Maghreb » type art. 22 ES |
-| Visa court séjour MA/DZ/TN/SN | **OK soft** | Visa Schengen C généralement requis — confirmez [France-Visas](https://france-visas.gouv.fr/) |
-| VLS-TS avant départ | **OK soft** | Demande depuis l'étranger via consulat ; changement de statut depuis un court séjour = cas limités — confirmez préfecture / France-Visas |
-| Passeport Talent ~€39.582 (salarié qualifié) | **Soft OK** | Seuil de référence souvent cité ~39 582 € brut/an (arrêté août 2025 ; découplé SMIC) — confirmez catégorie sur [service-public Passeport talent](https://www.service-public.fr/particuliers/vosdroits/F16922) |
-| SMIC 2026 | **Soft OK** | ~1 823 € brut/mois (janv. 2026) puis ~1 867 € (1er juin 2026, info.gouv) — évolutif ; ne pas geler un chiffre dans le corps sans date |
-| Années étudiant « 50 % » naturalisation | **Soft** | Ne pas ancrer une règle unique ; vérifiez résidence effective / service-public |
-| Apostille (La Haye) | **Fixed** | **MA, TN, SN** : parties à la Convention Apostille. **DZ** : entrée en vigueur **9 juillet 2026** ([HCCH](https://www.hcch.net/)). Les passages du draft qui disent « Maroc pas d'apostille / légalisation seule » sont **périmés** — overlay uniquement, corps conservé. Confirmez bilatéral France ↔ pays (objections Art. 12) + consulat |
-| Adresses consulats | **Soft** | Vérifiez la page Ambassade / France Diplomatie avant le rendez-vous |
+| Naturalisation générale ~5 ans | **OK** | [Code civil art. 21-17](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006419648) · [service-public F2213](https://www.service-public.fr/particuliers/vosdroits/F2213) — **pas** un « 2 ans Maghreb » type art. 22 ES |
+| Visa court séjour MA/DZ/TN/SN | **OK** | Annex I Reg. (UE) 2018/1806 — confirmez [France-Visas](https://france-visas.gouv.fr/) |
+| VLS-TS avant départ (pas touriste→résidence) | **OK** | Séjour C ≠ s'installer ; >3 mois → visa long séjour consulat ([F16146](https://www.service-public.fr/particuliers/vosdroits/F16146)) — exceptions rares, ne pas inventer |
+| Talent salarié qualifié ~€39.582 | **OK** | Rémunération annuelle brute ≥ **39 582 €** ([F16922](https://www.service-public.fr/particuliers/vosdroits/F16922) ; arrêté août 2025). Soft : nom officiel souvent **« talent – salarié qualifié »** |
+| SMIC 2026 | **Soft** | **1 823,03 €** brut/mois au 1er janv. 2026 ; **1 867,02 €** au **1er juin 2026** ([F2300](https://www.service-public.fr/particuliers/vosdroits/F2300)) — dater le chiffre |
+| Années étudiant « 50 % » | **FAIL** | **Pas** de règle « 50 % » (style ES). Correct : stage réduit à **2 ans** après **2 années d'études supérieures réussies** vers un diplôme français ([art. 21-18](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000024197095) · F2213) |
+| « Ascendance → 2 ans » | **FAIL** | Ascendant de Français ≠ 2 ans : en pratique **65 ans + 25 ans** de résidence régulière (déclaration, [F34708](https://www.service-public.fr/particuliers/vosdroits/F34708)). Les **2 ans** = études (21-18), pas l'ascendance |
+| Mariage « naturalisation 4 ans » | **Soft** | Souvent une **déclaration** de nationalité par mariage (délais propres, [F2726](https://www.service-public.fr/particuliers/vosdroits/F2726)) — pas un simple « stage réduit » de naturalisation |
+| Apostille (La Haye) | **Fixed** | **MA** : Apostille en vigueur **14/08/2016** ([HCCH](https://www.hcch.net/)). **TN/SN** : parties. **DZ** : entrée en vigueur **9/07/2026**. Drafts « légalisation seule / pas d'apostille » (MA, SN, DZ pré-juillet) = **périmés** — corps conservé, suivre cette Nota. Confirmez bilatéral FR ↔ pays |
+| Adresses consulats | **Soft** | Vérifiez Ambassade / France Diplomatie avant le RDV |
 
 *Ce n'est pas un conseil juridique.* Hubs : [Emigro FR](/fr) · [France](/fr/france) · [Passeport Talent](/fr/guides/passeport-talent-france-afrique-2026) · [Naturalisation](/fr/guides/naturalisation-france-afrique-2026) · [Assist](/ru/assist).
 
@@ -68,6 +70,8 @@ Vous devez avoir vécu en France de manière **régulière et continue** pendant
 - Carte de séjour valide (salarié, étudiant, visiteur, etc.).
 - Les années d'études comptent à **50%** (2 ans d'études = 1 an effectif).
 
+> **Nota Emigro :** il n'existe **pas** de règle « 50 % ». Correct : réduction du stage à **2 ans** après **2 années d'études supérieures réussies** vers un diplôme français ([art. 21-18](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000024197095) · [F2213](https://www.service-public.fr/particuliers/vosdroits/F2213)).
+
 **Ce qui ne compte pas :**
 - Le séjour comme touriste (visa court séjour).
 - Les périodes de séjour irrégulier.
@@ -100,6 +104,8 @@ Il n'y a pas de seuil fixe, mais vous devez montrer que vous vivez de manière a
 |---|---|
 | **Mariage avec un Français** | **4 ans** (si mariage depuis 4 ans et communauté de vie) |
 | **Ascendance française** (parent ou grand-parent français) | **2 ans** |
+
+> **Nota Emigro :** ascendance ≠ 2 ans. Typiquement **65 ans + 25 ans** de résidence ([F34708](https://www.service-public.fr/particuliers/vosdroits/F34708)). Les **2 ans** = études (21-18).
 | **Service exceptionnel rendu à la France** | **2 ans** |
 | **Réfugié** | **5 ans** (le temps d'attente de la réponse à la demande d'asile compte) |
 | **Ancien combattant ou militaire français** | Exemption de délai |

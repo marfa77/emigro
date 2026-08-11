@@ -29,8 +29,8 @@ export interface WizardTelegramStats {
   resultsViewsYesterday: number;
 }
 
-/** RU vs ES (/es LATAM) funnel slice for /stats. */
-export type LocaleBucket = "es" | "ru" | "other";
+/** RU vs ES (/es LATAM) vs FR (/fr Afrique) funnel slice for /stats. */
+export type LocaleBucket = "es" | "fr" | "ru" | "other";
 
 export interface LocaleFunnelCounts {
   pageViews: number;
@@ -42,6 +42,7 @@ export interface LocaleFunnelCounts {
 
 export interface LocaleSplitPeriod {
   es: LocaleFunnelCounts;
+  fr: LocaleFunnelCounts;
   ru: LocaleFunnelCounts;
   other: LocaleFunnelCounts;
 }
@@ -113,25 +114,35 @@ function emptyLocaleFunnel(): LocaleFunnelCounts {
 }
 
 function emptyLocaleSplitPeriod(): LocaleSplitPeriod {
-  return { es: emptyLocaleFunnel(), ru: emptyLocaleFunnel(), other: emptyLocaleFunnel() };
+  return {
+    es: emptyLocaleFunnel(),
+    fr: emptyLocaleFunnel(),
+    ru: emptyLocaleFunnel(),
+    other: emptyLocaleFunnel(),
+  };
 }
 
-/** Classify site_events row as ES (LATAM /es) vs RU product surface. */
+/** Classify site_events row as ES / FR / RU product surface. */
 export function classifyEventLocale(
   pagePath: string | null | undefined,
   properties: Record<string, unknown> | null | undefined
 ): LocaleBucket {
   const locale = String(properties?.locale ?? "").toLowerCase();
   if (locale === "es" || locale.startsWith("es-")) return "es";
+  if (locale === "fr" || locale.startsWith("fr-")) return "fr";
   if (locale === "ru" || locale.startsWith("ru-")) return "ru";
 
   const corridor = String(properties?.corridor_slug ?? properties?.analytics_scope ?? "").toLowerCase();
   if (corridor.includes("hub-es") || corridor.startsWith("es-speaking") || corridor === "hub-es-latam") {
     return "es";
   }
+  if (corridor.includes("hub-fr") || corridor.startsWith("fr-speaking") || corridor === "hub-fr-afrique") {
+    return "fr";
+  }
 
   const path = (pagePath || "").split("?")[0];
   if (path === "/es" || path.startsWith("/es/")) return "es";
+  if (path === "/fr" || path.startsWith("/fr/")) return "fr";
   if (path === "/ru" || path.startsWith("/ru/") || path.startsWith("/satellite/")) return "ru";
   return "other";
 }
@@ -144,6 +155,7 @@ async function localeFunnelCounts(
   const out = emptyLocaleSplitPeriod();
   const startedSessions: Record<LocaleBucket, Set<string>> = {
     es: new Set(),
+    fr: new Set(),
     ru: new Set(),
     other: new Set(),
   };

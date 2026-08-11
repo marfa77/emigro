@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { initAnalytics, trackEvent } from "@/lib/analytics/client";
+import { siteLocaleFromPath } from "@/lib/locale";
 
 export function SiteAnalytics() {
   const pathname = usePathname();
@@ -15,7 +16,10 @@ export function SiteAnalytics() {
   useEffect(() => {
     const query = searchParams.toString();
     const pagePath = query ? `${pathname}?${query}` : pathname;
-    trackEvent("page_view", { page_path: pagePath });
+    trackEvent("page_view", {
+      page_path: pagePath,
+      locale: siteLocaleFromPath(pathname),
+    });
   }, [pathname, searchParams]);
 
   return null;
