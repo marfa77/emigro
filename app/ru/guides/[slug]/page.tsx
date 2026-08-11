@@ -84,7 +84,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   });
 }
 
-function GuideHeroVisual({ coverPath, title }: { coverPath: string; title: string }) {
+function GuideHeroVisual({ coverPath }: { coverPath: string }) {
   return (
     <div className="relative aspect-[16/10] w-full max-w-[380px] overflow-hidden rounded-[2rem] border border-white/30 bg-white shadow-2xl ring-1 ring-white/20" aria-hidden>
       <Image
@@ -95,14 +95,6 @@ function GuideHeroVisual({ coverPath, title }: { coverPath: string; title: strin
         priority
         className="object-cover"
       />
-      <div className="absolute right-4 top-4 rounded-full bg-amber-300 px-3 py-1 text-xs font-bold text-slate-950">
-        2026
-      </div>
-      <div className="absolute inset-x-4 bottom-4 rounded-2xl border border-white/20 bg-slate-950/55 p-4 text-white shadow-lg backdrop-blur">
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-corridor-100">Editorial guide</p>
-        <p className="mt-1 line-clamp-2 text-lg font-bold leading-tight">{title}</p>
-      </div>
-      <span className="sr-only">{title}</span>
     </div>
   );
 }
@@ -371,7 +363,7 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
       </div>
       <main className="bg-[radial-gradient(circle_at_top_left,rgba(37,99,235,0.12),transparent_32rem)]">
         <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 2xl:max-w-[1360px]">
-        <HeroShell visual={<GuideHeroVisual coverPath={guide.cover_path} title={guide.title} />} className="from-slate-950 via-corridor-800 to-sky-800">
+        <HeroShell visual={<GuideHeroVisual coverPath={guide.cover_path} />} className="from-slate-950 via-corridor-800 to-sky-800">
           <Link href="/ru/guides" className="text-sm font-medium text-corridor-100 hover:text-white">
             ← Все гайды
           </Link>
@@ -405,7 +397,9 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
 
         <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_280px] xl:grid-cols-[minmax(0,1fr)_300px]">
           <div className="min-w-0">
-            <GuideFeaturedImage coverPath={guide.cover_path} title={guide.title} />
+            {!guide.cover_path.includes("/images/og/") ? (
+              <GuideFeaturedImage coverPath={guide.cover_path} title={guide.title} />
+            ) : null}
 
             <ShareButtons
               url={url}

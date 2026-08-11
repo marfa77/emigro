@@ -54,20 +54,21 @@ function hubCtaForGuide(corridorSlugs?: string[]): string {
   return FR_PATHS.france;
 }
 
-function GuideHeroVisual({ coverPath, title }: { coverPath: string; title: string }) {
+function GuideHeroVisual() {
   return (
     <div
       className="relative aspect-[16/10] w-full max-w-[380px] overflow-hidden rounded-[2rem] border border-white/30 bg-white shadow-2xl ring-1 ring-white/20"
       aria-hidden
     >
-      <Image src={coverPath} alt="" fill sizes="360px" priority className="object-cover" />
-      <div className="absolute right-4 top-4 rounded-full bg-amber-300 px-3 py-1 text-xs font-bold text-slate-950">
-        2026
-      </div>
-      <div className="absolute inset-x-4 bottom-4 rounded-2xl border border-white/20 bg-slate-950/55 p-4 text-white shadow-lg backdrop-blur">
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-corridor-100">Guide pillar</p>
-        <p className="mt-1 line-clamp-2 text-lg font-bold leading-tight">{title}</p>
-      </div>
+      {/* Corridor photo only — OG cards bake the title into the bitmap. */}
+      <Image
+        src="/images/corridor-france.webp"
+        alt=""
+        fill
+        sizes="360px"
+        priority
+        className="object-cover"
+      />
     </div>
   );
 }
@@ -158,11 +159,16 @@ export default function FrGuidePage({ params }: { params: { slug: string } }) {
         </nav>
 
         <div className="mt-6">
-          <HeroShell visual={<GuideHeroVisual coverPath={coverPath} title={guide.title} />}>
+          <HeroShell visual={<GuideHeroVisual />}>
             <p className="text-xs font-semibold uppercase tracking-wide text-corridor-100">
               {corridorBadge(guide.corridor_slugs)}
             </p>
             <h1 className={`mt-3 ${heroTitle}`}>{guide.title}</h1>
+            {guide.excerpt ? (
+              <p className="mt-4 max-w-xl text-base leading-relaxed text-corridor-100">
+                {stripInlineMarkdown(guide.excerpt)}
+              </p>
+            ) : null}
             {guide.estimated_minutes ? (
               <p className="mt-4 inline-flex items-center gap-2 text-sm text-corridor-100">
                 <Clock className="h-4 w-4" />
@@ -171,23 +177,6 @@ export default function FrGuidePage({ params }: { params: { slug: string } }) {
             ) : null}
           </HeroShell>
         </div>
-
-        <figure className="mt-8 overflow-hidden rounded-[2rem] border border-white bg-white shadow-xl shadow-slate-200/70 ring-1 ring-slate-950/5">
-          <div className="relative aspect-[16/9] w-full">
-            <Image
-              src={coverPath}
-              alt={guide.title}
-              fill
-              sizes="(max-width: 1024px) 100vw, 768px"
-              className="object-cover"
-              priority
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/45 via-transparent to-transparent" />
-            <figcaption className="absolute bottom-5 left-5 right-5 rounded-2xl bg-white/90 p-4 text-sm font-medium text-slate-700 shadow-lg backdrop-blur">
-              Pillar Emigro FR : voies, seuils 2026 et sources officielles.
-            </figcaption>
-          </div>
-        </figure>
 
         {guide.quick_answer ? (
           <aside className="mt-8 rounded-2xl border border-corridor-200 bg-corridor-50/80 p-5">
