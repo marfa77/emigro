@@ -2,11 +2,11 @@
 slug: prodlenie-vnzh-portugaliya-aima-2026
 title: "Продление ВНЖ Португалия 2026 — AIMA, Agora и portal-renovacoes"
 seo_title: "Продление ВНЖ Португалия 2026 — AIMA renovação"
-seo_description: "Renovação AIMA 2026: portal-renovacoes, Agora, документы D7/D8/work. Taxas с 01.03.2026: ~€440 temporary (€133+€307), ARI ~€4210. Просроченный ВНЖ — практика + официально."
-date_modified: 2026-08-01
+seo_description: "Renovação AIMA авг 2026: portal до 31.10.2026, Agora, DUC. Taxas ~€440 (€133+€307). Caducado — риск границы."
+date_modified: 2026-08-11
 review_tier: volatile
 excerpt: "Когда начинать renovação, какие документы по типу D7/D8/trabalho/estudo, куда подавать — portal-renovacoes, Agora или services.aima — и что делать с просроченной картой."
-quick_answer: "Продление título — portal-renovacoes.aima.gov.pt (поэтапно по месяцу expiry). С 01.03.2026 типовой пакет temporary renovação ≈ €440,20 (€133 + €307,20); ARI ≈ €4 210,30 — сверяйте DUC. Agora — presencial; services.aima.gov.pt — просроченные после e-mail AIMA. Emigro проходит через advogados — сверяйте aima.gov.pt."
+quick_answer: "Продление título — portal-renovacoes.aima.gov.pt. На авг 2026 portal принимает AR с expiry с 01.07.2025 по 31.10.2026 (+ ARI; UE permanente с 01.07.2026). С 01.03.2026 типовой пакет temporary renovação ≈ €440,20 (€133 + €307,20); ARI ≈ €4 210,30 — сверяйте DUC (оплата по сроку в DUC, часто 24 ч на emissão). Agora — presencial; services.aima.gov.pt — просроченные после e-mail AIMA. Emigro проходит через advogados — сверяйте aima.gov.pt."
 corridor_slugs: [ru-speaking-to-portugal]
 topic_keys: [portugal, aima, renewal]
 tags: [Португалия, ВНЖ, AIMA, renovação, 2026]
@@ -43,12 +43,24 @@ date_published: 2026-07-13
 
 **Зачем:** [Portal das Renovações](https://portal-renovacoes.aima.gov.pt/) открывается **поэтапно** — по месяцам истечения карты ([новость AIMA](https://aima.gov.pt/pt/noticias/o-portal-das-renovacoes-ja-esta-disponivel)). Без registo, validação и оплаты DUC pedido не стартует.
 
+### Окно portal на август 2026
+
+По [официальному статусу AIMA](https://aima.gov.pt/pt/noticias/portal-de-renovacoes-certificados-e-cartoes-de-residencia-permanentes-de-nacionais-ue-e-familiares) portal-renovacoes доступен для:
+
+| Категория | Окно (сверяйте aima.gov.pt) |
+|-----------|------------------------------|
+| Обычные autorizações de residência | Expiry **с 01.07.2025 по 31.10.2026** |
+| **ARI** (Golden Visa) | Caducidade с **22.02.2020** по **31.10.2026** |
+| Certificados / cartões permanentes UE и familiares | Доступны с **01.07.2026** (отдельный pedido в том же portal) |
+
+Cohorts по месяцам могут открываться раньше expiry — следите новостям AIMA (сен–окт 2026 уже анонсировали заранее).
+
 | Действие | Зачем |
 |----------|-------|
 | Проверить expiry на карте | Первый título D7/D8/work обычно **2 года** |
 | Следить aima.gov.pt / e-mail AIMA | Portal открывается cohort-by-cohort |
 | Обновить morada и NISS до pedido | Блок validação AT/Segurança Social |
-| Закладывать ~**90 дней** до expiry | Безопасный горizont; точный срок — в письме AIMA |
+| Закладывать ~**90 дней** до expiry | Безопасный горизонт; точный срок — в письме AIMA |
 | Сверить срок загранпаспорта | [Замена заграна](https://portugal.emigro.online/notes/zamena-zagranpasporta-portugaliya-2026) |
 
 ---
@@ -78,9 +90,19 @@ Hard-требования — только на [aima.gov.pt](https://aima.gov.p
 | **Agora** | Presencial / biometria / когда portal направил | [agora.imigrante.pt](https://agora.imigrante.pt/) — [гайд по слотам](https://portugal.emigro.online/notes/aima-agora-zapis-2026) |
 | **services.aima.gov.pt** | Просроченные **после e-mail AIMA** с taxa | [services.aima.gov.pt](https://services.aima.gov.pt/) |
 
-**Portal-renovacoes (типовой поток):** registo → пароль на e-mail → validação morada/NIF/NISS → «Criar pedido» → **DUC за 24 ч** → upload PDF → recibo pedido renovação.
+**Portal-renovacoes (типовой поток):** registo → пароль на e-mail → **validação morada/NIF/NISS** (если красный — сначала Finanças / Segurança Social, не «ещё раз Create») → «Criar pedido» → **оплата DUC за 24 ч** после emissão → upload PDF → recibo pedido renovação.
 
-В локальных чатах (@chatlisboa, 2025–2026) повторяют: **без e-mail AIMA форма services.aima для просроченных недоступна** — не путать с первичной записью Agora после визы D.
+**Практика чатов (@chatlisboa, @por_tugal, 2025–2026):**
+
+| Ловушка | Что делают |
+|---------|------------|
+| Validação AT/SS не проходит | Закрыть долги/дыры в Finanças и SS (для D7 без NISS — декларация *não inscrição*, если применимо); имя/NIF mismatch чинят до повторного pedido |
+| Termo de responsabilidade без contrato | AIMA часто не принимает — безопаснее Atestado Junta / contrato с registo Finanças |
+| Летать с caducado + только PDF | Внутри PT comprovativo часто ок; **авиакомпании / другие Шенген-границы** смотрят TIMATIC строже — риск посадки/въезда; прямой LIS/OPO/FAO + печатный recibo + старая карта; без consulta advogado — не планируйте хаб-перелёты |
+| Ждать пластик 30–90 дней | Держите comprovativo pedido для банка/аренды; Norte иногда шлёт cartão Correios без второго визита |
+| Искать кнопку services.aima без письма | Форма для просроченных **после** e-mail AIMA — без письма кнопки нет |
+
+В локальных чатах повторяют: **без e-mail AIMA форма services.aima для просроченных недоступна** — не путать с первичной записью Agora после визы D.
 
 ---
 
@@ -112,11 +134,11 @@ Checklist в portal на **дату подачи** — единственный 
 | **Итого типовой пакет** | **€440,20** |
 
 - **ARI / Golden Visa renovação:** ориентир **€4 210,30** (не путать с D7/D8)
-- Оплата DUC — **24 часа** после emissão ([Portal das Renovações](https://aima.gov.pt/pt/noticias/o-portal-das-renovacoes-ja-esta-disponivel))
+- Оплата DUC — срок указан в самом DUC; в анонсах AIMA часто фигурирует **24 часа** после emissão ([Portal das Renovações](https://aima.gov.pt/pt/noticias/o-portal-das-renovacoes-ja-esta-disponivel)) — ставьте напоминание в календарь
 - Emissão cartão / иные actos могут дать **дополнительные** строки в DUC
 - Строка **€99,80** в части таблиц/медиа — **не** «полная цена renovação»; ориентируйтесь на DUC и [Tabela de Taxas](https://aima.gov.pt/)
 
-> **Fact-check Emigro (авг 2026):** раньше в гайде ошибочно стояло «€99,80 за acto renovação» — это занижало бюджет **в ~4 раза**. Исправлено на €133 + €307,20.
+> **Fact-check Emigro (авг 2026):** раньше в гайде ошибочно стояло «€99,80 за acto renovação» — это занижало бюджет **в ~4 раза**. Исправлено на €133 + €307,20. Окно portal уточнено до **31.10.2026**.
 
 ---
 
@@ -132,7 +154,7 @@ Checklist в portal на **дату подачи** — единственный 
 
 **Emigro не советует** «лететь в Schengen с caducado título» без consulta — риск отказа на границе.
 
-- Caducados до 30.06.2025: уведомления Estrutura de Missão по e-mail ([AIMA](https://aima.gov.pt/pt/noticias/o-portal-das-renovacoes-ja-esta-disponivel))
+- Историческая рассылка Estrutura de Missão по caducados до 30.06.2025 и «valid until 15.04.2026» — **окно закрыто**; не опирайтесь на старые e-mail grace
 - **services.aima.gov.pt** — только после e-mail AIMA с instruцией taxa
 - В чатах (2025–2026): portal-renovacoes **может не принимать** títulos caducados **>6 meses** — balcão/advogado; **проверьте** на дату кейса
 - Смена основания при просрочке — часто **nova autorização**, не renovação
@@ -174,7 +196,7 @@ Tabela на aima.gov.pt + **DUC в pedido**. Типовой пакет temporary
 
 ### Карта просрочена — можно летать?
 
-Риск на границе реален. Comprovativo pedido иногда принимают — не гарантия. Consulta advogado.
+Emigro не даёт «разрешений». Внутри PT comprovativo pedido + старая карта часто принимают банки/аренда. На **авиарейсах и других Шенген-границах** риск реален (TIMATIC). Consulta advogado перед билетом.
 
 ### Нужен advogado?
 
@@ -192,11 +214,12 @@ Tabela на aima.gov.pt + **DUC в pedido**. Типовой пакет temporary
 
 ## Коротко для проверки маршрута
 
-- Renovação 2026: portal-renovacoes.aima.gov.pt (cohorts), DUC 24h, taxas с 01.03.2026
-- Agora: presencial; services.aima: просроченные после e-mail AIMA
-- Документы: passaporte, morada, rendimentos, seguro, NIF/NISS — по tipo
-- Ожидание: 30–90 дней в чатах 2025–2026 (не гарантия)
-- Emigro: не юридическая консультация; advogados для своих кейсов
+- Renovação авг 2026: portal — AR expiry **до 31.10.2026**; DUC **24 ч**; taxas ≈ **€440,20**
+- Сначала Finanças/SS / morada — потом Create pedido
+- Agora: presencial; services.aima: **только** после e-mail AIMA
+- Caducado + чужой аэропорт — риск TIMATIC; не путать с «PDF = летать везде»
+- Ожидание: 30–90 дней в чатах (не гарантия)
+- Emigro: advogados для своих кейсов; не юр. консультация
 
 ---
 
