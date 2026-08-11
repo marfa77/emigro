@@ -1,10 +1,10 @@
 ---
 slug: residence-france-depuis-senegal-2026
 title: "Résidence en France depuis le Sénégal 2026"
-seo_title: "Résidence France Sénégalais 2026 — VLS-TS"
-seo_description: "Émigrer en France depuis le Sénégal 2026 : visa, Passeport Talent, salarié et naturalisation ~5 ans."
+seo_title: "Résidence France Sénégalais 2026 — VLS-TS, Talent"
+seo_description: "Sénégal → France 2026 : visa, VLS-TS, Talent, naturalisation ~5 ans + B2/civique. Pas un raccourci Maghreb 2 ans."
 excerpt: "Guide pillar : visa ≠ résidence pour passeport SN."
-quick_answer: "Visa généralement requis. VLS-TS pour résider (Talent, salarié, études…). Naturalisation ~5 ans. Emigro : /fr."
+quick_answer: "Visa généralement requis. VLS-TS pour résider (Talent, salarié, études…). Naturalisation ~5 ans + B2 + examen civique. Emigro : /fr."
 corridor_slugs: [fr-speaking-senegal-to-france, fr-speaking-africa-to-europe]
 topic_keys: [france, senegal, visa, residence]
 tags: [France, Sénégal, résidence, Passeport Talent, 2026, sn]
@@ -28,6 +28,7 @@ date_modified: 2026-08-11
 | Claim | Status | Source / correction |
 |---|---|---|
 | Naturalisation générale ~5 ans | **OK** | [Code civil art. 21-17](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006419648) · [service-public F2213](https://www.service-public.fr/particuliers/vosdroits/F2213) — **pas** un « 2 ans Maghreb » type art. 22 ES |
+| Niveau français naturalisation | **Fixed** | Depuis **01.01.2026** : **B2** + **examen civique** ([F11926](https://www.service-public.fr/particuliers/vosdroits/F11926)) — **pas B1**. B1 = plutôt **carte de résident** ([F2208](https://www.service-public.fr/particuliers/vosdroits/F2208)) |
 | Visa court séjour MA/DZ/TN/SN | **OK** | Annex I Reg. (UE) 2018/1806 — confirmez [France-Visas](https://france-visas.gouv.fr/) |
 | VLS-TS avant départ (pas touriste→résidence) | **OK** | Séjour C ≠ s'installer ; >3 mois → visa long séjour consulat ([F16146](https://www.service-public.fr/particuliers/vosdroits/F16146)) — exceptions rares, ne pas inventer |
 | Talent salarié qualifié ~€39.582 | **OK** | Rémunération annuelle brute ≥ **39 582 €** ([F16922](https://www.service-public.fr/particuliers/vosdroits/F16922) ; arrêté août 2025). Soft : nom officiel souvent **« talent – salarié qualifié »** |
@@ -57,7 +58,7 @@ Si vous avez un passeport sénégalais et que vous envisagez de vivre légalemen
 | Ai-je besoin d'un visa pour entrer en France ? | **Oui**. Les Sénégalais ont besoin d'un visa pour la France |
 | Puis-je demander la résidence depuis la France ? | **Non** en règle générale. Visa long séjour obligatoire avant le voyage |
 | Combien de temps jusqu'à la nationalité ? | **5 ans** de résidence régulière |
-| Quel niveau de français ? | **B1** pour la naturalisation |
+| Quel niveau de français ? | **B2** + examen civique pour la naturalisation (depuis 01.01.2026) |
 | Où déposer ? | Consulat français au Sénégal (Dakar) |
 
 ---

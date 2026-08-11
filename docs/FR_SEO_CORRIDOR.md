@@ -36,7 +36,9 @@ Shared family: `fr-speaking-africa-to-europe`. Config: [`lib/fr/corridor.ts`](..
 
 ## Nationality note
 
-Do **not** market “naturalisation 2 ans” as a Maghreb-wide hook (unlike ES art. 22). Default FR naturalisation = **~5 years** résidence régulière; reductions exist (mariage, etc.) — verify service-public / Code civil.
+Do **not** market “naturalisation 2 ans” as a Maghreb-wide hook (unlike ES art. 22). Default FR naturalisation = **~5 years** résidence régulière; reductions exist (études art. 21-18, etc.) — verify service-public / Code civil.
+
+Since **01.01.2026**: language **B2** + **examen civique** for naturalisation by decree ([F11926](https://www.service-public.fr/particuliers/vosdroits/F11926)). Do not cite **B1** for naturalisation (B1 ≈ 1re carte de résident). Timbre **€255** métropole from **01.05.2026** ([F32952](https://www.service-public.fr/particuliers/vosdroits/F32952)).
 
 ## Product (Phase 2 — shipped)
 

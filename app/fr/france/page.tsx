@@ -15,11 +15,11 @@ export const revalidate = 3600;
 export const metadata: Metadata = pageMetadata({
   title: "France pour Afrique francophone 2026 — résidence",
   description:
-    "Vivre en France depuis le Maghreb ou le Sénégal 2026 : VLS-TS, Passeport Talent (~€39.582), naturalisation ~5 ans. Hubs MA/DZ/TN/SN.",
+    "Vivre en France depuis le Maghreb ou le Sénégal 2026 : VLS-TS, Passeport Talent (~€39.582), naturalisation ~5 ans + B2/civique. Hubs MA/DZ/TN/SN.",
   path: FR_PATHS.france,
   locale: "fr",
   aiDescription:
-    "France destination hub for Maghreb and Senegal: VLS-TS, Talent passport, study/work, naturalisation ~5 years. Not a Maghreb 2-year nationality hook.",
+    "France destination hub for Maghreb and Senegal: VLS-TS, Talent passport, study/work, naturalisation ~5 years with B2 + civic exam. Not a Maghreb 2-year nationality hook.",
   aiCategory: "destination-hub",
 });
 

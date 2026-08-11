@@ -22,7 +22,7 @@ export const metadata: Metadata = pageMetadata({
   title: "Emigro — Afrique francophone → France 2026",
   titleAbsolute: true,
   description:
-    "Résidence en France depuis le Maghreb et le Sénégal 2026 : VLS-TS, Passeport Talent, naturalisation ~5 ans. Maroc, Algérie, Tunisie, Sénégal — sources officielles.",
+    "Résidence en France depuis le Maghreb et le Sénégal 2026 : VLS-TS, Passeport Talent, naturalisation ~5 ans + B2/civique. Maroc, Algérie, Tunisie, Sénégal — sources officielles.",
   path: FR_PATHS.home,
   locale: "fr",
   aiDescription:
@@ -47,7 +47,7 @@ const ORIGIN_CARDS = [
     href: FR_PATHS.tunisie,
     label: "Origine",
     title: "Tunisie",
-    body: "VLS-TS · Talent · naturalisation ~5 ans.",
+    body: "VLS-TS · Talent · naturalisation ~5 ans + B2.",
   },
   {
     href: FR_PATHS.senegal,

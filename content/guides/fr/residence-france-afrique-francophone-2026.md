@@ -1,10 +1,10 @@
 ---
 slug: residence-france-afrique-francophone-2026
 title: "Résidence en France depuis l'Afrique francophone 2026"
-seo_title: "Résidence France Afrique francophone 2026"
-seo_description: "Vue d'ensemble MA/DZ/TN/SN → France 2026 : VLS-TS, Passeport Talent, salarié, études et naturalisation ~5 ans."
+seo_title: "Résidence France Afrique francophone 2026 — VLS-TS"
+seo_description: "MA/DZ/TN/SN → France 2026 : VLS-TS, Talent ~€39.582, naturalisation 5 ans + B2/civique. Visa court ≠ titre de séjour."
 excerpt: "Overview Emigro FR : origines Maghreb + Sénégal, destination France."
-quick_answer: "Cadre partagé Afrique francophone → France : visa court ≠ titre de séjour. Piliers origin + Talent + naturalisation. Emigro : /fr."
+quick_answer: "Cadre partagé Afrique francophone → France : visa court ≠ titre. Piliers origin + Talent + naturalisation (~5 ans, B2, civique). Emigro : /fr."
 corridor_slugs: [fr-speaking-africa-to-europe, fr-speaking-africa-to-europe]
 topic_keys: [france, africa, visa, residence]
 tags: [France, Afrique, résidence, Maghreb, 2026]
@@ -26,6 +26,7 @@ date_modified: 2026-08-11
 | Claim | Status | Source / correction |
 |---|---|---|
 | Naturalisation générale ~5 ans | **OK** | [Code civil art. 21-17](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006419648) · [service-public F2213](https://www.service-public.fr/particuliers/vosdroits/F2213) — **pas** un « 2 ans Maghreb » type art. 22 ES |
+| Niveau français naturalisation | **Fixed** | Depuis **01.01.2026** : **B2** + **examen civique** ([F11926](https://www.service-public.fr/particuliers/vosdroits/F11926)) — **pas B1**. B1 = plutôt **carte de résident** ([F2208](https://www.service-public.fr/particuliers/vosdroits/F2208)) |
 | Visa court séjour MA/DZ/TN/SN | **OK** | Annex I Reg. (UE) 2018/1806 — confirmez [France-Visas](https://france-visas.gouv.fr/) |
 | VLS-TS avant départ (pas touriste→résidence) | **OK** | Séjour C ≠ s'installer ; >3 mois → visa long séjour consulat ([F16146](https://www.service-public.fr/particuliers/vosdroits/F16146)) — exceptions rares, ne pas inventer |
 | Talent salarié qualifié ~€39.582 | **OK** | Rémunération annuelle brute ≥ **39 582 €** ([F16922](https://www.service-public.fr/particuliers/vosdroits/F16922) ; arrêté août 2025). Soft : nom officiel souvent **« talent – salarié qualifié »** |
@@ -55,7 +56,7 @@ Si vous avez un passeport d'un pays africain francophone et que vous envisagez d
 | Ai-je besoin d'un visa pour entrer en France ? | **Oui** (sauf pour les pays bénéficiant d'une exemption, ce qui n'est pas le cas de l'Afrique francophone) |
 | Puis-je demander la résidence depuis la France ? | **Non** pour la plupart des visas. Vous devez demander un visa long séjour (VLS-TS) au consulat français de votre pays |
 | Combien de temps jusqu'à la nationalité ? | **5 ans** de résidence régulière (réduits dans certains cas : mariage, ascendance, service exceptionnel) |
-| Ai-je besoin d'un examen de français ? | **B1** pour la naturalisation. Pour les visas, cela dépend |
+| Ai-je besoin d'un examen de français ? | Naturalisation : **B2** + examen civique (01.01.2026). Pour les visas, cela dépend |
 | Où déposer ? | Consulat français de votre pays de résidence |
 
 ---
@@ -124,7 +125,7 @@ Pour les personnes avec revenus passifs.
 ### Conditions générales
 
 - **5 ans** de résidence régulière en France (carte de séjour valide).
-- **B1** en français oral et écrit (TCF ou DELF).
+- **B2** en français oral et écrit + **examen civique** (naturalisation depuis 01.01.2026).
 - Preuve d'intégration républicaine (entretien individuel).
 - Revenus suffisants (pas de seuil fixe, mais généralement > SMIC).
 - Pas de condamnation grave.
@@ -140,7 +141,7 @@ Pour les personnes avec revenus passifs.
 | Service exceptionnel rendu à la France | **2 ans** |
 | Réfugié politique | **5 ans** (mais le temps d'attente de la réponse à la demande d'asile compte) |
 
-**Note pour les pays francophones :** Le B1 français est obligatoire pour tous, mais les ressortissants de pays francophones peuvent parfois bénéficier d'une évaluation plus souple lors de l'entretien.
+**Note pour les pays francophones :** Le **B2** (justifié) et l'examen civique restent la règle pour la naturalisation ; des dispenses/équivalences existent selon le parcours — confirmez [F11926](https://www.service-public.fr/particuliers/vosdroits/F11926).
 
 ---
 
@@ -180,7 +181,7 @@ Pour les personnes avec revenus passifs.
 
 ### 5. "Je n'ai pas besoin de parler français pour la naturalisation"
 
-**Faux.** Le **B1** est obligatoire (TCF ou DELF). Sans ce niveau, la préfecture rejette la demande.
+**Faux.** Depuis 2026, le **B2** justifié et l'**examen civique** sont exigés pour la naturalisation par décret. Sans ces pièces, le dossier n'est pas recevable.
 
 ---
 

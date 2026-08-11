@@ -1,10 +1,10 @@
 ---
 slug: passeport-talent-france-afrique-2026
 title: "Passeport Talent France pour Africains francophones 2026"
-seo_title: "Passeport Talent France Afrique 2026 — seuils"
-seo_description: "Passeport Talent France 2026 pour MA/DZ/TN/SN : catégories, salaires, VLS-TS, famille. Confirmez service-public."
+seo_title: "Passeport Talent France 2026 — ~€39.582 Maghreb"
+seo_description: "Passeport Talent France 2026 (MA/DZ/TN/SN) : salarié ~€39.582, VLS-TS, famille. Compte pour naturalisation ~5 ans (B2). Sources service-public."
 excerpt: "Pilar partagé : 11 catégories Talent, process employeur + consulat."
-quick_answer: "Passeport Talent = carte pluriannuelle pour profils qualifiés / projets. Seuils et catégories sur service-public — confirmez le montant 2026. Compte pour la résidence vers naturalisation (~5 ans). Emigro : /fr."
+quick_answer: "Passeport Talent = carte pluriannuelle pour profils qualifiés. Seuil salarié qualifié souvent ~€39.582 brut/an — confirmez service-public. Compte pour la résidence vers naturalisation (~5 ans + B2 + civique). Emigro : /fr."
 corridor_slugs: [fr-speaking-africa-to-europe, fr-speaking-africa-to-europe]
 topic_keys: [france, work, talent, visa]
 tags: [France, Passeport Talent, travail, Afrique, 2026]
@@ -26,6 +26,7 @@ date_modified: 2026-08-11
 | Claim | Status | Source / correction |
 |---|---|---|
 | Naturalisation générale ~5 ans | **OK** | [Code civil art. 21-17](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006419648) · [service-public F2213](https://www.service-public.fr/particuliers/vosdroits/F2213) — **pas** un « 2 ans Maghreb » type art. 22 ES |
+| Niveau français naturalisation | **Fixed** | Depuis **01.01.2026** : **B2** + **examen civique** ([F11926](https://www.service-public.fr/particuliers/vosdroits/F11926)) — **pas B1**. B1 = plutôt **carte de résident** ([F2208](https://www.service-public.fr/particuliers/vosdroits/F2208)) |
 | Visa court séjour MA/DZ/TN/SN | **OK** | Annex I Reg. (UE) 2018/1806 — confirmez [France-Visas](https://france-visas.gouv.fr/) |
 | VLS-TS avant départ (pas touriste→résidence) | **OK** | Séjour C ≠ s'installer ; >3 mois → visa long séjour consulat ([F16146](https://www.service-public.fr/particuliers/vosdroits/F16146)) — exceptions rares, ne pas inventer |
 | Talent salarié qualifié ~€39.582 | **OK** | Rémunération annuelle brute ≥ **39 582 €** ([F16922](https://www.service-public.fr/particuliers/vosdroits/F16922) ; arrêté août 2025). Soft : nom officiel souvent **« talent – salarié qualifié »** |
@@ -130,7 +131,7 @@ Votre conjoint et vos enfants mineurs peuvent vous rejoindre immédiatement avec
 Les années passées en Passeport Talent comptent pour la naturalisation. Après **5 ans** de résidence régulière, vous pouvez demander la nationalité française.
 
 **Conditions :**
-- B1 en français oral et écrit.
+- Pour la **naturalisation** plus tard : **B2** + examen civique (pas B1). Pour la **carte de résident** : souvent **B1** + civique — ne pas confondre.
 - Entretien d'intégration républicaine.
 - Revenus suffisants.
 - Pas de condamnation grave.

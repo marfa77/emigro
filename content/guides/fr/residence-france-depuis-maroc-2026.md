@@ -1,10 +1,10 @@
 ---
 slug: residence-france-depuis-maroc-2026
 title: "Résidence en France depuis le Maroc 2026"
-seo_title: "Résidence France Marocains 2026 — VLS-TS"
-seo_description: "Émigrer en France depuis le Maroc 2026 : visa obligatoire, Passeport Talent, salarié, consulats et naturalisation ~5 ans. Sources officielles."
+seo_title: "Résidence France Marocains 2026 — VLS-TS, Talent"
+seo_description: "Maroc → France 2026 : visa obligatoire, VLS-TS, Talent ~€39.582, naturalisation 5 ans + B2/civique. Pas Schengen = résidence."
 excerpt: "Guide pillar : visa ≠ résidence. VLS-TS, Talent, salarié, légalisation/apostille et horizon naturalisation."
-quick_answer: "Les Marocains ont généralement besoin d'un visa pour la France. Résider exige un VLS-TS (consulat) : Passeport Talent, salarié, étudiant, visiteur, etc. Naturalisation : ~5 ans de résidence régulière (B1). Emigro : piliers + hubs /fr."
+quick_answer: "Les Marocains ont généralement besoin d'un visa pour la France. Résider exige un VLS-TS (consulat) : Passeport Talent, salarié, étudiant, visiteur… Naturalisation : ~5 ans + B2 + examen civique (pas un 2 ans Maghreb). Emigro : /fr."
 corridor_slugs: [fr-speaking-maroc-to-france, fr-speaking-africa-to-europe]
 topic_keys: [france, maroc, visa, residence]
 tags: [France, Maroc, résidence, Passeport Talent, VLS-TS, 2026, ma]
@@ -30,6 +30,7 @@ date_modified: 2026-08-11
 | Claim | Status | Source / correction |
 |---|---|---|
 | Naturalisation générale ~5 ans | **OK** | [Code civil art. 21-17](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006419648) · [service-public F2213](https://www.service-public.fr/particuliers/vosdroits/F2213) — **pas** un « 2 ans Maghreb » type art. 22 ES |
+| Niveau français naturalisation | **Fixed** | Depuis **01.01.2026** : **B2** + **examen civique** ([F11926](https://www.service-public.fr/particuliers/vosdroits/F11926)) — **pas B1**. B1 = plutôt **carte de résident** ([F2208](https://www.service-public.fr/particuliers/vosdroits/F2208)) |
 | Visa court séjour MA/DZ/TN/SN | **OK** | Annex I Reg. (UE) 2018/1806 — confirmez [France-Visas](https://france-visas.gouv.fr/) |
 | VLS-TS avant départ (pas touriste→résidence) | **OK** | Séjour C ≠ s'installer ; >3 mois → visa long séjour consulat ([F16146](https://www.service-public.fr/particuliers/vosdroits/F16146)) — exceptions rares, ne pas inventer |
 | Talent salarié qualifié ~€39.582 | **OK** | Rémunération annuelle brute ≥ **39 582 €** ([F16922](https://www.service-public.fr/particuliers/vosdroits/F16922) ; arrêté août 2025). Soft : nom officiel souvent **« talent – salarié qualifié »** |
@@ -59,7 +60,7 @@ Si vous avez un passeport marocain et que vous envisagez de vivre légalement en
 | Ai-je besoin d'un visa pour entrer en France ? | **Oui**. Les Marocains ont besoin d'un visa pour la France |
 | Puis-je demander la résidence depuis la France ? | **Non**. Vous devez demander un visa long séjour (VLS-TS) au consulat français au Maroc avant de voyager |
 | Combien de temps jusqu'à la nationalité ? | **5 ans** de résidence régulière (réduits dans certains cas) |
-| Quel niveau de français ? | **B1** pour la naturalisation |
+| Quel niveau de français ? | **B2** + examen civique pour la naturalisation (depuis 01.01.2026) |
 | Où déposer ? | Consulat français au Maroc (Rabat, Casablanca, Agadir, Marrakech, Tanger) |
 
 ---

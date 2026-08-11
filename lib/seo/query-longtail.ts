@@ -467,9 +467,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "nationalité française après résidence Maghreb",
       "examen civique naturalisation France 2026",
     ],
-    seoTitle: "Naturalisation France ~5 ans — Afrique",
+    seoTitle: "Naturalisation France 2026 — 5 ans, B2, civique",
     seoDescription:
-      "Naturalisation française ~5 ans (pas 2 ans Maghreb) : langue, civique, résidence régulière — service-public.",
+      "Naturalisation FR 2026 : 5 ans, B2, examen civique, timbre €255. Pas un « 2 ans Maghreb ». Sources F2213 / F11926.",
   },
 ];
 
