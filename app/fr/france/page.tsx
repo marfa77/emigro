@@ -18,6 +18,7 @@ export const metadata: Metadata = pageMetadata({
     "Vivre en France depuis le Maghreb ou le Sénégal 2026 : VLS-TS, Passeport Talent (~€39.582), naturalisation ~5 ans + B2/civique. Hubs MA/DZ/TN/SN.",
   path: FR_PATHS.france,
   locale: "fr",
+  frHreflang: { destinationIso: "FR" },
   aiDescription:
     "France destination hub for Maghreb and Senegal: VLS-TS, Talent passport, study/work, naturalisation ~5 years with B2 + civic exam. Not a Maghreb 2-year nationality hook.",
   aiCategory: "destination-hub",

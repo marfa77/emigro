@@ -17,6 +17,7 @@ export const metadata: Metadata = pageMetadata({
   description: DESCRIPTION,
   path: FR_PATHS.guides,
   locale: "fr",
+  frHreflang: { destinationIso: "FR" },
   aiDescription: DESCRIPTION,
   aiCategory: "relocation-guides-index",
 });

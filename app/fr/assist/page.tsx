@@ -16,6 +16,7 @@ export const metadata = pageMetadata({
     "Emigro Assist en français : Route Check €129 (appel + PDF en 48 h) et accompagnement €100/heure pour les routes France depuis le Maghreb et le Sénégal.",
   path: FR_PATHS.assist,
   locale: "fr",
+  frHreflang: { destinationIso: "FR" },
   aiDescription:
     "Emigro Assist for Francophone Africa: Route Check €129 structured call + PDF case plan; hourly accompaniment €100. Destination France. Not a law firm.",
   aiCategory: "assist",

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Globe2, MapPin } from "lucide-react";
+import { ArrowRight, Compass, Globe2, MapPin } from "lucide-react";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { EmigroDepthStrip } from "@/components/EmigroDepthStrip";
 import { HeroShell } from "@/components/visuals/HeroShell";
@@ -25,6 +25,7 @@ export const metadata: Metadata = pageMetadata({
     "Résidence en France depuis le Maghreb et le Sénégal 2026 : VLS-TS, Passeport Talent, naturalisation ~5 ans + B2/civique. Maroc, Algérie, Tunisie, Sénégal — sources officielles.",
   path: FR_PATHS.home,
   locale: "fr",
+  frHreflang: { destinationIso: "FR" },
   aiDescription:
     "Emigro FR: residence navigator for Maghreb and Senegal passports to France. Pillars with official sources. Naturalisation ~5 years (not a Maghreb 2-year hook). Not legal advice.",
   aiCategory: "afrique-france-hub",
@@ -105,11 +106,24 @@ export default function FrHubPage() {
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <Link
-              href={FR_PATHS.france}
+              href={FR_PATHS.wizard}
               className="inline-flex items-center gap-2 rounded-lg bg-white px-5 py-3 text-sm font-semibold text-corridor-900 hover:bg-corridor-50"
             >
-              Hub France
+              <Compass className="h-4 w-4" />
+              Évaluer ma route
               <ArrowRight className="h-4 w-4" />
+            </Link>
+            <Link
+              href={FR_PATHS.france}
+              className="inline-flex items-center gap-2 rounded-lg border border-white/40 px-5 py-3 text-sm font-medium text-white hover:bg-white/10"
+            >
+              Hub France
+            </Link>
+            <Link
+              href={FR_PATHS.assist}
+              className="inline-flex items-center gap-2 rounded-lg border border-white/40 px-5 py-3 text-sm font-medium text-white hover:bg-white/10"
+            >
+              Assist — Route Check
             </Link>
             <Link
               href={FR_PATHS.guides}

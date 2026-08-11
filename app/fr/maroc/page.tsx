@@ -21,6 +21,7 @@ export const metadata: Metadata = pageMetadata({
     "Comment émigrer en France depuis le Maroc 2026 : visa ≠ résidence, VLS-TS, Passeport Talent et naturalisation ~5 ans. Sources officielles.",
   path: FR_PATHS.maroc,
   locale: "fr",
+  frHreflang: { originIso: "MA", destinationIso: "FR" },
   aiDescription:
     "Maroc→France hub: short-stay visa vs national long-stay (VLS-TS), Talent passport, consulates, naturalisation ~5 years.",
   aiCategory: "origin-corridor-hub",
@@ -75,8 +76,12 @@ export default function FrMarocHubPage() {
               Prochaine étape
               <ArrowRight className="h-4 w-4" />
             </Link>
+            <Link href={FR_PATHS.assist} className="inline-flex items-center gap-2 text-corridor-700 hover:underline">
+              Assist — Route Check
+              <ArrowRight className="h-4 w-4" />
+            </Link>
             <Link href={FR_PATHS.contact} className="inline-flex items-center gap-2 text-corridor-700 hover:underline">
-              Contact / Assist
+              Contact
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>

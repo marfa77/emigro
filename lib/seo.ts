@@ -1,10 +1,16 @@
 import type { Metadata } from "next";
 import type { SiteLocale } from "@/lib/locale";
 import { withAiMetadata } from "@/lib/seo/llm-meta";
-import { esHreflangAlternates, hreflangAlternates } from "@/lib/seo/hreflang";
+import { esHreflangAlternates, frHreflangAlternates, hreflangAlternates } from "@/lib/seo/hreflang";
 import { publicSiteUrl } from "@/lib/site-url";
 
-export { hreflangAlternates, esHreflangAlternates, corridorHreflangTag, paginationRobots } from "@/lib/seo/hreflang";
+export {
+  hreflangAlternates,
+  esHreflangAlternates,
+  frHreflangAlternates,
+  corridorHreflangTag,
+  paginationRobots,
+} from "@/lib/seo/hreflang";
 
 /** 1200×630 JPG — supported by Twitter/X, Threads, Facebook (not SVG). */
 export const DEFAULT_OG_IMAGE = "/images/og/og-default.jpg";
@@ -206,6 +212,8 @@ export function buildGuideArticleMetadata(input: {
   aiCategory?: string;
   locale?: SiteLocale;
   esHreflang?: { originIso?: string; destinationIso?: string };
+  /** FR-only regional tags (fr-MA, fr-FR). Ignored for ru/es. */
+  frHreflang?: { originIso?: string; destinationIso?: string };
 }): Metadata {
   const canonicalUrl = pageUrl(input.path);
   const locale =
@@ -219,6 +227,7 @@ export function buildGuideArticleMetadata(input: {
     ogImageAlt: input.ogImageAlt,
     locale,
     esHreflang: input.esHreflang,
+    frHreflang: input.frHreflang,
   });
 
   const metadata: Metadata = {
@@ -227,7 +236,9 @@ export function buildGuideArticleMetadata(input: {
     alternates:
       locale === "es"
         ? esHreflangAlternates(input.path, input.esHreflang)
-        : hreflangAlternates(input.path),
+        : locale === "fr"
+          ? frHreflangAlternates(input.path, input.frHreflang)
+          : hreflangAlternates(input.path),
     openGraph: {
       ...base.openGraph,
       url: canonicalUrl,
@@ -261,10 +272,12 @@ export function pageMetadata(input: {
   aiCategory?: string;
   /** Corridor / transit urlSegment for ru-{country} hreflang. */
   countrySegment?: string;
-  /** Public locale surface. Defaults to ru; ES uses Spanish hreflang + OG locale. */
+  /** Public locale surface. Defaults to ru; ES/FR use locale hreflang + OG locale. */
   locale?: SiteLocale;
-  /** ES-only regional tags (es-UY, es-ES). Ignored for ru. */
+  /** ES-only regional tags (es-UY, es-ES). Ignored for ru/fr. */
   esHreflang?: { originIso?: string; destinationIso?: string };
+  /** FR-only regional tags (fr-MA, fr-FR). Ignored for ru/es. */
+  frHreflang?: { originIso?: string; destinationIso?: string };
 }): Metadata {
   const locale =
     input.locale ??
@@ -279,14 +292,18 @@ export function pageMetadata(input: {
   const alternates =
     locale === "es"
       ? esHreflangAlternates(input.path, input.esHreflang)
-      : hreflangAlternates(input.path, input.countrySegment);
+      : locale === "fr"
+        ? frHreflangAlternates(input.path, input.frHreflang)
+        : hreflangAlternates(input.path, input.countrySegment);
   const ogLocale =
     locale === "es"
       ? input.esHreflang?.originIso
         ? `es_${input.esHreflang.originIso.toUpperCase()}`
         : "es_ES"
       : locale === "fr"
-        ? "fr_FR"
+        ? input.frHreflang?.originIso
+          ? `fr_${input.frHreflang.originIso.toUpperCase()}`
+          : "fr_FR"
         : "ru_RU";
 
   const metadata = withSocialImages(

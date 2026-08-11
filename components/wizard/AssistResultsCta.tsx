@@ -32,7 +32,8 @@ export function AssistResultsCta({
     program: programTitle,
     locale,
   });
-  const samplePlanHref = "/ru/assist/sample-plan";
+  /** Sample PDF page exists only under /ru for now — hide for es/fr to avoid locale leak. */
+  const samplePlanHref = locale === "ru" ? "/ru/assist/sample-plan" : null;
   const label = countryLabel ?? countryRu;
 
   function trackAssistClick(linkLabel: string, targetPath: string) {
@@ -116,13 +117,19 @@ export function AssistResultsCta({
               <FileText className="mt-0.5 h-4 w-4 shrink-0 text-corridor-600" aria-hidden />
               <span>
                 {copy.pdfPrefix}
-                <Link
-                  href={samplePlanHref}
-                  onClick={() => trackAssistClick(copy.sampleTrack, samplePlanHref)}
-                  className="font-medium text-corridor-700 hover:underline"
-                >
-                  {copy.sample}
-                </Link>
+                {samplePlanHref ? (
+                  <Link
+                    href={samplePlanHref}
+                    onClick={() => trackAssistClick(copy.sampleTrack, samplePlanHref)}
+                    className="font-medium text-corridor-700 hover:underline"
+                  >
+                    {copy.sample}
+                  </Link>
+                ) : (
+                  <span className="text-slate-600">
+                    {locale === "es" ? "plan de caso" : locale === "fr" ? "plan de cas" : "план кейса"}
+                  </span>
+                )}
               </span>
             </li>
           </ul>

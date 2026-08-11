@@ -14,6 +14,7 @@ export const metadata = pageMetadata({
     "Contactez l'équipe Emigro en français : Maghreb / Sénégal → France, partnership et feedback.",
   path: FR_PATHS.contact,
   locale: "fr",
+  frHreflang: { destinationIso: "FR" },
 });
 
 export default function FrContactPage() {

@@ -98,6 +98,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       : description,
     aiCategory: "relocation-guide",
     locale: "fr",
+    frHreflang: { destinationIso: "FR" },
   });
 }
 

@@ -13,6 +13,7 @@ export const metadata: Metadata = pageMetadata({
   description: "Comparaison France — non indexé.",
   path: FR_PATHS.wizardResults,
   locale: "fr",
+  frHreflang: { destinationIso: "FR" },
   noIndex: true,
 });
 

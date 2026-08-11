@@ -76,6 +76,24 @@ export function esHreflangAlternates(
   return { canonical: url, languages };
 }
 
+/**
+ * French Afrique → France pages — never emit ru/ru-RU on /fr URLs.
+ * originIso → fr-MA (etc.); destinationIso → fr-FR.
+ */
+export function frHreflangAlternates(
+  path: string,
+  opts?: { originIso?: string; destinationIso?: string },
+): Metadata["alternates"] {
+  const url = pageUrl(path);
+  const languages: Record<string, string> = {
+    fr: url,
+    "x-default": url,
+  };
+  if (opts?.originIso) languages[`fr-${opts.originIso.toUpperCase()}`] = url;
+  if (opts?.destinationIso) languages[`fr-${opts.destinationIso.toUpperCase()}`] = url;
+  return { canonical: url, languages };
+}
+
 /** Paginated list pages: page > 1 → noindex, follow (Barakhlo pattern). */
 export function paginationRobots(page: number): Metadata["robots"] | undefined {
   if (page > 1) return { index: false, follow: true };

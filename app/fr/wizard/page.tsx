@@ -17,6 +17,7 @@ export const metadata: Metadata = pageMetadata({
     "Comparez les routes de résidence en France (passeports MA/DZ/TN/SN) : Talent, visiteur, études, famille. Naturalisation générale ~5 ans.",
   path: FR_PATHS.wizard,
   locale: "fr",
+  frHreflang: { destinationIso: "FR" },
   aiDescription:
     "Emigro FR route evaluator: Maghreb and Senegal passports MA/DZ/TN/SN → France (Talent, VLS-TS visiteur, student, family). Naturalisation ~5 years. Not legal advice.",
   aiCategory: "route-evaluator",
