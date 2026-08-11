@@ -19,7 +19,7 @@ interface WizardProps {
   mode?: "corridor" | "hub";
   analyticsScope?: string;
   /** UI locale for chrome strings; question copy still comes from modules. */
-  locale?: "ru" | "es";
+  locale?: "ru" | "es" | "fr";
   /**
    * Extra answers merged on submit (e.g. hub_audience=latam for ES wizard).
    * Not shown in the form.
@@ -105,74 +105,106 @@ export function WizardForm({
   const [draftRestored, setDraftRestored] = useState(false);
   const startedRef = useRef(false);
   const hydratedRef = useRef(false);
-  const isEs = locale === "es";
-
-  const ui = isEs
-    ? {
-        progressLabel: "Progreso del evaluador",
-        stepOf: (n: number, total: number) => `Paso ${n} de ${total}`,
-        interestPrefix: "Tenemos en cuenta su interés en:",
-        interestSuffix:
-          "El emparejamiento sigue centrado en España y Portugal; el interés solo ordena un poco.",
-        draftRestored:
-          "Restauramos sus respuestas anteriores en este dispositivo. Puede continuar o cambiar cualquier paso.",
-        tip: "Si no tiene la cifra exacta, indique una aproximación en euros. Si la pregunta no aplica, elija «No» o deje vacío el campo opcional.",
-        answerRequired: (label: string) => `Responda: ${label}`,
-        loading1: "Comparamos sus respuestas con los programas; puede tardar unos segundos.",
-        loading2: "Comparamos ingresos, ahorros, familia y documentos con los requisitos.",
-        loading3: "Preparamos resultados claros y próximos pasos.",
-        loadingIdle: "Calculando resultados...",
-        loadingHint: "Comprobamos las reglas; no cierre ni actualice la página.",
-        errorTitle: "Falta un paso",
-        back: "Atrás",
-        next: "Siguiente",
-        showResults: "Ver resultados",
-        preparing: "Preparando resultados...",
-        numberFallback: "Introduzca un número",
-        numberExamples: {
-          monthly_income_eur: "Ej.: 3500",
-          passive_income_eur: "Ej.: 1200",
-          savings_eur: "Ej.: 25000",
-          willing_to_invest_eur: "Ej.: 0 o 250000",
-          annual_salary_eur: "Ej.: 55678",
-          study_budget_eur: "Ej.: 12000",
-          relocating_children_count: "0, 1, 2...",
-          relocating_parents_count: "0, 1, 2...",
-        } as Record<string, string>,
-      }
-    : {
-        progressLabel: "Прогресс wizard",
-        stepOf: (n: number, total: number) => `Шаг ${n} из ${total}`,
-        interestPrefix: "Учитываем ваш интерес к:",
-        interestSuffix:
-          "Подбор всё равно по всем коридорам — интерес только слегка поднимает релевантные страны в выдаче.",
-        draftRestored:
-          "Восстановили ваши прошлые ответы с этого устройства. Можно продолжить или изменить любой шаг.",
-        tip: "Если точной цифры нет, укажите примерную сумму в евро. Если вопрос не про вас или ответа нет, выбирайте «Нет» или оставляйте необязательное поле пустым.",
-        answerRequired: (label: string) => `Ответьте на вопрос: ${label}`,
-        loading1: "Сверяем ответы с программами, это может занять несколько секунд.",
-        loading2: "Сравниваем доход, сбережения, семью и документы с требованиями программ.",
-        loading3: "Готовим понятные результаты и следующие шаги.",
-        loadingIdle: "Считаем результаты...",
-        loadingHint:
-          "Мы проверяем правила программ и сразу покажем результат. Страницу можно не обновлять и не закрывать.",
-        errorTitle: "Нужно ещё одно действие",
-        back: "Назад",
-        next: "Далее",
-        showResults: "Показать результаты",
-        preparing: "Готовим результаты...",
-        numberFallback: "Введите число",
-        numberExamples: {
-          monthly_income_eur: "Например: 3500",
-          passive_income_eur: "Например: 1200",
-          savings_eur: "Например: 25000",
-          willing_to_invest_eur: "Например: 0 или 250000",
-          annual_salary_eur: "Например: 55678",
-          study_budget_eur: "Например: 12000",
-          relocating_children_count: "0, 1, 2...",
-          relocating_parents_count: "0, 1, 2...",
-        } as Record<string, string>,
-      };
+  const ui =
+    locale === "es"
+      ? {
+          progressLabel: "Progreso del evaluador",
+          stepOf: (n: number, total: number) => `Paso ${n} de ${total}`,
+          interestPrefix: "Tenemos en cuenta su interés en:",
+          interestSuffix:
+            "El emparejamiento sigue centrado en España y Portugal; el interés solo ordena un poco.",
+          draftRestored:
+            "Restauramos sus respuestas anteriores en este dispositivo. Puede continuar o cambiar cualquier paso.",
+          tip: "Si no tiene la cifra exacta, indique una aproximación en euros. Si la pregunta no aplica, elija «No» o deje vacío el campo opcional.",
+          answerRequired: (label: string) => `Responda: ${label}`,
+          loading1: "Comparamos sus respuestas con los programas; puede tardar unos segundos.",
+          loading2: "Comparamos ingresos, ahorros, familia y documentos con los requisitos.",
+          loading3: "Preparamos resultados claros y próximos pasos.",
+          loadingIdle: "Calculando resultados...",
+          loadingHint: "Comprobamos las reglas; no cierre ni actualice la página.",
+          errorTitle: "Falta un paso",
+          back: "Atrás",
+          next: "Siguiente",
+          showResults: "Ver resultados",
+          preparing: "Preparando resultados...",
+          numberFallback: "Introduzca un número",
+          numberExamples: {
+            monthly_income_eur: "Ej.: 3500",
+            passive_income_eur: "Ej.: 1200",
+            savings_eur: "Ej.: 25000",
+            willing_to_invest_eur: "Ej.: 0 o 250000",
+            annual_salary_eur: "Ej.: 55678",
+            study_budget_eur: "Ej.: 12000",
+            relocating_children_count: "0, 1, 2...",
+            relocating_parents_count: "0, 1, 2...",
+          } as Record<string, string>,
+        }
+      : locale === "fr"
+        ? {
+            progressLabel: "Progression de l'évaluateur",
+            stepOf: (n: number, total: number) => `Étape ${n} sur ${total}`,
+            interestPrefix: "Nous tenons compte de votre intérêt pour :",
+            interestSuffix:
+              "Le matching reste centré sur la France ; l'intérêt ne fait que réordonner un peu.",
+            draftRestored:
+              "Nous avons restauré vos réponses précédentes sur cet appareil. Vous pouvez continuer ou modifier n'importe quelle étape.",
+            tip: "Si vous n'avez pas le chiffre exact, indiquez une approximation en euros. Si la question ne s'applique pas, choisissez « Non » ou laissez le champ optionnel vide.",
+            answerRequired: (label: string) => `Répondez : ${label}`,
+            loading1: "Nous comparons vos réponses aux programmes ; cela peut prendre quelques secondes.",
+            loading2: "Nous confrontons revenus, épargne, famille et documents aux exigences.",
+            loading3: "Nous préparons des résultats clairs et les prochaines étapes.",
+            loadingIdle: "Calcul des résultats…",
+            loadingHint: "Nous vérifions les règles ; ne fermez pas et ne rechargez pas la page.",
+            errorTitle: "Une étape manque",
+            back: "Retour",
+            next: "Suivant",
+            showResults: "Voir les résultats",
+            preparing: "Préparation des résultats…",
+            numberFallback: "Saisissez un nombre",
+            numberExamples: {
+              monthly_income_eur: "Ex. : 3500",
+              passive_income_eur: "Ex. : 1200",
+              savings_eur: "Ex. : 25000",
+              willing_to_invest_eur: "Ex. : 0 ou 250000",
+              annual_salary_eur: "Ex. : 39582",
+              study_budget_eur: "Ex. : 12000",
+              relocating_children_count: "0, 1, 2…",
+              relocating_parents_count: "0, 1, 2…",
+            } as Record<string, string>,
+          }
+        : {
+            progressLabel: "Прогресс wizard",
+            stepOf: (n: number, total: number) => `Шаг ${n} из ${total}`,
+            interestPrefix: "Учитываем ваш интерес к:",
+            interestSuffix:
+              "Подбор всё равно по всем коридорам — интерес только слегка поднимает релевантные страны в выдаче.",
+            draftRestored:
+              "Восстановили ваши прошлые ответы с этого устройства. Можно продолжить или изменить любой шаг.",
+            tip: "Если точной цифры нет, укажите примерную сумму в евро. Если вопрос не про вас или ответа нет, выбирайте «Нет» или оставляйте необязательное поле пустым.",
+            answerRequired: (label: string) => `Ответьте на вопрос: ${label}`,
+            loading1: "Сверяем ответы с программами, это может занять несколько секунд.",
+            loading2: "Сравниваем доход, сбережения, семью и документы с требованиями программ.",
+            loading3: "Готовим понятные результаты и следующие шаги.",
+            loadingIdle: "Считаем результаты...",
+            loadingHint:
+              "Мы проверяем правила программ и сразу покажем результат. Страницу можно не обновлять и не закрывать.",
+            errorTitle: "Нужно ещё одно действие",
+            back: "Назад",
+            next: "Далее",
+            showResults: "Показать результаты",
+            preparing: "Готовим результаты...",
+            numberFallback: "Введите число",
+            numberExamples: {
+              monthly_income_eur: "Например: 3500",
+              passive_income_eur: "Например: 1200",
+              savings_eur: "Например: 25000",
+              willing_to_invest_eur: "Например: 0 или 250000",
+              annual_salary_eur: "Например: 55678",
+              study_budget_eur: "Например: 12000",
+              relocating_children_count: "0, 1, 2...",
+              relocating_parents_count: "0, 1, 2...",
+            } as Record<string, string>,
+          };
 
   const currentModule = modules[step];
   const isLast = step === modules.length - 1;
@@ -342,7 +374,14 @@ export function WizardForm({
 
       router.push(`${resultsPath}?session=${sessionData.id}`);
     } catch (e) {
-      const message = e instanceof Error ? e.message : isEs ? "Error" : "Ошибка";
+      const message =
+        e instanceof Error
+          ? e.message
+          : locale === "es"
+            ? "Error"
+            : locale === "fr"
+              ? "Erreur"
+              : "Ошибка";
       trackEvent("wizard_error", { corridor_slug: scope, message });
       setError(message);
     } finally {

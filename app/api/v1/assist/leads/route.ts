@@ -73,9 +73,18 @@ export async function POST(request: Request) {
   const providers = selectedProviderNames(body.selected_provider_ids);
   const rawSessionId = clean(body.session_id);
   const sessionId = isValidWizardSessionId(rawSessionId) ? rawSessionId : null;
-  const preferredLanguage = clean(body.preferred_language) === "es" ? "es" : "ru";
-  const audience = clean(body.audience) === "latam" ? "latam" : "ru";
-  const assistSource = audience === "latam" ? "emigro_assist_es" : "emigro_assist";
+  const preferredRaw = clean(body.preferred_language);
+  const preferredLanguage =
+    preferredRaw === "es" ? "es" : preferredRaw === "fr" ? "fr" : "ru";
+  const audienceRaw = clean(body.audience);
+  const audience =
+    audienceRaw === "latam" ? "latam" : audienceRaw === "fr_africa" ? "fr_africa" : "ru";
+  const assistSource =
+    audience === "latam"
+      ? "emigro_assist_es"
+      : audience === "fr_africa"
+        ? "emigro_assist_fr"
+        : "emigro_assist";
 
   if (!country || !programRoute || !name || !contact || !message) {
     return NextResponse.json(

@@ -35,6 +35,13 @@ const PAYMENT_OPTIONS_ES: { value: AssistPaymentMethod; label: string }[] = [
   { value: "card", label: "Tarjeta (enviaremos enlace de Gumroad)" },
 ];
 
+const PAYMENT_OPTIONS_FR: { value: AssistPaymentMethod; label: string }[] = [
+  { value: "paypal", label: "PayPal" },
+  { value: "telegram_stars", label: "Telegram Stars" },
+  { value: "crypto", label: "Crypto (USDT / USDC)" },
+  { value: "card", label: "Carte (nous enverrons un lien Gumroad)" },
+];
+
 const PLAN_TIER_OPTIONS_RU: { value: AssistPlanTier; label: string; summary: string }[] = [
   {
     value: "route-check",
@@ -65,6 +72,21 @@ const PLAN_TIER_OPTIONS_ES: { value: AssistPlanTier; label: string; summary: str
   },
 ];
 
+const PLAN_TIER_OPTIONS_FR: { value: AssistPlanTier; label: string; summary: string }[] = [
+  {
+    value: "route-check",
+    label: "Route Check — €129",
+    summary:
+      "Appel avec l'équipe Emigro selon checklist, PDF du cas sous 48 h et sélection de partenaires. Paiement après confirmation du créneau.",
+  },
+  {
+    value: "accompaniment",
+    label: "Accompagnement — €100/heure",
+    summary:
+      "Soutien de communication : courrier avec consulat, avocat ou agence, lettres, formulaires, analyse de refus. Paiement après accord sur le format.",
+  },
+];
+
 const SUCCESS_MESSAGES_RU: Record<AssistPlanTier, string> = {
   "route-check":
     "Заявка отправлена. Emigro согласует время созвона с командой. После подтверждения слота вышлем реквизиты (€129). Команда Emigro проведёт встречу и пришлёт PDF с разбором кейса и контактами партнёров в течение 48 часов.",
@@ -79,6 +101,13 @@ const SUCCESS_MESSAGES_ES: Record<AssistPlanTier, string> = {
     "Solicitud enviada. Emigro contactará para aclarar la tarea y el formato. Pago €100/hora tras el acuerdo.",
 };
 
+const SUCCESS_MESSAGES_FR: Record<AssistPlanTier, string> = {
+  "route-check":
+    "Demande envoyée. Emigro conviendra de l'heure de l'appel. Après confirmation du créneau, nous enverrons les coordonnées de paiement (€129). Après la réunion vous recevrez le PDF et les contacts partenaires sous 48 h.",
+  accompaniment:
+    "Demande envoyée. Emigro vous contactera pour clarifier la tâche et le format. Paiement €100/heure après accord.",
+};
+
 const SUBMIT_LABELS_RU: Record<AssistPlanTier, string> = {
   "route-check": "Запросить Route Check — €129",
   accompaniment: "Запросить сопровождение",
@@ -87,6 +116,11 @@ const SUBMIT_LABELS_RU: Record<AssistPlanTier, string> = {
 const SUBMIT_LABELS_ES: Record<AssistPlanTier, string> = {
   "route-check": "Solicitar Route Check — €129",
   accompaniment: "Solicitar acompañamiento",
+};
+
+const SUBMIT_LABELS_FR: Record<AssistPlanTier, string> = {
+  "route-check": "Demander Route Check — €129",
+  accompaniment: "Demander l'accompagnement",
 };
 
 function tierFromHash(hash: string): AssistPlanTier | null {
@@ -103,7 +137,7 @@ type Props = {
   initialSessionId?: string;
   initialCountry?: string;
   initialProgramRoute?: string;
-  locale?: "ru" | "es";
+  locale?: "ru" | "es" | "fr";
 };
 
 export function AssistLeadForm({
@@ -116,10 +150,19 @@ export function AssistLeadForm({
   locale = "ru",
 }: Props) {
   const isEs = locale === "es";
-  const PAYMENT_OPTIONS = isEs ? PAYMENT_OPTIONS_ES : PAYMENT_OPTIONS_RU;
-  const PLAN_TIER_OPTIONS = isEs ? PLAN_TIER_OPTIONS_ES : PLAN_TIER_OPTIONS_RU;
-  const SUCCESS_MESSAGES = isEs ? SUCCESS_MESSAGES_ES : SUCCESS_MESSAGES_RU;
-  const SUBMIT_LABELS = isEs ? SUBMIT_LABELS_ES : SUBMIT_LABELS_RU;
+  const isFr = locale === "fr";
+  const PAYMENT_OPTIONS = isEs ? PAYMENT_OPTIONS_ES : isFr ? PAYMENT_OPTIONS_FR : PAYMENT_OPTIONS_RU;
+  const PLAN_TIER_OPTIONS = isEs
+    ? PLAN_TIER_OPTIONS_ES
+    : isFr
+      ? PLAN_TIER_OPTIONS_FR
+      : PLAN_TIER_OPTIONS_RU;
+  const SUCCESS_MESSAGES = isEs
+    ? SUCCESS_MESSAGES_ES
+    : isFr
+      ? SUCCESS_MESSAGES_FR
+      : SUCCESS_MESSAGES_RU;
+  const SUBMIT_LABELS = isEs ? SUBMIT_LABELS_ES : isFr ? SUBMIT_LABELS_FR : SUBMIT_LABELS_RU;
   const PAYMENT_LABELS = Object.fromEntries(
     PAYMENT_OPTIONS.map(({ value, label }) => [value, label])
   ) as Record<AssistPaymentMethod, string>;
@@ -178,11 +221,20 @@ export function AssistLeadForm({
           consent,
           session_id: wizardSessionId || undefined,
           preferred_language: locale,
-          audience: isEs ? "latam" : "ru",
+          audience: isEs ? "latam" : isFr ? "fr_africa" : "ru",
         }),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error ?? (isEs ? "No se pudo enviar la solicitud" : "Не удалось отправить заявку"));
+      if (!res.ok) {
+        throw new Error(
+          data.error ??
+            (isEs
+              ? "No se pudo enviar la solicitud"
+              : isFr
+                ? "Impossible d'envoyer la demande"
+                : "Не удалось отправить заявку")
+        );
+      }
 
       trackEvent("assist_lead_submitted", {
         country,
@@ -196,8 +248,19 @@ export function AssistLeadForm({
       setStatus("done");
       setNotice(SUCCESS_MESSAGES[planTier]);
     } catch (err) {
-      const msg = err instanceof Error ? err.message : (isEs ? "Error al enviar" : "Ошибка отправки");
-      trackEvent("lead_error", { source: isEs ? "emigro_assist_es" : "emigro_assist", country, message: msg });
+      const msg =
+        err instanceof Error
+          ? err.message
+          : isEs
+            ? "Error al enviar"
+            : isFr
+              ? "Erreur d'envoi"
+              : "Ошибка отправки";
+      trackEvent("lead_error", {
+        source: isEs ? "emigro_assist_es" : isFr ? "emigro_assist_fr" : "emigro_assist",
+        country,
+        message: msg,
+      });
       setStatus("error");
       setNotice(msg);
     }
@@ -210,7 +273,9 @@ export function AssistLeadForm({
   return (
     <form onSubmit={submit} className="space-y-5 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
       <fieldset>
-        <legend className="text-sm font-medium text-slate-800">{isEs ? "Qué le interesa" : "Что вас интересует"}</legend>
+        <legend className="text-sm font-medium text-slate-800">
+          {isEs ? "Qué le interesa" : isFr ? "Ce qui vous intéresse" : "Что вас интересует"}
+        </legend>
         <div className="mt-3 space-y-2">
           {PLAN_TIER_OPTIONS.map((option) => (
             <label
@@ -245,7 +310,11 @@ export function AssistLeadForm({
 
       <div>
         <label className="text-sm font-medium text-slate-800" htmlFor="assist-payment">
-          {isEs ? "Método de pago preferido" : "Предпочитаемый способ оплаты"}
+          {isEs
+            ? "Método de pago preferido"
+            : isFr
+              ? "Mode de paiement préféré"
+              : "Предпочитаемый способ оплаты"}
         </label>
         <select
           id="assist-payment"
@@ -263,13 +332,15 @@ export function AssistLeadForm({
         <p className="mt-1.5 text-xs text-slate-500">
           {isEs
             ? `Enviaremos los datos o el enlace (${PAYMENT_LABELS[paymentMethod]}) tras acordar hora o formato.`
-            : `Реквизиты или ссылку (${PAYMENT_LABELS[paymentMethod]}) вышлем после согласования времени или формата работы.`}
+            : isFr
+              ? `Nous enverrons les coordonnées ou le lien (${PAYMENT_LABELS[paymentMethod]}) après accord sur l'heure ou le format.`
+              : `Реквизиты или ссылку (${PAYMENT_LABELS[paymentMethod]}) вышлем после согласования времени или формата работы.`}
         </p>
       </div>
 
       <div>
         <label className="text-sm font-medium text-slate-800" htmlFor="assist-country">
-          {isEs ? "País / corredor" : "Страна / коридор"}
+          {isEs ? "País / corredor" : isFr ? "Pays / corridor" : "Страна / коридор"}
         </label>
         <select
           id="assist-country"
@@ -291,10 +362,14 @@ export function AssistLeadForm({
           {planTier === "accompaniment"
             ? isEs
               ? "Su ruta y tarea"
-              : "Ваш маршрут и задача"
+              : isFr
+                ? "Votre route et tâche"
+                : "Ваш маршрут и задача"
             : isEs
               ? "Qué necesita"
-              : "Что вам нужно"}
+              : isFr
+                ? "Ce dont vous avez besoin"
+                : "Что вам нужно"}
         </label>
         <input
           id="assist-route"
@@ -305,10 +380,14 @@ export function AssistLeadForm({
             planTier === "accompaniment"
               ? isEs
                 ? "Ej.: denegación AIMA, escribir al consulado, revisar formulario D7"
-                : "Например: отказ AIMA, нужно написать в консульство, проверить форму D7"
+                : isFr
+                  ? "Ex. : refus préfecture, écrire au consulat, revoir un formulaire"
+                  : "Например: отказ AIMA, нужно написать в консульство, проверить форму D7"
               : isEs
                 ? "Ej.: D7, nómada digital, cambio de estatus en España, mudanza con familia"
-                : "Например: D7, digital nomad, смена статуса в Испании, переезд с семьёй"
+                : isFr
+                  ? "Ex. : Passeport Talent, visiteur, études, déménagement en famille"
+                  : "Например: D7, digital nomad, смена статуса в Испании, переезд с семьёй"
           }
           className={`mt-2 ${formField}`}
         />
@@ -317,7 +396,11 @@ export function AssistLeadForm({
       {planTier === "route-check" && (
         <fieldset>
           <legend className="text-sm font-medium text-slate-800">
-            {isEs ? "Servicios que ya contempla (opcional)" : "Какие сервисы уже рассматриваете (необязательно)"}
+            {isEs
+              ? "Servicios que ya contempla (opcional)"
+              : isFr
+                ? "Services déjà envisagés (optionnel)"
+                : "Какие сервисы уже рассматриваете (необязательно)"}
           </legend>
           <div className="mt-3 grid gap-2 sm:grid-cols-2">
             {providers.map((provider) => (
@@ -345,7 +428,7 @@ export function AssistLeadForm({
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
           <label className="text-sm font-medium text-slate-800" htmlFor="assist-name">
-            {isEs ? "Nombre" : "Имя"}
+            {isEs ? "Nombre" : isFr ? "Nom" : "Имя"}
           </label>
           <input
             id="assist-name"
@@ -357,14 +440,20 @@ export function AssistLeadForm({
         </div>
         <div>
           <label className="text-sm font-medium text-slate-800" htmlFor="assist-contact">
-            {isEs ? "Email o Telegram" : "Email или Telegram"}
+            {isEs ? "Email o Telegram" : isFr ? "Email ou Telegram" : "Email или Telegram"}
           </label>
           <input
             id="assist-contact"
             required
             value={contact}
             onChange={(e) => setContact(e.target.value)}
-            placeholder={isEs ? "name@email.com o @username" : "name@email.com или @username"}
+            placeholder={
+              isEs
+                ? "name@email.com o @username"
+                : isFr
+                  ? "name@email.com ou @username"
+                  : "name@email.com или @username"
+            }
             className={`mt-2 ${formField}`}
           />
         </div>
@@ -372,7 +461,7 @@ export function AssistLeadForm({
 
       <div>
         <label className="text-sm font-medium text-slate-800" htmlFor="assist-message">
-          {isEs ? "Cuéntenos más" : "Расскажите подробнее"}
+          {isEs ? "Cuéntenos más" : isFr ? "Dites-nous en plus" : "Расскажите подробнее"}
         </label>
         <textarea
           id="assist-message"
@@ -384,10 +473,14 @@ export function AssistLeadForm({
             planTier === "accompaniment"
               ? isEs
                 ? "Qué ya hizo, dónde se trabó, qué cartas o formularios necesita, plazos."
-                : "Что уже сделано, где застряли, какие письма или формы нужны, дедлайны."
+                : isFr
+                  ? "Ce qui est déjà fait, où vous êtes bloqué, quelles lettres ou formulaires, délais."
+                  : "Что уже сделано, где застряли, какие письма или формы нужны, дедлайны."
               : isEs
                 ? "Situación, ingresos, familia, plazos — qué quiere aclarar."
-                : "Ситуация, доход, семья, сроки — что хотите прояснить."
+                : isFr
+                  ? "Situation, revenus, famille, délais — ce que vous voulez clarifier."
+                  : "Ситуация, доход, семья, сроки — что хотите прояснить."
           }
           className={`mt-2 ${formField}`}
         />
@@ -412,6 +505,16 @@ export function AssistLeadForm({
               especialistas; el acompañamiento es apoyo de comunicación. La responsabilidad jurídica es del partner
               que usted elija.
             </>
+          ) : isFr ? (
+            <>
+              J&apos;accepte la{" "}
+              <Link href="/fr/privacy" className="text-corridor-600 hover:underline">
+                politique de confidentialité
+              </Link>{" "}
+              et comprends qu&apos;Emigro n&apos;est pas un cabinet : Route Check est une analyse structurée et une
+              navigation vers des spécialistes ; l&apos;accompagnement est un soutien de communication. La
+              responsabilité juridique incombe au partenaire que vous choisissez.
+            </>
           ) : (
             <>
               Я согласен(на) с{" "}
@@ -433,7 +536,13 @@ export function AssistLeadForm({
         disabled={status === "loading"}
         className="w-full rounded-lg bg-corridor-600 px-5 py-3 font-medium text-white hover:bg-corridor-700 disabled:opacity-60"
       >
-        {status === "loading" ? (isEs ? "Enviando…" : "Отправка...") : SUBMIT_LABELS[planTier]}
+        {status === "loading"
+          ? isEs
+            ? "Enviando…"
+            : isFr
+              ? "Envoi…"
+              : "Отправка..."
+          : SUBMIT_LABELS[planTier]}
       </button>
     </form>
   );

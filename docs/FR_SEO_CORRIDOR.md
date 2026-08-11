@@ -38,7 +38,7 @@ Shared family: `fr-speaking-africa-to-europe`. Config: [`lib/fr/corridor.ts`](..
 
 Do **not** market “naturalisation 2 ans” as a Maghreb-wide hook (unlike ES art. 22). Default FR naturalisation = **~5 years** résidence régulière; reductions exist (mariage, etc.) — verify service-public / Code civil.
 
-## Product (Phase 1)
+## Product (Phase 2 — shipped)
 
 | Path | Role |
 |------|------|
@@ -46,15 +46,23 @@ Do **not** market “naturalisation 2 ans” as a Maghreb-wide hook (unlike ES a
 | `/fr/maroc` … `/fr/senegal` | Origin hubs |
 | `/fr/france` | Destination hub |
 | `/fr/guides` + `[slug]` | Pillars |
-| `/fr/wizard` | Thin stub (full FR evaluator = Phase 2) |
-| `/fr/contact` | Trust / Assist handoff |
+| `/fr/wizard` + `/fr/wizard/results` | Full FR evaluator (MA/DZ/TN/SN → France) |
+| `/fr/assist` | Assist FR (Route Check €129 + accompagnement) |
+| `/fr/contact` | Trust / handoff |
 
 ## Monetization (in scope)
 
 - UniPrep FR civic mock on naturalisation pillar (`france` topic).
-- Assist: CTA to `/ru/assist` or `/es/assist` with FR note until `/fr/assist` ships.
+- Assist CTAs → `/fr/assist` from guides, wizard results, hubs, footer.
 - See `.cursor/rules/monetization-first.mdc`.
 
-## Out of Phase 1
+## Out of Phase 2 (later)
 
-Full FR wizard + passport eligibility SQL, BE/CA/CH destinations, `/en` Gulf/India.
+BE/CA/CH destinations, `/en` Gulf/India, more Afrique origins (CI/CM…).
+
+## Wizard notes
+
+- Definition: `lib/wizard/hub-definition-fr.ts` (`hub_audience=fr_africa`).
+- Engine filters to `ru-speaking-to-france` programs; labels/links via `lib/fr/program-labels.ts`.
+- Passport eligibility SQL: `supabase/migrations/20260811120000_fr_passport_eligibility_ma_dz_tn_sn.sql`.
+- Do **not** market Maghreb naturalisation as a « 2 ans » hook.

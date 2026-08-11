@@ -61,6 +61,7 @@ async function buildWwwSitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${origin}${FR_PATHS.senegal}`, changeFrequency: "weekly", priority: 0.91 },
     { url: `${origin}${FR_PATHS.france}`, changeFrequency: "weekly", priority: 0.91 },
     { url: `${origin}${FR_PATHS.wizard}`, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${origin}${FR_PATHS.assist}`, changeFrequency: "monthly", priority: 0.65 },
     { url: `${origin}${FR_PATHS.contact}`, changeFrequency: "monthly", priority: 0.5 },
     { url: `${origin}${FR_PATHS.privacy}`, changeFrequency: "yearly", priority: 0.3 },
     { url: `${origin}${FR_PATHS.terms}`, changeFrequency: "yearly", priority: 0.3 },

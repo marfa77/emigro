@@ -84,7 +84,13 @@ export default function FrFranceHubPage() {
             className="inline-flex items-center gap-2 rounded-lg bg-corridor-600 px-5 py-3 text-sm font-medium text-white hover:bg-corridor-700"
           >
             <Compass className="h-4 w-4" />
-            Prochaine étape
+            Évaluateur
+          </Link>
+          <Link
+            href={FR_PATHS.assist}
+            className="inline-flex items-center gap-2 rounded-lg border border-corridor-300 bg-corridor-50 px-5 py-3 text-sm font-medium text-corridor-900 hover:border-corridor-500"
+          >
+            Assist — Route Check €129
           </Link>
           <Link
             href={FR_PATHS.guides}

@@ -42,6 +42,8 @@ export const FR_HEADER_NAV_LINKS: SiteNavLink[] = [
   { href: FR_PATHS.tunisie, labelRu: "Tunisie", labelEn: "Tunisia", labelFr: "Tunisie" },
   { href: FR_PATHS.senegal, labelRu: "Sénégal", labelEn: "Senegal", labelFr: "Sénégal" },
   { href: FR_PATHS.guides, labelRu: "Guides", labelEn: "Guides", labelFr: "Guides" },
+  { href: FR_PATHS.wizard, labelRu: "Évaluateur", labelEn: "Evaluator", labelFr: "Évaluateur" },
+  { href: FR_PATHS.assist, labelRu: "Assist", labelEn: "Assist", labelFr: "Assist" },
   { href: FR_PATHS.contact, labelRu: "Contact", labelEn: "Contact", labelFr: "Contact" },
 ];
 

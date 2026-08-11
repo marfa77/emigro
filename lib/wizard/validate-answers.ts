@@ -1,4 +1,19 @@
-const PASSPORT_ISO2 = new Set(["RU", "BY", "UA", "KZ", "UY", "EC", "PE", "PY", "CO", "CL"]);
+const PASSPORT_ISO2 = new Set([
+  "RU",
+  "BY",
+  "UA",
+  "KZ",
+  "UY",
+  "EC",
+  "PE",
+  "PY",
+  "CO",
+  "CL",
+  "MA",
+  "DZ",
+  "TN",
+  "SN",
+]);
 
 const YES_NO = new Set(["yes", "no"]);
 
@@ -76,7 +91,7 @@ export function validateWizardAnswers(raw: unknown): ValidateAnswersResult {
     if (key === "passport_iso2") {
       const code = String(value ?? "").toUpperCase();
       if (!PASSPORT_ISO2.has(code)) {
-        return { ok: false, error: "passport_iso2 must be RU, BY, UA, KZ, UY, EC, PE, PY, CO, or CL" };
+        return { ok: false, error: "passport_iso2 must be RU, BY, UA, KZ, UY, EC, PE, PY, CO, CL, MA, DZ, TN, or SN" };
       }
       answers[key] = code;
       continue;

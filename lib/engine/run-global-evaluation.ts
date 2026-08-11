@@ -9,12 +9,17 @@ import { expandHubFacts } from "@/lib/wizard/expand-facts";
 import { INVESTOR_PROGRAM_SLUGS } from "@/lib/engine/constants";
 import { ES_PATHS } from "@/lib/es/corridor";
 import { esLatamLandingHref, esLatamProgramHref } from "@/lib/es/program-labels";
+import { FR_PATHS } from "@/lib/fr/corridor";
+import { frAfriqueLandingHref, frAfriqueProgramHref } from "@/lib/fr/program-labels";
 
 /** Hub wizard LATAM: evaluate Spain + Portugal only (reuse RU corridor program packs). */
 const LATAM_HUB_CORRIDOR_SLUGS = new Set([
   "ru-speaking-to-spain",
   "ru-speaking-to-portugal",
 ]);
+
+/** Hub wizard Afrique FR: France only. */
+const FR_AFRIQUE_HUB_CORRIDOR_SLUGS = new Set(["ru-speaking-to-france"]);
 
 export type GlobalEvalResult = {
   programId: string;
@@ -56,9 +61,12 @@ export async function runGlobalEvaluation(
   const facts = expandHubFacts(answers);
   const passportIso2 = String(facts.passport_iso2 ?? "RU");
   const isLatamHub = String(facts.hub_audience ?? "") === "latam";
+  const isFrAfriqueHub = String(facts.hub_audience ?? "") === "fr_africa";
   let corridors = await getGlobalEvaluationData(passportIso2);
   if (isLatamHub) {
     corridors = corridors.filter((c) => LATAM_HUB_CORRIDOR_SLUGS.has(c.corridorSlug));
+  } else if (isFrAfriqueHub) {
+    corridors = corridors.filter((c) => FR_AFRIQUE_HUB_CORRIDOR_SLUGS.has(c.corridorSlug));
   }
 
   const allResults: GlobalEvalResult[] = [];
@@ -91,7 +99,9 @@ export async function runGlobalEvaluation(
         countrySegment: segment,
         programPath: isLatamHub
           ? esLatamProgramHref(segment, program.programSlug)
-          : defaultProgramPath,
+          : isFrAfriqueHub
+            ? frAfriqueProgramHref(segment, program.programSlug)
+            : defaultProgramPath,
         sourceUrl: program.sourceUrl ?? null,
         sourceLabelRu: program.sourceLabelRu ?? null,
       });
@@ -118,9 +128,11 @@ export async function runGlobalEvaluation(
       corridorSlug,
       landingPath: isLatamHub
         ? esLatamLandingHref(first.countrySegment) || ES_PATHS.home
-        : first.countrySegment
-          ? `/ru/${first.countrySegment}`
-          : "/ru",
+        : isFrAfriqueHub
+          ? frAfriqueLandingHref(first.countrySegment) || FR_PATHS.home
+          : first.countrySegment
+            ? `/ru/${first.countrySegment}`
+            : "/ru",
       matches: rows.sort((a: GlobalEvalResult, b: GlobalEvalResult) => b.score - a.score),
     };
   });

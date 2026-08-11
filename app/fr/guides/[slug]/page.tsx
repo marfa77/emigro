@@ -218,8 +218,8 @@ export default function FrGuidePage({ params }: { params: { slug: string } }) {
         <section className="mt-10 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
           <h2 className="text-lg font-semibold text-slate-950">Étape suivante</h2>
           <p className="mt-2 text-sm text-slate-600">
-            Ouvrez le hub du corridor, contactez Emigro Assist (Route Check) ou écrivez-nous. L&apos;évaluateur FR
-            complet arrive en Phase 2.
+            Ouvrez le hub du corridor, lancez l&apos;évaluateur FR, demandez Emigro Assist (Route Check) ou
+            écrivez-nous.
           </p>
           <div className="mt-4 flex flex-wrap gap-3">
             <Link
@@ -230,7 +230,13 @@ export default function FrGuidePage({ params }: { params: { slug: string } }) {
               <ArrowRight className="h-4 w-4" />
             </Link>
             <Link
-              href="/ru/assist"
+              href={FR_PATHS.wizard}
+              className="inline-flex items-center gap-2 rounded-lg border border-corridor-300 bg-white px-4 py-2.5 text-sm font-medium text-corridor-900 hover:border-corridor-500"
+            >
+              Évaluateur
+            </Link>
+            <Link
+              href={FR_PATHS.assist}
               className="inline-flex items-center gap-2 rounded-lg border border-corridor-300 bg-corridor-50 px-4 py-2.5 text-sm font-medium text-corridor-900 hover:border-corridor-500"
             >
               Assist — Route Check €129

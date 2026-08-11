@@ -58,7 +58,7 @@ export function EmigroDepthStrip({ locale, className = "" }: Props) {
           Emigro FR: <strong>{inv.frPillars} piliers</strong> ·{" "}
           <strong>{inv.frOriginHubs} origines</strong> (MA/DZ/TN/SN) ·{" "}
           <strong>{inv.frDestinations} destination</strong> (France) ·{" "}
-          <Link href="/ru/assist" className="font-medium text-corridor-700 hover:underline">
+          <Link href={FR_PATHS.assist} className="font-medium text-corridor-700 hover:underline">
             Assist
           </Link>
           {" · "}

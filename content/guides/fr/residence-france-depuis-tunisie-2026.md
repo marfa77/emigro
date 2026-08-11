@@ -38,7 +38,7 @@ date_modified: 2026-08-11
 | Apostille (La Haye) | **Fixed** | **MA** : Apostille en vigueur **14/08/2016** ([HCCH](https://www.hcch.net/)). **TN/SN** : parties. **DZ** : entrée en vigueur **9/07/2026**. Drafts « légalisation seule / pas d'apostille » (MA, SN, DZ pré-juillet) = **périmés** — corps conservé, suivre cette Nota. Confirmez bilatéral FR ↔ pays |
 | Adresses consulats | **Soft** | Vérifiez Ambassade / France Diplomatie avant le RDV |
 
-*Ce n'est pas un conseil juridique.* Hubs : [Emigro FR](/fr) · [France](/fr/france) · [Passeport Talent](/fr/guides/passeport-talent-france-afrique-2026) · [Naturalisation](/fr/guides/naturalisation-france-afrique-2026) · [Assist](/ru/assist).
+*Ce n'est pas un conseil juridique.* Hubs : [Emigro FR](/fr) · [France](/fr/france) · [Passeport Talent](/fr/guides/passeport-talent-france-afrique-2026) · [Naturalisation](/fr/guides/naturalisation-france-afrique-2026) · [Assist](/fr/assist).
 
 ---
 
@@ -206,6 +206,6 @@ Rendez-vous obligatoire sur France-Visas.
 1. Lisez le [hub France](/fr/france) et votre hub d'origine.
 2. Passeport Talent : [guide Talent](/fr/guides/passeport-talent-france-afrique-2026).
 3. Naturalisation : [guide naturalisation](/fr/guides/naturalisation-france-afrique-2026).
-4. Besoin d'un Route Check : [Emigro Assist](/ru/assist) (équipe Emigro).
+4. Besoin d'un Route Check : [Emigro Assist](/fr/assist) (équipe Emigro).
 
 *Dernière mise à jour : août 2026. Vérifiez toujours les sources officielles.*

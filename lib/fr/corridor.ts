@@ -72,6 +72,8 @@ export const FR_PATHS = {
   senegal: "/fr/senegal",
   france: "/fr/france",
   wizard: "/fr/wizard",
+  wizardResults: "/fr/wizard/results",
+  assist: "/fr/assist",
   contact: "/fr/contact",
   privacy: "/fr/privacy",
   terms: "/fr/terms",

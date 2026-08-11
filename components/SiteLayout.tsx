@@ -150,7 +150,7 @@ function FrSiteFooter() {
           <Link href={FR_PATHS.contact} className="hover:text-corridor-600">
             Contact
           </Link>
-          <Link href="/ru/assist" className="hover:text-corridor-600">
+          <Link href={FR_PATHS.assist} className="hover:text-corridor-600">
             Assist
           </Link>
           <Link href={FR_PATHS.privacy} className="hover:text-corridor-600">

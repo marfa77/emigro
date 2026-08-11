@@ -3,7 +3,7 @@ export type AssistUrlParams = {
   country?: string;
   program?: string;
   hash?: string;
-  locale?: "ru" | "es";
+  locale?: "ru" | "es" | "fr";
 };
 
 /** Build Assist URL with wizard handoff query params. */
@@ -14,6 +14,7 @@ export function buildAssistUrl(params: AssistUrlParams = {}): string {
   if (params.program) search.set("program", params.program);
   const qs = search.toString();
   const hash = params.hash ?? "assist-form";
-  const base = params.locale === "es" ? "/es/assist" : "/ru/assist";
+  const base =
+    params.locale === "es" ? "/es/assist" : params.locale === "fr" ? "/fr/assist" : "/ru/assist";
   return `${base}${qs ? `?${qs}` : ""}#${hash}`;
 }
