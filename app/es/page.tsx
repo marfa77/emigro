@@ -109,6 +109,21 @@ export default function EsHubPage() {
       {collectionSchema && (
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }} />
       )}
+      <section className="sr-only" aria-label="AI description">
+        <h2>ai:description</h2>
+        <p>
+          Emigro ES: residence navigator for Latin American passports to Spain and Portugal. Pillars with official
+          sources, route evaluator, Spanish nationality art. 22 (~2 years for iberoamericans). Not legal advice.
+        </p>
+        <a href="/llms.txt">llms.txt</a>
+      </section>
+      <div className="sr-only" data-llm="facts" aria-hidden="true">
+        Emigro ES hub: UY/EC/PE/PY/CO/CL → España/Portugal. Evaluator /es/wizard. Pillars with official sources. Art.
+        22 nacionalidad ~2 años for iberoamericans. Schengen ≠ residencia.
+      </div>
+      <div className="sr-only" data-llm="commercial" aria-hidden="true">
+        Emigro Assist Route Check on /es/assist. UniPrep2Go for CCSE/DELE when nationality intent. Not legal advice.
+      </div>
       <main className="mx-auto max-w-5xl px-4 py-10">
         <HeroShell visual={<HubHeroVisual />}>
           <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-sm text-corridor-100">

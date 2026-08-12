@@ -93,6 +93,21 @@ export default function FrHubPage() {
       {collectionSchema && (
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }} />
       )}
+      <section className="sr-only" aria-label="AI description">
+        <h2>ai:description</h2>
+        <p>
+          Emigro FR: residence navigator for Maghreb and Senegal passports to France. Pillars with official sources.
+          Naturalisation ~5 years (not a Maghreb 2-year hook). Not legal advice.
+        </p>
+        <a href="/llms.txt">llms.txt</a>
+      </section>
+      <div className="sr-only" data-llm="facts" aria-hidden="true">
+        Emigro FR hub: MA/DZ/TN/SN → France. Wizard /fr/wizard. VLS-TS, Passeport Talent, naturalisation ~5 ans +
+        B2/civique. Sources officielles.
+      </div>
+      <div className="sr-only" data-llm="commercial" aria-hidden="true">
+        Emigro Assist on /fr/assist. Prep2Go/UniPrep for language exams when naturalisation intent. Not legal advice.
+      </div>
       <main className="mx-auto max-w-5xl px-4 py-10">
         <HeroShell visual={<HubHeroVisual />}>
           <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-sm text-corridor-100">

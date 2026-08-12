@@ -96,6 +96,9 @@ function EsSiteFooter() {
           <Link href={ES_PATHS.contact} className="hover:text-corridor-600">
             Contacto
           </Link>
+          <Link href="/ru/press" className="hover:text-corridor-600">
+            Press
+          </Link>
           <Link href={ES_PATHS.privacy} className="hover:text-corridor-600">
             Privacidad
           </Link>
@@ -149,6 +152,9 @@ function FrSiteFooter() {
           </Link>
           <Link href={FR_PATHS.contact} className="hover:text-corridor-600">
             Contact
+          </Link>
+          <Link href="/ru/press" className="hover:text-corridor-600">
+            Press
           </Link>
           <Link href={FR_PATHS.assist} className="hover:text-corridor-600">
             Assist
@@ -239,6 +245,12 @@ export function SiteFooter({ locale = "ru" }: { locale?: UiLocale }) {
           </Link>
           <Link href="/ru/contact" className="hover:text-corridor-600">
             {locale === "ru" ? "Контакты" : "Contact"}
+          </Link>
+          <Link href="/ru/press" className="hover:text-corridor-600">
+            Press
+          </Link>
+          <Link href="/ru/assist" className="hover:text-corridor-600">
+            Assist
           </Link>
           <Link href="/ru/privacy" className="hover:text-corridor-600">
             {locale === "ru" ? "Конфиденциальность" : "Privacy"}

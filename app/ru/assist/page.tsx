@@ -186,6 +186,12 @@ export default function AssistPage({
             >
               Сначала пройти wizard бесплатно
             </Link>
+            <Link
+              href="/ru/press"
+              className="inline-flex items-center gap-2 rounded-lg border border-white/40 px-5 py-3 font-medium text-white hover:bg-white/10"
+            >
+              Press &amp; citations
+            </Link>
           </div>
         </HeroShell>
 

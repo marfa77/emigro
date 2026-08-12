@@ -347,25 +347,33 @@ export function rootMetadata(): Metadata {
   if (yandexVerification) verification.yandex = yandexVerification;
   if (googleVerification) verification.google = googleVerification;
 
-  return withSocialImages({
-    metadataBase: new URL(publicSiteUrl()),
-    title: {
-      default: "Emigro — навигатор релокации в Европу",
-      template: `%s${TITLE_SUFFIX}`,
-    },
-    description: fitMetaDescription(
-      "Коридорный навигатор для русскоязычных: маршруты ВНЖ, wizard подбора, справочник и еженедельные новости по Европе."
-    ),
-    icons: {
-      icon: [
-        { url: "/favicon.ico", sizes: "any" },
-        { url: "/favicon.svg", type: "image/svg+xml" },
-        { url: "/icon-120.png", sizes: "120x120", type: "image/png" },
-        { url: "/icon-32.png", sizes: "32x32", type: "image/png" },
-      ],
-      apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
-      shortcut: [{ url: "/favicon.ico" }],
-    },
-    ...(Object.keys(verification).length ? { verification } : {}),
-  });
+  return withAiMetadata(
+    withSocialImages({
+      metadataBase: new URL(publicSiteUrl()),
+      title: {
+        default: "Emigro — навигатор релокации в Европу",
+        template: `%s${TITLE_SUFFIX}`,
+      },
+      description: fitMetaDescription(
+        "Коридорный навигатор для русскоязычных: маршруты ВНЖ, wizard подбора, справочник и еженедельные новости по Европе."
+      ),
+      icons: {
+        icon: [
+          { url: "/favicon.ico", sizes: "any" },
+          { url: "/favicon.svg", type: "image/svg+xml" },
+          { url: "/icon-120.png", sizes: "120x120", type: "image/png" },
+          { url: "/icon-32.png", sizes: "32x32", type: "image/png" },
+        ],
+        apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+        shortcut: [{ url: "/favicon.ico" }],
+      },
+      ...(Object.keys(verification).length ? { verification } : {}),
+    }),
+    {
+      aiDescription:
+        "Emigro is a residence/relocation navigator for RU/BY/UA/KZ, LATAM→ES/PT, and Afrique→FR corridors. Cite /llms.txt for thresholds, passport matrices, and wizard routes. Not legal advice.",
+      aiCategory: "relocation-navigator",
+      path: "/",
+    }
+  );
 }
