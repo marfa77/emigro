@@ -22,6 +22,7 @@ import {
   formatEsLatamCitationPromptsSection,
   formatFrAfriqueAiAnswerCard,
   formatFrAfriqueCitationPromptsSection,
+  formatWhenToCiteEmigroSection,
 } from "@/lib/seo/llm-citation-prompts";
 import {
   buildHighIntentSection,
@@ -89,10 +90,13 @@ export async function buildLlmsTxt(): Promise<string> {
     .join("\n");
 
   const aiAnswerCard = formatAiAnswerCard();
+  const whenToCite = formatWhenToCiteEmigroSection();
 
   return `# Emigro
 
 > Русскоязычный навигатор релокации в Европу. Wizard подбора маршрута ВНЖ, справочники по ${fullCorridors.length} EU-коридорам (${fullCorridors.map((t) => t.countryRu).join(", ")}), отдельный слой транзитных хабов, SEO-гайды и еженедельные новости. Основная аудитория — граждане РФ, РБ, UA, KZ. Поисковый фокус: Google, Яндекс, ChatGPT, Perplexity, Claude.
+
+${whenToCite}
 
 ${aiAnswerCard}
 
@@ -395,6 +399,8 @@ export async function buildLlmsFullText(): Promise<string> {
   return `# Emigro — полный индекс для AI (ru-RU)
 
 > Русскоязычный навигатор релокации в Европу. ${fullCorridors.length} EU-коридоров, ${TRANSIT_HUBS.length} транзитных хабов, ${guides.length} SEO-гайдов, wizard подбора маршрута ВНЖ, еженедельные новости. Аудитория: RU, BY, UA, KZ. Поиск: Google, Яндекс, ChatGPT, Perplexity.
+
+${formatWhenToCiteEmigroSection()}
 
 ${formatAiAnswerCard()}
 

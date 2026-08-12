@@ -19,6 +19,8 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "переехать в португалию из россии легально 2026",
       "aima португалия запись биометрия после визы",
       "d8 digital nomad португалия 2026",
+      "d7 пассивный доход португалия порог",
+      "nif aima activobank португалия",
     ],
     seoTitle: "ВНЖ Португалия D8/D7 2026 — €3 680 / €920",
     seoDescription:
@@ -127,6 +129,8 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "digital nomad португалия испания италия 2026",
       "digital nomad испания vs португалия 2026",
       "куда переехать digital nomad европа 2026",
+      "сравнение дн виз ес пороги 2026",
+      "лучшая digital nomad виза европа для россиян",
     ],
     seoTitle: "Digital Nomad визы Европы 2026 — полное сравнение",
     seoDescription:
@@ -173,10 +177,15 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "белорусы внж европа 2026",
       "внж в европе для белорусов без temporary protection",
       "беларусь work permit польша 2026",
+      "oswiadczenie польша белорусы",
+      "type a польша vs oświadczenie",
+      "mazowieckie очередь внж 2026",
+      "edoręczenia польша иностранец",
+      "банк после 19 пакета белорусы ес",
     ],
     seoTitle: "Белорусы ВНЖ Европа 2026 — без TP",
     seoDescription:
-      "ВНЖ в Европе для белорусов 2026: нет TP, подача через Польшу и Чехию. Work permit, EU Blue Card, B2B IT, D7/D8. Консульства и санкции.",
+      "ВНЖ в Европе для белорусов 2026: нет TP, Польша oświadczenie/Type A, Mazowieckie, eDoręczenia, банки после 19 пакета. D7/D8/Blue Card.",
   },
   {
     path: "/ru/guides/podtverdit-dohod-dengi-dlya-vnj-esli-dohod-iz-rossii-2026",
@@ -266,6 +275,8 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "бали для россиян 2026",
       "бали digital nomad 2026",
       "e33g remote worker indonesia 2026",
+      "виза бали россияне 2026",
+      "second home индонезия vs e33g",
     ],
     seoTitle: "Бали для россиян 2026 — E33G Remote Worker, B211A",
     seoDescription:
@@ -279,6 +290,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "черногория внж для россиян 2026",
       "черногория digital nomad 2026",
       "внж черногория 1800 евро",
+      "черногория безвиз россияне 2026",
+      "doo черногория после января 2026",
+      "черногория хаб перед шенгеном",
     ],
     seoTitle: "Черногория ВНЖ для россиян 2026 — nomad €1800, DOO",
     seoDescription:
@@ -300,6 +314,558 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     seoTitle: "Грузия для россиян 2026 — ВНЖ $150k, IT permit, СИДН",
     seoDescription:
       "Грузия 2026: медстраховка на въезд, work permit с 1.03, ВНЖ по недвижимости от $150 000, IT Residence Permit $25k/год. СИДН с РФ не действует.",
+  },
+  // —— Top discovery (search+LLM) ——
+  {
+    path: "/ru/guides/bank-i-iban-dlya-rossiyan-v-evrope-2026",
+    guideSlug: "bank-i-iban-dlya-rossiyan-v-evrope-2026",
+    primaryQuery: "банк iban для россиян в европе 2026",
+    queries: [
+      "банк iban для россиян в европе 2026",
+      "wise для россиян 2026 внж",
+      "открыть счёт в европе с паспортом рф",
+      "revolut блокировка россиян 2026",
+      "paysera россияне внж",
+      "19 пакет санкций wise карта",
+      "n26 для россиян с внж",
+      "activo bank португалия россияне",
+    ],
+    seoTitle: "Банк и IBAN для россиян в ЕС 2026 — после 19 пакета",
+    seoDescription:
+      "После 19-го пакета Wise/Revolut/Paysera требуют ВНЖ или гражданство EEA/CH. Дерево по статусу, карта ≠ счёт, ActivoBank практика.",
+  },
+  {
+    path: "/ru/guides/prodlenie-vnzh-portugaliya-aima-2026",
+    guideSlug: "prodlenie-vnzh-portugaliya-aima-2026",
+    primaryQuery: "продление внж португалия aima 2026",
+    queries: [
+      "продление внж португалия aima 2026",
+      "portal renovacoes aima.gov.pt",
+      "taxa renovação aima 2026",
+      "aima продление d7 d8 сколько стоит",
+      "просроченный título португалия летать",
+      "agora imigrante renovação",
+      "duc aima 24 часа",
+    ],
+    seoTitle: "Продление ВНЖ Португалия 2026 — AIMA renovação",
+    seoDescription:
+      "Renovação AIMA: portal до 31.10.2026, DUC 24ч, taxas ~€440 (€133+€307). Agora vs services.aima, caducado и TIMATIC.",
+  },
+  {
+    path: "/ru/guides/kazahstantsy-v-evropu-vnj-2026",
+    guideSlug: "kazahstantsy-v-evropu-vnj-2026",
+    primaryQuery: "казахстанцы внж европа 2026",
+    queries: [
+      "казахстанцы внж европа 2026",
+      "казахстан шенген виза 2026",
+      "blue card германия из алматы",
+      "d8 португалия казахстан москва",
+      "внж польша гражданин казахстана",
+      "facilitation казахстан ес 2026",
+      "национальная виза pt из казахстана",
+    ],
+    seoTitle: "Казахстан → Европа 2026 — виза и ВНЖ",
+    seoDescription:
+      "KZ→EU: безвиза нет. DE/PL из Алматы; PT D только Москва. Blue Card / D8 / DNV пороги 2026.",
+  },
+  {
+    path: "/ru/guides/vnj-serbiya-dlya-rossiyan-2026",
+    guideSlug: "vnj-serbiya-dlya-rossiyan-2026",
+    primaryQuery: "сербия внж для россиян 2026",
+    queries: [
+      "сербия внж для россиян 2026",
+      "сербия безвиз 30 дней россияне",
+      "ип паушал сербия 2026",
+      "doo сербия внж",
+      "estranci unified permit сербия",
+      "пмж сербия 3 года",
+      "white card сербия банк",
+    ],
+    seoTitle: "Сербия для россиян 2026 — ВНЖ, DOO, паушал",
+    seoDescription:
+      "Сербия хаб: безвиз 30 дней, eStranci, DOO/ИП-паушал, ПМЖ 3 года. Не Шенген — консульства EU из Белграда.",
+  },
+  {
+    path: "/ru/netherlands",
+    primaryQuery: "highly skilled migrant нидерланды 2026",
+    queries: [
+      "highly skilled migrant нидерланды 2026",
+      "hsm нидерланды порог зарплаты 2026",
+      "kennismigrant ind 2 недели",
+      "внж нидерланды через работу офер",
+      "erkend referent нидерланды",
+      "30% ruling нидерланды 2026",
+    ],
+    seoTitle: "Нидерланды HSM 2026 — коридор Emigro",
+    seoDescription:
+      "Highly Skilled Migrant NL: пороги IND 2026, erkend referent, офер обязателен. Wizard и программы для RU/BY/UA/KZ.",
+  },
+  {
+    path: "/ru/emigro-score",
+    primaryQuery: "emigro score рейтинг стран релокация",
+    queries: [
+      "emigro score рейтинг стран релокация",
+      "рейтинг стран для релокантов с паспортом рф",
+      "emigro score методология",
+      "сравнение стран въезд статус банки налоги",
+      "куда легче переехать россиянину 2026 score",
+    ],
+    seoTitle: "Emigro Score — методология /100",
+    seoDescription:
+      "Как Emigro считает Score /100: въезд, статус, банки, налоги, перспектива; база паспорт РФ; таблица стран 2026.",
+  },
+  {
+    path: "/ru/guides/kuda-pereehat-iz-rossii-2026-evropa-vnj",
+    guideSlug: "kuda-pereehat-iz-rossii-2026-evropa-vnj",
+    primaryQuery: "куда переехать из россии в европу 2026",
+    queries: [
+      "куда переехать из россии в европу 2026",
+      "куда уехать из россии легально внж",
+      "сравнение стран внж европа для россиян",
+      "лучшие страны для релокации 2026 рф",
+      "легальный переезд в ес с паспортом россии",
+    ],
+    seoTitle: "Куда переехать из России 2026 — ВНЖ Европа",
+    seoDescription:
+      "Pillar: куда легально переехать из РФ в Европу 2026 — коридоры, пороги, хабы, wizard.",
+  },
+  // —— Extra corridors & guides (AEO density parity) ——
+  {
+    path: "/ru/wizard",
+    primaryQuery: "подбор внж европа wizard",
+    queries: [
+      "подбор внж европа wizard",
+      "какой внж подходит россиянину 2026",
+      "калькулятор внж европа",
+      "emigro wizard маршрут",
+      "подобрать страну для внж без выбора заранее",
+    ],
+    seoTitle: "Wizard Emigro — подбор ВНЖ",
+    seoDescription:
+      "Глобальный wizard Emigro: подбор маршрута ВНЖ по паспорту, доходу и цели без заранее выбранной страны.",
+  },
+  {
+    path: "/ru/assist",
+    primaryQuery: "route check emigro assist",
+    queries: [
+      "route check emigro assist",
+      "проверка маршрута внж консультация",
+      "emigro assist сколько стоит",
+      "помощь с документами внж европа",
+    ],
+    seoTitle: "Emigro Assist — Route Check",
+    seoDescription:
+      "Route Check / Assist Emigro: проверка маршрута ВНЖ (€129) + почасовая помощь. Не юридическая фирма.",
+  },
+  {
+    path: "/ru/poland",
+    primaryQuery: "внж польша для россиян 2026",
+    queries: [
+      "внж польша для россиян 2026",
+      "work permit польша 2026",
+      "blue card польша порог",
+      "b2b it польша иностранец",
+      "освядчение польша россияне",
+    ],
+    seoTitle: "Польша ВНЖ 2026 — work / Blue Card / B2B",
+    seoDescription:
+      "Коридор Польша: work permit, EU Blue Card, B2B IT, oświadczenie. Практика для RU/BY/UA/KZ 2026.",
+  },
+  {
+    path: "/ru/guides/vnj-polsha-2026",
+    guideSlug: "vnj-polsha-2026",
+    primaryQuery: "внж польша 2026 россияне белорусы",
+    queries: [
+      "внж польша 2026 россияне белорусы",
+      "карта побыту польша сроки",
+      "тип а work permit польша",
+      "польша it b2b внж",
+      "очередь urzędu mazowieckie",
+    ],
+    seoTitle: "ВНЖ Польша 2026 — гайд Emigro",
+    seoDescription:
+      "Польша 2026: Type A, oświadczenie, Blue Card, карта побыту, очереди Mazowieckie. Для RU/BY/UA/KZ.",
+  },
+  {
+    path: "/ru/italy",
+    primaryQuery: "внж италия digital nomad 2026",
+    queries: [
+      "внж италия digital nomad 2026",
+      "elective residency италия",
+      "italy digital nomad visa порог",
+      "lavoro subordinato италия россияне",
+    ],
+    seoTitle: "Италия ВНЖ 2026 — DN / elective",
+    seoDescription:
+      "Коридор Италия: digital nomad, elective residency, lavoro. Пороги и консульская практика 2026.",
+  },
+  {
+    path: "/ru/guides/vnj-italiya-2026-digital-nomad",
+    guideSlug: "vnj-italiya-2026-digital-nomad",
+    primaryQuery: "италия digital nomad visa 2026",
+    queries: [
+      "италия digital nomad visa 2026",
+      "digital nomad италия доход порог",
+      "visto digitale nomade italia",
+      "внж италия удалённая работа",
+      "италия дн виза из россии",
+    ],
+    seoTitle: "Италия Digital Nomad 2026",
+    seoDescription:
+      "Italian Digital Nomad Visa 2026: порог дохода, документы, консульство. Для паспортов RU/BY/UA/KZ.",
+  },
+  {
+    path: "/ru/guides/vnj-italiya-2026-elective-residency",
+    guideSlug: "vnj-italiya-2026-elective-residency",
+    primaryQuery: "elective residency италия 2026",
+    queries: [
+      "elective residency италия 2026",
+      "residenza elettiva италия доход",
+      "италия внж без работы пассивный доход",
+      "visto residenza elettiva россияне",
+    ],
+    seoTitle: "Италия Elective Residency 2026",
+    seoDescription:
+      "Residenza elettiva Италия 2026: пассивный доход, жильё, без работы в IT. Практика для RU/BY.",
+  },
+  {
+    path: "/ru/france",
+    primaryQuery: "passeport talent франция 2026",
+    queries: [
+      "passeport talent франция 2026",
+      "внж франция для россиян 2026",
+      "vls-ts франция национальная виза",
+      "talent passport salary threshold",
+    ],
+    seoTitle: "Франция ВНЖ 2026 — Passeport Talent",
+    seoDescription:
+      "Коридор Франция: Passeport Talent, VLS-TS, пороги 2026. Для RU/BY/UA/KZ — wizard и гайды.",
+  },
+  {
+    path: "/ru/guides/vnj-frantsiya-2026-passeport-talent",
+    guideSlug: "vnj-frantsiya-2026-passeport-talent",
+    primaryQuery: "passeport talent франция порог зарплаты 2026",
+    queries: [
+      "passeport talent франция порог зарплаты 2026",
+      "talent passport france россияне",
+      "внж франция через работу офер",
+      "carte de séjour talent salarié",
+    ],
+    seoTitle: "Passeport Talent Франция 2026",
+    seoDescription:
+      "Passeport Talent / salarié qualifié Франция 2026: зарплата, офер, VLS-TS. Гайд Emigro.",
+  },
+  {
+    path: "/ru/guides/vnj-niderlandy-2026-highly-skilled",
+    guideSlug: "vnj-niderlandy-2026-highly-skilled",
+    primaryQuery: "внж нидерланды highly skilled migrant гайд",
+    queries: [
+      "внж нидерланды highly skilled migrant гайд",
+      "hsm ind зарплата 2026 under 30",
+      "kennismigrant через агентство",
+      "нидерланды внж без офера невозможно",
+    ],
+    seoTitle: "Нидерланды HSM 2026 — гайд",
+    seoDescription:
+      "Highly Skilled Migrant NL: erkend referent, пороги IND, 30% ruling. Офер обязателен.",
+  },
+  {
+    path: "/ru/greece",
+    primaryQuery: "digital nomad греция 2026",
+    queries: [
+      "digital nomad греция 2026",
+      "fip греция financially independent",
+      "golden visa греция 2026 порог",
+      "внж греция для россиян",
+    ],
+    seoTitle: "Греция ВНЖ 2026 — DN / FIP / GV",
+    seoDescription:
+      "Коридор Греция: Digital Nomad, FIP, Golden Visa. Пороги и практика 2026 для RU/BY/UA/KZ.",
+  },
+  {
+    path: "/ru/guides/vnj-gretsiya-2026-digital-nomad-fip-golden-visa",
+    guideSlug: "vnj-gretsiya-2026-digital-nomad-fip-golden-visa",
+    primaryQuery: "внж греция digital nomad fip 2026",
+    queries: [
+      "внж греция digital nomad fip 2026",
+      "греция дн виза доход",
+      "financially independent person греция",
+      "golden visa афины порог недвижимости",
+    ],
+    seoTitle: "Греция DN / FIP / Golden Visa 2026",
+    seoDescription:
+      "Греция 2026: Digital Nomad, FIP, Golden Visa — пороги, документы, консульство для RU/BY.",
+  },
+  {
+    path: "/ru/hungary",
+    primaryQuery: "white card венгрия 2026",
+    queries: [
+      "white card венгрия 2026",
+      "guest investor венгрия",
+      "внж венгрия digital nomad",
+      "венгрия white card порог",
+    ],
+    seoTitle: "Венгрия White Card 2026",
+    seoDescription:
+      "Коридор Венгрия: White Card, Guest Investor. Пороги 2026 для паспортов RU/BY/UA/KZ.",
+  },
+  {
+    path: "/ru/guides/vnj-vengriya-2026-white-card-guest-investor",
+    guideSlug: "vnj-vengriya-2026-white-card-guest-investor",
+    primaryQuery: "венгрия white card для россиян",
+    queries: [
+      "венгрия white card для россиян",
+      "hungary white card income 2026",
+      "guest investor program hungary",
+      "внж венгрия удалёнка",
+    ],
+    seoTitle: "Венгрия White Card / Guest Investor 2026",
+    seoDescription:
+      "White Card и Guest Investor Венгрия 2026: доход, инвестиции, документы. Гайд Emigro.",
+  },
+  {
+    path: "/ru/cyprus",
+    primaryQuery: "digital nomad кипр 2026",
+    queries: [
+      "digital nomad кипр 2026",
+      "fip кипр category f",
+      "non-dom кипр налоги",
+      "внж кипр для россиян",
+    ],
+    seoTitle: "Кипр ВНЖ 2026 — DN / FIP / Non-Dom",
+    seoDescription:
+      "Коридор Кипр: Digital Nomad, Category F, Non-Dom. Практика 2026 для RU/BY/UA/KZ.",
+  },
+  {
+    path: "/ru/guides/vnj-kipr-2026-digital-nomad-fip-non-dom",
+    guideSlug: "vnj-kipr-2026-digital-nomad-fip-non-dom",
+    primaryQuery: "кипр digital nomad visa порог 2026",
+    queries: [
+      "кипр digital nomad visa порог 2026",
+      "category f кипр financially independent",
+      "non dom cyprus 17 years",
+      "внж кипр удалённая работа",
+    ],
+    seoTitle: "Кипр DN / FIP / Non-Dom 2026",
+    seoDescription:
+      "Кипр 2026: Digital Nomad, FIP/Category F, Non-Dom — пороги и налоговая рамка.",
+  },
+  {
+    path: "/ru/malta",
+    primaryQuery: "nomad residence malta 2026",
+    queries: [
+      "nomad residence malta 2026",
+      "mprp мальта",
+      "non-dom мальта налоги",
+      "внж мальта для россиян",
+    ],
+    seoTitle: "Мальта ВНЖ 2026 — Nomad / MPRP",
+    seoDescription:
+      "Коридор Мальта: Nomad Residence, MPRP, Non-Dom. Пороги 2026 для RU/BY/UA/KZ.",
+  },
+  {
+    path: "/ru/guides/vnj-malta-2026-nomad-mprp-non-dom",
+    guideSlug: "vnj-malta-2026-nomad-mprp-non-dom",
+    primaryQuery: "мальта nomad residence permit 2026",
+    queries: [
+      "мальта nomad residence permit 2026",
+      "malta nomad income requirement",
+      "mprp malta investment",
+      "внж мальта digital nomad",
+    ],
+    seoTitle: "Мальта Nomad / MPRP / Non-Dom 2026",
+    seoDescription:
+      "Мальта 2026: Nomad Residence, MPRP, Non-Dom — доход, инвестиции, документы.",
+  },
+  {
+    path: "/ru/croatia",
+    primaryQuery: "digital nomad хорватия 2026",
+    queries: [
+      "digital nomad хорватия 2026",
+      "внж хорватия удалёнка",
+      "croatia digital nomad visa порог",
+    ],
+    seoTitle: "Хорватия Digital Nomad 2026",
+    seoDescription:
+      "Коридор Хорватия: Digital Nomad (временный). Пороги и практика для RU/BY 2026.",
+  },
+  {
+    path: "/ru/guides/vnj-horvatiya-2026-digital-nomad",
+    guideSlug: "vnj-horvatiya-2026-digital-nomad",
+    primaryQuery: "хорватия digital nomad visa 2026",
+    queries: [
+      "хорватия digital nomad visa 2026",
+      "digital nomad croatia income",
+      "внж хорватия 18 месяцев",
+      "хорватия дн для россиян",
+    ],
+    seoTitle: "Хорватия Digital Nomad 2026 — гайд",
+    seoDescription:
+      "Croatia Digital Nomad 2026: срок, доход, документы. Не путь к ПМЖ — честно в гайде Emigro.",
+  },
+  {
+    path: "/ru/bulgaria",
+    primaryQuery: "digital nomad болгария 2026",
+    queries: [
+      "digital nomad болгария 2026",
+      "eood болгария внж",
+      "type d болгария виза",
+      "внж болгария для россиян",
+    ],
+    seoTitle: "Болгария ВНЖ 2026 — DN / EOOD",
+    seoDescription:
+      "Коридор Болгария: Type D, Digital Nomad, EOOD. Практика 2026 для RU/BY/UA/KZ.",
+  },
+  {
+    path: "/ru/guides/vnj-bolgariya-2026-type-d-digital-nomad-eood",
+    guideSlug: "vnj-bolgariya-2026-type-d-digital-nomad-eood",
+    primaryQuery: "болгария digital nomad eood 2026",
+    queries: [
+      "болгария digital nomad eood 2026",
+      "type d bulgaria residence",
+      "открыть eood болгария россияне",
+      "внж болгария удалённая работа",
+    ],
+    seoTitle: "Болгария Type D / DN / EOOD 2026",
+    seoDescription:
+      "Болгария 2026: Type D, Digital Nomad, EOOD — пороги, компания, документы.",
+  },
+  {
+    path: "/ru/czechia",
+    primaryQuery: "внж чехия 2026 россияне",
+    queries: [
+      "внж чехия 2026 россияне",
+      "employee card чехия",
+      "živnost чехия ит",
+      "blue card чехия порог",
+    ],
+    seoTitle: "Чехия ВНЖ 2026 — Employee Card / živnost",
+    seoDescription:
+      "Коридор Чехия: Employee Card, EU Blue Card, živnost IT. Для RU/BY/UA/KZ 2026.",
+  },
+  {
+    path: "/ru/guides/vnj-chehiya-2026",
+    guideSlug: "vnj-chehiya-2026",
+    primaryQuery: "чехия employee card 2026",
+    queries: [
+      "чехия employee card 2026",
+      "внж чехия через работу",
+      "živnostenský list иностранец",
+      "чехия blue card зарплата",
+    ],
+    seoTitle: "ВНЖ Чехия 2026 — гайд",
+    seoDescription:
+      "Чехия 2026: Employee Card, Blue Card, živnost — документы и консульская практика.",
+  },
+  {
+    path: "/ru/austria",
+    primaryQuery: "rwr card австрия 2026",
+    queries: [
+      "rwr card австрия 2026",
+      "внж австрия для россиян",
+      "eu blue card австрия",
+      "red white red card points",
+    ],
+    seoTitle: "Австрия RWR Card 2026",
+    seoDescription:
+      "Коридор Австрия: RWR Card, EU Blue Card, самозанятость. Пороги 2026.",
+  },
+  {
+    path: "/ru/guides/vnj-austria-2026",
+    guideSlug: "vnj-austria-2026",
+    primaryQuery: "австрия внж red-white-red card",
+    queries: [
+      "австрия внж red-white-red card",
+      "rwr card points calculator",
+      "австрия blue card порог",
+      "внж австрия без работы сложно",
+    ],
+    seoTitle: "ВНЖ Австрия 2026 — RWR / Blue Card",
+    seoDescription:
+      "Австрия 2026: RWR Card (баллы), Blue Card — гайд Emigro для RU/BY/UA/KZ.",
+  },
+  {
+    path: "/ru/guides/investitsionnyy-vnj-evropa-golden-visa-2026",
+    guideSlug: "investitsionnyy-vnj-evropa-golden-visa-2026",
+    primaryQuery: "golden visa европа 2026 сравнение",
+    queries: [
+      "golden visa европа 2026 сравнение",
+      "инвестиционный внж португалия греция",
+      "golden visa пороги 2026",
+      "где купить внж за инвестиции ес",
+    ],
+    seoTitle: "Golden Visa Европа 2026 — сравнение",
+    seoDescription:
+      "Инвестиционный ВНЖ ЕС 2026: Греция, Кипр, Мальта, Венгрия… Португалия ARI закрыт по недвижимости.",
+  },
+  {
+    path: "/ru/guides/grazhdanstvo-portugaliya-ispaniya-2026",
+    guideSlug: "grazhdanstvo-portugaliya-ispaniya-2026",
+    primaryQuery: "гражданство португалия сроки 2026",
+    queries: [
+      "гражданство португалия сроки 2026",
+      "гражданство испания 10 лет",
+      "натурализация после внж pt es",
+      "язык a2 ciple португалия",
+    ],
+    seoTitle: "Гражданство PT / ES 2026",
+    seoDescription:
+      "Путь к гражданству Португалии и Испании после ВНЖ: сроки, язык, оговорки 2026.",
+  },
+  {
+    path: "/ru/guides/shengen-turist-vs-vnzh-2026",
+    guideSlug: "shengen-turist-vs-vnzh-2026",
+    primaryQuery: "шенген турист vs внж 2026",
+    queries: [
+      "шенген турист vs внж 2026",
+      "можно ли жить в европе по шенгену",
+      "90/180 правило шенген",
+      "туристическая виза не даёт работу ес",
+    ],
+    seoTitle: "Шенген vs ВНЖ 2026",
+    seoDescription:
+      "Почему шенген-турист ≠ ВНЖ: 90/180, работа, банки, консульский риск. Emigro 2026.",
+  },
+  {
+    path: "/ru/guides/kuda-uehat-iz-rossii-srochno-2026-evropa-bezviz-haby",
+    guideSlug: "kuda-uehat-iz-rossii-srochno-2026-evropa-bezviz-haby",
+    primaryQuery: "куда уехать из россии срочно 2026",
+    queries: [
+      "куда уехать из россии срочно 2026",
+      "безвиз для россиян хабы 2026",
+      "срочный выезд сербия грузия армения",
+      "легализация после выезда из рф",
+    ],
+    seoTitle: "Срочный выезд из РФ 2026 — хабы",
+    seoDescription:
+      "Срочный выезд: безвизовые хабы, затем легализация в EU. Не обход санкций — честный маршрут.",
+  },
+  {
+    path: "/ru/guides/vnj-bez-raboty-passivnyy-dohod-sberezheniya-2026",
+    guideSlug: "vnj-bez-raboty-passivnyy-dohod-sberezheniya-2026",
+    primaryQuery: "внж европа без работы пассивный доход",
+    queries: [
+      "внж европа без работы пассивный доход",
+      "d7 non-lucrative fip сравнение",
+      "внж на сбережениях европа 2026",
+      "пассивный доход для внж пороги",
+    ],
+    seoTitle: "ВНЖ без работы 2026 — пассивный доход",
+    seoDescription:
+      "D7, non-lucrative, FIP, elective: ВНЖ на пассиве/сбережениях. Сравнение порогов 2026.",
+  },
+  {
+    path: "/ru/serbia",
+    primaryQuery: "сербия хаб релокация 2026",
+    queries: [
+      "сербия хаб релокация 2026",
+      "переехать в сербию из россии",
+      "сербия консульства ес белград",
+      "транзитный хаб сербия перед внж",
+    ],
+    seoTitle: "Сербия — транзитный хаб Emigro",
+    seoDescription:
+      "Сербия как хаб: безвиз, DOO, консульства EU. Не Шенген — мост к ВНЖ.",
   },
 
   // —— Spanish LATAM corridor (/es) ——
