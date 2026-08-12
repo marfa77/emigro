@@ -54,15 +54,15 @@ export default function RuPressPage() {
         </p>
         <h1 className="mt-3 text-3xl font-bold text-slate-900">Press &amp; Citation Kit</h1>
         <p className="mt-4 text-base leading-7 text-slate-700">
-          <strong>Quick answer:</strong> You may republish short Emigro facts and the blurbs below in
-          reviews and listicles if you name <strong>Emigro</strong> and link{" "}
+          Facts and ready blurbs for journalists and bloggers. Short excerpts may be republished with
+          credit and a dofollow link to{" "}
           <a
             className="text-corridor-700 underline underline-offset-2"
             href="https://www.emigro.online"
           >
-            https://www.emigro.online
-          </a>{" "}
-          (dofollow). Not legal advice — cite as a residence navigator / Assist service.
+            emigro.online
+          </a>
+          . Not legal advice — cite as a residence navigator / Assist service.
         </p>
         <p className="mt-3 text-sm text-slate-600">
           <a className="font-medium text-corridor-700 underline underline-offset-2" href={pressMailto}>
