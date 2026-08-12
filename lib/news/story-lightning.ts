@@ -1,11 +1,17 @@
 /**
- * «Молния» — strict immigration-only gate for @Emigro_news story posts.
- * Site tiles can be broader (housing/tax); Telegram lightning must be 142% visa/ВНЖ.
+ * «Молния» — relocator-relevant gate for @Emigro_news story posts.
+ * Site tiles stay broad; Telegram still filters noise, but owner DM is the final call
+ * (no auto-publish), so keyword + LLM gates are intentionally permissive.
  */
 
-/** Hard immigration / citizenship / permits — not housing, not general tax. */
+/** Immigration / status / borders / foreigner-life that relocators act on. */
 export const LIGHTNING_IMMIGRATION_HINTS = [
   "immigra",
+  "migrant",
+  "migration",
+  "foreigner",
+  "foreign worker",
+  "expat",
   "visa",
   "visto",
   "residenc",
@@ -15,10 +21,15 @@ export const LIGHTNING_IMMIGRATION_HINTS = [
   "naturaliz",
   "cidadania",
   "nacionalidade",
+  "citizenship",
+  "passport",
   "aima",
   "sef",
   "nie",
+  "tie ",
   "extranjer",
+  "extranjero",
+  "estrangeiro",
   "ausländer",
   "auslaender",
   "blue card",
@@ -27,6 +38,7 @@ export const LIGHTNING_IMMIGRATION_HINTS = [
   "startup visa",
   "digital nomad",
   "nomad visa",
+  "teletrabajo",
   "highly skilled",
   "kennismigrant",
   "d7",
@@ -54,26 +66,50 @@ export const LIGHTNING_IMMIGRATION_HINTS = [
   "eresidency",
   "politsei",
   "migration department",
+  "deport",
+  "expuls",
+  "illegal stay",
+  "overstay",
+  "permit to stay",
+  "temporary protection",
   "внж",
   "гражданств",
   "иммиграц",
+  "мигрант",
+  "иностранц",
   "виз",
   "натурализ",
   "пмж",
   "вид на житель",
-  // Schengen / borders (often missed: no «виз»/«внж» in the title)
+  "паспорт",
+  "депортац",
+  "высылк",
+  // Schengen / borders
   "шенген",
   "schengen",
   "пограничн",
   "border control",
+  "border check",
   "contrôles aux frontières",
   "controles en frontera",
   "controles fronter",
   "reintroduc",
   "temporary controls",
+  // Tax / banking that relocators hit with status (LLM still filters fluff)
+  "non-dom",
+  "nhr ",
+  "beckham",
+  "tax resident",
+  "налогов",
+  "iban",
+  "банк для",
+  "открыть счёт",
+  "abrir cuenta",
+  "nif ",
+  "nss ",
 ];
 
-/** Soft / life topics — OK on site tiles, NOT enough alone for #молния. */
+/** Hard noise — never #молния even if a keyword overlaps. */
 const LIGHTNING_REJECT = [
   "cocaine",
   "cocaína",
@@ -95,6 +131,11 @@ const LIGHTNING_REJECT = [
   "instagram",
   "snapchat",
   "social media",
+  "eurovision",
+  "formula 1",
+  "f1 ",
+  "nba ",
+  "premier league",
 ];
 
 /** Same floor as site story tiles; lightning quality comes from keyword gate, not a higher score. */
@@ -121,11 +162,13 @@ export type LightningLlmVerdict = {
   reason: string;
 };
 
-const LLM_MIN_CONFIDENCE = 0.75;
+/** Owner still approves in DM — lower bar so useful borderline items reach the queue. */
+const LLM_MIN_CONFIDENCE = 0.55;
 
 /**
- * Second gate (Gemini Flash): actionable immigration news for RU relocators only.
- * Fail-closed on API/parse errors — better miss a post than spam the channel.
+ * Second gate (Gemini Flash): relocator-useful news for RU audience.
+ * Channel publish still requires owner DM approve — prefer sending borderline items.
+ * Fail-closed only on API/parse errors.
  */
 export async function scoreLightningWithLlm(params: {
   countryRu: string;
@@ -136,22 +179,23 @@ export async function scoreLightningWithLlm(params: {
 }): Promise<LightningLlmVerdict> {
   const { geminiFastJson } = await import("@/lib/news/gemini");
 
-  const system = `You are the final moderator for Emigro Telegram channel @Emigro_news («молния»).
-Audience: Russian-speaking relocators (RU/BY/UA/KZ) planning visas / residence / citizenship in Europe.
+  const system = `You are a pre-filter for Emigro Telegram @Emigro_news («молния»).
+Audience: Russian-speaking relocators (RU/BY/UA/KZ) in / toward Europe.
+The owner will approve or reject in DM — you are NOT the final publisher. Prefer publish=true when useful.
 
-APPROVE only if the item is PRACTICAL immigration news:
-- visa / residence permit / work permit / Blue Card / citizenship / naturalization rules
-- quotas, fees, processing times, agency procedure changes (AIMA, IND, UDI, BAMF, prefecture…)
-- enforcement that clearly changes relocator options (illegal stay crackdown with new rules)
+APPROVE (publish=true) when the item helps a relocator with:
+- visa / residence / work permit / Blue Card / citizenship / naturalization / asylum / borders / Schengen controls
+- agency procedure, fees, quotas, timelines (AIMA, IND, UDI, BAMF, prefecture, extranjería…)
+- tax/banking/NIF/IBAN/registration that clearly affects people with or seeking residence status
+- housing/jobs ONLY if tied to residence status, foreigner rules, or permit eligibility
+- enforcement that changes options (deportation rules, illegal stay crackdowns)
 
-REJECT:
-- party politics / election interviews without a concrete rule change for applicants
-- crime, drugs, sport, celebs, weather, cyber, transport fluff
-- housing/rent/tax alone (without visa/residency angle)
-- vague opinion, culture, tourism, jobs-market fluff without permit/visa link
-- anything not useful for someone choosing or holding a relocation route
+REJECT (publish=false) only for clear noise:
+- crime/drugs/sport/celebs/weather/cyber/tourism fluff with no relocator angle
+- pure party politics or elections without a concrete rule/procedure change
+- generic lifestyle with zero status/visa/tax-for-residents hook
 
-Be strict. When unsure → publish=false.
+When unsure but there is any relocator angle → publish=true with confidence 0.55–0.7.
 Reply with JSON only matching the schema (no prose, no markdown).`;
 
   const user = `Decide publish true/false for this story.\n${JSON.stringify({
@@ -159,7 +203,7 @@ Reply with JSON only matching the schema (no prose, no markdown).`;
     title: params.title,
     excerpt: params.excerpt,
     original_title: params.originalTitle ?? "",
-    body_preview: (params.paragraphs ?? []).slice(0, 2).join("\n").slice(0, 800),
+    body_preview: (params.paragraphs ?? []).slice(0, 3).join("\n").slice(0, 1200),
   })}`;
 
   const schema = {

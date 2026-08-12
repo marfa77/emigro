@@ -64,8 +64,10 @@ function alreadyHandled(row: StoryRow): boolean {
 }
 
 function gateTextForRow(row: StoryRow): string {
-  const storyTitle = row.content_blocks?.[0]?.story_title ?? "";
-  return [row.title, row.excerpt ?? "", storyTitle].join(" ");
+  const block = row.content_blocks?.[0];
+  const storyTitle = block?.story_title ?? "";
+  const body = (block?.paragraphs ?? []).slice(0, 2).join(" ");
+  return [row.title, row.excerpt ?? "", storyTitle, body].join(" ");
 }
 
 async function markLightningSkip(supabase: SupabaseClient, slug: string): Promise<void> {
