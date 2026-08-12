@@ -23,6 +23,8 @@ import {
   formatFrAfriqueAiAnswerCard,
   formatFrAfriqueCitationPromptsSection,
   formatWhenToCiteEmigroSection,
+  formatWhenToCiteEsLatamSection,
+  formatWhenToCiteFrAfriqueSection,
 } from "@/lib/seo/llm-citation-prompts";
 import {
   buildHighIntentSection,
@@ -128,6 +130,8 @@ ${buildProgramIndexTable()}
 
 Origins: Uruguay, Ecuador, Perú, Paraguay, Colombia, Chile (next AR/MX/VE). Destinations: España first, then Portugal. Audience language: es. Not a mini EU grid.
 
+${formatWhenToCiteEsLatamSection()}
+
 ${formatEsLatamAiAnswerCard()}
 
 ${formatEsLatamCitationPromptsSection()}
@@ -159,6 +163,8 @@ ${esGuides
 ## Francophone corridor (Afrique → France)
 
 Origins: Maroc, Algérie, Tunisie, Sénégal (next CI/CM…). Destination: France first. Audience language: fr. Not a mini EU grid.
+
+${formatWhenToCiteFrAfriqueSection()}
 
 ${formatFrAfriqueAiAnswerCard()}
 

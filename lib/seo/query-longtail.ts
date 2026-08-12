@@ -877,10 +877,152 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "emigrar a España desde Latinoamérica 2026",
       "nacionalidad española 2 años iberoamericanos",
       "nómada digital España LATAM 2026",
+      "visado no lucrativa España latinoamericanos",
+      "residencia España vs Portugal LATAM",
+      "art 22 codigo civil nacionalidad española",
     ],
     seoTitle: "LATAM → España y Portugal 2026 — Emigro",
     seoDescription:
       "Residencia para hispanohablantes LATAM: UY/EC/PE/PY/CO/CL → España y Portugal. Evaluador, pilares y nacionalidad española ~2 años (art. 22).",
+  },
+  {
+    path: "/es/wizard",
+    primaryQuery: "evaluador residencia España Portugal LATAM",
+    queries: [
+      "evaluador residencia España Portugal LATAM",
+      "comparar nómada digital España Portugal",
+      "ruta residencia España desde Colombia Uruguay Chile",
+      "qué visa me conviene España LATAM",
+      "wizard emigro residencia española",
+      "comparar no lucrativa vs nómada digital",
+    ],
+    seoTitle: "Evaluador LATAM → España y Portugal",
+    seoDescription:
+      "Compare rutas de residencia ES/PT con pasaporte UY/EC/PE/PY/CO/CL: ingresos, familia y horizonte de nacionalidad.",
+  },
+  {
+    path: "/es/assist",
+    primaryQuery: "consulta residencia España Emigro assist",
+    queries: [
+      "consulta residencia España Emigro assist",
+      "route check residencia LATAM España",
+      "ayuda documentos visa España latinoamericanos",
+      "revisión ruta nómada digital España",
+    ],
+    seoTitle: "Emigro Assist ES — Route Check",
+    seoDescription:
+      "Route Check / Assist en español: revisión de ruta de residencia ES/PT. No es un despacho de abogados.",
+  },
+  {
+    path: "/es/spain",
+    primaryQuery: "hub España residencia LATAM 2026",
+    queries: [
+      "hub España residencia LATAM 2026",
+      "España destino residencia latinoamericanos",
+      "programas residencia España Emigro",
+      "nómada digital y no lucrativa España hub",
+    ],
+    seoTitle: "España — hub destino LATAM",
+    seoDescription:
+      "Hub España para LATAM: nómada digital, no lucrativa, nacionalidad art. 22. Enlace a guías y wizard.",
+  },
+  {
+    path: "/es/portugal",
+    primaryQuery: "Portugal D8 D7 latinoamericanos 2026",
+    queries: [
+      "Portugal D8 D7 latinoamericanos 2026",
+      "alternativa Portugal vs España residencia",
+      "digital nomad Portugal LATAM umbral",
+      "D7 Portugal pasaporte colombiano chileno",
+    ],
+    seoTitle: "Portugal — hub destino LATAM",
+    seoDescription:
+      "Hub Portugal LATAM: D8 ~€3.680 / D7 ~€920 vs horizonte nacionalidad España art. 22.",
+  },
+  {
+    path: "/es/uruguay",
+    primaryQuery: "Uruguay a España residencia 2026",
+    queries: [
+      "Uruguay a España residencia 2026",
+      "emigrar a España desde Uruguay requisitos",
+      "visa nómada digital España uruguayos",
+      "nacionalidad española uruguayos 2 años",
+      "hub Uruguay Emigro España",
+    ],
+    seoTitle: "Uruguay → España 2026",
+    seoDescription:
+      "Hub Uruguay→España: Schengen corto ≠ residencia, nómada, no lucrativa, nacionalidad ~2 años.",
+  },
+  {
+    path: "/es/ecuador",
+    primaryQuery: "Ecuador a España residencia 2026",
+    queries: [
+      "Ecuador a España residencia 2026",
+      "visado Schengen Ecuador España residencia",
+      "nómada digital España ecuatorianos",
+      "nacionalidad española ecuatorianos 2 años",
+      "emigrar a España desde Ecuador visa",
+    ],
+    seoTitle: "Ecuador → España 2026",
+    seoDescription:
+      "Hub Ecuador→España: Schengen a menudo obligatorio; nómada/no lucrativa; nacionalidad ~2 años.",
+  },
+  {
+    path: "/es/peru",
+    primaryQuery: "Perú a España residencia 2026",
+    queries: [
+      "Perú a España residencia 2026",
+      "emigrar a España desde Perú requisitos",
+      "visa nómada digital España peruanos",
+      "nacionalidad española peruanos 2 años",
+      "hub Perú Emigro España",
+    ],
+    seoTitle: "Perú → España 2026",
+    seoDescription:
+      "Hub Perú→España: Schengen ≠ residencia, nómada ~€2.849, no lucrativa, nacionalidad ~2 años.",
+  },
+  {
+    path: "/es/paraguay",
+    primaryQuery: "Paraguay a España residencia 2026",
+    queries: [
+      "Paraguay a España residencia 2026",
+      "emigrar a España desde Paraguay",
+      "visa nómada digital España paraguayos",
+      "nacionalidad española paraguayos 2 años",
+      "hub Paraguay Emigro España",
+    ],
+    seoTitle: "Paraguay → España 2026",
+    seoDescription:
+      "Hub Paraguay→España: rutas de residencia y nacionalidad ~2 años (art. 22).",
+  },
+  {
+    path: "/es/colombia",
+    primaryQuery: "Colombia a España residencia 2026",
+    queries: [
+      "Colombia a España residencia 2026",
+      "emigrar a España desde Colombia requisitos",
+      "visa nómada digital España colombianos",
+      "nacionalidad española colombianos 2 años",
+      "BLS Bogotá visa nacional España",
+      "hub Colombia Emigro España",
+    ],
+    seoTitle: "Colombia → España 2026",
+    seoDescription:
+      "Hub Colombia→España: nómada, no lucrativa, BLS/consulado, nacionalidad ~2 años.",
+  },
+  {
+    path: "/es/chile",
+    primaryQuery: "Chile a España residencia 2026",
+    queries: [
+      "Chile a España residencia 2026",
+      "emigrar a España desde Chile requisitos",
+      "visa nómada digital España chilenos",
+      "nacionalidad española chilenos 2 años",
+      "hub Chile Emigro España",
+    ],
+    seoTitle: "Chile → España residencia 2026",
+    seoDescription:
+      "Hub Chile→España: Schengen 90 días ≠ residencia, nómada digital, no lucrativa y nacionalidad en 2 años (art. 22).",
   },
   {
     path: "/es/guides/residencia-espana-desde-colombia-2026",
@@ -891,6 +1033,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "visa nómada digital España colombianos",
       "nacionalidad española colombianos 2 años",
       "emigrar a España desde Colombia requisitos",
+      "no lucrativa España colombianos umbral",
+      "Schengen vs residencia Colombia España",
+      "cuánto se gana para nómada digital España Colombia",
     ],
     seoTitle: "Residencia España colombianos 2026 — 2 años",
     seoDescription:
@@ -904,6 +1049,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "residencia en España para uruguayos 2026",
       "emigrar a España desde Uruguay",
       "visa nómada digital España uruguayos",
+      "nacionalidad española uruguayos 2 años",
+      "no lucrativa España uruguayos",
+      "Montevideo consulado visa España",
     ],
     seoTitle: "Residencia España Uruguay 2026 — rutas UY",
     seoDescription:
@@ -917,6 +1065,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "residencia en España para ecuatorianos 2026",
       "visado Schengen Ecuador España residencia",
       "nómada digital España ecuatorianos",
+      "nacionalidad española ecuatorianos 2 años",
+      "no lucrativa España Ecuador",
+      "visa corta Ecuador vs residencia España",
     ],
     seoTitle: "Residencia España Ecuador 2026 — Schengen",
     seoDescription:
@@ -930,6 +1081,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "residencia en España para peruanos 2026",
       "emigrar a España desde Perú requisitos",
       "nacionalidad española peruanos 2 años",
+      "visa nómada digital España peruanos",
+      "no lucrativa España Perú umbral",
+      "Lima consulado residencia España",
     ],
     seoTitle: "Residencia España peruanos 2026 — 2 años",
     seoDescription:
@@ -943,6 +1097,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "residencia en España para paraguayos 2026",
       "emigrar a España desde Paraguay",
       "visa nómada digital España paraguayos",
+      "nacionalidad española paraguayos 2 años",
+      "no lucrativa España Paraguay",
+      "Asunción visa nacional España",
     ],
     seoTitle: "Residencia España Paraguay 2026 — 2 años",
     seoDescription:
@@ -957,34 +1114,125 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "emigrar a España desde Chile requisitos",
       "visa nómada digital España chilenos",
       "nacionalidad española chilenos 2 años",
+      "no lucrativa España Chile",
+      "Santiago BLS visa España",
     ],
     seoTitle: "Residencia España chilenos 2026 — 2 años",
     seoDescription:
       "Cómo emigrar a España desde Chile 2026: Schengen ≠ residencia. Nómada (~€2.849), Santiago y nacionalidad en 2 años (art. 22).",
   },
   {
-    path: "/es/chile",
-    primaryQuery: "Chile a España residencia 2026",
+    path: "/es/guides/visa-nomada-digital-espana-latam-2026",
+    guideSlug: "visa-nomada-digital-espana-latam-2026",
+    primaryQuery: "visa nómada digital España 2026 umbral",
     queries: [
-      "Chile a España residencia 2026",
-      "emigrar a España desde Chile",
+      "visa nómada digital España 2026 umbral",
+      "teletrabajo internacional España requisitos",
+      "nómada digital España 2849 euros",
+      "UGE vs consulado nómada digital",
+      "20% clientes españoles nómada digital",
+      "visa digital nomad España LATAM 2026",
+      "cuánto hay que ganar nómada digital España",
     ],
-    seoTitle: "Chile → España residencia 2026",
+    seoTitle: "Nómada digital España 2026 — LATAM",
     seoDescription:
-      "Hub Chile→España: Schengen 90 días ≠ residencia, nómada digital, no lucrativa y nacionalidad en 2 años (art. 22).",
+      "Visa nómada digital España 2026: ~€2.849/mes, UGE vs consulado, ≤20% clientes ES. Para pasaportes LATAM.",
   },
   {
-    path: "/es/wizard",
-    primaryQuery: "evaluador residencia España Portugal LATAM",
+    path: "/es/guides/visado-no-lucrativa-espana-latam-2026",
+    guideSlug: "visado-no-lucrativa-espana-latam-2026",
+    primaryQuery: "visado no lucrativa España 2026",
     queries: [
-      "evaluador residencia España Portugal LATAM",
-      "comparar nómada digital España Portugal",
-      "ruta residencia España desde Colombia Uruguay Chile",
+      "visado no lucrativa España 2026",
+      "residencia no lucrativa umbral IPREM",
+      "no lucrativa España 2400 euros",
+      "turista a no lucrativa España error",
+      "medios económicos no lucrativa LATAM",
+      "visa no lucrativa consulado primero",
     ],
-    seoTitle: "Evaluador LATAM → España y Portugal",
+    seoTitle: "No lucrativa España 2026 — LATAM",
     seoDescription:
-      "Compare rutas de residencia ES/PT con pasaporte UY/EC/PE/PY/CO/CL: ingresos, familia y horizonte de nacionalidad.",
+      "Residencia no lucrativa España 2026: ~€2.400/mes (400% IPREM). Consulado primero — no planificar turista→NL.",
   },
+  {
+    path: "/es/guides/nacionalidad-espanola-latam-2026",
+    guideSlug: "nacionalidad-espanola-latam-2026",
+    primaryQuery: "nacionalidad española 2 años latinoamericanos",
+    queries: [
+      "nacionalidad española 2 años latinoamericanos",
+      "artículo 22 codigo civil nacionalidad",
+      "CCSE DELE nacionalidad española LATAM",
+      "nacionalidad española iberoamericanos requisitos",
+      "estudios cuentan para nacionalidad española",
+      "cuántos años para nacionalidad española colombianos",
+    ],
+    seoTitle: "Nacionalidad española LATAM 2026 — 2 años",
+    seoDescription:
+      "Nacionalidad española ~2 años (art. 22) para iberoamericanos: CCSE, DELE a menudo exento, estudios suelen no contar.",
+  },
+  {
+    path: "/es/guides/ley-memoria-democratica-latam-2026",
+    guideSlug: "ley-memoria-democratica-latam-2026",
+    primaryQuery: "ley de memoria democrática nacionalidad 2026",
+    queries: [
+      "ley de memoria democrática nacionalidad 2026",
+      "nacionalidad española por abuelos España",
+      "LMD plazos y requisitos LATAM",
+      "memoria democrática vs art 22 residencia",
+      "quién puede pedir nacionalidad LMD 2026",
+    ],
+    seoTitle: "Ley Memoria Democrática 2026 — LATAM",
+    seoDescription:
+      "LMD / nacionalidad por ascendencia española: plazos, quién califica, vs ruta residencia art. 22.",
+  },
+  {
+    path: "/es/guides/impuestos-beckham-espana-latam-2026",
+    guideSlug: "impuestos-beckham-espana-latam-2026",
+    primaryQuery: "régimen Beckham España 2026",
+    queries: [
+      "régimen Beckham España 2026",
+      "impatriados España impuestos LATAM",
+      "Beckham law España requisitos 2026",
+      "impuestos nómada digital España",
+      "IRNR vs residente fiscal España",
+    ],
+    seoTitle: "Impuestos Beckham España 2026 — LATAM",
+    seoDescription:
+      "Régimen de impatriados (Beckham) España 2026: quién califica, plazos, interacción con nómada digital.",
+  },
+  {
+    path: "/es/guides/portugal-d8-d7-latam-2026",
+    guideSlug: "portugal-d8-d7-latam-2026",
+    primaryQuery: "Portugal D8 D7 para latinoamericanos 2026",
+    queries: [
+      "Portugal D8 D7 para latinoamericanos 2026",
+      "D8 Portugal umbral 3680 LATAM",
+      "D7 Portugal vs no lucrativa España",
+      "nacionalidad Portugal vs España 2 años",
+      "digital nomad Portugal colombianos chilenos",
+      "cuándo elegir Portugal en vez de España",
+    ],
+    seoTitle: "Portugal D8/D7 LATAM 2026",
+    seoDescription:
+      "D8/D7 Portugal para LATAM vs España: umbrales, nacionalidad 7–10 años PT vs ~2 años ES art. 22.",
+  },
+  {
+    path: "/es/guides/primeros-30-dias-en-espana-2026",
+    guideSlug: "primeros-30-dias-en-espana-2026",
+    primaryQuery: "primeros 30 días en España checklist",
+    queries: [
+      "primeros 30 días en España checklist",
+      "NIE empadronamiento TIE extranjería",
+      "abrir cuenta bancaria España extranjero",
+      "cita extranjería tras llegada España",
+      "seguro médico residencia España",
+      "empadronamiento obligatorio España",
+    ],
+    seoTitle: "Primeros 30 días en España 2026",
+    seoDescription:
+      "Checklist post-llegada: NIE, empadronamiento, TIE, banco, SIM. Para titulares de residencia LATAM.",
+  },
+
   // —— FR Afrique → France ——
   {
     path: "/fr",
@@ -993,10 +1241,110 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "résidence France Maghreb 2026",
       "émigrer en France depuis le Maroc Algérie Tunisie",
       "VLS-TS France Afrique francophone",
+      "Passeport Talent Maghreb 2026",
+      "naturalisation France 5 ans Maghreb",
+      "visa long séjour France Sénégal",
     ],
     seoTitle: "Afrique francophone → France 2026",
     seoDescription:
       "Hub Emigro FR: VLS-TS, Passeport Talent, naturalisation ~5 ans pour MA/DZ/TN/SN — sources officielles.",
+  },
+  {
+    path: "/fr/wizard",
+    primaryQuery: "wizard résidence France Maghreb",
+    queries: [
+      "wizard résidence France Maghreb",
+      "quelle voie résidence France Maroc",
+      "comparer Passeport Talent naturalisation France",
+      "évaluateur parcours France Afrique",
+      "Emigro wizard France sans pays choisi",
+    ],
+    seoTitle: "Wizard FR — résidence France",
+    seoDescription:
+      "Wizard Emigro FR: parcours VLS-TS / Talent / naturalisation pour passeports MA/DZ/TN/SN.",
+  },
+  {
+    path: "/fr/assist",
+    primaryQuery: "assist Emigro France Route Check",
+    queries: [
+      "assist Emigro France Route Check",
+      "vérification dossier VLS-TS France",
+      "consultation résidence France Maghreb",
+      "aide Passeport Talent dossier",
+    ],
+    seoTitle: "Emigro Assist FR — Route Check",
+    seoDescription:
+      "Route Check / Assist FR: revue de parcours résidence France. Pas un cabinet d’avocats.",
+  },
+  {
+    path: "/fr/france",
+    primaryQuery: "hub France résidence Afrique 2026",
+    queries: [
+      "hub France résidence Afrique 2026",
+      "France destination Maghreb Sénégal",
+      "programmes résidence France Emigro",
+      "VLS-TS Passeport Talent hub France",
+    ],
+    seoTitle: "France — hub destination FR",
+    seoDescription:
+      "Hub France: VLS-TS, Passeport Talent, naturalisation. Liens guides Maghreb/Sénégal.",
+  },
+  {
+    path: "/fr/maroc",
+    primaryQuery: "Maroc vers France résidence 2026",
+    queries: [
+      "Maroc vers France résidence 2026",
+      "émigrer en France depuis le Maroc",
+      "visa long séjour France Marocains",
+      "Passeport Talent depuis Maroc",
+      "hub Maroc Emigro France",
+    ],
+    seoTitle: "Maroc → France 2026",
+    seoDescription:
+      "Hub Maroc→France: visa court ≠ résidence, VLS-TS, Talent, naturalisation ~5 ans.",
+  },
+  {
+    path: "/fr/algerie",
+    primaryQuery: "Algérie vers France résidence 2026",
+    queries: [
+      "Algérie vers France résidence 2026",
+      "émigrer en France depuis l’Algérie",
+      "VLS-TS Algérie France",
+      "Passeport Talent Algériens",
+      "apostille Algérie 2026 France",
+      "hub Algérie Emigro France",
+    ],
+    seoTitle: "Algérie → France 2026",
+    seoDescription:
+      "Hub Algérie→France: VLS-TS, Talent, apostille (HCCH 2026). Naturalisation ~5 ans.",
+  },
+  {
+    path: "/fr/tunisie",
+    primaryQuery: "Tunisie vers France résidence 2026",
+    queries: [
+      "Tunisie vers France résidence 2026",
+      "émigrer en France depuis la Tunisie",
+      "VLS-TS Tunisie France",
+      "Passeport Talent Tunisiens",
+      "hub Tunisie Emigro France",
+    ],
+    seoTitle: "Tunisie → France 2026",
+    seoDescription:
+      "Hub Tunisie→France: VLS-TS, Passeport Talent, naturalisation ~5 ans.",
+  },
+  {
+    path: "/fr/senegal",
+    primaryQuery: "Sénégal vers France résidence 2026",
+    queries: [
+      "Sénégal vers France résidence 2026",
+      "émigrer en France depuis le Sénégal",
+      "VLS-TS Sénégal France",
+      "Passeport Talent Sénégalais",
+      "hub Sénégal Emigro France",
+    ],
+    seoTitle: "Sénégal → France 2026",
+    seoDescription:
+      "Hub Sénégal→France: VLS-TS, Talent, naturalisation ~5 ans — sources officielles.",
   },
   {
     path: "/fr/guides/residence-france-depuis-maroc-2026",
@@ -1006,10 +1354,77 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "résidence France Marocains 2026",
       "visa long séjour France depuis Maroc",
       "Passeport Talent Maroc France",
+      "VLS-TS Marocains démarches",
+      "émigrer France depuis Casablanca Rabat",
+      "consulat France Maroc résidence",
+      "visa court séjour vs VLS-TS Maroc",
     ],
     seoTitle: "Résidence France Marocains 2026 — VLS-TS",
     seoDescription:
       "Émigrer en France depuis le Maroc 2026 : visa obligatoire, VLS-TS, Talent, naturalisation ~5 ans.",
+  },
+  {
+    path: "/fr/guides/residence-france-depuis-algerie-2026",
+    guideSlug: "residence-france-depuis-algerie-2026",
+    primaryQuery: "résidence France Algériens 2026",
+    queries: [
+      "résidence France Algériens 2026",
+      "VLS-TS Algérie France 2026",
+      "Passeport Talent Algérie",
+      "émigrer en France depuis l’Algérie démarches",
+      "apostille documents Algérie France",
+      "visa long séjour Algériens",
+    ],
+    seoTitle: "Résidence France Algériens 2026",
+    seoDescription:
+      "Algérie → France 2026: VLS-TS, Talent, apostille. Naturalisation ~5 ans — pas un raccourci 2 ans.",
+  },
+  {
+    path: "/fr/guides/residence-france-depuis-tunisie-2026",
+    guideSlug: "residence-france-depuis-tunisie-2026",
+    primaryQuery: "résidence France Tunisiens 2026",
+    queries: [
+      "résidence France Tunisiens 2026",
+      "VLS-TS Tunisie France",
+      "Passeport Talent Tunisie",
+      "émigrer en France depuis Tunis",
+      "visa long séjour Tunisiens 2026",
+      "consulat France Tunisie résidence",
+    ],
+    seoTitle: "Résidence France Tunisiens 2026",
+    seoDescription:
+      "Tunisie → France 2026: VLS-TS, Passeport Talent, naturalisation ~5 ans.",
+  },
+  {
+    path: "/fr/guides/residence-france-depuis-senegal-2026",
+    guideSlug: "residence-france-depuis-senegal-2026",
+    primaryQuery: "résidence France Sénégalais 2026",
+    queries: [
+      "résidence France Sénégalais 2026",
+      "VLS-TS Sénégal France",
+      "Passeport Talent Sénégal",
+      "émigrer en France depuis Dakar",
+      "visa long séjour Sénégalais 2026",
+      "consulat France Sénégal résidence",
+    ],
+    seoTitle: "Résidence France Sénégalais 2026",
+    seoDescription:
+      "Sénégal → France 2026: VLS-TS, Talent, naturalisation ~5 ans — sources service-public.",
+  },
+  {
+    path: "/fr/guides/residence-france-afrique-francophone-2026",
+    guideSlug: "residence-france-afrique-francophone-2026",
+    primaryQuery: "résidence France Afrique francophone 2026",
+    queries: [
+      "résidence France Afrique francophone 2026",
+      "comparer Maghreb Sénégal résidence France",
+      "VLS-TS Afrique francophone guide",
+      "quelle voie résidence France MA DZ TN SN",
+      "émigrer France depuis Afrique francophone",
+    ],
+    seoTitle: "Résidence France Afrique francophone 2026",
+    seoDescription:
+      "Pilier: résidence France pour MA/DZ/TN/SN — VLS-TS, Talent, naturalisation. Matrice origines.",
   },
   {
     path: "/fr/guides/passeport-talent-france-afrique-2026",
@@ -1019,6 +1434,10 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "Passeport Talent France salaire 2026",
       "Passeport Talent 39582 euros",
       "titre Talent salarié qualifié France Maghreb",
+      "Passeport Talent catégories 2026",
+      "seuil salaire Talent France Afrique",
+      "VLS-TS Passeport Talent consulat",
+      "Talent passport France from Morocco Algeria",
     ],
     seoTitle: "Passeport Talent France 2026 — Afrique",
     seoDescription:
@@ -1032,11 +1451,16 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "naturalisation France 5 ans Maghreb",
       "nationalité française après résidence Maghreb",
       "examen civique naturalisation France 2026",
+      "B2 naturalisation France obligatoire",
+      "timbre fiscal nationalité 255 euros",
+      "naturalisation France pas 2 ans Maghreb",
+      "délai naturalisation décret France 2026",
     ],
     seoTitle: "Naturalisation France 2026 — 5 ans, B2, civique",
     seoDescription:
       "Naturalisation FR 2026 : 5 ans, B2, examen civique, timbre €255. Pas un « 2 ans Maghreb ». Sources F2213 / F11926.",
   },
+
 ];
 
 export function getLongTailByGuideSlug(slug: string): QueryLongTailTarget | undefined {
