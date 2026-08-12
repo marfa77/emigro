@@ -16,6 +16,8 @@ export const TRUSTED_DOMAINS = [
   "publico.pt",
   "expresso.pt",
   "observador.pt",
+  "eco.pt",
+  "eco.sapo.pt",
   "portugal.gov.pt",
   "parlamento.pt",
   "dre.pt",
@@ -49,7 +51,14 @@ const CRITICAL_RISK_TERMS = [
 
 const STRONG_KEYWORDS = [
   "golden visa",
+  "vistos gold",
+  "visto gold",
   "residence by investment",
+  "investidores",
+  "investidor",
+  "provedor de justiça",
+  "provedoria",
+  "lei da nacionalidade",
   "aima",
   "digital nomad",
   "blue card",
@@ -65,9 +74,19 @@ const LAW_SIGNALS = [
   "decreto-lei",
   "nationality law",
   "citizenship law",
+  "lei da nacionalidade",
+  "tribunal constitucional",
+  "regime transitório",
+  "regime transitorio",
+  "zona cinzenta",
+  "grey zone",
   "legislation",
   "immigration law",
   "visa policy",
+  "ação contra o estado",
+  "acao contra o estado",
+  "legal action",
+  "class action",
 ];
 
 const MEDIUM_KEYWORDS = [
@@ -79,6 +98,10 @@ const MEDIUM_KEYWORDS = [
   "consulate",
   "prefecture",
   "naturalization",
+  "ari",
+  "ombudsman",
+  "backlog",
+  "atraso",
 ];
 
 export function domainFromLink(link: string): string {
@@ -106,10 +129,24 @@ export function isCriticalInvestorRiskText(text: string): boolean {
   const hasTerm = CRITICAL_RISK_TERMS.some((w) => t.includes(w.toLowerCase()));
   const has5to10 =
     /(?:^|\D)(?:5|five|пять)\s*(?:-|to|→|до)?\s*(?:10|ten|десять)\s*(?:year|years|лет)/i.test(t) ||
-    (/citizenship|nationality|naturalization|гражданств/i.test(t) &&
-      /(?:5|five|пять)\s*(?:year|years|лет)/i.test(t) &&
-      /(?:10|ten|десять)\s*(?:year|years|лет)/i.test(t));
+    (/citizenship|nationality|naturalization|гражданств|nacionalidade|cidadania/i.test(t) &&
+      /(?:5|five|cinco|пять)\s*(?:year|years|anos|лет)/i.test(t) &&
+      /(?:10|ten|dez|десять)\s*(?:year|years|anos|лет)/i.test(t));
   return hasTerm && has5to10;
+}
+
+/** PT Golden Visa / ARI «grey zone»: invested ~4–5y ago for a 5y passport path, now stuck. */
+export function isPortugalGoldenVisaInvestorDisputeText(text: string): boolean {
+  const t = text.toLowerCase();
+  const hasGv =
+    /golden visa|vistos?\s*gold|visto gold|\bari\b|autorização de residência para investimento|residence by investment|investidores?(?:\s+dos)?\s+vistos|золотая виза|золотой виз|инвестор(?:ы|ов|ам)?\s+(?:золотой|golden|ari)/.test(
+      t
+    );
+  const hasGreyOrDispute =
+    /zona cinzent|grey zone|gray zone|серая зон|переходн|regime transitór|regime transitor|provedor|provedoria|ombudsman|queixa|ação contra|acao contra|legal action|lawsuit|tribunal constitucional|10\s*anos|dez anos|nacionalidade|citizenship law|nationality law|lei da nacionalidade|aima|atraso|backlog|enganad|lesad|обманут|sem cartão|without (?:a )?residence card|clock starts|conta(?:r)?\s+a\s+partir|from (?:the )?application|após (?:a )?emissão|after (?:the )?issuance|2021|2022|cinco anos|5\s*anos|5\s*лет|пять лет/.test(
+      t
+    );
+  return hasGv && hasGreyOrDispute;
 }
 
 export function isSpainGoldenVisaBaitText(text: string): boolean {
@@ -135,6 +172,7 @@ function keywordScore(text: string, topic: NewsTopicConfig): number {
   for (const w of LAW_SIGNALS) if (t.includes(w)) score += 5;
   for (const w of MEDIUM_KEYWORDS) if (t.includes(w)) score += 2;
   if (isCriticalInvestorRiskText(t)) score += 12;
+  if (topic.key === "portugal" && isPortugalGoldenVisaInvestorDisputeText(t)) score += 16;
   const countryTokens = [topic.countryEn, topic.countryRu, topic.key].map((s) => s.toLowerCase());
   for (const token of countryTokens) {
     if (token && t.includes(token)) score += 3;

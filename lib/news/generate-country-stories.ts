@@ -30,6 +30,20 @@ export const STORY_SOURCES: StorySourceConfig[] = [
     sourceLabel: "Observador",
     linkHostIncludes: "observador.pt",
   },
+  // Extra PT sources — Golden Visa / nationality-law investor dispute coverage is denser here.
+  {
+    topicKey: "portugal",
+    feedUrl: "https://eco.pt/feed/",
+    sourceLabel: "ECO",
+    // Feed lives on eco.pt but article URLs are eco.sapo.pt
+    linkHostIncludes: "eco.",
+  },
+  {
+    topicKey: "portugal",
+    feedUrl: "https://www.portugalresident.com/feed/",
+    sourceLabel: "Portugal Resident",
+    linkHostIncludes: "portugalresident.com",
+  },
   {
     topicKey: "netherlands",
     feedUrl: "https://www.dutchnews.nl/feed/",
@@ -156,6 +170,20 @@ const CORE_HINTS = [
   "eu blue",
   "schengen",
   "golden visa",
+  "vistos gold",
+  "visto gold",
+  "investidor",
+  "investidores",
+  "ari ",
+  "provedor",
+  "provedoria",
+  "ombudsman",
+  "lei da nacionalidade",
+  "nationality law",
+  "zona cinzent",
+  "grey zone",
+  "gray zone",
+  "regime transit",
   "nomad",
   "highly skilled",
   "kennismigrant",
@@ -204,6 +232,12 @@ const CORE_HINTS = [
   "иммиграц",
   "виз",
   "натурализ",
+  "золотая виза",
+  "золотой виз",
+  "обманут",
+  "инвестор",
+  "серая зон",
+  "переходн",
 ];
 
 /** Housing / relocator-tax (ok without visa word). */

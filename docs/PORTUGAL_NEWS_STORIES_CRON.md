@@ -8,7 +8,7 @@ Pipeline: Gemini Flash (dry facts) → OpenRouter voice (`EMIGRO_STORY_VOICE_MOD
 
 | Topic | Source |
 |-------|--------|
-| portugal | Observador |
+| portugal | Observador, ECO, Portugal Resident — boost «серая зона» ARI/GV 2021–22 (5→10 лет, Provedoria, AIMA) |
 | netherlands | DutchNews |
 | spain | The Local ES |
 | germany | The Local DE |
