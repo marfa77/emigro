@@ -9,6 +9,7 @@ import { openrouterJson } from "@/lib/llm/openrouter";
 import { listGuides, type GuideFrontmatter } from "@/lib/guides/load";
 import { guidePath } from "@/lib/guides/paths";
 import { escapeTelegramHtml } from "@/lib/news/story-lightning";
+import { THREADS_REPOST_STYLE, stripRepostMd } from "@/lib/news/threads-repost-style";
 import { publicSiteUrl } from "@/lib/site-url";
 
 export const DEFAULT_GUIDE_PROMO_MODEL = "anthropic/claude-sonnet-4.5";
@@ -41,28 +42,14 @@ export function listGuidePromoCandidates(excludeSlugs: Set<string>): GuideFrontm
 }
 
 const HOUSE_STYLE = `
-Формат @Emigro_news для постов-гайдов (как уже десятки постов в канале):
+Пост пишется в Telegram, но владелец копирует его в Threads — пиши сразу под этот dual-use.
 
-1) headline — одна строка: страна/тема + резкий тезис через тире.
-   Примеры тона:
-   - «Нидерланды: первые 30 дней — без BSN не существуете официально»
-   - «Греция 2026: закрыли лазейку "приехал туристом — оформился на месте"»
-   - «Golden Visa 2021-2022: почему "ноябрь 2026 = автоматический паспорт" — опасное заблуждение»
+${THREADS_REPOST_STYLE}
 
-2) body — 2–4 плотных абзаца: цифры, пороги, порядок шагов, ловушки.
-   Только факты из входа (title / excerpt / quick_answer). На «вы».
-   Каждый абзац — польза: число, правило или порядок действий. Без воды.
-   В посте между headline, абзацами и ссылкой — пустые строки (не стена текста).
-
-3) Без CTA-крика и без «читайте гайд / наш визард». Ссылка ставится кодом в конце.
-
-ЗАПРЕЩЕНО:
-- первое лицо («я», «мне», «мы с вами сидели», «помню то утро», «потягивал кофе»)
-- мемуары, сцены из кафе, «путь в …», мотивационный блог
-- «Представьте:», «Давайте разберёмся», «что нужно знать релокантам»
-- «наш визард», «сравните в визарде», «актуальную информацию можно найти», «не забудьте сверить»
-- выдуманные цифры/даты сверх фактов входа
-- АКЦИЯ, гарантируем ВНЖ, капс
+Дополнительно для гайдов:
+- headline = слайд 1 карусели
+- paragraphs = слайды 2–N (ровно 3–5 коротких абзацев)
+- В каждом абзаце — польза: число, правило или ловушка из quick_answer / title / excerpt
 `.trim();
 
 type GuidePromoLlm = {
@@ -80,14 +67,14 @@ export async function writeGuideTelegramPost(guide: GuideFrontmatter): Promise<{
     throw new Error("OPENROUTER_API_KEY required for guide Telegram posts");
   }
 
-  const format = "kanal_gajd";
+  const format = "kanal_gajd_threads";
   const model = guidePromoModel();
 
-  const system = `Ты редактор канала @Emigro_news. Пишешь пост по SEO-гайду Emigro строго в house style канала.
+  const system = `Ты редактор канала @Emigro_news. Пишешь пост по SEO-гайду Emigro строго в house style (Telegram → Threads).
 
 ${HOUSE_STYLE}
 
-Верни JSON: headline, paragraphs (2–4 строки), format_used="${format}". Без HTML, без URL, без эмодзи.`;
+Верни JSON: headline, paragraphs (3–5 строк), format_used="${format}". Без HTML, без URL, без эмодзи.`;
 
   const user = JSON.stringify({
     title: guide.title,
@@ -105,12 +92,11 @@ ${HOUSE_STYLE}
     { temperature: 0.35 }
   );
 
-  const stripMd = (s: string) => s.replace(/\*\*/g, "").replace(/__/g, "").trim();
-  const headline = stripMd(String(result.headline || ""));
+  const headline = stripRepostMd(String(result.headline || ""));
   const paragraphs = (result.paragraphs ?? [])
-    .map((p) => stripMd(String(p || "")))
+    .map((p) => stripRepostMd(String(p || "")))
     .filter(Boolean)
-    .slice(0, 4);
+    .slice(0, 5);
 
   if (!headline || paragraphs.length === 0) throw new Error("guide promo draft incomplete");
 

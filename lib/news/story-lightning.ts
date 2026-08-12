@@ -303,7 +303,7 @@ export function escapeTelegramHtml(text: string): string {
     .replace(/"/g, "&quot;");
 }
 
-/** Short channel post: ⚡ #молния + country name in header + title + excerpt + Emigro link. */
+/** Short channel post: Threads-ready hook + slides (owner pastes into Threads later). */
 export function buildLightningTelegramHtml(params: {
   flag: string;
   countryRu: string;
@@ -311,14 +311,15 @@ export function buildLightningTelegramHtml(params: {
   excerpt: string;
   articleUrl: string;
   sourceLabel?: string;
+  /** Optional Threads-repost slides (already rewritten). */
+  slides?: string[];
 }): string {
   const countryName = params.countryRu.trim();
   if (!countryName) {
     throw new Error("lightning post requires country name in header");
   }
 
-  const title = escapeTelegramHtml(params.title.trim().slice(0, 120));
-  const excerpt = escapeTelegramHtml(params.excerpt.trim().slice(0, 400));
+  const title = escapeTelegramHtml(params.title.trim().slice(0, 160));
   const country = escapeTelegramHtml(countryName);
   const flag = (params.flag || "").trim();
   const href = params.articleUrl.replace(/"/g, "&quot;");
@@ -326,12 +327,20 @@ export function buildLightningTelegramHtml(params: {
     ? `\n<i>${escapeTelegramHtml(params.sourceLabel)}</i>`
     : "";
 
-  // Header always includes the country name (not flag-only).
   const header = flag
     ? `⚡ <b>#молния</b> · ${flag} <b>${country}</b>`
     : `⚡ <b>#молния</b> · <b>${country}</b>`;
 
-  return [header, "", `<b>${title}</b>`, "", excerpt, source, "", `<a href="${href}">Читать на Emigro</a>`]
+  const slides = (params.slides ?? [])
+    .map((s) => escapeTelegramHtml(s.trim().slice(0, 320)))
+    .filter(Boolean);
+
+  const body =
+    slides.length >= 2
+      ? slides.join("\n\n")
+      : escapeTelegramHtml(params.excerpt.trim().slice(0, 500));
+
+  return [header, "", `<b>${title}</b>`, "", body, source, "", `<a href="${href}">Читать на Emigro</a>`]
     .filter((line, i, arr) => !(line === "" && arr[i - 1] === ""))
     .join("\n")
     .trim();

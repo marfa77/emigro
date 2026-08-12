@@ -75,10 +75,13 @@ export async function requestLightningOwnerApproval(params: {
   slug: string;
   html: string;
   llmReason?: string;
+  /** Numbered slides for Threads copy-paste. */
+  threadsPaste?: string;
   dryRun?: boolean;
 }): Promise<{ ok: boolean; reason: string }> {
   if (params.dryRun) {
     console.log(`[lightning-approval] dry-run would DM approve for ${params.slug}\n${params.html}`);
+    if (params.threadsPaste) console.log(`[lightning-approval] threads paste:\n${params.threadsPaste}`);
     return { ok: true, reason: "dry-run" };
   }
 
@@ -91,6 +94,15 @@ export async function requestLightningOwnerApproval(params: {
     })
     .eq("slug", params.slug);
 
+  const threadsBlock = params.threadsPaste
+    ? [
+        "",
+        "— Threads (копипаст) —",
+        "",
+        `<pre>${escapeTelegramHtml(params.threadsPaste.slice(0, 1800))}</pre>`,
+      ]
+    : [];
+
   const preface = [
     `⚡ <b>Согласование #молния</b>`,
     `<code>${escapeTelegramHtml(params.slug)}</code>`,
@@ -98,9 +110,10 @@ export async function requestLightningOwnerApproval(params: {
       ? `<i>LLM:</i> ${escapeTelegramHtml(params.llmReason.slice(0, 180))}`
       : "",
     "",
-    "— черновик —",
+    "— черновик (канал) —",
     "",
     params.html,
+    ...threadsBlock,
     "",
     "— — —",
     "✅ в канал · ❌ пропуск (кнопки ниже)",

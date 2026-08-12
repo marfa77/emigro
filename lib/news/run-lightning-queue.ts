@@ -210,6 +210,7 @@ export async function runLightningTelegramQueue(options?: {
       dryRun,
       remainingToday: remaining,
       llmReason: llm.reason,
+      paragraphs: row.content_blocks?.[0]?.paragraphs,
     });
 
     if (tg.awaitingApproval) {

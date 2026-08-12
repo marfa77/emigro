@@ -9,6 +9,10 @@ import {
   buildLightningTelegramHtml,
   isLightningImmigrationText,
 } from "@/lib/news/story-lightning";
+import {
+  formatThreadsPaste,
+  reshapeNewsForThreadsRepost,
+} from "@/lib/news/threads-repost-style";
 
 function hasTelegramBotToken(): boolean {
   return Boolean((process.env.EMIGRO_NEWS_BOT_TOKEN || process.env.TELEGRAM_BOT_TOKEN)?.trim());
@@ -47,6 +51,8 @@ export type PublishStoryTelegramParams = {
   dryRun?: boolean;
   remainingToday?: number;
   llmReason?: string;
+  /** Optional body paragraphs for Threads reshape. */
+  paragraphs?: string[];
 };
 
 export type PublishStoryTelegramResult = {
@@ -91,14 +97,28 @@ export async function publishStoryLightningToTelegram(
     return { published: false, awaitingApproval: false, skipped: true, reason: "missing-country" };
   }
 
-  const html = buildLightningTelegramHtml({
-    flag: params.topic.flag,
+  const reshaped = await reshapeNewsForThreadsRepost({
     countryRu,
     title: params.title,
     excerpt: params.excerpt,
+    bodyPreview: (params.paragraphs ?? []).slice(0, 3).join("\n"),
+  });
+
+  const title = reshaped?.headline || params.title;
+  const slides = reshaped?.slides;
+  const excerpt = slides?.join("\n\n") || params.excerpt;
+
+  const html = buildLightningTelegramHtml({
+    flag: params.topic.flag,
+    countryRu,
+    title,
+    excerpt,
     articleUrl: newsArticleUrl(params.slug),
     sourceLabel: params.sourceLabel,
+    slides,
   });
+
+  const threadsPaste = reshaped ? formatThreadsPaste(reshaped) : undefined;
 
   if (params.dryRun) {
     const req = await requestLightningOwnerApproval({
@@ -106,6 +126,7 @@ export async function publishStoryLightningToTelegram(
       slug: params.slug,
       html,
       llmReason: params.llmReason,
+      threadsPaste,
       dryRun: true,
     });
     return {
@@ -161,6 +182,7 @@ export async function publishStoryLightningToTelegram(
     slug: params.slug,
     html,
     llmReason: params.llmReason,
+    threadsPaste,
     dryRun: false,
   });
 
