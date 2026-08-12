@@ -24,13 +24,7 @@ export type StorySourceConfig = {
 
 /** Preferred publisher RSS — stories only for these (no Google News). */
 export const STORY_SOURCES: StorySourceConfig[] = [
-  {
-    topicKey: "portugal",
-    feedUrl: "https://observador.pt/feed/",
-    sourceLabel: "Observador",
-    linkHostIncludes: "observador.pt",
-  },
-  // Extra PT sources — Golden Visa / nationality-law investor dispute coverage is denser here.
+  // PT: ECO / Resident first — denser on ARI grey-zone / nationality disputes; Observador is general news.
   {
     topicKey: "portugal",
     feedUrl: "https://eco.pt/feed/",
@@ -43,6 +37,12 @@ export const STORY_SOURCES: StorySourceConfig[] = [
     feedUrl: "https://www.portugalresident.com/feed/",
     sourceLabel: "Portugal Resident",
     linkHostIncludes: "portugalresident.com",
+  },
+  {
+    topicKey: "portugal",
+    feedUrl: "https://observador.pt/feed/",
+    sourceLabel: "Observador",
+    linkHostIncludes: "observador.pt",
   },
   {
     topicKey: "netherlands",
@@ -298,6 +298,7 @@ type RawCandidate = {
   pubDate: string;
   snippet: string;
   score: number;
+  sourceLabel: string;
 };
 
 type LeadCandidate = RawCandidate & { lead: string };
@@ -402,7 +403,14 @@ async function fetchFeedItems(
     const score = computeNewsScore(title, snippet, link, pub.toISOString(), topic) + 8;
     if (score < MIN_SCORE) continue;
 
-    items.push({ title, link, pubDate: pub.toISOString(), snippet, score });
+    items.push({
+      title,
+      link,
+      pubDate: pub.toISOString(),
+      snippet,
+      score,
+      sourceLabel: source.sourceLabel,
+    });
   }
 
   items.sort((a, b) => b.score - a.score || b.pubDate.localeCompare(a.pubDate));
@@ -612,19 +620,23 @@ function storyDateYmd(pubDate: string): string {
 }
 
 export async function generateCountryStories(
-  source: StorySourceConfig,
+  sourceOrSources: StorySourceConfig | StorySourceConfig[],
   options?: { dryRun?: boolean; maxPublish?: number }
 ): Promise<CountryStoriesResult> {
+  const sources = Array.isArray(sourceOrSources) ? sourceOrSources : [sourceOrSources];
+  if (sources.length === 0) throw new Error("generateCountryStories: no sources");
+  const topicKey = sources[0].topicKey;
   const dryRun = Boolean(options?.dryRun);
   const maxPublish = Math.max(1, Math.min(MAX_PER_DAY, options?.maxPublish ?? MAX_PER_DAY));
   const supabase = createSupabaseAdmin();
-  const topic = await loadTopic(supabase, source.topicKey);
-  const log = `[stories:${source.topicKey}]`;
+  const topic = await loadTopic(supabase, topicKey);
+  const log = `[stories:${topicKey}]`;
+  const feedLabels = sources.map((s) => s.sourceLabel).join("+");
 
-  const todayCount = await countRecentStories(supabase, source.topicKey, `${ymdUtc()}T00:00:00.000Z`);
+  const todayCount = await countRecentStories(supabase, topicKey, `${ymdUtc()}T00:00:00.000Z`);
   const weekCount = await countRecentStories(
     supabase,
-    source.topicKey,
+    topicKey,
     new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()
   );
   const dayBudget = Math.max(0, MAX_PER_DAY - todayCount);
@@ -634,7 +646,7 @@ export async function generateCountryStories(
   if (budget <= 0) {
     console.log(`${log} budget exhausted (today=${todayCount}/${MAX_PER_DAY}, week=${weekCount}/${MAX_PER_WEEK})`);
     return {
-      topicKey: source.topicKey,
+      topicKey,
       scanned: 0,
       candidates: 0,
       published: [],
@@ -643,10 +655,30 @@ export async function generateCountryStories(
     };
   }
 
-  const raw = await fetchFeedItems(source, topic);
-  console.log(`${log} scanned feed candidates=${raw.length} source=${source.sourceLabel}`);
+  const merged = new Map<string, RawCandidate>();
+  for (const source of sources) {
+    try {
+      const items = await fetchFeedItems(source, topic);
+      console.log(`${log} scanned feed candidates=${items.length} source=${source.sourceLabel}`);
+      for (const item of items) {
+        const key = normalizeLink(item.link);
+        const prev = merged.get(key);
+        if (!prev || item.score > prev.score) merged.set(key, item);
+      }
+    } catch (e) {
+      console.warn(
+        `${log} feed ${source.sourceLabel} failed:`,
+        e instanceof Error ? e.message : e
+      );
+    }
+  }
 
-  const publishedUrls = await alreadyPublishedUrls(supabase, source.topicKey);
+  const raw = [...merged.values()].sort(
+    (a, b) => b.score - a.score || b.pubDate.localeCompare(a.pubDate)
+  );
+  console.log(`${log} merged candidates=${raw.length} feeds=${feedLabels}`);
+
+  const publishedUrls = await alreadyPublishedUrls(supabase, topicKey);
   const fresh = raw
     .filter((r) => !publishedUrls.has(normalizeLink(r.link)))
     .slice(0, MAX_CANDIDATES_FOR_LEAD);
@@ -664,7 +696,7 @@ export async function generateCountryStories(
 
   if (withLead.length === 0) {
     return {
-      topicKey: source.topicKey,
+      topicKey,
       scanned: raw.length,
       candidates: 0,
       published: [],
@@ -682,14 +714,18 @@ export async function generateCountryStories(
         seo_description: c.snippet.slice(0, 155),
         paragraphs: [c.lead.slice(0, 600)],
         key_takeaways: ["Проверьте актуальность на сайте источника."],
-        tags: [topic.countryRu, source.sourceLabel],
+        tags: [topic.countryRu, c.sourceLabel],
       }))
-    : await summarizeBatch(topic, source.sourceLabel, withLead.slice(0, budget));
+    : await summarizeBatch(
+        topic,
+        [...new Set(withLead.map((c) => c.sourceLabel))].join("/"),
+        withLead.slice(0, budget)
+      );
 
   if (drafts.length === 0) {
     console.log(`${log} no usable drafts after Gemini`);
     return {
-      topicKey: source.topicKey,
+      topicKey,
       scanned: raw.length,
       candidates: withLead.length,
       published: [],
@@ -708,7 +744,7 @@ export async function generateCountryStories(
       continue;
     }
     const day = storyDateYmd(sourceItem.pubDate);
-    const slug = buildNewsStorySlug(source.topicKey, day, draft.source_url);
+    const slug = buildNewsStorySlug(topicKey, day, draft.source_url);
     const bodyText = draft.paragraphs.join("\n\n");
     if (!dryRun && bodyText.length < 200) {
       skipped.push(`${slug}:too-short`);
@@ -717,8 +753,8 @@ export async function generateCountryStories(
 
     const payload = {
       slug,
-      corridor_slug: topic.corridorSlug || `ru-speaking-to-${source.topicKey}`,
-      topic_key: source.topicKey,
+      corridor_slug: topic.corridorSlug || `ru-speaking-to-${topicKey}`,
+      topic_key: topicKey,
       country: topic.countryRu,
       locale: "ru",
       title: draft.title,
@@ -730,14 +766,14 @@ export async function generateCountryStories(
           heading: draft.title,
           paragraphs: draft.paragraphs,
           bullets: draft.key_takeaways,
-          source_name: source.sourceLabel,
+          source_name: sourceItem.sourceLabel,
           source_url: draft.source_url,
           story_title: sourceItem.title,
         },
       ],
       key_takeaways: draft.key_takeaways,
       tags: draft.tags.length ? draft.tags : [topic.countryRu],
-      source_links: [{ title: source.sourceLabel, url: draft.source_url }],
+      source_links: [{ title: sourceItem.sourceLabel, url: draft.source_url }],
       telegram_html: null,
       threads_text: null,
       week_start: day,
@@ -749,7 +785,7 @@ export async function generateCountryStories(
     };
 
     if (dryRun) {
-      console.log(`${log} dry-run would publish ${slug}`);
+      console.log(`${log} dry-run would publish ${slug} ← ${sourceItem.sourceLabel}: ${sourceItem.title}`);
       published.push(slug);
       continue;
     }
@@ -761,7 +797,7 @@ export async function generateCountryStories(
       continue;
     }
     published.push(slug);
-    console.log(`${log} published ${slug}`);
+    console.log(`${log} published ${slug} ← ${sourceItem.sourceLabel}`);
   }
 
   if (!dryRun && published.length > 0) {
@@ -769,7 +805,7 @@ export async function generateCountryStories(
   }
 
   return {
-    topicKey: source.topicKey,
+    topicKey,
     scanned: raw.length,
     candidates: withLead.length,
     published,
@@ -788,14 +824,21 @@ export async function generateAllCountryStories(options?: {
     ? STORY_SOURCES.filter((s) => wanted.includes(s.topicKey))
     : STORY_SOURCES;
 
-  const results: CountryStoriesResult[] = [];
+  const byTopic = new Map<string, StorySourceConfig[]>();
   for (const source of sources) {
+    const list = byTopic.get(source.topicKey) ?? [];
+    list.push(source);
+    byTopic.set(source.topicKey, list);
+  }
+
+  const results: CountryStoriesResult[] = [];
+  for (const [topicKey, topicSources] of byTopic) {
     try {
-      results.push(await generateCountryStories(source, options));
+      results.push(await generateCountryStories(topicSources, options));
     } catch (e) {
-      console.error(`[stories:${source.topicKey}] failed:`, e instanceof Error ? e.message : e);
+      console.error(`[stories:${topicKey}] failed:`, e instanceof Error ? e.message : e);
       results.push({
-        topicKey: source.topicKey,
+        topicKey,
         scanned: 0,
         candidates: 0,
         published: [],
@@ -812,7 +855,7 @@ export async function generatePortugalStories(options?: {
   dryRun?: boolean;
   maxPublish?: number;
 }): Promise<CountryStoriesResult> {
-  const source = STORY_SOURCES.find((s) => s.topicKey === "portugal");
-  if (!source) throw new Error("portugal story source missing");
-  return generateCountryStories(source, options);
+  const sources = STORY_SOURCES.filter((s) => s.topicKey === "portugal");
+  if (sources.length === 0) throw new Error("portugal story source missing");
+  return generateCountryStories(sources, options);
 }

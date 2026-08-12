@@ -35,12 +35,12 @@ async function main() {
   console.log(`📰 Country stories [${label}]${dryRun ? " [dry-run]" : ""}`);
 
   if (topics?.length === 1) {
-    const source = STORY_SOURCES.find((s) => s.topicKey === topics[0]);
-    if (!source) {
-      console.error(`Unknown topic ${topics[0]}. Known: ${STORY_SOURCES.map((s) => s.topicKey).join(", ")}`);
+    const sources = STORY_SOURCES.filter((s) => s.topicKey === topics[0]);
+    if (sources.length === 0) {
+      console.error(`Unknown topic ${topics[0]}. Known: ${[...new Set(STORY_SOURCES.map((s) => s.topicKey))].join(", ")}`);
       process.exit(1);
     }
-    const result = await generateCountryStories(source, { dryRun, maxPublish });
+    const result = await generateCountryStories(sources, { dryRun, maxPublish });
     console.log("\n=== Result ===");
     console.log(JSON.stringify(result, null, 2));
     return;
