@@ -16,7 +16,7 @@ export type SeoCluster = {
   links: ClusterLink[];
 };
 
-/** Narrow internal-linking clusters — PT / ES / GR / PL / EE / CY / CZ / BY / RU corridors. */
+/** Narrow internal-linking clusters — PT / ES / FR / GR / PL / EE / CY / CZ / SE / BY / RU corridors. */
 export const SEO_CLUSTERS: Record<string, SeoCluster> = {
   russia: {
     id: "russia",
@@ -31,6 +31,16 @@ export const SEO_CLUSTERS: Record<string, SeoCluster> = {
         href: guidePath("kuda-pereehat-iz-rossii-2026-evropa-vnj"),
         label: "Куда переехать из России 2026",
         description: "Pillar-обзор 7 EU-коридоров",
+      },
+      {
+        href: guidePath("otkaz-v-natsionalnoy-vize-konsulstvo-2026"),
+        label: "Отказ в национальной визе",
+        description: "Консульство, апелляция, повторная подача",
+      },
+      {
+        href: guidePath("oae-dlya-rossiyan-2026"),
+        label: "ОАЭ для россиян 2026",
+        description: "ВНЖ, Golden Visa, налоги",
       },
       {
         href: guidePath("konsulskaya-podacha-rf-by-kz-2026-yurisdiktsiya"),
@@ -113,6 +123,29 @@ export const SEO_CLUSTERS: Record<string, SeoCluster> = {
       },
     ],
   },
+  france: {
+    id: "france",
+    title: "Коридор Франция",
+    links: [
+      { href: "/ru/france", label: "Коридор Франция", description: "Passeport Talent, visiteur, wizard" },
+      {
+        href: ORIGIN_HUB_PATH,
+        label: "Origin hub — россияне в EU",
+        description: "Все коридоры из РФ одной страницей",
+      },
+      {
+        href: guidePath("vnj-frantsiya-2026-passeport-talent"),
+        label: "ВНЖ Франция 2026",
+        description: "Passeport Talent, VLS-TS, пороги",
+      },
+      {
+        href: guidePath("pervye-30-dnej-v-frantsii-2026"),
+        label: "Первые 30 дней во Франции",
+        description: "Чек-лист после прилёта",
+      },
+      { href: "/ru/france/wizard", label: "Wizard Франция", description: "Talent / visiteur / семья" },
+    ],
+  },
   greece: {
     id: "greece",
     title: "Коридор Греция",
@@ -147,6 +180,11 @@ export const SEO_CLUSTERS: Record<string, SeoCluster> = {
         href: "/ru/greece/programs/greece-golden-visa",
         label: "Golden Visa",
         description: "Инвестиции в недвижимость",
+      },
+      {
+        href: "/ru/greece/programs/greece-family-reunification",
+        label: "Family reunification",
+        description: "Воссоединение семьи",
       },
       { href: "/ru/greece/wizard", label: "Wizard Греция", description: "Подбор DN / FIP / GV" },
     ],
@@ -201,6 +239,11 @@ export const SEO_CLUSTERS: Record<string, SeoCluster> = {
         description: "€4 500/мес; e-Residency ≠ ВНЖ",
       },
       {
+        href: "/ru/estonia/programs/estonia-digital-nomad",
+        label: "Digital Nomad Visa",
+        description: "D до 365 дн., €4 500/мес",
+      },
+      {
         href: "/ru/estonia/programs/estonia-e-residency-ou",
         label: "e-Residency / OÜ",
         description: "Бизнес-ID без права жить в EE",
@@ -222,6 +265,11 @@ export const SEO_CLUSTERS: Record<string, SeoCluster> = {
         href: guidePath("vnj-kipr-2026-digital-nomad-fip-non-dom"),
         label: "ВНЖ Кипр 2026",
         description: "DN €3 500, Category F, Non-Dom",
+      },
+      {
+        href: "/ru/cyprus/programs/cyprus-digital-nomad",
+        label: "Digital Nomad Visa",
+        description: "Net ≥ €3 500/мес, квота",
       },
       {
         href: "/ru/cyprus/programs/cyprus-category-f",
@@ -256,7 +304,40 @@ export const SEO_CLUSTERS: Record<string, SeoCluster> = {
         label: "Živnostenský list",
         description: "Фриланс / самозанятость",
       },
+      {
+        href: "/ru/czechia/programs/czechia-student-visa",
+        label: "Студенческий pobyt",
+        description: "Studium, средства, жильё",
+      },
       { href: "/ru/czechia/wizard", label: "Wizard Чехия", description: "Employee card / živnost" },
+    ],
+  },
+  sweden: {
+    id: "sweden",
+    title: "Коридор Швеция",
+    links: [
+      { href: "/ru/sweden", label: "Коридор Швеция", description: "Work permit, Blue Card, семья" },
+      {
+        href: ORIGIN_HUB_PATH,
+        label: "Origin hub — россияне в EU",
+        description: "Все коридоры из РФ одной страницей",
+      },
+      {
+        href: guidePath("vnj-shvetsiya-2026-work-permit-grazhdanstvo"),
+        label: "ВНЖ Швеция 2026",
+        description: "Work permit, Blue Card, гражданство",
+      },
+      {
+        href: "/ru/sweden/programs/sweden-work-permit",
+        label: "Work permit",
+        description: "Работа по офферу в SE",
+      },
+      {
+        href: "/ru/sweden/programs/sweden-eu-blue-card",
+        label: "EU Blue Card",
+        description: "Квалифицированная работа",
+      },
+      { href: "/ru/sweden/wizard", label: "Wizard Швеция", description: "Work permit / Blue Card" },
     ],
   },
   belarus: {
@@ -309,12 +390,15 @@ export const GUIDE_CLUSTER_MAP: Record<string, string> = {
   "vnj-germaniya-2026": "russia",
   "rabota-v-evrope-dlya-rossiyan-2026": "russia",
   "otkaz-v-natsionalnoy-vize-konsulstvo-2026": "russia",
+  "oae-dlya-rossiyan-2026": "russia",
   "vnj-portugaliya-d8-d7-grazhdanstvo-2026": "portugal",
   "pervye-30-dnej-v-portugalii-2026": "portugal",
   "d7-vs-digital-nomad-visa-sravnenie": "portugal",
   "vnj-bez-raboty-passivnyy-dohod-sberezheniya-2026": "portugal",
   "vnj-ispaniya-2026": "spain",
   "pervye-30-dnej-v-ispanii-2026": "spain",
+  "vnj-frantsiya-2026-passeport-talent": "france",
+  "pervye-30-dnej-v-frantsii-2026": "france",
   "vnj-gretsiya-2026-digital-nomad-fip-golden-visa": "greece",
   "pervye-30-dnej-v-gretsii-2026": "greece",
   "vnj-polsha-2026": "poland",
@@ -324,6 +408,7 @@ export const GUIDE_CLUSTER_MAP: Record<string, string> = {
   "vnj-kipr-2026-digital-nomad-fip-non-dom": "cyprus",
   "vnj-chehiya-2026": "czechia",
   "pervye-30-dnej-v-chehii-2026": "czechia",
+  "vnj-shvetsiya-2026-work-permit-grazhdanstvo": "sweden",
   "belorusy-v-evropu-vnj-2026": "belarus",
   "podtverdit-dohod-dengi-dlya-vnj-esli-dohod-iz-rossii-2026": "belarus",
   "konsulskaya-podacha-rf-by-kz-2026-yurisdiktsiya": "belarus",

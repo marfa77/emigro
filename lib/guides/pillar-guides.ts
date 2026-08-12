@@ -8,6 +8,9 @@ export const PILLAR_GUIDE_SLUGS = [
   "otkaz-v-natsionalnoy-vize-konsulstvo-2026",
   "pervye-30-dnej-v-polsche-2026",
   "pervye-30-dnej-v-gretsii-2026",
+  "pervye-30-dnej-v-frantsii-2026",
+  "oae-dlya-rossiyan-2026",
+  "vnj-shvetsiya-2026-work-permit-grazhdanstvo",
   "pervye-30-dnej-v-portugalii-2026",
   "kuda-pereehat-iz-rossii-2026-evropa-vnj",
   "belorusy-v-evropu-vnj-2026",
@@ -22,11 +25,9 @@ export const PILLAR_GUIDE_SLUGS = [
   "vnj-polsha-2026",
   "gruziya-dlya-rossiyan-2026",
   "bali-indoneziya-dlya-rossiyan-2026",
-  "oae-dlya-rossiyan-2026",
   "chernogoriya-vnj-dlya-rossiyan-2026",
   "rabota-v-evrope-dlya-rossiyan-2026",
   "vnj-norvegiya-2026",
-  "vnj-shvetsiya-2026-work-permit-grazhdanstvo",
 ] as const;
 
 export function isPillarGuideSlug(slug: string): boolean {
