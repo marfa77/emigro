@@ -4,6 +4,11 @@
  * (no auto-publish), so keyword + LLM gates are intentionally permissive.
  */
 
+import {
+  isCriticalInvestorRiskText,
+  isPortugalGoldenVisaInvestorDisputeText,
+} from "@/lib/news/scoring";
+
 /** Immigration / status / borders / foreigner-life that relocators act on. */
 export const LIGHTNING_IMMIGRATION_HINTS = [
   "immigra",
@@ -175,6 +180,30 @@ export function isLightningImmigrationText(text: string): boolean {
   return LIGHTNING_IMMIGRATION_HINTS.some((h) => t.includes(h));
 }
 
+/**
+ * Higher = earlier in @Emigro_news queue.
+ * 100 — Portugal ARI/GV «серая зона» (invested for 5y passport, now stuck).
+ * 80  — critical investor citizenship risk (5→10 etc.) any corridor.
+ * 0   — normal relocator news.
+ */
+export function lightningChannelPriority(text: string, topicKey?: string): number {
+  const t = text.toLowerCase();
+  if (
+    (topicKey === "portugal" || /portugal|португал/.test(t)) &&
+    isPortugalGoldenVisaInvestorDisputeText(t)
+  ) {
+    return 100;
+  }
+  if (
+    /golden visa|vistos?\s*gold|золотая виза|золотой виз/.test(t) &&
+    /nacionalidade|nationality|citizenship|гражданств|aima|provedor|серая зон|grey zone|zona cinzent|10\s*anos|10 лет/.test(t)
+  ) {
+    return 90;
+  }
+  if (isCriticalInvestorRiskText(t)) return 80;
+  return 0;
+}
+
 export type LightningLlmVerdict = {
   publish: boolean;
   confidence: number;
@@ -195,12 +224,18 @@ export async function scoreLightningWithLlm(params: {
   excerpt: string;
   originalTitle?: string;
   paragraphs?: string[];
+  /** Grey-zone / critical investor: prefer approve even at lower confidence. */
+  preferPublish?: boolean;
 }): Promise<LightningLlmVerdict> {
   const { geminiFastJson } = await import("@/lib/news/gemini");
 
   const system = `You are a pre-filter for Emigro Telegram @Emigro_news («молния»).
 Audience: Russian-speaking relocators (RU/BY/UA/KZ) in / toward Europe.
 The owner will approve or reject in DM — you are NOT the final publisher. Prefer publish=true when useful.
+
+HIGHEST PRIORITY — almost always publish=true (confidence ≥0.85) when the story is about:
+- Portugal Golden Visa / ARI / vistos gold investors in the «grey zone» (zona cinzenta): invested ~2021–2022 expecting ~5 years to passport, now stuck after Lei da Nacionalidade (5→10), clock from residence card, AIMA backlog, Provedoria, transitional regime, lawsuits vs Estado
+- Any concrete update on that cohort (IRN, cartão, nationality application cutoff)
 
 APPROVE (publish=true) when the item helps a relocator with:
 - visa / residence / work permit / Blue Card / citizenship / naturalization / asylum / borders / Schengen controls
@@ -223,6 +258,9 @@ Reply with JSON only matching the schema (no prose, no markdown).`;
     excerpt: params.excerpt,
     original_title: params.originalTitle ?? "",
     body_preview: (params.paragraphs ?? []).slice(0, 3).join("\n").slice(0, 1200),
+    channel_priority_hint: params.preferPublish
+      ? "This item is pre-tagged as grey-zone / critical investor citizenship risk — prefer publish=true unless pure noise."
+      : undefined,
   })}`;
 
   const schema = {
@@ -235,12 +273,14 @@ Reply with JSON only matching the schema (no prose, no markdown).`;
     required: ["publish", "confidence", "reason"],
   };
 
+  const minConf = params.preferPublish ? 0.4 : LLM_MIN_CONFIDENCE;
+
   try {
     // Flash 2.5 uses thinking tokens — keep headroom so JSON is not truncated.
     const result = await geminiFastJson<LightningLlmVerdict>(system, user, schema, 2048);
     const confidence = Number(result.confidence);
     const conf = Number.isFinite(confidence) ? Math.max(0, Math.min(1, confidence)) : 0;
-    const publish = Boolean(result.publish) && conf >= LLM_MIN_CONFIDENCE;
+    const publish = Boolean(result.publish) && conf >= minConf;
     return {
       publish,
       confidence: conf,

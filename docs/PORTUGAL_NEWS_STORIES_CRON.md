@@ -34,6 +34,7 @@ Spaced **approval requests** to your Telegram DM (not auto-dump into the channel
 
 - Timer: **11 / 13 / 15 / 17 / 19 UTC** (`emigro-news-lightning.timer`)
 - **1 candidate per tick** after keyword + Gemini Flash gates
+- **Queue priority:** Portugal ARI/GV «серая зона» (and 5→10 investor risk) before other corridors
 - DM: draft + buttons **✅ В канал** / **❌ Пропуск** (fallback `/молния_да` `/молния_нет`)
 - Cap: **≤5 published / day** to `@Emigro_news` (pending approvals also reserve a slot)
 - Needs `EMIGRO_NEWS_BOT_TOKEN`, `TELEGRAM_PRIVATE_CHAT_ID`, `GOOGLE_API_KEY`

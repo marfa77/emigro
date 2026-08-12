@@ -10,6 +10,7 @@ import {
   LIGHTNING_PENDING_MARK,
   LIGHTNING_SKIP_MARK,
   isLightningImmigrationText,
+  lightningChannelPriority,
   scoreLightningWithLlm,
 } from "@/lib/news/story-lightning";
 
@@ -129,17 +130,34 @@ export async function runLightningTelegramQueue(options?: {
 
   if (error) throw new Error(`lightning queue load failed: ${error.message}`);
 
-  const candidates = ((data ?? []) as StoryRow[]).filter((row) => !alreadyHandled(row));
-  console.log(`[lightning] open candidates=${candidates.length} (lookback ${LOOKBACK_DAYS}d)`);
+  const candidates = ((data ?? []) as StoryRow[])
+    .filter((row) => !alreadyHandled(row))
+    .map((row) => ({
+      row,
+      priority: lightningChannelPriority(gateTextForRow(row), row.topic_key),
+    }))
+    .sort((a, b) => {
+      if (b.priority !== a.priority) return b.priority - a.priority;
+      return a.row.published_at.localeCompare(b.row.published_at);
+    });
+
+  const priorityHits = candidates.filter((c) => c.priority >= 80).length;
+  console.log(
+    `[lightning] open candidates=${candidates.length} (lookback ${LOOKBACK_DAYS}d)` +
+      (priorityHits ? `, priority≥80=${priorityHits}` : "")
+  );
 
   const awaitingApproval: string[] = [];
   const published: string[] = [];
   const skipped: string[] = [];
   let considered = 0;
 
-  for (const row of candidates) {
+  for (const { row, priority } of candidates) {
     if (awaitingApproval.length >= maxPublish || remaining <= 0) break;
     considered += 1;
+    if (priority >= 80) {
+      console.log(`[lightning] priority=${priority} ${row.slug}`);
+    }
 
     const gateText = gateTextForRow(row);
     if (!isLightningImmigrationText(gateText)) {
@@ -155,12 +173,14 @@ export async function runLightningTelegramQueue(options?: {
       continue;
     }
 
+    // Grey-zone / critical investor tracks: lower LLM bar so they reach owner DM first.
     const llm = await scoreLightningWithLlm({
       countryRu: topic.countryRu,
       title: row.title,
       excerpt: (row.excerpt ?? "").trim() || row.title,
       originalTitle: row.content_blocks?.[0]?.story_title,
       paragraphs: row.content_blocks?.[0]?.paragraphs,
+      preferPublish: priority >= 80,
     });
     console.log(
       `[lightning] llm ${row.slug}: publish=${llm.publish} conf=${llm.confidence.toFixed(2)} — ${llm.reason}`
