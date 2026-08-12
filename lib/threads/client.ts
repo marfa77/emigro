@@ -41,12 +41,20 @@ async function postParams(
 export async function createTextContainer(params: {
   text: string;
   replyToId?: string;
+  /** Override env default for this container. */
+  enableReplyApprovals?: boolean;
+  replyControl?: string;
 }): Promise<string> {
   const env = loadThreadsEnv();
   const body: Record<string, string> = {
     media_type: "TEXT",
     text: params.text,
+    reply_control: params.replyControl || env.replyControl,
   };
+  const approvals = params.enableReplyApprovals ?? env.enableReplyApprovals;
+  if (approvals) {
+    body.enable_reply_approvals = "true";
+  }
   if (params.replyToId) body.reply_to_id = params.replyToId;
   const data = await postParams(`${env.userId}/threads`, body);
   return data.id!;
@@ -97,6 +105,13 @@ export async function publishThreadsChain(params: {
     publishedIds.push(postId);
     replyTo = postId;
     if (pause > 0) await new Promise((r) => setTimeout(r, pause));
+  }
+
+  const env = loadThreadsEnv();
+  if (env.enableReplyApprovals) {
+    console.log(
+      "[threads] reply approvals ON — чужие ответы скрыты, пока не апрувнешь в Threads"
+    );
   }
 
   return {

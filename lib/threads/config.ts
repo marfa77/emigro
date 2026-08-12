@@ -20,9 +20,21 @@ export type ThreadsEnv = {
   /** Soft gate — never publish unless true. */
   autoPublish: boolean;
   redirectUri: string;
+  /**
+   * Replies stay hidden until you approve in Threads / API.
+   * Default ON — spam protection.
+   */
+  enableReplyApprovals: boolean;
+  /**
+   * Who may attempt a reply: everyone | accounts_you_follow | mentioned_only |
+   * parent_post_author_only | followers_only
+   */
+  replyControl: string;
 };
 
 export function loadThreadsEnv(): ThreadsEnv {
+  const replyControl = (process.env.THREADS_REPLY_CONTROL || "everyone").trim();
+  const approvalsRaw = (process.env.THREADS_ENABLE_REPLY_APPROVALS || "1").trim();
   return {
     appId: (process.env.THREADS_APP_ID || "").trim(),
     appSecret: (process.env.THREADS_APP_SECRET || "").trim(),
@@ -30,6 +42,9 @@ export function loadThreadsEnv(): ThreadsEnv {
     accessToken: (process.env.THREADS_ACCESS_TOKEN || "").trim(),
     autoPublish: process.env.THREADS_AUTO_PUBLISH === "1",
     redirectUri: (process.env.THREADS_REDIRECT_URI || "").trim(),
+    // Default ON: only "0" / "false" disables.
+    enableReplyApprovals: !["0", "false", "no", "off"].includes(approvalsRaw.toLowerCase()),
+    replyControl: replyControl || "everyone",
   };
 }
 
@@ -61,6 +76,7 @@ export function threadsAuthorizationUrl(params?: {
     "threads_basic",
     "threads_content_publish",
     "threads_manage_replies",
+    "threads_read_replies",
   ]).join(",");
   const u = new URL("https://threads.net/oauth/authorize");
   u.searchParams.set("client_id", env.appId);

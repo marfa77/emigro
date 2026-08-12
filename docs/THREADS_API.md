@@ -106,7 +106,23 @@ GET https://graph.threads.net/refresh_access_token
 
 1. **Root:** `🇵🇹 Португалия` + headline (цифра / миф / было→стало)  
 2. **Replies:** короткие слайды (≤500 символов каждый)  
-3. **Последний:** «Если откликнулось — поддержите подпиской или лайком» + ссылка на страницу Emigro и/или `https://t.me/Emigro_news`
+3. **Последний:** «Если откликнулось — поддержите подпиской или лайком» + ссылка на страницу Emigro и/или Telegram  
+
+### Модерация ответов (анти-спам)
+
+По умолчанию на каждый пост цепочки:
+
+- `enable_reply_approvals=true` — чужие ответы **скрыты**, пока ты не апрувнешь в приложении Threads (или через API `pending_replies` / `manage_pending_reply`)
+- `reply_control=everyone` — кто *может* попытаться ответить (апрув всё равно нужен)
+
+Env:
+
+```bash
+THREADS_ENABLE_REPLY_APPROVALS=1   # default; поставь 0 только если хочешь открытые комменты
+THREADS_REPLY_CONTROL=everyone     # или accounts_you_follow | mentioned_only | followers_only
+```
+
+Scopes для управления очередью ответов: `threads_manage_replies`, `threads_read_replies`.
 
 Preview без постинга:
 
