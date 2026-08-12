@@ -22,6 +22,32 @@ import { buildSatelliteSitemapEntries } from "@/lib/seo/satellite-sitemap-entrie
 
 export const revalidate = 3600;
 
+/** Index-boost for priority RU landings / wizards / programs / guides. */
+const SITEMAP_PRIORITY_BOOST: Record<string, number> = {
+  "/ru/greece": 0.96,
+  "/ru/poland": 0.96,
+  "/ru/estonia": 0.96,
+  "/ru/cyprus": 0.96,
+  "/ru/czechia": 0.96,
+  "/ru/greece/wizard": 0.92,
+  "/ru/poland/wizard": 0.92,
+  "/ru/greece/programs/greece-digital-nomad": 0.9,
+  "/ru/greece/programs/greece-fip": 0.9,
+  "/ru/greece/programs/greece-golden-visa": 0.9,
+  "/ru/estonia/programs/estonia-e-residency-ou": 0.9,
+  "/ru/cyprus/programs/cyprus-category-f": 0.9,
+  "/ru/czechia/programs/czechia-zivnost-freelancer": 0.9,
+  "/ru/guides/vnj-bez-raboty-passivnyy-dohod-sberezheniya-2026": 0.92,
+  "/ru/guides/grazhdanstvo-germaniya-polsha-2026": 0.92,
+  "/ru/guides/otkaz-v-natsionalnoy-vize-konsulstvo-2026": 0.92,
+  "/ru/guides/pervye-30-dnej-v-polsche-2026": 0.92,
+  "/ru/guides/pervye-30-dnej-v-gretsii-2026": 0.92,
+};
+
+function sitemapPriority(pathname: string, fallback: number): number {
+  return SITEMAP_PRIORITY_BOOST[pathname] ?? fallback;
+}
+
 async function buildWwwSitemap(): Promise<MetadataRoute.Sitemap> {
   const origin = publicSiteUrl();
   const topics = await getActiveNewsTopics();
@@ -107,11 +133,12 @@ async function buildWwwSitemap(): Promise<MetadataRoute.Sitemap> {
     const slug = topic.corridorSlug!;
     const corridor = corridorBySlug.get(slug);
     const lastModified = corridor ? verifiedDateToLastModified(corridorDigestLastModified(corridor)) : undefined;
+    const landing = corridorLandingPath(slug);
     corridorRoutes.push(
       {
-        url: `${origin}${corridorLandingPath(slug)}`,
+        url: `${origin}${landing}`,
         changeFrequency: "weekly",
-        priority: 0.7,
+        priority: sitemapPriority(landing, 0.7),
         ...(lastModified ? { lastModified } : {}),
       },
       {
@@ -129,18 +156,20 @@ async function buildWwwSitemap(): Promise<MetadataRoute.Sitemap> {
     const digestModified = corridor
       ? verifiedDateToLastModified(corridorDigestLastModified(corridor))
       : undefined;
+    const landing = corridorLandingPath(slug);
+    const wizard = corridorWizardPath(slug);
 
     corridorRoutes.push(
       {
-        url: `${origin}${corridorLandingPath(slug)}`,
+        url: `${origin}${landing}`,
         changeFrequency: "weekly",
-        priority: 0.95,
+        priority: sitemapPriority(landing, 0.95),
         ...(digestModified ? { lastModified: digestModified } : {}),
       },
       {
-        url: `${origin}${corridorWizardPath(slug)}`,
+        url: `${origin}${wizard}`,
         changeFrequency: "monthly",
-        priority: 0.85,
+        priority: sitemapPriority(wizard, 0.85),
         ...(digestModified ? { lastModified: digestModified } : {}),
       },
       {
@@ -155,10 +184,11 @@ async function buildWwwSitemap(): Promise<MetadataRoute.Sitemap> {
       const program = programsBySlug.get(p.slug);
       if (!program?.version) continue;
       const programModified = verifiedDateToLastModified(programLastModified(program));
+      const progPath = programPath(slug, p.slug);
       programRoutes.push({
-        url: `${origin}${programPath(slug, p.slug)}`,
+        url: `${origin}${progPath}`,
         changeFrequency: "monthly",
-        priority: 0.8,
+        priority: sitemapPriority(progPath, 0.8),
         ...(programModified ? { lastModified: programModified } : {}),
       });
     }
@@ -173,14 +203,17 @@ async function buildWwwSitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   const guideRoutes: MetadataRoute.Sitemap = [
-    ...listGuides("ru").map((guide) => ({
-      url: `${origin}${guidePath(guide.slug, "ru")}`,
-      ...(guide.date_modified || guide.date_published
-        ? { lastModified: new Date((guide.date_modified || guide.date_published)!).toISOString() }
-        : {}),
-      changeFrequency: "monthly" as const,
-      priority: 0.85,
-    })),
+    ...listGuides("ru").map((guide) => {
+      const path = guidePath(guide.slug, "ru");
+      return {
+        url: `${origin}${path}`,
+        ...(guide.date_modified || guide.date_published
+          ? { lastModified: new Date((guide.date_modified || guide.date_published)!).toISOString() }
+          : {}),
+        changeFrequency: "monthly" as const,
+        priority: sitemapPriority(path, 0.85),
+      };
+    }),
     ...listGuides("es").map((guide) => ({
       url: `${origin}${esGuidePath(guide.slug)}`,
       ...(guide.date_modified || guide.date_published

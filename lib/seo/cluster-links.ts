@@ -16,7 +16,7 @@ export type SeoCluster = {
   links: ClusterLink[];
 };
 
-/** Narrow internal-linking clusters — PT / ES / BY / RU corridors. */
+/** Narrow internal-linking clusters — PT / ES / GR / PL / EE / CY / CZ / BY / RU corridors. */
 export const SEO_CLUSTERS: Record<string, SeoCluster> = {
   russia: {
     id: "russia",
@@ -113,6 +113,152 @@ export const SEO_CLUSTERS: Record<string, SeoCluster> = {
       },
     ],
   },
+  greece: {
+    id: "greece",
+    title: "Коридор Греция",
+    links: [
+      { href: "/ru/greece", label: "Коридор Греция", description: "Digital Nomad, FIP, Golden Visa" },
+      {
+        href: ORIGIN_HUB_PATH,
+        label: "Origin hub — россияне в EU",
+        description: "Все коридоры из РФ одной страницей",
+      },
+      {
+        href: guidePath("vnj-gretsiya-2026-digital-nomad-fip-golden-visa"),
+        label: "ВНЖ Греция 2026",
+        description: "DN €3 500, FIP, Golden Visa €250k–€800k",
+      },
+      {
+        href: guidePath("pervye-30-dnej-v-gretsii-2026"),
+        label: "Первые 30 дней: AFM, AMKA",
+        description: "Чек-лист после прилёта",
+      },
+      {
+        href: "/ru/greece/programs/greece-digital-nomad",
+        label: "Digital Nomad Visa",
+        description: "Type D до въезда (Law 5275/2026)",
+      },
+      {
+        href: "/ru/greece/programs/greece-fip",
+        label: "Financially Independent Person",
+        description: "Пассивный доход / FIP",
+      },
+      {
+        href: "/ru/greece/programs/greece-golden-visa",
+        label: "Golden Visa",
+        description: "Инвестиции в недвижимость",
+      },
+      { href: "/ru/greece/wizard", label: "Wizard Греция", description: "Подбор DN / FIP / GV" },
+    ],
+  },
+  poland: {
+    id: "poland",
+    title: "Коридор Польша",
+    links: [
+      { href: "/ru/poland", label: "Коридор Польша", description: "Work permit, Blue Card, B2B IT" },
+      {
+        href: ORIGIN_HUB_PATH,
+        label: "Origin hub — россияне в EU",
+        description: "Все коридоры из РФ одной страницей",
+      },
+      {
+        href: guidePath("vnj-polsha-2026"),
+        label: "ВНЖ Польша 2026",
+        description: "Type A, Blue Card, B2B — пороги и сроки",
+      },
+      {
+        href: guidePath("pervye-30-dnej-v-polsche-2026"),
+        label: "Первые 30 дней: PESEL, meldunek",
+        description: "Чек-лист после прилёта",
+      },
+      {
+        href: guidePath("grazhdanstvo-germaniya-polsha-2026"),
+        label: "Гражданство DE и PL 2026",
+        description: "StAG, Karta Polaka, двойной паспорт",
+      },
+      {
+        href: barakhloPromoUrl("cluster_pl", "poland"),
+        label: "Barakhlo · Warszawa",
+        description: "Объявления из русскоязычных чатов",
+        external: true,
+      },
+      { href: "/ru/poland/wizard", label: "Wizard Польша", description: "Подбор work permit / Blue Card" },
+    ],
+  },
+  estonia: {
+    id: "estonia",
+    title: "Коридор Эстония",
+    links: [
+      { href: "/ru/estonia", label: "Коридор Эстония", description: "Digital Nomad, e-Residency / OÜ" },
+      {
+        href: ORIGIN_HUB_PATH,
+        label: "Origin hub — россияне в EU",
+        description: "Все коридоры из РФ одной страницей",
+      },
+      {
+        href: guidePath("vnj-estoniya-2026-digital-nomad-e-residency"),
+        label: "Эстония 2026: DNV и e-Residency",
+        description: "€4 500/мес; e-Residency ≠ ВНЖ",
+      },
+      {
+        href: "/ru/estonia/programs/estonia-e-residency-ou",
+        label: "e-Residency / OÜ",
+        description: "Бизнес-ID без права жить в EE",
+      },
+      { href: "/ru/estonia/wizard", label: "Wizard Эстония", description: "DNV vs e-Residency" },
+    ],
+  },
+  cyprus: {
+    id: "cyprus",
+    title: "Коридор Кипр",
+    links: [
+      { href: "/ru/cyprus", label: "Коридор Кипр", description: "Digital Nomad, Category F, Non-Dom" },
+      {
+        href: ORIGIN_HUB_PATH,
+        label: "Origin hub — россияне в EU",
+        description: "Все коридоры из РФ одной страницей",
+      },
+      {
+        href: guidePath("vnj-kipr-2026-digital-nomad-fip-non-dom"),
+        label: "ВНЖ Кипр 2026",
+        description: "DN €3 500, Category F, Non-Dom",
+      },
+      {
+        href: "/ru/cyprus/programs/cyprus-category-f",
+        label: "Category F",
+        description: "Пассивный доход от €9 568/год",
+      },
+      { href: "/ru/cyprus/wizard", label: "Wizard Кипр", description: "DN / Category F / Non-Dom" },
+    ],
+  },
+  czechia: {
+    id: "czechia",
+    title: "Коридор Чехия",
+    links: [
+      { href: "/ru/czechia", label: "Коридор Чехия", description: "Employee card, Blue Card, živnost" },
+      {
+        href: ORIGIN_HUB_PATH,
+        label: "Origin hub — россияне в EU",
+        description: "Все коридоры из РФ одной страницей",
+      },
+      {
+        href: guidePath("vnj-chehiya-2026"),
+        label: "ВНЖ Чехия 2026",
+        description: "Employee card, Blue Card, živnost IT",
+      },
+      {
+        href: guidePath("pervye-30-dnej-v-chehii-2026"),
+        label: "Первые 30 дней в Чехии",
+        description: "Чек-лист после прилёта",
+      },
+      {
+        href: "/ru/czechia/programs/czechia-zivnost-freelancer",
+        label: "Živnostenský list",
+        description: "Фриланс / самозанятость",
+      },
+      { href: "/ru/czechia/wizard", label: "Wizard Чехия", description: "Employee card / živnost" },
+    ],
+  },
   belarus: {
     id: "belarus",
     title: "Белорусы в Европе",
@@ -162,11 +308,22 @@ export const GUIDE_CLUSTER_MAP: Record<string, string> = {
   "kuda-pereehat-iz-rossii-2026-evropa-vnj": "russia",
   "vnj-germaniya-2026": "russia",
   "rabota-v-evrope-dlya-rossiyan-2026": "russia",
+  "otkaz-v-natsionalnoy-vize-konsulstvo-2026": "russia",
   "vnj-portugaliya-d8-d7-grazhdanstvo-2026": "portugal",
   "pervye-30-dnej-v-portugalii-2026": "portugal",
   "d7-vs-digital-nomad-visa-sravnenie": "portugal",
+  "vnj-bez-raboty-passivnyy-dohod-sberezheniya-2026": "portugal",
   "vnj-ispaniya-2026": "spain",
   "pervye-30-dnej-v-ispanii-2026": "spain",
+  "vnj-gretsiya-2026-digital-nomad-fip-golden-visa": "greece",
+  "pervye-30-dnej-v-gretsii-2026": "greece",
+  "vnj-polsha-2026": "poland",
+  "pervye-30-dnej-v-polsche-2026": "poland",
+  "grazhdanstvo-germaniya-polsha-2026": "poland",
+  "vnj-estoniya-2026-digital-nomad-e-residency": "estonia",
+  "vnj-kipr-2026-digital-nomad-fip-non-dom": "cyprus",
+  "vnj-chehiya-2026": "czechia",
+  "pervye-30-dnej-v-chehii-2026": "czechia",
   "belorusy-v-evropu-vnj-2026": "belarus",
   "podtverdit-dohod-dengi-dlya-vnj-esli-dohod-iz-rossii-2026": "belarus",
   "konsulskaya-podacha-rf-by-kz-2026-yurisdiktsiya": "belarus",
