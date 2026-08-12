@@ -19,6 +19,7 @@ export const TRUSTED_DOMAINS = [
   "eco.pt",
   "eco.sapo.pt",
   "portugal.gov.pt",
+  "imidaily.com",
   "parlamento.pt",
   "dre.pt",
   "boe.es",

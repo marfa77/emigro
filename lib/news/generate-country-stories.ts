@@ -8,7 +8,7 @@ import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { fetchArticleLead } from "@/lib/news/fetch-lead";
 import { geminiFastJson } from "@/lib/news/gemini";
 import { revalidateNewsPages } from "@/lib/news/revalidate-cache";
-import { computeNewsScore, normalizeLink } from "@/lib/news/scoring";
+import { computeNewsScore, isPortugalGoldenVisaInvestorDisputeText, normalizeLink } from "@/lib/news/scoring";
 import { rewriteStoryVoiceFields } from "@/lib/news/story-voice-rewrite";
 import { mapNewsTopicRow, type NewsTopicRow } from "@/lib/news/topics/queries";
 import { buildNewsStorySlug } from "@/lib/news/topics/paths";
@@ -20,17 +20,28 @@ export type StorySourceConfig = {
   sourceLabel: string;
   /** Hostname must include this (anti-hijack) */
   linkHostIncludes: string;
+  /**
+   * Industry / GV-marketing feeds: only accept ARI grey-zone / nationality-dispute items
+   * (skip evergreen “Top 10 Golden Visa” SEO).
+   */
+  greyZoneOnly?: boolean;
 };
 
 /** Preferred publisher RSS — stories only for these (no Google News). */
 export const STORY_SOURCES: StorySourceConfig[] = [
-  // PT: ECO / Resident first — denser on ARI grey-zone / nationality disputes; Observador is general news.
+  // PT journalistic
   {
     topicKey: "portugal",
     feedUrl: "https://eco.pt/feed/",
     sourceLabel: "ECO",
     // Feed lives on eco.pt but article URLs are eco.sapo.pt
     linkHostIncludes: "eco.",
+  },
+  {
+    topicKey: "portugal",
+    feedUrl: "https://www.theportugalnews.com/rss",
+    sourceLabel: "The Portugal News",
+    linkHostIncludes: "theportugalnews.com",
   },
   {
     topicKey: "portugal",
@@ -43,6 +54,35 @@ export const STORY_SOURCES: StorySourceConfig[] = [
     feedUrl: "https://observador.pt/feed/",
     sourceLabel: "Observador",
     linkHostIncludes: "observador.pt",
+  },
+  // PT industry — grey-zone / nationality dispute only (not sales evergreen)
+  {
+    topicKey: "portugal",
+    feedUrl: "https://www.imidaily.com/feed/",
+    sourceLabel: "IMI Daily",
+    linkHostIncludes: "imidaily.com",
+    greyZoneOnly: true,
+  },
+  {
+    topicKey: "portugal",
+    feedUrl: "https://getgoldenvisa.com/feed/",
+    sourceLabel: "Get Golden Visa",
+    linkHostIncludes: "getgoldenvisa.com",
+    greyZoneOnly: true,
+  },
+  {
+    topicKey: "portugal",
+    feedUrl: "https://www.globalcitizensolutions.com/feed/",
+    sourceLabel: "Global Citizen Solutions",
+    linkHostIncludes: "globalcitizensolutions.com",
+    greyZoneOnly: true,
+  },
+  {
+    topicKey: "portugal",
+    feedUrl: "https://portugaldecoded.substack.com/feed",
+    sourceLabel: "Portugal Decoded",
+    linkHostIncludes: "portugaldecoded.substack.com",
+    greyZoneOnly: true,
   },
   {
     topicKey: "netherlands",
@@ -399,8 +439,14 @@ async function fetchFeedItems(
       .slice(0, 500);
 
     if (!isRelocationStoryCandidate(`${title} ${snippet}`)) continue;
+    if (source.greyZoneOnly && !isPortugalGoldenVisaInvestorDisputeText(`${title} ${snippet}`)) {
+      continue;
+    }
 
-    const score = computeNewsScore(title, snippet, link, pub.toISOString(), topic) + 8;
+    const score =
+      computeNewsScore(title, snippet, link, pub.toISOString(), topic) +
+      8 +
+      (source.greyZoneOnly ? 6 : 0);
     if (score < MIN_SCORE) continue;
 
     items.push({
@@ -673,7 +719,7 @@ export async function generateCountryStories(
     }
   }
 
-  const raw = [...merged.values()].sort(
+  const raw = Array.from(merged.values()).sort(
     (a, b) => b.score - a.score || b.pubDate.localeCompare(a.pubDate)
   );
   console.log(`${log} merged candidates=${raw.length} feeds=${feedLabels}`);
@@ -718,7 +764,7 @@ export async function generateCountryStories(
       }))
     : await summarizeBatch(
         topic,
-        [...new Set(withLead.map((c) => c.sourceLabel))].join("/"),
+        Array.from(new Set(withLead.map((c) => c.sourceLabel))).join("/"),
         withLead.slice(0, budget)
       );
 
@@ -832,7 +878,7 @@ export async function generateAllCountryStories(options?: {
   }
 
   const results: CountryStoriesResult[] = [];
-  for (const [topicKey, topicSources] of byTopic) {
+  for (const [topicKey, topicSources] of Array.from(byTopic.entries())) {
     try {
       results.push(await generateCountryStories(topicSources, options));
     } catch (e) {

@@ -16,6 +16,8 @@ const TOPIC_DIRECT_FEEDS: Record<string, DirectFeed[]> = {
     { url: "https://www.thelocal.pt/feeds/rss.php", label: "The Local Portugal" },
     { url: "https://eco.pt/feed/", label: "ECO" },
     { url: "https://www.portugalresident.com/feed/", label: "Portugal Resident" },
+    { url: "https://www.imidaily.com/feed/", label: "IMI Daily" },
+    { url: "https://getgoldenvisa.com/feed/", label: "Get Golden Visa" },
   ],
   spain: [
     { url: "https://www.thelocal.es/feeds/rss.php", label: "The Local Spain" },
