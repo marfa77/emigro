@@ -72,6 +72,7 @@ export async function publishContainer(creationId: string): Promise<string> {
 /**
  * Publish a reply-chain. Default is dry-run (no API write).
  * Live: THREADS_AUTO_PUBLISH=1 and forcePublish=true.
+ * Waits until each container is FINISHED before publish (avoids "resource does not exist").
  */
 export async function publishThreadsChain(params: {
   items: ThreadsChainItem[];
@@ -101,6 +102,7 @@ export async function publishThreadsChain(params: {
   for (const text of texts) {
     const creationId = await createTextContainer({ text, replyToId: replyTo });
     containerIds.push(creationId);
+    await waitForContainerFinished(creationId);
     const postId = await publishContainer(creationId);
     publishedIds.push(postId);
     replyTo = postId;
@@ -120,6 +122,44 @@ export async function publishThreadsChain(params: {
     containerIds,
     preview: texts,
   };
+}
+
+type ContainerStatus = {
+  status?: string;
+  error_message?: string;
+  id?: string;
+  error?: { message?: string };
+};
+
+/** Poll until FINISHED (or ERROR/EXPIRED). Text posts are usually ready quickly. */
+async function waitForContainerFinished(
+  creationId: string,
+  opts?: { timeoutMs?: number; intervalMs?: number }
+): Promise<void> {
+  const env = loadThreadsEnv();
+  const timeoutMs = opts?.timeoutMs ?? 60_000;
+  const intervalMs = opts?.intervalMs ?? 1500;
+  const started = Date.now();
+
+  while (Date.now() - started < timeoutMs) {
+    const u = new URL(`${THREADS_GRAPH_BASE}/${creationId}`);
+    u.searchParams.set("fields", "status,error_message");
+    u.searchParams.set("access_token", env.accessToken);
+    const res = await fetch(u.toString());
+    const data = (await res.json()) as ContainerStatus;
+    if (!res.ok || data.error) {
+      throw new Error(data.error?.message || `Threads container status HTTP ${res.status}`);
+    }
+    const status = (data.status || "").toUpperCase();
+    if (status === "FINISHED" || status === "PUBLISHED") return;
+    if (status === "ERROR" || status === "EXPIRED") {
+      throw new Error(
+        `Threads container ${status}${data.error_message ? `: ${data.error_message}` : ""}`
+      );
+    }
+    await new Promise((r) => setTimeout(r, intervalMs));
+  }
+  throw new Error(`Threads container ${creationId} not FINISHED within ${timeoutMs}ms`);
 }
 
 /** Fetch current user id for the token (debug / setup). */

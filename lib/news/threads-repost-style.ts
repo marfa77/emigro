@@ -93,13 +93,8 @@ ${THREADS_REPOST_STYLE}
   }
 }
 
-/** Plain-text numbered slides for owner copy-paste into Threads. */
+/** Plain-text preview: packed root + Telegram CTA (matches auto-publish). */
 export function formatThreadsPaste(draft: ThreadsRepostDraft): string {
-  const lines = [`1/${draft.slides.length + 1}`, draft.headline, ""];
-  draft.slides.forEach((s, i) => {
-    lines.push(`${i + 2}/${draft.slides.length + 1}`);
-    lines.push(s);
-    lines.push("");
-  });
-  return lines.join("\n").trim();
+  const body = [draft.headline, "", ...draft.slides].join("\n\n").trim();
+  return ["1/2", body, "", "2/2", "→ Telegram: подписка (больше там)"].join("\n");
 }

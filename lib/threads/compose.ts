@@ -1,10 +1,11 @@
 /**
  * Compose a Threads reply-chain from Emigro content.
- * Post 1: country header + hook. Middle: slides. Last: CTA + page or Telegram link.
+ * Default: 2 posts — (1) country + hook + body packed, (2) Telegram subscribe CTA.
  */
 import { THREADS_DEFAULT_TG_URL } from "@/lib/threads/config";
 import type { ThreadsRepostDraft } from "@/lib/news/threads-repost-style";
 
+/** Threads text limit per post. */
 const MAX_CHARS = 500;
 
 export type ThreadsChainItem = {
@@ -17,9 +18,9 @@ export type ComposeThreadsChainParams = {
   flag?: string;
   headline: string;
   slides: string[];
-  /** Emigro article / guide URL (preferred on last slide). */
+  /** Emigro article / guide URL (optional footnote on root if room). */
   pageUrl?: string;
-  /** Telegram channel URL; used if no pageUrl or as secondary line. */
+  /** Telegram channel URL for the 2nd post. */
   telegramUrl?: string;
   ctaMode?: "page" | "telegram" | "both";
 };
@@ -39,46 +40,41 @@ function countryHeader(flag: string | undefined, countryRu: string): string {
   return f ? `${f} ${name}` : name;
 }
 
-function buildCta(params: ComposeThreadsChainParams): string {
-  const mode = params.ctaMode ?? (params.pageUrl ? "page" : "telegram");
-  const tg = (params.telegramUrl || THREADS_DEFAULT_TG_URL).trim();
-  const page = (params.pageUrl || "").trim();
+/** Single body post: flag/country + hook + slides packed (no micro-slicing). */
+export function packThreadsRoot(params: ComposeThreadsChainParams): string {
+  const header = countryHeader(params.flag, params.countryRu);
+  const headline = params.headline.trim();
+  const slides = params.slides.map((s) => s.trim()).filter(Boolean);
 
-  const lines: string[] = [
-    "Если откликнулось — поддержите подпиской или лайком.",
-    "",
-  ];
+  const parts: string[] = [];
+  if (header) parts.push(header);
+  if (headline) parts.push(headline);
+  if (slides.length) parts.push(slides.join("\n\n"));
 
-  if (mode === "page" || mode === "both") {
-    if (page) lines.push(page, "");
-  }
-  if (mode === "telegram" || mode === "both") {
-    lines.push(`Канал в Telegram: ${tg}`);
-  }
-  if (mode === "page" && !page && tg) {
-    lines.push(`Канал в Telegram: ${tg}`);
-  }
+  return clip(parts.join("\n\n"));
+}
 
-  return clip(lines.filter((l, i, a) => !(l === "" && a[i - 1] === "")).join("\n").trim());
+/** Second post only: soft Telegram subscribe + “there’s more there”. */
+export function buildTelegramSubscribeCta(telegramUrl?: string): string {
+  const tg = (telegramUrl || THREADS_DEFAULT_TG_URL).trim();
+  return clip(
+    [
+      "В Telegram больше всего по релокации и визам — подпишитесь, если полезно:",
+      "",
+      tg,
+    ].join("\n")
+  );
 }
 
 /**
- * Build numbered chain texts ready for Threads API (root + replies).
+ * Build chain for Threads API: root (packed) + Telegram CTA reply.
+ * Never emits one-slide-per-reply — that was too fine-grained.
  */
 export function composeThreadsChain(params: ComposeThreadsChainParams): ThreadsChainItem[] {
-  const header = countryHeader(params.flag, params.countryRu);
-  const headline = params.headline.trim();
-  const slides = params.slides.map((s) => s.trim()).filter(Boolean).slice(0, 5);
-
-  const root = clip(`${header}\n\n${headline}`);
-  const items: ThreadsChainItem[] = [{ text: root, role: "root" }];
-
-  for (const slide of slides) {
-    items.push({ text: clip(slide), role: "slide" });
-  }
-
-  items.push({ text: buildCta(params), role: "cta" });
-  return items;
+  return [
+    { text: packThreadsRoot(params), role: "root" },
+    { text: buildTelegramSubscribeCta(params.telegramUrl), role: "cta" },
+  ];
 }
 
 export function composeThreadsChainFromRepost(params: {

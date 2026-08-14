@@ -167,7 +167,7 @@ async function publishLightningToThreads(
       flag: payload.flag,
       draft: { headline: payload.headline, slides: payload.slides },
       pageUrl: payload.pageUrl,
-      ctaMode: payload.pageUrl ? "both" : "telegram",
+      ctaMode: "telegram",
     });
     const result = await publishThreadsChain({
       items,

@@ -19,7 +19,7 @@ Owner taps ✅ on #молния DM → **Telegram stays one channel post** (curr
 | Channel | Format |
 |---------|--------|
 | Telegram | One `#молния` post (flag, title, slides/excerpt, source, Emigro link) |
-| Threads | Root = country header + hook; replies = slides; last = CTA |
+| Threads | **1/2** packed hook+body · **2/2** Telegram subscribe CTA |
 
 ## Gates
 
