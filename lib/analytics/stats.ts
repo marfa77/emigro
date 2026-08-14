@@ -339,21 +339,39 @@ async function countLlmVisitors(
   start: string | null,
   end: string | null
 ): Promise<number> {
-  let q = supabase
-    .from("site_events")
-    .select("session_id, referrer, utm_source, utm_medium")
-    .in("event_name", [...VISITOR_EVENTS]);
-  if (start) q = q.gte("created_at", start);
-  if (end) q = q.lt("created_at", end);
-  const { data, error } = await q.limit(10000);
-  if (error) throw new Error(error.message);
-
+  // Paginate — a single unordered .limit(10000) undercounts all-time and can make
+  // llmToday > llmTotal when recent ChatGPT sessions sit outside the oldest sample.
   const llmSessions = new Set<string>();
-  for (const row of data ?? []) {
-    if (classifyLlmAttribution(row.referrer, row.utm_source, row.utm_medium)) {
-      llmSessions.add(row.session_id);
+  const PAGE = 2000;
+  const MAX_PAGES = 60;
+  let offset = 0;
+
+  for (let page = 0; page < MAX_PAGES; page += 1) {
+    let q = supabase
+      .from("site_events")
+      .select("session_id, referrer, utm_source, utm_medium")
+      .in("event_name", [...VISITOR_EVENTS])
+      .order("created_at", { ascending: true })
+      .range(offset, offset + PAGE - 1);
+    if (start) q = q.gte("created_at", start);
+    if (end) q = q.lt("created_at", end);
+    const { data, error } = await q;
+    if (error) throw new Error(error.message);
+
+    const rows = data ?? [];
+    if (rows.length === 0) break;
+
+    for (const row of rows) {
+      if (!row.session_id) continue;
+      if (classifyLlmAttribution(row.referrer, row.utm_source, row.utm_medium)) {
+        llmSessions.add(row.session_id);
+      }
     }
+
+    if (rows.length < PAGE) break;
+    offset += PAGE;
   }
+
   return llmSessions.size;
 }
 
@@ -459,20 +477,35 @@ async function fetchSessionStarts(
   supabase: ReturnType<typeof createAdminClient>,
   start: string | null,
   end: string | null,
-  limit = 10000
+  _limit = 10000
 ): Promise<VisitorHit[]> {
-  // Newest first so all-time sample reflects recent traffic, not the oldest 10k rows.
-  let q = supabase
-    .from("site_events")
-    .select("session_id, page_path, referrer, utm_source, utm_medium, properties, created_at, event_name")
-    .eq("event_name", "session_start")
-    .order("created_at", { ascending: false })
-    .limit(limit);
-  if (start) q = q.gte("created_at", start);
-  if (end) q = q.lt("created_at", end);
-  const { data, error } = await q;
-  if (error) throw new Error(error.message);
-  return (data ?? []) as VisitorHit[];
+  // Paginate all session_start rows in the window. A single .limit(10000) — even
+  // newest-first — still samples and diverges from llmTotal / today tops.
+  const out: VisitorHit[] = [];
+  const PAGE = 2000;
+  const MAX_PAGES = 60;
+  let offset = 0;
+
+  for (let page = 0; page < MAX_PAGES; page += 1) {
+    let q = supabase
+      .from("site_events")
+      .select("session_id, page_path, referrer, utm_source, utm_medium, properties, created_at, event_name")
+      .eq("event_name", "session_start")
+      .order("created_at", { ascending: true })
+      .range(offset, offset + PAGE - 1);
+    if (start) q = q.gte("created_at", start);
+    if (end) q = q.lt("created_at", end);
+    const { data, error } = await q;
+    if (error) throw new Error(error.message);
+
+    const rows = (data ?? []) as VisitorHit[];
+    if (rows.length === 0) break;
+    out.push(...rows);
+    if (rows.length < PAGE) break;
+    offset += PAGE;
+  }
+
+  return out;
 }
 
 async function discoveryLandingTops(
