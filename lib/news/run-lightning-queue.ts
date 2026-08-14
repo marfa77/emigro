@@ -7,9 +7,9 @@ import {
 } from "@/lib/news/publish-story-telegram";
 import {
   LIGHTNING_MAX_PER_DAY,
-  LIGHTNING_PENDING_MARK,
   LIGHTNING_SKIP_MARK,
   isLightningImmigrationText,
+  isLightningPendingThreadsText,
   lightningChannelPriority,
   scoreLightningWithLlm,
 } from "@/lib/news/story-lightning";
@@ -60,7 +60,7 @@ function alreadyHandled(row: StoryRow): boolean {
   const ids = row.telegram_message_ids ?? [];
   if (ids.length > 0) return true;
   if ((row.telegram_html ?? "").trim() === LIGHTNING_SKIP_MARK) return true;
-  if ((row.threads_text ?? "").trim() === LIGHTNING_PENDING_MARK) return true;
+  if (isLightningPendingThreadsText(row.threads_text)) return true;
   return false;
 }
 

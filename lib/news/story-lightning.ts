@@ -174,6 +174,62 @@ export const LIGHTNING_SKIP_MARK = "__skip_lightning__";
 /** Stored in threads_text while awaiting owner DM approval (telegram_html = draft). */
 export const LIGHTNING_PENDING_MARK = "__lightning_pending__";
 
+/** Payload for Threads reply-chain, stored after the pending mark as JSON. */
+export type LightningThreadsPayload = {
+  v: 1;
+  headline: string;
+  slides: string[];
+  countryRu: string;
+  flag?: string;
+  pageUrl?: string;
+};
+
+export function isLightningPendingThreadsText(raw: string | null | undefined): boolean {
+  return (raw ?? "").trim().startsWith(LIGHTNING_PENDING_MARK);
+}
+
+export function encodeLightningPendingThreadsText(
+  payload?: LightningThreadsPayload | null
+): string {
+  if (!payload?.headline?.trim() || !(payload.slides?.length > 0)) {
+    return LIGHTNING_PENDING_MARK;
+  }
+  return `${LIGHTNING_PENDING_MARK}\n${JSON.stringify({
+    v: 1 as const,
+    headline: payload.headline.trim(),
+    slides: payload.slides.map((s) => s.trim()).filter(Boolean).slice(0, 5),
+    countryRu: payload.countryRu.trim(),
+    ...(payload.flag?.trim() ? { flag: payload.flag.trim() } : {}),
+    ...(payload.pageUrl?.trim() ? { pageUrl: payload.pageUrl.trim() } : {}),
+  } satisfies LightningThreadsPayload)}`;
+}
+
+export function parseLightningPendingThreadsText(
+  raw: string | null | undefined
+): LightningThreadsPayload | null {
+  const t = (raw ?? "").trim();
+  if (!t.startsWith(LIGHTNING_PENDING_MARK)) return null;
+  const rest = t.slice(LIGHTNING_PENDING_MARK.length).trim();
+  if (!rest) return null;
+  try {
+    const j = JSON.parse(rest) as Partial<LightningThreadsPayload>;
+    const headline = String(j.headline || "").trim();
+    const slides = (j.slides ?? []).map((s) => String(s || "").trim()).filter(Boolean);
+    const countryRu = String(j.countryRu || "").trim();
+    if (!headline || slides.length < 1 || !countryRu) return null;
+    return {
+      v: 1,
+      headline,
+      slides: slides.slice(0, 5),
+      countryRu,
+      ...(j.flag ? { flag: String(j.flag).trim() } : {}),
+      ...(j.pageUrl ? { pageUrl: String(j.pageUrl).trim() } : {}),
+    };
+  } catch {
+    return null;
+  }
+}
+
 export function isLightningImmigrationText(text: string): boolean {
   const t = text.toLowerCase();
   if (LIGHTNING_REJECT.some((h) => t.includes(h))) return false;

@@ -8,6 +8,7 @@ import {
   LIGHTNING_PENDING_MARK,
   buildLightningTelegramHtml,
   isLightningImmigrationText,
+  type LightningThreadsPayload,
 } from "@/lib/news/story-lightning";
 import {
   formatThreadsPaste,
@@ -119,6 +120,17 @@ export async function publishStoryLightningToTelegram(
   });
 
   const threadsPaste = reshaped ? formatThreadsPaste(reshaped) : undefined;
+  const pageUrl = newsArticleUrl(params.slug);
+  const threadsPayload: LightningThreadsPayload | null = reshaped
+    ? {
+        v: 1,
+        headline: reshaped.headline,
+        slides: reshaped.slides,
+        countryRu,
+        ...(params.topic.flag ? { flag: params.topic.flag } : {}),
+        pageUrl,
+      }
+    : null;
 
   if (params.dryRun) {
     const req = await requestLightningOwnerApproval({
@@ -127,6 +139,7 @@ export async function publishStoryLightningToTelegram(
       html,
       llmReason: params.llmReason,
       threadsPaste,
+      threadsPayload,
       dryRun: true,
     });
     return {
@@ -164,7 +177,7 @@ export async function publishStoryLightningToTelegram(
     .from("emigro_news_digests")
     .select("slug")
     .eq("format", "story")
-    .eq("threads_text", LIGHTNING_PENDING_MARK)
+    .like("threads_text", `${LIGHTNING_PENDING_MARK}%`)
     .limit(1)
     .maybeSingle();
   if (existingPending?.slug && existingPending.slug !== params.slug) {
@@ -183,6 +196,7 @@ export async function publishStoryLightningToTelegram(
     html,
     llmReason: params.llmReason,
     threadsPaste,
+    threadsPayload,
     dryRun: false,
   });
 

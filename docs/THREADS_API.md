@@ -1,6 +1,8 @@
 # Threads API (Meta) — Emigro setup
 
-Автопубликация **выключена** по умолчанию (`THREADS_AUTO_PUBLISH` ≠ `1`).  
+Автопубликация **выключена** по умолчанию (`THREADS_AUTO_PUBLISH` ≠ `1`), кроме пути
+**#молния после ✅ в Telegram**: webhook на Vercel публикует reply-chain (хук + слайды),
+если `THREADS_AUTO_PUBLISH=1` и токены заданы на Production. Telegram остаётся одним постом.  
 Сейчас: обмен токенов + dry-run цепочки постов. Live — только когда явно разрешите.
 
 Официально: [Get access tokens](https://developers.facebook.com/docs/threads/get-started/get-access-tokens-and-permissions/), [Long-lived tokens](https://developers.facebook.com/docs/threads/get-started/long-lived-tokens/), [Posts](https://developers.facebook.com/docs/threads/posts/).
