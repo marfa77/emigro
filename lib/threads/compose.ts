@@ -1,6 +1,7 @@
 /**
  * Compose a Threads reply-chain from Emigro content.
- * Default: 2 posts — (1) OG image + packed caption ≤500 UTF-8 bytes, (2) Telegram CTA.
+ * Default: 2 posts — (1) hook+body ≤500 UTF-8 bytes, country in topic_tag only,
+ * (2) Telegram bridge CTA.
  *
  * Meta counts emojis/flags as UTF-8 **bytes**, not JS string length.
  */
@@ -27,7 +28,7 @@ export type ComposeThreadsChainParams = {
   slides: string[];
   pageUrl?: string;
   telegramUrl?: string;
-  /** Story OG / cover — attached to the first post. */
+  /** Story OG / cover — ignored for text-only root. */
   imageUrl?: string;
   ctaMode?: "page" | "telegram" | "both";
 };
@@ -52,7 +53,6 @@ export function clipThreadsText(text: string, maxBytes = THREADS_TEXT_SAFE_BYTES
     if (threadsUtf8ByteLength(next) > budget) break;
     out = next;
   }
-  // Prefer cutting at whitespace when close to the end.
   const soft = out.replace(/\s+\S*$/, "").trimEnd();
   if (soft.length >= Math.min(40, Math.floor(out.length * 0.6))) {
     return `${soft}${ellipsis}`;
@@ -60,40 +60,56 @@ export function clipThreadsText(text: string, maxBytes = THREADS_TEXT_SAFE_BYTES
   return `${out.trimEnd()}${ellipsis}`;
 }
 
-function countryHeader(flag: string | undefined, countryRu: string): string {
-  const name = countryRu.trim();
+function escapeRegExp(s: string): string {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+/**
+ * Country/flag live in topic_tag — strip them from the body headline.
+ */
+export function stripCountryFromHeadline(
+  headline: string,
+  countryRu?: string,
+  flag?: string
+): string {
+  let h = headline.trim();
   const f = (flag || "").trim();
-  return f ? `${f} ${name}` : name;
+  if (f) {
+    h = h.replace(new RegExp(`^${escapeRegExp(f)}\\s*`), "").trim();
+  }
+  const country = (countryRu || "").trim();
+  if (country.length >= 2) {
+    h = h
+      .replace(new RegExp(`^${escapeRegExp(country)}\\s*[:—\\-]\\s*`, "i"), "")
+      .replace(new RegExp(`^${escapeRegExp(country)}\\s+`, "i"), "")
+      .trim();
+  }
+  if (h && h !== headline.trim()) {
+    h = h.charAt(0).toLocaleUpperCase("ru-RU") + h.slice(1);
+  }
+  return h || headline.trim();
 }
 
 /**
  * Pack root caption under the byte limit.
- * Prefer whole slides; drop trailing slides rather than mid-word spam when possible.
+ * No country/flag in body (those go to topic_tag). Headline + slides only.
  */
 export function packThreadsRoot(params: ComposeThreadsChainParams): string {
-  const flag = (params.flag || "").trim();
-  const countryRu = params.countryRu.trim();
-  const headline = params.headline.trim();
+  const headline = stripCountryFromHeadline(
+    params.headline,
+    params.countryRu,
+    params.flag
+  );
   const slides = params.slides.map((s) => s.trim()).filter(Boolean);
 
-  const headlineHasCountry =
-    countryRu.length >= 3 && headline.toLowerCase().includes(countryRu.toLowerCase());
-
-  const lead = headlineHasCountry
-    ? flag
-      ? `${flag} ${headline}`
-      : headline
-    : [countryHeader(flag, countryRu), headline].filter(Boolean).join("\n\n");
-
-  let body = lead;
+  let body = headline;
   for (const slide of slides) {
-    const candidate = `${body}\n\n${slide}`;
+    const candidate = body ? `${body}\n\n${slide}` : slide;
     if (threadsUtf8ByteLength(candidate) <= THREADS_TEXT_SAFE_BYTES) {
       body = candidate;
       continue;
     }
-    // Try to fit a truncated last slide if we still have room.
-    const sep = "\n\n";
+    const sep = body ? "\n\n" : "";
     const used = threadsUtf8ByteLength(body) + threadsUtf8ByteLength(sep);
     const room = THREADS_TEXT_SAFE_BYTES - used;
     if (room >= 80) {
@@ -117,8 +133,12 @@ export function buildTelegramSubscribeCta(telegramUrl?: string): string {
 
 /** Absolute OG image URL for a news story (Next opengraph-image route). */
 export function newsStoryThreadsImageUrl(slug: string, siteBase?: string): string {
-  const base = (siteBase || process.env.EMIGRO_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || "https://www.emigro.online")
-    .replace(/\/$/, "");
+  const base = (
+    siteBase ||
+    process.env.EMIGRO_PUBLIC_SITE_URL ||
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    "https://www.emigro.online"
+  ).replace(/\/$/, "");
   return `${base}/ru/news/${encodeURIComponent(slug)}/opengraph-image`;
 }
 
