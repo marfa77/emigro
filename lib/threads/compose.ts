@@ -16,6 +16,8 @@ export type ThreadsChainItem = {
   role: "root" | "slide" | "cta";
   /** Public https URL — root becomes media_type=IMAGE when set. */
   imageUrl?: string;
+  /** Threads header “Community or topic” (no emoji/flag). */
+  topicTag?: string;
 };
 
 export type ComposeThreadsChainParams = {
@@ -120,13 +122,28 @@ export function newsStoryThreadsImageUrl(slug: string, siteBase?: string): strin
   return `${base}/ru/news/${encodeURIComponent(slug)}/opengraph-image`;
 }
 
+/** Sanitize for Threads topic_tag: 1–50 chars, no `.` or `&`. */
+export function sanitizeThreadsTopicTag(raw: string | undefined | null): string | undefined {
+  const t = String(raw || "")
+    .replace(/[.&]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, 50);
+  return t.length >= 1 ? t : undefined;
+}
+
 /**
- * Build chain: root (text only) + Telegram CTA reply.
+ * Build chain: root (text + country topic) + Telegram CTA reply.
  * Root never attaches IMAGE — caption stays clean.
  */
 export function composeThreadsChain(params: ComposeThreadsChainParams): ThreadsChainItem[] {
+  const topicTag = sanitizeThreadsTopicTag(params.countryRu);
   return [
-    { text: packThreadsRoot(params), role: "root" },
+    {
+      text: packThreadsRoot(params),
+      role: "root",
+      ...(topicTag ? { topicTag } : {}),
+    },
     { text: buildTelegramSubscribeCta(params.telegramUrl), role: "cta" },
   ];
 }
@@ -159,7 +176,8 @@ export function formatThreadsChainPreview(items: ThreadsChainItem[]): string {
       const n = `${i + 1}/${items.length}`;
       const bytes = threadsUtf8ByteLength(item.text);
       const img = item.imageUrl ? `\n[image] ${item.imageUrl}` : "";
-      return `—— ${n} (${item.role}, ${bytes} bytes) ——${img}\n${item.text}`;
+      const topic = item.topicTag ? `\n[topic] ${item.topicTag}` : "";
+      return `—— ${n} (${item.role}, ${bytes} bytes) ——${img}${topic}\n${item.text}`;
     })
     .join("\n\n");
 }

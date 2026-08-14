@@ -42,6 +42,7 @@ async function postParams(
 export async function createMediaContainer(params: {
   text: string;
   imageUrl?: string;
+  topicTag?: string;
   replyToId?: string;
   enableReplyApprovals?: boolean;
   replyControl?: string;
@@ -63,6 +64,9 @@ export async function createMediaContainer(params: {
     body.image_url = params.imageUrl.trim();
   } else {
     body.media_type = "TEXT";
+  }
+  if (params.topicTag?.trim()) {
+    body.topic_tag = params.topicTag.trim().slice(0, 50);
   }
 
   const approvals = params.enableReplyApprovals ?? env.enableReplyApprovals;
@@ -157,6 +161,7 @@ export async function publishThreadsChain(params: {
     const creationId = await createMediaContainer({
       text: item.text,
       imageUrl: item.imageUrl,
+      topicTag: item.topicTag,
       replyToId: replyTo,
     });
     containerIds.push(creationId);
