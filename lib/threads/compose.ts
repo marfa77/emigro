@@ -1,16 +1,21 @@
 /**
  * Compose a Threads reply-chain from Emigro content.
- * Default: 2 posts — (1) country + hook + body packed, (2) Telegram subscribe CTA.
+ * Default: 2 posts — (1) OG image + packed caption ≤500 UTF-8 bytes, (2) Telegram CTA.
+ *
+ * Meta counts emojis/flags as UTF-8 **bytes**, not JS string length.
  */
 import { THREADS_DEFAULT_TG_URL } from "@/lib/threads/config";
 import type { ThreadsRepostDraft } from "@/lib/news/threads-repost-style";
 
-/** Threads text limit per post. */
-const MAX_CHARS = 500;
+/** Threads text limit (UTF-8 bytes). Leave a small safety margin. */
+export const THREADS_TEXT_MAX_BYTES = 500;
+const THREADS_TEXT_SAFE_BYTES = 490;
 
 export type ThreadsChainItem = {
   text: string;
   role: "root" | "slide" | "cta";
+  /** Public https URL — root becomes media_type=IMAGE when set. */
+  imageUrl?: string;
 };
 
 export type ComposeThreadsChainParams = {
@@ -18,20 +23,39 @@ export type ComposeThreadsChainParams = {
   flag?: string;
   headline: string;
   slides: string[];
-  /** Emigro article / guide URL (optional footnote on root if room). */
   pageUrl?: string;
-  /** Telegram channel URL for the 2nd post. */
   telegramUrl?: string;
+  /** Story OG / cover — attached to the first post. */
+  imageUrl?: string;
   ctaMode?: "page" | "telegram" | "both";
 };
 
-function clip(text: string, max = MAX_CHARS): string {
+export function threadsUtf8ByteLength(text: string): number {
+  return Buffer.byteLength(text, "utf8");
+}
+
+/** Clip to max UTF-8 bytes without splitting a multi-byte code point. */
+export function clipThreadsText(text: string, maxBytes = THREADS_TEXT_SAFE_BYTES): string {
   const t = text
     .replace(/[ \t]+\n/g, "\n")
     .replace(/\n{3,}/g, "\n\n")
     .trim();
-  if (t.length <= max) return t;
-  return `${t.slice(0, max - 1).trimEnd()}…`;
+  if (threadsUtf8ByteLength(t) <= maxBytes) return t;
+
+  const ellipsis = "…";
+  const budget = maxBytes - threadsUtf8ByteLength(ellipsis);
+  let out = "";
+  for (const ch of t) {
+    const next = out + ch;
+    if (threadsUtf8ByteLength(next) > budget) break;
+    out = next;
+  }
+  // Prefer cutting at whitespace when close to the end.
+  const soft = out.replace(/\s+\S*$/, "").trimEnd();
+  if (soft.length >= Math.min(40, Math.floor(out.length * 0.6))) {
+    return `${soft}${ellipsis}`;
+  }
+  return `${out.trimEnd()}${ellipsis}`;
 }
 
 function countryHeader(flag: string | undefined, countryRu: string): string {
@@ -40,41 +64,72 @@ function countryHeader(flag: string | undefined, countryRu: string): string {
   return f ? `${f} ${name}` : name;
 }
 
-/** Single body post: flag/country + hook + slides packed (no micro-slicing). */
+/**
+ * Pack root caption under the byte limit.
+ * Prefer whole slides; drop trailing slides rather than mid-word spam when possible.
+ */
 export function packThreadsRoot(params: ComposeThreadsChainParams): string {
-  const header = countryHeader(params.flag, params.countryRu);
+  const flag = (params.flag || "").trim();
+  const countryRu = params.countryRu.trim();
   const headline = params.headline.trim();
   const slides = params.slides.map((s) => s.trim()).filter(Boolean);
 
-  const parts: string[] = [];
-  if (header) parts.push(header);
-  if (headline) parts.push(headline);
-  if (slides.length) parts.push(slides.join("\n\n"));
+  const headlineHasCountry =
+    countryRu.length >= 3 && headline.toLowerCase().includes(countryRu.toLowerCase());
 
-  return clip(parts.join("\n\n"));
+  const lead = headlineHasCountry
+    ? flag
+      ? `${flag} ${headline}`
+      : headline
+    : [countryHeader(flag, countryRu), headline].filter(Boolean).join("\n\n");
+
+  let body = lead;
+  for (const slide of slides) {
+    const candidate = `${body}\n\n${slide}`;
+    if (threadsUtf8ByteLength(candidate) <= THREADS_TEXT_SAFE_BYTES) {
+      body = candidate;
+      continue;
+    }
+    // Try to fit a truncated last slide if we still have room.
+    const sep = "\n\n";
+    const used = threadsUtf8ByteLength(body) + threadsUtf8ByteLength(sep);
+    const room = THREADS_TEXT_SAFE_BYTES - used;
+    if (room >= 80) {
+      body = `${body}${sep}${clipThreadsText(slide, room)}`;
+    }
+    break;
+  }
+
+  return clipThreadsText(body, THREADS_TEXT_SAFE_BYTES);
 }
 
-/** Second post only: soft Telegram subscribe + “there’s more there”. */
+/** Second post: soft Telegram subscribe. */
 export function buildTelegramSubscribeCta(telegramUrl?: string): string {
   const tg = (telegramUrl || THREADS_DEFAULT_TG_URL).trim();
-  return clip(
-    [
-      "В Telegram больше всего по релокации и визам — подпишитесь, если полезно:",
-      "",
-      tg,
-    ].join("\n")
+  return clipThreadsText(
+    ["В Telegram больше всего по релокации и визам — подпишитесь, если полезно:", "", tg].join(
+      "\n"
+    )
   );
 }
 
+/** Absolute OG image URL for a news story (Next opengraph-image route). */
+export function newsStoryThreadsImageUrl(slug: string, siteBase?: string): string {
+  const base = (siteBase || process.env.EMIGRO_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || "https://www.emigro.online")
+    .replace(/\/$/, "");
+  return `${base}/ru/news/${encodeURIComponent(slug)}/opengraph-image`;
+}
+
 /**
- * Build chain for Threads API: root (packed) + Telegram CTA reply.
- * Never emits one-slide-per-reply — that was too fine-grained.
+ * Build chain: root (optional image + packed caption) + Telegram CTA reply.
  */
 export function composeThreadsChain(params: ComposeThreadsChainParams): ThreadsChainItem[] {
-  return [
-    { text: packThreadsRoot(params), role: "root" },
-    { text: buildTelegramSubscribeCta(params.telegramUrl), role: "cta" },
-  ];
+  const root: ThreadsChainItem = {
+    text: packThreadsRoot(params),
+    role: "root",
+    ...(params.imageUrl?.trim() ? { imageUrl: params.imageUrl.trim() } : {}),
+  };
+  return [root, { text: buildTelegramSubscribeCta(params.telegramUrl), role: "cta" }];
 }
 
 export function composeThreadsChainFromRepost(params: {
@@ -83,6 +138,7 @@ export function composeThreadsChainFromRepost(params: {
   draft: ThreadsRepostDraft;
   pageUrl?: string;
   telegramUrl?: string;
+  imageUrl?: string;
   ctaMode?: "page" | "telegram" | "both";
 }): ThreadsChainItem[] {
   return composeThreadsChain({
@@ -92,6 +148,7 @@ export function composeThreadsChainFromRepost(params: {
     slides: params.draft.slides,
     pageUrl: params.pageUrl,
     telegramUrl: params.telegramUrl,
+    imageUrl: params.imageUrl,
     ctaMode: params.ctaMode,
   });
 }
@@ -101,7 +158,9 @@ export function formatThreadsChainPreview(items: ThreadsChainItem[]): string {
   return items
     .map((item, i) => {
       const n = `${i + 1}/${items.length}`;
-      return `—— ${n} (${item.role}) ——\n${item.text}`;
+      const bytes = threadsUtf8ByteLength(item.text);
+      const img = item.imageUrl ? `\n[image] ${item.imageUrl}` : "";
+      return `—— ${n} (${item.role}, ${bytes} bytes) ——${img}\n${item.text}`;
     })
     .join("\n\n");
 }

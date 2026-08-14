@@ -8,8 +8,8 @@ import { handleGuideApprovalCallback } from "@/lib/news/run-guide-telegram-queue
 import { processTelegramUpdate } from "@/lib/telegram/handle-update";
 
 export const runtime = "nodejs";
-/** Threads reply-chain after lightning approve can take >60s. */
-export const maxDuration = 120;
+/** Threads IMAGE + container wait can exceed 60s. */
+export const maxDuration = 180;
 
 type NewsUpdate = {
   update_id?: number;

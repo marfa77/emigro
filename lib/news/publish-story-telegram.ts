@@ -14,6 +14,7 @@ import {
   formatThreadsPaste,
   reshapeNewsForThreadsRepost,
 } from "@/lib/news/threads-repost-style";
+import { newsStoryThreadsImageUrl } from "@/lib/threads/compose";
 
 function hasTelegramBotToken(): boolean {
   return Boolean((process.env.EMIGRO_NEWS_BOT_TOKEN || process.env.TELEGRAM_BOT_TOKEN)?.trim());
@@ -129,6 +130,7 @@ export async function publishStoryLightningToTelegram(
         countryRu,
         ...(params.topic.flag ? { flag: params.topic.flag } : {}),
         pageUrl,
+        imageUrl: newsStoryThreadsImageUrl(params.slug),
       }
     : null;
 

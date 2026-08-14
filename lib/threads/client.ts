@@ -8,6 +8,7 @@ import {
   loadThreadsEnv,
 } from "@/lib/threads/config";
 import type { ThreadsChainItem } from "@/lib/threads/compose";
+import { threadsUtf8ByteLength, THREADS_TEXT_MAX_BYTES } from "@/lib/threads/compose";
 
 export type ThreadsPublishResult = {
   dryRun: boolean;
@@ -37,27 +38,63 @@ async function postParams(
   return data;
 }
 
-/** Create TEXT media container (optionally as reply). */
-export async function createTextContainer(params: {
+/** Create TEXT or IMAGE container (optionally as reply). */
+export async function createMediaContainer(params: {
   text: string;
+  imageUrl?: string;
   replyToId?: string;
-  /** Override env default for this container. */
   enableReplyApprovals?: boolean;
   replyControl?: string;
 }): Promise<string> {
   const env = loadThreadsEnv();
+  const text = params.text;
+  if (threadsUtf8ByteLength(text) > THREADS_TEXT_MAX_BYTES) {
+    throw new Error(
+      `Threads text exceeds ${THREADS_TEXT_MAX_BYTES} UTF-8 bytes (${threadsUtf8ByteLength(text)})`
+    );
+  }
+
   const body: Record<string, string> = {
-    media_type: "TEXT",
-    text: params.text,
+    text,
     reply_control: params.replyControl || env.replyControl,
   };
+  if (params.imageUrl?.trim()) {
+    body.media_type = "IMAGE";
+    body.image_url = params.imageUrl.trim();
+  } else {
+    body.media_type = "TEXT";
+  }
+
   const approvals = params.enableReplyApprovals ?? env.enableReplyApprovals;
   if (approvals) {
     body.enable_reply_approvals = "true";
   }
   if (params.replyToId) body.reply_to_id = params.replyToId;
-  const data = await postParams(`${env.userId}/threads`, body);
-  return data.id!;
+
+  try {
+    const data = await postParams(`${env.userId}/threads`, body);
+    return data.id!;
+  } catch (e) {
+    // Soft-fallback: image fetch/format issues → plain text.
+    if (params.imageUrl) {
+      console.warn(
+        "[threads] IMAGE container failed, falling back to TEXT:",
+        e instanceof Error ? e.message : e
+      );
+      return createMediaContainer({ ...params, imageUrl: undefined });
+    }
+    throw e;
+  }
+}
+
+/** @deprecated use createMediaContainer */
+export async function createTextContainer(params: {
+  text: string;
+  replyToId?: string;
+  enableReplyApprovals?: boolean;
+  replyControl?: string;
+}): Promise<string> {
+  return createMediaContainer(params);
 }
 
 /** Publish a creation_id container → live post id. */
@@ -69,15 +106,29 @@ export async function publishContainer(creationId: string): Promise<string> {
   return data.id!;
 }
 
+/** Best-effort warm of Next OG route so Meta can fetch a ready PNG. */
+export async function warmPublicImageUrl(url: string): Promise<boolean> {
+  try {
+    const res = await fetch(url, {
+      method: "GET",
+      headers: { Accept: "image/png,image/*,*/*" },
+      signal: AbortSignal.timeout(25_000),
+    });
+    return res.ok;
+  } catch (e) {
+    console.warn("[threads] warm image failed:", e instanceof Error ? e.message : e);
+    return false;
+  }
+}
+
 /**
  * Publish a reply-chain. Default is dry-run (no API write).
  * Live: THREADS_AUTO_PUBLISH=1 and forcePublish=true.
- * Waits until each container is FINISHED before publish (avoids "resource does not exist").
+ * Waits until each container is FINISHED before publish.
  */
 export async function publishThreadsChain(params: {
   items: ThreadsChainItem[];
   forcePublish?: boolean;
-  /** Sleep between publishes (ms) — Threads rate limits. */
   pauseMs?: number;
 }): Promise<ThreadsPublishResult> {
   const texts = params.items.map((i) => i.text);
@@ -99,10 +150,19 @@ export async function publishThreadsChain(params: {
   const publishedIds: string[] = [];
   let replyTo: string | undefined;
 
-  for (const text of texts) {
-    const creationId = await createTextContainer({ text, replyToId: replyTo });
+  for (const item of params.items) {
+    if (item.imageUrl) {
+      await warmPublicImageUrl(item.imageUrl);
+    }
+    const creationId = await createMediaContainer({
+      text: item.text,
+      imageUrl: item.imageUrl,
+      replyToId: replyTo,
+    });
     containerIds.push(creationId);
-    await waitForContainerFinished(creationId);
+    await waitForContainerFinished(creationId, {
+      timeoutMs: item.imageUrl ? 90_000 : 60_000,
+    });
     const postId = await publishContainer(creationId);
     publishedIds.push(postId);
     replyTo = postId;
@@ -131,7 +191,6 @@ type ContainerStatus = {
   error?: { message?: string };
 };
 
-/** Poll until FINISHED (or ERROR/EXPIRED). Text posts are usually ready quickly. */
 async function waitForContainerFinished(
   creationId: string,
   opts?: { timeoutMs?: number; intervalMs?: number }
@@ -162,7 +221,6 @@ async function waitForContainerFinished(
   throw new Error(`Threads container ${creationId} not FINISHED within ${timeoutMs}ms`);
 }
 
-/** Fetch current user id for the token (debug / setup). */
 export async function fetchThreadsMe(): Promise<{ id: string; username?: string }> {
   const env = loadThreadsEnv();
   if (!env.accessToken) throw new Error("THREADS_ACCESS_TOKEN required");
@@ -170,7 +228,11 @@ export async function fetchThreadsMe(): Promise<{ id: string; username?: string 
   u.searchParams.set("fields", "id,username");
   u.searchParams.set("access_token", env.accessToken);
   const res = await fetch(u.toString());
-  const data = (await res.json()) as { id?: string; username?: string; error?: { message?: string } };
+  const data = (await res.json()) as {
+    id?: string;
+    username?: string;
+    error?: { message?: string };
+  };
   if (!res.ok || !data.id) {
     throw new Error(data.error?.message || `Threads /me HTTP ${res.status}`);
   }

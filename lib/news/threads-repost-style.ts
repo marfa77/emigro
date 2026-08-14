@@ -18,10 +18,9 @@ export const THREADS_REPOST_STYLE = `
    - «Испания: 30 дней на TIE — не совет, а дедлайн (EES фиксирует въезд)»
    - «Golden Visa 2021–22: "ноябрь 2026 = паспорт" — опасное заблуждение»
 
-2) SLIDES / абзацы (3–5 штук, каждый ≤280 символов):
-   Один абзац = один слайд карусели. Плотные факты, на «вы».
-   Каждый абзац: число, правило, ловушка или порядок действий.
-   Пустая строка между абзацами (не стена).
+2) SLIDES / абзацы (2–3 штуки, каждый ≤160 символов):
+   Плотные факты, на «вы». Цифра, правило, ловушка или порядок действий.
+   Пустая строка между абзацами. Не раздувай — в Threads всё уйдёт в один пост ≤500 байт.
 
 3) Без CTA-крика. Ссылка ставится кодом отдельно.
 
@@ -58,7 +57,7 @@ export async function reshapeNewsForThreadsRepost(params: {
 
 ${THREADS_REPOST_STYLE}
 
-Верни JSON: headline, slides (массив 3–5 строк). Без HTML, URL, эмодзи (флаг страны в headline не нужен — его добавит шапка). Только факты из входа.`;
+Верни JSON: headline, slides (массив 2–3 строк, каждая ≤160 символов). Без HTML, URL, эмодзи (флаг страны в headline не нужен — его добавит шапка). Только факты из входа.`;
 
     const user = JSON.stringify({
       country: params.countryRu,
@@ -82,9 +81,9 @@ ${THREADS_REPOST_STYLE}
 
     const headline = stripRepostMd(String(result.headline || "")).slice(0, 160);
     const slides = (result.slides ?? [])
-      .map((s) => stripRepostMd(String(s || "")).slice(0, 320))
+      .map((s) => stripRepostMd(String(s || "")).slice(0, 180))
       .filter((s) => s.length >= 40)
-      .slice(0, 5);
+      .slice(0, 3);
 
     if (!headline || slides.length < 2) return null;
     return { headline, slides };

@@ -182,6 +182,8 @@ export type LightningThreadsPayload = {
   countryRu: string;
   flag?: string;
   pageUrl?: string;
+  /** Public OG image for Threads IMAGE post. */
+  imageUrl?: string;
 };
 
 export function isLightningPendingThreadsText(raw: string | null | undefined): boolean {
@@ -201,6 +203,7 @@ export function encodeLightningPendingThreadsText(
     countryRu: payload.countryRu.trim(),
     ...(payload.flag?.trim() ? { flag: payload.flag.trim() } : {}),
     ...(payload.pageUrl?.trim() ? { pageUrl: payload.pageUrl.trim() } : {}),
+    ...(payload.imageUrl?.trim() ? { imageUrl: payload.imageUrl.trim() } : {}),
   } satisfies LightningThreadsPayload)}`;
 }
 
@@ -224,6 +227,7 @@ export function parseLightningPendingThreadsText(
       countryRu,
       ...(j.flag ? { flag: String(j.flag).trim() } : {}),
       ...(j.pageUrl ? { pageUrl: String(j.pageUrl).trim() } : {}),
+      ...(j.imageUrl ? { imageUrl: String(j.imageUrl).trim() } : {}),
     };
   } catch {
     return null;
