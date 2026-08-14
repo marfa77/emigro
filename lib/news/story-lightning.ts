@@ -182,7 +182,7 @@ export type LightningThreadsPayload = {
   countryRu: string;
   flag?: string;
   pageUrl?: string;
-  /** Public OG image for Threads IMAGE post. */
+  /** @deprecated unused — root posts are text-only. */
   imageUrl?: string;
 };
 

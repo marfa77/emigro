@@ -24,7 +24,7 @@ import {
   type LightningThreadsPayload,
 } from "@/lib/news/story-lightning";
 import { isAdminTelegramChat } from "@/lib/telegram/admin-bot";
-import { composeThreadsChainFromRepost, newsStoryThreadsImageUrl } from "@/lib/threads/compose";
+import { composeThreadsChainFromRepost } from "@/lib/threads/compose";
 import { publishThreadsChain } from "@/lib/threads/client";
 import { loadThreadsEnv } from "@/lib/threads/config";
 
@@ -162,19 +162,11 @@ async function publishLightningToThreads(
   }
 
   try {
-    const imageUrl =
-      payload.imageUrl?.trim() ||
-      (() => {
-        const m = (payload.pageUrl || "").match(/\/ru\/news\/([^/?#]+)/);
-        return m ? newsStoryThreadsImageUrl(decodeURIComponent(m[1])) : undefined;
-      })();
-
     const items = composeThreadsChainFromRepost({
       countryRu: payload.countryRu,
       flag: payload.flag,
       draft: { headline: payload.headline, slides: payload.slides },
       pageUrl: payload.pageUrl,
-      imageUrl,
       ctaMode: "telegram",
     });
     const result = await publishThreadsChain({

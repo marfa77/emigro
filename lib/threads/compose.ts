@@ -4,7 +4,7 @@
  *
  * Meta counts emojis/flags as UTF-8 **bytes**, not JS string length.
  */
-import { THREADS_DEFAULT_TG_URL } from "@/lib/threads/config";
+import { threadsTelegramBridgeUrl } from "@/lib/threads/config";
 import type { ThreadsRepostDraft } from "@/lib/news/threads-repost-style";
 
 /** Threads text limit (UTF-8 bytes). Leave a small safety margin. */
@@ -103,11 +103,11 @@ export function packThreadsRoot(params: ComposeThreadsChainParams): string {
   return clipThreadsText(body, THREADS_TEXT_SAFE_BYTES);
 }
 
-/** Second post: soft Telegram subscribe. */
+/** Second post: soft Telegram subscribe via Emigro bridge (nice OG, no telegram.me card). */
 export function buildTelegramSubscribeCta(telegramUrl?: string): string {
-  const tg = (telegramUrl || THREADS_DEFAULT_TG_URL).trim();
+  const url = (telegramUrl || threadsTelegramBridgeUrl()).trim();
   return clipThreadsText(
-    ["В Telegram больше всего по релокации и визам — подпишитесь, если полезно:", "", tg].join(
+    ["В Telegram больше всего по релокации и визам — подпишитесь, если полезно:", "", url].join(
       "\n"
     )
   );
@@ -121,15 +121,14 @@ export function newsStoryThreadsImageUrl(slug: string, siteBase?: string): strin
 }
 
 /**
- * Build chain: root (optional image + packed caption) + Telegram CTA reply.
+ * Build chain: root (text only) + Telegram CTA reply.
+ * Root never attaches IMAGE — caption stays clean.
  */
 export function composeThreadsChain(params: ComposeThreadsChainParams): ThreadsChainItem[] {
-  const root: ThreadsChainItem = {
-    text: packThreadsRoot(params),
-    role: "root",
-    ...(params.imageUrl?.trim() ? { imageUrl: params.imageUrl.trim() } : {}),
-  };
-  return [root, { text: buildTelegramSubscribeCta(params.telegramUrl), role: "cta" }];
+  return [
+    { text: packThreadsRoot(params), role: "root" },
+    { text: buildTelegramSubscribeCta(params.telegramUrl), role: "cta" },
+  ];
 }
 
 export function composeThreadsChainFromRepost(params: {
@@ -138,6 +137,7 @@ export function composeThreadsChainFromRepost(params: {
   draft: ThreadsRepostDraft;
   pageUrl?: string;
   telegramUrl?: string;
+  /** Ignored — root posts are text-only. */
   imageUrl?: string;
   ctaMode?: "page" | "telegram" | "both";
 }): ThreadsChainItem[] {
@@ -148,7 +148,6 @@ export function composeThreadsChainFromRepost(params: {
     slides: params.draft.slides,
     pageUrl: params.pageUrl,
     telegramUrl: params.telegramUrl,
-    imageUrl: params.imageUrl,
     ctaMode: params.ctaMode,
   });
 }

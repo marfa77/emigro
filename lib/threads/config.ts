@@ -9,8 +9,22 @@ export const THREADS_REFRESH_URL = "https://graph.threads.net/refresh_access_tok
 
 import { NEWS_TELEGRAM_URL } from "@/lib/community";
 
-/** Default Telegram channel CTA target. */
+/** Default Telegram channel CTA target (direct). */
 export const THREADS_DEFAULT_TG_URL = NEWS_TELEGRAM_URL;
+
+/**
+ * Bridge URL for Threads link previews — Emigro OG, then browser → Telegram.
+ * Avoids the ugly telegram.me card in Threads.
+ */
+export function threadsTelegramBridgeUrl(siteBase?: string): string {
+  const base = (
+    siteBase ||
+    process.env.EMIGRO_PUBLIC_SITE_URL ||
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    "https://www.emigro.online"
+  ).replace(/\/$/, "");
+  return `${base}/ru/go/telegram`;
+}
 
 export type ThreadsEnv = {
   appId: string;
