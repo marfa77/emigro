@@ -264,20 +264,28 @@ export async function answerNewsBotCallback(
 export async function editNewsBotMessageHtml(
   chatId: string | number,
   messageId: number,
-  html: string
+  html: string,
+  keyboard?: TelegramInlineButton[][]
 ): Promise<{ success: boolean; error?: string }> {
   const token = ownerBotToken();
   if (!token) return { success: false, error: "bot token missing" };
+  const body: Record<string, unknown> = {
+    chat_id: chatId,
+    message_id: messageId,
+    text: html.slice(0, 4096),
+    parse_mode: "HTML",
+    disable_web_page_preview: true,
+  };
+  if (keyboard) {
+    body.reply_markup = { inline_keyboard: keyboard };
+  } else {
+    // Remove leftover approve buttons after a final action.
+    body.reply_markup = { inline_keyboard: [] };
+  }
   const res = await fetch(`https://api.telegram.org/bot${token}/editMessageText`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      chat_id: chatId,
-      message_id: messageId,
-      text: html.slice(0, 4096),
-      parse_mode: "HTML",
-      disable_web_page_preview: true,
-    }),
+    body: JSON.stringify(body),
   });
   const json = (await res.json()) as TelegramApiResult;
   if (!res.ok || json.ok === false) {

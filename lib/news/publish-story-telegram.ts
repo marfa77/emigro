@@ -5,7 +5,6 @@ import { requestLightningOwnerApproval } from "@/lib/news/lightning-approval";
 import {
   LIGHTNING_MAX_PER_DAY,
   LIGHTNING_MIN_STORY_SCORE,
-  LIGHTNING_PENDING_MARK,
   buildLightningTelegramHtml,
   isLightningImmigrationText,
   type LightningThreadsPayload,
@@ -172,12 +171,13 @@ export async function publishStoryLightningToTelegram(
     };
   }
 
-  // Avoid stacking many pending DMs — one awaiting approval at a time.
+  // Avoid stacking many pending DMs — one awaiting approval at a time
+  // (includes partial: TG done / Threads wait, or Threads done / TG wait).
   const { data: existingPending } = await params.supabase
     .from("emigro_news_digests")
     .select("slug")
     .eq("format", "story")
-    .like("threads_text", `${LIGHTNING_PENDING_MARK}%`)
+    .like("threads_text", "__lightning_%")
     .limit(1)
     .maybeSingle();
   if (existingPending?.slug && existingPending.slug !== params.slug) {

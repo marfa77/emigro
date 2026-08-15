@@ -41,7 +41,7 @@ Spaced **approval requests** to your Telegram DM (not auto-dump into the channel
 - Needs `EMIGRO_NEWS_BOT_TOKEN`, `TELEGRAM_PRIVATE_CHAT_ID`, `GOOGLE_API_KEY`
 - News-bot webhook: `npx tsx scripts/set-news-bot-webhook.ts` → `/api/telegram/news-webhook`
 
-Pending marker: `threads_text=__lightning_pending__` + draft in `telegram_html`.
+Pending markers in `threads_text`: `__lightning_pending__` (both), `__lightning_threads_pending__` (TG done), `__lightning_tg_pending__` (Threads done); draft in `telegram_html`. Owner approves Telegram and Threads separately.
 
 ## 3) Soft promo (weekly) — `news:soft-promo`
 

@@ -173,6 +173,18 @@ export const LIGHTNING_SKIP_MARK = "__skip_lightning__";
 
 /** Stored in threads_text while awaiting owner DM approval (telegram_html = draft). */
 export const LIGHTNING_PENDING_MARK = "__lightning_pending__";
+/** TG already published; Threads still awaiting owner. */
+export const LIGHTNING_THREADS_PENDING_MARK = "__lightning_threads_pending__";
+/** Threads already published; Telegram still awaiting owner. */
+export const LIGHTNING_TG_PENDING_MARK = "__lightning_tg_pending__";
+
+export const LIGHTNING_OWNER_MARKS = [
+  LIGHTNING_PENDING_MARK,
+  LIGHTNING_THREADS_PENDING_MARK,
+  LIGHTNING_TG_PENDING_MARK,
+] as const;
+
+export type LightningOwnerMark = (typeof LIGHTNING_OWNER_MARKS)[number];
 
 /** Payload for Threads reply-chain, stored after the pending mark as JSON. */
 export type LightningThreadsPayload = {
@@ -186,17 +198,32 @@ export type LightningThreadsPayload = {
   imageUrl?: string;
 };
 
+export function lightningOwnerMarkOf(raw: string | null | undefined): LightningOwnerMark | null {
+  const t = (raw ?? "").trim();
+  for (const mark of LIGHTNING_OWNER_MARKS) {
+    if (t.startsWith(mark)) return mark;
+  }
+  return null;
+}
+
+/** True while owner still owes a TG and/or Threads decision. */
+export function isLightningAwaitingOwner(raw: string | null | undefined): boolean {
+  return lightningOwnerMarkOf(raw) != null;
+}
+
+/** @deprecated use isLightningAwaitingOwner */
 export function isLightningPendingThreadsText(raw: string | null | undefined): boolean {
-  return (raw ?? "").trim().startsWith(LIGHTNING_PENDING_MARK);
+  return isLightningAwaitingOwner(raw);
 }
 
 export function encodeLightningPendingThreadsText(
-  payload?: LightningThreadsPayload | null
+  payload?: LightningThreadsPayload | null,
+  mark: LightningOwnerMark = LIGHTNING_PENDING_MARK
 ): string {
   if (!payload?.headline?.trim() || !(payload.slides?.length > 0)) {
-    return LIGHTNING_PENDING_MARK;
+    return mark;
   }
-  return `${LIGHTNING_PENDING_MARK}\n${JSON.stringify({
+  return `${mark}\n${JSON.stringify({
     v: 1 as const,
     headline: payload.headline.trim(),
     slides: payload.slides.map((s) => s.trim()).filter(Boolean).slice(0, 5),
@@ -210,9 +237,10 @@ export function encodeLightningPendingThreadsText(
 export function parseLightningPendingThreadsText(
   raw: string | null | undefined
 ): LightningThreadsPayload | null {
+  const mark = lightningOwnerMarkOf(raw);
+  if (!mark) return null;
   const t = (raw ?? "").trim();
-  if (!t.startsWith(LIGHTNING_PENDING_MARK)) return null;
-  const rest = t.slice(LIGHTNING_PENDING_MARK.length).trim();
+  const rest = t.slice(mark.length).trim();
   if (!rest) return null;
   try {
     const j = JSON.parse(rest) as Partial<LightningThreadsPayload>;
