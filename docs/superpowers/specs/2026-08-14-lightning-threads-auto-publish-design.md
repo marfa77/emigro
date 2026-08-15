@@ -30,7 +30,7 @@ Owner approves **Telegram** and **Threads independently**. Not everything that b
 | Channel | Format |
 |---------|--------|
 | Telegram | One `#молния` post (flag, title, slides/excerpt, source, Emigro link) |
-| Threads | **1/2** text (≤500 UTF-8 bytes) · **2/2** Emigro `/ru/go/telegram` bridge → TG |
+| Threads | Reply-chain: body segment(s) ≤500 **Meta characters** (Cyrillic = 1; emoji = UTF-8 bytes) + Telegram bridge CTA. Overflow slides become replies — not truncated. |
 
 ## Gates
 

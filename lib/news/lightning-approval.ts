@@ -46,6 +46,32 @@ export const LIGHTNING_CB_SKIP = "lg:no";
 /** @deprecated combined approve — still handled for old DMs. */
 export const LIGHTNING_CB_OK = "lg:ok";
 
+/** Telegram callback_data max = 64 bytes. */
+function lightningCb(prefix: string, slug?: string): string {
+  if (!slug) return prefix;
+  const withSlug = `${prefix}:${slug}`;
+  return Buffer.byteLength(withSlug, "utf8") <= 64 ? withSlug : prefix;
+}
+
+function parseLightningCb(data: string): {
+  action: "tg" | "th" | "skip" | "ok" | null;
+  slug?: string;
+} {
+  if (data === LIGHTNING_CB_OK || data.startsWith(`${LIGHTNING_CB_OK}:`)) {
+    return { action: "ok", slug: data.includes(":") ? data.slice(LIGHTNING_CB_OK.length + 1) : undefined };
+  }
+  if (data === LIGHTNING_CB_TG || data.startsWith(`${LIGHTNING_CB_TG}:`)) {
+    return { action: "tg", slug: data.includes(":") ? data.slice(LIGHTNING_CB_TG.length + 1) : undefined };
+  }
+  if (data === LIGHTNING_CB_TH || data.startsWith(`${LIGHTNING_CB_TH}:`)) {
+    return { action: "th", slug: data.includes(":") ? data.slice(LIGHTNING_CB_TH.length + 1) : undefined };
+  }
+  if (data === LIGHTNING_CB_SKIP || data.startsWith(`${LIGHTNING_CB_SKIP}:`)) {
+    return { action: "skip", slug: data.includes(":") ? data.slice(LIGHTNING_CB_SKIP.length + 1) : undefined };
+  }
+  return { action: null };
+}
+
 function createSupabaseAdmin(): SupabaseClient {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL?.replace(/\/$/, "");
   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY?.trim();
@@ -80,29 +106,29 @@ export function isLightningPendingRow(row: {
   return true;
 }
 
-function lightningKeyboard(mark: LightningOwnerMark): TelegramInlineButton[][] {
+function lightningKeyboard(mark: LightningOwnerMark, slug: string): TelegramInlineButton[][] {
   if (mark === LIGHTNING_THREADS_PENDING_MARK) {
     return [
       [
-        { text: "✅ Threads", callback_data: LIGHTNING_CB_TH },
-        { text: "❌ Без Threads", callback_data: LIGHTNING_CB_SKIP },
+        { text: "✅ Threads", callback_data: lightningCb(LIGHTNING_CB_TH, slug) },
+        { text: "❌ Без Threads", callback_data: lightningCb(LIGHTNING_CB_SKIP, slug) },
       ],
     ];
   }
   if (mark === LIGHTNING_TG_PENDING_MARK) {
     return [
       [
-        { text: "✅ Telegram", callback_data: LIGHTNING_CB_TG },
-        { text: "❌ Без Telegram", callback_data: LIGHTNING_CB_SKIP },
+        { text: "✅ Telegram", callback_data: lightningCb(LIGHTNING_CB_TG, slug) },
+        { text: "❌ Без Telegram", callback_data: lightningCb(LIGHTNING_CB_SKIP, slug) },
       ],
     ];
   }
   return [
     [
-      { text: "✅ Telegram", callback_data: LIGHTNING_CB_TG },
-      { text: "✅ Threads", callback_data: LIGHTNING_CB_TH },
+      { text: "✅ Telegram", callback_data: lightningCb(LIGHTNING_CB_TG, slug) },
+      { text: "✅ Threads", callback_data: lightningCb(LIGHTNING_CB_TH, slug) },
     ],
-    [{ text: "❌ Пропуск всего", callback_data: LIGHTNING_CB_SKIP }],
+    [{ text: "❌ Пропуск всего", callback_data: lightningCb(LIGHTNING_CB_SKIP, slug) }],
   ];
 }
 
@@ -116,15 +142,43 @@ function statusLineForMark(mark: LightningOwnerMark): string {
   return "Выбери канал отдельно — не всё из Telegram нужно в Threads";
 }
 
-async function loadOldestPendingLightning(supabase?: SupabaseClient): Promise<PendingLightning | null> {
+async function loadPendingLightning(
+  supabase?: SupabaseClient,
+  slug?: string
+): Promise<PendingLightning | null> {
   const db = supabase ?? createSupabaseAdmin();
+
+  if (slug?.trim()) {
+    const { data, error } = await db
+      .from("emigro_news_digests")
+      .select("slug, telegram_html, threads_text, telegram_message_ids, published_at")
+      .eq("slug", slug.trim())
+      .maybeSingle();
+    if (error) {
+      console.warn("[lightning-approval] load by slug failed:", error.message);
+      return null;
+    }
+    if (!data || !isLightningPendingRow(data)) return null;
+    const mark = lightningOwnerMarkOf(data.threads_text as string | null);
+    if (!mark) return null;
+    return {
+      slug: data.slug as string,
+      telegram_html: (data.telegram_html ?? "").trim(),
+      threads_text: String(data.threads_text ?? ""),
+      mark,
+      threadsPayload: parseLightningPendingThreadsText(data.threads_text as string | null),
+      tgPublished: ((data.telegram_message_ids ?? []) as number[]).length > 0,
+    };
+  }
+
+  // Avoid SQL LIKE `_` wildcards in mark names — fetch candidates and filter in JS.
   const { data, error } = await db
     .from("emigro_news_digests")
     .select("slug, telegram_html, threads_text, telegram_message_ids, published_at")
     .eq("format", "story")
-    .like("threads_text", "__lightning_%")
+    .not("threads_text", "is", null)
     .order("published_at", { ascending: true })
-    .limit(8);
+    .limit(40);
 
   if (error) {
     console.warn("[lightning-approval] load pending failed:", error.message);
@@ -146,6 +200,11 @@ async function loadOldestPendingLightning(supabase?: SupabaseClient): Promise<Pe
     };
   }
   return null;
+}
+
+/** @deprecated use loadPendingLightning */
+async function loadOldestPendingLightning(supabase?: SupabaseClient) {
+  return loadPendingLightning(supabase);
 }
 
 function buildApprovalDmHtml(params: {
@@ -220,7 +279,10 @@ export async function requestLightningOwnerApproval(params: {
     mark: LIGHTNING_PENDING_MARK,
   });
 
-  const dm = await sendOwnerTelegramHtmlWithButtons(preface, lightningKeyboard(LIGHTNING_PENDING_MARK));
+  const dm = await sendOwnerTelegramHtmlWithButtons(
+    preface,
+    lightningKeyboard(LIGHTNING_PENDING_MARK, params.slug)
+  );
 
   if (!dm.success) {
     return { ok: false, reason: dm.error || "dm-failed" };
@@ -270,9 +332,9 @@ type ChannelActionResult = {
   tgOk?: boolean;
 };
 
-export async function approveLightningTelegram(): Promise<ChannelActionResult> {
+export async function approveLightningTelegram(slug?: string): Promise<ChannelActionResult> {
   const supabase = createSupabaseAdmin();
-  const pending = await loadOldestPendingLightning(supabase);
+  const pending = await loadPendingLightning(supabase, slug);
   if (!pending) return { ok: false, error: "no-pending" };
 
   if (
@@ -312,9 +374,9 @@ export async function approveLightningTelegram(): Promise<ChannelActionResult> {
   }
 }
 
-export async function approveLightningThreads(): Promise<ChannelActionResult> {
+export async function approveLightningThreads(slug?: string): Promise<ChannelActionResult> {
   const supabase = createSupabaseAdmin();
-  const pending = await loadOldestPendingLightning(supabase);
+  const pending = await loadPendingLightning(supabase, slug);
   if (!pending) return { ok: false, error: "no-pending" };
 
   if (
@@ -373,7 +435,7 @@ export async function approveLightningThreads(): Promise<ChannelActionResult> {
 }
 
 /** @deprecated Prefer approveLightningTelegram / approveLightningThreads. */
-export async function approvePendingLightning(): Promise<{
+export async function approvePendingLightning(slug?: string): Promise<{
   ok: boolean;
   slug?: string;
   error?: string;
@@ -381,14 +443,14 @@ export async function approvePendingLightning(): Promise<{
   threadsError?: string;
   threadsSkipped?: boolean;
 }> {
-  const tg = await approveLightningTelegram();
+  const tg = await approveLightningTelegram(slug);
   if (!tg.ok) return tg;
 
   if (tg.remainingMark !== LIGHTNING_THREADS_PENDING_MARK) {
     return { ok: true, slug: tg.slug, threadsOk: false, threadsSkipped: true, threadsError: "no-threads-left" };
   }
 
-  const th = await approveLightningThreads();
+  const th = await approveLightningThreads(slug || tg.slug);
   return {
     ok: true,
     slug: tg.slug || th.slug,
@@ -398,14 +460,14 @@ export async function approvePendingLightning(): Promise<{
   };
 }
 
-export async function skipPendingLightning(): Promise<{
+export async function skipPendingLightning(slug?: string): Promise<{
   ok: boolean;
   slug?: string;
   error?: string;
   skippedWhat?: "all" | "threads" | "telegram";
 }> {
   const supabase = createSupabaseAdmin();
-  const pending = await loadOldestPendingLightning(supabase);
+  const pending = await loadPendingLightning(supabase, slug);
   if (!pending) return { ok: false, error: "no-pending" };
 
   if (pending.mark === LIGHTNING_THREADS_PENDING_MARK) {
@@ -461,10 +523,13 @@ async function refreshOrFinalizeDm(params: {
 
   if (params.remainingMark) {
     const threadsPaste = params.threadsPayload
-      ? formatThreadsPaste({
-          headline: params.threadsPayload.headline,
-          slides: params.threadsPayload.slides,
-        })
+      ? formatThreadsPaste(
+          {
+            headline: params.threadsPayload.headline,
+            slides: params.threadsPayload.slides,
+          },
+          params.threadsPayload.countryRu
+        )
       : undefined;
     const html = buildApprovalDmHtml({
       slug: params.slug,
@@ -476,7 +541,7 @@ async function refreshOrFinalizeDm(params: {
       params.chatId,
       params.messageId,
       html,
-      lightningKeyboard(params.remainingMark)
+      lightningKeyboard(params.remainingMark, params.slug)
     );
     return;
   }
@@ -497,26 +562,36 @@ export async function handleLightningApprovalCallback(params: {
   callbackQueryId: string;
   messageId?: number;
 }): Promise<boolean> {
-  const { data } = params;
-  if (
-    data !== LIGHTNING_CB_OK &&
-    data !== LIGHTNING_CB_TG &&
-    data !== LIGHTNING_CB_TH &&
-    data !== LIGHTNING_CB_SKIP
-  ) {
-    return false;
-  }
+  const parsed = parseLightningCb(params.data);
+  if (!parsed.action) return false;
 
   if (!isAdminTelegramChat(params.chatId, params.userId)) {
     await answerNewsBotCallback(params.callbackQueryId, "Нет доступа");
     return true;
   }
 
+  const slug = parsed.slug;
   const supabase = createSupabaseAdmin();
-  const before = await loadOldestPendingLightning(supabase);
+  const before = await loadPendingLightning(supabase, slug);
 
-  if (data === LIGHTNING_CB_SKIP) {
-    const result = await skipPendingLightning();
+  const softStale = async (label: string) => {
+    await answerNewsBotCallback(params.callbackQueryId, "Уже обработано");
+    if (params.messageId != null) {
+      await editNewsBotMessageHtml(
+        params.chatId,
+        params.messageId,
+        `ℹ️ ${label}: уже обработано или нет pending\n<code>${escapeTelegramHtml(slug || before?.slug || "?")}</code>`
+      );
+    }
+    // No scary owner error DM for stale double-taps.
+  };
+
+  if (parsed.action === "skip") {
+    const result = await skipPendingLightning(slug);
+    if (!result.ok && result.error === "no-pending") {
+      await softStale("Пропуск");
+      return true;
+    }
     const toast =
       result.skippedWhat === "threads"
         ? "Без Threads"
@@ -542,9 +617,12 @@ export async function handleLightningApprovalCallback(params: {
     return true;
   }
 
-  if (data === LIGHTNING_CB_OK) {
-    // Legacy combined button from old DMs.
-    const result = await approvePendingLightning();
+  if (parsed.action === "ok") {
+    const result = await approvePendingLightning(slug);
+    if (!result.ok && result.error === "no-pending") {
+      await softStale("Согласование");
+      return true;
+    }
     const toast = result.ok
       ? result.threadsOk
         ? "TG + Threads"
@@ -575,8 +653,12 @@ export async function handleLightningApprovalCallback(params: {
     return true;
   }
 
-  if (data === LIGHTNING_CB_TG) {
-    const result = await approveLightningTelegram();
+  if (parsed.action === "tg") {
+    const result = await approveLightningTelegram(slug);
+    if (!result.ok && result.error === "no-pending") {
+      await softStale("Telegram");
+      return true;
+    }
     await answerNewsBotCallback(
       params.callbackQueryId,
       result.ok ? "Telegram ✓" : result.error || "Ошибка"
@@ -584,7 +666,7 @@ export async function handleLightningApprovalCallback(params: {
     await refreshOrFinalizeDm({
       chatId: params.chatId,
       messageId: params.messageId,
-      slug: result.slug || before?.slug || "?",
+      slug: result.slug || before?.slug || slug || "?",
       telegramHtml: before?.telegram_html || "",
       threadsPayload: before?.threadsPayload,
       remainingMark: result.remainingMark,
@@ -598,8 +680,12 @@ export async function handleLightningApprovalCallback(params: {
     return true;
   }
 
-  // LIGHTNING_CB_TH
-  const result = await approveLightningThreads();
+  // threads
+  const result = await approveLightningThreads(slug);
+  if (!result.ok && result.error === "no-pending") {
+    await softStale("Threads");
+    return true;
+  }
   await answerNewsBotCallback(
     params.callbackQueryId,
     result.ok ? "Threads ✓" : result.error || "Ошибка"
@@ -607,7 +693,7 @@ export async function handleLightningApprovalCallback(params: {
   await refreshOrFinalizeDm({
     chatId: params.chatId,
     messageId: params.messageId,
-    slug: result.slug || before?.slug || "?",
+    slug: result.slug || before?.slug || slug || "?",
     telegramHtml: before?.telegram_html || "",
     threadsPayload: before?.threadsPayload,
     remainingMark: result.remainingMark,

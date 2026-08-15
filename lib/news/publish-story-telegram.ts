@@ -6,6 +6,7 @@ import {
   LIGHTNING_MAX_PER_DAY,
   LIGHTNING_MIN_STORY_SCORE,
   buildLightningTelegramHtml,
+  isLightningAwaitingOwner,
   isLightningImmigrationText,
   type LightningThreadsPayload,
 } from "@/lib/news/story-lightning";
@@ -118,7 +119,7 @@ export async function publishStoryLightningToTelegram(
     slides,
   });
 
-  const threadsPaste = reshaped ? formatThreadsPaste(reshaped) : undefined;
+  const threadsPaste = reshaped ? formatThreadsPaste(reshaped, countryRu) : undefined;
   const pageUrl = newsArticleUrl(params.slug);
   const threadsPayload: LightningThreadsPayload | null = reshaped
     ? {
@@ -173,14 +174,18 @@ export async function publishStoryLightningToTelegram(
 
   // Avoid stacking many pending DMs — one awaiting approval at a time
   // (includes partial: TG done / Threads wait, or Threads done / TG wait).
-  const { data: existingPending } = await params.supabase
+  const { data: existingRows } = await params.supabase
     .from("emigro_news_digests")
-    .select("slug")
+    .select("slug, threads_text")
     .eq("format", "story")
-    .like("threads_text", "__lightning_%")
-    .limit(1)
-    .maybeSingle();
-  if (existingPending?.slug && existingPending.slug !== params.slug) {
+    .not("threads_text", "is", null)
+    .limit(40);
+  const existingPending = (existingRows ?? []).find(
+    (row) =>
+      row.slug !== params.slug &&
+      isLightningAwaitingOwner(row.threads_text as string | null)
+  );
+  if (existingPending?.slug) {
     return {
       published: false,
       awaitingApproval: false,

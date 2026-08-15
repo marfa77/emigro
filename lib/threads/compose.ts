@@ -1,16 +1,25 @@
 /**
  * Compose a Threads reply-chain from Emigro content.
- * Default: 2 posts — (1) hook+body ≤500 UTF-8 bytes, country in topic_tag only,
- * (2) Telegram bridge CTA.
  *
- * Meta counts emojis/flags as UTF-8 **bytes**, not JS string length.
+ * Meta limit: **500 characters**. Cyrillic / Latin = 1 each.
+ * Emojis (and regional-indicator flags) count as their UTF-8 **byte** length.
+ *
+ * Default chain: root (as much as fits) → overflow replies → Telegram CTA.
+ * Never silently drop slides — overflow becomes the next reply posts.
  */
 import { threadsTelegramBridgeUrl } from "@/lib/threads/config";
-import type { ThreadsRepostDraft } from "@/lib/news/threads-repost-style";
 
-/** Threads text limit (UTF-8 bytes). Leave a small safety margin. */
-export const THREADS_TEXT_MAX_BYTES = 500;
-const THREADS_TEXT_SAFE_BYTES = 490;
+/** Minimal draft shape (avoids import cycle with threads-repost-style). */
+export type ThreadsComposeDraft = {
+  headline: string;
+  slides: string[];
+};
+
+/** Threads text limit (Meta characters, emoji-as-bytes). Leave a small safety margin. */
+export const THREADS_TEXT_MAX_CHARS = 500;
+/** @deprecated alias — prefer THREADS_TEXT_MAX_CHARS (Meta counts chars, not raw UTF-8). */
+export const THREADS_TEXT_MAX_BYTES = THREADS_TEXT_MAX_CHARS;
+const THREADS_TEXT_SAFE = 490;
 
 export type ThreadsChainItem = {
   text: string;
@@ -33,24 +42,55 @@ export type ComposeThreadsChainParams = {
   ctaMode?: "page" | "telegram" | "both";
 };
 
-export function threadsUtf8ByteLength(text: string): number {
-  return Buffer.byteLength(text, "utf8");
+/** True for code points Meta treats like emoji (byte-cost). */
+function isThreadsEmojiCodePoint(cp: number): boolean {
+  return (
+    (cp >= 0x1f1e0 && cp <= 0x1f1ff) || // regional indicators (flags)
+    (cp >= 0x1f300 && cp <= 0x1faff) || // misc pictographs / supplemental
+    (cp >= 0x1f000 && cp <= 0x1f02f) ||
+    (cp >= 0x2600 && cp <= 0x27bf) || // misc symbols
+    (cp >= 0xfe00 && cp <= 0xfe0f) || // variation selectors
+    cp === 0x200d || // ZWJ
+    cp === 0x20e3 // combining enclosing keycap
+  );
 }
 
-/** Clip to max UTF-8 bytes without splitting a multi-byte code point. */
-export function clipThreadsText(text: string, maxBytes = THREADS_TEXT_SAFE_BYTES): string {
+/**
+ * Meta Threads character cost: normal chars = 1, emoji/flags = UTF-8 bytes.
+ * Cyrillic counts as 1 (not 2 bytes).
+ */
+export function threadsTextCost(text: string): number {
+  let cost = 0;
+  for (const ch of text) {
+    const cp = ch.codePointAt(0)!;
+    if (isThreadsEmojiCodePoint(cp)) {
+      cost += Buffer.byteLength(ch, "utf8");
+    } else {
+      cost += 1;
+    }
+  }
+  return cost;
+}
+
+/** @deprecated use threadsTextCost — kept for older call sites. */
+export function threadsUtf8ByteLength(text: string): number {
+  return threadsTextCost(text);
+}
+
+/** Clip to max Meta cost without splitting a code point. */
+export function clipThreadsText(text: string, maxCost = THREADS_TEXT_SAFE): string {
   const t = text
     .replace(/[ \t]+\n/g, "\n")
     .replace(/\n{3,}/g, "\n\n")
     .trim();
-  if (threadsUtf8ByteLength(t) <= maxBytes) return t;
+  if (threadsTextCost(t) <= maxCost) return t;
 
   const ellipsis = "…";
-  const budget = maxBytes - threadsUtf8ByteLength(ellipsis);
+  const budget = maxCost - threadsTextCost(ellipsis);
   let out = "";
   for (const ch of t) {
     const next = out + ch;
-    if (threadsUtf8ByteLength(next) > budget) break;
+    if (threadsTextCost(next) > budget) break;
     out = next;
   }
   const soft = out.replace(/\s+\S*$/, "").trimEnd();
@@ -91,37 +131,91 @@ export function stripCountryFromHeadline(
 }
 
 /**
- * Pack root caption under the byte limit.
- * No country/flag in body (those go to topic_tag). Headline + slides only.
+ * Split full body into ≤SAFE segments. Never drops content (except within a
+ * single unbreakable segment longer than SAFE, which is clipped once).
+ */
+export function splitThreadsBodySegments(
+  parts: string[],
+  maxCost = THREADS_TEXT_SAFE
+): string[] {
+  const segments: string[] = [];
+  let current = "";
+
+  const pushCurrent = () => {
+    const t = current.trim();
+    if (t) segments.push(t);
+    current = "";
+  };
+
+  for (const raw of parts) {
+    const part = raw.trim();
+    if (!part) continue;
+
+    // Whole part fits alone after current — append.
+    const candidate = current ? `${current}\n\n${part}` : part;
+    if (threadsTextCost(candidate) <= maxCost) {
+      current = candidate;
+      continue;
+    }
+
+    // Flush current, then fit `part` (possibly split further by sentences/words).
+    pushCurrent();
+
+    if (threadsTextCost(part) <= maxCost) {
+      current = part;
+      continue;
+    }
+
+    // Oversized single part: hard-clip into consecutive chunks.
+    let rest = part;
+    while (rest) {
+      const chunk = clipThreadsText(rest, maxCost);
+      segments.push(chunk);
+      if (chunk.endsWith("…") && threadsTextCost(rest) > maxCost) {
+        // Advance past what we took (approx by character walk matching cost).
+        let taken = "";
+        const budget = maxCost - threadsTextCost("…");
+        for (const ch of rest) {
+          const next = taken + ch;
+          if (threadsTextCost(next) > budget) break;
+          taken = next;
+        }
+        const soft = taken.replace(/\s+\S*$/, "").trimEnd();
+        const advance = (soft.length >= Math.min(40, Math.floor(taken.length * 0.6))
+          ? soft
+          : taken
+        ).length;
+        rest = rest.slice(Math.max(advance, 1)).trim();
+      } else {
+        rest = "";
+      }
+    }
+  }
+
+  pushCurrent();
+  return segments;
+}
+
+/**
+ * Pack root + overflow replies under Meta’s character limit.
+ * No country/flag in body (those go to topic_tag).
  */
 export function packThreadsRoot(params: ComposeThreadsChainParams): string {
+  const segments = packThreadsBodySegments(params);
+  return segments[0] || clipThreadsText(params.headline);
+}
+
+export function packThreadsBodySegments(params: ComposeThreadsChainParams): string[] {
   const headline = stripCountryFromHeadline(
     params.headline,
     params.countryRu,
     params.flag
   );
   const slides = params.slides.map((s) => s.trim()).filter(Boolean);
-
-  let body = headline;
-  for (const slide of slides) {
-    const candidate = body ? `${body}\n\n${slide}` : slide;
-    if (threadsUtf8ByteLength(candidate) <= THREADS_TEXT_SAFE_BYTES) {
-      body = candidate;
-      continue;
-    }
-    const sep = body ? "\n\n" : "";
-    const used = threadsUtf8ByteLength(body) + threadsUtf8ByteLength(sep);
-    const room = THREADS_TEXT_SAFE_BYTES - used;
-    if (room >= 80) {
-      body = `${body}${sep}${clipThreadsText(slide, room)}`;
-    }
-    break;
-  }
-
-  return clipThreadsText(body, THREADS_TEXT_SAFE_BYTES);
+  return splitThreadsBodySegments([headline, ...slides]);
 }
 
-/** Second post: soft Telegram subscribe via Emigro bridge (nice OG, no telegram.me card). */
+/** Second post (or last): soft Telegram subscribe via Emigro bridge. */
 export function buildTelegramSubscribeCta(telegramUrl?: string): string {
   const url = (telegramUrl || threadsTelegramBridgeUrl()).trim();
   return clipThreadsText(
@@ -153,25 +247,32 @@ export function sanitizeThreadsTopicTag(raw: string | undefined | null): string 
 }
 
 /**
- * Build chain: root (text + country topic) + Telegram CTA reply.
+ * Build chain: root (+ overflow slide replies) + Telegram CTA.
  * Root never attaches IMAGE — caption stays clean.
  */
 export function composeThreadsChain(params: ComposeThreadsChainParams): ThreadsChainItem[] {
   const topicTag = sanitizeThreadsTopicTag(params.countryRu);
-  return [
-    {
-      text: packThreadsRoot(params),
+  const segments = packThreadsBodySegments(params);
+  const items: ThreadsChainItem[] = segments.map((text, i) => ({
+    text,
+    role: i === 0 ? ("root" as const) : ("slide" as const),
+    ...(i === 0 && topicTag ? { topicTag } : {}),
+  }));
+  if (items.length === 0) {
+    items.push({
+      text: clipThreadsText(params.headline || params.countryRu || "Emigro"),
       role: "root",
       ...(topicTag ? { topicTag } : {}),
-    },
-    { text: buildTelegramSubscribeCta(params.telegramUrl), role: "cta" },
-  ];
+    });
+  }
+  items.push({ text: buildTelegramSubscribeCta(params.telegramUrl), role: "cta" });
+  return items;
 }
 
 export function composeThreadsChainFromRepost(params: {
   countryRu: string;
   flag?: string;
-  draft: ThreadsRepostDraft;
+  draft: ThreadsComposeDraft;
   pageUrl?: string;
   telegramUrl?: string;
   /** Ignored — root posts are text-only. */
@@ -194,10 +295,10 @@ export function formatThreadsChainPreview(items: ThreadsChainItem[]): string {
   return items
     .map((item, i) => {
       const n = `${i + 1}/${items.length}`;
-      const bytes = threadsUtf8ByteLength(item.text);
+      const cost = threadsTextCost(item.text);
       const img = item.imageUrl ? `\n[image] ${item.imageUrl}` : "";
       const topic = item.topicTag ? `\n[topic] ${item.topicTag}` : "";
-      return `—— ${n} (${item.role}, ${bytes} bytes) ——${img}${topic}\n${item.text}`;
+      return `—— ${n} (${item.role}, ${cost}/${THREADS_TEXT_MAX_CHARS}) ——${img}${topic}\n${item.text}`;
     })
     .join("\n\n");
 }

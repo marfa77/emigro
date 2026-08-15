@@ -2,6 +2,10 @@
  * Style for @Emigro_news posts that the owner later pastes into Threads.
  * Tuned to pv.inform top performers: country + number/myth hook + short “slides”.
  */
+import {
+  composeThreadsChain,
+  formatThreadsChainPreview,
+} from "@/lib/threads/compose";
 
 /** Shared editorial rules — Telegram HTML and Threads carousel paste. */
 export const THREADS_REPOST_STYLE = `
@@ -20,7 +24,7 @@ export const THREADS_REPOST_STYLE = `
 
 2) SLIDES / абзацы (2–3 штуки, каждый ≤160 символов):
    Плотные факты, на «вы». Цифра, правило, ловушка или порядок действий.
-   Пустая строка между абзацами. Не раздувай — в Threads всё уйдёт в один пост ≤500 байт.
+   Пустая строка между абзацами. В Threads: до 500 символов на пост; длинное уходит цепочкой reply.
 
 3) Без CTA-крика. Ссылка ставится кодом отдельно.
 
@@ -92,8 +96,13 @@ ${THREADS_REPOST_STYLE}
   }
 }
 
-/** Plain-text preview: packed root + Telegram CTA (matches auto-publish). */
-export function formatThreadsPaste(draft: ThreadsRepostDraft): string {
-  const body = [draft.headline, "", ...draft.slides].join("\n\n").trim();
-  return ["1/2", body, "", "2/2", "→ Telegram: подписка (больше там)"].join("\n");
+/** Plain-text preview matching auto-publish (multi-post if needed + Telegram CTA). */
+export function formatThreadsPaste(draft: ThreadsRepostDraft, countryRu = ""): string {
+  const items = composeThreadsChain({
+    countryRu,
+    headline: draft.headline,
+    slides: draft.slides,
+    ctaMode: "telegram",
+  });
+  return formatThreadsChainPreview(items);
 }

@@ -8,7 +8,7 @@ import {
   loadThreadsEnv,
 } from "@/lib/threads/config";
 import type { ThreadsChainItem } from "@/lib/threads/compose";
-import { threadsUtf8ByteLength, THREADS_TEXT_MAX_BYTES } from "@/lib/threads/compose";
+import { threadsTextCost, THREADS_TEXT_MAX_CHARS } from "@/lib/threads/compose";
 
 export type ThreadsPublishResult = {
   dryRun: boolean;
@@ -49,9 +49,9 @@ export async function createMediaContainer(params: {
 }): Promise<string> {
   const env = loadThreadsEnv();
   const text = params.text;
-  if (threadsUtf8ByteLength(text) > THREADS_TEXT_MAX_BYTES) {
+  if (threadsTextCost(text) > THREADS_TEXT_MAX_CHARS) {
     throw new Error(
-      `Threads text exceeds ${THREADS_TEXT_MAX_BYTES} UTF-8 bytes (${threadsUtf8ByteLength(text)})`
+      `Threads text exceeds ${THREADS_TEXT_MAX_CHARS} chars (${threadsTextCost(text)})`
     );
   }
 
