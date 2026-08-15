@@ -157,21 +157,28 @@ Emigro разделил Nordics на **четыре коридора** ([Шве�
 
 ---
 
-## Nordic family reunification
+## Nordic family: два разных маршрута
 
-Если у вас есть **супруг, зарегистрированный партнёр или ребёнок** с легальным residence permit в SE/DK/NO/FI — маршрут **family reunification**.
+Не путайте **family reunification** (к гражданину / ПМЖ) и **accompanying family** (семья едет вместе с work permit). Для Дании на pay limit это **разные** треки SIRI.
 
-### Швеция
-- Спонсор: человек с **permanent** или **temporary** permit (work; study — **строже**, часто с ограничениями)
-- Доказательства отношений: брак, civil partnership, совместное проживание
-- **Maintenance requirement:** спонсор должен закрыть жильё + доход по правилам Migrationsverket (не «достаточно ВНЖ»)
-- Срок решения: часто **несколько месяцев**; сложные кейсы дольше
+### Швеция (work permit → семья)
+- Обычно через **family reunification** к спонсору с temporary/permanent permit
+- Доказательства отношений + **maintenance** (жильё и доход по правилам Migrationsverket)
+- Срок: часто месяцы; сложные кейсы дольше
+- Источник: [Migrationsverket — family](https://www.migrationsverket.se/English/Private-individuals/Moving-to-a-close-relative-in-Sweden.html)
 
-### Дания
-- Спонсор с Danish residence
-- **24-årreglen** и другие ограничения для молодых пар — проверяйте актуальные правила SIRI
-- Integration requirements (языковые курсы) для супруга после приезда
-- Срок: часто **несколько месяцев**; сложные кейсы дольше
+### Дания — accompanying family к pay limit / work (не FR)
+Если спонсор на **Pay Limit** (или другом salaried work scheme), семья подаётся как **accompanying family members**, а не через классическое воссоединение к датчанину/ПМЖ.
+
+По [SIRI — accompanying family to employees](https://nyidanmark.dk/en-GB/You-want-to-apply/Family/Accompanying-family-members/Accompanying-family---work):
+- супруг / registered или cohabiting partner / дети &lt;18
+- жить **по одному адресу** со спонсором
+- при **salaried employment** (pay limit сюда входит) **отдельный proof of financial support не требуется**
+- **24-årreglen**, housing collateral и типичные FR-пороги к гражданину/ПМЖ — **не этот трек**
+- право работать обычно есть; отдельный work permit нужен только если работа у того же работодателя / связанной компании
+
+### Дания — family reunification (к гражданину / ПМЖ)
+Уже другой пакет: 24-årreglen, жильё, залог, интеграция — сверяйте актуальные страницы SIRI Family, не копируйте правила SE 1:1.
 
 Подробнее о семье в EU: [воссоединение семьи в Европе](/ru/guides/vossoedinenie-semi-evropa-2026).
 
