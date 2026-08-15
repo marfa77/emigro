@@ -67,18 +67,18 @@ bash deploy/news-soft-promo/deploy.sh
 
 ## 4) Guide promo (daily) — `news:guide-promo`
 
-SEO pillars only (`content/guides/ru/*`) → fact-check → owner DM ✅/❌ → `@Emigro_news` (no auto-publish).
+SEO pillars only (`content/guides/ru/*`) → fact-check → **auto-publish** to `@Emigro_news` (FYI DM, no owner ✅). Soft promo / digests still use DM approve. Lightning stays on separate approve.
 Post copy = channel house style (title-thesis + dense facts), not creative first-person scenes.
 Writer: OpenRouter `EMIGRO_GUIDE_PROMO_MODEL` (default `anthropic/claude-sonnet-4.5`), not Gemini Flash.
 No repeats: queue skips any slug already `published` / `skipped*` in `guide_telegram_drafts`. Seed channel archive with `npx tsx scripts/seed-guide-telegram-from-channel.ts`.
 
-- Table: `guide_telegram_drafts` (Approach A; callbacks `gd:ok:<uuid>` / `gd:no:<uuid>`)
+- Table: `guide_telegram_drafts` (guides auto; soft promo/digests still `gd:ok:` / `gd:no:`)
 - Critical fact-check → DM alert + try next guide (≤5 tries/run)
-- Caps: ≤1 **published**/day from this table; ≤1 **pending** at a time (shared with soft promo)
+- Caps: ≤1 **published**/day from this guide queue
 - Timer: **12:30 UTC** + up to **2h** random (`emigro-news-guide-promo.timer`)
 - Same news-bot webhook as lightning: `/api/telegram/news-webhook`
 
-**Channel rule:** lightning, soft promo, and guide posts all require owner approve before `@Emigro_news`.
+**Channel rule:** lightning = owner approve; **guide SEO posts = auto**; soft promo / digests = owner approve.
 
 ```bash
 npm run news:guide-promo -- --dry-run
@@ -99,7 +99,7 @@ npm run news:stories
 npm run news:lightning -- --dry-run
 npm run news:lightning
 
-# Guide soft post → DM approve
+# Guide soft post → auto channel (no approve)
 npm run news:guide-promo -- --dry-run
 npm run news:guide-promo
 ```

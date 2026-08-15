@@ -1,5 +1,8 @@
 /**
- * Guide → fact-check → owner DM approval → @Emigro_news.
+ * Guide → fact-check → auto-publish to @Emigro_news (no owner approve).
+ * Lightning still requires DM approval separately.
+ * Legacy gd:ok / gd:no callbacks kept for leftover pending drafts
+ * (soft promo / digests still use approve).
  */
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { factcheckGuideForTelegram } from "@/lib/guides/volatile-factcheck";
@@ -14,7 +17,6 @@ import {
   publishNewsDigestToChannel,
   publishNewsHtmlToChannel,
   sendOwnerTelegramDm,
-  sendOwnerTelegramHtmlWithButtons,
 } from "@/lib/telegram";
 import { isAdminTelegramChat } from "@/lib/telegram/admin-bot";
 import { escapeTelegramHtml } from "@/lib/news/story-lightning";
@@ -59,16 +61,6 @@ async function handledSlugs(supabase: SupabaseClient): Promise<Set<string>> {
   return new Set((data ?? []).map((r) => r.slug as string));
 }
 
-async function hasPendingDraft(supabase: SupabaseClient): Promise<boolean> {
-  const { data } = await supabase
-    .from("guide_telegram_drafts")
-    .select("id")
-    .eq("status", "pending")
-    .limit(1)
-    .maybeSingle();
-  return Boolean(data?.id);
-}
-
 async function countPublishedToday(supabase: SupabaseClient): Promise<number> {
   const since = `${new Date().toISOString().slice(0, 10)}T00:00:00.000Z`;
   // Ignore archive seeds ("seeded from @Emigro_news") — only real channel publishes.
@@ -89,7 +81,9 @@ async function countPublishedToday(supabase: SupabaseClient): Promise<number> {
 
 export type GuideTelegramQueueResult = {
   dryRun: boolean;
+  /** @deprecated guides auto-publish; kept for CLI shape. */
   awaitingApproval: string[];
+  published: string[];
   skippedCritical: string[];
   skipped: string[];
   reason?: string;
@@ -105,19 +99,10 @@ export async function runGuideTelegramQueue(options?: {
     return {
       dryRun,
       awaitingApproval: [],
+      published: [],
       skippedCritical: [],
       skipped: ["daily-published-cap"],
       reason: "already published a guide today",
-    };
-  }
-
-  if (!dryRun && (await hasPendingDraft(supabase))) {
-    return {
-      dryRun,
-      awaitingApproval: [],
-      skippedCritical: [],
-      skipped: ["pending-exists"],
-      reason: "owner still has a pending guide draft",
     };
   }
 
@@ -126,12 +111,13 @@ export async function runGuideTelegramQueue(options?: {
   console.log(`[guide-tg] candidates=${candidates.length} excluded=${exclude.size}`);
 
   const awaitingApproval: string[] = [];
+  const published: string[] = [];
   const skippedCritical: string[] = [];
   const skipped: string[] = [];
 
   let tries = 0;
   for (const guide of candidates) {
-    if (awaitingApproval.length >= 1) break;
+    if (published.length >= 1) break;
     if (tries >= MAX_TRIES_PER_RUN) break;
     tries += 1;
 
@@ -162,9 +148,9 @@ export async function runGuideTelegramQueue(options?: {
     const draft = await writeGuideTelegramPost(guide);
     if (dryRun) {
       console.log(
-        `[guide-tg] dry-run draft ${guide.slug} format=${draft.format} model=${draft.model}\n${draft.html}`
+        `[guide-tg] dry-run would auto-publish ${guide.slug} format=${draft.format} model=${draft.model}\n${draft.html}`
       );
-      awaitingApproval.push(guide.slug);
+      published.push(guide.slug);
       break;
     }
 
@@ -177,7 +163,9 @@ export async function runGuideTelegramQueue(options?: {
         status: "pending",
         publish_mode: "html",
         meta: { kind: "guide" },
-        factcheck_notes: issues.length ? issues.map((i) => `${i.severity}:${i.issue}`).join("; ") : null,
+        factcheck_notes: issues.length
+          ? issues.map((i) => `${i.severity}:${i.issue}`).join("; ")
+          : "auto-publish",
       })
       .select("id, slug")
       .single();
@@ -188,41 +176,32 @@ export async function runGuideTelegramQueue(options?: {
     }
 
     const id = row.id as string;
-    const preface = [
-      `📘 <b>Согласование гайда</b>`,
-      `<code>${escapeTelegramHtml(guide.slug)}</code>`,
-      `<i>format:</i> ${escapeTelegramHtml(draft.format)} · <i>model:</i> ${escapeTelegramHtml(draft.model)}`,
-      "",
-      "— черновик —",
-      "",
-      draft.html,
-      "",
-      "— — —",
-      "✅ в канал · ❌ пропуск",
-    ].join("\n");
-
-    const dm = await sendOwnerTelegramHtmlWithButtons(preface, [
-      [
-        { text: "✅ В канал", callback_data: `${GUIDE_CB_OK_PREFIX}${id}` },
-        { text: "❌ Пропуск", callback_data: `${GUIDE_CB_SKIP_PREFIX}${id}` },
-      ],
-    ]);
-
-    if (!dm.success) {
+    const result = await approveGuideDraft(id);
+    if (!result.ok) {
       await supabase
         .from("guide_telegram_drafts")
-        .update({ status: "skipped", factcheck_notes: dm.error, resolved_at: new Date().toISOString() })
+        .update({
+          status: "skipped",
+          factcheck_notes: result.error || "publish-failed",
+          resolved_at: new Date().toISOString(),
+        })
         .eq("id", id);
-      skipped.push(`${guide.slug}:dm:${dm.error}`);
+      skipped.push(`${guide.slug}:publish:${result.error}`);
+      await sendOwnerTelegramDm(
+        `⚠️ Гайд не ушёл в канал\n${guide.slug}\n${result.error || "unknown"}`
+      );
       continue;
     }
 
-    awaitingApproval.push(guide.slug);
-    console.log(`[guide-tg] awaiting approval id=${id} slug=${guide.slug}`);
+    published.push(guide.slug);
+    console.log(`[guide-tg] auto-published id=${id} slug=${guide.slug}`);
+    await sendOwnerTelegramDm(
+      `📘 Гайд в @Emigro_news (без апрува)\n${guide.slug}\nformat=${draft.format}`
+    );
     break;
   }
 
-  return { dryRun, awaitingApproval, skippedCritical, skipped };
+  return { dryRun, awaitingApproval, published, skippedCritical, skipped };
 }
 
 async function loadDraft(supabase: SupabaseClient, id: string): Promise<DraftRow | null> {
@@ -296,6 +275,7 @@ export async function skipGuideDraft(id: string): Promise<{ ok: boolean; slug?: 
   return { ok: true, slug: draft.slug };
 }
 
+/** Legacy buttons for leftover pending drafts (soft promo / digests still use approve). */
 export async function handleGuideApprovalCallback(params: {
   data: string;
   chatId: string | number;
@@ -322,14 +302,14 @@ export async function handleGuideApprovalCallback(params: {
     const result = await approveGuideDraft(id);
     await answerNewsBotCallback(
       params.callbackQueryId,
-      result.ok ? "Гайд в канале" : result.error || "Ошибка"
+      result.ok ? "В канале" : result.error || "Ошибка"
     );
     if (params.messageId != null) {
       await editNewsBotMessageHtml(
         params.chatId,
         params.messageId,
         result.ok
-          ? `✅ Гайд в @Emigro_news\n<code>${escapeTelegramHtml(result.slug || id)}</code>`
+          ? `✅ В @Emigro_news\n<code>${escapeTelegramHtml(result.slug || id)}</code>`
           : `⚠️ ${escapeTelegramHtml(result.error || "error")}`
       );
     }
@@ -343,7 +323,7 @@ export async function handleGuideApprovalCallback(params: {
       params.chatId,
       params.messageId,
       result.ok
-        ? `❌ Пропуск гайда\n<code>${escapeTelegramHtml(result.slug || id)}</code>`
+        ? `❌ Пропуск\n<code>${escapeTelegramHtml(result.slug || id)}</code>`
         : `⚠️ ${escapeTelegramHtml(result.error || "error")}`
     );
   }

@@ -1,6 +1,6 @@
 #!/usr/bin/env npx tsx
 /**
- * Daily SEO-guide soft post → owner DM approval → @Emigro_news.
+ * Daily SEO-guide soft post → auto-publish @Emigro_news (no owner approve).
  *
  *   npm run news:guide-promo -- --dry-run
  *   npm run news:guide-promo
@@ -14,7 +14,7 @@ config({ path: resolve(process.cwd(), ".env") });
 
 async function main() {
   const dryRun = process.argv.includes("--dry-run");
-  console.log(`📘 Guide telegram queue${dryRun ? " [dry-run]" : ""}`);
+  console.log(`📘 Guide telegram queue (auto-publish)${dryRun ? " [dry-run]" : ""}`);
   const result = await runGuideTelegramQueue({ dryRun });
   console.log(JSON.stringify(result, null, 2));
 }
