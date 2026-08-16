@@ -211,6 +211,18 @@ export function isLightningAwaitingOwner(raw: string | null | undefined): boolea
   return lightningOwnerMarkOf(raw) != null;
 }
 
+/**
+ * Blocks sending a *new* lightning approval DM.
+ * `__lightning_threads_pending__` (TG already live) must NOT stall the queue —
+ * Threads is optional and can wait while later молнии get TG approve.
+ */
+export function blocksNewLightningApprovalDm(raw: string | null | undefined): boolean {
+  const mark = lightningOwnerMarkOf(raw);
+  if (!mark) return false;
+  if (mark === LIGHTNING_THREADS_PENDING_MARK) return false;
+  return true;
+}
+
 /** @deprecated use isLightningAwaitingOwner */
 export function isLightningPendingThreadsText(raw: string | null | undefined): boolean {
   return isLightningAwaitingOwner(raw);

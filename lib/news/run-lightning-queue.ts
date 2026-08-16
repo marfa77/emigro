@@ -8,13 +8,17 @@ import {
 import {
   LIGHTNING_MAX_PER_DAY,
   LIGHTNING_SKIP_MARK,
+  LIGHTNING_THREADS_PENDING_MARK,
   isLightningImmigrationText,
   isLightningPendingThreadsText,
   lightningChannelPriority,
+  lightningOwnerMarkOf,
   scoreLightningWithLlm,
 } from "@/lib/news/story-lightning";
 
 const LOOKBACK_DAYS = 5;
+/** Drop optional Threads waits so they never sit forever (TG already live). */
+const THREADS_ONLY_EXPIRE_MS = 12 * 60 * 60 * 1000;
 /** One approval request per cron tick — keeps DMs from stacking. */
 export const LIGHTNING_PER_RUN = 1;
 
@@ -82,6 +86,32 @@ async function markLightningSkip(supabase: SupabaseClient, slug: string): Promis
     .eq("slug", slug);
 }
 
+/** TG already published — optional Threads wait must not linger and confuse /молния_th. */
+async function expireStaleOptionalThreadsPending(supabase: SupabaseClient): Promise<number> {
+  const { data } = await supabase
+    .from("emigro_news_digests")
+    .select("slug, threads_text, updated_at")
+    .eq("format", "story")
+    .not("threads_text", "is", null)
+    .limit(40);
+  const cutoff = Date.now() - THREADS_ONLY_EXPIRE_MS;
+  let n = 0;
+  for (const row of data ?? []) {
+    if (lightningOwnerMarkOf(row.threads_text as string | null) !== LIGHTNING_THREADS_PENDING_MARK) {
+      continue;
+    }
+    const updated = new Date(String(row.updated_at || 0)).getTime();
+    if (!Number.isFinite(updated) || updated > cutoff) continue;
+    await supabase
+      .from("emigro_news_digests")
+      .update({ threads_text: null, updated_at: new Date().toISOString() })
+      .eq("slug", row.slug);
+    n += 1;
+    console.log(`[lightning] expired optional Threads wait: ${row.slug}`);
+  }
+  return n;
+}
+
 export type LightningQueueResult = {
   considered: number;
   /** Slugs sent to owner DM for approval (not yet in channel). */
@@ -100,6 +130,13 @@ export async function runLightningTelegramQueue(options?: {
   const dryRun = Boolean(options?.dryRun);
   const maxPublish = Math.max(1, Math.min(3, options?.maxPublish ?? LIGHTNING_PER_RUN));
   const supabase = createSupabaseAdmin();
+
+  if (!dryRun) {
+    const expired = await expireStaleOptionalThreadsPending(supabase);
+    if (expired > 0) {
+      console.log(`[lightning] expired ${expired} stale Threads-only wait(s)`);
+    }
+  }
 
   const sentToday = await countLightningTelegramToday(supabase);
   let remaining = Math.max(0, LIGHTNING_MAX_PER_DAY - sentToday);

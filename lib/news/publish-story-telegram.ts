@@ -6,7 +6,7 @@ import {
   LIGHTNING_MAX_PER_DAY,
   LIGHTNING_MIN_STORY_SCORE,
   buildLightningTelegramHtml,
-  isLightningAwaitingOwner,
+  blocksNewLightningApprovalDm,
   isLightningImmigrationText,
   type LightningThreadsPayload,
 } from "@/lib/news/story-lightning";
@@ -172,8 +172,8 @@ export async function publishStoryLightningToTelegram(
     };
   }
 
-  // Avoid stacking many pending DMs — one awaiting approval at a time
-  // (includes partial: TG done / Threads wait, or Threads done / TG wait).
+  // One *primary* approval DM at a time (full pending or TG still waiting).
+  // Threads-only leftover after TG publish must not block the queue.
   const { data: existingRows } = await params.supabase
     .from("emigro_news_digests")
     .select("slug, threads_text")
@@ -183,7 +183,7 @@ export async function publishStoryLightningToTelegram(
   const existingPending = (existingRows ?? []).find(
     (row) =>
       row.slug !== params.slug &&
-      isLightningAwaitingOwner(row.threads_text as string | null)
+      blocksNewLightningApprovalDm(row.threads_text as string | null)
   );
   if (existingPending?.slug) {
     return {
