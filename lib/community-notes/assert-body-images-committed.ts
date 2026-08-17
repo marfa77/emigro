@@ -16,7 +16,7 @@ export function collectLocalImageSrcs(sections: NoteBodySection[] | undefined): 
       }
     }
   }
-  return [...out].sort();
+  return Array.from(out).sort();
 }
 
 function isGitTracked(relPath: string): boolean {
