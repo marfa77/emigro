@@ -48,6 +48,8 @@ const SLUG_PEXELS_PHOTO_IDS: Record<string, number> = {
   "braga-rajony-arenda-parki-sport-2026": 32763714,
   // Ribeira waterfront sunny — Porto districts / schools guide
   "porto-rajony-arenda-shkoly-parki-sport-2026": 28882396,
+  // Porto Douro bridges aerial — new-build clusters guide (stock cityscape, not project render)
+  "porto-novostrojki-klastery-community-2026": 28882396,
 };
 
 /** Topic → landscape Pexels queries (Norte / Porto bias where relevant). */
@@ -537,6 +539,39 @@ export function hasNoteOgImage(slug: string): boolean {
   return hasNoteOgImageFile(slug);
 }
 
+/** First hosted guide figure under /images/… — never a remote URL. */
+export function firstNoteBodyImageSrc(
+  note: Partial<Pick<CommunityNote, "body_sections">>
+): string | null {
+  for (const section of note.body_sections ?? []) {
+    for (const image of section.images ?? []) {
+      const src = image.src?.trim();
+      if (src?.startsWith("/images/")) return src;
+    }
+  }
+  return null;
+}
+
+function publicImageFilePath(publicPath: string): string {
+  return path.join(process.cwd(), "public", publicPath.replace(/^\//, ""));
+}
+
+/** Convert a committed public image into 1200×630 WebP (guide cards — no shared stub). */
+export async function webpFromPublicImage(publicPath: string): Promise<Buffer | null> {
+  try {
+    const filePath = publicImageFilePath(publicPath);
+    if (!fs.existsSync(filePath) || fs.statSync(filePath).size < 8_000) return null;
+    const webp = await sharp(filePath)
+      .rotate()
+      .resize(1200, 630, { fit: "cover", position: "centre" })
+      .webp({ quality: 82 })
+      .toBuffer();
+    return webp.length >= MIN_WEBP_BYTES ? webp : null;
+  } catch {
+    return null;
+  }
+}
+
 function canWriteNoteOgImages(): boolean {
   try {
     const dir = path.join(process.cwd(), NOTE_IMAGES_DIR);
@@ -560,9 +595,12 @@ function spainSlugFallback(slug: string): string {
 
 /** Returns static, dynamic, or default OG path for a note. */
 export function resolveNoteOgImage(
-  note: Pick<CommunityNote, "slug" | "content_kind" | "country_key">
+  note: Pick<CommunityNote, "slug" | "content_kind" | "country_key"> &
+    Partial<Pick<CommunityNote, "body_sections">>
 ): string {
   if (hasNoteOgImage(note.slug)) return noteOgImagePublicPath(note.slug);
+  const bodyImage = firstNoteBodyImageSrc(note);
+  if (bodyImage) return bodyImage;
   // Vercel has no VPS-written WebP — warm via dynamic hero for any kind.
   if (noteCountryKey(note) === "portugal" || note.content_kind === "guide") {
     return noteOgImageDynamicPath(note.slug);
@@ -571,11 +609,14 @@ export function resolveNoteOgImage(
   return DEFAULT_OG_IMAGE;
 }
 
-/** Card/list thumbnail — prefer committed WebP, else dynamic hero (not the shared default). */
+/** Card/list thumbnail — prefer committed WebP / guide body photo, never shared og-default. */
 export function resolveNoteCardImage(
-  note: Pick<CommunityNote, "slug" | "content_kind" | "country_key">
+  note: Pick<CommunityNote, "slug" | "content_kind" | "country_key"> &
+    Partial<Pick<CommunityNote, "body_sections">>
 ): string {
   if (hasNoteOgImage(note.slug)) return noteOgImagePublicPath(note.slug);
+  const bodyImage = firstNoteBodyImageSrc(note);
+  if (bodyImage) return bodyImage;
   if (noteCountryKey(note) === "spain") {
     if (note.content_kind === "guide") return noteOgImageDynamicPath(note.slug);
     return spainSlugFallback(note.slug);

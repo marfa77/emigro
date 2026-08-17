@@ -69,6 +69,8 @@ export const COMMITTED_NOTE_OG_SLUGS = new Set([
   "gastronomiya-norte-porto-braga-restorany-2026",
   "braga-rajony-arenda-parki-sport-2026",
   "porto-rajony-arenda-shkoly-parki-sport-2026",
+  "porto-novostrojki-klastery-community-2026",
+  "matosinhos-zhizn-arenda-plyazh-leca-2026",
 ]);
 
 const MANIFEST_PATH = path.join(process.cwd(), "lib/community-notes/note-og-slugs.ts");
