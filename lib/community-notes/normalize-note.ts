@@ -43,15 +43,35 @@ function asBodyImages(value: unknown): NoteBodyImage[] | undefined {
   if (!Array.isArray(value)) return undefined;
   const images = value
     .filter((item): item is Record<string, unknown> => item != null && typeof item === "object")
-    .map((item) => ({
-      src: asString(item.src),
-      alt: asString(item.alt),
-      caption: asString(item.caption) || undefined,
-      credit: asString(item.credit) || undefined,
-      creditUrl: asString(item.creditUrl) || undefined,
-    }))
+    .map((item): NoteBodyImage => {
+      const fitRaw = item.fit;
+      const fit: NoteBodyImage["fit"] =
+        fitRaw === "contain" || fitRaw === "cover" ? fitRaw : undefined;
+      return {
+        src: asString(item.src),
+        alt: asString(item.alt),
+        caption: asString(item.caption) || undefined,
+        credit: asString(item.credit) || undefined,
+        creditUrl: asString(item.creditUrl) || undefined,
+        fit,
+      };
+    })
     .filter((item) => item.src.length > 0 && item.alt.length > 0);
   return images.length > 0 ? images : undefined;
+}
+
+function asBodyTable(value: unknown): NoteBodySection["table"] {
+  if (value == null || typeof value !== "object") return undefined;
+  const raw = value as Record<string, unknown>;
+  const columns = asStringArray(raw.columns);
+  if (columns.length === 0) return undefined;
+  const rowsRaw = Array.isArray(raw.rows) ? raw.rows : [];
+  const rows = rowsRaw
+    .filter((row): row is unknown[] => Array.isArray(row))
+    .map((row) => row.map((cell) => asString(cell)))
+    .filter((row) => row.some((cell) => cell.length > 0));
+  if (rows.length === 0) return undefined;
+  return { columns, rows };
 }
 
 function asBodySections(value: unknown): NoteBodySection[] {
@@ -63,6 +83,7 @@ function asBodySections(value: unknown): NoteBodySection[] {
       paragraphs: section.paragraphs ? asStringArray(section.paragraphs) : undefined,
       bullets: section.bullets ? asStringArray(section.bullets) : undefined,
       images: asBodyImages(section.images),
+      table: asBodyTable(section.table),
       section_kind: asSectionKind(section.section_kind),
     }))
     .filter((section) => section.heading.length > 0);

@@ -181,6 +181,12 @@ export function flattenBodySections(sections: NoteBodySection[]): string[] {
     s.heading,
     ...(s.paragraphs ?? []),
     ...(s.bullets ?? []).map((b) => `• ${b}`),
+    ...(s.table
+      ? [
+          s.table.columns.join(" | "),
+          ...s.table.rows.map((row) => row.join(" | ")),
+        ]
+      : []),
   ]);
 }
 

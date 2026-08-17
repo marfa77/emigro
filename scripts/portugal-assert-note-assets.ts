@@ -10,6 +10,7 @@ import { PORTO_NEWBUILD_CLUSTERS_GUIDE } from "@/lib/community-notes/guides/port
 import { MATOSINHOS_LIFE_GUIDE } from "@/lib/community-notes/guides/matosinhos-life";
 import { PORTO_DISTRICTS_GUIDE } from "@/lib/community-notes/guides/porto-districts-life";
 import { WINES_WINERIES_NORTE_GUIDE } from "@/lib/community-notes/guides/wines-wineries-norte-portugal";
+import { FESTIVALS_PORTUGAL_2026_GUIDE } from "@/lib/community-notes/guides/festivals-portugal-2026";
 import {
   assertBodyImagesCommitted,
   collectLocalImageSrcs,
@@ -22,6 +23,7 @@ const GUIDES_WITH_LOCAL_IMAGES = [
   MATOSINHOS_LIFE_GUIDE,
   PORTO_DISTRICTS_GUIDE,
   WINES_WINERIES_NORTE_GUIDE,
+  FESTIVALS_PORTUGAL_2026_GUIDE,
 ];
 
 function isGitTracked(relPath: string): boolean {

@@ -126,6 +126,43 @@ function SectionImages({ images }: { images: NoteBodyImage[] }) {
   return <NoteImageGallery images={images} />;
 }
 
+function SectionTable({ table }: { table: NonNullable<NoteBodySection["table"]> }) {
+  return (
+    <div className="mt-5 overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-sm">
+      <table className="w-full min-w-[36rem] border-collapse text-left text-sm text-slate-700">
+        <thead>
+          <tr className="border-b border-slate-200 bg-slate-50 text-[11px] font-semibold uppercase tracking-wide text-slate-500">
+            {table.columns.map((col) => (
+              <th key={col} className="px-3 py-2.5 sm:px-4">
+                {col}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {table.rows.map((row, rowIndex) => (
+            <tr
+              key={`${row[0]}-${rowIndex}`}
+              className="border-b border-slate-100 last:border-0 odd:bg-white even:bg-slate-50/60"
+            >
+              {row.map((cell, cellIndex) => (
+                <td
+                  key={`${rowIndex}-${cellIndex}`}
+                  className={`px-3 py-2.5 align-top sm:px-4 ${
+                    cellIndex === 0 ? "whitespace-nowrap font-medium text-slate-900" : ""
+                  }`}
+                >
+                  {parseInlineMarkdown(cell)}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
 async function SectionContent({
   section,
   checklist,
@@ -147,6 +184,7 @@ async function SectionContent({
           {parseInlineMarkdown(paragraph)}
         </p>
       ))}
+      {section.table && section.table.rows.length > 0 && <SectionTable table={section.table} />}
       {images.length > 0 && <SectionImages images={images} />}
       {bullets.length > 0 &&
         (ranking ? (
