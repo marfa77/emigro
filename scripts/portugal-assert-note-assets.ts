@@ -9,6 +9,7 @@ import path from "node:path";
 import { PORTO_NEWBUILD_CLUSTERS_GUIDE } from "@/lib/community-notes/guides/porto-newbuild-clusters-2026";
 import { MATOSINHOS_LIFE_GUIDE } from "@/lib/community-notes/guides/matosinhos-life";
 import { PORTO_DISTRICTS_GUIDE } from "@/lib/community-notes/guides/porto-districts-life";
+import { WINES_WINERIES_NORTE_GUIDE } from "@/lib/community-notes/guides/wines-wineries-norte-portugal";
 import {
   assertBodyImagesCommitted,
   collectLocalImageSrcs,
@@ -20,6 +21,7 @@ const GUIDES_WITH_LOCAL_IMAGES = [
   PORTO_NEWBUILD_CLUSTERS_GUIDE,
   MATOSINHOS_LIFE_GUIDE,
   PORTO_DISTRICTS_GUIDE,
+  WINES_WINERIES_NORTE_GUIDE,
 ];
 
 function isGitTracked(relPath: string): boolean {
