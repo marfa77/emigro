@@ -4,7 +4,12 @@
 import { flattenBodySections, validateNoteDraft } from "@/lib/community-notes/editorial-quality";
 import { applyReadabilityToDraft } from "@/lib/community-notes/editorial-readability";
 import { refreshDailySpotlight } from "@/lib/community-notes/daily-spotlight";
-import { ensureNoteOgImage } from "@/lib/community-notes/note-og-image";
+import { assertBodyImagesCommitted } from "@/lib/community-notes/assert-body-images-committed";
+import {
+  ensureNoteOgImage,
+  firstNoteBodyImageSrc,
+  hasNoteOgImage,
+} from "@/lib/community-notes/note-og-image";
 import { communityNotePublicUrl } from "@/lib/community-notes/note-url";
 import { ensureSectionVoiceClose } from "@/lib/community-notes/voice-transforms";
 import { createServerClient } from "@/lib/supabase/server";
@@ -34,6 +39,8 @@ export async function publishHandGuide(raw: Omit<CommunityNote, "id" | "created_
   if (errors.length > 0) {
     throw new Error(`Quality gate: ${errors.join("; ")}`);
   }
+
+  assertBodyImagesCommitted(guide.slug, guide.body_sections);
 
   const supabase = createServerClient();
   const now = new Date().toISOString();
@@ -72,8 +79,16 @@ export async function publishHandGuide(raw: Omit<CommunityNote, "id" | "created_
   } catch (e) {
     console.warn("[spotlight] skipped:", e instanceof Error ? e.message : e);
   }
-  const { path: ogPath } = await ensureNoteOgImage(guide);
-  console.log(`[og-image] ${ogPath}`);
+  const { path: ogPath, generated } = await ensureNoteOgImage(guide);
+  console.log(`[og-image] ${ogPath}${generated ? " (generated)" : ""}`);
+
+  // Hard gate: hub cards must never fall through to the shared og-default stub.
+  if (!hasNoteOgImage(guide.slug) && !firstNoteBodyImageSrc(guide)) {
+    throw new Error(
+      `OG gate: ${guide.slug} has no committed WebP and no body images — hub would show a stub. Add public/images/community-notes/${guide.slug}.webp and append note-og-slugs.ts before publish.`
+    );
+  }
+
   console.log(`\nSatellite URL: ${communityNotePublicUrl(guide.slug)}`);
   console.log(`Pillar URL: https://www.emigro.online/ru/guides/${guide.slug}`);
 }

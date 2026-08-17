@@ -18,5 +18,6 @@ if printf '%s\n' "$STATUS_OUT" | head -n 40 | grep -E 'Building[[:space:]]+Produ
   exit 1
 fi
 
+npm run portugal:assert-note-assets
 npm run build
 exec vercel --prod

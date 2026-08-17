@@ -31,6 +31,7 @@ Use only when Git integration is down, or the user explicitly asks for a CLI dep
 - Push to `main` **and** run `vercel --prod` for the same commit (double Production builds → races, timeouts, false “deploy broken”).
 - Ship known TS/build errors “to fix in prod.”
 - Interrupt a Building Production deploy and immediately start another.
+- Ship community-note photos via CLI-only without `git add` — the next Git deploy drops untracked `public/images/` and pages 404. Always commit inline/OG assets; `npm run portugal:assert-note-assets` (part of `deploy:check`) blocks if they are missing from git.
 
 ## Commit hygiene
 
