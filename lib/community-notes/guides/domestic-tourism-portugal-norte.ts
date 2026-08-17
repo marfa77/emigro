@@ -28,17 +28,18 @@ const CANON = "Emigro · Norte weekend atlas";
 function zoneVisuals(id: string, place: string, symbolCaption: string): NoteBodyImage[] {
   return [
     {
+      src: `${IMG}/${id}-map.webp`,
+      alt: `${place} на карте выходных из Porto`,
+      caption: `${place} на карте Norte`,
+      credit: CANON,
+      fit: "cover",
+    },
+    {
       src: `${IMG}/${id}-symbol.webp`,
       alt: `${place} — символ маршрута`,
       caption: symbolCaption,
       credit: CANON,
       fit: "contain",
-    },
-    {
-      src: `${IMG}/${id}-map.webp`,
-      alt: `${place} на карте выходных из Porto`,
-      caption: `${place} на карте Norte`,
-      credit: CANON,
     },
   ];
 }
@@ -63,6 +64,7 @@ const bodySections: NoteBodySection[] = [
         alt: "Обзорная карта выходных маршрутов из Porto по Norte",
         caption: "Пять зон выходных из Porto — Minho, Douro, Gerês, Aveiro, Coimbra",
         credit: CANON,
+        fit: "cover",
       },
     ],
     bullets: [

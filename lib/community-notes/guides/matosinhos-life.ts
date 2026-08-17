@@ -31,17 +31,18 @@ const CANON = "Emigro · Matosinhos atlas canon";
 function zoneVisuals(id: string, place: string, symbolCaption: string): NoteBodyImage[] {
   return [
     {
+      src: `${IMG}/${id}-map.webp`,
+      alt: `${place} на карте município Matosinhos`,
+      caption: `${place} на карте município`,
+      credit: CANON,
+      fit: "cover",
+    },
+    {
       src: `${IMG}/${id}-symbol.webp`,
       alt: `${place} — символ зоны`,
       caption: symbolCaption,
       credit: CANON,
       fit: "contain",
-    },
-    {
-      src: `${IMG}/${id}-map.webp`,
-      alt: `${place} на карте município Matosinhos`,
-      caption: `${place} на карте município`,
-      credit: CANON,
     },
   ];
 }
@@ -95,6 +96,7 @@ const bodySections: NoteBodySection[] = [
         alt: "Обзорная карта союзов freguesias município Matosinhos",
         caption: "Четыре союза на одной карте — прежде чем фильтровать Idealista",
         credit: CANON,
+        fit: "cover",
       },
     ],
     bullets: [

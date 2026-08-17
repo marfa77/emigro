@@ -34,16 +34,18 @@ function districtVisuals(
 ): NoteBodyImage[] {
   return [
     {
-      src: `${IMG}/${id}-symbol.webp`,
-      alt: `${place} — символ района`,
-      caption: symbolCaption,
-      credit: "Emigro · Porto districts canon",
-    },
-    {
       src: `${IMG}/${id}-map.webp`,
       alt: `${place} на карте агломерации Porto`,
       caption: `${place} на карте агломерации`,
       credit: "Emigro · Porto districts canon",
+      fit: "cover",
+    },
+    {
+      src: `${IMG}/${id}-symbol.webp`,
+      alt: `${place} — символ района`,
+      caption: symbolCaption,
+      credit: "Emigro · Porto districts canon",
+      fit: "contain",
     },
   ];
 }
@@ -77,6 +79,7 @@ const bodySections: NoteBodySection[] = [
         alt: "Обзорная карта районов агломерации Porto",
         caption: "Восемь зон агломерации на одной карте — для сравнения перед объездом",
         credit: "Emigro · Porto districts canon",
+        fit: "cover",
       },
     ],
     bullets: [

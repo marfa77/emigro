@@ -20,11 +20,19 @@ function usesContainFit(image: NoteBodyImage): boolean {
   return false;
 }
 
+/** Atlas maps / overviews — always full-bleed in the note column. */
+function isFullBleedAtlas(image: NoteBodyImage): boolean {
+  if (image.fit === "cover") return true;
+  return /(-map\.webp|overview\.webp)$/i.test(image.src) || /\/overview\.webp$/i.test(image.src);
+}
+
 export function NoteImageGallery({ images }: NoteImageGalleryProps) {
   const labelId = useId();
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const open = openIndex != null ? images[openIndex] : null;
-  const anyPortrait = images.some(usesContainFit);
+  const stackFullBleed =
+    images.length === 1 || images.some(isFullBleedAtlas) || !images.every(usesContainFit);
+  const productGrid = !stackFullBleed && images.every(usesContainFit);
 
   const close = useCallback(() => setOpenIndex(null), []);
   const showPrev = useCallback(() => {
@@ -55,11 +63,13 @@ export function NoteImageGallery({ images }: NoteImageGalleryProps) {
   return (
     <>
       <div
-        className={`mt-5 grid gap-4 ${
-          images.length === 1
+        className={`mt-5 grid gap-5 ${
+          stackFullBleed
             ? "grid-cols-1"
-            : anyPortrait
-              ? "grid-cols-2 sm:grid-cols-2 lg:grid-cols-4"
+            : productGrid
+              ? images.length <= 2
+                ? "grid-cols-2"
+                : "grid-cols-2 lg:grid-cols-3"
               : images.length === 2
                 ? "sm:grid-cols-2"
                 : "sm:grid-cols-2 lg:grid-cols-3"
@@ -67,6 +77,7 @@ export function NoteImageGallery({ images }: NoteImageGalleryProps) {
       >
         {images.map((image, index) => {
           const contain = usesContainFit(image);
+          const fullBleed = stackFullBleed || isFullBleedAtlas(image);
           return (
             <figure
               key={image.src}
@@ -76,7 +87,13 @@ export function NoteImageGallery({ images }: NoteImageGalleryProps) {
                 type="button"
                 onClick={() => setOpenIndex(index)}
                 className={`group relative block w-full cursor-zoom-in text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-600 focus-visible:ring-offset-2 ${
-                  contain ? "aspect-[3/4] bg-stone-50" : "aspect-[16/10] bg-slate-100"
+                  fullBleed && !contain
+                    ? "aspect-[16/10] bg-slate-100"
+                    : fullBleed && contain
+                      ? "aspect-[4/3] bg-stone-50 sm:aspect-[16/10]"
+                      : contain
+                        ? "aspect-[3/4] bg-stone-50"
+                        : "aspect-[16/10] bg-slate-100"
                 }`}
                 aria-label={`Увеличить: ${image.alt}`}
               >
@@ -87,7 +104,7 @@ export function NoteImageGallery({ images }: NoteImageGalleryProps) {
                   sizes={NOTE_CONTENT_IMAGE_SIZES}
                   className={
                     contain
-                      ? "object-contain p-3 sm:p-4 transition duration-200 group-hover:scale-[1.02]"
+                      ? "object-contain p-4 sm:p-6 transition duration-200 group-hover:scale-[1.01]"
                       : "object-cover transition duration-200 group-hover:scale-[1.02]"
                   }
                 />

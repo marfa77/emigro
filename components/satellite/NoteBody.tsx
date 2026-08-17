@@ -173,19 +173,23 @@ async function SectionContent({
   const ranking = isRankingSection(section);
   const bullets = section.bullets ?? [];
   const images = section.images ?? [];
+  const paragraphs = section.paragraphs ?? [];
+  /** Full figures after the lead — not a tiny strip before the prose. */
+  const imageAfterLead = images.length > 0 && paragraphs.length >= 2;
+  const imageAtEnd = images.length > 0 && !imageAfterLead;
 
   return (
     <>
-      {(section.paragraphs ?? []).map((paragraph) => (
-        <p
-          key={paragraph.slice(0, 48)}
-          className="mt-3 text-[15px] leading-[1.65] text-slate-700 sm:text-base sm:leading-relaxed [&_a]:break-words"
-        >
-          {parseInlineMarkdown(paragraph)}
-        </p>
+      {paragraphs.map((paragraph, index) => (
+        <div key={paragraph.slice(0, 48)}>
+          <p className="mt-3 text-[15px] leading-[1.65] text-slate-700 sm:text-base sm:leading-relaxed [&_a]:break-words">
+            {parseInlineMarkdown(paragraph)}
+          </p>
+          {imageAfterLead && index === 0 && <SectionImages images={images} />}
+        </div>
       ))}
       {section.table && section.table.rows.length > 0 && <SectionTable table={section.table} />}
-      {images.length > 0 && <SectionImages images={images} />}
+      {imageAtEnd && <SectionImages images={images} />}
       {bullets.length > 0 &&
         (ranking ? (
           <RankingBulletsWithPreviews bullets={bullets} />
