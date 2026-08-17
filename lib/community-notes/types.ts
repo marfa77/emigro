@@ -20,6 +20,33 @@ export type NoteBodyImage = {
   credit?: string;
   /** Link to the source page on the producer site */
   creditUrl?: string;
+  /**
+   * How the image fills the gallery frame.
+   * `contain` — full subject visible (bottles, floor plans); default `cover` crops to landscape.
+   */
+  fit?: "cover" | "contain";
+};
+
+/** Interactive map pin for guide sections (Google Maps). */
+export type NoteBodyMapMarker = {
+  id: string;
+  title: string;
+  lat: number;
+  lng: number;
+  subtitle?: string;
+  url?: string;
+};
+
+export type NoteBodyMap = {
+  center: { lat: number; lng: number };
+  zoom?: number;
+  markers: NoteBodyMapMarker[];
+};
+
+/** Comparison / catalog table inside a guide section. */
+export type NoteBodyTable = {
+  columns: string[];
+  rows: string[][];
 };
 
 export type NoteBodySection = {
@@ -27,6 +54,8 @@ export type NoteBodySection = {
   paragraphs?: string[];
   bullets?: string[];
   images?: NoteBodyImage[];
+  map?: NoteBodyMap;
+  table?: NoteBodyTable;
   /** official = portal rules; practice = chat/field experience; gap = where they diverge; glossary = PT-PT terms; action_guide = пошагово для новичка */
   section_kind?: "official" | "practice" | "gap" | "glossary" | "action_guide";
 };

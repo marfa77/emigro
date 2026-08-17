@@ -37,6 +37,7 @@ function bottle(file: string, name: string, why: string): NoteBodyImage {
     alt: name,
     caption: why,
     credit: STILL,
+    fit: "contain",
   };
 }
 

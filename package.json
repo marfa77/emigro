@@ -70,7 +70,7 @@
     "portugal:publish-clubs-underground-guide": "tsx scripts/portugal-publish-clubs-underground-guide.ts",
     "portugal:publish-wines-norte-guide": "tsx scripts/portugal-publish-wines-norte-guide.ts",
     "portugal:publish-gastronomy-norte-guide": "tsx scripts/portugal-publish-gastronomy-norte-guide.ts",
-    "portugal:publish-braga-districts-guide": "tsx scripts/portugal-publish-braga-districts-guide.ts",
+    "portugal:archive-braga-districts-guide": "tsx scripts/portugal-archive-braga-districts-guide.ts",
     "portugal:publish-porto-districts-guide": "tsx scripts/portugal-publish-porto-districts-guide.ts",
     "portugal:publish-matosinhos-guide": "tsx scripts/portugal-publish-matosinhos-guide.ts",
     "portugal:publish-porto-newbuild-clusters-guide": "tsx scripts/portugal-publish-porto-newbuild-clusters-guide.ts",

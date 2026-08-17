@@ -1,4 +1,7 @@
 /**
+ * @deprecated Archived — removed from Portugal satellite (2026-08).
+ * Keep source for history; do not publish. Use: npm run portugal:archive-braga-districts-guide
+ *
  * Braga full guide — districts, rent, parks, sport, life (family / CLIB lens).
  * Structure preserved from editorial brief: general → 9 freguesias → sport → parks → compare → route.
  */

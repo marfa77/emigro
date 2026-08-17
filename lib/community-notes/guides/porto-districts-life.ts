@@ -9,7 +9,6 @@ import { glossaryForSlug } from "@/lib/community-notes/editorial-glossaries";
 import { buildGlossarySection } from "@/lib/community-notes/glossary";
 import { buildNoteHashtags } from "@/lib/community-notes/hashtags";
 import { formatPracticeTakeaway } from "@/lib/community-notes/practice-format";
-import { BRAGA_DISTRICTS_GUIDE_SLUG } from "@/lib/community-notes/guides/braga-districts-life";
 import { GASTRONOMY_NORTE_SLUG } from "@/lib/community-notes/guides/gastronomy-norte-portugal";
 import { INTERNATIONAL_SCHOOLS_GUIDE_SLUG } from "@/lib/community-notes/guides/international-schools-portugal";
 import { PORTO_BRAGA_LONG_TERM_RENT_SLUG } from "@/lib/community-notes/guides/porto-braga-long-term-rent";
@@ -69,9 +68,7 @@ const bodySections: NoteBodySection[] = [
     section_kind: "official",
     paragraphs: [
       "Утром у Douro воздух ещё сырой, а к полудню камень Ribeira уже тёплый — и вы понимаете, что «Порту» в чатах это не один район. Município Porto — холмы, узкие улицы у реки, широкие авениды к океану. Рядом Matosinhos и Vila Nova de Gaia живут своей Câmara, но в одной агломерации: метро, мост, общий рынок аренды.",
-      "Ниже — восемь зон, как их чувствуют релоканты: что хорошо и что бесит, чем знаменит, история и один факт, узко или широко, парки и молы, где гулять, плоский или холмистый, кафе, туристы, вкусно и сладко. Аренда — ориентир 2026; перед contrato сверяйте Idealista. Брага рядом — [районы Браги](/notes/" +
-        BRAGA_DISTRICTS_GUIDE_SLUG +
-        ").",
+      "Ниже — восемь зон, как их чувствуют релоканты: что хорошо и что бесит, чем знаменит, история и один факт, узко или широко, парки и молы, где гулять, плоский или холмистый, кафе, туристы, вкусно и сладко. Аренда — ориентир 2026; перед contrato сверяйте Idealista.",
       "Главное: сначала характер района (рельеф, шум, вода), потом объявление. Открытка Ribeira не заменяет утро на холме.",
     ],
     images: [

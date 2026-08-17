@@ -289,6 +289,7 @@ export const EDITORIAL_GLOSSARIES: Record<string, GlossaryTerm[]> = {
     { pt: "marisqueira", ru: "ресторан/бар морепродуктов; в Norte — Matosinhos, Foz" },
     { pt: "petiscos", ru: "закусочные порции «на компанию»; не путать с испанскими tapas один в один" },
   ],
+  /** @deprecated archived — Braga districts guide removed from satellite */
   "braga-rajony-arenda-parki-sport-2026": [
     { pt: "freguesia", ru: "район/приход внутри município — уровень поиска жилья и статистики" },
     { pt: "CLIB", context: "Colégio Luso-Internacional de Braga", ru: "British international school в Gualtar — якорь многих семей" },
