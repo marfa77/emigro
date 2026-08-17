@@ -9,6 +9,7 @@ import { NoteFaq } from "@/components/satellite/NoteFaq";
 import { NoteReadingProgress } from "@/components/satellite/NoteReadingProgress";
 import { NoteToc } from "@/components/satellite/NoteToc";
 import { RelatedNotes } from "@/components/satellite/RelatedNotes";
+import { PortugalCorridorLinks } from "@/components/satellite/PortugalCorridorLinks";
 import { Prep2GoPromo } from "@/components/satellite/Prep2GoPromo";
 import { PixIDPromo } from "@/components/satellite/PixIDPromo";
 import { BarakhloPromo } from "@/components/satellite/BarakhloPromo";
@@ -60,7 +61,7 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
   ]);
   if (!note) notFound();
 
-  const related = getRelatedNotes(note, allNotes);
+  const related = getRelatedNotes(note, allNotes, 6);
   const showPrep2Go = shouldShowPrep2GoPromo(note);
   const showPixId = shouldShowPixIdPromo(note);
 
@@ -151,6 +152,8 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
           dangerouslySetInnerHTML={{ __html: inlineMarkdown(note.quick_answer) }}
         />
       </div>
+
+      <PortugalCorridorLinks noteTitle={note.title} />
 
       <NoteHashtags tags={note.hashtags} className="mt-6" />
 
