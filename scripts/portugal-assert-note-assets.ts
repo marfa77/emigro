@@ -47,18 +47,18 @@ function main() {
     }
 
     const srcs = collectLocalImageSrcs(guide.body_sections);
-    if (srcs.length === 0) continue;
+    const ogRel = path.join("public/images/community-notes", `${guide.slug}.webp`);
 
+    // Always require OG for listed guides (hero 404s even when body has no local photos).
     if (!hasNoteOgImage(guide.slug)) {
       errors.push(
         `${guide.slug}: missing committed OG WebP public/images/community-notes/${guide.slug}.webp (+ note-og-slugs.ts)`
       );
-    } else {
-      const ogRel = path.join("public/images/community-notes", `${guide.slug}.webp`);
-      if (!isGitTracked(ogRel)) {
-        errors.push(`${guide.slug}: OG WebP exists but is NOT in git: ${ogRel}`);
-      }
+    } else if (!isGitTracked(ogRel)) {
+      errors.push(`${guide.slug}: OG WebP exists but is NOT in git: ${ogRel}`);
     }
+
+    if (srcs.length === 0) continue;
   }
 
   if (errors.length > 0) {
