@@ -1,6 +1,8 @@
 /**
  * Porto full guide — districts, rent, English-speaking schools, parks, sport.
- * Structure from editorial brief; fact-checked Aug 2026 (schools, Messi, Matosinhos, IB).
+ * Grok Remarque pass: district mornings and school-run as lived scenes.
+ * Visual canon: generated Emigro atlas icons + map vignettes (inline/porto-districts).
+ * Fact-checked Aug 2026 (schools, Messi, Matosinhos, IB) — no new school claims.
  */
 import { flattenBodySections } from "@/lib/community-notes/editorial-quality";
 import { glossaryForSlug } from "@/lib/community-notes/editorial-glossaries";
@@ -13,10 +15,40 @@ import { INTERNATIONAL_SCHOOLS_GUIDE_SLUG } from "@/lib/community-notes/guides/i
 import { PORTO_BRAGA_LONG_TERM_RENT_SLUG } from "@/lib/community-notes/guides/porto-braga-long-term-rent";
 import { PORTO_VS_BRAGA_FAMILY_SCHOOLS_SLUG } from "@/lib/community-notes/guides/porto-vs-braga-family-schools";
 import { WINES_WINERIES_NORTE_SLUG } from "@/lib/community-notes/guides/wines-wineries-norte-portugal";
-import type { CommunityNoteFaq, ContentKind, NoteBodySection } from "@/lib/community-notes/types";
+import type {
+  CommunityNoteFaq,
+  ContentKind,
+  NoteBodyImage,
+  NoteBodySection,
+} from "@/lib/community-notes/types";
 
 export const PORTO_DISTRICTS_GUIDE_SLUG = "porto-rajony-arenda-shkoly-parki-sport-2026";
 
+/** Deep Matosinhos município guide — keep in sync with matosinhos-life.ts (avoid circular import). */
+const MATOSINHOS_LIFE_SLUG = "matosinhos-zhizn-arenda-plyazh-leca-2026";
+
+const IMG = "/images/community-notes/inline/porto-districts";
+
+function districtVisuals(
+  id: string,
+  place: string,
+  symbolCaption: string
+): NoteBodyImage[] {
+  return [
+    {
+      src: `${IMG}/${id}-symbol.webp`,
+      alt: `${place} — символ района`,
+      caption: symbolCaption,
+      credit: "Emigro · Porto districts canon",
+    },
+    {
+      src: `${IMG}/${id}-map.webp`,
+      alt: `${place} на карте агломерации Porto`,
+      caption: `${place} на карте агломерации`,
+      credit: "Emigro · Porto districts canon",
+    },
+  ];
+}
 const GLOSSARY_INTRO =
   "Слова с Idealista и school admissions — чтобы OBS, CLIP, T2 и freguesia не путались при первом объезде Foz–Boavista–Matosinhos.";
 
@@ -38,209 +70,231 @@ const bodySections: NoteBodySection[] = [
     heading: "Англоязычные школы в Порту",
     section_kind: "official",
     paragraphs: [
-      "Зачем вам это сейчас: район жилья в Porto почти всегда выбирают от **школы**, а не наоборот — OBS в Foz, CLIP у Aldoar/Boavista, плюс Cambridge-track и будущий American school.",
-      "Что делать: open day + admissions за **12+ месяцев**; параллельно смотреть freguesia с паркингом и commute.",
+      "Сентябрьское утро в Porto начинается раньше океана. Вы уже в машине, рюкзак на заднем сиденье, и понимаете: район здесь выбирают не по открытке Ribeira, а по тому, успеете ли к воротам, пока school-run с 08:00 до 09:00 ещё не сжал улицы на тридцать–семьдесят процентов к off-peak. Кто-то везёт ребёнка в OBS в Foz, на Rua da Cerca; кто-то к CLIP у Aldoar/Boavista, на Rua de Vila Nova 1071. Рядом Cambridge-track CJD и American school, который заявлен на 2027 — пока не работает, и план семьи на него не строится.",
+      "Запишитесь на open day и подайте в admissions минимум за двенадцать месяцев до сентября — waiting list у OBS и CLIP не формальность. Параллельно объезжайте районы с глазами на garagem и реальный commute, а не только на красивый T3 на Idealista. Времена в гайде — ориентир на машине off-peak; меряйте конкретный адрес до Rua da Cerca (OBS) или Rua de Vila Nova 1071 (CLIP). По заявлению OBS — единственная IB World School на севере PT с IB Diploma; у CLIP уточняйте актуальную senior pathway у admissions, не путая с маркетингом «international».",
       "Главное: по заявлению OBS — единственная **IB World School** на севере PT с IB Diploma; у CLIP уточняйте актуальную senior pathway у admissions (не путать с маркетингом «international»).",
-      "Времена в гайде — ориентир на машине off-peak (карта); school-run 08:00–09:00 часто +30–70%. Меряйте **конкретный адрес → Rua da Cerca (OBS) / Rua de Vila Nova 1071 (CLIP)**.",
     ],
     bullets: [
       "**OBS — Oporto British School** (Rua da Cerca 338, Foz): British + Cambridge IGCSE + **IB Diploma**; 3–18; fees ориентир 2025/26 ≈ €8 990–€14 585/год. Старейшая британская школа в континентальной Европе (с **1894**). obs.edu.pt.",
       "**CLIP — The Oporto International School** (Rua de Vila Nova 1071, Aldoar/Boavista): British-based international curriculum; крупнее и разнообразнее по национальностям; fees ориентир ≈ €9 140–€15 190/год. clip.pt — уточняйте senior pathway.",
-      "**CJD International School** (Porto): Cambridge International; международное отделение с **2023/24**; fees ориентир ≈ €9 300–€11 000/год; группа с 1934 (старейшая частная школа PT) — track ещё «молодой».",
+      "**CJD International School** (Porto): Cambridge International; международное отделение с **2023/24**; fees ориентир ≈ €9 300–€11 000/год; группа с 1934 — track ещё «молодой».",
       "**American School of Porto**: American + AP; **открытие сентябрь 2027** (grades 7–10 на старте); пока не работает. americanschoolporto.pt.",
-      "Также в агломерации: LFIP / Deutsche Schule (см. [гайд по школам](/notes/" + INTERNATIONAL_SCHOOLS_GUIDE_SLUG + ")); CLIB — в Braga ([гайд по Браге](/notes/" + BRAGA_DISTRICTS_GUIDE_SLUG + ")).",
-      "**Waiting list:** OBS и CLIP — начинайте минимум за 12 месяцев. Сравнение Porto vs Braga для семьи — [отдельный гайд](/notes/" + PORTO_VS_BRAGA_FAMILY_SCHOOLS_SLUG + ").",
+      "Также: LFIP / Deutsche Schule — [гайд по школам](/notes/" + INTERNATIONAL_SCHOOLS_GUIDE_SLUG + "); CLIB — в Braga ([гайд по Браге](/notes/" + BRAGA_DISTRICTS_GUIDE_SLUG + ")); Porto vs Braga — [отдельный гайд](/notes/" + PORTO_VS_BRAGA_FAMILY_SCHOOLS_SLUG + ").",
     ],
   },
   {
     heading: "1. Foz do Douro / Nevogilde",
     section_kind: "practice",
     paragraphs: [
-      "Премиум у океана и якорь для семей с **OBS**: школа в пешей доступности, Parque da Cidade, пляжи — но паркинг в старом жилье часто боль.",
+      "Утром в Foz океан ещё холодный, а тротуар уже живой: кто-то бежит вдоль променада, кто-то ищет место для второй машины у старого prédio. Для семей с OBS это премиум у воды и школьный якорь — Rua da Cerca часто в пешей доступности, Parque da Cidade рядом, пляжи Ourigo и Carneiro входят в привычку воскресенья. В новостройках гараж есть; в старом жилье остаётся улица и тихий дефицит, который вы замечаете не в объявлении, а в восемь утра. Аренда здесь напоминает, что океан не бесплатен: T2 — €1 200–1 550, T3 — €2 200–3 500 в месяц; жильё — апартаменты, таунхаусы, виллы.",
+      "Из ближнего Foz до OBS пять–пятнадцать минут пешком; из дальнего Nevogilde чаще авто или автобус, пять–двенадцать минут. До CLIP — восемь–пятнадцать минут на машине, когда school-run ещё не сжал улицы; в пик дольше. Спорт — Piscina das Marés в Leça, архитектура Álvaro Siza Vieira, ориентир €5–10 за день в сезон; вело и серф у океана. Днём остаются Forte de São João da Foz, Castelo do Queijo, Farol de Felgueiras и marisqueira на променаде. 29 марта 1809 — трагедия Ponte das Barcas, бегство от войск Сульта; в традиции часто называют около четырёх тысяч жертв, точная цифра неизвестна и оспаривается; память — Alminhas da Ponte на Ribeira.",
+      "Главное: Foz — OBS пешком и океан; закладывайте паркинг и бюджет T3 до подписания contrato.",
     ],
+    images: districtVisuals("foz", "Foz do Douro", "Маяк и променад — якорь Foz"),
     bullets: [
-      "**Тип жилья:** апартаменты, таунхаусы, виллы.",
-      "**Аренда (ориентир):** T2 €1 200–1 550; T3 €2 200–3 500/мес.",
-      "**Паркинг:** в новостройках — гаражи; в старых — улица, дефицит.",
-      "**До OBS:** рядом с Rua da Cerca — ~5–15 мин пешком; из дальнего Nevogilde чаще авто/автобус (~5–12 мин). **До CLIP:** ~8–15 мин на машине (off-peak короче; в school-run дольше).",
-      "**Парки:** Parque da Cidade (~83 га); Jardim do Passeio Alegre; пляжи Ourigo, Carneiro, Matosinhos.",
-      "**Спорт:** Piscina das Marés (Leça, арх. Álvaro Siza Vieira) — ориентир €5–10/день в сезон; вело/бег у океана; серф.",
-      "**Точки:** Forte de São João da Foz; Castelo do Queijo; Farol de Felgueiras; променад с marisqueira.",
-      "**Факт:** 29.03.1809 — трагедия Ponte das Barcas (бегство от войск Сульта); в традиции часто называют ~4 000 жертв, точная цифра неизвестна и оспаривается историками. Память — Alminhas da Ponte на Ribeira.",
+      "Ищите апартаменты, таунхаусы, виллы.",
+      "Закладывайте аренду: T2 €1 200–1 550; T3 €2 200–3 500/мес.",
+      "Проверьте паркинг: в новостройках — гаражи; в старых — улица, дефицит.",
+      "Замерьте до OBS: рядом с Rua da Cerca — ~5–15 мин пешком; из дальнего Nevogilde чаще авто (~5–12 мин). До CLIP: ~8–15 мин на машине.",
+      "Обойдите Parque da Cidade (~83 га), Jardim do Passeio Alegre, пляжи Ourigo, Carneiro, Matosinhos; Piscina das Marés; Forte, Castelo do Queijo, Felgueiras.",
     ],
   },
   {
     heading: "2. Boavista / Aldoar",
     section_kind: "practice",
     paragraphs: [
-      "Главный якорь для **CLIP**: новостройки с гаражами, Casa da Música, Serralves, вход в Parque da Cidade с Avenida da Boavista.",
+      "Boavista не пахнет солью так сильно, как Foz, — здесь пахнет асфальтом Avenida da Boavista и ожиданием у ворот школы. Главный якорь для CLIP: новостройки с гаражами, Casa da Música, Serralves, вход в Parque da Cidade. Утро семьи здесь — не романтика Ribeira, а garagem, рюкзак и короткий рывок к Rua de Vila Nova, пока school-run ещё не сжал улицы. Жильё — апартаменты в новостройках и реконструкции, таунхаусы; аренда T2 €1 200–1 550, T3 €1 700–2 700 в месяц; в новостройках часто подземный гараж.",
+      "До CLIP с запада Boavista и Aldoar — пять–двенадцать минут; от Casa da Música чаще восемь–пятнадцать. До OBS — восемь–пятнадцать минут; в school-run оба маршрута могут уехать за двадцать. Парки — Parque da Cidade; Jardins do Palácio de Cristal рядом по логистике дня. Спорт — Holmes Place и аналоги, €70–120 в месяц. Точки дня — Casa da Música (Rem Koolhaas), Fundação de Serralves с музеем и парком около 18 га, Bom Sucesso Market, Avenida da Boavista до океана. Casa da Música к Porto 2001, открытие 2005, подняла «культурный» статус района; цены на недвижимость на Boavista заметно выросли за 2010-е–2020-е — конкретные проценты по м² сверяйте по Idealista и INE на дату.",
+      "Главное: Boavista/Aldoar — CLIP + гараж; меряйте адрес до OBS, если рассматриваете обе школы.",
     ],
+    images: districtVisuals("boavista", "Boavista / Aldoar", "Casa da Música — якорь Boavista"),
     bullets: [
-      "**Тип жилья:** апартаменты (новостройки и реконструкция), таунхаусы.",
-      "**Аренда:** T2 €1 200–1 550; T3 €1 700–2 700/мес.",
-      "**Паркинг:** в новостройках часто подземный гараж.",
-      "**До CLIP:** запад Boavista / Aldoar — ~5–12 мин; от Casa da Música чаще ~8–15. **До OBS:** ~8–15 мин (в school-run оба могут уехать за 20).",
-      "**Парки:** Parque da Cidade; Jardins do Palácio de Cristal рядом по логистике дня.",
-      "**Спорт:** Holmes Place и аналоги (ориентир €70–120/мес); городские площадки.",
-      "**Точки:** Casa da Música (Rem Koolhaas); Fundação de Serralves (музей + парк ~18 га); Bom Sucesso Market; Avenida da Boavista до океана.",
-      "**Факт:** Casa da Música (к Porto 2001 / открытие 2005) сильно подняла «культурный» статус района; цены на недвижимость на Boavista заметно выросли за 2010-е–2020-е — конкретные % по м² сверяйте по Idealista/INE на дату, не как вечную константу.",
+      "Ищите апартаменты (новостройки и реконструкция) и таунхаусы.",
+      "Закладывайте аренду: T2 €1 200–1 550; T3 €1 700–2 700/мес.",
+      "Проверьте паркинг: в новостройках часто подземный гараж.",
+      "Замерьте до CLIP: запад Boavista / Aldoar — ~5–12 мин; от Casa da Música ~8–15. До OBS: ~8–15 мин (school-run до ~20).",
+      "Обойдите Parque da Cidade, Serralves (~18 га), Holmes Place, Casa da Música, Bom Sucesso Market.",
     ],
   },
   {
     heading: "3. Matosinhos",
     section_kind: "practice",
     paragraphs: [
-      "Отдельный **município** в агломерации Porto: пляж, гриль, метро в центр, обычно дешевле Foz при том же океане.",
+      "На бланке — Câmara Municipal de Matosinhos, не Porto: отдельный município, своя Junta, свой Leixões (торговый порт конца XIX века). Для семьи у CLIP это часто короткий рывок 5–12 минут; до OBS вдоль океана 8–15, в пик около 20; метро в центр Porto ориентир ~20 минут. Жильё — современные апартаменты и таунхаусы; аренда T2 €900–1 200, T3 €1 500–2 400 в месяц; в новостройках — гаражи. Полный разбор Leça, Senhora da Hora, humidade и фильтра Idealista — в [гайде по Matosinhos](/notes/" +
+        MATOSINHOS_LIFE_SLUG +
+        ").",
+      "Парки — Parque da Cidade на границе, Quinta da Conceição. Спорт — Piscina das Marés и бассейн Conceição (Siza Vieira); серф, вело. Рынок и grill — [гастрономия Norte](/notes/" +
+        GASTRONOMY_NORTE_SLUG +
+        ").",
+      "Главное: Matosinhos — município, не bairro Porto; детали жизни и аренды — в отдельном гайде, здесь — якорь для сравнения с Foz/Boavista.",
     ],
+    images: districtVisuals("matosinhos", "Matosinhos", "Порт и маяк — якорь Matosinhos"),
     bullets: [
-      "**Тип жилья:** современные апартаменты, таунхаусы.",
-      "**Аренда:** T2 €900–1 200; T3 €1 500–2 400/мес.",
-      "**Паркинг:** в новостройках — гаражи.",
-      "**До CLIP:** ~5–12 мин (Aldoar почти соседний). **До OBS:** ~8–15 мин вдоль океана; в пик — до ~20. Метро в центр Porto ~20 мин.",
-      "**Парки:** Parque da Cidade (граница); Quinta da Conceição (парк + бассейн).",
-      "**Спорт:** Piscina das Marés + Piscina de Quinta da Conceição (обе связаны с наследием Siza Vieira); серф, велодорожки.",
-      "**Точки:** Porto de Leixões (крупный порт, конец XIX в.); рыбный рынок; уличный grill (sardinhas) — см. [гастрономия Norte](/notes/" + GASTRONOMY_NORTE_SLUG + ").",
-      "**Факт:** Matosinhos — не «район Porto», а свой município; рыбацкая идентичность сильна. Leixões сделал агломерацию торговым портом; **не** путать с гаванью эпохи Discoveries (то в основном Lisboa).",
+      "Откройте детальный [гайд Matosinhos](/notes/" +
+        MATOSINHOS_LIFE_SLUG +
+        ") до просмотра жилья.",
+      "Закладывайте аренду: T2 €900–1 200; T3 €1 500–2 400/мес.",
+      "Замерьте до CLIP: ~5–12 мин; до OBS: ~8–15 (пик ~20); метро в центр ~20.",
+      "Сверьте Câmara на cm-matosinhos.pt — не cm-porto.pt.",
     ],
   },
   {
     heading: "4. Cedofeita / Baixa edge",
     section_kind: "practice",
     paragraphs: [
-      "Центр и культура пешком — Lello, Clérigos, Bolhão — но паркинг и туристический шум делают район слабым выбором для семьи с двумя авто.",
+      "Центр Porto умеет быть красивым до усталости: Lello, Clérigos, Bolhão, Rua de Santa Catarina — всё пешком, всё шумно, всё чужое после девяти вечера, если вы приехали с детьми и двумя авто. Для семьи с OBS или CLIP район часто слабый выбор не из‑за отсутствия культуры, а из‑за паркинга и туристического гула, который не заканчивается вместе с днём. Жильё — реконструированные апартаменты и лофты; аренда T1 €900–1 150, T2 €1 200–1 550, T3 от €1 800; паркинг — дефицит, платная улица.",
+      "До OBS и CLIP — десять–двадцать минут на машине; Baixa и Clérigos в пик ближе к верхней границе. Парки — Jardins do Palácio de Cristal, десять–пятнадцать минут пешком. Igreja de Cedofeita — романский слой; этимология «Cito facta / Cedofeita» обрастает легендами про «освящённый лес» — красиво, но не путать легенду с документом. Про Lello и Хогвартс: популярный туристический мем; прямого подтверждения от Rowling нет.",
+      "Главное: Cedofeita хорош без машины и без school-run через центр; с двумя авто — обычно стресс.",
     ],
+    images: districtVisuals("cedofeita", "Cedofeita / Baixa", "Clérigos — якорь центра"),
     bullets: [
-      "**Тип жилья:** реконструированные апартаменты, лофты.",
-      "**Аренда:** T1 €900–1 150; T2 €1 200–1 550; T3 от ~€1 800.",
-      "**Паркинг:** дефицит, платная улица.",
-      "**До OBS / CLIP:** ~10–20 мин на машине (Baixa/Clérigos в пик ближе к верхней границе).",
-      "**Парки:** Jardins do Palácio de Cristal ~10–15 мин пешком; скверы.",
-      "**Точки:** Livraria Lello; Torre dos Clérigos; São Bento; Rua de Santa Catarina / Majestic; Mercado do Bolhão.",
-      "**Факт:** Igreja de Cedofeita — романский слой; этимология «Cito facta / Cedofeita» обрастает легендами про «освящённый лес» — красиво, но не путать легенду с документом.",
-      "**Про Lello и Хогвартс:** популярный туристический мем; прямого подтверждения от Rowling нет — не подавайте как факт.",
+      "Ищите реконструированные апартаменты и лофты.",
+      "Закладывайте аренду: T1 €900–1 150; T2 €1 200–1 550; T3 от ~€1 800.",
+      "Проверьте паркинг: дефицит, платная улица.",
+      "Замерьте до OBS / CLIP: ~10–20 мин на машине (в пик — верхняя граница).",
+      "Обойдите Lello, Clérigos, São Bento, Bolhão; Jardins do Palácio de Cristal ~10–15 мин пешком.",
     ],
   },
   {
     heading: "5. Lordelo do Ouro / Massarelos",
     section_kind: "practice",
     paragraphs: [
-      "Тише, чем Baixa: сады Palácio de Cristal, виды на Douro; короткий авто до обеих школ (часто OBS не дальше CLIP).",
+      "Тише, чем Baixa: сады Palácio de Cristal, виды на Douro, воскресенья со свадебными фото и людьми, которые просто сидят на скамейке, глядя на реку. Короткий авто до обеих школ — и часто OBS не дальше CLIP, что семьи иногда узнают только после замера адреса, а не по слухам из чата. Жильё — апартаменты, таунхаусы, виллы; аренда T2 €1 000–1 400, T3 €1 500–2 200; паркинг — гаражи в новостройках и у домов.",
+      "До OBS часто пять–двенадцать минут, западнее к Foz. До CLIP — восемь–пятнадцать минут на север к Aldoar: не «заведомо ближе CLIP», меряйте адрес. Точки — Pavilhão Rosa Mota и зона бывшего Palácio de Cristal: дворец 1865 года, выставки XIX века, снесён в 1950-х — сады остались; Museu Nacional Soares dos Reis. «Crystal Palace» Porto вдохновлялся лондонским; стеклянный дворец убрали, парк стал городским ритуалом.",
+      "Главное: Lordelo — тишина и виды; commute до OBS и CLIP сопоставим — меряйте конкретный адрес.",
     ],
+    images: districtVisuals("lordelo", "Lordelo do Ouro", "Сады у Douro — якорь Lordelo"),
     bullets: [
-      "**Тип жилья:** апартаменты, таунхаусы, виллы.",
-      "**Аренда:** T2 €1 000–1 400; T3 €1 500–2 200.",
-      "**Паркинг:** гаражи в новостройках / у домов.",
-      "**До OBS:** часто ~5–12 мин (западнее к Foz). **До CLIP:** ~8–15 мин на север к Aldoar — не «заведомо ближе CLIP», меряйте адрес.",
-      "**Парки:** Jardins do Palácio de Cristal; riverside.",
-      "**Точки:** Pavilhão Rosa Mota / зона бывшего Palácio de Cristal (дворец 1865/выставки XIX в. снесён в 1950-х — сады остались); Museu Nacional Soares dos Reis.",
-      "**Факт:** «Crystal Palace» Porto вдохновлялся лондонским; стеклянный дворец убрали, парк стал городским ритуалом воскресений и свадебных фото.",
+      "Ищите апартаменты, таунхаусы, виллы.",
+      "Закладывайте аренду: T2 €1 000–1 400; T3 €1 500–2 200.",
+      "Проверьте паркинг: гаражи в новостройках / у домов.",
+      "Замерьте до OBS: часто ~5–12 мин. До CLIP: ~8–15 мин к Aldoar — меряйте адрес.",
+      "Обойдите Jardins do Palácio de Cristal, riverside, Museu Nacional Soares dos Reis.",
     ],
   },
   {
     heading: "6. Vila Nova de Gaia",
     section_kind: "practice",
     paragraphs: [
-      "Отдельный город через Dom Luís I: больше метров за деньги, виды на Ribeira, lodges портвейна — логистика в OBS/CLIP через мост.",
+      "Через Dom Luís I — другой город и другой município. Больше метров за деньги, виды на Ribeira, lodges портвейна по вечерам. Логистика в OBS и CLIP идёт через мост: утром мост — это не открытка, а поток, в котором вы уже не турист. Жильё — апартаменты с видом, таунхаусы, семейные дома; аренда T1 от €700, T2 €900–1 200, T3 €1 200–2 000 в месяц; в новостройках — гаражи.",
+      "До OBS и CLIP с Cais — двенадцать–двадцать минут через мост; из «дальней» Gaia и юго-востока чаще пятнадцать–двадцать пять, пробки на Dom Luís и Arrábida. Парки — Parque Biológico de Gaia; набережная Cais de Gaia. Спорт — Holmes Place Gaia и муниципальные комплексы; вело у реки. Точки — lodges Port, Taylor’s, Graham’s, Sandeman — [винный гайд](/notes/" +
+        WINES_WINERIES_NORTE_SLUG +
+        "); Teleférico; Mosteiro da Serra do Pilar. Исторически погреба Port сосредоточены на южном берегу; Dom Luís I 1886 года, Théophile Seyrig, партнёр Эйфеля, связал города визуально и по делу.",
+      "Главное: Gaia — свой município; метры и Port lodges — плюс; school-run через мост — минус, который надо замерить.",
     ],
+    images: districtVisuals("gaia", "Vila Nova de Gaia", "Мост и lodges — якорь Gaia"),
     bullets: [
-      "**Тип жилья:** апартаменты с видом, таунхаусы, семейные дома.",
-      "**Аренда:** T1 от ~€700; T2 €900–1 200; T3 €1 200–2 000/мес.",
-      "**Паркинг:** в новостройках — гаражи.",
-      "**До OBS / CLIP:** с Cais ~12–20 мин через мост; из «дальней» Gaia / юго-восток — чаще 15–25 (пробки на Dom Luís / Arrábida).",
-      "**Парки:** Parque Biológico de Gaia; набережная Cais de Gaia.",
-      "**Спорт:** Holmes Place Gaia и муниципальные комплексы; вело у реки.",
-      "**Точки:** lodges Port (Taylor’s, Graham’s, Sandeman…) — [винный гайд](/notes/" + WINES_WINERIES_NORTE_SLUG + "); Teleférico; Mosteiro da Serra do Pilar.",
-      "**Факт:** Gaia — свой município. Исторически погреба Port сосредоточены на южном берегу; Dom Luís I (1886, Théophile Seyrig, партнёр Эйфеля) связал города визуально и по делу.",
+      "Ищите апартаменты с видом, таунхаусы, семейные дома.",
+      "Закладывайте аренду: T1 от ~€700; T2 €900–1 200; T3 €1 200–2 000/мес.",
+      "Проверьте паркинг: в новостройках — гаражи.",
+      "Замерьте до OBS / CLIP: с Cais ~12–20 мин через мост; дальняя Gaia — чаще 15–25.",
+      "Обойдите Parque Biológico, Cais de Gaia, Port lodges, Teleférico, Serra do Pilar.",
     ],
   },
   {
     heading: "7. Ramalde / Paranhos",
     section_kind: "practice",
     paragraphs: [
-      "Университет, Hospital de São João, Estádio do Dragão — бюджетный слой с гаражами; commute до школ зависит от запада/востока freguesia.",
+      "Университет, Hospital de São João, Estádio do Dragão — бюджетный слой с гаражами, где Porto звучит будничнее и честнее открытки. Commute до школ зависит от запада или востока freguesia: запад Ramalde часто ближе к обеим школам; восток у Dragão — уже другая утренняя история. Жильё — апартаменты и таунхаусы; аренда T2 €800–1 100, T3 €1 200–1 900 в месяц; паркинг — гаражи в новостройках плюс улица.",
+      "Запад Ramalde — часто восемь–пятнадцать минут до обеих школ; Paranhos и Dragão на востоке — чаще двенадцать–двадцать до OBS и CLIP, времена близкие, не «CLIP заметно ближе». Точки — Universidade do Porto, Hospital de São João, Estádio do Dragão около 50 000 мест, Euro-2004, архитектор Manuel Salgado, Alameda Shop & Spot. 16 ноября 2003 — открытие Dragão, Porto 2–0 Barcelona, friendly; тогда 16-летний Месси вышел на замену — первый матч за основу Barça; официальный competitive debut — октябрь 2004 против Espanyol.",
+      "Главное: Ramalde/Paranhos — бюджет и гаражи; меряйте запад vs восток freguesia до школ.",
     ],
+    images: districtVisuals("ramalde", "Ramalde / Paranhos", "Dragão — якорь востока"),
     bullets: [
-      "**Тип жилья:** апартаменты, таунхаусы.",
-      "**Аренда:** T2 €800–1 100; T3 €1 200–1 900/мес.",
-      "**Паркинг:** гаражи в новостройках + улица.",
-      "**До школ:** запад Ramalde — часто ~8–15 мин до обеих; Paranhos / Dragão (восток) — чаще ~12–20 до OBS и CLIP (времена близкие, не «CLIP заметно ближе»).",
-      "**Точки:** Universidade do Porto (кампусы); Hospital de São João; Estádio do Dragão (~50 000 мест, Euro-2004, арх. Manuel Salgado); Alameda Shop & Spot.",
-      "**Факт:** 16.11.2003 — открытие Dragão, Porto 2–0 Barcelona (**friendly**); тогда 16-летний Месси вышел на замену — первый матч за основу Barça; официальный competitive debut — октябрь 2004 vs Espanyol.",
+      "Ищите апартаменты и таунхаусы.",
+      "Закладывайте аренду: T2 €800–1 100; T3 €1 200–1 900/мес.",
+      "Проверьте паркинг: гаражи в новостройках + улица.",
+      "Замерьте до школ: запад Ramalde ~8–15 мин до обеих; Paranhos/Dragão ~12–20 (времена близкие).",
+      "Обойдите U.Porto, São João, Estádio do Dragão (~50 000), Alameda Shop & Spot.",
     ],
   },
   {
     heading: "8. Bonfim",
     section_kind: "practice",
     paragraphs: [
-      "Ближе к центру и ночной жизни, чаще дешевле Foz/Boavista — но паркинг и шум; для семьи с OBS обычно не first choice.",
+      "Ближе к центру и ночной жизни, чаще дешевле Foz и Boavista — но паркинг и шум. Для семьи с OBS обычно не first choice: утро здесь пахнет не школьным двором, а чужим выходным, который закончился слишком поздно. Жильё — апартаменты; аренда T1 около €950, T2 €1 000–1 300; паркинг — улица, дефицит.",
+      "До OBS и CLIP — пятнадцать–двадцать пять минут на машине, оба сопоставимы; пик у вокзала и мостов. Точки — пешком к центру, craft-бары, francesinha — [гастрогайд](/notes/" +
+        GASTRONOMY_NORTE_SLUG +
+        "); азулежу и street art. Либеральная революция 1820 началась в Porto 24 августа; Bonfim — часть городской памяти либерализма, но не сводите весь сюжет к одной площади без источников.",
+      "Главное: Bonfim — бюджет и центр; для OBS/CLIP с авто — длинный school-run и шум.",
     ],
+    images: districtVisuals("bonfim", "Bonfim", "Азулежу и городская ткань — якорь Bonfim"),
     bullets: [
-      "**Тип жилья:** апартаменты.",
-      "**Аренда:** T1 ~€950; T2 €1 000–1 300 (ориентир).",
-      "**Паркинг:** улица, дефицит.",
-      "**До OBS / CLIP:** ~15–25 мин на машине (оба сопоставимы; пик у ВЦ/мостов).",
-      "**Точки:** пешком к центру; craft-бары; francesinha — [гастрогайд](/notes/" + GASTRONOMY_NORTE_SLUG + "); азулежу и street art.",
-      "**Факт:** Либеральная революция 1820 началась в **Porto** (24 августа); Bonfim — часть городской памяти либерализма, но не сводите весь сюжет к одной площади без источников.",
+      "Ищите апартаменты.",
+      "Закладывайте аренду: T1 ~€950; T2 €1 000–1 300 (ориентир).",
+      "Проверьте паркинг: улица, дефицит.",
+      "Замерьте до OBS / CLIP: ~15–25 мин на машине (оба сопоставимы).",
+      "Обойдите центр пешком, craft-бары, francesinha, street art и азулежу.",
     ],
   },
   {
     heading: "Городской спорт и парки",
     section_kind: "practice",
     paragraphs: [
-      "Что делать: выбрать 1 океанский бассейн + 1 зал/парк для будней — не абонементы «на всякий случай» в трёх клубах.",
+      "Семье не нужны три абонемента «на всякий случай». Выберите один океанский бассейн на выходные и один зал или парк для будней — так проще держать ритм и бюджет, чем бегать между клубами, которые вы всё равно не посещаете. Piscina das Marés и Quinta da Conceição закрывают «море»; Holmes Place — если хотите зал круглый год.",
+      "Parque da Cidade около 83 га и Jardins do Palácio de Cristal — бесплатная база для бега и детей; Serralves Park около 18 га — при музее; Parque Biológico de Gaia — фауна и тропы на южном берегу. Estádio do Dragão — туры и музей, ориентир €12–25, сайт FC Porto.",
+      "Главное: один океанский бассейн + один зал/парк для будней — достаточно для семейного ритма Porto.",
     ],
     bullets: [
-      "**Piscina das Marés** (Leça da Palmeira) — бассейн на скалах, Siza Vieira; сезон; ориентир €5–10/день.",
-      "**Piscina de Quinta da Conceição** — парк + бассейн, семейный формат; ориентир €4–9/день.",
-      "**Holmes Place** (Boavista / Gaia) — премиум; ориентир €70–120/мес.",
-      "**Estádio do Dragão** — туры/музей; ориентир €12–25 (сайт FC Porto).",
-      "**Parque da Cidade** (~83 га) — озёра, беговые дорожки; Sea Life / Pavilhão da Água — отдельно платно.",
-      "**Jardins do Palácio de Cristal** — бесплатно; виды на Douro.",
-      "**Serralves Park** (~18 га) — при музее; билет на музей/парк по тарифу фонда.",
-      "**Parque Biológico de Gaia** — фауна и тропы на южном берегу.",
+      "**Piscina das Marés** (Leça) — Siza Vieira; сезон; ориентир €5–10/день.",
+      "**Piscina de Quinta da Conceição** — парк + бассейн; ориентир €4–9/день.",
+      "**Holmes Place** (Boavista / Gaia) — ориентир €70–120/мес.",
+      "**Parque da Cidade** (~83 га) и **Jardins do Palácio de Cristal** — бесплатная база.",
+      "**Serralves / Parque Biológico / Dragão tours** — по тарифу фонда или клуба.",
     ],
   },
   {
     heading: "Сравнение районов и рекомендации семье",
     section_kind: "practice",
     paragraphs: [
-      "Что делать: сначала школа (OBS vs CLIP), потом паркинг и шум — иначе красивый T3 в Cedofeita станет ежедневным стрессом.",
+      "Сначала зафиксируйте школу — OBS или CLIP — потом смотрите паркинг и шум: иначе красивый T3 в Cedofeita превратится в ежедневный стресс с двумя машинами и school-run через центр. Связка «школа → гараж → бюджет» важнее открытки Ribeira; меряйте конкретный адрес, а не среднюю по городу. Matosinhos и Gaia — отдельные municípios; сравнение с Брагой и CLIB — [Порту vs Брага](/notes/" +
+        PORTO_VS_BRAGA_FAMILY_SCHOOLS_SLUG +
+        ") и [районы Браги](/notes/" +
+        BRAGA_DISTRICTS_GUIDE_SLUG +
+        "); contrato — [долгосрок](/notes/" +
+        PORTO_BRAGA_LONG_TERM_RENT_SLUG +
+        ").",
+      "Главное: школа и гараж раньше открытки Douro; Matosinhos и Gaia — отдельные municípios.",
+    ],
+    images: [
+      {
+        src: `${IMG}/porto-districts-overview.webp`,
+        alt: "Обзорная карта районов агломерации Porto",
+        caption: "Восемь зон агломерации на одной карте — для сравнения перед объездом",
+        credit: "Emigro · Porto districts canon",
+      },
     ],
     bullets: [
-      "**OBS first** → Foz do Douro (пешком), запасной Lordelo / Boavista запад.",
-      "**CLIP first** → Boavista / Aldoar или Lordelo do Ouro (гаражи).",
-      "**Море + бюджет** → Matosinhos (свой município, метро в центр).",
-      "**Метры + вид** → Vila Nova de Gaia (+ [vino lodges](/notes/" + WINES_WINERIES_NORTE_SLUG + ")).",
-      "**Центр без машины** → Cedofeita / край Baixa.",
-      "**Бюджет** → Ramalde/Paranhos или Bonfim (заложите ~12–25 мин до школ в пик; меряйте конкретный адрес).",
-      "**Сравнение с Брагой / CLIB** → [Порту vs Брага](/notes/" + PORTO_VS_BRAGA_FAMILY_SCHOOLS_SLUG + ") + [районы Браги](/notes/" + BRAGA_DISTRICTS_GUIDE_SLUG + ").",
-      "**Контракт аренды** (senhorio, caução, recibo) → [долгосрок Porto/Braga](/notes/" + PORTO_BRAGA_LONG_TERM_RENT_SLUG + ").",
+      "Целитесь в Foz do Douro пешком, если OBS first; запасной Lordelo / запад Boavista.",
+      "Целитесь в Boavista / Aldoar или Lordelo do Ouro с гаражами, если CLIP first.",
+      "Смотрите Matosinhos на море и бюджет (свой município, метро в центр).",
+      "Смотрите Vila Nova de Gaia на метры и вид — [vino lodges](/notes/" + WINES_WINERIES_NORTE_SLUG + ").",
+      "Берите Cedofeita / край Baixa без машины; бюджет — Ramalde/Paranhos или Bonfim (~12–25 мин до школ в пик).",
     ],
   },
   {
-    heading: "Пошагово: маршрут осмотра 3–4 часа",
+    heading: "Маршрут осмотра: кольцо от школы за 3–4 часа",
     section_kind: "action_guide",
     paragraphs: [
-      "Зачем: без замера утреннего commute таблица районов — теория.",
-      "Что делать: старт у школы → кольцо районов → финиш у той же школы в час пик, если можете.",
+      "Карта районов остаётся теорией, пока вы не проедете утренний маршрут от объявления до школы. В school-run разница между Foz и Bonfim измеряется не минутами в Google Maps, а нервами в сентябре. Лучший осмотр — кольцо от школы: старт у OBS или CLIP, объезд ключевых freguesias и финиш у той же школы в час пик, если получится — так вы увидите паркинг и пробки глазами, а не в чате.",
+      "Из Foz — пляж, Castelo do Queijo, Felgueiras; через Parque da Cidade к Boavista — Casa da Música, Serralves, новостройки с гаражом; дальше CLIP в Aldoar; затем Matosinhos — порт, пляж, Piscina das Marés; Lordelo — Cristal и виды на Douro; Cedofeita — шум и паркинг у Lello–Clérigos; Gaia — Cais и один lodge через мост; Ramalde — Dragão; и обратно к школе. С остановками — три–четыре часа.",
+      "Главное: закладывайте 3–4 часа с остановками; финиш у школы в пик важнее красивых фото по пути.",
     ],
     bullets: [
-      "Шаг 1 — OBS (Foz): кампус и парковка у школы.",
-      "Шаг 2 — Foz: пляж, Castelo do Queijo, Felgueiras (~10 мин).",
-      "Шаг 3 — Parque da Cidade: масштаб зелени (~5 мин).",
-      "Шаг 4 — Boavista: Casa da Música, Serralves, новостройки с гаражом (~10 мин).",
-      "Шаг 5 — CLIP (Aldoar): школа и окружение (~5 мин).",
-      "Шаг 6 — Matosinhos: порт/пляж, Piscina das Marés (~15 мин).",
-      "Шаг 7 — Lordelo: Palácio de Cristal / виды на Douro (~10 мин).",
-      "Шаг 8 — Cedofeita / центр: Lello–Clérigos — оценить шум и паркинг (~10 мин).",
-      "Шаг 9 — Gaia: Cais + один lodge (~15 мин через мост).",
-      "Шаг 10 — Ramalde: Dragão (~10 мин) → обратно к OBS/CLIP.",
-      "Итого с остановками: **3–4 часа**.",
+      "Начните у OBS (Foz) или CLIP (Aldoar): кампус и парковка у школы.",
+      "Объездите Foz → Parque da Cidade → Boavista/Serralves → CLIP.",
+      "Сверните в Matosinhos (порт/пляж/Piscina das Marés) и Lordelo (Cristal).",
+      "Оцените Cedofeita/центр на шум и паркинг; Gaia — Cais + один lodge через мост.",
+      "Финишируйте у Dragão (Ramalde) и вернитесь к OBS/CLIP в час пик — итого 3–4 часа.",
     ],
   },
   {
     heading: "Где чаты и реальность расходятся",
     section_kind: "gap",
+    paragraphs: [
+      "В чатах Porto легко собрать «истину» из чужих переездов: CLIP «тоже IB», Matosinhos «район города», паркинг в Foz «всегда есть». На месте остаётся школа, Câmara и ваше утро сентября. Разница чувствуется не в споре, а в пробке и в счёте за второй паркинг.",
+      "Главное: IB World School на севере — про OBS; Matosinhos и Gaia — отдельные municípios; ASP — с 2027.",
+    ],
     bullets: [
       "«CLIP тоже IB как OBS» → OBS позиционирует себя как единственную IB World School на севере; у CLIP уточняйте senior pathway у школы.",
       "«Matosinhos — район Porto» → отдельный município.",
@@ -253,14 +307,15 @@ const bodySections: NoteBodySection[] = [
     heading: "Типичные ошибки семей",
     section_kind: "practice",
     paragraphs: [
-      "Оптимально: школа → паркинг → шум/пляж. Ошибки ниже — классика переезда в Porto.",
+      "Оптимально держать порядок: школа, паркинг, шум и пляж. Ошибки ниже — классика переезда в Porto, когда романтика города опережает сентябрьское утро. Вы уже читали чужие истории; не надо проживать их в своей freguesia.",
+      "Главное: admissions за 12+ месяцев; Cedofeita без гаража при OBS — классика дорогого стресса.",
     ],
     bullets: [
-      "Ошибка: снять Cedofeita «ради Lello», имея OBS в Foz и два авто.",
-      "Ошибка: начать admissions за 3 месяца до сентября.",
-      "Ошибка: путать friendly-дебют Месси (2003) с competitive debut (2004) — мелочь, но показатель доверия к «фактам из чата».",
-      "Ошибка: не заложить condomínio и второй паркинг в бюджет T3 Foz.",
-      "Ошибка: игнорировать Braga/CLIB как plan B по бюджету — см. гайды выше.",
+      "Не снимайте Cedofeita «ради Lello», имея OBS в Foz и два авто.",
+      "Не начинайте admissions за 3 месяца до сентября.",
+      "Не путайте friendly-дебют Месси (2003) с competitive debut (2004).",
+      "Заложите condomínio и второй паркинг в бюджет T3 Foz.",
+      "Не игнорируйте Braga/CLIB как plan B по бюджету — см. гайды выше.",
     ],
   },
 ];
@@ -315,14 +370,14 @@ export const PORTO_DISTRICTS_GUIDE = {
   slug: PORTO_DISTRICTS_GUIDE_SLUG,
   category: "Жильё",
   content_kind: "guide" as ContentKind,
-  title: "Полный гайд по Порту: районы, аренда, англоязычные школы, парки и спорт",
+  title: "Жизнь в Порту по районам: утро до школы, аренда, парки и океан",
   excerpt:
-    "OBS, CLIP, CJD и American School 2027; Foz, Boavista, Matosinhos, Gaia и другие: аренда, паркинг, парки, спорт и commute — карта для семьи в агломерации Porto.",
+    "OBS в Foz, CLIP у Aldoar, Matosinhos и Gaia как отдельные municípios: аренда, паркинг, park-run и school-run — карта семьи в агломерации Porto без открыточной иллюзии.",
   seo_title: "Порту — районы, школы, аренда 2026",
   seo_description:
-    "Гайд по Порту 2026: OBS и CLIP, районы Foz, Boavista, Matosinhos, Gaia — аренда, паркинг, парки, спорт и commute для семей; перелинковка с гайдами Emigro.",
+    "Районы Porto 2026 глазами семьи: OBS и CLIP, Foz, Boavista, Matosinhos, Gaia — аренда, паркинг, парки, спорт и реальный commute; связанные гайды Emigro.",
   quick_answer:
-    "В Porto район выбирают от школы: OBS в Foz (British + IB Diploma, с 1894) или CLIP у Aldoar/Boavista. Foz — океан и пешком до OBS, но паркинг; Boavista — гаражи и CLIP; Matosinhos — свой município, пляж дешевле Foz; Gaia — метры и Port lodges через мост. Admissions за 12+ месяцев; American School — только с 2027. Дальше — аренда, Брага/CLIB, вино и гастро в связанных гайдах Emigro.",
+    "В Porto адрес под школу важнее открытки Ribeira: OBS на Rua da Cerca (Foz, British + IB Diploma с 1894) или CLIP на Rua de Vila Nova у Aldoar — и уже от ворот считают garagem и минуты. Matosinhos — отдельный município (см. гайд), Gaia — через мост со своей Câmara. Admissions берут за двенадцать месяцев; American School заявлен на сентябрь 2027.",
   body_sections: bodySections,
   body_paragraphs: flattenBodySections(bodySections),
   key_takeaways: keyTakeaways,
@@ -343,5 +398,5 @@ export const PORTO_DISTRICTS_GUIDE = {
     extra: ["porto", "foz", "clip", "obs", "matosinhos"],
   }),
   source_channel: "editorial+official",
-  source_label: "editorial:porto-districts-2026",
+  source_label: "editorial:porto-districts-grok-remarque-2026",
 };

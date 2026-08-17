@@ -8,6 +8,7 @@ import { execFileSync } from "node:child_process";
 import path from "node:path";
 import { PORTO_NEWBUILD_CLUSTERS_GUIDE } from "@/lib/community-notes/guides/porto-newbuild-clusters-2026";
 import { MATOSINHOS_LIFE_GUIDE } from "@/lib/community-notes/guides/matosinhos-life";
+import { PORTO_DISTRICTS_GUIDE } from "@/lib/community-notes/guides/porto-districts-life";
 import {
   assertBodyImagesCommitted,
   collectLocalImageSrcs,
@@ -15,7 +16,11 @@ import {
 import { hasNoteOgImage } from "@/lib/community-notes/note-og-image";
 
 /** Hand guides that ship local inline photos — extend when adding new photo packs. */
-const GUIDES_WITH_LOCAL_IMAGES = [PORTO_NEWBUILD_CLUSTERS_GUIDE, MATOSINHOS_LIFE_GUIDE];
+const GUIDES_WITH_LOCAL_IMAGES = [
+  PORTO_NEWBUILD_CLUSTERS_GUIDE,
+  MATOSINHOS_LIFE_GUIDE,
+  PORTO_DISTRICTS_GUIDE,
+];
 
 function isGitTracked(relPath: string): boolean {
   try {
