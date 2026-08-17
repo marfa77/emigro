@@ -1,8 +1,6 @@
 /**
- * Hand-curated guide — voice «Опытный релокант за кофе» (lib/community-notes/editorial-voice.ts):
- * - quick_answer: микросцена-хук + 2 факта
- * - key_takeaways: max 4; glossary ≤8 с literary intro
- * - Each section: «зачем вам это сейчас» + «Что/Зачем» + «Главное: …»
+ * Portugal regions for relocants — climate, rent, expat vibe by NUTS II.
+ * Visual canon: Emigro atlas icons + map vignettes (inline/regioes-portugal).
  */
 import { flattenBodySections } from "@/lib/community-notes/editorial-quality";
 import { glossaryForSlug } from "@/lib/community-notes/editorial-glossaries";
@@ -13,13 +11,38 @@ import { INTERNATIONAL_SCHOOLS_GUIDE_SLUG } from "@/lib/community-notes/guides/i
 import { NORTE_CLIMATE_COMFORT_SLUG } from "@/lib/community-notes/guides/norte-climate-comfort";
 import { PORTO_BRAGA_LONG_TERM_RENT_SLUG } from "@/lib/community-notes/guides/porto-braga-long-term-rent";
 import { PORTO_VS_BRAGA_FAMILY_SCHOOLS_SLUG } from "@/lib/community-notes/guides/porto-vs-braga-family-schools";
-import type { CommunityNoteFaq, ContentKind, NoteBodySection } from "@/lib/community-notes/types";
+import type {
+  CommunityNoteFaq,
+  ContentKind,
+  NoteBodyImage,
+  NoteBodySection,
+} from "@/lib/community-notes/types";
 
 export const PORTUGAL_REGIONS_EXPAT_GUIDE_SLUG = "regiony-portugalii-ekspaty-klimat-tseny-2026";
 
 const APARTMENT_BUY_SLUG = "kupit-kvartiru-portugaliya-norte-2026";
 const DOMESTIC_TOURISM_SLUG = "turizm-vnutri-portugalii-norte-2026";
 
+const IMG = "/images/community-notes/inline/regioes-portugal";
+const CANON = "Emigro · Portugal regions atlas";
+
+function zoneVisuals(id: string, place: string, symbolCaption: string): NoteBodyImage[] {
+  return [
+    {
+      src: `${IMG}/${id}-symbol.webp`,
+      alt: `${place} — символ региона`,
+      caption: symbolCaption,
+      credit: CANON,
+      fit: "contain",
+    },
+    {
+      src: `${IMG}/${id}-map.webp`,
+      alt: `${place} на карте Португалии`,
+      caption: `${place} на карте страны`,
+      credit: CANON,
+    },
+  ];
+}
 const GLOSSARY_INTRO =
   "Слова, которые всплывут в объявлении на Idealista, в разговоре с coworking-админом и на assembleia condomínio — разберём заранее, пока вы ещё выбираете не город, а регион.";
 
@@ -35,6 +58,14 @@ const bodySections: NoteBodySection[] = [
       "Что делать: понять семь макрорегионов NUTS II — от них зависят IMI, SNS по morada, школы и реальная стоимость жизни.",
       "Зачем: «Португалия» в Instagram — это не один вайб; Lisboa, Algarve и Norte живут по разным правилам аренды и сезонности.",
       "Главное: выбирайте регион под сценарий (работа, remote, семья, пенсия) — потом уже concelho и bairro.",
+    ],
+    images: [
+      {
+        src: `${IMG}/overview.webp`,
+        alt: "Обзорная карта макрорегионов Португалии",
+        caption: "Norte, Lisboa, Centro, Alentejo, Algarve и острова — одна карта перед shortlist",
+        credit: CANON,
+      },
     ],
     bullets: [
       "Norte (Grande Porto + Minho) — второй по ВВП регион; AIMA balcões Porto/Braga/Marco de Canaveses.",
@@ -54,6 +85,7 @@ const bodySections: NoteBodySection[] = [
         PORTO_VS_BRAGA_FAMILY_SCHOOLS_SLUG +
         ").",
     ],
+    images: zoneVisuals("norte", "Norte", "Порт и атлантический берег — якорь Grande Porto / Minho"),
     bullets: [
       "Экономика: tech (Blip, Farfetch, remote hubs), туризм Douro, manufacturing Braga/Guimarães; зарплаты ниже Lisboa на 10–20%, но и renta.",
       "Expat-среда: OBS/CLIP/LFIP/Deutsche в Porto, CLIB в Braga; Erasmus, бразильцы, UK/FR; coworking Porto (CRU, Porto i/o), Braga Startup.",
@@ -70,6 +102,7 @@ const bodySections: NoteBodySection[] = [
       "Зачем: здесь плотность digital nomads, InterNations и international schools — но аренда и commute съедают бюджет.",
       "Главное: Cascais/Oeiras/Sintra — expat-магниты; centro Lisboa — шум, heat islands и T2 €1 400–2 200.",
     ],
+    images: zoneVisuals("lisboa", "Lisboa e Vale do Tejo", "Тежу и столичная дуга — якорь Lisboa / Cascais"),
     bullets: [
       "Экономика: финансы, туризм, стартапы, госсектор; вакансии концентрируются в Lx, но конкуренция за жильё выше.",
       "Expat-среда: St Julian's, IPS, Carlucci, United Lisbon; nomad-кластер Chiado/Parque das Nações; AIMA Saldanha — очереди.",
@@ -86,6 +119,7 @@ const bodySections: NoteBodySection[] = [
       "Зачем: максимум солнца и англоязычных сервисов — но экономика и соцсеть сильно зависят от сезона.",
       "Главное: летом шумно и дорого; с ноября по март многие рестораны закрыты, expat-активность падает.",
     ],
+    images: zoneVisuals("algarve", "Algarve", "Скалы и praia — якорь Faro / Lagos"),
     bullets: [
       "Экономика: туризм, golf, недвижимость, рыболовство; рабочие места сезонные; зимой без remote — сложнее.",
       "Expat-среда: британцы, голландцы, немцы; Facebook-группы Faro/Lagos/Albufeira; мало international schools (смотрите Lx/Porto).",
@@ -101,6 +135,10 @@ const bodySections: NoteBodySection[] = [
       "Что делать: смотреть Centro для бюджета и университетской среды; Alentejo — для slow life и remote с авто.",
       "Зачем: цены ниже, но expat-инфраструктура разреженная; без португальского интеграция медленнее.",
       "Главное: Coimbra/Aveiro — молодой вайб и каналы; Alentejo — пустые дороги, +40 °C летом и редкие expat-встречи.",
+    ],
+    images: [
+      ...zoneVisuals("centro", "Centro", "Университет и каналы — якорь Coimbra / Aveiro"),
+      ...zoneVisuals("alentejo", "Alentejo", "Пробковые дубы и равнина — якорь Évora / Beja"),
     ],
     bullets: [
       "Centro: Coimbra (университет, студенты), Aveiro (каналы, tech-офисы поменьше), Leiria (промышленность); T2 €650–1 000.",
@@ -118,6 +156,7 @@ const bodySections: NoteBodySection[] = [
       "Зачем: Madeira продвигает digital nomad visa и coworking; Açores — природа и тишина, но перелёты дорогие.",
       "Главное: вайб «курорт + remote»; не ждите Porto/Lisboa по школам, больницам tier-1 и аренде off-season.",
     ],
+    images: zoneVisuals("ilhas", "Madeira e Açores", "Островной горизонт — якорь Funchal / Ponta Delgada"),
     bullets: [
       "Madeira (Funchal): nomad-хабы, мягкий климат круглый год; T2 €800–1 300; перелёт Lisboa 1h45.",
       "Açores (Ponta Delgada): вулканы, whale-watching; T2 €600–1 000; expat — редкие EN/RU чаты.",
