@@ -1,10 +1,10 @@
 ---
 slug: pervye-30-dnej-v-ispanii-2026
 title: "Первые 30 дней в Испании 2026: чек-лист после прилёта"
-seo_title: "NIE Испания 2026 — 30 дней для RU/BY"
-seo_description: "NIE, empadronamiento, банк, SIM и extranjería после прилёта: пошаговый чек-лист для граждан RU/BY/UA/KZ с DNV в 2026 году."
-excerpt: "Вы получили DNV / non-lucrative или прилетели на подачу TIE — что делать в первый месяц: NIE, empadronamiento, банк, SIM и extranjería."
-quick_answer: "Первые 30 дней: (1) NIE через cita previa или gestoría, (2) empadronamiento в ayuntamiento, (3) Spanish SIM (Movistar/Vodafone/Orange), (4) банк — CaixaBank/Santander или N26 с NIE, (5) Seguridad Social при employment, (6) cita extranjería для TIE / huellas. Без NIE и empadronamiento не закрыть большинство админ-процедур."
+seo_title: "TIE Испания 2026 — 30 дней после DNV"
+seo_description: "После visa D: NIE часто уже на стикере; TIE ≤30 дней; empadronamiento, банк, SIM. DNV ~€2 849 (200% SMI). Чек-лист RU/BY/UA/KZ → /ru/spain/wizard."
+excerpt: "Вы получили DNV / non-lucrative или прилетели на подачу TIE — что делать в первый месяц: проверить NIE на визе, empadronamiento, банк, SIM и cita TIE."
+quick_answer: "Первые 30 дней после visa D: (1) проверьте NIE на стикере визы — отдельный EX-15 часто не нужен, (2) empadronamiento в ayuntamiento, (3) Spanish SIM, (4) банк с Spanish IBAN (CaixaBank/Santander; N26/Revolut — старт), (5) cita extranjería / huellas на TIE в норме ≤30 дней после въезда, (6) Seguridad Social только если employment/autónomo. Без padrón и NIE не закрыть банк и TIE."
 corridor_slugs: [ru-speaking-to-spain]
 topic_keys: [spain, checklist, arrival]
 tags: [Испания, чеклист, 2026, NIE, empadronamiento, TIE]
@@ -22,7 +22,7 @@ official_sources:
     label: Agencia Tributaria — NIE
 estimated_minutes: 12
 date_published: 2026-06-27
-date_modified: 2026-07-12
+date_modified: 2026-08-17
 ---
 
 ## Кому этот чек-лист
@@ -34,6 +34,8 @@ date_modified: 2026-07-12
 - переехали по **temporary protection** (UA) и планируют отдельный residency route.
 
 Это **не** гайд по получению визы — см. [Digital nomad Испания 2026 — полный гид](/ru/guides/vnj-ispaniya-2026).
+
+> **Fact-check Emigro (авг 2026):** после **national visa D** номер **NIE** обычно уже напечатан на стикере визы / resolución — отдельная подача EX-15 часто **не нужна**. Главный дедлайн — **TIE / huellas ≤ ~30 дней** после въезда (cita previa бронируйте сразу). Порог DNV 2026: **~€2 849/мес** (200% SMI, RD 126/2026) — в pillar [ВНЖ Испания](/ru/guides/vnj-ispaniya-2026). Wizard: [/ru/spain/wizard](/ru/spain/wizard).
 
 ---
 
@@ -47,19 +49,24 @@ date_modified: 2026-07-12
 | Cabify/Bolt | Установить | Альтернатива Uber |
 | Жильё | Airbnb / short-term | Для первого empadronamiento иногда нужен contrato |
 
-### День 3–7: начало NIE
+### День 3–7: NIE — сначала проверьте визу
 
-**NIE** (Número de Identificación de Extranjero) — налоговый ID. Нужен для банка, аренды, TIE, utilities.
+**NIE** (Número de Identificación de Extranjero) — налоговый / идентификационный номер иностранца. Нужен для банка, аренды, TIE, utilities.
 
-**Как получить:**
+**Если вы въехали по national visa D (DNV, NLV, work, family):**
+1. Откройте стикер визы / resolución — **NIE часто уже присвоен**.
+2. Используйте этот номер для банка и padrón; не тратьте недели на отдельный EX-15 «с нуля».
+3. Фокус недели 1–2: **empadronamiento** + **cita TIE**, а не повторная выдача номера.
+
+**Когда отдельная cita / EX-15 всё же нужна:** NIE нет на визе; подача изнутри Испании без консульской визы; нужен certificado NIE на бумаге для конкретного органа. Тогда:
 
 1. **Cita previa** — Oficina de Extranjería / Policía Nacional (запись онлайн).
-2. **Gestoría** — €150–400 за expedited filing.
+2. **Gestoría** — €150–400 за filing (рыночный ориентир).
 3. **Form EX-15** + fee (tasa 790).
 
-**Срок:** 1–4 недели (Madrid/Barcelona дольше).
+**Срок отдельной выдачи:** 1–4 недели (Madrid/Barcelona дольше).
 
-В локальных чатах эмигрантов (@spain_granitsa, @valenforum и др.) в 2025–2026 часто пишут, что cita previa на sede ловят ночью/рано утром, а gestoría €300–800 ускоряет NIE в Valencia — официального расписания релиза слотов нет.
+В локальных чатах эмигрантов (@spain_granitsa, @valenforum и др.) в 2025–2026 часто пишут, что cita previa на sede ловят ночью/рано утром, а gestoría €300–800 ускоряет пакет в Valencia — официального расписания релиза слотов нет.
 
 Официально: [sede.administracionespublicas.gob.es](https://sede.administracionespublicas.gob.es/)
 
@@ -187,8 +194,11 @@ date_modified: 2026-07-12
 
 ## FAQ
 
+**NIE уже есть на визе D — всё равно делать EX-15?**  
+Часто **нет**: номер на стикере визы / resolución и есть ваш NIE. Отдельная cita нужна, если номера нет или орган требует отдельный certificado. Главный дедлайн после въезда — **TIE ≤ ~30 дней**.
+
 **Нужна ли gestoría?**  
-Не обязательна, но ускоряет NIE + TIE в Madrid/Barcelona. €300–800 за пакет.
+Не обязательна, но ускоряет TIE / padrón / банк в Madrid/Barcelona. €300–800 за пакет (рынок).
 
 **Можно ли работать до TIE?**  
 По DNV — remote work из ES **разрешён** после visa; local employment — только с work authorization.
@@ -197,10 +207,10 @@ date_modified: 2026-07-12
 Процедуры **одинаковы** после легального въезда; отличается консульская подача.
 
 **DNV vs non-lucrative — разный чек-лист?**  
-Админ-шаги **одинаковы** (NIE, empadronamiento, TIE); отличается insurance и proof of means.
+Админ-шаги **одинаковы** (NIE на визе, empadronamiento, TIE); отличается insurance и proof of means (DNV ~€2 849/мес; NLV ~€2 400 = 400% IPREM).
 
 **Сколько ждать cita в Madrid?**  
-2–4 месяца — бронируйте **сразу после прилёта**.
+2–4 месяца типично — бронируйте **сразу после прилёта** (лучше в день въезда). Скриншоты неудачных попыток записи сохраняйте.
 
 ---
 
@@ -211,4 +221,14 @@ date_modified: 2026-07-12
 - [Digital nomad сравнение](/ru/guides/digital-nomad-vizy-evropy-sravnenie-2026)
 - [Коридор Испания](/ru/spain) · [wizard](/ru/spain/wizard)
 
-*Не юридическая консультация. Сроки extranjería меняются — проверяйте sede.administracionespublicas.gob.es.*
+---
+
+## Коротко для проверки маршрута
+
+- После visa D: **NIE часто уже на стикере** — не путайте с отдельным EX-15.
+- **TIE / huellas** — нормативный ориентир **≤30 дней** после въезда; cita бронируйте сразу.
+- Empadronamiento + Spanish IBAN нужны для банка, utilities и TIE.
+- DNV порог 2026 ~**€2 849**/мес (200% SMI); NLV ~**€2 400** (400% IPREM €600).
+- Следующий шаг: [/ru/spain/wizard](/ru/spain/wizard) · pillar [ВНЖ Испания](/ru/guides/vnj-ispaniya-2026).
+
+*Не юридическая консультация. Сроки extranjería меняются — проверяйте sede.administracionespublicas.gob.es. Актуально: 17 августа 2026.*

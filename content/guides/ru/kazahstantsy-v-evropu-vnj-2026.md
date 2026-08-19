@@ -2,15 +2,15 @@
 slug: kazahstantsy-v-evropu-vnj-2026
 title: "Казахстан → Европа 2026: ВНЖ для граждан KZ — визы, маршруты, консульства"
 seo_title: "Казахстан → Европа 2026 — виза и ВНЖ без безвиза"
-seo_description: "KZ→EU авг 2026: безвиза нет. DE/PL из Алматы; PT D — Москва (Astana не выдаёт). Blue Card/D8/DNV пороги."
+seo_description: "KZ→EU авг 2026: безвиза нет. DE/PL из Алматы; PT D — Москва. Blue Card €45 934/€50 700 · D8 €3 680 · DNV €2 849. → /ru/wizard."
 excerpt: "Граждане KZ въезжают в Шенген по визе — безвизового режима нет. Разбор маршрутов 2026 с разной консульской картой: DE/PL локально, PT D через Москву."
-quick_answer: "Паспорт KZ не даёт безвиз в Шенген — нужна виза C или national D. Facilitation KZ–EU (переговоры 2026) **не в силе**. DE Blue Card — VisaMetric Astana/Almaty; PL — Astana/Almaty; **Portugal national D — только через Москву** (посольство PT в Астане визы не выдаёт). Пороги: DE ≈ €45 934/€50 700 год; PT D8 ≈ €3 680/мес; ES DNV ≈ €2 849/мес. Wizard: passport_iso2=KZ."
+quick_answer: "Паспорт KZ не даёт безвиз в Шенген — нужна виза C или national D. Facilitation KZ–EU (переговоры 2026) не в силе. DE Blue Card — VisaMetric Astana/Almaty; PL — Astana/Almaty; Portugal national D — только через Москву (Astana визы не выдаёт). Пороги дохода — в теле гайда и блоке «Коротко» (не смешивайте годовые DE и месячные PT/ES). Wizard: passport_iso2=KZ."
 corridor_slugs: [ru-speaking-to-germany, ru-speaking-to-portugal, ru-speaking-to-spain, ru-speaking-to-poland]
 topic_keys: [kazakhstan, germany, portugal, spain, poland, europe, visa, work]
 tags: [Казахстан, KZ, ВНЖ, Европа, 2026, Blue Card, D8, Шенген, виза]
 primary_intent: informational
 cta_primary: /ru/wizard
-cta_secondary: /ru/wizard
+cta_secondary: /ru/guides/konsulskaya-podacha-rf-by-kz-2026-yurisdiktsiya
 official_sources:
   - url: https://www.consilium.europa.eu/en/policies/schengen-area/visa-policy/
     label: EU — Schengen visa policy
@@ -24,7 +24,7 @@ official_sources:
     label: Польша — Office for Foreigners (UDSC)
 estimated_minutes: 14
 date_published: 2026-06-27
-date_modified: 2026-08-11
+date_modified: 2026-08-17
 ---
 
 ## Прямой ответ
@@ -193,10 +193,13 @@ Emigro wizard учитывает `passport_iso2 = KZ` при оценке про
 
 ## Коротко для проверки маршрута
 
-- Безвиза KZ→Шенген **нет**; facilitation 2026 — **ещё не режим**.  
-- Плюс vs RU: DE/PL часто **из Алматы/Астаны**; **PT D — Москва**, не Astana.  
-- Пороги: DE Blue Card **€45 934 / €50 700** год; PT D8 **€3 680**/мес; ES DNV **€2 849**/мес (~**€34 188**/год); PL work от **PLN 4 806**.  
-- C ≠ D ≠ ВНЖ.  
-- Wizard: `passport_iso2=KZ` → [/ru/wizard](/ru/wizard).
+- Безвиза KZ→Шенген **нет**; facilitation 2026 — **ещё не режим**.
+- Плюс vs RU: DE/PL часто **из Алматы/Астаны**; **PT D — Москва**, не Astana.
+- DE Blue Card: **€45 934 / €50 700** в год (shortage / стандарт, Make it in Germany 2026).
+- PT D8: **€3 680**/мес.
+- ES DNV: **€2 849**/мес (~€34 188/год).
+- PL work: от **PLN 4 806**/мес.
+- C ≠ D ≠ ВНЖ.
+- Wizard: `passport_iso2=KZ` → [/ru/wizard](/ru/wizard) · консульская карта: [юрисдикция](/ru/guides/konsulskaya-podacha-rf-by-kz-2026-yurisdiktsiya).
 
-*Не юридическая консультация. Проверяйте актуальные правила на gov.pl, make-it-in-germany.com, AIMA, inclusion.gob.es и сайтах консульств. Актуально: 11 августа 2026.*
+*Не юридическая консультация. Проверяйте актуальные правила на gov.pl, make-it-in-germany.com, AIMA, inclusion.gob.es и сайтах консульств. Актуально: 17 августа 2026.*
