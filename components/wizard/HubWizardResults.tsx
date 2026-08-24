@@ -1,6 +1,5 @@
-import Link from "next/link";
-import { ArrowRight, Compass, Route, Sparkles } from "lucide-react";
 import { ServiceProvidersSection } from "@/components/providers/ServiceProvidersSection";
+import { TrackedAssistLink } from "@/components/assist/TrackedAssistLink";
 import { AssistResultsCta } from "@/components/wizard/AssistResultsCta";
 import { HouseholdBanner } from "@/components/wizard/HouseholdBanner";
 import { WizardTelegramDelivery } from "@/components/wizard/WizardTelegramDelivery";
@@ -12,6 +11,8 @@ import { findFirstProviderTopicKey } from "@/lib/providers/registry";
 import { PORTUGAL_URL_SEGMENT, portugalHubPaths } from "@/lib/portugal/hub";
 import { PortugalHubNextSteps } from "@/components/portugal/PortugalHubNextSteps";
 import { TRANSIT_HUBS } from "@/lib/transit-hubs";
+import Link from "next/link";
+import { ArrowRight, Compass, Route, Sparkles } from "lucide-react";
 
 export function HubWizardResults({
   sessionId,
@@ -195,9 +196,15 @@ export function HubWizardResults({
             <Link href="/ru#destinations" className="text-corridor-700 underline">
               Все направления →
             </Link>
-            <Link href={buildAssistUrl({ sessionId })} className="text-corridor-700 underline">
+            <TrackedAssistLink
+              href={buildAssistUrl({ sessionId })}
+              placement="wizard_hub_no_match"
+              linkLabel="Обсудить с Emigro Assist"
+              sessionId={sessionId}
+              className="text-corridor-700 underline"
+            >
               Обсудить с Emigro Assist →
-            </Link>
+            </TrackedAssistLink>
           </div>
         </section>
       )}
@@ -291,12 +298,17 @@ function ResultsNextSteps({
         <li>Если сомневаетесь, отправьте короткое описание кейса Emigro Assist или профильному провайдеру.</li>
       </ol>
       <div className="mt-5 flex flex-wrap gap-3 text-sm font-medium">
-        <Link
+        <TrackedAssistLink
           href={buildAssistUrl({ sessionId, country, program: programTitle })}
+          placement="wizard_hub_next_steps"
+          linkLabel="Route Check — €129"
+          sessionId={sessionId}
+          country={country}
+          program={programTitle}
           className="rounded-lg bg-corridor-600 px-4 py-2 text-white hover:bg-corridor-700"
         >
           Route Check — €129
-        </Link>
+        </TrackedAssistLink>
         {providerTopicKey && (
           <Link
             href={`/ru/${providerTopicKey}`}

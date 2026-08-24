@@ -105,9 +105,56 @@ export default async function AdminStatsPage() {
                   hint={`(юзеров ${report.wizardTelegram.usersTotal})`}
                 />
                 <MetricRow label="Лиды" value={report.total.leads} />
+                <MetricRow label="Assist: просмотры" value={report.assist.pageViewsTotal} />
+                <MetricRow label="Assist: клики CTA" value={report.assist.ctaClicksTotal} />
+                <MetricRow label="Assist: заявки" value={report.assist.leadsTotal} />
                 <MetricRow label="Клики партнёров" value={report.total.providerClicks} />
                 <MetricRow label="Событий в БД" value={report.total.eventsTotal} />
                 <MetricRow label="Боты (исключены)" value={report.botsTotal} />
+              </div>
+            </section>
+
+            <section className="rounded-xl border border-violet-100 bg-violet-50/40 p-5">
+              <h2 className="text-sm font-semibold uppercase tracking-wide text-violet-900">
+                Emigro Assist
+              </h2>
+              <div className="mt-3">
+                <MetricRow
+                  label="Просмотры /assist (сегодня)"
+                  value={report.assist.pageViewsToday}
+                  delta={deltaLine(report.assist.pageViewsToday, report.assist.pageViewsYesterday)}
+                  hint={`(всего ${report.assist.pageViewsTotal})`}
+                />
+                <MetricRow
+                  label="Sample plan"
+                  value={report.assist.samplePlanViewsToday}
+                  delta={deltaLine(
+                    report.assist.samplePlanViewsToday,
+                    report.assist.samplePlanViewsYesterday
+                  )}
+                  hint={`(всего ${report.assist.samplePlanViewsTotal})`}
+                />
+                <MetricRow
+                  label="Клики CTA → Assist"
+                  value={report.assist.ctaClicksToday}
+                  delta={deltaLine(report.assist.ctaClicksToday, report.assist.ctaClicksYesterday)}
+                  hint={`(всего ${report.assist.ctaClicksTotal})`}
+                />
+                <MetricRow
+                  label="Заявки Assist"
+                  value={report.assist.leadsToday}
+                  delta={deltaLine(report.assist.leadsToday, report.assist.leadsYesterday)}
+                  hint={`(всего ${report.assist.leadsTotal})`}
+                />
+                <MetricRow
+                  label="Конверсия CTA → заявка (сегодня)"
+                  value={
+                    report.assist.ctaClicksToday > 0
+                      ? Math.round((report.assist.leadsToday / report.assist.ctaClicksToday) * 100)
+                      : 0
+                  }
+                  hint={report.assist.ctaClicksToday > 0 ? "%" : "(нет кликов)"}
+                />
               </div>
             </section>
 
@@ -279,6 +326,8 @@ export default async function AdminStatsPage() {
               <TopList title="Топ поиск+LLM всего" rows={report.topPagesDiscoveryAll} />
               <TopList title="Топ страниц сегодня (все источники)" rows={report.topPagesToday} />
               <TopList title="Топ страниц всего (все источники)" rows={report.topPagesAll} />
+              <TopList title="Assist: страницы сегодня" rows={report.assist.topAssistPagesToday} />
+              <TopList title="Assist: CTA placements сегодня" rows={report.assist.topCtaPlacementsToday} />
               <TopList title="Referrer сегодня" rows={report.topReferrersToday} />
               <TopList title="UTM source сегодня" rows={report.topUtmToday} />
               <TopList

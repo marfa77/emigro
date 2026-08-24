@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { trackEvent } from "@/lib/analytics/client";
 import { formField, formFieldWhite } from "@/lib/ui/mobile";
 
@@ -15,6 +15,8 @@ export type AssistProviderOption = {
   id: string;
   name: string;
   category: string;
+  /** Corridors this partner covers — form shows only matches for selected country. */
+  corridorSlugs: string[];
 };
 
 export type AssistPlanTier = "route-check" | "accompaniment";
@@ -184,8 +186,15 @@ export function AssistLeadForm({
   const [notice, setNotice] = useState("");
 
   const countryOption = countries.find((option) => option.value === country) ?? countries[0];
-  const selectedTier = PLAN_TIER_OPTIONS.find((option) => option.value === planTier) ?? PLAN_TIER_OPTIONS[0];
   const wizardSessionId = initialSessionId?.trim() ?? "";
+  const corridorSlug = countryOption?.corridorSlug ?? "";
+  const corridorProviders = useMemo(
+    () =>
+      corridorSlug
+        ? providers.filter((provider) => provider.corridorSlugs.includes(corridorSlug))
+        : [],
+    [providers, corridorSlug]
+  );
 
   useEffect(() => {
     const applyHash = () => {
@@ -197,6 +206,14 @@ export function AssistLeadForm({
     window.addEventListener("hashchange", applyHash);
     return () => window.removeEventListener("hashchange", applyHash);
   }, []);
+
+  useEffect(() => {
+    const allowed = new Set(corridorProviders.map((p) => p.id));
+    setSelectedProviders((prev) => {
+      const next = prev.filter((id) => allowed.has(id));
+      return next.length === prev.length ? prev : next;
+    });
+  }, [corridorProviders]);
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -303,11 +320,6 @@ export function AssistLeadForm({
         </div>
       </fieldset>
 
-      <div className="rounded-xl border border-corridor-100 bg-corridor-50/60 px-4 py-3 text-sm text-slate-700">
-        <p className="font-medium text-slate-900">{selectedTier.label}</p>
-        <p className="mt-1 text-slate-600">{selectedTier.summary}</p>
-      </div>
-
       <div>
         <label className="text-sm font-medium text-slate-800" htmlFor="assist-payment">
           {isEs
@@ -393,17 +405,24 @@ export function AssistLeadForm({
         />
       </div>
 
-      {planTier === "route-check" && (
+      {planTier === "route-check" && corridorProviders.length > 0 && (
         <fieldset>
           <legend className="text-sm font-medium text-slate-800">
             {isEs
-              ? "Servicios que ya contempla (opcional)"
+              ? "Partners que ya contempla (opcional)"
               : isFr
-                ? "Services déjà envisagés (optionnel)"
-                : "Какие сервисы уже рассматриваете (необязательно)"}
+                ? "Partenaires déjà envisagés (optionnel)"
+                : "Каких партнёров уже рассматриваете (необязательно)"}
           </legend>
+          <p className="mt-1 text-xs text-slate-500">
+            {isEs
+              ? `Solo para ${countryOption?.label ?? "este país"}.`
+              : isFr
+                ? `Uniquement pour ${countryOption?.label ?? "ce pays"}.`
+                : `Только по направлению «${countryOption?.label ?? "выбранная страна"}».`}
+          </p>
           <div className="mt-3 grid gap-2 sm:grid-cols-2">
-            {providers.map((provider) => (
+            {corridorProviders.map((provider) => (
               <label key={provider.id} className="flex items-start gap-2 rounded-lg border border-slate-200 p-3 text-sm">
                 <input
                   type="checkbox"

@@ -29,6 +29,24 @@ export interface WizardTelegramStats {
   resultsViewsYesterday: number;
 }
 
+/** Assist / Route Check funnel for /admin/stats. */
+export interface AssistFunnelStats {
+  pageViewsTotal: number;
+  pageViewsToday: number;
+  pageViewsYesterday: number;
+  samplePlanViewsTotal: number;
+  samplePlanViewsToday: number;
+  samplePlanViewsYesterday: number;
+  ctaClicksTotal: number;
+  ctaClicksToday: number;
+  ctaClicksYesterday: number;
+  leadsTotal: number;
+  leadsToday: number;
+  leadsYesterday: number;
+  topCtaPlacementsToday: Array<[string, number]>;
+  topAssistPagesToday: Array<[string, number]>;
+}
+
 /** RU vs ES (/es LATAM) vs FR (/fr Afrique) funnel slice for /stats. */
 export type LocaleBucket = "es" | "fr" | "ru" | "other";
 
@@ -102,6 +120,7 @@ export interface StatsReport {
     channel: TrafficChannel;
   }>;
   wizardTelegram: WizardTelegramStats;
+  assist: AssistFunnelStats;
   localeSplit: LocaleSplit;
 }
 
@@ -656,6 +675,160 @@ async function buildWizardTelegramStats(
   };
 }
 
+function isAssistPagePath(path: string | null | undefined): boolean {
+  if (!path) return false;
+  const clean = path.split("?")[0];
+  return (
+    clean === "/ru/assist" ||
+    clean.startsWith("/ru/assist/") ||
+    clean === "/es/assist" ||
+    clean.startsWith("/es/assist/") ||
+    clean === "/fr/assist" ||
+    clean.startsWith("/fr/assist/")
+  );
+}
+
+function isAssistSamplePlanPath(path: string | null | undefined): boolean {
+  if (!path) return false;
+  const clean = path.split("?")[0];
+  return clean.includes("/assist/sample-plan");
+}
+
+async function countAssistPageViews(
+  supabase: ReturnType<typeof createAdminClient>,
+  start: string | null,
+  end: string | null,
+  samplePlanOnly = false
+): Promise<number> {
+  let q = supabase.from("site_events").select("page_path").eq("event_name", "page_view");
+  if (start) q = q.gte("created_at", start);
+  if (end) q = q.lt("created_at", end);
+  const { data, error } = await q.limit(25000);
+  if (error) throw new Error(error.message);
+
+  let count = 0;
+  for (const row of data ?? []) {
+    const path = row.page_path as string | null;
+    if (samplePlanOnly) {
+      if (isAssistSamplePlanPath(path)) count += 1;
+    } else if (isAssistPagePath(path)) {
+      count += 1;
+    }
+  }
+  return count;
+}
+
+async function topAssistPages(
+  supabase: ReturnType<typeof createAdminClient>,
+  start: string,
+  end: string,
+  limit = 8
+): Promise<Array<[string, number]>> {
+  const { data, error } = await supabase
+    .from("site_events")
+    .select("page_path")
+    .eq("event_name", "page_view")
+    .gte("created_at", start)
+    .lt("created_at", end)
+    .limit(10000);
+  if (error) throw new Error(error.message);
+
+  const counts = new Map<string, number>();
+  for (const row of data ?? []) {
+    const path = (row.page_path as string | null)?.split("?")[0] ?? "";
+    if (!isAssistPagePath(path)) continue;
+    counts.set(path, (counts.get(path) ?? 0) + 1);
+  }
+  return Array.from(counts.entries())
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, limit);
+}
+
+async function topAssistCtaPlacements(
+  supabase: ReturnType<typeof createAdminClient>,
+  start: string,
+  end: string,
+  limit = 8
+): Promise<Array<[string, number]>> {
+  const { data, error } = await supabase
+    .from("site_events")
+    .select("properties")
+    .eq("event_name", "assist_cta_click")
+    .gte("created_at", start)
+    .lt("created_at", end)
+    .limit(5000);
+  if (error) throw new Error(error.message);
+
+  const counts = new Map<string, number>();
+  for (const row of data ?? []) {
+    const props = (row.properties ?? {}) as Record<string, unknown>;
+    const placement = String(props.placement ?? "unknown").trim() || "unknown";
+    const locale = String(props.locale ?? "").trim();
+    const key = locale ? `${placement} · ${locale}` : placement;
+    counts.set(key, (counts.get(key) ?? 0) + 1);
+  }
+  return Array.from(counts.entries())
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, limit);
+}
+
+async function buildAssistFunnelStats(
+  supabase: ReturnType<typeof createAdminClient>,
+  todayStart: string,
+  todayEnd: string,
+  yStart: string,
+  yEnd: string
+): Promise<AssistFunnelStats> {
+  const [
+    pageViewsTotal,
+    pageViewsToday,
+    pageViewsYesterday,
+    samplePlanViewsTotal,
+    samplePlanViewsToday,
+    samplePlanViewsYesterday,
+    ctaClicksTotal,
+    ctaClicksToday,
+    ctaClicksYesterday,
+    leadsTotal,
+    leadsToday,
+    leadsYesterday,
+    topCtaPlacementsToday,
+    topAssistPagesToday,
+  ] = await Promise.all([
+    countAssistPageViews(supabase, null, null),
+    countAssistPageViews(supabase, todayStart, todayEnd),
+    countAssistPageViews(supabase, yStart, yEnd),
+    countAssistPageViews(supabase, null, null, true),
+    countAssistPageViews(supabase, todayStart, todayEnd, true),
+    countAssistPageViews(supabase, yStart, yEnd, true),
+    rpcCountEvents(supabase, null, null, "assist_cta_click"),
+    rpcCountEvents(supabase, todayStart, todayEnd, "assist_cta_click"),
+    rpcCountEvents(supabase, yStart, yEnd, "assist_cta_click"),
+    rpcCountEvents(supabase, null, null, "assist_lead_submitted"),
+    rpcCountEvents(supabase, todayStart, todayEnd, "assist_lead_submitted"),
+    rpcCountEvents(supabase, yStart, yEnd, "assist_lead_submitted"),
+    topAssistCtaPlacements(supabase, todayStart, todayEnd),
+    topAssistPages(supabase, todayStart, todayEnd),
+  ]);
+
+  return {
+    pageViewsTotal,
+    pageViewsToday,
+    pageViewsYesterday,
+    samplePlanViewsTotal,
+    samplePlanViewsToday,
+    samplePlanViewsYesterday,
+    ctaClicksTotal,
+    ctaClicksToday,
+    ctaClicksYesterday,
+    leadsTotal,
+    leadsToday,
+    leadsYesterday,
+    topCtaPlacementsToday,
+    topAssistPagesToday,
+  };
+}
+
 export async function buildStatsReport(): Promise<StatsReport> {
   const supabase = createAdminClient();
   const tz = analyticsTimezone();
@@ -690,6 +863,7 @@ export async function buildStatsReport(): Promise<StatsReport> {
     topProvidersAll,
     recentSessions,
     wizardTelegram,
+    assist,
   ] = await Promise.all([
     periodCounts(supabase, null, null),
     periodCounts(supabase, todayWin.start, todayWin.end),
@@ -722,6 +896,7 @@ export async function buildStatsReport(): Promise<StatsReport> {
     topProviderClicks(supabase, null, null),
     recentSessionsToday(supabase, todayWin.start, todayWin.end),
     buildWizardTelegramStats(supabase, todayWin.start, todayWin.end, yWin.start, yWin.end),
+    buildAssistFunnelStats(supabase, todayWin.start, todayWin.end, yWin.start, yWin.end),
   ]);
 
   const [localeToday, localeYesterday, localeTotal] = await Promise.all([
@@ -776,6 +951,7 @@ export async function buildStatsReport(): Promise<StatsReport> {
     channelMixToday: discoveryToday.channelMix,
     recentSessions,
     wizardTelegram,
+    assist,
     localeSplit: {
       today: localeToday,
       yesterday: localeYesterday,

@@ -749,6 +749,26 @@ export function getProviderById(id: string): ServiceProvider | undefined {
   return PROVIDERS.find((p) => p.id === id);
 }
 
+/**
+ * Partners shown in Assist Route Check form checkboxes.
+ * Legal + relocation only (not Prep2Go / PixID / first-party Assist).
+ */
+export function getAssistLeadProviders(): ServiceProvider[] {
+  return sortProvidersByCategory(
+    PROVIDERS.filter(
+      (p) =>
+        !p.isFirstParty &&
+        (p.category === "legal" || p.category === "relocation") &&
+        (p.corridorSlugs?.length ?? 0) > 0
+    )
+  );
+}
+
+/** Assist form: partners for one corridor (legal + relocation). */
+export function getAssistLeadProvidersForCorridor(corridorSlug: string): ServiceProvider[] {
+  return getAssistLeadProviders().filter((p) => p.corridorSlugs?.includes(corridorSlug));
+}
+
 export function getProvidersForCorridor(slug: string): ServiceProvider[] {
   return sortProvidersByCategory(PROVIDERS.filter((p) => p.corridorSlugs?.includes(slug)));
 }

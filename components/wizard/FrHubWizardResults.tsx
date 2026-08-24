@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowRight, Sparkles } from "lucide-react";
+import { TrackedAssistLink } from "@/components/assist/TrackedAssistLink";
 import { AssistResultsCta } from "@/components/wizard/AssistResultsCta";
 import { WizardOutcomeCard } from "@/components/wizard/WizardOutcomeCard";
 import type { GlobalEvalPayload } from "@/lib/engine/run-global-evaluation";
@@ -150,12 +151,16 @@ export function FrHubWizardResults({
           >
             Voir les piliers
           </Link>
-          <Link
+          <TrackedAssistLink
             href={FR_PATHS.assist}
+            placement="wizard_fr_hub_next_steps"
+            linkLabel="Assist"
+            locale="fr"
+            sessionId={sessionId}
             className="rounded-lg border border-corridor-300 px-4 py-2 text-corridor-800 hover:bg-corridor-50"
           >
             Assist
-          </Link>
+          </TrackedAssistLink>
           <a
             href={MAILTO_CONTACT}
             className="rounded-lg border border-corridor-300 px-4 py-2 text-corridor-800 hover:bg-corridor-50"

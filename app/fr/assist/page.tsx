@@ -3,7 +3,7 @@ import { ArrowRight, CheckCircle2, ShieldCheck } from "lucide-react";
 import { AssistLeadForm, type AssistProviderOption } from "@/components/assist/AssistLeadForm";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { FR_PATHS } from "@/lib/fr/corridor";
-import { getAllProviders, PROVIDER_CATEGORY_LABELS_RU } from "@/lib/providers/registry";
+import { getAssistLeadProviders, PROVIDER_CATEGORY_LABELS_RU } from "@/lib/providers/registry";
 import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
 import { pageMetadata, pageUrl } from "@/lib/seo";
 import { publicSiteUrl } from "@/lib/site-url";
@@ -68,13 +68,12 @@ export default function FrAssistPage({
 }: {
   searchParams: { session?: string; country?: string; program?: string };
 }) {
-  const providers: AssistProviderOption[] = getAllProviders()
-    .filter((provider) => !provider.isFirstParty)
-    .map((provider) => ({
-      id: provider.id,
-      name: provider.name,
-      category: PROVIDER_CATEGORY_LABELS_RU[provider.category],
-    }));
+  const providers: AssistProviderOption[] = getAssistLeadProviders().map((provider) => ({
+    id: provider.id,
+    name: provider.name,
+    category: PROVIDER_CATEGORY_LABELS_RU[provider.category],
+    corridorSlugs: provider.corridorSlugs ?? [],
+  }));
 
   const origin = publicSiteUrl();
   const assistUrl = pageUrl(FR_PATHS.assist);

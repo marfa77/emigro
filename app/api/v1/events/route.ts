@@ -3,7 +3,7 @@ import { trackServerEvent } from "@/lib/analytics/server";
 import type { EmigroEventName } from "@/lib/analytics/events";
 import { trackSiteEvent } from "@/lib/analytics/track-site-event";
 import { clientIp } from "@/lib/analytics/geo";
-import { buildWizardContext, notifyWizardResultsView } from "@/lib/wizard/notify-owner";
+import { buildWizardContext, notifyAssistCtaClick, notifyWizardResultsView } from "@/lib/wizard/notify-owner";
 
 const ALLOWED: Set<string> = new Set([
   "session_start",
@@ -27,7 +27,7 @@ const ALLOWED: Set<string> = new Set([
   "community_join_click",
 ]);
 
-const TELEGRAM_EVENTS: Set<string> = new Set(["wizard_results_view"]);
+const TELEGRAM_EVENTS: Set<string> = new Set(["wizard_results_view", "assist_cta_click"]);
 
 function propsToStrings(props: Record<string, unknown>): Record<string, string> {
   const out: Record<string, string> = {};
@@ -92,12 +92,21 @@ export async function POST(request: Request) {
 
   if (TELEGRAM_EVENTS.has(eventName)) {
     const flatProps = propsToStrings(props);
+    if (sessionId) flatProps.analytics_session_id = sessionId;
+    if (body.page_path) flatProps.page_path ??= String(body.page_path);
+    if (body.referrer) flatProps.referer ??= String(body.referrer);
     const ctx = buildWizardContext(request, flatProps);
     if (eventName === "wizard_results_view") {
       try {
         await notifyWizardResultsView(flatProps, ctx);
       } catch (error) {
         console.warn("[wizard-notify] results view:", error instanceof Error ? error.message : error);
+      }
+    } else if (eventName === "assist_cta_click") {
+      try {
+        await notifyAssistCtaClick(flatProps, ctx);
+      } catch (error) {
+        console.warn("[assist-notify] cta click:", error instanceof Error ? error.message : error);
       }
     }
   }
