@@ -2,9 +2,9 @@
 slug: portugaliya-vs-ispaniya-vnj-2026
 title: "Португалия vs Испания: ВНЖ 2026 — полное сравнение"
 seo_title: "Португалия vs Испания ВНЖ 2026 — RU/BY"
-seo_description: "Сравнение ВНЖ Португалии и Испании 2026: D8 €3 680 vs DNV €2 849, налоги, сроки, гражданство. Для граждан РФ, BY, UA, KZ."
+seo_description: "PT D8 €3 680 vs ES DNV €2 849 · D7 €920 · NLV €2 400 · Schengen ≠ ВНЖ. Сравнение для РФ/BY/UA/KZ — Emigro wizard."
 excerpt: "Две главные страны для русскоязычной релокации в Европе: разбираем все критерии выбора — от порогов дохода до налоговых режимов и скорости гражданства."
-quick_answer: "Португалия выгоднее для тех, кто хочет минимальный порог дохода (D7 от ~€920/мес) или IT-удалёнку (D8 ~€3 680/мес) и готов к 10 годам до паспорта. IFICI (20%) — не для типичного фрилансера с зарубежными клиентами; налоговая выгода PT зависит от PT-работодателя. Испания подходит при digital nomad ~€2 849/мес, желании жить в крупном городе и доступе к Beckham Law. В 2026 PT остаётся более доступным входом для большинства граждан СНГ с доходом ниже €4 000/мес."
+quick_answer: "Португалия выгоднее для тех, кто хочет минимальный порог дохода (D7 от ~€920/мес = 1× RMMG) или IT-удалёнку (D8 ~€3 680/мес = 4× RMMG) и готов к 10 годам до паспорта. IFICI (20%) — не для типичного фрилансера с зарубежными клиентами; налоговая выгода PT зависит от PT-работодателя. Испания подходит при digital nomad ~€2 849/мес (200% SMI), желании жить в крупном городе и доступе к Beckham Law (налог, не виза). Schengen C ≠ ВНЖ. В 2026 PT остаётся более доступным входом для большинства граждан СНГ с доходом ниже €4 000/мес."
 corridor_slugs: [ru-speaking-to-portugal, ru-speaking-to-spain]
 topic_keys: [portugal, spain]
 tags: [Португалия, Испания, ВНЖ, сравнение, 2026, D7, digital nomad]
@@ -16,13 +16,15 @@ official_sources:
     label: Португалия — визовый портал МИД
   - url: https://aima.gov.pt/
     label: AIMA — Агентство миграции PT
+  - url: https://www.boe.es/eli/es/rd/2026/02/18/126/con
+    label: BOE — SMI 2026 (RD 126/2026)
   - url: https://www.inclusion.gob.es/
     label: Испания — Ministerio de Inclusión
   - url: https://sede.administracionespublicas.gob.es/
     label: España — sede electrónica
 estimated_minutes: 18
 date_published: 2026-06-25
-date_modified: 2026-08-07
+date_modified: 2026-08-24
 ---
 
 ## Почему именно Португалия и Испания
@@ -271,6 +273,20 @@ date_modified: 2026-08-07
 | Семья | [Воссоединение и дети в Европе](/ru/guides/vossoedinenie-semi-evropa-2026) |
 
 ---
+
+## Коротко для проверки маршрута
+
+- PT 2026: D7 ~**€920**/мес · D8 ~**€3 680**/мес (RMMG €920 ×1 / ×4).
+- ES 2026: DNV ~**€2 849**/мес (200% SMI годовой/12) · NLV ~**€2 400**/мес (400% IPREM €600).
+- Налоги: IFICI ≠ типичный D8-фриланс; Beckham — налоговый режим AEAT, не «авто с DNV».
+- Гражданство: PT и ES обычно **~10 лет** + язык (CIPLE A2 vs DELE A2 + CCSE).
+- Кластер: [D7 vs D8](/ru/guides/d7-vs-digital-nomad-visa-sravnenie) · [pillar ES](/ru/guides/vnj-ispaniya-2026) · [pillar PT](/ru/guides/vnj-portugaliya-d8-d7-grazhdanstvo-2026) · [wizard](/ru/wizard).
+
+### Nota Emigro (fact-check 2026-08-24)
+
+- **OK:** пороги PT/ES vs DGERT RMMG €920 и BOE RD 126/2026 (SMI → DNV €2 849).
+- **OK:** IPREM €600 → NLV 400% = €2 400.
+- Soft: COL-таблицы и «сбережения €12–40k» — практика, не единый закон.
 
 ## Дисклеймер
 
