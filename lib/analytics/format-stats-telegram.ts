@@ -85,7 +85,7 @@ function fmtLocaleSplit(report: StatsReport): string[] {
 }
 
 export function formatStatsReportTelegram(report: StatsReport): string {
-  const { total, today, yesterday, wizardTelegram: tg } = report;
+  const { total, today, yesterday, wizardTelegram: tg, assist } = report;
 
   const lines: string[] = [
     "<b>📊 Emigro — статистика</b>",
@@ -99,6 +99,7 @@ export function formatStatsReportTelegram(report: StatsReport): string {
     `Завершения визарда: <b>${total.wizardCompleted}</b>`,
     `Отчётов в Telegram: <b>${tg.deliveriesSentTotal}</b> <i>(юзеров ${tg.usersTotal})</i>`,
     `Лиды: <b>${total.leads}</b>`,
+    `Assist: просмотры: <b>${assist.pageViewsTotal}</b> · CTA: <b>${assist.ctaClicksTotal}</b> · заявки: <b>${assist.leadsTotal}</b>`,
     `Событий в БД: <b>${total.eventsTotal}</b>`,
     `Боты (исключены): <b>${report.botsTotal}</b> сессий`,
     "",
@@ -115,6 +116,13 @@ export function formatStatsReportTelegram(report: StatsReport): string {
     `Лиды: <b>${today.leads}</b>${deltaHtml(today.leads, yesterday.leads)}`,
     `LLM-трафик: <b>${report.llmToday}</b>${deltaHtml(report.llmToday, report.llmYesterday)} <i>(всего ${report.llmTotal})</i>`,
     `Боты (исключены): <b>${report.botsToday}</b>${deltaHtml(report.botsToday, report.botsYesterday)} <i>(всего ${report.botsTotal})</i>`,
+    "",
+    "<b>🧭 Emigro Assist</b>",
+    `Просмотры /assist: <b>${assist.pageViewsToday}</b>${deltaHtml(assist.pageViewsToday, assist.pageViewsYesterday)} <i>(всего ${assist.pageViewsTotal})</i>`,
+    `Sample plan: <b>${assist.samplePlanViewsToday}</b>${deltaHtml(assist.samplePlanViewsToday, assist.samplePlanViewsYesterday)} <i>(всего ${assist.samplePlanViewsTotal})</i>`,
+    `Клики CTA → Assist: <b>${assist.ctaClicksToday}</b>${deltaHtml(assist.ctaClicksToday, assist.ctaClicksYesterday)} <i>(всего ${assist.ctaClicksTotal})</i>`,
+    `Заявки Assist: <b>${assist.leadsToday}</b>${deltaHtml(assist.leadsToday, assist.leadsYesterday)} <i>(всего ${assist.leadsTotal})</i>`,
+    `Конверсия CTA → заявка: <b>${escapeHtml(conversionPct(assist.leadsToday, assist.ctaClicksToday))}</b>`,
     "",
     ...fmtLocaleSplit(report),
     "",
@@ -144,6 +152,14 @@ export function formatStatsReportTelegram(report: StatsReport): string {
   lines.push(...fmtTop("Топ страниц сегодня (все источники)", report.topPagesToday));
   lines.push("");
   lines.push(...fmtTop("Топ страниц всего (все источники)", report.topPagesAll));
+  if (assist.topAssistPagesToday.length > 0) {
+    lines.push("");
+    lines.push(...fmtTop("Assist: страницы сегодня", assist.topAssistPagesToday));
+  }
+  if (assist.topCtaPlacementsToday.length > 0) {
+    lines.push("");
+    lines.push(...fmtTop("Assist: CTA placements сегодня", assist.topCtaPlacementsToday));
+  }
 
   if (report.topReferrersToday.length > 0) {
     lines.push("");
