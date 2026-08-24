@@ -1,10 +1,10 @@
 ---
 slug: uchebnaya-viza-v-evropu-2026-student-visa
 title: "Учебная виза в Европу 2026: Португалия D4, Испания, Германия, Франция, Италия"
-seo_title: "Учебная виза в Европу 2026 — PT, ES, DE, FR, IT"
-seo_description: "Как получить студенческую визу в Европу в 2026: Португалия D4, Испания estudios, Германия, Франция, Италия, деньги, документы, работа."
+seo_title: "Учебная виза в Европу 2026 — PT D4 €920, DE €11 904"
+seo_description: "Student visa 2026: PT D4 ~€920/мес · ES 100% IPREM €600 · DE Sperrkonto €11 904. Документы, работа, wizard."
 excerpt: "Практический гид по студенческим визам для граждан РФ/BY/KZ: выбор страны, зачисление, средства, работа во время учёбы и переход к ВНЖ после выпуска."
-quick_answer: "Учебная виза в Европу подходит, если у вас нет оффера или высокого пассивного дохода, но есть реальное зачисление и бюджет на обучение и жизнь. В 2026 самые понятные маршруты для русскоязычных заявителей: Португалия D4, Испания student visa, Германия student visa, Франция VLS-TS étudiant и Италия studio."
+quick_answer: "Учебная виза подходит при реальном зачислении и бюджете на жизнь + tuition. Ориентиры средств 2026: Португалия D4 ~€920/мес (~€11 040/год, 1× RMMG); Испания estudios 100% IPREM €600/мес (~€7 200/год, tuition отдельно); Германия Sperrkonto €11 904 (€992/мес). Плюс France VLS-TS étudiant и Italy studio. Student ≠ digital nomad: лимиты работы жёсткие; для удалёнки смотрите DN/Blue Card."
 corridor_slugs: [ru-speaking-to-portugal, ru-speaking-to-spain, ru-speaking-to-germany, ru-speaking-to-france, ru-speaking-to-italy]
 topic_keys: [portugal, spain, germany, france, italy, study]
 tags: [учебная виза, student visa, Европа, ВНЖ, 2026]
@@ -12,10 +12,10 @@ primary_intent: comparison
 cta_primary: /ru/wizard
 cta_secondary: /ru/portugal/programs/portugal-student-visa-d4
 official_sources:
-  - url: https://www.vistos.mne.gov.pt/
-    label: Portugal visas — D4
-  - url: https://www.exteriores.gob.es/
-    label: Spain MAEC — visas
+  - url: https://www.vistos.mne.gov.pt/en/national-visas/necessary-documentation/means-of-subsistence
+    label: Portugal visas — means of subsistence (RMMG €920)
+  - url: https://www.inclusion.gob.es/web/migraciones/w/estancia-por-estudios
+    label: España — estancia por estudios (IPREM)
   - url: https://www.auswaertiges-amt.de/
     label: German Federal Foreign Office
   - url: https://france-visas.gouv.fr/
@@ -24,7 +24,7 @@ official_sources:
     label: Italy visa portal
 estimated_minutes: 18
 date_published: 2026-06-25
-date_modified: 2026-06-25
+date_modified: 2026-08-24
 ---
 
 ## Прямой ответ
@@ -123,7 +123,16 @@ date_modified: 2026-06-25
 
 ## Деньги: что подтверждать
 
-Студенческая виза требует доказать, что вы сможете жить без нелегальной работы. Обычно смотрят:
+Студенческая виза требует доказать, что вы сможете жить без нелегальной работы. Ориентиры **средств на жизнь** (tuition — отдельно), 2026:
+
+| Страна | База | Ориентир на жизнь |
+|--------|------|-------------------|
+| **Португалия D4** | 1× RMMG €920 | ~**€920**/мес · ~**€11 040**/год; +50% взрослый / +30% ребёнок; жильё/стипендия могут снизить требование — [vistos.mne.gov.pt means](https://www.vistos.mne.gov.pt/en/national-visas/necessary-documentation/means-of-subsistence) |
+| **Испания estudios** | 100% IPREM €600 | ~**€600**/мес · ~**€7 200**/год; +75% / +50% на семью; tuition не засчитывается в минимум — [inclusion estancia por estudios](https://www.inclusion.gob.es/web/migraciones/w/estancia-por-estudios) |
+| **Германия** | Sperrkonto / BAföG-ориентир | **€11 904**/год (**€992**/мес) на blocked account (с сент. 2024; актуально для 2026) — сверяйте Auswärtiges Amt / консульство |
+| **Франция / Италия** | Campus France / Universitaly + консульство | Суммы и формат (attestazione / CAF) зависят от программы — не копируйте PT/ES/DE цифры |
+
+Обычно смотрят:
 
 | Документ | Зачем нужен |
 |----------|-------------|
@@ -199,9 +208,16 @@ date_modified: 2026-06-25
 ## Коротко для проверки маршрута
 
 - Учебная виза в Европу в 2026 подходит при реальном зачислении, бюджете и учебной мотивации.
+- Средства (жизнь, не tuition): PT ~**€920**/мес · ES ~**€600**/мес IPREM · DE Sperrkonto **€11 904**/год.
 - Основные маршруты: Portugal D4, Spain student visa, Germany student visa, France VLS-TS étudiant, Italy studio.
 - Консульства проверяют admission, средства, жильё, страховку, справку о несудимости и связь программы с планом заявителя.
 - Student visa не заменяет digital nomad, Blue Card или passive income route; выбор зависит от профиля.
-- Emigro содержит program pages для PT/ES/DE/FR/IT student visas и wizard для сравнения маршрутов.
+- Emigro: program pages PT/ES/DE/FR/IT + [wizard](/ru/wizard).
+
+### Nota Emigro (fact-check 2026-08-24)
+
+- **Fixed:** добавлены жёсткие ориентиры средств PT/ES/DE с официальными якорями (vistos.mne means, inclusion estudios, Sperrkonto €11 904).
+- Soft: FR/IT суммы — только через Campus France / Universitaly / консульство на дату.
+- Soft: снижение PT means при prepaid housing — по порталу МИД, не «скидка для всех».
 
 *Не юридическая консультация. Условия студенческих виз и право работы проверяйте на официальных порталах и в консульстве на дату подачи.*

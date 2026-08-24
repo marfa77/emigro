@@ -2,25 +2,27 @@
 slug: relokatsiya-s-detmi-evropa-shkoly-vnj-2026
 title: "Релокация в Европу с детьми в 2026: школы, ВНЖ и сроки"
 seo_title: "Переезд в Европу с детьми 2026 — школы и ВНЖ"
-seo_description: "Как перевезти детей в ЕС легально: ВНЖ семьи, школы, сады, сроки адаптации. Португалия, Испания, Германия для семей из СНГ."
+seo_description: "Семья в ЕС 2026: dependants vs reunification · PT Lei 61/2025 (2 года) · школы PT/ES/DE · +€300–800/ребёнок → wizard."
 excerpt: "Семейная релокация — не «добавить ребёнка в анкету»: жильё, школы, язык и очереди на ВНЖ в 2026."
-quick_answer: "Дети едут как dependants основного ВНЖ или через family reunification. Государственные школы — бесплатно после регистрации; язык — интенсив (португальский, испанский, немецкий). Закладывайте +3–6 мес. на адаптацию и +€300–800/мес. на ребёнка к бюджету. Сначала ВНЖ родителя, затем дети (или параллельно при Blue Card)."
+quick_answer: "Дети едут как dependants основного ВНЖ (часто вместе с родителем) или через family reunification. В Португалии после Lei 61/2025 взрослые иждивенцы чаще ждут **2 года** ВНЖ спонсора; несовершеннолетние — исключение / accompaniment. Госшколы бесплатны после регистрации; закладывайте +3–6 мес. на адаптацию и +€300–800/мес. на ребёнка. Blue Card DE часто позволяет семью параллельно."
 corridor_slugs: [ru-speaking-to-portugal, ru-speaking-to-spain, ru-speaking-to-germany]
 topic_keys: [portugal, spain, germany]
 tags: [дети, семья, школы, релокация, 2026]
 primary_intent: checklist
 cta_primary: /ru/wizard
-cta_secondary: /ru/wizard
+cta_secondary: /ru/portugal
 official_sources:
-  - url: https://www.gov.pt/
-    label: Portugal — education
+  - url: https://diariodarepublica.pt/dr/detalhe/lei/61-2025-941547426
+    label: Lei n.º 61/2025 — reagrupamento familiar PT
+  - url: https://aima.gov.pt/
+    label: AIMA — семья и ВНЖ PT
   - url: https://www.educacionyfp.gob.es/
     label: Испания — образование
   - url: https://www.make-it-in-germany.com/
     label: Германия — семья и дети
 estimated_minutes: 17
 date_published: 2026-06-25
-date_modified: 2026-06-26
+date_modified: 2026-08-24
 ---
 
 ## Боль семейного сегмента в 2026
@@ -53,13 +55,18 @@ date_modified: 2026-06-26
 
 ## ВНЖ для детей
 
-1. **Вместе с родителем** при первичной подаче (если программа позволяет).
+1. **Вместе с родителем** при первичной подаче (family accompaniment / dependants) — если программа позволяет.
 2. **Family reunification** после стабилизации спонсора.
 3. **Рождение в EU** — почти никогда не даёт автогражданство туристам; полный разбор jus soli (LATAM / US / CA / EU): [где рожать ради паспорта](/ru/guides/gde-rozhat-rebenka-dlya-pasporta-2026).
 
 **Документы ребёнка:** свидетельство о рождении с апостилем, перевод, прививки (календарь EU), медосмотр, фото, копия паспорта родителя-спонсора. Для несовершеннолетних — согласие второго родителя на выезд и на проживание в EU.
 
-**Сроки:** при подаче вместе с D8 — дети в той же визовой группе; при reunification — +4–12 мес. после спонсора.
+**Сроки (не путать стаж спонсора и очередь решения):**
+- **Вместе с D8/D7/DNV:** дети в той же визовой группе — лучший план для несовершеннолетних.
+- **Португалия reagrupamento (Lei 61/2025):** для **взрослых** иждивенцев чаще нужен **2-летний** стаж ВНЖ спонсора; minors / недееспособные — исключения. Практика AIMA после подачи — отдельно (месяцы).
+- **Испания / Германия:** reunification после спонсора часто **+4–12 мес.** решения; Blue Card DE часто позволяет семью почти параллельно.
+
+Подробнее: [воссоединение семьи в Европе](/ru/guides/vossoedinenie-semi-evropa-2026) · [D7 vs D8 — семья](/ru/guides/d7-vs-digital-nomad-visa-sravnenie).
 
 ---
 
@@ -195,9 +202,10 @@ EU — inclusive education; документы медицинские с пер�
 
 ## Источники
 
-- [gov.pt](https://www.gov.pt/) — образование Португалии
-- [educacionyfp.gob.es](https://www.educacionyfp.gob.es/)
-- [make-it-in-germany.com](https://www.make-it-in-germany.com/)
+- [Lei n.º 61/2025](https://diariodarepublica.pt/dr/detalhe/lei/61-2025-941547426) — reagrupamento familiar PT
+- [aima.gov.pt](https://aima.gov.pt/) — AIMA
+- [educacionyfp.gob.es](https://www.educacionyfp.gob.es/) — образование Испании
+- [make-it-in-germany.com](https://www.make-it-in-germany.com/) — семья в Германии
 
 ---
 
@@ -206,9 +214,9 @@ EU — inclusive education; документы медицинские с пер�
 
 Гайд даёт общую карту, но решение зависит от документов. На [emigro.online/ru/wizard](https://www.emigro.online/ru/wizard) укажите гражданство (RU, BY, UA, KZ), состав семьи, тип дохода, капитал и горизонт гражданства. Система сопоставит факты с активными программами без выбора страны заранее.
 
-**После проверки:** откройте коридор страны для деталей по программам и следите за еженедельными новостями по направлению — правила меняются быстрее, чем большие гайды.
+**После проверки:** откройте коридор страны для деталей по программам и следите за еженедельными новостями по направлению — правила меняются быстрее, чем большие гайды. Кластер: [Португалия](/ru/portugal) · [Испания](/ru/spain) · [Германия](/ru/germany).
 
-**Перед консульством:** сверьте пороги дохода и список документов с официальными сайтами в блоке «Источники» — цифры в гайде ориентировочные на июнь 2026.
+**Перед консульством:** сверьте пороги дохода и список документов с официальными сайтами в блоке «Источники» — цифры в гайде ориентировочные на август 2026.
 
 ---
 
@@ -252,9 +260,15 @@ EU — inclusive education; документы медицинские с пер�
 
 ## Коротко для проверки маршрута
 
-- Children need dependent residence linked to parent's permit.
-- Public schools free after registration; language support programs available.
+- Children need dependent residence linked to parent's permit (accompaniment) or reunification.
+- PT Lei 61/2025: adult FR often **2y** sponsor tenure; minors usually exempt / joint filing.
+- Public schools free after registration; language support (PLA / Willkommensklasse) available.
 - Budget +€300–800/month per child; housing size matters for reunification.
-- emigro.online/ru/wizard — include family facts in evaluation.
+- Cluster: [PT](/ru/portugal) · [ES](/ru/spain) · [DE](/ru/germany) · [wizard](/ru/wizard).
+
+### Nota Emigro (fact-check 2026-08-24)
+
+- **Fixed:** не смешивать «+4–12 мес. после спонсора» с PT **2y** tenure для взрослых (Lei 61/2025).
+- Soft: школьные очереди / Kita / COL — практика городов, не единый закон.
 
 *Не юридическая консультация.*

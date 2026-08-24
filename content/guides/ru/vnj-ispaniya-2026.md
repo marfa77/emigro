@@ -2,10 +2,10 @@
 slug: vnj-ispaniya-2026
 title: "Digital nomad Испания 2026 — все пути ВНЖ"
 seo_title: "Digital nomad ES 2026: €2 849 teletrabajo"
-seo_description: "Digital nomad visa Испания 2026: €2 849/мес, teletrabajo, Beckham, non-lucrative, Golden Visa закрыта. Pillar-гид для граждан РФ, BY, UA, KZ."
-date_modified: 2026-08-07
+seo_description: "DNV Испания 2026: €2 849 (200% SMI) · NLV €2 400 · Schengen ≠ ВНЖ · Golden Visa закрыта. Pillar RU/BY/UA/KZ → wizard."
+date_modified: 2026-08-24
 excerpt: "Испания — популярное направление для релокации из СНГ: Digital Nomad Visa, Non-lucrative и другие пути. (Golden Visa полностью закрыта с апреля 2025.) Разбираем все маршруты на 2026 год."
-quick_answer: "В Испании действуют несколько путей ВНЖ для граждан СНГ: Digital Nomad Visa (удалённая работа, доход €2 849+/мес), Non-lucrative Visa (пассивный доход/накопления, ~€2 400+/мес, без права работать), Golden Visa (полностью закрыта с 3 апреля 2025 — все инвестиционные пути отменены). ПМЖ — через 5 лет проживания, гражданство — через 10 лет. Испанский язык не требуется для въезда, но нужен для гражданства (A2)."
+quick_answer: "В Испании действуют несколько путей ВНЖ для граждан СНГ: Digital Nomad Visa (удалённая работа, доход €2 849+/мес = 200% SMI годовой/12), Non-lucrative Visa (пассивный доход/накопления, ~€2 400+/мес = 400% IPREM, без права работать), Golden Visa (полностью закрыта с 3 апреля 2025). После национальной визы D NIE обычно уже на стикере — приоритет TIE ≤~30 дней + padrón. ПМЖ — через 5 лет, гражданство — через 10 лет + DELE A2/CCSE. Schengen C ≠ residencia."
 corridor_slugs: [ru-speaking-to-spain]
 topic_keys: [spain, work, visa]
 tags: [ВНЖ, Испания, Digital Nomad, Golden Visa, переезд, 2026]
@@ -253,7 +253,11 @@ Arraigo social — не путь для «первого» переезда. Э�
 
 **Банковская система:** Основная проблема — открытие банковского счёта в Испании при наличии российского паспорта. Крупные банки (Santander, BBVA, CaixaBank) требуют NIE и подтверждение места жительства. На старте — Wise, Revolut или N26 (европейские счета) для перевода денег. После получения NIE — открытие испанского счёта.
 
-**NIE (Número de Identificación de Extranjero):** Налоговый идентификатор иностранца — нужен для всего (аренда, банк, медицина). Получается в полиции по месту жительства после въезда. Первичный NIE можно получить в консульстве перед въездом.
+**NIE (Número de Identificación de Extranjero):** налоговый/идентификационный номер иностранца — нужен для аренды, банка, медицины, TIE.
+
+- После **национальной визы D** (DNV / NLV / student и т.п.) NIE **обычно уже напечатан на визовом стикере** — не начинайте путь с отдельной EX-15 «с нуля», если номер уже есть.
+- Приоритет после въезда: **подача на TIE ≤ ~30 дней**, **empadronamiento (padrón)**, испанский IBAN. Отдельный NIE в policía — запасной сценарий (если номера нет / туристический въезд / особые случаи).
+- Первичный NIE иногда оформляют в консульстве до въезда — сверяйте практику вашего консульства.
 
 В локальных чатах эмигрантов (@spain_granitsa, @valenforum и др.) в 2025–2026 часто описывают порядок NIE → empadronamiento → банк: без certificado de empadronamiento extranjería и CaixaBank/Santander часто не закрывают пакет для TIE.
 
@@ -334,4 +338,21 @@ Arraigo social — не путь для «первого» переезда. Э�
 - [Коридор Испания — wizard и программы](/ru/spain)
 - [Digital Nomad визы Европы](/ru/guides/digital-nomad-vizy-evropy-sravnenie-2026)
 - [Первые 30 дней в Испании](/ru/guides/pervye-30-dnej-v-ispanii-2026)
+- [Португалия vs Испания](/ru/guides/portugaliya-vs-ispaniya-vnj-2026)
 - [Hub wizard Emigro](/ru/wizard)
+
+---
+
+## Коротко для проверки маршрута
+
+- DNV 2026: **€2 849**/мес основной (200% SMI годовой/12); семья +**€1 068** / +**€356** (тот же базис).
+- NLV: ~**€2 400**/мес (400% IPREM €600); работать в ES нельзя.
+- Golden Visa: **закрыта** с 03.04.2025 (LO 1/2025).
+- После визы D: NIE часто уже на стикере → **TIE ≤~30 дней** + padrón + IBAN.
+- Wizard / коридор: [emigro.online/ru/wizard](/ru/wizard) · [/ru/spain](/ru/spain).
+
+### Nota Emigro (fact-check 2026-08-24)
+
+- **OK:** SMI/DNV/NLV/IPREM vs BOE RD 126/2026 и inclusion (IPREM €600).
+- **Fixed:** NIE — не вести с EX-15 как default после national D; приоритет TIE + padrón.
+- Soft: сроки cita/TIE и COL — практика 2026, не норматив.
