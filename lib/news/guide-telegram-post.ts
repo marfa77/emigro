@@ -8,6 +8,7 @@
 import { openrouterJson } from "@/lib/llm/openrouter";
 import { listGuides, type GuideFrontmatter } from "@/lib/guides/load";
 import { guidePath } from "@/lib/guides/paths";
+import { CHANNEL_STYLE_BANNED_RU } from "@/lib/news/editorial";
 import { escapeTelegramHtml } from "@/lib/news/story-lightning";
 import { THREADS_REPOST_STYLE, stripRepostMd } from "@/lib/news/threads-repost-style";
 import { publicSiteUrl } from "@/lib/site-url";
@@ -58,6 +59,32 @@ type GuidePromoLlm = {
   format_used: string;
 };
 
+/** Unicode-aware word edge — JS `\b` does not treat Cyrillic as word chars. */
+function hasRuWord(text: string, pattern: string): boolean {
+  return new RegExp(`(?<![\\p{L}\\p{N}_])(?:${pattern})(?![\\p{L}\\p{N}_])`, "iu").test(text);
+}
+
+/** Reject memoir, CTA fluff, LLM stamps, telegraphic lecture voice. */
+export function guideTelegramVoiceErrors(text: string): string[] {
+  const t = text.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+  const errors: string[] = [];
+  if (hasRuWord(t, "я|мне|меня|мной|помню|сидел|сидела|потягивал") || /кафе в/i.test(t)) {
+    errors.push("first-person / memoir tone");
+  }
+  if (/визард|можно найти в нашем|актуальн\w+ информац/i.test(t)) {
+    errors.push("soft CTA fluff");
+  }
+  const banned = new RegExp(CHANNEL_STYLE_BANNED_RU, "i").exec(t);
+  if (banned) errors.push(`LLM stamp «${banned[0]}»`);
+  if (/(?:^|\n)\s*(что делать|зачем(?: вам это сейчас)?|главное для тех)\s*:/im.test(text)) {
+    errors.push("telegraphic voice labels");
+  }
+  if (/представьте:|давайте разбер/i.test(t)) {
+    errors.push("lecture / blogger opener");
+  }
+  return errors;
+}
+
 export async function writeGuideTelegramPost(guide: GuideFrontmatter): Promise<{
   html: string;
   format: string;
@@ -101,12 +128,8 @@ ${HOUSE_STYLE}
   if (!headline || paragraphs.length === 0) throw new Error("guide promo draft incomplete");
 
   const joined = [headline, ...paragraphs].join("\n");
-  if (/\b(я|мне|меня|мной|помню|сидел|сидела|потягивал|кафе в)\b/i.test(joined)) {
-    throw new Error("guide promo rejected: first-person / memoir tone");
-  }
-  if (/визард|можно найти в нашем|актуальн\w+ информац/i.test(joined)) {
-    throw new Error("guide promo rejected: soft CTA fluff");
-  }
+  const voice = guideTelegramVoiceErrors(joined);
+  if (voice.length) throw new Error(`guide promo rejected: ${voice.join("; ")}`);
 
   const href = guidePublicUrl(guide.slug).replace(/"/g, "&quot;");
   // Blank line between every block (headline / paras / link) — not a wall of text.

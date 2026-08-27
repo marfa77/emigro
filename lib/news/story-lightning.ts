@@ -1,7 +1,7 @@
 /**
  * «Молния» — relocator-relevant gate for @Emigro_news story posts.
- * Site tiles stay broad; Telegram still filters noise, but owner DM is the final call
- * (no auto-publish), so keyword + LLM gates are intentionally permissive.
+ * Site tiles stay broad. Channel DMs only for RU/BY/UA/KZ living abroad or planning a move —
+ * not British/US/AU expat explainers, even if they mention a visa.
  */
 
 import {
@@ -212,9 +212,8 @@ export function isLightningAwaitingOwner(raw: string | null | undefined): boolea
 }
 
 /**
- * Blocks sending a *new* lightning approval DM.
- * `__lightning_threads_pending__` (TG already live) must NOT stall the queue —
- * Threads is optional and can wait while later молнии get TG approve.
+ * Used only for optional stale re-ping (resendStaleLightningOwnerDm).
+ * Pending молнии do not block new approval DMs for other stories.
  */
 export function blocksNewLightningApprovalDm(raw: string | null | undefined): boolean {
   const mark = lightningOwnerMarkOf(raw);
@@ -281,6 +280,51 @@ export function isLightningImmigrationText(text: string): boolean {
 }
 
 /**
+ * Channel audience is Russian-speaking (RU/BY/UA/KZ) already abroad or planning a move.
+ * The Local often frames EU rules as «for Brits» — those must not reach owner DM.
+ * UK as a *destination* (Skilled Worker, ILR, UKVI fees) still passes.
+ */
+const WRONG_COHORT_RE: RegExp[] = [
+  /\bbrits?\b/i,
+  /british expats?/i,
+  /british nationals?/i,
+  /british pensioners?/i,
+  /uk (?:citizens?|nationals?|expats?|pensioners?)/i,
+  /британц/i,
+  /бритов/i,
+  /британск(?:их|ие|ого|им) (?:экспат|пенсионер|граждан|поддан)/i,
+  /англичан/i,
+  /подданн\w+ великобритан/i,
+  /brexit brit/i,
+  /after brexit.{0,60}(?:spain|portugal|france|italy|germany|eu\b)/i,
+  /americans? in (?:spain|portugal|france|germany|italy)/i,
+  /american expats?/i,
+  /australian expats?/i,
+  /canadian expats?/i,
+  /америк(?:анц|анск\w* экспат)/i,
+  /гражданам? (?:великобритании|сша|канады|австралии)/i,
+  /для британц/i,
+  /what brits (?:need|should|must)/i,
+];
+
+const UK_AS_DESTINATION_RE =
+  /skilled worker|global talent|indefinite leave|\bilr\b|ukvi\b|home office (?:visa|fee)|виза в великобритан|внж великобритан|graduate visa|innovator founder|scale-up visa/i;
+
+export function lightningAudienceSkipReason(text: string): string | null {
+  const t = text.toLowerCase();
+  const wrongCohort = WRONG_COHORT_RE.some((re) => re.test(t));
+  if (!wrongCohort) return null;
+  if (UK_AS_DESTINATION_RE.test(t) && !/\bbrits?\b|british expats?|британц|англичан/i.test(t)) {
+    return null;
+  }
+  return "not-ru-audience";
+}
+
+export function isLightningRuAudienceText(text: string): boolean {
+  return lightningAudienceSkipReason(text) == null;
+}
+
+/**
  * Higher = earlier in @Emigro_news queue.
  * 100 — Portugal ARI/GV «серая зона» (invested for 5y passport, now stuck).
  * 80  — critical investor citizenship risk (5→10 etc.) any corridor.
@@ -310,13 +354,12 @@ export type LightningLlmVerdict = {
   reason: string;
 };
 
-/** Owner still approves in DM — lower bar so useful borderline items reach the queue. */
-const LLM_MIN_CONFIDENCE = 0.55;
+/** Owner still approves in DM — but only after RU-audience + immigration gates. */
+const LLM_MIN_CONFIDENCE = 0.6;
 
 /**
- * Second gate (Gemini Flash): relocator-useful news for RU audience.
- * Channel publish still requires owner DM approve — prefer sending borderline items.
- * Fail-closed only on API/parse errors.
+ * Second gate (Gemini Flash): useful for Russian-speaking relocators, not generic expats.
+ * Fail-closed on API/parse errors.
  */
 export async function scoreLightningWithLlm(params: {
   countryRu: string;
@@ -330,26 +373,29 @@ export async function scoreLightningWithLlm(params: {
   const { geminiFastJson } = await import("@/lib/news/gemini");
 
   const system = `You are a pre-filter for Emigro Telegram @Emigro_news («молния»).
-Audience: Russian-speaking relocators (RU/BY/UA/KZ) in / toward Europe.
-The owner will approve or reject in DM — you are NOT the final publisher. Prefer publish=true when useful.
+Audience: Russian-speaking people (passports RU/BY/UA/KZ) who already live in Europe/hubs OR are planning a move.
+You are NOT the final publisher (owner approves in DM), but you MUST NOT send irrelevant items.
 
 HIGHEST PRIORITY — almost always publish=true (confidence ≥0.85) when the story is about:
 - Portugal Golden Visa / ARI / vistos gold investors in the «grey zone» (zona cinzenta): invested ~2021–2022 expecting ~5 years to passport, now stuck after Lei da Nacionalidade (5→10), clock from residence card, AIMA backlog, Provedoria, transitional regime, lawsuits vs Estado
 - Any concrete update on that cohort (IRN, cartão, nationality application cutoff)
 
-APPROVE (publish=true) when the item helps a relocator with:
-- visa / residence / work permit / Blue Card / citizenship / naturalization / asylum / borders / Schengen controls
+APPROVE (publish=true) only if a RU/BY/UA/KZ reader would change a decision (visa, ВНЖ, citizenship, borders, tax/bank tied to status):
+- visa / residence / work permit / Blue Card / citizenship / naturalization / asylum / Schengen / EES
 - agency procedure, fees, quotas, timelines (AIMA, IND, UDI, BAMF, prefecture, extranjería…)
-- tax/banking/NIF/IBAN/registration that clearly affects people with or seeking residence status
-- housing/jobs ONLY if tied to residence status, foreigner rules, or permit eligibility
-- enforcement that changes options (deportation rules, illegal stay crackdowns)
+- tax/banking/NIF/IBAN that affects people with or seeking residence
+- UK as a *destination* (Skilled Worker, ILR, UKVI fees) for applicants from CIS
 
-REJECT (publish=false) only for clear noise:
-- crime/drugs/sport/celebs/weather/cyber/tourism fluff with no relocator angle
-- pure party politics or elections without a concrete rule/procedure change
-- generic lifestyle with zero status/visa/tax-for-residents hook
+REJECT (publish=false) — including when the article is “about immigration” but the affected people are the wrong cohort:
+- British/UK expats, Brits in Spain/Portugal/France, Brexit Brits, British pensioners abroad
+- Americans / Australians / Canadians as the protagonists
+- Intra-EU citizens using freedom of movement
+- “What Brits need to know about …” even if the underlying Spanish/Portuguese rule is real
+- crime/drugs/sport/celebs/weather/cyber/tourism fluff
+- pure party politics without a concrete rule change for third-country nationals
 
-When unsure but there is any relocator angle → publish=true with confidence 0.55–0.7.
+When the story is written for The Local’s British readers and you cannot restate it as a rule for third-country nationals from RU/BY/UA/KZ → publish=false.
+When unsure whether our audience is affected → publish=false (do not dump it on the owner).
 Reply with JSON only matching the schema (no prose, no markdown).`;
 
   const user = `Decide publish true/false for this story.\n${JSON.stringify({

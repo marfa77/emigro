@@ -33,7 +33,8 @@ Pipeline: Gemini Flash (dry facts) → OpenRouter voice (`EMIGRO_STORY_VOICE_MOD
 Spaced **approval requests** to your Telegram DM (not auto-dump into the channel).
 
 - Timer: **11 / 13 / 15 / 17 / 19 UTC** (`emigro-news-lightning.timer`)
-- **1 candidate per tick** after keyword + Gemini Flash gates
+- **1 candidate per tick** after keyword + **RU-audience** + Gemini Flash gates (no Brits/US expat explainers)
+- **Queue priority:** Portugal ARI/GV «серая зона» (and 5→10 investor risk) before other corridors
 - **Queue priority:** Portugal ARI/GV «серая зона» (and 5→10 investor risk) before other corridors
 - **Copy:** молнии и guide-promo пишутся в Threads-repost стиле (хук с цифрой/мифом + короткие абзацы-слайды); в DM к молнии — блок «Threads (копипаст)»
 - DM: draft + buttons **✅ В канал** / **❌ Пропуск** (fallback `/молния_да` `/молния_нет`)
@@ -41,7 +42,7 @@ Spaced **approval requests** to your Telegram DM (not auto-dump into the channel
 - Needs `EMIGRO_NEWS_BOT_TOKEN`, `TELEGRAM_PRIVATE_CHAT_ID`, `GOOGLE_API_KEY`
 - News-bot webhook: `npx tsx scripts/set-news-bot-webhook.ts` → `/api/telegram/news-webhook`
 
-Pending markers in `threads_text`: `__lightning_pending__` (both), `__lightning_threads_pending__` (TG done), `__lightning_tg_pending__` (Threads done); draft in `telegram_html`. Owner approves Telegram and Threads separately.
+Pending markers in `threads_text`: `__lightning_pending__` (both), `__lightning_threads_pending__` (TG done), `__lightning_tg_pending__` (Threads done); draft in `telegram_html`. Owner approves Telegram and Threads separately. Several pending молнии can stack in DM — one unanswered item does **not** block the queue. Stale primary pending (>24h): cron may re-send once (`npm run news:lightning -- --resend-pending`).
 
 ## 3) Soft promo (weekly) — `news:soft-promo`
 
@@ -70,7 +71,7 @@ bash deploy/news-soft-promo/deploy.sh
 SEO pillars only (`content/guides/ru/*`) → fact-check → **auto-publish** to `@Emigro_news` (FYI DM, no owner ✅). Soft promo / digests still use DM approve. Lightning stays on separate approve.
 Post copy = channel house style (title-thesis + dense facts), not creative first-person scenes.
 Writer: OpenRouter `EMIGRO_GUIDE_PROMO_MODEL` (default `anthropic/claude-sonnet-4.5`), not Gemini Flash.
-No repeats: queue skips any slug already `published` / `skipped*` in `guide_telegram_drafts`. Seed channel archive with `npx tsx scripts/seed-guide-telegram-from-channel.ts`.
+**One guide → one post.** Queue skips any slug already `published` / `skipped*` in `guide_telegram_drafts` **or** already linked from `@Emigro_news` (full `t.me/s` archive, not only the latest 20). Voice gate rejects memoir / LLM stamps / telegraphic lecture; failed draft → next guide, slug is not burned. Seed/repair: `npx tsx scripts/seed-guide-telegram-from-channel.ts`.
 
 - Table: `guide_telegram_drafts` (guides auto; soft promo/digests still `gd:ok:` / `gd:no:`)
 - Critical fact-check → DM alert + try next guide (≤5 tries/run)

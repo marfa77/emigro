@@ -12,6 +12,11 @@ import {
   writeGuideTelegramPost,
 } from "@/lib/news/guide-telegram-post";
 import {
+  fetchChannelPostedGuideSlugs,
+  listHandledGuideSlugs,
+  rememberChannelGuideSlugs,
+} from "@/lib/news/guide-telegram-posted";
+import {
   answerNewsBotCallback,
   editNewsBotMessageHtml,
   publishNewsDigestToChannel,
@@ -52,13 +57,25 @@ function createSupabaseAdmin(): SupabaseClient {
   });
 }
 
-async function handledSlugs(supabase: SupabaseClient): Promise<Set<string>> {
-  const { data } = await supabase
-    .from("guide_telegram_drafts")
-    .select("slug, status")
-    .in("status", ["pending", "published", "skipped", "skipped_critical"])
-    .limit(500);
-  return new Set((data ?? []).map((r) => r.slug as string));
+async function excludeAlreadyPostedSlugs(
+  supabase: SupabaseClient,
+  dryRun: boolean
+): Promise<Set<string>> {
+  const exclude = await listHandledGuideSlugs(supabase);
+  try {
+    const channelSlugs = await fetchChannelPostedGuideSlugs();
+    const inserted = dryRun ? 0 : await rememberChannelGuideSlugs(supabase, channelSlugs);
+    for (const slug of channelSlugs) exclude.add(slug);
+    console.log(
+      `[guide-tg] channel-archive slugs=${channelSlugs.length} newly-seeded=${inserted}${dryRun ? " (dry-run)" : ""}`
+    );
+  } catch (e) {
+    console.warn(
+      "[guide-tg] channel archive fetch failed — using DB slugs only:",
+      e instanceof Error ? e.message : e
+    );
+  }
+  return exclude;
 }
 
 async function countPublishedToday(supabase: SupabaseClient): Promise<number> {
@@ -106,7 +123,7 @@ export async function runGuideTelegramQueue(options?: {
     };
   }
 
-  const exclude = await handledSlugs(supabase);
+  const exclude = await excludeAlreadyPostedSlugs(supabase, dryRun);
   const candidates = listGuidePromoCandidates(exclude);
   console.log(`[guide-tg] candidates=${candidates.length} excluded=${exclude.size}`);
 
@@ -145,7 +162,21 @@ export async function runGuideTelegramQueue(options?: {
       continue;
     }
 
-    const draft = await writeGuideTelegramPost(guide);
+    let draft: Awaited<ReturnType<typeof writeGuideTelegramPost>>;
+    try {
+      draft = await writeGuideTelegramPost(guide);
+    } catch (e) {
+      const msg = e instanceof Error ? e.message : String(e);
+      skipped.push(`${guide.slug}:write:${msg}`);
+      console.log(`[guide-tg] write-fail ${guide.slug}: ${msg}`);
+      if (!dryRun) {
+        await sendOwnerTelegramDm(
+          `📘 Гайд не ушёл (голос/черновик), берём следующий\n${guide.slug}\n${msg.slice(0, 400)}`
+        );
+      }
+      continue;
+    }
+
     if (dryRun) {
       console.log(
         `[guide-tg] dry-run would auto-publish ${guide.slug} format=${draft.format} model=${draft.model}\n${draft.html}`

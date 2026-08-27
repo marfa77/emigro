@@ -13,16 +13,19 @@
 | Lightning | Separate flow — **always** owner DM approve |
 | Fact-check | Critical gate before publish; on critical → owner DM alert + try next guide |
 | Cadence | ≤1 **published** guide channel post / day from this queue |
+| Dedup | **One guide = one post.** DB handled slugs ∪ full `@Emigro_news` archive (`t.me/s?before=`). Never re-queue a slug that already has a channel link. |
+| Voice | Reject memoir, CTA fluff, LLM stamps, telegraphic «Что делать:»; try next guide (slug not burned) |
 | Format | House style @Emigro_news: sharp title-thesis + dense fact paragraphs + link |
 | Bot | Same Emigro news bot + `/api/telegram/news-webhook` |
 
 ## Flow (guides)
 
-1. Cron picks next unpublished SEO guide.
-2. Fact-check slug → if any `critical` → DM summary → mark `skipped_critical` → next guide (max N tries/run).
-3. Gemini/Claude writes post HTML.
-4. Insert draft → **publish to `@Emigro_news`** → status `published`.
-5. Owner gets a plain FYI DM (no buttons).
+1. Cron loads handled slugs from DB **and** paginates `t.me/s/Emigro_news`; missing archive slugs are seeded as `published` (no new post).
+2. Picks next SEO guide whose slug is not in that set.
+3. Fact-check slug → if any `critical` → DM summary → mark `skipped_critical` → next guide (max N tries/run).
+4. Claude writes post HTML → voice gate; on fail → DM + next guide (no row, can retry another day).
+5. Insert draft → **publish to `@Emigro_news`** → status `published`.
+6. Owner gets a plain FYI DM (no buttons).
 
 ## Non-goals
 
