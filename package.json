@@ -36,6 +36,7 @@
     "threads:refresh-token": "tsx scripts/threads-refresh-token.ts",
     "threads:preview": "tsx scripts/threads-preview.ts",
     "news:test-quality": "tsx scripts/test-news-quality-guards.ts",
+    "news:test-guide-promo": "tsx scripts/test-guide-telegram-quality.ts",
     "news:test-fact-check": "tsx scripts/test-news-fact-check.ts",
     "smoke:wizard": "tsx scripts/smoke-wizard-evaluation.ts",
     "validate:site-consistency": "tsx scripts/validate-site-consistency.ts && npm run check:aeo",

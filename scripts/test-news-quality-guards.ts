@@ -16,6 +16,10 @@ import {
   type SiteDigestForQuality,
 } from "../lib/news/quality";
 import type { NewsTopicConfig } from "../lib/news/topics";
+import {
+  isLightningRuAudienceText,
+  lightningAudienceSkipReason,
+} from "../lib/news/story-lightning";
 
 const emigroArticleUrl = "https://www.emigro.online/ru/news/spain-relocation-news-2026-06-27";
 const telegramChannelUrl = "https://telegram.me/Emigro_news";
@@ -468,6 +472,41 @@ const weeklyCronRoute = readFileSync(join(process.cwd(), "app/api/cron/weekly-ne
 assert(
   weeklyCronRoute.includes("importLatestPrep2GoNews") && !weeklyCronRoute.includes("generate-weekly"),
   "Legacy weekly cron endpoint must redirect to the Prep2Go importer"
+);
+
+assert(
+  lightningAudienceSkipReason(
+    "What Brits in Spain need to know about the new TIE cita rules and extranjería queues"
+  ) === "not-ru-audience",
+  "Brits-in-Spain explainers must not reach lightning approval"
+);
+assert(
+  lightningAudienceSkipReason(
+    "Британцы в Португалии после Brexit теряют NHR: что делать экспатам из UK"
+  ) === "not-ru-audience",
+  "RU copy about British expats must not reach lightning approval"
+);
+assert(
+  lightningAudienceSkipReason(
+    "American expats in France told to register comptes étrangers with the bank"
+  ) === "not-ru-audience",
+  "US-expat framing must not reach lightning approval"
+);
+assert(
+  isLightningRuAudienceText(
+    "Испания: 30 дней на TIE — не совет, а дедлайн. EES фиксирует въезд для всех не-EU."
+  ),
+  "General TIE/EES rule for third-country nationals must pass"
+);
+assert(
+  isLightningRuAudienceText(
+    "UK Skilled Worker fees rise from 8 Apr 2026: £819 out-of-country. Home Office table."
+  ),
+  "UK as destination (Skilled Worker) must pass for CIS applicants"
+);
+assert(
+  !isLightningRuAudienceText("After Brexit, Brits living in Spain face new residence checks"),
+  "Brexit-Brits-in-EU must fail"
 );
 
 console.log("news-quality-guards: ok");

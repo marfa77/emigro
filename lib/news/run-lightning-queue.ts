@@ -9,16 +9,23 @@ import {
   LIGHTNING_MAX_PER_DAY,
   LIGHTNING_SKIP_MARK,
   LIGHTNING_THREADS_PENDING_MARK,
+  blocksNewLightningApprovalDm,
   isLightningImmigrationText,
   isLightningPendingThreadsText,
+  lightningAudienceSkipReason,
   lightningChannelPriority,
   lightningOwnerMarkOf,
+  parseLightningPendingThreadsText,
   scoreLightningWithLlm,
 } from "@/lib/news/story-lightning";
+import { requestLightningOwnerApproval } from "@/lib/news/lightning-approval";
+import { formatThreadsPaste } from "@/lib/news/threads-repost-style";
 
 const LOOKBACK_DAYS = 5;
 /** Drop optional Threads waits so they never sit forever (TG already live). */
 const THREADS_ONLY_EXPIRE_MS = 12 * 60 * 60 * 1000;
+/** Re-ping owner if a primary pending молния sat unanswered (queue was blocked). */
+export const LIGHTNING_PRIMARY_PENDING_RESEND_MS = 24 * 60 * 60 * 1000;
 /** One approval request per cron tick — keeps DMs from stacking. */
 export const LIGHTNING_PER_RUN = 1;
 
@@ -112,6 +119,66 @@ async function expireStaleOptionalThreadsPending(supabase: SupabaseClient): Prom
   return n;
 }
 
+/**
+ * Re-ping owner if a primary pending молния sat unanswered (optional nudge only).
+ * Does not block new approval DMs — several pending молнии can coexist.
+ */
+export async function resendStaleLightningOwnerDm(
+  supabase: SupabaseClient,
+  options?: { force?: boolean }
+): Promise<{ slug?: string; reason: string }> {
+  const { data, error } = await supabase
+    .from("emigro_news_digests")
+    .select("slug, telegram_html, threads_text, telegram_message_ids, updated_at, published_at")
+    .eq("format", "story")
+    .not("threads_text", "is", null)
+    .order("published_at", { ascending: true })
+    .limit(40);
+
+  if (error) {
+    return { reason: `load-failed:${error.message}` };
+  }
+
+  const cutoff = Date.now() - LIGHTNING_PRIMARY_PENDING_RESEND_MS;
+  for (const row of data ?? []) {
+    if (!blocksNewLightningApprovalDm(row.threads_text as string | null)) continue;
+    if (((row.telegram_message_ids ?? []) as number[]).length > 0) continue;
+    const html = String(row.telegram_html ?? "").trim();
+    if (!html || html === LIGHTNING_SKIP_MARK) continue;
+
+    const updated = new Date(String(row.updated_at || 0)).getTime();
+    if (!options?.force && Number.isFinite(updated) && updated > cutoff) {
+      return { slug: row.slug as string, reason: "pending-fresh" };
+    }
+
+    const payload = parseLightningPendingThreadsText(row.threads_text as string | null);
+    const threadsPaste = payload
+      ? formatThreadsPaste(
+          { headline: payload.headline, slides: payload.slides },
+          payload.countryRu
+        )
+      : undefined;
+
+    const req = await requestLightningOwnerApproval({
+      supabase,
+      slug: row.slug as string,
+      html,
+      threadsPaste,
+      threadsPayload: payload,
+      llmReason: "повтор: не было ответа на согласование",
+    });
+
+    if (req.ok) {
+      console.log(`[lightning] resent stale approval DM: ${row.slug}`);
+      return { slug: row.slug as string, reason: "resent" };
+    }
+    console.warn(`[lightning] stale resend failed ${row.slug}: ${req.reason}`);
+    return { slug: row.slug as string, reason: req.reason };
+  }
+
+  return { reason: "no-stale-pending" };
+}
+
 export type LightningQueueResult = {
   considered: number;
   /** Slugs sent to owner DM for approval (not yet in channel). */
@@ -135,6 +202,10 @@ export async function runLightningTelegramQueue(options?: {
     const expired = await expireStaleOptionalThreadsPending(supabase);
     if (expired > 0) {
       console.log(`[lightning] expired ${expired} stale Threads-only wait(s)`);
+    }
+    const nudge = await resendStaleLightningOwnerDm(supabase);
+    if (nudge.reason === "resent") {
+      console.log(`[lightning] also resent stale pending: ${nudge.slug}`);
     }
   }
 
@@ -201,6 +272,14 @@ export async function runLightningTelegramQueue(options?: {
       skipped.push(`${row.slug}:not-immigration`);
       if (!dryRun) await markLightningSkip(supabase, row.slug);
       else console.log(`[lightning] dry-run would skip ${row.slug} (not immigration)`);
+      continue;
+    }
+
+    const audienceSkip = lightningAudienceSkipReason(gateText);
+    if (audienceSkip) {
+      skipped.push(`${row.slug}:${audienceSkip}`);
+      if (!dryRun) await markLightningSkip(supabase, row.slug);
+      else console.log(`[lightning] dry-run would skip ${row.slug} (${audienceSkip})`);
       continue;
     }
 

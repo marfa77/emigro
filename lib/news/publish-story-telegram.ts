@@ -6,8 +6,8 @@ import {
   LIGHTNING_MAX_PER_DAY,
   LIGHTNING_MIN_STORY_SCORE,
   buildLightningTelegramHtml,
-  blocksNewLightningApprovalDm,
   isLightningImmigrationText,
+  lightningAudienceSkipReason,
   type LightningThreadsPayload,
 } from "@/lib/news/story-lightning";
 import {
@@ -83,6 +83,15 @@ export async function publishStoryLightningToTelegram(
       awaitingApproval: false,
       skipped: true,
       reason: "not-lightning-immigration",
+    };
+  }
+  const audienceSkip = lightningAudienceSkipReason(params.gateText);
+  if (audienceSkip) {
+    return {
+      published: false,
+      awaitingApproval: false,
+      skipped: true,
+      reason: audienceSkip,
     };
   }
 
@@ -168,29 +177,6 @@ export async function publishStoryLightningToTelegram(
       awaitingApproval: false,
       skipped: true,
       reason: "TELEGRAM_PRIVATE_CHAT_ID missing",
-      html,
-    };
-  }
-
-  // One *primary* approval DM at a time (full pending or TG still waiting).
-  // Threads-only leftover after TG publish must not block the queue.
-  const { data: existingRows } = await params.supabase
-    .from("emigro_news_digests")
-    .select("slug, threads_text")
-    .eq("format", "story")
-    .not("threads_text", "is", null)
-    .limit(40);
-  const existingPending = (existingRows ?? []).find(
-    (row) =>
-      row.slug !== params.slug &&
-      blocksNewLightningApprovalDm(row.threads_text as string | null)
-  );
-  if (existingPending?.slug) {
-    return {
-      published: false,
-      awaitingApproval: false,
-      skipped: true,
-      reason: `pending-other:${existingPending.slug}`,
       html,
     };
   }
