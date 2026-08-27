@@ -25,11 +25,11 @@ export function extractGuideSlugsFromChannelHtml(html: string): string[] {
     const slug = normalizeGuideSlug(m[1]);
     if (slug) slugs.add(slug);
   }
-  return [...slugs].sort();
+  return Array.from(slugs).sort();
 }
 
 function extractChannelMessageIds(html: string): number[] {
-  return [...html.matchAll(/t\.me\/Emigro_news\/(\d+)/gi)]
+  return Array.from(html.matchAll(/t\.me\/Emigro_news\/(\d+)/gi))
     .map((m) => Number(m[1]))
     .filter((n) => Number.isFinite(n) && n > 0);
 }
@@ -68,7 +68,7 @@ export async function fetchChannelPostedGuideSlugs(options?: {
     before = oldest;
   }
 
-  return [...all].sort();
+  return Array.from(all).sort();
 }
 
 export async function listHandledGuideSlugs(supabase: SupabaseClient): Promise<Set<string>> {
