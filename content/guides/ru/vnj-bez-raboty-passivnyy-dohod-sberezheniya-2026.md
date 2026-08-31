@@ -1,10 +1,10 @@
 ---
 slug: vnj-bez-raboty-passivnyy-dohod-sberezheniya-2026
 title: "ВНЖ без работы в ЕС в 2026: пассивный доход и сбережения"
-seo_title: "ВНЖ без работы 2026 — пассивный доход ЕС"
-seo_description: "Как получить ВНЖ без работодателя в ЕС: D7 Португалия, non-lucrative Испания, elective Italy. Пороги 2026 для граждан РФ."
+seo_title: "ВНЖ без работы 2026 — D7 €920 / NLV €2 400 / IT"
+seo_description: "Пассивный ВНЖ ЕС 2026 для RU/BY: Португалия D7 ~€920 + сбережения, Испания non-lucrative 400% IPREM ≈€2 400, Италия elective ~€31k/год. Сверьте /ru/wizard."
 excerpt: "Маршруты для тех, у кого есть пенсия, аренда, дивиденды или накопления — но нет оффера в Европе."
-quick_answer: "«ВНЖ без работы» в ЕС означает запрет на локальный трудовой договор, но обязательный доказанный доход из-за рубежа или крупные сбережения. Ключевые программы: Португалия D7 (~€920/мес + savings), Испания non-lucrative (~400% IPREM), Италия elective residence. Без дохода и без сбережений легального ВНЖ в ЕС нет."
+quick_answer: "«ВНЖ без работы» = запрет на локальный найм + доказанный пассив/сбережения из-за рубежа. 2026: PT D7 ~**€920**/мес (1× RMMG) + сбережения; ES non-lucrative **400% IPREM ≈ €2 400**/мес (~€28 800/год) + 100% IPREM на иждивенца; IT elective — ориентир консульств **~€31 000**/год solo (не единая сумма в законе). Без дохода и без капитала легального ВНЖ в ЕС нет — сравните /ru/wizard."
 corridor_slugs: [ru-speaking-to-portugal, ru-speaking-to-spain, ru-speaking-to-italy]
 topic_keys: [portugal, spain, italy]
 tags: [пассивный доход, D7, non-lucrative, ВНЖ, 2026]
@@ -13,17 +13,21 @@ cta_primary: /ru/wizard
 cta_secondary: /ru/portugal
 official_sources:
   - url: https://www.vistos.mne.gov.pt/
-    label: Portugal visas
+    label: Portugal visas — D7 means
   - url: https://www.inclusion.gob.es/
-    label: España extranjería
+    label: España extranjería — residencia no lucrativa
   - url: https://vistoperitalia.esteri.it/
-    label: Италия — визы
+    label: Италия — визы / elective residence
+  - url: https://diariodarepublica.pt/dr/detalhe/decreto-lei/139-2025-992879809
+    label: Decreto-Lei 139/2025 — RMMG €920 (2026)
 estimated_minutes: 17
 date_published: 2026-06-25
-date_modified: 2026-07-21
+date_modified: 2026-08-31
 ---
 
 ## Кому нужен этот маршрут
+
+> **Fact-check Emigro (31.08.2026):** пороги OK — PT D7 ~**€920** (RMMG 2026); ES NLV **400% IPREM** при IPREM **€600** → **€2 400**/мес / **€28 800**/год; IT elective ~**€31k**/год — практика консульств, не жёсткая норма закона. Soft: сбережения поверх дохода зависят от консульства.
 
 Пенсионеры 45+, инвесторы с дивидендами, владельцы сдаваемой недвижимости в СНГ, те кто **продал бизнес** и хочет жить в Европе без найма. В русскоязычном сегменте 2026 это ответ на запрос «уехать без офиса в Берлине» — но консульства научились отличать реальный пассивный доход от «нарисованных» переводов.
 
@@ -256,9 +260,9 @@ Golden Visa в PT сужен; покупка жилья сама по себе �
 
 ## Коротко для проверки маршрута
 
-- No-employment residence = passive foreign income or savings, no local employment.
-- PT D7 ~€920/mo + savings; ES non-lucrative higher (~400% IPREM).
-- Documented income trail essential for RU/BY applicants.
-- emigro.online/ru/wizard filters by capital/income modules.
+- Пассивный ВНЖ = иностранный доход/сбережения, без локального найма.
+- PT D7 ~€920/мес + сбережения; ES NLV ~€2 400/мес (400% IPREM €600); IT elective ~€31k/год (консульская практика).
+- Гражданам РФ/BY критичен прозрачный банковский след 8–15 мес.
+- Фильтр по capital/income: [emigro.online/ru/wizard](https://www.emigro.online/ru/wizard).
 
 *Не юридическая и налоговая консультация.*

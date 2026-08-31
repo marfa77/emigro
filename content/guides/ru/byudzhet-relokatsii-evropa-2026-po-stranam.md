@@ -1,10 +1,10 @@
 ---
 slug: byudzhet-relokatsii-evropa-2026-po-stranam
 title: "Сколько денег нужно на релокацию в Европу в 2026: бюджет по странам"
-seo_title: "Бюджет релокации в Европу 2026 — по странам"
-seo_description: "Сколько денег нужно на переезд в ЕС в 2026: Португалия, Испания, Германия, стартовый капитал, жизнь в месяц, визовые расходы для семьи из СНГ."
+seo_title: "Бюджет релокации в Европу 2026 — PT €3 680 / ES €2 849 / DE"
+seo_description: "Сколько денег на переезд в ЕС 2026 для RU/BY: пороги D8 €3 680, D7 €920, ES DNV €2 849, NLV €2 400; стартовый капитал семьи 3 — не путайте с жизнью."
 excerpt: "Честные цифры: не только «порог визы», но и переезд, депозиты, первые 6 месяцев без стабильного дохода в новой валюте."
-quick_answer: "Стартовый капитал на семью из 3 человек: Португалия €25 000–40 000, Испания €30 000–50 000, Германия €35 000–55 000 (виза + 6 мес. жизни + депозиты). Месячные расходы: Лиссабон €2 500–4 000, Мадрид €3 000–5 000, Берлин €3 500–5 500. Порог визы D7/D8 — минимум, не реальный бюджет жизни."
+quick_answer: "Стартовый капитал на семью из 3: PT €25–45k, ES €30–50k, DE €35–55k (виза + 6 мес. + депозиты). Жизнь: Лиссабон €2 800–4 200, Мадрид €3 200–5 000, Берлин €3 500–5 500. Пороги визы ≠ бюджет: PT D7 ~€920 / D8 ~€3 680; ES DNV ~€2 849 / NLV ~€2 400; Chancenkarte Sperrkonto **€13 092**. Сверьте /ru/wizard."
 corridor_slugs: [ru-speaking-to-portugal, ru-speaking-to-spain, ru-speaking-to-germany, ru-speaking-to-italy, ru-speaking-to-france, ru-speaking-to-netherlands, ru-speaking-to-sweden, ru-speaking-to-norway, ru-speaking-to-finland, ru-speaking-to-denmark]
 topic_keys: [portugal, spain, germany, italy, france, netherlands, sweden, norway, finland, denmark, europe]
 tags: [бюджет, деньги, релокация, стоимость, 2026]
@@ -12,18 +12,22 @@ primary_intent: comparison
 cta_primary: /ru/wizard
 cta_secondary: /ru/wizard
 official_sources:
-  - url: https://www.numbeo.com/
-    label: Numbeo — cost of living (ориентир)
   - url: https://www.vistos.mne.gov.pt/
-    label: Португалия — пороги виз
+    label: Португалия MNE — means of subsistence (D7/D8)
+  - url: https://www.boe.es/buscar/doc.php?id=BOE-A-2026-3815
+    label: BOE — SMI 2026 (база ES DNV 200%)
   - url: https://www.make-it-in-germany.com/
-    label: Германия — зарплатные пороги
+    label: Make it in Germany — Blue Card / Chancenkarte
+  - url: https://www.numbeo.com/
+    label: Numbeo — cost of living (ориентир рынка, не закон)
 estimated_minutes: 18
 date_published: 2026-06-25
-date_modified: 2026-07-05
+date_modified: 2026-08-31
 ---
 
 ## Почему «порог визы» обманывает
+
+> **Fact-check Emigro (31.08.2026):** визовые пороги сверены — PT RMMG **€920** → D7 ~1× / D8 **€3 680** (4×); ES DNV **€2 849**/мес (200% SMI, RD 126/2026); ES NLV **~€2 400**/мес (400% IPREM €600); Chancenkarte **€13 092**/год (€1 091×12). Аренда и «стартовый капитал» — рыночные ориентиры, не закон.
 
 D7 требует ~€920/мес. — это **не** значит, что в Лиссабоне можно жить на €920. Порог — фильтр консульства; реальность 2026: аренда 1-bed €1 200–1 800, продукты €400+, коммуналка €100–200. Семьи из СНГ, приезжающие с $20k «на всё», разочаровываются через 3 месяца.
 
@@ -126,7 +130,7 @@ D7 требует ~€920/мес. — это **не** значит, что в Л
 | PT D8 | ~€3 680/мес. | ~€2 500/мес. |
 | ES nomad | ~€2 849/мес. | ~€2 800/мес. |
 | ES non-lucrative | ~€2 400/мес. | ~€2 500/мес. |
-| DE Blue Card | Зарплата | Зарплата − налоги |
+| DE Blue Card | **€50 700** / shortage **€45 934**/год (2026) | Зарплата − налоги − аренда |
 
 Правило: **жизнь = 1,5–2× порог визы** в том же городе.
 
@@ -266,9 +270,9 @@ D7 требует ~€920/мес. — это **не** значит, что в Л
 
 ## Коротко для проверки маршрута
 
-- Visa income threshold ≠ cost of living; Lisbon family ~€2.8–4.2k/month.
-- Starter capital family of 3: PT €30–45k, DE €35–55k including 6-month reserve.
-- D7 requires savings on top of monthly passive income.
-- emigro.online/ru/wizard evaluates affordability by corridor.
+- Порог визы ≠ стоимость жизни; семья в Лиссабоне ~€2 800–4 200/мес.
+- Стартовый капитал семьи из 3: PT €25–45k, DE €35–55k (с резервом 6 мес.).
+- D7: пассив ~€920 + сбережения; D8 ~€3 680; ES DNV ~€2 849; Chancenkarte €13 092.
+- Сверьте affordability в [emigro.online/ru/wizard](https://www.emigro.online/ru/wizard).
 
-*Не финансовая консультация. Цифры — ориентиры июня 2026.*
+*Не финансовая консультация. Цифры — ориентиры августа 2026.*

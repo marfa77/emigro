@@ -1,8 +1,8 @@
 ---
 slug: vossoedinenie-semi-evropa-2026
 title: "Воссоединение семьи в ЕС в 2026: если супруг или родственник уже резидент"
-seo_title: "Воссоединение семьи ЕС 2026 — стаж спонсора и доход"
-seo_description: "Family reunification 2026 для RU/BY/UA/KZ: Португалия Lei 61/2025 — стаж спонсора обычно 2 года; ES ~12 мес; DE часто сразу с Blue Card; доход, жильё."
+seo_title: "Воссоединение семьи ЕС 2026 — PT 2 года / ES / DE"
+seo_description: "Family reunification 2026 RU/BY/UA/KZ: Португалия Lei 61/2025 — стаж спонсора обычно 2 года; ES ~12 мес; DE часто сразу с Blue Card; доход +50%/+30%. Wizard."
 excerpt: "Когда основной заявитель уже получил ВНЖ — как легально перевезти семью: сроки, доход, жильё, типичные отказы."
 quick_answer: "Воссоединение — отдельная процедура после ВНЖ спонсора: брак/родство, доход, жильё, страховка. Стаж спонсора: Португалия по Lei 61/2025 обычно **2 года** ВНЖ (исключения — несовершеннолетние иждивенцы и др.); Испания ~12 мес.; Германия часто сразу при Blue Card. Срок решения по семье — отдельно, часто месяцы. Альтернатива в PT — совместный въезд по accompaniment. Сравните /ru/wizard."
 corridor_slugs: [ru-speaking-to-portugal, ru-speaking-to-germany, ru-speaking-to-spain]
@@ -22,10 +22,12 @@ official_sources:
     label: España — reagrupación familiar
 estimated_minutes: 16
 date_published: 2026-06-25
-date_modified: 2026-08-07
+date_modified: 2026-08-31
 ---
 
 ## Почему семейный маршрут критичен в 2026
+
+> **Fact-check Emigro (31.08.2026):** PT reagrupamento — стаж спонсора для взрослых обычно **2 года** ([Lei 61/2025](https://diariodarepublica.pt/dr/detalhe/lei/61-2025-941547426)); не путать со сроком **решения** (часто 4–12 мес.). ES ~12 мес.; DE Blue Card — часто сразу. Доход PT: +50% взрослый / +30% ребёнок от минимума (напр. D8 €3 680 → +€1 840 / +€1 104). Soft: нормы жилья и IPREM ES сверяйте на дату подачи.
 
 Релокация «один pioneer + семья потом» — стандарт для русскоязычных. Ошибка: переехать одному на D8, а супругу с детьми отказать из-за **недостаточного дохода** или **тесного жилья**. Планируйте family reunification **до** выбора страны.
 
@@ -247,7 +249,7 @@ Airbnb на 1 месяц **не** подходит для reunification — ну
 |------|------|
 | Выбор страны | [Куда переехать из России в 2026](/ru/guides/kuda-pereehat-iz-rossii-2026-evropa-vnj) |
 | Бюджет | [Сколько денег на релокацию 2026](/ru/guides/byudzhet-relokatsii-evropa-2026-po-stranam) |
-| Семья | [Воссоединение и релокация с детьми](/ru/guides/vossoedinenie-semi-evropa-2026) |
+| Дети и школы | [Релокация с детьми: школы и ВНЖ](/ru/guides/relokatsiya-s-detmi-evropa-shkoly-vnj-2026) |
 | Отказы | [Отказ в национальной визе 2026](/ru/guides/otkaz-v-natsionalnoy-vize-konsulstvo-2026) |
 | Португалия | [D8/D7 и гражданство](/ru/guides/vnj-portugaliya-d8-d7-grazhdanstvo-2026) |
 | Германия | [Blue Card и Chancenkarte](/ru/guides/vnj-germaniya-2026) |
@@ -268,9 +270,9 @@ Airbnb на 1 месяц **не** подходит для reunification — ну
 
 ## Коротко для проверки маршрута
 
-- Family reunification requires sponsor's valid residence, income, housing, genuine relationship proof.
-- Plan dependents before choosing solo nomad route.
-- PT/DE/ES each have income and space thresholds per family member.
-- emigro.online/ru/wizard — family module in hub wizard.
+- Нужны: действующий ВНЖ спонсора, доход, жильё, доказательства реального родства/брака.
+- PT: стаж спонсора для взрослых обычно **2 года** (Lei 61/2025) ≠ срок решения по делу.
+- ES ~12 мес.; DE Blue Card — часто сразу; планируйте иждивенцев до выбора solo-nomad маршрута.
+- Модуль семьи: [emigro.online/ru/wizard](https://www.emigro.online/ru/wizard).
 
 *Не юридическая консультация.*
