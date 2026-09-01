@@ -48,7 +48,7 @@ EMIGRO_PORTO_CHAT_ID=-5534913841
 
 Дедуп постов группы: `parser/out/porto-group-posted.json`. Закрытый банк: `lib/community-notes/porto-group-bank.json`.
 
-Сайт не показывает `t.me/+`. `/start` (и `/chat`, «Порту») в боте сразу выдаёт одноразовый инвайт в личку; кнопка на хабе / заметках — `@emigro_chat_bot?start=porto_chat`. Инвайт: `createChatInviteLink`, 24 ч, 1 человек. На **Vercel** нужен `EMIGRO_PORTO_CHAT_ID` (вебхук живёт не на VPS). У бота в группе: Invite users via link.
+Сайт не показывает `t.me/+`. `/start` (и `/chat`, «Порту») в боте **всегда** шлёт одноразовую ссылку и кнопку «Открыть/Войти в чат» — в том числе если человек уже в группе (не «ищите в списке»). Кнопка «Чат» на www и сателлите — `@emigro_chat_bot?start=porto_chat`. Инвайт: `createChatInviteLink`, 24 ч, 1 человек. На **Vercel** нужен `EMIGRO_PORTO_CHAT_ID`. У бота в группе: Invite users via link.
 
 Ручной пост в группу (без полного daily):
 

@@ -3,10 +3,14 @@
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { COMMUNITY_PATH } from "@/lib/community";
 import { ES_PATHS } from "@/lib/es/corridor";
 import { FR_PATHS } from "@/lib/fr/corridor";
 import type { UiLocale } from "@/lib/locale";
+import { portoChatDeepLink } from "@/lib/telegram/deep-link";
+
+function isHttpHref(href: string): boolean {
+  return /^https?:\/\//i.test(href);
+}
 
 type NavLink = {
   href: string;
@@ -109,16 +113,28 @@ export function MobileNav({ links, locale = "ru" }: MobileNavProps) {
             className="absolute left-0 right-0 top-full z-50 border-b border-slate-200 bg-white shadow-lg"
           >
             <nav className="flex flex-col px-4 py-3" aria-label={mobileNavLabel}>
-              {links.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="border-b border-slate-100 py-3 text-base text-slate-700 last:border-b-0 hover:text-corridor-600"
-                  onClick={close}
-                >
-                  {link.label}
-                </Link>
-              ))}
+              {links.map((link) =>
+                isHttpHref(link.href) ? (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    rel="noopener noreferrer"
+                    className="border-b border-slate-100 py-3 text-base text-slate-700 last:border-b-0 hover:text-corridor-600"
+                    onClick={close}
+                  >
+                    {link.label}
+                  </a>
+                ) : (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className="border-b border-slate-100 py-3 text-base text-slate-700 last:border-b-0 hover:text-corridor-600"
+                    onClick={close}
+                  >
+                    {link.label}
+                  </Link>
+                )
+              )}
             </nav>
             <div className="flex justify-end border-t border-slate-100 px-4 py-2">
               <button
@@ -149,7 +165,7 @@ export function MobileBottomBar({ locale = "ru" }: MobileBottomBarProps) {
   const primaryLabel =
     locale === "es" ? "Evaluador" : locale === "fr" ? "Évaluateur" : "Wizard";
   const secondaryHref =
-    locale === "es" ? ES_PATHS.guides : locale === "fr" ? FR_PATHS.guides : COMMUNITY_PATH;
+    locale === "es" ? ES_PATHS.guides : locale === "fr" ? FR_PATHS.guides : portoChatDeepLink("mbar");
 
   return (
     <div className="fixed inset-x-0 bottom-0 z-30 border-t border-slate-200 bg-white/95 backdrop-blur md:hidden">
@@ -163,12 +179,22 @@ export function MobileBottomBar({ locale = "ru" }: MobileBottomBarProps) {
         >
           {primaryLabel}
         </Link>
-        <Link
-          href={secondaryHref}
-          className="flex flex-1 items-center justify-center rounded-lg border border-corridor-200 bg-white px-4 py-2.5 text-sm font-medium text-corridor-700 hover:border-corridor-300 hover:bg-corridor-50"
-        >
-          {chatLabel}
-        </Link>
+        {locale === "ru" ? (
+          <a
+            href={secondaryHref}
+            rel="noopener noreferrer"
+            className="flex flex-1 items-center justify-center rounded-lg border border-corridor-200 bg-white px-4 py-2.5 text-sm font-medium text-corridor-700 hover:border-corridor-300 hover:bg-corridor-50"
+          >
+            {chatLabel}
+          </a>
+        ) : (
+          <Link
+            href={secondaryHref}
+            className="flex flex-1 items-center justify-center rounded-lg border border-corridor-200 bg-white px-4 py-2.5 text-sm font-medium text-corridor-700 hover:border-corridor-300 hover:bg-corridor-50"
+          >
+            {chatLabel}
+          </Link>
+        )}
       </div>
     </div>
   );

@@ -20,8 +20,8 @@ export function PortoChatCta({ source, noteSlug }: Props) {
     >
       <p className="text-xs font-bold uppercase tracking-wide text-sky-900">Чат Порту и вокруг</p>
       <p className="mt-2 text-sm leading-relaxed text-slate-700">
-        Закрытая группа, без публичного @. Бот пришлёт одноразовую ссылку в личку — её нельзя повесить
-        «на всех». Быт, жильё, встречи; объявления не стеной.
+        Закрытая группа без публичного @. Одна кнопка — бот сразу пришлёт ссылку в личку. Быт, жильё, встречи;
+        объявления не стеной.
       </p>
       <a
         href={href}
@@ -37,7 +37,7 @@ export function PortoChatCta({ source, noteSlug }: Props) {
         className={`mt-4 inline-flex ${tapTarget} items-center justify-center gap-2 rounded-lg bg-sky-700 px-4 py-2.5 text-sm font-semibold text-white hover:bg-sky-800`}
       >
         <MessageCircle className="h-4 w-4" aria-hidden />
-        Запросить вход
+        Войти в чат «Порту и вокруг»
         <ArrowRight className="h-4 w-4" aria-hidden />
       </a>
     </aside>

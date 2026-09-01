@@ -2,14 +2,18 @@ import Link from "next/link";
 import { EmigroLogo } from "@/components/brand/EmigroLogo";
 import { MobileBottomBar, MobileNav } from "@/components/layout/MobileNav";
 import { Disclaimer } from "./Disclaimer";
-import { COMMUNITY_PATH, DISCUSSION_GROUP_LABEL } from "@/lib/community";
 import { HUB_WIZARD_PATH } from "@/lib/corridor/paths";
 import { ES_PATHS } from "@/lib/es/corridor";
 import { FR_PATHS } from "@/lib/fr/corridor";
 import type { UiLocale } from "@/lib/locale";
 import { CONTACT_EMAIL, MAILTO_CONTACT } from "@/lib/site-contact";
 import { getHeaderNavLinks } from "@/lib/site-nav";
+import { portoChatDeepLink } from "@/lib/telegram/deep-link";
 import { safeAreaTopStyle } from "@/lib/ui/mobile";
+
+function isHttpHref(href: string): boolean {
+  return /^https?:\/\//i.test(href);
+}
 
 function navAriaLabel(locale: UiLocale): string {
   if (locale === "es") return "Menú principal";
@@ -35,11 +39,17 @@ export function SiteHeader({ locale = "ru" }: { locale?: UiLocale }) {
             className="hidden gap-x-4 text-sm text-slate-600 md:flex"
             aria-label={navAriaLabel(locale)}
           >
-            {navLinks.map((link) => (
-              <Link key={link.href} href={link.href} className="hover:text-corridor-600">
-                {link.label}
-              </Link>
-            ))}
+            {navLinks.map((link) =>
+              isHttpHref(link.href) ? (
+                <a key={link.href} href={link.href} className="hover:text-corridor-600" rel="noopener noreferrer">
+                  {link.label}
+                </a>
+              ) : (
+                <Link key={link.href} href={link.href} className="hover:text-corridor-600">
+                  {link.label}
+                </Link>
+              )
+            )}
           </nav>
           <MobileNav links={navLinks} locale={locale} />
         </div>
@@ -286,9 +296,9 @@ export function SiteFooter({ locale = "ru" }: { locale?: UiLocale }) {
             {CONTACT_EMAIL}
           </a>
           {" · "}
-          <Link href={COMMUNITY_PATH} className="text-corridor-600 hover:underline">
-            {locale === "ru" ? DISCUSSION_GROUP_LABEL : "Discussion group"}
-          </Link>
+          <a href={portoChatDeepLink("footer")} className="text-corridor-600 hover:underline" rel="noopener noreferrer">
+            {locale === "ru" ? "Чат Порту и вокруг" : "Porto chat"}
+          </a>
         </p>
       </div>
     </footer>

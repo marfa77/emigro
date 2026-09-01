@@ -10,9 +10,9 @@ export function buildCommunityPageSchema(): Record<string, unknown>[] {
     "@type": "WebPage",
     "@id": `${url}#webpage`,
     url,
-    name: "Дискуссионная группа Emigro — Telegram",
+    name: "Чат Порту и вокруг — Telegram Emigro",
     description:
-      "Официальная страница сообщества Emigro: канал @Emigro_news и обсуждения в комментариях к постам для русскоязычных релокантов.",
+      "Городской чат Emigro «Порту и вокруг»: быт, жильё, встречи. Бот присылает ссылку в личку. Канал @Emigro_news — отдельно.",
     inLanguage: "ru-RU",
     isPartOf: {
       "@type": "WebSite",
@@ -38,10 +38,10 @@ export function buildCommunityPageSchema(): Record<string, unknown>[] {
     mainEntity: [
       {
         "@type": "Question",
-        name: "Как попасть в обсуждения Emigro в Telegram?",
+        name: "Как попасть в чат Порту и вокруг?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Подпишитесь на канал @Emigro_news и пишите в комментариях к постам — чат @emigro_chat привязан к каналу. Отдельно вступить в группу нельзя.",
+          text: "Откройте кнопку «Чат» на emigro.online или напишите боту /start — он сразу пришлёт ссылку в личку. Если вы уже в группе, та же кнопка открывает чат.",
         },
       },
       {

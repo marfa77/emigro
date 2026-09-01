@@ -1,7 +1,7 @@
-import { COMMUNITY_PATH } from "@/lib/community";
 import { ES_PATHS } from "@/lib/es/corridor";
 import { FR_PATHS } from "@/lib/fr/corridor";
 import type { UiLocale } from "@/lib/locale";
+import { portoChatDeepLink } from "@/lib/telegram/deep-link";
 
 export type SiteNavLink = {
   href: string;
@@ -18,7 +18,7 @@ export const HEADER_NAV_LINKS: SiteNavLink[] = [
   { href: "/ru/news", labelRu: "Новости", labelEn: "News", labelEs: "Noticias" },
   { href: "/ru/assist", labelRu: "Консультация", labelEn: "Consultation", labelEs: "Contacto" },
   { href: "/ru/partners", labelRu: "Партнёрам", labelEn: "Partners", labelEs: "Partners" },
-  { href: COMMUNITY_PATH, labelRu: "Чат", labelEn: "Community", labelEs: "Comunidad" },
+  { href: portoChatDeepLink("nav"), labelRu: "Чат", labelEn: "Community", labelEs: "Comunidad" },
 ];
 
 export const ES_HEADER_NAV_LINKS: SiteNavLink[] = [

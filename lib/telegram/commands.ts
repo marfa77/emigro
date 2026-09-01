@@ -1,5 +1,4 @@
 import { HUB_WIZARD_PATH } from "@/lib/corridor/paths";
-import { NEWS_TELEGRAM_URL } from "@/lib/community";
 import { publicSiteUrl } from "@/lib/site-url";
 import {
   portoChatInviteHtml,
@@ -49,7 +48,7 @@ export function userStartMessage(invite: PortoChatInviteResult): string {
     "<b>Маршруты ВНЖ</b> — wizard на сайте, без обещаний «гарантированного ВНЖ».",
     `<a href="${wizardUrl}">${wizardUrl}</a>`,
     "",
-    `<a href="${origin}">emigro.online</a> · <a href="${NEWS_TELEGRAM_URL}">@Emigro_news</a>`,
+    `<a href="${origin}">emigro.online</a>`,
   ].join("\n");
 }
 

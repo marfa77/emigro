@@ -5,21 +5,22 @@ import { CommunityJoinButton } from "@/components/community/CommunityJoinButton"
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { CONTACT_EMAIL } from "@/lib/site-contact";
-import { DISCUSSION_ACCESS_HINT, DISCUSSION_GROUP_HANDLE, DISCUSSION_GROUP_LABEL, NEWS_TELEGRAM_URL } from "@/lib/community";
+import { DISCUSSION_ACCESS_HINT, DISCUSSION_GROUP_HANDLE, NEWS_TELEGRAM_URL } from "@/lib/community";
 import { guidePath } from "@/lib/guides/load";
 import { listPillarGuides } from "@/lib/guides/pillar-guides";
 import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
 import { buildCommunityPageSchema } from "@/lib/seo/community-page-seo";
 import { pageMetadata, pageUrl } from "@/lib/seo";
+import { portoChatDeepLink } from "@/lib/telegram/deep-link";
 
 export const revalidate = 86400;
 
 export const metadata: Metadata = pageMetadata({
-  title: "Дискуссионная группа Emigro — Telegram",
+  title: "Чат Порту и вокруг — Telegram Emigro",
   description:
-    "Официальная страница сообщества Emigro для русскоязычных релокантов: канал @Emigro_news, обсуждения в комментариях, опыт переезда и новости маршрутов ВНЖ в Европе.",
+    "Городской чат Emigro «Порту и вокруг»: быт, жильё, встречи. Одна кнопка — бот присылает ссылку в личку. Канал @Emigro_news и комментарии — отдельно.",
   path: "/ru/community",
-  ogImageAlt: "Сообщество Emigro в Telegram",
+  ogImageAlt: "Чат Порту и вокруг · Emigro",
 });
 
 const BENEFITS = [
@@ -62,7 +63,7 @@ export default function CommunityPage() {
   const pillarGuides = listPillarGuides().slice(0, 8);
   const breadcrumbSchema = buildBreadcrumbSchema([
     { name: "Все направления", item: pageUrl("/ru") },
-    { name: "Дискуссионная группа", item: communityUrl },
+    { name: "Чат Порту и вокруг", item: communityUrl },
   ]);
   const structuredData = buildCommunityPageSchema();
 
@@ -83,23 +84,36 @@ export default function CommunityPage() {
             Emigro
           </Link>
           <span className="mx-2">/</span>
-          <span>Дискуссионная группа</span>
+          <span>Чат Порту и вокруг</span>
         </nav>
 
         <HeroShell className="mt-6">
           <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-sm text-corridor-100">
             <MessageCircle className="h-4 w-4" />
-            Telegram-сообщество
+            Чат Порту и вокруг
           </span>
-          <h1 className="mt-4 text-3xl font-bold sm:text-4xl">{DISCUSSION_GROUP_LABEL}</h1>
+          <h1 className="mt-4 text-3xl font-bold sm:text-4xl">Порту и вокруг · Emigro</h1>
           <p className="mt-4 max-w-2xl text-lg text-corridor-100">
-            <strong>{DISCUSSION_GROUP_HANDLE}</strong> — чат обсуждений, привязанный к каналу <strong>@Emigro_news</strong>.
-            Отдельно «вступить» в него нельзя: подпишитесь на канал и задавайте вопросы в комментариях к постам. Это площадка
-            Emigro для читателей канала — без спама и рекламы.
+            Закрытая городская группа: быт, жильё, встречи. Без публичного @. Одна кнопка — бот сразу пришлёт ссылку в
+            личку, даже если вы уже внутри.
           </p>
-          <p className="mt-3 text-sm text-corridor-200">{DISCUSSION_ACCESS_HINT}</p>
           <div className="mt-8">
-            <CommunityJoinButton source="community_landing_hero" size="lg" />
+            <a
+              href={portoChatDeepLink("community")}
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3 text-base font-medium text-corridor-900 hover:bg-corridor-50"
+            >
+              <MessageCircle className="h-5 w-5" />
+              Войти в чат «Порту и вокруг»
+              <ArrowRight className="h-4 w-4" />
+            </a>
+          </div>
+          <p className="mt-6 max-w-2xl text-sm text-corridor-200">
+            Канал <strong>@Emigro_news</strong> и комментарии {DISCUSSION_GROUP_HANDLE} — отдельно, для новостей ВНЖ. Это
+            не городской чат Порту.
+          </p>
+          <div className="mt-3">
+            <CommunityJoinButton source="community_landing_news" size="md" className="bg-white/15 text-white hover:bg-white/25" />
           </div>
         </HeroShell>
 
@@ -141,9 +155,16 @@ export default function CommunityPage() {
           <h2 className="text-xl font-semibold text-slate-900">Частые вопросы</h2>
           <dl className="mt-4 space-y-5">
             <div>
-              <dt className="font-medium text-slate-900">Как попасть в обсуждения?</dt>
+              <dt className="font-medium text-slate-900">Как попасть в чат «Порту и вокруг»?</dt>
               <dd className="mt-1 text-sm leading-relaxed text-slate-600">
-                Подпишитесь на @Emigro_news и пишите в комментариях к постам — чат @emigro_chat открывается там же.
+                Кнопка выше или «Чат» в меню сайта открывает бота. Он сразу присылает ссылку в личку — нажмите её. Если вы
+                уже в группе, та же кнопка открывает чат, без поиска в списке.
+              </dd>
+            </div>
+            <div>
+              <dt className="font-medium text-slate-900">А комментарии у канала?</dt>
+              <dd className="mt-1 text-sm leading-relaxed text-slate-600">
+                {DISCUSSION_ACCESS_HINT} Это не чат Порту.
               </dd>
             </div>
             <div>

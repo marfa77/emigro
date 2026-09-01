@@ -39,22 +39,10 @@ function isAlreadyInChat(member: ChatMemberStatus | undefined): boolean {
 }
 
 export type PortoChatInviteResult =
-  | { kind: "already_member" }
-  | { kind: "link"; url: string }
+  | { kind: "link"; url: string; alreadyMember: boolean }
   | { kind: "error" };
 
-export async function issuePortoChatInvite(telegramUserId: string | number): Promise<PortoChatInviteResult> {
-  const chatId = portoGroupChatId();
-  if (!chatId || !chatBotToken()) return { kind: "error" };
-
-  const member = await chatBotApi<ChatMemberStatus>("getChatMember", {
-    chat_id: chatId,
-    user_id: telegramUserId,
-  });
-  if (member.ok && isAlreadyInChat(member.result)) {
-    return { kind: "already_member" };
-  }
-
+async function createPortoInviteLink(chatId: string, telegramUserId: string | number): Promise<string | null> {
   const expireDate = Math.floor(Date.now() / 1000) + 24 * 60 * 60;
   const created = await chatBotApi<ChatInviteLink>("createChatInviteLink", {
     chat_id: chatId,
@@ -66,34 +54,60 @@ export async function issuePortoChatInvite(telegramUserId: string | number): Pro
   const url = created.result?.invite_link?.trim();
   if (!created.ok || !url) {
     console.error("[porto-chat] createChatInviteLink failed:", created.description);
-    return { kind: "error" };
+    return null;
   }
-  return { kind: "link", url };
+  return url;
+}
+
+export async function issuePortoChatInvite(telegramUserId: string | number): Promise<PortoChatInviteResult> {
+  const chatId = portoGroupChatId();
+  if (!chatId || !chatBotToken()) return { kind: "error" };
+
+  const member = await chatBotApi<ChatMemberStatus>("getChatMember", {
+    chat_id: chatId,
+    user_id: telegramUserId,
+  });
+  const alreadyMember = Boolean(member.ok && isAlreadyInChat(member.result));
+
+  const url = await createPortoInviteLink(chatId, telegramUserId);
+  if (!url) return { kind: "error" };
+  return { kind: "link", url, alreadyMember };
 }
 
 export function portoChatInviteReplyMarkup(
   result: PortoChatInviteResult
 ): { inline_keyboard: Array<Array<{ text: string; url: string }>> } | undefined {
   if (result.kind !== "link") return undefined;
-  return { inline_keyboard: [[{ text: "Войти в чат Порту", url: result.url }]] };
+  return {
+    inline_keyboard: [
+      [
+        {
+          text: result.alreadyMember ? "Открыть чат «Порту и вокруг»" : "Войти в чат «Порту и вокруг»",
+          url: result.url,
+        },
+      ],
+    ],
+  };
 }
 
 export function portoChatInviteHtml(result: PortoChatInviteResult): string {
-  if (result.kind === "already_member") {
-    return [
-      "<b>Порту и вокруг · Emigro</b>",
-      "",
-      "Вы уже в этой группе — откройте её в списке чатов Telegram.",
-    ].join("\n");
-  }
   if (result.kind === "error") {
     return [
       "<b>Порту и вокруг · Emigro</b>",
       "",
-      "Сейчас не получилось выдать ссылку. Напишите сюда «Порту» или /chat через пару минут — или откройте кнопку на portugal.emigro.online ещё раз.",
+      "Сейчас не получилось выдать ссылку. Напишите сюда «Порту» или /chat через пару минут.",
     ].join("\n");
   }
   const href = escapeTelegramHtml(result.url);
+  if (result.alreadyMember) {
+    return [
+      "<b>Порту и вокруг · Emigro</b>",
+      "",
+      "Вы уже в чате — откройте его кнопкой, не ищите в списке.",
+      "",
+      `<a href="${href}">Открыть чат</a>`,
+    ].join("\n");
+  }
   return [
     "<b>Порту и вокруг · Emigro</b> — живой городской чат.",
     "<i>Закрытый, без публичного @. Быт, жильё, встречи.</i>",
