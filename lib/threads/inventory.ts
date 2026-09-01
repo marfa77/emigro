@@ -12,6 +12,7 @@ import { listGuidePromoCandidates } from "@/lib/news/guide-telegram-post";
 import {
   isLightningAwaitingOwner,
   isLightningImmigrationText,
+  isLightningThreadsAlreadyPosted,
   lightningAudienceSkipReason,
   lightningStrengthSkipReason,
 } from "@/lib/news/story-lightning";
@@ -28,6 +29,7 @@ import {
   previewWizard,
   threadsDaysForCta,
   threadsGuidePageUrl,
+  threadsTrackedUrl,
   type ThreadsBankCta,
 } from "@/lib/threads/banks";
 import { formatThreadsChainPreview, type ThreadsChainItem } from "@/lib/threads/compose";
@@ -199,7 +201,8 @@ export function pickLiveGuidePlan(
     })
     .sort((a, b) => b.score - a.score);
 
-  const pick = scored[0];
+  const rotated = scored.filter((row) => !recent.has(row.country));
+  const pick = (rotated.length > 0 ? rotated : scored)[0];
   if (!pick) return null;
   const cta: ThreadsBankCta = preferAssist && guideFitsAssist(pick.guide) ? "assist" : "wizard";
   const bank = loadThreadsGuides().find((row) => row.guide === pick.guide.slug);
@@ -271,7 +274,7 @@ export async function pickCityPlan(state: ThreadsInventoryState): Promise<Thread
     content,
     topic: countryKey === "spain" ? "Испания" : "Порту",
     countryTopic: countryKey,
-    extraUrl: dest,
+    extraUrl: threadsTrackedUrl(dest, content),
   });
   return {
     ...planOf("city", next.slug, countryKey === "spain" ? "Испания" : "Порту", cta, items),
@@ -313,6 +316,7 @@ export async function pickNewsPlan(state: ThreadsInventoryState): Promise<Thread
   for (const row of (data ?? []) as DigestRow[]) {
     if (!row.slug || used.has(row.slug)) continue;
     if (isLightningAwaitingOwner(row.threads_text)) continue;
+    if (isLightningThreadsAlreadyPosted(row.threads_text)) continue;
     const ids = row.telegram_message_ids;
     if (!Array.isArray(ids) || ids.length === 0) continue;
     const published = row.published_at ? Date.parse(row.published_at) : 0;
@@ -324,7 +328,8 @@ export async function pickNewsPlan(state: ThreadsInventoryState): Promise<Thread
     if (lightningAudienceSkipReason(gate)) continue;
     if (lightningStrengthSkipReason(gate)) continue;
 
-    const countryRu = countryRuFromKey(row.topic_key);
+    const countryKey = (row.topic_key || "").trim().toLowerCase();
+    const countryRu = countryRuFromKey(countryKey);
     const content = `news-${row.slug}`.slice(0, 40);
     const items = composeConversionChain({
       p1: (row.excerpt || row.title).trim(),
@@ -332,7 +337,8 @@ export async function pickNewsPlan(state: ThreadsInventoryState): Promise<Thread
       cta: "wizard",
       content,
       topic: countryRu,
-      extraUrl: newsArticleUrl(row.slug),
+      countryTopic: countryKey === "europe" ? undefined : countryKey,
+      extraUrl: threadsTrackedUrl(newsArticleUrl(row.slug), content),
     });
     return planOf("news", row.slug, countryRu, "wizard", items);
   }

@@ -4,6 +4,8 @@
  */
 import { readFileSync } from "fs";
 import { resolve } from "path";
+import { getCorridorBySegment } from "@/lib/corridor/registry";
+import { HUB_WIZARD_PATH } from "@/lib/corridor/paths";
 import { publicSiteUrl } from "@/lib/site-url";
 import { guidePath } from "@/lib/guides/paths";
 import { portoChatDeepLink } from "@/lib/telegram/deep-link";
@@ -47,7 +49,7 @@ const GUIDES_PATH = resolve(process.cwd(), "lib/threads/banks/emigro-guides.json
 const WIZARD_PATH = resolve(process.cwd(), "lib/threads/banks/emigro-wizard.json");
 
 const BANNED_IN_COPY =
-  /https?:\/\/|t\.me\/|telegram\.me\/|emigro\.online|гарантированн|андрей/i;
+  /https?:\/\/|t\.me\/|telegram\.me\/|emigro\.online|гарантированн|андрей|\biprem\b|\bsmi\b/i;
 
 let daysCache: ThreadsDayRow[] | null = null;
 let guidesCache: ThreadsGuideRow[] | null = null;
@@ -103,36 +105,34 @@ export function threadsGuideRow(id: number): ThreadsGuideRow {
   return row;
 }
 
-export function threadsAssistUrl(content: string): string {
-  const url = new URL(`${publicSiteUrl()}/ru/assist`);
+export function threadsTrackedUrl(absoluteUrl: string, content: string): string {
+  const url = new URL(absoluteUrl);
   url.searchParams.set("utm_source", "threads");
   url.searchParams.set("utm_medium", "social");
   url.searchParams.set("utm_campaign", THREADS_CAMPAIGN);
   url.searchParams.set("utm_content", content);
   return url.toString();
+}
+
+export function threadsAssistUrl(content: string): string {
+  return threadsTrackedUrl(`${publicSiteUrl()}/ru/assist`, content);
 }
 
 export function threadsGuidePageUrl(slug: string, content: string): string {
-  const url = new URL(`${publicSiteUrl()}${guidePath(slug)}`);
-  url.searchParams.set("utm_source", "threads");
-  url.searchParams.set("utm_medium", "social");
-  url.searchParams.set("utm_campaign", THREADS_CAMPAIGN);
-  url.searchParams.set("utm_content", content);
-  return url.toString();
+  return threadsTrackedUrl(`${publicSiteUrl()}${guidePath(slug)}`, content);
+}
+
+/** Live corridor wizard if the topic key is a published segment; else hub `/ru/wizard`. */
+export function threadsWizardPath(countryTopic?: string): string {
+  const country = (countryTopic || "").trim().toLowerCase();
+  if (!country || country === "europe") return HUB_WIZARD_PATH;
+  const entry = getCorridorBySegment(country);
+  if (entry?.active && entry.wizardEnabled) return `/ru/${entry.segment}/wizard`;
+  return HUB_WIZARD_PATH;
 }
 
 export function threadsWizardUrl(content: string, countryTopic?: string): string {
-  const country = (countryTopic || "").trim().toLowerCase();
-  const path =
-    country && country !== "europe" && /^[a-z]{2,20}$/.test(country)
-      ? `/ru/${country}/wizard`
-      : "/ru/wizard";
-  const url = new URL(`${publicSiteUrl()}${path}`);
-  url.searchParams.set("utm_source", "threads");
-  url.searchParams.set("utm_medium", "social");
-  url.searchParams.set("utm_campaign", THREADS_CAMPAIGN);
-  url.searchParams.set("utm_content", content);
-  return url.toString();
+  return threadsTrackedUrl(`${publicSiteUrl()}${threadsWizardPath(countryTopic)}`, content);
 }
 
 export function threadsCtaUrl(cta: ThreadsBankCta, content: string, countryTopic?: string): string {
@@ -272,6 +272,9 @@ export function assertEmigroThreadsBanks(): string[] {
     if (row.cta === "assist" && !/\/ru\/assist/.test(composed)) {
       errors.push(`day ${row.d}: assist CTA missing /ru/assist`);
     }
+    if (row.cta === "wizard" && !/\/ru\/(?:[a-z]+\/)?wizard/.test(composed)) {
+      errors.push(`day ${row.d}: wizard CTA missing /ru/wizard`);
+    }
     if (/t\.me\/\+|joinchat/i.test(composed)) {
       errors.push(`day ${row.d}: invite hash leaked`);
     }
@@ -299,6 +302,25 @@ export function assertEmigroThreadsBanks(): string[] {
     if (row.cta === "assist" && !/\/ru\/assist/.test(composed)) {
       errors.push(`guide ${row.id}: assist CTA missing /ru/assist`);
     }
+    if (row.cta === "wizard" && !/\/ru\/(?:[a-z]+\/)?wizard/.test(composed)) {
+      errors.push(`guide ${row.id}: wizard CTA missing /ru/wizard`);
+    }
+    if (/t\.me\/\+|joinchat/i.test(composed)) {
+      errors.push(`guide ${row.id}: invite hash leaked`);
+    }
+  }
+
+  const wizPt = threadsWizardUrl("assert", "portugal");
+  if (!/\/ru\/portugal\/wizard/.test(wizPt)) {
+    errors.push("wizard url: portugal topic must use /ru/portugal/wizard");
+  }
+  const wizHub = threadsWizardUrl("assert", "europe");
+  if (!/\/ru\/wizard/.test(wizHub) || /\/ru\/europe\//.test(wizHub)) {
+    errors.push("wizard url: europe/unknown must fall back to /ru/wizard");
+  }
+  const wizUnknown = threadsWizardUrl("assert", "atlantis");
+  if (!/\/ru\/wizard/.test(wizUnknown) || /\/ru\/atlantis\//.test(wizUnknown)) {
+    errors.push("wizard url: unknown country must fall back to /ru/wizard");
   }
 
   const wizDays = new Set<number>();

@@ -5,6 +5,7 @@
  * - LIGHTNING_PENDING_MARK → awaiting TG and/or Threads
  * - LIGHTNING_THREADS_PENDING_MARK → TG live, Threads still awaiting
  * - LIGHTNING_TG_PENDING_MARK → Threads live, TG still awaiting
+ * - LIGHTNING_THREADS_PUBLISHED_MARK → Threads already live (Sunday cron skip)
  * - telegram_html = LIGHTNING_SKIP_MARK → rejected / not eligible
  * - telegram_message_ids length > 0 → published to Telegram channel
  *
@@ -23,9 +24,11 @@ import {
   LIGHTNING_SKIP_MARK,
   LIGHTNING_TG_PENDING_MARK,
   LIGHTNING_THREADS_PENDING_MARK,
+  LIGHTNING_THREADS_PUBLISHED_MARK,
   encodeLightningPendingThreadsText,
   escapeTelegramHtml,
   isLightningAwaitingOwner,
+  isLightningThreadsAlreadyPosted,
   lightningOwnerMarkOf,
   parseLightningPendingThreadsText,
   type LightningOwnerMark,
@@ -351,6 +354,7 @@ export async function approveLightningTelegram(slug?: string): Promise<ChannelAc
     const messageIds = await publishNewsHtmlToChannel(pending.telegram_html);
     const stillWantThreads =
       pending.mark === LIGHTNING_PENDING_MARK && Boolean(pending.threadsPayload);
+    const threadsAlreadyLive = pending.mark === LIGHTNING_TG_PENDING_MARK;
 
     const nextMark: LightningOwnerMark | null = stillWantThreads
       ? LIGHTNING_THREADS_PENDING_MARK
@@ -362,7 +366,9 @@ export async function approveLightningTelegram(slug?: string): Promise<ChannelAc
         telegram_message_ids: messageIds,
         threads_text: nextMark
           ? encodeLightningPendingThreadsText(pending.threadsPayload, nextMark)
-          : null,
+          : threadsAlreadyLive
+            ? LIGHTNING_THREADS_PUBLISHED_MARK
+            : null,
         updated_at: new Date().toISOString(),
       })
       .eq("slug", pending.slug);
@@ -421,7 +427,7 @@ export async function approveLightningThreads(slug?: string): Promise<ChannelAct
     .update({
       threads_text: nextMark
         ? encodeLightningPendingThreadsText(pending.threadsPayload, nextMark)
-        : null,
+        : LIGHTNING_THREADS_PUBLISHED_MARK,
       updated_at: new Date().toISOString(),
     })
     .eq("slug", pending.slug);
@@ -484,12 +490,12 @@ export async function skipPendingLightning(slug?: string): Promise<{
   }
 
   if (pending.mark === LIGHTNING_TG_PENDING_MARK) {
-    // Threads already live — skip TG.
+    // Threads already live — skip TG, keep a cron skip mark.
     await supabase
       .from("emigro_news_digests")
       .update({
         telegram_html: LIGHTNING_SKIP_MARK,
-        threads_text: null,
+        threads_text: LIGHTNING_THREADS_PUBLISHED_MARK,
         updated_at: new Date().toISOString(),
       })
       .eq("slug", pending.slug);
@@ -766,4 +772,4 @@ export async function handleLightningApprovalCommand(params: {
 }
 
 /** Re-export for queue “already awaiting” checks. */
-export { isLightningAwaitingOwner };
+export { isLightningAwaitingOwner, isLightningThreadsAlreadyPosted };

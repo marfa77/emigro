@@ -8,7 +8,7 @@ Live publish и `threads:whoami` падают, если `/me` ≠ `emigro2eu`.
 Автопубликация **выключена** по умолчанию (`THREADS_AUTO_PUBLISH` ≠ `1`), кроме:
 
 - **#молния после ✅ Threads** в Telegram (webhook на Vercel);
-- **ежедневный крон на VPS** (`emigro-threads-daily.timer`) — новости + гайды.
+- **ежедневный крон на VPS** (`emigro-threads-daily.timer`) — Lisbon weekday slot (гайды / визард / город / Assist / gated news).
 
 Telegram остаётся одним постом. Threads — reply-chain.
 
@@ -121,9 +121,9 @@ GET https://graph.threads.net/refresh_access_token
 
 ## 5. Формат цепочки (как договорились)
 
-1. **Root:** `🇵🇹 Португалия` + headline (цифра / миф / было→стало)  
+1. **Root:** headline (цифра / миф / было→стало). Страна — в `topic_tag`, не флагом в теле.  
 2. **Replies:** короткие слайды (≤500 символов каждый)  
-3. **Последний:** «Если откликнулось — поддержите подпиской или лайком» + ссылка на страницу Emigro и/или Telegram  
+3. **Последний:** CTA без `t.me/+` — визард `/ru/wizard` или `/ru/{country}/wizard`, Assist `/ru/assist`, быт Порту `telegram.me/emigro_chat_bot?start=porto_chat_*`. UTM: `utm_source=threads`, `utm_campaign=emigro_threads`.
 
 ### Модерация ответов (анти-спам)
 
@@ -162,7 +162,7 @@ npm run threads:preview -- --country=Португалия --flag=🇵🇹 \
 | Сб | Assist | банк `emigro-days` (cta=assist) | `/ru/assist` |
 | Вс | новость | уже в `@Emigro_news`, 1–10 дней, не pending Threads; иначе гайд | визард |
 
-Молнии по-прежнему через ✅ Threads в DM — крон их не дублирует, только подбирает уже вышедшие в канал без очереди Threads.
+Молнии по-прежнему через ✅ Threads в DM — крон их не дублирует: pending (`__lightning_*_pending__`) и уже опубликованные в Threads (`__lightning_threads_published__`) пропускаются. Подбирает только уже вышедшие в `@Emigro_news` без очереди Threads.
 
 Ссылки в JSON нет: код клеит UTM. Никогда `t.me/+`.
 

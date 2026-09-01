@@ -24,4 +24,4 @@ if (errors.length) {
   console.error(errors.map((e) => ` - ${e}`).join("\n"));
   process.exit(1);
 }
-console.log("threads banks ok: 42 days + 21 guides");
+console.log("threads banks ok: 42 days + 21 guides + 12 wizard");

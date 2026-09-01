@@ -178,6 +178,8 @@ export const LIGHTNING_PENDING_MARK = "__lightning_pending__";
 export const LIGHTNING_THREADS_PENDING_MARK = "__lightning_threads_pending__";
 /** Threads already published; Telegram still awaiting owner. */
 export const LIGHTNING_TG_PENDING_MARK = "__lightning_tg_pending__";
+/** Threads already live via owner ✅ — Sunday cron must not repost. Not an owner-await mark. */
+export const LIGHTNING_THREADS_PUBLISHED_MARK = "__lightning_threads_published__";
 
 export const LIGHTNING_OWNER_MARKS = [
   LIGHTNING_PENDING_MARK,
@@ -210,6 +212,13 @@ export function lightningOwnerMarkOf(raw: string | null | undefined): LightningO
 /** True while owner still owes a TG and/or Threads decision. */
 export function isLightningAwaitingOwner(raw: string | null | undefined): boolean {
   return lightningOwnerMarkOf(raw) != null;
+}
+
+/** Owner already published this story to @emigro2eu (lg:th ✅) or Threads is live while TG waits. */
+export function isLightningThreadsAlreadyPosted(raw: string | null | undefined): boolean {
+  const t = (raw ?? "").trim();
+  if (t.startsWith(LIGHTNING_THREADS_PUBLISHED_MARK)) return true;
+  return lightningOwnerMarkOf(t) === LIGHTNING_TG_PENDING_MARK;
 }
 
 /**
