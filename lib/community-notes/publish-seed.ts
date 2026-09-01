@@ -1,6 +1,7 @@
 import { createServerClient } from "@/lib/supabase/server";
 import { buildNoteHashtags } from "@/lib/community-notes/hashtags";
 import { PERVYJ_MESYAC_CHECKLIST_GUIDE } from "@/lib/community-notes/guides/pervyj-mesyac-portugaliya-checklist";
+import { NIF_PORTO_GUIDE } from "@/lib/community-notes/guides/nif-porto";
 import { SPAIN_EDITORIAL_SEED } from "@/lib/community-notes/guides/spain-editorial-index";
 import type { CommunityNoteFaq, ContentKind, NoteBodySection } from "@/lib/community-notes/types";
 
@@ -40,43 +41,20 @@ export const PORTUGAL_EDITORIAL_SEED: SeedNote[] = [
     topic_tags: PERVYJ_MESYAC_CHECKLIST_GUIDE.topic_tags,
   },
   {
-    slug: "nif-lissabon-chto-puutayut",
-    category: "NIF и налоги",
-    content_kind: "guide",
-    title: "NIF в Лиссабоне: что чаще всего путают в чате",
-    excerpt:
-      "Finanças, e-Fatura, представитель и сроки — типичные вопросы из чатов релокантов. Где теряют неделю и что проверить до подачи на ВНЖ.",
-    seo_title: "NIF в Лиссабоне 2026 — типичные ошибки",
-    seo_description:
-      "NIF в Португалии: Finanças, e-Fatura, representante fiscal. Что путают в чатах релокантов и безопасный порядок шагов для RU/BY/UA/KZ.",
-    quick_answer:
-      "NIF выдаёт Finanças. Это налоговый номер, не ВНЖ. Для нерезидента часто нужен representante fiscal; без NIF и e-Fatura не закроете аренду, банк и часть шагов по AIMA.",
-    body_paragraphs: [
-      "Вы только прилетели, нашли комнату на неделю и уже спрашиваете в чате: «NIF сегодня можно?» — и получаете три противоречивых ответа. Это нормально: в @chatlisboa и @por_tugal каждую неделю повторяются одни и те же путаницы.",
-      "Первая — «NIF = право жить». Нет. NIF нужен для налогов и контрактов; право пребывания — отдельная цепочка: виза → AIMA → карта резидента.",
-      "Вторая — «можно без representante fiscal, я же в Airbnb». Иногда получается, иногда нет — зависит от статуса и адреса. Представитель — не «развод посредников», а типовая схема для нерезидента. Проверяйте договор; пароли от Portal das Finanças никому не давайте.",
-      "Третья — «e-Fatura не нужна, пока не работаю». На практике без неё сложнее закрывать быт: чеки, аренда, споры с арендодателем. Просите NIF на кассе — это привычка на пять секунд.",
-      "Безопасный порядок: адрес для корrespondência → Finanças (NIF) → e-Fatura → договор аренды с NIF → банк. Не подменяйте это «временным NIF у знакомого» — частая причина повторных визитов и отказов.",
-    ],
-    faq: [
-      {
-        q: "NIF даёт право жить в Португалии?",
-        a: "Нет. Это налоговый идентификатор. ВНЖ оформляется через консульство и AIMA отдельно.",
-      },
-      {
-        q: "Можно ли получить NIF без адреса в PT?",
-        a: "Часто нужен адрес для корrespondência или representante fiscal — сверяйте с Portal das Finanças на дату обращения.",
-      },
-      {
-        q: "Зачем e-Fatura без работы в Португалии?",
-        a: "Для учёта расходов и подтверждения бытовых платежей; многие шаги с арендой и банком проще с активным профилем.",
-      },
-    ],
-    official_links: [
-      { title: "Portal das Finanças", url: "https://www.portaldasfinancas.gov.pt/" },
-      { title: "e-Fatura", url: "https://faturas.portaldasfinancas.gov.pt/" },
-    ],
-    topic_tags: ["nif", "financas", "e-fatura"],
+    slug: NIF_PORTO_GUIDE.slug,
+    category: NIF_PORTO_GUIDE.category,
+    content_kind: NIF_PORTO_GUIDE.content_kind,
+    title: NIF_PORTO_GUIDE.title,
+    excerpt: NIF_PORTO_GUIDE.excerpt,
+    seo_title: NIF_PORTO_GUIDE.seo_title,
+    seo_description: NIF_PORTO_GUIDE.seo_description,
+    quick_answer: NIF_PORTO_GUIDE.quick_answer,
+    body_paragraphs: NIF_PORTO_GUIDE.body_paragraphs,
+    body_sections: NIF_PORTO_GUIDE.body_sections,
+    key_takeaways: NIF_PORTO_GUIDE.key_takeaways,
+    faq: NIF_PORTO_GUIDE.faq,
+    official_links: NIF_PORTO_GUIDE.official_links,
+    topic_tags: NIF_PORTO_GUIDE.topic_tags,
   },
   {
     slug: "aima-agora-zapis-2026",

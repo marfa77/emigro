@@ -1,4 +1,5 @@
 import { buildNoteHashtags } from "@/lib/community-notes/hashtags";
+import { ARCHIVE_SLUGS } from "@/lib/community-notes/editorial-filter";
 import { noteSeedFallback } from "@/lib/community-notes/seed";
 import type {
   CommunityNote,
@@ -242,12 +243,14 @@ export function mergePublishedNotesWithSeed(notes: CommunityNote[], countryKey: 
   const merged: CommunityNote[] = [];
 
   for (const seedNote of seed) {
+    if (ARCHIVE_SLUGS.has(seedNote.slug)) continue;
     const dbNote = bySlug.get(seedNote.slug);
     merged.push(dbNote ? overlayEditorialSeed(dbNote, countryKey) : seedNote);
     bySlug.delete(seedNote.slug);
   }
 
   for (const note of Array.from(bySlug.values())) {
+    if (ARCHIVE_SLUGS.has(note.slug)) continue;
     merged.push(overlayEditorialSeed(note, countryKey));
   }
 
