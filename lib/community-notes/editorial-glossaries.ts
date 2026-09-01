@@ -588,6 +588,18 @@ export const EDITORIAL_GLOSSARIES: Record<string, GlossaryTerm[]> = {
     { pt: "residente", ru: "житель муниципалия/страны; отдельные скидки на transporte и cultura" },
     { pt: "moliceiro", ru: "лодка-«гондола» в Aveiro; короткая прогулка ~45–60 мин" },
   ],
+  "portugal-destination-tips-regiony-2026": [
+    { pt: "bica", ru: "эспрессо в Лиссабоне; на севере чаще um café" },
+    { pt: "abatanado", ru: "более длинный чёрный кофе (больше воды, чем bica)" },
+    { pt: "café com cheirinho", ru: "кофе с глотком крепкого; не входит в счёт по умолчанию" },
+    { pt: "Acesso 52", ru: "до 52 бесплатных дней в год в объектах MMP для residentes с NIF" },
+    { pt: "MMP", context: "Museus e Monumentos de Portugal", ru: "сеть музеев и дворцов; билеты и Acesso 52" },
+    { pt: "travesseiro", ru: "слоёная выпечка Sintra, классика Casa Piriquita" },
+    { pt: "moliceiro", ru: "лодка по каналам Aveiro" },
+    { pt: "Linha do Douro", ru: "железная дорога Porto–Pocinho вдоль реки; не доезжает до Foz Côa" },
+    { pt: "parque natural", ru: "природный парк; правила доступа и парковки меняются в сезон" },
+    { pt: "aldeia do xisto", ru: "сланцевая деревня Centro; сеть aldeiasdoxisto.pt" },
+  ],
   "platnye-dorogi-shtrafy-avariya-portugaliya-norte-2026": [
     { pt: "portagem", ru: "плата за проезд по платной дороге (autoestrada)" },
     { pt: "Via Verde", ru: "электронная система оплаты portagens; зелёная полоса на магистрали" },

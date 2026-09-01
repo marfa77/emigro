@@ -1,5 +1,5 @@
 import { buildTelegramStatsReport } from "@/lib/analytics/format-stats-telegram";
-import { parseWizardTelegramStartPayload } from "@/lib/telegram/deep-link";
+import { parseWizardTelegramStartPayload, isPortoChatStartPayload } from "@/lib/telegram/deep-link";
 import {
   isAdminTelegramChat,
   sendStatsBotMessage,
@@ -13,6 +13,7 @@ import {
   userWizardLinkMessage,
 } from "@/lib/telegram/commands";
 import { sendWizardReportToTelegramUser } from "@/lib/wizard/send-telegram-report";
+import { issuePortoChatInvite, portoChatInviteHtml } from "@/lib/telegram/porto-chat-invite";
 
 const recentStatsReplies = new Map<string, number>();
 const STATS_REPLY_COOLDOWN_MS = 120_000;
@@ -67,10 +68,15 @@ async function replyWithWizardLink(chatId: string | number): Promise<void> {
   await sendStatsBotMessage(chatId, userWizardLinkMessage(), { parseMode: "HTML" });
 }
 
+function isPrivateChat(message: TelegramMessage): boolean {
+  return (message.chat?.type || "private") === "private";
+}
+
 async function handleStatsCommand(message: TelegramMessage): Promise<boolean> {
   const text = (message.text || "").trim();
   const demo = isStatsDemoCommand(text);
   if (!demo && !isStatsCommand(text)) return false;
+  if (!isPrivateChat(message)) return true;
 
   const chatId = message.chat?.id;
   const userId = message.from?.id;
@@ -121,6 +127,7 @@ function startPayload(text: string): string | null {
 async function handleWizardStartCommand(message: TelegramMessage): Promise<boolean> {
   const payload = startPayload(message.text || "");
   if (!payload) return false;
+  if (!isPrivateChat(message)) return true;
 
   const parsed = parseWizardTelegramStartPayload(payload);
   if (!parsed) return false;
@@ -172,8 +179,38 @@ async function handleWizardStartCommand(message: TelegramMessage): Promise<boole
   return true;
 }
 
+async function handlePortoChatStartCommand(message: TelegramMessage): Promise<boolean> {
+  const payload = startPayload(message.text || "");
+  if (!payload || !isPortoChatStartPayload(payload)) return false;
+  if (!isPrivateChat(message)) return true;
+
+  const chatId = message.chat?.id;
+  const userId = message.from?.id;
+  if (chatId == null || userId == null) return true;
+
+  const result = await issuePortoChatInvite(userId);
+  await sendStatsBotMessage(chatId, portoChatInviteHtml(result), { parseMode: "HTML" });
+  return true;
+}
+
+async function handlePortoChatKeyword(message: TelegramMessage): Promise<boolean> {
+  if (!isPrivateChat(message)) return false;
+  const text = (message.text || "").trim().toLowerCase();
+  if (text !== "порту" && text !== "porto" && text !== "чат порту") return false;
+
+  const chatId = message.chat?.id;
+  const userId = message.from?.id;
+  if (chatId == null || userId == null) return true;
+
+  const result = await issuePortoChatInvite(userId);
+  await sendStatsBotMessage(chatId, portoChatInviteHtml(result), { parseMode: "HTML" });
+  return true;
+}
+
 async function handleStartCommand(message: TelegramMessage): Promise<boolean> {
   if (!isStartCommand(message.text || "")) return false;
+  if (startPayload(message.text || "")) return false;
+  if (!isPrivateChat(message)) return true;
   const chatId = message.chat?.id;
   if (chatId == null) return true;
 
@@ -182,6 +219,7 @@ async function handleStartCommand(message: TelegramMessage): Promise<boolean> {
 }
 
 async function handleUserFallback(message: TelegramMessage): Promise<void> {
+  if (!isPrivateChat(message)) return;
   const chatId = message.chat?.id;
   const userId = message.from?.id;
   if (chatId == null) return;
@@ -194,7 +232,9 @@ async function handleUserFallback(message: TelegramMessage): Promise<void> {
 export async function processTelegramMessage(message: TelegramMessage): Promise<void> {
   if (await handleStatsCommand(message)) return;
   if (await handleWizardStartCommand(message)) return;
+  if (await handlePortoChatStartCommand(message)) return;
   if (await handleStartCommand(message)) return;
+  if (await handlePortoChatKeyword(message)) return;
   await handleUserFallback(message);
 }
 

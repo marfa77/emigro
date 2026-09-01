@@ -13,6 +13,7 @@ import { SatelliteFunnelCta } from "@/components/satellite/SatelliteFunnelCta";
 import { Prep2GoPromo } from "@/components/satellite/Prep2GoPromo";
 import { PixIDPromo } from "@/components/satellite/PixIDPromo";
 import { BarakhloPromo } from "@/components/satellite/BarakhloPromo";
+import { PortoChatCta } from "@/components/satellite/PortoChatCta";
 import {
   buildCommunityNoteLlmDescription,
   buildCommunityNoteLlmFacts,
@@ -26,6 +27,7 @@ import {
   shouldShowPixIdPromo,
   shouldShowPrep2GoPromo,
 } from "@/lib/community-notes/sponsor-promo";
+import { shouldShowPortoChatCta } from "@/lib/community-notes/porto-chat-cta";
 import { resolveNoteOgImage } from "@/lib/community-notes/note-og-image";
 import { PORTUGAL_SATELLITE } from "@/lib/satellite/portugal";
 import { satelliteHubUrl, satellitePillarUrl } from "@/lib/satellite/funnel-urls";
@@ -69,6 +71,7 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
   const showPrep2Go = shouldShowPrep2GoPromo(note);
   const showPixId = shouldShowPixIdPromo(note);
   const showBarakhlo = shouldShowBarakhloPromo(note);
+  const showPortoChat = shouldShowPortoChatCta(note);
 
   const { articleSchema, breadcrumbSchema, faqSchema, speakableSchema } = buildCommunityNoteSchemas(note);
   const llmDescription = buildCommunityNoteLlmDescription(note);
@@ -177,6 +180,8 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
       {note.official_links.length > 0 && <OfficialLinksPreview links={note.official_links} />}
 
       <NoteFaq items={note.faq} />
+
+      {showPortoChat && <PortoChatCta source="portugal_satellite_note" noteSlug={note.slug} />}
 
       <SatelliteFunnelCta
         countryKey="portugal"

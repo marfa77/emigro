@@ -79,6 +79,14 @@ async function main() {
   if (skipDrafts) {
     const spotlight = await refreshDailySpotlight("portugal");
     console.log("[spotlight]", spotlight?.note_slug);
+    try {
+      const { postNextPortoGroupNote } = await import("@/lib/community-notes/porto-group-publish");
+      const groupPost = await postNextPortoGroupNote();
+      if (groupPost.skipped) console.log("[porto-group]", groupPost.skipped);
+      else console.log("[porto-group]", groupPost.slug, groupPost.messageId);
+    } catch (e) {
+      console.warn("[porto-group] failed:", e instanceof Error ? e.message : e);
+    }
     console.log("[draft] skipped");
     return;
   }
@@ -88,6 +96,16 @@ async function main() {
 
   const spotlight = await refreshDailySpotlight("portugal");
   console.log("[spotlight]", spotlight?.note_slug, spotlight?.threads_text?.slice(0, 80));
+
+  try {
+    const { postNextPortoGroupNote } = await import("@/lib/community-notes/porto-group-publish");
+    const groupPost = await postNextPortoGroupNote();
+    if (groupPost.skipped) console.log("[porto-group]", groupPost.skipped);
+    else console.log("[porto-group]", groupPost.slug, groupPost.messageId);
+  } catch (e) {
+    console.warn("[porto-group] failed:", e instanceof Error ? e.message : e);
+  }
+
   console.log("[done] portugal daily");
 }
 

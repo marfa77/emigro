@@ -12,7 +12,7 @@ const START_PREFIX: Record<WizardTelegramMode, string> = {
   corridor: "wiz_corridor_",
 };
 
-function publicTelegramBotUrl(): string {
+export function publicTelegramBotUrl(): string {
   const raw = (process.env.EMIGRO_CHAT_BOT_PUBLIC_URL?.trim() ?? telegramPublicUrl("emigro_chat_bot")).trim();
   const value = raw.startsWith("@") ? telegramPublicUrl(raw) : normalizeTelegramPublicUrl(raw);
 
@@ -42,6 +42,20 @@ export function wizardTelegramDeepLink(input: {
 }): string {
   const url = new URL(publicTelegramBotUrl());
   url.searchParams.set("start", wizardTelegramStartPayload(input));
+  return url.toString();
+}
+
+/** Private Porto group: site CTAs must use this, never a t.me/+ invite hash. */
+export const PORTO_CHAT_START_PAYLOAD = "porto_chat";
+
+export function isPortoChatStartPayload(payload: string): boolean {
+  const clean = payload.trim().toLowerCase();
+  return clean === "porto" || clean === PORTO_CHAT_START_PAYLOAD || clean.startsWith(`${PORTO_CHAT_START_PAYLOAD}_`);
+}
+
+export function portoChatDeepLink(): string {
+  const url = new URL(publicTelegramBotUrl());
+  url.searchParams.set("start", PORTO_CHAT_START_PAYLOAD);
   return url.toString();
 }
 

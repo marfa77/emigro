@@ -50,22 +50,27 @@ export function isAdminTelegramChat(
   return false;
 }
 
-type TelegramApiResult = { ok?: boolean; description?: string };
+type TelegramApiResult = {
+  ok?: boolean;
+  description?: string;
+  result?: { message_id?: number };
+};
 
 export async function sendStatsBotMessage(
   chatId: string | number,
   text: string,
-  options?: { parseMode?: "HTML" | null }
-): Promise<{ success: boolean; error?: string }> {
+  options?: { parseMode?: "HTML" | null; disableWebPagePreview?: boolean }
+): Promise<{ success: boolean; error?: string; messageId?: number }> {
   const token = statsBotToken();
   if (!token) return { success: false, error: "EMIGRO_CHAT_BOT_TOKEN missing" };
 
   const chunks = splitTelegramTextChunks(text, 3500);
+  let messageId: number | undefined;
   for (let i = 0; i < chunks.length; i++) {
     const body: Record<string, unknown> = {
       chat_id: chatId,
       text: chunks[i],
-      disable_web_page_preview: true,
+      disable_web_page_preview: options?.disableWebPagePreview ?? true,
     };
     if (options?.parseMode === "HTML") {
       body.parse_mode = "HTML";
@@ -84,6 +89,8 @@ export async function sendStatsBotMessage(
         error: `${json.description || res.statusText} (chunk ${i + 1}/${chunks.length})`,
       };
     }
+    const id = json.result?.message_id;
+    if (typeof id === "number") messageId = id;
   }
-  return { success: true };
+  return { success: true, messageId };
 }

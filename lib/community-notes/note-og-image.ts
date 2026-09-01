@@ -250,6 +250,11 @@ const SLUG_PHOTO_QUERIES: Record<string, string[]> = {
     "douro river porto skyline",
     "algarve portugal coast cliffs",
   ],
+  "portugal-destination-tips-regiony-2026": [
+    "sintra portugal palace hills",
+    "douro valley portugal train river",
+    "evora portugal historic square",
+  ],
   "meditsina-norte-sns-chastnaya-stomatologiya-2026": [
     "hospital porto portugal exterior",
     "healthcare clinic modern europe",

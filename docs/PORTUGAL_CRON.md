@@ -18,6 +18,9 @@ Timer с **`Persistent=true`** — пропуск догоняется посл�
 3. Ingest в `community_signals` (direct Supabase, без Vercel HTTP)
 4. До **1** Gemini-черновика → `community_notes` (`published`)
 5. Обновление daily spotlight на hub
+6. Один пост из закрытого банка `lib/community-notes/porto-group-bank.json` в чат Порту (`EMIGRO_PORTO_CHAT_ID`). Один slug — один день. Повтор по `parser/out/porto-group-posted.json`. Когда очередь кончилась — тишина, новые черновики сателлита в группу сами не попадают.
+
+Группа сейчас обычный чат: Bot API id `-5534913841` (не `-100…`). После Upgrade to supergroup id сменится — поправить env.
 
 ## Переменные на VPS
 
@@ -38,6 +41,19 @@ NEXT_PUBLIC_SUPABASE_URL=
 SUPABASE_SERVICE_ROLE_KEY=
 GOOGLE_API_KEY=
 EMIGRO_NEWS_FAST_MODEL=gemini-2.5-flash
+EMIGRO_CHAT_BOT_TOKEN=
+EMIGRO_PORTO_CHAT_ID=-5534913841
+```
+
+Дедуп постов группы: `parser/out/porto-group-posted.json`. Закрытый банк: `lib/community-notes/porto-group-bank.json`.
+
+Сайт не показывает `t.me/+`. Кнопка на хабе / заметках Порту ведёт в `@emigro_chat_bot?start=porto_chat`; бот в личке выдаёт одноразовый инвайт (`createChatInviteLink`, 24 ч, 1 человек). Для этого на **Vercel** тоже нужен `EMIGRO_PORTO_CHAT_ID` (вебхук живёт не на VPS). У бота в группе: Invite users via link.
+
+Ручной пост в группу (без полного daily):
+
+```bash
+npm run portugal:post-group -- --dry-run
+npm run portugal:post-group
 ```
 
 `COMMUNITY_INGEST_API_KEY` на VPS **не нужен** — ingest идёт direct в Supabase из `npm run portugal:daily`.

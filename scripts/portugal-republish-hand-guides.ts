@@ -10,6 +10,7 @@ const SCRIPTS = [
   "portugal:publish-regions-guide",
   "portugal:publish-apartment-buying-guide",
   "portugal:publish-domestic-tourism-guide",
+  "portugal:publish-destination-tips-guide",
   "portugal:publish-porto-braga-rent-guide",
   "portugal:publish-lisbon-rent-guide",
   "portugal:publish-bank-guide",

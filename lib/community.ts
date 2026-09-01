@@ -12,7 +12,10 @@ export const DISCUSSION_GROUP_HANDLE = "@emigro_chat";
 /** @deprecated Use DISCUSSION_GROUP_HANDLE */
 export const RELOCATOR_CHAT_HANDLE = DISCUSSION_GROUP_HANDLE;
 
-/** Public CTA always points to the channel — discussion opens from post comments. */
+/** Public CTA always points to the channel — discussion opens from post comments.
+ *  Do NOT point this at the private Porto group (no public @, no t.me/+ on the site).
+ *  Porto join is @emigro_chat_bot?start=porto_chat → one-time invite in DM.
+ */
 export const COMMUNITY_CTA_URL = NEWS_TELEGRAM_URL;
 export const COMMUNITY_CTA_LABEL = "Подписаться на канал";
 
