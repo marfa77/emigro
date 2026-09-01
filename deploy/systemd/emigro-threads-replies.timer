@@ -1,0 +1,12 @@
+[Unit]
+Description=Emigro Threads comment poll every ~20 minutes
+
+[Timer]
+OnBootSec=4min
+OnUnitInactiveSec=20min
+RandomizedDelaySec=8min
+AccuracySec=1min
+Persistent=false
+
+[Install]
+WantedBy=timers.target

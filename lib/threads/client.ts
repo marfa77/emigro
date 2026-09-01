@@ -4,6 +4,7 @@
  */
 import {
   THREADS_GRAPH_BASE,
+  assertThreadsBrandUsername,
   assertThreadsPublishAllowed,
   loadThreadsEnv,
 } from "@/lib/threads/config";
@@ -18,24 +19,147 @@ export type ThreadsPublishResult = {
 };
 
 type GraphId = { id?: string; error?: { message?: string } };
+type GraphError = { error?: { message?: string } };
+
+export type ThreadsMediaItem = {
+  id?: string;
+  text?: string;
+  username?: string;
+  timestamp?: string;
+  is_reply?: boolean;
+  is_reply_owned_by_me?: boolean;
+  hide_status?: string;
+  has_replies?: boolean;
+  permalink?: string;
+  replied_to?: { id?: string } | string;
+};
+
+async function graphUrl(path: string, params: Record<string, string>): Promise<URL> {
+  const env = loadThreadsEnv();
+  if (!env.accessToken) throw new Error("THREADS_ACCESS_TOKEN required");
+  const u = new URL(`${THREADS_GRAPH_BASE}/${path.replace(/^\//, "")}`);
+  for (const [k, v] of Object.entries(params)) {
+    if (v) u.searchParams.set(k, v);
+  }
+  u.searchParams.set("access_token", env.accessToken);
+  return u;
+}
 
 async function postParams(
   path: string,
   params: Record<string, string>
 ): Promise<GraphId> {
-  const env = loadThreadsEnv();
-  const u = new URL(`${THREADS_GRAPH_BASE}/${path}`);
-  for (const [k, v] of Object.entries(params)) {
-    if (v) u.searchParams.set(k, v);
-  }
-  u.searchParams.set("access_token", env.accessToken);
-
+  const u = await graphUrl(path, params);
   const res = await fetch(u.toString(), { method: "POST" });
   const data = (await res.json()) as GraphId;
   if (!res.ok || data.error || !data.id) {
     throw new Error(data.error?.message || `Threads Graph HTTP ${res.status}`);
   }
   return data;
+}
+
+async function getParams<T>(
+  path: string,
+  params: Record<string, string>
+): Promise<T> {
+  const u = await graphUrl(path, params);
+  const res = await fetch(u.toString());
+  const data = (await res.json()) as T & GraphError;
+  if (!res.ok || data.error) {
+    throw new Error(data.error?.message || `Threads Graph HTTP ${res.status}`);
+  }
+  return data;
+}
+
+const CONVERSATION_FIELDS =
+  "id,text,username,timestamp,is_reply,is_reply_owned_by_me,hide_status,has_replies,replied_to,permalink";
+
+export async function listMyThreads(limit = 12): Promise<ThreadsMediaItem[]> {
+  const env = loadThreadsEnv();
+  const userId = env.userId || (await fetchThreadsMe()).id;
+  const data = await getParams<{ data?: ThreadsMediaItem[] }>(`${userId}/threads`, {
+    fields: "id,text,timestamp,is_reply,has_replies,permalink",
+    limit: String(limit),
+  });
+  return data.data ?? [];
+}
+
+export async function listConversation(
+  mediaId: string,
+  limit = 50
+): Promise<ThreadsMediaItem[]> {
+  const data = await getParams<{ data?: ThreadsMediaItem[] }>(`${mediaId}/conversation`, {
+    fields: CONVERSATION_FIELDS,
+    limit: String(limit),
+    reverse: "false",
+  });
+  return data.data ?? [];
+}
+
+/** Hidden comments when enable_reply_approvals=1. Soft-fail if the edge is missing. */
+export async function listPendingReplies(
+  mediaId: string,
+  limit = 50
+): Promise<ThreadsMediaItem[]> {
+  try {
+    const data = await getParams<{ data?: ThreadsMediaItem[] }>(`${mediaId}/pending_replies`, {
+      fields: CONVERSATION_FIELDS,
+      limit: String(limit),
+    });
+    return data.data ?? [];
+  } catch (e) {
+    console.warn(
+      "[threads] pending_replies skipped:",
+      e instanceof Error ? e.message : e
+    );
+    return [];
+  }
+}
+
+/** Unhide a comment so our reply is visible (best-effort). */
+export async function unhideThreadsReply(replyId: string): Promise<void> {
+  const u = await graphUrl(`${replyId}/manage_reply`, { hide: "false" });
+  const res = await fetch(u.toString(), { method: "POST" });
+  const data = (await res.json()) as GraphError & { success?: boolean };
+  if (!res.ok || data.error) {
+    throw new Error(data.error?.message || `Threads manage_reply HTTP ${res.status}`);
+  }
+}
+
+/**
+ * Publish a text reply to a comment. Live write: THREADS_AUTO_PUBLISH=1 and forcePublish.
+ * Always whoami=@emigro2eu. Reply approvals OFF on our reply so it stays public.
+ */
+export async function publishThreadsReply(params: {
+  text: string;
+  replyToId: string;
+  forcePublish?: boolean;
+}): Promise<{ dryRun: boolean; id?: string }> {
+  if (!params.forcePublish) {
+    return { dryRun: true };
+  }
+
+  assertThreadsPublishAllowed(true);
+  const me = await fetchThreadsMe();
+  assertThreadsBrandUsername(me.username);
+
+  try {
+    await unhideThreadsReply(params.replyToId);
+  } catch (e) {
+    console.warn(
+      "[threads] unhide parent failed (continuing):",
+      e instanceof Error ? e.message : e
+    );
+  }
+
+  const creationId = await createMediaContainer({
+    text: params.text,
+    replyToId: params.replyToId,
+    enableReplyApprovals: false,
+  });
+  await waitForContainerFinished(creationId, { timeoutMs: 60_000 });
+  const id = await publishContainer(creationId);
+  return { dryRun: false, id };
 }
 
 /** Create TEXT or IMAGE container (optionally as reply). */
@@ -148,6 +272,8 @@ export async function publishThreadsChain(params: {
   }
 
   assertThreadsPublishAllowed(true);
+  const me = await fetchThreadsMe();
+  assertThreadsBrandUsername(me.username);
 
   const pause = Math.max(0, params.pauseMs ?? 1500);
   const containerIds: string[] = [];
@@ -224,6 +350,21 @@ async function waitForContainerFinished(
     await new Promise((r) => setTimeout(r, intervalMs));
   }
   throw new Error(`Threads container ${creationId} not FINISHED within ${timeoutMs}ms`);
+}
+
+export async function fetchThreadsPermalink(id: string): Promise<string | undefined> {
+  const env = loadThreadsEnv();
+  if (!env.accessToken) throw new Error("THREADS_ACCESS_TOKEN required");
+  const u = new URL(`${THREADS_GRAPH_BASE}/${id}`);
+  u.searchParams.set("fields", "id,permalink");
+  u.searchParams.set("access_token", env.accessToken);
+  const res = await fetch(u.toString());
+  const data = (await res.json()) as { permalink?: string; error?: { message?: string } };
+  if (!res.ok || data.error) {
+    console.warn("[threads] permalink lookup failed:", data.error?.message || `HTTP ${res.status}`);
+    return undefined;
+  }
+  return data.permalink;
 }
 
 export async function fetchThreadsMe(): Promise<{ id: string; username?: string }> {

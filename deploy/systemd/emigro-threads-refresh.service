@@ -1,0 +1,19 @@
+[Unit]
+Description=Emigro Threads token refresh (brand account, weekly)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/emigro
+PermissionsStartOnly=true
+ExecStartPre=/bin/mkdir -p /opt/emigro/deploy/threads-refresh/logs
+ExecStartPre=/bin/chown www-data:www-data /opt/emigro/deploy/threads-refresh/logs
+ExecStart=/bin/bash /opt/emigro/deploy/threads-refresh/run_scheduled.sh
+User=www-data
+EnvironmentFile=-/opt/emigro/.env
+StandardOutput=append:/opt/emigro/deploy/threads-refresh/logs/refresh.log
+StandardError=append:/opt/emigro/deploy/threads-refresh/logs/refresh.log
+
+[Install]
+WantedBy=multi-user.target

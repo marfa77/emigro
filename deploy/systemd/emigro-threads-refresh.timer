@@ -1,0 +1,9 @@
+[Unit]
+Description=Emigro Threads token refresh — Monday 05:00 UTC (before Barakhlo PT)
+
+[Timer]
+OnCalendar=Mon *-*-* 05:15:00 UTC
+Persistent=true
+
+[Install]
+WantedBy=timers.target

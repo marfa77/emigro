@@ -5,6 +5,7 @@ import {
   handleLightningApprovalCommand,
 } from "@/lib/news/lightning-approval";
 import { handleGuideApprovalCallback } from "@/lib/news/run-guide-telegram-queue";
+import { handleThreadsReplyCallback } from "@/lib/threads/replies";
 import { processTelegramUpdate } from "@/lib/telegram/handle-update";
 
 export const runtime = "nodejs";
@@ -26,6 +27,7 @@ type NewsUpdate = {
     from?: { id?: number | string };
     message?: {
       message_id?: number;
+      text?: string;
       chat?: { id?: number | string };
     };
   };
@@ -63,9 +65,14 @@ export async function POST(req: Request) {
         userId: cb.from?.id,
         callbackQueryId: cb.id,
         messageId: cb.message?.message_id,
+        messageText: cb.message?.text,
       };
       const guideHandled = await handleGuideApprovalCallback(args);
-      if (!guideHandled) {
+      if (guideHandled) {
+        /* already handled */
+      } else if (await handleThreadsReplyCallback(args)) {
+        /* tr:ok: / tr:no: */
+      } else {
         await handleLightningApprovalCallback(args);
       }
     } else {
@@ -96,6 +103,6 @@ export async function GET() {
     bot: "emigro_news+chat",
     configured: Boolean(newsBotToken()),
     webhook: "/api/telegram/news-webhook",
-    handlers: ["lightning", "guide", "stats", "wizard"],
+    handlers: ["lightning", "guide", "threads-replies", "stats", "wizard"],
   });
 }

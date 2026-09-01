@@ -1,0 +1,20 @@
+[Unit]
+Description=Emigro Threads daily — @emigro2eu calendar slot
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+TimeoutStartSec=8min
+WorkingDirectory=/opt/emigro
+PermissionsStartOnly=true
+ExecStartPre=/bin/mkdir -p /opt/emigro/deploy/threads-daily/logs
+ExecStartPre=/bin/chown www-data:www-data /opt/emigro/deploy/threads-daily/logs
+ExecStart=/bin/bash /opt/emigro/deploy/threads-daily/run_scheduled.sh
+User=www-data
+EnvironmentFile=-/opt/emigro/.env
+StandardOutput=append:/opt/emigro/deploy/threads-daily/logs/scheduled.log
+StandardError=append:/opt/emigro/deploy/threads-daily/logs/scheduled.log
+
+[Install]
+WantedBy=multi-user.target

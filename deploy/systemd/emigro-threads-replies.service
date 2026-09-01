@@ -1,0 +1,20 @@
+[Unit]
+Description=Emigro Threads comment drafts → owner Telegram DM
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+TimeoutStartSec=6min
+WorkingDirectory=/opt/emigro
+PermissionsStartOnly=true
+ExecStartPre=/bin/mkdir -p /opt/emigro/deploy/threads-replies/logs
+ExecStartPre=/bin/chown www-data:www-data /opt/emigro/deploy/threads-replies/logs
+ExecStart=/bin/bash /opt/emigro/deploy/threads-replies/run_scheduled.sh
+User=www-data
+EnvironmentFile=-/opt/emigro/.env
+StandardOutput=append:/opt/emigro/deploy/threads-replies/logs/scheduled.log
+StandardError=append:/opt/emigro/deploy/threads-replies/logs/scheduled.log
+
+[Install]
+WantedBy=multi-user.target

@@ -2,6 +2,8 @@
  * Threads access token helpers (short-lived → long-lived → refresh).
  * Server-side only — never expose THREADS_APP_SECRET to the client.
  */
+import { existsSync, readFileSync, writeFileSync, chmodSync } from "fs";
+import { resolve } from "path";
 import {
   THREADS_EXCHANGE_URL,
   THREADS_OAUTH_TOKEN_URL,
@@ -90,4 +92,39 @@ export function formatExpiresIn(expiresIn?: number): string {
   if (!expiresIn || !Number.isFinite(expiresIn)) return "unknown";
   const days = Math.round(expiresIn / 86400);
   return `${expiresIn}s (~${days}d)`;
+}
+
+/** Write THREADS_* into existing env files (`.env.local` / `.env` / `parser/.env`). Never logs the value. */
+export function persistThreadsEnvValues(updates: Record<string, string>): string[] {
+  const candidates = [
+    resolve(process.cwd(), ".env.local"),
+    resolve(process.cwd(), ".env"),
+    resolve(process.cwd(), "parser/.env"),
+  ];
+  const written: string[] = [];
+  for (const file of candidates) {
+    if (!existsSync(file)) continue;
+    let text = readFileSync(file, "utf8");
+    let changed = false;
+    for (const [key, value] of Object.entries(updates)) {
+      if (!key || !value) continue;
+      const line = `${key}=${value}`;
+      const re = new RegExp(`^${key}=.*$`, "m");
+      if (re.test(text)) {
+        text = text.replace(re, line);
+      } else {
+        text = `${text.trimEnd()}\n${line}\n`;
+      }
+      changed = true;
+    }
+    if (!changed) continue;
+    writeFileSync(file, text.endsWith("\n") ? text : `${text}\n`, { encoding: "utf8" });
+    try {
+      chmodSync(file, 0o600);
+    } catch {
+      /* ignore on Darwin */
+    }
+    written.push(file);
+  }
+  return written;
 }

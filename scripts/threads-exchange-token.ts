@@ -53,11 +53,33 @@ Needs THREADS_APP_SECRET in .env (and APP_ID + REDIRECT_URI for --code / --auth-
 
   console.log("Exchanging short-lived → long-lived…");
   const longRes = await exchangeShortLivedForLongLived(short);
-  console.log("\n=== LONG-LIVED TOKEN (save to THREADS_ACCESS_TOKEN) ===\n");
-  console.log(longRes.access_token);
+  process.env.THREADS_ACCESS_TOKEN = longRes.access_token;
+  if (longRes.user_id) process.env.THREADS_USER_ID = String(longRes.user_id);
+
+  const { fetchThreadsMe } = await import("../lib/threads/client");
+  const { assertThreadsBrandUsername, expectedThreadsBrandUsername } = await import("../lib/threads/config");
+  const me = await fetchThreadsMe();
+  console.log("whoami", `@${me.username}`, me.id);
+  assertThreadsBrandUsername(me.username);
+  console.log(`OK — @${expectedThreadsBrandUsername()}`);
+
+  const write = process.argv.includes("--write");
+  if (write) {
+    const { persistThreadsEnvValues } = await import("../lib/threads/tokens");
+    const updates: Record<string, string> = { THREADS_ACCESS_TOKEN: longRes.access_token };
+    if (longRes.user_id) updates.THREADS_USER_ID = String(longRes.user_id);
+    if (me.id) updates.THREADS_USER_ID = me.id;
+    const files = persistThreadsEnvValues(updates);
+    console.log("Wrote THREADS_ACCESS_TOKEN to", files.join(", ") || "(no .env files found)");
+  } else {
+    console.log("\n=== LONG-LIVED TOKEN (save to THREADS_ACCESS_TOKEN, or re-run with --write) ===\n");
+    console.log(longRes.access_token);
+  }
   console.log("\nexpires_in=", formatExpiresIn(longRes.expires_in));
   console.log("token_type=", longRes.token_type ?? "bearer");
-  if (longRes.user_id) console.log("user_id=", longRes.user_id, "(also set THREADS_USER_ID)");
+  if (longRes.user_id || me.id) {
+    console.log("user_id=", longRes.user_id || me.id, "(THREADS_USER_ID)");
+  }
 }
 
 main().catch((e) => {

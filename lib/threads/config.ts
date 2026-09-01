@@ -2,6 +2,9 @@
  * Threads Graph API config.
  * Publishing is gated: THREADS_AUTO_PUBLISH must be "1" AND caller passes forcePublish.
  */
+export const THREADS_CAMPAIGN = "emigro_threads";
+/** Brand Threads handle. Live posts refuse any other /me username. */
+export const THREADS_BRAND_USERNAME = "emigro2eu";
 export const THREADS_GRAPH_BASE = "https://graph.threads.net/v1.0";
 export const THREADS_OAUTH_TOKEN_URL = "https://graph.threads.net/oauth/access_token";
 export const THREADS_EXCHANGE_URL = "https://graph.threads.net/access_token";
@@ -45,6 +48,27 @@ export type ThreadsEnv = {
    */
   replyControl: string;
 };
+
+export function normalizeThreadsUsername(raw?: string | null): string {
+  return (raw || "").trim().replace(/^@/, "").toLowerCase();
+}
+
+/** @emigro2eu unless THREADS_USERNAME overrides (tests only). */
+export function expectedThreadsBrandUsername(): string {
+  return normalizeThreadsUsername(
+    process.env.THREADS_USERNAME || process.env.THREADS_BRAND_USERNAME || THREADS_BRAND_USERNAME
+  );
+}
+
+export function assertThreadsBrandUsername(username?: string | null): void {
+  const got = normalizeThreadsUsername(username);
+  const want = expectedThreadsBrandUsername();
+  if (!got || got !== want) {
+    throw new Error(
+      `Threads token is @${got || "unknown"}, expected @${want}. Re-auth as the brand account (incognito).`
+    );
+  }
+}
 
 export function loadThreadsEnv(): ThreadsEnv {
   const replyControl = (process.env.THREADS_REPLY_CONTROL || "everyone").trim();

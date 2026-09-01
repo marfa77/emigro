@@ -40,7 +40,7 @@ export async function GET(req: NextRequest) {
 <pre style="white-space:pre-wrap;word-break:break-all;background:#111;color:#eee;padding:1rem;border-radius:8px">${escapeHtml(cmd)}</pre>
 <p>Или только code:</p>
 <pre style="white-space:pre-wrap;word-break:break-all;background:#f4f4f4;padding:1rem;border-radius:8px">${escapeHtml(code)}</pre>
-<p>После обмена сохрани long-lived token в <code>THREADS_ACCESS_TOKEN</code> и <code>THREADS_USER_ID</code>.</p>
+<p>После обмена: <code>npm run threads:exchange-token -- --code=… --write</code>, затем <code>npm run threads:whoami</code> — должно быть <b>@emigro2eu</b>, не личный профиль.</p>
 </body>`;
 
   return new NextResponse(html, {

@@ -1,0 +1,19 @@
+[Unit]
+Description=Emigro Threads daily — 1 post/day at Lisbon afternoon peaks
+
+[Timer]
+# After lightning ticks have a chance to publish RU news to the site/channel.
+OnCalendar=Mon *-*-* 16:00:00 Europe/Lisbon
+OnCalendar=Tue *-*-* 15:30:00 Europe/Lisbon
+OnCalendar=Wed *-*-* 16:00:00 Europe/Lisbon
+OnCalendar=Thu *-*-* 15:00:00 Europe/Lisbon
+OnCalendar=Fri *-*-* 15:30:00 Europe/Lisbon
+OnCalendar=Sat *-*-* 14:30:00 Europe/Lisbon
+OnCalendar=Sun *-*-* 16:00:00 Europe/Lisbon
+RandomizedDelaySec=45min
+AccuracySec=1min
+# Off: enabling the timer after today's window must not catch-up and double-post.
+Persistent=false
+
+[Install]
+WantedBy=timers.target
