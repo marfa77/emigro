@@ -3,10 +3,14 @@ import { DailySpotlightTile } from "@/components/satellite/DailySpotlight";
 import { HashtagNav } from "@/components/satellite/HashtagNav";
 import { NoteCard } from "@/components/satellite/NoteCard";
 import { SatelliteValueProp } from "@/components/satellite/RelatedNotes";
+import { SatelliteFunnelCta } from "@/components/satellite/SatelliteFunnelCta";
+import { SatelliteHubScenarios } from "@/components/satellite/SatelliteHubScenarios";
+import { SatelliteAssistIntake } from "@/components/satellite/SatelliteAssistIntake";
 import { BarakhloPromo } from "@/components/satellite/BarakhloPromo";
 import { getDailySpotlight } from "@/lib/community-notes/daily-spotlight";
 import { requirePublishedCommunityNotes } from "@/lib/community-notes/queries";
 import { SPAIN_SATELLITE } from "@/lib/satellite/spain";
+import { satelliteDigestUrl, satelliteHubUrl, satelliteWizardUrl } from "@/lib/satellite/funnel-urls";
 import { buildSatelliteHubPlace } from "@/lib/community-notes/seo-page";
 import { DEFAULT_OG_IMAGE, fitMetaDescription, socialImageMetadata } from "@/lib/seo";
 import { spainSatelliteUrl } from "@/lib/site-url";
@@ -102,7 +106,9 @@ export default async function SpainSatelliteHomePage() {
 
       <SatelliteValueProp countryKey="spain" />
 
-      <BarakhloPromo context="hub" placement="satellite_hub" compact countryKey="spain" />
+      <SatelliteFunnelCta countryKey="spain" placement="satellite_hub" />
+
+      <SatelliteHubScenarios countryKey="spain" />
 
       {spotlight && (
         <div className="mt-8">
@@ -134,7 +140,10 @@ export default async function SpainSatelliteHomePage() {
         {listNotes.length === 0 ? (
           <p className="mt-4 text-sm text-slate-600">
             Заметки появятся после первых прогонов <code>npm run spain:daily</code>. Пока смотрите pillar-гайды на{" "}
-            <a href={SPAIN_SATELLITE.mainSiteUrl} className="text-amber-900 underline">
+            <a
+              href={satelliteHubUrl({ countryKey: "spain", placement: "satellite_hub", content: "empty_state" })}
+              className="text-amber-900 underline"
+            >
               emigro.online/ru/spain
             </a>
             .
@@ -150,12 +159,22 @@ export default async function SpainSatelliteHomePage() {
         )}
       </section>
 
+      <SatelliteAssistIntake countryKey="spain" />
+
+      <BarakhloPromo context="hub" placement="satellite_hub" countryKey="spain" />
+
       <p className="mt-12 text-center text-sm text-slate-500">
-        <a href={SPAIN_SATELLITE.wizardUrl} className="font-medium text-amber-900 underline">
+        <a
+          href={satelliteWizardUrl({ countryKey: "spain", placement: "satellite_hub", content: "footer" })}
+          className="font-medium text-amber-900 underline"
+        >
           Подобрать маршрут ВНЖ →
         </a>
         {" · "}
-        <a href={SPAIN_SATELLITE.digestUrl} className="text-amber-900 underline">
+        <a
+          href={satelliteDigestUrl({ countryKey: "spain", placement: "satellite_hub", content: "footer" })}
+          className="text-amber-900 underline"
+        >
           Справочник коридора
         </a>
         {" · "}

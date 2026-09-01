@@ -163,7 +163,7 @@ Checklist в portal на **дату подачи** — единственный 
 
 ## Morada, паспорт, координация
 
-- Обновите morada Finanças + AIMA **до** pedido — [смена адреса](https://portugal.emigro.online/notes/smena-adresa-nif-financas-2026)
+- Обновите morada Finanças + AIMA **до** pedido — [Portal das Finanças](https://www.portaldasfinancas.gov.pt/)
 - Загран: agendamento consulado за **6–9 мес.** — [замена заграна](https://portugal.emigro.online/notes/zamena-zagranpasporta-portugaliya-2026)
 - Cartão renovado уходит на **morada из базы AIMA**
 

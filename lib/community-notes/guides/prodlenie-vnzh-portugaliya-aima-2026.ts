@@ -147,7 +147,7 @@ const bodySections: NoteBodySection[] = [
       "Главное: morada — Finanças + AIMA; passaporte — consulado Lisboa/Porto — см. [замена заграна](/notes/zamena-zagranpasporta-portugaliya-2026).",
     ],
     bullets: [
-      "Обновите morada на portaldasfinancas.gov.pt и в AIMA **до** «Criar pedido» — см. [смена адреса NIF](/notes/smena-adresa-nif-financas-2026).",
+      "Обновите morada на portaldasfinancas.gov.pt и в AIMA **до** «Criar pedido».",
       formatPracticeBullet({
         channels: ["chatlisboa"],
         period: "2026",

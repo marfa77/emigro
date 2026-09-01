@@ -9,6 +9,7 @@ import { NoteFaq } from "@/components/satellite/NoteFaq";
 import { NoteReadingProgress } from "@/components/satellite/NoteReadingProgress";
 import { NoteToc } from "@/components/satellite/NoteToc";
 import { RelatedNotes } from "@/components/satellite/RelatedNotes";
+import { SatelliteFunnelCta } from "@/components/satellite/SatelliteFunnelCta";
 import { BarakhloPromo } from "@/components/satellite/BarakhloPromo";
 import { PixIDPromo } from "@/components/satellite/PixIDPromo";
 import {
@@ -20,8 +21,9 @@ import {
 import { getPublishedCommunityNoteBySlug, getPublishedCommunityNotes } from "@/lib/community-notes/queries";
 import { getRelatedNotes } from "@/lib/community-notes/repair-note";
 import { resolveNoteOgImage } from "@/lib/community-notes/note-og-image";
-import { shouldShowPixIdPromo } from "@/lib/community-notes/sponsor-promo";
+import { shouldShowBarakhloPromo, shouldShowPixIdPromo } from "@/lib/community-notes/sponsor-promo";
 import { SPAIN_SATELLITE } from "@/lib/satellite/spain";
+import { satelliteHubUrl, satellitePillarUrl } from "@/lib/satellite/funnel-urls";
 import { spainHubPath } from "@/lib/satellite/paths";
 import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 import { spainSatelliteUrl } from "@/lib/site-url";
@@ -60,6 +62,7 @@ export default async function SpainNotePage({ params }: { params: { slug: string
 
   const related = getRelatedNotes(note, allNotes);
   const showPixId = shouldShowPixIdPromo(note);
+  const showBarakhlo = shouldShowBarakhloPromo(note);
   const { articleSchema, breadcrumbSchema, faqSchema, speakableSchema } = buildCommunityNoteSchemas(note);
   const llmDescription = buildCommunityNoteLlmDescription(note);
   const llmFacts = buildCommunityNoteLlmFacts(note);
@@ -148,6 +151,14 @@ export default async function SpainNotePage({ params }: { params: { slug: string
         />
       </div>
 
+      <SatelliteFunnelCta
+        countryKey="spain"
+        placement="satellite_note"
+        noteSlug={note.slug}
+        noteTitle={note.title}
+        contentKind={note.content_kind}
+      />
+
       <NoteHashtags tags={note.hashtags} className="mt-6" countryKey="spain" />
 
       <KeyTakeaways items={note.key_takeaways} />
@@ -165,9 +176,24 @@ export default async function SpainNotePage({ params }: { params: { slug: string
 
       <NoteFaq items={note.faq} />
 
+      <SatelliteFunnelCta
+        countryKey="spain"
+        placement="satellite_note"
+        noteSlug={note.slug}
+        noteTitle={note.title}
+        contentKind={note.content_kind}
+      />
+
       {showPixId && <PixIDPromo noteSlug={note.slug} topicKey="spain" />}
 
-      <BarakhloPromo context={note.slug} placement="satellite_note" category={note.category} countryKey="spain" />
+      {showBarakhlo && (
+        <BarakhloPromo
+          context={note.slug}
+          placement="satellite_note"
+          category={note.category}
+          countryKey="spain"
+        />
+      )}
 
       <RelatedNotes notes={related} />
 
@@ -182,11 +208,25 @@ export default async function SpainNotePage({ params }: { params: { slug: string
           ← Все заметки
         </Link>
         {" · "}
-        <a href={SPAIN_SATELLITE.mainSiteUrl} className="text-sm text-amber-900 underline">
+        <a
+          href={satelliteHubUrl({
+            countryKey: "spain",
+            placement: "satellite_note",
+            content: note.slug,
+          })}
+          className="text-sm text-amber-900 underline"
+        >
           Коридор Испания на Emigro
         </a>
         {" · "}
-        <a href={SPAIN_SATELLITE.pillarGuideUrl} className="text-sm text-amber-900 underline">
+        <a
+          href={satellitePillarUrl({
+            countryKey: "spain",
+            placement: "satellite_note",
+            content: note.slug,
+          })}
+          className="text-sm text-amber-900 underline"
+        >
           Digital nomad pillar-гид
         </a>
         {" · "}

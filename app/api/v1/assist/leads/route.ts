@@ -23,6 +23,7 @@ type AssistLeadBody = {
   preferred_language?: string;
   audience?: string;
   session_id?: string;
+  source?: string;
 };
 
 const PLAN_TIER_LABELS: Record<string, string> = {
@@ -79,12 +80,14 @@ export async function POST(request: Request) {
   const audienceRaw = clean(body.audience);
   const audience =
     audienceRaw === "latam" ? "latam" : audienceRaw === "fr_africa" ? "fr_africa" : "ru";
+  const sourceRaw = clean(body.source);
   const assistSource =
-    audience === "latam"
+    sourceRaw ||
+    (audience === "latam"
       ? "emigro_assist_es"
       : audience === "fr_africa"
         ? "emigro_assist_fr"
-        : "emigro_assist";
+        : "emigro_assist");
 
   if (!country || !programRoute || !name || !contact || !message) {
     return NextResponse.json(
@@ -100,7 +103,7 @@ export async function POST(request: Request) {
   let stored = false;
   let storageError: string | null = null;
   const notes = [
-    "Source: emigro_assist",
+    `Source: ${assistSource}`,
     `Plan: ${PLAN_TIER_LABELS[planTier] ?? (planTier || "Route Check (€129)")}`,
     `Payment: ${PAYMENT_METHOD_LABELS[paymentMethod] ?? (paymentMethod || "—")}`,
     `Country: ${country}`,

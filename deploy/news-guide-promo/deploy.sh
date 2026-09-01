@@ -27,6 +27,9 @@ cd "${REMOTE}"
 chmod +x deploy/news-guide-promo/run_scheduled.sh
 mkdir -p deploy/news-guide-promo/logs
 chown -R www-data:www-data deploy/news-guide-promo
+# Keep community cron writable after root rsync (Mac uid on state.json → EACCES)
+chown -R www-data:www-data parser 2>/dev/null || true
+chmod 600 parser/.env 2>/dev/null || true
 npm ci --include=dev
 cp deploy/systemd/emigro-news-guide-promo.service /etc/systemd/system/
 cp deploy/systemd/emigro-news-guide-promo.timer /etc/systemd/system/

@@ -442,6 +442,11 @@ const SLUG_PHOTO_QUERIES: Record<string, string[]> = {
     "unpaid tax invoice documents",
   ],
   // Break identical stock reused across unrelated notes
+  "nif-porto-kak-poluchit-2026": [
+    "tax id documents portugal desk",
+    "financas office counter portugal",
+    "porto city hall portugal exterior",
+  ],
   "nif-lissabon-chto-puutayut": [
     "tax id documents portugal desk",
     "financas office counter portugal",

@@ -256,6 +256,13 @@ export const CURATED_PRACTICE: Record<string, string[]> = {
     "Кредитка (@chatlisboa, 2026): без зарплаты в PT разговор обрывают; сначала 2–3 месяца активности по счёту.",
     "CGD-письма о закрытии счетов россиян (обсуждение 06.2026) — действуйте по своему письму и дублируйте банк.",
   ],
+  "nif-porto-kak-poluchit-2026": [
+    "Миф «NIF только с ВНЖ»: в чатах студенты открывают счёт по студенческой визе — NIF можно получить раньше ВНЖ через Finanças или представителя.",
+    "Смена адреса: после переезда обновите morada на portaldasfinancas.gov.pt — иначе e-Fatura и связь с Junta/SNS идут на старый адрес.",
+    "Revolut: оформляется по паспорту + NIF/NISS — удобный старт, но аренда и SNS часто требуют PT IBAN и Atestado de Residência.",
+    "Finanças vs «NIF Лиссабон»: налоговый номер один на всю страну; для OPO/Porto/Braga сначала Norte, не маршрут через Lisboa по старым очередям.",
+  ],
+  /** @deprecated archived — enrichment kept for repair tooling */
   "nif-lissabon-chto-puutayut": [
     "Миф «NIF только с ВНЖ»: в чатах студенты открывают счёт по студенческой визе — NIF можно получить раньше ВНЖ через Finanças или представителя.",
     "Смена адреса: после переезда обновите morada на portaldasfinancas.gov.pt — иначе e-Fatura и связь с Junta/SNS идут на старый адрес.",

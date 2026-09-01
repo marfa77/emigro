@@ -1,7 +1,9 @@
 import { ensurePortugalCronEnv, ensureSpainCronEnv } from "@/lib/community-notes/cron-env";
 import { clusterSignals, draftNoteFromCluster, type SatelliteCountryKey } from "@/lib/community-notes/draft-from-signals";
 import {
+  ARCHIVE_SLUGS,
   isDuplicateTopic,
+  isThinHouseholdTopic,
   latestSignalPostedAt,
   shouldAutoPublishCluster,
 } from "@/lib/community-notes/editorial-filter";
@@ -114,6 +116,11 @@ export async function publishDraftsFromNewSignals(
     try {
       const draft = await draftNoteFromCluster(cluster, countryKey);
       const primaryTopic = draft.topic_tags[0] ?? "general";
+
+      if (ARCHIVE_SLUGS.has(draft.slug) || isThinHouseholdTopic(draft.title, draft.slug)) {
+        result.skipped.push(`${draft.slug}:thin-household`);
+        continue;
+      }
 
       if (isDuplicateTopic(primaryTopic, existingTopics, draft.title)) {
         result.skipped.push(`${draft.slug}:duplicate-topic`);

@@ -1,5 +1,42 @@
 import type { GlossaryTerm } from "@/lib/community-notes/types";
 
+const NIF_PORTO_GLOSSARY: GlossaryTerm[] = [
+  {
+    pt: "NIF",
+    context: "Número de Identificação Fiscal",
+    ru: "национальный налоговый номер физлица или компании",
+  },
+  {
+    pt: "Finanças",
+    ru: "налоговая служба; Portal das Finanças — официальный личный кабинет",
+  },
+  {
+    pt: "representante fiscal",
+    ru: "налоговый представитель, который получает официальную корреспонденцию нерезидента",
+  },
+  {
+    pt: "comprovativo de morada",
+    ru: "документ, подтверждающий иностранный или португальский адрес",
+  },
+  {
+    pt: "Senha das Finanças",
+    ru: "пароль доступа к Portal das Finanças; запрашивается отдельно от NIF",
+  },
+  {
+    pt: "e-Fatura",
+    ru: "раздел Portal das Finanças для счетов-фактур и расходов с NIF",
+  },
+  {
+    pt: "Loja do Cidadão",
+    ru: "государственный центр, где в одном здании работают разные службы",
+  },
+  {
+    pt: "APM",
+    context: "Atendimento por Marcação",
+    ru: "официальная система предварительной записи на приём в AT",
+  },
+];
+
 /** Topic-specific PT-PT glossaries for Portugal satellite guides. */
 export const EDITORIAL_GLOSSARIES: Record<string, GlossaryTerm[]> = {
   "mezhdunarodnye-shkoly-portugaliya-2026": [
@@ -38,29 +75,20 @@ export const EDITORIAL_GLOSSARIES: Record<string, GlossaryTerm[]> = {
     { pt: "Centro de Exames", ru: "центр сдачи теории и практики" },
     { pt: "fixar residência", ru: "официально зафиксировать место жительства в PT" },
   ],
-  "nif-lissabon-chto-puutayut": [
-    { pt: "NIF", context: "Número de Identificação Fiscal", ru: "налоговый номер физлица или компании" },
-    { pt: "Finanças", ru: "налоговая служба; Portal das Finanças — личный кабинет" },
-    { pt: "Loja do Cidadão", ru: "государственный центр услуг «магазин гражданина»" },
-    { pt: "representante fiscal", ru: "налоговый представитель для нерезидента без EU-адреса" },
-    { pt: "comprovativo de morada", ru: "подтверждение адреса для NIF и банка" },
-    { pt: "e-Fatura", ru: "портал электронных счетов-фактур" },
-    { pt: "Senha das Finanças", ru: "пароль доступа к налоговому кабинету" },
-    { pt: "AT", context: "Autoridade Tributária", ru: "налоговая администрация Португалии" },
-    { pt: "NIPC", ru: "налоговый номер юрлица (аналог NIF для компаний)" },
-    { pt: "certidão", ru: "официальная справка/выписка из реестра" },
-  ],
+  "nif-porto-kak-poluchit-2026": NIF_PORTO_GLOSSARY,
+  /** @deprecated legacy Lisboa slug redirects to the Porto / Norte guide. */
+  "nif-lissabon-chto-puutayut": NIF_PORTO_GLOSSARY,
   "aima-agora-zapis-2026": [
     { pt: "AIMA", context: "Agência para a Integração, Migrações e Asilo", ru: "миграционное агентство (замена SEF)" },
-    { pt: "Agora", ru: "портал онлайн-записи AIMA для imigrantes" },
-    { pt: "agendamento", ru: "запись на приём в AIMA" },
-    { pt: "autorização de residência", ru: "разрешение на проживание" },
+    { pt: "Agora", ru: "портал записи на balcão / agendamento" },
+    { pt: "agendamento", ru: "запись на приём" },
+    { pt: "Portal das Renovações", ru: "онлайн-продление título (не путать с Agora)" },
     { pt: "título de residência", ru: "пластиковая карта ВНЖ" },
-    { pt: "manifestação de interesse", ru: "заявление о намерении получить ВНЖ (legacy-процедура)" },
-    { pt: "taxa", ru: "госпошлина за услугу миграции" },
-    { pt: "comprovativo de agendamento", ru: "подтверждение записи — часто достаточно для банка и аренды" },
-    { pt: "balcão", ru: "окно приёма в AIMA / Loja do Cidadão" },
-    { pt: "renovação", ru: "продление ВНЖ" },
+    { pt: "Chave Móvel Digital", ru: "цифровой ключ autenticacao.gov.pt для входа" },
+    { pt: "taxa / DUC", ru: "госпошлина и платёжное поручение" },
+    { pt: "comprovativo de agendamento", ru: "PDF подтверждения записи" },
+    { pt: "balcão", ru: "окно приёма AIMA / Loja" },
+    { pt: "renovação", ru: "продление autorização de residência" },
   ],
   "arenda-lissabon-do-podpisi": [
     { pt: "contrato de arrendamento", ru: "договор аренды жилья" },
@@ -135,6 +163,7 @@ export const EDITORIAL_GLOSSARIES: Record<string, GlossaryTerm[]> = {
     { pt: "Cartão Europeu de Seguro de Doença", ru: "европейская карта медстрахования (EHIC)" },
     { pt: "inscrição", ru: "регистрация в centro de saúde" },
   ],
+  /** @deprecated archived thin Q&A — Sep 2026 */
   "smena-adresa-nif-financas-2026": [
     { pt: "alteração de morada", ru: "смена адреса в налоговой" },
     { pt: "Finanças", ru: "Portal das Finanças — личный кабинет налогоплательщика" },
@@ -205,6 +234,7 @@ export const EDITORIAL_GLOSSARIES: Record<string, GlossaryTerm[]> = {
     { pt: "Metro do Porto / Metropolitano de Lisboa", ru: "метро; отдельные тарифы nº de utente" },
     { pt: "Biblioteca Municipal", ru: "муниципальная библиотека — часто бесплатный абонемент" },
   ],
+  /** @deprecated archived thin household — Sep 2026 */
   "vozvrat-remont-tovarov-portugaliya-2026": [
     { pt: "devolução", ru: "возврат товара продавцу" },
     { pt: "garantia", ru: "гарантия производителя/продавца" },
@@ -361,14 +391,14 @@ export const EDITORIAL_GLOSSARIES: Record<string, GlossaryTerm[]> = {
   "arenda-dolgosrok-porto-braga-2026": [
     { pt: "senhorio", ru: "арендодатель (proprietário); получатель ежемесячной renda" },
     { pt: "renda", ru: "ежемесячная арендная плата" },
-    { pt: "caução", ru: "залог арендодателю (обычно 1–2 месяца)" },
-    { pt: "recibo de renda", ru: "квитанция об оплате аренды — требуйте каждый месяц" },
-    { pt: "contrato de arrendamento", ru: "договор аренды; registo в Finanças обязателен" },
-    { pt: "condomínio", ru: "плата за содержание здания; часто отдельный IBAN administrador" },
-    { pt: "imobiliária", ru: "агентство недвижимости; honorários и иногда сбор rent" },
-    { pt: "fiador", ru: "поручитель по договору; без него — предоплата" },
-    { pt: "transferência bancária", ru: "банковский перевод на IBAN — основной способ оплаты renta" },
-    { pt: "registo do contrato", ru: "регистрация договора в Finanças (не ежемесячная renta)" },
+    { pt: "caução", ru: "залог арендодателю (типично до 2 месяцев renda)" },
+    { pt: "caução bancária", ru: "банковская гарантия вместо fiador" },
+    { pt: "recibo de renda", ru: "квитанция об оплате аренды — каждый месяц" },
+    { pt: "contrato de arrendamento", ru: "договор аренды; registo в Finanças" },
+    { pt: "condomínio", ru: "взнос в дом; часто отдельный IBAN administrador" },
+    { pt: "fiador", ru: "поручитель; без него — гарантия или предоплата" },
+    { pt: "inventário", ru: "опись при заселении — фото + подпись" },
+    { pt: "registo do contrato", ru: "регистрация/коммуникация договора в Finanças" },
   ],
   "porto-vs-braga-semya-mezhdunarodnaya-shkola-2026": [
     { pt: "freguesia", ru: "район/приход города; привязка morada и catchment школы" },

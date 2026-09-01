@@ -9,7 +9,7 @@ import { NoteFaq } from "@/components/satellite/NoteFaq";
 import { NoteReadingProgress } from "@/components/satellite/NoteReadingProgress";
 import { NoteToc } from "@/components/satellite/NoteToc";
 import { RelatedNotes } from "@/components/satellite/RelatedNotes";
-import { PortugalCorridorLinks } from "@/components/satellite/PortugalCorridorLinks";
+import { SatelliteFunnelCta } from "@/components/satellite/SatelliteFunnelCta";
 import { Prep2GoPromo } from "@/components/satellite/Prep2GoPromo";
 import { PixIDPromo } from "@/components/satellite/PixIDPromo";
 import { BarakhloPromo } from "@/components/satellite/BarakhloPromo";
@@ -18,13 +18,17 @@ import {
   buildCommunityNoteLlmFacts,
   buildCommunityNoteMetadata,
   buildCommunityNoteSchemas,
-  communityNoteUrl,
 } from "@/lib/community-notes/seo-page";
 import { getPublishedCommunityNoteBySlug, getPublishedCommunityNotes } from "@/lib/community-notes/queries";
 import { getRelatedNotes } from "@/lib/community-notes/repair-note";
-import { shouldShowPixIdPromo, shouldShowPrep2GoPromo } from "@/lib/community-notes/sponsor-promo";
+import {
+  shouldShowBarakhloPromo,
+  shouldShowPixIdPromo,
+  shouldShowPrep2GoPromo,
+} from "@/lib/community-notes/sponsor-promo";
 import { resolveNoteOgImage } from "@/lib/community-notes/note-og-image";
 import { PORTUGAL_SATELLITE } from "@/lib/satellite/portugal";
+import { satelliteHubUrl, satellitePillarUrl } from "@/lib/satellite/funnel-urls";
 import { portugalHubPath } from "@/lib/satellite/paths";
 import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 import { portugalSatelliteUrl } from "@/lib/site-url";
@@ -64,6 +68,7 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
   const related = getRelatedNotes(note, allNotes, 6);
   const showPrep2Go = shouldShowPrep2GoPromo(note);
   const showPixId = shouldShowPixIdPromo(note);
+  const showBarakhlo = shouldShowBarakhloPromo(note);
 
   const { articleSchema, breadcrumbSchema, faqSchema, speakableSchema } = buildCommunityNoteSchemas(note);
   const llmDescription = buildCommunityNoteLlmDescription(note);
@@ -153,7 +158,13 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
         />
       </div>
 
-      <PortugalCorridorLinks noteTitle={note.title} />
+      <SatelliteFunnelCta
+        countryKey="portugal"
+        placement="satellite_note"
+        noteSlug={note.slug}
+        noteTitle={note.title}
+        contentKind={note.content_kind}
+      />
 
       <NoteHashtags tags={note.hashtags} className="mt-6" />
 
@@ -167,10 +178,20 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
 
       <NoteFaq items={note.faq} />
 
+      <SatelliteFunnelCta
+        countryKey="portugal"
+        placement="satellite_note"
+        noteSlug={note.slug}
+        noteTitle={note.title}
+        contentKind={note.content_kind}
+      />
+
       {showPrep2Go && <Prep2GoPromo noteSlug={note.slug} />}
       {showPixId && <PixIDPromo noteSlug={note.slug} topicKey="portugal" />}
 
-      <BarakhloPromo context={note.slug} placement="satellite_note" category={note.category} />
+      {showBarakhlo && (
+        <BarakhloPromo context={note.slug} placement="satellite_note" category={note.category} />
+      )}
 
       <RelatedNotes notes={related} />
 
@@ -184,11 +205,25 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
           ← Все заметки
         </Link>
         {" · "}
-        <a href={PORTUGAL_SATELLITE.mainSiteUrl} className="text-sm text-teal-700 underline">
+        <a
+          href={satelliteHubUrl({
+            countryKey: "portugal",
+            placement: "satellite_note",
+            content: note.slug,
+          })}
+          className="text-sm text-teal-700 underline"
+        >
           Коридор Португалия на Emigro
         </a>
         {" · "}
-        <a href={PORTUGAL_SATELLITE.pillarGuideUrl} className="text-sm text-teal-700 underline">
+        <a
+          href={satellitePillarUrl({
+            countryKey: "portugal",
+            placement: "satellite_note",
+            content: note.slug,
+          })}
+          className="text-sm text-teal-700 underline"
+        >
           D8/D7 pillar-гид
         </a>
         {" · "}

@@ -67,8 +67,10 @@ function sectionHasActionGuidePattern(section: NoteBodySection): boolean {
   if (section.section_kind === "action_guide") return true;
   if (section.heading.includes(ACTION_GUIDE_LABELS.unifiedHeading)) return true;
   const lead = sectionLeadText(section);
-  const hasWhat = WHAT_RE.test(lead);
-  const hasWhy = WHY_RE.test(lead);
+  const hasWhat = WHAT_RE.test(lead) || ACTION_VERB_RE.test(lead);
+  const hasWhy =
+    WHY_RE.test(lead) ||
+    /иначе|чтобы|потому|если не|если пропустить|без .{3,40} получит|важно/i.test(lead);
   const bullets = section.bullets ?? [];
   const isGap = section.section_kind === GAP_SECTION_KIND;
   const isMistakes = MISTAKES_HEADING_RE.test(section.heading);
@@ -78,7 +80,10 @@ function sectionHasActionGuidePattern(section: NoteBodySection): boolean {
     bullets.some((b) => ACTION_VERB_RE.test(b)) ||
     (isGap && GAP_CHAT_FRAME_RE.test(gapText)) ||
     (isMistakes && bullets.some((b) => /ошибка:|таймлайн:/i.test(b)));
-  return hasWhat && hasWhy && hasHow;
+  // Narrative lead (2+ sentences, no telegraphic labels) counts as action pattern when how-bullets exist
+  const narrativeLead =
+    countSentences(lead) >= 2 && lead.length > 160 && !/^(что делать|зачем)\s*:/i.test(lead.trim());
+  return (hasWhat && hasWhy && hasHow) || (narrativeLead && hasHow);
 }
 
 function bulletsLackActionVerbs(section: NoteBodySection): boolean {
@@ -92,7 +97,7 @@ function bulletsLackActionVerbs(section: NoteBodySection): boolean {
   return actionable.length < Math.ceil(bullets.length / 2);
 }
 
-/** Validate Что/Как/Зачем pattern and term glosses for Portugal guides. */
+/** Validate actionable prose + verb bullets (no «Что делать:» / «Зачем:» label skeleton). */
 export function validateActionGuideSections(
   sections: NoteBodySection[],
   options?: { strict?: boolean }
@@ -105,7 +110,14 @@ export function validateActionGuideSections(
     if (isGlossarySection(section)) continue;
 
     if (!sectionHasActionGuidePattern(section)) {
-      const msg = `action_guide: «${section.heading}» needs «Что делать» + «Зачем» in lead and actionable «Как» bullets`;
+      const msg = `action_guide: «${section.heading}» needs continuous prose lead (2+ sentences) + actionable verb bullets — not telegraphic labels`;
+      if (strict) errors.push(msg);
+      else warnings.push(msg);
+    }
+
+    const lead = sectionLeadText(section);
+    if (/^(что делать|зачем( вам это сейчас)?)\s*:/im.test(lead) || /(?:^|\n)\s*(что делать|зачем)\s*:/i.test(lead)) {
+      const msg = `action_guide: «${section.heading}» still uses «Что делать:» / «Зачем:» labels — rewrite as continuous prose`;
       if (strict) errors.push(msg);
       else warnings.push(msg);
     }
@@ -268,27 +280,25 @@ export function validateEditorialPresentation(input: PresentationDraftInput): Pr
 /** Prompt block — action manual for Portugal newcomers (Что / Как / Зачем). */
 export const EDITORIAL_ACTION_GUIDE_RULES = `
 РУКОВОДСТВО К ДЕЙСТВИЮ (мы сами проходили через это — пишем для новичка в Португалии):
-Не справочник и не энциклопедия. Каждый блок отвечает: ЧТО делать, КАК делать, ЗАЧЕМ это нужно.
+Не справочник и не энциклопедия. Каждый блок отвечает: ЧТО делать, КАК делать, ЗАЧЕМ — но **вкусно читаемой прозой**, не телеграфом.
+Досуг/жизнь (вино, клубы, еда, фесты, климат, туризм, районы): режим «Полный Ремарк» — атмосфера и сцена первее чеклиста; факты внутри абзацев.
+Анти-повтор: не копируйте лиды и обороты между гайдами и внутри секций одного гайда (см. EDITORIAL_VOICE_LEISURE_REMARQUE).
 
 Паттерн в КАЖДОЙ секции body (кроме glossary):
-- paragraphs[0]: «Что делать: …» — 1–2 предложения простым русским, без жаргона.
-- paragraphs[1]: «Зачем: …» — 1 предложение, почему этот шаг важен (что будет, если пропустить).
-  Здесь PT/ES-термины всегда с кратким русским в скобках — мини-урок лексики на ходу:
-  «по contrato (трудовому договору) — типичная причина pedido de indeferimento (отказа по заявлению)».
-  Словарь в начале гайда не отменяет gloss в «Зачем:».
-- bullets = «Как»: до 5 пунктов с глаголом действия (проверьте, запишитесь, подготовьте, сравните…).
-  Можно «Как: 1) … 2) …» или нумерованные шаги. Не абстрактные факты без действия.
+- paragraphs: 3–6 предложений связной прозы. Микросцена → что сделать → почему важно — без ярлыков.
+- **Не** пишите отдельные абзацы-ярлыки «Что делать: …» / «Зачем: …» / «Шаг N» / «Ошибка:» в прозе — они режут чтение.
+- PT/ES-термины при первом упоминании — с кратким русским в скобках.
+- bullets = «Как»: до 5 пунктов с глаголом (проверьте, забронируйте, сравните…). Не заменяют прозу.
+- Финал секции: одна строка «Главное: …» как тихая реплика.
 
-Альтернатива: одна секция section_kind "action_guide" с heading «Пошагово для новичка» — тот же Что/Как/Зачем внутри.
+Альтернатива: section_kind "action_guide" с heading «Пошагово…» — та же живая проза; шаги можно дать bullets без «Шаг 1 —» в начале каждой строки.
 
 Термины PT-PT и аббревиатуры:
-- Формат gloss: termo (русская расшифровка) — скобки, не тире и не «то есть».
-- Первое упоминание в секции и каждая строка «Зачем:»: gloss обязателен (кроме AIMA, SNS, NIF, IMT, DGEG, IPMA и др. устоявшихся аббревиатур).
-- Словарь: максимум 10 терминов, только те, что реально встречаются в тексте ниже.
-- Без расшифровки: AIMA, SNS, NIF, IMT, DGEG, IPMA и др. — запрещены в первой фразе секции.
+- Формат gloss: termo (русская расшифровка) — скобки.
+- Словарь: максимум 10 терминов, только из текста ниже.
+- AIMA, SNS, NIF, IMT, DGEG, IPMA — без обязательного gloss; не ставьте их первой фразой секции.
 
-Тон: «мы сами проходили через это» — практичный совет, не бюрократический канцелярит.
-Запрещено: абзацы «согласно нормативам», bullets без глагола, стена терминов без пояснения.`.trim();
+Тон: «мы сами проходили через это». Запрещено: канцелярит, bullets без глагола, стена терминов.`.trim();
 
 /** Prompt block for Gemini — reading flow and tone. */
 export const EDITORIAL_PRESENTATION_RULES = `
@@ -311,8 +321,7 @@ ${EDITORIAL_READABILITY_RULES}
 3. «Словарь» — literary intro («Слова, которые услышите в balcão…»); максимум 8 терминов из текста ниже.
 
 4. body_sections — в КАЖДОЙ секции (кроме glossary):
-   - lead «зачем вам это сейчас» (1–2 предложения, можно микросцену)
-   - «Что делать: …» + «Зачем: …» в paragraphs
+   - lead: связная проза (2–4 предложения), не ярлыки «Что делать:» / «Зачем:»
    - bullets = «Как» — до 5 actionable пунктов с глаголом
    - финал paragraphs: «Главное: …» — одна запоминающаяся строка
    Или section_kind "action_guide" / heading «Пошагово для новичка».
@@ -330,14 +339,14 @@ ${EDITORIAL_READABILITY_RULES}
 9. Перелинковка — [читаемый текст](/notes/slug), не голый путь.
 
 Тон: тёплый советник релоканта. Короткие + средние предложения. Активный залог.
-Запрещено: стена bullets, бюрократический канцелярит, спам атрибуции чатов.`.trim();
+Запрещено: стена bullets, бюрократический канцелярит, спам атрибуции чатов, телеграфные «Что делать:» / «Зачем:» как единственный lead.`.trim();
 
 /** Compact rewrite hint for presentation-only passes (lighter than full blueprint rewrite). */
 export const PRESENTATION_REWRITE_HINT = `
 ПЕРЕПИСЫВАНИЕ ПОДАЧИ (сохрани все факты, цифры, органы, ссылки):
 - Сожми quick_answer до 2–3 предложений простым русским.
 - key_takeaways: максимум 4, action-oriented; «На практике:» — полные предложения, не «;»-списки.
-- В каждой секции: «Что делать» + «Зачем» в lead; bullets = «Как» с глаголами; ≤5 bullets, ≤2 строки.
+- В каждой секции: связная проза (сцена → действие → смысл); УДАЛИ ярлыки «Что делать:» / «Зачем:»; bullets = «Как» с глаголами; ≤5 bullets, ≤2 строки.
 - PT-термины: в словаре (≤10) или inline (расшифровка) при первом упоминании.
 - gap: «чат vs сайт»; faq: ответ с да/нет/цифры в начале.
 - Перелинковка: [читаемый текст](/notes/slug), не голый /notes/slug.

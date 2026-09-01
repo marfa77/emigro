@@ -19,12 +19,13 @@ export const SKIP_REWRITE_SLUGS = new Set([
   "regiony-portugalii-ekspaty-klimat-tseny-2026",
   "prodlenie-vnzh-portugaliya-aima-2026",
   "pervyj-mesyac-portugaliya-checklist",
+  "nif-porto-kak-poluchit-2026",
+  "aima-agora-zapis-2026",
 ]);
 
 /** Already deep-rewritten by Gemini (batch or manual). */
 export const REWRITTEN_SLUGS = new Set([
   "aima-agora-zapis-2026",
-  "nif-lissabon-chto-puutayut",
 ]);
 
 /** Priority order for one-by-one deep rewrites (highest first). */
@@ -33,14 +34,12 @@ export const REWRITE_PRIORITY: string[] = [
   "arenda-lissabon-do-podpisi",
   "kak-otkryt-bankovskiy-schet-portugalia-2026",
   "sns-registration-changes-2026",
-  "smena-adresa-nif-financas-2026",
   "studencheskiy-vnzh-portugal-mify-aima-2026",
   "arenda-kvartiry-lisbon-pervyi-mesyac-2026",
   "vybor-internet-provaydera-portugaliya-2026",
   "termo-responsabilidade-podtverzhdenie-zhilya-2026",
   "poisk-mestnyh-uslug-portugaliya-2026",
   "lgoty-s-vnj-kulturnye-mesta-2026",
-  "vozvrat-remont-tovarov-portugaliya-2026",
   "poterya-pitomtsa-portugaliya-gid-2026",
   "ciple-guide-2026",
 ];

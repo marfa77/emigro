@@ -1,7 +1,7 @@
 /**
  * Lightweight programmatic voice transforms — no Gemini.
- * Improves readability of editor notes; ensures «Главное» / «Что делать» / «Зачем»;
- * trims takeaways; preserves facts.
+ * Ensures «Главное» close; trims bureaucracy; does NOT inject telegraphic
+ * «Что делать:» / «Зачем:» stubs (those kill narrative Emigro voice).
  */
 import { applyBlueprintFixes } from "@/lib/community-notes/article-blueprint";
 import { flattenBodySections } from "@/lib/community-notes/editorial-quality";
@@ -12,8 +12,14 @@ import type { CommunityNote, NoteBodySection } from "@/lib/community-notes/types
 
 const BUREAUCRACY_RE = /в соответствии с|важно отметить|на фоне изменений/gi;
 const GLAVNOE_RE = /главное\s*:/i;
-const WHAT_RE = /что\s+делать\s*:/i;
-const WHY_RE = /зачем\s*:/i;
+
+/** Generic stubs previously auto-injected — strip if present so narrative stays clean. */
+const SYNTHETIC_WHAT_RE =
+  /^Что делать:\s*(сначала закройте официальный каркас|примените практику из раздела|сверяйте советы из чатов)/i;
+const SYNTHETIC_WHY_RE =
+  /^Зачем:\s*(без hard-правил|полевой опыт из чатов экономит итерации|типичные расхождения)/i;
+const SYNTHETIC_GLAVNOE_RE =
+  /^Главное:\s*разберитесь с «.+» до следующего шага — ошибка здесь обычно стоит недель\.?$/i;
 
 /** @deprecated use improveEditorialText — kept for callers that only stripped channels */
 export function stripChannelAttribution(text: string): string {
@@ -22,63 +28,41 @@ export function stripChannelAttribution(text: string): string {
 
 function synthesizeGlavnoe(section: NoteBodySection): string {
   const bullets = section.bullets ?? [];
-  const first = bullets[0]?.replace(/^Ошибка:\s*/i, "").trim();
-  if (first && first.length > 20 && first.length < 180) {
+  const first = bullets[0]?.replace(/^(Ошибка|Шаг\s*\d+)\s*[:—–-]?\s*/i, "").trim();
+  if (first && first.length > 20 && first.length < 160) {
     const claim = first.charAt(0).toLowerCase() + first.slice(1).replace(/[.!?…]+$/, "");
-    return `Главное: ${claim} — сверяйте с официальным порталом перед действием.`;
+    return `Главное: ${claim}.`;
   }
-  const heading = section.heading.replace(/^(Официально|На практике|Где)\s*[:—–-]?\s*/i, "").trim();
-  return `Главное: разберитесь с «${heading}» до следующего шага — ошибка здесь обычно стоит недель.`;
+  const paras = (section.paragraphs ?? []).filter((p) => !GLAVNOE_RE.test(p) && p.trim().length > 40);
+  const last = paras[paras.length - 1];
+  if (last) {
+    const short = last.replace(/\s+/g, " ").trim();
+    if (short.length <= 180) return `Главное: ${short.replace(/[.!?…]+$/, "")}.`;
+  }
+  return `Главное: сверьте этот блок с официальным источником перед действием.`;
 }
 
-function synthesizeWhatWhy(section: NoteBodySection): { what: string; why: string } {
-  const heading = section.heading.replace(/^(Официально|На практике|Где)\s*[:—–-]?\s*/i, "").trim();
-  const kind = section.section_kind;
-  if (kind === "gap") {
-    return {
-      what: `Что делать: сверяйте советы из чатов с официальным сайтом по теме «${heading}» — не переносите чужой кейс один в один.`,
-      why: "Зачем: типичные расхождения «сайт vs чат» съедают недели и деньги на повторные визиты.",
-    };
-  }
-  if (kind === "official") {
-    return {
-      what: `Что делать: сначала закройте официальный каркас по разделу «${heading}» — документы, порталы и сроки с gov / органа.`,
-      why: "Зачем: без hard-правил следующий шаг (банк, запись, школа) встанет, даже если в чате «у всех прокатило».",
-    };
-  }
-  return {
-    what: `Что делать: примените практику из раздела «${heading}» к своему кейсу — с запасом по срокам.`,
-    why: "Зачем: полевой опыт из чатов экономит итерации, но не заменяет сверку с вашим processo (делом).",
-  };
+function stripSyntheticVoiceStubs(paragraphs: string[]): string[] {
+  return paragraphs.filter(
+    (p) =>
+      !SYNTHETIC_WHAT_RE.test(p.trim()) &&
+      !SYNTHETIC_WHY_RE.test(p.trim()) &&
+      !SYNTHETIC_GLAVNOE_RE.test(p.trim())
+  );
 }
 
-/** Ensure non-glossary sections have voice leads + «Главное» close. */
+/** Ensure non-glossary sections have a «Главное» close; never inject Что/Зачем stubs. */
 export function ensureSectionVoiceClose(section: NoteBodySection): NoteBodySection {
   if (isGlossarySection(section)) return section;
 
-  let paragraphs = [...(section.paragraphs ?? []).map(improveEditorialText)];
+  let paragraphs = stripSyntheticVoiceStubs(
+    (section.paragraphs ?? []).map(improveEditorialText)
+  );
   const bullets = (section.bullets ?? []).map(improveEditorialText);
 
   const joined = paragraphs.join("\n");
-  const needsWhat = !WHAT_RE.test(joined);
-  const needsWhy = !WHY_RE.test(joined);
-  const needsGlavnoe = !GLAVNOE_RE.test(joined);
-
-  if (needsWhat || needsWhy) {
-    const { what, why } = synthesizeWhatWhy(section);
-    const lead: string[] = [];
-    if (paragraphs[0] && !WHAT_RE.test(paragraphs[0]) && !WHY_RE.test(paragraphs[0])) {
-      // Keep existing narrative lead, then inject voice frame
-      lead.push(paragraphs[0]);
-      paragraphs = paragraphs.slice(1);
-    }
-    if (needsWhat) lead.push(what);
-    if (needsWhy) lead.push(why);
-    paragraphs = [...lead, ...paragraphs];
-  }
-
-  if (needsGlavnoe) {
-    paragraphs = [...paragraphs, synthesizeGlavnoe({ ...section, bullets })];
+  if (!GLAVNOE_RE.test(joined)) {
+    paragraphs = [...paragraphs, synthesizeGlavnoe({ ...section, paragraphs, bullets })];
   }
 
   return { ...section, paragraphs, bullets };

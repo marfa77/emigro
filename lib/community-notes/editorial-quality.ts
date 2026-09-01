@@ -78,6 +78,47 @@ export function hollowBodySectionErrors(
   return errors;
 }
 
+/** Reject telegraphic «Что делать:» / «Зачем:» skeletons and jargon-stuffed «Главное». */
+export function telegraphicVoiceErrors(sections: NoteBodySection[]): string[] {
+  const errors: string[] = [];
+  const LABEL_RE =
+    /^\s*(что делать|зачем вам это сейчас|зачем)\s*:/i;
+  const STEP_PARA_RE = /^\s*шаг\s*\d+\s*[—–\-.:]/i;
+  const JARGON_TOKEN_RE =
+    /\b(CPCV|IMT|IVA|promotor|entrega|asking|sinal|escritura|munic[ií]pio|condom[ií]nio|off-plan|LTV|PDM|PIP)\b/gi;
+
+  for (const section of sections) {
+    if (isGlossarySection(section)) continue;
+    for (const p of section.paragraphs ?? []) {
+      const trimmed = p.trim();
+      if (LABEL_RE.test(trimmed) || STEP_PARA_RE.test(trimmed)) {
+        errors.push(
+          `telegraphic voice in «${section.heading.slice(0, 40)}»: remove «Что делать:» / «Зачем:» / «Шаг N —» paragraph labels`
+        );
+        break;
+      }
+      const glavnoe = trimmed.match(/главное\s*:\s*(.+)$/i);
+      if (glavnoe) {
+        const body = glavnoe[1].trim();
+        const words = body.split(/\s+/).filter(Boolean);
+        const jargonHits = body.match(JARGON_TOKEN_RE) ?? [];
+        const hasInequalityStack = (body.match(/≠|!=/g) ?? []).length >= 1 && jargonHits.length >= 2;
+        if (
+          (words.length < 12 && jargonHits.length >= 2) ||
+          hasInequalityStack ||
+          /asking\s*≠|entrega\s*[—–-]|promotor\s*\/\s*агент/i.test(body)
+        ) {
+          errors.push(
+            `telegraphic «Главное» in «${section.heading.slice(0, 40)}»: rewrite as one plain-Russian sentence`
+          );
+          break;
+        }
+      }
+    }
+  }
+  return errors;
+}
+
 function politicsAsGuideErrors(input: DraftQualityInput): string[] {
   if (input.content_kind !== "guide") return [];
   const blob = `${input.slug ?? ""} ${input.seo_title} ${input.quick_answer}`;
@@ -134,6 +175,7 @@ export function validateNoteDraft(
     }
   }
   errors.push(...hollowBodySectionErrors(input.body_sections, input.content_kind));
+  errors.push(...telegraphicVoiceErrors(input.body_sections));
   errors.push(...politicsAsGuideErrors(input));
   if (totalWords(input) < rules.minWords) {
     errors.push(`word count ${totalWords(input)} < ${rules.minWords}`);

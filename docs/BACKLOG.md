@@ -117,7 +117,7 @@ If a shortened satellite note or practice block is spun off this pillar:
 | Gate | Command / module | Requirement |
 |------|------------------|-------------|
 | **Blueprint** | `npm run portugal:blueprint-pass` · `article-blueprint.ts` | Score ≥ 70; official/practice/gap/mistakes sections per `BLUEPRINT_MIN` |
-| **Voice** | `npm run portugal:voice-pass` · `editorial-voice.ts` | RU relocant tone; no panic, no «гарантированный ВНЖ» |
+| **Voice** | `npm run portugal:voice-pass` · `editorial-voice.ts` | Topic-fit voice: leisure = Remarque; housing = realtor/expert (NOT Remarque); no «Что делать:» telegraph |
 | **Practice enrichment** | `npm run portugal:enrich-practice` · `practice-enrichment.ts` | `auditPracticeQuality` pass; add slug to `CURATED_PRACTICE` + `PORTUGAL_GUIDE_FACTCHECK` |
 
 Pillar file: `content/guides/ru/prodlenie-vnzh-portugaliya-aima-2026.md` — follow [SEO_GUIDE_STANDARD.md](./SEO_GUIDE_STANDARD.md) (≥1200 words, 6–10 H2, ≥3 official URLs, FAQ 5–7, disclaimer).
@@ -202,3 +202,38 @@ On country pages: button «Вступить в сообщество» → short 
 - Distinct from PT-001 founders registry (satellite curated entrepreneurs) and from current `/ru/community` (= channel subscribe + post comments).
 - Country landings today omit `RelocatorChatPromo` / `CommunityJoinButton` — easy interim CTA if needed before directory.
 - Recorded: 2026-08-07 (analysis only; deferred to backlog).
+
+---
+
+## PT-VOICE-001 — Satellite hand-guides: kill telegraphic «Что делать» voice
+
+| Field | Value |
+|-------|-------|
+| **Status** | `in_progress` |
+| **Priority** | High — user-facing readability |
+| **Surface** | Portugal (+ Spain) satellite guides in `lib/community-notes/guides/` |
+| **Related** | `editorial-voice.ts` (`EDITORIAL_VOICE_PRACTICAL`), `telegraphicVoiceErrors` in `editorial-quality.ts` |
+
+### Done (housing cluster, realtor/expert voice — NOT Remarque)
+
+- `kupit-kvartiru-portugaliya-norte-2026` (apartment-buy)
+- `porto-novostrojki-klastery-community-2026` (newbuild catalog)
+- `pokupka-zemli-postroyka-doma-norte-portugaliya-2026` (land-build)
+- `arenda-dolgosrok-porto-braga-2026` (long-term rent)
+
+### Queue (hand rewrite; topic-fit voice; no LLM voice-pass on SKIP_REWRITE_SLUGS)
+
+**PT priority:** `pervyj-mesyac-portugaliya-checklist`, `prodlenie-vnzh-portugaliya-aima-2026`, `portugal-bank-account`, `driving-license-exchange`, `embassy-appointment-booking`, `international-schools-portugal`, `lisbon-rent-first-month`, `yellow-pages-relocant-portugal`, `drugs-law-norte-portugal`, `portugal-regions-expat-guide`, `foreign-passport-replacement`, `meditsina-norte-healthcare`.
+
+**Spain (separate batch):** guides still using `Что делать:` labels in `lib/community-notes/guides/spain-*.ts`.
+
+### Voice rule
+
+- Leisure/life → Remarque OK.
+- Housing/buy/rent/land → seasoned realtor / market briefing.
+- Bureaucracy (AIMA, bank, docs) → calm expert advisor.
+- Never Remarque atmosphere on CPCV/IMT/pricelists; never telegraphic `Что делать:` / jargon stacks.
+
+### Notes
+
+- Recorded: 2026-08-16.

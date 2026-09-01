@@ -1,5 +1,6 @@
 import { NoteCard } from "@/components/satellite/NoteCard";
 import type { CommunityNote } from "@/lib/community-notes/types";
+import { satelliteHubUrl, satellitePillarUrl } from "@/lib/satellite/funnel-urls";
 
 export function RelatedNotes({ notes }: { notes: CommunityNote[] }) {
   if (notes.length === 0) return null;
@@ -24,6 +25,9 @@ export function RelatedNotes({ notes }: { notes: CommunityNote[] }) {
 }
 
 export function SatelliteValueProp({ countryKey = "portugal" }: { countryKey?: "portugal" | "spain" }) {
+  const hubHref = satelliteHubUrl({ countryKey, placement: "satellite_hub", content: "value_prop" });
+  const pillarHref = satellitePillarUrl({ countryKey, placement: "satellite_hub", content: "value_prop" });
+
   if (countryKey === "spain") {
     return (
       <section className="mt-6 rounded-xl border border-amber-100 bg-amber-50/60 p-4 text-sm leading-relaxed text-slate-700">
@@ -33,14 +37,11 @@ export function SatelliteValueProp({ countryKey = "portugal" }: { countryKey?: "
         </p>
         <p className="mt-2">
           Полный коридор с новостями, wizard и digest — на{" "}
-          <a href="https://www.emigro.online/ru/spain" className="font-medium text-amber-900 underline hover:text-amber-950">
+          <a href={hubHref} className="font-medium text-amber-900 underline hover:text-amber-950">
             emigro.online/ru/spain
           </a>
           . Pillar-гид:{" "}
-          <a
-            href="https://www.emigro.online/ru/guides/vnj-ispaniya-2026"
-            className="font-medium text-amber-900 underline hover:text-amber-950"
-          >
+          <a href={pillarHref} className="font-medium text-amber-900 underline hover:text-amber-950">
             Digital nomad Испания 2026
           </a>
           .
@@ -57,14 +58,11 @@ export function SatelliteValueProp({ countryKey = "portugal" }: { countryKey?: "
       </p>
       <p className="mt-2">
         Полный коридор с новостями, wizard и digest — на{" "}
-        <a href="https://www.emigro.online/ru/portugal" className="font-medium text-teal-700 underline hover:text-teal-900">
+        <a href={hubHref} className="font-medium text-teal-700 underline hover:text-teal-900">
           emigro.online/ru/portugal
         </a>
         . Pillar-гид:{" "}
-        <a
-          href="https://www.emigro.online/ru/guides/vnj-portugaliya-d8-d7-grazhdanstvo-2026"
-          className="font-medium text-teal-700 underline hover:text-teal-900"
-        >
+        <a href={pillarHref} className="font-medium text-teal-700 underline hover:text-teal-900">
           D8 и D7 Португалия 2026
         </a>
         .

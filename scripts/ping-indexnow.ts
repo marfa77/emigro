@@ -79,16 +79,37 @@ async function main() {
   }
 
   const origin = publicSiteUrl();
-  // CLI has no Host header → sitemap() is www-only; merge satellite hosts explicitly.
-  const [wwwEntries, portugalEntries, spainEntries] = await Promise.all([
-    sitemap(),
-    buildSatelliteSitemapEntries("portugal"),
-    buildSatelliteSitemapEntries("spain"),
-  ]);
-  const entries = [...wwwEntries, ...portugalEntries, ...spainEntries];
-  const urls = Array.from(
-    new Set(entries.map((e) => toProductionUrl(e.url, origin)))
-  ).sort();
+  // Prefer live host sitemaps in CLI — app/sitemap() uses unstable_cache (breaks outside Next).
+  async function urlsFromLiveSitemap(sitemapUrl: string): Promise<string[]> {
+    const res = await fetch(sitemapUrl);
+    if (!res.ok) throw new Error(`${sitemapUrl} → HTTP ${res.status}`);
+    const xml = await res.text();
+    return [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
+  }
+
+  let urls: string[];
+  try {
+    const [www, portugal, spain] = await Promise.all([
+      urlsFromLiveSitemap(`${origin}/sitemap.xml`),
+      urlsFromLiveSitemap(`https://${PORTUGAL_SATELLITE_HOST}/sitemap.xml`),
+      urlsFromLiveSitemap(`https://${SPAIN_SATELLITE_HOST}/sitemap.xml`),
+    ]);
+    urls = Array.from(new Set([...www, ...portugal, ...spain])).sort();
+    console.log(`Loaded live sitemaps: www=${www.length} pt=${portugal.length} es=${spain.length}`);
+  } catch (liveErr) {
+    console.warn(
+      "[indexnow] live sitemap fetch failed, falling back to in-process builders:",
+      liveErr instanceof Error ? liveErr.message : liveErr
+    );
+    const [wwwEntries, portugalEntries, spainEntries] = await Promise.all([
+      sitemap(),
+      buildSatelliteSitemapEntries("portugal"),
+      buildSatelliteSitemapEntries("spain"),
+    ]);
+    const entries = [...wwwEntries, ...portugalEntries, ...spainEntries];
+    urls = Array.from(new Set(entries.map((e) => toProductionUrl(e.url, origin)))).sort();
+  }
+
   const byHost = groupUrlsByHost(urls);
 
   console.log(`Origin: ${origin}`);

@@ -3,10 +3,17 @@ import { DailySpotlightTile } from "@/components/satellite/DailySpotlight";
 import { HashtagNav } from "@/components/satellite/HashtagNav";
 import { NoteCard } from "@/components/satellite/NoteCard";
 import { SatelliteValueProp } from "@/components/satellite/RelatedNotes";
+import { SatelliteFunnelCta } from "@/components/satellite/SatelliteFunnelCta";
+import { SatelliteHubScenarios } from "@/components/satellite/SatelliteHubScenarios";
+import { SatelliteAssistIntake } from "@/components/satellite/SatelliteAssistIntake";
 import { BarakhloPromo } from "@/components/satellite/BarakhloPromo";
 import { getDailySpotlight } from "@/lib/community-notes/daily-spotlight";
 import { requirePublishedCommunityNotes } from "@/lib/community-notes/queries";
 import { PORTUGAL_SATELLITE } from "@/lib/satellite/portugal";
+import {
+  satelliteDigestUrl,
+  satelliteWizardUrl,
+} from "@/lib/satellite/funnel-urls";
 import { buildSatelliteHubPlace } from "@/lib/community-notes/seo-page";
 import { fitMetaDescription } from "@/lib/seo";
 import { DEFAULT_OG_IMAGE, socialImageMetadata } from "@/lib/seo";
@@ -104,7 +111,9 @@ export default async function PortugalSatelliteHomePage() {
 
       <SatelliteValueProp />
 
-      <BarakhloPromo context="hub" placement="satellite_hub" compact />
+      <SatelliteFunnelCta countryKey="portugal" placement="satellite_hub" />
+
+      <SatelliteHubScenarios countryKey="portugal" />
 
       {spotlight && (
         <div className="mt-8">
@@ -144,12 +153,22 @@ export default async function PortugalSatelliteHomePage() {
         </section>
       )}
 
+      <SatelliteAssistIntake countryKey="portugal" />
+
+      <BarakhloPromo context="hub" placement="satellite_hub" />
+
       <p className="mt-12 text-center text-sm text-slate-500">
-        <a href={PORTUGAL_SATELLITE.wizardUrl} className="font-medium text-teal-700 underline">
+        <a
+          href={satelliteWizardUrl({ countryKey: "portugal", placement: "satellite_hub", content: "footer" })}
+          className="font-medium text-teal-700 underline"
+        >
           Подобрать маршрут ВНЖ →
         </a>
         {" · "}
-        <a href={PORTUGAL_SATELLITE.digestUrl} className="text-teal-700 underline">
+        <a
+          href={satelliteDigestUrl({ countryKey: "portugal", placement: "satellite_hub", content: "footer" })}
+          className="text-teal-700 underline"
+        >
           Справочник коридора на emigro.online →
         </a>
         {" · "}

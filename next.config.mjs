@@ -118,6 +118,63 @@ const nextConfig = {
         destination: "/ru/guides/kak-otkryt-bankovskiy-schet-portugalia-2026",
         permanent: true,
       },
+      // Thin household notes archived Sep 2026 — redirect to system guides / hub
+      {
+        source: "/notes/via-verde-transponder-replacement-portugal",
+        has: [{ type: "host", value: "portugal.emigro.online" }],
+        destination: "/notes/platnye-dorogi-shtrafy-avariya-portugaliya-norte-2026",
+        permanent: true,
+      },
+      {
+        source: "/satellite/portugal/notes/via-verde-transponder-replacement-portugal",
+        destination: "/satellite/portugal/notes/platnye-dorogi-shtrafy-avariya-portugaliya-norte-2026",
+        permanent: true,
+      },
+      {
+        source: "/notes/porto-free-public-transport-guide",
+        has: [{ type: "host", value: "portugal.emigro.online" }],
+        destination: "/notes/turizm-vnutri-portugalii-norte-2026",
+        permanent: true,
+      },
+      {
+        source: "/satellite/portugal/notes/porto-free-public-transport-guide",
+        destination: "/satellite/portugal/notes/turizm-vnutri-portugalii-norte-2026",
+        permanent: true,
+      },
+      {
+        source: "/notes/vozvrat-remont-tovarov-portugaliya-2026",
+        has: [{ type: "host", value: "portugal.emigro.online" }],
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/satellite/portugal/notes/vozvrat-remont-tovarov-portugaliya-2026",
+        destination: "/satellite/portugal",
+        permanent: true,
+      },
+      {
+        source: "/notes/smena-adresa-nif-financas-2026",
+        has: [{ type: "host", value: "portugal.emigro.online" }],
+        destination: "/notes/prodlenie-vnzh-portugaliya-aima-2026",
+        permanent: true,
+      },
+      {
+        source: "/satellite/portugal/notes/smena-adresa-nif-financas-2026",
+        destination: "/satellite/portugal/notes/prodlenie-vnzh-portugaliya-aima-2026",
+        permanent: true,
+      },
+      // Lisboa-centric NIF note → Porto / Norte hand guide
+      {
+        source: "/notes/nif-lissabon-chto-puutayut",
+        has: [{ type: "host", value: "portugal.emigro.online" }],
+        destination: "/notes/nif-porto-kak-poluchit-2026",
+        permanent: true,
+      },
+      {
+        source: "/satellite/portugal/notes/nif-lissabon-chto-puutayut",
+        destination: "/satellite/portugal/notes/nif-porto-kak-poluchit-2026",
+        permanent: true,
+      },
       // Merged into digital-nomad-vizy-evropy-sravnenie-2026 (canonical DN comparison)
       {
         source: "/ru/guides/digital-nomad-portugaliya-ispaniya-italiya-2026",

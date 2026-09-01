@@ -47,3 +47,27 @@ export function barakhloPromoUrl(context: string, segment = "portugal", medium: 
 export function isServiceDiscoveryNote(noteSlug: string, category: string): boolean {
   return /poisk-mestnyh|uslug|master|маник|ветерин/i.test(`${noteSlug} ${category}`);
 }
+
+/**
+ * Barakhlo only on housing / move / services notes — not on visa/AIMA bureaucracy guides.
+ * Default off unless the note is clearly about apartment setup, auto, or local services.
+ */
+export function shouldShowBarakhloPromo(note: {
+  slug: string;
+  title: string;
+  category: string;
+  hashtags?: string[];
+}): boolean {
+  if (isServiceDiscoveryNote(note.slug, note.category)) return true;
+  const blob = `${note.title} ${note.slug} ${note.category} ${(note.hashtags ?? []).join(" ")}`;
+  if (
+    /(aima|nif|nie|tie|visa|vnj|d7|d8|dnv|extranjer|consul|загран|паспорт|ciple|financas|sns|школ|nationalit|гражданств)/i.test(
+      blob
+    )
+  ) {
+    return false;
+  }
+  return /(arenda|аренд|мебел|квартир|жиль|nova.?constru|auto|авто|транспорт|uslug|услуг|master|мастер|барахол|barakhlo|переезд)/i.test(
+    blob
+  );
+}

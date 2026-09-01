@@ -31,6 +31,8 @@ cd "\$REMOTE"
 chmod +x deploy/news-soft-promo/run_scheduled.sh
 mkdir -p deploy/news-soft-promo/logs
 chown -R www-data:www-data deploy/news-soft-promo
+chown -R www-data:www-data "\$REMOTE/parser" 2>/dev/null || true
+chmod 600 "\$REMOTE/parser/.env" 2>/dev/null || true
 if command -v npm >/dev/null 2>&1; then
   npm ci --include=dev
 fi

@@ -118,7 +118,7 @@ const bodySections: NoteBodySection[] = [
       "Сверяйте график consulado с праздниками PT/RF перед поездкой (embrussia.ru).",
       "Не езжайте с неполным пакетом — консульство РФ не принимает частично.",
       "Не отправляйте родственника за passaporte 14+ — не выдадут.",
-      "Оформите comprovativo de morada — см. [гайд по NIF](/notes/nif-lissabon-chto-puutayut).",
+      "Оформите comprovativo de morada — см. [гайд по NIF](/notes/nif-porto-kak-poluchit-2026).",
     ],
   },
 ];

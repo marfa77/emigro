@@ -42,6 +42,18 @@ EMIGRO_NEWS_FAST_MODEL=gemini-2.5-flash
 
 `COMMUNITY_INGEST_API_KEY` на VPS **не нужен** — ingest идёт direct в Supabase из `npm run portugal:daily`.
 
+## Права на VPS (частая поломка)
+
+Cron идёт от **`www-data`**. Если `parser/state.json` (или весь `parser/`) остался от root/rsync с Mac uid `501`, daily падает с `EACCES` и **новые заметки не публикуются**.
+
+```bash
+chown -R www-data:www-data /opt/emigro/parser
+chmod 600 /opt/emigro/parser/.env
+systemctl start emigro-portugal-community.service
+```
+
+`parser/deploy.sh` уже делает `chown`; деплои вроде `deploy/news-lightning/deploy.sh` тоже должны чинить ownership после rsync.
+
 ## Деплой
 
 ```bash

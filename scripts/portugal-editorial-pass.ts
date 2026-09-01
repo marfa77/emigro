@@ -47,6 +47,7 @@ function applyEditorialPatches(note: CommunityNote): PatchResult {
   replaceInAll(/\s{2,}/g, " ");
 
   switch (note.slug) {
+    case "nif-porto-kak-poluchit-2026":
     case "nif-lissabon-chto-puutayut":
       replaceInAll(/Lisboa-only/gi, "Lisboa");
       if (!/Norte|Порту|Porto/i.test(quick_answer)) {

@@ -262,6 +262,41 @@ async function getRecentSpotlightSlugs(
   return new Set((data ?? []).map((row) => String(row.note_slug)));
 }
 
+/** Last persisted tile — hub fallback when today's upsert fails (cron miss / no service role). */
+async function getLatestSpotlight(countryKey: string): Promise<DailySpotlight | null> {
+  const supabase = createServerClient();
+  const { data, error } = await supabase
+    .from("community_daily_spotlight")
+    .select("*")
+    .eq("country_key", countryKey)
+    .order("spotlight_date", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  if (error || !data) return null;
+  return mapSpotlight(data);
+}
+
+/** In-memory tile when DB write is unavailable — still show something on the hub. */
+function buildEphemeralSpotlight(
+  note: CommunityNote,
+  countryKey: string,
+  today: string
+): DailySpotlight {
+  const noteUrl = satellitePublicUrl(countryKey, `/notes/${note.slug}`);
+  return {
+    id: `ephemeral-${countryKey}-${today}`,
+    country_key: countryKey,
+    spotlight_date: today,
+    note_slug: note.slug,
+    content_kind: note.content_kind,
+    headline: `${CONTENT_KIND_LABELS[note.content_kind]} дня`,
+    threads_text: buildThreadsText(note, noteUrl),
+    note_url: noteUrl,
+    updated_at: new Date().toISOString(),
+  };
+}
+
 function isSpotlightStillBest(
   storedSlug: string,
   notes: CommunityNote[],
@@ -359,8 +394,39 @@ export async function getDailySpotlight(countryKey = "portugal"): Promise<DailyS
       }
       return stored;
     }
-    return null;
+
+    // No row for today (cron missed / new day) — create so hub never loses the tile.
+    try {
+      return await refreshDailySpotlight(countryKey);
+    } catch (e) {
+      console.warn(
+        "[spotlight] lazy create failed:",
+        e instanceof Error ? e.message : e
+      );
+    }
+
+    // Hard fallbacks: never blank the hub tile.
+    try {
+      const notes = await getPublishedCommunityNotes(countryKey);
+      const [recentSpotlightSlugs, recentNewsSpotlightSlugs] = await Promise.all([
+        getRecentSpotlightSlugs(countryKey, today, SPOTLIGHT_COOLDOWN_DAYS),
+        getRecentSpotlightSlugs(countryKey, today, NEWS_SPOTLIGHT_COOLDOWN_DAYS),
+      ]);
+      const best = pickBestNote(notes, recentSpotlightSlugs, today, recentNewsSpotlightSlugs);
+      if (best) return buildEphemeralSpotlight(best, countryKey, today);
+    } catch (e) {
+      console.warn(
+        "[spotlight] ephemeral pick failed:",
+        e instanceof Error ? e.message : e
+      );
+    }
+
+    return await getLatestSpotlight(countryKey);
   } catch {
-    return null;
+    try {
+      return await getLatestSpotlight(countryKey);
+    } catch {
+      return null;
+    }
   }
 }

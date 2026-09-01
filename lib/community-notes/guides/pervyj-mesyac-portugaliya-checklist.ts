@@ -93,7 +93,7 @@ const bodySections: NoteBodySection[] = [
         ").",
       "Доезжайте сразу в Porto (Foz/Boavista/Matosinhos) или Braga — не «ночь в Lisboa ради AIMA Saldanha»; для ARI слоты в Norte свои.",
       "Купите eSIM/SIM (MEO/NOS/Vodafone) на взрослых; ребёнку — только если школа просит контактный номер.",
-      "Закройте NIF в Finanças (Loja do Cidadão Porto/Braga или com representante) на всех троих, если номеров ещё нет — один налоговый номер на страну, не «лиссабонский».",
+      "Закройте NIF в Finanças (Loja do Cidadão Porto/Braga или com representante) на всех троих, если номеров ещё нет — один налоговый номер на страну; порядок — [NIF в Порту](/notes/nif-porto-kak-poluchit-2026).",
       "Зафиксируйте temporary morada: confirmação брони + e-mail senhorio; сфотографируйте acta de entrada — сырость Norte ловится в первую неделю, см. [климат](/notes/" +
         NORTE_CLIMATE_COMFORT_SLUG +
         ").",

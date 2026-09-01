@@ -1,0 +1,24 @@
+---
+description: Do not create thin household / one-shot Portugal satellite notes
+alwaysApply: true
+---
+
+# Portugal satellite — no thin household guides
+
+## Do not publish as standalone notes
+
+- Consumer returns / product warranty (`vozvrat`, garantia de bens)
+- One-fact transit news (e.g. free STCP Porto) without checklist / nuances
+- One-shot tech tips (broken Via Verde transponder)
+- Single-paragraph Q&A that belongs in FAQ of a system guide (e.g. change NIF morada alone)
+
+These are in `ARCHIVE_SLUGS` / `isThinHouseholdTopic` (`lib/community-notes/editorial-filter.ts`).
+
+## Do instead
+
+- Fold into a **system** guide (portagens, renovação AIMA, first month, domestic tourism)
+- Or skip — easy Google / EU consumer law is not Emigro inventory
+
+## If user pastes such a draft
+
+Refuse to ship as a new `/notes/…` guide; offer a short FAQ bullet in the parent guide only.

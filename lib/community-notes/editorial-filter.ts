@@ -56,11 +56,34 @@ export const SPAIN_TOPIC_PATTERNS: Array<{ topic: string; re: RegExp }> = [
 /** Tangential chat topics — skip auto-publish unless manually curated. */
 export const SKIP_AUTO_PUBLISH_TOPICS = new Set(["school", "food"]);
 
+/**
+ * Thin / one-shot household notes — archived and never re-publish as guides.
+ * Fold into a system guide (AIMA, portagens, first month) or skip entirely.
+ */
 export const ARCHIVE_SLUGS = new Set([
   "bank-account-portugal-2026",
   "detskiy-tort-lisabon-zakaz-2026",
   "restaurantes-condimentos-guide-2026",
+  // Thin household / one-fact — removed Sep 2026
+  "vozvrat-remont-tovarov-portugaliya-2026",
+  "porto-free-public-transport-guide",
+  "via-verde-transponder-replacement-portugal",
+  "smena-adresa-nif-financas-2026",
+  // Lisboa-centric NIF note → Porto guide
+  "nif-lissabon-chto-puutayut",
 ]);
+
+/**
+ * Reject auto-drafts that would recreate archived thin topics.
+ * Manual publish of a real system guide on related themes is still OK
+ * (e.g. portagens guide, first-month checklist mentioning morada).
+ */
+const THIN_TOPIC_SKIP_RE =
+  /возврат.{0,40}товар|гарантия.{0,40}товар|devoluç[aã]o|бесплатн\w*\s+транспорт.{0,20}порт|porto.?free.?public.?transport|via\s*verde.{0,30}(не\s+работ|broken|замен|transponder)|смен[аы]\s+адрес\w*\s+nif|smena-adresa-nif|vozvrat-remont-tovarov/i;
+
+export function isThinHouseholdTopic(title: string, slug = ""): boolean {
+  return THIN_TOPIC_SKIP_RE.test(`${title} ${slug}`);
+}
 
 /** Infer primary topic from title/slug when parser topic_hints are wrong. */
 export function reconcileTopic(
@@ -119,6 +142,9 @@ export function shouldAutoPublishCluster(
   countryKey: "portugal" | "spain" = "portugal"
 ): boolean {
   const text = cluster.signals.map((s) => s.text).join("\n");
+  if (isThinHouseholdTopic(text, cluster.topic)) {
+    return false;
+  }
   // Ephemeral politics/scandal → news only (never guide/tip padding).
   if (looksLikeEphemeralPolitics(text) && cluster.contentKind !== "news") {
     return false;

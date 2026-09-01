@@ -74,6 +74,43 @@ function asBodyTable(value: unknown): NoteBodySection["table"] {
   return { columns, rows };
 }
 
+function asBodyMap(value: unknown): NoteBodySection["map"] {
+  if (value == null || typeof value !== "object") return undefined;
+  const raw = value as Record<string, unknown>;
+  const centerRaw = raw.center;
+  if (centerRaw == null || typeof centerRaw !== "object") return undefined;
+  const centerObj = centerRaw as Record<string, unknown>;
+  const lat = typeof centerObj.lat === "number" ? centerObj.lat : Number(centerObj.lat);
+  const lng = typeof centerObj.lng === "number" ? centerObj.lng : Number(centerObj.lng);
+  if (!Number.isFinite(lat) || !Number.isFinite(lng)) return undefined;
+  const markersRaw = Array.isArray(raw.markers) ? raw.markers : [];
+  const markers = markersRaw
+    .filter((item): item is Record<string, unknown> => item != null && typeof item === "object")
+    .map((item) => {
+      const id = asString(item.id);
+      const title = asString(item.title);
+      const mLat = typeof item.lat === "number" ? item.lat : Number(item.lat);
+      const mLng = typeof item.lng === "number" ? item.lng : Number(item.lng);
+      if (!id || !title || !Number.isFinite(mLat) || !Number.isFinite(mLng)) return null;
+      return {
+        id,
+        title,
+        lat: mLat,
+        lng: mLng,
+        subtitle: asString(item.subtitle) || undefined,
+        url: asString(item.url) || undefined,
+      };
+    })
+    .filter((m): m is NonNullable<typeof m> => m != null);
+  if (markers.length === 0) return undefined;
+  const zoom = typeof raw.zoom === "number" ? raw.zoom : Number(raw.zoom);
+  return {
+    center: { lat, lng },
+    zoom: Number.isFinite(zoom) ? zoom : undefined,
+    markers,
+  };
+}
+
 function asBodySections(value: unknown): NoteBodySection[] {
   if (!Array.isArray(value)) return [];
   return value
@@ -84,6 +121,7 @@ function asBodySections(value: unknown): NoteBodySection[] {
       bullets: section.bullets ? asStringArray(section.bullets) : undefined,
       images: asBodyImages(section.images),
       table: asBodyTable(section.table),
+      map: asBodyMap(section.map),
       section_kind: asSectionKind(section.section_kind),
     }))
     .filter((section) => section.heading.length > 0);

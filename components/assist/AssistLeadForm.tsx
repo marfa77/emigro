@@ -140,6 +140,8 @@ type Props = {
   initialCountry?: string;
   initialProgramRoute?: string;
   locale?: "ru" | "es" | "fr";
+  /** Override analytics/lead source (e.g. satellite hub intake). */
+  leadSource?: string;
 };
 
 export function AssistLeadForm({
@@ -150,9 +152,12 @@ export function AssistLeadForm({
   initialCountry,
   initialProgramRoute,
   locale = "ru",
+  leadSource,
 }: Props) {
   const isEs = locale === "es";
   const isFr = locale === "fr";
+  const defaultAssistSource = isEs ? "emigro_assist_es" : isFr ? "emigro_assist_fr" : "emigro_assist";
+  const assistSource = leadSource?.trim() || defaultAssistSource;
   const PAYMENT_OPTIONS = isEs ? PAYMENT_OPTIONS_ES : isFr ? PAYMENT_OPTIONS_FR : PAYMENT_OPTIONS_RU;
   const PLAN_TIER_OPTIONS = isEs
     ? PLAN_TIER_OPTIONS_ES
@@ -239,6 +244,7 @@ export function AssistLeadForm({
           session_id: wizardSessionId || undefined,
           preferred_language: locale,
           audience: isEs ? "latam" : isFr ? "fr_africa" : "ru",
+          source: assistSource,
         }),
       });
       const data = await res.json();
@@ -254,6 +260,7 @@ export function AssistLeadForm({
       }
 
       trackEvent("assist_lead_submitted", {
+        source: assistSource,
         country,
         corridor_slug: countryOption?.corridorSlug,
         providers: selectedProviders.join(","),
@@ -274,7 +281,7 @@ export function AssistLeadForm({
               ? "Erreur d'envoi"
               : "Ошибка отправки";
       trackEvent("lead_error", {
-        source: isEs ? "emigro_assist_es" : isFr ? "emigro_assist_fr" : "emigro_assist",
+        source: assistSource,
         country,
         message: msg,
       });

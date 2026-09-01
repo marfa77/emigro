@@ -109,3 +109,9 @@ npm run portugal:spotlight
 ```
 
 **Редакция:** 1 заметка/день (не 2+), Gemini Pro, quality gate (≥5 секций для guide, 4 FAQ, key_takeaways). Из чатов — max 3 фрагмента intent, не пересказ.
+
+**Не пишем thin household / one-shot гайды** (архив + `ARCHIVE_SLUGS` / `isThinHouseholdTopic`):
+- узкий быт, который гуглится за 30 сек (возврат товаров, один FAQ про morada NIF);
+- новость на 1 факт без чек-листа (бесплатный STCP Porto);
+- нишевый техкейс «1 раз в жизни» (сломанный Via Verde) — только абзац внутри системного гайда (portagens, renovação, first month).
+- Правило: либо **системный** гайд (переезд / ВНЖ / жильё / банк / транспорт как практика), либо **skip** — не отдельная заметка.

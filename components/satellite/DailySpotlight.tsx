@@ -23,12 +23,9 @@ export function DailySpotlightTile({ spotlight }: { spotlight: DailySpotlight })
 
       <div className="relative">
         <p id="spotlight-heading" className="text-xs font-bold uppercase tracking-wider text-amber-800">
-          Лучшее за сегодня · {formatSpotlightDateLabel(spotlight.spotlight_date)}
+          {spotlight.headline} · {formatSpotlightDateLabel(spotlight.spotlight_date)}
         </p>
         <div className="mt-3 flex flex-wrap items-center gap-2">
-          <span className="rounded-full bg-amber-200/80 px-2.5 py-0.5 text-xs font-semibold text-amber-950">
-            {spotlight.headline}
-          </span>
           <ContentKindBadge kind={spotlight.content_kind} />
         </div>
 
