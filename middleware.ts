@@ -303,6 +303,9 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
+    // Static extensions skipped — except /llms.txt, which satellites rewrite
+    // to /satellite/{country}/llms (matcher exclude of *.txt made that unreachable).
     "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|webp|gif|ico|txt|xml)).*)",
+    "/llms.txt",
   ],
 };

@@ -39,12 +39,9 @@ export async function buildSatelliteSitemapEntries(
       changeFrequency: "daily",
       priority: 0.9,
     },
-    {
-      url: publicUrl(country, "/llms"),
-      ...(newestNoteDate ? { lastModified: newestNoteDate } : {}),
-      changeFrequency: "daily",
-      priority: 0.5,
-    },
+    // Do not list /llms in the Google sitemap — plain-text LLM index lives at
+    // /llms.txt (and llm-sitemap.xml). Submitting /llms as an HTML-less URL
+    // wastes crawl budget on a new subdomain.
     ...notes.map((note) => ({
       url: publicUrl(country, `/notes/${note.slug}`),
       lastModified: note.updated_at || note.published_at || undefined,

@@ -83,7 +83,7 @@ Alice cites pages that already rank well in Yandex organic (top ~30). There is n
 1. In the **same Domain property** (or separate URL-prefix properties for each subdomain), submit:
    - `https://portugal.emigro.online/sitemap.xml`
    - `https://spain.emigro.online/sitemap.xml`
-2. Wait until Sitemaps shows **Success** and discovered URL counts (~hub + notes + tags). If GSC shows **Temporary processing error**, remove + re-add the sitemap (live map is ~95 PT / ~14 ES URLs — not a stub).
+2. Wait until Sitemaps shows **Success** and discovered URL counts (~hub + notes + tags with ≥4 notes). If GSC shows **Temporary processing error**, remove + re-add the sitemap (live map is ~hub + notes + thick tags only — `/llms` is not listed; empty/noindex Cyrillic tags are excluded).
 3. URL Inspection → confirm **User-declared canonical** → **Request indexing** on hub + 3–5 pillar notes.
 4. Do **not** expect `llm-sitemap.xml` to index satellites — it is for LLM discovery via `llms.txt`, not a Google Sitemap.
 5. **Bing / IndexNow:** `npm run seo:indexnow` loads live host sitemaps and pings Yandex → api.indexnow.org → Bing. Key file must resolve on each host (`/{INDEXNOW_KEY}.txt`). Acceptance (HTTP 200/202) ≠ immediate `site:` results — check Bing Webmaster URL submission after 24–72h.

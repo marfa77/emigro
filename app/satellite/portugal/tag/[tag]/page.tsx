@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { HashtagNav } from "@/components/satellite/HashtagNav";
 import { NoteCard } from "@/components/satellite/NoteCard";
-import { hashtagLabel, normalizeHashtag } from "@/lib/community-notes/hashtags";
+import { hashtagLabel, normalizeHashtag, resolveTagParam } from "@/lib/community-notes/hashtags";
 import { getPublishedCommunityNotes } from "@/lib/community-notes/queries";
 import { fitMetaDescription } from "@/lib/seo";
 import { DEFAULT_OG_IMAGE, socialImageMetadata } from "@/lib/seo";
@@ -24,11 +24,11 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: { params: { tag: string } }): Promise<Metadata> {
-  const tag = normalizeHashtag(params.tag);
+  const tag = resolveTagParam(params.tag);
   const allNotes = await getPublishedCommunityNotes("portugal");
   const notes = allNotes.filter((n) => n.hashtags.some((h) => normalizeHashtag(h) === tag));
-  const label = hashtagLabel(params.tag);
-  const url = portugalSatelliteUrl(`/tag/${tag}`);
+  const label = hashtagLabel(tag);
+  const url = portugalSatelliteUrl(`/tag/${encodeURIComponent(tag)}`);
   const description = fitMetaDescription(
     `#${label} — материалы для релокантов в Португалии (Norte: Порту, Брага, Minho): новости, лайфхаки, советы и гайды. Короткие ответы и FAQ, не юридическая консультация.`
   );
@@ -60,10 +60,10 @@ export async function generateMetadata({ params }: { params: { tag: string } }):
 }
 
 export default async function PortugalTagPage({ params }: { params: { tag: string } }) {
-  const tag = normalizeHashtag(params.tag);
+  const tag = resolveTagParam(params.tag);
   const allNotes = await getPublishedCommunityNotes("portugal");
   const notes = allNotes.filter((n) => n.hashtags.some((h) => normalizeHashtag(h) === tag));
-  const url = portugalSatelliteUrl(`/tag/${tag}`);
+  const url = portugalSatelliteUrl(`/tag/${encodeURIComponent(tag)}`);
   const label = hashtagLabel(tag);
 
   const collectionSchema = {

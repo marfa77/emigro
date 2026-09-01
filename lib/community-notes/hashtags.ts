@@ -102,6 +102,26 @@ export function normalizeHashtag(raw: string): string {
   return raw.replace(/^#/, "").trim().toLowerCase().replace(/\s+/g, "-");
 }
 
+/**
+ * Next may pass tag route params already decoded or still percent-encoded
+ * (esp. Cyrillic). Decode safely before normalizeHashtag so filters and
+ * robots match published hashtags.
+ */
+export function resolveTagParam(raw: string): string {
+  let value = raw.trim();
+  for (let i = 0; i < 2; i++) {
+    if (!/%[0-9A-Fa-f]{2}/.test(value)) break;
+    try {
+      const decoded = decodeURIComponent(value);
+      if (decoded === value) break;
+      value = decoded;
+    } catch {
+      break;
+    }
+  }
+  return normalizeHashtag(value);
+}
+
 export function hashtagLabel(tag: string): string {
   const key = normalizeHashtag(tag);
   return HASHTAG_LABELS[key] ?? key.replace(/-/g, " ");
