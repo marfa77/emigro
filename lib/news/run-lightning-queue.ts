@@ -14,6 +14,7 @@ import {
   isLightningPendingThreadsText,
   lightningAudienceSkipReason,
   lightningChannelPriority,
+  lightningStrengthSkipReason,
   lightningOwnerMarkOf,
   parseLightningPendingThreadsText,
   scoreLightningWithLlm,
@@ -246,7 +247,7 @@ export async function runLightningTelegramQueue(options?: {
     }))
     .sort((a, b) => {
       if (b.priority !== a.priority) return b.priority - a.priority;
-      return a.row.published_at.localeCompare(b.row.published_at);
+      return b.row.published_at.localeCompare(a.row.published_at);
     });
 
   const priorityHits = candidates.filter((c) => c.priority >= 80).length;
@@ -280,6 +281,16 @@ export async function runLightningTelegramQueue(options?: {
       skipped.push(`${row.slug}:${audienceSkip}`);
       if (!dryRun) await markLightningSkip(supabase, row.slug);
       else console.log(`[lightning] dry-run would skip ${row.slug} (${audienceSkip})`);
+      continue;
+    }
+
+    const strengthSkip = lightningStrengthSkipReason(gateText, {
+      allowSoftConcrete: priority >= 80,
+    });
+    if (strengthSkip) {
+      skipped.push(`${row.slug}:${strengthSkip}`);
+      if (!dryRun) await markLightningSkip(supabase, row.slug);
+      else console.log(`[lightning] dry-run would skip ${row.slug} (${strengthSkip})`);
       continue;
     }
 

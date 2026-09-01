@@ -33,8 +33,7 @@ Pipeline: Gemini Flash (dry facts) → OpenRouter voice (`EMIGRO_STORY_VOICE_MOD
 Spaced **approval requests** to your Telegram DM (not auto-dump into the channel).
 
 - Timer: **11 / 13 / 15 / 17 / 19 UTC** (`emigro-news-lightning.timer`)
-- **1 candidate per tick** after keyword + **RU-audience** + Gemini Flash gates (no Brits/US expat explainers)
-- **Queue priority:** Portugal ARI/GV «серая зона» (and 5→10 investor risk) before other corridors
+- **1 candidate per tick** after keyword + **RU-audience** + **concrete-detail** + Gemini Flash gates (no primers, housing indexes, party talk, Brits/US expats)
 - **Queue priority:** Portugal ARI/GV «серая зона» (and 5→10 investor risk) before other corridors
 - **Copy:** молнии и guide-promo пишутся в Threads-repost стиле (хук с цифрой/мифом + короткие абзацы-слайды); в DM к молнии — блок «Threads (копипаст)»
 - DM: draft + buttons **✅ В канал** / **❌ Пропуск** (fallback `/молния_да` `/молния_нет`)

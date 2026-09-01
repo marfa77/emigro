@@ -8,6 +8,8 @@ import {
   buildLightningTelegramHtml,
   isLightningImmigrationText,
   lightningAudienceSkipReason,
+  lightningChannelPriority,
+  lightningStrengthSkipReason,
   type LightningThreadsPayload,
 } from "@/lib/news/story-lightning";
 import {
@@ -92,6 +94,17 @@ export async function publishStoryLightningToTelegram(
       awaitingApproval: false,
       skipped: true,
       reason: audienceSkip,
+    };
+  }
+  const strengthSkip = lightningStrengthSkipReason(params.gateText, {
+    allowSoftConcrete: lightningChannelPriority(params.gateText) >= 80,
+  });
+  if (strengthSkip) {
+    return {
+      published: false,
+      awaitingApproval: false,
+      skipped: true,
+      reason: strengthSkip,
     };
   }
 

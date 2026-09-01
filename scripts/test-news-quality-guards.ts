@@ -17,8 +17,10 @@ import {
 } from "../lib/news/quality";
 import type { NewsTopicConfig } from "../lib/news/topics";
 import {
+  hasLightningConcreteDetail,
   isLightningRuAudienceText,
   lightningAudienceSkipReason,
+  lightningStrengthSkipReason,
 } from "../lib/news/story-lightning";
 
 const emigroArticleUrl = "https://www.emigro.online/ru/news/spain-relocation-news-2026-06-27";
@@ -507,6 +509,102 @@ assert(
 assert(
   !isLightningRuAudienceText("After Brexit, Brits living in Spain face new residence checks"),
   "Brexit-Brits-in-EU must fail"
+);
+
+assert.equal(
+  lightningStrengthSkipReason(
+    "Шенген и свободное передвижение ЕС — не одно и то же. The Local разбирает путаницу."
+  ),
+  "evergreen-primer",
+  "Schengen primer must not reach lightning DM"
+);
+assert.equal(
+  lightningStrengthSkipReason("Словарь для permesso di soggiorno в Италии: что нужно знать на месте"),
+  "evergreen-primer",
+  "Glossary explainers must not reach lightning DM"
+);
+assert.equal(
+  lightningStrengthSkipReason(
+    "Сколько денег нужно на переезд в Австрию — зависит от города, работы и типа ВНЖ"
+  ),
+  "evergreen-primer",
+  "Cost-of-move explainers must not reach lightning DM"
+);
+assert.equal(
+  lightningStrengthSkipReason(
+    "Португалия: +15,2% цен на жильё за полугодие — мировой рекорд. Спрос иностранцев."
+  ),
+  "housing-market",
+  "Housing indexes must not reach lightning DM"
+);
+assert.equal(
+  lightningStrengthSkipReason(
+    "В Нидерландах арендодатели продают общежития студентов — студенческое жилье -19%"
+  ),
+  "housing-market",
+  "Student housing supply must not reach lightning DM"
+);
+assert.equal(
+  lightningStrengthSkipReason(
+    "Грант €1000 на уход в Нижней Австрии — и гражданство не нужно"
+  ),
+  "lifestyle-not-status",
+  "Welfare grants are not status news"
+);
+assert.equal(
+  lightningStrengthSkipReason(
+    "Зарплаты в Венгрии растут медленнее, но покупательная способность держится. Иностранцы."
+  ),
+  "lifestyle-not-status",
+  "Salary stats must not reach lightning DM"
+);
+assert.equal(
+  lightningStrengthSkipReason(
+    "31-летний серб депортирован из Хорватии за татуировки четницких лидеров"
+  ),
+  "individual-anecdote",
+  "One-person crime/deportation must not reach lightning DM"
+);
+assert.equal(
+  lightningStrengthSkipReason(
+    "Социал-демократы предлагают совместить профобучение с SFI для иммигрантов. Идея — сократить время."
+  ),
+  "political-talk",
+  "Party ideas without a voted law must not reach lightning DM"
+);
+assert.equal(
+  lightningStrengthSkipReason(
+    "Хорватское гражданство — прямой доступ к недвижимости и морю без разрешений"
+  ),
+  "no-concrete-detail",
+  "Vague citizenship-lifestyle copy must not reach lightning DM"
+);
+assert.equal(
+  lightningStrengthSkipReason(
+    "UK Skilled Worker fees rise from 8 Apr 2026: £819 out-of-country. Home Office table."
+  ),
+  null,
+  "UKVI fee table with date and amount must pass"
+);
+assert(
+  hasLightningConcreteDetail(
+    "1 сентября 2026 года вступают в силу новые правила: иностранцы, осуждённые за уголовные преступления, столкнутся с более жёсткими критериями для депортации"
+  ),
+  "Date-in-force deportation rule must count as concrete"
+);
+assert.equal(
+  lightningStrengthSkipReason(
+    "Верховный суд Италии открыл пересмотр отказов в гражданстве за мелкие ошибки. 25 августа 2026."
+  ),
+  null,
+  "Court ruling with a date must pass"
+);
+assert.equal(
+  lightningStrengthSkipReason(
+    "D7: подтверждение дохода €820/мес и proof of accommodation. С 3 марта 2026 новые таблицы AIMA."
+  ),
+  null,
+  "Visa income threshold is housing-adjacent but operational — must pass"
 );
 
 console.log("news-quality-guards: ok");
