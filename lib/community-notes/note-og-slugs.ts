@@ -69,6 +69,7 @@ export const COMMITTED_NOTE_OG_SLUGS = new Set([
   "porto-novostrojki-klastery-community-2026",
   "matosinhos-zhizn-arenda-plyazh-leca-2026",
   "portugal-destination-tips-regiony-2026",
+  "put-santyago-porto-camino-portugues-2026",
 ]);
 
 const MANIFEST_PATH = path.join(process.cwd(), "lib/community-notes/note-og-slugs.ts");

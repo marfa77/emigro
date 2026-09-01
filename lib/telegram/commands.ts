@@ -1,10 +1,15 @@
 import { HUB_WIZARD_PATH } from "@/lib/corridor/paths";
 import { NEWS_TELEGRAM_URL } from "@/lib/community";
 import { publicSiteUrl } from "@/lib/site-url";
+import {
+  portoChatInviteHtml,
+  type PortoChatInviteResult,
+} from "@/lib/telegram/porto-chat-invite";
 
 const STATS_RE = /^\/(?:stats|status)(?:@\w+)?$/i;
 const STATS_DEMO_RE = /^\/(?:stats|status)(?:@\w+)?\s+demo$/i;
 const START_RE = /^\/start(?:@\w+)?(?:\s|$)/i;
+const CHAT_RE = /^\/chat(?:@\w+)?$/i;
 
 export function isStatsCommand(text: string): boolean {
   return STATS_RE.test((text || "").trim());
@@ -18,21 +23,30 @@ export function isStartCommand(text: string): boolean {
   return START_RE.test((text || "").trim());
 }
 
-export function userWizardLinkMessage(): string {
+export function isChatCommand(text: string): boolean {
+  return CHAT_RE.test((text || "").trim());
+}
+
+/** Private DM: join the Porto group (exact phrases + /chat). */
+export function isPortoChatRequest(text: string): boolean {
+  const t = (text || "").trim().toLowerCase();
+  if (!t) return false;
+  if (isChatCommand(t)) return true;
+  if (t === "порту" || t === "porto" || t === "чат" || t === "группа" || t === "группу") return true;
+  if (t === "войти" || t === "вход" || t === "инвайт" || t === "invite") return true;
+  if (t.includes("чат порту") || t.includes("чат порто") || t.includes("группу порту")) return true;
+  return false;
+}
+
+export function userStartMessage(invite: PortoChatInviteResult): string {
   const origin = publicSiteUrl();
   const wizardUrl = `${origin}${HUB_WIZARD_PATH}`;
   return [
-    "<b>Emigro</b> — навигатор по ВНЖ и релокации для русскоязычных.",
+    portoChatInviteHtml(invite),
     "",
-    "Помогаем разобраться, куда и как переехать: сравниваем маршруты, требования и сроки — без обещаний «гарантированного ВНЖ».",
+    "—",
     "",
-    "<b>Что есть на сайте:</b>",
-    "• <b>Wizard</b> — подбор страны и программы по вашим ответам",
-    "• <b>Коридоры</b> — Португалия, Испания, Франция и другие направления",
-    "• <b>Гайды</b> — требования, документы, сроки, практика",
-    "• <b>Новости</b> — еженедельные дайджесты с источниками",
-    "",
-    "<b>Начать с wizard:</b>",
+    "<b>Маршруты ВНЖ</b> — wizard на сайте, без обещаний «гарантированного ВНЖ».",
     `<a href="${wizardUrl}">${wizardUrl}</a>`,
     "",
     `<a href="${origin}">emigro.online</a> · <a href="${NEWS_TELEGRAM_URL}">@Emigro_news</a>`,

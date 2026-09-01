@@ -620,6 +620,16 @@ export const EDITORIAL_GLOSSARIES: Record<string, GlossaryTerm[]> = {
     { pt: "coworking", ru: "коворкинг — точка входа в expat-network и nomad-сцену" },
     { pt: "turismo rural", ru: "сельский туризм; в Alentejo и Centro — quintas и agroturismo" },
   ],
+  "put-santyago-porto-camino-portugues-2026": [
+    { pt: "Credencial del Peregrino", ru: "паломная книжка для штампов; без неё Compostela не выдают" },
+    { pt: "Compostela", ru: "сертификат капитула собора о прохождении пути при религиозном или духовном мотиве" },
+    { pt: "albergue", ru: "паломнический хостел: municipal, церковный или частный" },
+    { pt: "sello", ru: "штамп в Credencial; на последних 100 км нужно минимум два в день" },
+    { pt: "Camino Portugués", ru: "португальский путь в Santiago: Central, Coastal и варианты вроде Senda Litoral" },
+    { pt: "Oficina del Peregrino", ru: "офис паломника в Сантьяго, где выдают Compostela" },
+    { pt: "Senda Litoral", ru: "ещё более «морской» вариант берега, обычно длиннее обычного Coastal" },
+    { pt: "menú del día", ru: "комплексный обед в кафе этапа; ориентир цены, не ресторан дегустации" },
+  ],
   "elektromobil-tesla-v-portugalii-2026": [
     { pt: "carro elétrico", ru: "электромобиль; в документах IMT и страховке указывается тип de energia" },
     { pt: "ISV", context: "Imposto Sobre Veículos", ru: "налог при первой регистрации; для чистых EV = 0 €" },

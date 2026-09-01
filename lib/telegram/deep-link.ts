@@ -53,9 +53,13 @@ export function isPortoChatStartPayload(payload: string): boolean {
   return clean === "porto" || clean === PORTO_CHAT_START_PAYLOAD || clean.startsWith(`${PORTO_CHAT_START_PAYLOAD}_`);
 }
 
-export function portoChatDeepLink(): string {
+export function portoChatDeepLink(source?: string): string {
   const url = new URL(publicTelegramBotUrl());
-  url.searchParams.set("start", PORTO_CHAT_START_PAYLOAD);
+  const suffix = source?.replace(/[^a-z0-9_]/gi, "").slice(0, 24).toLowerCase();
+  url.searchParams.set(
+    "start",
+    suffix ? `${PORTO_CHAT_START_PAYLOAD}_${suffix}` : PORTO_CHAT_START_PAYLOAD
+  );
   return url.toString();
 }
 

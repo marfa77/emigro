@@ -71,6 +71,13 @@ export async function issuePortoChatInvite(telegramUserId: string | number): Pro
   return { kind: "link", url };
 }
 
+export function portoChatInviteReplyMarkup(
+  result: PortoChatInviteResult
+): { inline_keyboard: Array<Array<{ text: string; url: string }>> } | undefined {
+  if (result.kind !== "link") return undefined;
+  return { inline_keyboard: [[{ text: "Войти в чат Порту", url: result.url }]] };
+}
+
 export function portoChatInviteHtml(result: PortoChatInviteResult): string {
   if (result.kind === "already_member") {
     return [
@@ -83,18 +90,18 @@ export function portoChatInviteHtml(result: PortoChatInviteResult): string {
     return [
       "<b>Порту и вокруг · Emigro</b>",
       "",
-      "Сейчас не получилось выдать ссылку. Напишите сюда «Порту» через пару минут — или откройте кнопку на portugal.emigro.online ещё раз.",
+      "Сейчас не получилось выдать ссылку. Напишите сюда «Порту» или /chat через пару минут — или откройте кнопку на portugal.emigro.online ещё раз.",
     ].join("\n");
   }
   const href = escapeTelegramHtml(result.url);
   return [
-    "<b>Порту и вокруг · Emigro</b>",
-    "<i>Закрытый чат, без публичного @</i>",
+    "<b>Порту и вокруг · Emigro</b> — живой городской чат.",
+    "<i>Закрытый, без публичного @. Быт, жильё, встречи.</i>",
     "",
     "Одноразовая ссылка: 24 часа, один человек. Не пересылайте — после входа сгорит.",
     "",
     `<a href="${href}">Войти в чат</a>`,
     "",
-    "Городская лента: быт, жильё, встречи. Объявления — через закреп / Барахолку, не стеной. Не юридическая консультация.",
+    "Объявления — через закреп / Барахолку, не стеной. Не юридическая консультация.",
   ].join("\n");
 }

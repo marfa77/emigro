@@ -10,6 +10,7 @@ import type { GlobalEvalPayload } from "@/lib/engine/run-global-evaluation";
 import { findFirstProviderTopicKey } from "@/lib/providers/registry";
 import { PORTUGAL_URL_SEGMENT, portugalHubPaths } from "@/lib/portugal/hub";
 import { PortugalHubNextSteps } from "@/components/portugal/PortugalHubNextSteps";
+import { WizardPortugalPracticeCta } from "@/components/wizard/WizardPortugalPracticeCta";
 import { TRANSIT_HUBS } from "@/lib/transit-hubs";
 import Link from "next/link";
 import { ArrowRight, Compass, Route, Sparkles } from "lucide-react";
@@ -279,7 +280,10 @@ function ResultsNextSteps({
   return (
     <>
       {showPortugalHub && (
-        <PortugalHubNextSteps className="mt-10" guideHref={portugalHubPaths.digest} placement="wizard_hub_results" />
+        <>
+          <WizardPortugalPracticeCta sessionId={sessionId} placement="wizard_hub_results" />
+          <PortugalHubNextSteps className="mt-10" guideHref={portugalHubPaths.digest} placement="wizard_hub_results" />
+        </>
       )}
       <section className="mt-10 rounded-2xl border border-slate-200 bg-white p-6">
       <h2 className="text-xl font-semibold">Что делать дальше</h2>

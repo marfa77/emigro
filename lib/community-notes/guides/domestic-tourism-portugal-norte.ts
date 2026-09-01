@@ -85,7 +85,7 @@ const bodySections: NoteBodySection[] = [
         "). Douro просит субботу–воскресенье: Peso da Régua или Pinhão, час пятнадцать по A4 или CP до Régua и boat cruise; летом historic train Douro лучше бронировать заранее — так в lepta и советовали. Gerês держит два дня: Cascata do Arado, aldeia Vilarinho da Furna, ночь в turismo rural, когда в квартире ещё пахнет сыростью, а в горах уже другой воздух.",
       "Aveiro — день: «Venice of Portugal», час CP Regional из Campanhã, moliceiro сорок пять–шестьдесят минут, ориентир €15–25 по опыту chatlisboa. Coimbra — Universidade и Baixa, Intercidades около часа; IKEA открылся в июле 2026 — бытовой стоп по пути, если нужен. Óbidos и Nazaré на два дня — medieval wall walk и океан, около двух часов по A1/A8; portagem не забудьте — [гайд по платным дорогам](/notes/" +
         TOLLS_FINES_ACCIDENTS_GUIDE_SLUG +
-        "). Юг и Azores с Madeira уже не воскресный ужин дома.",
+        "). Если нужен не уикенд, а 10–14 дней пешком из Porto до Santiago — [Путь Сантьяго](/notes/put-santyago-porto-camino-portugues-2026). Юг и Azores с Madeira уже не воскресный ужин дома.",
       "Главное: Minho, Douro, Gerês, Aveiro и Coimbra закрывают большинство суббот без отпуска; юг и Azores/Madeira — уже мини-отпуск, не «вернусь к воскресному ужину дома».",
     ],
     images: [

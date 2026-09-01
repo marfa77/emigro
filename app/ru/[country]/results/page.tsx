@@ -18,6 +18,7 @@ import { pageMetadata } from "@/lib/seo";
 import { corridorStaticParamsFromSegments, getActiveCorridorSegments } from "@/lib/corridor/segments";
 import { newsIndexPath } from "@/lib/news/topics";
 import { PortugalHubNextSteps } from "@/components/portugal/PortugalHubNextSteps";
+import { WizardPortugalPracticeCta } from "@/components/wizard/WizardPortugalPracticeCta";
 import { isPortugalHubTopic } from "@/lib/portugal/hub";
 
 export async function generateStaticParams() {
@@ -174,6 +175,10 @@ export default async function CountryResultsPage({
             );
           })}
         </div>
+
+        {isPortugalHubTopic(topic) && (
+          <WizardPortugalPracticeCta sessionId={sessionId} placement="wizard_corridor_results" />
+        )}
 
         {isPortugalHubTopic(topic) && (
           <PortugalHubNextSteps

@@ -7,13 +7,17 @@ import {
 } from "@/lib/telegram/admin-bot";
 import {
   buildDemoStatsReport,
+  isPortoChatRequest,
   isStartCommand,
   isStatsCommand,
   isStatsDemoCommand,
-  userWizardLinkMessage,
+  userStartMessage,
 } from "@/lib/telegram/commands";
 import { sendWizardReportToTelegramUser } from "@/lib/wizard/send-telegram-report";
-import { issuePortoChatInvite, portoChatInviteHtml } from "@/lib/telegram/porto-chat-invite";
+import {
+  issuePortoChatInvite,
+  portoChatInviteReplyMarkup,
+} from "@/lib/telegram/porto-chat-invite";
 
 const recentStatsReplies = new Map<string, number>();
 const STATS_REPLY_COOLDOWN_MS = 120_000;
@@ -64,8 +68,16 @@ async function sendStatsReply(chatId: string | number, report: string): Promise<
   );
 }
 
-async function replyWithWizardLink(chatId: string | number): Promise<void> {
-  await sendStatsBotMessage(chatId, userWizardLinkMessage(), { parseMode: "HTML" });
+async function replyWithPortoChatInvite(message: TelegramMessage): Promise<void> {
+  const chatId = message.chat?.id;
+  const userId = message.from?.id;
+  if (chatId == null || userId == null) return;
+
+  const result = await issuePortoChatInvite(userId);
+  await sendStatsBotMessage(chatId, userStartMessage(result), {
+    parseMode: "HTML",
+    replyMarkup: portoChatInviteReplyMarkup(result),
+  });
 }
 
 function isPrivateChat(message: TelegramMessage): boolean {
@@ -175,6 +187,7 @@ async function handleWizardStartCommand(message: TelegramMessage): Promise<boole
     "<b>✅ Готово!</b> Полный отчёт по маршрутам — в сообщении выше. Сохраните чат, чтобы вернуться к нему позже.",
     { parseMode: "HTML" }
   );
+  await replyWithPortoChatInvite(message);
 
   return true;
 }
@@ -183,27 +196,14 @@ async function handlePortoChatStartCommand(message: TelegramMessage): Promise<bo
   const payload = startPayload(message.text || "");
   if (!payload || !isPortoChatStartPayload(payload)) return false;
   if (!isPrivateChat(message)) return true;
-
-  const chatId = message.chat?.id;
-  const userId = message.from?.id;
-  if (chatId == null || userId == null) return true;
-
-  const result = await issuePortoChatInvite(userId);
-  await sendStatsBotMessage(chatId, portoChatInviteHtml(result), { parseMode: "HTML" });
+  await replyWithPortoChatInvite(message);
   return true;
 }
 
 async function handlePortoChatKeyword(message: TelegramMessage): Promise<boolean> {
   if (!isPrivateChat(message)) return false;
-  const text = (message.text || "").trim().toLowerCase();
-  if (text !== "порту" && text !== "porto" && text !== "чат порту") return false;
-
-  const chatId = message.chat?.id;
-  const userId = message.from?.id;
-  if (chatId == null || userId == null) return true;
-
-  const result = await issuePortoChatInvite(userId);
-  await sendStatsBotMessage(chatId, portoChatInviteHtml(result), { parseMode: "HTML" });
+  if (!isPortoChatRequest(message.text || "")) return false;
+  await replyWithPortoChatInvite(message);
   return true;
 }
 
@@ -211,10 +211,7 @@ async function handleStartCommand(message: TelegramMessage): Promise<boolean> {
   if (!isStartCommand(message.text || "")) return false;
   if (startPayload(message.text || "")) return false;
   if (!isPrivateChat(message)) return true;
-  const chatId = message.chat?.id;
-  if (chatId == null) return true;
-
-  await replyWithWizardLink(chatId);
+  await replyWithPortoChatInvite(message);
   return true;
 }
 
@@ -226,7 +223,7 @@ async function handleUserFallback(message: TelegramMessage): Promise<void> {
   if (isAdminTelegramChat(chatId, userId)) return;
   if (!(message.text || "").trim()) return;
 
-  await replyWithWizardLink(chatId);
+  await replyWithPortoChatInvite(message);
 }
 
 export async function processTelegramMessage(message: TelegramMessage): Promise<void> {

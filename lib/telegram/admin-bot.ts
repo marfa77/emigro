@@ -1,4 +1,4 @@
-/** @emigro_chat_bot — wizard session deep links + wizard link on /start; admin /stats webhook. Discussion group: @emigro_chat. */
+/** @emigro_chat_bot — Porto invite + wizard deep links on /start; admin /stats webhook. */
 
 export function statsBotToken(): string | undefined {
   const token =
@@ -59,7 +59,11 @@ type TelegramApiResult = {
 export async function sendStatsBotMessage(
   chatId: string | number,
   text: string,
-  options?: { parseMode?: "HTML" | null; disableWebPagePreview?: boolean }
+  options?: {
+    parseMode?: "HTML" | null;
+    disableWebPagePreview?: boolean;
+    replyMarkup?: { inline_keyboard: Array<Array<{ text: string; url: string }>> };
+  }
 ): Promise<{ success: boolean; error?: string; messageId?: number }> {
   const token = statsBotToken();
   if (!token) return { success: false, error: "EMIGRO_CHAT_BOT_TOKEN missing" };
@@ -74,6 +78,9 @@ export async function sendStatsBotMessage(
     };
     if (options?.parseMode === "HTML") {
       body.parse_mode = "HTML";
+    }
+    if (options?.replyMarkup && i === chunks.length - 1) {
+      body.reply_markup = options.replyMarkup;
     }
 
     const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {

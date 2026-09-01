@@ -87,6 +87,14 @@ async function main() {
     } catch (e) {
       console.warn("[porto-group] failed:", e instanceof Error ? e.message : e);
     }
+    try {
+      const { postPortoGroupNewsIfRelevant } = await import("@/lib/community-notes/porto-group-news");
+      const newsPost = await postPortoGroupNewsIfRelevant();
+      if (newsPost.skipped) console.log("[porto-group-news]", newsPost.skipped);
+      else console.log("[porto-group-news]", newsPost.kind, newsPost.slug, newsPost.messageId);
+    } catch (e) {
+      console.warn("[porto-group-news] failed:", e instanceof Error ? e.message : e);
+    }
     console.log("[draft] skipped");
     return;
   }
@@ -102,11 +110,19 @@ async function main() {
     const groupPost = await postNextPortoGroupNote();
     if (groupPost.skipped) console.log("[porto-group]", groupPost.skipped);
     else console.log("[porto-group]", groupPost.slug, groupPost.messageId);
-  } catch (e) {
-    console.warn("[porto-group] failed:", e instanceof Error ? e.message : e);
-  }
+    } catch (e) {
+      console.warn("[porto-group] failed:", e instanceof Error ? e.message : e);
+    }
+    try {
+      const { postPortoGroupNewsIfRelevant } = await import("@/lib/community-notes/porto-group-news");
+      const newsPost = await postPortoGroupNewsIfRelevant();
+      if (newsPost.skipped) console.log("[porto-group-news]", newsPost.skipped);
+      else console.log("[porto-group-news]", newsPost.kind, newsPost.slug, newsPost.messageId);
+    } catch (e) {
+      console.warn("[porto-group-news] failed:", e instanceof Error ? e.message : e);
+    }
 
-  console.log("[done] portugal daily");
+    console.log("[done] portugal daily");
 }
 
 main().catch((e) => {

@@ -100,6 +100,21 @@ export function portugalSatelliteHubUrl(): string {
   return portugalSatelliteUrl("/");
 }
 
+/** Wizard → satellite links with stable UTM (medium=wizard, not satellite). */
+export function portugalSatelliteUrlFromWizard(
+  path: string,
+  placement: "wizard_hub_results" | "wizard_corridor_results",
+  content: string
+): string {
+  const url = new URL(portugalSatelliteUrl(path || "/"));
+  url.searchParams.set("utm_source", "emigro");
+  url.searchParams.set("utm_medium", "wizard");
+  url.searchParams.set("utm_campaign", "portugal_practice");
+  url.searchParams.set("utm_placement", placement);
+  url.searchParams.set("utm_content", content);
+  return url.toString();
+}
+
 export function isPortugalHubTopic(topic: { key?: string; urlSegment?: string }): boolean {
   return topic.urlSegment === PORTUGAL_URL_SEGMENT || topic.key === PORTUGAL_URL_SEGMENT;
 }
@@ -235,7 +250,7 @@ export const PORTUGAL_HUB_NEXT_STEPS: PortugalHubNextStep[] = [
     resolveHref: () => portugalSatelliteHubUrl(),
     external: true,
     title: "Практика: NIF, аренда, AIMA",
-    description: "Короткие заметки из Telegram-сигналов сообщества.",
+    description: "Заметки с сателлита. Городской чат Porto — только если уже в Norte; не разбор виз.",
     linkClass: "text-teal-800",
   },
   {
