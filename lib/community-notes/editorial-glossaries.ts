@@ -432,7 +432,6 @@ export const EDITORIAL_GLOSSARIES: Record<string, GlossaryTerm[]> = {
     { pt: "alvará IMPIC", ru: "лицензия подрядчика на класс строительных работ" },
     { pt: "contrato de empreitada", ru: "договор подряда: объём, сроки, этапы оплаты" },
     { pt: "licença de utilização", ru: "разрешение пользоваться завершённым домом" },
-    { pt: "betão pré-fabricado", ru: "сборный бетон / панельно-модульная технология" },
   ],
   "meditsina-norte-sns-chastnaya-stomatologiya-2026": [
     { pt: "SNS", context: "Serviço Nacional de Saúde", ru: "государственная система здравоохранения" },

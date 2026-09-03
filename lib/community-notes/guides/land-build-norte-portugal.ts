@@ -182,7 +182,7 @@ const bodySections: NoteBodySection[] = [
         PORTO_NEWBUILD_SLUG +
         "): быстрее, меньше творчества.",
       "Дом под реновацию — когда влюбился в улицу. Косметика и глубокая reabilitação — разные бюджеты. В Norte humidade не прощает «подкрасим». В ARU на reabilitação иногда IVA 6% — только при условиях закона и нормальном contrato; это не скидка на любой ремонт.",
-      "Стройка с нуля — современный объём, isolamento, ориентация к солнцу. 18–30 месяцев от поиска земли — обычный горизонт. Modular / betão pré-fabricado ускоряет монтаж, но не отменяет PDM и licença.",
+      "Стройка с нуля — современный объём, isolamento, ориентация к солнцу. 18–30 месяцев от поиска земли — обычный горизонт для традиционной obra под проектом архитектора.",
       "Главное: выбирай путь по сроку жизни семьи, а не по красивому объявлению.",
     ],
     table: PATH_COMPARE,
@@ -200,13 +200,6 @@ const bodySections: NoteBodySection[] = [
         "Реновация: локация может быть золотой, смета — с сюрпризами",
         "Adam Jones · CC BY-SA 2.0 / Wikimedia",
         "https://commons.wikimedia.org/wiki/File:Restoration_Work_on_House_in_Gaia_District_-_Porto_-_Portugal_(4642315593).jpg"
-      ),
-      photo(
-        "ampliacao-moderna",
-        "Современная пристройка к старому объёму",
-        "Стройка / современный объём: контроль планировки, длинный срок",
-        "José Luiz Bernardes Ribeiro · CC BY-SA 4.0 / Wikimedia",
-        "https://commons.wikimedia.org/wiki/File:Fachada_esquerda_e_amplia%C3%A7%C3%A3o_moderna_da_Casa_dos_Herdeiros_do_Sr._Jos%C3%A9_Maria_Pereira_Gens.jpg"
       ),
     ],
     bullets: [
@@ -253,33 +246,17 @@ const bodySections: NoteBodySection[] = [
     ],
   },
   {
-    heading: "Где искать строителей и модульный бетон",
+    heading: "Где искать строителей",
     section_kind: "practice",
     paragraphs: [
-      "Empreiteiro — по alvará IMPIC, завершённым домам в concelho и faturas с IVA. Три имени у архитектора, визит на объекты, разговор с хозяевами без посредника.",
-      "Модуль и betão pré-fabricado в Португалии есть (индустриальные и фабричные игроки сегмента — сравнивай сами предложения, без рейтинга из чата). Смотри срок завода, монтажа, кто делает фундамент и сети, гарантию и кто ведёт licença. Модуль не отменяет PDM и не делает rústico urbano.",
-      "Главное: сначала законный проект и contrato, потом каталог модулей.",
-    ],
-    images: [
-      photo(
-        "modular-prefab-obra",
-        "Сборка prefabricated house на площадке",
-        "Модуль ускоряет монтаж — не отменяет лицензию Câmara",
-        "Wikimedia Commons · see file page",
-        "https://commons.wikimedia.org/wiki/File:Prefabricated_house_construction.jpg"
-      ),
-      photo(
-        "modular-betao",
-        "Дома из prefabricated concrete панелей",
-        "Betão pré-fabricado: скорость и повторяемость",
-        "Chemical Engineer · CC BY-SA 4.0 / Wikimedia",
-        "https://commons.wikimedia.org/wiki/File:Concrete_prefabricated_houses,_Queen%27s_Square,_Pontefract_(4th_September_2020).jpg"
-      ),
+      "Empreiteiro — по alvará IMPIC, завершённым домам в том же concelho и готовности выставлять faturas с IVA. Попроси у архитектора три имени, сходи на их объекты, поговори с хозяевами без посредника. Объявления «под ключ дёшево» без alvará и без адреса конторы — мимо.",
+      "Опция, не ось статьи: часть компаний предлагает modular / pré-fabricado. Это способ собрать дом быстрее на площадке, но PDM, licença и contrato всё равно нужны — как у обычной стройки. Если смотришь такую смету, отдельно спроси фундамент, сети, гарантию и кто ведёт utilização.",
+      "Главное: сначала законный проект и понятный contrato с проверяемым подрядчиком, потом споры о технологии стен.",
     ],
     bullets: [
       "Три сметы на одном техническом задании.",
       "Alvará IMPIC + faturas + живые referências.",
-      "Модуль: отдельно фундамент, сети, гарантия, роль в licença.",
+      "Не путай скорость монтажа с отменой licença Câmara.",
     ],
   },
   {
@@ -338,7 +315,7 @@ const bodySections: NoteBodySection[] = [
     section_kind: "action_guide",
     paragraphs: [
       "Месяцы 0–2: shortlist, осмотры после дождя, advogado + arquiteto до sinal, CPCV, налоги, escritura, registo.",
-      "Месяцы 2–12: topografia, проект, PIP при необходимости, licença; выбор empreiteiro или модуля и contrato.",
+      "Месяцы 2–12: topografia, проект, PIP при необходимости, licença; выбор empreiteiro и contrato.",
       "Месяцы 8–24: obra под контролем, акты, сети; аренда продолжается.",
       "Финиш: utilização, постоянные подключения, переезд. На спокойном solo urbano часто 18–30 месяцев.",
       "Главное: не перескакивай фазы — Norte наказывает спешку сыростью и бумагой.",
@@ -354,13 +331,13 @@ const bodySections: NoteBodySection[] = [
     section_kind: "gap",
     paragraphs: [
       "Чат: «possibilidade de construção — почти licença». На деле нужны informação urbanística / PIP и часто полный licenciamento.",
-      "Чат: «модульный дом без бюрократии». На деле модуль — технология; Câmara смотрит PDM и разрешение.",
+      "Чат: «модульный дом без бюрократии». На деле это только опция сборки; Câmara всё равно смотрит PDM и разрешение.",
       "Чат: «знакомый без IVA». На деле без faturas сложнее кредит, продажа и спор.",
       "Главное: документ Câmara и подписанный договор сильнее голосового в Telegram.",
     ],
     bullets: [
       "Проверяй «проект aprovado» в бумаге Câmara.",
-      "Не путай скорость монтажа с отменой licença.",
+      "Не путай рекламу технологии с отменой licença.",
       "Плати по faturas.",
     ],
   },
@@ -392,7 +369,7 @@ const keyTakeaways = [
   formatPracticeTakeaway({
     period: "2026",
     claim: "arquiteto OA, empreiteiro с alvará IMPIC, contrato с этапами и контроль скрытых работ",
-    forReader: "ищи через OA и concelho, плати по faturas и актам; модуль не отменяет licença",
+    forReader: "ищи через OA и concelho, плати по faturas и актам",
   }),
   "Расхождение: готовый / реновация / стройка — разные сроки; «possibilidade de construção» ≠ licença.",
 ];
@@ -415,8 +392,8 @@ const faq: CommunityNoteFaq[] = [
     a: "Ordem dos Arquitectos, рекомендации в concelho, инженеры и геодезисты. Просите примеры лицензий в вашей Câmara и договор на фазы.",
   },
   {
-    q: "Где искать строителя и модульный бетон?",
-    a: "Alvará IMPIC, referências, faturas. Модульные/pré-fabricado компании сравнивайте сметами и гарантиями; технология не отменяет licença.",
+    q: "Где искать строителя?",
+    a: "По alvará IMPIC, referências на завершённых домах в concelho и готовности работать по fatura. Три сопоставимые сметы на одном ТЗ. Modular/pré-fabricado — лишь опция сборки при тех же PDM и licença.",
   },
   {
     q: "Что писать в contrato с empreiteiro?",
@@ -447,7 +424,7 @@ export const LAND_BUILD_NORTE_GUIDE = {
   seo_description:
     "Дом ≈120 m² в Norte 2026: поиск земли, PDM/PIP, CPCV, архитектор OA, empreiteiro, contrato и контроль стройки; сравнение с готовым и реновацией.",
   quick_answer:
-    "Хочешь современный дом ≈120 m² в Norte — сначала земля и бумаги (certidão, PDM, PIP), потом CPCV → escritura → registo, затем arquiteto OA, licença, contrato с empreiteiro (или modular) и контроль obra до utilização. Закладывай roughly 18–30 месяцев и стройку ≈ €1 200–1 800/m² плюс земля, сети и аренду; готовый дом и реновация — другие сроки и риски.",
+    "Хочешь современный дом ≈120 m² в Norte — сначала земля и бумаги (certidão, PDM, PIP), потом CPCV → escritura → registo, затем arquiteto OA, licença, contrato с empreiteiro и контроль obra до utilização. Закладывай roughly 18–30 месяцев и стройку ≈ €1 200–1 800/m² плюс земля, сети и аренду; готовый дом и реновация — другие сроки и риски.",
   body_sections: bodySections,
   body_paragraphs: flattenBodySections(bodySections),
   key_takeaways: keyTakeaways,
