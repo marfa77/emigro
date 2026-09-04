@@ -47,7 +47,7 @@ export function GuideClusterLinks({ cluster, crossLinks = [] }: Props) {
           </h2>
           <p className="mt-1 text-sm text-slate-600">
             {cluster
-              ? "Связанные страницы коридора — от pillar-гайда до практики и Barakhlo."
+              ? "Связанные страницы коридора — от pillar-гайда до практики."
               : "Связанные сравнения и pillar-гайды коридоров."}
           </p>
         </div>

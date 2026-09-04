@@ -10,7 +10,6 @@ import { NoteReadingProgress } from "@/components/satellite/NoteReadingProgress"
 import { NoteToc } from "@/components/satellite/NoteToc";
 import { RelatedNotes } from "@/components/satellite/RelatedNotes";
 import { SatelliteFunnelCta } from "@/components/satellite/SatelliteFunnelCta";
-import { BarakhloPromo } from "@/components/satellite/BarakhloPromo";
 import { PixIDPromo } from "@/components/satellite/PixIDPromo";
 import {
   buildCommunityNoteLlmDescription,
@@ -21,7 +20,7 @@ import {
 import { getPublishedCommunityNoteBySlug, getPublishedCommunityNotes } from "@/lib/community-notes/queries";
 import { getRelatedNotes } from "@/lib/community-notes/repair-note";
 import { resolveNoteOgImage } from "@/lib/community-notes/note-og-image";
-import { shouldShowBarakhloPromo, shouldShowPixIdPromo } from "@/lib/community-notes/sponsor-promo";
+import { shouldShowPixIdPromo } from "@/lib/community-notes/sponsor-promo";
 import { SPAIN_SATELLITE } from "@/lib/satellite/spain";
 import { satelliteHubUrl, satellitePillarUrl } from "@/lib/satellite/funnel-urls";
 import { spainHubPath } from "@/lib/satellite/paths";
@@ -62,7 +61,6 @@ export default async function SpainNotePage({ params }: { params: { slug: string
 
   const related = getRelatedNotes(note, allNotes);
   const showPixId = shouldShowPixIdPromo(note);
-  const showBarakhlo = shouldShowBarakhloPromo(note);
   const { articleSchema, breadcrumbSchema, faqSchema, speakableSchema } = buildCommunityNoteSchemas(note);
   const llmDescription = buildCommunityNoteLlmDescription(note);
   const llmFacts = buildCommunityNoteLlmFacts(note);
@@ -185,15 +183,6 @@ export default async function SpainNotePage({ params }: { params: { slug: string
       />
 
       {showPixId && <PixIDPromo noteSlug={note.slug} topicKey="spain" />}
-
-      {showBarakhlo && (
-        <BarakhloPromo
-          context={note.slug}
-          placement="satellite_note"
-          category={note.category}
-          countryKey="spain"
-        />
-      )}
 
       <RelatedNotes notes={related} />
 

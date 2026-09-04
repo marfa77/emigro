@@ -6,7 +6,6 @@ import { SatelliteValueProp } from "@/components/satellite/RelatedNotes";
 import { SatelliteFunnelCta } from "@/components/satellite/SatelliteFunnelCta";
 import { SatelliteHubScenarios } from "@/components/satellite/SatelliteHubScenarios";
 import { SatelliteAssistIntake } from "@/components/satellite/SatelliteAssistIntake";
-import { BarakhloPromo } from "@/components/satellite/BarakhloPromo";
 import { getDailySpotlight } from "@/lib/community-notes/daily-spotlight";
 import { requirePublishedCommunityNotes } from "@/lib/community-notes/queries";
 import { SPAIN_SATELLITE } from "@/lib/satellite/spain";
@@ -160,8 +159,6 @@ export default async function SpainSatelliteHomePage() {
       </section>
 
       <SatelliteAssistIntake countryKey="spain" />
-
-      <BarakhloPromo context="hub" placement="satellite_hub" countryKey="spain" />
 
       <p className="mt-12 text-center text-sm text-slate-500">
         <a

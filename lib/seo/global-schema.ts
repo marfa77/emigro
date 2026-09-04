@@ -42,7 +42,6 @@ export function emigroGlobalJsonLd(): Record<string, unknown>[] {
       "https://www.pixid.studio/",
       "https://www.prep2go.study/",
       "https://uniprep2go.study/",
-      "https://www.barakhlo.online/",
       "https://www.webmorp.art/",
     ],
   };

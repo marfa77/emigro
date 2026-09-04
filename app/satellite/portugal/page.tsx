@@ -6,7 +6,6 @@ import { SatelliteValueProp } from "@/components/satellite/RelatedNotes";
 import { SatelliteFunnelCta } from "@/components/satellite/SatelliteFunnelCta";
 import { SatelliteHubScenarios } from "@/components/satellite/SatelliteHubScenarios";
 import { SatelliteAssistIntake } from "@/components/satellite/SatelliteAssistIntake";
-import { BarakhloPromo } from "@/components/satellite/BarakhloPromo";
 import { PortoChatCta } from "@/components/satellite/PortoChatCta";
 import { getDailySpotlight } from "@/lib/community-notes/daily-spotlight";
 import { requirePublishedCommunityNotes } from "@/lib/community-notes/queries";
@@ -157,8 +156,6 @@ export default async function PortugalSatelliteHomePage() {
       )}
 
       <SatelliteAssistIntake countryKey="portugal" />
-
-      <BarakhloPromo context="hub" placement="satellite_hub" />
 
       <p className="mt-12 text-center text-sm text-slate-500">
         <a

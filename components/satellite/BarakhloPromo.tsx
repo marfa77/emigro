@@ -3,7 +3,11 @@
 import { ExternalLink } from "lucide-react";
 import { trackEvent } from "@/lib/analytics/client";
 import { barakhloMarketCityLabel, barakhloMarketUrl } from "@/lib/barakhlo/markets";
-import { barakhloPromoUrl, isServiceDiscoveryNote } from "@/lib/community-notes/sponsor-promo";
+import {
+  barakhloPromoUrl,
+  isBarakhloSitePromoEnabled,
+  isServiceDiscoveryNote,
+} from "@/lib/community-notes/sponsor-promo";
 import type { SatelliteCountryKey } from "@/lib/community-notes/seed";
 import { PARTNER_LINK_REL } from "@/lib/partners/link";
 import { tapTarget } from "@/lib/ui/mobile";
@@ -23,6 +27,7 @@ export function BarakhloPromo({
   category = "",
   countryKey = "portugal",
 }: BarakhloPromoProps) {
+  if (!isBarakhloSitePromoEnabled()) return null;
   const href = barakhloPromoUrl(context, countryKey, "satellite");
   const serviceNote = context !== "hub" && isServiceDiscoveryNote(context, category);
   const city = barakhloMarketCityLabel(countryKey);

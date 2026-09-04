@@ -5,7 +5,7 @@ import { newsIndexPath } from "@/lib/news/topics";
 import { corridorWizardBlurb } from "@/lib/guides/guide-display";
 import { isCorridorFull, isCorridorOnSite, topicHasLanding } from "@/lib/corridor/publish";
 import { barakhloMarketCityLabel } from "@/lib/barakhlo/markets";
-import { barakhloPromoUrl } from "@/lib/community-notes/sponsor-promo";
+import { barakhloPromoUrl, isBarakhloSitePromoEnabled } from "@/lib/community-notes/sponsor-promo";
 import { corridorHubLabel } from "@/lib/corridor/hub-label";
 import { externalLinkRel } from "@/lib/partners/link";
 import { isPortugalHubTopic, portugalSatelliteHubUrl } from "@/lib/portugal/hub";
@@ -31,6 +31,7 @@ export function CorridorIntelLinks({ topic, variant = "full", layout = "grid" }:
   const spainSatelliteUrl = spainSatelliteHubUrl();
   const barakhloUrl = barakhloPromoUrl("intel_links", topic.urlSegment);
   const barakhloCity = barakhloMarketCityLabel(topic.urlSegment);
+  const showBarakhlo = showHub && isBarakhloSitePromoEnabled();
   const pillarGuideHref = corridorPillarGuideHref(topic.urlSegment);
   const pillarGuideAnchor = corridorPillarGuideAnchor(topic.urlSegment);
 
@@ -90,7 +91,7 @@ export function CorridorIntelLinks({ topic, variant = "full", layout = "grid" }:
             </a>
           </>
         )}
-        {showHub && (
+        {showBarakhlo && (
           <>
             <span className="text-slate-300">·</span>
             <a href={barakhloUrl} target="_blank" rel={externalLinkRel(barakhloUrl)} className="text-corridor-600 hover:underline">
@@ -115,8 +116,10 @@ export function CorridorIntelLinks({ topic, variant = "full", layout = "grid" }:
           <p className="mt-1 text-sm text-slate-600">
             {showHub
               ? isPortugalHub
-                ? "Маршрут, новости, справочник, практика и Barakhlo — один коридор от решения до быта в Лиссабоне."
-                : "Маршрут, новости, справочник и Barakhlo уже доступны. Практика-слой Emigro для этого коридора — скоро."
+                ? "Маршрут, новости, справочник и практика — один коридор от решения до быта в Лиссабоне."
+                : isSpainHub
+                  ? "Маршрут, новости, справочник и практика — один коридор от решения до быта."
+                  : "Маршрут, новости и справочник уже доступны. Практика-слой Emigro для этого коридора — скоро."
               : "Два слоя: справочник с проверенными фактами и еженедельные новости с источниками."}
           </p>
         </div>
@@ -209,7 +212,7 @@ export function CorridorIntelLinks({ topic, variant = "full", layout = "grid" }:
           </div>
         )}
 
-        {showHub && (
+        {showBarakhlo && (
           <a
             href={barakhloUrl}
             target="_blank"

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ExternalLink } from "lucide-react";
 import { PORTUGAL_HUB_NEXT_STEPS, portugalHubPaths } from "@/lib/portugal/hub";
+import { isBarakhloSitePromoEnabled } from "@/lib/community-notes/sponsor-promo";
 import { externalLinkRel } from "@/lib/partners/link";
 
 type Props = {
@@ -30,7 +31,9 @@ export function PortugalHubNextSteps({
       </p>
 
       <ul className="mt-5 space-y-3">
-        {PORTUGAL_HUB_NEXT_STEPS.map((step) => {
+        {PORTUGAL_HUB_NEXT_STEPS.filter(
+          (step) => isBarakhloSitePromoEnabled() || step.id !== "market"
+        ).map((step) => {
           const href = step.resolveHref(ctx);
           const linkClass = `font-medium hover:underline ${step.linkClass}`;
 

@@ -1,5 +1,5 @@
 import { guidePath } from "@/lib/guides/load";
-import { barakhloPromoUrl } from "@/lib/community-notes/sponsor-promo";
+import { barakhloPromoUrl, isBarakhloSitePromoEnabled } from "@/lib/community-notes/sponsor-promo";
 import { ORIGIN_HUB_PATH } from "@/lib/seo/corridor-llm-layer";
 import { portugalSatelliteUrl, spainSatelliteUrl } from "@/lib/site-url";
 
@@ -417,7 +417,13 @@ export const GUIDE_CLUSTER_MAP: Record<string, string> = {
 
 export function getClusterForGuide(slug: string): SeoCluster | undefined {
   const clusterId = GUIDE_CLUSTER_MAP[slug];
-  return clusterId ? SEO_CLUSTERS[clusterId] : undefined;
+  const cluster = clusterId ? SEO_CLUSTERS[clusterId] : undefined;
+  if (!cluster) return undefined;
+  if (isBarakhloSitePromoEnabled()) return cluster;
+  return {
+    ...cluster,
+    links: cluster.links.filter((link) => !/barakhlo\.online/i.test(link.href)),
+  };
 }
 
 export function getComparisonCrossLinks(slug: string): ClusterLink[] {

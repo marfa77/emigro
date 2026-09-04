@@ -1,4 +1,4 @@
-import { barakhloPromoUrl, BARAKHLO_LISBON_URL } from "@/lib/community-notes/sponsor-promo";
+import { barakhloPromoUrl, BARAKHLO_LISBON_URL, isBarakhloSitePromoEnabled } from "@/lib/community-notes/sponsor-promo";
 import { getEmigroScore, toEmigroScoreView, type EmigroScoreView } from "@/lib/emigro-score";
 import { newsIndexPath } from "@/lib/news/topics";
 import { PORTUGAL_SATELLITE } from "@/lib/satellite/portugal";
@@ -57,7 +57,8 @@ export function resolvePortugalHubTiles(stats: PortugalHubTileStats): ResolvedHu
   const emigro = getEmigroScore("portugal");
   const emigroScore = emigro ? toEmigroScoreView(emigro) : undefined;
 
-  return PORTUGAL_HUB_TILES.map(({ topLeft, bottomLeft, bottomRight, ...tile }) => {
+  return PORTUGAL_HUB_TILES.filter((tile) => isBarakhloSitePromoEnabled() || tile.id !== "market").map(
+    ({ topLeft, bottomLeft, bottomRight, ...tile }) => {
     const base = {
       ...tile,
       topLeft: topLeft(stats),
@@ -120,14 +121,17 @@ export function isPortugalHubTopic(topic: { key?: string; urlSegment?: string })
 }
 
 export function portugalHubNavItems(): PortugalHubNavItem[] {
-  return [
+  const items: PortugalHubNavItem[] = [
     { id: "hub", label: "Обзор", href: portugalHubPaths.landing },
     { id: "route", label: "Маршрут", href: portugalHubPaths.wizard },
     { id: "news", label: "Новости", href: portugalHubPaths.news },
     { id: "digest", label: "Справочник", href: portugalHubPaths.digest },
     { id: "practice", label: "Практика", href: portugalSatelliteHubUrl(), external: true },
-    { id: "market", label: "Барахолка", href: portugalHubPaths.barakhlo("hub_nav"), external: true },
   ];
+  if (isBarakhloSitePromoEnabled()) {
+    items.push({ id: "market", label: "Барахолка", href: portugalHubPaths.barakhlo("hub_nav"), external: true });
+  }
+  return items;
 }
 
 export const PORTUGAL_HUB_JOURNEY = [
@@ -141,7 +145,7 @@ export const PORTUGAL_HUB_JOURNEY = [
   },
   {
     step: "Живу в Португалии",
-    detail: "Сателлит + Barakhlo — быт, услуги, объявления от сообщества.",
+    detail: "Сателлит — быт, услуги, заметки от сообщества.",
   },
 ] as const;
 

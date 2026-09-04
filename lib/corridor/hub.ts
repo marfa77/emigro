@@ -1,5 +1,5 @@
 import { barakhloMarketCityLabel } from "@/lib/barakhlo/markets";
-import { barakhloPromoUrl } from "@/lib/community-notes/sponsor-promo";
+import { barakhloPromoUrl, isBarakhloSitePromoEnabled } from "@/lib/community-notes/sponsor-promo";
 import { countGuidesForTopic, guidesTopicFilterHref } from "@/lib/guides/corridor-guides";
 import { countryCardImage } from "@/lib/brand/country-accents";
 import { isCorridorFull, topicHasWizard } from "@/lib/corridor/publish";
@@ -95,7 +95,7 @@ export function getCorridorHubFeatures(topic: NewsTopicConfig): CorridorHubFeatu
     hasWizard: topicHasWizard(topic),
     hasNews: true,
     hasPractice: isPortugal || isSpain,
-    hasMarket: true,
+    hasMarket: isBarakhloSitePromoEnabled(),
   };
 }
 
@@ -147,9 +147,9 @@ export function corridorHubNavItems(
         ? { id: "practice", label: "Практика", href: "/" }
         : { id: "practice", label: "Практика", href: satellitePracticeHubUrl(topic), external: true }
       : { id: "practice", label: "Практика", href: paths.landing, comingSoon: true },
-    features.hasMarket
-      ? { id: "market", label: "Барахолка", href: paths.barakhlo("hub_nav"), external: true }
-      : { id: "market", label: "Барахолка", href: paths.landing, comingSoon: true },
+    ...(features.hasMarket
+      ? [{ id: "market" as const, label: "Барахолка", href: paths.barakhlo("hub_nav"), external: true }]
+      : []),
   ];
 }
 
@@ -157,8 +157,8 @@ export function corridorHubJourney(topic: NewsTopicConfig, features = getCorrido
   const country = topic.countryRu;
   const countryIn = countryLocativeRu(country);
   const liveStep = features.hasPractice
-    ? `Сателлит + Barakhlo — быт, услуги, объявления от сообщества.`
-    : `Barakhlo уже работает в вашем городе; практика-слой Emigro для ${country} — скоро.`;
+    ? `Сателлит — быт, услуги, заметки от сообщества.`
+    : `Практика-слой Emigro для ${country} — скоро.`;
 
   return [
     {
@@ -447,7 +447,9 @@ export function resolveCorridorHubTiles(
     hubLabel,
   };
 
-  return [routeTile, newsTile, guidesTile, practiceTile, marketTile];
+  return features.hasMarket
+    ? [routeTile, newsTile, guidesTile, practiceTile, marketTile]
+    : [routeTile, newsTile, guidesTile, practiceTile];
 }
 
 /** One flip tile per country on the homepage — Open links to corridor overview. */

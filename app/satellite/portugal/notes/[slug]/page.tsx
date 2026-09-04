@@ -12,7 +12,6 @@ import { RelatedNotes } from "@/components/satellite/RelatedNotes";
 import { SatelliteFunnelCta } from "@/components/satellite/SatelliteFunnelCta";
 import { Prep2GoPromo } from "@/components/satellite/Prep2GoPromo";
 import { PixIDPromo } from "@/components/satellite/PixIDPromo";
-import { BarakhloPromo } from "@/components/satellite/BarakhloPromo";
 import { PortoChatCta } from "@/components/satellite/PortoChatCta";
 import {
   buildCommunityNoteLlmDescription,
@@ -22,11 +21,7 @@ import {
 } from "@/lib/community-notes/seo-page";
 import { getPublishedCommunityNoteBySlug, getPublishedCommunityNotes } from "@/lib/community-notes/queries";
 import { getRelatedNotes } from "@/lib/community-notes/repair-note";
-import {
-  shouldShowBarakhloPromo,
-  shouldShowPixIdPromo,
-  shouldShowPrep2GoPromo,
-} from "@/lib/community-notes/sponsor-promo";
+import { shouldShowPixIdPromo, shouldShowPrep2GoPromo } from "@/lib/community-notes/sponsor-promo";
 import { shouldShowPortoChatCta } from "@/lib/community-notes/porto-chat-cta";
 import { resolveNoteOgImage } from "@/lib/community-notes/note-og-image";
 import { PORTUGAL_SATELLITE } from "@/lib/satellite/portugal";
@@ -70,7 +65,6 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
   const related = getRelatedNotes(note, allNotes, 6);
   const showPrep2Go = shouldShowPrep2GoPromo(note);
   const showPixId = shouldShowPixIdPromo(note);
-  const showBarakhlo = shouldShowBarakhloPromo(note);
   const showPortoChat = shouldShowPortoChatCta(note);
 
   const { articleSchema, breadcrumbSchema, faqSchema, speakableSchema } = buildCommunityNoteSchemas(note);
@@ -193,10 +187,6 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
 
       {showPrep2Go && <Prep2GoPromo noteSlug={note.slug} />}
       {showPixId && <PixIDPromo noteSlug={note.slug} topicKey="portugal" />}
-
-      {showBarakhlo && (
-        <BarakhloPromo context={note.slug} placement="satellite_note" category={note.category} />
-      )}
 
       <RelatedNotes notes={related} />
 

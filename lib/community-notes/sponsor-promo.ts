@@ -6,6 +6,13 @@ import { barakhloMarketUrl } from "@/lib/barakhlo/markets";
 const PREP2GO_BASE = "https://www.prep2go.study";
 export const BARAKHLO_LISBON_URL = barakhloMarketUrl("portugal");
 
+/** Site CTAs / tiles / cluster links. Telegram soft-promo is separate. */
+export const BARAKHLO_SITE_PROMO_ENABLED = false;
+
+export function isBarakhloSitePromoEnabled(): boolean {
+  return BARAKHLO_SITE_PROMO_ENABLED;
+}
+
 /** Notes where Prep2Go CIPLE promo is relevant. */
 export function shouldShowPrep2GoPromo(note: CommunityNote): boolean {
   const primary = note.topic_tags.find((t) => t !== "portugal") ?? "";
@@ -58,6 +65,7 @@ export function shouldShowBarakhloPromo(note: {
   category: string;
   hashtags?: string[];
 }): boolean {
+  if (!BARAKHLO_SITE_PROMO_ENABLED) return false;
   if (isServiceDiscoveryNote(note.slug, note.category)) return true;
   const blob = `${note.title} ${note.slug} ${note.category} ${(note.hashtags ?? []).join(" ")}`;
   if (
