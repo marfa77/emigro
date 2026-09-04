@@ -16,7 +16,6 @@ import {
   lightningAudienceSkipReason,
   lightningStrengthSkipReason,
 } from "@/lib/news/story-lightning";
-import { newsArticleUrl, portugalSatellitePublicUrl } from "@/lib/site-url";
 import {
   composeConversionChain,
   composeDayChain,
@@ -28,8 +27,6 @@ import {
   previewDay,
   previewWizard,
   threadsDaysForCta,
-  threadsGuidePageUrl,
-  threadsTrackedUrl,
   type ThreadsBankCta,
 } from "@/lib/threads/banks";
 import { formatThreadsChainPreview, type ThreadsChainItem } from "@/lib/threads/compose";
@@ -215,6 +212,7 @@ export function pickLiveGuidePlan(
     pick.guide.title;
   // Never append a wizard URL under an Assist (€129) bank line — match p2 to live CTA.
   const p2 = bank?.p2 && bank.cta === cta ? bank.p2 : CTA_P2[cta];
+  // One URL only — Threads often skips link preview when two links share a post.
   const items = composeConversionChain({
     p1,
     p2,
@@ -222,7 +220,6 @@ export function pickLiveGuidePlan(
     content,
     topic: countryRuFromKey(pick.country),
     countryTopic: pick.country === "europe" ? undefined : pick.country,
-    extraUrl: threadsGuidePageUrl(pick.guide.slug, content),
   });
   return planOf("guide", pick.guide.slug, countryRuFromKey(pick.country), cta, items);
 }
@@ -264,7 +261,6 @@ export async function pickPortugalSatellitePlan(
   }
 
   const cta = noteCta(next);
-  const dest = portugalSatellitePublicUrl(`/notes/${next.slug}`);
   const content = `note-${next.slug}`.slice(0, 40);
   const items = composeConversionChain({
     p1: next.quick_answer || next.excerpt || next.title,
@@ -273,7 +269,7 @@ export async function pickPortugalSatellitePlan(
     content,
     topic: "Порту",
     countryTopic: "portugal",
-    extraUrl: threadsTrackedUrl(dest, content),
+    // Single link for Threads preview: CTA only (chat bot or wizard).
   });
   return {
     ...planOf("city", next.slug, "Порту", cta, items),
@@ -341,7 +337,6 @@ export async function pickNewsPlan(state: ThreadsInventoryState): Promise<Thread
       content,
       topic: countryRu,
       countryTopic: countryKey === "europe" ? undefined : countryKey,
-      extraUrl: threadsTrackedUrl(newsArticleUrl(row.slug), content),
     });
     return planOf("news", row.slug, countryRu, "wizard", items);
   }
