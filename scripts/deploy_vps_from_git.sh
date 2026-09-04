@@ -17,6 +17,7 @@ echo "📘 Git deploy Emigro Threads → ${SERVER_USER}@${SERVER_HOST}:${REMOTE}
 "${SSH[@]}" "${SERVER_USER}@${SERVER_HOST}" bash -s <<REMOTE
 set -euo pipefail
 cd "${REMOTE}"
+git config --global --add safe.directory "${REMOTE}" || true
 export GIT_SSH_COMMAND='ssh -i /root/.ssh/id_ed25519_github -o StrictHostKeyChecking=no'
 
 if [[ ! -d .git ]]; then
