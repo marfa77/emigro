@@ -4,6 +4,7 @@ import {
   deltaLine,
   type StatsReport,
 } from "@/lib/analytics/stats";
+import { formatThreadsReferralsTelegram } from "@/lib/analytics/threads-stats";
 
 function escapeHtml(text: string): string {
   return text
@@ -133,6 +134,9 @@ export function formatStatsReportTelegram(report: StatsReport): string {
     const bar = row.visitors > 0 ? "▪".repeat(Math.min(row.visitors, 12)) : "·";
     lines.push(`  ${escapeHtml(row.dayLabel)}: <b>${row.visitors}</b> / ${row.pageViews} ${bar}`);
   }
+
+  lines.push("");
+  lines.push(...formatThreadsReferralsTelegram(report.threads));
 
   lines.push("");
   lines.push(...fmtTop("Топ из поиска сегодня", report.topPagesSearchToday));

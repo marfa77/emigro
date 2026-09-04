@@ -318,6 +318,46 @@ export default async function AdminStatsPage() {
               </ul>
             </section>
 
+            <section className="rounded-xl border border-slate-200 bg-white p-5">
+              <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+                Threads
+              </h2>
+              <p className="mt-1 text-xs text-slate-400">
+                Клики с наших ссылок (utm_source=threads) · @{report.threads.handle}
+              </p>
+              <div className="mt-3">
+                {report.threads.followers != null && (
+                  <MetricRow label={`Подписчики @${report.threads.handle}`} value={report.threads.followers} />
+                )}
+                <MetricRow label="7д: визард" value={report.threads.clicks7d.wizard} />
+                <MetricRow label="7д: Assist" value={report.threads.clicks7d.assist} />
+                <MetricRow label="7д: гайды" value={report.threads.clicks7d.guide} />
+                {report.threads.clicks7d.news > 0 && (
+                  <MetricRow label="7д: новости" value={report.threads.clicks7d.news} />
+                )}
+                {report.threads.clicks7d.other > 0 && (
+                  <MetricRow label="7д: прочие" value={report.threads.clicks7d.other} />
+                )}
+              </div>
+              <ul className="mt-3 space-y-2 text-sm">
+                {report.threads.trend.every((row) => row.sessions === 0) ? (
+                  <li className="text-slate-500">— пока нет</li>
+                ) : (
+                  report.threads.trend.map((row) => (
+                    <li key={`threads-${row.dayLabel}`} className="flex items-center gap-3">
+                      <span className="w-12 shrink-0 text-slate-500">{row.dayLabel}</span>
+                      <span className="w-10 shrink-0">
+                        <strong>{row.sessions}</strong>
+                      </span>
+                      <span className="text-corridor-500">
+                        {"▪".repeat(Math.min(row.sessions, 12)) || "·"}
+                      </span>
+                    </li>
+                  ))
+                )}
+              </ul>
+            </section>
+
             <div className="grid gap-6 md:grid-cols-2">
               <TopList title="Топ из поиска сегодня" rows={report.topPagesSearchToday} />
               <TopList title="Топ из LLM сегодня" rows={report.topPagesLlmToday} />

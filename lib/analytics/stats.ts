@@ -1,5 +1,13 @@
 import { createAdminClient } from "@/lib/admin/supabase";
 import { classifyLlmAttribution } from "@/lib/analytics/llm-attribution";
+import {
+  aggregateThreadsSessions,
+  emptyThreadsReferralStats,
+  expectedThreadsHandle,
+  fetchThreadsFollowersCountSafe,
+  type ThreadsReferralStats,
+  type ThreadsTouchRow,
+} from "@/lib/analytics/threads-stats";
 import { classifyTrafficChannel, type TrafficChannel } from "@/lib/analytics/traffic-channel";
 
 const VISITOR_EVENTS = ["session_start", "page_view"] as const;
@@ -122,6 +130,8 @@ export interface StatsReport {
   wizardTelegram: WizardTelegramStats;
   assist: AssistFunnelStats;
   localeSplit: LocaleSplit;
+  /** Tagged Threads clicks (utm_source=threads) + @emigro2eu followers. */
+  threads: ThreadsReferralStats;
 }
 
 function analyticsTimezone(): string {
@@ -351,6 +361,39 @@ async function visitorMix(
 
   const returning = new Set((prior ?? []).map((r) => r.session_id)).size;
   return { active, returning, newVisitors: Math.max(active - returning, 0) };
+}
+
+async function buildThreadsReferralStats(
+  supabase: ReturnType<typeof createAdminClient>,
+  tz: string
+): Promise<ThreadsReferralStats> {
+  const windows = await Promise.all(
+    Array.from({ length: 7 }, (_, i) => dayWindow(supabase, 6 - i, tz))
+  );
+  const start = windows[0].start;
+  const end = windows[windows.length - 1].end;
+
+  const [{ data, error }, followers] = await Promise.all([
+    supabase
+      .from("site_events")
+      .select("session_id, page_path, utm_source, created_at, properties, user_agent")
+      .in("event_name", [...VISITOR_EVENTS])
+      .gte("created_at", start)
+      .lt("created_at", end)
+      .ilike("utm_source", "threads")
+      .limit(8000),
+    fetchThreadsFollowersCountSafe(),
+  ]);
+  if (error) throw new Error(error.message);
+
+  const { clicks7d, trend } = aggregateThreadsSessions((data ?? []) as ThreadsTouchRow[], windows);
+  return {
+    ...emptyThreadsReferralStats(),
+    handle: expectedThreadsHandle(),
+    followers,
+    clicks7d,
+    trend,
+  };
 }
 
 async function countLlmVisitors(
@@ -864,6 +907,7 @@ export async function buildStatsReport(): Promise<StatsReport> {
     recentSessions,
     wizardTelegram,
     assist,
+    threads,
   ] = await Promise.all([
     periodCounts(supabase, null, null),
     periodCounts(supabase, todayWin.start, todayWin.end),
@@ -897,6 +941,7 @@ export async function buildStatsReport(): Promise<StatsReport> {
     recentSessionsToday(supabase, todayWin.start, todayWin.end),
     buildWizardTelegramStats(supabase, todayWin.start, todayWin.end, yWin.start, yWin.end),
     buildAssistFunnelStats(supabase, todayWin.start, todayWin.end, yWin.start, yWin.end),
+    buildThreadsReferralStats(supabase, tz),
   ]);
 
   const [localeToday, localeYesterday, localeTotal] = await Promise.all([
@@ -952,6 +997,7 @@ export async function buildStatsReport(): Promise<StatsReport> {
     recentSessions,
     wizardTelegram,
     assist,
+    threads,
     localeSplit: {
       today: localeToday,
       yesterday: localeYesterday,
