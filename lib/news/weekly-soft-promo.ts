@@ -3,12 +3,11 @@
  * One product per ISO week; Gemini writes a different editorial format each time.
  * Channel publish only after owner DM approve (see run-weekly-soft-promo).
  */
-import { barakhloMarketUrl } from "@/lib/barakhlo/markets";
 import { ROLE_RADAR_BOT_BASE, ROLE_RADAR_LANDING_PATH } from "@/lib/role-radar";
 import { publicSiteUrl } from "@/lib/site-url";
 import { escapeTelegramHtml } from "@/lib/news/story-lightning";
 
-export type SoftPromoProductId = "route_check" | "job_bot" | "barakhlo" | "assist";
+export type SoftPromoProductId = "route_check" | "job_bot" | "assist";
 
 export type SoftPromoProduct = {
   id: SoftPromoProductId;
@@ -54,17 +53,6 @@ export function softPromoProducts(): SoftPromoProduct[] {
       ],
       url: utm(`${ROLE_RADAR_BOT_BASE}?start=emigro_news`, "job_bot"),
       linkLabelRu: "Открыть джоб-бот",
-    },
-    {
-      id: "barakhlo",
-      labelRu: "Barakhlo",
-      factsRu: [
-        "Доска объявлений для релокантов: вещи, сдача/поиск жилья-смежное, услуги в городе.",
-        "Есть рынки по городам (Лиссабон, Валенсия и др.).",
-        "Не магазин Emigro — communitу-доска barakhlo.online.",
-      ],
-      url: utm(barakhloMarketUrl("portugal"), "barakhlo"),
-      linkLabelRu: "Barakhlo",
     },
     {
       id: "assist",

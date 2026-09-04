@@ -1,11 +1,10 @@
 /**
- * Sister-site outbound links (Barakhlo, Prep2Go, UniPrep2Go).
+ * Sister-site outbound links (Prep2Go, UniPrep2Go).
  * Omit `noreferrer` so partner analytics still see Emigro as Referer.
  * Keep `noopener` for tabnabbing safety; add `sponsored` on paid/native placements.
  */
 
 const SISTER_HOST_SUFFIXES = [
-  "barakhlo.online",
   "prep2go.study",
   "uniprep2go.study",
 ] as const;
