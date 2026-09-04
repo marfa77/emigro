@@ -82,7 +82,7 @@ const COUNTRY_RU: Record<string, string> = {
 
 const CTA_P2: Record<ThreadsBankCta, string> = {
   wizard:
-    "Бесплатный визард подберёт коридор под паспорт, доход и семью — за пару минут. Без обещания ВНЖ.",
+    "Бесплатно: визард подберёт коридор под паспорт, доход и семью — за пару минут, 0 €. Без обещания ВНЖ.",
   assist: "Route Check за €129 — разбор основания и слабых мест пакета. Не гарантия ВНЖ.",
   porto_chat: "Быт Порту — в приватном чате через бота. Без публичной ссылки-приглашения.",
 };
@@ -336,7 +336,7 @@ export async function pickNewsPlan(state: ThreadsInventoryState): Promise<Thread
     const content = `news-${row.slug}`.slice(0, 40);
     const items = composeConversionChain({
       p1: (row.excerpt || row.title).trim(),
-      p2: "Коротко на сайте. Если новость бьёт по маршруту — бесплатный визард подберёт коридор под ваши вводные.",
+      p2: "Коротко на сайте. Бесплатно: визард подберёт коридор под ваши вводные — 0 €, без обещания ВНЖ.",
       cta: "wizard",
       content,
       topic: countryRu,
