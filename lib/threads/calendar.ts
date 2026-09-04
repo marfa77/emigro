@@ -25,11 +25,11 @@ export function lisbonWeekday(isoDate: string): number {
 
 /**
  * What to post today.
- * Mon/Wed/Fri — any-country SEO guide (Telegram already does 1 guide/day).
- * Tue — free wizard.
- * Thu — satellite note or Porto chat.
- * Sat — Assist Route Check €129.
- * Sun — news only if already in @Emigro_news and not awaiting Threads; else guide.
+ * Mon/Wed/Fri — any-country SEO guide → bait free corridor wizard.
+ * Tue — dedicated free wizard slot.
+ * Thu — satellite note or Porto chat (wizard when note is route-ish).
+ * Sat — Assist Route Check €129 (paid, after free filter).
+ * Sun — news only if already in @Emigro_news and not awaiting Threads; else guide→wizard.
  */
 export function threadsSlotForDate(isoDate: string): ThreadsSlot {
   switch (lisbonWeekday(isoDate)) {
@@ -50,7 +50,7 @@ export function threadsSlotForDate(isoDate: string): ThreadsSlot {
   }
 }
 
-/** Wed guides sell Assist; Mon/Fri (and Sunday fallback) sell the free wizard. */
-export function guideCtaForDate(isoDate: string): "wizard" | "assist" {
-  return lisbonWeekday(isoDate) === 3 ? "assist" : "wizard";
+/** Guide days always bait the free corridor wizard. Assist stays Saturday-only. */
+export function guideCtaForDate(_isoDate: string): "wizard" | "assist" {
+  return "wizard";
 }

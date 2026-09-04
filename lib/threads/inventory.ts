@@ -82,7 +82,7 @@ const COUNTRY_RU: Record<string, string> = {
 
 const CTA_P2: Record<ThreadsBankCta, string> = {
   wizard:
-    "Бесплатный визард Emigro соберёт маршрут под паспорт, доход и семью. Без обещания ВНЖ.",
+    "Бесплатный визард подберёт коридор под паспорт, доход и семью — за пару минут. Без обещания ВНЖ.",
   assist: "Route Check за €129 — разбор основания и слабых мест пакета. Не гарантия ВНЖ.",
   porto_chat: "Быт Порту — в приватном чате через бота. Без публичной ссылки-приглашения.",
 };
@@ -213,7 +213,8 @@ export function pickLiveGuidePlan(
     pick.guide.excerpt ||
     pick.guide.seo_description ||
     pick.guide.title;
-  const p2 = bank?.p2 || CTA_P2[cta];
+  // Never append a wizard URL under an Assist (€129) bank line — match p2 to live CTA.
+  const p2 = bank?.p2 && bank.cta === cta ? bank.p2 : CTA_P2[cta];
   const items = composeConversionChain({
     p1,
     p2,
@@ -231,7 +232,7 @@ function noteCta(note: CommunityNote): ThreadsBankCta {
   if (note.country_key === "portugal" && !/aima|vnj|d7|d8|nacional|ciple/.test(hay)) {
     return "porto_chat";
   }
-  if (/aima|vnj|d7|d8|nacional|dnv|nie|tie|extranjer/.test(hay)) return "assist";
+  // Route / visa notes bait free corridor wizard first; Assist is Saturday bank only.
   return "wizard";
 }
 
@@ -333,7 +334,7 @@ export async function pickNewsPlan(state: ThreadsInventoryState): Promise<Thread
     const content = `news-${row.slug}`.slice(0, 40);
     const items = composeConversionChain({
       p1: (row.excerpt || row.title).trim(),
-      p2: "Коротко на сайте. Если новость бьёт по вашему маршруту — бесплатный визард.",
+      p2: "Коротко на сайте. Если новость бьёт по маршруту — бесплатный визард подберёт коридор под ваши вводные.",
       cta: "wizard",
       content,
       topic: countryRu,

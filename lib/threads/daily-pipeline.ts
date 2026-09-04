@@ -1,5 +1,6 @@
 /**
- * Daily Threads for @emigro2eu — one post / Lisbon day.
+ * Daily Threads for @emigro2eu — one post / Lisbon calendar day,
+ * published 10–12 Europe/Rome.
  * Slots match @Emigro_news mix: all-country guides, free wizard, satellites,
  * Porto chat, Assist; news only if already in the channel and not awaiting Threads.
  */

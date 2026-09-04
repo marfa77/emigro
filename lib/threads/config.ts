@@ -115,6 +115,7 @@ export function threadsAuthorizationUrl(params?: {
     "threads_content_publish",
     "threads_manage_replies",
     "threads_read_replies",
+    "threads_manage_insights",
   ]).join(",");
   const u = new URL("https://threads.net/oauth/authorize");
   u.searchParams.set("client_id", env.appId);

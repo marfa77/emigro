@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Daily Threads: 1 slot / Lisbon day (guides / wizard / city / assist / gated news).
+# Daily Threads: 1 slot / day at 10–12 Europe/Rome (guides / wizard / city / assist / gated news).
 set -euo pipefail
 
 SCRIPT_ROOT="$(cd "$(dirname "$0")" && pwd)"

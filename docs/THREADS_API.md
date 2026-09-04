@@ -8,7 +8,7 @@ Live publish и `threads:whoami` падают, если `/me` ≠ `emigro2eu`.
 Автопубликация **выключена** по умолчанию (`THREADS_AUTO_PUBLISH` ≠ `1`), кроме:
 
 - **#молния после ✅ Threads** в Telegram (webhook на Vercel);
-- **ежедневный крон на VPS** (`emigro-threads-daily.timer`) — Lisbon weekday slot (гайды / визард / город / Assist / gated news).
+- **ежедневный крон на VPS** (`emigro-threads-daily.timer`) — 10–12 Europe/Rome (гайды / визард / город / Assist / gated news).
 
 Telegram остаётся одним постом. Threads — reply-chain.
 
@@ -22,7 +22,7 @@ Telegram остаётся одним постом. Threads — reply-chain.
    - **Threads App ID** → `THREADS_APP_ID`
    - **Threads App secret** → `THREADS_APP_SECRET` (только сервер / `.env`, не в клиент)
 4. Добавить **Redirect URI** (например `https://www.emigro.online/api/threads/oauth/callback` или `https://localhost:3000/api/threads/oauth/callback` для теста) → `THREADS_REDIRECT_URI`
-5. Permissions (минимум): `threads_basic`, `threads_content_publish`, `threads_manage_replies`
+5. Permissions (минимум): `threads_basic`, `threads_content_publish`, `threads_manage_replies`, `threads_read_replies`, `threads_manage_insights`
 6. Добавить **тестового пользователя** = Instagram/Threads **бренда Emigro** (пока app в Development) или пройти App Review для Live.
    Логинься в Authorization Window **как `@emigro2eu`** (инкогнито, не личный профиль). Проверка: `npm run threads:whoami`.
 
@@ -151,16 +151,15 @@ npm run threads:preview -- --country=Португалия --flag=🇵🇹 \
 
 ## 6. Ежедневный пайплайн (как `@Emigro_news`, не только Порту)
 
-**1 цепочка в сутки** (Europe/Lisbon). Слоты как у канала: гайды по всем коридорам — основа; новости — только супер-релевантные; конверсия — бесплатный визард и Assist; быт — чат Порту и сателлиты.
+**1 цепочка в сутки.** Публикация **10–12 Europe/Rome**; какой слот (гайд / визард / …) считается по Lisbon-дню (в 10:00 Рима это тот же календарный день). Слоты как у канала: гайды по всем коридорам — основа; новости — только супер-релевантные; конверсия — бесплатный визард и Assist; быт — чат Порту и сателлиты.
 
-| Lisbon | Слот | Откуда | CTA |
+| День | Слот | Откуда | CTA |
 |--------|------|--------|-----|
-| Пн / Пт | гайд | весь `content/guides/ru` (ротация стран) | визард |
-| Ср | гайд | ВНЖ / визы / гражданство | Assist €129 |
-| Вт | визард | `emigro-wizard.json` | `/ru/wizard` |
-| Чт | город | чат Порту ↔ note PT ↔ note ES | чат / визард / Assist |
-| Сб | Assist | банк `emigro-days` (cta=assist) | `/ru/assist` |
-| Вс | новость | уже в `@Emigro_news`, 1–10 дней, не pending Threads; иначе гайд | визард |
+| Пн / Ср / Пт | гайд | весь `content/guides/ru` (ротация стран) | **бесплатный визард подбора коридора** |
+| Вт | визард | `emigro-wizard.json` | `/ru/wizard` (или `/ru/{country}/wizard`) |
+| Чт | город / сателлит | notes + Porto chat | визард или чат Порту |
+| Сб | Assist | `emigro-days` (assist) | Route Check €129 |
+| Вс | news (gated) или гайд | канал / гайд | визард |
 
 Молнии по-прежнему через ✅ Threads в DM — крон их не дублирует: pending (`__lightning_*_pending__`) и уже опубликованные в Threads (`__lightning_threads_published__`) пропускаются. Подбирает только уже вышедшие в `@Emigro_news` без очереди Threads.
 
@@ -183,7 +182,7 @@ npm run threads:daily -- --force-publish   # только если whoami=@emigr
 
 | Unit | Когда |
 |------|--------|
-| `emigro-threads-daily.timer` | будни ~15–16 Lisbon + weekend, `RandomizedDelaySec=45min` |
+| `emigro-threads-daily.timer` | 10–12 Europe/Rome, `RandomizedDelaySec=20min` |
 | `emigro-threads-replies.timer` | каждые ~20 мин + `RandomizedDelaySec=8min` (черновик → DM, не пост) |
 | `emigro-threads-refresh.timer` | пн 05:15 UTC |
 
@@ -242,9 +241,9 @@ Callback (тот же news-bot, `TELEGRAM_PRIVATE_CHAT_ID`):
 | `lib/threads/client.ts` | container → publish, reply chain |
 | `lib/threads/banks/` | prewritten p1/p2 (no URLs) |
 | `lib/threads/banks.ts` | Assist / wizard / Porto-chat URL + 500-char check |
-| `lib/threads/calendar.ts` | Lisbon weekday slots |
+| `lib/threads/calendar.ts` | Lisbon weekday *content* slots |
 | `lib/threads/inventory.ts` | live guides + satellites + gated news |
-| `lib/threads/daily-pipeline.ts` | one slot / Lisbon day, state file |
+| `lib/threads/daily-pipeline.ts` | one slot / Lisbon day, publish 10–12 Rome |
 | `lib/threads/replies.ts` | comment poll, LLM draft, Telegram ✅ |
 | `scripts/threads-*.ts` | exchange / refresh / whoami / daily / replies / preview |
 | `deploy/threads-replies/` | VPS poll timer (DM only) |

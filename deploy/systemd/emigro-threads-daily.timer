@@ -1,16 +1,17 @@
 [Unit]
-Description=Emigro Threads daily — 1 post/day at Lisbon afternoon peaks
+Description=Emigro Threads daily — 1 post/day at Italy morning (10–12 Europe/Rome)
 
 [Timer]
-# After lightning ticks have a chance to publish RU news to the site/channel.
-OnCalendar=Mon *-*-* 16:00:00 Europe/Lisbon
-OnCalendar=Tue *-*-* 15:30:00 Europe/Lisbon
-OnCalendar=Wed *-*-* 16:00:00 Europe/Lisbon
-OnCalendar=Thu *-*-* 15:00:00 Europe/Lisbon
-OnCalendar=Fri *-*-* 15:30:00 Europe/Lisbon
-OnCalendar=Sat *-*-* 14:30:00 Europe/Lisbon
-OnCalendar=Sun *-*-* 16:00:00 Europe/Lisbon
-RandomizedDelaySec=45min
+# Audience peak for RU expats in Italy / CEST. Content calendar day stays Lisbon
+# (same date at 10:00 Rome). Keep delay inside the 10–12 window.
+OnCalendar=Mon *-*-* 10:20:00 Europe/Rome
+OnCalendar=Tue *-*-* 11:15:00 Europe/Rome
+OnCalendar=Wed *-*-* 10:05:00 Europe/Rome
+OnCalendar=Thu *-*-* 11:25:00 Europe/Rome
+OnCalendar=Fri *-*-* 10:50:00 Europe/Rome
+OnCalendar=Sat *-*-* 11:10:00 Europe/Rome
+OnCalendar=Sun *-*-* 10:35:00 Europe/Rome
+RandomizedDelaySec=20min
 AccuracySec=1min
 # Off: enabling the timer after today's window must not catch-up and double-post.
 Persistent=false
