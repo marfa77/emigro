@@ -16,7 +16,7 @@ import {
   lightningAudienceSkipReason,
   lightningStrengthSkipReason,
 } from "@/lib/news/story-lightning";
-import { newsArticleUrl, portugalSatellitePublicUrl, spainSatellitePublicUrl } from "@/lib/site-url";
+import { newsArticleUrl, portugalSatellitePublicUrl } from "@/lib/site-url";
 import {
   composeConversionChain,
   composeDayChain,
@@ -242,17 +242,18 @@ function usableNote(note: CommunityNote): boolean {
   return Boolean(note.slug && note.title);
 }
 
-export async function pickCityPlan(state: ThreadsInventoryState): Promise<ThreadsSlotPlan | null> {
-  const turn = (state.city_cursor || 0) % 3;
+export async function pickPortugalSatellitePlan(
+  state: ThreadsInventoryState
+): Promise<ThreadsSlotPlan | null> {
+  const turn = (state.city_cursor || 0) % 2;
   if (turn === 0) {
     const chat = pickPortoChatBankPlan(state);
     if (chat) return chat;
   }
 
-  const countryKey = turn === 2 ? "spain" : "portugal";
   let notes: CommunityNote[] = [];
   try {
-    notes = (await getPublishedCommunityNotesUncached(countryKey)).filter(usableNote);
+    notes = (await getPublishedCommunityNotesUncached("portugal")).filter(usableNote);
   } catch {
     notes = [];
   }
@@ -263,24 +264,25 @@ export async function pickCityPlan(state: ThreadsInventoryState): Promise<Thread
   }
 
   const cta = noteCta(next);
-  const dest =
-    countryKey === "spain"
-      ? spainSatellitePublicUrl(`/notes/${next.slug}`)
-      : portugalSatellitePublicUrl(`/notes/${next.slug}`);
+  const dest = portugalSatellitePublicUrl(`/notes/${next.slug}`);
   const content = `note-${next.slug}`.slice(0, 40);
   const items = composeConversionChain({
     p1: next.quick_answer || next.excerpt || next.title,
     p2: CTA_P2[cta],
     cta,
     content,
-    topic: countryKey === "spain" ? "Испания" : "Порту",
-    countryTopic: countryKey,
+    topic: "Порту",
+    countryTopic: "portugal",
     extraUrl: threadsTrackedUrl(dest, content),
   });
   return {
-    ...planOf("city", next.slug, countryKey === "spain" ? "Испания" : "Порту", cta, items),
+    ...planOf("city", next.slug, "Порту", cta, items),
     cursor: (state.city_cursor || 0) + 1,
   };
+}
+
+export async function pickCityPlan(state: ThreadsInventoryState): Promise<ThreadsSlotPlan | null> {
+  return pickPortugalSatellitePlan(state);
 }
 
 type DigestRow = {

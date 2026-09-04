@@ -1,0 +1,20 @@
+[Unit]
+Description=Emigro Threads satellites — Portugal notes / Porto chat (stream 2)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+TimeoutStartSec=8min
+WorkingDirectory=/opt/emigro
+PermissionsStartOnly=true
+ExecStartPre=/bin/mkdir -p /opt/emigro/deploy/threads-satellites/logs
+ExecStartPre=/bin/chown www-data:www-data /opt/emigro/deploy/threads-satellites/logs
+ExecStart=/bin/bash /opt/emigro/deploy/threads-satellites/run_scheduled.sh
+User=www-data
+EnvironmentFile=-/opt/emigro/.env
+StandardOutput=append:/opt/emigro/deploy/threads-satellites/logs/scheduled.log
+StandardError=append:/opt/emigro/deploy/threads-satellites/logs/scheduled.log
+
+[Install]
+WantedBy=multi-user.target

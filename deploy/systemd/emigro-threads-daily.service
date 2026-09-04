@@ -1,5 +1,5 @@
 [Unit]
-Description=Emigro Threads daily — @emigro2eu calendar slot
+Description=Emigro Threads daily — main stream: SEO guides (@emigro2eu)
 After=network-online.target
 Wants=network-online.target
 

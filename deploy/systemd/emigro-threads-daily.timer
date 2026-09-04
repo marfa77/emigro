@@ -1,5 +1,5 @@
 [Unit]
-Description=Emigro Threads daily — 1 post/day at same morning window as Barakhlo (Asia/Dubai)
+Description=Emigro Threads daily — main stream: SEO guides (Asia/Dubai morning like Barakhlo)
 
 [Timer]
 # Match Barakhlo UAE morning peaks so the post sits in feed all day.

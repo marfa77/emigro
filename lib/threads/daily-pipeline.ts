@@ -1,12 +1,11 @@
 /**
- * Daily Threads for @emigro2eu — one post / Lisbon calendar day,
- * published in the Barakhlo morning window (Asia/Dubai peaks).
- * Slots match @Emigro_news mix: all-country guides, free wizard, satellites,
- * Porto chat, Assist; news only if already in the channel and not awaiting Threads.
+ * Stream 1 — main Threads feed: one SEO guide / Lisbon day.
+ * Stream 2 (satellites) and stream 3 (news via Telegram ✅) are separate.
+ * Published in the Barakhlo morning window (Asia/Dubai peaks).
  */
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
 import { dirname, resolve } from "path";
-import { guideCtaForDate, threadsSlotForDate, type ThreadsSlot } from "@/lib/threads/calendar";
+import { guideCtaForDate, threadsMainSlotForDate, type ThreadsSlot } from "@/lib/threads/calendar";
 import { publishThreadsChain } from "@/lib/threads/client";
 import { loadThreadsEnv, THREADS_CAMPAIGN } from "@/lib/threads/config";
 import {
@@ -15,7 +14,6 @@ import {
   pickCityPlan,
   pickDaysBankPlan,
   pickLiveGuidePlan,
-  pickNewsPlan,
   pickWizardPlan,
   type ThreadsInventoryState,
   type ThreadsSlotPlan,
@@ -104,11 +102,13 @@ async function planForSlot(
   state: ThreadsDailyState,
   today: string
 ): Promise<ThreadsDailyPlan | null> {
+  // Manual --kind= still works for banks; cron always uses guide.
   if (slot === "wizard") return pickWizardPlan(state);
   if (slot === "assist") return pickAssistBankPlan(state);
   if (slot === "city") return pickCityPlan(state);
   if (slot === "news") {
-    return (await pickNewsPlan(state)) ?? pickLiveGuidePlan(state, false);
+    // News is stream 3 (Telegram ✅ lightning) — never auto from daily cron.
+    return pickLiveGuidePlan(state, false);
   }
   return pickLiveGuidePlan(state, guideCtaForDate(today) === "assist");
 }
@@ -131,7 +131,7 @@ export async function planThreadsDailyPost(opts?: {
     return { today, plan, slot: "day" };
   }
 
-  const slot = forceKind || threadsSlotForDate(today);
+  const slot = forceKind || threadsMainSlotForDate(today);
   const plan = await planForSlot(slot, state, today);
   if (!plan) return { today, skip: "queue_empty", slot };
   return { today, plan, slot };

@@ -37,6 +37,7 @@
     "threads:preview": "tsx scripts/threads-preview.ts",
     "threads:whoami": "tsx scripts/threads-whoami.ts",
     "threads:daily": "tsx scripts/threads-daily.ts",
+    "threads:satellites": "tsx scripts/threads-satellites.ts",
     "threads:replies": "tsx scripts/threads-replies.ts",
     "threads:assert-banks": "tsx scripts/threads-assert-banks.ts",
     "news:test-quality": "tsx scripts/test-news-quality-guards.ts",

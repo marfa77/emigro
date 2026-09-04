@@ -8,7 +8,7 @@ Live publish и `threads:whoami` падают, если `/me` ≠ `emigro2eu`.
 Автопубликация **выключена** по умолчанию (`THREADS_AUTO_PUBLISH` ≠ `1`), кроме:
 
 - **#молния после ✅ Threads** в Telegram (webhook на Vercel);
-- **ежедневный крон на VPS** (`emigro-threads-daily.timer`) — утро как Barakhlo (`Asia/Dubai` peaks; гайды / визард / город / Assist / gated news).
+- **ежедневный крон на VPS** — **три потока**: гайды (`emigro-threads-daily`), сателлиты PT (`emigro-threads-satellites`), новости только через ✅ в Telegram (lightning webhook).
 
 Telegram остаётся одним постом. Threads — reply-chain.
 
@@ -149,43 +149,41 @@ npm run threads:preview -- --country=Португалия --flag=🇵🇹 \
   --headline="…" --slide="…" --slide="…" --page=https://www.emigro.online/ru/...
 ```
 
-## 6. Ежедневный пайплайн (как `@Emigro_news`, не только Порту)
+## 6. Три потока в Threads (не один weekday-mix)
 
-**1 цепочка в сутки.** Публикация в **утреннее окно как у Barakhlo** (`Asia/Dubai` peaks, +15–25 мин); какой слот (гайд / визард / …) считается по Lisbon-дню. Слоты как у канала: гайды по всем коридорам — основа; новости — только супер-релевантные; конверсия — **бесплатный визард подбора коридора** (+ Assist по субботам); быт — чат Порту и сателлиты.
+| Поток | Что | Когда | Кто триггерит |
+|-------|-----|-------|----------------|
+| **1. Гайды (основной)** | SEO-гайды как в личном акке, CTA = бесплатный визард коридора | каждый Lisbon-день, утро как Barakhlo (`Asia/Dubai`) | `emigro-threads-daily.timer` → `threads:daily` |
+| **2. Сателлиты PT** | заметки Португалии / Porto chat — сверху, не вместо гайда | каждые **2** дня, ~14:30 Dubai | `emigro-threads-satellites.timer` → `threads:satellites` |
+| **3. Новости** | релевантные RU immigration — только после ✅ в личке | когда есть молния | `news:lightning` DM → webhook ✅ Threads |
 
-| День | Слот | Откуда | CTA |
-|--------|------|--------|-----|
-| Пн / Ср / Пт | гайд | весь `content/guides/ru` (ротация стран) | **бесплатный визард подбора коридора** |
-| Вт | визард | `emigro-wizard.json` | `/ru/wizard` (или `/ru/{country}/wizard`) |
-| Чт | город / сателлит | notes + Porto chat | визард или чат Порту |
-| Сб | Assist | `emigro-days` (assist) | Route Check €129 |
-| Вс | news (gated) или гайд | канал / гайд | визард |
+Визард/Assist-банки остаются для ручного `--kind=`; крон их больше не чередует вместо гайдов. Воскресный gated-news слот убран — новости не съедают день гайда.
 
-Молнии по-прежнему через ✅ Threads в DM — крон их не дублирует: pending (`__lightning_*_pending__`) и уже опубликованные в Threads (`__lightning_threads_published__`) пропускаются. Подбирает только уже вышедшие в `@Emigro_news` без очереди Threads.
+State:
 
-Ссылки в JSON нет: код клеит UTM. Никогда `t.me/+`.
-
-State (VPS, gitignore): `parser/out/emigro-threads-posted.json`.
+| Поток | Файл |
+|-------|------|
+| Гайды | `parser/out/emigro-threads-posted.json` |
+| Сателлиты | `parser/out/emigro-threads-satellites.json` |
+| Новости | маркеры в Supabase `threads_text` (`__lightning_*`) |
 
 ```bash
 npm run threads:assert-banks
-npm run threads:daily -- --dry-run
-npm run threads:daily -- --kind=guide --dry-run
-npm run threads:daily -- --kind=wizard --dry-run
-npm run threads:daily -- --kind=city --dry-run
-npm run threads:daily -- --kind=day --dry-run   # первый / следующий пост из emigro-days.json
-npm run threads:daily -- --kind=day --force-publish   # первый из банка (Cedofeita), не слот вторника
-npm run threads:daily -- --force-publish   # только если whoami=@emigro2eu и THREADS_AUTO_PUBLISH=1
+npm run threads:daily -- --dry-run          # поток 1
+npm run threads:satellites -- --dry-run     # поток 2
+npm run threads:daily -- --force-publish    # только @emigro2eu + THREADS_AUTO_PUBLISH=1
+npm run threads:satellites -- --force-publish
 ```
 
 Крон:
 
 | Unit | Когда |
 |------|--------|
-| `emigro-threads-daily.timer` | утро как Barakhlo (`Asia/Dubai` peaks +15–25 мин), `RandomizedDelaySec=25min`, `Persistent=true` |
+| `emigro-threads-daily.timer` | утро как Barakhlo (`Asia/Dubai` peaks +15–25 мин), `Persistent=true` — **гайды** |
+| `emigro-threads-satellites.timer` | ~14:30 Asia/Dubai + jitter, gap 2 дня в state — **сателлиты PT** |
 | `emigro-threads-replies.timer` | каждые ~20 мин + `RandomizedDelaySec=8min` (черновик → DM, не пост) |
 | `emigro-threads-refresh.timer` | пн 05:15 UTC |
-
+| lightning (Vercel + `emigro-news-lightning.timer`) | DM ✅ — **новости** |
 ```bash
 bash deploy/threads-daily/deploy.sh
 bash deploy/threads-replies/deploy.sh
@@ -241,9 +239,10 @@ Callback (тот же news-bot, `TELEGRAM_PRIVATE_CHAT_ID`):
 | `lib/threads/client.ts` | container → publish, reply chain |
 | `lib/threads/banks/` | prewritten p1/p2 (no URLs) |
 | `lib/threads/banks.ts` | Assist / wizard / Porto-chat URL + 500-char check |
-| `lib/threads/calendar.ts` | Lisbon weekday *content* slots |
-| `lib/threads/inventory.ts` | live guides + satellites + gated news |
-| `lib/threads/daily-pipeline.ts` | one slot / Lisbon day, publish Barakhlo-morning Dubai window |
+| `lib/threads/calendar.ts` | main = guide every day; satellite gap |
+| `lib/threads/inventory.ts` | live guides + PT satellites |
+| `lib/threads/daily-pipeline.ts` | stream 1 — guides |
+| `lib/threads/satellite-pipeline.ts` | stream 2 — PT satellites |
 | `lib/threads/replies.ts` | comment poll, LLM draft, Telegram ✅ |
 | `scripts/threads-*.ts` | exchange / refresh / whoami / daily / replies / preview |
 | `deploy/threads-replies/` | VPS poll timer (DM only) |

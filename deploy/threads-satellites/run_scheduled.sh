@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Stream 1: daily SEO guide (Barakhlo morning window, Asia/Dubai).
+# Stream 2: Portugal satellites / Porto chat on top of daily guides.
 set -euo pipefail
 
 SCRIPT_ROOT="$(cd "$(dirname "$0")" && pwd)"
@@ -29,9 +29,9 @@ if [[ -f "$REPO_ROOT/.env" ]]; then
   set +a
 fi
 
-log "=== Emigro Threads daily ==="
+log "=== Emigro Threads satellites ==="
 
-RUN_CMD="cd '$REPO_ROOT' && npm run threads:daily -- --force-publish"
+RUN_CMD="cd '$REPO_ROOT' && npm run threads:satellites -- --force-publish"
 
 if ! command -v flock >/dev/null 2>&1; then
   RUN=(bash -c "$RUN_CMD")
@@ -40,14 +40,14 @@ else
 fi
 
 if "${RUN[@]}"; then
-  log "=== Threads daily finished OK ==="
+  log "=== Threads satellites finished OK ==="
   exit 0
 else
   code=$?
   if [[ "$code" -eq 1 ]]; then
-    log "=== Threads daily skipped (lock) ==="
+    log "=== Threads satellites skipped (lock) ==="
     exit 0
   fi
-  log "=== Threads daily FAILED (exit $code) ==="
+  log "=== Threads satellites FAILED (exit $code) ==="
   exit "$code"
 fi

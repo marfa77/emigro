@@ -1,9 +1,11 @@
 /**
- * Lisbon weekday slots for @emigro2eu.
- * Mirrors @Emigro_news mix: guides are the backbone, news is rare/gated,
- * conversion is wizard (free) + Assist, city life is Porto chat / satellites.
+ * Emigro Threads — three independent streams (not exclusive weekday mix):
+ *
+ * 1. Main: SEO guides every Lisbon day (CTA = free corridor wizard)
+ * 2. On top: Portugal satellites / Porto chat (own timer + gap)
+ * 3. On top: RU-relevant news via Telegram DM ✅ (lightning webhook) — not this calendar
  */
-export type ThreadsSlot = "guide" | "wizard" | "city" | "assist" | "news";
+export type ThreadsMainSlot = "guide";
 
 /** Monday=1 … Sunday=7 in Europe/Lisbon. */
 export function lisbonWeekday(isoDate: string): number {
@@ -23,34 +25,22 @@ export function lisbonWeekday(isoDate: string): number {
   return map[wd] ?? 1;
 }
 
-/**
- * What to post today.
- * Mon/Wed/Fri — any-country SEO guide → bait free corridor wizard.
- * Tue — dedicated free wizard slot.
- * Thu — satellite note or Porto chat (wizard when note is route-ish).
- * Sat — Assist Route Check €129 (paid, after free filter).
- * Sun — news only if already in @Emigro_news and not awaiting Threads; else guide→wizard.
- */
-export function threadsSlotForDate(isoDate: string): ThreadsSlot {
-  switch (lisbonWeekday(isoDate)) {
-    case 1:
-      return "guide";
-    case 2:
-      return "wizard";
-    case 3:
-      return "guide";
-    case 4:
-      return "city";
-    case 5:
-      return "guide";
-    case 6:
-      return "assist";
-    default:
-      return "news";
-  }
+/** Main brand feed: one guide every Lisbon calendar day. */
+export function threadsMainSlotForDate(_isoDate: string): ThreadsMainSlot {
+  return "guide";
 }
 
-/** Guide days always bait the free corridor wizard. Assist stays Saturday-only. */
+/** @deprecated Use threadsMainSlotForDate — kept for scripts that still pass --kind. */
+export type ThreadsSlot = "guide" | "wizard" | "city" | "assist" | "news";
+
+export function threadsSlotForDate(isoDate: string): ThreadsSlot {
+  return threadsMainSlotForDate(isoDate);
+}
+
+/** Guide posts always bait the free corridor wizard. */
 export function guideCtaForDate(_isoDate: string): "wizard" | "assist" {
   return "wizard";
 }
+
+/** Satellite stream: default gap between Portugal-on-top posts. */
+export const SATELLITE_GAP_DAYS = 2;

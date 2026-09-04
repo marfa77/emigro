@@ -1,0 +1,12 @@
+[Unit]
+Description=Emigro Threads satellites — every 2 days, afternoon after morning guides (Asia/Dubai)
+
+[Timer]
+# On top of daily guides. Script enforces next_on gap (default 2 days).
+OnCalendar=*-*-* 14:30:00 Asia/Dubai
+RandomizedDelaySec=35min
+AccuracySec=1min
+Persistent=true
+
+[Install]
+WantedBy=timers.target
