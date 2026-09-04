@@ -1,0 +1,25 @@
+# Deploy Emigro VPS Threads runtime from git (same host as Barakhlo runner).
+name: Deploy VPS Threads
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "lib/threads/**"
+      - "scripts/threads-*.ts"
+      - "scripts/deploy_vps_from_git.sh"
+      - "deploy/threads-*/**"
+      - "deploy/systemd/emigro-threads-*"
+      - "package.json"
+      - "package-lock.json"
+      - ".github/workflows/deploy-vps-threads.yml"
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: [self-hosted, linux, vps]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy Threads from this checkout → /opt/emigro
+        run: bash scripts/deploy_on_vps_runner.sh
