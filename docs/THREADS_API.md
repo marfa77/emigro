@@ -8,7 +8,7 @@ Live publish и `threads:whoami` падают, если `/me` ≠ `emigro2eu`.
 Автопубликация **выключена** по умолчанию (`THREADS_AUTO_PUBLISH` ≠ `1`), кроме:
 
 - **#молния после ✅ Threads** в Telegram (webhook на Vercel);
-- **ежедневный крон на VPS** (`emigro-threads-daily.timer`) — 10–12 Europe/Rome (гайды / визард / город / Assist / gated news).
+- **ежедневный крон на VPS** (`emigro-threads-daily.timer`) — утро как Barakhlo (`Asia/Dubai` peaks; гайды / визард / город / Assist / gated news).
 
 Telegram остаётся одним постом. Threads — reply-chain.
 
@@ -151,7 +151,7 @@ npm run threads:preview -- --country=Португалия --flag=🇵🇹 \
 
 ## 6. Ежедневный пайплайн (как `@Emigro_news`, не только Порту)
 
-**1 цепочка в сутки.** Публикация **10–12 Europe/Rome**; какой слот (гайд / визард / …) считается по Lisbon-дню (в 10:00 Рима это тот же календарный день). Слоты как у канала: гайды по всем коридорам — основа; новости — только супер-релевантные; конверсия — бесплатный визард и Assist; быт — чат Порту и сателлиты.
+**1 цепочка в сутки.** Публикация в **утреннее окно как у Barakhlo** (`Asia/Dubai` peaks, +15–25 мин); какой слот (гайд / визард / …) считается по Lisbon-дню. Слоты как у канала: гайды по всем коридорам — основа; новости — только супер-релевантные; конверсия — **бесплатный визард подбора коридора** (+ Assist по субботам); быт — чат Порту и сателлиты.
 
 | День | Слот | Откуда | CTA |
 |--------|------|--------|-----|
@@ -182,7 +182,7 @@ npm run threads:daily -- --force-publish   # только если whoami=@emigr
 
 | Unit | Когда |
 |------|--------|
-| `emigro-threads-daily.timer` | 10–12 Europe/Rome, `RandomizedDelaySec=20min` |
+| `emigro-threads-daily.timer` | утро как Barakhlo (`Asia/Dubai` peaks +15–25 мин), `RandomizedDelaySec=25min`, `Persistent=true` |
 | `emigro-threads-replies.timer` | каждые ~20 мин + `RandomizedDelaySec=8min` (черновик → DM, не пост) |
 | `emigro-threads-refresh.timer` | пн 05:15 UTC |
 
@@ -243,7 +243,7 @@ Callback (тот же news-bot, `TELEGRAM_PRIVATE_CHAT_ID`):
 | `lib/threads/banks.ts` | Assist / wizard / Porto-chat URL + 500-char check |
 | `lib/threads/calendar.ts` | Lisbon weekday *content* slots |
 | `lib/threads/inventory.ts` | live guides + satellites + gated news |
-| `lib/threads/daily-pipeline.ts` | one slot / Lisbon day, publish 10–12 Rome |
+| `lib/threads/daily-pipeline.ts` | one slot / Lisbon day, publish Barakhlo-morning Dubai window |
 | `lib/threads/replies.ts` | comment poll, LLM draft, Telegram ✅ |
 | `scripts/threads-*.ts` | exchange / refresh / whoami / daily / replies / preview |
 | `deploy/threads-replies/` | VPS poll timer (DM only) |

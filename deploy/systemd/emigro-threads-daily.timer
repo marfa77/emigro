@@ -1,20 +1,21 @@
 [Unit]
-Description=Emigro Threads daily — 1 post/day at Italy morning (10–12 Europe/Rome)
+Description=Emigro Threads daily — 1 post/day at same morning window as Barakhlo (Asia/Dubai)
 
 [Timer]
-# Audience peak for RU expats in Italy / CEST. Content calendar day stays Lisbon
-# (same date at 10:00 Rome). Keep delay inside the 10–12 window.
-OnCalendar=Mon *-*-* 10:20:00 Europe/Rome
-OnCalendar=Tue *-*-* 11:15:00 Europe/Rome
-OnCalendar=Wed *-*-* 10:05:00 Europe/Rome
-OnCalendar=Thu *-*-* 11:25:00 Europe/Rome
-OnCalendar=Fri *-*-* 10:50:00 Europe/Rome
-OnCalendar=Sat *-*-* 11:10:00 Europe/Rome
-OnCalendar=Sun *-*-* 10:35:00 Europe/Rome
-RandomizedDelaySec=20min
+# Match Barakhlo UAE morning peaks so the post sits in feed all day.
+# +15–25 min offset avoids colliding with barakhlo-threads-post on the same VPS.
+# Content calendar day still uses Europe/Lisbon in code (same date in this window).
+OnCalendar=Mon *-*-* 12:20:00 Asia/Dubai
+OnCalendar=Tue *-*-* 10:20:00 Asia/Dubai
+OnCalendar=Wed *-*-* 12:20:00 Asia/Dubai
+OnCalendar=Thu *-*-* 09:20:00 Asia/Dubai
+OnCalendar=Fri *-*-* 10:20:00 Asia/Dubai
+OnCalendar=Sat *-*-* 10:20:00 Asia/Dubai
+OnCalendar=Sun *-*-* 11:20:00 Asia/Dubai
+RandomizedDelaySec=25min
 AccuracySec=1min
-# Off: enabling the timer after today's window must not catch-up and double-post.
-Persistent=false
+# Catch a missed morning window (same-day skip in pipeline prevents double-post).
+Persistent=true
 
 [Install]
 WantedBy=timers.target
