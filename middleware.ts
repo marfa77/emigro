@@ -2,11 +2,17 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { PORTUGAL_SATELLITE_HOST } from "@/lib/satellite/portugal";
 import { SPAIN_SATELLITE_HOST } from "@/lib/satellite/spain";
-import { portugalSatelliteSubdomainEnabled, spainSatelliteSubdomainEnabled } from "@/lib/site-url";
+import { ITALY_SATELLITE_HOST } from "@/lib/satellite/italy";
+import {
+  portugalSatelliteSubdomainEnabled,
+  spainSatelliteSubdomainEnabled,
+  italySatelliteSubdomainEnabled,
+} from "@/lib/site-url";
 
 const CANONICAL_HOST = "www.emigro.online";
 const PORTUGAL_SATELLITE_ORIGIN = `https://${PORTUGAL_SATELLITE_HOST}`;
 const SPAIN_SATELLITE_ORIGIN = `https://${SPAIN_SATELLITE_HOST}`;
+const ITALY_SATELLITE_ORIGIN = `https://${ITALY_SATELLITE_HOST}`;
 
 function hostName(request: NextRequest): string {
   return request.headers.get("host")?.split(":")[0] ?? "";
@@ -28,8 +34,12 @@ function isSpainSatelliteHost(host: string): boolean {
   return host === SPAIN_SATELLITE_HOST;
 }
 
+function isItalySatelliteHost(host: string): boolean {
+  return host === ITALY_SATELLITE_HOST;
+}
+
 function isSatelliteHost(host: string): boolean {
-  return isPortugalSatelliteHost(host) || isSpainSatelliteHost(host);
+  return isPortugalSatelliteHost(host) || isSpainSatelliteHost(host) || isItalySatelliteHost(host);
 }
 
 /** App routes shared across hosts — must not rewrite to /satellite/{country}/…. */
@@ -54,6 +64,12 @@ function redirectWwwSatelliteToSubdomain(request: NextRequest): NextResponse | n
   if (pathname.startsWith("/satellite/spain") && spainSatelliteSubdomainEnabled()) {
     const subpath = pathname.slice("/satellite/spain".length) || "/";
     const destination = `${SPAIN_SATELLITE_ORIGIN}${subpath === "/" ? "" : subpath}${search}`;
+    return NextResponse.redirect(destination, 301);
+  }
+
+  if (pathname.startsWith("/satellite/italy") && italySatelliteSubdomainEnabled()) {
+    const subpath = pathname.slice("/satellite/italy".length) || "/";
+    const destination = `${ITALY_SATELLITE_ORIGIN}${subpath === "/" ? "" : subpath}${search}`;
     return NextResponse.redirect(destination, 301);
   }
 
@@ -228,6 +244,31 @@ function rewriteSpainSatellite(request: NextRequest): NextResponse | null {
   return res;
 }
 
+function rewriteItalySatellite(request: NextRequest): NextResponse | null {
+  const host = hostName(request);
+  if (!isItalySatelliteHost(host)) return null;
+
+  const { pathname } = request.nextUrl;
+  if (isSatelliteSharedPath(pathname)) return NextResponse.next();
+  if (pathname.startsWith("/satellite/italy")) {
+    return NextResponse.next();
+  }
+
+  if (pathname === "/llms.txt") {
+    const url = request.nextUrl.clone();
+    url.pathname = "/satellite/italy/llms";
+    return NextResponse.rewrite(url);
+  }
+
+  const url = request.nextUrl.clone();
+  url.pathname = `/satellite/italy${pathname === "/" ? "" : pathname}`;
+  const res = NextResponse.rewrite(url);
+  if (pathname === "/") {
+    res.headers.set("Link", `<https://${ITALY_SATELLITE_HOST}>; rel="canonical"`);
+  }
+  return res;
+}
+
 function shouldRedirectToCanonical(request: NextRequest): URL | null {
   const host = hostName(request);
   if (isLocalHost(host) || isPreviewHost(host) || isSatelliteHost(host)) return null;
@@ -265,6 +306,9 @@ export function middleware(request: NextRequest) {
 
   const spainSatellite = rewriteSpainSatellite(request);
   if (spainSatellite) return spainSatellite;
+
+  const italySatellite = rewriteItalySatellite(request);
+  if (italySatellite) return italySatellite;
 
   const canonicalUrl = shouldRedirectToCanonical(request);
   if (canonicalUrl) {

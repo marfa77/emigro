@@ -44,6 +44,8 @@ const OFFICIAL_CLAIM_RE =
 const NORTE_RE = /norte|порту|porto|брага|braga|matosinhos|guimarães|minho|foz|boavista|gualtar/i;
 const SPAIN_GEO_RE =
   /valencia|валенс|madrid|barcelona|barcelon|nie|tie|extranjer[ií]a|comunidad valenciana|испан/i;
+const ITALY_GEO_RE =
+  /milan|милан|milano|como|комо|lombard|codice fiscale|permesso|questura|итал/i;
 const FAQ_OFFICIAL_PRACTICE_RE = /по правилам|официальн|на практике/i;
 
 export type BlueprintDraftInput = {
@@ -57,7 +59,7 @@ export type BlueprintDraftInput = {
   official_links?: CommunityNoteLink[];
 };
 
-export type BlueprintCountryKey = "portugal" | "spain";
+export type BlueprintCountryKey = "portugal" | "spain" | "italy";
 
 export type BlueprintValidation = {
   score: number;
@@ -189,6 +191,9 @@ export function scoreBlueprint(
   if (countryKey === "spain") {
     score += scoreComponent(/испан/i.test(geoText), 3);
     score += scoreComponent(SPAIN_GEO_RE.test(geoText) || SPAIN_GEO_RE.test(practiceText), 3);
+  } else if (countryKey === "italy") {
+    score += scoreComponent(/итал/i.test(geoText), 3);
+    score += scoreComponent(ITALY_GEO_RE.test(geoText) || ITALY_GEO_RE.test(practiceText), 3);
   } else {
     score += scoreComponent(/португал/i.test(geoText), 3);
     score += scoreComponent(NORTE_RE.test(geoText) || NORTE_RE.test(practiceText), 3);
@@ -272,6 +277,13 @@ export function validateAgainstBlueprint(
     }
     if (!SPAIN_GEO_RE.test(geoText) && !SPAIN_GEO_RE.test(practiceText)) {
       warnings.push("blueprint: missing Valencia/Madrid geo in quick_answer or practice");
+    }
+  } else if (countryKey === "italy") {
+    if (!/итал/i.test(geoText)) {
+      warnings.push("blueprint: quick_answer/seo_description missing Италия");
+    }
+    if (!ITALY_GEO_RE.test(geoText) && !ITALY_GEO_RE.test(practiceText)) {
+      warnings.push("blueprint: missing Milano/Como geo in quick_answer or practice");
     }
   } else {
     if (!/португал/i.test(geoText)) {

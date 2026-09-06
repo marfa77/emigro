@@ -2,14 +2,15 @@ import type { Metadata } from "next";
 import { CONTENT_KIND_LABELS, hashtagLabel, normalizeHashtag } from "@/lib/community-notes/hashtags";
 import type { CommunityNote, ContentKind } from "@/lib/community-notes/types";
 import { communityNotePublicUrl } from "@/lib/community-notes/note-url";
+import { portugalSatellitePublicUrl, spainSatellitePublicUrl, italySatellitePublicUrl } from "@/lib/site-url";
 import { PORTUGAL_SATELLITE } from "@/lib/satellite/portugal";
 import { SPAIN_SATELLITE } from "@/lib/satellite/spain";
+import { ITALY_SATELLITE } from "@/lib/satellite/italy";
 import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
 import { resolveNoteOgImage } from "@/lib/community-notes/note-og-image";
 import { fitMetaDescription, fitSeoTitlePart, socialImageMetadata } from "@/lib/seo";
 import { EMIGRO_PUBLISHER, emigroAuthorOrg, schemaImage } from "@/lib/seo/schema";
 import { withAiMetadata, llmUtmAbsolute } from "@/lib/seo/llm-meta";
-import { portugalSatellitePublicUrl, spainSatellitePublicUrl } from "@/lib/site-url";
 
 const GEO = {
   country: "Portugal",
@@ -32,12 +33,25 @@ const SPAIN_GEO = {
     "Russian-speaking relocants in Spain (RU, BY, UA, KZ passports), primarily Valencia, Madrid, Barcelona",
 } as const;
 
+const ITALY_GEO = {
+  country: "Italy",
+  countryCode: "IT",
+  city: "Milan",
+  region: "Lombardy",
+  latitude: 45.4642,
+  longitude: 9.19,
+  audience:
+    "Russian-speaking relocants in Italy (RU, BY, UA, KZ passports), primarily Milano and Nord (Como, Monza, Bergamo)",
+} as const;
+
 const CITY_GEO: Record<string, { city: string; region: string; latitude: number; longitude: number }> = {
   lisbon: { city: "Lisbon", region: "Lisbon Metropolitan Area", latitude: 38.7223, longitude: -9.1393 },
   porto: { city: "Porto", region: "Norte", latitude: 41.1579, longitude: -8.6291 },
   valencia: { city: "Valencia", region: "Comunitat Valenciana", latitude: 39.4699, longitude: -0.3763 },
   madrid: { city: "Madrid", region: "Comunidad de Madrid", latitude: 40.4168, longitude: -3.7038 },
   barcelona: { city: "Barcelona", region: "Catalonia", latitude: 41.3851, longitude: 2.1734 },
+  milan: { city: "Milan", region: "Lombardy", latitude: 45.4642, longitude: 9.19 },
+  como: { city: "Como", region: "Lombardy", latitude: 45.8081, longitude: 9.0852 },
 };
 
 const TOPIC_GEO_KEYWORDS: Record<string, string[]> = {
@@ -64,11 +78,13 @@ const TOPIC_GEO_KEYWORDS: Record<string, string[]> = {
 };
 
 function geoForNote(note: CommunityNote) {
-  return note.country_key === "spain" ? SPAIN_GEO : GEO;
+  if (note.country_key === "spain") return SPAIN_GEO;
+  if (note.country_key === "italy") return ITALY_GEO;
+  return GEO;
 }
 
-export function buildSatelliteHubPlace(countryKey: "portugal" | "spain") {
-  const geo = countryKey === "spain" ? SPAIN_GEO : GEO;
+export function buildSatelliteHubPlace(countryKey: "portugal" | "spain" | "italy") {
+  const geo = countryKey === "spain" ? SPAIN_GEO : countryKey === "italy" ? ITALY_GEO : GEO;
   return {
     "@type": "Place" as const,
     name: `${geo.city}, ${geo.country}`,
@@ -91,11 +107,15 @@ export function communityNoteUrl(slug: string, countryKey = "portugal"): string 
 }
 
 function satelliteHubPublicUrl(countryKey: string): string {
-  return countryKey === "spain" ? spainSatellitePublicUrl("/") : portugalSatellitePublicUrl("/");
+  if (countryKey === "spain") return spainSatellitePublicUrl("/");
+  if (countryKey === "italy") return italySatellitePublicUrl("/");
+  return portugalSatellitePublicUrl("/");
 }
 
 function satelliteSiteName(countryKey: string): string {
-  return countryKey === "spain" ? "Emigro Spain" : "Emigro Portugal";
+  if (countryKey === "spain") return "Emigro Spain";
+  if (countryKey === "italy") return "Emigro Italy";
+  return "Emigro Portugal";
 }
 
 export function buildCommunityNoteKeywords(note: CommunityNote): string[] {
@@ -110,6 +130,16 @@ export function buildCommunityNoteKeywords(note: CommunityNote): string[] {
           CONTENT_KIND_LABELS[note.content_kind],
           note.category,
         ]
+      : note.country_key === "italy"
+        ? [
+            "Италия",
+            "Милан",
+            "релокация",
+            "codice fiscale",
+            "permesso di soggiorno",
+            CONTENT_KIND_LABELS[note.content_kind],
+            note.category,
+          ]
       : [
           "Португалия",
           "Порту",
@@ -130,7 +160,9 @@ export function buildCommunityNoteKeywords(note: CommunityNote): string[] {
 }
 
 function satelliteLlmsTxtUrl(countryKey: string): string {
-  return countryKey === "spain" ? spainSatellitePublicUrl("/llms") : portugalSatellitePublicUrl("/llms");
+  if (countryKey === "spain") return spainSatellitePublicUrl("/llms");
+  if (countryKey === "italy") return italySatellitePublicUrl("/llms");
+  return portugalSatellitePublicUrl("/llms");
 }
 
 export function withSatelliteAiMetadata(
@@ -217,7 +249,8 @@ export function buildCommunityNoteSchemas(note: CommunityNote) {
   const schemaType = schemaTypeForKind(note.content_kind);
   const hubTitle = note.country_key === "spain" ? SPAIN_SATELLITE.title : PORTUGAL_SATELLITE.title;
   const hubUrl = satelliteHubPublicUrl(note.country_key);
-  const defaultTag = note.country_key === "spain" ? "spain" : "portugal";
+  const defaultTag =
+    note.country_key === "spain" ? "spain" : note.country_key === "italy" ? "italy" : "portugal";
   const noteGeo = geoForNote(note);
 
   const articleSchema = {
@@ -382,5 +415,47 @@ export async function buildSpainLlmsTxt(notes: CommunityNote[]): Promise<string>
   }
 
   lines.push("", "## Official corridors", "", `- Spain corridor: ${SPAIN_SATELLITE.mainSiteUrl}`, "");
+  return lines.join("\n");
+}
+
+export async function buildItalyLlmsTxt(notes: CommunityNote[]): Promise<string> {
+  const hub = italySatellitePublicUrl("/");
+  const tagSet = new Set<string>();
+  for (const note of notes) {
+    for (const tag of note.hashtags) tagSet.add(tag.replace(/^#/, "").trim().toLowerCase());
+  }
+  const topTags = Array.from(tagSet).slice(0, 12);
+
+  const lines = [
+    "# italy.emigro.online — практика для релокантов",
+    "",
+    `> ${ITALY_SATELLITE.tagline}`,
+    `> Аудитория: ${ITALY_GEO.audience}. Не юридическая консультация.`,
+    `> Hub: ${hub}`,
+    "",
+    "## Wizard и коридор",
+    "",
+    `- Wizard подбора маршрута ВНЖ: ${llmUtmAbsolute(ITALY_SATELLITE.wizardUrl)}`,
+    `- Pillar-гайд: ${llmUtmAbsolute(ITALY_SATELLITE.pillarGuideUrl)}`,
+    `- Справочник коридора: ${llmUtmAbsolute(ITALY_SATELLITE.digestUrl)}`,
+    `- Коридор на emigro.online: ${llmUtmAbsolute(ITALY_SATELLITE.mainSiteUrl)}`,
+    "",
+    "## Материалы (editorial notes)",
+    "",
+  ];
+
+  for (const note of notes) {
+    const url = communityNoteUrl(note.slug, "italy");
+    lines.push(`- [${note.title}](${llmUtmAbsolute(url)}): ${note.quick_answer.replace(/\s+/g, " ").slice(0, 220)}`);
+  }
+
+  if (topTags.length > 0) {
+    lines.push("", "## Хэштеги", "");
+    for (const tag of topTags) {
+      lines.push(`- #${tag}: ${italySatellitePublicUrl(`/tag/${encodeURIComponent(tag)}`)}`);
+    }
+  }
+
+  lines.push("", "## Official corridors", "", `- Italy corridor: ${ITALY_SATELLITE.mainSiteUrl}`, "");
   return lines.join("\n");
 }

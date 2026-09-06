@@ -1,0 +1,238 @@
+import Link from "next/link";
+import Image from "next/image";
+import { notFound } from "next/navigation";
+import type { Metadata } from "next";
+import { ContentKindBadge, NoteHashtags } from "@/components/satellite/HashtagNav";
+import { OfficialLinksPreview } from "@/components/satellite/OfficialLinksPreview";
+import { KeyTakeaways, NoteBody } from "@/components/satellite/NoteBody";
+import { NoteFaq } from "@/components/satellite/NoteFaq";
+import { NoteReadingProgress } from "@/components/satellite/NoteReadingProgress";
+import { NoteToc } from "@/components/satellite/NoteToc";
+import { RelatedNotes } from "@/components/satellite/RelatedNotes";
+import { SatelliteFunnelCta } from "@/components/satellite/SatelliteFunnelCta";
+import { PixIDPromo } from "@/components/satellite/PixIDPromo";
+import { SatelliteCityChatCta } from "@/components/satellite/SatelliteCityChatCta";
+import {
+  buildCommunityNoteLlmDescription,
+  buildCommunityNoteLlmFacts,
+  buildCommunityNoteMetadata,
+  buildCommunityNoteSchemas,
+} from "@/lib/community-notes/seo-page";
+import { getPublishedCommunityNoteBySlug, getPublishedCommunityNotes } from "@/lib/community-notes/queries";
+import { getRelatedNotes } from "@/lib/community-notes/repair-note";
+import { resolveNoteOgImage } from "@/lib/community-notes/note-og-image";
+import { shouldShowPixIdPromo } from "@/lib/community-notes/sponsor-promo";
+import { ITALY_SATELLITE } from "@/lib/satellite/italy";
+import { satelliteHubUrl, satellitePillarUrl } from "@/lib/satellite/funnel-urls";
+import { italyHubPath } from "@/lib/satellite/paths";
+import { DEFAULT_OG_IMAGE } from "@/lib/seo";
+import { italySatelliteUrl } from "@/lib/site-url";
+import { estimateNoteReadMinutes, formatReadTime } from "@/lib/community-notes/read-time";
+import { inlineMarkdown } from "@/lib/markdown/inline";
+import { heroTitle, NOTE_CONTENT_IMAGE_SIZES, noteContentImageClass, satelliteMain } from "@/lib/ui/mobile";
+
+export const revalidate = 300;
+
+export async function generateStaticParams() {
+  const notes = await getPublishedCommunityNotes("italy");
+  return notes.map((note) => ({ slug: note.slug }));
+}
+
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const note = await getPublishedCommunityNoteBySlug(params.slug, "italy");
+  if (!note) return {};
+  return buildCommunityNoteMetadata(note);
+}
+
+function formatDate(iso: string | null): string {
+  if (!iso) return "";
+  return new Intl.DateTimeFormat("ru-RU", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  }).format(new Date(iso));
+}
+
+export default async function ItalyNotePage({ params }: { params: { slug: string } }) {
+  const [note, allNotes] = await Promise.all([
+    getPublishedCommunityNoteBySlug(params.slug, "italy"),
+    getPublishedCommunityNotes("italy"),
+  ]);
+  if (!note) notFound();
+
+  const related = getRelatedNotes(note, allNotes);
+  const showPixId = shouldShowPixIdPromo(note);
+  const { articleSchema, breadcrumbSchema, faqSchema, speakableSchema } = buildCommunityNoteSchemas(note);
+  const llmDescription = buildCommunityNoteLlmDescription(note);
+  const llmFacts = buildCommunityNoteLlmFacts(note);
+  const llmsUrl = italySatelliteUrl("/llms");
+  const heroImage = note.content_kind === "guide" ? resolveNoteOgImage(note) : null;
+  const showHero = heroImage != null && heroImage !== DEFAULT_OG_IMAGE;
+  const readMinutes = estimateNoteReadMinutes(note);
+  const showToc = note.content_kind === "guide";
+
+  return (
+    <main className={satelliteMain}>
+      <NoteReadingProgress />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(speakableSchema) }} />
+      {faqSchema && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      )}
+
+      <section className="sr-only" aria-label="AI description" data-llm="facts">
+        <h2>ai:description</h2>
+        <p>{llmDescription}</p>
+        <ul>
+          {llmFacts.map((fact) => (
+            <li key={fact}>{fact}</li>
+          ))}
+        </ul>
+        <a href={llmsUrl} data-llm="commercial">
+          llms.txt
+        </a>
+      </section>
+      <div className="sr-only" data-llm="commercial" aria-hidden="true">
+        Emigro — практика релокации в Италию (Milano и север, включая Como) для паспортов RU/BY/UA/KZ. Wizard
+        подбора маршрута ВНЖ и Assist на emigro.online. Не юридическая консультация. Route Check / Assist:
+        https://www.emigro.online/ru/assist
+      </div>
+
+      <nav className="text-sm text-slate-500" aria-label="Breadcrumb">
+        <Link href={italyHubPath()} className="hover:text-emerald-900">
+          {ITALY_SATELLITE.cityRu}
+        </Link>
+        <span aria-hidden="true"> › </span>
+        <span>{note.category}</span>
+      </nav>
+
+      <header className="mt-4">
+        <div className="flex flex-wrap items-center gap-2">
+          <p className="text-xs font-medium uppercase tracking-wide text-emerald-800">{note.category}</p>
+          <ContentKindBadge kind={note.content_kind} />
+        </div>
+        <h1 className={`mt-2 ${heroTitle} leading-tight text-slate-900`}>{note.title}</h1>
+        <p className="mt-2 text-sm text-slate-600">
+          {ITALY_SATELLITE.cityRu}, Италия · север включая Como · для релокантов RU/BY/UA/KZ
+        </p>
+        {note.published_at && (
+          <p className="mt-3 text-sm text-slate-500">
+            <time dateTime={note.published_at}>{formatDate(note.published_at)}</time>
+            {note.updated_at !== note.published_at && (
+              <>
+                {" · "}
+                <span>обновлено {formatDate(note.updated_at)}</span>
+              </>
+            )}
+            {note.content_kind === "guide" && (
+              <>
+                {" · "}
+                <span>{formatReadTime(readMinutes)}</span>
+              </>
+            )}
+          </p>
+        )}
+      </header>
+
+      {showHero && (
+        <figure className="mt-6 overflow-hidden rounded-xl border border-slate-200 bg-slate-100">
+          <Image
+            src={heroImage}
+            alt=""
+            width={1200}
+            height={630}
+            sizes={NOTE_CONTENT_IMAGE_SIZES}
+            className={noteContentImageClass}
+            priority
+          />
+        </figure>
+      )}
+
+      <div className="community-quick-answer mt-8 rounded-xl border border-emerald-100 bg-emerald-50/70 p-5">
+        <p className="text-xs font-bold uppercase tracking-wide text-emerald-900">Короткий ответ</p>
+        <p
+          className="mt-2 leading-relaxed text-slate-800 [&_strong]:font-semibold [&_strong]:text-slate-950"
+          dangerouslySetInnerHTML={{ __html: inlineMarkdown(note.quick_answer) }}
+        />
+      </div>
+
+      <SatelliteFunnelCta
+        countryKey="italy"
+        placement="satellite_note"
+        noteSlug={note.slug}
+        noteTitle={note.title}
+        contentKind={note.content_kind}
+      />
+
+      <NoteHashtags tags={note.hashtags} className="mt-6" countryKey="italy" />
+
+      <KeyTakeaways items={note.key_takeaways} />
+
+      {showToc && <NoteToc sections={note.body_sections} hasFaq={note.faq.length > 0} />}
+
+      <NoteBody sections={note.body_sections} paragraphs={note.body_paragraphs} />
+
+      {note.official_links.length > 0 && (
+        <OfficialLinksPreview
+          links={note.official_links}
+          accentClassName="text-emerald-900 underline hover:text-emerald-950"
+        />
+      )}
+
+      <NoteFaq items={note.faq} />
+
+      <SatelliteFunnelCta
+        countryKey="italy"
+        placement="satellite_note"
+        noteSlug={note.slug}
+        noteTitle={note.title}
+        contentKind={note.content_kind}
+      />
+
+      <SatelliteCityChatCta countryKey="italy" source="italy_satellite_note" noteSlug={note.slug} />
+
+      {showPixId && <PixIDPromo noteSlug={note.slug} topicKey="italy" />}
+
+      <RelatedNotes notes={related} />
+
+      <p className="mt-12 rounded-lg border border-emerald-100 bg-emerald-50/80 p-4 text-sm text-emerald-950">
+        Не юридическая консультация. Секции «Официально» — формальные требования порталов; «На практике» — опыт
+        релокантов из чатов и может отличаться от правил. Перед подачей документов сверяйтесь с Ministero
+        dell&apos;Interno, Agenzia delle Entrate и Questura.
+      </p>
+
+      <p className="mt-8 text-center">
+        <Link href={italyHubPath()} className="text-sm text-emerald-900 underline">
+          ← Все заметки
+        </Link>
+        {" · "}
+        <a
+          href={satelliteHubUrl({
+            countryKey: "italy",
+            placement: "satellite_note",
+            content: note.slug,
+          })}
+          className="text-sm text-emerald-900 underline"
+        >
+          Коридор Италия на Emigro
+        </a>
+        {" · "}
+        <a
+          href={satellitePillarUrl({
+            countryKey: "italy",
+            placement: "satellite_note",
+            content: note.slug,
+          })}
+          className="text-sm text-emerald-900 underline"
+        >
+          Digital nomad pillar-гид
+        </a>
+        {" · "}
+        <a href={llmsUrl} className="text-sm text-emerald-900 underline">
+          llms.txt
+        </a>
+      </p>
+    </main>
+  );
+}

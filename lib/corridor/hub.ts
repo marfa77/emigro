@@ -15,6 +15,7 @@ import {
   spainSatelliteHubUrl,
   SPAIN_URL_SEGMENT,
 } from "@/lib/spain/hub";
+import { isItalyHubTopic, italySatelliteHubUrl } from "@/lib/italy/hub";
 import { publicSiteUrl } from "@/lib/site-url";
 import { corridorHubLabel } from "@/lib/corridor/hub-label";
 import { getEmigroScore, toEmigroScoreView, type EmigroScoreView } from "@/lib/emigro-score";
@@ -42,6 +43,7 @@ export type HubTileIcon = "compass" | "newspaper" | "book" | "sticky" | "shoppin
 export type CorridorHubFeatures = {
   isPortugal: boolean;
   isSpain: boolean;
+  isItaly: boolean;
   hasWizard: boolean;
   hasNews: boolean;
   hasPractice: boolean;
@@ -50,6 +52,7 @@ export type CorridorHubFeatures = {
 
 function satellitePracticeHubUrl(topic: NewsTopicConfig): string {
   if (isSpainHubTopic(topic)) return spainSatelliteHubUrl();
+  if (isItalyHubTopic(topic)) return italySatelliteHubUrl();
   return portugalSatelliteHubUrl();
 }
 
@@ -89,12 +92,14 @@ export type CorridorHubNavItem = {
 export function getCorridorHubFeatures(topic: NewsTopicConfig): CorridorHubFeatures {
   const isPortugal = isPortugalHubTopic(topic);
   const isSpain = isSpainHubTopic(topic);
+  const isItaly = isItalyHubTopic(topic);
   return {
     isPortugal,
     isSpain,
+    isItaly,
     hasWizard: topicHasWizard(topic),
     hasNews: true,
-    hasPractice: isPortugal || isSpain,
+    hasPractice: isPortugal || isSpain || isItaly,
     hasMarket: isBarakhloSitePromoEnabled(),
   };
 }
@@ -392,17 +397,27 @@ export function resolveCorridorHubTiles(
         external: true,
         image: practiceTileImage(topic),
         imagePosition: "50% 45%",
-        gradient: features.isSpain
+        gradient: features.isItaly
+          ? "from-emerald-950/88 via-green-950/70 to-slate-950/88"
+          : features.isSpain
           ? "from-amber-950/88 via-orange-950/70 to-slate-950/88"
           : "from-teal-950/88 via-cyan-950/70 to-slate-950/88",
-        glow: features.isSpain ? "from-amber-300/25 to-transparent" : "from-teal-300/25 to-transparent",
+        glow: features.isItaly
+          ? "from-emerald-300/25 to-transparent"
+          : features.isSpain
+            ? "from-amber-300/25 to-transparent"
+            : "from-teal-300/25 to-transparent",
         title: "Практика",
-        subtitle: features.isSpain ? "Valencia" : "Lisbon",
+        subtitle: features.isItaly ? "Milano" : features.isSpain ? "Valencia" : "Lisbon",
         topLeft: String(stats.practiceNotes),
         topLeftHint: "заметок",
         topRightIcon: "sticky",
         topRightLabel: "Live",
-        bottomLeft: features.isSpain ? "#nie · #tie · #аренда" : "#aima · #nif · #аренда",
+        bottomLeft: features.isItaly
+          ? "#codice · #permesso · #аренда"
+          : features.isSpain
+            ? "#nie · #tie · #аренда"
+            : "#aima · #nif · #аренда",
         bottomRight: "Community",
         ratings: [],
         hubLabel,

@@ -8,8 +8,10 @@ import { CorridorLandingSeoSections } from "@/components/corridor/CorridorLandin
 import { CorridorWizardPulseSectionSuspense } from "@/components/wizard/CorridorWizardPulseSection";
 import { PortugalFeaturedNotes } from "@/components/portugal/PortugalFeaturedNotes";
 import { SpainFeaturedNotes } from "@/components/spain/SpainFeaturedNotes";
+import { ItalyFeaturedNotes } from "@/components/italy/ItalyFeaturedNotes";
 import { isPortugalHubTopic } from "@/lib/portugal/hub";
 import { isSpainHubTopic } from "@/lib/spain/hub";
+import { isItalyHubTopic } from "@/lib/italy/hub";
 import { GuideDigestPreview } from "@/components/corridor/GuideDigestPreview";
 import { LatestNewsTeaserSuspense } from "@/components/news/LatestNewsTeaser";
 import { ServiceProvidersSection } from "@/components/providers/ServiceProvidersSection";
@@ -191,6 +193,7 @@ export async function CorridorLanding({ country }: { country: string }) {
 
         {isPortugalHubTopic(topic) && <PortugalFeaturedNotes />}
         {isSpainHubTopic(topic) && <SpainFeaturedNotes />}
+        {isItalyHubTopic(topic) && <ItalyFeaturedNotes />}
 
         <CorridorLandingSeoSections topic={topic} corridor={corridor} landingPath={base} />
 

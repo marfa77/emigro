@@ -168,3 +168,59 @@ export function spainSatelliteUrl(path = ""): string {
   }
   return `${origin}${normalized === "/" ? "" : normalized}`;
 }
+
+const ITALY_SATELLITE_SUBDOMAIN = "https://italy.emigro.online";
+const ITALY_SATELLITE_PATH = "/satellite/italy";
+
+/** Subdomain is live; opt out with ITALY_SATELLITE_USE_SUBDOMAIN=false. */
+export function italySatelliteSubdomainEnabled(): boolean {
+  const flag = process.env.ITALY_SATELLITE_USE_SUBDOMAIN?.trim().toLowerCase();
+  if (flag === "false") return false;
+  if (flag === "true") return true;
+  return process.env.NODE_ENV === "production";
+}
+
+function italySatelliteOrigin(): string {
+  if (italySatelliteSubdomainEnabled()) {
+    return ITALY_SATELLITE_SUBDOMAIN;
+  }
+  const publicEnv = process.env.EMIGRO_PUBLIC_SITE_URL?.trim();
+  if (publicEnv && !isLocalhostUrl(publicEnv)) {
+    return `${stripTrailingSlash(publicEnv)}${ITALY_SATELLITE_PATH}`;
+  }
+  if (process.env.NODE_ENV === "production") {
+    return `${publicSiteUrl()}${ITALY_SATELLITE_PATH}`;
+  }
+  const site = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+  if (site && !isLocalhostUrl(site)) {
+    return `${stripTrailingSlash(site)}${ITALY_SATELLITE_PATH}`;
+  }
+  return `${LOCALHOST_FALLBACK}${ITALY_SATELLITE_PATH}`;
+}
+
+/** Canonical URL for Italy satellite — never localhost (Threads, DB, SEO). */
+export function italySatellitePublicUrl(path = ""): string {
+  const normalized = path.startsWith("/") ? path : path ? `/${path}` : "";
+  if (italySatelliteSubdomainEnabled()) {
+    return `${ITALY_SATELLITE_SUBDOMAIN}${normalized === "/" ? "" : normalized}`;
+  }
+  const publicEnv = process.env.EMIGRO_PUBLIC_SITE_URL?.trim();
+  if (publicEnv && !isLocalhostUrl(publicEnv)) {
+    return `${stripTrailingSlash(publicEnv)}${ITALY_SATELLITE_PATH}${normalized === "/" ? "" : normalized}`;
+  }
+  const site = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+  if (site && !isLocalhostUrl(site)) {
+    return `${stripTrailingSlash(site)}${ITALY_SATELLITE_PATH}${normalized === "/" ? "" : normalized}`;
+  }
+  return `${ITALY_SATELLITE_SUBDOMAIN}${normalized === "/" ? "" : normalized}`;
+}
+
+/** Runtime URL for Italy satellite pages (localhost in local dev). */
+export function italySatelliteUrl(path = ""): string {
+  const normalized = path.startsWith("/") ? path : path ? `/${path}` : "";
+  const origin = italySatelliteOrigin();
+  if (origin.endsWith(ITALY_SATELLITE_PATH)) {
+    return `${origin}${normalized === "/" ? "" : normalized}`;
+  }
+  return `${origin}${normalized === "/" ? "" : normalized}`;
+}

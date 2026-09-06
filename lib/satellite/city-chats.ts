@@ -1,4 +1,4 @@
-import { publicSiteUrl, portugalSatelliteUrl, spainSatelliteUrl } from "@/lib/site-url";
+import { publicSiteUrl, portugalSatelliteUrl, spainSatelliteUrl, italySatelliteUrl } from "@/lib/site-url";
 
 export type SatelliteCityChat = {
   countryKey: string;
@@ -50,6 +50,21 @@ export const SATELLITE_CITY_CHATS: readonly SatelliteCityChat[] = [
       "Для своих в Валенсии: публикуем важное, общаемся, эксперты отвечают на вопросы. Бот пришлёт ссылку в личку. NIE/TIE и cita — в гайдах и Route Check, не стеной в чате.",
     featuredNoteSlug: "nie-empadronamiento-poryadok-2026",
     featuredNoteLabel: "NIE и empadronamiento",
+  },
+  {
+    countryKey: "italy",
+    city: "milan",
+    cityRu: "Милан",
+    chatTitleRu: "Милан и вокруг",
+    startPayload: "milan_chat",
+    envChatId: "EMIGRO_MILAN_CHAT_ID",
+    fallbackChatId: "-1004380721749",
+    keywords: ["милан", "milan", "milano", "комо", "como"],
+    kicker: "Для своих",
+    blurb:
+      "Для своих в Милане и вокруг (север, включая Комо): публикуем важное, общаемся, эксперты отвечают на вопросы. Бот пришлёт ссылку в личку. Codice fiscale и permesso — в гайдах и Route Check, не стеной в чате.",
+    featuredNoteSlug: "codice-fiscale-milano-2026",
+    featuredNoteLabel: "Codice fiscale в Milano",
   },
 ];
 
@@ -125,6 +140,7 @@ export function matchCityChatKeyword(text: string): SatelliteCityChat | undefine
 export function satelliteUrlForCountry(countryKey: string, path = "/"): string {
   const normalized = path.startsWith("/") ? path : path ? `/${path}` : "/";
   if (countryKey === "spain") return spainSatelliteUrl(normalized);
+  if (countryKey === "italy") return italySatelliteUrl(normalized);
   if (countryKey === "portugal") return portugalSatelliteUrl(normalized);
   return `${publicSiteUrl()}/satellite/${countryKey}${normalized === "/" ? "" : normalized}`;
 }

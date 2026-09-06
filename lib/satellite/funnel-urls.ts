@@ -5,6 +5,7 @@
 import type { SatelliteCountryKey } from "@/lib/community-notes/seed";
 import { PORTUGAL_SATELLITE } from "@/lib/satellite/portugal";
 import { SPAIN_SATELLITE } from "@/lib/satellite/spain";
+import { ITALY_SATELLITE } from "@/lib/satellite/italy";
 
 export type SatelliteFunnelPlacement =
   | "satellite_note"
@@ -30,7 +31,9 @@ function withUtm(rawUrl: string, campaign: string, opts: UtmOpts): string {
 }
 
 function satelliteConfig(countryKey: SatelliteCountryKey) {
-  return countryKey === "spain" ? SPAIN_SATELLITE : PORTUGAL_SATELLITE;
+  if (countryKey === "spain") return SPAIN_SATELLITE;
+  if (countryKey === "italy") return ITALY_SATELLITE;
+  return PORTUGAL_SATELLITE;
 }
 
 /** Absolute Assist URL on www (Route Check / accompaniment intake). */

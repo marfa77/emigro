@@ -79,6 +79,21 @@ export const COMMITTED_NOTE_OG_SLUGS = new Set([
   "shkoly-semya-valencia-2026",
   "zheltye-stranitsy-relokanta-valencia-2026",
   "klimat-byt-valencia-4-6-mes-2026",
+  "pervye-30-dnej-v-italii-satelit-2026",
+  "codice-fiscale-milano-2026",
+  "sim-internet-luce-milano-2026",
+  "arenda-milano-idealista-2026",
+  "permesso-questura-milano-2026",
+  "bank-iban-nerezident-italiya-2026",
+  "meditsina-milano-ssn-tessera-2026",
+  "milano-rajony-arenda-metro-como-2026",
+  "vnj-italiya-nomade-elective-2026",
+  "transport-milano-atm-trenord-2026",
+  "shkoly-semya-milano-como-2026",
+  "zheltye-stranitsy-relokanta-milano-2026",
+  "zapis-konsulstvo-italiya-pasport-2026",
+  "inps-partita-iva-milano-2026",
+  "klimat-byt-milano-nord-como-2026",
 ]);
 
 const MANIFEST_PATH = path.join(process.cwd(), "lib/community-notes/note-og-slugs.ts");

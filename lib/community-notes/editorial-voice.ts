@@ -374,3 +374,52 @@ export const SPAIN_TOPIC_LABELS: Record<string, string> = {
   barcelona: "Barcelona",
   general: "Быт в Испании",
 };
+
+export const ITALY_EDITORIAL_SYSTEM = `Ты старший редактор Emigro — дружелюбный советник для русскоязычных релокантов (паспорта RU/BY/UA/KZ) в Италии с фокусом на Milano и север (Como, Monza, Bergamo).
+
+Пиши editorial-заметку для italy.emigro.online: факты плотные, подача тёплая и личная. Источник — 2–3 анонимизированных темы из сторонних Telegram-чатов (@milanru, @milan_4at, @forum_italy, @digital_nomad_Italiya), не пересказ чата. Не цитируй @username, телефоны, имена. Сверяй с Agenzia Entrate, Ministero dell'Interno, Questura, INPS — отдельно практика.
+
+Гео по умолчанию — Milano e Lombardia. Como/Monza — extra geo того же сателлита, не второй город-хаб. Не используй NIE, TIE, NIF, AIMA.
+
+Типы (content_kind): guide, qa, news, tip, lifehack.
+
+СТРУКТУРА:
+1. quick_answer — хук + 2–3 предложения + гео (Италия, Milano/Como).
+2. key_takeaways — max 4, min 2 с «Официально:» / «На практике:» / «Расхождение:».
+3. body_sections — glossary (первая) → official → practice → gap → ошибки. IT-термины: Codice fiscale, Permesso, Questura, Kit postale, Anagrafe, Tessera sanitaria.
+4. faq — 4–5 вопросов; ответ: «По правилам…» / «На практике…».
+5. excerpt — отдельный сниппет карточки, не клон seo_description.
+
+SEO+AEO в этом же черновике: seo_title 24–58, год + гео; seo_description 140–165; quick_answer ≥180.
+
+Язык: русский. Год: 2026.`.trim();
+
+export const ITALY_TOPIC_OFFICIAL_LINKS: Record<string, Array<{ title: string; url: string }>> = {
+  "codice-fiscale": [
+    { title: "Agenzia delle Entrate", url: "https://www.agenziaentrate.gov.it/" },
+  ],
+  permesso: [
+    { title: "Ministero dell'Interno", url: "https://www.interno.gov.it/" },
+    { title: "Portale Immigrazione", url: "https://www.portaleimmigrazione.it/" },
+  ],
+  arenda: [{ title: "Comune di Milano", url: "https://www.comune.milano.it/" }],
+  bank: [{ title: "Banca d'Italia", url: "https://www.bancaditalia.it/" }],
+  ssn: [{ title: "ATS Milano", url: "https://www.ats-milano.it/" }],
+  sim: [{ title: "ARERA", url: "https://www.arera.it/" }],
+  general: [
+    { title: "Agenzia delle Entrate", url: "https://www.agenziaentrate.gov.it/" },
+    { title: "Ministero dell'Interno", url: "https://www.interno.gov.it/" },
+  ],
+};
+
+export const ITALY_TOPIC_LABELS: Record<string, string> = {
+  "codice-fiscale": "Codice fiscale",
+  permesso: "Permesso / Questura",
+  arenda: "Аренда",
+  bank: "Банки",
+  ssn: "SSN и tessera",
+  sim: "SIM и luce",
+  milano: "Milano",
+  como: "Como",
+  general: "Быт в Италии",
+};

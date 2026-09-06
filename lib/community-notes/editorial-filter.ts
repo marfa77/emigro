@@ -53,6 +53,26 @@ export const SPAIN_TOPIC_PATTERNS: Array<{ topic: string; re: RegExp }> = [
   { topic: "valencia", re: /\b(valencia|валенс|comunidad valenciana)\b/i },
 ];
 
+export const ITALY_CORE_RELOC_TOPICS = new Set([
+  "codice-fiscale",
+  "permesso",
+  "arenda",
+  "bank",
+  "ssn",
+  "sim",
+  "milano",
+]);
+
+export const ITALY_TOPIC_PATTERNS: Array<{ topic: string; re: RegExp }> = [
+  { topic: "codice-fiscale", re: /\b(codice fiscale|codice-fiscale|aa4|agenzia entrate)\b/i },
+  { topic: "permesso", re: /\b(permesso|questura|kit postale|soggiorno)\b/i },
+  { topic: "bank", re: /\b(bank|банк|iban|intesa|unicredit|сч[её]t)\b/i },
+  { topic: "arenda", re: /\b(arenda|аренд|affitto|idealista|caparra)\b/i },
+  { topic: "ssn", re: /\b(ssn|tessera sanitaria|ats|medico di base)\b/i },
+  { topic: "sim", re: /\b(sim|интернет|luce|gas|arera|iliad)\b/i },
+  { topic: "milano", re: /\b(milan|milano|милан|como|комо)\b/i },
+];
+
 /** Tangential chat topics — skip auto-publish unless manually curated. */
 export const SKIP_AUTO_PUBLISH_TOPICS = new Set(["school", "food"]);
 
@@ -90,10 +110,11 @@ export function reconcileTopic(
   topic: string,
   title: string,
   slug: string,
-  countryKey: "portugal" | "spain" = "portugal"
+  countryKey: "portugal" | "spain" | "italy" = "portugal"
 ): string {
   const text = `${title} ${slug}`;
-  const patterns = countryKey === "spain" ? SPAIN_TOPIC_PATTERNS : TOPIC_PATTERNS;
+  const patterns =
+    countryKey === "spain" ? SPAIN_TOPIC_PATTERNS : countryKey === "italy" ? ITALY_TOPIC_PATTERNS : TOPIC_PATTERNS;
   for (const { topic: inferred, re } of patterns) {
     if (re.test(text)) return inferred;
   }
@@ -114,7 +135,7 @@ const NEWS_MAX_AGE_DAYS = 45;
 /** Single-signal channel digests can become news notes (unlike practice guides). */
 export function isPublishableNewsCluster(
   cluster: SignalCluster,
-  countryKey: "portugal" | "spain" = "portugal"
+  countryKey: "portugal" | "spain" | "italy" = "portugal"
 ): boolean {
   if (cluster.contentKind !== "news") return false;
   if (cluster.signals.length < 1) return false;
@@ -130,7 +151,12 @@ export function isPublishableNewsCluster(
   // Text must match — parser topic_hints often false-positive (auto/food on lifestyle posts).
   if (!NEWS_RELOC_RE.test(text)) return false;
 
-  const coreTopics = countryKey === "spain" ? SPAIN_CORE_RELOC_TOPICS : CORE_RELOC_TOPICS;
+  const coreTopics =
+    countryKey === "spain"
+      ? SPAIN_CORE_RELOC_TOPICS
+      : countryKey === "italy"
+        ? ITALY_CORE_RELOC_TOPICS
+        : CORE_RELOC_TOPICS;
   if (SKIP_AUTO_PUBLISH_TOPICS.has(cluster.topic) && !coreTopics.has(cluster.topic)) {
     return false;
   }
@@ -139,7 +165,7 @@ export function isPublishableNewsCluster(
 
 export function shouldAutoPublishCluster(
   cluster: SignalCluster,
-  countryKey: "portugal" | "spain" = "portugal"
+  countryKey: "portugal" | "spain" | "italy" = "portugal"
 ): boolean {
   const text = cluster.signals.map((s) => s.text).join("\n");
   if (isThinHouseholdTopic(text, cluster.topic)) {
@@ -154,7 +180,12 @@ export function shouldAutoPublishCluster(
   }
   if (SKIP_AUTO_PUBLISH_TOPICS.has(cluster.topic)) return false;
   if (cluster.signals.length < 2) return false;
-  const coreTopics = countryKey === "spain" ? SPAIN_CORE_RELOC_TOPICS : CORE_RELOC_TOPICS;
+  const coreTopics =
+    countryKey === "spain"
+      ? SPAIN_CORE_RELOC_TOPICS
+      : countryKey === "italy"
+        ? ITALY_CORE_RELOC_TOPICS
+        : CORE_RELOC_TOPICS;
   if (cluster.topic === "general") return cluster.signals.length >= 5;
   return coreTopics.has(cluster.topic) || cluster.topic === "general";
 }

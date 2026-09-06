@@ -4,6 +4,7 @@ import { PERVYJ_MESYAC_CHECKLIST_GUIDE } from "@/lib/community-notes/guides/perv
 import { NIF_PORTO_GUIDE } from "@/lib/community-notes/guides/nif-porto";
 import { AIMA_AGORA_GUIDE } from "@/lib/community-notes/guides/aima-agora-zapis";
 import { SPAIN_EDITORIAL_SEED } from "@/lib/community-notes/guides/spain-editorial-index";
+import { ITALY_EDITORIAL_SEED } from "@/lib/community-notes/guides/italy-editorial-index";
 import type { CommunityNoteFaq, ContentKind, NoteBodySection } from "@/lib/community-notes/types";
 
 type SeedNote = {
@@ -157,6 +158,40 @@ export async function publishSpainSeedNotes(): Promise<number> {
       city: "valencia",
       source_channel: "valenforum+spain_granitsa+spainchats",
       source_label: "editorial:spain-seed",
+      status: "published",
+      published_at: now,
+      updated_at: now,
+    });
+
+    if (error) {
+      console.warn(`[seed] ${note.slug}: ${error.message}`);
+    } else {
+      published += 1;
+      console.log(`[seed] published ${note.slug}`);
+    }
+  }
+
+  return published;
+}
+
+export async function publishItalySeedNotes(): Promise<number> {
+  const supabase = createServerClient();
+  const now = new Date().toISOString();
+  let published = 0;
+
+  for (const note of ITALY_EDITORIAL_SEED) {
+    const { data: existing } = await supabase.from("community_notes").select("id").eq("slug", note.slug).maybeSingle();
+    if (existing) continue;
+
+    const { error } = await supabase.from("community_notes").insert({
+      ...note,
+      body_sections: note.body_sections ?? [],
+      key_takeaways: note.key_takeaways ?? [],
+      hashtags: buildNoteHashtags({ topicTags: note.topic_tags, contentKind: note.content_kind }),
+      country_key: "italy",
+      city: "milan",
+      source_channel: "milanru+forum_italy+digital_nomad_Italiya",
+      source_label: "editorial:italy-seed",
       status: "published",
       published_at: now,
       updated_at: now,

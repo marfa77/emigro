@@ -11,9 +11,7 @@ import { satelliteAssistUrl } from "@/lib/satellite/funnel-urls";
 export function SatelliteAssistIntake({ countryKey }: { countryKey: SatelliteCountryKey }) {
   const allCountries = getAssistCountryOptions();
   const countries = allCountries.filter((c) => c.value === countryKey);
-  const fallback = allCountries.filter((c) =>
-    countryKey === "spain" ? c.value === "spain" : c.value === "portugal"
-  );
+  const fallback = allCountries.filter((c) => c.value === countryKey);
   const countryOptions = (countries.length > 0 ? countries : fallback).map((c) => ({
     label: c.label,
     value: c.value,
@@ -33,6 +31,8 @@ export function SatelliteAssistIntake({ countryKey }: { countryKey: SatelliteCou
   const accent =
     countryKey === "spain"
       ? "border-amber-200 bg-amber-50/50"
+      : countryKey === "italy"
+        ? "border-emerald-200 bg-emerald-50/50"
       : "border-teal-200 bg-teal-50/50";
 
   const fallbackUrl = satelliteAssistUrl({

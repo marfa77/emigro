@@ -52,8 +52,28 @@ export const SPAIN_FEATURED_HASHTAGS = [
   "sim",
 ] as const;
 
-export function featuredHashtagsForCountry(countryKey: "portugal" | "spain" = "portugal"): readonly string[] {
-  return countryKey === "spain" ? SPAIN_FEATURED_HASHTAGS : FEATURED_HASHTAGS;
+export const ITALY_FEATURED_HASHTAGS = [
+  "codice-fiscale",
+  "permesso",
+  "questura",
+  "arenda",
+  "bank",
+  "milano",
+  "como",
+  "ssn",
+  "лайфхак",
+  "совет",
+  "новости",
+  "транспорт",
+  "sim",
+] as const;
+
+export function featuredHashtagsForCountry(
+  countryKey: "portugal" | "spain" | "italy" = "portugal"
+): readonly string[] {
+  if (countryKey === "spain") return SPAIN_FEATURED_HASHTAGS;
+  if (countryKey === "italy") return ITALY_FEATURED_HASHTAGS;
+  return FEATURED_HASHTAGS;
 }
 
 export const HASHTAG_LABELS: Record<string, string> = {
@@ -96,6 +116,12 @@ export const HASHTAG_LABELS: Record<string, string> = {
   valencia: "Валенсия",
   madrid: "Мадрид",
   barcelona: "Барселона",
+  "codice-fiscale": "Codice fiscale",
+  permesso: "Permesso",
+  questura: "Questura",
+  milano: "Milano",
+  como: "Como",
+  ssn: "SSN",
 };
 
 export function normalizeHashtag(raw: string): string {

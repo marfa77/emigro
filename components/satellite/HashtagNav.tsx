@@ -13,21 +13,31 @@ import { layoutContain, mobileScrollRow, tapTarget } from "@/lib/ui/mobile";
 
 function resolveCountryKey(notes: CommunityNote[], explicit?: SatelliteCountryKey): SatelliteCountryKey {
   if (explicit) return explicit;
-  return notes[0]?.country_key === "spain" ? "spain" : "portugal";
+  const key = notes[0]?.country_key;
+  if (key === "spain" || key === "italy") return key;
+  return "portugal";
 }
 
 function accentClasses(countryKey: SatelliteCountryKey) {
-  return countryKey === "spain"
-    ? {
-        active: "bg-amber-700 text-white",
-        idle: "bg-slate-100 text-slate-700 hover:bg-amber-50 hover:text-amber-900",
-        tag: "bg-amber-50 text-amber-900 hover:bg-amber-100",
-      }
-    : {
-        active: "bg-teal-700 text-white",
-        idle: "bg-slate-100 text-slate-700 hover:bg-teal-50 hover:text-teal-800",
-        tag: "bg-teal-50 text-teal-800 hover:bg-teal-100",
-      };
+  if (countryKey === "spain") {
+    return {
+      active: "bg-amber-700 text-white",
+      idle: "bg-slate-100 text-slate-700 hover:bg-amber-50 hover:text-amber-900",
+      tag: "bg-amber-50 text-amber-900 hover:bg-amber-100",
+    };
+  }
+  if (countryKey === "italy") {
+    return {
+      active: "bg-emerald-700 text-white",
+      idle: "bg-slate-100 text-slate-700 hover:bg-emerald-50 hover:text-emerald-900",
+      tag: "bg-emerald-50 text-emerald-900 hover:bg-emerald-100",
+    };
+  }
+  return {
+    active: "bg-teal-700 text-white",
+    idle: "bg-slate-100 text-slate-700 hover:bg-teal-50 hover:text-teal-800",
+    tag: "bg-teal-50 text-teal-800 hover:bg-teal-100",
+  };
 }
 
 export function HashtagNav({

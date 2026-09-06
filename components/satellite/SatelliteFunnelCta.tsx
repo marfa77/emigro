@@ -22,21 +22,31 @@ type Props = {
 };
 
 function accent(countryKey: SatelliteCountryKey) {
-  return countryKey === "spain"
-    ? {
-        shell: "border-amber-200 bg-amber-50/70",
-        eyebrow: "text-amber-900",
-        primary: "bg-amber-800 text-white hover:bg-amber-900",
-        secondary: "border-amber-300 bg-white text-amber-950 hover:bg-amber-50",
-        link: "text-amber-900 hover:text-amber-950",
-      }
-    : {
-        shell: "border-teal-200 bg-teal-50/70",
-        eyebrow: "text-teal-800",
-        primary: "bg-teal-700 text-white hover:bg-teal-800",
-        secondary: "border-teal-300 bg-white text-teal-900 hover:bg-teal-50",
-        link: "text-teal-800 hover:text-teal-950",
-      };
+  if (countryKey === "spain") {
+    return {
+      shell: "border-amber-200 bg-amber-50/70",
+      eyebrow: "text-amber-900",
+      primary: "bg-amber-800 text-white hover:bg-amber-900",
+      secondary: "border-amber-300 bg-white text-amber-950 hover:bg-amber-50",
+      link: "text-amber-900 hover:text-amber-950",
+    };
+  }
+  if (countryKey === "italy") {
+    return {
+      shell: "border-emerald-200 bg-emerald-50/70",
+      eyebrow: "text-emerald-900",
+      primary: "bg-emerald-800 text-white hover:bg-emerald-900",
+      secondary: "border-emerald-300 bg-white text-emerald-950 hover:bg-emerald-50",
+      link: "text-emerald-900 hover:text-emerald-950",
+    };
+  }
+  return {
+    shell: "border-teal-200 bg-teal-50/70",
+    eyebrow: "text-teal-800",
+    primary: "bg-teal-700 text-white hover:bg-teal-800",
+    secondary: "border-teal-300 bg-white text-teal-900 hover:bg-teal-50",
+    link: "text-teal-800 hover:text-teal-950",
+  };
 }
 
 /**
@@ -53,7 +63,7 @@ export function SatelliteFunnelCta({
   const a = accent(countryKey);
   const content = noteSlug ?? "hub";
   const preferAssist = contentKind === "guide" || contentKind === "qa" || !contentKind;
-  const countryLabel = countryKey === "spain" ? "Испания" : "Португалия";
+  const countryLabel = countryKey === "spain" ? "Испания" : countryKey === "italy" ? "Италия" : "Португалия";
 
   const assistHref = satelliteAssistUrl({ countryKey, placement, content });
   const wizardHref = satelliteWizardUrl({ countryKey, placement, content });

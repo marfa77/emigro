@@ -17,21 +17,30 @@ function formatDate(iso: string | null): string {
 }
 
 function noteCountryKey(note: CommunityNote): SatelliteCountryKey {
-  return note.country_key === "spain" ? "spain" : "portugal";
+  if (note.country_key === "spain" || note.country_key === "italy") return note.country_key;
+  return "portugal";
 }
 
 function accentClasses(countryKey: SatelliteCountryKey) {
-  return countryKey === "spain"
-    ? {
-        border: "hover:border-amber-200",
-        category: "text-amber-800",
-        title: "hover:text-amber-900",
-      }
-    : {
-        border: "hover:border-teal-200",
-        category: "text-teal-700",
-        title: "hover:text-teal-800",
-      };
+  if (countryKey === "spain") {
+    return {
+      border: "hover:border-amber-200",
+      category: "text-amber-800",
+      title: "hover:text-amber-900",
+    };
+  }
+  if (countryKey === "italy") {
+    return {
+      border: "hover:border-emerald-200",
+      category: "text-emerald-800",
+      title: "hover:text-emerald-900",
+    };
+  }
+  return {
+    border: "hover:border-teal-200",
+    category: "text-teal-700",
+    title: "hover:text-teal-800",
+  };
 }
 
 export function NoteCard({ note }: { note: CommunityNote }) {

@@ -132,7 +132,7 @@ function politicsAsGuideErrors(input: DraftQualityInput): string[] {
 /** Returns human-readable quality errors; empty = pass. */
 export function validateNoteDraft(
   input: DraftQualityInput,
-  countryKey: "portugal" | "spain" = "portugal"
+  countryKey: "portugal" | "spain" | "italy" = "portugal"
 ): string[] {
   const errors: string[] = [];
   const rules = MIN_BY_KIND[input.content_kind] ?? MIN_BY_KIND.guide;
@@ -147,11 +147,15 @@ export function validateNoteDraft(
   const geoOk =
     countryKey === "spain"
       ? /испан|valencia|валенс|madrid|barcelona|barcelon|nie|tie|extranjer/i.test(geoText)
+      : countryKey === "italy"
+        ? /итал|milan|милан|milano|como|комо|lombard|codice fiscale|permesso|questura/i.test(geoText)
       : /португал|lisbon|лиссабон|porto|порту|norte|север|брага|minho/i.test(geoText);
   if (!geoOk) {
     errors.push(
       countryKey === "spain"
         ? "missing geo (Испания/Valencia) in quick_answer or seo_description"
+        : countryKey === "italy"
+          ? "missing geo (Италия/Milano) in quick_answer or seo_description"
         : "missing geo (Португалия/Порту/Norte) in quick_answer or seo_description"
     );
   }

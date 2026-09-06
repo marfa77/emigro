@@ -111,7 +111,10 @@ function guideSlotsFromMod(country: string, mod: Record<string, unknown>): Parti
 
 async function main() {
   const country = arg("country");
-  const city = arg("city", country === "portugal" ? "porto" : country === "spain" ? "valencia" : undefined);
+  const city = arg(
+    "city",
+    country === "portugal" ? "porto" : country === "spain" ? "valencia" : country === "italy" ? "milan" : undefined
+  );
   const errors: string[] = [];
   const warns: string[] = [];
 
@@ -244,7 +247,7 @@ async function main() {
             errors.push(`GUIDE_SLOTS ${slot} (${slug}) is ${row.content_kind}, must be guide`);
           }
         }
-        const blueprintCountry = country === "spain" ? "spain" : "portugal";
+        const blueprintCountry = country === "spain" || country === "italy" ? country : "portugal";
         const slugToSlot = new Map<string, SatelliteLaunchSlot>();
         for (const slot of SATELLITE_LAUNCH_SLOTS) {
           const slug = slots[slot];
@@ -253,7 +256,7 @@ async function main() {
         const webpHashes = new Map<string, string>();
         for (const g of guideKind) {
           const gate = [
-            ...validateNoteDraft(g, country === "spain" ? "spain" : "portugal"),
+            ...validateNoteDraft(g, blueprintCountry),
             ...validateOfficialPracticeCopy(g),
           ];
           const words = guideWords(g);
@@ -284,7 +287,7 @@ async function main() {
             errors.push(`${g.slug}: ${gap}`);
           }
           if (gate.length) errors.push(`${g.slug}: ${gate.join("; ")}`);
-          if (country === "spain" || country === "portugal") {
+          if (country === "spain" || country === "portugal" || country === "italy") {
             const bp = validateAgainstBlueprint(g, blueprintCountry);
             if (bp.errors.length) errors.push(`${g.slug} blueprint: ${bp.errors.join("; ")}`);
           }

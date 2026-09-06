@@ -39,7 +39,7 @@ ssh -i "${SSH_KEY}" -o StrictHostKeyChecking=no "${SERVER_USER}@${SERVER_HOST}" 
    . .venv/bin/activate; \
    pip install -q -U pip; \
    pip install -q -r requirements.txt; \
-   chmod +x run_scheduled.sh run_scheduled_spain.sh run_daily.sh deploy.sh; \
+   chmod +x run_scheduled.sh run_scheduled_spain.sh run_scheduled_italy.sh run_daily.sh deploy.sh; \
    mkdir -p logs out; \
    chown -R www-data:www-data logs out; \
    cd ${REMOTE}; \
@@ -52,6 +52,8 @@ ssh -i "${SSH_KEY}" -o StrictHostKeyChecking=no "${SERVER_USER}@${SERVER_HOST}" 
    cp ${REMOTE}/deploy/systemd/emigro-portugal-community.timer /etc/systemd/system/; \
    cp ${REMOTE}/deploy/systemd/emigro-spain-community.service /etc/systemd/system/; \
    cp ${REMOTE}/deploy/systemd/emigro-spain-community.timer /etc/systemd/system/; \
+   cp ${REMOTE}/deploy/systemd/emigro-italy-community.service /etc/systemd/system/; \
+   cp ${REMOTE}/deploy/systemd/emigro-italy-community.timer /etc/systemd/system/; \
    cp ${REMOTE}/deploy/systemd/emigro-prep2go-news.service /etc/systemd/system/; \
    cp ${REMOTE}/deploy/systemd/emigro-prep2go-news.timer /etc/systemd/system/; \
    cp ${REMOTE}/deploy/systemd/emigro-portugal-news-stories.service /etc/systemd/system/; \
@@ -89,9 +91,11 @@ ssh -i "${SSH_KEY}" -o StrictHostKeyChecking=no "${SERVER_USER}@${SERVER_HOST}" 
    systemctl enable --now emigro-news-guide-promo.timer; \
    systemctl enable --now emigro-portugal-community.timer; \
    systemctl enable --now emigro-spain-community.timer; \
+   systemctl enable --now emigro-italy-community.timer; \
    systemctl enable --now emigro-youtube-shorts.timer; \
    systemctl list-timers --all | grep emigro || true"
 
 echo ""
 echo "✅ Деплой завершён. Проверка: systemctl start emigro-portugal-community.service"
 echo "   Spain: systemctl start emigro-spain-community.service"
+echo "   Italy: systemctl start emigro-italy-community.service"

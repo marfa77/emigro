@@ -1,4 +1,4 @@
-import { ensurePortugalCronEnv, ensureSpainCronEnv } from "@/lib/community-notes/cron-env";
+import { ensurePortugalCronEnv, ensureSpainCronEnv, ensureItalyCronEnv } from "@/lib/community-notes/cron-env";
 import { clusterSignals, draftNoteFromCluster, type SatelliteCountryKey } from "@/lib/community-notes/draft-from-signals";
 import {
   ARCHIVE_SLUGS,
@@ -11,16 +11,22 @@ import { ensureNoteOgImage } from "@/lib/community-notes/note-og-image";
 import type { CommunitySignalIngest } from "@/lib/community-notes/types";
 import { filterRelocantSignals as filterPortugalSignals } from "@/lib/satellite/portugal";
 import { filterRelocantSignals as filterSpainSignals } from "@/lib/satellite/spain";
+import { filterRelocantSignals as filterItalySignals } from "@/lib/satellite/italy";
 import { createServerClient } from "@/lib/supabase/server";
 
 const SATELLITE_DEFAULT_CITY: Record<string, string> = {
   portugal: "porto",
   spain: "valencia",
+  italy: "milan",
 };
 
 function ensureCronEnvForCountry(countryKey: string): void {
   if (countryKey === "spain") {
     ensureSpainCronEnv();
+    return;
+  }
+  if (countryKey === "italy") {
+    ensureItalyCronEnv();
     return;
   }
   ensurePortugalCronEnv();
@@ -31,6 +37,7 @@ function filterSignalsForCountry(
   countryKey: string
 ): CommunitySignalIngest[] {
   if (countryKey === "spain") return filterSpainSignals(signals);
+  if (countryKey === "italy") return filterItalySignals(signals);
   return filterPortugalSignals(signals);
 }
 

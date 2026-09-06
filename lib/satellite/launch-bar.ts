@@ -99,6 +99,7 @@ export type SatelliteSeoAeoGuide = {
 const SATELLITE_SEO_GEO_RE: Record<string, RegExp> = {
   spain: /испан|spain|valencia|валенс|madrid|barcelona/i,
   portugal: /португал|portugal|porto|порту|norte|брага|braga|lisboa|лиссабон/i,
+  italy: /итал|italy|milan|милан|milano|como|комо|lombard/i,
 };
 
 /** Same-batch SEO + AEO. Empty = pass. Do not ship a guide and «допилить мета» later. */
@@ -213,7 +214,7 @@ export const SATELLITE_LAUNCH_SLOT_META: Record<SatelliteLaunchSlot, SatelliteLa
     portugalGold: "nif-porto-kak-poluchit-2026",
     primaryQuery: "NIE NIF {city} 2026",
     aeoQuestion: "Как получить NIE или NIF в {city} и нужен ли адрес заранее?",
-    seoAnyOf: ["NIE", "NIF"],
+    seoAnyOf: ["NIE", "NIF", "codice fiscale"],
   },
   home_setup: {
     phase: "week0_1",
@@ -255,7 +256,7 @@ export const SATELLITE_LAUNCH_SLOT_META: Record<SatelliteLaunchSlot, SatelliteLa
     portugalGold: "aima-agora-zapis-2026",
     primaryQuery: "cita extranjería AIMA {city} 2026",
     aeoQuestion: "Как записаться на cita / AIMA / Termin в {city}?",
-    seoAnyOf: ["cita", "AIMA", "Agora", "TIE", "Termin"],
+    seoAnyOf: ["cita", "AIMA", "Agora", "TIE", "Termin", "permesso", "questura"],
   },
   visa_route: {
     phase: "month1_3",
@@ -269,7 +270,7 @@ export const SATELLITE_LAUNCH_SLOT_META: Record<SatelliteLaunchSlot, SatelliteLa
     portugalGold: "prodlenie-vnzh-portugaliya-aima-2026",
     primaryQuery: "digital nomad {city} 2026 консульство",
     aeoQuestion: "Куда подавать DNV / D8 / рабочую визу — консульство или UGE?",
-    seoAnyOf: ["DNV", "D8", "D7", "UGE", "ВНЖ"],
+    seoAnyOf: ["DNV", "D8", "D7", "UGE", "ВНЖ", "nomade", "elective"],
   },
   bank: {
     phase: "month1_3",
@@ -297,7 +298,7 @@ export const SATELLITE_LAUNCH_SLOT_META: Record<SatelliteLaunchSlot, SatelliteLa
     portugalGold: "meditsina-norte-sns-chastnaya-stomatologiya-2026",
     primaryQuery: "медицина {city} SIP SNS 2026",
     aeoQuestion: "Как попасть в государственную медицину в {city} — SIP, SNS, utente?",
-    seoAnyOf: ["SIP", "SNS", "utente"],
+    seoAnyOf: ["SIP", "SNS", "utente", "SSN", "tessera"],
   },
   districts: {
     phase: "month1_3",
@@ -353,7 +354,7 @@ export const SATELLITE_LAUNCH_SLOT_META: Record<SatelliteLaunchSlot, SatelliteLa
     portugalGold: "zheltye-stranitsy-relokanta-portugaliya-2026",
     primaryQuery: "gestoría мастер юрист {city}",
     aeoQuestion: "Кого вызывать в {city} в первые полгода — мастер, юрист, gestoría?",
-    seoAnyOf: ["gestor", "жёлт", "сервис", "мастер"],
+    seoAnyOf: ["gestor", "жёлт", "сервис", "мастер", "CAF", "patronato"],
   },
   consulate_docs: {
     phase: "month4_6",
@@ -381,7 +382,7 @@ export const SATELLITE_LAUNCH_SLOT_META: Record<SatelliteLaunchSlot, SatelliteLa
     portugalGold: "social-security-contributions-portugal-risk-2026",
     primaryQuery: "Seguridad Social NISS {city} 2026",
     aeoQuestion: "Как получить номер соцстраха в {city} и когда начинается налоговый час?",
-    seoAnyOf: ["NISS", "Seguridad Social", "соцстрах", "autónomo", "взнос"],
+    seoAnyOf: ["NISS", "Seguridad Social", "соцстрах", "autónomo", "взнос", "INPS", "partita IVA"],
   },
   local_life: {
     phase: "month4_6",

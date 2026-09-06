@@ -3,12 +3,14 @@ import { requirePublishedCommunityNotes } from "@/lib/community-notes/queries";
 import { ARCHIVE_SLUGS } from "@/lib/community-notes/editorial-filter";
 import { normalizeHashtag } from "@/lib/community-notes/hashtags";
 import { MIN_TAG_NOTES_INDEXABLE } from "@/lib/seo/thin-content";
-import { portugalSatellitePublicUrl, spainSatellitePublicUrl } from "@/lib/site-url";
+import { portugalSatellitePublicUrl, spainSatellitePublicUrl, italySatellitePublicUrl } from "@/lib/site-url";
 
-type SatelliteCountry = "portugal" | "spain";
+type SatelliteCountry = "portugal" | "spain" | "italy";
 
 function publicUrl(country: SatelliteCountry, path: string): string {
-  return country === "portugal" ? portugalSatellitePublicUrl(path) : spainSatellitePublicUrl(path);
+  if (country === "portugal") return portugalSatellitePublicUrl(path);
+  if (country === "italy") return italySatellitePublicUrl(path);
+  return spainSatellitePublicUrl(path);
 }
 
 /** Sitemap entries for one satellite host only (same-host URLs). */

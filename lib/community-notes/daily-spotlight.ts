@@ -5,7 +5,7 @@ import {
   getPublishedCommunityNotesUncached,
 } from "@/lib/community-notes/queries";
 import type { CommunityNote, ContentKind } from "@/lib/community-notes/types";
-import { portugalSatellitePublicUrl, spainSatellitePublicUrl } from "@/lib/site-url";
+import { portugalSatellitePublicUrl, spainSatellitePublicUrl, italySatellitePublicUrl } from "@/lib/site-url";
 import { createServerClient } from "@/lib/supabase/server";
 
 export type DailySpotlight = {
@@ -211,6 +211,7 @@ function pickBestNote(
 
 function satellitePublicUrl(countryKey: string, path: string): string {
   if (countryKey === "spain") return spainSatellitePublicUrl(path);
+  if (countryKey === "italy") return italySatellitePublicUrl(path);
   return portugalSatellitePublicUrl(path);
 }
 

@@ -68,6 +68,36 @@ const SLUG_PEXELS_PHOTO_IDS: Record<string, number> = {
   "alta-ss-hacienda-valencia-2026": 380769,
   // Passport on map — consulate / RF passport from Valencia
   "zapis-konsulstvo-ispanija-pasport-2026": 1029615,
+  // Milan Duomo square — first month orchestrator
+  "pervye-30-dnej-v-italii-satelit-2026": 1797161,
+  // Paperwork desk — codice fiscale / Entrate
+  "codice-fiscale-milano-2026": 6863188,
+  // Router / home internet
+  "sim-internet-luce-milano-2026": 4219277,
+  // Milan apartment balcony
+  "arenda-milano-idealista-2026": 2462015,
+  // Immigration / documents queue
+  "permesso-questura-milano-2026": 5668858,
+  // Bank counter
+  "bank-iban-nerezident-italiya-2026": 4386431,
+  // Hospital exterior
+  "meditsina-milano-ssn-tessera-2026": 236380,
+  // Navigli / Milan canals — districts + Como extra
+  "milano-rajony-arenda-metro-como-2026": 208701,
+  // Laptop remote work — nomade
+  "vnj-italiya-nomade-elective-2026": 1181244,
+  // Milan metro / tram
+  "transport-milano-atm-trenord-2026": 1098365,
+  // Classroom
+  "shkoly-semya-milano-como-2026": 861308,
+  // Tools / trades
+  "zheltye-stranitsy-relokanta-milano-2026": 1249611,
+  // Passport
+  "zapis-konsulstvo-italiya-pasport-2026": 346885,
+  // Office / contributions
+  "inps-partita-iva-milano-2026": 3184291,
+  // Lake Como / housing climate Nord
+  "klimat-byt-milano-nord-como-2026": 753639,
 };
 
 /** Topic → landscape Pexels queries (Norte / Porto bias where relevant). */
@@ -100,6 +130,26 @@ export const SPAIN_TOPIC_PHOTO_QUERIES: Record<string, string[]> = {
   districts: ["valencia ciudad artes aguas", "valencia ruzafa street sunny", "valencia cabanyal beach houses"],
   general: ["valencia spain skyline", "spain mediterranean cityscape", "barcelona architecture street"],
   spain: ["valencia spain city", "madrid spain skyline", "spain travel landscape"],
+};
+
+export const ITALY_TOPIC_PHOTO_QUERIES: Record<string, string[]> = {
+  "codice-fiscale": ["italian tax office documents", "agenzia entrate desk milan", "italian fiscal code paperwork"],
+  permesso: ["italy immigration office queue", "residence permit italy documents", "questura milan building"],
+  arenda: ["milan apartment balcony", "apartment keys italy rent", "milan flat interior sunny"],
+  bank: ["italian bank office counter", "iban bank documents italy", "credit card desk europe"],
+  ssn: ["hospital milan italy exterior", "healthcare clinic italy waiting room", "pharmacy italy storefront"],
+  sim: ["smartphone sim card desk", "fiber internet router apartment", "electricity meter home europe"],
+  districts: ["milan duomo square", "navigli milan canal", "como lake italy town"],
+  vnj: ["digital nomad laptop milan cafe", "italian visa documents desk", "milan coworking remote work"],
+  nomade: ["digital nomad laptop milan cafe", "remote work italy coworking", "milan cafe laptop work"],
+  transport: ["milan metro station italy", "milan tram yellow", "trenord train lombardy"],
+  school: ["milan school building italy", "classroom europe children", "international school campus italy"],
+  yellow: ["plumber tools italy workshop", "italian office paperwork desk", "milan storefront services"],
+  consulat: ["italian consulate building", "passport documents desk europe", "visa application italy"],
+  inps: ["italian office paperwork desk", "tax documents europe freelancer", "milan coworking laptop"],
+  klimat: ["como lake italy town", "milan apartment winter heating", "lombardy fog cityscape"],
+  general: ["milan italy skyline", "lombardy italy cityscape", "como lake italy landscape"],
+  italy: ["milan italy city", "como lake italy", "italy travel landscape"],
 };
 
 /**
@@ -631,8 +681,9 @@ function canWriteNoteOgImages(): boolean {
   }
 }
 
-function noteCountryKey(note: Pick<CommunityNote, "country_key">): "portugal" | "spain" {
-  return note.country_key === "spain" ? "spain" : "portugal";
+function noteCountryKey(note: Pick<CommunityNote, "country_key">): "portugal" | "spain" | "italy" {
+  if (note.country_key === "spain" || note.country_key === "italy") return note.country_key;
+  return "portugal";
 }
 
 function spainSlugFallback(slug: string): string {
@@ -680,9 +731,9 @@ function queriesFromTitleConcepts(title: string | undefined, slug: string): stri
 }
 
 /** English keyword queries from slug tokens (never Cyrillic — Pexels is EN-first). */
-function queriesFromSlug(slug: string, countryKey: "portugal" | "spain"): string[] {
+function queriesFromSlug(slug: string, countryKey: "portugal" | "spain" | "italy"): string[] {
   const stem = slug.replace(/-20\d{2}$/, "");
-  const place = countryKey === "spain" ? "spain" : "portugal";
+  const place = countryKey === "spain" ? "spain" : countryKey === "italy" ? "italy milan" : "portugal";
   const TOKEN_EN: Record<string, string> = {
     aima: "immigration office",
     residence: "residence permit",
@@ -750,7 +801,12 @@ export function queriesForNote(
   note: Pick<CommunityNote, "slug" | "topic_tags" | "title" | "country_key">
 ): string[] {
   const countryKey = noteCountryKey(note);
-  const topicMap = countryKey === "spain" ? SPAIN_TOPIC_PHOTO_QUERIES : TOPIC_PHOTO_QUERIES;
+  const topicMap =
+    countryKey === "spain"
+      ? SPAIN_TOPIC_PHOTO_QUERIES
+      : countryKey === "italy"
+        ? ITALY_TOPIC_PHOTO_QUERIES
+        : TOPIC_PHOTO_QUERIES;
   const slugQueries = SLUG_PHOTO_QUERIES[note.slug] ?? [];
   const conceptQueries = queriesFromTitleConcepts(note.title, note.slug);
   const slugKeywordQueries = queriesFromSlug(note.slug, countryKey);

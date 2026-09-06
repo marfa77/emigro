@@ -93,21 +93,68 @@ function spainScenarios(): Scenario[] {
   ];
 }
 
+function italyScenarios(): Scenario[] {
+  return [
+    {
+      id: "arrived",
+      title: "Только приехал",
+      blurb: "Codice fiscale, банк, SIM, первые 30 дней",
+      href: satelliteTagPath("codice-fiscale", "italy"),
+    },
+    {
+      id: "visa",
+      title: "Виза / permesso",
+      blurb: "Маршрут ВНЖ и wizard",
+      href: satelliteWizardUrl({
+        countryKey: "italy",
+        placement: "satellite_hub_scenarios",
+        content: "visa",
+      }),
+      external: true,
+    },
+    {
+      id: "housing",
+      title: "Жильё",
+      blurb: "Аренда Milano / Como",
+      href: satelliteTagPath("arenda", "italy"),
+    },
+    {
+      id: "assist",
+      title: "Нужен разбор кейса",
+      blurb: "Route Check €129 с командой Emigro",
+      href: satelliteAssistUrl({
+        countryKey: "italy",
+        placement: "satellite_hub_scenarios",
+        content: "assist",
+      }),
+      external: true,
+    },
+  ];
+}
+
 function accent(countryKey: SatelliteCountryKey) {
-  return countryKey === "spain"
-    ? {
-        card: "border-amber-200 hover:border-amber-400 hover:bg-amber-50/80",
-        title: "text-amber-950",
-      }
-    : {
-        card: "border-teal-200 hover:border-teal-400 hover:bg-teal-50/80",
-        title: "text-teal-950",
-      };
+  if (countryKey === "spain") {
+    return {
+      card: "border-amber-200 hover:border-amber-400 hover:bg-amber-50/80",
+      title: "text-amber-950",
+    };
+  }
+  if (countryKey === "italy") {
+    return {
+      card: "border-emerald-200 hover:border-emerald-400 hover:bg-emerald-50/80",
+      title: "text-emerald-950",
+    };
+  }
+  return {
+    card: "border-teal-200 hover:border-teal-400 hover:bg-teal-50/80",
+    title: "text-teal-950",
+  };
 }
 
 /** Scenario entry points on satellite hub — not hashtag soup. */
 export function SatelliteHubScenarios({ countryKey }: { countryKey: SatelliteCountryKey }) {
-  const scenarios = countryKey === "spain" ? spainScenarios() : portugalScenarios();
+  const scenarios =
+    countryKey === "spain" ? spainScenarios() : countryKey === "italy" ? italyScenarios() : portugalScenarios();
   const a = accent(countryKey);
 
   return (

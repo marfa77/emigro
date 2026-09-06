@@ -25,6 +25,9 @@ import {
   SPAIN_EDITORIAL_SYSTEM,
   SPAIN_TOPIC_LABELS,
   SPAIN_TOPIC_OFFICIAL_LINKS,
+  ITALY_EDITORIAL_SYSTEM,
+  ITALY_TOPIC_LABELS,
+  ITALY_TOPIC_OFFICIAL_LINKS,
   TOPIC_LABELS,
   TOPIC_OFFICIAL_LINKS,
   VOICE_REWRITE_HINT,
@@ -39,8 +42,9 @@ import type {
 } from "@/lib/community-notes/types";
 import { filterRelocantSignals as filterPortugalSignals } from "@/lib/satellite/portugal";
 import { filterRelocantSignals as filterSpainSignals } from "@/lib/satellite/spain";
-
-export type SatelliteCountryKey = "portugal" | "spain";
+import { filterRelocantSignals as filterItalySignals } from "@/lib/satellite/italy";
+import type { SatelliteCountryKey } from "@/lib/community-notes/seed";
+export type { SatelliteCountryKey };
 
 function editorialConfig(countryKey: SatelliteCountryKey) {
   if (countryKey === "spain") {
@@ -53,6 +57,18 @@ function editorialConfig(countryKey: SatelliteCountryKey) {
       geoHint:
         "Гео: Valencia, Madrid или Barcelona по теме. Примеры — Valencia, Ruzafa, extranjería Comunidad Valenciana. Не используй NIF, AIMA, Lisboa.",
       filterSignals: filterSpainSignals,
+    };
+  }
+  if (countryKey === "italy") {
+    return {
+      system: ITALY_EDITORIAL_SYSTEM,
+      topicLabels: ITALY_TOPIC_LABELS,
+      topicLinks: ITALY_TOPIC_OFFICIAL_LINKS,
+      countryTag: "italy",
+      slugPrefix: "it",
+      geoHint:
+        "Гео: Milano и север (Como, Monza, Bergamo). Не второй сателлит Como. Не используй NIE, TIE, NIF, AIMA.",
+      filterSignals: filterItalySignals,
     };
   }
   return {
@@ -274,7 +290,7 @@ function buildUserPrompt(
 ${snippets.map((s, i) => `${i + 1}. ${s}`).join("\n")}
 
 slug: latin kebab-case, уникальный, тема + 2026 если уместно.
-category: ${topicLabels[topic] ?? (countryKey === "spain" ? "Быт в Испании" : "Быт в Португалии")}`;
+category: ${topicLabels[topic] ?? (countryKey === "spain" ? "Быт в Испании" : countryKey === "italy" ? "Быт в Италии" : "Быт в Португалии")}`;
 
   if (contentKind === "news") {
     return `${sharedHead}
@@ -364,7 +380,7 @@ function finalizeDraft(
   return normalizeNoteDraftSeo({
     ...raw,
     slug: slug || `${slugPrefix}-${resolvedTopic}-${contentKind}-2026`,
-    category: topicLabels[resolvedTopic] ?? (countryKey === "spain" ? "Быт в Испании" : "Быт в Португалии"),
+    category: topicLabels[resolvedTopic] ?? (countryKey === "spain" ? "Быт в Испании" : countryKey === "italy" ? "Быт в Италии" : "Быт в Португалии"),
     content_kind: contentKind,
     body_sections: bodySections,
     body_paragraphs: flattenBodySections(bodySections),
@@ -423,11 +439,13 @@ export async function rewriteCommunityNote(
   note: CommunityNote,
   options?: { voicePass?: boolean }
 ): Promise<DraftedNote> {
-  const countryKey: SatelliteCountryKey = note.country_key === "spain" ? "spain" : "portugal";
-  const countryTag = countryKey === "spain" ? "spain" : "portugal";
+  const countryKey: SatelliteCountryKey =
+    note.country_key === "spain" || note.country_key === "italy" ? note.country_key : "portugal";
+  const countryTag = countryKey;
   const { topicLabels, system } = editorialConfig(countryKey);
   const topic = note.topic_tags.find((t) => t !== countryTag) ?? "general";
-  const defaultChannel = countryKey === "spain" ? "spain_granitsa" : "chatlisboa";
+  const defaultChannel =
+    countryKey === "spain" ? "spain_granitsa" : countryKey === "italy" ? "milanru" : "chatlisboa";
   const cluster: SignalCluster = {
     topic,
     contentKind: note.content_kind,

@@ -342,5 +342,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   if (kind === "spain-satellite") {
     return buildSatelliteSitemapEntries("spain");
   }
+  if (kind === "italy-satellite") {
+    return buildSatelliteSitemapEntries("italy");
+  }
   return buildWwwSitemap();
 }

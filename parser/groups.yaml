@@ -59,3 +59,27 @@ groups:
     country_key: spain
     title: "@migranty_barselona — extranjería Barcelona"
     timezone: Europe/Madrid
+  - username: milanru
+    group_id: milanru
+    city: milan
+    country_key: italy
+    title: "@milanru — Русские в Милане"
+    timezone: Europe/Rome
+  - username: milan_4at
+    group_id: milan_4at
+    city: milan
+    country_key: italy
+    title: "@milan_4at — Милан чат"
+    timezone: Europe/Rome
+  - username: forum_italy
+    group_id: forum_italy
+    city: italy
+    country_key: italy
+    title: "@forum_italy — Италия чат"
+    timezone: Europe/Rome
+  - username: digital_nomad_Italiya
+    group_id: digital_nomad_Italiya
+    city: italy
+    country_key: italy
+    title: "@digital_nomad_Italiya — DN / ВНЖ Италия"
+    timezone: Europe/Rome

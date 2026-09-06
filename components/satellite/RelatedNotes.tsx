@@ -24,7 +24,7 @@ export function RelatedNotes({ notes }: { notes: CommunityNote[] }) {
   );
 }
 
-export function SatelliteValueProp({ countryKey = "portugal" }: { countryKey?: "portugal" | "spain" }) {
+export function SatelliteValueProp({ countryKey = "portugal" }: { countryKey?: "portugal" | "spain" | "italy" }) {
   const hubHref = satelliteHubUrl({ countryKey, placement: "satellite_hub", content: "value_prop" });
   const pillarHref = satellitePillarUrl({ countryKey, placement: "satellite_hub", content: "value_prop" });
 
@@ -43,6 +43,29 @@ export function SatelliteValueProp({ countryKey = "portugal" }: { countryKey?: "
           . Pillar-гид:{" "}
           <a href={pillarHref} className="font-medium text-amber-900 underline hover:text-amber-950">
             Digital nomad Испания 2026
+          </a>
+          .
+        </p>
+      </section>
+    );
+  }
+
+  if (countryKey === "italy") {
+    return (
+      <section className="mt-6 rounded-xl border border-emerald-100 bg-emerald-50/60 p-4 text-sm leading-relaxed text-slate-700">
+        <p>
+          <strong className="text-slate-900">Зачем этот раздел:</strong> короткие ответы на частые вопросы из чатов
+          релокантов — codice fiscale, permesso, Questura, аренда, банки. Без пересказа Telegram, с официальными
+          ссылками.
+        </p>
+        <p className="mt-2">
+          Полный коридор с новостями, wizard и digest — на{" "}
+          <a href={hubHref} className="font-medium text-emerald-900 underline hover:text-emerald-950">
+            emigro.online/ru/italy
+          </a>
+          . Pillar-гид:{" "}
+          <a href={pillarHref} className="font-medium text-emerald-900 underline hover:text-emerald-950">
+            Digital nomad Италия 2026
           </a>
           .
         </p>
