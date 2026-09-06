@@ -130,7 +130,7 @@ export interface StatsReport {
   wizardTelegram: WizardTelegramStats;
   assist: AssistFunnelStats;
   localeSplit: LocaleSplit;
-  /** Tagged Threads clicks (utm_source=threads) + @emigro2eu followers. */
+  /** Tagged Threads clicks (utm_source=threads) + @emigro_assist followers. */
   threads: ThreadsReferralStats;
 }
 

@@ -77,7 +77,7 @@ export function buildDemoStatsReport(): string {
     "  Wizard started: <b>1</b> <i>(всего 4)</i>",
     "",
     "<b>Threads</b> (клики с наших ссылок)",
-    "Подписчики @emigro2eu: <b>12</b> <i>(Graph)</i>",
+    "Подписчики @emigro_assist: <b>12</b> <i>(Graph)</i>",
     "7д: визард <b>2</b> · Assist <b>1</b> · гайды <b>0</b>",
     "  26.06: <b>0</b> ·",
     "  27.06: <b>3</b> ▪▪▪",

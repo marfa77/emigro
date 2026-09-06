@@ -1,6 +1,6 @@
 #!/usr/bin/env npx tsx
 /**
- * Confirm the connected Threads user is @emigro2eu, not a personal login.
+ * Confirm the connected Threads user is @emigro_assist, not a personal login.
  *
  *   npm run threads:whoami
  */

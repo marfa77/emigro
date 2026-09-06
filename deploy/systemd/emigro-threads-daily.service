@@ -1,5 +1,5 @@
 [Unit]
-Description=Emigro Threads daily — main stream: SEO guides (@emigro2eu)
+Description=Emigro Threads daily — main stream: SEO guides (@emigro_assist)
 After=network-online.target
 Wants=network-online.target
 

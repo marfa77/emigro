@@ -39,5 +39,5 @@ systemctl list-timers --all | grep emigro-threads-replies || true
 REMOTE
 
 echo "✅ Replies timer enabled (DM drafts only)."
-echo "Live Threads replies still need Telegram ✅ + THREADS_AUTO_PUBLISH=1 + whoami=@emigro2eu."
+echo "Live Threads replies still need Telegram ✅ + THREADS_AUTO_PUBLISH=1 + whoami=@emigro_assist."
 echo "Dry-run on VPS: sudo -u www-data npm run threads:replies -- --dry-run"

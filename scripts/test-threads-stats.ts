@@ -29,7 +29,7 @@ assert.equal(
 assert.equal(followersFromInsightsPayload({ data: [] }), null);
 
 const empty = formatThreadsReferralsTelegram({
-  handle: "emigro2eu",
+  handle: "emigro_assist",
   followers: null,
   clicks7d: { wizard: 0, assist: 0, guide: 0, news: 0, other: 0 },
   trend: [
@@ -44,7 +44,7 @@ assert.deepEqual(empty, [
 ]);
 
 const filled = formatThreadsReferralsTelegram({
-  handle: "emigro2eu",
+  handle: "emigro_assist",
   followers: 9,
   clicks7d: { wizard: 2, assist: 1, guide: 0, news: 0, other: 0 },
   trend: [
@@ -53,7 +53,7 @@ const filled = formatThreadsReferralsTelegram({
   ],
 });
 assert.equal(filled[0], "<b>Threads</b> (клики с наших ссылок)");
-assert.equal(filled[1], "Подписчики @emigro2eu: <b>9</b> <i>(Graph)</i>");
+assert.equal(filled[1], "Подписчики @emigro_assist: <b>9</b> <i>(Graph)</i>");
 assert.equal(filled[2], "7д: визард <b>2</b> · Assist <b>1</b> · гайды <b>0</b>");
 assert.ok(filled[3].includes("23.08: <b>0</b> ·"));
 assert.ok(filled[4].includes("24.08: <b>3</b> ▪▪▪"));

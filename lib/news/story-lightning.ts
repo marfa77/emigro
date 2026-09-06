@@ -214,7 +214,7 @@ export function isLightningAwaitingOwner(raw: string | null | undefined): boolea
   return lightningOwnerMarkOf(raw) != null;
 }
 
-/** Owner already published this story to @emigro2eu (lg:th ✅) or Threads is live while TG waits. */
+/** Owner already published this story to @emigro_assist (lg:th ✅) or Threads is live while TG waits. */
 export function isLightningThreadsAlreadyPosted(raw: string | null | undefined): boolean {
   const t = (raw ?? "").trim();
   if (t.startsWith(LIGHTNING_THREADS_PUBLISHED_MARK)) return true;

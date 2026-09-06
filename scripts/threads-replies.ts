@@ -1,6 +1,6 @@
 #!/usr/bin/env npx tsx
 /**
- * Poll Threads comments on @emigro2eu, draft RU replies, ask owner in Telegram.
+ * Poll Threads comments on @emigro_assist, draft RU replies, ask owner in Telegram.
  * Publish happens only after ✅ (tr:ok:) on the news-bot webhook.
  *
  *   npm run threads:replies -- --dry-run

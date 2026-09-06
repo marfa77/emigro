@@ -128,7 +128,7 @@ export async function unhideThreadsReply(replyId: string): Promise<void> {
 
 /**
  * Publish a text reply to a comment. Live write: THREADS_AUTO_PUBLISH=1 and forcePublish.
- * Always whoami=@emigro2eu. Reply approvals OFF on our reply so it stays public.
+ * Always whoami=@emigro_assist. Reply approvals OFF on our reply so it stays public.
  */
 export async function publishThreadsReply(params: {
   text: string;

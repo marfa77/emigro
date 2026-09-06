@@ -56,7 +56,7 @@ export function normalizeThreadsUsername(raw?: string | null): string {
   return (raw || "").trim().replace(/^@/, "").toLowerCase();
 }
 
-/** @emigro2eu unless THREADS_USERNAME overrides (tests only). */
+/** @emigro_assist unless THREADS_USERNAME overrides. */
 export function expectedThreadsBrandUsername(): string {
   return normalizeThreadsUsername(
     process.env.THREADS_USERNAME || process.env.THREADS_BRAND_USERNAME || THREADS_BRAND_USERNAME

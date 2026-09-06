@@ -1,5 +1,5 @@
 /**
- * Threads comment auto-replies for @emigro2eu.
+ * Threads comment auto-replies for @emigro_assist.
  * Poll → skip → LLM draft → owner Telegram DM → publish only after ✅.
  */
 import { chmodSync, existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
