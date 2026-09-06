@@ -38,6 +38,11 @@ import { isAdminTelegramChat } from "@/lib/telegram/admin-bot";
 import { composeThreadsChainFromRepost } from "@/lib/threads/compose";
 import { publishThreadsChain } from "@/lib/threads/client";
 import { loadThreadsEnv } from "@/lib/threads/config";
+import {
+  confirmThreadsRootSlot,
+  releaseThreadsRootSlot,
+  tryClaimThreadsRootSlot,
+} from "@/lib/threads/day-budget";
 import { formatThreadsPaste } from "@/lib/news/threads-repost-style";
 
 /** Approve Telegram only. */
@@ -304,6 +309,18 @@ async function publishLightningToThreads(
     return { ok: false, skipped: true, error: "THREADS token/user missing" };
   }
 
+  const claim = tryClaimThreadsRootSlot({
+    stream: "lightning",
+    note: payload.headline?.slice(0, 80),
+  });
+  if (!claim.ok) {
+    return {
+      ok: false,
+      skipped: true,
+      error: `daily_budget_exhausted (holder=${claim.holder || "unknown"})`,
+    };
+  }
+
   try {
     const items = composeThreadsChainFromRepost({
       countryRu: payload.countryRu,
@@ -317,8 +334,10 @@ async function publishLightningToThreads(
       forcePublish: true,
       pauseMs: 800,
     });
+    confirmThreadsRootSlot({ today: claim.today });
     return { ok: true, ids: result.publishedIds };
   } catch (e) {
+    releaseThreadsRootSlot({ stream: "lightning", today: claim.today });
     return { ok: false, error: e instanceof Error ? e.message : String(e) };
   }
 }

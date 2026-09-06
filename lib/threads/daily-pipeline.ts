@@ -9,6 +9,12 @@ import { guideCtaForDate, threadsMainSlotForDate, type ThreadsSlot } from "@/lib
 import { publishThreadsChain } from "@/lib/threads/client";
 import { loadThreadsEnv, THREADS_CAMPAIGN } from "@/lib/threads/config";
 import {
+  confirmThreadsRootSlot,
+  releaseThreadsRootSlot,
+  todayLisbon,
+  tryClaimThreadsRootSlot,
+} from "@/lib/threads/day-budget";
+import {
   countryKeyFromGuide,
   pickAssistBankPlan,
   pickCityPlan,
@@ -35,10 +41,6 @@ export type ThreadsDailyState = ThreadsInventoryState & {
 };
 
 export type ThreadsDailyPlan = ThreadsSlotPlan;
-
-function todayLisbon(): string {
-  return new Date().toLocaleDateString("en-CA", { timeZone: "Europe/Lisbon" });
-}
 
 function emptyState(): ThreadsDailyState {
   return {
@@ -193,11 +195,29 @@ export async function runThreadsDaily(opts?: {
     return {};
   }
 
-  const result = await publishThreadsChain({ items: job.items, forcePublish: true });
-  const state = loadThreadsDailyState();
-  rememberPlan(state, job, planned.today);
-  state.posts[job.slug] = { kind: job.kind, ids: result.publishedIds, at: planned.today };
-  state.last_posted_on = planned.today;
-  saveThreadsDailyState(state);
-  return { published: [{ kind: job.kind, slug: job.slug, ids: result.publishedIds }] };
+  const claim = tryClaimThreadsRootSlot({
+    stream: "guide",
+    today: planned.today,
+    note: job.slug,
+  });
+  if (!claim.ok) {
+    console.log(
+      `[threads-daily] ${claim.skip} (holder=${claim.holder || "unknown"}) — max 1 root/Lisbon day`
+    );
+    return { skip: claim.skip };
+  }
+
+  try {
+    const result = await publishThreadsChain({ items: job.items, forcePublish: true });
+    const state = loadThreadsDailyState();
+    rememberPlan(state, job, planned.today);
+    state.posts[job.slug] = { kind: job.kind, ids: result.publishedIds, at: planned.today };
+    state.last_posted_on = planned.today;
+    saveThreadsDailyState(state);
+    confirmThreadsRootSlot({ today: planned.today });
+    return { published: [{ kind: job.kind, slug: job.slug, ids: result.publishedIds }] };
+  } catch (e) {
+    releaseThreadsRootSlot({ stream: "guide", today: planned.today });
+    throw e;
+  }
 }

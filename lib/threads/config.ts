@@ -3,7 +3,10 @@
  * Publishing is gated: THREADS_AUTO_PUBLISH must be "1" AND caller passes forcePublish.
  */
 export const THREADS_CAMPAIGN = "emigro_threads";
-/** Brand Threads handle. Live posts refuse any other /me username. */
+/**
+ * Default brand Threads handle (fallback only).
+ * After Meta ban / new account: set THREADS_USERNAME to the live handle.
+ */
 export const THREADS_BRAND_USERNAME = "emigro2eu";
 export const THREADS_GRAPH_BASE = "https://graph.threads.net/v1.0";
 export const THREADS_OAUTH_TOKEN_URL = "https://graph.threads.net/oauth/access_token";

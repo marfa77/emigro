@@ -8,6 +8,12 @@ import { SATELLITE_GAP_DAYS } from "@/lib/threads/calendar";
 import { publishThreadsChain } from "@/lib/threads/client";
 import { loadThreadsEnv } from "@/lib/threads/config";
 import {
+  confirmThreadsRootSlot,
+  releaseThreadsRootSlot,
+  todayLisbon,
+  tryClaimThreadsRootSlot,
+} from "@/lib/threads/day-budget";
+import {
   pickPortugalSatellitePlan,
   type ThreadsInventoryState,
   type ThreadsSlotPlan,
@@ -24,10 +30,6 @@ export type ThreadsSatelliteState = ThreadsInventoryState & {
   next_gap: number;
   posts: Record<string, { kind: "city"; ids: string[]; at: string }>;
 };
-
-function todayLisbon(): string {
-  return new Date().toLocaleDateString("en-CA", { timeZone: "Europe/Lisbon" });
-}
 
 function addDays(iso: string, days: number): string {
   const d = new Date(`${iso}T12:00:00.000Z`);
@@ -145,21 +147,39 @@ export async function runThreadsSatellites(opts?: {
     return {};
   }
 
-  const result = await publishThreadsChain({ items: job.items, forcePublish: true });
-  const state = loadThreadsSatelliteState();
-  if (!state.notes_used.includes(job.slug) && !job.slug.startsWith("chat-")) {
-    state.notes_used.push(job.slug);
+  const claim = tryClaimThreadsRootSlot({
+    stream: "satellite",
+    today: planned.today,
+    note: job.slug,
+  });
+  if (!claim.ok) {
+    console.log(
+      `[threads-satellites] ${claim.skip} (holder=${claim.holder || "unknown"}) — max 1 root/Lisbon day`
+    );
+    return { skip: claim.skip };
   }
-  if (job.slug.startsWith("chat-")) {
-    state.chat_cursor = job.cursor ?? state.chat_cursor + 1;
-  }
-  state.city_cursor = job.cursor ?? (state.city_cursor || 0) + 1;
-  state.last_posted_on = planned.today;
-  scheduleNextSatellite(state, planned.today);
-  state.posts[job.slug] = { kind: "city", ids: result.publishedIds, at: planned.today };
-  saveThreadsSatelliteState(state);
 
-  return {
-    published: [{ kind: "city", slug: job.slug, ids: result.publishedIds }],
-  };
+  try {
+    const result = await publishThreadsChain({ items: job.items, forcePublish: true });
+    const state = loadThreadsSatelliteState();
+    if (!state.notes_used.includes(job.slug) && !job.slug.startsWith("chat-")) {
+      state.notes_used.push(job.slug);
+    }
+    if (job.slug.startsWith("chat-")) {
+      state.chat_cursor = job.cursor ?? state.chat_cursor + 1;
+    }
+    state.city_cursor = job.cursor ?? (state.city_cursor || 0) + 1;
+    state.last_posted_on = planned.today;
+    scheduleNextSatellite(state, planned.today);
+    state.posts[job.slug] = { kind: "city", ids: result.publishedIds, at: planned.today };
+    saveThreadsSatelliteState(state);
+    confirmThreadsRootSlot({ today: planned.today });
+
+    return {
+      published: [{ kind: "city", slug: job.slug, ids: result.publishedIds }],
+    };
+  } catch (e) {
+    releaseThreadsRootSlot({ stream: "satellite", today: planned.today });
+    throw e;
+  }
 }

@@ -1,9 +1,16 @@
 # Threads API (Meta) — Emigro **brand** account
 
-Постинг **только из `@emigro2eu`**, не из личного Threads/Instagram.
+Постинг **только из брендового Threads**, не из личного Instagram/Threads.
+Сейчас live-хэндл задаётся через `THREADS_USERNAME` (fallback в коде: `emigro2eu`).
+После бана Meta: создай новый бренд-аккаунт → OAuth → пропиши `THREADS_USERNAME` + токены на VPS и Vercel.
+
 Barakhlo делает так же: отдельный `@barakhlo_portugal` и `THREADS_PT_*` в `.env`.
 У Emigro один бренд-аккаунт → обычные `THREADS_*` (не смешивать с личным токеном).
-Live publish и `threads:whoami` падают, если `/me` ≠ `emigro2eu`.
+Live publish и `threads:whoami` падают, если `/me` ≠ `THREADS_USERNAME`.
+
+**Лимит корня:** максимум **1 root-цепочка на Lisbon-день** на все потоки вместе
+(гайд / сателлит / молния). Файл: `parser/out/emigro-threads-day-budget.json`.
+Коммент-реплаи в бюджет не входят.
 
 Автопубликация **выключена** по умолчанию (`THREADS_AUTO_PUBLISH` ≠ `1`), кроме:
 
@@ -13,6 +20,16 @@ Live publish и `threads:whoami` падают, если `/me` ≠ `emigro2eu`.
 Telegram остаётся одним постом. Threads — reply-chain.
 
 Официально: [Get access tokens](https://developers.facebook.com/docs/threads/get-started/get-access-tokens-and-permissions/), [Long-lived tokens](https://developers.facebook.com/docs/threads/get-started/long-lived-tokens/), [Posts](https://developers.facebook.com/docs/threads/posts/).
+
+## 0. Новый аккаунт после бана Meta
+
+1. Создай новый Instagram/Threads под бренд Emigro (инкогнито, не личный).
+2. В Meta App (тот же или новый) добавь тестового пользователя = этот бренд.
+3. `THREADS_AUTO_PUBLISH=0` на VPS + Vercel, пока whoami не ок.
+4. `npm run threads:exchange-token -- --auth-url` → логин **новым** брендом → `--code=… --write`.
+5. В `.env` / VPS / Vercel: `THREADS_USERNAME=<новый_хэндл>`, `THREADS_USER_ID`, `THREADS_ACCESS_TOKEN`.
+6. `npm run threads:whoami` → должен напечатать новый хэндл.
+7. Только потом `THREADS_AUTO_PUBLISH=1` и `bash scripts/deploy_vps_from_git.sh`.
 
 ## 1. Meta App
 
@@ -24,7 +41,7 @@ Telegram остаётся одним постом. Threads — reply-chain.
 4. Добавить **Redirect URI** (например `https://www.emigro.online/api/threads/oauth/callback` или `https://localhost:3000/api/threads/oauth/callback` для теста) → `THREADS_REDIRECT_URI`
 5. Permissions (минимум): `threads_basic`, `threads_content_publish`, `threads_manage_replies`, `threads_read_replies`, `threads_manage_insights`
 6. Добавить **тестового пользователя** = Instagram/Threads **бренда Emigro** (пока app в Development) или пройти App Review для Live.
-   Логинься в Authorization Window **как `@emigro2eu`** (инкогнито, не личный профиль). Проверка: `npm run threads:whoami`.
+   Логинься в Authorization Window **как бренд Emigro** (инкогнито, не личный профиль). Проверка: `npm run threads:whoami` = `THREADS_USERNAME`.
 
 ## 2. Короткий токен (~1 час)
 
@@ -159,6 +176,8 @@ npm run threads:preview -- --country=Португалия --flag=🇵🇹 \
 
 Визард/Assist-банки остаются для ручного `--kind=`; крон их больше не чередует вместо гайдов. Воскресный gated-news слот убран — новости не съедают день гайда.
 
+**Общий бюджет:** максимум **1 root / Lisbon-день** на все три потока (`parser/out/emigro-threads-day-budget.json`). Обычно утренний гайд занимает слот; сателлит и молния в тот же день получают `daily_budget_exhausted`.
+
 State:
 
 | Поток | Файл |
@@ -166,13 +185,15 @@ State:
 | Гайды | `parser/out/emigro-threads-posted.json` |
 | Сателлиты | `parser/out/emigro-threads-satellites.json` |
 | Новости | маркеры в Supabase `threads_text` (`__lightning_*`) |
+| **Общий 1/день** | `parser/out/emigro-threads-day-budget.json` |
 
 ```bash
 npm run threads:assert-banks
 npm run threads:daily -- --dry-run          # поток 1
 npm run threads:satellites -- --dry-run     # поток 2
-npm run threads:daily -- --force-publish    # только @emigro2eu + THREADS_AUTO_PUBLISH=1
+npm run threads:daily -- --force-publish    # бренд + THREADS_AUTO_PUBLISH=1
 npm run threads:satellites -- --force-publish
+npx tsx scripts/test-threads-day-budget.ts
 ```
 
 Крон:
@@ -189,7 +210,7 @@ bash deploy/threads-daily/deploy.sh
 bash deploy/threads-replies/deploy.sh
 ```
 
-На VPS: `THREADS_AUTO_PUBLISH=1` **после** `threads:whoami` = `@emigro2eu`.
+На VPS: `THREADS_AUTO_PUBLISH=1` **после** `threads:whoami` = `THREADS_USERNAME`.
 
 Молнии по-прежнему через ✅ Threads в DM (Vercel). Дневной крон их не трогает.
 
@@ -197,11 +218,11 @@ bash deploy/threads-replies/deploy.sh
 
 Как у Barakhlo poll, но публикация **только после ✅ в том же owner DM**, что и #молния (news-bot webhook). Не из `@pv.inform`.
 
-1. Крон `emigro-threads-replies.timer` читает conversation + `pending_replies` на последних 12 корневых постах `@emigro2eu`.
+1. Крон `emigro-threads-replies.timer` читает conversation + `pending_replies` на последних 12 корневых постах бренда.
 2. Пропуск: наш username, уже ответили, пусто/эмодзи, спам/оскорбления, stale >24ч.
 3. Gemini Flash пишет короткий RU ответ (сосед, не юрист). Виза/страна → `/ru/wizard`. Запутанный кейс → Assist. Быт Порту → `portoChatDeepLink("thr")`, никогда `t.me/+`.
 4. DM владельцу: пост + коммент + черновик + кнопки.
-5. ✅ → Graph `reply_to_id` (`threads_manage_replies`), whoami обязан быть `@emigro2eu`, `THREADS_AUTO_PUBLISH=1`.
+5. ✅ → Graph `reply_to_id` (`threads_manage_replies`), whoami обязан совпадать с `THREADS_USERNAME`, `THREADS_AUTO_PUBLISH=1`.
 6. State: `parser/out/emigro-threads-replies.json` (gitignore) — не спрашиваем и не постим дважды.
 
 ```bash
@@ -241,6 +262,7 @@ Callback (тот же news-bot, `TELEGRAM_PRIVATE_CHAT_ID`):
 | `lib/threads/banks.ts` | Assist / wizard / Porto-chat URL + 500-char check |
 | `lib/threads/calendar.ts` | main = guide every day; satellite gap |
 | `lib/threads/inventory.ts` | live guides + PT satellites |
+| `lib/threads/day-budget.ts` | max 1 root / Lisbon day across streams |
 | `lib/threads/daily-pipeline.ts` | stream 1 — guides |
 | `lib/threads/satellite-pipeline.ts` | stream 2 — PT satellites |
 | `lib/threads/replies.ts` | comment poll, LLM draft, Telegram ✅ |
