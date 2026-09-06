@@ -30,6 +30,14 @@ async function main() {
     forcePublish: process.argv.includes("--force-publish"),
     forceKind,
   });
+  if (result.skip) {
+    const soft = new Set(["already_posted_today", "daily_budget_exhausted"]);
+    if (process.argv.includes("--force-publish") && !soft.has(result.skip)) {
+      throw new Error(`threads-daily soft-fail: ${result.skip}`);
+    }
+    console.log("[threads-daily] skip", result.skip);
+    return;
+  }
   if (result.published) {
     for (const row of result.published) {
       const links: string[] = [];

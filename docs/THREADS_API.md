@@ -200,8 +200,8 @@ npx tsx scripts/test-threads-day-budget.ts
 
 | Unit | Когда |
 |------|--------|
-| `emigro-threads-daily.timer` | утро как Barakhlo (`Asia/Dubai` peaks +15–25 мин), `Persistent=true` — **гайды** |
-| `emigro-threads-satellites.timer` | ~14:30 Asia/Dubai + jitter, gap 2 дня в state — **сателлиты PT** |
+| `emigro-threads-daily.timer` | утро как Barakhlo (`Asia/Dubai` peaks +15–25 мин), `Persistent=true` — **гайды**; падение крона → DM в личку |
+| `emigro-threads-satellites.timer` | ~14:30 Asia/Dubai + jitter, gap 2 дня в state — **сателлиты PT**; ошибки → DM |
 | `emigro-threads-replies.timer` | каждые ~20 мин + `RandomizedDelaySec=8min` (черновик → DM, не пост) |
 | `emigro-threads-refresh.timer` | пн 05:15 UTC |
 | lightning (Vercel + `emigro-news-lightning.timer`) | DM ✅ — **новости** |

@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # Stream 1: daily SEO guide (Barakhlo morning window, Asia/Dubai).
+# Must publish when due; real failures → owner Telegram DM.
 set -euo pipefail
 
 SCRIPT_ROOT="$(cd "$(dirname "$0")" && pwd)"
@@ -12,6 +13,12 @@ mkdir -p "$LOG_DIR"
 
 log() {
   echo "[$(date '+%Y-%m-%d %H:%M:%S %Z')] $*"
+}
+
+notify_fail() {
+  local msg="$1"
+  log "notify owner: $msg"
+  npx tsx scripts/threads-cron-notify.ts --stream=daily --error="$msg" || log "notify DM failed"
 }
 
 exec >> "$LOG_DIR/scheduled-$(date +%Y%m%d).log" 2>&1
@@ -31,23 +38,25 @@ fi
 
 log "=== Emigro Threads daily ==="
 
-RUN_CMD="cd '$REPO_ROOT' && npm run threads:daily -- --force-publish"
-
-if ! command -v flock >/dev/null 2>&1; then
-  RUN=(bash -c "$RUN_CMD")
-else
-  RUN=(flock -n "$LOCK_FILE" bash -c "$RUN_CMD")
-fi
-
-if "${RUN[@]}"; then
-  log "=== Threads daily finished OK ==="
-  exit 0
-else
-  code=$?
-  if [[ "$code" -eq 1 ]]; then
-    log "=== Threads daily skipped (lock) ==="
+if command -v flock >/dev/null 2>&1; then
+  exec 9>"$LOCK_FILE"
+  if ! flock -n 9; then
+    log "=== Threads daily skipped (lock held) ==="
     exit 0
   fi
-  log "=== Threads daily FAILED (exit $code) ==="
-  exit "$code"
 fi
+
+set +e
+OUT="$(npm run threads:daily -- --force-publish 2>&1)"
+code=$?
+set -e
+printf '%s\n' "$OUT"
+
+if [[ "$code" -eq 0 ]]; then
+  log "=== Threads daily finished OK ==="
+  exit 0
+fi
+
+log "=== Threads daily FAILED (exit $code) ==="
+notify_fail "exit ${code}"$'\n'"$(printf '%s\n' "$OUT" | tail -c 3000)"
+exit "$code"

@@ -18,6 +18,14 @@ async function main() {
     dryRun: process.argv.includes("--dry-run") || !process.argv.includes("--force-publish"),
     forcePublish: process.argv.includes("--force-publish"),
   });
+  if (result.skip) {
+    const soft = new Set(["already_posted_today", "daily_budget_exhausted", "not_due"]);
+    if (process.argv.includes("--force-publish") && !soft.has(result.skip)) {
+      throw new Error(`threads-satellites soft-fail: ${result.skip}`);
+    }
+    console.log("[threads-satellites] skip", result.skip);
+    return;
+  }
   if (result.published) {
     for (const row of result.published) {
       const links: string[] = [];
