@@ -5,9 +5,9 @@
 export const THREADS_CAMPAIGN = "emigro_threads";
 /**
  * Default brand Threads handle (fallback only).
- * After Meta ban / new account: set THREADS_USERNAME to the live handle.
+ * Override with THREADS_USERNAME if the live handle changes again.
  */
-export const THREADS_BRAND_USERNAME = "emigro2eu";
+export const THREADS_BRAND_USERNAME = "emigro_assist";
 export const THREADS_GRAPH_BASE = "https://graph.threads.net/v1.0";
 export const THREADS_OAUTH_TOKEN_URL = "https://graph.threads.net/oauth/access_token";
 export const THREADS_EXCHANGE_URL = "https://graph.threads.net/access_token";

@@ -1,8 +1,8 @@
 # Threads API (Meta) — Emigro **brand** account
 
 Постинг **только из брендового Threads**, не из личного Instagram/Threads.
-Сейчас live-хэндл задаётся через `THREADS_USERNAME` (fallback в коде: `emigro2eu`).
-После бана Meta: создай новый бренд-аккаунт → OAuth → пропиши `THREADS_USERNAME` + токены на VPS и Vercel.
+Live-хэндл: **`@emigro_assist`** (`THREADS_USERNAME`, fallback в коде тот же).
+После смены аккаунта: OAuth → токены на VPS и Vercel; whoami обязан совпасть.
 
 Barakhlo делает так же: отдельный `@barakhlo_portugal` и `THREADS_PT_*` в `.env`.
 У Emigro один бренд-аккаунт → обычные `THREADS_*` (не смешивать с личным токеном).
