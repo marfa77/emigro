@@ -54,7 +54,7 @@ systemctl daemon-reload
 systemctl enable --now emigro-threads-daily.timer
 systemctl enable --now emigro-threads-satellites.timer
 systemctl enable --now emigro-threads-refresh.timer
-systemctl enable --now emigro-threads-replies.timer
+systemctl disable --now emigro-threads-replies.timer
 
 echo "HEAD=$(git rev-parse --short HEAD)"
 git log -1 --oneline

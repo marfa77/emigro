@@ -34,10 +34,11 @@ npm ci --include=dev
 cp deploy/systemd/emigro-threads-replies.service /etc/systemd/system/
 cp deploy/systemd/emigro-threads-replies.timer /etc/systemd/system/
 systemctl daemon-reload
-systemctl enable --now emigro-threads-replies.timer
+systemctl disable --now emigro-threads-replies.timer
+echo "ℹ️  Threads replies timer left OFF (enable manually if needed)"
 systemctl list-timers --all | grep emigro-threads-replies || true
 REMOTE
 
-echo "✅ Replies timer enabled (DM drafts only)."
-echo "Live Threads replies still need Telegram ✅ + THREADS_AUTO_PUBLISH=1 + whoami=@emigro_assist."
+echo "✅ Replies timer unit installed but LEFT OFF."
+echo "To enable later: systemctl enable --now emigro-threads-replies.timer"
 echo "Dry-run on VPS: sudo -u www-data npm run threads:replies -- --dry-run"

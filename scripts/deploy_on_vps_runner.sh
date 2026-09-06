@@ -51,7 +51,7 @@ $SUDO systemctl daemon-reload
 $SUDO systemctl enable --now emigro-threads-daily.timer
 $SUDO systemctl enable --now emigro-threads-satellites.timer
 $SUDO systemctl enable --now emigro-threads-refresh.timer
-$SUDO systemctl enable --now emigro-threads-replies.timer
+$SUDO systemctl disable --now emigro-threads-replies.timer
 $SUDO systemctl list-timers --all | grep emigro-threads || true
 
 echo "✅ Emigro Threads deployed from git checkout $(git -C "${ROOT}" rev-parse --short HEAD)"
