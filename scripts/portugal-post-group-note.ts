@@ -3,6 +3,7 @@
  *
  *   npm run portugal:post-group -- --dry-run
  *   npm run portugal:post-group -- --slug=nif-porto-kak-poluchit-2026
+ *   npm run portugal:post-group -- --force
  *   npm run portugal:post-group -- --news --dry-run
  */
 import { resolve } from "node:path";
@@ -18,6 +19,7 @@ import { postNextPortoGroupNote } from "@/lib/community-notes/porto-group-publis
 
 const dryRun = process.argv.includes("--dry-run");
 const newsOnly = process.argv.includes("--news");
+const force = process.argv.includes("--force");
 const slugArg = process.argv.find((a) => a.startsWith("--slug="));
 const slug = slugArg ? slugArg.slice("--slug=".length).trim() : undefined;
 
@@ -43,7 +45,7 @@ async function main() {
     return;
   }
 
-  const result = await postNextPortoGroupNote({ dryRun, slug: slug || undefined });
+  const result = await postNextPortoGroupNote({ dryRun, slug: slug || undefined, force });
   if (result.skipped) {
     console.log("[porto-group] skipped:", result.skipped);
     return;

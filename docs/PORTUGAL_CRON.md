@@ -18,8 +18,8 @@ Timer с **`Persistent=true`** — пропуск догоняется посл�
 3. Ingest в `community_signals` (direct Supabase, без Vercel HTTP)
 4. До **1** Gemini-черновика → `community_notes` (`published`)
 5. Обновление daily spotlight на hub
-6. Один пост из закрытого банка `lib/community-notes/porto-group-bank.json` в чат Порту (`EMIGRO_PORTO_CHAT_ID`). Один slug — один день. Повтор по `parser/out/porto-group-posted.json`. Когда очередь кончилась — тишина, новые черновики сателлита в группу сами не попадают.
-7. Редкая короткая **новость с сайта** в ту же группу — только если за 4 дня есть супер-релевантный факт для русскоязычных, кто уже живёт в PT (SNS, NIF/IRS, CP/STCP, portagens, arrendamento, школы, погода/PC). Не визы/GV/гражданство (это `@Emigro_news` молния). Максимум 1 раз в 5 дней. Дедуп: `parser/out/porto-group-news-posted.json`. Если кандидатов нет — тишина.
+6. Один **разговорный** пост из банка `lib/community-notes/porto-group-bank.json` в чат Порту (`EMIGRO_PORTO_CHAT_ID`): хук + вопрос в группу, не дайджест гайда. Максимум **1 раз в 3 дня** (`last_posted_at`). Повтор slug не раньше **45 дней**. Когда свежая очередь кончилась — тишина до recycle, новые черновики сателлита в группу сами не попадают.
+7. Редкая короткая **новость с сайта** в ту же группу — только если за 4 дня есть супер-релевантный факт для русскоязычных, кто уже живёт в PT (SNS, NIF/IRS, CP/STCP, portagens, arrendamento, школы, погода/PC). Не визы/GV/гражданство (это `@Emigro_news` молния). Максимум 1 раз в 5 дней. После гайд-поста — тишина **2 дня**. Дедуп: `parser/out/porto-group-news-posted.json`. Если кандидатов нет — тишина.
 
 Группа сейчас обычный чат: Bot API id `-5534913841` (не `-100…`). После Upgrade to supergroup id сменится — поправить env.
 
@@ -55,8 +55,11 @@ EMIGRO_PORTO_CHAT_ID=-5534913841
 ```bash
 npm run portugal:post-group -- --dry-run
 npm run portugal:post-group
+npm run portugal:post-group -- --force
 npm run portugal:post-group -- --news --dry-run
 ```
+
+Пост — затравка к обсуждению (вопрос в группу). Отвечайте в треде как эксперт, пока чат не начнёт отвечать сам. Не ставьте бота «лектором».
 
 `COMMUNITY_INGEST_API_KEY` на VPS **не нужен** — ingest идёт direct в Supabase из `npm run portugal:daily`.
 

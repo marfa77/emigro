@@ -1,5 +1,9 @@
-import { CONTENT_KIND_LABELS } from "@/lib/community-notes/hashtags";
 import type { CommunityNote } from "@/lib/community-notes/types";
+import {
+  discussionPromptForNote,
+  PORTO_GROUP_RECYCLE_AFTER_MS,
+  PORTO_GROUP_REPLY_HINT,
+} from "@/lib/community-notes/porto-group-prompts";
 import { escapeTelegramHtml } from "@/lib/news/story-lightning";
 import { portugalSatellitePublicUrl } from "@/lib/site-url";
 
@@ -32,42 +36,20 @@ export function isCityLifeNote(note: CommunityNote): boolean {
   return LIFE_HINT.test(haystack(note));
 }
 
-function stripMd(text: string): string {
-  return text
-    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
-    .replace(/\*\*([^*]+)\*\*/g, "$1")
-    .replace(/\*([^*]+)\*/g, "$1")
-    .replace(/`([^`]+)`/g, "$1")
-    .replace(/^>\s*/gm, "")
-    .replace(/участники\s+@[\w]+(?:\s+и\s+@[\w]+)*/gi, "В местных чатах")
-    .replace(/@(?:por_tugal|chatlisboa|chatporto|lepta|braga_pt_rus|autolife_pt)\b/gi, "")
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
-function takeawayLines(note: CommunityNote): string[] {
-  const fromKeys = (note.key_takeaways ?? [])
-    .map((t) => stripMd(t.replace(/^(Официально|На практике|Расхождение|В чате|Сегодня):\s*/i, "")))
-    .filter((t) => t.length > 12 && t.length < 280)
-    .slice(0, 3);
-  if (fromKeys.length >= 2) return fromKeys;
-  const hook = stripMd(note.quick_answer || note.excerpt || "");
-  if (hook.length > 20) return [hook.length > 320 ? `${hook.slice(0, 317).trim()}…` : hook];
-  return [];
-}
-
+/** Discussion starter for the city chat — one hook + one question, not a guide dump. */
 export function formatPortoGroupHtml(note: CommunityNote, noteUrl: string): string {
-  const kind = CONTENT_KIND_LABELS[note.content_kind] ?? "Заметка";
   const title = escapeTelegramHtml(note.title.replace(/\s+/g, " ").trim().slice(0, 160));
-  const bullets = takeawayLines(note).map((line) => `• ${escapeTelegramHtml(line)}`);
+  const { hook, question } = discussionPromptForNote(note);
   const href = noteUrl.replace(/"/g, "&quot;");
-  const body = bullets.length > 0 ? bullets.join("\n") : escapeTelegramHtml(stripMd(note.excerpt || "").slice(0, 280));
 
   return [
     `<b>${title}</b>`,
-    `<i>${escapeTelegramHtml(kind)} · portugal.emigro.online</i>`,
     "",
-    body,
+    escapeTelegramHtml(hook),
+    "",
+    `<b>${escapeTelegramHtml(question)}</b>`,
+    "",
+    escapeTelegramHtml(PORTO_GROUP_REPLY_HINT),
     "",
     href,
   ].join("\n");
@@ -75,9 +57,12 @@ export function formatPortoGroupHtml(note: CommunityNote, noteUrl: string): stri
 
 export type PortoGroupBank = {
   created_at?: string;
+  policy?: string;
   skipped?: Record<string, string>;
   queue: string[];
 };
+
+export type PortoGroupPostRecord = { slug: string; at: string };
 
 export const PORTO_GROUP_BANK_PATH = "lib/community-notes/porto-group-bank.json";
 
@@ -88,18 +73,35 @@ export function pickNextBankSlug(queue: string[], postedSlugs: Set<string>): str
   return null;
 }
 
+function publishedBySlug(notes: CommunityNote[]): Map<string, CommunityNote> {
+  return new Map(notes.filter((n) => n.status === "published" && n.slug).map((n) => [n.slug, n]));
+}
+
 export function pickNextPortoGroupNote(
   notes: CommunityNote[],
   postedSlugs: Set<string>,
-  bank: PortoGroupBank
+  bank: PortoGroupBank,
+  opts?: { now?: number; postedAt?: Map<string, number>; recycleAfterMs?: number }
 ): CommunityNote | null {
-  const bySlug = new Map(
-    notes.filter((n) => n.status === "published" && n.slug).map((n) => [n.slug, n])
-  );
+  const bySlug = publishedBySlug(notes);
   for (const slug of bank.queue) {
     if (!slug || postedSlugs.has(slug)) continue;
     const note = bySlug.get(slug);
     if (note) return note;
   }
-  return null;
+
+  const now = opts?.now ?? Date.now();
+  const recycleAfter = opts?.recycleAfterMs ?? PORTO_GROUP_RECYCLE_AFTER_MS;
+  const postedAt = opts?.postedAt;
+  let oldest: { note: CommunityNote; at: number } | null = null;
+  for (const slug of bank.queue) {
+    if (!slug) continue;
+    const note = bySlug.get(slug);
+    if (!note) continue;
+    const at = postedAt?.get(slug);
+    if (at == null) continue;
+    if (now - at < recycleAfter) continue;
+    if (!oldest || at < oldest.at) oldest = { note, at };
+  }
+  return oldest?.note ?? null;
 }

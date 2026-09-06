@@ -28,6 +28,7 @@ const MIN_BY_KIND: Record<
   ContentKind,
   { sections: number; faq: number; takeaways: number; minWords: number }
 > = {
+  /** Floor for any guide. Satellite launch gold is 1200+ — `SATELLITE_LAUNCH_BAR`. */
   guide: { sections: 4, faq: 4, takeaways: 4, minWords: 600 },
   qa: { sections: 3, faq: 4, takeaways: 3, minWords: 450 },
   news: { sections: 3, faq: 3, takeaways: 3, minWords: 400 },

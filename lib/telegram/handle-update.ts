@@ -1,5 +1,6 @@
 import { buildTelegramStatsReport } from "@/lib/analytics/format-stats-telegram";
-import { parseWizardTelegramStartPayload, isPortoChatStartPayload } from "@/lib/telegram/deep-link";
+import { parseWizardTelegramStartPayload } from "@/lib/telegram/deep-link";
+import { parseCityChatStartPayload, liveCityChatForCountry, defaultCityChat, type SatelliteCityChat } from "@/lib/satellite/city-chats";
 import {
   isAdminTelegramChat,
   sendStatsBotMessage,
@@ -7,7 +8,8 @@ import {
 } from "@/lib/telegram/admin-bot";
 import {
   buildDemoStatsReport,
-  isPortoChatRequest,
+  cityChatForKeyword,
+  isCityChatRequest,
   isStartCommand,
   isStatsCommand,
   isStatsDemoCommand,
@@ -15,8 +17,8 @@ import {
 } from "@/lib/telegram/commands";
 import { sendWizardReportToTelegramUser } from "@/lib/wizard/send-telegram-report";
 import {
-  issuePortoChatInvite,
-  portoChatInviteReplyMarkup,
+  cityChatInviteReplyMarkup,
+  issueCityChatInvite,
 } from "@/lib/telegram/porto-chat-invite";
 
 const recentStatsReplies = new Map<string, number>();
@@ -68,15 +70,18 @@ async function sendStatsReply(chatId: string | number, report: string): Promise<
   );
 }
 
-async function replyWithPortoChatInvite(message: TelegramMessage): Promise<void> {
+async function replyWithCityChatInvite(
+  message: TelegramMessage,
+  chat: SatelliteCityChat = defaultCityChat()
+): Promise<void> {
   const chatId = message.chat?.id;
   const userId = message.from?.id;
   if (chatId == null || userId == null) return;
 
-  const result = await issuePortoChatInvite(userId);
+  const result = await issueCityChatInvite(userId, chat);
   await sendStatsBotMessage(chatId, userStartMessage(result), {
     parseMode: "HTML",
-    replyMarkup: portoChatInviteReplyMarkup(result),
+    replyMarkup: cityChatInviteReplyMarkup(result),
   });
 }
 
@@ -179,6 +184,8 @@ async function handleWizardStartCommand(message: TelegramMessage): Promise<boole
       "<b>Отчёт уже был отправлен</b> — проверьте сообщения выше или откройте результат на сайте.",
       { parseMode: "HTML" }
     );
+    const skippedChat = liveCityChatForCountry(delivered.countryKey);
+    if (skippedChat) await replyWithCityChatInvite(message, skippedChat);
     return true;
   }
 
@@ -187,23 +194,26 @@ async function handleWizardStartCommand(message: TelegramMessage): Promise<boole
     "<b>✅ Готово!</b> Полный отчёт по маршрутам — в сообщении выше. Сохраните чат, чтобы вернуться к нему позже.",
     { parseMode: "HTML" }
   );
-  await replyWithPortoChatInvite(message);
+  const resultChat = liveCityChatForCountry(delivered.countryKey);
+  if (resultChat) await replyWithCityChatInvite(message, resultChat);
 
   return true;
 }
 
-async function handlePortoChatStartCommand(message: TelegramMessage): Promise<boolean> {
+async function handleCityChatStartCommand(message: TelegramMessage): Promise<boolean> {
   const payload = startPayload(message.text || "");
-  if (!payload || !isPortoChatStartPayload(payload)) return false;
+  if (!payload) return false;
+  const chat = parseCityChatStartPayload(payload);
+  if (!chat) return false;
   if (!isPrivateChat(message)) return true;
-  await replyWithPortoChatInvite(message);
+  await replyWithCityChatInvite(message, chat);
   return true;
 }
 
-async function handlePortoChatKeyword(message: TelegramMessage): Promise<boolean> {
+async function handleCityChatKeyword(message: TelegramMessage): Promise<boolean> {
   if (!isPrivateChat(message)) return false;
-  if (!isPortoChatRequest(message.text || "")) return false;
-  await replyWithPortoChatInvite(message);
+  if (!isCityChatRequest(message.text || "")) return false;
+  await replyWithCityChatInvite(message, cityChatForKeyword(message.text || ""));
   return true;
 }
 
@@ -211,7 +221,7 @@ async function handleStartCommand(message: TelegramMessage): Promise<boolean> {
   if (!isStartCommand(message.text || "")) return false;
   if (startPayload(message.text || "")) return false;
   if (!isPrivateChat(message)) return true;
-  await replyWithPortoChatInvite(message);
+  await replyWithCityChatInvite(message);
   return true;
 }
 
@@ -223,15 +233,15 @@ async function handleUserFallback(message: TelegramMessage): Promise<void> {
   if (isAdminTelegramChat(chatId, userId)) return;
   if (!(message.text || "").trim()) return;
 
-  await replyWithPortoChatInvite(message);
+  await replyWithCityChatInvite(message);
 }
 
 export async function processTelegramMessage(message: TelegramMessage): Promise<void> {
   if (await handleStatsCommand(message)) return;
   if (await handleWizardStartCommand(message)) return;
-  if (await handlePortoChatStartCommand(message)) return;
+  if (await handleCityChatStartCommand(message)) return;
   if (await handleStartCommand(message)) return;
-  if (await handlePortoChatKeyword(message)) return;
+  if (await handleCityChatKeyword(message)) return;
   await handleUserFallback(message);
 }
 

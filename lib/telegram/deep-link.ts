@@ -1,4 +1,9 @@
 import { normalizeTelegramPublicUrl, telegramPublicUrl } from "@/lib/telegram/public-url";
+import {
+  defaultCityChat,
+  parseCityChatStartPayload,
+  type SatelliteCityChat,
+} from "@/lib/satellite/city-chats";
 
 export type WizardTelegramMode = "hub" | "corridor";
 
@@ -45,22 +50,27 @@ export function wizardTelegramDeepLink(input: {
   return url.toString();
 }
 
-/** Private Porto group: site CTAs must use this, never a t.me/+ invite hash. */
+/** Private city group: site CTAs must use this, never a t.me/+ invite hash. */
 export const PORTO_CHAT_START_PAYLOAD = "porto_chat";
 
+export function cityChatDeepLink(chat: SatelliteCityChat, source?: string): string {
+  const url = new URL(publicTelegramBotUrl());
+  const suffix = source?.replace(/[^a-z0-9_]/gi, "").slice(0, 24).toLowerCase();
+  url.searchParams.set("start", suffix ? `${chat.startPayload}_${suffix}` : chat.startPayload);
+  return url.toString();
+}
+
 export function isPortoChatStartPayload(payload: string): boolean {
-  const clean = payload.trim().toLowerCase();
-  return clean === "porto" || clean === PORTO_CHAT_START_PAYLOAD || clean.startsWith(`${PORTO_CHAT_START_PAYLOAD}_`);
+  const chat = parseCityChatStartPayload(payload);
+  return chat?.startPayload === PORTO_CHAT_START_PAYLOAD;
+}
+
+export function isCityChatStartPayload(payload: string): boolean {
+  return Boolean(parseCityChatStartPayload(payload));
 }
 
 export function portoChatDeepLink(source?: string): string {
-  const url = new URL(publicTelegramBotUrl());
-  const suffix = source?.replace(/[^a-z0-9_]/gi, "").slice(0, 24).toLowerCase();
-  url.searchParams.set(
-    "start",
-    suffix ? `${PORTO_CHAT_START_PAYLOAD}_${suffix}` : PORTO_CHAT_START_PAYLOAD
-  );
-  return url.toString();
+  return cityChatDeepLink(defaultCityChat(), source);
 }
 
 export function parseWizardTelegramStartPayload(payload: string):

@@ -78,7 +78,9 @@ Alice cites pages that already rank well in Yandex organic (top ~30). There is n
 
 `Crawled - currently not indexed` + `No referring sitemaps detected` on `portugal.` / `spain.` means Google fetched the page but the host sitemap was never associated in GSC.
 
-`Duplicate without user-selected canonical` on the hub = slash mismatch between Googlebot (`…/`) and Next’s HTML canonical (no slash). We emit matching sitemap locs + an HTTP `Link: rel=canonical` on the hub; submit the satellite sitemap in GSC and Request indexing on `https://portugal.emigro.online`.
+**Portugal hub (`portugal.emigro.online`) — do not spam Request indexing.** GSC already allows indexing (`INDEXING_ALLOWED`, fetch OK, robots OK). The failure mode was quality: hub HTML ~500KB with ~all notes listed vs Spain hub ~120KB. Cap the hub list (featured guides + fresh notes + tags), ship, wait for organic recrawl. Re-requesting 10× will not change the verdict.
+
+`Duplicate without user-selected canonical` on the hub = slash mismatch between Googlebot (`…/`) and Next’s HTML canonical (no slash). We emit matching sitemap locs + an HTTP `Link: rel=canonical` on the hub; submit the satellite sitemap in GSC and Request indexing on `https://portugal.emigro.online` **only after a real content ship**, not as a weekly habit.
 
 1. In the **same Domain property** (or separate URL-prefix properties for each subdomain), submit:
    - `https://portugal.emigro.online/sitemap.xml`

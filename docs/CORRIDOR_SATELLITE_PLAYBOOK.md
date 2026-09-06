@@ -1,34 +1,38 @@
-# Corridor satellite playbook — репликация Portugal для других коридоров
+# Corridor satellite playbook — страна + город-фокус
 
-Эталон: `docs/PORTUGAL_SATELLITE.md`, `docs/PORTUGAL_CRON.md`, `docs/PORTUGAL_GUIDE_FACTCHECK.md`.
+**Запуск:** напишите страну или город → скилл `.cursor/skills/launch-satellite/`.  
+Эталон качества: Portugal / Porto. Шаблон **файлов** (роуты): Spain / Valencia.  
+**Не** выкатывать Spain-thin (7 коротких гайдов, без живого чата, «cron later»).
 
-## Принципы
+Гейт: `npm run satellite:assert-launch -- --country={country} --city={city}` должен PASS. Иначе сателлит не launched.
 
-1. Telegram → **сигналы** (`community_signals`), не копипаста.
-2. Редакция → **заметки** (`community_notes`) с секциями `official | practice | gap`.
-3. Pillar-гайды на www — **вторичные цитаты** из чатов через fact-check helper.
-4. Один `country_key` на коридор; VPS cron — один timer на страну.
+## Модель
 
-## Workflow
+1. **Один сателлит = одна страна** — `{country}.emigro.online`. Не плодить сателлит на второй город той же страны.
+2. **Город-фокус** — owned-чат («{Город} и вокруг») + default `city` у заметок + примеры в гайдах.
+3. Telegram third-party → **сигналы**, не копипаста. Owned: `@Emigro_news` (канал на все страны) + закрытый городской чат **как фишка** («для своих»: важное, общение, эксперты отвечают) через `@emigro_chat_bot?start={city}_chat`. Не парсить `@emigro_chat`.
+4. Gold «100»: **15** гайдов жизни week 0 → month 6 (≥1200 слов), 3–6 чатов в `parser/groups.yaml`, group-bank + discussion prompts, **wizard → бот → городской чат**, Threads CTA, DNS, **VPS systemd в том же заходе**.
 
-1. **Agent** рекомендует страну (рейтинг ниже).
-2. **Вы** присылаете 3–6 Telegram handles.
-3. **Agent** собирает satellite: parser → signals → fact-check → цитаты в гайдах → блок на коридоре.
+## Workflow (супербыстрый)
+
+1. **Вы** пишете «Берлин» / «Польша» / «Валенсия».
+2. **Agent** мапит город → страна; **дешёвый** черновик гайдов + поиск; **GPT Sol** ревью; уникальные WebP на все слоты сразу; parser/bank/systemd; assert.
+3. **Вы** создаёте закрытую группу в Telegram и присылаете `chat_id` (бот не умеет создать группу) + DNS CNAME.
+
+Живые: **portugal / porto** (gold), **spain / valencia** (не gold — gap). Дальше: Germany/Berlin, Poland/Warsaw, Czechia/Prague.
 
 ---
 
-## Рейтинг коридоров (Jul 2026)
+## Рейтинг коридоров
 
-| # | Страна | Гайды | Pillar | Satellite | Почему |
-|---|--------|-------|--------|-----------|--------|
-| — | Португалия | 26 | ✓✓✓ | **есть** | эталон |
-| **1** | **Испания** | 23 | ✓ | нет | полный коридор, PT vs ES, Barakhlo Валенсия |
-| 2 | Германия | 23 | ✓ | нет | Blue Card, Termin |
-| 3 | Польша | 7 | ✓ | нет | wait times, BY/UA |
-| 4 | Чехия | 4 | ✓ | нет | Blue Card, Živnost |
-| — | Грузия/Сербия | 1–2 | transit | нет | хабы, не EU wizard |
-
-**Рекомендация:** начать с **Испании**. Альтернатива #2 — **Польша**, если приоритет work permit / очереди UoC.
+| # | Страна | Фокус | Satellite | Почему |
+|---|--------|-------|-----------|--------|
+| — | Португалия | Porto | **gold** | чат + bank + Threads + parser |
+| — | Испания | Valencia | **v1** | 7 editorial; добить чат/bank |
+| **1** | Германия | Berlin | нет | Blue Card, Termin |
+| 2 | Польша | Warsaw | нет | wait times, BY/UA |
+| 3 | Чехия | Prague | нет | Blue Card, Živnost |
+| — | Грузия/Сербия | — | нет | хабы, не EU wizard |
 
 ---
 
@@ -36,9 +40,10 @@
 
 ### Фаза 0 — вход от пользователя
 
-- [ ] 3–6 Telegram handles (релокантские чаты, не `@emigro_chat`)
-- [ ] Город-фокус satellite (напр. Valencia для ES)
-- [ ] VPS cron ok (тот же сервер, что Portugal/Barakhlo)
+- [ ] Страна **или** город (agent мапит и сам ищет 3–6 TG handles)
+- [ ] Город-фокус owned-чата (Porto / Valencia / Berlin…)
+- [ ] Вы создаёте закрытую группу по карточке агента (имя, био, аватар, `@emigro_chat_bot` админ)
+- [ ] VPS cron ok (тот же сервер, что Portugal/Barakhlo) — **в том же заходе**, не после v1
 - [ ] Субдомен DNS: `{country}.emigro.online` (v1 можно path `/satellite/{country}`)
 
 ### Фаза 1 — Parser
@@ -69,6 +74,8 @@
 - [ ] `lib/satellite/{country}.ts`
 - [ ] `app/satellite/{country}/*`
 - [ ] `middleware.ts` — rewrite субдомена
+- [ ] `lib/satellite/city-chats.ts` — строка owned-чата (`{city}_chat`, `EMIGRO_{CITY}_CHAT_ID`)
+- [ ] Wizard: `/ru/wizard` и `/ru/{country}/results` показывают CTA бота; после отчёта в Telegram — инвайт в **этот** чат, не в Porto
 
 ### Фаза 6 — Коридор (www)
 
@@ -173,11 +180,4 @@
 
 ## Следующий шаг
 
-Пришлите список каналов:
-
-```
-@channel_name — Valencia, general relocants
-@channel_name — DNV / extranjería focus
-```
-
-После списка — собираем Spain satellite по чеклисту выше.
+Напишите **страну или город** в чат агента (скилл `launch-satellite`). Список чужих TG-чатов присылать не нужно — агент ищет сам. От вас: создать закрытую группу по его карточке и прислать `chat_id`.

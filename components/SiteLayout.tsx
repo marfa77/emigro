@@ -297,7 +297,7 @@ export function SiteFooter({ locale = "ru" }: { locale?: UiLocale }) {
           </a>
           {" · "}
           <a href={portoChatDeepLink("footer")} className="text-corridor-600 hover:underline" rel="noopener noreferrer">
-            {locale === "ru" ? "Чат Порту и вокруг" : "Porto chat"}
+            {locale === "ru" ? "Для своих · Порту" : "Porto chat"}
           </a>
         </p>
       </div>

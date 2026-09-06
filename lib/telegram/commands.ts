@@ -1,8 +1,10 @@
 import { HUB_WIZARD_PATH } from "@/lib/corridor/paths";
 import { publicSiteUrl } from "@/lib/site-url";
+import type { SatelliteCityChat } from "@/lib/satellite/city-chats";
+import { defaultCityChat, matchCityChatKeyword } from "@/lib/satellite/city-chats";
 import {
-  portoChatInviteHtml,
-  type PortoChatInviteResult,
+  cityChatInviteHtml,
+  type CityChatInviteResult,
 } from "@/lib/telegram/porto-chat-invite";
 
 const STATS_RE = /^\/(?:stats|status)(?:@\w+)?$/i;
@@ -26,22 +28,30 @@ export function isChatCommand(text: string): boolean {
   return CHAT_RE.test((text || "").trim());
 }
 
-/** Private DM: join the Porto group (exact phrases + /chat). */
-export function isPortoChatRequest(text: string): boolean {
+/** Private DM: join a satellite city group (exact phrases + /chat). */
+export function isCityChatRequest(text: string): boolean {
   const t = (text || "").trim().toLowerCase();
   if (!t) return false;
   if (isChatCommand(t)) return true;
-  if (t === "порту" || t === "porto" || t === "чат" || t === "группа" || t === "группу") return true;
+  if (t === "чат" || t === "группа" || t === "группу") return true;
   if (t === "войти" || t === "вход" || t === "инвайт" || t === "invite") return true;
-  if (t.includes("чат порту") || t.includes("чат порто") || t.includes("группу порту")) return true;
-  return false;
+  return Boolean(matchCityChatKeyword(t));
 }
 
-export function userStartMessage(invite: PortoChatInviteResult): string {
+/** @deprecated Use isCityChatRequest */
+export function isPortoChatRequest(text: string): boolean {
+  return isCityChatRequest(text);
+}
+
+export function cityChatForKeyword(text: string): SatelliteCityChat {
+  return matchCityChatKeyword(text) ?? defaultCityChat();
+}
+
+export function userStartMessage(invite: CityChatInviteResult): string {
   const origin = publicSiteUrl();
   const wizardUrl = `${origin}${HUB_WIZARD_PATH}`;
   return [
-    portoChatInviteHtml(invite),
+    cityChatInviteHtml(invite),
     "",
     "—",
     "",

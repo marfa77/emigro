@@ -76,6 +76,18 @@ ok =
     }
   }) && ok;
 
+ok =
+  check("satellite llms emit utm_source=llm", () => {
+    const src = read("lib/community-notes/seo-page.ts");
+    const meta = read("lib/seo/llm-meta.ts");
+    if (!meta.includes("llmUtmAbsolute")) {
+      throw new Error("lib/seo/llm-meta.ts must export llmUtmAbsolute for satellite llms");
+    }
+    if (!src.includes("llmUtmAbsolute")) {
+      throw new Error("satellite llms builders must stamp UTM via llmUtmAbsolute");
+    }
+  }) && ok;
+
 const moneyPages: Array<{ rel: string; need: string[] }> = [
   {
     rel: "app/ru/guides/[slug]/page.tsx",
@@ -100,6 +112,18 @@ const moneyPages: Array<{ rel: string; need: string[] }> = [
   {
     rel: "app/ru/rossiyane/page.tsx",
     need: ["aiDescription", "ai:description", 'data-llm="facts"', "/llms.txt"],
+  },
+  {
+    rel: "app/satellite/spain/notes/[slug]/page.tsx",
+    need: ["ai:description", 'data-llm="facts"', 'data-llm="commercial"', "/llms"],
+  },
+  {
+    rel: "app/satellite/portugal/notes/[slug]/page.tsx",
+    need: ["ai:description", 'data-llm="facts"', 'data-llm="commercial"', "/llms"],
+  },
+  {
+    rel: "lib/community-notes/seo-page.ts",
+    need: ["withAiMetadata", "withSatelliteAiMetadata", "llmUtmAbsolute", "aiCategory"],
   },
 ];
 

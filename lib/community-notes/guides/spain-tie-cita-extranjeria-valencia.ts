@@ -1,137 +1,233 @@
-/** Hand-curated Spain satellite guide — TIE / cita extranjería. */
+/**
+ * Hand-curated Spain satellite guide — TIE / cita extranjería Valencia.
+ * ICPPlus slot practice separated from official Policía / Interior rules.
+ */
 import { flattenBodySections } from "@/lib/community-notes/editorial-quality";
 import { glossaryForSlug } from "@/lib/community-notes/editorial-glossaries";
 import { buildGlossarySection } from "@/lib/community-notes/glossary";
 import { buildNoteHashtags } from "@/lib/community-notes/hashtags";
-import { formatPracticeTakeaway } from "@/lib/community-notes/practice-format";
+import {
+  formatPracticeBullet,
+  formatPracticeTakeaway,
+} from "@/lib/community-notes/practice-format";
 import { NIE_EMPADRONAMIENTO_SLUG } from "@/lib/community-notes/guides/spain-nie-empadronamiento-poryadok";
 import type { CommunityNoteFaq, ContentKind, NoteBodySection } from "@/lib/community-notes/types";
 
 export const TIE_CITA_SLUG = "tie-cita-extranjeria-valencia-2026";
 
+const GLOSSARY_INTRO =
+  "Слова из ICPPlus, письма resolución favorable и окна Comisaría — чтобы не путать cita на huellas с записью на NIE или с «живой очередью», которой в Valencia уже нет.";
+
 const bodySections: NoteBodySection[] = [
-  { ...buildGlossarySection(glossaryForSlug(TIE_CITA_SLUG)!) },
   {
-    heading: "Официально: TIE, cita previa и huellas",
+    ...buildGlossarySection(glossaryForSlug(TIE_CITA_SLUG)!, GLOSSARY_INTRO),
+  },
+  {
+    heading: "Nota Emigro (fact-check)",
     section_kind: "official",
     paragraphs: [
-      "Зачем вам это сейчас: после въезда по visado D срок на подачу TIE ограничен — без cita previa и huellas рискуете штрафом и проблемами при проверке статуса.",
-      "Что делать: запишитесь на sede electrónica (Oficina de Extranjería / Comisaría) и соберите паспорт, visado, padrón, seguro, tasa 790, фото.",
-      "Зачем: без resguardo cita previa (подтверждения записи) в Valencia живой очереди нет — развернут в дверях.",
-      "Официально TIE — пластиковая карта резидента; до неё выдают resguardo после сдачи отпечатков.",
-      "Главное: cita previa обязательна; срок подачи обычно указан в visado D (часто 30 дней с въезда).",
+      "Разбор спорных формулировок черновика и чатов. **OK** = официальный портал; **soft** = поле Valencia 2025–2026; **fixed** = смягчено. Не юрконсультация — trámite и oficina сверяйте в [ICPPlus](https://sede.administracionespublicas.gob.es/icpplus/) на дату записи.",
     ],
     bullets: [
-      "Visado D — национальная виза; в ней указан срок подачи на TIE (обычно 30 дней с въезда).",
-      "Cita previa — обязательная онлайн-запись на sede.administracionespublicas.gob.es; без неё не примут.",
-      "Huellas dactilares — биометрия на приёме; после неё выдают resguardo до готовности пластика.",
-      "Документы: pasaporte, visado, certificado de empadronamiento (<3 мес.), seguro médico, tasa 790, фото 32×26 мм.",
-      "Provincia Valencia — Comisaría Provincial de Extranjería y Documentación (Policía Nacional); адрес и trámite на sede.",
+      "OK: TIE — EX-17 + tasa 790 código 012 + cita **TOMA DE HUELLAS** через [ICPPlus](https://sede.administracionespublicas.gob.es/icpplus/citar).",
+      "OK: autorización свыше шести месяцев → TIE **в течение одного месяца после въезда** (Ministerio del Interior).",
+      "OK: importe tasa — из PDF [Tasa790_012](https://sede.policia.gob.es/Tasa790_012/ImpresoRellenar), не из блога.",
+      "Fixed: «можно без cita» → cita previa **imprescindible**; живой очереди нет.",
+      "Soft: адрес Comisaría — **только из PDF cita**, не Bailén/Patraix из чатов.",
+      "Fixed: scalpers cita — не официальный канал.",
     ],
   },
   {
-    heading: "На практике: cita и очереди в Valencia",
+    heading: "Официально: портал, trámite и huellas",
+    section_kind: "official",
+    paragraphs: [
+      "После въезда по visado D с autorización свыше шести месяцев нужно запросить TIE в месячный срок. Пластик документирует уже выданную autorización; право проживания создаёт autorización, а не resguardo huellas. Отсутствие карты не аннулирует автоматически разрешение, но нарушает обязанность документироваться и создаёт практические проблемы.",
+      "Cita previa extranjería бронируется на [sede.administracionespublicas.gob.es/icpplus](https://sede.administracionespublicas.gob.es/icpplus/citar). Для типичного кейса RU с visado D ищите trámite **POLICÍA — TOMA DE HUELLAS (EXPEDICIÓN DE TARJETA) Y RENOVACIÓN DE TARJETA DE LARGA DURACIÓN**, provincia Valencia. Система покажет **oficina concreta** — ехать нужно туда, а не по адресу из старого поста.",
+      "На приёме: EX-17, pasaporte, visado/resolución, tasa 790-012 pagada, fotografía carnet, certificado empadronamiento (если procede). После huellas выдают **resguardo** — временное подтверждение до recogida пластика.",
+    ],
+    bullets: [
+      "Portal ICPPlus — cita Policía extranjería ([directorio](https://sede.administracionespublicas.gob.es/pagina/index/directorio/icpplus)).",
+      "EX-17 + tasa 790-012 pagada + fotografía carnet.",
+      "Resguardo после huellas — до recogida пластика.",
+      "Certificado empadronamiento — en práctica <3 meses для Valencia.",
+    ],
+  },
+  {
+    heading: "Typical RU track: visado D → huellas в Valencia",
     section_kind: "practice",
     paragraphs: [
-      "Зачем вам это сейчас: в @valenforum, @valenciarusia и @spain_granitsa три боли 2025–2026 — «слот исчез», «huellas без cita», «resguardo не принимают в банке».",
-      "Что делать: ловите слоты утром 08:00–09:00 Europe/Madrid и держите PDF-пакет ≤2 MB.",
-      "Зачем: Valencia быстрее Madrid/Barcelona, но cita (запись) всё равно конкурентная — без запаса недель не уложитесь в visado (визу).",
-      "Главное: полный цикл TIE в чатах Valencia — 4–8 месяцев; gestoría €300–600 помогает с записью, но не даёт «VIP-окна».",
+      "Типичный русскоязычный релокант приезжает с visado D ( trabajo, no lucrativa, teletrabajo/DNV после consulado). NIE и padrón часто уже в процессе или закрыты в первую неделю — см. [NIE и padrón](/notes/" +
+        NIE_EMPADRONAMIENTO_SLUG +
+        "). TIE — следующий bottleneck: не «один визит», а cita + huellas + ожидание пластика.",
+      "Бронируйте cita **сразу после прилёта**, не дожидаясь «идеального» NIE на бумаге. Resguardo EX-15 и certificado empadronamiento с historial обычно входят в пакет. PDF-сканы ≤2 MB, читаемые — частая причина «vuelva con copia clara».",
     ],
     bullets: [
-      "Cita на sede — ловят слоты 08:00–09:00 Europe/Madrid; VPN и мобильный браузер иногда ломают портал.",
-      "Полный цикл TIE в Valencia — 4–8 мес. (@valenciarusia); cita 1–3 недели, пластик 30–90 дней после huellas.",
-      "Gestoría €300–600 сопровождает cita + huellas; официального «VIP-окна» нет — только помощь с записью.",
-      "PDF-пакет: сканы ≤2 MB, читаемые; частая причина отказа — нечёткий pasaporte или устаревший padrón.",
-      "Resguardo после huellas часто принимают банк, Idealista-агентства и utilities до пластика TIE.",
+      "Visado D в pasaporte — проверьте plazo «presentar solicitud TIE» (sticker consulado).",
+      "Resolución favorable — если подавали до въезда; иначе visado + contrato/justificante по tipo.",
+      "NIE/resguardo — identificación fiscal en paquete.",
+      "Certificado + historial empadronamiento Valencia — PA.CE.10.",
+      "Fotos carnet 32×26 mm, fondo blanco — 3 copias en práctica чатов.",
+      formatPracticeBullet({
+        channels: ["valenciarusia", "valenforum"],
+        period: "2025–2026",
+        claim:
+          "resguardo после huellas принимают банк и agency для contrato, пока пластик «в производстве»",
+        forReader: "сфотографируйте resguardo в облако в день приёма — не ждите SMS",
+      }),
     ],
   },
   {
-    heading: "Где сайт и практика расходятся",
+    heading: "Охота за cita: ICPPlus без scalpers",
+    section_kind: "action_guide",
+    paragraphs: [
+      "ICPPlus не публикует официальный таймтейбл «слоты в 08:00». Участники @valenciarusia и @valenforum в 2025–2026 описывают короткие окна, когда календарь оживает — это **полевой опыт**, не инструкция Ministerio. Ведите простой лog: дата, hora, resultado (0 citas / cita tomada).",
+      "Платные сервисы, которые **продают** cita или бронируют за вас за €100–600, — серая зона. Официально cita бесплатна; покупка у третьих лиц — риск мошенничества и блокировки. Допустимы **alert-сервисы**, которые только уведомляют о появлении hueco — бронь делаете вы на sede.",
+    ],
+    bullets: [
+      "Provincia: Valencia — не путать с Alicante или Castellón, если живёте в другом municipio.",
+      "Trámite: «TOMA DE HUELLAS» — не «Asignación NIE» и не «Entrega TIE» (recogida — отдельная cita позже).",
+      "NIE + nombre completo — autocompletado; ошибка в NIE роняет бронь.",
+      "VPN иногда ломает captcha ICPPlus — пробуйте мобильный 4G без VPN.",
+      "Si 0 citas 1–3 meses: монitorинг ежедневно, gestoría с прозрачным договором, **не** scalper; soft — provincias с меньшей demanda только если domicilio позволяет.",
+      formatPracticeBullet({
+        channels: ["spain_granitsa"],
+        period: "2025–2026",
+        claim:
+          "в Valencia cita на huellas чаще появляется за 1–3 недели мониторинга, быстрее Madrid/Barcelona, но без гарантии",
+        forReader: "начинайте ICPPlus в первую неделю после прилёта, не в день 29 по visado",
+      }),
+    ],
+  },
+  {
+    heading: "День huellas: папка и oficina из PDF cita",
+    section_kind: "action_guide",
+    paragraphs: [
+      "Утром визита распечатайте cita previa, tasa pagada, EX-17 и originals. Oficina — **exactamente** la que figura en su justificante ICPPlus. Если в чате советуют «езжай на Bailén» или «только Patraix», сверьте с **вашим** PDF: официальный источник офиса — ICPPlus, не сторонний агрегатор.",
+      "En mostrador иногда дозапрашивают contrato trabajo, alta SS, bank statements — держите PDF по tipo autorización, даже если «универсальный список» из Telegram короче.",
+    ],
+    bullets: [
+      "Cita previa impresa + pasaporte + EX-17 + tasa pagada.",
+      "Visado/resolución + empadronamiento reciente.",
+      "Fotografía carnet; seguro visado si exigible.",
+    ],
+  },
+  {
+    heading: "Где sede и практика расходятся",
     section_kind: "gap",
     paragraphs: [
-      "Что делать: не верьте «есть citas» на sede и «можно без записи» из чата — бронируйте в первую неделю после прилёта.",
-      "Зачем: пиковые месяцы (сентябрь–ноябрь) обнуляют слоты за минуты; опоздание с TIE бьёт по статусу.",
-      "Главное: сайт показывает формальные 30 дней; на деле закладывайте 6–8 недель минимум на cita + huellas.",
+      "Формально cita previa бесплатна и обязательна. На практике конкуренция за huecos в Valencia ниже, чем в Madrid, но **не нулевая** — сентябрь и post-verano calendars опустошаются за минуты.",
+      "Resguardo после huellas официально подтверждает trámite en curso. На практике один банковский clerk принимает resguardo, другой требует TIE plástico — имейте plan B sucursal.",
     ],
     bullets: [
-      "На сайте sede звучит как «есть свободные citas», а на экране 0 слотов на всю неделю в пиковые месяцы.",
-      "В чатах релокантов часто пишут «можно без записи в Valencia», но на практике развернут без resguardo cita previa — живой очереди нет.",
-      "На сайте 30 дней на TIE, а gestoría говорит «2 недели на cita + ещё на huellas» — закладывайте 6–8 недель минимум.",
-      "Ожидание: resguardo = TIE → utilities и некоторые банки требуют уже пластик или NIE definitivo.",
-      "В чатах Madrid/BCN cita 2–4 мес. — в Valencia обычно 1–3 недели, но это не гарантия.",
+      "Официально: solicitud TIE — в течение одного месяца для autorización свыше шести месяцев. На практике cita и изготовление занимают недели; диапазон зависит от oficina и не имеет гарантированного «минимума» в 6–8 недель.",
+      "Официально: «hay citas» en ICPPlus. На práctica: pantalla 0 durante días — normal en pico.",
+      "Soft: horarios «12:00 y 20:00» para nuevas citas — blogs de abogados, no sede; no copie como ley.",
+      "Официально: resguardo = prueba tramitación. На практике: utilities/Hacienda к 4–6 месяцу могут запросить уже **пластик** — не откладывайте recogida TIE.",
+      formatPracticeBullet({
+        channels: ["valenforum", "spain_granitsa"],
+        period: "2025–2026",
+        claim:
+          "отказ на huellas из‑за empadronamiento >3 meses или PDF borroso — частая причина второго cita",
+        forReader: "обновите certificado padrón за неделю до cita",
+      }),
     ],
   },
   {
-    heading: "Пошагово: TIE в Valencia",
+    heading: "Если cita нет месяцы 1–3: план B",
     section_kind: "practice",
     paragraphs: [
-      "Зачем вам это сейчас: типовой маршрут от прилёта до resguardo — при условии, что NIE и empadronamiento уже есть.",
-      "Что делать: пройдите пять шагов ниже; параллельно держите open вкладку sede.",
-      "Зачем: откладывать cita (запись) «пока устроюсь» — самый дорогой совет из чатов.",
-      "См. также [NIE и padrón](/notes/" + NIE_EMPADRONAMIENTO_SLUG + ").",
-      "Главное: resguardo после huellas часто достаточно для банка и аренды — не ждите пластик для быта.",
+      "Отсутствие hueco не аннулирует автоматически underlying autorización, но месячный срок запроса TIE продолжает действовать. Сохраняйте screenshots ICPPlus и документы autorización; если срок уже пропущен или Policía не даёт канал подачи — обращайтесь в dependencia/abogado extranjería, не к scalper.",
+      "Gestoría €300–600 за сопровождение cita — рынок услуг, не госуслуга. Просите письменно: что входит (monitoreo, сопровождение en día huellas), что нет (гарантия slot).",
     ],
     bullets: [
-      "Шаг 1: сразу после прилёта — регистрируйтесь на sede (Extranjería → huellas / TIE); не ждите готовый NIE.",
-      "Шаг 2: оплатите tasa 790 (код зависит от trámite) — квитанция PDF в пакет документов.",
-      "Шаг 3: соберите папку: pasaporte + visado, certificado de empadronamiento с historial, seguro médico, фото, tasa.",
-      "Шаг 4: на huellas — сдайте отпечатки, получите resguardo; сфотографируйте и сохраните в облако.",
-      "Шаг 5: с resguardo открывайте банк, аренду, travel — пластик заберёте по SMS/письму через 30–90 дней.",
+      "Продолжайте мониторинг ICPPlus 2–4 коротких сессии в день.",
+      "Alert legal (уведомление, не покупка cita) — ok; перепродажа cita — нет.",
+      "Contact extranjería provincia — если visado истекает, формулируйте situación письменно.",
+      "Duplicado resolución — только si procede по instrucción oficina; renovación resuelta favorable часто **не** требует duplicado для huellas (soft, сверяйте caso).",
+      "Abogado — когда plazo visado прошёл и нет resguardo huellas.",
+      "Не ехать «без cita на удачу» — потерянный día и riesgo отказа.",
     ],
   },
   {
     heading: "Типичные ошибки релокантов",
     section_kind: "practice",
     paragraphs: [
-      "Что делать: проверьте список до поездки в extranjería и до оплаты gestoría.",
-      "Зачем: одна ошибка с padrón (пропиской) или seguro (страховкой) — повторный визит и потерянный слот.",
-      "Главное: cita previa + актуальный padrón + читаемый PDF — три фильтра, без которых huellas не случится.",
+      "Провалы редко из‑за «сложной Испании» — чаще из‑за позднего старта ICPPlus, устаревшего padrón или путаницы NIE vs TIE. Resguardo huellas сохраните так же тщательно, как visado в pasaporte.",
     ],
     bullets: [
-      "Ошибка: ехать в extranjería без cita previa — потерянный день; в Valencia живой очереди нет.",
-      "Ошибка: empadronamiento старше 3 мес. без обновления certificado — дозапрос и перенос huellas.",
-      "Ошибка: seguro médico не на испанском / без repatriación — отказ или повторный визит.",
-      "Ошибка: ждать пластик TIE для банка — resguardo + NIE часто достаточно в Valencia.",
-      "Ошибка: откладывать cita «пока устроюсь» — слоты исчезают; бронируйте в первую неделю.",
+      "Откладывать cita «пока устроюсь в квартире» — слоты не ждут; visado plazo тикает.",
+      "Empadronamiento старше 3 meses — возможен дозапрос; актуальность сверяйте по checklist oficina.",
+      "Seguro без cobertura repatriación / не на ES — отказ en mostrador (soft).",
+      "PDF pasaporte нечитаемый — «vuelva mañana».",
+      "Путать trámite NIE и huellas TIE в ICPPlus — wrong office.",
+      "Ждать пластик для банка — resguardo + NIE часто достаточны en Valencia.",
+      "Покупать cita у scalper — riesgo estafa y datos personales.",
+    ],
+  },
+  {
+    heading: "Recogida del plástico TIE y cita de entrega",
+    section_kind: "official",
+    paragraphs: [
+      "Huellas — только половина истории. Когда TIE изготовлен, Policía назначает **entrega** — отдельный trámite en ICPPlus («ENTREGA DE TARJETAS»). Не путайте con toma de huellas. SMS o correo de Comisaría указывает, когда пластик готов; без recogida карта не у вас.",
+      "En recogida llevan pasaporte, resguardo anterior y justificante cita entrega. Si pierde plazo, puede necesitar nueva cita — soft delay weeks.",
+    ],
+    bullets: [
+      "Trámite entrega — distinto de huellas en ICPPlus.",
+      "Notificación Comisaría — guarde SMS/email.",
+      "Plazo recogida — variable; no ignore aviso.",
+      "Oficina entrega — puede coincidir con dependencia huellas o no; siga PDF cita.",
+      "Menores — recogida con representante legal si procede.",
+    ],
+  },
+  {
+    heading: "Связанные шаги и Assist",
+    section_kind: "practice",
+    paragraphs: [
+      "TIE cierra el arco migratorio post-visado; NIE y padrón deben estar cerrados antes. Ruta completa visado → TIE → SS en [Emigro Wizard](/ru/wizard?utm_source=emigro&utm_medium=guide&utm_campaign=tie-cita-valencia&utm_content=tie-cita-extranjeria-valencia-2026). Si visado caduca o rechazan huellas — [Route Check Assist](/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=tie-cita-valencia&utm_content=tie-cita-extranjeria-valencia-2026).",
+    ],
+    bullets: [
+      "[NIE и empadronamiento](/notes/" + NIE_EMPADRONAMIENTO_SLUG + ") — до huellas.",
+      "[Банк IBAN](/notes/bank-iban-nerezident-ispaniya-2026) — resguardo huellas для KYC.",
+      "[Первые 30 дней](/notes/pervye-30-dnej-v-ispanii-satelit-2026) — порядок недель.",
+      "Pillar: [ВНЖ Испания 2026](/ru/guides/vnj-ispaniya-2026).",
     ],
   },
 ];
 
 const keyTakeaways = [
-  "Официально: TIE подаётся в срок visado через cita previa на sede, затем huellas dactilares.",
+  "Официально: TIE huellas — cita ICPPlus, trámite TOMA DE HUELLAS, EX-17 + tasa 790-012 (importe из PDF sede.policia.gob.es); oficina = адрес в вашем justificante cita.",
+  "Официально: cita previa обязательна; без неё не примут; certificado empadronamiento reciente — стандарт пакета Valencia.",
   formatPracticeTakeaway({
-    channels: ["valenciarusia"],
+    channels: ["valenciarusia", "valenforum"],
     period: "2025–2026",
     claim:
-      "в Valencia слоты cita previa (запись в extranjería) чаще появляются утром около 08:00–09:00",
+      "resguardo после huellas часто принимают банк и аренда до пластика TIE",
     forReader:
-      "gestoría (посредник) берёт €300–600, но полный цикл TIE — cita, huellas и пластик — в чатах занимает 4–8 месяцев",
+      "бронируйте ICPPlus в первую неделю; полный цикл cita + plástico в чатах — 4–8 meses",
   }),
-  "Расхождение: resguardo после huellas часто принимают банк и аренда — не ждите пластик для бытовых задач.",
-  "Официально: без cita previa не примут; certificado de empadronamiento должен быть актуальным (<3 мес.).",
+  "Расхождение: «можно без cita» и фиксированный адрес Comisaría из блога — soft; доверяйте PDF cita ICPPlus, не scalpers.",
 ];
 
 const faq: CommunityNoteFaq[] = [
   {
     q: "Можно попасть на huellas без cita?",
-    a: "Нет — по правилам нужна cita previa. На практике в редких sedes принимают по resguardo записи — не рассчитывайте.",
+    a: "По правилам — нет, cita previa imprescindible через ICPPlus. На практике живой очереди в Valencia на huellas нет; без PDF cita развернут.",
+  },
+  {
+    q: "Какой portal для типичного TIE с visado D?",
+    a: "По правилам — [sede.administracionespublicas.gob.es/icpplus](https://sede.administracionespublicas.gob.es/icpplus/citar), provincia Valencia, trámite POLICÍA TOMA DE HUELLAS. На практике не путайте с Asignación NIE.",
   },
   {
     q: "Сколько ждать TIE в Valencia?",
-    a: "По правилам — resguardo сразу после huellas, пластик 30–90 дней. На практике полный цикл cita + пластик — 4–8 мес. (@valenciarusia).",
+    a: "По правилам resguardo — в день huellas; plástico — semanas после. На практике полный цикл cita + recogida в @valenciarusia — 4–8 meses в загруженные периоды.",
   },
   {
-    q: "Что делать, если cita пропала на sede?",
-    a: "Обновляйте sede несколько раз в день (утро 08:00–09:00), пробуйте соседние municipios provincia, gestoría или alert-сервисы — остерегайтесь мошенников.",
+    q: "Что если cita пропала на ICPPlus?",
+    a: "По правилам — повторный мониторинг sede. На практике утренние сессии, alert (не покупка cita), gestoría с договором; при истечении visado — abogado.",
   },
   {
-    q: "Какие документы на huellas обязательны?",
-    a: "По правилам: pasaporte, visado, empadronamiento, seguro médico, tasa 790, фото. На практике extranjería Valencia дозапрашивает contrato trabajo и bank statements — держите PDF ≤2 MB.",
-  },
-  {
-    q: "Нужен ли готовый NIE перед записью на TIE?",
-    a: "Не обязательно — по правилам нужен visado D и padrón. На практике бронируйте cita сразу после прилёта; resguardo NIE достаточно для пакета.",
+    q: "Нужен ли готовый NIE перед записью?",
+    a: "По правилам — identificación и padrón в пакете; visado D — base. На практике resguardo EX-15 достаточен; не ждите «зелёный» certificado для брони cita.",
   },
 ];
 
@@ -139,30 +235,35 @@ export const TIE_CITA_GUIDE = {
   slug: TIE_CITA_SLUG,
   category: "TIE и extranjería",
   content_kind: "guide" as ContentKind,
-  title: "TIE и cita extranjería в Valencia: запись и huellas",
+  title: "TIE и cita extranjería в Valencia: запись и huellas 2026",
   excerpt:
-    "Cita previa на sede, huellas, resguardo и пластик — пошаговый маршрут для Valencia без мифов про «живую очередь» и потерянных слотов.",
+    "ICPPlus, EX-17, tasa 790-012, huellas и resguardo — пошаговый маршрут Valencia для visado D без мифов про «живую очередь» и scalpers.",
   seo_title: "TIE extranjería Valencia 2026 — cita и huellas",
   seo_description:
-    "TIE и cita extranjería в Valencia 2026: huellas, resguardo, запись sede, документы и сроки. Практика для русскоязычных релокантов с visado D в provincia Valencia.",
+    "TIE и cita extranjería Valencia 2026: ICPPlus, huellas, resguardo, EX-17, документы и сроки. Практика для RU/BY с visado D — без paid cita-scalpers.",
   quick_answer:
-    "Visado D в паспорте есть — а пластик TIE ещё «где-то в системе», и это нормальная испанская пауза, не конец света. После въезда ловите cita previa на sede и сдайте huellas в Comisaría de Extranjería Valencia; слоты чаще утром 08:00–09:00. После huellas — resguardo: его часто принимают банк и аренда до пластика.",
+    "После visado D бронируйте cita на ICPPlus (POLICÍA — TOMA DE HUELLAS, provincia Valencia) в первую неделю. Пакет: EX-17, tasa 790 из PDF на sede.policia.gob.es, padrón reciente с historial, pasaporte, seguro visado. Oficina Comisaría — только адрес из вашего PDF cita, не из чатов про Bailén или Patraix. После huellas — resguardo до пластика; scalpers не рекомендуем. Полный цикл в @valenciarusia — до 4–8 meses в пик.",
   body_sections: bodySections,
   body_paragraphs: flattenBodySections(bodySections),
   key_takeaways: keyTakeaways,
   faq,
   official_links: [
-    { title: "Sede — cita previa extranjería", url: "https://sede.administracionespublicas.gob.es/" },
+    { title: "ICPPlus — cita extranjería", url: "https://sede.administracionespublicas.gob.es/icpplus/citar" },
+    { title: "Directorio ICPPlus", url: "https://sede.administracionespublicas.gob.es/pagina/index/directorio/icpplus" },
+    { title: "Policía — extranjería", url: "https://sede.policia.gob.es/portalCiudadano/_es/tramites_extranjeria.php" },
+    { title: "Ministerio del Interior — TIE", url: "https://www.interior.gob.es/opencms/es/servicios-al-ciudadano/tramites-y-gestiones/extranjeria/regimen-general/tarjeta-de-identidad-de-extranjero/" },
+    { title: "Tasa 790 código 012", url: "https://sede.policia.gob.es/Tasa790_012/ImpresoRellenar" },
     { title: "Ministerio Inclusion — extranjería", url: "https://www.inclusion.gob.es/" },
-    { title: "Policía Nacional — extranjería", url: "https://www.policia.es/_es/extranjeria.php" },
   ],
   topic_tags: ["tie", "extranjeria", "valencia"],
   hashtags: buildNoteHashtags({
     topicTags: ["tie", "extranjeria", "valencia"],
     contentKind: "guide",
-    extra: ["huellas", "cita"],
+    extra: ["huellas", "cita", "icpplus"],
   }),
   source_channel: "valenforum+valenciarusia+spain_granitsa",
-  source_label: "editorial:tie-cita+voice-pass",
+  source_label: "editorial:tie-cita-gold-valencia-2026",
   pillar_guide_slug: "vnj-ispaniya-2026",
 };
+
+export default TIE_CITA_GUIDE;

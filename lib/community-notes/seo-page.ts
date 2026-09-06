@@ -8,6 +8,7 @@ import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
 import { resolveNoteOgImage } from "@/lib/community-notes/note-og-image";
 import { fitMetaDescription, fitSeoTitlePart, socialImageMetadata } from "@/lib/seo";
 import { EMIGRO_PUBLISHER, emigroAuthorOrg, schemaImage } from "@/lib/seo/schema";
+import { withAiMetadata, llmUtmAbsolute } from "@/lib/seo/llm-meta";
 import { portugalSatellitePublicUrl, spainSatellitePublicUrl } from "@/lib/site-url";
 
 const GEO = {
@@ -42,15 +43,23 @@ const CITY_GEO: Record<string, { city: string; region: string; latitude: number;
 const TOPIC_GEO_KEYWORDS: Record<string, string[]> = {
   nif: ["NIF Portugal", "Finanças Porto", "e-Fatura"],
   nie: ["NIE Spain", "extranjería Valencia", "empadronamiento Spain"],
-  tie: ["TIE Spain", "cita extranjería", "residencia Spain"],
+  empadronamiento: ["empadronamiento Valencia", "padrón Spain", "ayuntamiento Valencia"],
+  tie: ["TIE Spain", "cita extranjería", "residencia Spain", "huellas Valencia"],
+  extranjeria: ["extranjería Valencia", "ICPPlus cita", "sede electrónica"],
   aima: ["AIMA Portugal", "Agora appointment", "VNG Portugal"],
   arenda: ["rent Porto", "arrendamento Portugal", "rent Braga", "Idealista Valencia", "rent Spain"],
+  alquiler: ["alquiler Valencia", "fianza GVA", "LAU Spain", "Idealista Valencia"],
   bank: ["bank account Portugal", "conta bancária", "IBAN Spain", "cuenta bancaria"],
-  sns: ["SNS Portugal", "numero utente"],
+  sns: ["SNS Portugal", "numero utente", "SIP Valencia", "Sanitat GVA"],
+  sip: ["SIP Valencia", "tarjeta sanitaria", "centro de salud Valencia"],
   ciple: ["CIPLE CAPLE Portugal"],
-  transport: ["Porto metro CP", "transport Norte"],
-  sim: ["SIM card Portugal"],
-  school: ["school Porto expat", "international school Braga"],
+  transport: ["Porto metro CP", "transport Norte", "Metrovalencia", "EMT Valencia"],
+  sim: ["SIM card Portugal", "SIM Valencia", "eSIM Spain", "prepago Orange"],
+  internet: ["fibra Valencia", "internet Spain", "luz PVPC"],
+  utilities: ["luz Valencia", "EMIVASA", "cambio titular luz"],
+  school: ["school Porto expat", "international school Braga", "colegio Valencia"],
+  distritos: ["distritos Valencia", "Ruzafa", "Benimaclet", "Campanar"],
+  dnv: ["digital nomad Spain", "UGE teletrabajo", "DNV Valencia"],
   general: ["Portugal relocation", "Norte expat", "Porto expat", "Spain relocation", "Valencia expat"],
 };
 
@@ -120,6 +129,23 @@ export function buildCommunityNoteKeywords(note: CommunityNote): string[] {
   return Array.from(new Set(base.map((k) => k.trim()).filter(Boolean))).slice(0, 12);
 }
 
+function satelliteLlmsTxtUrl(countryKey: string): string {
+  return countryKey === "spain" ? spainSatellitePublicUrl("/llms") : portugalSatellitePublicUrl("/llms");
+}
+
+export function withSatelliteAiMetadata(
+  metadata: Metadata,
+  countryKey: string,
+  aiDescription: string
+): Metadata {
+  return withAiMetadata(metadata, {
+    aiDescription,
+    aiCategory: "relocation-practice",
+    path: "/",
+    llmsTxtUrl: satelliteLlmsTxtUrl(countryKey),
+  });
+}
+
 export function buildCommunityNoteMetadata(note: CommunityNote): Metadata {
   const url = communityNoteUrl(note.slug, note.country_key);
   const title = fitSeoTitlePart(note.seo_title || note.title);
@@ -128,33 +154,37 @@ export function buildCommunityNoteMetadata(note: CommunityNote): Metadata {
   const ogImage = socialImageMetadata(resolveNoteOgImage(note), note.title);
   const siteName = satelliteSiteName(note.country_key);
 
-  return {
-    title,
-    description,
-    keywords,
-    alternates: {
-      canonical: url,
-      languages: { "ru-RU": url, ru: url, "x-default": url },
+  return withSatelliteAiMetadata(
+    {
+      title,
+      description,
+      keywords,
+      alternates: {
+        canonical: url,
+        languages: { "ru-RU": url, ru: url, "x-default": url },
+      },
+      robots: { index: true, follow: true },
+      openGraph: {
+        title: note.title,
+        description: note.excerpt || description,
+        url,
+        siteName,
+        locale: "ru_RU",
+        type: "article",
+        ...(note.published_at ? { publishedTime: note.published_at } : {}),
+        modifiedTime: note.updated_at,
+        images: [ogImage],
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: note.title,
+        description: note.excerpt || description,
+        images: [ogImage.url],
+      },
     },
-    robots: { index: true, follow: true },
-    openGraph: {
-      title: note.title,
-      description: note.excerpt || description,
-      url,
-      siteName,
-      locale: "ru_RU",
-      type: "article",
-      ...(note.published_at ? { publishedTime: note.published_at } : {}),
-      modifiedTime: note.updated_at,
-      images: [ogImage],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: note.title,
-      description: note.excerpt || description,
-      images: [ogImage.url],
-    },
-  };
+    note.country_key,
+    buildCommunityNoteLlmDescription(note)
+  );
 }
 
 function schemaTypeForKind(kind: ContentKind): "NewsArticle" | "Article" {
@@ -296,9 +326,9 @@ export async function buildPortugalLlmsTxt(notes: CommunityNote[]): Promise<stri
     "",
     "## Wizard и коридор",
     "",
-    `- Wizard подбора маршрута ВНЖ: ${PORTUGAL_SATELLITE.wizardUrl}`,
-    `- Pillar-гайд: ${PORTUGAL_SATELLITE.pillarGuideUrl}`,
-    `- Справочник коридора: ${PORTUGAL_SATELLITE.digestUrl}`,
+    `- Wizard подбора маршрута ВНЖ: ${llmUtmAbsolute(PORTUGAL_SATELLITE.wizardUrl)}`,
+    `- Pillar-гайд: ${llmUtmAbsolute(PORTUGAL_SATELLITE.pillarGuideUrl)}`,
+    `- Справочник коридора: ${llmUtmAbsolute(PORTUGAL_SATELLITE.digestUrl)}`,
     "",
     "## Материалы (editorial notes)",
     "",
@@ -306,7 +336,7 @@ export async function buildPortugalLlmsTxt(notes: CommunityNote[]): Promise<stri
 
   for (const note of notes) {
     const url = communityNoteUrl(note.slug, note.country_key);
-    lines.push(`- [${note.title}](${url}): ${note.quick_answer.replace(/\s+/g, " ").slice(0, 220)}`);
+    lines.push(`- [${note.title}](${llmUtmAbsolute(url)}): ${note.quick_answer.replace(/\s+/g, " ").slice(0, 220)}`);
   }
 
   lines.push("", "## Official corridors", "", `- Portugal corridor: https://www.emigro.online/ru/portugal`, "");
@@ -330,10 +360,10 @@ export async function buildSpainLlmsTxt(notes: CommunityNote[]): Promise<string>
     "",
     "## Wizard и коридор",
     "",
-    `- Wizard подбора маршрута ВНЖ: ${SPAIN_SATELLITE.wizardUrl}`,
-    `- Pillar-гайд: ${SPAIN_SATELLITE.pillarGuideUrl}`,
-    `- Справочник коридора: ${SPAIN_SATELLITE.digestUrl}`,
-    `- Коридор на emigro.online: ${SPAIN_SATELLITE.mainSiteUrl}`,
+    `- Wizard подбора маршрута ВНЖ: ${llmUtmAbsolute(SPAIN_SATELLITE.wizardUrl)}`,
+    `- Pillar-гайд: ${llmUtmAbsolute(SPAIN_SATELLITE.pillarGuideUrl)}`,
+    `- Справочник коридора: ${llmUtmAbsolute(SPAIN_SATELLITE.digestUrl)}`,
+    `- Коридор на emigro.online: ${llmUtmAbsolute(SPAIN_SATELLITE.mainSiteUrl)}`,
     "",
     "## Материалы (editorial notes)",
     "",
@@ -341,7 +371,7 @@ export async function buildSpainLlmsTxt(notes: CommunityNote[]): Promise<string>
 
   for (const note of notes) {
     const url = communityNoteUrl(note.slug, "spain");
-    lines.push(`- [${note.title}](${url}): ${note.quick_answer.replace(/\s+/g, " ").slice(0, 220)}`);
+    lines.push(`- [${note.title}](${llmUtmAbsolute(url)}): ${note.quick_answer.replace(/\s+/g, " ").slice(0, 220)}`);
   }
 
   if (topTags.length > 0) {

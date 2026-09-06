@@ -43,7 +43,7 @@ export const PORTUGAL_FEATURED_NOTES: PortugalFeaturedNote[] = [
   },
   {
     slug: "aima-agora-zapis-2026",
-    title: "Запись в AIMA через Agora",
-    description: "Слоты, продление, практика 2026.",
+    title: "AIMA 2026: Agora, portal, слот",
+    description: "Agora ≠ portal-renovacoes · лог слотов · день приёма · Porto/Lisboa.",
   },
 ];

@@ -12,11 +12,11 @@
 |----------|-------------------|-----------------|-----|
 | **Parser channels** | 5 (`@chatlisboa`, `@por_tugal`, `@lepta`, `@autolife_pt`, `@braga_pt_rus`) | 5 (`@spain_granitsa`, `@spainchats`, `@valenforum`, `@valenciarusia`, `@migranty_barselona`) | ✅ |
 | **Daily cron (VPS)** | `emigro-portugal-community.timer` 07:00 UTC | `emigro-spain-community.timer` 07:30 UTC | ✅ |
-| **Editorial seed notes** | 4 в `publish-seed.ts` + 6 hand-curated blueprints | 7 hand-curated blueprints (`SPAIN_EDITORIAL_GUIDES`) | ✅ (≥7) |
+| **Editorial seed notes** | 4 в `publish-seed.ts` + hand-curated blueprints (жизнь 0–6 мес.) | 7 hand-curated (`SPAIN_EDITORIAL_GUIDES`) | ❌ gold = 15 |
 | **body_sections (guide)** | ≥5 секций + glossary first | 5–6 секций + glossary | ✅ |
 | **FAQ (guide)** | ≥4 | 4 (guide), 3–4 (tip/qa/lifehack) | ✅ |
 | **official_links** | ≥2 gov/official URL | ≥2 на каждой заметке | ✅ |
-| **Word count (guide)** | 600+ gate; hand-curated ~1500–2000 | 600+ gate; expanded ~900–1100 | ⚠️ короче PT blueprints |
+| **Word count (guide)** | launch 1200+ (target 1500) | ~900–1100 | ❌ короче gold |
 | **Per-note hero image** | `public/images/community-notes/{slug}.webp` + manifest | 7 unique WebP committed | ✅ (Jul 2026) |
 | **NoteCard — не DEFAULT_OG** | `resolveNoteCardImage()` → committed/dynamic/fallback | Уникальный WebP или distinct OG JPG | ✅ |
 | **Pillar guide OG (www)** | `guide-{slug}.jpg` on disk | `vnj-ispaniya`, `pervye-30-dnej-v-ispanii`, `portugaliya-vs-ispaniya` | ✅ |
@@ -49,7 +49,7 @@
 
 ## 2. Editorial notes
 
-- [ ] Минимум **7 editorial notes** на старте (Spain: 7 ✅)
+- [ ] Минимум **15 editorial guides** жизни 0–6 мес. ≥1200 слов (Spain: 7 — **не gold**; assert FAIL)
 - [ ] `body_sections`: glossary first, затем `official` + `practice` + `gap`
 - [ ] `key_takeaways`: ≥2 с префиксом «Официально:» / «На практике:» / «Расхождение:»
 - [ ] `faq`: guide ≥4, qa/news ≥4, tip/lifehack ≥3
@@ -103,7 +103,10 @@
 - [ ] Canonical: `{country}.emigro.online` (env `*_SATELLITE_USE_SUBDOMAIN`)
 - [ ] `middleware.ts` — 301 `www.../satellite/{country}` → subdomain
 - [ ] Schema: note pages — Article/FAQ (см. `app/satellite/{country}/notes/[slug]/page.tsx`)
-- [ ] `seo_description` 140–165 chars, `seo_title` ≤58
+- [ ] `seo_title` 24–58 + year + geo; `seo_description` 140–165; excerpt ≠ description
+- [ ] AEO same batch: `quick_answer` ≥180, ≥4 FAQ with «По правилам»/«На практике», `satelliteGuideSeoAeoGaps` empty
+- [ ] Note `<head>`: `withSatelliteAiMetadata` (`ai:description`, `text/plain` → `{country}.emigro.online/llms`)
+- [ ] `data-llm="facts"` + `data-llm="commercial"` on note pages; satellite llms UTM `utm_source=llm`
 
 ---
 

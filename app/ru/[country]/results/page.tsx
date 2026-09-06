@@ -18,8 +18,9 @@ import { pageMetadata } from "@/lib/seo";
 import { corridorStaticParamsFromSegments, getActiveCorridorSegments } from "@/lib/corridor/segments";
 import { newsIndexPath } from "@/lib/news/topics";
 import { PortugalHubNextSteps } from "@/components/portugal/PortugalHubNextSteps";
-import { WizardPortugalPracticeCta } from "@/components/wizard/WizardPortugalPracticeCta";
+import { WizardSatellitePracticeCta } from "@/components/wizard/WizardSatellitePracticeCta";
 import { isPortugalHubTopic } from "@/lib/portugal/hub";
+import { liveCityChatForCountry } from "@/lib/satellite/city-chats";
 
 export async function generateStaticParams() {
   const segments = await getActiveCorridorSegments();
@@ -50,6 +51,7 @@ export default async function CountryResultsPage({
   const corridorSlug = topic.corridorSlug;
   const base = topic.sitePaths.landing;
   const sessionId = searchParams.session;
+  const cityChat = liveCityChatForCountry(topic.urlSegment);
   const corridor = await getCorridorBySlug(corridorSlug);
 
   if (!sessionId) {
@@ -176,9 +178,14 @@ export default async function CountryResultsPage({
           })}
         </div>
 
-        {isPortugalHubTopic(topic) && (
-          <WizardPortugalPracticeCta sessionId={sessionId} placement="wizard_corridor_results" />
-        )}
+        {cityChat ? (
+          <WizardSatellitePracticeCta
+            sessionId={sessionId}
+            placement="wizard_corridor_results"
+            countryKey={cityChat.countryKey}
+            chat={cityChat}
+          />
+        ) : null}
 
         {isPortugalHubTopic(topic) && (
           <PortugalHubNextSteps

@@ -10,7 +10,8 @@ import type { GlobalEvalPayload } from "@/lib/engine/run-global-evaluation";
 import { findFirstProviderTopicKey } from "@/lib/providers/registry";
 import { PORTUGAL_URL_SEGMENT, portugalHubPaths } from "@/lib/portugal/hub";
 import { PortugalHubNextSteps } from "@/components/portugal/PortugalHubNextSteps";
-import { WizardPortugalPracticeCta } from "@/components/wizard/WizardPortugalPracticeCta";
+import { WizardSatellitePracticeCta } from "@/components/wizard/WizardSatellitePracticeCta";
+import { liveCityChatForCountry } from "@/lib/satellite/city-chats";
 import { TRANSIT_HUBS } from "@/lib/transit-hubs";
 import Link from "next/link";
 import { ArrowRight, Compass, Route, Sparkles } from "lucide-react";
@@ -216,7 +217,7 @@ export function HubWizardResults({
         providerTopicKey={providerTopicKey}
         country={pick?.countrySegment}
         programTitle={pick?.programTitleRu}
-        showPortugalHub={pick?.countrySegment === PORTUGAL_URL_SEGMENT || providerTopicKey === PORTUGAL_URL_SEGMENT}
+        showSatelliteCountry={pick?.countrySegment || providerTopicKey}
       />
 
       {byCountry.length > 0 && (
@@ -268,23 +269,29 @@ function ResultsNextSteps({
   providerTopicKey,
   country,
   programTitle,
-  showPortugalHub = false,
+  showSatelliteCountry,
 }: {
   sessionId: string;
   hasMatches: boolean;
   providerTopicKey?: string;
   country?: string;
   programTitle?: string;
-  showPortugalHub?: boolean;
+  showSatelliteCountry?: string;
 }) {
+  const cityChat = liveCityChatForCountry(showSatelliteCountry);
   return (
     <>
-      {showPortugalHub && (
-        <>
-          <WizardPortugalPracticeCta sessionId={sessionId} placement="wizard_hub_results" />
-          <PortugalHubNextSteps className="mt-10" guideHref={portugalHubPaths.digest} placement="wizard_hub_results" />
-        </>
-      )}
+      {cityChat ? (
+        <WizardSatellitePracticeCta
+          sessionId={sessionId}
+          placement="wizard_hub_results"
+          countryKey={cityChat.countryKey}
+          chat={cityChat}
+        />
+      ) : null}
+      {cityChat?.countryKey === PORTUGAL_URL_SEGMENT ? (
+        <PortugalHubNextSteps className="mt-10" guideHref={portugalHubPaths.digest} placement="wizard_hub_results" />
+      ) : null}
       <section className="mt-10 rounded-2xl border border-slate-200 bg-white p-6">
       <h2 className="text-xl font-semibold">Что делать дальше</h2>
       <ol className="mt-4 list-decimal space-y-2 pl-5 text-slate-700">

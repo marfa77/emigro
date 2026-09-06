@@ -12,16 +12,34 @@ function formatDateLabel(date = new Date()): string {
   });
 }
 
-export function formatSubscriberReportTelegram(snapshots: SubscriberSnapshot[], date = new Date()): string {
+const PLATFORM_ORDER = ["threads", "telegram", "youtube", "facebook_group"] as const;
+
+const PLATFORM_TITLE: Record<(typeof PLATFORM_ORDER)[number], string> = {
+  threads: "Threads",
+  telegram: "Telegram",
+  youtube: "YouTube",
+  facebook_group: "Facebook",
+};
+
+export function formatSubscriberReportTelegram(
+  snapshots: SubscriberSnapshot[],
+  date = new Date()
+): string {
   const lines = [`📊 Подписчики · ${formatDateLabel(date)}`, ""];
 
-  for (const row of snapshots) {
-    if (row.count != null) {
-      lines.push(`${row.label} — ${formatCount(row.count)}`);
-    } else {
-      lines.push(`${row.label} — недоступно`);
+  for (const platform of PLATFORM_ORDER) {
+    const rows = snapshots.filter((s) => s.platform === platform);
+    if (rows.length === 0) continue;
+    lines.push(`<b>${PLATFORM_TITLE[platform]}</b>`);
+    for (const row of rows) {
+      if (row.count != null) {
+        lines.push(`${row.label} — ${formatCount(row.count)}`);
+      } else {
+        lines.push(`${row.label} — недоступно`);
+      }
     }
+    lines.push("");
   }
 
-  return lines.join("\n");
+  return lines.join("\n").trimEnd();
 }

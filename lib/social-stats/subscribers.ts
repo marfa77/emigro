@@ -43,7 +43,10 @@ export function isSocialChannelEnabled(channel: SocialChannelTarget): boolean {
     case "telegram":
       return process.env.EMIGRO_SOCIAL_STATS_TELEGRAM !== "0";
     case "threads":
-      return process.env.EMIGRO_SOCIAL_STATS_THREADS === "1";
+      // Default ON for brand Threads. Set EMIGRO_SOCIAL_STATS_THREADS=0 to disable.
+      // Legacy: =1 also enables (HTML scrape / Graph).
+      if (process.env.EMIGRO_SOCIAL_STATS_THREADS === "0") return false;
+      return true;
     case "youtube":
       if (process.env.EMIGRO_SOCIAL_STATS_YOUTUBE !== "1") return false;
       return hasYoutubeStatsCredentials();
@@ -62,9 +65,15 @@ export function enabledSocialChannels(
 export const DEFAULT_SOCIAL_CHANNELS: SocialChannelTarget[] = [
   {
     platform: "threads",
-    handle: "pveselov23",
-    url: "https://www.threads.com/@pveselov23",
-    label: "Threads @pveselov23",
+    handle: "emigro_assist",
+    url: "https://www.threads.com/@emigro_assist",
+    label: "Threads @emigro_assist",
+  },
+  {
+    platform: "threads",
+    handle: "dubaiofferverdict",
+    url: "https://www.threads.com/@dubaiofferverdict",
+    label: "Threads @dubaiofferverdict",
   },
   {
     platform: "telegram",
@@ -100,7 +109,23 @@ function parseCount(raw: string): number | null {
 }
 
 export async function fetchThreadsFollowers(handle: string): Promise<number> {
-  const username = handle.replace(/^@/, "");
+  const username = handle.replace(/^@/, "").toLowerCase();
+
+  // Prefer Graph when this handle matches the live Emigro Threads token.
+  const brand = (process.env.THREADS_USERNAME || process.env.THREADS_BRAND_USERNAME || "")
+    .trim()
+    .replace(/^@/, "")
+    .toLowerCase();
+  if (username && username === brand && process.env.THREADS_ACCESS_TOKEN?.trim()) {
+    try {
+      const { fetchThreadsFollowersCountSafe } = await import("@/lib/analytics/threads-stats");
+      const graph = await fetchThreadsFollowersCountSafe();
+      if (graph != null) return graph;
+    } catch {
+      // fall through to HTML scrape
+    }
+  }
+
   const res = await fetch(`https://www.threads.com/@${encodeURIComponent(username)}`, {
     headers: {
       "User-Agent": "Mozilla/5.0 (compatible; EmigroBot/1.0; +https://www.emigro.online)",

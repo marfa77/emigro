@@ -12,6 +12,8 @@ import {
   portoGroupChatId,
   satelliteNotePublicUrl,
 } from "@/lib/community-notes/porto-group-card";
+import { portoGroupNewsQuietAfterGuide } from "@/lib/community-notes/porto-group-prompts";
+import { loadPortoGroupPostedState } from "@/lib/community-notes/porto-group-publish";
 import type { CommunityNote } from "@/lib/community-notes/types";
 import {
   escapeTelegramHtml,
@@ -119,13 +121,16 @@ function storyArticleUrl(slug: string): string {
 
 export function formatPortoGroupNewsHtml(title: string, excerpt: string, articleUrl: string): string {
   const hook = excerpt.replace(/\s+/g, " ").trim();
-  const clipped = hook.length > 380 ? `${hook.slice(0, 377).trim()}…` : hook;
+  const clipped = hook.length > 280 ? `${hook.slice(0, 277).trim()}…` : hook;
   const href = articleUrl.replace(/"/g, "&quot;");
   return [
     `<b>${escapeTelegramHtml(title.replace(/\s+/g, " ").trim().slice(0, 160))}</b>`,
-    `<i>Коротко с emigro.online</i>`,
     "",
     escapeTelegramHtml(clipped),
+    "",
+    "<b>Это уже видно в Porto/Norte — или пока только в новостях?</b>",
+    "",
+    "Можно одной строкой с места.",
     "",
     href,
   ].join("\n");
@@ -160,6 +165,10 @@ export async function postPortoGroupNewsIfRelevant(options?: {
   }
 
   const state = loadState(chatId);
+  const guideState = loadPortoGroupPostedState(chatId);
+  if (portoGroupNewsQuietAfterGuide(guideState.last_posted_at)) {
+    return { skipped: "quiet after guide prompt (2 days)" };
+  }
   if (state.last_posted_at) {
     const last = Date.parse(state.last_posted_at);
     if (Number.isFinite(last) && Date.now() - last < MIN_INTERVAL_MS) {
@@ -213,7 +222,7 @@ async function sendNews(
 
   const sent = await sendStatsBotMessage(chatId, html, {
     parseMode: "HTML",
-    disableWebPagePreview: false,
+    disableWebPagePreview: true,
   });
   if (!sent.success) {
     throw new Error(sent.error || "telegram send failed");

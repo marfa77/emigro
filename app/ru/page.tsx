@@ -102,7 +102,8 @@ export default async function RuHubPage() {
           </div>
           <p className="mt-3 max-w-2xl text-slate-700">
             D8 digital nomad и D7 пассивный доход: pillar-гид, wizard, новости AIMA и{" "}
-            <strong>живая практика</strong> (NIF, банк, аренда, биометрия) — то, чего нет у других коридоров.
+            <strong>живая практика</strong> (NIF, банк, аренда, биометрия) на portugal.emigro.online — то, чего нет
+            у других коридоров.
           </p>
           <ul className="mt-5 grid gap-2 sm:grid-cols-2">
             <li>

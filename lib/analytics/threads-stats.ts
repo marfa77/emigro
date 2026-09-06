@@ -177,10 +177,11 @@ function fmtLandingLine(prefix: string, counts: ThreadsLandingCounts): string | 
 
 export function formatThreadsReferralsTelegram(stats: ThreadsReferralStats): string[] {
   const lines = ["<b>Threads</b> (клики с наших ссылок)"];
+  const handle = (stats.handle || "emigro_assist").replace(/^@/, "");
   if (stats.followers != null) {
-    lines.push(
-      `Подписчики @${stats.handle}: <b>${stats.followers}</b> <i>(Graph)</i>`
-    );
+    lines.push(`Подписчики @${handle}: <b>${stats.followers}</b> <i>(Graph)</i>`);
+  } else {
+    lines.push(`Подписчики @${handle}: <b>—</b> <i>(Graph недоступен)</i>`);
   }
   const clickLine = fmtLandingLine("7д: ", stats.clicks7d);
   if (clickLine) lines.push(clickLine);

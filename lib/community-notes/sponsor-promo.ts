@@ -19,7 +19,7 @@ export function shouldShowPrep2GoPromo(note: CommunityNote): boolean {
   if (primary === "ciple") return true;
   if (note.category.toLowerCase().includes("ciple")) return true;
   if (note.hashtags.some((t) => normalizeHashtag(t) === "ciple")) return true;
-  return /\b(ciple|caple)\b/i.test(`${note.title} ${note.slug}`);
+  return /\b(ciple|caple)\b/i.test(`${note.title} ${note.slug} ${note.quick_answer ?? ""}`);
 }
 
 /** Notes where PixID visa/passport photo promo is relevant (document-photo moment only). */

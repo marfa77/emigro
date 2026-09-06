@@ -4,6 +4,7 @@ import type { WizardTelegramDeliverySource } from "@/lib/wizard/save-telegram-us
 import { saveWizardTelegramUserDelivery, type WizardTelegramUserProfile } from "@/lib/wizard/save-telegram-user";
 import { formatUserWizardReportHtml } from "@/lib/wizard/format-user-report";
 import { loadWizardSessionReport } from "@/lib/wizard/session-report";
+import { countryKeyFromWizardReport } from "@/lib/satellite/city-chats";
 
 const USER_REPORT_SENT_EVENT = "wizard_user_report_sent";
 
@@ -41,7 +42,7 @@ export async function sendWizardReportToTelegramUser(input: {
   force?: boolean;
   profile?: WizardTelegramUserProfile;
   source?: WizardTelegramDeliverySource;
-}): Promise<{ success: boolean; error?: string; skipped?: boolean }> {
+}): Promise<{ success: boolean; error?: string; skipped?: boolean; countryKey?: string }> {
   const sessionId = input.sessionId.trim();
   const telegramUserId = String(input.telegramUserId).trim();
   if (!sessionId || !telegramUserId) {
@@ -65,7 +66,7 @@ export async function sendWizardReportToTelegramUser(input: {
 
   if (!input.force && (await userWizardReportAlreadySent(sessionId, telegramUserId))) {
     await persistUser(true);
-    return { success: true, skipped: true };
+    return { success: true, skipped: true, countryKey: countryKeyFromWizardReport(loaded) };
   }
 
   const chunks = formatUserWizardReportHtml(loaded);
@@ -79,5 +80,5 @@ export async function sendWizardReportToTelegramUser(input: {
 
   await markUserWizardReportSent(sessionId, telegramUserId);
   await persistUser(true);
-  return { success: true };
+  return { success: true, countryKey: countryKeyFromWizardReport(loaded) };
 }

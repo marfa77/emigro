@@ -1,6 +1,6 @@
 {
   "created_at": "2026-09-01",
-  "policy": "unique slug once, then stop; no auto-refill from new satellite drafts",
+  "policy": "city-life queue first; 1 discussion prompt / 3 days; recycle a slug after 45 days; do not auto-refill from new satellite drafts",
   "queue": [
     "porto-rajony-arenda-shkoly-parki-sport-2026",
     "meditsina-norte-sns-chastnaya-stomatologiya-2026",

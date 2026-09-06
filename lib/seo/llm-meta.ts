@@ -10,6 +10,14 @@ export function llmUtmUrl(path: string): string {
   return `${base}${sep}${LLM_UTM}`;
 }
 
+/** UTM on an already-absolute URL (satellite llms.txt). */
+export function llmUtmAbsolute(url: string): string {
+  const u = new URL(url);
+  u.searchParams.set("utm_source", "llm");
+  u.searchParams.set("utm_medium", "llms.txt");
+  return u.toString();
+}
+
 /** Markdown link with UTM for llms.txt. */
 export function llmMarkdownLink(label: string, path: string): string {
   return `[${label}](${llmUtmUrl(path)})`;
@@ -19,11 +27,13 @@ export type AiMetaInput = {
   aiDescription: string;
   aiCategory?: string;
   path: string;
+  /** Override www `/llms.txt`. Satellite notes point at `{country}.emigro.online/llms`. */
+  llmsTxtUrl?: string;
 };
 
 /** PixID-style ai:description + ai:category + llms.txt alternate. */
 export function withAiMetadata(metadata: Metadata, input: AiMetaInput): Metadata {
-  const llmsTxtUrl = pageUrl("/llms.txt");
+  const llmsTxtUrl = input.llmsTxtUrl ?? pageUrl("/llms.txt");
   const alternates = metadata.alternates ?? {};
   const types = {
     ...(typeof alternates === "object" && alternates.types ? alternates.types : {}),

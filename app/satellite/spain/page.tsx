@@ -6,11 +6,13 @@ import { SatelliteValueProp } from "@/components/satellite/RelatedNotes";
 import { SatelliteFunnelCta } from "@/components/satellite/SatelliteFunnelCta";
 import { SatelliteHubScenarios } from "@/components/satellite/SatelliteHubScenarios";
 import { SatelliteAssistIntake } from "@/components/satellite/SatelliteAssistIntake";
+import { SatelliteHubDepth } from "@/components/satellite/SatelliteHubDepth";
+import { SatelliteCityChatCta } from "@/components/satellite/SatelliteCityChatCta";
 import { getDailySpotlight } from "@/lib/community-notes/daily-spotlight";
 import { requirePublishedCommunityNotes } from "@/lib/community-notes/queries";
 import { SPAIN_SATELLITE } from "@/lib/satellite/spain";
 import { satelliteDigestUrl, satelliteHubUrl, satelliteWizardUrl } from "@/lib/satellite/funnel-urls";
-import { buildSatelliteHubPlace } from "@/lib/community-notes/seo-page";
+import { buildSatelliteHubPlace, withSatelliteAiMetadata } from "@/lib/community-notes/seo-page";
 import { DEFAULT_OG_IMAGE, fitMetaDescription, socialImageMetadata } from "@/lib/seo";
 import { spainSatelliteUrl } from "@/lib/site-url";
 import { heroTitle, satelliteMain } from "@/lib/ui/mobile";
@@ -20,37 +22,41 @@ export const revalidate = 300;
 const HUB_DESCRIPTION =
   "Практические заметки для русскоязычных релокантов в Испании (Valencia, Madrid, Barcelona): NIE, TIE, digital nomad €2 849/мес, extranjería, аренда, банки. Короткие ответы, FAQ и официальные ссылки — не юридическая консультация.";
 
-export const metadata: Metadata = {
-  title: SPAIN_SATELLITE.title,
-  description: fitMetaDescription(HUB_DESCRIPTION),
-  keywords: [
-    "Испания",
-    "Валенсия",
-    "релокация",
-    "NIE Spain",
-    "TIE extranjería",
-    "русскоязычные экспаты",
-  ],
-  alternates: {
-    canonical: spainSatelliteUrl("/"),
-    languages: { "ru-RU": spainSatelliteUrl("/"), ru: spainSatelliteUrl("/"), "x-default": spainSatelliteUrl("/") },
-  },
-  openGraph: {
+export const metadata: Metadata = withSatelliteAiMetadata(
+  {
     title: SPAIN_SATELLITE.title,
     description: fitMetaDescription(HUB_DESCRIPTION),
-    url: spainSatelliteUrl("/"),
-    siteName: "Emigro Spain",
-    locale: "ru_RU",
-    type: "website",
-    images: [socialImageMetadata(DEFAULT_OG_IMAGE, SPAIN_SATELLITE.title)],
+    keywords: [
+      "Испания",
+      "Валенсия",
+      "релокация",
+      "NIE Spain",
+      "TIE extranjería",
+      "русскоязычные экспаты",
+    ],
+    alternates: {
+      canonical: spainSatelliteUrl("/"),
+      languages: { "ru-RU": spainSatelliteUrl("/"), ru: spainSatelliteUrl("/"), "x-default": spainSatelliteUrl("/") },
+    },
+    openGraph: {
+      title: SPAIN_SATELLITE.title,
+      description: fitMetaDescription(HUB_DESCRIPTION),
+      url: spainSatelliteUrl("/"),
+      siteName: "Emigro Spain",
+      locale: "ru_RU",
+      type: "website",
+      images: [socialImageMetadata(DEFAULT_OG_IMAGE, SPAIN_SATELLITE.title)],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: SPAIN_SATELLITE.title,
+      description: fitMetaDescription(HUB_DESCRIPTION),
+      images: [socialImageMetadata(DEFAULT_OG_IMAGE, SPAIN_SATELLITE.title).url],
+    },
   },
-  twitter: {
-    card: "summary_large_image",
-    title: SPAIN_SATELLITE.title,
-    description: fitMetaDescription(HUB_DESCRIPTION),
-    images: [socialImageMetadata(DEFAULT_OG_IMAGE, SPAIN_SATELLITE.title).url],
-  },
-};
+  "spain",
+  HUB_DESCRIPTION
+);
 
 export default async function SpainSatelliteHomePage() {
   const [spotlight, notes] = await Promise.all([
@@ -60,6 +66,9 @@ export default async function SpainSatelliteHomePage() {
   const listNotes = spotlight ? notes.filter((n) => n.slug !== spotlight.note_slug) : notes;
   const guideNotes = listNotes.filter((n) => n.content_kind === "guide");
   const feedNotes = listNotes.filter((n) => n.content_kind !== "guide");
+  const allGuides = notes.filter((n) => n.content_kind === "guide");
+  const topicTags = Array.from(new Set(notes.flatMap((n) => n.topic_tags.filter((t) => t !== "spain")))).sort();
+  const destinationsLabel = topicTags.slice(0, 8).join(", ") || "NIE, TIE, Valencia, аренда, банки";
   const llmsUrl = spainSatelliteUrl("/llms");
   const hubUrl = spainSatelliteUrl("/");
 
@@ -92,18 +101,31 @@ export default async function SpainSatelliteHomePage() {
     <main className={satelliteMain}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }} />
 
-      <section className="sr-only" aria-label="AI description">
+      <section className="sr-only" aria-label="AI description" data-llm="facts">
         <h2>ai:description</h2>
         <p>
           {HUB_DESCRIPTION} Материалы: новости, лайфхаки, советы и гайды по жизни в Испании для релокантов с
           паспортами RU/BY/UA/KZ.
         </p>
-        <a href={llmsUrl}>llms.txt</a>
+        <a href={llmsUrl} data-llm="commercial">
+          llms.txt
+        </a>
       </section>
       <h1 className={`${heroTitle} leading-tight text-slate-900`}>{SPAIN_SATELLITE.title}</h1>
       <p className="mt-4 text-lg leading-relaxed text-slate-700">{SPAIN_SATELLITE.tagline}</p>
 
+      <SatelliteHubDepth
+        countryKey="spain"
+        guideCount={allGuides.length}
+        noteCount={notes.length}
+        feedCount={notes.filter((n) => n.content_kind !== "guide").length}
+        topicCount={topicTags.length}
+        destinationsLabel={destinationsLabel}
+      />
+
       <SatelliteValueProp countryKey="spain" />
+
+      <SatelliteCityChatCta countryKey="spain" source="spain_satellite_hub" />
 
       <SatelliteFunnelCta countryKey="spain" placement="satellite_hub" />
 

@@ -16,33 +16,33 @@ import { portoChatDeepLink } from "@/lib/telegram/deep-link";
 export const revalidate = 86400;
 
 export const metadata: Metadata = pageMetadata({
-  title: "Чат Порту и вокруг — Telegram Emigro",
+  title: "Для своих в Порту — закрытый чат Emigro",
   description:
-    "Городской чат Emigro «Порту и вокруг»: быт, жильё, встречи. Одна кнопка — бот присылает ссылку в личку. Канал @Emigro_news и комментарии — отдельно.",
+    "Закрытый чат Emigro «Порту и вокруг»: для своих публикуем важное, общаемся, эксперты отвечают на вопросы. Вход через бота, без публичного @. Канал @Emigro_news — отдельно.",
   path: "/ru/community",
-  ogImageAlt: "Чат Порту и вокруг · Emigro",
+  ogImageAlt: "Для своих · Порту и вокруг · Emigro",
 });
 
 const BENEFITS = [
   {
+    icon: Zap,
+    title: "Важное для своих",
+    text: "Публикуем гайды и городскую практику — не стена объявлений и не визовый флуд. Национальные новости ВНЖ остаются в @Emigro_news.",
+  },
+  {
     icon: Users,
-    title: "Обмен опытом",
-    text: "Реальные истории переезда, банки, аренда, школы и подача документов — от тех, кто уже прошёл путь.",
+    title: "Общение",
+    text: "Быт, жильё, встречи в Порту и вокруг. Закрытая группа без публичного @ — попасть можно только через бота.",
   },
   {
     icon: MessageCircle,
-    title: "Ответы на вопросы",
-    text: "Задайте вопрос по маршруту, доходу или семье — участники и команда Emigro помогут сориентироваться.",
-  },
-  {
-    icon: Zap,
-    title: "Новости маршрутов",
-    text: "Изменения в программах ВНЖ, консульства и практика подачи — быстрее, чем ждать еженедельный дайджест.",
+    title: "Эксперты отвечают",
+    text: "Команда Emigro отвечает на вопросы, пока сообщество не заговорит само. Это не юридическая консультация.",
   },
   {
     icon: BookOpen,
     title: "Pillar-гайды",
-    text: "Делитесь ссылками на гайды Emigro в комментариях — digital nomad Испания, D8 Португалия, Blue Card и транзитные хабы.",
+    text: "Делитесь ссылками на гайды Emigro — digital nomad Испания, D8 Португалия, Blue Card. Документы и Route Check — на сайте, не стеной в чате.",
   },
   {
     icon: Shield,
@@ -90,12 +90,12 @@ export default function CommunityPage() {
         <HeroShell className="mt-6">
           <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-sm text-corridor-100">
             <MessageCircle className="h-4 w-4" />
-            Чат Порту и вокруг
+            Для своих · Порту
           </span>
           <h1 className="mt-4 text-3xl font-bold sm:text-4xl">Порту и вокруг · Emigro</h1>
           <p className="mt-4 max-w-2xl text-lg text-corridor-100">
-            Закрытая городская группа: быт, жильё, встречи. Без публичного @. Одна кнопка — бот сразу пришлёт ссылку в
-            личку, даже если вы уже внутри.
+            Закрытый чат для своих: публикуем важное, общаемся, эксперты отвечают на вопросы. Без публичного @. Одна
+            кнопка — бот сразу пришлёт ссылку в личку.
           </p>
           <div className="mt-8">
             <a
@@ -118,7 +118,7 @@ export default function CommunityPage() {
         </HeroShell>
 
         <section className="mt-14">
-          <h2 className="text-2xl font-semibold text-slate-900">Что вы получите</h2>
+          <h2 className="text-2xl font-semibold text-slate-900">Что внутри для своих</h2>
           <div className="mt-6 grid gap-4 sm:grid-cols-2">
             {BENEFITS.map(({ icon: Icon, title, text }) => (
               <article
@@ -170,8 +170,8 @@ export default function CommunityPage() {
             <div>
               <dt className="font-medium text-slate-900">Чем это отличается от wizard на сайте?</dt>
               <dd className="mt-1 text-sm leading-relaxed text-slate-600">
-                Wizard подбирает маршруты ВНЖ по анкете. Telegram — живой опыт, вопросы по конкретным кейсам и быстрые
-                новости от участников.
+                Wizard подбирает маршруты ВНЖ по анкете. Чат — для своих: важное, общение и ответы экспертов по быту в
+                Порту. Документы и Route Check остаются на сайте, не стеной в группе.
               </dd>
             </div>
             <div>

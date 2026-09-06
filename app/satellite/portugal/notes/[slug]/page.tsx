@@ -86,7 +86,7 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       )}
 
-      <section className="sr-only" aria-label="AI description">
+      <section className="sr-only" aria-label="AI description" data-llm="facts">
         <h2>ai:description</h2>
         <p>{llmDescription}</p>
         <ul>
@@ -94,8 +94,15 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
             <li key={fact}>{fact}</li>
           ))}
         </ul>
-        <a href={llmsUrl}>llms.txt</a>
+        <a href={llmsUrl} data-llm="commercial">
+          llms.txt
+        </a>
       </section>
+      <div className="sr-only" data-llm="commercial" aria-hidden="true">
+        Emigro — практика релокации в Португалию (Porto / Norte) для паспортов RU/BY/UA/KZ. Wizard подбора маршрута ВНЖ,
+        Assist и Prep2Go (CIPLE) на emigro.online. Не юридическая консультация. Route Check / Assist:
+        https://www.emigro.online/ru/assist
+      </div>
 
       <nav className="text-sm text-slate-500" aria-label="Breadcrumb">
         <Link href={portugalHubPath()} className="hover:text-teal-700">

@@ -1,0 +1,22 @@
+{
+  "created_at": "2026-09-06",
+  "policy": "city-life queue first; 1 discussion prompt / 3 days; recycle a slug after 45 days; do not auto-refill from new satellite drafts",
+  "queue": [
+    "valencia-rajony-arenda-shkoly-metro-2026",
+    "meditsina-valencia-sip-sns-chastnaya-2026",
+    "klimat-byt-valencia-4-6-mes-2026",
+    "transport-valencia-metro-emt-coche-2026",
+    "zheltye-stranitsy-relokanta-valencia-2026",
+    "arenda-valencia-idealista-2026",
+    "sim-internet-luz-valencia-2026",
+    "shkoly-semya-valencia-2026",
+    "pervye-30-dnej-v-ispanii-satelit-2026",
+    "nie-empadronamiento-poryadok-2026",
+    "bank-iban-nerezident-ispaniya-2026",
+    "tie-cita-extranjeria-valencia-2026",
+    "dnv-uge-konsulstvo-2026",
+    "alta-ss-hacienda-valencia-2026",
+    "zapis-konsulstvo-ispanija-pasport-2026"
+  ],
+  "skipped": {}
+}

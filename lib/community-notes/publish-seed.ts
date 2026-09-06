@@ -2,6 +2,7 @@ import { createServerClient } from "@/lib/supabase/server";
 import { buildNoteHashtags } from "@/lib/community-notes/hashtags";
 import { PERVYJ_MESYAC_CHECKLIST_GUIDE } from "@/lib/community-notes/guides/pervyj-mesyac-portugaliya-checklist";
 import { NIF_PORTO_GUIDE } from "@/lib/community-notes/guides/nif-porto";
+import { AIMA_AGORA_GUIDE } from "@/lib/community-notes/guides/aima-agora-zapis";
 import { SPAIN_EDITORIAL_SEED } from "@/lib/community-notes/guides/spain-editorial-index";
 import type { CommunityNoteFaq, ContentKind, NoteBodySection } from "@/lib/community-notes/types";
 
@@ -57,40 +58,20 @@ export const PORTUGAL_EDITORIAL_SEED: SeedNote[] = [
     topic_tags: NIF_PORTO_GUIDE.topic_tags,
   },
   {
-    slug: "aima-agora-zapis-2026",
-    category: "AIMA и записи",
-    content_kind: "lifehack",
-    title: "AIMA и Agora: как не потерять неделю на записи",
-    excerpt:
-      "Слот исчез, PDF не грузится, «можно без записи?» — разбираем стресс из чатов без мифов про секретные окна.",
-    seo_title: "AIMA Agora 2026 — запись без потери слота",
-    seo_description:
-      "Запись в AIMA через Agora: типичные ошибки, подготовка PDF и что делать, если слот пропал. Практика для Лиссабона и Португалии.",
-    quick_answer:
-      "Запись — через Agora. Слоты конкурентные: соберите PDF заранее, не верьте «контактам внутри AIMA» и не езжайте без подтверждённой записи.",
-    body_paragraphs: [
-      "В чатах Португалии три боли звучат каждую неделю: «слот исчез за минуту», «портал не принимает файл», «можно прийти живой очередью в Лиссабоне?»",
-      "Agora — основной путь для большинства процедур AIMA. Обходные «контакты» — риск мошенничества и потерянного времени.",
-      "Перед охотой за слотом соберите папку: паспорт, адрес, страховка, квитанции, фото по требованиям портала. Частая техническая причина отказа — размер PDF или нечитаемый скан.",
-      "Слот сорвался — нормально в пиковые недели. Пробуйте утренние окна по Europe/Lisbon; VPN иногда ломает геолокацию портала.",
-      "Без записи вас чаще всего развернут. Час на подготовку PDF обычно дешевле, чем день поездки в офис.",
-      "Про **папку документов, сроки и каналы renovação** (portal-renovacoes vs Agora vs services.aima) — отдельный [гайд по продлению ВНЖ](https://www.emigro.online/ru/guides/prodlenie-vnzh-portugaliya-aima-2026); здесь только охота за слотом Agora.",
-    ],
-    faq: [
-      {
-        q: "Можно попасть в AIMA без записи?",
-        a: "В большинстве случаев нет — нужна запись через Agora.",
-      },
-      {
-        q: "Почему Agora не принимает документ?",
-        a: "Проверьте размер, формат PDF и читаемость скана; сожмите файл и сверьте требования процедуры.",
-      },
-    ],
-    official_links: [
-      { title: "AIMA", url: "https://aima.gov.pt/" },
-      { title: "Agora", url: "https://agora.imigrante.pt/" },
-    ],
-    topic_tags: ["aima", "agora", "vng"],
+    slug: AIMA_AGORA_GUIDE.slug,
+    category: AIMA_AGORA_GUIDE.category,
+    content_kind: AIMA_AGORA_GUIDE.content_kind,
+    title: AIMA_AGORA_GUIDE.title,
+    excerpt: AIMA_AGORA_GUIDE.excerpt,
+    seo_title: AIMA_AGORA_GUIDE.seo_title,
+    seo_description: AIMA_AGORA_GUIDE.seo_description,
+    quick_answer: AIMA_AGORA_GUIDE.quick_answer,
+    body_paragraphs: AIMA_AGORA_GUIDE.body_paragraphs,
+    body_sections: AIMA_AGORA_GUIDE.body_sections,
+    key_takeaways: AIMA_AGORA_GUIDE.key_takeaways,
+    faq: AIMA_AGORA_GUIDE.faq,
+    official_links: AIMA_AGORA_GUIDE.official_links,
+    topic_tags: AIMA_AGORA_GUIDE.topic_tags,
   },
   {
     slug: "arenda-lissabon-do-podpisi",

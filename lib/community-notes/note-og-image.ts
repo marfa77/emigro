@@ -50,6 +50,24 @@ const SLUG_PEXELS_PHOTO_IDS: Record<string, number> = {
   "porto-rajony-arenda-shkoly-parki-sport-2026": 28882396,
   // Porto Douro bridges aerial — new-build clusters guide (stock cityscape, not project render)
   "porto-novostrojki-klastery-community-2026": 28882396,
+  // Valencia City of Arts — districts guide
+  "valencia-rajony-arenda-shkoly-metro-2026": 1388030,
+  // Smartphone on table — SIM / home setup
+  "sim-internet-luz-valencia-2026": 607812,
+  // Hospital corridor / healthcare — SIP guide
+  "meditsina-valencia-sip-sns-chastnaya-2026": 263402,
+  // Metro platform — Valencia transport
+  "transport-valencia-metro-emt-coche-2026": 21014,
+  // Classroom — schools / family
+  "shkoly-semya-valencia-2026": 267885,
+  // Tools / trades — yellow pages
+  "zheltye-stranitsy-relokanta-valencia-2026": 257736,
+  // Sunny terrace / Mediterranean light — climate & daily life
+  "klimat-byt-valencia-4-6-mes-2026": 1431822,
+  // Office paperwork — alta SS / Hacienda
+  "alta-ss-hacienda-valencia-2026": 380769,
+  // Passport on map — consulate / RF passport from Valencia
+  "zapis-konsulstvo-ispanija-pasport-2026": 1029615,
 };
 
 /** Topic → landscape Pexels queries (Norte / Porto bias where relevant). */
@@ -77,6 +95,9 @@ export const SPAIN_TOPIC_PHOTO_QUERIES: Record<string, string[]> = {
   dnv: ["digital nomad laptop valencia cafe", "remote work spain coworking", "valencia beach laptop work"],
   uge: ["spanish consulate building", "visa application documents desk", "passport visa stamp desk"],
   autonomo: ["freelancer laptop cafe spain", "tax documents desk europe", "valencia coworking space"],
+  sip: ["hospital valencia spain exterior", "healthcare clinic spain waiting room", "pharmacy spain storefront"],
+  sim: ["smartphone sim card desk", "fiber internet router apartment", "electricity meter home europe"],
+  districts: ["valencia ciudad artes aguas", "valencia ruzafa street sunny", "valencia cabanyal beach houses"],
   general: ["valencia spain skyline", "spain mediterranean cityscape", "barcelona architecture street"],
   spain: ["valencia spain city", "madrid spain skyline", "spain travel landscape"],
 };
@@ -409,6 +430,21 @@ const SLUG_PHOTO_QUERIES: Record<string, string[]> = {
     "valencia spain city arrival",
     "valencia street cafe spain",
     "new city expat spain luggage",
+  ],
+  "sim-internet-luz-valencia-2026": [
+    "smartphone sim card desk",
+    "fiber internet router apartment",
+    "electricity meter home europe",
+  ],
+  "meditsina-valencia-sip-sns-chastnaya-2026": [
+    "hospital valencia spain exterior",
+    "healthcare clinic waiting room europe",
+    "pharmacy spain storefront",
+  ],
+  "valencia-rajony-arenda-shkoly-metro-2026": [
+    "valencia ciudad artes aguas sunny",
+    "valencia ruzafa street sunny",
+    "valencia cabanyal colorful houses",
   ],
   // News notes that were falling back to og-default.jpg
   "algarve-border-control-news-2026": [

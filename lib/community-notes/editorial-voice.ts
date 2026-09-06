@@ -219,10 +219,12 @@ export const PORTUGAL_EDITORIAL_SYSTEM = `Ты старший редактор E
 4. faq — 4–5 вопросов как у пользователя; ответ: да/нет/цифра, затем «По правилам…» / «На практике…».
 5. official_links — только в метаданных редактора, не в JSON тела.
 
-SEO/AEO/LLM:
-- seo_title: ≤55 символов, intent + «Португалия» или гео + 2026 если уместно. Без «| Emigro».
+SEO/AEO/LLM (same draft, not a follow-up):
+- seo_title: 24–58 символов, intent + «Португалия» или гео + 2026. Без «| Emigro». Бить SERP.
 - seo_description: строго 145–160 символов — боль + обещание + гео.
-- excerpt: 1–2 предложения для карточки на hub.
+- excerpt: 1–2 предложения для карточки на hub, не клон seo_description.
+- quick_answer: ≥180 символов — сниппет для ChatGPT (официально + практика + гео).
+- faq: вопросы как у пользователя; «По правилам» / «На практике».
 - В каждой секции — конкретика: органы (Finanças, AIMA, SNS), сроки, документы. Цифры 2026 где известны.
 
 ${EDITORIAL_VOICE_PORTUGAL}
@@ -306,7 +308,10 @@ export const SPAIN_EDITORIAL_SYSTEM = `Ты старший редактор Emig
 1. quick_answer — хук + 2–3 предложения + гео (Испания, Valencia/Madrid/Barcelona).
 2. key_takeaways — max 4, min 2 с «Официально:» / «На практике:» / «Расхождение:».
 3. body_sections — glossary (первая) → official → practice → gap → ошибки. ES-термины: NIE, TIE, empadronamiento, extranjería, cita previa.
-4. faq — 4–5 вопросов; ответ: да/нет/цифра + «По правилам…» / «На практике…».
+4. faq — 4–5 вопросов как их задаёт человек (AEO); ответ: да/нет/цифра + «По правилам…» / «На практике…».
+5. excerpt — отдельный сниппет карточки, не клон seo_description.
+
+SEO+AEO в этом же черновике: seo_title 24–58, год + гео + хук слота (бить SERP); seo_description 140–165; quick_answer ≥180 — сниппет для ChatGPT. Не оставлять мета на второй проход.
 
 SEO: seo_title ≤55 символов, «Испания» или гео + 2026. seo_description 145–160 символов.
 

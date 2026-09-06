@@ -160,7 +160,7 @@ Pillar по визам: [D8 и D7 Португалия 2026](/ru/guides/vnj-port
 
 ### День 15–21: AIMA — Título de Residência
 
-Для визы D: в разумный срок после въезда (практический ориентир — **в течение ~4 месяцев**) подайте на residence permit через [aima.gov.pt](https://www.aima.gov.pt/) / региональный balcão.
+Для визы D: в разумный срок после въезда (практический ориентир — **в течение ~4 месяцев**) подайте на residence permit через [aima.gov.pt](https://www.aima.gov.pt/) / региональный balcão. Охота за слотом Agora vs portal-renovacoes — [гайд AIMA Agora 2026](https://portugal.emigro.online/notes/aima-agora-zapis-2026).
 
 **Пакет (типично):** паспорт + копии, виза D, несудимость, страховка, доход, жильё, NIF, фото, сбор (ориентир **€85–170** — сверяйте на дату).
 

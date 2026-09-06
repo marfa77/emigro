@@ -10,9 +10,9 @@ export function buildCommunityPageSchema(): Record<string, unknown>[] {
     "@type": "WebPage",
     "@id": `${url}#webpage`,
     url,
-    name: "Чат Порту и вокруг — Telegram Emigro",
+    name: "Для своих в Порту — закрытый чат Emigro",
     description:
-      "Городской чат Emigro «Порту и вокруг»: быт, жильё, встречи. Бот присылает ссылку в личку. Канал @Emigro_news — отдельно.",
+      "Закрытый чат Emigro «Порту и вокруг»: для своих публикуем важное, общаемся, эксперты отвечают на вопросы. Бот присылает ссылку в личку. Канал @Emigro_news — отдельно.",
     inLanguage: "ru-RU",
     isPartOf: {
       "@type": "WebSite",
@@ -49,7 +49,7 @@ export function buildCommunityPageSchema(): Record<string, unknown>[] {
         name: "Чем сообщество Emigro отличается от wizard на сайте?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Wizard на emigro.online подбирает маршруты ВНЖ по вашим ответам. Telegram-сообщество — живые обсуждения, опыт переезда и оперативные новости от участников и команды Emigro.",
+          text: "Wizard на emigro.online подбирает маршруты ВНЖ по анкете. Закрытый чат — для своих: важное, общение и ответы экспертов Emigro по быту. Не юридическая консультация.",
         },
       },
       {

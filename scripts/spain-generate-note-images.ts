@@ -10,7 +10,10 @@ import { resolve } from "node:path";
 
 dotenv.config({ path: resolve(process.cwd(), ".env.local") });
 
-import { getPublishedCommunityNoteBySlug, getPublishedCommunityNotes } from "@/lib/community-notes/queries";
+import {
+  getPublishedCommunityNoteBySlugUncached,
+  getPublishedCommunityNotesUncached,
+} from "@/lib/community-notes/queries";
 import { buildNoteHashtags } from "@/lib/community-notes/hashtags";
 import { SPAIN_EDITORIAL_SEED } from "@/lib/community-notes/guides/spain-editorial-index";
 import { ensureNoteOgImage } from "@/lib/community-notes/note-og-image";
@@ -45,18 +48,26 @@ const CURATED_NOTES: CommunityNote[] = SPAIN_EDITORIAL_SEED.map((note, i) => ({
 
 async function resolveNotes(slugs: string[]): Promise<CommunityNote[]> {
   if (slugs.length === 0) {
-    const published = await getPublishedCommunityNotes("spain");
-    if (published.length > 0) return published;
+    try {
+      const published = await getPublishedCommunityNotesUncached("spain");
+      if (published.length > 0) return published;
+    } catch (e) {
+      console.warn("[note-og] DB list failed:", e instanceof Error ? e.message : e);
+    }
     console.warn("[note-og] no published Spain notes in DB — using editorial seed");
     return CURATED_NOTES;
   }
 
   const notes: CommunityNote[] = [];
   for (const slug of slugs) {
-    const fromDb = await getPublishedCommunityNoteBySlug(slug, "spain");
-    if (fromDb) {
-      notes.push(fromDb);
-      continue;
+    try {
+      const fromDb = await getPublishedCommunityNoteBySlugUncached(slug, "spain");
+      if (fromDb) {
+        notes.push(fromDb);
+        continue;
+      }
+    } catch (e) {
+      console.warn(`[note-og] DB lookup failed for ${slug}:`, e instanceof Error ? e.message : e);
     }
     const curated = CURATED_NOTES.find((g) => g.slug === slug);
     if (curated) {

@@ -39,6 +39,7 @@ const empty = formatThreadsReferralsTelegram({
 });
 assert.deepEqual(empty, [
   "<b>Threads</b> (клики с наших ссылок)",
+  "Подписчики @emigro_assist: <b>—</b> <i>(Graph недоступен)</i>",
   "7д: визард <b>0</b> · Assist <b>0</b> · гайды <b>0</b>",
   "  — пока нет",
 ]);

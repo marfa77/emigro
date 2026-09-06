@@ -1,0 +1,16 @@
+---
+description: Launch or complete a country satellite when the user names a city/country or says сателлит.
+alwaysApply: false
+---
+
+# Satellite launch (gold)
+
+Сателлит = **страна** (`{country}.emigro.online`), не город. Город = фокус (чат + практика).
+
+Если пользователь называет город/страну для запуска сателлита, «сателлит 100», чат/био/аватар — следуй `.cursor/skills/launch-satellite/SKILL.md`.
+
+Эталон — Portugal gold (15 гайдов 0–6 мес.: cheap draft → GPT Sol, поиск, WebP + **SEO/AEO сразу**). Spain-thin **не** копировать.
+
+Не создавать второй сателлит на город внутри живой страны. Не пересобирать Portugal/Porto.
+
+Не называть сателлит launched, пока `npm run satellite:assert-launch -- --country=… --city=…` не PASS и нет live `chat_id`.

@@ -27,9 +27,9 @@ export const SPAIN_FEATURED_NOTES: SpainFeaturedNote[] = [
     description: "Teletrabajo, маршрут подачи и пакет документов.",
   },
   {
-    slug: "beckham-autonomo-mify-2026",
-    title: "Beckham и autónomo: мифы из чатов",
-    description: "24% не автоматом; alta en Seguridad Social.",
+    slug: "alta-ss-hacienda-valencia-2026",
+    title: "Alta SS и Hacienda в Valencia",
+    description: "NUSS, RETA, modelo 149. Beckham не автоматом с DNV.",
   },
   {
     slug: "bank-iban-nerezident-ispaniya-2026",

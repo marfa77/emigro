@@ -43,6 +43,7 @@ const bodySections: NoteBodySection[] = [
       "Soft: справка о несудимости / апостиль «всегда на renovação» — зависит от типа pedido и инструкций вашего balcão/портала; не копируйте универсальный список.",
       "OK: CIPLE / nacionalidade по натурализации — не путать с AIMA Agora; гражданство — MJ / cidadaniaonline (сверяйте актуальный вход).",
       "OK / soft: Chave Móvel Digital через autenticacao.gov.pt ускоряет вход; SMS-only медленнее в пик.",
+      "OK / soft: лог мониторинга слотов и «день приёма» ниже — операционка Emigro / чаты, не инструкция AIMA; checklist на balcão — из вашего письма/portal.",
     ],
   },
   {
@@ -207,6 +208,40 @@ const bodySections: NoteBodySection[] = [
       "«Advogado» без проверки в Ordem dos Advogados.",
     ],
   },
+  {
+    heading: "Шаблон лога мониторинга слотов",
+    section_kind: "action_guide",
+    paragraphs: [
+      "Уникальная операционка Emigro: вместо веры в чужой «таймтейбл 08:00» ведите свой лог. Это не SLA AIMA и не обещание слота — только способ увидеть, какие окна реально работают у вас.",
+    ],
+    bullets: [
+      "Колонки: дата (Europe/Lisbon) · час · процедура/меню · город/posto · вход (Chave Móvel / SMS) · результат (пусто / CAPTCHA / дата взята / ошибка) · screenshot/PDF.",
+      "Частота: 2–4 коротких сессии в день в пик, а не бесконечный F5; фиксируйте, когда портал «живой».",
+      "После 7–14 дней сравните свои окна с чужими советами из чата — оставьте только то, что повторяется у вас.",
+      "Если канал = portal-renovacoes: в лог пишите, открыт ли ваш mês caducidade (новости AIMA), а не только Agora.",
+      formatPracticeBullet({
+        channels: ["por_tugal", "chatlisboa"],
+        period: "2025–2026",
+        claim: "люди, которые логируют окна, быстрее замечают отмены и повторные релизы дат",
+        forReader: "храните comprovativo брони и письма об отмене в одной папке с логом",
+      }),
+    ],
+  },
+  {
+    heading: "День приёма: мини-чек-лист",
+    section_kind: "action_guide",
+    paragraphs: [
+      "Отдельно от охоты за слотом — что сделать в −1 день и утром визита. Список общий; точный checklist — в письме AIMA / на portal вашего pedido.",
+    ],
+    bullets: [
+      "−1 день: PDF comprovativo слота, паспорт, título (даже caducado, если так указано), папка сканов + оригиналы по вашему canal.",
+      "Проверьте email/spam на отмену или перенос; сохраните письмо.",
+      "Маршрут до posto: запас 30–45 мин на транспорт Norte/Lisboa; не планируйте «впритык».",
+      "Утро: зарядка телефона (SMS / Chave), распечатка или офлайн-PDF брони, вода/перекус — очереди бывают длинными (soft из чатов).",
+      "На balcão: отвечайте по фактам вашего pedido; не подменяйте checklist «универсальной таблицей из Telegram».",
+      "После визита: сохраните protocolo / comprovativo de entrega; зафиксируйте в логе дату и следующий шаг (ожидание карты / донос документов).",
+    ],
+  },
 ];
 
 const keyTakeaways = [
@@ -221,6 +256,7 @@ const keyTakeaways = [
   }),
   "Расхождение: «90 дней AIMA» ≠ «90 дней от сегодняшнего F5». Отсчёт обычно от приёма/подачи по вашему canal, а не от мечты о слоте.",
   "Мост: папка, DUC и caducados — [продление ВНЖ](/notes/" + VNJ_RENEWAL_NOTE_SLUG + "); здесь только охота за приёмом.",
+  "Практика: лог окон Europe/Lisbon + чек-лист дня приёма (−1 / утро) снижают хаос F5; это не замена правильного canal.",
 ];
 
 const faq: CommunityNoteFaq[] = [
@@ -254,20 +290,28 @@ const faq: CommunityNoteFaq[] = [
     q: "Можно ли записаться в другой город?",
     a: "Иногда для renovação пробуют Braga/Coimbra, живя в Porto — полевой опыт. Могут принять или отправить «в свой» posto. Для первой emissão чаще смотрят morada. Soft.",
   },
+  {
+    q: "Почему нельзя верить гайду «просто жмите F5 в Agora»?",
+    a: "В 2026 у многих renovação сначала portal-renovacoes (по mês expiry). Agora — когда нужен presencial. Без лога окон и правильной двери вы теряете недели. Сверяйте aima.gov.pt и письмо AIMA.",
+  },
+  {
+    q: "CIPLE / гражданство — это тоже Agora?",
+    a: "Нет. CIPLE и nacionalidade — не agendamento AIMA Agora; гражданство — MJ / cidadaniaonline (сверяйте актуальный вход). Timed mock CIPLE A2 — на Prep2Go (prep2go.study); этот гайд только про слот/balcão AIMA.",
+  },
 ];
 
 export const AIMA_AGORA_GUIDE = {
   slug: AIMA_AGORA_GUIDE_SLUG,
   category: "AIMA / ВНЖ",
   content_kind: "guide" as ContentKind,
-  title: "Запись в AIMA в 2026: как поймать слот через Agora — гайд для релоканта",
+  title: "AIMA Португалия 2026: запись через Agora, portal-renovacoes и balcão",
   excerpt:
-    "Agora и balcão в 2026: какие двери не путать с portal-renovacoes, чек-лист до охоты, тактика слотов, документы на приём и план B — с Nota Emigro.",
-  seo_title: "AIMA Agora 2026 — слот, portal и balcão",
+    "Agora ≠ portal-renovacoes: двери AIMA, лог мониторинга слотов, чек-лист до охоты и день приёма, документы на balcão, план B — с Nota Emigro (fact-check).",
+  seo_title: "AIMA Португалия 2026: Agora, portal, слот",
   seo_description:
-    "Запись AIMA в Португалии 2026: Agora vs portal-renovacoes, охота за слотом Porto/Lisboa, Chave Móvel, balcão, taxas ≈€440. Не юрконсультация.",
+    "AIMA Португалия 2026: запись Agora vs portal-renovacoes, слот Porto/Lisboa, Chave Móvel, balcão-чек-лист, taxas ≈€440 по DUC. Не юрконсультация.",
   quick_answer:
-    "В Португалии в 2026 типовая renovação часто стартует на portal-renovacoes.aima.gov.pt; Agora — когда нужен личный приём (Porto/Lisboa слоты конкурентны). Для охоты подготовьте NIF, Chave Móvel, совпадающий адрес и PDF; ловите короткими сессиями без ботов. Taxas temporary renovação с 01.03.2026 ориентир ≈€440 — платите по DUC. Папка и caducados — в гайде по продлению ВНЖ.",
+    "В Португалии в 2026 типовая renovação часто стартует на portal-renovacoes.aima.gov.pt; Agora — когда нужен личный приём (слоты Porto/Lisboa конкурентны). Ведите лог окон, подготовьте NIF, Chave Móvel, совпадающий адрес и PDF; без ботов. Taxas temporary renovação с 01.03.2026 ориентир ≈€440 — платите по DUC. Папка и caducados — в гайде по продлению ВНЖ; CIPLE — не Agora.",
   body_sections: bodySections,
   body_paragraphs: flattenBodySections(bodySections),
   key_takeaways: keyTakeaways,
@@ -284,10 +328,10 @@ export const AIMA_AGORA_GUIDE = {
   hashtags: buildNoteHashtags({
     topicTags: ["aima", "portugal"],
     contentKind: "guide",
-    extra: ["agora", "vnj", "renovacao", "balcao", "norte", "porto", "lisboa"],
+    extra: ["agora", "vnj", "renovacao", "balcao", "norte", "porto", "lisboa", "ciple"],
   }),
   source_channel: "por_tugal+chatlisboa+lepta+official-editorial",
-  source_label: "editorial:aima-agora-sep2026-factcheck",
+  source_label: "editorial:aima-agora-gsc-strengthen-2026-09-06",
 };
 
 export default AIMA_AGORA_GUIDE;
