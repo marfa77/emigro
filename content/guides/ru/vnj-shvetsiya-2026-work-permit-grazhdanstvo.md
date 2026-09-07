@@ -2,9 +2,9 @@
 slug: vnj-shvetsiya-2026-work-permit-grazhdanstvo
 title: "ВНЖ Швеция 2026: work permit, Blue Card, семья и гражданство за 8 лет"
 seo_title: "ВНЖ Швеция 2026 — work permit SEK 34 470, гражданство 8 лет"
-seo_description: "Швеция 2026 для RU/UA/BY/KZ: work permit от SEK 34 470 (90% медианы), Blue Card SEK 53 625, self-employed, учёба, семья. ПМЖ ~4 года, гражданство 8 лет с 06.06.2026."
+seo_description: "ВНЖ Швеция 2026: work SEK 34 470, Blue Card 53 625, ПМЖ ~4г, гражданство 8 лет + доход SEK 20 850. RU/UA/BY → wizard."
 excerpt: "Коридор для высокооплачиваемых специалистов: без квот на work permit, но с растущим зарплатным порогом и 8 годами до паспорта после реформы июня 2026."
-quick_answer: "Основной маршрут — work permit с оффером: зарплата ≥ SEK 34 470/мес (90% медианы SCB с 16.06.2026) + условия не хуже kollektivavtal. Льготный 75% (= SEK 28 725) — для списка дефицитных профессий, бывших студентов/исследователей, TPD, ряда медспециалистов и сотрудников young tech/life-science. EU Blue Card: до 4 лет, порог SEK 53 625/мес (с 15.07.2026). Digital nomad visa нет. ПМЖ после work: обычно 4 из последних 7 лет работы по permit. Гражданство с 06.06.2026: **8 лет** (общее правило) + самообеспечение ~SEK 20 000/мес + знания языка/общества (тесты поэтапно)."
+quick_answer: "Основной маршрут — work permit с оффером: зарплата ≥ SEK 34 470/мес (90% медианы SCB с 16.06.2026) + условия не хуже kollektivavtal. Льготный 75% (= SEK 28 725) — для списка дефицитных профессий, бывших студентов/исследователей, TPD, ряда медспециалистов и сотрудников young tech/life-science. EU Blue Card: до 4 лет, порог SEK 53 625/мес (с 15.07.2026). Digital nomad visa нет. ПМЖ после work: обычно 4 из последних 7 лет работы по permit. Гражданство с 06.06.2026: **8 лет** (общее правило) + самообеспечение **SEK 20 850**/мес (**SEK 250 200**/год = 3 inkomstbasbelopp) + знания языка/общества (тесты поэтапно)."
 corridor_slugs: [ru-speaking-to-sweden]
 topic_keys: [sweden, work, visa]
 tags: [Швеция, ВНЖ, work permit, гражданство, Migrationsverket, 2026, Скандинавия]
@@ -28,8 +28,10 @@ official_sources:
     label: Skatteverket — personnummer
 estimated_minutes: 24
 date_published: 2026-07-30
-date_modified: 2026-07-30
+date_modified: 2026-09-07
 ---
+
+> **Fact-check Emigro (07.09.2026, Migrationsverket):** work permit **SEK 34 470**/мес (90% медианы SEK 38 300 с 16.06.2026); 75% = **SEK 28 725**. EU Blue Card **SEK 53 625**/мес с 15.07.2026 (1,25× avg). Гражданство с 06.06.2026: **8 лет** + доход **SEK 20 850**/мес (**250 200**/год) — не «~20 000». Источники: [salary requirements](https://www.migrationsverket.se/en/word-explanations/salary-requirements-for-a-work-permit.html), [Blue Card](https://www.migrationsverket.se/en/you-want-to-apply/work/employee-or-self-employed/eu-blue-cards.html), [citizenship adults](https://www.migrationsverket.se/en/you-want-to-apply/swedish-citizenship/citizenship-for-adults/citizenship-for-adults.html).
 
 ## Обзор коридора
 
@@ -150,7 +152,7 @@ date_modified: 2026-07-30
 | Stateless | короче | **5 лет** |
 | Nordic citizens | 2 года | **2 года** (без изменений) |
 | Язык + общество | фактически мягко | **обязательно** 16–66 лет |
-| Доход | нет | **~SEK 20 000/мес** (3 inkomstbasbelopp/год) |
+| Доход | нет | **SEK 20 850/мес** (**SEK 250 200**/год = 3 inkomstbasbelopp 2026) |
 
 **Тесты:** обществознание — с **августа 2026**; языковой citizenship-тест — позже (ориентир не раньше осени **2027**). До введения теста язык можно подтверждать квалификацией (SFI D, школьные оценки, Tisus и др. — список MV).
 
@@ -255,3 +257,35 @@ date_modified: 2026-07-30
 - Стокгольм: закладывайте andrahand минимум на первый год
 
 Дальше: [wizard Швеции](/ru/sweden/wizard) · [Assist](/ru/assist).
+
+---
+
+## FAQ
+
+**Какой зарплатный порог work permit в 2026?**
+Для заявок с **16.06.2026** — **SEK 34 470**/мес (90% медианы SCB **38 300**) **и** не ниже kollektivavtal / отраслевой практики. Льготный **75% = SEK 28 725** — только для списка exemption на Migrationsverket.
+
+**Сколько нужно для EU Blue Card?**
+Отдельный порог: **SEK 53 625**/мес с **15.07.2026** (1,25× средней брутто). Первая карта — до **4 лет** при достаточном контракте.
+
+**Есть ли digital nomad visa в Швеции?**
+Нет. Удалёнка на иностранных клиентах без шведского оффера / self-employed бизнеса не закрывает маршрут.
+
+**Сколько ждать до гражданства?**
+С **06.06.2026** общее правило — **8 лет** habitual residence (+ самообеспечение **SEK 20 850**/мес, язык и общество). Супруг/партнёр шведа — часто **7 лет** при условиях MV. Без soft grandfathering для pending-файлов.
+
+**Как быстро получить ПМЖ после work permit?**
+Обычно **4 года** работы по permit в течение последних **7 лет** (+ самообеспечение, orderly life). Подаёте вместе с продлением — сверяйте страницу MV.
+
+---
+
+## Коротко для проверки маршрута
+
+- Work permit: **SEK 34 470**/мес (90% медианы с 16.06.2026); 75% = **28 725** для exemption  
+- Blue Card: **SEK 53 625**/мес с 15.07.2026; max **4** года  
+- Digital nomad **нет**  
+- ПМЖ после work: ~**4 из 7** лет  
+- Гражданство с 06.06.2026: **8 лет** + доход **SEK 20 850**/мес (**250 200**/год)  
+- Wizard: [/ru/sweden/wizard](/ru/sweden/wizard) · коридор [/ru/sweden](/ru/sweden)
+
+*Не юридическая консультация. Пороги SCB/MV обновляются ежегодно — верьте [migrationsverket.se](https://www.migrationsverket.se/) на дату подачи.*
