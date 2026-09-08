@@ -6,9 +6,9 @@ export const PORTUGAL_SATELLITE = {
   city: "porto",
   countryRu: "Португалия",
   cityRu: "Порту",
-  title: "Португалия 2026: NIF, AIMA, Porto — практика",
+  title: "Португалия 2026: NIF, AIMA, Porto — полевая практика",
   tagline:
-    "Живая практика для русскоязычных релокантов в Португалии (Norte: Порту, Брага, Minho + Lisboa): NIF, запись AIMA/Agora, D8 ~€3 680/мес, аренда, SNS, банки. Гайды с FAQ и официальными ссылками — не юрконсультация.",
+    "Сателлит Emigro для русскоязычных в Португалии (Norte + Lisboa): NIF, Agora ≠ portal-renovacoes, аренда, SNS, банки. Короткие гайды с FAQ — не каталог из 60 карточек и не юрконсультация. Виза D7/D8 и гражданство — на www.emigro.online.",
   sourceChannel: "chatlisboa",
   /** Third-party relocant chats — sole sources for field-practice signals. */
   sourceChannels: ["chatlisboa", "por_tugal", "lepta", "autolife_pt", "braga_pt_rus"] as const,

@@ -200,10 +200,18 @@ export default async function PortugalSatelliteHomePage() {
             <a href="/notes/aima-agora-zapis-2026" className="font-medium text-teal-800 underline">
               AIMA / Agora
             </a>
+            . Если título уехал на старый адрес:{" "}
+            <a href="/notes/aima-residence-card-sent-abroad-2026" className="font-medium text-teal-800 underline">
+              карта ВНЖ за границей
+            </a>
             .
           </li>
           <li>
-            <strong>Жильё</strong> — Idealista / локальные риелторы Norte; не путать short-term с contrato de arrendamento.
+            <strong>Жильё</strong> — Idealista / локальные риелторы Norte; Lisboa отдельно:{" "}
+            <a href="/notes/arenda-kvartiry-lisbon-pervyi-mesyac-2026" className="font-medium text-teal-800 underline">
+              аренда Лиссабон — первый месяц
+            </a>
+            . Не путать short-term с contrato de arrendamento.
           </li>
           <li>
             <strong>Schengen-туризм ≠ ВНЖ</strong> — туристический въезд не заменяет autorização de residência. Официально:{" "}

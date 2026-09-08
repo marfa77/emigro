@@ -233,14 +233,14 @@ export const LISBON_RENT_FIRST_MONTH_GUIDE = {
   slug: LISBON_RENT_FIRST_MONTH_SLUG,
   category: "Аренда",
   content_kind: "guide" as ContentKind,
-  title: "Аренда квартиры в Лиссабоне: пошаговый план на первый месяц в 2026",
+  title: "Аренда в Лиссабоне 2026: NIF, fiador, Idealista — первый месяц",
   excerpt:
-    "NIF, fiador, Idealista, open house, caução и Modelo 2: первый месяц аренды в Лиссабоне для релокантов — закон Art. 1076 vs практика чатов 2026.",
-  seo_title: "Аренда в Лиссабоне: первый месяц 2026",
+    "NIF, fiador, Idealista, open house, caução и Modelo 2: первый месяц аренды в Лиссабоне для релокантов — закон Art. 1076 vs практика чатов 2026. Не путать с Porto/Braga.",
+  seo_title: "Аренда Лиссабон 2026: NIF, fiador, Idealista",
   seo_description:
-    "Аренда квартиры в Лиссабоне 2026: NIF, fiador, Idealista, open house, caução и Modelo 2. Art. 1076 vs практика предоплаты 6–12 месяцев для релокантов.",
+    "Аренда Лиссабон 2026: NIF → Idealista/open house → fiador/caução → Modelo 2. Art. 1076 vs предоплата 6–12 мес. Для Lisboa — не Porto/Braga гайд.",
   quick_answer:
-    "Вы стоите в очереди open house в Arroios: 20 человек, агент смотрит на часы, а senhorio уже спрашивает «есть fiador?». В Лиссабоне 2026 без NIF и папки документов вы не кандидат; без fiador рынок часто требует предоплату далеко за лимит Art. 1076. Держите курс на registered contrato и Modelo 2 — иначе AIMA не увидит вашу morada.",
+    "Вы стоите в очереди open house в Arroios: 20 человек, агент смотрит на часы, а senhorio уже спрашивает «есть fiador?». В Лиссабоне 2026 без NIF и папки документов вы не кандидат; без fiador рынок часто требует предоплату далеко за лимит Art. 1076. Держите курс на registered contrato и Modelo 2 — иначе AIMA не увидит вашу morada. Для Norte см. гайд аренды Porto/Braga.",
   body_sections: bodySections,
   body_paragraphs: flattenBodySections(bodySections),
   key_takeaways: keyTakeaways,
@@ -259,5 +259,5 @@ export const LISBON_RENT_FIRST_MONTH_GUIDE = {
     extra: ["лиссабон", "fiador", "idealista", "nif", "caucao", "modelo2"],
   }),
   source_channel: "chatlisboa+por_tugal+lepta",
-  source_label: "editorial:lisbon-rent-first-month+tg-practice-2026",
+  source_label: "editorial:lisbon-rent-gsc-strengthen-2026-09-08",
 };

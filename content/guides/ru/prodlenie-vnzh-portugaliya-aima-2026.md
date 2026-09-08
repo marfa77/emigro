@@ -33,6 +33,7 @@ date_published: 2026-07-13
 - [D8 и D7 — первичное получение ВНЖ](/ru/guides/vnj-portugaliya-d8-d7-grazhdanstvo-2026)
 - [Первые 30 дней после прилёта](/ru/guides/pervye-30-dnej-v-portugalii-2026)
 - [Запись в AIMA / Agora (слоты) — satellite](https://portugal.emigro.online/notes/aima-agora-zapis-2026)
+- [Карта ВНЖ уехала за границу — адрес в AIMA](https://portugal.emigro.online/notes/aima-residence-card-sent-abroad-2026)
 - [Практика на portugal.emigro.online](https://portugal.emigro.online)
 
 ---

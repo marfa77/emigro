@@ -7,6 +7,21 @@ export type PortugalFeaturedNote = {
 
 export const PORTUGAL_FEATURED_NOTES: PortugalFeaturedNote[] = [
   {
+    slug: "aima-agora-zapis-2026",
+    title: "AIMA 2026: Agora vs portal, слот",
+    description: "Agora ≠ portal-renovacoes · лог слотов Porto/Lisboa · день приёма.",
+  },
+  {
+    slug: "aima-residence-card-sent-abroad-2026",
+    title: "Карта ВНЖ уехала за границу",
+    description: "Старый адрес в AIMA → título уехал на родину. Как сменить morada.",
+  },
+  {
+    slug: "arenda-kvartiry-lisbon-pervyi-mesyac-2026",
+    title: "Аренда Лиссабон: NIF, fiador, Idealista",
+    description: "Первый месяц в Lisboa — не путать с Porto/Braga.",
+  },
+  {
     slug: "zheltye-stranitsy-relokanta-portugaliya-2026",
     title: "Жёлтые страницы релоканта",
     description: "AIMA, Finanças, SNS 24, Junta, IMT — кто есть кто и зачем.",
@@ -27,11 +42,6 @@ export const PORTUGAL_FEATURED_NOTES: PortugalFeaturedNote[] = [
     description: "kdmid Lisboa, подтверждение визита, день из Porto.",
   },
   {
-    slug: "arenda-kvartiry-lisbon-pervyi-mesyac-2026",
-    title: "Аренда квартиры: первый месяц",
-    description: "Idealista, NIF, Termo, проверки до подписи contrato.",
-  },
-  {
     slug: "porto-vs-braga-semya-mezhdunarodnaya-shkola-2026",
     title: "Porto vs Braga для семьи со школой",
     description: "International schools, районы, аренда T2 в Norte.",
@@ -40,10 +50,5 @@ export const PORTUGAL_FEATURED_NOTES: PortugalFeaturedNote[] = [
     slug: "kak-otkryt-bankovskiy-schet-portugalia-2026",
     title: "Банковский счёт и кредитная карта",
     description: "NIF, ActivoBank, Millennium, Revolut MB Way и первая кредитка.",
-  },
-  {
-    slug: "aima-agora-zapis-2026",
-    title: "AIMA 2026: Agora, portal, слот",
-    description: "Agora ≠ portal-renovacoes · лог слотов · день приёма · Porto/Lisboa.",
   },
 ];

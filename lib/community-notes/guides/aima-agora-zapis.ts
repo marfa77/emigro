@@ -304,14 +304,14 @@ export const AIMA_AGORA_GUIDE = {
   slug: AIMA_AGORA_GUIDE_SLUG,
   category: "AIMA / ВНЖ",
   content_kind: "guide" as ContentKind,
-  title: "AIMA Португалия 2026: запись через Agora, portal-renovacoes и balcão",
+  title: "AIMA Португалия 2026: Agora vs portal — слот Porto/Lisboa",
   excerpt:
-    "Agora ≠ portal-renovacoes: двери AIMA, лог мониторинга слотов, чек-лист до охоты и день приёма, документы на balcão, план B — с Nota Emigro (fact-check).",
-  seo_title: "AIMA Португалия 2026: Agora, portal, слот",
+    "Agora ≠ portal-renovacoes: двери AIMA, лог мониторинга слотов Porto/Lisboa, чек-лист до охоты и день приёма, документы на balcão, план B — с Nota Emigro (fact-check).",
+  seo_title: "AIMA 2026: Agora vs portal, слот Porto",
   seo_description:
-    "AIMA Португалия 2026: запись Agora vs portal-renovacoes, слот Porto/Lisboa, Chave Móvel, balcão-чек-лист, taxas ≈€440 по DUC. Не юрконсультация.",
+    "AIMA Португалия 2026: Agora ≠ portal-renovacoes, слот Porto/Lisboa, Chave Móvel, balcão, taxas ≈€440 по DUC. Практика Emigro — не юрконсультация.",
   quick_answer:
-    "В Португалии в 2026 типовая renovação часто стартует на portal-renovacoes.aima.gov.pt; Agora — когда нужен личный приём (слоты Porto/Lisboa конкурентны). Ведите лог окон, подготовьте NIF, Chave Móvel, совпадающий адрес и PDF; без ботов. Taxas temporary renovação с 01.03.2026 ориентир ≈€440 — платите по DUC. Папка и caducados — в гайде по продлению ВНЖ; CIPLE — не Agora.",
+    "В Португалии в 2026 типовая renovação часто стартует на portal-renovacoes.aima.gov.pt; Agora — когда нужен личный приём (слоты Porto/Lisboa конкурентны). Ведите лог окон, подготовьте NIF, Chave Móvel, совпадающий адрес и PDF; без ботов. Taxas temporary renovação с 01.03.2026 ориентир ≈€440 — платите по DUC. Карта «уехала за границу» — отдельный гайд про адрес доставки; CIPLE — не Agora.",
   body_sections: bodySections,
   body_paragraphs: flattenBodySections(bodySections),
   key_takeaways: keyTakeaways,
@@ -331,7 +331,7 @@ export const AIMA_AGORA_GUIDE = {
     extra: ["agora", "vnj", "renovacao", "balcao", "norte", "porto", "lisboa", "ciple"],
   }),
   source_channel: "por_tugal+chatlisboa+lepta+official-editorial",
-  source_label: "editorial:aima-agora-gsc-strengthen-2026-09-06",
+  source_label: "editorial:aima-agora-gsc-strengthen-2026-09-08",
 };
 
 export default AIMA_AGORA_GUIDE;
