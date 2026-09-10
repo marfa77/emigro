@@ -1,16 +1,17 @@
 ---
 slug: vnj-frantsiya-2026-passeport-talent
 title: "ВНЖ Франция для россиян 2026: Passeport Talent, VLS-TS и натурализация"
-seo_title: "ВНЖ Франция 2026 — Passeport Talent для граждан СНГ"
-seo_description: "Карта Talent (ex-Passeport Talent) и VLS-TS Франция 2026: SMIC €1 867, OFII €350, Carte de résident B1, IR, impatriés. Для RU/СНГ."
+seo_title: "ВНЖ Франция 2026 — Talent €39 582 / Carte Bleue €59 373"
+seo_description: "ВНЖ Франция 2026: Talent €39 582, Carte Bleue €59 373, SMIC €1 867, titre €350. VLS-TS/OFII для RU/СНГ → /ru/wizard."
 excerpt: "Разбор маршрута Talent / VLS-TS 2026: пороги, OFII, налоги, ПМЖ (B1) и натурализация (B2 + examen civique)."
-quick_answer: "Официально карта — **«Talent»** (слово Passeport с реформы 2024 часто убрано с titre; «Passeport Talent» — привычный синоним). VLS-TS → валидация OFII. Salarié qualifié от **€39 582**/год (фикс. arrêté, не 2× SMIC). SMIC с **01.06.2026**: **€12,31**/ч / **€1 867,02**/мес. 1re délivrance titre: **€300 + €50 = €350** (с 01.05.2026). Carte de résident (10 лет): французский **B1** + examen civique (не A2). Гражданство: **5 лет** проживания + **B2** + civique, рассмотрение ещё **12–24 мес.**"
+quick_answer: "Официально карта — **«Talent»** (слово Passeport с реформы 2024 часто убрано с titre; «Passeport Talent» — привычный синоним). VLS-TS → валидация OFII. Salarié qualifié от **€39 582**/год (фикс. arrêté 29.08.2025, не 2× SMIC). Talent — Carte bleue européenne: **€59 373**/год (1,5× той же базы). SMIC с **01.06.2026**: **€12,31**/ч / **€1 867,02**/мес. 1re délivrance titre: **€300 + €50 = €350** (с 01.05.2026). Carte de résident (10 лет): французский **B1** + examen civique (не A2). Гражданство: **5 лет** проживания + **B2** + civique, рассмотрение ещё **12–24 мес.**"
 corridor_slugs: [ru-speaking-to-france]
 topic_keys: [france, work, visa]
 tags: [Франция, Talent, Passeport Talent, VLS-TS, ВНЖ, 2026]
 primary_intent: informational
 cta_primary: /ru/wizard
 cta_secondary: /ru/france
+review_tier: volatile
 official_sources:
   - url: https://www.service-public.fr/particuliers/vosdroits/F2208
     label: Service-Public — carte de résident (B1 + examen civique)
@@ -26,8 +27,10 @@ official_sources:
     label: France-Visas
 estimated_minutes: 18
 date_published: 2026-06-25
-date_modified: 2026-08-07
+date_modified: 2026-09-07
 ---
+
+> **Fact-check Emigro (07.09.2026):** база Talent / Carte bleue — **€39 582** bruts/год ([arrêté 29.08.2025](https://www.legifrance.gouv.fr/), JO 31.08.2025); Carte bleue = **1,5× → €59 373**. SMIC с 01.06.2026 — **€1 867,02**/мес ([info.gouv.fr](https://www.info.gouv.fr/actualite/le-smic-revalorise-le-1er-juin-2026)). Старые ориентиры «€53k» / «2× SMIC» для salarié qualifié — **не** актуальны.
 
 ## Почему Франция — недооценённый маршрут для русскоязычных специалистов
 
@@ -43,11 +46,16 @@ date_modified: 2026-08-07
 
 ### Категория 1: Наёмный работник (Salarié qualifié)
 - Трудовой контракт с французским работодателем
-- Зарплата **не менее €39 582/год** брутто — **фиксированный** порог (arrêté du 21 août 2025), **не** «2× SMIC» (старая логика); SMIC ниже индексируется отдельно
+- Зарплата **не менее €39 582/год** брутто — **фиксированный** порог (arrêté du **29 août 2025**), **не** «2× SMIC» (старая логика); SMIC ниже индексируется отдельно
 - Диплом уровня Bac+3 (эквивалент бакалавра) или выше
 - Работодатель подаёт ходатайство в Direccte/DREETS
 
 **Идеально для:** IT-разработчики, инженеры, финансовые специалисты с оффером от французской компании.
+
+### Категория 1bis: Talent — Carte bleue européenne
+- Отдельная mention в зонтике Talent: зарплата **≥ €59 373/год** брутто (**1,5×** той же базы €39 582)
+- Высококвалифицированная должность + диплом / релевантный опыт по правилам CESEDA
+- Не путать с salarié qualifié (€39 582): ниже €59 373 обычно идут через salarié qualifié, не через Carte bleue
 
 ### Категория 2: Исследователь/учёный (Chercheur)
 - Договор с аккредитованной исследовательской организацией
@@ -298,10 +306,23 @@ VLS-TS выдаётся на срок контракта, но не более 4
 ## Итог: кому подходит французский маршрут
 
 Франция оптимальна если:
-- У вас есть оффер от французского работодателя с зарплатой от €40 000+
+- У вас есть оффер от французского работодателя с зарплатой от **€39 582+** (salarié qualifié) или **€59 373+** (Carte bleue)
 - Вы основатель стартапа с признанным проектом (La French Tech Visa)
 - Вы исследователь или учёный с договором с французским учреждением
 - Вы цените **скорость получения паспорта EU** (5 лет vs 10 в Португалии после реформы 2026)
 - У вас семья — французская система семейных бонусов и образования превосходна
 
 Используйте [мастер Emigro](/ru/wizard), чтобы сравнить Францию с другими маршрутами под ваш профиль, или перейдите на [страницу коридора Франция](/ru/france).
+
+---
+
+## Коротко для проверки маршрута
+
+- Talent salarié qualifié: **€39 582**/год (arrêté 29.08.2025)  
+- Talent Carte bleue: **€59 373**/год (1,5×)  
+- SMIC с 01.06.2026: **€1 867,02**/мес  
+- Titre 1re délivrance: **€350** (с 01.05.2026)  
+- Carte de résident: **B1** + civique; натурализация: **5 лет** + **B2** + civique  
+- Wizard: [/ru/wizard](/ru/wizard) · коридор [/ru/france](/ru/france)
+
+*Не юридическая консультация. Сверяйте Service-Public / France-Visas / Legifrance на дату подачи.*

@@ -2,7 +2,7 @@
 slug: golden-visa-portugal-rozhdenie-rebenka-grazhdanstvo-2026
 title: "Golden Visa Португалии и рождение ребёнка: гражданство после Lei Orgânica 1/2026"
 seo_title: "Golden Visa PT + ребёнок 2026 — гражданство не за 1 год"
-seo_description: "ARI/Golden Visa <5 лет: ребёнок не получает PT-паспорт при рождении (нужно 5 лет legal residence родителя). Натурализация родителей 10 лет, не ускоряется. Family reunification."
+seo_description: "Golden Visa PT 2026: ребёнку ≥5 лет residence родителя (LO 1/2026), не 1 год. Натурализация 10 лет СНГ; AIMA family → wizard."
 excerpt: "Разбор для держателей Golden Visa с ВНЖ меньше 5 лет: что даёт рождение в Португалии после реформы мая 2026 — и чего не даёт."
 quick_answer: "С 19.05.2026 (Lei Orgânica n.º 1/2026) ребёнок, рождённый в PT иностранцам, может получить nacionalidade originária по art. 1.º/1(f) только если хотя бы один родитель имел ≥5 лет legal residence на момент рождения + заявление. При Golden Visa «>1 года, но <5» паспорт ребёнку при рождении не дают. Рождение не ускоряет натурализацию родителей (для RU/UA/BY/KZ обычно 10 лет с даты residence title). Ребёнка можно добавить в ARI через family reunification (AIMA). Старая льгота art. 6.º/5 Lei 37/81 отозвана; для minors остаётся art. 6.º/2 с тем же порогом 5 лет родителя."
 corridor_slugs: [ru-speaking-to-portugal]
@@ -24,8 +24,10 @@ official_sources:
     label: AIMA — residence / family
 estimated_minutes: 12
 date_published: 2026-07-30
-date_modified: 2026-07-30
+date_modified: 2026-09-07
 ---
+
+> **Fact-check Emigro (07.09.2026):** LO 1/2026 art. 1.º/1(f) — **≥5 лет** legal residence родителя на момент рождения + declaração ([DRE PDF](https://files.diariodarepublica.pt/1s/2026/05/09500/0000200020.pdf); [Justiça](https://justica.gov.pt/Noticias/Lei-da-Nacionalidade-novas-regras-entram-em-vigor-a-19-de-maio)). Натурализация большинства СНГ — **10 лет**; EU/CPLP — **7**. Переходные nationality-файлы — до **18.05.2026**, не «январь».
 
 ## Короткий ответ
 
@@ -124,5 +126,32 @@ date_modified: 2026-07-30
 5. Путать cutoff переходных норм с «январём 2026» вместо **мая 2026**.
 
 ---
+
+## FAQ
+
+**Получит ли ребёнок PT-паспорт при рождении на Golden Visa &lt;5 лет?**
+Нет. С **19.05.2026** нужен **≥5 лет** legal residence хотя бы одного родителя на момент рождения **плюс** заявление (art. 1.º/1(f)).
+
+**Ускорит ли рождение натурализацию родителей?**
+Нет. Для большинства RU/UA/BY/KZ после LO 1/2026 — обычно **10 лет** legal residence с даты residence title (EU/CPLP — **7**).
+
+**Можно ли добавить ребёнка в ARI?**
+Да — family reunification / dependants через **AIMA**. Это ВНЖ, не паспорт.
+
+**Что с art. 6.º/5?**
+Отозвана. Для minors, рождённых в PT, смотрите **art. 6.º/2** — тоже нужен **≥5 лет** residence родителя (+ школа и фильтры).
+
+**Какой cutoff переходных nationality-файлов?**
+Ориентир — файлы pending до **18.05.2026** включительно по старой редакции; «январь 2026» как cutoff — **неверно**.
+
+---
+
+## Коротко для проверки маршрута
+
+- LO 1/2026 с **19.05.2026**: art. 1(f) — **5 лет** residence родителя + declaração  
+- GV «1–5 лет» → **нет** PT-паспорта ребёнку при рождении  
+- Натурализация родителей **не** ускоряется (часто **10 лет** для СНГ)  
+- Ребёнка можно добавить в ARI через AIMA (ВНЖ)  
+- Wizard: [/ru/portugal/wizard](/ru/portugal/wizard) · [jus soli сравнение](/ru/guides/gde-rozhat-rebenka-dlya-pasporta-2026)
 
 *Сверяйте Diário da República, IRN, AIMA и лицензированного юриста Португалии перед любым решением о родах или nationality-файле.*
