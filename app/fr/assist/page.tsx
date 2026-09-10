@@ -11,14 +11,14 @@ import { publicSiteUrl } from "@/lib/site-url";
 export const revalidate = 3600;
 
 export const metadata = pageMetadata({
-  title: "Emigro Assist — Route Check Afrique → France",
+  title: "Aide titre de séjour — trouver un spécialiste gratuitement",
   description:
-    "Emigro Assist en français : Route Check €129 (appel + PDF en 48 h) et accompagnement €100/heure pour les routes France depuis le Maghreb et le Sénégal.",
+    "Décrivez votre dossier France : Emigro sélectionne gratuitement un partenaire. Route Check avec appel et PDF pour les cas complexes.",
   path: FR_PATHS.assist,
   locale: "fr",
   frHreflang: { destinationIso: "FR" },
   aiDescription:
-    "Emigro Assist for Francophone Africa: Route Check €129 structured call + PDF case plan; hourly accompaniment €100. Destination France. Not a law firm.",
+    "Emigro Assist for Francophone Africa: free matching with a France residence partner; optional Route Check €129 and hourly support.",
   aiCategory: "assist",
 });
 
@@ -43,23 +43,23 @@ const FLOW_STEPS = [
   },
   {
     step: "2",
-    title: "Confirmation",
-    text: "Emigro propose un créneau ; après confirmation — paiement €129 (PayPal, Stars, crypto ou carte via Gumroad).",
+    title: "Sélection",
+    text: "Emigro cherche un partenaire adapté selon le pays et la procédure.",
   },
   {
     step: "3",
-    title: "Appel",
-    text: "L’équipe Emigro mène la réunion selon une checklist en français.",
+    title: "Mise en relation",
+    text: "Avec votre accord, nous transmettons la demande au spécialiste. La sélection est gratuite.",
   },
   {
     step: "4",
-    title: "PDF et partenaires",
-    text: "Sous 48 h : PDF avec route, timeline, budget et risques + contacts partenaires.",
+    title: "Travail",
+    text: "Vous convenez directement avec le partenaire du périmètre et du prix de ses services.",
   },
   {
     step: "5",
-    title: "Ensuite",
-    text: "Vous continuez avec le partenaire directement ou activez l’accompagnement à €100/heure.",
+    title: "Cas complexe",
+    text: "Si la voie et les risques doivent d’abord être analysés, demandez un Route Check avec PDF à €129.",
   },
 ] as const;
 
@@ -89,11 +89,17 @@ export default function FrAssistPage({
     "@type": "Service",
     name: "Emigro Assist",
     description:
-      "Route Check : appel avec l’équipe Emigro et PDF du cas ; accompagnement à l’heure pour Afrique francophone → France.",
+      "Sélection gratuite de partenaires de séjour ; Route Check et accompagnement optionnels pour Afrique francophone → France.",
     url: assistUrl,
     provider: { "@type": "Organization", name: "Emigro", url: origin },
     areaServed: { "@type": "Place", name: "France" },
     offers: [
+      {
+        "@type": "Offer",
+        name: "Sélection de partenaire",
+        price: "0",
+        priceCurrency: "EUR",
+      },
       {
         "@type": "Offer",
         name: "Route Check",
@@ -128,12 +134,11 @@ export default function FrAssistPage({
           Emigro Assist · Afrique → France
         </p>
         <h1 className="mt-2 text-3xl font-bold text-slate-950 sm:text-4xl">
-          Route Check et accompagnement
+          Aide pour votre dossier de séjour
         </h1>
         <p className="mt-4 text-lg text-slate-700">
-          Si l’évaluateur et les piliers ne suffisent pas : appel structuré + PDF (€129) ou soutien à
-          l’heure (€100). Destination : <strong>France</strong>. Nous ne sommes pas un cabinet
-          d’avocats.
+          Décrivez votre besoin : Emigro sélectionnera gratuitement un partenaire pour la <strong>France</strong>.
+          Pour les cas complexes, Route Check avec appel et PDF. Nous ne sommes pas un cabinet d’avocats.
         </p>
 
         <ul className="mt-6 space-y-2 text-sm text-slate-700">
@@ -145,13 +150,24 @@ export default function FrAssistPage({
           ))}
         </ul>
 
-        <section className="mt-10 grid gap-4 sm:grid-cols-2">
-          <div className="rounded-2xl border-2 border-corridor-600 bg-white p-5 shadow-sm">
+        <section className="mt-10 grid gap-4 sm:grid-cols-3">
+          <div className="rounded-2xl border-2 border-green-600 bg-green-50/50 p-5 shadow-sm">
+            <p className="text-xs font-semibold uppercase text-green-700">Trouver un spécialiste</p>
+            <p className="mt-1 text-3xl font-bold text-green-800">Gratuit</p>
+            <p className="mt-2 text-sm text-slate-600">Sélection + mise en relation avec votre accord</p>
+            <a
+              href="#assist-form"
+              className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-green-800 hover:underline"
+            >
+              Décrire mon cas <ArrowRight className="h-4 w-4" />
+            </a>
+          </div>
+          <div className="rounded-2xl border border-corridor-300 bg-white p-5 shadow-sm">
             <p className="text-xs font-semibold uppercase text-corridor-700">Route Check</p>
             <p className="mt-1 text-3xl font-bold text-corridor-800">€129</p>
             <p className="mt-2 text-sm text-slate-600">Appel + PDF en 48 h + partenaires</p>
             <a
-              href="#assist-form"
+              href="#assist-form-route-check"
               className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-corridor-800 hover:underline"
             >
               Demander <ArrowRight className="h-4 w-4" />
@@ -189,8 +205,14 @@ export default function FrAssistPage({
         <section id="assist-form" className="mt-10 scroll-mt-24">
           <h2 className="text-xl font-semibold text-slate-950">Demande</h2>
           <p className="mt-2 text-sm text-slate-600">
-            Remplissez le formulaire. Le paiement se coordonne après confirmation du créneau.
+            La sélection de partenaire est gratuite. Paiement uniquement pour Route Check ou accompagnement.
           </p>
+          <span id="assist-form-route-check" className="sr-only">
+            Formulaire Route Check
+          </span>
+          <span id="assist-form-accompaniment" className="sr-only">
+            Formulaire d’accompagnement
+          </span>
           <div className="mt-4">
             <AssistLeadForm
               countries={[...FR_ASSIST_COUNTRIES]}
@@ -198,6 +220,7 @@ export default function FrAssistPage({
               initialSessionId={searchParams.session}
               initialCountry={initialCountry}
               initialProgramRoute={searchParams.program}
+              defaultPlanTier="partner-match"
               locale="fr"
             />
           </div>

@@ -3,6 +3,7 @@ import { ArrowRight, CheckCircle2, ShieldCheck } from "lucide-react";
 import { AssistLeadForm, type AssistProviderOption } from "@/components/assist/AssistLeadForm";
 import { AssistPaymentMethods } from "@/components/assist/AssistPaymentMethods";
 import { AssistPricingCards } from "@/components/assist/AssistPricingCards";
+import { TrackedAssistLink } from "@/components/assist/TrackedAssistLink";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { getAssistLeadProviders, PROVIDER_CATEGORY_LABELS_RU } from "@/lib/providers/registry";
@@ -14,9 +15,9 @@ import { publicSiteUrl } from "@/lib/site-url";
 export const revalidate = 3600;
 
 export const metadata = pageMetadata({
-  title: "Emigro Assist — навигация и сопровождение",
+  title: "Помощь с ВНЖ и визой — бесплатно найти специалиста",
   description:
-    "Emigro Assist — Route Check €129: созвон с командой Emigro и PDF с разбором кейса, подбор партнёров, сопровождение €100/час. Оплата после согласования слота.",
+    "Опишите задачу по ВНЖ, визе или переезду — Emigro бесплатно подберёт профильного партнёра. Для сложных случаев: Route Check с созвоном и PDF.",
   path: "/ru/assist",
 });
 
@@ -38,27 +39,32 @@ const FLOW_STEPS = [
   },
   {
     step: "2",
-    title: "Согласование",
-    text: "Emigro подбирает время, подтверждает слот — затем оплата €129 (PayPal, Telegram Stars, USDT/USDC, карта через Gumroad).",
+    title: "Подбор",
+    text: "Emigro проверяет направление и ищет подходящего партнёра по стране и задаче.",
   },
   {
     step: "3",
-    title: "Созвон",
-    text: "Команда Emigro проводит встречу по структурированному чек-листу на русском.",
+    title: "Знакомство",
+    text: "С вашего согласия передаём запрос специалисту. Бесплатно, без продажи контакта случайным компаниям.",
   },
   {
     step: "4",
-    title: "PDF и партнёры",
-    text: "В течение 48 часов после созвона — PDF с разбором кейса и контакты профильных провайдеров.",
+    title: "Работа",
+    text: "Условия сопровождения и результат вы обсуждаете с партнёром напрямую.",
   },
   {
     step: "5",
-    title: "Дальше",
-    text: "Продолжаете с партнёром напрямую или подключаете сопровождение €100/час.",
+    title: "Сложный кейс",
+    text: "Если нужен независимый разбор маршрута, можно отдельно заказать Route Check с PDF за €129.",
   },
 ] as const;
 
 const FAQ_ITEMS = [
+  {
+    question: "Что именно бесплатно?",
+    answer:
+      "Бесплатно принять ваш запрос, подобрать партнёра по стране и познакомить вас с ним. Услуги выбранного юриста, агентства или другого специалиста оплачиваются отдельно по его условиям.",
+  },
   {
     question: "Чем Route Check отличается от консультации юриста?",
     answer:
@@ -106,11 +112,19 @@ export default function AssistPage({
     "@type": "Service",
     name: "Emigro Assist",
     description:
-      "Сервис Emigro: Route Check — созвон с командой Emigro и PDF с разбором кейса, подбор партнёров, почасовое сопровождение переписки.",
+      "Сервис Emigro: бесплатный подбор профильного партнёра по ВНЖ, визе и релокации; Route Check и почасовое сопровождение для сложных случаев.",
     url: assistUrl,
     provider: { "@type": "Organization", name: "Emigro", url: origin },
     areaServed: { "@type": "Place", name: "European Union" },
     offers: [
+      {
+        "@type": "Offer",
+        name: "Подбор профильного партнёра",
+        price: "0",
+        priceCurrency: "EUR",
+        url: assistUrl,
+        availability: "https://schema.org/InStock",
+      },
       {
         "@type": "Offer",
         name: "Route Check",
@@ -167,23 +181,25 @@ export default function AssistPage({
 
         <HeroShell className="mt-8">
           <p className="text-sm uppercase tracking-wide text-corridor-100">Сервис Emigro</p>
-          <h1 className="mt-2 text-3xl font-bold sm:text-4xl">Разберём ваш кейс и найдём маршрут</h1>
+          <h1 className="mt-2 text-3xl font-bold sm:text-4xl">Нужна помощь с ВНЖ или визой?</h1>
           <p className="mt-4 max-w-2xl text-lg text-corridor-100">
-            Рассказываете ситуацию — мы задаём правильные вопросы, делаем разбор и рекомендуем конкретные шаги. Не
-            общие советы, а план под ваш паспорт, доход и сроки.
+            Опишите ситуацию — Emigro бесплатно найдёт профильного партнёра по вашей стране и задаче. Контакт передаём
+            только с вашего согласия.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <a
+            <TrackedAssistLink
               href="#assist-form"
+              placement="ru_assist_hero"
+              linkLabel="Получить помощь бесплатно"
               className="inline-flex items-center gap-2 rounded-lg bg-white px-5 py-3 font-medium text-corridor-900 hover:bg-corridor-50"
             >
-              Запросить Route Check — €129
-            </a>
+              Получить помощь бесплатно
+            </TrackedAssistLink>
             <Link
               href="/ru/wizard"
               className="inline-flex items-center gap-2 rounded-lg border border-white/40 px-5 py-3 font-medium text-white hover:bg-white/10"
             >
-              Сначала пройти wizard бесплатно
+              Сначала подобрать маршрут
             </Link>
             <Link
               href="/ru/press"
@@ -222,9 +238,9 @@ export default function AssistPage({
                 Честная рамка
               </h2>
               <p className="mt-3 text-sm leading-relaxed text-slate-700">
-                Emigro не юридическая фирма. Мы не гарантируем одобрение визы. Route Check — это структурированный
-                разбор вашей ситуации и навигация к нужным специалистам. Юридическую ответственность несёт партнёр,
-                которого вы выбираете.
+                Emigro не юридическая фирма и не гарантирует одобрение визы. Мы бесплатно принимаем запрос и знакомим
+                с профильным партнёром; стоимость его услуг вы обсуждаете напрямую. Route Check — отдельный платный
+                разбор для случаев, где сначала нужно определить маршрут и риски.
               </p>
             </div>
           </div>
@@ -266,10 +282,9 @@ export default function AssistPage({
         <section id="assist-form" className="mt-12 scroll-mt-24">
           <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <h2 className="text-2xl font-bold text-slate-950">Заявка в Emigro Assist</h2>
+              <h2 className="text-2xl font-bold text-slate-950">Расскажите, какая помощь нужна</h2>
               <p className="mt-2 max-w-xl text-sm text-slate-600">
-                Выберите Route Check или сопровождение — опишите ситуацию, и мы свяжемся для согласования следующего
-                шага.
+                Бесплатно подберём специалиста или предложим Route Check, если кейс сначала нужно разобрать.
               </p>
             </div>
             <Link
@@ -283,10 +298,13 @@ export default function AssistPage({
           <span id="assist-form-accompaniment" className="sr-only">
             Форма с предвыбором сопровождения
           </span>
+          <span id="assist-form-route-check" className="sr-only">
+            Форма с предвыбором Route Check
+          </span>
           <AssistLeadForm
             countries={COUNTRY_OPTIONS}
             providers={providers}
-            defaultPlanTier="route-check"
+            defaultPlanTier="partner-match"
             initialSessionId={searchParams.session}
             initialCountry={searchParams.country}
             initialProgramRoute={searchParams.program}

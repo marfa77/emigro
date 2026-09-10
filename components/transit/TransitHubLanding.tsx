@@ -166,7 +166,7 @@ export function TransitHubLanding({ hub }: Props) {
               href={isSettle ? "/ru/wizard" : "/ru/assist"}
               className="rounded-lg border border-white/40 px-5 py-3 font-medium text-white hover:bg-white/10"
             >
-              {isSettle ? "Опционально: EU wizard" : "Route Check — €129"}
+              {isSettle ? "Опционально: EU wizard" : "Получить помощь бесплатно"}
             </Link>
           </div>
         </HeroShell>

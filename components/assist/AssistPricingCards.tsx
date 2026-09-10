@@ -5,13 +5,13 @@ import {
   Clock,
   FileText,
   Languages,
-  Lock,
   MessageSquare,
   Phone,
-  Sparkles,
+  UserCheck,
 } from "lucide-react";
 import { ROUTE_CHECK_PDF_PATH } from "@/lib/assist/sample-plan-data";
 import { pricingCardHeaderRow } from "@/lib/ui/mobile";
+import { TrackedAssistLink } from "@/components/assist/TrackedAssistLink";
 
 type Props = {
   routeCheckFormAnchor?: string;
@@ -19,7 +19,7 @@ type Props = {
 };
 
 export function AssistPricingCards({
-  routeCheckFormAnchor = "#assist-form",
+  routeCheckFormAnchor = "#assist-form-route-check",
   accompanimentFormAnchor = "#assist-form-accompaniment",
 }: Props) {
   return (
@@ -32,7 +32,41 @@ export function AssistPricingCards({
       </p>
 
       <div className="mt-6 grid gap-6 lg:grid-cols-3">
-        <article className="relative flex flex-col rounded-2xl border-2 border-corridor-600 bg-white p-6 shadow-md">
+        <article className="relative flex flex-col rounded-2xl border-2 border-green-600 bg-green-50/40 p-6 shadow-md">
+          <span className="absolute -top-3 left-5 rounded-full bg-green-700 px-3 py-0.5 text-xs font-semibold uppercase tracking-wide text-white">
+            Бесплатно
+          </span>
+          <PricingCardHeader
+            title="Найти специалиста"
+            subtitle="Передадим запрос подходящему партнёру"
+            price={<span className="text-3xl font-bold text-green-700">€0</span>}
+          />
+
+          <ul className="mt-6 flex-1 space-y-3 text-sm text-slate-700">
+            <PricingFeature icon={<MessageSquare className="h-4 w-4" />} text="Вы кратко описываете ситуацию" />
+            <PricingFeature icon={<UserCheck className="h-4 w-4" />} text="Мы ищем партнёра по стране и задаче" />
+            <PricingFeature icon={<Check className="h-4 w-4" />} text="Передаём контакт только с вашего согласия" />
+            <PricingFeature icon={<Clock className="h-4 w-4" />} text="Ответим, когда найдём подходящего специалиста" />
+          </ul>
+
+          <p className="mt-5 rounded-xl border border-green-200 bg-white/70 px-4 py-3 text-xs leading-relaxed text-slate-600">
+            Услуги выбранного специалиста оплачиваются отдельно по его условиям. Emigro не берёт плату за знакомство.
+          </p>
+
+          <TrackedAssistLink
+            href="#assist-form"
+            placement="ru_assist_pricing"
+            linkLabel="Описать задачу бесплатно"
+            className="mt-6 block rounded-lg bg-green-700 px-5 py-3 text-center font-medium text-white hover:bg-green-800"
+          >
+            Описать задачу бесплатно
+          </TrackedAssistLink>
+        </article>
+
+        <article
+          id="assist-route-check"
+          className="relative flex flex-col scroll-mt-24 rounded-2xl border border-corridor-300 bg-white p-6 shadow-sm"
+        >
           <span className="absolute -top-3 left-5 rounded-full bg-corridor-600 px-3 py-0.5 text-xs font-semibold uppercase tracking-wide text-white">
             Route Check
           </span>
@@ -71,12 +105,14 @@ export function AssistPricingCards({
             </Link>
           </p>
 
-          <a
+          <TrackedAssistLink
             href={routeCheckFormAnchor}
-            className="mt-6 block rounded-lg bg-corridor-600 px-5 py-3 text-center font-medium text-white hover:bg-corridor-700"
+            placement="ru_assist_pricing"
+            linkLabel="Запросить Route Check — €129"
+            className="mt-6 block rounded-lg border border-corridor-300 bg-white px-5 py-3 text-center font-medium text-corridor-800 hover:bg-corridor-50"
           >
             Запросить Route Check — €129
-          </a>
+          </TrackedAssistLink>
         </article>
 
         <article
@@ -118,44 +154,16 @@ export function AssistPricingCards({
             Нужно написать в AIMA или MA35. Не уверены, правильно ли заполнена форма.
           </p>
 
-          <a
+          <TrackedAssistLink
             href={accompanimentFormAnchor}
+            placement="ru_assist_pricing"
+            linkLabel="Узнать про сопровождение"
             className="mt-6 block rounded-lg border border-slate-300 bg-white px-5 py-3 text-center font-medium text-slate-900 hover:bg-slate-50"
           >
             Узнать про сопровождение
-          </a>
+          </TrackedAssistLink>
         </article>
 
-        <article
-          aria-disabled="true"
-          className="relative flex flex-col rounded-2xl border border-slate-200 bg-slate-50 p-6 opacity-75"
-        >
-          <span className="absolute -top-3 left-5 rounded-full bg-slate-400 px-3 py-0.5 text-xs font-semibold uppercase tracking-wide text-white">
-            Скоро
-          </span>
-          <PricingCardHeader
-            title="Full Assist"
-            titleClassName="text-slate-500"
-            subtitle="Полное сопровождение от маршрута до карты ВНЖ"
-            subtitleClassName="text-slate-400"
-            price={<span className="text-3xl font-bold text-slate-400">от €990</span>}
-          />
-
-          <ul className="mt-6 flex-1 space-y-3 text-sm text-slate-400">
-            <PricingFeature icon={<Sparkles className="h-4 w-4" />} text="Детальный PDF-план 15–25 страниц" muted />
-            <PricingFeature icon={<FileText className="h-4 w-4" />} text="Таймлайн, бюджет, провайдеры, риски" muted />
-            <PricingFeature icon={<MessageSquare className="h-4 w-4" />} text="Сопровождение всей переписки" muted />
-            <PricingFeature icon={<Lock className="h-4 w-4" />} text="Координация с партнёром на каждом этапе" muted />
-          </ul>
-
-          <button
-            type="button"
-            disabled
-            className="mt-6 cursor-not-allowed rounded-lg border border-slate-300 bg-slate-100 px-5 py-3 text-center font-medium text-slate-400"
-          >
-            Скоро · лист ожидания
-          </button>
-        </article>
       </div>
     </section>
   );

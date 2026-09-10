@@ -19,6 +19,7 @@ import { CorridorBreadcrumb } from "@/components/corridor/CorridorLanding";
 import { ProgramSeoSections } from "@/components/corridor/ProgramSeoSections";
 import { RoleRadarPromo } from "@/components/sponsors/RoleRadarPromo";
 import { ServiceProvidersSection } from "@/components/providers/ServiceProvidersSection";
+import { RelocatorChatPromo } from "@/components/community/RelocatorChatPromo";
 import { shouldShowRoleRadarOnProgram } from "@/lib/role-radar";
 import { CorridorHeroVisual } from "@/components/visuals/CorridorHeroVisual";
 import { HeroShell } from "@/components/visuals/HeroShell";
@@ -194,6 +195,13 @@ export default async function CountryProgramPage({
             </Link>
           </div>
         </HeroShell>
+
+        <RelocatorChatPromo
+          variant="inline"
+          source={`program_${program.slug}`}
+          countryKey={topic.urlSegment}
+          className="mt-8"
+        />
 
         <section className="mt-8 rounded-3xl border border-corridor-200 bg-white p-6 shadow-sm sm:p-8">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">

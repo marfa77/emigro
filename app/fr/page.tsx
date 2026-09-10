@@ -138,7 +138,7 @@ export default function FrHubPage() {
               href={FR_PATHS.assist}
               className="inline-flex items-center gap-2 rounded-lg border border-white/40 px-5 py-3 text-sm font-medium text-white hover:bg-white/10"
             >
-              Assist — Route Check
+              Aide gratuite
             </Link>
             <Link
               href={FR_PATHS.guides}

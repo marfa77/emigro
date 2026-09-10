@@ -5,6 +5,9 @@ import { ArrowRight, MessageCircle } from "lucide-react";
 import { TelegramIcon } from "@/components/news/ShareIcons";
 import { trackEvent } from "@/lib/analytics/client";
 import { COMMUNITY_CTA_LABEL, COMMUNITY_CTA_URL, COMMUNITY_PATH, DISCUSSION_ACCESS_HINT, DISCUSSION_GROUP_LABEL } from "@/lib/community";
+import { liveCityChatForCountry } from "@/lib/satellite/city-chats";
+import { cityChatCtaLabel, cityChatHeadline, cityChatLead } from "@/lib/satellite/city-chat-copy";
+import { cityChatDeepLink } from "@/lib/telegram/deep-link";
 
 type Variant = "banner" | "inline" | "sidebar";
 
@@ -12,13 +15,22 @@ type Props = {
   variant?: Variant;
   source: string;
   className?: string;
+  countryKey?: string;
 };
 
-function trackJoinClick(source: string) {
-  trackEvent("community_join_click", { source });
+function trackJoinClick(source: string, country?: string) {
+  trackEvent("community_join_click", { source, country: country ?? "" });
 }
 
-export function RelocatorChatPromo({ variant = "banner", source, className = "" }: Props) {
+export function RelocatorChatPromo({ variant = "banner", source, className = "", countryKey }: Props) {
+  const cityChat = liveCityChatForCountry(countryKey);
+  const ctaUrl = cityChat ? cityChatDeepLink(cityChat, source) : COMMUNITY_CTA_URL;
+  const ctaLabel = cityChat ? cityChatCtaLabel(cityChat) : COMMUNITY_CTA_LABEL;
+  const headline = cityChat ? cityChatHeadline(cityChat) : "Есть вопрос по переезду?";
+  const lead = cityChat
+    ? `${cityChatLead(cityChat)} Вход через бота — он пришлёт ссылку в личку.`
+    : DISCUSSION_ACCESS_HINT;
+
   if (variant === "inline") {
     return (
       <aside
@@ -26,17 +38,17 @@ export function RelocatorChatPromo({ variant = "banner", source, className = "" 
       >
         <TelegramIcon className="h-6 w-6 shrink-0 text-sky-600" />
         <p className="min-w-0 flex-1 text-sm text-slate-700">
-          Есть вопрос по переезду?{" "}
-          <span className="font-medium text-slate-900">Подпишитесь на канал и пишите в комментариях к постам</span>
+          <span className="font-medium text-slate-900">{headline}</span>{" "}
+          {cityChat ? cityChatLead(cityChat) : "Подпишитесь на канал и пишите в комментариях к постам."}
         </p>
         <a
-          href={COMMUNITY_CTA_URL}
+          href={ctaUrl}
           target="_blank"
           rel="noopener noreferrer"
-          onClick={() => trackJoinClick(source)}
+          onClick={() => trackJoinClick(source, cityChat?.countryKey)}
           className="inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-sky-600 px-4 py-2 text-sm font-medium text-white hover:bg-sky-700"
         >
-          {COMMUNITY_CTA_LABEL}
+          {ctaLabel}
           <ArrowRight className="h-3.5 w-3.5" />
         </a>
       </aside>
@@ -48,20 +60,20 @@ export function RelocatorChatPromo({ variant = "banner", source, className = "" 
       <section className={`rounded-2xl border border-sky-200 bg-gradient-to-br from-sky-50 to-white p-5 ${className}`}>
         <div className="flex items-center gap-2">
           <MessageCircle className="h-4 w-4 text-sky-600" />
-          <h2 className="font-semibold text-slate-900">{DISCUSSION_GROUP_LABEL}</h2>
+          <h2 className="font-semibold text-slate-900">{cityChat ? headline : DISCUSSION_GROUP_LABEL}</h2>
         </div>
         <p className="mt-2 text-sm leading-relaxed text-slate-600">
-          {DISCUSSION_ACCESS_HINT}
+          {lead}
         </p>
         <a
-          href={COMMUNITY_CTA_URL}
+          href={ctaUrl}
           target="_blank"
           rel="noopener noreferrer"
-          onClick={() => trackJoinClick(source)}
+          onClick={() => trackJoinClick(source, cityChat?.countryKey)}
           className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-sky-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-sky-700"
         >
           <TelegramIcon className="h-4 w-4" />
-          {COMMUNITY_CTA_LABEL}
+          {ctaLabel}
         </a>
         <Link href={COMMUNITY_PATH} className="mt-2 block text-center text-xs text-sky-700 hover:underline">
           Подробнее о сообществе
@@ -80,23 +92,25 @@ export function RelocatorChatPromo({ variant = "banner", source, className = "" 
             <TelegramIcon className="h-7 w-7" />
           </div>
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wide text-sky-700">{DISCUSSION_GROUP_LABEL}</p>
-            <h2 className="mt-1 text-xl font-bold text-slate-900">Есть вопрос по переезду?</h2>
+            <p className="text-xs font-semibold uppercase tracking-wide text-sky-700">
+              {cityChat ? "Для своих" : DISCUSSION_GROUP_LABEL}
+            </p>
+            <h2 className="mt-1 text-xl font-bold text-slate-900">{headline}</h2>
             <p className="mt-2 max-w-lg text-sm text-slate-600">
-              {DISCUSSION_ACCESS_HINT} Вопросы, опыт и новости маршрутов — без спама и рекламы.
+              {lead} Вопросы, опыт и новости маршрутов — без спама и рекламы.
             </p>
           </div>
         </div>
         <div className="flex shrink-0 flex-col gap-2 sm:items-end">
           <a
-            href={COMMUNITY_CTA_URL}
+            href={ctaUrl}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => trackJoinClick(source)}
+            onClick={() => trackJoinClick(source, cityChat?.countryKey)}
             className="inline-flex items-center justify-center gap-2 rounded-lg bg-sky-600 px-5 py-3 font-medium text-white hover:bg-sky-700"
           >
             <TelegramIcon className="h-5 w-5" />
-            {COMMUNITY_CTA_LABEL}
+            {ctaLabel}
             <ArrowRight className="h-4 w-4" />
           </a>
           <Link href={COMMUNITY_PATH} className="text-center text-sm text-sky-700 hover:underline sm:text-right">

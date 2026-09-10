@@ -50,7 +50,7 @@ function accent(countryKey: SatelliteCountryKey) {
 }
 
 /**
- * Primary satellite → www funnel block: Assist + wizard with UTM + events.
+ * Secondary satellite → www funnel block after the owned city-chat CTA.
  * Assist first for guides/qa; wizard first for news/lifehacks.
  */
 export function SatelliteFunnelCta({
@@ -92,7 +92,7 @@ export function SatelliteFunnelCta({
     });
   }
 
-  const assistCta = "Route Check — €129";
+  const assistCta = "Получить помощь бесплатно";
   const wizardCta = `Визард ${countryLabel}`;
 
   return (
@@ -103,8 +103,8 @@ export function SatelliteFunnelCta({
       <p className={`text-xs font-bold uppercase tracking-wide ${a.eyebrow}`}>Следующий шаг</p>
       <p className="mt-2 text-sm leading-relaxed text-slate-700">
         {noteTitle
-          ? `После «${noteTitle.slice(0, 72)}${noteTitle.length > 72 ? "…" : ""}» — сверьте маршрут ВНЖ или разберите кейс с командой Emigro.`
-          : `Практика на сателлите. Маршрут и Route Check — на основном Emigro (${countryLabel}).`}
+          ? `После «${noteTitle.slice(0, 72)}${noteTitle.length > 72 ? "…" : ""}» — сверьте маршрут ВНЖ или попросите Emigro найти специалиста.`
+          : `Практика на сателлите. Маршрут и бесплатный запрос специалисту — на основном Emigro (${countryLabel}).`}
       </p>
 
       <div className="mt-4 flex flex-col gap-2 sm:flex-row sm:flex-wrap">

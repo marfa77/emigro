@@ -108,6 +108,7 @@ export default async function AdminStatsPage() {
                 <MetricRow label="Assist: просмотры" value={report.assist.pageViewsTotal} />
                 <MetricRow label="Assist: клики CTA" value={report.assist.ctaClicksTotal} />
                 <MetricRow label="Assist: заявки" value={report.assist.leadsTotal} />
+                <MetricRow label="Переходы в локальные чаты" value={report.assist.communityClicksTotal} />
                 <MetricRow label="Клики партнёров" value={report.total.providerClicks} />
                 <MetricRow label="Событий в БД" value={report.total.eventsTotal} />
                 <MetricRow label="Боты (исключены)" value={report.botsTotal} />
@@ -145,6 +146,15 @@ export default async function AdminStatsPage() {
                   value={report.assist.leadsToday}
                   delta={deltaLine(report.assist.leadsToday, report.assist.leadsYesterday)}
                   hint={`(всего ${report.assist.leadsTotal})`}
+                />
+                <MetricRow
+                  label="Переходы в локальные чаты"
+                  value={report.assist.communityClicksToday}
+                  delta={deltaLine(
+                    report.assist.communityClicksToday,
+                    report.assist.communityClicksYesterday
+                  )}
+                  hint={`(всего ${report.assist.communityClicksTotal})`}
                 />
                 <MetricRow
                   label="Конверсия CTA → заявка (сегодня)"
@@ -368,6 +378,7 @@ export default async function AdminStatsPage() {
               <TopList title="Топ страниц всего (все источники)" rows={report.topPagesAll} />
               <TopList title="Assist: страницы сегодня" rows={report.assist.topAssistPagesToday} />
               <TopList title="Assist: CTA placements сегодня" rows={report.assist.topCtaPlacementsToday} />
+              <TopList title="Чаты: страна · placement сегодня" rows={report.assist.topCommunityPlacementsToday} />
               <TopList title="Referrer сегодня" rows={report.topReferrersToday} />
               <TopList title="UTM source сегодня" rows={report.topUtmToday} />
               <TopList

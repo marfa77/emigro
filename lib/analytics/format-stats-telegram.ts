@@ -101,6 +101,7 @@ export function formatStatsReportTelegram(report: StatsReport): string {
     `Отчётов в Telegram: <b>${tg.deliveriesSentTotal}</b> <i>(юзеров ${tg.usersTotal})</i>`,
     `Лиды: <b>${total.leads}</b>`,
     `Assist: просмотры: <b>${assist.pageViewsTotal}</b> · CTA: <b>${assist.ctaClicksTotal}</b> · заявки: <b>${assist.leadsTotal}</b>`,
+    `Переходы в чаты: <b>${assist.communityClicksTotal}</b>`,
     `Событий в БД: <b>${total.eventsTotal}</b>`,
     `Боты (исключены): <b>${report.botsTotal}</b> сессий`,
     "",
@@ -124,6 +125,7 @@ export function formatStatsReportTelegram(report: StatsReport): string {
     `Клики CTA → Assist: <b>${assist.ctaClicksToday}</b>${deltaHtml(assist.ctaClicksToday, assist.ctaClicksYesterday)} <i>(всего ${assist.ctaClicksTotal})</i>`,
     `Заявки Assist: <b>${assist.leadsToday}</b>${deltaHtml(assist.leadsToday, assist.leadsYesterday)} <i>(всего ${assist.leadsTotal})</i>`,
     `Конверсия CTA → заявка: <b>${escapeHtml(conversionPct(assist.leadsToday, assist.ctaClicksToday))}</b>`,
+    `Переходы в чаты: <b>${assist.communityClicksToday}</b>${deltaHtml(assist.communityClicksToday, assist.communityClicksYesterday)} <i>(всего ${assist.communityClicksTotal})</i>`,
     "",
     ...fmtLocaleSplit(report),
     "",
@@ -163,6 +165,10 @@ export function formatStatsReportTelegram(report: StatsReport): string {
   if (assist.topCtaPlacementsToday.length > 0) {
     lines.push("");
     lines.push(...fmtTop("Assist: CTA placements сегодня", assist.topCtaPlacementsToday));
+  }
+  if (assist.topCommunityPlacementsToday.length > 0) {
+    lines.push("");
+    lines.push(...fmtTop("Чаты: страна · placement сегодня", assist.topCommunityPlacementsToday));
   }
 
   if (report.topReferrersToday.length > 0) {

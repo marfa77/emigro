@@ -35,7 +35,7 @@ Full architecture context: [ARCHITECTURE.md](./ARCHITECTURE.md)
 | Party | Pays | Receives |
 |-------|------|----------|
 | **Applicant** | nothing | eligibility, roadmap, provider directory |
-| **Provider** | accepted CPL first; later automated CPL/CPC/subscription | qualified corridor leads |
+| **Provider** | free pilot first; then agreed CPL/revshare and later automation | qualified corridor leads |
 | **Contributor** | nothing | revshare when providers pay on their data |
 | **Platform** | ops, review, infra | take rate on provider spend |
 
@@ -88,14 +88,69 @@ Sources: [WordStream legal benchmarks](https://www.wordstream.com/blog/2025-goog
 - **Relocation agencies** — **€15–50** mid-range
 - Optimize for **qualified intent**, not raw clicks — legal CPL inflation makes quality mandatory
 
-### 3.2 Recommended model: manual CPL → automated CPL → CPC marketplace
+### 3.2 Launch principles (current policy)
+
+Emigro is still building both sides of the marketplace. Until qualified demand is stable, optimize for learning and
+partner coverage rather than extracting revenue too early.
+
+1. **Welcome by default.** Accept a provider when it has a real public presence, relevant services and reachable
+   people. Do not require mature marketplace paperwork before a pilot.
+2. **Start free.** Onboarding, directory placement and the first pilot lead handoffs are free. Never introduce a fee
+   retroactively: agree the paid model with the provider before the first billable event.
+3. **Consent before transfer.** A public Telegram post or scraped username is an acquisition signal, not a resaleable
+   lead. Contact details become a provider lead only after the person explicitly asks for help and consents to sharing.
+4. **Test multiple demand channels.** SEO, wizard, Assist, referrals, communities and paid acquisition may all be
+   tested. Do not use mass unsolicited DMs or sell participant lists.
+5. **Match, do not spray.** Send a lead only to providers covering the relevant country/service. Tell the applicant
+   whether the introduction is shared or exclusive.
+6. **Judge by outcomes.** Track response time, accepted/rejected reason, customer feedback and result. Pause partners
+   who misrepresent rules, spam applicants, repeatedly fail to respond or generate complaints.
+7. **Flexible monetization after proof.** Accepted CPL is the default for immigration and relocation; real estate or
+   other high-ticket transactions may use a disclosed success fee/revshare. A free pilot does not promise permanent
+   free leads.
+8. **No volume promises.** Emigro provides qualified context when demand exists; it does not promise “hot leads” or a
+   minimum monthly volume.
+
+### 3.2.1 Surface funnel: community first, opt-in help second
+
+On a country satellite, the owned city chat is the primary conversion because it builds repeat audience before paid
+demand exists. The order on hubs, tag pages, notes and matching wizard results is:
+
+```txt
+useful local answer
+  → correct owned city chat (Porto / Valencia / Milan; never a wrong-country fallback)
+  → free request to find a specialist
+  → matched opt-in handoff
+  → optional Route Check / accompaniment for complex cases
+```
+
+The promise must be explicit for both sides:
+
+- **Applicant:** relevant local community plus one request instead of contacting many firms; Emigro transfers contact
+  details only with consent.
+- **Provider:** a request with country/task context from a consenting person, not a scraped Telegram handle; relevant
+  corridor placement and a free pilot before any CPL/revshare agreement.
+
+Minimum launch profile:
+
+```txt
+company / specialist name
+website or credible public profile
+countries and services
+working languages
+direct contact
+license / registration only where legally required
+commercial preference for the post-pilot phase
+```
+
+### 3.3 Recommended model: free pilot → manual CPL/revshare → automated marketplace
 
 Best practice from Thumbtack, Google LSA, Avvo: **providers pay for measurable intent**, not impressions.
 
 | Phase | Billable event | Why |
 |-------|----------------|-----|
-| **MVP-A/B** | **Manual qualified lead handoff** | We negotiate with providers ourselves; no empty marketplace |
-| **MVP-C** | **Accepted CPL** | Provider pays after accepting structured intake packet |
+| **Launch** | **Free pilot handoff** | Build coverage, test demand and learn provider quality |
+| **MVP-A/B** | **Manual accepted CPL or agreed revshare** | Monetize only after both sides have evidence |
 | **Phase 2** | Automated CPL | Provider dashboard, lead delivery, dispute flow |
 | **Phase 3** | CPC-Q + optional subscription | Self-serve marketplace once volume exists |
 
@@ -104,11 +159,11 @@ Best practice from Thumbtack, Google LSA, Avvo: **providers pay for measurable i
 In the RU-speaking → Portugal corridor, do not start with a provider portal or CPC. Start with provider sales and manual delivery.
 
 ```
-1. We find 10-20 local Portugal providers
-2. First 3-5 qualified leads free
-3. Then provider pays per accepted lead
-4. Monthly manual invoice
-5. Learn rejection reasons before building automation
+1. We recruit providers across active Emigro corridors
+2. Onboarding, listing and first pilot leads are free
+3. We measure response, fit, result and applicant feedback
+4. We agree accepted CPL or success fee before paid handoffs begin
+5. We invoice manually and learn rejection reasons before automation
 ```
 
 Qualified lead packet:
@@ -128,7 +183,7 @@ explicit consent to share
 
 Provider can reject within 7 days if contact is fake, wrong corridor, duplicate, or outside agreed service scope. Provider cannot reject simply because the user did not retain them.
 
-#### Accepted CPL — first paid model
+#### Accepted CPL — default paid model after the free pilot
 
 Starting prices for corridor pilots:
 
@@ -177,7 +232,7 @@ SLA: provider should respond within 24h (badge incentive)
 
 Subscription is **additive**, not required to appear. Free listing keeps marketplace liquid at launch.
 
-### 3.3 Auction & ranking (Google Ads / LSA-inspired)
+### 3.4 Auction & ranking (Google Ads / LSA-inspired)
 
 Placement order on roadmap step:
 
@@ -200,7 +255,7 @@ Higher quality score → **lower effective CPC** for same position (second-price
 
 **Neutral matching (legal ethics):** ranking must **not** be presented as «best lawyer» or «recommended». UI copy: *«Providers available for this step»* / *«Sponsored placement»*. Payment buys visibility, not endorsement — aligns with [NYSBA Ethics Opinion 1213](https://nysba.org/ethics-opinion-1213/) (marketing fee OK if no vouching).
 
-### 3.4 Provider controls (Thumbtack / LSA best practices)
+### 3.5 Provider controls (Thumbtack / LSA best practices)
 
 Providers manage campaigns in portal:
 
@@ -217,7 +272,7 @@ Providers manage campaigns in portal:
 
 **Budget auto-pause** when cap hit — prevents surprise bills (LSA weekly budget pattern).
 
-### 3.5 Pricing grid (starting points — tune by market)
+### 3.6 Pricing grid (starting points — tune by market)
 
 | Category | CPC‑Q (MVP) | CPL exclusive (Phase 2) | Rationale |
 |----------|-------------|---------------------------|-----------|
@@ -232,7 +287,7 @@ Providers manage campaigns in portal:
 
 **Early adopter pricing (launch):** first 90 days — 50% CPC discount or €500 free click credit. Funded from platform, not contributors.
 
-### 3.6 Billing mechanics
+### 3.7 Billing mechanics
 
 | Item | Policy |
 |------|--------|
@@ -243,7 +298,7 @@ Providers manage campaigns in portal:
 | Invoicing | monthly statement + VAT where applicable |
 | Minimum top-up | €100 wallet or €50/month spend commit for paid placement |
 
-### 3.7 Provider verification (trust + ethics)
+### 3.8 Provider verification (trust + ethics)
 
 Before paid placement:
 

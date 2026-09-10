@@ -53,9 +53,9 @@ export default function FrHubWizardPage() {
             Évaluateur pour passeports Maroc, Algérie, Tunisie et Sénégal. Nous comparons les seuils
             France (Talent, visiteur, études, famille). Après le résultat, vous pouvez demander{" "}
             <Link href={FR_PATHS.assist} className="font-medium text-corridor-700 hover:underline">
-              Emigro Assist
+              une mise en relation gratuite avec un spécialiste
             </Link>{" "}
-            (Route Check €129).
+            ou un Route Check avec PDF pour un cas complexe.
           </p>
         </header>
 

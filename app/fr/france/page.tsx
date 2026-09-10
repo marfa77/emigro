@@ -91,7 +91,7 @@ export default function FrFranceHubPage() {
             href={FR_PATHS.assist}
             className="inline-flex items-center gap-2 rounded-lg border border-corridor-300 bg-corridor-50 px-5 py-3 text-sm font-medium text-corridor-900 hover:border-corridor-500"
           >
-            Assist — Route Check €129
+            Demander de l&apos;aide gratuitement
           </Link>
           <Link
             href={FR_PATHS.guides}

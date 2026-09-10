@@ -11,13 +11,13 @@ import { publicSiteUrl } from "@/lib/site-url";
 export const revalidate = 3600;
 
 export const metadata = pageMetadata({
-  title: "Emigro Assist — Route Check LATAM → ES/PT",
+  title: "Ayuda con residencia — encontrar especialista gratis",
   description:
-    "Emigro Assist en español: Route Check €129 (llamada + PDF en 48 h) y acompañamiento €100/hora para rutas España y Portugal desde Latinoamérica.",
+    "Describa su caso de residencia en España o Portugal: Emigro selecciona un partner gratis. Route Check con llamada y PDF para casos complejos.",
   path: ES_PATHS.assist,
   locale: "es",
   aiDescription:
-    "Emigro Assist for LATAM: Route Check €129 structured call + PDF case plan; hourly accompaniment €100. Destinations Spain and Portugal. Not a law firm.",
+    "Emigro Assist for LATAM: free matching with a residence partner; optional Route Check €129 and hourly accompaniment. Spain and Portugal.",
   aiCategory: "assist",
 });
 
@@ -43,23 +43,23 @@ const FLOW_STEPS = [
   },
   {
     step: "2",
-    title: "Confirmación",
-    text: "Emigro propone horario; tras confirmar el slot — pago €129 (PayPal, Stars, crypto o tarjeta via Gumroad).",
+    title: "Selección",
+    text: "Emigro busca un partner adecuado según país y tipo de trámite.",
   },
   {
     step: "3",
-    title: "Llamada",
-    text: "El equipo Emigro realiza la reunión según checklist en español.",
+    title: "Introducción",
+    text: "Con su consentimiento compartimos la solicitud con el especialista. La selección es gratuita.",
   },
   {
     step: "4",
-    title: "PDF y partners",
-    text: "En 48 h: PDF con ruta, timeline, presupuesto y riesgos + contactos de partners.",
+    title: "Trabajo",
+    text: "Usted acuerda directamente con el partner el alcance y precio de sus servicios.",
   },
   {
     step: "5",
-    title: "Después",
-    text: "Sigue con el partner directamente o activa acompañamiento a €100/hora.",
+    title: "Caso complejo",
+    text: "Si primero necesita analizar la ruta y riesgos, puede pedir Route Check con PDF por €129.",
   },
 ] as const;
 
@@ -92,11 +92,17 @@ export default function EsAssistPage({
     "@type": "Service",
     name: "Emigro Assist",
     description:
-      "Route Check: llamada con el equipo Emigro y PDF del caso; acompañamiento por hora para LATAM → España / Portugal.",
+      "Selección gratuita de partners de residencia; Route Check y acompañamiento opcionales para LATAM → España / Portugal.",
     url: assistUrl,
     provider: { "@type": "Organization", name: "Emigro", url: origin },
     areaServed: { "@type": "Place", name: "Spain and Portugal" },
     offers: [
+      {
+        "@type": "Offer",
+        name: "Selección de partner",
+        price: "0",
+        priceCurrency: "EUR",
+      },
       {
         "@type": "Offer",
         name: "Route Check",
@@ -131,11 +137,11 @@ export default function EsAssistPage({
           Emigro Assist · LATAM
         </p>
         <h1 className="mt-2 text-3xl font-bold text-slate-950 sm:text-4xl">
-          Route Check y acompañamiento
+          Ayuda para su caso de residencia
         </h1>
         <p className="mt-4 text-lg text-slate-700">
-          Si el evaluador y los pilares no bastan: llamada estructurada + PDF (€129) o apoyo por hora (€100).
-          Destinos: <strong>España</strong> y <strong>Portugal</strong>. No somos un bufete.
+          Describa su necesidad: Emigro seleccionará gratuitamente un partner para <strong>España</strong> o{" "}
+          <strong>Portugal</strong>. Para casos complejos ofrecemos Route Check con PDF. No somos un bufete.
         </p>
 
         <ul className="mt-6 space-y-2 text-sm text-slate-700">
@@ -147,13 +153,24 @@ export default function EsAssistPage({
           ))}
         </ul>
 
-        <section className="mt-10 grid gap-4 sm:grid-cols-2">
-          <div className="rounded-2xl border-2 border-corridor-600 bg-white p-5 shadow-sm">
+        <section className="mt-10 grid gap-4 sm:grid-cols-3">
+          <div className="rounded-2xl border-2 border-green-600 bg-green-50/50 p-5 shadow-sm">
+            <p className="text-xs font-semibold uppercase text-green-700">Encontrar especialista</p>
+            <p className="mt-1 text-3xl font-bold text-green-800">Gratis</p>
+            <p className="mt-2 text-sm text-slate-600">Selección + introducción con su consentimiento</p>
+            <a
+              href="#assist-form"
+              className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-green-800 hover:underline"
+            >
+              Describir mi caso <ArrowRight className="h-4 w-4" />
+            </a>
+          </div>
+          <div className="rounded-2xl border border-corridor-300 bg-white p-5 shadow-sm">
             <p className="text-xs font-semibold uppercase text-corridor-700">Route Check</p>
             <p className="mt-1 text-3xl font-bold text-corridor-800">€129</p>
             <p className="mt-2 text-sm text-slate-600">Llamada + PDF en 48 h + partners</p>
             <a
-              href="#assist-form"
+              href="#assist-form-route-check"
               className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-corridor-800 hover:underline"
             >
               Solicitar <ArrowRight className="h-4 w-4" />
@@ -191,8 +208,14 @@ export default function EsAssistPage({
         <section id="assist-form" className="mt-10 scroll-mt-24">
           <h2 className="text-xl font-semibold text-slate-950">Solicitud</h2>
           <p className="mt-2 text-sm text-slate-600">
-            Complete el formulario. El pago se coordina después de confirmar el slot.
+            La selección de partner es gratuita. El pago solo se aplica si elige Route Check o acompañamiento.
           </p>
+          <span id="assist-form-route-check" className="sr-only">
+            Formulario Route Check
+          </span>
+          <span id="assist-form-accompaniment" className="sr-only">
+            Formulario de acompañamiento
+          </span>
           <div className="mt-4">
             <AssistLeadForm
               countries={[...ES_ASSIST_COUNTRIES]}
@@ -200,6 +223,7 @@ export default function EsAssistPage({
               initialSessionId={searchParams.session}
               initialCountry={initialCountry}
               initialProgramRoute={searchParams.program}
+              defaultPlanTier="partner-match"
               locale="es"
             />
           </div>

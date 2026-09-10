@@ -928,7 +928,7 @@ entity_contributions (
 
 ```
 contributor_payout =
-  (provider_revenue × contributor_pool_rate)  -- accepted CPL first, CPC later
+  (provider_revenue × contributor_pool_rate)  -- after free pilot: accepted CPL/revshare, CPC later
   × (contributor_weight / sum_weights_for_entity)
 ```
 
@@ -1135,7 +1135,7 @@ Wizard would show "where you can go visa-free" immediately after passport questi
 | Write path | Proposals → review → publish | Legal safety; open ingest, closed publish |
 | Review depth | Tiered L0–L4 | Speed for low-risk; depth for passport/BIRTH |
 | LLM consensus | Two different models (A+B) | Catches hallucinations; conflict → human |
-| Monetization | Users free; manual accepted CPL first | Validate provider demand before marketplace |
+| Monetization | Core navigator free; free provider pilot before paid handoffs | Validate demand and partner quality before monetizing |
 | Passport dimension | First-class in eligibility | Same program, different result per passport |
 | BIRTH | Separate program type | Different outcome, roadmap, providers, risks |
 | Visa-free | Deferred | Separate layer; not blocking MVP |
@@ -1144,12 +1144,12 @@ Wizard would show "where you can go visa-free" immediately after passport questi
 | Dedup on ingest | natural_key vs published + pending | No re-push of existing data; preflight API |
 | Edits to published | `update` + base_content_hash + changelog | Corrections welcome; updaters earn revshare |
 | Applicant pricing | always free (core product) | Revenue from providers only |
-| Provider pricing | manual accepted CPL first → automated CPL → CPC later | Validate provider demand before marketplace |
+| Provider pricing | free pilot → agreed CPL/revshare → automation/CPC later | Validate provider demand before marketplace |
 | Platform take rate | 25–35% | remainder → contributor pool (~65–75%) |
 | Config vs code | taxonomy/rules in DB; engine = interpreters | See SCHEMA_AND_API.md §1, §13 |
 | Program proofs | source_url mandatory on every fact | No publish without official links |
 | Launch strategy | corridor-first | Universal engine, but first market is RU-speaking → Portugal |
-| Provider GTM | manual qualified lead handoff before marketplace | Sell CPL pilots before CPC infrastructure |
+| Provider GTM | free manual qualified-lead pilot before marketplace | Build coverage and evidence before paid infrastructure |
 | CIPLE A2 asset | migrate as Portugal corridor digest | Existing monitoring becomes trust/distribution layer |
 
 ---

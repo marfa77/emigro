@@ -16,7 +16,7 @@ export const HEADER_NAV_LINKS: SiteNavLink[] = [
   { href: "/ru/wizard", labelRu: "Подбор маршрута", labelEn: "Route finder", labelEs: "Evaluador" },
   { href: "/ru/guides", labelRu: "Гайды", labelEn: "Guides", labelEs: "Guías" },
   { href: "/ru/news", labelRu: "Новости", labelEn: "News", labelEs: "Noticias" },
-  { href: "/ru/assist", labelRu: "Консультация", labelEn: "Consultation", labelEs: "Contacto" },
+  { href: "/ru/assist", labelRu: "Получить помощь", labelEn: "Get help", labelEs: "Pedir ayuda" },
   { href: "/ru/partners", labelRu: "Партнёрам", labelEn: "Partners", labelEs: "Partners" },
   { href: portoChatDeepLink("nav"), labelRu: "Чат", labelEn: "Community", labelEs: "Comunidad" },
 ];
@@ -31,7 +31,7 @@ export const ES_HEADER_NAV_LINKS: SiteNavLink[] = [
   { href: ES_PATHS.chile, labelRu: "Chile", labelEn: "Chile", labelEs: "Chile" },
   { href: ES_PATHS.paraguay, labelRu: "Paraguay", labelEn: "Paraguay", labelEs: "Paraguay" },
   { href: ES_PATHS.guides, labelRu: "Guías", labelEn: "Guides", labelEs: "Guías" },
-  { href: ES_PATHS.contact, labelRu: "Contacto", labelEn: "Contact", labelEs: "Contacto" },
+  { href: ES_PATHS.assist, labelRu: "Pedir ayuda", labelEn: "Get help", labelEs: "Pedir ayuda" },
 ];
 
 export const FR_HEADER_NAV_LINKS: SiteNavLink[] = [
@@ -43,7 +43,7 @@ export const FR_HEADER_NAV_LINKS: SiteNavLink[] = [
   { href: FR_PATHS.senegal, labelRu: "Sénégal", labelEn: "Senegal", labelFr: "Sénégal" },
   { href: FR_PATHS.guides, labelRu: "Guides", labelEn: "Guides", labelFr: "Guides" },
   { href: FR_PATHS.wizard, labelRu: "Évaluateur", labelEn: "Evaluator", labelFr: "Évaluateur" },
-  { href: FR_PATHS.assist, labelRu: "Assist", labelEn: "Assist", labelFr: "Assist" },
+  { href: FR_PATHS.assist, labelRu: "Demander de l’aide", labelEn: "Get help", labelFr: "Demander de l’aide" },
   { href: FR_PATHS.contact, labelRu: "Contact", labelEn: "Contact", labelFr: "Contact" },
 ];
 

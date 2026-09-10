@@ -294,8 +294,8 @@ export default function EsGuidePage({ params }: { params: { slug: string } }) {
         <section className="mt-10 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
           <h2 className="text-lg font-semibold text-slate-950">Siguiente paso</h2>
           <p className="mt-2 text-sm text-slate-600">
-            Compare umbrales de España y Portugal con el evaluador, abra el hub del corredor o pida un Route
-            Check con Emigro Assist.
+            Compare umbrales con el evaluador, abra el hub o describa su caso: Emigro puede encontrarle un
+            especialista gratuitamente.
           </p>
           <div className="mt-4 flex flex-wrap gap-3">
             <Link
@@ -315,7 +315,7 @@ export default function EsGuidePage({ params }: { params: { slug: string } }) {
               href={ES_PATHS.assist}
               className="inline-flex items-center gap-2 rounded-lg border border-corridor-300 bg-corridor-50 px-4 py-2.5 text-sm font-medium text-corridor-900 hover:border-corridor-500"
             >
-              Assist — Route Check €129
+              Pedir ayuda gratis
             </Link>
             <a
               href={MAILTO_CONTACT}

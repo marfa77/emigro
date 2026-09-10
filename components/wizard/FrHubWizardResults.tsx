@@ -154,12 +154,12 @@ export function FrHubWizardResults({
           <TrackedAssistLink
             href={FR_PATHS.assist}
             placement="wizard_fr_hub_next_steps"
-            linkLabel="Assist"
+            linkLabel="Demander de l'aide gratuitement"
             locale="fr"
             sessionId={sessionId}
             className="rounded-lg border border-corridor-300 px-4 py-2 text-corridor-800 hover:bg-corridor-50"
           >
-            Assist
+            Demander de l&apos;aide gratuitement
           </TrackedAssistLink>
           <a
             href={MAILTO_CONTACT}

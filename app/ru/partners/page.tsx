@@ -10,7 +10,7 @@ export const revalidate = 86400;
 export const metadata = pageMetadata({
   title: "Партнёрам",
   description:
-    "Emigro ищет партнёров: иммиграционные юристы и адвокаты, релокационные агентства, бухгалтеры, языковые школы и сервис-провайдеры по ВНЖ в Европе. Оставьте заявку.",
+    "Emigro приглашает партнёров по релокации, визам, недвижимости и сервисам за рубежом. Подключение и первые лиды на этапе запуска — бесплатно.",
   path: "/ru/partners",
 });
 
@@ -24,6 +24,11 @@ const PARTNER_TYPES = [
     icon: Building2,
     title: "Релокационные агентства",
     text: "Компании полного цикла: документы, консульства, сопровождение после переезда.",
+  },
+  {
+    icon: Building2,
+    title: "Недвижимость и инвестиции",
+    text: "Покупка, аренда и инвестиционные объекты для переезда или получения резидентского статуса.",
   },
   {
     icon: Users,
@@ -58,9 +63,40 @@ export default function PartnersPage() {
 
         <h1 className="mt-4 text-3xl font-bold">Партнёрская программа</h1>
         <p className="mt-4 text-lg text-slate-600">
-          Emigro — навигатор релокации для русскоязычных заявителей. Мы ищем надёжных партнёров в Европе, которым можем
-          передавать квалифицированные запросы после wizard-подбора маршрута.
+          Emigro — навигатор релокации для русскоязычных заявителей. Мы собираем сеть партнёров по направлениям
+          Emigro и передаём им запросы пользователей, которым нужна профессиональная помощь.
         </p>
+
+        <section className="mt-8 rounded-xl border border-green-200 bg-green-50 p-6">
+          <h2 className="text-xl font-semibold text-green-950">На старте — бесплатно</h2>
+          <p className="mt-3 text-sm leading-relaxed text-green-900/90">
+            Подключение, размещение в справочнике и первые пилотные передачи лидов бесплатны. Сначала проверяем,
+            подходит ли формат обеим сторонам. Платную модель вводим только после появления стабильных запросов и
+            отдельно согласовываем её с партнёром.
+          </p>
+        </section>
+
+        <section className="mt-10">
+          <h2 className="text-xl font-semibold">Зачем это обеим сторонам</h2>
+          <div className="mt-5 grid gap-4 sm:grid-cols-2">
+            <article className="rounded-xl border border-sky-200 bg-sky-50/60 p-5">
+              <Users className="h-5 w-5 text-sky-700" aria-hidden />
+              <h3 className="mt-3 font-semibold text-slate-900">Для человека, которому нужна помощь</h3>
+              <p className="mt-2 text-sm leading-relaxed text-slate-700">
+                Не нужно писать десяти фирмам. Пользователь описывает страну и задачу один раз, получает знакомство с
+                профильным специалистом и сам решает, продолжать ли работу. Контакт передаём только с явного согласия.
+              </p>
+            </article>
+            <article className="rounded-xl border border-corridor-200 bg-corridor-50/60 p-5">
+              <Handshake className="h-5 w-5 text-corridor-700" aria-hidden />
+              <h3 className="mt-3 font-semibold text-slate-900">Для фирмы</h3>
+              <p className="mt-2 text-sm leading-relaxed text-slate-700">
+                Не список Telegram-ников, а opt-in запрос с контекстом страны, маршрута и задачи. Показываем компанию
+                только на релевантных направлениях; первые передачи бесплатны, чтобы проверить качество и конверсию.
+              </p>
+            </article>
+          </div>
+        </section>
 
         <section className="mt-10">
           <h2 className="text-xl font-semibold">Кого ищем</h2>
@@ -76,12 +112,13 @@ export default function PartnersPage() {
         </section>
 
         <section className="mt-10 rounded-xl border border-corridor-200 bg-corridor-50 p-6">
-          <h2 className="text-xl font-semibold text-corridor-900">Что предлагаем партнёрам</h2>
+          <h2 className="text-xl font-semibold text-corridor-900">Как мы работаем</h2>
           <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-corridor-900/90">
-            <li>Заявки с контекстом: маршрут, паспорт, ответы wizard (без обещаний «горячих лидов»).</li>
-            <li>Присутствие в shortlist после прохождения пользователем подбора.</li>
-            <li>Прозрачные правила: мы не юридическая фирма и не конкурируем с вами за клиента.</li>
-            <li>Фокус на качестве и репутации — приоритет лицензированным специалистам.</li>
+            <li>Принимаем партнёров разных форматов, если компания реальна и её услуги соответствуют заявленному.</li>
+            <li>Передаём контакт только с согласием пользователя и с контекстом его запроса.</li>
+            <li>Не обещаем объём: на запуске вместе тестируем спрос, коммуникацию и качество обработки.</li>
+            <li>Emigro не конкурирует за сопровождение — клиент продолжает работу напрямую с выбранным партнёром.</li>
+            <li>После пилота смотрим на скорость ответа, результат и обратную связь; неработающие профили отключаем.</li>
           </ul>
         </section>
 
@@ -96,9 +133,9 @@ export default function PartnersPage() {
           </p>
           <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-slate-700">
             <li>страны присутствия и типы услуг (ВНЖ, воссоединение семьи, гражданство и т.д.);</li>
-            <li>лицензии / регистрация (если применимо);</li>
+            <li>название компании, сайт или публичный профиль;</li>
             <li>языки работы с клиентами;</li>
-            <li>ссылку на сайт или профиль.</li>
+            <li>лицензии / регистрация, если они обязательны для ваших услуг.</li>
           </ul>
         </section>
 

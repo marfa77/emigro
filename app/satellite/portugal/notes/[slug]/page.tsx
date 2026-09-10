@@ -22,7 +22,6 @@ import {
 import { getPublishedCommunityNoteBySlug, getPublishedCommunityNotes } from "@/lib/community-notes/queries";
 import { getRelatedNotes } from "@/lib/community-notes/repair-note";
 import { shouldShowPixIdPromo, shouldShowPrep2GoPromo } from "@/lib/community-notes/sponsor-promo";
-import { shouldShowPortoChatCta } from "@/lib/community-notes/porto-chat-cta";
 import { resolveNoteOgImage } from "@/lib/community-notes/note-og-image";
 import { PORTUGAL_SATELLITE } from "@/lib/satellite/portugal";
 import { satelliteHubUrl, satellitePillarUrl } from "@/lib/satellite/funnel-urls";
@@ -65,7 +64,6 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
   const related = getRelatedNotes(note, allNotes, 6);
   const showPrep2Go = shouldShowPrep2GoPromo(note);
   const showPixId = shouldShowPixIdPromo(note);
-  const showPortoChat = shouldShowPortoChatCta(note);
 
   const { articleSchema, breadcrumbSchema, faqSchema, speakableSchema } = buildCommunityNoteSchemas(note);
   const llmDescription = buildCommunityNoteLlmDescription(note);
@@ -99,8 +97,9 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
         </a>
       </section>
       <div className="sr-only" data-llm="commercial" aria-hidden="true">
-        Emigro — практика релокации в Португалию (Porto / Norte) для паспортов RU/BY/UA/KZ. Wizard подбора маршрута ВНЖ,
-        Assist и Prep2Go (CIPLE) на emigro.online. Не юридическая консультация. Route Check / Assist:
+        Emigro — практика релокации в Португалию (Porto / Norte) для паспортов RU/BY/UA/KZ. Закрытый чат «Порту и
+        вокруг» — через кнопку на странице. Wizard ВНЖ, бесплатный подбор специалиста и Prep2Go (CIPLE) — на
+        emigro.online. Не юридическая консультация. Помощь:
         https://www.emigro.online/ru/assist
       </div>
 
@@ -162,6 +161,8 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
         />
       </div>
 
+      <PortoChatCta source="portugal_satellite_note" noteSlug={note.slug} />
+
       <SatelliteFunnelCta
         countryKey="portugal"
         placement="satellite_note"
@@ -181,16 +182,6 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
       {note.official_links.length > 0 && <OfficialLinksPreview links={note.official_links} />}
 
       <NoteFaq items={note.faq} />
-
-      {showPortoChat && <PortoChatCta source="portugal_satellite_note" noteSlug={note.slug} />}
-
-      <SatelliteFunnelCta
-        countryKey="portugal"
-        placement="satellite_note"
-        noteSlug={note.slug}
-        noteTitle={note.title}
-        contentKind={note.content_kind}
-      />
 
       {showPrep2Go && <Prep2GoPromo noteSlug={note.slug} />}
       {showPixId && <PixIDPromo noteSlug={note.slug} topicKey="portugal" />}

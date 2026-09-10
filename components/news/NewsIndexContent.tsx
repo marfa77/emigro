@@ -91,7 +91,7 @@ function NewsIndexBody({ allTopics, digests, pillarGuides }: Props) {
         </div>
       )}
 
-      <RelocatorChatPromo source="news_index" className="mt-12" />
+      <RelocatorChatPromo source="news_index" countryKey={topic?.urlSegment} className="mt-12" />
 
       {!topic && pillarGuides.length > 0 && (
         <section className="mt-12 rounded-2xl border border-slate-200 bg-slate-50 p-6">

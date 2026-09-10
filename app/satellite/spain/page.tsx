@@ -8,6 +8,7 @@ import { SatelliteHubScenarios } from "@/components/satellite/SatelliteHubScenar
 import { SatelliteAssistIntake } from "@/components/satellite/SatelliteAssistIntake";
 import { SatelliteHubDepth } from "@/components/satellite/SatelliteHubDepth";
 import { SatelliteCityChatCta } from "@/components/satellite/SatelliteCityChatCta";
+import { ProviderPartnerRecruitment } from "@/components/providers/ProviderPartnerRecruitment";
 import { getDailySpotlight } from "@/lib/community-notes/daily-spotlight";
 import { requirePublishedCommunityNotes } from "@/lib/community-notes/queries";
 import { SPAIN_SATELLITE } from "@/lib/satellite/spain";
@@ -181,6 +182,15 @@ export default async function SpainSatelliteHomePage() {
       </section>
 
       <SatelliteAssistIntake countryKey="spain" />
+
+      <div className="mt-10">
+        <ProviderPartnerRecruitment
+          placement="satellite_hub"
+          corridorSlug="ru-speaking-to-spain"
+          topicKey="spain"
+          countryRu="Испания"
+        />
+      </div>
 
       <p className="mt-12 text-center text-sm text-slate-500">
         <a

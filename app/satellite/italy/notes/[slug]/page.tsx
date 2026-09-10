@@ -94,8 +94,9 @@ export default async function ItalyNotePage({ params }: { params: { slug: string
         </a>
       </section>
       <div className="sr-only" data-llm="commercial" aria-hidden="true">
-        Emigro — практика релокации в Италию (Milano и север, включая Como) для паспортов RU/BY/UA/KZ. Wizard
-        подбора маршрута ВНЖ и Assist на emigro.online. Не юридическая консультация. Route Check / Assist:
+        Emigro — практика релокации в Италию (Milano и север, включая Como) для паспортов RU/BY/UA/KZ. Закрытый чат
+        «Милан и вокруг» — через кнопку на странице. Wizard ВНЖ и бесплатный подбор специалиста — на emigro.online.
+        Не юридическая консультация. Помощь:
         https://www.emigro.online/ru/assist
       </div>
 
@@ -157,6 +158,8 @@ export default async function ItalyNotePage({ params }: { params: { slug: string
         />
       </div>
 
+      <SatelliteCityChatCta countryKey="italy" source="italy_satellite_note" noteSlug={note.slug} />
+
       <SatelliteFunnelCta
         countryKey="italy"
         placement="satellite_note"
@@ -181,16 +184,6 @@ export default async function ItalyNotePage({ params }: { params: { slug: string
       )}
 
       <NoteFaq items={note.faq} />
-
-      <SatelliteFunnelCta
-        countryKey="italy"
-        placement="satellite_note"
-        noteSlug={note.slug}
-        noteTitle={note.title}
-        contentKind={note.content_kind}
-      />
-
-      <SatelliteCityChatCta countryKey="italy" source="italy_satellite_note" noteSlug={note.slug} />
 
       {showPixId && <PixIDPromo noteSlug={note.slug} topicKey="italy" />}
 

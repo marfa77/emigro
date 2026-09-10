@@ -15,6 +15,7 @@ import { isItalyHubTopic } from "@/lib/italy/hub";
 import { GuideDigestPreview } from "@/components/corridor/GuideDigestPreview";
 import { LatestNewsTeaserSuspense } from "@/components/news/LatestNewsTeaser";
 import { ServiceProvidersSection } from "@/components/providers/ServiceProvidersSection";
+import { RelocatorChatPromo } from "@/components/community/RelocatorChatPromo";
 import { UniPrep2GoPromo } from "@/components/sponsors/UniPrep2GoPromo";
 import { RoleRadarPromo } from "@/components/sponsors/RoleRadarPromo";
 import { HeroShell } from "@/components/visuals/HeroShell";
@@ -116,6 +117,12 @@ export async function CorridorLanding({ country }: { country: string }) {
             )}
           </div>
         </HeroShell>
+
+        <RelocatorChatPromo
+          source={`corridor_${topic.urlSegment}`}
+          countryKey={topic.urlSegment}
+          className="mt-8"
+        />
 
         {showHub && <CorridorHubStackSectionSuspense topic={topic} corridor={corridor} />}
 

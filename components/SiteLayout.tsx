@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { EmigroLogo } from "@/components/brand/EmigroLogo";
+import { TrackedAssistLink } from "@/components/assist/TrackedAssistLink";
 import { MobileBottomBar, MobileNav } from "@/components/layout/MobileNav";
 import { Disclaimer } from "./Disclaimer";
 import { HUB_WIZARD_PATH } from "@/lib/corridor/paths";
@@ -13,6 +14,10 @@ import { safeAreaTopStyle } from "@/lib/ui/mobile";
 
 function isHttpHref(href: string): boolean {
   return /^https?:\/\//i.test(href);
+}
+
+function isAssistHref(href: string): boolean {
+  return href === "/ru/assist" || href === ES_PATHS.assist || href === FR_PATHS.assist;
 }
 
 function navAriaLabel(locale: UiLocale): string {
@@ -40,7 +45,18 @@ export function SiteHeader({ locale = "ru" }: { locale?: UiLocale }) {
             aria-label={navAriaLabel(locale)}
           >
             {navLinks.map((link) =>
-              isHttpHref(link.href) ? (
+              isAssistHref(link.href) ? (
+                <TrackedAssistLink
+                  key={link.href}
+                  href={link.href}
+                  placement="desktop_header"
+                  linkLabel={link.label}
+                  locale={locale === "es" || locale === "fr" ? locale : "ru"}
+                  className="font-medium text-corridor-700 hover:text-corridor-600"
+                >
+                  {link.label}
+                </TrackedAssistLink>
+              ) : isHttpHref(link.href) ? (
                 <a key={link.href} href={link.href} className="hover:text-corridor-600" rel="noopener noreferrer">
                   {link.label}
                 </a>

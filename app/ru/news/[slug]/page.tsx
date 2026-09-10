@@ -7,6 +7,7 @@ import { NewsArticleTracker } from "@/components/analytics/NewsArticleTracker";
 import { CorridorIntelLinks } from "@/components/corridor/CorridorIntelLinks";
 import { NewsArticleBody } from "@/components/news/NewsDigest";
 import { NewsShareBar } from "@/components/news/NewsShareBar";
+import { RelocatorChatPromo } from "@/components/community/RelocatorChatPromo";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { NewsHeroVisual } from "@/components/visuals/NewsHeroVisual";
 import { countryOgImage } from "@/lib/brand/country-accents";
@@ -160,6 +161,13 @@ export default async function NewsArticlePage({ params }: Props) {
           </HeroShell>
 
           <NewsShareBar url={url} title={displayTitle} className="mt-6" />
+
+          <RelocatorChatPromo
+            variant="inline"
+            source={`news_${digest.slug}`}
+            countryKey={topic?.urlSegment}
+            className="mt-6"
+          />
 
           {digest.key_takeaways.length > 0 && !story && (
             <section className="mt-6 grid gap-3 md:grid-cols-3">

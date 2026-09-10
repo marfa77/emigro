@@ -5,6 +5,7 @@ import {
   satelliteAssistUrl,
   satelliteWizardUrl,
 } from "@/lib/satellite/funnel-urls";
+import { TrackedAssistLink } from "@/components/assist/TrackedAssistLink";
 
 type Scenario = {
   id: string;
@@ -42,8 +43,8 @@ function portugalScenarios(): Scenario[] {
     },
     {
       id: "assist",
-      title: "Нужен разбор кейса",
-      blurb: "Route Check €129 с командой Emigro",
+      title: "Нужна помощь",
+      blurb: "Бесплатно подберём специалиста по задаче",
       href: satelliteAssistUrl({
         countryKey: "portugal",
         placement: "satellite_hub_scenarios",
@@ -81,8 +82,8 @@ function spainScenarios(): Scenario[] {
     },
     {
       id: "assist",
-      title: "Нужен разбор кейса",
-      blurb: "Route Check €129 с командой Emigro",
+      title: "Нужна помощь",
+      blurb: "Бесплатно подберём специалиста по задаче",
       href: satelliteAssistUrl({
         countryKey: "spain",
         placement: "satellite_hub_scenarios",
@@ -120,8 +121,8 @@ function italyScenarios(): Scenario[] {
     },
     {
       id: "assist",
-      title: "Нужен разбор кейса",
-      blurb: "Route Check €129 с командой Emigro",
+      title: "Нужна помощь",
+      blurb: "Бесплатно подберём специалиста по задаче",
       href: satelliteAssistUrl({
         countryKey: "italy",
         placement: "satellite_hub_scenarios",
@@ -174,7 +175,17 @@ export function SatelliteHubScenarios({ countryKey }: { countryKey: SatelliteCou
           );
           return (
             <li key={s.id}>
-              {s.external ? (
+              {s.id === "assist" ? (
+                <TrackedAssistLink
+                  href={s.href}
+                  placement="satellite_hub_scenarios"
+                  linkLabel={s.title}
+                  country={countryKey}
+                  className={className}
+                >
+                  {inner}
+                </TrackedAssistLink>
+              ) : s.external ? (
                 <a href={s.href} className={className}>
                   {inner}
                 </a>

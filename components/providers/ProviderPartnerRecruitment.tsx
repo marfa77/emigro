@@ -71,7 +71,7 @@ export function ProviderPartnerRecruitment({ placement, corridorSlug, topicKey, 
       <div className="rounded-2xl border border-dashed border-corridor-300 bg-corridor-50/60 p-5 sm:p-6">
         <p className="font-medium text-corridor-900">Заявка отправлена</p>
         <p className="mt-2 text-sm text-corridor-900/80">
-          Спасибо! Мы свяжемся с вами, если профиль компании подходит для справочника. Подробнее о программе — на{" "}
+          Спасибо! Посмотрим профиль и свяжемся с вами по поводу бесплатного пилота. Подробнее о программе — на{" "}
           <Link href="/ru/partners" className="font-medium text-corridor-700 underline">
             странице для партнёров
           </Link>
@@ -91,8 +91,8 @@ export function ProviderPartnerRecruitment({ placement, corridorSlug, topicKey, 
           <div>
             <h3 className="font-semibold text-slate-900">Хотите видеть свою компанию в списке провайдеров?</h3>
             <p className="mt-1 text-sm leading-relaxed text-slate-600">
-              Юристы, релокационные агентства, бухгалтеры и другие сервисы на маршрутах Emigro. Оставьте заявку — мы
-              рассмотрим профиль для справочника.
+              Юристы, релокационные агентства, недвижимость и другие сервисы на маршрутах Emigro. Бесплатно подключим
+              к пилоту и покажем только по тем странам и задачам, которые вы реально закрываете.
             </p>
           </div>
         </div>
@@ -105,6 +105,23 @@ export function ProviderPartnerRecruitment({ placement, corridorSlug, topicKey, 
           {open ? "Свернуть" : "Оставить заявку"}
           {open ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
         </button>
+      </div>
+
+      <div className="mt-4 grid gap-3 sm:grid-cols-2">
+        <div className="rounded-xl border border-white bg-white/80 p-4 text-sm text-slate-700">
+          <p className="font-semibold text-slate-900">Ценность для клиента</p>
+          <p className="mt-1 leading-relaxed">
+            Один понятный запрос вместо поиска фирм: знакомство с профильным специалистом и передача контакта только
+            после согласия.
+          </p>
+        </div>
+        <div className="rounded-xl border border-white bg-white/80 p-4 text-sm text-slate-700">
+          <p className="font-semibold text-slate-900">Ценность для фирмы</p>
+          <p className="mt-1 leading-relaxed">
+            Opt-in запрос с контекстом страны и задачи, без покупки списков и холодного спама. Первые передачи
+            бесплатны; платную модель обсуждаем только после результата пилота.
+          </p>
+        </div>
       </div>
 
       {open && (

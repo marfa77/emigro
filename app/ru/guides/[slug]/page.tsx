@@ -6,6 +6,7 @@ import { ArrowRight, BookOpen, CheckCircle2, Clock, Compass, FileText, Layers, S
 import { ShareButtons } from "@/components/share/ShareButtons";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { RelocatorChatPromo } from "@/components/community/RelocatorChatPromo";
+import { TrackedAssistLink } from "@/components/assist/TrackedAssistLink";
 import { UniPrep2GoPromo, UniPrepCitizenshipHubPromo } from "@/components/sponsors/UniPrep2GoPromo";
 import { RoleRadarPromo } from "@/components/sponsors/RoleRadarPromo";
 import { shouldShowRoleRadarOnGuide } from "@/lib/role-radar";
@@ -529,7 +530,12 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
               </ul>
             </section>
 
-            <RelocatorChatPromo variant="inline" source={`guide_${guide.slug}`} className="mt-8" />
+            <RelocatorChatPromo
+              variant="inline"
+              source={`guide_${guide.slug}`}
+              countryKey={providerTopicKey}
+              className="mt-8"
+            />
 
             {relatedGuides.length > 0 && (
               <section className="mt-8 rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm ring-1 ring-slate-950/5 sm:p-8">
@@ -595,12 +601,14 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
                 >
                   Подобрать маршрут
                 </Link>
-                <Link
+                <TrackedAssistLink
                   href="/ru/assist#assist-form"
+                  placement="ru_guide_sidebar"
+                  linkLabel="Получить помощь бесплатно"
                   className="rounded-lg border border-corridor-200 bg-white px-5 py-3 text-center text-sm font-medium text-slate-700 hover:border-corridor-400"
                 >
-                  Route Check — €129
-                </Link>
+                  Получить помощь бесплатно
+                </TrackedAssistLink>
                 {guide.cta_secondary && (
                   <Link
                     href={guide.cta_secondary}
@@ -620,7 +628,11 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
               </div>
             </section>
 
-            <RelocatorChatPromo variant="sidebar" source={`guide_sidebar_${guide.slug}`} />
+            <RelocatorChatPromo
+              variant="sidebar"
+              source={`guide_sidebar_${guide.slug}`}
+              countryKey={providerTopicKey}
+            />
 
             {showUniPrepHub ? (
               <UniPrepCitizenshipHubPromo

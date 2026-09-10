@@ -6,10 +6,14 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { ES_PATHS } from "@/lib/es/corridor";
 import { FR_PATHS } from "@/lib/fr/corridor";
 import type { UiLocale } from "@/lib/locale";
-import { portoChatDeepLink } from "@/lib/telegram/deep-link";
+import { trackEvent } from "@/lib/analytics/client";
 
 function isHttpHref(href: string): boolean {
   return /^https?:\/\//i.test(href);
+}
+
+function isAssistHref(href: string): boolean {
+  return href === "/ru/assist" || href === ES_PATHS.assist || href === FR_PATHS.assist;
 }
 
 type NavLink = {
@@ -84,6 +88,19 @@ export function MobileNav({ links, locale = "ru" }: MobileNavProps) {
   const closeShort = locale === "es" ? "Cerrar" : locale === "fr" ? "Fermer" : locale === "en" ? "Close" : "Закрыть";
   const mobileNavLabel =
     locale === "es" ? "Menú móvil" : locale === "fr" ? "Menu mobile" : "Мобильное меню";
+  const analyticsLocale = locale === "es" || locale === "fr" ? locale : "ru";
+
+  function closeAndTrack(link: NavLink) {
+    if (isAssistHref(link.href)) {
+      trackEvent("assist_cta_click", {
+        placement: "mobile_menu",
+        link_label: link.label,
+        target_path: link.href,
+        locale: analyticsLocale,
+      });
+    }
+    close();
+  }
 
   return (
     <div className="md:hidden">
@@ -120,7 +137,7 @@ export function MobileNav({ links, locale = "ru" }: MobileNavProps) {
                     href={link.href}
                     rel="noopener noreferrer"
                     className="border-b border-slate-100 py-3 text-base text-slate-700 last:border-b-0 hover:text-corridor-600"
-                    onClick={close}
+                    onClick={() => closeAndTrack(link)}
                   >
                     {link.label}
                   </a>
@@ -129,7 +146,7 @@ export function MobileNav({ links, locale = "ru" }: MobileNavProps) {
                     key={link.href}
                     href={link.href}
                     className="border-b border-slate-100 py-3 text-base text-slate-700 last:border-b-0 hover:text-corridor-600"
-                    onClick={close}
+                    onClick={() => closeAndTrack(link)}
                   >
                     {link.label}
                   </Link>
@@ -158,14 +175,20 @@ type MobileBottomBarProps = {
 };
 
 export function MobileBottomBar({ locale = "ru" }: MobileBottomBarProps) {
-  const chatLabel =
-    locale === "es" ? "Guías" : locale === "fr" ? "Guides" : locale === "ru" ? "Чат" : "Chat";
+  const helpLabel =
+    locale === "es"
+      ? "Ayuda gratis"
+      : locale === "fr"
+        ? "Aide gratuite"
+        : locale === "ru"
+          ? "Помощь бесплатно"
+          : "Free help";
   const primaryHref =
     locale === "es" ? ES_PATHS.wizard : locale === "fr" ? FR_PATHS.wizard : "/ru/wizard";
   const primaryLabel =
     locale === "es" ? "Evaluador" : locale === "fr" ? "Évaluateur" : "Wizard";
   const secondaryHref =
-    locale === "es" ? ES_PATHS.guides : locale === "fr" ? FR_PATHS.guides : portoChatDeepLink("mbar");
+    locale === "es" ? ES_PATHS.assist : locale === "fr" ? FR_PATHS.assist : "/ru/assist";
 
   return (
     <div className="fixed inset-x-0 bottom-0 z-30 border-t border-slate-200 bg-white/95 backdrop-blur md:hidden">
@@ -179,22 +202,20 @@ export function MobileBottomBar({ locale = "ru" }: MobileBottomBarProps) {
         >
           {primaryLabel}
         </Link>
-        {locale === "ru" ? (
-          <a
-            href={secondaryHref}
-            rel="noopener noreferrer"
-            className="flex flex-1 items-center justify-center rounded-lg border border-corridor-200 bg-white px-4 py-2.5 text-sm font-medium text-corridor-700 hover:border-corridor-300 hover:bg-corridor-50"
-          >
-            {chatLabel}
-          </a>
-        ) : (
-          <Link
-            href={secondaryHref}
-            className="flex flex-1 items-center justify-center rounded-lg border border-corridor-200 bg-white px-4 py-2.5 text-sm font-medium text-corridor-700 hover:border-corridor-300 hover:bg-corridor-50"
-          >
-            {chatLabel}
-          </Link>
-        )}
+        <Link
+          href={secondaryHref}
+          onClick={() =>
+            trackEvent("assist_cta_click", {
+              placement: "mobile_bottom_bar",
+              link_label: helpLabel,
+              target_path: secondaryHref,
+              locale: locale === "es" || locale === "fr" ? locale : "ru",
+            })
+          }
+          className="flex flex-1 items-center justify-center rounded-lg border border-corridor-200 bg-white px-4 py-2.5 text-sm font-medium text-corridor-700 hover:border-corridor-300 hover:bg-corridor-50"
+        >
+          {helpLabel}
+        </Link>
       </div>
     </div>
   );

@@ -77,7 +77,7 @@ export default function FrTunisieHubPage() {
               <ArrowRight className="h-4 w-4" />
             </Link>
             <Link href={FR_PATHS.assist} className="inline-flex items-center gap-2 text-corridor-700 hover:underline">
-              Assist — Route Check
+              Aide gratuite
               <ArrowRight className="h-4 w-4" />
             </Link>
             <Link href={FR_PATHS.contact} className="inline-flex items-center gap-2 text-corridor-700 hover:underline">

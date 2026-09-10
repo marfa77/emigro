@@ -153,12 +153,12 @@ export function EsHubWizardResults({
           <TrackedAssistLink
             href={ES_PATHS.assist}
             placement="wizard_es_hub_next_steps"
-            linkLabel="Assist"
+            linkLabel="Pedir ayuda gratis"
             locale="es"
             sessionId={sessionId}
             className="rounded-lg border border-corridor-300 px-4 py-2 text-corridor-800 hover:bg-corridor-50"
           >
-            Assist
+            Pedir ayuda gratis
           </TrackedAssistLink>
           <a
             href={MAILTO_CONTACT}

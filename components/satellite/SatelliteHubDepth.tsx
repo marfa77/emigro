@@ -80,7 +80,7 @@ export function SatelliteHubDepth({
         </a>
         {" · "}
         <a href={assistHref} className={`font-medium underline ${link}`}>
-          Assist Route Check €129
+          бесплатно найти специалиста
         </a>
         {countryKey === "portugal" ? (
           <>

@@ -4,6 +4,7 @@ import { ArrowRight, Globe2, Sparkles } from "lucide-react";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { EmigroDepthStrip } from "@/components/EmigroDepthStrip";
 import { RelocatorChatPromo } from "@/components/community/RelocatorChatPromo";
+import { TrackedAssistLink } from "@/components/assist/TrackedAssistLink";
 import { HubDestinationsSectionSuspense } from "@/components/hub/HubDestinationsSection";
 import { WizardPulseSectionSuspense } from "@/components/wizard/WizardPulseSectionSuspense";
 import { HeroShell } from "@/components/visuals/HeroShell";
@@ -288,18 +289,20 @@ export default async function RuHubPage() {
           <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p className="text-xs font-semibold uppercase tracking-wide text-corridor-600">Emigro Assist</p>
-              <h2 className="mt-1.5 text-xl font-bold text-slate-900">Route Check — €129</h2>
+              <h2 className="mt-1.5 text-xl font-bold text-slate-900">Нужна помощь с ВНЖ или визой?</h2>
               <p className="mt-2 max-w-lg text-slate-600">
-                Пишете, чего хотите — согласуем созвон со специалистом. После встречи присылает PDF.
+                Опишите ситуацию — бесплатно подберём профильного партнёра по стране и задаче.
               </p>
             </div>
-            <Link
+            <TrackedAssistLink
               href="/ru/assist"
+              placement="ru_homepage"
+              linkLabel="Получить помощь бесплатно"
               className="inline-flex shrink-0 items-center gap-2 rounded-lg bg-corridor-700 px-5 py-3 font-medium text-white hover:bg-corridor-800"
             >
-              Route Check — €129
+              Получить помощь бесплатно
               <ArrowRight className="h-4 w-4" />
-            </Link>
+            </TrackedAssistLink>
           </div>
         </section>
       </main>

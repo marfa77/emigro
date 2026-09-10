@@ -33,7 +33,8 @@ export function TrackedAssistLink({
     <Link
       href={href}
       className={className}
-      onClick={() =>
+      data-assist-tracked="true"
+      onClick={() => {
         trackEvent("assist_cta_click", {
           placement,
           link_label: linkLabel,
@@ -42,8 +43,12 @@ export function TrackedAssistLink({
           country: country ?? "",
           program: program ?? "",
           session_id: sessionId ?? "",
-        })
-      }
+        });
+        const hash = new URL(href, window.location.href).hash;
+        if (hash.startsWith("#assist-")) {
+          window.dispatchEvent(new CustomEvent("emigro:assist-tier", { detail: { hash } }));
+        }
+      }}
       {...rest}
     >
       {children}

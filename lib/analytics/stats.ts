@@ -51,7 +51,11 @@ export interface AssistFunnelStats {
   leadsTotal: number;
   leadsToday: number;
   leadsYesterday: number;
+  communityClicksTotal: number;
+  communityClicksToday: number;
+  communityClicksYesterday: number;
   topCtaPlacementsToday: Array<[string, number]>;
+  topCommunityPlacementsToday: Array<[string, number]>;
   topAssistPagesToday: Array<[string, number]>;
 }
 
@@ -815,6 +819,34 @@ async function topAssistCtaPlacements(
     .slice(0, limit);
 }
 
+async function topCommunityPlacements(
+  supabase: ReturnType<typeof createAdminClient>,
+  start: string,
+  end: string,
+  limit = 8
+): Promise<Array<[string, number]>> {
+  const { data, error } = await supabase
+    .from("site_events")
+    .select("properties")
+    .eq("event_name", "community_join_click")
+    .gte("created_at", start)
+    .lt("created_at", end)
+    .limit(5000);
+  if (error) throw new Error(error.message);
+
+  const counts = new Map<string, number>();
+  for (const row of data ?? []) {
+    const props = (row.properties ?? {}) as Record<string, unknown>;
+    const source = String(props.source ?? "unknown").trim() || "unknown";
+    const country = String(props.country ?? "").trim();
+    const key = country ? `${country} · ${source}` : source;
+    counts.set(key, (counts.get(key) ?? 0) + 1);
+  }
+  return Array.from(counts.entries())
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, limit);
+}
+
 async function buildAssistFunnelStats(
   supabase: ReturnType<typeof createAdminClient>,
   todayStart: string,
@@ -835,7 +867,11 @@ async function buildAssistFunnelStats(
     leadsTotal,
     leadsToday,
     leadsYesterday,
+    communityClicksTotal,
+    communityClicksToday,
+    communityClicksYesterday,
     topCtaPlacementsToday,
+    topCommunityPlacementsToday,
     topAssistPagesToday,
   ] = await Promise.all([
     countAssistPageViews(supabase, null, null),
@@ -850,7 +886,11 @@ async function buildAssistFunnelStats(
     rpcCountEvents(supabase, null, null, "assist_lead_submitted"),
     rpcCountEvents(supabase, todayStart, todayEnd, "assist_lead_submitted"),
     rpcCountEvents(supabase, yStart, yEnd, "assist_lead_submitted"),
+    rpcCountEvents(supabase, null, null, "community_join_click"),
+    rpcCountEvents(supabase, todayStart, todayEnd, "community_join_click"),
+    rpcCountEvents(supabase, yStart, yEnd, "community_join_click"),
     topAssistCtaPlacements(supabase, todayStart, todayEnd),
+    topCommunityPlacements(supabase, todayStart, todayEnd),
     topAssistPages(supabase, todayStart, todayEnd),
   ]);
 
@@ -867,7 +907,11 @@ async function buildAssistFunnelStats(
     leadsTotal,
     leadsToday,
     leadsYesterday,
+    communityClicksTotal,
+    communityClicksToday,
+    communityClicksYesterday,
     topCtaPlacementsToday,
+    topCommunityPlacementsToday,
     topAssistPagesToday,
   };
 }

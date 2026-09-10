@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
+import { TrackedAssistLink } from "@/components/assist/TrackedAssistLink";
 import { ServiceProvidersSection } from "@/components/providers/ServiceProvidersSection";
 import { AssistResultsCta } from "@/components/wizard/AssistResultsCta";
 import { HouseholdBanner } from "@/components/wizard/HouseholdBanner";
@@ -143,6 +144,15 @@ export default async function CountryResultsPage({
 
         <HouseholdBanner household={household} />
 
+        {cityChat ? (
+          <WizardSatellitePracticeCta
+            sessionId={sessionId}
+            placement="wizard_corridor_results"
+            countryKey={cityChat.countryKey}
+            chat={cityChat}
+          />
+        ) : null}
+
         <AssistResultsCta
           sessionId={sessionId}
           placement="wizard_corridor_results"
@@ -178,15 +188,6 @@ export default async function CountryResultsPage({
           })}
         </div>
 
-        {cityChat ? (
-          <WizardSatellitePracticeCta
-            sessionId={sessionId}
-            placement="wizard_corridor_results"
-            countryKey={cityChat.countryKey}
-            chat={cityChat}
-          />
-        ) : null}
-
         {isPortugalHubTopic(topic) && (
           <PortugalHubNextSteps
             className="mt-8"
@@ -213,16 +214,21 @@ export default async function CountryResultsPage({
             <Link href={newsIndexPath(topic.urlSegment)} className="text-corridor-600 underline">
               Новости недели →
             </Link>
-            <Link
+            <TrackedAssistLink
               href={buildAssistUrl({
                 sessionId,
                 country: topic.urlSegment,
                 program: topResult?.title_ru,
               })}
+              placement="wizard_corridor_next_steps"
+              linkLabel="Получить помощь бесплатно"
+              sessionId={sessionId}
+              country={topic.urlSegment}
+              program={topResult?.title_ru}
               className="inline-flex min-h-11 items-center rounded-lg bg-corridor-600 px-4 py-2 text-white hover:bg-corridor-700"
             >
-              Route Check — €129
-            </Link>
+              Получить помощь бесплатно
+            </TrackedAssistLink>
           </div>
         </section>
 

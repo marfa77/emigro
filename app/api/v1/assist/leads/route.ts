@@ -27,6 +27,7 @@ type AssistLeadBody = {
 };
 
 const PLAN_TIER_LABELS: Record<string, string> = {
+  "partner-match": "Бесплатный подбор партнёра",
   "route-check": "Route Check (€129)",
   accompaniment: "Сопровождение (€100/час)",
   "full-assist": "Full Assist (от €990)",
@@ -104,8 +105,10 @@ export async function POST(request: Request) {
   let storageError: string | null = null;
   const notes = [
     `Source: ${assistSource}`,
-    `Plan: ${PLAN_TIER_LABELS[planTier] ?? (planTier || "Route Check (€129)")}`,
-    `Payment: ${PAYMENT_METHOD_LABELS[paymentMethod] ?? (paymentMethod || "—")}`,
+    `Plan: ${PLAN_TIER_LABELS[planTier] ?? (planTier || "Бесплатный подбор партнёра")}`,
+    planTier === "partner-match"
+      ? "Payment: бесплатно"
+      : `Payment: ${PAYMENT_METHOD_LABELS[paymentMethod] ?? (paymentMethod || "—")}`,
     `Country: ${country}`,
     `Program/route: ${programRoute}`,
     providers.length ? `Selected providers: ${providers.join(", ")}` : "Selected providers: —",
@@ -179,7 +182,10 @@ export async function POST(request: Request) {
     corridorSlug,
     programRoute,
     planTier: PLAN_TIER_LABELS[planTier] ?? planTier,
-    paymentMethod: PAYMENT_METHOD_LABELS[paymentMethod] ?? paymentMethod,
+    paymentMethod:
+      planTier === "partner-match"
+        ? "Бесплатно"
+        : PAYMENT_METHOD_LABELS[paymentMethod] ?? paymentMethod,
     selectedProviders: providers,
     name,
     contact,

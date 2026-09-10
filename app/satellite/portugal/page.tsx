@@ -8,6 +8,7 @@ import { SatelliteHubScenarios } from "@/components/satellite/SatelliteHubScenar
 import { SatelliteHubDepth } from "@/components/satellite/SatelliteHubDepth";
 import { SatelliteAssistIntake } from "@/components/satellite/SatelliteAssistIntake";
 import { PortoChatCta } from "@/components/satellite/PortoChatCta";
+import { ProviderPartnerRecruitment } from "@/components/providers/ProviderPartnerRecruitment";
 import { getDailySpotlight } from "@/lib/community-notes/daily-spotlight";
 import { requirePublishedCommunityNotes } from "@/lib/community-notes/queries";
 import { PORTUGAL_SATELLITE } from "@/lib/satellite/portugal";
@@ -318,6 +319,15 @@ export default async function PortugalSatelliteHomePage() {
       )}
 
       <SatelliteAssistIntake countryKey="portugal" />
+
+      <div className="mt-10">
+        <ProviderPartnerRecruitment
+          placement="satellite_hub"
+          corridorSlug="ru-speaking-to-portugal"
+          topicKey="portugal"
+          countryRu="Португалия"
+        />
+      </div>
 
       <p className="mt-12 text-center text-sm text-slate-500">
         <a

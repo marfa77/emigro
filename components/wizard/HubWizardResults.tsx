@@ -34,6 +34,7 @@ export function HubWizardResults({
     ...results.map((r) => r.countrySegment),
     ...byCountry.map((g) => g.corridorSlug?.replace(/^ru-speaking-to-/, "") ?? ""),
   ]);
+  const resultCityChat = liveCityChatForCountry(pick?.countrySegment || providerTopicKey);
 
   return (
     <>
@@ -56,6 +57,15 @@ export function HubWizardResults({
       </section>
 
       <HouseholdBanner household={household} />
+
+      {resultCityChat ? (
+        <WizardSatellitePracticeCta
+          sessionId={sessionId}
+          placement="wizard_hub_results"
+          countryKey={resultCityChat.countryKey}
+          chat={resultCityChat}
+        />
+      ) : null}
 
       <AssistResultsCta
         sessionId={sessionId}
@@ -278,18 +288,9 @@ function ResultsNextSteps({
   programTitle?: string;
   showSatelliteCountry?: string;
 }) {
-  const cityChat = liveCityChatForCountry(showSatelliteCountry);
   return (
     <>
-      {cityChat ? (
-        <WizardSatellitePracticeCta
-          sessionId={sessionId}
-          placement="wizard_hub_results"
-          countryKey={cityChat.countryKey}
-          chat={cityChat}
-        />
-      ) : null}
-      {cityChat?.countryKey === PORTUGAL_URL_SEGMENT ? (
+      {showSatelliteCountry === PORTUGAL_URL_SEGMENT ? (
         <PortugalHubNextSteps className="mt-10" guideHref={portugalHubPaths.digest} placement="wizard_hub_results" />
       ) : null}
       <section className="mt-10 rounded-2xl border border-slate-200 bg-white p-6">
@@ -312,13 +313,13 @@ function ResultsNextSteps({
         <TrackedAssistLink
           href={buildAssistUrl({ sessionId, country, program: programTitle })}
           placement="wizard_hub_next_steps"
-          linkLabel="Route Check — €129"
+          linkLabel="Получить помощь бесплатно"
           sessionId={sessionId}
           country={country}
           program={programTitle}
           className="rounded-lg bg-corridor-600 px-4 py-2 text-white hover:bg-corridor-700"
         >
-          Route Check — €129
+          Получить помощь бесплатно
         </TrackedAssistLink>
         {providerTopicKey && (
           <Link

@@ -8,6 +8,7 @@ import { SatelliteHubScenarios } from "@/components/satellite/SatelliteHubScenar
 import { SatelliteAssistIntake } from "@/components/satellite/SatelliteAssistIntake";
 import { SatelliteHubDepth } from "@/components/satellite/SatelliteHubDepth";
 import { SatelliteCityChatCta } from "@/components/satellite/SatelliteCityChatCta";
+import { ProviderPartnerRecruitment } from "@/components/providers/ProviderPartnerRecruitment";
 import { getDailySpotlight } from "@/lib/community-notes/daily-spotlight";
 import { requirePublishedCommunityNotes } from "@/lib/community-notes/queries";
 import { ITALY_SATELLITE } from "@/lib/satellite/italy";
@@ -181,6 +182,15 @@ export default async function ItalySatelliteHomePage() {
       </section>
 
       <SatelliteAssistIntake countryKey="italy" />
+
+      <div className="mt-10">
+        <ProviderPartnerRecruitment
+          placement="satellite_hub"
+          corridorSlug="ru-speaking-to-italy"
+          topicKey="italy"
+          countryRu="Италия"
+        />
+      </div>
 
       <p className="mt-12 text-center text-sm text-slate-500">
         <a

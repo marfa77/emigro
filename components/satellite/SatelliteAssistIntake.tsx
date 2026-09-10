@@ -44,9 +44,9 @@ export function SatelliteAssistIntake({ countryKey }: { countryKey: SatelliteCou
   if (countryOptions.length === 0) {
     return (
       <section className={`mt-12 rounded-2xl border p-5 ${accent}`} id="assist-intake">
-        <h2 className="text-lg font-semibold text-slate-900">Route Check — €129</h2>
+        <h2 className="text-lg font-semibold text-slate-900">Нужна помощь? Оставьте запрос бесплатно</h2>
         <p className="mt-2 text-sm text-slate-700">
-          Разбор кейса с командой Emigro — заявка на основном сайте.
+          Emigro постарается найти профильного партнёра по вашей стране и задаче.
         </p>
         <a href={fallbackUrl} className="mt-3 inline-block text-sm font-semibold text-teal-800 underline">
           Открыть форму Assist →
@@ -57,16 +57,16 @@ export function SatelliteAssistIntake({ countryKey }: { countryKey: SatelliteCou
 
   return (
     <section className={`mt-12 rounded-2xl border p-5 sm:p-6 ${accent}`} id="assist-intake">
-      <h2 className="text-lg font-semibold text-slate-900">Route Check — €129</h2>
+      <h2 className="text-lg font-semibold text-slate-900">Нужна помощь? Оставьте запрос бесплатно</h2>
       <p className="mt-2 text-sm leading-relaxed text-slate-700">
-        Созвон с командой Emigro по чек-листу, PDF с разбором кейса за 48 часов и подбор партнёров.
-        Оплата — после согласования слота. Не юридическая консультация.
+        Опишите задачу — Emigro подберёт профильного партнёра и передаст запрос только с вашего согласия.
+        Услуги выбранного специалиста обсуждаются напрямую. Не юридическая консультация.
       </p>
       <div className="mt-5">
         <AssistLeadForm
           countries={countryOptions}
           providers={providers}
-          defaultPlanTier="route-check"
+          defaultPlanTier="partner-match"
           initialCountry={countryKey}
           locale="ru"
           leadSource={`emigro_assist_satellite_${countryKey}`}

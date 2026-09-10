@@ -19,7 +19,7 @@ export type AssistProviderOption = {
   corridorSlugs: string[];
 };
 
-export type AssistPlanTier = "route-check" | "accompaniment";
+export type AssistPlanTier = "partner-match" | "route-check" | "accompaniment";
 
 export type AssistPaymentMethod = "paypal" | "telegram_stars" | "crypto" | "card";
 
@@ -46,6 +46,12 @@ const PAYMENT_OPTIONS_FR: { value: AssistPaymentMethod; label: string }[] = [
 
 const PLAN_TIER_OPTIONS_RU: { value: AssistPlanTier; label: string; summary: string }[] = [
   {
+    value: "partner-match",
+    label: "Найти специалиста — бесплатно",
+    summary:
+      "Опишите задачу — Emigro подберёт подходящих партнёров по стране и передаст им ваш запрос только с вашего согласия.",
+  },
+  {
     value: "route-check",
     label: "Route Check — €129",
     summary:
@@ -60,6 +66,12 @@ const PLAN_TIER_OPTIONS_RU: { value: AssistPlanTier; label: string; summary: str
 ];
 
 const PLAN_TIER_OPTIONS_ES: { value: AssistPlanTier; label: string; summary: string }[] = [
+  {
+    value: "partner-match",
+    label: "Encontrar especialista — gratis",
+    summary:
+      "Describa su caso: Emigro seleccionará partners por país y compartirá su solicitud solo con su consentimiento.",
+  },
   {
     value: "route-check",
     label: "Route Check — €129",
@@ -76,6 +88,12 @@ const PLAN_TIER_OPTIONS_ES: { value: AssistPlanTier; label: string; summary: str
 
 const PLAN_TIER_OPTIONS_FR: { value: AssistPlanTier; label: string; summary: string }[] = [
   {
+    value: "partner-match",
+    label: "Trouver un spécialiste — gratuit",
+    summary:
+      "Décrivez votre besoin : Emigro sélectionnera des partenaires par pays et transmettra votre demande avec votre accord.",
+  },
+  {
     value: "route-check",
     label: "Route Check — €129",
     summary:
@@ -90,6 +108,8 @@ const PLAN_TIER_OPTIONS_FR: { value: AssistPlanTier; label: string; summary: str
 ];
 
 const SUCCESS_MESSAGES_RU: Record<AssistPlanTier, string> = {
+  "partner-match":
+    "Запрос отправлен. Emigro посмотрит задачу и свяжет вас с подходящим партнёром, если такой есть по выбранному направлению. Это бесплатно.",
   "route-check":
     "Заявка отправлена. Emigro согласует время созвона с командой. После подтверждения слота вышлем реквизиты (€129). Команда Emigro проведёт встречу и пришлёт PDF с разбором кейса и контактами партнёров в течение 48 часов.",
   accompaniment:
@@ -97,6 +117,8 @@ const SUCCESS_MESSAGES_RU: Record<AssistPlanTier, string> = {
 };
 
 const SUCCESS_MESSAGES_ES: Record<AssistPlanTier, string> = {
+  "partner-match":
+    "Solicitud enviada. Emigro revisará su caso y le conectará con un partner adecuado si lo tenemos para este destino. Es gratuito.",
   "route-check":
     "Solicitud enviada. Emigro acordará la hora de la llamada. Tras confirmar el slot, enviaremos los datos de pago (€129). Tras la reunión recibirá el PDF y contactos de partners en 48 h.",
   accompaniment:
@@ -104,6 +126,8 @@ const SUCCESS_MESSAGES_ES: Record<AssistPlanTier, string> = {
 };
 
 const SUCCESS_MESSAGES_FR: Record<AssistPlanTier, string> = {
+  "partner-match":
+    "Demande envoyée. Emigro examinera votre besoin et vous mettra en relation avec un partenaire adapté si disponible. C’est gratuit.",
   "route-check":
     "Demande envoyée. Emigro conviendra de l'heure de l'appel. Après confirmation du créneau, nous enverrons les coordonnées de paiement (€129). Après la réunion vous recevrez le PDF et les contacts partenaires sous 48 h.",
   accompaniment:
@@ -111,21 +135,30 @@ const SUCCESS_MESSAGES_FR: Record<AssistPlanTier, string> = {
 };
 
 const SUBMIT_LABELS_RU: Record<AssistPlanTier, string> = {
+  "partner-match": "Отправить бесплатный запрос",
   "route-check": "Запросить Route Check — €129",
   accompaniment: "Запросить сопровождение",
 };
 
 const SUBMIT_LABELS_ES: Record<AssistPlanTier, string> = {
+  "partner-match": "Enviar solicitud gratuita",
   "route-check": "Solicitar Route Check — €129",
   accompaniment: "Solicitar acompañamiento",
 };
 
 const SUBMIT_LABELS_FR: Record<AssistPlanTier, string> = {
+  "partner-match": "Envoyer la demande gratuite",
   "route-check": "Demander Route Check — €129",
   accompaniment: "Demander l'accompagnement",
 };
 
 function tierFromHash(hash: string): AssistPlanTier | null {
+  if (hash === "#assist-form" || hash === "#assist-partner-match") {
+    return "partner-match";
+  }
+  if (hash === "#assist-form-route-check" || hash === "#assist-route-check") {
+    return "route-check";
+  }
   if (hash === "#assist-form-accompaniment" || hash === "#assist-accompaniment") {
     return "accompaniment";
   }
@@ -147,7 +180,7 @@ type Props = {
 export function AssistLeadForm({
   countries,
   providers,
-  defaultPlanTier = "route-check",
+  defaultPlanTier = "partner-match",
   initialSessionId,
   initialCountry,
   initialProgramRoute,
@@ -206,10 +239,27 @@ export function AssistLeadForm({
       const tier = tierFromHash(window.location.hash);
       if (tier) setPlanTier(tier);
     };
+    const applyClickedHash = (event: MouseEvent) => {
+      const target = event.target instanceof Element ? event.target.closest<HTMLAnchorElement>("a[href]") : null;
+      if (!target) return;
+      const tier = tierFromHash(new URL(target.href, window.location.href).hash);
+      if (tier) setPlanTier(tier);
+    };
+    const applyTierEvent = (event: Event) => {
+      const hash = (event as CustomEvent<{ hash?: string }>).detail?.hash ?? "";
+      const tier = tierFromHash(hash);
+      if (tier) setPlanTier(tier);
+    };
 
     applyHash();
     window.addEventListener("hashchange", applyHash);
-    return () => window.removeEventListener("hashchange", applyHash);
+    window.addEventListener("emigro:assist-tier", applyTierEvent);
+    document.addEventListener("click", applyClickedHash, true);
+    return () => {
+      window.removeEventListener("hashchange", applyHash);
+      window.removeEventListener("emigro:assist-tier", applyTierEvent);
+      document.removeEventListener("click", applyClickedHash, true);
+    };
   }, []);
 
   useEffect(() => {
@@ -236,7 +286,7 @@ export function AssistLeadForm({
           program_route: programRoute,
           selected_provider_ids: selectedProviders,
           plan_tier: planTier,
-          payment_method: paymentMethod,
+          payment_method: planTier === "partner-match" ? undefined : paymentMethod,
           name,
           contact,
           message,
@@ -265,7 +315,7 @@ export function AssistLeadForm({
         corridor_slug: countryOption?.corridorSlug,
         providers: selectedProviders.join(","),
         plan_tier: planTier,
-        payment_method: paymentMethod,
+        payment_method: planTier === "partner-match" ? "" : paymentMethod,
         session_id: wizardSessionId,
         locale,
       });
@@ -327,35 +377,37 @@ export function AssistLeadForm({
         </div>
       </fieldset>
 
-      <div>
-        <label className="text-sm font-medium text-slate-800" htmlFor="assist-payment">
-          {isEs
-            ? "Método de pago preferido"
-            : isFr
-              ? "Mode de paiement préféré"
-              : "Предпочитаемый способ оплаты"}
-        </label>
-        <select
-          id="assist-payment"
-          required
-          value={paymentMethod}
-          onChange={(e) => setPaymentMethod(e.target.value as AssistPaymentMethod)}
-          className={`mt-2 ${formFieldWhite}`}
-        >
-          {PAYMENT_OPTIONS.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
-        <p className="mt-1.5 text-xs text-slate-500">
-          {isEs
-            ? `Enviaremos los datos o el enlace (${PAYMENT_LABELS[paymentMethod]}) tras acordar hora o formato.`
-            : isFr
-              ? `Nous enverrons les coordonnées ou le lien (${PAYMENT_LABELS[paymentMethod]}) après accord sur l'heure ou le format.`
-              : `Реквизиты или ссылку (${PAYMENT_LABELS[paymentMethod]}) вышлем после согласования времени или формата работы.`}
-        </p>
-      </div>
+      {planTier !== "partner-match" && (
+        <div>
+          <label className="text-sm font-medium text-slate-800" htmlFor="assist-payment">
+            {isEs
+              ? "Método de pago preferido"
+              : isFr
+                ? "Mode de paiement préféré"
+                : "Предпочитаемый способ оплаты"}
+          </label>
+          <select
+            id="assist-payment"
+            required
+            value={paymentMethod}
+            onChange={(e) => setPaymentMethod(e.target.value as AssistPaymentMethod)}
+            className={`mt-2 ${formFieldWhite}`}
+          >
+            {PAYMENT_OPTIONS.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+          <p className="mt-1.5 text-xs text-slate-500">
+            {isEs
+              ? `Enviaremos los datos o el enlace (${PAYMENT_LABELS[paymentMethod]}) tras acordar hora o formato.`
+              : isFr
+                ? `Nous enverrons les coordonnées ou le lien (${PAYMENT_LABELS[paymentMethod]}) après accord sur l'heure ou le format.`
+                : `Реквизиты или ссылку (${PAYMENT_LABELS[paymentMethod]}) вышлем после согласования времени или формата работы.`}
+          </p>
+        </div>
+      )}
 
       <div>
         <label className="text-sm font-medium text-slate-800" htmlFor="assist-country">
@@ -527,9 +579,9 @@ export function AssistLeadForm({
               <Link href="/es/privacy" className="text-corridor-600 hover:underline">
                 política de privacidad
               </Link>{" "}
-              y entiendo que Emigro no es un bufete: Route Check es un análisis estructurado y navegación hacia
-              especialistas; el acompañamiento es apoyo de comunicación. La responsabilidad jurídica es del partner
-              que usted elija.
+              y autorizo a Emigro a contactarme y compartir mi solicitud con un partner adecuado. Emigro no es un
+              bufete: la selección gratuita es una introducción; Route Check es un análisis estructurado y el
+              acompañamiento es apoyo de comunicación. La responsabilidad jurídica es del partner elegido.
             </>
           ) : isFr ? (
             <>
@@ -537,9 +589,10 @@ export function AssistLeadForm({
               <Link href="/fr/privacy" className="text-corridor-600 hover:underline">
                 politique de confidentialité
               </Link>{" "}
-              et comprends qu&apos;Emigro n&apos;est pas un cabinet : Route Check est une analyse structurée et une
-              navigation vers des spécialistes ; l&apos;accompagnement est un soutien de communication. La
-              responsabilité juridique incombe au partenaire que vous choisissez.
+              et autorise Emigro à me contacter et à transmettre ma demande à un partenaire adapté. Emigro
+              n&apos;est pas un cabinet : la sélection gratuite est une mise en relation ; Route Check est une analyse
+              structurée et l&apos;accompagnement un soutien de communication. La responsabilité juridique incombe au
+              partenaire choisi.
             </>
           ) : (
             <>
@@ -547,9 +600,10 @@ export function AssistLeadForm({
               <Link href="/ru/privacy" className="text-corridor-600 hover:underline">
                 политикой конфиденциальности
               </Link>{" "}
-              и понимаю, что Emigro не юридическая фирма: Route Check — структурированный разбор ситуации и навигация к
-              специалистам, сопровождение — коммуникационная поддержка. Юридическую ответственность несёт партнёр, которого
-              вы выбираете.
+              и разрешаю Emigro связаться со мной и передать мой запрос выбранному профильному партнёру. Emigro не
+              юридическая фирма: бесплатный подбор — это знакомство со специалистом, Route Check — структурированный
+              разбор ситуации, сопровождение — коммуникационная поддержка. Юридическую ответственность несёт выбранный
+              партнёр.
             </>
           )}
         </span>

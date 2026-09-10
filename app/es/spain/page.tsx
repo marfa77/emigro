@@ -111,7 +111,7 @@ export default function EsSpainHubPage() {
             href={ES_PATHS.assist}
             className="inline-flex items-center gap-2 rounded-lg border border-corridor-300 px-5 py-3 text-sm font-medium text-corridor-800 hover:bg-corridor-50"
           >
-            Assist — Route Check
+            Pedir ayuda gratis
           </Link>
         </div>
 

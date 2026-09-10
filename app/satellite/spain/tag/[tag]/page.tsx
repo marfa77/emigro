@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { HashtagNav } from "@/components/satellite/HashtagNav";
 import { NoteCard } from "@/components/satellite/NoteCard";
+import { SatelliteCityChatCta } from "@/components/satellite/SatelliteCityChatCta";
 import { hashtagLabel, normalizeHashtag, resolveTagParam } from "@/lib/community-notes/hashtags";
 import { getPublishedCommunityNotes } from "@/lib/community-notes/queries";
 import { fitMetaDescription } from "@/lib/seo";
@@ -118,6 +119,8 @@ export default async function SpainTagPage({ params }: { params: { tag: string }
       <p className="mt-2 text-slate-600">
         {notes.length} {notes.length === 1 ? "материал" : notes.length < 5 ? "материала" : "материалов"}
       </p>
+
+      <SatelliteCityChatCta countryKey="spain" source="spain_satellite_tag" />
 
       <HashtagNav notes={allNotes} activeTag={tag} countryKey="spain" />
 
