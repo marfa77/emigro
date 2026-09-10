@@ -637,6 +637,20 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "Коридор Кипр: Digital Nomad, Category F, Non-Dom. Практика 2026 для RU/BY/UA/KZ.",
   },
   {
+    path: "/ru/cyprus/programs/cyprus-family-reunification",
+    programSlug: "cyprus-family-reunification",
+    primaryQuery: "воссоединение семьи кипр 2026",
+    queries: [
+      "воссоединение семьи кипр 2026",
+      "family reunification cyprus migration department",
+      "внж кипр для супруга спонсор 2 года",
+      "кипр внж не шенген семья",
+    ],
+    seoTitle: "Воссоединение семьи Кипр 2026 — FR / MD",
+    seoDescription:
+      "Кипр FR 2026: спонсор обычно ≥2 года ВНЖ, супруг 21+, брак ≥1 год; подача Migration Department (Никосия). ВНЖ CY ≠ Шенген. Emigro + gov.cy.",
+  },
+  {
     path: "/ru/guides/vnj-kipr-2026-digital-nomad-fip-non-dom",
     guideSlug: "vnj-kipr-2026-digital-nomad-fip-non-dom",
     primaryQuery: "кипр digital nomad visa порог 2026",
