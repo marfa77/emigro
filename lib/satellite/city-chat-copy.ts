@@ -27,7 +27,7 @@ export const CITY_CHAT_JOIN_HINT =
 type ChatCopy = Pick<SatelliteCityChat, "chatTitleRu" | "cityRu" | "countryKey">;
 
 export function cityChatLead(chat: Pick<ChatCopy, "cityRu">): string {
-  return `Для своих в ${chat.cityRu}: публикуем важное, общаемся, эксперты отвечают на вопросы.`;
+  return `${chat.cityRu} и вокруг — для своих: публикуем важное, общаемся, эксперты отвечают на вопросы.`;
 }
 
 export function cityChatHeadline(chat: Pick<ChatCopy, "chatTitleRu">): string {
@@ -45,7 +45,7 @@ export function cityChatBlurb(chat: Pick<ChatCopy, "cityRu">): string {
 /** Telegram group description when the human creates the chat at launch. */
 export function cityChatTelegramBio(chat: ChatCopy): string {
   return [
-    `Для своих в ${chat.cityRu} и вокруг.`,
+    `${chat.cityRu} и вокруг — для своих.`,
     "Публикуем важное, общаемся, эксперты отвечают на вопросы.",
     "Без визового флуда и стены объявлений.",
     `Гайды: https://${chat.countryKey}.emigro.online`,
@@ -53,5 +53,5 @@ export function cityChatTelegramBio(chat: ChatCopy): string {
 }
 
 export function cityChatThreadsLine(cityRu: string): string {
-  return `Для своих в ${cityRu}: важное, общение, эксперты отвечают. Вход через бота, без публичной ссылки.`;
+  return `${cityRu} и вокруг — для своих: важное, общение, эксперты отвечают. Вход через бота, без публичной ссылки.`;
 }
