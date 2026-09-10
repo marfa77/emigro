@@ -11,6 +11,7 @@ import {
   esProgramTitle,
 } from "@/lib/es/program-labels";
 import { ES_PATHS } from "@/lib/es/corridor";
+import { buildAssistUrl } from "@/lib/assist/build-url";
 import { CONTACT_EMAIL, MAILTO_CONTACT } from "@/lib/site-contact";
 
 export function EsHubWizardResults({
@@ -151,7 +152,12 @@ export function EsHubWizardResults({
             Ver pilares
           </Link>
           <TrackedAssistLink
-            href={ES_PATHS.assist}
+            href={buildAssistUrl({
+              sessionId,
+              country: pick?.countrySegment === "portugal" ? "portugal" : "spain",
+              program: pickProgramTitle,
+              locale: "es",
+            })}
             placement="wizard_es_hub_next_steps"
             linkLabel="Pedir ayuda gratis"
             locale="es"

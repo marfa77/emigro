@@ -319,7 +319,7 @@ export function TransitHubLanding({ hub }: Props) {
               placement="transit_hub_landing"
               topicKey={hub.slug}
               variant="compact"
-              title="Emigro Assist"
+              title="Проверенные сервисы"
             />
 
             {shouldShowRoleRadarOnHub(hub.slug) ? (

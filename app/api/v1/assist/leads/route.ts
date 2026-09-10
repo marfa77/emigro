@@ -30,7 +30,6 @@ const PLAN_TIER_LABELS: Record<string, string> = {
   "partner-match": "Бесплатный подбор партнёра",
   "route-check": "Route Check (€129)",
   accompaniment: "Сопровождение (€100/час)",
-  "full-assist": "Full Assist (от €990)",
 };
 
 const PAYMENT_METHOD_LABELS: Record<string, string> = {
@@ -130,7 +129,7 @@ export async function POST(request: Request) {
             email: contact,
             telegram: contactLooksTelegram(contact) ? contact : null,
             notes,
-            passport_iso2: preferredLanguage === "es" ? null : "RU",
+            passport_iso2: null,
             selected_program_slugs: [programRoute],
             preferred_language: preferredLanguage,
             status: "new",

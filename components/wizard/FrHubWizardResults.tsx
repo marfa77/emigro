@@ -11,6 +11,7 @@ import {
   frProgramTitle,
 } from "@/lib/fr/program-labels";
 import { FR_PATHS } from "@/lib/fr/corridor";
+import { buildAssistUrl } from "@/lib/assist/build-url";
 import { CONTACT_EMAIL, MAILTO_CONTACT } from "@/lib/site-contact";
 
 export function FrHubWizardResults({
@@ -152,7 +153,12 @@ export function FrHubWizardResults({
             Voir les piliers
           </Link>
           <TrackedAssistLink
-            href={FR_PATHS.assist}
+            href={buildAssistUrl({
+              sessionId,
+              country: "france",
+              program: pickProgramTitle,
+              locale: "fr",
+            })}
             placement="wizard_fr_hub_next_steps"
             linkLabel="Demander de l'aide gratuitement"
             locale="fr"

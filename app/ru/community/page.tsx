@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, MessageCircle, Shield, Users, Zap, BookOpen } from "lucide-react";
 import { CommunityJoinButton } from "@/components/community/CommunityJoinButton";
+import { SatelliteCityChatCta } from "@/components/satellite/SatelliteCityChatCta";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { CONTACT_EMAIL } from "@/lib/site-contact";
@@ -116,6 +117,19 @@ export default function CommunityPage() {
             <CommunityJoinButton source="community_landing_news" size="md" className="bg-white/15 text-white hover:bg-white/25" />
           </div>
         </HeroShell>
+
+        <section className="mt-10" aria-labelledby="other-city-chats-heading">
+          <h2 id="other-city-chats-heading" className="text-2xl font-semibold text-slate-900">
+            Другие локальные чаты Emigro
+          </h2>
+          <p className="mt-2 max-w-2xl text-sm leading-relaxed text-slate-600">
+            Выберите чат по стране — бот выдаст приглашение именно в нужное сообщество, без переадресации в Порту.
+          </p>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <SatelliteCityChatCta countryKey="spain" source="community_valencia" />
+            <SatelliteCityChatCta countryKey="italy" source="community_milan" />
+          </div>
+        </section>
 
         <section className="mt-14">
           <h2 className="text-2xl font-semibold text-slate-900">Что внутри для своих</h2>
