@@ -6,7 +6,7 @@ export const PORTUGAL_SATELLITE = {
   city: "porto",
   countryRu: "Португалия",
   cityRu: "Порту",
-  title: "Португалия 2026: NIF, AIMA, Porto — полевая практика",
+  title: "Португалия 2026: NIF Porto, AIMA/Agora, аренда Norte",
   tagline:
     "Сателлит Emigro для русскоязычных в Португалии (Norte + Lisboa): NIF, Agora ≠ portal-renovacoes, аренда, SNS, банки. Короткие гайды с FAQ — не каталог из 60 карточек и не юрконсультация. Виза D7/D8 и гражданство — на www.emigro.online.",
   sourceChannel: "chatlisboa",

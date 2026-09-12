@@ -1,9 +1,9 @@
 ---
 slug: pervye-30-dnej-v-niderlandah-2026
 title: "Первые 30 дней в Нидерландах 2026: чек-лист после прилёта"
-seo_title: "Первые 30 дней в Нидерландах 2026 — BSN, DigiD, банк, zorgverzekering"
-seo_description: "Практический чек-лист для RU/BY/UA/KZ после прилёта в Нидерланды: BSN, DigiD, bunq/ING, zorgverzekering, gemeente, IND. 2026."
-excerpt: "Вы получили Highly Skilled Migrant или прилетели на подачу — что делать в первый месяц: BSN, банк, SIM, zorgverzekering и gemeente."
+seo_title: "Первые 30 дней Нидерланды 2026 — BSN, DigiD, IND"
+seo_description: "Чеклист после прилёта в NL 2026: BSN за 5 дней, DigiD, bunq/ING, zorgverzekering, gemeente, IND. Для RU/BY/UA/KZ — не визовый гайд."
+excerpt: "Highly Skilled / MVV: что сделать в первый месяц — BSN, банк, SIM, zorgverzekering и gemeente. Связка с pillar ВНЖ NL."
 quick_answer: "Первые 30 дней: (1) BSN в gemeente в течение 5 дней после заселения, (2) Dutch SIM (KPN/Vodafone/Odido), (3) zorgverzekering — обязательна с первого дня резидентства, (4) банк — bunq или ING (IBAN NL), (5) DigiD после BSN, (6) IND appointment / residence endorsement если по MVV. Без BSN не откроете счёт и не оформите страховку."
 corridor_slugs: [ru-speaking-to-netherlands]
 topic_keys: [netherlands, checklist, arrival]
@@ -22,7 +22,7 @@ official_sources:
     label: Zorgverzekering — медстраховка
 estimated_minutes: 12
 date_published: 2026-06-27
-date_modified: 2026-06-27
+date_modified: 2026-09-12
 ---
 
 ## Кому этот чек-лист
