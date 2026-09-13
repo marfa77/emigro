@@ -31,13 +31,17 @@ async function main(): Promise<number> {
     return data.ok ? 0 : 1;
   }
 
-  const site = (
+  const rawSite = (
     process.env.EMIGRO_PUBLIC_SITE_URL ||
     process.env.NEXT_PUBLIC_SITE_URL ||
     "https://www.emigro.online"
   )
     .trim()
     .replace(/\/$/, "");
+  const site =
+    !rawSite || /localhost|127\.0\.0\.1/i.test(rawSite)
+      ? "https://www.emigro.online"
+      : rawSite;
   const webhookUrl = `${site}/api/telegram/milan4at-webhook`;
   const secret = process.env.MILAN4AT_WEBHOOK_SECRET?.trim();
   const body: Record<string, unknown> = {
