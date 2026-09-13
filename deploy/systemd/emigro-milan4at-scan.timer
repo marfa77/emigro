@@ -1,0 +1,11 @@
+[Unit]
+Description=Emigro @milan_4at soft-expert scan every 12 hours
+
+[Timer]
+OnCalendar=*-*-* 07,19:00:00 UTC
+Persistent=true
+AccuracySec=5min
+RandomizedDelaySec=10min
+
+[Install]
+WantedBy=timers.target
