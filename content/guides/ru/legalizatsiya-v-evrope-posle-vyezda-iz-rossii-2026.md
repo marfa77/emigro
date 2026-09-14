@@ -2,9 +2,9 @@
 slug: legalizatsiya-v-evrope-posle-vyezda-iz-rossii-2026
 title: "Как легализоваться в Европе после выезда из РФ: от безвиза к ВНЖ"
 seo_title: "Легализация в Европе после выезда из РФ — ВНЖ 2026"
-seo_description: "Как перейти от шенгена или безвиза к легальному статусу в Европе: визы D, ВНЖ, учёба, работа, семья, риски overstay и консульства."
+seo_description: "После выезда из РФ: D8 €3 680 · ES DNV €2 849 · DE Blue Card · NL HSM. Не продлевайте туризм — 90/180, консульство, wizard."
 excerpt: "Пошаговый план для тех, кто уже выехал из России и теперь хочет остаться в Европе законно: какие маршруты возможны, где нельзя продлить статус и как не испортить историю."
-quick_answer: "После выезда из РФ легализация в Европе обычно требует не продления туристического пребывания, а перехода в конкретную категорию: работа, учёба, digital nomad, пассивный доход, семья или защита. Во многих странах национальную визу D нужно получать через консульство за пределами страны назначения, поэтому важно проверить юрисдикцию до истечения 90/180."
+quick_answer: "После выезда из РФ легализация в Европе — это **не** продление туризма, а переход в категорию: работа, учёба, digital nomad, пассивный доход, семья или защита. Ориентиры 2026 (сверяйте порталы): PT D8 ~**€3 680**/мес; ES DNV ~**€2 849**/мес; NL HSM / DE Blue Card — в чеклисте ниже. Во многих странах визу D берут в консульстве **за пределами** страны назначения: проверьте юрисдикцию до истечения **90/180**."
 corridor_slugs: [ru-speaking-to-portugal, ru-speaking-to-spain, ru-speaking-to-germany, ru-speaking-to-italy, ru-speaking-to-france, ru-speaking-to-netherlands, ru-speaking-to-sweden, ru-speaking-to-norway, ru-speaking-to-finland, ru-speaking-to-denmark]
 topic_keys: [portugal, spain, germany, italy, france, netherlands, sweden, norway, finland, denmark, legalization]
 tags: [легализация, ВНЖ, безвиз, шенген, Россия, 2026]
@@ -20,9 +20,11 @@ official_sources:
     label: Испания — миграция
   - url: https://www.make-it-in-germany.com/
     label: Make it in Germany
+  - url: https://ind.nl/en/required-amounts-income-requirements
+    label: IND — HSM / Blue Card thresholds 2026
 estimated_minutes: 16
 date_published: 2026-06-25
-date_modified: 2026-06-25
+date_modified: 2026-09-14
 ---
 
 ## Прямой ответ
@@ -111,11 +113,13 @@ date_modified: 2026-06-25
 
 ## Самые реалистичные маршруты для граждан РФ
 
-**Португалия D8/D7.** Подходит удалёнщикам и людям с пассивным доходом. Нужно доказать доход, жильё, страховку, чистую историю и способность содержать семью. Подробнее: [ВНЖ Португалии D8/D7](/ru/guides/vnj-portugaliya-d8-d7-grazhdanstvo-2026).
+**Португалия D8/D7.** Подходит удалёнщикам и людям с пассивным доходом. Ориентир D8 ~**€3 680**/мес (4× RMMG €920); D7 ~1× RMMG + жильё/страховка. Подробнее: [ВНЖ Португалии D8/D7](/ru/guides/vnj-portugaliya-d8-d7-grazhdanstvo-2026).
 
-**Испания digital nomad или non-lucrative.** Digital nomad требует доход от иностранных клиентов/работодателя; non-lucrative — пассивные средства и запрет на работу. Сравнение nomad-маршрутов: [Digital Nomad Европы](/ru/guides/digital-nomad-vizy-evropy-sravnenie-2026).
+**Испания digital nomad или non-lucrative.** DNV ориентир **€2 849**/мес (200% SMI); NLV — пассив ~**€2 400**/мес (400% IPREM €600) и запрет на работу. Сравнение nomad-маршрутов: [Digital Nomad Европы](/ru/guides/digital-nomad-vizy-evropy-sravnenie-2026).
 
-**Германия Blue Card/Chancenkarte.** Хороший путь при профессии, дипломе/квалификации и оффере. Без работодателя Германия сложнее, но Chancenkarte может быть мостом для поиска. Подробнее: [Blue Card и Chancenkarte](/ru/guides/vnj-germaniya-2026).
+**Германия Blue Card/Chancenkarte.** Blue Card 2026: **€50 700** / shortage **€45 934**/год; §19c(2) опытные ~**€45 630**. Без работодателя сложнее — Chancenkarte как мост. Подробнее: [Blue Card и Chancenkarte](/ru/guides/vnj-germaniya-2026).
+
+**Нидерланды HSM.** Recognized sponsor + пороги **€4 357 / €5 942**/мес ([IND](https://ind.nl/en/required-amounts-income-requirements)). См. [ВНЖ Нидерланды HSM](/ru/guides/vnj-niderlandy-2026-highly-skilled).
 
 **Учёба.** Работает, если нет высокого дохода, но есть деньги на tuition и жизнь. Это не «лёгкий обход», а полноценная академическая траектория с зачислением, посещаемостью и дальнейшей модификацией статуса. Смотрите [учебные визы в Европу](/ru/guides/uchebnaya-viza-v-evropu-2026-student-visa).
 
@@ -176,10 +180,15 @@ date_modified: 2026-06-25
 
 ## Коротко для проверки маршрута
 
-- Легализация после выезда из РФ требует конкретной категории: D-виза, residence permit, учёба, работа, семья или защита.
-- Туристический шенген и безвиз не дают автоматического права на ВНЖ.
-- Ключевые проверки: 90/180, место подачи, консульская юрисдикция, доход, жильё, страховка, документы с апостилем. См. также [Шенген турист vs ВНЖ](/ru/guides/shengen-turist-vs-vnzh-2026) и [EES 2026](/ru/guides/ees-shengenskaya-sistema-2026).
+- Легализация после выезда из РФ = категория (D / residence / учёба / работа / семья / защита), не «продлить туризм».
+- PT D8 ориентир **€3 680**/мес (4× RMMG) — [vistos.mne](https://www.vistos.mne.gov.pt/)
+- ES DNV ориентир **€2 849**/мес (200% SMI) — inclusion.gob.es
+- NL HSM **€4 357 / €5 942**/мес — [IND](https://ind.nl/en/required-amounts-income-requirements)
+- DE Blue Card **€45 934 / €50 700**/год — Make it in Germany
+- Ключевые проверки: **90/180**, место подачи, консульская юрисдикция, доход, жильё, страховка, апостиль. См. [Шенген турист vs ВНЖ](/ru/guides/shengen-turist-vs-vnzh-2026) и [EES 2026](/ru/guides/ees-shengenskaya-sistema-2026).
 - Overstay и работа без права на работу повышают риск отказов и запретов.
-- Emigro wizard помогает выбрать программу по фактам: /ru/wizard.
+- Следующий шаг: [/ru/wizard](/ru/wizard) · сравнение стран: [/ru/guides/kuda-pereehat-iz-rossii-2026-evropa-vnj](/ru/guides/kuda-pereehat-iz-rossii-2026-evropa-vnj)
+
+> **Fact-check Emigro (14.09.2026):** soft-добавлены актуальные пороги PT/ES/NL/DE в QA и body; meta усилены под SERP. Не сокращали чеклист. Источники: vistos.mne / inclusion / IND / Make it in Germany.
 
 *Не юридическая консультация. При overstay, отказах, риске преследования или сложной семейной ситуации обращайтесь к профильному юристу.*

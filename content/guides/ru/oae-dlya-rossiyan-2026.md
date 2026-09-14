@@ -1,10 +1,10 @@
 ---
 slug: oae-dlya-rossiyan-2026
 title: "ОАЭ для россиян 2026: резиденция, бизнес, банки, налоги"
-seo_title: "ОАЭ для россиян 2026 — Golden Visa, фризоны, банки, QFZP"
-seo_description: "Pillar ОАЭ 2026 для РФ: безвиз 90 дней, Golden Visa AED 2M / skilled, 2-летняя property visa, фризоны, freelance, Green Visa AED 360k/год, Remote Work $3500, банки, QFZP, бюджет Дубая."
+seo_title: "ОАЭ для россиян 2026 — Golden Visa AED 2M, банки, QFZP"
+seo_description: "ОАЭ 2026 для РФ: безвиз 90д, Golden AED 2M / skilled AED 30k, 2y property, фризоны, Green 360k/год, Remote $3500, банки, QFZP. Wizard → EU."
 excerpt: "Премиальный хаб settle/транзит: резиденция без «пустой фризоны», банки для RU, 0% НДФЛ физлиц и ловушка QFZP — с маршрутами в Европу отдельно."
-quick_answer: "ОАЭ на Emigro — **[«Страны для жизни»](/ru/guides?cat=settle)** (и частый транзит в EU). 🇷🇺 безвиз **90 дней**. Маршруты: Golden Visa 10y (недвижимость **AED 2M** или skilled ~**AED 30k**/мес); **2-летняя** property visa (sole owner — порог снят апр. 2026; joint от **AED 400k**; off-plan ❌; 180 дней/год); employment; фризона **~8–15k AED**/год + substance; freelance **~7.5–26k AED**/год; **Green Visa 5y** фриланс — ориентир **AED 360 000/год** (не 7.5k/мес); Remote Work **USD 3 500**/мес + **6 мес.** выписок (с янв. 2026). НДФЛ физлиц **0%**; mainland CT **9%** >375k; QFZP 0% только на qualifying — mainland сверх de minimis → потеря на 5 лет. Банки: ENBD, ADCB, Mashreq, WIO, FAB — почти только с резидентской визой + Emirates ID."
+quick_answer: "ОАЭ на Emigro — **[«Страны для жизни»](/ru/guides?cat=settle)** (и частый транзит в EU). 🇷🇺 безвиз **90 дней**. Маршруты: Golden Visa 10y (недвижимость **AED 2M** или skilled ~**AED 30k**/мес basic + степень/MOHRE L1–2); **2-летняя** property visa (sole — порог снят апр. 2026; joint от **AED 400k**; off-plan ❌; 180 дней/год); employment; фризона **~8–15k AED**/год + substance; freelance **~7.5–26k AED**/год; **Green Visa 5y** фриланс — ориентир **AED 360 000/год** (не 7.5k/мес); Remote Work **USD 3 500**/мес + **6 мес.** выписок (с янв. 2026). НДФЛ физлиц **0%**; mainland CT **9%** >375k; QFZP 0% только на qualifying — mainland сверх de minimis → потеря на 5 лет. Банки: ENBD, ADCB, Mashreq, WIO, FAB — почти только с резидентской визой + Emirates ID."
 topic_keys: [uae, relocation, vnj, business, banks, settle]
 tags: [ОАЭ, Дубай, Golden Visa, фризона, банки, QFZP, россияне, 2026]
 primary_intent: how-to
@@ -30,7 +30,7 @@ official_sources:
 cover_image: /images/corridor-uae.webp
 estimated_minutes: 28
 date_published: 2026-06-26
-date_modified: 2026-08-07
+date_modified: 2026-09-14
 review_tier: volatile
 ---
 
@@ -91,7 +91,7 @@ Emirates NBD, ADCB, FAB, Mashreq, WIO — счета резидентам пос
 
 | Категория | Ориентир требований |
 |-----------|---------------------|
-| **Skilled / high salary** | Часто IT, AI, healthcare, engineering; ориентир зарплаты от **AED 30 000/мес** + контракт в приоритетной отрасли |
+| **Skilled / high salary** | Часто IT, AI, healthcare, engineering; ориентир **basic salary ≥ AED 30 000/мес** + attested degree + контракт MOHRE skill **L1/L2** — сверяйте ICP/ADDED на дату |
 | Nurses, teachers, content creators, e-sports | Приоритетные списки 2025–2026 — сверяйте ICP |
 | Scientists / researchers | Рекомендация профильных советов |
 | Exceptional talents | Доказанные достижения |
@@ -406,4 +406,6 @@ Employment, фризона, freelance, Green Visa, Remote Work.
 - EU — отдельно: [/ru/wizard](/ru/wizard) · хаб [/ru/uae](/ru/uae).  
 - Поиск работы (remote / EU-UK): [Role Radar](/ru/role-radar).
 
-*Не юридическая и налоговая консультация. Правила виз, банков и CT меняются — сверяйте [u.ae](https://u.ae/), [gdrfad.gov.ae](https://www.gdrfad.gov.ae/), [dubailand.gov.ae](https://dubailand.gov.ae/), [icp.gov.ae](https://icp.gov.ae/), [tax.gov.ae](https://tax.gov.ae/) перед решением. Цифры — август 2026.*
+*Не юридическая и налоговая консультация. Правила виз, банков и CT меняются — сверяйте [u.ae](https://u.ae/), [gdrfad.gov.ae](https://www.gdrfad.gov.ae/), [dubailand.gov.ae](https://dubailand.gov.ae/), [icp.gov.ae](https://icp.gov.ae/), [tax.gov.ae](https://tax.gov.ae/) перед решением. Цифры — сентябрь 2026.*
+
+> **Fact-check Emigro (14.09.2026):** Golden property **AED 2M** + skilled ~**AED 30k** basic — без изменений vs ICP/GDRFA practice. Soft: skilled = **basic** salary + degree/MOHRE L1–2. Meta усилены под settle→EU wizard.

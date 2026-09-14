@@ -1,12 +1,12 @@
 ---
 slug: prodlenie-vnzh-portugaliya-aima-2026
 title: "Продление ВНЖ Португалия 2026 — AIMA, Agora и portal-renovacoes"
-seo_title: "Продление ВНЖ Португалия 2026 — AIMA renovação"
-seo_description: "Renovação AIMA авг 2026: portal до 31.10.2026, Agora, DUC. Taxas ~€440 (€133+€307). Caducado — риск границы."
-date_modified: 2026-08-11
+seo_title: "Продление ВНЖ Португалия 2026 — AIMA renovação €440"
+seo_description: "Renovação AIMA сен 2026: portal AR до 31.10.2026, Agora, DUC. Taxas ≈€440 (€133+€307). Caducado — риск границы. Wizard PT."
+date_modified: 2026-09-14
 review_tier: volatile
 excerpt: "Когда начинать renovação, какие документы по типу D7/D8/trabalho/estudo, куда подавать — portal-renovacoes, Agora или services.aima — и что делать с просроченной картой."
-quick_answer: "Продление título — portal-renovacoes.aima.gov.pt. На авг 2026 portal принимает AR с expiry с 01.07.2025 по 31.10.2026 (+ ARI; UE permanente с 01.07.2026). С 01.03.2026 типовой пакет temporary renovação ≈ €440,20 (€133 + €307,20); ARI ≈ €4 210,30 — сверяйте DUC (оплата по сроку в DUC, часто 24 ч на emissão). Agora — presencial; services.aima.gov.pt — просроченные после e-mail AIMA. Emigro проходит через advogados — сверяйте aima.gov.pt."
+quick_answer: "Продление título — portal-renovacoes.aima.gov.pt. На сен 2026 portal принимает AR с expiry с 01.07.2025 по 31.10.2026 (+ ARI; UE permanente с 01.07.2026). С 01.03.2026 типовой пакет temporary renovação ≈ €440,20 (€133 + €307,20); ARI renovação ориентир ≈ €4 210,30 (standard; reduced на DUC) — сверяйте DUC (часто **24 ч** до disponibilidade / prazo на самом DUC, не «всегда ровно сутки»). Agora — presencial; services.aima.gov.pt — просроченные после e-mail AIMA. Emigro проходит через advogados — сверяйте aima.gov.pt."
 corridor_slugs: [ru-speaking-to-portugal]
 topic_keys: [portugal, aima, renewal]
 tags: [Португалия, ВНЖ, AIMA, renovação, 2026]
@@ -44,7 +44,7 @@ date_published: 2026-07-13
 
 **Зачем:** [Portal das Renovações](https://portal-renovacoes.aima.gov.pt/) открывается **поэтапно** — по месяцам истечения карты ([новость AIMA](https://aima.gov.pt/pt/noticias/o-portal-das-renovacoes-ja-esta-disponivel)). Без registo, validação и оплаты DUC pedido не стартует.
 
-### Окно portal на август 2026
+### Окно portal на сентябрь 2026
 
 По [официальному статусу AIMA](https://aima.gov.pt/pt/noticias/portal-de-renovacoes-certificados-e-cartoes-de-residencia-permanentes-de-nacionais-ue-e-familiares) portal-renovacoes доступен для:
 
@@ -91,7 +91,7 @@ Hard-требования — только на [aima.gov.pt](https://aima.gov.p
 | **Agora** | Presencial / biometria / когда portal направил | [agora.imigrante.pt](https://agora.imigrante.pt/) — [гайд по слотам](https://portugal.emigro.online/notes/aima-agora-zapis-2026) |
 | **services.aima.gov.pt** | Просроченные **после e-mail AIMA** с taxa | [services.aima.gov.pt](https://services.aima.gov.pt/) |
 
-**Portal-renovacoes (типовой поток):** registo → пароль на e-mail → **validação morada/NIF/NISS** (если красный — сначала Finanças / Segurança Social, не «ещё раз Create») → «Criar pedido» → **оплата DUC за 24 ч** после emissão → upload PDF → recibo pedido renovação.
+**Portal-renovacoes (типовой поток):** registo → пароль на e-mail → **validação morada/NIF/NISS** (если красный — сначала Finanças / Segurança Social, не «ещё раз Create») → «Criar pedido» → **оплата DUC** (срок — на самом DUC; в анонсах AIMA часто **24 ч** после emissão / disponibilidade) → upload PDF → recibo pedido renovação.
 
 **Практика чатов (@chatlisboa, @por_tugal, 2025–2026):**
 
@@ -122,7 +122,7 @@ Checklist в portal на **дату подачи** — единственный 
 
 ---
 
-## Пошлины (taxas) — по состоянию на август 2026
+## Пошлины (taxas) — по состоянию на сентябрь 2026
 
 С **1 марта 2026** действует обновлённая Tabela de Taxas ([новость AIMA](https://aima.gov.pt/pt/noticias/atualizacao-da-tabela-de-taxas), Portaria n.º 307/2023). **Сверяйте DUC** в своём pedido — не чаты и не устаревшие «€99,80 за всё».
 
@@ -134,13 +134,12 @@ Checklist в portal на **дату подачи** — единственный 
 | **Taxa de concessão ou renovação** (выдача / продление) | **€307,20** |
 | **Итого типовой пакет** | **€440,20** |
 
-- **ARI / Golden Visa renovação:** ориентир **€4 210,30** (не путать с D7/D8)
-- Оплата DUC — срок указан в самом DUC; в анонсах AIMA часто фигурирует **24 часа** после emissão ([Portal das Renovações](https://aima.gov.pt/pt/noticias/o-portal-das-renovacoes-ja-esta-disponivel)) — ставьте напоминание в календарь
+- **ARI / Golden Visa renovação:** ориентир **€4 210,30** standard (reduced на DUC часто ниже — сверяйте строку pedido)
+- Оплата DUC — **срок указан в самом DUC**; в анонсах AIMA часто фигурирует **24 часа** после emissão/disponibilidade — ставьте напоминание в календарь, не полагайтесь на чужой DUC
 - Emissão cartão / иные actos могут дать **дополнительные** строки в DUC
 - Строка **€99,80** в части таблиц/медиа — **не** «полная цена renovação»; ориентируйтесь на DUC и [Tabela de Taxas](https://aima.gov.pt/)
 
-> **Fact-check Emigro (авг 2026):** раньше в гайде ошибочно стояло «€99,80 за acto renovação» — это занижало бюджет **в ~4 раза**. Исправлено на €133 + €307,20. Окно portal уточнено до **31.10.2026**.
-
+> **Fact-check Emigro (14.09.2026):** temporary renovação **€133 + €307,20 = €440,20** и окно portal AR **до 31.10.2026** подтверждены (AIMA 01.07.2026 + Tabela). Soft: DUC — по сроку на бланке, не жёсткое «всегда 24 ч»; ARI €4 210,30 = standard (reduced на DUC).
 ---
 
 ## Сроки ожидания (мягко)
@@ -215,12 +214,12 @@ Emigro не даёт «разрешений». Внутри PT comprovativo pedi
 
 ## Коротко для проверки маршрута
 
-- Renovação авг 2026: portal — AR expiry **до 31.10.2026**; DUC **24 ч**; taxas ≈ **€440,20**
+- Renovação сен 2026: portal — AR expiry **до 31.10.2026**; DUC по сроку на бланке; taxas ≈ **€440,20**
 - Сначала Finanças/SS / morada — потом Create pedido
 - Agora: presencial; services.aima: **только** после e-mail AIMA
 - Caducado + чужой аэропорт — риск TIMATIC; не путать с «PDF = летать везде»
 - Ожидание: 30–90 дней в чатах (не гарантия)
-- Emigro: advogados для своих кейсов; не юр. консультация
+- Следующий шаг: [/ru/portugal/wizard](/ru/portugal/wizard) · Emigro: advogados для своих кейсов; не юр. консультация
 
 ---
 
