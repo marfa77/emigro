@@ -1,8 +1,8 @@
 ---
 slug: vnj-norvegiya-2026
 title: "ВНЖ Норвегия 2026: Skilled Worker, семья, ПМЖ за 3 года"
-seo_title: "ВНЖ Норвегия 2026 — Skilled Worker NOK 545 400, ПМЖ 3 года"
-seo_description: "Норвегия 2026: Skilled Worker NOK 545 400/624 700, семья 436 957, ПМЖ 341 373, гражданство 8/11 лет. UDI для RU/UA/BY/KZ, без digital nomad."
+seo_title: "ВНЖ Норвегия 2026 — Skilled Worker NOK 545 400 / ПМЖ 3 года"
+seo_description: "ВНЖ Норвегия 2026: Skilled NOK 545 400/624 700, семья 436 957, ПМЖ 3г (341 373), гражданство 8/11. UDI → wizard."
 excerpt: "Коридор EEA/Schengen для специалистов с оффером: высокие пороги зарплаты, ПМЖ за 3 года, гражданство обычно 8 из 11 лет и wealth tax с NOK 1.9M."
 quick_answer: "Норвегия — **не ЕС**, но **ЕЭА + Шенген**. Основной маршрут — **Skilled Worker** с оффером: без kollektivavtal с **01.05.2026** — **NOK 545 400/год** (bachelor) / **NOK 624 700** (master). Digital nomad visa **нет**. ПМЖ ориентир **3 года** + доход **NOK 341 373**/12 мес (2.5 G). Гражданство обычно **8 из последних 11 лет** (иногда **6 из 10** при достаточном доходе). Family: future income спонсора **NOK 436 957** (3.2 G). Wizard: /ru/norway/wizard."
 corridor_slugs: [ru-speaking-to-norway]
@@ -32,10 +32,10 @@ official_sources:
     label: UDI — Norwegian Directorate of Immigration
 estimated_minutes: 22
 date_published: 2026-07-31
-date_modified: 2026-08-07
+date_modified: 2026-09-07
 ---
 
-> **Fact-check Emigro (август 2026, сверка UDI/Skatteetaten):** Skilled Worker без kollektivavtal — **NOK 545 400** (bachelor) / **NOK 624 700** (master) с **01.05.2026**. Self-employed / ПМЖ / Job Seeker (год) — **NOK 341 373** (2.5 G с 01.05.2026). Family future income — **NOK 436 957** (3.2 G с 01.02.2025; May-adjust). Student (вуз, 2026/27) — **NOK 170 368**/год. Гражданство: обычно **8 из 11 лет**, сокращение до **6 из 10** при достаточном доходе (не «базовые 7»). Wealth tax 2026: порог **NOK 1 900 000** (single). Сверяйте [udi.no](https://www.udi.no/) и [skatteetaten.no](https://www.skatteetaten.no/) на дату подачи.
+> **Fact-check Emigro (07.09.2026, сверка UDI/Skatteetaten):** Skilled Worker без kollektivavtal — **NOK 545 400** (bachelor) / **NOK 624 700** (master) с **01.05.2026** ([UDI pay](https://www.udi.no/en/word-definitions/pay-and-working-conditions-in-norway/)). Self-employed / ПМЖ / Job Seeker (год) — **NOK 341 373** (2.5 G с 01.05.2026). Family future income — **NOK 436 957** (3.2 G). Student (вуз, 2026/27) — **NOK 170 368**/год. Гражданство: обычно **8 из 11 лет**, сокращение до **6 из 10** при достаточном доходе (не «базовые 7»). Wealth tax 2026: порог **NOK 1 900 000** (single). Сверяйте [udi.no](https://www.udi.no/) и [skatteetaten.no](https://www.skatteetaten.no/) на дату подачи.
 
 Смежные: [ВНЖ Швеция](/ru/guides/vnj-shvetsiya-2026-work-permit-grazhdanstvo) · [Скандинавия обзор](/ru/guides/vnj-skandinaviya-2026) · [первые 30 дней Nordics](/ru/guides/pervye-30-dnej-v-skandinavii-2026) · [коридор](/ru/norway) · [wizard](/ru/norway/wizard).
 
@@ -243,7 +243,7 @@ Bergen / Trondheim часто **на 15–25% дешевле**. Цифры COL �
 
 ---
 
-## 10. Коротко
+## 10. Коротко для проверки маршрута
 
 - EEA + Schengen, **не** ЕС  
 - Skilled Worker + оффер; **NOK 545 400 / 624 700** с 01.05.2026 без kollektivavtal  
@@ -254,6 +254,25 @@ Bergen / Trondheim часто **на 15–25% дешевле**. Цифры COL �
 - Wealth tax порог **1.9M** (2026)  
 
 Wizard: [/ru/norway/wizard](/ru/norway/wizard) · коридор [/ru/norway](/ru/norway).
+
+---
+
+## FAQ
+
+**Какой минимум зарплаты для Skilled Worker?**
+Без kollektivavtal с **01.05.2026**: **NOK 545 400**/год (bachelor-level) / **NOK 624 700** (master-level). При kollektivavtal действует **тариф**, не эти полы.
+
+**Есть ли digital nomad visa?**
+Нет. Удалёнка только на иностранных клиентах без NO-оффера не закрывает маршрут.
+
+**Сколько до ПМЖ и гражданства?**
+ПМЖ ориентир **~3 года** + доход **NOK 341 373**/12 мес (2.5 G). Гражданство обычно **8 из последних 11 лет** (иногда **6 из 10** при достаточном доходе).
+
+**Какой доход нужен спонсору семьи?**
+Future income спонсора — **NOK 436 957** (3.2 G). Сверяйте актуальное сообщение UDI — G обновляется.
+
+**Сколько денег на студенческий permit?**
+Вуз academic year **2026/27**: **NOK 170 368**/год (**15 488**/мес). Tuition отдельно. Folk high school — другой порог.
 
 ---
 
