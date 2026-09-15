@@ -3,7 +3,7 @@ import { fetchAllSubscriberSnapshots } from "@/lib/social-stats/subscribers";
 import { sendOwnerTelegramDm } from "@/lib/telegram";
 
 function socialStatsEnabled(): boolean {
-  return process.env.EMIGRO_SOCIAL_STATS_ENABLED !== "0";
+  return process.env.EMIGRO_SOCIAL_STATS_ENABLED === "1";
 }
 
 export async function sendDailySubscriberDm(): Promise<{
@@ -14,7 +14,7 @@ export async function sendDailySubscriberDm(): Promise<{
   error?: string;
 }> {
   if (!socialStatsEnabled()) {
-    return { sent: false, skipped: "EMIGRO_SOCIAL_STATS_ENABLED=0" };
+    return { sent: false, skipped: "EMIGRO_SOCIAL_STATS_ENABLED≠1" };
   }
 
   const snapshots = await fetchAllSubscriberSnapshots();

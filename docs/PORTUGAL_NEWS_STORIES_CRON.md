@@ -67,7 +67,7 @@ bash deploy/news-soft-promo/deploy.sh
 
 ## 4) Guide promo (daily) — `news:guide-promo`
 
-SEO pillars only (`content/guides/ru/*`) → fact-check → **auto-publish** to `@Emigro_news` (FYI DM, no owner ✅). Soft promo / digests still use DM approve. Lightning stays on separate approve.
+SEO pillars only (`content/guides/ru/*`) → fact-check → **auto-publish** to `@Emigro_news` (FYI DM, no owner ✅). **Off by default** (`EMIGRO_GUIDE_TELEGRAM_AUTO_PUBLISH≠1`, timer disabled). Soft promo / digests still use DM approve. Lightning stays on separate approve.
 Post copy = channel house style (title-thesis + dense facts), not creative first-person scenes.
 Writer: OpenRouter `EMIGRO_GUIDE_PROMO_MODEL` (default `anthropic/claude-sonnet-4.5`), not Gemini Flash.
 **One guide → one post.** Queue skips any slug already `published` / `skipped*` in `guide_telegram_drafts` **or** already linked from `@Emigro_news` (full `t.me/s` archive, not only the latest 20). Voice gate rejects memoir / LLM stamps / telegraphic lecture; failed draft → next guide, slug is not burned. Seed/repair: `npx tsx scripts/seed-guide-telegram-from-channel.ts`.
@@ -75,10 +75,10 @@ Writer: OpenRouter `EMIGRO_GUIDE_PROMO_MODEL` (default `anthropic/claude-sonnet-
 - Table: `guide_telegram_drafts` (guides auto; soft promo/digests still `gd:ok:` / `gd:no:`)
 - Critical fact-check → DM alert + try next guide (≤5 tries/run)
 - Caps: ≤1 **published**/day from this guide queue
-- Timer: **12:30 UTC** + up to **2h** random (`emigro-news-guide-promo.timer`)
+- Timer: **12:30 UTC** + up to **2h** random (`emigro-news-guide-promo.timer`) — **disabled** until `EMIGRO_GUIDE_TELEGRAM_AUTO_PUBLISH=1`
 - Same news-bot webhook as lightning: `/api/telegram/news-webhook`
 
-**Channel rule:** lightning = owner approve; **guide SEO posts = auto**; soft promo / digests = owner approve.
+**Channel rule:** lightning = owner approve; **guide SEO posts = off** (set `EMIGRO_GUIDE_TELEGRAM_AUTO_PUBLISH=1` + enable timer to restore); soft promo / digests = owner approve.
 
 ```bash
 npm run news:guide-promo -- --dry-run

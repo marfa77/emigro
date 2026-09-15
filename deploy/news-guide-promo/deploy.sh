@@ -34,8 +34,10 @@ npm ci --include=dev
 cp deploy/systemd/emigro-news-guide-promo.service /etc/systemd/system/
 cp deploy/systemd/emigro-news-guide-promo.timer /etc/systemd/system/
 systemctl daemon-reload
-systemctl enable --now emigro-news-guide-promo.timer
+systemctl disable --now emigro-news-guide-promo.timer
+echo "ℹ️  Guide promo timer left OFF (set EMIGRO_GUIDE_TELEGRAM_AUTO_PUBLISH=1 to re-enable)"
 systemctl list-timers --all | grep guide-promo || true
 REMOTE
 
-echo "✅ Guide promo timer enabled (12:30 UTC + up to 2h random)"
+echo "✅ Guide promo unit installed but LEFT OFF."
+echo "To enable later: EMIGRO_GUIDE_TELEGRAM_AUTO_PUBLISH=1 and systemctl enable --now emigro-news-guide-promo.timer"

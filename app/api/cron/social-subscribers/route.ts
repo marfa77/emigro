@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { sendDailySubscriberDm } from "@/lib/social-stats/send-daily-dm";
 
+/** Manual only — not on Vercel cron. Needs EMIGRO_SOCIAL_STATS_ENABLED=1. */
+
 export const maxDuration = 60;
 
 export async function GET(request: Request) {

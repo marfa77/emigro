@@ -88,7 +88,7 @@ ssh -i "${SSH_KEY}" -o StrictHostKeyChecking=no "${SERVER_USER}@${SERVER_HOST}" 
    systemctl enable --now emigro-portugal-news-stories.timer; \
    systemctl enable --now emigro-news-lightning.timer; \
    systemctl enable --now emigro-news-soft-promo.timer; \
-   systemctl enable --now emigro-news-guide-promo.timer; \
+   systemctl disable --now emigro-news-guide-promo.timer; \
    systemctl enable --now emigro-portugal-community.timer; \
    systemctl enable --now emigro-spain-community.timer; \
    systemctl enable --now emigro-italy-community.timer; \

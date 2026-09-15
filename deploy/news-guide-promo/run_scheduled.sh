@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Daily SEO guide soft promo → owner DM approval → @Emigro_news
+# SEO guide → @Emigro_news. Off unless EMIGRO_GUIDE_TELEGRAM_AUTO_PUBLISH=1.
 set -euo pipefail
 
 SCRIPT_ROOT="$(cd "$(dirname "$0")" && pwd)"
@@ -30,6 +30,11 @@ if [[ -f "$REPO_ROOT/.env" ]]; then
 fi
 
 log "=== Emigro guide telegram queue ==="
+
+if [[ "${EMIGRO_GUIDE_TELEGRAM_AUTO_PUBLISH:-}" != "1" ]]; then
+  log "=== Guide telegram queue skipped (EMIGRO_GUIDE_TELEGRAM_AUTO_PUBLISH≠1) ==="
+  exit 0
+fi
 
 RUN_CMD="cd '$REPO_ROOT' && npm run news:guide-promo"
 

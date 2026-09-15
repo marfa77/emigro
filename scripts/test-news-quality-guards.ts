@@ -469,6 +469,16 @@ assert(
   !vercelConfig.crons?.some((cron) => cron.path === "/api/cron/weekly-news"),
   "Production cron must not run legacy Google News/RSS weekly generation"
 );
+assert(
+  !vercelConfig.crons?.some((cron) => cron.path === "/api/cron/social-subscribers"),
+  "Subscriber DMs must not run on Vercel cron"
+);
+
+const parserDeploy = readFileSync(join(process.cwd(), "parser/deploy.sh"), "utf8");
+assert(
+  parserDeploy.includes("systemctl disable --now emigro-news-guide-promo.timer"),
+  "VPS deploy must leave guide promo timer disabled"
+);
 
 const weeklyCronRoute = readFileSync(join(process.cwd(), "app/api/cron/weekly-news/route.ts"), "utf8");
 assert(

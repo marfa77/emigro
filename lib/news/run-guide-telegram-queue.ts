@@ -1,5 +1,6 @@
 /**
- * Guide → fact-check → auto-publish to @Emigro_news (no owner approve).
+ * Guide → fact-check → @Emigro_news.
+ * Live auto-publish is off unless EMIGRO_GUIDE_TELEGRAM_AUTO_PUBLISH=1.
  * Lightning still requires DM approval separately.
  * Legacy gd:ok / gd:no callbacks kept for leftover pending drafts
  * (soft promo / digests still use approve).
@@ -30,6 +31,11 @@ export const GUIDE_CB_OK_PREFIX = "gd:ok:";
 export const GUIDE_CB_SKIP_PREFIX = "gd:no:";
 
 const MAX_TRIES_PER_RUN = 5;
+
+/** Live auto-publish to @Emigro_news is off unless explicitly re-enabled. */
+export function guideTelegramAutoPublishEnabled(): boolean {
+  return process.env.EMIGRO_GUIDE_TELEGRAM_AUTO_PUBLISH === "1";
+}
 
 type DraftRow = {
   id: string;
@@ -110,6 +116,16 @@ export async function runGuideTelegramQueue(options?: {
   dryRun?: boolean;
 }): Promise<GuideTelegramQueueResult> {
   const dryRun = Boolean(options?.dryRun);
+  if (!guideTelegramAutoPublishEnabled() && !dryRun) {
+    return {
+      dryRun,
+      awaitingApproval: [],
+      published: [],
+      skippedCritical: [],
+      skipped: ["auto-publish-disabled"],
+      reason: "EMIGRO_GUIDE_TELEGRAM_AUTO_PUBLISH≠1",
+    };
+  }
   const supabase = createSupabaseAdmin();
 
   if ((await countPublishedToday(supabase)) >= 1) {

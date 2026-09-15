@@ -73,4 +73,4 @@ npm run news:import-prep2go -- --daily
 
 `/api/cron/prep2go-news` **убран** из `vercel.json` — иначе двойной импорт.  
 Route остаётся для ручного/legacy вызова; **production pipeline живёт на VPS**.  
-На Vercel остаётся только `/api/cron/social-subscribers`.
+Подписчики в Telegram больше не уходят кроном (`/api/cron/social-subscribers` снят с расписания).
