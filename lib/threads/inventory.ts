@@ -1,6 +1,6 @@
 /**
  * Live site inventory for Threads daily slots — same stock as @Emigro_news,
- * not Portugal-only. Copy stays short; URLs are appended in composeConversionChain.
+ * not Portugal-only. Automated feed plans are native roots without CTA replies.
  */
 import { createClient } from "@supabase/supabase-js";
 import { ARCHIVE_SLUGS, isThinHouseholdTopic } from "@/lib/community-notes/editorial-filter";
@@ -17,8 +17,9 @@ import {
   lightningStrengthSkipReason,
 } from "@/lib/news/story-lightning";
 import {
-  composeConversionChain,
   composeDayChain,
+  composeReachGuideThread,
+  composeReachRoot,
   composeWizardChain,
   loadThreadsDays,
   loadThreadsGuides,
@@ -26,6 +27,7 @@ import {
   nextCycledRow,
   previewDay,
   previewWizard,
+  threadsGuidePageUrl,
   threadsDaysForCta,
   type ThreadsBankCta,
 } from "@/lib/threads/banks";
@@ -75,13 +77,6 @@ const COUNTRY_RU: Record<string, string> = {
   slovenia: "Словения",
   estonia: "Эстония",
   europe: "Европа",
-};
-
-const CTA_P2: Record<ThreadsBankCta, string> = {
-  wizard:
-    "Бесплатно: визард подберёт коридор под паспорт, доход и семью — за пару минут, 0 €. Без обещания ВНЖ.",
-  assist: "Route Check за €129 — разбор основания и слабых мест пакета. Не гарантия ВНЖ.",
-  porto_chat: "Для своих в Порту: важное, общение, эксперты отвечают. Вход через бота, без публичной ссылки.",
 };
 
 export function countryKeyFromGuide(guide: GuideFrontmatter): string {
@@ -203,23 +198,27 @@ export function pickLiveGuidePlan(
   if (!pick) return null;
   const cta: ThreadsBankCta = preferAssist && guideFitsAssist(pick.guide) ? "assist" : "wizard";
   const bank = loadThreadsGuides().find((row) => row.guide === pick.guide.slug);
-  const content = `gde-${pick.guide.slug}`.slice(0, 40);
   const p1 =
     bank?.p1 ||
     pick.guide.quick_answer ||
     pick.guide.excerpt ||
     pick.guide.seo_description ||
     pick.guide.title;
-  // Never append a wizard URL under an Assist (€129) bank line — match p2 to live CTA.
-  const p2 = bank?.p2 && bank.cta === cta ? bank.p2 : CTA_P2[cta];
-  // One URL only — Threads often skips link preview when two links share a post.
-  const items = composeConversionChain({
+  const slide =
+    bank?.p2 ||
+    pick.guide.quick_answer ||
+    pick.guide.excerpt ||
+    pick.guide.seo_description ||
+    "";
+  // The verified 10K–32K personal-account winners closed with useful facts;
+  // some linked to the source only at the end. Never attach a sales reply here.
+  const attachSource = (state.guides_used.length + 1) % 3 === 0;
+  const content = `gde-${pick.guide.slug}`.slice(0, 40);
+  const items = composeReachGuideThread({
     p1,
-    p2,
-    cta,
-    content,
+    slides: slide && slide !== p1 ? [slide] : [],
     topic: countryRuFromKey(pick.country),
-    countryTopic: pick.country === "europe" ? undefined : pick.country,
+    sourceUrl: attachSource ? threadsGuidePageUrl(pick.guide.slug, content) : undefined,
   });
   return planOf("guide", pick.guide.slug, countryRuFromKey(pick.country), cta, items);
 }
@@ -261,16 +260,7 @@ export async function pickPortugalSatellitePlan(
   }
 
   const cta = noteCta(next);
-  const content = `note-${next.slug}`.slice(0, 40);
-  const items = composeConversionChain({
-    p1: next.quick_answer || next.excerpt || next.title,
-    p2: CTA_P2[cta],
-    cta,
-    content,
-    topic: "Порту",
-    countryTopic: "portugal",
-    // Single link for Threads preview: CTA only (chat bot or wizard).
-  });
+  const items = composeReachRoot(next.quick_answer || next.excerpt || next.title, "Порту");
   return {
     ...planOf("city", next.slug, "Порту", cta, items),
     cursor: (state.city_cursor || 0) + 1,
@@ -329,15 +319,7 @@ export async function pickNewsPlan(state: ThreadsInventoryState): Promise<Thread
 
     const countryKey = (row.topic_key || "").trim().toLowerCase();
     const countryRu = countryRuFromKey(countryKey);
-    const content = `news-${row.slug}`.slice(0, 40);
-    const items = composeConversionChain({
-      p1: (row.excerpt || row.title).trim(),
-      p2: "Коротко на сайте. Бесплатно: визард подберёт коридор под ваши вводные — 0 €, без обещания ВНЖ.",
-      cta: "wizard",
-      content,
-      topic: countryRu,
-      countryTopic: countryKey === "europe" ? undefined : countryKey,
-    });
+    const items = composeReachRoot((row.excerpt || row.title).trim(), countryRu);
     return planOf("news", row.slug, countryRu, "wizard", items);
   }
   return null;

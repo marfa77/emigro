@@ -35,7 +35,7 @@ cp deploy/systemd/emigro-threads-replies.service /etc/systemd/system/
 cp deploy/systemd/emigro-threads-replies.timer /etc/systemd/system/
 systemctl daemon-reload
 systemctl disable --now emigro-threads-replies.timer
-echo "ℹ️  Threads replies timer left OFF (enable manually if needed)"
+echo "ℹ️  Threads replies timer left OFF"
 systemctl list-timers --all | grep emigro-threads-replies || true
 REMOTE
 

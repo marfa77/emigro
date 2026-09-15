@@ -138,21 +138,24 @@ GET https://graph.threads.net/refresh_access_token
 
 ## 5. Формат цепочки (как договорились)
 
-1. **Root:** headline (цифра / миф / было→стало). Страна — в `topic_tag`, не флагом в теле.  
-2. **Replies:** короткие слайды (≤500 символов каждый)  
-3. **Последний:** CTA без `t.me/+` — визард `/ru/wizard` или `/ru/{country}/wizard`, Assist `/ru/assist`, быт Порту `telegram.me/emigro_chat_bot?start=porto_chat_*`. UTM: `utm_source=threads`, `utm_campaign=emigro_threads`.
+1. **Root:** страна + headline (цифра / миф / было→стало / дедлайн).
+2. **Replies:** 1–3 коротких фактических слайда (≤500 символов каждый).
+3. **Последний:** иногда ссылка на полный гайд как источник. В автоматическом feed нет немедленного CTA на визард, чат или Route Check.
+
+Это повторяет проверенный формат `@pv.inform`: победители на 10K–32K сначала
+закрывали вопрос фактами; ссылка, если была, стояла только последней частью.
 
 ### Модерация ответов (анти-спам)
 
 По умолчанию на каждый пост цепочки:
 
-- `enable_reply_approvals=true` — чужие ответы **скрыты**, пока ты не апрувнешь в приложении Threads (или через API `pending_replies` / `manage_pending_reply`)
-- `reply_control=everyone` — кто *может* попытаться ответить (апрув всё равно нужен)
+- `enable_reply_approvals=false` — чужие ответы сразу видимы и дают посту социальный сигнал
+- `reply_control=everyone` — кто может ответить; скрытая очередь включается отдельно
 
 Env:
 
 ```bash
-THREADS_ENABLE_REPLY_APPROVALS=1   # default; поставь 0 только если хочешь открытые комменты
+THREADS_ENABLE_REPLY_APPROVALS=0   # default; 1 только для постоянно обслуживаемой hidden queue
 THREADS_REPLY_CONTROL=everyone     # или accounts_you_follow | mentioned_only | followers_only
 ```
 
@@ -170,7 +173,7 @@ npm run threads:preview -- --country=Португалия --flag=🇵🇹 \
 
 | Поток | Что | Когда | Кто триггерит |
 |-------|-----|-------|----------------|
-| **1. Гайды (основной)** | SEO-гайды как в личном акке, CTA = бесплатный визард коридора | каждый Lisbon-день, утро как Barakhlo (`Asia/Dubai`) | `emigro-threads-daily.timer` → `threads:daily` |
+| **1. Гайды (основной)** | Hook как в личном акке → фактический reply → иногда source-link последним | каждый Lisbon-день, утро как Barakhlo (`Asia/Dubai`) | `emigro-threads-daily.timer` → `threads:daily` |
 | **2. Сателлиты PT** | заметки Португалии / Porto chat — сверху, не вместо гайда | каждые **2** дня, ~14:30 Dubai | `emigro-threads-satellites.timer` → `threads:satellites` |
 | **3. Новости** | релевантные RU immigration — только после ✅ в личке | когда есть молния | `news:lightning` DM → webhook ✅ Threads |
 

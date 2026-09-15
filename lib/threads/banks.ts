@@ -50,6 +50,10 @@ const WIZARD_PATH = resolve(process.cwd(), "lib/threads/banks/emigro-wizard.json
 
 const BANNED_IN_COPY =
   /https?:\/\/|t\.me\/|telegram\.me\/|emigro\.online|гарантированн|андрей|\biprem\b|\bsmi\b/i;
+const REACH_HOOK_SIGNAL =
+  /\d|€|£|%|\bvs\b|миф|ловуш|дедлайн|порог|срок|закры|отмен|обязател|было|стало/i;
+const COMMERCIAL_SLIDE =
+  /route check|€129|визард|подбер[её]т коридор|приватн.*чат|вход через бота/i;
 
 let daysCache: ThreadsDayRow[] | null = null;
 let guidesCache: ThreadsGuideRow[] | null = null;
@@ -218,6 +222,41 @@ export function composeConversionChain(opts: {
   ];
 }
 
+/** Reach-first automated post: native root only, without an owned CTA reply. */
+export function composeReachRoot(p1: string, topic?: string): ThreadsChainItem[] {
+  const topicTag = sanitizeThreadsTopicTag(topic);
+  return [
+    {
+      text: clipThreadsText(p1.trim(), 420),
+      role: "root",
+      ...(topicTag ? { topicTag } : {}),
+    },
+  ];
+}
+
+/**
+ * Reach-first guide thread: concrete hook → useful fact slides → optional
+ * source link last. Never appends a wizard, chat, or paid Assist pitch.
+ */
+export function composeReachGuideThread(opts: {
+  p1: string;
+  slides: string[];
+  topic?: string;
+  sourceUrl?: string;
+}): ThreadsChainItem[] {
+  const items = composeReachRoot(opts.p1, opts.topic);
+  for (const slide of opts.slides.map((text) => text.trim()).filter(Boolean)) {
+    items.push({ text: clipThreadsText(slide, 420), role: "slide" });
+  }
+  if (opts.sourceUrl) {
+    items.push({
+      text: clipThreadsText(`Полный разбор и источники:\n${opts.sourceUrl}`),
+      role: "cta",
+    });
+  }
+  return items;
+}
+
 export function composeWizardChain(row: ThreadsWizardRow): ThreadsChainItem[] {
   const content = `wiz${String(row.d).padStart(3, "0")}`;
   const topicTag = topicFor("wizard");
@@ -292,6 +331,15 @@ export function assertEmigroThreadsBanks(): string[] {
     slugs.add(row.guide);
     errors.push(...assertCopy(`guide ${row.id} p1`, row.p1));
     errors.push(...assertCopy(`guide ${row.id} p2`, row.p2));
+    if (threadsTextCost(row.p1) > 240) {
+      errors.push(`guide ${row.id}: reach hook over 240 chars`);
+    }
+    if (!REACH_HOOK_SIGNAL.test(row.p1)) {
+      errors.push(`guide ${row.id}: reach hook missing number / deadline / myth / change`);
+    }
+    if (COMMERCIAL_SLIDE.test(row.p2)) {
+      errors.push(`guide ${row.id}: useful slide replaced by commercial CTA`);
+    }
     const composed = composeGuideChain(row)[1]?.text ?? "";
     if (threadsTextCost(composed) > THREADS_TEXT_MAX_CHARS) {
       errors.push(`guide ${row.id}: composed p2 over ${THREADS_TEXT_MAX_CHARS}`);

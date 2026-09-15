@@ -42,7 +42,7 @@ export type ThreadsEnv = {
   redirectUri: string;
   /**
    * Replies stay hidden until you approve in Threads / API.
-   * Default ON — spam protection.
+   * Default OFF — public comments provide reach and social proof.
    */
   enableReplyApprovals: boolean;
   /**
@@ -75,7 +75,7 @@ export function assertThreadsBrandUsername(username?: string | null): void {
 
 export function loadThreadsEnv(): ThreadsEnv {
   const replyControl = (process.env.THREADS_REPLY_CONTROL || "everyone").trim();
-  const approvalsRaw = (process.env.THREADS_ENABLE_REPLY_APPROVALS || "1").trim();
+  const approvalsRaw = (process.env.THREADS_ENABLE_REPLY_APPROVALS || "0").trim();
   return {
     appId: (process.env.THREADS_APP_ID || "").trim(),
     appSecret: (process.env.THREADS_APP_SECRET || "").trim(),
@@ -83,8 +83,8 @@ export function loadThreadsEnv(): ThreadsEnv {
     accessToken: (process.env.THREADS_ACCESS_TOKEN || "").trim(),
     autoPublish: process.env.THREADS_AUTO_PUBLISH === "1",
     redirectUri: (process.env.THREADS_REDIRECT_URI || "").trim(),
-    // Default ON: only "0" / "false" disables.
-    enableReplyApprovals: !["0", "false", "no", "off"].includes(approvalsRaw.toLowerCase()),
+    // Opt in explicitly; an unattended hidden queue suppresses organic discussion.
+    enableReplyApprovals: ["1", "true", "yes", "on"].includes(approvalsRaw.toLowerCase()),
     replyControl: replyControl || "everyone",
   };
 }
