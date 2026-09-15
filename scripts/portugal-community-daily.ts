@@ -37,7 +37,7 @@ function runIncrementalParser(): CommunitySignalIngest[] {
   const py = resolve(ROOT, "parser/main.py");
   const python = resolveParserPython();
 
-  const result = spawnSync(python, [py, "--json-out", SIGNALS_JSON], {
+  const result = spawnSync(python, [py, "--json-out", SIGNALS_JSON, "--country", "portugal"], {
     cwd: resolve(ROOT, "parser"),
     encoding: "utf-8",
     timeout: 180_000,

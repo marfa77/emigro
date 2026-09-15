@@ -8,7 +8,17 @@ import {
 } from "@/lib/community-notes/normalize-note";
 import { isCommunityNotesSeedOnly, noteSeedFallback } from "@/lib/community-notes/seed";
 import type { CommunityNote, CommunitySignalIngest } from "@/lib/community-notes/types";
-import { filterRelocantSignals } from "@/lib/satellite/portugal";
+import { isRelocantSignalChannel as isPortugalRelocantChannel } from "@/lib/satellite/portugal";
+import { isRelocantSignalChannel as isSpainRelocantChannel } from "@/lib/satellite/spain";
+import { isRelocantSignalChannel as isItalyRelocantChannel } from "@/lib/satellite/italy";
+
+/** Ingest allowlist — PT + ES + IT third-party chats (not owned Emigro surfaces). */
+function filterRelocantSignals<T extends { channel_username: string }>(signals: T[]): T[] {
+  return signals.filter((s) => {
+    const u = s.channel_username;
+    return isPortugalRelocantChannel(u) || isSpainRelocantChannel(u) || isItalyRelocantChannel(u);
+  });
+}
 
 /** List/hub/sitemap — skip fat body/faq JSON that blows micro statement_timeout. */
 const COMMUNITY_NOTE_LIST_COLUMNS = [

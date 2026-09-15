@@ -131,7 +131,10 @@ async def process_group(
             signals.append(payload)
             max_id = max(max_id, msg.id)
     else:
-        kwargs: dict = {"limit": limit, "reverse": not bootstrap}
+        # Cold start (last_id=0): newest-first. reverse=True without min_id walks 2021-era
+        # history and age-filters everything → 0 signals forever (Italy/Spain before cursor sync).
+        use_reverse = (not bootstrap) and last_id > 0
+        kwargs: dict = {"limit": limit, "reverse": use_reverse}
         if not bootstrap and last_id > 0:
             kwargs["min_id"] = last_id
 
@@ -140,6 +143,9 @@ async def process_group(
                 continue
             msg_date = msg.date.replace(tzinfo=timezone.utc) if msg.date.tzinfo is None else msg.date
             if msg_date < cutoff:
+                # newest-first: stop once we leave the window
+                if not use_reverse:
+                    break
                 continue
             payload = build_signal(msg, group_cfg)
             if not payload:
@@ -172,11 +178,19 @@ async def run(
     bootstrap: bool = False,
     since_days: int = 0,
     json_out: str | None = None,
+    country: str | None = None,
 ) -> None:
     if not TG_API_ID or not TG_API_HASH:
         raise SystemExit("Set TG_API_ID and TG_API_HASH in parser/.env")
 
     groups = load_groups()
+    if country:
+        country_norm = country.strip().lower()
+        groups = [g for g in groups if str(g.get("country_key", "")).lower() == country_norm]
+        if not groups:
+            raise SystemExit(f"No groups for country_key={country_norm}")
+        print(f"country filter: {country_norm} ({len(groups)} groups)")
+
     client = make_client()
     await client.start()
     all_signals: list[dict] = []
@@ -219,6 +233,11 @@ def main() -> None:
     parser.add_argument("--bootstrap", action="store_true", help="Recent window, ignore cursor (first fill)")
     parser.add_argument("--since-days", type=int, default=0, help="Import useful signals since N days ago (e.g. 30)")
     parser.add_argument("--json-out", metavar="PATH", help="Write signals JSON (for TS pipeline)")
+    parser.add_argument(
+        "--country",
+        metavar="KEY",
+        help="Only parse groups with this country_key (portugal|spain|italy)",
+    )
     args = parser.parse_args()
 
     if args.auth:
@@ -231,6 +250,7 @@ def main() -> None:
             bootstrap=args.bootstrap,
             since_days=args.since_days,
             json_out=args.json_out,
+            country=args.country,
         )
     )
 
