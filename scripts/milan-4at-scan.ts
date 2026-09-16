@@ -120,18 +120,57 @@ function fetchChannel(channel: ScanChannel, hours: number): FetchedMsg[] {
   }));
 }
 
-function fetchMessages(hours: number): FetchedMsg[] {
+type FetchSummary = {
+  msgs: FetchedMsg[];
+  perChannel: Record<string, number>;
+  failures: string[];
+};
+
+function fetchMessages(hours: number): FetchSummary {
   const all: FetchedMsg[] = [];
+  const perChannel: Record<string, number> = {};
+  const failures: string[] = [];
   for (const channel of SCAN_CHANNELS) {
     try {
       const rows = fetchChannel(channel, hours);
+      perChannel[channel] = rows.length;
       console.error(`[scan] ${channel}: ${rows.length} msgs`);
       all.push(...rows);
     } catch (e) {
-      console.error(`[scan] ${channel} FAILED:`, e instanceof Error ? e.message : e);
+      perChannel[channel] = 0;
+      const err = e instanceof Error ? e.message : String(e);
+      failures.push(`${channel}: ${err.slice(0, 120)}`);
+      console.error(`[scan] ${channel} FAILED:`, err);
     }
   }
-  return all;
+  return { msgs: all, perChannel, failures };
+}
+
+function formatStatus(params: {
+  hours: number;
+  perChannel: Record<string, number>;
+  failures: string[];
+  candidates: number;
+  drafted: number;
+  skipped: number;
+}): string {
+  const chLine = SCAN_CHANNELS.map((c) => `${c} ${params.perChannel[c] ?? 0}`).join(" · ");
+  const lines = [
+    `milan4at scan · ${params.hours}h`,
+    `msgs: ${chLine}`,
+    `candidates ${params.candidates} · drafted ${params.drafted} · skipped ${params.skipped}`,
+  ];
+  if (params.failures.length) {
+    lines.push(`fetch fail: ${params.failures.join("; ")}`);
+  }
+  if (params.candidates === 0) {
+    lines.push("нет вопросов для ответа в окне");
+  } else if (params.drafted === 0) {
+    lines.push("кандидаты были, черновиков не отправил (skip/fail)");
+  } else {
+    lines.push(`готово: ${params.drafted} черновик(а) выше`);
+  }
+  return lines.join("\n");
 }
 
 async function sendDm(chatId: string, text: string) {
@@ -174,8 +213,14 @@ async function sendDraftTriple(
 async function main() {
   const { hours, max, dry } = parseArgs(process.argv.slice(2));
   const seen = loadSeen();
-  const msgs = fetchMessages(hours);
+  const { msgs, perChannel, failures } = fetchMessages(hours);
   console.error(`[scan] fetched ${msgs.length} msgs / last ${hours}h (${SCAN_CHANNELS.join("+")})`);
+
+  const chatId = notifyChatId();
+  if (!dry && !chatId) {
+    throw new Error("No /start yet. Open the draft bot and send /start — drafts go only to that chat.");
+  }
+  console.error(`[scan] notify chat (from /start only): ${chatId || "(dry)"}`);
 
   const candidates: Array<{
     msg: FetchedMsg;
@@ -210,19 +255,8 @@ async function main() {
   const pick = candidates.slice(0, max);
   console.error(`[scan] candidates ${candidates.length}, drafting ${pick.length}`);
 
-  if (!pick.length) {
-    console.log("No suitable questions in window.");
-    return;
-  }
-
-  const chatId = notifyChatId();
-  if (!dry && !chatId) {
-    throw new Error("No /start yet. Open the draft bot and send /start — drafts go only to that chat.");
-  }
-
-  console.error(`[scan] notify chat (from /start only): ${chatId || "(dry)"}`);
-
   const drafted: number[] = [];
+  let skipped = 0;
 
   for (const c of pick) {
     const key = seenKey(c.msg.channel, c.msg.id);
@@ -231,6 +265,7 @@ async function main() {
       topicLabel: c.topicLabel,
     });
     if (!produced.reply) {
+      skipped += 1;
       console.error(`[scan] skip ${c.msg.channel}/${c.msg.id}: ${produced.skipReason}`);
       if (!dry && chatId && produced.factVerdict === "fail") {
         await sendDm(
@@ -261,6 +296,21 @@ async function main() {
   }
 
   saveSeen(seen);
+
+  const status = formatStatus({
+    hours,
+    perChannel,
+    failures,
+    candidates: candidates.length,
+    drafted: drafted.length,
+    skipped,
+  });
+  console.error(`[scan] status\n${status}`);
+  if (!dry && chatId) {
+    await sendDm(chatId, status);
+  } else if (dry) {
+    console.log(`[dry] would DM status:\n${status}`);
+  }
   console.error(`[scan] done drafted=${drafted.length}`);
 }
 
