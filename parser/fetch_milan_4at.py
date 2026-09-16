@@ -64,6 +64,15 @@ async def fetch(channel: str, hours: float, limit: int) -> list[dict]:
                 d = d.replace(tzinfo=timezone.utc)
             if d < cutoff:
                 break
+            sender = None
+            if msg.sender:
+                uname = getattr(msg.sender, "username", None)
+                sid = getattr(msg.sender, "id", None)
+                sender = {
+                    "id": sid,
+                    "username": uname,
+                    "label": f"@{uname}" if uname else (f"id:{sid}" if sid else None),
+                }
             out.append(
                 {
                     "id": msg.id,
@@ -74,6 +83,7 @@ async def fetch(channel: str, hours: float, limit: int) -> list[dict]:
                     "reply_to": getattr(msg.reply_to, "reply_to_msg_id", None)
                     if msg.reply_to
                     else None,
+                    "from": sender,
                 }
             )
     finally:

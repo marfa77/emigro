@@ -117,6 +117,7 @@
     "milan4at:draft": "tsx scripts/milan-4at-draft.ts",
     "milan4at:poll": "tsx scripts/milan-4at-bot-poll.ts",
     "milan4at:scan": "tsx scripts/milan-4at-scan.ts",
+    "milan4at:abuse-test": "tsx scripts/test-milan4at-abuse.ts",
     "milan4at:webhook": "tsx scripts/set-milan4at-webhook.ts",
     "milan4at:deploy-cron": "bash deploy/milan4at-scan/deploy.sh",
     "satellite:assert-launch": "tsx scripts/satellite-assert-launch.ts",

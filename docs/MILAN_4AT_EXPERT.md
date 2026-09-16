@@ -18,9 +18,10 @@ Webhook: `npm run milan4at:webhook` (после того как на Vercel ес
 2. Фильтр: вопрос / Italy–Milano–Como, не барахолка / «ищу работу».
 3. **Writer** — Claude Sonnet 4.5 (чат-тон + щелочка).
 4. **Fact-check** — Gemini 2.5 Flash (pass / revise / fail).
-5. ЛС при pass/revise — **три** сообщения: ссылка → `factcheck: ok` → ответ.  
+5. Abuse (проституция/наркотики, в т.ч. завуалировано) — только **high confidence** → ЛС-алерт со ссылкой и `@user` для жалобы.
+6. ЛС при pass/revise — **три** сообщения: ссылка → `factcheck: ok` → ответ.  
    Fail → `SKIP factcheck · …`.
-6. В конце **всегда** статус в ЛС (даже если кандидатов 0): msgs по чатам · candidates · drafted · skipped.
+7. В конце **всегда** статус в ЛС (даже если кандидатов 0): msgs · abuse · candidates · drafted.
 
 ## Команды
 

@@ -1,6 +1,9 @@
 #!/usr/bin/env npx tsx
 /**
- * Scan @milan_4at + @como_4at (last N hours) → pick answerable questions → LLM soft draft → DM bot.
+ * Scan @milan_4at + @como_4at (last N hours):
+ *  1) high-confidence prostitution/drug ads → DM alert (for Telegram report)
+ *  2) answerable questions → LLM soft draft → DM
+ *  3) always end with status DM
  *
  *   npm run milan4at:scan
  *   npm run milan4at:scan -- --hours=6 --dry
@@ -22,6 +25,10 @@ import { matchMilan4atTopics } from "@/lib/milan-4at/draft";
 import { produceMilan4atReply } from "@/lib/milan-4at/produce-reply";
 import { loadMilan4atNotifyChatId, milan4atBotToken } from "@/lib/milan-4at/bot-handler";
 import { MILAN_4AT_MIN_SCORE } from "@/lib/milan-4at/topics";
+import {
+  detectAbuseHighConfidence,
+  formatAbuseAlert,
+} from "@/lib/milan-4at/abuse-detect";
 
 const SCAN_CHANNELS = ["milan_4at", "como_4at"] as const;
 type ScanChannel = (typeof SCAN_CHANNELS)[number];
@@ -33,10 +40,12 @@ type FetchedMsg = {
   text: string;
   url: string;
   reply_to?: number | null;
+  from?: { id?: number; username?: string | null; label?: string | null } | null;
 };
 
 const OUT_DIR = path.resolve(process.cwd(), "scripts/output");
 const SEEN_FILE = path.join(OUT_DIR, "milan4at-seen-ids.json");
+const ABUSE_SEEN_FILE = path.join(OUT_DIR, "milan4at-abuse-seen.json");
 
 const NOISE =
   /продам|куплю|продаю|лечу\s|багаж|собутыльник|уборк|ваканси|ищу\s+работ|работа\s+милан|объявлен|ciao_chat|преподаватель.*итальян|франческо/i;
@@ -65,19 +74,20 @@ function seenKey(channel: string, id: number): string {
   return `${channel}:${id}`;
 }
 
-function loadSeen(): Set<string> {
+function loadKeySet(file: string, legacyMilanOnly = false): Set<string> {
   try {
-    const raw = JSON.parse(fs.readFileSync(SEEN_FILE, "utf8")) as {
+    const raw = JSON.parse(fs.readFileSync(file, "utf8")) as {
       ids?: Array<number | string>;
       keys?: string[];
     };
     const out = new Set<string>();
     for (const k of raw.keys || []) out.add(String(k));
-    // Legacy numeric ids were milan_4at-only
     for (const id of raw.ids || []) {
-      if (typeof id === "number") out.add(seenKey("milan_4at", id));
+      if (typeof id === "number" && legacyMilanOnly) out.add(seenKey("milan_4at", id));
       else if (typeof id === "string" && id.includes(":")) out.add(id);
-      else if (typeof id === "string" && /^\d+$/.test(id)) out.add(seenKey("milan_4at", Number(id)));
+      else if (typeof id === "string" && /^\d+$/.test(id) && legacyMilanOnly) {
+        out.add(seenKey("milan_4at", Number(id)));
+      }
     }
     return out;
   } catch {
@@ -85,13 +95,10 @@ function loadSeen(): Set<string> {
   }
 }
 
-function saveSeen(keys: Set<string>) {
+function saveKeySet(file: string, keys: Set<string>, keep = 800) {
   fs.mkdirSync(OUT_DIR, { recursive: true });
-  const list = [...keys].sort().slice(-800);
-  fs.writeFileSync(
-    SEEN_FILE,
-    JSON.stringify({ keys: list, updatedAt: new Date().toISOString() }, null, 2)
-  );
+  const list = [...keys].sort().slice(-keep);
+  fs.writeFileSync(file, JSON.stringify({ keys: list, updatedAt: new Date().toISOString() }, null, 2));
 }
 
 function notifyChatId(): string | null {
@@ -113,7 +120,9 @@ function fetchChannel(channel: ScanChannel, hours: number): FetchedMsg[] {
   if (res.status !== 0) {
     throw new Error(`[${channel}] ${res.stderr || res.stdout || `fetch exit ${res.status}`}`);
   }
-  const data = JSON.parse(res.stdout) as { messages: Array<Omit<FetchedMsg, "channel"> & { channel?: string }> };
+  const data = JSON.parse(res.stdout) as {
+    messages: Array<Omit<FetchedMsg, "channel"> & { channel?: string }>;
+  };
   return (data.messages || []).map((m) => ({
     ...m,
     channel: (m.channel as ScanChannel) || channel,
@@ -153,15 +162,23 @@ function formatStatus(params: {
   candidates: number;
   drafted: number;
   skipped: number;
+  abuseAlerts: number;
+  abuseScanned: number;
 }): string {
   const chLine = SCAN_CHANNELS.map((c) => `${c} ${params.perChannel[c] ?? 0}`).join(" · ");
   const lines = [
     `milan4at scan · ${params.hours}h`,
     `msgs: ${chLine}`,
+    `abuse: ${params.abuseAlerts} alert(s) / ${params.abuseScanned} checked`,
     `candidates ${params.candidates} · drafted ${params.drafted} · skipped ${params.skipped}`,
   ];
   if (params.failures.length) {
     lines.push(`fetch fail: ${params.failures.join("; ")}`);
+  }
+  if (params.abuseAlerts > 0) {
+    lines.push(`⚠️ abuse alerts выше — пожалуйся в Telegram`);
+  } else {
+    lines.push("abuse: чисто в окне (high-confidence)");
   }
   if (params.candidates === 0) {
     lines.push("нет вопросов для ответа в окне");
@@ -210,9 +227,45 @@ async function sendDraftTriple(
   await sendDm(chatId, body);
 }
 
+async function scanAbuse(
+  msgs: FetchedMsg[],
+  opts: { dry: boolean; chatId: string | null }
+): Promise<{ alerts: number; scanned: number }> {
+  const abuseSeen = loadKeySet(ABUSE_SEEN_FILE);
+  let alerts = 0;
+  let scanned = 0;
+
+  for (const msg of msgs) {
+    const key = seenKey(msg.channel, msg.id);
+    if (abuseSeen.has(key)) continue;
+    scanned += 1;
+    const hit = await detectAbuseHighConfidence(msg.text);
+    if (!hit) continue;
+
+    const alert = formatAbuseAlert({
+      url: msg.url,
+      channel: msg.channel,
+      from: msg.from?.label || null,
+      hit,
+      text: msg.text,
+    });
+    console.error(`[abuse] HIT ${msg.channel}/${msg.id} ${hit.category} score=${hit.score}`);
+    console.log(`\n${alert}\n`);
+
+    if (!opts.dry && opts.chatId) {
+      await sendDm(opts.chatId, alert);
+    }
+    abuseSeen.add(key);
+    alerts += 1;
+  }
+
+  saveKeySet(ABUSE_SEEN_FILE, abuseSeen, 1200);
+  return { alerts, scanned };
+}
+
 async function main() {
   const { hours, max, dry } = parseArgs(process.argv.slice(2));
-  const seen = loadSeen();
+  const seen = loadKeySet(SEEN_FILE, true);
   const { msgs, perChannel, failures } = fetchMessages(hours);
   console.error(`[scan] fetched ${msgs.length} msgs / last ${hours}h (${SCAN_CHANNELS.join("+")})`);
 
@@ -221,6 +274,9 @@ async function main() {
     throw new Error("No /start yet. Open the draft bot and send /start — drafts go only to that chat.");
   }
   console.error(`[scan] notify chat (from /start only): ${chatId || "(dry)"}`);
+
+  const { alerts: abuseAlerts, scanned: abuseScanned } = await scanAbuse(msgs, { dry, chatId });
+  console.error(`[scan] abuse alerts=${abuseAlerts} scanned=${abuseScanned}`);
 
   const candidates: Array<{
     msg: FetchedMsg;
@@ -295,7 +351,7 @@ async function main() {
     drafted.push(c.msg.id);
   }
 
-  saveSeen(seen);
+  saveKeySet(SEEN_FILE, seen);
 
   const status = formatStatus({
     hours,
@@ -304,6 +360,8 @@ async function main() {
     candidates: candidates.length,
     drafted: drafted.length,
     skipped,
+    abuseAlerts,
+    abuseScanned,
   });
   console.error(`[scan] status\n${status}`);
   if (!dry && chatId) {
@@ -311,7 +369,7 @@ async function main() {
   } else if (dry) {
     console.log(`[dry] would DM status:\n${status}`);
   }
-  console.error(`[scan] done drafted=${drafted.length}`);
+  console.error(`[scan] done drafted=${drafted.length} abuse=${abuseAlerts}`);
 }
 
 main().catch((e) => {
