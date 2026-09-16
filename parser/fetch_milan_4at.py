@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fetch recent @milan_4at messages as JSON (stdout). Uses parser/tg.session."""
+"""Fetch recent messages from @milan_4at / @como_4at as JSON (stdout). Uses parser/tg.session."""
 
 from __future__ import annotations
 
@@ -27,7 +27,8 @@ SESSION_FILE = (
     if _session_env and Path(_session_env).is_absolute()
     else str(ROOT / (_session_env or "tg.session"))
 )
-CHANNEL = "milan_4at"
+
+ALLOWED_CHANNELS = ("milan_4at", "como_4at")
 
 
 def make_client() -> TelegramClient:
@@ -39,7 +40,7 @@ def make_client() -> TelegramClient:
     return TelegramClient(SESSION_FILE, TG_API_ID, TG_API_HASH)
 
 
-async def fetch(hours: float, limit: int) -> list[dict]:
+async def fetch(channel: str, hours: float, limit: int) -> list[dict]:
     if not TG_API_ID or not TG_API_HASH:
         raise SystemExit("Set TG_API_ID and TG_API_HASH in parser/.env")
     client = make_client()
@@ -51,7 +52,7 @@ async def fetch(hours: float, limit: int) -> list[dict]:
     cutoff = datetime.now(timezone.utc) - timedelta(hours=hours)
     out: list[dict] = []
     try:
-        entity = await client.get_entity(CHANNEL)
+        entity = await client.get_entity(channel)
         async for msg in client.iter_messages(entity, limit=limit):
             if not isinstance(msg, Message) or msg.action:
                 continue
@@ -63,13 +64,13 @@ async def fetch(hours: float, limit: int) -> list[dict]:
                 d = d.replace(tzinfo=timezone.utc)
             if d < cutoff:
                 break
-            # skip pure replies in threads if flagged
             out.append(
                 {
                     "id": msg.id,
+                    "channel": channel,
                     "date": d.isoformat().replace("+00:00", "Z"),
                     "text": text,
-                    "url": f"https://t.me/{CHANNEL}/{msg.id}",
+                    "url": f"https://t.me/{channel}/{msg.id}",
                     "reply_to": getattr(msg.reply_to, "reply_to_msg_id", None)
                     if msg.reply_to
                     else None,
@@ -85,10 +86,21 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--hours", type=float, default=4)
     ap.add_argument("--limit", type=int, default=80)
+    ap.add_argument(
+        "--channel",
+        default="milan_4at",
+        choices=list(ALLOWED_CHANNELS),
+        help="Telegram public username without @",
+    )
     args = ap.parse_args()
-    rows = asyncio.run(fetch(args.hours, args.limit))
+    rows = asyncio.run(fetch(args.channel, args.hours, args.limit))
     json.dump(
-        {"channel": CHANNEL, "hours": args.hours, "fetchedAt": datetime.now(timezone.utc).isoformat(), "messages": rows},
+        {
+            "channel": args.channel,
+            "hours": args.hours,
+            "fetchedAt": datetime.now(timezone.utc).isoformat(),
+            "messages": rows,
+        },
         sys.stdout,
         ensure_ascii=False,
         indent=2,

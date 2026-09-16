@@ -71,6 +71,12 @@ groups:
     country_key: italy
     title: "@milan_4at — Милан чат"
     timezone: Europe/Rome
+  - username: como_4at
+    group_id: como_4at
+    city: como
+    country_key: italy
+    title: "@como_4at — Como / озеро Комо"
+    timezone: Europe/Rome
   - username: forum_italy
     group_id: forum_italy
     city: italy

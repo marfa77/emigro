@@ -1,6 +1,6 @@
-# @milan_4at soft expert
+# @milan_4at + @como_4at soft expert
 
-Скан `@milan_4at` → вопросы → writer + fact-check → ЛС draft-боту. В группу бот **не** пишет.
+Скан `@milan_4at` и `@como_4at` → вопросы → writer + fact-check → ЛС draft-боту. В группы бот **не** пишет.
 
 ## Прод
 
@@ -14,8 +14,8 @@ Webhook: `npm run milan4at:webhook` (после того как на Vercel ес
 
 ## Поток
 
-1. Telethon (`parser/tg.session` / `TG_SESSION_STRING`) — окно ~13 ч на кроне.
-2. Фильтр: вопрос / Italy–Milano, не барахолка / «ищу работу».
+1. Telethon (`parser/tg.session` / `TG_SESSION_STRING`) — окно ~13 ч на кроне, оба чата.
+2. Фильтр: вопрос / Italy–Milano–Como, не барахолка / «ищу работу».
 3. **Writer** — Claude Sonnet 4.5 (чат-тон + щелочка).
 4. **Fact-check** — Gemini 2.5 Flash (pass / revise / fail).
 5. ЛС при pass/revise — **три** сообщения: ссылка → `factcheck: ok` → ответ.  

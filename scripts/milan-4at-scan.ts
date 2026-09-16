@@ -1,6 +1,6 @@
 #!/usr/bin/env npx tsx
 /**
- * Scan @milan_4at (last N hours) → pick answerable questions → LLM soft draft → DM bot.
+ * Scan @milan_4at + @como_4at (last N hours) → pick answerable questions → LLM soft draft → DM bot.
  *
  *   npm run milan4at:scan
  *   npm run milan4at:scan -- --hours=6 --dry
@@ -23,8 +23,12 @@ import { produceMilan4atReply } from "@/lib/milan-4at/produce-reply";
 import { loadMilan4atNotifyChatId, milan4atBotToken } from "@/lib/milan-4at/bot-handler";
 import { MILAN_4AT_MIN_SCORE } from "@/lib/milan-4at/topics";
 
+const SCAN_CHANNELS = ["milan_4at", "como_4at"] as const;
+type ScanChannel = (typeof SCAN_CHANNELS)[number];
+
 type FetchedMsg = {
   id: number;
+  channel: ScanChannel;
   date: string;
   text: string;
   url: string;
@@ -39,6 +43,8 @@ const NOISE =
 
 const QUESTIONISH =
   /\?|подскаж|посовет|кто\s+знает|как\s+(?:получить|оформить|сделать|найти)|где\s+(?:можно|взять|оформ|сделать)|можно\s+ли|нужна?\s+(?:помощ|подсказ)|ищу\s+(?!работ)/i;
+
+const QUESTION_URL_RE = /^https:\/\/t\.me\/(?:milan_4at|como_4at)\/\d+$/i;
 
 function parseArgs(argv: string[]) {
   let hours = 4;
@@ -55,39 +61,77 @@ function parseArgs(argv: string[]) {
   return { hours, max, dry };
 }
 
-function loadSeen(): Set<number> {
+function seenKey(channel: string, id: number): string {
+  return `${channel}:${id}`;
+}
+
+function loadSeen(): Set<string> {
   try {
-    const raw = JSON.parse(fs.readFileSync(SEEN_FILE, "utf8")) as { ids?: number[] };
-    return new Set(raw.ids || []);
+    const raw = JSON.parse(fs.readFileSync(SEEN_FILE, "utf8")) as {
+      ids?: Array<number | string>;
+      keys?: string[];
+    };
+    const out = new Set<string>();
+    for (const k of raw.keys || []) out.add(String(k));
+    // Legacy numeric ids were milan_4at-only
+    for (const id of raw.ids || []) {
+      if (typeof id === "number") out.add(seenKey("milan_4at", id));
+      else if (typeof id === "string" && id.includes(":")) out.add(id);
+      else if (typeof id === "string" && /^\d+$/.test(id)) out.add(seenKey("milan_4at", Number(id)));
+    }
+    return out;
   } catch {
     return new Set();
   }
 }
 
-function saveSeen(ids: Set<number>) {
+function saveSeen(keys: Set<string>) {
   fs.mkdirSync(OUT_DIR, { recursive: true });
-  const list = [...ids].sort((a, b) => a - b).slice(-500);
-  fs.writeFileSync(SEEN_FILE, JSON.stringify({ ids: list, updatedAt: new Date().toISOString() }, null, 2));
+  const list = [...keys].sort().slice(-800);
+  fs.writeFileSync(
+    SEEN_FILE,
+    JSON.stringify({ keys: list, updatedAt: new Date().toISOString() }, null, 2)
+  );
 }
 
 function notifyChatId(): string | null {
-  // Strict: only the private chat that sent /start to this bot.
   return loadMilan4atNotifyChatId();
 }
 
-function fetchMessages(hours: number): FetchedMsg[] {
+function fetchChannel(channel: ScanChannel, hours: number): FetchedMsg[] {
   const py = path.resolve(process.cwd(), "parser/fetch_milan_4at.py");
-  const res = spawnSync("python3", [py, "--hours", String(hours), "--limit", "100"], {
-    encoding: "utf8",
-    cwd: process.cwd(),
-    env: process.env,
-    maxBuffer: 8 * 1024 * 1024,
-  });
+  const res = spawnSync(
+    "python3",
+    [py, "--channel", channel, "--hours", String(hours), "--limit", "100"],
+    {
+      encoding: "utf8",
+      cwd: process.cwd(),
+      env: process.env,
+      maxBuffer: 8 * 1024 * 1024,
+    }
+  );
   if (res.status !== 0) {
-    throw new Error(res.stderr || res.stdout || `fetch exit ${res.status}`);
+    throw new Error(`[${channel}] ${res.stderr || res.stdout || `fetch exit ${res.status}`}`);
   }
-  const data = JSON.parse(res.stdout) as { messages: FetchedMsg[] };
-  return data.messages || [];
+  const data = JSON.parse(res.stdout) as { messages: Array<Omit<FetchedMsg, "channel"> & { channel?: string }> };
+  return (data.messages || []).map((m) => ({
+    ...m,
+    channel: (m.channel as ScanChannel) || channel,
+  }));
+}
+
+function fetchMessages(hours: number): FetchedMsg[] {
+  const all: FetchedMsg[] = [];
+  for (const channel of SCAN_CHANNELS) {
+    try {
+      const rows = fetchChannel(channel, hours);
+      console.error(`[scan] ${channel}: ${rows.length} msgs`);
+      all.push(...rows);
+    } catch (e) {
+      console.error(`[scan] ${channel} FAILED:`, e instanceof Error ? e.message : e);
+    }
+  }
+  return all;
 }
 
 async function sendDm(chatId: string, text: string) {
@@ -99,7 +143,6 @@ async function sendDm(chatId: string, text: string) {
     body: JSON.stringify({
       chat_id: chatId,
       text,
-      // no preview = no wall of post text under the link
       disable_web_page_preview: true,
       link_preview_options: { is_disabled: true },
     }),
@@ -116,7 +159,7 @@ async function sendDraftTriple(
   reply: string
 ) {
   const url = questionUrl.trim();
-  if (!/^https:\/\/t\.me\/milan_4at\/\d+$/i.test(url)) {
+  if (!QUESTION_URL_RE.test(url)) {
     throw new Error(`refusing non-bare question url: ${url.slice(0, 80)}`);
   }
   const body = reply.trim();
@@ -132,28 +175,33 @@ async function main() {
   const { hours, max, dry } = parseArgs(process.argv.slice(2));
   const seen = loadSeen();
   const msgs = fetchMessages(hours);
-  console.error(`[scan] fetched ${msgs.length} msgs / last ${hours}h`);
+  console.error(`[scan] fetched ${msgs.length} msgs / last ${hours}h (${SCAN_CHANNELS.join("+")})`);
 
-  const candidates: Array<{ msg: FetchedMsg; score: number; topicLabel: string; topicId: string }> =
-    [];
+  const candidates: Array<{
+    msg: FetchedMsg;
+    score: number;
+    topicLabel: string;
+    topicId: string;
+  }> = [];
 
   for (const msg of msgs) {
-    if (seen.has(msg.id)) continue;
-    if (msg.reply_to) continue; // top-level only
+    const key = seenKey(msg.channel, msg.id);
+    if (seen.has(key)) continue;
+    if (msg.reply_to) continue;
     if (NOISE.test(msg.text)) continue;
     if (!QUESTIONISH.test(msg.text) && !msg.text.includes("?")) continue;
     const matches = matchMilan4atTopics(msg.text);
     const top = matches[0];
-    // allow insurance/VNJ-ish even if topic score soft — boost via generic patterns
     let score = top?.score ?? 0;
-    if (/страхов|assicur|waitaly|внж|permesso|codice|questura|iban|аренд/i.test(msg.text)) {
+    if (/страхов|assicur|waitaly|внж|permesso|codice|questura|iban|аренд|como|комо/i.test(msg.text)) {
       score = Math.max(score, MILAN_4AT_MIN_SCORE + 5);
     }
     if (score < MILAN_4AT_MIN_SCORE) continue;
+    const geo = msg.channel === "como_4at" ? "Italy / Como" : "Italy / Milano";
     candidates.push({
       msg,
       score,
-      topicLabel: top?.topic.label || "Italy / Milano",
+      topicLabel: top?.topic.label || geo,
       topicId: top?.topic.id || "general",
     });
   }
@@ -177,19 +225,20 @@ async function main() {
   const drafted: number[] = [];
 
   for (const c of pick) {
+    const key = seenKey(c.msg.channel, c.msg.id);
     const produced = await produceMilan4atReply({
       question: c.msg.text,
       topicLabel: c.topicLabel,
     });
     if (!produced.reply) {
-      console.error(`[scan] skip ${c.msg.id}: ${produced.skipReason}`);
+      console.error(`[scan] skip ${c.msg.channel}/${c.msg.id}: ${produced.skipReason}`);
       if (!dry && chatId && produced.factVerdict === "fail") {
         await sendDm(
           chatId,
           `SKIP factcheck · ${c.msg.url}\n${produced.factReason || produced.skipReason}`
         );
       }
-      seen.add(c.msg.id);
+      seen.add(key);
       continue;
     }
 
@@ -203,9 +252,11 @@ async function main() {
           ? `factcheck: ok (revise) · ${produced.factReason || "правкали черновик"}`
           : `factcheck: ok · ${produced.factReason || "pass"}`;
       await sendDraftTriple(chatId, c.msg.url, factLine, produced.reply);
-      console.error(`[scan] DM×3 → ${chatId} for ${c.msg.id} (${produced.factVerdict})`);
+      console.error(
+        `[scan] DM×3 → ${chatId} for ${c.msg.channel}/${c.msg.id} (${produced.factVerdict})`
+      );
     }
-    seen.add(c.msg.id);
+    seen.add(key);
     drafted.push(c.msg.id);
   }
 

@@ -14,6 +14,7 @@ export const ITALY_SATELLITE = {
   sourceChannels: [
     "milanru",
     "milan_4at",
+    "como_4at",
     "forum_italy",
     "digital_nomad_Italiya",
   ] as const,
