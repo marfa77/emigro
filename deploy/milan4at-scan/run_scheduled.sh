@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# VPS: scan @milan_4at + @como_4at → draft + factcheck → DM (every 12h timer).
+# VPS: scan @milan_4at + @como_4at + @milan_ua_chat → draft + factcheck + abuse → DM (every 12h timer).
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 cd "$ROOT"

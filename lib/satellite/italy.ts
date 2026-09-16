@@ -15,6 +15,7 @@ export const ITALY_SATELLITE = {
     "milanru",
     "milan_4at",
     "como_4at",
+    "milan_ua_chat",
     "forum_italy",
     "digital_nomad_Italiya",
   ] as const,

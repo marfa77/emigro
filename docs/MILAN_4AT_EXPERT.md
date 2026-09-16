@@ -1,6 +1,6 @@
-# @milan_4at + @como_4at soft expert
+# @milan_4at + @como_4at + @milan_ua_chat soft expert
 
-Скан `@milan_4at` и `@como_4at` → вопросы → writer + fact-check → ЛС draft-боту. В группы бот **не** пишет.
+Скан `@milan_4at`, `@como_4at` и `@milan_ua_chat` → вопросы → writer + fact-check → ЛС draft-боту. В группы бот **не** пишет.
 
 ## Прод
 

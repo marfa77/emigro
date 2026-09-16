@@ -1,5 +1,5 @@
 [Unit]
-Description=Emigro @milan_4at + @como_4at soft-expert scan (Telethon → LLM draft → factcheck → DM)
+Description=Emigro Milan/Como soft-expert + abuse scan (Telethon → LLM draft → factcheck → DM)
 After=network-online.target
 Wants=network-online.target
 

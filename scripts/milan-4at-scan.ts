@@ -1,6 +1,6 @@
 #!/usr/bin/env npx tsx
 /**
- * Scan @milan_4at + @como_4at (last N hours):
+ * Scan @milan_4at + @como_4at + @milan_ua_chat (last N hours):
  *  1) high-confidence prostitution/drug ads → DM alert (for Telegram report)
  *  2) answerable questions → LLM soft draft → DM
  *  3) always end with status DM
@@ -30,7 +30,7 @@ import {
   formatAbuseAlert,
 } from "@/lib/milan-4at/abuse-detect";
 
-const SCAN_CHANNELS = ["milan_4at", "como_4at"] as const;
+const SCAN_CHANNELS = ["milan_4at", "como_4at", "milan_ua_chat"] as const;
 type ScanChannel = (typeof SCAN_CHANNELS)[number];
 
 type FetchedMsg = {
@@ -53,7 +53,7 @@ const NOISE =
 const QUESTIONISH =
   /\?|подскаж|посовет|кто\s+знает|как\s+(?:получить|оформить|сделать|найти)|где\s+(?:можно|взять|оформ|сделать)|можно\s+ли|нужна?\s+(?:помощ|подсказ)|ищу\s+(?!работ)/i;
 
-const QUESTION_URL_RE = /^https:\/\/t\.me\/(?:milan_4at|como_4at)\/\d+$/i;
+const QUESTION_URL_RE = /^https:\/\/t\.me\/(?:milan_4at|como_4at|milan_ua_chat)\/\d+$/i;
 
 function parseArgs(argv: string[]) {
   let hours = 4;
@@ -298,7 +298,12 @@ async function main() {
       score = Math.max(score, MILAN_4AT_MIN_SCORE + 5);
     }
     if (score < MILAN_4AT_MIN_SCORE) continue;
-    const geo = msg.channel === "como_4at" ? "Italy / Como" : "Italy / Milano";
+    const geo =
+      msg.channel === "como_4at"
+        ? "Italy / Como"
+        : msg.channel === "milan_ua_chat"
+          ? "Italy / Milano UA"
+          : "Italy / Milano";
     candidates.push({
       msg,
       score,

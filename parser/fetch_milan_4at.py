@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fetch recent messages from @milan_4at / @como_4at as JSON (stdout). Uses parser/tg.session."""
+"""Fetch recent messages from Milan/Como relocant chats as JSON (stdout). Uses parser/tg.session."""
 
 from __future__ import annotations
 
@@ -28,7 +28,7 @@ SESSION_FILE = (
     else str(ROOT / (_session_env or "tg.session"))
 )
 
-ALLOWED_CHANNELS = ("milan_4at", "como_4at")
+ALLOWED_CHANNELS = ("milan_4at", "como_4at", "milan_ua_chat")
 
 
 def make_client() -> TelegramClient:
