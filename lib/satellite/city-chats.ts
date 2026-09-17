@@ -79,6 +79,7 @@ export const SATELLITE_CITY_CHATS: readonly SatelliteCityChat[] = [
     chatTitleRu: "Пхукет и вокруг",
     startPayload: "phuket_chat",
     envChatId: "EMIGRO_PHUKET_CHAT_ID",
+    fallbackChatId: "-1004469471342",
     keywords: ["пхукет", "phuket", "ภูเก็ต"],
     kicker: "Для своих",
     blurb:
