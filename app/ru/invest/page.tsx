@@ -51,7 +51,7 @@ export default function InvestmentHubPage() {
               предметной проверки и поможет подготовить структурированный запрос профильному партнёру.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <a href="#qualifier" className="inline-flex min-h-12 items-center gap-2 rounded-xl bg-white px-5 py-3 font-semibold text-corridor-950 hover:bg-corridor-50">
+              <a href="#qualifier" className="inline-flex min-h-12 items-center gap-2 rounded-xl bg-white px-5 py-3 font-semibold text-slate-950 hover:bg-corridor-50">
                 Пройти qualifier <ArrowRight className="h-4 w-4" />
               </a>
               <a href="#routes" className="inline-flex min-h-12 items-center rounded-xl border border-white/30 px-5 py-3 font-medium hover:bg-white/10">
