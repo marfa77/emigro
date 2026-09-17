@@ -14,7 +14,7 @@ import { layoutContain, mobileScrollRow, tapTarget } from "@/lib/ui/mobile";
 function resolveCountryKey(notes: CommunityNote[], explicit?: SatelliteCountryKey): SatelliteCountryKey {
   if (explicit) return explicit;
   const key = notes[0]?.country_key;
-  if (key === "spain" || key === "italy") return key;
+  if (key === "spain" || key === "italy" || key === "thailand") return key;
   return "portugal";
 }
 
@@ -31,6 +31,13 @@ function accentClasses(countryKey: SatelliteCountryKey) {
       active: "bg-emerald-700 text-white",
       idle: "bg-slate-100 text-slate-700 hover:bg-emerald-50 hover:text-emerald-900",
       tag: "bg-emerald-50 text-emerald-900 hover:bg-emerald-100",
+    };
+  }
+  if (countryKey === "thailand") {
+    return {
+      active: "bg-indigo-800 text-white",
+      idle: "bg-slate-100 text-slate-700 hover:bg-indigo-50 hover:text-indigo-950",
+      tag: "bg-indigo-50 text-indigo-950 hover:bg-indigo-100",
     };
   }
   return {

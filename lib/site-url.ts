@@ -224,3 +224,50 @@ export function italySatelliteUrl(path = ""): string {
   }
   return `${origin}${normalized === "/" ? "" : normalized}`;
 }
+
+const THAILAND_SATELLITE_SUBDOMAIN = "https://thailand.emigro.online";
+const THAILAND_SATELLITE_PATH = "/satellite/thailand";
+
+/** Subdomain is enabled in production; opt out with THAILAND_SATELLITE_USE_SUBDOMAIN=false. */
+export function thailandSatelliteSubdomainEnabled(): boolean {
+  const flag = process.env.THAILAND_SATELLITE_USE_SUBDOMAIN?.trim().toLowerCase();
+  if (flag === "false") return false;
+  if (flag === "true") return true;
+  return process.env.NODE_ENV === "production";
+}
+
+function thailandSatelliteOrigin(): string {
+  if (thailandSatelliteSubdomainEnabled()) return THAILAND_SATELLITE_SUBDOMAIN;
+  const publicEnv = process.env.EMIGRO_PUBLIC_SITE_URL?.trim();
+  if (publicEnv && !isLocalhostUrl(publicEnv)) {
+    return `${stripTrailingSlash(publicEnv)}${THAILAND_SATELLITE_PATH}`;
+  }
+  if (process.env.NODE_ENV === "production") return `${publicSiteUrl()}${THAILAND_SATELLITE_PATH}`;
+  const site = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+  if (site && !isLocalhostUrl(site)) return `${stripTrailingSlash(site)}${THAILAND_SATELLITE_PATH}`;
+  return `${LOCALHOST_FALLBACK}${THAILAND_SATELLITE_PATH}`;
+}
+
+/** Canonical URL for Thailand satellite — never localhost. */
+export function thailandSatellitePublicUrl(path = ""): string {
+  const normalized = path.startsWith("/") ? path : path ? `/${path}` : "";
+  if (thailandSatelliteSubdomainEnabled()) {
+    return `${THAILAND_SATELLITE_SUBDOMAIN}${normalized === "/" ? "" : normalized}`;
+  }
+  const publicEnv = process.env.EMIGRO_PUBLIC_SITE_URL?.trim();
+  if (publicEnv && !isLocalhostUrl(publicEnv)) {
+    return `${stripTrailingSlash(publicEnv)}${THAILAND_SATELLITE_PATH}${normalized === "/" ? "" : normalized}`;
+  }
+  const site = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+  if (site && !isLocalhostUrl(site)) {
+    return `${stripTrailingSlash(site)}${THAILAND_SATELLITE_PATH}${normalized === "/" ? "" : normalized}`;
+  }
+  return `${THAILAND_SATELLITE_SUBDOMAIN}${normalized === "/" ? "" : normalized}`;
+}
+
+/** Runtime URL for Thailand satellite pages (localhost in local development). */
+export function thailandSatelliteUrl(path = ""): string {
+  const normalized = path.startsWith("/") ? path : path ? `/${path}` : "";
+  const origin = thailandSatelliteOrigin();
+  return `${origin}${normalized === "/" ? "" : normalized}`;
+}

@@ -16,7 +16,7 @@ import {
   SPAIN_URL_SEGMENT,
 } from "@/lib/spain/hub";
 import { isItalyHubTopic, italySatelliteHubUrl } from "@/lib/italy/hub";
-import { publicSiteUrl } from "@/lib/site-url";
+import { publicSiteUrl, thailandSatellitePublicUrl } from "@/lib/site-url";
 import { corridorHubLabel } from "@/lib/corridor/hub-label";
 import { getEmigroScore, toEmigroScoreView, type EmigroScoreView } from "@/lib/emigro-score";
 
@@ -44,6 +44,7 @@ export type CorridorHubFeatures = {
   isPortugal: boolean;
   isSpain: boolean;
   isItaly: boolean;
+  isThailand: boolean;
   hasWizard: boolean;
   hasNews: boolean;
   hasPractice: boolean;
@@ -53,6 +54,7 @@ export type CorridorHubFeatures = {
 function satellitePracticeHubUrl(topic: NewsTopicConfig): string {
   if (isSpainHubTopic(topic)) return spainSatelliteHubUrl();
   if (isItalyHubTopic(topic)) return italySatelliteHubUrl();
+  if (topic.urlSegment === "thailand" || topic.key === "thailand") return thailandSatellitePublicUrl("/");
   return portugalSatelliteHubUrl();
 }
 
@@ -93,13 +95,15 @@ export function getCorridorHubFeatures(topic: NewsTopicConfig): CorridorHubFeatu
   const isPortugal = isPortugalHubTopic(topic);
   const isSpain = isSpainHubTopic(topic);
   const isItaly = isItalyHubTopic(topic);
+  const isThailand = topic.urlSegment === "thailand" || topic.key === "thailand";
   return {
     isPortugal,
     isSpain,
     isItaly,
+    isThailand,
     hasWizard: topicHasWizard(topic),
     hasNews: true,
-    hasPractice: isPortugal || isSpain || isItaly,
+    hasPractice: isPortugal || isSpain || isItaly || isThailand,
     hasMarket: isBarakhloSitePromoEnabled(),
   };
 }
@@ -212,6 +216,7 @@ function countryLocativeRu(countryRu: string): string {
     Кипр: "Кипре",
     Мальта: "Мальте",
     Люксембург: "Люксембурге",
+    Таиланд: "Таиланде",
   };
   return map[countryRu] ?? countryRu;
 }

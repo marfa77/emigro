@@ -17,7 +17,9 @@ function formatDate(iso: string | null): string {
 }
 
 function noteCountryKey(note: CommunityNote): SatelliteCountryKey {
-  if (note.country_key === "spain" || note.country_key === "italy") return note.country_key;
+  if (note.country_key === "spain" || note.country_key === "italy" || note.country_key === "thailand") {
+    return note.country_key;
+  }
   return "portugal";
 }
 
@@ -34,6 +36,13 @@ function accentClasses(countryKey: SatelliteCountryKey) {
       border: "hover:border-emerald-200",
       category: "text-emerald-800",
       title: "hover:text-emerald-900",
+    };
+  }
+  if (countryKey === "thailand") {
+    return {
+      border: "hover:border-indigo-200",
+      category: "text-indigo-800",
+      title: "hover:text-indigo-950",
     };
   }
   return {

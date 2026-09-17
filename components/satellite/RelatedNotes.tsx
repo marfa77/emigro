@@ -24,7 +24,11 @@ export function RelatedNotes({ notes }: { notes: CommunityNote[] }) {
   );
 }
 
-export function SatelliteValueProp({ countryKey = "portugal" }: { countryKey?: "portugal" | "spain" | "italy" }) {
+export function SatelliteValueProp({
+  countryKey = "portugal",
+}: {
+  countryKey?: "portugal" | "spain" | "italy" | "thailand";
+}) {
   const hubHref = satelliteHubUrl({ countryKey, placement: "satellite_hub", content: "value_prop" });
   const pillarHref = satellitePillarUrl({ countryKey, placement: "satellite_hub", content: "value_prop" });
 
@@ -66,6 +70,28 @@ export function SatelliteValueProp({ countryKey = "portugal" }: { countryKey?: "
           . Pillar-гид:{" "}
           <a href={pillarHref} className="font-medium text-emerald-900 underline hover:text-emerald-950">
             Digital nomad Италия 2026
+          </a>
+          .
+        </p>
+      </section>
+    );
+  }
+
+  if (countryKey === "thailand") {
+    return (
+      <section className="mt-6 rounded-xl border border-indigo-100 bg-indigo-50/60 p-4 text-sm leading-relaxed text-slate-700">
+        <p>
+          <strong className="text-slate-900">Зачем этот раздел:</strong> практические сигналы о DTV, LTR, TM30,
+          аренде, банках и жизни на Пхукете — без копирования Telegram и с проверкой по официальным источникам.
+        </p>
+        <p className="mt-2">
+          Основной хаб —{" "}
+          <a href={hubHref} className="font-medium text-indigo-900 underline hover:text-indigo-950">
+            emigro.online/ru/thailand
+          </a>
+          . Pillar-гид:{" "}
+          <a href={pillarHref} className="font-medium text-indigo-900 underline hover:text-indigo-950">
+            Таиланд для россиян 2026
           </a>
           .
         </p>

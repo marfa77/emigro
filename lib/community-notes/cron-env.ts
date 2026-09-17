@@ -23,3 +23,7 @@ export function ensureSpainCronEnv(): void {
 export function ensureItalyCronEnv(): void {
   ensureSatelliteCronEnv("ITALY_SATELLITE_USE_SUBDOMAIN");
 }
+
+export function ensureThailandCronEnv(): void {
+  ensureSatelliteCronEnv("THAILAND_SATELLITE_USE_SUBDOMAIN");
+}

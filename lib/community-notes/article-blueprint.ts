@@ -46,6 +46,7 @@ const SPAIN_GEO_RE =
   /valencia|валенс|madrid|barcelona|barcelon|nie|tie|extranjer[ií]a|comunidad valenciana|испан/i;
 const ITALY_GEO_RE =
   /milan|милан|milano|como|комо|lombard|codice fiscale|permesso|questura|итал/i;
+const THAILAND_GEO_RE = /thailand|таиланд|phuket|пхукет|dtv|ltr|tm30/i;
 const FAQ_OFFICIAL_PRACTICE_RE = /по правилам|официальн|на практике/i;
 
 export type BlueprintDraftInput = {
@@ -59,7 +60,7 @@ export type BlueprintDraftInput = {
   official_links?: CommunityNoteLink[];
 };
 
-export type BlueprintCountryKey = "portugal" | "spain" | "italy";
+export type BlueprintCountryKey = "portugal" | "spain" | "italy" | "thailand";
 
 export type BlueprintValidation = {
   score: number;
@@ -194,6 +195,9 @@ export function scoreBlueprint(
   } else if (countryKey === "italy") {
     score += scoreComponent(/итал/i.test(geoText), 3);
     score += scoreComponent(ITALY_GEO_RE.test(geoText) || ITALY_GEO_RE.test(practiceText), 3);
+  } else if (countryKey === "thailand") {
+    score += scoreComponent(/таиланд|thailand/i.test(geoText), 3);
+    score += scoreComponent(THAILAND_GEO_RE.test(geoText) || THAILAND_GEO_RE.test(practiceText), 3);
   } else {
     score += scoreComponent(/португал/i.test(geoText), 3);
     score += scoreComponent(NORTE_RE.test(geoText) || NORTE_RE.test(practiceText), 3);
@@ -284,6 +288,13 @@ export function validateAgainstBlueprint(
     }
     if (!ITALY_GEO_RE.test(geoText) && !ITALY_GEO_RE.test(practiceText)) {
       warnings.push("blueprint: missing Milano/Como geo in quick_answer or practice");
+    }
+  } else if (countryKey === "thailand") {
+    if (!/таиланд|thailand/i.test(geoText)) {
+      warnings.push("blueprint: quick_answer/seo_description missing Таиланд");
+    }
+    if (!THAILAND_GEO_RE.test(geoText) && !THAILAND_GEO_RE.test(practiceText)) {
+      warnings.push("blueprint: missing Phuket geo in quick_answer or practice");
     }
   } else {
     if (!/португал/i.test(geoText)) {

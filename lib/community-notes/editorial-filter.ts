@@ -73,6 +73,28 @@ export const ITALY_TOPIC_PATTERNS: Array<{ topic: string; re: RegExp }> = [
   { topic: "milano", re: /\b(milan|milano|милан|como|комо)\b/i },
 ];
 
+export const THAILAND_CORE_RELOC_TOPICS = new Set([
+  "dtv",
+  "ltr",
+  "tm30",
+  "arenda",
+  "bank",
+  "health",
+  "sim",
+  "phuket",
+]);
+
+export const THAILAND_TOPIC_PATTERNS: Array<{ topic: string; re: RegExp }> = [
+  { topic: "dtv", re: /\b(dtv|destination thailand visa|thai e-visa)\b/i },
+  { topic: "ltr", re: /\b(ltr|long-term resident|boi thailand)\b/i },
+  { topic: "tm30", re: /\b(tm30|уведомлени\w*.{0,20}прожив|immigration)\b/i },
+  { topic: "bank", re: /\b(bank|банк|bangkok bank|kasikorn|сч[её]т)\b/i },
+  { topic: "arenda", re: /\b(arenda|аренд|rent|lease|deposit)\b/i },
+  { topic: "health", re: /\b(health|медицин|hospital|страхов)\b/i },
+  { topic: "sim", re: /\b(sim|интернет|ais|dtac|true move)\b/i },
+  { topic: "phuket", re: /\b(phuket|пхукет|ภูเก็ต)\b/i },
+];
+
 /** Tangential chat topics — skip auto-publish unless manually curated. */
 export const SKIP_AUTO_PUBLISH_TOPICS = new Set(["school", "food"]);
 
@@ -110,11 +132,17 @@ export function reconcileTopic(
   topic: string,
   title: string,
   slug: string,
-  countryKey: "portugal" | "spain" | "italy" = "portugal"
+  countryKey: "portugal" | "spain" | "italy" | "thailand" = "portugal"
 ): string {
   const text = `${title} ${slug}`;
   const patterns =
-    countryKey === "spain" ? SPAIN_TOPIC_PATTERNS : countryKey === "italy" ? ITALY_TOPIC_PATTERNS : TOPIC_PATTERNS;
+    countryKey === "spain"
+      ? SPAIN_TOPIC_PATTERNS
+      : countryKey === "italy"
+        ? ITALY_TOPIC_PATTERNS
+        : countryKey === "thailand"
+          ? THAILAND_TOPIC_PATTERNS
+          : TOPIC_PATTERNS;
   for (const { topic: inferred, re } of patterns) {
     if (re.test(text)) return inferred;
   }
@@ -135,7 +163,7 @@ const NEWS_MAX_AGE_DAYS = 45;
 /** Single-signal channel digests can become news notes (unlike practice guides). */
 export function isPublishableNewsCluster(
   cluster: SignalCluster,
-  countryKey: "portugal" | "spain" | "italy" = "portugal"
+  countryKey: "portugal" | "spain" | "italy" | "thailand" = "portugal"
 ): boolean {
   if (cluster.contentKind !== "news") return false;
   if (cluster.signals.length < 1) return false;
@@ -156,6 +184,8 @@ export function isPublishableNewsCluster(
       ? SPAIN_CORE_RELOC_TOPICS
       : countryKey === "italy"
         ? ITALY_CORE_RELOC_TOPICS
+        : countryKey === "thailand"
+          ? THAILAND_CORE_RELOC_TOPICS
         : CORE_RELOC_TOPICS;
   if (SKIP_AUTO_PUBLISH_TOPICS.has(cluster.topic) && !coreTopics.has(cluster.topic)) {
     return false;
@@ -165,7 +195,7 @@ export function isPublishableNewsCluster(
 
 export function shouldAutoPublishCluster(
   cluster: SignalCluster,
-  countryKey: "portugal" | "spain" | "italy" = "portugal"
+  countryKey: "portugal" | "spain" | "italy" | "thailand" = "portugal"
 ): boolean {
   const text = cluster.signals.map((s) => s.text).join("\n");
   if (isThinHouseholdTopic(text, cluster.topic)) {
@@ -185,6 +215,8 @@ export function shouldAutoPublishCluster(
       ? SPAIN_CORE_RELOC_TOPICS
       : countryKey === "italy"
         ? ITALY_CORE_RELOC_TOPICS
+        : countryKey === "thailand"
+          ? THAILAND_CORE_RELOC_TOPICS
         : CORE_RELOC_TOPICS;
   if (cluster.topic === "general") return cluster.signals.length >= 5;
   return coreTopics.has(cluster.topic) || cluster.topic === "general";

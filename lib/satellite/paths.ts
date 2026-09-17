@@ -2,6 +2,7 @@ import { headers } from "next/headers";
 import { PORTUGAL_SATELLITE_HOST } from "@/lib/satellite/portugal";
 import { SPAIN_SATELLITE_HOST } from "@/lib/satellite/spain";
 import { ITALY_SATELLITE_HOST } from "@/lib/satellite/italy";
+import { THAILAND_SATELLITE_HOST } from "@/lib/satellite/thailand";
 import { publicSiteUrl } from "@/lib/site-url";
 import type { SatelliteCountryKey } from "@/lib/community-notes/seed";
 
@@ -21,6 +22,10 @@ function onItalySatelliteHost(): boolean {
   return requestHost() === ITALY_SATELLITE_HOST;
 }
 
+function onThailandSatelliteHost(): boolean {
+  return requestHost() === THAILAND_SATELLITE_HOST;
+}
+
 /** Absolute URL on www.emigro.online — use for links from satellite subdomains. */
 export function mainSiteUrl(path = ""): string {
   const normalized = path.startsWith("/") || !path ? path : `/${path}`;
@@ -34,6 +39,9 @@ export function satelliteHubPath(countryKey: SatelliteCountryKey = "portugal"): 
   if (countryKey === "italy") {
     return onItalySatelliteHost() ? "/" : "/satellite/italy";
   }
+  if (countryKey === "thailand") {
+    return onThailandSatelliteHost() ? "/" : "/satellite/thailand";
+  }
   return onPortugalSatelliteHost() ? "/" : "/satellite/portugal";
 }
 
@@ -43,6 +51,9 @@ export function satelliteNotePath(slug: string, countryKey: SatelliteCountryKey 
   }
   if (countryKey === "italy") {
     return onItalySatelliteHost() ? `/notes/${slug}` : `/satellite/italy/notes/${slug}`;
+  }
+  if (countryKey === "thailand") {
+    return onThailandSatelliteHost() ? `/notes/${slug}` : `/satellite/thailand/notes/${slug}`;
   }
   return onPortugalSatelliteHost() ? `/notes/${slug}` : `/satellite/portugal/notes/${slug}`;
 }
@@ -54,6 +65,9 @@ export function satelliteTagPath(tag: string, countryKey: SatelliteCountryKey = 
   }
   if (countryKey === "italy") {
     return onItalySatelliteHost() ? `/tag/${encoded}` : `/satellite/italy/tag/${encoded}`;
+  }
+  if (countryKey === "thailand") {
+    return onThailandSatelliteHost() ? `/tag/${encoded}` : `/satellite/thailand/tag/${encoded}`;
   }
   return onPortugalSatelliteHost() ? `/tag/${encoded}` : `/satellite/portugal/tag/${encoded}`;
 }
@@ -95,4 +109,16 @@ export function italyNotePath(slug: string): string {
 
 export function italyTagPath(tag: string): string {
   return satelliteTagPath(tag, "italy");
+}
+
+export function thailandHubPath(): string {
+  return satelliteHubPath("thailand");
+}
+
+export function thailandNotePath(slug: string): string {
+  return satelliteNotePath(slug, "thailand");
+}
+
+export function thailandTagPath(tag: string): string {
+  return satelliteTagPath(tag, "thailand");
 }

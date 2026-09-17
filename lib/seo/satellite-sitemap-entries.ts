@@ -3,13 +3,19 @@ import { requirePublishedCommunityNotes } from "@/lib/community-notes/queries";
 import { ARCHIVE_SLUGS } from "@/lib/community-notes/editorial-filter";
 import { normalizeHashtag } from "@/lib/community-notes/hashtags";
 import { MIN_TAG_NOTES_INDEXABLE } from "@/lib/seo/thin-content";
-import { portugalSatellitePublicUrl, spainSatellitePublicUrl, italySatellitePublicUrl } from "@/lib/site-url";
+import {
+  portugalSatellitePublicUrl,
+  spainSatellitePublicUrl,
+  italySatellitePublicUrl,
+  thailandSatellitePublicUrl,
+} from "@/lib/site-url";
 
-type SatelliteCountry = "portugal" | "spain" | "italy";
+type SatelliteCountry = "portugal" | "spain" | "italy" | "thailand";
 
 function publicUrl(country: SatelliteCountry, path: string): string {
   if (country === "portugal") return portugalSatellitePublicUrl(path);
   if (country === "italy") return italySatellitePublicUrl(path);
+  if (country === "thailand") return thailandSatellitePublicUrl(path);
   return spainSatellitePublicUrl(path);
 }
 

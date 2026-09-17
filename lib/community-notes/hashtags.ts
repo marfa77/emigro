@@ -68,11 +68,27 @@ export const ITALY_FEATURED_HASHTAGS = [
   "sim",
 ] as const;
 
+export const THAILAND_FEATURED_HASHTAGS = [
+  "dtv",
+  "ltr",
+  "tm30",
+  "arenda",
+  "bank",
+  "phuket",
+  "медицина",
+  "лайфхак",
+  "совет",
+  "новости",
+  "транспорт",
+  "sim",
+] as const;
+
 export function featuredHashtagsForCountry(
-  countryKey: "portugal" | "spain" | "italy" = "portugal"
+  countryKey: "portugal" | "spain" | "italy" | "thailand" = "portugal"
 ): readonly string[] {
   if (countryKey === "spain") return SPAIN_FEATURED_HASHTAGS;
   if (countryKey === "italy") return ITALY_FEATURED_HASHTAGS;
+  if (countryKey === "thailand") return THAILAND_FEATURED_HASHTAGS;
   return FEATURED_HASHTAGS;
 }
 
@@ -122,6 +138,12 @@ export const HASHTAG_LABELS: Record<string, string> = {
   milano: "Milano",
   como: "Como",
   ssn: "SSN",
+  thailand: "Таиланд",
+  phuket: "Пхукет",
+  dtv: "DTV",
+  ltr: "LTR",
+  tm30: "TM30",
+  медицина: "Медицина",
 };
 
 export function normalizeHashtag(raw: string): string {
@@ -180,6 +202,11 @@ const GEO_TAGS = new Set([
   "valencia",
   "madrid",
   "barcelona",
+  "italy",
+  "milano",
+  "como",
+  "thailand",
+  "phuket",
 ]);
 
 /** Merge topic hints + content kind + inline #tags into deduped list. */

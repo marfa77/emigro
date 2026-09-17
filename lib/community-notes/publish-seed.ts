@@ -5,6 +5,7 @@ import { NIF_PORTO_GUIDE } from "@/lib/community-notes/guides/nif-porto";
 import { AIMA_AGORA_GUIDE } from "@/lib/community-notes/guides/aima-agora-zapis";
 import { SPAIN_EDITORIAL_SEED } from "@/lib/community-notes/guides/spain-editorial-index";
 import { ITALY_EDITORIAL_SEED } from "@/lib/community-notes/guides/italy-editorial-index";
+import { THAILAND_EDITORIAL_SEED } from "@/lib/community-notes/guides/thailand-editorial-index";
 import type { CommunityNoteFaq, ContentKind, NoteBodySection } from "@/lib/community-notes/types";
 
 type SeedNote = {
@@ -192,6 +193,40 @@ export async function publishItalySeedNotes(): Promise<number> {
       city: "milan",
       source_channel: "milanru+forum_italy+digital_nomad_Italiya",
       source_label: "editorial:italy-seed",
+      status: "published",
+      published_at: now,
+      updated_at: now,
+    });
+
+    if (error) {
+      console.warn(`[seed] ${note.slug}: ${error.message}`);
+    } else {
+      published += 1;
+      console.log(`[seed] published ${note.slug}`);
+    }
+  }
+
+  return published;
+}
+
+export async function publishThailandSeedNotes(): Promise<number> {
+  const supabase = createServerClient();
+  const now = new Date().toISOString();
+  let published = 0;
+
+  for (const note of THAILAND_EDITORIAL_SEED) {
+    const { data: existing } = await supabase.from("community_notes").select("id").eq("slug", note.slug).maybeSingle();
+    if (existing) continue;
+
+    const { error } = await supabase.from("community_notes").insert({
+      ...note,
+      body_sections: note.body_sections ?? [],
+      key_takeaways: note.key_takeaways ?? [],
+      hashtags: buildNoteHashtags({ topicTags: note.topic_tags, contentKind: note.content_kind }),
+      country_key: "thailand",
+      city: "phuket",
+      source_channel: "nashi_phuket_chat+Pkhuket2+phuket_expats",
+      source_label: "editorial:thailand-seed",
       status: "published",
       published_at: now,
       updated_at: now,

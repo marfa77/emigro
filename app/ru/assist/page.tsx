@@ -90,7 +90,7 @@ const FAQ_ITEMS = [
 export default function AssistPage({
   searchParams,
 }: {
-  searchParams: { session?: string; country?: string; program?: string; provider?: string };
+  searchParams: { session?: string; country?: string; program?: string; provider?: string; source?: string };
 }) {
   const providers: AssistProviderOption[] = getAssistLeadProviders().map((provider) => ({
     id: provider.id,
@@ -101,6 +101,10 @@ export default function AssistPage({
 
   const origin = publicSiteUrl();
   const assistUrl = pageUrl("/ru/assist");
+  const attributedSource =
+    searchParams.country && searchParams.source === `${searchParams.country}_satellite`
+      ? searchParams.source
+      : undefined;
 
   const breadcrumbSchema = buildBreadcrumbSchema([
     { name: "Все направления", item: pageUrl("/ru") },
@@ -309,6 +313,7 @@ export default function AssistPage({
             initialCountry={searchParams.country}
             initialProgramRoute={searchParams.program}
             initialProviderId={searchParams.provider}
+            leadSource={attributedSource}
           />
         </section>
       </main>

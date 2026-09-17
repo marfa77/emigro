@@ -100,6 +100,7 @@ const SATELLITE_SEO_GEO_RE: Record<string, RegExp> = {
   spain: /испан|spain|valencia|валенс|madrid|barcelona/i,
   portugal: /португал|portugal|porto|порту|norte|брага|braga|lisboa|лиссабон/i,
   italy: /итал|italy|milan|милан|milano|como|комо|lombard/i,
+  thailand: /таиланд|thailand|phuket|пхукет|bangkok|бангкок/i,
 };
 
 /** Same-batch SEO + AEO. Empty = pass. Do not ship a guide and «допилить мета» later. */
@@ -214,7 +215,7 @@ export const SATELLITE_LAUNCH_SLOT_META: Record<SatelliteLaunchSlot, SatelliteLa
     portugalGold: "nif-porto-kak-poluchit-2026",
     primaryQuery: "NIE NIF {city} 2026",
     aeoQuestion: "Как получить NIE или NIF в {city} и нужен ли адрес заранее?",
-    seoAnyOf: ["NIE", "NIF", "codice fiscale"],
+    seoAnyOf: ["NIE", "NIF", "codice fiscale", "TIN", "Tax ID"],
   },
   home_setup: {
     phase: "week0_1",
@@ -256,7 +257,7 @@ export const SATELLITE_LAUNCH_SLOT_META: Record<SatelliteLaunchSlot, SatelliteLa
     portugalGold: "aima-agora-zapis-2026",
     primaryQuery: "cita extranjería AIMA {city} 2026",
     aeoQuestion: "Как записаться на cita / AIMA / Termin в {city}?",
-    seoAnyOf: ["cita", "AIMA", "Agora", "TIE", "Termin", "permesso", "questura"],
+    seoAnyOf: ["cita", "AIMA", "Agora", "TIE", "Termin", "permesso", "questura", "TM30", "90-day", "immigration"],
   },
   visa_route: {
     phase: "month1_3",
@@ -284,7 +285,7 @@ export const SATELLITE_LAUNCH_SLOT_META: Record<SatelliteLaunchSlot, SatelliteLa
     portugalGold: "kak-otkryt-bankovskiy-schet-portugalia-2026",
     primaryQuery: "банк IBAN нерезидент {city} 2026",
     aeoQuestion: "Можно ли открыть счёт нерезиденту в {city} и чем IBAN отличается от Revolut?",
-    seoAnyOf: ["IBAN"],
+    seoAnyOf: ["IBAN", "банк", "bank account", "PromptPay"],
   },
   health: {
     phase: "month1_3",
@@ -298,7 +299,7 @@ export const SATELLITE_LAUNCH_SLOT_META: Record<SatelliteLaunchSlot, SatelliteLa
     portugalGold: "meditsina-norte-sns-chastnaya-stomatologiya-2026",
     primaryQuery: "медицина {city} SIP SNS 2026",
     aeoQuestion: "Как попасть в государственную медицину в {city} — SIP, SNS, utente?",
-    seoAnyOf: ["SIP", "SNS", "utente", "SSN", "tessera"],
+    seoAnyOf: ["SIP", "SNS", "utente", "SSN", "tessera", "медицин", "страхов", "hospital"],
   },
   districts: {
     phase: "month1_3",
@@ -382,7 +383,17 @@ export const SATELLITE_LAUNCH_SLOT_META: Record<SatelliteLaunchSlot, SatelliteLa
     portugalGold: "social-security-contributions-portugal-risk-2026",
     primaryQuery: "Seguridad Social NISS {city} 2026",
     aeoQuestion: "Как получить номер соцстраха в {city} и когда начинается налоговый час?",
-    seoAnyOf: ["NISS", "Seguridad Social", "соцстрах", "autónomo", "взнос", "INPS", "partita IVA"],
+    seoAnyOf: [
+      "NISS",
+      "Seguridad Social",
+      "соцстрах",
+      "autónomo",
+      "взнос",
+      "INPS",
+      "partita IVA",
+      "work permit",
+      "SSO",
+    ],
   },
   local_life: {
     phase: "month4_6",

@@ -4,7 +4,9 @@ import { AlertTriangle, ArrowRight, Banknote, BookOpen, CheckCircle2, Clock, Fil
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { TrackedAssistLink } from "@/components/assist/TrackedAssistLink";
 import { ServiceProvidersSection } from "@/components/providers/ServiceProvidersSection";
+import { SatelliteCityChatCta } from "@/components/satellite/SatelliteCityChatCta";
 import { RoleRadarPromo } from "@/components/sponsors/RoleRadarPromo";
+import { ThailandFeaturedNotes } from "@/components/thailand/ThailandFeaturedNotes";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { HubHeroVisual } from "@/components/visuals/HubHeroVisual";
 import { EmigroScoreAxes } from "@/components/emigro-score/EmigroScoreAxes";
@@ -214,41 +216,45 @@ export function TransitHubLanding({ hub }: Props) {
         </section>
 
         {isThailand && (
-          <section className="mt-8 rounded-2xl border border-emerald-200 bg-gradient-to-br from-emerald-50 to-white p-6 shadow-sm">
-            <p className="text-sm font-semibold uppercase tracking-wide text-emerald-700">Пхукет · бесплатный пилот</p>
-            <h2 className="mt-2 text-2xl font-semibold text-slate-900">Переезд и недвижимость без обещаний «визы за покупку»</h2>
-            <p className="mt-3 max-w-3xl text-sm leading-relaxed text-slate-700">
-              Опишите задачу — Emigro бесплатно уточнит запрос и при необходимости передаст его пилотному партнёру
-              Empyreal Estate Phuket. Покупка объекта не означает автоматического получения визы: основание,
-              состав семьи и подтверждающие документы проверяются отдельно.
-            </p>
-            <div className="mt-5 flex flex-wrap gap-3">
-              <TrackedAssistLink
-                href={buildAssistUrl({ country: "thailand", program: "Переезд и обустройство в Таиланде" })}
-                placement="thailand_hub_help"
-                linkLabel="Получить помощь бесплатно"
-                country="thailand"
-                program="Переезд и обустройство в Таиланде"
-                className="rounded-lg bg-emerald-700 px-5 py-3 font-medium text-white hover:bg-emerald-800"
-              >
-                Получить помощь бесплатно
-              </TrackedAssistLink>
-              <TrackedAssistLink
-                href={buildAssistUrl({
-                  country: "thailand",
-                  program: "Недвижимость на Пхукете — Empyreal Estate",
-                  providerId: "empyreal-estate-phuket",
-                })}
-                placement="thailand_hub_property"
-                linkLabel="Подобрать недвижимость на Пхукете"
-                country="thailand"
-                program="Недвижимость на Пхукете — Empyreal Estate"
-                className="rounded-lg border border-emerald-300 bg-white px-5 py-3 font-medium text-emerald-900 hover:bg-emerald-100"
-              >
-                Подобрать недвижимость на Пхукете
-              </TrackedAssistLink>
-            </div>
-          </section>
+          <>
+            <SatelliteCityChatCta countryKey="thailand" source="thailand_corridor_hub" />
+            <section className="mt-8 rounded-2xl border border-emerald-200 bg-gradient-to-br from-emerald-50 to-white p-6 shadow-sm">
+              <p className="text-sm font-semibold uppercase tracking-wide text-emerald-700">Пхукет · бесплатный пилот</p>
+              <h2 className="mt-2 text-2xl font-semibold text-slate-900">Переезд и недвижимость без обещаний «визы за покупку»</h2>
+              <p className="mt-3 max-w-3xl text-sm leading-relaxed text-slate-700">
+                Опишите задачу — Emigro бесплатно уточнит запрос и при необходимости передаст его пилотному партнёру
+                Empyreal Estate Phuket. Покупка объекта не означает автоматического получения визы: основание,
+                состав семьи и подтверждающие документы проверяются отдельно.
+              </p>
+              <div className="mt-5 flex flex-wrap gap-3">
+                <TrackedAssistLink
+                  href={buildAssistUrl({ country: "thailand", program: "Переезд и обустройство в Таиланде" })}
+                  placement="thailand_hub_help"
+                  linkLabel="Получить помощь бесплатно"
+                  country="thailand"
+                  program="Переезд и обустройство в Таиланде"
+                  className="rounded-lg bg-emerald-700 px-5 py-3 font-medium text-white hover:bg-emerald-800"
+                >
+                  Получить помощь бесплатно
+                </TrackedAssistLink>
+                <TrackedAssistLink
+                  href={buildAssistUrl({
+                    country: "thailand",
+                    program: "Недвижимость на Пхукете — Empyreal Estate",
+                    providerId: "empyreal-estate-phuket",
+                  })}
+                  placement="thailand_hub_property"
+                  linkLabel="Подобрать недвижимость на Пхукете"
+                  country="thailand"
+                  program="Недвижимость на Пхукете — Empyreal Estate"
+                  className="rounded-lg border border-emerald-300 bg-white px-5 py-3 font-medium text-emerald-900 hover:bg-emerald-100"
+                >
+                  Подобрать недвижимость на Пхукете
+                </TrackedAssistLink>
+              </div>
+            </section>
+            <ThailandFeaturedNotes />
+          </>
         )}
 
         <section className="mt-8 grid gap-4 md:grid-cols-3">

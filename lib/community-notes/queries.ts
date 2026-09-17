@@ -11,12 +11,18 @@ import type { CommunityNote, CommunitySignalIngest } from "@/lib/community-notes
 import { isRelocantSignalChannel as isPortugalRelocantChannel } from "@/lib/satellite/portugal";
 import { isRelocantSignalChannel as isSpainRelocantChannel } from "@/lib/satellite/spain";
 import { isRelocantSignalChannel as isItalyRelocantChannel } from "@/lib/satellite/italy";
+import { isRelocantSignalChannel as isThailandRelocantChannel } from "@/lib/satellite/thailand";
 
-/** Ingest allowlist — PT + ES + IT third-party chats (not owned Emigro surfaces). */
+/** Ingest allowlist — third-party chats only (never owned Emigro surfaces). */
 function filterRelocantSignals<T extends { channel_username: string }>(signals: T[]): T[] {
   return signals.filter((s) => {
     const u = s.channel_username;
-    return isPortugalRelocantChannel(u) || isSpainRelocantChannel(u) || isItalyRelocantChannel(u);
+    return (
+      isPortugalRelocantChannel(u) ||
+      isSpainRelocantChannel(u) ||
+      isItalyRelocantChannel(u) ||
+      isThailandRelocantChannel(u)
+    );
   });
 }
 

@@ -1,4 +1,10 @@
-import { publicSiteUrl, portugalSatelliteUrl, spainSatelliteUrl, italySatelliteUrl } from "@/lib/site-url";
+import {
+  publicSiteUrl,
+  portugalSatelliteUrl,
+  spainSatelliteUrl,
+  italySatelliteUrl,
+  thailandSatelliteUrl,
+} from "@/lib/site-url";
 
 export type SatelliteCityChat = {
   countryKey: string;
@@ -65,6 +71,18 @@ export const SATELLITE_CITY_CHATS: readonly SatelliteCityChat[] = [
       "Для своих в Милане и вокруг (север, включая Комо): публикуем важное, общаемся, эксперты отвечают на вопросы. Бот пришлёт ссылку в личку. Codice fiscale и permesso — в гайдах и Route Check, не стеной в чате.",
     featuredNoteSlug: "codice-fiscale-milano-2026",
     featuredNoteLabel: "Codice fiscale в Milano",
+  },
+  {
+    countryKey: "thailand",
+    city: "phuket",
+    cityRu: "Пхукет",
+    chatTitleRu: "Пхукет и вокруг",
+    startPayload: "phuket_chat",
+    envChatId: "EMIGRO_PHUKET_CHAT_ID",
+    keywords: ["пхукет", "phuket", "ภูเก็ต"],
+    kicker: "Для своих",
+    blurb:
+      "Для своих на Пхукете и вокруг: публикуем важное, общаемся, эксперты отвечают на вопросы. Бот пришлёт ссылку в личку. DTV, LTR и TM30 — в гайдах и Route Check, не стеной в чате.",
   },
 ];
 
@@ -141,6 +159,7 @@ export function satelliteUrlForCountry(countryKey: string, path = "/"): string {
   const normalized = path.startsWith("/") ? path : path ? `/${path}` : "/";
   if (countryKey === "spain") return spainSatelliteUrl(normalized);
   if (countryKey === "italy") return italySatelliteUrl(normalized);
+  if (countryKey === "thailand") return thailandSatelliteUrl(normalized);
   if (countryKey === "portugal") return portugalSatelliteUrl(normalized);
   return `${publicSiteUrl()}/satellite/${countryKey}${normalized === "/" ? "" : normalized}`;
 }

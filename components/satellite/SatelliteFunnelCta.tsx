@@ -2,6 +2,7 @@
 
 import { ArrowRight, Compass, Phone } from "lucide-react";
 import { trackEvent } from "@/lib/analytics/client";
+import { buildAssistUrl } from "@/lib/assist/build-url";
 import type { ContentKind } from "@/lib/community-notes/types";
 import type { SatelliteCountryKey } from "@/lib/community-notes/seed";
 import {
@@ -40,6 +41,15 @@ function accent(countryKey: SatelliteCountryKey) {
       link: "text-emerald-900 hover:text-emerald-950",
     };
   }
+  if (countryKey === "thailand") {
+    return {
+      shell: "border-indigo-200 bg-indigo-50/70",
+      eyebrow: "text-indigo-950",
+      primary: "bg-indigo-800 text-white hover:bg-indigo-900",
+      secondary: "border-indigo-300 bg-white text-indigo-950 hover:bg-indigo-50",
+      link: "text-indigo-900 hover:text-indigo-950",
+    };
+  }
   return {
     shell: "border-teal-200 bg-teal-50/70",
     eyebrow: "text-teal-800",
@@ -63,9 +73,26 @@ export function SatelliteFunnelCta({
   const a = accent(countryKey);
   const content = noteSlug ?? "hub";
   const preferAssist = contentKind === "guide" || contentKind === "qa" || !contentKind;
-  const countryLabel = countryKey === "spain" ? "Испания" : countryKey === "italy" ? "Италия" : "Португалия";
+  const countryLabel =
+    countryKey === "spain"
+      ? "Испания"
+      : countryKey === "italy"
+        ? "Италия"
+        : countryKey === "thailand"
+          ? "Таиланд"
+          : "Португалия";
 
   const assistHref = satelliteAssistUrl({ countryKey, placement, content });
+  const propertyHref =
+    countryKey === "thailand"
+      ? buildAssistUrl({
+          locale: "ru",
+          country: "thailand",
+          program: "Недвижимость на Пхукете — Empyreal Estate",
+          providerId: "empyreal-estate-phuket",
+          source: "thailand_satellite",
+        })
+      : null;
   const wizardHref = satelliteWizardUrl({ countryKey, placement, content });
   const hubHref = satelliteHubUrl({ countryKey, placement, content });
   const pillarHref = satellitePillarUrl({ countryKey, placement, content });
@@ -148,6 +175,26 @@ export function SatelliteFunnelCta({
               {assistCta}
             </a>
           </>
+        )}
+        {propertyHref && (
+          <a
+            href={propertyHref}
+            onClick={() =>
+              trackEvent("assist_cta_click", {
+                placement,
+                link_label: "Подобрать недвижимость на Пхукете",
+                target_path: propertyHref,
+                locale: "ru",
+                country: "thailand",
+                program: "Недвижимость на Пхукете — Empyreal Estate",
+                provider_id: "empyreal-estate-phuket",
+                note_slug: noteSlug ?? "",
+              })
+            }
+            className={`inline-flex ${tapTarget} items-center justify-center gap-2 rounded-lg border px-4 py-2.5 text-sm font-semibold ${a.secondary}`}
+          >
+            Подобрать недвижимость на Пхукете
+          </a>
         )}
       </div>
 

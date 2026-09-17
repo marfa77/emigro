@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { PORTUGAL_SATELLITE_HOST } from "@/lib/satellite/portugal";
 import { SPAIN_SATELLITE_HOST } from "@/lib/satellite/spain";
 import { ITALY_SATELLITE_HOST } from "@/lib/satellite/italy";
+import { THAILAND_SATELLITE_HOST } from "@/lib/satellite/thailand";
 import { publicHostKind } from "@/lib/seo/request-host";
 import { publicSiteUrl } from "@/lib/site-url";
 
@@ -64,6 +65,15 @@ export default function robots(): MetadataRoute.Robots {
     };
   }
 
+  if (kind === "thailand-satellite") {
+    const origin = `https://${THAILAND_SATELLITE_HOST}`;
+    return {
+      rules: sharedRules(),
+      sitemap: `${origin}/sitemap.xml`,
+      host: THAILAND_SATELLITE_HOST,
+    };
+  }
+
   const origin = publicSiteUrl();
   return {
     rules: sharedRules(),
@@ -75,6 +85,7 @@ export default function robots(): MetadataRoute.Robots {
       `https://${PORTUGAL_SATELLITE_HOST}/sitemap.xml`,
       `https://${SPAIN_SATELLITE_HOST}/sitemap.xml`,
       `https://${ITALY_SATELLITE_HOST}/sitemap.xml`,
+      `https://${THAILAND_SATELLITE_HOST}/sitemap.xml`,
     ],
     host: origin.replace(/^https?:\/\//, ""),
   };

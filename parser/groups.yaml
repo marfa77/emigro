@@ -95,3 +95,33 @@ groups:
     country_key: italy
     title: "@digital_nomad_Italiya — DN / ВНЖ Италия"
     timezone: Europe/Rome
+  - username: nashi_phuket_chat
+    group_id: nashi_phuket_chat
+    city: phuket
+    country_key: thailand
+    title: "@nashi_phuket_chat — русскоязычные на Пхукете"
+    timezone: Asia/Bangkok
+  - username: Pkhuket2
+    group_id: Pkhuket2
+    city: phuket
+    country_key: thailand
+    title: "@Pkhuket2 — Пхукет чат"
+    timezone: Asia/Bangkok
+  - username: info_phuket
+    group_id: info_phuket
+    city: phuket
+    country_key: thailand
+    title: "@info_phuket — Пхукет, локальные сигналы"
+    timezone: Asia/Bangkok
+  - username: russianinphuket
+    group_id: russianinphuket
+    city: phuket
+    country_key: thailand
+    title: "@russianinphuket — русскоязычное сообщество Пхукета"
+    timezone: Asia/Bangkok
+  - username: thailand_chatik
+    group_id: thailand_chatik
+    city: thailand
+    country_key: thailand
+    title: "@thailand_chatik — релоканты Таиланд"
+    timezone: Asia/Bangkok

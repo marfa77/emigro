@@ -22,10 +22,11 @@ const ACCENT: Record<string, { shell: string; link: string; label: string }> = {
   portugal: { shell: "border-teal-200 bg-teal-50/70", link: "text-teal-800", label: "Португалия" },
   spain: { shell: "border-amber-200 bg-amber-50/70", link: "text-amber-900", label: "Испания" },
   italy: { shell: "border-emerald-200 bg-emerald-50/70", link: "text-emerald-900", label: "Италия" },
+  thailand: { shell: "border-indigo-200 bg-indigo-50/70", link: "text-indigo-900", label: "Таиланд" },
 };
 
 function funnelKey(countryKey: string): SatelliteCountryKey {
-  if (countryKey === "spain" || countryKey === "italy") return countryKey;
+  if (countryKey === "spain" || countryKey === "italy" || countryKey === "thailand") return countryKey;
   return "portugal";
 }
 

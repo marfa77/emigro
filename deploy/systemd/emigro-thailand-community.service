@@ -1,0 +1,17 @@
+[Unit]
+Description=Emigro Thailand satellite — daily parser, ingest, draft, spotlight and Phuket discussion
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/emigro
+ExecStart=/bin/bash /opt/emigro/parser/run_scheduled_thailand.sh
+User=www-data
+EnvironmentFile=-/opt/emigro/parser/.env
+EnvironmentFile=-/opt/emigro/.env
+StandardOutput=append:/opt/emigro/parser/logs/scheduled-thailand.log
+StandardError=append:/opt/emigro/parser/logs/scheduled-thailand.log
+
+[Install]
+WantedBy=multi-user.target

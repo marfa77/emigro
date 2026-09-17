@@ -1,0 +1,22 @@
+{
+  "created_at": "2026-09-17",
+  "policy": "city-life queue first; 1 discussion prompt / 3 days; recycle a slug after 45 days; do not auto-refill from new satellite drafts",
+  "queue": [
+    "phuket-rajony-arenda-shkoly-bolnicy-2026",
+    "meditsina-phuket-strahovka-bolnicy-2026",
+    "klimat-musson-byt-phuket-2026",
+    "transport-phuket-baik-avto-2026",
+    "servisy-phuket-relokant-2026",
+    "arenda-phuket-dolgosrok-2026",
+    "sim-internet-svet-voda-phuket-2026",
+    "shkoly-semya-phuket-2026",
+    "pervye-30-dnej-phuket-2026",
+    "tax-id-tin-phuket-2026",
+    "bank-schet-phuket-inostrancu-2026",
+    "immigration-phuket-tm30-90-days-2026",
+    "viza-dtv-ltr-thailand-2026",
+    "rabota-work-permit-social-security-thailand-2026",
+    "konsulstvo-rf-bangkok-dokumenty-2026"
+  ],
+  "skipped": {}
+}

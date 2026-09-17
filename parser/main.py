@@ -236,7 +236,7 @@ def main() -> None:
     parser.add_argument(
         "--country",
         metavar="KEY",
-        help="Only parse groups with this country_key (portugal|spain|italy)",
+        help="Only parse groups with this country_key (portugal|spain|italy|thailand)",
     )
     args = parser.parse_args()
 

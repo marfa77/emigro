@@ -247,7 +247,8 @@ async function main() {
             errors.push(`GUIDE_SLOTS ${slot} (${slug}) is ${row.content_kind}, must be guide`);
           }
         }
-        const blueprintCountry = country === "spain" || country === "italy" ? country : "portugal";
+        const blueprintCountry =
+          country === "spain" || country === "italy" || country === "thailand" ? country : "portugal";
         const slugToSlot = new Map<string, SatelliteLaunchSlot>();
         for (const slot of SATELLITE_LAUNCH_SLOTS) {
           const slug = slots[slot];

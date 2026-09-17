@@ -133,6 +133,45 @@ function italyScenarios(): Scenario[] {
   ];
 }
 
+function thailandScenarios(): Scenario[] {
+  return [
+    {
+      id: "arrived",
+      title: "Только приехал",
+      blurb: "TM30, SIM, банк и первые недели",
+      href: satelliteTagPath("tm30", "thailand"),
+    },
+    {
+      id: "visa",
+      title: "DTV / LTR",
+      blurb: "Сравнить долгосрочные маршруты",
+      href: satelliteWizardUrl({
+        countryKey: "thailand",
+        placement: "satellite_hub_scenarios",
+        content: "visa",
+      }),
+      external: true,
+    },
+    {
+      id: "housing",
+      title: "Жильё на Пхукете",
+      blurb: "Аренда, районы и договор",
+      href: satelliteTagPath("arenda", "thailand"),
+    },
+    {
+      id: "assist",
+      title: "Нужна помощь",
+      blurb: "Бесплатно подберём специалиста по задаче",
+      href: satelliteAssistUrl({
+        countryKey: "thailand",
+        placement: "satellite_hub_scenarios",
+        content: "assist",
+      }),
+      external: true,
+    },
+  ];
+}
+
 function accent(countryKey: SatelliteCountryKey) {
   if (countryKey === "spain") {
     return {
@@ -146,6 +185,12 @@ function accent(countryKey: SatelliteCountryKey) {
       title: "text-emerald-950",
     };
   }
+  if (countryKey === "thailand") {
+    return {
+      card: "border-indigo-200 hover:border-indigo-400 hover:bg-indigo-50/80",
+      title: "text-indigo-950",
+    };
+  }
   return {
     card: "border-teal-200 hover:border-teal-400 hover:bg-teal-50/80",
     title: "text-teal-950",
@@ -155,7 +200,13 @@ function accent(countryKey: SatelliteCountryKey) {
 /** Scenario entry points on satellite hub — not hashtag soup. */
 export function SatelliteHubScenarios({ countryKey }: { countryKey: SatelliteCountryKey }) {
   const scenarios =
-    countryKey === "spain" ? spainScenarios() : countryKey === "italy" ? italyScenarios() : portugalScenarios();
+    countryKey === "spain"
+      ? spainScenarios()
+      : countryKey === "italy"
+        ? italyScenarios()
+        : countryKey === "thailand"
+          ? thailandScenarios()
+          : portugalScenarios();
   const a = accent(countryKey);
 
   return (

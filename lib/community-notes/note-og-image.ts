@@ -80,6 +80,8 @@ const SLUG_PEXELS_PHOTO_IDS: Record<string, number> = {
   "permesso-questura-milano-2026": 5668858,
   // Bank counter
   "bank-iban-nerezident-italiya-2026": 4386431,
+  // Neutral bank counter — distinct from Phuket Immigration hero
+  "bank-schet-phuket-inostrancu-2026": 4386431,
   // Hospital exterior
   "meditsina-milano-ssn-tessera-2026": 236380,
   // Navigli / Milan canals — districts + Como extra
@@ -150,6 +152,24 @@ export const ITALY_TOPIC_PHOTO_QUERIES: Record<string, string[]> = {
   klimat: ["como lake italy town", "milan apartment winter heating", "lombardy fog cityscape"],
   general: ["milan italy skyline", "lombardy italy cityscape", "como lake italy landscape"],
   italy: ["milan italy city", "como lake italy", "italy travel landscape"],
+};
+
+export const THAILAND_TOPIC_PHOTO_QUERIES: Record<string, string[]> = {
+  tin: ["thailand tax office documents", "phuket government office paperwork", "thai tax documents desk"],
+  immigration: ["thailand immigration office", "passport visa documents thailand", "phuket government office"],
+  arenda: ["phuket condominium apartment", "apartment keys thailand rent", "phuket home interior"],
+  bank: ["thailand bank office", "bank card thailand desk", "mobile payment thailand"],
+  health: ["phuket hospital exterior", "thailand clinic waiting room", "thai pharmacy storefront"],
+  sim: ["thailand sim card smartphone", "home wifi router thailand", "phuket telecom store"],
+  districts: ["phuket town street", "rawai phuket coast", "bang tao phuket"],
+  transport: ["phuket smart bus", "phuket road scooter helmet", "thailand public transport"],
+  school: ["international school phuket", "children classroom thailand", "school campus thailand"],
+  services: ["repair tools thailand", "professional office thailand", "phuket local services"],
+  visa: ["thailand visa passport documents", "remote work phuket laptop", "immigration paperwork thailand"],
+  work: ["thailand office coworking", "work permit documents thailand", "payroll paperwork desk"],
+  climate: ["phuket monsoon rain", "tropical home humidity", "phuket rainy season"],
+  general: ["phuket thailand city coast", "phuket old town street", "phuket thailand landscape"],
+  thailand: ["phuket thailand landscape", "phuket old town", "thailand tropical city"],
 };
 
 /**
@@ -681,8 +701,10 @@ function canWriteNoteOgImages(): boolean {
   }
 }
 
-function noteCountryKey(note: Pick<CommunityNote, "country_key">): "portugal" | "spain" | "italy" {
-  if (note.country_key === "spain" || note.country_key === "italy") return note.country_key;
+function noteCountryKey(note: Pick<CommunityNote, "country_key">): "portugal" | "spain" | "italy" | "thailand" {
+  if (note.country_key === "spain" || note.country_key === "italy" || note.country_key === "thailand") {
+    return note.country_key;
+  }
   return "portugal";
 }
 
@@ -731,9 +753,16 @@ function queriesFromTitleConcepts(title: string | undefined, slug: string): stri
 }
 
 /** English keyword queries from slug tokens (never Cyrillic — Pexels is EN-first). */
-function queriesFromSlug(slug: string, countryKey: "portugal" | "spain" | "italy"): string[] {
+function queriesFromSlug(slug: string, countryKey: "portugal" | "spain" | "italy" | "thailand"): string[] {
   const stem = slug.replace(/-20\d{2}$/, "");
-  const place = countryKey === "spain" ? "spain" : countryKey === "italy" ? "italy milan" : "portugal";
+  const place =
+    countryKey === "spain"
+      ? "spain"
+      : countryKey === "italy"
+        ? "italy milan"
+        : countryKey === "thailand"
+          ? "thailand phuket"
+          : "portugal";
   const TOKEN_EN: Record<string, string> = {
     aima: "immigration office",
     residence: "residence permit",
@@ -806,6 +835,8 @@ export function queriesForNote(
       ? SPAIN_TOPIC_PHOTO_QUERIES
       : countryKey === "italy"
         ? ITALY_TOPIC_PHOTO_QUERIES
+        : countryKey === "thailand"
+          ? THAILAND_TOPIC_PHOTO_QUERIES
         : TOPIC_PHOTO_QUERIES;
   const slugQueries = SLUG_PHOTO_QUERIES[note.slug] ?? [];
   const conceptQueries = queriesFromTitleConcepts(note.title, note.slug);
@@ -814,14 +845,27 @@ export function queriesForNote(
   // Prefer relocant topics; skip geo-only tags that drown relevance (portugal/spain).
   const topicQueries = note.topic_tags
     .map((t) => t.toLowerCase())
-    .filter((t) => t !== "portugal" && t !== "spain" && t !== "lisboa" && t !== "porto")
+    .filter(
+      (t) =>
+        t !== "portugal" &&
+        t !== "spain" &&
+        t !== "italy" &&
+        t !== "thailand" &&
+        t !== "lisboa" &&
+        t !== "porto" &&
+        t !== "phuket"
+    )
     .flatMap((t) => topicMap[t] ?? [])
     .slice(0, 6);
 
   const general = topicMap.general;
-  // Order: curated slug → title concepts → slug tokens → topic → general fallback.
+  const discoveryQueries =
+    countryKey === "thailand"
+      ? [...topicQueries, ...slugKeywordQueries, ...conceptQueries]
+      : [...conceptQueries, ...slugKeywordQueries, ...topicQueries];
+  // Thailand starts with its explicit topic map so Portugal-biased legacy title concepts cannot win.
   return Array.from(
-    new Set([...slugQueries, ...conceptQueries, ...slugKeywordQueries, ...topicQueries, ...general])
+    new Set([...slugQueries, ...discoveryQueries, ...general])
   );
 }
 

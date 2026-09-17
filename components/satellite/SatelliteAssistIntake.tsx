@@ -33,6 +33,8 @@ export function SatelliteAssistIntake({ countryKey }: { countryKey: SatelliteCou
       ? "border-amber-200 bg-amber-50/50"
       : countryKey === "italy"
         ? "border-emerald-200 bg-emerald-50/50"
+        : countryKey === "thailand"
+          ? "border-indigo-200 bg-indigo-50/50"
       : "border-teal-200 bg-teal-50/50";
 
   const fallbackUrl = satelliteAssistUrl({

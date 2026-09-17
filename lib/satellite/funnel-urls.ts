@@ -6,6 +6,7 @@ import type { SatelliteCountryKey } from "@/lib/community-notes/seed";
 import { PORTUGAL_SATELLITE } from "@/lib/satellite/portugal";
 import { SPAIN_SATELLITE } from "@/lib/satellite/spain";
 import { ITALY_SATELLITE } from "@/lib/satellite/italy";
+import { THAILAND_SATELLITE } from "@/lib/satellite/thailand";
 
 export type SatelliteFunnelPlacement =
   | "satellite_note"
@@ -33,6 +34,7 @@ function withUtm(rawUrl: string, campaign: string, opts: UtmOpts): string {
 function satelliteConfig(countryKey: SatelliteCountryKey) {
   if (countryKey === "spain") return SPAIN_SATELLITE;
   if (countryKey === "italy") return ITALY_SATELLITE;
+  if (countryKey === "thailand") return THAILAND_SATELLITE;
   return PORTUGAL_SATELLITE;
 }
 
@@ -42,6 +44,7 @@ export function satelliteAssistUrl(opts: UtmOpts & { countrySegment?: string }):
   const segment = opts.countrySegment ?? countryKey;
   const url = new URL("https://www.emigro.online/ru/assist");
   url.searchParams.set("country", segment);
+  url.searchParams.set("source", `${countryKey}_satellite`);
   url.searchParams.set("utm_source", "emigro");
   url.searchParams.set("utm_medium", "satellite");
   url.searchParams.set("utm_campaign", `${countryKey}_assist`);

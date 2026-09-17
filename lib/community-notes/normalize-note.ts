@@ -152,7 +152,7 @@ function asOfficialLinks(value: unknown): CommunityNoteLink[] {
 
 function resolveCountryKey(value: unknown, fallback: string): string {
   const key = asString(value, fallback);
-  return key === "spain" || key === "portugal" ? key : fallback;
+  return key === "spain" || key === "italy" || key === "thailand" || key === "portugal" ? key : fallback;
 }
 
 /** Coerce Supabase / seed rows into a safe CommunityNote shape. */
@@ -160,13 +160,29 @@ export function normalizeCommunityNote(row: Record<string, unknown>, countryKey 
   const resolvedCountry = resolveCountryKey(row.country_key, countryKey);
   const contentKind = asContentKind(row.content_kind);
   const topicTags = asStringArray(row.topic_tags);
+  const defaultCity =
+    resolvedCountry === "spain"
+      ? "valencia"
+      : resolvedCountry === "italy"
+        ? "milan"
+        : resolvedCountry === "thailand"
+          ? "phuket"
+          : "porto";
+  const defaultCategory =
+    resolvedCountry === "spain"
+      ? "Испания"
+      : resolvedCountry === "italy"
+        ? "Италия"
+        : resolvedCountry === "thailand"
+          ? "Таиланд"
+          : "Португалия";
 
   return {
     id: asString(row.id, `seed-${asString(row.slug, "note")}`),
     slug: asString(row.slug),
     country_key: resolvedCountry,
-    city: asString(row.city, resolvedCountry === "spain" ? "valencia" : "porto"),
-    category: asString(row.category, resolvedCountry === "spain" ? "Испания" : "Португалия"),
+    city: asString(row.city, defaultCity),
+    category: asString(row.category, defaultCategory),
     content_kind: contentKind,
     title: asString(row.title, asString(row.slug, "Заметка")),
     excerpt: asString(row.excerpt),

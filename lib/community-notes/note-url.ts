@@ -1,14 +1,20 @@
-import { portugalSatellitePublicUrl, spainSatellitePublicUrl, italySatellitePublicUrl } from "@/lib/site-url";
+import {
+  portugalSatellitePublicUrl,
+  spainSatellitePublicUrl,
+  italySatellitePublicUrl,
+  thailandSatellitePublicUrl,
+} from "@/lib/site-url";
 
 const LOCALHOST_NOTE_RE =
-  /https?:\/\/(?:localhost|127\.0\.0\.1)(?::\d+)?\/satellite\/(?:portugal|spain|italy)\/notes\/([a-z0-9-]+)/gi;
+  /https?:\/\/(?:localhost|127\.0\.0\.1)(?::\d+)?\/satellite\/(?:portugal|spain|italy|thailand)\/notes\/([a-z0-9-]+)/gi;
 const WWW_PATH_NOTE_RE =
-  /https?:\/\/(?:www\.)?emigro\.online\/satellite\/(?:portugal|spain|italy)\/notes\/([a-z0-9-]+)/gi;
+  /https?:\/\/(?:www\.)?emigro\.online\/satellite\/(?:portugal|spain|italy|thailand)\/notes\/([a-z0-9-]+)/gi;
 
 /** Canonical public URL for a published community note (never localhost). */
 export function communityNotePublicUrl(slug: string, countryKey = "portugal"): string {
   if (countryKey === "spain") return spainSatellitePublicUrl(`/notes/${slug}`);
   if (countryKey === "italy") return italySatellitePublicUrl(`/notes/${slug}`);
+  if (countryKey === "thailand") return thailandSatellitePublicUrl(`/notes/${slug}`);
   return portugalSatellitePublicUrl(`/notes/${slug}`);
 }
 

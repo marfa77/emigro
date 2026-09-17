@@ -8,12 +8,18 @@ import { tapTarget } from "@/lib/ui/mobile";
 
 export function DailySpotlightTile({ spotlight }: { spotlight: DailySpotlight }) {
   const countryKey: SatelliteCountryKey =
-    spotlight.country_key === "spain" || spotlight.country_key === "italy" ? spotlight.country_key : "portugal";
+    spotlight.country_key === "spain" ||
+    spotlight.country_key === "italy" ||
+    spotlight.country_key === "thailand"
+      ? spotlight.country_key
+      : "portugal";
   const ctaClass =
     countryKey === "spain"
       ? "bg-amber-700 hover:bg-amber-800"
       : countryKey === "italy"
         ? "bg-emerald-700 hover:bg-emerald-800"
+        : countryKey === "thailand"
+          ? "bg-indigo-800 hover:bg-indigo-900"
       : "bg-teal-700 hover:bg-teal-800";
 
   return (

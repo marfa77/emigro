@@ -94,6 +94,21 @@ export const COMMITTED_NOTE_OG_SLUGS = new Set([
   "zapis-konsulstvo-italiya-pasport-2026",
   "inps-partita-iva-milano-2026",
   "klimat-byt-milano-nord-como-2026",
+  "pervye-30-dnej-phuket-2026",
+  "tax-id-tin-phuket-2026",
+  "sim-internet-svet-voda-phuket-2026",
+  "arenda-phuket-dolgosrok-2026",
+  "immigration-phuket-tm30-90-days-2026",
+  "bank-schet-phuket-inostrancu-2026",
+  "meditsina-phuket-strahovka-bolnicy-2026",
+  "phuket-rajony-arenda-shkoly-bolnicy-2026",
+  "viza-dtv-ltr-thailand-2026",
+  "transport-phuket-baik-avto-2026",
+  "shkoly-semya-phuket-2026",
+  "servisy-phuket-relokant-2026",
+  "konsulstvo-rf-bangkok-dokumenty-2026",
+  "rabota-work-permit-social-security-thailand-2026",
+  "klimat-musson-byt-phuket-2026",
 ]);
 
 const MANIFEST_PATH = path.join(process.cwd(), "lib/community-notes/note-og-slugs.ts");

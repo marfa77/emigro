@@ -76,6 +76,7 @@ const COUNTRY_RU: Record<string, string> = {
   croatia: "Хорватия",
   slovenia: "Словения",
   estonia: "Эстония",
+  thailand: "Таиланд",
   europe: "Европа",
 };
 
@@ -241,28 +242,46 @@ function usableNote(note: CommunityNote): boolean {
 export async function pickPortugalSatellitePlan(
   state: ThreadsInventoryState
 ): Promise<ThreadsSlotPlan | null> {
-  const turn = (state.city_cursor || 0) % 2;
+  const turn = (state.city_cursor || 0) % 3;
   if (turn === 0) {
     const chat = pickPortoChatBankPlan(state);
     if (chat) return chat;
   }
 
+  const countryKey = turn === 2 ? "thailand" : "portugal";
   let notes: CommunityNote[] = [];
   try {
-    notes = (await getPublishedCommunityNotesUncached("portugal")).filter(usableNote);
+    notes = (await getPublishedCommunityNotesUncached(countryKey)).filter(usableNote);
   } catch {
     notes = [];
   }
   const used = new Set(state.notes_used);
   const next = notes.find((note) => !used.has(note.slug)) || notes[0];
   if (!next) {
-    return pickPortoChatBankPlan(state);
+    if (countryKey === "thailand") {
+      try {
+        notes = (await getPublishedCommunityNotesUncached("portugal")).filter(usableNote);
+      } catch {
+        notes = [];
+      }
+    }
+    const fallback = notes.find((note) => !used.has(note.slug)) || notes[0];
+    if (!fallback) return pickPortoChatBankPlan(state);
+    const fallbackItems = composeReachRoot(
+      fallback.quick_answer || fallback.excerpt || fallback.title,
+      "Порту"
+    );
+    return {
+      ...planOf("city", fallback.slug, "Порту", noteCta(fallback), fallbackItems),
+      cursor: (state.city_cursor || 0) + 1,
+    };
   }
 
   const cta = noteCta(next);
-  const items = composeReachRoot(next.quick_answer || next.excerpt || next.title, "Порту");
+  const place = countryKey === "thailand" ? "Пхукет" : "Порту";
+  const items = composeReachRoot(next.quick_answer || next.excerpt || next.title, place);
   return {
-    ...planOf("city", next.slug, "Порту", cta, items),
+    ...planOf("city", next.slug, place, cta, items),
     cursor: (state.city_cursor || 0) + 1,
   };
 }

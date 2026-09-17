@@ -2,12 +2,13 @@ import type { CommunityNote } from "@/lib/community-notes/types";
 import { buildNoteHashtags } from "@/lib/community-notes/hashtags";
 import { SPAIN_EDITORIAL_SEED } from "@/lib/community-notes/guides/spain-editorial-index";
 import { ITALY_EDITORIAL_SEED } from "@/lib/community-notes/guides/italy-editorial-index";
+import { THAILAND_EDITORIAL_SEED } from "@/lib/community-notes/guides/thailand-editorial-index";
 import { PORTUGAL_EDITORIAL_SEED } from "@/lib/community-notes/publish-seed";
 
-export type SatelliteCountryKey = "portugal" | "spain" | "italy";
+export type SatelliteCountryKey = "portugal" | "spain" | "italy" | "thailand";
 
 export function asSatelliteCountryKey(value: string | undefined | null): SatelliteCountryKey {
-  if (value === "spain" || value === "italy" || value === "portugal") return value;
+  if (value === "spain" || value === "italy" || value === "thailand" || value === "portugal") return value;
   return "portugal";
 }
 
@@ -95,9 +96,38 @@ export const ITALY_NOTE_SEED: CommunityNote[] = ITALY_EDITORIAL_SEED.map((note, 
   updated_at: "2026-09-06T10:00:00.000Z",
 }));
 
+/** Thailand hub editorial baseline — never fall back to Portugal notes. */
+export const THAILAND_NOTE_SEED: CommunityNote[] = THAILAND_EDITORIAL_SEED.map((note, i) => ({
+  id: `seed-th-${i}`,
+  slug: note.slug,
+  country_key: "thailand",
+  city: "phuket",
+  category: note.category,
+  content_kind: note.content_kind,
+  title: note.title,
+  excerpt: note.excerpt,
+  seo_title: note.seo_title,
+  seo_description: note.seo_description,
+  quick_answer: note.quick_answer,
+  body_paragraphs: note.body_paragraphs,
+  body_sections: note.body_sections ?? [],
+  key_takeaways: note.key_takeaways ?? [],
+  faq: note.faq,
+  official_links: note.official_links,
+  source_channel: "nashi_phuket_chat+pkhuket2+russianinphuket",
+  source_label: "editorial:thailand-seed",
+  topic_tags: note.topic_tags,
+  hashtags: buildNoteHashtags({ topicTags: note.topic_tags, contentKind: note.content_kind }),
+  status: "published" as const,
+  published_at: "2026-09-17T10:00:00.000Z",
+  created_at: "2026-09-17T10:00:00.000Z",
+  updated_at: "2026-09-17T10:00:00.000Z",
+}));
+
 export function noteSeedFallback(countryKey: string): CommunityNote[] {
   if (countryKey === "spain") return SPAIN_NOTE_SEED;
   if (countryKey === "italy") return ITALY_NOTE_SEED;
+  if (countryKey === "thailand") return THAILAND_NOTE_SEED;
   return PORTUGAL_NOTE_SEED;
 }
 
