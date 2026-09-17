@@ -260,6 +260,9 @@ export function SiteFooter({ locale = "ru" }: { locale?: UiLocale }) {
           <Link href="/ru/guides" className="hover:text-corridor-600">
             {locale === "ru" ? "Гайды" : "Guides"}
           </Link>
+          <Link href="/ru/invest" className="hover:text-corridor-600">
+            {locale === "ru" ? "Инвестиционная миграция" : "Investment migration"}
+          </Link>
           <Link href="/ru/role-radar" className="hover:text-corridor-600">
             Role Radar
           </Link>

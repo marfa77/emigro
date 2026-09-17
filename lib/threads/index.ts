@@ -6,3 +6,4 @@ export * from "@/lib/threads/banks";
 export * from "@/lib/threads/calendar";
 export * from "@/lib/threads/day-budget";
 export * from "@/lib/threads/replies";
+export * from "@/lib/threads/investment-vertical";

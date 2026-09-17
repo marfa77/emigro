@@ -15,6 +15,7 @@ export const HEADER_NAV_LINKS: SiteNavLink[] = [
   { href: "/ru#destinations", labelRu: "Направления", labelEn: "Destinations", labelEs: "Destinos" },
   { href: "/ru/wizard", labelRu: "Подбор маршрута", labelEn: "Route finder", labelEs: "Evaluador" },
   { href: "/ru/guides", labelRu: "Гайды", labelEn: "Guides", labelEs: "Guías" },
+  { href: "/ru/invest", labelRu: "Инвестиции", labelEn: "Investment" },
   { href: "/ru/news", labelRu: "Новости", labelEn: "News", labelEs: "Noticias" },
   { href: "/ru/assist", labelRu: "Получить помощь", labelEn: "Get help", labelEs: "Pedir ayuda" },
   { href: "/ru/partners", labelRu: "Партнёрам", labelEn: "Partners", labelEs: "Partners" },

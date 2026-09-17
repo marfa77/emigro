@@ -1,5 +1,6 @@
 import { corridorLandingPath, corridorWizardPath, corridorDigestPath, programPath } from "@/lib/corridor/paths";
 import { guidePath, listGuides } from "@/lib/guides/load";
+import { INVESTMENT_ROUTES } from "@/lib/investment/registry";
 import { getCorridorBySlug } from "@/lib/corridor/queries";
 import { getPublishedCommunityNotes } from "@/lib/community-notes/queries";
 import { normalizeHashtag } from "@/lib/community-notes/hashtags";
@@ -23,6 +24,8 @@ export async function GET() {
     pageUrl("/api/v1/meta/ingest-schema"),
     pageUrl("/api/v1/facts/corridors"),
     pageUrl("/ru/wizard"),
+    pageUrl("/ru/invest"),
+    ...INVESTMENT_ROUTES.map((route) => pageUrl(`/ru/invest/${route.country}`)),
     pageUrl(ORIGIN_HUB_PATH),
     pageUrl("/ru/guides"),
     portugalSatellitePublicUrl("/llms"),

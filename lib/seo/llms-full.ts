@@ -1,5 +1,6 @@
 import { corridorDigestPath, corridorLandingPath, corridorWizardPath, programPath } from "@/lib/corridor/paths";
 import { guidePath, listGuides } from "@/lib/guides/load";
+import { INVESTMENT_ROUTES } from "@/lib/investment/registry";
 import { ES_PATHS, esGuidePath } from "@/lib/es/corridor";
 import { FR_PATHS, frGuidePath } from "@/lib/fr/corridor";
 import { stripInlineMarkdown } from "@/lib/markdown/inline";
@@ -55,6 +56,10 @@ export async function buildLlmsTxt(): Promise<string> {
   const portugalSatelliteLlms = llmsPathFromUrl(portugalSatellitePublicUrl("/llms"));
   const spainSatelliteHub = llmsPathFromUrl(spainSatellitePublicUrl("/"));
   const spainSatelliteLlms = llmsPathFromUrl(spainSatellitePublicUrl("/llms"));
+  const investmentLines = INVESTMENT_ROUTES.map(
+    (route) =>
+      `- ${llmMarkdownLink(`${route.flag} ${route.countryRu}`, `/ru/invest/${route.country}`)} — ${route.summary}`
+  ).join("\n");
 
   const transitHubLines = TRANSIT_HUBS.map(
     (hub) => `- ${llmMarkdownLink(hub.countryRu, hub.path)} — ${hub.tagline}`
@@ -117,6 +122,8 @@ ${buildProgramIndexTable()}
 - ${llmMarkdownLink(`SEO-гайды (${guides.length}+ pillar-статей)`, "/ru/guides")}
 - ${llmMarkdownLink("Истории читателей (курируемые кейсы)", "/ru/stories")}
 - ${llmMarkdownLink("Новости", "/ru/news")}
+- ${llmMarkdownLink("Инвестиционная миграция", "/ru/invest")} — статус и документы, связанные с недвижимостью и инвестициями
+${investmentLines}
 - Новости по стране: /ru/news?country=portugal|spain|france|italy|germany|netherlands|sweden|norway|finland|denmark|poland|czechia|austria|greece|cyprus|hungary|malta|bulgaria|croatia|slovenia|estonia
 - ${llmMarkdownLink("Хаб для граждан Украины", "/ru/ukraine")}
 - ${llmMarkdownLink("Срочный выезд из РФ", "/ru/guides/kuda-uehat-iz-rossii-srochno-2026-evropa-bezviz-haby")}
@@ -284,6 +291,10 @@ export async function buildLlmsFullText(): Promise<string> {
     row("/ru/guides", `SEO-гайды (${guides.length} pillar-статей по ВНЖ, хабам, бюджету)`),
     row("/ru/stories", "Курируемые истории читателей о релокации"),
     row("/ru/news", "Еженедельные новости по всем странам"),
+    row("/ru/invest", "Инвестиционная миграция: статус и документы, связанные с недвижимостью и инвестициями"),
+    ...INVESTMENT_ROUTES.map((route) =>
+      row(`/ru/invest/${route.country}`, `${route.countryRu}: ${route.title}. ${route.caveat}`)
+    ),
     row("/ru/community", "Сообщество релокантов Emigro"),
     row("/ru/partners", "Партнёры и сервисы на маршруте"),
     row("/ru/contact", "Контакты Emigro"),
