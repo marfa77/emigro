@@ -226,11 +226,11 @@ export const EMIGRO_SCORE_REGISTRY: Record<string, EmigroCountryScore> = {
   ),
   thailand: score(
     "thailand",
-    "Settle через LTR/Elite/DTV; банки и EU-база слабые.",
+    "Settle через LTR/DTV/Thailand Privilege; банки и EU-база слабые.",
     [70, 60, 40, 50, 40],
     [
-      "Безвиз РФ 30 дней (двусторонний); не 60-дневная схема 93 стран.",
-      "LTR/Elite/DTV — реальные long-stay; border run рискован.",
+      "С 15.09.2026 безвиз РФ — до 30 дней по двустороннему соглашению.",
+      "LTR/DTV/Thailand Privilege — long-stay варианты; border run рискован.",
       "Счёт обычно после long-term visa.",
       "Tax residency 180+; foreign income — отдельная логика.",
       "Страна для жизни, не трамплин в Шенген.",
