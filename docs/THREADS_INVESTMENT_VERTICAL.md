@@ -28,10 +28,11 @@ about legal status/documents linked to property or investment.
   `THREADS_INVESTMENT_ACCESS_TOKEN`.
 - `npm run threads:investment:launch` is dry-run by default; live launch requires
   the explicit `-- --force-publish` gate.
-- Scheduled `autoPublish` remains hard-coded to `false`; only the explicit
-  account-scoped launch command can publish.
-- Do not add this vertical to `threads:daily`, `threads:satellites`, lightning,
-  replies, shared day-budget, systemd, or Vercel cron without a separate review.
+- Gradual calendar: `npm run threads:investment:daily` with
+  `THREADS_INVESTMENT_PHASE` and `THREADS_INVESTMENT_AUTO_PUBLISH=1`.
+- Isolated systemd timer `emigro-threads-investment.timer`; never share
+  `@emigro_assist` day-budget, inventory, or token.
+- See `docs/THREADS_INVESTMENT_CALENDAR.md` for the seed → traffic → lead ramp.
 
 ## Inventory hook
 

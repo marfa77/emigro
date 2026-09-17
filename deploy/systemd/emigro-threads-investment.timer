@@ -1,0 +1,13 @@
+[Unit]
+Description=Emigro Invest Threads — gradual dated calendar
+
+[Timer]
+# Daily check is harmless on non-bank dates: the runner exits without posting.
+# The bank itself starts 3×/week and later phases remain environment-locked.
+OnCalendar=*-*-* 12:00:00 Asia/Dubai
+RandomizedDelaySec=20min
+AccuracySec=1min
+Persistent=true
+
+[Install]
+WantedBy=timers.target

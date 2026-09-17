@@ -32,11 +32,14 @@ git checkout -B main
 git reset --hard "${REF}"
 
 chmod +x deploy/threads-daily/run_scheduled.sh deploy/threads-satellites/run_scheduled.sh \
-  deploy/threads-refresh/run_scheduled.sh deploy/threads-replies/run_scheduled.sh 2>/dev/null || true
+  deploy/threads-refresh/run_scheduled.sh deploy/threads-replies/run_scheduled.sh \
+  deploy/threads-investment/run_scheduled.sh 2>/dev/null || true
 mkdir -p deploy/threads-daily/logs deploy/threads-satellites/logs \
-  deploy/threads-refresh/logs deploy/threads-replies/logs parser/out
+  deploy/threads-refresh/logs deploy/threads-replies/logs \
+  deploy/threads-investment/logs parser/out
 chown -R www-data:www-data deploy/threads-daily deploy/threads-satellites \
-  deploy/threads-refresh deploy/threads-replies parser/out 2>/dev/null || true
+  deploy/threads-refresh deploy/threads-replies deploy/threads-investment \
+  parser/out 2>/dev/null || true
 chown -R www-data:www-data parser 2>/dev/null || true
 chmod 600 .env parser/.env 2>/dev/null || true
 
@@ -50,10 +53,13 @@ cp deploy/systemd/emigro-threads-refresh.service /etc/systemd/system/
 cp deploy/systemd/emigro-threads-refresh.timer /etc/systemd/system/
 cp deploy/systemd/emigro-threads-replies.service /etc/systemd/system/
 cp deploy/systemd/emigro-threads-replies.timer /etc/systemd/system/
+cp deploy/systemd/emigro-threads-investment.service /etc/systemd/system/
+cp deploy/systemd/emigro-threads-investment.timer /etc/systemd/system/
 systemctl daemon-reload
 systemctl enable --now emigro-threads-daily.timer
 systemctl enable --now emigro-threads-satellites.timer
 systemctl enable --now emigro-threads-refresh.timer
+systemctl enable --now emigro-threads-investment.timer
 systemctl disable --now emigro-threads-replies.timer
 
 echo "HEAD=$(git rev-parse --short HEAD)"
