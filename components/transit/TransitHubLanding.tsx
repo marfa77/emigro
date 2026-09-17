@@ -55,7 +55,7 @@ const TRANSIT_DESTINATION_GUIDES = [
 
 const SETTLE_DESTINATION_GUIDES = [
   { label: "ЮАР 2026: Critical Skills, школы, MBA UCT GSB", href: "/ru/guides/yuar-dlya-rossiyan-ukraintsev-belorusov-kazahstantsev-2026" },
-  { label: "Таиланд для россиян 2026 — LTR, Elite, DTV", href: "/ru/guides/tailand-dlya-rossiyan-2026" },
+  { label: "Таиланд для россиян 2026 — DTV, LTR, Пхукет", href: "/ru/guides/tailand-dlya-rossiyan-2026" },
   { label: "Бали / Индонезия для россиян 2026", href: "/ru/guides/bali-indoneziya-dlya-rossiyan-2026" },
   { label: "ОАЭ для россиян 2026 — резиденция, бизнес, банки", href: "/ru/guides/oae-dlya-rossiyan-2026" },
   { label: "Турция для россиян 2026 — ikamet, банки", href: "/ru/guides/turciya-dlya-rossiyan-2026" },

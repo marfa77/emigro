@@ -27,10 +27,14 @@ export async function generateMetadata({ params }: { params: { country: string }
   if (hub) {
     const isSettle = hub.kind === "settle";
     const title =
-      hub.heroTitle ?? (isSettle ? `${hub.countryRu}: страна для жизни` : `${hub.countryRu}: транзитный хаб`);
-    const description = isSettle
-      ? `${hub.quickAnswer} Направление Emigro «Страны для жизни»: долгий статус вне ЕС, не транзитный хаб на 3–12 месяцев.`
-      : `${hub.quickAnswer} Не EU-коридор: первый шаг для стабилизации, документов, банков и подготовки маршрута в Европу.`;
+      hub.seoTitle ??
+      hub.heroTitle ??
+      (isSettle ? `${hub.countryRu}: страна для жизни` : `${hub.countryRu}: транзитный хаб`);
+    const description =
+      hub.seoDescription ??
+      (isSettle
+        ? `${hub.quickAnswer} Направление Emigro «Страны для жизни»: долгий статус вне ЕС, не транзитный хаб на 3–12 месяцев.`
+        : `${hub.quickAnswer} Не EU-коридор: первый шаг для стабилизации, документов, банков и подготовки маршрута в Европу.`);
     return {
       ...pageMetadata({
         title,

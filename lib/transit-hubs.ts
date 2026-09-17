@@ -26,6 +26,8 @@ export type TransitHub = {
   flag: string;
   path: string;
   heroTitle?: string;
+  seoTitle?: string;
+  seoDescription?: string;
   eyebrow?: string;
   articleHeadline?: string;
   cardLabel?: string;
@@ -257,6 +259,9 @@ export const TRANSIT_HUBS: TransitHub[] = [
     path: "/ru/thailand",
     guideHref: "/ru/guides/tailand-dlya-rossiyan-2026",
     guideAnchor: "Таиланд для россиян 2026 — DTV, LTR, Пхукет",
+    seoTitle: "Таиланд для россиян 2026: DTV, LTR и Пхукет",
+    seoDescription:
+      "Безвиз 30 дней с 15.09.2026, DTV, LTR, Thailand Privilege и недвижимость на Пхукете. Покупка объекта не гарантирует визу.",
     tagline: "Страна для жизни: удалёнка, семья, LTR/DTV и выбор недвижимости на Пхукете — без обязательного следующего шага в EU.",
     quickAnswer:
       "Таиланд в 2026 — страна для жизни для россиян: безвиз 30 дней с 15 сентября 2026, LTR на 10 лет для подходящих профилей, DTV с финансовым подтверждением от 500 000 THB и Thailand Privilege от 650 000 THB без права работы. На Пхукете иностранцы чаще покупают condominium в пределах foreign quota; вилла и земля требуют другой структуры. Покупка недвижимости сама по себе не гарантирует визу — статус проверяют отдельно.",
