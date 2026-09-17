@@ -150,7 +150,15 @@ export function buildThreadsText(note: CommunityNote, noteUrl: string): string {
     .map((t) => `#${hashtagLabel(normalizeHashtag(t)).replace(/\s+/g, "")}`)
     .filter((t) => t.length > 1);
 
-  tagParts.push("#Португалия", "#Порту");
+  const geoTags =
+    note.country_key === "spain"
+      ? ["#Испания", "#Валенсия"]
+      : note.country_key === "italy"
+        ? ["#Италия", "#Милан"]
+        : note.country_key === "thailand"
+          ? ["#Таиланд", "#Пхукет"]
+          : ["#Португалия", "#Порту"];
+  tagParts.push(...geoTags);
   const uniqueTags = Array.from(new Set(tagParts)).slice(0, 5).join(" ");
 
   return `${emoji} ${note.title}\n\n${body}\n\n→ ${noteUrl}\n\n${uniqueTags}`;
