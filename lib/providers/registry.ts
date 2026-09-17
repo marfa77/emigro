@@ -2,6 +2,7 @@ import { corridorSlugForSegment } from "@/lib/corridor/registry";
 
 export type ProviderCategory =
   | "assistance"
+  | "real_estate"
   | "legal"
   | "relocation"
   | "translation"
@@ -31,6 +32,7 @@ export const PREP2GO_TOPIC_KEYS = ["portugal", "spain", "france", "italy", "germ
 
 const CATEGORY_ORDER: ProviderCategory[] = [
   "assistance",
+  "real_estate",
   "photos",
   "language_courses",
   "relocation",
@@ -40,6 +42,7 @@ const CATEGORY_ORDER: ProviderCategory[] = [
 
 export const PROVIDER_CATEGORY_LABELS_RU: Record<ProviderCategory, string> = {
   assistance: "Помощь Emigro",
+  real_estate: "Недвижимость",
   language_courses: "Подготовка к языку",
   relocation: "Релокация",
   legal: "Юридические сервисы",
@@ -282,6 +285,18 @@ const PROVIDERS: ServiceProvider[] = [
     corridorSlugs: ["ru-speaking-to-portugal"],
     topicKeys: ["portugal"],
     ctaLabelRu: "Перейти на сайт",
+  },
+  {
+    id: "empyreal-estate-phuket",
+    name: "Empyreal Estate Phuket",
+    taglineRu: "Недвижимость и переезд на Пхукет",
+    descriptionRu:
+      "Пилотный партнёр Emigro: подбор апартаментов и квартир, сопровождение сделки и бытового переезда на Пхукет на русском и английском. Условия долгого пребывания проверяются отдельно — покупка недвижимости сама по себе не гарантирует визу.",
+    url: "/ru/assist?country=thailand&program=%D0%9D%D0%B5%D0%B4%D0%B2%D0%B8%D0%B6%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D1%8C%20%D0%BD%D0%B0%20%D0%9F%D1%85%D1%83%D0%BA%D0%B5%D1%82%D0%B5%20%E2%80%94%20Empyreal%20Estate&provider=empyreal-estate-phuket#assist-form",
+    category: "real_estate",
+    corridorSlugs: ["ru-speaking-to-thailand"],
+    topicKeys: ["thailand"],
+    ctaLabelRu: "Подобрать недвижимость",
   },
   {
     id: "relomar-spain",
@@ -702,10 +717,11 @@ export function sortProvidersByCategory(providers: ServiceProvider[]): ServicePr
 export function filterCompactProviders(providers: ServiceProvider[]): ServiceProvider[] {
   const sorted = sortProvidersByCategory(providers);
   const assistance = sorted.filter((p) => p.category === "assistance");
+  const firstRealEstate = sorted.find((p) => p.category === "real_estate");
   const photos = sorted.filter((p) => p.category === "photos").slice(0, 1);
   const languageCourses = sorted.filter((p) => p.category === "language_courses").slice(0, 2);
   const firstRelocation = sorted.find((p) => p.category === "relocation");
-  const core = [...assistance, ...photos, ...languageCourses];
+  const core = [...assistance, ...(firstRealEstate ? [firstRealEstate] : []), ...photos, ...languageCourses];
   return firstRelocation ? [...core, firstRelocation] : core;
 }
 
@@ -751,14 +767,14 @@ export function getProviderById(id: string): ServiceProvider | undefined {
 
 /**
  * Partners shown in Assist Route Check form checkboxes.
- * Legal + relocation only (not Prep2Go / PixID / first-party Assist).
+ * Real estate, legal + relocation only (not Prep2Go / PixID / first-party Assist).
  */
 export function getAssistLeadProviders(): ServiceProvider[] {
   return sortProvidersByCategory(
     PROVIDERS.filter(
       (p) =>
         !p.isFirstParty &&
-        (p.category === "legal" || p.category === "relocation") &&
+        (p.category === "real_estate" || p.category === "legal" || p.category === "relocation") &&
         (p.corridorSlugs?.length ?? 0) > 0
     )
   );

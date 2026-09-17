@@ -2,6 +2,7 @@ export type AssistUrlParams = {
   sessionId?: string;
   country?: string;
   program?: string;
+  providerId?: string;
   hash?: string;
   locale?: "ru" | "es" | "fr";
 };
@@ -12,6 +13,7 @@ export function buildAssistUrl(params: AssistUrlParams = {}): string {
   if (params.sessionId) search.set("session", params.sessionId);
   if (params.country) search.set("country", params.country);
   if (params.program) search.set("program", params.program);
+  if (params.providerId) search.set("provider", params.providerId);
   const qs = search.toString();
   const hash = params.hash ?? "assist-form";
   const base =

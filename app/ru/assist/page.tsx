@@ -90,7 +90,7 @@ const FAQ_ITEMS = [
 export default function AssistPage({
   searchParams,
 }: {
-  searchParams: { session?: string; country?: string; program?: string };
+  searchParams: { session?: string; country?: string; program?: string; provider?: string };
 }) {
   const providers: AssistProviderOption[] = getAssistLeadProviders().map((provider) => ({
     id: provider.id,
@@ -308,6 +308,7 @@ export default function AssistPage({
             initialSessionId={searchParams.session}
             initialCountry={searchParams.country}
             initialProgramRoute={searchParams.program}
+            initialProviderId={searchParams.provider}
           />
         </section>
       </main>

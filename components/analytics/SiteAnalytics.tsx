@@ -23,6 +23,9 @@ export function SiteAnalytics() {
         link_label: anchor.textContent?.trim().slice(0, 120) || "Assist",
         target_path: `${target.pathname}${target.search}${target.hash}`,
         locale: siteLocaleFromPath(window.location.pathname),
+        country: target.searchParams.get("country") ?? "",
+        program: target.searchParams.get("program") ?? "",
+        provider_id: target.searchParams.get("provider") ?? "",
       });
     };
 

@@ -172,6 +172,7 @@ type Props = {
   initialSessionId?: string;
   initialCountry?: string;
   initialProgramRoute?: string;
+  initialProviderId?: string;
   locale?: "ru" | "es" | "fr";
   /** Override analytics/lead source (e.g. satellite hub intake). */
   leadSource?: string;
@@ -184,6 +185,7 @@ export function AssistLeadForm({
   initialSessionId,
   initialCountry,
   initialProgramRoute,
+  initialProviderId,
   locale = "ru",
   leadSource,
 }: Props) {
@@ -213,7 +215,11 @@ export function AssistLeadForm({
       : countries[0]?.value ?? "";
   const [country, setCountry] = useState(validInitialCountry);
   const [programRoute, setProgramRoute] = useState(initialProgramRoute ?? "");
-  const [selectedProviders, setSelectedProviders] = useState<string[]>([]);
+  const [selectedProviders, setSelectedProviders] = useState<string[]>(() =>
+    initialProviderId && providers.some((provider) => provider.id === initialProviderId)
+      ? [initialProviderId]
+      : []
+  );
   const [planTier, setPlanTier] = useState<AssistPlanTier>(defaultPlanTier);
   const [paymentMethod, setPaymentMethod] = useState<AssistPaymentMethod>("paypal");
   const [name, setName] = useState("");

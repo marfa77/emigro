@@ -70,8 +70,10 @@ export function ServiceProviderCard({
     ? "Сервис Emigro"
     : PROVIDER_CATEGORY_LABELS_RU[provider.category];
   const href = resolveProviderHref(provider, topicKey, placement);
-  const linkTarget = provider.isFirstParty ? undefined : "_blank";
-  const linkRel = provider.isFirstParty ? undefined : externalLinkRel(href, { sponsored: true });
+  const isInternalHref = href.startsWith("/");
+  const linkTarget = provider.isFirstParty || isInternalHref ? undefined : "_blank";
+  const linkRel =
+    provider.isFirstParty || isInternalHref ? undefined : externalLinkRel(href, { sponsored: true });
   const otherExamLabels = topicKey
     ? allExams.filter((exam) => exam.topicKey !== topicKey).map((exam) => exam.label)
     : [];

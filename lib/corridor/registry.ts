@@ -230,6 +230,16 @@ export const CORRIDOR_REGISTRY: readonly CorridorRegistryEntry[] = [
     wizardEnabled: true,
     assistEligible: true,
   },
+  {
+    slug: "ru-speaking-to-thailand",
+    segment: "thailand",
+    destinationIso2: ["TH"],
+    titleEn: "Russian-speaking → Thailand",
+    titleRu: "Русскоязычные → Таиланд",
+    active: true,
+    wizardEnabled: false,
+    assistEligible: true,
+  },
 ] as const;
 
 function buildSlugToSegment(): Record<string, string> {
