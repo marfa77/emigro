@@ -2,7 +2,8 @@
 
 ## Purpose and boundary
 
-This is a **separate, preparation-only Threads vertical** for Russian-language
+This is a **separate Threads vertical** at
+[`@emigro_invest`](https://www.threads.com/@emigro_invest) for Russian-language
 material about legal status and documents connected with property or investment.
 It is not a property listings feed and must not imply that buying property
 automatically grants a visa, residence, permanent residence, or citizenship.
@@ -20,12 +21,15 @@ about legal status/documents linked to property or investment.
 
 ## Account isolation
 
-- Use a dedicated account identity in `THREADS_INVESTMENT_USERNAME`.
+- Dedicated account identity: `THREADS_INVESTMENT_USERNAME=emigro_invest`.
 - Never reuse `THREADS_USERNAME`, `THREADS_USER_ID`, `THREADS_ACCESS_TOKEN`, or
   the Thailand/general satellite stream.
-- The repository does **not** create an account, perform OAuth, load investment
-  account credentials, schedule posts, or publish for this vertical.
-- `autoPublish` is hard-coded to `false`; there is no investment publisher hook.
+- OAuth credentials use only `THREADS_INVESTMENT_USER_ID` and
+  `THREADS_INVESTMENT_ACCESS_TOKEN`.
+- `npm run threads:investment:launch` is dry-run by default; live launch requires
+  the explicit `-- --force-publish` gate.
+- Scheduled `autoPublish` remains hard-coded to `false`; only the explicit
+  account-scoped launch command can publish.
 - Do not add this vertical to `threads:daily`, `threads:satellites`, lightning,
   replies, shared day-budget, systemd, or Vercel cron without a separate review.
 
@@ -43,6 +47,15 @@ verify the legal claim against the official source, keep the caveat, and link to
 the relevant investment country page. Existing Threads conventions still apply:
 native factual root first, concise factual continuation, source link last.
 
-Reserved namespace: `THREADS_INVESTMENT_*`. Only
-`THREADS_INVESTMENT_USERNAME` is read today; token and publishing variables are
-intentionally unsupported.
+Reserved namespace: `THREADS_INVESTMENT_*`. Do not copy these values into the
+primary `THREADS_*` identity.
+
+## Profile pack
+
+- Name: `Emigro Invest`
+- Bio: `ВНЖ и документы за инвестиции: недвижимость, фонды, бизнес. Официальные источники, ограничения и проверка маршрута. Без «визы за квартиру».`
+- Link: `https://www.emigro.online/ru/invest?utm_source=threads&utm_medium=profile&utm_campaign=emigro_threads_investment`
+- Avatar: `public/images/threads-emigro-invest-avatar.png`
+
+Threads API does not edit profile identity, avatar or bio. Apply the profile pack
+manually in the Threads/Instagram account UI.

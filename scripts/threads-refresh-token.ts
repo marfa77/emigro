@@ -18,11 +18,22 @@ function arg(name: string): string | undefined {
 }
 
 async function main() {
-  const refreshed = await refreshLongLivedToken(arg("token"));
+  const profile = arg("profile") || "brand";
+  if (!["brand", "investment"].includes(profile)) {
+    throw new Error("--profile must be brand|investment");
+  }
+  const investmentProfile = profile === "investment";
+  const sourceToken =
+    arg("token") ||
+    (investmentProfile ? process.env.THREADS_INVESTMENT_ACCESS_TOKEN : undefined);
+  const refreshed = await refreshLongLivedToken(sourceToken);
   const write = process.argv.includes("--write") || process.argv.includes("--persist");
   if (write) {
-    const files = persistThreadsEnvValues({ THREADS_ACCESS_TOKEN: refreshed.access_token });
-    console.log("Refreshed THREADS_ACCESS_TOKEN in", files.join(", ") || "(no .env files found)");
+    const tokenKey = investmentProfile
+      ? "THREADS_INVESTMENT_ACCESS_TOKEN"
+      : "THREADS_ACCESS_TOKEN";
+    const files = persistThreadsEnvValues({ [tokenKey]: refreshed.access_token });
+    console.log(`Refreshed ${tokenKey} in`, files.join(", ") || "(no .env files found)");
   } else {
     console.log("\n=== REFRESHED LONG-LIVED TOKEN (save to THREADS_ACCESS_TOKEN, or --write) ===\n");
     console.log(refreshed.access_token);

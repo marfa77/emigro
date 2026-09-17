@@ -31,6 +31,11 @@ async function main() {
   }
 
   const code = arg("code");
+  const profile = arg("profile") || "brand";
+  const investmentProfile = profile === "investment";
+  if (!["brand", "investment"].includes(profile)) {
+    throw new Error("--profile must be brand|investment");
+  }
   let short = arg("short");
 
   if (code) {
@@ -57,20 +62,39 @@ Needs THREADS_APP_SECRET in .env (and APP_ID + REDIRECT_URI for --code / --auth-
   if (longRes.user_id) process.env.THREADS_USER_ID = String(longRes.user_id);
 
   const { fetchThreadsMe } = await import("../lib/threads/client");
-  const { assertThreadsBrandUsername, expectedThreadsBrandUsername } = await import("../lib/threads/config");
+  const { assertThreadsBrandUsername, expectedThreadsBrandUsername, normalizeThreadsUsername } =
+    await import("../lib/threads/config");
   const me = await fetchThreadsMe();
   console.log("whoami", `@${me.username}`, me.id);
-  assertThreadsBrandUsername(me.username);
-  console.log(`OK — @${expectedThreadsBrandUsername()}`);
+  if (investmentProfile) {
+    const { loadThreadsInvestmentVerticalConfig } = await import(
+      "../lib/threads/investment-vertical"
+    );
+    const expected = loadThreadsInvestmentVerticalConfig().username;
+    if (normalizeThreadsUsername(me.username) !== expected) {
+      throw new Error(`Threads token is @${me.username}, expected @${expected}.`);
+    }
+    console.log(`OK — investment @${expected}`);
+  } else {
+    assertThreadsBrandUsername(me.username);
+    console.log(`OK — @${expectedThreadsBrandUsername()}`);
+  }
 
   const write = process.argv.includes("--write");
   if (write) {
     const { persistThreadsEnvValues } = await import("../lib/threads/tokens");
-    const updates: Record<string, string> = { THREADS_ACCESS_TOKEN: longRes.access_token };
-    if (longRes.user_id) updates.THREADS_USER_ID = String(longRes.user_id);
-    if (me.id) updates.THREADS_USER_ID = me.id;
+    const tokenKey = investmentProfile
+      ? "THREADS_INVESTMENT_ACCESS_TOKEN"
+      : "THREADS_ACCESS_TOKEN";
+    const userIdKey = investmentProfile
+      ? "THREADS_INVESTMENT_USER_ID"
+      : "THREADS_USER_ID";
+    const updates: Record<string, string> = { [tokenKey]: longRes.access_token };
+    if (longRes.user_id) updates[userIdKey] = String(longRes.user_id);
+    if (me.id) updates[userIdKey] = me.id;
+    if (investmentProfile) updates.THREADS_INVESTMENT_USERNAME = "emigro_invest";
     const files = persistThreadsEnvValues(updates);
-    console.log("Wrote THREADS_ACCESS_TOKEN to", files.join(", ") || "(no .env files found)");
+    console.log(`Wrote ${tokenKey} to`, files.join(", ") || "(no .env files found)");
   } else {
     console.log("\n=== LONG-LIVED TOKEN (save to THREADS_ACCESS_TOKEN, or re-run with --write) ===\n");
     console.log(longRes.access_token);

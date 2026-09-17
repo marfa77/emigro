@@ -13,6 +13,7 @@ import {
 export const THREADS_INVESTMENT_VERTICAL_ID = "investment_migration";
 export const THREADS_INVESTMENT_CAMPAIGN = "emigro_threads_investment";
 export const THREADS_INVESTMENT_ENV_PREFIX = "THREADS_INVESTMENT_";
+export const THREADS_INVESTMENT_USERNAME = "emigro_invest";
 
 export const THREADS_INVESTMENT_EDITORIAL_SCOPE = [
   "legal_status",
@@ -51,7 +52,9 @@ export type ThreadsInvestmentVerticalConfig = {
 export function loadThreadsInvestmentVerticalConfig(): ThreadsInvestmentVerticalConfig {
   return {
     verticalId: THREADS_INVESTMENT_VERTICAL_ID,
-    username: normalizeThreadsUsername(process.env.THREADS_INVESTMENT_USERNAME),
+    username: normalizeThreadsUsername(
+      process.env.THREADS_INVESTMENT_USERNAME || THREADS_INVESTMENT_USERNAME
+    ),
     envPrefix: THREADS_INVESTMENT_ENV_PREFIX,
     campaign: THREADS_INVESTMENT_CAMPAIGN,
     autoPublish: false,
