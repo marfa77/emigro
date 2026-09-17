@@ -41,6 +41,7 @@
     "threads:replies": "tsx scripts/threads-replies.ts",
     "threads:assert-banks": "tsx scripts/threads-assert-banks.ts",
     "threads:test-reach": "tsx scripts/test-threads-reach.ts",
+    "threads:partner-pin": "tsx scripts/threads-partner-pin.ts",
     "news:test-quality": "tsx scripts/test-news-quality-guards.ts",
     "news:test-guide-promo": "tsx scripts/test-guide-telegram-quality.ts",
     "news:test-fact-check": "tsx scripts/test-news-fact-check.ts",

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Building2, Handshake, Scale, Users } from "lucide-react";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
+import { ProviderPartnerRecruitment } from "@/components/providers/ProviderPartnerRecruitment";
 import { CONTACT_EMAIL, MAILTO_PARTNERS } from "@/lib/site-contact";
 import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
 import { pageMetadata, pageUrl } from "@/lib/seo";
@@ -28,7 +29,7 @@ const PARTNER_TYPES = [
   {
     icon: Building2,
     title: "Недвижимость и инвестиции",
-    text: "Покупка, аренда и инвестиционные объекты для переезда или получения резидентского статуса.",
+    text: "Покупка, аренда и инвестиционные объекты для переезда. Связь объекта с визой или ВНЖ всегда проверяется отдельно.",
   },
   {
     icon: Users,
@@ -122,8 +123,19 @@ export default function PartnersPage() {
           </ul>
         </section>
 
+        <section id="partner-form" className="mt-10 scroll-mt-24">
+          <h2 className="text-xl font-semibold">Запустить партнёрский пилот</h2>
+          <p className="mt-3 text-slate-600">
+            Укажите географию, услуги, публичный профиль и коммерческую модель. Для недвижимости отдельно опишите,
+            от какой суммы считается комиссия и какой лицензированный специалист отвечает за миграционную часть.
+          </p>
+          <div className="mt-5">
+            <ProviderPartnerRecruitment placement="partners_page" />
+          </div>
+        </section>
+
         <section className="mt-10">
-          <h2 className="text-xl font-semibold">Как подать заявку</h2>
+          <h2 className="text-xl font-semibold">Предпочитаете email?</h2>
           <p className="mt-3 text-slate-600">
             Напишите на{" "}
             <a href={MAILTO_PARTNERS} className="font-medium text-corridor-600 hover:underline">
@@ -140,18 +152,18 @@ export default function PartnersPage() {
         </section>
 
         <div className="mt-10 flex flex-wrap gap-3">
-          <a
-            href={MAILTO_PARTNERS}
+          <Link
+            href="#partner-form"
             className="rounded-lg bg-corridor-600 px-5 py-3 text-sm font-medium text-white hover:bg-corridor-700"
           >
-            Написать о партнёрстве
-          </a>
-          <Link
-            href="/ru/contact"
+            Открыть форму
+          </Link>
+          <a
+            href={MAILTO_PARTNERS}
             className="rounded-lg border border-slate-300 px-5 py-3 text-sm font-medium text-slate-700 hover:bg-slate-50"
           >
-            Все контакты
-          </Link>
+            Написать по email
+          </a>
         </div>
       </main>
       <SiteFooter />

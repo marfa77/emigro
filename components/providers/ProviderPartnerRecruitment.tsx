@@ -177,7 +177,7 @@ export function ProviderPartnerRecruitment({ placement, corridorSlug, topicKey, 
             className={formFieldWhite}
           />
           <textarea
-            placeholder="Кратко о компании и лицензиях"
+            placeholder="Кратко о компании, лицензиях и модели пилота (CPL / revshare / другое)"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             rows={3}

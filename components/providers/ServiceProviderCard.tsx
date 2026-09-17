@@ -15,6 +15,7 @@ export type ProviderPlacement =
   | "satellite_ciple_note"
   | "satellite_hub"
   | "transit_hub_landing"
+  | "partners_page"
   | "wizard_hub_results"
   | "wizard_corridor_results";
 
