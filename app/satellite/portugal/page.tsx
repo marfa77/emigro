@@ -11,7 +11,11 @@ import { PortoChatCta } from "@/components/satellite/PortoChatCta";
 import { ProviderPartnerRecruitment } from "@/components/providers/ProviderPartnerRecruitment";
 import { getDailySpotlight } from "@/lib/community-notes/daily-spotlight";
 import { requirePublishedCommunityNotes } from "@/lib/community-notes/queries";
-import { PORTUGAL_SATELLITE } from "@/lib/satellite/portugal";
+import {
+  PORTUGAL_SATELLITE,
+  portugalHubPracticeTagsLabel,
+  rankPortugalHubGuides,
+} from "@/lib/satellite/portugal";
 import {
   satelliteDigestUrl,
   satelliteWizardUrl,
@@ -24,11 +28,14 @@ import { heroTitle, satelliteMain } from "@/lib/ui/mobile";
 
 export const revalidate = 300;
 
+/** Hub content revision — bump when strengthening for indexation. */
+const HUB_CONTENT_UPDATED = "2026-09-18";
+
 /** Competitor-beating hub meta: demonym + 2026 + NIF/AIMA + Norte destinations + inventory hooks. */
 function buildHubDescription(guideCount: number, noteCount: number): string {
   return (
-    `Португалия 2026 для русскоязычных: ${guideCount}+ гайдов и ${noteCount} материалов — NIF Porto, AIMA/Agora, ` +
-    `D8 ~€3 680/мес, аренда Norte (Порту, Брага, Minho). FAQ + aima.gov.pt. Не юрконсультация.`
+    `Португалия 2026 — полевая практика (не визовый каталог): ${guideCount}+ гайдов, ${noteCount} материалов. ` +
+    `NIF Porto/Finanças, AIMA Agora ≠ portal-renovacoes, аренда Norte, SNS, банк. FAQ + aima.gov.pt. Не юрконсультация.`
   );
 }
 
@@ -44,12 +51,12 @@ export async function generateMetadata(): Promise<Metadata> {
       description,
       keywords: [
         "Португалия 2026",
-        "Порту",
-        "Norte",
-        "NIF Portugal",
+        "NIF Porto",
         "AIMA Agora",
-        "релокация Португалия",
-        "D8 D7",
+        "portal-renovacoes",
+        "аренда Porto Braga",
+        "Norte релокация",
+        "SNS Португалия",
         "русскоязычные экспаты",
       ],
       alternates: {
@@ -84,19 +91,27 @@ export async function generateMetadata(): Promise<Metadata> {
 const HUB_FAQ = [
   {
     q: "Чем portugal.emigro.online отличается от pillar-гида на emigro.online?",
-    a: "Сателлит — практика на месте (NIF, AIMA/Agora, аренда, SNS, быт Norte). Pillar и wizard на emigro.online — выбор визы D7/D8, требования и коридор ВНЖ. Оба слоя связаны перекрёстными ссылками.",
+    a: "Сателлит — практика на месте после въезда: NIF в Finanças / Loja do Cidadão, слот Agora vs portal-renovacoes, contrato de arrendamento Norte, SNS, банк, consulado. Pillar и wizard на emigro.online — выбор визы D7/D8, пороги дохода и коридор ВНЖ до вылета. Это два слоя: маршрут там, поле здесь.",
   },
   {
     q: "Schengen-туризм = ВНЖ Португалии?",
-    a: "Нет. Туристический въезд по шенгену не заменяет autorizaçao de residência. Типовой путь: виза D в консульстве → въезд → канал AIMA (portal / Agora / письмо). Сверяйте aima.gov.pt.",
+    a: "Нет. Туристический въезд по шенгену не заменяет autorização de residência. Типовой путь: виза D в консульстве → въезд → канал AIMA (portal / Agora / письмо). Сверяйте aima.gov.pt.",
   },
   {
     q: "С чего начать в первые недели в Porto / Norte?",
-    a: "NIF (Finanças / Loja do Cidadão), португальский номер, банк, morada, затем мониторинг канала AIMA для вашей процедуры. Смотрите тег #nif и гайд по записи AIMA/Agora на этом сателлите.",
+    a: "NIF (Finanças / Loja do Cidadão), португальский номер, банк, morada по contrato или Termo, затем мониторинг канала AIMA для вашей процедуры. Смотрите тег #nif и гайд AIMA/Agora на этом сателлите — не путайте с записью на CIPLE.",
+  },
+  {
+    q: "Agora и portal-renovacoes — это одно и то же?",
+    a: "Нет. Agora (agora.imigrante.pt) — обычно presencial / биометрия, когда вас направили. portal-renovacoes — отдельный онлайн-канал renovação. В чатах их часто смешивают; без нужного канала слот «пропадает» зря. Полевой чек-лист — в гайде AIMA / Agora.",
   },
   {
     q: "Где CIPLE и гражданство Португалии?",
     a: "CIPLE / nacionalidade — не запись Agora AIMA. Экзамен CAPLE и гражданство — отдельные треки (MJ / cidadaniaonline). Timed mock CIPLE A2 — на Prep2Go; маршрут ВНЖ — wizard Emigro.",
+  },
+  {
+    q: "Нужен ли NIF до аренды и банка?",
+    a: "На практике без NIF договор arrendamento и счёт в банке часто встают. Номер бесплатно присваивает AT при личном обращении; представитель и apostille — отдельно по рынку. Пошагово для Porto: гайд NIF на этом сателлите; правила — portaldasfinancas.gov.pt.",
   },
 ] as const;
 
@@ -106,29 +121,35 @@ export default async function PortugalSatelliteHomePage() {
     requirePublishedCommunityNotes("portugal"),
   ]);
   const listNotes = spotlight ? notes.filter((n) => n.slug !== spotlight.note_slug) : notes;
-  const guideNotesAll = listNotes.filter((n) => n.content_kind === "guide");
+  const guideNotesAll = rankPortugalHubGuides(listNotes.filter((n) => n.content_kind === "guide"));
   const feedNotesAll = listNotes.filter((n) => n.content_kind !== "guide");
   /** Cap hub lists — full dump (~60 cards / 500KB) → GSC "Crawled - not indexed" doorway signal. */
-  const HUB_GUIDES_PREVIEW = 12;
-  const HUB_FEED_PREVIEW = 8;
+  const HUB_GUIDES_PREVIEW = 10;
+  const HUB_FEED_PREVIEW = 6;
   const guideNotes = guideNotesAll.slice(0, HUB_GUIDES_PREVIEW);
   const feedNotes = feedNotesAll.slice(0, HUB_FEED_PREVIEW);
   const guidesHidden = Math.max(0, guideNotesAll.length - guideNotes.length);
   const feedHidden = Math.max(0, feedNotesAll.length - feedNotes.length);
   const allGuides = notes.filter((n) => n.content_kind === "guide");
+  const feedCount = notes.filter((n) => n.content_kind !== "guide").length;
   const topicTags = Array.from(
     new Set(notes.flatMap((n) => n.topic_tags.filter((t) => t !== "portugal")))
   ).sort();
-  const destinationsLabel =
-    topicTags.slice(0, 8).join(", ") || "NIF, AIMA, аренда, SNS, банки";
+  const destinationsLabel = portugalHubPracticeTagsLabel(topicTags);
   const llmsUrl = portugalSatelliteUrl("/llms");
   const hubUrl = portugalSatelliteUrl("/");
   const hubDescription = buildHubDescription(allGuides.length, notes.length);
+  const corridorUrl = PORTUGAL_SATELLITE.mainSiteUrl;
+  const pillarUrl = PORTUGAL_SATELLITE.pillarGuideUrl;
 
-  const listForSchema = (spotlight ? [spotlight.note_slug, ...listNotes.map((n) => n.slug)] : listNotes.map((n) => n.slug))
-    .map((slug) => notes.find((n) => n.slug === slug))
-    .filter(Boolean)
-    .slice(0, 20);
+  const listForSchema = rankPortugalHubGuides(allGuides)
+    .slice(0, 16)
+    .map((note, index) => ({
+      "@type": "ListItem" as const,
+      position: index + 1,
+      url: portugalSatelliteUrl(`/notes/${note.slug}`),
+      name: note.title,
+    }));
 
   const collectionSchema = {
     "@context": "https://schema.org",
@@ -137,17 +158,58 @@ export default async function PortugalSatelliteHomePage() {
     description: hubDescription,
     url: hubUrl,
     inLanguage: "ru-RU",
+    dateModified: HUB_CONTENT_UPDATED,
     about: buildSatelliteHubPlace("portugal"),
+    isPartOf: {
+      "@type": "WebSite",
+      name: "Emigro Portugal",
+      url: hubUrl,
+    },
     mainEntity: {
       "@type": "ItemList",
       numberOfItems: notes.length,
-      itemListElement: listForSchema.map((note, index) => ({
-        "@type": "ListItem",
-        position: index + 1,
-        url: portugalSatelliteUrl(`/notes/${note!.slug}`),
-        name: note!.title,
-      })),
+      itemListElement: listForSchema,
     },
+  };
+
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "Первая неделя в Porto / Norte после въезда",
+    description:
+      "Полевой порядок для русскоязычных релокантов в Norte: NIF, банк, morada, канал AIMA. Не замена юристу и не SLA AIMA.",
+    inLanguage: "ru-RU",
+    totalTime: "P7D",
+    step: [
+      {
+        "@type": "HowToStep",
+        position: 1,
+        name: "NIF",
+        text: "Получить NIF в Finanças / Loja do Cidadão. Без NIF банк и договор аренды обычно встают.",
+        url: portugalSatelliteUrl("/notes/nif-porto-kak-poluchit-2026"),
+      },
+      {
+        "@type": "HowToStep",
+        position: 2,
+        name: "Номер, банк, morada",
+        text: "Португальский номер, счёт, подтверждение адреса; затем канал AIMA под вашу процедуру (Agora ≠ portal-renovacoes).",
+        url: portugalSatelliteUrl("/notes/aima-agora-zapis-2026"),
+      },
+      {
+        "@type": "HowToStep",
+        position: 3,
+        name: "Жильё",
+        text: "Idealista / локальные риелторы Norte; Lisboa — отдельно. Не путать short-term с contrato de arrendamento.",
+        url: portugalSatelliteUrl("/notes/arenda-dolgosrok-porto-braga-2026"),
+      },
+      {
+        "@type": "HowToStep",
+        position: 4,
+        name: "Не путать Schengen и ВНЖ",
+        text: "Туристический въезд не заменяет autorização de residência. Официально: aima.gov.pt.",
+        url: "https://aima.gov.pt",
+      },
+    ],
   };
 
   const faqSchema = {
@@ -163,13 +225,15 @@ export default async function PortugalSatelliteHomePage() {
   return (
     <main className={satelliteMain}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
       <section className="sr-only" aria-label="AI description" data-llm="facts">
         <h2>ai:description</h2>
         <p>
           {hubDescription} Материалы: гайды и заметки по жизни в Португалии для релокантов с паспортами RU/BY/UA/KZ.
-          Инвентарь: {allGuides.length} гайдов, {feedNotes.length} коротких заметок, темы: {destinationsLabel}.
+          Инвентарь: {allGuides.length} гайдов, {feedCount} коротких заметок, темы: {destinationsLabel}. Обновлено{" "}
+          {HUB_CONTENT_UPDATED}.
         </p>
         <a href={llmsUrl} data-llm="commercial">
           llms.txt
@@ -193,7 +257,11 @@ export default async function PortugalSatelliteHomePage() {
             <a href="/tag/nif" className="font-medium text-teal-800 underline">
               #nif
             </a>
-            ). Без NIF банк и договор аренды обычно встают.
+            ). Без NIF банк и договор аренды обычно встают. Гайд:{" "}
+            <a href="/notes/nif-porto-kak-poluchit-2026" className="font-medium text-teal-800 underline">
+              NIF в Porto 2026
+            </a>
+            .
           </li>
           <li>
             <strong>Номер + банк + morada</strong> — затем канал AIMA под вашу процедуру (Agora ≠ portal-renovacoes).
@@ -228,25 +296,101 @@ export default async function PortugalSatelliteHomePage() {
           </li>
         </ol>
         <p className="mt-3 text-xs leading-relaxed text-slate-500">
-          Это ориентир практики сателлита, не юрконсультация и не SLA AIMA. Ниже — избранные гайды (не полный дамп
-          архива): остальные материалы открываются по тегам.
+          Это ориентир практики сателлита, не юрконсультация и не SLA AIMA. Ниже — практика-гайды первыми (NIF, AIMA,
+          банк, аренда), не досуг-каталог.
         </p>
+      </section>
+
+      <section
+        className="mt-6 overflow-hidden rounded-xl border border-slate-200 bg-white"
+        aria-labelledby="layers-heading"
+      >
+        <h2 id="layers-heading" className="border-b border-slate-100 px-4 py-3 text-lg font-semibold text-slate-900 sm:px-5">
+          Два слоя Emigro: сателлит vs corridor
+        </h2>
+        <div className="grid gap-0 sm:grid-cols-2">
+          <div className="border-b border-slate-100 px-4 py-4 sm:border-b-0 sm:border-r sm:px-5">
+            <p className="text-xs font-semibold uppercase tracking-wide text-teal-800">Этот сайт · практика</p>
+            <ul className="mt-2 list-disc space-y-1.5 pl-5 text-sm leading-relaxed text-slate-700">
+              <li>NIF, банк, SIM, morada / Termo</li>
+              <li>Agora vs portal-renovacoes, balcão Norte</li>
+              <li>Аренда Porto / Braga / Lisboa — полевые ошибки</li>
+              <li>SNS, consulado, CIPLE как экзамен (не слот AIMA)</li>
+            </ul>
+          </div>
+          <div className="px-4 py-4 sm:px-5">
+            <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">www.emigro.online · маршрут</p>
+            <ul className="mt-2 list-disc space-y-1.5 pl-5 text-sm leading-relaxed text-slate-700">
+              <li>
+                Выбор D7 / D8 и пороги —{" "}
+                <a href={pillarUrl} className="font-medium text-teal-800 underline">
+                  pillar ВНЖ
+                </a>
+              </li>
+              <li>
+                Wizard и коридор —{" "}
+                <a href={corridorUrl} className="font-medium text-teal-800 underline">
+                  /ru/portugal
+                </a>
+              </li>
+              <li>Гражданство / MJ — на основном сайте, не здесь</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section className="mt-6 rounded-xl border border-slate-200 bg-slate-50/80 px-4 py-4 sm:px-5" aria-labelledby="official-heading">
+        <h2 id="official-heading" className="text-base font-semibold text-slate-900">
+          Официальные опоры (сверяйте сами)
+        </h2>
+        <ul className="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-sm text-slate-700">
+          <li>
+            <a href="https://aima.gov.pt" target="_blank" rel="noopener noreferrer" className="font-medium text-teal-800 underline">
+              aima.gov.pt
+            </a>{" "}
+            — AIMA / residência
+          </li>
+          <li>
+            <a
+              href="https://agora.imigrante.pt"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium text-teal-800 underline"
+            >
+              agora.imigrante.pt
+            </a>{" "}
+            — слоты Agora
+          </li>
+          <li>
+            <a
+              href="https://www.portaldasfinancas.gov.pt"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium text-teal-800 underline"
+            >
+              Portal das Finanças
+            </a>{" "}
+            — NIF / AT
+          </li>
+          <li>
+            <a href="https://www.sns24.gov.pt" target="_blank" rel="noopener noreferrer" className="font-medium text-teal-800 underline">
+              SNS 24
+            </a>{" "}
+            — здоровье
+          </li>
+        </ul>
       </section>
 
       <SatelliteHubDepth
         countryKey="portugal"
         guideCount={allGuides.length}
         noteCount={notes.length}
-        feedCount={notes.filter((n) => n.content_kind !== "guide").length}
+        feedCount={feedCount}
         topicCount={topicTags.length}
         destinationsLabel={destinationsLabel}
       />
 
       <SatelliteValueProp />
-
-      <PortoChatCta source="portugal_satellite_hub" />
-
-      <SatelliteFunnelCta countryKey="portugal" placement="satellite_hub" />
 
       <SatelliteHubScenarios countryKey="portugal" />
 
@@ -264,6 +408,10 @@ export default async function PortugalSatelliteHomePage() {
         </dl>
       </section>
 
+      <PortoChatCta source="portugal_satellite_hub" />
+
+      <SatelliteFunnelCta countryKey="portugal" placement="satellite_hub" />
+
       {spotlight && (
         <div className="mt-8">
           <DailySpotlightTile spotlight={spotlight} />
@@ -275,9 +423,12 @@ export default async function PortugalSatelliteHomePage() {
       {guideNotes.length > 0 && (
         <section className="mt-10" aria-labelledby="guides-heading">
           <h2 id="guides-heading" className="text-xl font-semibold text-slate-900">
-            Избранные гайды ({guideNotes.length}
+            Практика-гайды ({guideNotes.length}
             {guidesHidden > 0 ? ` из ${guideNotesAll.length}` : ""})
           </h2>
+          <p className="mt-2 text-sm text-slate-600">
+            Сверху — NIF, AIMA, банк, аренда, SNS. Досуг и travel atlas — через теги, не в начале хаба.
+          </p>
           <ul className="mt-6 space-y-4">
             {guideNotes.map((note) => (
               <li key={note.slug}>
@@ -287,7 +438,7 @@ export default async function PortugalSatelliteHomePage() {
           </ul>
           {guidesHidden > 0 ? (
             <p className="mt-4 text-sm text-slate-600">
-              Ещё {guidesHidden} гайдов — через теги выше (#nif, #aima, #arenda) или{" "}
+              Ещё {guidesHidden} гайдов — через теги (#nif, #aima, #arenda) или{" "}
               <a href={llmsUrl} className="font-medium text-teal-800 underline">
                 llms.txt
               </a>

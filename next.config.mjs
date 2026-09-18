@@ -183,6 +183,13 @@ const nextConfig = {
         destination: "/satellite/portugal/notes/prodlenie-vnzh-portugaliya-aima-2026",
         permanent: true,
       },
+      // Soft-duplicate hub URL on sat host → public canonical /
+      {
+        source: "/satellite/portugal",
+        has: [{ type: "host", value: "portugal.emigro.online" }],
+        destination: "/",
+        permanent: true,
+      },
       // Lisboa-centric NIF note → Porto / Norte hand guide
       {
         source: "/notes/nif-lissabon-chto-puutayut",
