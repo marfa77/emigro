@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowRight, FileText, UserCheck } from "lucide-react";
 import { trackEvent } from "@/lib/analytics/client";
 import { buildAssistUrl } from "@/lib/assist/build-url";
+import { formatCountryProgramLabel } from "@/lib/wizard/format-country-program-label";
 
 export type AssistResultsPlacement = "wizard_hub_results" | "wizard_corridor_results";
 
@@ -61,7 +62,7 @@ export function AssistResultsCta({
           eyebrow: "Siguiente paso",
           context:
             label && programTitle
-              ? `Según sus respuestas: ${label} — ${programTitle}.`
+              ? `Según sus respuestas: ${formatCountryProgramLabel(label, programTitle)}.`
               : label
                 ? `Corredor: ${label}.`
                 : "Con el resultado del evaluador, Emigro puede encontrar un especialista para su caso.",
@@ -78,7 +79,7 @@ export function AssistResultsCta({
             eyebrow: "Prochaine étape",
             context:
               label && programTitle
-                ? `Selon vos réponses : ${label} — ${programTitle}.`
+                ? `Selon vos réponses : ${formatCountryProgramLabel(label, programTitle)}.`
                 : label
                   ? `Corridor : ${label}.`
                   : "Avec le résultat de l’évaluateur, Emigro peut trouver un spécialiste pour votre cas.",
@@ -94,7 +95,7 @@ export function AssistResultsCta({
             eyebrow: "Следующий шаг",
             context:
               label && programTitle
-                ? `По вашим ответам: ${label} — ${programTitle}.`
+                ? `По вашим ответам: ${formatCountryProgramLabel(label, programTitle)}.`
                 : label
                   ? `Коридор: ${label}.`
                   : "По результатам wizard Emigro может найти специалиста под ваш кейс.",

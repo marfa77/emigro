@@ -1,4 +1,5 @@
 import { createAdminClient } from "@/lib/admin/supabase";
+import { formatCountryProgramLabel } from "@/lib/wizard/format-country-program-label";
 import type { LoadedWizardSessionReport } from "@/lib/wizard/session-report";
 import type { WizardTelegramMode } from "@/lib/telegram/deep-link";
 
@@ -15,7 +16,10 @@ export type WizardTelegramDeliverySource = "bot_start" | "login_widget";
 
 function topRecommendationFromSession(session: LoadedWizardSessionReport): string | null {
   if (session.mode === "hub" && session.payload?.pick) {
-    return `${session.payload.pick.countryRu} — ${session.payload.pick.programTitleRu}`;
+    return formatCountryProgramLabel(
+      session.payload.pick.countryRu,
+      session.payload.pick.programTitleRu
+    );
   }
   const first = session.corridorResults?.[0];
   if (first?.title) return first.title;

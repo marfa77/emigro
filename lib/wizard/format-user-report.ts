@@ -1,5 +1,6 @@
 import { corridorResultsPath, HUB_WIZARD_RESULTS_PATH } from "@/lib/corridor/paths";
 import { HUB_WIZARD_MODULES } from "@/lib/wizard/hub-definition";
+import { formatCountryProgramLabel } from "@/lib/wizard/format-country-program-label";
 import type { LoadedWizardSessionReport } from "@/lib/wizard/session-report";
 import { publicSiteUrl } from "@/lib/site-url";
 import type { WizardModule } from "@/lib/types";
@@ -108,7 +109,7 @@ export function formatUserWizardReportHtml(session: LoadedWizardSessionReport): 
   if (session.payload?.pick) {
     const pick = session.payload.pick;
     appendSection("⭐ Топ-выбор", [
-      `<b>${escapeHtml(pick.countryRu)}</b> — ${escapeHtml(pick.programTitleRu)}`,
+      `<b>${escapeHtml(formatCountryProgramLabel(pick.countryRu, pick.programTitleRu))}</b>`,
       `Исход: ${OUTCOME_RU[pick.outcome] ?? pick.outcome}`,
       `<a href="${escapeHtml(publicSiteUrl() + pick.programPath)}">Страница программы</a>`,
     ]);
@@ -116,7 +117,13 @@ export function formatUserWizardReportHtml(session: LoadedWizardSessionReport): 
 
   const hubMatches = session.payload?.results.filter((r) => r.outcome !== "unlikely").slice(0, 6) ?? [];
   if (hubMatches.length) {
-    appendSection("Маршруты", hubMatches.map((r) => `• ${escapeHtml(r.countryRu)}: ${escapeHtml(r.programTitleRu)} (${OUTCOME_RU[r.outcome] ?? r.outcome})`));
+    appendSection(
+      "Маршруты",
+      hubMatches.map(
+        (r) =>
+          `• ${escapeHtml(formatCountryProgramLabel(r.countryRu, r.programTitleRu))} (${OUTCOME_RU[r.outcome] ?? r.outcome})`
+      )
+    );
   }
 
   if (session.corridorResults?.length) {

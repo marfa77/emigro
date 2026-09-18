@@ -22,6 +22,7 @@ import { PortugalHubNextSteps } from "@/components/portugal/PortugalHubNextSteps
 import { WizardSatellitePracticeCta } from "@/components/wizard/WizardSatellitePracticeCta";
 import { isPortugalHubTopic } from "@/lib/portugal/hub";
 import { liveCityChatForCountry } from "@/lib/satellite/city-chats";
+import { formatCountryProgramLabel } from "@/lib/wizard/format-country-program-label";
 
 export async function generateStaticParams() {
   const segments = await getActiveCorridorSegments();
@@ -164,7 +165,11 @@ export default async function CountryResultsPage({
         <WizardTelegramDelivery
           mode="corridor"
           sessionId={sessionId}
-          topRecommendation={topResult ? `${topic.countryRu} — ${topResult.title_ru}` : undefined}
+          topRecommendation={
+            topResult
+              ? formatCountryProgramLabel(topic.countryRu, topResult.title_ru)
+              : undefined
+          }
           matchCount={matchCount}
         />
 

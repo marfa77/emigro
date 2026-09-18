@@ -334,7 +334,11 @@ const scenarios: Scenario[] = [
       monthly_income_eur: 4000,
     },
     expect:
-      corridor === "ru-speaking-to-germany" || corridor === "ru-speaking-to-netherlands"
+      corridor === "ru-speaking-to-germany" ||
+      corridor === "ru-speaking-to-netherlands" ||
+      // MPRP is capital/investment; e-Residency is not residence — remote income alone stays unlikely.
+      corridor === "ru-speaking-to-malta" ||
+      corridor === "ru-speaking-to-estonia"
         ? { minOutcome: "unlikely" as Outcome }
         : { minOutcome: "needs_review" as Outcome },
   })),

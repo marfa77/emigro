@@ -13,6 +13,7 @@ import { PortugalHubNextSteps } from "@/components/portugal/PortugalHubNextSteps
 import { WizardSatellitePracticeCta } from "@/components/wizard/WizardSatellitePracticeCta";
 import { liveCityChatForCountry } from "@/lib/satellite/city-chats";
 import { TRANSIT_HUBS } from "@/lib/transit-hubs";
+import { formatCountryProgramLabel } from "@/lib/wizard/format-country-program-label";
 import Link from "next/link";
 import { ArrowRight, Compass, Route, Sparkles } from "lucide-react";
 
@@ -78,7 +79,9 @@ export function HubWizardResults({
       <WizardTelegramDelivery
         mode="hub"
         sessionId={sessionId}
-        topRecommendation={pick ? `${pick.countryRu} — ${pick.programTitleRu}` : undefined}
+        topRecommendation={
+          pick ? formatCountryProgramLabel(pick.countryRu, pick.programTitleRu) : undefined
+        }
         matchCount={matchCount}
       />
 
@@ -151,7 +154,7 @@ export function HubWizardResults({
             <div>
               <p className="text-sm font-semibold uppercase tracking-wide text-corridor-700">Наш выбор</p>
               <h2 className="mt-1 text-xl font-bold text-slate-900">
-                {pick.countryRu} — {pick.programTitleRu}
+                {formatCountryProgramLabel(pick.countryRu, pick.programTitleRu)}
               </h2>
               <p className="mt-2 text-sm text-slate-600">
                 {pick.outcome === "likely_eligible"

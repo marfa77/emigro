@@ -2,6 +2,7 @@ import type { GlobalEvalPayload } from "@/lib/engine/run-global-evaluation";
 import { corridorResultsPath } from "@/lib/corridor/paths";
 import type { WizardModule } from "@/lib/types";
 import { SITE_URL } from "@/lib/site-url";
+import { formatCountryProgramLabel } from "@/lib/wizard/format-country-program-label";
 
 export type WizardFunnelContext = {
   ip?: string;
@@ -91,7 +92,7 @@ export function formatWizardCompletedTelegram(input: {
   let pickLine = "Топ: —";
   if (payload?.pick) {
     const matchCount = payload.results.filter((r) => r.outcome !== "unlikely").length;
-    pickLine = `Топ: ${payload.pick.countryRu} — ${payload.pick.programTitleRu} (${OUTCOME_RU[payload.pick.outcome] ?? payload.pick.outcome}) · ${matchCount}/${payload.results.length}`;
+    pickLine = `Топ: ${formatCountryProgramLabel(payload.pick.countryRu, payload.pick.programTitleRu)} (${OUTCOME_RU[payload.pick.outcome] ?? payload.pick.outcome}) · ${matchCount}/${payload.results.length}`;
   } else if (corridorResults?.length) {
     const top = corridorResults[0];
     pickLine = `Топ: ${top.title ?? top.slug} (${OUTCOME_RU[top.outcome] ?? top.outcome})`;
