@@ -93,7 +93,8 @@ async function sendOrPreview(
 
   const sent = await sendStatsBotMessage(chatId, html, {
     parseMode: "HTML",
-    disableWebPagePreview: true,
+    // Note URL has full OG (title/description/image) — show Telegram link card.
+    disableWebPagePreview: false,
   });
   if (!sent.success) {
     throw new Error(sent.error || "telegram send failed");

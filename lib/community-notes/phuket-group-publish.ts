@@ -90,7 +90,7 @@ async function sendOrPreview(
 
   const sent = await sendStatsBotMessage(chatId, html, {
     parseMode: "HTML",
-    disableWebPagePreview: true,
+    disableWebPagePreview: false,
   });
   if (!sent.success) throw new Error(sent.error || "telegram send failed");
 
