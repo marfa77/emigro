@@ -26,16 +26,24 @@ or citizenship.
 
 ## Thailand pilot
 
-`Empyreal Estate Phuket` is reserved only when all of the following are true:
+`Empyreal Estate Phuket` может быть выбран оператором вручную только после проверки
+конкретной программы. Отправка qualifier не создаёт assignment и не передаёт контакт.
+По странам без подписанного партнёра лид остаётся в очереди; поиск партнёра начинается
+после 3 открытых квалифицированных лидов.
 
-- the applicant explicitly selects Thailand or Thailand ranks first;
-- the selected asset is property;
-- the screening budget is not below the Thailand route floor.
+## UAE property → documents
 
-Reservation creates a 90-day attribution window. It does not share contact data
-automatically: `contact_shared` must be a separate handoff event. Commission
-terms remain empty until the trial economics and a payable legal setup are
-agreed.
+ОАЭ — активный property-linked маршрут в реестре:
+
+- скрининговый пол: ~€545k ≈ **AED 2 000 000** Golden Residence через недвижимость
+  ([ICP Golden Residency](https://icp.gov.ae/en/services/uae-golden-residency/));
+- ниже AED 2M — отдельные 2-летние property-визы, не 10-летний Golden;
+- подписанного property-партнёра пока нет: лиды копятся, поиск партнёра с 3
+  квалифицированных открытых заявок.
+
+Сестринский инструмент **Dubai Offer Verdict** (`uaeproperty.vip`) — сверка ask
+брокера с DLD sold prices. Это due diligence по объекту, не CRM-партнёр: контакт
+лида туда не передаётся.
 
 ## Trial metrics
 

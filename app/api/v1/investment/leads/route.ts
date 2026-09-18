@@ -8,6 +8,8 @@ import {
 } from "@/lib/investment/registry";
 import { createAdminClient } from "@/lib/admin/supabase";
 import { sendOwnerTelegramDm } from "@/lib/telegram";
+import { signInvestmentResultToken } from "@/lib/investment/result-token";
+import { trackServerEvent } from "@/lib/analytics/server";
 
 export const runtime = "nodejs";
 
@@ -40,13 +42,21 @@ const ALLOWED_FIELDS = new Set([
   "timeline",
   "family_size",
   "funding_readiness",
+  "property_stage",
+  "source_of_funds",
+  "session_id",
+  "referrer",
+  "utm_source",
+  "utm_medium",
+  "utm_campaign",
+  "utm_content",
   "consent",
 ]);
 const recent = new Map<string, number>();
 const THROTTLE_MS = 120_000;
-const ATTRIBUTION_DAYS = 90;
-const CONSENT_VERSION = "investment-v1";
-const EMPYREAL_PROVIDER_ID = "empyreal-estate-phuket";
+const CONSENT_VERSION = "investment-v2";
+const PROPERTY_STAGES = new Set(["researching", "selected", "reserved", "owned"]);
+const FUND_SOURCES = new Set(["salary", "business", "asset_sale", "savings", "other"]);
 
 type InvestmentLeadBody = {
   name?: unknown;
@@ -59,6 +69,14 @@ type InvestmentLeadBody = {
   timeline?: unknown;
   family_size?: unknown;
   funding_readiness?: unknown;
+  property_stage?: unknown;
+  source_of_funds?: unknown;
+  session_id?: unknown;
+  referrer?: unknown;
+  utm_source?: unknown;
+  utm_medium?: unknown;
+  utm_campaign?: unknown;
+  utm_content?: unknown;
   consent?: unknown;
 };
 
@@ -186,7 +204,10 @@ export async function POST(request: Request) {
     !["0_3_months", "3_6_months", "6_12_months", "12_plus_months", "researching"].includes(
       timeline
     ) ||
-    !["ready", "partial", "planning"].includes(fundingReadiness)
+    !["ready", "partial", "planning"].includes(fundingReadiness) ||
+    (asset === "property" &&
+      (typeof body.property_stage !== "string" || !PROPERTY_STAGES.has(body.property_stage))) ||
+    (typeof body.source_of_funds === "string" && !FUND_SOURCES.has(body.source_of_funds))
   ) {
     return NextResponse.json({ error: "Invalid investment lead payload" }, { status: 400 });
   }
@@ -206,7 +227,8 @@ export async function POST(request: Request) {
       : [...evaluatedRoutes].sort((a, b) =>
           a.country === preferredCountry ? -1 : b.country === preferredCountry ? 1 : 0
         );
-  const selectedRoute = matches[0];
+  const selectedRoute =
+    matches.find((route) => route.match === "likely" || route.match === "review") ?? matches[0];
   if (!selectedRoute) {
     return NextResponse.json({ error: "No investment routes available" }, { status: 500 });
   }
@@ -229,20 +251,11 @@ export async function POST(request: Request) {
   }
 
   const consentAt = new Date().toISOString();
-  const attributionExpiresAt = new Date(
-    Date.now() + ATTRIBUTION_DAYS * 24 * 60 * 60 * 1000
-  ).toISOString();
   const selectedProgram = selectedRoute.programSlug ?? null;
-  const selectedProvider =
-    selectedRoute.country === "thailand" &&
-    selectedRoute.match !== "budget_gap" &&
-    asset === "property" &&
-    selectedRoute.providerId === EMPYREAL_PROVIDER_ID
-      ? EMPYREAL_PROVIDER_ID
-      : null;
+  const sessionId = strictString(body.session_id, 128);
   const safeMatches = matches.map(safeMatch);
   const leadPacket = {
-    schema_version: 1,
+    schema_version: 2,
     budget_eur: budgetEur,
     passport_citizenship: passportCitizenship,
     passport_iso2: normalizeInvestmentPassport(passportCitizenship),
@@ -251,9 +264,19 @@ export async function POST(request: Request) {
     timeline,
     family_size: familySize,
     funding_readiness: fundingReadiness,
+    property_stage: typeof body.property_stage === "string" ? body.property_stage : null,
+    source_of_funds: typeof body.source_of_funds === "string" ? body.source_of_funds : null,
     preferred_country: preferredCountry,
     selected_match: safeMatch(selectedRoute),
     route_matches: safeMatches,
+    attribution: {
+      referrer: strictString(body.referrer, 512),
+      utm_source: strictString(body.utm_source, 128),
+      utm_medium: strictString(body.utm_medium, 128),
+      utm_campaign: strictString(body.utm_campaign, 128),
+      utm_content: strictString(body.utm_content, 128),
+    },
+    partner_policy: "unassigned_until_manual_contact_share",
   };
 
   const supabase = createAdminClient();
@@ -268,7 +291,7 @@ export async function POST(request: Request) {
     .from("emigro_manual_leads")
     .insert({
       corridor_id: corridor?.id ?? null,
-      session_id: null,
+      session_id: sessionId,
       name,
       email: contact,
       telegram: contact.startsWith("@") || contact.startsWith("https://t.me/") ? contact : null,
@@ -276,15 +299,15 @@ export async function POST(request: Request) {
       preferred_language: "ru",
       selected_program_slugs: selectedProgram ? [selectedProgram] : [],
       notes: null,
-      status: selectedProvider ? "assigned" : "new",
+      status: "new",
       lead_type: "investment",
       source: "investment_pipeline",
       destination_iso2: selectedRoute.destinationIso2,
-      selected_provider_ids: selectedProvider ? [selectedProvider] : [],
+      selected_provider_ids: [],
       lead_packet: leadPacket,
       consent_at: consentAt,
       consent_version: CONSENT_VERSION,
-      attribution_expires_at: selectedProvider ? attributionExpiresAt : null,
+      attribution_expires_at: null,
     })
     .select("id")
     .single();
@@ -316,43 +339,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Lead audit failed" }, { status: 500 });
   }
 
-  if (selectedProvider) {
-    const { data: assignment, error: assignmentError } = await supabase
-      .from("emigro_lead_assignments")
-      .insert({
-        lead_id: lead.id,
-        provider_id: selectedProvider,
-        status: "reserved",
-        attribution_model: "introduced_lead",
-        attribution_expires_at: attributionExpiresAt,
-        commission_terms: {},
-      })
-      .select("id")
-      .single();
-
-    if (assignmentError || !assignment) {
-      await supabase.from("emigro_manual_leads").delete().eq("id", lead.id);
-      console.error("[investment-leads] assignment insert failed:", assignmentError?.message);
-      return NextResponse.json({ error: "Lead assignment failed" }, { status: 500 });
-    }
-
-    const { error: eventError } = await supabase.from("emigro_lead_handoff_events").insert([
-      {
-        lead_id: lead.id,
-        assignment_id: assignment.id,
-        event_type: "provider_reserved",
-        actor_type: "system",
-        payload: { provider_id: selectedProvider, attribution_expires_at: attributionExpiresAt },
-      },
-    ]);
-
-    if (eventError) {
-      await supabase.from("emigro_manual_leads").delete().eq("id", lead.id);
-      console.error("[investment-leads] audit insert failed:", eventError.message);
-      return NextResponse.json({ error: "Lead audit failed" }, { status: 500 });
-    }
-  }
-
   const telegramText = formatOwnerMessage({
     leadId: lead.id,
     name,
@@ -362,7 +348,7 @@ export async function POST(request: Request) {
     outcome: outcome as QualifierOutcome,
     destination: selectedRoute.countryRu,
     selectedProgram,
-    providerId: selectedProvider,
+    providerId: null,
     message: null,
   });
   const telegram = await sendOwnerTelegramDm(telegramText);
@@ -370,10 +356,17 @@ export async function POST(request: Request) {
     console.warn("[investment-leads] Telegram DM failed:", telegram.error);
   }
 
+  await trackServerEvent("investment_lead_submitted", {
+    lead_id: lead.id,
+    destination: selectedRoute.country,
+    match: selectedRoute.match,
+  });
+
   return NextResponse.json(
     {
       id: lead.id,
-      status: selectedProvider ? "assigned" : "new",
+      token: signInvestmentResultToken(lead.id),
+      status: "new",
       selected_match: safeMatch(selectedRoute),
       matches: safeMatches,
     },

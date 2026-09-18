@@ -299,6 +299,18 @@ const PROVIDERS: ServiceProvider[] = [
     ctaLabelRu: "Подобрать недвижимость",
   },
   {
+    id: "dubai-offer-verdict",
+    name: "Dubai Offer Verdict",
+    taglineRu: "Ask брокера vs DLD sold prices",
+    descriptionRu:
+      "Сестринский инструмент Emigro (uaeproperty.vip): сверка оффера в Дубае с зарегистрированными продажами DLD. Due diligence по цене объекта перед переводом денег — не партнёр по сделке и не решение по Golden Residence.",
+    url: "https://uaeproperty.vip?utm_source=emigro&utm_medium=provider&utm_campaign=uae_property_documents",
+    category: "real_estate",
+    topicKeys: ["uae"],
+    ctaLabelRu: "Проверить оффер",
+    isFirstParty: true,
+  },
+  {
     id: "relomar-spain",
     name: "Relomar",
     taglineRu: "Релокация и ВНЖ в Испании",

@@ -26,5 +26,10 @@ if [[ -f "$REPO_ROOT/.env" ]]; then
 fi
 
 cd "$REPO_ROOT"
-npm run threads:refresh-token -- --write
+npm run threads:refresh-token -- --profile=brand --write
+if [[ -n "${THREADS_INVESTMENT_ACCESS_TOKEN:-}" ]]; then
+  npm run threads:refresh-token -- --profile=investment --write
+else
+  echo "THREADS_INVESTMENT_ACCESS_TOKEN is empty; investment refresh skipped"
+fi
 echo "[$(date '+%Y-%m-%d %H:%M:%S %Z')] === Threads token refresh OK ==="

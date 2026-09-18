@@ -83,6 +83,12 @@ groups:
     country_key: italy
     title: "@milan_ua_chat — Милан UA"
     timezone: Europe/Rome
+  - username: italia_ru_chat
+    group_id: italia_ru_chat
+    city: italy
+    country_key: italy
+    title: "@italia_ru_chat — Италия RU"
+    timezone: Europe/Rome
   - username: forum_italy
     group_id: forum_italy
     city: italy

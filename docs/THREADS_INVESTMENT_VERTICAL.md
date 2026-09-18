@@ -60,3 +60,19 @@ primary `THREADS_*` identity.
 
 Threads API does not edit profile identity, avatar or bio. Apply the profile pack
 manually in the Threads/Instagram account UI.
+
+## Managed production state
+
+Effective 2026-09-17:
+
+- `@emigro_invest` is monitored as its own row in Threads HQ;
+- the launch welcome thread is setup traffic and is excluded from the first content baseline;
+- weekly token refresh handles the investment token independently and records
+  `THREADS_INVESTMENT_TOKEN_EXPIRES_AT`;
+- scheduled publishing and automatic replies remain off;
+- every content post remains a manual, source-reviewed release;
+- reach, followers and replies are measured separately from `@emigro_assist`.
+
+First review gate: after three source-reviewed country roots are each at least
+48 hours old. Record exact root views, organic replies and follower change.
+Change one lever only after that sample; do not react to the welcome thread.

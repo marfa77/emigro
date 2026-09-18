@@ -67,5 +67,6 @@ export function clientContext(): Record<string, string> {
   return {
     lang: navigator.language || "",
     device_type,
+    hostname: typeof window !== "undefined" ? window.location.hostname.toLowerCase() : "",
   };
 }

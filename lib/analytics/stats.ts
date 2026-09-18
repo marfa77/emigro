@@ -9,6 +9,8 @@ import {
   type ThreadsTouchRow,
 } from "@/lib/analytics/threads-stats";
 import { classifyTrafficChannel, type TrafficChannel } from "@/lib/analytics/traffic-channel";
+import { buildDashboardPortfolioStats } from "@/lib/analytics/dashboard/portfolio";
+import type { DashboardPortfolioStats } from "@/lib/analytics/dashboard/types";
 
 const VISITOR_EVENTS = ["session_start", "page_view"] as const;
 const LEAD_EVENTS = ["lead_submitted", "assist_lead_submitted"] as const;
@@ -136,6 +138,8 @@ export interface StatsReport {
   localeSplit: LocaleSplit;
   /** Tagged Threads clicks (utm_source=threads) + @emigro_assist followers. */
   threads: ThreadsReferralStats;
+  /** Cross-surface, community, investment, search and account-level dashboard data. */
+  portfolio: DashboardPortfolioStats;
 }
 
 function analyticsTimezone(): string {
@@ -952,6 +956,7 @@ export async function buildStatsReport(): Promise<StatsReport> {
     wizardTelegram,
     assist,
     threads,
+    portfolio,
   ] = await Promise.all([
     periodCounts(supabase, null, null),
     periodCounts(supabase, todayWin.start, todayWin.end),
@@ -986,6 +991,7 @@ export async function buildStatsReport(): Promise<StatsReport> {
     buildWizardTelegramStats(supabase, todayWin.start, todayWin.end, yWin.start, yWin.end),
     buildAssistFunnelStats(supabase, todayWin.start, todayWin.end, yWin.start, yWin.end),
     buildThreadsReferralStats(supabase, tz),
+    buildDashboardPortfolioStats(),
   ]);
 
   const [localeToday, localeYesterday, localeTotal] = await Promise.all([
@@ -1042,6 +1048,7 @@ export async function buildStatsReport(): Promise<StatsReport> {
     wizardTelegram,
     assist,
     threads,
+    portfolio,
     localeSplit: {
       today: localeToday,
       yesterday: localeYesterday,

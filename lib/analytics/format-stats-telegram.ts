@@ -85,6 +85,86 @@ function fmtLocaleSplit(report: StatsReport): string[] {
   return lines;
 }
 
+function periodDelta(current: number, previous: number): string {
+  if (previous === 0) return current === 0 ? "=" : "новое";
+  const pct = Math.round(((current - previous) / previous) * 100);
+  return `${pct > 0 ? "+" : ""}${pct}%`;
+}
+
+function fmtPortfolio(report: StatsReport): string[] {
+  const { portfolio } = report;
+  const core = portfolio.surfaces.find((surface) => surface.key === "core");
+  const investment = portfolio.investment;
+  const lines: string[] = [
+    "<b>📈 Что изменилось за 7 дней</b>",
+    core
+      ? `Core visitors: <b>${core.current7d.visitors}</b> <i>(${periodDelta(core.current7d.visitors, core.previous7d.visitors)} к прошлым 7д)</i>`
+      : "Core visitors: —",
+    `Investment PV: <b>${investment.pageViews7d}</b> <i>(${periodDelta(investment.pageViews7d, investment.pageViewsPrevious7d)} к прошлым 7д)</i>`,
+    `Investment leads: <b>${investment.leads7d}</b>`,
+    "",
+    "<b>🛰 Сателлиты · 7 дней</b>",
+  ];
+  for (const surface of portfolio.surfaces.filter((item) => item.key !== "core")) {
+    lines.push(
+      `${escapeHtml(surface.label)}: <b>${surface.current7d.visitors}</b> visitors / ${surface.current7d.pageViews} PV · wizard ${surface.current7d.wizardStarted} · chat intent ${surface.current7d.communityClicks} <i>(${periodDelta(surface.current7d.visitors, surface.previous7d.visitors)})</i>`
+    );
+  }
+
+  lines.push(
+    "",
+    "<b>💼 Инвестиционная миграция</b>",
+    `7д: PV <b>${investment.pageViews7d}</b> → qualifier <b>${investment.qualifierStarted7d}</b> → completed <b>${investment.qualifierCompleted7d}</b> → CRM leads <b>${investment.leads7d}</b>`,
+    `PV: hub ${investment.hubViews7d} · страны ${investment.countryViews7d} · results ${investment.resultsViews7d}`,
+    `Всего лидов: <b>${investment.leadsTotal}</b> · assigned ${investment.assigned} · won ${investment.won} · lost ${investment.lost}`,
+    `Капитал профилей: <b>€${investment.budgetTotalEur.toLocaleString("ru-RU")}</b> <i>(не revenue/AUM)</i>`
+  );
+  if (investment.topDestinations.length) {
+    lines.push(...fmtTop("Направления", investment.topDestinations));
+  }
+
+  lines.push("", "<b>💬 Telegram / community</b>");
+  for (const country of portfolio.community) {
+    lines.push(
+      `${escapeHtml(country.label)}: сигналы 7д <b>${country.signals7d}</b> · backlog ${country.backlog} · notes ${country.publishedNotes} (+${country.published7d}) · источники ${country.activeChannels}/${country.totalChannels}`
+    );
+  }
+  for (const chat of portfolio.ownedChats) {
+    const change =
+      chat.members != null && chat.previous7d != null
+        ? ` <i>(${periodDelta(chat.members, chat.previous7d)} за 7д)</i>`
+        : "";
+    lines.push(`${escapeHtml(chat.label)}: <b>${chat.members ?? "—"}</b>${change}`);
+  }
+  lines.push("<i>chat intent — клик на вход; members — реальные участники Telegram</i>");
+
+  const gsc = portfolio.searchConsole;
+  lines.push("", "<b>🔎 Google Search Console · 28 дней</b>");
+  if (gsc.available) {
+    lines.push(
+      `Клики: <b>${gsc.clicks}</b> <i>(${periodDelta(gsc.clicks, gsc.previousClicks)})</i> · показы: <b>${gsc.impressions}</b> <i>(${periodDelta(gsc.impressions, gsc.previousImpressions)})</i>`,
+      `CTR: <b>${(gsc.ctr * 100).toFixed(1)}%</b> · позиция: <b>${gsc.position.toFixed(1)}</b>`
+    );
+    if (gsc.topQueries.length) {
+      lines.push(...fmtTop("GSC запросы · показы", gsc.topQueries.slice(0, 5).map((row) => [row.key, row.impressions])));
+    }
+  } else {
+    lines.push(`— недоступен: <i>${escapeHtml(gsc.error || "credentials missing")}</i>`);
+  }
+
+  lines.push("", "<b>🧵 Threads · два канала</b>");
+  for (const account of portfolio.threadsAccounts) {
+    lines.push(
+      `<b>@${account.handle}</b>: followers ${account.followers ?? "—"} · переходы 7д <b>${account.sessions7d}</b> <i>(${periodDelta(account.sessions7d, account.sessionsPrevious7d)})</i> · 30д ${account.sessions30d}`,
+      `  downstream: wizard ${account.wizardStarts} · Assist ${account.assistClicks} · qualifier ${account.qualifierStarts} · invest leads ${account.leads}`
+    );
+    if (account.topLandings.length) {
+      lines.push(...fmtTop(`@${account.handle} landing`, account.topLandings.slice(0, 3)));
+    }
+  }
+  return lines;
+}
+
 export function formatStatsReportTelegram(report: StatsReport): string {
   const { total, today, yesterday, wizardTelegram: tg, assist } = report;
 
@@ -128,6 +208,8 @@ export function formatStatsReportTelegram(report: StatsReport): string {
     `Переходы в чаты: <b>${assist.communityClicksToday}</b>${deltaHtml(assist.communityClicksToday, assist.communityClicksYesterday)} <i>(всего ${assist.communityClicksTotal})</i>`,
     "",
     ...fmtLocaleSplit(report),
+    "",
+    ...fmtPortfolio(report),
     "",
     "<b>Динамика 7 дней</b> (посетители / просмотры)",
   ];

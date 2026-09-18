@@ -28,7 +28,7 @@ SESSION_FILE = (
     else str(ROOT / (_session_env or "tg.session"))
 )
 
-ALLOWED_CHANNELS = ("milan_4at", "como_4at", "milan_ua_chat")
+ALLOWED_CHANNELS = ("milan_4at", "como_4at", "milan_ua_chat", "italia_ru_chat")
 
 
 def make_client() -> TelegramClient:

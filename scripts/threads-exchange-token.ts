@@ -13,6 +13,7 @@ import {
   exchangeAuthCodeForShortLivedToken,
   exchangeShortLivedForLongLived,
   formatExpiresIn,
+  tokenExpiresAtIso,
   threadsAuthorizationUrl,
 } from "../lib/threads";
 
@@ -89,7 +90,12 @@ Needs THREADS_APP_SECRET in .env (and APP_ID + REDIRECT_URI for --code / --auth-
     const userIdKey = investmentProfile
       ? "THREADS_INVESTMENT_USER_ID"
       : "THREADS_USER_ID";
+    const expiresKey = investmentProfile
+      ? "THREADS_INVESTMENT_TOKEN_EXPIRES_AT"
+      : "THREADS_TOKEN_EXPIRES_AT";
     const updates: Record<string, string> = { [tokenKey]: longRes.access_token };
+    const expiresAt = tokenExpiresAtIso(longRes.expires_in);
+    if (expiresAt) updates[expiresKey] = expiresAt;
     if (longRes.user_id) updates[userIdKey] = String(longRes.user_id);
     if (me.id) updates[userIdKey] = me.id;
     if (investmentProfile) updates.THREADS_INVESTMENT_USERNAME = "emigro_invest";

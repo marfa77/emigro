@@ -404,6 +404,7 @@ Employment, фризона, freelance, Green Visa, Remote Work.
 - Банки почти только с визой + Emirates ID.  
 - Дубай: ~2.5–4k € одному, семья от ~4.5k €.  
 - EU — отдельно: [/ru/wizard](/ru/wizard) · хаб [/ru/uae](/ru/uae).  
+- Документы через недвижимость: [инвест-qualifier Emigro](/ru/invest/uae) · сверка оффера с DLD: [uaeproperty.vip](https://uaeproperty.vip?utm_source=emigro&utm_medium=guide&utm_campaign=uae_property_documents&utm_content=oae-dlya-rossiyan-2026).  
 - Поиск работы (remote / EU-UK): [Role Radar](/ru/role-radar).
 
 *Не юридическая и налоговая консультация. Правила виз, банков и CT меняются — сверяйте [u.ae](https://u.ae/), [gdrfad.gov.ae](https://www.gdrfad.gov.ae/), [dubailand.gov.ae](https://dubailand.gov.ae/), [icp.gov.ae](https://icp.gov.ae/), [tax.gov.ae](https://tax.gov.ae/) перед решением. Цифры — август 2026.*

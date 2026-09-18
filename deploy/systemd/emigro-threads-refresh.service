@@ -1,5 +1,5 @@
 [Unit]
-Description=Emigro Threads token refresh (brand account, weekly)
+Description=Emigro Threads token refresh (brand and investment accounts, weekly)
 After=network-online.target
 Wants=network-online.target
 

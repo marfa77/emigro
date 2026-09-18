@@ -82,7 +82,7 @@ export function buildThreadsInvestmentInventory(
     "https://www.emigro.online"
 ): ThreadsInvestmentInventoryItem[] {
   const base = siteBase.replace(/\/$/, "");
-  return INVESTMENT_ROUTES.map((route) => {
+  return INVESTMENT_ROUTES.filter((route) => route.propertyLinked && route.status !== "closed").map((route) => {
     const sourcePath = `/ru/invest/${route.country}`;
     const sourceUrl = new URL(sourcePath, `${base}/`);
     sourceUrl.searchParams.set("utm_source", "threads");

@@ -26,7 +26,7 @@ PASS если:
 - типичный полевой совет с hedge («насколько помню», «у меня так», «списки плавают»);
 - общие каналы ок: Waitaly/аналоги под ВНЖ, Idealista, TIM/Iliad, Agenzia Entrate — без цен и адресов.
 
-REVISE если почти ок, но надо убрать цифру/абсолют/канцелярит — верни короткий исправленный текст (1–2 фразы, ≤170 символов, чатовый тон, одна щелочка).
+REVISE если почти ок, но надо убрать цифру/абсолют/канцелярит — верни исправленный текст (2–4 фразы, ≤420 символов, чатовый тон, одна щелочка, без обрыва на «…»).
 
 JSON only:
 {"verdict":"pass"|"fail"|"revise","reason":"кратко","reply":"только если revise"}`;
@@ -52,7 +52,7 @@ function sanitizeReply(text: string): string {
     .replace(/\s+([,.;:!?])/g, "$1")
     .trim();
   if (reply) reply = reply.charAt(0).toUpperCase() + reply.slice(1);
-  if (reply.length > 180) reply = reply.slice(0, 177).replace(/\s+\S*$/, "") + "…";
+  if (reply.length > 480) reply = reply.slice(0, 477).replace(/\s+\S*$/, "") + ".";
   return reply;
 }
 
@@ -62,7 +62,7 @@ export async function factcheckMilan4atReply(params: {
 }): Promise<Milan4atFactcheck> {
   const user = [
     `Вопрос:\n${params.question.trim().slice(0, 900)}`,
-    `Черновик:\n${params.draft.trim().slice(0, 400)}`,
+    `Черновик:\n${params.draft.trim().slice(0, 900)}`,
     "Верни verdict.",
   ].join("\n\n");
 
@@ -70,7 +70,7 @@ export async function factcheckMilan4atReply(params: {
     verdict?: string;
     reason?: string;
     reply?: string;
-  }>(MODEL(), SYSTEM, user, 280, { temperature: 0.15 });
+  }>(MODEL(), SYSTEM, user, 520, { temperature: 0.15 });
 
   const raw = (data.verdict || "").toLowerCase().trim();
   const verdict: Milan4atFactcheck["verdict"] =

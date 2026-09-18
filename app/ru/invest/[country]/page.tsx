@@ -3,12 +3,15 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowRight, ExternalLink, Info, Scale } from "lucide-react";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
+import { DubaiOfferVerdictPromo } from "@/components/investment/DubaiOfferVerdictPromo";
 import {
+  INVESTMENT_PROGRAM_NOTES,
   INVESTMENT_ROUTES,
   investmentAssetLabel,
   investmentRoute,
   outcomeLabel,
 } from "@/lib/investment/registry";
+import { showsDubaiOfferVerdict } from "@/lib/investment/uae-offer-verdict";
 import { pageMetadata } from "@/lib/seo";
 
 export function generateStaticParams() {
@@ -67,6 +70,21 @@ export default function InvestmentCountryPage({ params }: { params: { country: s
             <p className="mt-2 font-bold text-slate-950">{route.assets.map(investmentAssetLabel).join(", ")}</p>
           </div>
         </section>
+
+        {(INVESTMENT_PROGRAM_NOTES[route.country] ?? []).length ? (
+          <section className="mt-8 rounded-2xl border border-slate-200 bg-white p-6">
+            <h2 className="text-xl font-bold text-slate-950">Программы внутри страны</h2>
+            <ul className="mt-4 space-y-3 text-sm leading-relaxed text-slate-700">
+              {INVESTMENT_PROGRAM_NOTES[route.country].map((note) => (
+                <li key={note}>• {note}</li>
+              ))}
+            </ul>
+          </section>
+        ) : null}
+
+        {showsDubaiOfferVerdict(route.country) ? (
+          <DubaiOfferVerdictPromo placement="invest_country" content={route.country} />
+        ) : null}
 
         <section className="mt-8 rounded-2xl border border-amber-200 bg-amber-50 p-6">
           <div className="flex items-start gap-3">

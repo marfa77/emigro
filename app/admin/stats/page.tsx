@@ -1,432 +1,45 @@
 import Link from "next/link";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
-import { buildStatsReport, countryFlag, deltaLine } from "@/lib/analytics/stats";
-import { getProviderById } from "@/lib/providers/registry";
-
-function providerLabel(providerId: string): string {
-  const provider = getProviderById(providerId);
-  return provider ? `${provider.name} (${providerId})` : providerId;
-}
-
-function MetricRow({
-  label,
-  value,
-  delta,
-  hint,
-}: {
-  label: string;
-  value: number;
-  delta?: string;
-  hint?: string;
-}) {
-  return (
-    <div className="flex flex-wrap items-baseline justify-between gap-2 border-b border-slate-100 py-2 last:border-0">
-      <span className="text-slate-700">{label}</span>
-      <span className="text-right">
-        <strong className="text-slate-900">{value.toLocaleString("ru-RU")}</strong>
-        {delta && <span className="ml-2 text-xs text-slate-500">{delta}</span>}
-        {hint && <span className="ml-2 text-xs text-slate-400">{hint}</span>}
-      </span>
-    </div>
-  );
-}
-
-function TopList({ title, rows }: { title: string; rows: Array<[string, number]> }) {
-  if (rows.length === 0) return null;
-  return (
-    <section className="rounded-xl border border-slate-200 bg-white p-5">
-      <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">{title}</h2>
-      <ul className="mt-3 space-y-2 text-sm">
-        {rows.map(([value, cnt]) => (
-          <li key={`${title}-${value}`} className="flex justify-between gap-3">
-            <span className="truncate text-slate-700" title={value}>
-              {value}
-            </span>
-            <span className="shrink-0 font-medium text-slate-900">{cnt}</span>
-          </li>
-        ))}
-      </ul>
-    </section>
-  );
-}
+import { StatsDashboard } from "@/components/admin/stats/StatsDashboard";
+import { buildStatsReport } from "@/lib/analytics/stats";
 
 export default async function AdminStatsPage() {
   let report;
   let error: string | null = null;
   try {
     report = await buildStatsReport();
-  } catch (e) {
-    error = e instanceof Error ? e.message : "Не удалось загрузить статистику";
+  } catch (caught) {
+    error = caught instanceof Error ? caught.message : "Не удалось загрузить статистику";
   }
 
   return (
     <>
       <SiteHeader />
-      <main className="mx-auto max-w-5xl px-4 py-10">
+      <main className="mx-auto max-w-7xl px-4 py-10">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-bold">Статистика сайта</h1>
+            <h1 className="text-2xl font-bold">Emigro · dashboard-digest</h1>
             <p className="mt-1 text-sm text-slate-500">
-              Emigro · browser-id, без ботов ·{" "}
+              Продукты, сателлиты, сообщества и поиск · без ботов ·{" "}
               <Link href="/admin" className="text-corridor-600 hover:underline">
                 ← Admin
               </Link>
             </p>
           </div>
-          {report && (
+          {report ? (
             <p className="text-sm text-slate-500">
               TZ: <code>{report.timezone}</code> · сегодня {report.todayLabel}
             </p>
-          )}
+          ) : null}
         </div>
 
-        {error && (
+        {error ? (
           <div className="mt-6 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
-            {error}. Примените миграцию <code>20260628150000_site_events.sql</code> и проверьте{" "}
-            <code>SUPABASE_SERVICE_ROLE_KEY</code>.
+            {error}. Проверьте Supabase migrations, <code>SUPABASE_SERVICE_ROLE_KEY</code> и необязательные GSC credentials.
           </div>
-        )}
+        ) : null}
 
-        {report && (
-          <div className="mt-8 space-y-6">
-            <section className="rounded-xl border border-slate-200 bg-white p-5">
-              <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-                Нарастающий итог
-              </h2>
-              <div className="mt-3">
-                <MetricRow label="Уникальные посетители" value={report.total.visitors} hint="(browser-id)" />
-                <MetricRow label="Просмотры страниц" value={report.total.pageViews} />
-                <MetricRow label="Сессии (session_start)" value={report.total.newSessions} />
-                <MetricRow label="Сессии с визардом" value={report.total.wizardStarted} />
-                <MetricRow label="Завершения визарда" value={report.total.wizardCompleted} />
-                <MetricRow
-                  label="Отчётов в Telegram"
-                  value={report.wizardTelegram.deliveriesSentTotal}
-                  hint={`(юзеров ${report.wizardTelegram.usersTotal})`}
-                />
-                <MetricRow label="Лиды" value={report.total.leads} />
-                <MetricRow label="Assist: просмотры" value={report.assist.pageViewsTotal} />
-                <MetricRow label="Assist: клики CTA" value={report.assist.ctaClicksTotal} />
-                <MetricRow label="Assist: заявки" value={report.assist.leadsTotal} />
-                <MetricRow label="Переходы в локальные чаты" value={report.assist.communityClicksTotal} />
-                <MetricRow label="Клики партнёров" value={report.total.providerClicks} />
-                <MetricRow label="Событий в БД" value={report.total.eventsTotal} />
-                <MetricRow label="Боты (исключены)" value={report.botsTotal} />
-              </div>
-            </section>
-
-            <section className="rounded-xl border border-violet-100 bg-violet-50/40 p-5">
-              <h2 className="text-sm font-semibold uppercase tracking-wide text-violet-900">
-                Emigro Assist
-              </h2>
-              <div className="mt-3">
-                <MetricRow
-                  label="Просмотры /assist (сегодня)"
-                  value={report.assist.pageViewsToday}
-                  delta={deltaLine(report.assist.pageViewsToday, report.assist.pageViewsYesterday)}
-                  hint={`(всего ${report.assist.pageViewsTotal})`}
-                />
-                <MetricRow
-                  label="Sample plan"
-                  value={report.assist.samplePlanViewsToday}
-                  delta={deltaLine(
-                    report.assist.samplePlanViewsToday,
-                    report.assist.samplePlanViewsYesterday
-                  )}
-                  hint={`(всего ${report.assist.samplePlanViewsTotal})`}
-                />
-                <MetricRow
-                  label="Клики CTA → Assist"
-                  value={report.assist.ctaClicksToday}
-                  delta={deltaLine(report.assist.ctaClicksToday, report.assist.ctaClicksYesterday)}
-                  hint={`(всего ${report.assist.ctaClicksTotal})`}
-                />
-                <MetricRow
-                  label="Заявки Assist"
-                  value={report.assist.leadsToday}
-                  delta={deltaLine(report.assist.leadsToday, report.assist.leadsYesterday)}
-                  hint={`(всего ${report.assist.leadsTotal})`}
-                />
-                <MetricRow
-                  label="Переходы в локальные чаты"
-                  value={report.assist.communityClicksToday}
-                  delta={deltaLine(
-                    report.assist.communityClicksToday,
-                    report.assist.communityClicksYesterday
-                  )}
-                  hint={`(всего ${report.assist.communityClicksTotal})`}
-                />
-                <MetricRow
-                  label="Конверсия CTA → заявка (сегодня)"
-                  value={
-                    report.assist.ctaClicksToday > 0
-                      ? Math.round((report.assist.leadsToday / report.assist.ctaClicksToday) * 100)
-                      : 0
-                  }
-                  hint={report.assist.ctaClicksToday > 0 ? "%" : "(нет кликов)"}
-                />
-              </div>
-            </section>
-
-            <section className="rounded-xl border border-corridor-100 bg-corridor-50/40 p-5">
-              <h2 className="text-sm font-semibold uppercase tracking-wide text-corridor-800">Сегодня</h2>
-              <div className="mt-3">
-                <MetricRow
-                  label="Посетители"
-                  value={report.today.visitors}
-                  delta={deltaLine(report.today.visitors, report.yesterday.visitors)}
-                />
-                <MetricRow
-                  label="↩ вернулись"
-                  value={report.todayReturningVisitors}
-                  delta={deltaLine(report.todayReturningVisitors, report.yesterdayReturningVisitors)}
-                />
-                <MetricRow
-                  label="✨ новые"
-                  value={report.todayNewVisitors}
-                  delta={deltaLine(report.todayNewVisitors, report.yesterdayNewVisitors)}
-                />
-                <MetricRow
-                  label="Просмотры страниц"
-                  value={report.today.pageViews}
-                  delta={deltaLine(report.today.pageViews, report.yesterday.pageViews)}
-                />
-                <MetricRow
-                  label="Новые сессии"
-                  value={report.today.newSessions}
-                  delta={deltaLine(report.today.newSessions, report.yesterday.newSessions)}
-                />
-                <MetricRow
-                  label="Визард started"
-                  value={report.today.wizardStarted}
-                  delta={deltaLine(report.today.wizardStarted, report.yesterday.wizardStarted)}
-                />
-                <MetricRow
-                  label="🇪🇸 ES wizard started"
-                  value={report.localeSplit.today.es.wizardStarted}
-                  delta={deltaLine(
-                    report.localeSplit.today.es.wizardStarted,
-                    report.localeSplit.yesterday.es.wizardStarted
-                  )}
-                  hint={`(всего ${report.localeSplit.total.es.wizardStarted})`}
-                />
-                <MetricRow
-                  label="🇫🇷 FR wizard started"
-                  value={report.localeSplit.today.fr.wizardStarted}
-                  delta={deltaLine(
-                    report.localeSplit.today.fr.wizardStarted,
-                    report.localeSplit.yesterday.fr.wizardStarted
-                  )}
-                  hint={`(всего ${report.localeSplit.total.fr.wizardStarted})`}
-                />
-                <MetricRow
-                  label="🇷🇺 RU wizard started"
-                  value={report.localeSplit.today.ru.wizardStarted}
-                  delta={deltaLine(
-                    report.localeSplit.today.ru.wizardStarted,
-                    report.localeSplit.yesterday.ru.wizardStarted
-                  )}
-                  hint={`(всего ${report.localeSplit.total.ru.wizardStarted})`}
-                />
-                <MetricRow
-                  label="🇪🇸 ES page views"
-                  value={report.localeSplit.today.es.pageViews}
-                  delta={deltaLine(
-                    report.localeSplit.today.es.pageViews,
-                    report.localeSplit.yesterday.es.pageViews
-                  )}
-                />
-                <MetricRow
-                  label="🇫🇷 FR page views"
-                  value={report.localeSplit.today.fr.pageViews}
-                  delta={deltaLine(
-                    report.localeSplit.today.fr.pageViews,
-                    report.localeSplit.yesterday.fr.pageViews
-                  )}
-                />
-                <MetricRow
-                  label="🇷🇺 RU page views"
-                  value={report.localeSplit.today.ru.pageViews}
-                  delta={deltaLine(
-                    report.localeSplit.today.ru.pageViews,
-                    report.localeSplit.yesterday.ru.pageViews
-                  )}
-                />
-                <MetricRow
-                  label="Просмотры результатов"
-                  value={report.wizardTelegram.resultsViewsToday}
-                  delta={deltaLine(
-                    report.wizardTelegram.resultsViewsToday,
-                    report.wizardTelegram.resultsViewsYesterday
-                  )}
-                />
-                <MetricRow
-                  label="Отчётов в Telegram"
-                  value={report.wizardTelegram.deliveriesToday}
-                  delta={deltaLine(
-                    report.wizardTelegram.deliveriesToday,
-                    report.wizardTelegram.deliveriesYesterday
-                  )}
-                  hint={`(новых юзеров ${report.wizardTelegram.usersNewToday})`}
-                />
-                <MetricRow
-                  label="Конверсия results → TG"
-                  value={
-                    report.wizardTelegram.resultsViewsToday > 0
-                      ? Math.round(
-                          (report.wizardTelegram.deliveriesToday /
-                            report.wizardTelegram.resultsViewsToday) *
-                            100
-                        )
-                      : 0
-                  }
-                  hint={
-                    report.wizardTelegram.resultsViewsToday > 0 ? "%" : "(нет просмотров results)"
-                  }
-                />
-                <MetricRow
-                  label="Лиды"
-                  value={report.today.leads}
-                  delta={deltaLine(report.today.leads, report.yesterday.leads)}
-                />
-                <MetricRow
-                  label="Клики партнёров"
-                  value={report.today.providerClicks}
-                  delta={deltaLine(report.today.providerClicks, report.yesterday.providerClicks)}
-                />
-                <MetricRow
-                  label="LLM-трафик"
-                  value={report.llmToday}
-                  delta={deltaLine(report.llmToday, report.llmYesterday)}
-                  hint={`(всего ${report.llmTotal})`}
-                />
-                <MetricRow
-                  label="Боты (исключены)"
-                  value={report.botsToday}
-                  delta={deltaLine(report.botsToday, report.botsYesterday)}
-                  hint={`(всего ${report.botsTotal})`}
-                />
-              </div>
-            </section>
-
-            <section className="rounded-xl border border-slate-200 bg-white p-5">
-              <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-                Динамика 7 дней
-              </h2>
-              <ul className="mt-3 space-y-2 text-sm">
-                {report.trend.map((row) => (
-                  <li key={row.dayLabel} className="flex items-center gap-3">
-                    <span className="w-12 shrink-0 text-slate-500">{row.dayLabel}</span>
-                    <span className="w-24 shrink-0">
-                      <strong>{row.visitors}</strong> / {row.pageViews}
-                    </span>
-                    <span className="text-corridor-500">
-                      {"▪".repeat(Math.min(row.visitors, 12)) || "·"}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </section>
-
-            <section className="rounded-xl border border-slate-200 bg-white p-5">
-              <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-                Threads
-              </h2>
-              <p className="mt-1 text-xs text-slate-400">
-                Клики с наших ссылок (utm_source=threads) · @{report.threads.handle}
-              </p>
-              <div className="mt-3">
-                {report.threads.followers != null && (
-                  <MetricRow label={`Подписчики @${report.threads.handle}`} value={report.threads.followers} />
-                )}
-                <MetricRow label="7д: визард" value={report.threads.clicks7d.wizard} />
-                <MetricRow label="7д: Assist" value={report.threads.clicks7d.assist} />
-                <MetricRow label="7д: гайды" value={report.threads.clicks7d.guide} />
-                {report.threads.clicks7d.news > 0 && (
-                  <MetricRow label="7д: новости" value={report.threads.clicks7d.news} />
-                )}
-                {report.threads.clicks7d.other > 0 && (
-                  <MetricRow label="7д: прочие" value={report.threads.clicks7d.other} />
-                )}
-              </div>
-              <ul className="mt-3 space-y-2 text-sm">
-                {report.threads.trend.every((row) => row.sessions === 0) ? (
-                  <li className="text-slate-500">— пока нет</li>
-                ) : (
-                  report.threads.trend.map((row) => (
-                    <li key={`threads-${row.dayLabel}`} className="flex items-center gap-3">
-                      <span className="w-12 shrink-0 text-slate-500">{row.dayLabel}</span>
-                      <span className="w-10 shrink-0">
-                        <strong>{row.sessions}</strong>
-                      </span>
-                      <span className="text-corridor-500">
-                        {"▪".repeat(Math.min(row.sessions, 12)) || "·"}
-                      </span>
-                    </li>
-                  ))
-                )}
-              </ul>
-            </section>
-
-            <div className="grid gap-6 md:grid-cols-2">
-              <TopList title="Топ из поиска сегодня" rows={report.topPagesSearchToday} />
-              <TopList title="Топ из LLM сегодня" rows={report.topPagesLlmToday} />
-              <TopList title="LLM-источники сегодня" rows={report.llmSourcesToday} />
-              <TopList title="Каналы сегодня (сессии)" rows={report.channelMixToday} />
-              <TopList title="Топ поиск+LLM всего" rows={report.topPagesDiscoveryAll} />
-              <TopList title="Топ страниц сегодня (все источники)" rows={report.topPagesToday} />
-              <TopList title="Топ страниц всего (все источники)" rows={report.topPagesAll} />
-              <TopList title="Assist: страницы сегодня" rows={report.assist.topAssistPagesToday} />
-              <TopList title="Assist: CTA placements сегодня" rows={report.assist.topCtaPlacementsToday} />
-              <TopList title="Чаты: страна · placement сегодня" rows={report.assist.topCommunityPlacementsToday} />
-              <TopList title="Referrer сегодня" rows={report.topReferrersToday} />
-              <TopList title="UTM source сегодня" rows={report.topUtmToday} />
-              <TopList
-                title="Страны сегодня"
-                rows={report.topCountriesToday.map(([code, cnt]) => [
-                  `${countryFlag(code)} ${code}`,
-                  cnt,
-                ])}
-              />
-              <TopList title="Языки сегодня" rows={report.topLangToday} />
-              <TopList title="Устройства сегодня" rows={report.topDeviceToday} />
-              <TopList title="Браузеры сегодня" rows={report.topBrowserToday} />
-              <TopList
-                title="Клики партнёров сегодня"
-                rows={report.topProvidersToday.map(([id, cnt]) => [providerLabel(id), cnt])}
-              />
-              <TopList
-                title="Клики партнёров всего"
-                rows={report.topProvidersAll.map(([id, cnt]) => [providerLabel(id), cnt])}
-              />
-            </div>
-
-            <section className="rounded-xl border border-slate-200 bg-white p-5">
-              <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-                Посетители сегодня
-              </h2>
-              {report.recentSessions.length === 0 ? (
-                <p className="mt-3 text-sm text-slate-500">— пока нет</p>
-              ) : (
-                <ul className="mt-3 space-y-2 text-sm">
-                  {report.recentSessions.map((s) => (
-                    <li key={s.sessionId} className="rounded-lg bg-slate-50 px-3 py-2">
-                      <span className="font-mono text-xs text-slate-500">
-                        {s.isReturning ? "↩ " : "✨ "}
-                        {s.sessionId}
-                      </span>
-                      <div className="mt-1 truncate text-slate-800">{s.pagePath ?? "—"}</div>
-                      <div className="mt-0.5 text-xs text-slate-500">
-                        {[s.country, s.llm || s.channel, s.referrer].filter(Boolean).join(" · ") ||
-                          "direct"}
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </section>
-          </div>
-        )}
+        {report ? <StatsDashboard report={report} /> : null}
       </main>
       <SiteFooter />
     </>

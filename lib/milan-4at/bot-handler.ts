@@ -119,7 +119,7 @@ function firstTelegramUrl(msg: TgMessage): string | null {
 export function buildMilan4atBotMessages(msg: TgMessage): string[] {
   const raw = extractQuestionText(msg);
   if (!raw) {
-    return ["Пришлите текст вопроса или перешлите сообщение из @milan_4at / @como_4at / @milan_ua_chat."];
+    return ["Пришлите текст вопроса или перешлите сообщение из @milan_4at / @como_4at / @milan_ua_chat / @italia_ru_chat."];
   }
   if (/^\/start\b/i.test(raw) || /^\/help\b/i.test(raw)) {
     rememberMilan4atNotifyChat(msg.chat.id, {
@@ -129,7 +129,7 @@ export function buildMilan4atBotMessages(msg: TgMessage): string[] {
     });
     return [
       [
-        "Ок. Черновики из @milan_4at, @como_4at и @milan_ua_chat буду слать только вам в этот чат.",
+        "Ок. Черновики из @milan_4at, @como_4at, @milan_ua_chat и @italia_ru_chat буду слать только вам в этот чат.",
         "Скан: npm run milan4at:scan",
         "Формат: 1) ссылка 2) короткий ответ. В группу и другим — нет.",
       ].join("\n"),

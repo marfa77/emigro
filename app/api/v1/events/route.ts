@@ -25,6 +25,13 @@ const ALLOWED: Set<string> = new Set([
   "provider_click",
   "partner_inquiry_submitted",
   "community_join_click",
+  "investment_hub_view",
+  "investment_country_view",
+  "investment_route_click",
+  "investment_cta_click",
+  "investment_qualifier_started",
+  "investment_qualifier_completed",
+  "investment_lead_submitted",
 ]);
 
 const TELEGRAM_EVENTS: Set<string> = new Set(["wizard_results_view", "assist_cta_click"]);

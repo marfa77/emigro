@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { AlertTriangle, ArrowRight, ExternalLink } from "lucide-react";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
+import { DubaiOfferVerdictPromo } from "@/components/investment/DubaiOfferVerdictPromo";
 import {
   INVESTMENT_ROUTES,
   investmentAssetLabel,
@@ -11,6 +12,8 @@ import {
   type InvestmentOutcome,
 } from "@/lib/investment/registry";
 import { pageMetadata } from "@/lib/seo";
+import { verifyInvestmentResultToken } from "@/lib/investment/result-token";
+import { showsDubaiOfferVerdict } from "@/lib/investment/uae-offer-verdict";
 
 export const metadata: Metadata = pageMetadata({
   title: "Результаты инвестиционного qualifier",
@@ -44,6 +47,7 @@ export default function InvestmentResultsPage({
     outcome?: string;
     passport?: string;
     country?: string;
+    token?: string;
   };
 }) {
   const budgetEur = Number(searchParams.budget);
@@ -61,6 +65,7 @@ export default function InvestmentResultsPage({
   const preferredCountry = INVESTMENT_ROUTES.some((route) => route.country === searchParams.country)
     ? searchParams.country
     : undefined;
+  const submittedLeadId = verifyInvestmentResultToken(searchParams.token);
   const results = preferredCountry
     ? [...evaluatedRoutes].sort((a, b) =>
         a.country === preferredCountry ? -1 : b.country === preferredCountry ? 1 : 0
@@ -93,6 +98,11 @@ export default function InvestmentResultsPage({
                 {asset === "any" ? "любой актив" : investmentAssetLabel(asset)} ·{" "}
                 {outcome === "any" ? "все типы статуса" : outcomeLabel(outcome)}
               </p>
+              <p className="mt-3 text-sm text-slate-300">
+                {submittedLeadId
+                  ? "Заявка сохранена и поставлена в очередь ручной проверки. Контакт партнёру не передан."
+                  : "Это предварительный просмотр. Заявка не создана, пока qualifier не отправлен."}
+              </p>
             </header>
 
             <div className="mt-6 flex items-start gap-3 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm leading-relaxed text-amber-900">
@@ -110,13 +120,21 @@ export default function InvestmentResultsPage({
                     ? "bg-emerald-50 text-emerald-800"
                     : route.match === "review"
                       ? "bg-amber-50 text-amber-800"
-                      : "bg-slate-100 text-slate-600";
+                      : route.match === "blocked" || route.match === "closed"
+                        ? "bg-rose-50 text-rose-800"
+                        : "bg-slate-100 text-slate-600";
                 const statusLabel =
                   route.match === "likely"
                     ? "Предварительно совпадает"
                     : route.match === "review"
                       ? "Нужна ручная сверка"
-                      : "Есть разрыв по бюджету";
+                      : route.match === "blocked"
+                        ? "Паспорт ограничен"
+                        : route.match === "not_property"
+                          ? "Недвижимость не основание"
+                          : route.match === "closed"
+                            ? "Программа закрыта"
+                            : "Есть разрыв по бюджету";
 
                 return (
                   <article key={route.country} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
@@ -147,11 +165,21 @@ export default function InvestmentResultsPage({
               })}
             </section>
 
+            {results.some(
+              (route) =>
+                showsDubaiOfferVerdict(route.country) &&
+                (route.match === "likely" || route.match === "review") &&
+                (asset === "property" || asset === "any")
+            ) ? (
+              <DubaiOfferVerdictPromo placement="invest_results" content="results" />
+            ) : null}
+
             <section className="mt-10 rounded-2xl border border-corridor-200 bg-corridor-50 p-6">
               <h2 className="text-xl font-bold text-slate-950">Следующий шаг</h2>
               <p className="mt-3 max-w-3xl text-sm leading-relaxed text-slate-700">
-                Ваш профиль отправлен на первичную проверку. До выбора актива сверяйте применимость программы,
-                полный семейный бюджет, происхождение средств, ограничения по гражданству и текущие официальные правила.
+                {submittedLeadId
+                  ? "Emigro проверит профиль вручную. Передача контакта партнёру происходит только отдельным действием и с повторным смыслом согласия."
+                  : "Чтобы поставить профиль в очередь, отправьте qualifier. Прямая ссылка на рейтинг заявку не создаёт."}
               </p>
               <div className="mt-5 flex flex-wrap gap-3">
                 <Link href="/ru/invest#qualifier" className="inline-flex min-h-11 items-center rounded-xl border border-corridor-300 bg-white px-5 py-3 font-semibold text-corridor-800 hover:border-corridor-500">

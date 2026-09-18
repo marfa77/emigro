@@ -1,5 +1,8 @@
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { createAdminClient } from "@/lib/admin/supabase";
+import { advanceInvestmentLead } from "@/app/admin/leads/actions";
+import { INVESTMENT_ROUTES } from "@/lib/investment/registry";
+import { partnerDemandState } from "@/lib/investment/partners";
 
 type LeadPacket = {
   budget_eur?: unknown;
@@ -33,12 +36,38 @@ export default async function AdminLeadsPage() {
   const assignmentsByLead = new Map(
     (assignments ?? []).map((assignment) => [assignment.lead_id as string, assignment])
   );
+  const investmentLeads = (leads ?? []).filter((lead) => lead.lead_type === "investment");
+  const demand = INVESTMENT_ROUTES.map((route) => {
+    const qualified = investmentLeads.filter(
+      (lead) => lead.destination_iso2 === route.destinationIso2 && lead.status !== "closed"
+    ).length;
+    return { route, qualified, ...partnerDemandState(route.country, qualified) };
+  }).sort((a, b) => b.qualified - a.qualified);
 
   return (
     <>
       <SiteHeader />
       <main className="mx-auto max-w-5xl px-4 py-10">
         <h1 className="text-2xl font-bold">Manual leads (ops)</h1>
+        <section className="mt-6 rounded-xl border border-slate-200 bg-white p-5">
+          <h2 className="font-semibold">Спрос на property-document партнёров</h2>
+          <p className="mt-1 text-sm text-slate-500">Открытые investment leads за последние 50 записей. Поиск партнёра начинается с 3 квалифицированных лидов.</p>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {demand.map((item) => (
+              <article key={item.route.country} className="rounded-lg bg-slate-50 p-3 text-sm">
+                <strong>{item.route.countryRu}</strong>
+                <p className="mt-1 text-2xl font-bold">{item.qualified}</p>
+                <p className="text-slate-500">
+                  {item.state === "manual_partner"
+                    ? `Партнёр есть: ${item.partner?.name}. Передача только вручную.`
+                    : item.state === "search_partners"
+                      ? "Порог достигнут: искать партнёра."
+                      : `До поиска партнёра: ${item.remaining}`}
+                </p>
+              </article>
+            ))}
+          </div>
+        </section>
         <p className="mt-1 text-sm text-slate-500">
           Внутренняя таблица Assist и Investment Migration. Без изменения текущей auth-модели.
         </p>
@@ -130,6 +159,31 @@ export default async function AdminLeadsPage() {
                       <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs">
                         {lead.status}
                       </span>
+                      {isInvestment ? (
+                        <form action={advanceInvestmentLead} className="mt-3 space-y-2">
+                          <input type="hidden" name="lead_id" value={lead.id} />
+                          <input
+                            name="provider_id"
+                            defaultValue={assignment?.provider_id ?? ""}
+                            placeholder="provider id"
+                            className="w-40 rounded border border-slate-200 px-2 py-1 text-xs"
+                          />
+                          <input
+                            name="commission_eur"
+                            type="number"
+                            min="0"
+                            placeholder="commission €"
+                            className="w-28 rounded border border-slate-200 px-2 py-1 text-xs"
+                          />
+                          <div className="flex flex-wrap gap-1">
+                            {["reserve", "contact_shared", "accepted", "rejected", "won", "lost", "commission"].map((action) => (
+                              <button key={action} name="action" value={action} className="rounded bg-slate-900 px-2 py-1 text-[11px] text-white">
+                                {action}
+                              </button>
+                            ))}
+                          </div>
+                        </form>
+                      ) : null}
                     </td>
                   </tr>
                 );

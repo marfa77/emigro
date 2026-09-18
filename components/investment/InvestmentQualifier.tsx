@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { ArrowRight, CheckCircle2, Loader2 } from "lucide-react";
 import { trackEvent } from "@/lib/analytics/client";
+import { captureAttribution, getSessionId } from "@/lib/analytics/attribution";
 import type { InvestmentAsset, InvestmentOutcome } from "@/lib/investment/registry";
 import {
   INVESTMENT_ROUTES,
@@ -70,13 +71,7 @@ export function InvestmentQualifier({ id = "qualifier" }: { id?: string }) {
       preferred_country: preferredCountry,
     };
 
-    trackEvent("investment_qualifier_completed", {
-      source: "investment_qualifier",
-      budget_eur: budgetEur,
-      asset,
-      outcome,
-      likely_matches: rankedRoutes.filter((route) => route.match === "likely").length,
-    });
+    const attr = captureAttribution();
 
     try {
       const response = await fetch("/api/v1/investment/leads", {
@@ -93,16 +88,31 @@ export function InvestmentQualifier({ id = "qualifier" }: { id?: string }) {
           timeline: qualifierProfile.timeline,
           family_size: qualifierProfile.family_size,
           funding_readiness: qualifierProfile.funding_readiness,
+          property_stage: String(form.get("property_stage") ?? ""),
+          source_of_funds: String(form.get("source_of_funds") ?? ""),
+          session_id: getSessionId(),
+          referrer: attr.referrer,
+          utm_source: attr.utm_source,
+          utm_medium: attr.utm_medium,
+          utm_campaign: attr.utm_campaign,
+          utm_content: attr.utm_content,
           consent: form.get("consent") === "on",
         }),
       });
-      const data = (await response.json().catch(() => ({}))) as { error?: string; id?: string };
+      const data = (await response.json().catch(() => ({}))) as { error?: string; id?: string; token?: string };
       if (!response.ok) throw new Error(data.error || "Не удалось отправить заявку");
 
+      trackEvent("investment_qualifier_completed", {
+        source: "investment_qualifier",
+        budget_eur: budgetEur,
+        asset,
+        outcome,
+        likely_matches: rankedRoutes.filter((route) => route.match === "likely").length,
+      });
       trackEvent("investment_lead_submitted", {
         source: "investment_qualifier",
         lead_id: data.id ?? "",
-        top_country: rankedRoutes[0]?.country ?? "",
+        top_country: rankedRoutes.find((route) => route.match === "likely" || route.match === "review")?.country ?? "",
       });
 
       const query = new URLSearchParams({
@@ -112,6 +122,7 @@ export function InvestmentQualifier({ id = "qualifier" }: { id?: string }) {
         country: preferredCountry,
       });
       if (passportIso2) query.set("passport", passportIso2);
+      if (data.token) query.set("token", data.token);
       window.location.assign(`/ru/invest/results?${query.toString()}`);
     } catch (error) {
       setStatus("error");
@@ -233,6 +244,28 @@ export function InvestmentQualifier({ id = "qualifier" }: { id?: string }) {
             ))}
           </div>
         </fieldset>
+
+        <div className="grid gap-5 sm:grid-cols-2">
+          <label className="text-sm font-medium text-slate-800">
+            Стадия недвижимости
+            <select name="property_stage" defaultValue="researching" className={`mt-2 ${formFieldWhite}`}>
+              <option value="researching">Пока изучаю рынок</option>
+              <option value="selected">Объект выбран</option>
+              <option value="reserved">Есть бронь</option>
+              <option value="owned">Объект уже куплен</option>
+            </select>
+          </label>
+          <label className="text-sm font-medium text-slate-800">
+            Происхождение капитала
+            <select name="source_of_funds" defaultValue="savings" required className={`mt-2 ${formFieldWhite}`}>
+              <option value="salary">Доход от работы</option>
+              <option value="business">Бизнес</option>
+              <option value="asset_sale">Продажа актива</option>
+              <option value="savings">Накопления</option>
+              <option value="other">Другое, нужна проверка</option>
+            </select>
+          </label>
+        </div>
 
         <div className="grid gap-5 sm:grid-cols-2">
           <label className="text-sm font-medium text-slate-800">

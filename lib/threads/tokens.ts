@@ -94,6 +94,14 @@ export function formatExpiresIn(expiresIn?: number): string {
   return `${expiresIn}s (~${days}d)`;
 }
 
+export function tokenExpiresAtIso(
+  expiresIn?: number,
+  now = new Date()
+): string | undefined {
+  if (!expiresIn || !Number.isFinite(expiresIn) || expiresIn <= 0) return undefined;
+  return new Date(now.getTime() + expiresIn * 1000).toISOString();
+}
+
 /** Write THREADS_* into existing env files (`.env.local` / `.env` / `parser/.env`). Never logs the value. */
 export function persistThreadsEnvValues(updates: Record<string, string>): string[] {
   const candidates = [

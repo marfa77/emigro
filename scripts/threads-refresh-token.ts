@@ -7,7 +7,12 @@
  */
 import { config } from "dotenv";
 import { resolve } from "path";
-import { formatExpiresIn, persistThreadsEnvValues, refreshLongLivedToken } from "../lib/threads";
+import {
+  formatExpiresIn,
+  persistThreadsEnvValues,
+  refreshLongLivedToken,
+  tokenExpiresAtIso,
+} from "../lib/threads";
 
 config({ path: resolve(process.cwd(), ".env.local") });
 config({ path: resolve(process.cwd(), ".env") });
@@ -32,7 +37,14 @@ async function main() {
     const tokenKey = investmentProfile
       ? "THREADS_INVESTMENT_ACCESS_TOKEN"
       : "THREADS_ACCESS_TOKEN";
-    const files = persistThreadsEnvValues({ [tokenKey]: refreshed.access_token });
+    const expiresKey = investmentProfile
+      ? "THREADS_INVESTMENT_TOKEN_EXPIRES_AT"
+      : "THREADS_TOKEN_EXPIRES_AT";
+    const expiresAt = tokenExpiresAtIso(refreshed.expires_in);
+    const files = persistThreadsEnvValues({
+      [tokenKey]: refreshed.access_token,
+      ...(expiresAt ? { [expiresKey]: expiresAt } : {}),
+    });
     console.log(`Refreshed ${tokenKey} in`, files.join(", ") || "(no .env files found)");
   } else {
     console.log("\n=== REFRESHED LONG-LIVED TOKEN (save to THREADS_ACCESS_TOKEN, or --write) ===\n");
