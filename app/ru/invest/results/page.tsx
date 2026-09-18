@@ -8,6 +8,7 @@ import {
   investmentAssetLabel,
   outcomeLabel,
   qualifyInvestmentRoutes,
+  routeKey,
   type InvestmentAsset,
   type InvestmentOutcome,
 } from "@/lib/investment/registry";
@@ -137,7 +138,7 @@ export default function InvestmentResultsPage({
                             : "Есть разрыв по бюджету";
 
                 return (
-                  <article key={route.country} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+                  <article key={routeKey(route)} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
                     <div className="flex flex-col gap-5 sm:flex-row sm:items-start">
                       <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-corridor-50 font-bold text-corridor-800">
                         {index + 1}
@@ -151,7 +152,7 @@ export default function InvestmentResultsPage({
                         <p className="mt-3 text-sm leading-relaxed text-slate-700">{route.reason}</p>
                         <p className="mt-2 text-sm leading-relaxed text-slate-500">{route.caveat}</p>
                         <div className="mt-5 flex flex-wrap gap-x-5 gap-y-3 text-sm font-semibold">
-                          <Link href={`/ru/invest/${route.country}`} className="inline-flex min-h-11 items-center gap-2 text-corridor-700 hover:underline">
+                          <Link href={`/ru/invest/${route.country}#${routeKey(route)}`} className="inline-flex min-h-11 items-center gap-2 text-corridor-700 hover:underline">
                             Карточка маршрута <ArrowRight className="h-4 w-4" />
                           </Link>
                           <a href={route.officialUrl} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-2 text-slate-600 hover:text-corridor-700">

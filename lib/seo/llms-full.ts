@@ -1,6 +1,6 @@
 import { corridorDigestPath, corridorLandingPath, corridorWizardPath, programPath } from "@/lib/corridor/paths";
 import { guidePath, listGuides } from "@/lib/guides/load";
-import { INVESTMENT_ROUTES } from "@/lib/investment/registry";
+import { INVESTMENT_ROUTES, routeKey } from "@/lib/investment/registry";
 import { ES_PATHS, esGuidePath } from "@/lib/es/corridor";
 import { FR_PATHS, frGuidePath } from "@/lib/fr/corridor";
 import { stripInlineMarkdown } from "@/lib/markdown/inline";
@@ -58,7 +58,7 @@ export async function buildLlmsTxt(): Promise<string> {
   const spainSatelliteLlms = llmsPathFromUrl(spainSatellitePublicUrl("/llms"));
   const investmentLines = INVESTMENT_ROUTES.map(
     (route) =>
-      `- ${llmMarkdownLink(`${route.flag} ${route.countryRu}`, `/ru/invest/${route.country}`)} — ${route.summary}`
+      `- ${llmMarkdownLink(`${route.flag} ${route.title}`, `/ru/invest/${route.country}#${routeKey(route)}`)} — ${route.summary}`
   ).join("\n");
 
   const transitHubLines = TRANSIT_HUBS.map(
@@ -293,7 +293,7 @@ export async function buildLlmsFullText(): Promise<string> {
     row("/ru/news", "Еженедельные новости по всем странам"),
     row("/ru/invest", "Инвестиционная миграция: статус и документы, связанные с недвижимостью и инвестициями"),
     ...INVESTMENT_ROUTES.map((route) =>
-      row(`/ru/invest/${route.country}`, `${route.countryRu}: ${route.title}. ${route.caveat}`)
+      row(`/ru/invest/${route.country}#${routeKey(route)}`, `${route.countryRu}: ${route.title}. ${route.caveat}`)
     ),
     row("/ru/community", "Сообщество релокантов Emigro"),
     row("/ru/partners", "Партнёры и сервисы на маршруте"),

@@ -13,7 +13,10 @@ const property = qualifyInvestmentRoutes({
 assert.equal(property.find((route) => route.country === "portugal")?.match, "not_property");
 assert.equal(property.find((route) => route.country === "italy")?.match, "not_property");
 assert.equal(property.find((route) => route.country === "greece")?.match, "blocked");
-assert.equal(property.find((route) => route.country === "thailand")?.match, "review");
+assert.equal(property.find((route) => route.slug === "thailand-property-stay")?.match, "review");
+assert.equal(property.find((route) => route.slug === "thailand-ltr")?.match, "budget_gap");
+assert.equal(property.find((route) => route.slug === "thailand-privilege")?.match, "not_property");
+assert.equal(property.find((route) => route.country === "spain")?.match, "closed");
 assert.equal(property.find((route) => route.country === "uae")?.match, "budget_gap");
 assert.notEqual(property[0]?.match, "likely");
 
@@ -29,6 +32,7 @@ assert.equal(showsDubaiOfferVerdict("thailand"), false);
 
 assert.equal(partnerDemandState("uae", 2).state, "collecting_demand");
 assert.equal(partnerDemandState("uae", 3).state, "search_partners");
+assert.equal(partnerDemandState("spain", 5).state, "closed");
 assert.equal(partnerDemandState("thailand", 1).state, "manual_partner");
 
 process.env.EMIGRO_ADMIN_SECRET = "test-secret";

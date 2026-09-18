@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { ArrowRight, BadgeCheck, BriefcaseBusiness, Scale, ShieldCheck, Users } from "lucide-react";
 import { InvestmentQualifier } from "@/components/investment/InvestmentQualifier";
+import { InvestmentRouteLink, InvestmentViewTracker } from "@/components/investment/InvestmentAnalytics";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import {
   INVESTMENT_ROUTES,
   investmentAssetLabel,
   outcomeLabel,
+  passportRestrictionLabel,
+  routeKey,
+  routeStatusLabel,
 } from "@/lib/investment/registry";
 import { pageMetadata, pageUrl } from "@/lib/seo";
 
@@ -31,13 +34,14 @@ export default function InvestmentHubPage() {
     hasPart: INVESTMENT_ROUTES.map((route) => ({
       "@type": "WebPage",
       name: route.title,
-      url: pageUrl(`/ru/invest/${route.country}`),
+      url: pageUrl(`/ru/invest/${route.country}#${routeKey(route)}`),
     })),
   };
 
   return (
     <>
       <SiteHeader />
+      <InvestmentViewTracker event="investment_hub_view" />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }} />
       <main>
         <section className="border-b border-slate-200 bg-gradient-to-br from-slate-950 via-corridor-950 to-corridor-800 text-white">
@@ -100,16 +104,27 @@ export default function InvestmentHubPage() {
               <p className="max-w-md text-sm text-slate-500">Данные программы нужно перепроверять перед любым переводом денег или подачей.</p>
             </div>
             <div className="mt-7 grid gap-5 md:grid-cols-2">
-              {INVESTMENT_ROUTES.map((route) => (
-                <article key={route.country} className="group flex flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:border-corridor-300 hover:shadow-md">
+              {INVESTMENT_ROUTES.map((route) => {
+                const passportNote = passportRestrictionLabel(route);
+                const statusClass =
+                  route.status === "active"
+                    ? "bg-emerald-50 text-emerald-700"
+                    : route.status === "closed"
+                      ? "bg-rose-50 text-rose-800"
+                      : "bg-amber-50 text-amber-800";
+                return (
+                <article key={routeKey(route)} id={routeKey(route)} className="group flex flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:border-corridor-300 hover:shadow-md">
                   <div className="flex items-start justify-between gap-4">
                     <span className="text-3xl" aria-hidden>{route.flag}</span>
-                    <span className={`rounded-full px-3 py-1 text-xs font-medium ${route.status === "active" ? "bg-emerald-50 text-emerald-700" : "bg-amber-50 text-amber-800"}`}>
-                      {route.status === "active" ? "В реестре" : "Нужен ручной review"}
+                    <span className={`rounded-full px-3 py-1 text-xs font-medium ${statusClass}`}>
+                      {routeStatusLabel(route.status)}
                     </span>
                   </div>
                   <h3 className="mt-4 text-xl font-bold text-slate-950">{route.title}</h3>
                   <p className="mt-3 flex-1 text-sm leading-relaxed text-slate-600">{route.summary}</p>
+                  {passportNote ? (
+                    <p className="mt-3 text-sm font-medium text-rose-800">{passportNote}</p>
+                  ) : null}
                   <dl className="mt-5 grid grid-cols-2 gap-3 border-t border-slate-100 pt-5 text-sm">
                     <div>
                       <dt className="text-slate-500">Скрининг от</dt>
@@ -123,11 +138,17 @@ export default function InvestmentHubPage() {
                   <p className="mt-4 text-xs leading-relaxed text-slate-500">
                     {route.assets.map(investmentAssetLabel).join(" · ")}
                   </p>
-                  <Link href={`/ru/invest/${route.country}`} className="mt-5 inline-flex min-h-11 items-center gap-2 font-semibold text-corridor-700 group-hover:text-corridor-800">
+                  <InvestmentRouteLink
+                    href={`/ru/invest/${route.country}#${routeKey(route)}`}
+                    country={route.country}
+                    slug={routeKey(route)}
+                    className="mt-5 inline-flex min-h-11 items-center gap-2 font-semibold text-corridor-700 group-hover:text-corridor-800"
+                  >
                     Разобрать маршрут <ArrowRight className="h-4 w-4" />
-                  </Link>
+                  </InvestmentRouteLink>
                 </article>
-              ))}
+                );
+              })}
             </div>
           </section>
 

@@ -1,7 +1,7 @@
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { createAdminClient } from "@/lib/admin/supabase";
 import { advanceInvestmentLead } from "@/app/admin/leads/actions";
-import { INVESTMENT_ROUTES } from "@/lib/investment/registry";
+import { uniqueInvestmentCountries } from "@/lib/investment/registry";
 import { partnerDemandState } from "@/lib/investment/partners";
 
 type LeadPacket = {
@@ -37,7 +37,7 @@ export default async function AdminLeadsPage() {
     (assignments ?? []).map((assignment) => [assignment.lead_id as string, assignment])
   );
   const investmentLeads = (leads ?? []).filter((lead) => lead.lead_type === "investment");
-  const demand = INVESTMENT_ROUTES.map((route) => {
+  const demand = uniqueInvestmentCountries().map((route) => {
     const qualified = investmentLeads.filter(
       (lead) => lead.destination_iso2 === route.destinationIso2 && lead.status !== "closed"
     ).length;
@@ -58,7 +58,9 @@ export default async function AdminLeadsPage() {
                 <strong>{item.route.countryRu}</strong>
                 <p className="mt-1 text-2xl font-bold">{item.qualified}</p>
                 <p className="text-slate-500">
-                  {item.state === "manual_partner"
+                  {item.state === "closed"
+                    ? "Программа закрыта: партнёра не ищем."
+                    : item.state === "manual_partner"
                     ? `Партнёр есть: ${item.partner?.name}. Передача только вручную.`
                     : item.state === "search_partners"
                       ? "Порог достигнут: искать партнёра."

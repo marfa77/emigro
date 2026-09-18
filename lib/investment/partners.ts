@@ -1,3 +1,5 @@
+import { investmentCountryRoutes } from "@/lib/investment/registry";
+
 export type InvestmentPartnerRole = "property" | "legal";
 
 export type InvestmentPartner = {
@@ -39,10 +41,14 @@ export function partnerForCountry(country: string | undefined): InvestmentPartne
 }
 
 export function partnerDemandState(country: string, qualifiedLeads: number): {
-  state: "manual_partner" | "search_partners" | "collecting_demand";
+  state: "manual_partner" | "search_partners" | "collecting_demand" | "closed";
   partner?: InvestmentPartner;
   remaining: number;
 } {
+  const routes = investmentCountryRoutes(country);
+  if (routes.length > 0 && routes.every((route) => route.status === "closed")) {
+    return { state: "closed", remaining: 0 };
+  }
   const partner = partnerForCountry(country);
   if (partner && qualifiedLeads >= partner.activationMinQualifiedLeads) {
     return { state: "manual_partner", partner, remaining: 0 };

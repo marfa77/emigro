@@ -4,7 +4,7 @@
  * This module intentionally has no Graph client, token loader, scheduler, or publish
  * function. A future manual workflow may consume these records after legal review.
  */
-import { INVESTMENT_ROUTES } from "@/lib/investment/registry";
+import { INVESTMENT_ROUTES, routeKey } from "@/lib/investment/registry";
 import {
   expectedThreadsBrandUsername,
   normalizeThreadsUsername,
@@ -88,10 +88,10 @@ export function buildThreadsInvestmentInventory(
     sourceUrl.searchParams.set("utm_source", "threads");
     sourceUrl.searchParams.set("utm_medium", "social");
     sourceUrl.searchParams.set("utm_campaign", THREADS_INVESTMENT_CAMPAIGN);
-    sourceUrl.searchParams.set("utm_content", route.country);
+    sourceUrl.searchParams.set("utm_content", routeKey(route));
 
     return {
-      slug: `investment-${route.country}`,
+      slug: `investment-${routeKey(route)}`,
       country: route.country,
       countryRu: route.countryRu,
       topicTag: route.countryRu,

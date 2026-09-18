@@ -5,6 +5,8 @@ export type InvestmentMatch = "likely" | "review" | "budget_gap" | "blocked" | "
 
 export type InvestmentRoute = {
   country: string;
+  /** Unique program id when one country has several routes. Defaults to country. */
+  slug?: string;
   countryRu: string;
   destinationIso2: string;
   flag: string;
@@ -30,24 +32,65 @@ export type InvestmentRoute = {
 
 export const INVESTMENT_ROUTES: readonly InvestmentRoute[] = [
   {
+    slug: "thailand-property-stay",
     country: "thailand",
     countryRu: "Таиланд",
     destinationIso2: "TH",
     flag: "🇹🇭",
-    title: "Таиланд: LTR, Privilege и проверка property-linked статуса",
+    title: "Таиланд: временное пребывание и недвижимость",
     status: "review_required",
     outcome: "residence",
     screeningFloorEur: 75_000,
-    assets: ["property", "business", "membership"],
+    assets: ["property"],
     corridorSlug: "ru-speaking-to-thailand",
     publicPath: "/ru/thailand",
-    summary: "Пхукет — коммерческий пилот. Недвижимость и иммиграционный статус проверяются раздельно.",
+    summary: "Пхукет — коммерческий пилот. €75k — порог интереса к объекту, не юридический порог визы.",
     caveat:
-      "Покупка объекта не выдаёт визу автоматически. Применимость приказов 237/2568 и 238/2568 требует полного официального и индивидуального review.",
+      "Приказы Immigration 237/2568 и 238/2568 не выдают визу автоматически с покупкой. Это не LTR и не Privilege; применимость проверяется вручную.",
     officialUrl: "https://www.immigration.go.th/?p=34090",
     providerId: "empyreal-estate-phuket",
     propertyLinked: true,
     priority: 100,
+  },
+  {
+    slug: "thailand-ltr",
+    country: "thailand",
+    countryRu: "Таиланд",
+    destinationIso2: "TH",
+    flag: "🇹🇭",
+    title: "Таиланд: LTR Wealthy Global Citizen",
+    status: "review_required",
+    outcome: "residence",
+    screeningFloorEur: 920_000,
+    assets: ["property", "business", "bonds"],
+    corridorSlug: "ru-speaking-to-thailand",
+    publicPath: "/ru/thailand",
+    summary: "BOI LTR: инвестиция в Таиланде от USD 500k и глобальные активы от USD 1m. €920k — ориентир активов, не котировка.",
+    caveat:
+      "Недвижимость может быть частью тайской инвестиции, но сама по себе не заменяет USD 1m активов, страховку и endorsement BOI. Инвестиция должна уже быть на имя заявителя.",
+    officialUrl: "https://ltr.boi.go.th/",
+    propertyLinked: true,
+    priority: 99,
+  },
+  {
+    slug: "thailand-privilege",
+    country: "thailand",
+    countryRu: "Таиланд",
+    destinationIso2: "TH",
+    flag: "🇹🇭",
+    title: "Таиланд: Privilege membership",
+    status: "review_required",
+    outcome: "residence",
+    screeningFloorEur: 18_000,
+    assets: ["membership"],
+    corridorSlug: "ru-speaking-to-thailand",
+    publicPath: "/ru/thailand",
+    summary: "Платная membership-виза. Входной ориентир — Bronze THB 650 000; покупка недвижимости её не заменяет.",
+    caveat:
+      "Сборы и пакеты меняются. Сверяйте thailandprivilege.co.th. Это не property→documents и не LTR.",
+    officialUrl: "https://www.thailandprivilege.co.th/thailandprivilegecard",
+    propertyLinked: false,
+    priority: 98,
   },
   {
     country: "uae",
@@ -167,13 +210,31 @@ export const INVESTMENT_ROUTES: readonly InvestmentRoute[] = [
     propertyLinked: false,
     priority: 70,
   },
+  {
+    country: "spain",
+    countryRu: "Испания",
+    destinationIso2: "ES",
+    flag: "🇪🇸",
+    title: "Испания: виза инвестора закрыта",
+    status: "closed",
+    outcome: "residence",
+    screeningFloorEur: 500_000,
+    assets: ["property", "business", "bonds"],
+    publicPath: "/ru/guides/vnj-ispaniya-2026",
+    summary: "Golden Visa / виза инвестора по Ley 14/2013 не принимается для новых заявок с 3 апреля 2025.",
+    caveat:
+      "Ley Orgánica 1/2025 оставила без содержания статьи 63–67 Ley 14/2013. Недвижимость, фонды и депозиты больше не открывают новый инвесторский ВНЖ.",
+    officialUrl: "https://www.boe.es/eli/es/lo/2025/01/02/1",
+    propertyLinked: true,
+    priority: 40,
+  },
 ] as const;
 
 export const INVESTMENT_PROGRAM_NOTES: Record<string, readonly string[]> = {
   thailand: [
-    "LTR Wealthy Global Citizen: квалифицированная инвестиция от USD 500k и глобальные активы от USD 1m. Не любой объект на Пхукете.",
-    "Приказы 237/2568 и 238/2568 могут давать только временное пребывание. Это не ПМЖ и не гражданство; процедура требует ручного подтверждения.",
-    "Thailand Privilege — платная membership-виза. Покупка недвижимости её не заменяет.",
+    "Временное пребывание по приказам 237/2568 и 238/2568 проверяется отдельно от сделки. €75k — коммерческий ориентир пилота, не порог Immigration.",
+    "LTR Wealthy Global Citizen (BOI): инвестиция в Таиланде от USD 500k на имя заявителя и активы от USD 1m. Объект может входить в инвестицию, но не заменяет остальные условия.",
+    "Thailand Privilege — membership от Bronze THB 650 000 на официальной карточке. Покупка недвижимости membership не заменяет.",
   ],
   uae: [
     "Golden Residence (10 лет) через недвижимость: один или несколько объектов общей стоимостью не менее AED 2 000 000, полная собственность на имя заявителя; ипотека допускается при финансировании одобренным местным банком (ICP).",
@@ -185,11 +246,67 @@ export const INVESTMENT_PROGRAM_NOTES: Record<string, readonly string[]> = {
     "Порог €250k не универсален: для большинства новых объектов действуют €400k или €800k.",
     "Новые заявки граждан РФ и Беларуси остаются приостановленными, пока официальное уведомление не снято.",
   ],
+  portugal: [
+    "Прямая покупка недвижимости больше не является самостоятельным основанием ARI.",
+    "Скрининг €500k относится к оставшимся вариантам (фонды и иные допуски AIMA), не к квартире.",
+  ],
+  hungary: [
+    "Guest Investor — фонд или пожертвование по правилам программы, не покупка квартиры.",
+    "Обычный ETF не подходит автоматически: фонд и посредник должны соответствовать венгерским требованиям.",
+  ],
+  malta: [
+    "MPRP — постоянная резиденция пакетом (property, contribution, donation), не продажа гражданства.",
+    "Новые заявки граждан РФ и Беларуси ограничены. Считать нужно полный пакет семьи, не только объект.",
+  ],
+  italy: [
+    "Недвижимость не является основанием Investor Visa. Активы: стартап, компания, гособлигации или пожертвование.",
+    "€250k — ориентир категории стартапа; у остальных активов пороги выше. Для граждан РФ/РБ программа приостановлена.",
+  ],
+  spain: [
+    "С 3 апреля 2025 новые визы и ВНЖ инвестора не выдаются: LO 1/2025 (BOE-A-2025-76) опустошила статьи 63–67 Ley 14/2013.",
+    "Закрыты все инвестиционные пути этой программы, включая недвижимость от €500k. Это не активный маршрут для партнёра.",
+  ],
 };
 
-export function investmentRoute(country: string | undefined | null): InvestmentRoute | undefined {
+export function routeKey(route: Pick<InvestmentRoute, "country" | "slug">): string {
+  return route.slug ?? route.country;
+}
+
+export function investmentCountryRoutes(country: string | undefined | null): InvestmentRoute[] {
   const key = country?.trim().toLowerCase();
-  return INVESTMENT_ROUTES.find((route) => route.country === key);
+  if (!key) return [];
+  const byCountry = INVESTMENT_ROUTES.filter((route) => route.country === key);
+  if (byCountry.length) return [...byCountry].sort((a, b) => b.priority - a.priority);
+  return INVESTMENT_ROUTES.filter((route) => route.slug === key);
+}
+
+export function uniqueInvestmentCountries(): InvestmentRoute[] {
+  const seen = new Set<string>();
+  return INVESTMENT_ROUTES.filter((route) => {
+    if (seen.has(route.country)) return false;
+    seen.add(route.country);
+    return true;
+  });
+}
+
+export function routeStatusLabel(status: InvestmentRouteStatus): string {
+  if (status === "active") return "В реестре";
+  if (status === "closed") return "Закрыта для новых заявок";
+  if (status === "comparison_only") return "Только для сравнения";
+  return "Нужен ручной review";
+}
+
+export function passportRestrictionLabel(route: Pick<InvestmentRoute, "restrictedPassports">): string | null {
+  const passports = route.restrictedPassports ?? [];
+  if (passports.includes("RU") && passports.includes("BY")) {
+    return "Новые заявки граждан РФ и Беларуси приостановлены.";
+  }
+  if (passports.length) return "Для части паспортов программа ограничена.";
+  return null;
+}
+
+export function investmentRoute(country: string | undefined | null): InvestmentRoute | undefined {
+  return investmentCountryRoutes(country)[0];
 }
 
 export function investmentAssetLabel(asset: InvestmentAsset): string {

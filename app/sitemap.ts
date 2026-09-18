@@ -4,7 +4,7 @@ import { getCorridorBySlug, getProgramsBySlugs } from "@/lib/corridor/queries";
 import { ES_PATHS, esGuidePath } from "@/lib/es/corridor";
 import { FR_PATHS, frGuidePath } from "@/lib/fr/corridor";
 import { guidePath, listGuides } from "@/lib/guides/load";
-import { INVESTMENT_ROUTES } from "@/lib/investment/registry";
+import { uniqueInvestmentCountries } from "@/lib/investment/registry";
 import { listStories } from "@/lib/stories/load";
 import { storyPath, STORIES_INDEX_PATH } from "@/lib/stories/paths";
 import { getPublishedNewsDigests } from "@/lib/news/digests";
@@ -128,7 +128,7 @@ async function buildWwwSitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${origin}${ORIGIN_HUB_PATH}`, changeFrequency: "weekly", priority: 0.92 },
     { url: `${origin}/ru/guides`, changeFrequency: "weekly", priority: 0.9 },
     { url: `${origin}/ru/invest`, changeFrequency: "weekly", priority: 0.92 },
-    ...INVESTMENT_ROUTES.map((route) => ({
+    ...uniqueInvestmentCountries().map((route) => ({
       url: `${origin}/ru/invest/${route.country}`,
       changeFrequency: "weekly" as const,
       priority: 0.88,

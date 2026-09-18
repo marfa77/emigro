@@ -24,7 +24,16 @@ or citizenship.
    `emigro_lead_assignments` and `emigro_lead_handoff_events`.
 8. Paid Route Check remains the post-qualification upsell.
 
-## Thailand pilot
+## Thailand programs
+
+Таиланд в qualifier — три записи, не одна карточка: временное пребывание / property-пилот
+(€75k — коммерческий ориентир, не порог приказа), LTR Wealthy Global Citizen
+(~€920k ≈ USD 1m активов, [BOI](https://ltr.boi.go.th/)) и Privilege membership
+(не property; входной ориентир Bronze THB 650 000). Empyreal относится только к
+property-пилоту и только к ручной передаче.
+
+Испания — `closed`: новые инвесторские визы не выдаются с 3 апреля 2025
+([LO 1/2025](https://www.boe.es/eli/es/lo/2025/01/02/1)). Партнёра по Испании не ищем.
 
 `Empyreal Estate Phuket` может быть выбран оператором вручную только после проверки
 конкретной программы. Отправка qualifier не создаёт assignment и не передаёт контакт.

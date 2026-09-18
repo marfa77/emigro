@@ -7,7 +7,7 @@ import { trackEvent } from "@/lib/analytics/client";
 import { captureAttribution, getSessionId } from "@/lib/analytics/attribution";
 import type { InvestmentAsset, InvestmentOutcome } from "@/lib/investment/registry";
 import {
-  INVESTMENT_ROUTES,
+  uniqueInvestmentCountries,
   investmentAssetLabel,
   normalizeInvestmentPassport,
   outcomeLabel,
@@ -177,7 +177,7 @@ export function InvestmentQualifier({ id = "qualifier" }: { id?: string }) {
             Приоритетная страна
             <select name="preferred_country" defaultValue="any" required className={`mt-2 ${formFieldWhite}`}>
               <option value="any">Сначала сравнить все</option>
-              {INVESTMENT_ROUTES.map((route) => (
+              {uniqueInvestmentCountries().map((route) => (
                 <option key={route.country} value={route.country}>
                   {route.flag} {route.countryRu}
                 </option>
@@ -291,8 +291,9 @@ export function InvestmentQualifier({ id = "qualifier" }: { id?: string }) {
             <Link href="/ru/privacy" className="font-medium text-corridor-700 underline">
               политику конфиденциальности
             </Link>
-            , разрешаю Emigro связаться со мной и передать структурированный запрос подходящему профильному
-            партнёру. Я понимаю, что подбор предварительный и не является юридической гарантией.
+            , разрешаю Emigro сохранить стадию недвижимости и происхождение капитала (согласие investment-v2),
+            связаться со мной и передать структурированный запрос партнёру только отдельным ручным решением.
+            Контакт не уходит партнёру автоматически. Подбор предварительный и не является юридической гарантией.
           </span>
         </label>
 
@@ -303,6 +304,7 @@ export function InvestmentQualifier({ id = "qualifier" }: { id?: string }) {
         <button
           type="submit"
           disabled={status === "loading"}
+          onClick={() => trackEvent("investment_cta_click", { source: "investment_qualifier", placement: "submit" })}
           className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-corridor-700 px-6 py-3 font-semibold text-white transition hover:bg-corridor-800 disabled:opacity-60 sm:w-auto"
         >
           {status === "loading" ? <Loader2 className="h-5 w-5 animate-spin" /> : <CheckCircle2 className="h-5 w-5" />}
