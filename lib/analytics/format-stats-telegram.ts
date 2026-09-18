@@ -4,7 +4,6 @@ import {
   deltaLine,
   type StatsReport,
 } from "@/lib/analytics/stats";
-import { formatThreadsReferralsTelegram } from "@/lib/analytics/threads-stats";
 
 function escapeHtml(text: string): string {
   return text
@@ -17,285 +16,347 @@ function deltaHtml(today: number, yesterday: number): string {
   return ` <i>${escapeHtml(deltaLine(today, yesterday))}</i>`;
 }
 
-function fmtTop(title: string, rows: Array<[string, number]>): string[] {
-  if (rows.length === 0) return [`<b>${title}</b>: —`];
-  const lines = [`<b>${title}</b>:`];
-  for (const [label, cnt] of rows) {
-    const short = label.length <= 48 ? label : `${label.slice(0, 45)}…`;
-    lines.push(`  • <code>${escapeHtml(short)}</code> — ${cnt}`);
-  }
-  return lines;
-}
-
-function channelLabel(s: StatsReport["recentSessions"][number]): string {
-  if (s.channel === "llm") return s.llm || "llm";
-  if (s.channel === "search") return "search";
-  if (s.channel === "direct") return "direct";
-  if (s.channel === "social") return "social";
-  if (s.channel === "referral") return "referral";
-  if (s.channel === "internal") return "internal";
-  return s.channel;
-}
-
-function fmtSessionRow(s: StatsReport["recentSessions"][number]): string {
-  const prefix = s.isReturning ? "↩ " : "✨ ";
-  const meta = [s.country, channelLabel(s), s.referrer].filter(Boolean).join(" · ") || "direct";
-  const path = s.pagePath ?? "—";
-  const shortPath = path.length > 40 ? `${path.slice(0, 37)}…` : path;
-  return `  ${prefix}<code>${escapeHtml(s.sessionId)}</code> · ${escapeHtml(meta)} · ${escapeHtml(shortPath)}`;
-}
-
-function conversionPct(part: number, whole: number): string {
-  if (whole <= 0) return "—";
-  return `${Math.round((part / whole) * 100)}%`;
-}
-
-function fmtLocaleBucket(
-  label: string,
-  today: StatsReport["localeSplit"]["today"]["es"],
-  yesterday: StatsReport["localeSplit"]["yesterday"]["es"],
-  total: StatsReport["localeSplit"]["total"]["es"]
-): string[] {
-  return [
-    `<b>${label}</b>`,
-    `  PV сегодня: <b>${today.pageViews}</b>${deltaHtml(today.pageViews, yesterday.pageViews)} <i>(всего ${total.pageViews})</i>`,
-    `  Wizard started: <b>${today.wizardStarted}</b>${deltaHtml(today.wizardStarted, yesterday.wizardStarted)} <i>(всего ${total.wizardStarted})</i>`,
-    `  Wizard done: <b>${today.wizardCompleted}</b>${deltaHtml(today.wizardCompleted, yesterday.wizardCompleted)} <i>(всего ${total.wizardCompleted})</i>`,
-    `  Results view: <b>${today.resultsViews}</b>${deltaHtml(today.resultsViews, yesterday.resultsViews)} <i>(всего ${total.resultsViews})</i>`,
-  ];
-}
-
-function fmtLocaleSplit(report: StatsReport): string[] {
-  const { today, yesterday, total } = report.localeSplit;
-  const lines = [
-    "<b>RU / ES / FR</b>",
-    "<i>ES=/es/* · FR=/fr/* · RU=/ru/* (+ satellite)</i>",
-    ...fmtLocaleBucket("🇷🇺 RU", today.ru, yesterday.ru, total.ru),
-    ...fmtLocaleBucket("🇪🇸 ES / LATAM", today.es, yesterday.es, total.es),
-    ...fmtLocaleBucket("🇫🇷 FR / Afrique", today.fr, yesterday.fr, total.fr),
-  ];
-  const otherToday =
-    today.other.pageViews +
-    today.other.wizardStarted +
-    today.other.wizardCompleted +
-    today.other.resultsViews;
-  if (otherToday > 0 || total.other.pageViews > 0) {
-    lines.push(...fmtLocaleBucket("Other", today.other, yesterday.other, total.other));
-  }
-  return lines;
-}
-
 function periodDelta(current: number, previous: number): string {
   if (previous === 0) return current === 0 ? "=" : "новое";
   const pct = Math.round(((current - previous) / previous) * 100);
   return `${pct > 0 ? "+" : ""}${pct}%`;
 }
 
-function fmtPortfolio(report: StatsReport): string[] {
-  const { portfolio } = report;
-  const core = portfolio.surfaces.find((surface) => surface.key === "core");
-  const investment = portfolio.investment;
-  const lines: string[] = [
-    "<b>📈 Что изменилось за 7 дней</b>",
-    core
-      ? `Core visitors: <b>${core.current7d.visitors}</b> <i>(${periodDelta(core.current7d.visitors, core.previous7d.visitors)} к прошлым 7д)</i>`
-      : "Core visitors: —",
-    `Investment PV: <b>${investment.pageViews7d}</b> <i>(${periodDelta(investment.pageViews7d, investment.pageViewsPrevious7d)} к прошлым 7д)</i>`,
-    `Investment leads: <b>${investment.leads7d}</b>`,
-    "",
-    "<b>🛰 Сателлиты · 7 дней</b>",
-  ];
-  for (const surface of portfolio.surfaces.filter((item) => item.key !== "core")) {
-    lines.push(
-      `${escapeHtml(surface.label)}: <b>${surface.current7d.visitors}</b> visitors / ${surface.current7d.pageViews} PV · wizard ${surface.current7d.wizardStarted} · chat intent ${surface.current7d.communityClicks} <i>(${periodDelta(surface.current7d.visitors, surface.previous7d.visitors)})</i>`
-    );
-  }
+function compactTop(rows: Array<[string, number]>, limit = 3): string {
+  if (!rows.length) return "—";
+  return rows
+    .slice(0, limit)
+    .map(([label, cnt]) => {
+      const short = label.length <= 36 ? label : `${label.slice(0, 33)}…`;
+      return `<code>${escapeHtml(short)}</code> ${cnt}`;
+    })
+    .join(" · ");
+}
 
-  lines.push(
-    "",
-    "<b>💼 Инвестиционная миграция</b>",
-    `7д: PV <b>${investment.pageViews7d}</b> → qualifier <b>${investment.qualifierStarted7d}</b> → completed <b>${investment.qualifierCompleted7d}</b> → CRM leads <b>${investment.leads7d}</b>`,
-    `PV: hub ${investment.hubViews7d} · страны ${investment.countryViews7d} · results ${investment.resultsViews7d}`,
-    `Всего лидов: <b>${investment.leadsTotal}</b> · assigned ${investment.assigned} · won ${investment.won} · lost ${investment.lost}`,
-    `Капитал профилей: <b>€${investment.budgetTotalEur.toLocaleString("ru-RU")}</b> <i>(не revenue/AUM)</i>`
-  );
-  if (investment.topDestinations.length) {
-    lines.push(...fmtTop("Направления", investment.topDestinations));
-  }
-
-  lines.push("", "<b>💬 Telegram / community</b>");
-  for (const country of portfolio.community) {
-    lines.push(
-      `${escapeHtml(country.label)}: сигналы 7д <b>${country.signals7d}</b> · backlog ${country.backlog} · notes ${country.publishedNotes} (+${country.published7d}) · источники ${country.activeChannels}/${country.totalChannels}`
-    );
-  }
-  for (const chat of portfolio.ownedChats) {
-    const change =
-      chat.members != null && chat.previous7d != null
-        ? ` <i>(${periodDelta(chat.members, chat.previous7d)} за 7д)</i>`
+function fmtLocaleLines(report: StatsReport): string[] {
+  const { today, yesterday } = report.localeSplit;
+  const row = (
+    flag: string,
+    label: string,
+    t: typeof today.ru,
+    y: typeof yesterday.ru
+  ): string => {
+    const pvDelta = deltaHtml(t.pageViews, y.pageViews);
+    const wiz =
+      t.wizardStarted > 0 || t.wizardCompleted > 0
+        ? ` · wiz ${t.wizardStarted}→${t.wizardCompleted}`
         : "";
-    lines.push(`${escapeHtml(chat.label)}: <b>${chat.members ?? "—"}</b>${change}`);
-  }
-  lines.push("<i>chat intent — клик на вход; members — реальные участники Telegram</i>");
+    const results = t.resultsViews > 0 ? ` · results ${t.resultsViews}` : "";
+    return `${flag} ${label}: PV <b>${t.pageViews}</b>${pvDelta}${wiz}${results}`;
+  };
+  return [
+    row("🇷🇺", "RU", today.ru, yesterday.ru),
+    row("🇪🇸", "ES", today.es, yesterday.es),
+    row("🇫🇷", "FR", today.fr, yesterday.fr),
+  ];
+}
 
-  const gsc = portfolio.searchConsole;
-  lines.push("", "<b>🔎 Google Search Console · 28 дней</b>");
-  if (gsc.available) {
-    lines.push(
-      `Клики: <b>${gsc.clicks}</b> <i>(${periodDelta(gsc.clicks, gsc.previousClicks)})</i> · показы: <b>${gsc.impressions}</b> <i>(${periodDelta(gsc.impressions, gsc.previousImpressions)})</i>`,
-      `CTR: <b>${(gsc.ctr * 100).toFixed(1)}%</b> · позиция: <b>${gsc.position.toFixed(1)}</b>`
-    );
-    if (gsc.topQueries.length) {
-      lines.push(...fmtTop("GSC запросы · показы", gsc.topQueries.slice(0, 5).map((row) => [row.key, row.impressions])));
-    }
-  } else {
-    lines.push(`— недоступен: <i>${escapeHtml(gsc.error || "credentials missing")}</i>`);
+/** All-time + today pulse — three lines, no bots/events/LLM noise. */
+function fmtPulse(report: StatsReport): string[] {
+  const { total, today, yesterday, wizardTelegram: tg, assist } = report;
+  return [
+    `<b>📊 Emigro</b> · <code>${escapeHtml(report.timezone)}</code> · ${escapeHtml(report.todayLabel)}`,
+    `Всего: <b>${total.visitors}</b> vis · ${total.pageViews} PV · wizard ${total.wizardStarted}→${total.wizardCompleted} · TG-отчёты ${tg.deliveriesSentTotal} · Assist заявки <b>${assist.leadsTotal}</b> · лиды <b>${total.leads}</b>`,
+    `Сегодня: <b>${today.visitors}</b> vis${deltaHtml(today.visitors, yesterday.visitors)} · ✨${report.todayNewVisitors}/↩${report.todayReturningVisitors} · ${today.pageViews} PV · wiz ${today.wizardStarted}→${today.wizardCompleted} · results ${tg.resultsViewsToday}→TG ${tg.deliveriesToday} · Assist ${assist.ctaClicksToday}→${assist.leadsToday} · лиды <b>${today.leads}</b>`,
+  ];
+}
+
+const SAT_FLAG: Record<string, string> = {
+  portugal: "🇵🇹",
+  spain: "🇪🇸",
+  italy: "🇮🇹",
+  thailand: "🇹🇭",
+};
+
+const DEST_FLAG: Record<string, string> = {
+  TH: "🇹🇭",
+  GR: "🇬🇷",
+  ES: "🇪🇸",
+  PT: "🇵🇹",
+  AE: "🇦🇪",
+  CY: "🇨🇾",
+  MT: "🇲🇹",
+  HU: "🇭🇺",
+  IT: "🇮🇹",
+  FR: "🇫🇷",
+  DE: "🇩🇪",
+};
+
+function fmtInvestBlock(invest: StatsReport["portfolio"]["investment"]): string[] {
+  const lines: string[] = ["<b>💼 Инвест-миграция</b>"];
+
+  const open = Math.max(0, invest.leadsTotal - invest.won - invest.lost);
+  lines.push(
+    `Заявки 7д: <b>${invest.leads7d}</b> · всего <b>${invest.leadsTotal}</b> · в работе ${open} · won ${invest.won} · lost ${invest.lost}`
+  );
+
+  if (invest.topDestinations.length) {
+    const dest = invest.topDestinations
+      .slice(0, 6)
+      .map(([code, n]) => {
+        const flag = DEST_FLAG[code.toUpperCase()] ?? "";
+        return `${flag}${escapeHtml(code)}×${n}`;
+      })
+      .join(" · ");
+    lines.push(`Куда: ${dest}`);
   }
 
-  lines.push("", "<b>🧵 Threads · два канала</b>");
-  for (const account of portfolio.threadsAccounts) {
-    lines.push(
-      `<b>@${account.handle}</b>: followers ${account.followers ?? "—"} · переходы 7д <b>${account.sessions7d}</b> <i>(${periodDelta(account.sessions7d, account.sessionsPrevious7d)})</i> · 30д ${account.sessions30d}`,
-      `  downstream: wizard ${account.wizardStarts} · Assist ${account.assistClicks} · qualifier ${account.qualifierStarts} · invest leads ${account.leads}`
-    );
-    if (account.topLandings.length) {
-      lines.push(...fmtTop(`@${account.handle} landing`, account.topLandings.slice(0, 3)));
+  // Traffic only if meaningful — don't fake a funnel when leads bypass qualifier
+  if (invest.pageViews7d > 0 || invest.qualifierStarted7d > 0) {
+    const trafficBits = [`просмотры /invest <b>${invest.pageViews7d}</b>`];
+    if (invest.hubViews7d || invest.countryViews7d || invest.resultsViews7d) {
+      trafficBits.push(
+        `hub ${invest.hubViews7d} · страны ${invest.countryViews7d} · results ${invest.resultsViews7d}`
+      );
     }
+    lines.push(trafficBits.join(" · "));
   }
+
+  if (invest.qualifierStarted7d > 0 || invest.qualifierCompleted7d > 0) {
+    lines.push(
+      `Квалификатор: старт ${invest.qualifierStarted7d} · дошли до результата ${invest.qualifierCompleted7d}`
+    );
+  } else if (invest.leads7d > 0) {
+    lines.push("<i>Заявки пришли без квалификатора (форма/API)</i>");
+  }
+
+  if (invest.budgetTotalEur > 0) {
+    const eur = `€${Math.round(invest.budgetTotalEur / 1000).toLocaleString("ru-RU")}k`;
+    lines.push(`Бюджет в анкетах: ~${eur} <i>(сумма полей юзеров, не деньги Emigro)</i>`);
+  }
+
   return lines;
 }
 
-export function formatStatsReportTelegram(report: StatsReport): string {
-  const { total, today, yesterday, wizardTelegram: tg, assist } = report;
-
+function fmtPortfolio(report: StatsReport): string[] {
+  const { portfolio } = report;
+  const core = portfolio.surfaces.find((s) => s.key === "core");
   const lines: string[] = [
-    "<b>📊 Emigro — статистика</b>",
-    `Часовой пояс: <code>${escapeHtml(report.timezone)}</code> · сегодня ${escapeHtml(report.todayLabel)}`,
+    "<b>📦 Портфель · 7 дней</b>",
+    core
+      ? `Сайт (core): <b>${core.current7d.visitors}</b> посетителей · ${core.current7d.pageViews} PV · wizard ${core.current7d.wizardStarted} <i>(${periodDelta(core.current7d.visitors, core.previous7d.visitors)} к прошлым 7д)</i>`
+      : "Сайт (core): —",
     "",
-    "<b>Нарастающий итог</b>",
-    `Уникальные посетители: <b>${total.visitors}</b> <i>(browser-id, без ботов)</i>`,
-    `Просмотры страниц: <b>${total.pageViews}</b>`,
-    `Сессии (session_start): <b>${total.newSessions}</b>`,
-    `Сессии с визардом: <b>${total.wizardStarted}</b>`,
-    `Завершения визарда: <b>${total.wizardCompleted}</b>`,
-    `Отчётов в Telegram: <b>${tg.deliveriesSentTotal}</b> <i>(юзеров ${tg.usersTotal})</i>`,
-    `Лиды: <b>${total.leads}</b>`,
-    `Assist: просмотры: <b>${assist.pageViewsTotal}</b> · CTA: <b>${assist.ctaClicksTotal}</b> · заявки: <b>${assist.leadsTotal}</b>`,
-    `Переходы в чаты: <b>${assist.communityClicksTotal}</b>`,
-    `Событий в БД: <b>${total.eventsTotal}</b>`,
-    `Боты (исключены): <b>${report.botsTotal}</b> сессий`,
-    "",
-    `<b>Сегодня</b>${deltaHtml(today.visitors, yesterday.visitors)}`,
-    `Посетители: <b>${today.visitors}</b>`,
-    `  ↩ вернулись: <b>${report.todayReturningVisitors}</b>${deltaHtml(report.todayReturningVisitors, report.yesterdayReturningVisitors)}`,
-    `  ✨ новые: <b>${report.todayNewVisitors}</b>${deltaHtml(report.todayNewVisitors, report.yesterdayNewVisitors)}`,
-    `Просмотры страниц: <b>${today.pageViews}</b>${deltaHtml(today.pageViews, yesterday.pageViews)}`,
-    `Новые сессии: <b>${today.newSessions}</b>${deltaHtml(today.newSessions, yesterday.newSessions)}`,
-    `Визард started: <b>${today.wizardStarted}</b>${deltaHtml(today.wizardStarted, yesterday.wizardStarted)}`,
-    `Просмотры результатов: <b>${tg.resultsViewsToday}</b>${deltaHtml(tg.resultsViewsToday, tg.resultsViewsYesterday)}`,
-    `Отчётов в Telegram: <b>${tg.deliveriesToday}</b>${deltaHtml(tg.deliveriesToday, tg.deliveriesYesterday)} <i>(новых юзеров ${tg.usersNewToday})</i>`,
-    `Конверсия results → TG: <b>${escapeHtml(conversionPct(tg.deliveriesToday, tg.resultsViewsToday))}</b>`,
-    `Лиды: <b>${today.leads}</b>${deltaHtml(today.leads, yesterday.leads)}`,
-    `LLM-трафик: <b>${report.llmToday}</b>${deltaHtml(report.llmToday, report.llmYesterday)} <i>(всего ${report.llmTotal})</i>`,
-    `Боты (исключены): <b>${report.botsToday}</b>${deltaHtml(report.botsToday, report.botsYesterday)} <i>(всего ${report.botsTotal})</i>`,
-    "",
-    "<b>🧭 Emigro Assist</b>",
-    `Просмотры /assist: <b>${assist.pageViewsToday}</b>${deltaHtml(assist.pageViewsToday, assist.pageViewsYesterday)} <i>(всего ${assist.pageViewsTotal})</i>`,
-    `Sample plan: <b>${assist.samplePlanViewsToday}</b>${deltaHtml(assist.samplePlanViewsToday, assist.samplePlanViewsYesterday)} <i>(всего ${assist.samplePlanViewsTotal})</i>`,
-    `Клики CTA → Assist: <b>${assist.ctaClicksToday}</b>${deltaHtml(assist.ctaClicksToday, assist.ctaClicksYesterday)} <i>(всего ${assist.ctaClicksTotal})</i>`,
-    `Заявки Assist: <b>${assist.leadsToday}</b>${deltaHtml(assist.leadsToday, assist.leadsYesterday)} <i>(всего ${assist.leadsTotal})</i>`,
-    `Конверсия CTA → заявка: <b>${escapeHtml(conversionPct(assist.leadsToday, assist.ctaClicksToday))}</b>`,
-    `Переходы в чаты: <b>${assist.communityClicksToday}</b>${deltaHtml(assist.communityClicksToday, assist.communityClicksYesterday)} <i>(всего ${assist.communityClicksTotal})</i>`,
-    "",
-    ...fmtLocaleSplit(report),
-    "",
-    ...fmtPortfolio(report),
-    "",
-    "<b>Динамика 7 дней</b> (посетители / просмотры)",
+    ...fmtInvestBlock(portfolio.investment),
   ];
 
+  const chatsByCountry = new Map(
+    portfolio.ownedChats.map((chat) => [chat.countryKey, chat] as const)
+  );
+  const communityByCountry = new Map(
+    portfolio.community.map((row) => [row.countryKey, row] as const)
+  );
+  const surfaceByCountry = new Map(
+    portfolio.surfaces.filter((s) => s.key !== "core").map((s) => [s.key, s] as const)
+  );
+
+  const countryKeys = Array.from(
+    new Set([
+      ...portfolio.community.map((c) => c.countryKey),
+      ...portfolio.ownedChats.map((c) => c.countryKey),
+      ...portfolio.surfaces.filter((s) => s.key !== "core").map((s) => s.key),
+    ])
+  ) as Array<"portugal" | "spain" | "italy" | "thailand">;
+
+  if (countryKeys.length) {
+    lines.push("", "<b>🛰 Сателлиты</b> <i>чат · гайды · темы из чужих TG</i>");
+    for (const key of countryKeys) {
+      const community = communityByCountry.get(key);
+      const chat = chatsByCountry.get(key);
+      const surface = surfaceByCountry.get(key);
+      const flag = SAT_FLAG[key] ?? "";
+      const label = community?.label ?? chat?.label ?? surface?.label ?? key;
+
+      const bits: string[] = [];
+
+      if (chat?.members != null) {
+        const change =
+          chat.previous7d != null
+            ? ` <i>(${periodDelta(chat.members, chat.previous7d)})</i>`
+            : "";
+        bits.push(`чат <b>${chat.members}</b>${change}`);
+      } else {
+        bits.push("чат —");
+      }
+
+      if (community) {
+        const notesDelta =
+          community.published7d > 0 ? ` <i>(+${community.published7d})</i>` : "";
+        bits.push(`гайды <b>${community.publishedNotes}</b>${notesDelta}`);
+        bits.push(
+          community.signals7d > 0
+            ? `темы <b>${community.signals7d}</b>/7д`
+            : "тем нет"
+        );
+        if (community.totalChannels > 0 && community.activeChannels === 0) {
+          bits.push("<i>парсер молчит</i>");
+        }
+      } else if (surface) {
+        bits.push(`vis <b>${surface.current7d.visitors}</b>`);
+      }
+
+      lines.push(`${flag} ${escapeHtml(label)}: ${bits.join(" · ")}`);
+    }
+  }
+
+  return lines;
+}
+
+function fmtAcquisition(report: StatsReport): string[] {
+  const lines: string[] = ["<b>🚪 Приток сегодня</b>"];
+
+  if (report.channelMixToday.length) {
+    lines.push(`Каналы: ${compactTop(report.channelMixToday, 5)}`);
+  } else {
+    lines.push("Каналы: —");
+  }
+
+  const discovery = [
+    ...report.topPagesSearchToday.slice(0, 2).map(([p, n]) => [`🔍 ${p}`, n] as [string, number]),
+    ...report.topPagesLlmToday.slice(0, 2).map(([p, n]) => [`🤖 ${p}`, n] as [string, number]),
+  ];
+  if (discovery.length) {
+    lines.push(`Discovery: ${compactTop(discovery, 4)}`);
+  }
+
+  if (report.topCountriesToday.length) {
+    lines.push(
+      `Страны: ${compactTop(
+        report.topCountriesToday.map(([code, cnt]) => [`${countryFlag(code)} ${code}`, cnt]),
+        5
+      )}`
+    );
+  }
+
+  if (report.llmToday > 0) {
+    lines.push(`LLM: <b>${report.llmToday}</b>${deltaHtml(report.llmToday, report.llmYesterday)}`);
+  }
+
+  return lines;
+}
+
+function cleanLandingPath(raw: string): string {
+  const value = raw.trim();
+  if (!value) return "/";
+  try {
+    const url = value.includes("://") ? new URL(value) : new URL(value, "https://emigro.online");
+    return url.pathname || "/";
+  } catch {
+    return value.split("?")[0] || "/";
+  }
+}
+
+/** Collapse UTM clones: /ru?utm=… and /ru → one bucket. */
+function compactLandings(rows: Array<[string, number]>, limit = 3): string {
+  const merged = new Map<string, number>();
+  for (const [raw, count] of rows) {
+    const path = cleanLandingPath(raw);
+    merged.set(path, (merged.get(path) ?? 0) + count);
+  }
+  const sorted = Array.from(merged.entries())
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, limit);
+  if (!sorted.length) return "";
+  return sorted
+    .map(([path, n]) => {
+      const short = path.length <= 28 ? path : `${path.slice(0, 25)}…`;
+      return `<code>${escapeHtml(short)}</code>×${n}`;
+    })
+    .join(" · ");
+}
+
+function fmtDownstream(account: StatsReport["portfolio"]["threadsAccounts"][number]): string {
+  const bits: string[] = [];
+  if (account.wizardStarts > 0) bits.push(`wizard ${account.wizardStarts}`);
+  if (account.assistClicks > 0) bits.push(`Assist ${account.assistClicks}`);
+  if (account.qualifierStarts > 0) bits.push(`qualifier ${account.qualifierStarts}`);
+  if (account.leads > 0) bits.push(`invest leads ${account.leads}`);
+  return bits.length ? bits.join(" · ") : "без конверсий";
+}
+
+function fmtThreadsBlock(report: StatsReport): string[] {
+  const accounts = report.portfolio.threadsAccounts;
+  const lines: string[] = ["<b>🧵 Threads</b>"];
+
+  if (!accounts.length) {
+    if (report.threads) {
+      const handle = (report.threads.handle || "emigro_assist").replace(/^@/, "");
+      const c = report.threads.clicks7d;
+      lines.push(
+        `@${escapeHtml(handle)}: 7д wiz ${c.wizard} · Assist ${c.assist} · гайды ${c.guide}`
+      );
+    } else {
+      lines.push("— нет данных");
+    }
+    return lines;
+  }
+
+  for (const account of accounts) {
+    const followers =
+      account.followers != null && account.followers > 0
+        ? ` · ${account.followers} fol`
+        : "";
+    lines.push(
+      `<b>@${escapeHtml(account.handle)}</b>${followers}: 7д <b>${account.sessions7d}</b> <i>(${periodDelta(account.sessions7d, account.sessionsPrevious7d)})</i> · 30д ${account.sessions30d}`
+    );
+    lines.push(`  → ${fmtDownstream(account)}`);
+    const tops = compactLandings(account.topLandings, 3);
+    if (tops) lines.push(`  ${tops}`);
+  }
+
+  return lines;
+}
+
+function fmtGscLine(report: StatsReport): string[] {
+  const gsc = report.portfolio.searchConsole;
+  if (!gsc.available) return [];
+  return [
+    `<b>🔎 GSC · 28д</b>: клики <b>${gsc.clicks}</b> <i>(${periodDelta(gsc.clicks, gsc.previousClicks)})</i> · показы <b>${gsc.impressions}</b> · CTR ${(gsc.ctr * 100).toFixed(1)}% · поз. ${gsc.position.toFixed(1)}`,
+  ];
+}
+
+function fmtTrend(report: StatsReport): string[] {
+  if (!report.trend.length) return [];
+  const lines = ["<b>Динамика 7 дней</b> (посетители / просмотры)"];
   for (const row of report.trend) {
     const bar = row.visitors > 0 ? "▪".repeat(Math.min(row.visitors, 12)) : "·";
     lines.push(`  ${escapeHtml(row.dayLabel)}: <b>${row.visitors}</b> / ${row.pageViews} ${bar}`);
   }
+  return lines;
+}
 
-  lines.push("");
-  lines.push(...formatThreadsReferralsTelegram(report.threads));
+/**
+ * Compact operator pulse for Telegram /stats.
+ * Admin dashboard keeps the full data model — this is presentation only.
+ */
+export function formatStatsReportTelegram(report: StatsReport): string {
+  const lines: string[] = [
+    ...fmtPulse(report),
+    ...fmtLocaleLines(report),
+    "",
+    ...fmtPortfolio(report),
+    "",
+    ...fmtAcquisition(report),
+    "",
+    ...fmtThreadsBlock(report),
+  ];
 
-  lines.push("");
-  lines.push(...fmtTop("Топ из поиска сегодня", report.topPagesSearchToday));
-  lines.push("");
-  lines.push(...fmtTop("Топ из LLM сегодня", report.topPagesLlmToday));
-  if (report.llmSourcesToday.length > 0) {
-    lines.push("");
-    lines.push(...fmtTop("LLM-источники сегодня", report.llmSourcesToday));
-  }
-  if (report.channelMixToday.length > 0) {
-    lines.push("");
-    lines.push(...fmtTop("Каналы сегодня (сессии)", report.channelMixToday));
-  }
-  lines.push("");
-  lines.push(...fmtTop("Топ поиск+LLM всего", report.topPagesDiscoveryAll));
-  lines.push("");
-  lines.push(...fmtTop("Топ страниц сегодня (все источники)", report.topPagesToday));
-  lines.push("");
-  lines.push(...fmtTop("Топ страниц всего (все источники)", report.topPagesAll));
-  if (assist.topAssistPagesToday.length > 0) {
-    lines.push("");
-    lines.push(...fmtTop("Assist: страницы сегодня", assist.topAssistPagesToday));
-  }
-  if (assist.topCtaPlacementsToday.length > 0) {
-    lines.push("");
-    lines.push(...fmtTop("Assist: CTA placements сегодня", assist.topCtaPlacementsToday));
-  }
-  if (assist.topCommunityPlacementsToday.length > 0) {
-    lines.push("");
-    lines.push(...fmtTop("Чаты: страна · placement сегодня", assist.topCommunityPlacementsToday));
+  const gsc = fmtGscLine(report);
+  if (gsc.length) {
+    lines.push("", ...gsc);
   }
 
-  if (report.topReferrersToday.length > 0) {
-    lines.push("");
-    lines.push(...fmtTop("Referrer сегодня", report.topReferrersToday));
-  }
-  if (report.topUtmToday.length > 0) {
-    lines.push("");
-    lines.push(...fmtTop("UTM source сегодня", report.topUtmToday));
-  }
-  if (report.topCountriesToday.length > 0) {
-    lines.push("");
-    lines.push(
-      ...fmtTop(
-        "Страны сегодня",
-        report.topCountriesToday.map(([code, cnt]) => [`${countryFlag(code)} ${code}`, cnt])
-      )
-    );
-  }
-  if (report.topLangToday.length > 0) {
-    lines.push("");
-    lines.push(...fmtTop("Языки сегодня", report.topLangToday));
-  }
-  if (report.topDeviceToday.length > 0) {
-    lines.push("");
-    lines.push(...fmtTop("Устройства сегодня", report.topDeviceToday));
-  }
-  if (report.topBrowserToday.length > 0) {
-    lines.push("");
-    lines.push(...fmtTop("Браузеры сегодня", report.topBrowserToday));
+  const trend = fmtTrend(report);
+  if (trend.length) {
+    lines.push("", ...trend);
   }
 
-  lines.push("");
-  lines.push(`<b>Посетители сегодня</b> (последние ${report.recentSessions.length}):`);
-  if (report.recentSessions.length === 0) {
-    lines.push("  — пока нет");
-  } else {
-    for (const s of report.recentSessions) {
-      lines.push(fmtSessionRow(s));
-    }
-  }
-
-  lines.push("");
-  lines.push("<i>Обновить: /stats или /status</i>");
-
+  lines.push("", "<i>/stats · /stats demo</i>");
   return lines.join("\n");
 }
 
