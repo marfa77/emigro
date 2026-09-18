@@ -125,6 +125,8 @@ function formatOwnerMessage(input: {
   asset: QualifierAsset;
   outcome: QualifierOutcome;
   destination: string;
+  match: string;
+  preferredCountry: string;
   selectedProgram: string | null;
   providerId: string | null;
   message: string | null;
@@ -134,6 +136,12 @@ function formatOwnerMessage(input: {
     "",
     `ID: ${input.leadId}`,
     `Направление: ${input.destination}`,
+    `Match: ${input.match}`,
+    input.preferredCountry !== "any" && input.preferredCountry !== input.destination
+      ? `Preferred country: ${input.preferredCountry}`
+      : input.preferredCountry !== "any"
+        ? `Preferred: ${input.preferredCountry}`
+        : "Preferred: any",
     `Бюджет: €${input.budgetEur.toLocaleString("en-US")}`,
     `Актив: ${input.asset}`,
     `Цель: ${input.outcome}`,
@@ -227,8 +235,16 @@ export async function POST(request: Request) {
       : [...evaluatedRoutes].sort((a, b) =>
           a.country === preferredCountry ? -1 : b.country === preferredCountry ? 1 : 0
         );
+  // Keep the applicant's preferred country even when blocked/closed/budget_gap.
+  // Never silently reassign Spain/Greece interest to Thailand or another market.
+  const preferredRoute =
+    preferredCountry === "any"
+      ? undefined
+      : matches.find((route) => route.country === preferredCountry);
   const selectedRoute =
-    matches.find((route) => route.match === "likely" || route.match === "review") ?? matches[0];
+    preferredRoute ??
+    matches.find((route) => route.match === "likely" || route.match === "review") ??
+    matches[0];
   if (!selectedRoute) {
     return NextResponse.json({ error: "No investment routes available" }, { status: 500 });
   }
@@ -347,6 +363,8 @@ export async function POST(request: Request) {
     asset: asset as QualifierAsset,
     outcome: outcome as QualifierOutcome,
     destination: selectedRoute.countryRu,
+    match: selectedRoute.match,
+    preferredCountry,
     selectedProgram,
     providerId: null,
     message: null,

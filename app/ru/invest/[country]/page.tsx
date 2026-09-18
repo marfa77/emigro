@@ -5,6 +5,7 @@ import { ArrowRight, ExternalLink, Scale } from "lucide-react";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { DubaiOfferVerdictPromo } from "@/components/investment/DubaiOfferVerdictPromo";
 import { InvestmentViewTracker } from "@/components/investment/InvestmentAnalytics";
+import { InvestmentQualifier } from "@/components/investment/InvestmentQualifier";
 import {
   INVESTMENT_PROGRAM_NOTES,
   investmentAssetLabel,
@@ -119,12 +120,16 @@ export default function InvestmentCountryPage({ params }: { params: { country: s
         </section>
 
         <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-          <Link href={`/ru/invest#qualifier`} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-corridor-700 px-6 py-3 font-semibold text-white hover:bg-corridor-800">
-            Проверить свой профиль <ArrowRight className="h-4 w-4" />
-          </Link>
+          <a href="#qualifier" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-corridor-700 px-6 py-3 font-semibold text-white hover:bg-corridor-800">
+            Проверить свой профиль по этой стране <ArrowRight className="h-4 w-4" />
+          </a>
           <Link href="/ru/invest" className="inline-flex min-h-12 items-center justify-center rounded-xl border border-slate-300 px-6 py-3 font-medium text-slate-700 hover:bg-slate-50">
             Сравнить другие страны
           </Link>
+        </div>
+
+        <div className="mt-10">
+          <InvestmentQualifier id="qualifier" defaultPreferredCountry={route.country} />
         </div>
       </main>
       <SiteFooter />

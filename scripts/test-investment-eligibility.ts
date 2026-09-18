@@ -20,6 +20,15 @@ assert.equal(property.find((route) => route.country === "spain")?.match, "closed
 assert.equal(property.find((route) => route.country === "uae")?.match, "budget_gap");
 assert.notEqual(property[0]?.match, "likely");
 
+// Preferred closed/blocked countries must remain selectable for CRM destination.
+const spainPreferred = qualifyInvestmentRoutes({
+  budgetEur: 500_000,
+  asset: "property",
+  outcome: "residence",
+  passportIso2: "RU",
+}).find((route) => route.country === "spain");
+assert.equal(spainPreferred?.match, "closed");
+
 const uae = qualifyInvestmentRoutes({
   budgetEur: 600_000,
   asset: "property",

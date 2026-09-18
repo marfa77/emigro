@@ -56,10 +56,10 @@ export default function InvestmentHubPage() {
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a href="#qualifier" className="inline-flex min-h-12 items-center gap-2 rounded-xl bg-white px-5 py-3 font-semibold text-slate-950 hover:bg-corridor-50">
-                Пройти qualifier <ArrowRight className="h-4 w-4" />
+                Получить предварительный рейтинг <ArrowRight className="h-4 w-4" />
               </a>
               <a href="#routes" className="inline-flex min-h-12 items-center rounded-xl border border-white/30 px-5 py-3 font-medium hover:bg-white/10">
-                Сравнить {INVESTMENT_ROUTES.length} маршрутов
+                Сначала посмотреть страны
               </a>
             </div>
             <div className="mt-8 flex max-w-3xl gap-3 rounded-xl border border-amber-300/30 bg-amber-100/10 p-4 text-sm leading-relaxed text-amber-50">
@@ -94,6 +94,10 @@ export default function InvestmentHubPage() {
               </ul>
             </article>
           </section>
+
+          <div className="mt-14">
+            <InvestmentQualifier />
+          </div>
 
           <section id="routes" className="scroll-mt-24 pt-14">
             <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
@@ -144,7 +148,7 @@ export default function InvestmentHubPage() {
                     slug={routeKey(route)}
                     className="mt-5 inline-flex min-h-11 items-center gap-2 font-semibold text-corridor-700 group-hover:text-corridor-800"
                   >
-                    Разобрать маршрут <ArrowRight className="h-4 w-4" />
+                    {route.status === "closed" ? "Почему закрыта" : "Разобрать маршрут"} <ArrowRight className="h-4 w-4" />
                   </InvestmentRouteLink>
                 </article>
                 );
@@ -168,10 +172,6 @@ export default function InvestmentHubPage() {
               );
             })}
           </section>
-
-          <div className="mt-14">
-            <InvestmentQualifier />
-          </div>
         </div>
       </main>
       <SiteFooter />

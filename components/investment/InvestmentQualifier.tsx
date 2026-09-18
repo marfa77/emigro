@@ -29,10 +29,17 @@ const assetOptions: QualifierAsset[] = [
 
 const outcomeOptions: QualifierOutcome[] = ["residence", "permanent_residence", "citizenship_path"];
 
-export function InvestmentQualifier({ id = "qualifier" }: { id?: string }) {
+export function InvestmentQualifier({
+  id = "qualifier",
+  defaultPreferredCountry = "any",
+}: {
+  id?: string;
+  defaultPreferredCountry?: string;
+}) {
   const [started, setStarted] = useState(false);
   const [status, setStatus] = useState<"idle" | "loading" | "error">("idle");
   const [notice, setNotice] = useState("");
+  const [asset, setAsset] = useState<QualifierAsset>("property");
 
   function markStarted() {
     if (started) return;
@@ -175,18 +182,25 @@ export function InvestmentQualifier({ id = "qualifier" }: { id?: string }) {
           </label>
           <label className="text-sm font-medium text-slate-800">
             Приоритетная страна
-            <select name="preferred_country" defaultValue="any" required className={`mt-2 ${formFieldWhite}`}>
+            <select name="preferred_country" defaultValue={defaultPreferredCountry} required className={`mt-2 ${formFieldWhite}`}>
               <option value="any">Сначала сравнить все</option>
               {uniqueInvestmentCountries().map((route) => (
                 <option key={route.country} value={route.country}>
                   {route.flag} {route.countryRu}
+                  {route.status === "closed" ? " — закрыта" : ""}
                 </option>
               ))}
             </select>
           </label>
           <label className="text-sm font-medium text-slate-800">
             Предпочтительный актив
-            <select name="asset" defaultValue="property" required className={`mt-2 ${formFieldWhite}`}>
+            <select
+              name="asset"
+              value={asset}
+              onChange={(event) => setAsset(event.target.value as QualifierAsset)}
+              required
+              className={`mt-2 ${formFieldWhite}`}
+            >
               {assetOptions.map((asset) => (
                 <option key={asset} value={asset}>
                   {investmentAssetLabel(asset)}
@@ -245,6 +259,7 @@ export function InvestmentQualifier({ id = "qualifier" }: { id?: string }) {
           </div>
         </fieldset>
 
+        {asset === "property" ? (
         <div className="grid gap-5 sm:grid-cols-2">
           <label className="text-sm font-medium text-slate-800">
             Стадия недвижимости
@@ -266,6 +281,18 @@ export function InvestmentQualifier({ id = "qualifier" }: { id?: string }) {
             </select>
           </label>
         </div>
+        ) : (
+        <label className="block text-sm font-medium text-slate-800">
+          Происхождение капитала
+          <select name="source_of_funds" defaultValue="savings" required className={`mt-2 ${formFieldWhite}`}>
+            <option value="salary">Доход от работы</option>
+            <option value="business">Бизнес</option>
+            <option value="asset_sale">Продажа актива</option>
+            <option value="savings">Накопления</option>
+            <option value="other">Другое, нужна проверка</option>
+          </select>
+        </label>
+        )}
 
         <div className="grid gap-5 sm:grid-cols-2">
           <label className="text-sm font-medium text-slate-800">
@@ -291,7 +318,8 @@ export function InvestmentQualifier({ id = "qualifier" }: { id?: string }) {
             <Link href="/ru/privacy" className="font-medium text-corridor-700 underline">
               политику конфиденциальности
             </Link>
-            , разрешаю Emigro сохранить стадию недвижимости и происхождение капитала (согласие investment-v2),
+            , разрешаю Emigro сохранить происхождение капитала
+            {asset === "property" ? " и стадию недвижимости" : ""} (согласие investment-v2),
             связаться со мной и передать структурированный запрос партнёру только отдельным ручным решением.
             Контакт не уходит партнёру автоматически. Подбор предварительный и не является юридической гарантией.
           </span>
