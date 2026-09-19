@@ -1,0 +1,13 @@
+---
+description: VPS Threads farm is write-locked except farm HQ chat
+alwaysApply: true
+---
+
+# Threads farm VPS lock
+
+Live Emigro Threads on `37.27.0.210` (`/opt/emigro/lib/threads`, banks, daily/invest units) is immutable.
+
+- **Do not** `git reset --hard` over farm paths. `deploy_vps_from_git.sh` skips them.
+- **Do not** unlock (`farm_protect.sh unlock`) unless this is the farm HQ chat.
+- Other chats may deploy site/SEO to Vercel; they must not ship Threads banks or timers to the VPS.
+- Banks: Sol point-edits only; never rewrite a live 100-day bank.

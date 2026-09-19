@@ -27,6 +27,7 @@ $SUDO rsync -a --delete \
   --exclude 'parser/out' --exclude '.cursor' --exclude 'branding' \
   --exclude '.env' --exclude '.env.local' --exclude '.DS_Store' \
   --exclude 'scripts/output' \
+  --exclude-from "${ROOT}/scripts/farm.rsync-exclude" \
   "${ROOT}/" "${REMOTE}/"
 
 $SUDO chmod +x \
@@ -45,8 +46,12 @@ $SUDO chmod 600 "${REMOTE}/.env" "${REMOTE}/parser/.env" 2>/dev/null || true
 
 $SUDO -u www-data bash -lc "cd '${REMOTE}' && npm ci --include=dev"
 
-$SUDO cp "${REMOTE}/deploy/systemd/emigro-threads-"*.service /etc/systemd/system/
-$SUDO cp "${REMOTE}/deploy/systemd/emigro-threads-"*.timer /etc/systemd/system/
+if [[ -f /opt/farm-lock/LOCKED ]]; then
+  echo "FARM LOCKED — skip overwrite of emigro-threads units"
+else
+  $SUDO cp "${REMOTE}/deploy/systemd/emigro-threads-"*.service /etc/systemd/system/
+  $SUDO cp "${REMOTE}/deploy/systemd/emigro-threads-"*.timer /etc/systemd/system/
+fi
 $SUDO systemctl daemon-reload
 $SUDO systemctl enable --now emigro-threads-daily.timer
 $SUDO systemctl enable --now emigro-threads-satellites.timer

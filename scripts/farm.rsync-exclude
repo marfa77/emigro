@@ -1,0 +1,7 @@
+lib/threads/
+scripts/threads-*.ts
+scripts/test-threads-*.ts
+scripts/threads-assert-banks.ts
+deploy/threads-daily/run_scheduled.sh
+deploy/threads-investment/run_scheduled.sh
+deploy/systemd/emigro-threads-*
