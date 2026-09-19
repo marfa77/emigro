@@ -4,13 +4,14 @@ function stripHtml(html: string) {
   return html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
 }
 
+/** Heading text of this h2 only — do not match “RMA FAQ” in an earlier section. */
 const FAQ_HEADING =
-  /<h2[^>]*>[\s\S]*?(?:FAQ|Preguntas frecuentes|Foire aux questions|Questions fr[ée]quentes)[\s\S]*?<\/h2>([\s\S]*?)(?=<h2|$)/i;
+  /<h2[^>]*>((?:(?!<\/h2>)[\s\S])*?(?:FAQ|Preguntas frecuentes|Foire aux questions|Questions fr[ée]quentes)(?:(?!<\/h2>)[\s\S])*)<\/h2>([\s\S]*?)(?=<h2|$)/i;
 
 export type GuideFaqItem = { question: string; answer: string };
 
 export function extractGuideFaq(bodyHtml: string, limit = 7): GuideFaqItem[] {
-  const faqSection = FAQ_HEADING.exec(bodyHtml)?.[1] ?? "";
+  const faqSection = FAQ_HEADING.exec(bodyHtml)?.[2] ?? "";
 
   const sectionMatches = Array.from(
     faqSection.matchAll(

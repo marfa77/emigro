@@ -96,6 +96,9 @@ ok =
     if (!helper.includes("FAQPage") || !helper.includes("Preguntas frecuentes") || !helper.includes("Foire aux questions")) {
       throw new Error("extract-faq must support ES/FR FAQ headings and FAQPage");
     }
+    if (!helper.includes("(?!<\\/h2>)")) {
+      throw new Error("extract-faq must not match FAQ inside an earlier h2 section");
+    }
     for (const rel of ["app/ru/guides/[slug]/page.tsx", "app/es/guides/[slug]/page.tsx", "app/fr/guides/[slug]/page.tsx"]) {
       if (!read(rel).includes("extractGuideFaq")) throw new Error(`${rel} must use extractGuideFaq`);
     }
