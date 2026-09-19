@@ -51,16 +51,16 @@ cp deploy/systemd/emigro-threads-satellites.service /etc/systemd/system/
 cp deploy/systemd/emigro-threads-satellites.timer /etc/systemd/system/
 cp deploy/systemd/emigro-threads-refresh.service /etc/systemd/system/
 cp deploy/systemd/emigro-threads-refresh.timer /etc/systemd/system/
-cp deploy/systemd/emigro-threads-replies.service /etc/systemd/system/
-cp deploy/systemd/emigro-threads-replies.timer /etc/systemd/system/
 cp deploy/systemd/emigro-threads-investment.service /etc/systemd/system/
 cp deploy/systemd/emigro-threads-investment.timer /etc/systemd/system/
+systemctl disable --now emigro-threads-replies.timer emigro-threads-replies.service 2>/dev/null || true
+rm -f /etc/systemd/system/emigro-threads-replies.timer /etc/systemd/system/emigro-threads-replies.service
 systemctl daemon-reload
+systemctl mask emigro-threads-replies.timer emigro-threads-replies.service
 systemctl enable --now emigro-threads-daily.timer
 systemctl enable --now emigro-threads-satellites.timer
 systemctl enable --now emigro-threads-refresh.timer
 systemctl enable --now emigro-threads-investment.timer
-systemctl disable --now emigro-threads-replies.timer
 
 echo "HEAD=$(git rev-parse --short HEAD)"
 git log -1 --oneline

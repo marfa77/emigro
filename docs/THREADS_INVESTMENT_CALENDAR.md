@@ -12,9 +12,9 @@ traffic and is excluded from the content baseline.
 - Runtime phase: `THREADS_INVESTMENT_PHASE=off|seed|traffic|lead`
 - Live gate: `THREADS_INVESTMENT_AUTO_PUBLISH=1` **and** `--force-publish`
 
-The default phase is `off`. The production launch starts at `seed`. Advancing a
-phase is a manual decision after the measurement gate; dates from a locked phase
-are skipped, not posted later in a catch-up burst.
+Production is live at `seed` as of 2026-09-19. Advancing a phase is a manual
+decision after the measurement gate; dates from a locked phase are skipped, not
+posted later in a catch-up burst. Set `THREADS_INVESTMENT_PHASE=off` only to pause.
 
 Thailand (`invest-009`) is auto-enabled after source review on 2026-09-17:
 Immigration Bureau orders 237/2568 and 238/2568 create a property-linked

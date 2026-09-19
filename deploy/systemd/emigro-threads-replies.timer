@@ -1,5 +1,5 @@
 [Unit]
-Description=Emigro Threads comment poll every ~20 minutes
+Description=Emigro Threads comment poll — MUST stay masked, no auto-replies
 
 [Timer]
 OnBootSec=4min

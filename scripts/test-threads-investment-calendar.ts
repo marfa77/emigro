@@ -11,7 +11,7 @@ import {
 
 const rows = loadInvestmentCalendar();
 assertInvestmentCalendar(rows);
-assert.equal(rows.length, 15);
+assert.equal(rows.length, 100);
 
 assert.equal(
   planInvestmentPost({ today: "2026-09-19", phase: "off", state: { posts: {} } }).skip,

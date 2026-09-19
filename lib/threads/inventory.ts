@@ -18,6 +18,7 @@ import {
 } from "@/lib/news/story-lightning";
 import {
   composeDayChain,
+  composeDaysReachChain,
   composeReachGuideThread,
   composeReachRoot,
   composeWizardChain,
@@ -160,12 +161,12 @@ export function pickDaysBankPlan(state: Pick<ThreadsInventoryState, "chat_cursor
   if (days.length === 0) return null;
   const next = (Number(state.last_day || 0) % days.length) + 1;
   const row = days.find((item) => item.d === next) || days[0]!;
-  const items = composeDayChain(row);
+  const items = composeDaysReachChain(row);
   const kind = row.cta === "assist" ? "assist" : "city";
   const countryRu = row.cta === "porto_chat" ? "Порту" : "ВНЖ";
   return {
     ...planOf(kind, `day-${row.d}`, countryRu, row.cta, items),
-    preview: previewDay(row),
+    preview: formatThreadsChainPreview(items),
     cursor: row.d,
   };
 }

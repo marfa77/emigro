@@ -1,6 +1,6 @@
 #!/usr/bin/env npx tsx
 /**
- * Assert Emigro Threads banks: 42 days + 21 guides, ≤500 chars after URL,
+ * Assert Emigro Threads banks: 100 days + 21 guides, ≤500 chars after URL,
  * Assist / Porto-chat CTAs, no t.me/+ and no invented “guaranteed VNJ”.
  */
 import { config } from "dotenv";
@@ -24,4 +24,4 @@ if (errors.length) {
   console.error(errors.map((e) => ` - ${e}`).join("\n"));
   process.exit(1);
 }
-console.log("threads banks ok: 42 days + 21 guides + 12 wizard");
+console.log("threads banks ok: 100 days + 21 guides + 12 wizard");

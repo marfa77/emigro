@@ -1,8 +1,8 @@
 /**
- * Preparation-only inventory for a separate investment-migration Threads account.
+ * Isolated investment-migration identity for @emigro_invest.
  *
- * This module intentionally has no Graph client, token loader, scheduler, or publish
- * function. A future manual workflow may consume these records after legal review.
+ * Publish lives in scripts/threads-investment-daily.ts + the dated bank.
+ * This module only exposes identity, isolation asserts, and registry inventory.
  */
 import { INVESTMENT_ROUTES, routeKey } from "@/lib/investment/registry";
 import {

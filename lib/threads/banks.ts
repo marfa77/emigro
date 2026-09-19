@@ -175,6 +175,28 @@ export function composeDayChain(row: ThreadsDayRow): ThreadsChainItem[] {
   ];
 }
 
+/** Cron days bank: native root + p2; CTA link only every `linkStride` days. */
+export const DAYS_LINK_STRIDE = 3;
+
+export function composeDaysReachChain(
+  row: ThreadsDayRow,
+  linkStride = DAYS_LINK_STRIDE
+): ThreadsChainItem[] {
+  const content = `d${String(row.d).padStart(3, "0")}`;
+  const topicTag = topicFor(row.pillar);
+  const items: ThreadsChainItem[] = [
+    { text: row.p1.trim(), role: "root", ...(topicTag ? { topicTag } : {}) },
+  ];
+  if (linkStride > 0 && row.d % linkStride === 0) {
+    items.push({ text: composeBankP2(row.p2, row.cta, content), role: "cta" });
+    return items;
+  }
+  if (row.p2.trim()) {
+    items.push({ text: row.p2.trim(), role: "slide" });
+  }
+  return items;
+}
+
 export function composeGuideChain(row: ThreadsGuideRow): ThreadsChainItem[] {
   const content = `gde${String(row.id).padStart(3, "0")}`;
   const pillar: ThreadsBankPillar = row.cta === "porto_chat" ? "porto_chat" : "assist";
@@ -284,7 +306,7 @@ export function assertEmigroThreadsBanks(): string[] {
   const days = loadThreadsDays();
   const guides = loadThreadsGuides();
   const wizard = loadThreadsWizard();
-  if (days.length !== 42) errors.push(`days: expected 42, got ${days.length}`);
+  if (days.length !== 100) errors.push(`days: expected 100, got ${days.length}`);
   if (guides.length !== 21) errors.push(`guides: expected 21, got ${guides.length}`);
   if (wizard.length !== 12) errors.push(`wizard: expected 12, got ${wizard.length}`);
 
@@ -318,7 +340,7 @@ export function assertEmigroThreadsBanks(): string[] {
       errors.push(`day ${row.d}: invite hash leaked`);
     }
   }
-  for (let d = 1; d <= 42; d++) {
+  for (let d = 1; d <= 100; d++) {
     if (!dayNums.has(d)) errors.push(`days: missing d=${d}`);
   }
 

@@ -70,7 +70,7 @@ Create a separate Threads account only for documents and legal status connected
 with property or investment. Keep it separate from the main Emigro and Thailand
 lifestyle streams. Account creation remains a manual Meta action.
 
-The repository currently provides a review-only inventory and identity guard in
-`lib/threads/investment-vertical.ts`. Automatic publishing, replies and tokens
-are intentionally disabled. Operational rules are in
+Identity and inventory stay in `lib/threads/investment-vertical.ts`. Live posts
+use `THREADS_INVESTMENT_*` plus `npm run threads:investment:daily` and
+`emigro-threads-investment.timer`. Operational rules are in
 `docs/THREADS_INVESTMENT_VERTICAL.md`.

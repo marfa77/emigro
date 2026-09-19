@@ -1,7 +1,12 @@
 #!/usr/bin/env npx tsx
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { composeReachGuideThread, composeReachRoot } from "../lib/threads/banks";
+import {
+  composeDaysReachChain,
+  composeReachGuideThread,
+  composeReachRoot,
+} from "../lib/threads/banks";
+import { pickDaysBankPlan } from "../lib/threads/inventory";
 import { composeThreadsPartnerPin } from "../lib/threads/partner-pin";
 
 const root = composeReachRoot("Польша: €1 080 vs €3 020 — порог почти ×3.", "Польша");
@@ -48,5 +53,36 @@ const inventorySource = readFileSync(
   "utf8"
 );
 assert.doesNotMatch(inventorySource, /partner-pin|composeThreadsPartnerPin/);
+assert.match(inventorySource, /composeDaysReachChain/);
+
+const dayNoLink = composeDaysReachChain({
+  d: 1,
+  pillar: "assist",
+  cta: "assist",
+  p1: "Польша: €1 080 vs €3 020 — порог почти ×3.",
+  p2: "Сначала основание, потом документы.",
+});
+assert.deepEqual(
+  dayNoLink.map((item) => item.role),
+  ["root", "slide"]
+);
+assert.ok(dayNoLink.every((item) => !/https?:\/\//.test(item.text)));
+
+const dayWithLink = composeDaysReachChain({
+  d: 3,
+  pillar: "assist",
+  cta: "assist",
+  p1: "Грузия 2026: было → стало.",
+  p2: "Правило, срок и практическое исключение.",
+});
+assert.equal(dayWithLink.at(-1)?.role, "cta");
+assert.match(dayWithLink.at(-1)?.text || "", /https?:\/\//);
+
+const cronPlan = pickDaysBankPlan({ last_day: 0, chat_cursor: 0, assist_cursor: 0 });
+assert.ok(cronPlan?.slug.startsWith("day-"));
+
+const dailySource = readFileSync(new URL("../lib/threads/daily-pipeline.ts", import.meta.url), "utf8");
+assert.match(dailySource, /const plan = pickDaysBankPlan\(state\);/);
+assert.match(dailySource, /forceKind && forceKind !== "day"/);
 
 console.log("threads reach-first chain ok");

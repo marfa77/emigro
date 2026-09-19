@@ -63,14 +63,14 @@ manually in the Threads/Instagram account UI.
 
 ## Managed production state
 
-Effective 2026-09-17:
+Effective 2026-09-19:
 
-- `@emigro_invest` is monitored as its own row in Threads HQ;
-- the launch welcome thread is setup traffic and is excluded from the first content baseline;
+- `@emigro_invest` is a live isolated account: own token, bank, timer, HQ row;
+- seed calendar auto-publishes (`THREADS_INVESTMENT_PHASE=seed`, `AUTO_PUBLISH=1`);
+- first content root: `invest-001` on 2026-09-19; welcome thread stays out of the baseline;
 - weekly token refresh handles the investment token independently and records
   `THREADS_INVESTMENT_TOKEN_EXPIRES_AT`;
-- scheduled publishing and automatic replies remain off;
-- every content post remains a manual, source-reviewed release;
+- automatic replies stay off; content stays on the dated investment bank, not Assist inventory;
 - reach, followers and replies are measured separately from `@emigro_assist`.
 
 First review gate: after three source-reviewed country roots are each at least

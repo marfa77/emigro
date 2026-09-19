@@ -30,15 +30,12 @@ mkdir -p deploy/threads-replies/logs parser/out
 chown -R www-data:www-data deploy/threads-replies parser/out
 chmod 600 parser/.env 2>/dev/null || true
 chmod 600 .env 2>/dev/null || true
-npm ci --include=dev
-cp deploy/systemd/emigro-threads-replies.service /etc/systemd/system/
-cp deploy/systemd/emigro-threads-replies.timer /etc/systemd/system/
+systemctl disable --now emigro-threads-replies.timer emigro-threads-replies.service 2>/dev/null || true
+rm -f /etc/systemd/system/emigro-threads-replies.timer /etc/systemd/system/emigro-threads-replies.service
 systemctl daemon-reload
-systemctl disable --now emigro-threads-replies.timer
-echo "ℹ️  Threads replies timer left OFF"
-systemctl list-timers --all | grep emigro-threads-replies || true
+systemctl mask emigro-threads-replies.timer emigro-threads-replies.service
+echo "ℹ️  Threads auto-replies masked"
+systemctl is-enabled emigro-threads-replies.timer || true
 REMOTE
 
-echo "✅ Replies timer unit installed but LEFT OFF."
-echo "To enable later: systemctl enable --now emigro-threads-replies.timer"
-echo "Dry-run on VPS: sudo -u www-data npm run threads:replies -- --dry-run"
+echo "✅ Emigro Threads auto-replies stay masked."
