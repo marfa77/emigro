@@ -180,6 +180,7 @@ Gemeente регистрирует вас в **Basisregistratie Personen (BRP)**.
 ## Связанные материалы
 
 - [Highly Skilled Migrant 2026](/ru/guides/vnj-niderlandy-2026-highly-skilled)
+- [Inburgering A2 на Prep2Go](https://inburgering.prep2go.study/inburgering-a2?utm_source=emigro&utm_medium=guide&utm_campaign=prep2go_netherlands&utm_content=pervye-30-dnej-v-niderlandah-2026)
 - [Коридор Нидерланды](/ru/netherlands) · [wizard](/ru/netherlands/wizard)
 - [TP vs ВНЖ для UA](/ru/guides/ukraintsy-belorusy-vremennaya-zashchita-vs-vnj-2026)
 

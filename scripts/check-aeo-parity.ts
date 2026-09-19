@@ -57,10 +57,16 @@ ok =
   }) && ok;
 
 ok =
-  check("robots.ts allows GPTBot", () => {
+  check("robots.ts allows GPTBot + YandexAdditionalBot", () => {
     const robots = read("app/robots.ts");
     if (!robots.includes("GPTBot")) {
       throw new Error("app/robots.ts missing GPTBot allowlist");
+    }
+    if (!robots.includes("YandexAdditionalBot")) {
+      throw new Error("app/robots.ts missing YandexAdditionalBot (Alice)");
+    }
+    if (!robots.includes("OAI-SearchBot")) {
+      throw new Error("app/robots.ts missing OAI-SearchBot");
     }
   }) && ok;
 
@@ -77,6 +83,25 @@ ok =
   }) && ok;
 
 ok =
+  check("llms lists all four satellites", () => {
+    const src = read("lib/seo/llms-full.ts");
+    for (const needle of ["italySatellitePublicUrl", "thailandSatellitePublicUrl", "portugalSatellitePublicUrl", "spainSatellitePublicUrl"]) {
+      if (!src.includes(needle)) throw new Error(`llms-full missing ${needle}`);
+    }
+  }) && ok;
+
+ok =
+  check("guide FAQ helper shared RU/ES/FR", () => {
+    const helper = read("lib/guides/extract-faq.ts");
+    if (!helper.includes("FAQPage") || !helper.includes("Preguntas frecuentes") || !helper.includes("Foire aux questions")) {
+      throw new Error("extract-faq must support ES/FR FAQ headings and FAQPage");
+    }
+    for (const rel of ["app/ru/guides/[slug]/page.tsx", "app/es/guides/[slug]/page.tsx", "app/fr/guides/[slug]/page.tsx"]) {
+      if (!read(rel).includes("extractGuideFaq")) throw new Error(`${rel} must use extractGuideFaq`);
+    }
+  }) && ok;
+
+ok =
   check("satellite llms emit utm_source=llm", () => {
     const src = read("lib/community-notes/seo-page.ts");
     const meta = read("lib/seo/llm-meta.ts");
@@ -88,18 +113,60 @@ ok =
     }
   }) && ok;
 
+ok =
+  check("news articles do not fake FAQPage from takeaways", () => {
+    const src = read("app/ru/news/[slug]/page.tsx");
+    if (src.includes("buildNewsArticleFaq") || src.includes("buildNewsFaqSchema")) {
+      throw new Error("news article pages must not emit FAQPage from takeaways");
+    }
+  }) && ok;
+
+ok =
+  check("ES DN household add-ons match SMI 2026", () => {
+    const src = read("lib/engine/household.ts");
+    if (!src.includes("adultAddon: 1068") || !src.includes("childAddon: 356")) {
+      throw new Error("spain-digital-nomad family add-ons must be +€1068 / +€356 (SMI 2026)");
+    }
+    if (src.includes("adultAddon: 916")) {
+      throw new Error("stale ES DN +€916 family add-on");
+    }
+    if (!src.includes("solo: 2334")) {
+      throw new Error("italy-digital-nomad wizard floor must be consular ~€28k/12");
+    }
+  }) && ok;
+
 const moneyPages: Array<{ rel: string; need: string[] }> = [
   {
     rel: "app/ru/guides/[slug]/page.tsx",
     need: ["aiDescription", "ai:description", 'data-llm="facts"', 'data-llm="commercial"', "/llms.txt"],
   },
   {
+    rel: "app/ru/wizard/page.tsx",
+    need: ["aiDescription", "data-llm"],
+  },
+  {
+    rel: "app/ru/ukraine/page.tsx",
+    need: ["aiDescription", "buildFaqSchema", "data-llm"],
+  },
+  {
+    rel: "app/es/uruguay/page.tsx",
+    need: ["OriginHubFaq"],
+  },
+  {
+    rel: "app/ru/stories/page.tsx",
+    need: ["aiDescription"],
+  },
+  {
+    rel: "lib/uniprep2go/catalog.ts",
+    need: ["vnj-italiya-2026-digital-nomad", "pervye-30-dnej-v-italii-2026"],
+  },
+  {
     rel: "app/es/guides/[slug]/page.tsx",
-    need: ["aiDescription", "ai:description", 'data-llm="facts"', 'data-llm="commercial"', "/llms.txt"],
+    need: ["aiDescription", "ai:description", 'data-llm="facts"', 'data-llm="commercial"', "/llms.txt", "extractGuideFaq"],
   },
   {
     rel: "app/fr/guides/[slug]/page.tsx",
-    need: ["aiDescription", "ai:description", 'data-llm="facts"', 'data-llm="commercial"', "/llms.txt"],
+    need: ["aiDescription", "ai:description", 'data-llm="facts"', 'data-llm="commercial"', "/llms.txt", "extractGuideFaq"],
   },
   {
     rel: "app/es/page.tsx",

@@ -203,24 +203,6 @@ export async function CorridorLanding({ country }: { country: string }) {
         {isItalyHubTopic(topic) && <ItalyFeaturedNotes />}
 
         <CorridorLandingSeoSections topic={topic} corridor={corridor} landingPath={base} />
-
-        <section className="mt-8 rounded-xl border border-slate-200 bg-white p-5">
-          <h2 className="font-semibold text-slate-900">Другие разделы Emigro</h2>
-          <nav className="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-sm">
-            <Link href="/ru" className="text-corridor-600 hover:underline">
-              Все направления
-            </Link>
-            <Link href="/ru/wizard" className="text-corridor-600 hover:underline">
-              Hub wizard
-            </Link>
-            <Link href="/ru/guides" className="text-corridor-600 hover:underline">
-              Гайды по ВНЖ
-            </Link>
-            <Link href="/ru/news" className="text-corridor-600 hover:underline">
-              Новости Европы
-            </Link>
-          </nav>
-        </section>
       </main>
       <SiteFooter />
     </>

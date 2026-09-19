@@ -7,7 +7,6 @@ import { isCorridorFull } from "@/lib/corridor/publish";
 import {
   buildCorridorLandingAiDescription,
   buildCorridorLandingFaq,
-  buildCorridorLandingLlmFacts,
   buildCorridorLandingQuickAnswer,
   programPagePath,
   type FaqItem,
@@ -41,7 +40,6 @@ export function CorridorLandingSeoSections({
 }) {
   const quickAnswer = buildCorridorLandingQuickAnswer(topic, corridor);
   const faq = buildCorridorLandingFaq(topic, corridor);
-  const llmFacts = buildCorridorLandingLlmFacts(topic, corridor);
   const aiDescription = buildCorridorLandingAiDescription(topic, corridor);
   const dataLlmFacts = buildCorridorDataLlmFacts(topic, corridor, landingPath);
   const originEntry = getOriginCorridorEntries().find((c) => c.countrySegment === topic.urlSegment);
@@ -130,15 +128,6 @@ export function CorridorLandingSeoSections({
             </Link>
           )}
         </div>
-      </section>
-
-      <section className="mt-10 rounded-2xl border border-slate-200 bg-slate-50 p-6">
-        <h2 className="text-lg font-semibold text-slate-900">Коротко для проверки маршрута</h2>
-        <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-relaxed text-slate-700">
-          {llmFacts.map((fact) => (
-            <li key={fact}>{fact}</li>
-          ))}
-        </ul>
       </section>
 
       <section className="mt-8 flex items-start gap-3 rounded-xl border border-amber-200 bg-amber-50 px-5 py-4 text-sm text-amber-950">

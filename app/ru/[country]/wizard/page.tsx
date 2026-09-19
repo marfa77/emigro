@@ -31,6 +31,9 @@ export async function generateMetadata({ params }: { params: { country: string }
     title: `Подбор маршрута ВНЖ — ${topic.countryRu}`,
     description: wizardCorridorDescription(topic.urlSegment, topic.countryRu),
     path: topic.sitePaths.wizard!,
+    aiDescription: `Emigro corridor wizard ${topic.countryRu}: паспорт RU/BY/UA/KZ → маршруты ВНЖ. ${wizardCorridorDescription(topic.urlSegment, topic.countryRu)} Не юридическая консультация.`,
+    aiCategory: "route-evaluator",
+    countrySegment: topic.urlSegment,
   });
 }
 

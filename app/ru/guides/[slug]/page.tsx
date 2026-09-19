@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { ArrowRight, BookOpen, CheckCircle2, Clock, Compass, FileText, Layers, Sparkles } from "lucide-react";
+import { Clock, Compass, Sparkles } from "lucide-react";
 import { ShareButtons } from "@/components/share/ShareButtons";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { RelocatorChatPromo } from "@/components/community/RelocatorChatPromo";
@@ -22,9 +22,7 @@ import {
 } from "@/lib/partners/referral-inline";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { ServiceProvidersSection } from "@/components/providers/ServiceProvidersSection";
-import { countryCardImage } from "@/lib/brand/country-accents";
 import { guidePath, getGuidesIndex, getRelatedGuides, listGuides, loadGuide } from "@/lib/guides/load";
-import type { GuideArticle } from "@/lib/guides/load";
 import { inlineMarkdown, stripInlineMarkdown } from "@/lib/markdown/inline";
 import { loadGuideLiveDataForGuide, shouldShowGuideCorridorLiveData } from "@/lib/guides/corridor-live-data";
 import {
@@ -33,10 +31,10 @@ import {
 } from "@/lib/guides/guide-display";
 import {
   getUniPrepOfferForTopics,
+  resolvePrep2GoOfferForGuide,
+  shouldShowPrep2GoOnGuide,
   shouldShowUniPrepOnGuide,
 } from "@/lib/uniprep2go/catalog";
-import { getActiveNewsTopics } from "@/lib/news/topics";
-import type { NewsTopicConfig } from "@/lib/news/topics";
 import { corridorSlugForTopic } from "@/lib/providers/registry";
 import { buildGuideArticleMetadata, pageUrl } from "@/lib/seo";
 import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
@@ -45,7 +43,6 @@ import { buildGuideRecommendedCitation } from "@/lib/seo/llm-citation-prompts";
 import { isPillarGuideSlug } from "@/lib/guides/pillar-guides";
 import { EMIGRO_PUBLISHER, emigroAuthorOrg, schemaImage } from "@/lib/seo/schema";
 import { GuideClusterLinks } from "@/components/guides/GuideClusterLinks";
-import { GuideOriginHubPromo } from "@/components/guides/GuideOriginHubPromo";
 import { GuideCorridorLiveData } from "@/components/guides/GuideCorridorLiveData";
 import { GuideOfficialSources } from "@/components/guides/GuideOfficialSources";
 import { GuideAsOfBadge } from "@/components/guides/GuideAsOfBadge";
@@ -55,11 +52,9 @@ import { GuideRelatedStories } from "@/components/stories/GuideRelatedStories";
 import { GuideStoriesCta } from "@/components/stories/GuideStoriesCta";
 import { countStoriesForGuide, listStoriesForGuide } from "@/lib/stories/load";
 import { getClusterForGuide, getComparisonCrossLinks } from "@/lib/seo/cluster-links";
-import { getGuideAudiences } from "@/lib/guides/categories";
-import { ORIGIN_HUB_PATH } from "@/lib/seo/corridor-llm-layer";
 import { HUB_WIZARD_PATH } from "@/lib/corridor/paths";
 import { resolveGuideWizardHref } from "@/lib/wizard/resolve-href";
-import { NEWS_TELEGRAM_URL } from "@/lib/community";
+import { buildFaqPageSchema, extractGuideFaq } from "@/lib/guides/extract-faq";
 
 export const revalidate = 3600;
 
@@ -119,96 +114,7 @@ function GuideHeroVisual({ coverPath }: { coverPath: string }) {
   );
 }
 
-function GuideFeaturedImage({ coverPath, title }: { coverPath: string; title: string }) {
-  return (
-    <figure className="overflow-hidden rounded-[2rem] border border-white bg-white shadow-xl shadow-slate-200/70 ring-1 ring-slate-950/5">
-      <div className="relative aspect-[16/9] w-full">
-        <Image src={coverPath} alt={title} fill sizes="(max-width: 1024px) 100vw, (max-width: 1360px) 960px, 1020px" className="object-cover" priority />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/45 via-transparent to-transparent" />
-        <figcaption className="absolute bottom-5 left-5 right-5 rounded-2xl bg-white/90 p-4 text-sm font-medium text-slate-700 shadow-lg backdrop-blur">
-          Практический editorial-гайд Emigro: маршруты, цифры, риски и следующие шаги.
-        </figcaption>
-      </div>
-    </figure>
-  );
-}
-
-function GuideCorridorVisuals({ topics }: { topics: NewsTopicConfig[] }) {
-  if (topics.length === 0) return null;
-  return (
-    <section className="mt-8 rounded-[2rem] border border-slate-200 bg-white p-5 shadow-sm ring-1 ring-slate-950/5 sm:p-6">
-      <div className="flex items-center justify-between gap-4">
-        <div>
-          <p className="text-sm font-semibold uppercase tracking-wide text-corridor-600">Маршруты</p>
-          <h2 className="mt-1 text-xl font-bold text-slate-950">Коридоры в этом гайде</h2>
-        </div>
-        <Layers className="h-5 w-5 text-corridor-600" />
-      </div>
-      <div className="mt-5 grid gap-4 sm:grid-cols-3">
-        {topics.map((topic) => (
-          <Link
-            key={topic.key}
-            href={topic.sitePaths!.landing}
-            className="group overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 shadow-sm transition hover:-translate-y-0.5 hover:border-corridor-300 hover:shadow-md"
-          >
-            <div className="relative aspect-[16/10] w-full bg-slate-100">
-              <Image
-                src={countryCardImage(topic.urlSegment)}
-                alt=""
-                fill
-                sizes="(max-width: 640px) 100vw, 240px"
-                className="object-cover transition group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/55 to-transparent" />
-              <span className="absolute bottom-3 left-3 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-slate-900">
-                {topic.flag} {topic.countryRu}
-              </span>
-            </div>
-            <p className="flex items-center justify-between px-4 py-3 text-sm font-semibold text-slate-800">
-              Открыть коридор
-              <ArrowRight className="h-4 w-4 text-corridor-600 transition group-hover:translate-x-0.5" />
-            </p>
-          </Link>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function GuideFactCards({ guide, corridorCount }: { guide: GuideArticle; corridorCount: number }) {
-  const asOfIso = guideAsOfIso(guide);
-  const asOfRu = formatGuideAsOfDateRu(asOfIso);
-  const facts = [
-    guide.estimated_minutes ? { label: "Время", value: `${guide.estimated_minutes} мин`, icon: Clock } : null,
-    asOfRu
-      ? { label: "Актуально на", value: asOfRu, icon: FileText }
-      : null,
-    guide.tags?.length ? { label: "Фокус", value: guide.tags.slice(0, 2).join(" / "), icon: CheckCircle2 } : null,
-    corridorCount ? { label: "Коридоры", value: `${corridorCount} маршрута`, icon: Compass } : null,
-  ].filter((item): item is { label: string; value: string; icon: typeof Clock } => Boolean(item));
-
-  if (facts.length === 0) return null;
-
-  return (
-    <section className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4" aria-label="Ключевые факты">
-      {facts.map(({ label, value, icon: Icon }) => (
-        <div key={label} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm ring-1 ring-slate-950/5">
-          <div className="flex items-center gap-3">
-            <span className="rounded-xl bg-corridor-50 p-2 text-corridor-700">
-              <Icon className="h-5 w-5" />
-            </span>
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">{label}</p>
-              <p className="mt-1 text-sm font-bold text-slate-950">{value}</p>
-            </div>
-          </div>
-        </div>
-      ))}
-    </section>
-  );
-}
-
-function buildGuideLlmFacts(guide: GuideArticle): string[] {
+function buildGuideLlmFacts(guide: NonNullable<ReturnType<typeof loadGuide>>): string[] {
   const facts: string[] = [];
   if (guide.quick_answer) facts.push(guide.quick_answer);
   if (guide.tags?.length) facts.push(`Теги: ${guide.tags.join(", ")}`);
@@ -222,16 +128,6 @@ function buildGuideLlmFacts(guide: GuideArticle): string[] {
   return facts;
 }
 
-function resolveCountryTopics(topicKeys: string[] | undefined, allTopics: NewsTopicConfig[]): NewsTopicConfig[] {
-  if (!topicKeys?.length) return [];
-  const topicMap = new Map(allTopics.map((t) => [t.key, t]));
-  return topicKeys
-    .filter((key) => key !== "europe")
-    .map((key) => topicMap.get(key))
-    .filter((t): t is NewsTopicConfig => !!t?.sitePaths?.landing)
-    .slice(0, 3);
-}
-
 function extractToc(bodyHtml: string) {
   return Array.from(bodyHtml.matchAll(/<h2[^>]*>(.*?)<\/h2>/g))
     .map((match) => match[1]?.replace(/<[^>]+>/g, "").trim())
@@ -239,60 +135,11 @@ function extractToc(bodyHtml: string) {
     .slice(0, 7);
 }
 
-function stripHtml(html: string) {
-  return html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
-}
-
-function extractFaq(bodyHtml: string) {
-  // h2 may wrap label in <span> (markdown processor): <h2><span>FAQ</span></h2>
-  const faqSection =
-    /<h2[^>]*>[\s\S]*?FAQ[\s\S]*?<\/h2>([\s\S]*?)(?=<h2|$)/i.exec(bodyHtml)?.[1] ?? "";
-
-  // Primary: markdown processor renders **Q?** as <section>...<h3>Q?</h3><p>Answer</p></section>
-  const sectionMatches = Array.from(
-    faqSection.matchAll(/<section[^>]*>[\s\S]*?<h3[^>]*>([\s\S]*?)<\/h3>[\s\S]*?<p[^>]*>([\s\S]*?)<\/p>[\s\S]*?<\/section>/g)
-  );
-
-  // Fallback: bare <h3>Q?</h3><p>Answer</p> pairs
-  const h3Matches = Array.from(
-    faqSection.matchAll(/<h3[^>]*>([\s\S]*?)<\/h3>\s*<p[^>]*>([\s\S]*?)<\/p>/g)
-  );
-
-  // Legacy fallback: <p><strong>Q</strong> Answer</p> or split pairs
-  const legacyCombined = Array.from(
-    faqSection.matchAll(/<p[^>]*>\s*<strong>(.*?)<\/strong>\s+([\s\S]*?)<\/p>/g)
-  );
-  const legacySplit = Array.from(
-    faqSection.matchAll(/<p[^>]*>\s*<strong>(.*?)<\/strong>\s*<\/p>\s*<p[^>]*>(.*?)<\/p>/g)
-  );
-
-  const matches =
-    sectionMatches.length > 0
-      ? sectionMatches
-      : h3Matches.length > 0
-        ? h3Matches
-        : legacyCombined.length > 0
-          ? legacyCombined
-          : legacySplit;
-
-  return matches
-    .map((match) => ({
-      question: stripHtml(match[1] ?? ""),
-      answer: stripHtml(match[2] ?? ""),
-    }))
-    .filter((item) => item.question && item.answer)
-    .slice(0, 7);
-}
-
 function GuideProseBody({
   quickAnswerBlocks,
-  asOfIso,
-  showOriginHub,
   articleHtml,
 }: {
   quickAnswerBlocks: string[];
-  asOfIso: string | null;
-  showOriginHub: boolean;
   articleHtml: string;
 }) {
   return (
@@ -312,8 +159,6 @@ function GuideProseBody({
           ))}
         </section>
       )}
-      {asOfIso ? <GuideAsOfBadge dateIso={asOfIso} variant="banner" className="mt-8" /> : null}
-      {showOriginHub ? <GuideOriginHubPromo /> : null}
       <article
         className="guide-article prose prose-lg prose-slate mt-8 max-w-none rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm ring-1 ring-slate-950/5 prose-a:font-semibold prose-strong:text-slate-950 sm:p-8 lg:p-10"
         dangerouslySetInnerHTML={{ __html: articleHtml }}
@@ -328,8 +173,7 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
   const longTail = getLongTailByGuideSlug(guide.slug);
   const passportIso2 = getGuidePassportIso2(guide);
   const showCorridorLive = shouldShowGuideCorridorLiveData(guide.slug);
-  const [allTopics, liveData, guidesIndex, revolutPromo, wisePromo] = await Promise.all([
-    getActiveNewsTopics(),
+  const [liveData, guidesIndex, revolutPromo, wisePromo] = await Promise.all([
     showCorridorLive
       ? loadGuideLiveDataForGuide(guide.corridor_slugs, guide.topic_keys, passportIso2)
       : Promise.resolve({ blocks: [], passportLabel: "" }),
@@ -337,15 +181,13 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
     revolutPromoProps(guide.slug, "guide"),
     wisePromoProps(guide.slug, "guide"),
   ]);
-  const countryTopics = resolveCountryTopics(guide.topic_keys, allTopics);
   const relatedGuides = getRelatedGuides(guide.slug, guide.corridor_slugs, guide.topic_keys, 4, guidesIndex);
   const cluster = getClusterForGuide(guide.slug);
   const comparisonCrossLinks = getComparisonCrossLinks(guide.slug);
-  const showOriginHubPromo = isPillarGuideSlug(guide.slug) || getGuideAudiences(guide).includes("ru");
   const providerTopicKey = getGuideProviderTopicKey(guide);
-  const showUniPrep = shouldShowUniPrepOnGuide(guide);
+  const showUniPrep = shouldShowUniPrepOnGuide(guide) || shouldShowPrep2GoOnGuide(guide);
   const showRoleRadar = shouldShowRoleRadarOnGuide(guide.slug);
-  const uniPrepOffer = getUniPrepOfferForTopics(guide.topic_keys);
+  const uniPrepOffer = getUniPrepOfferForTopics(guide.topic_keys) ?? resolvePrep2GoOfferForGuide(guide);
   const uniPrepTopicCount = new Set(
     (guide.topic_keys ?? [])
       .map((key) => getUniPrepOfferForTopics([key])?.topicKey)
@@ -356,7 +198,7 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
     (uniPrepTopicCount >= 2 ||
       /grazhdanstvo-portugaliya-ispaniya|grazhdanstvo-germaniya-polsha/.test(guide.slug));
   const toc = extractToc(guide.bodyHtml);
-  const faqItems = extractFaq(guide.bodyHtml);
+  const faqItems = extractGuideFaq(guide.bodyHtml);
   const inlineTargets = referralInlineTargets({
     revolut: revolutPromo,
     wise: wisePromo,
@@ -368,11 +210,11 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
     .map((block) => block.trim())
     .filter(Boolean)
     .map((block) => injectReferralInlineLinks(inlineMarkdown(block), inlineTargets));
+  const relatedStories = listStoriesForGuide(guide.slug, 3);
+  const relatedStoryCount = countStoriesForGuide(guide.slug);
   const guideProse = (
     <GuideProseBody
       quickAnswerBlocks={quickAnswerBlocks}
-      asOfIso={guideAsOfIso(guide) ?? null}
-      showOriginHub={showOriginHubPromo && showCorridorLive}
       articleHtml={articleHtml}
     />
   );
@@ -400,21 +242,7 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
     { name: guide.title },
   ]);
 
-  const faqSchema =
-    faqItems.length >= 5
-      ? {
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          mainEntity: faqItems.map((item) => ({
-            "@type": "Question",
-            name: item.question,
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: item.answer,
-            },
-          })),
-        }
-      : null;
+  const faqSchema = buildFaqPageSchema(faqItems);
 
   const guidePathStr = guidePath(guide.slug);
   const recommendedCitation = buildGuideRecommendedCitation({
@@ -461,40 +289,19 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
           <Link href="/ru/guides" className="text-sm font-medium text-corridor-100 hover:text-white">
             ← Все гайды
           </Link>
-          <div className="mt-5 flex flex-wrap gap-2">
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-sm text-corridor-50">
-              <BookOpen className="h-4 w-4" />
-              Гайд Emigro
-            </span>
-            {guide.estimated_minutes ? (
-              <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-sm text-corridor-50">
-                <Clock className="h-4 w-4" />
-                {guide.estimated_minutes} мин чтения
-              </span>
-            ) : null}
-          </div>
+          {guide.estimated_minutes ? (
+            <p className="mt-5 inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-sm text-corridor-50">
+              <Clock className="h-4 w-4" />
+              {guide.estimated_minutes} мин чтения
+            </p>
+          ) : null}
           <h1 className="mt-5 max-w-3xl text-3xl font-bold leading-tight sm:text-4xl lg:text-5xl 2xl:max-w-4xl">{guide.title}</h1>
           {asOfIso ? <GuideAsOfBadge dateIso={asOfIso} variant="hero" /> : null}
           {guide.excerpt && <p className="mt-5 max-w-2xl text-lg leading-relaxed text-corridor-100 2xl:max-w-3xl">{guide.excerpt}</p>}
-          {guide.tags && guide.tags.length > 0 ? (
-            <div className="mt-6 flex flex-wrap gap-2">
-              {guide.tags.slice(0, 5).map((tag) => (
-                <span key={tag} className="rounded-full border border-white/20 px-3 py-1 text-sm text-white/85">
-                  {tag}
-                </span>
-              ))}
-            </div>
-          ) : null}
         </HeroShell>
-
-        <GuideFactCards guide={guide} corridorCount={countryTopics.length} />
 
         <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_280px] xl:grid-cols-[minmax(0,1fr)_300px]">
           <div className="min-w-0">
-            {!guide.cover_path.includes("/images/og/") ? (
-              <GuideFeaturedImage coverPath={guide.cover_path} title={guide.title} />
-            ) : null}
-
             <ShareButtons
               url={url}
               title={longTail?.seoTitle ?? guide.title}
@@ -505,16 +312,6 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
               }
               className="mt-8"
             />
-
-            {isPillarGuideSlug(guide.slug) && (
-              <p className="mt-3 text-sm text-slate-600">
-                Помогите другим релокантам: отправьте ссылку в{" "}
-                <a href={NEWS_TELEGRAM_URL} target="_blank" rel="noopener noreferrer" className="font-medium text-sky-700 hover:underline">
-                  @Emigro_news
-                </a>{" "}
-                или в чатах expat — это главный канал распространения Emigro.
-              </p>
-            )}
 
             {inlineTargets.length > 0 ? (
               <ReferralInlineRoot contentId={guide.slug} placement="guide_inline" live={inlineLive}>
@@ -532,13 +329,15 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
             />
 
             <GuideRelatedStories
-              stories={listStoriesForGuide(guide.slug, 3)}
-              totalCount={countStoriesForGuide(guide.slug)}
+              stories={relatedStories}
+              totalCount={relatedStoryCount}
               guideSlug={guide.slug}
               className="mt-8"
             />
 
-            <GuideStoriesCta guideSlug={guide.slug} className="mt-8" />
+            {relatedStoryCount === 0 ? (
+              <GuideStoriesCta guideSlug={guide.slug} className="mt-8" />
+            ) : null}
 
             {showUniPrepHub ? (
               <UniPrepCitizenshipHubPromo
@@ -588,24 +387,7 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
 
             {showCorridorLive ? <GuideCorridorLiveData liveData={liveData} /> : null}
 
-            {showCorridorLive ? <GuideCorridorVisuals topics={countryTopics} /> : null}
-
             <GuideClusterLinks cluster={cluster} crossLinks={comparisonCrossLinks} />
-
-            <section className="mt-10 rounded-2xl border border-slate-200 bg-slate-50 p-6">
-              <h2 className="text-lg font-semibold text-slate-900">Коротко для проверки маршрута</h2>
-              <ul className="mt-4 space-y-2 text-sm leading-relaxed text-slate-700">
-                {llmFacts.map((fact) => (
-                  <li key={fact} className="flex gap-2">
-                    <CheckCircle2 className="mt-0.5 h-4 w-4 flex-none text-corridor-600" />
-                    <span
-                      className="[&_strong]:font-semibold [&_strong]:text-slate-900"
-                      dangerouslySetInnerHTML={{ __html: inlineMarkdown(fact) }}
-                    />
-                  </li>
-                ))}
-              </ul>
-            </section>
 
             <RelocatorChatPromo
               variant="inline"
@@ -648,7 +430,6 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
           </div>
 
           <aside className="space-y-4 lg:sticky lg:top-24 lg:self-start">
-            {asOfIso ? <GuideAsOfBadge dateIso={asOfIso} variant="sidebar" /> : null}
             {toc.length > 0 && (
               <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
                 <h2 className="flex items-center gap-2 font-semibold text-slate-900">
@@ -694,73 +475,8 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
                     Смотреть коридор
                   </Link>
                 )}
-                {showOriginHubPromo && (
-                  <Link
-                    href={ORIGIN_HUB_PATH}
-                    className="rounded-lg border border-slate-200 bg-white px-5 py-3 text-center text-sm font-medium text-slate-700 hover:border-corridor-400"
-                  >
-                    Origin hub для россиян
-                  </Link>
-                )}
               </div>
             </section>
-
-            <RelocatorChatPromo
-              variant="sidebar"
-              source={`guide_sidebar_${guide.slug}`}
-              countryKey={providerTopicKey}
-            />
-
-            {showUniPrepHub ? (
-              <UniPrepCitizenshipHubPromo
-                placement="guide_sidebar"
-                contentId={`sidebar_${guide.slug}`}
-              />
-            ) : showUniPrep && uniPrepOffer ? (
-              <UniPrep2GoPromo
-                placement="guide_sidebar"
-                offer={uniPrepOffer}
-                contentId={`sidebar_${guide.slug}`}
-                compact
-              />
-            ) : null}
-
-            {showRoleRadar ? (
-              <RoleRadarPromo
-                medium="guide_sidebar"
-                content={`sidebar_${guide.slug}`}
-                compact
-              />
-            ) : null}
-
-            {revolutPromo ? (
-              <RevolutReferralPromo
-                placement="guide_sidebar"
-                contentId={`sidebar_${guide.slug}`}
-                offers={revolutPromo.offers}
-                live={revolutPromo.live}
-                compact
-              />
-            ) : null}
-
-            {wisePromo ? (
-              <WiseReferralPromo
-                placement="guide_sidebar"
-                contentId={`sidebar_${guide.slug}`}
-                live={wisePromo.live}
-                compact
-              />
-            ) : null}
-
-            {providerTopicKey && (
-              <ServiceProvidersSection
-                corridorSlug={corridorSlugForTopic(providerTopicKey)}
-                topicKey={providerTopicKey}
-                placement="guide_sidebar"
-                variant="compact"
-                className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm"
-              />
-            )}
           </aside>
         </div>
         </div>

@@ -22,7 +22,7 @@ official_sources:
     label: service-public — nationalité par mariage (déclaration)
 estimated_minutes: 14
 date_published: 2026-08-10
-date_modified: 2026-08-11
+date_modified: 2026-09-19
 ---
 
 ## Nota Emigro (fact-check août 2026)
@@ -204,6 +204,28 @@ Les absences de plus de **6 mois consécutifs** ou de plus de **10 mois au total
 
 
 ---
+
+## Foire aux questions
+
+### Combien d’années de résidence pour un décret de naturalisation ?
+
+Délai général **~5 ans** de résidence régulière (F2213). Réduction après **2 années d’études** françaises réussies (art. 21-18) — pas un « 2 ans Maghreb ». Ascendant de Français ≠ 2 ans (souvent 65 ans + 25 ans, F34708).
+
+### Quel niveau de français pour la naturalisation en 2026 ?
+
+**B2** (oral + écrit) **et** examen civique depuis le **01.01.2026** ([F11926](https://www.service-public.fr/particuliers/vosdroits/F11926)). Le B1 concerne plutôt la carte de résident. Timbre nationalité **€255** ([F32952](https://www.service-public.fr/particuliers/vosdroits/F32952)).
+
+### Les absences cassent-elles le stage de 5 ans ?
+
+Des absences de plus de **6 mois consécutifs** ou **10 mois au total** sur 5 ans peuvent interrompre la continuité. Justifiez les absences pro/familiales ; ce n’est pas la règle art. 22 Espagne.
+
+### Mariage avec un Français = naturalisation automatique en 4 ans ?
+
+Souvent une **déclaration** de nationalité par mariage (F2726), avec délais propres — pas un simple « stage réduit » de décret.
+
+### Emigro donne-t-il un conseil juridique ?
+
+Non. Emigro est un navigateur. Vérifiez France-Visas, service-public et le consulat. Route Check : [/fr/assist](/fr/assist).
 
 ## Et maintenant ?
 

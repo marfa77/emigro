@@ -177,16 +177,6 @@ export default async function ItalyNotePage({ params }: { params: { slug: string
         />
       </div>
 
-      <SatelliteCityChatCta countryKey="italy" source="italy_satellite_note" noteSlug={note.slug} />
-
-      <SatelliteFunnelCta
-        countryKey="italy"
-        placement="satellite_note"
-        noteSlug={note.slug}
-        noteTitle={note.title}
-        contentKind={note.content_kind}
-      />
-
       <NoteHashtags tags={note.hashtags} className="mt-6" countryKey="italy" />
 
       <KeyTakeaways items={linked.key_takeaways} />
@@ -204,6 +194,16 @@ export default async function ItalyNotePage({ params }: { params: { slug: string
 
       <NoteFaq items={linked.faq} />
       </ReferralInlineRoot>
+
+      <SatelliteCityChatCta countryKey="italy" source="italy_satellite_note" noteSlug={note.slug} />
+
+      <SatelliteFunnelCta
+        countryKey="italy"
+        placement="satellite_note"
+        noteSlug={note.slug}
+        noteTitle={note.title}
+        contentKind={note.content_kind}
+      />
 
       {showPixId && <PixIDPromo noteSlug={note.slug} topicKey="italy" />}
       {revolutPromo && (

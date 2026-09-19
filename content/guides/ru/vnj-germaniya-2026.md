@@ -29,10 +29,12 @@ official_sources:
     label: anabin — признание иностранных вузов/квалификаций
 estimated_minutes: 20
 date_published: 2026-06-27
-date_modified: 2026-08-07
+date_modified: 2026-09-19
 ---
 
 ## Кому подходит этот гайд
+
+> **Nota Emigro (fact-check, сентябрь 2026).** **OK:** Blue Card **€50 700** / дефицит **€45 934**. §19c(2) от **€45 630**, ПМЖ обычно **~5 лет** по §9, не 3. Chancenkarte: A1 = **0 баллов**, фриланс запрещён, подработка ≤**20 ч**. §21 ориентир **€18–24k**/год. ПМЖ Blue Card **21 мес B1 / 27 A1**; §18 — **3 года**. 45+: часто **€55 770** или пенсия. **Soft:** сроки ABH 4–14 мес. DTZ: [Prep2Go](https://www.prep2go.study/dtz-mock-test?utm_source=emigro&utm_medium=guide&utm_campaign=prep2go_germany&utm_content=vnj-germaniya-2026).
 
 Этот гайд — для граждан России, Беларуси, Украины, Казахстана и других стран СНГ, которые рассматривают переезд в Германию в 2026 году. Здесь — основные легальные пути: **Blue Card**, **§18**, **§19c**, **Chancenkarte**, **§21**, воссоединение семьи — плюс блокеры (45+, сроки ABH, Scheinselbstständigkeit), о которых часто молчат.
 
@@ -312,6 +314,8 @@ date_modified: 2026-08-07
 - **Немецкий язык B1** (минимум)
 - Отказ от пособий последние 2 года
 - Знание конституционного строя (Einbürgerungstest — 33 вопроса из 310)
+
+Язык B1 на практике часто сдают как **DTZ** (telc / BAMF). Timed mock: [DTZ B1 на Prep2Go](https://www.prep2go.study/dtz-b1-mock-test?utm_source=emigro&utm_medium=guide&utm_campaign=prep2go_germany&utm_content=vnj-germaniya-2026). Civics: [Leben in Deutschland на UniPrep2Go](https://uniprep2go.study/mock-exams/leben-in-deutschland-readiness-check?utm_source=emigro&utm_medium=guide&utm_campaign=uniprep_germany&utm_content=vnj-germaniya-2026). Не официальные экзамены BAMF/BAMF-Träger.
 
 **Для граждан РФ важно:** двойное гражданство теперь разрешено — это принципиальное изменение 2024 года. Россияне могут получить немецкое гражданство, не отказываясь от паспорта РФ. Подробный разбор: [гражданство Германии и Польши 2026](/ru/guides/grazhdanstvo-germaniya-polsha-2026).
 

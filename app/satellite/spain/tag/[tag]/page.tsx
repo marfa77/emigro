@@ -7,6 +7,7 @@ import { hashtagLabel, normalizeHashtag, resolveTagParam } from "@/lib/community
 import { getPublishedCommunityNotes } from "@/lib/community-notes/queries";
 import { fitMetaDescription } from "@/lib/seo";
 import { DEFAULT_OG_IMAGE, socialImageMetadata } from "@/lib/seo";
+import { withAiMetadata } from "@/lib/seo/llm-meta";
 import { tagPageRobots } from "@/lib/seo/thin-content";
 import { corridorHreflangTag } from "@/lib/seo/hreflang";
 import { spainHubPath } from "@/lib/satellite/paths";
@@ -37,7 +38,8 @@ export async function generateMetadata({ params }: { params: { tag: string } }):
   const regionTag = corridorHreflangTag("spain");
   const languages: Record<string, string> = { "ru-RU": url, ru: url, "x-default": url };
   if (regionTag) languages[regionTag] = url;
-  return {
+  return withAiMetadata(
+    {
     title: `#${label} — Испания`,
     description,
     alternates: { canonical: url, languages },
@@ -57,7 +59,14 @@ export async function generateMetadata({ params }: { params: { tag: string } }):
       description,
       images: [ogImage.url],
     },
-  };
+    },
+    {
+      aiDescription: description,
+      aiCategory: "satellite-tag-spain",
+      path: `/satellite/spain/tag/${tag}`,
+      llmsTxtUrl: spainSatelliteUrl("/llms"),
+    }
+  );
 }
 
 export default async function SpainTagPage({ params }: { params: { tag: string } }) {

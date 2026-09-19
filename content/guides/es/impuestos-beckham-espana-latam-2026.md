@@ -28,7 +28,7 @@ official_sources:
     label: Ley 28/2022 (Startups) — reforma impatriados
 estimated_minutes: 16
 date_published: 2026-08-10
-date_modified: 2026-08-10
+date_modified: 2026-09-19
 ---
 
 ## Nota Emigro (fact-check agosto 2026)
@@ -269,6 +269,30 @@ Habla con un asesor fiscal colegiado en España si:
 - **Convenios de doble imposición España–tu país**: verifica en el Ministerio de Hacienda.
 
 **Nota:** Las cifras de este texto son orientativas. Tu situación fiscal depende de múltiples variables. Consulta siempre con asesor fiscal colegiado antes de tomar decisiones.
+
+---
+
+## Preguntas frecuentes
+
+### ¿Beckham es un visado de residencia?
+
+No. El régimen de impatriados (art. 93 LIRPF) es **fiscal**, no un título de residencia. Primero visado/autorización (nómada, trabajo…), luego Modelo 149 si aplica.
+
+### ¿Cuánto se tributa y durante cuánto tiempo?
+
+Rentas del trabajo al **24%** (hasta el umbral legal) el año de llegada **+ 5**. No es asesoría: confirme AEAT y el umbral vigente.
+
+### ¿Quién no puede acogarse?
+
+Quien haya sido residente fiscal en España en los **~5 años** previos, o sin desplazamiento con causalidad (trabajo/alta). El plazo del **Modelo 149** es **6 meses** desde el alta — si se pasa, suele perderse el régimen.
+
+### ¿La familia tributa igual?
+
+La base del familiar suele tener que ser **inferior** a la del principal. No copie el 24% a cónyuge/hijos sin asesor.
+
+### ¿Es compatible con nómada digital?
+
+A menudo sí si hay desplazamiento laboral/alta, pero **no es automático**. Confirme AEAT/asesor colegiado. Emigro no es asesoría fiscal.
 
 ---
 

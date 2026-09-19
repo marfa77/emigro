@@ -5,7 +5,6 @@ import type { NewsTopicConfig } from "@/lib/news/topics";
 import {
   buildProgramAiDescription,
   buildProgramFaq,
-  buildProgramLlmFacts,
   programPagePath,
   type FaqItem,
 } from "@/lib/seo/corridor-page-seo";
@@ -45,7 +44,6 @@ export function ProgramSeoSections({
   landingPath: string;
 }) {
   const faq = buildProgramFaq(program, topic);
-  const llmFacts = buildProgramLlmFacts(program, topic);
   const aiDescription = buildProgramAiDescription(program, topic);
   const pagePath = programPagePath(topic, program.slug);
   const dataLlmFacts = buildProgramDataLlmFacts(program, topic, pagePath);
@@ -68,20 +66,6 @@ export function ProgramSeoSections({
       )}
 
       <FaqBlock items={faq} />
-
-      <section className="mt-8 rounded-2xl border border-slate-200 bg-slate-50 p-5">
-        <h2 className="text-lg font-semibold text-slate-900">Коротко для проверки маршрута</h2>
-        <p className="mt-2 max-w-2xl text-sm leading-relaxed text-slate-600">
-          Машиночитаемая выжимка фактов, чтобы быстро сверить страницу с wizard и официальными источниками.
-        </p>
-        <ul className="mt-4 grid gap-2 text-sm leading-relaxed text-slate-700 md:grid-cols-2">
-          {llmFacts.map((fact) => (
-            <li key={fact} className="rounded-xl bg-white px-4 py-3 shadow-sm">
-              {fact}
-            </li>
-          ))}
-        </ul>
-      </section>
 
       <section className="mt-8 flex items-start gap-3 rounded-xl border border-amber-200 bg-amber-50 px-5 py-4 text-sm text-amber-950">
         <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />

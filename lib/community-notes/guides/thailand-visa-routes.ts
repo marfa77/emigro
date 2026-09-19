@@ -154,7 +154,7 @@ const bodySections: NoteBodySection[] = [
     ],
   },
   {
-    heading: "Typical RU → Phuket: безвиз, DTV или LTR на практике",
+    heading: "Типичный путь из РФ на Пхукет: безвиз, DTV или LTR",
     section_kind: "practice",
     paragraphs: [
       "Типичный **remote worker** 2025–2026: **(A)** безвиз 30 → аренда Rawai/Bang Tao → TM30 → понимание, что через месяц нужен **exit или extension**; **(B)** заранее **DTV** через Moscow e-Visa (500k THB + contract + 2-НДFL + с августа 2026 **criminal record**); **(C)** при доходе **USD 80k+** и готовности к BOI dossier — **LTR WFH Professional**; **(D)** capital-heavy без remote — **Privilege Gold/Platinum** или LTR Wealthy, не «туристический штамп».",

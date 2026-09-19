@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { Disclaimer } from "@/components/Disclaimer";
+import { OriginHubFaq } from "@/components/es/OriginHubFaq";
 import {
   ES_EC_GUIDE_SLUGS,
   ES_EC_SPAIN_CORRIDOR,
@@ -122,6 +123,8 @@ export default function EsEcuadorHubPage() {
             <code className="text-xs">{ES_EC_SPAIN_CORRIDOR.expansionFamily}</code>.
           </p>
         </section>
+
+        <OriginHubFaq originIso="EC" />
 
         <div className="mt-8">
           <Disclaimer locale="es" />

@@ -39,10 +39,14 @@ official_sources:
     label: Migrationsverket — EU Blue Card SEK 53 625
 estimated_minutes: 18
 date_published: 2026-07-01
-date_modified: 2026-08-07
+date_modified: 2026-09-19
 ---
 
 ## Кому подходит этот гайд
+
+Nordics — это четыре разных миграционных режима, не «один Шенген с высокой зарплатой». Пороги и семья считаются по стране, не «как во Франции».
+
+> **Nota Emigro (fact-check, сентябрь 2026).** **OK:** SE work permit **SEK 34 470**; Blue Card **SEK 53 625** с 15.07.2026. DK pay limit ~**DKK 552 000**/год. Гражданство: SE **8 лет** с 06.06.2026; NO **8/11**; FI **8 лет** с 01.10.2024; DK ~**9 лет**. Dual DK с **01.09.2015**, не «с 2024». **Fixed overlay:** датская семья на pay-limit — **accompanying family** (совместный адрес; зарплата → без отдельного proof of support). 24-årreglen / залог = трек гражданина/ПМЖ, не work. Источник: [SIRI accompanying family — work](https://nyidanmark.dk/en-GB/You-want-to-apply/Family/Accompanying-family-members/Accompanying-family---work).
 
 Этот гайд — для граждан **России, Беларуси, Украины, Казахстана** и других стран вне EU/EEA, которые рассматривают **легальный ВНЖ в странах Nordics** в 2026 году.
 

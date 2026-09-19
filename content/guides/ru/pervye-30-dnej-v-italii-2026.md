@@ -29,10 +29,14 @@ official_sources:
     label: Ministero dell'Interno
 estimated_minutes: 22
 date_published: 2026-07-28
-date_modified: 2026-07-29
+date_modified: 2026-09-19
 ---
 
-## TL;DR — что делать в первые 30 дней
+Виза D ещё не permesso. Срок, который реально жёсткий: **Kit Giallo за 8 дней** после въезда. Codice Fiscale лучше взять в первые дни — без него банк и Poste тормозятся.
+
+> **Nota Emigro (fact-check, сентябрь 2026).** **OK:** Kit Giallo / Sportello Amico в **8 рабочих дней**; дальше SMS Questura и биометрия. Impatriati **не** включается с визой. DN vs Elective — разные основания, один календарь бюрократии. **Soft:** Intesa/BancoPosta и очередь Anagrafe — поле. Маршруты: [Digital Nomad](/ru/guides/vnj-italiya-2026-digital-nomad) · [Elective](/ru/guides/vnj-italiya-2026-elective-residency).
+
+## Что делать в первые 30 дней
 
 ```
 День 1–3:   Въезд, покупка SIM-карты, заселение
@@ -45,7 +49,7 @@ date_modified: 2026-07-29
 
 ---
 
-## Часть I. Какой у вас маршрут — кратко
+## Какой у вас маршрут — кратко
 
 Перед тем как разбирать практику, важно понимать, по какому визовому маршруту вы приехали — от этого зависит процесс оформления Permesso и доступ к услугам.
 
@@ -65,7 +69,7 @@ date_modified: 2026-07-29
 
 ---
 
-## Часть II. День 1–3: Въезд и первые шаги
+## День 1–3: Въезд и первые шаги
 
 ### Прилёт и пограничный контроль
 
@@ -98,7 +102,7 @@ date_modified: 2026-07-29
 
 ---
 
-## Часть III. Codice Fiscale — налоговый номер Италии
+## Codice Fiscale — налоговый номер Италии
 
 ### Что это и зачем
 
@@ -133,7 +137,7 @@ Codice Fiscale — 16-значный буквенно-цифровой код. �
 
 ---
 
-## Часть IV. Permesso di Soggiorno — самый важный документ
+## Permesso di Soggiorno — самый важный документ
 
 ### Сроки и требования
 
@@ -200,7 +204,7 @@ Codice Fiscale — 16-значный буквенно-цифровой код. �
 
 ---
 
-## Часть V. Healthcare — медицина и страховка
+## Healthcare — медицина и страховка
 
 ### Обязательная частная страховка
 
@@ -249,7 +253,7 @@ Codice Fiscale — 16-значный буквенно-цифровой код. �
 
 ---
 
-## Часть VI. Банковский счёт
+## Банковский счёт
 
 ### Требования для non-EU residents
 
@@ -284,7 +288,7 @@ Codice Fiscale — 16-значный буквенно-цифровой код. �
 
 ---
 
-## Часть VII. Аренда жилья
+## Аренда жилья
 
 ### Типы договоров
 
@@ -347,7 +351,7 @@ Codice Fiscale — 16-значный буквенно-цифровой код. �
 
 ---
 
-## Часть VIII. Регистрация в Comune (Anagrafe)
+## Регистрация в Comune (Anagrafe)
 
 ### Зачем нужна
 
@@ -377,7 +381,7 @@ Codice Fiscale — 16-значный буквенно-цифровой код. �
 
 ---
 
-## Часть IX. Налоги — что нужно знать сразу
+## Налоги — что нужно знать сразу
 
 ### Налоговое резидентство
 
@@ -411,7 +415,7 @@ Codice Fiscale — 16-значный буквенно-цифровой код. �
 
 ---
 
-## Часть X. Бюджет первых 30 дней
+## Бюджет первых 30 дней
 
 | Статья | Digital Nomad | ERV |
 |---|---|---|
@@ -431,7 +435,7 @@ Codice Fiscale — 16-значный буквенно-цифровой код. �
 
 ---
 
-## Часть XI. Частые ошибки и как их избежать
+## Частые ошибки и как их избежать
 
 | Ошибка | Последствия | Решение |
 |---|---|---|
@@ -474,3 +478,25 @@ Codice Fiscale — 16-значный буквенно-цифровой код. �
 - Связанные гайды: [Italy DN](/ru/guides/vnj-italiya-2026-digital-nomad), [Elective residency](/ru/guides/vnj-italiya-2026-elective-residency).
 
 *Не юридическая консультация. Сверяйте Questura / Agenzia delle Entrate на дату.*
+
+## FAQ
+
+### Когда подавать Kit Giallo?
+
+В первые **8 рабочих дней** после въезда — permesso di soggiorno в Poste Italiane (Sportello Amico). Codice Fiscale — сразу в Agenzia delle Entrate.
+
+### Порог digital nomad Италии?
+
+Практика консульств 2026 часто **€28–28,5k**/год. Формула 3× esenzione ≈€24 789 — пол, не бюджет.
+
+### Investor Visa для РФ?
+
+Приостановлена для RU/BY (14.07.2023) и dual RU/BY (MAECI 20.03.2024). Не путать с elective residency.
+
+### Язык для гражданства IT?
+
+Обычно итальянский **B1** (CELI/CILS). Mock: [Prep2Go CELI](https://www.prep2go.study/?utm_source=emigro&utm_medium=guide&utm_campaign=prep2go_italy&utm_content=pervye-30-dnej-v-italii-2026).
+
+### Это юридическая консультация?
+
+Нет. Хаб [/ru/italy](/ru/italy) · практика [italy.emigro.online](https://italy.emigro.online).

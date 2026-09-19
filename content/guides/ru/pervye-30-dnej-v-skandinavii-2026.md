@@ -25,10 +25,14 @@ official_sources:
     label: Life in Denmark — официальный портал
 estimated_minutes: 12
 date_published: 2026-07-01
-date_modified: 2026-07-02
+date_modified: 2026-09-19
 ---
 
 ## Кому этот чек-лист
+
+Фокус — **Швеция и Дания**. Норвегия и Финляндия — свои номера (D-number / Finnish ID), не копия personnummer.
+
+> **Nota Emigro (fact-check, сентябрь 2026).** **OK:** без personnummer / CPR полноценный счёт обычно не открывают. DK семья на work/pay-limit ≠ 24-årreglen. Пороги зарплат — в [Швеция](/ru/guides/vnj-shvetsiya-2026-work-permit-grazhdanstvo) и [хаб Nordics](/ru/guides/vnj-skandinaviya-2026). **Soft:** очереди Skatteverket / kommune и банк — поле.
 
 Для граждан **РФ, Беларуси, Украины, Казахстана**, которые:
 

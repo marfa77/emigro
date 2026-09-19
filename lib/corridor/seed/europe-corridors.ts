@@ -259,7 +259,7 @@ export const EUROPE_CORRIDORS: CorridorSeed[] = [
             type: "income",
             labelEn: "Family income add-on",
             labelRu: "Доплата за членов семьи",
-            value: "+€916/мес. за первого иждивенца, +€305/мес. за каждого следующего (75%/25% SMI)",
+            value: "+€1 068/мес. за первого иждивенца, +€356/мес. за каждого следующего (75%/25% SMI 2026, RD 126/2026)",
           },
           {
             type: "documents",
@@ -643,11 +643,11 @@ export const EUROPE_CORRIDORS: CorridorSeed[] = [
           and: [
             { "==": [{ var: "passport_iso2" }, "RU"] },
             { "==": [{ var: "remote_income" }, "yes"] },
-            { ">=": [{ var: "monthly_income_eur" }, 2066] },
+            { ">=": [{ var: "monthly_income_eur" }, 2334] },
           ],
         },
         requirements: [
-          { type: "income", labelEn: "Minimum annual income", labelRu: "Минимальный годовой доход", value: "€24,790/year (~€2,066/month; 3× healthcare exemption base, 2026)" },
+          { type: "income", labelEn: "Minimum annual income", labelRu: "Минимальный годовой доход", value: "Практика консульств 2026 часто ~€28 000–€28 500/год (~€2 334/мес.). Формула 3× esenzione ≈€24 789 — пол, не бюджет." },
           { type: "documents", labelEn: "Remote work proof", labelRu: "Подтверждение удалённой работы", value: "Contract, tax returns, professional qualification" },
           { type: "insurance", labelEn: "Health insurance", labelRu: "Медстраховка", value: "Valid in Italy for entire stay" },
         ],

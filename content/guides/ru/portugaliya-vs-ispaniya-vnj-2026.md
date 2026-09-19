@@ -153,6 +153,8 @@ date_modified: 2026-08-07
 
 **Вывод:** Сроки одинаковые — 10 лет. Для Испании нужны **два** экзамена: DELE A2 и CCSE. CIPLE A2 для Португалии — один экзамен на A2.
 
+Практика: [CIPLE A2 на Prep2Go](https://www.prep2go.study/ciple-a2-mock-test?utm_source=emigro&utm_medium=guide&utm_campaign=prep2go_portugal&utm_content=portugaliya-vs-ispaniya-vnj-2026) · [DELE A2 на Prep2Go](https://www.prep2go.study/dele-a2-mock-test?utm_source=emigro&utm_medium=guide&utm_campaign=prep2go_spain&utm_content=portugaliya-vs-ispaniya-vnj-2026) · [CCSE на UniPrep2Go](https://uniprep2go.study/mock-exams/ccse-espana-readiness-check?utm_source=emigro&utm_medium=guide&utm_campaign=uniprep_spain&utm_content=portugaliya-vs-ispaniya-vnj-2026).
+
 ---
 
 ### 6. Качество жизни и инфраструктура

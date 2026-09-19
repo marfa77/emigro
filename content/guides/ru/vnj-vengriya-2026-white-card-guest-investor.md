@@ -31,10 +31,12 @@ official_sources:
     label: OIF — National Residence Card (exclusions)
 estimated_minutes: 22
 date_published: 2026-07-28
-date_modified: 2026-08-07
+date_modified: 2026-09-19
 ---
 
-## TL;DR — какой маршрут вам подходит
+## С чего начать: White Card или Guest Investor
+
+White Card — удалёнка. Guest Investor — капитал. Это не «два способа одного ВНЖ»: у White Card нет семьи и нет национального ПМЖ, у Guest Investor — карта на 10 лет и работа для инвестора и семьи.
 
 | Параметр | White Card | Guest Investor |
 |---|---|---|
@@ -50,9 +52,11 @@ date_modified: 2026-08-07
 | **Срок оформления** | 3+ месяцев | 5+ месяцев |
 | **Шенген** | ✅ 90/180 | ✅ 90/180 |
 
+> **Nota Emigro (fact-check, сентябрь 2026).** **OK:** White Card — €3 000 net соло за 6 месяцев, без family reunification (OIF); in-country filing — в основном visa-free гражданства, не «турист РФ → Enter Hungary». Guest Investor: фонд MNB **€250 000** на ≥5 лет или donation **€1 млн**; инвестор **и семья** могут работать (OIF). KATA — **HUF 18 млн** и только клиенты-физлица. CIT **9%**. Налоговый резидент White Card платит **15%** с мирового дохода, это не «0% как у кочевника». **Soft:** €10 000 сбережений нет на factsheet OIF — практика пакета, не строка закона. Сроки «3+ / 5+ месяцев» — поле, официальные procedural windows короче.
+
 ---
 
-## Часть I. White Card — Digital Nomad Венгрия
+## White Card: удалёнка без семьи и без ПМЖ
 
 ### Что это
 
@@ -117,7 +121,7 @@ White Card (Fehér Kártya) — виза/permit для удалённых раб
 
 ---
 
-## Часть II. Guest Investor — ВНЖ через инвестиции
+## Guest Investor: фонд или донейшн
 
 ### Общая информация
 
@@ -193,7 +197,7 @@ Guest Investor Program (GIP) — венгерский аналог Golden Visa. 
 
 ---
 
-## Часть III. Первые 30 дней в Венгрии — практика
+## Первые 30 дней в Венгрии
 
 ### Пошаговый чек-лист
 
@@ -333,7 +337,7 @@ Guest Investor Program (GIP) — венгерский аналог Golden Visa. 
 
 ---
 
-## Часть IV. Налоги — что нужно знать
+## Налоги: 15% резидента, KATA и 9% CIT
 
 ### Flat 15% — главная фишка Венгрии
 
@@ -386,7 +390,7 @@ Guest Investor Program (GIP) — венгерский аналог Golden Visa. 
 
 ---
 
-## Часть V. Сравнение с конкурентами
+## Сравнение с соседними маршрутами
 
 | | **Венгрия White Card** | **Венгрия Guest Investor** | **Греция DN** | **Кипр DN** | **Португалия D8** |
 |---|---|---|---|---|---|
@@ -416,7 +420,7 @@ Guest Investor Program (GIP) — венгерский аналог Golden Visa. 
 
 ---
 
-## Часть VI. Бюджет переезда
+## Бюджет переезда
 
 ### White Card (первый год)
 
@@ -448,7 +452,7 @@ Guest Investor Program (GIP) — венгерский аналог Golden Visa. 
 
 ---
 
-## Часть VII. Частые ошибки и как их избежать
+## Частые ошибки
 
 | Ошибка | Последствия | Решение |
 |---|---|---|
@@ -490,3 +494,25 @@ Guest Investor Program (GIP) — венгерский аналог Golden Visa. 
 - Wizard: [/ru/hungary/wizard](/ru/hungary/wizard) · хаб [/ru/hungary](/ru/hungary).
 
 *Не юридическая консультация. Сверяйте OIF / Enter Hungary на дату подачи.*
+
+## FAQ
+
+### White Card порог и семья?
+
+**€3 000 net**/мес за 6 мес., карта год + одно продление. **Нет** family reunification (OIF) и **нет** надбавок +20%/+15%.
+
+### Это путь к национальному ПМЖ?
+
+Нет. White Card ≠ EU passport за фонд. Guest Investor — отдельная инвест-программа.
+
+### Можно подать изнутри по шенгену C?
+
+Шенген ≠ право подать White Card изнутри. Изнутри HU — только visa-free nationalities. Enter Hungary / OIF.
+
+### Налог 0% как у кочевника?
+
+Если стали налоговым резидентом (часто после **183** дней) — **15%** с мирового дохода.
+
+### Это юридическая консультация?
+
+Нет. [/ru/hungary/wizard](/ru/hungary/wizard).

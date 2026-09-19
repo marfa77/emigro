@@ -46,41 +46,41 @@ const bodySections: NoteBodySection[] = [
     ],
   },
   {
-    heading: "Официально: consulado, UGE и extranjería — не смешивать",
+    heading: "Официально: консульство, UGE и extranjería — не смешивать",
     section_kind: "official",
     paragraphs: [
-      "Autorización de residencia para **teletrabajo internacional** (digital nomad / DNV) регулируется Ley 14/2013 modificada por Ley de Startups. Канал подачи зависит от того, **где вы находитесь** на дату solicitud — это не «выбор удобнее», а procedimiento distinto.",
-      "**Consulado** (demarcación вашей legal residence): visado nacional D teletrabajo для **въезда** из third country. Visado — hasta **1 año**; после въезда — TIE, alta SS según estructura дохода. Подача personal o representante acreditado; cita previa consular.",
-      "**UGE-CE** (Unidad de Grandes Empresas y Colectivos Estratégicos, Ministerio Inclusion): autorización residencia **desde dentro ES** solo si ya está en **legal stay** — не turista irregular. Resolución en **20 días** (instrucción consular); autorización inicial hasta **3 años** sin visado previo.",
-      "**Extranjería / Policía / ICPPlus** — **не** канал первичной solicitud DNV из-за рубежа и **не** замена consulado для въезда. Oficina extranjería provincia и Comisaría — TIE huellas, renovaciones, modificaciones **después** autorización/visado. Путать «подам в extranjería Valencia» с teletrabajo consular — частая ошибка чатов.",
-      "Полный правовой разбор маршрутов, modificaciones, nacionalidad и arraigo — в pillar [ВНЖ Испания 2026](/ru/guides/vnj-ispaniya-2026). Этот satellite-гайд закрывает **практику Valencia**: какой канал выбрать до прилёта, что делать после visado D на месте.",
+      "Разрешение на **международную удалёнку** (digital nomad / teletrabajo) регулируется Ley 14/2013 в редакции Ley de Startups. Канал подачи зависит от того, **где вы находитесь** в день заявления — это не «что удобнее», а разные процедуры.",
+      "**Консульство** вашей консульской зоны: национальная виза D teletrabajo, чтобы **въехать** из третьей страны. Виза — до **1 года**; после въезда — TIE и постановка на социальное страхование по структуре дохода. Подача лично или через аккредитованного представителя; нужна cita previa.",
+      "**UGE-CE** (Unidad de Grandes Empresas, Ministerio Inclusion): разрешение на резиденцию **изнутри Испании** только если вы уже в **легальном пребывании** — не турист. Срок решения **20 дней** (инструкция консульства); первичное разрешение до **3 лет** без предварительной визы.",
+      "**Extranjería / Policía / ICPPlus** — **не** канал первой заявки DNV из-за рубежа и **не** замена консульства для въезда. Провинциальный офис и комиссариат — отпечатки TIE, продления и смены статуса **после** визы или разрешения. Путать «подам в extranjería Valencia» с консульской удалёнкой — частая ошибка чатов.",
+      "Полный правовой разбор маршрутов, смены статуса, гражданства и arraigo — в pillar [ВНЖ Испания 2026](/ru/guides/vnj-ispaniya-2026). Этот сателлит закрывает **практику Valencia**: какой канал выбрать до прилёта и что делать после визы D на месте.",
     ],
     bullets: [
-      "Third country → consulado → visado D → entrada → TIE ([TIE cita Valencia](/notes/" + TIE_CITA_SLUG + ")).",
-      "Legal stay en ES → UGE telemático / representante — no visado previo.",
-      "Extranjería provincia — renovación, modificación, arraigo; no solicitud inicial DNV desde RU.",
-      "Schengen turismo 90/180 — **no** es residencia ni legal stay para UGE.",
-      "Estancia por estudios — visado distinto; no teletrabajo; no cuenta 100% para nacionalidad art. 22 (soft overlay CC).",
+      "Третья страна → консульство → виза D → въезд → TIE ([TIE cita Valencia](/notes/" + TIE_CITA_SLUG + ")).",
+      "Уже легальное пребывание в ES → UGE онлайн / представитель — без предварительной визы.",
+      "Extranjería провинции — продление, смена, arraigo; не первичная заявка DNV из РФ.",
+      "Шенген-туризм 90/180 — **не** резиденция и **не** легальное пребывание для UGE.",
+      "Estancia por estudios — другая виза; не teletrabajo; **0%** в срок национальности art. 22.",
     ],
   },
   {
-    heading: "Что НЕ является residencia (и ломает маршрут)",
+    heading: "Что не является резиденцией и ломает маршрут",
     section_kind: "official",
     paragraphs: [
-      "В чатах «уже в Испании» часто означает **turista Schengen** или **estancia corta** — administración не считает это legal stay для UGE. Residencia создаёт **autorización** o **visado D** с целью teletrabajo, не штамп на границе.",
-      "**Estancia por estudios** — отдельный visado/trámite. Миф «учусь → через 2 года nacionalidad по art. 22» неверен: estancia estudios **no computa** al 50% exigido para nacionalidad por residencia (art. 22 CC — larga duración-UE y residencias que cuentan). DNV и estudios — разные vías; не смешивайте пакеты.",
-      "**Cuenta propia autónomo** с клиентами ES >20% — не teletrabajo internacional; нужен другой tipo autorización. **Cuenta ajena** с employer ES — employment, no DNV.",
-      "Remote work visa другой страны EU **no** sustituye autorización española para residir en territorio ES.",
+      "В чатах «уже в Испании» часто означает **туриста Шенгена** или короткое пребывание. Администрация не считает это легальным пребыванием для UGE. Резиденцию создаёт **разрешение** или **виза D** с целью teletrabajo, не штамп на границе.",
+      "**Estancia por estudios** — отдельная виза. Миф «учусь → через 2 года национальность по art. 22» неверен: учебное пребывание **не идёт** в 50% для nacionalidad por residencia (art. 22 CC — только подходящие резиденции и larga duración-UE). DNV и учёба — разные пакеты; не смешивайте их.",
+      "**Autónomo** с клиентами в Испании больше 20% дохода — это уже не международная удалёнка; нужен другой тип разрешения. Найм у испанского работодателя — трудовой маршрут, не DNV.",
+      "Remote-виза другой страны ЕС **не заменяет** испанское разрешение, чтобы жить в Испании.",
     ],
     bullets: [
-      "Turismo — entrada, no residencia; overstay = irregular.",
-      "Estancia estudios — 0% nacionalidad art. 22 (OK doctrina; soft en su caso concreto).",
-      "DNV ≠ permiso trabajo genérico cuenta ajena ES.",
-      "NIE turístico / certificado registro UE — no TIE post-visado D.",
+      "Туризм — въезд, не резиденция; overstay = irregular.",
+      "Учебное пребывание — 0% в национальность art. 22.",
+      "DNV ≠ общее разрешение на работу у испанского работодателя.",
+      "Туристический NIE / сертификат EU — не TIE после визы D.",
     ],
   },
   {
-    heading: "Typical RU track: consulado → Valencia",
+    heading: "Типичный путь из РФ: консульство → Валенсия",
     section_kind: "practice",
     paragraphs: [
       "Для граждан RU/BY/UA/KZ с доходом remote типичный маршрут 2025–2026: consulado (Moscú, SPb, Kyiv — по demarcación) → visado D teletrabajo → перелёт → NIE/padrón → TIE huellas → alta SS/IRPF. UGE изнутри — edge-case: уже legal stay (например, renovación desde otro título), не «прилетел без визы и подал nomad».",
@@ -104,7 +104,7 @@ const bodySections: NoteBodySection[] = [
     ],
   },
   {
-    heading: "Пакет consulado: доход, 20% rule, familia",
+    heading: "Пакет в консульство: доход, правило 20%, семья",
     section_kind: "practice",
     paragraphs: [
       "Medios económicos — **200% SMI** mensual titular (2026: **2 849 €** sobre base SMI 1 221 € BOE). Familia: +75% SMI primer dependiente, +25% cada adicional (one.gob.es). Acreditar con contrato, nóminas, facturas autónomo, extractos bancarios coincidentes.",
@@ -191,8 +191,8 @@ const bodySections: NoteBodySection[] = [
 ];
 
 const keyTakeaways = [
-  "Официально: DNV desde third country — visado D en consulado (demarcación residencia); UGE solo con legal stay en ES; extranjería/ICPPlus — TIE y trámites posteriores, no solicitud inicial desde RU.",
-  "Официально: 200% SMI 2026 ≈ 2 849 €/mes (SMI 1 221 € BOE RD 126/2026); familia +75%/+25% SMI; autónomo max 20% ingresos clientes ES (one.gob.es).",
+  "Официально: DNV из третьей страны — виза D в консульстве вашей зоны; UGE только при легальном пребывании в ES; extranjería/ICPPlus — TIE и последующие trámites, не первичная заявка из РФ.",
+  "Официально: 200% SMI 2026 ≈ 2 849 €/мес (SMI 1 221 €, BOE RD 126/2026); семья +75%/+25% SMI; autónomo — не больше 20% дохода от клиентов в Испании (one.gob.es).",
   formatPracticeTakeaway({
     channels: ["spain_granitsa", "spainchats"],
     period: "2025–2026",

@@ -2,8 +2,8 @@
 slug: grazhdanstvo-germaniya-polsha-2026
 title: "Гражданство Германии и Польши 2026: StAG, Karta Polaka, сроки и двойной паспорт"
 seo_title: "Гражданство Германии и Польши 2026 — StAG, Karta Polaka, B1"
-seo_description: "Гражданство DE и PL в 2026: StAG 5 лет + dual citizenship, ускорение 3 года; Польша — 1 год на ПМЖ по Karcie Polaka, 3 года на ПМЖ (ст. 30), 10 лет стандарт, брак, B1. Сравнение для RU/BY/UA/KZ."
-excerpt: "Запрос «паспорт EU через Германию или Польшу» — один из самых частых после ВНЖ. Разбираем StAG 2024, Karta Polaka, языковые экзамены и двойное гражданство для граждан СНГ."
+seo_description: "Гражданство DE/PL 2026: StAG 5 лет + dual DE; PL 1 год на ПМЖ по Karcie Polaka, 3 года на ПМЖ (ст. 30), 10 лет стандарт, B1."
+excerpt: "StAG: 5 лет + dual со стороны DE. Польша: 3 года на уже полученном ПМЖ (ст. 30), не «3 года с прилёта»; Karta Polaka — отдельный трек."
 quick_answer: |-
   Германия после реформы StAG 2024: 5 лет легального проживания, немецкий B1 и тест на гражданство. Ускорение до 3 лет возможно при C1 и интеграции. Двойное гражданство с РФ со стороны Германии разрешено.
 
@@ -27,7 +27,7 @@ official_sources:
     label: gov.pl — Karta Polaka
 estimated_minutes: 18
 date_published: 2026-07-01
-date_modified: 2026-07-11
+date_modified: 2026-09-19
 ---
 
 ## Зачем отдельный гайд по гражданству DE + PL
@@ -37,6 +37,8 @@ Pillar-гайды Emigro фокусируются на **ВНЖ**. Но запр
 Этот гайд — **только про натурализацию** (гражданство по проживанию). Jus sanguinis, Golden Visa и брак с гражданином EU — отдельные кейсы с ускоренными сроками.
 
 Подробнее по ВНЖ: [Германия 2026](/ru/guides/vnj-germaniya-2026) · [Польша 2026](/ru/guides/vnj-polsha-2026) · [PT vs ES гражданство](/ru/guides/grazhdanstvo-portugaliya-ispaniya-2026).
+
+> **Nota Emigro (fact-check, сентябрь 2026).** **OK:** StAG с **27.06.2024** — **5 лет** + dual со стороны DE; ускорение **3 года** при C1/интеграции — не автомат. Einbürgerungstest **33 из 310**. PL: стандарт **10 лет**; ст. 30 — **3 года уже на pobyt stały** (часто ~5 до ПМЖ + 3, не «3 года с прилёта»); Karta Polaka — **1 год на ПМЖ**, отдельный трек. Dual PL обычно допускается; РФ dual не признаёт. **Soft:** «РФ — нет» в таблице = право РФ, не отказ Польши. Prep: [Leben in Deutschland на UniPrep2Go](https://uniprep2go.study/mock-exams/leben-in-deutschland-readiness-check?utm_source=emigro&utm_medium=guide&utm_campaign=citizenship_de_pl) · [DTZ B1 на Prep2Go](https://www.prep2go.study/dtz-b1-mock-test?utm_source=emigro&utm_medium=guide&utm_campaign=citizenship_de_pl).
 
 ---
 

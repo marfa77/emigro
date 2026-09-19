@@ -57,8 +57,8 @@ const INCOME_THRESHOLDS: Record<string, ThresholdSpec> = {
   "spain-digital-nomad": {
     field: "monthly_income_eur",
     solo: 2849,
-    adultAddon: 916,
-    childAddon: 305,
+    adultAddon: 1068, // 75% SMI 2026 (RD 126/2026); do not use 2025 +€916
+    childAddon: 356, // 25% SMI 2026; do not use 2025 +€305
     labelRu: "месячный доход digital nomad",
   },
   "spain-non-lucrative": {
@@ -91,9 +91,9 @@ const INCOME_THRESHOLDS: Record<string, ThresholdSpec> = {
   },
   "italy-digital-nomad": {
     field: "monthly_income_eur",
-    solo: 2066,
-    adultAddon: 620,
-    childAddon: 310,
+    solo: 2334, // consular practice ~€28k/year; formula 3× esenzione ≈€24 789 is not the budget
+    adultAddon: 700,
+    childAddon: 350,
     labelRu: "месячный доход digital nomad",
   },
   "italy-elective-residence": {

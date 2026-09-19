@@ -53,7 +53,7 @@ const bodySections: NoteBodySection[] = [
     ],
   },
   {
-    heading: "Typical RU track: visado D → huellas в Valencia",
+    heading: "Типичный путь из РФ: виза D → отпечатки в Валенсии",
     section_kind: "practice",
     paragraphs: [
       "Типичный русскоязычный релокант приезжает с visado D ( trabajo, no lucrativa, teletrabajo/DNV после consulado). NIE и padrón часто уже в процессе или закрыты в первую неделю — см. [NIE и padrón](/notes/" +

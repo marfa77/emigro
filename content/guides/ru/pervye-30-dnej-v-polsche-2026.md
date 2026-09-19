@@ -23,10 +23,14 @@ official_sources:
     label: NFZ — медстраховка
 estimated_minutes: 12
 date_published: 2026-06-29
-date_modified: 2026-07-28
+date_modified: 2026-09-19
 ---
 
 ## Кому этот чек-лист
+
+Для граждан **РФ, Беларуси, Украины, Казахстана** по визе D или в очереди на kartę pobytu.
+
+> **Nota Emigro (fact-check, сентябрь 2026).** **OK:** meldunek для third-country — **не позднее 4-го дня** после заселения (ст. 41 u.e.l.; у EU/EFTA — 30 дней). Отдельное согласие хозяина не нужно — договор аренды. Карта **6–18 мес**, Варшава часто **12–18+**. [gov.pl zameldowanie](https://www.gov.pl/web/gov/zameldowanie). **Soft:** urząd 1–4 недели; банк mBank/PKO — KYC.
 
 Для граждан **РФ, Беларуси, Украины, Казахстана**, которые:
 

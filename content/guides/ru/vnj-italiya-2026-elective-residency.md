@@ -1,18 +1,18 @@
 ---
 slug: vnj-italiya-2026-elective-residency
-title: "ВНЖ Италия для россиян 2026: Elective Residency, Decreto Flussi, инвестор"
-seo_title: "ВНЖ Италия 2026 — Elective Residency и Decreto Flussi для СНГ"
-seo_description: "Elective Residency Италия 2026: €31k/год минимум, Decreto Flussi — рабочие квоты, Golden Visa €500k. Стоимость жизни Милан/Рим/юг, путь к ПМЖ. Для граждан РФ."
-excerpt: "Три реальных маршрута ВНЖ в Италии для русскоязычных: финансово независимые — Elective Residency, специалисты с оффером — Decreto Flussi, инвесторы — Golden Visa. Цифры и процедуры 2026."
+title: "ВНЖ Италия для россиян 2026: Elective Residency и Decreto Flussi"
+seo_title: "ВНЖ Италия 2026 — Elective €31k, Flussi; инвестор для РФ закрыт"
+seo_description: "Elective Residency ~€31k/год без работы в IT. Decreto Flussi — квоты. Investor Visa для РФ/РБ приостановлена (14.07.2023). ПМЖ 5 лет, гражданство 10."
+excerpt: "Два рабочих маршрута для русскоязычных: пассив — Elective, оффер — Decreto Flussi. Investor Visa для паспортов РФ и РБ не вход. Цифры и бюрократия 2026."
 quick_answer: |-
-  Elective Residency — для финансово независимых с пассивным доходом от примерно €31 000 в год (ориентир консульств; официальная формула от assegno sociale — около €30 540+), без права работать в Италии. Digital nomad — от примерно €24 790 в год.
+  Elective Residency — для финансово независимых с пассивным доходом от примерно €31 000 в год (ориентир консульств; официальная формула от assegno sociale — около €30 540+), без права работать в Италии. Digital nomad — формула ~€24 789, консульская практика часто €28–28,5k.
 
-  Decreto Flussi — ежегодные квоты на рабочие визы. Golden Visa — €500 000 инвестиций или €250 000 в стартапы.
+  Decreto Flussi — ежегодные квоты на рабочие визы. Investor Visa: €250k / €500k / €1M / €2M — **для паспортов РФ и РБ программа приостановлена** (14.07.2023; dual RU/BY — 20.03.2024).
 
   ПМЖ — через 5 лет, гражданство — через 10.
 corridor_slugs: [ru-speaking-to-italy]
 topic_keys: [italy, visa, investment]
-tags: [Италия, Elective Residency, Decreto Flussi, Golden Visa, ВНЖ, 2026]
+tags: [Италия, Elective Residency, Decreto Flussi, ВНЖ, 2026]
 primary_intent: informational
 cta_primary: /ru/wizard
 cta_secondary: /ru/italy
@@ -27,12 +27,14 @@ official_sources:
     label: Министерство внутренних дел Италии
 estimated_minutes: 19
 date_published: 2026-06-25
-date_modified: 2026-08-07
+date_modified: 2026-09-19
 ---
 
 ## Италия в 2026: три маршрута для русскоязычных
 
-Италия — страна с одной из самых сложных иммиграционных бюрократий в ЕС, но и с тремя достаточно чёткими путями для тех, кто готов разобраться. Если у вас **пассивный доход или накопления** — Elective Residency. Если **оффер от итальянского работодателя** — Decreto Flussi. Если **значительный капитал** — Investor Visa (Golden Visa).
+Италия — страна с одной из самых сложных иммиграционных бюрократий в ЕС. Если у вас **пассивный доход** — Elective Residency. Если **оффер** — Decreto Flussi. Если **удалёнка** — отдельный гайд по Digital Nomad, не «ERV с ноутбуком». Investor Visa для паспортов РФ/РБ **не рабочий трек**.
+
+> **Nota Emigro (fact-check, сентябрь 2026).** **OK:** ERV ориентир **€31k**/год (консульства; формула assegno sociale ~**€30 540+**), **без локальной работы**. DN: 3× esenzione ~**€24 789**, практика часто **€28k+**. ПМЖ **5 лет**, гражданство **10 лет**. **Fixed:** Italy Investor Visa **suspended for RU/BY** с **14.07.2023**, dual RU/BY — **20.03.2024** (MAECI) — абзац «для россиян инвестиции возможны» ниже **не актуален**. Суммы программы (€250k/€500k/€1M/€2M) оставляем как справочник, не как оффер. **Soft:** консульства в РФ ограничены; подача через третьи страны — поле. CELI B1 к паспорту: [Prep2Go CELI 2](https://www.prep2go.study/celi-2-mock-test?utm_source=emigro&utm_medium=guide&utm_campaign=prep2go_italy&utm_content=vnj-italiya-2026-elective-residency).
 
 Для граждан РФ дополнительный нюанс: консульства Италии в России работают в ограниченном режиме после 2022 года. Подавать удобнее через консульства в Армении, Грузии, Сербии или ОАЭ.
 
@@ -144,7 +146,7 @@ date_modified: 2026-08-07
 - Путь к гражданству — стандартные 10 лет (но ПМЖ — через 5 лет)
 - Подача через специальный портал [investiamo.mise.gov.it](https://investiamo.mise.gov.it/)
 
-**Для россиян:** инвестиции возможны, но с ограничениями из-за санкций. Покупка гособлигаций затруднена. Стартап-инвестиции — наиболее доступный вариант при наличии капитала в €250k+ вне российской юрисдикции.
+**Для россиян / белорусов:** Investor Visa **приостановлена** с 14 июля 2023 (и для dual RU/BY с 20 марта 2024). Не планируйте «стартап €250k» как рабочий вход — смотрите Elective, Decreto Flussi или [Digital Nomad](/ru/guides/vnj-italiya-2026-digital-nomad).
 
 Сравнение итальянского Investor Visa с португальским ARI и закрытой испанской программой — в [инвестиционном гиде Golden Visa 2026](/ru/guides/investitsionnyy-vnj-evropa-golden-visa-2026). Карточка программы: [Italy Investor Visa](/ru/italy/programs/italy-investor-visa).
 
@@ -249,7 +251,7 @@ IT — «несезонная» категория с отдельной неб�
 
 - **Пассивный доход €31 000+/год** → Elective Residency (не Digital Nomad)
 - **Оффер от итальянской компании** → Decreto Flussi (запасной вариант — Blue Card EU через Германию/Нидерланды)
-- **Капитал €250 000+** → Investor Visa (стартап-трек)
+- **Капитал €250 000+ и паспорт не РФ/РБ** → Investor Visa (стартап-трек); **паспорт РФ/РБ — программа приостановлена**
 - **Удалёнщик** → [Digital Nomad Италия](/ru/guides/vnj-italiya-2026-digital-nomad) (~€28k+/год практ.; [integrazionemigranti.gov.it](https://www.integrazionemigranti.gov.it/en-gb/Ricerca-news/Dettaglio-news/id/3835/Who-are-the-digital-nomads-How-can-they-enter-Italy-))
 
 Перейдите к [мастеру Emigro](/ru/wizard), чтобы сравнить итальянский маршрут с другими под ваш профиль, или изучите [страницу коридора Италия](/ru/italy). После прилёта: [первые 30 дней в Италии](/ru/guides/pervye-30-dnej-v-italii-2026).

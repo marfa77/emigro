@@ -15,6 +15,9 @@ export const metadata: Metadata = pageMetadata({
   description:
     "Ответьте на вопросы о паспорте, доходе, работе и семье — Emigro проверит европейские коридоры и покажет подходящие программы.",
   path: "/ru/wizard",
+  aiDescription:
+    "Emigro hub wizard: паспорт RU/BY/UA/KZ, доход, семья и сроки → программы ВНЖ в EU (D8/D7, ES nómada, Blue Card, Talent, HSM). Не юридическая консультация. Origin hub /ru/rossiyane.",
+  aiCategory: "route-evaluator",
 });
 
 export default function HubWizardPage() {

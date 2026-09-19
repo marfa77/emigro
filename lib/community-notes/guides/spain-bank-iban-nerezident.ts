@@ -40,9 +40,9 @@ const bodySections: NoteBodySection[] = [
     heading: "Официально: зачем ES IBAN и что проверяет банк",
     section_kind: "official",
     paragraphs: [
-      "Cuenta bancaria en España открывается en entidad de crédito под надзором Banco de España. Банк обязан установить identidad клиента, domicilio и, при необходимости, origen de fondos — директива PBC. Для иностранца базовый пакет: pasaporte, NIE o resguardo EX-15, comprobante de domicilio (certificado empadronamiento или contrato), justificante de ingresos.",
-      "IBAN с префиксом ES удобен для местных форм и отделений, но SEPA-переводы и domiciliación нельзя ограничивать только испанским IBAN: статья 9 Reglamento (UE) 260/2012 запрещает IBAN discrimination. NIE связывает испанский банковский профиль с identificación fiscal; без него многие sucursales в Valencia не открывают обычную cuenta corriente.",
-      "Cuenta nómina и productos sin comisiones часто требуют ingresos regulares en la cuenta o domiciliación nómina. Extranjero no residente может попасть на отдельный producto с другими comisiones — это не «дискриминация паспорта», а perfil de riesgo banco.",
+      "Счёт в Испании открывают в кредитной организации под надзором Banco de España. Банк обязан установить личность, адрес и при необходимости происхождение денег. Для иностранца базовый пакет: паспорт, NIE или resguardo EX-15, подтверждение адреса (empadronamiento или договор) и подтверждение дохода.",
+      "IBAN с префиксом ES удобен для местных форм и отделений, но SEPA-переводы и прямое списание нельзя ограничивать только испанским IBAN: статья 9 Reglamento (UE) 260/2012 запрещает дискриминацию по стране IBAN. NIE связывает банковский профиль с налоговым номером; без него многие отделения в Valencia не открывают обычный текущий счёт.",
+      "Бескомиссионные «зарплатные» продукты часто требуют регулярных поступлений или domiciliación зарплаты. Нерезиденту могут предложить отдельный тариф с другими комиссиями — это профиль риска банка, а не «дискриминация паспорта».",
     ],
     bullets: [
       "NIE/resguardo + empadronamiento + justificante ingresos.",
@@ -93,7 +93,7 @@ const bodySections: NoteBodySection[] = [
     ],
   },
   {
-    heading: "Матрица банков Valencia (soft)",
+    heading: "Какие банки в Валенсии открывают счёт (практика, не рейтинг)",
     section_kind: "practice",
     paragraphs: [
       "Нет одного «лучшего банка» для всех RU-паспортов. Ниже — полевые ярлыки из @valenforum и @spain_granitsa, **не** ranking Banco de España. Сравнивайте comisiones, app и distancia sucursal.",

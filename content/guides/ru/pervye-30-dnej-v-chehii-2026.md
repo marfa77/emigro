@@ -209,6 +209,7 @@ MOI: **4–9 мес.** реалистично (Prague); **по закону 60 �
 ## Связанные материалы
 
 - [ВНЖ Чехия 2026](/ru/guides/vnj-chehiya-2026)
+- [Prep2Go: CIPLE / DELE / DELF / DTZ](https://www.prep2go.study/practice-exam?utm_source=emigro&utm_medium=guide&utm_campaign=prep2go_czechia&utm_content=pervye-30-dnej-v-chehii-2026) (чешский B1 — civics на UniPrep, не этот mock)
 - [Коридор Чехия](/ru/czechia) · [wizard](/ru/czechia/wizard)
 - [ВНЖ Польша — сравнение](/ru/guides/vnj-polsha-2026)
 

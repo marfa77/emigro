@@ -118,15 +118,6 @@ export default async function ThailandNotePage({ params }: { params: { slug: str
           dangerouslySetInnerHTML={{ __html: inlineMarkdown(note.quick_answer) }}
         />
       </div>
-
-      <SatelliteCityChatCta countryKey="thailand" source="thailand_satellite_note" noteSlug={note.slug} />
-      <SatelliteFunnelCta
-        countryKey="thailand"
-        placement="satellite_note"
-        noteSlug={note.slug}
-        noteTitle={note.title}
-        contentKind={note.content_kind}
-      />
       <NoteHashtags tags={note.hashtags} className="mt-6" countryKey="thailand" />
       <KeyTakeaways items={note.key_takeaways} />
       {note.content_kind === "guide" && <NoteToc sections={note.body_sections} hasFaq={note.faq.length > 0} />}
@@ -135,6 +126,14 @@ export default async function ThailandNotePage({ params }: { params: { slug: str
         <OfficialLinksPreview links={note.official_links} accentClassName="text-indigo-900 underline hover:text-indigo-950" />
       )}
       <NoteFaq items={note.faq} />
+      <SatelliteCityChatCta countryKey="thailand" source="thailand_satellite_note" noteSlug={note.slug} />
+      <SatelliteFunnelCta
+        countryKey="thailand"
+        placement="satellite_note"
+        noteSlug={note.slug}
+        noteTitle={note.title}
+        contentKind={note.content_kind}
+      />
       <RelatedNotes notes={related} />
 
       <p className="mt-12 rounded-lg border border-indigo-100 bg-indigo-50/70 p-4 text-sm text-indigo-950">

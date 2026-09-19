@@ -22,7 +22,7 @@ official_sources:
     label: Ambassade de France au Maroc
 estimated_minutes: 14
 date_published: 2026-08-10
-date_modified: 2026-08-11
+date_modified: 2026-09-19
 ---
 
 ## Nota Emigro (fact-check août 2026)
@@ -222,6 +222,32 @@ Rendez-vous obligatoire sur France-Visas.
 
 
 ---
+
+## Foire aux questions
+
+### Les Marocains ont-ils besoin d’un visa pour la France ?
+
+Oui. Passeport MA : visa même pour un court séjour. Apostille HCCH en vigueur depuis **14/08/2016**. VLS-TS au consulat (Rabat, Casablanca, Agadir, Marrakech, Tanger) — confirmez la fiche Ambassade.
+
+### Le séjour Schengen C suffit-il pour vivre en France ?
+
+Non. Un visa court séjour n’est pas un titre de séjour. Pour résider il faut un VLS-TS demandé au consulat **avant** le départ (salarié, Talent, étudiant, visiteur…). Touriste → résidence n’est pas le schéma.
+
+### La naturalisation française est-elle en 2 ans pour le Maghreb ?
+
+Non. Le délai général est **~5 ans** de résidence régulière ([F2213](https://www.service-public.fr/particuliers/vosdroits/F2213)). Les 2 ans art. 22 Espagne ne s’appliquent pas. Réduction possible après études en France (art. 21-18) — ce n’est pas un raccourci « Maghreb ».
+
+### Quel niveau de français pour la naturalisation en 2026 ?
+
+**B2** (oral + écrit) **et** examen civique depuis le **01.01.2026** ([F11926](https://www.service-public.fr/particuliers/vosdroits/F11926)). Le B1 concerne plutôt la carte de résident. Timbre nationalité **€255** ([F32952](https://www.service-public.fr/particuliers/vosdroits/F32952)).
+
+### Quel seuil pour Passeport Talent « salarié qualifié » ?
+
+Rémunération annuelle brute ≥ **€39 582** ([F16922](https://www.service-public.fr/particuliers/vosdroits/F16922), arrêté août 2025). Mandataires sociaux : seuil plus élevé (~€58 374). Un salaire de €35k ne suffit pas pour cette catégorie.
+
+### Emigro donne-t-il un conseil juridique ?
+
+Non. Emigro est un navigateur. Vérifiez France-Visas, service-public et le consulat. Route Check : [/fr/assist](/fr/assist).
 
 ## Et maintenant ?
 

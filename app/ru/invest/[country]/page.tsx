@@ -17,6 +17,7 @@ import {
 } from "@/lib/investment/registry";
 import { showsDubaiOfferVerdict } from "@/lib/investment/uae-offer-verdict";
 import { pageMetadata } from "@/lib/seo";
+import { buildFaqSchema } from "@/lib/seo/corridor-page-seo";
 
 export function generateStaticParams() {
   return uniqueInvestmentCountries().map((route) => ({ country: route.country }));
@@ -43,11 +44,45 @@ export default function InvestmentCountryPage({ params }: { params: { country: s
   const route = routes[0];
   if (!route) notFound();
   const notes = INVESTMENT_PROGRAM_NOTES[route.country] ?? [];
+  const faq = [
+    {
+      question: `Инвестиционный ВНЖ в стране «${route.countryRu}» даёт паспорт?`,
+      answer:
+        "Нет автоматически. Большинство программ дают ВНЖ или ПМЖ; гражданство — отдельный срок и экзамены. Не путайте скрининг Emigro с обещанием паспорта.",
+    },
+    {
+      question: "Можно ли переносить условия одной программы на другую?",
+      answer:
+        routes.length > 1
+          ? "Нет. На этой странице несколько маршрутов — совпадение по одному не переносится на остальные."
+          : "Нет. Пороги, активы и статус этой программы не копируются на соседние страны или закрытые Golden Visa.",
+    },
+    {
+      question: "Что проверяет скрининг Emigro?",
+      answer: `Предварительный фильтр от €${route.screeningFloorEur.toLocaleString("ru-RU")} и типа актива. ${route.caveat} Это не юридическая и не инвестиционная консультация.`,
+    },
+    {
+      question: "Закрытые программы ещё принимают заявки?",
+      answer:
+        route.status === "closed"
+          ? "Эта программа закрыта для новых заявок. Смотрите актуальные маршруты в /ru/invest и официальный источник."
+          : "Статус на странице — ориентир Emigro. Перед деньгами сверяйте official URL и паспортные ограничения (часто RU/BY).",
+    },
+    {
+      question: "Куда идти дальше?",
+      answer:
+        "Разбор маршрута по ссылке программы, официальный портал, при недвижимости — qualifier. Не переводите деньги по скринингу чата.",
+    },
+  ];
+  const faqSchema = buildFaqSchema(faq);
 
   return (
     <>
       <SiteHeader />
       <InvestmentViewTracker event="investment_country_view" country={route.country} />
+      {faqSchema ? (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      ) : null}
       <main className="mx-auto max-w-5xl px-4 py-10">
         <Link href="/ru/invest" className="text-sm font-medium text-corridor-700 hover:underline">
           ← Все инвестиционные маршруты
@@ -100,6 +135,18 @@ export default function InvestmentCountryPage({ params }: { params: { country: s
             </ul>
           </section>
         ) : null}
+
+        <section className="mt-8 rounded-2xl border border-slate-200 bg-slate-50 p-6">
+          <h2 className="text-xl font-bold text-slate-950">FAQ</h2>
+          <div className="mt-4 space-y-4">
+            {faq.map((item) => (
+              <div key={item.question}>
+                <h3 className="font-medium text-slate-900">{item.question}</h3>
+                <p className="mt-1 text-sm text-slate-600">{item.answer}</p>
+              </div>
+            ))}
+          </div>
+        </section>
 
         {showsDubaiOfferVerdict(route.country) ? (
           <DubaiOfferVerdictPromo placement="invest_country" content={route.country} />

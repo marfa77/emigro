@@ -183,6 +183,7 @@ date_modified: 2026-07-07
 ## Связанные материалы
 
 - [ВНЖ Германия 2026](/ru/guides/vnj-germaniya-2026)
+- [DTZ B1 mock на Prep2Go](https://www.prep2go.study/dtz-b1-mock-test?utm_source=emigro&utm_medium=guide&utm_campaign=prep2go_germany&utm_content=pervye-30-dnej-v-germanii-2026)
 - [Blue Card vs Chancenkarte](/ru/guides/vnj-germaniya-2026)
 - [Коридор Германия](/ru/germany) · [wizard](/ru/germany/wizard)
 

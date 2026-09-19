@@ -26,8 +26,6 @@ import {
 } from "@/lib/seo";
 import {
   buildNewsArticleAiDescription,
-  buildNewsArticleFaq,
-  buildNewsFaqSchema,
 } from "@/lib/seo/news-page-seo";
 import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
 import { EMIGRO_PUBLISHER, emigroAuthorOrg, schemaImage } from "@/lib/seo/schema";
@@ -115,8 +113,6 @@ export default async function NewsArticlePage({ params }: Props) {
   }
   breadcrumbItems.push({ name: displayTitle });
   const breadcrumbSchema = buildBreadcrumbSchema(breadcrumbItems);
-  const faq = buildNewsArticleFaq(digest, topic ?? null);
-  const faqSchema = buildNewsFaqSchema(faq);
   const aiDescription = buildNewsArticleAiDescription(digest, topic ?? null);
 
   return (
@@ -125,7 +121,6 @@ export default async function NewsArticlePage({ params }: Props) {
       <SiteHeader />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
-      {faqSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />}
       <section className="sr-only" aria-label="AI description">
         <h2>ai:description</h2>
         <p>{aiDescription}</p>

@@ -210,6 +210,7 @@ date_modified: 2026-07-12
 ## Связанные материалы
 
 - [ВНЖ Испания 2026](/ru/guides/vnj-ispaniya-2026)
+- [DELE A2 mock на Prep2Go](https://www.prep2go.study/dele-a2-mock-test?utm_source=emigro&utm_medium=guide&utm_campaign=prep2go_spain&utm_content=pervye-30-dnej-v-ispanii-2026)
 - [Португалия vs Испания](/ru/guides/portugaliya-vs-ispaniya-vnj-2026)
 - [Digital nomad сравнение](/ru/guides/digital-nomad-vizy-evropy-sravnenie-2026)
 - [Коридор Испания](/ru/spain) · [wizard](/ru/spain/wizard)

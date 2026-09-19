@@ -33,12 +33,14 @@ official_sources:
     label: Skatteverket — personnummer
 estimated_minutes: 24
 date_published: 2026-07-30
-date_modified: 2026-07-30
+date_modified: 2026-09-19
 ---
 
 ## Обзор коридора
 
-Швеция — один из немногих EU-коридоров **без годовых квот** на рабочие визы, с сильным рынком IT, инженерии, life sciences и медицины. В **2026** порог входа и горизонт паспорта стали жёстче: зарплата work permit привязана к **90% медианы** SCB, гражданство — **8 лет** вместо 5.
+Швеция — EU-коридор **без годовых квот** на рабочие визы. В 2026 порог входа и горизонт паспорта стали жёстче: зарплата привязана к **90% медианы**, гражданство — **8 лет**.
+
+> **Nota Emigro (fact-check, сентябрь 2026).** **OK:** work permit **SEK 34 470**/мес с **16.06.2026** (90% медианы SEK 38 300). Льготные **75% / SEK 28 725** — дефицит, студенты, TPD, часть медиков, young tech. Blue Card **SEK 53 625**/мес, макс. **4 года** с **15.07.2026**. ПМЖ после работы: **4 из 7 лет**. Гражданство с **06.06.2026**: **8 лет**, самообеспечение ~**SEK 20 000**/мес, тесты языка/общества поэтапно. DNV **нет**. Источники: [Migrationsverket salary](https://www.migrationsverket.se/en/word-explanations/salary-requirements-for-a-work-permit.html), [гражданство](https://www.migrationsverket.se/en/news-archive/news/2026-05-06-new-rules-for-swedish-citizenship-from-6-june-2026.html). **Soft:** «152 профессии» — не закрытый список.
 
 **Ключевые факты на сегодня:**
 - Work permit: **SEK 34 470/мес** (90% медианы SEK 38 300) для заявок с **16 июня 2026** ([Migrationsverket](https://www.migrationsverket.se/en/word-explanations/salary-requirements-for-a-work-permit.html))
@@ -260,3 +262,25 @@ date_modified: 2026-07-30
 - Стокгольм: закладывайте andrahand минимум на первый год
 
 Дальше: [wizard Швеции](/ru/sweden/wizard) · [Assist](/ru/assist).
+
+## FAQ
+
+### Порог work permit SE 2026?
+
+**SEK 34 470**/мес (90% медианы SCB с **16.06.2026**) и условия не хуже kollektivavtal.
+
+### Кто на 75%?
+
+Дефицитные профессии, бывшие студенты/исследователи, TPD, часть медиков, young tech / life-science — **SEK 28 725**. Не общий трек.
+
+### Есть ли DN visa?
+
+Нет отдельной. Нужен оффер / другой national track.
+
+### Гражданство SE = 5 лет DE?
+
+Нет. Сверяйте Migrationsverket; не копируйте StAG.
+
+### Это юридическая консультация?
+
+Нет. [/ru/sweden](/ru/sweden).

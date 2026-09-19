@@ -29,12 +29,14 @@ official_sources:
     label: migration.gv.at — воссоединение семьи
 estimated_minutes: 20
 date_published: 2026-06-29
-date_modified: 2026-08-02
+date_modified: 2026-09-19
 ---
 
 ## Главный вердикт (прочитайте первым)
 
 **Австрия — плохой выбор для «классического digital nomad’а»** (ноутбук + иностранный работодатель/клиенты без австрийского оффера).
+
+> **Nota Emigro (fact-check, сентябрь 2026).** **OK:** dedicated DNV **нет**. RWR Other Key Workers **€3 465** брутто/мес (не €2 835). Blue Card **€55 678**/год. Self-Employed Key Worker = **€100k или макропольза**, не «ИП с Upwork». Start-up: **€30k**, доля **≥50%**, **50/85** баллов. Сначала RWR **~24 мес**, потом Plus. ПМЖ ~**5 лет**, гражданство ~**10 лет** + **B1**. Источники: [migration.gv.at](https://www.migration.gv.at/en/types-of-immigration/permanent-immigration/other-key-workers/). **Fixed overlay:** Neue Selbständige / Gewerbe ≠ виза. Schengen C работу не даёт. **Soft:** 4–8 мес. / MA35 3–6 мес. Termin — поле. 45+ при первом въезде — зарплата/пенсия как в DE, не жёсткий закон «запрещено».
 
 | Миф | Факт |
 |-----|------|

@@ -2,7 +2,7 @@
 slug: velikobritaniya-2026-skilled-worker-global-talent-ilr
 title: "Великобритания 2026: Skilled Worker, Global Talent, Graduate, Family"
 seo_title: "Великобритания 2026 — Skilled Worker £41 700, Global Talent, ILR"
-seo_description: "UK 2026: Skilled Worker £41 700, Health & Care £25 000, HPI (B2, eligible list), Graduate 2г/18м, Family £29 000, Global Talent, ILR. Dual nationality OK. Для RU/BY/UA/KZ."
+seo_description: "UK 2026: Skilled Worker £41 700, Health & Care £25 000, HPI, Graduate 2г/18м, Family £29 000, ILR. Для RU/BY/UA/KZ."
 excerpt: "Pillar по UK points-based routes 2026: пороги зарплат, HPI/Graduate, семья, NHS/IHS, первые 30 дней и безопасные формулировки по ILR/гражданству."
 quick_answer: |-
   Skilled Worker: £41 700 в год или going rate плюс спонсор. Сборы с 8 апреля 2026: £819 / £1 618 снаружи и £943 / £1 865 изнутри; Immigration Skills Charge £628 / £1 235.
@@ -34,13 +34,14 @@ official_sources:
     label: Home Office fees — 8 April 2026
 estimated_minutes: 24
 date_published: 2026-07-29
-date_modified: 2026-08-07
+date_modified: 2026-09-19
 ---
 
-## TL;DR — все маршруты в одной таблице
+## С чего начать: все маршруты в одной таблице
 
+Великобритания — не ЕС и не Шенген. Оффер и спонсор важнее «накоплений на счёте». Dual nationality со стороны UK разрешён.
 
-> **Fact-check (авг. 2026):** fees с **8 Apr 2026** (Home Office table); care worker overseas closed **22 Jul 2025**. Не EU / не Шенген. UK **разрешает dual nationality**.
+> **Nota Emigro (fact-check, сентябрь 2026).** **OK:** Skilled Worker **£41 700** или going rate ([gov.uk](https://www.gov.uk/skilled-worker-visa/your-job)). Сборы с **8 Apr 2026**: SW **£819 / £1 618** снаружи, **£943 / £1 865** изнутри; ISC **£628 / £1 235**. Health & Care **£25 000**, без IHS, **£324 / £628**; overseas care **6135/6136** закрыт **22 Jul 2025**, in-country до **22 Jul 2028**. Graduate/Scale-up **£937**; family out **£2 064**; ILR **£3 226**; натурализация **£1 709 + £130**. Студентам dependants — research PG / government-sponsored. Dual **OK** ([gov.uk](https://www.gov.uk/dual-citizenship)). **Soft:** сроки визы и NHS GP — поле.
 
 Сравнение EU DN → [Digital Nomad визы Европы](/ru/guides/digital-nomad-vizy-evropy-sravnenie-2026) · налоги EU → [спецрежимы](/ru/guides/nalogovye-spetsrezhimy-es-2026). Wizard: [/ru/wizard](/ru/wizard).
 
@@ -58,7 +59,7 @@ date_modified: 2026-08-07
 
 ---
 
-## Часть I. Points-Based System — как устроена иммиграция в UK
+## Points-Based System — как устроена иммиграция в UK
 
 Великобритания после Brexit (с 1 января 2021) работает по **points-based immigration system**. Большинство work visas требуют набрать **70 points** по фиксированным критериям:
 
@@ -73,7 +74,7 @@ date_modified: 2026-08-07
 
 ---
 
-## Часть II. Skilled Worker Visa — основной маршрут
+## Skilled Worker Visa — основной маршрут
 
 ### Для кого
 
@@ -122,7 +123,7 @@ date_modified: 2026-08-07
 
 ---
 
-## Часть III. Global Talent Visa — для лидеров
+## Global Talent Visa — для лидеров
 
 ### Для кого
 
@@ -172,7 +173,7 @@ date_modified: 2026-08-07
 
 ---
 
-## Часть IV. Innovator Founder Visa — для предпринимателей
+## Innovator Founder Visa — для предпринимателей
 
 ### Для кого
 
@@ -205,7 +206,7 @@ date_modified: 2026-08-07
 
 ---
 
-## Часть V. Graduate Visa (PSW)
+## Graduate Visa (PSW)
 
 ### Для кого
 
@@ -243,7 +244,7 @@ date_modified: 2026-08-07
 
 ---
 
-## Часть VI. High Potential Individual (HPI) Visa
+## High Potential Individual (HPI) Visa
 
 ### Для кого
 
@@ -278,7 +279,7 @@ date_modified: 2026-08-07
 
 ---
 
-## Часть VII. Scale-up Visa
+## Scale-up Visa
 
 ### Для кого
 
@@ -310,7 +311,7 @@ date_modified: 2026-08-07
 
 ---
 
-## Часть VIII. Family Visa (Spouse/Partner)
+## Family Visa (Spouse/Partner)
 
 ### Для кого
 
@@ -347,7 +348,7 @@ date_modified: 2026-08-07
 
 ---
 
-## Часть IX. Health and Care Worker Visa
+## Health and Care Worker Visa
 
 ### Для кого
 
@@ -377,7 +378,7 @@ date_modified: 2026-08-07
 
 ---
 
-## Часть X. Первые 30 дней в UK
+## Первые 30 дней в UK
 
 ### Пошаговый чек-лист
 
@@ -475,7 +476,7 @@ date_modified: 2026-08-07
 
 ---
 
-## Часть XI. Налоги
+## Налоги
 
 ### Подоходный налог (Income Tax)
 
@@ -506,7 +507,7 @@ date_modified: 2026-08-07
 
 ---
 
-## Часть XII. ILR (Indefinite Leave to Remain) и Citizenship
+## ILR (Indefinite Leave to Remain) и Citizenship
 
 ### ILR — permanent residence UK
 
@@ -540,7 +541,7 @@ date_modified: 2026-08-07
 
 ---
 
-## Часть XIII. Бюджет переезда
+## Бюджет переезда
 
 ### Skilled Worker (первый год, London)
 
@@ -569,7 +570,7 @@ date_modified: 2026-08-07
 
 ---
 
-## Часть XIV. Частые ошибки
+## Частые ошибки
 
 | Ошибка | Последствия | Решение |
 |---|---|---|
@@ -612,3 +613,25 @@ date_modified: 2026-08-07
 *Август 2026. Не юридическая консультация. Fees с 8 Apr 2026 — сверяйте Home Office table перед подачей.*
 
 ---
+
+## FAQ
+
+### Порог Skilled Worker с 2026?
+
+**£41 700**/год или going rate. Сборы с **08.04.2026**: £819/£1 618 снаружи, £943/£1 865 изнутри; ISC £628/£1 235. English **B1**.
+
+### Health & Care ещё открыт из-за рубежа?
+
+Care SOC **6135/6136 overseas closed** (переход in-country до Jul 2028). Порог Health & Care **£25 000**, IHS exempt.
+
+### UK разрешает второе гражданство?
+
+Да, dual nationality allowed. Naturalisation fee **£1 709** + £130 ceremony (ориентир gov.uk).
+
+### ILR сколько стоит?
+
+Ориентир **£3 226**. Family outside **£2 064**. Сверяйте GOV.UK на дату подачи.
+
+### Это юридическая консультация?
+
+Нет. Приоритет: [gov.uk](https://www.gov.uk/).

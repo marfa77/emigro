@@ -79,6 +79,17 @@ export default async function NewsIndexPage() {
         <a href="/llms.txt">llms.txt</a>
       </section>
       <NewsIndexContent allTopics={allTopics} digests={digests} pillarGuides={pillarGuides} />
+      <section className="mx-auto max-w-6xl px-4 pb-12">
+        <h2 className="text-xl font-semibold text-slate-900">FAQ</h2>
+        <div className="mt-4 grid gap-4 sm:grid-cols-2">
+          {faq.map((item) => (
+            <div key={item.question} className="rounded-xl border border-slate-200 bg-white p-4">
+              <h3 className="font-medium text-slate-900">{item.question}</h3>
+              <p className="mt-1 text-sm text-slate-600">{item.answer}</p>
+            </div>
+          ))}
+        </div>
+      </section>
       <SiteFooter />
     </>
   );

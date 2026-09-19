@@ -1,10 +1,10 @@
 ---
 slug: grazhdanstvo-portugaliya-ispaniya-2026
 title: "Гражданство Португалии и Испании 2026: сроки, язык, двойной паспорт"
-seo_title: "Гражданство Португалии и Испании 2026 — сроки, CIPLE, DELE"
-seo_description: "Гражданство PT и ES в 2026: 10 лет проживания, CIPLE A2 и DELE A2+CCSE, двойной паспорт, реформа PT мая 2026. Сравнение для RU/BY/UA/KZ."
-excerpt: "Высококонкурентный запрос «гражданство Португалии/Испании 2026» — разбираем сроки, языковые экзамены, двойное гражданство и что изменилось в PT после реформы."
-quick_answer: "Португалия: 10 лет легального проживания (реформа 19.05.2026 для большинства вне EU/CPLP) + CIPLE A2 + чистая судимость; двойное гражданство разрешено. Испания: 10 лет + DELE A2 + CCSE; двойное гражданство с РФ — нет (отказ от паспорта). ПМЖ PT — 5 лет, ES — 5 лет до подачи на гражданство."
+seo_title: "Гражданство PT и ES 2026 — 10 лет, CIPLE, DELE+CCSE"
+seo_description: "Португалия 10 лет + CIPLE A2, dual OK. Испания 10 лет + DELE A2/CCSE, отказ от РФ. LATAM 2 года — не для паспорта РФ. Estancia estudios 0% art. 22."
+excerpt: "Для RU/BY/KZ — 10 лет, не «2 года как LATAM». CIPLE vs DELE+CCSE, dual PT да / ES нет, реформа PT с 19.05.2026."
+quick_answer: "Португалия: 10 лет легального проживания (реформа 19.05.2026 для большинства вне EU/CPLP) + CIPLE A2 + чистая судимость; двойное гражданство разрешено. Испания: 10 лет + DELE A2 + CCSE; двойное гражданство с РФ — нет (отказ от паспорта). LATAM 2 года — не для паспорта РФ. Estancia por estudios 0% к art. 22. ПМЖ PT/ES ~5 лет — отдельный статус, гражданство считают по годам legal residence."
 corridor_slugs: [ru-speaking-to-portugal, ru-speaking-to-spain]
 topic_keys: [portugal, spain, citizenship]
 tags: [гражданство, Португалия, Испания, CIPLE, DELE, 2026, натурализация]
@@ -24,7 +24,7 @@ official_sources:
     label: Instituto Cervantes — DELE / CCSE
 estimated_minutes: 18
 date_published: 2026-06-29
-date_modified: 2026-07-11
+date_modified: 2026-09-19
 ---
 
 ## Зачем отдельный гайд по гражданству
@@ -35,6 +35,8 @@ date_modified: 2026-07-11
 
 Подробнее по ВНЖ: [D8/D7 Португалия](/ru/guides/vnj-portugaliya-d8-d7-grazhdanstvo-2026) · [Испания 2026](/ru/guides/vnj-ispaniya-2026) · [PT vs ES](/ru/guides/portugaliya-vs-ispaniya-vnj-2026).
 
+> **Nota Emigro (fact-check, сентябрь 2026).** **OK:** PT натурализация **10 лет** legal residence с **19.05.2026** (Lei Orgânica 1/2026) для большинства вне EU/CPLP; CIPLE A2; dual со стороны PT разрешён. ES стандарт **10 лет** + DELE A2 + CCSE; для РФ — **отказ** от исходного гражданства (исключения art. 22 не включают РФ). ПМЖ ~**5 лет** — отдельный статус: считают **годы legal residence**, не «обязательно ещё 5 после ПМЖ». **Fixed overlay:** **2 года** в строке LATAM — для iberoamericanos / особых категорий, **не** для паспорта РФ/BY/KZ. **Estancia por estudios = 0%** к nacionalidad art. 22 (50% = только larga duración-UE). **Soft:** «не более 6 мес. подряд» — типичное требование **резиденции/продления**, не формула art. 22. CIPLE «бессрочно для гражданства» — практика CAPLE. Prep: [CIPLE на Prep2Go](https://www.prep2go.study/ciple-a2-mock-test?utm_source=emigro&utm_medium=guide&utm_campaign=citizenship_pt_es) · [CCSE на UniPrep2Go](https://uniprep2go.study/mock-exams/ccse-espana-readiness-check?utm_source=emigro&utm_medium=guide&utm_campaign=citizenship_pt_es) · [DELE на Prep2Go](https://www.prep2go.study/dele-a2-mock-test?utm_source=emigro&utm_medium=guide&utm_campaign=citizenship_pt_es).
+
 ---
 
 ## Сравнение PT vs ES (2026)
@@ -42,12 +44,12 @@ date_modified: 2026-07-11
 | Критерий | Португалия | Испания |
 |----------|------------|---------|
 | **Срок проживания** | **10 лет** (большинство после реформы 05.2026) | **10 лет** |
-| **ПМЖ до подачи** | 5 лет → ПМЖ, ещё 5 до гражданства | 5 лет резиденции, затем подача |
-| **Язык** | **CIPLE A2** (португальский) | **DELE A2** + **CCSE** (исpanский + общество) |
+| **ПМЖ до подачи** | ~5 лет до ПМЖ; гражданство считают по **10 годам legal residence** | ~5 лет резиденции до подачи на паспорт |
+| **Язык** | **CIPLE A2** (португальский) | **DELE A2** + **CCSE** (испанский + общество) |
 | **Двойное гражданство с РФ** | **Да** | **Нет** (отказ от РФ-паспорта) |
 | **Судимость** | Чистая или rehabilitada | Чистая |
 | **Срок рассмотрения** | 12–24+ мес. | 1–3 года (backlog) |
-| **Мин. выезды** | Не терять связь с PT | Не более 6 мес. подряд вне ES (типично) |
+| **Мин. выезды** | Не терять связь с PT | Требования **резиденции/продления** (часто ≤6 мес. подряд) — **не** правило art. 22 |
 
 ---
 
@@ -59,7 +61,7 @@ date_modified: 2026-07-11
 - **7 лет** — для граждан других EU и CPLP.
 - Заявки, поданные **до 19 мая 2026**, остаются по прежним правилам (переходный период).
 
-**ВНЖ и ПМЖ** не отменены: D7/D8 → продления → **ПМЖ через 5 лет** → ещё **5 лет** до гражданства (для большинства RU/BY/UA/KZ).
+**ВНЖ и ПМЖ** не отменены: D7/D8 → продления → **ПМЖ через ~5 лет**. Гражданство для большинства RU/BY/UA/KZ считают по **10 годам legal residence**, а не «обязательно ещё пять после ПМЖ».
 
 ### Кто может подать на натурализацию (PT)
 
@@ -117,7 +119,7 @@ date_modified: 2026-07-11
 |-----------|------|
 | Стандарт | **10 лет** legal residence |
 | Беженцы | 5 лет |
-| LATAM / Sephardic / Philippines | 2–10 лет (особые правила) |
+| LATAM / Sephardic / Philippines | 2–10 лет (**не для РФ/BY/KZ**: 2 года — iberoamericanos и особые категории art. 22) |
 | Брак с гражданином ES | **1 год** legal residence при браке с гражданином ES |
 
 ### Документы (типовой пакет ES)

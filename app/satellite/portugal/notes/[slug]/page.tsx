@@ -180,16 +180,6 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
         />
       </div>
 
-      <PortoChatCta source="portugal_satellite_note" noteSlug={note.slug} />
-
-      <SatelliteFunnelCta
-        countryKey="portugal"
-        placement="satellite_note"
-        noteSlug={note.slug}
-        noteTitle={note.title}
-        contentKind={note.content_kind}
-      />
-
       <NoteHashtags tags={note.hashtags} className="mt-6" />
 
       <KeyTakeaways items={linked.key_takeaways} />
@@ -202,6 +192,16 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
 
       <NoteFaq items={linked.faq} />
       </ReferralInlineRoot>
+
+      <PortoChatCta source="portugal_satellite_note" noteSlug={note.slug} />
+
+      <SatelliteFunnelCta
+        countryKey="portugal"
+        placement="satellite_note"
+        noteSlug={note.slug}
+        noteTitle={note.title}
+        contentKind={note.content_kind}
+      />
 
       {showPrep2Go && <Prep2GoPromo noteSlug={note.slug} />}
       {showPixId && <PixIDPromo noteSlug={note.slug} topicKey="portugal" />}

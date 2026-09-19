@@ -57,9 +57,9 @@ const bodySections: NoteBodySection[] = [
     heading: "Официально: зачем IBAN IT и что проверяет банк",
     section_kind: "official",
     paragraphs: [
-      "Conto corrente в ente di credito под надзором Banca d'Italia требует identificazione cliente, codice fiscale и, при необходимости, documentazione reddito/origine fondi. Базовый пакет relocant Milano: passaporto, certificato codice fiscale, comprovante domicilio (contratto locazione, dichiarazione ospitalità, utility), ricevuta permesso di soggiorno или permesso plastica.",
-      "IBAN с префиксом **IT** удобен для domiciliazione utenze (luce, gas), RID renta и stipendio datore italiano. SEPA-переводы нельзя ограничивать только итальянским IBAN, если счёт подходит по Regolamento 260/2012 — но agency и landlord на практике часто просят local bank statement.",
-      "Conto **non residenti** доступен раньше с CF + passaporto; после residenza anagrafica и permesso часто выгодно convertire в conto residenti (commissioni ниже).",
+      "Conto corrente в кредитной организации под надзором Banca d'Italia требует идентификации клиента, codice fiscale и при необходимости документов о доходе и происхождении денег. Базовый пакет relocant Milano: паспорт, сертификат codice fiscale, подтверждение адреса (договор аренды, dichiarazione di ospitalità, коммуналка), квитанция permesso или пластик.",
+      "IBAN с префиксом **IT** удобен для списания коммуналки, аренды и зарплаты итальянского работодателя. SEPA-переводы нельзя ограничивать только итальянским IBAN, если счёт подходит по Regolamento 260/2012 — но агентства и арендодатели на практике часто просят выписку местного банка.",
+      "Счёт **non residenti** доступен раньше с CF + паспортом; после residenza anagrafica и permesso часто выгоднее перейти на счёт резидента (комиссии ниже).",
     ],
     bullets: [
       "Codice fiscale — см. [гайд AA4/8](/notes/" + CODICE_FISCALE_SLUG + ").",

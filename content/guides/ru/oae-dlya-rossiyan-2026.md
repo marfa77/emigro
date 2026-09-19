@@ -2,7 +2,7 @@
 slug: oae-dlya-rossiyan-2026
 title: "ОАЭ для россиян 2026: резиденция, бизнес, банки, налоги"
 seo_title: "ОАЭ для россиян 2026 — Golden Visa, фризоны, банки, QFZP"
-seo_description: "Pillar ОАЭ 2026 для РФ: безвиз 90 дней, Golden Visa AED 2M / skilled, 2-летняя property visa, фризоны, freelance, Green Visa AED 360k/год, Remote Work $3500, банки, QFZP, бюджет Дубая."
+seo_description: "ОАЭ 2026: безвиз 90 дней, Golden Visa AED 2M, property 2г, Green Visa AED 360k/год, Remote Work $3500, QFZP. Для РФ."
 excerpt: "Премиальный хаб settle/транзит: резиденция без «пустой фризоны», банки для RU, 0% НДФЛ физлиц и ловушка QFZP — с маршрутами в Европу отдельно."
 quick_answer: |-
   ОАЭ на Emigro — [страна для жизни](/ru/guides?cat=settle), не европейский коридор. Граждане РФ въезжают без визы на 90 дней: этого хватает присмотреться, но не строить год вокруг штампа.
@@ -39,7 +39,7 @@ date_modified: 2026-08-07
 review_tier: volatile
 ---
 
-## Прямой ответ
+## С чего начать
 
 **ОАЭ** на Emigro — направление в категории **[«Страны для жизни»](/ru/guides?cat=settle)** и одновременно частая **транзитная база** на 6–24 месяца перед EU. Хаб: [/ru/uae](/ru/uae).
 

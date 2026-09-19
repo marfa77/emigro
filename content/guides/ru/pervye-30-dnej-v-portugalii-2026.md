@@ -2,7 +2,7 @@
 slug: pervye-30-dnej-v-portugalii-2026
 title: "Первые 30 дней в Португалии 2026: чек-лист, бюджет, ловушки"
 seo_title: "Первые 30 дней в Португалии 2026 — NIF, банк, AIMA, бюджет"
-seo_description: "Чек-лист после прилёта в Португалию 2026: NIF, аренда, банк, AIMA, SNS, бюджет семьи. D7/D8/GV для RU/BY/UA/KZ — по дням."
+seo_description: "Чек-лист после прилёта в Португалию 2026: NIF, аренда, банк, AIMA, SNS, бюджет семьи. D7/D8/D2; ARI — если карта уже есть. Для RU/BY/UA/KZ."
 excerpt: "Практический месяц после въезда по D7/D8/D2 или Golden Visa: NIF, жильё, португальский банк, подача в AIMA, SNS и типичные ошибки."
 quick_answer: |-
   Первая неделя: SIM и NIF в Finanças или через налогового представителя. Вторая: аренда с регистрацией в Finanças и счёт в Millennium, CGD или ActivoBank.
@@ -27,7 +27,7 @@ official_sources:
     label: Segurança Social — NISS
 estimated_minutes: 22
 date_published: 2026-06-27
-date_modified: 2026-07-31
+date_modified: 2026-09-19
 ---
 
 **Чек-лист, бюджет и ловушки первого месяца для D7 / D8 / D2 / Golden Visa**
@@ -38,7 +38,7 @@ Pillar по визам: [D8 и D7 Португалия 2026](/ru/guides/vnj-port
 
 ---
 
-## TL;DR — календарь первых 30 дней
+## Календарь первых 30 дней
 
 ```
 День 1:       Въезд (штамп), SIM (MEO/NOS/Vodafone), заселение
@@ -285,7 +285,7 @@ Proof of investment по действующему маршруту. Очеред
 | ПМЖ | ~**5 лет** |
 | Гражданство | **10 лет** (большинство); EU/CPLP — **7**; + CIPLE A2 |
 
-Язык к паспорту: [Prep2Go / CIPLE A2](https://www.prep2go.study).
+Язык к паспорту: [CIPLE A2 mock на Prep2Go](https://www.prep2go.study/ciple-a2-mock-test?utm_source=emigro&utm_medium=guide&utm_campaign=prep2go_portugal&utm_content=pervye-30-dnej-v-portugalii-2026).
 
 ---
 
@@ -308,3 +308,25 @@ Proof of investment по действующему маршруту. Очеред
 - [Коридор Португалия](/ru/portugal) · [wizard](/ru/portugal/wizard) · [практика](https://portugal.emigro.online)
 
 *Не юридическая и не налоговая консультация. Сроки AIMA, пороги RMMG и правила AT меняются — сверяйте [aima.gov.pt](https://www.aima.gov.pt/), [portaldasfinancas.gov.pt](https://www.portaldasfinancas.gov.pt/), [sns.gov.pt](https://www.sns.gov.pt/) и с юристом/TOC.*
+
+## FAQ
+
+### Порядок первой недели в PT?
+
+SIM и **NIF** (Finanças или налоговый представитель) → аренда с регистрацией в Finanças → счёт Millennium / CGD / ActivoBank.
+
+### Пороги D7 и D8?
+
+D7 ~**€920**/мес + сбережения; D8 ~**€3 680**/мес (4× RMMG, DL 139/2025). Стартуют с **консульской D**, не туристом через AIMA.
+
+### Сколько ждать биометрию AIMA?
+
+Часто **8–24 мес.** (Lisboa **15–24**). Карта после биометрии ещё месяцы. Не «недели».
+
+### Гражданство 5 или 10 лет?
+
+Для большинства RU/BY/UA/KZ — **10 лет** с **19.05.2026**. ПМЖ ~5 лет отдельно. CIPLE A2: Prep2Go.
+
+### Это юридическая консультация?
+
+Нет. Практика: [portugal.emigro.online](https://portugal.emigro.online).

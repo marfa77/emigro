@@ -37,10 +37,10 @@ official_sources:
     label: UDI — Norwegian Directorate of Immigration
 estimated_minutes: 22
 date_published: 2026-07-31
-date_modified: 2026-08-07
+date_modified: 2026-09-19
 ---
 
-> **Fact-check Emigro (август 2026, сверка UDI/Skatteetaten):** Skilled Worker без kollektivavtal — **NOK 545 400** (bachelor) / **NOK 624 700** (master) с **01.05.2026**. Self-employed / ПМЖ / Job Seeker (год) — **NOK 341 373** (2.5 G с 01.05.2026). Family future income — **NOK 436 957** (3.2 G с 01.02.2025; May-adjust). Student (вуз, 2026/27) — **NOK 170 368**/год. Гражданство: обычно **8 из 11 лет**, сокращение до **6 из 10** при достаточном доходе (не «базовые 7»). Wealth tax 2026: порог **NOK 1 900 000** (single). Сверяйте [udi.no](https://www.udi.no/) и [skatteetaten.no](https://www.skatteetaten.no/) на дату подачи.
+> **Nota Emigro (fact-check, сентябрь 2026).** **OK:** без kollektivavtal с **01.05.2026** — **NOK 545 400** (bachelor) / **NOK 624 700** (master). Self-employed / ПМЖ / Job Seeker — **NOK 341 373** (2,5 G). Family future income **NOK 436 957** (3,2 G). Student 2026/27 **NOK 170 368**/год. Гражданство обычно **8/11**, сокращение **6/10** при доходе. Wealth tax порог **NOK 1 900 000**. Dedicated DNV **нет**. Источники: [UDI](https://www.udi.no/en/want-to-apply/work-immigration/skilled-workers/), [Skatteetaten](https://www.skatteetaten.no/en/rates/wealth-tax/). **Soft:** сроки UDI — поле.
 
 Смежные: [ВНЖ Швеция](/ru/guides/vnj-shvetsiya-2026-work-permit-grazhdanstvo) · [Скандинавия обзор](/ru/guides/vnj-skandinaviya-2026) · [первые 30 дней Nordics](/ru/guides/pervye-30-dnej-v-skandinavii-2026) · [коридор](/ru/norway) · [wizard](/ru/norway/wizard).
 
@@ -270,3 +270,25 @@ Wizard: [/ru/norway/wizard](/ru/norway/wizard) · коридор [/ru/norway](/r
 - [Куда переехать из России](/ru/guides/kuda-pereehat-iz-rossii-2026-evropa-vnj)
 
 *Не юридическая и не налоговая консультация. Пороги UDI и налоги меняются (часто с 1 мая по G) — верьте [udi.no](https://www.udi.no/) и [skatteetaten.no](https://www.skatteetaten.no/) на дату подачи.*
+
+## FAQ
+
+### Есть ли digital nomad visa в Норвегии?
+
+Нет. Основной маршрут — **Skilled Worker** с оффером. NO в ЕЭЗ/Шенгене, не в ЕС.
+
+### Порог зарплаты 2026?
+
+Без kollektivavtal с **01.05.2026**: **NOK 545 400** (бакалавр) / **NOK 624 700** (магистр) в год.
+
+### Семья едет на тот же оффер?
+
+Сопровождающие — отдельный трек SIRI (co-address; salaried sponsor часто без отдельного proof of means). Не копируйте правила FR.
+
+### Гражданство за 5 лет как в DE?
+
+Нет. Сверяйте UDI; не переносите StAG 5y на NO.
+
+### Это юридическая консультация?
+
+Нет. UDI / [/ru/norway](/ru/norway).

@@ -25,6 +25,8 @@ const AI_CRAWLERS = [
   "Bytespider",
   "Amazonbot",
   "cohere-ai",
+  "Meta-ExternalAgent",
+  "YouBot",
 ] as const;
 
 function sharedRules(): MetadataRoute.Robots["rules"] {

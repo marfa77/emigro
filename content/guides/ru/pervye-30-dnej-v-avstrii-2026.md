@@ -22,10 +22,14 @@ official_sources:
     label: Sozialversicherung
 estimated_minutes: 12
 date_published: 2026-06-29
-date_modified: 2026-06-30
+date_modified: 2026-09-19
 ---
 
 ## Кому этот чек-лист
+
+Для граждан **РФ, Беларуси, Украины, Казахстана**, которые прилетели по **national visa D** (RWR / Blue Card / учёба / семья) и ждут Aufenthaltstitel.
+
+> **Nota Emigro (fact-check, сентябрь 2026).** **OK:** Meldezettel в Gemeinde ориентир **3 дня**; без него SVNR обычно не дают. Dedicated DNV **нет** — этот чек-лист про work title, не про «ноутбук туристом». Маршруты: [ВНЖ Австрия](/ru/guides/vnj-austria-2026). **Soft:** очередь MA35 / Landesbehörde — поле.
 
 Для граждан **РФ, Беларуси, Украины, Казахстана**, которые:
 

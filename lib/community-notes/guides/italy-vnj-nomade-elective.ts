@@ -86,7 +86,7 @@ const bodySections: NoteBodySection[] = [
     ],
   },
   {
-    heading: "Consolato vs Questura: кто что решает",
+    heading: "Консульство и Questura: кто что решает",
     section_kind: "official",
     paragraphs: [
       "**Consolato (до MXP/LIN):** принимает domanda visto tipo D, проверяет reddito, assicurazione sanitaria, alloggio (contratto registrato или propriété), antecedenti. Выдаёт visto в passaporto — обычно «lavoro autonomo / nomade digitale» или «residenza elettiva» или «lavoro subordinato» в зависимости от motivo.",

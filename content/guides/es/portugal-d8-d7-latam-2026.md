@@ -28,7 +28,7 @@ official_sources:
     label: Vistos Portugal (MNE)
 estimated_minutes: 16
 date_published: 2026-08-10
-date_modified: 2026-08-10
+date_modified: 2026-09-19
 ---
 
 ## Nota Emigro (fact-check agosto 2026)
@@ -261,6 +261,30 @@ Si prefieres España:
 - [Nacionalidad española en 2 años](/es/guides/nacionalidad-espanola-latam-2026)
 
 ¿No sabes cuál elegir? Usa el [evaluador](/es/wizard).
+
+---
+
+## Preguntas frecuentes
+
+### ¿D8 y D7 son el mismo visado?
+
+No. **D8** es ingreso remoto (~**€3.680**/mes, 4× RMMG €920). **D7** es rentista/pasivo (~**€920**/mes + familia). No mezcle umbrales al presentar.
+
+### ¿Se pide D7/D8 ya en Portugal de turista?
+
+No como vía inicial. **Visto D consular** → entrada → **AIMA**. Turismo C no sustituye el nacional.
+
+### ¿La nacionalidad portuguesa es en 2 años como España?
+
+No para la mayoría LATAM. PT: **7 años** CPLP/BR, **10 años** resto. España art. 22 ~**2 años** para iberoamericanos — criterio al elegir destino. CIPLE A2: [Prep2Go](https://www.prep2go.study/ciple-a2-mock-test?utm_source=emigro&utm_medium=guide&utm_campaign=prep2go_portugal&utm_content=portugal-d8-d7-latam-2026).
+
+### ¿Sigue el NHR al 20% para IT?
+
+El NHR clásico está **cerrado** a nuevos. IFICI es un régimen estrecho, no «20% para cualquier nómada».
+
+### ¿Emigro sustituye al abogado o AIMA?
+
+No. Cruce AIMA, consulado y un profesional. Evaluador: [/es/wizard](/es/wizard).
 
 ---
 

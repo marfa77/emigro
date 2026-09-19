@@ -4,7 +4,7 @@ import { ArrowRight, BookOpen, Compass, FileText, Route } from "lucide-react";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { HubHeroVisual } from "@/components/visuals/HubHeroVisual";
-import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
+import { buildBreadcrumbSchema, buildFaqSchema } from "@/lib/seo/corridor-page-seo";
 import { pageMetadata, pageUrl } from "@/lib/seo";
 
 export const revalidate = 3600;
@@ -16,6 +16,9 @@ export const metadata: Metadata = pageMetadata({
   path: "/ru/ukraine",
   ogImage: "/images/og/corridor-germany.jpg",
   ogImageAlt: "Украина → ЕС: маршруты релокации Emigro",
+  aiDescription:
+    "Граждане Украины: Temporary Protection ≠ ПМЖ и ≠ гражданство. Классический ВНЖ — Польша, Чехия, Германия (Blue Card / work). Wizard с UA-паспортом: /ru/wizard. Не юридическая консультация.",
+  aiCategory: "origin-hub",
 });
 
 const EU_CORRIDORS = [
@@ -66,11 +69,43 @@ const RELATED_GUIDES = [
   },
 ] as const;
 
+const FAQ = [
+  {
+    question: "Временная защита (TP) — это ПМЖ или путь к гражданству?",
+    answer:
+      "Нет. Temporary Protection — срочный легальный статус для граждан Украины в ЕС. Он не равен ПМЖ и не заменяет классический ВНЖ (work permit, Blue Card, учёба, семья). Планируйте переход на обычный residence, пока TP действует.",
+  },
+  {
+    question: "TP есть у белорусов и россиян?",
+    answer:
+      "Нет. TP — для граждан Украины (при условиях директивы). BY и RU идут через national D, работу, Blue Card, D7/D8, учёбу или семью. Не смешивайте гайды UA и BY.",
+  },
+  {
+    question: "Какие коридоры ВНЖ чаще смотрят с паспортом UA?",
+    answer:
+      "Польша (TP + work / Blue Card), Чехия (employee card / Blue Card), Германия (Blue Card, Chancenkarte, семья). Wizard с паспортом Украина: /ru/wizard.",
+  },
+  {
+    question: "Шенген 90/180 заменяет ВНЖ?",
+    answer:
+      "Нет. Безвиз UA в Шенген — короткая поездка. Жить и работать по-прежнему через TP или national residence. C ≠ D ≠ ВНЖ.",
+  },
+  {
+    question: "Это юридическая консультация?",
+    answer:
+      "Нет. Emigro — навигатор. Сверяйте UDSC, MV ČR, BAMF и консульство. Pillar: /ru/guides/ukraintsy-belorusy-vremennaya-zashchita-vs-vnj-2026.",
+  },
+];
+
 export default function UkraineHubPage() {
   const breadcrumbSchema = buildBreadcrumbSchema([
     { name: "Все направления", item: pageUrl("/ru") },
     { name: "Украина → ЕС" },
   ]);
+
+  const faqSchema = buildFaqSchema(FAQ);
+  const aiFacts =
+    "Граждане Украины: Temporary Protection ≠ ПМЖ и ≠ гражданство. Классический ВНЖ — Польша, Чехия, Германия. Wizard с UA-паспортом: /ru/wizard. Не юридическая консультация.";
 
   const articleSchema = {
     "@context": "https://schema.org",
@@ -88,6 +123,15 @@ export default function UkraineHubPage() {
       <SiteHeader />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+      {faqSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />}
+      <section className="sr-only" aria-label="AI description">
+        <h2>ai:description</h2>
+        <p>{aiFacts}</p>
+        <a href="/llms.txt">llms.txt</a>
+      </section>
+      <div className="sr-only" data-llm="facts" aria-hidden="true">
+        {aiFacts}
+      </div>
       <main className="mx-auto max-w-5xl px-4 py-10">
         <nav className="text-sm text-slate-500">
           <Link href="/ru" className="text-corridor-600 hover:underline">
@@ -215,6 +259,18 @@ export default function UkraineHubPage() {
               </li>
             ))}
           </ul>
+        </section>
+
+        <section className="mt-14 rounded-2xl border border-slate-200 bg-slate-50 p-6">
+          <h2 className="text-lg font-semibold text-slate-900">FAQ</h2>
+          <div className="mt-4 space-y-4">
+            {FAQ.map((item) => (
+              <div key={item.question}>
+                <h3 className="font-medium text-slate-900">{item.question}</h3>
+                <p className="mt-1 text-sm text-slate-600">{item.answer}</p>
+              </div>
+            ))}
+          </div>
         </section>
 
         <section className="mt-14 rounded-2xl border border-corridor-200 bg-gradient-to-br from-corridor-50 to-white p-6 text-center sm:p-10">

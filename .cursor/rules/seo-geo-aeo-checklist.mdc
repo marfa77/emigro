@@ -1,0 +1,75 @@
+---
+description: Ship-gate checklist for SEO, GEO (place/passport), and AEO (answers/LLMs). Apply before publishing any indexable page.
+alwaysApply: true
+---
+
+# SEO / GEO / AEO checklist (Emigro)
+
+Run this **before commit/push** of any indexable surface (guides, hubs, wizards, corridors, satellites, news). Do not invent law. Do not shorten pillars. Do not restore visible duplicate recap chrome.
+
+**Terms (do not mix):**
+- **SEO** — Google + Yandex classic: crawl, snippet, CTR, clusters.
+- **GEO** — *geographic* targeting: city/region, consulate, passport ISO, `Place`, hreflang. (Industry “generative engine optimization” is **AEO** below.)
+- **AEO** — answer engines: Google AI Overviews/AI Mode, Yandex Alice, ChatGPT/Bing, Perplexity, Claude. Google (May 2026): AEO/GEO **hacks are still SEO** for Google; `llms.txt` does **not** rank Google. Keep `llms.txt` for **non-Google** agents.
+
+Gold refs: [Google AI features](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide) · PixID `docs/AEO_GOLD_STANDARD.md` · `docs/AEO.md` · `docs/YANDEX_SEO.md`. Also: `competitor-seo-strengthen`, `always-factcheck-guides`, `monetization-first`, `full-guides-no-shorten`.
+
+---
+
+## S — SEO (snippet + crawl)
+
+- [ ] Unique `seo_title` / `seo_description` vs nearby pages; primary query + **2026** + demonym/visa name/threshold in the first ~40 chars of title.
+- [ ] Description **~145–160** (hard fail **>170** or generic “гайд по ВНЖ в Европе”).
+- [ ] Meta **matches body** (no closed ES GV, no IT Investor for RU, no PT 5y passport as default, no paušal “6–12%”).
+- [ ] Canonical + OG + Twitter; `robots` index on money URLs; `noindex` only on results/admin/thin tags (`<8` notes).
+- [ ] `dateModified` on every fact-check; hero “Актуально на …”.
+- [ ] Internal cluster: pillar ↔ first-30 ↔ corridor ↔ satellite. No partial comparison if a canonical exists (`GUIDE_CANNIBALIZATION.md`).
+- [ ] After deploy: IndexNow + GSC/Yandex recrawl of changed money URLs (`docs/YANDEX_SEO.md`).
+
+## G — GEO (place + passport)
+
+- [ ] Audience passport **in copy**: RU/BY/UA/KZ or LATAM ISO or Maghreb/SN — not “для иностранцев”.
+- [ ] City/region where the product lives (Porto/Norte, Valencia, Yerevan…) — no Lisbon leak on PT satellite.
+- [ ] Consulate vs in-country: D7/D8/NLV inicial = **consulado**; ES nómada = UGE and/or consulado; no tourist→residence myth.
+- [ ] Hreflang for the locale (`ru-*`, `es-UY`/`es-EC`…, `fr-MA`…). Satellites: self + `x-default`.
+- [ ] Schema `about: Place` + coords on satellite notes/hubs. Corridor copy names the country, not “Европа” alone.
+
+## A — AEO (answers + agents)
+
+- [ ] **Answer first:** visible `quick_answer` / hub FAQ in the first screen. Inverted pyramid. Self-contained 50–150 word chunks.
+- [ ] Concrete **numbers + dates + official org** (AIMA, BOE, IND…). Cite primary URLs inline + `official_sources` **≥3**.
+- [ ] Visible FAQ that matches **FAQPage** (emit schema only if **≥5** real Qs). News takeaways ≠ fake FAQPage.
+- [ ] LLM layer on money pages: `ai:description` + `alternates.types text/plain` → `/llms.txt` (or satellite `/llms`) + sr-only `data-llm="facts|commercial"`.
+- [ ] `/llms.txt` money URLs use `utm_source=llm&utm_medium=llms.txt`. Include **all four** satellites (PT, ES, IT, TH).
+- [ ] `robots.txt` allows GPTBot, OAI-SearchBot, PerplexityBot, ClaudeBot, YandexAdditionalBot, Google-Extended.
+- [ ] SSR: answer HTML in the document (not JS-only).
+- [ ] Google: people-first, non-commodity, E-E-A-T. **Ignore** for Google: chunking, AI-voice rewrites, inauthentic mentions, special AI schema.
+- [ ] Yandex Alice: same as organic quality; do not block `YandexAdditionalBot`; measure Webmaster → Alice visibility.
+- [ ] ChatGPT retrieval leans **Bing** — IndexNow + Bing Webmaster on money URLs.
+
+## Chrome (do not reverse)
+
+- [ ] One visible recap: **Короткий ответ** (`quick_answer`). LLM facts stay **sr-only**.
+- [ ] Do **not** add a second visible “Коротко для проверки маршрута” as page chrome (markdown recap inside the article body is optional).
+- [ ] Highest-fit CTA after the body (wizard / Assist / Prep2Go / UniPrep / Role Radar) — `monetization-first`.
+
+## Template map (fail closed)
+
+| Surface | Must have |
+|---------|-----------|
+| RU/ES/FR guides | meta, QA, Article+`dateModified`, FAQPage if FAQ≥5, LLM layer, official_sources, CTA |
+| Corridor landing/digest/program | FAQ + FAQPage, geo country, verified dates |
+| Hub + corridor wizards | `aiDescription` + data-llm |
+| Origin hubs (`/ru/rossiyane`, `/ru/ukraine`, `/es/{uy…}`) | answer-first + ai layer; rossiyane is the gold origin |
+| Satellites | Place + FAQ + satellite `/llms`; www llms lists hub+llms |
+| Legal/contact | crawlable; AEO optional |
+
+**npm:** `npm run check:aeo` (Layer A). Citation ops: `npm run llm:citation-test`.
+
+## Do not
+
+- Ship thin household satellite notes (`portugal-no-thin-household-guides`).
+- Copy LATAM **2 años** onto RU ES nationality (**10y**).
+- FAQPage / HowTo that is not on the visible page.
+- Treat `llms.txt` as a Google ranking lever.
+- Spray UniPrep on bank/tax-only pages.

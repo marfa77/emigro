@@ -112,7 +112,7 @@ export function corridorSlugToTopicKey(corridorSlug: string): string {
 export function shouldShowGuideCorridorLiveData(slug: string): boolean {
   const key = slug.toLowerCase();
   if (
-    /(bank|iban|nalog|byudzhet|30-dnej|dokumenty|apostil|dohod|podtverdit|konsulskaya|legalizatsiya|ees-|tyurm|nebezopasn|smert-|ip-za-rubezhom)/.test(
+    /(bank|iban|nalog|byudzhet|30-dnej|dokumenty|apostil|dohod|podtverdit|konsulskaya|legalizatsiya|shengen|ees-|tyurm|nebezopasn|smert-|ip-za-rubezhom)/.test(
       key
     )
   ) {

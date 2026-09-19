@@ -1,9 +1,9 @@
 ---
 slug: grazhdanstvo-portugalii-golden-visa-ari-2021-2022-2026
 title: "Гражданство Португалии через Golden Visa (ARI): инвесторы 2021–2022 в 2026"
-seo_title: "Гражданство PT через Golden Visa ARI 2026 — инвесторы 2021–22"
-seo_description: "ARI 2021–2022 и Lei Orgânica 1/2026: кто под 5 лет, кто в серой зоне, CIPLE/PLA, документы IRN, апостиль из РФ/ОАЭ. Для RU/BY/UA/KZ."
-excerpt: "Практический гайд для держателей португальской Golden Visa (ARI) с подачей 2021–2022: реформа гражданства мая 2026, язык A2, запросы IRN и сбор документов удалённо."
+seo_title: "Гражданство PT через Golden Visa ARI 2026 — 3 когорты, не автомат"
+seo_description: "ARI 2021–22: подача nationality до 18.05.2026 ≈ 5 лет; без файла — серая зона; новые — 10 лет. CIPLE A2. Не «ноябрь 2026 = паспорт»."
+excerpt: "Три когорты после Lei Orgânica 1/2026: кто ещё под 5 лет, кто в серой зоне residency-stage, что собирать удалённо."
 quick_answer: |-
   Lei Orgânica n.º 1/2026 с 19 мая 2026 подняла срок натурализации до 10 лет для большинства вне ЕС и CPLP. Заявки на гражданство, поданные до 18 мая 2026 включительно, остаются по старым правилам — ориентир 5 лет.
 
@@ -31,7 +31,7 @@ official_sources:
     label: EdPro — курсы PLA (аккредитация)
 estimated_minutes: 15
 date_published: 2026-07-28
-date_modified: 2026-07-28
+date_modified: 2026-09-19
 ---
 
 ## Кому подходит этот гайд
@@ -47,6 +47,8 @@ date_modified: 2026-07-28
 Общий обзор гражданства PT/ES: [Гражданство Португалии и Испании 2026](/ru/guides/grazhdanstvo-portugaliya-ispaniya-2026). Инвестпрограммы шире: [Golden Visa Европа](/ru/guides/investitsionnyy-vnj-evropa-golden-visa-2026). ВНЖ без инвестиций: [D8/D7](/ru/guides/vnj-portugaliya-d8-d7-grazhdanstvo-2026). Рождение ребёнка при ARI &lt; 5 лет: [Golden Visa + ребёнок](/ru/guides/golden-visa-portugal-rozhdenie-rebenka-grazhdanstvo-2026).
 
 **Не юридическая консультация.** Сроки и трактовки Lei Orgânica 1/2026 для «residency-stage» держателей ARI ещё уточняются — опирайтесь на своего юриста и IRN/AIMA.
+
+> **Nota Emigro (fact-check, сентябрь 2026).** **OK:** три когорты Lei Orgânica 1/2026: nationality **до 18.05.2026** — переходный ориентир **5 лет**; ARI без nationality-файла — **серая зона**; новые файлы с 19.05.2026 — **10 лет** для большинства RU/BY/UA/KZ. GV **не ускоряет** натурализацию. CIPLE A2 / PLA — с проверкой юриста. **Fixed overlay:** дата подачи ARI 2021 **не** равна «паспорт в ноябре 2026». **Soft:** 7/14 дней ARI — присутствие для карты, не годы legal residence. Prep: [CIPLE mock на Prep2Go](https://www.prep2go.study/ciple-a2-mock-test?utm_source=emigro&utm_medium=guide&utm_campaign=ari_citizenship) · [Anki CIPLE на UniPrep2Go](https://uniprep2go.study/decks/ciple-a2-european-portuguese-anki-deck?utm_source=emigro&utm_medium=guide&utm_campaign=ari_citizenship).
 
 ---
 

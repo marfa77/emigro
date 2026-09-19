@@ -33,10 +33,14 @@ official_sources:
     label: gov.cz — гражданство (условия проживания)
 estimated_minutes: 18
 date_published: 2026-06-29
-date_modified: 2026-08-07
+date_modified: 2026-09-19
 ---
 
 ## Кому подходит этот гайд
+
+Чехия — employee card и Blue Card, не «živnost с ноутбуком = ВНЖ». Prague/Brno IT — рынок, закон считает зарплату и основание.
+
+> **Nota Emigro (fact-check, сентябрь 2026).** **OK:** employee card от **CZK 22 400** брутто/мес. Blue Card **CZK 73 823** с **01.05.2026**. Учёба: средства ~**CZK 115 810**/12 мес (не 149k). Accredited degree → работа без лимита 20 ч/нед. ПМЖ ~**5 лет**. Гражданство: **5 лет на ПМЖ + B1** или ПМЖ + предшествующий stay ≥**10 лет** (zákon 186/2013). živnost «~€2 500» — рынок, не порог закона. Язык паспорта — **B1**, не A2. [CCE на Prep2Go пока нет](https://www.prep2go.study/practice-exam?utm_source=emigro&utm_medium=guide&utm_campaign=prep2go_czechia&utm_content=vnj-chehiya-2026) — честный practice-exam, не подмена экзамена.
 
 Для граждан **России, Украины, Беларуси, Казахстана** и других стран вне EU/EEA, которые рассматривают **долгосрочный pobyt (ВНЖ) в Чехии** в 2026 году.
 
@@ -195,6 +199,8 @@ date_modified: 2026-08-07
 Типичный «5 лет temp → 5 лет ПМЖ → паспорт» ≈ **10 лет** — это путь (1). Путь (2) важен, если ПМЖ получили раньше / иначе, но суммарный continuous legal stay уже длинный.
 
 **Язык / civics:** **B1** чешский + тест о жизни в CZ (стандарт). **Dual citizenship** разрешён с **2014**.
+
+Civics readiness: [Czech citizenship mock на UniPrep2Go](https://uniprep2go.study/mock-exams/czech-citizenship-readiness-check?utm_source=emigro&utm_medium=guide&utm_campaign=uniprep_czechia&utm_content=vnj-chehiya-2026). Лексическая база A2: [CCE Anki](https://uniprep2go.study/decks/czech-a2-cce-anki-deck?utm_source=emigro&utm_medium=guide&utm_campaign=uniprep_czechia&utm_content=vnj-chehiya-2026_anki) — это не замена экзамена B1. Timed mock чешского B1 на Prep2Go пока нет; другие языковые экзамены гражданства — [Prep2Go practice exam](https://www.prep2go.study/practice-exam?utm_source=emigro&utm_medium=guide&utm_campaign=prep2go_czechia&utm_content=vnj-chehiya-2026).
 
 ---
 

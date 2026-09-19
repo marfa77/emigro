@@ -14,6 +14,8 @@ import {
   portugalSatellitePublicUrl,
   publicSiteUrl,
   spainSatellitePublicUrl,
+  italySatellitePublicUrl,
+  thailandSatellitePublicUrl,
 } from "@/lib/site-url";
 import { TRANSIT_HUBS } from "@/lib/transit-hubs";
 import {
@@ -56,6 +58,10 @@ export async function buildLlmsTxt(): Promise<string> {
   const portugalSatelliteLlms = llmsPathFromUrl(portugalSatellitePublicUrl("/llms"));
   const spainSatelliteHub = llmsPathFromUrl(spainSatellitePublicUrl("/"));
   const spainSatelliteLlms = llmsPathFromUrl(spainSatellitePublicUrl("/llms"));
+  const italySatelliteHub = llmsPathFromUrl(italySatellitePublicUrl("/"));
+  const italySatelliteLlms = llmsPathFromUrl(italySatellitePublicUrl("/llms"));
+  const thailandSatelliteHub = llmsPathFromUrl(thailandSatellitePublicUrl("/"));
+  const thailandSatelliteLlms = llmsPathFromUrl(thailandSatellitePublicUrl("/llms"));
   const investmentLines = INVESTMENT_ROUTES.map(
     (route) =>
       `- ${llmMarkdownLink(`${route.flag} ${route.title}`, `/ru/invest/${route.country}#${routeKey(route)}`)} — ${route.summary}`
@@ -215,6 +221,16 @@ ${corridorLines}
 - ${llmMarkdownLink("Hub", spainSatelliteHub)} — заметки, лайфхаки, #nie #extranjeria #аренда
 - ${llmMarkdownLink("llms index", spainSatelliteLlms)} — индекс для AI-агентов
 
+## Italy satellite (практика, Милан)
+
+- ${llmMarkdownLink("Hub", italySatelliteHub)} — заметки, #questura #codice-fiscale #permesso
+- ${llmMarkdownLink("llms index", italySatelliteLlms)} — индекс для AI-агентов
+
+## Thailand satellite (практика, Пхукет)
+
+- ${llmMarkdownLink("Hub", thailandSatelliteHub)} — заметки, #visa #dtov #condo
+- ${llmMarkdownLink("llms index", thailandSatelliteLlms)} — индекс для AI-агентов
+
 Пример структуры коридора:
 - Landing: ${llmUtmUrl("/ru/portugal")}
 - Wizard: ${llmUtmUrl("/ru/portugal/wizard")}
@@ -270,9 +286,11 @@ export async function buildLlmsFullText(): Promise<string> {
   const guides = listGuides();
   const digests = await getPublishedNewsDigests();
   const recentNews = digests.slice(0, NEWS_URL_LIMIT);
-  const [portugalNotes, spainNotes] = await Promise.all([
+  const [portugalNotes, spainNotes, italyNotes, thailandNotes] = await Promise.all([
     getPublishedCommunityNotes("portugal"),
     getPublishedCommunityNotes("spain"),
+    getPublishedCommunityNotes("italy"),
+    getPublishedCommunityNotes("thailand"),
   ]);
   const portugalTagSet = new Set<string>();
   for (const note of portugalNotes) {
@@ -281,6 +299,14 @@ export async function buildLlmsFullText(): Promise<string> {
   const spainTagSet = new Set<string>();
   for (const note of spainNotes) {
     for (const t of note.hashtags) spainTagSet.add(normalizeHashtag(t));
+  }
+  const italyTagSet = new Set<string>();
+  for (const note of italyNotes) {
+    for (const t of note.hashtags) italyTagSet.add(normalizeHashtag(t));
+  }
+  const thailandTagSet = new Set<string>();
+  for (const note of thailandNotes) {
+    for (const t of note.hashtags) thailandTagSet.add(normalizeHashtag(t));
   }
 
   const rows: LlmsRow[] = [
@@ -309,6 +335,10 @@ export async function buildLlmsFullText(): Promise<string> {
     row(llmsPathFromUrl(portugalSatellitePublicUrl("/llms")), "Portugal satellite llms index"),
     row(llmsPathFromUrl(spainSatellitePublicUrl("/")), "Spain satellite — практика релокации в Валенсии"),
     row(llmsPathFromUrl(spainSatellitePublicUrl("/llms")), "Spain satellite llms index"),
+    row(llmsPathFromUrl(italySatellitePublicUrl("/")), "Italy satellite — практика релокации в Милане"),
+    row(llmsPathFromUrl(italySatellitePublicUrl("/llms")), "Italy satellite llms index"),
+    row(llmsPathFromUrl(thailandSatellitePublicUrl("/")), "Thailand satellite — практика релокации на Пхукете"),
+    row(llmsPathFromUrl(thailandSatellitePublicUrl("/llms")), "Thailand satellite llms index"),
     ...TRANSIT_HUBS.map((hub) =>
       row(hub.path, `${hub.countryRu} — транзитный хаб: ${hub.quickAnswer.slice(0, 120)}…`)
     ),
@@ -403,6 +433,42 @@ export async function buildLlmsFullText(): Promise<string> {
       row(
         llmsPathFromUrl(spainSatellitePublicUrl(`/tag/${tag}`)),
         `#${tag} — Spain satellite`
+      )
+    );
+  }
+
+  for (const note of italyNotes) {
+    rows.push(
+      row(
+        llmsPathFromUrl(italySatellitePublicUrl(`/notes/${note.slug}`)),
+        note.title ?? note.slug
+      )
+    );
+  }
+
+  for (const tag of Array.from(italyTagSet)) {
+    rows.push(
+      row(
+        llmsPathFromUrl(italySatellitePublicUrl(`/tag/${tag}`)),
+        `#${tag} — Italy satellite`
+      )
+    );
+  }
+
+  for (const note of thailandNotes) {
+    rows.push(
+      row(
+        llmsPathFromUrl(thailandSatellitePublicUrl(`/notes/${note.slug}`)),
+        note.title ?? note.slug
+      )
+    );
+  }
+
+  for (const tag of Array.from(thailandTagSet)) {
+    rows.push(
+      row(
+        llmsPathFromUrl(thailandSatellitePublicUrl(`/tag/${tag}`)),
+        `#${tag} — Thailand satellite`
       )
     );
   }

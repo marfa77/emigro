@@ -27,10 +27,12 @@ official_sources:
     label: Werk.nl — рынок труда
 estimated_minutes: 16
 date_published: 2026-06-25
-date_modified: 2026-08-07
+date_modified: 2026-09-19
 ---
 
 ## Нидерланды: почему это недооценённый маршрут для IT
+
+> **Nota Emigro (fact-check, сентябрь 2026).** **OK:** HSM **€4 357**/мес <30 / **€5 942** ≥30. 30% ruling = **необлагаемая доля зарплаты 30%**, не «эффективная ставка ~30%»; в 2026 ещё плоские 30%, с **2027** у большинства **27%**. ПМЖ/натурализация: **A2**. Отказ от другого гражданства — правило с исключениями. Inburgering A2: [Prep2Go](https://inburgering.prep2go.study/inburgering-a2?utm_source=emigro&utm_medium=guide&utm_campaign=prep2go_netherlands&utm_content=vnj-niderlandy-2026-highly-skilled). **Soft:** «2 недели IND» — recognized sponsor, не любой работодатель.
 
 В русскоязычном сообществе Нидерланды часто остаются в тени Германии. Это несправедливо: нидерландский **Highly Skilled Migrant** (Kennismigrant) — один из **самых быстрых и предсказуемых** рабочих ВНЖ в Европе. Рассмотрение заявки в IND (Immigration and Naturalisation Service) занимает **около 2 рабочих недель** — вместо 1–3 месяцев в других странах. Плюс щедрая налоговая льгота 30% для экспатов.
 
@@ -192,6 +194,8 @@ Employer-driven процесс: **инициирует работодатель*
 ### Гражданство (Naturalisatie)
 - **Срок:** обычно **5 лет** непрерывного легального проживания (есть укороченные случаи — см. [IND](https://ind.nl/en/dutch-citizenship/becoming-a-dutch-national-through-naturalisation))
 - **Язык / интеграция для натурализации:** civic integration exam минимум **A2** (чтение, письмо, речь, аудирование + знание общества). **Не B1** — путаница с обязательной inburgering по Wet inburgering **2021** (с 2022 для части newly obliged маршрут к B1 на рынке труда). Повышение порога натурализации до B1 обсуждалось, но **на 2026 не в силе** (IND, обновление июля 2026: «at least language level A2»)
+
+Четыре языковых компонента DUO: [Inburgering A2 на Prep2Go](https://inburgering.prep2go.study/inburgering-a2?utm_source=emigro&utm_medium=guide&utm_campaign=prep2go_netherlands&utm_content=vnj-niderlandy-2026-highly-skilled). Anki: [Dutch A2 на UniPrep2Go](https://uniprep2go.study/decks/dutch-a2-inburgering-anki-deck?utm_source=emigro&utm_medium=guide&utm_campaign=uniprep_netherlands&utm_content=vnj-niderlandy-2026-highly-skilled). KNM — отдельный экзамен, не внутри языкового mock. Сверяйте свой пакет в Mijn Inburgering.
 - **Отказ от другого гражданства:** правило по умолчанию; **исключения** есть (невозможность отказа по вине страны происхождения, риск безгражданства, брак с нидерландцем в ряде случаев и др.) — проверяйте список IND **до** подачи
 
 **Важно для россиян:** при натурализации Нидерланды **обычно требуют отказа** от российского гражданства (если не попадаете под исключение). Это жёстче, чем Франция/Италия с широким dual. Перед выбором маршрута взвесьте этот момент.

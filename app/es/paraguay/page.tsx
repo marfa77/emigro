@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { Disclaimer } from "@/components/Disclaimer";
+import { OriginHubFaq } from "@/components/es/OriginHubFaq";
 import {
   ES_PATHS,
   ES_PY_GUIDE_SLUGS,
@@ -123,6 +124,8 @@ export default function EsParaguayHubPage() {
             .
           </p>
         </section>
+
+        <OriginHubFaq originIso="PY" />
 
         <div className="mt-8">
           <Disclaimer locale="es" />

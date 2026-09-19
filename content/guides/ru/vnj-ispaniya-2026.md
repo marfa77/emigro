@@ -3,7 +3,7 @@ slug: vnj-ispaniya-2026
 title: "Digital nomad Испания 2026 — все пути ВНЖ"
 seo_title: "Digital nomad ES 2026: €2 849 teletrabajo"
 seo_description: "Digital nomad visa Испания 2026: €2 849/мес, teletrabajo, Beckham, non-lucrative, Golden Visa закрыта. Pillar-гид для граждан РФ, BY, UA, KZ."
-date_modified: 2026-08-07
+date_modified: 2026-09-19
 excerpt: "Испания — популярное направление для релокации из СНГ: Digital Nomad Visa, Non-lucrative и другие пути. (Golden Visa полностью закрыта с апреля 2025.) Разбираем все маршруты на 2026 год."
 quick_answer: |-
   В Испании для граждан СНГ чаще сравнивают digital nomad (удалённая работа, от €2 849 в месяц) и non-lucrative (пассивный доход или накопления, около €2 400 в месяц, без права работать). Golden Visa полностью закрыта с 3 апреля 2025 — все инвестиционные пути отменены.
@@ -29,6 +29,10 @@ date_published: 2026-06-27
 ---
 
 ## Digital nomad Испания 2026: кратко
+
+Teletrabajo — отдельный маршрут от no lucrativa. Golden Visa закрыта. Для паспорта РФ гражданство — обычно **10 лет + A2**, не «2 года как LATAM».
+
+> **Nota Emigro (fact-check, сентябрь 2026).** **OK:** DN **€2 849**/мес (200% SMI, RD 126/2026). NLV ~**€2 400** (400% IPREM €600). Golden Visa закрыта **03.04.2025** (LO 1/2025, [BOE-A-2025-76](https://www.boe.es/buscar/doc.php?id=BOE-A-2025-76)). ПМЖ **5 лет**. **Fixed overlay:** no lucrativa **inicial = consulado**, не tourist→NL. Estancia por estudios = **0%** к nacionalidad art. 22. Beckham — налог, не виза. DELE A2: [Prep2Go](https://www.prep2go.study/dele-a2-mock-test?utm_source=emigro&utm_medium=guide&utm_campaign=prep2go_spain&utm_content=vnj-ispaniya-2026). **Soft:** 20% испанских клиентов и сроки консульства 2–4 мес. — поле.
 
 Если вы ищете **digital nomad visa Испания 2026** (teletrabajo / Ley de Startups), это pillar-гид Emigro: порог **€2 849/мес**, до **20% дохода** от испанских клиентов, срок рассмотрения консульства **2–4 месяца** в 2026. Сравнение с Португалией D8: [Digital Nomad визы Европы](/ru/guides/digital-nomad-vizy-evropy-sravnenie-2026). Программа коридора: [digital nomad teletrabajo](/ru/spain/programs/spain-digital-nomad). Все EU-коридоры для граждан РФ: [origin hub Emigro](/ru/rossiyane).
 
@@ -234,6 +238,8 @@ Arraigo social — не путь для «первого» переезда. Э�
 - Тест на знание Испании и ценностей (**CCSE** — Conocimientos Constitucionales y Socioculturales de España, 25 вопросов)
 - Законопослушность, отсутствие судимостей
 - Справка об интеграции (из муниципалитета)
+
+Подготовка: [DELE A2 mock на Prep2Go](https://www.prep2go.study/dele-a2-mock-test?utm_source=emigro&utm_medium=guide&utm_campaign=prep2go_spain&utm_content=vnj-ispaniya-2026) · [CCSE mock на UniPrep2Go](https://uniprep2go.study/mock-exams/ccse-espana-readiness-check?utm_source=emigro&utm_medium=guide&utm_campaign=uniprep_spain&utm_content=vnj-ispaniya-2026). Учебные материалы, не запись в Cervantes / Justicia.
 
 **Двойное гражданство:** Испания в общем случае **не признаёт** двойное гражданство для граждан РФ. При натурализации потребуется отказ от российского паспорта (рenuncia). Исключения — для граждан ряда стран (главным образом Латинская Америка и Португалия).
 

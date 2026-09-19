@@ -20,6 +20,9 @@ export const metadata: Metadata = pageMetadata({
     "Реальные кейсы переезда: успехи, провалы, спорные мнения и лайфхаки. Курируемые истории читателей Emigro — не замена официальным гайдам.",
   path: "/ru/stories",
   ogImageAlt: "Истории релокации Emigro",
+  aiDescription:
+    "Курируемые личные истории релокации Emigro: успехи, ошибки и лайфхаки. Не юридическая консультация и не замена pillar-гайдам. Подать историю: /ru/stories/submit.",
+  aiCategory: "relocation-stories-index",
 });
 
 type SearchParams = { genre?: string; guide?: string };
@@ -61,6 +64,17 @@ export default function StoriesIndexPage({ searchParams }: { searchParams?: Sear
       {collectionSchema ? (
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }} />
       ) : null}
+      <section className="sr-only" aria-label="AI description">
+        <h2>ai:description</h2>
+        <p>
+          Курируемые личные истории релокации Emigro: успехи, ошибки и лайфхаки. Не юридическая консультация и не замена
+          pillar-гайдам.
+        </p>
+        <a href="/llms.txt">llms.txt</a>
+      </section>
+      <div className="sr-only" data-llm="facts" aria-hidden="true">
+        Истории читателей Emigro — личный опыт рядом с гайдами, не замена официальным источникам. Подать: /ru/stories/submit.
+      </div>
       <main className="mx-auto max-w-5xl px-4 py-10">
         <nav className="text-sm text-slate-500">
           <Link href="/ru" className="text-corridor-600 hover:underline">

@@ -313,6 +313,7 @@ D8 введена в 2022 году специально для **удалённ�
 | PT vs ES для ВНЖ | [Португалия vs Испания 2026](/ru/guides/portugaliya-vs-ispaniya-vnj-2026) |
 | Доход и документы | [Подтвердить доход для ВНЖ](/ru/guides/podtverdit-dohod-dengi-dlya-vnj-esli-dohod-iz-rossii-2026) |
 | Полный путь по Португалии | [D8/D7 и гражданство PT](/ru/guides/vnj-portugaliya-d8-d7-grazhdanstvo-2026) |
+| Язык к паспорту PT | [CIPLE A2 mock на Prep2Go](https://www.prep2go.study/ciple-a2-mock-test?utm_source=emigro&utm_medium=guide&utm_campaign=prep2go_portugal&utm_content=d7-vs-digital-nomad-visa-sravnenie) |
 
 ---
 

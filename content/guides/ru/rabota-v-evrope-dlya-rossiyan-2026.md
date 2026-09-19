@@ -29,10 +29,14 @@ official_sources:
     label: Emigro — Role Radar (sister product)
 estimated_minutes: 28
 date_published: 2026-06-25
-date_modified: 2026-08-07
+date_modified: 2026-09-19
 ---
 
-## TL;DR — что делать россиянину в 2026
+## С чего начать
+
+Рабочий ВНЖ в ЕС начинается с **оффера** (или job-seeker вроде Chancenkarte), не с «резюме на английском». Подача из РФ часто идёт через третьи страны.
+
+> **Nota Emigro (fact-check, сентябрь 2026).** **OK:** DE Blue Card **€50 700**, дефицит **€45 934**. NL HSM **€4 357**/мес до 30 лет / **€5 942** после. PL Blue Card **PLN 13 355** (~€3 110). FR Passeport Talent salarié qualifié от **€39 582**. [Role Radar](/ru/role-radar) — дайджест вакансий, не виза. **Soft:** сроки консульств и «IT всегда проходит» — поле.
 
 | Цель | Что делать |
 |---|---|

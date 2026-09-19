@@ -6,6 +6,7 @@ import { SatelliteCityChatCta } from "@/components/satellite/SatelliteCityChatCt
 import { hashtagLabel, normalizeHashtag, resolveTagParam } from "@/lib/community-notes/hashtags";
 import { getPublishedCommunityNotes } from "@/lib/community-notes/queries";
 import { DEFAULT_OG_IMAGE, fitMetaDescription, socialImageMetadata } from "@/lib/seo";
+import { withAiMetadata } from "@/lib/seo/llm-meta";
 import { tagPageRobots } from "@/lib/seo/thin-content";
 import { corridorHreflangTag } from "@/lib/seo/hreflang";
 import { thailandHubPath } from "@/lib/satellite/paths";
@@ -34,7 +35,8 @@ export async function generateMetadata({ params }: { params: { tag: string } }):
   if (regionTag) languages[regionTag] = url;
   const image = socialImageMetadata(DEFAULT_OG_IMAGE, `#${label} — Таиланд`);
 
-  return {
+  return withAiMetadata(
+    {
     title: `#${label} — Таиланд`,
     description,
     alternates: { canonical: url, languages },
@@ -49,7 +51,14 @@ export async function generateMetadata({ params }: { params: { tag: string } }):
       images: [image],
     },
     twitter: { card: "summary_large_image", title: `#${label} — Таиланд`, description, images: [image.url] },
-  };
+    },
+    {
+      aiDescription: description,
+      aiCategory: "satellite-tag-thailand",
+      path: `/satellite/thailand/tag/${tag}`,
+      llmsTxtUrl: thailandSatelliteUrl("/llms"),
+    }
+  );
 }
 
 export default async function ThailandTagPage({ params }: { params: { tag: string } }) {

@@ -58,7 +58,7 @@ const bodySections: NoteBodySection[] = [
     ],
   },
   {
-    heading: "Матрица банков 2026: комиссии и кому что подходит",
+    heading: "Какой банк брать первым: комиссии и сценарии",
     section_kind: "practice",
     paragraphs: [
       "Что делать: выбрать plan A + plan B по сценарию (уже в PT / remote / минимум комиссий) — не один «лучший банк из таблицы».",

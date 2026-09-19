@@ -181,6 +181,7 @@ date_modified: 2026-08-07
 ## Связанные материалы
 
 - [Passeport Talent 2026](/ru/guides/vnj-frantsiya-2026-passeport-talent)
+- [DELF B2 mock на Prep2Go](https://www.prep2go.study/delf-b2-mock-test?utm_source=emigro&utm_medium=guide&utm_campaign=prep2go_france&utm_content=pervye-30-dnej-v-frantsii-2026)
 - [Коридор Франция](/ru/france) · [wizard](/ru/france/wizard)
 - [TP vs ВНЖ для UA](/ru/guides/ukraintsy-belorusy-vremennaya-zashchita-vs-vnj-2026)
 

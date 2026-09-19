@@ -241,22 +241,27 @@ export const UNIPREP_OFFERS_BY_TOPIC: Record<string, UniPrepOffer> = {
     topicKey: "netherlands",
     countryRu: "Нидерланды",
     examLabelRu: "Inburgering A2",
-    headlineRu: "Dutch A2 Inburgering — Anki-колода",
+    headlineRu: "Inburgering A2: Prep2Go + Anki-колода",
     bodyRu:
-      "Для интеграции / гражданства NL часто нужен нидерландский A2 (inburgering). Колода Anki на UniPrep2Go.",
+      "Для ПМЖ и натурализации NL обычно нужен нидерландский A2 (четыре языковых компонента DUO). Timed prep — на Prep2Go Inburgering; Anki-колода — на UniPrep2Go. Сверяйте свой маршрут в Mijn Inburgering: у части людей по Wet inburgering 2021 язык для рынка — B1, для натурализации в 2026 IND держит минимум A2.",
     deck: {
       path: "/decks/dutch-a2-inburgering-anki-deck",
       titleRu: "Dutch A2 Inburgering Anki",
       blurbRu: "Лексика и темы inburgeringsexamen",
     },
+    prep2goMock: {
+      path: "https://inburgering.prep2go.study/inburgering-a2",
+      titleRu: "Inburgering A2 (Prep2Go)",
+      blurbRu: "Lezen, luisteren, schrijven, spreken · Netherlands Dutch · не KNM",
+    },
   },
   czechia: {
     topicKey: "czechia",
     countryRu: "Чехия",
-    examLabelRu: "Občanství + CCE A2",
-    headlineRu: "Czech citizenship mock + CCE A2 колода",
+    examLabelRu: "Občanství + čeština B1",
+    headlineRu: "Czech citizenship mock + языковая база A2",
     bodyRu:
-      "Для гражданства CZ — тест и язык A2. Бесплатный citizenship readiness check + Anki CCE A2.",
+      "Для гражданства CZ на день подачи нужен trvalý pobyt и чешский **B1** + тест о жизни в стране (не A2). Civics readiness — на UniPrep2Go; Anki CCE A2 — как лексическая база. Timed mock чешского B1 на Prep2Go пока нет — языковые моки CIPLE/DELE/DELF/DTZ смотрите на prep2go.study.",
     mock: {
       path: "/mock-exams/czech-citizenship-readiness-check",
       titleRu: "Czech citizenship mock",
@@ -265,7 +270,12 @@ export const UNIPREP_OFFERS_BY_TOPIC: Record<string, UniPrepOffer> = {
     deck: {
       path: "/decks/czech-a2-cce-anki-deck",
       titleRu: "Czech A2 CCE Anki",
-      blurbRu: "Языковая колода A2",
+      blurbRu: "Лексическая база A2, не замена экзамена B1",
+    },
+    prep2goMock: {
+      path: "/practice-exam",
+      titleRu: "Языковые моки Prep2Go",
+      blurbRu: "CIPLE, DELE, DELF, CELI, DTZ — не CCE/B1 чешский",
     },
   },
   poland: {
@@ -289,13 +299,19 @@ export const UNIPREP_OFFERS_BY_TOPIC: Record<string, UniPrepOffer> = {
   greece: {
     topicKey: "greece",
     countryRu: "Греция",
-    examLabelRu: "Ellinomatheia A2",
-    headlineRu: "Greek A2 Ellinomatheia — Anki-колода",
-    bodyRu: "Языковой A2 для ВНЖ/гражданства GR — Anki-колода Ellinomatheia на UniPrep2Go.",
+    examLabelRu: "Ellinomatheia + civics",
+    headlineRu: "Greek A2 Anki + языковые моки Prep2Go",
+    bodyRu:
+      "Для натурализации в Греции нужны годы реального проживания и экзамен по языку/civics (Certificate of Adequacy). Anki Ellinomatheia A2 — на UniPrep2Go. Timed mock греческого на Prep2Go пока нет; CIPLE/DELE/DELF/DTZ — на prep2go.study.",
     deck: {
       path: "/decks/greek-a2-ellinomatheia-anki-deck",
       titleRu: "Greek A2 Anki",
       blurbRu: "Ellinomatheia A2",
+    },
+    prep2goMock: {
+      path: "/practice-exam",
+      titleRu: "Языковые моки Prep2Go",
+      blurbRu: "CIPLE, DELE, DELF, CELI, DTZ — не Ellinomatheia",
     },
   },
   scandinavia: {
@@ -361,6 +377,44 @@ export const UNIPREP_OFFERS_BY_TOPIC: Record<string, UniPrepOffer> = {
   },
 };
 
+/**
+ * Country VNJ / first-30 / comparison slugs where Prep2Go timed mocks belong
+ * even if the title is not «гражданство». Bank/tax/docs stay out.
+ */
+export const PREP2GO_GUIDE_SLUGS = new Set([
+  "vnj-portugaliya-d8-d7-grazhdanstvo-2026",
+  "pervye-30-dnej-v-portugalii-2026",
+  "d7-vs-digital-nomad-visa-sravnenie",
+  "portugaliya-vs-ispaniya-vnj-2026",
+  "grazhdanstvo-portugaliya-ispaniya-2026",
+  "grazhdanstvo-portugalii-golden-visa-ari-2021-2022-2026",
+  "golden-visa-portugal-rozhdenie-rebenka-grazhdanstvo-2026",
+  "prodlenie-vnzh-portugaliya-aima-2026",
+  "portugal-d8-d7-latam-2026",
+  "vnj-ispaniya-2026",
+  "pervye-30-dnej-v-ispanii-2026",
+  "visa-nomada-digital-espana-latam-2026",
+  "visado-no-lucrativa-espana-latam-2026",
+  "primeros-30-dias-en-espana-2026",
+  "nacionalidad-espanola-latam-2026",
+  "vnj-germaniya-2026",
+  "pervye-30-dnej-v-germanii-2026",
+  "grazhdanstvo-germaniya-polsha-2026",
+  "vnj-frantsiya-2026-passeport-talent",
+  "pervye-30-dnej-v-frantsii-2026",
+  "naturalisation-france-afrique-2026",
+  "passeport-talent-france-afrique-2026",
+  "vnj-niderlandy-2026-highly-skilled",
+  "pervye-30-dnej-v-niderlandah-2026",
+  "vnj-chehiya-2026",
+  "pervye-30-dnej-v-chehii-2026",
+  "vnj-gretsiya-2026-digital-nomad-fip-golden-visa",
+  "pervye-30-dnej-v-gretsii-2026",
+  "vnj-italiya-2026-digital-nomad",
+  "vnj-italiya-2026-elective-residency",
+  "pervye-30-dnej-v-italii-2026",
+]);
+
 /** Explicit citizenship / naturalization intent — not “any country topic”. */
 const CITIZENSHIP_GUIDE_HINT =
   /grazhdanstvo|гражданств|натурализ|einb[uü]rger|leben.in.deutschland|inburger|civics|nationalit|nacionalidad|citizenship|ciple|ccse|celi|delf|dele[-_]?a2/i;
@@ -408,6 +462,42 @@ export function shouldShowUniPrepOnGuide(guide: {
   return Boolean(getUniPrepOfferForTopics(guide.topic_keys));
 }
 
+/** Prep2Go timed mocks on PT/ES/DE/FR/NL/CZ/GR/IT VNJ and first-30 pillars. */
+export function shouldShowPrep2GoOnGuide(guide: {
+  slug: string;
+  title?: string;
+  tags?: string[];
+  topic_keys?: string[];
+}): boolean {
+  if (PREP2GO_GUIDE_SLUGS.has(guide.slug)) {
+    return Boolean(getUniPrepOfferForTopics(guide.topic_keys) ?? getUniPrepOfferForTopic(prep2goTopicFallback(guide.slug)));
+  }
+  if (!shouldShowUniPrepOnGuide(guide)) return false;
+  return Boolean(getUniPrepOfferForTopics(guide.topic_keys)?.prep2goMock);
+}
+
+function prep2goTopicFallback(slug: string): string | null {
+  if (/portugal|d7-vs|ciple/i.test(slug)) return "portugal";
+  if (/ispan|spain|dele|ccse|nacionalidad|nomada|no-lucrativa|primeros-30/i.test(slug)) return "spain";
+  if (/german|leben|einburger/i.test(slug)) return "germany";
+  if (/frants|france|delf|naturalisation|passeport-talent/i.test(slug)) return "france";
+  if (/niderland|inburger/i.test(slug)) return "netherlands";
+  if (/chehiya|czech/i.test(slug)) return "czechia";
+  if (/gretsiya|greece|ellinomatheia/i.test(slug)) return "greece";
+  if (/ital|celi|cils/i.test(slug)) return "italy";
+  return null;
+}
+
+export function resolvePrep2GoOfferForGuide(guide: {
+  slug: string;
+  topic_keys?: string[];
+}): UniPrepOffer | null {
+  return (
+    getUniPrepOfferForTopics(guide.topic_keys) ??
+    getUniPrepOfferForTopic(prep2goTopicFallback(guide.slug))
+  );
+}
+
 /**
  * ES corridor: show UniPrep on nationality pillar, origin residencia (CCSE path), and Portugal CIPLE pillar.
  */
@@ -418,6 +508,7 @@ export function shouldShowUniPrepOnEsGuide(guide: {
   topic_keys?: string[];
 }): boolean {
   if (shouldShowUniPrepOnGuide(guide)) return true;
+  if (PREP2GO_GUIDE_SLUGS.has(guide.slug)) return true;
   if (/^residencia-espana-desde-/.test(guide.slug)) return Boolean(getUniPrepOfferForTopic("spain"));
   if (guide.slug === "portugal-d8-d7-latam-2026") return Boolean(getUniPrepOfferForTopic("portugal"));
   return false;
@@ -429,6 +520,12 @@ export function resolveUniPrepOfferForEsGuide(guide: {
   topic_keys?: string[];
 }): UniPrepOffer | null {
   if (guide.slug === "portugal-d8-d7-latam-2026") return getUniPrepOfferForTopic("portugal");
+  if (PREP2GO_GUIDE_SLUGS.has(guide.slug)) {
+    return (
+      getUniPrepOfferForTopics(guide.topic_keys) ??
+      getUniPrepOfferForTopic(/portugal|d7/i.test(guide.slug) ? "portugal" : "spain")
+    );
+  }
   if (/^residencia-espana-desde-/.test(guide.slug) || /nacionalidad/.test(guide.slug)) {
     return getUniPrepOfferForTopic("spain") ?? getUniPrepOfferForTopics(guide.topic_keys);
   }
@@ -445,6 +542,7 @@ export function shouldShowUniPrepOnFrGuide(guide: {
   topic_keys?: string[];
 }): boolean {
   if (shouldShowUniPrepOnGuide(guide)) return true;
+  if (PREP2GO_GUIDE_SLUGS.has(guide.slug)) return true;
   if (guide.slug === "naturalisation-france-afrique-2026") return Boolean(getUniPrepOfferForTopic("france"));
   if (/^residence-france-depuis-/.test(guide.slug)) return Boolean(getUniPrepOfferForTopic("france"));
   return false;
@@ -457,9 +555,13 @@ export function resolveUniPrepOfferForFrGuide(guide: {
   if (
     guide.slug === "naturalisation-france-afrique-2026" ||
     /^residence-france-depuis-/.test(guide.slug) ||
-    guide.slug === "residence-france-afrique-francophone-2026"
+    guide.slug === "residence-france-afrique-francophone-2026" ||
+    guide.slug === "passeport-talent-france-afrique-2026"
   ) {
     return getUniPrepOfferForTopic("france") ?? getUniPrepOfferForTopics(guide.topic_keys);
+  }
+  if (PREP2GO_GUIDE_SLUGS.has(guide.slug)) {
+    return getUniPrepOfferForTopics(guide.topic_keys) ?? getUniPrepOfferForTopic("france");
   }
   return getUniPrepOfferForTopics(guide.topic_keys);
 }

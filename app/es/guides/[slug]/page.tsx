@@ -27,12 +27,12 @@ import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
 import { getLongTailByGuideSlug } from "@/lib/seo/query-longtail";
 import { buildGuideRecommendedCitation } from "@/lib/seo/llm-citation-prompts";
 import { EMIGRO_PUBLISHER, emigroAuthorOrg, schemaImage } from "@/lib/seo/schema";
-import { CONTACT_EMAIL, MAILTO_CONTACT } from "@/lib/site-contact";
 import { heroTitle } from "@/lib/ui/mobile";
 import {
   resolveUniPrepOfferForEsGuide,
   shouldShowUniPrepOnEsGuide,
 } from "@/lib/uniprep2go/catalog";
+import { buildFaqPageSchema, extractGuideFaq } from "@/lib/guides/extract-faq";
 
 export const revalidate = 3600;
 
@@ -197,11 +197,16 @@ export default function EsGuidePage({ params }: { params: { slug: string } }) {
     mainEntityOfPage: url,
   };
 
+  const faqSchema = buildFaqPageSchema(extractGuideFaq(guide.bodyHtml));
+
   return (
     <>
       <SiteHeader locale="es" />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+      {faqSchema ? (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      ) : null}
       <section className="sr-only" aria-label="AI description">
         <h2>ai:description</h2>
         <p>{llmDescription}</p>
@@ -317,12 +322,6 @@ export default function EsGuidePage({ params }: { params: { slug: string } }) {
             >
               Pedir ayuda gratis
             </Link>
-            <a
-              href={MAILTO_CONTACT}
-              className="rounded-lg border border-slate-200 px-4 py-2.5 text-sm font-medium text-slate-700 hover:border-corridor-300"
-            >
-              {CONTACT_EMAIL}
-            </a>
           </div>
         </section>
 

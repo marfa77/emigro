@@ -16,9 +16,11 @@ official_sources:
     label: service-public — Passeport talent
   - url: https://france-visas.gouv.fr/
     label: France-Visas
+  - url: https://www.service-public.fr/particuliers/vosdroits/F2213
+    label: service-public — naturalisation
 estimated_minutes: 14
 date_published: 2026-08-10
-date_modified: 2026-08-11
+date_modified: 2026-09-19
 ---
 
 ## Nota Emigro (fact-check août 2026)
@@ -171,6 +173,28 @@ Les années passées en Passeport Talent comptent pour la naturalisation. Après
 
 
 ---
+
+## Foire aux questions
+
+### Le Passeport Talent se demande-t-il depuis la France en touriste ?
+
+Non. VLS-TS Talent au consulat avec contrat ou projet **avant** le départ. Changer d’employeur exige une nouvelle autorisation dans la catégorie.
+
+### €35 000 brut suffisent-ils pour « salarié qualifié » ?
+
+Non. Seuil **€39 582**/an brut. Mandataires ~**€58 374**. Diplôme Bac+5 **ou** 5 ans d’expérience documentée dans le même domaine.
+
+### La naturalisation française est-elle en 2 ans pour le Maghreb ?
+
+Non. Le délai général est **~5 ans** de résidence régulière ([F2213](https://www.service-public.fr/particuliers/vosdroits/F2213)). Les 2 ans art. 22 Espagne ne s’appliquent pas. Réduction possible après études en France (art. 21-18) — ce n’est pas un raccourci « Maghreb ».
+
+### Quel niveau de français pour la naturalisation en 2026 ?
+
+**B2** (oral + écrit) **et** examen civique depuis le **01.01.2026** ([F11926](https://www.service-public.fr/particuliers/vosdroits/F11926)). Le B1 concerne plutôt la carte de résident. Timbre nationalité **€255** ([F32952](https://www.service-public.fr/particuliers/vosdroits/F32952)).
+
+### Emigro donne-t-il un conseil juridique ?
+
+Non. Emigro est un navigateur. Vérifiez France-Visas, service-public et le consulat. Route Check : [/fr/assist](/fr/assist).
 
 ## Et maintenant ?
 

@@ -29,10 +29,12 @@ official_sources:
     label: EU — Temporary protection (UA context)
 estimated_minutes: 16
 date_published: 2026-06-27
-date_modified: 2026-08-11
+date_modified: 2026-09-19
 ---
 
-## Прямой ответ
+> **Nota Emigro (fact-check, сентябрь 2026).** **OK:** TP для BY нет; частый первый шаг PL (oświadczenie / Type A / Blue Card ~PLN 13 355); D-виза из консульств, Варшава ≠ туристический хак. **Overlay:** банки EU после 19-го пакета — со статусом. Wizard: `passport_iso2=BY`.
+
+## С чего начать
 
 **Граждане Беларуси** в Emigro — **не** та же аудитория, что украинцы с temporary protection и **не** полный дубль россиян: у BY-паспорта своя консульская карта, свои ограничения по санкциям и часто **Польша / Литва / Латвия** как первые EU-точки подачи.
 

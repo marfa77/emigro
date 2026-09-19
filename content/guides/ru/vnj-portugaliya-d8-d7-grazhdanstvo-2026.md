@@ -3,7 +3,7 @@ slug: vnj-portugaliya-d8-d7-grazhdanstvo-2026
 title: "D8 и D7 Португалия 2026 — ВНЖ, AIMA и гражданство"
 seo_title: "D8 Португалия 2026: €3 680 + AIMA — RU/BY/UA"
 seo_description: "D8 digital nomad и D7 Португалия 2026: €3 680 / €920, AIMA, NIF, гражданство 10 лет. Pillar-гид + практика для RU/BY/UA/KZ."
-date_modified: 2026-08-07
+date_modified: 2026-09-19
 excerpt: "Полный разбор виз D7 и D8, подачи в AIMA и того, что изменил закон о гражданстве в мае 2026 — для тех, кто планирует жить в Португалии годами."
 quick_answer: |-
   D8 — для удалённой работы, около €3 680 дохода в месяц в 2026. D7 — для пассивного дохода, около €920 в месяц плюс сбережения. После въезда подаёте на ВНЖ в AIMA; биометрия часто 8–24 месяца.
@@ -27,6 +27,10 @@ date_published: 2026-06-25
 ---
 
 ## D8 и D7 Португалия 2026: кратко
+
+D8 — удалёнка. D7 — пассив. Оба стартуют с **консульской визы D**, не с туриста в AIMA. Гражданство для большинства — **10 лет**.
+
+> **Nota Emigro (fact-check, сентябрь 2026).** **OK:** D8 ~**€3 680**/мес, D7 ~**€920** (RMMG). AIMA биометрия часто **8–24 мес.** ПМЖ **5 лет**. Гражданство **10 лет** с **19.05.2026**. Renovação temporary с 01.03.2026 ~**€440,20**. **Fixed overlay:** не «недели до карты». Не подавайтесь туристом «внутри». CIPLE A2: [Prep2Go](https://www.prep2go.study/ciple-a2-mock-test?utm_source=emigro&utm_medium=guide&utm_campaign=prep2go_portugal&utm_content=vnj-portugaliya-d8-d7-grazhdanstvo-2026). **Soft:** IFICI ≠ D8.
 
 **ВНЖ Португалия D8/D7 2026** — главный коридор Emigro: pillar-гид + **практика** (NIF, AIMA, аренда, банки) на [portugal.emigro.online](https://portugal.emigro.online). D8 — **~€3 680/мес** удалёнка; D7 — **~€920/мес** + сбережения. После визы D — подача в **AIMA**. Гражданство для большинства — **10 лет** (реформа мая 2026).
 
@@ -182,6 +186,8 @@ Lei Orgânica n.º 1/2026 вступила в силу **19 мая 2026**: дл�
 ## CIPLE A2 и интеграция для гражданства
 
 **CIPLE** — экзамен португальского A2 (CAPLE). Сдают обычно за 1–2 года до подачи на гражданство. Стоимость €100–150; подготовка 8–15 мес. при нулевом PT.
+
+Практика формата экзамена: [CIPLE A2 mock на Prep2Go](https://www.prep2go.study/ciple-a2-mock-test?utm_source=emigro&utm_medium=guide&utm_campaign=prep2go_portugal&utm_content=vnj-portugaliya-d8-d7-grazhdanstvo-2026) (timed, AI scoring). Anki European Portuguese — на [UniPrep2Go](https://uniprep2go.study/decks/ciple-a2-european-portuguese-anki-deck?utm_source=emigro&utm_medium=guide&utm_campaign=uniprep_portugal&utm_content=vnj-portugaliya-d8-d7-grazhdanstvo-2026). Это учебные материалы, не официальная запись в CAPLE.
 
 Дополнительно: **связь с PT** — налоги, SNS, регистрация; отсутствие серьёзных судимостей.
 

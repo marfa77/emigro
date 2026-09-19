@@ -31,10 +31,12 @@ official_sources:
     label: France-Visas
 estimated_minutes: 18
 date_published: 2026-06-25
-date_modified: 2026-08-07
+date_modified: 2026-09-19
 ---
 
 ## Почему Франция — недооценённый маршрут для русскоязычных специалистов
+
+> **Nota Emigro (fact-check, сентябрь 2026).** **OK:** Talent salarié qualifié от **€39 582**/год (arrêté), не «два SMIC». SMIC с 01.06.2026 **€12,31/ч / €1 867,02/мес**. Titre с 01.05.2026 **€300+€50=€350**. Carte de résident: **B1 + examen civique**, не A2. Натурализация: **5 лет**, **B2 + civique**, 12–24 мес рассмотрения, timbre **€255**. DELF: [Prep2Go](https://www.prep2go.study/delf-b2-mock-test?utm_source=emigro&utm_medium=guide&utm_campaign=prep2go_france&utm_content=vnj-frantsiya-2026-passeport-talent). **Soft:** консульский доступ из РФ — поле.
 
 В 2026 году Франция остаётся в тени Германии и Португалии в русскоязычном дискурсе — напрасно. Страна привлекает квалифицированных иностранцев через карту **Talent** (в обиходе и старых текстах — **Passeport Talent**): зонтик для IT, науки, предпринимательства и культуры. С реформы 2024 на самой карте чаще пишут **«Talent»** без слова «Passeport» — ниже используем оба названия как синонимы. В отличие от немецкой Blue Card, маршрут шире: наёмный сотрудник, основатель стартапа или признанный специалист.
 
@@ -210,6 +212,8 @@ Barème **2026** (на доходы 2025; [Service-Public F1419](https://www.ser
 - **Пошлина (с 01.05.2026):** **€255**
 - Dual citizenship FR разрешает; страна происхождения — отдельно
 - **Горизонт до паспорта:** 5 лет проживания — это **условие подачи**, не день получения. Рассмотрение naturalisation часто ещё **+12–24 месяца** → реалистично **~6–7 лет** до решения, не «паспорт ровно на 5-й год»
+
+Практика языка: [DELF B2 mock на Prep2Go](https://www.prep2go.study/delf-b2-mock-test?utm_source=emigro&utm_medium=guide&utm_campaign=prep2go_france&utm_content=vnj-frantsiya-2026-passeport-talent) (на лендинге предупреждают: контент пока ближе к A2/B1, структура слотов — B2). Civics readiness: [naturalisation FR на UniPrep2Go](https://uniprep2go.study/mock-exams/naturalisation-francaise-readiness-check?utm_source=emigro&utm_medium=guide&utm_campaign=uniprep_france&utm_content=vnj-frantsiya-2026-passeport-talent).
 
 **Сравнение горизонтов (ориентир):**
 - Франция: ~5 лет до подачи + processing → паспорт

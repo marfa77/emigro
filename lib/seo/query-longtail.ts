@@ -425,9 +425,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "лучшие страны для релокации 2026 рф",
       "легальный переезд в ес с паспортом россии",
     ],
-    seoTitle: "Куда переехать из России 2026 — ВНЖ Европа",
+    seoTitle: "Куда переехать из России 2026 — D8 €3 680, ES €2 849",
     seoDescription:
-      "Pillar: куда легально переехать из РФ в Европу 2026 — коридоры, пороги, хабы, wizard.",
+      "7 коридоров ВНЖ: PT D8 ~€3 680 / D7 ~€920, ES DN €2 849, DE Blue Card €50 700. Гражданство PT 10 лет. Шенген ≠ ВНЖ. Wizard.",
   },
   // —— Extra corridors & guides (AEO density parity) ——
   {
@@ -524,9 +524,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "италия внж без работы пассивный доход",
       "visto residenza elettiva россияне",
     ],
-    seoTitle: "Италия Elective Residency 2026",
+    seoTitle: "Италия Elective Residency 2026 — €31k, не Golden Visa",
     seoDescription:
-      "Residenza elettiva Италия 2026: пассивный доход, жильё, без работы в IT. Практика для RU/BY.",
+      "Residenza elettiva ~€31k/год, без локальной работы. Investor Visa для РФ/РБ приостановлена. ПМЖ 5 лет, паспорт 10. Для RU/BY.",
   },
   {
     path: "/ru/france",
@@ -822,9 +822,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "натурализация после внж pt es",
       "язык a2 ciple португалия",
     ],
-    seoTitle: "Гражданство PT / ES 2026",
+    seoTitle: "Гражданство PT/ES 2026 — 10 лет, CIPLE, DELE+CCSE",
     seoDescription:
-      "Путь к гражданству Португалии и Испании после ВНЖ: сроки, язык, оговорки 2026.",
+      "Португалия 10 лет + CIPLE A2, dual OK. Испания 10 лет + DELE A2/CCSE, отказ от РФ. LATAM 2 года — не для паспорта РФ. Estancia estudios 0% art. 22.",
   },
   {
     path: "/ru/guides/shengen-turist-vs-vnzh-2026",

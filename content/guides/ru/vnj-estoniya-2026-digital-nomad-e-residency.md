@@ -2,7 +2,7 @@
 slug: vnj-estoniya-2026-digital-nomad-e-residency
 title: "Эстония 2026: Digital Nomad Visa и e-Residency"
 seo_title: "Эстония 2026 — Digital Nomad Visa + e-Residency / OÜ"
-seo_description: "Эстония 2026: DNV €4 500/мес, D €120 / C €90, макс. 548/730 дней. РФ/BY почти закрыт. e-Residency €150. OÜ: 0% retained, CIT 22/78 на дивиденды; VAT 24% (порог €40k). Tax resident при 183+ днях."
+seo_description: "Эстония 2026: DNV €4 500/мес, D €120 / C €90, макс. 548/730. РФ/BY почти закрыт. e-Residency €150. CIT 22% дивиденды. 183 дня = tax resident."
 excerpt: "Два разных продукта: Digital Nomad Visa (жить и работать удалённо) и e-Residency (управлять OÜ онлайн). Для паспортов РФ/BY — жёсткие визовые ограничения; e-Residency ≠ ВНЖ."
 quick_answer: |-
   Эстонский digital nomad: виза D до 365 дней и второй заход примерно на 6 месяцев, потолок 548 дней внутри 730 подряд, потом нужен выезд. Доход €4 500 gross в месяц и полгода истории. Пошлина D €120, C €90. Работать можно только на иностранного работодателя, свою иностранную компанию или иностранных клиентов.
@@ -33,17 +33,12 @@ official_sources:
     label: EMTA — Tax and Customs Board
 estimated_minutes: 20
 date_published: 2026-07-29
-date_modified: 2026-08-07
+date_modified: 2026-09-19
 ---
 
-**Pillar-гид: управляй EU-компанией из любой точки мира и живи в самой цифровой стране Европы**
+e-Residency — это ключ к компании, не право жить в Таллине. Digital nomad — временная виза жить и работать удалённо. Для паспортов РФ и Беларуси второй продукт на практике почти закрыт.
 
----
-
-> **Fact-check Emigro (авг. 2026):** РФ/BY — DNV почти закрыт ([vm.ee](https://vm.ee/en/consular-visa-and-travel-information/visa-information/restrictions-accepting-visa-applications)). DNV: **548/730**, fees D **€120** / C **€90**. e-Residency **€150**. CIT distribution = **22/78**, не flat 22%. 183+ дней → tax resident EE.
-
-
-## TL;DR — e-Residency vs Digital Nomad Visa
+> **Nota Emigro (fact-check, сентябрь 2026).** **OK:** DNV доход **€4 500 gross**/мес, 6 мес. истории; D **€120** / C **€90**; потолок **548/730** дней ([e-resident FAQ](https://www.e-resident.gov.ee/blog/posts/faqs-about-estonias-digital-nomad-visa/), [vm.ee](https://vm.ee/en/consular-visa-and-travel-information/visa-information/application-long-stay-d-visa)). **РФ/BY** — почти все C/D блокирует MFA ([restrictions](https://vm.ee/en/consular-visa-and-travel-information/visa-information/restrictions-accepting-visa-applications)); BY teleworking отдельно не excepted. e-Residency **€150** ≠ ВНЖ ≠ Шенген. OÜ: retained **0%**, распределение **22/78** (~28,2% на net). 183+ дней → tax resident, PIT **20%**, соцвзносы **33%** с зарплаты OÜ. VAT **24%** с 01.07.2025, порог **€40k**. **Fixed:** эстонская OÜ **не** «иностранная компания» для DNV. **Soft:** банки Wise/LHV — KYC, не обещание счёта за день.
 
 | | **e-Residency** | **Digital Nomad Visa** |
 |---|---|---|
@@ -62,7 +57,7 @@ date_modified: 2026-08-07
 
 ---
 
-## Часть I. Digital Nomad Visa — жизнь в Эстонии
+## Digital Nomad Visa — жизнь в Эстонии
 
 ### Что это
 
@@ -141,7 +136,7 @@ Estonia Digital Nomad Visa (DNV) — long-stay / short-stay виза для уд
 
 ---
 
-## Часть II. e-Residency — управление EU-компанией из любой точки мира
+## e-Residency — управление EU-компанией из любой точки мира
 
 ### Что это
 
@@ -208,7 +203,7 @@ e-Residency — это **цифровое удостоверение лично�
 
 ---
 
-## Часть III. Золотая комбинация: e-Residency + Digital Nomad Visa
+## Золотая комбинация: e-Residency + Digital Nomad Visa
 
 ### Как это работает
 
@@ -235,7 +230,7 @@ e-Residency — это **цифровое удостоверение лично�
 
 ---
 
-## Часть IV. Налоги для Digital Nomad
+## Налоги для Digital Nomad
 
 ### Где платить налоги
 
@@ -262,7 +257,7 @@ DN visa **не освобождает** от налогов. Вопрос: гд�
 
 ---
 
-## Часть V. Первые 30 дней в Эстонии
+## Первые 30 дней в Эстонии
 
 ### Пошаговый чек-лист
 
@@ -351,7 +346,7 @@ DN visa **не освобождает** от налогов. Вопрос: гд�
 
 ---
 
-## Часть VI. Сравнение с конкурентами
+## Сравнение с конкурентами
 
 | | **Эстония DN** | **Эстония e-Residency** | **Хорватия DN** | **Венгрия White Card** | **Словения s.p.** |
 |---|---|---|---|---|---|
@@ -381,7 +376,7 @@ DN visa **не освобождает** от налогов. Вопрос: гд�
 
 ---
 
-## Часть VII. ПМЖ и гражданство
+## ПМЖ и гражданство
 
 ### Permanent Residence
 
@@ -400,7 +395,7 @@ DN visa **не освобождает** от налогов. Вопрос: гд�
 
 ---
 
-## Часть VIII. Бюджет переезда
+## Бюджет переезда
 
 ### Digital Nomad (12 мес)
 
@@ -422,7 +417,7 @@ DN visa **не освобождает** от налогов. Вопрос: гд�
 
 ---
 
-## Часть IX. Частые ошибки
+## Частые ошибки
 
 | Ошибка | Последствия | Решение |
 |---|---|---|
@@ -450,8 +445,26 @@ DN visa **не освобождает** от налогов. Вопрос: гд�
 
 ---
 
-*Гайд актуален на июль 2026. e-Residency — продукт правительства Эстонии с 2014 года. Digital Nomad Visa — с 2020. С 2025 года эстонские банки ужесточили требования к nexus. Проверяйте актуальные требования на e-resident.gov.ee и visa.applicants.ee перед подачей.*    # Эстония 2026 — e-Residency + Digital Nomad Visa
+*Гайд актуален на сентябрь 2026. e-Residency — продукт правительства Эстонии с 2014 года. Digital Nomad Visa — с 2020. С 2025 года эстонские банки ужесточили требования к nexus. Проверяйте e-resident.gov.ee и visa.applicants.ee перед подачей.*
 
-**Pillar-гид: управляй EU-компанией из любой точки мира и живи в самой цифровой стране Европы**
+## FAQ
 
----
+### Сколько можно быть в EE по DNV?
+
+Виза D до **365** дней + второй заход ~6 мес., потолок **548** дней внутри **730**. Потом выезд.
+
+### Порог дохода?
+
+**€4 500 gross**/мес и полгода истории. Пошлина D €120, C €90. Только иностранный работодатель/клиенты.
+
+### РФ и BY могут подать?
+
+Практика: DNV для RU/BY **почти закрыт**. e-Residency ≠ ВНЖ и ≠ право жить в Эстонии.
+
+### e-Residency даёт Шенген?
+
+Нет. Это цифровая подпись/компания, не residence card.
+
+### Это юридическая консультация?
+
+Нет. Police and Border Guard / e-MTA.

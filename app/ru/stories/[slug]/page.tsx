@@ -29,11 +29,20 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const story = loadStory(params.slug);
   if (!story) return {};
+  const aiDescription = [
+    story.excerpt ?? story.title,
+    "Личный опыт читателя Emigro, не юридическая консультация.",
+    story.country ? `Страна: ${story.country}.` : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
   return pageMetadata({
     title: story.seo_title ?? story.title,
     description: story.seo_description ?? story.excerpt ?? story.title,
     path: storyPath(story.slug),
     ogImageAlt: story.title,
+    aiDescription,
+    aiCategory: "relocation-story",
   });
 }
 
@@ -75,6 +84,13 @@ export default function StoryPage({ params }: { params: { slug: string } }) {
       <SiteHeader />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+      <section className="sr-only" aria-label="AI description">
+        <h2>ai:description</h2>
+        <p>
+          {story.excerpt ?? story.title} Личный опыт автора Emigro — не юридическая консультация.
+        </p>
+        <a href="/llms.txt">llms.txt</a>
+      </section>
       <main className="mx-auto max-w-3xl px-4 py-10">
         <nav className="text-sm text-slate-500">
           <Link href={STORIES_INDEX_PATH} className="inline-flex items-center gap-1 text-corridor-600 hover:underline">

@@ -7,7 +7,6 @@ import { isCorridorFull } from "@/lib/corridor/publish";
 import {
   buildDigestAiDescription,
   buildDigestFaq,
-  buildDigestLlmFacts,
   buildDigestQuickAnswer,
   type FaqItem,
 } from "@/lib/seo/corridor-page-seo";
@@ -39,7 +38,6 @@ export function DigestSeoSections({
 }) {
   const quickAnswer = buildDigestQuickAnswer(topic, corridor);
   const faq = buildDigestFaq(topic, corridor);
-  const llmFacts = buildDigestLlmFacts(topic, corridor);
   const aiDescription = buildDigestAiDescription(topic, corridor);
   const newsHref = newsIndexPath(topic.urlSegment);
   const programsBase = `${landingPath}#programs`;
@@ -104,15 +102,6 @@ export function DigestSeoSections({
             <p className="mt-1 text-sm text-slate-600">Pillar-материалы по ВНЖ, бюджету и сравнению стран.</p>
           </Link>
         </div>
-      </section>
-
-      <section className="mt-10 rounded-2xl border border-slate-200 bg-slate-50 p-6">
-        <h2 className="text-lg font-semibold text-slate-900">Коротко для проверки маршрута</h2>
-        <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-relaxed text-slate-700">
-          {llmFacts.map((fact) => (
-            <li key={fact}>{fact}</li>
-          ))}
-        </ul>
       </section>
 
       <section className="mt-8 flex items-start gap-3 rounded-xl border border-amber-200 bg-amber-50 px-5 py-4 text-sm text-amber-950">

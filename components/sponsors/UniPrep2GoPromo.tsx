@@ -53,7 +53,7 @@ function trackClick(params: {
   contentId?: string;
 }) {
   trackEvent("provider_click", {
-    provider_id: "uniprep2go",
+    provider_id: params.product === "prep2go_mock" ? "prep2go" : "uniprep2go",
     placement: params.placement,
     topic_key: params.topicKey,
     product: params.product,
