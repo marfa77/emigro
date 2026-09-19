@@ -4,7 +4,12 @@ export const WISE_REFERRAL_PROVIDER_ID = "wise";
 export const WISE_REFERRAL_CAMPAIGN = "wise_invite_irhc";
 export const WISE_REFERRAL_PRODUCT = "personal";
 
-export type WiseReferralPlacement = "guide_article" | "guide_sidebar" | "satellite_note";
+export type WiseReferralPlacement =
+  | "guide_article"
+  | "guide_sidebar"
+  | "guide_inline"
+  | "satellite_note"
+  | "satellite_note_inline";
 
 export type WiseLiveOffer = {
   url: string;

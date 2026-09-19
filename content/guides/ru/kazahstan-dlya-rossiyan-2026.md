@@ -25,7 +25,7 @@ official_sources:
   - url: https://kaspi.kz/
     label: Kaspi Bank
   - url: https://guide.kaspi.kz/client/ru/transfers/services/swift/q17144
-    label: Kaspi — ограничения переводов по банкам РФ/BY (обн. 27.07.2026)
+    label: Kaspi — ограничения переводов по банкам РФ/BY (обн. 13.08.2026)
   - url: https://halykbank.kz/
     label: Halyk Bank
 estimated_minutes: 26
@@ -187,7 +187,7 @@ date_modified: 2026-08-09
 
 - Экосистема быта: QR, маркетплейс, платежи.  
 - Обычно нужны **ИИН** + паспорт + местный номер. ИИН — при регистрации/ЦОН.  
-- **SWIFT из РФ:** длинный стоп-лист банков РФ/BY (официальный гид Kaspi, обновление **27.07.2026** — Сбер, ВТБ, Альфа, Т-Банк и др.). Не стройте план на «Сбер → Kaspi».
+- **SWIFT из РФ:** длинный стоп-лист банков РФ/BY (официальный гид Kaspi, обновление **13.08.2026** — Сбер, ВТБ, Альфа, Т-Банк и др.). Не стройте план на «Сбер → Kaspi».
 
 ### Halyk, Forte, Bereke, BCC
 
@@ -331,7 +331,7 @@ date_modified: 2026-08-09
 ## Источники
 
 - [gov.kz](https://www.gov.kz/) · [migration.gov.kz](https://migration.gov.kz/) · [kgd.gov.kz](https://kgd.gov.kz/)  
-- [Kaspi](https://kaspi.kz/) · [ограничения SWIFT](https://guide.kaspi.kz/client/ru/transfers/services/swift/q17144) (обн. 27.07.2026)  
+- [Kaspi](https://kaspi.kz/) · [ограничения SWIFT](https://guide.kaspi.kz/client/ru/transfers/services/swift/q17144) (обн. 13.08.2026)  
 - [Halyk](https://halykbank.kz/)  
 - [/ru/wizard](/ru/wizard) · [/ru/role-radar](/ru/role-radar) · [/ru/kazakhstan](/ru/kazakhstan)
 

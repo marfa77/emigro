@@ -130,7 +130,7 @@ export function RevolutReferralPromo({
       data-sponsor="revolut-referral"
     >
       <p className="text-xs font-bold uppercase tracking-wider text-indigo-800">
-        Реклама · реферальная ссылка{latestEnd ? ` до ${latestEnd}` : ""}
+        Реклама{latestEnd ? ` · до ${latestEnd}` : ""}
       </p>
       <h2 id="revolut-referral-heading" className="mt-2 text-lg font-semibold text-slate-900">
         {visible.length === 1 ? COPY[visible[0]].title : "Revolut: физлицо и счёт для юрлица"}

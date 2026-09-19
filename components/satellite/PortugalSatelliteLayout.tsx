@@ -60,7 +60,7 @@ export function PortugalSatelliteFooter() {
           >
             Finanças
           </a>
-          .
+          . Ссылки на Wise, Revolut и другие сервисы в материалах могут быть партнёрскими.
         </p>
         <p>
           Основной hub:{" "}

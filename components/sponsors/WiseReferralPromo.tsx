@@ -100,7 +100,7 @@ export function WiseReferralPromo({
       data-sponsor="wise-referral"
     >
       <p className="text-xs font-bold uppercase tracking-wider text-emerald-800">
-        Реклама · реферальная ссылка{live.endsOn ? ` до ${live.endsOn}` : ""}
+        Реклама{live.endsOn ? ` · до ${live.endsOn}` : ""}
       </p>
       <h2 id="wise-referral-heading" className="mt-2 text-lg font-semibold text-slate-900">
         Wise для переводов, пока нет местного IBAN

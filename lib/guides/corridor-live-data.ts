@@ -112,13 +112,13 @@ export function corridorSlugToTopicKey(corridorSlug: string): string {
 export function shouldShowGuideCorridorLiveData(slug: string): boolean {
   const key = slug.toLowerCase();
   if (
-    /(bank|iban|nalog|byudzhet|30-dnej|dokumenty|apostil|ees-|tyurm|nebezopasn|smert-|ip-za-rubezhom)/.test(
+    /(bank|iban|nalog|byudzhet|30-dnej|dokumenty|apostil|dohod|podtverdit|konsulskaya|legalizatsiya|ees-|tyurm|nebezopasn|smert-|ip-za-rubezhom)/.test(
       key
     )
   ) {
     return false;
   }
-  return /(?:^|-)(vnj|grazhdanstvo|digital-nomad|golden-visa|d7-vs|vizy-|nomad-|legalizatsiya|kuda-pereehat|kuda-uehat|belorusy-v-evropu|kazahstantsy-v-evropu|ukrain|vossoedinenie|uchebnaya-viza|rabota-v-evrope|otkaz-v-natsionalnoy|investitsionnyy-vnj)/.test(
+  return /(?:^|-)(vnj|grazhdanstvo|digital-nomad|golden-visa|d7-vs|vizy-|nomad-|kuda-pereehat|kuda-uehat|belorusy-v-evropu|kazahstantsy-v-evropu|ukrain|vossoedinenie|uchebnaya-viza|rabota-v-evrope|otkaz-v-natsionalnoy|investitsionnyy-vnj)/.test(
     key
   );
 }

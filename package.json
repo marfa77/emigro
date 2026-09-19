@@ -64,7 +64,7 @@
     "telegram:set-webhook": "tsx scripts/set-telegram-webhook.ts",
     "telegram:poll-local": "tsx scripts/telegram-poll-local.ts",
     "social:subscribers": "tsx scripts/social-subscribers-daily.ts",
-    "stats:test": "tsx scripts/test-stats-dashboard.ts && tsx scripts/test-revolut-referral.ts && tsx scripts/test-wise-referral.ts",
+    "stats:test": "tsx scripts/test-stats-dashboard.ts && tsx scripts/test-revolut-referral.ts && tsx scripts/test-wise-referral.ts && tsx scripts/test-referral-inline.ts",
     "invest:test": "tsx scripts/test-investment-eligibility.ts",
     "portugal:community": "tsx scripts/portugal-community-run.ts",
     "portugal:daily": "tsx scripts/portugal-community-daily.ts",

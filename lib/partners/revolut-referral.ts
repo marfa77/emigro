@@ -2,7 +2,12 @@ export const REVOLUT_REFERRAL_TIMEZONE = "Europe/Lisbon";
 export const REVOLUT_REFERRAL_PROVIDER_ID = "revolut";
 
 export type RevolutReferralKind = "personal" | "business";
-export type RevolutReferralPlacement = "guide_article" | "guide_sidebar" | "satellite_note";
+export type RevolutReferralPlacement =
+  | "guide_article"
+  | "guide_sidebar"
+  | "guide_inline"
+  | "satellite_note"
+  | "satellite_note_inline";
 
 export type RevolutLiveOffer = {
   kind: RevolutReferralKind;

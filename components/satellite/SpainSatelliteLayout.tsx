@@ -65,7 +65,7 @@ export function SpainSatelliteFooter() {
           >
             Agencia Tributaria
           </a>
-          .
+          . Ссылки на Wise, Revolut и другие сервисы в материалах могут быть партнёрскими.
         </p>
         <p>
           <a href={SPAIN_SATELLITE.wizardUrl} className="font-medium text-amber-900 underline">

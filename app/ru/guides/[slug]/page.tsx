@@ -11,9 +11,15 @@ import { UniPrep2GoPromo, UniPrepCitizenshipHubPromo } from "@/components/sponso
 import { RoleRadarPromo } from "@/components/sponsors/RoleRadarPromo";
 import { RevolutReferralPromo } from "@/components/sponsors/RevolutReferralPromo";
 import { WiseReferralPromo } from "@/components/sponsors/WiseReferralPromo";
+import { ReferralInlineRoot } from "@/components/sponsors/ReferralInlineRoot";
 import { shouldShowRoleRadarOnGuide } from "@/lib/role-radar";
 import { revolutPromoProps } from "@/lib/partners/revolut-referral-store";
 import { wisePromoProps } from "@/lib/partners/wise-referral-store";
+import {
+  injectReferralInlineLinks,
+  liveUrlsFromTargets,
+  referralInlineTargets,
+} from "@/lib/partners/referral-inline";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { ServiceProvidersSection } from "@/components/providers/ServiceProvidersSection";
 import { countryCardImage } from "@/lib/brand/country-accents";
@@ -278,6 +284,44 @@ function extractFaq(bodyHtml: string) {
     .slice(0, 7);
 }
 
+function GuideProseBody({
+  quickAnswerBlocks,
+  asOfIso,
+  showOriginHub,
+  articleHtml,
+}: {
+  quickAnswerBlocks: string[];
+  asOfIso: string | null;
+  showOriginHub: boolean;
+  articleHtml: string;
+}) {
+  return (
+    <>
+      {quickAnswerBlocks.length > 0 && (
+        <section className="mt-8 rounded-[2rem] border border-corridor-200 bg-gradient-to-br from-white via-corridor-50 to-sky-50 p-6 shadow-sm ring-1 ring-corridor-100 sm:p-7">
+          <p className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-corridor-700">
+            <Sparkles className="h-4 w-4" />
+            Короткий ответ
+          </p>
+          {quickAnswerBlocks.map((html) => (
+            <p
+              key={html.slice(0, 48)}
+              className="mt-3 text-lg leading-8 text-slate-800 sm:text-xl [&_strong]:font-semibold [&_strong]:text-slate-950"
+              dangerouslySetInnerHTML={{ __html: html }}
+            />
+          ))}
+        </section>
+      )}
+      {asOfIso ? <GuideAsOfBadge dateIso={asOfIso} variant="banner" className="mt-8" /> : null}
+      {showOriginHub ? <GuideOriginHubPromo /> : null}
+      <article
+        className="guide-article prose prose-lg prose-slate mt-8 max-w-none rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm ring-1 ring-slate-950/5 prose-a:font-semibold prose-strong:text-slate-950 sm:p-8 lg:p-10"
+        dangerouslySetInnerHTML={{ __html: articleHtml }}
+      />
+    </>
+  );
+}
+
 export default async function GuideArticlePage({ params }: { params: { slug: string } }) {
   const guide = loadGuide(params.slug);
   if (!guide) notFound();
@@ -313,6 +357,25 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
       /grazhdanstvo-portugaliya-ispaniya|grazhdanstvo-germaniya-polsha/.test(guide.slug));
   const toc = extractToc(guide.bodyHtml);
   const faqItems = extractFaq(guide.bodyHtml);
+  const inlineTargets = referralInlineTargets({
+    revolut: revolutPromo,
+    wise: wisePromo,
+  });
+  const articleHtml = injectReferralInlineLinks(guide.bodyHtml, inlineTargets);
+  const inlineLive = liveUrlsFromTargets(inlineTargets);
+  const quickAnswerBlocks = (guide.quick_answer ?? "")
+    .split(/\n\s*\n/)
+    .map((block) => block.trim())
+    .filter(Boolean)
+    .map((block) => injectReferralInlineLinks(inlineMarkdown(block), inlineTargets));
+  const guideProse = (
+    <GuideProseBody
+      quickAnswerBlocks={quickAnswerBlocks}
+      asOfIso={guideAsOfIso(guide) ?? null}
+      showOriginHub={showOriginHubPromo && showCorridorLive}
+      articleHtml={articleHtml}
+    />
+  );
   const llmFacts = buildGuideLlmFacts(guide);
   const asOfIso = guideAsOfIso(guide);
   const url = pageUrl(guidePath(guide.slug));
@@ -453,34 +516,13 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
               </p>
             )}
 
-            {guide.quick_answer && (
-              <section className="mt-8 rounded-[2rem] border border-corridor-200 bg-gradient-to-br from-white via-corridor-50 to-sky-50 p-6 shadow-sm ring-1 ring-corridor-100 sm:p-7">
-                <p className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-corridor-700">
-                  <Sparkles className="h-4 w-4" />
-                  Короткий ответ
-                </p>
-                {guide.quick_answer
-                  .split(/\n\s*\n/)
-                  .map((block) => block.trim())
-                  .filter(Boolean)
-                  .map((block) => (
-                    <p
-                      key={block.slice(0, 48)}
-                      className="mt-3 text-lg leading-8 text-slate-800 sm:text-xl [&_strong]:font-semibold [&_strong]:text-slate-950"
-                      dangerouslySetInnerHTML={{ __html: inlineMarkdown(block) }}
-                    />
-                  ))}
-              </section>
+            {inlineTargets.length > 0 ? (
+              <ReferralInlineRoot contentId={guide.slug} placement="guide_inline" live={inlineLive}>
+                {guideProse}
+              </ReferralInlineRoot>
+            ) : (
+              guideProse
             )}
-
-            {asOfIso ? <GuideAsOfBadge dateIso={asOfIso} variant="banner" className="mt-8" /> : null}
-
-            {showOriginHubPromo && showCorridorLive ? <GuideOriginHubPromo /> : null}
-
-            <article
-              className="guide-article prose prose-lg prose-slate mt-8 max-w-none rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm ring-1 ring-slate-950/5 prose-a:font-semibold prose-strong:text-slate-950 sm:p-8 lg:p-10"
-              dangerouslySetInnerHTML={{ __html: guide.bodyHtml }}
-            />
 
             <GuideFeedbackButtons
               slug={guide.slug}

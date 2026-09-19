@@ -67,7 +67,7 @@ export function ItalySatelliteFooter() {
           >
             Agenzia delle Entrate
           </a>{" "}
-          и Questura.
+          и Questura. Ссылки на Wise, Revolut и другие сервисы в материалах могут быть партнёрскими.
         </p>
         <p>
           <a href={ITALY_SATELLITE.wizardUrl} className="font-medium text-emerald-900 underline">

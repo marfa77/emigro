@@ -1,6 +1,8 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { isGlossarySection } from "@/lib/community-notes/glossary";
+import { DEFAULT_EXTERNAL_AD_REL } from "@/lib/partners/link";
+import { classifyReferralUrl } from "@/lib/partners/referral-inline";
 import { noteLinkLabel } from "@/lib/community-notes/note-link-labels";
 import type { NoteBodySection } from "@/lib/community-notes/types";
 import {
@@ -65,8 +67,22 @@ function renderInlineSegment(part: string, key: number): ReactNode | ReactNode[]
   if (linkMatch) {
     const [, label, href] = linkMatch;
     if (/^https?:\/\//i.test(href)) {
+      const classified = classifyReferralUrl(href);
       return (
-        <a key={key} href={href} target="_blank" rel="noopener noreferrer" className={LINK_CLASS}>
+        <a
+          key={key}
+          href={href}
+          target="_blank"
+          rel={classified ? DEFAULT_EXTERNAL_AD_REL : "noopener noreferrer"}
+          className={LINK_CLASS}
+          {...(classified
+            ? {
+                "data-partner-referral": classified.provider,
+                "data-partner-product": classified.product,
+                "data-partner-campaign": classified.campaign,
+              }
+            : {})}
+        >
           {label}
         </a>
       );

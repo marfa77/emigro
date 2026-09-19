@@ -24,8 +24,14 @@ import { resolveNoteOgImage } from "@/lib/community-notes/note-og-image";
 import { shouldShowPixIdPromo } from "@/lib/community-notes/sponsor-promo";
 import { revolutPromoProps } from "@/lib/partners/revolut-referral-store";
 import { wisePromoProps } from "@/lib/partners/wise-referral-store";
+import {
+  applyNoteReferralLinks,
+  liveUrlsFromTargets,
+  referralInlineTargets,
+} from "@/lib/partners/referral-inline";
 import { RevolutReferralPromo } from "@/components/sponsors/RevolutReferralPromo";
 import { WiseReferralPromo } from "@/components/sponsors/WiseReferralPromo";
+import { ReferralInlineRoot } from "@/components/sponsors/ReferralInlineRoot";
 import { ITALY_SATELLITE } from "@/lib/satellite/italy";
 import { satelliteHubUrl, satellitePillarUrl } from "@/lib/satellite/funnel-urls";
 import { italyHubPath } from "@/lib/satellite/paths";
@@ -76,6 +82,12 @@ export default async function ItalyNotePage({ params }: { params: { slug: string
   const showHero = heroImage != null && heroImage !== DEFAULT_OG_IMAGE;
   const readMinutes = estimateNoteReadMinutes(note);
   const showToc = note.content_kind === "guide";
+  const inlineTargets = referralInlineTargets({
+    revolut: revolutPromo,
+    wise: wisePromo,
+  });
+  const linked = applyNoteReferralLinks(note, inlineTargets);
+  const inlineLive = liveUrlsFromTargets(inlineTargets);
 
   return (
     <main className={satelliteMain}>
@@ -156,11 +168,12 @@ export default async function ItalyNotePage({ params }: { params: { slug: string
         </figure>
       )}
 
+      <ReferralInlineRoot contentId={note.slug} placement="satellite_note_inline" live={inlineLive}>
       <div className="community-quick-answer mt-8 rounded-xl border border-emerald-100 bg-emerald-50/70 p-5">
         <p className="text-xs font-bold uppercase tracking-wide text-emerald-900">Короткий ответ</p>
         <p
           className="mt-2 leading-relaxed text-slate-800 [&_strong]:font-semibold [&_strong]:text-slate-950"
-          dangerouslySetInnerHTML={{ __html: inlineMarkdown(note.quick_answer) }}
+          dangerouslySetInnerHTML={{ __html: inlineMarkdown(linked.quick_answer) }}
         />
       </div>
 
@@ -176,11 +189,11 @@ export default async function ItalyNotePage({ params }: { params: { slug: string
 
       <NoteHashtags tags={note.hashtags} className="mt-6" countryKey="italy" />
 
-      <KeyTakeaways items={note.key_takeaways} />
+      <KeyTakeaways items={linked.key_takeaways} />
 
       {showToc && <NoteToc sections={note.body_sections} hasFaq={note.faq.length > 0} />}
 
-      <NoteBody sections={note.body_sections} paragraphs={note.body_paragraphs} />
+      <NoteBody sections={linked.body_sections} paragraphs={linked.body_paragraphs} />
 
       {note.official_links.length > 0 && (
         <OfficialLinksPreview
@@ -189,7 +202,8 @@ export default async function ItalyNotePage({ params }: { params: { slug: string
         />
       )}
 
-      <NoteFaq items={note.faq} />
+      <NoteFaq items={linked.faq} />
+      </ReferralInlineRoot>
 
       {showPixId && <PixIDPromo noteSlug={note.slug} topicKey="italy" />}
       {revolutPromo && (
