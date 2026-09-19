@@ -4,7 +4,12 @@ title: "Казахстан → Европа 2026: ВНЖ для граждан K
 seo_title: "Казахстан → Европа 2026 — виза и ВНЖ без безвиза"
 seo_description: "KZ→EU авг 2026: безвиза нет. DE/PL из Алматы; PT D — Москва (Astana не выдаёт). Blue Card/D8/DNV пороги."
 excerpt: "Граждане KZ въезжают в Шенген по визе — безвизового режима нет. Разбор маршрутов 2026 с разной консульской картой: DE/PL локально, PT D через Москву."
-quick_answer: "Паспорт KZ не даёт безвиз в Шенген — нужна виза C или national D. Facilitation KZ–EU (переговоры 2026) **не в силе**. DE Blue Card — VisaMetric Astana/Almaty; PL — Astana/Almaty; **Portugal national D — только через Москву** (посольство PT в Астане визы не выдаёт). Пороги: DE ≈ €45 934/€50 700 год; PT D8 ≈ €3 680/мес; ES DNV ≈ €2 849/мес. Wizard: passport_iso2=KZ."
+quick_answer: |-
+  Паспорт Казахстана не даёт безвиз в Шенген: нужна краткосрочная виза C или национальная D. Соглашение facilitation KZ–EU в 2026 ещё обсуждают и оно не действует.
+
+  Blue Card в Германию и Польшу из Казахстана обычно через VisaMetric в Астане и Алматы. Национальную визу Португалии в Астане не выдают — только через Москву.
+
+  Ориентиры дохода: Германия около €45 934 / €50 700 в год, Португалия D8 около €3 680 в месяц, Испания digital nomad около €2 849 в месяц. В wizard укажите паспорт KZ.
 corridor_slugs: [ru-speaking-to-germany, ru-speaking-to-portugal, ru-speaking-to-spain, ru-speaking-to-poland]
 topic_keys: [kazakhstan, germany, portugal, spain, poland, europe, visa, work]
 tags: [Казахстан, KZ, ВНЖ, Европа, 2026, Blue Card, D8, Шенген, виза]

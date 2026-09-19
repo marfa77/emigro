@@ -105,6 +105,24 @@ export function corridorSlugToTopicKey(corridorSlug: string): string {
   return corridorSlug.replace(/^ru-speaking-to-/, "");
 }
 
+/**
+ * Visa/residence pillars can show live D8/D7 income tables.
+ * Bank, tax, first-month and other how-tos must not — those tables bury the article.
+ */
+export function shouldShowGuideCorridorLiveData(slug: string): boolean {
+  const key = slug.toLowerCase();
+  if (
+    /(bank|iban|nalog|byudzhet|30-dnej|dokumenty|apostil|ees-|tyurm|nebezopasn|smert-|ip-za-rubezhom)/.test(
+      key
+    )
+  ) {
+    return false;
+  }
+  return /(?:^|-)(vnj|grazhdanstvo|digital-nomad|golden-visa|d7-vs|vizy-|nomad-|legalizatsiya|kuda-pereehat|kuda-uehat|belorusy-v-evropu|kazahstantsy-v-evropu|ukrain|vossoedinenie|uchebnaya-viza|rabota-v-evrope|otkaz-v-natsionalnoy|investitsionnyy-vnj)/.test(
+    key
+  );
+}
+
 /** Only corridors whose destination matches guide topic_keys (e.g. serbia guide ≠ portugal data). */
 export function filterCorridorSlugsForGuideTopics(
   corridorSlugs: string[] | undefined,

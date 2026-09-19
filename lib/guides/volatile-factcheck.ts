@@ -204,7 +204,19 @@ function readGuideMarkdown(slug: string): { raw: string; body: string; quickAnsw
   const body = bodyMatch?.[1] ?? raw;
   const qaMatch = raw.match(/^quick_answer:\s*(.+)$/m);
   let quickAnswer = qaMatch?.[1]?.trim() ?? "";
-  if (quickAnswer.startsWith('"') && quickAnswer.endsWith('"')) {
+  if (quickAnswer === "|" || quickAnswer === "|-" || quickAnswer === ">" || quickAnswer === ">-") {
+    const after = raw.slice(raw.indexOf(qaMatch?.[0] ?? "") + (qaMatch?.[0].length ?? 0));
+    const block: string[] = [];
+    for (const line of after.split("\n")) {
+      if (line.trim() === "") {
+        block.push("");
+        continue;
+      }
+      if (!/^(?:  |\t)/.test(line)) break;
+      block.push(line.replace(/^  /, "").replace(/^\t/, ""));
+    }
+    quickAnswer = block.join("\n").replace(/^\n+/, "").replace(/\s+$/, "");
+  } else if (quickAnswer.startsWith('"') && quickAnswer.endsWith('"')) {
     quickAnswer = quickAnswer.slice(1, -1);
   }
   return { raw, body, quickAnswer };

@@ -4,7 +4,12 @@ title: "Digital Nomad визы Европы 2026: сравнение всех п
 seo_title: "Digital Nomad визы Европы 2026 — полное сравнение всех программ"
 seo_description: "Digital Nomad Европа 2026: PT D8, ES, IT, GR, HR, MT NRP, HU White Card, CY, BG, SI, EE. Пороги, налоги, ПМЖ, матрица RU/UA/BY/KZ."
 excerpt: "Сравнение dedicated Digital Nomad и близких маршрутов Европы 2026: пороги, налоги, путь к ПМЖ, ограничения по паспорту и как выбрать под профиль."
-quick_answer: "Для «остаться в ЕС»: PT D8 (€3 680/мес) или ES (€2 849) — ПМЖ ~5 лет, гражданство чаще 10 лет (PT не «8 лет»). IT ~€28k/год (практ.; формула 3× esenzione). Для 0% foreign income без ПМЖ — HR (€3 622,50, до 18 мес). MT NRP (€42k/год) закрыт для РФ/BY; EE DNV для РФ/BY почти закрыт. HU White Card (€3 000) — без семьи и без ПМЖ. GR «50%» ≠ автоматом с DNV (нужна структура 5C). Германия Freiberufler — не классическая DN."
+quick_answer: |-
+  Если цель — остаться в ЕС, чаще сравнивают Португалию D8 (около €3 680 в месяц) и Испанию (около €2 849). ПМЖ обычно около 5 лет, гражданство чаще 10 лет; Португалия после реформы 2026 — не «8 лет».
+
+  Италия на практике около €28 000 в год (формула 3× esenzione). Хорватия даёт 0% на иностранный доход до 18 месяцев при €3 622,50, но без пути в ПМЖ. Мальта NRP (€42 000 в год) закрыта для РФ и Беларуси; эстонский digital nomad для тех же паспортов почти закрыт.
+
+  Венгерская White Card от €3 000 — без семьи и без ПМЖ. Греческая «скидка 50%» не включается автоматически с nomad-визой: нужна структура по статье 5C. Немецкий Freiberufler — не классическая digital nomad visa.
 corridor_slugs: [ru-speaking-to-portugal, ru-speaking-to-spain, ru-speaking-to-germany, ru-speaking-to-italy, ru-speaking-to-croatia, ru-speaking-to-malta, ru-speaking-to-hungary, ru-speaking-to-cyprus, ru-speaking-to-bulgaria, ru-speaking-to-estonia, ru-speaking-to-slovenia]
 topic_keys: [portugal, spain, germany, italy, croatia, malta, hungary, cyprus, bulgaria, estonia, slovenia, digital nomad]
 tags: [digital nomad, удалёнка, D8, сравнение, Европа, 2026]

@@ -24,11 +24,31 @@ function parseFrontmatter(raw: string): { meta: Record<string, string | string[]
   if (!match) return { meta: {}, body: raw };
 
   const meta: Record<string, string | string[]> = {};
-  for (const line of match[1].split("\n")) {
+  const lines = match[1].split("\n");
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    if (/^\s/.test(line)) continue;
     const idx = line.indexOf(":");
     if (idx === -1) continue;
     const key = line.slice(0, idx).trim();
+    if (!key) continue;
     let value = line.slice(idx + 1).trim();
+    if (value === "|" || value === "|-" || value === ">" || value === ">-") {
+      const block: string[] = [];
+      while (i + 1 < lines.length) {
+        const next = lines[i + 1];
+        if (next.trim() === "") {
+          i += 1;
+          block.push("");
+          continue;
+        }
+        if (!/^(?:  |\t)/.test(next)) break;
+        i += 1;
+        block.push(next.replace(/^  /, "").replace(/^\t/, ""));
+      }
+      meta[key] = block.join("\n").replace(/^\n+/, "").replace(/\s+$/, "");
+      continue;
+    }
     if (value.startsWith("[") && value.endsWith("]")) {
       meta[key] = value
         .slice(1, -1)

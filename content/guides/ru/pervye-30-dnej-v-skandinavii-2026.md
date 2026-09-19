@@ -4,7 +4,10 @@ title: "Первые 30 дней в Скандинавии 2026: personnummer, �
 seo_title: "Первые 30 дней в Скандинавии 2026 — personnummer, CPR, банк"
 seo_description: "Чек-лист после прилёта в Швецию и Данию: personnummer, CPR, Skatteverket, банк, SIM, жильё, Migrationsverket/SIRI. Для RU/BY/UA/KZ. 2026."
 excerpt: "Вы получили work permit и прилетели в Stockholm или Copenhagen — что делать в первый месяц: personnummer/CPR, банк, SIM, регистрация и запись в миграционную службу."
-quick_answer: "Первые 30 дней: (1) Swedish SIM / датский SIM, (2) регистрация адреса — Skatteverket (SE) или kommune (DK), (3) personnummer (SE) или CPR (DK) — ключ к банку и healthcare, (4) банк — Swedbank/SEB или Danske Bank, (5) Folkbokföring / folkeregister, (6) запись в Migrationsverket/SIRI если нужна карта. Без personnummer/CPR не откроете полноценный счёт."
+quick_answer: |-
+  В первые 30 дней возьмите местную SIM и зарегистрируйте адрес: в Швеции через Skatteverket, в Дании — в kommune. Personnummer или CPR — ключ к банку и медицине.
+
+  Дальше счёт в Swedbank, SEB или Danske Bank, запись в народный регистр и, если нужна карта, слот в Migrationsverket или SIRI. Без personnummer или CPR полноценный счёт не откроете.
 corridor_slugs: [ru-speaking-to-sweden, ru-speaking-to-norway, ru-speaking-to-finland, ru-speaking-to-denmark]
 topic_keys: [scandinavia, sweden, norway, finland, denmark, checklist, arrival]
 tags: [Скандинавия, чеклист, 2026, personnummer, CPR, Швеция, Дания]

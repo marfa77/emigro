@@ -4,7 +4,12 @@ title: "Первые 30 дней в Греции 2026: AFM, AMKA, банк, resi
 seo_title: "Первые 30 дней в Греции 2026 — AFM, AMKA, банк, ВНЖ"
 seo_description: "Чек-лист после прилёта в Грецию 2026: AFM, residence permit, банк, AMKA, DEI/EYDAP. DN только через консульство (Law 5275/2026). Для RU/BY/UA/KZ."
 excerpt: "Практический месяц после въезда по Type D / Golden Visa: AFM в KEP, миграция, греческий банк, AMKA, utilities и ст. 5C (50% — не auto с DNV)."
-quick_answer: "**AFM** — в первые дни (KEP/AADE). DN с **06.02.2026** (Law 5275/2026): Type D в консульстве **до** въезда, затем residence permit. Дальше: банк, AMKA, utilities. Льгота **50% (ст. 5C) не в комплекте с DNV**: foreign payroll без Atomiki/EoR часто не проходит — λογιστής в первый месяц. Греция — Шенген (90/180 в других странах по residence)."
+quick_answer: |-
+  AFM берите в первые дни в KEP или AADE. Digital nomad с 6 февраля 2026 (Law 5275/2026): визу Type D оформляют в консульстве до въезда, затем residence permit. Дальше банк, AMKA и utilities.
+
+  Льгота 50% по статье 5C не идёт в комплекте с nomad-визой: иностранный payroll без Atomiki или EoR часто не проходит — бухгалтера лучше найти в первый месяц.
+
+  Греция в Шенгене: по residence в других странах зоны действует 90/180.
 corridor_slugs: [ru-speaking-to-greece]
 topic_keys: [greece, checklist, arrival]
 tags: [Греция, чеклист, 2026, AFM, AMKA, Афины, Digital Nomad]

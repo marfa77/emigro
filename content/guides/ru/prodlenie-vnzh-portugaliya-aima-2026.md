@@ -6,7 +6,12 @@ seo_description: "Renovação AIMA авг 2026: portal до 31.10.2026, Agora, D
 date_modified: 2026-08-11
 review_tier: volatile
 excerpt: "Когда начинать renovação, какие документы по типу D7/D8/trabalho/estudo, куда подавать — portal-renovacoes, Agora или services.aima — и что делать с просроченной картой."
-quick_answer: "Продление título — portal-renovacoes.aima.gov.pt. На авг 2026 portal принимает AR с expiry с 01.07.2025 по 31.10.2026 (+ ARI; UE permanente с 01.07.2026). С 01.03.2026 типовой пакет temporary renovação ≈ €440,20 (€133 + €307,20); ARI ≈ €4 210,30 — сверяйте DUC (оплата по сроку в DUC, часто 24 ч на emissão). Agora — presencial; services.aima.gov.pt — просроченные после e-mail AIMA. Emigro проходит через advogados — сверяйте aima.gov.pt."
+quick_answer: |-
+  Продление португальского título идёт через portal-renovacoes.aima.gov.pt. На август 2026 портал принимает карты с истечением с 1 июля 2025 по 31 октября 2026, плюс ARI; постоянный ЕС-статус — с 1 июля 2026.
+
+  С 1 марта 2026 типовой пакет temporary renovação около €440,20 (€133 + €307,20); ARI около €4 210,30. Сверяйте сумму в DUC: оплату часто принимают только в срок из документа, иногда 24 часа на выпуск.
+
+  Agora — очная запись. Просроченные дела после письма AIMA — на services.aima.gov.pt. Emigro ведёт такие кейсы через адвокатов; цифры сверяйте на aima.gov.pt.
 corridor_slugs: [ru-speaking-to-portugal]
 topic_keys: [portugal, aima, renewal]
 tags: [Португалия, ВНЖ, AIMA, renovação, 2026]

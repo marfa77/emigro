@@ -20,7 +20,7 @@ import { countryCardImage } from "@/lib/brand/country-accents";
 import { guidePath, getGuidesIndex, getRelatedGuides, listGuides, loadGuide } from "@/lib/guides/load";
 import type { GuideArticle } from "@/lib/guides/load";
 import { inlineMarkdown, stripInlineMarkdown } from "@/lib/markdown/inline";
-import { loadGuideLiveDataForGuide } from "@/lib/guides/corridor-live-data";
+import { loadGuideLiveDataForGuide, shouldShowGuideCorridorLiveData } from "@/lib/guides/corridor-live-data";
 import {
   getGuidePassportIso2,
   getGuideProviderTopicKey,
@@ -283,9 +283,12 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
   if (!guide) notFound();
   const longTail = getLongTailByGuideSlug(guide.slug);
   const passportIso2 = getGuidePassportIso2(guide);
+  const showCorridorLive = shouldShowGuideCorridorLiveData(guide.slug);
   const [allTopics, liveData, guidesIndex, revolutPromo, wisePromo] = await Promise.all([
     getActiveNewsTopics(),
-    loadGuideLiveDataForGuide(guide.corridor_slugs, guide.topic_keys, passportIso2),
+    showCorridorLive
+      ? loadGuideLiveDataForGuide(guide.corridor_slugs, guide.topic_keys, passportIso2)
+      : Promise.resolve({ blocks: [], passportLabel: "" }),
     getGuidesIndex(),
     revolutPromoProps(guide.slug, "guide"),
     wisePromoProps(guide.slug, "guide"),
@@ -472,9 +475,7 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
 
             {asOfIso ? <GuideAsOfBadge dateIso={asOfIso} variant="banner" className="mt-8" /> : null}
 
-            {showOriginHubPromo && <GuideOriginHubPromo />}
-
-            <GuideCorridorLiveData liveData={liveData} />
+            {showOriginHubPromo && showCorridorLive ? <GuideOriginHubPromo /> : null}
 
             <article
               className="guide-article prose prose-lg prose-slate mt-8 max-w-none rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm ring-1 ring-slate-950/5 prose-a:font-semibold prose-strong:text-slate-950 sm:p-8 lg:p-10"
@@ -543,7 +544,9 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
               <GuideOfficialSources sources={guide.official_sources} />
             )}
 
-            <GuideCorridorVisuals topics={countryTopics} />
+            {showCorridorLive ? <GuideCorridorLiveData liveData={liveData} /> : null}
+
+            {showCorridorLive ? <GuideCorridorVisuals topics={countryTopics} /> : null}
 
             <GuideClusterLinks cluster={cluster} crossLinks={comparisonCrossLinks} />
 

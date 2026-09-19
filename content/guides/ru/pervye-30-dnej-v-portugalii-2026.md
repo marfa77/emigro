@@ -4,7 +4,12 @@ title: "Первые 30 дней в Португалии 2026: чек-лист, 
 seo_title: "Первые 30 дней в Португалии 2026 — NIF, банк, AIMA, бюджет"
 seo_description: "Чек-лист после прилёта в Португалию 2026: NIF, аренда, банк, AIMA, SNS, бюджет семьи. D7/D8/GV для RU/BY/UA/KZ — по дням."
 excerpt: "Практический месяц после въезда по D7/D8/D2 или Golden Visa: NIF, жильё, португальский банк, подача в AIMA, SNS и типичные ошибки."
-quick_answer: "День 1–7: SIM + NIF (Finanças или fiscal representative). День 8–14: аренда с registo в Finanças + счёт (Millennium/CGD/ActivoBank). В течение **4 месяцев** с въезда — подача на Título de Residência в AIMA; биометрия реалистично **8–24 мес.** (Lisboa **15–24**). SNS/Número de Utente после NIF + адреса. D7 ~€920/мес + сбережения; D8 ~€3 680/мес. NHR для новых закрыт; гражданство для большинства — **10 лет** (реформа мая 2026)."
+quick_answer: |-
+  Первая неделя: SIM и NIF в Finanças или через налогового представителя. Вторая: аренда с регистрацией в Finanças и счёт в Millennium, CGD или ActivoBank.
+
+  На Título de Residência в AIMA нужно подать в течение 4 месяцев с въезда. Биометрия реалистично 8–24 месяца, в Лиссабоне чаще 15–24. SNS и Número de Utente — после NIF и адреса.
+
+  D7 — около €920 в месяц плюс сбережения; D8 — около €3 680. Старый NHR для новых закрыт. Гражданство для большинства — 10 лет после реформы мая 2026.
 corridor_slugs: [ru-speaking-to-portugal]
 topic_keys: [portugal, checklist, arrival]
 tags: [Португалия, чеклист, 2026, NIF, AIMA, SNS, D7, D8]

@@ -18,6 +18,7 @@ import {
 import { getAllProviders, PREP2GO_TOPIC_KEYS } from "../lib/providers/registry";
 import { listGuides } from "../lib/guides/load";
 import { validateGuideReviewTiers } from "../lib/guides/review-tiers";
+import { isTransitHubSlug } from "../lib/transit-hubs";
 
 const NEWS_ONLY_TOPIC_KEYS = new Set([
   "serbia",
@@ -76,15 +77,33 @@ for (const slug of ASSIST_CORRIDOR_SLUGS) {
 }
 
 const assistOptions = getAssistCountryOptions();
-if (assistOptions.length !== ASSIST_CORRIDOR_SLUGS.length) {
-  fail("getAssistCountryOptions() count mismatch with ASSIST_CORRIDOR_SLUGS");
+const corridorOptions = assistOptions.filter((opt) => assistSet.has(opt.corridorSlug));
+if (corridorOptions.length !== ASSIST_CORRIDOR_SLUGS.length) {
+  fail("getAssistCountryOptions() missing an assist-eligible corridor");
 }
 for (const opt of assistOptions) {
-  if (!assistSet.has(opt.corridorSlug)) {
-    fail(`Assist option references unknown corridor ${opt.corridorSlug}`);
+  if (opt.corridorSlug) {
+    if (!assistSet.has(opt.corridorSlug)) {
+      fail(`Assist option references unknown corridor ${opt.corridorSlug}`);
+    }
+    if (corridorSlugToSegment(opt.corridorSlug) !== opt.value) {
+      fail(`Assist option segment mismatch for ${opt.corridorSlug}`);
+    }
+  } else if (!isTransitHubSlug(opt.value)) {
+    fail(`Assist option without corridor is not a known hub: ${opt.value}`);
   }
-  if (corridorSlugToSegment(opt.corridorSlug) !== opt.value) {
-    fail(`Assist option segment mismatch for ${opt.corridorSlug}`);
+  if (!opt.destinationIso2) {
+    fail(`Assist option missing destinationIso2: ${opt.value}`);
+  }
+}
+if (!assistOptions.some((opt) => opt.value === "uae" && opt.label === "ОАЭ")) {
+  fail("Assist picker missing ОАЭ");
+}
+for (const group of ["europe", "settle", "transit"] as const) {
+  const labels = assistOptions.filter((opt) => opt.group === group).map((opt) => opt.label);
+  const sorted = [...labels].sort((a, b) => a.localeCompare(b, "ru"));
+  if (labels.join("|") !== sorted.join("|")) {
+    fail(`Assist ${group} group is not sorted in Russian: ${labels.join(", ")}`);
   }
 }
 

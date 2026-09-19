@@ -12,6 +12,7 @@ type AssistLeadBody = {
   country?: string;
   country_label?: string;
   corridor_slug?: string;
+  destination_iso2?: string;
   program_route?: string;
   selected_provider_ids?: unknown;
   plan_tier?: string;
@@ -65,6 +66,7 @@ export async function POST(request: Request) {
 
   const country = clean(body.country_label) || clean(body.country);
   const corridorSlug = clean(body.corridor_slug);
+  const destinationIso2 = clean(body.destination_iso2).toUpperCase();
   const programRoute = clean(body.program_route);
   const planTier = clean(body.plan_tier);
   const paymentMethod = clean(body.payment_method);
@@ -108,49 +110,48 @@ export async function POST(request: Request) {
     planTier === "partner-match"
       ? "Payment: бесплатно"
       : `Payment: ${PAYMENT_METHOD_LABELS[paymentMethod] ?? (paymentMethod || "—")}`,
-    `Country: ${country}`,
+    `Country: ${country}${destinationIso2 ? ` (${destinationIso2})` : ""}`,
     `Program/route: ${programRoute}`,
     providers.length ? `Selected providers: ${providers.join(", ")}` : "Selected providers: —",
     "",
     message,
   ].join("\n");
 
-  if (corridorSlug) {
-    try {
+  try {
+    let corridorId: string | null = null;
+    if (corridorSlug) {
       const corridor = await getCorridorBySlug(corridorSlug);
       if (corridor) {
-        const supabase = createServerClient();
-        const { data, error } = await supabase
-          .from("emigro_manual_leads")
-          .insert({
-            corridor_id: corridor.id,
-            session_id: sessionId,
-            name,
-            email: contact,
-            telegram: contactLooksTelegram(contact) ? contact : null,
-            notes,
-            passport_iso2: null,
-            selected_program_slugs: [programRoute],
-            preferred_language: preferredLanguage,
-            status: "new",
-          })
-          .select("id")
-          .single();
-
-        if (error) {
-          storageError = error.message;
-        } else {
-          leadId = data.id;
-          stored = true;
-        }
-      } else {
-        storageError = `Corridor not found: ${corridorSlug}`;
+        corridorId = corridor.id;
       }
-    } catch (err) {
-      storageError = err instanceof Error ? err.message : "Lead storage failed";
     }
-  } else {
-    storageError = "Missing corridor_slug";
+    const supabase = createServerClient();
+    const { data, error } = await supabase
+      .from("emigro_manual_leads")
+      .insert({
+        corridor_id: corridorId,
+        destination_iso2: destinationIso2 || null,
+        session_id: sessionId,
+        name,
+        email: contact,
+        telegram: contactLooksTelegram(contact) ? contact : null,
+        notes,
+        passport_iso2: null,
+        selected_program_slugs: [programRoute],
+        preferred_language: preferredLanguage,
+        status: "new",
+      })
+      .select("id")
+      .single();
+
+    if (error) {
+      storageError = error.message;
+    } else {
+      leadId = data.id;
+      stored = true;
+    }
+  } catch (err) {
+    storageError = err instanceof Error ? err.message : "Lead storage failed";
   }
 
   await trackServerEvent("assist_lead_submitted", {

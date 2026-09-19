@@ -4,7 +4,10 @@ title: "Первые 30 дней в Германии 2026: чек-лист по�
 seo_title: "Первые 30 дней в Германии 2026 — Anmeldung, банк, Krankenkasse"
 seo_description: "Практический чек-лист для RU/BY/UA/KZ после прилёта в Германию: Anmeldung, N26/Comdirect, Krankenkasse, SIM, Meldebescheinigung, Ausländerbehörde. 2026."
 excerpt: "Вы получили Blue Card / Chancenkarte или прилетели на подачу — что делать в первый месяц: Anmeldung, банк, SIM, Krankenkasse и запись в Ausländerbehörde."
-quick_answer: "Первые 30 дней: (1) Anmeldung в Bürgeramt в течение 14 дней, (2) German SIM (Telekom/O2/1&1), (3) Krankenkasse — TK/AOK или private interim, (4) банк — N26 или Comdirect (local IBAN), (5) Meldebescheinigung хранить для Ausländerbehörde, (6) запись в Ausländerbehörde на Aufenthaltstitel. Без Anmeldung не откроете счёт и не завершите residence permit."
+quick_answer: |-
+  В первые 30 дней сделайте Anmeldung в Bürgeramt в течение 14 дней, возьмите немецкую SIM, оформите Krankenkasse (TK, AOK или временную частную) и счёт N26 или Comdirect с немецким IBAN.
+
+  Meldebescheinigung храните для Ausländerbehörde и сразу запишитесь туда на Aufenthaltstitel. Без Anmeldung не откроете счёт и не закроете residence permit.
 corridor_slugs: [ru-speaking-to-germany]
 topic_keys: [germany, checklist, arrival]
 tags: [Германия, чеклист, 2026, Anmeldung, Blue Card, Krankenkasse]

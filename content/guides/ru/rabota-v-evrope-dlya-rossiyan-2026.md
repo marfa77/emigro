@@ -4,7 +4,10 @@ title: "Работа в Европе для россиян в 2026: Blue Card, C
 seo_title: "Работа в Европе для россиян 2026 — Blue Card, оффер, Role Radar"
 seo_description: "Как найти работу в ЕС в 2026 с паспортом РФ: Blue Card/HSM/Talent, пороги DE NL PL FR, Chancenkarte, стратегии поиска и Role Radar — дайджест вакансий под CV."
 excerpt: "Рабочий ВНЖ в ЕС начинается с оффера. Разбор Blue Card / HSM / Talent, реалистичные пороги 2026, ошибки RU-кандидатов и Role Radar — Telegram-подбор вакансий под ваше резюме."
-quick_answer: "Сначала **оффер** (или Chancenkarte / job-seeker), потом виза. **Blue Card DE** 2026: **€50 700** / shortage **€45 934**. **NL HSM:** **€4 357**/мес (&lt;30) / **€5 942** (30+). **PL Blue Card:** **PLN 13 355**/мес (~€3 110). **FR Talent:** от **€39 582**/год. Параллельно: LinkedIn + **[Role Radar](/ru/role-radar)** (дайджест вакансий под CV в Telegram) → оффер → wizard по стране. Подача из РФ часто через третьи страны."
+quick_answer: |-
+  Сначала оффер или job-seeker вроде немецкой Chancenkarte, потом виза. Blue Card в Германии в 2026: €50 700, для дефицитных профессий €45 934. Нидерланды HSM: €4 357 в месяц до 30 лет и €5 942 после. Польская Blue Card: PLN 13 355 в месяц (около €3 110). Французский Passeport Talent: от €39 582 в год.
+
+  Параллельно ищите вакансии на LinkedIn и в [Role Radar](/ru/role-radar), затем прогоните оффер через wizard по стране. Подача из РФ часто идёт через третьи страны.
 corridor_slugs: [ru-speaking-to-germany, ru-speaking-to-netherlands, ru-speaking-to-france, ru-speaking-to-poland, ru-speaking-to-sweden]
 topic_keys: [germany, netherlands, france, poland, sweden, work]
 tags: [работа, Европа, Blue Card, Chancenkarte, IT, Role Radar, 2026]

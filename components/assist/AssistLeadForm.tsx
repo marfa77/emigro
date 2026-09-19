@@ -5,10 +5,24 @@ import { useEffect, useMemo, useState } from "react";
 import { trackEvent } from "@/lib/analytics/client";
 import { formField, formFieldWhite } from "@/lib/ui/mobile";
 
+export type AssistCountryGroup = "europe" | "settle" | "transit";
+
 export type AssistCountryOption = {
   label: string;
   value: string;
   corridorSlug: string;
+  destinationIso2?: string;
+  group?: AssistCountryGroup;
+};
+
+const DEFAULT_ASSIST_COUNTRY = "portugal";
+
+const GROUP_ORDER: AssistCountryGroup[] = ["europe", "settle", "transit"];
+
+const GROUP_LABELS_RU: Record<AssistCountryGroup, string> = {
+  europe: "Европа",
+  settle: "Страны для жизни",
+  transit: "Транзитные хабы",
 };
 
 export type AssistProviderOption = {
@@ -212,7 +226,17 @@ export function AssistLeadForm({
   const validInitialCountry =
     initialCountry && countries.some((option) => option.value === initialCountry)
       ? initialCountry
-      : countries[0]?.value ?? "";
+      : countries.some((option) => option.value === DEFAULT_ASSIST_COUNTRY)
+        ? DEFAULT_ASSIST_COUNTRY
+        : countries[0]?.value ?? "";
+  const groupedCountries = useMemo(() => {
+    if (!countries.some((option) => option.group)) return null;
+    return GROUP_ORDER.map((group) => ({
+      group,
+      label: GROUP_LABELS_RU[group],
+      options: countries.filter((option) => option.group === group),
+    })).filter((entry) => entry.options.length > 0);
+  }, [countries]);
   const [country, setCountry] = useState(validInitialCountry);
   const [programRoute, setProgramRoute] = useState(initialProgramRoute ?? "");
   const [selectedProviders, setSelectedProviders] = useState<string[]>(() =>
@@ -288,7 +312,8 @@ export function AssistLeadForm({
         body: JSON.stringify({
           country,
           country_label: countryOption?.label ?? country,
-          corridor_slug: countryOption?.corridorSlug,
+          corridor_slug: countryOption?.corridorSlug || undefined,
+          destination_iso2: countryOption?.destinationIso2,
           program_route: programRoute,
           selected_provider_ids: selectedProviders,
           plan_tier: planTier,
@@ -426,11 +451,21 @@ export function AssistLeadForm({
           onChange={(e) => setCountry(e.target.value)}
           className={`mt-2 ${formFieldWhite}`}
         >
-          {countries.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
+          {groupedCountries
+            ? groupedCountries.map((entry) => (
+                <optgroup key={entry.group} label={entry.label}>
+                  {entry.options.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </optgroup>
+              ))
+            : countries.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
         </select>
       </div>
 

@@ -4,7 +4,12 @@ title: "ВНЖ Мальта 2026: Nomad Residence Permit и MPRP"
 seo_title: "ВНЖ Мальта 2026 — NRP + MPRP + Non-Dom"
 seo_description: "ВНЖ Мальта 2026: NRP €42 000 gross/год (закрыт для РФ/BY), MPRP permanent residence (€99k fees + недвижимость), Non-Dom remittance. Residency Malta, MTCA. Для RU/UA/BY/KZ."
 excerpt: "Два мальтийских маршрута 2026: Nomad Residence Permit для удалёнки (не для паспортов РФ/BY) и MPRP — сразу permanent residence. Non-Dom, практика после прилёта и жёсткие оговорки по гражданству."
-quick_answer: "NRP (digital nomad) — gross доход ≥ €42 000/год, карта 1 год, продление до макс. 4 лет; работа только remote на нерезидентов Мальты. Заявки от граждан РФ и Беларуси сейчас не принимают (Residency Malta). MPRP — инвестиционная программа: активы €500k (€150k ликвид) или €650k (€75k ликвид), аренда €14k/год или покупка €375k, admin €60k + contribution €37k + donation €2k (L.N. 146/2025); сразу permanent residence, без минимума дней проживания для статуса. Non-Dom / remittance basis — налоговый режим, не ВНЖ. Гражданство по натурализации ≠ «паспорт через 5 лет без жизни на острове»."
+quick_answer: |-
+  Мальтийский NRP (digital nomad): валовой доход от €42 000 в год, карта на год, продление максимум до 4 лет. Работать можно только удалённо на нерезидентов Мальты. Заявки от граждан РФ и Беларуси сейчас не принимают (Residency Malta).
+
+  MPRP — инвестиционный трек: активы €500 000 (из них €150 000 ликвид) или €650 000 (€75 000 ликвид), аренда €14 000 в год или покупка от €375 000, плюс admin €60 000, contribution €37 000 и donation €2 000 (L.N. 146/2025). Сразу дают permanent residence, без минимума дней на острове для статуса.
+
+  Non-dom / remittance — налоговый режим, не ВНЖ. Натурализация — не «паспорт через 5 лет без жизни на Мальте».
 corridor_slugs: [ru-speaking-to-malta]
 topic_keys: [malta, digital nomad, investment, visa]
 tags: [Мальта, Nomad Residence Permit, MPRP, Non-Dom, ВНЖ, 2026]

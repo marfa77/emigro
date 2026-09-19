@@ -4,7 +4,10 @@ title: "Первые 30 дней в Болгарии 2026: адрес, МВР, L
 seo_title: "Первые 30 дней в Болгарии 2026 — адрес 5 дней, ВНЖ 14 дней"
 seo_description: "Чек-лист после Type D в Болгарии 2026: регистрация адреса ~5 дней, residence permit ~14 дней, LNCH, банк в евро, NHIF, utilities. Для RU/BY/UA/KZ."
 excerpt: "Практический месяц после въезда по Type D: Община, Migration Directorate, LNCH, банк, страховка и бюджет первого месяца в Софии и регионах."
-quick_answer: "После Type D: **~5 дней** на регистрацию адреса в Общине (часто нужен **нотариальный** договор аренды), **~14 дней** на подачу residence permit в Migration Directorate (МВР). Сохраните штамп въезда и receipt. Дальше: LNCH, болгарский IBAN (евро с 01.01.2026), NHIF/частная страховка, utilities. Type D ≠ residence permit."
+quick_answer: |-
+  После визы Type D на регистрацию адреса в Общине обычно около 5 дней — часто нужен нотариальный договор аренды. На подачу residence permit в Migration Directorate (МВР) — около 14 дней. Сохраните штамп въезда и receipt.
+
+  Дальше: LNCH, болгарский IBAN (евро с 1 января 2026), NHIF или частная страховка и utilities. Type D — ещё не вид на жительство.
 corridor_slugs: [ru-speaking-to-bulgaria]
 topic_keys: [bulgaria, checklist, arrival]
 tags: [Болгария, чеклист, 2026, Type D, LNCH, МВР, София]

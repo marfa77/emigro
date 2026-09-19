@@ -10,13 +10,7 @@ import { satelliteAssistUrl } from "@/lib/satellite/funnel-urls";
  */
 export function SatelliteAssistIntake({ countryKey }: { countryKey: SatelliteCountryKey }) {
   const allCountries = getAssistCountryOptions();
-  const countries = allCountries.filter((c) => c.value === countryKey);
-  const fallback = allCountries.filter((c) => c.value === countryKey);
-  const countryOptions = (countries.length > 0 ? countries : fallback).map((c) => ({
-    label: c.label,
-    value: c.value,
-    corridorSlug: c.corridorSlug,
-  }));
+  const countryOptions = allCountries.filter((c) => c.value === countryKey);
 
   const corridorSlug = countryOptions[0]?.corridorSlug ?? countryKey;
   const providers = getAssistLeadProviders()

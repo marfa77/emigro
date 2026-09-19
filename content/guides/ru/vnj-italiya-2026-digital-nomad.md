@@ -4,7 +4,12 @@ title: "Digital Nomad Италия 2026: виза, Permesso, налоги"
 seo_title: "Digital Nomad Италия 2026 — виза Type D + Permesso"
 seo_description: "Digital Nomad Италия 2026: доход ~€28k/год (3× esenzione), Type D до въезда, Kit Giallo за 8 дней, IRPEF 23/33/43, impatriati ≠ авто. Для RU/BY/UA/KZ."
 excerpt: "Полный гайд по итальянской Digital Nomad / remote worker визе 2026: порог дохода, квалификация 27-quater, консульство → Permesso, налоги и практика первых недель."
-quick_answer: "Visto per nomadi digitali / lavoratori da remoto — Type D **до въезда**. Доход: ≥ **трёхкратного** уровня esenzione dalla partecipazione alla spesa sanitaria — в консульской практике 2026 часто **~€28 000–€28 500/год** (не планируйте на «€24k»). Квалификация art. 27-quater + опыт ≥ **6 месяцев**. После въезда — Kit Giallo на Permesso за **8 дней**. Супруг по ricongiungimento **может работать** (art. 30 TUI). Impatriati 50% — **отдельный** режим AdE, не автоматом с визой; IRPEF 2026: **23% / 33% / 43%**."
+quick_answer: |-
+  Итальянская виза для digital nomad / remote worker — Type D, оформляют до въезда. Доход не меньше трёхкратного порога esenzione на здравоохранение: в консульской практике 2026 часто около €28 000–€28 500 в год, не планируйте на «€24 тысячи». Нужны квалификация art. 27-quater и опыт от 6 месяцев.
+
+  После въезда за 8 дней подайте Kit Giallo на permesso. Супруг по ricongiungimento может работать (art. 30 TUI).
+
+  Impatriati 50% — отдельный налоговый режим AdE, не включается автоматически с визой. IRPEF 2026: 23% / 33% / 43%.
 corridor_slugs: [ru-speaking-to-italy]
 topic_keys: [italy, digital nomad, visa]
 tags: [Италия, Digital Nomad, Permesso, Impatriati, ВНЖ, 2026]

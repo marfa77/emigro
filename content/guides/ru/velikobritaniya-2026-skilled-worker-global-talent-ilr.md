@@ -4,7 +4,12 @@ title: "Великобритания 2026: Skilled Worker, Global Talent, Gradua
 seo_title: "Великобритания 2026 — Skilled Worker £41 700, Global Talent, ILR"
 seo_description: "UK 2026: Skilled Worker £41 700, Health & Care £25 000, HPI (B2, eligible list), Graduate 2г/18м, Family £29 000, Global Talent, ILR. Dual nationality OK. Для RU/BY/UA/KZ."
 excerpt: "Pillar по UK points-based routes 2026: пороги зарплат, HPI/Graduate, семья, NHS/IHS, первые 30 дней и безопасные формулировки по ILR/гражданству."
-quick_answer: "**Skilled Worker:** **£41 700**/год или going rate + sponsor; fees с 8.04.2026 **£819/£1 618** (out) / **£943/£1 865** (in); ISL **£628/£1 235**. **Health & Care:** **£25 000**, IHS exempt, fee **£324/£628**; care **6135/6136** overseas closed с 22.07.2025 (in-country до 22.07.2028). **Graduate £937**; **Scale-up £937**; **Family** out **£2 064**; **ILR £3 226**; naturalisation **£1 709**(+£130). Student dependants: research PG / gov-sponsored only. UK dual nationality OK. Не EU/Шенген."
+quick_answer: |-
+  Skilled Worker: £41 700 в год или going rate плюс спонсор. Сборы с 8 апреля 2026: £819 / £1 618 снаружи и £943 / £1 865 изнутри; Immigration Skills Charge £628 / £1 235.
+
+  Health & Care: £25 000, без IHS, сбор £324 / £628. Зарубежный набор по care-кодам 6135/6136 закрыт с 22 июля 2025, внутри страны — до 22 июля 2028. Graduate и Scale-up — £937; family снаружи £2 064; ILR £3 226; натурализация £1 709 плюс £130. Студентам dependants только на research postgraduate или government-sponsored.
+
+  Великобритания разрешает второе гражданство. Это не ЕС и не Шенген.
 topic_keys: [europe, uk, visa, relocation]
 tags: [Великобритания, UK, Skilled Worker, Global Talent, Graduate, HPI, Family visa, ILR, 2026]
 primary_intent: informational

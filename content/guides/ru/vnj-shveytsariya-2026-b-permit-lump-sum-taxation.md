@@ -4,7 +4,12 @@ title: "ВНЖ Швейцария 2026 — B-Permit, Lump-Sum Taxation, Self-Emp
 seo_title: "ВНЖ Швейцария 2026 — B-permit, lump-sum taxation, кантональные налоги"
 seo_description: "Швейцария 2026: B-permit (non-EU по квотам), L-permit, C-permit (ПМЖ), forfait fiscal (lump-sum) и кантональные налоги. Самая дорогая аренда в Европе."
 excerpt: "B-permit, lump-sum (forfait fiscal), non-gainful residence и почему self-employed для non-EU почти недоступен. Как кантон (municipal + cantonal) меняет итоговую ставку и бюджет аренды."
-quick_answer: "Швейцария — не DN-страна. Non-EU: B-permit (квоты) или lump-sum / Art. 28. **C ordinary:** **10 лет**, язык **A2 oral / A1 written**; early C (5 лет) — **B1 oral / A1 written** (discretion). **Anspruch на C через 5 лет** — у **11** стран с Niederlassungsvereinbarung; **US/CA — Gegenrecht**, не automatic. Forfait: **21/26** кантонов; федеральный taxable base ориентир **CHF 434 700–435 000** (не «налог к уплате»). Art. 28: **55+** по VZAE + ties + means. Non-EU L — семья **часто отказывают**."
+quick_answer: |-
+  Швейцария — не страна digital nomad. Для non-EU обычно B-permit по квоте или lump-sum / статья 28.
+
+  Обычный C: 10 лет и язык A2 устно / A1 письменно. Ранний C за 5 лет — B1 устно / A1 письменно, на усмотрение кантона. Право на C через 5 лет есть у 11 стран с Niederlassungsvereinbarung; США и Канада — взаимность, не автомат.
+
+  Forfait действует в 21 из 26 кантонов. Федеральная налогооблагаемая база ориентир CHF 434 700–435 000 — это не «сумма налога к уплате». Статья 28: 55+ по VZAE, связи со страной и средства. На L-permit для non-EU семью часто не пускают.
 topic_keys: [europe, schengen, switzerland, visa]
 tags: [Швейцария, ВНЖ, B-permit, Lump-sum, Forfait fiscal, кантональные налоги, 2026]
 primary_intent: informational

@@ -4,7 +4,12 @@ title: "Шенген турист vs ВНЖ 2026: 90/180, виза D, EES и к�
 seo_title: "Шенген турист vs ВНЖ 2026 — 90/180, виза D, EES"
 seo_description: "Туристический шенген vs ВНЖ в 2026: правило 90/180, national visa D, residence permit, EES, риски overstay и путь к легализации. Для граждан РФ и СНГ."
 excerpt: "Туристическая виза и ВНЖ — разные правовые миры. Разбираем, когда шенгена достаточно, когда нужен тип D, как EES 2026 усилил контроль 90/180 и куда вести легализацию."
-quick_answer: "Туристический шенген (тип C) — до 90 дней в любые 180 по всей зоне; не даёт права работать и не продлевается «для жизни». ВНЖ — national visa D + residence permit: право жить, работать (по условиям) и путешествовать в Шенгене без лимита 90/180. EES с 2026 считает дни автоматически. Overstay = риск депортации и запрета въезда. Легализация — через work, D7/D8, учёбу, семью; см. отдельный гайд."
+quick_answer: |-
+  Туристический шенген типа C — до 90 дней в любые 180 по всей зоне. Он не даёт права работать и не продлевается «для жизни».
+
+  ВНЖ — национальная виза D плюс residence permit: можно жить, работать по условиям карты и ездить по Шенгену без лимита 90/180. EES с 2026 считает дни автоматически. Overstay — риск депортации и запрета въезда.
+
+  Легализация идёт через работу, D7/D8, учёбу или семью.
 corridor_slugs: [ru-speaking-to-portugal, ru-speaking-to-spain, ru-speaking-to-germany, ru-speaking-to-italy, ru-speaking-to-france, ru-speaking-to-netherlands, ru-speaking-to-sweden, ru-speaking-to-norway, ru-speaking-to-finland, ru-speaking-to-denmark]
 topic_keys: [schengen, visa, legalization, europe]
 tags: [Шенген, ВНЖ, 90/180, EES, турист, виза D, 2026, легализация]

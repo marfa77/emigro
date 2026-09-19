@@ -4,7 +4,12 @@ title: "ВНЖ Италия для россиян 2026: Elective Residency, Decr
 seo_title: "ВНЖ Италия 2026 — Elective Residency и Decreto Flussi для СНГ"
 seo_description: "Elective Residency Италия 2026: €31k/год минимум, Decreto Flussi — рабочие квоты, Golden Visa €500k. Стоимость жизни Милан/Рим/юг, путь к ПМЖ. Для граждан РФ."
 excerpt: "Три реальных маршрута ВНЖ в Италии для русскоязычных: финансово независимые — Elective Residency, специалисты с оффером — Decreto Flussi, инвесторы — Golden Visa. Цифры и процедуры 2026."
-quick_answer: "Elective Residency — для финансово независимых с пассивным доходом от ~€31 000/год (ориентир консульств; официальная формула от assegno sociale — ~€30 540+), без права работать в Италии. Digital Nomad — от ~€24 790/год. Decreto Flussi — ежегодные квоты на рабочие визы. Golden Visa — €500 000 инвестиций или €250 000 в стартапы. ПМЖ — через 5 лет; гражданство — через 10 лет."
+quick_answer: |-
+  Elective Residency — для финансово независимых с пассивным доходом от примерно €31 000 в год (ориентир консульств; официальная формула от assegno sociale — около €30 540+), без права работать в Италии. Digital nomad — от примерно €24 790 в год.
+
+  Decreto Flussi — ежегодные квоты на рабочие визы. Golden Visa — €500 000 инвестиций или €250 000 в стартапы.
+
+  ПМЖ — через 5 лет, гражданство — через 10.
 corridor_slugs: [ru-speaking-to-italy]
 topic_keys: [italy, visa, investment]
 tags: [Италия, Elective Residency, Decreto Flussi, Golden Visa, ВНЖ, 2026]

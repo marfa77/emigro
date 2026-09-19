@@ -4,7 +4,12 @@ title: "ВНЖ Скандинавия 2026: Швеция, Дания, Норве
 seo_title: "ВНЖ Nordics 2026 — сравнение SE/DK/NO/FI (хаб)"
 seo_description: "Хаб Nordics 2026: куда смотреть в SE/DK/NO/FI. Детали Швеции и Норвегии — в country-pillars; здесь сравнение порогов и семьи для RU/BY/UA/KZ."
 excerpt: "Хаб сравнения Nordics: work permit / pay limit / семья. Глубина по стране — в pillar Швеции и Норвегии, не дублируем их цифры здесь."
-quick_answer: "Хаб SE/DK/NO/FI. SE work permit ≥ **SEK 34 470**/мес; Blue Card SE ≥ **SEK 53 625**/мес (с 15.07.2026). DK pay limit ~**DKK 552 000**/год. Гражданство: SE **8 лет** (с 06.06.2026); NO обычно **8 из 11**; FI **8 лет** (с 01.10.2024, Migri); DK ~**9 лет**. Двойное гражданство DK — с **01.09.2015** (не «с 2024»). Глубина: [Швеция](/ru/guides/vnj-shvetsiya-2026-work-permit-grazhdanstvo), [Норвегия](/ru/guides/vnj-norvegiya-2026)."
+quick_answer: |-
+  Скандинавия на Emigro — четыре коридора: Швеция, Дания, Норвегия и Финляндия. В Швеции work permit от SEK 34 470 в месяц, Blue Card от SEK 53 625 с 15 июля 2026. Датский pay limit около DKK 552 000 в год.
+
+  Гражданство: Швеция 8 лет с 6 июня 2026; Норвегия обычно 8 из последних 11; Финляндия 8 лет с 1 октября 2024; Дания около 9 лет. Двойное гражданство в Дании разрешено с 1 сентября 2015, не «с 2024».
+
+  Подробнее: [гайд по Швеции](/ru/guides/vnj-shvetsiya-2026-work-permit-grazhdanstvo) и [Норвегии](/ru/guides/vnj-norvegiya-2026).
 corridor_slugs: [ru-speaking-to-sweden, ru-speaking-to-norway, ru-speaking-to-finland, ru-speaking-to-denmark]
 topic_keys: [scandinavia, sweden, norway, finland, denmark, work, visa]
 tags: [Скандинавия, ВНЖ, Швеция, Дания, work permit, 2026, Nordics]

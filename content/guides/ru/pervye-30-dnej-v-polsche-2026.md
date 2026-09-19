@@ -4,7 +4,10 @@ title: "Первые 30 дней в Польше 2026: PESEL, meldunek, банк
 seo_title: "Первые 30 дней в Польше 2026 — PESEL, meldunek, банк"
 seo_description: "Чек-лист после прилёта в Польшу: PESEL, meldunek за 4 дня для non-EU, банк mBank/PKO, NFZ, SIM, voivodeship. Для RU/UA/BY/KZ. 2026."
 excerpt: "Work permit или Blue Card одобрен — что делать в первый месяц: PESEL, meldunek (4 дня для third-country), банк, NFZ и запись в voivodeship."
-quick_answer: "Первые недели: (1) **meldunek** — для RU/BY/UA/KZ по закону **не позднее 4-го дня** после заселения (ст. 41 u.e.l.; у EU/EFTA — 30 дн.); реалистично запись в urząd **1–4 нед.**, (2) PESEL при meldunek, (3) SIM, (4) банк IBAN PL, (5) NFZ, (6) karta pobytu: **6–18 мес.** (Варшава **12–18+**; UoC до 3 мес.). Основание для meldunek — **umowa najmu**; отдельная zgoda właściciela **не нужна**."
+quick_answer: |-
+  В первые недели в Польше главное — meldunek. Для RU, BY, UA и KZ по закону не позднее 4-го дня после заселения (ст. 41 u.e.l.; у граждан ЕС/EFTA — 30 дней). Запись в urząd реалистично занимает 1–4 недели. Основание — договор аренды; отдельное согласие хозяина не нужно.
+
+  Дальше: PESEL вместе с meldunek, польская SIM, счёт с IBAN PL, страховка NFZ. Карта pobytu — 6–18 месяцев, в Варшаве часто 12–18+, ускоренная UoC до 3 месяцев.
 corridor_slugs: [ru-speaking-to-poland]
 topic_keys: [poland, checklist, arrival]
 tags: [Польша, чеклист, 2026, PESEL, meldunek, NFZ, karta pobytu]

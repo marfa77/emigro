@@ -4,7 +4,12 @@ title: "ВНЖ Кипр 2026: Digital Nomad, Pink Slip, Category F, Fast Track �
 seo_title: "ВНЖ Кипр 2026 — DN €3500, Pink Slip, Fast Track €300k"
 seo_description: "Кипр 2026: DN €3 500 net (max 3г), Fast Track €300k, Non-Dom 17+5+5, CIT 15%, PIT 0% до €22k, SDC дивиденды domiciled 5%. Гражданство 7+1 / highly skilled 4–5г."
 excerpt: "Маршруты Кипра для RU/BY/UA/KZ: Digital Nomad vs Pink Slip vs Category F vs Fast Track; Non-Dom как налог (не ВНЖ); налоговая реформа 2026 (CIT 15%, SDC 5%, 60-day)."
-quick_answer: "**DN:** €3 500 net, **1+2=3 года**, квота ~500. **Pink Slip** ~€2 000/мес, без работы. **Cat F** / **Fast Track 6(2)** €300k+€50k. **Non-Dom:** 0% SDC пассив до **17 лет**; продление **2×5 лет по €250k** (до ~27). С 2026: **CIT 15%**, PIT free **€22 000**, SDC дивиденды domiciled **5%** (прибыль с 01.01.2026), non-dom 0%. **60-day:** больше не требует «не resident elsewhere» — dual → DTT tie-breaker. Гражданство: **7 лет из 10 + 12 мес** (≈8 лет), язык **B1**; highly skilled **≈4г (B1)** / **≈5г (A2)**. Fast Track ≠ паспорт."
+quick_answer: |-
+  Digital nomad на Кипре: €3 500 чистыми, схема 1+2 года (потолок 3 года), квота около 500. Pink Slip — около €2 000 в месяц без права работать. Category F и Fast Track 6(2) — от €300 000 плюс €50 000 на счёте.
+
+  Налоговый non-dom: 0% спецсбора на пассив до 17 лет, продление дважды по 5 лет за €250 000 (примерно до 27). С 2026 корпоративный налог 15%, необлагаемый PIT до €22 000, сбор на дивиденды domiciled 5% с прибыли после 1 января 2026; non-dom по-прежнему 0%. Правило 60 дней больше не требует «не быть резидентом нигде ещё» — при двойном резидентстве решает соглашение об избежании двойного налогообложения.
+
+  Гражданство: 7 лет из 10 плюс 12 месяцев подряд (около 8 лет) и язык B1; highly skilled около 4 лет с B1 или 5 с A2. Fast Track — не паспорт.
 corridor_slugs: [ru-speaking-to-cyprus]
 topic_keys: [cyprus, digital nomad, visa, investment]
 tags: [Кипр, Digital Nomad, Pink Slip, Category F, Fast Track, Non-Dom, ВНЖ, 2026]

@@ -4,7 +4,12 @@ title: "ВНЖ Австрия 2026: RWR Card, Blue Card — без digital nomad
 seo_title: "ВНЖ Австрия 2026 — RWR €3465, Blue Card, без DNV"
 seo_description: "Австрия 2026: нет DNV. RWR Other Key Workers €3 465/мес, Blue Card €55 678/год. Self-Employed Key Worker ≠ фриланс (€100k/макропольза). SVS, 45+, RWR Plus."
 excerpt: "Честный гайд: Австрия без digital nomad визы. RWR/Blue Card с оффером; самозанятость — только Key Worker/стартап с капиталом. Налоги SVS+PIT, не «открой ИП»."
-quick_answer: "**Digital nomad визы в Австрии нет.** Легально жить и работать (в т.ч. удалённо на foreign employer) с территории AT нельзя без подходящего Aufenthaltstitel — туризм/Schengen C и «excepted from gainful employment» работу запрещают. Основные пути 2026: **RWR Other Key Workers** — оффер + AMS + **≥€3 465/мес брутто** + баллы; **EU Blue Card** — **≥€55 678/год**; shortage / graduates / Very Highly Qualified — отдельные сетки. **Self-Employed Key Worker ≠ фриланс с ноутбуком:** нужен макроэкономический эффект (**€100 000** капитала **или** рабочие места / know-how / региональное значение). **Start-up Founder:** €30k + ≥50% equity + **50/85** баллов + инновация. Сначала **RWR 24 мес**, затем **RWR Card Plus**. **45+** first-time — часто зарплата/пенсия как в DE-логике. Подача из РФ — через третьи страны. ПМЖ ~5 лет; гражданство ~10 лет + B1."
+quick_answer: |-
+  Отдельной digital nomad visa в Австрии нет. Жить и работать, в том числе удалённо на иностранного работодателя, без подходящего вида на жительство нельзя: туризм и шенген C работу запрещают.
+
+  Основные пути 2026: RWR Other Key Workers — оффер, AMS и от €3 465 брутто в месяц плюс баллы; EU Blue Card от €55 678 в год; отдельно shortage, выпускники и Very Highly Qualified. Self-Employed Key Worker — не «фриланс с ноутбуком»: нужен макроэкономический эффект (€100 000 капитала или рабочие места / know-how / регион). Start-up Founder: €30 000, доля от 50%, 50/85 баллов и инновация. Сначала RWR на 24 месяца, затем RWR Card Plus.
+
+  Соискателям 45+ при первом въезде часто смотрят зарплату или пенсию по той же логике, что в Германии. Подача из РФ — через третьи страны. ПМЖ около 5 лет, гражданство около 10 лет и B1.
 corridor_slugs: [ru-speaking-to-austria]
 topic_keys: [austria, work, visa]
 tags: [Австрия, ВНЖ, Blue Card, RWR Card, 2026, AT, без digital nomad]

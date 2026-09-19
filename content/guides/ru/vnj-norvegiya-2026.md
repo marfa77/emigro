@@ -4,7 +4,12 @@ title: "ВНЖ Норвегия 2026: Skilled Worker, семья, ПМЖ за 3 
 seo_title: "ВНЖ Норвегия 2026 — Skilled Worker NOK 545 400, ПМЖ 3 года"
 seo_description: "Норвегия 2026: Skilled Worker NOK 545 400/624 700, семья 436 957, ПМЖ 341 373, гражданство 8/11 лет. UDI для RU/UA/BY/KZ, без digital nomad."
 excerpt: "Коридор EEA/Schengen для специалистов с оффером: высокие пороги зарплаты, ПМЖ за 3 года, гражданство обычно 8 из 11 лет и wealth tax с NOK 1.9M."
-quick_answer: "Норвегия — **не ЕС**, но **ЕЭА + Шенген**. Основной маршрут — **Skilled Worker** с оффером: без kollektivavtal с **01.05.2026** — **NOK 545 400/год** (bachelor) / **NOK 624 700** (master). Digital nomad visa **нет**. ПМЖ ориентир **3 года** + доход **NOK 341 373**/12 мес (2.5 G). Гражданство обычно **8 из последних 11 лет** (иногда **6 из 10** при достаточном доходе). Family: future income спонсора **NOK 436 957** (3.2 G). Wizard: /ru/norway/wizard."
+quick_answer: |-
+  Норвегия не в ЕС, но в ЕЭЗ и Шенгене. Отдельной digital nomad visa нет. Основной маршрут — Skilled Worker с оффером. Без kollektivavtal с 1 мая 2026: NOK 545 400 в год с бакалавриатом и NOK 624 700 с магистратурой.
+
+  ПМЖ ориентир 3 года плюс доход NOK 341 373 за 12 месяцев (2,5 G). Гражданство обычно 8 из последних 11 лет, иногда 6 из 10 при достаточном доходе. Для семьи будущий доход спонсора — NOK 436 957 (3,2 G).
+
+  Подбор — в [wizard по Норвегии](/ru/norway/wizard).
 corridor_slugs: [ru-speaking-to-norway]
 topic_keys: [norway, work, visa]
 tags: [Норвегия, ВНЖ, Skilled Worker, UDI, ПМЖ, гражданство, 2026, Скандинавия]

@@ -4,7 +4,10 @@ title: "Первые 30 дней в Испании 2026: чек-лист пос�
 seo_title: "NIE Испания 2026 — 30 дней для RU/BY"
 seo_description: "NIE, empadronamiento, банк, SIM и extranjería после прилёта: пошаговый чек-лист для граждан RU/BY/UA/KZ с DNV в 2026 году."
 excerpt: "Вы получили DNV / non-lucrative или прилетели на подачу TIE — что делать в первый месяц: NIE, empadronamiento, банк, SIM и extranjería."
-quick_answer: "Первые 30 дней: (1) NIE через cita previa или gestoría, (2) empadronamiento в ayuntamiento, (3) Spanish SIM (Movistar/Vodafone/Orange), (4) банк — CaixaBank/Santander или N26 с NIE, (5) Seguridad Social при employment, (6) cita extranjería для TIE / huellas. Без NIE и empadronamiento не закрыть большинство админ-процедур."
+quick_answer: |-
+  В первые 30 дней оформите NIE через cita previa или gestoría, empadronamiento в ayuntamiento, испанскую SIM и счёт CaixaBank, Santander или N26 с NIE.
+
+  При работе встаньте на Seguridad Social и возьмите cita в extranjería на TIE и huellas. Без NIE и empadronamiento большинство процедур не закроется.
 corridor_slugs: [ru-speaking-to-spain]
 topic_keys: [spain, checklist, arrival]
 tags: [Испания, чеклист, 2026, NIE, empadronamiento, TIE]

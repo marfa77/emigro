@@ -4,6 +4,8 @@
  * duplicate corridor lists in other files.
  */
 
+import { getTransitHub, TRANSIT_HUBS } from "@/lib/transit-hubs";
+
 export type CorridorRegistryEntry = {
   slug: string;
   segment: string;
@@ -294,17 +296,53 @@ export function corridorSlugForSegment(segment: string): string | null {
   return getCorridorBySegment(segment)?.slug ?? null;
 }
 
+export type AssistCountryGroup = "europe" | "settle" | "transit";
+
 export type AssistCountryOption = {
   value: string;
   label: string;
+  /** Empty for settle/transit hubs that have no DB corridor yet. */
   corridorSlug: string;
+  destinationIso2: string;
+  group: AssistCountryGroup;
 };
 
-/** Country picker options for Emigro Assist — derived from registry. */
+const HUB_DESTINATION_ISO2: Record<string, string> = {
+  serbia: "RS",
+  armenia: "AM",
+  uae: "AE",
+  thailand: "TH",
+  indonesia: "ID",
+  georgia: "GE",
+  turkey: "TR",
+  montenegro: "ME",
+  kazakhstan: "KZ",
+  "south-africa": "ZA",
+};
+
+function compareRuLabel(a: AssistCountryOption, b: AssistCountryOption): number {
+  return a.label.localeCompare(b.label, "ru");
+}
+
+/** Country picker options for Emigro Assist — EU corridors plus published hubs. */
 export function getAssistCountryOptions(): AssistCountryOption[] {
-  return CORRIDOR_REGISTRY.filter((c) => c.assistEligible).map((c) => ({
-    value: c.segment,
-    label: c.titleRu.replace(/^Русскоязычные → /, ""),
-    corridorSlug: c.slug,
+  const fromCorridors = CORRIDOR_REGISTRY.filter((c) => c.assistEligible).map((c) => {
+    const hub = getTransitHub(c.segment);
+    return {
+      value: c.segment,
+      label: c.titleRu.replace(/^Русскоязычные → /, ""),
+      corridorSlug: c.slug,
+      destinationIso2: c.destinationIso2[0] ?? "",
+      group: (hub?.kind ?? "europe") as AssistCountryGroup,
+    };
+  });
+  const seen = new Set(fromCorridors.map((option) => option.value));
+  const fromHubs = TRANSIT_HUBS.filter((hub) => !seen.has(hub.slug)).map((hub) => ({
+    value: hub.slug,
+    label: hub.countryRu,
+    corridorSlug: "",
+    destinationIso2: HUB_DESTINATION_ISO2[hub.slug] ?? "",
+    group: hub.kind,
   }));
+  return [...fromCorridors, ...fromHubs].sort(compareRuLabel);
 }

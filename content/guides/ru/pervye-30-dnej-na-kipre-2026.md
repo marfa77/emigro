@@ -4,7 +4,10 @@ title: "Первые 30 дней на Кипре 2026: TIN, ARC, банк, GESY"
 seo_title: "Первые 30 дней на Кипре 2026 — TIN, банк, GESY, utilities"
 seo_description: "Чек-лист после прилёта на Кипр 2026: ARC/ВНЖ, TIN, банк, GESY или частная страховка, utilities. Digital Nomad, Category F, Golden Visa. Кипр ≠ Шенген. Для RU/BY/UA/KZ."
 excerpt: "Практический месяц после въезда: миграция и ARC, TIN, банк, GESY, utilities и бюджет первого месяца в Лимассоле, Никосии, Ларнаке и Пафосе."
-quick_answer: "После въезда: SIM и заселение → **ARC / подача residence** (District Immigration / CRMD) → **TIN** в Tax Department → кипрский банк → **GESY** и/или частная страховка (€30k+ для DN/FIP) → utilities (EAC и вода). **Кипрский ВНЖ ≠ Шенген.** Category F — длинный бэклог. DN 50% / non-dom — через бухгалтера, не автоматически."
+quick_answer: |-
+  После въезда: SIM и заселение, затем ARC / подача residence в District Immigration или CRMD, TIN в налоговой, кипрский банк, GESY и/или частная страховка (для digital nomad и FIP часто от €30 000) и utilities — EAC и вода.
+
+  Кипрский ВНЖ Шенген не открывает. Category F идёт с длинным бэклогом. Скидка 50% и non-dom — через бухгалтера, не автоматически.
 corridor_slugs: [ru-speaking-to-cyprus]
 topic_keys: [cyprus, checklist, arrival]
 tags: [Кипр, чеклист, 2026, TIN, GESY, ARC, Лимассол]

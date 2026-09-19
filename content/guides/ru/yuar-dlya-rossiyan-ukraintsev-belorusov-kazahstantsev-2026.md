@@ -4,7 +4,12 @@ title: "ЮАР 2026: Critical Skills, пенсия, школы Кейптаун�
 seo_title: "ЮАР для россиян и СНГ 2026 — визы, Critical Skills, школы, MBA"
 seo_description: "Релокация в ЮАР 2026 для RU/UA/BY/KZ: безвиз 90 дней для РФ, Critical Skills, Retirement R37k/мес, школы Кейптауна, университеты и MBA UCT GSB. Не EU-коридор Emigro."
 excerpt: "Южно-Африканская Республика вне EU-коридоров Emigro, но рабочий маршрут для Critical Skills, retirement и учёбы: визы по 4 паспортам, практика первых 30 дней, школы Кейптауна и MBA UCT GSB."
-quick_answer: "ЮАР — не европейский коридор Emigro. 🇷🇺 РФ: безвиз до 90 дней (туризм/дело с 2017; работа/учёба — виза). 🇺🇦 UA / 🇧🇾 BY (обычный паспорт) / 🇰🇿 KZ: виза заранее. Рабочие маршруты: Critical Skills Work Visa (список DHA + SAQA + часто профрегистрация), General Work, Retirement от ~R37 000/мес пассивного дохода, Financial Independence (~R12 млн активов + сбор при PR), spousal. Revised White Paper (кабинет апр. 2026) планирует PBS, remote/start-up visas и объединение skilled categories — сверяйте статус внедрения. Для семей: школы Кейптауна — AISCT, ISCT, **Hout Bay International (IB continuum)**, Reddam, Bishops/Herschel. MBA: UCT Graduate School of Business (GSB) — FT/модульный; по опыту программы можно спросить выпускника Павла в Telegram @pavel_ct."
+quick_answer: |-
+  ЮАР на Emigro — страна для жизни, не европейский коридор. Граждане РФ въезжают без визы до 90 дней как туристы или по делу; работа и учёба требуют визу. Украина, Беларусь (обычный паспорт) и Казахстан оформляют визу заранее.
+
+  Рабочие маршруты: Critical Skills по списку DHA (часто нужны SAQA и профрегистрация), обычный work visa, пенсия от примерно R37 000 пассивного дохода в месяц, Financial Independence около R12 млн активов плюс сбор при ПМЖ, и семейный трек. Белая книга кабинета от апреля 2026 обещает балльную систему и remote/start-up визы — сверяйте, что уже внедрили.
+
+  Семьям смотрят школы Кейптауна: AISCT, ISCT, Hout Bay International, Reddam, Bishops, Herschel. MBA — UCT GSB, полный или модульный курс.
 topic_keys: [south-africa, relocation, critical-skills, education, settle]
 tags: [ЮАР, Южная Африка, Critical Skills, Кейптаун, MBA, UCT GSB, школы, россияне, Украина, Беларусь, Казахстан, 2026]
 primary_intent: how-to

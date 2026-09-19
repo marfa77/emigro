@@ -4,7 +4,12 @@ title: "Налоговые спецрежимы ЕС 2026: Beckham, IFICI, 30% r
 seo_title: "Налоговые спецрежимы ЕС 2026 — Beckham, NHR/IFICI, 30%, Non-Dom"
 seo_description: "Сравнение спецрежимов 2026: Испания Beckham 24%, PT IFICI 20%, NL 30% ruling, Кипр Non-Dom, Италия impatriati, Греция 50%, Мальта remittance, flat tax HU/BG, Хорватия DN 0%, Словения normiranec."
 excerpt: "Pillar: как устроены спецрежимы ЕС, чем effective rate отличается от маркетинга, и какой режим смотреть под DN / найм / HNWI — без путаницы «ВНЖ = льгота»."
-quick_answer: "Спецрежим ≠ ВНЖ. Нужны **налоговое резидентство** (часто 183+ дня / центр интересов) + **активная заявка**. Ориентиры 2026: **ES Beckham** 24% до €600k, **сверх — 47%** (не 45%); 6 лет. **PT IFICI** 20% — узкий, **не** старый NHR. **NL 30% ruling**: 2026 — **30%**; с **01.01.2027** — **27%** (для большинства; ≤2023 часто grandfathered 30%); порог taxable **€48 013** / **€36 497**. **IT impatriati**: обычно **50% базы** IRPEF. **HU KATA** лимит **HUF 18 млн**. **SI normiranec**: пороги **€50k / €85k / €120k** (2-летнее среднее). **HR DN 0%** — только на DN ≤18 мес. Таблицы — **иллюстрации**."
+quick_answer: |-
+  Специальный налоговый режим — не виза и не ВНЖ. Нужны налоговое резидентство (часто 183+ дня или центр интересов) и отдельная заявка.
+
+  Ориентиры 2026: Испания Beckham — 24% до €600 000, сверх этого 47% (не 45%), до 6 лет. Португальский IFICI 20% — узкий режим, не старый NHR. Нидерланды 30% ruling: в 2026 ещё 30%, с 1 января 2027 у большинства 27% (кто въехал до 2024 часто сохраняет 30%); порог taxable €48 013 / €36 497.
+
+  Италия impatriati обычно берёт 50% базы IRPEF. Венгерская KATA — лимит HUF 18 млн. Словенский normiranec — пороги €50 000 / €85 000 / €120 000 по двухлетнему среднему. Хорватский 0% — только на digital nomad до 18 месяцев. Таблицы в гайде — иллюстрации, не замена консультации.
 corridor_slugs: [ru-speaking-to-spain, ru-speaking-to-portugal, ru-speaking-to-netherlands, ru-speaking-to-italy, ru-speaking-to-greece, ru-speaking-to-cyprus, ru-speaking-to-malta, ru-speaking-to-hungary, ru-speaking-to-bulgaria, ru-speaking-to-croatia, ru-speaking-to-slovenia, ru-speaking-to-estonia]
 topic_keys: [spain, portugal, netherlands, italy, greece, cyprus, malta, hungary, bulgaria, croatia, slovenia, estonia, europe]
 tags: [налоги, Beckham, IFICI, NHR, 30% ruling, Non-Dom, Impatriati, 2026]

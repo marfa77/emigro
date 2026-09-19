@@ -4,7 +4,10 @@ title: "Первые 30 дней во Франции 2026: чек-лист по�
 seo_title: "Первые 30 дней во Франции 2026 — titre de séjour, CAF, CPAM, préfecture"
 seo_description: "Практический чек-лист для RU/BY/UA/KZ после прилёта во Францию: titre de séjour, OFII, CAF, банк, CPAM/Sécu, préfecture. 2026."
 excerpt: "Вы получили VLS-TS / Passeport Talent или прилетели на подачу — что делать в первый месяц: OFII, банк, CPAM и préfecture."
-quick_answer: "Первые 30 дней: (1) валидация VLS-TS через OFII в течение 3 месяцев (online + медосмотр), (2) French SIM (Orange/SFR/Bouygues), (3) банк — BNP/Société Générale или N26 с titre, (4) CPAM / Sécurité sociale после OFII, (5) CAF для housing aid (если eligible), (6) préfecture appointment для carte de séjour. Без validated VLS-TS статус не легален."
+quick_answer: |-
+  В первые 30 дней запустите валидацию VLS-TS через OFII: на это есть 3 месяца, online плюс медосмотр. Возьмите французскую SIM и счёт BNP, Société Générale или N26 с titre.
+
+  После OFII — CPAM / Sécurité sociale, при праве — CAF на жильё, и запись в préfecture на carte de séjour. Без валидированного VLS-TS статус нелегален.
 corridor_slugs: [ru-speaking-to-france]
 topic_keys: [france, checklist, arrival]
 tags: [Франция, чеклист, 2026, OFII, CPAM, préfecture, titre de séjour]
