@@ -5,7 +5,7 @@ const sections = [
   {
     title: "Ops",
     links: [
-      { href: "/admin/stats", label: "Site statistics" },
+      { href: "/admin/referrals", label: "Referral URLs (Revolut, Wise)" },
       { href: "/admin/leads", label: "Manual leads" },
       { href: "/admin/corridors", label: "Corridor publish status" },
       { href: "/admin/topics", label: "News destinations (DB)" },

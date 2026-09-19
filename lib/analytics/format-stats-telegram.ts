@@ -4,6 +4,8 @@ import {
   deltaLine,
   type StatsReport,
 } from "@/lib/analytics/stats";
+import { formatRevolutReferralTelegramLine } from "@/lib/partners/revolut-referral";
+import { formatWiseReferralTelegramLine } from "@/lib/partners/wise-referral";
 
 function escapeHtml(text: string): string {
   return text
@@ -345,6 +347,16 @@ export function formatStatsReportTelegram(report: StatsReport): string {
     "",
     ...fmtThreadsBlock(report),
   ];
+
+  const revolutLine = formatRevolutReferralTelegramLine(report.revolutReferral);
+  if (revolutLine) {
+    lines.push("", revolutLine);
+  }
+
+  const wiseLine = formatWiseReferralTelegramLine(report.wiseReferral);
+  if (wiseLine) {
+    lines.push("", wiseLine);
+  }
 
   const gsc = fmtGscLine(report);
   if (gsc.length) {

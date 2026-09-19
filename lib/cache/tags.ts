@@ -9,6 +9,7 @@ export const CACHE_TAGS = {
   wizards: "wizards",
   communityNotes: "community-notes",
   guides: "guides",
+  partnerReferrals: "partner-referrals",
 } as const;
 
 export const CACHE_REVALIDATE = {
@@ -20,4 +21,5 @@ export const CACHE_REVALIDATE = {
   wizardPulse: 900,
   communityNotes: 300,
   guides: 3600,
+  partnerReferrals: 30,
 } as const;

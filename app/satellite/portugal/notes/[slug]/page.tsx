@@ -22,6 +22,10 @@ import {
 import { getPublishedCommunityNoteBySlug, getPublishedCommunityNotes } from "@/lib/community-notes/queries";
 import { getRelatedNotes } from "@/lib/community-notes/repair-note";
 import { shouldShowPixIdPromo, shouldShowPrep2GoPromo } from "@/lib/community-notes/sponsor-promo";
+import { revolutPromoProps } from "@/lib/partners/revolut-referral-store";
+import { wisePromoProps } from "@/lib/partners/wise-referral-store";
+import { RevolutReferralPromo } from "@/components/sponsors/RevolutReferralPromo";
+import { WiseReferralPromo } from "@/components/sponsors/WiseReferralPromo";
 import { resolveNoteOgImage } from "@/lib/community-notes/note-og-image";
 import { PORTUGAL_SATELLITE } from "@/lib/satellite/portugal";
 import { satelliteHubUrl, satellitePillarUrl } from "@/lib/satellite/funnel-urls";
@@ -55,9 +59,11 @@ function formatDate(iso: string | null): string {
 }
 
 export default async function PortugalNotePage({ params }: { params: { slug: string } }) {
-  const [note, allNotes] = await Promise.all([
+  const [note, allNotes, revolutPromo, wisePromo] = await Promise.all([
     getPublishedCommunityNoteBySlug(params.slug, "portugal"),
     getPublishedCommunityNotes("portugal"),
+    revolutPromoProps(params.slug, "note"),
+    wisePromoProps(params.slug, "note"),
   ]);
   if (!note) notFound();
 
@@ -185,6 +191,23 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
 
       {showPrep2Go && <Prep2GoPromo noteSlug={note.slug} />}
       {showPixId && <PixIDPromo noteSlug={note.slug} topicKey="portugal" />}
+      {revolutPromo && (
+        <RevolutReferralPromo
+          placement="satellite_note"
+          contentId={note.slug}
+          offers={revolutPromo.offers}
+          live={revolutPromo.live}
+          className="mt-10"
+        />
+      )}
+      {wisePromo && (
+        <WiseReferralPromo
+          placement="satellite_note"
+          contentId={note.slug}
+          live={wisePromo.live}
+          className="mt-10"
+        />
+      )}
 
       <RelatedNotes notes={related} />
 

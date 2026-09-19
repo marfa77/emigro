@@ -22,6 +22,10 @@ import { getPublishedCommunityNoteBySlug, getPublishedCommunityNotes } from "@/l
 import { getRelatedNotes } from "@/lib/community-notes/repair-note";
 import { resolveNoteOgImage } from "@/lib/community-notes/note-og-image";
 import { shouldShowPixIdPromo } from "@/lib/community-notes/sponsor-promo";
+import { revolutPromoProps } from "@/lib/partners/revolut-referral-store";
+import { wisePromoProps } from "@/lib/partners/wise-referral-store";
+import { RevolutReferralPromo } from "@/components/sponsors/RevolutReferralPromo";
+import { WiseReferralPromo } from "@/components/sponsors/WiseReferralPromo";
 import { SPAIN_SATELLITE } from "@/lib/satellite/spain";
 import { satelliteHubUrl, satellitePillarUrl } from "@/lib/satellite/funnel-urls";
 import { spainHubPath } from "@/lib/satellite/paths";
@@ -54,9 +58,11 @@ function formatDate(iso: string | null): string {
 }
 
 export default async function SpainNotePage({ params }: { params: { slug: string } }) {
-  const [note, allNotes] = await Promise.all([
+  const [note, allNotes, revolutPromo, wisePromo] = await Promise.all([
     getPublishedCommunityNoteBySlug(params.slug, "spain"),
     getPublishedCommunityNotes("spain"),
+    revolutPromoProps(params.slug, "note"),
+    wisePromoProps(params.slug, "note"),
   ]);
   if (!note) notFound();
 
@@ -185,6 +191,23 @@ export default async function SpainNotePage({ params }: { params: { slug: string
       <NoteFaq items={note.faq} />
 
       {showPixId && <PixIDPromo noteSlug={note.slug} topicKey="spain" />}
+      {revolutPromo && (
+        <RevolutReferralPromo
+          placement="satellite_note"
+          contentId={note.slug}
+          offers={revolutPromo.offers}
+          live={revolutPromo.live}
+          className="mt-10"
+        />
+      )}
+      {wisePromo && (
+        <WiseReferralPromo
+          placement="satellite_note"
+          contentId={note.slug}
+          live={wisePromo.live}
+          className="mt-10"
+        />
+      )}
 
       <RelatedNotes notes={related} />
 

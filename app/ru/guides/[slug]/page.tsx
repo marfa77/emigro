@@ -9,7 +9,11 @@ import { RelocatorChatPromo } from "@/components/community/RelocatorChatPromo";
 import { TrackedAssistLink } from "@/components/assist/TrackedAssistLink";
 import { UniPrep2GoPromo, UniPrepCitizenshipHubPromo } from "@/components/sponsors/UniPrep2GoPromo";
 import { RoleRadarPromo } from "@/components/sponsors/RoleRadarPromo";
+import { RevolutReferralPromo } from "@/components/sponsors/RevolutReferralPromo";
+import { WiseReferralPromo } from "@/components/sponsors/WiseReferralPromo";
 import { shouldShowRoleRadarOnGuide } from "@/lib/role-radar";
+import { revolutPromoProps } from "@/lib/partners/revolut-referral-store";
+import { wisePromoProps } from "@/lib/partners/wise-referral-store";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { ServiceProvidersSection } from "@/components/providers/ServiceProvidersSection";
 import { countryCardImage } from "@/lib/brand/country-accents";
@@ -279,10 +283,12 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
   if (!guide) notFound();
   const longTail = getLongTailByGuideSlug(guide.slug);
   const passportIso2 = getGuidePassportIso2(guide);
-  const [allTopics, liveData, guidesIndex] = await Promise.all([
+  const [allTopics, liveData, guidesIndex, revolutPromo, wisePromo] = await Promise.all([
     getActiveNewsTopics(),
     loadGuideLiveDataForGuide(guide.corridor_slugs, guide.topic_keys, passportIso2),
     getGuidesIndex(),
+    revolutPromoProps(guide.slug, "guide"),
+    wisePromoProps(guide.slug, "guide"),
   ]);
   const countryTopics = resolveCountryTopics(guide.topic_keys, allTopics);
   const relatedGuides = getRelatedGuides(guide.slug, guide.corridor_slugs, guide.topic_keys, 4, guidesIndex);
@@ -450,10 +456,17 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
                   <Sparkles className="h-4 w-4" />
                   Короткий ответ
                 </p>
-                <p
-                  className="mt-3 text-xl leading-8 text-slate-800 [&_strong]:font-semibold [&_strong]:text-slate-950"
-                  dangerouslySetInnerHTML={{ __html: inlineMarkdown(guide.quick_answer) }}
-                />
+                {guide.quick_answer
+                  .split(/\n\s*\n/)
+                  .map((block) => block.trim())
+                  .filter(Boolean)
+                  .map((block) => (
+                    <p
+                      key={block.slice(0, 48)}
+                      className="mt-3 text-lg leading-8 text-slate-800 sm:text-xl [&_strong]:font-semibold [&_strong]:text-slate-950"
+                      dangerouslySetInnerHTML={{ __html: inlineMarkdown(block) }}
+                    />
+                  ))}
               </section>
             )}
 
@@ -503,6 +516,25 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
               <RoleRadarPromo
                 medium="guide_article"
                 content={guide.slug}
+                className="mt-8"
+              />
+            ) : null}
+
+            {revolutPromo ? (
+              <RevolutReferralPromo
+                placement="guide_article"
+                contentId={guide.slug}
+                offers={revolutPromo.offers}
+                live={revolutPromo.live}
+                className="mt-8"
+              />
+            ) : null}
+
+            {wisePromo ? (
+              <WiseReferralPromo
+                placement="guide_article"
+                contentId={guide.slug}
+                live={wisePromo.live}
                 className="mt-8"
               />
             ) : null}
@@ -652,6 +684,25 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
               <RoleRadarPromo
                 medium="guide_sidebar"
                 content={`sidebar_${guide.slug}`}
+                compact
+              />
+            ) : null}
+
+            {revolutPromo ? (
+              <RevolutReferralPromo
+                placement="guide_sidebar"
+                contentId={`sidebar_${guide.slug}`}
+                offers={revolutPromo.offers}
+                live={revolutPromo.live}
+                compact
+              />
+            ) : null}
+
+            {wisePromo ? (
+              <WiseReferralPromo
+                placement="guide_sidebar"
+                contentId={`sidebar_${guide.slug}`}
+                live={wisePromo.live}
                 compact
               />
             ) : null}

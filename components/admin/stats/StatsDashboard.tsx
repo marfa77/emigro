@@ -61,6 +61,45 @@ export function StatsDashboard({ report }: { report: StatsReport }) {
           <KpiCard label="Лиды сегодня" value={report.today.leads} previous={report.yesterday.leads} hint={`${report.assist.leadsToday} Assist · ${investment.leads7d} invest за 7д`} />
           <KpiCard label="Переходы в чаты" value={report.assist.communityClicksToday} previous={report.assist.communityClicksYesterday} hint="intent, не подтверждённый join" />
         </div>
+        {report.revolutReferral.active ? (
+          <div className="mt-4 rounded-xl bg-indigo-500/15 p-4">
+            <div className="flex flex-wrap items-end justify-between gap-3">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-indigo-200">
+                  Revolut referral · личка до {report.revolutReferral.personalEndsOn} · юрик до {report.revolutReferral.businessEndsOn}
+                </p>
+                <p className="mt-1 text-sm text-indigo-100">Клики с гайдов (provider_click)</p>
+              </div>
+              <DeltaBadge current={report.revolutReferral.clicksToday} previous={report.revolutReferral.clicksYesterday} />
+            </div>
+            <div className="mt-3 grid grid-cols-2 gap-3 text-sm sm:grid-cols-4">
+              <div>
+                <p className="text-xs text-indigo-200/80">Сегодня всего</p>
+                <p className="text-xl font-bold">{report.revolutReferral.clicksToday}</p>
+              </div>
+              <div>
+                <p className="text-xs text-indigo-200/80">Личка сегодня</p>
+                <p className="text-xl font-bold">{report.revolutReferral.personal.clicksToday}</p>
+              </div>
+              <div>
+                <p className="text-xs text-indigo-200/80">Юрик сегодня</p>
+                <p className="text-xl font-bold">{report.revolutReferral.business.clicksToday}</p>
+              </div>
+              <div>
+                <p className="text-xs text-indigo-200/80">Кампания</p>
+                <p className="text-xl font-bold">{report.revolutReferral.clicksCampaign}</p>
+              </div>
+            </div>
+            {report.revolutReferral.byContent.length > 0 ? (
+              <p className="mt-3 truncate text-xs text-indigo-100/80">
+                {report.revolutReferral.byContent
+                  .slice(0, 4)
+                  .map(([slug, count]) => `${slug} ×${count}`)
+                  .join(" · ")}
+              </p>
+            ) : null}
+          </div>
+        ) : null}
         {core ? (
           <div className="mt-4 rounded-xl bg-white/5 p-4">
             <div className="flex items-center justify-between gap-3 text-sm">

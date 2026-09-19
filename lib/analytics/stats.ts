@@ -11,6 +11,20 @@ import {
 import { classifyTrafficChannel, type TrafficChannel } from "@/lib/analytics/traffic-channel";
 import { buildDashboardPortfolioStats } from "@/lib/analytics/dashboard/portfolio";
 import type { DashboardPortfolioStats } from "@/lib/analytics/dashboard/types";
+import {
+  emptyRevolutReferralStats,
+  isRevolutLiveOfferVisible,
+  REVOLUT_REFERRAL_PROVIDER_ID,
+  type RevolutReferralStats,
+} from "@/lib/partners/revolut-referral";
+import { loadRevolutReferralLive } from "@/lib/partners/revolut-referral-store";
+import {
+  emptyWiseReferralStats,
+  isWiseLiveOfferVisible,
+  WISE_REFERRAL_PROVIDER_ID,
+  type WiseReferralStats,
+} from "@/lib/partners/wise-referral";
+import { loadWiseReferralLive } from "@/lib/partners/wise-referral-store";
 
 const VISITOR_EVENTS = ["session_start", "page_view"] as const;
 const LEAD_EVENTS = ["lead_submitted", "assist_lead_submitted"] as const;
@@ -39,7 +53,7 @@ export interface WizardTelegramStats {
   resultsViewsYesterday: number;
 }
 
-/** Assist / Route Check funnel for /admin/stats. */
+/** Assist / Route Check funnel for Telegram `/stats`. */
 export interface AssistFunnelStats {
   pageViewsTotal: number;
   pageViewsToday: number;
@@ -140,6 +154,10 @@ export interface StatsReport {
   threads: ThreadsReferralStats;
   /** Cross-surface, community, investment, search and account-level dashboard data. */
   portfolio: DashboardPortfolioStats;
+  /** Time-boxed Revolut referral clicks until 2026-10-06. */
+  revolutReferral: RevolutReferralStats;
+  /** Wise invite clicks (open-ended until disabled). */
+  wiseReferral: WiseReferralStats;
 }
 
 function analyticsTimezone(): string {
@@ -490,6 +508,121 @@ async function topProviderClicks(
     counts.set(providerId, (counts.get(providerId) ?? 0) + 1);
   }
   return Array.from(counts.entries()).sort((a, b) => b[1] - a[1]).slice(0, limit);
+}
+
+async function buildRevolutReferralStats(
+  supabase: ReturnType<typeof createAdminClient>,
+  todayStart: string,
+  todayEnd: string,
+  yesterdayStart: string,
+  weekStart: string
+): Promise<RevolutReferralStats> {
+  const base = emptyRevolutReferralStats();
+  const live = await loadRevolutReferralLive();
+  const active =
+    isRevolutLiveOfferVisible(live.personal) || isRevolutLiveOfferVisible(live.business);
+  base.active = active;
+  base.personalEndsOn = live.personal.endsOn;
+  base.businessEndsOn = live.business.endsOn;
+  base.endsOn = live.business.endsOn;
+
+  let q = supabase
+    .from("site_events")
+    .select("created_at, properties")
+    .eq("event_name", "provider_click")
+    .contains("properties", { provider_id: REVOLUT_REFERRAL_PROVIDER_ID });
+  if (!active) {
+    q = q.gte("created_at", todayStart);
+  }
+  const { data, error } = await q.limit(5000);
+  if (error) throw new Error(error.message);
+
+  const byContent = new Map<string, number>();
+  const personal = { clicksToday: 0, clicksYesterday: 0, clicks7d: 0, clicksCampaign: 0 };
+  const business = { clicksToday: 0, clicksYesterday: 0, clicks7d: 0, clicksCampaign: 0 };
+
+  for (const row of data ?? []) {
+    const props = (row.properties as Record<string, unknown> | null) ?? {};
+    const product = String(props.product ?? "personal").trim() === "business" ? "business" : "personal";
+    const bucket = product === "business" ? business : personal;
+    bucket.clicksCampaign += 1;
+    const created = row.created_at;
+    if (created >= weekStart && created < todayEnd) bucket.clicks7d += 1;
+    if (created >= todayStart && created < todayEnd) bucket.clicksToday += 1;
+    if (created >= yesterdayStart && created < todayStart) bucket.clicksYesterday += 1;
+    const content = String(props.content_id ?? "").trim();
+    if (content) {
+      const key = `${product}:${content}`;
+      byContent.set(key, (byContent.get(key) ?? 0) + 1);
+    }
+  }
+
+  const clicksToday = personal.clicksToday + business.clicksToday;
+  const clicksYesterday = personal.clicksYesterday + business.clicksYesterday;
+  const clicks7d = personal.clicks7d + business.clicks7d;
+  const clicksCampaign = personal.clicksCampaign + business.clicksCampaign;
+
+  return {
+    ...base,
+    clicksToday,
+    clicksYesterday,
+    clicks7d,
+    clicksCampaign: active ? clicksCampaign : clicksToday,
+    personal,
+    business,
+    byContent: Array.from(byContent.entries()).sort((a, b) => b[1] - a[1]).slice(0, 8),
+  };
+}
+
+async function buildWiseReferralStats(
+  supabase: ReturnType<typeof createAdminClient>,
+  todayStart: string,
+  todayEnd: string,
+  yesterdayStart: string,
+  weekStart: string
+): Promise<WiseReferralStats> {
+  const base = emptyWiseReferralStats();
+  const live = await loadWiseReferralLive();
+  const active = isWiseLiveOfferVisible(live);
+  base.active = active;
+  base.endsOn = live.endsOn;
+
+  let q = supabase
+    .from("site_events")
+    .select("created_at, properties")
+    .eq("event_name", "provider_click")
+    .contains("properties", { provider_id: WISE_REFERRAL_PROVIDER_ID });
+  if (!active) {
+    q = q.gte("created_at", todayStart);
+  }
+  const { data, error } = await q.limit(5000);
+  if (error) throw new Error(error.message);
+
+  const byContent = new Map<string, number>();
+  let clicksToday = 0;
+  let clicksYesterday = 0;
+  let clicks7d = 0;
+  let clicksCampaign = 0;
+
+  for (const row of data ?? []) {
+    const props = (row.properties as Record<string, unknown> | null) ?? {};
+    clicksCampaign += 1;
+    const created = row.created_at;
+    if (created >= weekStart && created < todayEnd) clicks7d += 1;
+    if (created >= todayStart && created < todayEnd) clicksToday += 1;
+    if (created >= yesterdayStart && created < todayStart) clicksYesterday += 1;
+    const content = String(props.content_id ?? "").trim();
+    if (content) byContent.set(content, (byContent.get(content) ?? 0) + 1);
+  }
+
+  return {
+    ...base,
+    clicksToday,
+    clicksYesterday,
+    clicks7d,
+    clicksCampaign: active ? clicksCampaign : clicksToday,
+    byContent: Array.from(byContent.entries()).sort((a, b) => b[1] - a[1]).slice(0, 8),
+  };
 }
 
 type VisitorHit = {
@@ -925,6 +1058,7 @@ export async function buildStatsReport(): Promise<StatsReport> {
   const tz = analyticsTimezone();
   const todayWin = await dayWindow(supabase, 0, tz);
   const yWin = await dayWindow(supabase, 1, tz);
+  const weekWin = await dayWindow(supabase, 6, tz);
 
   const [
     total,
@@ -957,6 +1091,8 @@ export async function buildStatsReport(): Promise<StatsReport> {
     assist,
     threads,
     portfolio,
+    revolutReferral,
+    wiseReferral,
   ] = await Promise.all([
     periodCounts(supabase, null, null),
     periodCounts(supabase, todayWin.start, todayWin.end),
@@ -992,6 +1128,8 @@ export async function buildStatsReport(): Promise<StatsReport> {
     buildAssistFunnelStats(supabase, todayWin.start, todayWin.end, yWin.start, yWin.end),
     buildThreadsReferralStats(supabase, tz),
     buildDashboardPortfolioStats(),
+    buildRevolutReferralStats(supabase, todayWin.start, todayWin.end, yWin.start, weekWin.start),
+    buildWiseReferralStats(supabase, todayWin.start, todayWin.end, yWin.start, weekWin.start),
   ]);
 
   const [localeToday, localeYesterday, localeTotal] = await Promise.all([
@@ -1049,6 +1187,8 @@ export async function buildStatsReport(): Promise<StatsReport> {
     assist,
     threads,
     portfolio,
+    revolutReferral,
+    wiseReferral,
     localeSplit: {
       today: localeToday,
       yesterday: localeYesterday,
