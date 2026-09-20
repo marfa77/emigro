@@ -294,15 +294,25 @@ export default async function RuHubPage() {
                 Опишите ситуацию — бесплатно подберём профильного партнёра по стране и задаче.
               </p>
             </div>
-            <TrackedAssistLink
-              href="/ru/assist"
-              placement="ru_homepage"
-              linkLabel="Получить помощь бесплатно"
-              className="inline-flex shrink-0 items-center gap-2 rounded-lg bg-corridor-700 px-5 py-3 font-medium text-white hover:bg-corridor-800"
-            >
-              Получить помощь бесплатно
-              <ArrowRight className="h-4 w-4" />
-            </TrackedAssistLink>
+            <div className="flex shrink-0 flex-col gap-2 sm:items-end">
+              <TrackedAssistLink
+                href="/ru/assist#assist-form"
+                placement="ru_homepage"
+                linkLabel="Найти специалиста"
+                className="inline-flex items-center gap-2 rounded-lg bg-corridor-700 px-5 py-3 font-medium text-white hover:bg-corridor-800"
+              >
+                Найти специалиста
+                <ArrowRight className="h-4 w-4" />
+              </TrackedAssistLink>
+              <TrackedAssistLink
+                href="/ru/assist#assist-form-route-check"
+                placement="ru_homepage_route_check"
+                linkLabel="Route Check — €129"
+                className="text-sm font-medium text-corridor-700 hover:underline"
+              >
+                Route Check — €129
+              </TrackedAssistLink>
+            </div>
           </div>
         </section>
       </main>

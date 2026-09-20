@@ -138,7 +138,13 @@ export default function FrHubPage() {
               href={FR_PATHS.assist}
               className="inline-flex items-center gap-2 rounded-lg border border-white/40 px-5 py-3 text-sm font-medium text-white hover:bg-white/10"
             >
-              Aide gratuite
+              Trouver un spécialiste
+            </Link>
+            <Link
+              href={`${FR_PATHS.assist}#assist-form-route-check`}
+              className="inline-flex items-center gap-2 rounded-lg border border-white/40 px-5 py-3 text-sm font-medium text-white hover:bg-white/10"
+            >
+              Route Check — €129
             </Link>
             <Link
               href={FR_PATHS.guides}

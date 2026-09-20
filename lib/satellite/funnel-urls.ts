@@ -38,8 +38,8 @@ function satelliteConfig(countryKey: SatelliteCountryKey) {
   return PORTUGAL_SATELLITE;
 }
 
-/** Absolute Assist URL on www (Route Check / accompaniment intake). */
-export function satelliteAssistUrl(opts: UtmOpts & { countrySegment?: string }): string {
+/** Absolute Assist URL on www (partner match / Route Check / accompaniment intake). */
+export function satelliteAssistUrl(opts: UtmOpts & { countrySegment?: string; hash?: string }): string {
   const countryKey = opts.countryKey;
   const segment = opts.countrySegment ?? countryKey;
   const url = new URL("https://www.emigro.online/ru/assist");
@@ -50,7 +50,7 @@ export function satelliteAssistUrl(opts: UtmOpts & { countrySegment?: string }):
   url.searchParams.set("utm_campaign", `${countryKey}_assist`);
   url.searchParams.set("utm_placement", opts.placement);
   if (opts.content) url.searchParams.set("utm_content", opts.content);
-  url.hash = "assist-form";
+  url.hash = opts.hash ?? "assist-form";
   return url.toString();
 }
 

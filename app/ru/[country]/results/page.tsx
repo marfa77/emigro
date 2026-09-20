@@ -226,13 +226,29 @@ export default async function CountryResultsPage({
                 program: topResult?.title_ru,
               })}
               placement="wizard_corridor_next_steps"
-              linkLabel="Получить помощь бесплатно"
+              linkLabel="Найти специалиста"
               sessionId={sessionId}
               country={topic.urlSegment}
               program={topResult?.title_ru}
               className="inline-flex min-h-11 items-center rounded-lg bg-corridor-600 px-4 py-2 text-white hover:bg-corridor-700"
             >
-              Получить помощь бесплатно
+              Найти специалиста
+            </TrackedAssistLink>
+            <TrackedAssistLink
+              href={buildAssistUrl({
+                sessionId,
+                country: topic.urlSegment,
+                program: topResult?.title_ru,
+                hash: "assist-form-route-check",
+              })}
+              placement="wizard_corridor_next_steps_route_check"
+              linkLabel="Route Check — €129"
+              sessionId={sessionId}
+              country={topic.urlSegment}
+              program={topResult?.title_ru}
+              className="inline-flex min-h-11 items-center text-sm font-medium text-corridor-700 hover:underline"
+            >
+              Route Check — €129
             </TrackedAssistLink>
           </div>
         </section>

@@ -462,10 +462,18 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
                 <TrackedAssistLink
                   href="/ru/assist#assist-form"
                   placement="ru_guide_sidebar"
-                  linkLabel="Получить помощь бесплатно"
+                  linkLabel="Найти специалиста"
                   className="rounded-lg border border-corridor-200 bg-white px-5 py-3 text-center text-sm font-medium text-slate-700 hover:border-corridor-400"
                 >
-                  Получить помощь бесплатно
+                  Найти специалиста
+                </TrackedAssistLink>
+                <TrackedAssistLink
+                  href="/ru/assist#assist-form-route-check"
+                  placement="ru_guide_sidebar_route_check"
+                  linkLabel="Route Check — €129"
+                  className="text-center text-sm font-medium text-corridor-700 hover:underline"
+                >
+                  Route Check — €129
                 </TrackedAssistLink>
                 {guide.cta_secondary && (
                   <Link

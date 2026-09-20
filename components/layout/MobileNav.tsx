@@ -177,12 +177,12 @@ type MobileBottomBarProps = {
 export function MobileBottomBar({ locale = "ru" }: MobileBottomBarProps) {
   const helpLabel =
     locale === "es"
-      ? "Ayuda gratis"
+      ? "Encontrar especialista"
       : locale === "fr"
-        ? "Aide gratuite"
+        ? "Trouver un spécialiste"
         : locale === "ru"
-          ? "Помощь бесплатно"
-          : "Free help";
+          ? "Найти специалиста"
+          : "Find a specialist";
   const primaryHref =
     locale === "es" ? ES_PATHS.wizard : locale === "fr" ? FR_PATHS.wizard : "/ru/wizard";
   const primaryLabel =

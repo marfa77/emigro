@@ -320,7 +320,13 @@ export default function EsGuidePage({ params }: { params: { slug: string } }) {
               href={ES_PATHS.assist}
               className="inline-flex items-center gap-2 rounded-lg border border-corridor-300 bg-corridor-50 px-4 py-2.5 text-sm font-medium text-corridor-900 hover:border-corridor-500"
             >
-              Pedir ayuda gratis
+              Encontrar especialista
+            </Link>
+            <Link
+              href={`${ES_PATHS.assist}#assist-form-route-check`}
+              className="inline-flex items-center gap-2 text-sm font-medium text-corridor-700 hover:underline"
+            >
+              Route Check — €129
             </Link>
           </div>
         </section>

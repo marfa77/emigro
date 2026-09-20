@@ -316,13 +316,29 @@ function ResultsNextSteps({
         <TrackedAssistLink
           href={buildAssistUrl({ sessionId, country, program: programTitle })}
           placement="wizard_hub_next_steps"
-          linkLabel="Получить помощь бесплатно"
+          linkLabel="Найти специалиста"
           sessionId={sessionId}
           country={country}
           program={programTitle}
           className="rounded-lg bg-corridor-600 px-4 py-2 text-white hover:bg-corridor-700"
         >
-          Получить помощь бесплатно
+          Найти специалиста
+        </TrackedAssistLink>
+        <TrackedAssistLink
+          href={buildAssistUrl({
+            sessionId,
+            country,
+            program: programTitle,
+            hash: "assist-form-route-check",
+          })}
+          placement="wizard_hub_next_steps_route_check"
+          linkLabel="Route Check — €129"
+          sessionId={sessionId}
+          country={country}
+          program={programTitle}
+          className="rounded-lg border border-corridor-300 px-4 py-2 text-corridor-800 hover:bg-corridor-50"
+        >
+          Route Check — €129
         </TrackedAssistLink>
         {providerTopicKey && (
           <Link

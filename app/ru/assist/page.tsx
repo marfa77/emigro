@@ -194,10 +194,18 @@ export default function AssistPage({
             <TrackedAssistLink
               href="#assist-form"
               placement="ru_assist_hero"
-              linkLabel="Получить помощь бесплатно"
+              linkLabel="Описать задачу"
               className="inline-flex items-center gap-2 rounded-lg bg-white px-5 py-3 font-medium text-corridor-900 hover:bg-corridor-50"
             >
-              Получить помощь бесплатно
+              Описать задачу
+            </TrackedAssistLink>
+            <TrackedAssistLink
+              href="#assist-form-route-check"
+              placement="ru_assist_hero_route_check"
+              linkLabel="Route Check — €129"
+              className="inline-flex items-center gap-2 rounded-lg border border-white/40 px-5 py-3 font-medium text-white hover:bg-white/10"
+            >
+              Route Check — €129
             </TrackedAssistLink>
             <Link
               href="/ru/wizard"

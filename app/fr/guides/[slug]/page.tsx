@@ -289,7 +289,13 @@ export default function FrGuidePage({ params }: { params: { slug: string } }) {
               href={FR_PATHS.assist}
               className="inline-flex items-center gap-2 rounded-lg border border-corridor-300 bg-corridor-50 px-4 py-2.5 text-sm font-medium text-corridor-900 hover:border-corridor-500"
             >
-              Demander de l&apos;aide gratuitement
+              Trouver un spécialiste
+            </Link>
+            <Link
+              href={`${FR_PATHS.assist}#assist-form-route-check`}
+              className="inline-flex items-center gap-2 text-sm font-medium text-corridor-700 hover:underline"
+            >
+              Route Check — €129
             </Link>
             <Link
               href={FR_PATHS.contact}

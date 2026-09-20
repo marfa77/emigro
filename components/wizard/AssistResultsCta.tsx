@@ -71,7 +71,7 @@ export function AssistResultsCta({
           pdfPrefix: "Para un análisis independiente con PDF — ",
           sample: "ver muestra",
           sampleTrack: "Ver muestra PDF",
-          cta: "Solicitar ayuda gratis",
+          cta: "Encontrar especialista",
           paidCta: "Route Check con PDF — €129",
         }
       : locale === "fr"
@@ -88,7 +88,7 @@ export function AssistResultsCta({
             pdfPrefix: "Pour une analyse indépendante avec PDF — ",
             sample: "voir un exemple",
             sampleTrack: "Voir exemple PDF",
-            cta: "Demander de l’aide gratuitement",
+            cta: "Trouver un spécialiste",
             paidCta: "Route Check avec PDF — €129",
           }
         : {
@@ -104,7 +104,7 @@ export function AssistResultsCta({
             pdfPrefix: "Для независимого разбора с PDF — ",
             sample: "посмотреть образец",
             sampleTrack: "Образец PDF",
-            cta: "Получить помощь бесплатно",
+            cta: "Найти специалиста",
             paidCta: "Route Check с PDF — €129",
           };
 

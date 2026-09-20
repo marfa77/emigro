@@ -167,12 +167,35 @@ export function TransitHubLanding({ hub }: Props) {
                 Проверить EU-маршрут
               </Link>
             )}
-            <Link
-              href={isSettle ? "/ru/wizard" : "/ru/assist"}
-              className="rounded-lg border border-white/40 px-5 py-3 font-medium text-white hover:bg-white/10"
-            >
-              {isSettle ? "Опционально: EU wizard" : "Получить помощь бесплатно"}
-            </Link>
+            {isSettle ? (
+              <Link
+                href="/ru/wizard"
+                className="rounded-lg border border-white/40 px-5 py-3 font-medium text-white hover:bg-white/10"
+              >
+                Опционально: EU wizard
+              </Link>
+            ) : (
+              <>
+                <TrackedAssistLink
+                  href={buildAssistUrl({ country: hub.slug })}
+                  placement={`${hub.slug}_hub_hero`}
+                  linkLabel="Найти специалиста"
+                  country={hub.slug}
+                  className="rounded-lg border border-white/40 px-5 py-3 font-medium text-white hover:bg-white/10"
+                >
+                  Найти специалиста
+                </TrackedAssistLink>
+                <TrackedAssistLink
+                  href={buildAssistUrl({ country: hub.slug, hash: "assist-form-route-check" })}
+                  placement={`${hub.slug}_hub_hero_route_check`}
+                  linkLabel="Route Check — €129"
+                  country={hub.slug}
+                  className="rounded-lg border border-white/40 px-5 py-3 font-medium text-white hover:bg-white/10"
+                >
+                  Route Check — €129
+                </TrackedAssistLink>
+              </>
+            )}
           </div>
         </HeroShell>
 
@@ -230,12 +253,26 @@ export function TransitHubLanding({ hub }: Props) {
                 <TrackedAssistLink
                   href={buildAssistUrl({ country: "thailand", program: "Переезд и обустройство в Таиланде" })}
                   placement="thailand_hub_help"
-                  linkLabel="Получить помощь бесплатно"
+                  linkLabel="Найти специалиста"
                   country="thailand"
                   program="Переезд и обустройство в Таиланде"
                   className="rounded-lg bg-emerald-700 px-5 py-3 font-medium text-white hover:bg-emerald-800"
                 >
-                  Получить помощь бесплатно
+                  Найти специалиста
+                </TrackedAssistLink>
+                <TrackedAssistLink
+                  href={buildAssistUrl({
+                    country: "thailand",
+                    program: "Переезд и обустройство в Таиланде",
+                    hash: "assist-form-route-check",
+                  })}
+                  placement="thailand_hub_route_check"
+                  linkLabel="Route Check — €129"
+                  country="thailand"
+                  program="Переезд и обустройство в Таиланде"
+                  className="rounded-lg border border-emerald-300 bg-white px-5 py-3 font-medium text-emerald-900 hover:bg-emerald-100"
+                >
+                  Route Check — €129
                 </TrackedAssistLink>
                 <TrackedAssistLink
                   href={buildAssistUrl({

@@ -52,6 +52,12 @@ export function SatelliteHubDepth({
   const pillarHref = satellitePillarUrl({ countryKey: key, placement: "satellite_hub", content: "depth" });
   const wizardHref = satelliteWizardUrl({ countryKey: key, placement: "satellite_hub", content: "depth" });
   const assistHref = satelliteAssistUrl({ countryKey: key, placement: "satellite_hub", content: "depth" });
+  const routeCheckHref = satelliteAssistUrl({
+    countryKey: key,
+    placement: "satellite_hub",
+    content: "depth",
+    hash: "assist-form-route-check",
+  });
   const cityChat = liveCityChatForCountry(countryKey);
 
   return (
@@ -81,7 +87,11 @@ export function SatelliteHubDepth({
         </a>
         {" · "}
         <a href={assistHref} className={`font-medium underline ${link}`}>
-          бесплатно найти специалиста
+          найти специалиста
+        </a>
+        {" · "}
+        <a href={routeCheckHref} className={`font-medium underline ${link}`}>
+          Route Check — €129
         </a>
         {countryKey === "portugal" ? (
           <>

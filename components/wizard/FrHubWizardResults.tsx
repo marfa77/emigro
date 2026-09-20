@@ -160,12 +160,28 @@ export function FrHubWizardResults({
               locale: "fr",
             })}
             placement="wizard_fr_hub_next_steps"
-            linkLabel="Demander de l'aide gratuitement"
+            linkLabel="Trouver un spécialiste"
             locale="fr"
             sessionId={sessionId}
             className="rounded-lg border border-corridor-300 px-4 py-2 text-corridor-800 hover:bg-corridor-50"
           >
-            Demander de l&apos;aide gratuitement
+            Trouver un spécialiste
+          </TrackedAssistLink>
+          <TrackedAssistLink
+            href={buildAssistUrl({
+              sessionId,
+              country: "france",
+              program: pickProgramTitle,
+              locale: "fr",
+              hash: "assist-form-route-check",
+            })}
+            placement="wizard_fr_hub_next_steps_route_check"
+            linkLabel="Route Check — €129"
+            locale="fr"
+            sessionId={sessionId}
+            className="rounded-lg border border-corridor-300 px-4 py-2 text-corridor-800 hover:bg-corridor-50"
+          >
+            Route Check — €129
           </TrackedAssistLink>
           <a
             href={MAILTO_CONTACT}

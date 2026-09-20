@@ -83,6 +83,12 @@ export function SatelliteFunnelCta({
           : "Португалия";
 
   const assistHref = satelliteAssistUrl({ countryKey, placement, content });
+  const routeCheckHref = satelliteAssistUrl({
+    countryKey,
+    placement,
+    content,
+    hash: "assist-form-route-check",
+  });
   const propertyHref =
     countryKey === "thailand"
       ? buildAssistUrl({
@@ -97,11 +103,11 @@ export function SatelliteFunnelCta({
   const hubHref = satelliteHubUrl({ countryKey, placement, content });
   const pillarHref = satellitePillarUrl({ countryKey, placement, content });
 
-  function trackAssist(label: string) {
+  function trackAssist(label: string, href = assistHref) {
     trackEvent("assist_cta_click", {
       placement,
       link_label: label,
-      target_path: assistHref,
+      target_path: href,
       locale: "ru",
       country: countryKey,
       program: "",
@@ -119,7 +125,8 @@ export function SatelliteFunnelCta({
     });
   }
 
-  const assistCta = "Получить помощь бесплатно";
+  const assistCta = "Найти специалиста";
+  const routeCheckCta = "Route Check — €129";
   const wizardCta = `Визард ${countryLabel}`;
 
   return (
@@ -131,7 +138,7 @@ export function SatelliteFunnelCta({
       <p className="mt-2 text-sm leading-relaxed text-slate-700">
         {noteTitle
           ? `После «${noteTitle.slice(0, 72)}${noteTitle.length > 72 ? "…" : ""}» — сверьте маршрут ВНЖ или попросите Emigro найти специалиста.`
-          : `Практика на сателлите. Маршрут и бесплатный запрос специалисту — на основном Emigro (${countryLabel}).`}
+          : `Практика на сателлите. Маршрут или подбор специалиста — на основном Emigro (${countryLabel}).`}
       </p>
 
       <div className="mt-4 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
@@ -196,6 +203,13 @@ export function SatelliteFunnelCta({
             Подобрать недвижимость на Пхукете
           </a>
         )}
+        <a
+          href={routeCheckHref}
+          onClick={() => trackAssist(routeCheckCta, routeCheckHref)}
+          className={`inline-flex ${tapTarget} items-center justify-center rounded-lg px-4 py-2.5 text-sm font-semibold underline ${a.link}`}
+        >
+          {routeCheckCta}
+        </a>
       </div>
 
       <ul className="mt-4 space-y-1.5 text-sm">

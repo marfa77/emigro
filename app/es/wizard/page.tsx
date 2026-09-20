@@ -52,7 +52,7 @@ export default function EsHubWizardPage() {
             Un evaluador para pasaportes Uruguay, Ecuador, Perú, Paraguay, Colombia y Chile. Comparamos umbrales de
             España y Portugal (nómada digital, no lucrativa/D7, estudios, familia). Tras el resultado puede pedir{" "}
             <Link href={ES_PATHS.assist} className="font-medium text-corridor-700 hover:underline">
-              ayuda gratuita para encontrar un especialista
+              encontrar un especialista
             </Link>{" "}
             o un Route Check con PDF para un caso complejo.
           </p>
