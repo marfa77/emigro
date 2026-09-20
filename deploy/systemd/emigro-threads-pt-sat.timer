@@ -1,0 +1,13 @@
+[Unit]
+Description=Emigro Portugal satellite Threads — soft Mon/Wed/Fri Lisbon
+
+[Timer]
+OnCalendar=Mon *-*-* 10:40:00 Europe/Lisbon
+OnCalendar=Wed *-*-* 11:10:00 Europe/Lisbon
+OnCalendar=Fri *-*-* 10:40:00 Europe/Lisbon
+RandomizedDelaySec=25min
+AccuracySec=1min
+Persistent=true
+
+[Install]
+WantedBy=timers.target
