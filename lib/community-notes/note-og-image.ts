@@ -84,6 +84,8 @@ const SLUG_PEXELS_PHOTO_IDS: Record<string, number> = {
   "bank-schet-phuket-inostrancu-2026": 4386431,
   // Hospital exterior
   "meditsina-milano-ssn-tessera-2026": 236380,
+  // Hospital corridor — SNS / private / dentistry (no foreign paperwork text)
+  "meditsina-norte-sns-chastnaya-stomatologiya-2026": 13018111,
   // Navigli / Milan canals — districts + Como extra
   "milano-rajony-arenda-metro-como-2026": 208701,
   // Laptop remote work — nomade
@@ -347,9 +349,9 @@ const SLUG_PHOTO_QUERIES: Record<string, string[]> = {
     "evora portugal historic square",
   ],
   "meditsina-norte-sns-chastnaya-stomatologiya-2026": [
-    "hospital porto portugal exterior",
-    "healthcare clinic modern europe",
-    "dental clinic dentist office",
+    "hospital corridor nurse healthcare",
+    "doctor stethoscope white coat clinic",
+    "modern dental clinic chair equipment",
   ],
   "zamena-zagranpasporta-portugaliya-2026": [
     "passport documents on wooden desk",

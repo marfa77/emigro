@@ -1,9 +1,7 @@
 /**
- * Hand-curated guide — editorial presentation rules:
- * - quick_answer: 2–3 plain Russian sentences (hook first, jargon later)
- * - key_takeaways: max 4 action items («Что решить сегодня»)
- * - Each section: lead «зачем читать» + max 5 bullets (≤2 lines)
- * See lib/community-notes/editorial-presentation.ts
+ * Medicina Norte — SNS, private insurance, dentistry (Porto/Braga/Minho).
+ * Grok 4.3 structural pass + editorial expand: continuous practical prose,
+ * detailed seguro de saúde providers / prices / coverage (2026).
  */
 import { flattenBodySections } from "@/lib/community-notes/editorial-quality";
 import { glossaryForSlug } from "@/lib/community-notes/editorial-glossaries";
@@ -14,197 +12,173 @@ import type { CommunityNoteFaq, ContentKind, NoteBodySection } from "@/lib/commu
 
 export const MEDITSINA_NORTE_HEALTHCARE_SLUG = "meditsina-norte-sns-chastnaya-stomatologiya-2026";
 
+const GLOSSARY_INTRO =
+  "В centro de saúde, на рецепте и в разговоре с mediador de seguros эти слова звучат чаще цифр. Разберём их до первой записи и до первой simulação полиса.";
+
 const bodySections: NoteBodySection[] = [
   {
-    ...buildGlossarySection(glossaryForSlug(MEDITSINA_NORTE_HEALTHCARE_SLUG)!),
+    ...buildGlossarySection(glossaryForSlug(MEDITSINA_NORTE_HEALTHCARE_SLUG)!, GLOSSARY_INTRO),
   },
   {
     heading: "Официально: SNS, utente и первичная помощь",
     section_kind: "official",
     paragraphs: [
-      "Зачем читать: чтобы понять, как устроена бесплатная (с доплатами) медицина в Португалии и что нужно для регистрации в Norte.",
+      "Государственная медицина в Португалии — это SNS (Serviço Nacional de Saúde). Доступ к участковому врачу и плановым направлениям открывается после inscrição в centro de saúde по morada: вам выдают número de utente — номер пациента. Без NIF, подтверждения адреса и документа легального пребывания (виза / autorização / título) balcão обычно не закрывает регистрацию; EHIC/CESD покрывает лишь краткий визит EU-гражданина и не заменяет utente.",
+      "Médico de família (участковый терапевт) — точка входа в систему: осмотр, receita, referenciação к especialista или на exames. Запись идёт через SNS24, приложение MySNS или окошко USF. Taxa moderadora за приём GP — ориентир около €4,50 (таблица ACSS; сверяйте актуальную). При острой боли или лихорадке сначала звоните SNS24 (808 24 24 24): triagem подскажет, ехать ли в urgências или достаточно teleconsulta / USF.",
+      "Urgências hospitalares — для реальной неотложки, не для «насморка в пятницу вечером». Без направления GP taxa moderadora выше (ориентир €18–20 по ACSS), но при угрозе жизни отказать не должны. Главное: сначала morada и utente, потом споры про очереди к дерматологу.",
     ],
     bullets: [
-      "SNS (Serviço Nacional de Saúde) — государственная система; número de utente — ID пациента после inscrição в centro de saúde по morada (sns.gov.pt).",
-      "Документы: NIF, comprovativo de morada, autorização de residência / título / виза с правом пребывания; EHIC/CESD — для краткого визита, не заменяет utente.",
-      "médico de família — участковый терапевт в USF/centro de saúde; запись через SNS24, MySNS ou balcão; taxa moderadora ≈ €4,50 за приём GP (ACSS, 2025).",
-      "SNS24 — 808 24 24 24 и mysns24.sns24.gov.pt: triagem, запись, teleconsulta; при острой боли/лихорадке — звоните до поездки в urgências.",
-      "Urgências hospitalares — для экстренных случаев; taxa moderadora ≈ €18–20 при отсутствии направления médico de família (ACSS).",
+      "Соберите NIF + comprovativo de morada + документ резидентства до похода в centro de saúde.",
+      "Сохраните SNS24 808 24 24 24 и откройте MySNS / sns24.gov.pt до первой болезни.",
+      "При угрозе жизни звоните 112; при «остро, но не ясно» — сначала SNS24.",
+      "Уточните taxa moderadora на acss.min-saude.pt — цифры в чатах устаревают.",
+      "Сверьте шаги первого месяца: [чеклист](/notes/pervyj-mesyac-portugaliya-checklist) и [регистрация SNS](/notes/sns-registration-changes-2026).",
     ],
   },
   {
-    heading: "Официально: частная медицина, Multicare и ADSE",
+    heading: "Частные страховки: провайдеры, цены и покрытие",
     section_kind: "official",
     paragraphs: [
-      "Зачем читать: D7/D8 и многие релоканты держат частную страховку параллельно с SNS — важно не путать продукты.",
+      "Seguro de saúde privado — отдельный продукт от SNS. Для многих D7/D8 полис нужен уже на подачу в консульство или AIMA; после появления utente его часто снижают, но редко отменяют в первый год: специалисты SNS и стоматология всё равно тянут в rede privada. Путать ADSE с Multicare нельзя: ADSE — benefício для funcionários públicos и reformados do Estado; экспату на D8 туда дорога закрыта.",
+      "Три имени, которые чаще всего встречаются в симуляциях. Multicare (линейка Fidelidade) — планы 1 / 2 / 3 с разным капиталом internamento (на витрине планов — порядка €25–50 тыс. на базовых ступенях и выше на семейных) плюс ambulatório и опции dental / parto. Médis публикует витринные цены «desde»: около €13/мес за Opção 1 base для 25 лет и около €40/мес за семейный Opção 1 (пара ~30 лет + ребёнок 2 года); при покрытии ambulatório consulta в rede часто около €19, вход в urgência — около €50 (условия конкретной apólice важнее рекламы). Generali Tranquilidade продаёт здоровье с доступом к rede AdvanceCare: на витрине entry-уровни от примерно €7–8/мес в молодых Escalões, усиленные — десятки евро, top — порядка €80+/мес в молодых Escalões при широком пакете. AdvanceCare сама по себе — прежде всего сеть и управление (десятки тысяч prestadores в PT и часть ES), а не «единственный бренд страховки».",
+      "Ориентиры поля 2025–2026 (не прайс-лист): базовый индивидуальный полис для молодого здорового взрослого часто попадает в коридор примерно €25–45/мес; полный пакет с ambulatório, dental и maternity для семьи легко уходит в €55–80+ на человека в месяц в зависимости от idade и franquia. Премия растёт с возрастом и с добавлением estomatologia, parto, doenças graves и международного покрытия. Carências типичны: порядка 60 дней на ambulatório и около 90 дней на hospitalização — точные сроки только в IPID и условиях договора. Вне rede convencionada copagamento выше или счёт на 100%; RMN/TAC часто требуют autorização страховщика за 24–72 часа.",
+      "Главное: не выбирайте полис по чужому скрину из чата — сделайте simulação на medis.pt, multicare.pt / fidelidade.pt и у mediador Tranquilidade/AdvanceCare на ваш idade и состав семьи, затем сравните capital internamento, лимиты dental и carências.",
     ],
     bullets: [
-      "Seguro de saúde privado (Multicare, Médis, Tranquilidade и др.) — покрывает clínicas/hospitais privados; условия по визе D7/D8 часто требуют полис до/параллельно SNS.",
-      "Multicare — линейка Fidelidade; план Multicare 3 популярен у семей (ambulatório + hospitalização); цена зависит от idade и franquia.",
-      "ADSE — benefício для funcionários públicos и пенсионеров госсектора; expat без contrato público ADSE не получает — не путать с Multicare.",
-      "Rede convencionada — список клиник по договору со страховщиком; вне сети — copagamento выше или 100% из кармана.",
-      "CUF, Lusíadas, Hospital da Luz — крупные частные сети с unidades в Porto, Braga, Guimarães; запись онлайн или по телефону.",
+      "Сравните Multicare (Fidelidade), Médis и Tranquilidade+AdvanceCare на одной таблице: capital, ambulatório, dental, parto, carências.",
+      "Запросите 2–3 simulações до подписи — премия зависит от idade и franquia сильнее бренда.",
+      "Проверьте rede convencionada в Porto/Braga: CUF, Lusíadas, Trofa, Hospital da Luz.",
+      "Не путайте ADSE с частным seguro — ADSE только для госслужбы.",
+      "Держите apólice активной, пока нет стабильного médico de família и понятного маршрута к especialistas.",
     ],
   },
   {
     heading: "SNS на практике в Porto, Braga и Minho",
     section_kind: "practice",
     paragraphs: [
-      "Зачем читать: как реально записаться, ждать и пользоваться госмедициной на севере — по опыту чатов 2025–2026.",
+      "На бумаге inscrição — «формальность». На месте вы приносите NIF и comprovativo, а окошко просит Atestado de Residência из Junta: в одном USF его принимают как ускоритель, в другом без него откладывают папку. Utente при этом обязаны оформить при полном пакете документов — спор «карта ВНЖ ещё не пришла» часто решается визой/recibo, а не ожиданием пластика месяцами.",
+      "Norte не равен Lisboa по очередям в Junta и Finanças: Braga и Guimarães нередко быстрее Porto centro. Но Hospital de Braga в сезон гриппа так же забит, как São João: 4–8 часов в urgências при низком приоритете triagem — обычная жалоба, не редкость. К especialistas через SNS сроки часто измеряются месяцами; triagem по клинической необходимости иногда двигает очередь, но не превращает дерматологию в «на следующей неделе».",
+      "При действительно остром случае семьи не ждут GP неделями: звонят SNS24 и параллельно едут в частную urgência, если полис и бюджет позволяют. Главное: SNS — база и экстренный контур; частный полис — скорость к специалисту, а не замена utente.",
     ],
     bullets: [
-      "Inscrição: centro de saúde по morada (USF Porto Ocidental, USF Braga, USF Guimarães и др.); Atestado de Residência в Junta — 3–14 дней, без него часть balcões откладывают, но utente обязаны выдать (por_tugal, 2025).",
-      "Norte vs Lisboa: очереди в Finanças/Junta в Braga/Guimarães часто короче; SNS-регистрация по тому же правилу — morada определяет centro de saúde.",
-      "Дефицит персонала: участники @lepta в 2025 писали, что SNS не хватает ~14 000 enfermeiros; очереди к especialistas реальны, не «миф чата».",
-      "Специалисты: участники @lepta в 2025 отмечали, что вместо чисто хронологической очереди вводят triagem по клинической необходимости; сроки по-прежнему месяцы на ортопедию/дерматологию.",
-      "Острые случаи: por_tugal (2025-10) — при отравлении у подростка семья параллельно звонила SNS24 и ехала в частную urgência, не дожидаясь médico de família.",
-      "Первый месяц: чеклист utente + NIF + morada — в [первый месяц в Португалии](/notes/pervyj-mesyac-portugaliya-checklist); изменения правил SNS — [регистрация SNS 2026](/notes/sns-registration-changes-2026).",
+      "Оформите Atestado в Junta заранее — многие USF его ждут на balcão.",
+      "Не откладывайте inscrição «до карты ВНЖ», если уже есть NIF + morada + виза/residência.",
+      "Заложите месяцы ожидания especialista SNS в план семьи — не в сюрприз февраля.",
+      "При отравлении, травме, высокой температуре — SNS24 + решение ехать в urgências, не форум.",
+      "Сверьте климат и астму после сырой квартиры: [климат Norte](/notes/klimat-norte-zhara-vlazhnost-plesen-zima-2026).",
     ],
   },
   {
     heading: "Карта больниц Norte: публичные и частные",
     section_kind: "practice",
     paragraphs: [
-      "Зачем читать: куда ехать при urgência и где частная клиника рядом с домом в Grande Porto и Minho.",
+      "Зачем эта карта: чтобы ночью не выбирать hospital впервые по рейтингу Google. Публичный контур Grande Porto опирается на Hospital de São João — крупный hospital с urgências 24/7 и широким набором especialidades (метро IPO/São João). Для Matosinhos и Foz ближе Hospital Pedro Hispano. В Minho якорь — Hospital de Braga; Guimarães опирается на Hospital da Senhora da Oliveira; Viana do Castelo — Santa Luzia с дорогой до Porto около часа по A28/A3.",
+      "Частный контур для семей с seguro: CUF Porto (несколько clínicas — Boavista, Gaia, Arrábida), Hospital Lusíadas Porto, Trofa Saúde (Maia, Santo Tirso), Hospital da Luz в Braga и Guimarães. Там быстрее consultas и exames, но без apólice или вне rede счёт за urgência и internamento бьёт по бюджету сильнее taxa moderadora SNS.",
+      "Главное: заранее знайте два адреса — ближайший public urgências и ближайшая частная rede по вашему полису.",
     ],
     bullets: [
-      "Hospital de São João (Porto) — крупнейший госпиталь Norte, urgências 24/7, все especialidades; метро IPO/São João.",
-      "Hospital Pedro Hispano (Matosinhos) — urgências для побережья; близко Foz/Matosinhos expat-районам.",
-      "Hospital de Braga — главный госпиталь Braga/Minho interior; urgências и internamento.",
-      "Hospital da Senhora da Oliveira (Guimarães) — USF Guimarães направляет сюда сложные случаи.",
-      "Hospital de Santa Luzia (Viana do Castelo) — опора Minho litoral; до Porto ~45–60 мин по A28/A3.",
-      "CUF Porto — несколько clínicas (Boavista, Gaia, Arrábida); exames, consultas, cirurgia ambulatória.",
-      "Hospital Lusíadas Porto — частный hospital с urgências convencionadas; рядом с Hospital da Prelada.",
-      "Hospital da Luz Braga / Guimarães — частные urgências и maternidade в Minho.",
-      "Trofa Saúde (Maia, Santo Tirso) — частная сеть с urgências и internamento; популярна у семей в Grande Porto.",
+      "Запишите São João и/или Pedro Hispano как public urgências Grande Porto.",
+      "Для Braga/Minho держите Hospital de Braga + частную Luz/Trofa по полису.",
+      "Проверьте, какие CUF/Lusíadas/Trofa в вашей rede convencionada.",
+      "На admissão возьмите cartão de utente, паспорт, apólice и список лекарств.",
+      "Детям — отдельно уточните urgência pediátrica (São João / Braga) до кризиса.",
     ],
   },
   {
-    heading: "Госпитализация: от urgências до internamento",
+    heading: "Стоматология: SNS, частная клиника и цены",
     section_kind: "practice",
     paragraphs: [
-      "Пятница, полночь, São João: вы между triagem и результатом анализов и не знаете, оставят на ночь или отпустят домой. Разница centro de saúde / hospital и путь к internamento лучше понять заранее.",
-      "Что делать: при угрозе жизни — 112; при острой боли — SNS24 (808 24 24 24), затем urgências ближайшего hospital; плановую операцию или отделение — только с referenciação от médico de família или especialista SNS.",
-      "Зачем: без utente (номера пациента) и referenciação (направления) taxa moderadora (соплатеж) в urgências (приёмном) выше; «не экстренный» случай — 5+ часов triagem (сортировки); частный internamento (госпитализация) без seguro (страховки) — €800–2 500/сутки только за палату.",
-      "Главное: на admissão имейте cartão de utente, паспорт, apólice seguro и список лекарств — это ускоряет оформление и снижает copagamento.",
+      "Зубы — слабое место SNS для взрослых. Centro de saúde oral и программы для детей/льготных групп существуют, но импланты, эстетика и большая часть плановой работы уходят в privado. Поэтому dental rider в Multicare/Médis или отдельный бюджет на клинику — не «роскошь», а базовая статья переезда.",
+      "Ориентиры Norte 2025–2026: первичный dentista €40–70, limpeza €50–90, obturação €60–120 за зуб; canal часто €250–450, coroa €400–900, implant + coroa €1 200–2 500. Braga нередко на 10–15% ниже Porto при сопоставимом качестве. Острая боль — частная urgência dentária в тот же день за ориентир €80–150; ждать SNS extraction месяцами с флюсом — плохая стратегия.",
+      "Главное: читайте cobertura dental в apólice — ortodontia и implantes часто с лимитами или вне базового плана; simulação без вкладки «зубы» обманывает семейный бюджет.",
     ],
     bullets: [
-      "Centro de saúde — ambulatório: GP, exames, referenciação; hospital urgências — triagem → tratamento или internamento; плановый internamento — com направлением médico de família.",
-      "Referenciação vs emergência: без направления в urgências taxa moderadora ≈ €18–20 (ACSS), но при реальной угрозе не откажут; насморк и лёгкая боль — низкий приоритет triagem.",
-      "Частные CUF, Lusíadas, Trofa Saúde, Hospital da Luz — когда очередь SNS месяцы, нужен parto по договору или семья параллельно едет в частную urgência, не дожидаясь GP.",
-      "Страховка и документы: utente SNS — internamento для residentes с низкой taxa moderadora; Multicare hospitalização — rede convencionada, autorização 24–72 ч на cirurgia; ADSE — только госсектор; туристы EU — EHIC/CESD на экстренное, не заменяет utente. На admissão: cartão de utente, BI/passaporte, título, apólice, alergias; детям — caderneta de vacinas.",
-      "Язык и pediatria/maternidade: госпитальные urgências Norte — в основном португальский; частные — английский на ресепшене; urgência pediátrica — São João, Braga; maternidade — São João, Senhora da Oliveira (Guimarães) или частная Hospital da Luz; регистрация utente — [SNS 2026](/notes/sns-registration-changes-2026), [первый месяц](/notes/pervyj-mesyac-portugaliya-checklist).",
-    ],
-  },
-  {
-    heading: "Стоматология: SNS, частная и типичные цены",
-    section_kind: "practice",
-    paragraphs: [
-      "Зачем читать: зубы — слабое место SNS; большинство expat идут в частную стоматологию, но есть нюансы.",
-    ],
-    bullets: [
-      "SNS dental: centro de saúde oral / программы для детей и льготных групп; взрослым полный спектр (импланты, эстетика) — почти всегда privado.",
-      "Частная consulta dentista — €40–70 первичный приём; higiene oral (limpeza) €50–90; obturação (пломба) €60–120 за зуб.",
-      "Canal / coroa — €250–450 канал, coroa €400–900; implant + coroa €1 200–2 500; цены Porto ≈ Lisboa, Braga на 10–15% ниже.",
-      "chatlisboa (2025-05): ATESTADO MÉDICO для обмена прав — можно в стomatologia, ≈ €35, e-mail справки + регистрация в IMT.",
-      "Детский dentista: chatlisboa (2025-07) — спрос на RU/EN детского стоматолога; в Norte ищите через CLIB/OBS parent groups или Fixando.",
-      "Очереди SNS dental: для детей и extractions иногда месяцы; с болью — частная urgência dentária €80–150 в тот же день.",
-      "Multicare dental: не все планы покрывают ortodontia/implantes; читайте cobertura — chatlisboa (2025-06) спрашивали годовую котировку Multicare 3 для семьи.",
-    ],
-  },
-  {
-    heading: "Multicare, ADSE и когда платить из кармана",
-    section_kind: "practice",
-    paragraphs: [
-      "Зачем читать: выбрать страховку до отказа от частной клиники и не переплатить за дублирующее покрытие.",
-    ],
-    bullets: [
-      "Multicare 3 (семья): chatlisboa (2025-06) — годовая премия сильно зависит от idade детей и родителей; запросите simulação у 2–3 mediadores до подписи.",
-      "D7/D8: apólice часто нужна на подачу/consulado; после utente SNS можно снизить план, но не отменяйте до стабильного GP.",
-      "ADSE: только для trabalhadores/ reformados do Estado; expat на D8 не eligible — не тратьте время на «как получить ADSE».",
-      "Copagamento: даже с Multicare franquia €15–50 за consulta; exames (RMN, TAC) — предварительное autorização страховщика 24–72 ч.",
-      "Без страховки: consulta privada GP €60–100, pediatra €70–120; urgências CUF/Lusíadas €90–150 triagem + exames отдельно.",
-      "Receita médica: в SNS аптека (farmácia) с taxa reduzida; частный receituário — полная цена лекарств, но быстрее при редких препаратах.",
+      "Заложите limpeza раз в 6–12 месяцев в семейный бюджет до выбора полиса.",
+      "Сверьте dental capital / exclusions в Multicare и Médis до подписи.",
+      "При острой боли ищите urgência dentária в тот же день, не очередь SNS.",
+      "Сравните Porto vs Braga на 2–3 клиниках — разброс цен реальный.",
+      "Детский dentista с RU/EN — через parent-группы школ и Fixando, не через urgências São João.",
     ],
   },
   {
     heading: "Где портал SNS и жизнь расходятся",
     section_kind: "gap",
     paragraphs: [
-      "Зачем читать: типичные расхождения между sns.gov.pt и тем, что пишут релоканты в Norte.",
+      "Что пишут в чатах: «SNS онлайн за пять минут», «медицина бесплатная», «Multicare покрывает всё», «в Braga всё быстрее». Что на sns.gov.pt: inscrição при полном пакете документов, taxa moderadora по таблице ACSS, стоматология взрослым почти не в полном спектре. На деле без morada, NIF и иногда Atestado вы занимаете очередь 30–90 минут в Porto centro и уходите со списком «принесите ещё».",
+      "Путаница Multicare и ADSE тоже из чатов: ADSE — госслужба, Multicare — частный продукт. Attach к médico de família «за неделю» в перегруженном USF часто оказывается неделями; implantes и ortodontia упираются в лимиты полиса. Braga быстрее в Junta — не значит, что urgências зимой короче.",
+      "Главное: портал задаёт правила; очередь, carências и exclusions полиса задают ваш реальный доступ к помощи.",
     ],
     bullets: [
-      "Портал: «inscrição online за 5 минут» → на деле нужны morada, NIF и иногда Atestado; в Porto centro balcão — очередь 30–90 мин.",
-      "В чатах релокантов часто пишут «SNS бесплатный», но на практике taxa moderadora €4,50–20 за визит + лекарства; стоматология взрослым почти всегда paid.",
-      "В чатах путают Multicare и ADSE — разные системы; ADSE только госслужба, Multicare — частный seguro для всех.",
-      "SNS: «médico de família за неделю» → в USF перегруженных Porto/Braga attach 2–8 недель; без GP urgências дороже.",
-      "Страховка: «Multicare покрывает всё» → implantes, ortodontia, психотерапия часто с limites; simulação обязательна.",
-      "Norte: «в Braga всё быстрее» → Junta/Finanças да, но Hospital de Braga urgências в сезон гриппа — 4–8 ч ожидания.",
+      "Не планируйте неделю жизни вокруг «онлайн SNS за 5 минут» без пакета документов.",
+      "Не отменяйте privado в день получения utente — специалисты SNS ещё месяцы.",
+      "Не покупайте полис без чтения dental/parto/carências.",
+      "Не езжайте в São João с лёгкой простудой — сначала SNS24.",
+      "Не ждите ADSE на D8 — её нет для этого статуса.",
     ],
   },
   {
-    heading: "Таймлайн для новичка и типичные ошибки",
+    heading: "Таймлайн первых 60 дней и типичные ошибки",
     section_kind: "practice",
     paragraphs: [
-      "Зачем читать: порядок шагов в первые 60 дней и ошибки, которые повторяются в чатах @chatlisboa и @por_tugal.",
+      "Неделя 1: NIF и morada (contrato / Junta). Неделя 2: inscrição в centro de saúde + две-три simulações Multicare / Médis / Tranquilidade. Недели 3–4: attach к médico de família, если дают слот; параллельно профилактика у dentista. К концу второго месяца у семьи должны быть utente, понятный public urgências и работающий privado на специалистов — иначе любая температура превращается в хаос навигации.",
+      "Типичные ошибки: ждать пластик ВНЖ для utente; отменить страховку в день inscrição; путать número de utente с «просто SNS на словах»; тащить лёгкий случай в São João на пять часов triagem. Главное: порядок NIF → morada → utente → полис под ваш возраст → стоматолог, а не наоборот.",
     ],
     bullets: [
-      "Ошибка: ждать карту ВНЖ для utente — можно с NIF + morada + виза/residência; откладывание = нет GP при болезни.",
-      "Ошибка: ехать в São João urgências с насмorkом — triagem низкий приоритет, 5+ часов; сначала SNS24 или USF.",
-      "Ошибка: отменить частную страховку сразу после utente — специалисты SNS месяцы; Multicare пригодится на exames.",
-      "Ошибка: путать SNS и utente в документах — правильно «número de utente do SNS» после inscrição в centro de saúde.",
-      "Таймлайн: неделя 1 — NIF + morada; неделя 2 — inscrição centro de saúde + simulação Multicare; неделя 3–4 — attach médico de família, стоматолог profilaxia.",
-      "Humidade/bolor: при астме после сырой квартиры — SNS24; профилактика жилья — [климат Norte](/notes/klimat-norte-zhara-vlazhnost-plesen-zima-2026).",
+      "Ошибка: ждать карту ВНЖ, если уже можно пройти inscrição с визой/recibo.",
+      "Ошибка: отменять apólice до стабильного GP и понятного маршрута к especialista.",
+      "Ошибка: путать «есть SNS» и «есть número de utente после inscrição».",
+      "Ошибка: идти в hospital urgências с лёгким случаем без звонка в SNS24.",
+      "Сверьте полный чеклист быта: [первый месяц](/notes/pervyj-mesyac-portugaliya-checklist).",
     ],
   },
 ];
 
 const keyTakeaways = [
-  "Сегодня: проверьте morada → запишитесь в centro de saúde → сохраните SNS24 808 24 24 24 в телефоне.",
-  "Официально: utente после inscrição в centro de saúde; urgências → triagem → internamento; referenciação от GP для плановой госпитализации; taxa moderadora по ACSS.",
+  "Сегодня: сохраните номер SNS24 (808 24 24 24), проверьте morada и запишитесь в centro de saúde на número de utente.",
+  "Официально: SNS покрывает базу после inscrição; частный seguro — отдельный продукт с carências и rede; ADSE не для expat.",
   formatPracticeTakeaway({
     channels: ["lepta", "chatlisboa"],
     period: "2025–2026",
     claim:
-      "очередь к especialistas (узким врачам) через SNS часто занимает месяцы, а частная страховка Multicare 3 для семьи сильно зависит от возраста (idade) — цену нужно запрашивать индивидуально",
+      "к especialistas через SNS часто ждут месяцы, а премия Multicare/Médis для семьи сильно зависит от idade — чужой скрин цены бесполезен",
     forReader:
-      "заложите simulação у 2–3 посредников до отказа от частной клиники; стоматология (зубы) для взрослых в SNS почти не покрывается — чистка (limpeza) в частной клинике ≈ €50–90",
+      "сделайте 2–3 simulações и отдельно заложите стоматологию (€50–90 limpeza; импланты почти всегда privado)",
   }),
-  "Расхождение: «SNS бесплатный» — доплаты и почти нет adult dental; ADSE не для expat, только funcionários públicos.",
+  "Расхождение: фраза «SNS бесплатный» скрывает taxa moderadora и почти полное отсутствие взрослой стоматологии; «Multicare покрывает всё» не читает exclusions.",
 ];
 
 const faq: CommunityNoteFaq[] = [
   {
     q: "Как получить número de utente в Porto или Braga?",
-    a: "Да, через inscrição в centro de saúde по morada. По правилам SNS нужны NIF, comprovativo de morada и документ резидентства. На практике Atestado de Residência из Junta ускоряет приём; utente выдают в balcão или через MySNS после attach к USF.",
+    a: "Да — через inscrição в centro de saúde по morada. По правилам SNS нужны NIF, comprovativo de morada и документ резидентства. На практике Atestado из Junta ускоряет balcão; utente выдают после attach к USF / оформления в системе, не «по обещанию чата».",
   },
   {
     q: "Куда ехать в urgências в Grande Porto?",
-    a: "São João (Porto) или Pedro Hispano (Matosinhos). При угрозе жизни — 112. По правилам SNS — ближайший hospital com urgências. На практике при «не экстренно» сначала SNS24 — направят в USF или скажут, ждать ли urgências 4+ часа.",
+    a: "Два основных: São João (Porto) или Pedro Hispano (Matosinhos). При угрозе жизни — 112. По правилам — ближайший hospital com urgências. На практике при «не экстренно» сначала SNS24: иначе низкий приоритет triagem легко превращается в 4–5 часов ожидания.",
   },
   {
     q: "Нужна ли частная страховка, если есть SNS?",
-    a: "Зависит от визы и терпения. D7/D8 часто требуют apólice до utente. По правилам SNS покрывает основное при utente. На практике expat держат Multicare для especialistas и стomatologia; chatlisboa (2025-06) сравнивали Multicare 3 — цена индивидуальна.",
+    a: "Часто да на старте. D7/D8 нередко требуют apólice до/на подачу. По правилам SNS закрывает базу при utente. На практике expat держат Multicare/Médis ради специалистов и dental, пока очереди SNS измеряются месяцами.",
   },
   {
-    q: "Сколько стоит стomatolog частный в Norte?",
-    a: "Consulta €40–70, limpeza €50–90, plomb €60–120. По правилам SNS детям и льготникам — centro de saúde oral. На практике взрослым импланты и эстетика только privado; Braga на 10–15% дешевле Porto.",
+    q: "Сколько стоит частная страховка в месяц?",
+    a: "Ориентир, не прайс: базовый план молодого взрослого часто ~€25–45/мес; витрина Médis — от ~€13/мес (25 лет, Opção 1 base); полный семейный пакет легко €55–80+ на человека. Точная премия — только simulação по idade на medis.pt / multicare.pt / Tranquilidade.",
   },
   {
-    q: "Что такое internamento и как попасть в госпиталь SNS?",
-    a: "Internamento — стационар в hospital. По правилам SNS — через urgências после triagem или с referenciação médico de família/especialista. На практике в São João/Braga без utente примут при экстренной угрозе, но taxa выше; cartão de utente ускоряет admissão.",
-  },
-  {
-    q: "Сколько стоит госпитализация в частном hospital Norte?",
-    a: "Палата €800–2 500/сутки без cirurgia; triagem urgências €90–150 + exames отдельно. С Multicare — copagamento по плану после autorização. По правилам SNS resident с utente платит taxa moderadora, не полный счёт за экстренный internamento.",
+    q: "Multicare, Médis и AdvanceCare — что выбрать?",
+    a: "Multicare — линейка Fidelidade (планы 1/2/3). Médis — отдельный бренд с витринными «desde» и фиксированными copagos в rede при ambulatório. AdvanceCare — прежде всего rede/gestora; через неё часто идёт Tranquilidade. Сравнивайте capital, dental, carências и клиники Porto/Braga в rede — не логотип.",
   },
   {
     q: "Multicare и ADSE — это одно и то же?",
-    a: "Нет. ADSE — benefício для funcionários públicos (id.gov.pt). Multicare — частный seguro Fidelidade для всех. Expat на D8 ADSE не получает; для семьи смотрят Multicare, Médis или Allianz.",
+    a: "Нет. ADSE — benefício госслужбы (id.gov.pt). Multicare — частный seguro Fidelidade. Expat на D7/D8 ADSE не получает.",
   },
   {
-    q: "Что делать при острой боли, если нет médico de família?",
-    a: "Звоните SNS24 (808 24 24 24). По правилам направят в urgências или teleconsulta. На практике por_tugal (2025-10) при отравлении не ждали GP — параллельно частная urgência; для зубной боли — dentista urgência €80–150 в тот же день.",
+    q: "Сколько стоит стоматолог в Norte?",
+    a: "Consulta €40–70, limpeza €50–90, plomb €60–120. По правилам SNS детям/льготникам — centro de saúde oral. На практике взрослым импланты и эстетика — privado; Braga часто на 10–15% дешевле Porto.",
+  },
+  {
+    q: "Что такое internamento и как попасть в hospital SNS?",
+    a: "Internamento — стационар. По правилам — через urgências после triagem или с referenciação médico de família/especialista. На практике cartão de utente ускоряет admissão; без него при угрозе жизни примут, но оформление и taxa тяжелее.",
   },
 ];
 
@@ -212,14 +186,14 @@ export const MEDITSINA_NORTE_HEALTHCARE_GUIDE = {
   slug: MEDITSINA_NORTE_HEALTHCARE_SLUG,
   category: "Здоровье и быт",
   content_kind: "guide" as ContentKind,
-  title: "Медицина Norte 2026: SNS, частные клиники и стоматология в Порту, Браге и Minho",
+  title: "Медицина Norte 2026: SNS, частные страховки и стоматология",
   excerpt:
-    "Госпитализация SNS и частных hospital, São João и Braga, utente, referenciação, Multicare vs ADSE, CUF/Lusíadas/Trofa, стоматология и urgências — практический гайд для релокантов на севере Португалии.",
-  seo_title: "Медицина Norte PT 2026 — SNS, стomatologia",
+    "SNS и utente в Porto/Braga, частные Multicare / Médis / AdvanceCare с ориентирами цен и покрытия, urgências São João, стоматология и таймлайн первых 60 дней.",
+  seo_title: "Медицина Norte PT 2026: SNS и страховки",
   seo_description:
-    "Гайд Norte 2026: SNS utente, госпитализация internamento, urgências São João/Braga, referenciação, Multicare, частные CUF/Lusíadas, стоматология €.",
+    "Португалия Norte 2026: SNS utente, Multicare и Médis — цены и покрытие, urgências São João/Braga, стоматология. Практика для релокантов Porto и Minho.",
   quick_answer:
-    "Третий день кашля, а врач записывает через три недели — и это не заговор против иммигрантов, а свойство всей системы. Базовая медицина в Norte через SNS: centro de saúde по адресу → número de utente → médico de família. Экстренные — urgências в São João или Braga; SNS24 — 808 24 24 24. Стоматология почти всегда частная (€50–90 за чистку) — закладывайте в бюджет сразу.",
+    "Третий день кашля, а к врачу запись через недели — в Португалии Norte это система, не личный заговор. База: centro de saúde по адресу → número de utente → médico de família; экстренное — SNS24 808 24 24 24 и urgências São João/Braga. Параллельно почти все держат seguro de saúde (Multicare, Médis, Tranquilidade+AdvanceCare): специалисты и зубы иначе бьют по срокам и бюджету.",
   body_sections: bodySections,
   body_paragraphs: flattenBodySections(bodySections),
   key_takeaways: keyTakeaways,
@@ -233,13 +207,16 @@ export const MEDITSINA_NORTE_HEALTHCARE_GUIDE = {
     { title: "CUF Porto", url: "https://www.cuf.pt/hospitais-e-clinicas/cuf-porto" },
     { title: "Hospital Lusíadas Porto", url: "https://www.lusiadas.pt/pt/hospitais-e-clinicas/hospital-lusiadas-porto" },
     { title: "Multicare (Fidelidade)", url: "https://www.multicare.pt/" },
+    { title: "Médis — simular", url: "https://www.medis.pt/seguros-de-saude/saude-medis/" },
+    { title: "AdvanceCare", url: "https://www.advancecare.pt/para-si" },
+    { title: "Generali Tranquilidade Saúde", url: "https://www.generalitranquilidade.pt/particulares/seguros/saude/saude-individual" },
   ],
   topic_tags: ["sns", "portugal"],
   hashtags: buildNoteHashtags({
     topicTags: ["sns", "portugal"],
     contentKind: "guide",
-    extra: ["porto", "braga", "norte", "matosinhos", "guimarães", "стоматология", "здоровье", "multicare"],
+    extra: ["porto", "braga", "norte", "стоматология", "здоровье", "multicare", "medis", "страховка"],
   }),
   source_channel: "chatlisboa+por_tugal+autolife_pt+lepta",
-  source_label: "editorial:meditsina-norte+voice-pass",
+  source_label: "editorial:meditsina-norte+grok-4.3-expand-insurance-2026",
 };
