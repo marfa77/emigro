@@ -4,6 +4,9 @@ import { advanceInvestmentLead } from "@/app/admin/leads/actions";
 import { uniqueInvestmentCountries } from "@/lib/investment/registry";
 import { partnerDemandState } from "@/lib/investment/partners";
 
+/** Admin reads need the service role — never SSG with a placeholder anon key. */
+export const dynamic = "force-dynamic";
+
 type LeadPacket = {
   budget_eur?: unknown;
   asset?: unknown;

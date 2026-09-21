@@ -1,13 +1,13 @@
 ---
 slug: pervye-30-dnej-v-germanii-2026
 title: "Первые 30 дней в Германии 2026: чек-лист после прилёта"
-seo_title: "Первые 30 дней в Германии 2026 — Anmeldung, банк, Krankenkasse"
+seo_title: "Первые 30 дней DE 2026 — Anmeldung 14 дней, IBAN, KV"
 seo_description: "Практический чек-лист для RU/BY/UA/KZ после прилёта в Германию: Anmeldung, N26/Comdirect, Krankenkasse, SIM, Meldebescheinigung, Ausländerbehörde. 2026."
 excerpt: "Вы получили Blue Card / Chancenkarte или прилетели на подачу — что делать в первый месяц: Anmeldung, банк, SIM, Krankenkasse и запись в Ausländerbehörde."
 quick_answer: |-
-  В первые 30 дней сделайте Anmeldung в Bürgeramt в течение 14 дней, возьмите немецкую SIM, оформите Krankenkasse (TK, AOK или временную частную) и счёт N26 или Comdirect с немецким IBAN.
+  В первые 30 дней: Anmeldung в Bürgeramt **в течение 14 дней с вселения** (BMG §17), немецкая SIM, Krankenkasse (TK/AOK или принятая private) и Girokonto с немецким IBAN (N26/Comdirect/Sparkasse).
 
-  Meldebescheinigung храните для Ausländerbehörde и сразу запишитесь туда на Aufenthaltstitel. Без Anmeldung не откроете счёт и не закроете residence permit.
+  Meldebescheinigung храните для Ausländerbehörde и сразу берите Termin на Aufenthaltstitel — в Berlin/Munich очередь на запись часто месяцы. Без Anmeldung обычно не откроете счёт и не закроете residence permit.
 corridor_slugs: [ru-speaking-to-germany]
 topic_keys: [germany, checklist, arrival]
 tags: [Германия, чеклист, 2026, Anmeldung, Blue Card, Krankenkasse]
@@ -23,9 +23,11 @@ official_sources:
     label: Bundesagentur für Arbeit
   - url: https://www.tk.de/
     label: Techniker Krankenkasse (TK)
+  - url: https://www.gesetze-im-internet.de/bmg/__17.html
+    label: BMG §17 — Anmeldung within two weeks
 estimated_minutes: 12
 date_published: 2026-06-27
-date_modified: 2026-07-07
+date_modified: 2026-09-21
 ---
 
 ## Кому этот чек-лист
@@ -63,6 +65,8 @@ date_modified: 2026-07-07
 **Anmeldung** — обязательная регистрация по месту жительства в **Bürgeramt / Einwohnermeldeamt**.
 
 **Срок:** **14 дней** после переезда (строго).
+
+> **Nota Emigro (fact-check, сентябрь 2026).** **OK:** Meldepflicht — **две недели** с момента вселения ([BMG §17](https://www.gesetze-im-internet.de/bmg/__17.html)); отсчёт от Einzug, не от даты въезда в DE. Без Wohnungsgeberbestätigung Bürgeramt обычно не зарегистрирует. Очереди Ausländerbehörde в крупных городах — поле (часто месяцы на Termin); Fiktionsbescheinigung / national visa D закрывают легальность, пока ждёте карту.
 
 **Документы:**
 
@@ -160,6 +164,13 @@ date_modified: 2026-07-07
 4. **Ждать карту, чтобы открыть банк** — порядок: Anmeldung → bank → Behörde.
 
 ---
+
+## Коротко для проверки маршрута
+
+- Anmeldung ≤**14 дней** после вселения (BMG §17) + Meldebescheinigung.
+- SIM → жильё/Wohnungsgeberbestätigung → Anmeldung → Krankenkasse → немецкий IBAN → Termin Ausländerbehörde.
+- Без Anmeldung часто не открыть Girokonto и не закрыть Aufenthaltstitel.
+- Pillar: [ВНЖ Германия 2026](/ru/guides/vnj-germaniya-2026) · wizard: [/ru/germany/wizard](/ru/germany/wizard).
 
 ## FAQ
 
