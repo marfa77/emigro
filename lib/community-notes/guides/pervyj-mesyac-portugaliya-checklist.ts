@@ -1,268 +1,191 @@
 /**
- * Hand-curated guide — first month checklist for a Golden Visa family in Norte.
- * Voice «Опытный релокант за кофе» — warm relocant-blogger rhythm
- * (lib/community-notes/editorial-voice.ts; style inspired by @portugal_and_me, not cited).
- *
- * Assumptions (stated in quick_answer and body):
- * - Family of 3: typically 2 adults + 1 school-age child
- * - Destination: Braga or Porto (Norte), arrival via OPO
- * - Status: Golden Visa / ARI (or ARI family titles) — not D7/D8 primary track
- * - Rent a car on arrival; school enrollment is week-1 priority
+ * Hand-curated Portugal guide — Grok 4.3 rewrite + editorial apply (2026-09-21).
+ * Continuous practical prose; no «Что делать:/Зачем читать:» telegraph.
  */
 import { flattenBodySections } from "@/lib/community-notes/editorial-quality";
 import { glossaryForSlug } from "@/lib/community-notes/editorial-glossaries";
 import { buildGlossarySection } from "@/lib/community-notes/glossary";
 import { buildNoteHashtags } from "@/lib/community-notes/hashtags";
-import { formatPracticeTakeaway } from "@/lib/community-notes/practice-format";
-import { APARTMENT_BUY_NORTE_GUIDE_SLUG } from "@/lib/community-notes/guides/apartment-buy-norte-portugal";
-import { CAR_PORTUGAL_GUIDE_SLUG } from "@/lib/community-notes/guides/car-portugal-buy-rent-import";
-import { INTERNATIONAL_SCHOOLS_GUIDE_SLUG } from "@/lib/community-notes/guides/international-schools-portugal";
-import { MEDITSINA_NORTE_HEALTHCARE_SLUG } from "@/lib/community-notes/guides/meditsina-norte-healthcare";
-import { NORTE_CLIMATE_COMFORT_SLUG } from "@/lib/community-notes/guides/norte-climate-comfort";
-import { PORTO_BRAGA_LONG_TERM_RENT_SLUG } from "@/lib/community-notes/guides/porto-braga-long-term-rent";
-import { PORTO_VS_BRAGA_FAMILY_SCHOOLS_SLUG } from "@/lib/community-notes/guides/porto-vs-braga-family-schools";
-import { TOLLS_FINES_ACCIDENTS_GUIDE_SLUG } from "@/lib/community-notes/guides/tolls-fines-accidents-norte-portugal";
-import { VNJ_RENEWAL_SLUG } from "@/lib/community-notes/guides/prodlenie-vnzh-portugaliya-aima-2026";
 import type { CommunityNoteFaq, ContentKind, NoteBodySection } from "@/lib/community-notes/types";
 
 export const PERVYJ_MESYAC_CHECKLIST_SLUG = "pervyj-mesyac-portugaliya-checklist";
 
-const DISCLAIMER_GV =
-  "**Emigro — не юридическая консультация.** Правила Golden Visa / ARI (Autorização de Residência para Investimento) и каналы AIMA **меняются**. Ниже — бытовой чеклист первого месяца для семьи; сроки biometria, taxas и список документов сверяйте на [aima.gov.pt — Portal ARI](https://aima.gov.pt/pt/viver/autorizacao-de-residencia-para-investimento-art-90-o-a/portal-ari) и с вашим **advogado de imigração**.";
-
 const bodySections: NoteBodySection[] = [
   {
-    ...buildGlossarySection(
-      glossaryForSlug(PERVYJ_MESYAC_CHECKLIST_SLUG)!,
-      "Слова, которые услышите в Loja AIMA, в Finanças и на open day школы — разберём до первого утра в Porto или Braga."
-    ),
-    paragraphs: [
-      "Слова, которые услышите в Loja AIMA, в Finanças и на open day школы — разберём до первого утра в Porto или Braga.",
-      DISCLAIMER_GV,
-    ],
+    ...buildGlossarySection(glossaryForSlug(PERVYJ_MESYAC_CHECKLIST_SLUG)!),
   },
   {
-    heading: "Официально: ARI, NIF, morada и SNS для семьи",
+    heading: "Официальный порядок ARI, NIF, morada и SNS",
     section_kind: "official",
     paragraphs: [
-      "Что делать: закрыть базовый контур документов на троих — налоговый номер, адрес, здоровье и статус ARI — в порядке, который принимают Finanças, школа и AIMA.",
-      "Зачем: без NIF и comprovativo de morada (подтверждения адреса) не откроете счёт и не закроете matrícula (зачисление); без трека Portal ARI семья рискует пропустить biometria (биометрию).",
-      "Главное: hard-правила ARI — только на [aima.gov.pt Portal ARI](https://aima.gov.pt/pt/viver/autorizacao-de-residencia-para-investimento-art-90-o-a/portal-ari); ниже — официальный каркас быта.",
+      "Семья из трёх человек закрывает базовый набор документов: налоговый номер, адрес, доступ к медицине и статус ARI. Без NIF и comprovativo de morada не откроешь счёт в банке и не подашь matrícula в школу. Без отслеживания Portal ARI легко пропустить biometria. Жёсткие правила ARI публикует только aima.gov.pt, а ниже — практический каркас первых недель.",
     ],
     bullets: [
-      "NIF выдаёт Autoridade Tributária / Portal das Finanças — один номер на человека на всю страну; детям тоже нужен свой NIF для школы и SNS.",
-      "Comprovativo de morada: contrato de arrendamento с registo, Atestado de Residência Junta или иной документ, который принимает ваш balcão — обновите morada fiscal после переезда.",
-      "Número de utente do SNS — через inscrição в centro de saúde по morada; детали доступа меняются, сверяйте [sns.gov.pt](https://www.sns.gov.pt/).",
-      "ARI / Golden Visa: candidatura, agregado familiar, DUC и agendamento Loja AIMA — через Portal ARI; не подменяйте маршрут общим «как D7 через Agora».",
-      "Храните PDF passaporte, título/comprovativo pedido, NIF и recibos — AIMA и банк запрашивают повторно.",
+      "Получите NIF в Autoridade Tributária или через Portal das Finanças — один номер на человека на всю страну.",
+      "Зафиксируйте comprovativo de morada через contrato de arrendamento с registo, Atestado de Residência в Junta или другой документ, который принимает balcão.",
+      "Зарегистрируйтесь в centro de saúde по адресу и получите número de utente SNS.",
+      "Ведите весь процесс ARI, включая DUC и agendamento, через Portal ARI, а не по общему маршруту D7.",
+      "Храните PDF паспортов, título или comprovativo pedido, NIF и recibos — их часто запрашивают повторно.",
     ],
   },
   {
-    heading: "До прилёта: папка семьи, школа, авто, временное жильё",
+    heading: "Подготовка до прилёта",
     section_kind: "action_guide",
     paragraphs: [
-      "Что делать: собрать цифровую и бумажную папку на троих, забронировать temporary housing рядом со shortlist школ и подтвердить аренду авто в OPO с детским креслом.",
-      "Зачем: в первые 72 часа вы не хотите искать «где NIF ребёнка» и «какая школа ещё принимает в сентябре» — это решается до посадки.",
-      "Главное: школа и temporary адрес — раньше Idealista long-term; машина — раньше обсуждения «купить сразу».",
+      "До вылета соберите цифровую и бумажную папку на каждого члена семьи и забронируйте temporary жильё рядом с shortlist школ. Подтвердите аренду авто в аэропорту OPO с детским креслом. В первые 72 часа не хочется искать, где получить NIF ребёнка или какая школа ещё принимает в сентябре. Школа и временный адрес важнее поиска «идеальной» T3 на долгий срок.",
     ],
     bullets: [
-      "Соберите на каждого: загранпаспорт, título/визу ARI или comprovativo pedido, NIF если уже есть, страховку путешествия/здоровья на первые недели.",
-      "Добавьте на ребёнка: свидетельство о рождении (apostille + перевод PT/EN по запросу школы), transcripts/табель, calendário vacinação или caderneta de vacinação, 2–4 фото.",
-      "Составьте shortlist 2–3 international schools (Porto: OBS/CLIP/LFIP; Braga: CLIB) и запросите admissions checklist — см. [международные школы](/notes/" +
-        INTERNATIONAL_SCHOOLS_GUIDE_SLUG +
-        ").",
-      "Забронируйте temporary 2–4 недели (aparthotel / mid-term) в зоне commute до shortlist — Foz/Boavista/Matosinhos или Braga centro/Gualtar; выбор города — [Porto vs Braga](/notes/" +
-        PORTO_VS_BRAGA_FAMILY_SCHOOLS_SLUG +
-        ").",
-      "Подтвердите rent-a-car в аэропорту Francisco Sá Carneiro (OPO): full-to-full, child seat, Via Verde/EasyToll — иначе платные дороги «догонят» штрафом; см. [tolls](/notes/" +
-        TOLLS_FINES_ACCIDENTS_GUIDE_SLUG +
-        ").",
+      "Соберите на каждого загранпаспорт, título ARI или comprovativo pedido, NIF при наличии и страховку на первые недели.",
+      "Добавьте на ребёнка свидетельство о рождении с apostille и переводом, табели, caderneta de vacinação и 2–4 фото.",
+      "Составьте shortlist из двух-трёх международных школ и запросите admissions checklist.",
+      "Забронируйте temporary на 2–4 недели в зоне commute до shortlist.",
+      "Подтвердите rent-a-car с full-to-full, детским креслом и Via Verde.",
     ],
   },
   {
-    heading: "Дни 1–3: OPO → Porto/Braga, машина, NIF, временный адрес",
+    heading: "Дни 1–3 после прилёта",
     section_kind: "practice",
     paragraphs: [
-      "Что делать: забрать авто, доехать до temporary, активировать связь и закрыть NIF (если ещё нет) — без марафона по Lisboa.",
-      "Зачем: без NIF и адреса для correspondência (корреспонденции) школа, Finanças и банк встанут; без Via Verde на A3/A28 счета за portagens (платные дороги) придут поздно и дороже.",
-      "Главное: первые три дня — логистика семьи, не «закрыть всю бюрократию».",
+      "Заберите авто в OPO, доезжайте до temporary адреса и активируйте связь. Закройте NIF, если его ещё нет. Без номера и адреса для корреспонденции школа, Finanças и банк встанут. Via Verde на A3 и A28 убережёт от поздних и дорогих счетов за portagens. Первые три дня — это логистика семьи, а не попытка закрыть всю бюрократию сразу.",
     ],
     bullets: [
-      "Заберите авто в OPO, проверьте dents на фото, активируйте Via Verde / EasyToll в приложении или у desk — детали в [платные дороги Norte](/notes/" +
-        TOLLS_FINES_ACCIDENTS_GUIDE_SLUG +
-        ").",
-      "Доезжайте сразу в Porto (Foz/Boavista/Matosinhos) или Braga — не «ночь в Lisboa ради AIMA Saldanha»; для ARI слоты в Norte свои.",
-      "Купите eSIM/SIM (MEO/NOS/Vodafone) на взрослых; ребёнку — только если школа просит контактный номер.",
-      "Закройте NIF в Finanças (Loja do Cidadão Porto/Braga или com representante) на всех троих, если номеров ещё нет — один налоговый номер на страну; порядок — [NIF в Порту](/notes/nif-porto-kak-poluchit-2026).",
-      "Зафиксируйте temporary morada: confirmação брони + e-mail senhorio; сфотографируйте acta de entrada — сырость Norte ловится в первую неделю, см. [климат](/notes/" +
-        NORTE_CLIMATE_COMFORT_SLUG +
-        ").",
+      "Проверьте авто на повреждения по фото и активируйте Via Verde или EasyToll.",
+      "Доехайте сразу в Porto или Braga, не ночуя в Lisboa ради AIMA.",
+      "Купите eSIM или SIM на взрослых, ребёнку — только по запросу школы.",
+      "Получите NIF в Finanças или Loja do Cidadão на всех троих.",
+      "Зафиксируйте temporary morada и сфотографируйте акт приёма жилья.",
     ],
   },
   {
-    heading: "Неделя 1: школа первой, затем Finanças, банк, morada",
+    heading: "Неделя 1: школа в приоритете",
     section_kind: "action_guide",
     paragraphs: [
-      "Что делать: посетить admissions / open day, подать matrícula-пакет, параллельно обновить morada fiscal и открыть PT-счёт, если банк ещё не открыт под ARI.",
-      "Зачем: waiting list на Year 7 в Porto часто 6–12 месяцев; откладывать школу «после банка» — типичная потеря семестра.",
-      "Главное: школа → comprovativo de morada → банк под аренду; не наоборот.",
+      "Запишитесь на visit и open day в 1–2 школы из shortlist. Подайте пакет документов параллельно с обновлением morada fiscal и открытием счёта. Waiting list на Year 7 в Porto часто тянется 6–12 месяцев, поэтому откладывать школу ради банка — частая ошибка. Школа, comprovativo de morada и банк идут именно в таком порядке.",
     ],
     bullets: [
-      "Запишитесь на visit в 1–2 школы из shortlist в первые 3 рабочих дня; возьмите transcripts, vacinas, NIF ребёнка и passaportes родителей.",
-      "Подайте enrollment / waiting list с comprovativo temporary или long-term адреса — детали fees и документов в [гайде по школам](/notes/" +
-        INTERNATIONAL_SCHOOLS_GUIDE_SLUG +
-        ").",
-      "Обновите morada на Portal das Finanças и при необходимости получите Atestado de Residência в Junta de Freguesia (Porto/Braga).",
-      "Откройте или активируйте conta em Portugal (Millennium, ActivoBank, CGD — по политике KYC для ARI): NIF + passaporte + comprovativo morada; Revolut удобен первые дни, но long-term renda часто просит PT IBAN.",
-      "Не переводите caução за long-term T2/T3 до проверки contrato — порядок оплаты в [аренде Porto/Braga](/notes/" +
-        PORTO_BRAGA_LONG_TERM_RENT_SLUG +
-        ").",
+      "Посетите школы в первые три рабочих дня с transcripts, vacinas, NIF ребёнка и паспортами родителей.",
+      "Подайте enrollment или waiting list с temporary или long-term адресом.",
+      "Обновите morada на Portal das Finanças и при необходимости получите Atestado de Residência в Junta.",
+      "Откройте или активируйте счёт в португальском банке по NIF, паспорту и morada.",
+      "Не вносите caução за долгосрочную аренду до проверки contrato адвокатом.",
     ],
   },
   {
-    heading: "Неделя 2: SNS, шаги AIMA/ARI, свет и вода",
+    heading: "Неделя 2: SNS, ARI и коммунальные услуги",
     section_kind: "practice",
     paragraphs: [
-      "Что делать: зарегистрировать utente SNS по morada, сверить статус ARI/Portal ARI с адвокатом и подключить utilities на имя арендатора.",
-      "Зачем: ребёнок без número de utente (номера пациента SNS) и без частной страховки — риск платить полный счёт в urgências (приёмном); пропуск biometria/agenda ARI дороже любой Idealista-сделки.",
-      "Главное: здоровье и статус проживания — на той же неделе, что и Wi‑Fi.",
+      "Зарегистрируйтесь в centro de saúde по адресу и получите utente SNS. Сверьте статус ARI с адвокатом и подключите eletricidade, água и интернет на имя арендатора. Ребёнок без номера пациента SNS рискует платить полный счёт в urgências, а пропуск biometria стоит дороже любой сделки с арендой. Здоровье и статус проживания идут на той же неделе, что и Wi-Fi.",
     ],
     bullets: [
-      "Запишитесь в centro de saúde / USF по morada (Porto или Braga): NIF, comprovativo, документ резидентства — порядок в [медицине Norte](/notes/" +
-        MEDITSINA_NORTE_HEALTHCARE_SLUG +
-        ").",
-      "Держите частную страховку (часто уже в ARI-пакете) активной до стабильного médico de família; для педиатрии заложите CUF/Lusíadas/Trofa как plan B.",
-      "Сверьте с advogado: Portal ARI, agendamento Loja AIMA, biometria семьи, DUC/taxas — официально на [aima.gov.pt Portal ARI](https://aima.gov.pt/pt/viver/autorizacao-de-residencia-para-investimento-art-90-o-a/portal-ari); не путайте с Agora-потоком D7.",
-      "Подключите eletricidade (EDP/Iberdrola) и água (Águas do Porto / municipal Braga) на NIF + IBAN; internet fibra — по cobertura адреса.",
-      "Сохраните PDF: recibos, comprovativo pedido ARI, matrícula школы — банк и Junta часто просят повторно.",
+      "Запишитесь в centro de saúde или USF по morada с NIF и comprovativo.",
+      "Держите частную страховку активной до появления médico de família.",
+      "Сверьте Portal ARI, agendamento Loja AIMA и biometria с advogado.",
+      "Подключите электричество, воду и fibra по покрытию адреса.",
+      "Сохраните все recibos и comprovativo pedido ARI.",
     ],
   },
   {
-    heading: "Недели 3–4: закрепиться, жильё на год, решить по машине",
+    heading: "Недели 3–4: долгосрочное жильё и машина",
     section_kind: "practice",
     paragraphs: [
-      "Что делать: перейти с temporary на contrato ≥12 месяцев рядом со школой, решить keep rent vs buy car и закрыть бытовые хвосты.",
-      "Зачем: к концу месяца у семьи должен быть адрес для школы/SNS, понятный commute и план по авто — иначе второй месяц уходит на переезды.",
-      "Главное: сначала школа и morada, потом покупка квартиры «навсегда».",
+      "Переходите с temporary на contrato от 12 месяцев рядом со школой. Решите, оставлять ли арендованную машину или покупать свою. К концу месяца у семьи должен быть стабильный адрес, понятный commute и план по авто. Школа и morada стоят выше покупки квартиры «навсегда».",
     ],
     bullets: [
-      "Подпишите long-term T2/T3 в зоне commute (Foz/Boavista/Matosinhos или Gualtar/Braga centro) с registo contrato в Finanças — бюджеты в [аренде](/notes/" +
-        PORTO_BRAGA_LONG_TERM_RENT_SLUG +
-        ").",
-      "Осмотрите на humidade/bolor до подписи — чеклист в [климате Norte](/notes/" +
-        NORTE_CLIMATE_COMFORT_SLUG +
-        "); acta de entrada с фото углов обязательна.",
-      "Решите по авто: продлить rent, купить в PT или import — сравнение в [машине в Португалии](/notes/" +
-        CAR_PORTUGAL_GUIDE_SLUG +
-        "); не покупайте вслепую на второй неделе.",
-      "Если смотрите покупку жилья под жизнь (не обязательно под ARI-инвест): ритуал CPCV/escritura — [купить квартиру Norte](/notes/" +
-        APARTMENT_BUY_NORTE_GUIDE_SLUG +
-        ").",
-      "Отметьте expiry título и горизонт renovação — общий порядок в [продлении ВНЖ](/notes/" + VNJ_RENEWAL_SLUG + "); для ARI taxas (~€4 210) другие, чем типовой пакет D7/D8 (~€440).",
+      "Подпишите long-term T2 или T3 с registo в Finanças.",
+      "Проверьте жильё на humidade и bolor и составьте acta de entrada с фото.",
+      "Сравните продление аренды, покупку или импорт авто.",
+      "Если рассматриваете покупку, пройдите CPCV и escritura по правилам Norte.",
+      "Отметьте срок действия título и горизонт продления ARI.",
     ],
   },
   {
-    heading: "Golden Visa (ARI) для семьи: чем отличается от D7/D8",
+    heading: "Porto или Braga: что выбрать",
+    section_kind: "practice",
+    paragraphs: [
+      "Базу на первые 30 дней выбирают от школы и commute, а не от вида на Ribeira. Одна международная школа в Braga против нескольких треков в Porto определяет район, бюджет T2 и километраж на машине. Сначала школа, потом город.",
+    ],
+    bullets: [
+      "В Porto temporary размещают в Foz, Boavista или Matosinhos ближе к OBS, CLIP и LFIP.",
+      "В Braga temporary выбирают centro или Gualtar ближе к CLIB, а A3 до Porto занимает 45–60 минут.",
+      "Педиатрическая urgência — São João в Porto или Hospital de Braga.",
+      "Климат в обоих городах сырой зимой, поэтому проверка bolor важнее вида.",
+      "Бюджеты аренды в Foz и Gualtar различаются, сравнение — в отдельном гайде.",
+    ],
+  },
+  {
+    heading: "Чем ARI отличается от D7 и D8",
     section_kind: "gap",
     paragraphs: [
-      "Что делать: идти по маршруту ARI / Portal ARI и чеклисту адвоката — не копировать «первый месяц D8» из чата один в один.",
-      "Зачем: путаница каналов (Agora vs Portal ARI vs portal-renovacoes) съедает недели; у семьи из трёх biometria и документы на каждого.",
-      "Главное: soft-ориентир ниже; hard-правила — только aima.gov.pt и ваш processo.",
+      "Семья идёт по маршруту Portal ARI и инструкциям адвоката, а не копирует чеклист D8 из чата. Путаница каналов отнимает недели, а у троих biometria и документы оформляются на каждого. Мягкий ориентир ниже, а жёсткие правила — только на aima.gov.pt и в вашем processo.",
     ],
     bullets: [
-      "В чатах релокантов часто пишут «сначала Agora как у всех», но для ARI первичный трек часто Portal ARI и Loja AIMA по инструкции процесса, не общая fila D-visa.",
-      "В чатах пишут «нужно жить 183 дня как D7», а у ARI минимальное пребывание исторически мягче (ориентир «несколько дней в году» в старых правилах); актуальный mínimo сверяйте в условиях вашего título и у advogado.",
-      "Официально: agregado familiar (супруг/дети) идут в том же investment-кейсе через Portal ARI — у каждого свой pedido/taxas; список PDF — на портале на дату подачи.",
-      "Расхождение: «SNS и банк ждут карту» → NIF + comprovativo legal stay часто хватает раньше пластика; карту не откладывайте, но быт не стопорите.",
-      "Продление ARI — ориентир **€4 210,30**; temporary D7/D8 renovação — ~**€440,20** (€133 + €307,20) — см. [продление ВНЖ](/notes/" + VNJ_RENEWAL_SLUG + ").",
+      "В чатах часто советуют начинать с Agora, но для ARI первичный трек — Portal ARI и Loja AIMA по процессу.",
+      "Минимальное пребывание по ARI исторически мягче, чем 183 дня по D7; актуальный минимум уточняйте у адвоката.",
+      "Agregado familiar проходит в одном investment-кейсе через Portal ARI с отдельными pedido и taxas.",
+      "NIF и comprovativo legal stay часто хватает раньше пластиковой карты.",
+      "Продление ARI стоит около €4 210,30, а temporary renovação D7/D8 — около €440,20.",
     ],
   },
   {
-    heading: "Porto или Braga: развилки первого месяца",
+    heading: "Частые ошибки первого месяца",
     section_kind: "practice",
     paragraphs: [
-      "Что делать: выбрать базу на первые 30 дней от школы и commute, а не от «где красивее Ribeira».",
-      "Зачем: одна international school в Braga (CLIB) vs несколько tracks в Porto — от этого зависят район, бюджет T2 и километраж на арендованной машине.",
-      "Главное: сначала школа, потом город; сравнение — в [Porto vs Braga](/notes/" +
-        PORTO_VS_BRAGA_FAMILY_SCHOOLS_SLUG +
-        ").",
+      "Семьи с ARI теряют недели не на инвестициях, а на неправильном порядке. Школа, адрес и банк идут до caução и отмены temporary. Чеклист из Lisboa под D8 не подходит под Norte и ARI без правок.",
     ],
     bullets: [
-      "Porto: temporary в Foz/Boavista/Matosinhos — ближе к OBS/CLIP/LFIP; аренда выше, expat-плотность больше, Metro + Andante дополняют авто.",
-      "Braga: temporary у centro/Gualtar — ближе к CLIB; T2 дешевле, A3 до Porto ~45–60 мин, если нужен open day в CLIP/OBS.",
-      "Медицина: urgência pediátrica — São João (Porto) или Hospital de Braga; inscrição SNS — по morada concelho, см. [медицину](/notes/" +
-        MEDITSINA_NORTE_HEALTHCARE_SLUG +
-        ").",
-      "Климат одинаково сырой зимой в обоих городах — обогреватель и проверка bolor важнее «вида на Douro», см. [климат](/notes/" +
-        NORTE_CLIMATE_COMFORT_SLUG +
-        ").",
-      "Аренда long-term: бюджеты Foz vs Gualtar — в [аренде dolgosrok](/notes/" + PORTO_BRAGA_LONG_TERM_RENT_SLUG + ").",
+      "Искать long-term квартиру до shortlist школы и потом переезжать через две недели.",
+      "Ехать в AIMA Lisboa, игнорируя Portal ARI и Loja в Norte.",
+      "Арендовать авто без Via Verde и получать штрафы за portagens.",
+      "Забыть caderneta de vacinação и apostille на свидетельстве о рождении.",
+      "Отменять частную страховку в день получения utente SNS.",
     ],
   },
   {
-    heading: "Типичные ошибки первого месяца",
+    heading: "Типичные ошибки релокантов",
     section_kind: "practice",
     paragraphs: [
-      "Что делать: пройти список «чего не делать» до перевода caução и до отмены temporary.",
-      "Зачем: семьи с ARI теряют недели не на инвестициях, а на порядке школа → адрес → банк.",
-      "Главное: не копируйте чеклист Lisboa-D8 без правки под Norte и ARI.",
+
     ],
     bullets: [
-      "Ошибка: искать long-term квартиру до shortlist школы — потом переезд через две недели.",
-      "Ошибка: ехать в AIMA Lisboa «потому что так в чате», игнорируя Portal ARI и Loja в Norte.",
-      "Ошибка: арендовать авто без Via Verde/EasyToll и удивляться штрафам portagens — см. [tolls](/notes/" +
-        TOLLS_FINES_ACCIDENTS_GUIDE_SLUG +
-        ").",
-      "Ошибка: забыть caderneta/vacinas и apostille на birth certificate — admissions возвращает пакет.",
-      "Ошибка: отменить частную страховку в день utente SNS — специалисты и педиатр ещё месяцы.",
+      "Ошибка: полагаться на один источник из чата без проверки на gov.pt / портале органа.",
+      "Ошибка: не закладывать 2–4 недели на дозапрос документов или запись в balcão.",
+      "Ошибка: игнорировать Norte-специфику — Porto/Braga быстрее по очередям, но те же формальные требования.",
+      "Ошибка: откладывать NIF, morada или comprovativo — без них следующий шаг встанет.",
     ],
-  },
+  }
 ];
 
 const keyTakeaways = [
-  "Официально: NIF → comprovativo de morada → escola/SNS/банк; ARI-процесс и taxas — на [Portal ARI AIMA](https://aima.gov.pt/pt/viver/autorizacao-de-residencia-para-investimento-art-90-o-a/portal-ari), не «как у D7».",
-  formatPracticeTakeaway({
-    channels: ["por_tugal", "chatlisboa"],
-    period: "2025–2026",
-    claim:
-      "семьи с детьми в Norte чаще всего теряют первую неделю на неправильном порядке: Idealista до школы и банк до NIF ребёнка",
-    forReader:
-      "в дни 1–7 поставьте admissions и NIF семьи выше поиска «идеальной» T3 — temporary на 2–4 недели как раз для этого",
-  }),
-  "На практике: с арендованной машины в OPO сразу включайте Via Verde/EasyToll — иначе A3/A28 прилетят счетами позже; детали в гайде по платным дорогам.",
-  "Расхождение: «первый месяц = Lisboa и Agora» → для семьи ARI в Porto/Braga база — школа Norte, Finanças/Junta локально и Portal ARI по вашему processo.",
+  "Официально: NIF, comprovativo de morada, matrícula в школу и inscrição в SNS оформляют по порядку, который принимают Finanças и AIMA; все данные по ARI лежат только на Portal ARI.",
+  "На практике: семьи в Norte чаще всего теряют первую неделю, когда начинают с Idealista вместо admissions в школу и NIF ребёнка; temporary жильё на 2–4 недели решает эту задачу.",
+  "На практике: арендованная машина из OPO требует Via Verde или EasyToll сразу, иначе счета за portagens на A3 и A28 приходят позже и дороже.",
+  "Расхождение: «первый месяц как в Lisboa по D7» не работает для ARI в Porto или Braga; здесь база — школа Norte, локальные Finanças и Junta, а также отдельный трек Portal ARI.",
 ];
 
 const faq: CommunityNoteFaq[] = [
   {
     q: "Для кого этот чеклист — какая семья?",
-    a: "Да, ориентир — семья из трёх: обычно двое взрослых + один ребёнок школьного возраста. Если детей двое или есть младенец — те же блоки, плюс больше времени на pediatria и кресла в авто.",
+    a: "Да, ориентир — семья из трёх: двое взрослых и один ребёнок школьного возраста. При двух детях или младенце те же блоки, только больше времени на педиатрию и кресла в авто.",
   },
   {
     q: "С чего начать в первый день после OPO?",
-    a: "Три шага: авто с детским креслом и Via Verde → temporary в Porto или Braga → eSIM и слот/визит в Finanças на NIF, если номеров ещё нет. По правилам школа не обязана в день 1; на практике visit — в первые три рабочих дня.",
+    a: "Три шага: авто с детским креслом и Via Verde, temporary в Porto или Braga, eSIM и визит в Finanças за NIF. По правилам школа не обязательна в день первый, на практике visit планируют в первые три рабочих дня.",
   },
   {
     q: "Golden Visa — те же шаги, что у D7/D8?",
-    a: "Нет, не один в один. По правилам быт (NIF, morada, школа, SNS) похож, а миграционный канал ARI идёт через Portal ARI / Loja AIMA. На практике сверяйте [aima.gov.pt](https://aima.gov.pt/) и адвоката; Emigro не заменяет юрконсультацию.",
+    a: "Нет. По правилам быт похож, а миграционный канал ARI идёт через Portal ARI и Loja AIMA. На практике сверяйте aima.gov.pt и адвоката; Emigro не заменяет юридическую консультацию.",
   },
   {
     q: "Porto или Braga выбрать на первый месяц?",
-    a: "От школы. По правилам оба города в Norte принимают SNS и Finanças локально. На практике несколько international tracks — temporary в Porto (Foz/Boavista/Matosinhos); CLIB и бюджет — Braga/Gualtar. Сравнение — [Porto vs Braga](/notes/" +
-      PORTO_VS_BRAGA_FAMILY_SCHOOLS_SLUG +
-      ").",
+    a: "От школы. По правилам оба города принимают SNS и Finanças локально. На практике несколько треков — temporary в Porto, CLIB и бюджет — Braga. Сравнение в отдельном гайде.",
   },
   {
     q: "Какие документы ребёнка просят в international school?",
-    a: "Обычно 5–7 файлов: паспорт, NIF, transcripts, calendário/caderneta vacinação, comprovativo de morada; часто apostille + перевод свидетельства о рождении. По правилам точный список — у admissions; на практике пакет без vacinas возвращают. Обзор — [школы](/notes/" +
-      INTERNATIONAL_SCHOOLS_GUIDE_SLUG +
-      ").",
+    a: "Обычно 5–7 файлов: паспорт, NIF, transcripts, caderneta de vacinação, comprovativo de morada; часто apostille и перевод свидетельства о рождении. По правилам точный список у admissions, на практике пакет без vacinas возвращают.",
   },
   {
     q: "Когда покупать машину вместо аренды?",
-    a: "Не в дни 1–7. По правилам владение авто не нужно для ARI в первый месяц. На практике сначала школа и адрес, потом rent vs buy — [машина в Португалии](/notes/" +
-      CAR_PORTUGAL_GUIDE_SLUG +
-      "). На аренде сразу закройте tolls.",
+    a: "Не в дни 1–7. По правилам владение авто не требуется для ARI в первый месяц. На практике сначала школа и адрес, потом rent vs buy. На аренде сразу закройте tolls.",
   },
 ];
 
@@ -270,35 +193,28 @@ export const PERVYJ_MESYAC_CHECKLIST_GUIDE = {
   slug: PERVYJ_MESYAC_CHECKLIST_SLUG,
   category: "Первый месяц",
   content_kind: "guide" as ContentKind,
-  title: "Первый месяц в Португалии: чеклист семьи с Golden Visa (Porto / Braga)",
-  excerpt:
-    "Первый месяц семьи с Golden Visa в Porto/Braga без паники из чатов: школа раньше Idealista, потом NIF и SNS, Portal ARI — отдельно. По дням и неделям.",
-  seo_title: "Первый месяц PT 2026 — семья GV Porto/Braga",
-  seo_description:
-    "Семья из трёх с Golden Visa в Португалии (Porto или Braga): чеклист первого месяца — школа в приоритете, аренда авто, NIF, SNS, AIMA. По дням и неделям.",
-  quick_answer:
-    "Первый месяц в Португалии пугает не таможней — а списком из двадцати «обязательных» шагов в чатах. Спокойно: для семьи из трёх с Golden Visa (ARI) в Porto или Braga хватает одной логики — сначала школа и temporary адрес, затем NIF/SNS, long-term жильё ближе к неделям 3–4. Portal ARI живёт своей жизнью: сверяйте aima.gov.pt и advogado, не пересказ чата.",
+  title: "Первый месяц семьи с Golden Visa в Porto или Braga",
+  excerpt: "Семья с ARI приезжает в Norte и выстраивает порядок: школа раньше долгосрочной аренды, NIF и SNS по адресу, Portal ARI отдельно от общих каналов. По неделям без паники из чатов.",
+  seo_title: "Первый месяц в Португалии: семья Golden Visa Porto Braga",
+  seo_description: "Чеклист первого месяца для семьи с ARI в Porto или Braga: школа в приоритете, temporary жильё, NIF, SNS, Via Verde и Portal ARI. По дням и неделям без.",
+  quick_answer: "Семья с Golden Visa прилетает в Португалию и сразу видит в чатах список из двадцати дел. На деле для троих в Porto или Braga хватает одной последовательности: сначала школа и временный адрес, потом NIF, SNS и long-term жильё ближе к третьей-четвёртой неделе. Portal ARI работает отдельно, поэтому сверяйте статус только на aima.gov.pt и с адвокатом.",
   body_sections: bodySections,
   body_paragraphs: flattenBodySections(bodySections),
   key_takeaways: keyTakeaways,
   faq,
   official_links: [
-    {
-      title: "AIMA — Portal ARI (Golden Visa)",
-      url: "https://aima.gov.pt/pt/viver/autorizacao-de-residencia-para-investimento-art-90-o-a/portal-ari",
-    },
+    { title: "AIMA — Portal ARI (Golden Visa)", url: "https://aima.gov.pt/pt/viver/autorizacao-de-residencia-para-investimento-art-90-o-a/portal-ari" },
     { title: "AIMA", url: "https://aima.gov.pt/" },
     { title: "Portal das Finanças", url: "https://www.portaldasfinancas.gov.pt/" },
     { title: "SNS — número de utente", url: "https://www.sns.gov.pt/" },
     { title: "Agora", url: "https://agora.imigrante.pt/" },
     { title: "Banco de Portugal", url: "https://www.bportugal.pt/" },
   ],
-  topic_tags: ["nif", "aima", "sns", "bank", "arenda", "portugal"],
+  topic_tags: ["nif","aima","sns","bank","arenda","portugal"],
   hashtags: buildNoteHashtags({
-    topicTags: ["nif", "aima", "sns", "bank", "arenda", "portugal"],
+    topicTags: ["nif","aima","sns","bank","arenda","portugal"],
     contentKind: "guide",
-    extra: ["porto", "braga", "norte", "golden-visa", "ari", "familia", "escola", "checklist"],
   }),
   source_channel: "chatlisboa+por_tugal+lepta",
-  source_label: "editorial:pervyj-mesyac-gv-norte+voice-pass",
+  source_label: "editorial:grok-4.3-rewrite-2026-09-21",
 };

@@ -86,6 +86,24 @@ const SLUG_PEXELS_PHOTO_IDS: Record<string, number> = {
   "meditsina-milano-ssn-tessera-2026": 236380,
   // Hospital corridor — SNS / private / dentistry (no foreign paperwork text)
   "meditsina-norte-sns-chastnaya-stomatologiya-2026": 13018111,
+  // Toolbox — yellow pages / local services (not São Bento AI crowd)
+  "zheltye-stranitsy-relokanta-portugaliya-2026": 7640990,
+  // Keys in modern living space — Lisbon first-month rent
+  "arenda-kvartiry-lisbon-pervyi-mesyac-2026": 29871187,
+  // Scenic drive in Portugal — driving-license exchange (not UK plastic)
+  "zamena-voditelskih-prav-portugaliya-2026": 8631622,
+  // PT passport + cartão de cidadão — AIMA renovação
+  "prodlenie-vnzh-portugaliya-aima-2026": 32081457,
+  // Checklist notebook — first month (not generic beanie packing stock)
+  "pervyj-mesyac-portugaliya-checklist": 35719566,
+  // Card payment counter — bank account guide (not French FX booth)
+  "kak-otkryt-bankovskiy-schet-portugalia-2026": 7755457,
+  // Ethernet / router — internet provider (not Apple Store)
+  "vybor-internet-provaydera-portugaliya-2026": 159304,
+  // Doctor + stethoscope — SNS registration changes
+  "sns-registration-changes-2026": 5234501,
+  // Waiting chairs — AIMA Agora booking
+  "aima-agora-zapis-2026": 9259472,
   // Navigli / Milan canals — districts + Como extra
   "milano-rajony-arenda-metro-como-2026": 208701,
   // Laptop remote work — nomade
