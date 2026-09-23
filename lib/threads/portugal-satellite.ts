@@ -31,11 +31,21 @@ export type PortugalSatelliteRow = {
   p2: string;
 };
 
+export type PortugalSatellitePostFormat = "IMAGE" | "TEXT";
+
 export type PortugalSatelliteState = {
   last_day: number;
   last_posted_on: string;
-  posts: Record<string, { at: string; ids?: string[] }>;
+  posts: Record<string, { at: string; ids?: string[]; format?: PortugalSatellitePostFormat }>;
 };
+
+/** Assist stays on the same IMAGE window; Portugal odd bank days attach dest note webp. */
+export const PT_SAT_IMAGE_EXPERIMENT = {
+  id: "EMIGRO-IMG-2026-09-20",
+  start: "2026-09-20",
+  measureOn: "2026-09-30",
+  accounts: ["emigro_assist", "emigro_portugal"],
+} as const;
 
 const BANK_PATH = resolve(
   process.cwd(),
@@ -98,10 +108,67 @@ export function satelliteNoteUrl(dest: string, content: string): string {
   return url.toString();
 }
 
-export function composePortugalSatelliteChain(row: PortugalSatelliteRow): ThreadsChainItem[] {
+export function portugalSatelliteDestSlug(dest: string): string {
+  const trimmed = dest.trim().replace(/\/+$/, "");
+  const slash = trimmed.lastIndexOf("/");
+  return (slash >= 0 ? trimmed.slice(slash + 1) : trimmed).replace(/^\//, "");
+}
+
+export function portugalSatelliteNoteImageUrl(dest: string): string {
+  const slug = portugalSatelliteDestSlug(dest);
+  if (!slug) return "";
+  return `https://${PORTUGAL_SATELLITE_HOST}/images/community-notes/${slug}.webp`;
+}
+
+export function portugalSatelliteImageExperimentActive(iso: string): boolean {
+  return iso >= PT_SAT_IMAGE_EXPERIMENT.start && iso <= PT_SAT_IMAGE_EXPERIMENT.measureOn;
+}
+
+/** Corridor hero webp for Assist roots during the IMAGE window (matched by country key). */
+export function assistCorridorImageUrl(countryKey: string): string {
+  const key = (countryKey || "").trim().toLowerCase().replace(/_/g, "-");
+  const aliases: Record<string, string> = {
+    czech: "czechia",
+    "czech-republic": "czechia",
+    nederland: "netherlands",
+    holland: "netherlands",
+    dubai: "uae",
+    "united-arab-emirates": "uae",
+    "united-kingdom": "uk",
+    britain: "uk",
+    nordic: "scandinavia",
+    sweden: "scandinavia",
+    norway: "scandinavia",
+    finland: "scandinavia",
+    denmark: "scandinavia",
+  };
+  const slug = aliases[key] || key;
+  const file =
+    !slug || slug === "europe" || slug === "eu" || slug === "внж" ? "portugal" : slug;
+  return `https://www.emigro.online/images/corridor-${file}.webp`;
+}
+
+/** Odd bank days in the observation window attach the dest note webp. */
+export function portugalSatelliteAttachImage(row: PortugalSatelliteRow, today: string): boolean {
+  return portugalSatelliteImageExperimentActive(today) && row.d % 2 === 1;
+}
+
+export function composePortugalSatelliteChain(
+  row: PortugalSatelliteRow,
+  opts?: { today?: string }
+): ThreadsChainItem[] {
+  const today = opts?.today || lisbonDateIso();
   const content = `sat${String(row.d).padStart(3, "0")}`;
+  const imageUrl = portugalSatelliteAttachImage(row, today)
+    ? portugalSatelliteNoteImageUrl(row.dest)
+    : "";
   const items: ThreadsChainItem[] = [
-    { text: clipThreadsText(row.p1), role: "root", topicTag: "Португалия" },
+    {
+      text: clipThreadsText(row.p1),
+      role: "root",
+      topicTag: "Португалия",
+      ...(imageUrl ? { imageUrl } : {}),
+    },
   ];
   if (row.d % THREADS_PT_SAT_LINK_STRIDE === 0) {
     const cta = clipThreadsText(`${row.p2.trim()}\n${satelliteNoteUrl(row.dest || "/", content)}`);
@@ -165,6 +232,6 @@ export function planPortugalSatellitePost(opts: {
   return { row: next, today };
 }
 
-export function previewPortugalSatellite(row: PortugalSatelliteRow): string {
-  return formatThreadsChainPreview(composePortugalSatelliteChain(row));
+export function previewPortugalSatellite(row: PortugalSatelliteRow, today?: string): string {
+  return formatThreadsChainPreview(composePortugalSatelliteChain(row, { today }));
 }

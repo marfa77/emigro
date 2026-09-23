@@ -33,6 +33,30 @@ import {
   type ThreadsBankCta,
 } from "@/lib/threads/banks";
 import { formatThreadsChainPreview, type ThreadsChainItem } from "@/lib/threads/compose";
+import {
+  assistCorridorImageUrl,
+  portugalSatelliteImageExperimentActive,
+} from "@/lib/threads/portugal-satellite";
+
+function lisbonTodayIso(now = new Date()): string {
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Europe/Lisbon",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(now);
+}
+
+function withAssistImage(
+  items: ThreadsChainItem[],
+  countryKey: string,
+  today = lisbonTodayIso()
+): ThreadsChainItem[] {
+  if (!portugalSatelliteImageExperimentActive(today) || items.length === 0) return items;
+  const root = items[0]!;
+  if (root.imageUrl) return items;
+  return [{ ...root, imageUrl: assistCorridorImageUrl(countryKey) }, ...items.slice(1)];
+}
 
 export type ThreadsSlotPlan = {
   kind: "guide" | "wizard" | "city" | "assist" | "news";
@@ -134,10 +158,10 @@ export function pickWizardPlan(state: ThreadsInventoryState): ThreadsSlotPlan | 
 export function pickAssistBankPlan(state: ThreadsInventoryState): ThreadsSlotPlan | null {
   const cycled = nextCycledRow(threadsDaysForCta("assist"), state.assist_cursor || 0);
   if (!cycled) return null;
-  const items = composeDayChain(cycled.row);
+  const items = withAssistImage(composeDayChain(cycled.row), "portugal");
   return {
     ...planOf("assist", `assist-${cycled.row.d}`, "ВНЖ", "assist", items),
-    preview: previewDay(cycled.row),
+    preview: formatThreadsChainPreview(items),
     cursor: cycled.nextCursor,
   };
 }
@@ -161,7 +185,7 @@ export function pickDaysBankPlan(state: Pick<ThreadsInventoryState, "chat_cursor
   if (days.length === 0) return null;
   const next = (Number(state.last_day || 0) % days.length) + 1;
   const row = days.find((item) => item.d === next) || days[0]!;
-  const items = composeDaysReachChain(row);
+  const items = withAssistImage(composeDaysReachChain(row), "portugal");
   const kind = row.cta === "assist" ? "assist" : "city";
   const countryRu = row.cta === "porto_chat" ? "Порту" : "ВНЖ";
   return {
@@ -216,12 +240,15 @@ export function pickLiveGuidePlan(
   // some linked to the source only at the end. Never attach a sales reply here.
   const attachSource = (state.guides_used.length + 1) % 3 === 0;
   const content = `gde-${pick.guide.slug}`.slice(0, 40);
-  const items = composeReachGuideThread({
-    p1,
-    slides: slide && slide !== p1 ? [slide] : [],
-    topic: countryRuFromKey(pick.country),
-    sourceUrl: attachSource ? threadsGuidePageUrl(pick.guide.slug, content) : undefined,
-  });
+  const items = withAssistImage(
+    composeReachGuideThread({
+      p1,
+      slides: slide && slide !== p1 ? [slide] : [],
+      topic: countryRuFromKey(pick.country),
+      sourceUrl: attachSource ? threadsGuidePageUrl(pick.guide.slug, content) : undefined,
+    }),
+    pick.country
+  );
   return planOf("guide", pick.guide.slug, countryRuFromKey(pick.country), cta, items);
 }
 

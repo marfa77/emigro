@@ -80,6 +80,7 @@ assert.match(dayWithLink.at(-1)?.text || "", /https?:\/\//);
 
 const cronPlan = pickDaysBankPlan({ last_day: 0, chat_cursor: 0, assist_cursor: 0 });
 assert.ok(cronPlan?.slug.startsWith("day-"));
+assert.match(inventorySource, /withAssistImage|assistCorridorImageUrl/);
 
 const dailySource = readFileSync(new URL("../lib/threads/daily-pipeline.ts", import.meta.url), "utf8");
 assert.match(dailySource, /const plan = pickDaysBankPlan\(state\);/);
