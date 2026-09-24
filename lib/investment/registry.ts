@@ -102,11 +102,11 @@ export const INVESTMENT_ROUTES: readonly InvestmentRoute[] = [
     outcome: "residence",
     screeningFloorEur: 545_000,
     assets: ["property", "business"],
-    publicPath: "/ru/guides/oae-dlya-rossiyan-2026",
+    publicPath: "/ru/guides/kupit-nedvizhimost-dubaj-rossiyane-2026-visa-banki-dld",
     summary:
-      "Документы через недвижимость: 10-летний Golden Residence при владении объектом(ами) от AED 2 000 000. Ниже порога — отдельные 2-летние property-визы, не Golden.",
+      "Документы через недвижимость: 10-летний Golden Residence при владении объектом(ами) от AED 2 000 000. Ниже порога — отдельные 2-летние property-визы (Taskeen), не Golden.",
     caveat:
-      "Порог ICP — AED 2 000 000 полной собственности на имя заявителя (или off-plan у одобренного застройщика). Оценка и процедура — ICP / DLD; ask брокера сам по себе не равен eligibility.",
+      "Порог ICP — AED 2 000 000 полной собственности на имя заявителя (или off-plan у одобренной локальной компании). Оценка и процедура — ICP / DLD; ask брокера сам по себе не равен eligibility. Mortgage/NOC — сверяйте актуальный чеклист DLD Cube.",
     officialUrl: "https://icp.gov.ae/en/services/uae-golden-residency/",
     propertyLinked: true,
     priority: 95,
@@ -237,10 +237,11 @@ export const INVESTMENT_PROGRAM_NOTES: Record<string, readonly string[]> = {
     "Thailand Privilege — membership от Bronze THB 650 000 на официальной карточке. Покупка недвижимости membership не заменяет.",
   ],
   uae: [
-    "Golden Residence (10 лет) через недвижимость: один или несколько объектов общей стоимостью не менее AED 2 000 000, полная собственность на имя заявителя; ипотека допускается при финансировании одобренным местным банком (ICP).",
+    "Golden Residence (10 лет) через недвижимость: один или несколько объектов общей стоимостью не менее AED 2 000 000, полная собственность на имя заявителя; ипотека допускается при финансировании одобренным местным банком (ICP). Формулировки DLD про paid amount / NOC сверяйте на дату подачи.",
     "Off-plan: ICP допускает покупку у одобренной локальной компании; проверяйте актуальный чеклист DLD Cube / GDRFA перед сделкой.",
-    "Ниже AED 2M: отдельные 2-летние property-визы и другие инвесторские треки — это не 10-летний Golden. Не путайте пороги брокеров с федеральным правилом.",
+    "Ниже AED 2M: Taskeen 2y — у sole owner порог стоимости снят (title deed); joint — доля от AED 400 000. Это не 10-летний Golden.",
     "Бизнес / депозит AED 2M — отдельная категория Golden, не property→documents. Ask брокера сверяйте с DLD-продажами (uaeproperty.vip), не с маркетинговой ценой.",
+    "Маршрут виза → KYC → проверка оффера: /ru/guides/kupit-nedvizhimost-dubaj-rossiyane-2026-visa-banki-dld.",
   ],
   greece: [
     "Порог €250k не универсален: для большинства новых объектов действуют €400k или €800k.",
@@ -299,10 +300,18 @@ export function routeStatusLabel(status: InvestmentRouteStatus): string {
 export function passportRestrictionLabel(route: Pick<InvestmentRoute, "restrictedPassports">): string | null {
   const passports = route.restrictedPassports ?? [];
   if (passports.includes("RU") && passports.includes("BY")) {
-    return "Новые заявки граждан РФ и Беларуси приостановлены.";
+    return "RU/BY: новые заявки ограничены или приостановлены — порог € ниже не означает доступность.";
   }
-  if (passports.length) return "Для части паспортов программа ограничена.";
+  if (passports.length) return "Для части паспортов программа ограничена — смотрите eligibility раньше порога.";
   return null;
+}
+
+/** True when Emigro treats the route as blocked for typical RU/BY audience. */
+export function hasRuByPassportRestriction(
+  route: Pick<InvestmentRoute, "restrictedPassports">
+): boolean {
+  const passports = route.restrictedPassports ?? [];
+  return passports.includes("RU") && passports.includes("BY");
 }
 
 export function investmentRoute(country: string | undefined | null): InvestmentRoute | undefined {

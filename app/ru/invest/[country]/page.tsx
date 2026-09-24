@@ -6,11 +6,14 @@ import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { DubaiOfferVerdictPromo } from "@/components/investment/DubaiOfferVerdictPromo";
 import { InvestmentViewTracker } from "@/components/investment/InvestmentAnalytics";
 import { InvestmentQualifier } from "@/components/investment/InvestmentQualifier";
+import { UaePropertyLeadCta } from "@/components/investment/UaePropertyLeadCta";
 import {
   INVESTMENT_PROGRAM_NOTES,
   investmentAssetLabel,
   investmentCountryRoutes,
+  hasRuByPassportRestriction,
   outcomeLabel,
+  passportRestrictionLabel,
   routeKey,
   routeStatusLabel,
   uniqueInvestmentCountries,
@@ -103,16 +106,59 @@ export default function InvestmentCountryPage({ params }: { params: { country: s
               ? "Ниже отдельные программы. Совпадение по одной не переносится на остальные."
               : route.summary}
           </p>
+          {hasRuByPassportRestriction(route) ? (
+            <p className="mt-5 max-w-3xl rounded-xl border border-rose-300/40 bg-rose-500/20 px-4 py-3 text-sm font-semibold text-rose-50">
+              {passportRestrictionLabel(route)}
+            </p>
+          ) : null}
+          {showsDubaiOfferVerdict(route.country) ? (
+            <div className="mt-6">
+              <a
+                href="#qualifier"
+                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-white px-6 py-3 font-semibold text-corridor-900 hover:bg-corridor-50"
+              >
+                Квалифицировать бюджет → брокер <ArrowRight className="h-4 w-4" />
+              </a>
+            </div>
+          ) : null}
         </header>
 
-        {routes.map((item) => (
+        {showsDubaiOfferVerdict(route.country) ? (
+          <UaePropertyLeadCta placement="invest_country" content={route.country} />
+        ) : null}
+
+        {routes.map((item) => {
+          const passportNote = passportRestrictionLabel(item);
+          const ruByBlocked = hasRuByPassportRestriction(item);
+          return (
           <article key={routeKey(item)} id={routeKey(item)} className="mt-8 rounded-2xl border border-slate-200 bg-white p-6">
             <div className="flex flex-wrap items-center gap-3">
               <h2 className="text-xl font-bold text-slate-950">{item.title}</h2>
-              <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700">{routeStatusLabel(item.status)}</span>
+              <span
+                className={`rounded-full px-3 py-1 text-xs font-semibold ${
+                  item.status === "closed" || ruByBlocked
+                    ? "bg-rose-100 text-rose-800"
+                    : "bg-slate-100 text-slate-700"
+                }`}
+              >
+                {item.status === "closed"
+                  ? routeStatusLabel(item.status)
+                  : ruByBlocked
+                    ? "RU/BY: ограничено"
+                    : routeStatusLabel(item.status)}
+              </span>
             </div>
+            {passportNote ? (
+              <p className="mt-3 rounded-xl border border-rose-200 bg-rose-50 px-3 py-2 text-sm font-semibold text-rose-900">
+                {passportNote}
+              </p>
+            ) : null}
             <p className="mt-3 text-sm leading-relaxed text-slate-700">{item.summary}</p>
-            <p className="mt-3 text-sm text-slate-500">Скрининг от €{item.screeningFloorEur.toLocaleString("ru-RU")} · {item.assets.map(investmentAssetLabel).join(", ")} · {outcomeLabel(item.outcome)}</p>
+            <p className={`mt-3 text-sm ${ruByBlocked ? "text-slate-500" : "text-slate-500"}`}>
+              {ruByBlocked ? "Ориентир программы (не доступность для RU/BY): " : "Скрининг от "}
+              €{item.screeningFloorEur.toLocaleString("ru-RU")} · {item.assets.map(investmentAssetLabel).join(", ")} ·{" "}
+              {outcomeLabel(item.outcome)}
+            </p>
             <p className="mt-3 text-sm leading-relaxed text-amber-900">{item.caveat}</p>
             <div className="mt-4 flex flex-wrap gap-4 text-sm font-semibold">
               <Link href={item.publicPath} className="inline-flex min-h-11 items-center gap-2 text-corridor-700">
@@ -123,7 +169,8 @@ export default function InvestmentCountryPage({ params }: { params: { country: s
               </a>
             </div>
           </article>
-        ))}
+          );
+        })}
 
         {notes.length ? (
           <section className="mt-8 rounded-2xl border border-slate-200 bg-white p-6">
@@ -148,19 +195,17 @@ export default function InvestmentCountryPage({ params }: { params: { country: s
           </div>
         </section>
 
-        {showsDubaiOfferVerdict(route.country) ? (
-          <DubaiOfferVerdictPromo placement="invest_country" content={route.country} />
-        ) : null}
-
         <section className="mt-10 rounded-2xl border border-slate-200 bg-slate-50 p-6">
           <div className="flex items-start gap-3">
             <Scale className="mt-0.5 h-5 w-5 shrink-0 text-slate-600" />
             <div>
               <h2 className="font-bold text-slate-950">Что означает предварительное совпадение</h2>
               <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                Оно означает только совпадение выбранного бюджета, типа актива и цели с данными реестра. Это не
-                подтверждение eligibility, одобрения, доходности актива, срока выдачи статуса или будущего
-                гражданства. До сделки нужны независимые legal, tax, sanctions и source-of-funds проверки.
+                Оно означает только совпадение выбранного бюджета, типа актива и цели с данными реестра (shortlist для
+                проверки). Это не рейтинг «лучших программ», не подтверждение eligibility, одобрения, доходности
+                актива, срока выдачи статуса или будущего гражданства. Emigro сравнивает миграционные характеристики
+                маршрутов, а не инвестиционную доходность. До сделки нужны независимые legal, tax, sanctions и
+                source-of-funds проверки.
               </p>
             </div>
           </div>
@@ -168,7 +213,10 @@ export default function InvestmentCountryPage({ params }: { params: { country: s
 
         <div className="mt-10 flex flex-col gap-3 sm:flex-row">
           <a href="#qualifier" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-corridor-700 px-6 py-3 font-semibold text-white hover:bg-corridor-800">
-            Проверить свой профиль по этой стране <ArrowRight className="h-4 w-4" />
+            {showsDubaiOfferVerdict(route.country)
+              ? "Заполнить qualifier — свяжем с брокером"
+              : "Проверить свой профиль по этой стране"}{" "}
+            <ArrowRight className="h-4 w-4" />
           </a>
           <Link href="/ru/invest" className="inline-flex min-h-12 items-center justify-center rounded-xl border border-slate-300 px-6 py-3 font-medium text-slate-700 hover:bg-slate-50">
             Сравнить другие страны
@@ -178,6 +226,10 @@ export default function InvestmentCountryPage({ params }: { params: { country: s
         <div className="mt-10">
           <InvestmentQualifier id="qualifier" defaultPreferredCountry={route.country} />
         </div>
+
+        {showsDubaiOfferVerdict(route.country) ? (
+          <DubaiOfferVerdictPromo placement="invest_country" content={route.country} />
+        ) : null}
       </main>
       <SiteFooter />
     </>

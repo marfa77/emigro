@@ -9,7 +9,7 @@ quick_answer: |-
 
   Долгий статус обычно идёт через Golden Visa на 10 лет (недвижимость от AED 2 000 000 или зарплата около AED 30 000 в месяц в приоритетной профессии), отдельную 2-летнюю визу через жильё (у единственного владельца порог с апреля 2026 снят, у совладельцев — от AED 400 000 на долю, строящийся объект не подходит, нужно 180 дней в году), работу, фризону или фриланс-permit. Green Visa на 5 лет для фриланса считает доход от AED 360 000 в год — это не дешёвый permit за 7,5–26 тысяч AED.
 
-  Подоходного налога у физлиц нет. Компания на mainland платит 9% с прибыли выше AED 375 000; «ноль во фризоне» держится только на qualifying income и слетает на пять лет, если много клиентов внутри ОАЭ. Личный счёт банки почти не открывают без резидентской визы и Emirates ID.
+  Подоходного налога у физлиц нет. Компания на mainland платит 9% с прибыли выше AED 375 000; «ноль во фризоне» держится только на qualifying income и слетает на несколько лет при нарушении условий QFZP (сверяйте FTA). Для стандартного resident-banking банки обычно ждут резидентскую визу и Emirates ID; нерезидентские продукты существуют, но зависят от банка и risk profile.
 topic_keys: [uae, relocation, vnj, business, banks, settle]
 tags: [ОАЭ, Дубай, Golden Visa, фризона, банки, QFZP, россияне, 2026]
 primary_intent: how-to
@@ -35,7 +35,7 @@ official_sources:
 cover_image: /images/corridor-uae.webp
 estimated_minutes: 28
 date_published: 2026-06-26
-date_modified: 2026-08-07
+date_modified: 2026-09-24
 review_tier: volatile
 ---
 
@@ -63,7 +63,7 @@ review_tier: volatile
 
 ### Банки
 
-Emirates NBD, ADCB, FAB, Mashreq, WIO — счета резидентам после KYC. Типичный пакет для РФ: резидентская виза, Emirates ID, source of funds, иногда reference letter. **Без резидентской визы** личный счёт с 2022 почти недоступен.
+Emirates NBD, ADCB, FAB, Mashreq, WIO — типичный **resident-banking** путь после KYC. Для граждан РФ обычный пакет: резидентская виза, Emirates ID, source of funds, иногда reference letter. **Нерезидентские продукты существуют** (CBUAE требует KYC и для non-residents), но доступны не всем: решают банк, тип счёта и risk profile. Планируйте статус и документы заранее — не «какой банк обязан открыть».
 
 ### Инфраструктура
 
@@ -83,12 +83,14 @@ Emirates NBD, ADCB, FAB, Mashreq, WIO — счета резидентам пос
 |----------|-----------------------------------|
 | Минимум объекта | **AED 2 000 000** (~$545 000); можно суммировать несколько объектов |
 | Срок | **10 лет** |
-| Мин. пребывание | **Нет** (в отличие от обычных виз с ~180 днями/год) |
+| Мин. пребывание | У Golden — **более гибкий режим**, чем у стандартных residence permits с ~180 днями/год; правила сохранения статуса сверяйте по актуальным ICP/GDRFA |
 | Семья | Супруг(а), дети (часто и родители — сверяйте ICP) |
-| Ипотека | Допустима при **NOC** банка; требование **50% предоплаты снято** (фев. 2026) |
-| Off-plan | **Квалифицируется** при условиях DLD / Oqood |
+| Ипотека | ICP: финансирование у approved local bank + документы банка. DLD: NOC / letter с paid amount и balance — **сверяйте чеклист на дату подачи** (не опирайтесь на «50% снято» из чатов) |
+| Off-plan | ICP допускает у **approved** local company; конкретный чеклист — DLD Cube / Oqood на дату сделки |
 
 **Плюсы:** долгий статус без спонсора, семья, премиум-банкинг. **Минусы:** порог ~$545k, капитал в RE, перегретый рынок.
+
+Подбор / квалификация под брокера: [/ru/invest/uae#qualifier](/ru/invest/uae#qualifier). Маршрут виза → KYC → DLD: [гайд-мост](/ru/guides/kupit-nedvizhimost-dubaj-rossiyane-2026-visa-banki-dld).
 
 #### Через талант / профессию
 
@@ -118,6 +120,8 @@ Emirates NBD, ADCB, FAB, Mashreq, WIO — счета резидентам пос
 | Ипотека | Обычно нужна NOC |
 
 **Когда да:** капитал < AED 2M, нужен короткий статус через RE. **Когда нет:** цель — 10 лет без жёсткого пребывания → только Golden AED 2M+.
+
+Хотите купить / подобрать объект и связаться с брокером: [инвест-qualifier ОАЭ](/ru/invest/uae#qualifier) — Emigro квалифицирует бюджет и передаст заявку вручную. Маршрут виза → KYC → проверка оффера: [гайд-мост Дубай 2026](/ru/guides/kupit-nedvizhimost-dubaj-rossiyane-2026-visa-banki-dld). Уже есть оффер — [сверка с DLD](https://uaeproperty.vip?utm_source=emigro&utm_medium=guide&utm_campaign=uae_property_lead&utm_content=oae-property-2y).
 
 ---
 
@@ -270,7 +274,7 @@ App → тип счёта → паспорт + виза → видеозвоно
 |-------|--------------|
 | Зарплата / дивиденды / CGT / наследство | **0%** |
 
-**CRS:** банки ОАЭ отчитываются в юрисдикцию налогового резидентства / гражданства. Скрыть счёт от ФНС нельзя.
+**CRS:** банки ОАЭ отчитываются в основном по **налоговому резидентству** клиента (не «просто по гражданству»). Гражданство и tax residence — разные вещи. Скрыть счёт от ФНС при налоговом резидентстве РФ обычно нельзя.
 
 ### Компании и QFZP
 
@@ -280,13 +284,13 @@ App → тип счёта → паспорт + виза → видеозвоно
 | Free zone **QFZP** | **0%** | Только **Qualifying Income** + substance |
 | Потеря QFZP | **9%** | На **весь** taxable income **без** порога 375k |
 
-> **Ловушка QFZP:** 0% во фризоне **не автомат**. Mainland-доход сверх **de minimis** → потеря QFZP на **5 лет** и 9% на всё. Критично для IT/фриланса со смешанными клиентами (foreign + mainland UAE). Источник: [tax.gov.ae](https://tax.gov.ae/).
+> **Ловушка QFZP (ориентир FTA, не налоговая консультация):** 0% во фризоне **не автомат**. Mainland-доход сверх **de minimis** может привести к потере qualifying-режима и иной налоговой картине на несколько лет — сверяйте актуальные правила [tax.gov.ae](https://tax.gov.ae/) и своего консультанта. Критично для IT/фриланса со смешанными клиентами (foreign + mainland UAE).
 
 | Сценарий | Исход |
 |----------|-------|
 | Только foreign clients + QFZP | 0% |
 | Foreign + mainland < de minimis | 0% qualifying / 9% mainland |
-| Mainland сверх de minimis | **9% на всё**, QFZP lost 5y |
+| Mainland сверх de minimis | Иная CT-картина; риск потери QFZP (сверяйте FTA) |
 | Mainland profit < 375k | 0% CT |
 | Mainland profit > 375k | 9% сверх порога |
 
@@ -406,10 +410,10 @@ Employment, фризона, freelance, Green Visa, Remote Work.
 
 - Settle/транзит: безвиз 90 дней; Golden (**AED 2M** или skilled ~**30k**/мес); 2y property (sole — без мин.; joint **400k**; off-plan ❌); фризона; freelance; Green (**360k AED/год** фриланс); Remote (**$3.5k** + 6 мес. выписок).  
 - PIT 0%; mainland CT 9% >375k; **QFZP** — не автомат.  
-- Банки почти только с визой + Emirates ID.  
+- Банки: для resident-path обычно виза + Emirates ID; non-resident возможен, но зависит от банка / risk profile.  
 - Дубай: ~2.5–4k € одному, семья от ~4.5k €.  
 - EU — отдельно: [/ru/wizard](/ru/wizard) · хаб [/ru/uae](/ru/uae).  
-- Документы через недвижимость: [инвест-qualifier Emigro](/ru/invest/uae) · сверка оффера с DLD: [uaeproperty.vip](https://uaeproperty.vip?utm_source=emigro&utm_medium=guide&utm_campaign=uae_property_documents&utm_content=oae-dlya-rossiyan-2026).  
+- Документы через недвижимость: [квалифицировать бюджет → брокер](/ru/invest/uae#qualifier) · [виза → KYC → DLD](/ru/guides/kupit-nedvizhimost-dubaj-rossiyane-2026-visa-banki-dld) · сверка оффера: [uaeproperty.vip](https://uaeproperty.vip?utm_source=emigro&utm_medium=guide&utm_campaign=uae_property_lead&utm_content=oae-dlya-rossiyan-2026).  
 - Поиск работы (remote / EU-UK): [Role Radar](/ru/role-radar).
 
 *Не юридическая и налоговая консультация. Правила виз, банков и CT меняются — сверяйте [u.ae](https://u.ae/), [gdrfad.gov.ae](https://www.gdrfad.gov.ae/), [dubailand.gov.ae](https://dubailand.gov.ae/), [icp.gov.ae](https://icp.gov.ae/), [tax.gov.ae](https://tax.gov.ae/) перед решением. Цифры — август 2026.*

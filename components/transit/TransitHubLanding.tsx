@@ -6,6 +6,7 @@ import { TrackedAssistLink } from "@/components/assist/TrackedAssistLink";
 import { ServiceProvidersSection } from "@/components/providers/ServiceProvidersSection";
 import { SatelliteCityChatCta } from "@/components/satellite/SatelliteCityChatCta";
 import { RoleRadarPromo } from "@/components/sponsors/RoleRadarPromo";
+import { UaePropertyLeadCta } from "@/components/investment/UaePropertyLeadCta";
 import { ThailandFeaturedNotes } from "@/components/thailand/ThailandFeaturedNotes";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { HubHeroVisual } from "@/components/visuals/HubHeroVisual";
@@ -117,6 +118,7 @@ export function TransitHubLanding({ hub }: Props) {
   const scoreRaw = getEmigroScore(hub.slug);
   const emigroScore = scoreRaw ? toEmigroScoreView(scoreRaw) : null;
   const isThailand = hub.slug === "thailand";
+  const isUae = hub.slug === "uae";
 
   return (
     <>
@@ -167,6 +169,14 @@ export function TransitHubLanding({ hub }: Props) {
                 Проверить EU-маршрут
               </Link>
             )}
+            {isUae ? (
+              <Link
+                href="/ru/invest/uae#qualifier"
+                className="rounded-lg border border-white/40 px-5 py-3 font-medium text-white hover:bg-white/10"
+              >
+                Недвижимость / брокер
+              </Link>
+            ) : null}
             {isSettle ? (
               <Link
                 href="/ru/wizard"
@@ -237,6 +247,8 @@ export function TransitHubLanding({ hub }: Props) {
             </Link>
           )}
         </section>
+
+        {isUae ? <UaePropertyLeadCta placement="uae_hub" content="uae_hub" /> : null}
 
         {isThailand && (
           <>

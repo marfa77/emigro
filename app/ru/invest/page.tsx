@@ -7,6 +7,7 @@ import {
   INVESTMENT_ROUTES,
   investmentAssetLabel,
   outcomeLabel,
+  hasRuByPassportRestriction,
   passportRestrictionLabel,
   routeKey,
   routeStatusLabel,
@@ -56,7 +57,7 @@ export default function InvestmentHubPage() {
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a href="#qualifier" className="inline-flex min-h-12 items-center gap-2 rounded-xl bg-white px-5 py-3 font-semibold text-slate-950 hover:bg-corridor-50">
-                Получить предварительный рейтинг <ArrowRight className="h-4 w-4" />
+                Проверить инвестиционный профиль <ArrowRight className="h-4 w-4" />
               </a>
               <a href="#routes" className="inline-flex min-h-12 items-center rounded-xl border border-white/30 px-5 py-3 font-medium hover:bg-white/10">
                 Сначала посмотреть страны
@@ -65,9 +66,10 @@ export default function InvestmentHubPage() {
             <div className="mt-8 flex max-w-3xl gap-3 rounded-xl border border-amber-300/30 bg-amber-100/10 p-4 text-sm leading-relaxed text-amber-50">
               <Scale className="mt-0.5 h-5 w-5 shrink-0" />
               <p>
-                <strong>Не юридическая и не инвестиционная консультация.</strong> Порог в карточке — ориентир
-                первичного скрининга, а не оферта. Право на статус зависит от актуальных правил, происхождения
-                средств, гражданства, семьи и проверки компетентным органом.
+                <strong>Не юридическая и не инвестиционная консультация.</strong> Emigro сравнивает{" "}
+                <em>миграционные</em> характеристики капитальных маршрутов, а не доходность активов. Порог в
+                карточке — ориентир скрининга, не оферта. Право на статус зависит от актуальных правил,
+                происхождения средств, гражданства, семьи и проверки компетентным органом.
               </p>
             </div>
           </div>
@@ -110,37 +112,55 @@ export default function InvestmentHubPage() {
             <div className="mt-7 grid gap-5 md:grid-cols-2">
               {INVESTMENT_ROUTES.map((route) => {
                 const passportNote = passportRestrictionLabel(route);
+                const ruByBlocked = hasRuByPassportRestriction(route);
                 const statusClass =
-                  route.status === "active"
-                    ? "bg-emerald-50 text-emerald-700"
-                    : route.status === "closed"
+                  route.status === "closed"
+                    ? "bg-rose-50 text-rose-800"
+                    : ruByBlocked
                       ? "bg-rose-50 text-rose-800"
-                      : "bg-amber-50 text-amber-800";
+                      : route.status === "active"
+                        ? "bg-emerald-50 text-emerald-700"
+                        : "bg-amber-50 text-amber-800";
+                const statusText =
+                  route.status === "closed"
+                    ? routeStatusLabel(route.status)
+                    : ruByBlocked
+                      ? "RU/BY: ограничено"
+                      : routeStatusLabel(route.status);
                 return (
                 <article key={routeKey(route)} id={routeKey(route)} className="group flex flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:border-corridor-300 hover:shadow-md">
                   <div className="flex items-start justify-between gap-4">
                     <span className="text-3xl" aria-hidden>{route.flag}</span>
                     <span className={`rounded-full px-3 py-1 text-xs font-medium ${statusClass}`}>
-                      {routeStatusLabel(route.status)}
+                      {statusText}
                     </span>
                   </div>
                   <h3 className="mt-4 text-xl font-bold text-slate-950">{route.title}</h3>
-                  <p className="mt-3 flex-1 text-sm leading-relaxed text-slate-600">{route.summary}</p>
                   {passportNote ? (
-                    <p className="mt-3 text-sm font-medium text-rose-800">{passportNote}</p>
+                    <p className="mt-3 rounded-xl border border-rose-200 bg-rose-50 px-3 py-2 text-sm font-semibold leading-snug text-rose-900">
+                      {passportNote}
+                    </p>
                   ) : null}
+                  <p className="mt-3 flex-1 text-sm leading-relaxed text-slate-600">{route.summary}</p>
                   <dl className="mt-5 grid grid-cols-2 gap-3 border-t border-slate-100 pt-5 text-sm">
                     <div>
-                      <dt className="text-slate-500">Скрининг от</dt>
-                      <dd className="mt-1 font-semibold text-slate-900">€{route.screeningFloorEur.toLocaleString("ru-RU")}</dd>
+                      <dt className="text-slate-500">
+                        {ruByBlocked ? "Ориентир программы" : "Скрининг от"}
+                      </dt>
+                      <dd className={`mt-1 font-semibold ${ruByBlocked ? "text-slate-500" : "text-slate-900"}`}>
+                        €{route.screeningFloorEur.toLocaleString("ru-RU")}
+                        {ruByBlocked ? (
+                          <span className="mt-1 block text-xs font-medium text-rose-800">не для новых заявок RU/BY</span>
+                        ) : null}
+                      </dd>
                     </div>
                     <div>
-                      <dt className="text-slate-500">Ориентир</dt>
+                      <dt className="text-slate-500">Ориентир статуса</dt>
                       <dd className="mt-1 font-semibold text-slate-900">{outcomeLabel(route.outcome)}</dd>
                     </div>
                   </dl>
                   <p className="mt-4 text-xs leading-relaxed text-slate-500">
-                    {route.assets.map(investmentAssetLabel).join(" · ")}
+                    Актив: {route.assets.map(investmentAssetLabel).join(" · ")}
                   </p>
                   <InvestmentRouteLink
                     href={`/ru/invest/${route.country}#${routeKey(route)}`}
@@ -148,7 +168,12 @@ export default function InvestmentHubPage() {
                     slug={routeKey(route)}
                     className="mt-5 inline-flex min-h-11 items-center gap-2 font-semibold text-corridor-700 group-hover:text-corridor-800"
                   >
-                    {route.status === "closed" ? "Почему закрыта" : "Разобрать маршрут"} <ArrowRight className="h-4 w-4" />
+                    {route.status === "closed"
+                      ? "Почему закрыта"
+                      : ruByBlocked
+                        ? "Ограничения для RU/BY"
+                        : "Разобрать маршрут"}{" "}
+                    <ArrowRight className="h-4 w-4" />
                   </InvestmentRouteLink>
                 </article>
                 );

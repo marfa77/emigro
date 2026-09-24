@@ -11,6 +11,7 @@ import { UniPrep2GoPromo, UniPrepCitizenshipHubPromo } from "@/components/sponso
 import { RoleRadarPromo } from "@/components/sponsors/RoleRadarPromo";
 import { RevolutReferralPromo } from "@/components/sponsors/RevolutReferralPromo";
 import { WiseReferralPromo } from "@/components/sponsors/WiseReferralPromo";
+import { UaePropertyLeadCta } from "@/components/investment/UaePropertyLeadCta";
 import { ReferralInlineRoot } from "@/components/sponsors/ReferralInlineRoot";
 import { shouldShowRoleRadarOnGuide } from "@/lib/role-radar";
 import { revolutPromoProps } from "@/lib/partners/revolut-referral-store";
@@ -187,6 +188,7 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
   const providerTopicKey = getGuideProviderTopicKey(guide);
   const showUniPrep = shouldShowUniPrepOnGuide(guide) || shouldShowPrep2GoOnGuide(guide);
   const showRoleRadar = shouldShowRoleRadarOnGuide(guide.slug);
+  const showUaeProperty = (guide.topic_keys ?? []).some((key) => key.toLowerCase() === "uae");
   const uniPrepOffer = getUniPrepOfferForTopics(guide.topic_keys) ?? resolvePrep2GoOfferForGuide(guide);
   const uniPrepTopicCount = new Set(
     (guide.topic_keys ?? [])
@@ -328,6 +330,13 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
               className="mt-8"
             />
 
+            {showUaeProperty ? (
+              <UaePropertyLeadCta
+                placement="guide_article"
+                content={guide.slug}
+              />
+            ) : null}
+
             <GuideRelatedStories
               stories={relatedStories}
               totalCount={relatedStoryCount}
@@ -450,14 +459,23 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
             <section className="rounded-2xl border border-corridor-200 bg-corridor-50 p-5">
               <h2 className="font-semibold text-slate-900">Проверить свой случай</h2>
               <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                Гайд даёт карту маршрутов, а wizard сопоставит паспорт, доход, семью и сроки с программами.
+                {showUaeProperty
+                  ? "Недвижимость в Дубае — через qualifier (свяжем с брокером). EU-маршрут — отдельно через wizard."
+                  : "Гайд даёт карту маршрутов, а wizard сопоставит паспорт, доход, семью и сроки с программами."}
               </p>
               <div className="mt-5 flex flex-col gap-3">
+                {showUaeProperty ? (
+                  <UaePropertyLeadCta placement="guide_sidebar" content={guide.slug} compact />
+                ) : null}
                 <Link
                   href={resolveGuideWizardHref(guide.cta_primary ?? HUB_WIZARD_PATH, guide.topic_keys)}
-                  className="rounded-lg bg-corridor-600 px-5 py-3 text-center font-medium text-white hover:bg-corridor-700"
+                  className={
+                    showUaeProperty
+                      ? "rounded-lg border border-corridor-200 bg-white px-5 py-3 text-center font-medium text-slate-700 hover:border-corridor-400"
+                      : "rounded-lg bg-corridor-600 px-5 py-3 text-center font-medium text-white hover:bg-corridor-700"
+                  }
                 >
-                  Подобрать маршрут
+                  {showUaeProperty ? "EU wizard (опционально)" : "Подобрать маршрут"}
                 </Link>
                 <TrackedAssistLink
                   href="/ru/assist#assist-form"

@@ -15,10 +15,11 @@ import {
 import { pageMetadata } from "@/lib/seo";
 import { verifyInvestmentResultToken } from "@/lib/investment/result-token";
 import { showsDubaiOfferVerdict } from "@/lib/investment/uae-offer-verdict";
+import { UaePropertyLeadCta } from "@/components/investment/UaePropertyLeadCta";
 
 export const metadata: Metadata = pageMetadata({
   title: "Результаты инвестиционного qualifier",
-  description: "Персональный предварительный рейтинг инвестиционных маршрутов Emigro.",
+  description: "Предварительный shortlist инвестиционных маршрутов Emigro по вашему профилю.",
   path: "/ru/invest/results",
   noIndex: true,
 });
@@ -72,6 +73,13 @@ export default function InvestmentResultsPage({
         a.country === preferredCountry ? -1 : b.country === preferredCountry ? 1 : 0
       )
     : evaluatedRoutes;
+  const isUaeLead =
+    preferredCountry === "uae" ||
+    results.some(
+      (route) =>
+        showsDubaiOfferVerdict(route.country) &&
+        (route.match === "likely" || route.match === "review")
+    );
 
   return (
     <>
@@ -83,7 +91,7 @@ export default function InvestmentResultsPage({
 
         {!validInput ? (
           <section className="mt-8 rounded-2xl border border-amber-200 bg-amber-50 p-6">
-            <h1 className="text-2xl font-bold text-amber-950">Нет данных для рейтинга</h1>
+            <h1 className="text-2xl font-bold text-amber-950">Нет данных для shortlist</h1>
             <p className="mt-3 text-amber-900">Заполните qualifier, чтобы сопоставить бюджет, актив и цель.</p>
             <Link href="/ru/invest#qualifier" className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-xl bg-corridor-700 px-5 py-3 font-semibold text-white hover:bg-corridor-800">
               Перейти к qualifier <ArrowRight className="h-4 w-4" />
@@ -92,7 +100,7 @@ export default function InvestmentResultsPage({
         ) : (
           <>
             <header className="mt-6 rounded-3xl bg-gradient-to-br from-slate-950 to-corridor-800 p-7 text-white sm:p-10">
-              <p className="text-sm font-semibold uppercase tracking-[0.16em] text-corridor-200">Предварительный рейтинг</p>
+              <p className="text-sm font-semibold uppercase tracking-[0.16em] text-corridor-200">Предварительный shortlist</p>
               <h1 className="mt-3 text-3xl font-bold sm:text-4xl">Маршруты по вашему профилю</h1>
               <p className="mt-4 max-w-3xl text-slate-200">
                 Бюджет €{budgetEur.toLocaleString("ru-RU")} ·{" "}
@@ -101,7 +109,9 @@ export default function InvestmentResultsPage({
               </p>
               <p className="mt-3 text-sm text-slate-300">
                 {submittedLeadId
-                  ? "Заявка сохранена и поставлена в очередь ручной проверки. Контакт партнёру не передан."
+                  ? isUaeLead
+                    ? "Заявка сохранена. Emigro свяжется в Telegram/WhatsApp в ближайшие рабочие часы и при необходимости передаст профиль брокеру вручную."
+                    : "Заявка сохранена и поставлена в очередь ручной проверки. Контакт партнёру не передан."
                   : "Это предварительный просмотр. Заявка не создана, пока qualifier не отправлен."}
               </p>
             </header>
@@ -109,12 +119,13 @@ export default function InvestmentResultsPage({
             <div className="mt-6 flex items-start gap-3 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm leading-relaxed text-amber-900">
               <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0" />
               <p>
-                Рейтинг использует только скрининговые данные реестра и не является legal, tax или investment
-                advice. «Предварительно подходит» не гарантирует одобрение, срок, доходность или гражданство.
+                Shortlist использует только скрининговые данные реестра и не является legal, tax или investment
+                advice. «Предварительно подходит» — это matching для проверки, не гарантия одобрения, срока,
+                доходности или гражданства. Emigro не ранжирует программы по «лучшей инвестиционной доходности».
               </p>
             </div>
 
-            <section className="mt-8 space-y-4" aria-label="Рейтинг маршрутов">
+            <section className="mt-8 space-y-4" aria-label="Shortlist маршрутов">
               {results.map((route, index) => {
                 const statusStyle =
                   route.match === "likely"
@@ -172,23 +183,45 @@ export default function InvestmentResultsPage({
                 (route.match === "likely" || route.match === "review") &&
                 (asset === "property" || asset === "any")
             ) ? (
-              <DubaiOfferVerdictPromo placement="invest_results" content="results" />
+              <>
+                {!submittedLeadId ? (
+                  <UaePropertyLeadCta placement="invest_country" content="results" />
+                ) : null}
+                <DubaiOfferVerdictPromo placement="invest_results" content="results" />
+              </>
             ) : null}
 
             <section className="mt-10 rounded-2xl border border-corridor-200 bg-corridor-50 p-6">
               <h2 className="text-xl font-bold text-slate-950">Следующий шаг</h2>
               <p className="mt-3 max-w-3xl text-sm leading-relaxed text-slate-700">
                 {submittedLeadId
-                  ? "Emigro проверит профиль вручную. Передача контакта партнёру происходит только отдельным действием и с повторным смыслом согласия."
-                  : "Чтобы поставить профиль в очередь, отправьте qualifier. Прямая ссылка на рейтинг заявку не создаёт."}
+                  ? isUaeLead
+                    ? "Мы напишем на указанный контакт в течение рабочего дня, уточним бюджет и срок и передадим брокеру только после вашего подтверждения. Покупка не равна визе: Golden AED 2M и 2-летняя property-виза — разные треки."
+                    : "Emigro проверит профиль вручную. Передача контакта партнёру происходит только отдельным действием и с повторным смыслом согласия."
+                  : "Чтобы поставить профиль в очередь, отправьте qualifier. Прямая ссылка на shortlist заявку не создаёт."}
               </p>
               <div className="mt-5 flex flex-wrap gap-3">
-                <Link href="/ru/invest#qualifier" className="inline-flex min-h-11 items-center rounded-xl border border-corridor-300 bg-white px-5 py-3 font-semibold text-corridor-800 hover:border-corridor-500">
+                <Link
+                  href={isUaeLead ? "/ru/invest/uae#qualifier" : "/ru/invest#qualifier"}
+                  className="inline-flex min-h-11 items-center rounded-xl border border-corridor-300 bg-white px-5 py-3 font-semibold text-corridor-800 hover:border-corridor-500"
+                >
                   Изменить ответы
                 </Link>
-                <Link href="/ru/assist#assist-form-route-check" className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-corridor-700 px-5 py-3 font-semibold text-white hover:bg-corridor-800">
-                  Заказать Route Check <ArrowRight className="h-4 w-4" />
-                </Link>
+                {isUaeLead ? (
+                  <Link
+                    href="/ru/invest/uae#qualifier"
+                    className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-corridor-700 px-5 py-3 font-semibold text-white hover:bg-corridor-800"
+                  >
+                    Ещё раз по ОАЭ <ArrowRight className="h-4 w-4" />
+                  </Link>
+                ) : (
+                  <Link
+                    href="/ru/assist#assist-form-route-check"
+                    className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-corridor-700 px-5 py-3 font-semibold text-white hover:bg-corridor-800"
+                  >
+                    Заказать Route Check <ArrowRight className="h-4 w-4" />
+                  </Link>
+                )}
               </div>
             </section>
           </>

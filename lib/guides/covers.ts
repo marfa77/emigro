@@ -148,6 +148,8 @@ export const GUIDE_COVER_BY_SLUG: Record<string, string> = {
   "vnj-serbiya-dlya-rossiyan-2026": "/images/corridor-serbia.webp",
   "kazahstan-dlya-rossiyan-2026": "/images/corridor-kazakhstan.webp",
   "oae-dlya-rossiyan-2026": "/images/corridor-uae.webp",
+  "kupit-nedvizhimost-dubaj-rossiyane-2026-visa-banki-dld":
+    "/images/emigro-guide-dubai-property-ru-2026.webp",
   "tailand-dlya-rossiyan-2026": "/images/corridor-thailand.webp",
   "bali-indoneziya-dlya-rossiyan-2026": "/images/corridor-indonesia.webp",
   "yuar-dlya-rossiyan-ukraintsev-belorusov-kazahstantsev-2026": "/images/corridor-south-africa.webp",

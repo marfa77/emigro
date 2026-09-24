@@ -40,6 +40,7 @@ export function InvestmentQualifier({
   const [status, setStatus] = useState<"idle" | "loading" | "error">("idle");
   const [notice, setNotice] = useState("");
   const [asset, setAsset] = useState<QualifierAsset>("property");
+  const isUae = defaultPreferredCountry === "uae";
 
   function markStarted() {
     if (started) return;
@@ -140,10 +141,16 @@ export function InvestmentQualifier({
   return (
     <section id={id} className="scroll-mt-24 rounded-3xl border border-corridor-200 bg-white p-5 shadow-sm sm:p-8">
       <div className="max-w-2xl">
-        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-corridor-600">Предварительный qualifier</p>
-        <h2 className="mt-2 text-2xl font-bold text-slate-950 sm:text-3xl">Сопоставьте капитал, цель и маршрут</h2>
+        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-corridor-600">
+          {isUae ? "Дубай · qualifier" : "Предварительный qualifier"}
+        </p>
+        <h2 className="mt-2 text-2xl font-bold text-slate-950 sm:text-3xl">
+          {isUae ? "Бюджет, срок и цель — чтобы связать с брокером" : "Сопоставьте капитал, цель и маршрут"}
+        </h2>
         <p className="mt-3 text-slate-600">
-          Результат — ориентир для первичной проверки. Он не подтверждает право на визу, ВНЖ, ПМЖ или гражданство.
+          {isUae
+            ? "Укажите бюджет в € (ориентир Golden: ~€545k / AED 2M), горизонт и стадию. После отправки Emigro свяжется и передаст профиль брокеру вручную. Это не каталог объектов и не обещание визы."
+            : "Результат — предварительный shortlist для проверки, не рейтинг «лучших» программ и не подтверждение права на визу, ВНЖ, ПМЖ или гражданство."}
         </p>
       </div>
 
@@ -158,9 +165,14 @@ export function InvestmentQualifier({
               step="1000"
               required
               inputMode="numeric"
-              placeholder="Например, 300000"
+              placeholder={isUae ? "Например, 545000 (~AED 2M)" : "Например, 300000"}
               className={`mt-2 ${formField}`}
             />
+            {isUae ? (
+              <span className="mt-1 block text-xs font-normal text-slate-500">
+                Golden Residence через RE — от AED 2M (~€545k). Ниже — чаще 2-летняя property-виза или без визовой цели.
+              </span>
+            ) : null}
           </label>
           <label className="text-sm font-medium text-slate-800">
             Паспорт / гражданство
@@ -269,6 +281,11 @@ export function InvestmentQualifier({
               <option value="reserved">Есть бронь</option>
               <option value="owned">Объект уже куплен</option>
             </select>
+            {isUae ? (
+              <span className="mt-1 block text-xs font-normal text-slate-500">
+                Primary (для жизни) и secondary (инвест) уточним при контакте; off-plan не даёт 2y property-визу.
+              </span>
+            ) : null}
           </label>
           <label className="text-sm font-medium text-slate-800">
             Происхождение капитала
@@ -336,7 +353,11 @@ export function InvestmentQualifier({
           className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-corridor-700 px-6 py-3 font-semibold text-white transition hover:bg-corridor-800 disabled:opacity-60 sm:w-auto"
         >
           {status === "loading" ? <Loader2 className="h-5 w-5 animate-spin" /> : <CheckCircle2 className="h-5 w-5" />}
-          {status === "loading" ? "Отправляем профиль…" : "Получить предварительный рейтинг"}
+          {status === "loading"
+            ? "Отправляем профиль…"
+            : isUae
+              ? "Отправить — свяжемся и передадим брокеру"
+              : "Получить предварительный shortlist"}
           {status !== "loading" ? <ArrowRight className="h-4 w-4" /> : null}
         </button>
       </form>

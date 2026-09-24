@@ -18,6 +18,7 @@ export function corridorWebpToOgJpg(coverWebp: string): string {
   const corridor = coverWebp.match(/corridor-([a-z0-9-]+)\.webp$/i);
   if (corridor) return `corridor-${corridor[1]}.jpg`;
   if (coverWebp.includes("emigro-guide-passive-income")) return "guide-passive-income.jpg";
+  if (coverWebp.includes("emigro-guide-dubai-property-ru-2026")) return "guide-dubai-property-ru-2026.jpg";
   return "og-default.jpg";
 }
 
