@@ -133,6 +133,10 @@ export default async function CountryResultsPage({
   );
   const topResult = results[0] ? programMap.get(results[0].program_id) : null;
   const matchCount = results.filter((r) => r.outcome !== "unlikely").length;
+  const strongMatchCount = results.filter((r) => r.outcome === "likely_eligible").length;
+  const topOutcome = typeof results[0]?.outcome === "string" ? results[0].outcome : "";
+  const preferRouteCheck =
+    strongMatchCount === 0 || topOutcome === "needs_review" || matchCount <= 1;
 
   return (
     <>
@@ -149,6 +153,15 @@ export default async function CountryResultsPage({
 
         <HouseholdBanner household={household} />
 
+        <div
+          id="wizard-results-metrics"
+          hidden
+          data-match-count={matchCount}
+          data-strong-match-count={strongMatchCount}
+          data-pick-outcome={topOutcome}
+          data-pick-country={topic.urlSegment}
+        />
+
         {cityChat ? (
           <WizardSatellitePracticeCta
             sessionId={sessionId}
@@ -164,6 +177,10 @@ export default async function CountryResultsPage({
           country={topic.urlSegment}
           countryRu={topic.countryRu}
           programTitle={topResult?.title_ru}
+          matchCount={matchCount}
+          strongMatchCount={strongMatchCount}
+          pickOutcome={topOutcome}
+          preferRouteCheck={preferRouteCheck}
         />
 
         <WizardTelegramDelivery

@@ -30,6 +30,8 @@ export function HubWizardResults({
   const matchCount = results.filter((r) => r.outcome !== "unlikely").length;
   const strongMatchCount = results.filter((r) => r.outcome === "likely_eligible").length;
   const showTransitFallback = strongMatchCount === 0 || matchCount <= 1;
+  const preferRouteCheck =
+    strongMatchCount === 0 || pick?.outcome === "needs_review" || matchCount <= 1;
   const hasRemoteIncome = payload.hasRemoteIncome === true;
   const providerTopicKey = findFirstProviderTopicKey([
     ...results.map((r) => r.countrySegment),
@@ -62,6 +64,15 @@ export function HubWizardResults({
 
       <HouseholdBanner household={household} />
 
+      <div
+        id="wizard-results-metrics"
+        hidden
+        data-match-count={matchCount}
+        data-strong-match-count={strongMatchCount}
+        data-pick-outcome={pick?.outcome ?? ""}
+        data-pick-country={pick?.countrySegment ?? ""}
+      />
+
       {resultCityChat ? (
         <WizardSatellitePracticeCta
           sessionId={sessionId}
@@ -77,6 +88,10 @@ export function HubWizardResults({
         country={pick?.countrySegment}
         countryRu={pick?.countryRu}
         programTitle={pick?.programTitleRu}
+        matchCount={matchCount}
+        strongMatchCount={strongMatchCount}
+        pickOutcome={pick?.outcome}
+        preferRouteCheck={preferRouteCheck}
       />
 
       <WizardTelegramDelivery

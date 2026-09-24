@@ -80,10 +80,14 @@ export type LocaleBucket = "es" | "fr" | "ru" | "other";
 
 export interface LocaleFunnelCounts {
   pageViews: number;
+  /** wizard_cta_click (landing → wizard entry) */
+  wizardCtaClicks: number;
   /** Distinct sessions with wizard_started */
   wizardStarted: number;
   wizardCompleted: number;
   resultsViews: number;
+  /** assist_cta_click from wizard_* placements */
+  assistCtaFromResults: number;
 }
 
 export interface LocaleSplitPeriod {
@@ -165,7 +169,14 @@ function analyticsTimezone(): string {
 }
 
 function emptyLocaleFunnel(): LocaleFunnelCounts {
-  return { pageViews: 0, wizardStarted: 0, wizardCompleted: 0, resultsViews: 0 };
+  return {
+    pageViews: 0,
+    wizardCtaClicks: 0,
+    wizardStarted: 0,
+    wizardCompleted: 0,
+    resultsViews: 0,
+    assistCtaFromResults: 0,
+  };
 }
 
 function emptyLocaleSplitPeriod(): LocaleSplitPeriod {
@@ -218,7 +229,14 @@ async function localeFunnelCounts(
   let q = supabase
     .from("site_events")
     .select("session_id, event_name, page_path, properties")
-    .in("event_name", ["page_view", "wizard_started", "wizard_completed", "wizard_results_view"]);
+    .in("event_name", [
+      "page_view",
+      "wizard_cta_click",
+      "wizard_started",
+      "wizard_completed",
+      "wizard_results_view",
+      "assist_cta_click",
+    ]);
   if (start) q = q.gte("created_at", start);
   if (end) q = q.lt("created_at", end);
 
@@ -226,15 +244,15 @@ async function localeFunnelCounts(
   if (error) throw new Error(error.message);
 
   for (const row of data ?? []) {
-    const bucket = classifyEventLocale(
-      row.page_path,
-      (row.properties ?? null) as Record<string, unknown> | null
-    );
+    const props = (row.properties ?? null) as Record<string, unknown> | null;
+    const bucket = classifyEventLocale(row.page_path, props);
     const funnel = out[bucket];
     const name = row.event_name;
 
     if (name === "page_view") {
       funnel.pageViews += 1;
+    } else if (name === "wizard_cta_click") {
+      funnel.wizardCtaClicks += 1;
     } else if (name === "wizard_started") {
       const sid = String(row.session_id ?? "").trim();
       if (sid && !startedSessions[bucket].has(sid)) {
@@ -245,6 +263,11 @@ async function localeFunnelCounts(
       funnel.wizardCompleted += 1;
     } else if (name === "wizard_results_view") {
       funnel.resultsViews += 1;
+    } else if (name === "assist_cta_click") {
+      const placement = String(props?.placement ?? "");
+      if (placement.startsWith("wizard_")) {
+        funnel.assistCtaFromResults += 1;
+      }
     }
   }
 

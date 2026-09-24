@@ -25,6 +25,9 @@ export function EsHubWizardResults({
 }) {
   const { pick, byCountry, results } = payload;
   const matchCount = results.filter((r) => r.outcome !== "unlikely").length;
+  const strongMatchCount = results.filter((r) => r.outcome === "likely_eligible").length;
+  const preferRouteCheck =
+    strongMatchCount === 0 || pick?.outcome === "needs_review" || matchCount <= 1;
   const pickCountryLabel = pick
     ? esCountryLabel(pick.countrySegment, pick.countryRu)
     : undefined;
@@ -123,6 +126,15 @@ export function EsHubWizardResults({
         </section>
       )}
 
+      <div
+        id="wizard-results-metrics"
+        hidden
+        data-match-count={matchCount}
+        data-strong-match-count={strongMatchCount}
+        data-pick-outcome={pick?.outcome ?? ""}
+        data-pick-country={pick?.countrySegment ?? ""}
+      />
+
       <AssistResultsCta
         sessionId={sessionId}
         placement="wizard_hub_results"
@@ -130,6 +142,10 @@ export function EsHubWizardResults({
         countryLabel={pickCountryLabel}
         programTitle={pickProgramTitle}
         locale="es"
+        matchCount={matchCount}
+        strongMatchCount={strongMatchCount}
+        pickOutcome={pick?.outcome}
+        preferRouteCheck={preferRouteCheck}
       />
 
       <section className="mt-10 rounded-2xl border border-slate-200 bg-white p-6">

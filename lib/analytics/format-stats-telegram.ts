@@ -44,12 +44,15 @@ function fmtLocaleLines(report: StatsReport): string[] {
     y: typeof yesterday.ru
   ): string => {
     const pvDelta = deltaHtml(t.pageViews, y.pageViews);
+    const cta = t.wizardCtaClicks > 0 ? ` · cta ${t.wizardCtaClicks}` : "";
     const wiz =
       t.wizardStarted > 0 || t.wizardCompleted > 0
         ? ` · wiz ${t.wizardStarted}→${t.wizardCompleted}`
         : "";
     const results = t.resultsViews > 0 ? ` · results ${t.resultsViews}` : "";
-    return `${flag} ${label}: PV <b>${t.pageViews}</b>${pvDelta}${wiz}${results}`;
+    const assist =
+      t.assistCtaFromResults > 0 ? ` · assist ${t.assistCtaFromResults}` : "";
+    return `${flag} ${label}: PV <b>${t.pageViews}</b>${pvDelta}${cta}${wiz}${results}${assist}`;
   };
   return [
     row("🇷🇺", "RU", today.ru, yesterday.ru),

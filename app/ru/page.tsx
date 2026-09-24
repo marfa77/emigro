@@ -78,12 +78,14 @@ export default async function RuHubPage() {
           <div className="mt-8 flex flex-wrap gap-3">
             <Link
               href="/ru/portugal/wizard"
+              data-placement="ru_hero_portugal_wizard"
               className="inline-flex items-center gap-2 rounded-lg bg-white px-5 py-3 font-medium text-corridor-900 hover:bg-corridor-50"
             >
               Португалия D8/D7 — подобрать маршрут
             </Link>
             <Link
               href={HUB_WIZARD_PATH}
+              data-placement="ru_hero_hub_wizard"
               className="rounded-lg border border-white/40 px-5 py-3 font-medium text-white hover:bg-white/10"
             >
               Все страны — hub wizard
@@ -214,6 +216,7 @@ export default async function RuHubPage() {
             </Link>
             <Link
               href="/ru/wizard?interest=poland,czechia,germany"
+              data-placement="ru_passport_ua_wizard"
               className="group flex items-start gap-3 rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition hover:border-corridor-300 hover:shadow-md"
             >
               <span className="text-2xl" aria-hidden>🇺🇦</span>
@@ -234,6 +237,7 @@ export default async function RuHubPage() {
             </Link>
             <Link
               href="/ru/wizard"
+              data-placement="ru_passport_kz_wizard"
               className="group flex items-start gap-3 rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition hover:border-corridor-300 hover:shadow-md"
             >
               <span className="text-2xl" aria-hidden>🇰🇿</span>

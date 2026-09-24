@@ -31,6 +31,7 @@ function collectLinkMeta(anchor: HTMLAnchorElement) {
     page_path: typeof window !== "undefined" ? window.location.pathname + window.location.search : "",
     referer: typeof document !== "undefined" ? document.referrer : "",
     locale: siteLocaleFromPath(path),
+    placement: anchor.getAttribute("data-placement") ?? "",
     ...(interest ? { interest_countries: interest } : {}),
   };
 }
@@ -73,11 +74,21 @@ export function WizardFunnelTracker() {
     const sessionId = searchParams.get("session");
     if (!sessionId) return;
 
+    const metrics = document.getElementById("wizard-results-metrics");
+    const matchCount = metrics?.getAttribute("data-match-count") ?? "";
+    const strongMatchCount = metrics?.getAttribute("data-strong-match-count") ?? "";
+    const pickOutcome = metrics?.getAttribute("data-pick-outcome") ?? "";
+    const pickCountry = metrics?.getAttribute("data-pick-country") ?? "";
+
     trackEvent("wizard_results_view", {
       session_id: sessionId,
       page_path: pathname + (searchParams.toString() ? `?${searchParams.toString()}` : ""),
       referer: typeof document !== "undefined" ? document.referrer : "",
       locale: siteLocaleFromPath(pathname),
+      match_count: matchCount,
+      strong_match_count: strongMatchCount,
+      pick_outcome: pickOutcome,
+      pick_country: pickCountry,
     });
   }, [pathname, searchParams]);
 
