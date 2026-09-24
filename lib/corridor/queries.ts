@@ -1,6 +1,7 @@
 import { unstable_cache } from "next/cache";
 import { createServerClient } from "@/lib/supabase/server";
 import { CACHE_REVALIDATE, CACHE_TAGS } from "@/lib/cache/tags";
+import { overlayInvestmentPassportEligibility } from "@/lib/investment/passport-overlay";
 import type { Corridor, ProgramDetail, WizardDefinition } from "@/lib/types";
 
 export const CORRIDOR_SLUG = "ru-speaking-to-portugal";
@@ -227,7 +228,10 @@ async function hydratePrograms(
           costs: grouped.costs.get(version.id) ?? [],
           timeline: grouped.timeline.get(version.id) ?? [],
           sources: grouped.sources.get(version.id) ?? [],
-          passportEligibility: grouped.passportEligibility.get(version.id) ?? [],
+          passportEligibility: overlayInvestmentPassportEligibility(
+            program.slug,
+            grouped.passportEligibility.get(version.id) ?? []
+          ),
         },
       ];
     }),

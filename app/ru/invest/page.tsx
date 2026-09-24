@@ -149,12 +149,31 @@ export default function InvestmentHubPage() {
                   <dl className="mt-5 grid grid-cols-2 gap-3 border-t border-slate-100 pt-5 text-sm">
                     <div>
                       <dt className="text-slate-500">
-                        {ruByBlocked ? "Ориентир программы" : "Скрининг от"}
+                        {route.status === "closed"
+                          ? "Статус новых заявок"
+                          : ruByBlocked
+                            ? "Ориентир программы"
+                            : route.screeningPrimaryLabel
+                              ? "Порог / пакет"
+                              : "Скрининг от"}
                       </dt>
-                      <dd className={`mt-1 font-semibold ${ruByBlocked ? "text-slate-500" : "text-slate-900"}`}>
-                        €{route.screeningFloorEur.toLocaleString("ru-RU")}
-                        {ruByBlocked ? (
-                          <span className="mt-1 block text-xs font-medium text-rose-800">не для новых заявок RU/BY</span>
+                      <dd className={`mt-1 font-semibold ${ruByBlocked || route.status === "closed" ? "text-slate-500" : "text-slate-900"}`}>
+                        {route.screeningPrimaryLabel ??
+                          `€${route.screeningFloorEur.toLocaleString("ru-RU")}`}
+                        {route.screeningSecondaryLabel ? (
+                          <span className="mt-1 block text-xs font-medium text-slate-600">
+                            {route.screeningSecondaryLabel}
+                          </span>
+                        ) : null}
+                        {route.screeningFloorNote ? (
+                          <span className="mt-1 block text-xs font-medium text-amber-900">
+                            {route.screeningFloorNote}
+                          </span>
+                        ) : null}
+                        {ruByBlocked && !route.screeningFloorNote ? (
+                          <span className="mt-1 block text-xs font-medium text-rose-800">
+                            не для новых заявок RU/BY
+                          </span>
                         ) : null}
                       </dd>
                     </div>
@@ -167,8 +186,19 @@ export default function InvestmentHubPage() {
                       <dd className="mt-1 text-sm font-medium text-slate-800">
                         {capitalFateLabel(route.capitalFate)} · {expenseKindLabel(route.expenseKind)} ·{" "}
                         {liquidityLabel(route.liquidity)}
+                        {route.lockupNote ? (
+                          <span className="mt-1 block text-xs font-normal text-slate-600">
+                            Lock-up: {route.lockupNote}
+                          </span>
+                        ) : null}
                       </dd>
                     </div>
+                    {route.routeKindLabel ? (
+                      <div className="col-span-2">
+                        <dt className="text-slate-500">Тип маршрута</dt>
+                        <dd className="mt-1 text-sm font-medium text-slate-800">{route.routeKindLabel}</dd>
+                      </div>
+                    ) : null}
                   </dl>
                   <p className="mt-3 text-sm leading-snug text-corridor-900">
                     <span className="font-semibold">Главный вопрос: </span>

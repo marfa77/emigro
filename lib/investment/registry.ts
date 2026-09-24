@@ -38,6 +38,16 @@ export type InvestmentRoute = {
   liquidity: LiquidityBand;
   /** Unique decision question for this route (anti-template). */
   decisionHook: string;
+  /** Optional primary threshold label (e.g. AED / USD) — EUR floor stays for qualifier math. */
+  screeningPrimaryLabel?: string;
+  /** Secondary FX / package note under the primary label. */
+  screeningSecondaryLabel?: string;
+  /** Extra line under screening amount (special-case floors, package cost). */
+  screeningFloorNote?: string;
+  /** Holding / lock-up hint for cards. */
+  lockupNote?: string;
+  /** Semantic route class when not classic investment residence. */
+  routeKindLabel?: string;
   priority: number;
 };
 
@@ -65,6 +75,7 @@ export const INVESTMENT_ROUTES: readonly InvestmentRoute[] = [
     expenseKind: "investment",
     liquidity: "illiquid",
     decisionHook: "Понимаете ли вы, что покупка объекта сама по себе не выдаёт визу по приказам Immigration?",
+    routeKindLabel: "Commercial pilot — ручной review",
     priority: 100,
   },
   {
@@ -80,7 +91,7 @@ export const INVESTMENT_ROUTES: readonly InvestmentRoute[] = [
     assets: ["property", "business", "bonds"],
     corridorSlug: "ru-speaking-to-thailand",
     publicPath: "/ru/thailand",
-    summary: "BOI LTR: инвестиция в Таиланде от USD 500k и глобальные активы от USD 1m. €920k — ориентир активов, не котировка.",
+    summary: "BOI LTR: инвестиция в Таиланде от USD 500k и глобальные активы от USD 1m.",
     caveat:
       "Недвижимость может быть частью тайской инвестиции, но сама по себе не заменяет USD 1m активов, страховку и endorsement BOI. Инвестиция должна уже быть на имя заявителя.",
     officialUrl: "https://ltr.boi.go.th/",
@@ -89,6 +100,8 @@ export const INVESTMENT_ROUTES: readonly InvestmentRoute[] = [
     expenseKind: "investment",
     liquidity: "partially_liquid",
     decisionHook: "Готовы ли вы подтвердить глобальные активы от USD 1m и инвестицию в Таиланде от USD 500k на своё имя?",
+    screeningPrimaryLabel: "USD 500k + USD 1m assets",
+    screeningSecondaryLabel: "≈ €920k ориентир FX, не котировка",
     priority: 99,
   },
   {
@@ -113,6 +126,9 @@ export const INVESTMENT_ROUTES: readonly InvestmentRoute[] = [
     expenseKind: "non_refundable",
     liquidity: "illiquid",
     decisionHook: "Готовы ли вы к невозвратному membership fee вместо инвестиционного актива?",
+    screeningPrimaryLabel: "THB 650 000 (Bronze)",
+    screeningSecondaryLabel: "≈ €18k — membership fee, не investment",
+    routeKindLabel: "Paid long-stay membership",
     priority: 98,
   },
   {
@@ -129,13 +145,15 @@ export const INVESTMENT_ROUTES: readonly InvestmentRoute[] = [
     summary:
       "Документы через недвижимость: 10-летний Golden Residence при владении объектом(ами) от AED 2 000 000. Ниже порога — отдельные 2-летние property-визы (Taskeen), не Golden.",
     caveat:
-      "Порог ICP — AED 2 000 000 полной собственности на имя заявителя (или off-plan у одобренной локальной компании). Оценка и процедура — ICP / DLD; ask брокера сам по себе не равен eligibility. Mortgage/NOC — сверяйте актуальный чеклист DLD Cube.",
+      "Порог ICP — AED 2 000 000 зарегистрированной собственности на имя заявителя (registered ownership / qualifying value). Mortgage через одобренный местный банк допускается при выполнении чеклиста ICP/DLD — это не «неполная» собственность в смысле eligibility. Off-plan — у одобренной локальной компании. Ask брокера ≠ eligibility.",
     officialUrl: "https://icp.gov.ae/en/services/uae-golden-residency/",
     propertyLinked: true,
     capitalFate: "preserved",
     expenseKind: "investment",
     liquidity: "illiquid",
     decisionHook: "Нужна ли вам недвижимость как часть relocation + статуса — или только виза без привязки к объекту?",
+    screeningPrimaryLabel: "AED 2 000 000",
+    screeningSecondaryLabel: "≈ €545k ориентир FX",
     priority: 95,
   },
   {
@@ -151,7 +169,7 @@ export const INVESTMENT_ROUTES: readonly InvestmentRoute[] = [
     programSlug: "greece-golden-visa",
     corridorSlug: "ru-speaking-to-greece",
     publicPath: "/ru/greece/programs/greece-golden-visa",
-    summary: "Недвижимость и альтернативные инвестиции; порог зависит от зоны и типа объекта.",
+    summary: "Недвижимость и альтернативные инвестиции; стандартные зоны €400k / €800k, €250k — special categories.",
     caveat: "€250k относится не ко всем зонам и объектам. Новые заявки граждан РФ и Беларуси приостановлены.",
     officialUrl: "https://migration.gov.gr/en/golden-visa/",
     restrictedPassports: ["RU", "BY"],
@@ -160,6 +178,7 @@ export const INVESTMENT_ROUTES: readonly InvestmentRoute[] = [
     expenseKind: "investment",
     liquidity: "illiquid",
     decisionHook: "Вам нужна именно недвижимость — и подходит ли ваш паспорт (RU/BY сейчас ограничены)?",
+    screeningFloorNote: "€250k — special; стандарт €400k / €800k",
     priority: 90,
   },
   {
@@ -175,7 +194,7 @@ export const INVESTMENT_ROUTES: readonly InvestmentRoute[] = [
     programSlug: "portugal-golden-visa",
     corridorSlug: "ru-speaking-to-portugal",
     publicPath: "/ru/portugal/programs/portugal-golden-visa",
-    summary: "ARI после закрытия прямого real-estate маршрута: фонды, бизнес, исследования и культурные варианты.",
+    summary: "ARI после закрытия прямого real-estate маршрута: несколько qualifying routes (фонды, компания+jobs, research, culture).",
     caveat: "Покупка недвижимости больше не является самостоятельным основанием ARI.",
     officialUrl: "https://aima.gov.pt/pt/viver/autorizacao-de-residencia-para-investimento-art-90-o-a",
     propertyLinked: false,
@@ -183,6 +202,8 @@ export const INVESTMENT_ROUTES: readonly InvestmentRoute[] = [
     expenseKind: "investment",
     liquidity: "locked",
     decisionHook: "Готовы ли вы держать qualifying fund (недвижимость больше не основание ARI)?",
+    screeningFloorNote: "Several qualifying routes — не только «пожертвование»",
+    lockupNote: "Fund/company holding — по правилам выбранного ARI-трека",
     priority: 85,
   },
   {
@@ -206,6 +227,7 @@ export const INVESTMENT_ROUTES: readonly InvestmentRoute[] = [
     expenseKind: "combination",
     liquidity: "locked",
     decisionHook: "Готовы ли вы к qualifying fund или к donation — а не к покупке квартиры?",
+    lockupNote: "Fund hold ≥5 years (OIF / fund rules)",
     priority: 80,
   },
   {
@@ -221,8 +243,8 @@ export const INVESTMENT_ROUTES: readonly InvestmentRoute[] = [
     programSlug: "malta-mprp",
     corridorSlug: "ru-speaking-to-malta",
     publicPath: "/ru/malta/programs/malta-mprp",
-    summary: "Постоянная резиденция через комбинированный пакет: property, contribution, donation и активы.",
-    caveat: "MPRP — постоянная резиденция, не продажа гражданства; считать нужно полный пакет семьи.",
+    summary: "Постоянная резиденция через комбинированный пакет: assets + property + contribution + donation.",
+    caveat: "MPRP — постоянная резиденция, не продажа гражданства; считать нужно полный пакет семьи. RU/BY сейчас not eligible.",
     officialUrl: "https://residencymalta.gov.mt/legal-framework-mprp-2/",
     restrictedPassports: ["RU", "BY"],
     propertyLinked: true,
@@ -230,6 +252,7 @@ export const INVESTMENT_ROUTES: readonly InvestmentRoute[] = [
     expenseKind: "combination",
     liquidity: "illiquid",
     decisionHook: "Готовы ли вы к комбинированному cost structure (property + contribution + donation) и проверке паспорта?",
+    screeningFloorNote: "Assets from €500k ≠ полная стоимость route (property/contribution/fees отдельно)",
     priority: 75,
   },
   {
@@ -255,6 +278,7 @@ export const INVESTMENT_ROUTES: readonly InvestmentRoute[] = [
     expenseKind: "investment",
     liquidity: "locked",
     decisionHook: "Готовы ли вы инвестировать в итальянский business/startup — и подходит ли паспорт (RU/BY ограничены)?",
+    lockupNote: "Program-specific holding / project risk",
     priority: 70,
   },
   {
@@ -277,9 +301,11 @@ export const INVESTMENT_ROUTES: readonly InvestmentRoute[] = [
     expenseKind: "investment",
     liquidity: "illiquid",
     decisionHook: "Программа закрыта для новых заявок — это архив для сравнения, не маршрут к подаче.",
+    screeningPrimaryLabel: "Новые заявки закрыты",
+    screeningSecondaryLabel: "с 03.04.2025 · исторический порог €500k RE",
     priority: 40,
   },
-] as const;
+];
 
 export const INVESTMENT_PROGRAM_NOTES: Record<string, readonly string[]> = {
   thailand: [
@@ -288,7 +314,7 @@ export const INVESTMENT_PROGRAM_NOTES: Record<string, readonly string[]> = {
     "Thailand Privilege — membership от Bronze THB 650 000 на официальной карточке. Покупка недвижимости membership не заменяет.",
   ],
   uae: [
-    "Golden Residence (10 лет) через недвижимость: один или несколько объектов общей стоимостью не менее AED 2 000 000, полная собственность на имя заявителя; ипотека допускается при финансировании одобренным местным банком (ICP). Формулировки DLD про paid amount / NOC сверяйте на дату подачи.",
+    "Golden Residence (10 лет) через недвижимость: один или несколько объектов общей стоимостью не менее AED 2 000 000, зарегистрированная собственность на имя заявителя; ипотека через одобренный местный банк допускается при чеклисте ICP/DLD (это не «неполная» собственность в смысле eligibility).",
     "Off-plan: ICP допускает покупку у одобренной локальной компании; проверяйте актуальный чеклист DLD Cube / GDRFA перед сделкой.",
     "Ниже AED 2M: Taskeen 2y — у sole owner порог стоимости снят (title deed); joint — доля от AED 400 000. Это не 10-летний Golden.",
     "Бизнес / депозит AED 2M — отдельная категория Golden, не property→documents. Ask брокера сверяйте с DLD-продажами (uaeproperty.vip), не с маркетинговой ценой.",
@@ -305,10 +331,11 @@ export const INVESTMENT_PROGRAM_NOTES: Record<string, readonly string[]> = {
   hungary: [
     "Guest Investor — фонд или пожертвование по правилам программы, не покупка квартиры.",
     "Обычный ETF не подходит автоматически: фонд и посредник должны соответствовать венгерским требованиям.",
+    "Qualifying real-estate fund: типичный holding ≥5 лет — сверяйте OIF / правила фонда на дату.",
   ],
   malta: [
     "MPRP — постоянная резиденция пакетом (property, contribution, donation), не продажа гражданства.",
-    "Новые заявки граждан РФ и Беларуси ограничены. Считать нужно полный пакет семьи, не только объект.",
+    "Residency Malta FAQ: заявки от РФ и Беларуси сейчас not eligible. Считать нужно полный пакет семьи, не только assets €500k.",
   ],
   italy: [
     "Недвижимость не является основанием Investor Visa. Активы: стартап, компания, гособлигации или пожертвование.",

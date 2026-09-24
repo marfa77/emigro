@@ -162,13 +162,28 @@ export default function InvestmentCountryPage({ params }: { params: { country: s
               {item.decisionHook}
             </p>
             <p className={`mt-3 text-sm ${ruByBlocked ? "text-slate-500" : "text-slate-500"}`}>
-              {ruByBlocked ? "Ориентир программы (не доступность для RU/BY): " : "Скрининг от "}
-              €{item.screeningFloorEur.toLocaleString("ru-RU")} · {item.assets.map(investmentAssetLabel).join(", ")} ·{" "}
-              {outcomeLabel(item.outcome)}
+              {item.status === "closed"
+                ? "Статус: "
+                : item.screeningPrimaryLabel
+                  ? "Порог / пакет: "
+                  : ruByBlocked
+                    ? "Ориентир программы (не доступность для RU/BY): "
+                    : "Скрининг от "}
+              {item.screeningPrimaryLabel ?? `€${item.screeningFloorEur.toLocaleString("ru-RU")}`}
+              {item.screeningSecondaryLabel ? ` · ${item.screeningSecondaryLabel}` : null}
+              {" · "}
+              {item.assets.map(investmentAssetLabel).join(", ")} · {outcomeLabel(item.outcome)}
             </p>
+            {item.screeningFloorNote ? (
+              <p className="mt-1 text-xs font-medium text-amber-900">{item.screeningFloorNote}</p>
+            ) : null}
+            {item.routeKindLabel ? (
+              <p className="mt-1 text-xs font-medium text-slate-700">Тип маршрута: {item.routeKindLabel}</p>
+            ) : null}
             <p className="mt-2 text-sm text-slate-600">
               Капитал: {capitalFateLabel(item.capitalFate)} · {expenseKindLabel(item.expenseKind)} ·{" "}
               {liquidityLabel(item.liquidity)}
+              {item.lockupNote ? ` · Lock-up: ${item.lockupNote}` : null}
             </p>
             <p className="mt-3 text-sm leading-relaxed text-amber-900">{item.caveat}</p>
             <div className="mt-4 flex flex-wrap gap-4 text-sm font-semibold">
