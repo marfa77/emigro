@@ -2,9 +2,9 @@ import Link from "next/link";
 import { ProgramTypeBadge } from "@/components/visuals/ProgramTypeBadge";
 
 export const OUTCOME_LABELS: Record<string, string> = {
-  likely_eligible: "Подходит по базовым ответам",
-  needs_review: "Требует проверки",
-  unlikely: "Сейчас не подходит",
+  likely_eligible: "Potential match",
+  needs_review: "Needs more information",
+  unlikely: "Likely unavailable",
 };
 
 const OUTCOME_LABELS_ES: Record<string, string> = {
@@ -60,7 +60,8 @@ export function WizardOutcomeCard({
   const missing = missingItems(outcome, visibleReasons, locale);
   const nextSteps = nextStepsForOutcome(outcome, locale);
   const why = locale === "es" ? "Por qué" : locale === "fr" ? "Pourquoi" : "Почему";
-  const lack = locale === "es" ? "Qué falta" : locale === "fr" ? "Ce qui manque" : "Что не хватает";
+  const lack =
+    locale === "es" ? "Barrera principal" : locale === "fr" ? "Barrière principale" : "Главный барьер";
   const after =
     locale === "es" ? "Qué hacer después" : locale === "fr" ? "Ensuite" : "Что сделать дальше";
   const source =
@@ -70,7 +71,7 @@ export function WizardOutcomeCard({
       ? "Abrir en Emigro ES →"
       : locale === "fr"
         ? "Ouvrir sur Emigro FR →"
-        : "Страница программы →";
+        : "Открыть маршрут →";
   const whyEmpty =
     locale === "es"
       ? "Comparamos sus respuestas con los requisitos básicos del programa."
@@ -82,7 +83,13 @@ export function WizardOutcomeCard({
     <div className={`w-full rounded-xl border p-5 ${OUTCOME_COLORS[outcome] ?? "border-slate-200 bg-white"}`}>
       {programType && <ProgramTypeBadge type={programType} />}
       <h2 className={`font-semibold ${programType ? "mt-3" : ""}`}>{title}</h2>
-      <p className="mt-2 text-sm font-medium">{labels[outcome] ?? outcome}</p>
+      <p
+        className={`mt-2 inline-flex rounded-full border px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wide ${
+          OUTCOME_COLORS[outcome] ?? "border-slate-200 bg-white text-slate-700"
+        }`}
+      >
+        {labels[outcome] ?? outcome}
+      </p>
 
       <section className="mt-4 space-y-3 text-sm leading-relaxed">
         <div>
@@ -90,7 +97,7 @@ export function WizardOutcomeCard({
           {visibleReasons.length > 0 ? (
             <ul className="mt-1 space-y-1 opacity-90">
               {visibleReasons.slice(0, 3).map((reason) => (
-                <li key={reason}>• {readableReason(reason)}</li>
+                <li key={reason}>✓ {readableReason(reason)}</li>
               ))}
             </ul>
           ) : (
@@ -100,7 +107,7 @@ export function WizardOutcomeCard({
 
         <div>
           <p className="font-semibold">{lack}</p>
-          <p className="mt-1 opacity-90">{missing}</p>
+          <p className="mt-1 opacity-90">⚠ {missing}</p>
         </div>
 
         <div>
@@ -128,6 +135,14 @@ export function WizardOutcomeCard({
       </div>
     </div>
   );
+}
+
+export function wizardOutcomeBarrier(
+  outcome: string,
+  reasons: string[] | undefined,
+  locale: CardLocale = "ru"
+): string {
+  return missingItems(outcome, reasons?.filter(Boolean) ?? [], locale);
 }
 
 function missingItems(outcome: string, reasons: string[], locale: CardLocale): string {

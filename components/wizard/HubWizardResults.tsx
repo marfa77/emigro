@@ -4,7 +4,7 @@ import { AssistResultsCta } from "@/components/wizard/AssistResultsCta";
 import { HouseholdBanner } from "@/components/wizard/HouseholdBanner";
 import { WizardTelegramDelivery } from "@/components/wizard/WizardTelegramDelivery";
 import { buildAssistUrl } from "@/lib/assist/build-url";
-import { WizardOutcomeCard, readableReason } from "@/components/wizard/WizardOutcomeCard";
+import { WizardOutcomeCard, readableReason, OUTCOME_LABELS, wizardOutcomeBarrier } from "@/components/wizard/WizardOutcomeCard";
 import { corridorWizardPath } from "@/lib/corridor/paths";
 import type { GlobalEvalPayload } from "@/lib/engine/run-global-evaluation";
 import { findFirstProviderTopicKey } from "@/lib/providers/registry";
@@ -161,20 +161,23 @@ export function HubWizardResults({
               <h2 className="mt-1 text-xl font-bold text-slate-900">
                 {formatCountryProgramLabel(pick.countryRu, pick.programTitleRu)}
               </h2>
-              <p className="mt-2 text-sm text-slate-600">
-                {pick.outcome === "likely_eligible"
-                  ? "Potential match — подходит по базовым ответам"
-                  : pick.outcome === "needs_review"
-                    ? "Needs more information — нужна сверка деталей"
-                    : "Likely unavailable — сейчас не подходит"}
+              <p className="mt-2 inline-flex rounded-full border border-corridor-200 bg-white px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wide text-corridor-800">
+                {OUTCOME_LABELS[pick.outcome] ?? pick.outcome}
               </p>
               {pick.reasons?.length > 0 && (
-                <ul className="mt-2 space-y-1 text-sm opacity-90">
-                  {pick.reasons.slice(0, 3).map((reason) => (
-                    <li key={reason}>• {readableReason(reason)}</li>
-                  ))}
-                </ul>
+                <div className="mt-3 text-sm text-slate-700">
+                  <p className="font-semibold">Почему</p>
+                  <ul className="mt-1 space-y-1">
+                    {pick.reasons.slice(0, 3).map((reason) => (
+                      <li key={reason}>✓ {readableReason(reason)}</li>
+                    ))}
+                  </ul>
+                </div>
               )}
+              <div className="mt-3 text-sm text-slate-700">
+                <p className="font-semibold">Главный барьер</p>
+                <p className="mt-1">⚠ {wizardOutcomeBarrier(pick.outcome, pick.reasons)}</p>
+              </div>
               <div className="mt-4 flex flex-wrap gap-3">
                 <Link
                   href={pick.programPath}

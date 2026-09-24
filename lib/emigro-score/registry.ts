@@ -1,7 +1,9 @@
 import { axis } from "./score";
 import type { EmigroCountryScore } from "./types";
 
-const AS_OF = "2026-08-09";
+/** Editorial recalculation date for the RU-passport baseline registry. */
+export const EMIGRO_SCORE_AS_OF = "2026-09-24";
+const AS_OF = EMIGRO_SCORE_AS_OF;
 
 function score(
   countryId: string,

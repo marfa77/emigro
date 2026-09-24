@@ -4,6 +4,7 @@ import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { HubHeroVisual } from "@/components/visuals/HubHeroVisual";
 import {
+  EMIGRO_SCORE_AS_OF,
   EMIGRO_SCORE_AXIS_DOCS,
   EMIGRO_SCORE_BASELINE_NOTE,
   EMIGRO_SCORE_PATH,
@@ -15,9 +16,9 @@ import { pageMetadata, pageUrl } from "@/lib/seo";
 export const revalidate = 3600;
 
 export const metadata = pageMetadata({
-  title: "Emigro Score — методология рейтинга стран для релокантов",
+  title: "Emigro Score — методология для паспорта РФ",
   description:
-    "Как Emigro считает Score /100: оси Въезд, Статус, Банки, Налоги, Перспектива; база паспорт РФ; рубрика и таблица стран 2026. Не юридическая оценка.",
+    "Как Emigro считает Score /100 для паспорта РФ: оси Въезд, Статус, Банки, Налоги, Перспектива. Eligibility — в wizard. Не юридическая оценка.",
   path: EMIGRO_SCORE_PATH,
 });
 
@@ -80,12 +81,13 @@ export default function EmigroScoreMethodologyPage() {
         </nav>
 
         <HeroShell visual={<HubHeroVisual />}>
-          <p className="text-sm uppercase tracking-wide text-corridor-100">Методология · /100</p>
+          <p className="text-sm uppercase tracking-wide text-corridor-100">Методология · /100 · паспорт РФ</p>
           <h1 className="mt-2 text-3xl font-bold sm:text-4xl">Emigro Score</h1>
           <p className="mt-4 max-w-2xl text-lg text-corridor-100">
-            Редакционный рейтинг стран для релокантов: не «где веселее», а насколько реально въехать, легально
-            остаться, открыть счёт и двигаться дальше.
+            Редакционный ориентир для паспорта РФ: насколько реально въехать, легально остаться, открыть счёт и
+            двигаться дальше. Не eligibility shortlist — его даёт wizard.
           </p>
+          <p className="mt-3 text-sm text-corridor-200">Рассчитано: {EMIGRO_SCORE_AS_OF}</p>
           <div className="mt-8 flex flex-wrap gap-3">
             <a
               href="#catalog"

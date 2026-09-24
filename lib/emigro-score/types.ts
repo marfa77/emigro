@@ -51,4 +51,4 @@ export const EMIGRO_SCORE_AXIS_LABELS: Record<EmigroScoreAxisId, string> = {
 };
 
 export const EMIGRO_SCORE_BASELINE_NOTE =
-  "База — паспорт РФ; для UA/KZ/BY условия могут отличаться — см. гайд";
+  "Emigro Score — редакционный ориентир для паспорта РФ. Для BY/UA/KZ цифры могут отличаться; eligibility смотрите в wizard, не в Score.";

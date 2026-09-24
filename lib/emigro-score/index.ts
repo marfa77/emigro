@@ -15,7 +15,12 @@ export {
   toEmigroScoreView,
   validateEmigroCountryScore,
 } from "./score";
-export { getEmigroScore, listEmigroScoreCountryIds, EMIGRO_SCORE_REGISTRY } from "./registry";
+export {
+  getEmigroScore,
+  listEmigroScoreCountryIds,
+  EMIGRO_SCORE_AS_OF,
+  EMIGRO_SCORE_REGISTRY,
+} from "./registry";
 export {
   EMIGRO_SCORE_PATH,
   EMIGRO_SCORE_AXIS_DOCS,

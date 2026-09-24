@@ -514,7 +514,7 @@ export function InvestmentQualifier({
             ? "Отправляем профиль…"
             : isUae
               ? "Отправить — свяжемся и передадим брокеру"
-              : "Получить предварительный shortlist"}
+              : "Получить shortlist маршрутов"}
           {status !== "loading" ? <ArrowRight className="h-4 w-4" /> : null}
         </button>
       </form>

@@ -6,9 +6,25 @@ import { CorridorHubTilesGrid, CorridorHubTilesLegend } from "@/components/corri
 import { EmigroScoreLinkCard } from "@/components/emigro-score/EmigroScoreLinkCard";
 import { getCorridorHubTileStatsBatch } from "@/lib/corridor/hub-stats";
 import type { NewsTopicConfig } from "@/lib/news/topics";
-import { EMIGRO_SCORE_PATH, sortByEmigroScoreDesc } from "@/lib/emigro-score";
+import {
+  EMIGRO_SCORE_AS_OF,
+  EMIGRO_SCORE_BASELINE_NOTE,
+  EMIGRO_SCORE_PATH,
+  sortByEmigroScoreDesc,
+} from "@/lib/emigro-score";
 import { getHubsByKind, type TransitHub } from "@/lib/transit-hubs";
 import { HUB_WIZARD_PATH } from "@/lib/corridor/paths";
+
+function formatScoreAsOf(iso: string): string {
+  const [y, m, d] = iso.split("-").map(Number);
+  if (!y || !m || !d) return iso;
+  return new Date(Date.UTC(y, m - 1, d)).toLocaleDateString("ru-RU", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+  });
+}
 
 type Props = {
   fullCorridors: NewsTopicConfig[];
@@ -42,8 +58,15 @@ export async function HubDestinationsSection({ fullCorridors, developingCorridor
         <div>
           <h2 className="text-2xl font-semibold text-slate-900">Направления</h2>
           <p className="mt-2 max-w-2xl text-slate-600">
-            Emigro Score /100 — сортировка по убыванию рейтинга (база: паспорт РФ). Клик — оси · Open — обзор.
+            Сначала eligibility в{" "}
+            <Link href={HUB_WIZARD_PATH} className="font-medium text-corridor-700 hover:underline">
+              wizard
+            </Link>
+            . Emigro Score /100 — доп. ориентир{" "}
+            <span className="font-medium text-slate-800">для паспорта РФ</span>, обновлено{" "}
+            {formatScoreAsOf(EMIGRO_SCORE_AS_OF)}. Сортировка по Score не заменяет shortlist по профилю.
           </p>
+          <p className="mt-1 max-w-2xl text-xs text-slate-500">{EMIGRO_SCORE_BASELINE_NOTE}</p>
         </div>
         <Link
           href={EMIGRO_SCORE_PATH}
