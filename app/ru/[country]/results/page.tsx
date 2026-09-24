@@ -138,9 +138,13 @@ export default async function CountryResultsPage({
     <>
       <SiteHeader />
       <main className="mx-auto max-w-5xl px-4 py-10">
-        <h1 className="text-3xl font-bold">Ваши маршруты — {topic.countryRu}</h1>
+        <p className="text-sm font-semibold uppercase tracking-wide text-corridor-700">
+          Предварительный shortlist
+        </p>
+        <h1 className="mt-1 text-3xl font-bold">Ваши доступные маршруты — {topic.countryRu}</h1>
         <p className="mt-2 text-slate-600">
-          Сравнение по вашим ответам. Это предварительная навигация, не юридическая гарантия.
+          Сопоставление по вашим ответам ({matchCount} из {results.length} не «unlikely»). Emigro не ранжирует
+          «лучшую визу» — только eligibility. Это не юридическая гарантия.
         </p>
 
         <HouseholdBanner household={household} />

@@ -15,7 +15,7 @@ import { liveCityChatForCountry } from "@/lib/satellite/city-chats";
 import { TRANSIT_HUBS } from "@/lib/transit-hubs";
 import { formatCountryProgramLabel } from "@/lib/wizard/format-country-program-label";
 import Link from "next/link";
-import { ArrowRight, Compass, Route, Sparkles } from "lucide-react";
+import { ArrowRight, Compass, ListChecks, Route } from "lucide-react";
 
 export function HubWizardResults({
   sessionId,
@@ -40,10 +40,13 @@ export function HubWizardResults({
   return (
     <>
       <header>
-        <h1 className="text-3xl font-bold">Ваши маршруты по Европе</h1>
+        <p className="text-sm font-semibold uppercase tracking-wide text-corridor-700">
+          Предварительный shortlist
+        </p>
+        <h1 className="mt-1 text-3xl font-bold">Ваши доступные маршруты</h1>
         <p className="mt-2 text-slate-600">
-          Проверено {results.length} программ. Совпадений: {matchCount}. Это предварительная навигация, не
-          юридическая гарантия.
+          Проверено {results.length} программ. Совпадений: {matchCount}. Emigro сопоставляет профиль с
+          требованиями — это не рейтинг «лучших стран» и не юридическая гарантия.
         </p>
       </header>
 
@@ -149,19 +152,21 @@ export function HubWizardResults({
         <section className="mt-8 rounded-2xl border border-corridor-200 bg-gradient-to-br from-corridor-50 to-white p-6">
           <div className="flex items-start gap-3">
             <div className="rounded-lg bg-corridor-600 p-2 text-white">
-              <Sparkles className="h-5 w-5" />
+              <ListChecks className="h-5 w-5" />
             </div>
             <div>
-              <p className="text-sm font-semibold uppercase tracking-wide text-corridor-700">Наш выбор</p>
+              <p className="text-sm font-semibold uppercase tracking-wide text-corridor-700">
+                Сильнейшее совпадение в shortlist
+              </p>
               <h2 className="mt-1 text-xl font-bold text-slate-900">
                 {formatCountryProgramLabel(pick.countryRu, pick.programTitleRu)}
               </h2>
               <p className="mt-2 text-sm text-slate-600">
                 {pick.outcome === "likely_eligible"
-                  ? "Подходит по базовым ответам"
+                  ? "Potential match — подходит по базовым ответам"
                   : pick.outcome === "needs_review"
-                    ? "Требует проверки"
-                    : "Сейчас не подходит"}
+                    ? "Needs more information — нужна сверка деталей"
+                    : "Likely unavailable — сейчас не подходит"}
               </p>
               {pick.reasons?.length > 0 && (
                 <ul className="mt-2 space-y-1 text-sm opacity-90">
@@ -235,7 +240,13 @@ export function HubWizardResults({
 
       {byCountry.length > 0 && (
         <section className="mt-12 space-y-10">
-          <h2 className="text-2xl font-semibold">По странам</h2>
+          <div>
+            <h2 className="text-2xl font-semibold">Все совпадения по странам</h2>
+            <p className="mt-1 text-sm text-slate-600">
+              Статусы: potential match · needs more information · likely unavailable. Порядок внутри страны —
+              по силе совпадения с ответами, не «рейтинг качества жизни».
+            </p>
+          </div>
           {byCountry.map((group) => (
             <div key={group.corridorSlug} className="w-full">
               <div className="flex w-full flex-wrap items-center justify-between gap-2">

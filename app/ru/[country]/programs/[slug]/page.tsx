@@ -40,14 +40,20 @@ import {
   buildProgramQuickAnswer,
   passportLabel,
   PASSPORT_STATUS_LABELS,
+  programLastModified,
   programPagePath,
+  verifiedDateToLastModified,
 } from "@/lib/seo/corridor-page-seo";
 import { pageUrl } from "@/lib/seo";
 import { ISO2_TO_SEGMENT } from "@/lib/corridor/paths";
 import { createServerClient } from "@/lib/supabase/server";
+import { buildAssistUrl } from "@/lib/assist/build-url";
+import { TrackedAssistLink } from "@/components/assist/TrackedAssistLink";
 
 export const revalidate = 3600;
 export const dynamicParams = true;
+
+const PASSPORT_DISPLAY_ORDER = ["RU", "BY", "UA", "KZ"] as const;
 
 export async function generateStaticParams(): Promise<{ country: string; slug: string }[]> {
   try {
@@ -99,6 +105,86 @@ function passportNote(entry: ProgramDetail["passportEligibility"][number]): stri
   return "По текущим требованиям маршрут не подходит для этого паспорта.";
 }
 
+function sortPassportEligibility(
+  entries: ProgramDetail["passportEligibility"]
+): ProgramDetail["passportEligibility"] {
+  const rank = (iso: string) => {
+    const i = PASSPORT_DISPLAY_ORDER.indexOf(iso as (typeof PASSPORT_DISPLAY_ORDER)[number]);
+    return i === -1 ? 100 + iso.charCodeAt(0) : i;
+  };
+  return [...entries].sort((a, b) => rank(a.passport_iso2) - rank(b.passport_iso2));
+}
+
+/** Soft status from passport matrix — no separate program.status column yet. */
+function softProgramStatus(program: ProgramDetail): {
+  label: string;
+  className: string;
+} {
+  const core = PASSPORT_DISPLAY_ORDER.map((iso) =>
+    program.passportEligibility.find((e) => e.passport_iso2 === iso)
+  ).filter(Boolean) as ProgramDetail["passportEligibility"];
+
+  if (core.length > 0 && core.every((e) => e.status === "ineligible")) {
+    return {
+      label: "Passport restricted",
+      className: "border-rose-300 bg-rose-100 text-rose-950",
+    };
+  }
+  if (core.some((e) => e.status === "ineligible" || e.status === "partial")) {
+    return {
+      label: "Restricted",
+      className: "border-amber-300 bg-amber-100 text-amber-950",
+    };
+  }
+  return {
+    label: "Active",
+    className: "border-emerald-300 bg-emerald-100 text-emerald-950",
+  };
+}
+
+function mainBarrier(
+  program: ProgramDetail,
+  incomeRequirement: ProgramDetail["requirements"][number] | undefined
+): string {
+  const hardGate = findRequirement(
+    program,
+    /работодател|оффер|контракт|accredited|employer|приглашен|зачислен|admission|job offer|спонсор/i
+  );
+  if (hardGate) {
+    return hardGate.value_text
+      ? `${hardGate.label_ru}: ${hardGate.value_text}`
+      : hardGate.label_ru;
+  }
+
+  const ru = program.passportEligibility.find((e) => e.passport_iso2 === "RU");
+  if (ru && ru.status !== "eligible") {
+    return ru.notes_ru?.trim() || `Паспорт РФ: ${PASSPORT_STATUS_LABELS[ru.status] ?? ru.status}`;
+  }
+
+  if (incomeRequirement) {
+    return incomeRequirement.value_text
+      ? `${incomeRequirement.label_ru}: ${incomeRequirement.value_text}`
+      : incomeRequirement.label_ru;
+  }
+
+  const first = program.requirements[0];
+  if (first) {
+    return first.value_text ? `${first.label_ru}: ${first.value_text}` : first.label_ru;
+  }
+
+  return "Сверить eligibility и место подачи с официальным источником.";
+}
+
+function formatVerifiedChip(program: ProgramDetail): string | null {
+  const modified = verifiedDateToLastModified(programLastModified(program));
+  if (!modified) return null;
+  return modified.toLocaleDateString("ru-RU", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+}
+
 const PASSPORT_CARD_STYLES: Record<ProgramDetail["passportEligibility"][number]["status"], string> = {
   eligible: "border-emerald-200 bg-emerald-50 text-emerald-950",
   partial: "border-amber-200 bg-amber-50 text-amber-950",
@@ -145,6 +231,21 @@ export default async function CountryProgramPage({
   const documentRequirement = findRequirement(program, /документ|справк|договор|контракт|анкета|страхов/i);
   const fundsCost = findCost(program, /средств|баланс|депозит|доход|сбереж/i);
   const officialCost = program.costs.find((cost) => cost !== fundsCost);
+  const sortedPassports = sortPassportEligibility(program.passportEligibility);
+  const statusChip = softProgramStatus(program);
+  const barrier = mainBarrier(program, incomeRequirement);
+  const verifiedLabel = formatVerifiedChip(program);
+  const assistHref = buildAssistUrl({
+    country: topic.urlSegment,
+    program: program.title_ru,
+    source: `program_${program.slug}`,
+  });
+  const routeCheckHref = buildAssistUrl({
+    country: topic.urlSegment,
+    program: program.title_ru,
+    source: `program_${program.slug}`,
+    hash: "assist-form-route-check",
+  });
   const checklist = [
     "Проверить, где именно можно подать заявление с вашим паспортом.",
     incomeRequirement
@@ -174,7 +275,19 @@ export default async function CountryProgramPage({
         <CorridorBreadcrumb topic={topic} current={program.title_ru} />
 
         <HeroShell className="mt-5" visual={<CorridorHeroVisual segment={topic.urlSegment} />}>
-          <ProgramTypeBadge type={program.program_type} />
+          <div className="flex flex-wrap items-center gap-2">
+            <ProgramTypeBadge type={program.program_type} />
+            <span
+              className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wide ${statusChip.className}`}
+            >
+              {statusChip.label}
+            </span>
+            {verifiedLabel && (
+              <span className="inline-flex items-center rounded-full border border-white/30 bg-white/10 px-2.5 py-0.5 text-xs font-medium text-white">
+                Проверено: {verifiedLabel}
+              </span>
+            )}
+          </div>
           <h1 className="mt-4 max-w-3xl text-3xl font-bold sm:text-4xl lg:text-5xl">{program.title_ru}</h1>
           <p className="mt-4 max-w-2xl text-lg leading-relaxed text-corridor-100">{program.summary_ru}</p>
           <div className="mt-8 flex flex-wrap gap-3">
@@ -208,6 +321,10 @@ export default async function CountryProgramPage({
             <div>
               <p className="text-sm font-semibold uppercase tracking-wide text-corridor-700">Короткий ответ</p>
               <p className="mt-3 max-w-3xl text-xl font-medium leading-relaxed text-slate-900">{quickAnswer}</p>
+              <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-amber-950">
+                <p className="text-xs font-semibold uppercase tracking-wide text-amber-800">Главный барьер</p>
+                <p className="mt-1 text-sm font-medium leading-relaxed">{barrier}</p>
+              </div>
             </div>
             {topic.sitePaths.wizard && (
               <Link
@@ -241,6 +358,28 @@ export default async function CountryProgramPage({
             content={program.slug}
             className="mt-10"
           />
+        )}
+
+        {sortedPassports.length > 0 && (
+          <section className="mt-12">
+            <h2 className="text-2xl font-bold text-slate-900">Паспорт и место подачи</h2>
+            <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate-600">
+              Паспорт — первый фильтр. Дальше статус программы, eligibility и пороги. Статус ниже показывает не
+              только закон, но и операционный риск: консульство, VFS, запись и юрисдикция для RU/BY/UA/KZ.
+            </p>
+            <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              {sortedPassports.map((entry) => (
+                <article
+                  key={entry.id}
+                  className={`rounded-2xl border p-4 shadow-sm ${PASSPORT_CARD_STYLES[entry.status]}`}
+                >
+                  <p className="font-semibold">{passportLabel(entry.passport_iso2)}</p>
+                  <p className="mt-1 text-sm font-medium">{PASSPORT_STATUS_LABELS[entry.status] ?? entry.status}</p>
+                  <p className="mt-3 text-xs leading-relaxed opacity-85">{passportNote(entry)}</p>
+                </article>
+              ))}
+            </div>
+          </section>
         )}
 
         <section className="mt-10 grid gap-4 md:grid-cols-3">
@@ -294,28 +433,6 @@ export default async function CountryProgramPage({
             ))}
           </div>
         </section>
-
-        {program.passportEligibility.length > 0 && (
-          <section className="mt-12">
-            <h2 className="text-2xl font-bold text-slate-900">Паспорт и место подачи</h2>
-            <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate-600">
-              Статус показывает не только закон программы, но и операционный риск: консульство, VFS, запись и юрисдикция
-              могут отличаться для RU/BY/UA/KZ.
-            </p>
-            <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-              {program.passportEligibility.map((entry) => (
-                <article
-                  key={entry.id}
-                  className={`rounded-2xl border p-4 shadow-sm ${PASSPORT_CARD_STYLES[entry.status]}`}
-                >
-                  <p className="font-semibold">{passportLabel(entry.passport_iso2)}</p>
-                  <p className="mt-1 text-sm font-medium">{PASSPORT_STATUS_LABELS[entry.status] ?? entry.status}</p>
-                  <p className="mt-3 text-xs leading-relaxed opacity-85">{passportNote(entry)}</p>
-                </article>
-              ))}
-            </div>
-          </section>
-        )}
 
         <section className="mt-12 rounded-3xl border border-slate-200 bg-slate-950 p-6 text-white shadow-sm sm:p-8">
           <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
@@ -420,18 +537,42 @@ export default async function CountryProgramPage({
             <CalendarClock className="h-5 w-5 text-corridor-600" aria-hidden />
             Следующий шаг
           </h2>
+          <p className="mt-2 text-sm text-slate-600">
+            Сначала профиль в wizard. Если кейс неочевиден — Route Check (€129). Если маршрут ясен — бесплатный
+            подбор специалиста через Assist.
+          </p>
           <div className="mt-4 flex flex-wrap gap-3">
             {topic.sitePaths.wizard && (
               <Link
                 href={topic.sitePaths.wizard}
                 className="inline-flex rounded-lg bg-corridor-600 px-5 py-3 font-medium text-white hover:bg-corridor-700"
               >
-                Проверить подходит ли вам маршрут
+                Проверить мой профиль
               </Link>
             )}
+            <TrackedAssistLink
+              href={routeCheckHref}
+              placement="program_page_route_check"
+              linkLabel="Route Check — €129"
+              country={topic.urlSegment}
+              program={program.title_ru}
+              className="inline-flex rounded-lg border border-corridor-300 bg-white px-5 py-3 font-medium text-corridor-800 hover:bg-corridor-50"
+            >
+              Route Check — €129
+            </TrackedAssistLink>
+            <TrackedAssistLink
+              href={assistHref}
+              placement="program_page_assist"
+              linkLabel="Найти специалиста"
+              country={topic.urlSegment}
+              program={program.title_ru}
+              className="inline-flex rounded-lg border border-slate-300 bg-white px-5 py-3 font-medium text-slate-700 hover:border-corridor-400"
+            >
+              Найти специалиста
+            </TrackedAssistLink>
             <Link
               href={base}
-              className="inline-flex rounded-lg border border-corridor-200 bg-white px-5 py-3 font-medium text-slate-700 hover:border-corridor-400"
+              className="inline-flex rounded-lg border border-slate-200 bg-white px-5 py-3 font-medium text-slate-700 hover:border-corridor-400"
             >
               Коридор {topic.countryRu}
             </Link>
