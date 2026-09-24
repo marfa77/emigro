@@ -5,7 +5,10 @@ import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { DubaiOfferVerdictPromo } from "@/components/investment/DubaiOfferVerdictPromo";
 import {
   INVESTMENT_ROUTES,
+  capitalFateLabel,
+  expenseKindLabel,
   investmentAssetLabel,
+  liquidityLabel,
   outcomeLabel,
   qualifyInvestmentRoutes,
   routeKey,
@@ -50,6 +53,7 @@ export default function InvestmentResultsPage({
     passport?: string;
     country?: string;
     token?: string;
+    offer?: string;
   };
 }) {
   const budgetEur = Number(searchParams.budget);
@@ -80,6 +84,7 @@ export default function InvestmentResultsPage({
         showsDubaiOfferVerdict(route.country) &&
         (route.match === "likely" || route.match === "review")
     );
+  const wantsOfferCheck = searchParams.offer === "1" && isUaeLead;
 
   return (
     <>
@@ -162,6 +167,14 @@ export default function InvestmentResultsPage({
                         </div>
                         <p className="mt-3 text-sm leading-relaxed text-slate-700">{route.reason}</p>
                         <p className="mt-2 text-sm leading-relaxed text-slate-500">{route.caveat}</p>
+                        <p className="mt-2 text-xs leading-relaxed text-slate-500">
+                          Капитал: {capitalFateLabel(route.capitalFate)} · {expenseKindLabel(route.expenseKind)} ·{" "}
+                          {liquidityLabel(route.liquidity)}
+                        </p>
+                        <p className="mt-2 text-sm leading-snug text-corridor-900">
+                          <span className="font-semibold">Главный вопрос: </span>
+                          {route.decisionHook}
+                        </p>
                         <div className="mt-5 flex flex-wrap gap-x-5 gap-y-3 text-sm font-semibold">
                           <Link href={`/ru/invest/${route.country}#${routeKey(route)}`} className="inline-flex min-h-11 items-center gap-2 text-corridor-700 hover:underline">
                             Карточка маршрута <ArrowRight className="h-4 w-4" />
@@ -177,7 +190,8 @@ export default function InvestmentResultsPage({
               })}
             </section>
 
-            {results.some(
+            {wantsOfferCheck ||
+            results.some(
               (route) =>
                 showsDubaiOfferVerdict(route.country) &&
                 (route.match === "likely" || route.match === "review") &&

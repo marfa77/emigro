@@ -44,6 +44,16 @@ const ALLOWED_FIELDS = new Set([
   "funding_readiness",
   "property_stage",
   "source_of_funds",
+  "capital_goal",
+  "lockup_tolerance",
+  "donation_tolerance",
+  "sof_complexity",
+  "tax_residence",
+  "uae_property_type",
+  "uae_goal",
+  "uae_budget_band",
+  "uae_financing",
+  "uae_offer_received",
   "session_id",
   "referrer",
   "utm_source",
@@ -54,9 +64,28 @@ const ALLOWED_FIELDS = new Set([
 ]);
 const recent = new Map<string, number>();
 const THROTTLE_MS = 120_000;
-const CONSENT_VERSION = "investment-v2";
+const CONSENT_VERSION = "investment-v3";
 const PROPERTY_STAGES = new Set(["researching", "selected", "reserved", "owned"]);
-const FUND_SOURCES = new Set(["salary", "business", "asset_sale", "savings", "other"]);
+const FUND_SOURCES = new Set([
+  "salary",
+  "business",
+  "asset_sale",
+  "savings",
+  "investments",
+  "inheritance",
+  "mixed",
+  "other",
+]);
+const CAPITAL_GOALS = new Set(["preserve", "income", "status", "mix"]);
+const LOCKUP = new Set(["0_1y", "1_3y", "3_5y", "5_plus", "none"]);
+const DONATION = new Set(["yes", "no", "unsure"]);
+const SOF_COMPLEXITY = new Set(["simple", "standard", "complex"]);
+const TAX_RESIDENCE = new Set(["RU", "UAE", "EU", "other", "unsure"]);
+const UAE_PROPERTY_TYPES = new Set(["ready", "off_plan", "unsure"]);
+const UAE_GOALS = new Set(["golden", "property_2y", "invest_only", "living", "mix"]);
+const UAE_BUDGET = new Set(["under_1m", "1_2m", "2m_plus", "5m_plus"]);
+const UAE_FINANCING = new Set(["cash", "mortgage", "mixed", "unsure"]);
+const UAE_OFFER = new Set(["yes", "no"]);
 
 type InvestmentLeadBody = {
   name?: unknown;
@@ -71,6 +100,16 @@ type InvestmentLeadBody = {
   funding_readiness?: unknown;
   property_stage?: unknown;
   source_of_funds?: unknown;
+  capital_goal?: unknown;
+  lockup_tolerance?: unknown;
+  donation_tolerance?: unknown;
+  sof_complexity?: unknown;
+  tax_residence?: unknown;
+  uae_property_type?: unknown;
+  uae_goal?: unknown;
+  uae_budget_band?: unknown;
+  uae_financing?: unknown;
+  uae_offer_received?: unknown;
   session_id?: unknown;
   referrer?: unknown;
   utm_source?: unknown;
@@ -130,6 +169,10 @@ function formatOwnerMessage(input: {
   selectedProgram: string | null;
   providerId: string | null;
   message: string | null;
+  taxResidence?: string | null;
+  capitalGoal?: string | null;
+  sofComplexity?: string | null;
+  uaeOffer?: string | null;
 }) {
   return [
     "💼 Emigro — инвестиционная заявка",
@@ -144,7 +187,11 @@ function formatOwnerMessage(input: {
         : "Preferred: any",
     `Бюджет: €${input.budgetEur.toLocaleString("en-US")}`,
     `Актив: ${input.asset}`,
-    `Цель: ${input.outcome}`,
+    `Цель статуса: ${input.outcome}`,
+    input.capitalGoal ? `Цель капитала: ${input.capitalGoal}` : null,
+    input.taxResidence ? `Tax residence: ${input.taxResidence}` : null,
+    input.sofComplexity ? `SoF complexity: ${input.sofComplexity}` : null,
+    input.uaeOffer ? `UAE offer received: ${input.uaeOffer}` : null,
     input.selectedProgram ? `Программа: ${input.selectedProgram}` : null,
     input.providerId ? `Партнёр: ${input.providerId} (атрибуция 90 дней)` : null,
     "",
@@ -187,12 +234,29 @@ export async function POST(request: Request) {
   const outcome = body.outcome;
   const preferredCountry = strictString(body.preferred_country, 32);
 
+  const capitalGoal = strictString(body.capital_goal, 32);
+  const lockupTolerance = strictString(body.lockup_tolerance, 32);
+  const donationTolerance = strictString(body.donation_tolerance, 32);
+  const sofComplexity = strictString(body.sof_complexity, 32);
+  const taxResidence = strictString(body.tax_residence, 32);
+  const isUaePreferred = preferredCountry === "uae";
+  const uaePropertyType = isUaePreferred ? strictString(body.uae_property_type, 32) : null;
+  const uaeGoal = isUaePreferred ? strictString(body.uae_goal, 32) : null;
+  const uaeBudgetBand = isUaePreferred ? strictString(body.uae_budget_band, 32) : null;
+  const uaeFinancing = isUaePreferred ? strictString(body.uae_financing, 32) : null;
+  const uaeOfferReceived = isUaePreferred ? strictString(body.uae_offer_received, 8) : null;
+
   if (
     !name ||
     !contact ||
     !passportCitizenship ||
     !timeline ||
     !fundingReadiness ||
+    !capitalGoal ||
+    !lockupTolerance ||
+    !donationTolerance ||
+    !sofComplexity ||
+    !taxResidence ||
     typeof budgetEur !== "number" ||
     !Number.isSafeInteger(budgetEur) ||
     budgetEur < 10_000 ||
@@ -213,9 +277,26 @@ export async function POST(request: Request) {
       timeline
     ) ||
     !["ready", "partial", "planning"].includes(fundingReadiness) ||
+    !CAPITAL_GOALS.has(capitalGoal) ||
+    !LOCKUP.has(lockupTolerance) ||
+    !DONATION.has(donationTolerance) ||
+    !SOF_COMPLEXITY.has(sofComplexity) ||
+    !TAX_RESIDENCE.has(taxResidence) ||
     (asset === "property" &&
       (typeof body.property_stage !== "string" || !PROPERTY_STAGES.has(body.property_stage))) ||
-    (typeof body.source_of_funds === "string" && !FUND_SOURCES.has(body.source_of_funds))
+    typeof body.source_of_funds !== "string" ||
+    !FUND_SOURCES.has(body.source_of_funds) ||
+    (isUaePreferred &&
+      (!uaePropertyType ||
+        !UAE_PROPERTY_TYPES.has(uaePropertyType) ||
+        !uaeGoal ||
+        !UAE_GOALS.has(uaeGoal) ||
+        !uaeBudgetBand ||
+        !UAE_BUDGET.has(uaeBudgetBand) ||
+        !uaeFinancing ||
+        !UAE_FINANCING.has(uaeFinancing) ||
+        !uaeOfferReceived ||
+        !UAE_OFFER.has(uaeOfferReceived)))
   ) {
     return NextResponse.json({ error: "Invalid investment lead payload" }, { status: 400 });
   }
@@ -271,7 +352,7 @@ export async function POST(request: Request) {
   const sessionId = strictString(body.session_id, 128);
   const safeMatches = matches.map(safeMatch);
   const leadPacket = {
-    schema_version: 2,
+    schema_version: 3,
     budget_eur: budgetEur,
     passport_citizenship: passportCitizenship,
     passport_iso2: normalizeInvestmentPassport(passportCitizenship),
@@ -282,6 +363,21 @@ export async function POST(request: Request) {
     funding_readiness: fundingReadiness,
     property_stage: typeof body.property_stage === "string" ? body.property_stage : null,
     source_of_funds: typeof body.source_of_funds === "string" ? body.source_of_funds : null,
+    capital_goal: capitalGoal,
+    lockup_tolerance: lockupTolerance,
+    donation_tolerance: donationTolerance,
+    sof_complexity: sofComplexity,
+    tax_residence: taxResidence,
+    uae:
+      isUaePreferred
+        ? {
+            property_type: uaePropertyType,
+            goal: uaeGoal,
+            budget_band: uaeBudgetBand,
+            financing: uaeFinancing,
+            offer_received: uaeOfferReceived,
+          }
+        : null,
     preferred_country: preferredCountry,
     selected_match: safeMatch(selectedRoute),
     route_matches: safeMatches,
@@ -368,6 +464,10 @@ export async function POST(request: Request) {
     selectedProgram,
     providerId: null,
     message: null,
+    taxResidence,
+    capitalGoal,
+    sofComplexity,
+    uaeOffer: uaeOfferReceived,
   });
   const telegram = await sendOwnerTelegramDm(telegramText);
   if (!telegram.success) {

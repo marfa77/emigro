@@ -31,7 +31,7 @@ official_sources:
     label: España — extranjería
 estimated_minutes: 18
 date_published: 2026-07-01
-date_modified: 2026-09-19
+date_modified: 2026-09-24
 ---
 
 ## С чего начать: квартира больше не даёт ВНЖ
@@ -48,7 +48,7 @@ date_modified: 2026-09-19
 
 Если агент предлагает «Golden Visa через недвижимость в PT или ES» — это ошибка или обман. Жильё можно купить как личное решение, но оно **не заменяет** иммиграционную программу.
 
-Подобрать активный маршрут: [/ru/wizard](/ru/wizard) · сравнение инвестиционных коридоров: [/ru/invest](/ru/invest).
+Подобрать активный маршрут: [/ru/wizard](/ru/wizard) · инвестиционный shortlist: [/ru/invest](/ru/invest) · ОАЭ property workflow: [/ru/invest/uae](/ru/invest/uae).
 
 > **Nota Emigro (fact-check, сентябрь 2026).** **OK:** Португалия исключила недвижимость из ARI с **7 октября 2023** ([Lei n.º 56/2023](https://diariodarepublica.pt/dr/detalhe/lei/56-2023-218564275)). Испания отменила статьи 63–67 Ley 14/2013 через [Ley Orgánica 1/2025](https://www.boe.es/buscar/doc.php?id=BOE-A-2025-76); новые заявки с **3 апреля 2025** не принимают ([MIVAU](https://www.mivau.gob.es/el-ministerio/sala-de-prensa/noticias/mie-02042025-1739)). Пороги Италии €250k / €500k / €1M / €2M совпадают с [официальным порталом](https://investorvisa.mise.gov.it/index.php/en/). Гражданство PT для большинства вне EU/CPLP — **10 лет** с 19 мая 2026. **Fixed:** Investor Visa Италии **не** «да, с due diligence» для граждан РФ: портал прямо сообщает о **приостановке** для граждан России и Беларуси (14.07.2023) и для второго паспорта РФ/РБ (MAECI 20.03.2024). **Soft:** «7 дней в год» по ARI — ориентир продления, не универсальная цифра из вашего разрешения; сверяйте AIMA. Заявки ES, поданные **до** 3 апреля 2025, и уже выданные карты идут по переходным нормам, а не «закрыли всем сразу».
 
@@ -98,7 +98,8 @@ date_modified: 2026-09-19
 4. Въезд → регистрация в **AIMA** → карта резидента на **2 года**.
 5. Продление при **сохранении** инвестиции и минимального присутствия (~7 дней/год — ориентир, не обещание).
 
-Подробная карточка программы: [Португалия Golden Visa (ARI)](/ru/portugal/programs/portugal-golden-visa).
+Подробная карточка программы: [Португалия Golden Visa (ARI)](/ru/portugal/programs/portugal-golden-visa).  
+Transactional shortlist Emigro: [/ru/invest/portugal](/ru/invest/portugal).
 
 ### Почему PT ARI всё ещё выбирают
 
@@ -137,7 +138,7 @@ date_modified: 2026-09-19
 
 Поэтому фраза «стартап €250k реалистичнее гособлигаций для россиян» в 2026 году **не рабочая**. Пока приостановка не снята, считать Италию запасным Golden Visa для паспорта РФ нельзя.
 
-Карточка программы: [Италия Investor Visa](/ru/italy/programs/italy-investor-visa). Другие маршруты внутри Италии: [ВНЖ Италия 2026](/ru/guides/vnj-italiya-2026-elective-residency) и [digital nomad Италии](/ru/guides/vnj-italiya-2026-digital-nomad).
+Карточка программы: [Италия Investor Visa](/ru/italy/programs/italy-investor-visa). Shortlist Emigro: [/ru/invest/italy](/ru/invest/italy). Другие маршруты внутри Италии: [ВНЖ Италия 2026](/ru/guides/vnj-italiya-2026-elective-residency) и [digital nomad Италии](/ru/guides/vnj-italiya-2026-digital-nomad).
 
 ---
 
@@ -147,7 +148,7 @@ date_modified: 2026-09-19
 
 **Уже поданные до этой даты заявки** обычно досматривают по правилам на дату подачи. **Существующие держатели** могут **продлевать** карту при сохранении инвестиции — по переходным нормам Ley 14/2013. Передать «слот» родственнику или «купить готовый Golden Visa» легально нельзя.
 
-Карточка программы (статус «закрыто»): [Испания — ВНЖ через инвестиции](/ru/spain/programs/spain-residence-by-investment).
+Карточка программы (статус «закрыто»): [Испания — ВНЖ через инвестиции](/ru/spain/programs/spain-residence-by-investment) · [/ru/invest/spain](/ru/invest/spain).
 
 ### Куда смотреть вместо инвестиций в ES
 

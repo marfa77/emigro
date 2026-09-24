@@ -2,6 +2,10 @@ export type InvestmentAsset = "property" | "fund" | "business" | "bonds" | "dona
 export type InvestmentOutcome = "residence" | "permanent_residence" | "citizenship_path";
 export type InvestmentRouteStatus = "active" | "review_required" | "closed" | "comparison_only";
 export type InvestmentMatch = "likely" | "review" | "budget_gap" | "blocked" | "not_property" | "closed";
+/** What happens to the applicant's capital in the typical structure. */
+export type CapitalFate = "preserved" | "at_risk" | "partially_consumed" | "spent";
+export type ExpenseKind = "investment" | "non_refundable" | "combination";
+export type LiquidityBand = "liquid" | "locked" | "partially_liquid" | "illiquid";
 
 export type InvestmentRoute = {
   country: string;
@@ -27,6 +31,13 @@ export type InvestmentRoute = {
   providerId?: string;
   /** False for funds, bonds and other non-property routes. */
   propertyLinked: boolean;
+  /** Typical capital fate — migration UX, not an investment recommendation. */
+  capitalFate: CapitalFate;
+  /** How the spend is framed commercially. */
+  expenseKind: ExpenseKind;
+  liquidity: LiquidityBand;
+  /** Unique decision question for this route (anti-template). */
+  decisionHook: string;
   priority: number;
 };
 
@@ -50,6 +61,10 @@ export const INVESTMENT_ROUTES: readonly InvestmentRoute[] = [
     officialUrl: "https://www.immigration.go.th/?p=34090",
     providerId: "empyreal-estate-phuket",
     propertyLinked: true,
+    capitalFate: "at_risk",
+    expenseKind: "investment",
+    liquidity: "illiquid",
+    decisionHook: "Понимаете ли вы, что покупка объекта сама по себе не выдаёт визу по приказам Immigration?",
     priority: 100,
   },
   {
@@ -70,6 +85,10 @@ export const INVESTMENT_ROUTES: readonly InvestmentRoute[] = [
       "Недвижимость может быть частью тайской инвестиции, но сама по себе не заменяет USD 1m активов, страховку и endorsement BOI. Инвестиция должна уже быть на имя заявителя.",
     officialUrl: "https://ltr.boi.go.th/",
     propertyLinked: true,
+    capitalFate: "preserved",
+    expenseKind: "investment",
+    liquidity: "partially_liquid",
+    decisionHook: "Готовы ли вы подтвердить глобальные активы от USD 1m и инвестицию в Таиланде от USD 500k на своё имя?",
     priority: 99,
   },
   {
@@ -90,6 +109,10 @@ export const INVESTMENT_ROUTES: readonly InvestmentRoute[] = [
       "Сборы и пакеты меняются. Сверяйте thailandprivilege.co.th. Это не property→documents и не LTR.",
     officialUrl: "https://www.thailandprivilege.co.th/thailandprivilegecard",
     propertyLinked: false,
+    capitalFate: "spent",
+    expenseKind: "non_refundable",
+    liquidity: "illiquid",
+    decisionHook: "Готовы ли вы к невозвратному membership fee вместо инвестиционного актива?",
     priority: 98,
   },
   {
@@ -109,6 +132,10 @@ export const INVESTMENT_ROUTES: readonly InvestmentRoute[] = [
       "Порог ICP — AED 2 000 000 полной собственности на имя заявителя (или off-plan у одобренной локальной компании). Оценка и процедура — ICP / DLD; ask брокера сам по себе не равен eligibility. Mortgage/NOC — сверяйте актуальный чеклист DLD Cube.",
     officialUrl: "https://icp.gov.ae/en/services/uae-golden-residency/",
     propertyLinked: true,
+    capitalFate: "preserved",
+    expenseKind: "investment",
+    liquidity: "illiquid",
+    decisionHook: "Нужна ли вам недвижимость как часть relocation + статуса — или только виза без привязки к объекту?",
     priority: 95,
   },
   {
@@ -129,6 +156,10 @@ export const INVESTMENT_ROUTES: readonly InvestmentRoute[] = [
     officialUrl: "https://migration.gov.gr/en/golden-visa/",
     restrictedPassports: ["RU", "BY"],
     propertyLinked: true,
+    capitalFate: "preserved",
+    expenseKind: "investment",
+    liquidity: "illiquid",
+    decisionHook: "Вам нужна именно недвижимость — и подходит ли ваш паспорт (RU/BY сейчас ограничены)?",
     priority: 90,
   },
   {
@@ -148,6 +179,10 @@ export const INVESTMENT_ROUTES: readonly InvestmentRoute[] = [
     caveat: "Покупка недвижимости больше не является самостоятельным основанием ARI.",
     officialUrl: "https://aima.gov.pt/pt/viver/autorizacao-de-residencia-para-investimento-art-90-o-a",
     propertyLinked: false,
+    capitalFate: "preserved",
+    expenseKind: "investment",
+    liquidity: "locked",
+    decisionHook: "Готовы ли вы держать qualifying fund (недвижимость больше не основание ARI)?",
     priority: 85,
   },
   {
@@ -167,6 +202,10 @@ export const INVESTMENT_ROUTES: readonly InvestmentRoute[] = [
     caveat: "Фонд и посредник должны соответствовать венгерским требованиям; обычный ETF не подходит автоматически.",
     officialUrl: "https://oif.gov.hu/factsheets/residence-permit-for-guest-investor",
     propertyLinked: false,
+    capitalFate: "partially_consumed",
+    expenseKind: "combination",
+    liquidity: "locked",
+    decisionHook: "Готовы ли вы к qualifying fund или к donation — а не к покупке квартиры?",
     priority: 80,
   },
   {
@@ -187,6 +226,10 @@ export const INVESTMENT_ROUTES: readonly InvestmentRoute[] = [
     officialUrl: "https://residencymalta.gov.mt/legal-framework-mprp-2/",
     restrictedPassports: ["RU", "BY"],
     propertyLinked: true,
+    capitalFate: "partially_consumed",
+    expenseKind: "combination",
+    liquidity: "illiquid",
+    decisionHook: "Готовы ли вы к комбинированному cost structure (property + contribution + donation) и проверке паспорта?",
     priority: 75,
   },
   {
@@ -208,6 +251,10 @@ export const INVESTMENT_ROUTES: readonly InvestmentRoute[] = [
     officialUrl: "https://investorvisa.mise.gov.it/index.php/en/",
     restrictedPassports: ["RU", "BY"],
     propertyLinked: false,
+    capitalFate: "at_risk",
+    expenseKind: "investment",
+    liquidity: "locked",
+    decisionHook: "Готовы ли вы инвестировать в итальянский business/startup — и подходит ли паспорт (RU/BY ограничены)?",
     priority: 70,
   },
   {
@@ -226,6 +273,10 @@ export const INVESTMENT_ROUTES: readonly InvestmentRoute[] = [
       "Ley Orgánica 1/2025 оставила без содержания статьи 63–67 Ley 14/2013. Недвижимость, фонды и депозиты больше не открывают новый инвесторский ВНЖ.",
     officialUrl: "https://www.boe.es/eli/es/lo/2025/01/02/1",
     propertyLinked: true,
+    capitalFate: "spent",
+    expenseKind: "investment",
+    liquidity: "illiquid",
+    decisionHook: "Программа закрыта для новых заявок — это архив для сравнения, не маршрут к подаче.",
     priority: 40,
   },
 ] as const;
@@ -335,6 +386,32 @@ export function outcomeLabel(outcome: InvestmentOutcome): string {
     permanent_residence: "ПМЖ",
     citizenship_path: "ВНЖ с паспортным горизонтом",
   }[outcome];
+}
+
+export function capitalFateLabel(fate: CapitalFate): string {
+  return {
+    preserved: "Капитал в активе (сохранён)",
+    at_risk: "Капитал под риском проекта",
+    partially_consumed: "Часть капитала потребляется",
+    spent: "Капитал расходуется / fee",
+  }[fate];
+}
+
+export function expenseKindLabel(kind: ExpenseKind): string {
+  return {
+    investment: "Инвестиция",
+    non_refundable: "Невозвратный взнос",
+    combination: "Комбинация",
+  }[kind];
+}
+
+export function liquidityLabel(band: LiquidityBand): string {
+  return {
+    liquid: "Ликвидный",
+    locked: "Заблокирован на срок программы",
+    partially_liquid: "Частично ликвиден",
+    illiquid: "Низкая ликвидность",
+  }[band];
 }
 
 const PASSPORT_ALIASES: Record<string, string> = {

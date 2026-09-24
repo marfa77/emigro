@@ -9,9 +9,12 @@ import { InvestmentQualifier } from "@/components/investment/InvestmentQualifier
 import { UaePropertyLeadCta } from "@/components/investment/UaePropertyLeadCta";
 import {
   INVESTMENT_PROGRAM_NOTES,
+  capitalFateLabel,
+  expenseKindLabel,
   investmentAssetLabel,
   investmentCountryRoutes,
   hasRuByPassportRestriction,
+  liquidityLabel,
   outcomeLabel,
   passportRestrictionLabel,
   routeKey,
@@ -154,10 +157,18 @@ export default function InvestmentCountryPage({ params }: { params: { country: s
               </p>
             ) : null}
             <p className="mt-3 text-sm leading-relaxed text-slate-700">{item.summary}</p>
+            <p className="mt-3 rounded-xl border border-corridor-100 bg-corridor-50 px-3 py-2 text-sm leading-snug text-corridor-950">
+              <span className="font-semibold">Главный вопрос: </span>
+              {item.decisionHook}
+            </p>
             <p className={`mt-3 text-sm ${ruByBlocked ? "text-slate-500" : "text-slate-500"}`}>
               {ruByBlocked ? "Ориентир программы (не доступность для RU/BY): " : "Скрининг от "}
               €{item.screeningFloorEur.toLocaleString("ru-RU")} · {item.assets.map(investmentAssetLabel).join(", ")} ·{" "}
               {outcomeLabel(item.outcome)}
+            </p>
+            <p className="mt-2 text-sm text-slate-600">
+              Капитал: {capitalFateLabel(item.capitalFate)} · {expenseKindLabel(item.expenseKind)} ·{" "}
+              {liquidityLabel(item.liquidity)}
             </p>
             <p className="mt-3 text-sm leading-relaxed text-amber-900">{item.caveat}</p>
             <div className="mt-4 flex flex-wrap gap-4 text-sm font-semibold">

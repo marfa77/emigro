@@ -5,7 +5,10 @@ import { InvestmentRouteLink, InvestmentViewTracker } from "@/components/investm
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import {
   INVESTMENT_ROUTES,
+  capitalFateLabel,
+  expenseKindLabel,
   investmentAssetLabel,
+  liquidityLabel,
   outcomeLabel,
   hasRuByPassportRestriction,
   passportRestrictionLabel,
@@ -52,8 +55,9 @@ export default function InvestmentHubPage() {
               Инвестиционная миграция: сначала профиль, потом программа
             </h1>
             <p className="mt-5 max-w-3xl text-lg leading-relaxed text-slate-200">
-              Сопоставьте бюджет, тип актива, желаемый статус, сроки и семью. Emigro покажет маршруты для
-              предметной проверки и поможет подготовить структурированный запрос профильному партнёру.
+              У вас есть капитал — сначала определим тип маршрута (сохранение / статус / структура расхода), паспорт и
+              SoF. Emigro покажет shortlist для проверки, а не «7 Golden Visa на выбор». Доходность активов мы не
+              оцениваем.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a href="#qualifier" className="inline-flex min-h-12 items-center gap-2 rounded-xl bg-white px-5 py-3 font-semibold text-slate-950 hover:bg-corridor-50">
@@ -158,7 +162,18 @@ export default function InvestmentHubPage() {
                       <dt className="text-slate-500">Ориентир статуса</dt>
                       <dd className="mt-1 font-semibold text-slate-900">{outcomeLabel(route.outcome)}</dd>
                     </div>
+                    <div className="col-span-2">
+                      <dt className="text-slate-500">Структура капитала</dt>
+                      <dd className="mt-1 text-sm font-medium text-slate-800">
+                        {capitalFateLabel(route.capitalFate)} · {expenseKindLabel(route.expenseKind)} ·{" "}
+                        {liquidityLabel(route.liquidity)}
+                      </dd>
+                    </div>
                   </dl>
+                  <p className="mt-3 text-sm leading-snug text-corridor-900">
+                    <span className="font-semibold">Главный вопрос: </span>
+                    {route.decisionHook}
+                  </p>
                   <p className="mt-4 text-xs leading-relaxed text-slate-500">
                     Актив: {route.assets.map(investmentAssetLabel).join(" · ")}
                   </p>
