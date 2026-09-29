@@ -22,7 +22,7 @@ Gold refs: [Google AI features](https://developers.google.com/search/docs/fundam
 - [ ] Description **~145–160** (hard fail **>170** or generic “гайд по ВНЖ в Европе”).
 - [ ] Meta **matches body** (no closed ES GV, no IT Investor for RU, no PT 5y passport as default, no paušal “6–12%”).
 - [ ] Canonical + OG + Twitter; `robots` index on money URLs; `noindex` only on results/admin/thin tags (`<8` notes).
-- [ ] `dateModified` on every fact-check; hero “Актуально на …”.
+- [ ] `dateModified` on every fact-check; hero “Гайд обновлён …” (article date). Per-fact “Проверено” dates live in the corridor data block / source rows — do not present the article date as verification of every threshold.
 - [ ] Internal cluster: pillar ↔ first-30 ↔ corridor ↔ satellite. No partial comparison if a canonical exists (`GUIDE_CANNIBALIZATION.md`).
 - [ ] After deploy: IndexNow + GSC/Yandex recrawl of changed money URLs (`docs/YANDEX_SEO.md`).
 

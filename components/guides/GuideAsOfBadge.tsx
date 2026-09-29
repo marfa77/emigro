@@ -34,7 +34,7 @@ export function GuideAsOfBadge({ dateIso, variant = "banner", className = "" }: 
   return (
     <div className={`${wrap} ${className}`.trim()}>
       <CalendarDays className="h-4 w-4 flex-none opacity-80" aria-hidden />
-      <span className={labelClass}>Актуально на</span>
+      <span className={labelClass}>{variant === "compact" ? "Обновлён" : "Гайд обновлён"}</span>
       <time dateTime={dateIso} className={dateClass}>
         {dateRu}
       </time>

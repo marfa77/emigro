@@ -30,9 +30,9 @@ const CORRIDOR_PROGRAM_SLUGS: Record<string, readonly string[]> = {
 };
 
 const PASSPORT_STATUS_RU: Record<string, string> = {
-  eligible: "подача доступна",
-  partial: "зависит от консульства",
-  ineligible: "недоступен",
+  eligible: "право есть; подача — по юрисдикции консульства",
+  partial: "ограничения; зависит от консульства",
+  ineligible: "маршрут закрыт",
 };
 
 export type GuideLiveProgramRow = {

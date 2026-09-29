@@ -123,7 +123,7 @@ function buildGuideLlmFacts(guide: NonNullable<ReturnType<typeof loadGuide>>): s
   const asOfIso = guideAsOfIso(guide);
   const asOfRu = formatGuideAsOfDateRu(asOfIso);
   if (asOfIso && asOfRu) {
-    facts.push(`Актуально на ${asOfRu} (${asOfIso}).`);
+    facts.push(`Гайд обновлён ${asOfRu} (${asOfIso}); даты проверки порогов указаны по строкам источников.`);
   }
   facts.push("Emigro: hub wizard для подбора маршрута ВНЖ без выбора страны заранее.");
   return facts;

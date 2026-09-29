@@ -461,7 +461,7 @@ export const EUROPE_CORRIDORS: CorridorSeed[] = [
           ],
         },
         requirements: [
-          { type: "income", labelEn: "Minimum gross salary", labelRu: "Минимальная брутто-зарплата", value: "€39,582/year (2026 PACE salarié qualifié threshold)" },
+          { type: "income", labelEn: "Minimum gross salary", labelRu: "Минимальная брутто-зарплата", value: "€39 582/год брутто (salarié qualifié, 2026)" },
           { type: "documents", labelEn: "Employment contract", labelRu: "Трудовой договор", value: "CDI or qualifying CDD with French employer" },
           { type: "insurance", labelEn: "Health coverage", labelRu: "Медицинское покрытие", value: "French social security enrollment after arrival" },
         ],
@@ -476,8 +476,8 @@ export const EUROPE_CORRIDORS: CorridorSeed[] = [
         ],
         sources: [
           {
-            url: "https://www.service-public.fr/particuliers/vosdroits/F16926",
-            excerpt: "Carte de séjour pluriannuelle — salarié qualifié: minimum gross salary set annually (€39,582 in 2026).",
+            url: "https://www.service-public.fr/particuliers/vosdroits/F16922",
+            excerpt: "Avoir un contrat de travail qui prévoit une rémunération brute annuelle supérieure ou égale à 39 582 €. (Carte bleue européenne: 59 373,00 € brut annuel.)",
             labelEn: "Service-Public — salarié qualifié",
             labelRu: "Service-Public — salarié qualifié",
           },
@@ -812,7 +812,7 @@ export const EUROPE_CORRIDORS: CorridorSeed[] = [
           ],
         },
         requirements: [
-          { type: "income", labelEn: "Minimum gross salary", labelRu: "Минимальная брутто-зарплата", value: "€45,934/year (2026 — shortage occupations / new graduates threshold)" },
+          { type: "income", labelEn: "Minimum gross salary", labelRu: "Минимальная брутто-зарплата", value: "€50 700/год (общий порог 2026); €45 934,20/год — дефицитные профессии (IT, инженерия, медицина и др.), выпускники (<3 лет) и IT-специалисты без диплома (3+ года опыта за 7 лет); для сниженного порога нужно согласие BA" },
           { type: "documents", labelEn: "University degree", labelRu: "Диплом вуза", value: "Recognised degree or comparable qualification" },
           { type: "documents", labelEn: "Employment contract", labelRu: "Трудовой договор", value: "Binding job offer with German employer" },
         ],
@@ -827,10 +827,10 @@ export const EUROPE_CORRIDORS: CorridorSeed[] = [
         ],
         sources: [
           {
-            url: "https://www.make-it-in-germany.com/en/visa-residence/types/eu-blue-card",
-            excerpt: "EU Blue Card 2026 — minimum gross salary €45,934 for shortage occupations and new graduates.",
-            labelEn: "Make it in Germany — Blue Card",
-            labelRu: "Make it in Germany — Blue Card",
+            url: "https://www.arbeitsagentur.de/vor-ort/zav/working-and-living-in-germany/newsletter-iss/03-2026/blaue-karte",
+            excerpt: "Mindestbruttojahresgehalt 2026: 50.700 Euro („große“ Blaue Karte). Mangelberufe und Berufseinsteigende: 45.934,20 Euro, Zustimmung der BA erforderlich. (BMI Bekanntmachung zu § 18g AufenthG, BAnz AT 18.12.2025 B3.)",
+            labelEn: "Bundesagentur für Arbeit — Blaue Karte EU 2026",
+            labelRu: "Bundesagentur für Arbeit — Blue Card 2026",
           },
         ],
       },
@@ -973,7 +973,7 @@ export const EUROPE_CORRIDORS: CorridorSeed[] = [
           ],
         },
         requirements: [
-          { type: "income", labelEn: "Minimum gross monthly salary", labelRu: "Минимальная брутто-зарплата", value: "€4,357/month gross (under 30, 2026 IND table — wizard default)" },
+          { type: "income", labelEn: "Minimum gross monthly salary", labelRu: "Минимальная брутто-зарплата", value: "HSM: €5 942/мес. брутто (30+); €4 357/мес. (до 30); сниженный €3 122/мес. (выпускники в течение 3 лет / orientation year). EU Blue Card NL — отдельный маршрут: €5 942; сниженный €4 754 (выпускники)" },
           { type: "documents", labelEn: "Recognised sponsor", labelRu: "Recognised sponsor", value: "Employer must be IND-registered sponsor" },
           { type: "insurance", labelEn: "Health insurance", labelRu: "Медстраховка", value: "Dutch basic health insurance after arrival" },
         ],
@@ -988,10 +988,10 @@ export const EUROPE_CORRIDORS: CorridorSeed[] = [
         ],
         sources: [
           {
-            url: "https://ind.nl/en/highly-skilled-migrant",
-            excerpt: "Highly skilled migrant — minimum gross monthly salary €4,357 (under 30, 2026 IND salary criteria).",
-            labelEn: "IND — highly skilled migrant",
-            labelRu: "IND — highly skilled migrant",
+            url: "https://ind.nl/en/required-amounts-income-requirements",
+            excerpt: "2026 gross monthly: highly skilled migrant 30+ €5,942; under 30 €4,357; reduced criterion €3,122; EU Blue Card €5,942; reduced EU Blue Card €4,754.",
+            labelEn: "IND — required amounts (income requirements)",
+            labelRu: "IND — требуемые суммы дохода",
           },
         ],
       },
@@ -1135,7 +1135,7 @@ export const EUROPE_CORRIDORS: CorridorSeed[] = [
           ],
         },
         requirements: [
-          { type: "income", labelEn: "Minimum monthly salary", labelRu: "Минимальная месячная зарплата", value: "SEK 34,470/month (~€3,050) — 90% of SCB median from 1 Jun 2026; renewals of pre-reform permits until 1 Dec 2026 may use 80% (SEK 30,640)" },
+          { type: "income", labelEn: "Minimum monthly salary", labelRu: "Минимальная месячная зарплата", value: "SEK 34 470/мес. (90% медианы SCB) — для заявлений с 16.06.2026; правило 90% действует для решений с 01.06.2026. Продления разрешений по старым правилам, поданные 01.06–01.12.2026, — по прежнему требованию содержания (maintenance requirement)" },
           { type: "documents", labelEn: "Employment terms", labelRu: "Условия трудоустройства", value: "Insurance, pension, and collective agreement compliance" },
           { type: "insurance", labelEn: "Health coverage", labelRu: "Медпокрытие", value: "Employer occupational insurance; comprehensive health insurance mandatory if cumulative legal stay <12 months (from 1 Jun 2026)" },
         ],
@@ -1157,7 +1157,7 @@ export const EUROPE_CORRIDORS: CorridorSeed[] = [
           },
           {
             url: "https://www.migrationsverket.se/en/word-explanations/salary-requirements-for-a-work-permit.html",
-            excerpt: "Salary requirements — 90% median from 1 Jun 2026; transitional 80% for pre-reform renewals until 1 Dec 2026.",
+            excerpt: "Salary must be at least 90% of the median salary (SEK 34,470 for applications received from 16 June 2026). Extensions of permits granted under the old rules, applied for 1 June–1 December 2026, must meet the previous maintenance requirement.",
             labelEn: "Migrationsverket — salary requirements",
             labelRu: "Migrationsverket — salary requirements",
           },
@@ -1207,7 +1207,7 @@ export const EUROPE_CORRIDORS: CorridorSeed[] = [
           ],
         },
         requirements: [
-          { type: "income", labelEn: "Blue Card salary", labelRu: "Зарплата Blue Card", value: "Orient SEK 53,625/month (~€4,750) — verify current Migrationsverket Blue Card threshold" },
+          { type: "income", labelEn: "Blue Card salary", labelRu: "Зарплата Blue Card", value: "SEK 53 625/мес. брутто (1,25 × средняя зарплата, Medlingsinstitutet) — с 15.07.2026; контракт от 6 мес." },
           { type: "documents", labelEn: "Higher education / qualification", labelRu: "Высшее образование / квалификация", value: "Recognised degree or equivalent high qualification for the role" },
           { type: "documents", labelEn: "Swedish job offer", labelRu: "Оффер в Швеции", value: "Binding employment meeting Blue Card criteria" },
         ],
@@ -1222,7 +1222,7 @@ export const EUROPE_CORRIDORS: CorridorSeed[] = [
         sources: [
           {
             url: "https://www.migrationsverket.se/en/you-want-to-apply/work/employee-or-self-employed/eu-blue-cards.html",
-            excerpt: "EU Blue Card Sweden — salary and qualification requirements (verify current SEK threshold).",
+            excerpt: "The salary threshold corresponds to 1.25 times the average gross salary in Sweden published by the National Mediation Office. Since 15 July 2026, the salary threshold is SEK 53,625 per month.",
             labelEn: "Migrationsverket — EU Blue Card",
             labelRu: "Migrationsverket — EU Blue Card",
           },
