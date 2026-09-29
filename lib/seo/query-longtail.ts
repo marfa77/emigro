@@ -330,11 +330,12 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "paysera россияне внж",
       "19 пакет санкций wise карта",
       "n26 для россиян с внж",
-      "activo bank португалия россияне",
+      "виза d wise revolut россиянам",
+      "article 5b санкции платёжные услуги россияне",
     ],
-    seoTitle: "Банк и IBAN для россиян в ЕС 2026 — после 19 пакета",
+    seoTitle: "Банк и IBAN в ЕС для россиян 2026: виза D, ВНЖ",
     seoDescription:
-      "После 19-го пакета Wise/Revolut/Paysera требуют ВНЖ или гражданство EEA/CH. Дерево по статусу, карта ≠ счёт, ActivoBank практика.",
+      "Санкции ЕС ≠ запрет на все банки: что запрещает Article 5b, кому помогает ВНЖ или виза D, карта ≠ счёт у Wise, Revolut, Paysera и когда нужен местный банк.",
   },
   {
     path: "/ru/guides/prodlenie-vnzh-portugaliya-aima-2026",

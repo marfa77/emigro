@@ -8,18 +8,23 @@ type Props = {
   stories: StoryFrontmatter[];
   totalCount: number;
   guideSlug: string;
+  anecdotal?: boolean;
   className?: string;
 };
 
-export function GuideRelatedStories({ stories, totalCount, guideSlug, className = "" }: Props) {
+export function GuideRelatedStories({ stories, totalCount, guideSlug, anecdotal = false, className = "" }: Props) {
   if (stories.length === 0) return null;
 
   return (
     <section className={`rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm ring-1 ring-slate-950/5 sm:p-8 ${className}`}>
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h2 className="text-2xl font-bold text-slate-950">Реальные истории читателей</h2>
-          <p className="mt-1 text-sm text-slate-600">Личный опыт рядом с этим гайдом — не замена официальным правилам.</p>
+          <h2 className="text-2xl font-bold text-slate-950">{anecdotal ? "Опыт читателей" : "Реальные истории читателей"}</h2>
+          <p className="mt-1 text-sm text-slate-600">
+            {anecdotal
+              ? "Отдельный личный опыт — не типичный результат и не источник права. Правила — в гайде и официальных источниках выше."
+              : "Личный опыт рядом с этим гайдом — не замена официальным правилам."}
+          </p>
         </div>
         {totalCount > stories.length ? (
           <Link
