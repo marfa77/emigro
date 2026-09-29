@@ -529,9 +529,9 @@ export const EUROPE_CORRIDORS: CorridorSeed[] = [
             labelRu: "France-Visas visiteur",
           },
           {
-            url: "https://www.info.gouv.fr/actualite/le-smic-revalorise-le-1er-juin-2026",
-            excerpt: "SMIC from 01.06.2026: €12.31/h, €1,867.02/month (€22,404/year).",
-            labelEn: "info.gouv.fr SMIC",
+            url: "https://www.service-public.fr/particuliers/vosdroits/F2300",
+            excerpt: "SMIC from 01.06.2026 (arrêté 22.05.2026): €12.31/h gross, €1,867.02/month gross, €22,404.20/year gross.",
+            labelEn: "Service-Public — SMIC",
             labelRu: "info.gouv.fr SMIC",
           },
         ],
@@ -849,7 +849,7 @@ export const EUROPE_CORRIDORS: CorridorSeed[] = [
           ],
         },
         requirements: [
-          { type: "savings", labelEn: "Proof of funds", labelRu: "Подтверждение средств", value: "€13,092 (12 months at standard rate, 2026)" },
+          { type: "savings", labelEn: "Proof of funds", labelRu: "Подтверждение средств", value: "€13,092 (€1,091/month net × 12 months, 2026)" },
           { type: "documents", labelEn: "Points eligibility", labelRu: "Балльная система", value: "Degree + language/experience to reach 6 points (verify current BMAS table)" },
           { type: "documents", labelEn: "No employment yet", labelRu: "Без работы на старте", value: "Job search permitted; employment converts to work permit" },
         ],
@@ -865,7 +865,7 @@ export const EUROPE_CORRIDORS: CorridorSeed[] = [
         sources: [
           {
             url: "https://www.make-it-in-germany.com/en/visa-residence/chancenkarte",
-            excerpt: "Opportunity Card — proof of funds €13,092 for 12 months; points-based eligibility.",
+            excerpt: "Opportunity Card — proof of funds at least €1,091/month (2026), i.e. €13,092 for 12 months (blocked account or Verpflichtungserklärung); points-based eligibility.",
             labelEn: "Make it in Germany — Chancenkarte",
             labelRu: "Make it in Germany — Chancenkarte",
           },
