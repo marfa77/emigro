@@ -1,0 +1,11 @@
+[Unit]
+Description=Notify owner: Emigro Invest Threads unit failed
+After=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/emigro
+User=www-data
+EnvironmentFile=-/opt/emigro/.env
+# Include journal tail so DM is actionable (not just "see journalctl").
+ExecStart=/bin/bash -c 'set -euo pipefail; cd /opt/emigro; TAIL=$(journalctl -u emigro-threads-investment.service -n 25 --no-pager -o cat 2>/dev/null | tail -c 2800 || true); npx tsx scripts/threads-cron-notify.ts --stream=investment --error="systemd OnFailure emigro-threads-investment.service"$'"'"'\n'"'"'"$TAIL"'

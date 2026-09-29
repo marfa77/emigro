@@ -15,7 +15,7 @@ import { normalizeThreadsUsername } from "@/lib/threads/config";
 export const THREADS_PT_SAT_USERNAME = "emigro_portugal";
 export const THREADS_PT_SAT_CAMPAIGN = "emigro_pt_satellite";
 export const THREADS_PT_SAT_LINK_STRIDE = 7;
-export const THREADS_PT_SAT_WEEKDAYS = [0, 2, 4] as const;
+export const THREADS_PT_SAT_WEEKDAYS = [0, 1, 2, 3, 4, 5, 6] as const;
 
 export const THREADS_PT_SAT_STATE_PATH = resolve(
   process.cwd(),
@@ -64,7 +64,11 @@ export function assertPortugalSatelliteAccountIsolated(me?: {
   const got = normalizeThreadsUsername(me?.username);
   const want = expectedPortugalSatelliteUsername();
   const assist = normalizeThreadsUsername(
-    process.env.THREADS_USERNAME || process.env.THREADS_BRAND_USERNAME || "emigro_assist"
+    // Do not read THREADS_USERNAME — the publisher stomps it to the satellite handle
+    // before whoami, which falsely trips "refusing to publish as @emigro_portugal".
+    process.env.THREADS_BRAND_USERNAME ||
+      process.env.THREADS_ASSIST_USERNAME ||
+      "emigro_assist"
   );
   const invest = normalizeThreadsUsername(
     process.env.THREADS_INVESTMENT_USERNAME || "emigro_invest"

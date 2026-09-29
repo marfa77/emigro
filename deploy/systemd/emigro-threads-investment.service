@@ -2,19 +2,18 @@
 Description=Emigro Invest Threads — isolated dated publisher (@emigro_invest)
 After=network-online.target
 Wants=network-online.target
+# Any unit failure (including old ExecStartPre traps) → owner DM. No silent FAIL.
+OnFailure=emigro-threads-investment-notify.service
 
 [Service]
 Type=oneshot
 TimeoutStartSec=8min
 WorkingDirectory=/opt/emigro
-PermissionsStartOnly=true
-ExecStartPre=/bin/mkdir -p /opt/emigro/deploy/threads-investment/logs /opt/emigro/parser/out
-ExecStartPre=/bin/chown -R www-data:www-data /opt/emigro/deploy/threads-investment /opt/emigro/parser/out
+# No chown here — farm-lock marks run_scheduled.sh immutable; chown -R used to
+# kill the unit before the publisher ran, with zero Telegram alert.
 ExecStart=/bin/bash /opt/emigro/deploy/threads-investment/run_scheduled.sh
 User=www-data
 EnvironmentFile=-/opt/emigro/.env
-StandardOutput=append:/opt/emigro/deploy/threads-investment/logs/scheduled.log
-StandardError=append:/opt/emigro/deploy/threads-investment/logs/scheduled.log
 
 [Install]
 WantedBy=multi-user.target

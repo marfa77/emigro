@@ -29,17 +29,22 @@ assert.deepEqual(
   ["root"]
 );
 
-assert.equal(
-  planInvestmentPost({
-    today: "2026-09-28",
-    phase: "seed",
-    state: { posts: {} },
-  }).skip,
-  "phase_traffic_locked"
-);
+// Daily cadence from 2026-09-26: traffic/lead rows exist every day; seed phase still locks them.
+const locked = planInvestmentPost({
+  today: "2026-09-26",
+  phase: "seed",
+  state: { posts: {} },
+});
+assert.equal(locked.skip, "phase_traffic_locked");
+assert.equal(locked.row, undefined);
+
+const byId = Object.fromEntries(rows.map((row) => [row.id, row]));
+assert.equal(byId["invest-004"]?.publishOn, "2026-09-26");
+assert.equal(byId["invest-006"]?.publishOn, "2026-09-28");
+assert.equal(byId["invest-009"]?.publishOn, "2026-10-01");
 
 const portugal = planInvestmentPost({
-  today: "2026-10-02",
+  today: byId["invest-006"]!.publishOn,
   phase: "traffic",
   state: { posts: {} },
 }).row;
@@ -51,7 +56,7 @@ assert.deepEqual(
 assert.match(investmentDestinationUrl(portugal!) || "", /utm_content=invest-006/);
 
 const thailand = planInvestmentPost({
-  today: "2026-10-06",
+  today: byId["invest-009"]!.publishOn,
   phase: "lead",
   state: { posts: {} },
 }).row;
@@ -68,6 +73,14 @@ assert.equal(
   }).skip,
   "already_published"
 );
+
+// Daily continuity for remaining bank (no gaps after seed catch-up start).
+const pending = rows.filter((row) => !["invest-001", "invest-002", "invest-003"].includes(row.id));
+for (let i = 1; i < pending.length; i += 1) {
+  const prev = Date.parse(pending[i - 1]!.publishOn);
+  const cur = Date.parse(pending[i]!.publishOn);
+  assert.equal(cur - prev, 86_400_000, `${pending[i]!.id} not daily after ${pending[i - 1]!.id}`);
+}
 
 const primaryInventory = readFileSync(
   new URL("../lib/threads/inventory.ts", import.meta.url),

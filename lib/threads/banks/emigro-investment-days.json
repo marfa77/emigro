@@ -37,7 +37,7 @@
   },
   {
     "id": "invest-004",
-    "publishOn": "2026-09-28",
+    "publishOn": "2026-09-26",
     "phase": "traffic",
     "publicationMode": "auto",
     "topicTag": "ОАЭ",
@@ -50,7 +50,7 @@
   },
   {
     "id": "invest-005",
-    "publishOn": "2026-09-30",
+    "publishOn": "2026-09-27",
     "phase": "traffic",
     "publicationMode": "auto",
     "topicTag": "Source of funds",
@@ -63,7 +63,7 @@
   },
   {
     "id": "invest-006",
-    "publishOn": "2026-10-02",
+    "publishOn": "2026-09-28",
     "phase": "traffic",
     "publicationMode": "auto",
     "topicTag": "Португалия",
@@ -77,7 +77,7 @@
   },
   {
     "id": "invest-007",
-    "publishOn": "2026-10-04",
+    "publishOn": "2026-09-29",
     "phase": "traffic",
     "publicationMode": "auto",
     "topicTag": "Семья инвестора",
@@ -90,7 +90,7 @@
   },
   {
     "id": "invest-008",
-    "publishOn": "2026-10-05",
+    "publishOn": "2026-09-30",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Греция",
@@ -104,7 +104,7 @@
   },
   {
     "id": "invest-009",
-    "publishOn": "2026-10-06",
+    "publishOn": "2026-10-01",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Таиланд",
@@ -118,7 +118,7 @@
   },
   {
     "id": "invest-010",
-    "publishOn": "2026-10-08",
+    "publishOn": "2026-10-02",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Венгрия",
@@ -131,13 +131,12 @@
   },
   {
     "id": "invest-011",
-    "publishOn": "2026-10-10",
+    "publishOn": "2026-10-03",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Мальта",
     "p1": "Malta MPRP — программа постоянной резиденции, а не покупка гражданства. Считать нужно не только недвижимость, но и весь пакет взносов, активов, семьи и eligibility.",
     "p2": "Отдельно проверяются паспортные ограничения: большой бюджет не отменяет правила допуска заявителя.",
-    "dest": "/ru/invest/malta",
     "reviewedAt": "2026-09-17",
     "sourceUrls": [
       "https://residencymalta.gov.mt/legal-framework-mprp-2/"
@@ -145,7 +144,7 @@
   },
   {
     "id": "invest-012",
-    "publishOn": "2026-10-11",
+    "publishOn": "2026-10-04",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Инвестиционный бюджет",
@@ -158,7 +157,7 @@
   },
   {
     "id": "invest-013",
-    "publishOn": "2026-10-13",
+    "publishOn": "2026-10-05",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Стратегия выхода",
@@ -172,7 +171,7 @@
   },
   {
     "id": "invest-014",
-    "publishOn": "2026-10-15",
+    "publishOn": "2026-10-06",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Проверка недвижимости",
@@ -185,7 +184,7 @@
   },
   {
     "id": "invest-015",
-    "publishOn": "2026-10-17",
+    "publishOn": "2026-10-07",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Подбор маршрута",
@@ -199,7 +198,7 @@
   },
   {
     "id": "invest-016",
-    "publishOn": "2026-10-19",
+    "publishOn": "2026-10-08",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Первичный скрининг",
@@ -211,7 +210,7 @@
   },
   {
     "id": "invest-017",
-    "publishOn": "2026-10-21",
+    "publishOn": "2026-10-09",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Ликвидность капитала",
@@ -223,12 +222,11 @@
   },
   {
     "id": "invest-018",
-    "publishOn": "2026-10-23",
+    "publishOn": "2026-10-10",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Португалия",
     "p1": "В португальском ARI сначала выбирают действующую категорию инвестиции, а уже потом проверяют актив и комплект подтверждений. Квартира сама по себе больше не создаёт это основание.",
-    "dest": "/ru/invest/portugal",
     "reviewedAt": "2026-09-19",
     "sourceUrls": [
       "https://aima.gov.pt/pt/viver/autorizacao-de-residencia-para-investimento-art-90-o-a"
@@ -236,7 +234,7 @@
   },
   {
     "id": "invest-019",
-    "publishOn": "2026-10-26",
+    "publishOn": "2026-10-11",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Переводы документов",
@@ -248,7 +246,7 @@
   },
   {
     "id": "invest-020",
-    "publishOn": "2026-10-28",
+    "publishOn": "2026-10-12",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Срок действия справок",
@@ -260,7 +258,7 @@
   },
   {
     "id": "invest-021",
-    "publishOn": "2026-10-30",
+    "publishOn": "2026-10-13",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Семейное досье",
@@ -272,7 +270,7 @@
   },
   {
     "id": "invest-022",
-    "publishOn": "2026-11-02",
+    "publishOn": "2026-10-14",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Греция",
@@ -285,7 +283,7 @@
   },
   {
     "id": "invest-023",
-    "publishOn": "2026-11-04",
+    "publishOn": "2026-10-15",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Доверенность",
@@ -297,7 +295,7 @@
   },
   {
     "id": "invest-024",
-    "publishOn": "2026-11-06",
+    "publishOn": "2026-10-16",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Цепочка платежа",
@@ -309,7 +307,7 @@
   },
   {
     "id": "invest-025",
-    "publishOn": "2026-11-09",
+    "publishOn": "2026-10-17",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Мальта",
@@ -322,7 +320,7 @@
   },
   {
     "id": "invest-026",
-    "publishOn": "2026-11-11",
+    "publishOn": "2026-10-18",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Совместная собственность",
@@ -334,7 +332,7 @@
   },
   {
     "id": "invest-027",
-    "publishOn": "2026-11-13",
+    "publishOn": "2026-10-19",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Наследство",
@@ -346,7 +344,7 @@
   },
   {
     "id": "invest-028",
-    "publishOn": "2026-11-16",
+    "publishOn": "2026-10-20",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Юрист и застройщик",
@@ -358,7 +356,7 @@
   },
   {
     "id": "invest-029",
-    "publishOn": "2026-11-18",
+    "publishOn": "2026-10-21",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Валютный контроль",
@@ -370,7 +368,7 @@
   },
   {
     "id": "invest-030",
-    "publishOn": "2026-11-20",
+    "publishOn": "2026-10-22",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Условия возврата",
@@ -382,7 +380,7 @@
   },
   {
     "id": "invest-031",
-    "publishOn": "2026-11-23",
+    "publishOn": "2026-10-23",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "ОАЭ",
@@ -394,7 +392,7 @@
   },
   {
     "id": "invest-032",
-    "publishOn": "2026-11-25",
+    "publishOn": "2026-10-24",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Оценка объекта",
@@ -406,7 +404,7 @@
   },
   {
     "id": "invest-033",
-    "publishOn": "2026-11-27",
+    "publishOn": "2026-10-25",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Обременения",
@@ -418,7 +416,7 @@
   },
   {
     "id": "invest-034",
-    "publishOn": "2026-11-30",
+    "publishOn": "2026-10-26",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Венгрия",
@@ -430,7 +428,7 @@
   },
   {
     "id": "invest-035",
-    "publishOn": "2026-12-02",
+    "publishOn": "2026-10-27",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Бенефициар",
@@ -442,7 +440,7 @@
   },
   {
     "id": "invest-036",
-    "publishOn": "2026-12-04",
+    "publishOn": "2026-10-28",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Налоговый статус",
@@ -454,7 +452,7 @@
   },
   {
     "id": "invest-037",
-    "publishOn": "2026-12-07",
+    "publishOn": "2026-10-29",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Проверка паспорта",
@@ -466,7 +464,7 @@
   },
   {
     "id": "invest-038",
-    "publishOn": "2026-12-09",
+    "publishOn": "2026-10-30",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Банковский комплаенс",
@@ -478,7 +476,7 @@
   },
   {
     "id": "invest-039",
-    "publishOn": "2026-12-11",
+    "publishOn": "2026-10-31",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Португалия",
@@ -491,7 +489,7 @@
   },
   {
     "id": "invest-040",
-    "publishOn": "2026-12-14",
+    "publishOn": "2026-11-01",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Смена фамилии",
@@ -503,7 +501,7 @@
   },
   {
     "id": "invest-041",
-    "publishOn": "2026-12-16",
+    "publishOn": "2026-11-02",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Несовершеннолетние",
@@ -515,7 +513,7 @@
   },
   {
     "id": "invest-042",
-    "publishOn": "2026-12-18",
+    "publishOn": "2026-11-03",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Взрослые дети",
@@ -527,7 +525,7 @@
   },
   {
     "id": "invest-043",
-    "publishOn": "2026-12-21",
+    "publishOn": "2026-11-04",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Родители заявителя",
@@ -539,7 +537,7 @@
   },
   {
     "id": "invest-044",
-    "publishOn": "2026-12-23",
+    "publishOn": "2026-11-05",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Справка о несудимости",
@@ -551,7 +549,7 @@
   },
   {
     "id": "invest-045",
-    "publishOn": "2026-12-25",
+    "publishOn": "2026-11-06",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Медицинские документы",
@@ -563,7 +561,7 @@
   },
   {
     "id": "invest-046",
-    "publishOn": "2026-12-28",
+    "publishOn": "2026-11-07",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Греция",
@@ -576,7 +574,7 @@
   },
   {
     "id": "invest-047",
-    "publishOn": "2026-12-30",
+    "publishOn": "2026-11-08",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Договор резерва",
@@ -588,7 +586,7 @@
   },
   {
     "id": "invest-048",
-    "publishOn": "2027-01-01",
+    "publishOn": "2026-11-09",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Кредитные средства",
@@ -600,7 +598,7 @@
   },
   {
     "id": "invest-049",
-    "publishOn": "2027-01-04",
+    "publishOn": "2026-11-10",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Срок владения",
@@ -612,7 +610,7 @@
   },
   {
     "id": "invest-050",
-    "publishOn": "2027-01-06",
+    "publishOn": "2026-11-11",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Продление статуса",
@@ -624,7 +622,7 @@
   },
   {
     "id": "invest-051",
-    "publishOn": "2027-01-08",
+    "publishOn": "2026-11-12",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Карта расходов",
@@ -636,7 +634,7 @@
   },
   {
     "id": "invest-052",
-    "publishOn": "2027-01-11",
+    "publishOn": "2026-11-13",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Мальта",
@@ -649,7 +647,7 @@
   },
   {
     "id": "invest-053",
-    "publishOn": "2027-01-13",
+    "publishOn": "2026-11-14",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Продажа бизнеса",
@@ -661,7 +659,7 @@
   },
   {
     "id": "invest-054",
-    "publishOn": "2027-01-15",
+    "publishOn": "2026-11-15",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Валютный риск",
@@ -673,7 +671,7 @@
   },
   {
     "id": "invest-055",
-    "publishOn": "2027-01-18",
+    "publishOn": "2026-11-16",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Займ инвестору",
@@ -685,7 +683,7 @@
   },
   {
     "id": "invest-056",
-    "publishOn": "2027-01-20",
+    "publishOn": "2026-11-17",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Дарение средств",
@@ -697,7 +695,7 @@
   },
   {
     "id": "invest-057",
-    "publishOn": "2027-01-22",
+    "publishOn": "2026-11-18",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Совпадение данных",
@@ -709,7 +707,7 @@
   },
   {
     "id": "invest-058",
-    "publishOn": "2027-01-25",
+    "publishOn": "2026-11-19",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Италия",
@@ -722,7 +720,7 @@
   },
   {
     "id": "invest-059",
-    "publishOn": "2027-01-27",
+    "publishOn": "2026-11-20",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Двойное гражданство",
@@ -734,7 +732,7 @@
   },
   {
     "id": "invest-060",
-    "publishOn": "2027-01-29",
+    "publishOn": "2026-11-21",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Санкционная проверка",
@@ -746,7 +744,7 @@
   },
   {
     "id": "invest-061",
-    "publishOn": "2027-02-01",
+    "publishOn": "2026-11-22",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "История адресов",
@@ -758,7 +756,7 @@
   },
   {
     "id": "invest-062",
-    "publishOn": "2027-02-03",
+    "publishOn": "2026-11-23",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Регистрация брака",
@@ -770,7 +768,7 @@
   },
   {
     "id": "invest-063",
-    "publishOn": "2027-02-05",
+    "publishOn": "2026-11-24",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Согласие супруга",
@@ -782,7 +780,7 @@
   },
   {
     "id": "invest-064",
-    "publishOn": "2027-02-08",
+    "publishOn": "2026-11-25",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Португалия",
@@ -795,7 +793,7 @@
   },
   {
     "id": "invest-065",
-    "publishOn": "2027-02-10",
+    "publishOn": "2026-11-26",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Фондовая подписка",
@@ -807,7 +805,7 @@
   },
   {
     "id": "invest-066",
-    "publishOn": "2027-02-12",
+    "publishOn": "2026-11-27",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Комиссии фонда",
@@ -819,7 +817,7 @@
   },
   {
     "id": "invest-067",
-    "publishOn": "2027-02-15",
+    "publishOn": "2026-11-28",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Замена актива",
@@ -831,7 +829,7 @@
   },
   {
     "id": "invest-068",
-    "publishOn": "2027-02-17",
+    "publishOn": "2026-11-29",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Официальное подтверждение",
@@ -843,7 +841,7 @@
   },
   {
     "id": "invest-069",
-    "publishOn": "2027-02-19",
+    "publishOn": "2026-11-30",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Нотариальная копия",
@@ -855,7 +853,7 @@
   },
   {
     "id": "invest-070",
-    "publishOn": "2027-02-22",
+    "publishOn": "2026-12-01",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Таиланд",
@@ -868,7 +866,7 @@
   },
   {
     "id": "invest-071",
-    "publishOn": "2027-02-24",
+    "publishOn": "2026-12-02",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Право собственности",
@@ -880,7 +878,7 @@
   },
   {
     "id": "invest-072",
-    "publishOn": "2027-02-26",
+    "publishOn": "2026-12-03",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Новостройка",
@@ -892,7 +890,7 @@
   },
   {
     "id": "invest-073",
-    "publishOn": "2027-03-01",
+    "publishOn": "2026-12-04",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Греция",
@@ -905,7 +903,7 @@
   },
   {
     "id": "invest-074",
-    "publishOn": "2027-03-03",
+    "publishOn": "2026-12-05",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Кадастровые данные",
@@ -917,7 +915,7 @@
   },
   {
     "id": "invest-075",
-    "publishOn": "2027-03-05",
+    "publishOn": "2026-12-06",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Разрешение на использование",
@@ -929,7 +927,7 @@
   },
   {
     "id": "invest-076",
-    "publishOn": "2027-03-08",
+    "publishOn": "2026-12-07",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Продавец актива",
@@ -941,7 +939,7 @@
   },
   {
     "id": "invest-077",
-    "publishOn": "2027-03-10",
+    "publishOn": "2026-12-08",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Оплата третьим лицом",
@@ -953,7 +951,7 @@
   },
   {
     "id": "invest-078",
-    "publishOn": "2027-03-12",
+    "publishOn": "2026-12-09",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Назначение платежа",
@@ -965,7 +963,7 @@
   },
   {
     "id": "invest-079",
-    "publishOn": "2027-03-15",
+    "publishOn": "2026-12-10",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Мальта",
@@ -978,7 +976,7 @@
   },
   {
     "id": "invest-080",
-    "publishOn": "2027-03-17",
+    "publishOn": "2026-12-11",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Подтверждение активов",
@@ -990,7 +988,7 @@
   },
   {
     "id": "invest-081",
-    "publishOn": "2027-03-19",
+    "publishOn": "2026-12-12",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Налоги инвестора",
@@ -1002,7 +1000,7 @@
   },
   {
     "id": "invest-082",
-    "publishOn": "2027-03-22",
+    "publishOn": "2026-12-13",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Сроки банка",
@@ -1014,7 +1012,7 @@
   },
   {
     "id": "invest-083",
-    "publishOn": "2027-03-24",
+    "publishOn": "2026-12-14",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Смена программы",
@@ -1026,7 +1024,7 @@
   },
   {
     "id": "invest-084",
-    "publishOn": "2027-03-26",
+    "publishOn": "2026-12-15",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Наследование структуры",
@@ -1038,7 +1036,7 @@
   },
   {
     "id": "invest-085",
-    "publishOn": "2027-03-29",
+    "publishOn": "2026-12-16",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Венгрия",
@@ -1050,7 +1048,7 @@
   },
   {
     "id": "invest-086",
-    "publishOn": "2027-03-31",
+    "publishOn": "2026-12-17",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Срок фонда",
@@ -1062,7 +1060,7 @@
   },
   {
     "id": "invest-087",
-    "publishOn": "2027-04-02",
+    "publishOn": "2026-12-18",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Регулятор фонда",
@@ -1074,7 +1072,7 @@
   },
   {
     "id": "invest-088",
-    "publishOn": "2027-04-05",
+    "publishOn": "2026-12-19",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "ОАЭ",
@@ -1086,7 +1084,7 @@
   },
   {
     "id": "invest-089",
-    "publishOn": "2027-04-07",
+    "publishOn": "2026-12-20",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Доля в объекте",
@@ -1098,7 +1096,7 @@
   },
   {
     "id": "invest-090",
-    "publishOn": "2027-04-09",
+    "publishOn": "2026-12-21",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Ипотека",
@@ -1110,7 +1108,7 @@
   },
   {
     "id": "invest-091",
-    "publishOn": "2027-04-12",
+    "publishOn": "2026-12-22",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Италия",
@@ -1123,7 +1121,7 @@
   },
   {
     "id": "invest-092",
-    "publishOn": "2027-04-14",
+    "publishOn": "2026-12-23",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Предварительное одобрение",
@@ -1135,7 +1133,7 @@
   },
   {
     "id": "invest-093",
-    "publishOn": "2027-04-16",
+    "publishOn": "2026-12-24",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Срок выполнения",
@@ -1147,7 +1145,7 @@
   },
   {
     "id": "invest-094",
-    "publishOn": "2027-04-19",
+    "publishOn": "2026-12-25",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Личное присутствие",
@@ -1159,7 +1157,7 @@
   },
   {
     "id": "invest-095",
-    "publishOn": "2027-04-21",
+    "publishOn": "2026-12-26",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Биометрия семьи",
@@ -1171,7 +1169,7 @@
   },
   {
     "id": "invest-096",
-    "publishOn": "2027-04-23",
+    "publishOn": "2026-12-27",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Изменение обстоятельств",
@@ -1183,7 +1181,7 @@
   },
   {
     "id": "invest-097",
-    "publishOn": "2027-04-26",
+    "publishOn": "2026-12-28",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Карта маршрута",
@@ -1196,7 +1194,7 @@
   },
   {
     "id": "invest-098",
-    "publishOn": "2027-04-28",
+    "publishOn": "2026-12-29",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Независимая проверка",
@@ -1208,7 +1206,7 @@
   },
   {
     "id": "invest-099",
-    "publishOn": "2027-04-30",
+    "publishOn": "2026-12-30",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Архив документов",
@@ -1220,7 +1218,7 @@
   },
   {
     "id": "invest-100",
-    "publishOn": "2027-05-03",
+    "publishOn": "2026-12-31",
     "phase": "lead",
     "publicationMode": "auto",
     "topicTag": "Финальная сверка",

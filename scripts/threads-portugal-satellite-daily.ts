@@ -32,7 +32,9 @@ async function main() {
     return;
   }
   const row = planned.row;
-  console.log(`[threads-pt-sat] day-${row.d} ${planned.today}\n${previewPortugalSatellite(row)}`);
+  console.log(
+    `[threads-pt-sat] day-${row.d} ${planned.today}\n${previewPortugalSatellite(row, planned.today)}`
+  );
   if (!forcePublish) {
     console.log("[threads-pt-sat] DRY-RUN: no API write.");
     return;
@@ -57,11 +59,15 @@ async function main() {
   );
   const me = await fetchThreadsMe();
   assertPortugalSatelliteAccountIsolated(me);
-  const items = composePortugalSatelliteChain(row);
+  const items = composePortugalSatelliteChain(row, { today: planned.today });
   const result = await publishThreadsChain({ items, forcePublish: true });
   state.last_day = row.d;
   state.last_posted_on = planned.today;
-  state.posts[`day-${row.d}`] = { at: new Date().toISOString(), ids: result.publishedIds };
+  state.posts[`day-${row.d}`] = {
+    at: new Date().toISOString(),
+    ids: result.publishedIds,
+    format: items[0]?.imageUrl ? "IMAGE" : "TEXT",
+  };
   savePortugalSatelliteState(state);
   for (const id of result.publishedIds) {
     console.log("published", (await fetchThreadsPermalink(id)) || id);

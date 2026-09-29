@@ -20,11 +20,19 @@ function arg(name: string): string | undefined {
 async function main() {
   const stream = (arg("stream") || "threads").trim();
   const error = (arg("error") || process.argv.slice(2).filter((a) => !a.startsWith("--")).join(" ") || "unknown error").trim();
+  const handle =
+    stream === "investment"
+      ? "@emigro_invest"
+      : stream === "pt-sat" || stream === "portugal-satellite"
+        ? "@emigro_portugal"
+        : "@emigro_assist";
   const text = [
     `❌ Emigro Threads — ${stream}`,
-    `@emigro_assist`,
+    handle,
     "",
-    error.slice(0, 3500),
+    "что: scheduled job failed (silent FAIL is a bug)",
+    "почему:",
+    error.slice(0, 3200),
   ].join("\n");
 
   const sent = await sendOwnerTelegramDm(text);
