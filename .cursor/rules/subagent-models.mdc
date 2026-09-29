@@ -1,0 +1,32 @@
+---
+description: Which model to use for subagents — Composer by default, Grok for complex tasks
+alwaysApply: true
+---
+
+# Subagent models: Composer first, Grok for hard tasks
+
+When delegating work to subagents (Task tool), pick the model explicitly:
+
+## Composer (`composer-2.5-fast`) — default
+
+Use for routine, well-scoped work:
+- codebase search / explore, reading files, grep-style questions
+- mechanical edits across files, renames, wiring CTAs, frontmatter, OG pins
+- running scripts, publish commands, build/deploy checks, log reading
+- small bug fixes where the cause is already known
+
+## Grok (`grok-4.7-high-fast`) — complex tasks
+
+Escalate to Grok when the task needs real reasoning:
+- multi-step debugging with an unknown root cause
+- architecture / pipeline design (Threads farm, satellites, parsers, LLM chains)
+- fact-check of legal claims and thresholds (AIMA, BOE, IMT) against official sources
+- long guide rewrites / editorial quality passes where tone and structure matter
+- anything a Composer run already failed on
+
+If `grok-4.7-high-fast` is unavailable, use `cursor-grok-4.6-high-fast`.
+
+## Notes
+
+- Do not silently substitute another model family; if neither Grok is available, say so.
+- Content-generation scripts that call Grok via OpenRouter (`scripts/portugal-grok-rewrite-batch.ts`, model `x-ai/grok-4.3`) are separate from subagent choice — keep using them for guide rewrites.
