@@ -249,6 +249,16 @@ export async function warmPublicImageUrl(url: string): Promise<boolean> {
   }
 }
 
+/** Threads renders plain text — markdown emphasis shows up as literal `**`. */
+export function stripThreadsMarkdown(text: string): string {
+  return text
+    .replace(/\*\*([\s\S]+?)\*\*/g, "$1")
+    .replace(/__([\s\S]+?)__/g, "$1")
+    .replace(/`([^`]+)`/g, "$1")
+    .replace(/^#{1,6}\s+/gm, "")
+    .replace(/\*\*/g, "");
+}
+
 /**
  * Publish a reply-chain. Default is dry-run (no API write).
  * Live: THREADS_AUTO_PUBLISH=1 and forcePublish=true.
@@ -259,7 +269,7 @@ export async function publishThreadsChain(params: {
   forcePublish?: boolean;
   pauseMs?: number;
 }): Promise<ThreadsPublishResult> {
-  const texts = params.items.map((i) => i.text);
+  const texts = params.items.map((i) => stripThreadsMarkdown(i.text));
   const force = Boolean(params.forcePublish);
 
   if (!force) {
@@ -285,7 +295,7 @@ export async function publishThreadsChain(params: {
       await warmPublicImageUrl(item.imageUrl);
     }
     const creationId = await createMediaContainer({
-      text: item.text,
+      text: stripThreadsMarkdown(item.text),
       imageUrl: item.imageUrl,
       topicTag: item.topicTag,
       replyToId: replyTo,
