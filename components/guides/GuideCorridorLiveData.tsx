@@ -5,9 +5,11 @@ import type { GuideLiveCorridorBlock, GuideLiveDataPayload } from "@/lib/guides/
 function LiveProgramsTable({
   block,
   passportLabel,
+  showWizardLink,
 }: {
   block: GuideLiveCorridorBlock;
   passportLabel: string;
+  showWizardLink: boolean;
 }) {
   return (
     <div>
@@ -41,13 +43,15 @@ function LiveProgramsTable({
           </tbody>
         </table>
       </div>
-      <Link
-        href={block.meta.wizardHref}
-        className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-corridor-700 hover:text-corridor-900"
-      >
-        Проверить свой профиль в wizard {block.meta.countryNameRu}
-        <ArrowRight className="h-4 w-4" />
-      </Link>
+      {showWizardLink ? (
+        <Link
+          href={block.meta.wizardHref}
+          className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-corridor-700 hover:text-corridor-900"
+        >
+          Проверить свой профиль в wizard {block.meta.countryNameRu}
+          <ArrowRight className="h-4 w-4" />
+        </Link>
+      ) : null}
     </div>
   );
 }
@@ -75,10 +79,19 @@ export function GuideCorridorLiveData({ liveData }: { liveData: GuideLiveDataPay
       <div className={`mt-5 space-y-8 ${multi ? "divide-y divide-emerald-100" : ""}`}>
         {liveData.blocks.map((block) => (
           <div key={block.meta.wizardHref} className={multi ? "pt-8 first:pt-0" : undefined}>
-            <LiveProgramsTable block={block} passportLabel={liveData.passportLabel} />
+            <LiveProgramsTable block={block} passportLabel={liveData.passportLabel} showWizardLink={!multi} />
           </div>
         ))}
       </div>
+      {multi ? (
+        <Link
+          href="/ru/wizard"
+          className="mt-8 inline-flex items-center gap-2 rounded-lg bg-corridor-600 px-5 py-3 text-sm font-semibold text-white hover:bg-corridor-700"
+        >
+          Сопоставить свой профиль со всеми программами
+          <ArrowRight className="h-4 w-4" />
+        </Link>
+      ) : null}
     </section>
   );
 }

@@ -200,7 +200,7 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
     (uniPrepTopicCount >= 2 ||
       /grazhdanstvo-portugaliya-ispaniya|grazhdanstvo-germaniya-polsha/.test(guide.slug));
   const toc = extractToc(guide.bodyHtml);
-  const faqItems = extractGuideFaq(guide.bodyHtml);
+  const faqItems = extractGuideFaq(guide.bodyHtml, 12);
   const inlineTargets = referralInlineTargets({
     revolut: revolutPromo,
     wise: wisePromo,

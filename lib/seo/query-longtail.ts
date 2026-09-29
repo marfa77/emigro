@@ -131,10 +131,12 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "куда переехать digital nomad европа 2026",
       "сравнение дн виз ес пороги 2026",
       "лучшая digital nomad виза европа для россиян",
+      "digital nomad виза европа 2026 доход налоги пмж",
+      "какие digital nomad визы ведут к пмж",
     ],
-    seoTitle: "Digital Nomad визы Европы 2026 — полное сравнение",
+    seoTitle: "Digital Nomad виза в Европе 2026: страны, доход, налоги, ПМЖ",
     seoDescription:
-      "Сравнение Digital Nomad 2026: PT D8, ES, IT, GR, HR, MT, HU, CY и др. Пороги, налоги, ПМЖ, матрица RU/UA/BY/KZ.",
+      "11 Digital Nomad виз Европы 2026: PT D8 €3 680 (не €3 480), ES €2 849, IT юр. vs практика, HR 0%. Налоги, семья, ПМЖ и доступ для RU/BY/UA/KZ.",
   },
   // —— Germany ——
   {
