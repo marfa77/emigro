@@ -170,6 +170,14 @@ function markdownToHtml(markdown: string): string {
     }
   };
 
+  let inBlockquote = false;
+  const closeBlockquote = () => {
+    if (inBlockquote) {
+      html.push("</aside>");
+      inBlockquote = false;
+    }
+  };
+
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
     const trimmed = line.trim();
@@ -177,15 +185,33 @@ function markdownToHtml(markdown: string): string {
     if (!trimmed) {
       closeList();
       closeTable();
+      closeBlockquote();
       continue;
     }
 
     if (trimmed === "---") {
       closeList();
       closeTable();
+      closeBlockquote();
       html.push('<div class="my-10 h-px w-full bg-gradient-to-r from-transparent via-corridor-200 to-transparent"></div>');
       continue;
     }
+
+    if (trimmed.startsWith(">")) {
+      closeList();
+      closeTable();
+      const quoteText = trimmed.replace(/^>\s?/, "");
+      if (!inBlockquote) {
+        html.push(
+          '<aside class="mt-6 space-y-2 rounded-2xl border border-amber-200 bg-amber-50/70 px-5 py-4 text-sm leading-relaxed text-slate-800">'
+        );
+        inBlockquote = true;
+      }
+      if (quoteText) html.push(`<p>${inlineMarkdown(quoteText)}</p>`);
+      continue;
+    }
+
+    closeBlockquote();
 
     const faqQuestion = trimmed.match(/^\*\*([^*]+)\*\*$/);
     if (faqQuestion) {
@@ -212,6 +238,13 @@ function markdownToHtml(markdown: string): string {
       closeList();
       closeTable();
       html.push(`<h3 class="mt-8 text-xl font-semibold text-slate-900">${inlineMarkdown(trimmed.slice(4))}</h3>`);
+      continue;
+    }
+
+    if (trimmed.startsWith("#### ")) {
+      closeList();
+      closeTable();
+      html.push(`<h4 class="mt-6 text-lg font-semibold text-slate-900">${inlineMarkdown(trimmed.slice(5))}</h4>`);
       continue;
     }
 
@@ -274,6 +307,7 @@ function markdownToHtml(markdown: string): string {
 
   closeList();
   closeTable();
+  closeBlockquote();
   return html.join("\n");
 }
 
@@ -293,6 +327,31 @@ export function listGuides(locale: GuideLocale = "ru"): GuideFrontmatter[] {
     .sort((a, b) => a.title.localeCompare(b.title, collatorLocale));
 }
 
+const SOURCES_HEADING_RE = /^##\s+(?:официальные\s+)?источники|^##\s+fuentes(?:\s+oficiales)?|^##\s+sources(?:\s+officielles)?/i;
+
+function normalizeSourceUrl(url: string): string {
+  return url.trim().replace(/^http:\/\//i, "https://").replace("://www.", "://").split("#")[0].replace(/\/+$/, "").toLowerCase();
+}
+
+/** Drops a body «Источники» section when <GuideOfficialSources> already renders every link in it. */
+function dropDuplicateSourcesSection(body: string, sources: GuideOfficialSource[]): string {
+  if (sources.length === 0) return body;
+  const known = new Set(sources.map((s) => normalizeSourceUrl(s.url)));
+  const lines = body.split("\n");
+  const start = lines.findIndex((l) => SOURCES_HEADING_RE.test(l.trim()) && l.trim().split(/\s+/).length <= 4);
+  if (start === -1) return body;
+  let end = lines.findIndex((l, i) => i > start && /^##\s/.test(l.trim()));
+  if (end === -1) end = lines.length;
+  const content = lines.slice(start + 1, end).map((l) => l.trim()).filter((l) => l && l !== "---");
+  if (content.length === 0) return body;
+  const allCovered = content.every((l) => {
+    const urls = Array.from(l.matchAll(/\]\((https?:\/\/[^)\s]+)\)/g), (m) => m[1]);
+    return urls.length > 0 && urls.every((u) => known.has(normalizeSourceUrl(u)));
+  });
+  if (!allCovered) return body;
+  return [...lines.slice(0, start), ...lines.slice(end)].join("\n");
+}
+
 export function loadGuideUncached(slug: string, locale: GuideLocale = "ru"): GuideArticle | null {
   const filePath = path.join(guidesDir(locale), `${slug}.md`);
   if (!fs.existsSync(filePath)) return null;
@@ -304,7 +363,7 @@ export function loadGuideUncached(slug: string, locale: GuideLocale = "ru"): Gui
 
   return {
     ...mapFrontmatter(meta, slug, officialSources),
-    bodyHtml: markdownToHtml(body),
+    bodyHtml: markdownToHtml(dropDuplicateSourcesSection(body, officialSources)),
   };
 }
 

@@ -1,9 +1,9 @@
 ---
 slug: vnj-skandinaviya-2026
 title: "ВНЖ Скандинавия 2026: Швеция, Дания, Норвегия — work permit и семья для RU/BY/UA/KZ"
-seo_title: "ВНЖ Nordics 2026 — сравнение SE/DK/NO/FI (хаб)"
-seo_description: "Хаб Nordics 2026: куда смотреть в SE/DK/NO/FI. Детали Швеции и Норвегии — в country-pillars; здесь сравнение порогов и семьи для RU/BY/UA/KZ."
-excerpt: "Хаб сравнения Nordics: work permit / pay limit / семья. Глубина по стране — в pillar Швеции и Норвегии, не дублируем их цифры здесь."
+seo_title: "ВНЖ в Скандинавии 2026: Швеция, Дания, Норвегия"
+seo_description: "Швеция: work permit от SEK 34 470 (90% медианы), Дания: pay limit ~DKK 552 000/год, Норвегия, Финляндия, семья и ПМЖ. Сравнение для RU/BY/UA/KZ, 2026."
+excerpt: "Сравнение Скандинавии 2026: work permit в Швеции от SEK 34 470, датский pay limit ~DKK 552 000, семья и ПМЖ. Подробности по Швеции и Норвегии — в отдельных гайдах."
 quick_answer: |-
   Скандинавия на Emigro — четыре коридора: Швеция, Дания, Норвегия и Финляндия. В Швеции work permit от SEK 34 470 в месяц, Blue Card от SEK 53 625 с 15 июля 2026. Датский pay limit около DKK 552 000 в год.
 
@@ -37,6 +37,8 @@ official_sources:
     label: Migri — citizenship residence 8 years from 01.10.2024
   - url: https://www.migrationsverket.se/en/you-want-to-apply/work/employee-or-self-employed/eu-blue-cards.html
     label: Migrationsverket — EU Blue Card SEK 53 625
+  - url: https://migri.fi/en/home
+    label: Migri Finland
 estimated_minutes: 18
 date_published: 2026-07-01
 date_modified: 2026-09-29

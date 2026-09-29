@@ -136,7 +136,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     ],
     seoTitle: "Digital Nomad виза Европы 2026: доход, налоги, ПМЖ",
     seoDescription:
-      "11 Digital Nomad виз Европы 2026: PT D8 €3 680 (не €3 480), ES €2 849, IT юр. vs практика, HR 0%. Налоги, семья, ПМЖ и доступ для RU/BY/UA/KZ.",
+      "Сравнение 11 Digital Nomad виз Европы 2026: Португалия D8 от €3 680, Испания €2 849, Хорватия 0% налога, Италия. Семья, ПМЖ и доступ для RU/BY/UA/KZ.",
   },
   // —— Germany ——
   {
@@ -185,9 +185,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "edoręczenia польша иностранец",
       "банк после 19 пакета белорусы ес",
     ],
-    seoTitle: "Белорусы ВНЖ Европа 2026 — без TP",
+    seoTitle: "Белорусы в ЕС 2026: ВНЖ без временной защиты",
     seoDescription:
-      "ВНЖ в Европе для белорусов 2026: нет TP, Польша oświadczenie/Type A, Mazowieckie, eDoręczenia, банки после 19 пакета. D7/D8/Blue Card.",
+      "ВНЖ в Европе для белорусов 2026 без временной защиты: Польша (oświadczenie, Type A, Blue Card), Чехия, D7/D8, консульства PL/LT и банковские карты по статусу.",
   },
   {
     path: "/ru/guides/podtverdit-dohod-dengi-dlya-vnj-esli-dohod-iz-rossii-2026",
