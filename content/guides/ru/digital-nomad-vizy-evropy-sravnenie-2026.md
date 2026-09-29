@@ -1,7 +1,7 @@
 ---
 slug: digital-nomad-vizy-evropy-sravnenie-2026
 title: "Digital Nomad виза в Европе 2026: страны, доход, налоги и ПМЖ"
-seo_title: "Digital Nomad виза в Европе 2026: страны, доход, налоги, ПМЖ"
+seo_title: "Digital Nomad виза Европы 2026: доход, налоги, ПМЖ"
 seo_description: "11 Digital Nomad виз Европы 2026: PT D8 €3 680 (не €3 480), ES €2 849, IT юр. vs практика, HR 0%. Налоги, семья, ПМЖ и доступ для RU/BY/UA/KZ."
 excerpt: "11 dedicated Digital Nomad программ Европы 2026 и альтернативы: юр. минимум vs практика консульств, налоги, путь к ПМЖ, доступ для паспортов RU/BY/UA/KZ."
 quick_answer: |-

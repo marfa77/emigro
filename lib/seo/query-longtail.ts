@@ -134,7 +134,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "digital nomad виза европа 2026 доход налоги пмж",
       "какие digital nomad визы ведут к пмж",
     ],
-    seoTitle: "Digital Nomad виза в Европе 2026: страны, доход, налоги, ПМЖ",
+    seoTitle: "Digital Nomad виза Европы 2026: доход, налоги, ПМЖ",
     seoDescription:
       "11 Digital Nomad виз Европы 2026: PT D8 €3 680 (не €3 480), ES €2 849, IT юр. vs практика, HR 0%. Налоги, семья, ПМЖ и доступ для RU/BY/UA/KZ.",
   },
