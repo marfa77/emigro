@@ -100,7 +100,7 @@ Ship with every ES surface where it fits (see `.cursor/rules/monetization-first.
 | UniPrep2Go (CCSE) | Nacionalidad + origin residencia pillars, `/es/spain` |
 | Prep2Go (CIPLE) | Portugal hub + `portugal-d8-d7-latam-2026` |
 | Role Radar | DN / D8 work guides + `/es/role-radar` |
-| Emigro Assist | `/es/assist`, wizard results, guide “Siguiente paso” |
+| Emigro Assist | `/es/assist` (precios en meta + primera pantalla: €0 / €129 / €100/h, comparación vs agencia, FAQ×5), wizard results, guide “Siguiente paso” |
 
 Depth strip on `/es` and `/ru` shows live inventory (pillars, origins, RU stock) so Emigro does not read as a thin affiliate layer.
 

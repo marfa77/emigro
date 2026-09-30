@@ -456,9 +456,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "emigro assist сколько стоит",
       "помощь с документами внж европа",
     ],
-    seoTitle: "Emigro Assist — Route Check",
+    seoTitle: "Помощь с ВНЖ 2026: подбор €0, Route Check €129",
     seoDescription:
-      "Route Check / Assist Emigro: проверка маршрута ВНЖ (€129) + почасовая помощь. Не юридическая фирма.",
+      "Emigro Assist: подбор юриста или агентства по ВНЖ — €0, Route Check €129 (созвон + PDF за 48 ч), сопровождение €100/ч. Без пакета «под ключ» за весь процесс.",
   },
   {
     path: "/ru/poland",
@@ -926,9 +926,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "ayuda documentos visa España latinoamericanos",
       "revisión ruta nómada digital España",
     ],
-    seoTitle: "Emigro Assist ES — Route Check",
+    seoTitle: "Ayuda con residencia 2026: €0, Route Check €129",
     seoDescription:
-      "Route Check / Assist en español: revisión de ruta de residencia ES/PT. No es un despacho de abogados.",
+      "Emigro Assist LATAM: partner para España o Portugal €0, Route Check €129 (llamada + PDF en 48 h), acompañamiento €100/h. Sin paquete «llave en mano».",
   },
   {
     path: "/es/spain",
