@@ -195,7 +195,7 @@ export const PERVYJ_MESYAC_CHECKLIST_GUIDE = {
   content_kind: "guide" as ContentKind,
   title: "Первый месяц семьи с Golden Visa в Porto или Braga",
   excerpt: "Семья с ARI приезжает в Norte и выстраивает порядок: школа раньше долгосрочной аренды, NIF и SNS по адресу, Portal ARI отдельно от общих каналов. По неделям без паники из чатов.",
-  seo_title: "Первый месяц в Португалии: семья Golden Visa Porto Braga",
+  seo_title: "Первый месяц в Португалии 2026: чек-лист для семьи",
   seo_description: "Чеклист первого месяца для семьи с ARI в Porto или Braga: школа в приоритете, temporary жильё, NIF, SNS, Via Verde и Portal ARI. По дням и неделям без.",
   quick_answer: "Семья с Golden Visa прилетает в Португалию и сразу видит в чатах список из двадцати дел. На деле для троих в Porto или Braga хватает одной последовательности: сначала школа и временный адрес, потом NIF, SNS и long-term жильё ближе к третьей-четвёртой неделе. Portal ARI работает отдельно, поэтому сверяйте статус только на aima.gov.pt и с адвокатом.",
   body_sections: bodySections,

@@ -327,7 +327,7 @@ export const KONSULSTVO_RF_BANGKOK_DOCS_GUIDE: ThailandEditorialGuide = {
   title: "Консульство РФ с Phuket: документы и поездка в Bangkok 2026",
   excerpt:
     "ГКС Phuket (phuket.kdmid.ru), Bangkok Sap Road, MFA legalization и apostille до 28.02.2027 — запись, загран, нотариат, оригиналы, маршрут HKT–BKK. Архив doc к 4–6 месяцу.",
-  seo_title: "Консульство РФ Phuket Bangkok 2026 — загран, легализация",
+  seo_title: "Консульство РФ в Бангкоке 2026: загран, легализация",
   seo_description:
     "Документы в консульство РФ с Пхукета: phuket.kdmid.ru, Bangkok 78 Sap Road, passportzu, MFA qlegal. Apostille Тailand с 28.02.2027. Маршрут, копии, mes 4–6.",
   quick_answer:

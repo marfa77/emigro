@@ -325,7 +325,7 @@ export const SHKOLY_SEMYA_PHUKET_GUIDE: ThailandEditorialGuide = {
   title: "Школы и семья на Пхукете 2026: тайские, international, визы и районы",
   excerpt:
     "MOE/OBEC vs BISP, HeadStart, UWC: календарь, ED visa, documents, safeguarding, commute Cherng Talay–Rawai, nurseries, бюджет по официальным fees и mes 4–6.",
-  seo_title: "Семья Phuket 2026: international vs тайская школа, ED visa",
+  seo_title: "Школа на Пхукете 2026: international или тайская",
   seo_description:
     "Phuket 2026: тайская vs international (BISP, HeadStart, UWC), OBEC май–март, ED visa ребёнка, fees по PDF, safeguarding и school run по районам.",
   quick_answer:
