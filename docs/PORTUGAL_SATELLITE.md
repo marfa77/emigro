@@ -115,3 +115,7 @@ npm run portugal:spotlight
 - новость на 1 факт без чек-листа (бесплатный STCP Porto);
 - нишевый техкейс «1 раз в жизни» (сломанный Via Verde) — только абзац внутри системного гайда (portagens, renovação, first month).
 - Правило: либо **системный** гайд (переезд / ВНЖ / жильё / банк / транспорт как практика), либо **skip** — не отдельная заметка.
+
+## Threads IMAGE observation (2026-09-20 → 2026-09-30)
+
+Same window as `@emigro_assist`. Assist is observe-only (no new image pipeline). `@emigro_portugal` attaches dest OG (`/images/community-notes/{slug}.webp`) on **odd bank days** during the window; even days stay `TEXT`. Format is logged on the satellite state. Measure 2026-09-30: Graph `media_type` × views × follower day-Δ. Bank is not rewritten.

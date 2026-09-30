@@ -1,9 +1,8 @@
 [Unit]
-Description=Emigro Invest Threads — gradual dated calendar
+Description=Emigro Invest Threads — daily calendar (@emigro_invest)
 
 [Timer]
-# Daily check is harmless on non-bank dates: the runner exits without posting.
-# The bank itself starts 3×/week and later phases remain environment-locked.
+# One check per Dubai day; bank has a row every day from 2026-09-26.
 OnCalendar=*-*-* 12:00:00 Asia/Dubai
 RandomizedDelaySec=20min
 AccuracySec=1min

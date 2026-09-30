@@ -25,18 +25,35 @@ function arg(name: string): string | undefined {
   return hit?.slice(name.length + 3)?.trim() || undefined;
 }
 
+/** Portugal satellite uses the Emigro Meta app, never Barakhlo THREADS_APP_*. */
+function useEmigroBrandApp(): void {
+  const appId = (process.env.THREADS_EMIGRO_APP_ID || "").trim();
+  const appSecret = (process.env.THREADS_EMIGRO_APP_SECRET || "").trim();
+  const redirectUri = (process.env.THREADS_EMIGRO_REDIRECT_URI || "").trim();
+  if (!appId || !appSecret || !redirectUri) {
+    throw new Error("THREADS_EMIGRO_APP_ID / THREADS_EMIGRO_APP_SECRET / THREADS_EMIGRO_REDIRECT_URI required");
+  }
+  process.env.THREADS_APP_ID = appId;
+  process.env.THREADS_APP_SECRET = appSecret;
+  process.env.THREADS_REDIRECT_URI = redirectUri;
+}
+
 async function main() {
+  const profile = arg("profile") || "brand";
+  const portugalProfile = profile === "portugal";
+  const investmentProfile = profile === "investment";
+  if (!["brand", "investment", "portugal"].includes(profile)) {
+    throw new Error("--profile must be brand|investment|portugal");
+  }
+  if (portugalProfile) useEmigroBrandApp();
+
   if (process.argv.includes("--auth-url")) {
-    console.log(threadsAuthorizationUrl());
+    const state = portugalProfile ? "emigro_portugal" : investmentProfile ? "emigro_invest" : "emigro_assist";
+    console.log(threadsAuthorizationUrl({ state }));
     return;
   }
 
   const code = arg("code");
-  const profile = arg("profile") || "brand";
-  const investmentProfile = profile === "investment";
-  if (!["brand", "investment"].includes(profile)) {
-    throw new Error("--profile must be brand|investment");
-  }
   let short = arg("short");
 
   if (code) {
@@ -67,7 +84,13 @@ Needs THREADS_APP_SECRET in .env (and APP_ID + REDIRECT_URI for --code / --auth-
     await import("../lib/threads/config");
   const me = await fetchThreadsMe();
   console.log("whoami", `@${me.username}`, me.id);
-  if (investmentProfile) {
+  if (portugalProfile) {
+    const { assertPortugalSatelliteAccountIsolated } = await import(
+      "../lib/threads/portugal-satellite"
+    );
+    assertPortugalSatelliteAccountIsolated(me);
+    console.log("OK — Portugal satellite @emigro_portugal");
+  } else if (investmentProfile) {
     const { loadThreadsInvestmentVerticalConfig } = await import(
       "../lib/threads/investment-vertical"
     );
@@ -84,20 +107,27 @@ Needs THREADS_APP_SECRET in .env (and APP_ID + REDIRECT_URI for --code / --auth-
   const write = process.argv.includes("--write");
   if (write) {
     const { persistThreadsEnvValues } = await import("../lib/threads/tokens");
-    const tokenKey = investmentProfile
-      ? "THREADS_INVESTMENT_ACCESS_TOKEN"
-      : "THREADS_ACCESS_TOKEN";
-    const userIdKey = investmentProfile
-      ? "THREADS_INVESTMENT_USER_ID"
-      : "THREADS_USER_ID";
-    const expiresKey = investmentProfile
-      ? "THREADS_INVESTMENT_TOKEN_EXPIRES_AT"
-      : "THREADS_TOKEN_EXPIRES_AT";
+    const tokenKey = portugalProfile
+      ? "THREADS_PT_SAT_ACCESS_TOKEN"
+      : investmentProfile
+        ? "THREADS_INVESTMENT_ACCESS_TOKEN"
+        : "THREADS_ACCESS_TOKEN";
+    const userIdKey = portugalProfile
+      ? "THREADS_PT_SAT_USER_ID"
+      : investmentProfile
+        ? "THREADS_INVESTMENT_USER_ID"
+        : "THREADS_USER_ID";
+    const expiresKey = portugalProfile
+      ? "THREADS_PT_SAT_TOKEN_EXPIRES_AT"
+      : investmentProfile
+        ? "THREADS_INVESTMENT_TOKEN_EXPIRES_AT"
+        : "THREADS_TOKEN_EXPIRES_AT";
     const updates: Record<string, string> = { [tokenKey]: longRes.access_token };
     const expiresAt = tokenExpiresAtIso(longRes.expires_in);
     if (expiresAt) updates[expiresKey] = expiresAt;
     if (longRes.user_id) updates[userIdKey] = String(longRes.user_id);
     if (me.id) updates[userIdKey] = me.id;
+    if (portugalProfile) updates.THREADS_PT_SAT_USERNAME = "emigro_portugal";
     if (investmentProfile) updates.THREADS_INVESTMENT_USERNAME = "emigro_invest";
     const files = persistThreadsEnvValues(updates);
     console.log(`Wrote ${tokenKey} to`, files.join(", ") || "(no .env files found)");

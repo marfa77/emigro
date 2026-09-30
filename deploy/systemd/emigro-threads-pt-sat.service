@@ -7,14 +7,13 @@ Wants=network-online.target
 Type=oneshot
 TimeoutStartSec=8min
 WorkingDirectory=/opt/emigro
-PermissionsStartOnly=true
-ExecStartPre=/bin/mkdir -p /opt/emigro/deploy/threads-portugal-satellite/logs /opt/emigro/parser/out
-ExecStartPre=/bin/chown -R www-data:www-data /opt/emigro/deploy/threads-portugal-satellite /opt/emigro/parser/out
-ExecStart=/bin/bash /opt/emigro/deploy/threads-portugal-satellite/run_scheduled.sh
+# Journal first — append:/path fails with 209/STDOUT if the log dir is missing
+# before ExecStartPre can mkdir (systemd opens stdout before ExecStartPre).
 User=www-data
 EnvironmentFile=-/opt/emigro/.env
-StandardOutput=append:/opt/emigro/deploy/threads-portugal-satellite/logs/scheduled.log
-StandardError=append:/opt/emigro/deploy/threads-portugal-satellite/logs/scheduled.log
+StandardOutput=journal
+StandardError=journal
+ExecStart=/bin/bash /opt/emigro/deploy/threads-portugal-satellite/run_scheduled.sh
 
 [Install]
 WantedBy=multi-user.target
