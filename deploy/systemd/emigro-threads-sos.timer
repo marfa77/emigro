@@ -1,0 +1,11 @@
+[Unit]
+Description=Emigro Threads SOS — weekly, Tuesday midday Lisbon (extra to the daily root)
+
+[Timer]
+OnCalendar=Tue *-*-* 12:00:00 Europe/Lisbon
+RandomizedDelaySec=15min
+AccuracySec=1min
+Persistent=true
+
+[Install]
+WantedBy=timers.target
