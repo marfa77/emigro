@@ -246,7 +246,7 @@ export const PORTUGAL_HUB_NEXT_STEPS: PortugalHubNextStep[] = [
     resolveHref: ({ guideHref }) => guideHref,
     external: false,
     title: "Справочник коридора →",
-    description: "Требования, сроки, CIPLE — с официальными источниками.",
+    description: "Требования, сроки, CIPLE и тест на культуру и гражданские знания — с официальными источниками.",
     linkClass: "text-corridor-700",
   },
   {

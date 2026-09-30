@@ -57,12 +57,31 @@ const SEO_DESC_SUFFIX_ES =
 const SEO_DESC_SUFFIX_FR =
   " Emigro: guides résidence France pour Afrique francophone, sources officielles.";
 
+const TRAILING_SEPARATORS_RE = /[\s,;:·—–\-/(+&]+$/;
+
 function truncateAtWord(text: string, max: number, suffix = "…"): string {
   const trimmed = text.trim();
   if (trimmed.length <= max) return trimmed;
   const slice = trimmed.slice(0, max - suffix.length);
   const lastSpace = slice.lastIndexOf(" ");
-  return `${(lastSpace > max * 0.6 ? slice.slice(0, lastSpace) : slice).trimEnd()}${suffix}`;
+  const cut = lastSpace > max * 0.6 ? slice.slice(0, lastSpace) : slice;
+  return `${cut.replace(TRAILING_SEPARATORS_RE, "")}${suffix}`;
+}
+
+/** Cuts a title at the last whole phrase (« — », «: », «, ») so SERP never shows a dangling fragment. */
+function truncateAtPhrase(text: string, max: number): string {
+  const trimmed = text.trim();
+  if (trimmed.length <= max) return trimmed;
+  const window = trimmed.slice(0, max + 1);
+  const boundary = Math.max(
+    window.lastIndexOf(" — "),
+    window.lastIndexOf(" – "),
+    window.lastIndexOf(": "),
+    window.lastIndexOf(", "),
+    window.lastIndexOf(" · "),
+  );
+  if (boundary >= max * 0.5) return trimmed.slice(0, boundary).replace(TRAILING_SEPARATORS_RE, "");
+  return truncateAtWord(trimmed, max, "");
 }
 
 /** Meta description: min ~120 for crawlers, target ≤160. */
@@ -81,19 +100,18 @@ export function fitMetaDescription(
       : locale === "fr"
         ? " Consultez les hubs Maroc / Algérie / Tunisie / Sénégal → France."
         : " Проверьте маршрут ВНЖ через hub wizard.";
-  if (base.length < min) {
-    base = `${base}${pad}`.replace(/\s+/g, " ").trim();
+  if (base.length > max) return truncateAtWord(base, max);
+  for (const tail of [pad, extra]) {
+    if (base.length >= min) break;
+    const candidate = `${base}${tail}`.replace(/\s+/g, " ").trim();
+    if (candidate.length <= max) base = candidate;
   }
-  if (base.length < min) {
-    base = `${base}${extra}`;
-  }
-  if (base.length <= max) return base;
-  return truncateAtWord(base, max);
+  return base;
 }
 
 export function fitSeoTitlePart(text: string, max = MAX_TITLE_PART): string {
   const cleaned = text.replace(/\s*\|\s*Emigro\s*$/i, "").trim();
-  return truncateAtWord(cleaned, max, "");
+  return truncateAtPhrase(cleaned, max);
 }
 
 export function fitSeoTitleAbsolute(text: string, max = MAX_TITLE_ABSOLUTE): string {

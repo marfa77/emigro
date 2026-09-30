@@ -1,10 +1,10 @@
 ---
 slug: pervye-30-dnej-v-chehii-2026
 title: "Первые 30 дней в Чехии 2026: rodné číslo, pobyt, банк, VZP"
-seo_title: "Первые 30 дней в Чехии 2026 — rodné číslo, банk, VZP"
-seo_description: "Чек-лист после прилёта в Чехию: rodné číslo, адрес u MVČR, банk Fio/ČSOB, VZP, SIM, biometric card. Для RU/UA/BY/KZ. 2026."
+seo_title: "Первые 30 дней в Чехии 2026 — rodné číslo, банк, VZP"
+seo_description: "Чек-лист после прилёта в Чехию: rodné číslo, адрес u MVČR, банк Fio/ČSOB, VZP, SIM, biometric card. Для RU/UA/BY/KZ. 2026."
 excerpt: "Employee Card или živnost — первый месяц: rodné číslo, регистрация адреса, банк, VZP и biometric dočasný pobyt."
-quick_answer: "Первые 30 дней: (1) long-stay visa → регистрация адреса в MOI/MVČR в 3 рабочих дня, (2) rodné číslo (RČ) через úřad, (3) SIM (Vodafone/O2/T-Mobile), (4) банk Fio/ČSOB/Raiffeisen (IBAN CZ), (5) VZP или коммерческая страховка, (6) biometric card pobyt. Без RČ и адреса не откроете счёт."
+quick_answer: "Первые 30 дней: (1) long-stay visa → регистрация адреса в MOI/MVČR в 3 рабочих дня, (2) rodné číslo (RČ) через úřad, (3) SIM (Vodafone/O2/T-Mobile), (4) банк Fio/ČSOB/Raiffeisen (IBAN CZ), (5) VZP или коммерческая страховка, (6) biometric card pobyt. Без RČ и адреса не откроете счёт."
 corridor_slugs: [ru-speaking-to-czechia]
 topic_keys: [czechia, checklist, arrival]
 tags: [Чехия, чеклист, 2026, rodné číslo, VZP, pobyt]

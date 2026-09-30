@@ -1,10 +1,10 @@
 ---
 slug: pervye-30-dnej-v-avstrii-2026
-title: "Первые 30 дней в Австрии 2026: Meldezettel, SVNR, банk, Krankenkasse"
-seo_title: "Первые 30 дней в Австрии 2026 — Meldezettel, SVNR, банk"
-seo_description: "Чек-лист после прилёта в Австрию: Meldezettel, SVNR, банk Erste/Bank Austria, Krankenkasse, SIM. RWR Card / Blue Card. RU/UA/BY/KZ. 2026."
+title: "Первые 30 дней в Австрии 2026: Meldezettel, SVNR, банк, Krankenkasse"
+seo_title: "Первые 30 дней в Австрии 2026 — Meldezettel, SVNR, банк"
+seo_description: "Чек-лист после прилёта в Австрию: Meldezettel, SVNR, банк Erste/Bank Austria, Krankenkasse, SIM. RWR Card / Blue Card. RU/UA/BY/KZ. 2026."
 excerpt: "RWR Card или Blue Card — первый месяц: Meldezettel, SVNR, банк, Krankenkasse и Ausländerbehörde."
-quick_answer: "Первые 30 дней: (1) Meldezettel в Gemeinde в 3 дня, (2) SVNR (Sozialversicherungsnummer) через employer/Krankenkasse, (3) SIM (A1/Magenta/Drei), (4) банk Erste/Bank Austria/Raiffeisen, (5) Krankenkasse обязательна, (6) Ausländerbehörde / MA35 для Aufenthaltstitel. Без Meldezettel не получите SVNR."
+quick_answer: "Первые 30 дней: (1) Meldezettel в Gemeinde в 3 дня, (2) SVNR (Sozialversicherungsnummer) через employer/Krankenkasse, (3) SIM (A1/Magenta/Drei), (4) банк Erste/Bank Austria/Raiffeisen, (5) Krankenkasse обязательна, (6) Ausländerbehörde / MA35 для Aufenthaltstitel. Без Meldezettel не получите SVNR."
 corridor_slugs: [ru-speaking-to-austria]
 topic_keys: [austria, checklist, arrival]
 tags: [Австрия, чеклист, 2026, Meldezettel, SVNR, RWR Card]
@@ -104,7 +104,7 @@ date_modified: 2026-09-19
 
 ---
 
-## Неделя 2–3: банk
+## Неделя 2–3: банк
 
 | Bank | Плюсы | Минусы |
 |------|-------|--------|

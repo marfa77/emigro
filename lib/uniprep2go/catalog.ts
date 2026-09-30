@@ -110,9 +110,9 @@ export const UNIPREP_OFFERS_BY_TOPIC: Record<string, UniPrepOffer> = {
     headlineRu: "CIPLE A2: колода Anki + mock на Prep2Go",
     headlineEs: "CIPLE A2: mazo Anki + mock en Prep2Go",
     bodyRu:
-      "Для гражданства PT нужен португальский A2. На UniPrep2Go — Anki-колода European Portuguese; полный timed mock CIPLE — на Prep2Go.",
+      "Для гражданства PT нужен португальский A2 — языковую часть закрывает CIPLE. С 19.05.2026 закон требует ещё знания культуры, истории и устройства государства; формат этой проверки пока не утверждён. На UniPrep2Go — Anki-колода European Portuguese; полный timed mock CIPLE — на Prep2Go.",
     bodyEs:
-      "Para la nacionalidad portuguesa suele hacer falta portugués A2. En UniPrep2Go: mazo Anki de European Portuguese; el mock timed completo CIPLE está en Prep2Go. Plazos PT (7/10 años) ≠ art. 22 España (~2 años).",
+      "Para la nacionalidad portuguesa hace falta portugués A2 (CIPLE cubre la parte lingüística). Desde el 19.05.2026 la ley exige además conocer la cultura, la historia y la organización del Estado; el formato de esa prueba aún no está regulado. En UniPrep2Go: mazo Anki de European Portuguese; el mock timed completo CIPLE está en Prep2Go. Plazos PT (7/10 años) ≠ art. 22 España (~2 años).",
     deck: {
       path: "/decks/ciple-a2-european-portuguese-anki-deck",
       titleRu: "CIPLE A2 Anki-колода",

@@ -136,7 +136,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     ],
     seoTitle: "Digital Nomad виза Европы 2026: доход, налоги, ПМЖ",
     seoDescription:
-      "Сравнение 11 Digital Nomad виз Европы 2026: Португалия D8 от €3 680, Испания €2 849, Хорватия 0% налога, Италия. Семья, ПМЖ и доступ для RU/BY/UA/KZ.",
+      "11 Digital Nomad виз Европы 2026: Португалия D8 от €3 680, Испания €2 849, Италия, Хорватия без налога на иностранную зарплату. Семья, ПМЖ, RU/BY/UA/KZ.",
   },
   // —— Germany ——
   {
@@ -352,7 +352,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     ],
     seoTitle: "Продление ВНЖ Португалия 2026 — AIMA renovação",
     seoDescription:
-      "Renovação AIMA: portal до 31.10.2026, DUC 24ч, taxas ~€440 (€133+€307). Agora vs services.aima, caducado и TIMATIC.",
+      "Продление ВНЖ в Португалии 2026: renovação на портале AIMA до 31.10.2026, оплата DUC за 24 часа, сборы ~€440 (€133 + €307). Что делать, если карта caducado.",
   },
   {
     path: "/ru/guides/kazahstantsy-v-evropu-vnj-2026",
@@ -716,9 +716,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "внж хорватия 18 месяцев",
       "хорватия дн для россиян",
     ],
-    seoTitle: "Хорватия Digital Nomad 2026 — гайд",
+    seoTitle: "Digital Nomad Хорватия 2026: €3 622/мес, 18 мес",
     seoDescription:
-      "Croatia Digital Nomad 2026: срок, доход, документы. Не путь к ПМЖ — честно в гайде Emigro.",
+      "Digital Nomad Хорватия 2026: €3 622,50/мес или €43 470 сбережений, до 18 мес, 0% налога на доход от иностранного работодателя. Нюансы визы для RU/BY/UA/KZ.",
   },
   {
     path: "/ru/bulgaria",
@@ -827,7 +827,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     ],
     seoTitle: "Гражданство PT/ES 2026 — 10 лет, CIPLE, DELE+CCSE",
     seoDescription:
-      "Португалия 10 лет + CIPLE A2, dual OK. Испания 10 лет + DELE A2/CCSE, отказ от РФ. LATAM 2 года — не для паспорта РФ. Estancia estudios 0% art. 22.",
+      "Португалия: 10 лет, CIPLE A2 и знание культуры и устройства государства (с 19.05.2026), двойное гражданство — да. Испания: 10 лет, DELE A2 + CCSE, отказ от РФ.",
   },
   {
     path: "/ru/guides/shengen-turist-vs-vnzh-2026",

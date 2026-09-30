@@ -29,7 +29,7 @@ export const WIZARD_CORRIDOR_DESCRIPTIONS: Record<string, string> = {
   bulgaria:
     "Wizard Emigro по Болгарии: Digital Nomad ~€31 010/год (макс. 1+1), EOOD/бизнес, Type D → Migration. Евро и 10% flat tax — для паспортов RU/BY/UA/KZ.",
   croatia:
-    "Wizard Emigro по Хорватии: Digital Nomad €3 622,50/мес (макс. 18 мес, 0% PIT на foreign income), семья +10% avg net. MUP / cooling-off 6 мес — для паспортов RU/BY/UA/KZ.",
+    "Wizard Emigro по Хорватии: Digital Nomad €3 622,50/мес, до 18 мес, без налога на зарплату от иностранного работодателя. Семья, MUP — для паспортов RU/BY/UA/KZ.",
   slovenia:
     "Wizard Emigro по Словении: Digital Nomad ~€3 200/мес (2× avg net, макс. 12 мес), s.p. self-employment, семья. GOV.SI с 21.11.2025 — для паспортов RU/BY/UA/KZ.",
   estonia:

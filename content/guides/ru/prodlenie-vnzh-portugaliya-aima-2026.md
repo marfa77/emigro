@@ -2,7 +2,7 @@
 slug: prodlenie-vnzh-portugaliya-aima-2026
 title: "Продление ВНЖ Португалия 2026 — AIMA, Agora и portal-renovacoes"
 seo_title: "Продление ВНЖ Португалия 2026 — AIMA renovação"
-seo_description: "Renovação AIMA авг 2026: portal до 31.10.2026, Agora, DUC. Taxas ~€440 (€133+€307). Caducado — риск границы."
+seo_description: "Продление ВНЖ в Португалии 2026: renovação на портале AIMA до 31.10.2026, оплата DUC за 24 часа, сборы ~€440 (€133 + €307). Что делать, если карта caducado."
 date_modified: 2026-08-11
 review_tier: volatile
 excerpt: "Когда начинать renovação, какие документы по типу D7/D8/trabalho/estudo, куда подавать — portal-renovacoes, Agora или services.aima — и что делать с просроченной картой."

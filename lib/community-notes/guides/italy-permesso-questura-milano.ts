@@ -261,7 +261,7 @@ export const PERMESSO_QUESTURA_GUIDE = {
   title: "Permesso di soggiorno Milano: Questura и kit postale 2026",
   excerpt:
     "Permesso Questura Milano 2026: kit postale giallo, 8 giorni lavorativi, Sportello Amico Poste, convocazione immigrazione. Schengen ≠ permesso. DNV vs elective. Ricevuta и rinnovo 60 gg.",
-  seo_title: "Permesso Questura Milano 2026 — kit postale",
+  seo_title: "Permesso di soggiorno в Милане 2026: Questura, kit",
   seo_description:
     "Permesso di soggiorno Milano 2026: Questura, kit postale, 8 giorni, Poste Sportello Amico. Schengen 90/180 ≠ permesso. RU/BY track для Como/Nord.",
   quick_answer:

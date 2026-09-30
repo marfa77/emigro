@@ -2,9 +2,9 @@
 slug: grazhdanstvo-portugaliya-ispaniya-2026
 title: "Гражданство Португалии и Испании 2026: сроки, язык, двойной паспорт"
 seo_title: "Гражданство PT и ES 2026 — 10 лет, CIPLE, DELE+CCSE"
-seo_description: "Португалия 10 лет + CIPLE A2, dual OK. Испания 10 лет + DELE A2/CCSE, отказ от РФ. LATAM 2 года — не для паспорта РФ. Estancia estudios 0% art. 22."
-excerpt: "Для RU/BY/KZ — 10 лет, не «2 года как LATAM». CIPLE vs DELE+CCSE, dual PT да / ES нет, реформа PT с 19.05.2026."
-quick_answer: "Португалия: 10 лет легального проживания (реформа 19.05.2026 для большинства вне EU/CPLP) + CIPLE A2 + чистая судимость; двойное гражданство разрешено. Испания: 10 лет + DELE A2 + CCSE; двойное гражданство с РФ — нет (отказ от паспорта). LATAM 2 года — не для паспорта РФ. Estancia por estudios 0% к art. 22. ПМЖ PT/ES ~5 лет — отдельный статус, гражданство считают по годам legal residence."
+seo_description: "Португалия: 10 лет, CIPLE A2 и знание культуры и устройства государства (с 19.05.2026), двойное гражданство — да. Испания: 10 лет, DELE A2 + CCSE, отказ от РФ."
+excerpt: "Для RU/BY/KZ — 10 лет, не «2 года как LATAM». PT: CIPLE + культура и гражданские знания с 19.05.2026; ES: DELE + CCSE. Двойное гражданство: PT да, ES нет."
+quick_answer: "Португалия: 10 лет легального проживания (реформа 19.05.2026 для большинства вне EU/CPLP) + язык A2 (CIPLE) + знание культуры, истории, символов и устройства государства + торжественная декларация + отсутствие тяжких судимостей; формат теста на культуру ещё не утверждён; двойное гражданство разрешено. Испания: 10 лет + DELE A2 + CCSE; двойное гражданство с РФ — нет (отказ от паспорта). LATAM 2 года — не для паспорта РФ. Estancia por estudios 0% к art. 22. ПМЖ PT/ES ~5 лет — отдельный статус, гражданство считают по годам legal residence."
 corridor_slugs: [ru-speaking-to-portugal, ru-speaking-to-spain]
 topic_keys: [portugal, spain, citizenship]
 tags: [гражданство, Португалия, Испания, CIPLE, DELE, 2026, натурализация]
@@ -20,11 +20,13 @@ official_sources:
     label: Ministerio de Justicia — nacionalidad ES
   - url: https://caple.letras.ulisboa.pt/
     label: CAPLE — CIPLE A2
+  - url: https://diariodarepublica.pt/dr/detalhe/lei-organica/1-2026-1123539996
+    label: Lei Orgânica n.º 1/2026 — Lei da Nacionalidade (Diário da República)
   - url: https://examenes.cervantes.es/
     label: Instituto Cervantes — DELE / CCSE
 estimated_minutes: 18
 date_published: 2026-06-29
-date_modified: 2026-09-19
+date_modified: 2026-09-30
 ---
 
 ## Зачем отдельный гайд по гражданству
@@ -35,7 +37,7 @@ date_modified: 2026-09-19
 
 Подробнее по ВНЖ: [D8/D7 Португалия](/ru/guides/vnj-portugaliya-d8-d7-grazhdanstvo-2026) · [Испания 2026](/ru/guides/vnj-ispaniya-2026) · [PT vs ES](/ru/guides/portugaliya-vs-ispaniya-vnj-2026).
 
-> **Nota Emigro (fact-check, сентябрь 2026).** **OK:** PT натурализация **10 лет** legal residence с **19.05.2026** (Lei Orgânica 1/2026) для большинства вне EU/CPLP; CIPLE A2; dual со стороны PT разрешён. ES стандарт **10 лет** + DELE A2 + CCSE; для РФ — **отказ** от исходного гражданства (исключения art. 22 не включают РФ). ПМЖ ~**5 лет** — отдельный статус: считают **годы legal residence**, не «обязательно ещё 5 после ПМЖ». **Fixed overlay:** **2 года** в строке LATAM — для iberoamericanos / особых категорий, **не** для паспорта РФ/BY/KZ. **Estancia por estudios = 0%** к nacionalidad art. 22 (50% = только larga duración-UE). **Soft:** «не более 6 мес. подряд» — типичное требование **резиденции/продления**, не формула art. 22. CIPLE «бессрочно для гражданства» — практика CAPLE. Prep: [CIPLE на Prep2Go](https://www.prep2go.study/ciple-a2-mock-test?utm_source=emigro&utm_medium=guide&utm_campaign=citizenship_pt_es) · [CCSE на UniPrep2Go](https://uniprep2go.study/mock-exams/ccse-espana-readiness-check?utm_source=emigro&utm_medium=guide&utm_campaign=citizenship_pt_es) · [DELE на Prep2Go](https://www.prep2go.study/dele-a2-mock-test?utm_source=emigro&utm_medium=guide&utm_campaign=citizenship_pt_es).
+> **Nota Emigro (fact-check, сентябрь 2026).** **OK:** PT натурализация **10 лет** legal residence с **19.05.2026** (Lei Orgânica 1/2026) для большинства вне EU/CPLP; CIPLE A2; dual со стороны PT разрешён. ES стандарт **10 лет** + DELE A2 + CCSE; для РФ — **отказ** от исходного гражданства (исключения art. 22 не включают РФ). ПМЖ ~**5 лет** — отдельный статус: считают **годы legal residence**, не «обязательно ещё 5 после ПМЖ». **Fixed overlay:** **2 года** в строке LATAM — для iberoamericanos / особых категорий, **не** для паспорта РФ/BY/KZ. **Estancia por estudios = 0%** к nacionalidad art. 22 (50% = только larga duración-UE). **Soft:** «не более 6 мес. подряд» — типичное требование **резиденции/продления**, не формула art. 22. CIPLE «бессрочно для гражданства» — практика CAPLE. **Fixed (30.09.2026):** PT — не «только CIPLE»: ст. 6.º/1 c)–e) Lei Orgânica 1/2026 добавила знание культуры, истории, символов, прав и обязанностей и устройства государства плюс торжественную декларацию; регламент проверки не опубликован. Prep: [CIPLE на Prep2Go](https://www.prep2go.study/ciple-a2-mock-test?utm_source=emigro&utm_medium=guide&utm_campaign=citizenship_pt_es) · [CCSE на UniPrep2Go](https://uniprep2go.study/mock-exams/ccse-espana-readiness-check?utm_source=emigro&utm_medium=guide&utm_campaign=citizenship_pt_es) · [DELE на Prep2Go](https://www.prep2go.study/dele-a2-mock-test?utm_source=emigro&utm_medium=guide&utm_campaign=citizenship_pt_es).
 
 ---
 
@@ -45,9 +47,9 @@ date_modified: 2026-09-19
 |----------|------------|---------|
 | **Срок проживания** | **10 лет** (большинство после реформы 05.2026) | **10 лет** |
 | **ПМЖ до подачи** | ~5 лет до ПМЖ; гражданство считают по **10 годам legal residence** | ~5 лет резиденции до подачи на паспорт |
-| **Язык** | **CIPLE A2** (португальский) | **DELE A2** + **CCSE** (испанский + общество) |
+| **Язык и знания** | **CIPLE A2** (португальский) + с 19.05.2026 знание культуры, истории, символов и устройства государства (формат проверки не утверждён) + торжественная декларация | **DELE A2** + **CCSE** (испанский + общество) |
 | **Двойное гражданство с РФ** | **Да** | **Нет** (отказ от РФ-паспорта) |
-| **Судимость** | Чистая или rehabilitada | Чистая |
+| **Судимость** | Нет реального срока свыше 3 лет по перечню тяжких статей (ст. 6.º/1 f)) и угрозы безопасности | Чистая |
 | **Срок рассмотрения** | 12–24+ мес. | 1–3 года (backlog) |
 | **Мин. выезды** | Не терять связь с PT | Требования **резиденции/продления** (часто ≤6 мес. подряд) — **не** правило art. 22 |
 
@@ -59,7 +61,8 @@ date_modified: 2026-09-19
 
 - Для **большинства** заявителей вне EU/CPLP — **10 лет** легального проживания (ранее часто планировали 5).
 - **7 лет** — для граждан других EU и CPLP.
-- Заявки, поданные **до 19 мая 2026**, остаются по прежним правилам (переходный период).
+- Заявки, поданные **до 19 мая 2026**, остаются по прежним правилам (ст. 7.º/2).
+- **Не только язык:** ст. 6.º/1 требует знать португальский язык **и** культуру, историю, национальные символы (тест или сертификат), права и обязанности гражданина и политическое устройство государства, а также подписать **торжественную декларацию** приверженности принципам правового государства. Формат проверки должен определить обновлённый Regulamento da Nacionalidade — на 30.09.2026 он не опубликован. Источник: [Lei Orgânica n.º 1/2026](https://diariodarepublica.pt/dr/detalhe/lei-organica/1-2026-1123539996), [Минюст Португалии](https://justica.gov.pt/Noticias/Lei-da-Nacionalidade-novas-regras-entram-em-vigor-a-19-de-maio).
 
 **ВНЖ и ПМЖ** не отменены: D7/D8 → продления → **ПМЖ через ~5 лет**. Гражданство для большинства RU/BY/UA/KZ считают по **10 годам legal residence**, а не «обязательно ещё пять после ПМЖ».
 
@@ -75,7 +78,8 @@ date_modified: 2026-09-19
 ### Документы на подачу (типовой пакет PT)
 
 - Паспорт + копии всех страниц
-- **Certificado CIPLE A2** (или эквivalent)
+- **Certificado CIPLE A2** (или эквивалент)
+- Подтверждение знаний культуры, истории, символов и устройства государства — порядок определит новый регламент (для заявлений с 19.05.2026)
 - Справка о несудимости PT + страна происхождения
 - Подтверждение **legal residence** 10 лет (AIMA records)
 - NIF, proof of address
@@ -88,7 +92,7 @@ date_modified: 2026-09-19
 
 ## CIPLE A2 (Португалия)
 
-**CIPLE** — экзамен португальского A2 (CAPLE). Обязателен для натурализации.
+**CIPLE** — экзамен португальского A2 (CAPLE). Закрывает языковую часть требования к натурализации; знание культуры и гражданского устройства по Lei Orgânica 1/2026 проверяется отдельно.
 
 | Параметр | Значение |
 |----------|----------|
@@ -210,7 +214,7 @@ date_modified: 2026-09-19
 ## Чеклист перед подачей на гражданство
 
 - [ ] **10 лет** непрерывного legal residence (с учётом выездов)
-- [ ] Языковой экзамен сдан (CIPLE / DELE+CCSE)
+- [ ] Языковой экзамен сдан (CIPLE / DELE+CCSE); для PT — следить за регламентом проверки культуры и гражданских знаний
 - [ ] Справки о несудимости актуальны (<3 мес.)
 - [ ] Налоговая история в порядке (NIF / NIE, декларации)
 - [ ] Нет длительных периодов вне страны без уведомления

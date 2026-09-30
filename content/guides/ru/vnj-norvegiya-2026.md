@@ -1,8 +1,8 @@
 ---
 slug: vnj-norvegiya-2026
 title: "ВНЖ Норвегия 2026: Skilled Worker, семья, ПМЖ за 3 года"
-seo_title: "ВНЖ Норвегия 2026 — Skilled Worker NOK 545 400, ПМЖ 3 года"
-seo_description: "Норвегия 2026: Skilled Worker NOK 545 400/624 700, семья 436 957, ПМЖ 341 373, гражданство 8/11 лет. UDI для RU/UA/BY/KZ, без digital nomad."
+seo_title: "ВНЖ в Норвегии 2026: работа, семья и ПМЖ за 3 года"
+seo_description: "ВНЖ в Норвегии 2026 без digital nomad: работа с оффером от NOK 545 400 в год, семья, ПМЖ через 3 года, гражданство — 8 из 11 лет. Для RU/BY/UA/KZ, данные UDI."
 excerpt: "Коридор EEA/Schengen для специалистов с оффером: высокие пороги зарплаты, ПМЖ за 3 года, гражданство обычно 8 из 11 лет и wealth tax с NOK 1.9M."
 quick_answer: |-
   Норвегия не в ЕС, но в ЕЭЗ и Шенгене. Отдельной digital nomad visa нет. Основной маршрут — Skilled Worker с оффером. Без kollektivavtal с 1 мая 2026: NOK 545 400 в год с бакалавриатом и NOK 624 700 с магистратурой.
@@ -37,7 +37,7 @@ official_sources:
     label: UDI — Norwegian Directorate of Immigration
 estimated_minutes: 22
 date_published: 2026-07-31
-date_modified: 2026-09-19
+date_modified: 2026-09-30
 ---
 
 > **Nota Emigro (fact-check, сентябрь 2026).** **OK:** без kollektivavtal с **01.05.2026** — **NOK 545 400** (bachelor) / **NOK 624 700** (master). Self-employed / ПМЖ / Job Seeker — **NOK 341 373** (2,5 G). Family future income **NOK 436 957** (3,2 G). Student 2026/27 **NOK 170 368**/год. Гражданство обычно **8/11**, сокращение **6/10** при доходе. Wealth tax порог **NOK 1 900 000**. Dedicated DNV **нет**. Источники: [UDI](https://www.udi.no/en/want-to-apply/work-immigration/skilled-workers/), [Skatteetaten](https://www.skatteetaten.no/en/rates/wealth-tax/). **Soft:** сроки UDI — поле.

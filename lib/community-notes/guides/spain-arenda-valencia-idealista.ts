@@ -407,7 +407,7 @@ export const ARENDA_VALENCIA_GUIDE = {
   title: "Аренда в Valencia 2026: Idealista, contrato, fianza GVA",
   excerpt:
     "LAU, depósito fianza en Generalitat Valenciana (modelo 816/806, GVA 3023), fiador/aval, honorarios agency, NIE+IBAN, empadronamiento vs temporal 11 mes, red flags Idealista и сценарий «к 4–6 месяцу» — полный гайд для релоканта в Valencia с Nota Emigro (IVAMA → GVA fixed).",
-  seo_title: "Аренда Valencia 2026 — Idealista, fianza GVA, contrato",
+  seo_title: "Аренда в Valencia 2026: fianza и модели GVA 806/816",
   seo_description:
     "Аренда Valencia 2026: Idealista, fianza 1 mes по LAU, депозит в Generalitat GVA 816/806, NIE и IBAN. Не путать депозит с устаревшим IVAMA — гайд.",
   quick_answer:
