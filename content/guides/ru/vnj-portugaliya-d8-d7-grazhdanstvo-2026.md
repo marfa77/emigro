@@ -191,7 +191,7 @@ Lei Orgânica n.º 1/2026 вступила в силу **19 мая 2026**: дл�
 
 ## CIPLE A2 и интеграция для гражданства
 
-**CIPLE** — экзамен португальского A2 (CAPLE). Сдают обычно за 1–2 года до подачи на гражданство. Стоимость €100–150; подготовка 8–15 мес. при нулевом PT.
+**CIPLE** — экзамен португальского A2 (CAPLE). Сдают обычно за 1–2 года до подачи на гражданство. Стоимость €95 (CAPLE 2026); подготовка 8–15 мес. при нулевом PT.
 
 Практика формата экзамена: [CIPLE A2 mock на Prep2Go](https://www.prep2go.study/ciple-a2-mock-test?utm_source=emigro&utm_medium=guide&utm_campaign=prep2go_portugal&utm_content=vnj-portugaliya-d8-d7-grazhdanstvo-2026) (timed, AI scoring). Anki European Portuguese — на [UniPrep2Go](https://uniprep2go.study/decks/ciple-a2-european-portuguese-anki-deck?utm_source=emigro&utm_medium=guide&utm_campaign=uniprep_portugal&utm_content=vnj-portugaliya-d8-d7-grazhdanstvo-2026). Это учебные материалы, не официальная запись в CAPLE.
 

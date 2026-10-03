@@ -13,6 +13,7 @@ import { SPAIN_SATELLITE } from "@/lib/satellite/spain";
 import { ITALY_SATELLITE } from "@/lib/satellite/italy";
 import { THAILAND_SATELLITE } from "@/lib/satellite/thailand";
 import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
+import { stripInlineMarkdown } from "@/lib/markdown/inline";
 import { resolveNoteOgImage } from "@/lib/community-notes/note-og-image";
 import { fitMetaDescription, fitSeoTitlePart, socialImageMetadata } from "@/lib/seo";
 import { EMIGRO_PUBLISHER, emigroAuthorOrg, schemaImage } from "@/lib/seo/schema";
@@ -363,8 +364,8 @@ export function buildCommunityNoteSchemas(note: CommunityNote) {
           "@type": "FAQPage",
           mainEntity: note.faq.map((item) => ({
             "@type": "Question",
-            name: item.q,
-            acceptedAnswer: { "@type": "Answer", text: item.a },
+            name: stripInlineMarkdown(item.q),
+            acceptedAnswer: { "@type": "Answer", text: stripInlineMarkdown(item.a) },
           })),
         }
       : null;
