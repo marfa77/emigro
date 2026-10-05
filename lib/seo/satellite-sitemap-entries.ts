@@ -3,6 +3,7 @@ import { requirePublishedCommunityNotes } from "@/lib/community-notes/queries";
 import { ARCHIVE_SLUGS } from "@/lib/community-notes/editorial-filter";
 import { normalizeHashtag } from "@/lib/community-notes/hashtags";
 import { MIN_TAG_NOTES_INDEXABLE } from "@/lib/seo/thin-content";
+import { COMO_GUIDES } from "@/lib/italy/como-guides";
 import {
   portugalSatellitePublicUrl,
   spainSatellitePublicUrl,
@@ -59,6 +60,22 @@ export async function buildSatelliteSitemapEntries(
       changeFrequency: "weekly" as const,
       priority: note.content_kind === "news" ? 0.85 : 0.75,
     })),
+    ...(country === "italy"
+      ? [
+          {
+            url: publicUrl(country, "/en"),
+            lastModified: "2026-10-05",
+            changeFrequency: "weekly" as const,
+            priority: 0.9,
+          },
+          ...COMO_GUIDES.map((guide) => ({
+            url: publicUrl(country, `/en/guides/${guide.slug}`),
+            lastModified: guide.updated,
+            changeFrequency: "monthly" as const,
+            priority: 0.8,
+          })),
+        ]
+      : []),
     ...Array.from(tagCounts.entries())
       .filter(([, count]) => count >= MIN_TAG_NOTES_INDEXABLE)
       .map(([tag]) => ({

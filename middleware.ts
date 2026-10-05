@@ -281,6 +281,9 @@ function rewriteItalySatellite(request: NextRequest): NextResponse | null {
   const url = request.nextUrl.clone();
   url.pathname = `/satellite/italy${pathname === "/" ? "" : pathname}`;
   const res = NextResponse.rewrite(url);
+  if (pathname === "/en" || pathname.startsWith("/en/")) {
+    res.headers.set("Content-Language", "en");
+  }
   if (pathname === "/") {
     res.headers.set("Link", `<https://${ITALY_SATELLITE_HOST}>; rel="canonical"`);
   }

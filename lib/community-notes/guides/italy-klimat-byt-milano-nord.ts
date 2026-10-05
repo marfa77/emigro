@@ -19,205 +19,244 @@ const RAJONY_SLUG = "milano-rajony-arenda-metro-como-2026";
 const SIM_LUCE_SLUG = "sim-internet-luce-milano-2026";
 
 const GLOSSARY: GlossaryTerm[] = [
-  { pt: "Riscaldamento centralizzato", ru: "общедомовое отопление condominio; сезон и часы по закону, не по желанию жильца" },
-  { pt: "Riscaldamento autonomo", ru: "индивидуальный котёл в квартире; те же сезонные лимиты, но контроль внутри" },
-  { pt: "Spese condominiali", ru: "квитанция за отопление и управление домом — часто surprise к первой зиме" },
-  { pt: "Umidità / muffa", ru: "влажность и плесень; multifattoriale — вентилляция + isolamento" },
-  { pt: "Classe energetica (APE)", ru: "энергетический класс квартиры; влияет на bill e comfort" },
-  { pt: "Condizionatore (AC)", ru: "кондиционер; split часто требует согласования condominio" },
-  { pt: "Domenica chiuso", ru: "воскресенье: крупные магазины центра открыты, мелкие family-run — часто закрыты" },
-  { pt: "Lago di Como / Lecco / Bergamo", ru: "weekend-geo Nord без фестивального гида — поезд + прогулка" },
+  {
+    pt: "Riscaldamento centralizzato",
+    ru: "общедомовое отопление: сезон и часы задаёт закон, а не желание жильца",
+  },
+  {
+    pt: "Riscaldamento autonomo",
+    ru: "свой котёл в квартире: сезонные лимиты те же, но включать и убавлять вы можете сами",
+  },
+  {
+    pt: "Spese condominiali",
+    ru: "квитанция за отопление и содержание дома — к первой зиме сумма часто оказывается сюрпризом",
+  },
+  {
+    pt: "Umidità / muffa",
+    ru: "влажность и плесень: причин обычно несколько сразу — и проветривание, и теплоизоляция",
+  },
+  {
+    pt: "Classe energetica (APE)",
+    ru: "энергетический класс квартиры: от него зависят и счёт за свет, и то, насколько дома тепло или душно",
+  },
+  {
+    pt: "Condizionatore",
+    ru: "кондиционер: внешний блок сплит-системы часто нужно согласовать с домом",
+  },
+  {
+    pt: "Domenica chiuso",
+    ru: "воскресенье: крупные магазины в центре обычно открыты, маленькие семейные лавки часто закрыты",
+  },
+  {
+    pt: "Lago di Como",
+    ru: "озеро Комо, плюс Лекко и Бергамо: короткая поездка на север на поезде и пешком, без отдельного гида по фестивалям",
+  },
 ];
 
+const GLOSSARY_INTRO =
+  "Эти слова стоят в договоре аренды, в зимней квитанции дома и на двери лавки в воскресенье. Их стоит узнать до первой зимы в Навильи или у озера Комо.";
+
 const DISCLAIMER =
-  "**Emigro — не юридическая conсультация.** Calendario riscaldamento и ordini sindacali **меняются** ежегодно. Актуально — [comune.milano.it calendario riscaldamento](https://www.comune.milano.it/en/argomenti/ambiente-e-animali/calendario-di-accensione-degli-impianti-di-riscaldamento). Satellite Milano + Nord (Como, Lecco, Bergamo); не Valencia mediterráneo guide.";
+  "**Emigro не даёт юридическую консультацию.** Календарь отопления и распоряжения мэра **меняются** каждый год. Актуальная версия — [календарь отопления на сайте Comune di Milano](https://www.comune.milano.it/en/argomenti/ambiente-e-animali/calendario-di-accensione-degli-impianti-di-riscaldamento). Сателлит покрывает Милан и север (Комо, Лекко, Бергамо). Это не средиземноморский гид по Валенсии.";
 
 const bodySections: NoteBodySection[] = [
   {
-    ...buildGlossarySection(
-      GLOSSARY,
-      "Riscaldamento, muffa и «магазины всегда открыты» — слова из @milanru до первой зимы в Navigli или у озера Como."
-    ),
-    paragraphs: [DISCLAIMER],
+    ...buildGlossarySection(GLOSSARY, GLOSSARY_INTRO),
+    paragraphs: [GLOSSARY_INTRO, DISCLAIMER],
   },
   {
-    heading: "Nota Emigro (fact-check)",
+    heading: "Nota Emigro (проверка фактов)",
     section_kind: "official",
     paragraphs: [
-      "Clima abitativo e ritmo settimanale — Comune Milano / Regione Lombardia; pratica affitto — soft chats. **OK** = fetch; **UNCHECKED** = no verificato.",
+      "Климат жилья и недельный ритм сверены с Comune di Milano и Regione Lombardia. То, как люди снимают квартиры, идёт отдельной мягкой оценкой из практики, а не с городского сайта. **Проверено** — страница открыта и цифра с неё. **Мягкая оценка** — так описывают жильцы, это не статистика коммуны. **Не проверено** — отдельный факт в этой заметке не сверяли.",
     ],
     bullets: [
-      "OK: stagione riscaldamento Milano 2025/2026 — **15 ottobre – 15 aprile**, max **13 ore/giorno** 05:00–23:00, temperatura max **19°C +2°C** tolleranza ([Comune Milano calendario](https://www.comune.milano.it/en/argomenti/ambiente-e-animali/calendario-di-accensione-degli-impianti-di-riscaldamento)).",
-      "OK: base normativa orari commerciali — liberalizzazione **D.L. 201/2011** art. 31: niente obbligo chiusura domenicale/festiva nazionale ([Corte Costituzionale scheda](https://www.cortecostituzionale.it/actionSchedaPronuncia.do?param_ecli=ECLI%3AIT%3ACOST%3A2013%3A124) — ius superveniens).",
-      "OK: muffa in condominio — fenomeno **multifattoriale**; ponti termici strutturali vs aerazione inadeguata (giurisprudenza art. 2051 c.c. — soft, non statuto).",
-      "Soft: ~95% flats Milano area centralizzato — cicli mattina/sera; autonomo ~5% (@forum_italy field).",
-      "Soft: umidità inverno + condensa su vetri single-glazing — pratica expat, non dato Comune.",
-      "UNCHECKED: bolletta luce AC estate 70 m² orientamento est — dipende APE e isolamento.",
-      "UNCHECKED: exact orari Esselunga/Coop domenica per ogni store — verificare sito punto vendita.",
+      "Проверено: сезон отопления в Милане на 2025/2026 год — **15 октября – 15 апреля**, не больше **13 часов в сутки** в окне 05:00–23:00, температура не выше **19°C** с допуском **+2°C** ([календарь Comune di Milano](https://www.comune.milano.it/en/argomenti/ambiente-e-animali/calendario-di-accensione-degli-impianti-di-riscaldamento)).",
+      "Проверено: часы торговли опираются на либерализацию по декрету-закону **D.L. 201/2011**, статья 31: общенациональной обязанности закрываться по воскресеньям и праздникам нет ([карточка Corte Costituzionale](https://www.cortecostituzionale.it/actionSchedaPronuncia.do?param_ecli=ECLI%3AIT%3ACOST%3A2013%3A124) — последующий закон изменил прежнее правило).",
+      "Проверено: плесень в многоквартирном доме — явление с несколькими причинами сразу. Конструктивные тепловые мосты и слабое проветривание разбирают по-разному. Судебная практика по статье 2051 Гражданского кодекса здесь только мягкая оценка: это не готовая норма устава дома.",
+      "Мягкая оценка: около 95% квартир в зоне Милана на общедомовом отоплении с утренним и вечерним циклами; свой котёл примерно у 5%. Это полевые наблюдения, не цифра коммуны.",
+      "Мягкая оценка: зимой влажность и конденсат на одинарном остеклении. Так описывают жильцы, у Comune di Milano такой статистики нет.",
+      "Не проверено: летний счёт за свет при кондиционере в квартире 70 м² с окнами на восток. Сумма зависит от класса APE и утепления.",
+      "Не проверено: точные воскресные часы каждой точки Esselunga и Coop. Смотрите сайт конкретного магазина.",
     ],
   },
   {
-    heading: "Официально: riscaldamento condominio в Milano",
+    heading: "Официально: отопление в миланском доме",
     section_kind: "official",
     paragraphs: [
-      "Milano (zona climatica **E**) — riscaldamento centralizzato включается **не раньше 15 ottobre** и выключается **не позже 15 aprile** ([Comune Milano](https://www.comune.milano.it/en/argomenti/ambiente-e-animali/calendario-di-accensione-degli-impianti-di-riscaldamento)). Вне сезона — только при eccezionali ordini sindacali, max metà ore giornaliere.",
-      "Limite temperatura: **19°C + 2°C** tolleranza in appartamento (18°C attività industriali). Durata giornaliera max **13 ore** (05:00–23:00). **Non potete** accendere caldaia centralizzata fuori calendario — amministratore programma centralina.",
-      "Riscaldamento **autonomo** — stessi limiti legali, ma potete tenere minimo 16°C nelle ore «spente» se termostato programmato (Regione Lombardia XI/3502 — soft). In [аренде](/notes/" + ARENDA_SLUG + ") chiedete: centralizzato o autonomo, APE classe, ultimo bollettino spese condominiali.",
-      "Como, Bergamo, Monza — **stessa** stagione Lombardia; weekend fuori Milano non cambiano regole riscaldamento del vostro contratto.",
+      "Милан относится к климатической зоне **E**. Общедомовое отопление (**riscaldamento centralizzato**) включают не раньше 15 октября и выключают не позже 15 апреля. Так написано в [календаре Comune di Milano](https://www.comune.milano.it/en/argomenti/ambiente-e-animali/calendario-di-accensione-degli-impianti-di-riscaldamento). Вне сезона батареи допустимы только по отдельному распоряжению мэра (**ordinanza sindacale**), и тогда не дольше половины обычной дневной нормы часов.",
+      "Потолок температуры в квартире — **19°C** плюс допуск **2°C**. Для промышленных помещений ориентир ниже, **18°C**. В сутки отопление может работать не больше **13 часов**, в промежутке с 05:00 до 23:00. Общий котёл вне календаря вы сами не включите: график задаёт управляющий через домовую автоматику.",
+      "Свой котёл (**riscaldamento autonomo**) подчиняется тем же законным пределам сезона. По решению Regione Lombardia XI/3502 — это мягкая оценка, не пересказ календаря коммуны — в «выключенные» часы можно держать минимум около 16°C, если термостат так запрограммирован. В [договоре аренды](/notes/" +
+        ARENDA_SLUG +
+        ") заранее спросите, общее отопление или свой котёл, какой энергетический класс (**APE**) указан и какой была последняя квитанция расходов дома.",
+      "У Комо, Бергамо и Монцы тот же отопительный сезон Ломбардии. Поездка на выходные за город не меняет правила отопления в вашем договоре. Главное: батареи в Милане живут по календарю коммуны, а не по тому, как вы топили дома.",
     ],
     bullets: [
-      "Centralizzato — due cicli tipici 5–11 e 17–24 (soft).",
-      "Valvole termostatiche — obbligatorie per legge.",
-      "Spese condominiali — riscaldamento quota maggiore inverno.",
-      "Fuori stagione aprile–ottobre — niente riscaldamento salvo eccezioni.",
-      "Pavimento radiante — assemblea condominiale decide (soft).",
+      "Заложите два типичных цикла общего отопления, примерно 5–11 и 17–24 (мягкая оценка).",
+      "Поставьте термостатические клапаны: по закону они обязательны.",
+      "Отложите на зиму долю отопления в расходах дома: это основная часть квитанции.",
+      "Не ждите отопления с апреля по октябрь, кроме отдельных исключений.",
+      "Уточните тёплый пол на собрании жильцов: решение принимает дом (мягкая оценка).",
     ],
   },
   {
-    heading: "Umidità, muffa и AC: mesi 1–6 in appartamento",
+    heading: "Влажность, плесень и кондиционер: месяцы 1–6",
     section_kind: "practice",
     paragraphs: [
-      "Mes 1–2 (settembre–novembre): clima mite, riscaldamento off — umidità interna può salire. Mes 3–4 (dicembre–gennaio): **prima stagione riscaldamento** — sorpresa bolletta spese condominiali e aria secca o freddo nelle ore off-cycle.",
-      "**Muffa:** aerate bagno post-doccia, accendete aspiratore, non stendete panni in stanza chiusa. Manchie >30 cm — comunicate landlord; ponti termici in facciata possono essere responsabilità condominio (art. 2051 c.c. — **soft**, caso per caso).",
-      "**Estate (mes 5–6, giugno–agosto):** caldo umido Milano; molti flats **senza AC**. Contratto: chi installa split? Condominio può richiedere autorizzazione facciata. Consumo luce — vedi [luce/SIM](/notes/" + SIM_LUCE_SLUG + ").",
-      "Prima di firmare in [Como/Lecco](/notes/" + RAJONY_SLUG + "): visitate dopo pioggia, controllate angoli nord e cantina.",
+      "Первые два месяца, если вы приехали в сентябре–ноябре, на улице ещё мягко, а отопление выключено. Влажность в квартире в это время легко ползёт вверх. Третий и четвёртый месяцы, декабрь и январь, — первый отопительный сезон. Тогда приходит неожиданная квитанция дома, а в часы между циклами воздух либо пересушен, либо в комнатах уже прохладно.",
+      "Плесень убирают бытом, а не одним средством из супермаркета. После душа проветрите ванную и включите вытяжку. Не сушите бельё в закрытой комнате. Пятно больше 30 см напишите арендодателю. Тепловой мост в фасаде иногда лежит на доме, а не на вас: статья 2051 Гражданского кодекса здесь мягкая оценка, каждый случай смотрят отдельно.",
+      "Пятый и шестой месяцы, июнь–август, в Милане жаркие и влажные. Во многих квартирах кондиционера нет. В договоре должно быть ясно, кто ставит сплит-систему. Дом может потребовать разрешение на блок на фасаде. Как устроен летний счёт за свет, разобрано в гайде про [свет и связь](/notes/" +
+        SIM_LUCE_SLUG +
+        ").",
+      "Перед подписью в [Комо или Лекко](/notes/" +
+        RAJONY_SLUG +
+        ") приезжайте после дождя и посмотрите северные углы и подвал. Главное: если плесень видна уже на четвёртом месяце, не откладывайте осушитель «до декабря».",
     ],
     bullets: [
       formatPracticeBullet({
         channels: ["milanru", "forum_italy"],
         period: "2025–2026",
         claim:
-          "piano terra Navigli senza ventilazione sviluppò muffa armadi mes 4–5; deumidificatore aiutò",
+          "на первом этаже в Навильи без нормальной вентиляции к четвёртому–пятому месяцу плесень вылезла в шкафах, и положение выправил осушитель воздуха",
         forReader:
-          "visitate dopo pioggia; chiedete APE e spese condominiali ultimo anno",
+          "Смотрите квартиру после дождя и до подписи спросите класс APE и квитанции дома за последний год.",
       }),
-      "Deumidificatore — 150–300 € acquisto (soft).",
-      "Split AC — permesso condominio facciata.",
-      "Doppi vetri — riducono condensa e rumore.",
-      "Assicurazione casa — danni acqua; foto ingresso.",
+      "Купите осушитель воздуха: ориентир покупки €150–300 (мягкая оценка).",
+      "Согласуйте внешний блок сплит-системы с домом, если он выходит на фасад.",
+      "Поставьте двойные стеклопакеты: они снижают и конденсат, и шум.",
+      "Оформите страховку жилья на ущерб от воды и сфотографируйте квартиру в день въезда.",
     ],
   },
   {
-    heading: "Недельный ритм: магазины, банки, pausa pranzo",
+    heading: "Недельный ритм: магазины, банки, обеденный перерыв",
     section_kind: "practice",
     paragraphs: [
-      "После **D.L. 201/2011** нет nationwide obbligo chiusura domenicale — каждый operator decide. **Milano centro** (Duomo, Corso Buenos Aires, centri commerciali): Esselunga, Coop, La Rinascente, Coin часто **aperti domenica** ~10:00–20:00 (soft: check store locator).",
-      "**Quartieri residenziali** e botteghe family-run — чаще **chiuso domenica** e sometimes **lunedì mattina**. Mercato rionale — sabato mattina; supermercato domenica sera для meal prep недели.",
-      "Banche — lun–ven ~8:30–13:30 + pomeriggio ridotto; **chiuso weekend**. Ristoranti — pranzo 12:30–14:30, cena da 19:30; не «all day brunch» как в UK.",
-      "Agosto — molte attività family chiudono **ferie**; planificate spesa e riparazioni до или после. К **4–6 месяцу** вы уже знаете, какой Esselunga/Coop открыт в ваше воскресенье.",
+      "После декрета-закона D.L. 201/2011 общенациональной обязанности закрываться по воскресеньям нет. Каждый магазин решает сам. В центре Милана — у Duomo, на Corso Buenos Aires и в торговых центрах — Esselunga, Coop, La Rinascente и Coin по воскресеньям часто работают примерно с 10:00 до 20:00. Это мягкая оценка: часы конкретной точки смотрите на её сайте.",
+      "В спальных кварталах и в семейных лавках по воскресеньям чаще закрыто, иногда закрыто и утро понедельника. Районный рынок живёт субботним утром. Если готовите еду на неделю, крупный супермаркет удобнее поймать вечером в воскресенье, когда он открыт.",
+      "Банки обычно работают с понедельника по пятницу примерно с 8:30 до 13:30, вторая половина дня короче, а на выходных отделение закрыто. Обед в ресторане — около 12:30–14:30, ужин начинается ближе к 19:30. Целого дня «бранча», как в Британии, здесь нет.",
+      "В августе многие семейные мастерские и лавки уходят в отпуск. Закупки и ремонт планируйте до этих недель или после них. К 4–6-му месяцу вы уже знаете, какой Esselunga или Coop открыт именно в ваше воскресенье. Главное: в спальном районе не оставляйте продукты на воскресное утро.",
     ],
     bullets: [
-      "Centro — shopping domenica sì (grandi chain).",
-      "Periferia — spesso chiuso domenica (soft).",
-      "Lunedì mattina — piccoli negozi chiusi.",
-      "Pausa pranzo — uffici Comune/Entrate 13:00–14:30.",
-      "Festivi nazionali — 1 maggio, 15 agosto, 25 dicembre: quasi tutto chiuso.",
-      "San Ambrogio 7 dicembre — festivo **solo Milano**.",
+      "Ходите за воскресными покупками в центр: крупные сети там чаще открыты.",
+      "Не рассчитывайте на воскресенье на окраине: там часто закрыто (мягкая оценка).",
+      "Проверьте утро понедельника: маленькие магазины в этот час нередко закрыты.",
+      "Закладывайте обеденный перерыв контор Comune и налогового ведомства примерно на 13:00–14:30.",
+      "Держите запас на 1 мая, 15 августа и 25 декабря: в эти общегосударственные праздники закрыто почти всё.",
+      "Помните про 7 декабря, день святого Амвросия: выходной только в Милане.",
     ],
   },
   {
-    heading: "Weekend Nord: Como, Lecco, Bergamo — без фестивального гида",
+    heading: "Выходные на севере: Комо, Лекко, Бергамо",
     section_kind: "practice",
     paragraphs: [
-      "К **4–6 месяцу** короткие поездки снимают стресс Milano: **Como** — treno da Milano Centrale ~40 min, lungolago passeggiata, funicolare Brunate (soft orari). **Lecco** — 40–50 min, Lago di Como ramo orientale, sentieri facili.",
-      "**Bergamo** — Città Alta funicolare o bus, mura venete, pranzo trattoria; treno ~1 h da Centrale. Не нужен «wine festival guide» — достаточно biglietto Trenord/Italo + comfortable shoes.",
-      "Inverno: lago spesso grigio ma camminata valida; estate: affollato weekend — partenza mattina presto. Stesso abbonamento/IO vedi [районы и metro](/notes/" + RAJONY_SLUG + ").",
+      "К 4–6-му месяцу короткая поездка из Милана снимает городскую усталость лучше, чем ещё один список фестивалей. До Комо поезд с вокзала Milano Centrale идёт около 40 минут: дальше набережная и фуникулёр на Brunate. Часы фуникулёра — мягкая оценка, смотрите день поездки. Лекко — 40–50 минут, восточная ветка озера Комо и простые тропы.",
+      "Бергамо — верхний город Città Alta, фуникулёр или автобус, венецианские стены и обед в траттории. Поезд с Centrale занимает около часа. Отдельный гид по винным фестивалям для этого не нужен: хватает билета Trenord или Italo и удобной обуви.",
+      "Зимой озеро часто серое, но прогулка всё равно имеет смысл. Летом в выходные людно, поэтому выезжайте рано утром. Проездной и маршруты метро разобраны в гайде про [районы](/notes/" +
+        RAJONY_SLUG +
+        "). Главное: на север на выходные берите поезд, а не машину в ограниченную зону центра.",
     ],
     bullets: [
-      "Como — Trenord frequente da Centrale/Porta Garibaldi.",
-      "Lecco — stessa linea S7/S8 soft.",
-      "Bergamo Alta — biglietto funicolare ATB.",
-      "Evitare solo auto — ZTL e parcheggi costosi.",
-      "Weekend pioggia — musei Bergamo o Brera restano a Milano.",
+      "Езжайте в Комо на Trenord: поезда часто ходят с Centrale и Porta Garibaldi.",
+      "Держите в виду Лекко на тех же пригородных линиях S7 и S8 (мягкая оценка маршрута).",
+      "Купите билет на фуникулёр ATB, если идёте в верхний Бергамо.",
+      "Не стройте выезд только на машине: в ограниченной зоне штраф, а парковка дорогая.",
+      "В дождь езжайте в музеи Бергамо или останьтесь в Милане и идите в Brera.",
     ],
   },
   {
-    heading: "К 4–6 месяцу: что всплывает в быту",
+    heading: "К 4–6-му месяцу: что всплывает в быту",
     section_kind: "gap",
     paragraphs: [
-      "К **4–6 месяцу** (~ novembre–febbraio o giugno–agosto) типичные сюрпризы: **prima bolletta riscaldamento** in spese condominiali, **muffa** scoperta dopo autunno piovoso, **AC mancante** in ondata caldo, **negozio chiuso domenica** quando finito cibo.",
-      "Chi arriva in settembre spesso sottostima inverno umido Milano — non è Nord Europa isolato; edifici pre-1970 perdono calore. Chi resta per estate scopre che notte tropicale senza AC altera sonno e produttività.",
-      "Non rimandare acquisto deumidificatore o ventilatori «a dicembre» se muffa compare a **mese 4**.",
+      "К 4–6-му месяцу — это примерно ноябрь–февраль или июнь–август, смотря когда вы въехали — всплывают одни и те же сюрпризы. Первая квитанция за отопление внутри расходов дома. Плесень после сырой осени. Жара без кондиционера. Закрытый в воскресенье магазин, когда еда уже кончилась.",
+      "Кто приезжает в сентябре, часто недооценивает сырую миланскую зиму. Это не утеплённый север Европы: дома старше 1970 года быстро отдают тепло. Кто остаётся на лето, обнаруживает, что тропическая ночь без кондиционера ломает и сон, и рабочий день.",
+      "Если плесень появилась на четвёртом месяце, не откладывайте осушитель или вентиляторы «до декабря». Главное: четвёртый–шестой месяц проверяет квартиру погодой, а не фотографией в объявлении.",
     ],
     bullets: [
-      "Mese 4–5 inverno — spese condo + condensa.",
-      "Mese 5–6 estate — AC assente, finestra sud.",
-      "Domenica chiuso — stock venerdì/sabato.",
-      "Agosto ferie — riparatore idraulico assente.",
-      "Como weekend — reset mentale cheap treno.",
+      "Готовьтесь к четвёртому–пятому месяцу зимой: квитанция дома и конденсат на окнах.",
+      "Готовьтесь к пятому–шестому месяцу летом: кондиционера может не быть, особенно если окна на юг.",
+      "Закупите продукты в пятницу или субботу, если в воскресенье ваш магазин закрыт.",
+      "Вызовите сантехника до августа: в отпускные недели мастера часто нет.",
+      "Съездите в Комо на выходные: поезд недорогой и хорошо обнуляет голову.",
     ],
   },
   {
-    heading: "Типичные ошибки быта в Milano",
+    heading: "Типичные ошибки быта в Милане",
     section_kind: "practice",
     paragraphs: [
-      "Ошибки: aprire tutte finestre a febbraio di notte e lamentarsi freddo alle 5:00; ignorare APE in affitto; AC install senza condominio; aspettare supermercato domenica in periferia.",
+      "Ошибки здесь бытовые и повторяемые. Настежь открыть все окна февральской ночью и в пять утра жаловаться на холод. Не смотреть энергетический класс при аренде. Повесить кондиционер без согласия дома. Ждать в воскресенье супермаркет на окраине. Главное: календарь отопления и воскресный график вашего квартала важнее привычки «как дома».",
     ],
     bullets: [
-      "Ошибка: «riscaldamento come a casa» — calendario legge, 13 h/giorno.",
-      "Ошибка: non aerare in inverno — muffa armadi mes 4–6.",
-      "Ошибка: affitto senza vedere dopo pioggia — infiltrazioni.",
-      "Ошибка: domenica solo piccolo negozio quartiere — chiuso.",
-      "Ошибка: AC portatile senza tubo finestra — inefficace + rumore.",
-      "Ошибка: confondere clima Como lago con Milano heat island — differenza 2–3°C soft.",
+      "Не ждите отопления «как дома»: действует городской календарь и потолок 13 часов в сутки.",
+      "Не заклеивайте квартиру на зиму без проветривания: к 4–6-му месяцу плесень появляется в шкафах.",
+      "Не подписывайте аренду, не посмотрев квартиру после дождя: так проходят протечки.",
+      "Не оставляйте воскресенье на одну маленькую лавку у дома: она часто закрыта.",
+      "Не берите переносной кондиционер без шланга в окно: толку мало, шума много.",
+      "Не путайте климат у озера Комо с миланским островом тепла: разница около 2–3°C, и это мягкая оценка.",
       formatPracticeBullet({
         channels: ["milan_4at"],
         period: "2025–2026",
-        claim: "relokanty scoprirono spese condominiali riscaldamento solo a dicembre — €200+ mensili",
-        forReader: "chiedete ultimo rendiconto condo prima firma contratto",
+        claim:
+          "расходы дома на отопление люди замечали только в декабре, и ежемесячная сумма выходила за €200",
+        forReader: "До подписи договора попросите последний годовой отчёт дома.",
       }),
     ],
   },
   {
-    heading: "Wizard и Assist",
+    heading: "Куда дальше: Wizard и Assist",
     section_kind: "practice",
     paragraphs: [
-      "Clima abitativo пересекается с [арендой](/notes/" + ARENDA_SLUG + ") и [первыми 30 днями](/notes/" + PERVYE_30_SLUG + "). Маршрут visto + budget — [Emigro Wizard Italia](/ru/italy/wizard?utm_source=emigro&utm_medium=guide&utm_campaign=klimat-byt-milano&utm_content=" +
+      "Климат квартиры стыкуется с [арендой](/notes/" +
+        ARENDA_SLUG +
+        ") и с [первыми 30 днями](/notes/" +
+        PERVYE_30_SLUG +
+        "). Маршрут визы и бюджет можно собрать в [мастере Emigro по Италии](/ru/italy/wizard?utm_source=emigro&utm_medium=guide&utm_campaign=klimat-byt-milano&utm_content=" +
         KLIMAT_MILANO_SLUG +
-        "). Спор с landlord по muffa/spese — [Route Check Assist €129](/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=klimat-byt-milano&utm_content=" +
+        "). Если спор с арендодателем уже идёт про плесень или квитанции дома, есть [проверка маршрута Assist за €129](/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=klimat-byt-milano&utm_content=" +
         KLIMAT_MILANO_SLUG +
-        ").",
+        "). Главное: сначала календарь отопления и класс APE, потом спор о квитанции.",
     ],
     bullets: [
-      "[Районы Milano/Como](/notes/" + RAJONY_SLUG + ") — dove abitare.",
-      "[Idealista affitto](/notes/" + ARENDA_SLUG + ") — APE e spese.",
-      "[Luce e utenze](/notes/" + SIM_LUCE_SLUG + ") — bollette estate.",
+      "Откройте [районы Милана и Комо](/notes/" + RAJONY_SLUG + "), если ещё выбираете, где жить.",
+      "Сверьте класс APE и расходы дома в гайде про [аренду](/notes/" + ARENDA_SLUG + ").",
+      "Посмотрите [свет и коммунальные счета](/notes/" + SIM_LUCE_SLUG + ") перед первым летним счётом.",
     ],
   },
 ];
 
 const keyTakeaways = [
-  "Официально: riscaldamento Milano 15 ott–15 apr, max 13 h/d, 19°C+2°C (Comune Milano calendario 2025/2026).",
+  "Официально: отопление в Милане идёт с 15 октября по 15 апреля, не больше 13 часов в сутки, потолок 19°C плюс допуск 2°C (календарь Comune di Milano на сезон 2025/2026).",
   formatPracticeTakeaway({
     channels: ["milanru", "forum_italy"],
     period: "2025–2026",
-    claim: "к 4–6 месяцу всплывают spese condo riscaldamento, muffa o caldo senza AC",
-    forReader: "visitate affitto dopo pioggia; stock domenica venerdì; Como treno weekend",
+    claim:
+      "к 4–6-му месяцу всплывают квитанция дома за отопление, плесень или жара без кондиционера",
+    forReader:
+      "Смотрите квартиру после дождя, закупите воскресные продукты в пятницу и оставьте поезд в Комо на выходные.",
   }),
-  "Официально: domenica apertura liberalizzata D.L. 201/2011 — centro sì, periferia spesso no.",
-  "Weekend Nord: Como/Lecco/Bergamo treno — geo satellite, non festival guide.",
+  "Официально: воскресная торговля либерализована декретом-законом D.L. 201/2011 — в центре крупные сети часто открыты, на окраине по воскресеньям нередко закрыто.",
+  "На выходные на север сателлита — в Комо, Лекко и Бергамо — едут поездом. Отдельный гид по фестивалям для этого не нужен.",
 ];
 
 const faq: CommunityNoteFaq[] = [
   {
-    q: "Когда включают отопление в Milano?",
-    a: "По правилам — 15 ottobre – 15 aprile, max 13 ore al giorno, 19°C+2°C (Comune Milano 2025/2026). На практике centralizzato accende amministratore; fuori ore apartment può raffreddarsi.",
+    q: "Когда в Милане включают отопление?",
+    a: "По правилам сезон длится с 15 октября по 15 апреля, не больше 13 часов в сутки, потолок 19°C плюс допуск 2°C (календарь Comune di Milano на 2025/2026 год). На практике график общего котла запускает управляющий дома, и между циклами квартира успевает остыть.",
   },
   {
-    q: "Плесень в квартире — вина арендодателя?",
-    a: "По правилам — dipende: ponti termici strutturali possono essere condominio (art. 2051 c.c. soft). На практике scarsa aerazione aggravates; documentate e comunicate landlord a mes 4–6.",
+    q: "Плесень в квартире — это вина арендодателя?",
+    a: "По правилам ответ зависит от причины. Конструктивный тепловой мост может лежать на доме, и здесь вспоминают статью 2051 Гражданского кодекса, но это мягкая оценка, не готовый устав. На практике положение ухудшает слабое проветривание: зафиксируйте пятно и напишите арендодателю на четвёртом–шестом месяце.",
   },
   {
-    q: "Магазины открыты в воскресенье?",
-    a: "По правилам — niente obbligo chiusura (D.L. 201/2011). На практике centro Milano e grandi chain sì ~10–20; botteghe quartiere spesso chiuse.",
+    q: "Магазины в Милане открыты в воскресенье?",
+    a: "По правилам общенациональной обязанности закрываться нет (декрет-закон D.L. 201/2011). На практике центр Милана и крупные сети часто работают примерно с 10:00 до 20:00, а районные лавки по воскресеньям часто закрыты.",
   },
   {
-    q: "Нужен ли кондиционер к лету 4–6 месяца?",
-    a: "По правилам — non obbligatorio in affitto. На практике giugno–agosto Milano caldo-umido; verificate AC in contratto o split con permesso condo.",
+    q: "Нужен ли кондиционер к лету, к 4–6-му месяцу?",
+    a: "По правилам арендодатель не обязан ставить кондиционер. На практике в июне–августе в Милане жарко и влажно: проверьте, есть ли кондиционер в договоре, или согласуйте сплит-систему с домом.",
   },
   {
-    q: "Куда на выходные из Milano без машины?",
-    a: "По правилам — treni regionali Trenord. На практике Como ~40 min, Lecco, Bergamo Alta — passeggiata + pranzo; partenza mattina.",
+    q: "Куда съездить из Милана на выходные без машины?",
+    a: "По правилам ходят региональные поезда Trenord. На практике Комо — около 40 минут, дальше Лекко и верхний Бергамо: прогулка и обед, выезд лучше с утра.",
   },
 ];
 
@@ -225,25 +264,25 @@ export const KLIMAT_MILANO_GUIDE = {
   slug: KLIMAT_MILANO_SLUG,
   category: "Быт и климат",
   content_kind: "guide" as ContentKind,
-  title: "Климат и быт Milano Nord: riscaldamento, muffa, ритм 2026",
+  title: "Климат и быт Милана и севера: отопление, плесень, ритм 2026",
   excerpt:
-    "Riscaldamento Milano 2026: calendario Comune, muffa, AC estate, domenica negozi chiusi/aperti. Weekend Como, Lecco, Bergamo treno. Cosa emerge a mes 4–6 nel satellite Nord.",
-  seo_title: "Климат быт Milano 2026 — riscaldamento Como Nord",
+    "Отопление в Милане в 2026 году: календарь коммуны, плесень, лето без кондиционера, какие магазины в воскресенье открыты. Поезд в Комо, Лекко и Бергамо. Что всплывает в быту к 4–6-му месяцу на севере.",
+  seo_title: "Климат и быт Милана 2026: отопление и Комо",
   seo_description:
-    "Климат жилья Milano 2026: riscaldamento 15 ott–15 apr, muffa, AC estate. Воскресенье магазины, ритм Lombardia. Weekend Como, Lecco, Bergamo. Быт к 4–6 месяцу Nord.",
+    "Климат в Милане в 2026: отопление 15 октября – 15 апреля, плесень, лето без кондиционера. Воскресные магазины и ритм Ломбардии. Выходные: Комо, Лекко, Бергамо.",
   quick_answer:
-    "В Milano отопление **centralizzato** по закону: **15 октября – 15 апреля**, max **13 ч/день**, **19°C+2°C** ([Comune Milano](https://www.comune.milano.it/en/argomenti/ambiente-e-animali/calendario-di-accensione-degli-impianti-di-riscaldamento)). К **4–6 месяцу** всплывают spese condominiali, **muffa** (ventilazione + isolamento) и жара **без AC**. Воскресенье: крупные магазины **центра** открыты (D.L. 201/2011), мелкие в районах — часто закрыты. Weekend **Como/Lecco/Bergamo** — поезд ~40–60 мин. Проверяйте APE при [аренде](/notes/arenda-milano-idealista-2026).",
+    "В Италии, в миланской квартире, батареи включаются не когда вам холодно, а по городскому календарю: общедомовое отопление идёт **15 октября – 15 апреля**, не дольше **13 часов в сутки**, с потолком **19°C** и допуском **2°C** ([календарь Comune di Milano](https://www.comune.milano.it/en/argomenti/ambiente-e-animali/calendario-di-accensione-degli-impianti-di-riscaldamento)). К 4–6-му месяцу обычно всплывают квитанция дома, плесень и жара без кондиционера, а в воскресенье крупные магазины центра часто открыты (декрет-закон 201/2011), районные лавки — нет. На выходные в Комо, Лекко и Бергамо хватает поезда на 40–60 минут, а класс **APE** лучше проверить ещё при [аренде](/notes/arenda-milano-idealista-2026).",
   body_sections: bodySections,
   body_paragraphs: flattenBodySections(bodySections),
   key_takeaways: keyTakeaways,
   faq,
   official_links: [
     {
-      title: "Comune Milano — calendario riscaldamento",
+      title: "Comune di Milano — календарь отопления",
       url: "https://www.comune.milano.it/en/argomenti/ambiente-e-animali/calendario-di-accensione-degli-impianti-di-riscaldamento",
     },
     {
-      title: "Corte Costituzionale — liberalizzazione orari (D.L. 201/2011)",
+      title: "Corte Costituzionale — либерализация часов торговли (D.L. 201/2011)",
       url: "https://www.cortecostituzionale.it/actionSchedaPronuncia.do?param_ecli=ECLI%3AIT%3ACOST%3A2013%3A124",
     },
   ],

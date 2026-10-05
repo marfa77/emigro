@@ -22,257 +22,288 @@ const MEDITSINA_SLUG = "meditsina-milano-ssn-tessera-2026";
 const RAJONY_SLUG = "milano-rajony-arenda-metro-como-2026";
 
 const GLOSSARY: GlossaryTerm[] = [
-  { pt: "Codice fiscale", ru: "налоговый код; первый админ-шаг, не NIE" },
-  { pt: "Permesso di soggiorno", ru: "ВНЖ extra-UE; kit postale entro 8 gg lavorativi" },
-  { pt: "Kit postale", ru: "жёлтый комплект для подачи permesso в Poste" },
-  { pt: "Residenza anagrafica", ru: "регистрация по адресу в Comune di Milano" },
-  { pt: "Tessera sanitaria", ru: "карта SSN; после CF и iscrizione" },
-  { pt: "IBAN IT", ru: "итальянский счёт для renta e luce" },
-  { pt: "Schengen 90/180", ru: "краткое пребывание; ≠ permesso" },
-  { pt: "Visto D", ru: "национальная виза для въезда на оформление soggiorno" },
+  { pt: "Codice fiscale", ru: "налоговый код из 16 знаков; первый административный шаг, это не испанский NIE" },
+  { pt: "Permesso di soggiorno", ru: "разрешение на пребывание для граждан вне ЕС; почтовый комплект сдают в течение 8 рабочих дней" },
+  { pt: "Kit postale", ru: "жёлтый комплект бланков: его сдают на почте, чтобы запросить разрешение на пребывание" },
+  { pt: "Residenza anagrafica", ru: "запись о проживании по конкретному адресу в муниципалитете Милана" },
+  { pt: "Tessera sanitaria", ru: "медицинская карта государственной системы; её оформляют после налогового кода и записи в систему" },
+  { pt: "IBAN IT", ru: "итальянский банковский счёт: с него платят аренду и свет" },
+  { pt: "Schengen 90/180", ru: "короткий туристический срок; это не разрешение на пребывание" },
+  { pt: "Visto D", ru: "национальная виза D: с ней въезжают, чтобы оформить пребывание уже в Италии" },
 ];
 
+const GLOSSARY_INTRO =
+  "Слова, которые услышите в Мальпенсе, в окне почты и в налоговой, лучше разобрать до визита. Иначе в чате легко поверить совету сначала дождаться пластиковой карты пребывания, а потом заниматься остальным.";
+
 const DISCLAIMER =
-  "**Emigro — не юридическая консультация.** Сроки Questura, Entrate и Poste **меняются**. Satellite-оркестратор для Milano e Nord (Como, Monza, Bergamo); не переносите формы и ведомства из чужого country-checklist. Hard-правила — [interno.gov.it](https://www.interno.gov.it/) / [agenziaentrate.gov.it](https://www.agenziaentrate.gov.it/) / ваш visto.";
+  "**Emigro — не юридическая консультация.** Сроки квестуры, налоговой и почты **меняются**. Это маршрут сателлита для Милана и севера (Комо, Монца, Бергамо): не переносите бланки и ведомства из списка шагов другой страны. Жёсткие правила сверяйте на [сайте МВД](https://www.interno.gov.it/), [сайте налоговой](https://www.agenziaentrate.gov.it/) и в тексте вашей визы.";
 
 const bodySections: NoteBodySection[] = [
   {
-    ...buildGlossarySection(
-      GLOSSARY,
-      "Слова из MXP, Sportello Amico и ufficio Entrate — разберём до того, как чат предложит «сначала permesso plastica, потом всё остальное»."
-    ),
-    paragraphs: [DISCLAIMER],
+    ...buildGlossarySection(GLOSSARY, GLOSSARY_INTRO),
+    paragraphs: [GLOSSARY_INTRO, DISCLAIMER],
   },
   {
-    heading: "Nota Emigro (fact-check)",
+    heading: "Nota Emigro (проверка фактов)",
     section_kind: "official",
     paragraphs: [
-      "Satellite-чеклист связывает eight core guides Milano. OK/soft/fixed ниже.",
+      "Этот маршрут связывает восемь основных гайдов по Милану. Ниже каждая опора помечена отдельно: проверено по официальной странице, исправлено относительно чужого списка, мягкая оценка по полю или не проверено.",
+      "Адреса отделений в текст намеренно не внесены: их сверяют в день визита. Главное: не усиливаем мягкие оценки до нормы закона и не подставляем сумму дохода цифрового кочевника, которой нет в проверенном источнике.",
     ],
     bullets: [
-      "OK: permesso di soggiorno — entro **8 giorni lavorativi** dall'ingresso ([portaleimmigrazione.it](https://www.portaleimmigrazione.it/ITA/nuovaProcedura.html)).",
-      "OK: codice fiscale — modello **AA4/8** в Agenzia delle Entrate ([istruzioni EN](https://www.agenziaentrate.gov.it/portale/documents/20143/278995/Instructions+on+how+to+fill+in+this+form_AA4_8_istruzioni_ING.pdf)).",
-      "OK: kit postale — Poste **Sportello Amico**, busta aperta ([poste.it guida](https://www.poste.it/guida-rilascio-e-rinnovo-permesso-di-soggiorno)).",
-      "OK: все пять URL из official_links повторно открыты 06.09.2026; адреса uffici намеренно не фиксируем в тексте.",
-      "Fixed: чужой налоговый идентификатор → в Италии codice fiscale по AA4/8.",
-      "Fixed: чужой миграционный portal → в Италии kit giallo + Questura.",
-      "Fixed: «Schengen 90 = полгода legal» → permesso/visto D — отдельный контур.",
-      "Soft: порядок SIM→CF→kit→IBAN — полевой Milano, не статья TUI целиком.",
-      "Soft: nomade digitale — D.M. 29/02/2024 GU 79; reddito triplo soglia sanitaria — **UNCHECKED** exact € 2026 index.",
-      "Soft: consolato RU Milano district — Lombardia, Piemonte, Veneto… ([milan.mid.ru](https://milan.mid.ru/ru/general-consulate/genkonsulstvo/consul-district/)); не Barcelona.",
+      "Проверено: разрешение на пребывание подают в течение **8 рабочих дней** со дня въезда ([портал иммиграции](https://www.portaleimmigrazione.it/ITA/nuovaProcedura.html)).",
+      "Проверено: налоговый код запрашивают по форме **AA4/8** в налоговой **Agenzia delle Entrate** ([инструкция на английском](https://www.agenziaentrate.gov.it/portale/documents/20143/278995/Instructions+on+how+to+fill+in+this+form_AA4_8_istruzioni_ING.pdf)).",
+      "Проверено: жёлтый комплект сдают на почте в окне **Sportello Amico** (стойка для миграционных бланков), конверт остаётся открытым ([гид почты](https://www.poste.it/guida-rilascio-e-rinnovo-permesso-di-soggiorno)).",
+      "Проверено: все пять ссылок из блока официальных источников повторно открыты 06.09.2026.",
+      "Исправлено: чужой налоговый номер в Италии не работает. Здесь нужен налоговый код по форме AA4/8.",
+      "Исправлено: чужой миграционный портал сюда не переносится. В Италии это жёлтый комплект и квестура (**Questura**, провинциальная полиция).",
+      "Исправлено: формула «90 дней Шенгена равны полугоду легальной жизни» неверна. Виза D и разрешение на пребывание — отдельный контур.",
+      "Мягкая оценка: порядок «связь, затем налоговый код, комплект и счёт» — полевой опыт Милана, а не весь текст единого миграционного закона (TUI).",
+      "Мягкая оценка: цифровой кочевник описан министерским декретом от 29.02.2024, официальный вестник № 79. Доход — тройной порог освобождения от платы за медицину. Точная сумма в евро на 2026 год не проверена.",
+      "Мягкая оценка: округ генконсульства России в Милане — Ломбардия, Пьемонт, Венето и соседние области. Сверяйте список на [странице округа](https://milan.mid.ru/ru/general-consulate/genkonsulstvo/consul-district/). Это не консульство в Барселоне.",
     ],
   },
   {
-    heading: "Официально: три контура первого mes",
+    heading: "Официально: три контура первого месяца",
     section_kind: "official",
     paragraphs: [
-      "Первые **30 дней** после прилёта в MXP/LIN — три параллельных контура: **identità fiscale** (codice fiscale), **status migratorio** (permesso kit postale + Questura), **domicilio e pagamenti** (locazione, IBAN IT, utenze). Они связаны, но идут через разные uffici: Entrate, Poste/Questura, banca e Comune.",
-      "Четвёртый контour — **salute** (SSN/tessera sanitaria) и **residenza anagrafica** в Comune — обычно settimana 3–4 после indirizzo stabile. Assicurazione sanitaria из visto держите активной до SSN, если procede.",
-      "Como, Monza, Bergamo — **тот же satellite** Lombardia/Nord; не отдельный hub. Wizard и inventory один: italy.emigro.online.",
+      "Первые 30 дней после прилёта в Мальпенсу (MXP) или Линате (LIN) идут тремя параллельными контурами, а не одной очередью. Налоговая личность — это код в **Agenzia delle Entrate**. Миграционный статус — жёлтый комплект на почте и затем квестура. Быт и платежи — договор аренды, итальянский счёт и коммунальные услуги. Контуры связаны, но окна разные: налоговая, почта с квестурой, банк и муниципалитет (**Comune**).",
+      "Четвёртый контур — медицина и запись адреса в реестре населения (**anagrafe**). Его обычно закрывают на третьей или четвёртой неделе, когда адрес уже стабильный. Медицинскую страховку из визы держите действующей, пока не оформите государственную систему (**SSN**, Servizio Sanitario Nazionale), если идёте этим путём.",
+      "Комо, Монца и Бергамо — тот же северный сателлит Ломбардии, а не отдельный городской сайт. Мастер маршрута и список гайдов одни: italy.emigro.online. Главное: не ждите, пока один контур «закончится», чтобы начать соседний, если срок уже идёт.",
     ],
     bullets: [
-      "Codice fiscale — AA4/8 Entrate.",
-      "Permesso — kit postale 8 gg lavorativi.",
-      "Residenza — Comune anagrafe после contratto.",
-      "IBAN IT — banca dopo CF.",
-      "SSN — Azienda Sanitaria после residenza (soft).",
-      "Utenze — luce/gas/internet на CF + IBAN.",
+      "Запросите налоговый код по форме AA4/8 в налоговой.",
+      "Подайте почтовый комплект в течение 8 рабочих дней.",
+      "Зарегистрируйте адрес в муниципалитете после договора.",
+      "Откройте итальянский счёт в банке после налогового кода.",
+      "Запишитесь в местную службу здравоохранения после регистрации адреса. Срок здесь — мягкая оценка, не статья закона.",
+      "Подключите свет, газ и интернет на налоговый код и итальянский счёт.",
     ],
   },
   {
-    heading: "Календарь mes 1: 72 ore → settimana 4",
+    heading: "Календарь первого месяца: от 72 часов до четвёртой недели",
     section_kind: "action_guide",
     paragraphs: [
-      "Этот note — **маршрут по неделям**, не энциклопедия. Детали CF, permesso, банка и аренды — в sibling guides; здесь **когда** их открывать.",
-      "**72 ore** после MXP/LIN: SIM/eSIM ([SIM/luce](/notes/" + SIM_LUCE_SLUG + ")), short-term с возможностью dichiarare indirizzo, compilazione kit permesso и appuntamento Entrate для AA4/8. **8 giorni lavorativi** на kit postale тикают с timbratura passaporto — не ждите «спокойной второй недели».",
-      "**Settimana 1–2:** certificato codice fiscale → kit in Poste Sportello Amico → IBAN IT ([банк](/notes/" + BANK_IBAN_IT_SLUG + ")) → просмотр [Idealista](/notes/" + ARENDA_SLUG + ") когда готовы документы. Ricevuta permesso + CF — типичный минимум для filiale.",
-      "**Settimana 3–4:** convocazione Questura (rilievi), domiciliazione renta se contratto firmato, iscrizione SSN ([medicina](/notes/" + MEDITSINA_SLUG + ")), dichiarazione residenza Comune. К концу mes 1 — ricevuta permesso, CF, IBAN domiciliato, utenze in corso.",
+      "Эта заметка — маршрут по неделям, а не энциклопедия. Подробности налогового кода, разрешения на пребывание, банка и аренды лежат в соседних гайдах. Здесь только момент, когда их открывать, чтобы восьмидневный срок не сгорел в «спокойной второй неделе».",
+      "За первые 72 часа после Мальпенсы или Линате закройте связь, в том числе электронную SIM ([связь, интернет и свет](/notes/" +
+        SIM_LUCE_SLUG +
+        ")), и возьмите временное жильё, по которому можно указать адрес. Параллельно заполните комплект на пребывание и запишитесь в налоговую на форму AA4/8. Восемь рабочих дней на почтовый комплект считаются от штампа в паспорте.",
+      "На первой и второй неделе заберите справку о налоговом коде, сдайте комплект в окне почты Sportello Amico, откройте итальянский счёт ([банк](/notes/" +
+        BANK_IBAN_IT_SLUG +
+        ")) и смотрите объявления ([аренда](/notes/" +
+        ARENDA_SLUG +
+        ")), когда документы уже на руках. Для отделения банка типичный минимум — квитанция о подаче комплекта и налоговый код.",
+      "На третьей и четвёртой неделе приходит вызов в квестуру на отпечатки, подключается автосписание аренды, если договор подписан, идёт запись в государственную медицину ([медицина](/notes/" +
+        MEDITSINA_SLUG +
+        ")) и заявление о регистрации адреса в муниципалитете. К концу первого месяца на руках должны быть квитанция о пребывании, налоговый код, итальянский счёт с автосписанием и коммунальные договоры в работе. Главное: комплект не оставляйте на седьмой день, если окно почты живёт очередью.",
     ],
     bullets: [
       formatPracticeBullet({
         channels: ["milanru", "forum_italy"],
         period: "2025–2026",
         claim:
-          "ordine tipico Milano mes 1: SIM → codice fiscale → kit postale → IBAN IT → contratto long-term",
-        forReader: "non copiare moduli e portali di un altro Paese",
+          "типичный порядок первого месяца в Милане такой: сначала связь, затем налоговый код, почтовый комплект, итальянский счёт и только потом долгосрочный договор",
+        forReader: "не копируйте бланки и порталы другой страны",
       }),
-      "72h — SIM, AA4/8 prep, kit compilation, alloggio temporaneo.",
-      "Sem 1–2 — [CF](/notes/" + CODICE_FISCALE_SLUG + "), [permesso](/notes/" + PERMESSO_QUESTURA_SLUG + "), [banca](/notes/" + BANK_IBAN_IT_SLUG + ").",
-      "Sem 3–4 — Questura convocazione, [SSN](/notes/" + MEDITSINA_SLUG + "), residenza Comune.",
-      "Non firmare long-term senza verifica documenti per anagrafe.",
-    ],
-  },
-  {
-    heading: "Порядок шагов: SIM → CF → kit → IBAN → residenza → SSN",
-    section_kind: "practice",
-    paragraphs: [
-      "Полевой порядок Milano (soft, не TUI целиком): SIM первым — Poste, banca e Questura шлют SMS. Codice fiscale вторым — номер на contratti e KYC. Kit permesso **entro 8 gg lavorativi** — параллельно или сразу после CF. Банк четвёртым — caparra e utenze. Residenza anagrafica и SSN — когда есть contratto registrato.",
-      "**72 ore** закрывают связь, kit prep e tetto; **settimana 4** — Questura rilievi, domiciliazione e salute.",
-      "Ответ на порядок: связь → codice fiscale → kit/ricevuta → крыша и IBAN → SSN. До 4-й недели могут подождать постоянная fibra, cambio medico и оптимизация тарифа, но не kit postale и не документированный адрес.",
-    ],
-    bullets: [
-      "SIM → codice fiscale → kit postale → IBAN IT → residenza → tessera sanitaria.",
-      "72h ≠ settimana 4: kit deadline — giorni 1–5.",
-      "Только итальянские AA4/8, Poste и Questura.",
-      "Como/Nord — stessi step, uffici provinciali.",
-    ],
-  },
-  {
-    heading: "Что ломается к 4–6 месяцу, если mes 1 пропущен",
-    section_kind: "gap",
-    paragraphs: [
-      "Пропуск CF, kit entro 8 gg или IBAN в первый mes кажется «решим потом», но к **4–6 месяцу** стекаются rinnovo affitto, INPS, F24 e addebiti utenze.",
-    ],
-    bullets: [
-      "Sin kit/ricevuta permesso — overstay risk e difficoltà rinnovo.",
-      "Sin codice fiscale — blocco banca, luce, stipendio.",
-      "Sin IBAN IT — domiciliazione renta e Eni/Enel.",
-      "Sin residenza anagrafica — ritardi SSN e scuola.",
-      "Sin SIM IT — 2FA banca e Poste.",
-      "Copiare PT NIF/ES NIE ordine — wrong forms.",
-    ],
-  },
-  {
-    heading: "Карта satellite: куда углубиться",
-    section_kind: "practice",
-    paragraphs: [
-      "Этот чеклист — **маршрут**, не энциклопедия. Sibling guides закрывают узлы:",
-    ],
-    bullets: [
-      "[SIM, internet, luce](/notes/" + SIM_LUCE_SLUG + ") — utenze semana 1.",
-      "[Codice fiscale AA4/8](/notes/" + CODICE_FISCALE_SLUG + ") — tax_id slot.",
-      "[Permesso Questura kit](/notes/" + PERMESSO_QUESTURA_SLUG + ") — residence_appointment.",
-      "[Аренда Idealista](/notes/" + ARENDA_SLUG + ") — contratto e caparra.",
-      "[Районы, metro, Como](/notes/" + RAJONY_SLUG + ") — dove abitare.",
-      "[Банк IBAN IT](/notes/" + BANK_IBAN_IT_SLUG + ") — KYC e domiciliazione.",
-      "[Medicina SSN/tessera](/notes/" + MEDITSINA_SLUG + ") — salute.",
-    ],
-  },
-  {
-    heading: "Типичные ошибки первого mes в Milano",
-    section_kind: "practice",
-    paragraphs: [
-      "Milano прощает медленный italiano, но не пустую ricevuta kit и не «permesso на второй mes».",
-    ],
-    bullets: [
-      "Kit «на giorno 7» — Sportello Amico queue + 8 gg lavorativi.",
-      "Аренда без CF e verifica contratto per anagrafe.",
-      "Caparra senza IBAN IT.",
-      "Un solo banco e arrendersi dopo rifiuto.",
-      "Schengen 90 confusion con visto D.",
-      "Checklist Valencia/Lisboa — wrong country.",
-      "Consolato Barcelona per RU in Lombardia — district Milano.",
-      "DNV vs elective residence — documenti diversi (soft).",
-    ],
-  },
-  {
-    heading: "Giorno 0 a MXP: aeroporto e prima notte",
-    section_kind: "practice",
-    paragraphs: [
-      "Malpensa (MXP) e Linate (LIN) — non Fiumicino: Malpensa Express o bus до Milano Centrale, then Metro M1/M3 до temporary жилья (Porta Romana, Isola, Bovisa — см. [районы](/notes/" + RAJONY_SLUG + ")).",
-      "В первую ночь: связь, адрес с Wi‑Fi, foto timbratura passaporto — data ingresso для 8 gg. Non firmare long-term contratto stanchi — jet lag error.",
-    ],
-    bullets: [
-      "Malpensa Express — ticket online dopo SIM.",
-      "ATM Milano — app per biglietti.",
-      "Temporary booking — indirizzo esatto per taxi.",
-      "Foto timbratura passaporto — cloud.",
-      "Supermercato Esselunga/Carrefour vicino alloggio.",
-    ],
-  },
-  {
-    heading: "Lavoro subordinato vs autonomo vs nomade vs elective",
-    section_kind: "gap",
-    paragraphs: [
-      "Este checklist assume visto D già in passaporto. **Lavoro subordinato** — datore e SUI spesso prima kit; alta INPS fa datore. **Autonomo / P.IVA** — commercialista e Partita IVA settimana 2–3. **Nomade digitale** — D.M. 29/02/2024 GU 79; visto consolato, permesso kit dedicato; reddito triplo soglia sanitaria — UNCHECKED € 2026. **Elective residence** — reddito passivo, **≠** nomade; altro visto e motivo kit.",
-    ],
-    bullets: [
-      "Subordinato — seguire datore per SUI e nulla osta.",
-      "Autonomo — CF + IBAN prima Partita IVA.",
-      "Nomade — assicurazione sanitaria e alloggio nel pacchetto visto.",
-      "Elective — non mescolare con remote worker kit.",
-      "Studio — permesso studio; ore lavoro limitate.",
-    ],
-  },
-  {
-    heading: "Famiglia e consolato RU Milano",
-    section_kind: "practice",
-    paragraphs: [
-      "Coniuge e figli con visto familiare seguono catena CF → kit → Questura con **kit separati** (1 per persona). Scuola pubblica chiede residenza anagrafica — pianificare prima giugno per settembre.",
-      "Passaporto RU: district **Gen.consolato Milano** — Lombardia, Piemonte, Veneto, Friuli, Valle d'Aosta, Trentino, Emilia-Romagna (eccetto Ferrara, Ravenna, Forlì, Rimini → Roma). Appuntamento [milan.mid.ru](https://milan.mid.ru/ru/general-consulate/genkonsulstvo/consul-district/) / kdmid. Non copiare consolato Barcelona.",
-    ],
-    bullets: [
-      "CF minore — AA4/8 con genitore.",
-      "Kit famiglia — una ricevuta per persona.",
-      "Scuola — certificato residenza + permesso.",
-      "Consolato — solo passaporto/ZAGS, non permesso.",
-      "Como — stesso district Milano.",
-    ],
-  },
-  {
-    heading: "Ошибки чужого country-checklist в Milano",
-    section_kind: "gap",
-    paragraphs: [
-      "Чаты смешивают формы разных стран: в Milano налоговый код получают по AA4/8, permesso подают через Poste/Questura по своему motivo.",
-    ],
-    bullets: [
-      "Чужой tax ID ≠ codice fiscale.",
-      "Чужая карточная запись ≠ kit postale Poste.",
-      "Чужой миграционный portal ≠ Questura Milano.",
-      "Чужая налоговая служба ≠ Entrate AA4/8.",
-      "Wizard Emigro — se dubiti sulla country.",
-    ],
-  },
-  {
-    heading: "Wizard y Assist",
-    section_kind: "practice",
-    paragraphs: [
-      "Se visto D, nomade, lavoro o famiglia si intrecciano, [Emigro Wizard Italia](/ru/italy/wizard?utm_source=emigro&utm_medium=guide&utm_campaign=30days-milano&utm_content=" +
-        PERVYE_30_IT_SLUG +
-        "). Per audit ordine step e rischio 8 giorni — [Route Check Assist €129](/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=30days-milano&utm_content=" +
-        PERVYE_30_IT_SLUG +
+      "За 72 часа оформите связь, подготовьте форму AA4/8, заполните комплект и закройте временное жильё.",
+      "На 1–2-й неделе закройте [налоговый код](/notes/" +
+        CODICE_FISCALE_SLUG +
+        "), [пребывание](/notes/" +
+        PERMESSO_QUESTURA_SLUG +
+        ") и [банк](/notes/" +
+        BANK_IBAN_IT_SLUG +
         ").",
+      "На 3–4-й неделе ждите вызов в квестуру, запись в [медицину](/notes/" +
+        MEDITSINA_SLUG +
+        ") и регистрацию адреса в муниципалитете.",
+      "Не подписывайте долгосрочную аренду, пока не проверили, хватит ли бумаг реестру населения.",
+    ],
+  },
+  {
+    heading: "Порядок шагов: связь, код, комплект, счёт, адрес, медицина",
+    section_kind: "practice",
+    paragraphs: [
+      "Полевой порядок Милана — мягкая оценка, не дословная статья единого миграционного закона. Связь идёт первой: почта, банк и квестура присылают SMS. Налоговый код — вторым: его ставят в договоры и в банковскую проверку личности. Комплект на пребывание укладывают в 8 рабочих дней, параллельно с кодом или сразу после него. Банк — четвёртым: задаток и коммуналка без итальянского счёта буксуют. Регистрация адреса и медицина начинаются, когда есть зарегистрированный договор.",
+      "Первые 72 часа закрывают связь, подготовку комплекта и крышу над головой. Четвёртая неделя — отпечатки в квестуре, автосписание и медицина. Короткий ответ на «что за чем»: связь, налоговый код, комплект с квитанцией, жильё и счёт, затем медицина. До четвёртой недели можно отложить постоянный оптический интернет, смену врача и подбор тарифа. Нельзя откладывать почтовый комплект и адрес, который вы готовы подтвердить документами.",
+      "В Комо и на севере шаги те же, меняются только провинциальные окна. Главное: срок комплекта — это дни с первого по пятый, а не конец месяца.",
     ],
     bullets: [
-      "Wizard — confronto route senza scegliere country a priori.",
-      "Assist — PDF case review, non sostituto avvocato.",
-      "Satellite inventory — 8 core notes Italia; questo file orchestrator.",
+      "Проверьте цепочку: связь, налоговый код, почтовый комплект, итальянский счёт, регистрация адреса, медицинская карта.",
+      "Не путайте 72 часа и четвёртую неделю: край комплекта — первые пять дней.",
+      "Используйте только итальянские форму AA4/8, почту и квестуру.",
+      "В Комо и на севере повторите те же шаги в провинциальных отделениях.",
+    ],
+  },
+  {
+    heading: "Что ломается к 4–6 месяцу, если первый месяц пропущен",
+    section_kind: "gap",
+    paragraphs: [
+      "Пропуск налогового кода, комплекта в первые 8 рабочих дней или итальянского счёта в первый месяц выглядит как задача «на потом». К 4–6-му месяцу эти хвосты сходятся: продление аренды, соцстрах (**INPS**), платёжная форма **F24** и автосписание коммуналки.",
+      "В чатах это часто звучит мягче, чем на сайте ведомства. На деле каждый пропуск бьёт в свой договор. Главное: «решим во втором месяце» к полугоду превращается в стопку отказов, а не в одну недостающую справку.",
+    ],
+    bullets: [
+      "Без комплекта и квитанции растёт риск пребывания сверх срока и сложнее продление. В чатах этот риск часто откладывают.",
+      "Без налогового кода останавливаются банк, свет и зарплата.",
+      "Без итальянского счёта не встают автосписание аренды и платежи Eni или Enel.",
+      "Без регистрации адреса затягиваются медицина и школа.",
+      "Без итальянской SIM не приходит код подтверждения входа в банк и на почту.",
+      "Копия португальского NIF или испанского NIE даёт чужие бланки. На деле недели уходят на повтор.",
+    ],
+  },
+  {
+    heading: "Карта сателлита: куда углубиться",
+    section_kind: "practice",
+    paragraphs: [
+      "Этот список — маршрут, а не замена соседних гайдов. Каждый узел ниже расписан отдельно: здесь только момент, когда его открыть. Восемь основных заметок по Италии сходятся в этом файле, но глубина живёт по ссылкам.",
+      "Откройте нужный гайд в ту неделю, когда шаг реально наступает, а не все сразу в аэропорту. Главное: маршрут показывает очередь, а соседняя страница — как заполнить конкретный бланк.",
+    ],
+    bullets: [
+      "Откройте [связь, интернет и свет](/notes/" + SIM_LUCE_SLUG + ") — коммуналка первой недели.",
+      "[Налоговый код, форма AA4/8](/notes/" + CODICE_FISCALE_SLUG + ") — номер для банка и договоров.",
+      "[Квестура и почтовый комплект](/notes/" + PERMESSO_QUESTURA_SLUG + ") — подача разрешения на пребывание.",
+      "[Аренда на Idealista](/notes/" + ARENDA_SLUG + ") — договор и задаток.",
+      "[Районы, метро и Комо](/notes/" + RAJONY_SLUG + ") — где жить.",
+      "[Банк и итальянский счёт](/notes/" + BANK_IBAN_IT_SLUG + ") — проверка личности и автосписание.",
+      "[Медицина и медицинская карта](/notes/" + MEDITSINA_SLUG + ") — запись в государственную систему.",
+    ],
+  },
+  {
+    heading: "Типичные ошибки первого месяца в Милане",
+    section_kind: "practice",
+    paragraphs: [
+      "Милан прощает медленный итальянский. Пустую квитанцию комплекта и обещание «разрешение на пребывание оформлю во втором месяце» он не прощает. Ошибки ниже повторяются чаще, чем опечатка в адресе.",
+      "Отдельный класс — чужой город: список шагов Валенсии или Лиссабона и консульство в Барселоне для человека, который живёт в Ломбардии. Главное: сверяйте основание визы со своим комплектом, а не с маршрутом соседа.",
+    ],
+    bullets: [
+      "Ошибка: нести комплект «на седьмой день». Очередь в окне почты плюс 8 рабочих дней легко выходят за срок.",
+      "Ошибка: снимать жильё без налогового кода и без проверки, примет ли договор реестр населения.",
+      "Ошибка: отдавать задаток, пока нет итальянского счёта.",
+      "Ошибка: прийти в один банк и остановиться после первого отказа.",
+      "Ошибка: перепутать 90 дней Шенгена с национальной визой D.",
+      "Ошибка: вести список шагов Валенсии или Лиссабона. Это другая страна и другие бланки.",
+      "Ошибка: идти в консульство в Барселоне с российским паспортом из Ломбардии. Округ — Милан.",
+      "Ошибка: смешать документы цифрового кочевника и ВНЖ по пассивному доходу. Это разные пакеты. Оценка мягкая: сверьте своё основание.",
+    ],
+  },
+  {
+    heading: "День прилёта: аэропорт и первая ночь",
+    section_kind: "practice",
+    paragraphs: [
+      "Мальпенса и Линате — не римский Фьюмичино. Из Мальпенсы в город идут Malpensa Express или автобус до центрального вокзала Милана, дальше метро M1 или M3 до временного жилья. Районы Porta Romana, Isola и Bovisa разобраны в [гайде по районам](/notes/" +
+        RAJONY_SLUG +
+        "). Билет на экспресс удобнее купить уже после того, как заработала связь.",
+      "В первую ночь нужны работающая связь, адрес с Wi‑Fi и фото штампа в паспорте: от этой даты считаются 8 рабочих дней. Точный адрес бронирования пригодится такси. Утром рядом обычно есть Esselunga или Carrefour. Не подписывайте долгосрочный договор в ночь прилёта: усталость после перелёта — плохой советчик. Главное: сфотографируйте штамп и положите снимок в облако, пока страница паспорта ещё перед глазами.",
+    ],
+    bullets: [
+      "Купите билет на Malpensa Express онлайн, когда заработает SIM.",
+      "Поставьте приложение ATM и берите в нём билеты городского транспорта.",
+      "Сохраните точный адрес временного жилья для такси.",
+      "Сфотографируйте штамп в паспорте и уберите снимок в облако.",
+      "Найдите Esselunga или Carrefour рядом с жильём на первую ночь.",
+    ],
+  },
+  {
+    heading: "Найм, самозанятость, цифровой кочевник и пассивный доход",
+    section_kind: "gap",
+    paragraphs: [
+      "Этот маршрут исходит из того, что национальная виза D уже стоит в паспорте. Дальше основания расходятся, и в чатах их часто склеивают в одно.",
+      "При работе по найму работодатель и единое миграционное окно (**Sportello Unico Immigrazione**, SUI) часто идут раньше почтового комплекта, а постановку на учёт в соцстрахе делает работодатель. Самозанятому бухгалтер и номер **Partita IVA** нужны на второй или третьей неделе, но личный налоговый код и итальянский счёт — раньше. Цифровой кочевник (**nomade digitale**) опирается на декрет от 29.02.2024, вестник № 79: визу дают в консульстве, комплект на пребывание — со своим кодом основания, доход равен тройному порогу медицинской льготы. Точная сумма в евро на 2026 год не проверена. ВНЖ по пассивному доходу (**residenza elettiva**) — это не маршрут удалённого работника: другая виза и другое основание в комплекте.",
+      "Учёба даёт своё разрешение, а часы работы по нему ограничены. Главное: не кладите в один конверт документы от разных оснований только потому, что все они называются «визой D».",
+    ],
+    bullets: [
+      "При найме идите за работодателем: единое окно и разрешение на работу (**nulla osta**).",
+      "Самозанятому сначала получите налоговый код и итальянский счёт, потом номер Partita IVA.",
+      "Цифровому кочевнику заложите в пакет визы медицинскую страховку и жильё.",
+      "Не смешивайте пассивный доход с комплектом удалённого работника. В чатах это частая склейка.",
+      "По учёбе подавайте отдельное разрешение: часы работы ограничены.",
+    ],
+  },
+  {
+    heading: "Семья и генконсульство России в Милане",
+    section_kind: "practice",
+    paragraphs: [
+      "Супруг и дети с семейной визой проходят ту же цепочку: налоговый код, комплект, квестура. Комплект у каждого свой, квитанция тоже у каждого. Государственная школа просит справку о регистрации адреса. Если нужен сентябрь, займитесь этим до июня, а не в последнюю неделю каникул.",
+      "Российский паспорт в этом округе обслуживает генконсульство в Милане: Ломбардия, Пьемонт, Венето, Фриули, Валле-д’Аоста, Трентино и Эмилия-Романья. Исключение — Феррара, Равенна, Форли и Римини: они относятся к Риму. Запись — на [странице округа](https://milan.mid.ru/ru/general-consulate/genkonsulstvo/consul-district/) и через kdmid. Консульство выдаёт паспорт и акты ЗАГС, а не итальянское разрешение на пребывание. Комо входит в тот же миланский округ. Не копируйте адрес консульства в Барселоне.",
+      "Налоговый код ребёнка запрашивают той же формой AA4/8, подаёт родитель. Главное: семейный комплект — это не одна квитанция на всех, а отдельная на каждого человека.",
+    ],
+    bullets: [
+      "Подайте форму AA4/8 на ребёнка вместе с родителем.",
+      "Соберите семейные комплекты так, чтобы квитанция была у каждого.",
+      "В школу подготовьте справку о регистрации адреса и разрешение на пребывание.",
+      "В генконсульство идите за паспортом и ЗАГС, не за итальянским пребыванием.",
+      "Для Комо используйте тот же миланский консульский округ.",
+    ],
+  },
+  {
+    heading: "Если скопировать список шагов другой страны",
+    section_kind: "gap",
+    paragraphs: [
+      "В чатах легко смешать бланки разных стран. В Милане налоговый код получают по форме AA4/8, а разрешение на пребывание сдают через почту и квестуру по своему основанию. Чужой портал, чужая налоговая и чужая «запись на карту» здесь не открывают ни одно окно.",
+      "Если страна маршрута под сомнением, прогоните её через мастер Emigro, а не через соседний список шагов в переписке. Главное: похожее бытовое слово «номер налогоплательщика» не делает процедуры одной и той же.",
+    ],
+    bullets: [
+      "Чужой налоговый номер — не итальянский налоговый код. На деле банк его не примет.",
+      "Чужая запись «на карту» — не почтовый комплект итальянской почты.",
+      "Чужой миграционный портал — не квестура Милана. В чатах их часто ставят в один ряд.",
+      "Чужая налоговая служба — не форма AA4/8 в Agenzia delle Entrate.",
+      "Откройте мастер Emigro, если сомневаетесь, какая страна у маршрута.",
+    ],
+  },
+  {
+    heading: "Мастер маршрута и Assist",
+    section_kind: "practice",
+    paragraphs: [
+      "Если виза D, маршрут цифрового кочевника, работа и семья сплетаются в одну папку, разложите их в [мастере маршрута по Италии](/ru/italy/wizard?utm_source=emigro&utm_medium=guide&utm_campaign=30days-milano&utm_content=" +
+        PERVYE_30_IT_SLUG +
+        "). Он сравнивает пути, не заставляя заранее выбрать страну.",
+      "Если нужно разобрать порядок шагов и риск восьми дней, закажите [проверку маршрута Assist за €129](/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=30days-milano&utm_content=" +
+        PERVYE_30_IT_SLUG +
+        "). Это разбор вашего дела в PDF, а не замена адвокату. В сателлите восемь основных заметок по Италии, и этот файл их связывает. Главное: мастер показывает развилку, а Assist смотрит, не выпал ли у вас срок комплекта.",
+    ],
+    bullets: [
+      "Откройте мастер, чтобы сравнить маршруты, не выбирая страну заранее.",
+      "Возьмите Assist как разбор дела в PDF, а не как замену юристу.",
+      "Держите эту страницу как связку восьми основных заметок по Италии.",
     ],
   },
 ];
 
 const keyTakeaways = [
-  "Официально: visto D → permesso entro 8 gg lavorativi (kit postale); codice fiscale AA4/8; residenza Comune — trámites separati.",
+  "Официально: с визой D разрешение на пребывание подают в течение 8 рабочих дней почтовым комплектом, налоговый код — по форме AA4/8, а регистрацию адреса в муниципалитете делают отдельно.",
   formatPracticeTakeaway({
     channels: ["milanru", "forum_italy"],
     period: "2025–2026",
-    claim: "ordine tipico Milano mes 1: SIM → codice fiscale → kit postale → IBAN IT → residenza → SSN",
-    forReader: "72h — SIM + kit prep + CF; settimana 4 — Questura e salute",
+    claim:
+      "типичный порядок первого месяца в Милане такой: связь, налоговый код, почтовый комплект, итальянский счёт, регистрация адреса и медицина",
+    forReader:
+      "за 72 часа закройте связь, подготовку комплекта и налоговый код, а к четвёртой неделе оставьте квестуру и медицину",
   }),
-  "Расхождение: «mes senza kit ok» vs 8 giorni lavorativi; «Revolut basta» vs domiciliazione renta к 4–6 mes.",
-  "На практике: пропуск CF/kit en mes 1 → blocchi renta, INPS e SSN en mes 4–6.",
+  "Расхождение: в чатах первый месяц без комплекта звучит терпимо, а иностранного счёта будто хватает на аренду. По правилам комплект сдают за 8 рабочих дней, и к 4–6-му месяцу аренда часто требует итальянское автосписание.",
+  "На практике: пропуск налогового кода и квитанции в первый месяц к 4–6-му месяцу останавливает автосписание аренды, соцстрах и запись в государственную медицину.",
 ];
 
 const faq: CommunityNoteFaq[] = [
   {
-    q: "С чего начать в первый день в Milano?",
-    a: "По правилам — первые 30 дней включают scadenza 8 giorni lavorativi per permesso. На практике: SIM, short-term, prep kit e appuntamento Entrate AA4/8 — nelle prime 72 ore.",
+    q: "С чего начать в первый день в Милане?",
+    a: "72 часа уходят на связь, и с неё стоит начать. По правилам внутри первых 30 дней уже идёт срок 8 рабочих дней на разрешение на пребывание. На практике за это же окно берут SIM, временное жильё, заполняют комплект и записываются в налоговую на форму AA4/8.",
   },
   {
-    q: "Можно отложить kit postale на второй mes?",
-    a: "По правилам — no, 8 giorni lavorativi dall'ingresso. На практике Poste queue — compilare kit entro giorni 3–5.",
+    q: "Можно отложить почтовый комплект на второй месяц?",
+    a: "Нельзя. По правилам срок — 8 рабочих дней со дня въезда, не со «спокойной недели». На практике у окна почты бывает очередь, поэтому комплект лучше сдать на третий–пятый день.",
   },
   {
-    q: "72 ore vs settimana 4 — в чём разница?",
-    a: "По правилам trámites hanno scadenze diverse. На практике: 72h = SIM + kit prep + CF; settimana 4 = Questura rilievi, SSN, domiciliazione.",
+    q: "Чем 72 часа отличаются от четвёртой недели?",
+    a: "72 часа и четвёртая неделя — разные крайние даты, не один дедлайн. По правилам у процедур свои сроки. На практике это окно закрывает связь, подготовку комплекта и налоговый код, а четвёртая неделя — отпечатки в квестуре, медицину и автосписание.",
   },
   {
-    q: "Como — отдельный satellite?",
-    a: "По правилам — stesso permesso provincia Milano/Lombardia. На практике Como/Nord — geo extra in [районы guide](/notes/" + RAJONY_SLUG + "), non second hub.",
+    q: "Комо — это отдельный сателлит?",
+    a: "Нет. По правилам пребывание оформляют по месту жизни в Ломбардии, а не на втором сайте. На практике Комо и север — дополнительная география в [гайде по районам](/notes/" +
+      RAJONY_SLUG +
+      "), не отдельный хаб.",
   },
   {
-    q: "Что если пропустил codice fiscale в mes 1?",
-    a: "По правилам — AA4/8 appena possibile. На практике senza CF bloccano banca, luce e contratto. К 4–6 месяцу — хвост INPS e F24.",
+    q: "Что будет, если не получить налоговый код в первый месяц?",
+    a: "Нельзя спокойно откладывать. По правилам форму AA4/8 подают, как только можете. На практике без кода не двигаются банк, свет и аренда, а к 4–6-му месяцу добавляется хвост соцстраха и формы F24.",
   },
 ];
 
@@ -280,24 +311,24 @@ export const PERVYE_30_IT_GUIDE = {
   slug: PERVYE_30_IT_SLUG,
   category: "Первый месяц",
   content_kind: "guide" as ContentKind,
-  title: "Первые 30 дней в Milano: чеклист satellite 2026",
+  title: "Первые 30 дней в Милане: маршрут на 2026 год",
   excerpt:
-    "72h → settimana 4: SIM, codice fiscale, kit permesso, IBAN IT, SSN — orchestrator Milano/Nord с eight core guides. Пропуск mes 1 бьёт renta e INPS к 4–6 месяцу. Не копируйте Spain/Portugal checklist.",
-  seo_title: "Первые 30 дней Италия 2026 — Milano checklist",
+    "От 72 часов до четвёртой недели в Милане: связь, налоговый код, почтовый комплект, итальянский счёт и медицина. Страница связывает восемь гайдов севера. Пропуск первого месяца к 4–6-му бьёт по аренде и соцстраху.",
+  seo_title: "Первые 30 дней в Италии 2026 — Милан",
   seo_description:
-    "Первые 30 дней Milano 2026: SIM, codice fiscale, kit postale permesso, банк IBAN IT, SSN. Порядок 72 часа → 4-я неделя для RU/BY. Como/Nord.",
+    "Первые 30 дней в Милане 2026: связь, налоговый код, почтовый комплект на ВНЖ, счёт и медицина. От 72 часов до 4-й недели для RU/BY/UA/KZ. Комо и север.",
   quick_answer:
-    "Первые 30 дней в Milano: первые 72 часа — связь, подготовка kit permesso (8 giorni lavorativi), запись AA4/8 codice fiscale и жильё с документами для residenza. Недели 1–2 — certificato CF, kit Poste Sportello Amico, IBAN IT и аренда; недели 3–4 — convocazione Questura, SSN и residenza Comune. Используйте только итальянские формы. К 4–6 месяцу проверьте renta, INPS и utenze.",
+    "Первые тридцать дней в Милане лучше раскладывать по срокам, а не по настроению «разберёмся потом». За 72 часа после прилёта оформите связь, подготовьте почтовый комплект на разрешение на пребывание (срок — 8 рабочих дней со штампа) и запишитесь на налоговый код по форме AA4/8; недели 1–2 закрывают справку, окно почты и итальянский счёт, недели 3–4 — вызов в квестуру, медицину и регистрацию в муниципалитете. К 4–6-му месяцу без этих шагов встают аренда, соцстрах и счета за свет.",
   body_sections: bodySections,
   body_paragraphs: flattenBodySections(bodySections),
   key_takeaways: keyTakeaways,
   faq,
   official_links: [
-    { title: "Agenzia delle Entrate", url: "https://www.agenziaentrate.gov.it/" },
-    { title: "Portale Immigrazione", url: "https://www.portaleimmigrazione.it/" },
-    { title: "Poste Italiane — permesso", url: "https://www.poste.it/guida-rilascio-e-rinnovo-permesso-di-soggiorno" },
-    { title: "Ministero dell'Interno", url: "https://www.interno.gov.it/" },
-    { title: "Comune di Milano", url: "https://www.comune.milano.it/" },
+    { title: "Agenzia delle Entrate — налоговая", url: "https://www.agenziaentrate.gov.it/" },
+    { title: "Portale Immigrazione — портал иммиграции", url: "https://www.portaleimmigrazione.it/" },
+    { title: "Poste Italiane — разрешение на пребывание", url: "https://www.poste.it/guida-rilascio-e-rinnovo-permesso-di-soggiorno" },
+    { title: "Ministero dell'Interno — МВД", url: "https://www.interno.gov.it/" },
+    { title: "Comune di Milano — муниципалитет Милана", url: "https://www.comune.milano.it/" },
   ],
   topic_tags: ["milano", "checklist", "permesso"],
   hashtags: buildNoteHashtags({

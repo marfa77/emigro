@@ -24,17 +24,43 @@ const BANK_IBAN_SLUG = "bank-iban-nerezident-italiya-2026";
 const PERVYE_30_SLUG = "pervye-30-dnej-v-italii-satelit-2026";
 
 const GLOSSARY_INTRO =
-  "Эти слова всплывают в WindTre/Iliad, в bolletta luce и в переписке с locatore ещё до того, как вы разложили чемоданы в Milano. Разберём заранее — так проще не перепутать voltura с subentro и не ждать fibra там, где в palazzo нет rosetta.";
+  "Эти слова всплывают в салоне WindTre и Iliad, в счёте за свет и в переписке с арендодателем ещё до того, как вы разложили чемоданы в Милане. Если разобрать их заранее, проще не перепутать переоформление с повторным включением и не ждать оптику там, где в доме нет розетки.";
 
 const LOCAL_TERMS: GlossaryTerm[] = [
-  { pt: "POD", context: "Point of Delivery", ru: "код точки поставки электричества (14 символов); без него fornitore не оформит luce" },
-  { pt: "PDR", context: "Punto di Riconsegna", ru: "код точки gas; аналог POD для metano" },
-  { pt: "voltura", ru: "смена intestatario на активном contatore без отключения; быстрее subentro" },
-  { pt: "subentro", ru: "включение supply, если contatore отключён или sigillato; дороже и дольше voltura" },
-  { pt: "codice fiscale", ru: "итальянский налоговый код; нужен большинству operatori для contratto postpagato; требования конкретного prepaid-flow проверяют перед оплатой" },
-  { pt: "domiciliazione bancaria", ru: "списание bollette с IBAN; типичное условие fibra postpagata и luce" },
-  { pt: "mercato libero", ru: "свободный рынок энергии; тарифы сравнивают через portale ARERA, не «наугад у portiere»" },
-  { pt: "eSIM", ru: "виртуальная SIM; у WindTre есть tourist eSIM online, у Iliad — resident flow с codice fiscale" },
+  {
+    pt: "POD",
+    context: "Point of Delivery",
+    ru: "код точки поставки электричества, 14 символов. Без него продавец не оформит свет",
+  },
+  {
+    pt: "PDR",
+    context: "Punto di Riconsegna",
+    ru: "код точки поставки газа. Для метана это то же, что POD для света",
+  },
+  {
+    pt: "voltura",
+    ru: "переоформление: смена абонента на работающем счётчике без отключения. Быстрее, чем повторное включение",
+  },
+  {
+    pt: "subentro",
+    ru: "повторное включение, если счётчик отключён или опломбирован. Дороже и дольше переоформления",
+  },
+  {
+    pt: "codice fiscale",
+    ru: "итальянский налоговый код. Большинству операторов он нужен для постоплатного договора. Что попросят в конкретной предоплате, проверяйте до оплаты",
+  },
+  {
+    pt: "domiciliazione bancaria",
+    ru: "списание счетов с IBAN. Обычное условие постоплатного интернета и света",
+  },
+  {
+    pt: "mercato libero",
+    ru: "свободный рынок энергии. Тарифы сравнивают на портале ARERA, а не наугад у консьержа",
+  },
+  {
+    pt: "eSIM",
+    ru: "виртуальная SIM. У WindTre туристическую eSIM оформляют онлайн. У Iliad путь для живущих в Италии отдельный: нужен ли налоговый код, зависит от сценария и для всех путей не подтверждено",
+  },
 ];
 
 const bodySections: NoteBodySection[] = [
@@ -42,196 +68,204 @@ const bodySections: NoteBodySection[] = [
     ...buildGlossarySection(LOCAL_TERMS, GLOSSARY_INTRO),
   },
   {
-    heading: "Nota Emigro (fact-check)",
+    heading: "Nota Emigro (проверка фактов)",
     section_kind: "official",
     paragraphs: [
-      "Короткая сверка черновика с ARERA, ATS/operatori и нормами SIM — без вырезания полевой практики. **OK** = совпадает с официальной страницей; **soft** = ориентир рынка/чатов; **fixed** = смягчено под норму; **UNCHECKED** = не подтверждено fetch в этой сессии.",
+      "Короткая сверка черновика с ARERA, операторами и нормами по SIM. Полевая практика ниже не вырезана. **Подтверждено** — совпадает с официальной страницей. **Ориентир** — рынок или чаты. **Исправлено** — формулировка смягчена под норму. **Не проверено** — в этой сессии источник не подтверждали.",
+      "Главное: сроки «около пяти дней» и цены из блогов не обещание Emigro и не тариф Милана.",
     ],
     bullets: [
-      "OK: ARERA — Autorità di regolazione per energia, reti e ambiente; portale consumatori с comparatore offerte e guide bolletta ([arera.it/consumatori](https://www.arera.it/it/consumatori)).",
-      "OK / soft: voltura luce — tempo standard circa **5 giorni lavorativi** senza cambio fornitore; voltura gas circa **4 giorni** — сроки ARERA citati в guías operatori, не SLA Emigro.",
-      "OK: dal **1° luglio 2026** voltura gas con **cambio fornitore** in un’unica richiesta (Delibera ARERA 323/2025/R/com) — stesso modello già attivo per luce; fonti settore energia, non inventato.",
-      "OK: registrazione SIM prepagata — identificazione titolare obbligatoria (Decreto 144/2005); negozio scannerizza passaporto.",
-      "OK: ARERA 323/2025/R/com подтверждает voltura gas с выбором нового fornitore с **1 luglio 2026**.",
-      "OK: WindTre **Tourist Pass Digital** доступен как eSIM иностранцам без codice fiscale italiano; условия и срок действия проверяются на странице оператора.",
-      "Fixed: убрана абсолютная фраза «Iliad всегда требует CF»: официальные страницы подтверждают identificazione, но найденная страница eSIM не подтверждает универсальное требование CF для каждого flow. Статус требования — **UNCHECKED** до checkout/negozio.",
-      "UNCHECKED: costi esatti **derechos di allaccio** subentro luce BT per Milano — dipendono da potenza e stato contatore; non citare cifre fisse da blog.",
-      "UNCHECKED: tempi fibra «48 h» Fastweb/TIM per ogni palazzo storico centro — verificare per **indirizzo**, non per quartiere.",
+      "Подтверждено: ARERA — орган регулирования энергии, сетей и среды. На портале потребителей есть сравнение предложений и разбор счёта ([arera.it/consumatori](https://www.arera.it/it/consumatori)).",
+      "Подтверждено / ориентир: переоформление света без смены продавца — стандарт около **5 рабочих дней**. Переоформление газа — около **4 дней**. Сроки ARERA так цитируют в инструкциях операторов. Это не обещание срока от Emigro.",
+      "Подтверждено: с **1 июля 2026** года переоформление газа со сменой продавца можно подать одной заявкой новому продавцу (решение ARERA 323/2025/R/com). Для света такая схема уже привычна рынку. Источник — материалы энергетического сектора, не догадка.",
+      "Подтверждено: предоплаченную SIM регистрируют на владельца. Это декрет 144/2005. В салоне сканируют паспорт.",
+      "Подтверждено: решение ARERA 323/2025/R/com подтверждает переоформление газа с выбором нового продавца с **1 июля 2026** года.",
+      "Подтверждено: туристический пакет WindTre Tourist Pass Digital доступен как eSIM иностранцам без итальянского налогового кода. Срок и условия смотрите на странице оператора.",
+      "Исправлено: абсолютную фразу «Iliad всегда требует налоговый код» убрали. Официальные страницы подтверждают идентификацию, но найденная страница eSIM не подтверждает, что код нужен в каждом сценарии. Статус требования — **не проверено**, пока не дойдёте до оплаты или салона.",
+      "Не проверено: точные сборы за подключение при повторном включении света низкого напряжения в Милане. Они зависят от мощности и состояния счётчика. Фиксированные цифры из блогов не цитируйте.",
+      "Не проверено: срок «48 часов» на оптику Fastweb или TIM в каждом старом доме центра. Проверяйте по **адресу**, не по району.",
     ],
   },
   {
-    heading: "Официально: mercato libero luce e gas (ARERA)",
+    heading: "Официально: свободный рынок света и газа (ARERA)",
     section_kind: "official",
     paragraphs: [
-      "В Италии электричество и gas natural в квартире — contratto con **fornitore commerciale** (Enel, Edison, A2A, Plenitude, ecc.), а contatore обслуживает **distributore locale**. ARERA регулирует права потребителя: смена fornitore gratuita, понятные сроки voltura, comparatore offerte на [arera.it](https://www.arera.it/it/consumatori).",
-      "Для релоканта в Milano ключевые codici — **POD** (luce) и **PDR** (gas) на bolletta предыдущего intestatario или через fornitore по indirizzo. **Voltura** — смена имени на активном supply: нужны codice fiscale, documento, titolo sull’immobile (contratto di locazione registrato или autocertificazione), IBAN se domiciliazione. **Subentro** — если contatore staccato: технические права и tempi другие.",
-      "С **1 luglio 2026** для gas можно одновременно сделать voltura и **cambio fornitore** одним запросом новому venditore (Delibera ARERA 323/2025). Для luce такая unified procedure уже familiar рынку. Bonus sociali и tutela vulnerabilità — отдельные канali ARERA; extranjero без residenza обычно не попадает в bonus без ISEE italiano.",
+      "Электричество и природный газ в квартире — это договор с продавцом энергии: Enel, Edison, A2A, Plenitude и другими. Сам счётчик обслуживает местный распределитель. ARERA задаёт права потребителя: смена продавца бесплатна, сроки переоформления понятны, предложения сравнивают на [arera.it](https://www.arera.it/it/consumatori).",
+      "Релоканту в Милане нужны два кода. POD — точка света, PDR — точка газа. Их берут со счёта прошлого абонента или запрашивают у продавца по адресу. Переоформление — смена имени на уже работающей поставке. Нужны налоговый код, документ, право на жильё (зарегистрированный договор аренды или самодекларация) и IBAN, если будет списание со счёта. Повторное включение — это другой случай: счётчик отключён, и сроки с правами другие.",
+      "С 1 июля 2026 года газ можно одновременно переоформить и сменить продавца одной заявкой новому продавцу. Это решение ARERA 323/2025. Для света объединённая процедура рынку уже знакома. Социальные бонусы и защита уязвимых идут отдельными каналами ARERA. Иностранец без регистрации обычно не попадает в бонус без итальянского показателя дохода семьи ISEE.",
+      "Главное: при работающем счётчике подавайте переоформление, а не повторное включение.",
     ],
     bullets: [
-      "Comparatore offerte luce/gas — strumenti gratuiti ARERA sul portale consumatori.",
-      "Voltura: POD/PDR, CF nuovo intestatario, lettura contatore, titolo immobile (locazione registrata).",
-      "Cambio fornitore senza voltura — possibile se già sei intestatario; voltura + switch gas unificati dal 01/07/2026.",
-      "Bolletta: voci ARERA «Come leggere la bolletta» — potenza impegnata, consumi, oneri di sistema.",
-      "Reclami: servizio conciliazione ARERA prima del giudizio.",
+      "Сравнивайте предложения света и газа бесплатными инструментами ARERA на портале потребителей.",
+      "Для переоформления: коды POD и PDR, налоговый код нового абонента, показания счётчика и право на жильё, обычно зарегистрированная аренда.",
+      "Сменить продавца без переоформления можно, если договор уже на вас. Переоформление газа и смена продавца с 1 июля 2026 года идут одной заявкой.",
+      "В счёте смотрите раздел ARERA «Come leggere la bolletta»: заявленная мощность, расход и системные сборы.",
+      "Жалобу до суда несут в службу примирения ARERA.",
     ],
   },
   {
-    heading: "Официально: fibra e telefonia in casa",
+    heading: "Официально: домашний интернет и телефон",
     section_kind: "official",
     paragraphs: [
-      "Домашний internet в Milano — **fibra FTTH** или FWA dove FO assente (TIM, Vodafone, WindTre, Fastweb, Iliad). Titular contratto — chi firma e domicilia; locatore non обязан essere in contratto se inquilino ha **codice fiscale**, documento e IBAN. Copertura проверяется по **via + civico**, не по «Isola trendy» в чате.",
-      "Postpagato fibra + mobile richiede identificazione и часто **mandato SEPA**. Permanenza зависит от offerta — на сайтах есть piani senza vincolo. Se в квартире уже была fibra, **cambio intestatario** у того же operatore обычно проще полной installazione (soft; не SLA).",
-      "Mobile: Decreto 144/2005 обязывает identificare titolare до attivazione. **Prepago** в negozio operator — passaporto; для contratto resident и конкретного Iliad-flow требования к CF проверяйте в checkout: универсальность CF для всех eSIM **UNCHECKED**.",
+      "Домашний интернет в Милане — это оптика FTTH или беспроводной доступ FWA там, где волокна нет. Продавцы: TIM, Vodafone, WindTre, Fastweb, Iliad. Договор подписывает тот, на кого он оформлен и с чьего счёта идёт списание. Арендодатель не обязан быть в договоре, если у жильца есть налоговый код, документ и IBAN. Покрытие смотрят по улице и номеру дома, а не по фразе «модная Изола» из чата.",
+      "Постоплатные интернет и мобильная связь требуют идентификацию и часто поручение на списание SEPA. Срок обязательств зависит от оферты: на сайтах есть тарифы без минимального срока. Если оптика в квартире уже была, смена абонента у того же оператора обычно проще полной установки. Это ориентир, не обещание срока.",
+      "Мобильная связь: декрет 144/2005 обязывает установить владельца до включения номера. Предоплату в салоне оператора оформляют по паспорту. Для договора живущего в Италии и для конкретного сценария Iliad требование налогового кода проверяйте на шаге оплаты. Что код нужен для любой eSIM, не подтверждено.",
+      "Главное: покрытие и список документов проверяют по точному адресу и по выбранному тарифу, а не по району.",
     ],
     bullets: [
-      "Documenti tipici fibra: documento, codice fiscale, IBAN, email, telefono, indirizzo completo.",
-      "Verifica copertura: siti TIM/Vodafone/Fastweb/Iliad — inserire indirizzo Milano.",
-      "Iliad: attivazione via online/negozio/SIMbox с identificazione; CF зависит от flow и не заявлен здесь как универсальный факт.",
-      "WindTre Tourist Pass: eSIM online per stranieri senza CF italiano (offerta turistica, non residente).",
-      "Portabilità numero — separata da voltura luce; conservare PAC code.",
+      "Обычный набор на интернет: документ, налоговый код, IBAN, почта, телефон и полный адрес.",
+      "Проверка покрытия: сайты TIM, Vodafone, Fastweb и Iliad, введите адрес в Милане.",
+      "Iliad подключают онлайн, в салоне или через автомат SIM, с идентификацией. Налоговый код зависит от сценария и здесь не заявлен как общее правило.",
+      "Туристический пакет WindTre: eSIM онлайн для иностранцев без итальянского налогового кода. Это туристическое предложение, не договор жителя.",
+      "Перенос номера отделён от переоформления света. Сохраните код переноса PAC.",
     ],
   },
   {
-    heading: "Практика Milano: номер и eSIM в день прилёта",
+    heading: "Практика в Милане: номер и eSIM в день прилёта",
     section_kind: "practice",
     paragraphs: [
-      "MXP или центр — не место для «идеального» piano, но место, где вы перестаёte зависеть от roaming. Пока [codice fiscale](/notes/" +
+      "Аэропорт Мальпенса (MXP) или центр — не место для идеального тарифа. Это место, где вы перестаёте зависеть от роуминга. Пока [налоговый код](/notes/" +
         CODICE_FISCALE_SLUG +
-        ") и IBAN в пути, разумный маршрут — **prepago** или **WindTre tourist eSIM** после идентификации, без обещаний «Iliad без CF».",
-      "WindTre публикует tourist eSIM на английских страницах: покупка online, QR до landing. Iliad — value для residenti: после CF можно attivare in negozio o SIMbox; eSIM residente — flusso отдельный от tourist.",
-      "После CF + IBAN можно сравнить resident contract или pacchetto fibra+mobile; до этого держите prepago для SMS banca и Questura.",
+        ") и IBAN в пути, разумный маршрут — предоплата или туристическая eSIM WindTre после идентификации. Обещания «Iliad без налогового кода» здесь нет.",
+      "WindTre публикует туристическую eSIM на английских страницах: покупка онлайн, QR-код приходит до прилёта. Iliad выгоднее тем, кто уже живёт здесь. После налогового кода её можно включить в салоне или в автомате SIM. Резидентская eSIM — отдельный путь, не туристический.",
+      "Когда появятся налоговый код и IBAN, сравните договор жителя или пакет «интернет плюс мобильная связь». До этого держите предоплату для СМС банка и квестуры.",
+      "Главное: в день прилёта нужен свой итальянский номер для банка и квестуры, а не идеальный тариф на два года.",
     ],
     bullets: [
       formatPracticeBullet({
         channels: ["milanru", "milan_4at", "forum_italy"],
         period: "2025–2026",
         claim:
-          "в день прилёta в MXP покупали prepago TIM/Vodafone в tabaccheria с passaporto — linea attiva dopo ricarica",
+          "в день прилёта в аэропорт Мальпенса покупали предоплаченную SIM TIM или Vodafone в табачной лавке по паспорту, и линия заработала после пополнения",
         forReader:
-          "берите оригинал passaporto; Iliad и contratto postpagato без CF откладывают на неделю 2–3",
+          "Возьмите оригинал паспорта. Iliad и постоплатный договор без налогового кода отложите на вторую–третью неделю",
       }),
-      "WindTre Tourist eSIM: acquisto pre-arrivo su windtre.it (EN); validità legata al piano tourist, non rinnovo mensile Iliad.",
-      "TIM/Vodafone prepago: passaporto in negozio; contratto postpagato — CF + IBAN.",
-      "Evitare «SIM online senza registro» — linea può bloccarsi senza validazione titolare.",
-      "Wi‑Fi Airbnb — не sustituto móvil для Questura и banca; нужен свой numero IT.",
-      "eSIM travel (Airalo/Holafly) — мост до CF; не заменяет numero IT для lungo termine.",
+      "Туристическая eSIM WindTre: покупка до вылета на windtre.it, английская страница. Срок привязан к туристическому тарифу, это не ежемесячное продление Iliad.",
+      "Предоплата TIM и Vodafone: паспорт в салоне. Постоплатный договор — налоговый код и IBAN.",
+      "Не берите «SIM онлайн без регистрации». Линию могут заблокировать, если владелец не подтверждён.",
+      "Wi-Fi съёмной квартиры не заменяет свой мобильный номер для квестуры и банка. Нужен свой итальянский номер.",
+      "Дорожная eSIM вроде Airalo или Holafly — мост до налогового кода. На долгий срок итальянский номер она не заменяет.",
     ],
   },
   {
-    heading: "Практика: fibra, luce e gas dopo contratto di locazione",
+    heading: "Практика: интернет, свет и газ после договора аренды",
     section_kind: "practice",
     paragraphs: [
-      "Типовая последовательность после [аренды в Milano](/notes/" +
+      "Обычная последовательность после [аренды в Милане](/notes/" +
         ARENDA_MILANO_SLUG +
-        "): рабочий **IBAN** → **voltura luce** (se contatore attivo) → **fibra** → **gas** se caldaia autonoma → verifica riscaldamento centralizzato (spese in condominio).",
-      "На практике locatore иногда оставляет luce на себе — legal se in contratto, но для permesso e bollette прозрачнее intestatario inquilino. POD/PDR берут с bolletta precedente или chiedendo al portiere.",
-      "Comparatore ARERA перед firma — не только «offerta del proprietario». Domiciliazione su [IBAN italiano](/notes/" +
+        "): рабочий IBAN, затем переоформление света, если счётчик включён, затем интернет, затем газ, если котёл автономный, и отдельно проверка центрального отопления в расходах дома.",
+      "На практике арендодатель иногда оставляет свет на себе. Это законно, если так написано в договоре. Для разрешения и для счетов прозрачнее, когда абонент — жилец. Коды POD и PDR берут со старого счёта или спрашивают у консьержа.",
+      "Сравнение на ARERA перед подписью важнее «предложения хозяина». Списание на [итальянский IBAN](/notes/" +
         BANK_IBAN_SLUG +
-        ") снижает rischio disdetta contratto.",
-      "К месяцу 2–3 приходят prime bollette bimestrali gas e mensili luce; senza domiciliazione — rischio mora e solleciti.",
+        ") снижает риск, что договор расторгнут из-за пропуска платежа.",
+      "Ко второму–третьему месяцу приходят первые счета: газ часто раз в два месяца, свет — раз в месяц. Без списания со счёта растут просрочка и напоминания.",
+      "Главное: попросите старый счёт до передачи ключей. Без кодов POD и PDR свет и газ встают на одну–две недели.",
     ],
     bullets: [
       formatPracticeBullet({
         channels: ["milanru", "forum_italy"],
         period: "2025–2026",
         claim:
-          "dopo CF + IBAN voltura luce Edison/A2A online занимала 3–7 giorni; subentro con contatore staccato — settimane e oneri tecnici",
+          "после налогового кода и IBAN онлайн-переоформление света в Edison или A2A занимало 3–7 дней, а повторное включение при отключённом счётчике тянулось неделями и шло с техническими сборами",
         forReader:
-          "chiedete bolletta vecchia al locatore prima dell'acta di consegna per POD/PDR",
+          "Попросите у арендодателя старый счёт до акта передачи ключей: на нём коды POD и PDR",
       }),
-      "Fibra: Fastweb/Iliad/TIM — appuntamento tecnico; in palazzi antichi Navigli/Brera ritardi rosetta.",
-      "Potenza impegnata 3 kW — tipico monolocale; 4,5–6 kW per T2 con induzione e clima.",
-      "Gas: se solo piano cottura elettrico — PDR può non servire; verificare caldaia e bolletta.",
-      "Riscaldamento centralizzato: spese in bolletta condominiale, non voltura PDR individuale.",
-      "Salvare PDF di ogni voltura — utili per permesso e contestazioni locazione.",
+      "Интернет: Fastweb, Iliad или TIM назначают техника. В старых домах Навилий и Бреры задержка часто из-за оптической розетки.",
+      "Заявленная мощность 3 кВт типична для студии. Для двухкомнатной с индукцией и кондиционером берут 4,5–6 кВт.",
+      "Газ: если готовите только на электричестве, код PDR может не понадобиться. Проверьте котёл и старый счёт.",
+      "Центральное отопление сидит в счёте дома, а не в личном переоформлении газа.",
+      "Сохраните PDF каждого переоформления. Они пригодятся для разрешения и для спора по аренде.",
     ],
   },
   {
-    heading: "Где portale ufficiale и чат расходятся",
+    heading: "Где официальный портал и чат расходятся",
     section_kind: "gap",
     paragraphs: [
-      "Siti fornitori promettono «online in 5 minuti», а straniero senza CF finisce in negozio o call center. Non è rifiuto — altro KYC.",
-      "В чатах «luce senza contratto registrato»; fornitore formalmente chiede titolo sull’immobile. Voltura a volte passa con solo indirizzo + CF, ma rischio richiesta contratto registrato resta.",
+      "Сайты продавцов обещают «онлайн за пять минут», а иностранец без налогового кода оказывается в салоне или на линии поддержки. Это не отказ в услуге, а другая проверка личности.",
+      "В чатах пишут «свет без зарегистрированного договора». Формально продавец просит право на жильё. Переоформление иногда проходит по адресу и налоговому коду, но риск запроса зарегистрированного договора остаётся.",
+      "Главное: обещание сайта и пакет документов для иностранца — разные вещи. Смотрите выбранный сценарий, а не слоган.",
     ],
     bullets: [
-      "«Iliad всегда требует CF» → identificazione обязательна, но требование CF зависит от выбранного flow; **UNCHECKED** до checkout (fixed).",
-      "«Fibra 24 h ovunque a Milano» → palazzi senza CTO possono richiedere 1–2 settimane (soft).",
-      "«Locatore paga sempre luce» → dipende da clausola contratto, non da ARERA.",
-      "«Mercato libero sempre più caro» → comparatore ARERA mostra profili diversi; non universalizzare.",
-      "«Gas uguale a luce per tempi» → fino al 2026 gas voltura + switch erano due passi; dal 07/2026 unificati (OK ARERA).",
-      "«Revolut IBAN basta per tutto» → alcuni operatori richiedono conto italiano per domiciliazione; verificare (UNCHECKED per ogni fornitore).",
+      "«Iliad всегда требует налоговый код» — идентификация обязательна, а сам код зависит от сценария. До оплаты это не проверено (исправлено).",
+      "«Оптика за 24 часа в любой точке Милана» — дом без домового оптического узла может ждать 1–2 недели (ориентир).",
+      "«Свет всегда платит арендодатель» — это пункт договора, не правило ARERA.",
+      "«Свободный рынок всегда дороже» — сравнение ARERA показывает разные профили. Одну цену на всех не переносите.",
+      "«Газ по срокам равен свету» — до 2026 года переоформление газа и смена продавца были двумя шагами. С июля 2026 года их объединили (подтверждено, ARERA).",
+      "«IBAN Revolut хватает на всё» — часть операторов просит итальянский счёт для списания. Проверяйте у своего продавца. По каждому поставщику это не проверено.",
     ],
   },
   {
     heading: "Типичные ошибки и сроки",
     section_kind: "practice",
     paragraphs: [
-      "Большинство срывов в первом месяце — не «italiana burocrazia», а tipo sbagliato: **subentro** invece di **voltura**, fibra postpagata senza IBAN, o luce «per dopo» mentre contatore gira a nome precedente.",
-      "Порядок первых недель — в [первые 30 дней Италии](/notes/" +
+      "Большинство срывов первого месяца — не «итальянская бюрократия», а неверный тип заявки. Повторное включение вместо переоформления, постоплатный интернет без IBAN или свет «на потом», пока счётчик крутится на прошлом имени.",
+      "Порядок первых недель — в [первых 30 днях в Италии](/notes/" +
         PERVYE_30_SLUG +
-        "); здесь — utilities dopo chiavi.",
+        "). Здесь речь о коммунальных договорах после ключей.",
+      "Главное: тип заявки выбирают по состоянию счётчика, а не по тому, какой формуляр короче.",
     ],
     bullets: [
-      "Ошибка: subentro quando serve voltura — pagate diritti tecnici extra.",
-      "Ошибка: fibra postpagata senza CF/IBAN — contratto cade; prepago + Wi‑Fi temporaneo.",
-      "Ошибка: non chiedere POD/PDR al locatore — ritardo 1–2 settimane.",
-      "Ошибка: credere che riscaldamento centralizzato sia «luce» — è spesa condominiale.",
-      "Ошибка: roaming per SMS banca — blocchi 2FA; numero IT prepago registrato.",
-      "Ошибка: firmare offerta luce 24 mesi senza leggere penali — costoso prima del trasloco quartiere.",
+      "Ошибка: подавать повторное включение, когда нужно переоформление. Заплатите лишние технические сборы.",
+      "Ошибка: постоплатный интернет без налогового кода и IBAN. Договор разваливается. Держите предоплату и временный Wi-Fi.",
+      "Ошибка: не спросить у арендодателя коды POD и PDR. Потеряете 1–2 недели.",
+      "Ошибка: считать центральное отопление «светом». Это расход дома.",
+      "Ошибка: ловить СМС банка через роуминг. Коды подтверждения не доходят. Нужна зарегистрированная итальянская предоплата.",
+      "Ошибка: подписать предложение света на 24 месяца, не прочитав неустойку. Дорого, если через полгода переедете в другой район.",
     ],
   },
   {
-    heading: "К 4–6 месяцу: что откладывают и чем бьёт",
+    heading: "К 4–6 месяцу: что откладывают и чем это бьёт",
     section_kind: "practice",
     paragraphs: [
-      "К 4–6 месяцу в Milano у релоканта уже permesso/residenza, lavoro или partita IVA, и привычка pagare bollette. Именно тогда всплывает «мелочь» месяца 1: luce restata sul locatore, prepago non portato, vincolo fibra, gas ancora intestato al precedente inquilino.",
-      "К 4–6 месяцу banca e busta paga richiedono domiciliazione su IBAN IT; scenario solo Revolut può rompersi su utilities. Rifare voltura — nuovo expediente.",
-      "Se il percorso visto non coincide con indirizzo e utenze — [wizard Emigro](https://www.emigro.online/ru/italy/wizard) e [Assist Route Check](https://www.emigro.online/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=milano_home_setup).",
+      "К 4–6-му месяцу в Милане у человека уже есть разрешение или регистрация, работа или номер самозанятого (partita IVA), и привычка платить счета. Именно тогда всплывает «мелочь» первого месяца: свет остался на арендодателе, предоплату не перенесли на постоянный номер, интернет с неустойкой за расторжение, газ всё ещё на прошлом жильце.",
+      "К этому сроку банк и зарплата требуют списание с итальянского IBAN. Схема «только Revolut» может сломаться на коммунальных договорах. Переоформлять заново — это уже новое дело.",
+      "Если путь по визе не совпадает с адресом и договорами на свет и газ, сверьте его в [мастере Emigro](https://www.emigro.online/ru/italy/wizard) и в [проверке маршрута Assist](https://www.emigro.online/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=milano_home_setup).",
+      "Главное: свет, газ и интернет лучше оформить на ваше имя до рутины продления разрешения, а не на четвёртом месяце.",
     ],
     bullets: [
-      "К 4–6 месяцу: luce sul locatore — più difficile dimostrare dimora abituale per pratiche.",
-      "К 4–6 месяцу: prepago senza portabilità — perdi numero legato a banca e SMS Questura.",
-      "К 4–6 месяцу: vincolo fibra/luce — penale se trasferisci in altro municipio.",
-      "К 4–6 месяцу: mora su bolletta gas intestata ad altri — solleciti e pressione locatore.",
-      "К 4–6 месяцу: potenza 3 kW insufficiente con clima estivo — saltano salvavita.",
+      "К 4–6 месяцу: свет на арендодателе. Сложнее подтвердить обычное место жительства для документов.",
+      "К 4–6 месяцу: предоплата без переноса номера. Теряете номер, к которому привязаны банк и СМС квестуры.",
+      "К 4–6 месяцу: обязательство по интернету или свету. Неустойка, если переезжаете в другой муниципалитет.",
+      "К 4–6 месяцу: просрочка по газу на чужое имя. Напоминания и давление арендодателя.",
+      "К 4–6 месяцу: мощности 3 кВт не хватает на летний кондиционер. Выбивает автомат защиты.",
     ],
   },
 ];
 
 const keyTakeaways = [
-  "Официально: ARERA regola diritti su luce/gas; voltura su POD/PDR con titolo immobile; dal 07/2026 voltura gas + switch in un passo.",
+  "Официально: ARERA задаёт права по свету и газу. Переоформление идёт по кодам POD и PDR и с правом на жильё. С июля 2026 года переоформление газа и смена продавца — один шаг.",
   formatPracticeTakeaway({
     channels: ["milanru", "forum_italy"],
     period: "2025–2026",
     claim:
-      "giorno 1 — prepago o WindTre tourist eSIM; settimana 2–4 dopo CF+IBAN — voltura luce e fibra",
+      "в первый день берут предоплаченную SIM или туристическую eSIM WindTre, а на второй–четвёртой неделе после налогового кода и IBAN переоформляют свет и подключают интернет",
     forReader:
-      "non confondere subentro con voltura — altrimenti oneri tecnici in prima bolletta",
+      "Не путайте повторное включение с переоформлением: иначе технические сборы придут уже в первом счёте",
   }),
-  "Расхождение: «любая eSIM без документов» vs обязательная identificazione; WindTre Tourist Pass отдельно подтверждён для иностранцев без CF.",
-  "На практике: к 4–6 месяцу больнее всего intestatario «на потом» e prepago senza portabilità — chiudete luce/gas/fibra a vostro nome prima della routine permesso.",
+  "Расхождение: «любая eSIM без документов» спорит с обязательной идентификацией. Туристический пакет WindTre отдельно подтверждён для иностранцев без налогового кода.",
+  "На практике: к 4–6 месяцу больнее всего абонент «оформлю потом» и предоплата без переноса номера. Оформите свет, газ и интернет на своё имя до рутины разрешения.",
 ];
 
 const faq: CommunityNoteFaq[] = [
   {
-    q: "Можно ли получить итальянский номер в день прилёта без codice fiscale?",
-    a: "По правилам prepago регистрируется на passaporto в punto vendita (Decreto 144/2005). На практике в Milano покупают prepago TIM/Vodafone в tabaccheria; WindTre tourist eSIM — online con passaporto; Iliad e contratto postpagato ждут CF.",
+    q: "Можно ли получить итальянский номер в день прилёта без налогового кода?",
+    a: "Да, предоплату. По правилам её регистрируют на паспорт в точке продаж, это декрет 144/2005. На практике в Милане покупают предоплату TIM или Vodafone в табачной лавке, а туристическую eSIM WindTre оформляют онлайн по паспорту. Iliad и постоплатный договор ждут налоговый код.",
   },
   {
-    q: "Voltura или subentro для luce в квартире с активным contatore?",
-    a: "По правилам ARERA при contatore attivo и solo cambio nome — **voltura** (~5 giorni lavorativi). На практике chiedete bolletta con POD al locatore; subentro только если supply staccato.",
+    q: "Переоформление или повторное включение, если счётчик света уже работает?",
+    a: "Переоформление. По правилам ARERA при работающем счётчике и одной только смене имени это переоформление, около пяти рабочих дней. На практике попросите у арендодателя счёт с кодом POD. Повторное включение нужно только если поставка отключена.",
   },
   {
-    q: "На чьё имя оформлять luce и fibra?",
-    a: "По правилам intestatario può essere inquilino con titolo sull’immobile e CF. На практике locatore a volte resta intestatario luce — verificate clausola contratto; per permesso прозрачнее titolarità propria.",
+    q: "На чьё имя оформлять свет и интернет?",
+    a: "Лучше на жильца. По правилам абонентом может быть жилец с правом на жильё и налоговым кодом. На практике арендодатель иногда остаётся абонентом света: проверьте пункт договора. Для разрешения прозрачнее, когда договор на вас.",
   },
   {
-    q: "Нужен ли IBAN italiano для domiciliazione bollette?",
-    a: "По правилам fornitori richiedono conto per addebito diretto. На практике molti accettano IBAN IT da banca locale; conti esteri — verificare per operatore (soft/UNCHECKED).",
+    q: "Нужен ли итальянский IBAN, чтобы счета списывались сами?",
+    a: "Обычно да. По правилам продавцы просят счёт для прямого списания. На практике многие принимают итальянский IBAN местного банка. Зарубежные счета проверяйте у своего оператора: это ориентир, по каждому продавцу не проверено.",
   },
   {
-    q: "Что будет к 4–6 месяцу, если не оформить utilities?",
-    a: "По правилам mora e solleciti possono portare a limitazione supply. На практике к 4–6 месяцу debiti su nome precedente e assenza domiciliazione complicano rinnovo permesso e cambio appartamento.",
+    q: "Что будет к 4–6 месяцу, если коммунальные договоры не оформить?",
+    a: "Просрочка и ограничение поставки. По правилам долг и напоминания могут привести к ограничению услуги. На практике к 4–6 месяцу долги на прошлом имени и отсутствие списания со счёта усложняют продление разрешения и смену квартиры.",
   },
 ];
 
@@ -239,23 +273,23 @@ export const SIM_LUCE_GUIDE = {
   slug: SIM_LUCE_SLUG,
   category: "Связь и ЖКХ",
   content_kind: "guide" as ContentKind,
-  title: "SIM, eSIM, интернет и luce/gas в Milano: 2026",
+  title: "SIM, eSIM, интернет, свет и газ в Милане: 2026",
   excerpt:
-    "Prepago и WindTre tourist eSIM в день прилёта, fibra на inquilino, voltura luce/gas по POD/PDR и comparatore ARERA — порядок для Milano без выдуманных тарифов 2026.",
-  seo_title: "SIM и интернет Milano: luce 2026",
+    "Предоплаченная SIM и туристическая eSIM WindTre в день прилёта, интернет на имя жильца, переоформление света и газа по кодам точки поставки и сравнение тарифов ARERA. Порядок для Милана без выдуманных цен 2026 года.",
+  seo_title: "SIM и интернет в Милане: свет и газ, 2026",
   seo_description:
-    "SIM, eSIM и fibra в Milano 2026: prepago день 1, voltura luce ARERA, gas dal 07/2026, codice fiscale и IBAN. Практика RU-релокантов в Lombardia.",
+    "SIM, eSIM и интернет в Милане, 2026: предоплата в день прилёта, свет по правилам ARERA, газ с июля 2026, налоговый код и IBAN. Порядок для релокантов Ломбардии.",
   quick_answer:
-    "В Milano в день прилёта — prepago в punto vendita с passaporto или WindTre Tourist Pass eSIM online. Fibra и luce оформляют на intestatario с codice fiscale и платёжным методом; при активном contatore — voltura по POD, не subentro. Gas: PDR; с 1 июля 2026 voltura и выбор нового fornitore объединены. Сравнивайте offerte через ARERA; требования Iliad к CF проверяйте в выбранном flow.",
+    "В Милане в день прилёта берут предоплаченную SIM в точке продаж по паспорту или туристическую eSIM WindTre онлайн. Интернет и свет оформляют на абонента с налоговым кодом и способом оплаты. Если счётчик уже работает, это переоформление по коду POD, а не повторное включение. Для газа нужен код PDR. С 1 июля 2026 года переоформление газа и выбор нового продавца объединены. Предложения сравнивайте через ARERA, а нужен ли Iliad налоговый код, смотрите в выбранном сценарии.",
   body_sections: bodySections,
   body_paragraphs: flattenBodySections(bodySections),
   key_takeaways: keyTakeaways,
   faq,
   official_links: [
-    { title: "ARERA — portale consumatori", url: "https://www.arera.it/it/consumatori" },
-    { title: "ARERA — delibera 323/2025/R/com", url: "https://www.arera.it/atti-e-provvedimenti/dettaglio/25/323-25" },
+    { title: "ARERA — портал потребителей", url: "https://www.arera.it/it/consumatori" },
+    { title: "ARERA — решение 323/2025/R/com", url: "https://www.arera.it/atti-e-provvedimenti/dettaglio/25/323-25" },
     { title: "WINDTRE — Tourist Pass Digital", url: "https://www.windtre.it/offerte-per-turisti-in-italia/tourist-pass-digital-en" },
-    { title: "Legge 431/1998 — locazioni (contesto titolo immobile)", url: "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:legge:1998-07-09;431" },
+    { title: "Закон 431/1998 — аренда (право на жильё)", url: "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:legge:1998-07-09;431" },
   ],
   topic_tags: ["sim", "internet", "utilities", "milano", "italy"],
   hashtags: buildNoteHashtags({

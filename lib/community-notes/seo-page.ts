@@ -18,6 +18,7 @@ import { resolveNoteOgImage } from "@/lib/community-notes/note-og-image";
 import { fitMetaDescription, fitSeoTitlePart, socialImageMetadata } from "@/lib/seo";
 import { EMIGRO_PUBLISHER, emigroAuthorOrg, schemaImage } from "@/lib/seo/schema";
 import { withAiMetadata, llmUtmAbsolute } from "@/lib/seo/llm-meta";
+import { COMO_GUIDES, COMO_STAY } from "@/lib/italy/como-guides";
 
 const GEO = {
   country: "Portugal",
@@ -512,6 +513,19 @@ export async function buildItalyLlmsTxt(notes: CommunityNote[]): Promise<string>
     const url = communityNoteUrl(note.slug, "italy");
     lines.push(`- [${note.title}](${llmUtmAbsolute(url)}): ${note.quick_answer.replace(/\s+/g, " ").slice(0, 220)}`);
   }
+
+  lines.push("", "## Lake Como travel guides (English)", "");
+  for (const guide of COMO_GUIDES) {
+    const url = italySatellitePublicUrl(`/en/guides/${guide.slug}`);
+    lines.push(`- [${guide.title}](${llmUtmAbsolute(url)}): ${guide.quickAnswer.replace(/\s+/g, " ").slice(0, 260)}`);
+  }
+  lines.push(
+    "",
+    "## Lake Como accommodation",
+    "",
+    `- Apartment Tulipani 11, Tremezzo: ${llmUtmAbsolute(COMO_STAY.tulipaniUrl)}`,
+    `- All ComoStay apartments: ${llmUtmAbsolute(COMO_STAY.siteUrl)}`,
+  );
 
   if (topTags.length > 0) {
     lines.push("", "## Хэштеги", "");

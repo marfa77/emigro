@@ -23,17 +23,45 @@ const PERVYE_30_SLUG = "pervye-30-dnej-v-italii-satelit-2026";
 const PERMESSO_SLUG = "permesso-questura-milano-2026";
 
 const GLOSSARY_INTRO =
-  "Слова с tessera sanitaria, sportello ASST e ricetta medica — разберём до первого mal di gola, пока «SSN как SIP в Valencia» не стоил месяца без medico di base.";
+  "Слова с медицинской карты, из окна ASST и из рецепта. Их лучше понять до первой ангины, чтобы фраза «итальянская система устроена как испанская карта SIP в Валенсии» не стоила месяца без участкового врача.";
 
 const LOCAL_TERMS: GlossaryTerm[] = [
-  { pt: "SSN", context: "Servizio Sanitario Nazionale", ru: "национальная система здравоохранения Италии; в Lombardia — SSR regionale" },
-  { pt: "tessera sanitaria", context: "TS-CNS", ru: "карта SSN + codice fiscale; ключ к medico di base e ricette" },
-  { pt: "medico di base", context: "MMG", ru: "участковый терапевт (GP); scelta libera nel distretto ASST" },
-  { pt: "ATS Milano", ru: "Agenzia di Tutela della Salute; coordina SSR sul territorio metropolitano" },
-  { pt: "ASST", context: "Azienda Socio-Sanitaria Territoriale", ru: "оператор первички и sportelli scelta medico a Milano (Fatebenefratelli, Niguarda, S.Paolo)" },
-  { pt: "pronto soccorso", ru: "приёмное отделение ospedale; emergenza grave — 118, не «кашель в PS»" },
-  { pt: "ticket sanitario", ru: "доплата за visita/esame; esenzioni per reddito o patologia" },
-  { pt: "guardia medica", ru: "дежурный врач fuori orario MMG; continuità assistenziale territoriale" },
+  {
+    pt: "SSN",
+    context: "Servizio Sanitario Nazionale",
+    ru: "национальная система здравоохранения Италии. В Ломбардии её ведёт региональная служба",
+  },
+  {
+    pt: "tessera sanitaria",
+    context: "TS-CNS",
+    ru: "медицинская карта системы вместе с налоговым кодом. С неё открываются участковый врач и рецепты",
+  },
+  {
+    pt: "medico di base",
+    context: "MMG",
+    ru: "участковый терапевт. Врача выбирают свободно внутри своего округа ASST",
+  },
+  {
+    pt: "ATS Milano",
+    ru: "агентство охраны здоровья Милана. Координирует региональную службу на территории метрополии",
+  },
+  {
+    pt: "ASST",
+    context: "Azienda Socio-Sanitaria Territoriale",
+    ru: "территориальная медорганизация: первичная помощь и окна выбора врача в Милане (Fatebenefratelli, Niguarda, S. Paolo)",
+  },
+  {
+    pt: "pronto soccorso",
+    ru: "приёмное отделение больницы. Тяжёлая неотложная помощь — номер 118, а не «кашель в приёмном»",
+  },
+  {
+    pt: "ticket sanitario",
+    ru: "доплата за приём или обследование. От неё освобождают по доходу или по заболеванию",
+  },
+  {
+    pt: "guardia medica",
+    ru: "дежурный врач вне часов участкового. Это непрерывность помощи на территории, не замена скорой",
+  },
 ];
 
 const bodySections: NoteBodySection[] = [
@@ -41,190 +69,196 @@ const bodySections: NoteBodySection[] = [
     ...buildGlossarySection(LOCAL_TERMS, GLOSSARY_INTRO),
   },
   {
-    heading: "Nota Emigro (fact-check)",
+    heading: "Nota Emigro (проверка фактов)",
     section_kind: "official",
     paragraphs: [
-      "Короткий разбор формулировок. **OK** — сверено с ATS Milano / portale ASST 2026; **soft** — чаты без фиксированной цены; **fixed** — путаница с SIP Испании. Не юридическая консultazione.",
+      "Короткий разбор формулировок. **Подтверждено** — сверено со страницами ATS Milano и порталом ASST в 2026 году. **Ориентир** — чаты без фиксированной цены. **Исправлено** — убрана путаница с испанской картой SIP. **Не проверено** — в этой сессии путь не подтверждали. Это не юридическая консультация.",
+      "Главное: итальянская медицинская карта и испанская SIP — разные системы. Цены частных полисов здесь не норма.",
     ],
     bullets: [
-      "OK: iscrizione al **Servizio Sanitario Regionale** Lombardia obbligatoria per assistiti aventi diritto; comporta scelta **medico e pediatra** ([ATS Milano — scelta medico](https://www.ats-milano.it/ats/carta-servizi/guida-servizi/assistenza-sociosanitaria/iscrizione-ssr-tessera-sanitaria/scelta-medico-pediatra/scelta-medico-pediatra)).",
-      "OK: gestione scelta/revoca MMG a Milano — portale interaziendale **sr.asst-fbf-sacco.it** (ASST Fatebenefratelli Sacco, S.Paolo e Carlo, Niguarda) per Municipi 1–9.",
-      "OK: scelta/revoca anche via **Fascicolo Sanitario Elettronico** Lombardia con SPID/CIE/PIN in tempo reale (volantino ASST 2025).",
-      "Fixed: «SIP Valencia = tessera Milano» → **SIP — только Comunitat Valenciana**; in Italia — **tessera sanitaria** SSR dopo iscrizione ASST.",
-      "Soft: tempi emissione tessera dopo iscrizione — **2–6 settimane** in chat; documento provvisorio ASST può bastare interim.",
-      "Soft / UNCHECKED: prezzi polizze **Unisalute, FASDAC, Metasalute** — non fissati legge; preventivo individuale.",
-      "UNCHECKED: percorso esatto **straniero extracomunitario** senza lavoro dipendente — dipende da permesso e convenzioni; verificare sportello «Cittadini stranieri» ASST.",
-      "OK: все четыре URL из official_links открыты 06.09.2026; exact sede/orari sportello в тексте не фиксируем, потому что они меняются.",
-      "OK: **odontoiatria** SSN — limitata (esenzioni patologia); routine e estetica — quasi sempre **privato**.",
+      "Подтверждено: запись в **региональную службу здравоохранения** Ломбардии обязательна для тех, у кого есть право на помощь, и включает выбор **врача и педиатра** ([ATS Milano — выбор врача](https://www.ats-milano.it/ats/carta-servizi/guida-servizi/assistenza-sociosanitaria/iscrizione-ssr-tessera-sanitaria/scelta-medico-pediatra/scelta-medico-pediatra)).",
+      "Подтверждено: выбор и отказ от участкового врача в Милане идут через общий портал организаций **sr.asst-fbf-sacco.it** (ASST Fatebenefratelli Sacco, S. Paolo e Carlo, Niguarda) для муниципалитетов 1–9.",
+      "Подтверждено: выбрать врача или отказаться от него можно и через **электронную медкарту** Ломбардии со SPID, электронным удостоверением CIE или PIN, в реальном времени (листовка ASST 2025 года).",
+      "Исправлено: «SIP Валенсии равна медицинской карте Милана» — нет. **SIP действует только в Валенсийском сообществе.** В Италии это **медицинская карта** региональной службы после записи через ASST.",
+      "Ориентир: пластиковую карту после записи в чатах ждут **2–6 недель**. Временного документа ASST на этот промежуток может хватить.",
+      "Ориентир / не проверено: цены полисов **Unisalute, FASDAC и Metasalute** законом не зафиксированы. Считайте индивидуальное предложение.",
+      "Не проверено: точный путь **иностранца из-за пределов ЕС** без работы по найму. Он зависит от разрешения и соглашений. Уточняйте в окне ASST «Cittadini stranieri».",
+      "Подтверждено: все четыре ссылки из списка источников открывались 6 сентября 2026 года. Точный адрес и часы окна в тексте не фиксируем: они меняются.",
+      "Подтверждено: **стоматология** в государственной системе ограничена, в основном льготами по заболеванию. Обычное лечение и эстетика почти всегда **частные**.",
     ],
   },
   {
-    heading: "Официально: SSN, SSR Lombardia e tessera sanitaria",
+    heading: "Официально: государственная система, служба Ломбардии и медицинская карта",
     section_kind: "official",
     paragraphs: [
-      "Servizio Sanitario Nazionale garantisce assistenza primaria, specialistica, ospedaliera e farmaceutica con ticket o esenzioni. In **Lombardia** l’iscrizione passa dal **SSR** regionale e dalla **tessera sanitaria** (TS-CNS), che contiene anche il **codice fiscale**.",
-      "Titolar del diritto: cittadini italiani, stranieri con **permesso di soggiorno** e situazioni previste da normativa (lavoratori iscritti INPS, familiari a carico, ecc.). **ATS Milano** coordina sul territorio; le pratiche operative di scelta medico sono sulle **ASST** per comune di residenza/domicilio.",
-      "Dopo iscrizione si sceglie **medico di medicina generale (MMG)** o pediatra nel distretto. Revoca e cambio — online (FSE), portale sr.asst-fbf-sacco.it o appuntamento sportello Zerocoda.",
+      "Национальная система здравоохранения покрывает первичную помощь, помощь узких специалистов, больницу и лекарства. За часть услуг есть доплата или освобождение от неё. В Ломбардии запись идёт через региональную службу, а медицинская карта TS-CNS содержит ещё и налоговый код.",
+      "Право есть у граждан Италии, у иностранцев с разрешением на пребывание и в других случаях, которые прямо названы нормой: работники, вставшие на учёт в INPS, члены семьи на иждивении и другие. Агентство ATS Milano координирует территорию. Сам выбор врача делают организации ASST по муниципалитету регистрации или проживания.",
+      "После записи выбирают участкового врача общей практики или педиатра в своём округе. Отказаться от врача и сменить его можно онлайн в электронной медкарте, на портале sr.asst-fbf-sacco.it или по записи в окно через сервис Zerocoda.",
+      "Главное: карта сама не появляется от факта переезда. Сначала запись в региональную службу, потом выбор врача.",
     ],
     bullets: [
-      "Iscrizione SSR: documento identità, permesso/carta soggiorno, codice fiscale, certificato residenza/domicilio.",
-      "Scelta MMG: elenco medici disponibili per distretto — «Trova Medico» su ATS Milano.",
-      "Tessera sanitaria: rilascio/duplicato через ASST/FSE или указанный региональным порталом sportello; точная sede перед визитом — **UNCHECKED**.",
-      "Prenotazioni: CUP regionale, app «Prenota Online» SSR, sportello MMG.",
-      "118 — emergenza sanitaria; guardia medica — continuità fuori orario MMG.",
+      "Для записи в региональную службу: документ, разрешение или карта долгого пребывания (carta di soggiorno), налоговый код, справка о регистрации или о проживании.",
+      "Выбор врача: список свободных врачей округа есть в сервисе «Trova Medico» на сайте ATS Milano.",
+      "Медицинскую карту выдают и дублируют через ASST, электронную медкарту или окно, которое указывает региональный портал. Точное окно перед визитом не проверено.",
+      "Запись к врачу: региональный центр записи CUP, приложение «Prenota Online» региональной службы или окно участкового.",
+      "Номер 118 — скорая. Дежурный врач принимает, когда участковый не работает.",
     ],
   },
   {
-    heading: "Официально: stranieri, lavoro e copertura",
+    heading: "Официально: иностранцы, работа и покрытие",
     section_kind: "official",
     paragraphs: [
-      "Percorso tipico **lavoratore dipendente**: contratto и категория soggiorno → проверка diritto → iscrizione SSR con documenti → scelta MMG; INPS идёт параллельно по работе. Для **autonomo** не обещаем «право только после накопления взносов»: основание iscrizione зависит от permesso и статуса, его подтверждает ASST.",
-      "Stranieri **senza occupazione** subito: spesso periodo con **assicurazione privata** obbligatoria per visto/permesso finché non si matura diritto SSR. Non assumere «permesso = tessera automatica» — verificare categoria permesso e sportello ASST «accesso assistenza sanitaria stranieri».",
-      "**Esenzioni ticket**: per reddito (ISEE), patologia (codice esenzione), invalidità, età — richiesta/rinnovo via portale o sportello ASST.",
+      "Обычный путь наёмного работника такой: договор и категория пребывания, проверка права, запись в региональную службу с документами, выбор участкового врача. Учёт в INPS идёт параллельно по работе. Для самозанятого не обещаем, что право возникает только после накопления взносов. Основание записи зависит от разрешения и статуса, его подтверждает ASST.",
+      "Иностранец без работы сразу часто проходит период с частной страховкой, которую требуют для визы или разрешения, пока право на региональную службу ещё не возникло. Не считайте, что разрешение само выпускает карту. Проверьте категорию разрешения и окно ASST по доступу иностранцев к медпомощи.",
+      "Освобождение от доплаты дают по доходу (показатель ISEE), по заболеванию (код освобождения, codice esenzione), по инвалидности и по возрасту. Запрос и продление идут через портал или окно ASST.",
+      "Главное: право на службу и пластиковая карта — разные шаги, и категорию разрешения смотрят раньше очереди в поликлинику.",
     ],
     bullets: [
-      "Permesso soggiorno valido — prerequisito per iscrizione straniero non comunitario (soft: prassi ASST).",
-      "Certificato residenza/domicilio — Comune di Milano; necessario per scelta MMG nel distretto.",
-      "Familiari a carico — iscrizione separata con documenti nucleo familiare.",
-      "Convenzione temporanea / studenti — percorsi dedicati su portale ASST (UNCHECKED dettagli per ogni visto).",
-      "Tessera provvisoria — ricevuta iscrizione può accompagnare prime visite (soft).",
+      "Действующее разрешение на пребывание — обычное условие записи иностранца не из ЕС. Это практика окон ASST, ориентир.",
+      "Справка о регистрации или о проживании — мэрия Милана. Она нужна, чтобы выбрать врача в своём округе.",
+      "Членов семьи на иждивении записывают отдельно, с документами семьи.",
+      "Временное соглашение и студенты идут отдельными путями на портале ASST. Подробности по каждой визе не проверены.",
+      "Временная карта: расписки о записи может хватить на первые визиты. Это ориентир.",
     ],
   },
   {
-    heading: "SSN e medico di base на практике в Milano",
+    heading: "Государственная система и участковый врач на практике в Милане",
     section_kind: "practice",
     paragraphs: [
-      "Milano ha **9 municipi** e tre ASST; il tuo MMG dipende da **residenza/domicilio sanitario**, non dal quartiere «modaiolo». Usa [Trova Medico](https://www.ats-milano.it/) e portale **sr.asst-fbf-sacco.it** — non copiare il medico del vicino in Navigli se abiti a Bicocca.",
-      "Маршрут релоканта: **[codice fiscale](/notes/" +
+      "В Милане девять муниципалитетов и три организации ASST. Ваш врач зависит от адреса медицинской регистрации, а не от «модного» района. Пользуйтесь сервисом [Trova Medico](https://www.ats-milano.it/) и порталом sr.asst-fbf-sacco.it. Не копируйте врача знакомого из Навилий, если сами живёте в Бикокке.",
+      "Маршрут такой: [налоговый код](/notes/" +
         CODICE_FISCALE_SLUG +
-        ") → contratto registrato → residenza Comune → iscrizione SSR/ASST → scelta MMG**. Параллельно — polizza privata sul gap. Permesso: [Questura Milano](/notes/" +
+        "), зарегистрированный договор, регистрация в мэрии, запись в региональную службу через ASST, выбор врача. Параллельно держите частный полис на паузу. Про разрешение — [квестура Милана](/notes/" +
         PERMESSO_SLUG +
-        "); checklist: [первые 30 дней](/notes/" +
+        "). Общий порядок — [первые 30 дней](/notes/" +
         PERVYE_30_SLUG +
         ").",
-      "Visita MMG — di regola **su appuntamento**; guardia medica per urgenze non emergenza in notturno/festivo. PS per emergenza vera — attesa ore, non «15 minuti come in privato».",
+      "К участковому обычно попадают по записи. Дежурный врач нужен ночью и в праздник, когда помощь срочная, но это не катастрофа. Приёмное отделение — для настоящей неотложной помощи: ждать можно часами, а не «пятнадцать минут, как у частного врача».",
+      "Главное: врач привязан к вашему адресу медрегистрации. Чужой округ потом придётся менять отдельно.",
     ],
     bullets: [
       formatPracticeBullet({
         channels: ["milanru", "forum_italy"],
         period: "2025–2026",
         claim:
-          "senza certificato residenza sportello ASST ritarda iscrizione SSR; contratto alone non sempre basta",
+          "без справки о регистрации окно ASST затягивает запись в региональную службу, одного договора аренды часто недостаточно",
         forReader:
-          "richiedete certificato residenza al Comune appena possibile — serve anche banca e permesso",
+          "Закажите справку о регистрации в мэрии, как только это станет возможно: она нужна и банку, и разрешению на пребывание",
       }),
       formatPracticeBullet({
         channels: ["milan_4at"],
         period: "2025–2026",
         claim:
-          "tra richiesta iscrizione e tessera fisica passavano 2–6 settimane; accettavano ricevuta + CF per prima visita MMG",
-        forReader:
-          "conservate ricevuta iscrizione e nome MMG scelto online",
+          "от заявки на запись до пластиковой карты проходило 2–6 недель, а на первый визит к участковому принимали расписку и налоговый код",
+        forReader: "Сохраните расписку о записи и имя врача, которого выбрали онлайн",
       }),
-      "Farmacia: ricetta elettronica «promemoria» sul telefono; ticket dipende da esenzione.",
-      "Specialista SSN — impegnativa MMG; tempi CUP variabili (settimane–mesi soft).",
-      "Pediatra — obbligatorio scelta per figli; lista separata.",
+      "В аптеке рецепт приходит электронным напоминанием (promemoria) на телефон. Доплата зависит от льготы.",
+      "К узкому специалисту в государственной системе нужно направление участкового (impegnativa). Сроки центра записи плавают от недель до месяцев. Это ориентир.",
+      "Педиатра детям выбирают обязательно, список отдельный.",
     ],
   },
   {
-    heading: "Privato, dentista e pronto soccorso",
+    heading: "Частная медицина, стоматолог и приёмное отделение",
     section_kind: "practice",
     paragraphs: [
-      "**Medicina privata** (UniSalute, FASI, ecc.) — bridge mesi 1–3 o integrazione ticket. Prezzi visita privata **€80–150** (soft, non tariffa ufficiale).",
-      "**Dentista**: igiene e otturazioni — quasi sempre studio privato; SSN copre poco salvo esenzioni specifiche. Budget **€80–120** igiene (soft).",
-      "**Pronto soccorso** — для emergenza indifferibile; неэкстренный доступ может повлечь ticket по региональным правилам. **118** для emergenza; continuità assistenziale — для неэкстренной помощи вне часов MMG.",
+      "Частная медицина, в том числе фонды UniSalute и FASI, закрывает первые один–три месяца или доплачивает разницу к государственной доплате. Частный приём в ориентире стоит €80–150. Это не официальный тариф.",
+      "Стоматолог: гигиена и пломбы почти всегда в частном кабинете. Государственная система покрывает мало, кроме отдельных льгот. Гигиена в ориентире €80–120.",
+      "Приёмное отделение — для помощи, которую нельзя откладывать. Несрочный визит может повлечь доплату по региональным правилам. Номер 118 — для неотложной помощи. Дежурная служба — для несрочной помощи вне часов участкового.",
+      "Главное: приёмное отделение не заменяет участкового, а частный полис не заменяет запись в региональную службу.",
     ],
     bullets: [
-      "Non usare PS come walk-in GP — triage penalizza codici bianchi/verdi.",
-      "Polizza privata: verificare copertura psicologia, fisioterapia, ricovero.",
-      "Ospedali pubblici Milano: Niguarda, Policlinico, Fatebenefratelli — PS h24.",
-      "Guardia medica — numero su sito ATS / ASST per distretto.",
-      "Screening oncologico SSR — programmi #iononaspetto Regione Lombardia (ATS news).",
+      "Не используйте приёмное отделение как врача без записи. Сортировка отодвигает белый и зелёный коды.",
+      "В частном полисе проверьте психологию, физиотерапию и госпитализацию.",
+      "Государственные больницы Милана с круглосуточным приёмным: Niguarda, Policlinico, Fatebenefratelli.",
+      "Номер дежурного врача ищите на сайте ATS или ASST своего округа.",
+      "Онкоскрининг региональной службы — программы #iononaspetto региона Ломбардия, по новостям ATS.",
     ],
   },
   {
-    heading: "Где portale ASST и чат расходятся",
+    heading: "Где портал ASST и чат расходятся",
     section_kind: "gap",
     paragraphs: [
-      "Siti promettono «tutto online con SPID», ma appena arrivati senza SPID finiscono in sportello con appuntamento Zerocoda.",
-      "Chat: «tessera subito con permesso turistico» — permesso turistico non dà diritto SSR come residente (fixed).",
+      "Сайты обещают «всё онлайн через SPID», но в первые дни без SPID люди оказываются в окне по записи Zerocoda.",
+      "В чате встречается «карту выдают сразу с туристическим разрешением». Туристическое разрешение не даёт права региональной службы так, как даёт проживание. Это исправленная формулировка.",
+      "Главное: обещание портала рассчитано на того, у кого уже есть SPID и право на запись, а не на день прилёта.",
     ],
     bullets: [
-      "«SSN gratis tutto» → ticket su visite/esami salvo esenzione (fixed).",
-      "«Dentista SSN come medico base» → routine privata (fixed).",
-      "«Scegli MMG di centro per estetica» → MMG legato a domicilio sanitario (fixed).",
-      "«PS sempre 30 minuti» → attese ore in giorni punta (soft practice).",
-      "«Polizza privata sostituisce permesso» → visto può richiedere assicurazione + SSR dopo iscrizione (soft).",
-      "«Farmacia sceglie medico» → servizio gratuito in farmacie aderenti Lombardia (OK ATS).",
+      "«Государственная система бесплатна целиком» — за приёмы и обследования есть доплата, если нет льготы (исправлено).",
+      "«Стоматолог в государственной системе как участковый» — обычное лечение частное (исправлено).",
+      "«Возьмите врача в центре, потому что так удобнее» — врач привязан к адресу медрегистрации (исправлено).",
+      "«В приёмном всегда 30 минут» — в пиковые дни ждут часами (ориентир практики).",
+      "«Частный полис заменяет разрешение» — виза может требовать страховку, а региональная служба подключается после записи (ориентир).",
+      "«Врача выбирают в аптеке» — да, в подключённых аптеках Ломбардии эта услуга бесплатная (подтверждено, ATS).",
     ],
   },
   {
     heading: "Типичные ошибки",
     section_kind: "practice",
     paragraphs: [
-      "Errori comuni: aspettare tessera per polizza privata scaduta; PS per rinnovo ricetta; MMG lontano da casa; ignorare guardia medica.",
+      "Повторяющиеся ошибки одни и те же: ждать карту, пока частный полис уже кончился; идти в приёмное отделение за продлением рецепта; выбрать врача далеко от дома; забыть про дежурную службу.",
+      "Главное: пауза без полиса в первый месяц и визит в приёмное отделение «просто с температурой» — две самые дорогие привычки.",
     ],
     bullets: [
-      "Ошибка: nessuna assicurazione privata nei primi 30 giorni — gap scoperto.",
-      "Ошибка: PS per febbre — ore di attesa; chiamare MMG o guardia medica.",
-      "Ошибка: non scegliere MMG entro scadenza iscrizione — assegnazione automatica lontana.",
-      "Ошибка: confondere tessera sanitaria con permesso soggiorno — documenti distinti.",
-      "Ошибка: specialisti privati senza impegnativa quando SSR coprirebbe con ticket basso.",
-      "Ошибка: dimenticare rinnovo esenzione reddito — ticket pieni a mesi 4–6.",
+      "Ошибка: не иметь частной страховки в первые 30 дней. Пауза остаётся без покрытия.",
+      "Ошибка: ехать в приёмное отделение с температурой. Там часы ожидания. Сначала звоните участковому или дежурному врачу.",
+      "Ошибка: не выбрать врача до конца срока записи. Могут назначить далёкого врача автоматически.",
+      "Ошибка: путать медицинскую карту с разрешением на пребывание. Это разные документы.",
+      "Ошибка: идти к частному специалисту без направления, хотя региональная служба покрыла бы услугу с небольшой доплатой.",
+      "Ошибка: забыть продлить льготу по доходу. К 4–6 месяцу доплата становится полной.",
     ],
   },
   {
-    heading: "К 4–6 месяцу: tessera, ticket e routine",
+    heading: "К 4–6 месяцу: карта, доплата и обычный ритм",
     section_kind: "practice",
     paragraphs: [
-      "К 4–6 месяцу tessera fisica e MMG routine dovrebbero funzionare; se iscrizione ritardata — ancora polizza privata e costi duplicati. Primo inverno — influenza, attese CUP per specialisti.",
-      "К 4–6 месяцу rinnovo permesso chiede prova assistenza e residenza; gap SSR — red flag pratica.",
-      "Se percorso visto e copertura non coincidono — [wizard Emigro](https://www.emigro.online/ru/italy/wizard) e [Assist](https://www.emigro.online/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=milano_health).",
+      "К 4–6-му месяцу пластиковая карта и обычные визиты к участковому уже должны работать. Если запись затянулась, частный полис всё ещё нужен, и расходы идут дважды. Первая зима приносит грипп и очереди в центр записи к узким специалистам.",
+      "К этому же сроку продление разрешения на практике смотрит подтверждение медпомощи и регистрации. Дыра в региональной службе — тревожный знак в документах.",
+      "Если путь по визе и покрытие не совпадают, сверьте их в [мастере Emigro](https://www.emigro.online/ru/italy/wizard) и в [сопровождении Assist](https://www.emigro.online/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=milano_health).",
+      "Главное: к 4–6-му месяцу дороже всего просроченная льгота, чужой округ врача и полис, который кончился раньше карты.",
     ],
     bullets: [
-      "К 4–6 месяцу: esenzione reddito non richiesta — ticket pieni su visite ripetute.",
-      "К 4–6 месяцу: MMG cambiato quartiere senza revoca — distretto sbagliato.",
-      "К 4–6 месяцу: polizza privata scaduta mentre SSR ancora in lavorazione.",
-      "К 4–6 месяцу: screening età (mammografia, colon) — verificare inviti SSR.",
-      "К 4–6 месяцу: figli senza pediatra scelto — pratica scuola/asilo complicata.",
+      "К 4–6 месяцу: льготу по доходу не запросили. Повторные визиты идут с полной доплатой.",
+      "К 4–6 месяцу: переехали в другой район и не отказались от прежнего врача. Округ остаётся неверным.",
+      "К 4–6 месяцу: частный полис кончился, а региональная служба ещё в работе.",
+      "К 4–6 месяцу: возрастной скрининг, маммография и кишечник. Проверьте приглашения региональной службы.",
+      "К 4–6 месяцу: детям не выбран педиатр. Документы для школы и сада усложняются.",
     ],
   },
 ];
 
 const keyTakeaways = [
-  "Официально: SSR Lombardia via ATS/ASST; tessera sanitaria + scelta MMG; portale sr.asst-fbf-sacco.it per Milano municipi 1–9.",
+  "Официально: региональная служба Ломбардии идёт через ATS и ASST. Нужны медицинская карта и выбор участкового врача. Портал sr.asst-fbf-sacco.it обслуживает муниципалитеты Милана 1–9.",
   formatPracticeTakeaway({
     channels: ["milanru", "forum_italy"],
     period: "2025–2026",
     claim:
-      "CF + residenza → iscrizione ASST online/sportello → scelta MMG; tessera fisica 2–6 settimane",
-    forReader:
-      "tenete polizza privata sul gap; non è SIP Spagna",
+      "после налогового кода и регистрации идут в ASST онлайн или в окно, выбирают участкового врача, а пластиковая карта приходит за 2–6 недель",
+    forReader: "Держите частный полис на эту паузу: итальянская система — не испанская карта SIP",
   }),
-  "Расхождение: «SSN automatico con permesso» vs iscrizione ASST e categoria permesso.",
-  "На практике: к 4–6 месяцу dentista e ticket senza esenzione — costi «nascosti»; PS solo emergenza.",
+  "Расхождение: «система подключается сама вместе с разрешением» спорит с записью через ASST и с категорией разрешения.",
+  "На практике: к 4–6 месяцу стоматолог и доплата без льготы становятся тихими расходами. Приёмное отделение — только для неотложной помощи.",
 ];
 
 const faq: CommunityNoteFaq[] = [
   {
-    q: "Tessera sanitaria сразу после permesso?",
-    a: "По правилам serve iscrizione SSR con documenti validi (permesso, CF, residenza). На практике sportello elabora pratica; tessera fisica può richiedere settimane; ricevuta iscrizione + MMG scelto per prime visite.",
+    q: "Медицинскую карту выдают сразу после разрешения на пребывание?",
+    a: "Нет, не сразу. По правилам нужна запись в региональную службу с действующими документами: разрешение, налоговый код, регистрация. На практике окно ведёт дело неделями, пластик может идти ещё дольше, а на первые визиты хватает расписки о записи и уже выбранного врача.",
   },
   {
-    q: "SSN или privato nei первые месяцы?",
-    a: "По правилам chi ha diritto deve iscriversi SSR; visto spesso richiede assicurazione privata iniziale. На практике mesi 1–3 — polizza privata + parallel SSR; non lasciare gap scoperto.",
+    q: "В первые месяцы опираться на государственную систему или на частную страховку?",
+    a: "На обе, пока запись не оформлена. По правилам тот, у кого есть право, записывается в региональную службу, а виза часто требует частную страховку на старте. На практике первые один–три месяца — это полис плюс параллельная запись. Паузу без покрытия не оставляйте.",
   },
   {
-    q: "Dentista через SSN?",
-    a: "По правилам SSN copre poche prestazioni odontoiatriche con esenzioni. На практике igiene e estetica — studio privato €80–120+ (soft).",
+    q: "Стоматолога можно пройти через государственную систему?",
+    a: "Почти нет, если речь о гигиене и эстетике. По правилам система покрывает мало стоматологических услуг, и то при льготах. На практике гигиена и эстетика — частный кабинет, ориентир €80–120 и выше.",
   },
   {
-    q: "Come cambiare medico di base?",
-    a: "По правилам revoca/scelta via FSE (SPID), sr.asst-fbf-sacco.it o farmacia aderente. На практике cambio quartiere → revocare e scegliere MMG nel nuovo distretto.",
+    q: "Как сменить участкового врача?",
+    a: "Отзывом и новым выбором. По правилам это делают в электронной медкарте через SPID, на портале sr.asst-fbf-sacco.it или в подключённой аптеке. На практике после переезда в другой район прежнего врача отзывают и выбирают врача нового округа.",
   },
   {
-    q: "Pronto soccorso vs guardia medica?",
-    a: "По правилам PS per emergenze; guardia medica per continuità non emergenza fuori orario MMG. На практике PS per malattie lievi — attese lunghe; chiamare MMG prima.",
+    q: "Когда ехать в приёмное отделение, а когда звонить дежурному врачу?",
+    a: "В приёмное — при неотложной помощи, дежурному — если участковый не работает, а катастрофы нет. По правилам приёмное отделение для неотложных случаев, дежурный врач держит непрерывность вне часов участкового. На практике с лёгкой болезнью в приёмном ждут долго. Сначала звоните своему врачу.",
   },
 ];
 
@@ -232,23 +266,23 @@ export const MEDITSINA_MILANO_GUIDE = {
   slug: MEDITSINA_MILANO_SLUG,
   category: "Здоровье",
   content_kind: "guide" as ContentKind,
-  title: "Медицина в Milano: SSN, tessera sanitaria и medico di base",
+  title: "Медицина в Милане: SSN, медицинская карта и участковый врач",
   excerpt:
-    "Iscrizione SSR Lombardia, tessera sanitaria, scelta MMG via ASST Milano, privato sul gap, dentista e pronto soccorso — без путаницы с SIP Испании.",
-  seo_title: "SSN и tessera sanitaria Milano 2026",
+    "Как записаться в региональную службу здравоохранения Ломбардии, получить медицинскую карту и выбрать участкового врача через ASST Милана. Чем закрыть паузу частным полисом, что со стоматологом и когда ехать в приёмное отделение — без путаницы с картой SIP Испании.",
+  seo_title: "SSN и медицинская карта в Милане, 2026",
   seo_description:
-    "SSN Milano 2026: tessera sanitaria, medico di base ASST, iscrizione SSR, ticket ed esenzioni. Privato, dentista e PS — guida RU senza SIP Spagna.",
+    "Медицина в Милане, 2026: карта SSN, участковый врач ASST, запись в службу региона, доплата и льготы. Частный врач и стоматолог без путаницы с SIP Испании.",
   quick_answer:
-    "В Milano доступ к SSN через iscrizione **SSR Lombardia** e **tessera sanitaria**. Scelta **medico di base** — portale ASST sr.asst-fbf-sacco.it o FSE con SPID. Serve permesso, codice fiscale e residenza. Mesi 1–3 spesso polizza privata sul gap. Dentista — quasi sempre privato. PS — emergenza; guardia medica fuori orario. Non è SIP Valencia.",
+    "В Милане доступ к государственной медицине открывается записью в региональную службу Ломбардии и медицинской картой, а не фактом переезда. Участкового врача выбирают на портале ASST sr.asst-fbf-sacco.it или в электронной медкарте через SPID. Нужны разрешение на пребывание, налоговый код и регистрация. Первые один–три месяца паузу часто закрывает частный полис. Стоматолог почти всегда частный. Приёмное отделение — для неотложной помощи, дежурный врач — вне часов участкового. Это не испанская карта SIP Валенсии.",
   body_sections: bodySections,
   body_paragraphs: flattenBodySections(bodySections),
   key_takeaways: keyTakeaways,
   faq,
   official_links: [
-    { title: "ATS Milano — scelta medico e SSR", url: "https://www.ats-milano.it/ats/carta-servizi/guida-servizi/assistenza-sociosanitaria/iscrizione-ssr-tessera-sanitaria/scelta-medico-pediatra/scelta-medico-pediatra" },
-    { title: "Portale scelta/revoca MMG Milano", url: "https://sr.asst-fbf-sacco.it/" },
-    { title: "Servizi territoriali ASST Milano", url: "https://www.serviziterritoriali-asstmilano.it/" },
-    { title: "Fascicolo Sanitario Elettronico Lombardia", url: "https://www.fascicolosanitario.regione.lombardia.it/" },
+    { title: "ATS Milano — выбор врача и региональная служба", url: "https://www.ats-milano.it/ats/carta-servizi/guida-servizi/assistenza-sociosanitaria/iscrizione-ssr-tessera-sanitaria/scelta-medico-pediatra/scelta-medico-pediatra" },
+    { title: "Портал выбора и смены участкового врача в Милане", url: "https://sr.asst-fbf-sacco.it/" },
+    { title: "Территориальные услуги ASST Милана", url: "https://www.serviziterritoriali-asstmilano.it/" },
+    { title: "Электронная медкарта Ломбардии", url: "https://www.fascicolosanitario.regione.lombardia.it/" },
   ],
   topic_tags: ["health", "ssn", "milano", "italy"],
   hashtags: buildNoteHashtags({

@@ -20,222 +20,258 @@ const VNJ_SLUG = "vnj-italiya-nomade-elective-2026";
 const BANK_SLUG = "bank-iban-nerezident-italiya-2026";
 
 const GLOSSARY: GlossaryTerm[] = [
-  { pt: "CAF", ru: "Centro di Assistenza Fiscale; 730, ISEE, AA4/8 soft free" },
-  { pt: "Patronato", ru: "INPS/INAIL помощь; permesso, pensioni — не immigration boutique" },
-  { pt: "Commercialista", ru: "бухгалтер; Partita IVA, dichiarazione redditi" },
-  { pt: "Idraulico / elettricista", ru: "сантехник / электрик; emergenza жилья" },
-  { pt: "Avvocato immigrazione", ru: "миграционный адвокат; cambio motivo, ricorsi — не cittadinanza exam" },
-  { pt: "Sportello Amico", ru: "Poste — kit permesso; Patronato рядом по смыслу, не то же" },
-  { pt: "PEC", ru: "certified email; uffici PA и avvocati" },
-  { pt: "Gestore utenze", ru: "не «gestoría» PT; luce/gas — fornitore или A2A/AEM soft" },
+  {
+    pt: "CAF",
+    ru: "Centro di Assistenza Fiscale, центр налоговой помощи. Декларация 730, показатель ISEE и часто бесплатная помощь с формой налогового кода AA4/8",
+  },
+  {
+    pt: "Patronato",
+    ru: "патронат: помощь с INPS и INAIL, пенсиями и формами разрешения на пребывание. Это не миграционная бутик-фирма",
+  },
+  {
+    pt: "Commercialista",
+    ru: "бухгалтер. Нужен для Partita IVA (номера предпринимателя) и декларации о доходах",
+  },
+  {
+    pt: "Idraulico / elettricista",
+    ru: "сантехник и электрик. Их вызывают, когда в жилье авария, а не «для галочки»",
+  },
+  {
+    pt: "Avvocato immigrazione",
+    ru: "миграционный адвокат: смена основания пребывания и жалобы. Это не подготовка к экзамену на гражданство",
+  },
+  {
+    pt: "Sportello Amico",
+    ru: "окно почты Poste, где принимают почтовый комплект на разрешение на пребывание. Патронат рядом по смыслу, но это не то же окно",
+  },
+  {
+    pt: "PEC",
+    ru: "Posta Elettronica Certificata, сертифицированная электронная почта. Её просят госорганы и адвокаты",
+  },
+  {
+    pt: "Gestore utenze",
+    ru: "поставщик света и газа, а не португальская gestoría. Это ваш оператор. В Милане часто называют A2A или AEM, но какая сеть на конкретном адресе, в этом гиде не зафиксировано",
+  },
 ];
 
+const GLOSSARY_INTRO =
+  "Слова с визиток в холле дома и из объявлений «поможем с документами» лучше разобрать до того, как уйдёт €500 «за итальянский NIE».";
+
 const DISCLAIMER =
-  "**Emigro — не реклама мастеров.** Списки **не endorsement**. Официальные procedure — [portaleimmigrazione.it](https://www.portaleimmigrazione.it/), [agenziaentrate.gov.it](https://www.agenziaentrate.gov.it/). Не путайте Patronato с «лучшим адвокатом гражданства» из Telegram.";
+  "**Emigro не рекламирует мастеров.** Списки ниже — не рекомендация и не рейтинг. Официальный порядок — на [portaleimmigrazione.it](https://www.portaleimmigrazione.it/) и [agenziaentrate.gov.it](https://www.agenziaentrate.gov.it/). Патронат не стоит путать с «лучшим адвокатом по гражданству» из переписки.";
 
 const bodySections: NoteBodySection[] = [
   {
-    ...buildGlossarySection(
-      GLOSSARY,
-      "Слова из объявлений @milan_4at и визиток в hall condominio — до перевода €500 «за NIE в Италии»."
-    ),
-    paragraphs: [DISCLAIMER],
+    ...buildGlossarySection(GLOSSARY, GLOSSARY_INTRO),
+    paragraphs: [GLOSSARY_INTRO, DISCLAIMER],
   },
   {
-    heading: "Nota Emigro (fact-check)",
+    heading: "Nota Emigro (проверка фактов)",
     section_kind: "official",
     paragraphs: [
-      "Жёлтые страницы = **кого звать в 0–6 mesi**, не рейтинг «топ-10 lawyers citizenship». OK/soft/fixed/UNCHECKED.",
+      "Жёлтые страницы отвечают на один вопрос: кого звать в Милане и на севере в первые ноль–шесть месяцев. Это не рейтинг «десяти юристов по гражданству». Статусы такие. **Проверено** — есть официальная страница. **Ориентир** — полевая оценка, не норма. **Исправлено** — распространённый миф, который здесь поправлен. **Не проверено** — в этом тексте подтверждения нет, решение за порталом или за звонком.",
+      "Главное: если у пункта стоит «не проверено», не подставляйте чужой телефон и чужой тариф вместо своего звонка.",
     ],
     bullets: [
-      "OK: **CAF** — assistenza fiscale, modello 730, ISEE ([Agenzia Entrate elenco CAF](https://www.agenziaentrate.gov.it/) — sezione CAF).",
-      "OK: **Patronato** (INPS) — pratiche previdenziali, supporto cittadini ([inps.it](https://www.inps.it/)).",
-      "OK: **AA4/8 codice fiscale** — бесплатно в Entrate; CAF/Patronato помогают compilare ([CF guide](/notes/" + CODICE_FISCALE_SLUG + ")).",
-      "OK: **kit permesso** — Poste Sportello Amico, не «gestor» за €800 ([poste.it](https://www.poste.it/guida-rilascio-e-rinnovo-permesso-di-soggiorno)).",
-      "Fixed: «gestoría Portugal = CAF Italia» → разные функции; в IT нет единого gestor для TIE.",
-      "Fixed: «адвокат гражданства 2 года» → не первые 6 mesi быта; нужен **immigrazione** o Patronato.",
-      "Soft: idraulico emergenza — €80–150 call-out Milano soft.",
-      "UNCHECKED: конкретные CAF/Patronato с англ./рус. языком в centro — verificare telefonicamente.",
-      "UNCHECKED: tariffario commercialista Partita IVA 2026 — preventivo individuale.",
+      "Проверено: **CAF** оказывает налоговую помощь, включая модель 730 и ISEE. Список центров — раздел CAF на портале [Agenzia delle Entrate](https://www.agenziaentrate.gov.it/).",
+      "Проверено: **патронат** при INPS ведёт пенсионные и социальные дела и помогает гражданам. Страница органа — [inps.it](https://www.inps.it/).",
+      "Проверено: форму **AA4/8** на налоговый код (codice fiscale) в налоговой подают бесплатно. CAF и патронат помогают её заполнить. Подробности — в [гиде по налоговому коду](/notes/" + CODICE_FISCALE_SLUG + ").",
+      "Проверено: почтовый комплект на разрешение на пребывание принимают в окне Poste Sportello Amico, а не у посредника за €800. Инструкция почты — [poste.it](https://www.poste.it/guida-rilascio-e-rinnovo-permesso-di-soggiorno).",
+      "Исправлено: португальская gestoría — это не итальянский CAF. Функции разные, и в Италии нет одного посредника, который оформляет вид на жительство вместо почты и квестуры.",
+      "Исправлено: «адвокат по гражданству за два года» не закрывает быт первых шести месяцев. Для старта нужен миграционный адвокат или патронат, смотря по задаче.",
+      "Ориентир: аварийный выезд сантехника в Милане в переписке называют в вилке €80–150. Это не утверждённый тариф.",
+      "Не проверено: какие именно CAF и патронаты в центре говорят по-английски или по-русски. Уточняйте по телефону перед визитом.",
+      "Не проверено: прайс бухгалтера на Partita IVA в 2026 году. Берите индивидуальную смету.",
     ],
   },
   {
-    heading: "Официально: CAF, Patronato и государственные окна",
+    heading: "Официально: CAF, патронат и государственные окна",
     section_kind: "official",
     paragraphs: [
-      "**CAF** (convenzionati Agenzia Entrate): compilazione **730**, **ISEE**, dichiarazioni; часто **gratuito** o low fee для dichiarazione. Помогают с **AA4/8** codice fiscale — не заменяют ufficio Entrate. Elenco CAF — portale Entrate по CAP Milano/Como.",
-      "**Patronato** (ACLI, INCA, ITAL…): pratiche **INPS**, disoccupazione, certificazioni; supporto **permesso** soft (compilazione moduli), **не** sostituto Questura. Convenzione INPS — sportelli territoriali.",
-      "**Comune di Milano** — anagrafe residenza, scuola ([Milano Aiuta 02.02.02](https://www.comune.milano.it/)). **Questura** — solo appuntamento convocazione, не «услуга за деньги» посреднику.",
+      "**CAF** — центр, у которого есть соглашение с налоговой Agenzia delle Entrate. Там заполняют декларацию **730**, считают **ISEE** (показатель экономического положения семьи) и часто делают обычную декларацию бесплатно или за небольшую плату. С формой **AA4/8** на налоговый код (codice fiscale) тоже помогают, но само окно налоговой это не заменяет. Список центров на портале налоговой отбирают по почтовому индексу Милана или Комо.",
+      "**Патронат** (сети вроде ACLI, INCA, ITAL и другие) ведёт дела **INPS**: пособия, справки, пенсионные вопросы. Формы на разрешение на пребывание (permesso di soggiorno) там иногда помогают заполнить. Это ориентир по поддержке, а не замена квестуры (Questura). Окна работают по соглашению с INPS и сидят на местах, а не «в одном национальном офисе».",
+      "В **мэрии Милана** (Comune di Milano) регистрируют место жительства в реестре населения (anagrafe) и решают школьные вопросы. Телефон городской службы Milano Aiuta — 02.02.02, страница — [comune.milano.it](https://www.comune.milano.it/). Квестура принимает по записи и по вызову. Это не услуга, которую вы покупаете у посредника.",
+      "Главное: бесплатное или почти бесплатное окно уже есть у налоговой, патроната и почты, и платить «за доступ к государству» на старте не нужно.",
     ],
     bullets: [
-      "Entrate sportello — CF, tessera sanitaria.",
-      "Poste Sportello Amico — kit permesso.",
-      "Portale Immigrazione — status pratica.",
-      "INPS — contributi lavoro subordinato.",
-      "ATS — medico, non CAF.",
-      "Consolato RU — passaporto, не permesso IT.",
+      "Откройте окно налоговой: там налоговый код и санитарная карта (tessera sanitaria).",
+      "Окно Poste Sportello Amico — почтовый комплект на разрешение на пребывание.",
+      "Портал иммиграции — статус вашего дела.",
+      "INPS — взносы, если вы работаете по найму.",
+      "Медицина ATS — врач, а не налоговый центр.",
+      "Консульство России — паспорт, а не итальянское разрешение на пребывание.",
     ],
   },
   {
-    heading: "Commercialista, idraulico, elettricista: быт и налоги",
+    heading: "Бухгалтер, сантехник и электрик: быт и налоги",
     section_kind: "official",
     paragraphs: [
-      "**Commercialista / consulente del lavoro:** нужен при **Partita IVA**, **lavoro autonomo**, redditi complessi, **730** oltre CAF. Nomade con solo foreign salary — часто CAF + Entrate достаточно первые mesi; P.IVA — отдельное решение ([VNJ track](/notes/" + VNJ_SLUG + ")).",
-      "**Idraulico / elettricista / fabbro:** perdita acqua, caldaia, serratura — **condominio** amministratore или emergenza 24h; проверяйте **P.IVA** и preventivo scritto. **Pronto intervento** centro storico — premium soft.",
-      "**Avvocato (immigrazione):** cambio motivo permesso, ricorso TAR, casi family complessi — **не** marketing «cittadinanza anticipata». Citizenship / exam — UniPrep track, **вне** жёлтых страниц satellite.",
+      "Если вы уже выбираете, кто ведёт налоги и кто чинит дом, эти роли не смешиваются. **Бухгалтер** (commercialista) и консультант по труду (consulente del lavoro) нужны, когда вы открываете **Partita IVA**, работаете на себя, доход сложный или декларация 730 уже не помещается в обычную помощь CAF. Если у цифрового кочевника есть только зарплата иностранного работодателя, в первые месяцы часто хватает CAF и налоговой. Решение открывать Partita IVA — отдельное, его лучше сверить с [маршрутом вида на жительство](/notes/" + VNJ_SLUG + ").",
+      "Сантехника, электрика и слесаря вызывают на протечку, котёл и замок. Сначала спросите управляющего домом, есть ли аварийная служба на сутки. Перед вызовом проверьте номер Partita IVA и попросите письменную смету. Аварийный выезд в исторический центр обычно дороже обычного. Это ориентир, не прайс-лист.",
+      "Миграционный адвокат нужен, когда меняют основание разрешения на пребывание, подают жалобу в региональный административный суд (TAR) или семейная история действительно сложная. Реклама «гражданства раньше срока» к этому не относится. Экзамен и трек гражданства — зона UniPrep, и в этот бытовой справочник они не входят.",
+      "Главное: бухгалтера зовут под налоги и номер предпринимателя, мастера — под аварию в доме, адвоката — под отказ или смену основания, а не под обещание паспорта.",
     ],
     bullets: [
-      "Registro imprese — verifica P.IVA artigiano.",
-      "Assicurazione RC professionale — soft richiesta.",
-      "Mensa condominiale — idraulico preferito building.",
-      "Fattura elettronica — obbligo prestatori IT.",
-      "Perdita gas — chiudere rubinetto, chiamare 115.",
-      "Blackout — elettricista certificato.",
+      "Проверьте номер Partita IVA мастера в реестре предприятий.",
+      "Попросите полис профессиональной ответственности, если работа дорогая. Это частая просьба, не отдельный закон этого гида.",
+      "Спросите у управляющего, какого сантехника обычно вызывает дом.",
+      "Итальянские исполнители обязаны выставлять электронный счёт (fattura elettronica).",
+      "При запахе газа перекройте кран и звоните 115.",
+      "При отключении света вызывайте электрика с допуском, а не «знакомого с дрелью».",
     ],
   },
   {
-    heading: "Кого вызывают в первые 0–6 mesi: практическая карта",
+    heading: "Кого вызывают в первые полгода",
     section_kind: "practice",
     paragraphs: [
-      "**Settimana 1–2:** Patronato/CAF для AA4/8 + kit postale check; **не** платить «агентство VNJ €2000» за то, что Poste делает с marca da bollo. **Mese 1–3:** idraulico если [luce/acqua](/notes/sim-internet-luce-milano-2026) leak; commercialista если открыли P.IVA.",
-      "**Mese 3–6:** commercialista для **730** (если redditi IT); avvocato immigrazione если **rinnovo** отказ или cambio status. **Bank** KYC — filiale, не посредник ([IBAN guide](/notes/" + BANK_SLUG + ")).",
-      "**Como/Monza:** те же CAF/Patronato network Lombardia; sportello может быть в provincia.",
+      "Сначала закройте бумаги, потом аварии в доме. В первые одну–две недели патронат или CAF помогают с формой AA4/8 и с проверкой почтового комплекта. Не платите «агентству по виду на жительство» около €2000 за то, что почта делает с гербовой маркой (marca da bollo). В первый–третий месяц сантехника зовут, если потекла вода. Договоры на свет, воду и связь разобраны в [гиде по связи и коммунальным услугам](/notes/sim-internet-luce-milano-2026). Бухгалтера подключайте, только если Partita IVA уже открыта.",
+      "С третьего по шестой месяц бухгалтер нужен для декларации 730, если есть итальянский доход. Миграционного адвоката зовут, если в продлении отказали или меняется статус. Проверку банка (KYC) проходите в отделении, а не через посредника. Как открывают счёт, написано в [гиде по IBAN](/notes/" + BANK_SLUG + ").",
+      "В Комо и Монце работают те же сети CAF и патронатов Ломбардии. Окно может быть не в городе, а в провинции, и это нормально.",
+      "Главное: первый конверт на разрешение на пребывание собирают почта и патронат, а не человек, который обещает «решить квестуру» переводом на карту.",
     ],
     bullets: [
       formatPracticeBullet({
         channels: ["milanru", "milan_4at"],
         period: "2025–2026",
         claim:
-          "relocant pagavano «consulenza permesso» €600 без PEC verso Questura — ricevuta postale uguale a DIY Poste",
-        forReader: "Patronato/Poste prima di unknown middleman",
+          "релоканты платили около €600 за «консультацию по разрешению на пребывание» без сертифицированной почты в квестуру, а почтовая квитанция выходила такой же, как при самостоятельной подаче",
+        forReader: "Сначала зайдите в патронат и на почту и только потом думайте о незнакомом посреднике.",
       }),
-      "Amministratore condominio — chiavi, regolamento.",
-      "Spazzatura/raccolta — Comune app.",
-      "Internet — ISP, non CAF.",
-      "Medico — SSN, non commercialista.",
-      "[Permesso](/notes/" + PERMESSO_SLUG + ") — kit ufficiale.",
+      "Возьмите у управляющего домом ключи и правила дома.",
+      "График вывоза мусора смотрите в приложении коммуны.",
+      "Интернет подключает оператор связи, а не налоговый центр.",
+      "К врачу идут через государственную медицину, а не к бухгалтеру.",
+      "Почтовый комплект собирайте по [официальному гиду о разрешении на пребывание](/notes/" + PERMESSO_SLUG + ").",
     ],
   },
   {
-    heading: "Как фильтровать рекламу в чатах",
+    heading: "Как отсеивать рекламу в чатах",
     section_kind: "practice",
     paragraphs: [
-      "**Red flags:** «гарантия VNJ 100%», «без visto D», «NIE Италии за день», «оплата только cash без fattura», «нет P.IVA/partita». **Green flags:** P.IVA verificabile, preventivo scritto, PEC, специализация **diritto immigrazione** (not citizenship marketing).",
-      "Рекомендации @milan_4at — **один** звонок для compare, не blind trust. Ordine professionale avvocati — albo online.",
-      "Emigro **не** marketplace мастеров; Assist — **audit порядка**, не замена idraulico.",
+      "Красные флаги узнаются с первой фразы: «вид на жительство на 100%», «без визы D», «итальянский NIE за день», «только наличные и без счёта», «номера Partita IVA нет». Зелёные флаги спокойнее: номер предпринимателя можно проверить, смета письменная, есть сертифицированная почта PEC, а специализация — миграционное право, а не витрина «гражданство под ключ».",
+      "Рекомендация из городского чата — повод на один сравнительный звонок, а не на слепое доверие. Адвоката сверьте с онлайн-реестром коллегии (albo).",
+      "Emigro не площадка мастеров. Assist проверяет порядок ваших документов и не приезжает с разводным ключом.",
+      "Главное: один проверяемый номер и письменная смета говорят о человеке больше, чем десяток восторженных пересказов.",
     ],
     bullets: [
-      "Verifica P.IVA — portale Agenzia Entrate.",
-      "Recensioni Google — soft, не solo Telegram.",
-      "Due preventivi — idraulico/elettricista.",
-      "Contratto scritto — sempre.",
-      "No prepagamento 100% unknown.",
-      "Citizenship lawyer — red flag mes 1–3.",
+      "Проверьте номер Partita IVA на портале налоговой.",
+      "Посмотрите отзывы в Google. Это ориентир, и одного мессенджера мало.",
+      "Возьмите две сметы у сантехника или электрика.",
+      "Подписывайте письменную договорённость до начала работ.",
+      "Не переводите 100% предоплаты незнакомому исполнителю.",
+      "Юрист «только про гражданство» в первые три месяца — красный флаг.",
     ],
   },
   {
-    heading: "К 4–6 месяцу: когда жёлтые страницы не помогут",
+    heading: "К 4–6-му месяцу: когда справочник уже не спасает",
     section_kind: "gap",
     paragraphs: [
-      "К **4–6 месяцу** накапливаются **730**, rinnovo permesso, eventuale **Partita IVA** — без commercialista/CAF риск sanzioni fiscali. **Irregolare soggiorno** — avvocato, не Patronato fix retroattivo.",
-      "Emergenza idraulica ignorata — danni condominio, deposito affitto perso. «Юрист из чата» без ricorso — деньги без PEC verso PA.",
+      "Когда набирается четвёртый месяц, справочник уже не про визитки. К 4–6-му месяцу складываются декларация 730, продление разрешения на пребывание и, если вы её открыли, Partita IVA. Без бухгалтера или CAF растёт риск налоговых санкций. Если пребывание уже нерегулярное, это разговор с адвокатом: патронат задним числом статус не чинит.",
+      "Пропущенная протечка бьёт по общему имуществу дома, и залог за аренду в таком споре легко теряют. «Юрист из чата», который не подаёт жалобу и не пишет в госорган с сертифицированной почты, забирает деньги без следа в деле.",
+      "Главное: к середине первого года справочник нужен не для визитки сантехника, а чтобы не пропустить декларацию, продление и реальный спор со статусом.",
     ],
     bullets: [
-      "730 scadenza — CAF/commercialista.",
-      "Rinnovo permesso — Questura, soft avvocato se negato.",
-      "INPS gap lavoro — consulente del lavoro.",
-      "Multe ZTL — pagamento, non avvocato subito.",
-      "Assist Route Check — порядок документов.",
-      "Portale Immigrazione — status ufficiale.",
+      "Сдайте декларацию 730 в срок через CAF или бухгалтера.",
+      "Продление разрешения на пребывание ведёт квестура. Адвоката подключайте, если пришёл отказ. Это ориентир, не обязательный шаг для всех.",
+      "Дыру в стаже INPS по найму разбирайте с консультантом по труду.",
+      "Штраф за въезд в ограниченную зону ZTL сначала оплатите. Адвокат здесь не первый звонок.",
+      "Порядок документов можно сверить на консультации Emigro Assist.",
+      "Статус дела смотрите на портале иммиграции, а не в пересказе чата.",
     ],
   },
   {
-    heading: "Assist vs официальный портал vs мастер",
+    heading: "Assist, официальный портал и мастер",
     section_kind: "official",
     paragraphs: [
-      "**Официальный портал / ufficio:** permesso ([portaleimmigrazione.it](https://www.portaleimmigrazione.it/)), CF ([Entrate](/notes/" + CODICE_FISCALE_SLUG + ")), residenza Comune, INPS. **Бесплатно** или marca da bollo.",
-      "**Assist Emigro Route Check €129:** аудит **вашего** порядка visto→kit→CF→banca; не подаёт kit за вас. UTM wizard — [/ru/italy/wizard](/ru/italy/wizard).",
-      "**Мастер (idraulico, elettricista):** физическая работа; **commercialista:** налоги; **avvocato immigrazione:** ricorsi/cambio motivo; **не смешивать** с «гражданство через 2 года» рекламой.",
+      "Официальный портал и окно делают само дело. Разрешение на пребывание отслеживают на [portaleimmigrazione.it](https://www.portaleimmigrazione.it/). Налоговый код — по [гиду налоговой](/notes/" + CODICE_FISCALE_SLUG + "). Регистрацию жительства принимает коммуна. Взносы смотрит INPS. Это бесплатно или стоит гербовой марки.",
+      "Консультация Emigro Assist за €129 разбирает **ваш** порядок: виза, почтовый комплект, налоговый код, банк. Комплект за вас там не подают. Маршрут можно прогнать в [мастере по Италии](/ru/italy/wizard).",
+      "Сантехник и электрик делают физическую работу. Бухгалтер ведёт налоги. Миграционный адвокат занимается жалобами и сменой основания. Рекламу «гражданство через два года» с этими ролями смешивать не стоит.",
+      "Главное: портал подаёт и показывает статус, мастер чинит дом, а Assist только сверяет, не перепутали ли вы очередь шагов.",
     ],
     bullets: [
-      "Assist ≠ sostituto Questura.",
-      "CAF ≠ avvocato.",
-      "Patronato ≠ agency VNJ.",
-      "Poste kit — DIY possibile.",
-      "Emigro — navigator, non CAF.",
-      "[Первые 30 дней](/notes/" + PERVYE_30_SLUG + ") — orchestrator.",
+      "Сверяйте роли: Assist не заменяет квестуру.",
+      "Налоговый центр CAF не заменяет адвоката.",
+      "Патронат не заменяет агентство по виду на жительство.",
+      "Почтовый комплект можно подать самостоятельно.",
+      "Emigro ведёт по маршруту и не работает как CAF.",
+      "Сводный порядок первых недель — в [гиде о первых 30 днях](/notes/" + PERVYE_30_SLUG + ").",
     ],
   },
   {
-    heading: "Типичные ошибки жёлтых страниц в Milano",
+    heading: "Типичные ошибки жёлтых страниц в Милане",
     section_kind: "practice",
     paragraphs: [
-      "Relocant теряют время и деньги в первые mesi.",
+      "В первые месяцы люди теряют деньги и недели: платят за то, что почта делает сама, зовут юриста по гражданству на простой комплект и вызывают мастера без сметы.",
+      "Главное: если услуга уже есть в окне государства, посредник должен объяснить, какую именно работу он добавляет сверх гербовой марки.",
     ],
     bullets: [
-      "Ошибка: платить «gestor permesso» вместо Poste + Patronato free help.",
-      "Ошибка: citizenship lawyer для kit postale mes 1.",
-      "Ошибка: idraulico без preventivo — conto €500+ soft.",
-      "Ошибка: commercialista до решения P.IVA/nomade salary only.",
+      "Ошибка: платить посреднику «за разрешение» вместо почты и бесплатной помощи патроната.",
+      "Ошибка: звать юриста по гражданству на почтовый комплект в первый месяц.",
+      "Ошибка: пускать сантехника без сметы. В переписке такие счета уходят за €500. Это ориентир, не прейскурант.",
+      "Ошибка: нанимать бухгалтера до того, как решили, нужна ли Partita IVA или хватает иностранной зарплаты.",
       formatPracticeBullet({
         channels: ["forum_italy", "milan_4at"],
         period: "2025–2026",
-        claim: "реклама «NIE italiano express» — на деле AA4/8 бесплатно в Entrate",
-        forReader: "CF — Entrate, не посредник",
+        claim:
+          "в рекламе обещали «итальянский NIE экспресс», а по факту форма AA4/8 на налоговый код в налоговой бесплатная",
+        forReader: "Налоговый код получают в налоговой, а не у посредника.",
       }),
-      "Ошибка: игнор Assist/wizard для порядка, но hire random «100% VNJ».",
+      "Ошибка: игнорировать мастер маршрута и Assist, но платить случайному человеку за «вид на жительство на 100%».",
     ],
   },
   {
-    heading: "Wizard и Assist",
+    heading: "Мастер маршрута и Assist",
     section_kind: "practice",
     paragraphs: [
-      "Неясно CAF vs commercialista vs avvocato — [Wizard Italia](/ru/italy/wizard?utm_source=emigro&utm_medium=guide&utm_campaign=zheltye-stranitsy&utm_content=" +
+      "Если вы не понимаете, нужен ли вам налоговый центр, бухгалтер или адвокат, прогоните ситуацию через [мастер Emigro по Италии](/ru/italy/wizard?utm_source=emigro&utm_medium=guide&utm_campaign=zheltye-stranitsy&utm_content=" +
         ZHELTYE_MILANO_SLUG +
-        "). Audit document flow — [Route Check Assist €129](/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=zheltye-stranitsy&utm_content=" +
+        "). Порядок документов можно отдельно разобрать на [консультации Assist за €129](/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=zheltye-stranitsy&utm_content=" +
         ZHELTYE_MILANO_SLUG +
         ").",
+      "Главное: мастер и Assist подсказывают, кого звать следующим, и не подменяют ни почту, ни сантехника.",
     ],
     bullets: [
-      "[VNJ track](/notes/" + VNJ_SLUG + ").",
-      "[Codice fiscale](/notes/" + CODICE_FISCALE_SLUG + ").",
-      "[Bank IBAN](/notes/" + BANK_SLUG + ").",
+      "Откройте [маршрут вида на жительство](/notes/" + VNJ_SLUG + ").",
+      "[Налоговый код](/notes/" + CODICE_FISCALE_SLUG + ").",
+      "[Банковский IBAN](/notes/" + BANK_SLUG + ").",
     ],
   },
 ];
 
 const keyTakeaways = [
-  "Официально: permesso — Poste/Questura/portaleimmigrazione; CF — Entrate AA4/8; CAF/Patronato — fiscal/INPS support, не VNJ agency.",
-  "Официально: commercialista — P.IVA/730; avvocato immigrazione — ricorsi/cambio motivo; не citizenship marketing mes 1–6.",
+  "Официально: разрешение на пребывание ведут почта, квестура и портал иммиграции, налоговый код получают формой AA4/8 в налоговой, а CAF и патронат помогают с налогами и INPS и не являются агентством по виду на жительство.",
+  "Официально: бухгалтер нужен для Partita IVA и декларации 730, миграционный адвокат — для жалоб и смены основания, а реклама гражданства в первые полгода к этому справочнику не относится.",
   formatPracticeTakeaway({
     channels: ["milanru", "milan_4at"],
     period: "2025–2026",
-    claim: "Patronato e Poste coprivano kit e AA4/8 senza fee €600 middleman",
-    forReader: "filter chat ads: P.IVA, PEC, preventivo",
+    claim:
+      "патронат и почта закрывали почтовый комплект и форму AA4/8 без посредника за €600",
+    forReader:
+      "В рекламе из чатов проверяйте номер предпринимателя, сертифицированную почту и письменную смету.",
   }),
-  "На практике: к 4–6 месяцу без CAF/commercialista — 730 e rinnovo rischio; Assist — audit ordine, non idraulico.",
+  "На практике: к 4–6-му месяцу без CAF или бухгалтера накапливаются декларация 730 и продление разрешения, а Assist сверяет порядок документов и не вызывает сантехника.",
 ];
 
 const faq: CommunityNoteFaq[] = [
   {
-    q: "Где бесплатно помогут с permesso и CF?",
-    a: "По правилам kit postale — Poste Sportello Amico; CF — Entrate AA4/8; Patronato/CAF aiutano compilare. На практике non pagare «agenzia» per ciò che ufficio fa con bollo.",
+    q: "Где бесплатно помогут с разрешением на пребывание и налоговым кодом?",
+    a: "Обычно на почте и в налоговой. По правилам почтовый комплект принимают в окне Poste Sportello Amico, налоговый код оформляют формой AA4/8, а патронат и CAF помогают заполнить бумаги. На практике не платите агентству за то, что окно делает за гербовую марку.",
   },
   {
     q: "Нужен ли адвокат в первый месяц?",
-    a: "По правилам caso standard — no, se visto D chiaro. На практике avvocato immigrazione se ricorso o cambio motivo; citizenship lawyer — non priorità mes 1–6.",
+    a: "Нет, если виза D понятная и случай обычный. По правилам стандартное дело закрывают почта и квестура. На практике миграционный адвокат нужен при жалобе или смене основания, а юрист по гражданству в первые полгода не в приоритете.",
   },
   {
-    q: "CAF или commercialista?",
-    a: "По правилам CAF — 730/ISEE convenzionati; commercialista — P.IVA e contabilità complex. На практике nomade solo foreign salary spesso CAF basta первые mesi.",
+    q: "CAF или бухгалтер?",
+    a: "Обычно на старте хватает CAF. По правилам CAF ведёт декларацию 730 и ISEE по соглашению с налоговой, а бухгалтер — Partita IVA и сложный учёт. На практике при одной иностранной зарплате без итальянских клиентов в первые месяцы чаще достаточно налогового центра.",
   },
   {
-    q: "Как отличить scam в Telegram?",
-    a: "По правилам verificare P.IVA, PEC, fattura. На практике red flags: «100% VNJ», «NIE Italia», cash senza contratto.",
+    q: "Как отличить мошенничество в переписке?",
+    a: "Можно, по документам исполнителя. По правилам проверьте номер Partita IVA, сертифицированную почту PEC и счёт. На практике красные флаги такие: «вид на жительство на 100%», «итальянский NIE» и наличные без договора.",
   },
   {
-    q: "Когда Emigro Assist, а когда мастer?",
-    a: "По правилам Assist — audit ordine documenti Route Check. На практике idraulico/elettricista per casa; portale ufficiale per permesso — non Assist substitution.",
+    q: "Когда нужен Emigro Assist, а когда мастер?",
+    a: "Обычно Assist нужен, когда путается порядок бумаг. На консультации разбирают последовательность документов, но не подают комплект за вас. Сантехника и электрика вызывают в дом, а статус разрешения смотрят на официальном портале: Assist это окно не заменяет.",
   },
 ];
 
@@ -243,14 +279,14 @@ export const ZHELTYE_MILANO_GUIDE = {
   slug: ZHELTYE_MILANO_SLUG,
   category: "Сервисы",
   content_kind: "guide" as ContentKind,
-  title: "Жёлтые страницы relocant Milano 2026: CAF, Patronato, мастера",
+  title: "Жёлтые страницы релоканта в Милане 2026: CAF, патронат и мастера",
   excerpt:
-    "Кого вызывать в Milano 0–6 mesi: CAF, Patronato INPS, commercialista, idraulico, avvocato immigrazione — не citizenship lawyer. Фильтр рекламы чатов; Assist vs portale ufficiale vs мастер. Como/Nord stessi sportelli soft.",
-  seo_title: "CAF Patronato мастер Milano 2026 Италия",
+    "Кого звать в Милане в первые полгода: налоговый центр CAF, патронат INPS, бухгалтер, сантехник и миграционный адвокат — и почему обещание гражданства «за два года» сюда не входит. Как читать рекламу и чем Assist отличается от портала и от мастера. В Комо и на севере те же окна, адрес может быть в провинции.",
+  seo_title: "Жёлтые страницы Милана 2026: CAF и мастера",
   seo_description:
-    "Жёлтые страницы Milano 2026: CAF, Patronato, commercialista, idraulico, avvocato immigrazione. Фильтр scam в чатах; Assist vs portale ufficiale. Non gestoría PT.",
+    "Жёлтые страницы Милана 2026: CAF, патронат INPS, бухгалтер, сантехник и миграционный адвокат. Как отсечь рекламу в чатах и не спутать Assist с порталом.",
   quick_answer:
-    "В первые 0–6 месяцев в Milano: CAF (730, ISEE, help AA4/8), Patronato INPS (moduli previdenza), Poste/Questura для permesso — официально; commercialista при Partita IVA/730 сложный; idraulico/elettricista — быт; avvocato immigrazione — ricorsi/cambio motivo, не «гражданство 2 года» из чата. Фильтр рекламы: P.IVA, PEC, preventivo; red flags «100% VNJ», «NIE Italia». Assist Emigro — audit порядка документов, не замена мастера. К 4–6 mesi без CAF/commercialista — rischio 730 e fisco.",
+    "В Милане первые полгода решают не рейтинг адвокатов по гражданству, а то, кого вы зовёте по делу: налоговый центр, патронат, почту или мастера. Официально декларацию 730, показатель ISEE и форму AA4/8 закрывают CAF и патронат INPS, разрешение на пребывание — почта и квестура, Partita IVA — бухгалтер, аварию в доме — сантехник и электрик, отказ или смену основания — миграционный адвокат. На практике отсекайте объявления без номера предпринимателя, сертифицированной почты и письменной сметы, а к 4–6-му месяцу без CAF или бухгалтера легко пропустить декларацию 730.",
   body_sections: bodySections,
   body_paragraphs: flattenBodySections(bodySections),
   key_takeaways: keyTakeaways,

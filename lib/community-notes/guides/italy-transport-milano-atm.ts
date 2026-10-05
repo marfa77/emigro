@@ -19,227 +19,253 @@ const ARENDA_SLUG = "arenda-milano-idealista-2026";
 const VNJ_SLUG = "vnj-italiya-nomade-elective-2026";
 
 const GLOSSARY: GlossaryTerm[] = [
-  { pt: "ATM", ru: "Azienda Trasporti Milanesi — metro, tram, bus в Comune Milano" },
-  { pt: "STIBM", ru: "зональный тариф Mi1–Mi9; интеграция ATM + Trenord + extraurbano" },
-  { pt: "Trenord", ru: "региональные поезда Lombardia; Como, Monza, Malpensa" },
-  { pt: "Linee S", ru: "suburban rail passante; входят в abbonamento urbano ATM (soft: зоны)" },
-  { pt: "Abbonamento urbano", ru: "безлимит в зоне Mi1–Mi3; цена на atm.it, не фиксируем €" },
-  { pt: "Patente di guida", ru: "водительское удостоверение; обмен по соглашениям или ripetizione esame" },
-  { pt: "ZTL", ru: "zona traffico limitato — штрафы в centro storico без permesso" },
-  { pt: "Malpensa Express / M4", ru: "аэропорт MXP; LIN — bus/tram + metro" },
+  {
+    pt: "ATM",
+    ru: "Azienda Trasporti Milanesi: метро, трамвай и автобус в коммуне Милана",
+  },
+  {
+    pt: "STIBM",
+    ru: "зональный тариф от Mi1 до Mi9: в одну поездку можно собрать ATM, Trenord и пригородный автобус",
+  },
+  {
+    pt: "Trenord",
+    ru: "региональные поезда Ломбардии: Комо, Монца, аэропорт Мальпенса",
+  },
+  {
+    pt: "Linee S",
+    ru: "пригородные линии через городской тоннель. В городской проездной ATM они входят, но набор зон — мягкая оценка, сверяйте сайт",
+  },
+  {
+    pt: "Abbonamento urbano",
+    ru: "городской проездной без лимита поездок в зонах Mi1–Mi3. Цену смотрите на atm.it: здесь евро не фиксируем",
+  },
+  {
+    pt: "Patente di guida",
+    ru: "водительские права: обмен по соглашению между странами или повтор экзамена",
+  },
+  {
+    pt: "ZTL",
+    ru: "зона ограниченного движения: в историческом центре без пропуска приходит штраф",
+  },
+  {
+    pt: "Malpensa Express",
+    ru: "поезд в аэропорт Мальпенса (MXP). До Линате (LIN) едут автобусом или трамваем и дальше на метро, линия M4 рядом с этим коридором",
+  },
 ];
 
+const GLOSSARY_INTRO =
+  "Эти слова встречаются на линии M4, в приложении ATM и на камере зоны ограниченного движения. Их стоит узнать до того, как «куплю машину на первой неделе» превратится в штраф и в парковку около €300 в месяц.";
+
 const DISCLAIMER =
-  "**Emigro — не транспортная консультация.** Тарифы ATM/STIBM **обновляются** — сверяйте [atm.it tariffe](https://www.atm.it/it/ViaggiaConNoi/Abbonamenti/Pagine/Tipologie.aspx) и PDF TARIFFE ATM. Не копируйте Lisboa Navegante или Madrid abono как «тот же €».";
+  "**Emigro не даёт транспортную консультацию.** Тарифы ATM и STIBM **обновляют**. Сверяйте [тарифы на atm.it](https://www.atm.it/it/ViaggiaConNoi/Abbonamenti/Pagine/Tipologie.aspx) и PDF со ставками ATM. Не переносите лиссабонский Navegante и мадридский abono как «те же евро».";
 
 const bodySections: NoteBodySection[] = [
   {
-    ...buildGlossarySection(
-      GLOSSARY,
-      "Слова из M4 Malpensa, app ATM и чата @milan_4at — до того как «куплю машину в неделю 1» превратится в ZTL-штраф и парковку €300/мес."
-    ),
-    paragraphs: [DISCLAIMER],
+    ...buildGlossarySection(GLOSSARY, GLOSSARY_INTRO),
+    paragraphs: [GLOSSARY_INTRO, DISCLAIMER],
   },
   {
-    heading: "Nota Emigro (fact-check)",
+    heading: "Nota Emigro (проверка фактов)",
     section_kind: "official",
     paragraphs: [
-      "Первая половина — ATM/Trenord без машины; вторая — auto/patente. OK/soft/fixed/UNCHECKED.",
+      "Первая половина гайда — метро ATM и поезда Trenord без машины. Вторая — автомобиль и права. **Проверено** — страница перевозчика. **Мягкая оценка** — вилка цены или бытовая привычка, не прейскурант. **Исправлено** — чужой городской тариф, который сюда переносить нельзя. **Не проверено** — точная цифра на дату публикации.",
     ],
     bullets: [
-      "OK: ATM управляет metro M1–M5, tram, bus в Milano ([atm.it](https://www.atm.it/)).",
-      "OK: abbonamento urbano Mi1–Mi3 — metro ATM + tratte urbane Trenord + linee S nel passante ([Tipologie abbonamenti](https://www.atm.it/it/ViaggiaConNoi/Abbonamenti/Pagine/Tipologie.aspx)).",
-      "OK: biglietto singolo 3 zone Mi1–Mi3 — 90 minuti con cambio ([PDF TARIFFE ATM](https://www.atm.it/it/ViaggiaConNoi/Documents/TARIFFE%20ATM.pdf)).",
-      "OK: Trenord — treni regionali Como, Monza, Malpensa ([trenord.it](https://www.trenord.it/)).",
-      "OK: patente straniera — scadenze e conversione [MIT / portale patente](https://www.mit.gov.it/) — soft: procedura per Paese.",
-      "Fixed: «Porto без машины = невозможно» → Milano centro historico **лучше** без auto первые mesi.",
-      "Fixed: «€2 Portugal metro» → STIBM зоны, не один flat fare.",
-      "Soft: contactless carta su tornelli ATM — tariffa più conveniente ([atmmilano.it](https://www.atmmilano.it/it)).",
-      "UNCHECKED: **точные € abbonamento mensile urbano 2026** на дату публикации — atm.it указывает cifre; мы даём **soft range**, не гарантию.",
-      "UNCHECKED: Olympic/event integrazioni Rho/Assago — проверьте atm.it при поездках вне Comune.",
+      "Проверено: ATM ведёт метро M1–M5, трамвай и автобус в Милане ([atm.it](https://www.atm.it/)).",
+      "Проверено: городской проездной на зоны Mi1–Mi3 покрывает метро ATM, городские участки Trenord и пригородные линии S в тоннеле Passante ([типы проездных](https://www.atm.it/it/ViaggiaConNoi/Abbonamenti/Pagine/Tipologie.aspx)).",
+      "Проверено: разовый билет на три зоны Mi1–Mi3 действует 90 минут и позволяет пересадку ([PDF со ставками ATM](https://www.atm.it/it/ViaggiaConNoi/Documents/TARIFFE%20ATM.pdf)).",
+      "Проверено: Trenord возит региональными поездами в Комо, Монцу и Мальпенсу ([trenord.it](https://www.trenord.it/)).",
+      "Проверено: сроки и обмен иностранных прав описаны у министерства транспорта [MIT](https://www.mit.gov.it/). Какая процедура у конкретной страны — уже мягкая оценка: список нужно открывать заново.",
+      "Исправлено: «без машины в Порту жить нельзя, значит и в Милане тоже» неверно. Исторический центр Милана первые месяцы как раз удобнее без автомобиля.",
+      "Исправлено: «метро за €2, как в Португалии» неверно. Здесь зоны STIBM, а не одна плоская цена.",
+      "Мягкая оценка: бесконтактная карта на турникетах ATM выходит выгоднее бумажного билета ([atmmilano.it](https://www.atmmilano.it/it)). Точную скидку эта заметка не фиксирует.",
+      "Не проверено: точная цена городского месячного проездного на 2026 год в день публикации. На atm.it цифры есть. Здесь только мягкая вилка, не гарантия.",
+      "Не проверено: доплаты на события и олимпийские стыковки в Rho и Assago. Если едете за пределы коммуны, откройте atm.it в день поездки.",
     ],
   },
   {
-    heading: "Официально: ATM metro, tram e bus — первые 1–2 месяца",
+    heading: "Официально: метро, трамвай и автобус ATM в первые два месяца",
     section_kind: "official",
     paragraphs: [
-      "Comune di Milano покрыт **ATM**: 5 linee metro (M1 rossa … M5 lilla), tram storici (1, 2, 3…), bus e filobus. **STIBM** делит territory на zone **Mi1–Mi9**; abbonamento **urbano** обычно Mi1–Mi3 (Milano + comuni confinanti). За пределами — integrazione zone ([calcolatore ATM](https://www.atm.it/it/ViaggiaConNoi/Tariffe/Pagine/CalcolatoreTariffa.aspx)).",
-      "**Аэропорты:** **MXP** — Malpensa Express (Trenord) до Cadorna/Central + M4 verso Linate corridor; **LIN** — bus 73/tram до metro. В день прилёта купите biglietto o contactless — не taxi default.",
-      "Biglietto singolo (3 zone Mi1–Mi3): validità **90 minuti** dalla prima validazione, un ingresso metro, cambi illimitati su surface. **Carnet 10** — per viaggi saltuari. **Abbonamento settimanale/mensile** — senza limite tempo su rete inclusa; prezzi su atm.it (soft: mensile urbano ordinario spesso **~€35–42**, annuale **~€330–350** — **verificare PDF**).",
+      "По коммуне Милана ходит **ATM**: пять линий метро (красная M1 и далее до сиреневой M5), исторические трамваи 1, 2, 3 и другие, автобус и троллейбус. Тариф **STIBM** делит территорию на зоны **Mi1–Mi9**. Городской проездной обычно покрывает Mi1–Mi3, то есть Милан и соседние коммуны. Дальше нужна доплата за зоны. Считать маршрут удобно в [калькуляторе ATM](https://www.atm.it/it/ViaggiaConNoi/Tariffe/Pagine/CalcolatoreTariffa.aspx).",
+      "В аэропорт Мальпенса (**MXP**) едет Malpensa Express компании Trenord до вокзалов Cadorna или Centrale, а линия M4 идёт в сторону коридора Линате. В Линате (**LIN**) садятся на автобус 73 или на трамвай до метро. В день прилёта купите билет или приложите бесконтактную карту. Такси по умолчанию не нужно.",
+      "Разовый билет на три зоны Mi1–Mi3 живёт **90 минут** с первой отметки. В метро с ним один вход, на наземном транспорте пересадки не ограничены. Блок из десяти поездок берут, если ездите от случая к случаю. Недельный и месячный проездной снимают лимит времени на той сети, которая в него входит. Цены лежат на atm.it. Мягкая вилка: обычный городской месяц часто около **€35–42**, год около **€330–350**. Это не гарантия, цифру сверьте в PDF. Главное: первые недели живите по билету и калькулятору зон, а не по цене метро из другой страны.",
     ],
     bullets: [
-      "App ATM Milano — biglietti, abbonamenti, real-time ([store ATM official app](https://www.atmmilano.it/it)).",
-      "Tessera digitale o fisica — stesso abbonamento.",
-      "Contactless — solo linee ATM, non treni oltre confine urbano.",
-      "M4 — collegamento Linate / Forlanini.",
-      "Senior/residenti Città Metropolitana — agevolazioni su atm.it.",
-      "Multe — controller senza biglietto valido; sanzioni da tariffario.",
+      "Поставьте приложение ATM Milano: билеты, проездные и табло ([официальное приложение](https://www.atmmilano.it/it)).",
+      "Носите цифровую или пластиковую карту: проездной один и тот же.",
+      "Прикладывайте бесконтактную карту только на линиях ATM. Поезда за городской чертой ею не оплатить.",
+      "Садитесь на M4, если вам нужны Линате и Forlanini.",
+      "Проверьте льготы для пожилых и жителей метрополии Città Metropolitana на atm.it.",
+      "Держите билет до конца поездки: контролёр без действующего билета выписывает штраф по тарифной сетке.",
     ],
   },
   {
-    heading: "Trenord, Como e Monza: extraurbano da Milano",
+    heading: "Trenord, Комо и Монца: пригород из Милана",
     section_kind: "official",
     paragraphs: [
-      "**Trenord** collega Milano Centrale / Cadorna / Porta Garibaldi con **Monza**, **Como**, **Bergamo**, Malpensa. Abbonamento **urbano ATM** copre tratte **urbane** Trenord e linee S nel passante — per **Como centro** spesso serve **più zone** (Mi4+); calcolate sul sito ATM/Trenord.",
-      "Relocant в **Como** o **Monza Brianza** живут на satellite **italy.emigro.online**, но **ticket integrato** зависит от comune di residenza — см. [районы Como/Monza](/notes/" +
+      "**Trenord** связывает вокзалы Milano Centrale, Cadorna и Porta Garibaldi с **Монцей**, **Комо**, **Бергамо** и Мальпенсой. Городской проездной ATM покрывает городские участки Trenord и линии S в тоннеле Passante. До центра Комо часто нужны уже следующие зоны, от Mi4 и дальше. Посчитайте маршрут на сайте ATM или Trenord до того, как купите «просто городской».",
+      "Кто живёт в **Комо** или в провинции **Monza Brianza**, остаётся на сателлите italy.emigro.online, но составной билет зависит от коммуны прописки. Районы разобраны в гайде про [Комо и Монцу](/notes/" +
         RAJONY_SLUG +
-        "). Pendolari: abbonamento interurbano costa più dell'urbano puro.",
-      "Malpensa Express — tariffa aeroportuale separata da abbonamento urbano ordinario (soft).",
+        "). Проездной пригородного жителя стоит дороже чистого городского.",
+      "У Malpensa Express аэропортовый тариф, и обычный городской проездной его, по мягкой оценке, не заменяет. Главное: билет «по Милану» на поезде до Комо — это уже другой тариф, не продолжение метро.",
     ],
     bullets: [
-      "Como Lago — linea Milano–Como; tempo ~1h da Centrale.",
-      "Monza — frequenza alta; utile per sportelli Entrate/Questura Monza.",
-      "Zone Mi4–Mi6 — per stazioni oltre Mi3.",
-      "Orari — trenord.it + app Trenord.",
-      "Bike + Trenord — regole bici a bordo su sito.",
-      "Notte — bus notturni ATM limitati; taxi/ride dopo metro chiusa.",
+      "Езжайте к озеру на линию Милан — Комо, станция Como Lago: с Centrale около часа.",
+      "Пользуйтесь Монцей, если нужна частая электричка и окна налоговой или квестуры в Монце.",
+      "Добавляйте зоны Mi4–Mi6, если станция лежит дальше Mi3.",
+      "Смотрите расписание на trenord.it и в приложении Trenord.",
+      "Читайте правила провоза велосипеда на сайте, если едете с велосипедом.",
+      "После закрытия метро рассчитывайте на редкие ночные автобусы ATM или на такси.",
     ],
   },
   {
-    heading: "Milano без машины: практика недели 1–8",
+    heading: "Милан без машины: практика первых восьми недель",
     section_kind: "practice",
     paragraphs: [
-      "Первые **1–2 mesi** большинство RU relocant в Milano **не нуждаются в auto**: metro + tram закрывают lavoro co-working, Questura, Entrate, spesa. Выберите жильё в **15–25 min metro** от ваших uffici — см. [районы](/notes/" +
+      "Первые один–два месяца большинству приезжих с паспортами России, Беларуси, Украины или Казахстана машина в Милане не нужна. Метро и трамвай довозят до коворкинга, квестуры, налоговой и магазина. Жильё удобно искать в **15–25 минутах метро** от ваших дел. Районы — в гайде про [метро](/notes/" +
         RAJONY_SLUG +
-        ") и [аренда](/notes/" +
+        "), договор — в гайде про [аренду](/notes/" +
         ARENDA_SLUG +
         ").",
-      "**Settimana 1:** contactless o app ATM с MXP/LIN; не покупайте annuale до понимания commute. **Mese 2:** если commute ежедневный — abbonamento mensile urbano (prezzo su atm.it). **Como weekend:** biglietto zone calculator, не «urbano» alone.",
-      "Bici **BikeMi** — alternativa tram; casc obbligatorio soft. Scooter elettrici — regole comune.",
+      "На первой неделе выходите из Мальпенсы или Линате с бесконтактной картой или с приложением ATM. Годовой проездной не покупайте, пока не поймёте, куда ездите каждый день. На втором месяце, если дорога ежедневная, берите городской месяц. Цену снова смотрите на atm.it. На выходные в Комо нужен билет по калькулятору зон, а не один только городской проездной.",
+      "Велопрокат **BikeMi** заменяет часть трамвайных поездок. Про шлем здесь мягкая оценка: многие пишут, что он обязателен, но это не цитата из тарифа ATM. Электросамокаты живут по правилам коммуны. Главное: машину имеет смысл обсуждать с четвёртого–шестого месяца, а не в неделю прилёта.",
     ],
     bullets: [
       formatPracticeBullet({
         channels: ["milanru", "milan_4at"],
         period: "2025–2026",
         claim:
-          "relocant M1/M2 Porta Romana–Loreto жили без auto 4+ mesi; abbonamento mensile urbano через app ATM",
-        forReader: "auto — mes 4–6+, не settimana 1",
+          "на линиях M1 и M2, между Porta Romana и Loreto, люди жили без машины дольше четырёх месяцев и платили городской месяц через приложение ATM",
+        forReader: "Машину откладывайте на четвёртый–шестой месяц, а не на первую неделю.",
       }),
-      "ZTL Area C — multe auto senza permesso.",
-      "Parcheggio garage — €150–350/mese centro soft.",
-      "LIN bus 73 — economico vs taxi.",
-      "Night life — last metro ~00:30 soft, check ATM.",
-      "[Первые 30 дней](/notes/" + PERVYE_30_SLUG + ") — MXP transfer.",
+      "Не въезжайте в зону Area C без пропуска: штраф приходит и без остановки на дороге.",
+      "Закладывайте паркинг в центре €150–350 в месяц (мягкая оценка).",
+      "Езжайте из Линате на автобусе 73: он дешевле такси.",
+      "Проверяйте последний поезд метро около 00:30 на сайте ATM: это мягкая оценка, не замена расписанию.",
+      "Сверьте трансфер из Мальпенсы с гайдом про [первые 30 дней](/notes/" + PERVYE_30_SLUG + ").",
     ],
   },
   {
-    heading: "Жить с детьми и commute: карта зон на практике",
+    heading: "Дети и дорога на работу: карта зон на практике",
     section_kind: "practice",
     paragraphs: [
-      "Scuola в другом municipio → abbonamento **interurbano**. Due genitori — valutate carnet vs mensile. Annuale con rate — solo se restate ≥10 mesi; altrimenti mensile flessibile.",
-      "Integrazione **Rho Fiera / Assago** — abbonamento urbano ordinario **non** copre (atm.it note); servono integrazioni.",
+      "Если школа в другом округе, городской проездной уже не хватает: нужен пригородный. Двум взрослым иногда выгоднее блок поездок, иногда месяц. Считайте оба варианта. Годовой проездной в рассрочку имеет смысл, только если вы точно остаётесь хотя бы на десять месяцев. Иначе спокойнее платить за месяц.",
+      "Стыковки на **Rho Fiera** и **Assago** обычный городской проездной не покрывает: так написано в примечании на atm.it, для них нужны отдельные доплаты. Главное: перед подписью договора в зоне Mi4 прогоните адрес через калькулятор, а не через фразу «метро рядом».",
     ],
     bullets: [
-      "Calcolatore tariffa ATM — prima di firmare contratto in Mi4.",
-      "Trenord strike — soft sporadici; backup bus ATM.",
-      "Studenti <26 — agevolazioni atm.it.",
-      "Famiglia — carnet condiviso non trasferibile.",
-      "Como scuola ≠ ticket Milano urbano.",
+      "Откройте калькулятор тарифа ATM до того, как подпишете договор в зоне Mi4.",
+      "Держите запасной автобус ATM: забастовки Trenord случаются, но не по календарю (мягкая оценка).",
+      "Проверьте льготу на atm.it, если ездит студент младше 26 лет.",
+      "Не отдавайте семейный блок поездок другому человеку: он не передаётся.",
+      "Не возите ребёнка в школу в Комо по городскому билету Милана.",
     ],
   },
   {
-    heading: "К 4–6 месяцу: auto, patente e costi nascosti",
+    heading: "К 4–6-му месяцу: машина, права и скрытые расходы",
     section_kind: "gap",
     paragraphs: [
-      "К **4–6 месяцу** часть relocant покупает/арендует auto — но senza patente valida o assicurazione RC **multe e sequestro**. ZTL e Area C генерируют bollettini postali mesi dopo.",
-      "Import auto RU — dogana, omologazione, costi alti; leasing IT richiede CF, permesso, storico creditizio ([bank IBAN](/notes/bank-iban-nerezident-italiya-2026)). Senza patente UE — ripetizione esame MIT.",
+      "К 4–6-му месяцу часть людей покупает или берёт машину. Без действующих прав или без обязательной страховки гражданской ответственности это штраф и изъятие. Зона ограниченного движения и Area C присылают почтовые квитанции спустя месяцы, когда про поездку уже забыли.",
+      "Ввоз машины из России — это таможня, допуск к эксплуатации и высокие расходы. Итальянский лизинг просит налоговый код, вид на жительство и кредитную историю. Счёт разобран в гайде про [банковский IBAN](/notes/bank-iban-nerezident-italiya-2026). Без прав Евросоюза экзамен в системе MIT сдают заново. Главное: машина к этому месяцу возможна, но только вместе с правами, страховкой и пропуском в центр.",
     ],
     bullets: [
-      "Noleggio lungo termine — contratto 24–36 mesi + assicurazione.",
-      "Bollo auto — pagamento annuale ACI/regione.",
-      "Telepass — pedaggi autostrade.",
-      "Parcheggio residenti — richiede residenza Comune.",
-      "Multe ZTL — €80+ soft, maggiorazione se tardiva.",
-      "Patente scaduta — non guidare; conversione tempi variabili.",
+      "Читайте долгосрочную аренду как договор на 24–36 месяцев плюс страховка.",
+      "Платите транспортный налог (**bollo**) раз в год через ACI или регион.",
+      "Поставьте Telepass, если часто едете по платным автострадам.",
+      "Оформляйте резидентскую парковку только после прописки в коммуне.",
+      "Закладывайте штраф зоны ограниченного движения от €80, с надбавкой при просрочке (мягкая оценка, не точный тариф штрафа).",
+      "Не садитесь за руль с просроченными правами: сроки обмена плавают.",
     ],
   },
   {
-    heading: "Официально: patente, ZTL e autostrade (вторая половина гайда)",
+    heading: "Официально: права, зона центра и автострады",
     section_kind: "official",
     paragraphs: [
-      "**Patente di guida:** cittadini extra-UE — patente nazionale + traduzione/certificazione; scadenza soggiorno breve spesso **1 anno** per uso patente estera, poi **conversione o esame** ([MIT](https://www.mit.gov.it/)). Paesi con accordi — procedura semplificata; RU — verificare listino MIT aggiornato.",
-      "**ZTL / Area C Milano:** accesso limitato centro; telecamere. Permesso residenti dopo **residenza anagrafica**. **Autostrade** — pedaggio; Telepass o biglietto.",
-      "**Car sharing / noleggio:** utile per weekend Como/Garda senza proprietà; patente e carta credito.",
+      "Водительские права (**patente di guida**) у граждан стран вне Евросоюза — это национальные права плюс перевод или заверение. При коротком пребывании чужими правами часто пользуются около года, дальше обмен или экзамен. Так описывает контур [министерства транспорта MIT](https://www.mit.gov.it/). У стран с соглашением процедура короче. По России откройте актуальный список MIT: эта заметка не утверждает, есть ли упрощённый обмен на сегодня.",
+      "Зона **ZTL** и **Area C** в Милане ограничивают въезд в центр, камеры стоят постоянно. Пропуск жителя появляется после прописки. Автострады платные: Telepass или разовый билет.",
+      "Каршеринга и проката хватает на выходные в Комо или на Гарде, свою машину для этого заводить не нужно. Нужны права и банковская карта. Главное: вопрос прав решает MIT, а не консульство, и чужие права не бесконечны.",
     ],
     bullets: [
-      "Scuola guida — se esame necessario.",
-      "Assicurazione RC — obbligatoria.",
-      "Revisione auto — periodica per veicoli IT.",
-      "Pedaggi — autostrade.it info.",
-      "Neve — catene obbligatorie soft in Appennini/Alpi.",
-      "EV — colonnine crescenti; no Porto-style toll myth.",
+      "Идите в автошколу, если без экзамена обмен не проходит.",
+      "Оформите обязательную страховку гражданской ответственности до первой поездки.",
+      "Проходите техосмотр в срок, если машина на итальянском учёте.",
+      "Смотрите плату за километр на autostrade.it, прежде чем ехать на север.",
+      "Возите цепи в Апеннинах и Альпах, если едете зимой: обязанность здесь мягкая оценка, не миланский устав.",
+      "Не переносите на электромобиль португальскую схему платных дорог: зарядок в Ломбардии становится больше, тариф другой.",
     ],
   },
   {
-    heading: "Типичные ошибки транспорта в Milano",
+    heading: "Типичные ошибки транспорта в Милане",
     section_kind: "practice",
     paragraphs: [
-      "Nord relocant повторяют одни ошибки в первые mesi.",
+      "На севере Италии в первые месяцы повторяют одни и те же ошибки. Годовой проездной покупают на первой неделе, городским билетом едут в Комо, в центр заезжают без пропуска. Главное: тариф зоны и срок прав проверяют до поездки, а не после письма со штрафом.",
     ],
     bullets: [
-      "Ошибка: annuale abbonamento в неделю 1 — потом переезд в Mi4 comune.",
-      "Ошибка: urbano ticket su treno per Como — multa Trenord.",
-      "Ошибка: macchina in centro senza ZTL permesso.",
-      "Ошибка: guidare con patente scaduta «пока не проверят».",
+      "Не покупайте годовой проездной на первой неделе: потом легко переехать в коммуну зоны Mi4.",
+      "Не садитесь на поезд до Комо с городским билетом: штраф выписывает уже Trenord.",
+      "Не езжайте в центр на машине без пропуска в зону ограниченного движения.",
+      "Не водите с просроченными правами «пока не остановят».",
       formatPracticeBullet({
         channels: ["milan_4at"],
         period: "2025–2026",
-        claim: "taxi MXP–centro €90+ vs Malpensa Express + metro ~€15 soft",
-        forReader: "аэропорт — train first",
+        claim:
+          "такси из Мальпенсы в центр выходило дороже €90, а Malpensa Express плюс метро — около €15",
+        forReader: "Из аэропорта сначала смотрите поезд, такси оставляйте на исключение.",
       }),
-      "Ошибка: копировать tariffa Lisbon metro — STIBM zones.",
+      "Не копируйте цену метро в Лиссабоне: в Милане зоны STIBM.",
     ],
   },
   {
-    heading: "Wizard и Assist",
+    heading: "Куда дальше: Wizard и Assist",
     section_kind: "practice",
     paragraphs: [
-      "Выбор comune (Milano vs Como) влияет на transport budget — [Wizard Italia](/ru/italy/wizard?utm_source=emigro&utm_medium=guide&utm_campaign=transport-milano&utm_content=" +
+      "Выбор коммуны, Милан или Комо, сразу меняет транспортный бюджет. Разложить его можно в [мастере по Италии](/ru/italy/wizard?utm_source=emigro&utm_medium=guide&utm_campaign=transport-milano&utm_content=" +
         TRANSPORT_MILANO_SLUG +
-        "). Сложный кейс relocation family + commute — [Assist Route Check](/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=transport-milano&utm_content=" +
+        "). Если переезжает семья и дорога на работу уже сложная, есть [проверка маршрута Assist](/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=transport-milano&utm_content=" +
         TRANSPORT_MILANO_SLUG +
-        ").",
+        "). Главное: коммуна в договоре аренды задаёт и зоны проездного, и то, нужен ли вам пригород.",
     ],
     bullets: [
-      "[VNJ track](/notes/" + VNJ_SLUG + ") — permesso e residenza.",
-      "[Районы metro](/notes/" + RAJONY_SLUG + ").",
-      "[Аренда](/notes/" + ARENDA_SLUG + ").",
+      "Откройте [трек вида на жительство](/notes/" + VNJ_SLUG + "): от него зависят прописка и адрес.",
+      "Сверьте станции с гайдом про [районы и метро](/notes/" + RAJONY_SLUG + ").",
+      "Проверьте адрес в гайде про [аренду](/notes/" + ARENDA_SLUG + ") до покупки годового проездного.",
     ],
   },
 ];
 
 const keyTakeaways = [
-  "Официально: ATM + STIBM Mi1–Mi3 для жизни в Milano без auto; тарифы — atm.it PDF, не фиксируем € 2026.",
-  "Официально: Trenord для Como/Monza; abbonamento urbano не всегда покрывает extraurbano — calcolatore zone.",
+  "Официально: без машины в Милане обходятся сетью ATM и зонами STIBM Mi1–Mi3. Тарифы смотрите в PDF на atm.it. Точные евро на 2026 год эта заметка не фиксирует.",
+  "Официально: в Комо и Монцу едет Trenord. Городской проездной не всегда покрывает пригород. Зоны считайте в калькуляторе.",
   formatPracticeTakeaway({
     channels: ["milanru", "milan_4at"],
     period: "2025–2026",
-    claim: "первые 1–2 mesi relocant обходились metro/tram + app ATM без auto",
-    forReader: "MXP/LIN — train/bus; taxi exception",
+    claim:
+      "первые один–два месяца люди обходились метро, трамваем и приложением ATM и машину не покупали",
+    forReader: "Из Мальпенсы и Линате сначала поезд или автобус. Такси — исключение.",
   }),
-  "На практике: к 4–6 месяцу auto без patente/ZTL/RC создаёт multe; patente — MIT, не consolato.",
+  "На практике к 4–6-му месяцу машина без действующих прав, без пропуска в центр и без страховки гражданской ответственности собирает штрафы. Права — это министерство транспорта MIT, не консульство.",
 ];
 
 const faq: CommunityNoteFaq[] = [
   {
-    q: "Можно ли жить в Milano без машины?",
-    a: "По правилам ATM/STIBM покрывают city + metro area. На практике большинство relocant первые 1–2 mesi используют metro/tram e Trenord; auto — опция к 4–6 mes.",
+    q: "Можно ли жить в Милане без машины?",
+    a: "По правилам сеть ATM и тариф STIBM покрывают город и ближайшую зону метро. На практике большинство приезжих первые один–два месяца ездят на метро, трамвае и Trenord. Машина становится вариантом ближе к 4–6-му месяцу.",
   },
   {
-    q: "Сколько стоит abbonamento mensile ATM 2026?",
-    a: "По правилам цены публикуются на atm.it и PDF TARIFFE. На практике urbano ordinario Mi1–Mi3 часто в soft range ~€35–42/mese — UNCHECKED exact €; сверяйте atm.it.",
+    q: "Сколько стоит месячный проездной ATM в 2026 году?",
+    a: "По правилам цены публикуют на atm.it и в PDF со ставками. На практике обычный городской проездной на Mi1–Mi3 часто попадает в мягкую вилку около €35–42 в месяц. Точную цену эта заметка не проверяла: сверьте atm.it.",
   },
   {
-    q: "Как доехать из MXP в centro?",
-    a: "По правилам Malpensa Express (Trenord) + metro M1/M2. На практике contactless ATM + train economico vs taxi €80–100 soft.",
+    q: "Как доехать из Мальпенсы в центр?",
+    a: "По правилам это Malpensa Express компании Trenord и дальше метро M1 или M2. На практике бесконтактная карта ATM плюс поезд выходят дешевле такси. Такси в центр мягко оценивают в €80–100.",
   },
   {
-    q: "Достаточно ли urbano abbonamento для Como?",
-    a: "По правилам Como обычно fuori Mi3 — servono più zone o biglietto Trenord. На практике calcolatore ATM prima del pendolarismo.",
+    q: "Хватит ли городского проездного, чтобы ездить в Комо?",
+    a: "По правилам Комо обычно лежит вне зоны Mi3, поэтому нужны дополнительные зоны или отдельный билет Trenord. На практике перед ежедневными поездками откройте калькулятор ATM.",
   },
   {
-    q: "Нужна ли итальянская patente?",
-    a: "По правилам MIT — patente estera временно, poi conversione o esame per soggiorno lungo. На практике guidare senza validità — multe e sequestro.",
+    q: "Нужны ли итальянские права?",
+    a: "По правилам MIT чужие права действуют временно, а при долгом проживании их меняют или сдают экзамен. На практике езда без действующего документа — это штраф и изъятие машины.",
   },
 ];
 
@@ -247,23 +273,23 @@ export const TRANSPORT_MILANO_GUIDE = {
   slug: TRANSPORT_MILANO_SLUG,
   category: "Транспорт",
   content_kind: "guide" as ContentKind,
-  title: "Транспорт Milano 2026: ATM metro, Trenord Como и patente",
+  title: "Транспорт Милана в 2026: метро ATM, Trenord до Комо и права",
   excerpt:
-    "ATM metro e tram Milano 2026: STIBM zone Mi1–Mi3, app ATM, MXP/LIN, Trenord verso Como e Monza. Prima metà — senza auto; seconda — patente MIT, ZTL, noleggio. Tariffe soft range + atm.it.",
-  seo_title: "Транспорт Milano ATM Trenord 2026 Италия",
+    "Метро и трамвай ATM в Милане в 2026 году: зоны STIBM Mi1–Mi3, приложение, аэропорты Мальпенса и Линате, поезд Trenord в Комо и Монцу. Сначала без машины. Дальше права через MIT, зона центра и прокат. Вилка тарифа и ссылка на atm.it.",
+  seo_title: "Транспорт Милана 2026: ATM, Trenord, Комо",
   seo_description:
-    "Metro ATM e Trenord Milano 2026: abbonamento Mi1–Mi3, MXP/LIN, Como Monza STIBM. Senza auto 1–2 mesi; patente MIT e ZTL к 4–6 mes. Tariffe su atm.it.",
+    "Метро ATM и Trenord в Милане, 2026: зоны Mi1–Mi3, Мальпенса, Линате, Комо и Монца. Сначала без машины. Права MIT и зона центра к 4–6 месяцу. Тариф на atm.it.",
   quick_answer:
-    "В Milano первые 1–2 месяца можно жить без машины: ATM (metro M1–M5, tram, bus) и STIBM zone Mi1–Mi3, abbonamento mensile urbano — цены на atm.it (soft ~€35–42/mese, UNCHECKED exact 2026). MXP — Malpensa Express + metro; LIN — bus/tram. Trenord ведёт в Monza и Como; urbano ticket не всегда покрывает extraurbano — calcolatore ATM. К 4–6 месяцу часть покупает auto: нужны patente (MIT), RC, учёт ZTL Area C. Не копируйте тарифы Lisboa/Porto.",
+    "В Италии, в Милане, первые один–два месяца можно жить без машины: метро M1–M5, трамвай и автобус везёт ATM, городской проездной покрывает зоны STIBM Mi1–Mi3, а цену смотрите на сайте ATM (мягкая вилка около €35–42 в месяц, точную цифру на 2026 год эта заметка не фиксирует). Из Мальпенсы едут Malpensa Express и дальше на метро, из Линате — автобус или трамвай, а Trenord везёт в Монцу и Комо: городской билет пригород не всегда покрывает, зоны считают в калькуляторе ATM. К 4–6-му месяцу часть людей берёт машину, и тогда нужны права через министерство MIT, страховка и учёт зоны Area C, а тарифы Лиссабона и Порту сюда не переносятся.",
   body_sections: bodySections,
   body_paragraphs: flattenBodySections(bodySections),
   key_takeaways: keyTakeaways,
   faq,
   official_links: [
-    { title: "ATM — abbonamenti e tariffe", url: "https://www.atm.it/it/ViaggiaConNoi/Abbonamenti/Pagine/Tipologie.aspx" },
-    { title: "PDF TARIFFE ATM", url: "https://www.atm.it/it/ViaggiaConNoi/Documents/TARIFFE%20ATM.pdf" },
+    { title: "ATM — проездные и тарифы", url: "https://www.atm.it/it/ViaggiaConNoi/Abbonamenti/Pagine/Tipologie.aspx" },
+    { title: "PDF со ставками ATM", url: "https://www.atm.it/it/ViaggiaConNoi/Documents/TARIFFE%20ATM.pdf" },
     { title: "Trenord", url: "https://www.trenord.it/" },
-    { title: "MIT — mobilità e patente", url: "https://www.mit.gov.it/" },
+    { title: "MIT — транспорт и права", url: "https://www.mit.gov.it/" },
     { title: "Ministero dell'Interno", url: "https://www.interno.gov.it/" },
   ],
   topic_tags: ["transport", "atm", "milano", "trenord"],

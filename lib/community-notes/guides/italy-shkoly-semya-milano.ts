@@ -21,229 +21,256 @@ const TRANSPORT_SLUG = "transport-milano-atm-trenord-2026";
 const VNJ_SLUG = "vnj-italiya-nomade-elective-2026";
 
 const GLOSSARY: GlossaryTerm[] = [
-  { pt: "Scuola statale", ru: "государственная школа MIM; бесплатная, на итальянском" },
-  { pt: "Scuola paritaria", ru: "частная с госаккредитацией; fee + iscrizione" },
-  { pt: "Scuola internazionale", ru: "IB/British curriculum; высокий fee, очереди" },
-  { pt: "Piattaforma Unica", ru: "онлайн-iscrizione MIM; SPID/CIE" },
-  { pt: "Polo START", ru: "Comune Milano — accoglienza alunni stranieri neoarrivati" },
-  { pt: "ATS", ru: "Azienda Sanitaria Locale; vaccini e pediatra" },
-  { pt: "Obbligo di istruzione", ru: "обязательное обучение 6–16 лет" },
-  { pt: "Comune di Como", ru: "отдельный comune; iscrizione не через Milano START" },
+  {
+    pt: "Scuola statale",
+    ru: "государственная школа министерства образования: бесплатно и на итальянском",
+  },
+  {
+    pt: "Scuola paritaria",
+    ru: "частная школа с государственной аккредитацией: есть плата и отдельная запись",
+  },
+  {
+    pt: "Scuola internazionale",
+    ru: "международная школа с программой IB или британской: плата высокая, очередь обычное дело",
+  },
+  {
+    pt: "Piattaforma Unica",
+    ru: "единый сайт записи министерства образования; вход через SPID или электронное удостоверение CIE",
+  },
+  {
+    pt: "Polo START",
+    ru: "служба Comune di Milano, которая встречает недавно приехавших иностранных учеников",
+  },
+  {
+    pt: "ATS",
+    ru: "местная санитарная служба: календарь прививок и педиатр",
+  },
+  {
+    pt: "Obbligo di istruzione",
+    ru: "обязанность учиться с 6 до 16 лет",
+  },
+  {
+    pt: "Comune di Como",
+    ru: "отдельная коммуна: в школу там записывают не через миланскую службу START",
+  },
 ];
 
+const GLOSSARY_INTRO =
+  "Эти слова встречаются в службе Polo START, на сайте Piattaforma Unica и в разговоре с соседями. Их лучше узнать до того, как фраза «Комо рядом с Миланом» обернётся отказом: запись подали не в ту коммуну.";
+
 const DISCLAIMER =
-  "**Emigro — не школьная консультация.** Окна iscrizione, posti e criteri **меняются** — [unica.istruzione.gov.it](https://unica.istruzione.gov.it/it/orientamento/iscrizioni), [comune.milano.it](https://www.comune.milano.it/). Como = altro Comune. Не копируйте Porto colégio как «та же процедура».";
+  "**Emigro не даёт школьную консультацию.** Окна записи, число мест и критерии **меняются**. Сверяйте [unica.istruzione.gov.it](https://unica.istruzione.gov.it/it/orientamento/iscrizioni) и [comune.milano.it](https://www.comune.milano.it/). Комо — другая коммуна. Не переносите португальскую онлайн-запись в школу как «ту же процедуру».";
 
 const bodySections: NoteBodySection[] = [
   {
-    ...buildGlossarySection(
-      GLOSSARY,
-      "Слова из Polo START, Piattaforma Unica и чата @milanru — до того как «Como рядом с Milano» станет отказом iscrizione в wrong comune."
-    ),
-    paragraphs: [DISCLAIMER],
+    ...buildGlossarySection(GLOSSARY, GLOSSARY_INTRO),
+    paragraphs: [GLOSSARY_INTRO, DISCLAIMER],
   },
   {
-    heading: "Nota Emigro (fact-check)",
+    heading: "Nota Emigro (проверка фактов)",
     section_kind: "official",
     paragraphs: [
-      "Слот schools_family закрываем даже без детей (абзац ниже). OK/soft/fixed/UNCHECKED.",
+      "Тему школ и семьи закрываем и для тех, у кого детей нет: абзац ниже как раз об этом. **Проверено** — цифра или окно с официальной страницы. **Мягкая оценка** — так описывают семьи, это не норматив школы. **Исправлено** — формулировку сузили, чтобы не смешать города и страны. **Не проверено** — конкретное место в конкретной школе этой заметкой не подтверждалось.",
     ],
     bullets: [
-      "OK: iscrizioni a.s. 2026/2027 classi prime — **13 gennaio – 14 febbraio 2026** online Piattaforma Unica ([circ. MIM prot. 100847/2025 PDF](https://www.carloportamilano.edu.it/images/Documenti/IscrizioniOnline/CM0100847.pdf)).",
-      "OK: accesso con **SPID, CIE, CNS o eIDAS** ([unica.istruzione.gov.it](https://unica.istruzione.gov.it/it/orientamento/iscrizioni)).",
-      "OK: Polo START Comune Milano — accoglienza minori stranieri I ciclo ([Milano Aiuta](https://www2.comune.milano.it/web/milanoaiuta/ulteriori-necessita)).",
-      "OK: vaccinazioni — piano nazionale; ATS Lombardia per calendario ([ats-milano.it](https://www.ats-milano.it/) — soft URL).",
-      "Fixed: «Como = suburb Milano scuola» → **Comune di Como** propri iscrizioni e USR.",
-      "Fixed: «Portugal escola online basta» → Italia Piattaforma Unica + START per neoarrivati.",
-      "Soft: scuole internazionali — fee €8–20k+/anno, waiting list.",
-      "UNCHECKED: posti liberi per neoarrivato **mid-year** in specifica scuola — dipende da istituto.",
-      "UNCHECKED: criteri priorità 2026/27 ogni singola scuola primaria Milano — regolamento istituto.",
+      "Проверено: запись в первые классы на 2026/2027 учебный год идёт онлайн **с 13 января по 14 февраля 2026 года** через Piattaforma Unica ([циркуляр министерства, протокол 100847/2025, PDF](https://www.carloportamilano.edu.it/images/Documenti/IscrizioniOnline/CM0100847.pdf)).",
+      "Проверено: вход через **SPID, CIE, CNS или eIDAS** ([unica.istruzione.gov.it](https://unica.istruzione.gov.it/it/orientamento/iscrizioni)).",
+      "Проверено: Polo START при Comune di Milano принимает несовершеннолетних иностранцев первой ступени ([Milano Aiuta](https://www2.comune.milano.it/web/milanoaiuta/ulteriori-necessita)).",
+      "Проверено: прививки идут по национальному календарю; расписание для Ломбардии публикует ATS ([ats-milano.it](https://www.ats-milano.it/) — сам адрес страницы здесь мягкая оценка).",
+      "Исправлено: «Комо — это пригород Милана, школа та же» неверно. Запись идёт через **Comune di Como** и своё региональное управление школ.",
+      "Исправлено: «достаточно португальской онлайн-записи в школу» неверно. В Италии это Piattaforma Unica, а для недавно приехавших ещё и служба START.",
+      "Мягкая оценка: международные школы — плата €8–20 тысяч и больше в год, плюс лист ожидания.",
+      "Не проверено: свободные места для ребёнка, который приехал в середине года, в конкретной школе. Решает сам институт.",
+      "Не проверено: критерии приоритета на 2026/2027 год в каждой начальной школе Милана. Их пишет регламент школы.",
     ],
   },
   {
     heading: "Если детей нет: зачем этот гайд",
     section_kind: "official",
     paragraphs: [
-      "Многие RU relocant в Milano **без детей** — slot schools_family всё равно полезен: вы выбираете [район](/notes/" +
+      "Многие приезжают в Милан с паспортами России, Беларуси, Украины или Казахстана **без детей**. Тема всё равно пригождается. Вы выбираете [район](/notes/" +
         RAJONY_SLUG +
         ") и [аренду](/notes/" +
         ARENDA_SLUG +
-        ") с запасом «если через год семья»; понимаетe, почемu соседи ездят в Polo START; не путаете **Como** и **Milano** при разговорах с agency. Если дети не в планах — прочитайте Nota + таблицу statali/internazionali и переходите к [transport](/notes/" +
+        ") с запасом «если через год появится семья». Понимаете, зачем соседи ездят в Polo START. Не путаете **Комо** и **Милан**, когда говорите с агентством. Если детей не планируете, прочитайте эту заметку с проверкой фактов и таблицу государственных и международных школ, а дальше переходите к [транспорту](/notes/" +
         TRANSPORT_SLUG +
-        ") / [meditsina](/notes/" +
+        ") и [медицине](/notes/" +
         MEDITSINA_SLUG +
-        ").",
+        "). Главное: даже без детей адрес в Комо и адрес в Милане — это разные коммуны, и путать их дорого.",
     ],
     bullets: [
-      "Без figli — гайд для контекста и будущего planning.",
-      "Como relocate с детьми — этот текст + Comune Como sito.",
-      "Wizard — family scenario: [/ru/italy/wizard](/ru/italy/wizard).",
+      "Читайте гайд без детей как контекст района и как запас на будущее.",
+      "Откройте сайт коммуны Комо, если переезжаете туда уже с детьми: этот текст задаёт рамку, детали записи — у коммуны.",
+      "Соберите семейный сценарий в мастере: [/ru/italy/wizard](/ru/italy/wizard).",
     ],
   },
   {
-    heading: "Официально: scuola statale vs internazionale в Milano",
+    heading: "Официально: государственная и международная школа в Милане",
     section_kind: "official",
     paragraphs: [
-      "**Scuola statale** (MIM): gratuito; lingua **italiano**; iscrizione через Piattaforma Unica в окно gennaio–febbraio для classi prime; **inserimento mid-year** — через segreteria scuola + Polo START se straniero neoarrivato. Obbligo istruzione с 6 anni (entro 31/12 anno).",
-      "**Scuola paritaria / internazionale**: rette annue, spesso **€8.000–20.000+**; curriculum IB, British, American; iscrizione diretta alla scuola + test/ colloquio; waiting list 6–18 mesi soft для popular schools (American School Milan, ICS, St. Louis…).",
-      "**Asilo nido / scuola dell'infanzia (0–6)**: Comune Milano — domanda online ed.infanzia@comune.milano.it ([Milano Aiuta](https://www2.comune.milano.it/web/milanoaiuta/ulteriori-necessita)); posti limitati, ISEE per graduatoria.",
+      "Государственная школа (**scuola statale**, министерство образования) бесплатная, язык обучения — итальянский. В первые классы записывают через Piattaforma Unica в окне января–февраля. Если ребёнок приезжает в середине года, его вводят через канцелярию школы и, для недавно приехавшего иностранца, через Polo START. Учиться обязаны с 6 лет, если ребёнку исполняется шесть до 31 декабря того года.",
+      "Аккредитованная частная школа (**scuola paritaria**) и международная берут годовую плату, часто **€8.000–20.000** и выше. Программы — IB, британская, американская. Запись идёт прямо в школу, обычно с тестом или собеседованием. У популярных школ лист ожидания 6–18 месяцев: это мягкая оценка. В примерах называют American School Milan, ICS, St. Louis.",
+      "Ясли и детский сад на 0–6 лет в Милане — заявка коммуне, почта ed.infanzia@comune.milano.it ([страница Milano Aiuta](https://www2.comune.milano.it/web/milanoaiuta/ulteriori-necessita)). Мест мало, очередь считают с учётом показателя ISEE. Главное: бесплатная государственная школа и платная международная — два разных входа, и второй не заменяет первый.",
     ],
     bullets: [
-      "Primaria — 6 anni entro 31/12/2026 per a.s. 2026/27.",
-      "Secondaria I grado — iscrizione stessa finestra online.",
-      "Secondaria II — CTI Ambito 21/22 Milano per orientamento.",
-      "Codice meccanografico scuola — su sito istituto.",
-      "Documenti — permesso soggiorno, CF genitore, certificato vaccinazioni.",
-      "Como — USR Lombardia + Comune Como scuola.",
+      "Проверьте возраст для начальной школы: шесть лет должно исполниться до 31 декабря 2026 года, если идёте на 2026/2027 учебный год.",
+      "Подавайте среднюю школу первой ступени в то же онлайн-окно.",
+      "Ищите ориентацию для старшей школы через CTI Ambito 21 и 22 по Милану.",
+      "Возьмите механический код школы (**codice meccanografico**) с сайта института.",
+      "Соберите вид на жительство, налоговый код родителя и справку о прививках.",
+      "В Комо идите через региональное управление школ Ломбардии и школьный стол коммуны Комо.",
     ],
   },
   {
-    heading: "Comune di Milano: iscrizioni e Polo START",
+    heading: "Comune di Milano: запись и Polo START",
     section_kind: "official",
     paragraphs: [
-      "**Neoarrivati stranieri** (I ciclo primaria + secondaria I grado) domiciliati a **Milano**: contattare **Polo START** per municipio ([Milano Aiuta — 4 poli](https://www2.comune.milano.it/web/milanoaiuta/ulteriori-necessita)): START 1 (Municipi 1–3), START 2 (4–5), START 3 (6–7), START 4 (8–9). Email poli su pagina Comune.",
-      "**Procedura:** orientamento scolastico, distribuzione equilibrata posti ([accordo MIM–Comune Poli START 2026–2028 PDF](https://www.mim.gov.it/documents/9081610/0/SCHEMA+ACCORDO+POLI+START+2026-2028.pdf/b18ff491-ee23-69b4-d008-6be652954c8f)). Non scegliete solo «scuola sotto casa» senza START se neoarrivato mid-year.",
-      "**Residenza anagrafica** в Comune di Milano укрепляет priorità soft; без residenza — iscrizione possibile ma più complessa.",
+      "Недавно приехавшие иностранные ученики первой ступени — начальная школа и средняя первой ступени — если они живут в **Милане**, пишут в **Polo START** своего округа. Карта служб на [Milano Aiuta, четыре центра](https://www2.comune.milano.it/web/milanoaiuta/ulteriori-necessita): START 1 (округа 1–3), START 2 (4–5), START 3 (6–7), START 4 (8–9). Адреса почты лежат на странице коммуны.",
+      "Дальше идут школьная ориентация и распределение мест так, чтобы нагрузка не сваливалась на одну школу. Это описано в [соглашении министерства и коммуны о центрах START на 2026–2028 годы, PDF](https://www.mim.gov.it/documents/9081610/0/SCHEMA+ACCORDO+POLI+START+2026-2028.pdf/b18ff491-ee23-69b4-d008-6be652954c8f). Если вы приехали в середине года, не выбирайте «школу под окнами» в обход START.",
+      "Прописка в Comune di Milano мягко усиливает приоритет. Без прописки запись возможна, но путь сложнее. Главное: для недавно приехавшего в середине года первое письмо — в START своего округа, а не в случайную канцелярию.",
     ],
     bullets: [
-      "02.02.02 — numero unico Comune Milano info.",
-      "ed.infanzia@comune.milano.it — nido 0–6.",
-      "SPID — Piattaforma Unica iscrizioni annuali.",
-      "Certificato di vaccinazione — ATS.",
-      "Permesso figlio — copia per segreteria.",
-      "Como — Ufficio Scuola Comune di Como, non START Milano.",
+      "Звоните на единый номер справочной Comune di Milano: 02.02.02.",
+      "Пишите на ed.infanzia@comune.milano.it, если нужны ясли или сад на 0–6 лет.",
+      "Входите через SPID, когда открывается ежегодная запись на Piattaforma Unica.",
+      "Возьмите справку о прививках в ATS.",
+      "Отнесите копию вида на жительство ребёнка в канцелярию школы.",
+      "В Комо идите в школьный стол Comune di Como: миланский START вас не покрывает.",
     ],
   },
   {
-    heading: "Milano на практике: mes 1–3 с ребёнком",
+    heading: "Милан на практике: первые три месяца с ребёнком",
     section_kind: "practice",
     paragraphs: [
-      "**Mese 1:** [permesso](/notes/vnj-italiya-nomade-elective-2026) figlio + [CF](/notes/codice-fiscale-milano-2026) + [SSN/tessera](/notes/" +
+      "В первый месяц соберите [вид на жительство](/notes/vnj-italiya-nomade-elective-2026) ребёнка, [налоговый код](/notes/codice-fiscale-milano-2026), [карту здравоохранения](/notes/" +
         MEDITSINA_SLUG +
-        ") + pediatra ATS. Соберите **certificato vaccinazioni** (traduzione soft).",
-      "**Scelta scuola:** если september entry — Piattaforma Unica в gennaio; если **arrivo marzo/giugno** — email Polo START + segreteria. Internazionale — parallel application сразу (waiting list).",
-      "**Como:** если живёте в Como comune — iscrizione через **Comune di Como** e scuole provinciali; commute Milano — [Trenord](/notes/" +
+        ") и педиатра через ATS. Справку о прививках лучше иметь с переводом: требование перевода здесь мягкая оценка, не цитата из одного бланка.",
+      "Если вход в школу в сентябре, Piattaforma Unica открывается в январе. Если приезд в марте или июне, пишите в Polo START и в канцелярию школы. Международную школу подавайте параллельно и сразу: лист ожидания не ждёт, пока вы «сначала посмотрите государственную».",
+      "Если живёте в коммуне Комо, запись идёт через Comune di Como и школы провинции. Дорога в Милан — в гайде про [Trenord](/notes/" +
         TRANSPORT_SLUG +
-        ").",
+        "). Главное: первый месяц уходит на документы ребёнка и на письмо в правильную коммуну, а не на выбор формы.",
     ],
     bullets: [
       formatPracticeBullet({
         channels: ["milanru", "forum_italy"],
         period: "2025–2026",
         claim:
-          "famiglie neoarrivati contactarono Polo START 3 (Municipi 6–7) per inserimento primaria mid-year",
-        forReader: "START prima di segreteria random",
+          "семьи, которые только приехали, писали в Polo START 3 (округа 6–7), чтобы устроить ребёнка в начальную школу в середине года",
+        forReader: "Сначала напишите в START своего округа, а уже потом в случайную канцелярию школы.",
       }),
-      "Bilingual support — progetto italiano L2 in scuola statale.",
-      "Mensa scolastica — iscrizione separata.",
-      "Trasporto scolastico — soft limitato in città.",
-      "After-school — privati; costo extra.",
-      "[Районы](/notes/" + RAJONY_SLUG + ") — scuola e affitto.",
+      "Спросите в государственной школе проект итальянского как второго языка.",
+      "Запишите ребёнка в столовую отдельно от записи в школу.",
+      "Не стройте маршрут только на школьном автобусе: в городе его мало (мягкая оценка).",
+      "Закладывайте продлёнку как частную услугу со своей платой.",
+      "Сверьте школу и аренду в гайде про [районы](/notes/" + RAJONY_SLUG + ").",
     ],
   },
   {
-    heading: "Vaccini, ATS e pediatra",
+    heading: "Прививки, ATS и педиатр",
     section_kind: "practice",
     paragraphs: [
-      "**ATS Milano** (o ATS Insubria per Como) — calendario vaccinale obbligatorio per iscrizione; richiamo visita pediatra SSN dopo [tessera sanitaria](/notes/" +
+      "Календарь прививок, без которого школу часто не берут, ведёт **ATS Milano**. Если вы живёте в Комо, это уже **ATS Insubria**, другая территория. Педиатра государственной системы выбирают после того, как готова [карта здравоохранения](/notes/" +
         MEDITSINA_SLUG +
-        "). Stomatologo — spesso privato.",
-      "Assicurazione privata из visto — top-up finché SSN non attivo.",
+        "). Стоматолога семьи чаще ищут частно.",
+      "Частная страховка, которая шла вместе с визой, закрывает промежуток, пока государственная система ещё не активна. Педиатра выбирают после постановки на учёт в местной санитарной службе: в Ломбардии это ATS, а в части бланков всё ещё пишут ASL. Главное: без справки о прививках запись в школу встаёт, даже если район уже выбран.",
     ],
     bullets: [
-      "Libretto vaccinale tradotto — soft richiesto.",
-      "Pediatra SSN — scelta dopo iscrizione ASL.",
-      "Emergency — 118; pronto soccorso pediatrico.",
-      "Sport — scuole e polisportiva comunale.",
-      "Como ATS — territorio diverso da Milano.",
+      "Носите переведённую прививочную книжку: её часто просят, и это мягкая оценка практики.",
+      "Выберите педиатра государственной системы после записи в местную санитарную службу.",
+      "Звоните 118 и езжайте в детский приём покоя, если это скорая помощь.",
+      "Смотрите спорт через школу и через городскую спортивную секцию.",
+      "Не носите миланские справки ATS в Комо как свои: территория другая.",
     ],
   },
   {
-    heading: "К 4–6 месяцу: хвост без scuola o vaccini",
+    heading: "К 4–6-му месяцу: школа и прививки ещё не закрыты",
     section_kind: "gap",
     paragraphs: [
-      "К **4–6 месяцу** без iscrizione scuola (obbligo 6+) — sanzioni amministrative verso genitori soft; bambino fuori sistema L2. Senza vaccini — rifiuto iscrizione o sospensione.",
-      "Internazionale-only strategy без backup statale — rischio no posto e fee persa. Residenza fittizia per scuola «migliore» — fraud risk.",
+      "К 4–6-му месяцу ребёнок старше шести, который так и не записан в школу, выпадает из системы. Обязанность учиться лежит на родителях. Про административные санкции здесь только мягкая оценка: точную сумму эта заметка не утверждает. Без итальянского как второго языка ребёнок остаётся вне школьной языковой поддержки. Без прививок запись могут отказать или приостановить.",
+      "Стратегия «только международная школа» без государственной запасной даёт риск остаться без места и потерять уже внесённую плату. Фиктивная прописка ради «школы получше» — это риск мошенничества, не бытовой приём. Главное: к 4–6-му месяцу должны быть и запись, и прививки, и коммуна, которая совпадает с адресом аренды.",
     ],
     bullets: [
-      "Obbligo scolarità — genitori responsabili.",
-      "Mid-year senza START — ritardi L2.",
-      "Waiting list internazionale — 12+ mesi soft.",
-      "Como/Milano mismatch — trasferimento complicato.",
-      "No SSN — pediatra privato costoso.",
-      "Assist — family route audit.",
+      "Держите обязанность учиться на родителях: ребёнок с шести лет не «подождёт до осени» сам.",
+      "Не входите в середине года в обход START: поддержка итальянского как второго языка из-за этого запаздывает.",
+      "Закладывайте лист ожидания международной школы от 12 месяцев (мягкая оценка).",
+      "Не смешивайте Комо и Милан: перевод между коммунами потом сложный.",
+      "Не оставайтесь без государственной медицины: частный педиатр быстро становится дорогим.",
+      "Сведите семейный маршрут через Assist, если документы уже разъехались.",
     ],
   },
   {
-    heading: "Типичные ошибки школ и семьи в Milano",
+    heading: "Типичные ошибки школ и семьи в Милане",
     section_kind: "practice",
     paragraphs: [
-      "Family relocant из RU forum — повторяющиеся errori.",
+      "Семьи, которые переезжают из русскоязычной среды, повторяют одни и те же ошибки. Путают коммуну аренды и коммуну школы, ждут сентября без письма в START и верят объявлению про «европейскую школу у дома». Главное: место в школе подтверждает канцелярия или START, а не строка в объявлении квартиры.",
     ],
     bullets: [
-      "Ошибка: affitto Como, iscrizione Milano START — wrong comune.",
-      "Ошибка: ждать settembre без Polo START mid-year.",
-      "Ошибка: только internazionale без plan B statale.",
-      "Ошибка: no SPID/CIE genitore — не открыть Piattaforma Unica.",
+      "Не снимайте жильё в Комо и не подавайте ребёнка в миланский START: коммуна не та.",
+      "Не ждите сентября, если приехали в середине года и ещё не написали в Polo START.",
+      "Не держитесь только международной школы без запасной государственной.",
+      "Не откладывайте SPID или CIE родителя: без них Piattaforma Unica не открывается.",
       formatPracticeBullet({
         channels: ["milanru"],
         period: "2025–2026",
-        claim: "agency prometteva «scuola europea sotto casa» senza verifica posti",
-        forReader: "verificare segreteria/START, non annuncio",
+        claim:
+          "агентство обещало «европейскую школу у дома», не проверив, есть ли там места",
+        forReader: "Место подтверждайте в канцелярии школы или в START, а не в тексте объявления.",
       }),
-      "Ошибка: vaccini «сделаем потом» — block iscrizione.",
+      "Не оставляйте прививки «на потом»: без них запись в школу останавливается.",
     ],
   },
   {
-    heading: "Wizard и Assist",
+    heading: "Куда дальше: Wizard и Assist",
     section_kind: "practice",
     paragraphs: [
-      "Family relocation Milano vs Como — [Wizard Italia](/ru/italy/wizard?utm_source=emigro&utm_medium=guide&utm_campaign=shkoly-semya&utm_content=" +
+      "Переезд семьи в Милан или в Комо можно разложить в [мастере по Италии](/ru/italy/wizard?utm_source=emigro&utm_medium=guide&utm_campaign=shkoly-semya&utm_content=" +
         SHKOLY_SEMYA_IT_SLUG +
-        "). Audit iscrizione + permesso figli — [Assist Route Check](/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=shkoly-semya&utm_content=" +
+        "). Если нужно сверить запись в школу и вид на жительство детей, есть [проверка маршрута Assist](/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=shkoly-semya&utm_content=" +
         SHKOLY_SEMYA_IT_SLUG +
-        ").",
+        "). Главное: мастер показывает развилку Милан или Комо, а место в школе всё равно подтверждает коммуна.",
     ],
     bullets: [
-      "[VNJ / permesso family](/notes/" + VNJ_SLUG + ").",
-      "[Первые 30 дней](/notes/" + PERVYE_30_SLUG + ").",
-      "[Meditsina SSN](/notes/" + MEDITSINA_SLUG + ").",
+      "Откройте [вид на жительство для семьи](/notes/" + VNJ_SLUG + ").",
+      "Пройдите [первые 30 дней](/notes/" + PERVYE_30_SLUG + "), если документы ещё не собраны.",
+      "Возьмите [медицину и карту здравоохранения](/notes/" + MEDITSINA_SLUG + ") до визита к педиатру.",
     ],
   },
 ];
 
 const keyTakeaways = [
-  "Официально: iscrizioni 13 gen–14 feb 2026 su Piattaforma Unica (SPID/CIE); Polo START Milano per neoarrivati stranieri.",
-  "Официально: scuola statale gratuita IT; internazionali — fee e waiting list; Como = altro Comune.",
+  "Официально: запись в первые классы идёт с 13 января по 14 февраля 2026 года на Piattaforma Unica, вход через SPID или CIE. Недавно приехавших иностранцев в Милане принимает Polo START.",
+  "Официально: государственная школа бесплатная и на итальянском. Международные берут плату и держат лист ожидания. Комо — другая коммуна.",
   formatPracticeTakeaway({
     channels: ["milanru", "forum_italy"],
     period: "2025–2026",
-    claim: "mid-year inserimento через Polo START + ATS vaccini в mes 1–2",
-    forReader: "senza figli — гайд для контекста; con figli — START early",
+    claim:
+      "устройство в середине года шло через Polo START, а прививки в ATS ставили в первые один–два месяца",
+    forReader:
+      "Если детей нет, гайд нужен как контекст адреса. Если дети есть, напишите в START раньше, чем выберете школу по карте.",
   }),
-  "На практике: к 4–6 месяцу без iscrizione/vaccini — obbligo scolastico e gap L2; verificare comune affitto.",
+  "На практике к 4–6-му месяцу без записи и без прививок остаются обязанность учиться и дыра в итальянском как втором языке. Коммуна в договоре аренды должна совпадать с коммуной школы.",
 ];
 
 const faq: CommunityNoteFaq[] = [
   {
-    q: "Как записать ребёнка в школу Milano?",
-    a: "По правилам — Piattaforma Unica 13 gen–14 feb 2026 per classi prime; neoarrivati — Polo START Comune. На практике mid-year через START email + segreteria scuola.",
+    q: "Как записать ребёнка в школу в Милане?",
+    a: "По правилам первые классы подают на Piattaforma Unica с 13 января по 14 февраля 2026 года. Недавно приехавшие идут через Polo START коммуны. На практике в середине года пишут на почту START и в канцелярию школы.",
   },
   {
-    q: "Como и Milano — одна школа?",
-    a: "По правилам Como è Comune autonomo con proprie iscrizioni. На практике START Milano non copre residenti Como.",
+    q: "Комо и Милан — это одна школа?",
+    a: "По правилам Комо — самостоятельная коммуна со своей записью. На практике миланский START не покрывает тех, кто прописан в Комо.",
   },
   {
-    q: "Нужны ли прививки?",
-    a: "По правилам piano nazionale vaccini e ATS. На практике certificato richiesto per iscrizione scolastica.",
+    q: "Нужны ли прививки для школы?",
+    a: "По правилам действует национальный календарь прививок, а на месте его ведёт ATS. На практике справку о прививках просят при записи в школу.",
   },
   {
-    q: "Читать ли гайд без детей?",
-    a: "По правилам slot satellite include famiglia. На практике один абзац достаточен; полезен для выбора района и понимания Como vs Milano.",
+    q: "Стоит ли читать гайд, если детей нет?",
+    a: "По правилам тема семьи входит в сателлит. На практике хватает одного абзаца выше: он полезен, когда выбираете район и когда путаются Комо и Милан.",
   },
   {
-    q: "Scuola internazionale или statale?",
-    a: "По правилам statale gratuita in italiano; internazionale a pagamento IB/British. На практике waiting list internazionali — подавать early + plan B statale.",
+    q: "Международная школа или государственная?",
+    a: "По правилам государственная бесплатная и на итальянском, международная платная, с программами IB или британской. На практике у международных школ лист ожидания: подавайте раньше и держите государственную как запасной план.",
   },
 ];
 
@@ -251,22 +278,22 @@ export const SHKOLY_SEMYA_IT_GUIDE = {
   slug: SHKOLY_SEMYA_IT_SLUG,
   category: "Семья",
   content_kind: "guide" as ContentKind,
-  title: "Школы и семья Milano 2026: statale, internazionale, Como",
+  title: "Школы и семья в Милане в 2026: государственная, международная, Комо",
   excerpt:
-    "Scuole Milano e Como 2026: Piattaforma Unica iscrizioni, Polo START neoarrivati, scuola statale vs internazionale, ATS vaccini. Como — altro Comune. Абзац для relocant без детей; obbligo scolastico e START mid-year.",
-  seo_title: "Школы семья Milano Como 2026 Италия",
+    "Школы Милана и Комо в 2026 году: запись на Piattaforma Unica, служба Polo START для недавно приехавших, государственная школа и международная, прививки ATS. Комо — другая коммуна. Абзац для тех, у кого детей нет. Обязанность учиться и запись в середине года.",
+  seo_title: "Школы и семья в Милане и Комо, 2026",
   seo_description:
-    "Scuole Milano 2026: Piattaforma Unica, Polo START stranieri, statale vs internazionale, ATS vaccini. Como — Comune separato. Senza figli — контекст.",
+    "Школы Милана в 2026: запись на Piattaforma Unica, Polo START для иностранцев, государственная и международная школа, прививки ATS. Комо — отдельная коммуна.",
   quick_answer:
-    "В Milano iscrizione scuola statale primaria/secondaria I grado — online Piattaforma Unica (SPID/CIE) 13 gennaio–14 febbraio 2026; neoarrivati stranieri contattano Polo START Comune per municipio. Scuole internazionali — fee alto e waiting list, domanda diretta. Como — Comune autonomo: iscrizioni non via START Milano. Vaccini ATS obbligatori per iscrizione. Senza figli гайд даёт контекст для аренды и Como vs Milano. A 4–6 mesi senza iscrizione — rischio sanzioni obbligo scolastico.",
+    "В Италии, в Милане, в государственную начальную школу и в среднюю первой ступени записывают онлайн, на Piattaforma Unica: вход через SPID или CIE, окно с 13 января по 14 февраля 2026 года, а недавно приехавшие иностранцы пишут в Polo START коммуны, в службу своего округа. Международные школы дорогие, с листом ожидания, заявка идёт прямо к ним, Комо — отдельная коммуна и миланский START тамошних жителей не записывает, а прививки ATS нужны для записи. Если детей нет, гайд всё равно объясняет аренду и разницу Комо и Милана, а к 4–6-му месяцу без записи остаётся риск санкций за нарушение обязанности учиться: точную сумму эта заметка не утверждает.",
   body_sections: bodySections,
   body_paragraphs: flattenBodySections(bodySections),
   key_takeaways: keyTakeaways,
   faq,
   official_links: [
-    { title: "Piattaforma Unica — iscrizioni MIM", url: "https://unica.istruzione.gov.it/it/orientamento/iscrizioni" },
+    { title: "Piattaforma Unica — запись в школу", url: "https://unica.istruzione.gov.it/it/orientamento/iscrizioni" },
     { title: "Milano Aiuta — Polo START", url: "https://www2.comune.milano.it/web/milanoaiuta/ulteriori-necessita" },
-    { title: "Ministero Istruzione e Merito", url: "https://www.mim.gov.it/" },
+    { title: "Ministero dell'Istruzione e del Merito", url: "https://www.mim.gov.it/" },
     { title: "Comune di Milano", url: "https://www.comune.milano.it/" },
   ],
   topic_tags: ["schools", "family", "milano", "como"],

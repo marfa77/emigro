@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
 import { DailySpotlightTile } from "@/components/satellite/DailySpotlight";
 import { HashtagNav } from "@/components/satellite/HashtagNav";
 import { NoteCard } from "@/components/satellite/NoteCard";
@@ -17,6 +19,7 @@ import { buildSatelliteHubPlace, withSatelliteAiMetadata } from "@/lib/community
 import { DEFAULT_OG_IMAGE, fitMetaDescription, socialImageMetadata } from "@/lib/seo";
 import { italySatelliteUrl } from "@/lib/site-url";
 import { heroTitle, satelliteMain } from "@/lib/ui/mobile";
+import { COMO_STAY } from "@/lib/italy/como-guides";
 
 export const revalidate = 300;
 
@@ -129,6 +132,37 @@ export default async function ItalySatelliteHomePage() {
       <SatelliteCityChatCta countryKey="italy" source="italy_satellite_hub" />
 
       <SatelliteFunnelCta countryKey="italy" placement="satellite_hub" />
+
+      <section className="mt-8 overflow-hidden rounded-2xl border border-sky-100 bg-sky-50">
+        <div className="grid sm:grid-cols-[14rem_1fr]">
+          <Image
+            src="/images/como/tulipani-11-balcony.webp"
+            alt="Apartment Tulipani 11 в Tremezzo на озере Como"
+            width={900}
+            height={675}
+            className="h-full min-h-52 w-full object-cover"
+          />
+          <div className="p-5 sm:p-6">
+            <p className="text-xs font-bold uppercase tracking-wide text-sky-800">Lake Como · Tremezzo</p>
+            <h2 className="mt-2 text-xl font-bold text-slate-950">Апартамент Emigro на озере Como</h2>
+            <p className="mt-2 text-sm leading-relaxed text-slate-700">
+              Tulipani 11: до 4 гостей, 2 спальни, 2 ванные, балкон, кухня и Wi-Fi. Для поездки — отдельный
+              англоязычный раздел с паромами, хайкингом, Madesimo и достопримечательностями.
+            </p>
+            <div className="mt-4 flex flex-wrap gap-3">
+              <a href={COMO_STAY.tulipaniUrl} rel="sponsored" className="rounded-lg bg-sky-800 px-4 py-2 text-sm font-bold text-white">
+                Tulipani 11
+              </a>
+              <a href={COMO_STAY.siteUrl} rel="sponsored" className="rounded-lg border border-sky-300 bg-white px-4 py-2 text-sm font-semibold text-sky-950">
+                Все апартаменты ComoStay
+              </a>
+              <Link href="/en" className="rounded-lg px-2 py-2 text-sm font-semibold text-sky-900 underline">
+                Lake Como guides in English →
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <SatelliteHubScenarios countryKey="italy" />
 

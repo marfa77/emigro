@@ -20,26 +20,52 @@ const PERVYE_30_SLUG = "pervye-30-dnej-v-italii-satelit-2026";
 const CODICE_FISCALE_SLUG = "codice-fiscale-milano-2026";
 
 const DISCLAIMER =
-  "**Emigro (2026):** обзор **аренды** и характера **районов** Milano + Nord (Como/Monza/Lecco), не каталог Idealista и **не гайд по покупке**. Цены — soft (Idealista/чаты 2025–2026). Связанные материалы: [аренда Idealista](/notes/" +
+  "**Emigro (2026):** это обзор **аренды** и характера **районов** Милана и севера (Комо, Монца, Лекко), не каталог Idealista и **не гид по покупке**. Цены — мягкая оценка по объявлениям и разговорам 2025–2026 годов. Рядом по теме: [аренда на Idealista](/notes/" +
   ARENDA_MILANO_SLUG +
   "), [первые 30 дней](/notes/" +
   PERVYE_30_SLUG +
-  "), [codice fiscale](/notes/" +
+  "), [налоговый код](/notes/" +
   CODICE_FISCALE_SLUG +
-  "). Не юридическая консultazione.";
+  "). Это не юридическая консультация.";
 
 const GLOSSARY_INTRO =
-  "Слова с Idealista, tabellone ATM и biglietto Trenord — чтобы municipio, quartiere e linea M2 non смешались, пока вы ещё выбираte indirizzo, а не foto Instagram.";
+  "Слова с карточки Idealista, с табло метро ATM и с билета Trenord. Они нужны, чтобы округ, квартал и линия M2 не слиплись в одну подпись, пока вы выбираете адрес, а не кадр для фотографии.";
 
 const LOCAL_GLOSSARY: GlossaryTerm[] = [
-  { pt: "municipio", ru: "административный сектор Milano (1–9); определяет ASST, scuola, sportelli Comune" },
-  { pt: "quartiere", ru: "жилой квартал внутри municipio; Isola ⊂ Municipio 9, Navigli ⊂ Municipio 6" },
-  { pt: "ATM", context: "Azienda Trasporti Milanesi", ru: "метро, tram и bus Milano; abbonamento su atm.it" },
-  { pt: "Trenord", ru: "regional rail Lombardia; commute Como/Lecco/Monza → Milano Centrale/Garibaldi" },
-  { pt: "deposito cauzionale", ru: "залог max 3 mensilità; см. гайд по аренде" },
-  { pt: "CER", context: "Canone Concordato", ru: "canone in fascia tabellare; Milano — comune ad alta tensione" },
-  { pt: "spese condominiali", ru: "расходы condominio; riscaldamento centralizzato часто €100–400/mese inverno (soft)" },
-  { pt: "DPCM tensione abitativa", ru: "статус «высокого спроса»; влияет на concordato, не на каждый annuncio Idealista" },
+  {
+    pt: "municipio",
+    ru: "муниципальный округ Милана (их девять, с 1 по 9): от него зависят поликлиника, школа и окна коммуны",
+  },
+  {
+    pt: "quartiere",
+    ru: "жилой квартал внутри округа: Isola входит в округ 9, Навильи — в округ 6",
+  },
+  {
+    pt: "ATM",
+    context: "Azienda Trasporti Milanesi",
+    ru: "метро, трамвай и автобус Милана; проездной оформляют на atm.it",
+  },
+  {
+    pt: "Trenord",
+    ru: "пригородные поезда Ломбардии: Комо, Лекко и Монца до вокзалов Milano Centrale и Porta Garibaldi",
+  },
+  {
+    pt: "deposito cauzionale",
+    ru: "залог, не больше трёх месячных плат; подробности — в гайде по аренде",
+  },
+  {
+    pt: "CER",
+    context: "Canone concordato",
+    ru: "арендная плата в муниципальной вилке; Милан входит в города с высоким жилищным спросом",
+  },
+  {
+    pt: "spese condominiali",
+    ru: "расходы на содержание дома; общедомовое отопление зимой часто выходит €100–400 в месяц (мягкая оценка)",
+  },
+  {
+    pt: "DPCM",
+    ru: "постановление о статусе «высокого жилищного спроса»: влияет на табличную аренду, но не на каждое объявление Idealista",
+  },
 ];
 
 const bodySections: NoteBodySection[] = [
@@ -48,266 +74,252 @@ const bodySections: NoteBodySection[] = [
     paragraphs: [GLOSSARY_INTRO, DISCLAIMER],
   },
   {
-    heading: "Nota Emigro (fact-check)",
+    heading: "Nota Emigro (проверка фактов)",
     section_kind: "official",
     paragraphs: [
-      "Короткий разбор цифр — без вырезания практики. **Soft** = Idealista/чаты; **OK** = ATM/Trenord/Comune; **UNCHECKED** = точные €/m² по quartiere.",
+      "Короткий разбор цифр, без вырезания практики. **Мягкая оценка** — вилки Idealista и разговоры жильцов. **Проверено** — страницы ATM, Trenord и коммуны. **Не проверено** — точная цена квадратного метра по каждому кварталу. **Исправлено** — формулировка, которую в черновике сузили, чтобы не обещать лишнего.",
     ],
     bullets: [
-      "OK: **ATM Milano** — metro M1/M2/M3/M4/M5, tram, bus; tariffe e abbonamenti su [atm.it](https://www.atm.it/).",
-      "OK: **Trenord** — collegamenti Milano ↔ Como, Lecco, Monza; alternative da **Porta Garibaldi** oltre Centrale ([trenord.it](https://www.trenord.it/)).",
-      "OK: ATM, Trenord и Comune открыты через WebFetch 06.09.2026; Idealista homepage timed out в fetch, но тот же URL найден и открыт через поисковый индекс — используем как витрину, не как официальный источник права.",
-      "Soft: T2 Isola/Navigli **€1.400–1.900/mese**; Loreto/Città Studi **€1.100–1.500**; Bicocca **€900–1.300**; Como centro **€800–1.200** — segnali mercato 2025–2026, non ISTAT.",
-      "UNCHECKED: fascie **canone concordato** Milano 2026 aggiornate — verificare tabella comunale/accordo territoriale prima di firmare.",
-      "Fixed: Como/Lecco/Monza — **geo extra stesso satellite** italy.emigro.online, non secondo hub Emigro.",
-      "Fixed: non «рейтинги безопасности» — только бытовые osservazioni (rumore, turismo, stato palazzo).",
-      "Soft: commute Como–Milano Centrale **40–55 min** Trenord + accesso metro; Monza **15–25 min** (orario dipendente).",
-      "OK: residenza — **Comune di Milano** o comune Nord; certificato per permesso e SSR.",
+      "Проверено: **ATM** в Милане — это метро M1, M2, M3, M4 и M5, трамвай и автобус; тарифы и проездные лежат на [atm.it](https://www.atm.it/).",
+      "Проверено: **Trenord** связывает Милан с Комо, Лекко и Монцей; кроме Milano Centrale есть посадка с **Porta Garibaldi** ([trenord.it](https://www.trenord.it/)).",
+      "Проверено: сайты ATM, Trenord и Comune di Milano открывались 6 сентября 2026 года. Главная Idealista в той же проверке не ответила по таймауту, но тот же адрес нашёлся через поисковый индекс. Витрину объявлений используем как витрину, не как официальный источник права.",
+      "Мягкая оценка: двухкомнатная (T2) в Isola и на Навильи стоит €1.400–1.900 в месяц, в Loreto и Città Studi €1.100–1.500, в Bicocca €900–1.300, в центре Комо €800–1.200. Это сигналы рынка 2025–2026 годов, не статистика ISTAT.",
+      "Не проверено: актуальные вилки **canone concordato** (арендная плата по муниципальной таблице) на Милан в 2026 году. Перед подписью откройте таблицу коммуны или территориальное соглашение.",
+      "Исправлено: Комо, Лекко и Монца — **дополнительная география того же сателлита** italy.emigro.online, а не второй городской хаб Emigro.",
+      "Исправлено: здесь нет «рейтинга безопасности». Только бытовые наблюдения: шум, туристы, состояние дома.",
+      "Мягкая оценка: дорога Комо — Milano Centrale **40–55 минут** на Trenord плюс выход к метро; Монца **15–25 минут**. Точное время зависит от расписания.",
+      "Проверено: регистрация по месту жительства оформляется в **Comune di Milano** или в коммуне севера. Справка нужна для вида на жительство и для региональной системы здравоохранения.",
     ],
   },
   {
-    heading: "Официально: municipi, residenza e trasporti",
+    heading: "Официально: округа, прописка и транспорт",
     section_kind: "official",
     paragraphs: [
-      "Milano на бумаге — **9 municipi**, но жить вы будете в **quartiere** с собственным характером. Idealista «Porta Romana» и administrativo Municipio 4 не всегда совпадают один к одному с ощущением улицы.",
-      "**Residenza** (iscrizione anagrafica) — Comune di Milano по indirizzo contratto registrato; certificato нужен для permesso, SSR e scuola. Nord: Como, Monza, Lecco — propri Comuni, stesso percorso satellite Emigro.",
-      "**ATM** — spine metro M1 (Duomo–Rho Fiera), M2 (Assago–Cologno/Gessate), M3 (San Donato–Comasina), M4 (Linate–San Cristoforo), M5 (San Siro–Bignami). **Trenord** — commute da laghi e Monza; verificare se passare da Centrale o Porta Garibaldi.",
-      "Для семьи район выбирают после проверки scuola di bacino у Comune и маршрута ребёнка, а не по одному названию quartiere. Международную школу проверяют отдельно: этот гайд не обещает зачисление по адресу.",
+      "На бумаге Милан делится на **девять округов** (**municipio**). Жить вы будете в конкретном квартале (**quartiere**), и у каждого свой характер. Подпись «Porta Romana» на Idealista и административный округ 4 не всегда совпадают с тем, как улица ощущается пешком.",
+      "Прописка (**residenza**, запись в реестре жителей) оформляется в Comune di Milano по адресу зарегистрированного договора. Справка нужна для вида на жительство, для региональной медицины и для школы. На севере свои коммуны: Комо, Монца, Лекко. Маршрут сателлита Emigro при этом тот же.",
+      "Метро **ATM** — это каркас города. M1 идёт от Duomo до Rho Fiera, M2 от Assago до Cologno и Gessate, M3 от San Donato до Comasina, M4 от Linate до San Cristoforo, M5 от San Siro до Bignami. **Trenord** возит с озёр и из Монцы. Перед арендой проверьте, ваш поезд приходит на Centrale или на Porta Garibaldi.",
+      "Семья выбирает район после школы своего округа на сайте коммуны и после реального маршрута ребёнка, а не по одному красивому названию квартала. Международную школу проверяют отдельно: этот гайд не обещает место по адресу. Главное: округ на карте коммуны и «район» в объявлении — разные вещи, и для справки важен адрес договора.",
     ],
     bullets: [
-      "Abbonamento ATM mensile — atm.it; detrazione IRPEF possibile (soft).",
-      "Trenord abbonamento zone — per commute Nord; biglietti digitali app.",
-      "Residenza: contratto registrato + documenti — sportello Comune o online SPID.",
-      "Quartiere determina distretto scolastico e MMG — см. гайд SSN.",
-      "Portali: [ATM](https://www.atm.it/), [Trenord](https://www.trenord.it/), [Comune di Milano](https://www.comune.milano.it/).",
+      "Оформите месячный проездной ATM на atm.it. Вычет по подоходному налогу IRPEF возможен, но это мягкая оценка.",
+      "Возьмите зональный проездной Trenord, если ездите с севера, и держите билеты в приложении.",
+      "Подайте прописку с зарегистрированным договором и документами: окно коммуны или онлайн через SPID.",
+      "Уточните школьный округ и участкового врача: их задаёт квартал. Подробности — в гайде про государственную медицину.",
+      "Держите под рукой [ATM](https://www.atm.it/), [Trenord](https://www.trenord.it/) и [Comune di Milano](https://www.comune.milano.it/).",
     ],
   },
   {
-    heading: "Как читать карту Milano",
+    heading: "Как читать карту Милана",
     section_kind: "official",
     paragraphs: [
-      "Milano — не «один centro», а сеть quartieri: business Porta Nuova, nightlife Navigli, famiglie semi-centro, studenti Loreto, hipster Isola, calcio San Siro, campus Bicocca. Nord — не «другой город Emigro», а **stesso satellite** с commute laghi.",
-      "Ниже — **8 зон Milano** + **3 opzioni Nord** (Como, Monza, Lecco). Не рейтинг «лучший район», а аренда, commute и что всплывает к **4–6 месяцу**. Перед cauzione — [Idealista-практика](/notes/" +
+      "Милан — не один «центр», а сетка кварталов. Porta Nuova — деловой. Навильи — вечерняя жизнь. Полуцентр держат семьи. Loreto — студенты. Isola — более модная и плотная застройка. San Siro — футбол. Bicocca — кампус. Север для этого сателлита не «другой город Emigro», а та же география, только с электричкой до озёр.",
+      "Ниже восемь зон Милана и три варианта на севере: Комо, Монца, Лекко. Это не рейтинг «лучшего района». Это аренда, дорога и то, что всплывает к 4–6-му месяцу. Перед залогом прочитайте [практику Idealista](/notes/" +
         ARENDA_MILANO_SLUG +
-        ").",
+        "). Главное: сравнивайте кварталы по дороге и по квитанции зимы, а не по одной фотографии фасада.",
     ],
     bullets: [
-      "Centro storico e Navigli — canoni alti, turismo e rumore.",
-      "Isola/Porta Garibaldi — gentrificazione, M2/M5, prezzi in crescita.",
-      "Loreto/Città Studi — metro M1/M2, mix studenti e famiglie.",
-      "Bicocca/San Siro — più affordable, commute più lungo al centro.",
-      "Como/Monza — canone minore, Trenord daily.",
+      "Смотрите исторический центр и Навильи как дорогую аренду, туристов и шум.",
+      "Смотрите Isola и Porta Garibaldi как обновлённый квартал у M2 и M5, с растущими ценами.",
+      "Смотрите Loreto и Città Studi как метро M1 и M2 и смесь студентов с семьями.",
+      "Смотрите Bicocca и San Siro как более доступную аренду и более длинную дорогу в центр.",
+      "Смотрите Комо и Монцу как меньшую плату и ежедневный Trenord.",
     ],
   },
   {
-    heading: "1. Isola e Porta Garibaldi",
+    heading: "1. Isola и Porta Garibaldi",
     section_kind: "practice",
     paragraphs: [
-      "**Характер.** Ex industrial, ora skyscraper (Bosco Verticale), brunch e coworking. Bene — M2 Isola/Garibaldi, vibe internazionale, eventi Design Week. Male — cantieri, affitti in salita, turismo business.",
-      "**Кому.** Coppie, remote worker, single 28–45; famiglie cercano spazio e silenzio altrove.",
-      "**Commute.** M2, Passante Garibaldi, bus verso centro; Malpensa spesso da Centrale/Garibaldi + Malpensa Express.",
-      "**Аренда (soft 2026).** Monolocale €1.000–1.300; T2 €1.500–1.900; T3 raro sotto €2.200.",
-      "Главное: pagate il «nuovo Milano» — verificate rumore cantiere e luce in cortile stretto.",
+      "Это бывшая промзона, где теперь стоят башни, в том числе Bosco Verticale, и где много бранчей и коворкингов. Плюсы — метро M2 на станциях Isola и Garibaldi, международная среда и события Недели дизайна. Минусы — стройки, растущая аренда и деловые туристы.",
+      "Квартиру здесь чаще берут пары, люди на удалёнке и одиночки примерно 28–45 лет. Семье, которой нужны метры и тишина, обычно спокойнее в другом месте. В центр едут на M2, по городской железной дороге Passante через Garibaldi и на автобусе. В Мальпенсу чаще садятся на Centrale или Garibaldi и дальше едут Malpensa Express.",
+      "Аренда, мягкая оценка на 2026 год: студия €1.000–1.300, двухкомнатная (T2) €1.500–1.900, трёхкомнатная (T3) редко дешевле €2.200. Главное: вы платите за «новый Милан», поэтому до задатка проверьте шум стройки и то, есть ли свет в узком дворе.",
     ],
     bullets: [
-      "+ metro, ristoranti, expat; − prezzo, cantieri, competition viewing.",
-      "M2 Isola, Garibaldi; Trenord Passante.",
-      "Soft: agency chiede pacchetto completo CF+IBAN.",
+      "Плюс — метро, рестораны и международная среда. Минус — цена, стройки и очередь на просмотр.",
+      "Ориентир по транспорту: M2 Isola и Garibaldi, плюс Trenord по линии Passante.",
+      "Мягкая оценка: агентство часто просит полный пакет, налоговый код и итальянский IBAN.",
     ],
   },
   {
-    heading: "2. Navigli e Porta Romana",
+    heading: "2. Навильи и Porta Romana",
     section_kind: "practice",
     paragraphs: [
-      "**Характер.** Navigli — acque, aperitivo, turismo notturno; Porta Romana — più residenziale, vicino università Bocconi/NABA zone.",
-      "**Кому.** Social life, giovani professionisti; famiglie con bambini spesso evitano Navigli weekend noise.",
-      "**Commute.** M2 Porta Genova (Navigli); M3 Porta Romana; tram storici.",
-      "**Аренда (soft).** Navigli T1 €1.100–1.400; T2 €1.400–1.800. Porta Romana simile o leggermente sotto Navigli peak.",
-      "К 4–6 mesi: rumore weekend e zanzare canale — non evidenti al primo viewing martedì mattina.",
+      "Навильи — это каналы, аперитив и ночные туристы. Porta Romana жилее и ближе к поясу университетов Bocconi и NABA. Социальная жизнь и молодые специалисты здесь чувствуют себя уместно. Семьи с детьми часто обходят Навильи из-за шума выходных.",
+      "С Навильи в центр садятся на M2, станция Porta Genova. С Porta Romana — на M3, станция Porta Romana. Ходят и старые трамвайные линии. Аренда, мягкая оценка: на Навильи компактная квартира (T1) €1.100–1.400, двухкомнатная (T2) €1.400–1.800. Porta Romana стоит похоже или чуть ниже пика Навильи.",
+      "К 4–6-му месяцу вылезают шум выходных и комары у канала. В утренний просмотр во вторник этого не видно. Главное: смотрите Навильи вечером в пятницу, а не только в тихий будний полдень.",
     ],
     bullets: [
-      "+ carattere, metro; − turismo, umidità, parcheggio.",
-      "Navigli — verificare isolamento acustico.",
-      "Soft: transitorio frequente — leggere contratto.",
+      "Плюс — характер квартала и метро. Минус — туристы, влажность и парковка.",
+      "Проверьте звукоизоляцию, если берёте квартиру на Навильи.",
+      "Мягкая оценка: здесь часто предлагают краткосрочный договор (**transitorio**). Читайте срок.",
     ],
   },
   {
-    heading: "3. Loreto e Città Studi",
+    heading: "3. Loreto и Città Studi",
     section_kind: "practice",
     paragraphs: [
-      "**Характер.** Loreto — hub M1/M2, mercato, multietnico; Città Studi — Politecnico zone, più tranquillo verso Lambrate.",
-      "**Кому.** Studenti, coppie budget-conscious, famiglie che accettano urban grit.",
-      "**Commute.** M1/M2 Loreto; ветки M2 идут на Cologno Nord и Gessate, расписание и конечную проверяют в ATM.",
-      "**Аренда (soft).** T1 €850–1.100; T2 €1.100–1.500; spesso più spazio per euro vs Isola.",
-      "Главное: Loreto di sera — vivace; controllare sicurezza percepita percepita per strada, non statistiche inventate.",
+      "Loreto — узел M1 и M2, рынок и много языков на одной улице. Città Studi — пояс Политехнического университета, к Lambrate становится тише. Сюда приезжают студенты, пары, которые считают бюджет, и семьи, которым городская плотность не мешает.",
+      "Транспорт — M1 и M2 на станции Loreto. Ветки M2 идут на Cologno Nord и Gessate: конечную и расписание смотрите у ATM, а не по памяти. Аренда, мягкая оценка: компактная (T1) €850–1.100, двухкомнатная (T2) €1.100–1.500. За те же деньги площади часто больше, чем в Isola.",
+      "Вечером Loreto оживлённый. Ощущение безопасности на улице проверяйте сами, на месте. Готовых «рейтингов опасности» в этом гайде нет. Главное: Loreto удобен как первый договор на 4+4, если вы готовы к плотности, а не к открытке.",
     ],
     bullets: [
-      "+ prezzo, metro doppia; − rumore, densità.",
-      "Buono per primo contratto 4+4.",
-      "Vicino Lambrate design/eventi.",
+      "Плюс — цена и сразу две линии метро. Минус — шум и плотность.",
+      "Берите район для первого договора 4+4, если бюджет важнее тишины.",
+      "Держите в виду Lambrate: рядом дизайн и городские события.",
     ],
   },
   {
-    heading: "4. Porta Venezia e Buenos Aires",
+    heading: "4. Porta Venezia и Buenos Aires",
     section_kind: "practice",
     paragraphs: [
-      "**Характер.** Corso Buenos Aires shopping, Parco Indro Montanelli, mix borghese e moderno. Porta Venezia — M1, architettura liberty.",
-      "**Кому.** Famiglie, coppie che vogliono verde e metro senza Navigli chaos.",
-      "**Commute.** M1 Porta Venezia, Lima, Palestro; tram veloci.",
-      "**Аренда (soft).** T2 €1.300–1.700; T3 €1.800–2.400; stabile domanda.",
-      "К 4–6 mesi: spese condominiali in palazzi liberty — manutenzione ascensore e riscaldamento (soft).",
+      "Corso Buenos Aires — торговая улица, рядом парк Indro Montanelli, дома здесь смесь буржуазных и более новых. Porta Venezia — станция M1 и архитектура либерти. Сюда смотрят семьи и пары, которым нужны зелень и метро без ночного шума Навильи.",
+      "Дорога — M1, станции Porta Venezia, Lima и Palestro, плюс быстрые трамваи. Аренда, мягкая оценка: двухкомнатная (T2) €1.300–1.700, трёхкомнатная (T3) €1.800–2.400. Спрос держится ровно.",
+      "К 4–6-му месяцу в домах эпохи либерти всплывают расходы дома: обслуживание лифта и отопление. Это мягкая оценка, сумму покажет только последняя квитанция. Главное: парк и метро здесь реальные, но зимняя квитанция старого дома может съесть «удобную» аренду.",
     ],
     bullets: [
-      "+ parco, metro, scuole; − canone medio-alto.",
-      "Buenos Aires — rumore traffico.",
-      "Adatto famiglie con bambini.",
+      "Плюс — парк, метро и школы. Минус — плата выше средней.",
+      "Закладывайте шум машин, если окна выходят на Buenos Aires.",
+      "Смотрите этот пояс, если едете с детьми и нужен полуцентр.",
     ],
   },
   {
-    heading: "5. Bicocca e nord-est periferia",
+    heading: "5. Bicocca и северо-восточная окраина",
     section_kind: "practice",
     paragraphs: [
-      "**Характер.** Campus Università Milano-Bicocca, nuovi palazzi, meno centro storico. Ca' Granda, Niguarda zone — ospedale e residenziale.",
-      "**Кому.** Studenti, budget famiglie, chi accetta 20–30 min metro al centro.",
-      "**Commute.** M5 Bicocca, Ponale; bus; più lontano da Duomo.",
-      "**Аренда (soft).** T1 €700–950; T2 €900–1.300 — spesso miglior €/m².",
-      "Главное: non è «lontano da tutto» con M5, ma nightlife limitata vs Navigli.",
+      "Здесь кампус Университета Милана-Бикокка, более новые дома и мало исторического центра. Зоны Ca' Granda и Niguarda — больница и жилая застройка. Квартал берут студенты, семьи с ограниченным бюджетом и те, кто согласен на 20–30 минут метро до центра.",
+      "Едут на M5, станции Bicocca и Ponale, и на автобусе. До Duomo дальше, чем из полуцентра. Аренда, мягкая оценка: компактная (T1) €700–950, двухкомнатная (T2) €900–1.300. Цена метра часто лучше, чем ближе к центру.",
+      "С линией M5 это не «далеко от всего», но вечерней жизни меньше, чем на Навильи. Главное: выигрыш в плате здесь платят временем до центра, и это нужно пройти в часы пик до подписи.",
     ],
     bullets: [
-      "+ prezzo, università; − commute centro, quartiere meno «iconico».",
-      "M5 frequente.",
-      "Verificare sicurezza percepita serale (soft).",
+      "Плюс — цена и университет. Минус — дорога в центр и менее «открыточный» квартал.",
+      "Рассчитывайте на частую линию M5.",
+      "Проверьте, как улица ощущается вечером (мягкая оценка, не статистика).",
     ],
   },
   {
-    heading: "6. San Siro e ovest",
+    heading: "6. San Siro и запад",
     section_kind: "practice",
     paragraphs: [
-      "**Характер.** Stadio Meazza, quartieri popolari e zone in trasformazione verso City Life (oltre confine municipio). M5 San Siro Stadio.",
-      "**Кому.** Tifosi, famiglie che cercano prezzo, lavoratori ovest città.",
-      "**Commute.** M5; tram; match day — caos traffico.",
-      "**Аренда (soft).** T2 €1.000–1.400; match day e parcheggio — stress a mesi 4–6 se non previsto.",
+      "Характер задают стадион Meazza, народные кварталы и полоса обновления в сторону City Life, уже за границей округа. Метро — M5, станция San Siro Stadio. Сюда смотрят болельщики, семьи, которым нужна цена, и те, кто работает на западе города.",
+      "Дорога — M5 и трамвай. В день матча движение встаёт. Аренда, мягкая оценка: двухкомнатная (T2) €1.000–1.400. Если матч и парковку не заложили заранее, к 4–6-му месяцу это становится постоянным раздражением. Главное: день матча — часть адреса, а не редкое исключение.",
     ],
     bullets: [
-      "+ M5, prezzo medio; − eventi stadio, distanza Duomo.",
-      "City Life vicina — canoni più alti confine.",
-      "Soft: T2 €1.000–1.400.",
+      "Плюс — линия M5 и средняя цена. Минус — события на стадионе и расстояние до Duomo.",
+      "Помните, что у границы с City Life плата уже выше.",
+      "Держите вилку двухкомнатной: €1.000–1.400, мягкая оценка.",
     ],
   },
   {
-    heading: "7–8. Brera/Centro e ripartizione rapida",
+    heading: "7–8. Brera, центр и юг коротко",
     section_kind: "practice",
     paragraphs: [
-      "**Centro storico (Duomo, Brera, Solari).** Massimo prestigio e canone; turismo, ZTL, poco spazio. T1 raro sotto €1.200; T2 €1.600–2.200+ (soft).",
-      "**Ripamonti/Vettabbia sud.** Meno trendy, prezzi più bassi, commute bus+M3. Per chi accetta periferia vera.",
-      "Главное: centro — contratto e spese, non solo foto; verificare APE classe energetica (costi riscaldamento a mesi 4–6).",
+      "Исторический центр — Duomo, Brera, Solari — это максимальный престиж и максимальная плата, туристы, ограниченная зона для машин и мало места. Компактная квартира (T1) редко дешевле €1.200. Двухкомнатная (T2) — €1.600–2.200 и выше. Это мягкая оценка.",
+      "Юг, Ripamonti и Vettabbia, менее модный, цены ниже, до центра автобус плюс M3. Это вариант для тех, кто согласен на настоящую окраину, а не на «почти центр» в тексте объявления.",
+      "В центре смотрят договор и расходы дома, а не только фотографию. Класс APE проверьте сразу: стоимость отопления всплывает на четвёртом–шестом месяце. Главное: престижный адрес не отменяет зимнюю квитанцию и ограниченную зону.",
     ],
     bullets: [
-      "Centro — permesso e domicilio ok, ma budget stretto.",
-      "Sud — €/m² minore, tempo centro maggiore.",
-      "Ovunque: leggere [аренда](/notes/" + ARENDA_MILANO_SLUG + ").",
+      "Берите центр, если вид на жительство и адрес вам подходят, но бюджет уже на пределе.",
+      "Смотрите юг, если цена метра важнее, а время до центра можно отдать.",
+      "В любом поясе прочитайте [гайд по аренде](/notes/" + ARENDA_MILANO_SLUG + ") до перевода залога.",
     ],
   },
   {
-    heading: "Nord: Como, Monza, Lecco (stesso satellite)",
+    heading: "Север: Комо, Монца, Лекко",
     section_kind: "practice",
     paragraphs: [
-      "**Como.** Lago, qualità vita, canone inferiore; **Trenord** 40–55 min a Milano Centrale/Garibaldi (soft). Per remote/hybrid 2–3 giorni ufficio.",
-      "**Monza.** Città autonoma, Parco, F1; 15–25 min a Milano; canone medio-basso vs Isola.",
-      "**Lecco.** Lago, più distante (50–70 min); ideale se lavoro locale o raro commute.",
-      "Non è un secondo hub Emigro — stesso playbook permesso, SSR ASST territoriale, [codice fiscale](/notes/" +
+      "Комо — озеро, более спокойный ритм и плата ниже миланской. Trenord до Milano Centrale или Porta Garibaldi занимает 40–55 минут (мягкая оценка). Имеет смысл, если в офис нужно два–три дня, а остальное — удалёнка.",
+      "Монца — отдельный город, большой парк и трасса Формулы-1. До Милана 15–25 минут, плата средне-низкая на фоне Isola. Лекко тоже у озера, но дальше: 50–70 минут. Город подходит, если работа рядом или в Милан ездят редко.",
+      "Это не второй хаб Emigro. Вид на жительство, территориальная медицина и [налоговый код](/notes/" +
         CODICE_FISCALE_SLUG +
-        "). A mesi 4–6 il commute daily stanca se non testato in inverno.",
+        ") идут по той же логике сателлита, только коммуна другая. К 4–6-му месяцу ежедневная электричка утомляет, если вы не проверили её зимой. Главное: неделю поездите на работу в плохую погоду до того, как подпишете 4+4 далеко от Милана.",
     ],
     bullets: [
-      "Como: T2 €800–1.200 soft; verificare frequenza treni serali.",
-      "Monza: buon compromesso famiglia; M1 extension bus+train.",
-      "Lecco: solo se commute raro o lavoro Lecco.",
-      "Stesso satellite — cross-link notes Milano hub.",
-      "Test commute una settimana prima di firmare 4+4 lontano.",
+      "В Комо держите двухкомнатную в вилке €800–1.200 (мягкая оценка) и проверьте вечерние поезда.",
+      "В Монце ищите компромисс для семьи: до линии M1 добираются автобусом и поездом.",
+      "В Лекко селитесь, только если работа там или в Милан ездите редко.",
+      "Оставайтесь в том же сателлите: заметки миланского хаба здесь перекрёстно ссылаются друг на друга.",
+      "Проверьте дорогу неделю, прежде чем подписывать 4+4 вдалеке от офиса.",
     ],
   },
   {
-    heading: "Где annuncio и жизнь расходятся",
+    heading: "Где объявление и жизнь расходятся",
     section_kind: "gap",
     paragraphs: [
-      "Foto annuncio «luminoso» — cortile interno buio in inverno. «Vicino metro» — 12 minuti a piedi contano diversamente con pioggia.",
+      "«Светлая» квартира на фото зимой оказывается тёмным внутренним двором. «Рядом с метро» — это двенадцать минут пешком, и в дождь они считаются иначе, чем в объявлении. Главное: номер дома и последний зимний отчёт дома говорят правду точнее, чем первое предложение карточки.",
     ],
     bullets: [
-      "«Zona Isola» in annuncio — verificare civico (Isola vs Garibaldi vs China town limitrofa).",
-      "«Como = Milano suburb» — ISEE, scuola, MMG — comune Como, non Milano (fixed).",
-      "«Monolocale 45 mq» — spesso 28–35 reali (soft practice).",
-      "«Silenzioso» su Navigli — relativo venerdì sera (soft).",
-      "«Metro 5 min» — Google Maps ora punta, non chat.",
-      "Spese condominiali «basse» — chiedere ultimo consuntivo inverno.",
+      "Проверьте номер дома, если написано «район Isola»: это может быть Isola, Garibaldi или соседний китайский квартал.",
+      "Не читайте «Комо = пригород Милана». Пособие ISEE, школа и участковый врач относятся к коммуне Комо, не к Милану. Это исправленная формулировка.",
+      "Не верьте «студии 45 м²» без рулетки: на практике часто выходит 28–35 м² (мягкая оценка).",
+      "Не верьте слову «тихо» на Навильи: в пятницу вечером это относительно (мягкая оценка).",
+      "Проверьте «метро в 5 минутах» в Google Maps в час пик, а не по пересказу в чате.",
+      "Попросите последний зимний отчёт, если в объявлении «низкие расходы дома».",
     ],
   },
   {
-    heading: "Типичные ошибки выбора района в Milano",
+    heading: "Типичные ошибки выбора района в Милане",
     section_kind: "practice",
     paragraphs: [
-      "Ошибка почти всегда одна: подписали 4+4 по фото и «vicino metro», не проверив civico, rumore weekend и commute Nord. К 4–6 месяцу это бьёт spese inverno e сменой квартиры.",
+      "Ошибка почти всегда одна. Подписали договор 4+4 по фотографии и по фразе «рядом с метро», не проверив номер дома, шум выходных и дорогу с севера. К 4–6-му месяцу это бьёт зимней квитанцией и переездом. Главное: пятница на месте дешевле, чем смена квартиры через полгода.",
     ],
     bullets: [
-      "Брать Isola/Navigli «потому что все» без теста пятницы и субботы на месте.",
-      "Путать Comune di Como с Milano: scuola, MMG, ISEE — другой Comune, не «пригород Милана».",
-      "Игнорировать spese condominiali invernali и APE — canone «низкий» до первой bolletta riscaldamento.",
-      "Считать Trenord Como = ATM urbano: 40–55 мин в Centrale — не линия M2.",
-      "Подписывать transitorio «на посмотреть» без плана 4+4 к месяцу 4–6.",
+      "Не берите Isola или Навильи «потому что все», не побывав там в пятницу и субботу.",
+      "Не путайте коммуну Комо с Миланом: школа, врач и ISEE — другая коммуна, не «пригород Милана».",
+      "Не игнорируйте зимние расходы дома и класс APE: низкая плата в объявлении живёт до первой квитанции за отопление.",
+      "Не считайте Trenord из Комо городским метро: 40–55 минут до Centrale — это не линия M2.",
+      "Не подписывайте краткосрочный договор «просто посмотреть» без плана, что будет с жильём к 4–6-му месяцу.",
     ],
   },
   {
-    heading: "К 4–6 месяцу: что bite в каждом типе района",
+    heading: "К 4–6-му месяцу: что вылезает в каждом типе района",
     section_kind: "practice",
     paragraphs: [
-      "К 4–6 месяцу вы знаете vero rumore, spese riscaldamento, e se commute Nord regge. Transitorio scade; 4+4 — primo inverno completo.",
-      "К 4–6 месяцу mold/umidità in ground floor Navigli/Navigli-adjacent — classic surprise. Isola — cantieri nuovi palazzi.",
-      "Se quartiere non funziona — cambio appartamento costa cauzione, agency, tempo; meglio test commute e notte weekend prima del secondo contratto.",
+      "К 4–6-му месяцу вы уже знаете настоящий шум, квитанцию за отопление и то, выдерживаете ли дорогу с севера. Краткосрочный договор к этому времени кончается. Договор 4+4 даёт первую полную зиму.",
+      "На первом этаже Навильи и соседних улиц к этому сроку классически всплывают сырость и плесень. В Isola к тому же времени шумят стройки новых домов. Если квартал не подошёл, смена квартиры стоит залога, комиссии агентства и недель. Дешевле проверить дорогу и ночь выходного до второго договора.",
+      "Главное: четвёртый–шестой месяц — это проверка района зимой, сыростью и электричкой, а не ещё один просмотр в солнечный вторник.",
     ],
     bullets: [
-      "К 4–6 месяцу: riscaldamento centralizzato — prima bolletta inverno shock.",
-      "К 4–6 месяцу: commute Como daily — burnout se non calibrato.",
-      "К 4–6 месяцу: turismo Navigli/Centro — sonno e ZTL guest parking.",
-      "К 4–6 месяцу: scuola/asilo — distretto se non pianificato.",
-      "К 4–6 месяцу: MMG distretto — cambio quartiere senza revoca medico.",
+      "Ждите к 4–6-му месяцу первую зимнюю квитанцию общедомового отопления.",
+      "Ждите усталости, если каждый день ездите из Комо и заранее это не примерили.",
+      "Ждите туристов на Навильи и в центре: сон и парковка гостей в ограниченной зоне.",
+      "Ждите школу и ясли своего округа, если адрес выбрали без этого шага.",
+      "Ждите участкового врача своего округа: смена квартала сама по себе врача не отзывает.",
     ],
   },
 ];
 
 const keyTakeaways = [
-  "Официально: 9 municipi Milano; ATM metro/tram; Trenord per Como/Monza/Lecco; residenza al Comune dell’indirizzo.",
+  "Официально: в Милане девять округов, метро и трамвай возит ATM, а Комо, Монца и Лекко связаны поездами Trenord. Прописка оформляется в коммуне того адреса, который стоит в договоре.",
   formatPracticeTakeaway({
     channels: ["milanru", "milan_4at"],
     period: "2025–2026",
     claim:
-      "Isola/Navigli T2 €1.4–1.9k; Loreto/Bicocca più basso; Como commute 40–55 min se lavoro Centrale",
-    forReader:
-      "testate commute e rumore weekend prima di 4+4",
+      "двухкомнатная в Isola и на Навильи выходит €1.400–1.900, в Loreto и Bicocca дешевле, а дорога из Комо занимает 40–55 минут, если работа у Centrale",
+    forReader: "Проверьте дорогу на работу и шум выходных до того, как подпишете договор 4+4.",
   }),
-  "Como/Monza/Lecco — stesso satellite Emigro, non second hub; canoni minori, trade-off tempo.",
-  "На практике: к 4–6 месяцу spese inverno, umidità e commute Nord — test reale del quartiere scelto.",
+  "Комо, Монца и Лекко остаются тем же сателлитом Emigro, а не вторым хабом: плата ниже, расплата — время в пути.",
+  "На практике к 4–6-му месяцу зимние расходы дома, сырость и дорога с севера показывают, тот ли квартал вы выбрали.",
 ];
 
 const faq: CommunityNoteFaq[] = [
   {
-    q: "Какой район Milano выбрать семье с детьми?",
-    a: "По правилам scuola e MMG legati a residenza. На практике Porta Venezia, Monza, parti Città Studi — equilibrio verde/metro; evitare Navigli se rumore notturno problema.",
+    q: "Какой район Милана выбрать семье с детьми?",
+    a: "По правилам школа и участковый врач привязаны к прописке. На практике Porta Venezia, Монца и часть Città Studi держат баланс парка и метро. Навильи лучше обойти, если ночной шум для вас проблема.",
   },
   {
-    q: "Como invece di Milano — permesso e servizi?",
-    a: "По правилам residenza e SSR nel Comune di domicilio (Como ASST). На практике stesso satellite Emigro; permesso valido nazionale; commute Trenord da pianificare.",
+    q: "Если жить в Комо, а не в Милане, как устроены вид на жительство и службы?",
+    a: "По правилам прописка и региональная медицина оформляются в коммуне, где вы живёте (для Комо это своя санитарная служба ASST). На практике это тот же сателлит Emigro: вид на жительство действует по стране, а дорогу на Trenord нужно заложить заранее.",
   },
   {
-    q: "Isola vale il prezzo 2026?",
-    a: "По правилам mercato libero — sì se budget regge. На практике pagate metro+prestige; a mesi 4–6 cantieri e affitti in salita — verificare stabilità contratto 4+4.",
+    q: "Стоит ли Isola своих денег в 2026 году?",
+    a: "По правилам рынок свободный: да, если бюджет выдерживает плату. На практике вы платите за метро и за престиж квартала. К 4–6-му месяцу добавляются стройки и растущие ставки — проверьте, что договор 4+4 для вас устойчив.",
   },
   {
-    q: "Quanto costa abbonamento ATM?",
-    a: "По правилам tariffe su atm.it (aggiornate annualmente). На практике mensile urbano — ordine **€39–45** soft 2026; verificare sito prima del calcolo budget.",
+    q: "Сколько стоит проездной ATM?",
+    a: "По правилам тарифы публикуют на atm.it, и их обновляют каждый год. На практике городской месяц в 2026 году часто лежит в мягкой вилке около €39–45. Точную цифру смотрите на сайте до того, как зашьёте её в бюджет.",
   },
   {
-    q: "Cosa controllare al viewing oltre al canone?",
-    a: "По правилам contratto deve indicare spese. На практике APE, riscaldamento centralizzato, isolamento acustico, distanza metro reale, ultimo bilancio condominio.",
+    q: "Что смотреть на просмотре кроме арендной платы?",
+    a: "По правилам договор должен указывать расходы отдельно от платы. На практике смотрите класс APE, общедомовое отопление, звукоизоляцию, реальные минуты до метро и последний баланс дома.",
   },
 ];
 
@@ -315,23 +327,23 @@ export const MILANO_RAJONY_GUIDE = {
   slug: MILANO_RAJONY_SLUG,
   category: "Районы и быт",
   content_kind: "guide" as ContentKind,
-  title: "Районы Milano и Nord: аренда, metro, Como",
+  title: "Районы Милана и севера: аренда, метро, Комо",
   excerpt:
-    "Isola, Navigli, Loreto, Porta Venezia, Bicocca, San Siro и commute Como/Monza/Lecco — где снимать, как ездить на ATM/Trenord и что проявляется к 4–6 месяцу.",
-  seo_title: "Районы Milano и Como Nord: 2026",
+    "Isola, Навильи, Loreto, Porta Venezia, Bicocca, San Siro и дорога из Комо, Монцы и Лекко: где снимать, как ездить на ATM и Trenord и что проявляется к 4–6-му месяцу.",
+  seo_title: "Районы Милана и Комо 2026: метро и аренда",
   seo_description:
-    "Районы Milano 2026: Isola, Navigli, Loreto, metro ATM, Trenord Como/Monza. Аренда Idealista, commute Nord, spese inverno — guida RU stesso satellite.",
+    "Районы Милана в 2026: Isola, Навильи, Loreto, метро ATM, поезд Trenord в Комо и Монцу. Аренда, дорога с севера и зимние расходы дома на одном сателлите.",
   quick_answer:
-    "Районы Milano отличаются бытом: Isola/Navigli cari e centrali; Loreto/Città Studi доступнее; Bicocca/San Siro — budget. Семье сначала проверить scuola di bacino. ATM M1–M5 — город; Trenord — **Como** и **Monza**, extra geo того же satellite, не второй hub. До contratto проверьте spese, rumore и commute; к 4–6 месяцу проявятся inverno, umidità и transitorio.",
+    "Районы Милана в Италии отличаются бытом сильнее, чем кажется по карте метро: Isola и Навильи дорогие и центральные, Loreto и Città Studi доступнее, Bicocca и San Siro ближе к бюджету, а семье сначала стоит проверить школу своего округа. Метро ATM, линии M1–M5, связывает город, а Trenord везёт в Комо и Монцу — это дополнительная география того же сателлита, а не второй сайт. До договора проверьте расходы дома, шум и дорогу: к 4–6-му месяцу проявятся зима, сырость и конец краткосрочного договора.",
   body_sections: bodySections,
   body_paragraphs: flattenBodySections(bodySections),
   key_takeaways: keyTakeaways,
   faq,
   official_links: [
-    { title: "ATM Milano — tariffe e rete", url: "https://www.atm.it/" },
-    { title: "Trenord — collegamenti regionali", url: "https://www.trenord.it/" },
+    { title: "ATM Milano — тарифы и сеть", url: "https://www.atm.it/" },
+    { title: "Trenord — региональные маршруты", url: "https://www.trenord.it/" },
     { title: "Comune di Milano", url: "https://www.comune.milano.it/" },
-    { title: "Idealista — mercato affitti", url: "https://www.idealista.it/" },
+    { title: "Idealista — рынок аренды", url: "https://www.idealista.it/" },
   ],
   topic_tags: ["districts", "milano", "como", "rent", "italy"],
   hashtags: buildNoteHashtags({

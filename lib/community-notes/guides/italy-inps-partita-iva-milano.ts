@@ -20,204 +20,240 @@ const BANK_SLUG = "bank-iban-nerezident-italiya-2026";
 const ARENDA_SLUG = "arenda-milano-idealista-2026";
 
 const GLOSSARY: GlossaryTerm[] = [
-  { pt: "INPS", ru: "Istituto Nazionale Previdenza Sociale — итальянский соцстрах; не Seguridad Social ES и не NISS PT" },
-  { pt: "Codice fiscale", ru: "личный налоговый код; нужен до partita IVA и contratto lavoro" },
-  { pt: "Partita IVA", ru: "номер ИП/фрилансера; открывается AA9/12 или Comunicazione Unica — не то же, что CF" },
-  { pt: "Lavoro subordinato", ru: "работа по contratto dipendente; взносы платит datore через INPS" },
-  { pt: "Gestione Separata INPS", ru: "режим взносов для P.IVA без другой обязательной previdenza; 26,07% или 24%" },
-  { pt: "Regime forfettario", ru: "упрощённый налоговый режим P.IVA; пороги дохода и совместимость с lavoro dipendente" },
-  { pt: "Residenza fiscale", ru: "налоговое резидентство: 183+ дней в Италии с 2024 — отдельно от штампа Schengen" },
-  { pt: "Modello F24", ru: "форма оплаты налогов и INPS-взносов через бanca/agenzia" },
+  {
+    pt: "INPS",
+    ru: "Istituto Nazionale della Previdenza Sociale, итальянский соцстрах. Это не испанская Seguridad Social и не португальский NISS",
+  },
+  {
+    pt: "Codice fiscale",
+    ru: "личный налоговый код. Он нужен раньше, чем Partita IVA и трудовой договор",
+  },
+  {
+    pt: "Partita IVA",
+    ru: "номер предпринимателя или фрилансера. Его открывают формой AA9/12 или через Comunicazione Unica. Это не налоговый код",
+  },
+  {
+    pt: "Lavoro subordinato",
+    ru: "работа по найму, по трудовому договору. Взносы за работника платит работодатель через INPS",
+  },
+  {
+    pt: "Gestione Separata",
+    ru: "отдельный режим взносов INPS для тех, у кого Partita IVA и нет другой обязательной кассы. Ставка 26,07% или 24%",
+  },
+  {
+    pt: "Regime forfettario",
+    ru: "упрощённый налоговый режим для Partita IVA. У него свои пороги дохода и свои правила совместимости с работой по найму",
+  },
+  {
+    pt: "Residenza fiscale",
+    ru: "налоговое резидентство. С 2024 года для него достаточно 183 дней в Италии. Штамп Шенгена сам по себе резидентом не делает",
+  },
+  {
+    pt: "Modello F24",
+    ru: "форма, которой платят налоги и взносы INPS через банк или платёжное агентство",
+  },
 ];
 
+const GLOSSARY_INTRO =
+  "INPS, Partita IVA и фраза «это как NISS в Португалии» в одном разговоре звучат похоже только на слух. Это разные системы, и разобрать их лучше до первого договора или первого счёта, пока работодатель ещё не спросил налоговый код.";
+
 const DISCLAIMER =
-  "**Emigro — не юридическая консультация.** Aliquote INPS, пороги forfettario и критерии residenza fiscale **меняются**. Актуальные circolari — [inps.it](https://www.inps.it/) и [agenziaentrate.gov.it](https://www.agenziaentrate.gov.it/). Не копируйте испанский NUSS/RETA/Beckham или португальский NISS — это другие системы.";
+  "**Emigro не даёт юридическую консультацию.** Ставки INPS, пороги упрощённого режима и критерии налогового резидентства меняются. Актуальные циркуляры — на [inps.it](https://www.inps.it/) и [agenziaentrate.gov.it](https://www.agenziaentrate.gov.it/). Не переносите сюда испанские NUSS, RETA и режим Бекхэма и не переносите португальский NISS: это другие системы.";
 
 const bodySections: NoteBodySection[] = [
   {
-    ...buildGlossarySection(
-      GLOSSARY,
-      "INPS, partita IVA и «как NISS в Португалии» — разные слова в @milanru. Разберём до первого contratto или invoice, пока datore не спросил codice fiscale."
-    ),
-    paragraphs: [DISCLAIMER],
+    ...buildGlossarySection(GLOSSARY, GLOSSARY_INTRO),
+    paragraphs: [GLOSSARY_INTRO, DISCLAIMER],
   },
   {
-    heading: "Nota Emigro (fact-check)",
+    heading: "Nota Emigro (проверка фактов)",
     section_kind: "official",
     paragraphs: [
-      "Разбор INPS / P.IVA / residenza fiscale для Milano. **OK** = INPS circolari, Agenzia Entrate D.Lgs 209/2023; **soft** = практика 2025–2026; **fixed** = смягчено.",
+      "Разбор INPS, Partita IVA и налогового резидентства для Милана. **Проверено** — циркуляры INPS и норма налоговой, включая законодательный декрет 209/2023. **Ориентир** — практика 2025–2026 годов, не статья закона. **Исправлено** — миф, который здесь снят. **Не проверено** — в этом гиде подтверждения нет, перед визитом откройте портал.",
+      "Главное: ставка и порог ниже указаны так, как они стоят в источнике этого текста, а номер циркуляра, которого мы не видели, мы не дописывали.",
     ],
     bullets: [
-      "OK: **codice fiscale** и **partita IVA** — разные номера; P.IVA открывается modello **AA9/12** или Comunicazione Unica ([Entrate P.IVA](https://www.agenziaentrate.gov.it/portale/codice-fiscale-tessera-sanitaria-partita-iva)).",
-      "OK: lavoro **subordinato** — datore регистрирует в INPS, удерживает contributi из busta paga; не путать с autonomo.",
-      "OK: Gestione Separata INPS — aliquota **26,07%** без altra previdenza obbligatoria; **24%** при другой copertura (circolare INPS 2026, soft: номер circolare на inps.it).",
-      "OK: residenza fiscale с 2024 — **183 дня** (184 в високосный) в Италии достаточно при любом одном критерии: dimora abituale, domicilio, presenza fisica, iscrizione anagrafe ([Entrate circ. 20/E 2024](https://www.agenziaentrate.gov.it/portale/cs-4-novembre-2024)).",
-      "Fixed: «штамп Schengen = налоговый резидент IT» → **нет**; residenza fiscale по TUIR/D.Lgs 209/2023, не по permesso stamp.",
-      "Fixed: «INPS = Seguridad Social Испании» → разные органы, формы и aliquote.",
-      "Soft: regime forfettario + lavoro dipendente — reddito dipendente anno precedente ≤ **35.000 € lordi** (manovra 2026, soft: verificare legge bilancio).",
-      "UNCHECKED: exact slot INPS sportello Milano walk-in per posizione contributiva — verificare portale prima visita.",
+      "Проверено: налоговый код (codice fiscale) и Partita IVA — разные номера. Partita IVA открывают моделью **AA9/12** или через Comunicazione Unica. Страница налоговой — [код, санитарная карта и Partita IVA](https://www.agenziaentrate.gov.it/portale/codice-fiscale-tessera-sanitaria-partita-iva).",
+      "Проверено: при работе по найму работодатель регистрирует человека в INPS и удерживает взносы из расчётного листка. Это не режим самозанятого.",
+      "Проверено: в Gestione Separata ставка **26,07%**, если другой обязательной кассы нет, и **24%**, если другое покрытие есть. Ориентир: циркуляр INPS на 2026 год. Номер циркуляра сверьте на inps.it, в этом гиде он не зафиксирован.",
+      "Проверено: с 2024 года для налогового резидентства достаточно **183 дней** в Италии, а в високосный год — 184. Хватает любого одного критерия: обычное местопребывание, домициль, физическое присутствие или запись в реестре населения. Источник — [циркуляр налоговой 20/E от 2024 года](https://www.agenziaentrate.gov.it/portale/cs-4-novembre-2024).",
+      "Исправлено: штамп Шенгена не делает человека налоговым резидентом Италии. Резидентство считают по TUIR и декрету 209/2023, а не по отметке в разрешении на пребывание.",
+      "Исправлено: INPS — это не испанская Seguridad Social. Органы, формы и ставки разные.",
+      "Ориентир: упрощённый режим вместе с работой по найму допускают, если доход по найму за предыдущий год не выше **35 000 € брутто**. Это читается по бюджетному пакету 2026 года. Сам закон о бюджете перед решением стоит открыть ещё раз.",
+      "Не проверено: есть ли в миланском окне INPS живая очередь без записи именно по вашей позиции взносов. Уточняйте это на портале перед визитом.",
     ],
   },
   {
-    heading: "Официально: codice fiscale, partita IVA и INPS",
+    heading: "Официально: налоговый код, Partita IVA и INPS",
     section_kind: "official",
     paragraphs: [
-      "**Codice fiscale** — идентификатор физлица ([AA4/8](/notes/" + CODICE_FISCALE_SLUG + ")). **Partita IVA** — номер economic activity; открывается в Agenzia delle Entrate modello **AA9/12** в течение 30 giorni от inizio attività или через **Comunicazione Unica** al Registro Imprese с одновременной posizione INPS ([Entrate](https://www.agenziaentrate.gov.it/portale/codice-fiscale-tessera-sanitaria-partita-iva)).",
-      "**Lavoro subordinato:** datore di lavoro comunica assunzione в INPS (UniEmens), versa contributi previdenziali; lavoratore получает busta paga с trattenute. Вам нужен CF и IBAN ([банк](/notes/" + BANK_SLUG + ")); отдельную «карту INPS» как NISS PT обычно **не выдают** — posizione видна через MyINPS после registrazione.",
-      "**Lavoro autonomo / P.IVA:** после attribuzione P.IVA iscrizione в **Gestione Separata INPS** (если нет altra cassa obbligatoria). Contributi — modello **F24**, scadenze giugno/novembre + saldo con redditi (circolare INPS Quadro RR).",
-      "Regime **forfettario** — imposta sostitutiva 15% (5% startup), reddito imponibile forfettario; **не** exempt от INPS Gestione Separata, если нет altra copertura.",
+      "**Налоговый код** (codice fiscale) — номер физического лица. Его получают формой AA4/8, порядок разобран в [гиде по коду](/notes/" + CODICE_FISCALE_SLUG + "). **Partita IVA** — номер экономической деятельности. Его открывают в налоговой Agenzia delle Entrate моделью **AA9/12** в течение 30 дней с начала деятельности либо через **Comunicazione Unica** в реестр предприятий, и тогда позицию в INPS открывают той же подачей. Страница налоговой — [здесь](https://www.agenziaentrate.gov.it/portale/codice-fiscale-tessera-sanitaria-partita-iva).",
+      "При **работе по найму** работодатель сообщает о приёме в INPS сообщением UniEmens и платит социальные взносы. Работник получает расчётный листок с удержаниями. Вам нужны налоговый код и итальянский IBAN, как в [гиде по банку](/notes/" + BANK_SLUG + "). Отдельную «карточку INPS» по образцу португальского NISS обычно не выдают. Позицию видно в MyINPS после регистрации.",
+      "При работе на себя после присвоения Partita IVA встают на учёт в **Gestione Separata**, если нет другой обязательной кассы. Взносы платят формой **F24**. Сроки приходятся на июнь и ноябрь, а доплату считают вместе с доходами. Ориентир по сетке — циркуляр INPS, блок Quadro RR.",
+      "Упрощённый режим **forfettario** — это заменяющий налог 15%, а для старта — 5%, и налоговая база там считается по своим коэффициентам. От взносов Gestione Separata режим не освобождает, если другого покрытия нет.",
+      "Главное: налоговый код есть у человека, Partita IVA — у деятельности, а взносы INPS при найме платит работодатель, при своём деле — вы сами.",
     ],
     bullets: [
-      "CF — первым; P.IVA — только при autonomo/clienti IT.",
-      "Dipendente — contratto, CCNL, TFR; INPS через datore.",
-      "P.IVA forfettario — codice ATECO, fattura elettronica SDI.",
-      "Gestione Separata — 26,07% или 24% su reddito imponibile.",
-      "Comunicazione Unica — P.IVA + INPS + REA одной подачей.",
-      "Commercialista / CAF — consigliato с первой fattura.",
+      "Оформите налоговый код первым. Partita IVA открывайте только если есть своё дело или итальянские клиенты.",
+      "По найму держите договор, коллективное соглашение (CCNL) и накопление при увольнении (TFR). Взносы идут через работодателя.",
+      "На упрощённом режиме нужны код деятельности ATECO и электронный счёт через систему SDI.",
+      "Gestione Separata считает 26,07% или 24% с налоговой базы, в зависимости от другого покрытия.",
+      "Comunicazione Unica подаёт сразу Partita IVA, учёт INPS и регистрацию REA.",
+      "С первого счёта имеет смысл идти к бухгалтеру или в CAF.",
     ],
   },
   {
-    heading: "Subordinato vs P.IVA: что выбирают в Milano",
+    heading: "Найм и Partita IVA: что выбирают в Милане",
     section_kind: "official",
     paragraphs: [
-      "**Lavoro subordinato** (tempo indeterminato/determinato, apprendistato) — стандарт для офиса, fabbrica, многих tech-наймов. Datore оформляет assunzione, виза lavoro subordinato согласована с contratto. К **4–6 месяцу** у вас уже должны быть первые buste paga и posizione INPS visibile.",
-      "**Partita IVA** — фриланс, consulenza, nomade con clienti IT/EU. Не открывайте P.IVA «на всякий случай» до CF и понимания regime. Совмещение P.IVA forfettario + **stesso datore** >70–80% fatturato — риск **riclassificazione** в subordinato (soft: prassi Agenzia Entrate/INPS).",
-      "Remote work для **иностранного** datore без sede IT — отдельная tax story; permesso и residenza fiscale не автоматически совпадают. Wizard поможет развести traccia.",
+      "Если вы выбираете между наймом и своим делом, начните с договора, а не с номера. Работа по найму — бессрочный договор, срочный договор или ученичество — обычный путь для офиса, производства и многих технических наймов. Работодатель оформляет приём, а виза по найму должна совпадать с договором. К 4–6-му месяцу у вас уже должны быть первые расчётные листки и видимая позиция в INPS.",
+      "Partita IVA — это фриланс, консультации и работа цифрового кочевника с клиентами в Италии или ЕС. Не открывайте номер «на всякий случай», пока нет налогового кода и пока вы не поняли режим. Если упрощённая Partita IVA совмещена с тем же работодателем и на него приходится больше 70–80% оборота, появляется риск переквалификации в наём. Это ориентир по практике налоговой и INPS, не автоматический штраф из этого гида.",
+      "Удалёнка на иностранного работодателя без итальянского офиса — отдельная налоговая история. Разрешение на пребывание и налоговое резидентство сами собой не совпадают. Мастер маршрута помогает развести эти линии, но не заменяет консультанта.",
+      "Главное: договор по найму и номер предпринимателя решают разные задачи, и «открыл на всякий случай» потом приходится либо вести, либо закрывать.",
     ],
     bullets: [
-      "Subordinato — TFR, ferie, malattia INPS.",
-      "P.IVA — fatture, F24, commercialista.",
-      "CCNL metalmeccanico Milano — soft benchmark salari.",
-      "Monocommittente — rischio lavoro dipendente occulto.",
-      "Visto lavoro subordinato ≠ P.IVA senza verifica Questura.",
+      "Проверьте в договоре накопление TFR, отпуск и больничные через INPS.",
+      "На Partita IVA есть счета, платёжки F24 и бухгалтер.",
+      "Коллективный договор металлообработки в Милане иногда используют как ориентир по зарплате. Это не норма закона.",
+      "Один заказчик на весь оборот повышает риск скрытого найма.",
+      "Виза по найму не равна праву выставлять счета с Partita IVA, пока это не проверено в квестуре.",
     ],
   },
   {
-    heading: "Residenza fiscale 183 giorni vs permesso di soggiorno",
+    heading: "Налоговое резидентство: 183 дня и разрешение на пребывание",
     section_kind: "practice",
     paragraphs: [
-      "С **1 gennaio 2024** (D.Lgs 209/2023) достаточно **presenza fisica** 183+ giorni в Италии (с учётом frazioni di giorno) для residenza fiscale — **без** обязательной iscrizione anagrafe, хотя anagrafe теперь presunzione relativa ([Entrate](https://www.agenziaentrate.gov.it/portale/imposta-sul-reddito-delle-persone-fisiche-irpef-/regole-generali-per-persone-fisiche-cittadini)).",
-      "**Permesso di soggiorno** — immigration status; штампы Schengen в pasport — travel history, **не** IRPEF. Можно иметь permesso и **non** essere ancora fiscalmente resident (soft: первые mesi <183 giorni), или наоборот — 183 giorni smart working → residente fiscale.",
-      "К **4–6 месяцу** (~120–180 giorni) многие релоканты **пересекают** порог 183 в calendar year — planificate dichiarazione redditi, INPS autonomo, convenzione contro doppia imposizione если был доход abroad.",
-      "Iscrizione **residenza** в Comune di Milano — отдельный шаг после [CF и contratto](/notes/" + ARENDA_SLUG + "); влияет на SSN, TARI, но не заменяет consulenza fiscale internazionale.",
+      "Сначала считайте дни в Италии, а не штамп в паспорте. С 1 января 2024 года, по законодательному декрету 209/2023, для налогового резидентства достаточно физического присутствия в Италии 183 дня и больше, с учётом долей дня. Обязательная запись в реестре населения для этого теста не требуется, хотя сама запись в реестре теперь работает как относительная презумпция. Формулировка налоговой — на [странице про IRPEF для физических лиц](https://www.agenziaentrate.gov.it/portale/imposta-sul-reddito-delle-persone-fisiche-irpef-/regole-generali-per-persone-fisiche-cittadini).",
+      "Разрешение на пребывание — это миграционный статус. Штампы Шенгена в паспорте — история поездок, а не налог на доход IRPEF. Можно иметь разрешение и ещё не быть налоговым резидентом: ориентир — первые месяцы, если 183 дня не набрались. Бывает и наоборот: 183 дня удалённой работы уже делают человека налоговым резидентом.",
+      "К 4–6-му месяцу, то есть примерно к 120–180 дням, многие пересекают порог 183 дней внутри календарного года. На этот момент стоит планировать декларацию о доходах, взносы самозанятого и, если доход был за рубежом, соглашение против двойного налогообложения.",
+      "Запись о жительстве в мэрии Милана — отдельный шаг после налогового кода и договора аренды. Как устроен договор, написано в [гиде по аренде](/notes/" + ARENDA_SLUG + "). Запись влияет на государственную медицину и на местный сбор TARI, но международную налоговую консультацию не заменяет.",
+      "Главное: 183 дня считают по календарю присутствия, а не по тому, выдали ли вам уже пластиковую карту разрешения.",
     ],
     bullets: [
       formatPracticeBullet({
         channels: ["milanru", "forum_italy"],
         period: "2025–2026",
         claim:
-          "DN с P.IVA forfettario к mes 5–6 получали первые F24 INPS — surprise vs ожидание «только CF»",
-        forReader: "откройте posizione INPS сразу после P.IVA, не ждите dicembre",
+          "у людей с упрощённой Partita IVA к пятому–шестому месяцу приходили первые платёжки F24 в INPS, хотя они ждали, что хватит одного налогового кода",
+        forReader: "Откройте позицию в INPS сразу после Partita IVA и не оставляйте это на декабрь.",
       }),
-      "183 giorni — суммируются non consecutivi (circ. 20/E).",
-      "Anagrafe — presunzione relativa с 2024.",
-      "Permesso plastica — не доказательство residenza fiscale.",
-      "Split year — convenzione CDI se doppia residenza.",
+      "183 дня суммируются и не обязаны идти подряд. Так читается циркуляр 20/E.",
+      "Запись в реестре населения с 2024 года — относительная презумпция, не единственная дверь.",
+      "Пластиковая карта разрешения не доказывает налоговое резидентство.",
+      "Если год делится между двумя странами, смотрите соглашение об избежании двойного налогообложения.",
     ],
   },
   {
-    heading: "Milano на практике: первый contratto и банк",
+    heading: "Милан на практике: первый договор и банк",
     section_kind: "practice",
     paragraphs: [
-      "Datore в Lombardia запросит **codice fiscale**, **IBAN IT**, иногда **residenza** o domicilio. Banca может блокировать крупные transfer без busta paga к **4–6 месяцу** — см. [IBAN guide](/notes/" + BANK_SLUG + ").",
-      "Freelance: клиенты IT просят **P.IVA** и fattura elettronica; без них pagamento ritenuta d'acconto сложнее. Patronato/CAF помогают с первым F24 — не заменяют commercialista для cross-border.",
-      "INPS **MyINPS** — registrarsi con SPID/CIE после CF; проверьте posizione contributiva dipendente o autonomo.",
+      "Когда работодатель просит документы, список короткий и конкретный. Работодатель в Ломбардии попросит налоговый код, итальянский IBAN и иногда регистрацию или адрес пребывания. К 4–6-му месяцу банк может останавливать крупные переводы, если нет расчётного листка. Как это устроено, написано в [гиде по IBAN](/notes/" + BANK_SLUG + ").",
+      "Итальянские клиенты фрилансера просят Partita IVA и электронный счёт. Без них оплату с удержанием налога у источника (ritenuta d'acconto) провести сложнее. Патронат и CAF помогают с первой платёжкой F24 и не заменяют бухгалтера, если доход пересекает границу.",
+      "В кабинет **MyINPS** входят через SPID или CIE уже после налогового кода. Там проверяют, открыта ли позиция по найму или по самозанятости.",
+      "Главное: к середине первого года и банк, и аренда смотрят не на рассказ о работе, а на листок или на счета.",
     ],
     bullets: [
-      "Prima busta paga — verificare trattenute INPS.",
-      "P.IVA — fattura entro termini SDI.",
-      "Forfettario — monitor reddito 85.000 € cap ricavi.",
-      "Lavoro dipendente + P.IVA — soglia 35k anno precedente (soft).",
-      "Commercialista — obbligatorio consigliato mes 4–6 autonomo.",
+      "В первом расчётном листке проверьте удержания INPS.",
+      "Счёт по Partita IVA отправьте в срок системы SDI.",
+      "На упрощённом режиме следите за потолком выручки 85 000 €.",
+      "Найм плюс Partita IVA упирается в порог 35 000 € за предыдущий год. Это ориентир, закон о бюджете сверьте отдельно.",
+      "К 4–6-му месяцу самозанятому уже стоит вести учёт с бухгалтером. Закон не пишет «обязательно всем», но без учёта платёжки расходятся.",
     ],
   },
   {
-    heading: "К 4–6 месяцу: хвост без INPS или с ошибкой P.IVA",
+    heading: "К 4–6-му месяцу: хвост без INPS или с ошибкой в Partita IVA",
     section_kind: "gap",
     paragraphs: [
-      "К **4–6 месяцу** накапливаются: первый **saldo INPS** autonomo, dichiarazione redditi preview, domande банка о reddito, agency [аренды](/notes/" + ARENDA_SLUG + ") про busta paga или fatture.",
-      "Открыть P.IVA без Gestione Separata — sanzioni e arretrati. Lavorare «в чёрную» без posizione INPS — rischio per datore и lavoratore; permesso subordinato требует contratto conforme.",
-      "Non aver versato contributi Gestione Separata entro scadenze F24 — interessi e riscossione Equitalia (soft: tempi).",
+      "Когда доходит четвёртый месяц, дыры в учёте уже видны банку. К 4–6-му месяцу складываются первая доплата взносов самозанятого, черновик декларации, вопросы банка о доходе и вопросы агентства аренды про расчётный листок или счета. Как агентства читают доход, разобрано в [гиде по аренде](/notes/" + ARENDA_SLUG + ").",
+      "Partita IVA без постановки на Gestione Separata тянет санкции и долг за прошлые периоды. Работа без позиции в INPS, «в конверте», рискованна и для работодателя, и для работника. Разрешение по найму требует договор, который этой схеме соответствует.",
+      "Если взносы Gestione Separata не уплачены в сроки F24, начисляются проценты и дело уходит на взыскание. В разговорах службу взыскания всё ещё называют Equitalia. Сроки этого взыскания в гиде не проверены.",
+      "Главное: чат может ещё спорить, «надо ли вставать на учёт», а портал к этому месяцу уже ждёт либо листок, либо платёжку.",
     ],
     bullets: [
-      "Sin posizione INPS autonomo — F24 arretrati.",
-      "P.IVA aperta «per bank» senza attività — chiudere o gestire.",
-      "183 giorni superati — dichiarazione redditi IT.",
-      "Busta paga assente — renta solo transfer; agency diffidenti.",
-      "Confondere CF e P.IVA su contratto — blocca payroll.",
+      "Нет позиции самозанятого в INPS — платёжки F24 копятся задним числом.",
+      "Номер, открытый «для банка» без реальной деятельности, нужно закрыть или начать вести.",
+      "Порог 183 дней пройден — впереди итальянская декларация о доходах.",
+      "Нет расчётного листка, а доход только переводами — агентство аренды относится к такому досье настороженно.",
+      "Путаница налогового кода и Partita IVA в договоре останавливает расчёт зарплаты.",
     ],
   },
   {
-    heading: "Типичные ошибки INPS и partita IVA в Milano",
+    heading: "Типичные ошибки с INPS и Partita IVA в Милане",
     section_kind: "practice",
     paragraphs: [
-      "Повторяющиеся ошибки: открыть P.IVA до CF, ждать «NISS-карту», путать residenza anagrafe с fiscale, копировать Beckham/RETA из Испании.",
+      "Одни и те же сбои повторяются: Partita IVA открывают раньше налогового кода, ждут «карточку как NISS», путают запись в мэрии с налоговым резидентством и приносят в Италию испанские схемы Бекхэма и RETA.",
+      "Главное: опыт соседней страны полезен как тревожный звонок, и почти никогда как готовая форма.",
     ],
     bullets: [
-      "Ошибка: «INPS card как NISS PT» — posizione digitale MyINPS, не plastica.",
-      "Ошибка: P.IVA без commercialista при clienti esteri — CDI risk.",
-      "Ошибка: forfettario + stesso datore 100% fatturato — riclassificazione.",
-      "Ошибка: 183 giorni ignorati — surprise IRPEF dicembre.",
-      "Ошибка: Seguridad Social ES опыт применён к INPS — wrong forms.",
-      "Ошибка: autonomo senza fattura elettronica — sanzioni SDI.",
+      "Ошибка: ждать «карточку INPS как португальский NISS». Позиция цифровая, в MyINPS, а не на пластике.",
+      "Ошибка: вести Partita IVA с иностранными клиентами без бухгалтера. Здесь легко промахнуться мимо соглашения об избежании двойного налога.",
+      "Ошибка: отдавать 100% оборота упрощённого режима тому же работодателю. Это путь к переквалификации в наём.",
+      "Ошибка: не считать 183 дня. Налог IRPEF в декабре тогда выглядит как сюрприз.",
+      "Ошибка: заполнять итальянские формы по памяти об испанской Seguridad Social.",
+      "Ошибка: работать на себя без электронного счёта. За это система SDI штрафует.",
       formatPracticeBullet({
         channels: ["digital_nomad_Italiya", "milan_4at"],
         period: "2025–2026",
-        claim: "релоканты открывали P.IVA forfettario до получения CF certificato — задержка posizione INPS",
-        forReader: "CF certificato → P.IVA AA9/12 → iscrizione Gestione Separata",
+        claim:
+          "релоканты открывали упрощённую Partita IVA до свидетельства о налоговом коде, и позиция в INPS из-за этого задерживалась",
+        forReader:
+          "Сначала получите свидетельство о налоговом коде, затем откройте Partita IVA формой AA9/12 и только после этого встаньте на учёт в Gestione Separata.",
       }),
     ],
   },
   {
-    heading: "Wizard и Assist",
+    heading: "Мастер маршрута и Assist",
     section_kind: "practice",
     paragraphs: [
-      "Subordinato, P.IVA forfettario и cross-border remote — разные tracce. Прогоните через [Emigro Wizard Italia](/ru/italy/wizard?utm_source=emigro&utm_medium=guide&utm_campaign=inps-piva-milano&utm_content=" +
+      "Найм, упрощённая Partita IVA и удалёнка через границу — три разных маршрута. Свой можно прогнать через [мастер Emigro по Италии](/ru/italy/wizard?utm_source=emigro&utm_medium=guide&utm_campaign=inps-piva-milano&utm_content=" +
         INPS_PIVA_SLUG +
-        "). Для аудита CF → contratto → INPS — [Route Check Assist €129](/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=inps-piva-milano&utm_content=" +
+        "). Порядок «налоговый код → договор → INPS» разбирают на [консультации Assist за €129](/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=inps-piva-milano&utm_content=" +
         INPS_PIVA_SLUG +
         ").",
+      "Главное: мастер показывает, какая из трёх линий ваша, и не подаёт за вас ни форму AA9/12, ни платёжку F24.",
     ],
     bullets: [
-      "[Первые 30 дней](/notes/" + PERVYE_30_SLUG + ") — orchestrator.",
-      "[Codice fiscale](/notes/" + CODICE_FISCALE_SLUG + ") — до P.IVA.",
-      "[Permesso Questura](/notes/" + PERMESSO_SLUG + ") — visto subordinato.",
+      "Откройте [первые 30 дней](/notes/" + PERVYE_30_SLUG + "): с этого гида удобно собрать порядок дел.",
+      "[Налоговый код](/notes/" + CODICE_FISCALE_SLUG + ") — до Partita IVA.",
+      "[Разрешение на пребывание и квестура](/notes/" + PERMESSO_SLUG + ") — если виза по найму.",
     ],
   },
 ];
 
 const keyTakeaways = [
-  "Официально: lavoro subordinato — INPS через datore; P.IVA — AA9/12/Comunicazione Unica + Gestione Separata INPS (26,07% o 24%).",
+  "Официально: при работе по найму взносы INPS проводит работодатель, а Partita IVA открывают формой AA9/12 или через Comunicazione Unica и ставят на учёт в Gestione Separata по ставке 26,07% или 24%.",
   formatPracticeTakeaway({
     channels: ["milanru", "forum_italy"],
     period: "2025–2026",
-    claim: "к 4–6 месяцу dipendente видит posizione INPS в MyINPS; autonomo — первые F24 Gestione Separata",
-    forReader: "CF до contratto; P.IVA только при реальных clienti; 183 giorni ≠ permesso stamp",
+    claim:
+      "к 4–6-му месяцу работник уже видит позицию INPS в MyINPS, а самозанятый получает первые платёжки F24 по Gestione Separata",
+    forReader:
+      "Налоговый код нужен до договора, Partita IVA — только при реальных клиентах, а 183 дня присутствия и штамп разрешения на пребывание — разные вещи.",
   }),
-  "Официально: residenza fiscale 183+ giorni с 2024 (D.Lgs 209/2023) — presenza fisica достаточна.",
-  "Расхождение: INPS ≠ NISS/Seguridad Social; Beckham/NUSS ES не применимы в IT.",
+  "Официально: с 2024 года, по декрету 209/2023, для налогового резидентства достаточно физического присутствия 183 дня и больше.",
+  "Расхождение: INPS не равен португальскому NISS и испанской Seguridad Social, а режим Бекхэма и номер NUSS в Италии не применяются.",
 ];
 
 const faq: CommunityNoteFaq[] = [
   {
-    q: "Как получить номер INPS и зачем он к месяцу 4–6?",
-    a: "По правилам — datore регистрирует dipendente в INPS; autonomo iscrive Gestione Separata после P.IVA. На практике posizione видна в MyINPS; к 4–6 мес. нужны buste paga или F24 для банка и аренды.",
+    q: "Как получить номер INPS и зачем он к 4–6-му месяцу?",
+    a: "Обычно отдельную карточку не выдают. По правилам работодателя регистрирует наёмного работника в INPS, а самозанятый после Partita IVA сам встаёт на учёт в Gestione Separata. На практике позицию видно в MyINPS, и к 4–6-му месяцу банку и аренде уже нужны расчётные листки или платёжки F24.",
   },
   {
-    q: "Partita IVA — это то же, что codice fiscale?",
-    a: "По правилам — нет: CF личный, P.IVA — attività economica (AA9/12). На практике оба нужны autonomo; dipendente обычно только CF.",
+    q: "Partita IVA — это то же самое, что налоговый код?",
+    a: "Нет. По правилам налоговый код личный, а Partita IVA открывают на деятельность формой AA9/12. На практике самозанятому нужны оба номера, работнику по найму обычно хватает налогового кода.",
   },
   {
-    q: "Когда начинается налоговый резидент — по штампу permesso?",
-    a: "По правилам — residenza fiscale по 183+ giorni presenza/dimora/domicilio/anagrafe (TUIR 2024+). На практике permesso stamp ≠ IRPEF; к 4–6 мес. многие близки к порогу 183 giorni.",
+    q: "Налоговое резидентство начинается со штампа в разрешении на пребывание?",
+    a: "Нет, не со штампа. По правилам его считают по 183 дням и больше: присутствие, обычное местопребывание, домициль или запись в реестре, как это сформулировано в TUIR с 2024 года. На практике отметка в разрешении не равна налогу IRPEF, и к 4–6-му месяцу многие уже близки к порогу 183 дней.",
   },
   {
-    q: "Можно ли P.IVA forfettario и lavoro dipendente?",
-    a: "По правилам — да, если reddito dipendente anno precedente ≤ 35.000 € lordi (soft 2026). На практике monocommittente con datore — rischio riclassificazione.",
+    q: "Можно ли совмещать упрощённую Partita IVA и работу по найму?",
+    a: "Можно, если доход по найму за предыдущий год не выше 35 000 € брутто. По правилам это порог бюджетного пакета, и на 2026 год его стоит сверить с текстом закона: в гиде он ориентир. На практике один заказчик-работодатель на весь оборот повышает риск переквалификации в наём.",
   },
   {
-    q: "INPS как NISS в Португалии?",
-    a: "По правилам — аналогичная функция previdenza, другая система. На практике нет «NISS card»; MyINPS + busta paga/F24.",
+    q: "INPS устроен как NISS в Португалии?",
+    a: "Нет. По правилам функция похожа: это социальное страхование, но система другая. На практике «карточки NISS» нет, есть кабинет MyINPS, расчётный листок или платёжка F24.",
   },
 ];
 
@@ -225,26 +261,26 @@ export const INPS_PIVA_GUIDE = {
   slug: INPS_PIVA_SLUG,
   category: "Работа и взносы",
   content_kind: "guide" as ContentKind,
-  title: "INPS и partita IVA в Milano: subordinato vs autonomo 2026",
+  title: "INPS и Partita IVA в Милане: найм и своё дело в 2026",
   excerpt:
-    "INPS Milano 2026: codice fiscale vs partita IVA, lavoro subordinato, Gestione Separata, regime forfettario. Residenza fiscale 183 giorni — не permesso stamp. Не NISS и не Seguridad Social.",
-  seo_title: "INPS partita IVA Milano 2026 — взносы Италия",
+    "Соцстрах INPS в Милане в 2026 году: чем налоговый код отличается от Partita IVA, как устроены взносы при найме и в Gestione Separata и почему 183 дня налогового резидентства не равны штампу в паспорте. Это не португальский NISS и не испанская Seguridad Social.",
+  seo_title: "INPS и Partita IVA в Милане: взносы 2026",
   seo_description:
-    "INPS Milano 2026: partita IVA, codice fiscale, subordinato, Gestione Separata 26,07%. Residenza fiscale 183 giorni vs permesso. Не NISS PT. F24 к 4–6 мес.",
+    "INPS в Милане 2026: Partita IVA, налоговый код, найм и Gestione Separata 26,07%. Резидентство — 183 дня, не штамп разрешения. Платёжки F24 к 4–6 месяцу.",
   quick_answer:
-    "В Италии **INPS** — соцстрах: при **lavoro subordinato** datore регистрирует и платит взносы; при **partita IVA** открываете posizione **Gestione Separata** (26,07% или 24% при altra copertura). **Codice fiscale** личный, **P.IVA** — через AA9/12/Comunicazione Unica в Entrate. **Residenza fiscale** с 2024 — 183+ giorni presenza в IT (D.Lgs 209/2023), не штамп permesso. К **4–6 месяцу** нужны buste paga или F24 для банка. Не NISS Португалии, не Seguridad Social Испании.",
+    "В Италии социальное страхование ведёт INPS, и это не португальский NISS и не испанская Seguridad Social. При найме взносы регистрирует и платит работодатель, при Partita IVA вы сами открываете позицию Gestione Separata со ставкой 26,07% или 24%, если есть другое обязательное покрытие, а личный налоговый код и номер предпринимателя получают разными формами: AA4/8 и AA9/12 или Comunicazione Unica. Налоговое резидентство с 2024 года наступает после 183 дней присутствия по декрету 209/2023, а не по штампу разрешения, и к 4–6-му месяцу банку уже нужны расчётные листки или платёжки F24.",
   body_sections: bodySections,
   body_paragraphs: flattenBodySections(bodySections),
   key_takeaways: keyTakeaways,
   faq,
   official_links: [
-    { title: "INPS — portale", url: "https://www.inps.it/" },
+    { title: "INPS — портал", url: "https://www.inps.it/" },
     {
-      title: "Agenzia Entrate — CF e P.IVA",
+      title: "Налоговая — код и Partita IVA",
       url: "https://www.agenziaentrate.gov.it/portale/codice-fiscale-tessera-sanitaria-partita-iva",
     },
     {
-      title: "Entrate — residenza fiscale 2024+",
+      title: "Налоговая — резидентство с 2024 года",
       url: "https://www.agenziaentrate.gov.it/portale/imposta-sul-reddito-delle-persone-fisiche-irpef-/regole-generali-per-persone-fisiche-cittadini",
     },
   ],

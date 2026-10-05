@@ -20,237 +20,241 @@ const SIM_LUCE_SLUG = "sim-internet-luce-milano-2026";
 const ARENDA_SLUG = "arenda-milano-idealista-2026";
 
 const GLOSSARY: GlossaryTerm[] = [
-  { pt: "Permesso di soggiorno", ru: "разрешение на пребывание >90 дней для extra-UE" },
-  { pt: "Questura", ru: "миграционная полиция provincia; Milano — Ufficio Immigrazione" },
-  { pt: "Kit postale", ru: "жёлтый комплект MOD.209 для подачи через Poste Sportello Amico" },
-  { pt: "Sportello Amico", ru: "отделение Poste Italiane, принимающее kit permesso" },
-  { pt: "Ricevuta postale", ru: "квитанция подачи; действует до выдачи plastica" },
-  { pt: "Nulla osta", ru: "разрешение на работу/въезд; часть track lavoro subordinato" },
-  { pt: "Schengen 90/180", ru: "краткое пребывание без permesso; ≠ статус резидента" },
-  { pt: "Decreto Flussi", ru: "квоты на рабочие визы; отдельно от nomade digitale" },
+  { pt: "Permesso di soggiorno", ru: "разрешение на пребывание дольше 90 дней для граждан вне ЕС" },
+  { pt: "Questura", ru: "квестура, полиция провинции; в Милане заявление принимает миграционный отдел" },
+  { pt: "Kit postale", ru: "жёлтый комплект формы MOD.209: его сдают через окно почты Sportello Amico" },
+  { pt: "Sportello Amico", ru: "стойка Poste Italiane, которая принимает комплект на пребывание" },
+  { pt: "Ricevuta postale", ru: "почтовая квитанция о подаче; она действует, пока не выдадут пластиковую карту" },
+  { pt: "Nulla osta", ru: "разрешение на работу или въезд; часть маршрута работы по найму" },
+  { pt: "Schengen 90/180", ru: "короткое пребывание без разрешения на жительство; это не статус резидента" },
+  { pt: "Decreto Flussi", ru: "квотный декрет на рабочие визы; он отдельно от визы цифрового кочевника" },
 ];
 
+const GLOSSARY_INTRO =
+  "Слова с жёлтого комплекта, с почтовой квитанции и из SMS квестуры стоит разобрать до очереди. Иначе разрешение на пребывание легко спутать со шенгенским штампом или с испанской записью из Валенсии.";
+
 const DISCLAIMER =
-  "**Emigro — не юридическая консультация.** Сроки Questura, codici motivo и список Sportello Amico **меняются**. Сверяйте [portaleimmigrazione.it](https://www.portaleimmigrazione.it/) и [poste.it](https://www.poste.it/guida-rilascio-e-rinnovo-permesso-di-soggiorno). Не копируйте формы и порталы другого государства.";
+  "**Emigro — не юридическая консультация.** Сроки квестуры, коды оснований и список окон почты **меняются**. Сверяйте [портал иммиграции](https://www.portaleimmigrazione.it/) и [гид почты](https://www.poste.it/guida-rilascio-e-rinnovo-permesso-di-soggiorno). Не копируйте формы и порталы другого государства.";
 
 const bodySections: NoteBodySection[] = [
   {
-    ...buildGlossarySection(
-      GLOSSARY,
-      "Слова из kit giallo, ricevuta Poste и SMS Questura — чтобы не путать permesso с Schengen stamp или с «cita extranjería» из Valencia."
-    ),
-    paragraphs: [DISCLAIMER],
+    ...buildGlossarySection(GLOSSARY, GLOSSARY_INTRO),
+    paragraphs: [GLOSSARY_INTRO, DISCLAIMER],
   },
   {
-    heading: "Nota Emigro (fact-check)",
+    heading: "Nota Emigro (проверка фактов)",
     section_kind: "official",
     paragraphs: [
-      "Italy-track, не Spain PT. OK/soft/fixed ниже.",
+      "Это итальянский маршрут, не испанский и не португальский. Ниже каждая опора помечена: проверено по странице ведомства, исправлено относительно чужой схемы, мягкая оценка по полю или не проверено.",
+      "Где страница ответила ошибкой сервера, мы это прямо пишем и не подменяем её выводом. Главное: точный код основания на вашем комплекте сверяйте с актуальным гидом почты, а не с чужим скрином.",
     ],
     bullets: [
-      "OK: extra-UE после regolare ingresso с visto должны chiedere permesso al Questore **entro otto giorni lavorativi** dall'ingresso ([portaleimmigrazione.it](https://www.portaleimmigrazione.it/ITA/nuovaProcedura.html)).",
-      "OK: многие tipologie permesso подаются через **kit a banda gialla** в Ufficio Postale **Sportello Amico**, busta aperta ([Poste Italiane guida](https://www.poste.it/guida-rilascio-e-rinnovo-permesso-di-soggiorno)).",
-      "OK: rinnovo — almeno **60 giorni prima** scadenza permesso (stessa fonte).",
-      "Fixed: «Schengen 90 дней = можно жить полгода» → 90/180 — turismo; permesso/visto D — другой контур.",
-      "Fixed: чужой карточный appointment → в Italia kit postale + convocazione Questura.",
-      "Fixed: чужой migration portal → в Italia применяют kit giallo Poste или direct Questura по motivo.",
-      "Soft: Questura Milano convocazione для rilievi — недели после ricevuta; адрес Ufficio Immigrazione проверьте на poliziadistato.it / comune, не копируйте старые посты.",
-      "Soft: nomade digitale / remote worker — Decreto 29 febbraio 2024, GU n. 79 del 4 aprile 2024; visto D + permesso по codice dedicato, не elective residence.",
-      "UNCHECKED: точный codice motivo на kit для вашего visto (lavoro, famiglia, studio, nomade) — таблица Poste обновляется; сверьте PDF guida Poste перед compilazione.",
-      "UNCHECKED: URL `integrazionemigrati.gov.it/.../Il-permesso-di-soggiorno` вернул server error 500 при WebFetch 06.09.2026; утверждение про SUI подтверждено также живой страницей Poste, но сам URL оставлен как требующий повторной проверки.",
+      "Проверено: гражданин вне ЕС после законного въезда по визе просит разрешение у квестора в течение **восьми рабочих дней** со дня въезда ([портал иммиграции](https://www.portaleimmigrazione.it/ITA/nuovaProcedura.html)).",
+      "Проверено: многие типы разрешения подают **жёлтым комплектом** в почтовом отделении со стойкой **Sportello Amico**, конверт остаётся открытым ([гид Poste Italiane](https://www.poste.it/guida-rilascio-e-rinnovo-permesso-di-soggiorno)).",
+      "Проверено: продление подают минимум за **60 дней** до окончания разрешения. Источник тот же гид почты.",
+      "Исправлено: «90 дней Шенгена значат, что можно жить полгода» неверно. Правило 90/180 — туризм. Виза D и разрешение на пребывание — другой контур.",
+      "Исправлено: чужая запись «на карту» в Италии не работает. Здесь почтовый комплект и вызов в квестуру.",
+      "Исправлено: чужой миграционный портал сюда не переносится. В Италии жёлтый комплект почты или прямая подача в квестуру, в зависимости от основания.",
+      "Мягкая оценка: вызов в квестуру Милана на отпечатки приходит через недели после квитанции. Адрес миграционного отдела сверяйте на сайте полиции или муниципалитета, не копируйте старые посты.",
+      "Мягкая оценка: цифровой кочевник и удалённый работник описаны декретом от 29 февраля 2024 года, официальный вестник № 79 от 4 апреля 2024 года. Это виза D и разрешение со своим кодом, не ВНЖ по пассивному доходу.",
+      "Не проверено: точный код основания на комплекте под вашу визу (найм, семья, учёба, цифровой кочевник). Таблица почты обновляется. Сверьте PDF гида почты перед заполнением.",
+      "Не проверено: адрес `integrazionemigrati.gov.it/.../Il-permesso-di-soggiorno` при открытии 06.09.2026 вернул ошибку сервера 500. Утверждение про единое миграционное окно подтверждает и живая страница почты, но сам адрес оставлен как требующий повторной проверки.",
     ],
   },
   {
-    heading: "Официально: permesso, Questura и kit postale",
+    heading: "Официально: разрешение, квестура и почтовый комплект",
     section_kind: "official",
     paragraphs: [
-      "Permesso di soggiorno документирует право пребывания свыше 90 дней для cittadini extra-UE. После въезда по visto nazionale (lavoro, famiglia, studio, elective residence, nomade digitale и др.) обязанность подать istanza в **8 giorni lavorativi** — не календарных.",
-      "Для tipologie из списка Poste/Interno istanza компилируется kit **MOD.209** (modulo 1 + 2), оплачивается bollettino, документы вкладываются в **busta aperta** и сдаются в Sportello Amico **лично** — только interessato с passaporto.",
-      "Poste выдаёт ricevuta; Questura convoca на rilievi fotodattiloscopici. Если agenda занята — convocazione raccomandata позже ([portaleimmigrazione](https://www.portaleimmigrazione.it/ImmigrazioneNET/ITA/nuovaProcedura.html)).",
-      "Некоторые motivi (asilo, cure mediche, часть familiare) подаются **direttamente in Questura** — не через kit postale. Проверьте таблицу motivi в guida Poste.",
+      "Разрешение на пребывание (**permesso di soggiorno**) фиксирует право жить в Италии дольше 90 дней для граждан вне ЕС. После въезда по национальной визе — найм, семья, учёба, пассивный доход, цифровой кочевник и другие основания — заявление подают за **8 рабочих дней**, не календарных.",
+      "Для типов из списка почты и МВД заявление собирают комплектом формы **MOD.209** (модули 1 и 2), оплачивают платёжный бланк, вкладывают документы в **открытый конверт** и сдают лично в окне Sportello Amico. Идёт только сам заявитель с паспортом.",
+      "Почта выдаёт квитанцию. Квестура вызывает на фото и отпечатки. Если расписание занято, вызов заказным письмом приходит позже ([портал иммиграции, описание процедуры](https://www.portaleimmigrazione.it/ImmigrazioneNET/ITA/nuovaProcedura.html)).",
+      "Некоторые основания — убежище, лечение, часть семейных дел — подают **прямо в квестуру**, не через почтовый комплект. Таблицу оснований смотрите в гиде почты. Главное: восемь дней считаются от штампа въезда в паспорте, а не от дня, когда вы «собрались».",
     ],
     bullets: [
-      "8 giorni lavorativi — от даты ingresso (timbratura passaporto).",
-      "Kit giallo — Poste, Patronato или Comune abilitato (compilazione elettronica).",
-      "Marca da bollo — tabaccheria; importo по tipo permesso.",
-      "Fotocopie passaporto — pagine dati + visti.",
-      "Ricevuta — храните до plastica; банк иногда принимает.",
-      "Rinnovo 60 gg prima scadenza — тот же kit или Questura по motivo.",
+      "Отсчитайте 8 рабочих дней от даты въезда, то есть от штампа в паспорте.",
+      "Возьмите жёлтый комплект на почте, в патронате или в муниципалитете, если там есть электронное заполнение.",
+      "Купите гербовую марку в табачной лавке. Сумма зависит от типа разрешения.",
+      "Снимите копии паспорта: страницу с данными и страницы с визами.",
+      "Храните квитанцию до пластиковой карты. Банк иногда принимает её вместо карты.",
+      "Продление за 60 дней до окончания идёт тем же комплектом или через квестуру, по вашему основанию.",
     ],
   },
   {
-    heading: "Schengen 90/180 ≠ permesso di soggiorno",
+    heading: "Шенген 90/180 — это не разрешение на пребывание",
     section_kind: "official",
     paragraphs: [
-      "Путаница №1 в @forum_italy: «я в Шенгене 90 дней, значит legal». **Schengen** регулирует краткое пребывание без национального permesso. **Visto D + permesso** — отдельный track после regolare ingresso.",
-      "Turista с visto C не подаёт kit postale. Relocant с visto D/lavoro/famiglia **обязан** kit или Questura в 8 giorni. Просрочка — sanzione e difficoltà rinnovo (soft: размер штрафа UNCHECKED — сверяйте TUI art. 10 bis).",
-      "Como, Bergamo, Monza — provincia Milano/Lombardia: Questura competente по **месту фактического soggiorno**, не «второй satellite».",
+      "Главная путаница звучит так: «я в Шенгене 90 дней, значит всё законно». Шенген регулирует короткое пребывание без национального разрешения. Виза D плюс разрешение на пребывание — отдельный путь после законного въезда.",
+      "Турист с визой C почтовый комплект не подаёт. Человек с визой D, рабочей или семейной **обязан** комплект или квестуру в течение 8 рабочих дней. Просрочка — штраф и трудности с продлением. Размер штрафа не проверен: сверяйте статью 10-bis единого миграционного закона, мы его здесь не назначаем.",
+      "Комо, Бергамо и Монца — север Ломбардии. Компетентная квестура определяется по месту фактического пребывания, это не второй сателлит. Граждане ЕС получают карту пребывания ЕС, а не жёлтый комплект для граждан вне ЕС. Главное: квитанция — ещё не пластик, но она доказывает, что заявление подано.",
     ],
     bullets: [
-      "90/180 — только turismo/visto C без permesso.",
-      "Visto D — permesso entro 8 gg lavorativi.",
-      "Ricevuta kit — не plastica, но доказывает подачу.",
-      "Overstay без istanza — риск espulsione e multa.",
-      "UE citizens — carta di soggiorno, не kit giallo extra-UE.",
+      "Правило 90/180 оставляйте туризму и визе C, без разрешения на пребывание.",
+      "С визой D подайте разрешение в течение 8 рабочих дней.",
+      "Храните квитанцию комплекта: это ещё не карта, но это след подачи.",
+      "Без заявления сверх срока растут риск выдворения и штраф.",
+      "Гражданам ЕС оформите карту пребывания ЕС, не жёлтый комплект для граждан вне ЕС.",
     ],
   },
   {
-    heading: "Milano: kit postale → Questura на практике",
+    heading: "Милан: от почтового комплекта к квестуре",
     section_kind: "practice",
     paragraphs: [
-      "Типичный track RU/BY с visto lavoro/famiglia/DNV после MXP:",
-      "**Giorno 1–3:** codice fiscale ([AA4/8 guide](/notes/" + CODICE_FISCALE_SLUG + ")), SIM, жильё временное с возможностью dichiarare indirizzo.",
-      "**Entro 8 gg lavorativi:** kit compilato → Sportello Amico Poste (elenco PDF на poste.it). Ricevuta + convocazione letter.",
-      "**Settimane 2–8:** appuntamento Questura Ufficio Immigrazione — rilievi, indirizzo dimora; адрес проверьте на актуальной странице Questura Milano.",
-      "**Mesi 2–4:** ritiro permesso elettronico по SMS/raccomandata.",
-      "Patronato (INCA, ACLI и др.) — бесплатная помощь с kit через portale dedicato; получаете stampa cartacea + busta.",
-      "Для типичного RU extra-UE с visto D сначала определите motivo: postalizzato → kit Sportello Amico; non postalizzato → Questura/PrenotaFacile по актуальной категории. Универсальной «cita» для всех permessi нет.",
+      "Типичный путь после Мальпенсы для гражданина вне ЕС с визой на работу, по семье или для цифрового кочевника в поле чаще описывали с паспортами России и Беларуси. В первые один–три дня берут налоговый код ([форма AA4/8](/notes/" +
+        CODICE_FISCALE_SLUG +
+        ")), связь и временное жильё, по которому можно указать адрес.",
+      "Внутри 8 рабочих дней заполненный комплект сдают в окне Sportello Amico. Список отделений — в PDF на сайте почты. На выходе квитанция и письмо о вызове. Со второй по восьмую неделю — визит в миграционный отдел квестуры Милана: отпечатки и адрес проживания. Сам адрес отдела сверяйте на актуальной странице квестуры, не по старому сообщению.",
+      "Со второго по четвёртый месяц карту забирают по SMS или заказному письму. Патронаты INCA, ACLI и другие бесплатно помогают собрать комплект через свой портал: вы получаете бумажную распечатку и конверт.",
+      "Для типичного гражданина вне ЕС с визой D сначала определите основание. Если оно почтовое — окно Sportello Amico. Если нет — квестура или запись через систему PrenotaFacile по актуальной категории. Одной универсальной «записи на всех» не существует. Главное: не оставляйте комплект на седьмой день, очередь в окне легко съедает остаток срока.",
     ],
     bullets: [
       formatPracticeBullet({
         channels: ["milanru", "forum_italy"],
         period: "2025–2026",
         claim:
-          "после ricevuta Poste convocazione Questura Milano занимала от 2 до 8 settimane",
-        forReader: "не откладывайте kit на giorno 7 — Sportello Amico может иметь очередь",
+          "после почтовой квитанции вызов в квестуру Милана занимал от двух до восьми недель",
+        forReader: "не откладывайте комплект на седьмой день: у окна почты может быть очередь",
       }),
-      "Sportello Amico — только passaporto titolare kit.",
-      "Busta aperta — проверьте allegati по codice motivo.",
-      "Indirizzo dimora — реальный, не только hotel se possibile.",
-      "Como/Nord — Poste Sportello Amico в provincia; Questura Milano для provincia MI.",
+      "В окно почты идите с паспортом владельца комплекта, не с чужим документом.",
+      "Оставьте конверт открытым и проверьте приложения под ваш код основания.",
+      "Укажите реальный адрес проживания. Один отель — слабая опора, если можно указать другое жильё.",
+      "На севере ищите окно почты в своей провинции. Для провинции Милан квестура — миланская.",
     ],
   },
   {
-    heading: "Motivi permesso: lavoro, famiglia, nomade, elective",
+    heading: "Основания: найм, семья, цифровой кочевник, пассивный доход",
     section_kind: "official",
     paragraphs: [
-      "**Lavoro subordinato** — часто nulla osta + Sportello Unico Immigrazione (SUI) Prefettura перед kit postale для primo rilascio ([integrazionemigranti.gov.it](https://integrazionemigrati.gov.it/it-it/Altre-info/e/4/o/5/id/1/Il-permesso-di-soggiorno)).",
-      "**Lavoro autonomo / famiglia / studio** — codici motivo в kit; allegati по istruzioni MOD.209.",
-      "**Nomade digitale / lavoratore remoto** — Decreto interministeriale 29/02/2024 (GU 79/04/04/2024): visto D fuori quota Flussi; requisiti reddito = **triplo** livello esenzione spesa sanitaria (OK формула в GU); **UNCHECKED** — точная сумма € на 2026 после indicizzazione annuale — сверяйте consolato.",
-      "**Residenza elettiva** — passive income, **≠** nomade digitale; другой visto и motivo; не путать пороги reddito (elective: D.M. MAE 850/2011 — soft ~€31k singolo, UNCHECKED 2026 index).",
+      "Работа по найму часто идёт через разрешение на работу и единое миграционное окно префектуры, и только потом через почтовый комплект на первую выдачу ([страница о разрешении на пребывание](https://integrazionemigrati.gov.it/it-it/Altre-info/e/4/o/5/id/1/Il-permesso-di-soggiorno)). Адрес этой страницы 06.09.2026 отвечал ошибкой 500, поэтому не опирайтесь на него в одиночку.",
+      "Самозанятость, семья и учёба используют свои коды основания в комплекте. Приложения берут из инструкции к форме MOD.209. Цифровой кочевник и удалённый работник описаны межведомственным декретом от 29.02.2024 (вестник № 79 от 04.04.2024): виза D вне квот на рабочие визы. Требование к доходу — **тройной** уровень освобождения от платы за медицину. Формула в вестнике проверена. Точная сумма в евро на 2026 год после ежегодной индексации не проверена: сверяйте консульство.",
+      "ВНЖ по пассивному доходу — это не цифровой кочевник. Другая виза и другое основание, пороги дохода не смешивают. Для пассивного дохода ориентир — декрет МИД № 850/2011, мягкая оценка около 31 000 евро на одного человека. Индекс на 2026 год не проверен, цифру не закрепляем как норму. Главное: «удалёнка» и «живу на ренту» — разные конверты.",
     ],
     bullets: [
-      "Lavoro subordinato — SUI + kit postale по track datore.",
-      "DNV — 6 mesi esperienza + assicurazione sanitaria + alloggio (decreto).",
-      "Elective — reddito da pensione/rendite, non lavoro attivo in Italia.",
-      "Studio — permesso studio; lavoro limitato ore.",
-      "Conversione permesso — codice dedicato в kit.",
+      "При найме идите через единое окно и почтовый комплект по маршруту работодателя.",
+      "Цифровому кочевнику заложите шесть месяцев опыта, медицинскую страховку и жильё. Так написано в декрете.",
+      "При пассивном доходе покажите пенсию или ренту и не планируйте активную работу в Италии.",
+      "По учёбе подайте отдельное разрешение: часы работы ограничены.",
+      "При смене основания используйте отдельный код в комплекте.",
     ],
   },
   {
-    heading: "Sportello Unico Immigrazione vs kit diretto",
+    heading: "Единое окно и прямая сдача комплекта",
     section_kind: "official",
     paragraphs: [
-      "Primo rilascio permesso per **lavoro subordinato** con nulla osta: spesso passaggio obbligatorio presso **Sportello Unico Immigrazione (SUI)** della Prefettura — sportello consegna busta da presentare aperta in Poste ([integrazionemigrati.gov.it](https://integrazionemigrati.gov.it/it-it/Altre-info/e/4/o/5/id/1/Il-permesso-di-soggiorno)). Non saltate SUI se il vostro track datore lo richiede — kit compilato senza nulla osta viene respinto.",
-      "Famiglia, studio, elective, nomade con visto già rilasciato dal consolato — tipicamente kit postale diretto entro 8 gg, salvo istruzioni diverse nel visto.",
+      "Первая выдача разрешения на пребывание при найме, когда уже есть разрешение на работу (nulla osta), часто требует обязательного шага в едином миграционном окне префектуры (**Sportello Unico Immigrazione**, SUI). Окно выдаёт конверт, который на почте предъявляют открытым ([та же страница портала интеграции](https://integrazionemigrati.gov.it/it-it/Altre-info/e/4/o/5/id/1/Il-permesso-di-soggiorno)). Если маршрут работодателя требует это окно, не перепрыгивайте его: комплект без разрешения на работу вернут.",
+      "Семья, учёба, пассивный доход и цифровой кочевник с визой, которую консульство уже вклеило, обычно сдают почтовый комплект напрямую в течение 8 рабочих дней. Иное возможно, только если сама виза предписывает другой порядок. Главное: «у всех один и тот же конверт» — нет, найм по квоте начинается в префектуре.",
     ],
     bullets: [
-      "SUI Prefettura Milano — verificare convocazione datore.",
-      "Nulla osta — documento datore/Prefettura.",
-      "Kit dopo SUI — stessa procedura Sportello Amico.",
-      "Visto familiare — kit con codice famiglia.",
+      "В едином окне префектуры Милана проверьте, есть ли вызов от работодателя.",
+      "Разрешение на работу храните как документ работодателя и префектуры.",
+      "После единого окна сдайте комплект в том же окне почты Sportello Amico.",
+      "Семейную визу ведите с семейным кодом в комплекте.",
     ],
   },
   {
-    heading: "Documenti allegati al kit: cosa preparare",
+    heading: "Что вложить в комплект",
     section_kind: "action_guide",
     paragraphs: [
-      "Ogni codice motivo ha allegati diversi nel MOD.209. Prima di andare in Poste: leggere istruzioni nel kit giallo e tabella Poste aggiornata. Base comune: copia passaporto (pagine dati + visti), marca da bollo, fototessera formato tessera (soft), contratto locazione o dichiarazione ospitalità per indirizzo.",
-      "Assicurazione sanitaria privata — obbligatoria per alcuni visti fino a SSN; tenere polizza attiva e copia in allegato se richiesto.",
+      "У каждого кода основания в форме MOD.209 свой набор приложений. До почты прочитайте инструкцию внутри жёлтого комплекта и актуальную таблицу почты. Общая база обычно такая: копия паспорта (страница данных и визы), гербовая марка, фотография формата карточки (это мягкая оценка по точному формату), договор аренды или декларация о гостеприимстве на адрес.",
+      "Частная медицинская страховка обязательна для части виз до записи в государственную систему. Держите полис действующим и положите копию в приложения, если её просят. Для пассивного дохода и цифрового кочевника в приложения иногда входят выписки о доходе. Главное: не несите «универсальную папку на все визы», а список из таблицы под ваш код.",
     ],
     bullets: [
-      "Marca da bollo — importo da tabella Poste per tipo permesso.",
-      "Fototessera — formato permesso elettronico (soft).",
-      "Contratto affitto registrato — per indirizzo dimora.",
-      "Polizza sanitaria — copia valida territorio IT.",
-      "Reddito — estratti conto per elective/DNV se richiesto in allegato.",
+      "Купите гербовую марку на сумму из таблицы почты для вашего типа разрешения.",
+      "Сделайте фото под электронное разрешение. Точный формат — мягкая оценка, сверьте гид.",
+      "Возьмите зарегистрированный договор аренды как подтверждение адреса проживания.",
+      "Положите копию медицинского полиса, действующего на территории Италии.",
+      "При пассивном доходе или визе кочевника приложите выписки, если они указаны в списке приложений.",
     ],
   },
   {
-    heading: "Расхождение: 8 giorni vs очередь Questura",
+    heading: "Расхождение: восемь дней и очередь в квестуре",
     section_kind: "gap",
     paragraphs: [
-      "Пропуск 8 giorni или потеря ricevuta кажется «исправимым», но к **4–6 месяцу** стекаются rinnovo contratto, banca domiciliazione и INPS. Permesso scaduto без rinnovo in corso — слабый профиль для employer и locatore.",
+      "Пропуск восьми дней или потеря квитанции кажется поправимой бытовой мелочью. К 4–6-му месяцу на это садятся продление договора аренды, банковское автосписание и соцстрах. Разрешение, которое истекло без идущего продления, слабо выглядит и для работодателя, и для арендодателя.",
+      "В чатах очередь в квестуру часто описывают так, будто сам восьмидневный срок можно сдвинуть. На сайте срок привязан к въезду, а очередь начинается уже после квитанции. Главное: продление готовят за 60 дней до окончания, не в день, когда карта перестала действовать.",
     ],
     bullets: [
-      "Sin ricevuta — сложнее доказать soggiorno legale banca.",
-      "Permesso scaduto — rischio multa e blocco rinnovo.",
-      "Rinnovo dimenticato — 60 gg prima scadenza, не «в день expiry».",
-      "Cambio indirizzo — comunicare Questura/Comune (soft).",
-      "Копировать форму другого государства — wrong country, lost weeks.",
+      "Без квитанции банку сложнее подтвердить законное пребывание. В чатах это откладывают «до пластика».",
+      "Истёкшее разрешение — риск штрафа и блока продления.",
+      "Не забывайте продление за 60 дней до окончания, не в день истечения.",
+      "О смене адреса сообщите квестуре и муниципалитету. Порядок сообщения — мягкая оценка.",
+      "Чужая форма другого государства — неверная страна и потерянные недели. На деле её не примут.",
     ],
   },
   {
-    heading: "Типичные ошибки permesso в Milano",
+    heading: "Типичные ошибки с разрешением на пребывание в Милане",
     section_kind: "practice",
     paragraphs: [
-      "Questura Milano загружена; ошибки в kit чаще дороже, чем лишний визит Patronato.",
+      "Квестура Милана загружена. Ошибка в комплекте обычно дороже лишнего визита в патронат. Ниже повторяются одни и те же срывы: календарные дни вместо рабочих, закрытый конверт, подача через знакомого и чужой код основания.",
+      "Отдельно не закрепляйте доход цифрового кочевника цифрой «28 тысяч евро» без консульства: индексированная сумма не проверена. И не ждите пластик, чтобы идти в банк: квитанции и налогового кода часто хватает. Это мягкая оценка по банкам, не гарантия каждого отделения. Главное: штамп в паспорте и виза D запускают отсчёт восьми рабочих дней.",
     ],
     bullets: [
-      "Ошибка: считать 8 giorni календарными — только **lavorativi**.",
-      "Ошибка: inviare kit chiuso — busta deve essere **aperta** in Sportello Amico.",
-      "Ошибка: delegare подачу — только interessato identificato.",
-      "Ошибка: DNV income «€28k» без проверки consolato — UNCHECKED indexed amount.",
-      "Ошибка: elective residence documents для nomade kit — wrong codice motivo.",
+      "Ошибка: считать 8 дней календарными. В срок входят только рабочие.",
+      "Ошибка: сдавать закрытый комплект. В окне почты конверт должен быть открыт.",
+      "Ошибка: отправить вместо себя другого человека. Идёт только сам заявитель с документом.",
+      "Ошибка: закладывать доход кочевника «28 тысяч евро» без сверки с консульством. Индексированная сумма не проверена.",
+      "Ошибка: класть документы пассивного дохода в комплект цифрового кочевника. Код основания будет неверным.",
       formatPracticeBullet({
         channels: ["digital_nomad_Italiya"],
         period: "2025–2026",
-        claim: "участники путали visto turistico Schengen с permesso после visto D",
-        forReader: "timbratura passaporto + visto D = старт отсчёta 8 giorni",
+        claim:
+          "туристическую шенгенскую визу путали с разрешением на пребывание после национальной визы D",
+        forReader: "штамп в паспорте и виза D запускают отсчёт восьми рабочих дней",
       }),
-      "Ошибка: ждать plastica для banca — ricevuta + CF часто достаточны (soft).",
+      "Ошибка: ждать пластиковую карту ради банка. Квитанции и налогового кода часто хватает. Это мягкая оценка.",
     ],
   },
   {
-    heading: "Wizard и Assist",
+    heading: "Мастер маршрута и Assist",
     section_kind: "practice",
     paragraphs: [
-      "Visto D, DNV, lavoro или famiglia — разные kit и allegati. [Emigro Wizard Italia](/ru/italy/wizard?utm_source=emigro&utm_medium=guide&utm_campaign=permesso-questura-milano&utm_content=" +
+      "Виза D, цифровой кочевник, найм и семья — это разные комплекты и разные приложения. [Мастер маршрута по Италии](/ru/italy/wizard?utm_source=emigro&utm_medium=guide&utm_campaign=permesso-questura-milano&utm_content=" +
         PERMESSO_QUESTURA_SLUG +
-        ") сопоставит track. [Assist €129](/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=permesso-questura-milano&utm_content=" +
+        ") сопоставит путь. [Проверка маршрута Assist за €129](/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=permesso-questura-milano&utm_content=" +
         PERMESSO_QUESTURA_SLUG +
-        ") — аудит 8 giorni и codice motivo.",
+        ") разбирает восьмидневный срок и код основания.",
+      "Рядом лежат налоговый код, календарь первого месяца и банк, которому часто показывают квитанцию. Главное: мастер не заменяет гид почты, но не даёт смешать четыре основания в один конверт.",
     ],
     bullets: [
-      "[Codice fiscale](/notes/" + CODICE_FISCALE_SLUG + ") — параллельно kit.",
-      "[30 дней orchestrator](/notes/" + PERVYE_30_SLUG + ").",
-      "[Банк](/notes/" + BANK_SLUG + ") — ricevuta permesso в KYC.",
+      "Параллельно откройте [налоговый код](/notes/" + CODICE_FISCALE_SLUG + ").",
+      "Календарь первого месяца — в [маршруте 30 дней](/notes/" + PERVYE_30_SLUG + ").",
+      "В [банк](/notes/" + BANK_SLUG + ") возьмите квитанцию о подаче пребывания на проверку личности.",
     ],
   },
 ];
 
 const keyTakeaways = [
-  "Официально: permesso entro 8 giorni lavorativi; kit postale Sportello Amico для многих motivi; rinnovo 60 gg prima scadenza.",
+  "Официально: разрешение на пребывание подают в течение 8 рабочих дней, для многих оснований — почтовым комплектом в окне Sportello Amico, а продление — за 60 дней до окончания.",
   formatPracticeTakeaway({
     channels: ["milanru", "forum_italy"],
     period: "2025–2026",
-    claim: "Milano track: kit Poste в первую неделю → ricevuta → convocazione Questura → plastica через mesi",
-    forReader: "используйте только Italy kit/Questura; Schengen 90/180 ≠ permesso",
+    claim:
+      "миланский путь такой: комплект на почте в первую неделю, затем квитанция, вызов в квестуру и пластиковая карта через несколько месяцев",
+    forReader: "используйте только итальянский комплект и квестуру: Шенген 90/180 — не разрешение на пребывание",
   }),
-  "Официально: nomade digitale — Decreto 29/02/2024 GU 79; reddito triplo soglia sanitaria — точная € UNCHECKED 2026.",
-  "На практике: без ricevuta к 4–6 месяцу страдают rinnovo contratto, banca e INPS.",
+  "Официально: цифровой кочевник описан декретом от 29.02.2024, вестник № 79. Доход — тройной порог медицинской льготы. Точная сумма в евро на 2026 год не проверена.",
+  "На практике: без квитанции к 4–6-му месяцу страдают продление договора аренды, банк и соцстрах.",
 ];
 
 const faq: CommunityNoteFaq[] = [
   {
-    q: "Сколько дней на подачу permesso после прилёта?",
-    a: "По правилам — 8 giorni lavorativi dall'ingresso. На практике kit в Poste лучше в первые 3–5 дней — очередь Sportello Amico.",
+    q: "Сколько дней есть на подачу разрешения после прилёта?",
+    a: "8 рабочих дней со дня въезда, не календарных. По правилам отсчёт идёт от штампа. На практике комплект лучше сдать в первые 3–5 дней: у окна почты бывает очередь.",
   },
   {
-    q: "Где сдать kit в Milano?",
-    a: "По правилам — Ufficio Postale Sportello Amico из elenco Poste. На практике проверьте PDF список на poste.it; адрес Questura — на poliziadistato.it.",
+    q: "Где сдать комплект в Милане?",
+    a: "Да, в почтовом отделении со стойкой Sportello Amico из списка почты. По правилам отделение берут из этого списка, не «любое окно». На практике PDF смотрят на poste.it, а адрес квестуры — на сайте полиции poliziadistato.it.",
   },
   {
-    q: "Permesso оформляют одной онлайн-записью?",
-    a: "По правилам — нет универсального flow: Italia использует kit postale + Questura либо direct Questura по motivo. На практике ricevuta kit подтверждает подачу до plastica.",
+    q: "Разрешение на пребывание оформляют одной онлайн-записью?",
+    a: "Нет. По правилам нет одной универсальной схемы: Италия использует почтовый комплект и квестуру либо прямую подачу в квестуру, в зависимости от основания. На практике квитанция комплекта подтверждает подачу, пока нет пластиковой карты.",
   },
   {
-    q: "Можно ли жить по Schengen без permesso с visto D?",
-    a: "По правилам visto D требует permesso entro 8 gg. На практике Schengen 90/180 без permesso — overstay risk.",
+    q: "Можно ли жить по Шенгену без разрешения, если уже есть виза D?",
+    a: "Нельзя. По правилам виза D требует разрешение в течение 8 рабочих дней. На практике жизнь по правилу 90/180 без этого разрешения — риск пребывания сверх срока.",
   },
   {
-    q: "Nomade digitale и elective residence — одно?",
-    a: "По правилам — нет: D.M. 29/02/2024 (nomade) vs visto elective (reddito passivo). На практике разные consolato packages и codici kit.",
+    q: "Цифровой кочевник и ВНЖ по пассивному доходу — это одно и то же?",
+    a: "Нет. По правилам декрет от 29.02.2024 описывает кочевника, а виза по пассивному доходу — отдельный доход без работы. На практике у консульства разные пакеты документов и разные коды в комплекте.",
   },
 ];
 
@@ -258,24 +262,24 @@ export const PERMESSO_QUESTURA_GUIDE = {
   slug: PERMESSO_QUESTURA_SLUG,
   category: "Миграция",
   content_kind: "guide" as ContentKind,
-  title: "Permesso di soggiorno Milano: Questura и kit postale 2026",
+  title: "Разрешение на пребывание (permesso) в Милане: квестура и почтовый комплект, 2026",
   excerpt:
-    "Permesso Questura Milano 2026: kit postale giallo, 8 giorni lavorativi, Sportello Amico Poste, convocazione immigrazione. Schengen ≠ permesso. DNV vs elective. Ricevuta и rinnovo 60 gg.",
-  seo_title: "Permesso di soggiorno в Милане 2026: Questura, kit",
+    "Разрешение на пребывание в Милане в 2026 году: жёлтый почтовый комплект, 8 рабочих дней, окно почты и вызов в миграционный отдел. Шенген — не это разрешение. Кочевник и пассивный доход различаются. Продление — за 60 дней.",
+  seo_title: "Permesso в Милане 2026: почта и квестура",
   seo_description:
-    "Permesso di soggiorno Milano 2026: Questura, kit postale, 8 giorni, Poste Sportello Amico. Schengen 90/180 ≠ permesso. RU/BY track для Como/Nord.",
+    "Разрешение на пребывание в Милане 2026: квестура, жёлтый почтовый комплект, 8 рабочих дней, окно почты. Шенген 90/180 — не ВНЖ. Маршрут RU/BY для Комо и севера.",
   quick_answer:
-    "После въезда по visto D extra-UE нужно запросить permesso di soggiorno у Questore entro 8 giorni lavorativi. Многие motivi подаются kit giallo MOD.209 в Poste Sportello Amico (busta aperta); Questura Milano convoca на rilievi. Ricevuta подтверждает подачу до plastica. Schengen 90/180 — не permesso. Rinnovo — 60 giorni prima scadenza; flow зависит от motivo.",
+    "После въезда по национальной визе D гражданину вне ЕС нельзя жить «просто по Шенгену». Разрешение на пребывание просят у квестора в течение 8 рабочих дней: многие основания сдают жёлтым комплектом формы MOD.209 в окне почты Sportello Amico, конверт оставляют открытым, а квестура Милана затем вызывает на отпечатки. Квитанция подтверждает подачу до пластиковой карты, продление готовят за 60 дней до окончания, и схема зависит от основания.",
   body_sections: bodySections,
   body_paragraphs: flattenBodySections(bodySections),
   key_takeaways: keyTakeaways,
   faq,
   official_links: [
-    { title: "Portale Immigrazione — procedura", url: "https://www.portaleimmigrazione.it/ITA/nuovaProcedura.html" },
-    { title: "Poste Italiane — permesso di soggiorno", url: "https://www.poste.it/guida-rilascio-e-rinnovo-permesso-di-soggiorno" },
-    { title: "Ministero dell'Interno", url: "https://www.interno.gov.it/" },
+    { title: "Портал иммиграции — процедура", url: "https://www.portaleimmigrazione.it/ITA/nuovaProcedura.html" },
+    { title: "Poste Italiane — разрешение на пребывание", url: "https://www.poste.it/guida-rilascio-e-rinnovo-permesso-di-soggiorno" },
+    { title: "Ministero dell'Interno — МВД", url: "https://www.interno.gov.it/" },
     {
-      title: "Integrazione migranti — permesso",
+      title: "Портал интеграции — разрешение на пребывание",
       url: "https://integrazionemigrati.gov.it/it-it/Altre-info/e/4/o/5/id/1/Il-permesso-di-soggiorno",
     },
   ],
