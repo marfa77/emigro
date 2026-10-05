@@ -226,9 +226,6 @@ export const COMO_EDITORIAL_ASSETS: ComoEditorialAsset[] = [
   },
 ];
 
-const TULIPANI_CREDIT_URL =
-  "https://comostay.net/en/apartment-tulipani-11---tremezzo?utm_source=emigro&utm_medium=guide&utm_campaign=lake_como_2026";
-
 const GREENWAY = "#1f7a4d";
 const MARTINO = "#c47b2b";
 const CROCIONE = "#9a3b3b";
@@ -261,15 +258,33 @@ function editorialPhoto(id: string, alt: string, caption: string): ComoPhoto {
   };
 }
 
-function stayPhoto(which: "balcony" | "living", alt: string, caption: string): ComoPhoto {
+function stayMediaUrl(guideSlug: string, destination: "tulipani" | "inventory"): string {
+  const url = new URL(
+    destination === "tulipani"
+      ? "https://comostay.net/en/apartment-tulipani-11---tremezzo"
+      : "https://comostay.net/en/",
+  );
+  url.searchParams.set("utm_source", "emigro");
+  url.searchParams.set("utm_medium", "guide");
+  url.searchParams.set("utm_campaign", "lake_como_2026");
+  url.searchParams.set("utm_content", `${guideSlug}-property-image-${destination}`);
+  return url.toString();
+}
+
+function stayPhoto(
+  guideSlug: string,
+  which: "balcony" | "living",
+  alt: string,
+  caption: string,
+): ComoPhoto {
   return {
     src: which === "balcony" ? "/images/como/tulipani-11-balcony.webp" : "/images/como/tulipani-11-living.webp",
     alt,
     caption,
     credit: "ComoStay · Tulipani 11",
-    creditUrl: TULIPANI_CREDIT_URL,
+    creditUrl: stayMediaUrl(guideSlug, "tulipani"),
     license: "ComoStay property photography",
-    licenseUrl: "https://comostay.net/en/",
+    licenseUrl: stayMediaUrl(guideSlug, "inventory"),
     width: 1200,
     height: 900,
   };
@@ -310,11 +325,13 @@ export const COMO_GUIDE_MEDIA: Record<string, ComoGuideMedia> = {
         "Vehicle ferry Lario at Cadenabbia with the car deck open. This is the Traghetto, not a Tremezzo passenger boat.",
       ),
       stayPhoto(
+        "lake-como-ferry-guide-timetables",
         "balcony",
         "Balcony at Apartment Tulipani 11 in Tremezzo",
         "Balcony at Tulipani 11 in a quiet part of Tremezzo. The listing puts the apartment 1.2 km from both the bus and the port.",
       ),
       stayPhoto(
+        "lake-como-ferry-guide-timetables",
         "living",
         "Living room at Apartment Tulipani 11 in Tremezzo",
         "Living room at Tulipani 11, a two-bedroom Tremezzo apartment for four, for the evening after the last useful boat.",
@@ -442,11 +459,13 @@ export const COMO_GUIDE_MEDIA: Record<string, ComoGuideMedia> = {
         "Hotel Olivedo and the Varenna ferry landing, the east-shore gateway toward Sentiero del Viandante. This frame is the waterfront, not the trail.",
       ),
       stayPhoto(
+        "lake-como-hiking-best-trails",
         "balcony",
         "Balcony at Apartment Tulipani 11 in Tremezzo",
         "Balcony at Tulipani 11 in Tremezzo, a four-guest base with a kitchen and washing machine after a wet or dusty trail.",
       ),
       stayPhoto(
+        "lake-como-hiking-best-trails",
         "living",
         "Living room at Apartment Tulipani 11 in Tremezzo",
         "Living room at Tulipani 11. The apartment sleeps four in two bedrooms and has two bathrooms, air conditioning and Wi-Fi.",
@@ -593,11 +612,13 @@ export const COMO_GUIDE_MEDIA: Record<string, ComoGuideMedia> = {
         "Lake façade of Villa Carlotta at Tremezzo, the shore a ski day leaves behind for the drive north. This frame is not the Madesimo ski area.",
       ),
       stayPhoto(
+        "madesimo-ski-trip-from-lake-como",
         "balcony",
         "Balcony at Apartment Tulipani 11 in Tremezzo",
         "Balcony at Tulipani 11 in Tremezzo. It suits a lake holiday that includes one ski day; consecutive ski days are better overnight in the valley.",
       ),
       stayPhoto(
+        "madesimo-ski-trip-from-lake-como",
         "living",
         "Living room at Apartment Tulipani 11 in Tremezzo",
         "Living room at Tulipani 11, with two bedrooms, two bathrooms, a kitchen and heating for the nights before or after Madesimo.",
@@ -733,11 +754,13 @@ export const COMO_GUIDE_MEDIA: Record<string, ComoGuideMedia> = {
         "Lakeside terrace and garden of Villa Monastero in Varenna. The guide points to the official hours page because month-by-month opening changes. A small notice hangs on the chain.",
       ),
       stayPhoto(
+        "lake-como-yellow-pages-transport-services",
         "balcony",
         "Balcony at Apartment Tulipani 11 in Tremezzo",
         "Balcony at Tulipani 11 in Tremezzo. The listing gives a direct host contact, a 16:00 check-in and a 10:00 check-out.",
       ),
       stayPhoto(
+        "lake-como-yellow-pages-transport-services",
         "living",
         "Living room at Apartment Tulipani 11 in Tremezzo",
         "Living room at Tulipani 11, a managed Tremezzo apartment for four with two bedrooms and two bathrooms.",
@@ -881,11 +904,13 @@ export const COMO_GUIDE_MEDIA: Record<string, ComoGuideMedia> = {
         "Chapel interior at Sacro Monte di Ossuccio, with its statue groups. This is the sanctuary climb above the village, not the lakeside Greenway.",
       ),
       stayPhoto(
+        "best-things-to-do-lake-como-tremezzo",
         "balcony",
         "Balcony at Apartment Tulipani 11 in Tremezzo",
         "Balcony at Tulipani 11 in Tremezzo, the base this guide uses for Villa Carlotta, the Greenway and the central-lake ferries.",
       ),
       stayPhoto(
+        "best-things-to-do-lake-como-tremezzo",
         "living",
         "Living room at Apartment Tulipani 11 in Tremezzo",
         "Living room at Tulipani 11, with two bedrooms, two bathrooms, a kitchen, washing machine, air conditioning and Wi-Fi.",

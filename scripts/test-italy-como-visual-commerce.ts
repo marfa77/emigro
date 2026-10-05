@@ -105,7 +105,21 @@ for (const guide of COMO_GUIDES) {
     assert.equal(meta.width, photo.width, `${photo.src}: width mismatch`);
     assert.equal(meta.height, photo.height, `${photo.src}: height mismatch`);
 
-    if (!PROPERTY_SRCS.has(photo.src)) {
+    if (PROPERTY_SRCS.has(photo.src)) {
+      for (const [urlString, destination] of [
+        [photo.creditUrl, "tulipani"],
+        [photo.licenseUrl, "inventory"],
+      ] as const) {
+        const url = new URL(urlString);
+        assert.equal(url.searchParams.get("utm_source"), "emigro");
+        assert.equal(url.searchParams.get("utm_medium"), "guide");
+        assert.equal(url.searchParams.get("utm_campaign"), "lake_como_2026");
+        assert.equal(
+          url.searchParams.get("utm_content"),
+          `${guide.slug}-property-image-${destination}`,
+        );
+      }
+    } else {
       const asset = COMO_EDITORIAL_ASSETS.find((item) => item.src === photo.src);
       assert.ok(asset, `${photo.src}: not an approved editorial asset`);
       assert.equal(photo.credit, asset.credit);
