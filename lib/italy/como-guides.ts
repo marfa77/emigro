@@ -31,10 +31,25 @@ export type ComoGuide = {
   officialSources: Array<{ title: string; url: string }>;
 };
 
-const COMO_STAY_URL =
-  "https://comostay.net/en/?utm_source=emigro&utm_medium=guide&utm_campaign=lake_como_2026";
-const TULIPANI_URL =
-  "https://comostay.net/en/apartment-tulipani-11---tremezzo?utm_source=emigro&utm_medium=guide&utm_campaign=lake_como_2026";
+export function comoStayUrl(
+  guideSlug: string,
+  placement: "early" | "context" | "final" | "property-image",
+  destination: "tulipani" | "inventory",
+): string {
+  const url = new URL(
+    destination === "tulipani"
+      ? "https://comostay.net/en/apartment-tulipani-11---tremezzo"
+      : "https://comostay.net/en/",
+  );
+  url.searchParams.set("utm_source", "emigro");
+  url.searchParams.set("utm_medium", "guide");
+  url.searchParams.set("utm_campaign", "lake_como_2026");
+  url.searchParams.set("utm_content", `${guideSlug}-${placement}-${destination}`);
+  return url.toString();
+}
+
+const COMO_STAY_URL = comoStayUrl("lake-como-hub", "context", "inventory");
+const TULIPANI_URL = comoStayUrl("lake-como-hub", "context", "tulipani");
 
 export const COMO_STAY = {
   siteUrl: COMO_STAY_URL,

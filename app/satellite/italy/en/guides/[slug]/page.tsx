@@ -2,8 +2,12 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ComoGuideMap } from "@/components/satellite/ComoGuideMap";
+import { ComoGuidePhoto } from "@/components/satellite/ComoGuidePhoto";
+import { ComoStayLink } from "@/components/satellite/ComoStayLink";
 import { parseInlineMarkdown } from "@/lib/community-notes/note-body-render";
-import { COMO_GUIDES, COMO_STAY, getComoGuide } from "@/lib/italy/como-guides";
+import { COMO_GUIDES, comoStayUrl, getComoGuide } from "@/lib/italy/como-guides";
+import { getComoGuideMedia } from "@/lib/italy/como-media";
 import { italySatelliteUrl } from "@/lib/site-url";
 
 export function generateStaticParams() {
@@ -12,7 +16,9 @@ export function generateStaticParams() {
 
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
   const guide = getComoGuide(params.slug);
-  if (!guide) return {};
+  const media = getComoGuideMedia(params.slug);
+  if (!guide || !media) return {};
+  const hero = media.photos[0];
   const canonical = italySatelliteUrl(`/en/guides/${guide.slug}`);
   return {
     title: guide.seoTitle,
@@ -29,16 +35,19 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
       siteName: "Emigro Lake Como",
       locale: "en_GB",
       type: "article",
-      images: [{ url: italySatelliteUrl(guide.hero), width: 1200, height: 630, alt: guide.heroAlt }],
+      images: [{ url: italySatelliteUrl(hero.src), width: hero.width, height: hero.height, alt: hero.alt }],
     },
-    twitter: { card: "summary_large_image", title: guide.seoTitle, description: guide.description, images: [italySatelliteUrl(guide.hero)] },
+    twitter: { card: "summary_large_image", title: guide.seoTitle, description: guide.description, images: [italySatelliteUrl(hero.src)] },
     other: { "ai:description": guide.quickAnswer },
   };
 }
 
 export default function ComoGuidePage({ params }: { params: { slug: string } }) {
   const guide = getComoGuide(params.slug);
-  if (!guide) notFound();
+  const media = getComoGuideMedia(params.slug);
+  if (!guide || !media) notFound();
+  const hero = media.photos[0];
+  const photosBySrc = new Map(media.photos.map((photo) => [photo.src, photo]));
 
   const canonical = italySatelliteUrl(`/en/guides/${guide.slug}`);
   const articleSchema = {
@@ -46,7 +55,7 @@ export default function ComoGuidePage({ params }: { params: { slug: string } }) 
     "@type": "Article",
     headline: guide.title,
     description: guide.description,
-    image: italySatelliteUrl(guide.hero),
+    image: italySatelliteUrl(hero.src),
     datePublished: guide.updated,
     dateModified: guide.updated,
     inLanguage: "en",
@@ -103,12 +112,9 @@ export default function ComoGuidePage({ params }: { params: { slug: string } }) 
         </p>
       </header>
 
-      <figure className="mt-7 overflow-hidden rounded-2xl border border-slate-200 bg-slate-100">
-        <Image src={guide.hero} alt={guide.heroAlt} width={1200} height={630} className="aspect-[1200/630] h-auto w-full object-cover" priority />
-        <figcaption className="bg-white px-3 py-2 text-right text-xs text-slate-500">
-          Photo: <a href={guide.heroCreditUrl} target="_blank" rel="noopener noreferrer" className="underline">Pexels</a>
-        </figcaption>
-      </figure>
+      <div className="mt-7">
+        <ComoGuidePhoto photo={hero} priority />
+      </div>
 
       <section className="mt-8 rounded-2xl border border-emerald-200 bg-emerald-50 p-5" aria-labelledby="quick-answer">
         <p className="text-xs font-bold uppercase tracking-wide text-emerald-900">Quick answer</p>
@@ -116,15 +122,25 @@ export default function ComoGuidePage({ params }: { params: { slug: string } }) 
         <p className="mt-2 leading-relaxed text-slate-800">{guide.quickAnswer}</p>
       </section>
 
+      <ComoGuideMap map={media.map} />
+
       <aside className="mt-8 overflow-hidden rounded-2xl border border-slate-200 bg-slate-950 text-white" data-llm="commercial">
         <div className="grid sm:grid-cols-[13rem_1fr]">
-          <Image
-            src="/images/como/tulipani-11-balcony.webp"
-            alt="Tulipani 11 apartment in Tremezzo"
-            width={800}
-            height={600}
-            className="h-full min-h-48 w-full object-cover"
-          />
+          <ComoStayLink
+            href={comoStayUrl(guide.slug, "property-image", "tulipani")}
+            guideSlug={guide.slug}
+            placement="property-image"
+            destination="tulipani"
+            aria-label="View Apartment Tulipani 11"
+          >
+            <Image
+              src="/images/como/tulipani-11-balcony.webp"
+              alt="Tulipani 11 apartment in Tremezzo"
+              width={800}
+              height={600}
+              className="h-full min-h-48 w-full object-cover"
+            />
+          </ComoStayLink>
           <div className="p-5 sm:p-6">
             <p className="text-xs font-bold uppercase tracking-wide text-emerald-300">Featured Tremezzo stay</p>
             <h2 className="mt-2 text-xl font-bold">Apartment Tulipani 11</h2>
@@ -132,19 +148,36 @@ export default function ComoGuidePage({ params }: { params: { slug: string } }) 
               Four guests, two bedrooms, two bathrooms, balcony, kitchen, air conditioning and Wi-Fi.
             </p>
             <div className="mt-4 flex flex-wrap gap-3">
-              <a href={COMO_STAY.tulipaniUrl} rel="sponsored" className="rounded-lg bg-emerald-500 px-4 py-2 text-sm font-bold text-emerald-950">
+              <ComoStayLink
+                href={comoStayUrl(guide.slug, "early", "tulipani")}
+                guideSlug={guide.slug}
+                placement="early"
+                destination="tulipani"
+                className="rounded-lg bg-emerald-500 px-4 py-2 text-sm font-bold text-emerald-950"
+              >
                 Check Tulipani 11
-              </a>
-              <a href={COMO_STAY.siteUrl} rel="sponsored" className="rounded-lg border border-slate-600 px-4 py-2 text-sm font-semibold text-white">
+              </ComoStayLink>
+              <ComoStayLink
+                href={comoStayUrl(guide.slug, "early", "inventory")}
+                guideSlug={guide.slug}
+                placement="early"
+                destination="inventory"
+                className="rounded-lg border border-slate-600 px-4 py-2 text-sm font-semibold text-white"
+              >
                 All ComoStay homes
-              </a>
+              </ComoStayLink>
             </div>
           </div>
         </div>
       </aside>
 
       <article className="mt-10 space-y-10">
-        {guide.sections.map((section) => (
+        {guide.sections.map((section) => {
+          const sectionPhotos = (media.sectionPhotos[section.heading] ?? [])
+            .map((src) => photosBySrc.get(src))
+            .filter((photo): photo is NonNullable<typeof photo> => Boolean(photo));
+
+          return (
           <section key={section.heading} aria-labelledby={`section-${section.heading.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}>
             <h2 id={`section-${section.heading.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`} className="text-2xl font-bold tracking-tight text-slate-950">
               {section.heading}
@@ -173,20 +206,16 @@ export default function ComoGuidePage({ params }: { params: { slug: string } }) 
                 {section.bullets.map((bullet) => <li key={bullet.slice(0, 70)}>{parseInlineMarkdown(bullet)}</li>)}
               </ul>
             )}
-            {section.images && (
+            {sectionPhotos.length > 0 && (
               <div className="mt-6 grid gap-5 sm:grid-cols-2">
-                {section.images.map((image) => (
-                  <figure key={image.src} className="overflow-hidden rounded-xl border border-slate-200 bg-white">
-                    <Image src={image.src} alt={image.alt} width={900} height={675} className="aspect-[4/3] h-auto w-full object-cover" />
-                    <figcaption className="p-3 text-xs leading-relaxed text-slate-500">
-                      {image.caption} Photo: <a href={image.creditUrl} rel="sponsored" className="underline">{image.credit}</a>.
-                    </figcaption>
-                  </figure>
+                {sectionPhotos.map((photo) => (
+                  <ComoGuidePhoto key={photo.src} photo={photo} />
                 ))}
               </div>
             )}
           </section>
-        ))}
+          );
+        })}
       </article>
 
       <section className="mt-12" aria-labelledby="official-sources">
@@ -221,8 +250,24 @@ export default function ComoGuidePage({ params }: { params: { slug: string } }) 
           Start with Tulipani 11 for four guests, then browse the full ComoStay inventory if you need different dates, capacity or location.
         </p>
         <div className="mt-5 flex flex-wrap gap-3">
-          <a href={COMO_STAY.tulipaniUrl} rel="sponsored" className="rounded-lg bg-white px-4 py-2.5 text-sm font-bold text-emerald-950">View Tulipani 11</a>
-          <a href={COMO_STAY.siteUrl} rel="sponsored" className="rounded-lg border border-emerald-500 px-4 py-2.5 text-sm font-bold text-white">Browse ComoStay</a>
+          <ComoStayLink
+            href={comoStayUrl(guide.slug, "final", "tulipani")}
+            guideSlug={guide.slug}
+            placement="final"
+            destination="tulipani"
+            className="rounded-lg bg-white px-4 py-2.5 text-sm font-bold text-emerald-950"
+          >
+            View Tulipani 11
+          </ComoStayLink>
+          <ComoStayLink
+            href={comoStayUrl(guide.slug, "final", "inventory")}
+            guideSlug={guide.slug}
+            placement="final"
+            destination="inventory"
+            className="rounded-lg border border-emerald-500 px-4 py-2.5 text-sm font-bold text-white"
+          >
+            Browse ComoStay
+          </ComoStayLink>
         </div>
       </section>
 

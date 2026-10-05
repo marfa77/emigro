@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { COMO_GUIDES, COMO_STAY } from "@/lib/italy/como-guides";
+import { ComoStayLink } from "@/components/satellite/ComoStayLink";
+import { COMO_GUIDES, comoStayUrl } from "@/lib/italy/como-guides";
+import { getComoGuideMedia } from "@/lib/italy/como-media";
 import { italySatelliteUrl } from "@/lib/site-url";
 
 const description =
   "Independent, fact-checked Lake Como guides from a Tremezzo base: ferries, hiking, Madesimo skiing, transport and the best things to do in 2026.";
+const hubHero = getComoGuideMedia("best-things-to-do-lake-como-tremezzo")?.photos[0];
 
 export const metadata: Metadata = {
   title: "Lake Como 2026: practical guides from Tremezzo",
@@ -20,7 +23,9 @@ export const metadata: Metadata = {
     url: italySatelliteUrl("/en"),
     type: "website",
     locale: "en_GB",
-    images: [{ url: italySatelliteUrl("/images/como/lake-como-attractions.webp"), width: 1200, height: 630 }],
+    images: hubHero
+      ? [{ url: italySatelliteUrl(hubHero.src), width: hubHero.width, height: hubHero.height, alt: hubHero.alt }]
+      : undefined,
   },
 };
 
@@ -68,23 +73,33 @@ export default function ComoEnglishHubPage() {
             use the lake—not lose a day to an expired timetable.
           </p>
           <div className="mt-7 flex flex-wrap gap-3">
-            <a
-              href={COMO_STAY.tulipaniUrl}
+            <ComoStayLink
+              href={comoStayUrl("lake-como-hub", "early", "tulipani")}
+              guideSlug="lake-como-hub"
+              placement="early"
+              destination="tulipani"
               className="rounded-lg bg-emerald-800 px-5 py-3 text-sm font-semibold text-white hover:bg-emerald-900"
-              rel="sponsored"
             >
               Stay at Tulipani 11
-            </a>
-            <a
-              href={COMO_STAY.siteUrl}
+            </ComoStayLink>
+            <ComoStayLink
+              href={comoStayUrl("lake-como-hub", "early", "inventory")}
+              guideSlug="lake-como-hub"
+              placement="early"
+              destination="inventory"
               className="rounded-lg border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-800 hover:border-emerald-700"
-              rel="sponsored"
             >
               Browse all ComoStay homes
-            </a>
+            </ComoStayLink>
           </div>
         </div>
-        <a href={COMO_STAY.tulipaniUrl} rel="sponsored" className="group overflow-hidden rounded-2xl bg-slate-100">
+        <ComoStayLink
+          href={comoStayUrl("lake-como-hub", "property-image", "tulipani")}
+          guideSlug="lake-como-hub"
+          placement="property-image"
+          destination="tulipani"
+          className="group overflow-hidden rounded-2xl bg-slate-100"
+        >
           <Image
             src="/images/como/tulipani-11-balcony.webp"
             alt="Apartment Tulipani 11 in Tremezzo"
@@ -97,7 +112,7 @@ export default function ComoEnglishHubPage() {
             <p className="font-semibold">Apartment Tulipani 11 · Tremezzo</p>
             <p className="mt-1 text-sm text-slate-300">4 guests · 2 bedrooms · 2 bathrooms · balcony</p>
           </div>
-        </a>
+        </ComoStayLink>
       </div>
 
       <section className="mt-14" aria-labelledby="guides-heading">
@@ -111,14 +126,18 @@ export default function ComoEnglishHubPage() {
           <p className="hidden text-sm text-slate-500 sm:block">Updated 5 October 2026</p>
         </div>
         <div className="mt-7 grid gap-6 md:grid-cols-2">
-          {COMO_GUIDES.map((guide) => (
+          {COMO_GUIDES.map((guide) => {
+            const hero = getComoGuideMedia(guide.slug)?.photos[0];
+            if (!hero) return null;
+            return (
             <article key={guide.slug} className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
               <Link href={`/en/guides/${guide.slug}`} className="group block">
                 <Image
-                  src={guide.hero}
-                  alt={guide.heroAlt}
-                  width={1200}
-                  height={630}
+                  src={hero.src}
+                  alt={hero.alt}
+                  width={hero.width}
+                  height={hero.height}
+                  sizes="(min-width: 768px) 480px, calc(100vw - 32px)"
                   className="aspect-[1200/630] h-auto w-full object-cover transition duration-300 group-hover:scale-[1.02]"
                 />
                 <div className="p-5">
@@ -131,7 +150,8 @@ export default function ComoEnglishHubPage() {
                 </div>
               </Link>
             </article>
-          ))}
+            );
+          })}
         </div>
       </section>
 
@@ -143,12 +163,24 @@ export default function ComoEnglishHubPage() {
           accommodation search on Lake Como instead of sending readers to an unrelated global booking funnel.
         </p>
         <div className="mt-5 flex flex-wrap gap-3">
-          <a href={COMO_STAY.tulipaniUrl} rel="sponsored" className="rounded-lg bg-white px-4 py-2.5 text-sm font-bold text-emerald-950">
+          <ComoStayLink
+            href={comoStayUrl("lake-como-hub", "final", "tulipani")}
+            guideSlug="lake-como-hub"
+            placement="final"
+            destination="tulipani"
+            className="rounded-lg bg-white px-4 py-2.5 text-sm font-bold text-emerald-950"
+          >
             View Tulipani 11
-          </a>
-          <a href={COMO_STAY.siteUrl} rel="sponsored" className="rounded-lg border border-emerald-500 px-4 py-2.5 text-sm font-bold text-white">
+          </ComoStayLink>
+          <ComoStayLink
+            href={comoStayUrl("lake-como-hub", "final", "inventory")}
+            guideSlug="lake-como-hub"
+            placement="final"
+            destination="inventory"
+            className="rounded-lg border border-emerald-500 px-4 py-2.5 text-sm font-bold text-white"
+          >
             See all ComoStay apartments
-          </a>
+          </ComoStayLink>
         </div>
       </section>
     </main>

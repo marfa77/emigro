@@ -125,6 +125,8 @@
     "italy:post-group": "tsx scripts/italy-post-group-note.ts",
     "italy:generate-note-images": "tsx scripts/italy-generate-note-images.ts",
     "italy:upsert-editorial": "tsx scripts/italy-upsert-editorial.ts",
+    "italy:test-como-visuals": "tsx scripts/test-italy-como-visual-commerce.ts",
+    "italy:download-como-media": "tsx scripts/italy-como-download-media.ts",
     "thailand:daily": "tsx scripts/thailand-community-daily.ts",
     "thailand:post-group": "tsx scripts/thailand-post-group-note.ts",
     "thailand:generate-note-images": "tsx scripts/thailand-generate-note-images.ts",
