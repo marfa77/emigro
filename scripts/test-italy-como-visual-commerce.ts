@@ -39,6 +39,10 @@ for (const placement of ["early", "context", "final", "property-image"] as const
     assert.equal(url.searchParams.get("utm_medium"), "guide");
     assert.equal(url.searchParams.get("utm_campaign"), "lake_como_2026");
     assert.equal(url.searchParams.get("utm_content"), `test-guide-${placement}-${destination}`);
+    assert.equal(
+      url.pathname,
+      destination === "tulipani" ? "/en/apartment-tulipani-11---tremezzo" : "/",
+    );
   }
 }
 assert.match(

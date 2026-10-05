@@ -262,7 +262,7 @@ function stayMediaUrl(guideSlug: string, destination: "tulipani" | "inventory"):
   const url = new URL(
     destination === "tulipani"
       ? "https://comostay.net/en/apartment-tulipani-11---tremezzo"
-      : "https://comostay.net/en/",
+      : "https://comostay.net/",
   );
   url.searchParams.set("utm_source", "emigro");
   url.searchParams.set("utm_medium", "guide");
