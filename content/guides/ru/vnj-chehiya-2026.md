@@ -1,15 +1,15 @@
 ---
 slug: vnj-chehiya-2026
 title: "ВНЖ Чехия 2026: employee card, Blue Card и živnost для RU/UA/BY/KZ"
-seo_title: "ВНЖ Чехия 2026 — employee card и Blue Card пороги"
-seo_description: "ВНЖ Чехия 2026 для RU/UA/BY/KZ: employee card от CZK 22 400, Blue Card CZK 73 823 с 01.05.2026, živnost IT. Сроки MOI и wizard."
+seo_title: "ВНЖ Чехия 2026 — employee card CZK 22 400, Blue Card"
+seo_description: "Чехия 2026 для RU/UA/BY/KZ: employee card от CZK 22 400, Blue Card CZK 73 823 с 01.05.2026. РФ/BY вне CZ — визы часто закрыты. Wizard /ru/czechia."
 excerpt: "Чехия — Prague и Brno для IT: employee card, Blue Card, živnost и учёба — с порогами зарплат и сроками MOI 2026."
 quick_answer: |-
   Основные маршруты: employee card от CZK 22 400 брутто в месяц; EU Blue Card CZK 73 823 с 1 мая 2026; živnost в IT — ориентир около €2 500; учёба — средства по формуле MOI около CZK 115 810 на 12 месяцев (не 149 тысяч); с accredited degree можно работать без лимита 20 часов в неделю; семья.
 
-  ПМЖ около 5 лет. Гражданство: 5 лет на ПМЖ плюс B1 или ПМЖ плюс предшествующий легальный stay не меньше 10 лет суммарно (zákon 186/2013).
+  Для паспортов РФ/BY подача виз и ВНЖ из-за рубежа с 2022 часто **закрыта** (исключения: интерес государства, семья резидента и др.) — сверяйте актуальный правительственный порядок. UA/KZ и уже легально находящиеся в CZ — другой трек.
 
-  Сравнение с Польшей — в [wizard по Чехии](/ru/czechia/wizard).
+  ПМЖ около 5 лет. Гражданство: 5 лет на ПМЖ плюс B1 или ПМЖ плюс предшествующий легальный stay не меньше 10 лет суммарно (zákon 186/2013). Сравнение с Польшей — в [wizard по Чехии](/ru/czechia/wizard).
 corridor_slugs: [ru-speaking-to-czechia]
 topic_keys: [czechia, work, visa]
 tags: [Чехия, ВНЖ, Blue Card, živnost, employee card, 2026, CZ]
@@ -33,14 +33,14 @@ official_sources:
     label: gov.cz — гражданство (условия проживания)
 estimated_minutes: 18
 date_published: 2026-06-29
-date_modified: 2026-09-19
+date_modified: 2026-10-05
 ---
 
 ## Кому подходит этот гайд
 
 Чехия — employee card и Blue Card, не «živnost с ноутбуком = ВНЖ». Prague/Brno IT — рынок, закон считает зарплату и основание.
 
-> **Nota Emigro (fact-check, сентябрь 2026).** **OK:** employee card от **CZK 22 400** брутто/мес. Blue Card **CZK 73 823** с **01.05.2026**. Учёба: средства ~**CZK 115 810**/12 мес (не 149k). Accredited degree → работа без лимита 20 ч/нед. ПМЖ ~**5 лет**. Гражданство: **5 лет на ПМЖ + B1** или ПМЖ + предшествующий stay ≥**10 лет** (zákon 186/2013). živnost «~€2 500» — рынок, не порог закона. Язык паспорта — **B1**, не A2. [CCE на Prep2Go пока нет](https://www.prep2go.study/practice-exam?utm_source=emigro&utm_medium=guide&utm_campaign=prep2go_czechia&utm_content=vnj-chehiya-2026) — честный practice-exam, не подмена экзамена.
+> **Nota Emigro (fact-check, октябрь 2026).** **OK:** employee card от **CZK 22 400** брутто/мес ([MPSV 356/2025](https://www.zakonyprolidi.cz/cs/2025-356)). Blue Card **CZK 73 823** с **01.05.2026** ([MPSV 44/2026](https://ceskezakony.cz/en/zakon/44-2026), 1,5× avg). Учёба: средства ~**CZK 115 810**/12 мес (не 149k). Accredited degree → работа без лимита 20 ч/нед. ПМЖ ~**5 лет**. Гражданство: **5 лет на ПМЖ + B1** или ПМЖ + предшествующий stay ≥**10 лет**. živnost «~€2 500» — рынок, не порог закона. **Soft / Fixed:** для **РФ/BY вне территории CZ** выдача виз и ВНЖ с 2022 обычно **приостановлена** (исключения: интерес государства, семья резидента, отдельные стипендии BY и др.) — не планируйте «консульство РФ → employee card» как дефолт; сверяйте актуальный правительственный порядок. [CCE на Prep2Go пока нет](https://www.prep2go.study/practice-exam?utm_source=emigro&utm_medium=guide&utm_campaign=prep2go_czechia&utm_content=vnj-chehiya-2026).
 
 Для граждан **России, Украины, Беларуси, Казахстана** и других стран вне EU/EEA, которые рассматривают **долгосрочный pobyt (ВНЖ) в Чехии** в 2026 году.
 
@@ -249,7 +249,9 @@ Civics readiness: [Czech citizenship mock на UniPrep2Go](https://uniprep2go.st
 
 ### Можно ли подать на employee card из России?
 
-Обычно нужен **long-term visa D** через консульство, затем подача **в MOI внутри CZ**. Консульская подача на карту — редко. См. [консульская подача](/ru/guides/konsulskaya-podacha-rf-by-kz-2026-yurisdiktsiya).
+**Soft / Fixed (окт 2026):** для граждан **РФ и BY**, находящихся **вне** территории Чехии, выдача виз и ВНЖ с 2022 обычно **приостановлена** (исключения: интерес государства, семья резидента с ВНЖ в CZ, отдельные стипендии для BY и др.). Не рассчитывайте на «консульство в РФ → D/VR → карта» как стандартный путь — сверяйте актуальный правительственный порядок на дату подачи.
+
+Если вы уже **легально** в CZ (другое основание / TP для UA) или ваш паспорт **UA/KZ** без этой блокировки — типичный трек: **long-term visa / card** через консульство или подача **в MOI внутри CZ**. См. [консульская подача](/ru/guides/konsulskaya-podacha-rf-by-kz-2026-yurisdiktsiya).
 
 ### CZ или PL для IT с €2 500/мес?
 

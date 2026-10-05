@@ -4,6 +4,8 @@ import { advanceInvestmentLead } from "@/app/admin/leads/actions";
 import { uniqueInvestmentCountries } from "@/lib/investment/registry";
 import { partnerDemandState } from "@/lib/investment/partners";
 
+export const dynamic = "force-dynamic";
+
 type LeadPacket = {
   budget_eur?: unknown;
   asset?: unknown;

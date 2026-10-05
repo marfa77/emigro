@@ -2,9 +2,9 @@
 slug: pervye-30-dnej-v-chehii-2026
 title: "Первые 30 дней в Чехии 2026: rodné číslo, pobyt, банк, VZP"
 seo_title: "Первые 30 дней в Чехии 2026 — rodné číslo, банк, VZP"
-seo_description: "Чек-лист после прилёта в Чехию: rodné číslo, адрес u MVČR, банк Fio/ČSOB, VZP, SIM, biometric card. Для RU/UA/BY/KZ. 2026."
+seo_description: "Чек-лист после прилёта в Чехию: адрес за 3 раб. дня (cizinecká policie), rodné číslo, банк Fio/ČSOB, VZP, biometrics. RU/UA/BY/KZ → /ru/czechia/wizard."
 excerpt: "Employee Card или živnost — первый месяц: rodné číslo, регистрация адреса, банк, VZP и biometric dočasný pobyt."
-quick_answer: "Первые 30 дней: (1) long-stay visa → регистрация адреса в MOI/MVČR в 3 рабочих дня, (2) rodné číslo (RČ) через úřad, (3) SIM (Vodafone/O2/T-Mobile), (4) банк Fio/ČSOB/Raiffeisen (IBAN CZ), (5) VZP или коммерческая страховка, (6) biometric card pobyt. Без RČ и адреса не откроете счёт."
+quick_answer: "Первые 30 дней после long-stay: (1) огласить место pobytu в **cizinecká policie** в **3 рабочих дня** с даты въезда (отель/UBYPORT часто делает за вас), (2) nájemní smlouva + souhlas vlastníka, (3) rodné číslo (RČ), (4) SIM, (5) банк Fio/ČSOB/Raiffeisen (IBAN CZ), (6) VZP или komerční pojištění, (7) biometrics / potvrzení MOI. Смена адреса при long-term pobyt — обычно **30 дней** в MOI (не 3 дня). Без адреса и RČ счёт не откроете."
 corridor_slugs: [ru-speaking-to-czechia]
 topic_keys: [czechia, checklist, arrival]
 tags: [Чехия, чеклист, 2026, rodné číslo, VZP, pobyt]
@@ -18,11 +18,13 @@ official_sources:
     label: MOI — imigrace
   - url: https://www.vzp.cz/
     label: VZP — health insurance
-  - url: https://ipc.gov.cz/en/
-    label: IPC — portal for foreigners (CZ)
+  - url: https://ipc.gov.cz/en/obligations-for-foreigners/registration-after-arrival/
+    label: IPC — registration after arrival (3 working days)
+  - url: https://policie.gov.cz/clanek/reporting-of-the-place-of-aliens-residence.aspx
+    label: Policie ČR — reporting place of residence
 estimated_minutes: 12
 date_published: 2026-06-29
-date_modified: 2026-07-07
+date_modified: 2026-10-05
 ---
 
 ## Кому этот чек-лист
@@ -33,7 +35,9 @@ date_modified: 2026-07-07
 - ждут **biometric dočasný pobyt** после подачи в MOI;
 - уже в CZ по **temporary protection** (UA) и переходят на employee card.
 
-Не гайд по визе — [ВНЖ Чехия 2026](/ru/guides/vnj-chehiya-2026).
+Не гайд по визе — [ВНЖ Чехия 2026](/ru/guides/vnj-chehiya-2026). Для РФ/BY вне CZ визы/ВНЖ часто закрыты — см. pillar.
+
+> **Nota Emigro (fact-check, октябрь 2026).** **OK / Fixed:** первичная регистрация места pobytu — **3 рабочих дня** с **даты въезда** в **cizinecká policie** ([Policie ČR](https://policie.gov.cz/clanek/reporting-of-the-place-of-aliens-residence.aspx), [IPC](https://ipc.gov.cz/en/obligations-for-foreigners/registration-after-arrival/)); если регистрацию сделал ubytovatel (UBYPORT) — отдельный визит не нужен. **Fixed:** смена адреса при long-term visa/pobyt — **30 дней** в MOI (если новый адрес >30 дней), **не** «3 дня» как при въезде ([IPC change of address](https://ipc.gov.cz/en/obligations-for-foreigners/changes-with-third-country-nationals/change-of-address/)). Сбор карты **CZK 2 500** — ориентир. **Soft:** сроки MOI biometrics — поле.
 
 ---
 
@@ -58,16 +62,15 @@ date_modified: 2026-07-07
 
 ## Неделя 1: регистрация адреса (обязательно!)
 
-**Срок:** **3 рабочих дня** после заселения — регистрация в **MOI / foreign police** или через **Czech Point**.
+**Срок (въезд):** **3 рабочих дня** с **даты въезда** — огласить место pobytu в **cizinecká policie** (Foreign Police) по адресу проживания. Если вас зарегистрировал **ubytovatel** (отель, dorm, UBYPORT) — отдельный визит обычно не нужен. Источник: [Policie ČR](https://policie.gov.cz/clanek/reporting-of-the-place-of-aliens-residence.aspx), [IPC](https://ipc.gov.cz/en/obligations-for-foreigners/registration-after-arrival/).
 
-**Документы:** pasport, nájemní smlouva, souhlas vlastníka.
+**Документы (если идёте сами):** pasport, registration form, travel medical insurance; для долгосрочного жилья — nájemní smlouva / souhlas vlastníka.
 
-**Штраф** за просрочку — до CZK 10 000.
+**Штраф** за просрочку — до CZK 10 000 (ориентир; сверяйте актуальное).
 
-Без регистрации адреса — нет RČ, банка, VZP enrollment.
+Без зарегистрированного адреса — сложнее RČ, банк, VZP enrollment.
 
-Официально: [imigration.gov.cz](https://imigration.gov.cz/en/)
-
+**Смена адреса позже** (long-term visa / long-term / permanent residence): сообщите в **MOI** в течение **30 дней**, если новый адрес на **>30 дней** — это **не** правило «3 дня» при въезде ([IPC — change of address](https://ipc.gov.cz/en/obligations-for-foreigners/changes-with-third-country-nationals/change-of-address/)).
 ---
 
 ## Неделя 2: rodné číslo (RČ)
@@ -126,7 +129,7 @@ date_modified: 2026-07-07
 
 - Храните **potvrzení** и копии dossier.
 - OSVČ: ведите **IČO + DPH** с первого месяца (účetní).
-- Не нарушайте срок регистрации адреса при переезде — **3 дня** на новую регистрацию.
+- Не нарушайте срок **смены** адреса при переезде — для long-term pobyt обычно **30 дней** в MOI (если новый адрес >30 дней), не путайте с **3 рабочими днями** при въезде.
 
 ---
 
@@ -152,7 +155,7 @@ date_modified: 2026-07-07
 
 - [ ] SIM-карта CZ
 - [ ] Nájemní smlouva + souhlas vlastníka
-- [ ] Регистрация адреса (3 дня!)
+- [ ] Регистрация адреса при въезде (3 раб. дня / ubytovatel)
 - [ ] Rodné číslo (RČ)
 - [ ] Банковский счёт (IBAN CZ)
 - [ ] VZP или komerční pojištění
@@ -160,12 +163,13 @@ date_modified: 2026-07-07
 - [ ] Termín MOI / biometrics submitted
 - [ ] Potvrzení o převzetí žádosti
 - [ ] Копии документов в облаке
+- [ ] При переезде: смена адреса в MOI ≤30 дней (если >30 дней на новом)
 
 ---
 
 ## Частые ошибки
 
-1. **Пропуск регистрации адреса (3 дня)** — штраф и блок банка.
+1. **Пропуск регистрации при въезде (3 раб. дня)** — штраф и блок банка; путаница с **30 днями** на смену адреса при long-term pobyt.
 2. **Ждать карту, чтобы открыть банк** — RČ + адрес → bank.
 3. **Только Revolut** — для odvody нужен **Czech IBAN**.
 4. **OSVČ без účetní** — ошибки в DPH/odvodech → риск отказа в продлении.
@@ -200,10 +204,11 @@ MOI: **4–9 мес.** реалистично (Prague); **по закону 60 �
 ## Официальные источники
 
 - [MOI — employee card](https://imigration.gov.cz/en/third-country-nationals/employment/employee-card/)
-- [IPC — portal for foreigners](https://ipc.gov.cz/en/)
+- [IPC — registration after arrival](https://ipc.gov.cz/en/obligations-for-foreigners/registration-after-arrival/)
+- [Policie ČR — reporting place of residence](https://policie.gov.cz/clanek/reporting-of-the-place-of-aliens-residence.aspx)
+- [IPC — change of address](https://ipc.gov.cz/en/obligations-for-foreigners/changes-with-third-country-nationals/change-of-address/)
 - [VZP](https://www.vzp.cz/)
 - [MPSV](https://www.mpsv.cz/en/)
-
 ---
 
 ## Связанные материалы

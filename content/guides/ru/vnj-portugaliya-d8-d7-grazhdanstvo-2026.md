@@ -2,8 +2,8 @@
 slug: vnj-portugaliya-d8-d7-grazhdanstvo-2026
 title: "D8 и D7 Португалия 2026 — ВНЖ, AIMA и гражданство"
 seo_title: "D8 Португалия 2026: €3 680 + AIMA — RU/BY/UA"
-seo_description: "D8 digital nomad и D7 Португалия 2026: €3 680 / €920, AIMA, NIF, гражданство 10 лет. Pillar-гид + практика для RU/BY/UA/KZ."
-date_modified: 2026-09-30
+seo_description: "D8 ~€3 680 / D7 ~€920 (RMMG), AIMA биометрия часто 8–24 мес., не турист→AIMA. ПМЖ 5 лет, гражданство 10 лет с 19.05.2026. Для RU/BY/UA/KZ → wizard."
+date_modified: 2026-10-05
 excerpt: "Полный разбор виз D7 и D8, подачи в AIMA и того, что изменил закон о гражданстве в мае 2026 — для тех, кто планирует жить в Португалии годами."
 quick_answer: |-
   D8 — для удалённой работы, около €3 680 дохода в месяц в 2026. D7 — для пассивного дохода, около €920 в месяц плюс сбережения. После въезда подаёте на ВНЖ в AIMA; биометрия часто 8–24 месяца.
@@ -34,7 +34,7 @@ date_published: 2026-06-25
 
 D8 — удалёнка. D7 — пассив. Оба стартуют с **консульской визы D**, не с туриста в AIMA. Гражданство для большинства — **10 лет**.
 
-> **Nota Emigro (fact-check, сентябрь 2026).** **OK:** D8 ~**€3 680**/мес, D7 ~**€920** (RMMG). AIMA биометрия часто **8–24 мес.** ПМЖ **5 лет**. Гражданство **10 лет** с **19.05.2026**. Renovação temporary с 01.03.2026 ~**€440,20**. **Fixed overlay:** не «недели до карты». Не подавайтесь туристом «внутри». CIPLE A2: [Prep2Go](https://www.prep2go.study/ciple-a2-mock-test?utm_source=emigro&utm_medium=guide&utm_campaign=prep2go_portugal&utm_content=vnj-portugaliya-d8-d7-grazhdanstvo-2026). **Fixed:** гражданство — не «только CIPLE»: ст. 6.º/1 c)–e) добавила культуру, историю, символы, гражданские знания и декларацию; регламент теста на 30.09.2026 не опубликован. **Soft:** IFICI ≠ D8.
+> **Nota Emigro (fact-check, октябрь 2026).** **OK:** D8 ~**€3 680**/мес, D7 ~**€920** (RMMG €920, Decreto-Lei 139/2025). AIMA биометрия часто **8–24 мес.** ПМЖ **5 лет**. Гражданство **10 лет** с **19.05.2026**. Renovação temporary с 01.03.2026 ~**€440,20**. **Fixed overlay:** не «недели до карты». Не подавайтесь туристом «внутри». CIPLE A2: [Prep2Go](https://www.prep2go.study/ciple-a2-mock-test?utm_source=emigro&utm_medium=guide&utm_campaign=prep2go_portugal&utm_content=vnj-portugaliya-d8-d7-grazhdanstvo-2026). **Fixed:** гражданство — не «только CIPLE»: ст. 6.º/1 c)–e) добавила культуру, историю, символы, гражданские знания и декларацию; регламент теста на 05.10.2026 не опубликован. **Soft:** IFICI ≠ D8.
 
 **ВНЖ Португалия D8/D7 2026** — главный коридор Emigro: pillar-гид + **практика** (NIF, AIMA, аренда, банки) на [portugal.emigro.online](https://portugal.emigro.online). D8 — **~€3 680/мес** удалёнка; D7 — **~€920/мес** + сбережения. После визы D — подача в **AIMA**. Гражданство для большинства — **10 лет** (реформа мая 2026).
 

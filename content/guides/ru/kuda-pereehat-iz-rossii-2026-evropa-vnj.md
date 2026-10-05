@@ -1,8 +1,8 @@
 ---
 slug: kuda-pereehat-iz-rossii-2026-evropa-vnj
 title: "Куда переехать из России в 2026: 7 стран ЕС с реальными маршрутами ВНЖ"
-seo_title: "Куда переехать из России 2026 — D8 €3 680, ES €2 849, Blue Card"
-seo_description: "7 коридоров: PT D8 ~€3 680 / D7 ~€920, ES DN €2 849, DE Blue Card €50 700. Гражданство PT 10 лет. D7/NLV — консульство. Шенген ≠ ВНЖ."
+seo_title: "Куда переехать из РФ 2026: D8 €3 680, ES €2 849, Blue Card"
+seo_description: "7 коридоров для RU/BY/UA/KZ: PT D8 ~€3 680 / D7 ~€920, ES DN €2 849, DE Blue Card €50 700. Шенген ≠ ВНЖ; D7/NLV — консульство. Сравните в /ru/wizard."
 excerpt: "Карта легальных коридоров, не рейтинг стран: пороги 2026, консульский старт D7/D8/NLV, горизонт паспорта 5–10 лет."
 quick_answer: |-
   В 2026 у граждан России нет «одной волшебной страны» — есть маршруты под профиль: удалёнка (D8 Португалия, digital nomad Испания), работа по найму (Blue Card Германия), пассивный доход (D7 Португалия, non-lucrative Испания), учёба или воссоединение семьи.
@@ -24,10 +24,10 @@ official_sources:
   - url: https://ind.nl/en/news/fees-and-required-amounts-for-2026-known
     label: IND — пороги HSM / Blue Card 2026
   - url: https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000052158121
-    label: Франция — arrêté 21.08.2025 (Talent / Carte Bleue)
+    label: Франция — arrêté 29.08.2025 (Talent / Carte Bleue, JO 31.08.2025)
 estimated_minutes: 16
 date_published: 2026-06-25
-date_modified: 2026-09-19
+date_modified: 2026-10-05
 ---
 
 ## Почему вопрос «куда валить» в 2026 звучит иначе
@@ -36,7 +36,7 @@ date_modified: 2026-09-19
 
 Этот гайд — не рейтинг «лучших стран». Это карта **реальных коридоров ВНЖ** для граждан РФ, Беларуси, Казахстана и Украины.
 
-> **Nota Emigro (fact-check, сентябрь 2026).** **OK:** пороги таблицы совпадают с аудитом авг 2026: PT D8 ~**€3 680** / D7 ~**€920** (RMMG); ES DN ~**€2 849** (200% SMI); ES NLV ~**€2 400** (400% IPREM); DE Blue Card **€50 700** / shortage **€45 934**; FR Talent salarié **€39 582** / Carte Bleue **€59 373**; NL HSM **€5 942 / €4 357**; SE **SEK 34 470**; NO **NOK 545 400 / 624 700**; IT DN практика **€28–28,5k**. ES Golden Visa закрыта **03.04.2025**. Гражданство PT **10 лет** с 19.05.2026. **Fixed overlay:** D7/D8 и ES no lucrativa inicial стартуют в **консульстве**, не «туристом внутри». Italy **Investor Visa для РФ/РБ приостановлена** — в хабе её нет как маршрута. **Soft:** ES estancia por estudios **0%** к nacionalidad art. 22; «модификация на работу» в таблице учёбы ≠ годы к паспорту. AIMA **8–24 мес.**
+> **Nota Emigro (fact-check, октябрь 2026).** **OK:** пороги: PT D8 ~**€3 680** / D7 ~**€920** (RMMG); ES DN ~**€2 849** (200% SMI, RD 126/2026); ES NLV ~**€2 400** (400% IPREM); DE Blue Card **€50 700** / shortage **€45 934**; FR Talent salarié **€39 582** / Carte Bleue **€59 373** ([arrêté 29.08.2025](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000052158121), JO 31.08.2025 — не «21.08» в заголовке зеркала); NL HSM **€5 942 / €4 357** (IND 2026); SE **SEK 34 470**; NO **NOK 545 400 / 624 700**; IT DN практика **€28–28,5k**. ES Golden Visa закрыта **03.04.2025**. Гражданство PT **10 лет** с 19.05.2026. **Fixed overlay:** D7/D8 и ES no lucrativa inicial — **консульство**, не турист→ВНЖ. Italy **Investor Visa для РФ/РБ приостановлена**. **Soft:** ES estancia por estudios **0%** к nacionalidad art. 22; AIMA **8–24 мес.**
 
 **Рекомендация Emigro:** начните с **Португалии D8/D7** — единственный коридор с полным стеком: wizard, новости, pillar-гид и **живая практика** (NIF, AIMA, банки) на [portugal.emigro.online](https://portugal.emigro.online). Pillar: [D8 и D7 Португалия 2026](/ru/guides/vnj-portugaliya-d8-d7-grazhdanstvo-2026). Все EU-коридоры для граждан РФ на одной странице: [origin hub Emigro](/ru/rossiyane).
 
@@ -52,7 +52,7 @@ date_modified: 2026-09-19
 | **Испания** | Digital nomad, non-lucrative, highly qualified | Удалёнщики, специалисты, пассивный доход | Digital nomad: ~€2 849/мес (200% SMI). Pillar: [Digital nomad Испания 2026](/ru/guides/vnj-ispaniya-2026) |
 | **Германия** | EU Blue Card, Chancenkarte, работа | Найм, STEM, опыт 3+ года | Blue Card: €45 934+/год (shortage) или €50 700+/год (общий) |
 | **Италия** | Digital Nomad, lavoro subordinato, elective residence | Удалёнка, контракт, пассивный доход | DN **~€28–28,5k/год** (практ.); формула ≈€24 789 — не бюджет. Pillar: [DN Италия](/ru/guides/vnj-italiya-2026-digital-nomad) |
-| **Франция** | Passeport Talent, VLS-TS salarié | Квалифицированные специалисты, стартапы | Talent Salarié: €39 582+/год; Carte Bleue: €59 373+/год (1,5× reference, arrêté 21.08.2025) |
+| **Франция** | Passeport Talent, VLS-TS salarié | Квалифицированные специалисты, стартапы | Talent Salarié: €39 582+/год; Carte Bleue: €59 373+/год (1,5× reference, arrêté 29.08.2025) |
 | **Нидерланды** | Highly Skilled Migrant (HSM) | Найм у признанного спонсора | Порог €5 942/мес (2026, 30+) / €4 357 (<30); без holiday allowance |
 | **Скандинавия** | Work permit / Blue Card (SE, DK); Skilled Worker (NO) | Найм, IT, инженерия | SE work ≥ **SEK 34 470**/мес (90% медианы с 16.06.2026); NO floors **NOK 545 400 / 624 700** (с 01.05.2026, без kollektivavtal) |
 
@@ -95,7 +95,7 @@ date_modified: 2026-09-19
 - **Нидерланды** — только при оффере от employer-sponsor; **30% ruling** в 2025–26 снова **flat 30%** (ступень 30→20→10 отменена); с **01.01.2027** — обычно **27%**.
 - **Скандинавия** — высокий доход, высокие расходы, сильная соцзащита; Danish/Swedish work permit через работодателя; Норвегия — Skilled Worker (не «DN»).
 
-**Франция (Passeport Talent):** **Talent — salarié qualifié** от **€39 582/год** брутто; **Talent — carte bleue européenne** от **€59 373/год** (1,5× reference salary, [arrêté du 21 août 2025](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000052158121)). Париж — €3 500–6 000/мес. на семью; провинция дешевле. Гражданство — **5 лет** (2 года для выпускников французского вуза); с **01.01.2026** — **B2** французский (устный и письменный), обязательный **examen civique** (40 вопросов, мин. 32/40, ~€70), пошлина **€255** с **01.05.2026**; рассмотрение 12–24 мес. Подробно: [ВНЖ Франция 2026](/ru/guides/vnj-frantsiya-2026-passeport-talent).
+**Франция (Passeport Talent):** **Talent — salarié qualifié** от **€39 582/год** брутто; **Talent — carte bleue européenne** от **€59 373/год** (1,5× reference salary, [arrêté du 29 août 2025](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000052158121), JO 31.08.2025). Париж — €3 500–6 000/мес. на семью; провинция дешевле. Гражданство — **5 лет** (2 года для выпускников французского вуза); с **01.01.2026** — **B2** французский (устный и письменный), обязательный **examen civique** (40 вопросов, мин. 32/40, ~€70), пошлина **€255** с **01.05.2026**; рассмотрение 12–24 мес. Подробно: [ВНЖ Франция 2026](/ru/guides/vnj-frantsiya-2026-passeport-talent).
 
 **Нидерланды (HSM):** спонсор-работодатель из списка IND; порог **€5 942/мес** (30+) / **€4 357/мес** (<30), без holiday allowance ([IND 2026](https://ind.nl/en/news/fees-and-required-amounts-for-2026-known)). Без оффера — practically нет маршрута для СНГ. **30% ruling:** 2026 — **30% flat**; с 2027 — **27%** для большинства (≤2023 часто grandfathered 30%). Подробно: [ВНЖ Нидерланды 2026](/ru/guides/vnj-niderlandy-2026-highly-skilled) · [работа в Европе](/ru/guides/rabota-v-evrope-dlya-rossiyan-2026).
 
