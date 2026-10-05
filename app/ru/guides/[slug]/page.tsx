@@ -6,6 +6,7 @@ import { Clock, Compass, Sparkles } from "lucide-react";
 import { ShareButtons } from "@/components/share/ShareButtons";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { RelocatorChatPromo } from "@/components/community/RelocatorChatPromo";
+import { NewsBotSubscribeCta } from "@/components/news/NewsBotSubscribeCta";
 import { TrackedAssistLink } from "@/components/assist/TrackedAssistLink";
 import { UniPrep2GoPromo, UniPrepCitizenshipHubPromo } from "@/components/sponsors/UniPrep2GoPromo";
 import { RoleRadarPromo } from "@/components/sponsors/RoleRadarPromo";
@@ -409,11 +410,16 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
 
             <GuideClusterLinks cluster={cluster} crossLinks={comparisonCrossLinks} />
 
+            <NewsBotSubscribeCta
+              topicKey={providerTopicKey}
+              source={`guide_${guide.slug}`}
+              className="mt-8"
+            />
             <RelocatorChatPromo
               variant="inline"
               source={`guide_${guide.slug}`}
               countryKey={providerTopicKey}
-              className="mt-8"
+              className="mt-6"
             />
 
             {relatedGuides.length > 0 && (

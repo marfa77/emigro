@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, Clock, PenLine } from "lucide-react";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { RelocatorChatPromo } from "@/components/community/RelocatorChatPromo";
+import { NewsBotSubscribeCta } from "@/components/news/NewsBotSubscribeCta";
 import { StoryGenreBadge } from "@/components/stories/StoryGenreBadge";
 import { GuideStoriesCta } from "@/components/stories/GuideStoriesCta";
 import { ShareButtons } from "@/components/share/ShareButtons";
@@ -172,7 +173,8 @@ export default function StoryPage({ params }: { params: { slug: string } }) {
 
         {primaryGuideSlug ? <GuideStoriesCta guideSlug={primaryGuideSlug} className="mt-8" /> : null}
 
-        <RelocatorChatPromo variant="inline" source={`story_${story.slug}`} className="mt-8" />
+        <NewsBotSubscribeCta source={`story_${story.slug}`} className="mt-8" />
+        <RelocatorChatPromo variant="inline" source={`story_${story.slug}`} className="mt-6" />
       </main>
       <SiteFooter />
     </>

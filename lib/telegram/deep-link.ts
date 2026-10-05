@@ -73,6 +73,18 @@ export function portoChatDeepLink(source?: string): string {
   return cityChatDeepLink(defaultCityChat(), source);
 }
 
+/** Opens the bot so the user can subscribe to country news in chat (not on the site). */
+export function newsBotStartPayload(topicKey?: string): string {
+  const key = topicKey?.replace(/[^a-z]/gi, "").toLowerCase();
+  return key ? `news_${key}` : "news";
+}
+
+export function newsBotDeepLink(topicKey?: string): string {
+  const url = new URL(publicTelegramBotUrl());
+  url.searchParams.set("start", newsBotStartPayload(topicKey));
+  return url.toString();
+}
+
 export function parseWizardTelegramStartPayload(payload: string):
   | { mode: WizardTelegramMode; sessionId: string }
   | null {

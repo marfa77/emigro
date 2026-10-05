@@ -5,6 +5,7 @@ import { Suspense, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import { Newspaper, Rss } from "lucide-react";
 import { RelocatorChatPromo } from "@/components/community/RelocatorChatPromo";
+import { NewsBotSubscribeCta } from "@/components/news/NewsBotSubscribeCta";
 import { NewsCountryNav } from "@/components/news/NewsCountryNav";
 import { NewsDigestCard } from "@/components/news/NewsDigest";
 import { CorridorIntelLinks } from "@/components/corridor/CorridorIntelLinks";
@@ -57,6 +58,11 @@ function NewsIndexBody({ allTopics, digests, pillarGuides }: Props) {
           <h1 className="mt-4 text-3xl font-bold text-slate-900 sm:text-4xl">{pageTitle}</h1>
           <p className="mt-4 text-lg text-slate-600">{pageDescription}</p>
           <NewsCountryNav topics={allTopics} activeCountry={topic?.urlSegment} />
+          <NewsBotSubscribeCta
+            topicKey={topic?.key}
+            source={topic ? `news_index_${topic.key}` : "news_index"}
+            className="mt-6"
+          />
           {topic && (
             <div className="mt-6">
               <CorridorIntelLinks topic={topic} />

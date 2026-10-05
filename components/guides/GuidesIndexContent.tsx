@@ -6,6 +6,7 @@ import { Suspense, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import { ArrowRight, BookOpen, Clock, MapPin, Sparkles } from "lucide-react";
 import { RelocatorChatPromo } from "@/components/community/RelocatorChatPromo";
+import { NewsBotSubscribeCta } from "@/components/news/NewsBotSubscribeCta";
 import { GuideAsOfBadge } from "@/components/guides/GuideAsOfBadge";
 import { GuidesCategoryFilter } from "@/components/guides/GuidesCategoryFilter";
 import { HeroShell } from "@/components/visuals/HeroShell";
@@ -360,7 +361,8 @@ function GuidesIndexBody({ allGuides, pillarGuides, corridors }: Props) {
           ))
         )}
 
-        <RelocatorChatPromo source="guides_index" className="mt-14" />
+        <NewsBotSubscribeCta source="guides_index" className="mt-14" />
+        <RelocatorChatPromo source="guides_index" className="mt-8" />
 
         {corridors.length > 0 && (
           <section className="mt-14 rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm ring-1 ring-slate-950/5">

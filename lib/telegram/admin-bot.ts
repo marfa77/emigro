@@ -56,13 +56,39 @@ type TelegramApiResult = {
   result?: { message_id?: number };
 };
 
+export type TelegramInlineButton = {
+  text: string;
+  url?: string;
+  callback_data?: string;
+};
+
+export type TelegramInlineKeyboard = {
+  inline_keyboard: TelegramInlineButton[][];
+};
+
+export async function answerStatsBotCallback(
+  callbackQueryId: string,
+  text?: string
+): Promise<void> {
+  const token = statsBotToken();
+  if (!token) return;
+  await fetch(`https://api.telegram.org/bot${token}/answerCallbackQuery`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      callback_query_id: callbackQueryId,
+      ...(text ? { text: text.slice(0, 200) } : {}),
+    }),
+  }).catch(() => undefined);
+}
+
 export async function sendStatsBotMessage(
   chatId: string | number,
   text: string,
   options?: {
     parseMode?: "HTML" | null;
     disableWebPagePreview?: boolean;
-    replyMarkup?: { inline_keyboard: Array<Array<{ text: string; url: string }>> };
+    replyMarkup?: TelegramInlineKeyboard;
   }
 ): Promise<{ success: boolean; error?: string; messageId?: number }> {
   const token = statsBotToken();

@@ -20,6 +20,7 @@ import { ProgramSeoSections } from "@/components/corridor/ProgramSeoSections";
 import { RoleRadarPromo } from "@/components/sponsors/RoleRadarPromo";
 import { ServiceProvidersSection } from "@/components/providers/ServiceProvidersSection";
 import { RelocatorChatPromo } from "@/components/community/RelocatorChatPromo";
+import { NewsBotSubscribeCta } from "@/components/news/NewsBotSubscribeCta";
 import { shouldShowRoleRadarOnProgram } from "@/lib/role-radar";
 import { CorridorHeroVisual } from "@/components/visuals/CorridorHeroVisual";
 import { HeroShell } from "@/components/visuals/HeroShell";
@@ -309,11 +310,16 @@ export default async function CountryProgramPage({
           </div>
         </HeroShell>
 
+        <NewsBotSubscribeCta
+          topicKey={topic.key}
+          source={`program_${program.slug}`}
+          className="mt-8"
+        />
         <RelocatorChatPromo
           variant="inline"
           source={`program_${program.slug}`}
           countryKey={topic.urlSegment}
-          className="mt-8"
+          className="mt-6"
         />
 
         <section className="mt-8 rounded-3xl border border-corridor-200 bg-white p-6 shadow-sm sm:p-8">

@@ -20,6 +20,11 @@ import {
   cityChatInviteReplyMarkup,
   issueCityChatInvite,
 } from "@/lib/telegram/porto-chat-invite";
+import {
+  handleNewsSubscribeCallback,
+  handleNewsSubscribeStart,
+  handleNewsSubscribeText,
+} from "@/lib/telegram/news-subscribe";
 
 const recentStatsReplies = new Map<string, number>();
 const STATS_REPLY_COOLDOWN_MS = 120_000;
@@ -239,7 +244,9 @@ async function handleUserFallback(message: TelegramMessage): Promise<void> {
 export async function processTelegramMessage(message: TelegramMessage): Promise<void> {
   if (await handleStatsCommand(message)) return;
   if (await handleWizardStartCommand(message)) return;
+  if (await handleNewsSubscribeStart(message)) return;
   if (await handleCityChatStartCommand(message)) return;
+  if (await handleNewsSubscribeText(message)) return;
   if (await handleStartCommand(message)) return;
   if (await handleCityChatKeyword(message)) return;
   await handleUserFallback(message);
@@ -249,9 +256,18 @@ export type TelegramUpdate = {
   update_id?: number;
   message?: TelegramMessage;
   edited_message?: TelegramMessage;
+  callback_query?: {
+    id: string;
+    data?: string;
+    from?: { id?: number | string; username?: string; first_name?: string };
+    message?: TelegramMessage;
+  };
 };
 
 export async function processTelegramUpdate(update: TelegramUpdate): Promise<void> {
+  if (update.callback_query) {
+    if (await handleNewsSubscribeCallback(update.callback_query)) return;
+  }
   const message = update.message || update.edited_message;
   if (!message) return;
   await processTelegramMessage(message);

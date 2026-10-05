@@ -8,6 +8,7 @@ import { CorridorIntelLinks } from "@/components/corridor/CorridorIntelLinks";
 import { NewsArticleBody } from "@/components/news/NewsDigest";
 import { NewsShareBar } from "@/components/news/NewsShareBar";
 import { RelocatorChatPromo } from "@/components/community/RelocatorChatPromo";
+import { NewsBotSubscribeCta } from "@/components/news/NewsBotSubscribeCta";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { NewsHeroVisual } from "@/components/visuals/NewsHeroVisual";
 import { countryOgImage } from "@/lib/brand/country-accents";
@@ -157,6 +158,11 @@ export default async function NewsArticlePage({ params }: Props) {
 
           <NewsShareBar url={url} title={displayTitle} className="mt-6" />
 
+          <NewsBotSubscribeCta
+            topicKey={digest.topic_key}
+            source={`news_article_${digest.slug}`}
+            className="mt-6"
+          />
           <RelocatorChatPromo
             variant="inline"
             source={`news_${digest.slug}`}

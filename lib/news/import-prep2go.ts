@@ -315,6 +315,8 @@ async function runPool<T, R>(
 async function postImportActions(imported: Prep2GoImportResult[]): Promise<void> {
   if (imported.length === 0) return;
   await revalidateNewsPages(imported.map((r) => r.emigroSlug));
+  const { deliverPendingNewsToBotSubscribers } = await import("@/lib/news/bot-push");
+  await deliverPendingNewsToBotSubscribers({ slugs: imported.map((r) => r.emigroSlug) });
   const site = publicSiteUrl();
   const urls = [`${site}/ru/news`, ...imported.map((r) => newsArticleUrl(r.emigroSlug))];
   await pingIndexNow(urls);

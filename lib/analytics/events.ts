@@ -21,6 +21,7 @@ export type EmigroEventName =
   | "provider_click"
   | "partner_inquiry_submitted"
   | "community_join_click"
+  | "news_bot_subscribe_click"
   | "guide_feedback"
   | "story_submitted"
   | "investment_hub_view"

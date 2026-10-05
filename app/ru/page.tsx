@@ -4,6 +4,7 @@ import { ArrowRight, Globe2, Sparkles } from "lucide-react";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { EmigroDepthStrip } from "@/components/EmigroDepthStrip";
 import { RelocatorChatPromo } from "@/components/community/RelocatorChatPromo";
+import { NewsBotSubscribeCta } from "@/components/news/NewsBotSubscribeCta";
 import { TrackedAssistLink } from "@/components/assist/TrackedAssistLink";
 import { HubDestinationsSectionSuspense } from "@/components/hub/HubDestinationsSection";
 import { WizardPulseSectionSuspense } from "@/components/wizard/WizardPulseSectionSuspense";
@@ -287,7 +288,8 @@ export default async function RuHubPage() {
           </section>
         )}
 
-        <RelocatorChatPromo source="homepage" className="mt-14" />
+        <NewsBotSubscribeCta source="homepage" className="mt-14" />
+        <RelocatorChatPromo source="homepage" className="mt-8" />
 
         <section className="mt-14 rounded-2xl border border-corridor-200 bg-gradient-to-br from-corridor-50 to-white p-6 sm:p-8">
           <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">

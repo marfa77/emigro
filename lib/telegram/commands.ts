@@ -58,6 +58,9 @@ export function userStartMessage(invite: CityChatInviteResult): string {
     "<b>Маршруты ВНЖ</b> — wizard на сайте, без обещаний «гарантированного ВНЖ».",
     `<a href="${wizardUrl}">${wizardUrl}</a>`,
     "",
+    "<b>Новости страны — в этот чат</b>",
+    "Карточка с сайта приходит сюда, как только выпуск выходит. Подписка только здесь: напишите <code>новости Португалия</code>, <code>новости Испания</code>, <code>новости Италия</code> или <code>новости Таиланд</code>. Или просто <code>новости</code> и выберите кнопку. Отписка: <code>отписка</code>.",
+    "",
     `<a href="${origin}">emigro.online</a>`,
   ].join("\n");
 }

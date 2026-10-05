@@ -16,6 +16,7 @@ import { GuideDigestPreview } from "@/components/corridor/GuideDigestPreview";
 import { LatestNewsTeaserSuspense } from "@/components/news/LatestNewsTeaser";
 import { ServiceProvidersSection } from "@/components/providers/ServiceProvidersSection";
 import { RelocatorChatPromo } from "@/components/community/RelocatorChatPromo";
+import { NewsBotSubscribeCta } from "@/components/news/NewsBotSubscribeCta";
 import { UniPrep2GoPromo } from "@/components/sponsors/UniPrep2GoPromo";
 import { RoleRadarPromo } from "@/components/sponsors/RoleRadarPromo";
 import { HeroShell } from "@/components/visuals/HeroShell";
@@ -118,6 +119,11 @@ export async function CorridorLanding({ country }: { country: string }) {
           </div>
         </HeroShell>
 
+        <NewsBotSubscribeCta
+          topicKey={topic.key}
+          source={`corridor_${topic.urlSegment}`}
+          className="mt-8"
+        />
         <RelocatorChatPromo
           source={`corridor_${topic.urlSegment}`}
           countryKey={topic.urlSegment}

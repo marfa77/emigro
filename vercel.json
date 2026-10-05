@@ -16,6 +16,10 @@
       "schedule": "45 7 * * *"
     },
     {
+      "path": "/api/cron/news-bot-push",
+      "schedule": "20 * * * *"
+    },
+    {
       "path": "/api/cron/stats-snapshot",
       "schedule": "20 6 * * *"
     }

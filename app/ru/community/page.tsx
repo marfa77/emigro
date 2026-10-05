@@ -12,6 +12,7 @@ import { listPillarGuides } from "@/lib/guides/pillar-guides";
 import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
 import { buildCommunityPageSchema } from "@/lib/seo/community-page-seo";
 import { pageMetadata, pageUrl } from "@/lib/seo";
+import { NewsBotSubscribeCta } from "@/components/news/NewsBotSubscribeCta";
 import { portoChatDeepLink } from "@/lib/telegram/deep-link";
 
 export const revalidate = 86400;
@@ -19,7 +20,7 @@ export const revalidate = 86400;
 export const metadata: Metadata = pageMetadata({
   title: "Для своих в Порту — закрытый чат Emigro",
   description:
-    "Закрытый чат Emigro «Порту и вокруг»: для своих публикуем важное, общаемся, эксперты отвечают на вопросы. Вход через бота, без публичного @. Канал @Emigro_news — отдельно.",
+    "Закрытый чат Emigro «Порту и вокруг»: для своих публикуем важное, общаемся, эксперты отвечают. Новости страны в личку — только в боте («новости Португалия» / Испания / Италия / Таиланд). Канал @Emigro_news — отдельно.",
   path: "/ru/community",
   ogImageAlt: "Для своих · Порту и вокруг · Emigro",
 });
@@ -28,7 +29,7 @@ const BENEFITS = [
   {
     icon: Zap,
     title: "Важное для своих",
-    text: "Публикуем гайды и городскую практику — не стена объявлений и не визовый флуд. Национальные новости ВНЖ остаются в @Emigro_news.",
+    text: "Публикуем гайды и городскую практику — не стена объявлений. Национальные новости страны — в личку бота: напишите «новости Португалия» (или другую страну). Канал @Emigro_news — отдельно.",
   },
   {
     icon: Users,
@@ -110,13 +111,15 @@ export default function CommunityPage() {
             </a>
           </div>
           <p className="mt-6 max-w-2xl text-sm text-corridor-200">
-            Канал <strong>@Emigro_news</strong> и комментарии {DISCUSSION_GROUP_HANDLE} — отдельно, для новостей ВНЖ. Это
-            не городской чат Порту.
+            Канал <strong>@Emigro_news</strong> и комментарии {DISCUSSION_GROUP_HANDLE} — отдельно. Новости страны в
+            личку — только через бота: напишите «новости Португалия» (или другую страну). Это не городской чат Порту.
           </p>
           <div className="mt-3">
             <CommunityJoinButton source="community_landing_news" size="md" className="bg-white/15 text-white hover:bg-white/25" />
           </div>
         </HeroShell>
+
+        <NewsBotSubscribeCta source="community_landing" className="mt-8" />
 
         <section className="mt-10" aria-labelledby="other-city-chats-heading">
           <h2 id="other-city-chats-heading" className="text-2xl font-semibold text-slate-900">
@@ -126,8 +129,9 @@ export default function CommunityPage() {
             Выберите чат по стране — бот выдаст приглашение именно в нужное сообщество, без переадресации в Порту.
           </p>
           <div className="grid gap-4 sm:grid-cols-2">
-            <SatelliteCityChatCta countryKey="spain" source="community_valencia" />
-            <SatelliteCityChatCta countryKey="italy" source="community_milan" />
+            <SatelliteCityChatCta countryKey="spain" source="community_valencia" includeNews={false} />
+            <SatelliteCityChatCta countryKey="italy" source="community_milan" includeNews={false} />
+            <SatelliteCityChatCta countryKey="thailand" source="community_phuket" includeNews={false} />
           </div>
         </section>
 
@@ -173,6 +177,14 @@ export default function CommunityPage() {
               <dd className="mt-1 text-sm leading-relaxed text-slate-600">
                 Кнопка выше или «Чат» в меню сайта открывает бота. Он сразу присылает ссылку в личку — нажмите её. Если вы
                 уже в группе, та же кнопка открывает чат, без поиска в списке.
+              </dd>
+            </div>
+            <div>
+              <dt className="font-medium text-slate-900">Как получать новости страны в личку?</dt>
+              <dd className="mt-1 text-sm leading-relaxed text-slate-600">
+                Только в боте, не на сайте: напишите «новости Португалия», «новости Испания», «новости Италия» или
+                «новости Таиланд». Карточка придёт сюда, как только выпуск появляется на /ru/news. Отписка: «отписка».
+                Канал @Emigro_news — общая лента, это другая подписка.
               </dd>
             </div>
             <div>
@@ -259,7 +271,8 @@ export default function CommunityPage() {
             <a href={NEWS_TELEGRAM_URL} target="_blank" rel="noopener noreferrer" className="text-sky-700 hover:underline">
               @Emigro_news
             </a>{" "}
-            и пишите в комментариях к постам — там открывается чат {DISCUSSION_GROUP_HANDLE}. Новости и дайджесты публикуются в канале.
+            и пишите в комментариях к постам — там открывается чат {DISCUSSION_GROUP_HANDLE}. Новости страны в личку — в
+            том же боте: «новости Португалия» (или Испания / Италия / Таиланд).
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
             <CommunityJoinButton source="community_landing_footer" size="lg" />

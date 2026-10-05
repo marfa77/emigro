@@ -50,6 +50,7 @@
     "news:test-quality": "tsx scripts/test-news-quality-guards.ts",
     "news:test-guide-promo": "tsx scripts/test-guide-telegram-quality.ts",
     "news:test-fact-check": "tsx scripts/test-news-fact-check.ts",
+    "news:test-bot-subscribe": "tsx scripts/test-news-bot-subscribe.ts",
     "smoke:wizard": "tsx scripts/smoke-wizard-evaluation.ts",
     "validate:site-consistency": "tsx scripts/validate-site-consistency.ts && npm run check:aeo",
     "wizard:prod-matrix": "tsx scripts/prod-wizard-matrix.ts",

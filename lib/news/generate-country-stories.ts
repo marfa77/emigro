@@ -848,6 +848,8 @@ export async function generateCountryStories(
 
   if (!dryRun && published.length > 0) {
     await revalidateNewsPages(published);
+    const { deliverPendingNewsToBotSubscribers } = await import("@/lib/news/bot-push");
+    await deliverPendingNewsToBotSubscribers({ topicKey, slugs: published });
   }
 
   return {
