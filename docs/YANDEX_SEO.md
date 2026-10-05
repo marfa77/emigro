@@ -88,7 +88,11 @@ Alice cites pages that already rank well in Yandex organic (top ~30). There is n
 2. Wait until Sitemaps shows **Success** and discovered URL counts (~hub + notes + tags with ≥4 notes). If GSC shows **Temporary processing error**, remove + re-add the sitemap (live map is ~hub + notes + thick tags only — `/llms` is not listed; empty/noindex Cyrillic tags are excluded).
 3. URL Inspection → confirm **User-declared canonical** → **Request indexing** on hub + 3–5 pillar notes.
 4. Do **not** expect `llm-sitemap.xml` to index satellites — it is for LLM discovery via `llms.txt`, not a Google Sitemap.
-5. **Bing / IndexNow:** `npm run seo:indexnow` loads live host sitemaps and pings Yandex → api.indexnow.org → Bing. Key file must resolve on each host (`/{INDEXNOW_KEY}.txt`). Acceptance (HTTP 200/202) ≠ immediate `site:` results — check Bing Webmaster URL submission after 24–72h.
+5. **Bing / IndexNow:** `npm run seo:indexnow` loads live host sitemaps and pings Yandex → api.indexnow.org → Bing. Key file must resolve on each host (`/{INDEXNOW_KEY}.txt`).
+
+   If Bing/api.indexnow.org return **403 `UserForbiddedToAccessSite`** on `www` while satellites return 200: Bing bound the first key (`48398ea1…`, 25 Jun 2026) then we rotated the same day. Insights can show 6.9K historical submits and **0 in the last 13 hours** — rejected pings do not increment the counter. Keep **both** key files at the site root; the pinger retries Bing with `INDEXNOW_LEGACY_KEY`. Confirm the key in Bing Webmaster → IndexNow (scroll to API key / Sources). Do not dump the full www sitemap while 403 persists.
+
+   Acceptance (HTTP 200/202) ≠ immediate `site:` results — check Bing Webmaster URL submission after 24–72h.
 
 Audience remains Yandex-first; Google is secondary but useful for long-tail ranking.
 

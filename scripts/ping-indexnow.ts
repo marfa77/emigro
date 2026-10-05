@@ -7,6 +7,7 @@ import {
   pingIndexNow,
   getIndexNowKey,
   indexNowKeyFileUrl,
+  isBingIndexNowHostForbidden,
   type IndexNowPingResult,
 } from "../lib/seo/indexnow";
 import { pingGoogleSitemap } from "../lib/seo/google-sitemap";
@@ -71,6 +72,33 @@ function summarizeYandex(results: IndexNowPingResult[]): void {
   console.log("Verify in Yandex Webmaster → Индексирование → IndexNow");
 }
 
+function summarizeBing(results: IndexNowPingResult[]): void {
+  const bing = results.filter((r) => !r.primary);
+  if (bing.length === 0) return;
+  const forbidden = bing.filter(
+    (r) => r.status === 403 && (r.errorBody?.includes("UserForbiddedToAccessSite") ?? false),
+  );
+  console.log("\n--- Bing / api.indexnow.org ---");
+  if (forbidden.length) {
+    const hosts = Array.from(
+      new Set(
+        results
+          .filter((r) => r.errorBody?.includes("UserForbiddedToAccessSite"))
+          .map((r) => r.endpoint),
+      ),
+    );
+    console.log("403 UserForbiddedToAccessSite — key file is public; Bing has not bound this host to the key.");
+    console.log("www.emigro.online is verified in Bing Webmaster (XML BingSiteAuth.xml).");
+    console.log("Open Bing Webmaster → the www property → IndexNow and use the same key as INDEXNOW_KEY:");
+    console.log(`  ${getIndexNowKey()}`);
+    console.log("https://www.bing.com/webmasters/indexnow?siteUrl=https://www.emigro.online/");
+    if (hosts.length) console.log(`Failed endpoints: ${hosts.join(", ")}`);
+    return;
+  }
+  const ok = bing.filter((r) => r.ok).length;
+  console.log(`Batches OK: ${ok}/${bing.length}`);
+}
+
 async function main() {
   const key = getIndexNowKey();
   if (!key) {
@@ -119,18 +147,25 @@ async function main() {
 
   const allResults: IndexNowPingResult[] = [];
   const chunkSize = 100;
+  const bingForbiddenHosts = new Set<string>();
   for (const [host, hostUrls] of byHost) {
     console.log(`Host: ${host} (${hostUrls.length} URLs)`);
     for (let i = 0; i < hostUrls.length; i += chunkSize) {
       const chunk = hostUrls.slice(i, i + chunkSize);
       console.log(`  Batch ${Math.floor(i / chunkSize) + 1}: ${chunk.length} URLs`);
-      const batchResults = await pingIndexNow(chunk);
+      const batchResults = await pingIndexNow(chunk, {
+        skipBingPartners: bingForbiddenHosts.has(host),
+      });
       allResults.push(...batchResults);
+      if (isBingIndexNowHostForbidden(batchResults)) {
+        bingForbiddenHosts.add(host);
+      }
       if (i + chunkSize < hostUrls.length) await sleep(2000);
     }
   }
 
   summarizeYandex(allResults);
+  summarizeBing(allResults);
 
   const sitemapUrls = [
     `${origin}/sitemap.xml`,
