@@ -86,7 +86,7 @@ export function EmigroDepthStrip({ locale, className = "" }: Props) {
       aria-label="Масштаб Emigro"
     >
       <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-        Не тонкий SEO-слой
+        Что внутри Emigro
       </p>
       <p className="mt-2 text-sm leading-relaxed text-slate-700">
         Emigro RU: <strong>{inv.ruGuides}+ гайдов</strong> · EU-коридоры ·{" "}

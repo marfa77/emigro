@@ -65,7 +65,7 @@ export function SatelliteHubDepth({
       className={`mt-6 rounded-xl border px-4 py-4 sm:px-5 ${shell}`}
       aria-label={`Инвентарь сателлита ${countryLabel}`}
     >
-      <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">Не тонкий SEO-слой</p>
+      <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">Что уже внутри</p>
       <p className="mt-2 text-sm leading-relaxed text-slate-700">
         Сейчас на сателлите:{" "}
         <strong>
