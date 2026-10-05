@@ -7,6 +7,8 @@ import { PORTUGAL_SATELLITE } from "@/lib/satellite/portugal";
 import { SPAIN_SATELLITE } from "@/lib/satellite/spain";
 import { ITALY_SATELLITE } from "@/lib/satellite/italy";
 import { THAILAND_SATELLITE } from "@/lib/satellite/thailand";
+import type { AssistPlanTier } from "@/lib/telegram/bot/types";
+import { assistBotDeepLink } from "@/lib/telegram/deep-link";
 
 export type SatelliteFunnelPlacement =
   | "satellite_note"
@@ -38,20 +40,16 @@ function satelliteConfig(countryKey: SatelliteCountryKey) {
   return PORTUGAL_SATELLITE;
 }
 
-/** Absolute Assist URL on www (partner match / Route Check / accompaniment intake). */
+/** RU conversion closes in @emigro_chat_bot — same deep link as news. */
 export function satelliteAssistUrl(opts: UtmOpts & { countrySegment?: string; hash?: string }): string {
-  const countryKey = opts.countryKey;
-  const segment = opts.countrySegment ?? countryKey;
-  const url = new URL("https://www.emigro.online/ru/assist");
-  url.searchParams.set("country", segment);
-  url.searchParams.set("source", `${countryKey}_satellite`);
-  url.searchParams.set("utm_source", "emigro");
-  url.searchParams.set("utm_medium", "satellite");
-  url.searchParams.set("utm_campaign", `${countryKey}_assist`);
-  url.searchParams.set("utm_placement", opts.placement);
-  if (opts.content) url.searchParams.set("utm_content", opts.content);
-  url.hash = opts.hash ?? "assist-form";
-  return url.toString();
+  const hash = opts.hash ?? "assist-form";
+  const tier: AssistPlanTier =
+    hash.includes("route-check")
+      ? "route-check"
+      : hash.includes("accompaniment")
+        ? "accompaniment"
+        : "partner-match";
+  return assistBotDeepLink({ country: opts.countrySegment ?? opts.countryKey, tier });
 }
 
 export function satelliteWizardUrl(opts: UtmOpts): string {

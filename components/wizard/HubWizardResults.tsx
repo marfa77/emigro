@@ -3,7 +3,7 @@ import { TrackedAssistLink } from "@/components/assist/TrackedAssistLink";
 import { AssistResultsCta } from "@/components/wizard/AssistResultsCta";
 import { HouseholdBanner } from "@/components/wizard/HouseholdBanner";
 import { WizardTelegramDelivery } from "@/components/wizard/WizardTelegramDelivery";
-import { buildAssistUrl } from "@/lib/assist/build-url";
+import { assistBotDeepLink } from "@/lib/telegram/deep-link";
 import { WizardOutcomeCard, readableReason, OUTCOME_LABELS, wizardOutcomeBarrier } from "@/components/wizard/WizardOutcomeCard";
 import { corridorWizardPath } from "@/lib/corridor/paths";
 import type { GlobalEvalPayload } from "@/lib/engine/run-global-evaluation";
@@ -235,7 +235,7 @@ export function HubWizardResults({
               Все направления →
             </Link>
             <TrackedAssistLink
-              href={buildAssistUrl({ sessionId })}
+              href={assistBotDeepLink()}
               placement="wizard_hub_no_match"
               linkLabel="Обсудить с Emigro Assist"
               sessionId={sessionId}
@@ -343,7 +343,7 @@ function ResultsNextSteps({
       </ol>
       <div className="mt-5 flex flex-wrap gap-3 text-sm font-medium">
         <TrackedAssistLink
-          href={buildAssistUrl({ sessionId, country, program: programTitle })}
+          href={assistBotDeepLink({ country })}
           placement="wizard_hub_next_steps"
           linkLabel="Найти специалиста"
           sessionId={sessionId}
@@ -354,12 +354,7 @@ function ResultsNextSteps({
           Найти специалиста
         </TrackedAssistLink>
         <TrackedAssistLink
-          href={buildAssistUrl({
-            sessionId,
-            country,
-            program: programTitle,
-            hash: "assist-form-route-check",
-          })}
+          href={assistBotDeepLink({ country, tier: "route-check" })}
           placement="wizard_hub_next_steps_route_check"
           linkLabel="Route Check — €129"
           sessionId={sessionId}

@@ -1,12 +1,7 @@
 import { NextResponse } from "next/server";
 import { isValidWizardSessionId } from "@/lib/assist/session-id";
-import { trackServerEvent } from "@/lib/analytics/server";
-import { getCorridorBySlug } from "@/lib/corridor/queries";
-import { formatAssistLeadTelegramMessage } from "@/lib/leads/format-telegram";
 import { getProviderById } from "@/lib/providers/registry";
-import { createServerClient } from "@/lib/supabase/server";
-import { looksLikeTelegramPublicContact } from "@/lib/telegram/public-url";
-import { sendOwnerTelegramDm } from "@/lib/telegram";
+import { submitAssistLead } from "@/lib/leads/submit-assist";
 
 type AssistLeadBody = {
   country?: string;
@@ -27,19 +22,6 @@ type AssistLeadBody = {
   source?: string;
 };
 
-const PLAN_TIER_LABELS: Record<string, string> = {
-  "partner-match": "Бесплатный подбор партнёра",
-  "route-check": "Route Check (€129)",
-  accompaniment: "Сопровождение (€100/час)",
-};
-
-const PAYMENT_METHOD_LABELS: Record<string, string> = {
-  paypal: "PayPal",
-  telegram_stars: "Telegram Stars",
-  crypto: "Crypto (USDT/USDC)",
-  card: "Оплата картой (Gumroad)",
-};
-
 function clean(value: unknown): string {
   return typeof value === "string" ? value.trim() : "";
 }
@@ -50,10 +32,6 @@ function selectedProviderNames(value: unknown): string[] {
     .map((id) => getProviderById(clean(id)))
     .filter((provider): provider is NonNullable<ReturnType<typeof getProviderById>> => Boolean(provider))
     .map((provider) => provider.name);
-}
-
-function contactLooksTelegram(contact: string): boolean {
-  return looksLikeTelegramPublicContact(contact);
 }
 
 export async function POST(request: Request) {
@@ -101,104 +79,21 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "consent required" }, { status: 400 });
   }
 
-  let leadId: string | null = null;
-  let stored = false;
-  let storageError: string | null = null;
-  const notes = [
-    `Source: ${assistSource}`,
-    `Plan: ${PLAN_TIER_LABELS[planTier] ?? (planTier || "Бесплатный подбор партнёра")}`,
-    planTier === "partner-match"
-      ? "Payment: бесплатно"
-      : `Payment: ${PAYMENT_METHOD_LABELS[paymentMethod] ?? (paymentMethod || "—")}`,
-    `Country: ${country}${destinationIso2 ? ` (${destinationIso2})` : ""}`,
-    `Program/route: ${programRoute}`,
-    providers.length ? `Selected providers: ${providers.join(", ")}` : "Selected providers: —",
-    "",
-    message,
-  ].join("\n");
-
-  try {
-    let corridorId: string | null = null;
-    if (corridorSlug) {
-      const corridor = await getCorridorBySlug(corridorSlug);
-      if (corridor) {
-        corridorId = corridor.id;
-      }
-    }
-    const supabase = createServerClient();
-    const { data, error } = await supabase
-      .from("emigro_manual_leads")
-      .insert({
-        corridor_id: corridorId,
-        destination_iso2: destinationIso2 || null,
-        session_id: sessionId,
-        name,
-        email: contact,
-        telegram: contactLooksTelegram(contact) ? contact : null,
-        notes,
-        passport_iso2: null,
-        selected_program_slugs: [programRoute],
-        preferred_language: preferredLanguage,
-        status: "new",
-      })
-      .select("id")
-      .single();
-
-    if (error) {
-      storageError = error.message;
-    } else {
-      leadId = data.id;
-      stored = true;
-    }
-  } catch (err) {
-    storageError = err instanceof Error ? err.message : "Lead storage failed";
-  }
-
-  await trackServerEvent("assist_lead_submitted", {
-    source: assistSource,
-    lead_id: leadId ?? "",
-    stored,
+  const result = await submitAssistLead({
     country,
-    corridor_slug: corridorSlug,
-    provider_count: providers.length,
-    plan_tier: planTier,
-    payment_method: paymentMethod,
-    session_id: sessionId ?? "",
-  });
-
-  if (storageError) {
-    await trackServerEvent("lead_error", {
-      source: assistSource,
-      country,
-      corridor_slug: corridorSlug,
-      message: storageError,
-    });
-  }
-
-  const telegramText = formatAssistLeadTelegramMessage({
-    leadId,
-    stored,
-    country,
-    corridorSlug,
+    corridorSlug: corridorSlug || undefined,
+    destinationIso2: destinationIso2 || undefined,
     programRoute,
-    planTier: PLAN_TIER_LABELS[planTier] ?? planTier,
-    paymentMethod:
-      planTier === "partner-match"
-        ? "Бесплатно"
-        : PAYMENT_METHOD_LABELS[paymentMethod] ?? paymentMethod,
+    planTier: planTier || undefined,
+    paymentMethod: paymentMethod || undefined,
     selectedProviders: providers,
     name,
     contact,
     message,
+    source: assistSource,
+    sessionId,
+    preferredLanguage,
   });
 
-  const tg = await sendOwnerTelegramDm(telegramText);
-  if (!tg.success) {
-    console.warn("[assist-leads] Telegram DM failed:", tg.error);
-    if (!stored) {
-      return NextResponse.json({ error: "Lead notification failed" }, { status: 500 });
-    }
-  }
-
-  return NextResponse.json({ id: leadId, status: "new", stored });
+  return NextResponse.json({ id: result.leadId, status: "new", stored: result.stored });
 }

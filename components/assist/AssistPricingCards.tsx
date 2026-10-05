@@ -12,6 +12,7 @@ import {
 import { ROUTE_CHECK_PDF_PATH } from "@/lib/assist/sample-plan-data";
 import { pricingCardHeaderRow } from "@/lib/ui/mobile";
 import { TrackedAssistLink } from "@/components/assist/TrackedAssistLink";
+import { assistBotDeepLink } from "@/lib/telegram/deep-link";
 
 type Props = {
   routeCheckFormAnchor?: string;
@@ -19,8 +20,8 @@ type Props = {
 };
 
 export function AssistPricingCards({
-  routeCheckFormAnchor = "#assist-form-route-check",
-  accompanimentFormAnchor = "#assist-form-accompaniment",
+  routeCheckFormAnchor = assistBotDeepLink({ tier: "route-check" }),
+  accompanimentFormAnchor = assistBotDeepLink({ tier: "accompaniment" }),
 }: Props) {
   return (
     <section aria-labelledby="assist-pricing-heading" className="mt-10">
@@ -54,7 +55,7 @@ export function AssistPricingCards({
           </p>
 
           <TrackedAssistLink
-            href="#assist-form"
+            href={assistBotDeepLink({ tier: "partner-match" })}
             placement="ru_assist_pricing"
             linkLabel="Описать задачу бесплатно"
             className="mt-6 block rounded-lg bg-green-700 px-5 py-3 text-center font-medium text-white hover:bg-green-800"

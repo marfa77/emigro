@@ -11,6 +11,7 @@ import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
 import { pageMetadata, pageUrl } from "@/lib/seo";
 import { getAssistCountryOptions } from "@/lib/corridor/registry";
 import { publicSiteUrl } from "@/lib/site-url";
+import { assistBotDeepLink } from "@/lib/telegram/deep-link";
 
 export const revalidate = 3600;
 
@@ -121,6 +122,11 @@ const FAQ_ITEMS = [
     question: "Когда нужно платить?",
     answer:
       "После согласования времени созвона (Route Check) или формата работы (сопровождение). Реквизиты или ссылку вышлем на PayPal, Telegram Stars, USDT/USDC или для оплаты картой — ссылку на Gumroad.",
+  },
+  {
+    question: "Где оставить заявку?",
+    answer:
+      "Основной путь — Telegram-бот @emigro_chat_bot (кнопка «Помощь» или ссылка с этой страницы). Форма на сайте остаётся запасным HTML. Заявка в боте не списывает деньги: слот и оплата — после согласования.",
   },
   {
     question: "Emigro гарантирует получение визы?",
@@ -243,7 +249,7 @@ export default function AssistPage({
           </dl>
           <div className="mt-8 flex flex-wrap gap-3">
             <TrackedAssistLink
-              href="#assist-form"
+              href={assistBotDeepLink()}
               placement="ru_assist_hero"
               linkLabel="Описать задачу"
               className="inline-flex items-center gap-2 rounded-lg bg-white px-5 py-3 font-medium text-corridor-900 hover:bg-corridor-50"
@@ -251,7 +257,7 @@ export default function AssistPage({
               Описать задачу
             </TrackedAssistLink>
             <TrackedAssistLink
-              href="#assist-form-route-check"
+              href={assistBotDeepLink({ tier: "route-check" })}
               placement="ru_assist_hero_route_check"
               linkLabel="Route Check — €129"
               className="inline-flex items-center gap-2 rounded-lg border border-white/40 px-5 py-3 font-medium text-white hover:bg-white/10"
@@ -389,7 +395,11 @@ export default function AssistPage({
             <div>
               <h2 className="text-2xl font-bold text-slate-950">Расскажите, какая помощь нужна</h2>
               <p className="mt-2 max-w-xl text-sm text-slate-600">
-                Бесплатно подберём специалиста или предложим Route Check, если кейс сначала нужно разобрать.
+                Заявка быстрее в Telegram:{" "}
+                <a href={assistBotDeepLink()} className="font-medium text-corridor-700 hover:underline">
+                  @emigro_chat_bot
+                </a>
+                . Форма ниже — запасной HTML, если бот недоступен.
               </p>
             </div>
             <Link

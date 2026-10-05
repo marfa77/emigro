@@ -2,7 +2,7 @@
 
 import { ArrowRight, Compass, Phone } from "lucide-react";
 import { trackEvent } from "@/lib/analytics/client";
-import { buildAssistUrl } from "@/lib/assist/build-url";
+import { propertyBotDeepLink } from "@/lib/telegram/deep-link";
 import type { ContentKind } from "@/lib/community-notes/types";
 import type { SatelliteCountryKey } from "@/lib/community-notes/seed";
 import {
@@ -89,16 +89,7 @@ export function SatelliteFunnelCta({
     content,
     hash: "assist-form-route-check",
   });
-  const propertyHref =
-    countryKey === "thailand"
-      ? buildAssistUrl({
-          locale: "ru",
-          country: "thailand",
-          program: "Недвижимость на Пхукете — Empyreal Estate",
-          providerId: "empyreal-estate-phuket",
-          source: "thailand_satellite",
-        })
-      : null;
+  const propertyHref = countryKey === "thailand" ? propertyBotDeepLink("thailand") : null;
   const wizardHref = satelliteWizardUrl({ countryKey, placement, content });
   const hubHref = satelliteHubUrl({ countryKey, placement, content });
   const pillarHref = satellitePillarUrl({ countryKey, placement, content });

@@ -6,6 +6,7 @@ import { EmigroDepthStrip } from "@/components/EmigroDepthStrip";
 import { RelocatorChatPromo } from "@/components/community/RelocatorChatPromo";
 import { NewsBotSubscribeCta } from "@/components/news/NewsBotSubscribeCta";
 import { TrackedAssistLink } from "@/components/assist/TrackedAssistLink";
+import { assistBotDeepLink } from "@/lib/telegram/deep-link";
 import { HubDestinationsSectionSuspense } from "@/components/hub/HubDestinationsSection";
 import { WizardPulseSectionSuspense } from "@/components/wizard/WizardPulseSectionSuspense";
 import { HeroShell } from "@/components/visuals/HeroShell";
@@ -302,7 +303,7 @@ export default async function RuHubPage() {
             </div>
             <div className="flex shrink-0 flex-col gap-2 sm:items-end">
               <TrackedAssistLink
-                href="/ru/assist#assist-form"
+                href={assistBotDeepLink()}
                 placement="ru_homepage"
                 linkLabel="Найти специалиста"
                 className="inline-flex items-center gap-2 rounded-lg bg-corridor-700 px-5 py-3 font-medium text-white hover:bg-corridor-800"
@@ -311,7 +312,7 @@ export default async function RuHubPage() {
                 <ArrowRight className="h-4 w-4" />
               </TrackedAssistLink>
               <TrackedAssistLink
-                href="/ru/assist#assist-form-route-check"
+                href={assistBotDeepLink({ tier: "route-check" })}
                 placement="ru_homepage_route_check"
                 linkLabel="Route Check — €129"
                 className="text-sm font-medium text-corridor-700 hover:underline"

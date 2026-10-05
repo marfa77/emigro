@@ -1,4 +1,4 @@
-/** @emigro_chat_bot — Porto invite + wizard deep links on /start; admin /stats webhook. */
+/** @emigro_chat_bot — product router (home, news, assist, property, city) + owner /stats. */
 
 export function statsBotToken(): string | undefined {
   const token =
@@ -66,6 +66,15 @@ export type TelegramInlineKeyboard = {
   inline_keyboard: TelegramInlineButton[][];
 };
 
+export type TelegramReplyKeyboard = {
+  keyboard: Array<Array<{ text: string }>>;
+  resize_keyboard?: boolean;
+  is_persistent?: boolean;
+  one_time_keyboard?: boolean;
+};
+
+export type TelegramReplyMarkup = TelegramInlineKeyboard | TelegramReplyKeyboard;
+
 export async function answerStatsBotCallback(
   callbackQueryId: string,
   text?: string
@@ -88,7 +97,7 @@ export async function sendStatsBotMessage(
   options?: {
     parseMode?: "HTML" | null;
     disableWebPagePreview?: boolean;
-    replyMarkup?: TelegramInlineKeyboard;
+    replyMarkup?: TelegramReplyMarkup;
   }
 ): Promise<{ success: boolean; error?: string; messageId?: number }> {
   const token = statsBotToken();

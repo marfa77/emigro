@@ -8,7 +8,7 @@ import { AssistResultsCta } from "@/components/wizard/AssistResultsCta";
 import { HouseholdBanner } from "@/components/wizard/HouseholdBanner";
 import { WizardTelegramDelivery } from "@/components/wizard/WizardTelegramDelivery";
 import { WizardOutcomeCard } from "@/components/wizard/WizardOutcomeCard";
-import { buildAssistUrl } from "@/lib/assist/build-url";
+import { assistBotDeepLink } from "@/lib/telegram/deep-link";
 import { corridorWizardPath } from "@/lib/corridor/paths";
 import { getCorridorBySlug } from "@/lib/corridor/queries";
 import { describeHousehold, parseHousehold } from "@/lib/engine/household";
@@ -241,11 +241,7 @@ export default async function CountryResultsPage({
               Новости недели →
             </Link>
             <TrackedAssistLink
-              href={buildAssistUrl({
-                sessionId,
-                country: topic.urlSegment,
-                program: topResult?.title_ru,
-              })}
+              href={assistBotDeepLink({ country: topic.urlSegment })}
               placement="wizard_corridor_next_steps"
               linkLabel="Найти специалиста"
               sessionId={sessionId}
@@ -256,12 +252,7 @@ export default async function CountryResultsPage({
               Найти специалиста
             </TrackedAssistLink>
             <TrackedAssistLink
-              href={buildAssistUrl({
-                sessionId,
-                country: topic.urlSegment,
-                program: topResult?.title_ru,
-                hash: "assist-form-route-check",
-              })}
+              href={assistBotDeepLink({ country: topic.urlSegment, tier: "route-check" })}
               placement="wizard_corridor_next_steps_route_check"
               linkLabel="Route Check — €129"
               sessionId={sessionId}

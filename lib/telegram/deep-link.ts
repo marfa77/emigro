@@ -4,6 +4,8 @@ import {
   parseCityChatStartPayload,
   type SatelliteCityChat,
 } from "@/lib/satellite/city-chats";
+import type { AssistPlanTier, BotDeepLink } from "@/lib/telegram/bot/types";
+import { resolveNewsBotTopic } from "@/lib/news/bot-subscribe-topics";
 
 export type WizardTelegramMode = "hub" | "corridor";
 
@@ -96,5 +98,81 @@ export function parseWizardTelegramStartPayload(payload: string):
       return { mode, sessionId };
     }
   }
+  return null;
+}
+
+function startUrl(payload: string): string {
+  const url = new URL(publicTelegramBotUrl());
+  url.searchParams.set("start", payload);
+  return url.toString();
+}
+
+export function assistBotStartPayload(opts?: { country?: string; tier?: AssistPlanTier }): string {
+  const country = opts?.country?.replace(/[^a-z]/gi, "").toLowerCase();
+  const tierPrefix =
+    opts?.tier === "route-check" ? "assist_route" : opts?.tier === "accompaniment" ? "assist_acc" : "assist";
+  if (opts?.tier === "partner-match") {
+    return country ? `assist_partner_${country}` : "assist_partner";
+  }
+  return country ? `${tierPrefix}_${country}` : tierPrefix;
+}
+
+export function assistBotDeepLink(opts?: { country?: string; tier?: AssistPlanTier }): string {
+  return startUrl(assistBotStartPayload(opts));
+}
+
+export function propertyBotStartPayload(dest?: "uae" | "thailand"): string {
+  if (dest === "uae") return "property_uae";
+  if (dest === "thailand") return "property_thailand";
+  return "property";
+}
+
+export function propertyBotDeepLink(dest?: "uae" | "thailand"): string {
+  return startUrl(propertyBotStartPayload(dest));
+}
+
+function parseAssistPayload(clean: string): BotDeepLink | null {
+  const match = clean.match(/^assist(?:_(partner|route|acc|accompaniment))?(?:_([a-z]+))?$/i);
+  if (!match) return null;
+  const rawTier = (match[1] || "").toLowerCase();
+  const tier: AssistPlanTier | undefined =
+    rawTier === "route"
+      ? "route-check"
+      : rawTier === "acc" || rawTier === "accompaniment"
+        ? "accompaniment"
+        : rawTier === "partner"
+          ? "partner-match"
+          : undefined;
+  const countryRaw = match[2]?.toLowerCase();
+  const country = countryRaw && resolveNewsBotTopic(countryRaw) ? resolveNewsBotTopic(countryRaw)!.key : countryRaw;
+  return { app: "assist", country, tier };
+}
+
+export function parseBotStartPayload(payload: string): BotDeepLink | null {
+  const raw = payload.trim();
+  if (!raw) return { app: "home" };
+
+  const wizard = parseWizardTelegramStartPayload(raw);
+  if (wizard) return { app: "wizard", mode: wizard.mode, sessionId: wizard.sessionId };
+
+  const clean = raw.toLowerCase();
+
+  const city = parseCityChatStartPayload(clean);
+  if (city) return { app: "city", countryKey: city.countryKey };
+
+  if (clean === "news") return { app: "news" };
+  const news = clean.match(/^news[_-]([a-z]+)$/i);
+  if (news) {
+    const topic = resolveNewsBotTopic(news[1]);
+    return { app: "news", topicKey: topic?.key };
+  }
+
+  if (clean === "property") return { app: "property" };
+  if (clean === "property_uae") return { app: "property", dest: "uae" };
+  if (clean === "property_thailand" || clean === "property_th") return { app: "property", dest: "thailand" };
+
+  const assist = parseAssistPayload(clean);
+  if (assist) return assist;
+
   return null;
 }

@@ -16,6 +16,10 @@ type Props = {
   children: ReactNode;
 } & Omit<ComponentProps<typeof Link>, "href" | "onClick" | "className" | "children">;
 
+function isExternalHref(href: string): boolean {
+  return /^(https?:)?\/\//.test(href) || href.startsWith("tg:");
+}
+
 /** Link to Assist that fires assist_cta_click (→ site_events + owner Telegram). */
 export function TrackedAssistLink({
   href,
@@ -29,26 +33,45 @@ export function TrackedAssistLink({
   children,
   ...rest
 }: Props) {
+  const onClick = () => {
+    trackEvent("assist_cta_click", {
+      placement,
+      link_label: linkLabel,
+      target_path: href,
+      locale,
+      country: country ?? "",
+      program: program ?? "",
+      session_id: sessionId ?? "",
+    });
+    if (!isExternalHref(href)) {
+      const hash = new URL(href, window.location.href).hash;
+      if (hash.startsWith("#assist-")) {
+        window.dispatchEvent(new CustomEvent("emigro:assist-tier", { detail: { hash } }));
+      }
+    }
+  };
+
+  if (isExternalHref(href)) {
+    return (
+      <a
+        href={href}
+        className={className}
+        data-assist-tracked="true"
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={onClick}
+      >
+        {children}
+      </a>
+    );
+  }
+
   return (
     <Link
       href={href}
       className={className}
       data-assist-tracked="true"
-      onClick={() => {
-        trackEvent("assist_cta_click", {
-          placement,
-          link_label: linkLabel,
-          target_path: href,
-          locale,
-          country: country ?? "",
-          program: program ?? "",
-          session_id: sessionId ?? "",
-        });
-        const hash = new URL(href, window.location.href).hash;
-        if (hash.startsWith("#assist-")) {
-          window.dispatchEvent(new CustomEvent("emigro:assist-tier", { detail: { hash } }));
-        }
-      }}
+      onClick={onClick}
       {...rest}
     >
       {children}

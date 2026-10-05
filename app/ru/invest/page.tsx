@@ -16,6 +16,7 @@ import {
   routeStatusLabel,
 } from "@/lib/investment/registry";
 import { pageMetadata, pageUrl } from "@/lib/seo";
+import { propertyBotDeepLink } from "@/lib/telegram/deep-link";
 
 export const metadata: Metadata = pageMetadata({
   title: "Инвестиционная миграция: ВНЖ и ПМЖ",
@@ -65,6 +66,12 @@ export default function InvestmentHubPage() {
               </a>
               <a href="#routes" className="inline-flex min-h-12 items-center rounded-xl border border-white/30 px-5 py-3 font-medium hover:bg-white/10">
                 Сначала посмотреть страны
+              </a>
+              <a
+                href={propertyBotDeepLink()}
+                className="inline-flex min-h-12 items-center rounded-xl border border-white/30 px-5 py-3 font-medium hover:bg-white/10"
+              >
+                Короткая заявка в боте
               </a>
             </div>
             <div className="mt-8 flex max-w-3xl gap-3 rounded-xl border border-amber-300/30 bg-amber-100/10 p-4 text-sm leading-relaxed text-amber-50">

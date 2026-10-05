@@ -1,37 +1,10 @@
 import { NextResponse } from "next/server";
 import { newsBotToken } from "@/lib/telegram";
-import {
-  handleLightningApprovalCallback,
-  handleLightningApprovalCommand,
-} from "@/lib/news/lightning-approval";
-import { handleGuideApprovalCallback } from "@/lib/news/run-guide-telegram-queue";
-import { handleThreadsReplyCallback } from "@/lib/threads/replies";
 import { processTelegramUpdate } from "@/lib/telegram/handle-update";
 
 export const runtime = "nodejs";
 /** Threads IMAGE + container wait can exceed 60s. */
 export const maxDuration = 180;
-
-type NewsUpdate = {
-  update_id?: number;
-  message?: {
-    message_id?: number;
-    text?: string;
-    chat?: { id?: number | string; type?: string };
-    from?: { id?: number | string; username?: string; first_name?: string; last_name?: string };
-  };
-  edited_message?: NewsUpdate["message"];
-  callback_query?: {
-    id: string;
-    data?: string;
-    from?: { id?: number | string };
-    message?: {
-      message_id?: number;
-      text?: string;
-      chat?: { id?: number | string };
-    };
-  };
-};
 
 function verifyWebhookSecret(req: Request): boolean {
   const expected =
@@ -49,49 +22,15 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, error: "Invalid webhook secret" }, { status: 401 });
   }
 
-  let payload: NewsUpdate;
+  let payload: unknown;
   try {
-    payload = (await req.json()) as NewsUpdate;
+    payload = await req.json();
   } catch {
     return NextResponse.json({ ok: false, error: "Invalid JSON" }, { status: 400 });
   }
 
   try {
-    const cb = payload.callback_query;
-    if (cb?.id && cb.data) {
-      const args = {
-        data: cb.data,
-        chatId: cb.message?.chat?.id ?? cb.from?.id ?? "",
-        userId: cb.from?.id,
-        callbackQueryId: cb.id,
-        messageId: cb.message?.message_id,
-        messageText: cb.message?.text,
-      };
-      const guideHandled = await handleGuideApprovalCallback(args);
-      if (guideHandled) {
-        /* already handled */
-      } else if (await handleThreadsReplyCallback(args)) {
-        /* tr:ok: / tr:no: */
-      } else if (await handleLightningApprovalCallback(args)) {
-        /* ln:ok: / ln:no: */
-      } else {
-        await processTelegramUpdate(payload);
-      }
-    } else {
-      // Same bot token as EMIGRO_CHAT_BOT_TOKEN — must keep /stats, /start, wizard deep links.
-      const msg = payload.message || payload.edited_message;
-      let lightningHandled = false;
-      if (msg?.text && msg.chat?.id != null) {
-        lightningHandled = await handleLightningApprovalCommand({
-          text: msg.text,
-          chatId: msg.chat.id,
-          userId: msg.from?.id,
-        });
-      }
-      if (!lightningHandled) {
-        await processTelegramUpdate(payload);
-      }
-    }
+    await processTelegramUpdate(payload as Parameters<typeof processTelegramUpdate>[0]);
   } catch (e) {
     console.error("[telegram/news-webhook] handler failed:", e);
   }
@@ -102,9 +41,9 @@ export async function POST(req: Request) {
 export async function GET() {
   return NextResponse.json({
     ok: true,
-    bot: "emigro_news+chat",
+    bot: "emigro_chat_bot",
     configured: Boolean(newsBotToken()),
     webhook: "/api/telegram/news-webhook",
-    handlers: ["lightning", "guide", "threads-replies", "stats", "wizard", "news-subscribe"],
+    handlers: ["owner", "home", "news", "city", "assist", "property", "wizard"],
   });
 }

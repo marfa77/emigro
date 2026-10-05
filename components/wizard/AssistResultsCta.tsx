@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowRight, FileText, UserCheck } from "lucide-react";
 import { trackEvent } from "@/lib/analytics/client";
 import { buildAssistUrl } from "@/lib/assist/build-url";
+import { assistBotDeepLink } from "@/lib/telegram/deep-link";
 import { formatCountryProgramLabel } from "@/lib/wizard/format-country-program-label";
 
 export type AssistResultsPlacement = "wizard_hub_results" | "wizard_corridor_results";
@@ -41,19 +42,25 @@ export function AssistResultsCta({
   pickOutcome,
   preferRouteCheck = false,
 }: Props) {
-  const assistHref = buildAssistUrl({
-    sessionId,
-    country,
-    program: programTitle,
-    locale,
-  });
-  const routeCheckHref = buildAssistUrl({
-    sessionId,
-    country,
-    program: programTitle,
-    locale,
-    hash: "assist-form-route-check",
-  });
+  const assistHref =
+    locale === "ru"
+      ? assistBotDeepLink({ country })
+      : buildAssistUrl({
+          sessionId,
+          country,
+          program: programTitle,
+          locale,
+        });
+  const routeCheckHref =
+    locale === "ru"
+      ? assistBotDeepLink({ country, tier: "route-check" })
+      : buildAssistUrl({
+          sessionId,
+          country,
+          program: programTitle,
+          locale,
+          hash: "assist-form-route-check",
+        });
   /** Sample PDF page exists only under /ru for now — hide for es/fr to avoid locale leak. */
   const samplePlanHref = locale === "ru" ? "/ru/assist/sample-plan" : null;
   const label = countryLabel ?? countryRu;
@@ -187,23 +194,25 @@ export function AssistResultsCta({
         </div>
 
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-          <Link
+          <a
             href={primaryHref}
             data-assist-tracked="true"
             onClick={() => trackAssistClick(primaryLabel, primaryHref)}
             className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-corridor-600 px-5 py-3.5 text-sm font-semibold text-white shadow-sm transition hover:bg-corridor-700 sm:w-auto"
+            {...(primaryHref.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
           >
             {primaryLabel}
             <ArrowRight className="h-4 w-4" aria-hidden />
-          </Link>
-          <Link
+          </a>
+          <a
             href={secondaryHref}
             data-assist-tracked="true"
             onClick={() => trackAssistClick(secondaryLabel, secondaryHref)}
             className="text-center text-sm font-medium text-corridor-700 hover:underline"
+            {...(secondaryHref.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
           >
             {secondaryLabel}
-          </Link>
+          </a>
         </div>
       </div>
     </section>
