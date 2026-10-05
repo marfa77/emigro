@@ -94,33 +94,42 @@ export default function InvestmentCountryPage({ params }: { params: { country: s
           ← Все инвестиционные маршруты
         </Link>
 
-        <header className="mt-6 overflow-hidden rounded-3xl bg-gradient-to-br from-slate-950 to-corridor-800 p-7 text-white sm:p-10">
-          <div className="flex flex-wrap items-center gap-3">
-            <span className="text-4xl" aria-hidden>{route.flag}</span>
-            <span className={`rounded-full px-3 py-1 text-xs font-semibold ${route.status === "active" && routes.length === 1 ? "bg-emerald-300/20 text-emerald-100" : route.status === "closed" ? "bg-rose-300/20 text-rose-100" : "bg-amber-300/20 text-amber-100"}`}>
+        <header className="relative mt-6 overflow-hidden rounded-3xl bg-gradient-to-br from-slate-950 via-corridor-900 to-corridor-800 p-7 text-white sm:p-10">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-amber-400/20 blur-3xl"
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(255,255,255,0.08),transparent_55%)]"
+          />
+          <div className="relative flex flex-wrap items-center gap-3">
+            <span className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-white/10 text-3xl ring-1 ring-white/15 backdrop-blur" aria-hidden>{route.flag}</span>
+            <span className={`rounded-full px-3 py-1 text-xs font-semibold ${route.status === "active" && routes.length === 1 ? "bg-emerald-300/20 text-emerald-100 ring-1 ring-emerald-300/30" : route.status === "closed" ? "bg-rose-300/20 text-rose-100 ring-1 ring-rose-300/30" : "bg-amber-300/20 text-amber-100 ring-1 ring-amber-300/30"}`}>
               {routes.length > 1 ? `${routes.length} программы, проверяются раздельно` : routeStatusLabel(route.status)}
             </span>
           </div>
-          <h1 className="mt-5 max-w-3xl text-3xl font-bold leading-tight sm:text-4xl">
+          <h1 className="relative mt-5 max-w-3xl text-3xl font-bold leading-tight tracking-tight sm:text-4xl">
             {routes.length > 1 ? `${route.countryRu}: программы не взаимозаменяемы` : route.title}
           </h1>
-          <p className="mt-4 max-w-3xl text-lg leading-relaxed text-slate-200">
+          <p className="relative mt-4 max-w-3xl text-lg leading-relaxed text-slate-200/90">
             {routes.length > 1
               ? "Ниже отдельные программы. Совпадение по одной не переносится на остальные."
               : route.summary}
           </p>
           {hasRuByPassportRestriction(route) ? (
-            <p className="mt-5 max-w-3xl rounded-xl border border-rose-300/40 bg-rose-500/20 px-4 py-3 text-sm font-semibold text-rose-50">
+            <p className="relative mt-5 max-w-3xl rounded-xl border border-rose-300/40 bg-rose-500/20 px-4 py-3 text-sm font-semibold text-rose-50">
               {passportRestrictionLabel(route)}
             </p>
           ) : null}
           {showsDubaiOfferVerdict(route.country) ? (
-            <div className="mt-6">
+            <div className="relative mt-6">
               <a
                 href="#qualifier"
-                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-white px-6 py-3 font-semibold text-corridor-900 hover:bg-corridor-50"
+                className="group inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-amber-300 to-amber-400 px-6 py-3 font-semibold text-slate-950 shadow-lg shadow-amber-500/25 transition hover:from-amber-200 hover:to-amber-300"
               >
-                Квалифицировать бюджет → брокер <ArrowRight className="h-4 w-4" />
+                Квалифицировать бюджет → брокер
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
               </a>
             </div>
           ) : null}

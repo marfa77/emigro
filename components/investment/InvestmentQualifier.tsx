@@ -155,9 +155,11 @@ export function InvestmentQualifier({
   });
 
   return (
-    <section id={id} className="scroll-mt-24 rounded-3xl border border-corridor-200 bg-white p-5 shadow-sm sm:p-8">
+    <section id={id} className="relative scroll-mt-24 overflow-hidden rounded-3xl border border-slate-200 bg-white p-5 shadow-sm shadow-corridor-900/5 sm:p-8">
+      <span className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-amber-300 via-amber-400 to-corridor-500" />
       <div className="max-w-2xl">
-        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-corridor-600">
+        <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-corridor-600">
+          <span className="h-px w-6 bg-gradient-to-r from-amber-400 to-transparent" />
           {isUae ? "Дубай · qualifier" : "Investment qualifier"}
         </p>
         <h2 className="mt-2 text-2xl font-bold text-slate-950 sm:text-3xl">
@@ -507,7 +509,7 @@ export function InvestmentQualifier({
           type="submit"
           disabled={status === "loading"}
           onClick={() => trackEvent("investment_cta_click", { source: "investment_qualifier", placement: "submit" })}
-          className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-corridor-700 px-6 py-3 font-semibold text-white transition hover:bg-corridor-800 disabled:opacity-60 sm:w-auto"
+          className="group inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-corridor-600 to-corridor-800 px-6 py-3 font-semibold text-white shadow-lg shadow-corridor-900/20 transition hover:from-corridor-500 hover:to-corridor-700 hover:shadow-corridor-900/30 disabled:opacity-60 sm:w-auto"
         >
           {status === "loading" ? <Loader2 className="h-5 w-5 animate-spin" /> : <CheckCircle2 className="h-5 w-5" />}
           {status === "loading"
@@ -515,7 +517,7 @@ export function InvestmentQualifier({
             : isUae
               ? "Отправить — свяжемся и передадим брокеру"
               : "Получить shortlist маршрутов"}
-          {status !== "loading" ? <ArrowRight className="h-4 w-4" /> : null}
+          {status !== "loading" ? <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" /> : null}
         </button>
       </form>
     </section>
