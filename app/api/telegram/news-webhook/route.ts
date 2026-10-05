@@ -72,8 +72,10 @@ export async function POST(req: Request) {
         /* already handled */
       } else if (await handleThreadsReplyCallback(args)) {
         /* tr:ok: / tr:no: */
+      } else if (await handleLightningApprovalCallback(args)) {
+        /* ln:ok: / ln:no: */
       } else {
-        await handleLightningApprovalCallback(args);
+        await processTelegramUpdate(payload);
       }
     } else {
       // Same bot token as EMIGRO_CHAT_BOT_TOKEN — must keep /stats, /start, wizard deep links.
@@ -103,6 +105,6 @@ export async function GET() {
     bot: "emigro_news+chat",
     configured: Boolean(newsBotToken()),
     webhook: "/api/telegram/news-webhook",
-    handlers: ["lightning", "guide", "threads-replies", "stats", "wizard"],
+    handlers: ["lightning", "guide", "threads-replies", "stats", "wizard", "news-subscribe"],
   });
 }
