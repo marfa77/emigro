@@ -12,6 +12,8 @@ import { getPublishedCommunityNoteBySlug } from "@/lib/community-notes/queries";
 
 export const runtime = "nodejs";
 
+const HERO_COUNTRY_KEYS = ["spain", "portugal", "italy", "thailand"] as const;
+
 const CACHE_HEADERS = {
   "Content-Type": "image/webp",
   "Cache-Control": "public, max-age=86400, s-maxage=604800, stale-while-revalidate=86400",
@@ -34,9 +36,11 @@ export async function GET(_request: Request, { params }: { params: { slug: strin
     return webpResponse(fs.readFileSync(filePath));
   }
 
-  const note =
-    (await getPublishedCommunityNoteBySlug(slug, "spain")) ??
-    (await getPublishedCommunityNoteBySlug(slug, "portugal"));
+  let note = null;
+  for (const countryKey of HERO_COUNTRY_KEYS) {
+    note = await getPublishedCommunityNoteBySlug(slug, countryKey);
+    if (note) break;
+  }
   if (!note) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }

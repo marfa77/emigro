@@ -30,6 +30,12 @@ const MIN_WEBP_BYTES = 20_000;
  * Verify on pexels.com/photo/{id}/ before adding.
  */
 const SLUG_PEXELS_PHOTO_IDS: Record<string, number> = {
+  // Milan residential facade with balconies — rent prices news
+  "milan-rent-prices-rise-2026": 27744915,
+  // Laptop with an online form — digital immigration portal
+  "portale-immigrazione-digitale-milano-2026": 7821577,
+  // Guests with a suitcase entering an apartment — dichiarazione di presenza
+  "registratsiya-gostey-italia-2026": 7128336,
   // Application form at desk — agendamento / consulate paperwork
   "zapis-v-konsulstvo-portugaliya-2026": 8441786,
   // Passport + notebook on wooden desk

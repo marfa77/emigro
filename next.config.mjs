@@ -101,6 +101,19 @@ const nextConfig = {
         destination: "https://www.emigro.online/:path*",
         permanent: true,
       },
+      // EN money aliases have no localized page yet — send them to the live RU Assist
+      // money page (partner matching €0 + Route Check €129) instead of the RU 404.
+      ...["/assist", "/check", "/pricing"].map((source) => ({
+        source,
+        missing: [
+          { type: "host", value: "portugal.emigro.online" },
+          { type: "host", value: "spain.emigro.online" },
+          { type: "host", value: "italy.emigro.online" },
+          { type: "host", value: "thailand.emigro.online" },
+        ],
+        destination: "/ru/assist",
+        permanent: true,
+      })),
       {
         source: "/ru/portugal/news",
         destination: "/ru/news?country=portugal",

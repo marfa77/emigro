@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { faviconUrlForHostname } from "@/lib/link-preview";
+import { proxiedFaviconUrl, proxiedPreviewImageUrl } from "@/lib/link-preview";
 
 type LinkPreviewThumbProps = {
   href: string;
@@ -33,7 +33,7 @@ export function LinkPreviewThumb({
       {showImage ? (
         // eslint-disable-next-line @next/next/no-img-element -- arbitrary OG hosts; onError fallback
         <img
-          src={imageUrl!}
+          src={proxiedPreviewImageUrl(imageUrl!)}
           alt=""
           loading="lazy"
           referrerPolicy="no-referrer"
@@ -44,7 +44,7 @@ export function LinkPreviewThumb({
         <span className="flex h-full w-full flex-col items-center justify-center gap-2 bg-gradient-to-br from-slate-100 via-teal-50 to-slate-200 px-3 text-center">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={faviconUrlForHostname(hostname)}
+            src={proxiedFaviconUrl(hostname)}
             alt=""
             width={32}
             height={32}

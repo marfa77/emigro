@@ -109,6 +109,16 @@ export const COMMITTED_NOTE_OG_SLUGS = new Set([
   "konsulstvo-rf-bangkok-dokumenty-2026",
   "rabota-work-permit-social-security-thailand-2026",
   "klimat-musson-byt-phuket-2026",
+  "ai-dermatolog-v-smartfone-milano-2026",
+  "duomo-milano-free-entry-2026",
+  "italia-immigrazione-riforma-2026",
+  "lombardia-rent-cap-agency-fees-2026",
+  "milan-rent-prices-rise-2026",
+  "portale-immigrazione-digitale-milano-2026",
+  "portale-immigrazione-lombardia-2026",
+  "registratsiya-gostey-italia-2026",
+  "smena-familii-brak-italia-2026",
+  "subentro-affitto-milano-autunno-2026",
 ]);
 
 const MANIFEST_PATH = path.join(process.cwd(), "lib/community-notes/note-og-slugs.ts");
