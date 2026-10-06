@@ -18,6 +18,7 @@ import {
   lightningOwnerMarkOf,
   parseLightningPendingThreadsText,
   scoreLightningWithLlm,
+  isNewsLightningEnabled,
 } from "@/lib/news/story-lightning";
 import { requestLightningOwnerApproval } from "@/lib/news/lightning-approval";
 import { formatThreadsPaste } from "@/lib/news/threads-repost-style";
@@ -128,6 +129,7 @@ export async function resendStaleLightningOwnerDm(
   supabase: SupabaseClient,
   options?: { force?: boolean }
 ): Promise<{ slug?: string; reason: string }> {
+  if (!isNewsLightningEnabled()) return { reason: "disabled" };
   const { data, error } = await supabase
     .from("emigro_news_digests")
     .select("slug, telegram_html, threads_text, telegram_message_ids, updated_at, published_at")
@@ -196,6 +198,17 @@ export async function runLightningTelegramQueue(options?: {
   maxPublish?: number;
 }): Promise<LightningQueueResult> {
   const dryRun = Boolean(options?.dryRun);
+  if (!isNewsLightningEnabled()) {
+    console.log("[lightning] disabled (set EMIGRO_NEWS_LIGHTNING=1 to enable)");
+    return {
+      considered: 0,
+      awaitingApproval: [],
+      published: [],
+      skipped: ["disabled"],
+      remainingToday: 0,
+      dryRun,
+    };
+  }
   const maxPublish = Math.max(1, Math.min(3, options?.maxPublish ?? LIGHTNING_PER_RUN));
   const supabase = createSupabaseAdmin();
 

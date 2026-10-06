@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Spaced #молния posts to @Emigro_news (separate from news:stories).
 #
-# Prod: systemd timer emigro-news-lightning.timer (11/13/15/17/19 UTC).
+# Prod: systemd timer emigro-news-lightning.timer — DISABLED unless EMIGRO_NEWS_LIGHTNING=1.
 # See docs/PORTUGAL_NEWS_STORIES_CRON.md.
 
 set -euo pipefail
@@ -35,6 +35,11 @@ if [[ -f "$REPO_ROOT/.env" ]]; then
 fi
 
 log "=== Emigro news lightning (#молния → @Emigro_news) ==="
+
+if [[ "${EMIGRO_NEWS_LIGHTNING:-}" != "1" && "${EMIGRO_NEWS_LIGHTNING:-}" != "true" ]]; then
+  log "=== News lightning DISABLED (EMIGRO_NEWS_LIGHTNING!=1) ==="
+  exit 0
+fi
 
 RUN_CMD="cd '$REPO_ROOT' && npm run news:lightning"
 

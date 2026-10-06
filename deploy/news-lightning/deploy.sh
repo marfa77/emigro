@@ -40,8 +40,10 @@ fi
 cp deploy/systemd/emigro-news-lightning.service /etc/systemd/system/
 cp deploy/systemd/emigro-news-lightning.timer /etc/systemd/system/
 systemctl daemon-reload
-systemctl enable --now emigro-news-lightning.timer
+systemctl disable --now emigro-news-lightning.timer
+systemctl stop emigro-news-lightning.service 2>/dev/null || true
+systemctl is-enabled emigro-news-lightning.timer || true
 systemctl list-timers --all | grep news-lightning || true
 REMOTE
 
-echo "✅ News lightning timer enabled (11/13/15/17/19 UTC, 1 post each)"
+echo "✅ News lightning timer disabled (owner: no #молния). Set EMIGRO_NEWS_LIGHTNING=1 + enable timer to restore."

@@ -29,6 +29,7 @@ import {
   escapeTelegramHtml,
   isLightningAwaitingOwner,
   isLightningThreadsAlreadyPosted,
+  isNewsLightningEnabled,
   lightningOwnerMarkOf,
   parseLightningPendingThreadsText,
   type LightningOwnerMark,
@@ -264,6 +265,10 @@ export async function requestLightningOwnerApproval(params: {
   threadsPayload?: LightningThreadsPayload | null;
   dryRun?: boolean;
 }): Promise<{ ok: boolean; reason: string }> {
+  if (!isNewsLightningEnabled()) {
+    console.log(`[lightning-approval] disabled — skip DM for ${params.slug}`);
+    return { ok: false, reason: "disabled" };
+  }
   if (params.dryRun) {
     console.log(`[lightning-approval] dry-run would DM approve for ${params.slug}\n${params.html}`);
     if (params.threadsPaste) console.log(`[lightning-approval] threads paste:\n${params.threadsPaste}`);
@@ -355,6 +360,9 @@ type ChannelActionResult = {
 };
 
 export async function approveLightningTelegram(slug?: string): Promise<ChannelActionResult> {
+  if (!isNewsLightningEnabled()) {
+    return { ok: false, error: "disabled" };
+  }
   const supabase = createSupabaseAdmin();
   const pending = await loadPendingLightning(supabase, slug);
   if (!pending) return { ok: false, error: "no-pending" };
@@ -400,6 +408,9 @@ export async function approveLightningTelegram(slug?: string): Promise<ChannelAc
 }
 
 export async function approveLightningThreads(slug?: string): Promise<ChannelActionResult> {
+  if (!isNewsLightningEnabled()) {
+    return { ok: false, error: "disabled" };
+  }
   const supabase = createSupabaseAdmin();
   const pending = await loadPendingLightning(supabase, slug);
   if (!pending) return { ok: false, error: "no-pending" };
@@ -592,6 +603,18 @@ export async function handleLightningApprovalCallback(params: {
 
   if (!isAdminTelegramChat(params.chatId, params.userId)) {
     await answerNewsBotCallback(params.callbackQueryId, "Нет доступа");
+    return true;
+  }
+
+  if (!isNewsLightningEnabled()) {
+    await answerNewsBotCallback(params.callbackQueryId, "Молнии выключены");
+    if (params.messageId != null) {
+      await editNewsBotMessageHtml(
+        params.chatId,
+        params.messageId,
+        "ℹ️ #молния выключена — в канал и Threads не публикую.",
+      );
+    }
     return true;
   }
 

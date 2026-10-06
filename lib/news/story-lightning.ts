@@ -181,6 +181,12 @@ export const LIGHTNING_TG_PENDING_MARK = "__lightning_tg_pending__";
 /** Threads already live via owner ✅ — Sunday cron must not repost. Not an owner-await mark. */
 export const LIGHTNING_THREADS_PUBLISHED_MARK = "__lightning_threads_published__";
 
+/** Off unless EMIGRO_NEWS_LIGHTNING=1. */
+export function isNewsLightningEnabled(): boolean {
+  const v = process.env.EMIGRO_NEWS_LIGHTNING?.trim().toLowerCase();
+  return v === "1" || v === "true" || v === "yes";
+}
+
 export const LIGHTNING_OWNER_MARKS = [
   LIGHTNING_PENDING_MARK,
   LIGHTNING_THREADS_PENDING_MARK,

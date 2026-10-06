@@ -28,9 +28,13 @@ Pipeline: Gemini Flash (dry facts) → OpenRouter voice (`EMIGRO_STORY_VOICE_MOD
 - Timer: **10:00 UTC** (`emigro-portugal-news-stories.timer`)
 - Per country: ≤3/day, ≤15/week
 
-## 2) Channel «молния» — `news:lightning` (separate)
+## 2) Channel «молния» — `news:lightning` (**off**)
 
-Spaced **approval requests** to your Telegram DM (not auto-dump into the channel).
+**Disabled** (2026-10-06): no DMs, no channel, no Threads from this queue. Timer `emigro-news-lightning.timer` is `disable --now`. Code skip unless `EMIGRO_NEWS_LIGHTNING=1`.
+
+To restore: set `EMIGRO_NEWS_LIGHTNING=1` in `/opt/emigro/.env` + Vercel, `systemctl enable --now emigro-news-lightning.timer`, revert `parser/deploy.sh` to enable the timer.
+
+Spaced **approval requests** to your Telegram DM (not auto-dump into the channel) — when enabled:
 
 - Timer: **11 / 13 / 15 / 17 / 19 UTC** (`emigro-news-lightning.timer`)
 - **1 candidate per tick** after keyword + **RU-audience** + **concrete-detail** + Gemini Flash gates (no primers, housing indexes, party talk, Brits/US expats)
