@@ -622,11 +622,13 @@ export const COMO_GUIDE_MEDIA: Record<string, ComoGuideMedia> = {
         "/images/como/editorial/madesimo-ss36.webp",
         "/images/como/editorial/attraction-villa-carlotta.webp",
       ],
+      "Two doors into the ski area: Madesimo vs Campodolcino": [
+        "/images/como/editorial/madesimo-larici.webp",
+        "/images/como/editorial/madesimo-alpe-motta.webp",
+      ],
       "What the ski area actually offers": [
         "/images/como/editorial/madesimo-piste.webp",
-        "/images/como/editorial/madesimo-larici.webp",
         "/images/como/editorial/madesimo-groppera.webp",
-        "/images/como/editorial/madesimo-alpe-motta.webp",
       ],
       "Where to sleep before and after the ski day": [
         "/images/como/tulipani-11-balcony.webp",

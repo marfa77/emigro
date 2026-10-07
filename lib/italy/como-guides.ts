@@ -299,97 +299,212 @@ export const COMO_GUIDES: ComoGuide[] = [
   },
   {
     slug: "madesimo-ski-trip-from-lake-como",
-    title: "Skiing in Madesimo from Lake Como: a realistic trip plan",
-    seoTitle: "Madesimo Ski Trip from Lake Como: 2026 Guide",
+    title: "Skiing in Madesimo from Lake Como: the complete 2026 trip plan",
+    seoTitle: "Madesimo from Lake Como 2026: SS36, Sky Express, Skipass",
     description:
-      "Plan a Madesimo ski trip from Tremezzo and Lake Como: drive, public transport reality, parking, lifts, rentals, beginners and weather checks.",
+      "Best practical Madesimo ski guide from Tremezzo: SS36 drive, Campodolcino Sky Express, Larici access, Val di Lei status, RidottoDì, helmets, rentals and overnight logic.",
     excerpt:
-      "Madesimo is a real Alpine ski area, not a quick lakeside excursion. Here is the practical route, what to verify, and when an overnight stay beats a rushed day trip.",
+      "Madesimo is the closest substantial Alpine ski area north of Lake Como—if you plan the SS36, the two base accesses and the closed Val di Lei sector correctly.",
     quickAnswer:
-      "Madesimo is the most practical substantial ski area north of Lake Como, but from Tremezzo it should be treated as a long mountain outing. Driving via the north lake and SS36 is normally the workable day-trip option; public transport requires multiple connections and is better suited to an overnight plan. Check Skiarea Valchiavenna’s live lift status, snow, road conditions and pass prices before departure—especially because Val di Lei is currently unavailable during lift redevelopment.",
+      "From Tremezzo, treat Madesimo as a long Alpine day, not a lakeside add-on. Drive the western/northern lake into the SS36 toward Chiavenna–Campodolcino–Madesimo; Consorzio Turistico Madesimo lists Como–Madesimo at about 104 km / ~2 hours in normal conditions, so add western-shore time and a winter buffer. Enter either from Madesimo village (Larici cabin) or from Campodolcino via the underground Sky Express to Alpe Motta (1,082→1,721 m, ~3 minutes, 639 m gain). Skiarea Valchiavenna publishes more than 40 km of alpine slopes across Madesimo, Campodolcino and Piuro with one ticket—but Valchiavenna still says Val di Lei is closed during lift redevelopment. Buy passes on the official shop, check the live lift board, and wear an approved helmet: Madesimo Turismo flags D.L. 96/2025 as making helmets mandatory for everyone from winter 2025/26.",
     category: "Winter",
-    updated: "2026-10-05",
+    updated: "2026-10-07",
     hero: "/images/como/madesimo-ski.webp",
     heroAlt: "Winter mountain scene in Madesimo",
     heroCreditUrl: "https://www.pexels.com/photo/snowmobiler-in-snowy-madesimo-mountains-36770831/",
     sections: [
       {
-        heading: "Is Madesimo a day trip from Tremezzo?",
+        heading: "Why Madesimo is the Lake Como ski answer—and what it is not",
         paragraphs: [
-          "Yes by car for an early-starting group, but it is not a spontaneous half day. The route follows the western/northern lake toward the SS36 and Valchiavenna before climbing to Madesimo. Winter traffic, snow controls and a slow lakeshore section make arrival time variable.",
-          "For beginners collecting equipment, arranging a lesson and learning the base area, an overnight stay removes the pressure of the return drive. Experienced skiers can make a day work by pre-booking rentals and leaving before dawn.",
+          "If you are based on the central western shore around Tremezzo, Skiarea Valchiavenna is the nearest Alpine ski system with village access, snowmaking, race-approved slopes and a real freestyle park. It is not a lake excursion, not a half-day from Bellagio, and not the same product as historic blog posts that still sell Val di Lei and the Canalone as open every day.",
+          "Valchiavenna Turismo positions the area as one of Lombardy’s main ski resorts: more than 40 km of alpine slopes, modern detachable lifts, a Snow Park, FIS competition terrain such as the Montalto / Arlecchino area, and ski-mountaineering products (Skialp All Day / Skialp by Night). Madesimo Turismo’s winter page for 2025/26 lists a season window of 28 November 2025–12 April 2026—always re-check the live board before you book non-refundable lessons.",
         ],
         bullets: [
-          "Check road weather and Italian winter-equipment requirements before leaving.",
-          "Do not schedule a non-refundable lesson around a summer driving-time estimate.",
-          "Keep chains accessible rather than under all the luggage.",
-          "If the upper road is difficult, Campodolcino and the Sky Express may be the operational alternative—verify live status first.",
+          "Closest serious snow day from central Lake Como by car on the SS36 axis.",
+          "Two operating access logics: Madesimo village lifts vs Campodolcino Sky Express.",
+          "One ticket for the connected Madesimo–Campodolcino–Piuro system when open.",
+          "Val di Lei / historic Canalone access is not something to promise from an old map.",
+        ],
+      },
+      {
+        heading: "Is Madesimo a day trip from Tremezzo?",
+        paragraphs: [
+          "Yes by car for an early-starting intermediate or advanced group with pre-booked rentals. No as a spontaneous half day, and rarely for first-timers who still need boot fitting, a lesson and a gentle orientation lap.",
+          "The workable route leaves Tremezzo along the western/northern lake, joins the SS36 toward Lecco–Chiavenna, then climbs the Valle Spluga to Campodolcino and Madesimo. Consorzio Turistico Madesimo publishes Como–Madesimo as about 104 km / ~2 hours and Lecco–Madesimo as about 85 km / ~1h30 in normal conditions. From Tremezzo you still need the lakeshore segment and a winter buffer for weather, snow controls and slow tourist traffic.",
+          "For beginners collecting equipment and arranging a lesson, an overnight in Valchiavenna removes the return-drive pressure. Experienced skiers can make a day work by leaving before dawn, parking with a plan B, and treating 16:00 as the hard stop for the descent.",
+        ],
+        bullets: [
+          "Check road weather and Italian winter-equipment requirements before leaving the lake.",
+          "Do not schedule a non-refundable lesson around a summer Google Maps estimate.",
+          "Keep chains accessible rather than buried under luggage.",
+          "If the upper village road or parking looks difficult, switch to Campodolcino + Sky Express.",
+        ],
+      },
+      {
+        heading: "Two doors into the ski area: Madesimo vs Campodolcino",
+        paragraphs: [
+          "Treat access as a choice of base, not as two different resorts. Madesimo Turismo is clear: the ski area spans three municipalities—Madesimo, Campodolcino and Piuro—lifts start from both the village and the Sky Express, slopes are connected, and the tariff is unique.",
+          "Door A — Madesimo village: ski from the pedestrian centre on cabin and chair access, including the Larici cabin toward roughly 1,900 m (Acquarella / Alpe Groppera sector). Useful when your rental/school meeting point is in the village and you want to ski back into town.",
+          "Door B — Campodolcino Sky Express: the underground funicular from 1,082 m to Alpe Motta at 1,721 m. Skiarea Valchiavenna lists 639 m vertical, 1,406 m length; destination pages call it about three minutes. Madesimo Turismo notes a large free parking area beside the SP1 ticket office—this is often the calmest day-trip parking move when Madesimo village fills.",
+        ],
+        table: {
+          columns: ["Access", "Best for", "Watch-outs"],
+          rows: [
+            ["Madesimo / Larici", "Village stay, ski-in feel, MadePark via Larici/Montalto", "Village parking is tighter on peak weekends."],
+            ["Campodolcino / Sky Express", "Day-trippers, free lower parking, Motta start", "You must match the funicular timetable and last descent."],
+            ["Wrong choice", "Mixing a Campodolcino lesson meeting with a late Madesimo park hunt", "Children and instructors are not interchangeable between bases."],
+          ],
+        },
+      },
+      {
+        heading: "Sky Express: treat the winter PDF as operational truth",
+        paragraphs: [
+          "Skiarea Valchiavenna publishes a winter 2025/26 Sky Express timetable PDF. Pattern to plan around: first departure 07:50 (reserved for pedestrians / non-skiers), then roughly half-hourly service through 17:30, with a denser morning pattern on festive days including an 08:15 departure. Weekday vs Saturday–Sunday / holiday bridges differ; Christmas 24 Dec 2025–6 Jan 2026 and Carnevale 14–22 Feb 2026 are called out as festive periods on that PDF.",
+          "The same PDF states the company may alter or cancel runs without notice. Do not print one grid and treat it as permanent. On the morning itself, open the live plant page and the PDF again before you leave Tremezzo.",
+        ],
+        bullets: [
+          "Park low at Campodolcino if you want to avoid the last mountain hairpins.",
+          "Do not put a child’s first lesson on the 07:50 pedestrian-only departure.",
+          "Protect the last useful downhill connection as tightly as a ferry return on Como.",
         ],
       },
       {
         heading: "What the ski area actually offers",
         paragraphs: [
-          "The official destination describes more than 40 km of alpine slopes between Madesimo and Campodolcino, with village access, snowmaking and terrain for different levels. The underground Sky Express connects Campodolcino with Motta in about three minutes and gains more than 600 metres.",
-          "The operator also states that Val di Lei is currently inaccessible during lift redevelopment. Old piste maps and blog posts can therefore promise terrain that is not available. Always open the live operating map rather than buying based on historic statistics.",
+          "Official product, stripped of brochure fluff: more than 40 km of alpine slopes; blue, red and black terrain; snowmaking; village ski-out at Madesimo; MadePark freestyle area around 1,800 m (helmet mandatory, free access with the ski-area ticket logic); night skiing on the illuminated Pianello/Montalto line when dates are published; cross-country options around Motta / Valle Spluga; and skialp products on regulated tracks.",
+          "Competitive / expert context that blogs often omit: Valchiavenna highlights the Montalto FIS slope in the Arlecchino area and the historic Canalone as a ~3.5 km natural descent with more than 1,000 m drop—while also warning that Val di Lei is not publicly accessible during the lift redevelopment. Madesimo Turismo similarly says the scenic Val di Lei and the famous Canalone freeride will be usable again only when the new plants are ready. If a 2019 piste map is selling you that sector, discard the map.",
+        ],
+        table: {
+          columns: ["Product", "Official signal", "Lake Como planner note"],
+          rows: [
+            ["Alpine slopes", ">40 km, 11 lifts on Madesimo Turismo / live plant count on Skiarea", "Use today’s open count, not the brochure maximum."],
+            ["Sky Express", "Campodolcino 1082 → Motta 1721, ~3 min, 639 m", "Best day-trip parking + Motta start."],
+            ["MadePark", "~1800 m via Larici / Montalto", "Helmet mandatory; setup changes during the season."],
+            ["Night skiing", "Pianello/Montalto; Larici cabin evenings when scheduled", "2026 dates may not be published yet—check live."],
+            ["Val di Lei / Canalone", "Closed / waiting on redevelopment", "Do not sell as open for a Tremezzo day trip."],
+          ],
+        },
+      },
+      {
+        heading: "Skipass, RidottoDì and money logic",
+        paragraphs: [
+          "Buy on the official Skiarea Valchiavenna shop or at the desks—do not trust a screenshot from a random booking site. The published price page currently shows the 2026/27 listino with adult day tickets around €56 in listed low season and €59 in listed high season, plus morning/afternoon/3–4 hour tickets and multi-day ladders. Those figures are orientation only: season bands, age categories (Junior / Senior / Bimbo birth-year rules) and promotions change, so open the live prices page for your exact date.",
+          "Money-saving levers that matter for a Lake Como guest: RidottoDì on Tuesdays and Thursdays (Madesimo Turismo: daily ticket at a sharper price, with further local discounts at participating ski schools / rentals / wellness on that ticket—exclusions around Christmas and Carnevale apply on related Valchiavenna promotions); Early Bird when available for advance dated tickets; half-day tickets if you will lose the morning to the drive and fitting; and the decision not to buy a full day for a beginner who will spend three hours in rental and lesson logistics.",
+        ],
+        bullets: [
+          "Open https://www.skiareavalchiavenna.it/prezzi/ and the online shop the night before.",
+          "Tuesday / Thursday often beats a Saturday from Tremezzo on price and parking stress.",
+          "Photo is required for multi-day tickets beyond three days on the published rules—irrelevant for a one-day raid, critical for a week.",
         ],
       },
       {
-        heading: "A workable ski-day timeline",
+        heading: "Helmets, insurance and Italian piste rules you cannot ignore",
+        paragraphs: [
+          "Madesimo Turismo explicitly warns that D.L. 96 of 30 June 2025 makes an approved protective helmet mandatory for everyone. Italian winter-sports operators now present this as applying to alpine skiing, snowboarding, telemark, sledges and toboggans from winter 2025/26, with administrative fines and possible pass withdrawal for repeat violations. Bring or rent a helmet for every adult—do not assume the old “only under 18” rule.",
+          "Separately, Italian piste law (D.Lgs. 40/2021 framework) still expects civil-liability cover for damage to third parties and forbids skiing under the influence of alcohol or drugs. If your travel insurance is silent on piste liability, fix that before you leave Tremezzo—not at the rental desk.",
+        ],
+      },
+      {
+        heading: "A workable ski-day timeline from Tulipani 11",
         table: {
           columns: ["Time", "Plan", "Why"],
           rows: [
-            ["Before 06:30", "Leave Tremezzo", "Protects against lake-road and mountain delays."],
-            ["08:30–09:00", "Park, collect pre-booked equipment", "Rental queues consume the best snow hours."],
-            ["09:00–12:30", "Ski the suitable open sector", "Follow live lift status, not a saved map."],
-            ["12:30–13:15", "Early lunch", "Avoids the peak restaurant queue."],
-            ["13:15–15:30", "Final ski block", "Leave energy and daylight for the drive."],
-            ["By 16:00", "Return equipment and depart", "Winter descent and lake traffic are slower after dark."],
+            ["Before 06:15", "Leave Tremezzo", "Protects lake + SS36 + mountain delays."],
+            ["07:45–08:30", "Arrive Campodolcino or Madesimo", "Choose Door B if village parking looks hostile."],
+            ["08:30–09:15", "Collect pre-booked kit + buy/load pass", "Rental queues eat the cold morning snow."],
+            ["09:15–12:30", "Ski the open sector that matches the group", "Live lift board only."],
+            ["12:30–13:15", "Early lunch on-mountain or at Motta/village", "Avoid the peak queue."],
+            ["13:15–15:30", "Second ski block", "Stop while legs and light are still good."],
+            ["By 16:00", "Return kit and start the descent", "Winter lake roads after dark are slower and colder."],
           ],
         },
         paragraphs: [
-          "This is a planning framework, not an operating timetable. Lift hours and last uplift vary with date and conditions. Confirm them on the official ski-area channel on the morning itself.",
+          "This is a planning framework, not an operating timetable. Last uplift, Sky Express last run and night-skiing evenings vary. Confirm them on Skiarea Valchiavenna the morning you leave.",
         ],
       },
       {
-        heading: "Beginners, families and rentals",
+        heading: "Beginners, families, MadePark and rentals",
         paragraphs: [
-          "Book a school meeting point and rental shop in the same base sector. “Madesimo” and “Campodolcino” access are connected within the ski area when operating, but they are not interchangeable meeting points when a child is waiting for an instructor.",
-          "Send heights, weights, shoe sizes and ability levels in advance. Ask whether helmets and damage cover are included. A family with first-time skiers usually gains more from a two-day plan than from paying for a pass while spending the morning in fitting and lesson queues.",
+          "Book the ski school meeting point and the rental shop in the same base sector. A Campodolcino Sky Express start and a Madesimo village lesson are not interchangeable when a child is waiting for an instructor.",
+          "Send heights, weights, shoe sizes and ability levels the day before. Ask whether helmets and damage waiver are included. A family with first-timers usually gains more from a Valchiavenna overnight than from burning the best snow hours in fitting queues after a 06:00 lake departure.",
+          "MadePark is free to enter within the ski-area logic and sits around 1,800 m via Larici or Montalto. Madesimo Turismo lists kickers and modular rails for mixed levels, but helmets are mandatory and the setup changes through the season—do not promise a specific feature from last year’s Instagram.",
         ],
       },
       {
-        heading: "Public transport: possible does not mean practical",
+        heading: "Public transport: possible does not mean practical from Tremezzo",
         paragraphs: [
-          "The rail gateway is Chiavenna, followed by local mountain transport. From Tremezzo, reaching that chain can require a lakeshore bus and additional connections. Timings are seasonal and a missed final connection can strand a day trip.",
-          "Use the official regional journey planners for your exact date and consider staying in Valchiavenna. Do not publish or rely on a permanent “Madesimo bus timetable” copied from a single winter season.",
+          "Rail gateway: Chiavenna, then local mountain transport / shuttle products toward the plants. From Tremezzo that usually means ASF lakeshore bus logic into a Como or Colico rail connection, then Trenord toward Chiavenna, then a final mountain leg. Seasonal timings and a missed last shuttle can strand a day trip.",
+          "Valtellina / Valchiavenna pages have, in past seasons, sold Sunday “Treno delle Neve” style packages (train + shuttle + day pass). Treat those as seasonal products to verify for your exact date—not as a permanent timetable you can paste into a Lake Como itinerary.",
+          "If you refuse the car, sleep in Chiavenna, Campodolcino or Madesimo the night before. Do not invent a permanent “Madesimo bus from Tremezzo” grid.",
         ],
       },
       {
         heading: "Where to sleep before and after the ski day",
         paragraphs: [
-          "Tulipani 11 makes sense when skiing is one part of a longer Lake Como holiday: four guests, two bedrooms, two bathrooms, a kitchen, washing machine, heating and parking on street. For consecutive ski days, move up-valley instead of repeating the drive.",
-          `Book the lake portion at [Tulipani 11](${TULIPANI_URL}), or use [ComoStay](${COMO_STAY_URL}) to compare other Lake Como bases.`,
+          "Tulipani 11 makes sense when skiing is one chapter of a longer Lake Como stay: four guests, two bedrooms, two bathrooms, kitchen, washing machine, heating and street parking. Emigro readers get 5% off any ComoStay apartment with code EMIGRO5. For consecutive ski days, move up-valley instead of repeating the SS36.",
+          `Book the lake portion at [Tulipani 11](${TULIPANI_URL}), or browse [all ComoStay apartments](${COMO_STAY_URL}) if dates or capacity differ.`,
         ],
         images: tulipaniImages,
       },
       {
+        heading: "Morning-of checklist",
+        bullets: [
+          "Skiarea Valchiavenna live lifts / snow board open.",
+          "Sky Express PDF or village first-lift time re-checked.",
+          "Pass purchased or Valchiavenna Card ready; helmet for every adult.",
+          "Rental / school confirmation with the correct base name.",
+          "Road weather + chains / winter-equipment status for SS36.",
+          "Hard stop time for the return drive agreed with the whole car.",
+        ],
+        paragraphs: [
+          "If two of those six fail, convert the day into a lake plan—do not force a mountain day on stale information.",
+        ],
+      },
+      {
         heading: "Fact-check note",
         paragraphs: [
-          "Checked 5 October 2026 against Valchiavenna Turismo. Confirmed: the area advertises more than 40 km of slopes and the Campodolcino–Motta Sky Express; fixed: Val di Lei should not be presented as currently skiable while redevelopment is in progress. Prices and opening dates remain volatile and must be checked live.",
+          "Checked 7 October 2026 against Consorzio Turistico Valchiavenna, Consorzio Turistico Madesimo and Skiarea Valchiavenna (live board, prices page, Sky Express plant page and winter 2025/26 timetable PDF). Confirmed: >40 km alpine product, Sky Express Campodolcino–Motta specs, season window published for 2025/26, RidottoDì Tue/Thu messaging, helmet warning under D.L. 96/2025, Val di Lei still marked inaccessible during redevelopment. Soft: exact adult day prices and night-skiing calendars—always open the live shop/listino for your date rather than freezing a screenshot here. Driving times use Madesimo Turismo’s Como/Lecco published ranges plus a winter buffer from Tremezzo; they are not GPS guarantees.",
         ],
       },
     ],
     faq: [
-      { q: "How far is Madesimo from Lake Como?", a: "Travel time depends strongly on your Lake Como base, traffic and winter roads. From Tremezzo, plan it as a long mountain day rather than a nearby resort shuttle." },
-      { q: "Can I reach Madesimo without a car?", a: "It is possible through Chiavenna and local transport on some dates, but multiple connections make an overnight plan safer than a same-day ski trip." },
-      { q: "Is Madesimo good for beginners?", a: "The area offers varied terrain and ski schools. Beginners should pre-book a lesson and rental at the same base point and verify which sectors are open." },
-      { q: "Is Val di Lei open?", a: "The official destination currently says Val di Lei is unavailable during lift redevelopment. Re-check the live ski-area notice before travel." },
-      { q: "Do I need snow chains?", a: "Check the current road order and forecast. Italian winter equipment rules apply seasonally, and mountain conditions can require chains even when the lake is clear." },
+      {
+        q: "How far is Madesimo from Tremezzo / Lake Como?",
+        a: "Consorzio Turistico Madesimo lists Como–Madesimo at about 104 km / ~2 hours in normal conditions. From Tremezzo, add the western-shore segment and a winter buffer—plan a long mountain day, not a nearby resort shuttle.",
+      },
+      {
+        q: "Should I park in Madesimo or Campodolcino?",
+        a: "Day-trippers often do better at Campodolcino’s free Sky Express parking on SP1, then ride the underground funicular to Motta. Use Madesimo village when your rental or school meeting point is there and parking looks workable.",
+      },
+      {
+        q: "Is Val di Lei or the Canalone open?",
+        a: "Valchiavenna still states Val di Lei is not accessible during lift redevelopment. Madesimo Turismo says Val di Lei and the Canalone freeride return only when new plants are ready. Re-check the live notice; do not trust old piste maps.",
+      },
+      {
+        q: "Do adults need a helmet in Madesimo?",
+        a: "Yes for planning purposes. Madesimo Turismo warns that D.L. 96/2025 makes an approved helmet mandatory for everyone from winter 2025/26. Bring or rent one for each skier/snowboarder.",
+      },
+      {
+        q: "What is RidottoDì?",
+        a: "A Tuesday and Thursday daily-ticket promotion highlighted by Madesimo Turismo, often with extra local discounts at participating schools and rentals. Christmas and Carnevale exclusions can apply—verify the current promotion page before travel.",
+      },
+      {
+        q: "Can I reach Madesimo without a car from Tremezzo?",
+        a: "Only with multiple seasonal connections via Chiavenna. For a same-day ski trip it is fragile; overnight in Valchiavenna is the honest car-free plan.",
+      },
+      {
+        q: "Is Madesimo good for beginners?",
+        a: "Yes if you pre-book rental and school at the same base and accept that a first day may be better as an overnight. Do not combine a dawn lake departure with an unbooked walk-up lesson on a Saturday.",
+      },
     ],
     officialSources: [
-      { title: "Valchiavenna — official ski-area overview", url: "https://www.valchiavenna.com/en/experience/skiarea-valchiavenna-tra-madesimo-e-campodolcino/" },
-      { title: "Valchiavenna — winter information", url: "https://www.valchiavenna.com/en/valchiavenna-in-winter.html" },
-      { title: "Valchiavenna — tourist offices and contacts", url: "https://www.valchiavenna.com/en/info-contacts/" },
+      { title: "Valchiavenna — Skiarea Valchiavenna overview", url: "https://www.valchiavenna.com/en/experience/skiarea-valchiavenna-tra-madesimo-e-campodolcino/" },
+      { title: "Madesimo Turismo — skiing in Madesimo", url: "https://www.madesimo.eu/it/esperienze/sciare-a-madesimo/" },
+      { title: "Skiarea Valchiavenna — live lifts and tickets", url: "https://www.skiareavalchiavenna.it/en/" },
+      { title: "Skiarea Valchiavenna — prices", url: "https://www.skiareavalchiavenna.it/prezzi/" },
+      { title: "Sky Express — plant page", url: "https://www.skiareavalchiavenna.it/en/impianti/sky-express/" },
+      { title: "Sky Express — winter 2025/26 timetable PDF", url: "https://www.skiareavalchiavenna.it/wp-content/uploads/2025/08/Sky-Express-Orario-Invernale-2025-2026_IT.pdf" },
+      { title: "Madesimo Turismo — how to get there", url: "https://www.madesimo.eu/it/informazioni-utili/info-mobilita/" },
     ],
   },
   {
