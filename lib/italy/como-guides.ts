@@ -31,6 +31,17 @@ export type ComoGuide = {
   officialSources: Array<{ title: string; url: string }>;
 };
 
+export const COMO_STAY_OFFER = {
+  percent: 5,
+  code: "EMIGRO5",
+  headline: "5% off any ComoStay apartment",
+  headlineRu: "5% скидка на любой апартамент ComoStay",
+  detail:
+    "Emigro readers get 5% off any ComoStay home, including Tulipani 11. Quote code EMIGRO5 when you book.",
+  detailRu:
+    "Читателям Emigro — 5% на любой апартамент ComoStay, включая Tulipani 11. При бронировании назовите код EMIGRO5.",
+} as const;
+
 export function comoStayUrl(
   guideSlug: string,
   placement: "early" | "context" | "final" | "property-image",
@@ -45,6 +56,7 @@ export function comoStayUrl(
   url.searchParams.set("utm_medium", "guide");
   url.searchParams.set("utm_campaign", "lake_como_2026");
   url.searchParams.set("utm_content", `${guideSlug}-${placement}-${destination}`);
+  url.searchParams.set("coupon", COMO_STAY_OFFER.code);
   return url.toString();
 }
 

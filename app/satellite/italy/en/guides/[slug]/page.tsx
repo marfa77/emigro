@@ -6,7 +6,7 @@ import { ComoGuideMap } from "@/components/satellite/ComoGuideMap";
 import { ComoGuidePhoto } from "@/components/satellite/ComoGuidePhoto";
 import { ComoStayLink } from "@/components/satellite/ComoStayLink";
 import { parseInlineMarkdown } from "@/lib/community-notes/note-body-render";
-import { COMO_GUIDES, comoStayUrl, getComoGuide } from "@/lib/italy/como-guides";
+import { COMO_GUIDES, COMO_STAY_OFFER, comoStayUrl, getComoGuide } from "@/lib/italy/como-guides";
 import { getComoGuideMedia } from "@/lib/italy/como-media";
 import { italySatelliteUrl } from "@/lib/site-url";
 
@@ -144,6 +144,7 @@ export default function ComoGuidePage({ params }: { params: { slug: string } }) 
           <div className="p-5 sm:p-6">
             <p className="text-xs font-bold uppercase tracking-wide text-emerald-300">Featured Tremezzo stay</p>
             <h2 className="mt-2 text-xl font-bold">Apartment Tulipani 11</h2>
+            <p className="mt-2 text-sm font-semibold text-amber-300">{COMO_STAY_OFFER.headline} · {COMO_STAY_OFFER.code}</p>
             <p className="mt-2 text-sm leading-relaxed text-slate-300">
               Four guests, two bedrooms, two bathrooms, balcony, kitchen, air conditioning and Wi-Fi.
             </p>
@@ -247,7 +248,7 @@ export default function ComoGuidePage({ params }: { params: { slug: string } }) 
         <p className="text-xs font-bold uppercase tracking-wide text-emerald-300">Plan the stay</p>
         <h2 className="mt-2 text-2xl font-bold">Use Tremezzo as your central-lake base</h2>
         <p className="mt-3 leading-relaxed text-emerald-50">
-          Start with Tulipani 11 for four guests, then browse the full ComoStay inventory if you need different dates, capacity or location.
+          Start with Tulipani 11 for four guests, then browse the full ComoStay inventory if you need different dates, capacity or location. {COMO_STAY_OFFER.detail}
         </p>
         <div className="mt-5 flex flex-wrap gap-3">
           <ComoStayLink

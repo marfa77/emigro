@@ -1,3 +1,5 @@
+import { comoStayUrl } from "@/lib/italy/como-guides";
+
 export type ComoPhoto = {
   src: string;
   alt: string;
@@ -259,16 +261,7 @@ function editorialPhoto(id: string, alt: string, caption: string): ComoPhoto {
 }
 
 function stayMediaUrl(guideSlug: string, destination: "tulipani" | "inventory"): string {
-  const url = new URL(
-    destination === "tulipani"
-      ? "https://comostay.net/en/apartment-tulipani-11---tremezzo"
-      : "https://comostay.net/",
-  );
-  url.searchParams.set("utm_source", "emigro");
-  url.searchParams.set("utm_medium", "guide");
-  url.searchParams.set("utm_campaign", "lake_como_2026");
-  url.searchParams.set("utm_content", `${guideSlug}-property-image-${destination}`);
-  return url.toString();
+  return comoStayUrl(guideSlug, "property-image", destination);
 }
 
 function stayPhoto(

@@ -3,7 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import sharp from "sharp";
-import { COMO_GUIDES, comoStayUrl } from "../lib/italy/como-guides";
+import { COMO_GUIDES, COMO_STAY_OFFER, comoStayUrl } from "../lib/italy/como-guides";
 import { COMO_EDITORIAL_ASSETS, COMO_GUIDE_MEDIA } from "../lib/italy/como-media";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -39,12 +39,15 @@ for (const placement of ["early", "context", "final", "property-image"] as const
     assert.equal(url.searchParams.get("utm_medium"), "guide");
     assert.equal(url.searchParams.get("utm_campaign"), "lake_como_2026");
     assert.equal(url.searchParams.get("utm_content"), `test-guide-${placement}-${destination}`);
+    assert.equal(url.searchParams.get("coupon"), "EMIGRO5");
     assert.equal(
       url.pathname,
       destination === "tulipani" ? "/en/apartment-tulipani-11---tremezzo" : "/",
     );
   }
 }
+assert.equal(COMO_STAY_OFFER.percent, 5);
+assert.equal(COMO_STAY_OFFER.code, "EMIGRO5");
 assert.match(
   fs.readFileSync(path.join(root, "lib/analytics/events.ts"), "utf8"),
   /"como_stay_click"/,
@@ -122,6 +125,7 @@ for (const guide of COMO_GUIDES) {
           url.searchParams.get("utm_content"),
           `${guide.slug}-property-image-${destination}`,
         );
+        assert.equal(url.searchParams.get("coupon"), "EMIGRO5");
       }
     } else {
       const asset = COMO_EDITORIAL_ASSETS.find((item) => item.src === photo.src);

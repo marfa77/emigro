@@ -55,7 +55,8 @@ export function ItalySatelliteFooter() {
           <p>
             Lake Como guides are editorial content checked against official sources. Seasonal transport and opening
             hours can change; verify the linked operator page for your date. ComoStay accommodation links are
-            commercial links to the owner&apos;s site.
+            commercial links to the owner&apos;s site. Emigro readers get 5% off any ComoStay apartment with code
+            EMIGRO5.
           </p>
           <p className="mt-4">
             <Link href="/en" className="font-semibold text-emerald-900 underline">Lake Como guides</Link>
@@ -97,7 +98,8 @@ export function ItalySatelliteFooter() {
         <p>
           Lake Como travel guides are editorial content checked against official sources. Seasonal transport and
           opening hours can change; verify the linked operator page for your date. ComoStay accommodation links are
-          commercial links to the owner&apos;s site.
+          commercial links to the owner&apos;s site. Emigro readers get 5% off any ComoStay apartment with code
+          EMIGRO5.
         </p>
         <p>
           <a href={ITALY_SATELLITE.wizardUrl} className="font-medium text-emerald-900 underline">

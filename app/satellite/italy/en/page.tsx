@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ComoStayLink } from "@/components/satellite/ComoStayLink";
-import { COMO_GUIDES, comoStayUrl } from "@/lib/italy/como-guides";
+import { COMO_GUIDES, COMO_STAY_OFFER, comoStayUrl } from "@/lib/italy/como-guides";
 import { getComoGuideMedia } from "@/lib/italy/como-media";
 import { italySatelliteUrl } from "@/lib/site-url";
 
@@ -72,6 +72,9 @@ export default function ComoEnglishHubPage() {
             Real ferry links, trail choices, winter plans and opening-hour checks. Built for travellers who want to
             use the lake—not lose a day to an expired timetable.
           </p>
+          <p className="mt-4 inline-flex rounded-full bg-amber-100 px-3 py-1 text-sm font-semibold text-amber-950">
+            {COMO_STAY_OFFER.headline} · code {COMO_STAY_OFFER.code}
+          </p>
           <div className="mt-7 flex flex-wrap gap-3">
             <ComoStayLink
               href={comoStayUrl("lake-como-hub", "early", "tulipani")}
@@ -111,6 +114,7 @@ export default function ComoEnglishHubPage() {
           <div className="bg-slate-950 px-5 py-4 text-white">
             <p className="font-semibold">Apartment Tulipani 11 · Tremezzo</p>
             <p className="mt-1 text-sm text-slate-300">4 guests · 2 bedrooms · 2 bathrooms · balcony</p>
+            <p className="mt-2 text-sm font-semibold text-amber-300">{COMO_STAY_OFFER.headline}</p>
           </div>
         </ComoStayLink>
       </div>
@@ -160,7 +164,8 @@ export default function ComoEnglishHubPage() {
         <h2 className="mt-2 text-2xl font-bold">Tremezzo for ferries, villas and the Greenway</h2>
         <p className="mt-3 max-w-3xl leading-relaxed text-emerald-50">
           Tulipani 11 is the featured two-bedroom home. If it is unavailable, ComoStay’s full collection keeps the
-          accommodation search on Lake Como instead of sending readers to an unrelated global booking funnel.
+          accommodation search on Lake Como instead of sending readers to an unrelated global booking funnel.{" "}
+          {COMO_STAY_OFFER.detail}
         </p>
         <div className="mt-5 flex flex-wrap gap-3">
           <ComoStayLink

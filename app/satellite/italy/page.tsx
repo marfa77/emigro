@@ -19,7 +19,7 @@ import { buildSatelliteHubPlace, withSatelliteAiMetadata } from "@/lib/community
 import { DEFAULT_OG_IMAGE, fitMetaDescription, socialImageMetadata } from "@/lib/seo";
 import { italySatelliteUrl } from "@/lib/site-url";
 import { heroTitle, satelliteMain } from "@/lib/ui/mobile";
-import { COMO_STAY } from "@/lib/italy/como-guides";
+import { COMO_STAY, COMO_STAY_OFFER } from "@/lib/italy/como-guides";
 
 export const revalidate = 300;
 
@@ -149,6 +149,7 @@ export default async function ItalySatelliteHomePage() {
               Tulipani 11: до 4 гостей, 2 спальни, 2 ванные, балкон, кухня и Wi-Fi. Для поездки — отдельный
               англоязычный раздел с паромами, хайкингом, Madesimo и достопримечательностями.
             </p>
+            <p className="mt-2 text-sm font-semibold text-amber-900">{COMO_STAY_OFFER.detailRu}</p>
             <div className="mt-4 flex flex-wrap gap-3">
               <a href={COMO_STAY.tulipaniUrl} rel="sponsored" className="rounded-lg bg-sky-800 px-4 py-2 text-sm font-bold text-white">
                 Tulipani 11
