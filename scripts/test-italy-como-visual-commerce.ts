@@ -53,6 +53,21 @@ assert.match(
   /"como_stay_click"/,
   "ComoStay analytics event must be registered",
 );
+assert.match(
+  fs.readFileSync(path.join(root, "app/api/v1/events/route.ts"), "utf8"),
+  /"como_stay_click"/,
+  "ComoStay click must be allowed by /api/v1/events",
+);
+assert.match(
+  fs.readFileSync(path.join(root, "app/api/v1/events/route.ts"), "utf8"),
+  /notifyComoStayClick/,
+  "ComoStay click must notify owner Telegram DM",
+);
+assert.match(
+  fs.readFileSync(path.join(root, "lib/italy/format-telegram.ts"), "utf8"),
+  /ComoStay — клик/,
+  "ComoStay Telegram copy must exist",
+);
 
 assert.deepEqual(
   Object.keys(COMO_GUIDE_MEDIA).sort(),

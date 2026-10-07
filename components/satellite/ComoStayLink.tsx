@@ -25,6 +25,7 @@ export function ComoStayLink({
       {...props}
       href={href}
       rel="sponsored"
+      data-como-stay-tracked="1"
       onClick={(event) => {
         props.onClick?.(event);
         trackEvent("como_stay_click", {

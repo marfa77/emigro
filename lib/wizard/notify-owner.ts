@@ -1,5 +1,6 @@
 import { createAdminClient } from "@/lib/admin/supabase";
 import { formatAssistCtaClickTelegram } from "@/lib/assist/format-telegram";
+import { formatComoStayClickTelegram } from "@/lib/italy/format-telegram";
 import { sendOwnerTelegramDm } from "@/lib/telegram";
 import {
   formatWizardCompletedTelegram,
@@ -11,6 +12,7 @@ import { loadWizardSessionReport } from "@/lib/wizard/session-report";
 
 const OWNER_DM_SENT_EVENT = "wizard_owner_dm_sent";
 const ASSIST_CTA_DM_SENT_EVENT = "assist_cta_owner_dm_sent";
+const COMO_STAY_DM_SENT_EVENT = "como_stay_owner_dm_sent";
 
 export function requestToWizardContext(request: Request, props: Record<string, string> = {}): WizardFunnelContext {
   const forwarded = request.headers.get("x-forwarded-for");
@@ -161,4 +163,57 @@ async function markOwnerAssistCtaDmSent(dedupeKey: string): Promise<void> {
     properties: { dedupe_key: dedupeKey },
   });
   if (error) console.warn("[assist-notify] dedup mark failed:", error.message);
+}
+
+/** Owner DM when user clicks ComoStay / Tulipani. Deduped per browser session + placement + destination (15 min). */
+export async function notifyComoStayClick(
+  props: Record<string, string>,
+  ctx?: WizardFunnelContext,
+): Promise<void> {
+  const analyticsSession = props.analytics_session_id?.trim() || props.browser_session_id?.trim();
+  const placement = props.placement?.trim() || "unknown";
+  const destination = props.destination?.trim() || "unknown";
+  const dedupeKey = analyticsSession
+    ? `${analyticsSession}:${placement}:${destination}`
+    : props.guide_slug?.trim()
+      ? `guide:${props.guide_slug.trim()}:${placement}:${destination}`
+      : null;
+
+  if (dedupeKey && (await ownerComoStayDmAlreadySent(dedupeKey))) return;
+
+  const text = formatComoStayClickTelegram(props, ctx);
+  const result = await sendOwnerTelegramDm(text);
+  if (!result.success) {
+    console.warn("[como-stay-notify] click:", result.error);
+    return;
+  }
+
+  if (dedupeKey) await markOwnerComoStayDmSent(dedupeKey);
+}
+
+async function ownerComoStayDmAlreadySent(dedupeKey: string): Promise<boolean> {
+  const supabase = createAdminClient();
+  const since = new Date(Date.now() - 15 * 60 * 1000).toISOString();
+  const { count, error } = await supabase
+    .from("site_events")
+    .select("id", { count: "exact", head: true })
+    .eq("event_name", COMO_STAY_DM_SENT_EVENT)
+    .gte("created_at", since)
+    .contains("properties", { dedupe_key: dedupeKey });
+
+  if (error) {
+    console.warn("[como-stay-notify] dedup check failed:", error.message);
+    return false;
+  }
+  return (count ?? 0) > 0;
+}
+
+async function markOwnerComoStayDmSent(dedupeKey: string): Promise<void> {
+  const supabase = createAdminClient();
+  const { error } = await supabase.from("site_events").insert({
+    session_id: dedupeKey.slice(0, 128),
+    event_name: COMO_STAY_DM_SENT_EVENT,
+    properties: { dedupe_key: dedupeKey },
+  });
+  if (error) console.warn("[como-stay-notify] dedup mark failed:", error.message);
 }

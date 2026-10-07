@@ -19,7 +19,8 @@ import { buildSatelliteHubPlace, withSatelliteAiMetadata } from "@/lib/community
 import { DEFAULT_OG_IMAGE, fitMetaDescription, socialImageMetadata } from "@/lib/seo";
 import { italySatelliteUrl } from "@/lib/site-url";
 import { heroTitle, satelliteMain } from "@/lib/ui/mobile";
-import { COMO_STAY, COMO_STAY_OFFER } from "@/lib/italy/como-guides";
+import { ComoStayLink } from "@/components/satellite/ComoStayLink";
+import { COMO_STAY_OFFER, comoStayUrl } from "@/lib/italy/como-guides";
 
 export const revalidate = 300;
 
@@ -151,12 +152,24 @@ export default async function ItalySatelliteHomePage() {
             </p>
             <p className="mt-2 text-sm font-semibold text-amber-900">{COMO_STAY_OFFER.detailRu}</p>
             <div className="mt-4 flex flex-wrap gap-3">
-              <a href={COMO_STAY.tulipaniUrl} rel="sponsored" className="rounded-lg bg-sky-800 px-4 py-2 text-sm font-bold text-white">
+              <ComoStayLink
+                href={comoStayUrl("italy-ru-hub", "early", "tulipani")}
+                guideSlug="italy-ru-hub"
+                placement="early"
+                destination="tulipani"
+                className="rounded-lg bg-sky-800 px-4 py-2 text-sm font-bold text-white"
+              >
                 Tulipani 11
-              </a>
-              <a href={COMO_STAY.siteUrl} rel="sponsored" className="rounded-lg border border-sky-300 bg-white px-4 py-2 text-sm font-semibold text-sky-950">
+              </ComoStayLink>
+              <ComoStayLink
+                href={comoStayUrl("italy-ru-hub", "early", "inventory")}
+                guideSlug="italy-ru-hub"
+                placement="early"
+                destination="inventory"
+                className="rounded-lg border border-sky-300 bg-white px-4 py-2 text-sm font-semibold text-sky-950"
+              >
                 Все апартаменты ComoStay
-              </a>
+              </ComoStayLink>
               <Link href="/en" className="rounded-lg px-2 py-2 text-sm font-semibold text-sky-900 underline">
                 Lake Como guides in English →
               </Link>

@@ -3,7 +3,12 @@ import { trackServerEvent } from "@/lib/analytics/server";
 import type { EmigroEventName } from "@/lib/analytics/events";
 import { trackSiteEvent } from "@/lib/analytics/track-site-event";
 import { clientIp } from "@/lib/analytics/geo";
-import { buildWizardContext, notifyAssistCtaClick, notifyWizardResultsView } from "@/lib/wizard/notify-owner";
+import {
+  buildWizardContext,
+  notifyAssistCtaClick,
+  notifyComoStayClick,
+  notifyWizardResultsView,
+} from "@/lib/wizard/notify-owner";
 
 const ALLOWED: Set<string> = new Set([
   "session_start",
@@ -25,6 +30,7 @@ const ALLOWED: Set<string> = new Set([
   "provider_click",
   "partner_inquiry_submitted",
   "community_join_click",
+  "como_stay_click",
   "investment_hub_view",
   "investment_country_view",
   "investment_route_click",
@@ -34,7 +40,11 @@ const ALLOWED: Set<string> = new Set([
   "investment_lead_submitted",
 ]);
 
-const TELEGRAM_EVENTS: Set<string> = new Set(["wizard_results_view", "assist_cta_click"]);
+const TELEGRAM_EVENTS: Set<string> = new Set([
+  "wizard_results_view",
+  "assist_cta_click",
+  "como_stay_click",
+]);
 
 function propsToStrings(props: Record<string, unknown>): Record<string, string> {
   const out: Record<string, string> = {};
@@ -114,6 +124,12 @@ export async function POST(request: Request) {
         await notifyAssistCtaClick(flatProps, ctx);
       } catch (error) {
         console.warn("[assist-notify] cta click:", error instanceof Error ? error.message : error);
+      }
+    } else if (eventName === "como_stay_click") {
+      try {
+        await notifyComoStayClick(flatProps, ctx);
+      } catch (error) {
+        console.warn("[como-stay-notify] click:", error instanceof Error ? error.message : error);
       }
     }
   }

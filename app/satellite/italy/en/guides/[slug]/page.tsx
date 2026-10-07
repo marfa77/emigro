@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ComoGuideMap } from "@/components/satellite/ComoGuideMap";
 import { ComoGuidePhoto } from "@/components/satellite/ComoGuidePhoto";
+import { ComoStayInlineClickTracker } from "@/components/satellite/ComoStayInlineClickTracker";
 import { ComoStayLink } from "@/components/satellite/ComoStayLink";
 import { parseInlineMarkdown } from "@/lib/community-notes/note-body-render";
 import { COMO_GUIDES, COMO_STAY_OFFER, comoStayUrl, getComoGuide } from "@/lib/italy/como-guides";
@@ -172,6 +173,7 @@ export default function ComoGuidePage({ params }: { params: { slug: string } }) 
         </div>
       </aside>
 
+      <ComoStayInlineClickTracker guideSlug={guide.slug}>
       <article className="mt-10 space-y-10">
         {guide.sections.map((section) => {
           const sectionPhotos = (media.sectionPhotos[section.heading] ?? [])
@@ -218,6 +220,7 @@ export default function ComoGuidePage({ params }: { params: { slug: string } }) 
           );
         })}
       </article>
+      </ComoStayInlineClickTracker>
 
       <section className="mt-12" aria-labelledby="official-sources">
         <h2 id="official-sources" className="text-2xl font-bold text-slate-950">Official sources</h2>
