@@ -3,7 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import sharp from "sharp";
-import { COMO_GUIDES, COMO_STAY_OFFER, comoStayUrl } from "../lib/italy/como-guides";
+import { COMO_GUIDES, COMO_MERCATINO_TG, COMO_STAY_OFFER, comoStayUrl } from "../lib/italy/como-guides";
 import { COMO_EDITORIAL_ASSETS, COMO_GUIDE_MEDIA } from "../lib/italy/como-media";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -48,6 +48,24 @@ for (const placement of ["early", "context", "final", "property-image"] as const
 }
 assert.equal(COMO_STAY_OFFER.percent, 5);
 assert.equal(COMO_STAY_OFFER.code, "EMIGRO5");
+assert.equal(COMO_MERCATINO_TG.url, "https://t.me/comomercatino");
+assert.equal(COMO_MERCATINO_TG.handle, "@comomercatino");
+const yellowPages = COMO_GUIDES.find((g) => g.slug === "lake-como-yellow-pages-transport-services");
+assert.ok(yellowPages, "yellow pages guide missing");
+assert.match(JSON.stringify(yellowPages), /https:\/\/t\.me\/comomercatino/);
+assert.match(
+  fs.readFileSync(path.join(root, "app/satellite/italy/en/page.tsx"), "utf8"),
+  /COMO_MERCATINO_TG\.url/,
+  "EN Como hub must wire COMO_MERCATINO_TG.url",
+);
+const madesimoMercatino = COMO_GUIDES.find((g) => g.slug === "madesimo-ski-trip-from-lake-como");
+assert.ok(madesimoMercatino?.mercatinoTip, "Madesimo guide needs mercatino tip");
+assert.match(madesimoMercatino!.mercatinoTip!.headline, /used skis/i);
+assert.match(madesimoMercatino!.mercatinoTip!.body, /https:\/\/t\.me\/comomercatino/);
+assert.ok(
+  COMO_GUIDES.every((g) => g.mercatinoTip?.body.includes("https://t.me/comomercatino")),
+  "every Como guide must carry full comomercatino URL in mercatinoTip",
+);
 assert.match(
   fs.readFileSync(path.join(root, "lib/analytics/events.ts"), "utf8"),
   /"como_stay_click"/,

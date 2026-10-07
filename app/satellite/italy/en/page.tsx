@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ComoStayLink } from "@/components/satellite/ComoStayLink";
-import { COMO_GUIDES, COMO_STAY_OFFER, comoStayUrl } from "@/lib/italy/como-guides";
+import { COMO_GUIDES, COMO_MERCATINO_TG, COMO_STAY_OFFER, comoStayUrl } from "@/lib/italy/como-guides";
 import { getComoGuideMedia } from "@/lib/italy/como-media";
 import { italySatelliteUrl } from "@/lib/site-url";
 
@@ -60,6 +60,7 @@ export default function ComoEnglishHubPage() {
       <section className="sr-only" data-llm="facts">
         Lake Como travel information checked against official transport, attraction and destination sources.
         Seasonal timetables are linked live instead of copied without validity dates.
+        Local buy/sell Telegram: {COMO_MERCATINO_TG.url} ({COMO_MERCATINO_TG.handle}).
       </section>
 
       <div className="grid items-center gap-8 lg:grid-cols-[1.1fr_.9fr]">
@@ -119,6 +120,24 @@ export default function ComoEnglishHubPage() {
         </ComoStayLink>
       </div>
 
+      <section className="mt-10 rounded-2xl border border-slate-200 bg-slate-50 px-5 py-5 sm:px-6">
+        <p className="text-sm font-semibold uppercase tracking-wide text-emerald-800">Local flea market · Telegram</p>
+        <h2 className="mt-1 text-xl font-bold tracking-tight text-slate-950">{COMO_MERCATINO_TG.title}</h2>
+        <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate-700">
+          {COMO_MERCATINO_TG.blurb} Useful for used skis before Madesimo, hiking kit, kids gear and apartment extras.
+          Community classifieds only—not ferries, pharmacies or municipal services.
+        </p>
+        <a
+          href={COMO_MERCATINO_TG.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-3 inline-flex text-sm font-semibold text-emerald-900 underline decoration-emerald-300 underline-offset-4 hover:text-emerald-950"
+        >
+          {COMO_MERCATINO_TG.url}
+        </a>
+        <p className="mt-1 text-xs text-slate-500">{COMO_MERCATINO_TG.handle}</p>
+      </section>
+
       <section className="mt-14" aria-labelledby="guides-heading">
         <div className="flex items-end justify-between gap-4">
           <div>
@@ -127,7 +146,7 @@ export default function ComoEnglishHubPage() {
               Lake Como guides
             </h2>
           </div>
-          <p className="hidden text-sm text-slate-500 sm:block">Updated 5 October 2026</p>
+          <p className="hidden text-sm text-slate-500 sm:block">Updated 7 October 2026</p>
         </div>
         <div className="mt-7 grid gap-6 md:grid-cols-2">
           {COMO_GUIDES.map((guide) => {

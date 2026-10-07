@@ -7,7 +7,7 @@ import { ComoGuidePhoto } from "@/components/satellite/ComoGuidePhoto";
 import { ComoStayInlineClickTracker } from "@/components/satellite/ComoStayInlineClickTracker";
 import { ComoStayLink } from "@/components/satellite/ComoStayLink";
 import { parseInlineMarkdown } from "@/lib/community-notes/note-body-render";
-import { COMO_GUIDES, COMO_STAY_OFFER, comoStayUrl, getComoGuide } from "@/lib/italy/como-guides";
+import { COMO_GUIDES, COMO_MERCATINO_TG, COMO_STAY_OFFER, comoStayUrl, getComoGuide } from "@/lib/italy/como-guides";
 import { getComoGuideMedia } from "@/lib/italy/como-media";
 import { italySatelliteUrl } from "@/lib/site-url";
 
@@ -221,6 +221,25 @@ export default function ComoGuidePage({ params }: { params: { slug: string } }) 
         })}
       </article>
       </ComoStayInlineClickTracker>
+
+      {guide.mercatinoTip && (
+        <aside className="mt-12 rounded-2xl border border-amber-200 bg-amber-50/80 px-5 py-5 sm:px-6" aria-labelledby="mercatino-tip">
+          <p className="text-xs font-bold uppercase tracking-wide text-amber-900">Local flea market · Telegram</p>
+          <h2 id="mercatino-tip" className="mt-1 text-xl font-bold tracking-tight text-slate-950">
+            {guide.mercatinoTip.headline}
+          </h2>
+          <p className="mt-2 text-[1.02rem] leading-7 text-slate-700">{parseInlineMarkdown(guide.mercatinoTip.body)}</p>
+          <a
+            href={COMO_MERCATINO_TG.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-3 inline-flex text-sm font-semibold text-emerald-900 underline decoration-emerald-300 underline-offset-4 hover:text-emerald-950"
+          >
+            {COMO_MERCATINO_TG.url}
+          </a>
+          <p className="mt-1 text-xs text-slate-500">{COMO_MERCATINO_TG.handle} · {COMO_MERCATINO_TG.title}</p>
+        </aside>
+      )}
 
       <section className="mt-12" aria-labelledby="official-sources">
         <h2 id="official-sources" className="text-2xl font-bold text-slate-950">Official sources</h2>

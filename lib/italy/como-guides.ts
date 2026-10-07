@@ -29,6 +29,8 @@ export type ComoGuide = {
   sections: ComoGuideSection[];
   faq: Array<{ q: string; a: string }>;
   officialSources: Array<{ title: string; url: string }>;
+  /** Contextual tip for the Como flea-market Telegram (buy/sell second-hand). */
+  mercatinoTip?: { headline: string; body: string };
 };
 
 export const COMO_STAY_OFFER = {
@@ -69,6 +71,19 @@ export const COMO_STAY = {
   apartmentName: "Apartment Tulipani 11",
   facts: ["Tremezzo", "4 guests", "2 bedrooms", "2 bathrooms", "air conditioning", "Wi-Fi"],
 } as const;
+
+/** Local Como flea-market / buy-sell Telegram — full public URL only (no invite hashes). */
+export const COMO_MERCATINO_TG = {
+  handle: "@comomercatino",
+  url: "https://t.me/comomercatino",
+  title: "Como. Mercatino delle pulci",
+  blurb:
+    "Local Como flea-market Telegram for second-hand buys and sells — furniture, kids gear, sports kit and short-stay extras.",
+} as const;
+
+function mercatinoLinkMd(): string {
+  return `[${COMO_MERCATINO_TG.url}](${COMO_MERCATINO_TG.url}) (${COMO_MERCATINO_TG.handle})`;
+}
 
 const tulipaniImages: ComoGuideImage[] = [
   {
@@ -189,6 +204,10 @@ export const COMO_GUIDES: ComoGuide[] = [
       { title: "ASF Autolinee — official line and timetable search", url: "https://www.asfautolinee.it/search-for-lines-and-schedules/?lang=en" },
       { title: "Villa Carlotta — official directions to Tremezzo", url: "https://www.villacarlotta.it/en/visit/" },
     ],
+    mercatinoTip: {
+      headline: "Need a stroller, beach kit or kids gear for the lake?",
+      body: `Buy or sell second-hand lake-day extras on the local Como flea-market Telegram ${COMO_MERCATINO_TG.title}: ${mercatinoLinkMd()}. Community classifieds only—meet in public and ignore pay-first scams.`,
+    },
   },
   {
     slug: "lake-como-hiking-best-trails",
@@ -296,6 +315,10 @@ export const COMO_GUIDES: ComoGuide[] = [
       { title: "Lake Como — Sentiero del Viandante", url: "https://www.lakecomo.is/en/experience/sentiero-del-viandante/" },
       { title: "Lake Como — official hiking collection", url: "https://www.lakecomo.is/en/experiences/sports/hiking/" },
     ],
+    mercatinoTip: {
+      headline: "Buy or sell used hiking kit around Como",
+      body: `Poles, boots, daypacks or kids carriers you only need for one week? Browse or post on the Como flea-market Telegram ${COMO_MERCATINO_TG.title}: ${mercatinoLinkMd()}. Not a gear shop—community buy/sell only.`,
+    },
   },
   {
     slug: "madesimo-ski-trip-from-lake-como",
@@ -477,6 +500,18 @@ export const COMO_GUIDES: ComoGuide[] = [
         ],
       },
       {
+        heading: "Buy or sell used skis on the Como flea-market Telegram",
+        paragraphs: [
+          `If you are based on Lake Como for more than a one-day rental, local second-hand skis, boots, boards or helmets often beat buying new for a short season—and selling kit when you leave is equally useful. Use the public Como flea-market channel **${COMO_MERCATINO_TG.title}**: ${mercatinoLinkMd()}.`,
+          "This is community classifieds (a local “mercatino”), not a Madesimo rental shop and not Skiarea Valchiavenna. Inspect bindings and boot fit in person, prefer daylight meetups in public places, and never pay before you see the gear. For a single dawn day trip from Tremezzo, a pre-booked resort rental is still the cleaner plan.",
+        ],
+        bullets: [
+          `Full link: ${COMO_MERCATINO_TG.url}`,
+          "Useful for: used skis, boots, poles, boards, approved helmets, kids kit.",
+          "Still rent at the resort if you need same-morning fitting and a damage waiver.",
+        ],
+      },
+      {
         heading: "Public transport: possible does not mean practical from Tremezzo",
         paragraphs: [
           "Rail gateway: Chiavenna, then local mountain transport / shuttle products toward the plants. From Tremezzo that usually means ASF lakeshore bus logic into a Como or Colico rail connection, then Trenord toward Chiavenna, then a final mountain leg. Seasonal timings and a missed last shuttle can strand a day trip.",
@@ -551,7 +586,15 @@ export const COMO_GUIDES: ComoGuide[] = [
         q: "How is this different from madesimo.eu/en/experiences/ski-madesimo/?",
         a: "That page is the destination marketing overview. This guide keeps those official facts and adds SS36 timing from Tremezzo, Door A vs Door B parking, Sky Express PDF logic, RidottoDì −30% money math, and when night skiing or MadePark actually fit a Lake Como stay.",
       },
+      {
+        q: "Where can I buy or sell used skis around Como?",
+        a: `Try the local flea-market Telegram ${COMO_MERCATINO_TG.title} at ${COMO_MERCATINO_TG.url} (${COMO_MERCATINO_TG.handle}). For a single day trip, resort rental is usually simpler; for a longer lake stay, second-hand kit can make sense if you inspect it in person.`,
+      },
     ],
+    mercatinoTip: {
+      headline: "Buy or sell used skis here",
+      body: `Second-hand skis, boots, boards or helmets for a Madesimo week—or selling kit when you leave Lake Como: ${mercatinoLinkMd()}. Local flea-market Telegram, not a resort rental desk.`,
+    },
     officialSources: [
       { title: "Madesimo Turismo — skiing in Madesimo (EN)", url: "https://www.madesimo.eu/en/experiences/ski-madesimo/" },
       { title: "Madesimo Turismo — sciare a Madesimo (IT)", url: "https://www.madesimo.eu/it/esperienze/sciare-a-madesimo/" },
@@ -562,6 +605,7 @@ export const COMO_GUIDES: ComoGuide[] = [
       { title: "Sky Express — plant page", url: "https://www.skiareavalchiavenna.it/en/impianti/sky-express/" },
       { title: "Sky Express — winter 2025/26 timetable PDF", url: "https://www.skiareavalchiavenna.it/wp-content/uploads/2025/08/Sky-Express-Orario-Invernale-2025-2026_IT.pdf" },
       { title: "Madesimo Turismo — how to get there", url: "https://www.madesimo.eu/it/informazioni-utili/info-mobilita/" },
+      { title: "Telegram — Como. Mercatino delle pulci (@comomercatino)", url: "https://t.me/comomercatino" },
     ],
   },
   {
@@ -569,13 +613,13 @@ export const COMO_GUIDES: ComoGuide[] = [
     title: "Lake Como yellow pages: transport, help and useful services",
     seoTitle: "Lake Como Yellow Pages 2026: Tremezzo Transport",
     description:
-      "Lake Como practical directory for Tremezzo: current bus, ferry and train links, pharmacies, tourist offices, emergency numbers and live schedules.",
+      "Lake Como practical directory for Tremezzo: bus, ferry, train links, pharmacies, tourist offices, emergency numbers and the local Telegram mercatino @comomercatino.",
     excerpt:
-      "The useful Lake Como page to save offline: official timetable links, station strategy, emergencies and service categories without stale copied opening hours.",
+      "Official timetable links, station strategy, emergencies—and the public Como flea-market Telegram https://t.me/comomercatino for second-hand finds.",
     quickAnswer:
-      "For Tremezzo, save three official transport sources: Navigazione Laghi for boats, ASF Autolinee line C110 for the western shore, and Trenord for rail from Como or Varenna-Esino. In an emergency call 112. For pharmacies, medical cover and tourist offices, use the official local directory or phone before travelling; opening hours and on-call rotations change, so this guide links live sources rather than freezing them.",
+      "For Tremezzo, save three official transport sources: Navigazione Laghi for boats, ASF Autolinee line C110 for the western shore, and Trenord for rail from Como or Varenna-Esino. In an emergency call 112. For local buy/sell and flea-market posts, use the public Telegram channel Como. Mercatino delle pulci at https://t.me/comomercatino (@comomercatino)—treat it as community classifieds, not official city services. Pharmacies, medical cover and tourist offices: use the official local directory or phone before travelling.",
     category: "Directory",
-    updated: "2026-10-05",
+    updated: "2026-10-07",
     hero: "/images/como/lake-como-directory.webp",
     heroAlt: "Bus and ferry connections around Lake Como",
     heroCreditUrl: "https://www.pexels.com/photo/scenic-view-of-lake-como-with-ferry-and-historic-buildings-31780481/",
@@ -630,6 +674,18 @@ export const COMO_GUIDES: ComoGuide[] = [
         ],
       },
       {
+        heading: "Local flea market Telegram (buy & sell)",
+        paragraphs: [
+          `Como’s public buy/sell board is **${COMO_MERCATINO_TG.title}** — a local flea-market Telegram for second-hand furniture, kids gear, sports kit, skis and short-stay extras: ${mercatinoLinkMd()}.`,
+          "This is community classifieds, not the municipality, ferries or pharmacies. Meet in public places, ignore “pay first / ship later” pressure, and never treat a chat tip as a substitute for ASF, Navigazione Laghi or 112.",
+        ],
+        bullets: [
+          `Full link: ${COMO_MERCATINO_TG.url}`,
+          "Typical posts: furniture, bikes, kids gear, used skis/boots, household extras for a lake stay.",
+          "Official timetables and emergencies stay on the sources listed above—not in Telegram.",
+        ],
+      },
+      {
         heading: "A host link worth saving",
         paragraphs: [
           "A managed apartment gives you one accountable contact for check-in, appliance questions and local logistics. Tulipani 11 lists direct host contact details, a 16:00 check-in, 10:00 check-out and no security deposit; confirm current terms on the booking page.",
@@ -640,7 +696,7 @@ export const COMO_GUIDES: ComoGuide[] = [
       {
         heading: "Fact-check note",
         paragraphs: [
-          "Checked 5 October 2026. Fixed: C110 replaces the old C10 label in current ASF material. Ferry and bus hours are not duplicated because both operators publish seasonal date ranges. Emergency number 112 is stable; pharmacy rotations and local office hours remain live-check items.",
+          "Checked 7 October 2026. Fixed: C110 replaces the old C10 label in current ASF material. Ferry and bus hours are not duplicated because both operators publish seasonal date ranges. Emergency number 112 is stable; pharmacy rotations and local office hours remain live-check items. Added public Telegram channel https://t.me/comomercatino (@comomercatino) as a local mercatino resource—community classifieds only, not an official service.",
         ],
       },
     ],
@@ -650,13 +706,22 @@ export const COMO_GUIDES: ComoGuide[] = [
       { q: "What is the emergency number in Italy?", a: "Call 112 for police, fire or urgent medical emergencies." },
       { q: "Can I rely on Google Maps for the last bus?", a: "Use it for orientation, then verify the exact trip in the official ASF timetable, including weekday, holiday and seasonal notes." },
       { q: "How do I find an open pharmacy?", a: "Use the current local/ATS on-duty pharmacy listing and call before setting out, especially at night or on a holiday." },
+      {
+        q: "Is there a local Como Telegram for buy/sell?",
+        a: `Yes — the public channel ${COMO_MERCATINO_TG.title} at ${COMO_MERCATINO_TG.url} (${COMO_MERCATINO_TG.handle}). Use it for flea-market style posts; keep official transport and emergency numbers on the sources in this guide.`,
+      },
     ],
     officialSources: [
       { title: "ASF Autolinee — schedules", url: "https://www.asfautolinee.it/search-for-lines-and-schedules/?lang=en" },
       { title: "Navigazione Laghi — Lake Como", url: "https://www.navigazionelaghi.it/en/tickets-and-timetables-lake-como/" },
       { title: "Trenord — journey planner", url: "https://www.trenord.it/en/" },
       { title: "European Commission — 112 in the EU", url: "https://digital-strategy.ec.europa.eu/en/policies/112" },
+      { title: "Telegram — Como. Mercatino delle pulci (@comomercatino)", url: "https://t.me/comomercatino" },
     ],
+    mercatinoTip: {
+      headline: "Como flea-market Telegram",
+      body: `Buy or sell second-hand around Lake Como on ${COMO_MERCATINO_TG.title}: ${mercatinoLinkMd()}. Furniture, kids gear, sports kit—community classifieds only.`,
+    },
   },
   {
     slug: "best-things-to-do-lake-como-tremezzo",
@@ -753,6 +818,10 @@ export const COMO_GUIDES: ComoGuide[] = [
       { title: "Italia.it — Lake Como", url: "https://www.italia.it/en/lombardy/lake-como" },
       { title: "Lake Como — Greenway del Lario", url: "https://www.lakecomo.is/en/experience/greenway-del-lario/" },
     ],
+    mercatinoTip: {
+      headline: "Furnishing a short Lake Como stay?",
+      body: `Pick up or offload second-hand extras on the local flea-market Telegram ${COMO_MERCATINO_TG.title}: ${mercatinoLinkMd()}. Not a tourist office—community buy/sell only.`,
+    },
   },
 ];
 
