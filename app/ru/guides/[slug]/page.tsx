@@ -8,6 +8,8 @@ import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { RelocatorChatPromo } from "@/components/community/RelocatorChatPromo";
 import { NewsBotSubscribeCta } from "@/components/news/NewsBotSubscribeCta";
 import { TrackedAssistLink } from "@/components/assist/TrackedAssistLink";
+import { RouteNextStep } from "@/components/assist/RouteNextStep";
+import { COUNTRY_ACCENTS } from "@/lib/brand/country-accents";
 import { UniPrep2GoPromo, UniPrepCitizenshipHubPromo } from "@/components/sponsors/UniPrep2GoPromo";
 import { RoleRadarPromo } from "@/components/sponsors/RoleRadarPromo";
 import { RevolutReferralPromo } from "@/components/sponsors/RevolutReferralPromo";
@@ -29,6 +31,7 @@ import { guidePath, getGuidesIndex, getRelatedGuides, listGuides, loadGuide } fr
 import { inlineMarkdown, stripInlineMarkdown } from "@/lib/markdown/inline";
 import { loadGuideLiveDataForGuide, shouldShowGuideCorridorLiveData } from "@/lib/guides/corridor-live-data";
 import {
+  getGuideCountryTopicKeys,
   getGuidePassportIso2,
   getGuideProviderTopicKey,
 } from "@/lib/guides/guide-display";
@@ -201,6 +204,9 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
     showUniPrep &&
     (uniPrepTopicCount >= 2 ||
       /grazhdanstvo-portugaliya-ispaniya|grazhdanstvo-germaniya-polsha/.test(guide.slug));
+  const guideCountries = getGuideCountryTopicKeys(guide.topic_keys);
+  const guideCountryKey = guideCountries.length === 1 ? guideCountries[0] : undefined;
+  const wizardHref = resolveGuideWizardHref(guide.cta_primary ?? HUB_WIZARD_PATH, guide.topic_keys);
   const toc = extractToc(guide.bodyHtml);
   const faqItems = extractGuideFaq(guide.bodyHtml, 12);
   const sensitiveFinance = isSensitiveFinanceGuide(guide.slug);
@@ -317,6 +323,15 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
 
         <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_280px] xl:grid-cols-[minmax(0,1fr)_300px]">
           <div className="min-w-0">
+            {showUaeProperty ? null : (
+              <RouteNextStep
+                wizardHref={wizardHref}
+                placement="ru_guide_lead"
+                source={`guide_${guide.slug}`}
+                countryRu={guideCountryKey ? COUNTRY_ACCENTS[guideCountryKey]?.label : undefined}
+                countrySegment={guideCountryKey}
+              />
+            )}
             <ShareButtons
               url={url}
               title={longTail?.seoTitle ?? guide.title}
@@ -485,7 +500,7 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
                   <UaePropertyLeadCta placement="guide_sidebar" content={guide.slug} compact />
                 ) : null}
                 <Link
-                  href={resolveGuideWizardHref(guide.cta_primary ?? HUB_WIZARD_PATH, guide.topic_keys)}
+                  href={wizardHref}
                   className={
                     showUaeProperty
                       ? "rounded-lg border border-corridor-200 bg-white px-5 py-3 text-center font-medium text-slate-700 hover:border-corridor-400"

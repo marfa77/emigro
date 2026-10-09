@@ -8,6 +8,7 @@ import { CorridorIntelLinks } from "@/components/corridor/CorridorIntelLinks";
 import { NewsArticleBody } from "@/components/news/NewsDigest";
 import { NewsShareBar } from "@/components/news/NewsShareBar";
 import { RelocatorChatPromo } from "@/components/community/RelocatorChatPromo";
+import { RouteNextStep } from "@/components/assist/RouteNextStep";
 import { NewsBotSubscribeCta } from "@/components/news/NewsBotSubscribeCta";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { NewsHeroVisual } from "@/components/visuals/NewsHeroVisual";
@@ -32,6 +33,8 @@ import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
 import { EMIGRO_PUBLISHER, emigroAuthorOrg, schemaImage } from "@/lib/seo/schema";
 import { newsArticleUrl, newsHubUrl } from "@/lib/site-url";
 import { ruCountryTo } from "@/lib/ru-country-cases";
+import { HUB_WIZARD_PATH } from "@/lib/corridor/paths";
+import { resolveGuideWizardHref } from "@/lib/wizard/resolve-href";
 
 type Props = { params: { slug: string } };
 
@@ -156,6 +159,15 @@ export default async function NewsArticlePage({ params }: Props) {
               Опубликовано <time dateTime={digest.published_at}>{formatDateRu(digest.published_at)}</time>
             </p>
           </HeroShell>
+
+          <RouteNextStep
+            wizardHref={resolveGuideWizardHref(topic?.sitePaths?.wizard ?? HUB_WIZARD_PATH, topic ? [topic.urlSegment] : undefined)}
+            placement="ru_news_lead"
+            source={`news_${digest.slug}`}
+            countryRu={topic?.countryRu}
+            countrySegment={topic?.urlSegment}
+            className="mt-6"
+          />
 
           <NewsShareBar url={url} title={displayTitle} className="mt-6" />
 
