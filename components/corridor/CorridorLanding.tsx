@@ -31,6 +31,7 @@ import { pageUrl } from "@/lib/seo";
 import { heroTitle } from "@/lib/ui/mobile";
 import { getUniPrepOfferForTopic } from "@/lib/uniprep2go/catalog";
 import { shouldShowRoleRadarOnCorridor } from "@/lib/role-radar";
+import { ruCountryTo } from "@/lib/ru-country-cases";
 
 export async function CorridorLanding({ country }: { country: string }) {
   const topic = await requirePublishedCorridorTopic(country);
@@ -90,8 +91,8 @@ export async function CorridorLanding({ country }: { country: string }) {
           <h1 className={`mt-2 ${heroTitle}`}>{corridor.title_ru}</h1>
           <p className="mt-4 max-w-2xl text-lg text-corridor-100">{corridor.audience_description_ru}</p>
           <p className="mt-3 max-w-2xl text-sm text-corridor-100/90">
-            Для русскоязычных за рубежом и в СНГ — в том числе если вы уже в ЕС и ищете смену статуса, переход в{" "}
-            {topic.countryRu} или продление.
+            Для русскоязычных за рубежом и в СНГ — в том числе если вы уже в ЕС и ищете смену статуса, переход{" "}
+            {ruCountryTo(topic.countryRu)} или продление.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             {isFull && topic.sitePaths?.wizard && (
