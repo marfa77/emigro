@@ -5,11 +5,12 @@ import { unstable_cache } from "next/cache";
 import { CACHE_REVALIDATE, CACHE_TAGS } from "@/lib/cache/tags";
 import { getGuideCoverPath, resolveGuideCoverPath, resolveGuideOgImagePath } from "@/lib/guides/covers";
 import { specificGuideTopicKeys } from "@/lib/guides/guide-display";
+import { guidePath } from "@/lib/guides/paths";
 import { getFactcheckCadence, getGuideReviewTier, type FactcheckCadence, type GuideReviewTier } from "@/lib/guides/review-tiers";
 
 export type { FactcheckCadence, GuideReviewTier } from "@/lib/guides/review-tiers";
 export type { GuideOfficialSource, GuideFrontmatter, GuideArticle } from "@/lib/guides/types";
-export { guidePath } from "@/lib/guides/paths";
+export { guidePath };
 
 import type { GuideOfficialSource, GuideFrontmatter, GuideArticle } from "@/lib/guides/types";
 import type { GuideLocale } from "@/lib/locale";
@@ -350,6 +351,14 @@ function dropDuplicateSourcesSection(body: string, sources: GuideOfficialSource[
   });
   if (!allCovered) return body;
   return [...lines.slice(0, start), ...lines.slice(end)].join("\n");
+}
+
+/** Public path for a guide slug in the locale where its file exists (ru, then es, then fr). */
+export function resolveGuidePath(slug: string): string | undefined {
+  const locale = (["ru", "es", "fr"] as const).find((candidate) =>
+    fs.existsSync(path.join(guidesDir(candidate), `${slug}.md`)),
+  );
+  return locale ? guidePath(slug, locale) : undefined;
 }
 
 export function loadGuideUncached(slug: string, locale: GuideLocale = "ru"): GuideArticle | null {

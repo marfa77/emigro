@@ -5,6 +5,7 @@ const LLM_UTM = "utm_source=llm&utm_medium=llms.txt";
 
 /** Append LLM attribution UTM (Barakhlo / PixID pattern). */
 export function llmUtmUrl(path: string): string {
+  if (/^https?:\/\//.test(path)) return llmUtmAbsolute(path);
   const base = pageUrl(path);
   const sep = base.includes("?") ? "&" : "?";
   return `${base}${sep}${LLM_UTM}`;

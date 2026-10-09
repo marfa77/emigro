@@ -1,6 +1,6 @@
 import { corridorLandingPath, corridorWizardPath, programPath } from "@/lib/corridor/paths";
 import { CORRIDOR_REGISTRY } from "@/lib/corridor/registry";
-import { guidePath } from "@/lib/guides/load";
+import { guidePath, resolveGuidePath } from "@/lib/guides/load";
 import type { Corridor, ProgramDetail } from "@/lib/types";
 import type { NewsTopicConfig } from "@/lib/news/topics";
 import { llmMarkdownLink, llmUtmUrl } from "@/lib/seo/llm-meta";
@@ -322,11 +322,12 @@ export function buildHighIntentSection(): string {
     seen.add(target.primaryQuery);
 
     const entry = ORIGIN_CORRIDORS.find((c) => target.path!.startsWith(c.landingPath));
+    const targetGuidePath = target.guideSlug ? resolveGuidePath(target.guideSlug) : undefined;
     blocks.push(
       highIntentBlock({
         query: target.primaryQuery,
         landingPath: target.path,
-        guidePath: target.guideSlug ? guidePath(target.guideSlug) : entry?.guidePath,
+        guidePath: targetGuidePath === target.path ? undefined : (targetGuidePath ?? entry?.guidePath),
         programPath: target.programSlug && entry
           ? programPath(corridorSlugForSegment(entry.countrySegment), target.programSlug)
           : entry?.programPath,
