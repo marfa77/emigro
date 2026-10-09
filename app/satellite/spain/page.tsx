@@ -206,10 +206,6 @@ export default async function SpainSatelliteHomePage() {
         >
           Справочник коридора
         </a>
-        {" · "}
-        <a href={llmsUrl} className="text-amber-900 underline">
-          llms.txt
-        </a>
       </p>
     </main>
   );

@@ -256,10 +256,6 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
         >
           D8/D7 pillar-гид
         </a>
-        {" · "}
-        <a href={llmsUrl} className="text-sm text-teal-700 underline">
-          llms.txt
-        </a>
       </p>
     </main>
   );

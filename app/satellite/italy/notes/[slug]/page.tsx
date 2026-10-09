@@ -258,10 +258,6 @@ export default async function ItalyNotePage({ params }: { params: { slug: string
         >
           Digital nomad pillar-гид
         </a>
-        {" · "}
-        <a href={llmsUrl} className="text-sm text-emerald-900 underline">
-          llms.txt
-        </a>
       </p>
     </main>
   );

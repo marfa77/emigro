@@ -438,9 +438,17 @@ export default async function PortugalSatelliteHomePage() {
           </ul>
           {guidesHidden > 0 ? (
             <p className="mt-4 text-sm text-slate-600">
-              Ещё {guidesHidden} гайдов — через теги (#nif, #aima, #arenda) или{" "}
-              <a href={llmsUrl} className="font-medium text-teal-800 underline">
-                llms.txt
+              Ещё {guidesHidden} гайдов — через теги{" "}
+              <a href="/tag/nif" className="font-medium text-teal-800 underline">
+                #nif
+              </a>
+              ,{" "}
+              <a href="/tag/aima" className="font-medium text-teal-800 underline">
+                #aima
+              </a>{" "}
+              и{" "}
+              <a href="/tag/arenda" className="font-medium text-teal-800 underline">
+                #arenda
               </a>
               .
             </p>
@@ -493,10 +501,6 @@ export default async function PortugalSatelliteHomePage() {
           className="text-teal-700 underline"
         >
           Справочник коридора на emigro.online →
-        </a>
-        {" · "}
-        <a href={llmsUrl} className="text-teal-700 underline">
-          llms.txt
         </a>
       </p>
     </main>

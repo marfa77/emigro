@@ -182,8 +182,6 @@ export default async function ThailandSatelliteHomePage() {
         >
           Хаб Таиланда
         </a>
-        {" · "}
-        <a href={llmsUrl} className="text-indigo-900 underline">llms.txt</a>
       </p>
     </main>
   );

@@ -254,10 +254,6 @@ export default async function ItalySatelliteHomePage() {
         >
           Справочник коридора
         </a>
-        {" · "}
-        <a href={llmsUrl} className="text-emerald-900 underline">
-          llms.txt
-        </a>
       </p>
     </main>
   );
