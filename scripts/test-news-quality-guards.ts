@@ -348,6 +348,7 @@ const topic: NewsTopicConfig = {
   key: "spain",
   urlSegment: "spain",
   countryRu: "Испания",
+  countryInRu: "в Испании",
   countryEn: "Spain",
   flag: "🇪🇸",
   audienceRu: "русскоязычных заявителей",

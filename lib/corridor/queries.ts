@@ -2,6 +2,7 @@ import { unstable_cache } from "next/cache";
 import { createServerClient } from "@/lib/supabase/server";
 import { CACHE_REVALIDATE, CACHE_TAGS } from "@/lib/cache/tags";
 import { overlayInvestmentPassportEligibility } from "@/lib/investment/passport-overlay";
+import { localizeProgramRu } from "@/lib/corridor/program-ru-copy";
 import type { Corridor, ProgramDetail, WizardDefinition } from "@/lib/types";
 
 export const CORRIDOR_SLUG = "ru-speaking-to-portugal";
@@ -262,7 +263,7 @@ export async function getProgramsBySlugs(slugs: string[]): Promise<Map<string, P
     { revalidate: CACHE_REVALIDATE.programs, tags: [CACHE_TAGS.programs] },
   )();
 
-  return new Map(Object.entries(record));
+  return new Map(Object.entries(record).map(([slug, program]) => [slug, localizeProgramRu(program)]));
 }
 
 export async function getProgramBySlug(slug: string): Promise<ProgramDetail | null> {

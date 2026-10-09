@@ -16,6 +16,7 @@ import type { NewsTopicConfig } from "@/lib/news/topics";
 import type { GuideFrontmatter } from "@/lib/guides/types";
 import { guidePath } from "@/lib/guides/paths";
 import { newsFeedUrl } from "@/lib/site-url";
+import { ruCountryDative } from "@/lib/ru-country-cases";
 
 type Props = {
   allTopics: NewsTopicConfig[];
@@ -83,7 +84,7 @@ function NewsIndexBody({ allTopics, digests, pillarGuides }: Props) {
 
       {visibleDigests.length === 0 ? (
         <div className="mt-12 rounded-xl border border-dashed border-slate-300 bg-white p-10 text-center text-slate-600">
-          Пока нет опубликованных выпусков{topic ? ` по ${topic.countryRu}` : ""}.
+          Пока нет опубликованных выпусков{topic ? ` по ${ruCountryDative(topic.countryRu)}` : ""}.
         </div>
       ) : (
         <div className="mt-10 grid gap-4 md:grid-cols-2">

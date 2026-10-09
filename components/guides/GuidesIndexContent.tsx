@@ -25,6 +25,7 @@ import {
 } from "@/lib/guides/categories";
 import type { GuideFrontmatter } from "@/lib/guides/types";
 import { guidePath } from "@/lib/guides/paths";
+import { ruCountryAccusative } from "@/lib/ru-country-cases";
 
 export type GuidesCorridorLink = {
   key: string;
@@ -253,7 +254,7 @@ function GuidesIndexBody({ allGuides, pillarGuides, corridors }: Props) {
           </h1>
           <p className="mt-5 max-w-2xl text-lg leading-relaxed text-corridor-100 2xl:max-w-3xl">
             {topic
-              ? `${guideCountLabel(guides.length)} про ${topic.countryRu} — маршруты, документы, бюджет и практика. Сравнительные материалы по нескольким странам тоже попадают в выборку.`
+              ? `${guideCountLabel(guides.length)} про ${ruCountryAccusative(topic.countryRu)} — маршруты, документы, бюджет и практика. Сравнительные материалы по нескольким странам тоже попадают в выборку.`
               : "Практические editorial-разборы для русскоязычных за рубежом и в СНГ: маршруты, доходы, семья, отказы и бюджет. Без воды — с проверкой через wizard."}
           </p>
           {topic?.landing && (

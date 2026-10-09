@@ -19,6 +19,7 @@ import { isItalyHubTopic, italySatelliteHubUrl } from "@/lib/italy/hub";
 import { publicSiteUrl, thailandSatellitePublicUrl } from "@/lib/site-url";
 import { corridorHubLabel } from "@/lib/corridor/hub-label";
 import { getEmigroScore, toEmigroScoreView, type EmigroScoreView } from "@/lib/emigro-score";
+import { ruCountryGenitive, ruCountryIn } from "@/lib/ru-country-cases";
 
 export type CorridorHubTab = "hub" | "route" | "news" | "digest" | "practice" | "market";
 export type CorridorHubLayerId = "route" | "news" | "guides" | "practice" | "market";
@@ -164,10 +165,9 @@ export function corridorHubNavItems(
 
 export function corridorHubJourney(topic: NewsTopicConfig, features = getCorridorHubFeatures(topic)) {
   const country = topic.countryRu;
-  const countryIn = countryLocativeRu(country);
   const liveStep = features.hasPractice
     ? `Сателлит — быт, услуги, заметки от сообщества.`
-    : `Практика-слой Emigro для ${country} — скоро.`;
+    : `Практика-слой Emigro для ${ruCountryGenitive(country)} — скоро.`;
 
   return [
     {
@@ -179,46 +179,10 @@ export function corridorHubJourney(topic: NewsTopicConfig, features = getCorrido
       detail: "Гайды + справочник + program pages — требования, сроки, официальные ссылки.",
     },
     {
-      step: `Живу в ${countryIn}`,
+      step: `Живу ${ruCountryIn(country)}`,
       detail: liveStep,
     },
   ] as const;
-}
-
-function countryLocativeRu(countryRu: string): string {
-  const map: Record<string, string> = {
-    Португалия: "Португалии",
-    Испания: "Испании",
-    Германия: "Германии",
-    Италия: "Италии",
-    Франция: "Франции",
-    Нидерланды: "Нидерландах",
-    Польша: "Польше",
-    Чехия: "Чехии",
-    Австрия: "Австрии",
-    Греция: "Греции",
-    Хорватия: "Хорватии",
-    Венгрия: "Венгрии",
-    Румыния: "Румынии",
-    Болгария: "Болгарии",
-    Словакия: "Словакии",
-    Словения: "Словении",
-    Эстония: "Эстонии",
-    Латвия: "Латвии",
-    Литва: "Литве",
-    Финляндия: "Финляндии",
-    Швеция: "Швеции",
-    Норвегия: "Норвегии",
-    Дания: "Дании",
-    Ирландия: "Ирландии",
-    Бельгия: "Бельгии",
-    Швейцария: "Швейцарии",
-    Кипр: "Кипре",
-    Мальта: "Мальте",
-    Люксембург: "Люксембурге",
-    Таиланд: "Таиланде",
-  };
-  return map[countryRu] ?? countryRu;
 }
 
 const COMING_SOON_RATINGS: HubTileRating[] = [];

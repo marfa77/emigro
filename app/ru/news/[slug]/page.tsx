@@ -31,6 +31,7 @@ import {
 import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
 import { EMIGRO_PUBLISHER, emigroAuthorOrg, schemaImage } from "@/lib/seo/schema";
 import { newsArticleUrl, newsHubUrl } from "@/lib/site-url";
+import { ruCountryTo } from "@/lib/ru-country-cases";
 
 type Props = { params: { slug: string } };
 
@@ -98,7 +99,7 @@ export default async function NewsArticlePage({ params }: Props) {
     publisher: EMIGRO_PUBLISHER,
     mainEntityOfPage: { "@type": "WebPage", "@id": url },
     image: [newsImage],
-    articleSection: `Релокация в ${digest.country}`,
+    articleSection: `Релокация ${ruCountryTo(digest.country)}`,
     keywords: digest.tags.join(", "),
     about: digest.tags.map((tag) => ({ "@type": "Thing", name: tag })),
     ...(digest.source_links.length > 0

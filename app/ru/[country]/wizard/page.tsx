@@ -16,6 +16,7 @@ import { pageMetadata, pageUrl } from "@/lib/seo";
 import { wizardCorridorDescription } from "@/lib/seo/wizard-corridor-copy";
 import { buildCorridorBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
 import { buildWizardPageFaq, buildWizardPageSchema } from "@/lib/seo/wizard-page-seo";
+import { ruCountryDative } from "@/lib/ru-country-cases";
 
 export const revalidate = 3600;
 
@@ -130,7 +131,7 @@ export default async function CountryWizardPage({ params }: { params: { country:
             <Link href="/ru/wizard" className="text-corridor-600 hover:underline">
               hub wizard Emigro
             </Link>
-            . Справочник по {topic.countryRu} —{" "}
+            . Справочник по {ruCountryDative(topic.countryRu)} —{" "}
             <Link href={topic.sitePaths.landing!} className="text-corridor-600 hover:underline">
               коридор {topic.countryRu}
             </Link>

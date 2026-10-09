@@ -1,6 +1,7 @@
 import { getNewsDisplayTitle, getPublishedNewsDigests } from "@/lib/news/digests";
 import { resolveNewsTopicFromParam } from "@/lib/news/topics";
 import { newsArticleUrl, newsFeedUrl, newsHubUrl } from "@/lib/site-url";
+import { ruCountryTo } from "@/lib/ru-country-cases";
 
 function escapeXml(s: string): string {
   return s
@@ -23,7 +24,7 @@ export async function GET(request: Request) {
     ? `Emigro — новости ${topic.countryRu} для русскоязычных`
     : "Emigro — новости релокации в Европу";
   const channelDescription = topic
-    ? `Еженедельные обзоры по релокации в ${topic.countryRu} для ${topic.audienceRu}.`
+    ? `Еженедельные обзоры по релокации ${ruCountryTo(topic.countryRu)} для ${topic.audienceRu}.`
     : "Еженедельные обзоры по ВНЖ и гражданству в европейских направлениях Emigro.";
 
   const items = digests

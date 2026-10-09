@@ -4,6 +4,7 @@ import Link from "next/link";
 import { PulseCard, PulseHeader, PulseShareList } from "@/components/wizard/WizardPulseUi";
 import { getCorridorWizardPulse } from "@/lib/wizard/pulse";
 import type { NewsTopicConfig } from "@/lib/news/topics/types";
+import { ruCountryIn } from "@/lib/ru-country-cases";
 
 async function CorridorWizardPulseInner({ topic }: { topic: NewsTopicConfig }) {
   const pulse = await getCorridorWizardPulse(topic.urlSegment, topic.corridorSlug ?? null);
@@ -56,7 +57,7 @@ async function CorridorWizardPulseInner({ topic }: { topic: NewsTopicConfig }) {
           href={wizardHref}
           className="inline-flex items-center gap-2 rounded-lg bg-corridor-600 px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-corridor-900/30 hover:bg-corridor-500"
         >
-          Проверить себя в {pulse.countryLabel}
+          Проверить шансы {ruCountryIn(pulse.countryLabel)}
         </Link>
       </div>
     </section>

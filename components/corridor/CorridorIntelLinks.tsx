@@ -11,6 +11,7 @@ import { externalLinkRel } from "@/lib/partners/link";
 import { isPortugalHubTopic, portugalSatelliteHubUrl } from "@/lib/portugal/hub";
 import { isSpainHubTopic, spainSatelliteHubUrl } from "@/lib/spain/hub";
 import { corridorPillarGuideAnchor, corridorPillarGuideHref } from "@/lib/seo/corridor-pillar-guides";
+import { ruCountryGenitive } from "@/lib/ru-country-cases";
 
 type Props = {
   topic: NewsTopicConfig;
@@ -224,7 +225,7 @@ export function CorridorIntelLinks({ topic, variant = "full", layout = "grid" }:
               Barakhlo · {barakhloCity}
             </p>
             <p className="mt-1 text-sm text-slate-600">
-              Мебель, услуги, авто — объявления из русскоязычных чатов {topic.countryRu}.
+              Мебель, услуги, авто — объявления из русскоязычных чатов {ruCountryGenitive(topic.countryRu)}.
             </p>
           </a>
         )}
@@ -268,7 +269,7 @@ export function CorridorIntelLinks({ topic, variant = "full", layout = "grid" }:
 
       {!paths && !isCorridorOnSite(topic.status) && (
         <p className="mt-4 text-sm text-slate-500">
-          Полный коридор с wizard для {topic.countryRu} — в разработке. Пока доступны еженедельные новости.
+          Полный коридор с wizard для {ruCountryGenitive(topic.countryRu)} — в разработке. Пока доступны еженедельные новости.
         </p>
       )}
     </section>

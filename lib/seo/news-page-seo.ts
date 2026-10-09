@@ -1,10 +1,11 @@
 import type { NewsDigest } from "@/lib/news/digests";
 import type { NewsTopicConfig } from "@/lib/news/topics";
 import { buildFaqSchema, type FaqItem } from "@/lib/seo/corridor-page-seo";
+import { ruCountryDative, ruCountryGenitive, ruCountryTo } from "@/lib/ru-country-cases";
 
 export function buildNewsIndexAiDescription(topic: NewsTopicConfig | null): string {
   if (topic) {
-    return `Еженедельные новости релокации в ${topic.countryRu} для ${topic.audienceRu}: изменения законов, консульства, пороги ВНЖ и практика подачи с проверенными источниками. Emigro — не юридическая консультация.`;
+    return `Еженедельные новости релокации ${ruCountryTo(topic.countryRu)} для ${topic.audienceRu}: изменения законов, консульства, пороги ВНЖ и практика подачи с проверенными источниками. Emigro — не юридическая консультация.`;
   }
   return "Еженедельные новости Emigro по ВНЖ, визам и гражданству в европейских коридорах для русскоязычных заявителей (RU, BY, UA, KZ). Каждый выпуск — проверенные факты и ссылки на официальные источники.";
 }
@@ -13,19 +14,19 @@ export function buildNewsIndexFaq(topic: NewsTopicConfig | null): FaqItem[] {
   if (topic) {
     return [
       {
-        question: `Как часто выходят новости по ${topic.countryRu}?`,
+        question: `Как часто выходят новости по ${ruCountryDative(topic.countryRu)}?`,
         answer: "Emigro публикует еженедельный обзор по каждому активному коридору. Выпуски собираются из официальных источников: миграционные службы, консульства, BOE, BAMF и аналоги.",
       },
       {
-        question: `Для кого новости ${topic.countryRu} на Emigro?`,
+        question: `Для кого новости ${ruCountryGenitive(topic.countryRu)} на Emigro?`,
         answer: `Материалы ориентированы на ${topic.audienceRu}. Это навигация и контекст, а не юридическая консультация — перед подачей проверяйте актуальные правила у консульства или лицензированного специалиста.`,
       },
       {
-        question: `Чем новости отличаются от справочника коридора ${topic.countryRu}?`,
+        question: `Чем новости отличаются от справочника коридора ${ruCountryGenitive(topic.countryRu)}?`,
         answer: "Новости фиксируют изменения за неделю. Справочник (digest) — структурированные факты по программам ВНЖ. Wizard проверяет личный профиль по требованиям программ.",
       },
       {
-        question: `Как получать новости ${topic.countryRu} в Telegram?`,
+        question: `Как получать новости ${ruCountryGenitive(topic.countryRu)} в Telegram?`,
         answer:
           "Только в боте @emigro_chat_bot, не на сайте. Откройте бота и напишите «новости " +
           topic.countryRu +
@@ -86,10 +87,10 @@ export function buildNewsArticleFaq(digest: NewsDigest, topic: NewsTopicConfig |
 
   items.push(
     {
-      question: `Для кого этот выпуск новостей по ${country}?`,
+      question: `Для кого этот выпуск новостей по ${ruCountryDative(country)}?`,
       answer: topic
         ? `Обзор для ${topic.audienceRu}. Emigro публикует еженедельные изменения по маршруту ${country} с проверенными source_links.`
-        : `Еженедельный обзор Emigro по релокации в ${country} для русскоязычных заявителей.`,
+        : `Еженедельный обзор Emigro по релокации ${ruCountryTo(country)} для русскоязычных заявителей.`,
     },
     {
       question: "Это юридическая консультация?",

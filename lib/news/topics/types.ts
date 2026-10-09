@@ -8,6 +8,8 @@ export interface NewsTopicConfig {
   key: NewsTopicKey;
   urlSegment: string;
   countryRu: string;
+  /** Location phrase with preposition: «в Норвегии», «во Франции», «на Кипре». */
+  countryInRu: string;
   countryEn: string;
   flag: string;
   audienceRu: string;

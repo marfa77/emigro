@@ -6,6 +6,7 @@ import {
   getProvidersForContext,
   splitDefaultProviders,
 } from "@/lib/providers/registry";
+import { ruCountryIn } from "@/lib/ru-country-cases";
 
 type Props = {
   corridorSlug?: string;
@@ -19,7 +20,7 @@ type Props = {
 
 function defaultSectionTitle(topicKey?: string): string {
   const countryRu = topicKey ? COUNTRY_ACCENTS[topicKey]?.label : undefined;
-  return countryRu ? `Сервисы в ${countryRu}` : "Справочник сервисов";
+  return countryRu ? `Сервисы ${ruCountryIn(countryRu)}` : "Справочник сервисов";
 }
 
 export function ServiceProvidersSection({
@@ -48,7 +49,7 @@ export function ServiceProvidersSection({
       {variant === "default" && (
         <p className="mt-2 max-w-2xl text-sm text-slate-600">
           {countryRu
-            ? `Справочник местных фирм и сервисов в ${countryRu}.`
+            ? `Справочник местных фирм и сервисов ${ruCountryIn(countryRu)}.`
             : "Справочник местных фирм и сервисов на маршруте."}
         </p>
       )}

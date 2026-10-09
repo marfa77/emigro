@@ -1,6 +1,7 @@
 import { unstable_cache } from "next/cache";
 import { createServerClient } from "@/lib/supabase/server";
 import { CACHE_REVALIDATE, CACHE_TAGS } from "@/lib/cache/tags";
+import { ruCountryIn } from "@/lib/ru-country-cases";
 import type { NewsTopicConfig, NewsTopicStatus } from "./types";
 
 export type NewsTopicRow = {
@@ -36,6 +37,7 @@ export function mapNewsTopicRow(row: NewsTopicRow): NewsTopicConfig {
     key: row.key,
     urlSegment: row.url_segment,
     countryRu: row.country_ru,
+    countryInRu: ruCountryIn(row.country_ru),
     countryEn: row.country_en,
     flag: row.flag,
     audienceRu: row.audience_ru,
@@ -66,7 +68,7 @@ async function fetchPublishedTopicsUncached(): Promise<NewsTopicConfig[]> {
 
 const getPublishedTopicsCached = unstable_cache(
   fetchPublishedTopicsUncached,
-  ["news-topics-published", "v2026-07-31-nordics"],
+  ["news-topics-published", "v2026-10-09-country-cases"],
   { revalidate: CACHE_REVALIDATE.topics, tags: [CACHE_TAGS.newsTopics] },
 );
 

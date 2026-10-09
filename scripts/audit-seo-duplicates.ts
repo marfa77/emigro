@@ -18,6 +18,7 @@ import {
 import { buildDigestMetadata, buildProgramMetadata } from "../lib/seo/corridor-page-seo";
 import { getPtLongTailByGuideSlug, getPtLongTailByPath } from "../lib/seo/pt-longtail";
 import { TRANSIT_HUBS } from "../lib/transit-hubs";
+import { ruCountryIn } from "../lib/ru-country-cases";
 import { getNewsDisplaySeoTitle } from "../lib/news/digests";
 import { createServerClient } from "../lib/supabase/server";
 
@@ -148,6 +149,7 @@ async function main() {
         const digestMeta = buildDigestMetadata({
           key: topic.key,
           countryRu: topic.country_ru,
+          countryInRu: ruCountryIn(topic.country_ru),
           urlSegment: segment,
           audienceRu: topic.audience_ru,
           focusHintRu: topic.focus_hint_ru,
@@ -193,6 +195,7 @@ async function main() {
         } as never,
         {
           countryRu: topic.country_ru,
+          countryInRu: ruCountryIn(topic.country_ru),
           urlSegment: segment,
           seoTags: topic.seo_tags,
           sitePaths: { landing: `/ru/${segment}` },

@@ -1,6 +1,7 @@
 import { pageUrl } from "@/lib/seo";
 import { EMIGRO_PUBLISHER } from "@/lib/seo/schema";
 import { WIZARD_CORRIDOR_DESCRIPTIONS } from "@/lib/seo/wizard-corridor-copy";
+import { ruCountryDative } from "@/lib/ru-country-cases";
 
 export type WizardFaqItem = { question: string; answer: string };
 
@@ -14,7 +15,7 @@ export function buildWizardPageFaq(topic: {
 
   return [
     {
-      question: `Какие маршруты ВНЖ проверяет wizard по ${topic.countryRu}?`,
+      question: `Какие маршруты ВНЖ проверяет wizard по ${ruCountryDative(topic.countryRu)}?`,
       answer: `Wizard сопоставляет ваш профиль с программами: ${corridorPrograms}. Это справочная оценка — не юридическая консультация и не гарантия одобрения.`,
     },
     {

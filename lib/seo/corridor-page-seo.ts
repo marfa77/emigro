@@ -5,6 +5,7 @@ import { countryCardImage, countryOgImage } from "@/lib/brand/country-accents";
 import { fitMetaDescription, fitSeoTitlePart, hreflangAlternates, pageMetadata, pageUrl } from "@/lib/seo";
 import { getLongTailByProgramSlug } from "@/lib/seo/query-longtail";
 import { EMIGRO_PUBLISHER, emigroAuthorOrg, schemaImage } from "@/lib/seo/schema";
+import { ruCountryDative, ruCountryGenitive, ruCountryIn, ruCountryTo } from "@/lib/ru-country-cases";
 
 const SCHEMA_DATE_FALLBACK = "2026-06-01T00:00:00.000Z";
 
@@ -115,7 +116,7 @@ export function buildProgramQuickAnswer(program: ProgramDetail, topic: NewsTopic
   const threshold = keyRequirement(program);
   const type = programTypeLabel(program.program_type);
   const parts = [
-    `${program.title_ru} — маршрут ВНЖ в ${topic.countryRu} для русскоязычных с паспортами RU/BY/UA/KZ (${type}).`,
+    `${program.title_ru} — маршрут ВНЖ ${ruCountryTo(topic.countryRu)} для русскоязычных с паспортами RU/BY/UA/KZ (${type}).`,
     threshold ? `Ключевой порог: ${threshold}.` : program.summary_ru,
     `Проверьте свой профиль в wizard коридора ${topic.countryRu} или hub wizard Emigro.`,
   ];
@@ -140,10 +141,10 @@ export function buildProgramFaq(program: ProgramDetail, topic: NewsTopicConfig):
       answer: `${program.summary_ru} Программа относится к типу «${programTypeLabel(program.program_type)}» в коридоре ${topic.countryRu}.`,
     },
     {
-      question: `Какой финансовый порог для ${topic.countryRu} в 2026?`,
+      question: `Какой финансовый порог для ${ruCountryGenitive(topic.countryRu)} в 2026?`,
       answer: threshold
         ? `${threshold}. Точные расчёты зависят от состава семьи и требований консульства — сверяйте с официальными источниками на странице.`
-        : `Смотрите блок «Требования» и официальные источники — пороги обновляются индексами и правилами ${topic.countryRu}.`,
+        : `Смотрите блок «Требования» и официальные источники — пороги обновляются индексами и правилами ${ruCountryGenitive(topic.countryRu)}.`,
     },
     {
       question: `Сколько занимает оформление ВНЖ по этой программе?`,
@@ -158,7 +159,7 @@ export function buildProgramFaq(program: ProgramDetail, topic: NewsTopicConfig):
     {
       question: employmentRule
         ? `Можно ли работать или удалённо по этому маршруту?`
-        : `Какие ограничения по деятельности в ${topic.countryRu}?`,
+        : `Какие ограничения по деятельности ${ruCountryIn(topic.countryRu)}?`,
       answer: employmentRule?.value_text
         ? `${employmentRule.label_ru}: ${employmentRule.value_text}`
         : `Смотрите требования программы и официальные источники — ограничения по работе различаются по типу ВНЖ.`,
@@ -263,19 +264,19 @@ export function buildDigestFaq(topic: NewsTopicConfig, corridor: Corridor): FaqI
 
   return [
     {
-      question: `Сколько лет до гражданства ${topic.countryRu} в 2026?`,
+      question: `Сколько лет до гражданства ${ruCountryGenitive(topic.countryRu)} в 2026?`,
       answer:
         citizenship?.body_ru ??
-        `Срок натурализации зависит от типа ВНЖ и интеграции; смотрите разделы справочника и официальные источники ${topic.countryRu}.`,
+        `Срок натурализации зависит от типа ВНЖ и интеграции; смотрите разделы справочника и официальные источники ${ruCountryGenitive(topic.countryRu)}.`,
     },
     {
-      question: `Какой язык нужен для ВНЖ и гражданства в ${topic.countryRu}?`,
+      question: `Какой язык нужен для ВНЖ и гражданства ${ruCountryIn(topic.countryRu)}?`,
       answer:
         language?.body_ru ??
         `Требования к языку различаются по этапу (ВНЖ vs гражданство); проверьте экзамены и уровни в справочнике и на сайтах миграционных служб.`,
     },
     {
-      question: `Какие налоги учитывать при релокации в ${topic.countryRu}?`,
+      question: `Какие налоги учитывать при релокации ${ruCountryTo(topic.countryRu)}?`,
       answer:
         tax?.body_ru ??
         `Налоговый режим зависит от статуса резидента, источника дохода и договоров об избежании двойного налогообложения — это не юридическая консультация, сверяйте с консультантом.`,
@@ -285,10 +286,10 @@ export function buildDigestFaq(topic: NewsTopicConfig, corridor: Corridor): FaqI
       answer: `${programList}. Детальные требования, пороги и источники — на страницах программ и в wizard коридора.`,
     },
     {
-      question: `Как отслеживать изменения миграционного законодательства ${topic.countryRu}?`,
+      question: `Как отслеживать изменения миграционного законодательства ${ruCountryGenitive(topic.countryRu)}?`,
       answer:
         practical?.body_ru ??
-        `Подпишитесь на еженедельный дайджест Emigro по ${topic.countryRu} и сверяйте решения с официальными публикациями (BOE, MFA, миграционные порталы).`,
+        `Подпишитесь на еженедельный дайджест Emigro по ${ruCountryDative(topic.countryRu)} и сверяйте решения с официальными публикациями (BOE, MFA, миграционные порталы).`,
     },
     {
       question: `Чем справочник отличается от новостей Emigro?`,
@@ -322,7 +323,7 @@ export function buildDigestMetadata(topic: NewsTopicConfig): Metadata {
   const path = digestPagePath(topic);
   const seoTitle = fitTitle(`Справочник ВНЖ ${topic.countryRu} — факты 2026`);
   const description = fitDescription(
-    `Проверенные факты по ВНЖ, гражданству, языку и срокам в ${topic.countryRu} для паспортов RU/BY/UA/KZ. Программы коридора, wizard подбора маршрута и еженедельные новости Emigro.`
+    `Проверенные факты по ВНЖ, гражданству, языку и срокам ${ruCountryIn(topic.countryRu)} для паспортов RU/BY/UA/KZ. Программы коридора, wizard подбора маршрута и еженедельные новости Emigro.`
   );
   const keywords = [
     `ВНЖ ${topic.countryRu}`,
@@ -548,23 +549,23 @@ export function buildCorridorLandingFaq(topic: NewsTopicConfig, corridor: Corrid
     },
     {
       question: `Я уже живу в ЕС. Подойдёт ли коридор ${topic.countryRu}?`,
-      answer: `Wizard и справочник показывают классические маршруты первичной подачи. Если вы уже в Европе, часто актуальны смена основания, переход в ${topic.countryRu}, продление или воссоединение семьи — сверяйте место подачи с официальными источниками или Emigro Assist.`,
+      answer: `Wizard и справочник показывают классические маршруты первичной подачи. Если вы уже в Европе, часто актуальны смена основания, переход ${ruCountryTo(topic.countryRu)}, продление или воссоединение семьи — сверяйте место подачи с официальными источниками или Emigro Assist.`,
     },
     {
-      question: `Какие программы ВНЖ есть в ${topic.countryRu}?`,
+      question: `Какие программы ВНЖ есть ${ruCountryIn(topic.countryRu)}?`,
       answer: `${programList}. Детальные требования, пороги и официальные источники — на страницах программ и в wizard коридора.`,
     },
     {
       question: `Чем коридор ${topic.countryRu} отличается от транзитного хаба?`,
-      answer: `EU-коридор Emigro — это маршрут к ВНЖ и гражданству в ${topic.countryRu}: wizard, справочник, программы и новости. Транзитные хабы (Сербия, Армения и др.) — первый шаг на 3–12 месяцев без EU-статуса.`,
+      answer: `EU-коридор Emigro — это маршрут к ВНЖ и гражданству ${ruCountryIn(topic.countryRu)}: wizard, справочник, программы и новости. Транзитные хабы (Сербия, Армения и др.) — первый шаг на 3–12 месяцев без EU-статуса.`,
     },
     {
-      question: `Как подобрать маршрут в ${topic.countryRu}?`,
+      question: `Как подобрать маршрут ${ruCountryTo(topic.countryRu)}?`,
       answer: `Используйте wizard коридора ${topic.countryRu} или hub wizard /ru/wizard — Emigro сопоставит паспорт, доход, семью и сроки с программами без гарантии одобрения.`,
     },
     {
-      question: `Где смотреть изменения законов по ${topic.countryRu}?`,
-      answer: `Еженедельные новости Emigro по ${topic.countryRu} с source_links на первоисточники. Справочник коридора — статический intelligence-слой с проверенными фактами.`,
+      question: `Где смотреть изменения законов по ${ruCountryDative(topic.countryRu)}?`,
+      answer: `Еженедельные новости Emigro по ${ruCountryDative(topic.countryRu)} с source_links на первоисточники. Справочник коридора — статический intelligence-слой с проверенными фактами.`,
     },
     {
       question: `Это юридическая консультация?`,

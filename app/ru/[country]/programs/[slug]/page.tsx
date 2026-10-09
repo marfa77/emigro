@@ -127,18 +127,18 @@ function softProgramStatus(program: ProgramDetail): {
 
   if (core.length > 0 && core.every((e) => e.status === "ineligible")) {
     return {
-      label: "Passport restricted",
+      label: "Закрыто для RU/BY/UA/KZ",
       className: "border-rose-300 bg-rose-100 text-rose-950",
     };
   }
   if (core.some((e) => e.status === "ineligible" || e.status === "partial")) {
     return {
-      label: "Restricted",
+      label: "Есть ограничения",
       className: "border-amber-300 bg-amber-100 text-amber-950",
     };
   }
   return {
-    label: "Active",
+    label: "Доступно",
     className: "border-emerald-300 bg-emerald-100 text-emerald-950",
   };
 }
@@ -173,7 +173,7 @@ function mainBarrier(
     return first.value_text ? `${first.label_ru}: ${first.value_text}` : first.label_ru;
   }
 
-  return "Сверить eligibility и место подачи с официальным источником.";
+  return "Сверить право на программу и место подачи с официальным источником.";
 }
 
 function formatVerifiedChip(program: ProgramDetail): string | null {
@@ -305,7 +305,7 @@ export default async function CountryProgramPage({
               href={base}
               className="rounded-lg border border-white/40 px-5 py-3 font-medium text-white hover:bg-white/10"
             >
-              Все маршруты в {topic.countryRu}
+              Все маршруты {topic.countryInRu}
             </Link>
           </div>
         </HeroShell>
@@ -345,7 +345,7 @@ export default async function CountryProgramPage({
 
         {pillarGuide && (
           <section className="mt-10 rounded-3xl border border-corridor-200 bg-corridor-50 p-6 shadow-sm sm:p-8">
-            <p className="text-sm font-semibold uppercase tracking-wide text-corridor-700">Pillar-гайд</p>
+            <p className="text-sm font-semibold uppercase tracking-wide text-corridor-700">Главный гайд</p>
             <h2 className="mt-2 text-2xl font-bold text-slate-900">{pillarGuide.title}</h2>
             <p className="mt-3 max-w-3xl text-sm leading-relaxed text-slate-700">{pillarGuide.excerpt}</p>
             <Link
@@ -370,7 +370,7 @@ export default async function CountryProgramPage({
           <section className="mt-12">
             <h2 className="text-2xl font-bold text-slate-900">Паспорт и место подачи</h2>
             <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate-600">
-              Паспорт — первый фильтр. Дальше статус программы, eligibility и пороги. Статус ниже показывает не
+              Паспорт — первый фильтр. Дальше статус программы, право на подачу и пороги. Статус ниже показывает не
               только закон, но и операционный риск: консульство, VFS, запись и юрисдикция для RU/BY/UA/KZ.
             </p>
             <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -414,7 +414,7 @@ export default async function CountryProgramPage({
         <section className="mt-12">
           <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-wide text-corridor-700">Eligibility</p>
+              <p className="text-sm font-semibold uppercase tracking-wide text-corridor-700">Требования</p>
               <h2 className="mt-1 text-3xl font-bold text-slate-900">Кому маршрут подходит</h2>
             </div>
             <p className="max-w-xl text-sm leading-relaxed text-slate-600">
@@ -443,7 +443,7 @@ export default async function CountryProgramPage({
         <section className="mt-12 rounded-3xl border border-slate-200 bg-slate-950 p-6 text-white shadow-sm sm:p-8">
           <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-wide text-corridor-200">Timeline</p>
+              <p className="text-sm font-semibold uppercase tracking-wide text-corridor-200">Сроки</p>
               <h2 className="mt-2 text-3xl font-bold">Как выглядит путь</h2>
               <p className="mt-3 text-sm leading-relaxed text-slate-300">
                 Используйте как план проекта: сначала критерии и документы, затем слот подачи, решение и карта.
