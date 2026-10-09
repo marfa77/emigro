@@ -182,7 +182,7 @@ export default function AssistPage({
         name: "Route Check",
         price: "129",
         priceCurrency: "EUR",
-        url: assistUrl,
+        url: pageUrl("/ru/route-check"),
         availability: "https://schema.org/InStock",
       },
       {
@@ -264,6 +264,12 @@ export default function AssistPage({
             >
               Route Check — €129
             </TrackedAssistLink>
+            <Link
+              href="/ru/route-check"
+              className="inline-flex items-center gap-2 rounded-lg border border-white/40 px-5 py-3 font-medium text-white hover:bg-white/10"
+            >
+              Что входит в Route Check
+            </Link>
             <Link
               href="/ru/wizard"
               className="inline-flex items-center gap-2 rounded-lg border border-white/40 px-5 py-3 font-medium text-white hover:bg-white/10"

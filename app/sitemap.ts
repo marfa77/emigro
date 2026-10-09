@@ -186,6 +186,7 @@ async function buildWwwSitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${origin}/ru/partners`, changeFrequency: "monthly", priority: 0.7 },
     { url: `${origin}/ru/contact`, changeFrequency: "monthly", priority: 0.6 },
     { url: `${origin}/ru/assist`, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${origin}/ru/route-check`, changeFrequency: "monthly", priority: 0.6 },
     ...TRANSIT_HUBS.map((hub) => ({
       url: `${origin}${hub.path}`,
       changeFrequency: "monthly" as const,

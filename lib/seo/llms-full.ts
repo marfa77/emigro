@@ -131,6 +131,8 @@ ${buildProgramIndexTable()}
 - ${llmMarkdownLink("Инвестиционная миграция", "/ru/invest")} — статус и документы, связанные с недвижимостью и инвестициями
 ${investmentLines}
 - Новости по стране: /ru/news?country=portugal|spain|france|italy|germany|netherlands|sweden|norway|finland|denmark|poland|czechia|austria|greece|cyprus|hungary|malta|bulgaria|croatia|slovenia|estonia
+- ${llmMarkdownLink("Emigro Assist", "/ru/assist")} — подбор партнёра €0, Route Check €129, сопровождение €100/ч
+- ${llmMarkdownLink("Route Check €129", "/ru/route-check")} — созвон + PDF с маршрутом, таймлайном, бюджетом и рисками за 48 ч
 - ${llmMarkdownLink("Хаб для граждан Украины", "/ru/ukraine")}
 - ${llmMarkdownLink("Срочный выезд из РФ", "/ru/guides/kuda-uehat-iz-rossii-srochno-2026-evropa-bezviz-haby")}
 - ${llmMarkdownLink("Легализация после выезда", "/ru/guides/legalizatsiya-v-evrope-posle-vyezda-iz-rossii-2026")}
@@ -324,6 +326,8 @@ export async function buildLlmsFullText(): Promise<string> {
     row("/ru/community", "Сообщество релокантов Emigro"),
     row("/ru/partners", "Партнёры и сервисы на маршруте"),
     row("/ru/contact", "Контакты Emigro"),
+    row("/ru/assist", "Emigro Assist: подбор партнёра €0, Route Check €129, сопровождение €100/ч"),
+    row("/ru/route-check", "Route Check €129: созвон + PDF с маршрутом, таймлайном, бюджетом и рисками за 48 ч"),
     row(ES_PATHS.home, "Emigro ES — LATAM → España y Portugal"),
     row(FR_PATHS.home, "Emigro FR — Afrique francophone → France"),
     row(FR_PATHS.france, "France destination hub (FR)"),

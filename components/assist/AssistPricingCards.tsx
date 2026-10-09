@@ -104,6 +104,10 @@ export function AssistPricingCards({
             <Link href={ROUTE_CHECK_PDF_PATH} className="font-medium text-corridor-700 hover:underline">
               PDF
             </Link>
+            {" · "}
+            <Link href="/ru/route-check" className="font-medium text-corridor-700 hover:underline">
+              Подробнее о Route Check
+            </Link>
           </p>
 
           <TrackedAssistLink
