@@ -1,8 +1,8 @@
 ---
 slug: pervye-30-dnej-v-portugalii-2026
 title: "Первые 30 дней в Португалии 2026: чек-лист, бюджет, ловушки"
-seo_title: "Первые 30 дней в Португалии 2026 — NIF, банк, AIMA, бюджет"
-seo_description: "Чек-лист после прилёта в Португалию 2026: NIF, аренда, банк, AIMA, SNS, бюджет семьи. D7/D8/D2; ARI — если карта уже есть. Для RU/BY/UA/KZ."
+seo_title: "NIF Португалия 2026 — 30 дней: банк, AIMA (RU/BY)"
+seo_description: "Первые 30 дней в PT 2026: NIF, аренда, IBAN, AIMA ≤4 мес., SNS. D7 ~€920 / D8 ~€3 680 (RMMG). Биометрия 8–24 мес. Для RU/BY/UA/KZ."
 excerpt: "Практический месяц после въезда по D7/D8/D2 или Golden Visa: NIF, жильё, португальский банк, подача в AIMA, SNS и типичные ошибки."
 quick_answer: |-
   Первая неделя: SIM и NIF в Finanças или через налогового представителя. Вторая: аренда с регистрацией в Finanças и счёт в Millennium, CGD или ActivoBank.
@@ -27,12 +27,12 @@ official_sources:
     label: Segurança Social — NISS
 estimated_minutes: 22
 date_published: 2026-06-27
-date_modified: 2026-09-19
+date_modified: 2026-10-12
 ---
 
 **Чек-лист, бюджет и ловушки первого месяца для D7 / D8 / D2 / Golden Visa**
 
-> **Fact-check Emigro (июль 2026):** пороги D7/D8 привязаны к **RMMG €920** ([Decreto-Lei 139/2025](https://diariodarepublica.pt/dr/detalhe/decreto-lei/139-2025-992879809)): D8 ≈ **4×** (~€3 680/мес), D7 ≈ **1×** + сбережения. **NHR** закрыт для новых с 2024 (IFICI — узкий режим, не «20% для любого IT»). Гражданство: Lei Orgânica n.º 1/2026 с **19.05.2026** — для большинства **10 лет** (EU/CPLP — **7**), не «8 лет». AIMA: запись на биометрию **8–24 мес.** (Lisboa **15–24**); карта после биометрии часто **3–6 мес.** Цены аренды / сборы / NIF-rep — ориентиры рынка. Практика: [portugal.emigro.online](https://portugal.emigro.online).
+> **Fact-check Emigro (октябрь 2026).** **OK:** пороги D7/D8 привязаны к **RMMG €920** ([Decreto-Lei 139/2025](https://diariodarepublica.pt/dr/detalhe/decreto-lei/139-2025-992879809); [MNE meios](https://vistos.mne.gov.pt/pt/vistos-nacionais/documentacao-instrutoria/meios-de-subsistencia)): D8 ≈ **4×** (~€3 680/мес), D7 ≈ **1×** + сбережения. Виза D на въезд — обычно **4 месяца / 2 въезда**, затем AIMA. **NHR** закрыт для новых с 2024 (IFICI — узкий режим). Гражданство: Lei Orgânica n.º 1/2026 с **19.05.2026** — для большинства **10 лет** (EU/CPLP — **7**). AIMA: биометрия **8–24 мес.** (Lisboa **15–24**); карта после биометрии часто **3–6 мес.** Аренда / NIF-rep — поле. Практика: [portugal.emigro.online](https://portugal.emigro.online).
 
 Pillar по визам: [D8 и D7 Португалия 2026](/ru/guides/vnj-portugaliya-d8-d7-grazhdanstvo-2026) · wizard [/ru/portugal/wizard](/ru/portugal/wizard).
 

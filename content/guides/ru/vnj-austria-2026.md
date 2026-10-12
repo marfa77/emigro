@@ -7,7 +7,9 @@ excerpt: "Честный гайд: Австрия без digital nomad визы.
 quick_answer: |-
   Отдельной digital nomad visa в Австрии нет. Жить и работать, в том числе удалённо на иностранного работодателя, без подходящего вида на жительство нельзя: туризм и шенген C работу запрещают.
 
-  Основные пути 2026: RWR Other Key Workers — оффер, AMS и от €3 465 брутто в месяц плюс баллы; EU Blue Card от €55 678 в год; отдельно shortage, выпускники и Very Highly Qualified. Self-Employed Key Worker — не «фриланс с ноутбуком»: нужен макроэкономический эффект (€100 000 капитала или рабочие места / know-how / регион). Start-up Founder: €30 000, доля от 50%, 50/85 баллов и инновация. Сначала RWR на 24 месяца, затем RWR Card Plus.
+  Основные пути 2026: RWR Other Key Workers — оффер, AMS и от €3 465 брутто в месяц плюс баллы; отдельно shortage, выпускники и Very Highly Qualified.
+  EU Blue Card — от €55 678 в год.
+  Self-Employed Key Worker — не «фриланс с ноутбуком»: нужен макроэкономический эффект (€100 000 капитала или рабочие места / know-how / регион). Start-up Founder: €30 000, доля от 50%, 50/85 баллов и инновация. Сначала RWR на 24 месяца, затем RWR Card Plus.
 
   Соискателям 45+ при первом въезде часто смотрят зарплату или пенсию по той же логике, что в Германии. Подача из РФ — через третьи страны. ПМЖ около 5 лет, гражданство около 10 лет и B1.
 corridor_slugs: [ru-speaking-to-austria]
@@ -23,20 +25,20 @@ official_sources:
     label: migration.gv.at — Self-employed Key Workers
   - url: https://www.migration.gv.at/en/types-of-immigration/permanent-immigration-red-white-red-card/start-up-founders.html
     label: migration.gv.at — Start-up Founders
-  - url: https://www.migration.gv.at/en/types-of-residence/all-types-of-residence/eu-blue-card/
+  - url: https://www.migration.gv.at/en/types-of-immigration/permanent-immigration/eu-blue-card/
     label: migration.gv.at — EU Blue Card
-  - url: https://www.migration.gv.at/en/types-of-residence/all-types-of-residence/family-reunification/
+  - url: https://www.migration.gv.at/en/types-of-immigration/permanent-immigration/family-reunification/
     label: migration.gv.at — воссоединение семьи
 estimated_minutes: 20
 date_published: 2026-06-29
-date_modified: 2026-09-19
+date_modified: 2026-10-12
 ---
 
 ## Главный вердикт (прочитайте первым)
 
 **Австрия — плохой выбор для «классического digital nomad’а»** (ноутбук + иностранный работодатель/клиенты без австрийского оффера).
 
-> **Nota Emigro (fact-check, сентябрь 2026).** **OK:** dedicated DNV **нет**. RWR Other Key Workers **€3 465** брутто/мес (не €2 835). Blue Card **€55 678**/год. Self-Employed Key Worker = **€100k или макропольза**, не «ИП с Upwork». Start-up: **€30k**, доля **≥50%**, **50/85** баллов. Сначала RWR **~24 мес**, потом Plus. ПМЖ ~**5 лет**, гражданство ~**10 лет** + **B1**. Источники: [migration.gv.at](https://www.migration.gv.at/en/types-of-immigration/permanent-immigration/other-key-workers/). **Fixed overlay:** Neue Selbständige / Gewerbe ≠ виза. Schengen C работу не даёт. **Soft:** 4–8 мес. / MA35 3–6 мес. Termin — поле. 45+ при первом въезде — зарплата/пенсия как в DE, не жёсткий закон «запрещено».
+> **Nota Emigro (fact-check, октябрь 2026).** **OK:** dedicated DNV **нет**. RWR Other Key Workers **€3 465** брутто/мес (2026, [migration.gv.at](https://www.migration.gv.at/en/types-of-immigration/permanent-immigration/other-key-workers/)). Blue Card **€55 678**/год ([EU Blue Card](https://www.migration.gv.at/en/types-of-immigration/permanent-immigration/eu-blue-card/)). Self-Employed Key Worker = **€100k или макропольза**, не «ИП с Upwork». Start-up: **€30k**, доля **≥50%**, **50/85** баллов. Сначала RWR **~24 мес**, потом Plus. ПМЖ ~**5 лет**, гражданство ~**10 лет** + **B1**. **Fixed overlay:** Neue Selbständige / Gewerbe ≠ виза. Schengen C работу не даёт. **Soft:** сроки виза/AMS/MA35 — поле (см. таблицу маршрутов и блок «Документы и сроки»); 45+ при первом въезде — зарплата/пенсия как в DE, не жёсткий закон «запрещено».
 
 | Миф | Факт |
 |-----|------|
@@ -234,7 +236,8 @@ Wizard: [AT](/ru/austria/wizard) · [CZ](/ru/czechia/wizard) · [PL](/ru/poland/
 ## Чеклист перед подачей
 
 - [ ] Есть **австрийский оффер** / капитал Key Worker / стартап — иначе стоп
-- [ ] Зарплата ≥ **€3 465** (RWR Other) или ≥ **€55 678**/год (Blue Card); для **45+** — проверьте повышенный порог/пенсию
+- [ ] RWR Other: зарплата ≥ **€3 465**/мес брутто (2026)
+- [ ] Blue Card: зарплата ≥ **€55 678**/год брутто (2026); для **45+** — проверьте повышенный порог/пенсию
 - [ ] Не путаете **Self-Employed Key Worker** с «фриланс-визой»
 - [ ] Считаете **SVS + PIT + VAT**, не только Einkommensteuer
 - [ ] AMS / консульство / Termin MA35 в календаре (**месяцы**)
@@ -277,14 +280,15 @@ Wizard: [AT](/ru/austria/wizard) · [CZ](/ru/czechia/wizard) · [PL](/ru/poland/
 - [Other Key Workers](https://www.migration.gv.at/en/types-of-immigration/permanent-immigration/other-key-workers/)
 - [Self-employed Key Workers](https://www.migration.gv.at/en/types-of-immigration/permanent-immigration-red-white-red-card/self-employed-key-workers.html)
 - [Start-up Founders](https://www.migration.gv.at/en/types-of-immigration/permanent-immigration-red-white-red-card/start-up-founders.html)
-- [EU Blue Card](https://www.migration.gv.at/en/types-of-residence/all-types-of-residence/eu-blue-card/)
+- [EU Blue Card](https://www.migration.gv.at/en/types-of-immigration/permanent-immigration/eu-blue-card/)
 
 ---
 
 ## Коротко для проверки маршрута
 
 - **Нет DNV** — remote без титула нельзя.
-- RWR Other: **€3 465/мес** (2026); Blue Card: **€55 678/год**.
+- RWR Other: **€3 465/мес** (2026).
+- Blue Card: **€55 678/год**.
 - Self-Employed Key Worker: **€100k / макропольза**, не ноутбук.
 - Start-up: **€30k + 50% equity + 50 баллов + инновация**.
 - RWR **24 мес** → затем **Plus**.
