@@ -100,7 +100,6 @@ export default async function SpainNotePage({ params }: { params: { slug: string
       )}
 
       <section className="sr-only" aria-label="AI description" data-llm="facts">
-        <h2>ai:description</h2>
         <p>{llmDescription}</p>
         <ul>
           {llmFacts.map((fact) => (

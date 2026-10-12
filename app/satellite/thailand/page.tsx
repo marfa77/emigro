@@ -101,7 +101,6 @@ export default async function ThailandSatelliteHomePage() {
     <main className={satelliteMain}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }} />
       <section className="sr-only" aria-label="AI description" data-llm="facts">
-        <h2>ai:description</h2>
         <p>
           {HUB_DESCRIPTION} Материалы предназначены для релокантов с паспортами RU/BY/UA/KZ и не заменяют
           проверку требований Thai Immigration.

@@ -69,7 +69,6 @@ export default async function ThailandNotePage({ params }: { params: { slug: str
       {faqSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />}
 
       <section className="sr-only" aria-label="AI description" data-llm="facts">
-        <h2>ai:description</h2>
         <p>{buildCommunityNoteLlmDescription(note)}</p>
         <ul>{llmFacts.map((fact) => <li key={fact}>{fact}</li>)}</ul>
         <a href={thailandSatelliteUrl("/llms")} data-llm="commercial">llms.txt</a>

@@ -107,7 +107,6 @@ export default async function ItalySatelliteHomePage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }} />
 
       <section className="sr-only" aria-label="AI description" data-llm="facts">
-        <h2>ai:description</h2>
         <p>
           {HUB_DESCRIPTION} Материалы: новости, лайфхаки, советы и гайды по жизни в Италии для релокантов с
           паспортами RU/BY/UA/KZ.

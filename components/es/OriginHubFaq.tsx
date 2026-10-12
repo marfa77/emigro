@@ -12,7 +12,6 @@ export function OriginHubFaq({ originIso }: { originIso: EsOriginIso }) {
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       ) : null}
       <section className="sr-only" aria-label="AI description">
-        <h2>ai:description</h2>
         <p>{llmFacts}</p>
         <a href="/llms.txt">llms.txt</a>
       </section>

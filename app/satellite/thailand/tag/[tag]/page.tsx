@@ -100,7 +100,6 @@ export default async function ThailandTagPage({ params }: { params: { tag: strin
     <main className={satelliteMain}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }} />
       <section className="sr-only" aria-label="AI description">
-        <h2>ai:description</h2>
         <p>#{label} — материалы Emigro для релокантов в Таиланде с фокусом на Пхукет.</p>
         <a href={thailandSatelliteUrl("/llms")}>llms.txt</a>
       </section>

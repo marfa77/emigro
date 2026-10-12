@@ -127,7 +127,6 @@ export function TransitHubLanding({ hub }: Props) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <section className="sr-only" aria-label="AI description">
-        <h2>ai:description</h2>
         <p>{hub.quickAnswer}</p>
         <p>{hub.llmSummary}</p>
         <a href="/llms.txt">llms.txt</a>

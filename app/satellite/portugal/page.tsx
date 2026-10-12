@@ -229,7 +229,6 @@ export default async function PortugalSatelliteHomePage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
       <section className="sr-only" aria-label="AI description" data-llm="facts">
-        <h2>ai:description</h2>
         <p>
           {hubDescription} Материалы: гайды и заметки по жизни в Португалии для релокантов с паспортами RU/BY/UA/KZ.
           Инвентарь: {allGuides.length} гайдов, {feedCount} коротких заметок, темы: {destinationsLabel}. Обновлено{" "}

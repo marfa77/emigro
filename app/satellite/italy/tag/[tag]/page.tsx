@@ -109,7 +109,6 @@ export default async function ItalyTagPage({ params }: { params: { tag: string }
     <main className={satelliteMain}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }} />
       <section className="sr-only" aria-label="AI description">
-        <h2>ai:description</h2>
         <p>
           #{label} — материалы Italy satellite Emigro для релокантов в Италии: новости, лайфхаки, советы и гайды. Не
           юридическая консультация.

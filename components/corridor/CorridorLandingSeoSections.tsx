@@ -49,7 +49,6 @@ export function CorridorLandingSeoSections({
   return (
     <>
       <section className="sr-only" aria-label="AI description">
-        <h2>ai:description</h2>
         <p>{aiDescription}</p>
         <a href="/llms.txt">llms.txt</a>
       </section>
