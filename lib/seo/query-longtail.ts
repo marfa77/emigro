@@ -157,9 +157,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "chancenkarte германия 2026",
       "миграция через blue card eu",
     ],
-    seoTitle: "ВНЖ Германия 2026 — Blue Card, Chancenkarte, §21",
+    seoTitle: "ВНЖ Германии 2026 для россиян: все способы",
     seoDescription:
-      "Все пути ВНЖ Германия 2026: Blue Card €50 700/€45 934, Chancenkarte, фриланс §21, семья, ПМЖ 21–27 мес. Для RU/BY/UA/KZ.",
+      "ВНЖ Германии 2026: Blue Card (€50 700 / €45 934), Chancenkarte, фриланс §21, семья, ПМЖ. Подбор специалиста — €0, Route Check — €129.",
   },
   {
     path: "/ru/germany/programs/germany-eu-blue-card",
@@ -333,9 +333,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "виза d wise revolut россиянам",
       "article 5b санкции платёжные услуги россияне",
     ],
-    seoTitle: "Банк и IBAN в ЕС для россиян 2026: виза D, ВНЖ",
+    seoTitle: "Счёт в банке ЕС для россиян 2026: где открыть IBAN",
     seoDescription:
-      "Санкции ЕС ≠ запрет на все банки: что запрещает Article 5b, кому помогает ВНЖ или виза D, карта ≠ счёт у Wise, Revolut, Paysera и когда нужен местный банк.",
+      "Как россиянину открыть счёт и IBAN в ЕС в 2026: что запрещает Article 5b, когда помогает ВНЖ или виза D, Wise, Revolut, Paysera и местные банки.",
   },
   {
     path: "/ru/guides/prodlenie-vnzh-portugaliya-aima-2026",
@@ -384,9 +384,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "пмж сербия 3 года",
       "white card сербия банк",
     ],
-    seoTitle: "Сербия для россиян 2026 — ВНЖ, DOO, паушал",
+    seoTitle: "ВНЖ Сербии для россиян 2026: ИП, DOO, работа",
     seoDescription:
-      "Сербия хаб: безвиз 30 дней, eStranci, DOO/ИП-паушал, ПМЖ 3 года. Не Шенген — консульства EU из Белграда.",
+      "ВНЖ Сербии 2026 для россиян: через ИП-паушал, DOO или работу, подача в eStranci, ПМЖ через 3 года. Подбор специалиста — €0.",
   },
   {
     path: "/ru/netherlands",

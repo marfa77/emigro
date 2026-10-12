@@ -2,6 +2,7 @@ import type { GuideFrontmatter } from "@/lib/guides/load";
 import { getGuideAudiences } from "@/lib/guides/categories";
 import { corridorSlugToTopicKey, filterCorridorSlugsForGuideTopics } from "@/lib/guides/corridor-live-data";
 import { findFirstProviderTopicKey } from "@/lib/providers/registry";
+import { getAssistCountryOptions } from "@/lib/corridor/registry";
 
 export const GENERIC_GUIDE_TOPIC_KEYS = new Set([
   "relocation",
@@ -63,6 +64,13 @@ export function specificGuideTopicKeys(topicKeys?: string[]): Set<string> {
 
 export function getGuideCountryTopicKeys(topicKeys?: string[]): string[] {
   return (topicKeys ?? []).filter((key) => EU_COUNTRY_TOPIC_KEYS.has(key));
+}
+
+const ASSIST_COUNTRY_VALUES = new Set(getAssistCountryOptions().map((option) => option.value));
+
+export function getGuideAssistCountry(topicKeys?: string[]): string | undefined {
+  const countries = (topicKeys ?? []).filter((key) => ASSIST_COUNTRY_VALUES.has(key));
+  return countries.length === 1 ? countries[0] : undefined;
 }
 
 export function firstCountryTopicKeyForWizardInterest(topicKeys?: string[]): string | undefined {

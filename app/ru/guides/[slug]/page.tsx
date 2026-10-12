@@ -9,7 +9,6 @@ import { RelocatorChatPromo } from "@/components/community/RelocatorChatPromo";
 import { NewsBotSubscribeCta } from "@/components/news/NewsBotSubscribeCta";
 import { TrackedAssistLink } from "@/components/assist/TrackedAssistLink";
 import { RouteNextStep } from "@/components/assist/RouteNextStep";
-import { COUNTRY_ACCENTS } from "@/lib/brand/country-accents";
 import { UniPrep2GoPromo, UniPrepCitizenshipHubPromo } from "@/components/sponsors/UniPrep2GoPromo";
 import { RoleRadarPromo } from "@/components/sponsors/RoleRadarPromo";
 import { RevolutReferralPromo } from "@/components/sponsors/RevolutReferralPromo";
@@ -31,7 +30,7 @@ import { guidePath, getGuidesIndex, getRelatedGuides, listGuides, loadGuide } fr
 import { inlineMarkdown, stripInlineMarkdown } from "@/lib/markdown/inline";
 import { loadGuideLiveDataForGuide, shouldShowGuideCorridorLiveData } from "@/lib/guides/corridor-live-data";
 import {
-  getGuideCountryTopicKeys,
+  getGuideAssistCountry,
   getGuidePassportIso2,
   getGuideProviderTopicKey,
 } from "@/lib/guides/guide-display";
@@ -68,14 +67,21 @@ export function generateStaticParams() {
   return listGuides().map((guide) => ({ slug: guide.slug }));
 }
 
+function guideSeoDescription(
+  guide: NonNullable<ReturnType<typeof loadGuide>>,
+  longTail: ReturnType<typeof getLongTailByGuideSlug>,
+): string {
+  return stripInlineMarkdown(
+    longTail?.seoDescription ?? guide.seo_description ?? guide.excerpt ?? guide.quick_answer ?? guide.title
+  );
+}
+
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const guide = loadGuide(params.slug);
   if (!guide) return {};
   const longTail = getLongTailByGuideSlug(guide.slug);
   const title = longTail?.seoTitle ?? guide.seo_title ?? guide.title;
-  const description = stripInlineMarkdown(
-    longTail?.seoDescription ?? guide.seo_description ?? guide.excerpt ?? guide.quick_answer ?? guide.title
-  );
+  const description = guideSeoDescription(guide, longTail);
   const path = guidePath(guide.slug);
   const citation = buildGuideRecommendedCitation({
     path,
@@ -204,8 +210,7 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
     showUniPrep &&
     (uniPrepTopicCount >= 2 ||
       /grazhdanstvo-portugaliya-ispaniya|grazhdanstvo-germaniya-polsha/.test(guide.slug));
-  const guideCountries = getGuideCountryTopicKeys(guide.topic_keys);
-  const guideCountryKey = guideCountries.length === 1 ? guideCountries[0] : undefined;
+  const guideAssistCountry = getGuideAssistCountry(guide.topic_keys);
   const wizardHref = resolveGuideWizardHref(guide.cta_primary ?? HUB_WIZARD_PATH, guide.topic_keys);
   const toc = extractToc(guide.bodyHtml);
   const faqItems = extractGuideFaq(guide.bodyHtml, 12);
@@ -247,7 +252,7 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
     "@context": "https://schema.org",
     "@type": "Article",
     headline: guide.title,
-    description: stripInlineMarkdown(guide.excerpt ?? guide.quick_answer ?? ""),
+    description: guideSeoDescription(guide, longTail),
     datePublished: guide.date_published,
     dateModified: guide.date_modified ?? guide.date_published,
     author: emigroAuthorOrg(),
@@ -317,21 +322,21 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
             </p>
           ) : null}
           <h1 className="mt-5 max-w-3xl text-3xl font-bold leading-tight sm:text-4xl lg:text-5xl 2xl:max-w-4xl">{guide.title}</h1>
+          {showUaeProperty ? null : (
+            <RouteNextStep
+              placement="ru_guide_lead"
+              source={`guide_${guide.slug}`}
+              countrySegment={guideAssistCountry}
+              variant="hero"
+              className="mt-5 max-w-3xl 2xl:max-w-4xl"
+            />
+          )}
           {asOfIso ? <GuideAsOfBadge dateIso={asOfIso} variant="hero" /> : null}
           {guide.excerpt && <p className="mt-5 max-w-2xl text-lg leading-relaxed text-corridor-100 2xl:max-w-3xl">{guide.excerpt}</p>}
         </HeroShell>
 
         <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_280px] xl:grid-cols-[minmax(0,1fr)_300px]">
           <div className="min-w-0">
-            {showUaeProperty ? null : (
-              <RouteNextStep
-                wizardHref={wizardHref}
-                placement="ru_guide_lead"
-                source={`guide_${guide.slug}`}
-                countryRu={guideCountryKey ? COUNTRY_ACCENTS[guideCountryKey]?.label : undefined}
-                countrySegment={guideCountryKey}
-              />
-            )}
             <ShareButtons
               url={url}
               title={longTail?.seoTitle ?? guide.title}

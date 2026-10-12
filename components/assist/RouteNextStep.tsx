@@ -1,60 +1,61 @@
-import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { TrackedAssistLink } from "@/components/assist/TrackedAssistLink";
 import { buildAssistUrl } from "@/lib/assist/build-url";
-import { ruCountryTo } from "@/lib/ru-country-cases";
 
 type Props = {
-  wizardHref: string;
   placement: string;
   source: string;
-  countryRu?: string;
   countrySegment?: string;
+  variant?: "light" | "hero";
   className?: string;
 };
 
-/** Compact product step right after the lead of a guide or news post. */
-export function RouteNextStep({ wizardHref, placement, source, countryRu, countrySegment, className = "" }: Props) {
-  const route = countryRu ? `маршрут ${ruCountryTo(countryRu)}` : "маршрут";
+const ASSIST_LABEL = "Подобрать специалиста — €0";
+const ROUTE_CHECK_LABEL = "Route Check — €129: созвон + PDF-маршрут за 48 часов";
+const HEADING = "Нужна помощь с этим маршрутом?";
+
+const STYLES = {
+  light: {
+    section: "rounded-2xl border border-corridor-200 bg-corridor-50 p-4 sm:p-5",
+    heading: "text-base font-semibold text-slate-900",
+    primary: "bg-corridor-600 text-white hover:bg-corridor-700",
+    secondary: "border border-corridor-300 bg-white text-corridor-800 hover:bg-corridor-50",
+  },
+  hero: {
+    section: "rounded-2xl border border-white/20 bg-white/10 p-4 backdrop-blur-sm sm:p-5",
+    heading: "text-base font-semibold text-white",
+    primary: "bg-white text-corridor-800 hover:bg-corridor-50",
+    secondary: "border border-white/40 text-white hover:bg-white/10",
+  },
+} as const;
+
+/** Assist matching + Route Check offer right under the H1 of a guide or after a news lead. */
+export function RouteNextStep({ placement, source, countrySegment, variant = "light", className = "" }: Props) {
   const assistHref = buildAssistUrl({ country: countrySegment, source });
+  const styles = STYLES[variant];
 
   return (
-    <section
-      aria-label="Следующий шаг"
-      className={`rounded-2xl border border-corridor-200 bg-corridor-50 p-4 sm:flex sm:items-center sm:justify-between sm:gap-5 sm:p-5 ${className}`}
-    >
-      <div className="min-w-0">
-        <p className="text-xs font-semibold uppercase tracking-wide text-corridor-700">Следующий шаг</p>
-        <p className="mt-1 text-sm leading-relaxed text-slate-700">
-          Проверьте, какой {route} подходит под ваш паспорт, доход и семью. Сложный случай — Route Check: созвон и
-          PDF с планом за 48 часов.
-        </p>
-      </div>
-      <div className="mt-3 flex shrink-0 flex-wrap items-center gap-2 sm:mt-0">
-        <Link
-          href={wizardHref}
-          className="inline-flex items-center gap-1.5 rounded-lg bg-corridor-600 px-4 py-2 text-sm font-medium text-white hover:bg-corridor-700"
+    <section aria-label={HEADING} className={`${styles.section} ${className}`}>
+      <p className={styles.heading}>{HEADING}</p>
+      <div className="mt-3 flex flex-wrap items-center gap-2">
+        <TrackedAssistLink
+          href={assistHref}
+          placement={`${placement}_assist`}
+          linkLabel={ASSIST_LABEL}
+          country={countrySegment}
+          className={`inline-flex items-center gap-1.5 rounded-lg px-4 py-2 text-sm font-medium ${styles.primary}`}
         >
-          Подобрать маршрут
+          {ASSIST_LABEL}
           <ArrowRight className="h-4 w-4" aria-hidden />
-        </Link>
+        </TrackedAssistLink>
         <TrackedAssistLink
           href="/ru/route-check"
           placement={`${placement}_route_check`}
           linkLabel="Route Check — €129"
           country={countrySegment}
-          className="inline-flex rounded-lg border border-corridor-300 bg-white px-4 py-2 text-sm font-medium text-corridor-800 hover:bg-corridor-50"
+          className={`inline-flex rounded-lg px-4 py-2 text-sm font-medium ${styles.secondary}`}
         >
-          Route Check — €129
-        </TrackedAssistLink>
-        <TrackedAssistLink
-          href={assistHref}
-          placement={`${placement}_assist`}
-          linkLabel="Найти специалиста"
-          country={countrySegment}
-          className="px-1 text-sm font-medium text-corridor-700 hover:underline"
-        >
-          Найти специалиста
+          {ROUTE_CHECK_LABEL}
         </TrackedAssistLink>
       </div>
     </section>
