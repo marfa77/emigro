@@ -50,6 +50,7 @@ import { ISO2_TO_SEGMENT } from "@/lib/corridor/paths";
 import { createServerClient } from "@/lib/supabase/server";
 import { buildAssistUrl } from "@/lib/assist/build-url";
 import { TrackedAssistLink } from "@/components/assist/TrackedAssistLink";
+import { RouteNextStep } from "@/components/assist/RouteNextStep";
 
 export const revalidate = 3600;
 export const dynamicParams = true;
@@ -342,6 +343,13 @@ export default async function CountryProgramPage({
             )}
           </div>
         </section>
+
+        <RouteNextStep
+          placement="program_page_top"
+          source={`program_${program.slug}`}
+          countrySegment={topic.urlSegment}
+          className="mt-6"
+        />
 
         {pillarGuide && (
           <section className="mt-10 rounded-3xl border border-corridor-200 bg-corridor-50 p-6 shadow-sm sm:p-8">

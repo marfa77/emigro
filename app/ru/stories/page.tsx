@@ -65,7 +65,6 @@ export default function StoriesIndexPage({ searchParams }: { searchParams?: Sear
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }} />
       ) : null}
       <section className="sr-only" aria-label="AI description">
-        <h2>ai:description</h2>
         <p>
           Курируемые личные истории релокации Emigro: успехи, ошибки и лайфхаки. Не юридическая консультация и не замена
           pillar-гайдам.

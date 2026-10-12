@@ -432,6 +432,13 @@ export function buildProgramArticleSchema(
     mainEntityOfPage: { "@type": "WebPage", "@id": url },
     image: schemaImage(countryCardImage(topic.urlSegment)),
     keywords: [`ВНЖ ${topic.countryRu}`, program.program_type, "2026"].join(", "),
+    ...(program.sources.length > 0
+      ? {
+          citation: [...new Set(program.sources.map((source) => source.source_url).filter(Boolean))].map(
+            (sourceUrl) => ({ "@type": "CreativeWork", url: sourceUrl })
+          ),
+        }
+      : {}),
   };
 }
 

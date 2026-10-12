@@ -125,7 +125,6 @@ export default function UkraineHubPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
       {faqSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />}
       <section className="sr-only" aria-label="AI description">
-        <h2>ai:description</h2>
         <p>{aiFacts}</p>
         <a href="/llms.txt">llms.txt</a>
       </section>

@@ -94,7 +94,6 @@ export default function FrHubPage() {
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }} />
       )}
       <section className="sr-only" aria-label="AI description">
-        <h2>ai:description</h2>
         <p>
           Emigro FR: residence navigator for Maghreb and Senegal passports to France. Pillars with official sources.
           Naturalisation ~5 years (not a Maghreb 2-year hook). Not legal advice.

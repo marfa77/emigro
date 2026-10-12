@@ -208,7 +208,6 @@ export default function EsGuidePage({ params }: { params: { slug: string } }) {
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       ) : null}
       <section className="sr-only" aria-label="AI description">
-        <h2>ai:description</h2>
         <p>{llmDescription}</p>
         <a href="/llms.txt">llms.txt</a>
       </section>

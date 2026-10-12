@@ -1477,7 +1477,115 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     seoDescription:
       "Naturalisation FR 2026 : 5 ans, B2, examen civique, timbre €255. Pas un « 2 ans Maghreb ». Sources F2213 / F11926.",
   },
-
+  // —— Program pages ranking 30–75: RU query phrasing in titles (figures stay in the DB-backed body) ——
+  {
+    path: "/ru/cyprus/programs/cyprus-digital-nomad",
+    programSlug: "cyprus-digital-nomad",
+    primaryQuery: "виза цифрового кочевника кипр",
+    queries: ["виза цифрового кочевника кипр", "digital nomad кипр 2026", "кипр digital nomad доход"],
+    seoTitle: "Виза цифрового кочевника Кипр 2026: доход, сроки",
+    seoDescription:
+      "Виза цифрового кочевника на Кипре 2026: порог дохода, документы, подача через CRMD, сроки и продление. Разбор для паспортов RU/BY/UA/KZ.",
+  },
+  {
+    path: "/ru/cyprus/programs/cyprus-category-f",
+    programSlug: "cyprus-category-f",
+    primaryQuery: "категория f кипр",
+    queries: ["категория f кипр", "внж кипр категория f 2026", "категория f кипр доход"],
+    seoTitle: "Категория F Кипр 2026: доход, документы, ПМЖ",
+    seoDescription:
+      "Категория F на Кипре 2026: доход из-за рубежа без права работы, документы, подача в CRMD, продление и путь к ПМЖ. Для паспортов RU/BY/UA/KZ.",
+  },
+  {
+    path: "/ru/spain/programs/spain-student-visa",
+    programSlug: "spain-student-visa",
+    primaryQuery: "студенческая виза испания",
+    queries: ["студенческая виза испания", "студенческая виза в испанию 2026", "учёба в испании внж"],
+    seoTitle: "Студенческая виза Испания 2026: документы, сроки",
+    seoDescription:
+      "Студенческая виза в Испанию 2026: зачисление, подтверждение средств, страховка, подача в консульстве, работа во время учёбы и переход на ВНЖ.",
+  },
+  {
+    path: "/ru/italy/programs/italy-student-visa",
+    programSlug: "italy-student-visa",
+    primaryQuery: "студенческая виза в италию",
+    queries: ["студенческая виза в италию", "студенческая виза италия 2026", "universitaly виза"],
+    seoTitle: "Студенческая виза в Италию 2026: документы, сроки",
+    seoDescription:
+      "Студенческая виза в Италию 2026: предзачисление через Universitaly, средства, жильё, подача в консульстве, permesso di soggiorno per studio после въезда.",
+  },
+  {
+    path: "/ru/germany/programs/germany-family-reunification",
+    programSlug: "germany-family-reunification",
+    primaryQuery: "воссоединение семьи германия",
+    queries: ["воссоединение семьи германия", "воссоединение семьи в германии 2026", "виза жены в германию"],
+    seoTitle: "Воссоединение семьи Германия 2026: документы",
+    seoDescription:
+      "Воссоединение семьи в Германии 2026: кто может приехать, язык, жильё и доход, документы, подача в посольстве и Ausländerbehörde. Для RU/BY/UA/KZ.",
+  },
+  {
+    path: "/ru/germany/programs/germany-student-visa",
+    programSlug: "germany-student-visa",
+    primaryQuery: "студенческая виза германия",
+    queries: ["студенческая виза германия", "студенческая виза в германию 2026", "блокированный счёт германия"],
+    seoTitle: "Студенческая виза Германия 2026: блок-счёт, сроки",
+    seoDescription:
+      "Студенческая виза в Германию 2026: зачисление, блокированный счёт (Sperrkonto), страховка, запись в посольство, работа во время учёбы.",
+  },
+  {
+    path: "/ru/hungary/programs/hungary-white-card",
+    programSlug: "hungary-white-card",
+    primaryQuery: "white card венгрия",
+    queries: ["white card венгрия", "венгрия digital nomad 2026", "внж венгрии для удалёнщиков"],
+    seoTitle: "White Card Венгрия 2026: ВНЖ для удалёнщиков",
+    seoDescription:
+      "White Card Венгрии 2026: ВНЖ для удалённой работы на иностранного работодателя, порог дохода, документы, подача в OIF, продление.",
+  },
+  {
+    path: "/ru/greece/programs/greece-fip",
+    programSlug: "greece-fip",
+    primaryQuery: "внж греции пассивный доход",
+    queries: ["внж греции пассивный доход", "fip греция 2026", "financially independent person греция"],
+    seoTitle: "ВНЖ Греции FIP 2026: пассивный доход, документы",
+    seoDescription:
+      "ВНЖ Греции для финансово независимых (FIP) 2026: пассивный доход, страховка, документы, национальная виза D и ВНЖ (migration.gov.gr).",
+  },
+  {
+    path: "/ru/estonia/programs/estonia-digital-nomad",
+    programSlug: "estonia-digital-nomad",
+    primaryQuery: "виза цифрового кочевника эстония",
+    queries: ["виза цифрового кочевника эстония", "digital nomad эстония 2026", "эстония d-виза удалённая работа"],
+    seoTitle: "Виза цифрового кочевника Эстония 2026: доход, сроки",
+    seoDescription:
+      "Виза цифрового кочевника Эстонии 2026: порог дохода, удалённая работа, документы, подача через politsei.ee и консульства. Разбор для RU/BY/UA/KZ.",
+  },
+  {
+    path: "/ru/spain/programs/spain-family-reunification",
+    programSlug: "spain-family-reunification",
+    primaryQuery: "воссоединение семьи испания",
+    queries: ["воссоединение семьи испания", "reagrupación familiar испания 2026", "воссоединение семьи в испании документы"],
+    seoTitle: "Воссоединение семьи Испания 2026: документы",
+    seoDescription:
+      "Воссоединение семьи в Испании (reagrupación familiar) 2026: кто может подать, средства и жильё, документы, сроки, подача в extranjería.",
+  },
+  {
+    path: "/ru/netherlands/programs/netherlands-startup-facilitator",
+    programSlug: "netherlands-startup-facilitator",
+    primaryQuery: "стартап виза нидерланды",
+    queries: ["стартап виза нидерланды", "startup visa нидерланды 2026", "фасилитатор нидерланды ind"],
+    seoTitle: "Стартап-виза Нидерланды 2026: фасилитатор, сроки",
+    seoDescription:
+      "Стартап-виза Нидерландов 2026: аккредитованный фасилитатор, инновационный продукт, средства на год, подача в IND и переход на self-employed.",
+  },
+  {
+    path: "/ru/estonia/programs/estonia-e-residency",
+    programSlug: "estonia-e-residency",
+    primaryQuery: "e-residency эстония",
+    queries: ["e-residency эстония", "е-резидентство эстонии 2026", "e-residency это внж"],
+    seoTitle: "E-residency Эстония 2026: не ВНЖ, что даёт",
+    seoDescription:
+      "E-residency Эстонии 2026: цифровая ID для компании и подписи, не ВНЖ и не право жить в ЕС. Что даёт, как оформить, где забрать карту.",
+  },
 ];
 
 export function getLongTailByGuideSlug(slug: string): QueryLongTailTarget | undefined {

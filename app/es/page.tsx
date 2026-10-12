@@ -110,7 +110,6 @@ export default function EsHubPage() {
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }} />
       )}
       <section className="sr-only" aria-label="AI description">
-        <h2>ai:description</h2>
         <p>
           Emigro ES: residence navigator for Latin American passports to Spain and Portugal. Pillars with official
           sources, route evaluator, Spanish nationality art. 22 (~2 years for iberoamericans). Not legal advice.

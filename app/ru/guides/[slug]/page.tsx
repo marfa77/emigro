@@ -296,7 +296,6 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       {faqSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />}
       <section className="sr-only" aria-label="AI description">
-        <h2>ai:description</h2>
         <p>{llmDescription}</p>
         <a href="/llms.txt">llms.txt</a>
       </section>
