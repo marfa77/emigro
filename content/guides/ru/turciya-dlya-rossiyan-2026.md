@@ -2,12 +2,12 @@
 slug: turciya-dlya-rossiyan-2026
 title: "Турция для россиян 2026: ikamet, банки, консульства — гайд"
 seo_title: "Турция для россиян 2026 — ikamet, банки, консульства EU"
-seo_description: "Гайд по Турции для граждан РФ в 2026: безвиз, ВНЖ ikamet через аренду, банки Ziraat и İş Bank, консульская логистика для EU-виз, стоимость жизни в Стамбуле и Анталии."
+seo_description: "Турция 2026 для РФ: безвиз 60 дней (MFA), ikamet через аренду, kapalı mahalle, банки Ziraat/İş, консульства EU в Стамбуле. Wizard → EU."
 excerpt: "Турция в 2026: логистический хаб для консульств, перелётов и документов — ikamet через аренду, банки, стоимость жизни и подготовка EU-маршрута."
 quick_answer: |-
-  Турция в 2026 — логистический хаб для россиян. Безвиз 60–90 дней. ВНЖ ikamet часто через аренду примерно от $200 налога в месяц. Счета в Ziraat и İş Bank открывают при ikamet. Консульства ЕС — в Стамбуле и Анкаре.
+  Турция в 2026 — логистический хаб для россиян. Ordinary-паспорт РФ: безвиз до 60 дней на тур/бизнес ([MFA](https://www.mfa.gov.tr/visa-information-for-foreigners.en.mfa)). Дальше — ikamet (e-ikamet): notarized аренда, страховка, Göç İdaresi. Счета в Ziraat и İş Bank — обычно при ikamet. Консульства ЕС — в Стамбуле и Анкаре.
 
-  Стамбул от €800 в месяц, Анталия от €700. В закрытых районах (kapalı mahalle) ikamet через аренду не одобряют — проверяйте район до договора.
+  Стамбул от €800 в месяц, Анталия от €700. В закрытых районах (kapalı mahalle) ikamet через аренду не одобряют — проверяйте район до договора. Госпошлины ikamet — в TL на [goc.gov.tr](https://www.goc.gov.tr/belge-bedeli-ve-harc-miktari), не «$200 налога в месяц».
 
   Риски: закрытые районы, инфляция лиры и ужесточение ikamet.
 topic_keys: [turkey, relocation, vnj, settle, consulate]
@@ -18,16 +18,20 @@ cta_secondary: /ru/turkey
 official_sources:
   - url: https://www.goc.gov.tr/
     label: Göç İdaresi — миграционная служба Турции
+  - url: https://www.goc.gov.tr/belge-bedeli-ve-harc-miktari
+    label: Göç İdaresi — belgeler / harç 2026
   - url: https://www.evisa.gov.tr/
     label: Turkish e-Visa
-  - url: https://www.mfa.gov.tr/
-    label: МИД Турции
+  - url: https://www.mfa.gov.tr/visa-information-for-foreigners.en.mfa
+    label: MFA Türkiye — visa / visa-free
 estimated_minutes: 17
 date_published: 2026-06-26
-date_modified: 2026-07-11
+date_modified: 2026-10-12
 ---
 
 ## С чего начать
+
+> **Nota Emigro (fact-check, октябрь 2026).** **Fixed:** ordinary RU — безвиз **до 60 дней** (тур/бизнес), не «60–90» как дефолт ([MFA visa information](https://www.mfa.gov.tr/visa-information-for-foreigners.en.mfa)); 90 дней — другие категории паспорта / лимиты, сверяйте MFA. **Fixed soft:** «~$200 налога/мес» на ikamet — **не** официальная ставка; 2026: belge bedeli **964 TL** + harç по стране/сроку ([goc.gov.tr harç](https://www.goc.gov.tr/belge-bedeli-ve-harc-miktari)) + страховка/аренда отдельно. **OK soft:** kapalı mahalle (порог ~20% иностранцев) — список меняется, проверять до lease. EU-маршрут: [/ru/wizard](/ru/wizard).
 
 Турция в 2026 — **логистический хаб**, а не финальная цель: здесь удобно жить недорого, летать в EU, подавать документы в консульства Португалии, Испании, Германии и др., оформлять апостили и переводы. **Ikamet** (ВНЖ) через аренду остаётся массовым путём, но правила ужесточаются — нужен реальный договор, страховка, иногда блокировка суммы на счету. **Главная ловушка 2022+:** в «закрытых районах» (kapalı mahalle) новые заявки через аренду не принимают — даже с идеальным нотариальным контрактом.
 
@@ -37,7 +41,7 @@ EU-маршрут — через [Emigro wizard](/ru/wizard); хаб: [/ru/turke
 
 ## Въезд и безвиз
 
-Граждане РФ въезжают **без визы** (обычно 60 дней, при определённых условиях до 90 — проверяйте на goc.gov.tr). Для длительного пребывания — **ikamet** (short-term residence) или другие категории.
+Граждане РФ с **ordinary**-паспортом въезжают **без визы** для туризма/бизнеса **до 60 дней** ([MFA](https://www.mfa.gov.tr/visa-information-for-foreigners.en.mfa)). Не путайте с 90-дневными правилами для дипломатических/служебных паспортов или с общим «90/180» чужих режимов. Для длительного пребывания — **ikamet** (short-term residence) или другие категории; подавайте в e-ikamet **до** истечения безвиза.
 
 ---
 
@@ -54,11 +58,11 @@ EU-маршрут — через [Emigro wizard](/ru/wizard); хаб: [/ru/turke
 | 4 | Подать заявление в **Göç İdaresi** онлайн (e-ikamet) |
 | 5 | Получить ikamet card (1–2 года с продлением) |
 
-**Стоимость:** госпошлины + страховка ~200–400 USD/год. **Срок рассмотрения:** 30–90 дней (Стамбул и Анталия часто дольше).
+**Стоимость (ориентир 2026):** belge bedeli **964 TL** + harç по сроку/стране на [goc.gov.tr](https://www.goc.gov.tr/belge-bedeli-ve-harc-miktari) (не фиксированные «$200/мес налога») + страховка + нотариат аренды. **Срок рассмотрения:** 30–90 дней (Стамбул и Анталия часто дольше).
 
-**Ужесточения 2024–2025:** проверка реальности аренды, минимальная площадь на человека, иногда требование deposit на turkish bank account.
+**Ужесточения 2024–2026:** проверка реальности аренды, минимальная площадь на человека, иногда требование deposit на turkish bank account.
 
-**Статус во время рассмотрения:** после подачи заявления в e-ikamet вы находитесь в легальном ожидании решения — это важно, если безвизовые 60–90 дней уже истекли. Храните распечатку подтверждения подачи и отслеживайте статус в e-Devlet.
+**Статус во время рассмотрения:** после подачи заявления в e-ikamet вы находитесь в легальном ожидании решения — это важно, если безвизовые **60 дней** уже истекли. Храните распечатку подтверждения подачи и отслеживайте статус в e-Devlet.
 
 ---
 
@@ -248,13 +252,13 @@ Many EU consulates in Istanbul require Turkish residence minimum 6 months before
 ## FAQ
 
 **Нужна ли виза для въезда?**
-Нет, безвиз для граждан РФ (срок уточняйте на goc.gov.tr).
+Ordinary-паспорт РФ — безвиз до **60 дней** (тур/бизнес); сверяйте [MFA](https://www.mfa.gov.tr/visa-information-for-foreigners.en.mfa). Дальше — ikamet.
 
 **Как получить ikamet?**
 Через notarized rental contract, страховку, подачу в Göç İdaresi (e-ikamet).
 
 **Сколько стоит ikamet?**
-Гosпошлины + страховка ~200–400 USD/год, плюс аренда жилья.
+Belge bedeli **964 TL** (2026) + harç по сроку/стране на [goc.gov.tr](https://www.goc.gov.tr/belge-bedeli-ve-harc-miktari) + страховка + аренда. Не ориентируйтесь на «$200 налога в месяц».
 
 **Открывают ли банки счета россиянам?**
 Да, при ikamet и vergi numarası — Ziraat, İş Bank и др.
@@ -287,18 +291,19 @@ Possible through property ownership route — higher capital; consult lawyer for
 
 ## Источники
 
-- Göç İdaresi: [goc.gov.tr](https://www.goc.gov.tr/)
+- Göç İdaresi: [goc.gov.tr](https://www.goc.gov.tr/) · [harç 2026](https://www.goc.gov.tr/belge-bedeli-ve-harc-miktari)
+- MFA visa/visa-free: [mfa.gov.tr](https://www.mfa.gov.tr/visa-information-for-foreigners.en.mfa)
 - e-Visa: [evisa.gov.tr](https://www.evisa.gov.tr/)
 
 ---
 
 ## Коротко для проверки маршрута
 
-- Безвиз; ikamet через notarized аренду — **только в открытых районах** (kapalı mahalle).
-- Проверяйте ilçe/mahalle до подписания lease; Kemer/Serik/Manavgat открыты.
+- Безвиз ordinary RU: **до 60 дней** (MFA); дальше ikamet.
+- Ikamet через notarized аренду — **только в открытых районах** (kapalı mahalle).
+- Проверяйте ilçe/mahalle до подписания lease; Kemer/Serik/Manavgat — примеры открытых.
+- Госпошлины — TL на goc.gov.tr, не «$200/мес».
 - Банки при ikamet: Ziraat, İş Bank.
-- Стамбул от 800 €, Анталия от 700 €.
-- Консульства EU — ключевой плюс хаба.
-- EU-маршрут: [/ru/wizard](/ru/wizard).
+- Консульства EU — ключевой плюс хаба → [/ru/wizard](/ru/wizard).
 
-*Не юридическая консультация.*
+*Не юридическая консультация. Актуально: 12 октября 2026.*
