@@ -434,7 +434,7 @@ export function buildProgramArticleSchema(
     keywords: [`ВНЖ ${topic.countryRu}`, program.program_type, "2026"].join(", "),
     ...(program.sources.length > 0
       ? {
-          citation: [...new Set(program.sources.map((source) => source.source_url).filter(Boolean))].map(
+          citation: Array.from(new Set(program.sources.map((source) => source.source_url).filter(Boolean))).map(
             (sourceUrl) => ({ "@type": "CreativeWork", url: sourceUrl })
           ),
         }
