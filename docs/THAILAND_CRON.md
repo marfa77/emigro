@@ -4,7 +4,7 @@ The Thailand community pipeline runs on the existing VPS through systemd. It is 
 
 ## Schedule
 
-- `emigro-thailand-community.timer`: every day at 08:00 UTC, persistent after reboot.
+- `emigro-thailand-community.timer`: every day at 06:00 UTC, persistent after reboot.
 - Service: `parser/run_scheduled_thailand.sh` → `npm run thailand:daily`.
 - Sources: third-party Thailand/Phuket chats in `parser/groups.yaml`; owned Emigro chats are never parsed.
 - Output: signals, at most one reviewed draft, spotlight refresh, and at most one Phuket discussion every three days.

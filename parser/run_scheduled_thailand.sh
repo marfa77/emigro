@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Daily Thailand community pipeline (VPS systemd, 08:00 UTC).
+# Daily Thailand community pipeline (VPS systemd, 06:00 UTC).
 
 set -euo pipefail
 

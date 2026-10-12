@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Daily Italy community pipeline (VPS systemd — same pattern as Spain).
 #
-# Prod: systemd timer emigro-italy-community.timer (08:00 UTC).
+# Prod: systemd timer emigro-italy-community.timer (06:30 UTC).
 #
 # Flow: sync cursor → Telethon → Supabase signals → Gemini draft → spotlight.
 

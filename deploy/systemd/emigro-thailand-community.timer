@@ -1,8 +1,10 @@
 [Unit]
-Description=Emigro Thailand community daily at 08:00 UTC
+Description=Emigro Thailand community daily at 06:00 UTC
 
 [Timer]
-OnCalendar=*-*-* 08:00:00 UTC
+# Shares TG_SESSION_STRING with barakhlo-parser (00/08/16 UTC, runs up to ~1h).
+# Overlapping runs on different Telethon layers break both: keep outside those windows.
+OnCalendar=*-*-* 06:00:00 UTC
 Persistent=true
 AccuracySec=5min
 
