@@ -10,6 +10,7 @@ import { NewsBotSubscribeCta } from "@/components/news/NewsBotSubscribeCta";
 import { GuideAsOfBadge } from "@/components/guides/GuideAsOfBadge";
 import { GuidesCategoryFilter } from "@/components/guides/GuidesCategoryFilter";
 import { HeroShell } from "@/components/visuals/HeroShell";
+import { WizardNudgeBlock, WizardNudgeFloating } from "@/components/wizard/WizardNudge";
 import { guideAsOfIso } from "@/lib/guides/guide-dates";
 import {
   getGuideCategories,
@@ -279,6 +280,9 @@ function GuidesIndexBody({ allGuides, pillarGuides, corridors }: Props) {
         <Suspense fallback={<div className="mt-8 h-10" aria-hidden />}>
           <GuidesCategoryFilter />
         </Suspense>
+
+        <WizardNudgeBlock placement="ru_guides" href={topic?.wizard ?? undefined} className="mt-8" />
+        <WizardNudgeFloating placement="ru_guides" href={topic?.wizard ?? undefined} />
 
         {!parsedCategory && !parsedAudience && !topic && pillarGuides.length > 0 && (
           <section className="mt-10 rounded-[2rem] border border-corridor-100 bg-corridor-50/50 p-6 sm:p-8">

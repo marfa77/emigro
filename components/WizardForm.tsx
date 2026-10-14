@@ -9,6 +9,13 @@ import {
   interestIso2ToSegments,
   parseInterestParam,
 } from "@/lib/wizard/interest-prefill";
+import {
+  clearDependentAnswers,
+  isQuestionRequired,
+  isQuestionVisible,
+  visibleWizardModules,
+  wizardVisibilityContext,
+} from "@/lib/wizard/visibility";
 
 interface WizardProps {
   corridorSlug: string;
@@ -37,53 +44,6 @@ function draftStorageKey(mode: string, corridorSlug: string, wizardId: string) {
   return `emigro-wizard-draft:v1:${mode}:${corridorSlug}:${wizardId}`;
 }
 
-function isQuestionVisible(questionKey: string, answers: Record<string, string>): boolean {
-  if (questionKey === "annual_salary_eur") return answers.has_job_offer === "yes";
-  if (questionKey === "monthly_income_eur") return answers.remote_income === "yes";
-  if (
-    questionKey === "has_university_admission" ||
-    questionKey === "study_budget_eur" ||
-    questionKey === "can_show_study_funds" ||
-    questionKey === "study_level"
-  ) {
-    return answers.wants_study_route === "yes";
-  }
-  return true;
-}
-
-function isQuestionRequired(
-  questionKey: string,
-  questionType: string,
-  required: boolean,
-  answers: Record<string, string>
-): boolean {
-  if (!required) return false;
-  if (questionType === "multi") return false;
-  if (!isQuestionVisible(questionKey, answers)) return false;
-  return true;
-}
-
-function clearDependentAnswers(
-  key: string,
-  value: string,
-  prev: Record<string, string>
-): Record<string, string> {
-  const next = { ...prev, [key]: value };
-  if (key === "has_job_offer" && value !== "yes") {
-    delete next.annual_salary_eur;
-  }
-  if (key === "remote_income" && value !== "yes") {
-    delete next.monthly_income_eur;
-  }
-  if (key === "wants_study_route" && value !== "yes") {
-    delete next.has_university_admission;
-    delete next.study_budget_eur;
-    delete next.can_show_study_funds;
-    delete next.study_level;
-  }
-  return next;
-}
-
 export function WizardForm({
   corridorSlug,
   wizardId,
@@ -105,11 +65,14 @@ export function WizardForm({
   const [draftRestored, setDraftRestored] = useState(false);
   const startedRef = useRef(false);
   const hydratedRef = useRef(false);
+  const cardRef = useRef<HTMLDivElement>(null);
+  const stepScrollReadyRef = useRef(false);
   const ui =
     locale === "es"
       ? {
           progressLabel: "Progreso del evaluador",
-          stepOf: (n: number, total: number) => `Paso ${n} de ${total}`,
+          stepOf: (n: number, total: number) =>
+            n === 1 ? `Paso 1 de ${total} · ~2 min` : `Paso ${n} de ${total}`,
           interestPrefix: "Tenemos en cuenta su interés en:",
           interestSuffix:
             "El emparejamiento sigue centrado en España y Portugal; el interés solo ordena un poco.",
@@ -142,7 +105,8 @@ export function WizardForm({
       : locale === "fr"
         ? {
             progressLabel: "Progression de l'évaluateur",
-            stepOf: (n: number, total: number) => `Étape ${n} sur ${total}`,
+            stepOf: (n: number, total: number) =>
+              n === 1 ? `Étape 1 sur ${total} · ~2 min` : `Étape ${n} sur ${total}`,
             interestPrefix: "Nous tenons compte de votre intérêt pour :",
             interestSuffix:
               "Le matching reste centré sur la France ; l'intérêt ne fait que réordonner un peu.",
@@ -174,7 +138,8 @@ export function WizardForm({
           }
         : {
             progressLabel: "Прогресс wizard",
-            stepOf: (n: number, total: number) => `Шаг ${n} из ${total}`,
+            stepOf: (n: number, total: number) =>
+              n === 1 ? `Шаг 1 из ${total} · около 2 минут` : `Шаг ${n} из ${total}`,
             interestPrefix: "Учитываем ваш интерес к:",
             interestSuffix:
               "Подбор всё равно по всем коридорам — интерес только слегка поднимает релевантные страны в выдаче.",
@@ -206,8 +171,11 @@ export function WizardForm({
             } as Record<string, string>,
           };
 
-  const currentModule = modules[step];
-  const isLast = step === modules.length - 1;
+  const visibilityCtx = useMemo(() => wizardVisibilityContext(modules), [modules]);
+  const shownModules = useMemo(() => visibleWizardModules(modules, answers), [modules, answers]);
+  const stepIndex = Math.min(step, shownModules.length - 1);
+  const currentModule = shownModules[stepIndex];
+  const isLast = stepIndex === shownModules.length - 1;
   const scope = analyticsScope ?? corridorSlug;
   const storageKey = useMemo(
     () => draftStorageKey(mode, corridorSlug, wizardId),
@@ -215,9 +183,10 @@ export function WizardForm({
   );
 
   const visibleQuestions = useMemo(
-    () => currentModule.questions.filter((q) => isQuestionVisible(q.question_key, answers)),
-    [currentModule, answers]
+    () => currentModule.questions.filter((q) => isQuestionVisible(q.question_key, answers, visibilityCtx)),
+    [currentModule, answers, visibilityCtx]
   );
+  const showNumberTip = visibleQuestions.some((q) => q.question_type === "number");
 
   function numberPlaceholder(questionKey: string): string {
     return ui.numberExamples[questionKey] ?? ui.numberFallback;
@@ -249,6 +218,7 @@ export function WizardForm({
           Date.now() - (draft.savedAt ?? 0) < 1000 * 60 * 60 * 24 * 7
         ) {
           initial = { ...draft.answers, ...initial };
+          if (initial.relocation_goal === "study") initial.wants_study_route = "yes";
           setStep(Math.min(Math.max(0, draft.step), modules.length - 1));
           setDraftRestored(true);
         }
@@ -265,6 +235,7 @@ export function WizardForm({
   useEffect(() => {
     if (startedRef.current) return;
     startedRef.current = true;
+    if (typeof navigator !== "undefined" && navigator.webdriver) return;
 
     const search = typeof window !== "undefined" ? window.location.search : "";
     const interest = new URLSearchParams(search).get("interest");
@@ -293,8 +264,18 @@ export function WizardForm({
 
   useEffect(() => {
     const heading = document.getElementById(`${formId}-step-title`);
+    if (!stepScrollReadyRef.current) {
+      stepScrollReadyRef.current = true;
+      heading?.focus({ preventScroll: true });
+      return;
+    }
+    // «Далее» sits at the bottom of a long step on phones; without this the next step opens mid-page.
+    const card = cardRef.current;
+    if (card && card.getBoundingClientRect().top < 0) {
+      card.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
     heading?.focus({ preventScroll: true });
-  }, [step, formId]);
+  }, [stepIndex, formId]);
 
   function setAnswer(key: string, value: string) {
     setAnswers((prev) => clearDependentAnswers(key, value, prev));
@@ -312,9 +293,12 @@ export function WizardForm({
 
   async function handleNext() {
     for (const q of currentModule.questions) {
-      if (!isQuestionRequired(q.question_key, q.question_type, q.required, answers)) continue;
+      if (!isQuestionRequired(q.question_key, q.question_type, q.required, answers, visibilityCtx)) continue;
       if (!answers[q.question_key]) {
         setError(ui.answerRequired(q.label_ru));
+        document
+          .getElementById(`${formId}-${q.question_key}-block`)
+          ?.scrollIntoView({ behavior: "smooth", block: "center" });
         return;
       }
     }
@@ -323,10 +307,11 @@ export function WizardForm({
     if (!isLast) {
       trackEvent("wizard_step", {
         corridor_slug: scope,
-        step: step + 1,
+        step: stepIndex + 1,
         module_key: currentModule.module_key,
+        steps_total: shownModules.length,
       });
-      setStep((s) => s + 1);
+      setStep(stepIndex + 1);
       return;
     }
 
@@ -396,7 +381,7 @@ export function WizardForm({
     const labelId = `${groupId}-label`;
 
     return (
-      <div key={q.id}>
+      <div key={q.id} id={`${groupId}-block`} className="scroll-mb-28 scroll-mt-4 sm:scroll-mb-0">
         <div id={labelId} className="block font-medium">
           {q.label_ru}
         </div>
@@ -477,15 +462,18 @@ export function WizardForm({
   }
 
   return (
-    <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
-      <div className="mb-6 flex gap-2" role="list" aria-label={ui.progressLabel}>
-        {modules.map((m, i) => (
+    <div
+      ref={cardRef}
+      className="scroll-mt-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6"
+    >
+      <div className="mb-5 flex gap-2 sm:mb-6" role="list" aria-label={ui.progressLabel}>
+        {shownModules.map((m, i) => (
           <div
             key={m.id}
             role="listitem"
-            aria-current={i === step ? "step" : undefined}
+            aria-current={i === stepIndex ? "step" : undefined}
             title={m.title_ru}
-            className={`h-2 flex-1 rounded-full ${i <= step ? "bg-corridor-500" : "bg-slate-200"}`}
+            className={`h-2 flex-1 rounded-full ${i <= stepIndex ? "bg-corridor-500" : "bg-slate-200"}`}
           />
         ))}
       </div>
@@ -498,7 +486,7 @@ export function WizardForm({
         {currentModule.title_ru}
       </h2>
       <p className="text-sm text-slate-500">
-        {ui.stepOf(step + 1, modules.length)}
+        {ui.stepOf(stepIndex + 1, shownModules.length)}
       </p>
 
       {interestLabels.length > 0 && (
@@ -513,11 +501,13 @@ export function WizardForm({
         </div>
       )}
 
-      <div className="mt-3 rounded-lg border border-blue-100 bg-blue-50 px-4 py-3 text-sm leading-relaxed text-blue-950">
-        {ui.tip}
-      </div>
+      {showNumberTip && (
+        <div className="mt-3 rounded-lg border border-blue-100 bg-blue-50 px-4 py-3 text-sm leading-relaxed text-blue-950">
+          {ui.tip}
+        </div>
+      )}
 
-      <div className="mt-6 space-y-6">{visibleQuestions.map(renderQuestion)}</div>
+      <div className="mt-5 space-y-6 sm:mt-6">{visibleQuestions.map(renderQuestion)}</div>
 
       {error && (
         <div
@@ -540,12 +530,12 @@ export function WizardForm({
         </div>
       )}
 
-      <div className="mt-8 flex flex-col-reverse gap-3 sm:flex-row sm:justify-between">
+      <div className="sticky bottom-0 z-10 -mx-5 -mb-5 mt-8 flex items-center gap-3 rounded-b-xl border-t border-slate-100 bg-white/95 px-5 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 backdrop-blur sm:static sm:mx-0 sm:mb-0 sm:justify-between sm:rounded-none sm:border-0 sm:bg-transparent sm:p-0 sm:backdrop-blur-none">
         <button
           type="button"
-          disabled={step === 0 || loading}
-          onClick={() => setStep((s) => s - 1)}
-          className={`rounded-lg px-4 py-3 text-sm text-slate-600 disabled:opacity-40 ${tapTargetSmReset} sm:py-2`}
+          disabled={stepIndex === 0 || loading}
+          onClick={() => setStep(stepIndex - 1)}
+          className={`${tapTarget} shrink-0 rounded-lg px-3 py-3 text-sm text-slate-600 disabled:opacity-40 ${tapTargetSmReset} sm:px-4 sm:py-2`}
         >
           {ui.back}
         </button>
@@ -553,7 +543,7 @@ export function WizardForm({
           type="button"
           onClick={handleNext}
           disabled={loading}
-          className={`${tapTarget} rounded-lg bg-corridor-600 px-5 py-3 text-sm font-medium text-white hover:bg-corridor-700 disabled:opacity-60 ${tapTargetSmReset} sm:py-2`}
+          className={`${tapTarget} flex-1 rounded-lg bg-corridor-600 px-5 py-3 text-sm font-medium text-white hover:bg-corridor-700 disabled:opacity-60 ${tapTargetSmReset} sm:flex-none sm:py-2`}
         >
           {loading ? ui.preparing : isLast ? ui.showResults : ui.next}
         </button>

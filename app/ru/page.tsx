@@ -9,6 +9,7 @@ import { TrackedAssistLink } from "@/components/assist/TrackedAssistLink";
 import { assistBotDeepLink } from "@/lib/telegram/deep-link";
 import { HubDestinationsSectionSuspense } from "@/components/hub/HubDestinationsSection";
 import { WizardPulseSectionSuspense } from "@/components/wizard/WizardPulseSectionSuspense";
+import { WizardNudgeBlock, WizardNudgeFloating } from "@/components/wizard/WizardNudge";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { HubHeroVisual } from "@/components/visuals/HubHeroVisual";
 import { HUB_WIZARD_PATH } from "@/lib/corridor/paths";
@@ -97,6 +98,8 @@ export default async function RuHubPage() {
         </HeroShell>
 
         <EmigroDepthStrip locale="ru" className="mt-8" />
+
+        <WizardNudgeBlock placement="ru_home" className="mt-8" />
 
         <section className="mt-10 rounded-2xl border border-emerald-200 bg-gradient-to-br from-emerald-50 via-white to-teal-50 p-6 sm:p-8">
           <div className="flex flex-wrap items-start gap-3">
@@ -338,6 +341,7 @@ export default async function RuHubPage() {
           </div>
         </section>
       </main>
+      <WizardNudgeFloating placement="ru_home" />
       <SiteFooter />
     </>
   );

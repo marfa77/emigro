@@ -35,25 +35,30 @@ export default function HubWizardPage() {
       <div className="sr-only" data-llm="requirements" aria-hidden="true">
         {wizardRequirements}
       </div>
-      <main className="mx-auto max-w-3xl px-4 py-10">
+      <main className="mx-auto max-w-3xl px-4 py-6 sm:py-10">
         <Link href="/ru" className="text-sm text-corridor-600 hover:underline">
           ← Все направления
         </Link>
 
-        <header className="mt-6 overflow-hidden rounded-2xl border border-corridor-100 bg-gradient-to-br from-corridor-50 to-white px-6 py-8">
-          <WizardHeroVisual />
-          <p className="mt-4 text-center text-sm font-semibold uppercase tracking-wide text-corridor-600">
-            Глобальный подбор
+        <header className="mt-4 overflow-hidden rounded-2xl border border-corridor-100 bg-gradient-to-br from-corridor-50 to-white px-5 py-5 sm:mt-6 sm:px-6 sm:py-8">
+          <div className="hidden sm:block">
+            <WizardHeroVisual />
+          </div>
+          <p className="text-center text-xs font-semibold uppercase tracking-wide text-corridor-600 sm:mt-4 sm:text-sm">
+            Бесплатно · около 2 минут
           </p>
-          <h1 className="mt-2 text-center text-3xl font-bold">Куда вам проще получить ВНЖ?</h1>
-          <p className="mx-auto mt-3 max-w-xl text-center text-slate-600">
-            Один wizard по всем активным коридорам Emigro: Португалия, Испания, Франция, Италия, Германия,
+          <h1 className="mt-2 text-center text-2xl font-bold sm:text-3xl">Куда вам проще получить ВНЖ?</h1>
+          <p className="mx-auto mt-2 max-w-xl text-center text-sm text-slate-600 sm:hidden">
+            Паспорт, доход и семья → подходящие программы ВНЖ по всем коридорам Emigro.
+          </p>
+          <p className="mx-auto mt-3 hidden max-w-xl text-center text-slate-600 sm:block">
+            Один подбор по всем активным коридорам Emigro: Португалия, Испания, Франция, Италия, Германия,
             Нидерланды, Северная Европа и другие. Подходит, если вы уже за границей или только планируете
             переезд — сначала профиль, потом страна и программа.
           </p>
         </header>
 
-        <div className="mt-8">
+        <div className="mt-5 sm:mt-8">
           <WizardForm
             corridorSlug="hub"
             wizardId={HUB_WIZARD_ID}

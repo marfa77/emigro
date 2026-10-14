@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ES_PATHS } from "@/lib/es/corridor";
@@ -174,7 +175,15 @@ type MobileBottomBarProps = {
   locale?: UiLocale;
 };
 
+/** Questionnaire pages own the bottom edge (sticky «Далее»); results pages keep the bar. */
+function isWizardFormPath(pathname: string | null): boolean {
+  return Boolean(pathname && /\/wizard\/?$/.test(pathname));
+}
+
 export function MobileBottomBar({ locale = "ru" }: MobileBottomBarProps) {
+  const pathname = usePathname();
+  if (isWizardFormPath(pathname)) return null;
+
   const helpLabel =
     locale === "es"
       ? "Encontrar especialista"
@@ -186,7 +195,7 @@ export function MobileBottomBar({ locale = "ru" }: MobileBottomBarProps) {
   const primaryHref =
     locale === "es" ? ES_PATHS.wizard : locale === "fr" ? FR_PATHS.wizard : "/ru/wizard";
   const primaryLabel =
-    locale === "es" ? "Evaluador" : locale === "fr" ? "Évaluateur" : "Wizard";
+    locale === "es" ? "Evaluador" : locale === "fr" ? "Évaluateur" : locale === "ru" ? "Подбор маршрута" : "Wizard";
   const secondaryHref =
     locale === "es" ? ES_PATHS.assist : locale === "fr" ? FR_PATHS.assist : "/ru/assist";
 
@@ -198,7 +207,8 @@ export function MobileBottomBar({ locale = "ru" }: MobileBottomBarProps) {
       >
         <Link
           href={primaryHref}
-          className="flex flex-1 items-center justify-center rounded-lg bg-corridor-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-corridor-700"
+          data-placement="mobile_bottom_bar"
+          className="flex flex-1 items-center justify-center rounded-lg bg-corridor-600 px-2 py-2.5 text-center text-sm font-medium leading-tight text-white hover:bg-corridor-700"
         >
           {primaryLabel}
         </Link>
@@ -212,7 +222,7 @@ export function MobileBottomBar({ locale = "ru" }: MobileBottomBarProps) {
               locale: locale === "es" || locale === "fr" ? locale : "ru",
             })
           }
-          className="flex flex-1 items-center justify-center rounded-lg border border-corridor-200 bg-white px-4 py-2.5 text-sm font-medium text-corridor-700 hover:border-corridor-300 hover:bg-corridor-50"
+          className="flex flex-1 items-center justify-center rounded-lg border border-corridor-200 bg-white px-2 py-2.5 text-center text-sm font-medium leading-tight text-corridor-700 hover:border-corridor-300 hover:bg-corridor-50"
         >
           {helpLabel}
         </Link>
