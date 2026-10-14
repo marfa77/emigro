@@ -34,7 +34,6 @@ export const PORTUGAL_HUB_PINNED_GUIDE_SLUGS = [
   "arenda-kvartiry-lisbon-pervyi-mesyac-2026",
   "zheltye-stranitsy-relokanta-portugaliya-2026",
   "pervyj-mesyac-portugaliya-checklist",
-  "prodlenie-vnzh-portugaliya-aima-2026",
   "porto-vs-braga-semya-mezhdunarodnaya-shkola-2026",
   "meditsina-norte-sns-chastnaya-stomatologiya-2026",
   "zamena-zagranpasporta-portugaliya-2026",

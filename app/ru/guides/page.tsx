@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { GuidesIndexContent } from "@/components/guides/GuidesIndexContent";
+import { PortugalFeaturedNotes } from "@/components/portugal/PortugalFeaturedNotes";
 import { guidePath, listGuides } from "@/lib/guides/load";
 import { listPillarGuides } from "@/lib/guides/pillar-guides";
 import { getActiveNewsTopics } from "@/lib/news/topics";
@@ -56,6 +57,9 @@ export default async function GuidesIndexPage() {
       )}
       <SiteHeader />
       <GuidesIndexContent allGuides={allGuides} pillarGuides={pillarGuides} corridors={corridors} />
+      <div className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8 2xl:max-w-[1360px]">
+        <PortugalFeaturedNotes className="mt-0" />
+      </div>
       <SiteFooter />
     </>
   );

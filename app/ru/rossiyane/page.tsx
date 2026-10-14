@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
+import { PortugalFeaturedNotes } from "@/components/portugal/PortugalFeaturedNotes";
 import { guidePath } from "@/lib/guides/load";
 import { pageMetadata, pageUrl } from "@/lib/seo";
 import { buildCollectionPageItemListSchema } from "@/lib/seo/collection-schema";
@@ -132,6 +133,8 @@ export default function RossiyaneHubPage() {
             ))}
           </ul>
         </section>
+
+        <PortugalFeaturedNotes limit={8} className="mt-10" />
 
         <section className="mt-10 rounded-2xl border border-slate-200 bg-slate-50 p-6">
           <h2 className="text-lg font-semibold text-slate-900">FAQ</h2>

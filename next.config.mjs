@@ -27,6 +27,57 @@ function useThailandSubdomainFlag() {
   return process.env.NODE_ENV === "production";
 }
 
+/**
+ * Portugal satellite notes archived Oct 2026 (expired news / one-shot / duplicates).
+ * Keep in sync with ARCHIVE_SLUGS in lib/community-notes/editorial-filter.ts.
+ * Destination starting with "https://" is cross-host (www pillar).
+ */
+const PORTUGAL_ARCHIVED_NOTE_REDIRECTS = {
+  "greve-geral-portugal-aima-2026": "aima-agora-zapis-2026",
+  "politicheskiy-krizis-ministr-neves-portugalia": "aima-agora-zapis-2026",
+  "algarve-border-control-news-2026": "polet-bez-karty-vnzh-aima-portugalia",
+  "portugal-spain-border-control-proposal-2026": "polet-bez-karty-vnzh-aima-portugalia",
+  "lisbon-metro-cais-sodre-closure-august-2026": "turizm-vnutri-portugalii-norte-2026",
+  "pogodnye-preduprezhdeniya-portugalia-znoj": "klimat-norte-zhara-vlazhnost-plesen-zima-2026",
+  "iva-climatizacao-portugal-2026": "klimat-norte-zhara-vlazhnost-plesen-zima-2026",
+  "free-museums-portugal-changes-2026": "lgoty-s-vnj-kulturnye-mesta-2026",
+  "car-child-safety-rules-portugal-2026": "mashina-portugaliya-kupit-arenda-import-2026",
+  "novye-pravila-bezopasnosti-avto-portugalia-2026": "mashina-portugaliya-kupit-arenda-import-2026",
+  "ipoteka-portugal-stavki-rastut-2026": "kupit-kvartiru-portugaliya-norte-2026",
+  "mercado-imobiliario-2026-impacto-arrendamento": "arenda-dolgosrok-porto-braga-2026",
+  "arrendamento-jovem-porto-2026": "arenda-dolgosrok-porto-braga-2026",
+  "banco-de-portugal-deposit-comparator-2026": "kak-otkryt-bankovskiy-schet-portugalia-2026",
+  "portugal-justice-system-fines-2026": "platnye-dorogi-shtrafy-avariya-portugaliya-norte-2026",
+  "apostille-notaries-portugal-2027": "doverennost-i-zvonki-v-rf-iz-portugalii",
+  "maternity-care-law-change-portugal-2026": "meditsina-norte-sns-chastnaya-stomatologiya-2026",
+  "abono-prenatal-automatico-portugal-2026": "meditsina-norte-sns-chastnaya-stomatologiya-2026",
+  "pets-civil-protection-portugal-2026": "poterya-pitomtsa-portugaliya-gid-2026",
+  "portuguese-passport-ranking-2026":
+    "https://www.emigro.online/ru/guides/vnj-portugaliya-d8-d7-grazhdanstvo-2026",
+  // Same topic as the www pillar — one URL per intent.
+  "prodlenie-vnzh-portugaliya-aima-2026":
+    "https://www.emigro.online/ru/guides/prodlenie-vnzh-portugaliya-aima-2026",
+};
+
+function portugalArchivedNoteRedirects() {
+  return Object.entries(PORTUGAL_ARCHIVED_NOTE_REDIRECTS).flatMap(([from, to]) => {
+    const external = to.startsWith("https://");
+    return [
+      {
+        source: `/notes/${from}`,
+        has: [{ type: "host", value: "portugal.emigro.online" }],
+        destination: external ? to : `/notes/${to}`,
+        permanent: true,
+      },
+      {
+        source: `/satellite/portugal/notes/${from}`,
+        destination: external ? to : `/satellite/portugal/notes/${to}`,
+        permanent: true,
+      },
+    ];
+  });
+}
+
 const usePortugalSubdomain = usePortugalSubdomainFlag();
 const useSpainSubdomain = useSpainSubdomainFlag();
 const useItalySubdomain = useItalySubdomainFlag();
@@ -219,6 +270,7 @@ const nextConfig = {
         destination: "/satellite/portugal/notes/nif-porto-kak-poluchit-2026",
         permanent: true,
       },
+      ...portugalArchivedNoteRedirects(),
       // Merged into digital-nomad-vizy-evropy-sravnenie-2026 (canonical DN comparison)
       {
         source: "/ru/guides/digital-nomad-portugaliya-ispaniya-italiya-2026",

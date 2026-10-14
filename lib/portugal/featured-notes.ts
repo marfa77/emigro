@@ -7,6 +7,11 @@ export type PortugalFeaturedNote = {
 
 export const PORTUGAL_FEATURED_NOTES: PortugalFeaturedNote[] = [
   {
+    slug: "nif-porto-kak-poluchit-2026",
+    title: "NIF в Porto 2026",
+    description: "Finanças лично или через представителя — первый номер для банка, аренды и AIMA.",
+  },
+  {
     slug: "aima-agora-zapis-2026",
     title: "AIMA 2026: Agora vs portal, слот",
     description: "Agora ≠ portal-renovacoes · лог слотов Porto/Lisboa · день приёма.",
@@ -15,6 +20,16 @@ export const PORTUGAL_FEATURED_NOTES: PortugalFeaturedNote[] = [
     slug: "aima-residence-card-sent-abroad-2026",
     title: "Карта ВНЖ уехала за границу",
     description: "Старый адрес в AIMA → título уехал на родину. Как сменить morada.",
+  },
+  {
+    slug: "arenda-dolgosrok-porto-braga-2026",
+    title: "Долгосрочная аренда Porto и Braga",
+    description: "Contrato с registo, caução, fiador — что проверить до перевода денег.",
+  },
+  {
+    slug: "meditsina-norte-sns-chastnaya-stomatologiya-2026",
+    title: "Медицина Norte: SNS, частная, стоматология",
+    description: "Número de utente, centro de saúde, страховки и цены в Porto.",
   },
   {
     slug: "arenda-kvartiry-lisbon-pervyi-mesyac-2026",

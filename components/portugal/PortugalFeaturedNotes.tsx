@@ -2,10 +2,16 @@ import { PORTUGAL_FEATURED_NOTES } from "@/lib/portugal/featured-notes";
 import { portugalSatelliteHubUrl } from "@/lib/portugal/hub";
 import { portugalSatellitePublicUrl } from "@/lib/site-url";
 
-export function PortugalFeaturedNotes() {
+type Props = {
+  limit?: number;
+  className?: string;
+};
+
+export function PortugalFeaturedNotes({ limit, className = "mt-12" }: Props = {}) {
+  const notes = limit ? PORTUGAL_FEATURED_NOTES.slice(0, limit) : PORTUGAL_FEATURED_NOTES;
   return (
     <section
-      className="mt-12 rounded-xl border border-teal-200 bg-teal-50/50 p-6"
+      className={`${className} rounded-xl border border-teal-200 bg-teal-50/50 p-6`}
       aria-labelledby="portugal-practice-heading"
     >
       <h2 id="portugal-practice-heading" className="text-xl font-semibold text-slate-900">
@@ -19,7 +25,7 @@ export function PortugalFeaturedNotes() {
         — NIF, аренда, климат Norte, AIMA и быт.
       </p>
       <ul className="mt-5 grid gap-3 sm:grid-cols-2">
-        {PORTUGAL_FEATURED_NOTES.map((note) => (
+        {notes.map((note) => (
           <li key={note.slug}>
             <a
               href={portugalSatellitePublicUrl(`/notes/${note.slug}`)}

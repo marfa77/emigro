@@ -17,7 +17,8 @@ import { listPillarGuides } from "@/lib/guides/pillar-guides";
 import { getActiveNewsTopics, newsIndexPath } from "@/lib/news/topics";
 import { pageMetadata, pageUrl } from "@/lib/seo";
 import { buildCollectionPageItemListSchema } from "@/lib/seo/collection-schema";
-import { portugalSatelliteUrl, spainSatelliteUrl } from "@/lib/site-url";
+import { PORTUGAL_FEATURED_NOTES } from "@/lib/portugal/featured-notes";
+import { portugalSatellitePublicUrl, portugalSatelliteUrl, spainSatelliteUrl } from "@/lib/site-url";
 import { TRANSIT_HUBS, hubKindLabel } from "@/lib/transit-hubs";
 import { heroTitle } from "@/lib/ui/mobile";
 
@@ -146,6 +147,20 @@ export default async function RuHubPage() {
               </Link>
             </li>
           </ul>
+          <p className="mt-4 text-sm leading-relaxed text-slate-700">
+            <span className="font-medium text-slate-900">Практика Porto / Norte:</span>{" "}
+            {PORTUGAL_FEATURED_NOTES.slice(0, 6).map((note, index) => (
+              <span key={note.slug}>
+                {index > 0 && " · "}
+                <a
+                  href={portugalSatellitePublicUrl(`/notes/${note.slug}`)}
+                  className="text-teal-800 underline hover:text-teal-950"
+                >
+                  {note.title}
+                </a>
+              </span>
+            ))}
+          </p>
         </section>
 
         <section className="mt-10 rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50 via-white to-orange-50 p-6 sm:p-8">

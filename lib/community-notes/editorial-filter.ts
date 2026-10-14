@@ -113,6 +113,29 @@ export const ARCHIVE_SLUGS = new Set([
   "smena-adresa-nif-financas-2026",
   // Lisboa-centric NIF note → Porto guide
   "nif-lissabon-chto-puutayut",
+  // Expired news / one-shot / duplicates — Oct 2026 (301 map in next.config.mjs)
+  "greve-geral-portugal-aima-2026",
+  "politicheskiy-krizis-ministr-neves-portugalia",
+  "algarve-border-control-news-2026",
+  "portugal-spain-border-control-proposal-2026",
+  "lisbon-metro-cais-sodre-closure-august-2026",
+  "pogodnye-preduprezhdeniya-portugalia-znoj",
+  "iva-climatizacao-portugal-2026",
+  "free-museums-portugal-changes-2026",
+  "car-child-safety-rules-portugal-2026",
+  "novye-pravila-bezopasnosti-avto-portugalia-2026",
+  "ipoteka-portugal-stavki-rastut-2026",
+  "mercado-imobiliario-2026-impacto-arrendamento",
+  "arrendamento-jovem-porto-2026",
+  "banco-de-portugal-deposit-comparator-2026",
+  "portugal-justice-system-fines-2026",
+  "apostille-notaries-portugal-2027",
+  "maternity-care-law-change-portugal-2026",
+  "abono-prenatal-automatico-portugal-2026",
+  "pets-civil-protection-portugal-2026",
+  "portuguese-passport-ranking-2026",
+  // Same intent as www /ru/guides/prodlenie-vnzh-portugaliya-aima-2026
+  "prodlenie-vnzh-portugaliya-aima-2026",
 ]);
 
 /**
