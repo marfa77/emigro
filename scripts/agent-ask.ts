@@ -24,7 +24,7 @@ async function main() {
   });
   console.log(result.text);
   if (result.sources.length) console.log(`\nИсточники: ${result.sources.map((s) => s.title).join(" · ")}`);
-  console.error(`\n[${result.model}${result.search ? " +search" : ""}, ${Math.round((Date.now() - started) / 1000)}s]`);
+  console.error(`\n[${result.model}, ${Math.round((Date.now() - started) / 1000)}s]`);
 }
 
 main().catch((e) => {

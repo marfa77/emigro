@@ -149,7 +149,7 @@ async function answer(userId: number, chatId: number | string, ownerName: string
     const text = withSources(result.text, result.sources);
     clearInterval(typingTimer);
     await reply(chatId, text);
-    await saveTurn(userId, log, text, `${result.model}${result.search ? "+search" : ""}`).catch(() => undefined);
+    await saveTurn(userId, log, text, result.model).catch(() => undefined);
   } catch (e) {
     console.error("[agent] failed:", e);
     await reply(chatId, `⚠️ Агент не смог ответить: ${escapeHtml(e instanceof Error ? e.message : String(e)).slice(0, 300)}`);
