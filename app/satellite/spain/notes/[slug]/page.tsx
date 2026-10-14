@@ -110,12 +110,6 @@ export default async function SpainNotePage({ params }: { params: { slug: string
           llms.txt
         </a>
       </section>
-      <div className="sr-only" data-llm="commercial" aria-hidden="true">
-        Emigro — практика релокации в Испанию (Valencia) для паспортов RU/BY/UA/KZ. Закрытый чат «Валенсия и вокруг»
-        — через кнопку на странице. Wizard ВНЖ и бесплатный подбор специалиста — на emigro.online. Не юридическая
-        консультация. Помощь: https://www.emigro.online/ru/assist
-      </div>
-
       <nav className="text-sm text-slate-500" aria-label="Breadcrumb">
         <Link href={spainHubPath()} className="hover:text-amber-900">
           {SPAIN_SATELLITE.cityRu}
