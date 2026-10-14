@@ -9,13 +9,15 @@ export type SiteNavLink = {
   labelEn: string;
   labelEs?: string;
   labelFr?: string;
+  /** EN surface target when a real /en page exists. */
+  hrefEn?: string;
 };
 
 export const HEADER_NAV_LINKS: SiteNavLink[] = [
   { href: "/ru#destinations", labelRu: "Направления", labelEn: "Destinations", labelEs: "Destinos" },
   { href: "/ru/wizard", labelRu: "Подбор маршрута", labelEn: "Route finder", labelEs: "Evaluador" },
   { href: "/ru/guides", labelRu: "Гайды", labelEn: "Guides", labelEs: "Guías" },
-  { href: "/ru/invest", labelRu: "Инвестиции", labelEn: "Investment" },
+  { href: "/ru/invest", labelRu: "Инвестиции", labelEn: "Investment", hrefEn: "/en/invest" },
   { href: "/ru/news", labelRu: "Новости", labelEn: "News", labelEs: "Noticias" },
   { href: "/ru/assist", labelRu: "Получить помощь", labelEn: "Get help", labelEs: "Pedir ayuda" },
   { href: "/ru/partners", labelRu: "Партнёрам", labelEn: "Partners", labelEs: "Partners" },
@@ -59,7 +61,7 @@ export function getHeaderNavLinks(locale: UiLocale) {
   const source =
     locale === "es" ? ES_HEADER_NAV_LINKS : locale === "fr" ? FR_HEADER_NAV_LINKS : HEADER_NAV_LINKS;
   return source.map((link) => ({
-    href: link.href,
+    href: locale === "en" && link.hrefEn ? link.hrefEn : link.href,
     label: pickLabel(link, locale),
   }));
 }

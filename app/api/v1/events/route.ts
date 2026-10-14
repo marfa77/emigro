@@ -38,6 +38,12 @@ const ALLOWED: Set<string> = new Set([
   "investment_qualifier_started",
   "investment_qualifier_completed",
   "investment_lead_submitted",
+  "invest_lead_view",
+  "invest_lead_start",
+  "invest_lead_submit",
+  "invest_lead_error",
+  "invest_tg_click",
+  "invest_profile_step2_submit",
 ]);
 
 const TELEGRAM_EVENTS: Set<string> = new Set([

@@ -10,7 +10,7 @@ export type RouteAction =
   | { type: "home"; hint?: string }
   | { type: "open"; link: BotDeepLink }
   | { type: "continue-session" }
-  | { type: "dispatch"; app: "assist" | "property" }
+  | { type: "dispatch"; app: "assist" | "property" | "invest" }
   | { type: "news" }
   | { type: "city-keyword"; countryKey: string };
 
@@ -33,6 +33,7 @@ export function isUserAppCallback(data: string): boolean {
   return (
     data.startsWith("as:") ||
     data.startsWith("pr:") ||
+    data.startsWith("iv:") ||
     data.startsWith("city:") ||
     data.startsWith("home:") ||
     Boolean(parseNewsBotCallback(data))
@@ -92,6 +93,7 @@ export function decideUserRoute(input: {
       const countryKey = data.slice("city:".length).replace(/[^a-z]/g, "");
       return { type: "open", link: { app: "city", countryKey: countryKey || undefined } };
     }
+    if (data.startsWith("iv:")) return { type: "dispatch", app: "invest" };
     if (input.hasLiveSession) return { type: "continue-session" };
     if (data.startsWith("as:")) return { type: "dispatch", app: "assist" };
     if (data.startsWith("pr:")) return { type: "dispatch", app: "property" };

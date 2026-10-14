@@ -5,6 +5,11 @@ import { ES_PATHS, esGuidePath } from "@/lib/es/corridor";
 import { FR_PATHS, frGuidePath } from "@/lib/fr/corridor";
 import { guidePath, listGuides } from "@/lib/guides/load";
 import { uniqueInvestmentCountries } from "@/lib/investment/registry";
+import {
+  GOLDEN_VISA_LAST_CHECKED,
+  INVEST_COUNTRY_SLUGS,
+  investPagePath,
+} from "@/lib/investment/golden-visa-2026";
 import { listStories } from "@/lib/stories/load";
 import { storyPath, STORIES_INDEX_PATH } from "@/lib/stories/paths";
 import { getPublishedNewsDigests } from "@/lib/news/digests";
@@ -133,6 +138,7 @@ async function buildWwwSitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "weekly" as const,
       priority: 0.88,
     })),
+    ...investSitemapEntries(origin),
     { url: `${origin}${ES_PATHS.guides}`, changeFrequency: "weekly", priority: 0.9 },
     { url: `${origin}${ES_PATHS.uruguay}`, changeFrequency: "weekly", priority: 0.92 },
     { url: `${origin}${ES_PATHS.ecuador}`, changeFrequency: "weekly", priority: 0.92 },
@@ -357,4 +363,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     return buildSatelliteSitemapEntries("thailand");
   }
   return buildWwwSitemap();
+}
+
+function investSitemapEntries(origin: string): MetadataRoute.Sitemap {
+  const lastModified = new Date(`${GOLDEN_VISA_LAST_CHECKED}T00:00:00Z`);
+  const paths = [
+    investPagePath("ru", "compare"),
+    investPagePath("en", "hub"),
+    investPagePath("en", "compare"),
+    ...INVEST_COUNTRY_SLUGS.map((slug) => investPagePath("en", slug)),
+  ];
+  return paths.map((path) => ({
+    url: `${origin}${path}`,
+    lastModified,
+    changeFrequency: "weekly" as const,
+    priority: path.endsWith("/compare") || path === "/en/invest" ? 0.9 : 0.86,
+  }));
 }

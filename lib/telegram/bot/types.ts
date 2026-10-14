@@ -1,3 +1,5 @@
+import type { InvestLocale, InvestPageKey } from "@/lib/investment/golden-visa-2026";
+
 export type BotApp = "assist" | "property" | "news" | "city";
 
 export type AssistPlanTier = "partner-match" | "route-check" | "accompaniment";
@@ -28,6 +30,7 @@ export type BotDeepLink =
   | { app: "assist"; country?: string; tier?: AssistPlanTier }
   | { app: "property"; dest?: "uae" | "thailand" }
   | { app: "city"; countryKey?: string }
+  | { app: "invest"; key: InvestPageKey; locale: InvestLocale }
   | { app: "wizard"; mode: "hub" | "corridor"; sessionId: string };
 
 export type TelegramMessage = {

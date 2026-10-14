@@ -1,6 +1,7 @@
 import { corridorDigestPath, corridorLandingPath, corridorWizardPath, programPath } from "@/lib/corridor/paths";
 import { guidePath, listGuides } from "@/lib/guides/load";
 import { INVESTMENT_ROUTES, routeKey } from "@/lib/investment/registry";
+import { buildInvestLlmsSection } from "@/lib/investment/invest-llms";
 import { ES_PATHS, esGuidePath } from "@/lib/es/corridor";
 import { FR_PATHS, frGuidePath } from "@/lib/fr/corridor";
 import { stripInlineMarkdown } from "@/lib/markdown/inline";
@@ -140,6 +141,8 @@ ${investmentLines}
 - ${llmMarkdownLink("Доход из России для ВНЖ", "/ru/guides/podtverdit-dohod-dengi-dlya-vnj-esli-dohod-iz-rossii-2026")}
 - ${llmMarkdownLink("Консульская юрисдикция РФ/BY/KZ", "/ru/guides/konsulskaya-podacha-rf-by-kz-2026-yurisdiktsiya")}
 - ${llmMarkdownLink("Документы, апостиль, несудимость", "/ru/guides/dokumenty-dlya-pereezda-iz-rossii-2026-apostil-nesudimost")}
+
+${buildInvestLlmsSection()}
 
 ## Spanish-speaking corridor (LATAM → España y Portugal)
 
@@ -498,6 +501,8 @@ ${formatCitationPromptsSection()}
 ${buildHighIntentSection()}
 
 ${buildProgramIndexTable()}
+
+${buildInvestLlmsSection()}
 
 ## Карта сайта (${rows.length} URL)
 

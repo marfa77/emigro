@@ -24,15 +24,19 @@ import {
   routeStatusLabel,
   uniqueInvestmentCountries,
 } from "@/lib/investment/registry";
-import { pageMetadata, pageUrl } from "@/lib/seo";
-import { propertyBotDeepLink } from "@/lib/telegram/deep-link";
+import Link from "next/link";
+import { pageUrl } from "@/lib/seo";
+import { investPagePath } from "@/lib/investment/golden-visa-2026";
+import { investMetadata, investServiceSchema } from "@/lib/investment/invest-seo";
+import { InvestQuickLead } from "@/components/investment/InvestQuickLead";
+import { GoldenVisaSummaryTable, InvestAssistOffers } from "@/components/investment/InvestPageBlocks";
 
-export const metadata: Metadata = pageMetadata({
+export const metadata: Metadata = investMetadata({
+  locale: "ru",
+  key: "hub",
   title: "Инвестиционная миграция: ВНЖ и ПМЖ",
-  titleAbsolute: true,
   description:
     "Сравните инвестиционные маршруты ВНЖ и ПМЖ по бюджету, активу, сроку и составу семьи. Предварительный qualifier Emigro с официальными источниками.",
-  path: "/ru/invest",
   aiDescription:
     "RU investment migration hub: compares residence and permanent-residence routes by budget, asset, family and timing. Screening only, not legal advice.",
   aiCategory: "investment-migration",
@@ -65,6 +69,7 @@ export default function InvestmentHubPage() {
       <SiteHeader />
       <InvestmentViewTracker event="investment_hub_view" />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(investServiceSchema("ru")) }} />
       <main>
         <section className="relative overflow-hidden border-b border-slate-200 bg-gradient-to-br from-slate-950 via-corridor-900 to-corridor-800 text-white">
           <div
@@ -79,70 +84,79 @@ export default function InvestmentHubPage() {
             aria-hidden
             className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(255,255,255,0.08),transparent_55%)]"
           />
-          <div className="relative mx-auto max-w-5xl px-4 py-16 sm:py-24">
-            <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-amber-300">
-              <span className="h-px w-8 bg-gradient-to-r from-amber-300 to-transparent" />
-              Private Capital · Investment Migration
-            </p>
-            <h1 className="mt-5 max-w-4xl text-4xl font-bold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
-              Инвестиционная миграция:
-              <br className="hidden sm:block" /> сначала{" "}
-              <span className="bg-gradient-to-r from-amber-200 via-amber-300 to-amber-400 bg-clip-text text-transparent">
-                профиль
-              </span>
-              , потом программа
-            </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-slate-200/90">
-              У вас есть капитал — сначала определим тип маршрута (сохранение / статус / структура расхода), паспорт и
-              SoF. Emigro покажет shortlist для проверки, а не «7 Golden Visa на выбор». Доходность активов мы не
-              оцениваем.
-            </p>
-            <div className="mt-9 flex flex-wrap gap-3">
-              <a
-                href="#qualifier"
-                className="group inline-flex min-h-12 items-center gap-2 rounded-xl bg-gradient-to-r from-amber-300 to-amber-400 px-6 py-3 font-semibold text-slate-950 shadow-lg shadow-amber-500/25 transition hover:from-amber-200 hover:to-amber-300 hover:shadow-amber-400/40"
-              >
-                Проверить инвестиционный профиль
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-              </a>
-              <a
-                href="#routes"
-                className="inline-flex min-h-12 items-center rounded-xl border border-white/20 bg-white/5 px-5 py-3 font-medium text-white backdrop-blur transition hover:border-white/40 hover:bg-white/10"
-              >
-                Сначала посмотреть страны
-              </a>
-              <a
-                href={propertyBotDeepLink()}
-                className="inline-flex min-h-12 items-center rounded-xl border border-white/20 bg-white/5 px-5 py-3 font-medium text-white backdrop-blur transition hover:border-white/40 hover:bg-white/10"
-              >
-                Короткая заявка в боте
-              </a>
+          <div className="relative mx-auto grid max-w-6xl gap-6 px-4 py-5 sm:py-10 lg:grid-cols-[minmax(0,1fr)_440px] lg:gap-x-12 lg:py-12">
+            <div className="lg:col-start-1 lg:row-start-1">
+              <p className="hidden items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-amber-300 sm:inline-flex">
+                <span className="h-px w-8 bg-gradient-to-r from-amber-300 to-transparent" />
+                Private Capital · Investment Migration
+              </p>
+              <h1 className="text-2xl font-bold leading-[1.12] tracking-tight sm:mt-4 sm:text-4xl lg:text-5xl">
+                Инвестиционная миграция:
+                <br className="hidden sm:block" /> сначала{" "}
+                <span className="bg-gradient-to-r from-amber-200 via-amber-300 to-amber-400 bg-clip-text text-transparent">
+                  профиль
+                </span>
+                , потом программа
+              </h1>
+              <p className="mt-3 max-w-2xl text-sm leading-relaxed text-slate-200/90 sm:mt-5 sm:text-lg">
+                У вас есть капитал — сначала определим тип маршрута (сохранение / статус / структура расхода), паспорт и
+                SoF. Emigro покажет shortlist для проверки, а не «7 Golden Visa на выбор». Доходность активов мы не
+                оцениваем.
+              </p>
             </div>
 
-            <dl className="mt-12 grid max-w-3xl grid-cols-2 gap-5 border-t border-white/10 pt-8 sm:grid-cols-3">
-              {heroStats.map((stat) => (
-                <div key={stat.label}>
-                  <dt className="sr-only">{stat.label}</dt>
-                  <dd className="text-3xl font-bold tracking-tight text-amber-200 sm:text-4xl">{stat.value}</dd>
-                  <p className="mt-1 text-sm leading-snug text-slate-300">{stat.label}</p>
-                </div>
-              ))}
-            </dl>
+            <InvestQuickLead locale="ru" pageKey="hub" className="lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:self-start" />
 
-            <div className="mt-10 flex max-w-3xl gap-3 rounded-2xl border border-white/10 bg-white/5 p-4 text-sm leading-relaxed text-slate-200 backdrop-blur">
-              <Scale className="mt-0.5 h-5 w-5 shrink-0 text-amber-300" />
-              <p>
-                <strong className="text-white">Не юридическая и не инвестиционная консультация.</strong> Emigro
-                сравнивает <em>миграционные</em> характеристики капитальных маршрутов, а не доходность активов. Порог в
-                карточке — ориентир скрининга, не оферта. Право на статус зависит от актуальных правил, происхождения
-                средств, гражданства, семьи и проверки компетентным органом.
-              </p>
+            <div className="lg:col-start-1 lg:row-start-2">
+              <div className="flex flex-wrap gap-3">
+                <a
+                  href="#qualifier"
+                  className="group inline-flex min-h-12 items-center gap-2 rounded-xl border border-white/20 bg-white/5 px-5 py-3 font-medium text-white backdrop-blur transition hover:border-white/40 hover:bg-white/10"
+                >
+                  Полный инвестиционный профиль
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                </a>
+                <Link
+                  href={investPagePath("ru", "compare")}
+                  className="inline-flex min-h-12 items-center rounded-xl border border-amber-300/40 bg-amber-300/10 px-5 py-3 font-semibold text-amber-100 transition hover:border-amber-300/70 hover:bg-amber-300/20"
+                >
+                  Сравнить все программы →
+                </Link>
+                <a
+                  href="#routes"
+                  className="inline-flex min-h-12 items-center rounded-xl border border-white/20 bg-white/5 px-5 py-3 font-medium text-white backdrop-blur transition hover:border-white/40 hover:bg-white/10"
+                >
+                  Сначала посмотреть страны
+                </a>
+              </div>
+
+              <dl className="mt-8 grid max-w-3xl grid-cols-3 gap-5 border-t border-white/10 pt-6">
+                {heroStats.map((stat) => (
+                  <div key={stat.label}>
+                    <dt className="sr-only">{stat.label}</dt>
+                    <dd className="text-2xl font-bold tracking-tight text-amber-200 sm:text-4xl">{stat.value}</dd>
+                    <p className="mt-1 text-xs leading-snug text-slate-300 sm:text-sm">{stat.label}</p>
+                  </div>
+                ))}
+              </dl>
+
+              <div className="mt-8 flex max-w-3xl gap-3 rounded-2xl border border-white/10 bg-white/5 p-4 text-sm leading-relaxed text-slate-200 backdrop-blur">
+                <Scale className="mt-0.5 h-5 w-5 shrink-0 text-amber-300" />
+                <p>
+                  <strong className="text-white">Не юридическая и не инвестиционная консультация.</strong> Emigro
+                  сравнивает <em>миграционные</em> характеристики капитальных маршрутов, а не доходность активов. Порог в
+                  карточке — ориентир скрининга, не оферта. Право на статус зависит от актуальных правил, происхождения
+                  средств, гражданства, семьи и проверки компетентным органом.
+                </p>
+              </div>
             </div>
           </div>
         </section>
 
         <div className="mx-auto max-w-5xl px-4 py-12">
-          <section className="grid gap-5 md:grid-cols-2">
+          <GoldenVisaSummaryTable locale="ru" />
+
+          <section className="mt-14 grid gap-5 md:grid-cols-2">
             <article className="group relative overflow-hidden rounded-3xl border border-slate-200 bg-white p-7 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
               <span className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-corridor-500 to-corridor-700" />
               <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-corridor-50 ring-1 ring-corridor-100">
@@ -184,7 +198,7 @@ export default function InvestmentHubPage() {
           </section>
 
           <div className="mt-14">
-            <InvestmentQualifier />
+            <InvestmentQualifier locale="ru" />
           </div>
 
           <section id="routes" className="scroll-mt-24 pt-14">
@@ -311,6 +325,10 @@ export default function InvestmentHubPage() {
               })}
             </div>
           </section>
+
+          <div className="mt-14">
+            <InvestAssistOffers locale="ru" />
+          </div>
 
           <section className="mt-14 grid gap-4 sm:grid-cols-3">
             {[

@@ -22,7 +22,15 @@ import {
   uniqueInvestmentCountries,
 } from "@/lib/investment/registry";
 import { showsDubaiOfferVerdict } from "@/lib/investment/uae-offer-verdict";
-import { pageMetadata } from "@/lib/seo";
+import { goldenVisaRow, investPagePath, isInvestCountrySlug } from "@/lib/investment/golden-visa-2026";
+import { investMetadata, investServiceSchema } from "@/lib/investment/invest-seo";
+import { InvestQuickLead } from "@/components/investment/InvestQuickLead";
+import {
+  GoldenVisaFactTable,
+  InvestAssistOffers,
+  PortugalCallout,
+  SpainAlternatives,
+} from "@/components/investment/InvestPageBlocks";
 import { buildFaqSchema } from "@/lib/seo/corridor-page-seo";
 
 export function generateStaticParams() {
@@ -35,13 +43,12 @@ export function generateMetadata({ params }: { params: { country: string } }): M
   if (!route) return {};
   const title = routes.length > 1 ? `${route.countryRu}: программы статуса` : `${route.countryRu}: инвестиционный ВНЖ`;
 
-  return pageMetadata({
+  return investMetadata({
+    locale: "ru",
+    key: isInvestCountrySlug(route.country) ? route.country : "hub",
     title,
-    titleAbsolute: true,
     description: `${route.countryRu}: ${routes.map((item) => item.title).join("; ")}. Предварительный скрининг Emigro без юридических гарантий.`,
-    path: `/ru/invest/${route.country}`,
     aiDescription: `${route.countryRu} investment routes: ${routes.map((item) => item.caveat).join(" ")} Not legal or investment advice.`,
-    aiCategory: "investment-migration-route",
   });
 }
 
@@ -80,21 +87,32 @@ export default function InvestmentCountryPage({ params }: { params: { country: s
         "Разбор маршрута по ссылке программы, официальный портал, при недвижимости — qualifier. Не переводите деньги по скринингу чата.",
     },
   ];
+  if (route.country === "portugal") {
+    faq.splice(1, 0, {
+      question: "Сколько лет до гражданства Португалии по Golden Visa в 2026?",
+      answer:
+        "По Lei Orgânica 1/2026 (в силе с 19.05.2026) — 10 лет легального проживания для граждан вне ЕС/CPLP (7 лет для ЕС и CPLP), срок считается с даты выдачи первого ВНЖ. Заявления на гражданство, поданные до 18.05.2026, рассматриваются по старому правилу 5 лет.",
+    });
+  }
   const faqSchema = buildFaqSchema(faq);
+  const factRow = goldenVisaRow(route.country);
+  const pageKey = isInvestCountrySlug(route.country) ? route.country : "hub";
 
   return (
     <>
       <SiteHeader />
       <InvestmentViewTracker event="investment_country_view" country={route.country} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(investServiceSchema("ru")) }} />
       {faqSchema ? (
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       ) : null}
-      <main className="mx-auto max-w-5xl px-4 py-10">
-        <Link href="/ru/invest" className="text-sm font-medium text-corridor-700 hover:underline">
+      <main className="mx-auto max-w-6xl px-4 py-3 sm:py-8">
+        <Link href="/ru/invest" className="inline-flex min-h-11 items-center text-sm font-medium text-corridor-700 hover:underline sm:min-h-0">
           ← Все инвестиционные маршруты
         </Link>
 
-        <header className="relative mt-6 overflow-hidden rounded-3xl bg-gradient-to-br from-slate-950 via-corridor-900 to-corridor-800 p-7 text-white sm:p-10">
+        <div className="mt-4 grid gap-5 sm:mt-6 lg:grid-cols-[minmax(0,1fr)_420px] lg:gap-8">
+        <header className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-950 via-corridor-900 to-corridor-800 p-5 text-white sm:p-8 lg:self-start">
           <div
             aria-hidden
             className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-amber-400/20 blur-3xl"
@@ -103,27 +121,27 @@ export default function InvestmentCountryPage({ params }: { params: { country: s
             aria-hidden
             className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(255,255,255,0.08),transparent_55%)]"
           />
-          <div className="relative flex flex-wrap items-center gap-3">
-            <span className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-white/10 text-3xl ring-1 ring-white/15 backdrop-blur" aria-hidden>{route.flag}</span>
+          <div className="relative hidden flex-wrap items-center gap-3 sm:flex">
+            <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-white/10 text-2xl ring-1 ring-white/15 backdrop-blur sm:h-14 sm:w-14 sm:rounded-2xl sm:text-3xl" aria-hidden>{route.flag}</span>
             <span className={`rounded-full px-3 py-1 text-xs font-semibold ${route.status === "active" && routes.length === 1 ? "bg-emerald-300/20 text-emerald-100 ring-1 ring-emerald-300/30" : route.status === "closed" ? "bg-rose-300/20 text-rose-100 ring-1 ring-rose-300/30" : "bg-amber-300/20 text-amber-100 ring-1 ring-amber-300/30"}`}>
               {routes.length > 1 ? `${routes.length} программы, проверяются раздельно` : routeStatusLabel(route.status)}
             </span>
           </div>
-          <h1 className="relative mt-5 max-w-3xl text-3xl font-bold leading-tight tracking-tight sm:text-4xl">
+          <h1 className="relative max-w-3xl text-2xl font-bold leading-tight tracking-tight sm:mt-5 sm:text-4xl">
             {routes.length > 1 ? `${route.countryRu}: программы не взаимозаменяемы` : route.title}
           </h1>
-          <p className="relative mt-4 max-w-3xl text-lg leading-relaxed text-slate-200/90">
+          <p className="relative mt-3 line-clamp-4 max-w-3xl text-sm leading-relaxed text-slate-200/90 sm:mt-4 sm:line-clamp-none sm:text-lg">
             {routes.length > 1
               ? "Ниже отдельные программы. Совпадение по одной не переносится на остальные."
               : route.summary}
           </p>
           {hasRuByPassportRestriction(route) ? (
-            <p className="relative mt-5 max-w-3xl rounded-xl border border-rose-300/40 bg-rose-500/20 px-4 py-3 text-sm font-semibold text-rose-50">
+            <p className="relative mt-3 max-w-3xl rounded-xl border border-rose-300/40 bg-rose-500/20 px-3 py-2 text-xs font-semibold text-rose-50 sm:mt-5 sm:px-4 sm:py-3 sm:text-sm">
               {passportRestrictionLabel(route)}
             </p>
           ) : null}
           {showsDubaiOfferVerdict(route.country) ? (
-            <div className="relative mt-6">
+            <div className="relative mt-6 hidden sm:block">
               <a
                 href="#qualifier"
                 className="group inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-amber-300 to-amber-400 px-6 py-3 font-semibold text-slate-950 shadow-lg shadow-amber-500/25 transition hover:from-amber-200 hover:to-amber-300"
@@ -133,7 +151,37 @@ export default function InvestmentCountryPage({ params }: { params: { country: s
               </a>
             </div>
           ) : null}
+          <p className="relative mt-4 hidden sm:block">
+            <Link href={investPagePath("ru", "compare")} className="text-sm font-semibold text-amber-200 hover:underline">
+              Сравнить все программы →
+            </Link>
+          </p>
         </header>
+          <InvestQuickLead
+            locale="ru"
+            pageKey={pageKey}
+            defaultOutcome={route.country === "spain" ? "residence" : undefined}
+            className="lg:self-start"
+          />
+        </div>
+
+        {route.country === "portugal" ? (
+          <div className="mt-8">
+            <PortugalCallout locale="ru" />
+          </div>
+        ) : null}
+
+        {factRow ? (
+          <div className="mt-8">
+            <GoldenVisaFactTable row={factRow} locale="ru" />
+          </div>
+        ) : null}
+
+        {route.country === "spain" ? (
+          <div className="mt-8">
+            <SpainAlternatives locale="ru" />
+          </div>
+        ) : null}
 
         {showsDubaiOfferVerdict(route.country) ? (
           <UaePropertyLeadCta placement="invest_country" content={route.country} />
@@ -253,13 +301,17 @@ export default function InvestmentCountryPage({ params }: { params: { country: s
               : "Проверить свой профиль по этой стране"}{" "}
             <ArrowRight className="h-4 w-4" />
           </a>
-          <Link href="/ru/invest" className="inline-flex min-h-12 items-center justify-center rounded-xl border border-slate-300 px-6 py-3 font-medium text-slate-700 hover:bg-slate-50">
-            Сравнить другие страны
+          <Link href={investPagePath("ru", "compare")} className="inline-flex min-h-12 items-center justify-center rounded-xl border border-slate-300 px-6 py-3 font-medium text-slate-700 hover:bg-slate-50">
+            Сравнить все программы →
           </Link>
         </div>
 
         <div className="mt-10">
-          <InvestmentQualifier id="qualifier" defaultPreferredCountry={route.country} />
+          <InvestmentQualifier id="qualifier" defaultPreferredCountry={route.country} locale="ru" />
+        </div>
+
+        <div className="mt-10">
+          <InvestAssistOffers locale="ru" />
         </div>
 
         {showsDubaiOfferVerdict(route.country) ? (

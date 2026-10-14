@@ -365,6 +365,7 @@ export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const isEs = pathname === "/es" || pathname.startsWith("/es/");
   const isFr = pathname === "/fr" || pathname.startsWith("/fr/");
+  const isEn = pathname === "/en" || pathname.startsWith("/en/");
 
   function nextWithLocaleHints(): NextResponse {
     const res = NextResponse.next();
@@ -373,6 +374,8 @@ export function middleware(request: NextRequest) {
       res.headers.set("Content-Language", "es");
     } else if (isFr) {
       res.headers.set("Content-Language", "fr");
+    } else if (isEn) {
+      res.headers.set("Content-Language", "en");
     }
     return res;
   }

@@ -5,6 +5,7 @@ import { clearSession, getLiveSession } from "@/lib/telegram/bot/session";
 import { upsertBotUser } from "@/lib/telegram/bot/users";
 import { continueAssist, startAssist } from "@/lib/telegram/bot/apps/assist";
 import { continueCity, startCity } from "@/lib/telegram/bot/apps/city";
+import { continueInvest, startInvest } from "@/lib/telegram/bot/apps/invest";
 import { continueNews, startNews } from "@/lib/telegram/bot/apps/news";
 import { continueProperty, startProperty } from "@/lib/telegram/bot/apps/property";
 import { continueWizardHomeAssist, startWizard } from "@/lib/telegram/bot/apps/wizard";
@@ -77,6 +78,10 @@ async function openApp(ctx: BotUserCtx, link: BotDeepLink, incoming: BotIncoming
   }
   if (link.app === "property") {
     await startProperty(ctx, link.dest);
+    return;
+  }
+  if (link.app === "invest") {
+    await startInvest(ctx, link.key, link.locale);
   }
 }
 
@@ -134,6 +139,7 @@ export async function routeTelegramUpdate(update: TelegramUpdate): Promise<void>
   }
   if (action.type === "dispatch") {
     if (action.app === "assist") await continueAssist(ctx, incoming, {});
+    else if (action.app === "invest") await continueInvest(ctx, incoming);
     else await continueProperty(ctx, incoming, {});
     return;
   }

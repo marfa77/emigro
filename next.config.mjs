@@ -100,6 +100,12 @@ const nextConfig = {
     ITALY_SATELLITE_USE_SUBDOMAIN: useItalySubdomain ? "true" : "false",
     THAILAND_SATELLITE_USE_SUBDOMAIN: useThailandSubdomain ? "true" : "false",
   },
+  async headers() {
+    return ["ru", "en"].map((locale) => ({
+      source: `/assist/emigro_golden_visa_2026_comparison_${locale}.pdf`,
+      headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
+    }));
+  },
   async redirects() {
     const satelliteNotes = usePortugalSubdomain
       ? "https://portugal.emigro.online/notes/:slug"

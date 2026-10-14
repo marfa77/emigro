@@ -91,6 +91,30 @@ export async function answerStatsBotCallback(
   }).catch(() => undefined);
 }
 
+/** Telegram fetches the file itself, so `documentUrl` must be a public https URL. */
+export async function sendStatsBotDocument(
+  chatId: string | number,
+  documentUrl: string,
+  caption?: string
+): Promise<{ success: boolean; error?: string }> {
+  const token = statsBotToken();
+  if (!token) return { success: false, error: "EMIGRO_CHAT_BOT_TOKEN missing" };
+  const res = await fetch(`https://api.telegram.org/bot${token}/sendDocument`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      chat_id: chatId,
+      document: documentUrl,
+      ...(caption ? { caption: caption.slice(0, 1024), parse_mode: "HTML" } : {}),
+    }),
+  });
+  const json = (await res.json().catch(() => ({}))) as TelegramApiResult;
+  if (!res.ok || json.ok === false) {
+    return { success: false, error: json.description || res.statusText };
+  }
+  return { success: true };
+}
+
 export async function sendStatsBotMessage(
   chatId: string | number,
   text: string,

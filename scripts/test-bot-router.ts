@@ -8,6 +8,7 @@ import {
   parseBotStartPayload,
   propertyBotStartPayload,
 } from "../lib/telegram/deep-link";
+import { investBotStartPayload } from "../lib/investment/quick-lead";
 
 assert.equal(startPayloadFromText("/start"), "");
 assert.equal(startPayloadFromText("/start news_portugal"), "news_portugal");
@@ -96,3 +97,19 @@ assert.equal(isOwnerCommandText("/stats"), true);
 assert.equal(isOwnerCommandText("/start"), false);
 
 console.log("bot-router: ok");
+
+// Invest deep links (spec 2026-10-14)
+assert.deepEqual(parseBotStartPayload("invest_portugal_ru"), { app: "invest", key: "portugal", locale: "ru" });
+assert.deepEqual(parseBotStartPayload("invest_hub_en"), { app: "invest", key: "hub", locale: "en" });
+assert.deepEqual(parseBotStartPayload("invest_compare_ru"), { app: "invest", key: "compare", locale: "ru" });
+assert.equal(parseBotStartPayload("invest_atlantis_ru"), null);
+assert.deepEqual(decideUserRoute({ text: "/start invest_portugal_ru", hasLiveSession: true }), {
+  type: "open",
+  link: { app: "invest", key: "portugal", locale: "ru" },
+});
+assert.deepEqual(decideUserRoute({ callbackData: "iv:req:portugal:ru", hasLiveSession: true }), {
+  type: "dispatch",
+  app: "invest",
+});
+assert.ok(investBotStartPayload("portugal", "ru").length <= 64);
+console.log("invest deep links: ok");

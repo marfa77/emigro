@@ -11,6 +11,10 @@ export type SubmitInvestmentLiteInput = {
   message: string;
   kind: "uae" | "thailand" | "other";
   source?: string;
+  preferredLanguage?: string;
+  /** Merged into lead_packet (e.g. bot start payload tag). */
+  packet?: Record<string, unknown>;
+  ownerTitle?: string;
 };
 
 export async function submitInvestmentLeadLite(
@@ -27,7 +31,7 @@ export async function submitInvestmentLeadLite(
         email: input.contact,
         telegram: input.contact.startsWith("@") ? input.contact : null,
         notes: input.message,
-        preferred_language: "ru",
+        preferred_language: input.preferredLanguage ?? "ru",
         status: "new",
         lead_type: "investment",
         source,
@@ -41,6 +45,7 @@ export async function submitInvestmentLeadLite(
           kind: input.kind,
           destination: input.destination,
           message: input.message,
+          ...(input.packet ?? {}),
         },
       })
       .select("id")
@@ -52,7 +57,7 @@ export async function submitInvestmentLeadLite(
 
     await sendOwnerTelegramDm(
       [
-        "💼 Emigro — заявка на недвижимость / инвест (бот)",
+        input.ownerTitle ?? "💼 Emigro — заявка на недвижимость / инвест (бот)",
         "",
         `ID: ${data.id}`,
         `Направление: ${input.destination}`,

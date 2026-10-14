@@ -8,8 +8,16 @@ import {
 } from "@/lib/investment/registry";
 import { createAdminClient } from "@/lib/admin/supabase";
 import { sendOwnerTelegramDm } from "@/lib/telegram";
-import { signInvestmentResultToken } from "@/lib/investment/result-token";
+import { signInvestmentResultToken, verifyInvestmentResultToken } from "@/lib/investment/result-token";
 import { trackServerEvent } from "@/lib/analytics/server";
+import { goldenVisaRow, INVEST_COMPARE_PDF_PATH } from "@/lib/investment/golden-visa-2026";
+import {
+  isQuickLeadSource,
+  quickBudgetFloorEur,
+  quickPassportGroup,
+  validateQuickLead,
+} from "@/lib/investment/quick-lead";
+import { publicSiteUrl } from "@/lib/site-url";
 
 export const runtime = "nodejs";
 
@@ -61,6 +69,14 @@ const ALLOWED_FIELDS = new Set([
   "utm_campaign",
   "utm_content",
   "consent",
+  "source",
+  "country",
+  "locale",
+  "page_url",
+  "passport_other",
+  "website",
+  "lead_id",
+  "lead_token",
 ]);
 const recent = new Map<string, number>();
 const THROTTLE_MS = 120_000;
@@ -117,7 +133,27 @@ type InvestmentLeadBody = {
   utm_campaign?: unknown;
   utm_content?: unknown;
   consent?: unknown;
+  locale?: unknown;
 };
+
+function throttle(request: Request, contactKey: string): NextResponse | null {
+  const throttleKey = `${clientIp(request)}:${contactKey.toLowerCase()}`;
+  const nowMs = Date.now();
+  const last = recent.get(throttleKey) ?? 0;
+  if (nowMs - last < THROTTLE_MS) {
+    return NextResponse.json(
+      { error: "Too many requests" },
+      { status: 429, headers: { "Retry-After": String(Math.ceil((THROTTLE_MS - (nowMs - last)) / 1000)) } }
+    );
+  }
+  recent.set(throttleKey, nowMs);
+  if (recent.size > 5000) {
+    for (const [key, timestamp] of Array.from(recent.entries())) {
+      if (nowMs - timestamp > THROTTLE_MS * 5) recent.delete(key);
+    }
+  }
+  return null;
+}
 
 function isPlainObject(value: unknown): value is Record<string, unknown> {
   return Boolean(value) && typeof value === "object" && !Array.isArray(value);
@@ -128,6 +164,11 @@ function strictString(value: unknown, max: number): string | null {
   const cleaned = value.trim();
   if (!cleaned || cleaned.length > max) return null;
   return cleaned;
+}
+
+function uuidOrNull(value: unknown): string | null {
+  const cleaned = strictString(value, 36);
+  return cleaned && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(cleaned) ? cleaned : null;
 }
 
 function clientIp(request: Request): string {
@@ -220,6 +261,16 @@ export async function POST(request: Request) {
       { error: "Unknown fields", fields: unknownFields.sort() },
       { status: 400 }
     );
+  }
+
+  if (typeof raw.website === "string" && raw.website.trim()) {
+    return NextResponse.json({ id: null, status: "new" }, { status: 201 });
+  }
+  if (raw.source !== undefined) {
+    if (!isQuickLeadSource(raw.source)) {
+      return NextResponse.json({ error: "Invalid source" }, { status: 400 });
+    }
+    return handleQuickLead(request, raw);
   }
 
   const body = raw as InvestmentLeadBody;
@@ -330,22 +381,18 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "No investment routes available" }, { status: 500 });
   }
 
-  const ip = clientIp(request);
-  const throttleKey = `${ip}:${contact.toLowerCase()}`;
-  const nowMs = Date.now();
-  const last = recent.get(throttleKey) ?? 0;
-  if (nowMs - last < THROTTLE_MS) {
-    return NextResponse.json(
-      { error: "Too many requests" },
-      { status: 429, headers: { "Retry-After": String(Math.ceil((THROTTLE_MS - (nowMs - last)) / 1000)) } }
-    );
+  const step2LeadId =
+    typeof raw.lead_id === "string" && typeof raw.lead_token === "string"
+      ? verifyInvestmentResultToken(raw.lead_token) === raw.lead_id
+        ? raw.lead_id
+        : null
+      : null;
+  if ((raw.lead_id !== undefined || raw.lead_token !== undefined) && !step2LeadId) {
+    return NextResponse.json({ error: "Invalid lead token" }, { status: 400 });
   }
-  recent.set(throttleKey, nowMs);
-  if (recent.size > 5000) {
-    for (const [key, timestamp] of Array.from(recent.entries())) {
-      if (nowMs - timestamp > THROTTLE_MS * 5) recent.delete(key);
-    }
-  }
+
+  const throttled = throttle(request, step2LeadId ? `step2:${step2LeadId}` : contact);
+  if (throttled) return throttled;
 
   const consentAt = new Date().toISOString();
   const selectedProgram = selectedRoute.programSlug ?? null;
@@ -399,27 +446,96 @@ export async function POST(request: Request) {
         .eq("slug", selectedRoute.corridorSlug)
         .maybeSingle()
     : { data: null };
+  const leadColumns = {
+    corridor_id: corridor?.id ?? null,
+    session_id: sessionId,
+    name,
+    email: contact,
+    telegram: contact.startsWith("@") || contact.startsWith("https://t.me/") ? contact : null,
+    passport_iso2: normalizeInvestmentPassport(passportCitizenship),
+    preferred_language: body.locale === "en" ? "en" : "ru",
+    selected_program_slugs: selectedProgram ? [selectedProgram] : [],
+    notes: null,
+    lead_type: "investment",
+    destination_iso2: selectedRoute.destinationIso2,
+    selected_provider_ids: [],
+    consent_at: consentAt,
+    consent_version: CONSENT_VERSION,
+    attribution_expires_at: null,
+  };
+
+  if (step2LeadId) {
+    const { data: existing } = await supabase
+      .from("emigro_manual_leads")
+      .select("id, lead_packet, source")
+      .eq("id", step2LeadId)
+      .maybeSingle();
+    if (!existing) {
+      return NextResponse.json({ error: "Lead not found" }, { status: 404 });
+    }
+    const quickPacket = (existing.lead_packet ?? {}) as Record<string, unknown>;
+    const { error: updateError } = await supabase
+      .from("emigro_manual_leads")
+      .update({
+        ...leadColumns,
+        lead_packet: { ...leadPacket, quick: quickPacket.quick ?? quickPacket, step2_at: consentAt },
+        updated_at: consentAt,
+      })
+      .eq("id", step2LeadId);
+    if (updateError) {
+      console.error("[investment-leads] step-2 update failed:", updateError.message);
+      return NextResponse.json({ error: "Lead storage failed" }, { status: 500 });
+    }
+    const step2Telegram = await sendOwnerTelegramDm(
+      [
+        `🧩 Шаг 2 — полный профиль к заявке ${step2LeadId} (${existing.source ?? "invest_quick"})`,
+        "",
+        formatOwnerMessage({
+          leadId: step2LeadId,
+          name,
+          contact,
+          budgetEur,
+          asset: asset as QualifierAsset,
+          outcome: outcome as QualifierOutcome,
+          destination: selectedRoute.countryRu,
+          match: selectedRoute.match,
+          preferredCountry,
+          selectedProgram,
+          providerId: null,
+          message: null,
+          taxResidence,
+          capitalGoal,
+          sofComplexity,
+          uaeOffer: uaeOfferReceived,
+        }),
+      ].join("\n")
+    );
+    if (!step2Telegram.success) console.warn("[investment-leads] step-2 DM failed:", step2Telegram.error);
+    await trackServerEvent("investment_lead_submitted", {
+      lead_id: step2LeadId,
+      destination: selectedRoute.country,
+      match: selectedRoute.match,
+      step: 2,
+    });
+    return NextResponse.json(
+      {
+        id: step2LeadId,
+        token: signInvestmentResultToken(step2LeadId),
+        status: "new",
+        selected_match: safeMatch(selectedRoute),
+        matches: safeMatches,
+      },
+      { status: 200 }
+    );
+  }
+
   const { data: lead, error: leadError } = await supabase
     .from("emigro_manual_leads")
     .insert({
-      corridor_id: corridor?.id ?? null,
-      session_id: sessionId,
-      name,
-      email: contact,
-      telegram: contact.startsWith("@") || contact.startsWith("https://t.me/") ? contact : null,
-      passport_iso2: normalizeInvestmentPassport(passportCitizenship),
-      preferred_language: "ru",
-      selected_program_slugs: selectedProgram ? [selectedProgram] : [],
-      notes: null,
+      ...leadColumns,
       status: "new",
-      lead_type: "investment",
       source: "investment_pipeline",
-      destination_iso2: selectedRoute.destinationIso2,
-      selected_provider_ids: [],
       lead_packet: leadPacket,
-      consent_at: consentAt,
-      consent_version: CONSENT_VERSION,
-      attribution_expires_at: null,
     })
     .select("id")
     .single();
@@ -488,6 +604,136 @@ export async function POST(request: Request) {
       selected_match: safeMatch(selectedRoute),
       matches: safeMatches,
     },
+    { status: 201 }
+  );
+}
+
+async function handleQuickLead(request: Request, raw: Record<string, unknown>) {
+  const parsed = validateQuickLead(raw);
+  if (!parsed.ok) {
+    return NextResponse.json({ error: parsed.error }, { status: 400 });
+  }
+  const lead = parsed.value;
+  const throttled = throttle(request, lead.contact);
+  if (throttled) return throttled;
+
+  const consentAt = new Date().toISOString();
+  const row = lead.country === "hub" || lead.country === "compare" ? undefined : goldenVisaRow(lead.country);
+  const passportLabel = lead.passport === "Other" ? lead.passportOther ?? "" : lead.passport;
+  const passportIso2 = lead.passport === "Other" ? normalizeInvestmentPassport(lead.passportOther) : lead.passport;
+  const pageUrl = strictString(raw.page_url, 512);
+  const attribution = {
+    referrer: strictString(raw.referrer, 512),
+    utm_source: strictString(raw.utm_source, 128),
+    utm_medium: strictString(raw.utm_medium, 128),
+    utm_campaign: strictString(raw.utm_campaign, 128),
+    utm_content: strictString(raw.utm_content, 128),
+  };
+  const quickPacket = {
+    schema_version: "quick-1",
+    source: lead.source,
+    country: lead.country,
+    locale: lead.locale,
+    budget_band: lead.budgetBand,
+    budget_floor_eur: quickBudgetFloorEur(lead.budgetBand),
+    passport_citizenship: passportLabel,
+    passport_group: quickPassportGroup(lead.passport),
+    outcome_goal: lead.outcome,
+    contact_type: lead.contactType,
+    page_url: pageUrl,
+    attribution,
+  };
+
+  const supabase = createAdminClient();
+  const { data: inserted, error } = await supabase
+    .from("emigro_manual_leads")
+    .insert({
+      corridor_id: null,
+      session_id: uuidOrNull(raw.session_id),
+      name: "—",
+      email: lead.contact,
+      telegram: lead.contactType === "telegram" ? lead.contact : null,
+      passport_iso2: passportIso2 ?? null,
+      preferred_language: lead.locale,
+      selected_program_slugs: [],
+      notes: null,
+      status: "new",
+      lead_type: "investment",
+      source: lead.source,
+      destination_iso2: row?.iso2 ?? null,
+      selected_provider_ids: [],
+      lead_packet: { quick: quickPacket, preferred_country: row?.slug ?? "any" },
+      consent_at: consentAt,
+      consent_version: "investment-quick-v1",
+      attribution_expires_at: null,
+    })
+    .select("id")
+    .single();
+
+  if (error || !inserted) {
+    console.error("[investment-leads] quick insert failed:", error?.message);
+    return NextResponse.json({ error: "Lead storage failed" }, { status: 500 });
+  }
+
+  const { error: eventError } = await supabase.from("emigro_lead_handoff_events").insert([
+    {
+      lead_id: inserted.id,
+      assignment_id: null,
+      event_type: "lead_created",
+      actor_type: "system",
+      payload: { source: lead.source, country: lead.country, locale: lead.locale },
+    },
+    {
+      lead_id: inserted.id,
+      assignment_id: null,
+      event_type: "consent_confirmed",
+      actor_type: "applicant",
+      payload: { consent_version: "investment-quick-v1", consent_at: consentAt },
+    },
+  ]);
+  if (eventError) {
+    await supabase.from("emigro_manual_leads").delete().eq("id", inserted.id);
+    console.error("[investment-leads] quick audit insert failed:", eventError.message);
+    return NextResponse.json({ error: "Lead audit failed" }, { status: 500 });
+  }
+
+  const pdfUrl = `${publicSiteUrl()}${INVEST_COMPARE_PDF_PATH[lead.locale]}`;
+  const utm = [attribution.utm_source, attribution.utm_medium, attribution.utm_campaign, attribution.utm_content]
+    .filter(Boolean)
+    .join(" / ");
+  const ownerText = [
+    lead.source === "invest_compare"
+      ? "📄 Emigro — запрос PDF-сравнения Golden Visa"
+      : "⚡ Emigro — быстрая инвест-заявка",
+    "",
+    `ID: ${inserted.id}`,
+    `source=${lead.source} · country=${lead.country} · locale=${lead.locale}`,
+    `Бюджет: ${lead.budgetBand}`,
+    `Паспорт: ${passportLabel} (${quickPassportGroup(lead.passport)})`,
+    `Цель: ${lead.outcome}`,
+    `Контакт: ${lead.contact} (${lead.contactType})`,
+    utm ? `UTM: ${utm}` : null,
+    pageUrl ? `Страница: ${pageUrl}` : null,
+    lead.source === "invest_compare" && lead.contactType === "email"
+      ? `Отправьте PDF на e-mail вручную: ${pdfUrl}`
+      : null,
+    "",
+    "Обещали подбор в течение 1 рабочего дня.",
+  ]
+    .filter((line): line is string => line !== null)
+    .join("\n");
+  const telegram = await sendOwnerTelegramDm(ownerText);
+  if (!telegram.success) console.warn("[investment-leads] quick DM failed:", telegram.error);
+
+  await trackServerEvent("investment_lead_submitted", {
+    lead_id: inserted.id,
+    source: lead.source,
+    country: lead.country,
+    locale: lead.locale,
+  });
+
+  return NextResponse.json(
+    { id: inserted.id, token: signInvestmentResultToken(inserted.id), status: "new" },
     { status: 201 }
   );
 }

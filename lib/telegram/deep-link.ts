@@ -6,6 +6,8 @@ import {
 } from "@/lib/satellite/city-chats";
 import type { AssistPlanTier, BotDeepLink } from "@/lib/telegram/bot/types";
 import { resolveNewsBotTopic } from "@/lib/news/bot-subscribe-topics";
+import type { InvestLocale, InvestPageKey } from "@/lib/investment/golden-visa-2026";
+import { investBotStartPayload, parseInvestBotStartPayload } from "@/lib/investment/quick-lead";
 
 export type WizardTelegramMode = "hub" | "corridor";
 
@@ -131,6 +133,10 @@ export function propertyBotDeepLink(dest?: "uae" | "thailand"): string {
   return startUrl(propertyBotStartPayload(dest));
 }
 
+export function investBotDeepLink(key: InvestPageKey, locale: InvestLocale): string {
+  return startUrl(investBotStartPayload(key, locale));
+}
+
 function parseAssistPayload(clean: string): BotDeepLink | null {
   const match = clean.match(/^assist(?:_(partner|route|acc|accompaniment))?(?:_([a-z]+))?$/i);
   if (!match) return null;
@@ -166,6 +172,9 @@ export function parseBotStartPayload(payload: string): BotDeepLink | null {
     const topic = resolveNewsBotTopic(news[1]);
     return { app: "news", topicKey: topic?.key };
   }
+
+  const invest = parseInvestBotStartPayload(clean);
+  if (invest) return { app: "invest", key: invest.key, locale: invest.locale };
 
   if (clean === "property") return { app: "property" };
   if (clean === "property_uae") return { app: "property", dest: "uae" };
