@@ -15,6 +15,7 @@ import {
   thailandSatelliteUrl,
 } from "@/lib/site-url";
 import type { FunctionDecl } from "@/lib/telegram/bot/agent/gemini";
+import { trafficBreakdown } from "@/lib/telegram/bot/agent/traffic";
 
 const LOCALES = ["ru", "es", "fr"] as const;
 const SATELLITES = {
@@ -198,8 +199,20 @@ export const AGENT_FUNCTIONS: FunctionDecl[] = [
     },
   },
   {
+    name: "traffic_breakdown",
+    description:
+      "Динамика трафика сайта и сателлитов из нашей аналитики: период против предыдущего такого же — сессии, просмотры, визард, клики Assist; по дням, каналам, источникам (utm/реферер), входным страницам, топ страниц. Главный инструмент для «что с трафиком / динамика / почему упало».",
+    parameters: {
+      type: "object",
+      properties: {
+        days: { type: "number", description: "длина периода, по умолчанию 7 (макс. 45)" },
+        path_contains: { type: "string", description: "только сессии, видевшие такие страницы, напр. /notes/ или /es/" },
+      },
+    },
+  },
+  {
     name: "site_stats",
-    description: "Свежий отчёт аналитики (как /stats): трафик, источники, Threads-переходы, лиды, сателлиты.",
+    description: "Сводка как в /stats: подписчики Threads, чаты сателлитов, инвест-заявки, сегодня против вчера. Для динамики трафика бери traffic_breakdown.",
     parameters: { type: "object", properties: {} },
   },
   {
@@ -295,6 +308,11 @@ export async function callAgentTool(name: string, args: Record<string, unknown>)
         body: clip(JSON.stringify({ body_paragraphs, body_sections }), 30_000),
       };
     }
+    case "traffic_breakdown":
+      return trafficBreakdown({
+        days: Number(args.days) || undefined,
+        pathContains: typeof args.path_contains === "string" && args.path_contains ? args.path_contains : undefined,
+      });
     case "site_stats":
       return { report: (await buildTelegramStatsReport()).replace(/<\/?[^>]+>/g, "") };
     case "search_console":
