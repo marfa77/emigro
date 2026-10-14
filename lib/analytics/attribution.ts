@@ -12,20 +12,51 @@ export interface Attribution {
   landing_page: string | null;
 }
 
-export function captureAttribution(): Attribution {
-  if (typeof window === "undefined") {
-    return {
-      referrer: null,
-      utm_source: null,
-      utm_medium: null,
-      utm_campaign: null,
-      utm_content: null,
-      utm_term: null,
-      landing_page: null,
-    };
-  }
+type StorageKind = "localStorage" | "sessionStorage";
 
-  const existing = window.sessionStorage.getItem(ATTR_KEY);
+// Storage access can throw (crawlers, privacy modes, quota). Analytics runs in the root
+// layout, so an uncaught throw here replaces every page with Next's "Application error".
+export function safeStorageGet(kind: StorageKind, key: string): string | null {
+  try {
+    return window[kind].getItem(key);
+  } catch {
+    return null;
+  }
+}
+
+export function safeStorageSet(kind: StorageKind, key: string, value: string): void {
+  try {
+    window[kind].setItem(key, value);
+  } catch {
+    /* storage unavailable */
+  }
+}
+
+function randomId(): string {
+  try {
+    if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
+      return crypto.randomUUID();
+    }
+  } catch {
+    /* fall through */
+  }
+  return `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 12)}`;
+}
+
+const EMPTY_ATTRIBUTION: Attribution = {
+  referrer: null,
+  utm_source: null,
+  utm_medium: null,
+  utm_campaign: null,
+  utm_content: null,
+  utm_term: null,
+  landing_page: null,
+};
+
+export function captureAttribution(): Attribution {
+  if (typeof window === "undefined") return { ...EMPTY_ATTRIBUTION };
+
+  const existing = safeStorageGet("sessionStorage", ATTR_KEY);
   if (existing) {
     try {
       return JSON.parse(existing) as Attribution;
@@ -44,16 +75,16 @@ export function captureAttribution(): Attribution {
     utm_term: params.get("utm_term"),
     landing_page: `${window.location.pathname}${window.location.search}`,
   };
-  window.sessionStorage.setItem(ATTR_KEY, JSON.stringify(attr));
+  safeStorageSet("sessionStorage", ATTR_KEY, JSON.stringify(attr));
   return attr;
 }
 
 export function getSessionId(): string {
   if (typeof window === "undefined") return "";
-  let id = localStorage.getItem(SESSION_KEY);
+  let id = safeStorageGet("localStorage", SESSION_KEY);
   if (!id) {
-    id = crypto.randomUUID();
-    localStorage.setItem(SESSION_KEY, id);
+    id = randomId();
+    safeStorageSet("localStorage", SESSION_KEY, id);
   }
   return id;
 }
