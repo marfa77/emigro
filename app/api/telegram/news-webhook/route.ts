@@ -1,10 +1,11 @@
+import { waitUntil } from "@vercel/functions";
 import { NextResponse } from "next/server";
 import { newsBotToken } from "@/lib/telegram";
 import { processTelegramUpdate } from "@/lib/telegram/handle-update";
 
 export const runtime = "nodejs";
-/** Threads IMAGE + container wait can exceed 60s. */
-export const maxDuration = 180;
+/** Threads IMAGE + container wait and the owner agent can exceed 60s. */
+export const maxDuration = 300;
 
 function verifyWebhookSecret(req: Request): boolean {
   const expected =
@@ -29,12 +30,12 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, error: "Invalid JSON" }, { status: 400 });
   }
 
-  try {
-    await processTelegramUpdate(payload as Parameters<typeof processTelegramUpdate>[0]);
-  } catch (e) {
-    console.error("[telegram/news-webhook] handler failed:", e);
-  }
-
+  // Ack Telegram immediately so long agent runs do not trigger webhook redelivery.
+  waitUntil(
+    processTelegramUpdate(payload as Parameters<typeof processTelegramUpdate>[0]).catch((e) =>
+      console.error("[telegram/news-webhook] handler failed:", e)
+    )
+  );
   return NextResponse.json({ ok: true });
 }
 

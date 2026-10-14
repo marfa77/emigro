@@ -1,9 +1,11 @@
+import { waitUntil } from "@vercel/functions";
 import { NextResponse } from "next/server";
 import { statsBotToken } from "@/lib/telegram/admin-bot";
 import { processTelegramUpdate, type TelegramUpdate } from "@/lib/telegram/handle-update";
 
 export const runtime = "nodejs";
-export const maxDuration = 60;
+/** Owner agent (Gemini + Google Search + tools) can run for minutes. */
+export const maxDuration = 300;
 
 function verifyWebhookSecret(req: Request): boolean {
   const expected = process.env.TELEGRAM_WEBHOOK_SECRET?.trim();
@@ -28,13 +30,10 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, error: "Invalid JSON" }, { status: 400 });
   }
 
-  // Respond immediately; process in same invocation (Vercel serverless has no background tasks).
-  try {
-    await processTelegramUpdate(payload);
-  } catch (e) {
-    console.error("[telegram/webhook] handler failed:", e);
-  }
-
+  // Ack Telegram immediately so long agent runs do not trigger webhook redelivery.
+  waitUntil(
+    processTelegramUpdate(payload).catch((e) => console.error("[telegram/webhook] handler failed:", e))
+  );
   return NextResponse.json({ ok: true });
 }
 

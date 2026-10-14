@@ -87,6 +87,13 @@ const nextConfig = {
   reactStrictMode: true,
   // Satellite + corridor SSG can exceed the default 60s on cold Turbo builds.
   staticPageGenerationTimeout: 180,
+  experimental: {
+    // Owner agent in @emigro_chat_bot reads guides and docs from disk at runtime.
+    outputFileTracingIncludes: {
+      "/api/telegram/webhook": ["./content/guides/**/*.md", "./docs/*.md"],
+      "/api/telegram/news-webhook": ["./content/guides/**/*.md", "./docs/*.md"],
+    },
+  },
   env: {
     PORTUGAL_SATELLITE_USE_SUBDOMAIN: usePortugalSubdomain ? "true" : "false",
     SPAIN_SATELLITE_USE_SUBDOMAIN: useSpainSubdomain ? "true" : "false",

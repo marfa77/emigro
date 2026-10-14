@@ -33,6 +33,10 @@ export type BotDeepLink =
 export type TelegramMessage = {
   message_id?: number;
   text?: string;
+  caption?: string;
+  voice?: { file_id: string; mime_type?: string };
+  photo?: Array<{ file_id: string }>;
+  document?: { file_id: string; mime_type?: string; file_name?: string };
   chat?: { id?: number | string; type?: string };
   from?: { id?: number | string; username?: string; first_name?: string; last_name?: string };
 };

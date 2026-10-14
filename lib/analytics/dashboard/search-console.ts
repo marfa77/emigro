@@ -129,6 +129,42 @@ async function fetchSearchConsoleUncached(): Promise<SearchConsoleStats> {
   };
 }
 
+/** Ad-hoc GSC slice for the owner agent: top queries or pages, optionally filtered by substring. */
+export async function querySearchConsole(opts: {
+  dimension: "query" | "page";
+  days?: number;
+  contains?: string;
+  pageContains?: string;
+  limit?: number;
+}): Promise<{ startDate: string; endDate: string; rows: SearchConsoleRow[] }> {
+  const lag = Math.max(1, Number.parseInt(process.env.GSC_DATA_LAG_DAYS || "3", 10) || 3);
+  const days = Math.min(480, Math.max(1, Math.round(opts.days ?? 28)));
+  const startDate = isoDaysAgo(lag + days - 1);
+  const endDate = isoDaysAgo(lag);
+  const siteUrl = process.env.GSC_SITE_PROPERTY?.trim() || "sc-domain:emigro.online";
+  const searchConsole = google.searchconsole({ version: "v1", auth: authClient() });
+  const filters = [
+    ...(opts.contains ? [{ dimension: opts.dimension, operator: "contains", expression: opts.contains }] : []),
+    ...(opts.pageContains && opts.dimension !== "page"
+      ? [{ dimension: "page", operator: "contains", expression: opts.pageContains }]
+      : []),
+  ];
+  const res = await searchConsole.searchanalytics.query(
+    {
+      siteUrl,
+      requestBody: {
+        startDate,
+        endDate,
+        dimensions: [opts.dimension],
+        rowLimit: Math.min(100, Math.max(1, opts.limit ?? 25)),
+        ...(filters.length ? { dimensionFilterGroups: [{ filters }] } : {}),
+      },
+    },
+    { timeout: Math.max(5_000, Number(process.env.GSC_TIMEOUT_MS || 15_000)) }
+  );
+  return { startDate, endDate, rows: mapRows(res.data.rows) };
+}
+
 const fetchSearchConsoleCached = unstable_cache(
   fetchSearchConsoleUncached,
   ["emigro-admin-gsc-v1"],
