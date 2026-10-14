@@ -149,7 +149,7 @@ export function pickWizardPlan(state: ThreadsInventoryState): ThreadsSlotPlan | 
   if (!cycled) return null;
   const items = composeWizardChain(cycled.row);
   return {
-    ...planOf("wizard", `wizard-${cycled.row.d}`, "Визард", "wizard", items),
+    ...planOf("wizard", `wizard-${cycled.row.d}`, "Португалия", "wizard", items),
     preview: previewWizard(cycled.row),
     cursor: cycled.nextCursor,
   };

@@ -48,6 +48,8 @@
     "threads:investment:test": "tsx scripts/test-threads-investment-calendar.ts",
     "threads:pt-sat:daily": "tsx scripts/threads-portugal-satellite-daily.ts",
     "threads:pt-sat:test": "tsx scripts/test-threads-portugal-satellite.ts",
+    "threads:it-sat:daily": "tsx scripts/threads-italy-satellite-daily.ts",
+    "threads:it-sat:test": "tsx scripts/test-threads-italy-satellite.ts",
     "news:test-quality": "tsx scripts/test-news-quality-guards.ts",
     "news:test-guide-promo": "tsx scripts/test-guide-telegram-quality.ts",
     "news:test-fact-check": "tsx scripts/test-news-fact-check.ts",

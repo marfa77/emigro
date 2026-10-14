@@ -1,0 +1,17 @@
+[Unit]
+Description=Emigro Italy satellite Threads publisher
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+TimeoutStartSec=8min
+WorkingDirectory=/opt/emigro
+User=www-data
+EnvironmentFile=-/opt/emigro/.env
+StandardOutput=journal
+StandardError=journal
+ExecStart=/bin/bash /opt/emigro/deploy/threads-italy-satellite/run_scheduled.sh
+
+[Install]
+WantedBy=multi-user.target

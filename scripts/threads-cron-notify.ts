@@ -25,6 +25,8 @@ async function main() {
       ? "@emigro_invest"
       : stream === "pt-sat" || stream === "portugal-satellite"
         ? "@emigro_portugal"
+        : stream === "it-sat" || stream === "italy-satellite"
+          ? "@emigro_italy"
         : "@emigro_assist";
   const text = [
     `❌ Emigro Threads — ${stream}`,

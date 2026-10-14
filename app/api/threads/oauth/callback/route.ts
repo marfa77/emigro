@@ -32,15 +32,31 @@ export async function GET(req: NextRequest) {
     return new NextResponse(html, { status: 400, headers: { "Content-Type": "text/html; charset=utf-8" } });
   }
 
-  const cmd = `npm run threads:exchange-token -- --code=${code}`;
+  const state = req.nextUrl.searchParams.get("state") || "";
+  const profile =
+    state === "emigro_italy"
+      ? "italy"
+      : state === "emigro_portugal"
+        ? "portugal"
+        : state === "emigro_invest"
+          ? "investment"
+          : "brand";
+  const cmd =
+    profile === "brand"
+      ? `npm run threads:exchange-token -- --code=${code} --write`
+      : `npm run threads:exchange-token -- --profile=${profile} --code=${code} --write`;
+  const predictCmd = `cd ~/Projects/predictpng-telegram/bot && python3 predictpng_threads.py exchange --code=${code}`;
   const html = `<!doctype html><meta charset="utf-8"><title>Threads OAuth code</title>
 <body style="font:16px/1.4 system-ui;max-width:42rem;margin:2rem auto;padding:0 1rem">
 <h1>Threads: code получен</h1>
-<p>Скопируй и выполни <b>в течение ~1 часа</b> на машине с <code>.env.local</code>:</p>
+<p>Скопируй и выполни <b>в течение ~1 часа</b> на машине с секретами приложения:</p>
+<p><b>predict.png</b></p>
+<pre style="white-space:pre-wrap;word-break:break-all;background:#111;color:#eee;padding:1rem;border-radius:8px">${escapeHtml(predictCmd)}</pre>
+<p><b>Emigro</b></p>
 <pre style="white-space:pre-wrap;word-break:break-all;background:#111;color:#eee;padding:1rem;border-radius:8px">${escapeHtml(cmd)}</pre>
 <p>Или только code:</p>
 <pre style="white-space:pre-wrap;word-break:break-all;background:#f4f4f4;padding:1rem;border-radius:8px">${escapeHtml(code)}</pre>
-<p>После обмена: <code>npm run threads:exchange-token -- --code=… --write</code>, затем <code>npm run threads:whoami</code> — хэндл должен совпасть с <code>THREADS_USERNAME</code> (бренд Emigro, не личный профиль).</p>
+<p>После обмена: whoami обязан совпасть с аккаунтом из <code>state=${escapeHtml(state || "emigro_assist")}</code> (не личный профиль).</p>
 </body>`;
 
   return new NextResponse(html, {

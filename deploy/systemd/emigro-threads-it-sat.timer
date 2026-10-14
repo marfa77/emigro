@@ -1,0 +1,17 @@
+[Unit]
+Description=Emigro Threads Italy satellite — daily post (Europe/Rome)
+
+[Timer]
+OnCalendar=Mon *-*-* 11:40:00 Europe/Rome
+OnCalendar=Tue *-*-* 12:00:00 Europe/Rome
+OnCalendar=Wed *-*-* 12:10:00 Europe/Rome
+OnCalendar=Thu *-*-* 11:50:00 Europe/Rome
+OnCalendar=Fri *-*-* 11:40:00 Europe/Rome
+OnCalendar=Sat *-*-* 12:00:00 Europe/Rome
+OnCalendar=Sun *-*-* 12:20:00 Europe/Rome
+RandomizedDelaySec=25min
+AccuracySec=1min
+Persistent=true
+
+[Install]
+WantedBy=timers.target

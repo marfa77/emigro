@@ -25,7 +25,7 @@ function arg(name: string): string | undefined {
   return hit?.slice(name.length + 3)?.trim() || undefined;
 }
 
-/** Portugal satellite uses the Emigro Meta app, never Barakhlo THREADS_APP_*. */
+/** Emigro satellites use the Emigro Threads app only — never Barakhlo THREADS_APP_*. */
 function useEmigroBrandApp(): void {
   const appId = (process.env.THREADS_EMIGRO_APP_ID || "").trim();
   const appSecret = (process.env.THREADS_EMIGRO_APP_SECRET || "").trim();
@@ -41,14 +41,22 @@ function useEmigroBrandApp(): void {
 async function main() {
   const profile = arg("profile") || "brand";
   const portugalProfile = profile === "portugal";
+  const italyProfile = profile === "italy";
+  const satelliteProfile = portugalProfile || italyProfile;
   const investmentProfile = profile === "investment";
-  if (!["brand", "investment", "portugal"].includes(profile)) {
-    throw new Error("--profile must be brand|investment|portugal");
+  if (!["brand", "investment", "portugal", "italy"].includes(profile)) {
+    throw new Error("--profile must be brand|investment|portugal|italy");
   }
-  if (portugalProfile) useEmigroBrandApp();
+  if (satelliteProfile) useEmigroBrandApp();
 
   if (process.argv.includes("--auth-url")) {
-    const state = portugalProfile ? "emigro_portugal" : investmentProfile ? "emigro_invest" : "emigro_assist";
+    const state = italyProfile
+      ? "emigro_italy"
+      : portugalProfile
+        ? "emigro_portugal"
+        : investmentProfile
+          ? "emigro_invest"
+          : "emigro_assist";
     console.log(threadsAuthorizationUrl({ state }));
     return;
   }
@@ -90,6 +98,12 @@ Needs THREADS_APP_SECRET in .env (and APP_ID + REDIRECT_URI for --code / --auth-
     );
     assertPortugalSatelliteAccountIsolated(me);
     console.log("OK — Portugal satellite @emigro_portugal");
+  } else if (italyProfile) {
+    const { assertItalySatelliteAccountIsolated } = await import(
+      "../lib/threads/italy-satellite"
+    );
+    assertItalySatelliteAccountIsolated(me);
+    console.log("OK — Italy satellite @emigro_italy");
   } else if (investmentProfile) {
     const { loadThreadsInvestmentVerticalConfig } = await import(
       "../lib/threads/investment-vertical"
@@ -107,27 +121,34 @@ Needs THREADS_APP_SECRET in .env (and APP_ID + REDIRECT_URI for --code / --auth-
   const write = process.argv.includes("--write");
   if (write) {
     const { persistThreadsEnvValues } = await import("../lib/threads/tokens");
-    const tokenKey = portugalProfile
-      ? "THREADS_PT_SAT_ACCESS_TOKEN"
-      : investmentProfile
-        ? "THREADS_INVESTMENT_ACCESS_TOKEN"
-        : "THREADS_ACCESS_TOKEN";
-    const userIdKey = portugalProfile
-      ? "THREADS_PT_SAT_USER_ID"
-      : investmentProfile
-        ? "THREADS_INVESTMENT_USER_ID"
-        : "THREADS_USER_ID";
-    const expiresKey = portugalProfile
-      ? "THREADS_PT_SAT_TOKEN_EXPIRES_AT"
-      : investmentProfile
-        ? "THREADS_INVESTMENT_TOKEN_EXPIRES_AT"
-        : "THREADS_TOKEN_EXPIRES_AT";
+    const tokenKey = italyProfile
+      ? "THREADS_IT_SAT_ACCESS_TOKEN"
+      : portugalProfile
+        ? "THREADS_PT_SAT_ACCESS_TOKEN"
+        : investmentProfile
+          ? "THREADS_INVESTMENT_ACCESS_TOKEN"
+          : "THREADS_ACCESS_TOKEN";
+    const userIdKey = italyProfile
+      ? "THREADS_IT_SAT_USER_ID"
+      : portugalProfile
+        ? "THREADS_PT_SAT_USER_ID"
+        : investmentProfile
+          ? "THREADS_INVESTMENT_USER_ID"
+          : "THREADS_USER_ID";
+    const expiresKey = italyProfile
+      ? "THREADS_IT_SAT_TOKEN_EXPIRES_AT"
+      : portugalProfile
+        ? "THREADS_PT_SAT_TOKEN_EXPIRES_AT"
+        : investmentProfile
+          ? "THREADS_INVESTMENT_TOKEN_EXPIRES_AT"
+          : "THREADS_TOKEN_EXPIRES_AT";
     const updates: Record<string, string> = { [tokenKey]: longRes.access_token };
     const expiresAt = tokenExpiresAtIso(longRes.expires_in);
     if (expiresAt) updates[expiresKey] = expiresAt;
     if (longRes.user_id) updates[userIdKey] = String(longRes.user_id);
     if (me.id) updates[userIdKey] = me.id;
     if (portugalProfile) updates.THREADS_PT_SAT_USERNAME = "emigro_portugal";
+    if (italyProfile) updates.THREADS_IT_SAT_USERNAME = "emigro_italy";
     if (investmentProfile) updates.THREADS_INVESTMENT_USERNAME = "emigro_invest";
     const files = persistThreadsEnvValues(updates);
     console.log(`Wrote ${tokenKey} to`, files.join(", ") || "(no .env files found)");

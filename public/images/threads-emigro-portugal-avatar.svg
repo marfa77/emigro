@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-label="Emigro Portugal">
+  <rect width="1024" height="1024" fill="#ffffff"/>
+  <defs>
+    <clipPath id="disc"><circle cx="512" cy="512" r="512"/></clipPath>
+  </defs>
+  <g clip-path="url(#disc)">
+    <circle cx="512" cy="512" r="512" fill="#0b1d36"/>
+    <text x="512" y="430" text-anchor="middle" fill="#f8fafc" font-family="Avenir Next, Helvetica Neue, Helvetica, Arial" font-weight="700" font-size="128" letter-spacing="6">EMIGRO</text>
+    <text x="512" y="528" text-anchor="middle" fill="#f8fafc" font-family="Avenir Next, Helvetica Neue, Helvetica, Arial" font-weight="600" font-size="56" letter-spacing="8">Portugal</text>
+    <g fill="#14324f">
+      <path d="M0 820h1024v220H0z"/>
+      <path d="M90 820V760h844v60z"/>
+      <path d="M140 760c80-110 180-170 372-170s292 60 372 170H140z"/>
+      <rect x="500" y="590" width="24" height="170"/>
+      <path d="M220 820V700h36v120zm70 0V680h28v140zm400 0V680h28v140zm70 0V700h36v120z"/>
+    </g>
+  </g>
+</svg>
