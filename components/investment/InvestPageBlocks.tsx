@@ -275,8 +275,13 @@ export function PortugalCallout({ locale }: { locale: InvestLocale }) {
           vistos.mne.gov.pt — ARI
         </a>
         {" · "}
-        <a href="https://diariodarepublica.pt" target="_blank" rel="noopener noreferrer" className="underline">
-          Diário da República n.º 95/2026
+        <a
+          href="https://diariodarepublica.pt/dr/detalhe/lei-organica/1-2026-1123539996"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline"
+        >
+          Lei Orgânica n.º 1/2026 (DR n.º 95/2026)
         </a>
       </p>
     </aside>

@@ -216,7 +216,7 @@ export const INVEST_EN_COUNTRY: Record<InvestCountrySlug, InvestEnCountryCopy> =
     intro:
       "Greece still sells residence through real estate, but €250,000 is now the exception, not the rule. Most buyers face €400,000 or €800,000 depending on the area — and new applications by Russian and Belarusian nationals remain suspended.",
     aiDescription:
-      "Greece Golden Visa 2026 (Law 5038/2023 art. 100 as amended by 5100/2024): €800K Attica/Thessaloniki/Mykonos/Santorini/large islands; €400K elsewhere (single property ≥120 m²); €250K only for conversion to residential or listed-building restoration. New RU/BY applications suspended (Circular 1/2026).",
+      "Greece Golden Visa 2026 (Law 5038/2023 art. 100 as amended by 5100/2024): €800K Attica/Thessaloniki/Mykonos/Santorini/large islands; €400K elsewhere (single property ≥120 m²); €250K only for conversion to residential or listed-building restoration. New RU/BY applications suspended since 2022 (confirmed by Ministry Circular 1 of 21.04.2026).",
     suits: [
       "You want EU residence through property and can meet the area threshold.",
       "You do not need to live in Greece full time.",
@@ -228,7 +228,7 @@ export const INVEST_EN_COUNTRY: Record<InvestCountrySlug, InvestEnCountryCopy> =
       "You plan to work in Greece on this permit — it does not include a work right.",
     ],
     ruByNote:
-      "New Golden Visa applications by Russian and Belarusian nationals remain suspended under the Ministry's Circular 1/2026. Renewals of permits issued earlier are processed. We are re-checking the official text of the circular.",
+      "New Golden Visa applications by Russian and Belarusian nationals, including family members, have been suspended since April 2022. The Ministry of Migration's Circular 1 of 21 April 2026 confirms the suspension continues. Renewals of permits issued earlier are processed; a change of permit purpose counts as a new application.",
     steps: [
       "Check the area threshold (€800K / €400K / €250K exception) for the exact property.",
       "Get a Greek AFM tax number and a bank account; document the source of funds.",
@@ -250,7 +250,7 @@ export const INVEST_EN_COUNTRY: Record<InvestCountrySlug, InvestEnCountryCopy> =
       {
         question: "Can Russian or Belarusian citizens apply?",
         answer:
-          "Not on an RU or BY passport: new applications remain suspended under Ministry Circular 1/2026. The restriction looks at the main investor's nationality.",
+          "Not on an RU or BY passport: new applications remain suspended (since 2022, confirmed by Ministry of Migration Circular 1 of 21.04.2026). The suspension also covers family members on the application.",
       },
       {
         question: "How long until citizenship?",
@@ -430,9 +430,9 @@ export const INVEST_EN_COUNTRY: Record<InvestCountrySlug, InvestEnCountryCopy> =
     description: "Malta MPRP: property, contribution and timeline explained. Free route match.",
     h1: "Malta Permanent Residence Programme (MPRP)",
     intro:
-      "Malta's MPRP gives permanent residence straight away for a package of assets, housing, a government contribution and fees. It is not a passport programme, and applications from Russian and Belarusian nationals are currently not accepted.",
+      "Malta's MPRP gives permanent residence straight away for a package of assets, housing, a government contribution and fees. It is not a passport programme, and applications from Russia and Belarus are currently not eligible (Residency Malta FAQ).",
     aiDescription:
-      "Malta MPRP 2026 (L.N. 146/2025): €500K assets incl. €150K liquid; property ≥€375K or lease ≥€14K/yr; €60K admin, €37K contribution, €2K donation; immediate permanent residence; RU/BY not accepted; PR ≠ citizenship.",
+      "Malta MPRP 2026 (L.N. 146/2025): €500K assets incl. €150K liquid; property ≥€375K or lease ≥€14K/yr; €60K admin, €37K contribution, €2K donation; immediate permanent residence; RU/BY currently not eligible; PR ≠ citizenship.",
     suits: [
       "You want EU permanent residence without a minimum stay.",
       "You can fund the full family package, not just the €500K asset test.",
@@ -486,7 +486,7 @@ export const INVEST_EN_HUB_FAQ: InvestFaqItem[] = [
   {
     question: "Which golden visas are open to Russian passports?",
     answer:
-      "Portugal (ARI) and Thailand (LTR) do not exclude RU/BY citizens by law, though banks and funds run enhanced source-of-funds checks. Italy suspended its Investor Visa for RU/BY; Greece and Malta currently do not accept new RU/BY applications (being verified). The UAE and Hungary are being verified.",
+      "Portugal (ARI) and Thailand (LTR) do not exclude RU/BY citizens by law, though banks and funds run enhanced source-of-funds checks. Italy suspended its Investor Visa for RU/BY; Greece and Malta currently do not accept new RU/BY applications (Greek ministry circular of 21.04.2026; Residency Malta FAQ). The UAE and Hungary are being verified.",
   },
   {
     question: "What is the cheapest golden visa in 2026?",

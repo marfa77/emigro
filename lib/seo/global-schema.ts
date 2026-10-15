@@ -2,6 +2,7 @@ import { publicSiteUrl } from "@/lib/site-url";
 import { EMIGRO_LOGO_URL, EMIGRO_PUBLISHER } from "@/lib/seo/schema";
 
 export const EMIGRO_ORG_ID = `${publicSiteUrl()}/#organization`;
+export const EMIGRO_SERVICE_ID = `${publicSiteUrl()}/#service`;
 
 const SERVICE_TAGLINE =
   "Коридорный навигатор для русскоязычных: маршруты ВНЖ, wizard подбора, справочник и еженедельные новости по Европе.";
@@ -64,6 +65,7 @@ export function emigroGlobalJsonLd(): Record<string, unknown>[] {
   const service = {
     "@context": "https://schema.org",
     "@type": "Service",
+    "@id": EMIGRO_SERVICE_ID,
     name: "Emigro — навигатор релокации в Европу",
     serviceType: "Relocation route intelligence",
     description: SERVICE_TAGLINE,

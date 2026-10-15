@@ -70,7 +70,10 @@ export const GOLDEN_VISA_ROWS: readonly GoldenVisaRow[] = [
     sources: [
       { label: "vistos.mne.gov.pt — ARI", url: "https://vistos.mne.gov.pt/pt/ari-autorizacao-de-residencia-para-actividade-de-investimento" },
       { label: "AIMA — art. 90.º-A", url: "https://aima.gov.pt/pt/viver/autorizacao-de-residencia-para-investimento-art-90-o-a" },
-      { label: "Diário da República n.º 95/2026", url: "https://diariodarepublica.pt" },
+      {
+        label: "Lei Orgânica n.º 1/2026 (DR n.º 95/2026, Série I, 18.05.2026)",
+        url: "https://diariodarepublica.pt/dr/detalhe/lei-organica/1-2026-1123539996",
+      },
     ],
     lastChecked: GOLDEN_VISA_LAST_CHECKED,
   },
@@ -125,13 +128,15 @@ export const GOLDEN_VISA_ROWS: readonly GoldenVisaRow[] = [
     },
     ruBy: {
       status: "restricted",
-      ru: "Новые заявки граждан РФ/РБ приостановлены (Циркуляр 1/2026 Минмиграции)",
-      en: "New applications by RU/BY nationals suspended (Ministry Circular 1/2026)",
-      verify: true,
+      ru: "Новые заявки граждан РФ/РБ (включая членов семьи) приостановлены с 01.04.2022; подтверждено Циркуляром 1 Минмиграции от 21.04.2026",
+      en: "New applications by RU/BY nationals (incl. family members) suspended since 01.04.2022; confirmed by Ministry of Migration Circular 1 of 21.04.2026",
     },
     sources: [
       { label: "migration.gov.gr — Golden Visa", url: "https://migration.gov.gr/en/golden-visa/" },
-      { label: "Law 5038/2023 art. 100 (amended by 5100/2024)", url: "https://slo.gr/publications/article-100-of-law-5038-2023-the-golden-visa-para-en.htm" },
+      {
+        label: "Циркуляр 1 / Circular 1, 21.04.2026 (Diavgeia ΨΣΙ746ΜΔΨΟ-ΔΧΜ)",
+        url: "https://diavgeia.gov.gr/doc/%CE%A8%CE%A3%CE%99746%CE%9C%CE%94%CE%A8%CE%9F-%CE%94%CE%A7%CE%9C",
+      },
     ],
     lastChecked: GOLDEN_VISA_LAST_CHECKED,
   },
@@ -234,11 +239,16 @@ export const GOLDEN_VISA_ROWS: readonly GoldenVisaRow[] = [
     },
     ruBy: {
       status: "restricted",
-      ru: "Заявки РФ/РБ сейчас не принимаются (Residency Malta)",
-      en: "RU/BY applications currently not accepted (Residency Malta)",
-      verify: true,
+      ru: "Заявки из РФ и РБ сейчас не допускаются (FAQ Residency Malta, v2.6.5)",
+      en: "Applications from Russia and Belarus currently not eligible (Residency Malta FAQ, v2.6.5)",
     },
-    sources: [{ label: "residencymalta.gov.mt — MPRP", url: "https://residencymalta.gov.mt/legal-framework-mprp-2/" }],
+    sources: [
+      { label: "residencymalta.gov.mt — MPRP", url: "https://residencymalta.gov.mt/legal-framework-mprp-2/" },
+      {
+        label: "Residency Malta — MPRP FAQ v2.6.5",
+        url: "https://residencymalta.gov.mt/wp-content/uploads/2024/09/MPRP-FAQs-V2.6.5.pdf",
+      },
+    ],
     lastChecked: null,
   },
 ];

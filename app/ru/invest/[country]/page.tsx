@@ -22,7 +22,12 @@ import {
   uniqueInvestmentCountries,
 } from "@/lib/investment/registry";
 import { showsDubaiOfferVerdict } from "@/lib/investment/uae-offer-verdict";
-import { goldenVisaRow, investPagePath, isInvestCountrySlug } from "@/lib/investment/golden-visa-2026";
+import {
+  goldenVisaRow,
+  investPagePath,
+  isInvestCountrySlug,
+  type InvestCountrySlug,
+} from "@/lib/investment/golden-visa-2026";
 import { investMetadata, investServiceSchema } from "@/lib/investment/invest-seo";
 import { InvestQuickLead } from "@/components/investment/InvestQuickLead";
 import {
@@ -33,6 +38,57 @@ import {
 } from "@/components/investment/InvestPageBlocks";
 import { buildFaqSchema } from "@/lib/seo/corridor-page-seo";
 
+const RU_COUNTRY_SEO: Record<InvestCountrySlug, { title: string; description: string; passportQuestion: string }> = {
+  portugal: {
+    title: "Golden Visa Португалии 2026: фонды от €500 000, правило 10 лет",
+    description:
+      "ARI Португалии 2026: фонды от €500 000, что отменено и правило 10 лет до гражданства (Lei Orgânica 1/2026). Официальные источники и бесплатный подбор.",
+    passportQuestion: "Даёт ли Golden Visa Португалии гражданство?",
+  },
+  italy: {
+    title: "Инвесторская виза Италии 2026: €250K/€500K/€2M",
+    description:
+      "Инвесторская виза Италии: стартап €250K, компания €500K, облигации €2M, пожертвование €1M. Порядок подачи и приостановка для РФ/РБ по официальным источникам.",
+    passportQuestion: "Даёт ли инвесторская виза Италии гражданство?",
+  },
+  spain: {
+    title: "Golden Visa Испании отменена (апрель 2025): альтернативы",
+    description:
+      "Golden Visa Испании отменена 3 апреля 2025 (LO 1/2025). Какие ВНЖ остаются инвесторам и семьям: без права работы, цифровой кочевник, предприниматель.",
+    passportQuestion: "Давала ли Golden Visa Испании гражданство?",
+  },
+  greece: {
+    title: "Golden Visa Греции 2026: €250K/€400K/€800K",
+    description:
+      "Golden Visa Греции 2026: пороги €800K и €400K по районам, исключение €250K для перевода в жильё. Статус для РФ/РБ, проверено в октябре 2026. Бесплатный подбор.",
+    passportQuestion: "Даёт ли Golden Visa Греции гражданство?",
+  },
+  thailand: {
+    title: "LTR Таиланда 2026: Wealthy Global Citizen ($500K)",
+    description:
+      "LTR Таиланда: $500K инвестиций в стране и $1M активов, виза на 10 лет. Чем LTR отличается от Thailand Privilege. Официальный источник BOI и бесплатный подбор.",
+    passportQuestion: "Даёт ли LTR Таиланда гражданство?",
+  },
+  uae: {
+    title: "Golden Visa ОАЭ через недвижимость (AED 2M) 2026",
+    description:
+      "Golden Visa ОАЭ на 10 лет через недвижимость от AED 2 млн: правила, off-plan, ипотека. Бесплатный подбор маршрута и проверка бюджета до разговора с брокером.",
+    passportQuestion: "Даёт ли Golden Visa ОАЭ гражданство?",
+  },
+  hungary: {
+    title: "Guest Investor Венгрия 2026",
+    description:
+      "Guest Investor Венгрии: паи фонда от €250 000 или пожертвование €1 млн, и почему вариант с квартирой за €500 000 отменили. Бесплатный подбор маршрута.",
+    passportQuestion: "Даёт ли программа Guest Investor Венгрии гражданство?",
+  },
+  malta: {
+    title: "ПМЖ Мальты (MPRP) 2026",
+    description:
+      "ПМЖ Мальты (MPRP) 2026: покупка или аренда жилья, взносы и сроки по L.N. 146/2025. Ограничения для паспортов РФ/РБ и бесплатный подбор маршрута.",
+    passportQuestion: "Даёт ли ПМЖ Мальты (MPRP) гражданство?",
+  },
+};
+
 export function generateStaticParams() {
   return uniqueInvestmentCountries().map((route) => ({ country: route.country }));
 }
@@ -41,13 +97,17 @@ export function generateMetadata({ params }: { params: { country: string } }): M
   const routes = investmentCountryRoutes(params.country);
   const route = routes[0];
   if (!route) return {};
-  const title = routes.length > 1 ? `${route.countryRu}: программы статуса` : `${route.countryRu}: инвестиционный ВНЖ`;
+  const seo = isInvestCountrySlug(route.country) ? RU_COUNTRY_SEO[route.country] : null;
+  const title =
+    seo?.title ?? (routes.length > 1 ? `${route.countryRu}: программы статуса` : `${route.countryRu}: инвестиционный ВНЖ`);
 
   return investMetadata({
     locale: "ru",
     key: isInvestCountrySlug(route.country) ? route.country : "hub",
     title,
-    description: `${route.countryRu}: ${routes.map((item) => item.title).join("; ")}. Предварительный скрининг Emigro без юридических гарантий.`,
+    description:
+      seo?.description ??
+      `${routes.map((item) => item.title).join("; ")}. Предварительный скрининг Emigro без юридических гарантий.`,
     aiDescription: `${route.countryRu} investment routes: ${routes.map((item) => item.caveat).join(" ")} Not legal or investment advice.`,
   });
 }
@@ -59,7 +119,9 @@ export default function InvestmentCountryPage({ params }: { params: { country: s
   const notes = INVESTMENT_PROGRAM_NOTES[route.country] ?? [];
   const faq = [
     {
-      question: `Инвестиционный ВНЖ в стране «${route.countryRu}» даёт паспорт?`,
+      question: isInvestCountrySlug(route.country)
+        ? RU_COUNTRY_SEO[route.country].passportQuestion
+        : `Даёт ли инвестиционный ВНЖ (${route.countryRu}) гражданство?`,
       answer:
         "Нет автоматически. Большинство программ дают ВНЖ или ПМЖ; гражданство — отдельный срок и экзамены. Не путайте скрининг Emigro с обещанием паспорта.",
     },

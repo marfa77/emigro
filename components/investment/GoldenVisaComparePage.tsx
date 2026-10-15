@@ -57,7 +57,7 @@ export const COMPARE_FAQ: Record<InvestLocale, InvestFaqItem[]> = {
     {
       question: "Какие Golden Visa доступны с паспортом РФ?",
       answer:
-        "Португалия (ARI) и Таиланд (LTR) граждан РФ/РБ законом не исключают, но банки и фонды проводят усиленную проверку происхождения средств. Италия приостановила Investor Visa для РФ/РБ; Греция и Мальта сейчас не принимают новые заявки РФ/РБ (уточняется). По ОАЭ и Венгрии — уточняется.",
+        "Португалия (ARI) и Таиланд (LTR) граждан РФ/РБ законом не исключают, но банки и фонды проводят усиленную проверку происхождения средств. Италия приостановила Investor Visa для РФ/РБ; Греция и Мальта сейчас не принимают новые заявки РФ/РБ (циркуляр Минмиграции Греции от 21.04.2026; FAQ Residency Malta). По ОАЭ и Венгрии — уточняется.",
     },
     {
       question: "Какая Golden Visa самая дешёвая в 2026?",
@@ -84,7 +84,7 @@ export const COMPARE_FAQ: Record<InvestLocale, InvestFaqItem[]> = {
     {
       question: "Which golden visas are open to Russian passports?",
       answer:
-        "Portugal (ARI) and Thailand (LTR) do not exclude RU/BY citizens by law, though banks and funds run enhanced source-of-funds checks. Italy suspended its Investor Visa for RU/BY; Greece and Malta currently do not accept new RU/BY applications (being verified). The UAE and Hungary are being verified.",
+        "Portugal (ARI) and Thailand (LTR) do not exclude RU/BY citizens by law, though banks and funds run enhanced source-of-funds checks. Italy suspended its Investor Visa for RU/BY; Greece and Malta currently do not accept new RU/BY applications (Greek ministry circular of 21.04.2026; Residency Malta FAQ). The UAE and Hungary are being verified.",
     },
     {
       question: "What is the cheapest golden visa in 2026?",
