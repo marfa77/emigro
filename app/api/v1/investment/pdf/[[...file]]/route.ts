@@ -1,11 +1,17 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { NextResponse, type NextRequest } from "next/server";
-import { INVEST_PDF_DIR, investPdfFileName, verifyInvestPdfSignature } from "@/lib/investment/pdf-link";
+import { investPdfFileName, verifyInvestPdfSignature } from "@/lib/investment/pdf-link";
 import type { InvestLocale } from "@/lib/investment/golden-visa-2026";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
+
+// Literal paths: a computed path makes the file tracer pull the whole repo into the function.
+const PDF_FILES: Record<InvestLocale, string> = {
+  ru: join(process.cwd(), "private/assist/emigro_golden_visa_2026_comparison_ru.pdf"),
+  en: join(process.cwd(), "private/assist/emigro_golden_visa_2026_comparison_en.pdf"),
+};
 
 const PRIVATE_HEADERS = {
   "X-Robots-Tag": "noindex, nofollow",
@@ -21,7 +27,7 @@ export async function GET(request: NextRequest) {
   }
 
   const fileName = investPdfFileName(locale);
-  const file = await readFile(join(process.cwd(), INVEST_PDF_DIR, fileName));
+  const file = await readFile(PDF_FILES[locale]);
   return new NextResponse(new Uint8Array(file), {
     status: 200,
     headers: {
