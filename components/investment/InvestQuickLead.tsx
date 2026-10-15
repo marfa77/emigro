@@ -6,7 +6,6 @@ import { ArrowRight, CheckCircle2, Download, Loader2, Send } from "lucide-react"
 import { trackEvent } from "@/lib/analytics/client";
 import { captureAttribution, getSessionId } from "@/lib/analytics/attribution";
 import {
-  INVEST_COMPARE_PDF_PATH,
   type InvestLocale,
   type InvestPageKey,
 } from "@/lib/investment/golden-visa-2026";
@@ -167,6 +166,7 @@ export function InvestQuickLead({
   const [website, setWebsite] = useState("");
   const [fieldError, setFieldError] = useState<string | null>(null);
   const [status, setStatus] = useState<"idle" | "loading" | "error" | "done">("idle");
+  const [pdfUrl, setPdfUrl] = useState<string | null>(null);
   const [prefill, setPrefill] = useState<InvestPrefill | null>(null);
   const tgHref = investBotDeepLink(pageKey, locale);
 
@@ -248,7 +248,11 @@ export function InvestQuickLead({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-      const data = (await response.json().catch(() => ({}))) as { id?: string | null; token?: string | null };
+      const data = (await response.json().catch(() => ({}))) as {
+        id?: string | null;
+        token?: string | null;
+        pdf_url?: string | null;
+      };
       if (!response.ok || !data.id) throw new Error(`status ${response.status}`);
 
       trackEvent("invest_lead_submit", {
@@ -275,6 +279,7 @@ export function InvestQuickLead({
       } catch {
         /* storage optional */
       }
+      setPdfUrl(data.pdf_url ?? null);
       setPrefill(next);
       setStatus("done");
     } catch (error) {
@@ -319,9 +324,9 @@ export function InvestQuickLead({
             {variant === "compare" ? t.successTextCompare : t.successText}
           </p>
           <div className="mt-5 flex flex-col gap-3">
-            {variant === "compare" ? (
+            {variant === "compare" && pdfUrl ? (
               <a
-                href={INVEST_COMPARE_PDF_PATH[locale]}
+                href={pdfUrl}
                 download
                 className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-corridor-700 px-5 py-3 font-semibold text-white hover:bg-corridor-800"
               >
@@ -347,15 +352,15 @@ export function InvestQuickLead({
               >
                 <Send className="h-4 w-4" /> {t.pdfTg}
               </a>
-            ) : (
+            ) : pdfUrl ? (
               <a
-                href={INVEST_COMPARE_PDF_PATH[locale]}
+                href={pdfUrl}
                 download
                 className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-slate-300 px-5 py-3 font-medium text-slate-800 hover:bg-slate-50"
               >
                 <Download className="h-4 w-4" /> {t.pdf}
               </a>
-            )}
+            ) : null}
           </div>
           <Link href={ROUTE_CHECK_PATH} className="mt-4 inline-flex min-h-11 items-center text-sm font-semibold text-corridor-700 hover:underline">
             {t.routeCheck}

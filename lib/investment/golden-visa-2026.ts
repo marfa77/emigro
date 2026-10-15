@@ -26,7 +26,11 @@ export type FactCell = Localized & { verify?: boolean };
 
 export type RuByStatus = "open" | "restricted" | "verify" | "na";
 
-export type GoldenVisaSource = { label: string; url: string };
+export type GoldenVisaSource = { label: string | Localized; url: string };
+
+export function sourceLabel(source: GoldenVisaSource, locale: InvestLocale): string {
+  return typeof source.label === "string" ? source.label : source.label[locale];
+}
 
 export type GoldenVisaRow = {
   slug: InvestCountrySlug;
@@ -128,13 +132,16 @@ export const GOLDEN_VISA_ROWS: readonly GoldenVisaRow[] = [
     },
     ruBy: {
       status: "restricted",
-      ru: "Новые заявки граждан РФ/РБ (включая членов семьи) приостановлены с 01.04.2022; подтверждено Циркуляром 1 Минмиграции от 21.04.2026",
-      en: "New applications by RU/BY nationals (incl. family members) suspended since 01.04.2022; confirmed by Ministry of Migration Circular 1 of 21.04.2026",
+      ru: "Новые заявки граждан РФ/РБ (включая членов семьи) приостановлены с 01.04.2022 (документ министра № 186958/1.4.2022); подтверждено Циркуляром 1 от 21.04.2026",
+      en: "New applications by RU/BY nationals (incl. family members) suspended since 01.04.2022 (Minister's doc. 186958/1.4.2022); confirmed by Circular 1 of 21.04.2026",
     },
     sources: [
       { label: "migration.gov.gr — Golden Visa", url: "https://migration.gov.gr/en/golden-visa/" },
       {
-        label: "Циркуляр 1 / Circular 1, 21.04.2026 (Diavgeia ΨΣΙ746ΜΔΨΟ-ΔΧΜ)",
+        label: {
+          ru: "Циркуляр 1 Минмиграции от 21.04.2026 (Diavgeia ΨΣΙ746ΜΔΨΟ-ΔΧΜ)",
+          en: "Circular 1, 21.04.2026 (Ministry of Migration; Diavgeia ΨΣΙ746ΜΔΨΟ-ΔΧΜ)",
+        },
         url: "https://diavgeia.gov.gr/doc/%CE%A8%CE%A3%CE%99746%CE%9C%CE%94%CE%A8%CE%9F-%CE%94%CE%A7%CE%9C",
       },
     ],
@@ -249,7 +256,7 @@ export const GOLDEN_VISA_ROWS: readonly GoldenVisaRow[] = [
         url: "https://residencymalta.gov.mt/wp-content/uploads/2024/09/MPRP-FAQs-V2.6.5.pdf",
       },
     ],
-    lastChecked: null,
+    lastChecked: GOLDEN_VISA_LAST_CHECKED,
   },
 ];
 
@@ -272,11 +279,6 @@ export function investPagePath(locale: InvestLocale, key: InvestPageKey): string
   if (key === "hub") return `/${locale}/invest`;
   return `/${locale}/invest/${key}`;
 }
-
-export const INVEST_COMPARE_PDF_PATH: Record<InvestLocale, string> = {
-  ru: "/assist/emigro_golden_visa_2026_comparison_ru.pdf",
-  en: "/assist/emigro_golden_visa_2026_comparison_en.pdf",
-};
 
 export const VERIFY_BADGE: Localized = { ru: "уточняется", en: "being verified" };
 

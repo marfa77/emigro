@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { pageMetadata, pageUrl } from "@/lib/seo";
 import { publicSiteUrl } from "@/lib/site-url";
-import { EMIGRO_SERVICE_ID } from "@/lib/seo/global-schema";
+import { emigroServiceJsonLd } from "@/lib/seo/global-schema";
 import {
   GOLDEN_VISA_LAST_CHECKED,
   GOLDEN_VISA_ROWS,
@@ -62,12 +62,15 @@ export const INVEST_ASSIST_OFFERS = {
   hourly: { price: 100, path: "/ru/assist" },
 } as const;
 
-/** Same @id as the site-wide Service in GlobalJsonLd, so the page carries one Service node with offers. */
 export function investServiceSchema(locale: InvestLocale) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "@id": EMIGRO_SERVICE_ID,
+  return emigroServiceJsonLd({
+    ...(locale === "en"
+      ? {
+          name: "Emigro — investment residency and relocation navigator",
+          description:
+            "Golden Visa and investor-residency comparison with official sources, a free route match and paid Route Check for RU/BY and international passport holders.",
+        }
+      : {}),
     inLanguage: locale === "en" ? "en" : "ru-RU",
     offers: [
       {
@@ -99,7 +102,7 @@ export function investServiceSchema(locale: InvestLocale) {
         url: pageUrl(INVEST_ASSIST_OFFERS.hourly.path),
       },
     ],
-  };
+  });
 }
 
 export function goldenVisaDatasetSchema(locale: InvestLocale) {

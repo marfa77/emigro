@@ -14,6 +14,7 @@ import {
 import { listGuides } from "@/lib/guides/load";
 import { pageMetadata, pageUrl } from "@/lib/seo";
 import { buildCollectionPageItemListSchema } from "@/lib/seo/collection-schema";
+import { emigroServiceJsonLd } from "@/lib/seo/global-schema";
 import { heroTitle } from "@/lib/ui/mobile";
 
 export const revalidate = 3600;
@@ -106,6 +107,19 @@ export default function EsHubPage() {
   return (
     <>
       <SiteHeader locale="es" />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            emigroServiceJsonLd({
+              name: "Emigro — navegador de residencia en España y Portugal",
+              description:
+                "Navegador de residencia para pasaportes latinoamericanos: guías con fuentes oficiales, evaluador de ruta y Emigro Assist.",
+              inLanguage: "es",
+            }),
+          ),
+        }}
+      />
       {collectionSchema && (
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }} />
       )}

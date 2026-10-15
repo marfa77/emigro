@@ -62,7 +62,16 @@ export function emigroGlobalJsonLd(): Record<string, unknown>[] {
     },
   };
 
-  const service = {
+  return [organization, website];
+}
+
+/**
+ * The one Service node for a page. Not part of the site-wide graph: pages that sell
+ * (hubs, invest) emit it with their offers, so no page carries two Service objects.
+ */
+export function emigroServiceJsonLd(extra: Record<string, unknown> = {}): Record<string, unknown> {
+  const url = publicSiteUrl();
+  return {
     "@context": "https://schema.org",
     "@type": "Service",
     "@id": EMIGRO_SERVICE_ID,
@@ -76,9 +85,8 @@ export function emigroGlobalJsonLd(): Record<string, unknown>[] {
       serviceUrl: url,
       serviceType: "Web wizard and corridor guides",
     },
+    ...extra,
   };
-
-  return [organization, website, service];
 }
 
 export { EMIGRO_PUBLISHER };

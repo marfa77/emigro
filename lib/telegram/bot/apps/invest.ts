@@ -1,11 +1,11 @@
 import {
   GOLDEN_VISA_ROWS,
-  INVEST_COMPARE_PDF_PATH,
   goldenVisaRow,
   investPagePath,
   type InvestLocale,
   type InvestPageKey,
 } from "@/lib/investment/golden-visa-2026";
+import { signInvestPdfUrl } from "@/lib/investment/pdf-link";
 import { investBotStartPayload, QUICK_PAGE_KEYS } from "@/lib/investment/quick-lead";
 import { submitInvestmentLeadLite } from "@/lib/leads/submit-investment";
 import { CONTACT_EMAIL } from "@/lib/site-contact";
@@ -120,12 +120,18 @@ export async function startInvest(ctx: BotUserCtx, key: InvestPageKey, locale: I
   );
 
   if (key === "compare") {
-    const sent = await sendStatsBotDocument(
-      ctx.chatId,
-      `${publicSiteUrl()}${INVEST_COMPARE_PDF_PATH[locale]}`,
-      locale === "ru" ? "Сравнение Golden Visa 2026 — Emigro" : "Golden Visa 2026 comparison — Emigro"
-    );
-    if (!sent.success) console.warn("[bot:invest] PDF send failed:", sent.error);
+    // Telegram fetches the file once and re-hosts it, so a short-lived link is enough.
+    const pdfUrl = signInvestPdfUrl(locale, 60 * 60 * 1000);
+    if (pdfUrl) {
+      const sent = await sendStatsBotDocument(
+        ctx.chatId,
+        pdfUrl,
+        locale === "ru" ? "Сравнение Golden Visa 2026 — Emigro" : "Golden Visa 2026 comparison — Emigro"
+      );
+      if (!sent.success) console.warn("[bot:invest] PDF send failed:", sent.error);
+    } else {
+      console.warn("[bot:invest] PDF not sent: no signing secret");
+    }
   }
 
   await sendStatsBotMessage(ctx.chatId, investIntroHtml(key, locale), {

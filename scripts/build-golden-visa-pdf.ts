@@ -1,7 +1,7 @@
 /**
  * Golden Visa 2026 comparison PDFs from lib/investment/golden-visa-2026.ts (single source of truth).
  *   npx tsx scripts/build-golden-visa-pdf.ts
- * Output: public/assist/emigro_golden_visa_2026_comparison_{ru,en}.pdf (served with X-Robots-Tag: noindex).
+ * Output: private/assist/emigro_golden_visa_2026_comparison_{ru,en}.pdf (served only via signed /api/v1/investment/pdf links).
  */
 import { execFileSync } from "node:child_process";
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
@@ -10,16 +10,17 @@ import { join, resolve } from "node:path";
 import {
   GOLDEN_VISA_LAST_CHECKED,
   GOLDEN_VISA_ROWS,
-  INVEST_COMPARE_PDF_PATH,
   PORTUGAL_2026_CALLOUT,
   VERIFY_BADGE,
   investPagePath,
   isVerifyOnly,
+  sourceLabel,
   type FactCell,
   type GoldenVisaRow,
   type InvestLocale,
 } from "../lib/investment/golden-visa-2026";
 import { investBotDeepLink } from "../lib/telegram/deep-link";
+import { INVEST_PDF_DIR, investPdfFileName } from "../lib/investment/pdf-link";
 
 const SITE = "https://www.emigro.online";
 const CHROME =
@@ -288,7 +289,7 @@ function countryCard(row: GoldenVisaRow, locale: InvestLocale): string {
     ${routeItems(row.routes, locale)}
     <div class="card-foot">
       <div class="srcs"><div class="sect-label">${esc(t.sources)}</div>${row.sources
-        .map((source) => `<a href="${esc(source.url)}">${esc(source.label)}</a>`)
+        .map((source) => `<a href="${esc(source.url)}">${esc(sourceLabel(source, locale))}</a>`)
         .join("")}</div>
       <div class="meta-col">
         <div><span class="sect-label inline">${esc(t.checked)}</span> ${checked}</div>
@@ -394,14 +395,14 @@ const CSS = `
 
   table.overview { width: 100%; border-collapse: separate; border-spacing: 0; table-layout: fixed; border: 0.6pt solid #e2e8f0; border-radius: 3.5mm; overflow: hidden; }
   .overview thead th { background: #0f1f4d; color: #e0e7ff; text-align: left; font-size: 7.2pt; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; padding: 3mm 3mm; }
-  .overview td, .overview tbody th { padding: 3.2mm 3mm; vertical-align: top; text-align: left; border-top: 0.6pt solid #e2e8f0; font-size: 8.4pt; line-height: 1.4; }
+  .overview td, .overview tbody th { padding: 2.6mm 3mm; vertical-align: top; text-align: left; border-top: 0.6pt solid #e2e8f0; font-size: 8.2pt; line-height: 1.36; }
   .overview tbody tr:nth-child(even) { background: #f8fafc; }
   .overview tbody th { display: flex; gap: 2.4mm; font-weight: 700; }
   .ov-flag { font-size: 13pt; line-height: 1; }
   .ov-name small { display: block; font-weight: 400; color: #64748b; font-size: 7.4pt; margin-top: .5mm; }
   .overview td.strong { font-weight: 700; color: #1e3a8a; }
   .row-closed td, .row-closed th { color: #64748b; }
-  .callout { margin-top: 6mm; border-left: 1.2mm solid #f59e0b; background: #fffbeb; border-radius: 0 3mm 3mm 0; padding: 4mm 5mm; color: #78350f; font-size: 8.6pt; line-height: 1.5; }
+  .callout { margin-top: 5mm; border-left: 1.2mm solid #f59e0b; background: #fffbeb; border-radius: 0 3mm 3mm 0; padding: 4mm 5mm; color: #78350f; font-size: 8.6pt; line-height: 1.5; }
   .legend { margin-top: 4mm; font-size: 8pt; color: #64748b; }
 
   .card { border: 0.6pt solid #dbe3ee; border-radius: 4mm; overflow: hidden; margin-bottom: 6mm; break-inside: avoid; background: #fff; }
@@ -478,7 +479,7 @@ function main() {
   for (const locale of ["ru", "en"] as const) {
     const htmlPath = join(dir, `golden-visa-${locale}.html`);
     writeFileSync(htmlPath, html(locale), "utf8");
-    const out = resolve("public", INVEST_COMPARE_PDF_PATH[locale].replace(/^\//, ""));
+    const out = resolve(INVEST_PDF_DIR, investPdfFileName(locale));
     mkdirSync(resolve(out, ".."), { recursive: true });
     execFileSync(
       CHROME,

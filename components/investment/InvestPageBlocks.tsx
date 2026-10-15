@@ -6,6 +6,7 @@ import {
   PORTUGAL_2026_CALLOUT,
   PORTUGAL_2026_CALLOUT_NOTE,
   VERIFY_BADGE,
+  sourceLabel,
   investPagePath,
   type FactCell,
   type GoldenVisaRow,
@@ -72,7 +73,7 @@ function CheckedValue({ row, locale }: { row: GoldenVisaRow; locale: InvestLocal
   return row.lastChecked ? <time dateTime={row.lastChecked}>{row.lastChecked}</time> : <VerifyBadge locale={locale} />;
 }
 
-function Sources({ row }: { row: GoldenVisaRow }) {
+function Sources({ row, locale }: { row: GoldenVisaRow; locale: InvestLocale }) {
   return (
     <ul className="space-y-1">
       {row.sources.map((source) => (
@@ -83,7 +84,7 @@ function Sources({ row }: { row: GoldenVisaRow }) {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1 font-medium text-corridor-700 underline-offset-2 hover:underline"
           >
-            {source.label}
+            {sourceLabel(source, locale)}
             <ExternalLink className="h-3 w-3 shrink-0" />
           </a>
         </li>
@@ -116,7 +117,7 @@ export function GoldenVisaFactTable({ row, locale }: { row: GoldenVisaRow; local
     [t.routes, <Cell key="routes" cell={row.routes} locale={locale} />],
     [t.citizenship, <Cell key="cit" cell={row.citizenship} locale={locale} />],
     [t.ruBy, <Cell key="ruby" cell={row.ruBy} locale={locale} />],
-    [t.source, <Sources key="src" row={row} />],
+    [t.source, <Sources key="src" row={row} locale={locale} />],
     [t.checked, <CheckedValue key="checked" row={row} locale={locale} />],
   ];
   return (
@@ -188,7 +189,7 @@ export function GoldenVisaCompareTable({ locale }: { locale: InvestLocale }) {
                 <Cell cell={row.ruBy} locale={locale} />
               </td>
               <td className="px-4 py-3 text-xs">
-                <Sources row={row} />
+                <Sources row={row} locale={locale} />
               </td>
               <td className="whitespace-nowrap px-4 py-3 text-slate-700">
                 <CheckedValue row={row} locale={locale} />

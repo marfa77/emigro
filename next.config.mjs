@@ -92,6 +92,7 @@ const nextConfig = {
     outputFileTracingIncludes: {
       "/api/telegram/webhook": ["./content/guides/**/*.md", "./docs/*.md"],
       "/api/telegram/news-webhook": ["./content/guides/**/*.md", "./docs/*.md"],
+      "/api/v1/investment/pdf/[[...file]]": ["./private/assist/*.pdf"],
     },
   },
   env: {
@@ -99,12 +100,6 @@ const nextConfig = {
     SPAIN_SATELLITE_USE_SUBDOMAIN: useSpainSubdomain ? "true" : "false",
     ITALY_SATELLITE_USE_SUBDOMAIN: useItalySubdomain ? "true" : "false",
     THAILAND_SATELLITE_USE_SUBDOMAIN: useThailandSubdomain ? "true" : "false",
-  },
-  async headers() {
-    return ["ru", "en"].map((locale) => ({
-      source: `/assist/emigro_golden_visa_2026_comparison_${locale}.pdf`,
-      headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
-    }));
   },
   async redirects() {
     const satelliteNotes = usePortugalSubdomain
@@ -115,6 +110,12 @@ const nextConfig = {
       : "/satellite/portugal/tag/:tag";
 
     return [
+      // Golden Visa PDF is served only via signed /api/v1/investment/pdf links after the form.
+      ...["ru", "en"].map((locale) => ({
+        source: `/assist/emigro_golden_visa_2026_comparison_${locale}.pdf`,
+        destination: `/${locale}/invest/compare#invest-quick`,
+        statusCode: 302,
+      })),
       {
         source: "/favicon.ico",
         destination: "/icon",

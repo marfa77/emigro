@@ -67,6 +67,18 @@ export function satellitePillarUrl(opts: UtmOpts): string {
   return withUtm(cfg.pillarGuideUrl, `${opts.countryKey}_pillar`, opts);
 }
 
+/** www invest country page; satellite keys match invest slugs (portugal, spain, italy, thailand). */
+export function satelliteInvestUrl(opts: UtmOpts): string {
+  const cfg = satelliteConfig(opts.countryKey);
+  const url = new URL(`/ru/invest/${opts.countryKey}`, new URL(cfg.mainSiteUrl).origin);
+  url.searchParams.set("utm_source", opts.countryKey);
+  url.searchParams.set("utm_medium", "internal");
+  url.searchParams.set("utm_campaign", "invest");
+  url.searchParams.set("utm_placement", opts.placement);
+  if (opts.content) url.searchParams.set("utm_content", opts.content);
+  return url.toString();
+}
+
 export function satelliteDigestUrl(opts: UtmOpts): string {
   const cfg = satelliteConfig(opts.countryKey);
   return withUtm(cfg.digestUrl, `${opts.countryKey}_digest`, opts);

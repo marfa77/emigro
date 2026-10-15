@@ -10,14 +10,14 @@ import { createAdminClient } from "@/lib/admin/supabase";
 import { sendOwnerTelegramDm } from "@/lib/telegram";
 import { signInvestmentResultToken, verifyInvestmentResultToken } from "@/lib/investment/result-token";
 import { trackServerEvent } from "@/lib/analytics/server";
-import { goldenVisaRow, INVEST_COMPARE_PDF_PATH } from "@/lib/investment/golden-visa-2026";
+import { goldenVisaRow } from "@/lib/investment/golden-visa-2026";
+import { signInvestPdfUrl } from "@/lib/investment/pdf-link";
 import {
   isQuickLeadSource,
   quickBudgetFloorEur,
   quickPassportGroup,
   validateQuickLead,
 } from "@/lib/investment/quick-lead";
-import { publicSiteUrl } from "@/lib/site-url";
 
 export const runtime = "nodejs";
 
@@ -697,7 +697,9 @@ async function handleQuickLead(request: Request, raw: Record<string, unknown>) {
     return NextResponse.json({ error: "Lead audit failed" }, { status: 500 });
   }
 
-  const pdfUrl = `${publicSiteUrl()}${INVEST_COMPARE_PDF_PATH[lead.locale]}`;
+  const pdfUrl = signInvestPdfUrl(lead.locale);
+  // The owner forwards the PDF by hand, so their copy outlives the visitor's 24 h link.
+  const ownerPdfUrl = signInvestPdfUrl(lead.locale, 7 * 24 * 60 * 60 * 1000);
   const utm = [attribution.utm_source, attribution.utm_medium, attribution.utm_campaign, attribution.utm_content]
     .filter(Boolean)
     .join(" / ");
@@ -715,7 +717,7 @@ async function handleQuickLead(request: Request, raw: Record<string, unknown>) {
     utm ? `UTM: ${utm}` : null,
     pageUrl ? `Страница: ${pageUrl}` : null,
     lead.source === "invest_compare" && lead.contactType === "email"
-      ? `Отправьте PDF на e-mail вручную: ${pdfUrl}`
+      ? `Отправьте PDF на e-mail вручную (ссылка на 7 дней): ${ownerPdfUrl ?? "секрет подписи не настроен"}`
       : null,
     "",
     "Обещали подбор в течение 1 рабочего дня.",
@@ -733,7 +735,7 @@ async function handleQuickLead(request: Request, raw: Record<string, unknown>) {
   });
 
   return NextResponse.json(
-    { id: inserted.id, token: signInvestmentResultToken(inserted.id), status: "new" },
+    { id: inserted.id, token: signInvestmentResultToken(inserted.id), status: "new", pdf_url: pdfUrl },
     { status: 201 }
   );
 }

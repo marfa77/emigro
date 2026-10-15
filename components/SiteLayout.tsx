@@ -297,16 +297,31 @@ export function SiteFooter({ locale = "ru" }: { locale?: UiLocale }) {
             {locale === "ru" ? "Français (Afrique → France)" : "French (Afrique → France)"}
           </Link>
         </nav>
-        <nav className="flex flex-wrap gap-x-4 gap-y-2 text-sm text-slate-600" aria-label="Транзитные хабы">
+        <nav
+          className="flex flex-wrap gap-x-4 gap-y-2 text-sm text-slate-600"
+          aria-label={locale === "ru" ? "Транзитные хабы" : "Transit hubs"}
+        >
           <span className="text-xs font-semibold uppercase tracking-wide text-slate-400">
             {locale === "ru" ? "Транзитные хабы:" : "Transit hubs:"}
           </span>
-          <Link href="/ru/serbia" className="hover:text-corridor-600">🇷🇸 Сербия</Link>
-          <Link href="/ru/georgia" className="hover:text-corridor-600">🇬🇪 Грузия</Link>
-          <Link href="/ru/montenegro" className="hover:text-corridor-600">🇲🇪 Черногория</Link>
-          <Link href="/ru/armenia" className="hover:text-corridor-600">🇦🇲 Армения</Link>
-          <Link href="/ru/uae" className="hover:text-corridor-600">🇦🇪 ОАЭ</Link>
-          <Link href="/ru/thailand" className="hover:text-corridor-600">🇹🇭 Таиланд</Link>
+          <Link href="/ru/serbia" className="hover:text-corridor-600">
+            {locale === "ru" ? "🇷🇸 Сербия" : "🇷🇸 Serbia"}
+          </Link>
+          <Link href="/ru/georgia" className="hover:text-corridor-600">
+            {locale === "ru" ? "🇬🇪 Грузия" : "🇬🇪 Georgia"}
+          </Link>
+          <Link href="/ru/montenegro" className="hover:text-corridor-600">
+            {locale === "ru" ? "🇲🇪 Черногория" : "🇲🇪 Montenegro"}
+          </Link>
+          <Link href="/ru/armenia" className="hover:text-corridor-600">
+            {locale === "ru" ? "🇦🇲 Армения" : "🇦🇲 Armenia"}
+          </Link>
+          <Link href="/ru/uae" className="hover:text-corridor-600">
+            {locale === "ru" ? "🇦🇪 ОАЭ" : "🇦🇪 UAE"}
+          </Link>
+          <Link href="/ru/thailand" className="hover:text-corridor-600">
+            {locale === "ru" ? "🇹🇭 Таиланд" : "🇹🇭 Thailand"}
+          </Link>
         </nav>
         <Disclaimer locale={locale} />
         <p className="text-xs text-slate-500">

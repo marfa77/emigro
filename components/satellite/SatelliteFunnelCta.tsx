@@ -8,6 +8,7 @@ import type { SatelliteCountryKey } from "@/lib/community-notes/seed";
 import {
   satelliteAssistUrl,
   satelliteHubUrl,
+  satelliteInvestUrl,
   satellitePillarUrl,
   satelliteWizardUrl,
   type SatelliteFunnelPlacement,
@@ -93,6 +94,13 @@ export function SatelliteFunnelCta({
   const wizardHref = satelliteWizardUrl({ countryKey, placement, content });
   const hubHref = satelliteHubUrl({ countryKey, placement, content });
   const pillarHref = satellitePillarUrl({ countryKey, placement, content });
+  const investHref = satelliteInvestUrl({ countryKey, placement, content });
+  const investLabel =
+    countryKey === "spain"
+      ? "Испания после Golden Visa: альтернативы для инвесторов — сравнить маршруты →"
+      : `ВНЖ за инвестиции в ${
+          countryKey === "italy" ? "Италии" : countryKey === "thailand" ? "Таиланде" : "Португалии"
+        } — сравнить маршруты →`;
 
   function trackAssist(label: string, href = assistHref) {
     trackEvent("assist_cta_click", {
@@ -220,6 +228,15 @@ export function SatelliteFunnelCta({
             className={`font-medium underline ${a.link}`}
           >
             Pillar-гид ВНЖ 2026
+          </a>
+        </li>
+        <li>
+          <a
+            href={investHref}
+            onClick={() => trackCorridor("invest_country", investHref)}
+            className={`font-medium underline ${a.link}`}
+          >
+            {investLabel}
           </a>
         </li>
       </ul>

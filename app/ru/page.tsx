@@ -18,6 +18,7 @@ import { listPillarGuides } from "@/lib/guides/pillar-guides";
 import { getActiveNewsTopics, newsIndexPath } from "@/lib/news/topics";
 import { pageMetadata, pageUrl } from "@/lib/seo";
 import { buildCollectionPageItemListSchema } from "@/lib/seo/collection-schema";
+import { emigroServiceJsonLd } from "@/lib/seo/global-schema";
 import { PORTUGAL_FEATURED_NOTES } from "@/lib/portugal/featured-notes";
 import { portugalSatellitePublicUrl, portugalSatelliteUrl, spainSatelliteUrl } from "@/lib/site-url";
 import { TRANSIT_HUBS, hubKindLabel } from "@/lib/transit-hubs";
@@ -65,6 +66,7 @@ export default async function RuHubPage() {
   return (
     <>
       <SiteHeader />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(emigroServiceJsonLd({ inLanguage: "ru-RU" })) }} />
       {collectionSchema && (
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }} />
       )}
