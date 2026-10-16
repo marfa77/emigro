@@ -514,6 +514,9 @@ export function buildCorridorLandingQuickAnswer(topic: NewsTopicConfig, corridor
       ? `Программы коридора: ${corridor.programs.map((p) => p.title_ru).join(", ")}.`
       : null;
   return [
+    topic.urlSegment === "portugal"
+      ? "D7 от €920/мес, D8 €3 680/мес, Route Check €129."
+      : null,
     `${corridor.title_ru} — коридор Emigro для русскоязычных за рубежом и в СНГ с паспортами RU/BY/UA/KZ.`,
     corridor.audience_description_ru,
     topic.focusHintRu,

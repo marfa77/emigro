@@ -116,6 +116,10 @@ const nextConfig = {
         destination: `/${locale}/invest/compare#invest-quick`,
         statusCode: 302,
       })),
+      { source: "/d7", destination: "/ru/portugal/programs/portugal-d7-passive-income", permanent: true },
+      { source: "/d8", destination: "/ru/portugal/programs/portugal-d8-digital-nomad", permanent: true },
+      { source: "/ru/d7", destination: "/ru/portugal/programs/portugal-d7-passive-income", permanent: true },
+      { source: "/ru/d8", destination: "/ru/portugal/programs/portugal-d8-digital-nomad", permanent: true },
       {
         source: "/favicon.ico",
         destination: "/icon",

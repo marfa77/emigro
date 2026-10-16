@@ -367,9 +367,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "facilitation казахстан ес 2026",
       "национальная виза pt из казахстана",
     ],
-    seoTitle: "Казахстан → Европа 2026 — виза и ВНЖ",
+    seoTitle: "ВНЖ Казахстан 2026: виза, подбор €0",
     seoDescription:
-      "KZ→EU: безвиза нет. DE/PL из Алматы; PT D только Москва. Blue Card / D8 / DNV пороги 2026.",
+      "Граждане KZ: Шенген только по визе, безвиза нет. DE и PL из Алматы, национальная D Португалии — через Москву. Подбор маршрута €0, Route Check €129.",
   },
   {
     path: "/ru/guides/vnj-serbiya-dlya-rossiyan-2026",

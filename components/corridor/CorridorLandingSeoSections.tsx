@@ -33,10 +33,13 @@ export function CorridorLandingSeoSections({
   topic,
   corridor,
   landingPath,
+  hideQuickAnswer = false,
 }: {
   topic: NewsTopicConfig;
   corridor: Corridor;
   landingPath: string;
+  /** Portugal hub renders the same answer above the chat. */
+  hideQuickAnswer?: boolean;
 }) {
   const quickAnswer = buildCorridorLandingQuickAnswer(topic, corridor);
   const faq = buildCorridorLandingFaq(topic, corridor);
@@ -72,14 +75,16 @@ export function CorridorLandingSeoSections({
         </div>
       )}
 
-      <section className="mt-8 rounded-2xl border border-corridor-200 bg-white p-6 shadow-sm">
-        <p className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-corridor-700">
-          <Sparkles className="h-4 w-4" />
-          Короткий ответ
-        </p>
-        <p className="mt-3 text-lg leading-relaxed text-slate-800">{quickAnswer}</p>
-        <p className="mt-3 text-sm text-slate-500 llm-summary">{topic.focusHintRu}</p>
-      </section>
+      {!hideQuickAnswer && (
+        <section className="mt-8 rounded-2xl border border-corridor-200 bg-white p-6 shadow-sm">
+          <p className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-corridor-700">
+            <Sparkles className="h-4 w-4" />
+            Короткий ответ
+          </p>
+          <p className="mt-3 text-lg leading-relaxed text-slate-800">{quickAnswer}</p>
+          <p className="mt-3 text-sm text-slate-500 llm-summary">{topic.focusHintRu}</p>
+        </section>
+      )}
 
       <FaqBlock items={faq} />
 

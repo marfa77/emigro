@@ -26,7 +26,7 @@ import { isCorridorFull, topicHasLanding } from "@/lib/corridor/publish";
 import { getCorridorBySlug } from "@/lib/corridor/queries";
 import { requirePublishedCorridorTopic } from "@/lib/corridor/resolve-topic";
 import type { NewsTopicConfig } from "@/lib/news/topics";
-import { buildCorridorBreadcrumbSchema, buildCorridorLandingArticleSchema, buildFaqSchema, buildCorridorLandingFaq } from "@/lib/seo/corridor-page-seo";
+import { buildCorridorBreadcrumbSchema, buildCorridorLandingArticleSchema, buildCorridorLandingQuickAnswer, buildFaqSchema, buildCorridorLandingFaq } from "@/lib/seo/corridor-page-seo";
 import { pageUrl } from "@/lib/seo";
 import { heroTitle } from "@/lib/ui/mobile";
 import { getUniPrepOfferForTopic } from "@/lib/uniprep2go/catalog";
@@ -120,6 +120,15 @@ export async function CorridorLanding({ country }: { country: string }) {
           </div>
         </HeroShell>
 
+        {topic.urlSegment === "portugal" && (
+          <section className="mt-8 rounded-2xl border border-corridor-200 bg-white p-6 shadow-sm">
+            <p className="text-sm font-semibold uppercase tracking-wide text-corridor-700">Короткий ответ</p>
+            <p className="mt-3 text-lg leading-relaxed text-slate-800">
+              {buildCorridorLandingQuickAnswer(topic, corridor)}
+            </p>
+          </section>
+        )}
+
         <NewsBotSubscribeCta
           topicKey={topic.key}
           source={`corridor_${topic.urlSegment}`}
@@ -209,7 +218,12 @@ export async function CorridorLanding({ country }: { country: string }) {
         {isSpainHubTopic(topic) && <SpainFeaturedNotes />}
         {isItalyHubTopic(topic) && <ItalyFeaturedNotes />}
 
-        <CorridorLandingSeoSections topic={topic} corridor={corridor} landingPath={base} />
+        <CorridorLandingSeoSections
+          topic={topic}
+          corridor={corridor}
+          landingPath={base}
+          hideQuickAnswer={topic.urlSegment === "portugal"}
+        />
       </main>
       <SiteFooter />
     </>

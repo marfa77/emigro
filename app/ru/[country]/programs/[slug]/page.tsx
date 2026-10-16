@@ -351,6 +351,25 @@ export default async function CountryProgramPage({
           className="mt-6"
         />
 
+        {program.slug === "portugal-d7-passive-income" && (
+          <p className="mt-4 text-sm text-slate-700">
+            Удалённый доход, а не пассивный:{" "}
+            <Link href="/ru/portugal/programs/portugal-d8-digital-nomad" className="font-semibold text-corridor-700 hover:underline">
+              D8 digital nomad — €3 680/мес
+            </Link>
+            .
+          </p>
+        )}
+        {program.slug === "portugal-d8-digital-nomad" && (
+          <p className="mt-4 text-sm text-slate-700">
+            Пассивный доход или пенсия:{" "}
+            <Link href="/ru/portugal/programs/portugal-d7-passive-income" className="font-semibold text-corridor-700 hover:underline">
+              D7 — от €920/мес
+            </Link>
+            .
+          </p>
+        )}
+
         {pillarGuide && (
           <section className="mt-10 rounded-3xl border border-corridor-200 bg-corridor-50 p-6 shadow-sm sm:p-8">
             <p className="text-sm font-semibold uppercase tracking-wide text-corridor-700">Главный гайд</p>

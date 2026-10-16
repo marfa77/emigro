@@ -309,7 +309,21 @@ export default async function RuHubPage() {
           </section>
         )}
 
-        <NewsBotSubscribeCta source="homepage" className="mt-14" />
+        <section className="mt-14 rounded-2xl border border-corridor-200 bg-white p-6 shadow-sm">
+          <p className="text-sm font-semibold uppercase tracking-wide text-corridor-700">Короткий ответ</p>
+          <p className="mt-3 text-lg leading-relaxed text-slate-800">
+            D7 от €920/мес, D8 €3 680/мес, Route Check €129.{" "}
+            <Link href="/ru/portugal" className="font-medium text-corridor-700 hover:underline">
+              Коридор Португалии
+            </Link>
+            {" · "}
+            <Link href="/ru/route-check" className="font-medium text-corridor-700 hover:underline">
+              Route Check
+            </Link>
+            .
+          </p>
+        </section>
+        <NewsBotSubscribeCta source="homepage" className="mt-8" />
         <RelocatorChatPromo source="homepage" className="mt-8" />
 
         <section className="mt-14 rounded-2xl border border-corridor-200 bg-gradient-to-br from-corridor-50 to-white p-6 sm:p-8">
