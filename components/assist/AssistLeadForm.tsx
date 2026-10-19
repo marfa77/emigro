@@ -51,6 +51,13 @@ const PAYMENT_OPTIONS_ES: { value: AssistPaymentMethod; label: string }[] = [
   { value: "card", label: "Tarjeta (enviaremos enlace de Gumroad)" },
 ];
 
+const PAYMENT_OPTIONS_EN: { value: AssistPaymentMethod; label: string }[] = [
+  { value: "paypal", label: "PayPal" },
+  { value: "telegram_stars", label: "Telegram Stars" },
+  { value: "crypto", label: "Crypto (USDT / USDC)" },
+  { value: "card", label: "Card (we send a Gumroad link)" },
+];
+
 const PAYMENT_OPTIONS_FR: { value: AssistPaymentMethod; label: string }[] = [
   { value: "paypal", label: "PayPal" },
   { value: "telegram_stars", label: "Telegram Stars" },
@@ -100,6 +107,27 @@ const PLAN_TIER_OPTIONS_ES: { value: AssistPlanTier; label: string; summary: str
   },
 ];
 
+const PLAN_TIER_OPTIONS_EN: { value: AssistPlanTier; label: string; summary: string }[] = [
+  {
+    value: "partner-match",
+    label: "Find a specialist — free",
+    summary:
+      "Describe the case. Emigro picks partners for that country and shares your request only with your consent.",
+  },
+  {
+    value: "route-check",
+    label: "Route Check — €129",
+    summary:
+      "A call with the Emigro team against a checklist, a PDF of the case within 48 hours, and partner options. You pay after the time slot is confirmed.",
+  },
+  {
+    value: "accompaniment",
+    label: "Accompaniment — €100/hour",
+    summary:
+      "Communication support: letters to a consulate, lawyer or agency, forms, and a read of a refusal. You pay after the format is agreed.",
+  },
+];
+
 const PLAN_TIER_OPTIONS_FR: { value: AssistPlanTier; label: string; summary: string }[] = [
   {
     value: "partner-match",
@@ -139,6 +167,15 @@ const SUCCESS_MESSAGES_ES: Record<AssistPlanTier, string> = {
     "Solicitud enviada. Emigro contactará para aclarar la tarea y el formato. Pago €100/hora tras el acuerdo.",
 };
 
+const SUCCESS_MESSAGES_EN: Record<AssistPlanTier, string> = {
+  "partner-match":
+    "Request sent. Emigro will look at the case and introduce a suitable partner if we have one for this destination. This is free.",
+  "route-check":
+    "Request sent. Emigro will agree a call time. After the slot is confirmed we send payment details (€129). You get the PDF and partner contacts within 48 hours of the call.",
+  accompaniment:
+    "Request sent. Emigro will contact you to agree the task and the format. €100/hour is charged after that agreement.",
+};
+
 const SUCCESS_MESSAGES_FR: Record<AssistPlanTier, string> = {
   "partner-match":
     "Demande envoyée. Emigro examinera votre besoin et vous mettra en relation avec un partenaire adapté si disponible. C’est gratuit.",
@@ -158,6 +195,12 @@ const SUBMIT_LABELS_ES: Record<AssistPlanTier, string> = {
   "partner-match": "Enviar solicitud gratuita",
   "route-check": "Solicitar Route Check — €129",
   accompaniment: "Solicitar acompañamiento",
+};
+
+const SUBMIT_LABELS_EN: Record<AssistPlanTier, string> = {
+  "partner-match": "Send the free request",
+  "route-check": "Request Route Check — €129",
+  accompaniment: "Request accompaniment",
 };
 
 const SUBMIT_LABELS_FR: Record<AssistPlanTier, string> = {
@@ -187,7 +230,7 @@ type Props = {
   initialCountry?: string;
   initialProgramRoute?: string;
   initialProviderId?: string;
-  locale?: "ru" | "es" | "fr";
+  locale?: "ru" | "es" | "fr" | "en";
   /** Override analytics/lead source (e.g. satellite hub intake). */
   leadSource?: string;
 };
@@ -205,20 +248,43 @@ export function AssistLeadForm({
 }: Props) {
   const isEs = locale === "es";
   const isFr = locale === "fr";
-  const defaultAssistSource = isEs ? "emigro_assist_es" : isFr ? "emigro_assist_fr" : "emigro_assist";
+  const isEn = locale === "en";
+  const defaultAssistSource = isEs
+    ? "emigro_assist_es"
+    : isFr
+      ? "emigro_assist_fr"
+      : isEn
+        ? "emigro_assist_en"
+        : "emigro_assist";
   const assistSource = leadSource?.trim() || defaultAssistSource;
-  const PAYMENT_OPTIONS = isEs ? PAYMENT_OPTIONS_ES : isFr ? PAYMENT_OPTIONS_FR : PAYMENT_OPTIONS_RU;
+  const PAYMENT_OPTIONS = isEs
+    ? PAYMENT_OPTIONS_ES
+    : isFr
+      ? PAYMENT_OPTIONS_FR
+      : isEn
+        ? PAYMENT_OPTIONS_EN
+        : PAYMENT_OPTIONS_RU;
   const PLAN_TIER_OPTIONS = isEs
     ? PLAN_TIER_OPTIONS_ES
     : isFr
       ? PLAN_TIER_OPTIONS_FR
-      : PLAN_TIER_OPTIONS_RU;
+      : isEn
+        ? PLAN_TIER_OPTIONS_EN
+        : PLAN_TIER_OPTIONS_RU;
   const SUCCESS_MESSAGES = isEs
     ? SUCCESS_MESSAGES_ES
     : isFr
       ? SUCCESS_MESSAGES_FR
-      : SUCCESS_MESSAGES_RU;
-  const SUBMIT_LABELS = isEs ? SUBMIT_LABELS_ES : isFr ? SUBMIT_LABELS_FR : SUBMIT_LABELS_RU;
+      : isEn
+        ? SUCCESS_MESSAGES_EN
+        : SUCCESS_MESSAGES_RU;
+  const SUBMIT_LABELS = isEs
+    ? SUBMIT_LABELS_ES
+    : isFr
+      ? SUBMIT_LABELS_FR
+      : isEn
+        ? SUBMIT_LABELS_EN
+        : SUBMIT_LABELS_RU;
   const PAYMENT_LABELS = Object.fromEntries(
     PAYMENT_OPTIONS.map(({ value, label }) => [value, label])
   ) as Record<AssistPaymentMethod, string>;
@@ -379,7 +445,7 @@ export function AssistLeadForm({
     <form onSubmit={submit} className="space-y-5 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
       <fieldset>
         <legend className="text-sm font-medium text-slate-800">
-          {isEs ? "Qué le interesa" : isFr ? "Ce qui vous intéresse" : "Что вас интересует"}
+          {isEn ? "What you need" : isEs ? "Qué le interesa" : isFr ? "Ce qui vous intéresse" : "Что вас интересует"}
         </legend>
         <div className="mt-3 space-y-2">
           {PLAN_TIER_OPTIONS.map((option) => (
@@ -442,7 +508,7 @@ export function AssistLeadForm({
 
       <div>
         <label className="text-sm font-medium text-slate-800" htmlFor="assist-country">
-          {isEs ? "País / corredor" : isFr ? "Pays / corridor" : "Страна / коридор"}
+          {isEn ? "Country / corridor" : isEs ? "País / corredor" : isFr ? "Pays / corridor" : "Страна / коридор"}
         </label>
         <select
           id="assist-country"
@@ -547,7 +613,7 @@ export function AssistLeadForm({
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
           <label className="text-sm font-medium text-slate-800" htmlFor="assist-name">
-            {isEs ? "Nombre" : isFr ? "Nom" : "Имя"}
+            {isEn ? "Name" : isEs ? "Nombre" : isFr ? "Nom" : "Имя"}
           </label>
           <input
             id="assist-name"
@@ -559,7 +625,7 @@ export function AssistLeadForm({
         </div>
         <div>
           <label className="text-sm font-medium text-slate-800" htmlFor="assist-contact">
-            {isEs ? "Email o Telegram" : isFr ? "Email ou Telegram" : "Email или Telegram"}
+            {isEn ? "Email or Telegram" : isEs ? "Email o Telegram" : isFr ? "Email ou Telegram" : "Email или Telegram"}
           </label>
           <input
             id="assist-contact"
@@ -580,7 +646,7 @@ export function AssistLeadForm({
 
       <div>
         <label className="text-sm font-medium text-slate-800" htmlFor="assist-message">
-          {isEs ? "Cuéntenos más" : isFr ? "Dites-nous en plus" : "Расскажите подробнее"}
+          {isEn ? "Tell us more" : isEs ? "Cuéntenos más" : isFr ? "Dites-nous en plus" : "Расскажите подробнее"}
         </label>
         <textarea
           id="assist-message"
@@ -590,12 +656,16 @@ export function AssistLeadForm({
           rows={5}
           placeholder={
             planTier === "accompaniment"
-              ? isEs
+              ? isEn
+                ? "What is already done, where you are stuck, which letters or forms you need, deadlines."
+                : isEs
                 ? "Qué ya hizo, dónde se trabó, qué cartas o formularios necesita, plazos."
                 : isFr
                   ? "Ce qui est déjà fait, où vous êtes bloqué, quelles lettres ou formulaires, délais."
                   : "Что уже сделано, где застряли, какие письма или формы нужны, дедлайны."
-              : isEs
+              : isEn
+                ? "Situation, income, family, timing — what you want clarified."
+                : isEs
                 ? "Situación, ingresos, familia, plazos — qué quiere aclarar."
                 : isFr
                   ? "Situation, revenus, famille, délais — ce que vous voulez clarifier."
@@ -614,7 +684,18 @@ export function AssistLeadForm({
           className="mt-1"
         />
         <span>
-          {isEs ? (
+          {isEn ? (
+            <>
+              I accept the{" "}
+              <Link href="/ru/privacy" className="text-corridor-600 hover:underline">
+                privacy policy
+              </Link>{" "}
+              and allow Emigro to contact me and share this request with a suitable partner. Emigro is not a law firm
+              and is not Emigro Consulting (Doha) or the Emigro.co neobank. The free match is an introduction; Route
+              Check is a structured review; accompaniment is communication support. Legal responsibility stays with the
+              partner you choose.
+            </>
+          ) : isEs ? (
             <>
               Acepto la{" "}
               <Link href="/es/privacy" className="text-corridor-600 hover:underline">

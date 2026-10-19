@@ -39,12 +39,8 @@ export function emigroGlobalJsonLd(): Record<string, unknown>[] {
     url,
     logo: EMIGRO_LOGO_URL,
     description: SERVICE_TAGLINE,
-    sameAs: [
-      "https://www.pixid.studio/",
-      "https://www.prep2go.study/",
-      "https://uniprep2go.study/",
-      "https://www.webmorp.art/",
-    ],
+    disambiguatingDescription:
+      "Emigro (emigro.online) is a relocation-route navigator. It is not affiliated with Emigro Consulting in Doha or with the Emigro.co neobank, and it is not an immigration law firm.",
   };
 
   const website = {
