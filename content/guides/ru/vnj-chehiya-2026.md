@@ -33,7 +33,7 @@ official_sources:
     label: gov.cz — гражданство (условия проживания)
 estimated_minutes: 18
 date_published: 2026-06-29
-date_modified: 2026-09-19
+date_modified: 2026-10-19
 ---
 
 ## Кому подходит этот гайд
@@ -210,7 +210,7 @@ Civics readiness: [Czech citizenship mock на UniPrep2Go](https://uniprep2go.st
 
 **Когда переходить:**
 - Стабильный pracovní smlouva или živnost
-- За **8–15 месяцев до 4 марта 2027** (ориентир: **с осени 2026**)
+- За **8–15 месяцев до 4 марта 2028** ([Decision 2026/1912](https://eur-lex.europa.eu/eli/dec_impl/2026/1912/oj/eng); ориентир: **зима 2026 – лето 2027**)
 
 См. [Украина → ЕС: маршруты 2026](/ru/guides/ukraina-evropa-vnj-marshruty-2026) · [TP vs ВНЖ](/ru/guides/ukraintsy-belorusy-vremennaya-zashchita-vs-vnj-2026).
 

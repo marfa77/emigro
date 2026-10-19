@@ -1,5 +1,7 @@
 # Volatile guide fact-check (lazy server)
 
+**Pipeline off since 2026-10-19.** The weekly timer must stay disabled. `deploy/volatile-guides-factcheck/run_scheduled.sh` exits before `--notify`, so a leftover timer does not send a Telegram DM. Manual `npm run guides:volatile-factcheck` (no `--notify`) still prints a local report.
+
 Automated **lazy** fact-check for guides with `review_tier: volatile` — thresholds, rates, deadlines, sanctions, EES dates. Does **not** rewrite content; flags problems and sends a digest to your **private Telegram DM**.
 
 ## What it checks (v1.1 — tuned 2026-07)
@@ -94,27 +96,23 @@ Max **5 issues** per message; full list via CLI.
 
 ## VPS cron (systemd)
 
-Weekly **Monday 08:00 UTC** — after Portugal/Prep2Go daily jobs.
+**Disabled 2026-10-19.** Do not `enable` this timer.
 
 ```bash
-sudo cp deploy/systemd/emigro-volatile-guides-factcheck.{service,timer} /etc/systemd/system/
-sudo chmod +x deploy/volatile-guides-factcheck/run_scheduled.sh
-sudo systemctl daemon-reload
-sudo systemctl enable --now emigro-volatile-guides-factcheck.timer
-systemctl list-timers emigro-volatile-guides-factcheck.timer
+sudo systemctl disable --now emigro-volatile-guides-factcheck.timer
+systemctl is-enabled emigro-volatile-guides-factcheck.timer || true
 ```
+
+The unit files remain in `deploy/systemd/` for history. Weekly slot was Monday 08:00 UTC.
 
 Logs: `/opt/emigro/deploy/volatile-guides-factcheck/logs/`.
 
-Manual on VPS:
+Local report only (no Telegram):
 
 ```bash
-cd /opt/emigro && npm run guides:volatile-factcheck -- --notify
+npm run guides:volatile-factcheck
 ```
 
 ## Workflow
 
-1. Timer runs `guides:volatile-factcheck --notify`.
-2. If issues → DM to `TELEGRAM_PRIVATE_CHAT_ID` (owner alerts).
-3. Editor fixes guide → updates `date_modified` → append row to `docs/FACTCHECK_BACKLOG.md` if pattern was new.
-4. Portugal/Spain pillar guides: still use `npm run portugal:guide-factcheck` / `spain:guide-factcheck` for TG citation mining.
+The Monday DM is off. Portugal/Spain pillar guides still use `npm run portugal:guide-factcheck` / `spain:guide-factcheck` for citation mining.

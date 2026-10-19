@@ -22,16 +22,18 @@ official_sources:
     label: SEM — Niederlassungsvereinbarungen
   - url: https://www.sem.admin.ch/sem/en/home/integration-einbuergerung/schweizer-werden/doppelbuerger.html
     label: SEM — Dual / multiple nationality (с 01.01.1992 без ограничения)
+  - url: https://www.admin.ch/en/newnsb/hFEfxUQEMQFg
+    label: Federal Council — status S до 4.03.2028 (19.08.2026)
 estimated_minutes: 22
 date_published: 2026-07-29
-date_modified: 2026-09-19
+date_modified: 2026-10-19
 ---
 
 ## С чего начать: Швейцария не для всех
 
 Швейцария — Шенген, не ЕС. Отдельной digital nomad visa нет. Non-EU обычно упирается в квоту B-permit или forfait / статью 28. Self-employed для паспорта РФ почти не открывается.
 
-> **Nota Emigro (fact-check, сентябрь 2026).** **OK:** ordinary C **10 лет**, язык **A2 oral / A1 written**; early C **5 лет** — **B1/A1**, на усмотрение кантона. Anspruch за 5 лет — **11** стран Niederlassungsvereinbarung; США/Канада = Gegenrecht, не автомат ([SEM](https://www.sem.admin.ch/sem/de/home/international-rueckkehr/ch-migrationsaussenpolitik/abkommen/niederlassungsvereinbarungen.html)). Forfait в **21/26** кантонах; федеральная база **~CHF 434,7–435k** — это не сумма налога к уплате. Art. 28: **55+** (VZAE). Dual nationality с **01.01.1992 без ограничения** ([SEM](https://www.sem.admin.ch/sem/en/home/integration-einbuergerung/schweizer-werden/doppelbuerger.html)). **Fixed overlay:** на L-permit для non-EU семью часто не пускают (Art. 45, discretion). **Soft:** кантональные ставки «до 40%+» — поле, не федеральный тариф.
+> **Nota Emigro (fact-check, сентябрь 2026).** **OK:** ordinary C **10 лет**, язык **A2 oral / A1 written**; early C **5 лет** — **B1/A1**, на усмотрение кантона. Anspruch за 5 лет — **11** стран Niederlassungsvereinbarung; США/Канада = Gegenrecht, не автомат ([SEM](https://www.sem.admin.ch/sem/de/home/international-rueckkehr/ch-migrationsaussenpolitik/abkommen/niederlassungsvereinbarungen.html)). Forfait в **21/26** кантонах; федеральная база **~CHF 434,7–435k** — это не сумма налога к уплате. Art. 28: **55+** (VZAE). Dual nationality с **01.01.1992 без ограничения** ([SEM](https://www.sem.admin.ch/sem/en/home/integration-einbuergerung/schweizer-werden/doppelbuerger.html)). **Fixed overlay:** на L-permit для non-EU семью часто не пускают (Art. 45, discretion). **Soft:** кантональные ставки «до 40%+» — поле, не федеральный тариф. **Fixed 19.10.2026:** статус S продлён до **4.03.2028** (Федеральный совет, 19.08.2026); новые заявления с 20.08.2026 — proof воинской обязанности.
 
 | Параметр | Для кого | Срок | Налоги / семья | Сложность |
 |---|---|---|---|---|
@@ -112,7 +114,7 @@ date_modified: 2026-09-19
 ### S-permit — temporary protection
 
 - Для беженцев (в настоящее время — украинцы)
-- Действует до 4 марта 2027
+- Федеральный совет продлил статус S до **4 марта 2028** ([решение 19.08.2026](https://www.admin.ch/en/newnsb/hFEfxUQEMQFg)). Новые заявления с **20.08.2026**: proof воинской обязанности в Украине. Уже выданный S это не отзывает. Карточка S по-прежнему на **1 год**, продлевает кантон.
 
 ---
 

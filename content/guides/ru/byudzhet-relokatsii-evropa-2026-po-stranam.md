@@ -18,12 +18,20 @@ official_sources:
     label: Португалия — пороги виз
   - url: https://www.make-it-in-germany.com/
     label: Германия — зарплатные пороги
+  - url: https://diariodarepublica.pt/dr/detalhe/decreto-lei/139-2025-992879809
+    label: Decreto-Lei 139/2025 — RMMG €920 с 01.01.2026
+  - url: https://www.boe.es/buscar/act.php?id=BOE-A-2026-3815
+    label: RD 126/2026 — SMI €1 221 (14 pagas)
+  - url: https://jakarta.diplo.de/id-de/service/visa-und-einreise/2685160-2685160
+    label: Auswärtiges Amt — Lebensunterhalt 2026, Chancenkarte €1 091/мес
 estimated_minutes: 18
 date_published: 2026-06-25
-date_modified: 2026-07-05
+date_modified: 2026-10-19
 ---
 
 ## Почему «порог визы» обманывает
+
+> **Nota Emigro (fact-check, 19.10.2026).** **OK:** D7 ~**€920**/мес = RMMG ([DL 139/2025](https://diariodarepublica.pt/dr/detalhe/decreto-lei/139-2025-992879809)); D8 ~**€3 680** = 4×RMMG; ES nómada **€2 849**/мес = 200% SMI 2026 (€1 221 × 14 / 12 × 2, [RD 126/2026](https://www.boe.es/buscar/act.php?id=BOE-A-2026-3815)); ES no lucrativa ~**€2 400** = 400% IPREM **€600** (Ley 31/2022, бюджеты продлены); Chancenkarte **€13 092** = **€1 091** нетто × 12 ([Auswärtiges Amt, 2026](https://jakarta.diplo.de/id-de/service/visa-und-einreise/2685160-2685160)). **Soft:** аренда и «стартовый капитал» — бытовые вилки, не закон.
 
 D7 требует ~€920/мес. — это **не** значит, что в Лиссабоне можно жить на €920. Порог — фильтр консульства; реальность 2026: аренда 1-bed €1 200–1 800, продукты €400+, коммуналка €100–200. Семьи из СНГ, приезжающие с $20k «на всё», разочаровываются через 3 месяца.
 
