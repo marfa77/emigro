@@ -34,8 +34,8 @@ bash deploy/chatporto-scan/deploy.sh
 
 | Key | Where |
 |-----|--------|
-| `CHATPORTO_NOTIFY_CHAT_ID` | VPS `.env` (ваш user id; иначе `TELEGRAM_PRIVATE_CHAT_ID`) |
-| `EMIGRO_NEWS_BOT_TOKEN` | VPS — ЛС |
+| `CHATPORTO_NOTIFY_CHAT_ID` | VPS `.env` → `@Pv_porto` (`8388568247`). Иначе `TELEGRAM_PRIVATE_CHAT_ID` |
+| `EMIGRO_NEWS_BOT_TOKEN` | VPS — ЛС через `@emigro_chat_bot`. С аккаунта **@Pv_porto** один раз нажать **/start** у бота, иначе `chat not found` |
 | `CHATPORTO_CHANNEL` | optional, default `chatporto` |
 | `OPENROUTER_API_KEY` | VPS |
 | `TG_API_*` / session | `parser/.env` |
