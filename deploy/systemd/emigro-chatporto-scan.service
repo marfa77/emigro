@@ -1,0 +1,20 @@
+[Unit]
+Description=Emigro @chatporto soft-expert — one question/day draft to owner DM
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/emigro
+PermissionsStartOnly=true
+ExecStartPre=/bin/mkdir -p /opt/emigro/deploy/chatporto-scan/logs /opt/emigro/scripts/output
+ExecStartPre=/bin/chown -R www-data:www-data /opt/emigro/deploy/chatporto-scan/logs /opt/emigro/scripts/output
+ExecStart=/bin/bash /opt/emigro/deploy/chatporto-scan/run_scheduled.sh
+User=www-data
+EnvironmentFile=-/opt/emigro/.env
+EnvironmentFile=-/opt/emigro/parser/.env
+StandardOutput=append:/opt/emigro/deploy/chatporto-scan/logs/scheduled.log
+StandardError=append:/opt/emigro/deploy/chatporto-scan/logs/scheduled.log
+
+[Install]
+WantedBy=multi-user.target
