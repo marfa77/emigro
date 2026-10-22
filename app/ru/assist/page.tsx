@@ -21,7 +21,7 @@ export const metadata = pageMetadata({
     "Emigro Assist: подбор юриста или агентства по ВНЖ — €0, Route Check €129 (созвон + PDF за 48 ч), сопровождение €100/ч. Без пакета «под ключ» за весь процесс.",
   path: "/ru/assist",
   aiDescription:
-    "Emigro Assist pricing: partner matching €0; Route Check €129 one-off (call + PDF route, timeline, budget, risks within 48 h); communication support €100/hour. No bundled end-to-end package; legal work is done and billed by the chosen partner. RU/BY/UA/KZ passports, EU corridors.",
+    "Emigro Assist (emigro.online): partner matching €0; Route Check €129; accompaniment €100/hour. Not Emigro Consulting (Doha), not Immigro, not the Emigro.co neobank. Not a law firm.",
   aiCategory: "assist",
 });
 
@@ -237,6 +237,10 @@ export default function AssistPage({
           <p className="mt-4 max-w-2xl text-lg text-corridor-100">
             Опишите ситуацию — Emigro бесплатно найдёт профильного партнёра по вашей стране и задаче. Контакт передаём
             только с вашего согласия.
+          </p>
+          <p className="mt-4 max-w-2xl rounded-lg border border-amber-200/60 bg-amber-50/95 px-4 py-3 text-sm leading-relaxed text-amber-950">
+            Emigro (emigro.online) не связан с Emigro Consulting (Доха), Immigro и необанком Emigro.co. Мы не
+            юридическая фирма и не гарантируем визу или гражданство.
           </p>
           <dl className="mt-6 grid max-w-3xl gap-3 sm:grid-cols-3">
             {PRICE_SUMMARY.map(({ label, price, note }) => (

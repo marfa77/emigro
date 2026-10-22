@@ -352,13 +352,51 @@ export default async function CountryProgramPage({
         />
 
         {program.slug === "portugal-d7-passive-income" && (
-          <p className="mt-4 text-sm text-slate-700">
-            Удалённый доход, а не пассивный:{" "}
-            <Link href="/ru/portugal/programs/portugal-d8-digital-nomad" className="font-semibold text-corridor-700 hover:underline">
-              D8 digital nomad — €3 680/мес
-            </Link>
-            .
-          </p>
+          <section className="mt-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+            <h2 className="text-lg font-semibold text-slate-900">Короткий ответ: порог D7 для семьи (2026)</h2>
+            <p className="mt-2 text-sm leading-relaxed text-slate-700">
+              База — RMMG €920/мес на титуляра (Decreto-Lei 139/2025). Для семьи обычно: +50% супруг/а, +30% каждый
+              ребёнок до 18. Это минимум консульства, не бюджет жизни в Лиссабоне.
+            </p>
+            <div className="mt-4 overflow-x-auto">
+              <table className="w-full min-w-[28rem] border-collapse text-left text-sm">
+                <thead>
+                  <tr className="border-b border-slate-200 text-slate-500">
+                    <th className="py-2 pr-3 font-semibold">Состав</th>
+                    <th className="py-2 font-semibold">Минимум пассива / мес</th>
+                  </tr>
+                </thead>
+                <tbody className="text-slate-800">
+                  <tr className="border-b border-slate-100">
+                    <td className="py-2 pr-3">1 взрослый</td>
+                    <td className="py-2 font-semibold tabular-nums">€920</td>
+                  </tr>
+                  <tr className="border-b border-slate-100">
+                    <td className="py-2 pr-3">2 взрослых</td>
+                    <td className="py-2 font-semibold tabular-nums">€1 380</td>
+                  </tr>
+                  <tr className="border-b border-slate-100">
+                    <td className="py-2 pr-3">2 взрослых + 1 ребёнок</td>
+                    <td className="py-2 font-semibold tabular-nums">€1 656</td>
+                  </tr>
+                  <tr>
+                    <td className="py-2 pr-3">2 взрослых + 2 детей</td>
+                    <td className="py-2 font-semibold tabular-nums">€1 932</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p className="mt-4 text-sm text-slate-700">
+              Удалённый доход, а не пассивный:{" "}
+              <Link
+                href="/ru/portugal/programs/portugal-d8-digital-nomad"
+                className="font-semibold text-corridor-700 hover:underline"
+              >
+                D8 digital nomad — €3 680/мес
+              </Link>
+              .
+            </p>
+          </section>
         )}
         {program.slug === "portugal-d8-digital-nomad" && (
           <p className="mt-4 text-sm text-slate-700">
