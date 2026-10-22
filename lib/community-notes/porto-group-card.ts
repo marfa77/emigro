@@ -36,17 +36,22 @@ export function isCityLifeNote(note: CommunityNote): boolean {
   return LIFE_HINT.test(haystack(note));
 }
 
-/** Short discussion starter — one question + link. No guide dump. */
+/** Discussion starter for the city chat — one hook + one question, not a guide dump. */
 export function formatPortoGroupHtml(note: CommunityNote, noteUrl: string): string {
-  const { question } = discussionPromptForNote(note);
+  const title = escapeTelegramHtml(note.title.replace(/\s+/g, " ").trim().slice(0, 160));
+  const { hook, question } = discussionPromptForNote(note);
   const href = noteUrl.replace(/"/g, "&quot;");
 
   return [
+    `<b>${title}</b>`,
+    "",
+    escapeTelegramHtml(hook),
+    "",
     `<b>${escapeTelegramHtml(question)}</b>`,
     "",
     escapeTelegramHtml(PORTO_GROUP_REPLY_HINT),
     "",
-    `<a href="${href}">гайд</a>`,
+    href,
   ].join("\n");
 }
 

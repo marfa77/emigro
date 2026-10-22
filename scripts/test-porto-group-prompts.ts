@@ -58,11 +58,10 @@ const html = formatPortoGroupHtml(
   note({ slug: "porto-rajony-arenda-shkoly-parki-sport-2026", title: "Районы Порту" }),
   "https://portugal.emigro.online/notes/porto-rajony-arenda-shkoly-parki-sport-2026"
 );
+assert.match(html, /<b>Районы Порту<\/b>/);
 assert.match(html, /<b>Кто где живёт/);
 assert.ok(html.includes(PORTO_GROUP_REPLY_HINT));
-assert.match(html, /<a href="https:\/\/portugal\.emigro\.online\/notes\/porto-rajony/);
 assert.ok(!html.includes("• "));
-assert.ok(!html.includes("<b>Районы Порту</b>"));
 assert.ok(!html.includes("Гайд ·"));
 
 assert.equal(portoGroupGuideDue(undefined), true);

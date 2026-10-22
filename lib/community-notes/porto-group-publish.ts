@@ -127,7 +127,7 @@ export async function postNextPortoGroupNote(options?: {
   const state = loadPortoGroupPostedState(chatId);
 
   if (!options?.force && !portoGroupGuideDue(state.last_posted_at)) {
-    return { skipped: "interval (max 1 discussion / day)" };
+    return { skipped: "interval (max 1 discussion / 3 days)" };
   }
 
   if (slug) {

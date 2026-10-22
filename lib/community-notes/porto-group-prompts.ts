@@ -1,13 +1,12 @@
 import type { CommunityNote } from "@/lib/community-notes/types";
 
-/** Max one discussion question per calendar day in the Porto chat. */
-export const PORTO_GROUP_MIN_INTERVAL_MS = 24 * 60 * 60 * 1000;
+export const PORTO_GROUP_MIN_INTERVAL_MS = 3 * 24 * 60 * 60 * 1000;
 export const PORTO_GROUP_RECYCLE_AFTER_MS = 45 * 24 * 60 * 60 * 1000;
 /** Do not stack a news card on top of a fresh guide prompt. */
-export const PORTO_GROUP_NEWS_QUIET_AFTER_GUIDE_MS = 24 * 60 * 60 * 1000;
+export const PORTO_GROUP_NEWS_QUIET_AFTER_GUIDE_MS = 2 * 24 * 60 * 60 * 1000;
 
 export const PORTO_GROUP_REPLY_HINT =
-  "Можно одной строкой.";
+  "Можно одной строкой — даже если приехали на этой неделе.";
 
 type PromptRule = {
   re: RegExp;
