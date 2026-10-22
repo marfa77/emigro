@@ -42,6 +42,10 @@ const DAY_LOCK_FILE = path.join(OUT_DIR, "chatporto-day-lock.json");
 const NOISE =
   /продам|куплю|продаю|ваканси|ищу\s+работ|работа\s+в\s+порту|объявлен|подработк|оплата:\s*\d+|instagram\.com\/reel|ищу\s+девушк|знакомств/i;
 
+/** No Emigro note inventory — skip “кто знает контакты …” service hunting. */
+const OUT_OF_SCOPE =
+  /трихолог|дерматолог|стоматолог|гинеколог|психолог|парикмахер|маникюр|косметолог|репетитор|няня|таксист|русскоязычн\w*\s+такси|контакт\w*\s+(?:русско|такси|врач|клиник)|посоветуйте\s+такси|uber|bolt/i;
+
 const QUESTIONISH =
   /\?|подскаж|посовет|порекоменд|кто\s+знает|как\s+(?:получить|оформить|сделать|найти|можно)|где\s+(?:можно|взять|оформ|сделать)|можно\s+ли|нужна?\s+(?:помощ|подсказ)|ищу\s+(?!работ)|правда\s+ли/i;
 
@@ -179,78 +183,100 @@ async function main() {
   const msgs = fetchMessages(hours);
   console.error(`[chatporto] fetched ${msgs.length} msgs / last ${hours}h`);
 
-  const candidates: Array<{ msg: FetchedMsg; score: number; topicLabel: string }> = [];
+  const candidates: Array<{
+    msg: FetchedMsg;
+    score: number;
+    topicLabel: string;
+    noteSlug: string;
+  }> = [];
 
   for (const msg of msgs) {
     const key = seenKey(msg.id);
     if (seen.has(key)) continue;
     if (msg.reply_to) continue;
     if (NOISE.test(msg.text)) continue;
+    if (OUT_OF_SCOPE.test(msg.text)) continue;
     if (!QUESTIONISH.test(msg.text) && !msg.text.includes("?")) continue;
     const matches = matchChatportoTopics(msg.text);
     const top = matches[0];
-    const score = Math.max(top?.score ?? CHATPORTO_MIN_SCORE, CHATPORTO_MIN_SCORE);
+    // Only inventory hits — no floor for “any question in the chat”.
+    if (!top || top.score < CHATPORTO_MIN_SCORE) continue;
     candidates.push({
       msg,
-      score,
-      topicLabel: top?.topic.label || "Porto / Norte · быт",
+      score: top.score,
+      topicLabel: top.topic.label,
+      noteSlug: top.topic.noteSlug,
     });
   }
 
   candidates.sort((a, b) => b.score - a.score);
-  const best = candidates[0];
-  console.error(`[chatporto] candidates=${candidates.length} pick=${best ? best.msg.id : "none"}`);
+  console.error(
+    `[chatporto] candidates=${candidates.length}` +
+      (candidates[0] ? ` top=${candidates[0].msg.id}:${candidates[0].topicLabel}` : "")
+  );
 
-  if (!best) {
-    const status = `chatporto · ${hours}h · вопросов нет (норм)`;
+  if (candidates.length === 0) {
+    const status = `chatporto · ${hours}h · нет вопроса с гайдом (норм)`;
     console.error(status);
     if (!dry && chatId) await sendDm(chatId, status);
     return;
   }
 
-  const produced = await produceChatportoReply({
-    question: best.msg.text,
-    topicLabel: best.topicLabel,
-  });
+  const maxTries = Math.min(3, candidates.length);
+  let sent = false;
 
-  seen.add(seenKey(best.msg.id));
-  saveSeen(seen);
+  for (let i = 0; i < maxTries; i++) {
+    const best = candidates[i]!;
+    const produced = await produceChatportoReply({
+      question: best.msg.text,
+      topicLabel: best.topicLabel,
+    });
 
-  if (!produced.reply) {
-    const skip = `chatporto SKIP · ${best.msg.url}\n${produced.skipReason || "no reply"}`;
-    console.error(skip);
-    if (!dry && chatId) await sendDm(chatId, skip);
-    return;
-  }
+    seen.add(seenKey(best.msg.id));
+    saveSeen(seen);
 
-  const ops = chatportoOpsLink(best.msg.text);
-  const factLine =
-    produced.factVerdict === "revise"
-      ? `factcheck: ok (revise) · ${produced.factReason || ""}`
-      : `factcheck: ok · ${produced.factReason || "pass"}`;
-  const reply = produced.reply.trim();
-  if (!reply || reply.includes("http") || /фактcheck|тема:|score=/i.test(reply)) {
-    throw new Error("refusing dirty reply body");
-  }
-
-  // Separate DMs so you long-press → copy each piece (milan4at style).
-  const parts = [
-    best.msg.url.trim(),
-    factLine,
-    reply,
-    ops.noteUrl || `chatporto · гайд нет (тема: ${best.topicLabel}, score=${best.score})`,
-  ];
-
-  console.log(`\n[1] ${parts[0]}\n[2] ${parts[1]}\n[3] ${parts[2]}\n[4] ${parts[3]}\n`);
-
-  if (!dry && chatId) {
-    for (const part of parts) {
-      await sendDm(chatId, part);
+    if (!produced.reply) {
+      console.error(`[chatporto] skip ${best.msg.id}: ${produced.skipReason}`);
+      continue;
     }
-    markSentToday({ msgId: best.msg.id, url: best.msg.url });
-    console.error(`[chatporto] DM×${parts.length} → ${chatId}`);
-  } else {
-    console.log(`[dry] would DM×${parts.length}`);
+
+    const ops = chatportoOpsLink(best.msg.text);
+    const noteUrl = ops.noteUrl;
+    if (!noteUrl) {
+      console.error(`[chatporto] skip ${best.msg.id}: no note url`);
+      continue;
+    }
+
+    const factLine =
+      produced.factVerdict === "revise"
+        ? `factcheck: ok (revise) · ${produced.factReason || ""}`
+        : `factcheck: ok · ${produced.factReason || "pass"}`;
+    const reply = produced.reply.trim();
+    if (!reply || /https?:\/\//i.test(reply) || /тема:|score=/i.test(reply)) {
+      console.error(`[chatporto] skip ${best.msg.id}: dirty reply`);
+      continue;
+    }
+
+    const parts = [best.msg.url.trim(), factLine, reply, noteUrl];
+    console.log(`\n[1] ${parts[0]}\n[2] ${parts[1]}\n[3] ${parts[2]}\n[4] ${parts[3]}\n`);
+
+    if (!dry && chatId) {
+      for (const part of parts) {
+        await sendDm(chatId, part);
+      }
+      markSentToday({ msgId: best.msg.id, url: best.msg.url });
+      console.error(`[chatporto] DM×${parts.length} → ${chatId}`);
+    } else {
+      console.log(`[dry] would DM×${parts.length}`);
+    }
+    sent = true;
+    break;
+  }
+
+  if (!sent) {
+    const status = `chatporto · ${hours}h · кандидаты были, черновик не прошёл`;
+    console.error(status);
+    if (!dry && chatId) await sendDm(chatId, status);
   }
 }
 

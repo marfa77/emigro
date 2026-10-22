@@ -12,7 +12,8 @@ export type ChatportoTopic = {
   weight: number;
 };
 
-export const CHATPORTO_MIN_SCORE = 20;
+/** Must clear a real inventory hit — no “any chat question” floor. */
+export const CHATPORTO_MIN_SCORE = 36;
 
 export const CHATPORTO_TOPICS: ChatportoTopic[] = [
   {
