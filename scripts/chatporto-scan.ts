@@ -228,29 +228,29 @@ async function main() {
     produced.factVerdict === "revise"
       ? `factcheck: ok (revise) · ${produced.factReason || ""}`
       : `factcheck: ok · ${produced.factReason || "pass"}`;
+  const reply = produced.reply.trim();
+  if (!reply || reply.includes("http") || /фактcheck|тема:|score=/i.test(reply)) {
+    throw new Error("refusing dirty reply body");
+  }
 
-  const bundle = [
-    "chatporto · черновик (вставь от себя)",
-    "",
-    best.msg.url,
-    "",
-    "--- COPY ---",
-    produced.reply,
-    "--- END ---",
-    "",
+  // Separate DMs so you long-press → copy each piece (milan4at style).
+  const parts = [
+    best.msg.url.trim(),
     factLine,
-    ops.noteUrl ? `гайд: ${ops.noteUrl}` : "гайд: (слабый матч — ссылку решай сам)",
-    `тема: ${best.topicLabel} · score=${best.score}`,
-  ].join("\n");
+    reply,
+    ops.noteUrl || `chatporto · гайд нет (тема: ${best.topicLabel}, score=${best.score})`,
+  ];
 
-  console.log(`\n${bundle}\n`);
+  console.log(`\n[1] ${parts[0]}\n[2] ${parts[1]}\n[3] ${parts[2]}\n[4] ${parts[3]}\n`);
 
   if (!dry && chatId) {
-    await sendDm(chatId, bundle);
+    for (const part of parts) {
+      await sendDm(chatId, part);
+    }
     markSentToday({ msgId: best.msg.id, url: best.msg.url });
-    console.error(`[chatporto] DM → ${chatId}`);
+    console.error(`[chatporto] DM×${parts.length} → ${chatId}`);
   } else {
-    console.log("[dry] would DM bundle + mark day lock");
+    console.log(`[dry] would DM×${parts.length}`);
   }
 }
 
