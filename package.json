@@ -17,6 +17,8 @@
     "db:types": "supabase gen types typescript --linked > lib/supabase/database.types.ts",
     "news:weekly": "tsx scripts/run-weekly-news.ts",
     "agent:ask": "tsx scripts/agent-ask.ts",
+    "tax:report": "tsx scripts/tax-cockpit-cli.ts report",
+    "tax:ask": "tsx scripts/tax-cockpit-cli.ts ask",
     "news:import-prep2go": "tsx scripts/import-prep2go-news.ts",
     "news:import-prep2go:daily": "tsx scripts/import-prep2go-news.ts --daily",
     "news:portugal-stories": "tsx scripts/run-portugal-news-stories.ts",

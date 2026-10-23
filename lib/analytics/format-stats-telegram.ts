@@ -4,6 +4,8 @@ import {
   deltaLine,
   type StatsReport,
 } from "@/lib/analytics/stats";
+import type { TaxFunnel7d } from "@/lib/tax-cockpit/analytics";
+import { summarizeTaxFunnel7d } from "@/lib/tax-cockpit/analytics";
 import { formatRevolutReferralTelegramLine } from "@/lib/partners/revolut-referral";
 import { formatWiseReferralTelegramLine } from "@/lib/partners/wise-referral";
 
@@ -325,6 +327,17 @@ function fmtGscLine(report: StatsReport): string[] {
   ];
 }
 
+function fmtTaxFunnel7d(funnel: TaxFunnel7d): string[] {
+  const returnPct =
+    funnel.distinctOpenUsers > 0
+      ? Math.round((funnel.returnWithin7dUsers / funnel.distinctOpenUsers) * 100)
+      : 0;
+  return [
+    "<b>🧾 Налоги · 7д</b>",
+    `open <b>${funnel.taxOpen}</b> · tickets ${funnel.ticketAdd} · reports ${funnel.residencyReport} · counsel ${funnel.counselAsk} · users ${funnel.distinctOpenUsers} · return_7d ${returnPct}%`,
+  ];
+}
+
 function fmtTrend(report: StatsReport): string[] {
   if (!report.trend.length) return [];
   const lines = ["<b>Динамика 7 дней</b> (посетители / просмотры)"];
@@ -339,12 +352,28 @@ function fmtTrend(report: StatsReport): string[] {
  * Compact operator pulse for Telegram /stats.
  * Admin dashboard keeps the full data model — this is presentation only.
  */
-export function formatStatsReportTelegram(report: StatsReport): string {
+export function formatStatsReportTelegram(
+  report: StatsReport,
+  taxFunnel?: TaxFunnel7d | null
+): string {
   const lines: string[] = [
     ...fmtPulse(report),
     ...fmtLocaleLines(report),
     "",
     ...fmtPortfolio(report),
+  ];
+
+  if (
+    taxFunnel &&
+    (taxFunnel.taxOpen > 0 ||
+      taxFunnel.ticketAdd > 0 ||
+      taxFunnel.residencyReport > 0 ||
+      taxFunnel.counselAsk > 0)
+  ) {
+    lines.push("", ...fmtTaxFunnel7d(taxFunnel));
+  }
+
+  lines.push(
     "",
     ...fmtAcquisition(report),
     "",
@@ -376,6 +405,9 @@ export function formatStatsReportTelegram(report: StatsReport): string {
 }
 
 export async function buildTelegramStatsReport(): Promise<string> {
-  const report = await buildStatsReport();
-  return formatStatsReportTelegram(report);
+  const [report, taxFunnel] = await Promise.all([
+    buildStatsReport(),
+    summarizeTaxFunnel7d(),
+  ]);
+  return formatStatsReportTelegram(report, taxFunnel);
 }
