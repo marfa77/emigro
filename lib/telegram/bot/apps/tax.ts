@@ -1,10 +1,11 @@
 import { emitBotEvent } from "@/lib/tax-cockpit/analytics";
-import { parseManualPresenceText } from "@/lib/tax-cockpit/ingest";
+import { extractLegsFromTicketMedia, parseManualPresenceText } from "@/lib/tax-cockpit/ingest";
 import { addPresence, ensureLedger, listPresence } from "@/lib/tax-cockpit/ledger";
 import { evaluateResidency, RESIDENCY_DISCLAIMER_RU } from "@/lib/tax-cockpit/residency";
 import { formatResidencyReportHtml } from "@/lib/tax-cockpit/report";
-import type { PresenceInterval } from "@/lib/tax-cockpit/types";
+import type { PresenceInterval, PresenceSource } from "@/lib/tax-cockpit/types";
 import { answerStatsBotCallback, sendStatsBotMessage } from "@/lib/telegram/admin-bot";
+import { downloadTelegramFile } from "@/lib/telegram/bot/download-file";
 import { isGlobalCommand, sendHome } from "@/lib/telegram/bot/home";
 import { inlineRows } from "@/lib/telegram/bot/markup";
 import { clearSession, setSession } from "@/lib/telegram/bot/session";
@@ -40,11 +41,15 @@ function parsePendingLegs(raw: unknown): PresenceInterval[] {
       typeof row.startDate === "string" &&
       typeof row.endDate === "string"
     ) {
+      const source: PresenceSource =
+        row.source === "ticket" || row.source === "import" || row.source === "manual"
+          ? row.source
+          : "manual";
       legs.push({
         countryIso2: row.countryIso2,
         startDate: row.startDate,
         endDate: row.endDate,
-        source: "manual",
+        source,
       });
     }
   }
@@ -202,10 +207,15 @@ export async function continueTax(
       try {
         const ledger = await ensureLedger(ctx.userId, payload.year);
         await addPresence(ledger.id, legs);
+        const source = legs.every((l) => l.source === "ticket")
+          ? "ticket"
+          : legs.every((l) => l.source === "manual")
+            ? "manual"
+            : "import";
         await emitBotEvent(ctx.userId, "ticket_add", {
           year: payload.year,
           count: legs.length,
-          source: "manual",
+          source,
         });
         await sendHub(ctx, payload.year);
       } catch (e) {
@@ -241,11 +251,88 @@ export async function continueTax(
   }
 
   if (incoming.kind === "media") {
-    await sendStatsBotMessage(
-      ctx.chatId,
-      "Фото и билеты — скоро, следующий шаг. Пока введите даты текстом через «Ввести даты».",
-      { parseMode: "HTML", replyMarkup: taxHubKeyboard(payload.year) }
-    );
+    const mediaStep = step ?? "hub";
+    if (mediaStep !== "hub" && mediaStep !== "manual_wait") {
+      await sendStatsBotMessage(
+        ctx.chatId,
+        "Фото билета можно отправить из главного экрана «Налоги» или после «Ввести даты».",
+        { parseMode: "HTML", replyMarkup: taxHubKeyboard(payload.year) }
+      );
+      return;
+    }
+
+    const fileId = incoming.photoFileId ?? incoming.documentFileId;
+    const mime =
+      incoming.mimeType ??
+      (incoming.photoFileId ? "image/jpeg" : incoming.documentFileId ? "application/octet-stream" : "");
+
+    if (!fileId) {
+      await sendStatsBotMessage(
+        ctx.chatId,
+        "Не удалось получить файл. Пришлите фото или PDF билета ещё раз.",
+        { parseMode: "HTML", replyMarkup: taxHubKeyboard(payload.year) }
+      );
+      return;
+    }
+
+    const allowed =
+      mime.startsWith("image/") ||
+      mime === "application/pdf" ||
+      (incoming.photoFileId != null && !incoming.documentFileId);
+    if (!allowed) {
+      await sendStatsBotMessage(
+        ctx.chatId,
+        ["Поддерживаются фото билета и PDF.", "", MANUAL_FORMAT].join("\n"),
+        { parseMode: "HTML", replyMarkup: taxHubKeyboard(payload.year) }
+      );
+      return;
+    }
+
+    await sendStatsBotMessage(ctx.chatId, "⏳ Читаю билет…", { parseMode: "HTML" });
+
+    const buffer = await downloadTelegramFile(fileId);
+    if (!buffer) {
+      await sendStatsBotMessage(
+        ctx.chatId,
+        "Не удалось скачать файл (слишком большой или ошибка Telegram). Введите даты текстом.",
+        { parseMode: "HTML", replyMarkup: taxHubKeyboard(payload.year) }
+      );
+      return;
+    }
+
+    const effectiveMime = incoming.photoFileId && !mime.startsWith("image/") ? "image/jpeg" : mime;
+
+    try {
+      const { legs, errors, rawNotes } = await extractLegsFromTicketMedia(
+        buffer,
+        effectiveMime,
+        incoming.caption
+      );
+      if (legs.length === 0) {
+        const errBlock =
+          errors.length > 0
+            ? errors.map((e) => `⚠️ ${e}`).join("\n")
+            : "⚠️ Не удалось прочитать билет.";
+        await sendStatsBotMessage(
+          ctx.chatId,
+          [`<b>Билет не разобран</b>`, errBlock, "", MANUAL_FORMAT].join("\n"),
+          { parseMode: "HTML", replyMarkup: taxHubKeyboard(payload.year) }
+        );
+        await persist(ctx, mediaStep === "manual_wait" ? "manual_wait" : "hub", { year: payload.year });
+        return;
+      }
+      const confirmHints = [...errors];
+      if (rawNotes?.trim()) {
+        confirmHints.push(`Заметка модели: ${rawNotes.trim().slice(0, 300)}`);
+      }
+      await showIngestConfirm(ctx, payload.year, legs, confirmHints);
+    } catch (e) {
+      await sendStatsBotMessage(
+        ctx.chatId,
+        `Не удалось обработать билет: ${e instanceof Error ? e.message : "ошибка"}. ${MANUAL_FORMAT}`,
+        { parseMode: "HTML", replyMarkup: taxHubKeyboard(payload.year) }
+      );
+    }
     return;
   }
 

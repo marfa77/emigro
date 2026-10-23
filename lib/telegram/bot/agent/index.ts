@@ -1,5 +1,6 @@
 import { createAdminClient } from "@/lib/admin/supabase";
 import { isAdminTelegramChat, sendStatsBotMessage, statsBotToken } from "@/lib/telegram/admin-bot";
+import { downloadTelegramFile } from "@/lib/telegram/bot/download-file";
 import { runAgentWithFallback, type Content, type Part, type Source } from "@/lib/telegram/bot/agent/gemini";
 import { agentSystemPrompt } from "@/lib/telegram/bot/agent/prompt";
 import { AGENT_FUNCTIONS, callAgentTool } from "@/lib/telegram/bot/agent/tools";
@@ -9,8 +10,6 @@ import type { TelegramMessage, TelegramUpdate } from "@/lib/telegram/bot/types";
 
 const HISTORY_LIMIT = 20;
 const HISTORY_WINDOW_MS = 3 * 24 * 60 * 60 * 1000;
-const MAX_MEDIA_BYTES = 15 * 1024 * 1024;
-
 const HELP = `🧠 <b>Маркетолог Emigro</b> — SEO, AEO, SMM и воронка. Пишите текстом, голосом или присылайте скриншоты (выдача, аналитика, пост конкурента).
 
 Примеры:
@@ -49,17 +48,6 @@ async function tg(method: string, body: Record<string, unknown>): Promise<Record
 }
 
 const typing = (chatId: number | string) => tg("sendChatAction", { chat_id: chatId, action: "typing" });
-
-async function downloadFile(fileId: string): Promise<Buffer | null> {
-  const token = statsBotToken();
-  const info = await tg("getFile", { file_id: fileId });
-  const filePath = (info?.result as { file_path?: string; file_size?: number } | undefined)?.file_path;
-  if (!token || !filePath) return null;
-  const res = await fetch(`https://api.telegram.org/file/bot${token}/${filePath}`);
-  if (!res.ok) return null;
-  const buf = Buffer.from(await res.arrayBuffer());
-  return buf.length > MAX_MEDIA_BYTES ? null : buf;
-}
 
 async function loadHistory(userId: number): Promise<Content[]> {
   try {
@@ -115,7 +103,7 @@ async function reply(chatId: number | string, html: string): Promise<void> {
 /** Turns a Telegram message into model input; null when the message is not for the agent. */
 async function toUserParts(message: TelegramMessage, text: string): Promise<{ parts: Part[]; log: string } | null> {
   if (message.voice) {
-    const buf = await downloadFile(message.voice.file_id);
+    const buf = await downloadTelegramFile(message.voice.file_id);
     if (!buf) return { parts: [{ text: "(не удалось скачать голосовое)" }], log: "🎤 голосовое" };
     return {
       parts: [{ text: "Голосовое сообщение Павла:" }, { inline_data: { mime_type: message.voice.mime_type || "audio/ogg", data: buf.toString("base64") } }],
@@ -125,7 +113,7 @@ async function toUserParts(message: TelegramMessage, text: string): Promise<{ pa
   const photo = message.photo?.[message.photo.length - 1];
   const image = photo?.file_id ?? (message.document?.mime_type?.startsWith("image/") ? message.document.file_id : undefined);
   if (image) {
-    const buf = await downloadFile(image);
+    const buf = await downloadTelegramFile(image);
     const q = text || "Разбери скриншот как маркетолог: что видно, выводы, что делать.";
     if (!buf) return { parts: [{ text: q }], log: `🖼 ${q}` };
     const mime = photo ? "image/jpeg" : message.document!.mime_type!;
