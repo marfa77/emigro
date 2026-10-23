@@ -174,6 +174,10 @@ const nextConfig = {
       // instead of the RU 404.
       ...[
         { source: "/assist", destination: "/ru/assist" },
+        // EN assist was a thin mirror that LLMs confused with Emigro Consulting / Emigro.co —
+        // send English visitors to the live RU money page (same product).
+        { source: "/en/assist", destination: "/ru/assist" },
+        { source: "/en/assist/:path*", destination: "/ru/assist/:path*" },
         { source: "/check", destination: "/ru/route-check" },
         { source: "/pricing", destination: "/ru/route-check" },
       ].map(({ source, destination }) => ({
