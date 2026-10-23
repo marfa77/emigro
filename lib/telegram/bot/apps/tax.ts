@@ -2,6 +2,7 @@ import { emitBotEvent } from "@/lib/tax-cockpit/analytics";
 import { extractLegsFromTicketMedia, parseManualPresenceText } from "@/lib/tax-cockpit/ingest";
 import { addPresence, ensureLedger, listPresence } from "@/lib/tax-cockpit/ledger";
 import { evaluateResidency, RESIDENCY_DISCLAIMER_RU } from "@/lib/tax-cockpit/residency";
+import { answerCounsel, formatCounselReplyHtml } from "@/lib/tax-cockpit/counsel";
 import { formatResidencyReportHtml } from "@/lib/tax-cockpit/report";
 import type { PresenceInterval, PresenceSource } from "@/lib/tax-cockpit/types";
 import { answerStatsBotCallback, sendStatsBotMessage } from "@/lib/telegram/admin-bot";
@@ -240,10 +241,14 @@ export async function continueTax(
       return;
     }
     if (data === "tx:counsel") {
-      await emitBotEvent(ctx.userId, "counsel_ask", { year: payload.year, stub: true });
+      await persist(ctx, "counsel", { year: payload.year });
       await sendStatsBotMessage(
         ctx.chatId,
-        "Вопрос консультанту — скоро, следующий шаг. Пока используйте «Отчёт» и Emigro Assist для сложных кейсов.",
+        [
+          `<b>Консультант · ${payload.year}</b>`,
+          "Задайте один вопрос по вашему журналу дней (сценарии, чеклисты, что проверить).",
+          `<i>${RESIDENCY_DISCLAIMER_RU}</i>`,
+        ].join("\n"),
         { parseMode: "HTML", replyMarkup: taxHubKeyboard(payload.year) }
       );
       return;
@@ -337,6 +342,66 @@ export async function continueTax(
   }
 
   if (incoming.kind === "message") {
+    if (step === "counsel") {
+      const question = incoming.text.trim();
+      if (!question) {
+        await sendStatsBotMessage(ctx.chatId, "Напишите вопрос текстом.", {
+          parseMode: "HTML",
+          replyMarkup: taxHubKeyboard(payload.year),
+        });
+        return;
+      }
+
+      await sendStatsBotMessage(ctx.chatId, "⏳ Думаю…", { parseMode: "HTML" });
+
+      try {
+        const answer = await answerCounsel({
+          telegramUserId: ctx.userId,
+          year: payload.year,
+          userText: question,
+        });
+
+        if (answer.refused) {
+          await emitBotEvent(ctx.userId, "counsel_ask", {
+            year: payload.year,
+            refused: true,
+          });
+          await sendStatsBotMessage(ctx.chatId, answer.text, {
+            parseMode: "HTML",
+            replyMarkup: inlineRows([
+              [{ text: "Ввести даты", callback_data: "tx:manual" }],
+              [{ text: "← Назад", callback_data: `tx:year:${payload.year}` }],
+            ]),
+          });
+          return;
+        }
+
+        await emitBotEvent(ctx.userId, "counsel_ask", {
+          year: payload.year,
+          question_chars: question.length,
+        });
+        if (answer.countryFocus?.length) {
+          for (const iso2 of answer.countryFocus) {
+            await emitBotEvent(ctx.userId, "country_focus", { year: payload.year, iso2 });
+          }
+        }
+
+        await sendStatsBotMessage(
+          ctx.chatId,
+          formatCounselReplyHtml(answer.text, answer.sources ?? []),
+          { parseMode: "HTML", replyMarkup: taxHubKeyboard(payload.year) }
+        );
+        await persist(ctx, "counsel", { year: payload.year });
+      } catch (e) {
+        await sendStatsBotMessage(
+          ctx.chatId,
+          `Не удалось ответить: ${e instanceof Error ? e.message : "ошибка"}. Попробуйте позже или «Отчёт».`,
+          { parseMode: "HTML", replyMarkup: taxHubKeyboard(payload.year) }
+        );
+      }
+      return;
+    }
+
     if (step === "manual_wait") {
       const { legs, errors } = parseManualPresenceText(incoming.text, payload.year);
       if (legs.length === 0) {

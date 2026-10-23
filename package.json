@@ -74,6 +74,7 @@
     "test:tax-residency": "tsx scripts/test-tax-residency.ts",
     "test:tax-ingest-manual": "tsx scripts/test-tax-ingest-manual.ts",
     "test:tax-ingest-ticket": "tsx scripts/test-tax-ingest-ticket.ts",
+    "test:tax-counsel-empty": "tsx scripts/test-tax-counsel-empty.ts",
     "telegram:poll-local": "tsx scripts/telegram-poll-local.ts",
     "social:subscribers": "tsx scripts/social-subscribers-daily.ts",
     "stats:test": "tsx scripts/test-stats-dashboard.ts && tsx scripts/test-revolut-referral.ts && tsx scripts/test-wise-referral.ts && tsx scripts/test-referral-inline.ts",
