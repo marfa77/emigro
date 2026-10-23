@@ -26,6 +26,7 @@ export function parseAppSlashCommand(text: string): BotDeepLink | null {
   if (/^\/(?:assist|help|pomosh|помощь)(?:@\w+)?$/i.test(t)) return { app: "assist" };
   if (/^\/(?:property|invest|недвижка)(?:@\w+)?$/i.test(t)) return { app: "property" };
   if (/^\/(?:chat|city)(?:@\w+)?$/i.test(t)) return { app: "city" };
+  if (/^\/(?:tax|налоги)(?:@\w+)?$/i.test(t)) return { app: "tax" };
   return null;
 }
 
@@ -35,6 +36,7 @@ export function isUserAppCallback(data: string): boolean {
     data.startsWith("pr:") ||
     data.startsWith("iv:") ||
     data.startsWith("city:") ||
+    data.startsWith("tx:") ||
     data.startsWith("home:") ||
     Boolean(parseNewsBotCallback(data))
   );
@@ -69,6 +71,7 @@ export function decideUserRoute(input: {
     if (menu === "Помощь") return { type: "open", link: { app: "assist" } };
     if (menu === "Недвижка") return { type: "open", link: { app: "property" } };
     if (menu === "Чат города") return { type: "open", link: { app: "city" } };
+    if (menu === "Налоги") return { type: "open", link: { app: "tax" } };
 
     const slash = parseAppSlashCommand(text);
     if (slash) return { type: "open", link: slash };
@@ -78,7 +81,10 @@ export function decideUserRoute(input: {
     if (parseNewsBotIntent(text)) return { type: "news" };
     const city = matchCityChatKeyword(text);
     if (city) return { type: "city-keyword", countryKey: city.countryKey };
-    return { type: "home", hint: "Выберите пункт меню ниже — новости, помощь, недвижка или чат города." };
+    return {
+      type: "home",
+      hint: "Выберите пункт меню ниже — новости, помощь, недвижка, чат города или налоги.",
+    };
   }
 
   if (data) {
@@ -94,6 +100,7 @@ export function decideUserRoute(input: {
       return { type: "open", link: { app: "city", countryKey: countryKey || undefined } };
     }
     if (data.startsWith("iv:")) return { type: "dispatch", app: "invest" };
+    if (data.startsWith("tx:")) return { type: "continue-session" };
     if (input.hasLiveSession) return { type: "continue-session" };
     if (data.startsWith("as:")) return { type: "dispatch", app: "assist" };
     if (data.startsWith("pr:")) return { type: "dispatch", app: "property" };

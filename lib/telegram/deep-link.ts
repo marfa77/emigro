@@ -180,6 +180,13 @@ export function parseBotStartPayload(payload: string): BotDeepLink | null {
   if (clean === "property_uae") return { app: "property", dest: "uae" };
   if (clean === "property_thailand" || clean === "property_th") return { app: "property", dest: "thailand" };
 
+  if (clean === "tax") return { app: "tax" };
+  const taxYear = clean.match(/^tax[_-](20\d{2})$/);
+  if (taxYear) {
+    const year = Number(taxYear[1]);
+    if (year >= 2020 && year <= 2100) return { app: "tax", year };
+  }
+
   const assist = parseAssistPayload(clean);
   if (assist) return assist;
 

@@ -8,6 +8,7 @@ import { continueCity, startCity } from "@/lib/telegram/bot/apps/city";
 import { continueInvest, startInvest } from "@/lib/telegram/bot/apps/invest";
 import { continueNews, startNews } from "@/lib/telegram/bot/apps/news";
 import { continueProperty, startProperty } from "@/lib/telegram/bot/apps/property";
+import { continueTax, startTax } from "@/lib/telegram/bot/apps/tax";
 import { continueWizardHomeAssist, startWizard } from "@/lib/telegram/bot/apps/wizard";
 import type { BotDeepLink, BotIncoming, BotUserCtx, TelegramUpdate } from "@/lib/telegram/bot/types";
 
@@ -37,11 +38,47 @@ function toCtx(update: TelegramUpdate): BotUserCtx | null {
   };
 }
 
+function messageFromUpdate(update: TelegramUpdate): TelegramUpdate["message"] {
+  return update.message || update.edited_message;
+}
+
 function toIncoming(update: TelegramUpdate): BotIncoming | null {
   const cb = update.callback_query;
   if (cb?.id && cb.data) return { kind: "callback", id: cb.id, data: cb.data };
-  const text = (update.message || update.edited_message)?.text;
+
+  const message = messageFromUpdate(update);
+  if (!message) return null;
+
+  const photos = message.photo;
+  if (photos?.length) {
+    const photoFileId = photos[photos.length - 1]?.file_id;
+    if (photoFileId) {
+      return {
+        kind: "media",
+        caption: message.caption ?? "",
+        photoFileId,
+      };
+    }
+  }
+
+  const doc = message.document;
+  if (doc?.file_id) {
+    return {
+      kind: "media",
+      caption: message.caption ?? "",
+      documentFileId: doc.file_id,
+      mimeType: doc.mime_type,
+      fileName: doc.file_name,
+    };
+  }
+
+  const text = message.text;
   if (typeof text === "string") return { kind: "message", text };
+
+  if (typeof message.caption === "string" && message.caption.length > 0) {
+    return { kind: "media", caption: message.caption };
+  }
+
   return null;
 }
 
@@ -82,6 +119,10 @@ async function openApp(ctx: BotUserCtx, link: BotDeepLink, incoming: BotIncoming
   }
   if (link.app === "invest") {
     await startInvest(ctx, link.key, link.locale);
+    return;
+  }
+  if (link.app === "tax") {
+    await startTax(ctx, link.year);
   }
 }
 
@@ -106,6 +147,10 @@ async function continueApp(ctx: BotUserCtx, incoming: BotIncoming): Promise<void
   if (session.app === "news") {
     const handled = await continueNews(ctx, incoming);
     if (!handled) await startNews(ctx);
+    return;
+  }
+  if (session.app === "tax") {
+    await continueTax(ctx, incoming, session.payload, session.step);
   }
 }
 
@@ -118,6 +163,16 @@ export async function routeTelegramUpdate(update: TelegramUpdate): Promise<void>
 
   await upsertBotUser(ctx);
   const session = await getLiveSession(ctx.userId);
+
+  if (incoming.kind === "media") {
+    if (session) {
+      await continueApp(ctx, incoming);
+      return;
+    }
+    await sendHome(ctx, "Отправьте фото или документ внутри «Налоги» — откройте пункт меню.");
+    return;
+  }
+
   const action = decideUserRoute({
     text: incoming.kind === "message" ? incoming.text : undefined,
     callbackData: incoming.kind === "callback" ? incoming.data : undefined,

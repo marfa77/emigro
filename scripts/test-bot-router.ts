@@ -39,6 +39,21 @@ assert.deepEqual(decideUserRoute({ text: "Помощь", hasLiveSession: false }
   type: "open",
   link: { app: "assist" },
 });
+assert.deepEqual(decideUserRoute({ text: "Налоги", hasLiveSession: false }), {
+  type: "open",
+  link: { app: "tax" },
+});
+assert.deepEqual(parseAppSlashCommand("/tax"), { app: "tax" });
+assert.deepEqual(parseAppSlashCommand("/налоги"), { app: "tax" });
+assert.deepEqual(decideUserRoute({ text: "/tax", hasLiveSession: true }), {
+  type: "open",
+  link: { app: "tax" },
+});
+assert.deepEqual(parseBotStartPayload("tax_2026"), { app: "tax", year: 2026 });
+assert.deepEqual(decideUserRoute({ text: "/start tax_2026", hasLiveSession: false }), {
+  type: "open",
+  link: { app: "tax", year: 2026 },
+});
 assert.deepEqual(decideUserRoute({ text: "/property", hasLiveSession: false }), {
   type: "open",
   link: { app: "property" },

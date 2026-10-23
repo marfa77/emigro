@@ -1,0 +1,168 @@
+import { emitBotEvent } from "@/lib/tax-cockpit/analytics";
+import { ensureLedger, listPresence } from "@/lib/tax-cockpit/ledger";
+import { evaluateResidency, RESIDENCY_DISCLAIMER_RU } from "@/lib/tax-cockpit/residency";
+import { formatResidencyReportHtml } from "@/lib/tax-cockpit/report";
+import { answerStatsBotCallback, sendStatsBotMessage } from "@/lib/telegram/admin-bot";
+import { isGlobalCommand, sendHome } from "@/lib/telegram/bot/home";
+import { inlineRows } from "@/lib/telegram/bot/markup";
+import { clearSession, setSession } from "@/lib/telegram/bot/session";
+import type { BotIncoming, BotUserCtx } from "@/lib/telegram/bot/types";
+
+type TaxPayload = { year: number };
+
+const MANUAL_FORMAT = [
+  "Формат (одна строка = одна поездка):",
+  "<code>PT 2026-01-10..2026-03-01</code>",
+  "<code>AE 2026-03-01..2026-06-15</code>",
+  "",
+  "Или по-русски: <code>Португалия 10.01.2026 - 01.03.2026</code>",
+].join("\n");
+
+function asPayload(raw: Record<string, unknown> | undefined): TaxPayload {
+  const year = typeof raw?.year === "number" ? raw.year : new Date().getUTCFullYear();
+  return { year };
+}
+
+function clampTaxYear(year: number): number {
+  if (year >= 2020 && year <= 2100) return year;
+  return new Date().getUTCFullYear();
+}
+
+function hubHtml(year: number): string {
+  return [
+    `<b>Налоги · ${year}</b>`,
+    "Учёт дней присутствия по странам → светофор (ориентир, не статус резидента).",
+    `<i>${RESIDENCY_DISCLAIMER_RU}</i>`,
+    "",
+    "Смените год кнопками ниже или выберите действие.",
+  ].join("\n");
+}
+
+function taxHubKeyboard(year: number) {
+  return inlineRows([
+    [
+      { text: "Ввести даты", callback_data: "tx:manual" },
+      { text: "Отчёт", callback_data: "tx:report" },
+    ],
+    [{ text: "Вопрос консультанту", callback_data: "tx:counsel" }],
+    [
+      { text: String(year - 1), callback_data: `tx:year:${year - 1}` },
+      { text: String(year), callback_data: `tx:year:${year}` },
+      { text: String(year + 1), callback_data: `tx:year:${year + 1}` },
+    ],
+  ]);
+}
+
+async function persist(ctx: BotUserCtx, step: string, payload: TaxPayload): Promise<void> {
+  await setSession({ telegramUserId: ctx.userId, app: "tax", step, payload });
+}
+
+async function sendHub(ctx: BotUserCtx, year: number): Promise<void> {
+  await persist(ctx, "hub", { year });
+  await sendStatsBotMessage(ctx.chatId, hubHtml(year), {
+    parseMode: "HTML",
+    replyMarkup: taxHubKeyboard(year),
+  });
+}
+
+async function sendReport(ctx: BotUserCtx, year: number): Promise<void> {
+  const ledger = await ensureLedger(ctx.userId, year);
+  const intervals = await listPresence(ledger.id);
+  const evaluation = evaluateResidency(year, intervals);
+  await emitBotEvent(ctx.userId, "residency_report", { year });
+  await sendStatsBotMessage(ctx.chatId, formatResidencyReportHtml(evaluation), {
+    parseMode: "HTML",
+    replyMarkup: taxHubKeyboard(year),
+  });
+}
+
+export async function startTax(ctx: BotUserCtx, year?: number): Promise<void> {
+  const y = clampTaxYear(year ?? new Date().getUTCFullYear());
+  await ensureLedger(ctx.userId, y);
+  await emitBotEvent(ctx.userId, "tax_open", { year: y });
+  await sendHub(ctx, y);
+}
+
+export async function continueTax(
+  ctx: BotUserCtx,
+  incoming: BotIncoming,
+  payloadRaw: Record<string, unknown>,
+  step?: string
+): Promise<void> {
+  const payload = asPayload(payloadRaw);
+
+  if (incoming.kind === "message") {
+    if (isGlobalCommand(incoming.text)) {
+      await clearSession(ctx.userId);
+      await sendHome(ctx);
+      return;
+    }
+  }
+
+  if (incoming.kind === "callback") {
+    await answerStatsBotCallback(incoming.id);
+    const data = incoming.data;
+
+    if (data.startsWith("tx:year:")) {
+      const y = clampTaxYear(Number(data.slice("tx:year:".length)));
+      await emitBotEvent(ctx.userId, "tax_open", { year: y });
+      await sendHub(ctx, y);
+      return;
+    }
+    if (data === "tx:manual") {
+      await persist(ctx, "manual_wait", payload);
+      await sendStatsBotMessage(
+        ctx.chatId,
+        ["<b>Ввод дат</b>", MANUAL_FORMAT, "", "Вставьте строки в чат — парсер подключим на следующем шаге."].join(
+          "\n"
+        ),
+        { parseMode: "HTML" }
+      );
+      return;
+    }
+    if (data === "tx:report") {
+      try {
+        await sendReport(ctx, payload.year);
+      } catch (e) {
+        await sendStatsBotMessage(
+          ctx.chatId,
+          `Не удалось построить отчёт: ${e instanceof Error ? e.message : "ошибка"}. Попробуйте позже.`,
+          { parseMode: "HTML", replyMarkup: taxHubKeyboard(payload.year) }
+        );
+      }
+      return;
+    }
+    if (data === "tx:counsel") {
+      await emitBotEvent(ctx.userId, "counsel_ask", { year: payload.year, stub: true });
+      await sendStatsBotMessage(
+        ctx.chatId,
+        "Вопрос консультанту — скоро, следующий шаг. Пока используйте «Отчёт» и Emigro Assist для сложных кейсов.",
+        { parseMode: "HTML", replyMarkup: taxHubKeyboard(payload.year) }
+      );
+      return;
+    }
+  }
+
+  if (incoming.kind === "media") {
+    await sendStatsBotMessage(
+      ctx.chatId,
+      "Фото и билеты — скоро, следующий шаг. Пока введите даты текстом через «Ввести даты».",
+      { parseMode: "HTML", replyMarkup: taxHubKeyboard(payload.year) }
+    );
+    return;
+  }
+
+  if (incoming.kind === "message") {
+    if (step === "manual_wait") {
+      await sendStatsBotMessage(
+        ctx.chatId,
+        ["Получил текст. Разбор строк — на следующем шаге.", MANUAL_FORMAT].join("\n\n"),
+        { parseMode: "HTML", replyMarkup: taxHubKeyboard(payload.year) }
+      );
+      await persist(ctx, "hub", payload);
+      return;
+    }
+  }
+
+  await sendHub(ctx, payload.year);
+}
