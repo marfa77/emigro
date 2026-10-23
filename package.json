@@ -72,6 +72,7 @@
     "telegram:test-bot-router": "tsx scripts/test-bot-router.ts",
     "test:tax-day-math": "tsx scripts/test-tax-day-math.ts",
     "test:tax-residency": "tsx scripts/test-tax-residency.ts",
+    "test:tax-ingest-manual": "tsx scripts/test-tax-ingest-manual.ts",
     "telegram:poll-local": "tsx scripts/telegram-poll-local.ts",
     "social:subscribers": "tsx scripts/social-subscribers-daily.ts",
     "stats:test": "tsx scripts/test-stats-dashboard.ts && tsx scripts/test-revolut-referral.ts && tsx scripts/test-wise-referral.ts && tsx scripts/test-referral-inline.ts",

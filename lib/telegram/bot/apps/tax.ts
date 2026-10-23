@@ -1,14 +1,19 @@
 import { emitBotEvent } from "@/lib/tax-cockpit/analytics";
-import { ensureLedger, listPresence } from "@/lib/tax-cockpit/ledger";
+import { parseManualPresenceText } from "@/lib/tax-cockpit/ingest";
+import { addPresence, ensureLedger, listPresence } from "@/lib/tax-cockpit/ledger";
 import { evaluateResidency, RESIDENCY_DISCLAIMER_RU } from "@/lib/tax-cockpit/residency";
 import { formatResidencyReportHtml } from "@/lib/tax-cockpit/report";
+import type { PresenceInterval } from "@/lib/tax-cockpit/types";
 import { answerStatsBotCallback, sendStatsBotMessage } from "@/lib/telegram/admin-bot";
 import { isGlobalCommand, sendHome } from "@/lib/telegram/bot/home";
 import { inlineRows } from "@/lib/telegram/bot/markup";
 import { clearSession, setSession } from "@/lib/telegram/bot/session";
 import type { BotIncoming, BotUserCtx } from "@/lib/telegram/bot/types";
 
-type TaxPayload = { year: number };
+type TaxPayload = {
+  year: number;
+  pendingLegs?: PresenceInterval[];
+};
 
 const MANUAL_FORMAT = [
   "Формат (одна строка = одна поездка):",
@@ -20,7 +25,30 @@ const MANUAL_FORMAT = [
 
 function asPayload(raw: Record<string, unknown> | undefined): TaxPayload {
   const year = typeof raw?.year === "number" ? raw.year : new Date().getUTCFullYear();
-  return { year };
+  const pendingLegs = parsePendingLegs(raw?.pendingLegs);
+  return { year, ...(pendingLegs.length ? { pendingLegs } : {}) };
+}
+
+function parsePendingLegs(raw: unknown): PresenceInterval[] {
+  if (!Array.isArray(raw)) return [];
+  const legs: PresenceInterval[] = [];
+  for (const item of raw) {
+    if (!item || typeof item !== "object") continue;
+    const row = item as Record<string, unknown>;
+    if (
+      typeof row.countryIso2 === "string" &&
+      typeof row.startDate === "string" &&
+      typeof row.endDate === "string"
+    ) {
+      legs.push({
+        countryIso2: row.countryIso2,
+        startDate: row.startDate,
+        endDate: row.endDate,
+        source: "manual",
+      });
+    }
+  }
+  return legs;
 }
 
 function clampTaxYear(year: number): number {
@@ -53,8 +81,28 @@ function taxHubKeyboard(year: number) {
   ]);
 }
 
+function ingestConfirmKeyboard() {
+  return inlineRows([
+    [
+      { text: "Подтвердить", callback_data: "tx:confirm" },
+      { text: "Изменить", callback_data: "tx:edit" },
+    ],
+  ]);
+}
+
+function formatLegsPreview(legs: PresenceInterval[]): string {
+  return legs
+    .map((leg) => `${leg.countryIso2} ${leg.startDate}..${leg.endDate}`)
+    .join("\n");
+}
+
 async function persist(ctx: BotUserCtx, step: string, payload: TaxPayload): Promise<void> {
-  await setSession({ telegramUserId: ctx.userId, app: "tax", step, payload });
+  await setSession({
+    telegramUserId: ctx.userId,
+    app: "tax",
+    step,
+    payload: payload as Record<string, unknown>,
+  });
 }
 
 async function sendHub(ctx: BotUserCtx, year: number): Promise<void> {
@@ -73,6 +121,24 @@ async function sendReport(ctx: BotUserCtx, year: number): Promise<void> {
   await sendStatsBotMessage(ctx.chatId, formatResidencyReportHtml(evaluation), {
     parseMode: "HTML",
     replyMarkup: taxHubKeyboard(year),
+  });
+}
+
+async function showIngestConfirm(
+  ctx: BotUserCtx,
+  year: number,
+  legs: PresenceInterval[],
+  errorLines: string[] = []
+): Promise<void> {
+  await persist(ctx, "ingest_confirm", { year, pendingLegs: legs });
+  const parts = ["<b>Проверьте поездки</b>", `<pre>${formatLegsPreview(legs)}</pre>`];
+  if (errorLines.length) {
+    parts.push("", errorLines.map((e) => `⚠️ ${e}`).join("\n"));
+  }
+  parts.push("", "Подтвердите запись в журнал или измените текст.");
+  await sendStatsBotMessage(ctx.chatId, parts.join("\n"), {
+    parseMode: "HTML",
+    replyMarkup: ingestConfirmKeyboard(),
   });
 }
 
@@ -110,14 +176,45 @@ export async function continueTax(
       return;
     }
     if (data === "tx:manual") {
-      await persist(ctx, "manual_wait", payload);
+      await persist(ctx, "manual_wait", { year: payload.year });
       await sendStatsBotMessage(
         ctx.chatId,
-        ["<b>Ввод дат</b>", MANUAL_FORMAT, "", "Вставьте строки в чат — парсер подключим на следующем шаге."].join(
-          "\n"
-        ),
+        ["<b>Ввод дат</b>", MANUAL_FORMAT, "", "Вставьте строки в чат одним сообщением."].join("\n"),
         { parseMode: "HTML" }
       );
+      return;
+    }
+    if (data === "tx:edit") {
+      await persist(ctx, "manual_wait", { year: payload.year });
+      await sendStatsBotMessage(
+        ctx.chatId,
+        ["<b>Измените даты</b>", MANUAL_FORMAT].join("\n\n"),
+        { parseMode: "HTML" }
+      );
+      return;
+    }
+    if (data === "tx:confirm") {
+      const legs = payload.pendingLegs ?? [];
+      if (step !== "ingest_confirm" || legs.length === 0) {
+        await sendHub(ctx, payload.year);
+        return;
+      }
+      try {
+        const ledger = await ensureLedger(ctx.userId, payload.year);
+        await addPresence(ledger.id, legs);
+        await emitBotEvent(ctx.userId, "ticket_add", {
+          year: payload.year,
+          count: legs.length,
+          source: "manual",
+        });
+        await sendHub(ctx, payload.year);
+      } catch (e) {
+        await sendStatsBotMessage(
+          ctx.chatId,
+          `Не удалось сохранить: ${e instanceof Error ? e.message : "ошибка"}. Попробуйте снова.`,
+          { parseMode: "HTML", replyMarkup: ingestConfirmKeyboard() }
+        );
+      }
       return;
     }
     if (data === "tx:report") {
@@ -154,12 +251,21 @@ export async function continueTax(
 
   if (incoming.kind === "message") {
     if (step === "manual_wait") {
-      await sendStatsBotMessage(
-        ctx.chatId,
-        ["Получил текст. Разбор строк — на следующем шаге.", MANUAL_FORMAT].join("\n\n"),
-        { parseMode: "HTML", replyMarkup: taxHubKeyboard(payload.year) }
-      );
-      await persist(ctx, "hub", payload);
+      const { legs, errors } = parseManualPresenceText(incoming.text, payload.year);
+      if (legs.length === 0) {
+        const errBlock =
+          errors.length > 0
+            ? ["", errors.map((e) => `⚠️ ${e}`).join("\n")].join("\n")
+            : "\n\n⚠️ Не распознано ни одной строки.";
+        await sendStatsBotMessage(
+          ctx.chatId,
+          [`<b>Не удалось разобрать</b>${errBlock}`, "", MANUAL_FORMAT].join("\n"),
+          { parseMode: "HTML" }
+        );
+        await persist(ctx, "manual_wait", { year: payload.year });
+        return;
+      }
+      await showIngestConfirm(ctx, payload.year, legs, errors);
       return;
     }
   }
