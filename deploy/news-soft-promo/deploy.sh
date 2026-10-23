@@ -39,8 +39,9 @@ fi
 cp deploy/systemd/emigro-news-soft-promo.service /etc/systemd/system/
 cp deploy/systemd/emigro-news-soft-promo.timer /etc/systemd/system/
 systemctl daemon-reload
-systemctl enable --now emigro-news-soft-promo.timer
-systemctl list-timers --all | grep soft-promo || true
+# Soft promo self-promo pipeline disabled (owner 2026-10-23). Re-enable manually if needed.
+systemctl disable --now emigro-news-soft-promo.timer
+systemctl list-timers --all | grep soft-promo || echo "soft-promo timer off"
 REMOTE
 
-echo "✅ Soft promo timer enabled (Mon–Fri 09:00 UTC + up to 8h random; ≤1 post/week)"
+echo "✅ Soft promo timer disabled (EMIGRO_SOFT_PROMO_DISABLED=1 on VPS; no weekly DM drafts)"

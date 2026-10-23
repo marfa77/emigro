@@ -91,6 +91,19 @@ export async function runWeeklySoftPromo(options?: {
   force?: boolean;
 }): Promise<SoftPromoRunResult> {
   const dryRun = Boolean(options?.dryRun);
+  // Kill switch — pipeline off until owner re-enables (timer should stay disabled too).
+  if (/^(1|true|yes)$/i.test(process.env.EMIGRO_SOFT_PROMO_DISABLED?.trim() || "")) {
+    const week = isoWeekKey();
+    console.log(`[soft-promo] week=${week} gate=disabled-by-env`);
+    return {
+      posted: false,
+      awaitingApproval: false,
+      skipped: true,
+      reason: "disabled-by-env",
+      week,
+      dryRun,
+    };
+  }
   const gate = shouldPostToday({ force: options?.force });
   console.log(`[soft-promo] week=${gate.week} gate=${gate.reason}`);
 

@@ -47,7 +47,11 @@ Spaced **approval requests** to your Telegram DM (not auto-dump into the channel
 
 Pending markers in `threads_text`: `__lightning_pending__` (both), `__lightning_threads_pending__` (TG done), `__lightning_tg_pending__` (Threads done); draft in `telegram_html`. Owner approves Telegram and Threads separately. Several pending молнии can stack in DM — one unanswered item does **not** block the queue. Stale primary pending (>24h): cron may re-send once (`npm run news:lightning -- --resend-pending`).
 
-## 3) Soft promo (weekly) — `news:soft-promo`
+## 3) Soft promo (weekly) — `news:soft-promo` — **OFF**
+
+**Disabled 2026-10-23** (self-promo pipeline). Timer `emigro-news-soft-promo.timer` is `disable --now`; VPS `/opt/emigro/.env` has `EMIGRO_SOFT_PROMO_DISABLED=1`. `parser/deploy.sh` keeps the timer disabled on redeploy.
+
+To restore: unset/set `EMIGRO_SOFT_PROMO_DISABLED=0` in `/opt/emigro/.env`, then `systemctl enable --now emigro-news-soft-promo.timer` (and revert `parser/deploy.sh` / `deploy/news-soft-promo/deploy.sh` to `enable --now`).
 
 Once per ISO week → soft editorial draft → **owner DM ✅/❌** → `@Emigro_news` (no auto-publish).
 
