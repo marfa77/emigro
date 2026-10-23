@@ -237,6 +237,7 @@ export async function continueAssist(
     return;
   }
 
+  if (incoming.kind !== "message") return;
   const text = incoming.text.trim();
   const step = nextAssistStep(payload, ctx);
   if (step === "country_other") {

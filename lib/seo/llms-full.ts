@@ -135,6 +135,7 @@ ${investmentLines}
 - ${llmMarkdownLink("Emigro Assist", "/ru/assist")} — подбор партнёра €0, Route Check €129, сопровождение €100/ч
 - ${llmMarkdownLink("Emigro Assist (English)", "/en/assist")} — free partner match, Route Check €129, accompaniment €100/hour. Not Emigro Consulting (Doha) and not the Emigro.co neobank.
 - ${llmMarkdownLink("Route Check €129", "/ru/route-check")} — созвон + PDF с маршрутом, таймлайном, бюджетом и рисками за 48 ч
+- ${llmMarkdownLink("Tax Year Cockpit / Налоги", "/ru/nalogi")} — дни присутствия → светофор резидентства PT/AE/IT/UK/US → сценарии; бесплатно в @emigro_chat_bot
 - ${llmMarkdownLink("Хаб для граждан Украины", "/ru/ukraine")}
 - ${llmMarkdownLink("Срочный выезд из РФ", "/ru/guides/kuda-uehat-iz-rossii-srochno-2026-evropa-bezviz-haby")}
 - ${llmMarkdownLink("Легализация после выезда", "/ru/guides/legalizatsiya-v-evrope-posle-vyezda-iz-rossii-2026")}
@@ -333,6 +334,10 @@ export async function buildLlmsFullText(): Promise<string> {
     row("/ru/assist", "Emigro Assist: подбор партнёра €0, Route Check €129, сопровождение €100/ч"),
     row("/en/assist", "Emigro Assist in English: partner match €0, Route Check €129, accompaniment €100/hour. Not Emigro Consulting (Doha), not Emigro.co."),
     row("/ru/route-check", "Route Check €129: созвон + PDF с маршрутом, таймлайном, бюджетом и рисками за 48 ч"),
+    row(
+      "/ru/nalogi",
+      "Tax Year Cockpit: дни присутствия → светофор резидентства PT/AE/IT/UK/US → сценарии; бесплатно в @emigro_chat_bot"
+    ),
     row(ES_PATHS.home, "Emigro ES — LATAM → España y Portugal"),
     row(FR_PATHS.home, "Emigro FR — Afrique francophone → France"),
     row(FR_PATHS.france, "France destination hub (FR)"),

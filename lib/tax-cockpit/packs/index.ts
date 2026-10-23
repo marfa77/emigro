@@ -16,7 +16,7 @@ const PACKS = indexPacks();
 
 function indexPacks(): Map<string, CountryPack> {
   const map = new Map<string, CountryPack>();
-  for (const pack of [...COMPLETE_PACKS, ...EU_STUB_PACKS]) {
+  for (const pack of COMPLETE_PACKS.concat(EU_STUB_PACKS)) {
     const iso = pack.iso2.toUpperCase();
     if (map.has(iso)) throw new Error(`duplicate tax pack: ${iso}`);
     map.set(iso, pack);
@@ -55,5 +55,5 @@ export function getPack(iso2: string): CountryPack {
 }
 
 export function listPacks(): CountryPack[] {
-  return [...PACKS.values()];
+  return Array.from(PACKS.values());
 }

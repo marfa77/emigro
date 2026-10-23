@@ -202,6 +202,7 @@ export async function continueProperty(
     await promptIntent(ctx);
     return;
   }
+  if (incoming.kind !== "message") return;
   const text = incoming.text.trim();
   if (payload.dest && text) {
     await submitLite(ctx, payload, text.slice(0, 2000));

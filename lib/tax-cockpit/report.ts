@@ -15,7 +15,7 @@ function escAttr(url: string): string {
 
 function flagEmoji(iso2: string): string {
   if (!/^[A-Z]{2}$/.test(iso2)) return "";
-  return [...iso2].map((char) => String.fromCodePoint(0x1f1e6 + char.charCodeAt(0) - 65)).join("");
+  return Array.from(iso2, (char) => String.fromCodePoint(0x1f1e6 + char.charCodeAt(0) - 65)).join("");
 }
 
 function assistPageUrl(): string {

@@ -48,6 +48,7 @@ export async function continueNews(ctx: BotUserCtx, incoming: BotIncoming): Prom
       message: { chat: { id: ctx.chatId } },
     });
   }
+  if (incoming.kind !== "message") return false;
   if (!parseNewsBotIntent(incoming.text)) return false;
   return handleNewsSubscribeText({
     text: incoming.text,

@@ -65,11 +65,19 @@ function clampTaxYear(year: number): number {
 function hubHtml(year: number): string {
   return [
     `<b>Налоги · ${year}</b>`,
-    "Учёт дней присутствия по странам → светофор (ориентир, не статус резидента).",
+    "Дни по билетам → светофор резидентства → сценарии и рычаги оптимизации в вашей ситуации (бесплатно).",
     `<i>${RESIDENCY_DISCLAIMER_RU}</i>`,
     "",
-    "Смените год кнопками ниже или выберите действие.",
+    "Сложный кейс (PT+AE, GV, аренда, split-year) — сначала даты, потом «Вопрос консультанту».",
   ].join("\n");
+}
+
+function eventMeta(ctx: BotUserCtx, extra: Record<string, unknown> = {}): Record<string, unknown> {
+  return {
+    ...extra,
+    ...(ctx.username ? { username: ctx.username } : {}),
+    ...(ctx.firstName ? { firstName: ctx.firstName } : {}),
+  };
 }
 
 function taxHubKeyboard(year: number) {
@@ -123,7 +131,7 @@ async function sendReport(ctx: BotUserCtx, year: number): Promise<void> {
   const ledger = await ensureLedger(ctx.userId, year);
   const intervals = await listPresence(ledger.id);
   const evaluation = evaluateResidency(year, intervals);
-  await emitBotEvent(ctx.userId, "residency_report", { year });
+  await emitBotEvent(ctx.userId, "residency_report", eventMeta(ctx, { year }));
   await sendStatsBotMessage(ctx.chatId, formatResidencyReportHtml(evaluation), {
     parseMode: "HTML",
     replyMarkup: taxHubKeyboard(year),
@@ -151,7 +159,7 @@ async function showIngestConfirm(
 export async function startTax(ctx: BotUserCtx, year?: number): Promise<void> {
   const y = clampTaxYear(year ?? new Date().getUTCFullYear());
   await ensureLedger(ctx.userId, y);
-  await emitBotEvent(ctx.userId, "tax_open", { year: y });
+  await emitBotEvent(ctx.userId, "tax_open", eventMeta(ctx, { year: y }));
   await sendHub(ctx, y);
 }
 
@@ -177,7 +185,7 @@ export async function continueTax(
 
     if (data.startsWith("tx:year:")) {
       const y = clampTaxYear(Number(data.slice("tx:year:".length)));
-      await emitBotEvent(ctx.userId, "tax_open", { year: y });
+      await emitBotEvent(ctx.userId, "tax_open", eventMeta(ctx, { year: y }));
       await sendHub(ctx, y);
       return;
     }
@@ -213,11 +221,16 @@ export async function continueTax(
           : legs.every((l) => l.source === "manual")
             ? "manual"
             : "import";
-        await emitBotEvent(ctx.userId, "ticket_add", {
-          year: payload.year,
-          count: legs.length,
-          source,
-        });
+        await emitBotEvent(
+          ctx.userId,
+          "ticket_add",
+          eventMeta(ctx, {
+            year: payload.year,
+            count: legs.length,
+            source,
+            preview: formatLegsPreview(legs).slice(0, 200),
+          })
+        );
         await sendHub(ctx, payload.year);
       } catch (e) {
         await sendStatsBotMessage(
@@ -362,10 +375,11 @@ export async function continueTax(
         });
 
         if (answer.refused) {
-          await emitBotEvent(ctx.userId, "counsel_ask", {
-            year: payload.year,
-            refused: true,
-          });
+          await emitBotEvent(
+            ctx.userId,
+            "counsel_ask",
+            eventMeta(ctx, { year: payload.year, refused: true, preview: question.slice(0, 200) })
+          );
           await sendStatsBotMessage(ctx.chatId, answer.text, {
             parseMode: "HTML",
             replyMarkup: inlineRows([
@@ -376,13 +390,22 @@ export async function continueTax(
           return;
         }
 
-        await emitBotEvent(ctx.userId, "counsel_ask", {
-          year: payload.year,
-          question_chars: question.length,
-        });
+        await emitBotEvent(
+          ctx.userId,
+          "counsel_ask",
+          eventMeta(ctx, {
+            year: payload.year,
+            question_chars: question.length,
+            preview: question.slice(0, 200),
+          })
+        );
         if (answer.countryFocus?.length) {
           for (const iso2 of answer.countryFocus) {
-            await emitBotEvent(ctx.userId, "country_focus", { year: payload.year, iso2 });
+            await emitBotEvent(
+              ctx.userId,
+              "country_focus",
+              eventMeta(ctx, { year: payload.year, iso2 })
+            );
           }
         }
 

@@ -133,6 +133,15 @@ export function propertyBotDeepLink(dest?: "uae" | "thailand"): string {
   return startUrl(propertyBotStartPayload(dest));
 }
 
+export function taxBotStartPayload(year?: number): string {
+  if (year != null && year >= 2020 && year <= 2100) return `tax_${year}`;
+  return "tax";
+}
+
+export function taxBotDeepLink(year?: number): string {
+  return startUrl(taxBotStartPayload(year));
+}
+
 export function investBotDeepLink(key: InvestPageKey, locale: InvestLocale): string {
   return startUrl(investBotStartPayload(key, locale));
 }

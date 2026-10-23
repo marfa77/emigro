@@ -1,4 +1,9 @@
 import { createAdminClient } from "@/lib/admin/supabase";
+import {
+  isAdminTelegramChat,
+  sendStatsBotMessage,
+  telegramAdminChatIds,
+} from "@/lib/telegram/admin-bot";
 
 const MS_PER_DAY = 86_400_000;
 const RETURN_WINDOW_MS = 7 * MS_PER_DAY;
@@ -9,6 +14,59 @@ export type TaxEventName =
   | "residency_report"
   | "counsel_ask"
   | "country_focus";
+
+const EVENT_LABEL_RU: Record<TaxEventName, string> = {
+  tax_open: "открыл Налоги",
+  ticket_add: "добавил поездки",
+  residency_report: "запросил отчёт",
+  counsel_ask: "вопрос консультанту",
+  country_focus: "фокус страны в counsel",
+};
+
+function escapeHtml(s: string): string {
+  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+/** Notify owner about other users' tax usage (free forever; owner sees demand). Skip self. */
+async function notifyOwnerTaxUsage(
+  telegramUserId: number,
+  eventName: TaxEventName,
+  payload: Record<string, unknown>
+): Promise<void> {
+  if (isAdminTelegramChat(null, telegramUserId)) return;
+  const admins = telegramAdminChatIds();
+  if (admins.size === 0) return;
+
+  const year = typeof payload.year === "number" ? payload.year : null;
+  const uname =
+    typeof payload.username === "string" && payload.username
+      ? `@${payload.username.replace(/^@/, "")}`
+      : null;
+  const name =
+    typeof payload.firstName === "string" && payload.firstName
+      ? escapeHtml(payload.firstName)
+      : null;
+  const preview =
+    typeof payload.preview === "string" && payload.preview
+      ? escapeHtml(payload.preview.slice(0, 280))
+      : null;
+  const who = [uname, name, `<code>${telegramUserId}</code>`].filter(Boolean).join(" · ");
+  const lines = [
+    `🧾 <b>Налоги · чужой</b> — ${escapeHtml(EVENT_LABEL_RU[eventName])}`,
+    who,
+    year != null ? `год <b>${year}</b>` : null,
+    preview ? `<i>${preview}</i>` : null,
+  ].filter(Boolean) as string[];
+
+  for (const chatId of Array.from(admins)) {
+    await sendStatsBotMessage(chatId, lines.join("\n"), {
+      parseMode: "HTML",
+      disableWebPagePreview: true,
+    }).catch((e) =>
+      console.warn("[tax-cockpit] owner notify failed:", e instanceof Error ? e.message : e)
+    );
+  }
+}
 
 export async function emitBotEvent(
   telegramUserId: number,
@@ -31,6 +89,8 @@ export async function emitBotEvent(
       e instanceof Error ? e.message : e
     );
   }
+  // Fire-and-forget DM; do not block user UX on notify failure.
+  void notifyOwnerTaxUsage(telegramUserId, eventName, payload);
 }
 
 export type TaxFunnel7d = {
@@ -104,7 +164,7 @@ export async function summarizeTaxFunnel7d(): Promise<TaxFunnel7d | null> {
     }
 
     let returnWithin7dUsers = 0;
-    for (const times of byUser.values()) {
+    for (const times of Array.from(byUser.values())) {
       times.sort((a, b) => a - b);
       let returned = false;
       for (let i = 1; i < times.length; i++) {

@@ -320,11 +320,40 @@ export default async function RuHubPage() {
             <Link href="/ru/route-check" className="font-medium text-corridor-700 hover:underline">
               Route Check
             </Link>
+            {" · "}
+            <Link href="/ru/nalogi" className="font-medium text-corridor-700 hover:underline">
+              Налоги / дни
+            </Link>
             .
           </p>
         </section>
         <NewsBotSubscribeCta source="homepage" className="mt-8" />
         <RelocatorChatPromo source="homepage" className="mt-8" />
+
+        <section className="mt-14 rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50 to-white p-6 sm:p-8">
+          <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wide text-amber-800">Tax Year Cockpit · бесплатно</p>
+              <h2 className="mt-1.5 text-xl font-bold text-slate-900">Где вы налоговый резидент в 2026?</h2>
+              <p className="mt-2 max-w-lg text-slate-600">
+                Дни по билетам → светофор PT/AE/IT/UK/US → сценарии и рычаги. В боте @emigro_chat_bot → Налоги.
+              </p>
+            </div>
+            <div className="flex shrink-0 flex-col gap-2 sm:items-end">
+              <Link
+                href="/ru/nalogi"
+                data-placement="ru_homepage_nalogi"
+                className="inline-flex items-center gap-2 rounded-lg bg-amber-700 px-5 py-3 font-medium text-white hover:bg-amber-800"
+              >
+                Открыть Налоги
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link href="/ru/nalogi" className="text-sm font-medium text-amber-900 hover:underline">
+                Как это работает →
+              </Link>
+            </div>
+          </div>
+        </section>
 
         <section className="mt-14 rounded-2xl border border-corridor-200 bg-gradient-to-br from-corridor-50 to-white p-6 sm:p-8">
           <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">

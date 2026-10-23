@@ -373,12 +373,7 @@ export function formatStatsReportTelegram(
     lines.push("", ...fmtTaxFunnel7d(taxFunnel));
   }
 
-  lines.push(
-    "",
-    ...fmtAcquisition(report),
-    "",
-    ...fmtThreadsBlock(report),
-  ];
+  lines.push("", ...fmtAcquisition(report), "", ...fmtThreadsBlock(report));
 
   const revolutLine = formatRevolutReferralTelegramLine(report.revolutReferral);
   if (revolutLine) {

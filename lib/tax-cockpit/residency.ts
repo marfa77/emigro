@@ -93,7 +93,7 @@ export function evaluateResidency(year: number, intervals: PresenceInterval[]): 
   }
 
   const byCountry: CountryResidency[] = [];
-  for (const [iso2, rows] of grouped) {
+  for (const [iso2, rows] of Array.from(grouped.entries())) {
     const pack = getPack(iso2);
     const rule = pack.dayRule ?? DEFAULT_DAY_RULE;
     const days = daysFor(rows, year, rule);

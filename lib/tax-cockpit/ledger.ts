@@ -200,7 +200,7 @@ function sumDaysByCountry(intervals: PresenceInterval[], taxYear: number): Count
   }
 
   const totals: CountryDayTotal[] = [];
-  for (const [iso2, rows] of grouped) {
+  for (const [iso2, rows] of Array.from(grouped.entries())) {
     const pack = getPack(iso2);
     const rule = pack.dayRule ?? DEFAULT_DAY_RULE;
     const days = rows.reduce(
