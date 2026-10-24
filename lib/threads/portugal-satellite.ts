@@ -29,6 +29,8 @@ export type PortugalSatelliteRow = {
   dest: string;
   p1: string;
   p2: string;
+  /** Public card. Wins over the closed note-cover experiment. */
+  imageUrl?: string;
 };
 
 export type PortugalSatellitePostFormat = "IMAGE" | "TEXT";
@@ -98,6 +100,9 @@ export function assertPortugalSatelliteBank(rows = loadPortugalSatelliteDays()):
       errors.push(`d${row.d}: url in copy`);
     }
     if ((row.p1 || "").length > 500) errors.push(`d${row.d}: p1 > 500`);
+    if (row.imageUrl && !row.imageUrl.startsWith("https://www.emigro.online/images/threads-cards/")) {
+      errors.push(`d${row.d}: card image must be a threads-cards url`);
+    }
   }
   if (errors.length) throw new Error(errors.slice(0, 12).join("; "));
 }
@@ -163,9 +168,9 @@ export function composePortugalSatelliteChain(
 ): ThreadsChainItem[] {
   const today = opts?.today || lisbonDateIso();
   const content = `sat${String(row.d).padStart(3, "0")}`;
-  const imageUrl = portugalSatelliteAttachImage(row, today)
-    ? portugalSatelliteNoteImageUrl(row.dest)
-    : "";
+  const imageUrl =
+    row.imageUrl?.trim() ||
+    (portugalSatelliteAttachImage(row, today) ? portugalSatelliteNoteImageUrl(row.dest) : "");
   const items: ThreadsChainItem[] = [
     {
       text: clipThreadsText(row.p1),

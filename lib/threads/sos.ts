@@ -26,6 +26,8 @@ export type ThreadsSosRow = {
   evidence: string;
   why: string;
   verified_on: string;
+  /** Public card. Root posts as IMAGE when set. */
+  imageUrl?: string;
 };
 
 export type ThreadsSosState = {
@@ -48,6 +50,9 @@ export function assertThreadsSosBank(rows: ThreadsSosRow[] = loadThreadsSosBank(
     ids.add(row.id);
     if (!row.p1?.trim()) errors.push(`${tag}: empty p1`);
     if ((row.p1 || "").length > 450) errors.push(`${tag}: p1 > 450`);
+    if (row.imageUrl && !row.imageUrl.startsWith("https://www.emigro.online/images/threads-cards/")) {
+      errors.push(`${tag}: card image must be a threads-cards url`);
+    }
     if (/https?:\/\//.test(row.p1 || "")) errors.push(`${tag}: url in p1`);
     if ((row.p2 || "").length > 300) errors.push(`${tag}: p2 > 300`);
     if (!/https:\/\/\S+/.test(row.p2 || "")) errors.push(`${tag}: p2 missing official source url`);
@@ -119,7 +124,12 @@ export function planThreadsSosPost(opts: {
 export function composeThreadsSosChain(row: ThreadsSosRow): ThreadsChainItem[] {
   const topicTag = sanitizeThreadsTopicTag(row.topic_tag);
   return [
-    { text: row.p1.trim(), role: "root", ...(topicTag ? { topicTag } : {}) },
+    {
+      text: row.p1.trim(),
+      role: "root",
+      ...(topicTag ? { topicTag } : {}),
+      ...(row.imageUrl?.trim() ? { imageUrl: row.imageUrl.trim() } : {}),
+    },
     { text: row.p2.trim(), role: "cta" },
   ];
 }

@@ -29,6 +29,8 @@ export type ItalySatelliteRow = {
   dest: string;
   p1: string;
   p2: string;
+  /** Public card. Root posts as IMAGE when set. */
+  imageUrl?: string;
 };
 
 export type ItalySatellitePostFormat = "TEXT";
@@ -91,6 +93,9 @@ export function assertItalySatelliteBank(rows = loadItalySatelliteDays()): void 
       errors.push(`d${row.d}: url in copy`);
     }
     if ((row.p1 || "").length > 500) errors.push(`d${row.d}: p1 > 500`);
+    if (row.imageUrl && !row.imageUrl.startsWith("https://www.emigro.online/images/threads-cards/")) {
+      errors.push(`d${row.d}: card image must be a threads-cards url`);
+    }
   }
   if (errors.length) throw new Error(errors.slice(0, 12).join("; "));
 }
@@ -112,11 +117,13 @@ export function composeItalySatelliteChain(
   const today = opts?.today || romeDateIso();
   void today;
   const content = `sat${String(row.d).padStart(3, "0")}`;
+  const imageUrl = row.imageUrl?.trim();
   const items: ThreadsChainItem[] = [
     {
       text: clipThreadsText(row.p1),
       role: "root",
       topicTag: "Италия",
+      ...(imageUrl ? { imageUrl } : {}),
     },
   ];
   if (row.d % THREADS_IT_SAT_LINK_STRIDE === 0) {
