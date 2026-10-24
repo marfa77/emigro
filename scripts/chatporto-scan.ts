@@ -42,10 +42,6 @@ const DAY_LOCK_FILE = path.join(OUT_DIR, "chatporto-day-lock.json");
 const NOISE =
   /продам|куплю|продаю|ваканси|ищу\s+работ|работа\s+в\s+порту|объявлен|подработк|оплата:\s*\d+|instagram\.com\/reel|ищу\s+девушк|знакомств/i;
 
-/** No Emigro note inventory — skip “кто знает контакты …” service hunting. */
-const OUT_OF_SCOPE =
-  /трихолог|дерматолог|стоматолог|гинеколог|психолог|парикмахер|маникюр|косметолог|репетитор|няня|таксист|русскоязычн\w*\s+такси|контакт\w*\s+(?:русско|такси|врач|клиник)|посоветуйте\s+такси|uber|bolt/i;
-
 const QUESTIONISH =
   /\?|подскаж|посовет|порекоменд|кто\s+знает|как\s+(?:получить|оформить|сделать|найти|можно)|где\s+(?:можно|взять|оформ|сделать)|можно\s+ли|нужна?\s+(?:помощ|подсказ)|ищу\s+(?!работ)|правда\s+ли/i;
 
@@ -187,7 +183,7 @@ async function main() {
     msg: FetchedMsg;
     score: number;
     topicLabel: string;
-    noteSlug: string;
+    noteSlug: string | null;
   }> = [];
 
   for (const msg of msgs) {
@@ -195,17 +191,18 @@ async function main() {
     if (seen.has(key)) continue;
     if (msg.reply_to) continue;
     if (NOISE.test(msg.text)) continue;
-    if (OUT_OF_SCOPE.test(msg.text)) continue;
     if (!QUESTIONISH.test(msg.text) && !msg.text.includes("?")) continue;
     const matches = matchChatportoTopics(msg.text);
     const top = matches[0];
-    // Only inventory hits — no floor for “any question in the chat”.
-    if (!top || top.score < CHATPORTO_MIN_SCORE) continue;
+    // Like milan4at: any real Porto question is in scope.
+    // Topic match only ranks priority + optional note link.
+    let score = top?.score ?? CHATPORTO_MIN_SCORE;
+    score = Math.max(score, CHATPORTO_MIN_SCORE);
     candidates.push({
       msg,
-      score: top.score,
-      topicLabel: top.topic.label,
-      noteSlug: top.topic.noteSlug,
+      score,
+      topicLabel: top?.topic.label || "Porto / Norte · локальный гайд",
+      noteSlug: top && top.score >= CHATPORTO_MIN_SCORE ? top.topic.noteSlug : null,
     });
   }
 
@@ -216,7 +213,7 @@ async function main() {
   );
 
   if (candidates.length === 0) {
-    const status = `chatporto · ${hours}h · нет вопроса с гайдом (норм)`;
+    const status = `chatporto · ${hours}h · нет вопросов (норм)`;
     console.error(status);
     if (!dry && chatId) await sendDm(chatId, status);
     return;
@@ -241,11 +238,7 @@ async function main() {
     }
 
     const ops = chatportoOpsLink(best.msg.text);
-    const noteUrl = ops.noteUrl;
-    if (!noteUrl) {
-      console.error(`[chatporto] skip ${best.msg.id}: no note url`);
-      continue;
-    }
+    const noteUrl = ops.noteUrl; // optional — only when inventory hits
 
     const factLine =
       produced.factVerdict === "revise"
@@ -257,8 +250,12 @@ async function main() {
       continue;
     }
 
-    const parts = [best.msg.url.trim(), factLine, reply, noteUrl];
-    console.log(`\n[1] ${parts[0]}\n[2] ${parts[1]}\n[3] ${parts[2]}\n[4] ${parts[3]}\n`);
+    const parts = [best.msg.url.trim(), factLine, reply, ...(noteUrl ? [noteUrl] : [])];
+    console.log(
+      `\n[1] ${parts[0]}\n[2] ${parts[1]}\n[3] ${parts[2]}` +
+        (parts[3] ? `\n[4] ${parts[3]}` : "\n[4] (no note)") +
+        "\n"
+    );
 
     if (!dry && chatId) {
       for (const part of parts) {

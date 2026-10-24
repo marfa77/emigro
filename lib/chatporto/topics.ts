@@ -12,7 +12,7 @@ export type ChatportoTopic = {
   weight: number;
 };
 
-/** Must clear a real inventory hit — no “any chat question” floor. */
+/** Topic match floor for note link + rank boost. Scan still takes any real question. */
 export const CHATPORTO_MIN_SCORE = 36;
 
 export const CHATPORTO_TOPICS: ChatportoTopic[] = [
