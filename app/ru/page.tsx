@@ -27,10 +27,10 @@ import { heroTitle } from "@/lib/ui/mobile";
 export const revalidate = 3600;
 
 export const metadata: Metadata = pageMetadata({
-  title: "Emigro — ВНЖ и релокация в Европу",
+  title: "Подбор ВНЖ в Европе для русскоязычных — Emigro",
   titleAbsolute: true,
   description:
-    "Навигатор по ВНЖ и гражданству для русскоязычных: коридоры Европы, wizard подбора, справочники программ и еженедельные новости с источниками.",
+    "ВНЖ и визы в Европе: подберите маршрут по паспорту, доходу и семье. Сравните инвест-программы и изучите практические гайды с официальными источниками.",
   path: "/ru",
 });
 
@@ -76,10 +76,10 @@ export default async function RuHubPage() {
             <Globe2 className="h-4 w-4" />
             {destinationCount} направлений
           </div>
-          <h1 className={`mt-4 ${heroTitle}`}>Emigro — ВНЖ и маршруты в Европу</h1>
+          <h1 className={`mt-4 ${heroTitle}`}>Подбор ВНЖ в Европе по паспорту и вашей ситуации</h1>
           <p className="mt-4 max-w-2xl text-lg text-corridor-100">
-            Для русскоязычных за рубежом и в СНГ: уже живёте в Европе или планируете переезд — еженедельные новости,
-            wizard подбора, справочники и проверка маршрутов.
+            Сопоставьте гражданство, доход, работу и состав семьи с программами переезда. Emigro объединяет подбор маршрута,
+            сравнение инвестиционных программ и практические инструкции по странам.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link
@@ -95,6 +95,13 @@ export default async function RuHubPage() {
               className="rounded-lg border border-white/40 px-5 py-3 font-medium text-white hover:bg-white/10"
             >
               Все страны — hub wizard
+            </Link>
+            <Link
+              href="/ru/invest?utm_source=home&utm_medium=internal&utm_campaign=hero"
+              data-placement="ru_hero_invest"
+              className="rounded-lg border border-amber-200/70 bg-amber-300/10 px-5 py-3 font-medium text-amber-100 hover:bg-amber-300/20"
+            >
+              Есть капитал — инвест-маршруты
             </Link>
           </div>
         </HeroShell>

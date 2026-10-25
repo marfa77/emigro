@@ -132,6 +132,7 @@ export default async function ThailandNotePage({ params }: { params: { slug: str
         noteSlug={note.slug}
         noteTitle={note.title}
         contentKind={note.content_kind}
+        isInvestmentContent={/invest|golden.?visa/i.test(`${note.slug} ${note.title} ${note.topic_tags.join(" ")}`)}
       />
       <RelatedNotes notes={related} />
 

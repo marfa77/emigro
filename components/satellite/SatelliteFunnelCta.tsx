@@ -21,6 +21,7 @@ type Props = {
   noteSlug?: string;
   noteTitle?: string;
   contentKind?: ContentKind;
+  isInvestmentContent?: boolean;
 };
 
 function accent(countryKey: SatelliteCountryKey) {
@@ -70,6 +71,7 @@ export function SatelliteFunnelCta({
   noteSlug,
   noteTitle,
   contentKind,
+  isInvestmentContent = false,
 }: Props) {
   const a = accent(countryKey);
   const content = noteSlug ?? "hub";
@@ -141,6 +143,16 @@ export function SatelliteFunnelCta({
       </p>
 
       <div className="mt-4 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
+        {isInvestmentContent && (
+          <a
+            href={investHref}
+            onClick={() => trackCorridor("invest_country", investHref)}
+            className={`inline-flex ${tapTarget} items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold ${a.primary}`}
+          >
+            {investLabel}
+            <ArrowRight className="h-4 w-4" aria-hidden />
+          </a>
+        )}
         {preferAssist ? (
           <>
             <a
@@ -230,7 +242,7 @@ export function SatelliteFunnelCta({
             Pillar-гид ВНЖ 2026
           </a>
         </li>
-        <li>
+        {!isInvestmentContent && <li>
           <a
             href={investHref}
             onClick={() => trackCorridor("invest_country", investHref)}
@@ -238,7 +250,7 @@ export function SatelliteFunnelCta({
           >
             {investLabel}
           </a>
-        </li>
+        </li>}
       </ul>
     </aside>
   );

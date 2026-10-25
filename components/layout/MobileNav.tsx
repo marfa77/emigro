@@ -184,6 +184,11 @@ export function MobileBottomBar({ locale = "ru" }: MobileBottomBarProps) {
   const pathname = usePathname();
   if (isWizardFormPath(pathname)) return null;
 
+  const investLocale = pathname?.startsWith("/en/invest") ? "en" : "ru";
+  const isInvestPath = Boolean(pathname && /^\/(?:ru|en)\/invest(?:\/|$)/.test(pathname));
+  const isInvestResultsPath = Boolean(pathname && /^\/(?:ru|en)\/invest\/results(?:\/|$)/.test(pathname));
+  const investHubPath = investLocale === "en" ? "/en/invest" : "/ru/invest";
+
   const helpLabel =
     locale === "es"
       ? "Encontrar especialista"
@@ -192,12 +197,30 @@ export function MobileBottomBar({ locale = "ru" }: MobileBottomBarProps) {
         : locale === "ru"
           ? "Найти специалиста"
           : "Find a specialist";
-  const primaryHref =
-    locale === "es" ? ES_PATHS.wizard : locale === "fr" ? FR_PATHS.wizard : "/ru/wizard";
-  const primaryLabel =
-    locale === "es" ? "Evaluador" : locale === "fr" ? "Évaluateur" : locale === "ru" ? "Подбор маршрута" : "Wizard";
+  const primaryHref = isInvestPath
+    ? isInvestResultsPath
+      ? `${investHubPath}#qualifier`
+      : `${pathname}#invest-quick`
+    : locale === "es"
+      ? ES_PATHS.wizard
+      : locale === "fr"
+        ? FR_PATHS.wizard
+        : locale === "en"
+          ? "/en/invest"
+          : "/ru/wizard";
+  const primaryLabel = isInvestPath
+    ? locale === "en"
+      ? "Investment match"
+      : "Инвест-подбор"
+    : locale === "es"
+      ? "Evaluador"
+      : locale === "fr"
+        ? "Évaluateur"
+        : locale === "ru"
+          ? "Подбор маршрута"
+          : "Investment routes";
   const secondaryHref =
-    locale === "es" ? ES_PATHS.assist : locale === "fr" ? FR_PATHS.assist : "/ru/assist";
+    locale === "es" ? ES_PATHS.assist : locale === "fr" ? FR_PATHS.assist : locale === "en" ? "/en/assist" : "/ru/assist";
 
   return (
     <div className="fixed inset-x-0 bottom-0 z-30 border-t border-slate-200 bg-white/95 backdrop-blur md:hidden">

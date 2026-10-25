@@ -211,6 +211,7 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
     (uniPrepTopicCount >= 2 ||
       /grazhdanstvo-portugaliya-ispaniya|grazhdanstvo-germaniya-polsha/.test(guide.slug));
   const guideAssistCountry = getGuideAssistCountry(guide.topic_keys);
+  const isInvestmentMigrationGuide = guide.slug === "investitsionnyy-vnj-evropa-golden-visa-2026";
   const wizardHref = resolveGuideWizardHref(guide.cta_primary ?? HUB_WIZARD_PATH, guide.topic_keys);
   const toc = extractToc(guide.bodyHtml);
   const faqItems = extractGuideFaq(guide.bodyHtml, 12);
@@ -321,7 +322,14 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
             </p>
           ) : null}
           <h1 className="mt-5 max-w-3xl text-3xl font-bold leading-tight sm:text-4xl lg:text-5xl 2xl:max-w-4xl">{guide.title}</h1>
-          {showUaeProperty ? null : (
+          {showUaeProperty ? null : isInvestmentMigrationGuide ? (
+            <Link
+              href="/ru/invest?utm_source=guide&utm_medium=internal&utm_campaign=golden_visa_pillar"
+              className="mt-5 inline-flex items-center gap-2 rounded-lg bg-amber-300 px-5 py-3 font-semibold text-slate-950 hover:bg-amber-200"
+            >
+              Подобрать инвестиционный маршрут →
+            </Link>
+          ) : (
             <RouteNextStep
               placement="ru_guide_lead"
               source={`guide_${guide.slug}`}
@@ -504,14 +512,22 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
                   <UaePropertyLeadCta placement="guide_sidebar" content={guide.slug} compact />
                 ) : null}
                 <Link
-                  href={wizardHref}
+                  href={isInvestmentMigrationGuide
+                    ? "/ru/invest?utm_source=guide&utm_medium=internal&utm_campaign=golden_visa_pillar_sidebar"
+                    : wizardHref}
                   className={
                     showUaeProperty
                       ? "rounded-lg border border-corridor-200 bg-white px-5 py-3 text-center font-medium text-slate-700 hover:border-corridor-400"
-                      : "rounded-lg bg-corridor-600 px-5 py-3 text-center font-medium text-white hover:bg-corridor-700"
+                      : isInvestmentMigrationGuide
+                        ? "rounded-lg bg-amber-400 px-5 py-3 text-center font-medium text-slate-950 hover:bg-amber-300"
+                        : "rounded-lg bg-corridor-600 px-5 py-3 text-center font-medium text-white hover:bg-corridor-700"
                   }
                 >
-                  {showUaeProperty ? "EU wizard (опционально)" : "Подобрать маршрут"}
+                  {showUaeProperty
+                    ? "EU wizard (опционально)"
+                    : isInvestmentMigrationGuide
+                      ? "Подобрать инвестиционный маршрут"
+                      : "Подобрать маршрут"}
                 </Link>
                 <TrackedAssistLink
                   href="/ru/assist#assist-form"
@@ -534,7 +550,7 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
                     href={guide.cta_secondary}
                     className="rounded-lg border border-corridor-200 bg-white px-5 py-3 text-center font-medium text-slate-700 hover:border-corridor-400"
                   >
-                    Смотреть коридор
+                    {isInvestmentMigrationGuide ? "Сравнить инвестиционные программы" : "Смотреть коридор"}
                   </Link>
                 )}
               </div>

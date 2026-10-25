@@ -84,7 +84,7 @@ export function HashtagNav({
     }`;
 
   return (
-    <nav className={`mt-8 ${layoutContain}`} aria-label="Хэштеги">
+    <nav id="topic-navigation" className={`mt-8 ${layoutContain}`} aria-label="Хэштеги">
       <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">Навигация</p>
       <div className={`mt-3 ${mobileScrollRow}`}>
         <Link href={satelliteHubPath(resolvedCountry)} className={chipClass(!active)}>

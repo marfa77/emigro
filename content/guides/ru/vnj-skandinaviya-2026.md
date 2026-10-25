@@ -14,7 +14,7 @@ corridor_slugs: [ru-speaking-to-sweden, ru-speaking-to-norway, ru-speaking-to-fi
 topic_keys: [scandinavia, sweden, norway, finland, denmark, work, visa]
 tags: [Скандинавия, ВНЖ, Швеция, Дания, work permit, 2026, Nordics]
 primary_intent: informational
-cta_primary: /ru/sweden/wizard
+cta_primary: /ru/wizard
 cta_secondary: /ru/guides/vnj-shvetsiya-2026-work-permit-grazhdanstvo
 official_sources:
   - url: https://www.migrationsverket.se/English/Private-individuals/Working-in-Sweden/Employed/How-to-apply.html
