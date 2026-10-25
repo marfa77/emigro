@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { NoteCard } from "@/components/satellite/NoteCard";
 import { requirePublishedCommunityNotes } from "@/lib/community-notes/queries";
 import type { CommunityNote } from "@/lib/community-notes/types";
-import { PORTUGAL_SATELLITE, rankPortugalHubGuides } from "@/lib/satellite/portugal";
+import { PORTUGAL_SATELLITE } from "@/lib/satellite/portugal";
 import { buildSatelliteHubPlace, withSatelliteAiMetadata } from "@/lib/community-notes/seo-page";
 import { fitMetaDescription } from "@/lib/seo";
 import { DEFAULT_OG_IMAGE, socialImageMetadata } from "@/lib/seo";
@@ -19,15 +19,12 @@ const HUB_GUIDE_SLUGS = [
   "aima-agora-zapis-2026",
   "kak-otkryt-bankovskiy-schet-portugalia-2026",
   "arenda-dolgosrok-porto-braga-2026",
-  "termo-responsabilidade-podtverzhdenie-zhilya-2026",
-  "pervyj-mesyac-portugaliya-checklist",
-  "sns-registration-changes-2026",
-  "aima-residence-card-sent-abroad-2026",
 ] as const;
 
 function selectHubGuides(notes: CommunityNote[]): CommunityNote[] {
-  const guides = rankPortugalHubGuides(notes.filter((note) => note.content_kind === "guide"));
-  const bySlug = new Map(guides.map((note) => [note.slug, note]));
+  const bySlug = new Map(
+    notes.filter((note) => note.content_kind === "guide").map((note) => [note.slug, note]),
+  );
   return HUB_GUIDE_SLUGS.flatMap((slug) => {
     const note = bySlug.get(slug);
     return note ? [note] : [];
@@ -108,6 +105,7 @@ export default async function PortugalSatelliteHomePage() {
         адреса, банковский счёт, жильё или документы AIMA. Здесь собраны отдельные руководства по этим темам; требования
         могут зависеть от вашей ситуации, поэтому сверяйте их с официальными источниками.
       </p>
+      <p className="mt-3 text-sm text-slate-500">Редактор Emigro · Португалия</p>
 
       <section className="mt-8 rounded-xl border border-slate-200 bg-white p-5 sm:p-6" aria-labelledby="first-steps-heading">
         <h2 id="first-steps-heading" className="text-xl font-semibold text-slate-900">
@@ -204,6 +202,18 @@ export default async function PortugalSatelliteHomePage() {
             </a>
           </li>
         </ul>
+      </section>
+
+      <section className="mt-8 rounded-xl border border-slate-200 p-5 sm:p-6" aria-labelledby="sources-heading">
+        <h2 id="sources-heading" className="text-lg font-semibold text-slate-900">
+          Как читать практические заметки
+        </h2>
+        <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate-600">
+          В руководствах отдельно обозначены официальные правила и опыт, о котором сообщают релоканты в локальных
+          сообществах. Такой опыт помогает подготовиться к разным сценариям, но не заменяет требования ведомства и может
+          отличаться от конкретного случая. Для решений по документам, налогам, банку или аренде откройте первоисточник и
+          проверьте условия у ответственной организации.
+        </p>
       </section>
 
       <section className="mt-10 border-t border-slate-200 pt-6" aria-labelledby="more-help-heading">
