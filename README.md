@@ -19,7 +19,7 @@ npm install
 npm run dev
 ```
 
-Open http://localhost:3000 → redirects to `/ru/portugal`.
+Open http://localhost:3000 → redirects to `/ru`.
 
 ## Database
 

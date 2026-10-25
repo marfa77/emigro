@@ -4,7 +4,7 @@
   "ignoreCommand": "bash scripts/vercel-ignore-build.sh",
   "crons": [
     {
-      "path": "/api/cron/portugal-spotlight",
+      "path": "/api/cron/portugal-community",
       "schedule": "5 6 * * *"
     },
     {
