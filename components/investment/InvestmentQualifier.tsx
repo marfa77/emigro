@@ -501,6 +501,21 @@ export function InvestmentQualifier({
           <h2 className="text-2xl font-bold text-slate-950">{t.doneTitle}</h2>
           <p className="mt-3 text-slate-600">{t.doneText}</p>
         </div>
+        <div className="mt-5 flex flex-wrap gap-3">
+          <Link
+            href={locale === "en" ? "/en/invest/compare" : "/ru/invest/compare"}
+            className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-corridor-700 px-5 py-3 font-semibold text-white hover:bg-corridor-800"
+          >
+            {locale === "en" ? "Compare programmes" : "Сравнить программы"}
+            <ArrowRight className="h-4 w-4" />
+          </Link>
+          <Link
+            href={locale === "en" ? "/en/invest" : "/ru/invest"}
+            className="inline-flex min-h-11 items-center rounded-xl border border-slate-300 px-5 py-3 font-semibold text-slate-700 hover:bg-slate-50"
+          >
+            {locale === "en" ? "Back to investment routes" : "К инвестиционным маршрутам"}
+          </Link>
+        </div>
       </section>
     );
   }

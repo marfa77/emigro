@@ -89,9 +89,11 @@ export const HUB_WIZARD_MODULES: WizardModule[] = [
         options: PASSPORT_OPTIONS,
         sort: 1,
       }),
-      q("hub-core", "relocation_goal", "single", "Главная цель", {
-        helpRu: "Это только помогает поставить маршруты в удобный порядок. Страны из-за этого ответа не отсекаются.",
+      q("hub-core", "relocation_goal", "single", "Главная цель (необязательно)", {
+        helpRu:
+          "Это помогает расставить маршруты. При выборе учёбы появится отдельный шаг; остальные страны не отсекаются.",
         options: GOAL_OPTIONS,
+        required: false,
         sort: 2,
       }),
     ],

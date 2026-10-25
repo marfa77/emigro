@@ -130,6 +130,33 @@ export default function InvestmentResultsPage({
               </p>
             </div>
 
+            {results[0] ? (
+              <section className="mt-6 flex flex-col gap-3 rounded-2xl border border-corridor-200 bg-corridor-50 p-5 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <h2 className="font-semibold text-slate-950">Ваш следующий шаг</h2>
+                  <p className="mt-1 text-sm text-slate-700">
+                    {submittedLeadId
+                      ? "Профиль сохранён. Пока Emigro проверяет его, откройте карточку первого маршрута и сверьте условия с официальным источником."
+                      : "Откройте карточку первого маршрута и сверьте предварительное совпадение с официальными условиями."}
+                  </p>
+                </div>
+                <Link
+                  href={`/ru/invest/${results[0].country}#${routeKey(results[0])}`}
+                  className="inline-flex min-h-11 shrink-0 items-center justify-center gap-1 rounded-lg bg-corridor-700 px-4 py-2 text-sm font-semibold text-white hover:bg-corridor-800"
+                >
+                  Открыть {results[0].countryRu} <ArrowRight className="h-4 w-4" />
+                </Link>
+              </section>
+            ) : (
+              <section className="mt-6 rounded-2xl border border-corridor-200 bg-corridor-50 p-5">
+                <h2 className="font-semibold text-slate-950">Совпадений пока нет</h2>
+                <p className="mt-1 text-sm text-slate-700">Измените бюджет или цель и запустите подбор ещё раз.</p>
+                <Link href="/ru/invest#qualifier" className="mt-3 inline-flex min-h-11 items-center gap-1 font-semibold text-corridor-800 hover:underline">
+                  Изменить ответы <ArrowRight className="h-4 w-4" />
+                </Link>
+              </section>
+            )}
+
             <section className="mt-8 space-y-4" aria-label="Shortlist маршрутов">
               {results.map((route, index) => {
                 const statusStyle =

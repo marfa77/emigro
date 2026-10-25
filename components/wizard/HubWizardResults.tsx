@@ -52,6 +52,35 @@ export function HubWizardResults({
         </p>
       </header>
 
+      <section className="mt-5 flex flex-col gap-3 rounded-2xl border border-corridor-200 bg-corridor-50 p-5 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h2 className="font-semibold text-slate-950">Ваш следующий шаг</h2>
+          <p className="mt-1 text-sm text-slate-700">
+            {pick
+              ? `Сначала проверьте условия маршрута «${formatCountryProgramLabel(pick.countryRu, pick.programTitleRu)}» и официальный источник.`
+              : "Явных совпадений нет — разберите с Emigro, что можно изменить в профиле и какие есть альтернативы."}
+          </p>
+        </div>
+        {pick ? (
+          <Link
+            href={pick.programPath}
+            className="inline-flex min-h-11 shrink-0 items-center justify-center gap-1 rounded-lg bg-corridor-600 px-4 py-2 text-sm font-semibold text-white hover:bg-corridor-700"
+          >
+            Открыть маршрут <ArrowRight className="h-4 w-4" />
+          </Link>
+        ) : (
+          <TrackedAssistLink
+            href={assistBotDeepLink()}
+            placement="wizard_hub_next_step_no_match"
+            linkLabel="Разобрать профиль"
+            sessionId={sessionId}
+            className="inline-flex min-h-11 shrink-0 items-center justify-center gap-1 rounded-lg bg-corridor-600 px-4 py-2 text-sm font-semibold text-white hover:bg-corridor-700"
+          >
+            Разобрать профиль <ArrowRight className="h-4 w-4" />
+          </TrackedAssistLink>
+        )}
+      </section>
+
       <section className="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-5">
         <p className="text-sm font-semibold uppercase tracking-wide text-slate-600">Уже за границей?</p>
         <p className="mt-2 text-sm leading-relaxed text-slate-700">

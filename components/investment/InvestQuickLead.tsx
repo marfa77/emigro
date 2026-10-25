@@ -30,9 +30,9 @@ const COPY = {
   ru: {
     heading: "Бесплатный подбор инвест-маршрута за 1 минуту",
     headingCompare: "Получите PDF-сравнение на e-mail или в Telegram",
-    sub: "4 вопроса → какие программы вам реально доступны с вашим паспортом и бюджетом. €0, без обязательств.",
+    sub: "4 коротких вопроса · около минуты. Ответ с доступными программами пришлём в течение 1 рабочего дня. €0, без обязательств.",
     subCompare:
-      "4 вопроса — и PDF с 8 программами, порогами и официальными источниками, плюс бесплатный подбор под ваш паспорт. €0.",
+      "PDF с 8 программами и официальными источниками доступен сразу после отправки; подбор под ваш паспорт — в течение 1 рабочего дня. €0.",
     budget: "Бюджет на инвестицию",
     budgetPlaceholder: "Выберите бюджет",
     budgets: {
@@ -84,9 +84,9 @@ const COPY = {
   en: {
     heading: "Free investment-route match in 1 minute",
     headingCompare: "Get the PDF comparison by email or Telegram",
-    sub: "4 questions → which programmes are actually open to your passport and budget. €0, no obligation.",
+    sub: "4 short questions · about a minute. We'll send your available-programme shortlist within 1 business day. €0, no obligation.",
     subCompare:
-      "4 questions — and a PDF with 8 programmes, thresholds and official sources, plus a free match for your passport. €0.",
+      "The PDF with 8 programmes and official sources is ready after you submit; your passport-specific shortlist follows within 1 business day. €0.",
     budget: "Investment budget",
     budgetPlaceholder: "Choose a budget",
     budgets: {
