@@ -195,6 +195,7 @@ export default async function ItalyNotePage({ params }: { params: { slug: string
         noteSlug={note.slug}
         noteTitle={note.title}
         contentKind={note.content_kind}
+        isInvestmentContent={/invest|golden.?visa/i.test(`${note.slug} ${note.title} ${note.topic_tags.join(" ")}`)}
       />
 
       {showPixId && <PixIDPromo noteSlug={note.slug} topicKey="italy" />}

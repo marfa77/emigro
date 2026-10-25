@@ -141,7 +141,7 @@ ok =
 const moneyPages: Array<{ rel: string; need: string[] }> = [
   {
     rel: "app/ru/guides/[slug]/page.tsx",
-    need: ["aiDescription", "ai:description", 'data-llm="facts"', 'data-llm="commercial"', "/llms.txt"],
+    need: ["aiDescription", "buildGuideArticleMetadata", 'data-llm="facts"', 'data-llm="commercial"'],
   },
   {
     rel: "app/ru/wizard/page.tsx",
@@ -165,37 +165,53 @@ const moneyPages: Array<{ rel: string; need: string[] }> = [
   },
   {
     rel: "app/es/guides/[slug]/page.tsx",
-    need: ["aiDescription", "ai:description", 'data-llm="facts"', 'data-llm="commercial"', "/llms.txt", "extractGuideFaq"],
+    need: ["aiDescription", "buildGuideArticleMetadata", 'data-llm="facts"', 'data-llm="commercial"', "extractGuideFaq"],
   },
   {
     rel: "app/fr/guides/[slug]/page.tsx",
-    need: ["aiDescription", "ai:description", 'data-llm="facts"', 'data-llm="commercial"', "/llms.txt", "extractGuideFaq"],
+    need: ["aiDescription", "buildGuideArticleMetadata", 'data-llm="facts"', 'data-llm="commercial"', "extractGuideFaq"],
   },
   {
     rel: "app/es/page.tsx",
-    need: ["aiDescription", "ai:description", 'data-llm="facts"', "/llms.txt"],
+    need: ["aiDescription", "pageMetadata", 'data-llm="facts"'],
   },
   {
     rel: "app/fr/page.tsx",
-    need: ["aiDescription", "ai:description", 'data-llm="facts"', "/llms.txt"],
+    need: ["aiDescription", "pageMetadata", 'data-llm="facts"'],
   },
   {
     rel: "app/ru/rossiyane/page.tsx",
-    need: ["aiDescription", "ai:description", 'data-llm="facts"', "/llms.txt"],
+    need: ["aiDescription", "pageMetadata", 'data-llm="facts"'],
   },
   {
     rel: "app/satellite/spain/notes/[slug]/page.tsx",
-    need: ["ai:description", 'data-llm="facts"', 'data-llm="commercial"', "/llms"],
+    need: ["buildCommunityNoteMetadata", 'data-llm="facts"', 'data-llm="commercial"'],
   },
   {
     rel: "app/satellite/portugal/notes/[slug]/page.tsx",
-    need: ["ai:description", 'data-llm="facts"', 'data-llm="commercial"', "/llms"],
+    need: ["buildCommunityNoteMetadata", 'data-llm="facts"', 'data-llm="commercial"'],
   },
   {
     rel: "lib/community-notes/seo-page.ts",
     need: ["withAiMetadata", "withSatelliteAiMetadata", "llmUtmAbsolute", "aiCategory"],
   },
 ];
+
+ok =
+  check("shared SEO helpers emit ai:description + llms alternates", () => {
+    const seo = read("lib/seo.ts");
+    const ai = read("lib/seo/llm-meta.ts");
+    const satellite = read("lib/community-notes/seo-page.ts");
+    if (!ai.includes('"ai:description"') || !ai.includes('"text/plain"')) {
+      throw new Error("withAiMetadata must emit ai:description and text/plain alternate");
+    }
+    if (!seo.includes("withAiMetadata(metadata") || !seo.includes("buildGuideArticleMetadata")) {
+      throw new Error("guide/page metadata helpers must delegate AI metadata to withAiMetadata");
+    }
+    if (!satellite.includes("buildCommunityNoteMetadata") || !satellite.includes("withAiMetadata")) {
+      throw new Error("satellite note metadata must delegate AI metadata to withAiMetadata");
+    }
+  }) && ok;
 
 for (const page of moneyPages) {
   ok =

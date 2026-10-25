@@ -193,6 +193,7 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
         noteSlug={note.slug}
         noteTitle={note.title}
         contentKind={note.content_kind}
+        isInvestmentContent={/invest|golden.?visa/i.test(`${note.slug} ${note.title} ${note.topic_tags.join(" ")}`)}
       />
 
       {showPrep2Go && <Prep2GoPromo noteSlug={note.slug} />}

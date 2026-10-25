@@ -14,8 +14,8 @@ corridor_slugs: [ru-speaking-to-portugal, ru-speaking-to-italy, ru-speaking-to-s
 topic_keys: [portugal, italy, spain, investment]
 tags: [Golden Visa, инвестиции, ARI, Investor Visa, ВНЖ, 2026]
 primary_intent: comparison
-cta_primary: /ru/wizard
-cta_secondary: /ru/portugal
+cta_primary: /ru/invest
+cta_secondary: /ru/invest/compare
 official_sources:
   - url: https://www.vistos.mne.gov.pt/
     label: MNE Portugal — визы и ARI

@@ -21,6 +21,7 @@ import { italySatelliteUrl } from "@/lib/site-url";
 import { heroTitle, satelliteMain } from "@/lib/ui/mobile";
 import { ComoStayLink } from "@/components/satellite/ComoStayLink";
 import { COMO_STAY_OFFER, comoStayUrl } from "@/lib/italy/como-guides";
+import { previewHubNotes, SATELLITE_HUB_FEED_PREVIEW_LIMIT, SATELLITE_HUB_GUIDE_PREVIEW_LIMIT } from "@/lib/satellite/hub-preview";
 
 export const revalidate = 300;
 
@@ -69,8 +70,12 @@ export default async function ItalySatelliteHomePage() {
     requirePublishedCommunityNotes("italy"),
   ]);
   const listNotes = spotlight ? notes.filter((n) => n.slug !== spotlight.note_slug) : notes;
-  const guideNotes = listNotes.filter((n) => n.content_kind === "guide");
-  const feedNotes = listNotes.filter((n) => n.content_kind !== "guide");
+  const guidesAll = listNotes.filter((n) => n.content_kind === "guide");
+  const feedAll = listNotes.filter((n) => n.content_kind !== "guide");
+  const guidePreview = previewHubNotes(guidesAll, SATELLITE_HUB_GUIDE_PREVIEW_LIMIT);
+  const feedPreview = previewHubNotes(feedAll, SATELLITE_HUB_FEED_PREVIEW_LIMIT);
+  const guideNotes = guidePreview.visible;
+  const feedNotes = feedPreview.visible;
   const allGuides = notes.filter((n) => n.content_kind === "guide");
   const topicTags = Array.from(new Set(notes.flatMap((n) => n.topic_tags.filter((t) => t !== "italy")))).sort();
   const destinationsLabel = topicTags.slice(0, 8).join(", ") || "codice fiscale, permesso, Milano, Como, аренда";
@@ -190,7 +195,7 @@ export default async function ItalySatelliteHomePage() {
       {guideNotes.length > 0 && (
         <section className="mt-10" aria-labelledby="guides-heading">
           <h2 id="guides-heading" className="text-xl font-semibold text-slate-900">
-            Гайды ({guideNotes.length})
+            Гайды ({guideNotes.length}{guidePreview.hiddenCount ? ` из ${guidesAll.length}` : ""})
           </h2>
           <ul className="mt-6 space-y-4">
             {guideNotes.map((note) => (
@@ -199,12 +204,13 @@ export default async function ItalySatelliteHomePage() {
               </li>
             ))}
           </ul>
+          {guidePreview.hiddenCount > 0 && <p className="mt-4 text-sm text-slate-600">Ещё {guidePreview.hiddenCount} гайдов — через <a href="#topic-navigation" className="font-medium text-emerald-900 underline">навигацию по темам</a>.</p>}
         </section>
       )}
 
       <section className="mt-10" aria-labelledby="notes-heading">
         <h2 id="notes-heading" className="text-xl font-semibold text-slate-900">
-          {feedNotes.length > 0 ? `Новости и заметки (${feedNotes.length})` : "Материалы"}
+          {feedNotes.length > 0 ? `Новости и заметки (${feedNotes.length}${feedPreview.hiddenCount ? ` из ${feedAll.length}` : ""})` : "Материалы"}
         </h2>
         {listNotes.length === 0 ? (
           <p className="mt-4 text-sm text-slate-600">
@@ -218,13 +224,16 @@ export default async function ItalySatelliteHomePage() {
             .
           </p>
         ) : feedNotes.length === 0 ? null : (
-          <ul className="mt-6 space-y-4">
-            {feedNotes.map((note) => (
-              <li key={note.slug}>
-                <NoteCard note={note} />
-              </li>
-            ))}
-          </ul>
+          <>
+            <ul className="mt-6 space-y-4">
+              {feedNotes.map((note) => (
+                <li key={note.slug}>
+                  <NoteCard note={note} />
+                </li>
+              ))}
+            </ul>
+            {feedPreview.hiddenCount > 0 && <p className="mt-4 text-sm text-slate-600">Ещё {feedPreview.hiddenCount} материалов — через <a href="#topic-navigation" className="font-medium text-emerald-900 underline">навигацию по темам</a>.</p>}
+          </>
         )}
       </section>
 

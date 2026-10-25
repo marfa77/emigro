@@ -17,6 +17,7 @@ import { buildSatelliteHubPlace, withSatelliteAiMetadata } from "@/lib/community
 import { DEFAULT_OG_IMAGE, fitMetaDescription, socialImageMetadata } from "@/lib/seo";
 import { thailandSatelliteUrl } from "@/lib/site-url";
 import { heroTitle, satelliteMain } from "@/lib/ui/mobile";
+import { previewHubNotes, SATELLITE_HUB_FEED_PREVIEW_LIMIT, SATELLITE_HUB_GUIDE_PREVIEW_LIMIT } from "@/lib/satellite/hub-preview";
 
 export const revalidate = 300;
 
@@ -62,8 +63,12 @@ export default async function ThailandSatelliteHomePage() {
     requirePublishedCommunityNotes("thailand"),
   ]);
   const listNotes = spotlight ? notes.filter((note) => note.slug !== spotlight.note_slug) : notes;
-  const guideNotes = listNotes.filter((note) => note.content_kind === "guide");
-  const feedNotes = listNotes.filter((note) => note.content_kind !== "guide");
+  const guidesAll = listNotes.filter((note) => note.content_kind === "guide");
+  const feedAll = listNotes.filter((note) => note.content_kind !== "guide");
+  const guidePreview = previewHubNotes(guidesAll, SATELLITE_HUB_GUIDE_PREVIEW_LIMIT);
+  const feedPreview = previewHubNotes(feedAll, SATELLITE_HUB_FEED_PREVIEW_LIMIT);
+  const guideNotes = guidePreview.visible;
+  const feedNotes = feedPreview.visible;
   const topicTags = Array.from(
     new Set(notes.flatMap((note) => note.topic_tags.filter((tag) => tag !== "thailand"))),
   ).sort();
@@ -129,21 +134,25 @@ export default async function ThailandSatelliteHomePage() {
 
       {guideNotes.length > 0 && (
         <section className="mt-10" aria-labelledby="guides-heading">
-          <h2 id="guides-heading" className="text-xl font-semibold text-slate-900">Гайды ({guideNotes.length})</h2>
+          <h2 id="guides-heading" className="text-xl font-semibold text-slate-900">Гайды ({guideNotes.length}{guidePreview.hiddenCount ? ` из ${guidesAll.length}` : ""})</h2>
           <ul className="mt-6 space-y-4">
             {guideNotes.map((note) => <li key={note.slug}><NoteCard note={note} /></li>)}
           </ul>
+          {guidePreview.hiddenCount > 0 && <p className="mt-4 text-sm text-slate-600">Ещё {guidePreview.hiddenCount} гайдов — через <a href="#topic-navigation" className="font-medium text-indigo-900 underline">навигацию по темам</a>.</p>}
         </section>
       )}
 
       <section className="mt-10" aria-labelledby="notes-heading">
         <h2 id="notes-heading" className="text-xl font-semibold text-slate-900">
-          {feedNotes.length > 0 ? `Новости и заметки (${feedNotes.length})` : "Материалы"}
+          {feedNotes.length > 0 ? `Новости и заметки (${feedNotes.length}${feedPreview.hiddenCount ? ` из ${feedAll.length}` : ""})` : "Материалы"}
         </h2>
         {feedNotes.length > 0 ? (
-          <ul className="mt-6 space-y-4">
-            {feedNotes.map((note) => <li key={note.slug}><NoteCard note={note} /></li>)}
-          </ul>
+          <>
+            <ul className="mt-6 space-y-4">
+              {feedNotes.map((note) => <li key={note.slug}><NoteCard note={note} /></li>)}
+            </ul>
+            {feedPreview.hiddenCount > 0 && <p className="mt-4 text-sm text-slate-600">Ещё {feedPreview.hiddenCount} материалов — через <a href="#topic-navigation" className="font-medium text-indigo-900 underline">навигацию по темам</a>.</p>}
+          </>
         ) : (
           <p className="mt-4 text-sm text-slate-600">
             Редакционные заметки ещё не опубликованы. Пока используйте{" "}

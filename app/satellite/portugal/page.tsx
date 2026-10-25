@@ -25,6 +25,7 @@ import { fitMetaDescription } from "@/lib/seo";
 import { DEFAULT_OG_IMAGE, socialImageMetadata } from "@/lib/seo";
 import { portugalSatelliteUrl } from "@/lib/site-url";
 import { heroTitle, satelliteMain } from "@/lib/ui/mobile";
+import { previewHubNotes, SATELLITE_HUB_FEED_PREVIEW_LIMIT, SATELLITE_HUB_GUIDE_PREVIEW_LIMIT } from "@/lib/satellite/hub-preview";
 
 export const revalidate = 300;
 
@@ -124,12 +125,12 @@ export default async function PortugalSatelliteHomePage() {
   const guideNotesAll = rankPortugalHubGuides(listNotes.filter((n) => n.content_kind === "guide"));
   const feedNotesAll = listNotes.filter((n) => n.content_kind !== "guide");
   /** Cap hub lists — full dump (~60 cards / 500KB) → GSC "Crawled - not indexed" doorway signal. */
-  const HUB_GUIDES_PREVIEW = 10;
-  const HUB_FEED_PREVIEW = 6;
-  const guideNotes = guideNotesAll.slice(0, HUB_GUIDES_PREVIEW);
-  const feedNotes = feedNotesAll.slice(0, HUB_FEED_PREVIEW);
-  const guidesHidden = Math.max(0, guideNotesAll.length - guideNotes.length);
-  const feedHidden = Math.max(0, feedNotesAll.length - feedNotes.length);
+  const guidePreview = previewHubNotes(guideNotesAll, SATELLITE_HUB_GUIDE_PREVIEW_LIMIT);
+  const feedPreview = previewHubNotes(feedNotesAll, SATELLITE_HUB_FEED_PREVIEW_LIMIT);
+  const guideNotes = guidePreview.visible;
+  const feedNotes = feedPreview.visible;
+  const guidesHidden = guidePreview.hiddenCount;
+  const feedHidden = feedPreview.hiddenCount;
   const allGuides = notes.filter((n) => n.content_kind === "guide");
   const feedCount = notes.filter((n) => n.content_kind !== "guide").length;
   const topicTags = Array.from(
@@ -470,7 +471,8 @@ export default async function PortugalSatelliteHomePage() {
           </ul>
           {feedHidden > 0 ? (
             <p className="mt-4 text-sm text-slate-600">
-              Ещё {feedHidden} коротких материалов — по тегам, не на главной (иначе хаб выглядит как каталог-дамп).
+              Ещё {feedHidden} коротких материалов — через{" "}
+              <a href="#topic-navigation" className="font-medium text-teal-800 underline">навигацию по темам</a>.
             </p>
           ) : null}
         </section>
