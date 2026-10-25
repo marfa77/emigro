@@ -96,6 +96,13 @@ export default async function RuHubPage() {
             >
               Все страны — hub wizard
             </Link>
+            <Link
+              href="/ru/invest?utm_source=home&utm_medium=internal&utm_campaign=hero"
+              data-placement="ru_hero_invest"
+              className="rounded-lg border border-amber-200/70 bg-amber-300/10 px-5 py-3 font-medium text-amber-100 hover:bg-amber-300/20"
+            >
+              Есть капитал — инвест-маршруты
+            </Link>
           </div>
         </HeroShell>
 
