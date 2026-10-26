@@ -214,8 +214,11 @@ export function UniPrep2GoPromo({
   const mockHref = offer.mock
     ? withUniPrepUtm(offer.mock.path, { medium: placement, campaign, content: `${content}_mock` })
     : null;
+  const deckOnPrep2Go = Boolean(offer.deck?.path.startsWith("/shop/") || offer.deck?.path.includes("prep2go.study"));
   const deckHref = offer.deck
-    ? withUniPrepUtm(offer.deck.path, { medium: placement, campaign, content: `${content}_deck` })
+    ? deckOnPrep2Go
+      ? withPrep2GoUtm(offer.deck.path, { medium: placement, campaign: `prep2go_${offer.topicKey}`, content: `${content}_deck` })
+      : withUniPrepUtm(offer.deck.path, { medium: placement, campaign, content: `${content}_deck` })
     : null;
   const prep2goHref = offer.prep2goMock
     ? withPrep2GoUtm(offer.prep2goMock.path, {
@@ -362,11 +365,17 @@ export function UniPrep2GoPromo({
         )}
       </div>
       <p className="mt-3 text-xs text-slate-500">
-        {isEs
-          ? "uniprep2go.study · familia PixID Studio · material de estudio, no examen oficial"
-          : isFr
-            ? "uniprep2go.study · famille PixID Studio · matériel d'étude, pas un examen officiel"
-            : "uniprep2go.study · семейство PixID Studio · учебные материалы, не официальный экзамен"}
+        {deckOnPrep2Go || prep2goHref
+          ? isEs
+            ? "prep2go.study / uniprep2go.study · familia PixID Studio · material de estudio, no examen oficial"
+            : isFr
+              ? "prep2go.study / uniprep2go.study · famille PixID Studio · matériel d'étude, pas un examen officiel"
+              : "prep2go.study / uniprep2go.study · семейство PixID Studio · учебные материалы, не официальный экзамен"
+          : isEs
+            ? "uniprep2go.study · familia PixID Studio · material de estudio, no examen oficial"
+            : isFr
+              ? "uniprep2go.study · famille PixID Studio · matériel d'étude, pas un examen officiel"
+              : "uniprep2go.study · семейство PixID Studio · учебные материалы, не официальный экзамен"}
       </p>
     </section>
   );

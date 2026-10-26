@@ -96,9 +96,9 @@ export function SatelliteHubDepth({
         {countryKey === "portugal" ? (
           <>
             {" · "}
-            CIPLE A2 mock —{" "}
+            CIPLE A2 Anki + mock —{" "}
             <a
-              href="https://www.prep2go.study/ciple-a2-mock-test?utm_source=emigro&utm_medium=satellite&utm_campaign=portugal_hub&utm_content=depth"
+              href="https://www.prep2go.study/shop/ciple-a2-anki-deck?utm_source=emigro&utm_medium=satellite&utm_campaign=portugal_hub&utm_content=depth_deck"
               target="_blank"
               rel={PARTNER_LINK_REL}
               className={`font-medium underline ${link}`}

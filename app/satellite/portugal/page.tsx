@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { CiplePrepTile } from "@/components/satellite/CiplePrepTile";
 import { requirePublishedCommunityNotes } from "@/lib/community-notes/queries";
 import type { CommunityNote } from "@/lib/community-notes/types";
 import { PORTUGAL_SATELLITE } from "@/lib/satellite/portugal";
@@ -46,6 +47,14 @@ const JOURNEYS = [
     description: "Медицина, связь и базовые услуги — выбирайте тему, которая актуальна сейчас.",
     slugs: ["meditsina-norte-sns-chastnaya-stomatologiya-2026", "vybor-internet-provaydera-portugaliya-2026", "zheltye-stranitsy-relokanta-portugaliya-2026"],
     accent: "border-sky-200 bg-sky-50/70",
+  },
+  {
+    number: "05",
+    eyebrow: "Язык и гражданство",
+    title: "Готовитесь к CIPLE A2",
+    description: "Языковая часть натурализации — не слот AIMA. Anki для русскоязычных и timed mock — на Prep2Go.",
+    slugs: ["ciple-guide-2026", "pervyj-mesyac-portugaliya-checklist"],
+    accent: "border-emerald-200 bg-emerald-50/70",
   },
 ] as const;
 
@@ -172,6 +181,8 @@ export default async function PortugalSatelliteHomePage() {
           ))}
         </div>
       </section>
+
+      <CiplePrepTile placement="satellite_hub" />
 
       <section className="mt-10 rounded-2xl bg-slate-950 px-5 py-6 text-white sm:flex sm:items-center sm:justify-between sm:gap-6 sm:px-7">
         <div>

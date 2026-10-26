@@ -42,6 +42,12 @@ function portugalScenarios(): Scenario[] {
       href: satelliteTagPath("arenda", "portugal"),
     },
     {
+      id: "ciple",
+      title: "Готовлюсь к CIPLE",
+      blurb: "Anki для русскоязычных + timed mock",
+      href: satelliteTagPath("ciple", "portugal"),
+    },
+    {
       id: "assist",
       title: "Нужна помощь",
       blurb: "Бесплатно подберём специалиста по задаче",
