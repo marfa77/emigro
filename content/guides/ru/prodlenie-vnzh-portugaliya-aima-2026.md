@@ -1,236 +1,119 @@
 ---
 slug: prodlenie-vnzh-portugaliya-aima-2026
-title: "Продление ВНЖ Португалия 2026 — AIMA, Agora и portal-renovacoes"
-seo_title: "Продление ВНЖ Португалия 2026 — AIMA renovação"
-seo_description: "Продление ВНЖ в Португалии 2026: renovação на портале AIMA до 31.10.2026, оплата DUC за 24 часа, сборы ~€440 (€133 + €307). Что делать, если карта caducado."
-date_modified: 2026-08-11
+title: "Продление ВНЖ в Португалии: портал AIMA, документы и сроки"
+seo_title: "Продление ВНЖ в Португалии — Portal das Renovações AIMA"
+seo_description: "Как проверить доступность Portal das Renovações, подать документы, оплатить DUC и обновить данные. Что говорит AIMA об истёкшей карте и поездках."
+date_modified: 2026-10-26
 review_tier: volatile
-excerpt: "Когда начинать renovação, какие документы по типу D7/D8/trabalho/estudo, куда подавать — portal-renovacoes, Agora или services.aima — и что делать с просроченной картой."
+excerpt: "Актуальный маршрут продления ВНЖ через AIMA: доступность портала, документы, DUC, истёкшая карта и обращение в ведомство."
 quick_answer: |-
-  Продление португальского título идёт через portal-renovacoes.aima.gov.pt. На август 2026 портал принимает карты с истечением с 1 июля 2025 по 31 октября 2026, плюс ARI; постоянный ЕС-статус — с 1 июля 2026.
-
-  С 1 марта 2026 типовой пакет temporary renovação около €440,20 (€133 + €307,20); ARI около €4 210,30. Сверяйте сумму в DUC: оплату часто принимают только в срок из документа, иногда 24 часа на выпуск.
-
-  Agora — очная запись. Просроченные дела после письма AIMA — на services.aima.gov.pt. Emigro ведёт такие кейсы через адвокатов; цифры сверяйте на aima.gov.pt.
+  Сначала проверьте, что Portal das Renovações принимает ваш тип карты и дату её окончания. Следуйте персональному списку документов и сроку оплаты в DUC. AIMA назначает очный визит, если нужно собрать биометрию. Правила пребывания после окончания карты не следует считать разрешением на поездки по Шенгену.
 corridor_slugs: [ru-speaking-to-portugal]
 topic_keys: [portugal, aima, renewal]
-tags: [Португалия, ВНЖ, AIMA, renovação, 2026]
+tags: [Португалия, ВНЖ, AIMA, renovação]
 primary_intent: how-to
 cta_primary: /ru/portugal/wizard
 cta_secondary: /ru/guides/vnj-portugaliya-d8-d7-grazhdanstvo-2026
 official_sources:
-  - url: https://aima.gov.pt/
-    label: AIMA — imigração
-  - url: https://portal-renovacoes.aima.gov.pt/
-    label: Portal das Renovações
-  - url: https://agora.imigrante.pt/
-    label: Agora — agendamento
-  - url: https://services.aima.gov.pt/
-    label: services.aima.gov.pt
-estimated_minutes: 16
+  - url: https://aima.gov.pt/pt/noticias/portal-de-renovacoes-certificados-e-cartoes-de-residencia-permanentes-de-nacionais-ue-e-familiares
+    label: AIMA — доступность Portal das Renovações
+  - url: https://aima.gov.pt/pt/noticias/direito-de-residencia
+    label: AIMA — право проживания после окончания карты
+  - url: https://aima.gov.pt/media/pages/documents/dc677d0005-1772305205/tabela-de-taxas-e-demais-encargos-a-cobrar-pelos-procedimentos-administrativos.pdf
+    label: AIMA — таблица сборов
+  - url: https://aima.gov.pt/pt/decreto-regulamentar-da-lei-de-estrangeiros-alteracoes/perguntas-frequentes
+    label: AIMA — FAQ по процедурам
+  - url: https://contactenos.aima.gov.pt/contact-form
+    label: AIMA — Contact Form
+  - url: https://aima.gov.pt/pt/noticias/saiba-como-registar-o-seu-niss
+    label: AIMA — добавить или исправить NISS
+  - url: https://aima.gov.pt/media/pages/documents/15677172d6-1738878548/titulos-de-residencia.pdf
+    label: AIMA — FAQ о документах и поездках
+estimated_minutes: 8
 date_published: 2026-07-13
 ---
 
-## Важно перед чтением
+## Сначала проверьте, открыт ли ваш маршрут
 
-**Emigro — не юридическая консультация.** Авторы проходят продление ВНЖ через **advogados / solicitadores**, а не «сами по форумам». Информация собрана из **официальных источников AIMA и gov.pt** и **сверена с реальным опытом** релокантов в Telegram-чатах (@chatlisboa, @por_tugal, @autolife_pt, @lepta). Правила, **taxas** (пошлины) и порталы **меняются** — в тексте возможны ошибки и отставание от практики. **Перед подачей сверяйтесь** с актуальными данными на [aima.gov.pt](https://aima.gov.pt/) и с вашим юристом.
+Продление карты ВНЖ начинается в **Portal das Renovações**, если AIMA уже открыла в нём вашу категорию и период окончания карты. Доступность меняется поэтапно — прежде чем собирать документы, проверьте [последнее объявление AIMA о категориях портала](https://aima.gov.pt/pt/noticias/portal-de-renovacoes-certificados-e-cartoes-de-residencia-permanentes-de-nacionais-ue-e-familiares).
 
-- [D8 и D7 — первичное получение ВНЖ](/ru/guides/vnj-portugaliya-d8-d7-grazhdanstvo-2026)
-- [Первые 30 дней после прилёта](/ru/guides/pervye-30-dnej-v-portugalii-2026)
-- [Запись в AIMA / Agora (слоты) — satellite](https://portugal.emigro.online/notes/aima-agora-zapis-2026)
-- [Карта ВНЖ уехала за границу — адрес в AIMA](https://portugal.emigro.online/notes/aima-residence-card-sent-abroad-2026)
-- [Практика на portugal.emigro.online](https://portugal.emigro.online)
+**На 26 октября 2026 года** AIMA указывает доступность для обычных карт, истёкших или истекающих с 1 июля 2025 года по 31 октября 2026 года; для ARI — с 22 февраля 2020 года по 31 октября 2026 года. В этом же объявлении перечислены постоянные сертификаты и карты проживания граждан ЕС и членов их семей. Эти окна временные: проверьте их ещё раз в день подачи.
 
----
+| Ваша задача | Куда смотреть |
+| --- | --- |
+| Продлить обычную карту ВНЖ | [Portal das Renovações](https://portal-renovacoes.aima.gov.pt/) и объявление о доступности |
+| Продлить уже выданную карту ARI | [Инструкция AIMA для ARI](https://aima.gov.pt/pt/viver/autorizacao-de-residencia-para-investimento-art-90-o-a/portal-ari) — с 16 февраля 2026 продления идут через Portal das Renovações |
+| Подать первичную заявку ARI | [Portal ARI](https://aima.gov.pt/pt/viver/autorizacao-de-residencia-para-investimento-art-90-o-a/portal-ari) — это другой процесс |
+| Продлить карту CPLP или другую специальную категорию | Сначала проверьте раздел для своей категории в [FAQ AIMA](https://aima.gov.pt/pt/decreto-regulamentar-da-lei-de-estrangeiros-alteracoes/perguntas-frequentes) |
 
-## Когда начинать продление
+## Как пройти подачу
 
-**Что делать:** отметьте дату **caducidade** на título de residência и начните готовить документы за **2–3 месяца**.
+1. Проверьте дату окончания карты и доступность своей категории в объявлении AIMA.
+2. Войдите в Portal das Renovações с адресом электронной почты, привязанным к вашему делу.
+3. Следуйте персональному списку документов и заполните сведения так, как они указаны в паспорте и записи AIMA.
+4. Проверьте сумму и срок оплаты в сформированном для вашего дела DUC. Сохраните квитанцию.
+5. После отправки сохраните recibo — подтверждение подачи. Если потребуется биометрия или другая личная проверка, AIMA направит уведомление с датой и местом приёма.
 
-**Зачем:** [Portal das Renovações](https://portal-renovacoes.aima.gov.pt/) открывается **поэтапно** — по месяцам истечения карты ([новость AIMA](https://aima.gov.pt/pt/noticias/o-portal-das-renovacoes-ja-esta-disponivel)). Без registo, validação и оплаты DUC pedido не стартует.
+**Не переносите срок оплаты из чужого дела.** Ранее опубликованное AIMA описание портала указывало на короткий срок оплаты после формирования DUC. Действуйте по сроку, который показан в вашем документе.
 
-### Окно portal на август 2026
+## Что подготовить заранее
 
-По [официальному статусу AIMA](https://aima.gov.pt/pt/noticias/portal-de-renovacoes-certificados-e-cartoes-de-residencia-permanentes-de-nacionais-ue-e-familiares) portal-renovacoes доступен для:
+У AIMA нет одного списка документов для всех типов ВНЖ. Откройте персональный checklist в процессе подачи и ориентируйтесь на документы, требуемые именно для вашего основания и этапа.
 
-| Категория | Окно (сверяйте aima.gov.pt) |
-|-----------|------------------------------|
-| Обычные autorizações de residência | Expiry **с 01.07.2025 по 31.10.2026** |
-| **ARI** (Golden Visa) | Caducidade с **22.02.2020** по **31.10.2026** |
-| Certificados / cartões permanentes UE и familiares | Доступны с **01.07.2026** (отдельный pedido в том же portal) |
+Перед входом проверьте:
 
-Cohorts по месяцам могут открываться раньше expiry — следите новостям AIMA (сен–окт 2026 уже анонсировали заранее).
+- данные действующего паспорта и текущей карты ВНЖ;
+- адрес для получения корреспонденции — он должен быть актуален в записи AIMA;
+- номер NISS: если он есть, но не отображается в системе AIMA, ведомство предлагает внести или исправить его через [Contact Form](https://contactenos.aima.gov.pt/contact-form);
+- читаемость и формат файлов, если портал просит их загрузить;
+- уведомления в электронной почте, включая папку «Спам».
 
-| Действие | Зачем |
-|----------|-------|
-| Проверить expiry на карте | Первый título D7/D8/work обычно **2 года** |
-| Следить aima.gov.pt / e-mail AIMA | Portal открывается cohort-by-cohort |
-| Обновить morada и NISS до pedido | Блок validação AT/Segurança Social |
-| Закладывать ~**90 дней** до expiry | Безопасный горизонт; точный срок — в письме AIMA |
-| Сверить срок загранпаспорта | [Замена заграна](https://portugal.emigro.online/notes/zamena-zagranpasporta-portugaliya-2026) |
+Не заказывайте справки, переводы или апостили «на всякий случай»: сначала проверьте список для своей процедуры. Требования к подтверждению средств, жилья и другим документам зависят от основания и дела.
 
----
+## Сборы: платите по своему DUC
 
-## Типы ВНЖ: D7, D8, trabalho, estudo, família, EU
+С 1 марта 2026 действует обновлённая [таблица сборов AIMA](https://aima.gov.pt/media/pages/documents/dc677d0005-1772305205/tabela-de-taxas-e-demais-encargos-a-cobrar-pelos-procedimentos-administrativos.pdf). В ней разные суммы относятся к разным административным действиям — приёму и анализу, продлению карты, первичной заявке и другим процедурам.
 
-**Renovação** = то же основание. **Nova autorização** = смена категории (например D8 → contrato trabalho в PT) — другой trâmite и taxa.
+Поэтому **не складывайте суммы из соседних строк и не используйте один тариф как универсальную цену продления**. В частности, строка €307,20 в таблице обозначает рассмотрение определённых заявлений об освобождении от визы на проживание, а не универсальную стоимость выдачи карты при продлении. Сумму для вашего дела смотрите в DUC и сопоставляйте с актуальной таблицей.
 
-| Тип | Ориентир документов (авг 2026) |
-|-----|----------------------------------|
-| **D7** | Rendimentos recorrentes (~€920/мес RMMG), extratos 3–6 мес., morada, seguro — без trabalho dependente в PT |
-| **D8** | Contrato/invoices из-за рубежа, ~4× RMMG, подтверждение резидентства за рубежом |
-| **Trabalho** | Contrato ou recibos verdes + SS/Finanças; taxas renovação — см. раздел «Пошлины» (~**€440,20** типовой пакет с 01.03.2026) |
-| **Estudo** | Matrícula, progresso, meios subsistência — [студенческий ВНЖ](https://portugal.emigro.online/notes/studencheskiy-vnzh-portugal-mify-aima-2026) |
-| **Reagrupamento** | Vínculo + rendimentos agregado; те же типовые taxas на человека — сверяйте DUC |
-| **EU / CPLP** | Отдельные formulários portal-renovacoes — не путать с D-visa СНГ |
+## Если карта уже истекла
 
-Hard-требования — только на [aima.gov.pt](https://aima.gov.pt/) и Portaria n.º 307/2023.
+AIMA разъясняет, что право проживания в Португалии сохраняется до шести месяцев после даты окончания карты, истёкшей после 30 июня 2025 года. Для карт, срок которых закончился до 30 июня 2025 года, переходное правило действовало до **15 апреля 2026 года**. Если ваш случай выходит за эти сроки или продление ещё не подано, проверьте свою ситуацию по текущим инструкциям AIMA, а при необходимости получите индивидуальную юридическую консультацию.
 
----
+Если заявление уже подано, AIMA просит носить с собой истёкшую карту и recibo о подаче.
 
-## Куда подавать: три канала
+**Не планируйте поездку только на основании recibo или правила о проживании в Португалии.** AIMA отдельно сообщает, что recibo о подаче на ВНЖ не является проездным документом для поездок в другие страны Шенгена. Проверяйте требования страны назначения и перевозчика до покупки билета.
 
-| Канал | Когда | Официальный URL |
-|-------|-------|-----------------|
-| **Portal das Renovações** | Действующий título (cohort открыт) | [portal-renovacoes.aima.gov.pt](https://portal-renovacoes.aima.gov.pt/) |
-| **Agora** | Presencial / biometria / когда portal направил | [agora.imigrante.pt](https://agora.imigrante.pt/) — [гайд по слотам](https://portugal.emigro.online/notes/aima-agora-zapis-2026) |
-| **services.aima.gov.pt** | Просроченные **после e-mail AIMA** с taxa | [services.aima.gov.pt](https://services.aima.gov.pt/) |
+## Если портал не принимает данные
 
-**Portal-renovacoes (типовой поток):** registo → пароль на e-mail → **validação morada/NIF/NISS** (если красный — сначала Finanças / Segurança Social, не «ещё раз Create») → «Criar pedido» → **оплата DUC за 24 ч** после emissão → upload PDF → recibo pedido renovação.
+Сначала определите, где именно остановился процесс: доступ к категории, вход в кабинет, валидация данных, загрузка файла или платёж. Затем используйте [Contact Form AIMA](https://contactenos.aima.gov.pt/contact-form), выбрав тему **Portal das Renovações** и ближайший подходящий подтип обращения.
 
-**Практика чатов (@chatlisboa, @por_tugal, 2025–2026):**
+В обращении укажите тип карты, дату окончания, email аккаунта и точный текст ошибки. Если исправляете NISS, email, паспорт или адрес — используйте соответствующую категорию формы. Сохраните номер запроса и копию отправленных данных. Не отправляйте один и тот же запрос через несколько случайных форм.
 
-| Ловушка | Что делают |
-|---------|------------|
-| Validação AT/SS не проходит | Закрыть долги/дыры в Finanças и SS (для D7 без NISS — декларация *não inscrição*, если применимо); имя/NIF mismatch чинят до повторного pedido |
-| Termo de responsabilidade без contrato | AIMA часто не принимает — безопаснее Atestado Junta / contrato с registo Finanças |
-| Летать с caducado + только PDF | Внутри PT comprovativo часто ок; **авиакомпании / другие Шенген-границы** смотрят TIMATIC строже — риск посадки/въезда; прямой LIS/OPO/FAO + печатный recibo + старая карта; без consulta advogado — не планируйте хаб-перелёты |
-| Ждать пластик 30–90 дней | Держите comprovativo pedido для банка/аренды; Norte иногда шлёт cartão Correios без второго визита |
-| Искать кнопку services.aima без письма | Форма для просроченных **после** e-mail AIMA — без письма кнопки нет |
+При отказе, смене основания ВНЖ или споре о статусе не полагайтесь на общий чек-лист: это ситуации для индивидуальной проверки.
 
-В локальных чатах повторяют: **без e-mail AIMA форма services.aima для просроченных недоступна** — не путать с первичной записью Agora после визы D.
+## Частые вопросы
 
----
+### Нужно ли всем идти на приём в AIMA?
 
-## Документы
+Нет. Продление проходит онлайн, если портал открыт для вашего дела. AIMA назначает очный визит, когда требуется собрать биометрию или выполнить другое личное действие.
 
-**Что делать:** цифровая папка PDF до открытия portal — читаемые сканы, лимит размера.
+### Какие документы нужны для D7 или D8?
 
-- Passaporte + título (frente/verso)
-- **Morada:** contrato registo Finanças, Atestado Junta — [Termo](https://portugal.emigro.online/notes/termo-responsabilidade-podtverzhdenie-zhilya-2026)
-- **NIF + NISS** актуальные ([Finanças](https://www.portaldasfinancas.gov.pt/))
-- **Rendimentos** по tipo: extratos, contrato, pensão, invoices D8
-- **Seguro saúde** на период autorização
-- Семья: certidões, passaportes dependentes
+Универсального списка для всех продлений нет. Используйте checklist в Portal das Renovações для своего типа ВНЖ и уведомления AIMA.
 
-Checklist в portal на **дату подачи** — единственный binding list.
+### Сколько стоит продление?
+
+Стоимость зависит от процедуры и вашего дела. Платите по DUC, сформированному AIMA, и сверяйте его с текущей таблицей сборов. Не используйте сумму из старой статьи или чата.
+
+### Можно ли пересечь границу с recibo о подаче?
+
+AIMA указывает, что recibo о заявлении на ВНЖ не заменяет проездной документ для поездки в другие страны Шенгена. Проверяйте требования к поездке отдельно.
+
+### Где подать, если моя категория отсутствует в портале?
+
+Сверьте актуальное объявление AIMA и FAQ для своей категории. Если ожидаемый маршрут не работает, обратитесь через Contact Form по теме Portal das Renovações и сохраните номер обращения.
 
 ---
 
-## Пошлины (taxas) — по состоянию на август 2026
-
-С **1 марта 2026** действует обновлённая Tabela de Taxas ([новость AIMA](https://aima.gov.pt/pt/noticias/atualizacao-da-tabela-de-taxas), Portaria n.º 307/2023). **Сверяйте DUC** в своём pedido — не чаты и не устаревшие «€99,80 за всё».
-
-Для большинства **временных** autorizações (trabalho, estudo, reagrupamento и аналогичные D7/D8 на том же основании) renovação — это **два платежа**, не одна «taxa €99,80»:
-
-| Acto | Ориентир с 01.03.2026 |
-|------|------------------------|
-| **Taxa de receção e análise** (приём и анализ) | **€133** |
-| **Taxa de concessão ou renovação** (выдача / продление) | **€307,20** |
-| **Итого типовой пакет** | **€440,20** |
-
-- **ARI / Golden Visa renovação:** ориентир **€4 210,30** (не путать с D7/D8)
-- Оплата DUC — срок указан в самом DUC; в анонсах AIMA часто фигурирует **24 часа** после emissão ([Portal das Renovações](https://aima.gov.pt/pt/noticias/o-portal-das-renovacoes-ja-esta-disponivel)) — ставьте напоминание в календарь
-- Emissão cartão / иные actos могут дать **дополнительные** строки в DUC
-- Строка **€99,80** в части таблиц/медиа — **не** «полная цена renovação»; ориентируйтесь на DUC и [Tabela de Taxas](https://aima.gov.pt/)
-
-> **Fact-check Emigro (авг 2026):** раньше в гайде ошибочно стояло «€99,80 за acto renovação» — это занижало бюджет **в ~4 раза**. Исправлено на €133 + €307,20. Окно portal уточнено до **31.10.2026**.
-
----
-
-## Сроки ожидания (мягко)
-
-В @chatlisboa и @por_tugal (**2025–2026**) участники сообщали **30–90 дней** от upload до deferimento онлайн-renovação. Prazo legal análise ~60 dias; cartão часто приходит **correio** на morada. Norte (Porto, Braga) — без второго визита в части кейсов.
-
-**Не гарантия** — consulta advogado по número processo.
-
----
-
-## Просроченный título
-
-**Emigro не советует** «лететь в Schengen с caducado título» без consulta — риск отказа на границе.
-
-- Историческая рассылка Estrutura de Missão по caducados до 30.06.2025 и «valid until 15.04.2026» — **окно закрыто**; не опирайтесь на старые e-mail grace
-- **services.aima.gov.pt** — только после e-mail AIMA с instruцией taxa
-- В чатах (2025–2026): portal-renovacoes **может не принимать** títulos caducados **>6 meses** — balcão/advogado; **проверьте** на дату кейса
-- Смена основания при просрочке — часто **nova autorização**, не renovação
-
----
-
-## Morada, паспорт, координация
-
-- Обновите morada Finanças + AIMA **до** pedido — [Portal das Finanças](https://www.portaldasfinancas.gov.pt/)
-- Загран: agendamento consulado за **6–9 мес.** — [замена заграна](https://portugal.emigro.online/notes/zamena-zagranpasporta-portugaliya-2026)
-- Cartão renovado уходит на **morada из базы AIMA**
-
----
-
-## Чего не делать (мифы из чатов)
-
-- Покупать «гарантированный слот Agora»
-- Приходить в balcão без agendamento
-- Подавать renovação D7 с recibos verdes от trabalho в PT
-- Игнорировать DUC (24 ч)
-- Считать просроченную карту «бессрочным правом»
-- Путать portal-renovacoes с первичной biometriей после визы D
-
----
-
-## FAQ
-
-### За сколько до expiry подавать?
-
-Portal открывается по cohorts — следите aima.gov.pt. Готовьте документы за 2–3 месяца; ~90 дней до expiry — частый совет в чатах, но e-mail AIMA важнее.
-
-### Agora или portal-renovacoes?
-
-Renovação онлайн — portal когда mês доступен. Agora — presencial. services.aima — просроченные после письма AIMA.
-
-### Сколько стоит D7/D8 renovação?
-
-Tabela на aima.gov.pt + **DUC в pedido**. Типовой пакет temporary renovação с 01.03.2026: **€133** (análise) + **€307,20** (renovação) ≈ **€440,20**. ARI — ориентир **€4 210,30**. Не ориентируйтесь на устаревшее «€99,80 за всё».
-
-### Карта просрочена — можно летать?
-
-Emigro не даёт «разрешений». Внутри PT comprovativo pedido + старая карта часто принимают банки/аренда. На **авиарейсах и других Шенген-границах** риск реален (TIMATIC). Consulta advogado перед билетом.
-
-### Нужен advogado?
-
-Официально многие проходят сами. Emigro для своих кейсов — advogados; особенно просрочка и смена основания.
-
-### D8 → contrato PT — renovação?
-
-Скорее nova autorização trabalho. Consulta advogado.
-
-### Где ловить слот Agora для renovação?
-
-[Гайд Agora](https://portugal.emigro.online/notes/aima-agora-zapis-2026) — про слоты; про **папку и сроки renovação** — этот гайд.
-
----
-
-## Коротко для проверки маршрута
-
-- Renovação авг 2026: portal — AR expiry **до 31.10.2026**; DUC **24 ч**; taxas ≈ **€440,20**
-- Сначала Finanças/SS / morada — потом Create pedido
-- Agora: presencial; services.aima: **только** после e-mail AIMA
-- Caducado + чужой аэропорт — риск TIMATIC; не путать с «PDF = летать везде»
-- Ожидание: 30–90 дней в чатах (не гарантия)
-- Emigro: advogados для своих кейсов; не юр. консультация
-
----
-
-## Дисклеймер
-
-Материал подготовлен редакцией Emigro. **Не юридическая консультация.** Авторы проходят процедуры через advogados/solicitadores. Информация из официальных источников AIMA/gov.pt и проверена опытом релокантов в чатах; возможны ошибки и отставание. **Перед подачей** — aima.gov.pt и ваш юрист. При расхождении с официальным порталом верьте порталу.
-
-*Не юридическая консультация. Taxas и portal flows меняются — проверяйте на дату подачи.*
+Продолжайте: [гайд по записи в AIMA / Agora](https://portugal.emigro.online/notes/aima-agora-zapis-2026) · [гайд NIF](https://portugal.emigro.online/notes/nif-porto-kak-poluchit-2026) · [первые 30 дней в Португалии](/ru/guides/pervye-30-dnej-v-portugalii-2026).

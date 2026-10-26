@@ -127,6 +127,29 @@ function SectionImages({ images }: { images: NoteBodyImage[] }) {
   return <NoteImageGallery images={images} />;
 }
 
+function ActionTiles({ items }: { items: string[] }) {
+  return (
+    <ol className="mt-5 grid gap-3 sm:grid-cols-2">
+      {items.map((item, index) => (
+        <li
+          key={`${index}-${item.slice(0, 40)}`}
+          className="flex min-w-0 items-start gap-3 rounded-xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5"
+        >
+          <span
+            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-teal-50 text-sm font-semibold tabular-nums text-teal-800 ring-1 ring-inset ring-teal-100"
+            aria-hidden="true"
+          >
+            {String(index + 1).padStart(2, "0")}
+          </span>
+          <span className="min-w-0 pt-0.5 text-[15px] leading-[1.65] text-slate-700 [&_a]:break-words sm:text-base sm:leading-relaxed">
+            {parseInlineMarkdown(item)}
+          </span>
+        </li>
+      ))}
+    </ol>
+  );
+}
+
 function SectionTable({ table }: { table: NonNullable<NoteBodySection["table"]> }) {
   return (
     <div className="mt-5">
@@ -261,6 +284,8 @@ async function SectionContent({
       {bullets.length > 0 &&
         (ranking ? (
           <RankingBulletsWithPreviews bullets={bullets} />
+        ) : section.section_kind === "action_guide" && !checklist && bullets.length >= 2 ? (
+          <ActionTiles items={bullets} />
         ) : (
           <SectionBullets bullets={bullets} checklist={checklist} />
         ))}
