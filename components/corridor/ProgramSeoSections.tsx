@@ -9,6 +9,7 @@ import {
   type FaqItem,
 } from "@/lib/seo/corridor-page-seo";
 import { buildProgramDataLlmFacts, getOriginCorridorEntries } from "@/lib/seo/corridor-llm-layer";
+import { inlineMarkdownWithBreaks } from "@/lib/markdown/inline";
 
 function FaqBlock({ items }: { items: FaqItem[] }) {
   return (
@@ -26,7 +27,10 @@ function FaqBlock({ items }: { items: FaqItem[] }) {
         {items.map((item) => (
           <article key={item.question} className="rounded-2xl border border-slate-100 bg-slate-50 p-5">
             <h3 className="font-semibold text-slate-900">{item.question}</h3>
-            <p className="mt-2 text-sm leading-relaxed text-slate-600">{item.answer}</p>
+            <p
+              className="mt-2 text-sm leading-relaxed text-slate-600 [&_strong]:font-semibold [&_strong]:text-slate-900"
+              dangerouslySetInnerHTML={{ __html: inlineMarkdownWithBreaks(item.answer) }}
+            />
           </article>
         ))}
       </div>
