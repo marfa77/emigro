@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import Link from "next/link";
 import type { NoteBodyImage, NoteBodySection } from "@/lib/community-notes/types";
 import { isGlossarySection } from "@/lib/community-notes/glossary";
 import {
@@ -46,12 +47,12 @@ function SectionBullets({
   checklist: boolean;
 }) {
   return (
-    <ol className={`mt-4 space-y-3.5 ${checklist ? "" : "border-l-2 border-slate-200 pl-4 sm:pl-5"}`}>
+    <ol className={`mt-4 space-y-3 ${checklist ? "" : "list-disc pl-5 marker:text-teal-600 sm:pl-6"}`}>
       {bullets.map((item, index) => (
         <li
           key={item.slice(0, 48)}
           className={`text-[15px] leading-[1.65] text-slate-700 sm:text-base sm:leading-relaxed ${
-            checklist ? "flex gap-3 rounded-lg bg-white/80 px-3 py-2.5 shadow-sm" : ""
+            checklist ? "flex gap-3 rounded-lg border border-slate-200/80 bg-white px-3 py-2.5" : ""
           }`}
         >
           {checklist && (
@@ -128,7 +129,25 @@ function SectionImages({ images }: { images: NoteBodyImage[] }) {
 
 function SectionTable({ table }: { table: NonNullable<NoteBodySection["table"]> }) {
   return (
-    <div className="mt-5 overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-sm">
+    <div className="mt-5">
+      <div className="space-y-3 sm:hidden">
+        {table.rows.map((row, rowIndex) => (
+          <article key={`${row[0]}-${rowIndex}`} className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+            <h3 className="font-semibold leading-snug text-slate-900">{parseInlineMarkdown(row[0] ?? "")}</h3>
+            {table.columns.slice(1).map((column, cellIndex) => {
+              const cell = row[cellIndex + 1];
+              if (!cell) return null;
+              return (
+                <div key={`${column}-${cellIndex}`} className="mt-3 border-t border-slate-100 pt-3">
+                  <p className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">{column}</p>
+                  <div className="mt-1 text-sm leading-relaxed text-slate-700">{parseInlineMarkdown(cell)}</div>
+                </div>
+              );
+            })}
+          </article>
+        ))}
+      </div>
+      <div className="hidden overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-sm sm:block">
       <table className="w-full min-w-[36rem] border-collapse text-left text-sm text-slate-700">
         <thead>
           <tr className="border-b border-slate-200 bg-slate-50 text-[11px] font-semibold uppercase tracking-wide text-slate-500">
@@ -159,6 +178,7 @@ function SectionTable({ table }: { table: NonNullable<NoteBodySection["table"]> 
           ))}
         </tbody>
       </table>
+      </div>
     </div>
   );
 }
@@ -174,21 +194,64 @@ async function SectionContent({
   const bullets = section.bullets ?? [];
   const images = section.images ?? [];
   const paragraphs = section.paragraphs ?? [];
+  const cards = section.cards ?? [];
+  const normalizeForCompare = (value: string) => value
+    .replace(/^\s*(?:Главное:\s*|[-•]\s*)/i, "")
+    .replace(/\*\*/g, "")
+    .replace(/\s+/g, " ")
+    .replace(/[.!?…]+$/, "")
+    .trim()
+    .toLocaleLowerCase("ru");
+  const visibleParagraphs = paragraphs.filter((paragraph) => {
+    if (!/^\s*Главное:/i.test(paragraph)) return true;
+    const key = normalizeForCompare(paragraph);
+    return !bullets.some((bullet) => normalizeForCompare(bullet) === key);
+  });
   /** Full figures after the lead — not a tiny strip before the prose. */
-  const imageAfterLead = images.length > 0 && paragraphs.length >= 2;
+  const imageAfterLead = images.length > 0 && visibleParagraphs.length >= 2;
   const imageAtEnd = images.length > 0 && !imageAfterLead;
 
   return (
     <>
-      {paragraphs.map((paragraph, index) => (
+      {visibleParagraphs.map((paragraph, index) => (
         <div key={paragraph.slice(0, 48)}>
-          <p className="mt-3 text-[15px] leading-[1.65] text-slate-700 sm:text-base sm:leading-relaxed [&_a]:break-words">
+          <p className="mt-3 max-w-[72ch] text-[15px] leading-[1.65] text-slate-700 sm:text-base sm:leading-relaxed [&_a]:break-words">
             {parseInlineMarkdown(paragraph)}
           </p>
           {imageAfterLead && index === 0 && <SectionImages images={images} />}
         </div>
       ))}
       {section.table && section.table.rows.length > 0 && <SectionTable table={section.table} />}
+      {cards.length > 0 && (
+        <ul className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+          {cards.map((card, index) => (
+            <li
+              key={`${card.title}-${index}`}
+              className="flex min-w-0 flex-col rounded-xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5"
+            >
+              <div className="flex items-start gap-3">
+                {section.card_layout === "steps" && (
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-teal-700 text-xs font-bold text-white" aria-hidden="true">
+                    {index + 1}
+                  </span>
+                )}
+                <div className="min-w-0">
+                  {card.eyebrow && <p className="text-[11px] font-semibold uppercase tracking-wide text-teal-700">{card.eyebrow}</p>}
+                  <h3 className="text-base font-semibold leading-snug text-slate-900">{card.title}</h3>
+                </div>
+              </div>
+              <p className={`mt-3 text-sm leading-relaxed text-slate-600 ${section.card_layout === "steps" ? "sm:ml-10" : ""}`}>
+                {parseInlineMarkdown(card.body)}
+              </p>
+              {card.href && card.link_label && (
+                <Link href={card.href} className={`mt-4 inline-flex w-fit items-center gap-1 text-sm font-semibold text-teal-800 underline decoration-teal-300 underline-offset-4 hover:text-teal-950 ${section.card_layout === "steps" ? "sm:ml-10" : ""}`}>
+                  {card.link_label}<span aria-hidden="true">→</span>
+                </Link>
+              )}
+            </li>
+          ))}
+        </ul>
+      )}
       {imageAtEnd && <SectionImages images={images} />}
       {bullets.length > 0 &&
         (ranking ? (
@@ -277,10 +340,7 @@ export async function NoteBody({ sections, paragraphs }: NoteBodyProps) {
             <section
               key={section.heading}
               aria-labelledby={id}
-              className={
-                surface?.wrap ??
-                (checklist ? "rounded-xl border border-teal-100 bg-teal-50/40 p-5 sm:p-6" : undefined)
-              }
+              className={checklist ? "rounded-xl border border-slate-200 bg-slate-50/60 p-4 sm:p-5" : ""}
             >
               {useCollapsible ? (
                 <CollapsibleSection

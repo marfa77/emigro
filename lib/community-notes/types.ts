@@ -49,6 +49,15 @@ export type NoteBodyTable = {
   rows: string[][];
 };
 
+/** Compact decision / comparison tile rendered inside a guide section. */
+export type NoteBodyCard = {
+  title: string;
+  body: string;
+  eyebrow?: string;
+  href?: string;
+  link_label?: string;
+};
+
 export type NoteBodySection = {
   heading: string;
   paragraphs?: string[];
@@ -56,6 +65,8 @@ export type NoteBodySection = {
   images?: NoteBodyImage[];
   map?: NoteBodyMap;
   table?: NoteBodyTable;
+  cards?: NoteBodyCard[];
+  card_layout?: "tiles" | "steps";
   /** official = portal rules; practice = chat/field experience; gap = where they diverge; glossary = PT-PT terms; action_guide = пошагово для новичка */
   section_kind?: "official" | "practice" | "gap" | "glossary" | "action_guide";
 };

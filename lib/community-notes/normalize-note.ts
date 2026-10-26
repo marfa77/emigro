@@ -6,6 +6,7 @@ import type {
   CommunityNoteFaq,
   CommunityNoteLink,
   ContentKind,
+  NoteBodyCard,
   NoteBodyImage,
   NoteBodySection,
 } from "@/lib/community-notes/types";
@@ -75,6 +76,24 @@ function asBodyTable(value: unknown): NoteBodySection["table"] {
   return { columns, rows };
 }
 
+function asBodyCards(value: unknown): NoteBodyCard[] | undefined {
+  if (!Array.isArray(value)) return undefined;
+  const cards = value
+    .filter((item): item is Record<string, unknown> => item != null && typeof item === "object")
+    .map((item) => {
+      const href = asString(item.href);
+      return {
+        title: asString(item.title),
+        body: asString(item.body),
+        eyebrow: asString(item.eyebrow) || undefined,
+        href: href.startsWith("/") && !href.startsWith("//") ? href : undefined,
+        link_label: asString(item.link_label) || undefined,
+      };
+    })
+    .filter((card) => card.title.length > 0 && card.body.length > 0);
+  return cards.length > 0 ? cards : undefined;
+}
+
 function asBodyMap(value: unknown): NoteBodySection["map"] {
   if (value == null || typeof value !== "object") return undefined;
   const raw = value as Record<string, unknown>;
@@ -122,6 +141,12 @@ function asBodySections(value: unknown): NoteBodySection[] {
       bullets: section.bullets ? asStringArray(section.bullets) : undefined,
       images: asBodyImages(section.images),
       table: asBodyTable(section.table),
+      cards: asBodyCards(section.cards),
+      card_layout: section.card_layout === "steps"
+        ? ("steps" as const)
+        : section.card_layout === "tiles"
+          ? ("tiles" as const)
+          : undefined,
       map: asBodyMap(section.map),
       section_kind: asSectionKind(section.section_kind),
     }))

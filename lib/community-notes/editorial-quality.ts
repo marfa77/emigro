@@ -44,7 +44,11 @@ function totalWords(input: DraftQualityInput): number {
   const parts = [
     input.quick_answer,
     ...input.body_paragraphs,
-    ...input.body_sections.flatMap((s) => [...(s.paragraphs ?? []), ...(s.bullets ?? [])]),
+    ...input.body_sections.flatMap((s) => [
+      ...(s.paragraphs ?? []),
+      ...(s.bullets ?? []),
+      ...(s.cards ?? []).flatMap((card) => [card.eyebrow ?? "", card.title, card.body, card.link_label ?? ""]),
+    ]),
     ...input.faq.flatMap((f) => [f.q, f.a]),
     ...input.key_takeaways,
   ];
@@ -52,7 +56,7 @@ function totalWords(input: DraftQualityInput): number {
 }
 
 function sectionSubstance(section: NoteBodySection): number {
-  return [...(section.paragraphs ?? []), ...(section.bullets ?? [])]
+  return [...(section.paragraphs ?? []), ...(section.bullets ?? []), ...(section.cards ?? []).map((card) => `${card.title} ${card.body}`)]
     .map((t) => t.trim())
     .filter(Boolean).length;
 }
@@ -232,6 +236,7 @@ export function flattenBodySections(sections: NoteBodySection[]): string[] {
     s.heading,
     ...(s.paragraphs ?? []),
     ...(s.bullets ?? []).map((b) => `• ${b}`),
+    ...(s.cards ?? []).flatMap((card) => [card.title, card.body, ...(card.link_label ? [card.link_label] : [])]),
     ...(s.table
       ? [
           s.table.columns.join(" | "),

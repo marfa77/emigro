@@ -42,7 +42,7 @@ function removeEditorialScaffolding(note: CommunityNote): CommunityNote {
       bullets: section.bullets?.filter((line) => !isScaffolding(line)),
     }))
     .filter((section) => Boolean(
-      section.paragraphs?.length || section.bullets?.length || section.images?.length || section.map || section.table,
+      section.paragraphs?.length || section.bullets?.length || section.images?.length || section.map || section.table || section.cards?.length,
     ));
 
   return {
