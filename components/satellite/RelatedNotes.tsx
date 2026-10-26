@@ -11,8 +11,11 @@ export function RelatedNotes({ notes }: { notes: CommunityNote[] }) {
       aria-labelledby="related-heading"
     >
       <h2 id="related-heading" className="text-lg font-semibold text-slate-900 sm:text-xl">
-        Читайте также
+        Следующий полезный шаг
       </h2>
+      <p className="mt-2 max-w-2xl text-sm leading-relaxed text-slate-600">
+        Откройте материал, который отвечает на ваш следующий вопрос по этой теме.
+      </p>
       <ul className="mt-4 space-y-4">
         {notes.map((note) => (
           <li key={note.slug}>

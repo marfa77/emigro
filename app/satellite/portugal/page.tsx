@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { NoteCard } from "@/components/satellite/NoteCard";
+import Link from "next/link";
 import { requirePublishedCommunityNotes } from "@/lib/community-notes/queries";
 import type { CommunityNote } from "@/lib/community-notes/types";
 import { PORTUGAL_SATELLITE } from "@/lib/satellite/portugal";
@@ -12,20 +12,46 @@ import { heroTitle, satelliteMain } from "@/lib/ui/mobile";
 export const revalidate = 300;
 
 const HUB_DESCRIPTION =
-  "Практический справочник по первым месяцам в Португалии: NIF, банковский счёт, жильё, документы, SNS и обращения в AIMA. Подборка руководств с ссылками на официальные источники.";
+  "Практический справочник по жизни и переезду в Португалию: NIF, жильё, банк, ВНЖ, медицина и повседневные дела. Понятные маршруты по задачам, связанные руководства и официальные источники.";
 
-const HUB_GUIDE_SLUGS = [
-  "nif-porto-kak-poluchit-2026",
-  "aima-agora-zapis-2026",
-  "kak-otkryt-bankovskiy-schet-portugalia-2026",
-  "arenda-dolgosrok-porto-braga-2026",
+const JOURNEYS = [
+  {
+    number: "01",
+    eyebrow: "Документы и налоги",
+    title: "Нужен NIF",
+    description: "Разберитесь, где оформить налоговый номер и что подготовить для Finanças.",
+    slugs: ["nif-porto-kak-poluchit-2026", "kak-otkryt-bankovskiy-schet-portugalia-2026"],
+    accent: "border-teal-200 bg-teal-50/70",
+  },
+  {
+    number: "02",
+    eyebrow: "Адрес и жильё",
+    title: "Ищете квартиру или подтверждаете адрес",
+    description: "Проверьте договор и документы до оплаты и подачи в ведомства.",
+    slugs: ["arenda-lissabon-do-podpisi", "termo-responsabilidade-podtverzhdenie-zhilya-2026", "arenda-dolgosrok-porto-braga-2026"],
+    accent: "border-amber-200 bg-amber-50/70",
+  },
+  {
+    number: "03",
+    eyebrow: "ВНЖ и процедуры",
+    title: "Разбираетесь с AIMA",
+    description: "Сначала определите нужный канал: запись на приём и продление — разные задачи.",
+    slugs: ["aima-agora-zapis-2026", "prodlenie-vnzh-portugaliya-aima-2026"],
+    accent: "border-violet-200 bg-violet-50/70",
+  },
+  {
+    number: "04",
+    eyebrow: "Жизнь на месте",
+    title: "Настраиваете повседневную жизнь",
+    description: "Медицина, связь и базовые услуги — выбирайте тему, которая актуальна сейчас.",
+    slugs: ["meditsina-norte-sns-chastnaya-stomatologiya-2026", "vybor-internet-provaydera-portugaliya-2026", "zheltye-stranitsy-relokanta-portugaliya-2026"],
+    accent: "border-sky-200 bg-sky-50/70",
+  },
 ] as const;
 
-function selectHubGuides(notes: CommunityNote[]): CommunityNote[] {
-  const bySlug = new Map(
-    notes.filter((note) => note.content_kind === "guide").map((note) => [note.slug, note]),
-  );
-  return HUB_GUIDE_SLUGS.flatMap((slug) => {
+function selectBySlugs(notes: CommunityNote[], slugs: readonly string[]): CommunityNote[] {
+  const bySlug = new Map(notes.map((note) => [note.slug, note]));
+  return slugs.flatMap((slug) => {
     const note = bySlug.get(slug);
     return note ? [note] : [];
   });
@@ -70,9 +96,10 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function PortugalSatelliteHomePage() {
   const notes = await requirePublishedCommunityNotes("portugal");
-  const guides = selectHubGuides(notes);
+  const journeys = JOURNEYS.map((journey) => ({ ...journey, notes: selectBySlugs(notes, journey.slugs) }));
+  const featured = journeys.flatMap(({ notes: journeyNotes }) => journeyNotes);
   const hubUrl = portugalSatelliteUrl("/");
-  const items = guides.map((note, index) => ({
+  const items = featured.map((note, index) => ({
     "@type": "ListItem" as const,
     position: index + 1,
     url: portugalSatelliteUrl(`/notes/${note.slug}`),
@@ -98,135 +125,81 @@ export default async function PortugalSatelliteHomePage() {
     <main className={satelliteMain}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }} />
 
-      <h1 className={`${heroTitle} leading-tight text-slate-900`}>{PORTUGAL_SATELLITE.title}</h1>
-      <p className="mt-4 text-lg leading-relaxed text-slate-700">{PORTUGAL_SATELLITE.tagline}</p>
-      <p className="mt-3 max-w-3xl text-base leading-relaxed text-slate-600">
-        Если вы уже в Португалии, начните с задачи, которая мешает следующим шагам: налоговый номер, подтверждение
-        адреса, банковский счёт, жильё или документы AIMA. Здесь собраны отдельные руководства по этим темам; требования
-        могут зависеть от вашей ситуации, поэтому сверяйте их с официальными источниками.
-      </p>
-      <p className="mt-3 text-sm text-slate-500">Редактор Emigro · Португалия</p>
-
-      <section className="mt-8 rounded-xl border border-slate-200 bg-white p-5 sm:p-6" aria-labelledby="first-steps-heading">
-        <h2 id="first-steps-heading" className="text-xl font-semibold text-slate-900">
-          С чего начать после приезда
-        </h2>
-        <ol className="mt-4 grid gap-4 text-sm leading-relaxed text-slate-700 sm:grid-cols-2">
-          <li className="rounded-lg bg-slate-50 p-4">
-            <h3 className="font-semibold text-slate-900">1. NIF и налоговые вопросы</h3>
-            <p className="mt-1">Посмотрите, какие вопросы подготовить перед обращением в Finanças.</p>
-            <a href="/notes/nif-porto-kak-poluchit-2026" className="mt-2 inline-block font-medium text-teal-800 underline">
-              Руководство по NIF в Порту →
-            </a>
-          </li>
-          <li className="rounded-lg bg-slate-50 p-4">
-            <h3 className="font-semibold text-slate-900">2. Адрес и жильё</h3>
-            <p className="mt-1">Разберитесь в документах по жилью и отдельно проверьте условия аренды.</p>
-            <a href="/notes/termo-responsabilidade-podtverzhdenie-zhilya-2026" className="mt-2 inline-block font-medium text-teal-800 underline">
-              Подтверждение адреса →
-            </a>
-            <span className="mx-2 text-slate-400">·</span>
-            <a href="/notes/arenda-dolgosrok-porto-braga-2026" className="font-medium text-teal-800 underline">
-              Аренда в Porto и Braga →
-            </a>
-          </li>
-          <li className="rounded-lg bg-slate-50 p-4">
-            <h3 className="font-semibold text-slate-900">3. Счёт и повседневные дела</h3>
-            <p className="mt-1">Сверьте список документов и банковские условия напрямую у выбранного банка.</p>
-            <a href="/notes/kak-otkryt-bankovskiy-schet-portugalia-2026" className="mt-2 inline-block font-medium text-teal-800 underline">
-              Банковский счёт в Португалии →
-            </a>
-          </li>
-          <li className="rounded-lg bg-slate-50 p-4">
-            <h3 className="font-semibold text-slate-900">4. AIMA и документы</h3>
-            <p className="mt-1">Выбирайте официальный канал по вашему уведомлению и типу процедуры.</p>
-            <a href="/notes/aima-agora-zapis-2026" className="mt-2 inline-block font-medium text-teal-800 underline">
-              Разбор Agora и других каналов AIMA →
-            </a>
-          </li>
-        </ol>
-        <p className="mt-4 text-xs leading-relaxed text-slate-500">
-          Это навигация по материалам, а не персональная юридическая или налоговая консультация. Перед подачей документов
-          проверяйте актуальные требования на сайтах ведомств.
+      <section className="relative overflow-hidden rounded-2xl border border-teal-100 bg-gradient-to-br from-teal-50 via-white to-amber-50 px-5 py-8 sm:px-8 sm:py-10">
+        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-teal-800">Практический справочник · Португалия</p>
+        <h1 className={`${heroTitle} mt-3 max-w-3xl leading-tight text-slate-950`}>{PORTUGAL_SATELLITE.title}</h1>
+        <p className="mt-4 max-w-2xl text-lg leading-relaxed text-slate-700">{PORTUGAL_SATELLITE.tagline}</p>
+        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-slate-600">
+          Начните с вопроса, который стоит перед вами сегодня. Материалы объясняют следующий шаг, отделяют официальные правила от практического опыта и ведут к первоисточникам.
         </p>
+        <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-slate-600">
+          <span>Редактор Emigro</span><span aria-hidden="true">·</span><span>Проверяйте дату и источники в каждом руководстве</span>
+        </div>
       </section>
 
-      <section className="mt-10" aria-labelledby="guides-heading">
-        <h2 id="guides-heading" className="text-xl font-semibold text-slate-900">
-          Руководства по жизни в Португалии
-        </h2>
-        <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate-600">
-          Подборка охватывает NIF, жильё, банковские вопросы, SNS и документы. Откройте материал по своей задаче и
-          переходите к первоисточникам внутри руководства.
-        </p>
-        <ul className="mt-6 space-y-4">
-          {guides.map((note) => (
-            <li key={note.slug}>
-              <NoteCard note={note} />
-            </li>
+      <section className="mt-9" aria-labelledby="routes-heading">
+        <div className="max-w-2xl">
+          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-teal-800">Выберите свою ситуацию</p>
+          <h2 id="routes-heading" className="mt-2 text-2xl font-semibold tracking-tight text-slate-950">Куда идти дальше</h2>
+          <p className="mt-2 text-sm leading-relaxed text-slate-600">Универсальной очереди действий нет: откройте нужный маршрут, а затем переходите к следующему связанному материалу.</p>
+        </div>
+        <div className="mt-5 grid gap-4 lg:grid-cols-2">
+          {journeys.map((journey) => (
+            <section key={journey.number} className={`rounded-2xl border p-5 sm:p-6 ${journey.accent}`}>
+              <div className="flex items-start gap-4">
+                <span className="rounded-lg bg-white/80 px-2.5 py-1 font-mono text-sm font-semibold text-slate-500">{journey.number}</span>
+                <div className="min-w-0 flex-1">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">{journey.eyebrow}</p>
+                  <h3 className="mt-1 text-lg font-semibold text-slate-950">{journey.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-slate-700">{journey.description}</p>
+                </div>
+              </div>
+              {journey.notes.length > 0 ? (
+                <ol className="mt-4 space-y-2 border-l border-slate-300/80 pl-4">
+                  {journey.notes.map((note, index) => (
+                    <li key={note.slug}>
+                      <Link href={`/notes/${note.slug}`} className="group inline-flex items-start gap-2 text-sm font-medium leading-relaxed text-slate-800 hover:text-teal-900">
+                        <span className="mt-0.5 text-teal-800" aria-hidden="true">{index === 0 ? "↗" : "→"}</span>
+                        <span className="underline decoration-slate-300 underline-offset-4 group-hover:decoration-teal-700">{note.title}</span>
+                      </Link>
+                    </li>
+                  ))}
+                </ol>
+              ) : (
+                <p className="mt-4 rounded-lg bg-white/70 p-3 text-sm text-slate-600">Материалы этого маршрута скоро появятся.</p>
+              )}
+            </section>
           ))}
-        </ul>
-        {guides.length === 0 && (
-          <p className="mt-4 rounded-lg bg-slate-50 p-4 text-sm text-slate-600">
-            Подборка временно недоступна. Попробуйте открыть нужный материал из раздела заметок позже.
-          </p>
-        )}
+        </div>
       </section>
 
-      <section className="mt-10 rounded-xl border border-slate-200 bg-slate-50/80 p-5 sm:p-6" aria-labelledby="official-heading">
-        <h2 id="official-heading" className="text-lg font-semibold text-slate-900">
-          Официальные источники
-        </h2>
-        <p className="mt-2 text-sm leading-relaxed text-slate-600">
-          Проверяйте требования и доступность услуг у ведомства: правила и каналы подачи могут меняться.
-        </p>
-        <ul className="mt-4 flex flex-wrap gap-x-5 gap-y-3 text-sm">
-          <li>
-            <a href="https://www.portaldasfinancas.gov.pt/" target="_blank" rel="noopener noreferrer" className="font-medium text-teal-800 underline">
-              Portal das Finanças — налоги и NIF
-            </a>
-          </li>
-          <li>
-            <a href="https://aima.gov.pt/" target="_blank" rel="noopener noreferrer" className="font-medium text-teal-800 underline">
-              AIMA — миграционные процедуры
-            </a>
-          </li>
-          <li>
-            <a href="https://agora.imigrante.pt/" target="_blank" rel="noopener noreferrer" className="font-medium text-teal-800 underline">
-              AIMA Agora
-            </a>
-          </li>
-          <li>
-            <a href="https://www.sns24.gov.pt/" target="_blank" rel="noopener noreferrer" className="font-medium text-teal-800 underline">
-              SNS 24 — здравоохранение
-            </a>
-          </li>
-        </ul>
-      </section>
-
-      <section className="mt-8 rounded-xl border border-slate-200 p-5 sm:p-6" aria-labelledby="sources-heading">
-        <h2 id="sources-heading" className="text-lg font-semibold text-slate-900">
-          Как читать практические заметки
-        </h2>
-        <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate-600">
-          В руководствах отдельно обозначены официальные правила и опыт, о котором сообщают релоканты в локальных
-          сообществах. Такой опыт помогает подготовиться к разным сценариям, но не заменяет требования ведомства и может
-          отличаться от конкретного случая. Для решений по документам, налогам, банку или аренде откройте первоисточник и
-          проверьте условия у ответственной организации.
-        </p>
-      </section>
-
-      <section className="mt-10 border-t border-slate-200 pt-6" aria-labelledby="more-help-heading">
-        <h2 id="more-help-heading" className="text-lg font-semibold text-slate-900">
-          Нужен другой маршрут?
-        </h2>
-        <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate-600">
-          Эта страница посвящена повседневным вопросам после переезда. Если вы ещё выбираете основание для ВНЖ, откройте
-          отдельный справочник по визовым маршрутам Португалии.
-        </p>
-        <a href={PORTUGAL_SATELLITE.pillarGuideUrl} className="mt-3 inline-block font-medium text-teal-800 underline">
-          Сравнить маршруты D7 и D8 →
+      <section className="mt-10 rounded-2xl bg-slate-950 px-5 py-6 text-white sm:flex sm:items-center sm:justify-between sm:gap-6 sm:px-7">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-teal-200">Ещё выбираете основание для переезда?</p>
+          <h2 className="mt-2 text-xl font-semibold">Сначала сравните визовые маршруты</h2>
+          <p className="mt-2 max-w-xl text-sm leading-relaxed text-slate-300">Отдельный разбор поможет понять, подходит ли вашей ситуации D7 или D8.</p>
+        </div>
+        <a href={PORTUGAL_SATELLITE.pillarGuideUrl} className="mt-4 inline-flex shrink-0 items-center rounded-lg bg-white px-4 py-2.5 text-sm font-semibold text-slate-950 hover:bg-teal-50 sm:mt-0">
+          Сравнить D7 и D8 <span className="ml-2" aria-hidden="true">→</span>
         </a>
+      </section>
+
+      <section className="mt-10 grid gap-6 border-t border-slate-200 pt-7 md:grid-cols-[1fr_1fr]">
+        <div>
+          <h2 className="text-lg font-semibold text-slate-950">Как устроены материалы</h2>
+          <p className="mt-2 text-sm leading-relaxed text-slate-600">
+            В руководствах официальные требования отделены от опыта релокантов. Практические наблюдения помогают подготовиться, но не гарантируют такой же результат в другом городе или деле. Перед подачей документов сверяйте список и сроки с ведомством.
+          </p>
+        </div>
+        <div>
+          <h2 className="text-lg font-semibold text-slate-950">Официальные точки проверки</h2>
+          <ul className="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-sm">
+            <li><a href="https://www.portaldasfinancas.gov.pt/" target="_blank" rel="noopener noreferrer" className="font-medium text-teal-800 underline underline-offset-4">Finanças · налоги и NIF</a></li>
+            <li><a href="https://aima.gov.pt/" target="_blank" rel="noopener noreferrer" className="font-medium text-teal-800 underline underline-offset-4">AIMA · миграционные процедуры</a></li>
+            <li><a href="https://www.seg-social.pt/" target="_blank" rel="noopener noreferrer" className="font-medium text-teal-800 underline underline-offset-4">Segurança Social · соцвыплаты</a></li>
+            <li><a href="https://www.sns24.gov.pt/" target="_blank" rel="noopener noreferrer" className="font-medium text-teal-800 underline underline-offset-4">SNS 24 · здравоохранение</a></li>
+          </ul>
+        </div>
       </section>
     </main>
   );

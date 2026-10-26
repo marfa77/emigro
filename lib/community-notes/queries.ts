@@ -26,6 +26,32 @@ function filterRelocantSignals<T extends { channel_username: string }>(signals: 
   });
 }
 
+const EDITORIAL_SCAFFOLDING = [
+  /^Что делать: (?:сначала закройте официальный каркас по разделу|примените практику из раздела|сверяйте советы из чатов с официальным сайтом по теме)/i,
+  /^Зачем: (?:полевой опыт из чатов экономит итерации|без hard-правил следующий шаг|типичные расхождения «сайт vs чат» съедают недели)/i,
+  /^Главное: (?:разберитесь с «[^»]+» до следующего шага — ошибка здесь обычно стоит недель|сверьте этот блок с официальным источником перед действием)/i,
+];
+
+function removeEditorialScaffolding(note: CommunityNote): CommunityNote {
+  if (note.country_key !== "portugal") return note;
+  const isScaffolding = (line: string) => EDITORIAL_SCAFFOLDING.some((pattern) => pattern.test(line.trim()));
+  const bodySections = note.body_sections
+    .map((section) => ({
+      ...section,
+      paragraphs: section.paragraphs?.filter((line) => !isScaffolding(line)),
+      bullets: section.bullets?.filter((line) => !isScaffolding(line)),
+    }))
+    .filter((section) => Boolean(
+      section.paragraphs?.length || section.bullets?.length || section.images?.length || section.map || section.table,
+    ));
+
+  return {
+    ...note,
+    body_sections: bodySections,
+    body_paragraphs: note.body_paragraphs.filter((line) => !isScaffolding(line)),
+  };
+}
+
 /** List/hub/sitemap — skip fat body/faq JSON that blows micro statement_timeout. */
 const COMMUNITY_NOTE_LIST_COLUMNS = [
   "id",
@@ -73,7 +99,7 @@ async function fetchPublishedCommunityNotesFromDb(countryKey: string): Promise<C
     throw new Error(`community_notes empty for ${countryKey}`);
   }
 
-  const notes = rows.map((row) => finalizeCommunityNote(row, countryKey));
+  const notes = rows.map((row) => removeEditorialScaffolding(finalizeCommunityNote(row, countryKey)));
   const merged = mergePublishedNotesWithSeed(notes, countryKey);
   if (isCommunityNotesSeedOnly(merged)) {
     throw new Error(`community_notes seed-only for ${countryKey}`);
@@ -164,7 +190,7 @@ async function fetchPublishedCommunityNoteBySlugUncached(
     if (error || !data) {
       return noteSeedFallback(countryKey).find((n) => n.slug === slug) ?? null;
     }
-    return finalizeCommunityNote(data, countryKey);
+    return removeEditorialScaffolding(finalizeCommunityNote(data, countryKey));
   } catch {
     return noteSeedFallback(countryKey).find((n) => n.slug === slug) ?? null;
   }

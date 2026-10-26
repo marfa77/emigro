@@ -166,29 +166,40 @@ export function repairNoteContent(row: {
   return { patch, changed };
 }
 
-const COUNTRY_TOPIC_TAGS = new Set(["portugal", "spain"]);
+const EDITORIAL_PATHS: Record<string, string[]> = {
+  "nif-porto-kak-poluchit-2026": ["arenda-lissabon-do-podpisi", "kak-otkryt-bankovskiy-schet-portugalia-2026", "aima-agora-zapis-2026"],
+  "arenda-lissabon-do-podpisi": ["termo-responsabilidade-podtverzhdenie-zhilya-2026", "arenda-dolgosrok-porto-braga-2026", "kak-otkryt-bankovskiy-schet-portugalia-2026"],
+  "termo-responsabilidade-podtverzhdenie-zhilya-2026": ["arenda-lissabon-do-podpisi", "nif-porto-kak-poluchit-2026", "aima-agora-zapis-2026"],
+  "arenda-dolgosrok-porto-braga-2026": ["arenda-lissabon-do-podpisi", "termo-responsabilidade-podtverzhdenie-zhilya-2026", "porto-vs-braga-semya-mezhdunarodnaya-shkola-2026"],
+  "kak-otkryt-bankovskiy-schet-portugalia-2026": ["nif-porto-kak-poluchit-2026", "arenda-lissabon-do-podpisi", "vybor-internet-provaydera-portugaliya-2026"],
+  "aima-agora-zapis-2026": ["prodlenie-vnzh-portugaliya-aima-2026", "termo-responsabilidade-podtverzhdenie-zhilya-2026", "nif-porto-kak-poluchit-2026"],
+  "prodlenie-vnzh-portugaliya-aima-2026": ["aima-agora-zapis-2026", "termo-responsabilidade-podtverzhdenie-zhilya-2026", "nif-porto-kak-poluchit-2026"],
+  "meditsina-norte-sns-chastnaya-stomatologiya-2026": ["zheltye-stranitsy-relokanta-portugaliya-2026", "arenda-dolgosrok-porto-braga-2026", "porto-vs-braga-semya-mezhdunarodnaya-shkola-2026"],
+  "vybor-internet-provaydera-portugaliya-2026": ["arenda-dolgosrok-porto-braga-2026", "kak-otkryt-bankovskiy-schet-portugalia-2026", "zheltye-stranitsy-relokanta-portugaliya-2026"],
+  "porto-vs-braga-semya-mezhdunarodnaya-shkola-2026": ["porto-rajony-arenda-shkoly-parki-sport-2026", "arenda-dolgosrok-porto-braga-2026", "mezhdunarodnye-shkoly-portugaliya-2026"],
+  "porto-rajony-arenda-shkoly-parki-sport-2026": ["porto-vs-braga-semya-mezhdunarodnaya-shkola-2026", "arenda-dolgosrok-porto-braga-2026", "meditsina-norte-sns-chastnaya-stomatologiya-2026"],
+};
+
+const GENERIC_TAGS = new Set(["portugal", "guide", "news", "lifehack", "гайд", "новости", "полезное"]);
 
 export function getRelatedNotes(note: CommunityNote, allNotes: CommunityNote[], limit = 3): CommunityNote[] {
-  const topicSet = new Set(
-    note.topic_tags.map((t) => t.toLowerCase()).filter((t) => !COUNTRY_TOPIC_TAGS.has(t))
-  );
-  const tagSet = new Set(note.hashtags.map((t) => t.toLowerCase()));
+  const bySlug = new Map(allNotes.map((candidate) => [candidate.slug, candidate]));
+  const curated = EDITORIAL_PATHS[note.slug]
+    ?.map((slug) => bySlug.get(slug))
+    .filter((candidate): candidate is CommunityNote => candidate !== undefined && candidate.slug !== note.slug) ?? [];
+  if (curated.length >= limit) return curated.slice(0, limit);
 
-  return allNotes
-    .filter((n) => n.slug !== note.slug)
-    .map((n) => {
-      let score = 0;
-      for (const t of n.topic_tags) {
-        if (topicSet.has(t.toLowerCase())) score += 3;
-      }
-      for (const t of n.hashtags) {
-        if (tagSet.has(t.toLowerCase())) score += 1;
-      }
-      if (n.content_kind === note.content_kind) score += 1;
-      return { n, score };
+  // Only use topical fallback when no curated path exists; broad tags and content kind
+  // alone are too weak to justify a recommendation to a reader.
+  if (curated.length > 0) return curated.slice(0, limit);
+  const topicSet = new Set(note.topic_tags.map((tag) => tag.toLowerCase()).filter((tag) => !GENERIC_TAGS.has(tag)));
+  const candidates = allNotes
+    .filter((candidate) => candidate.slug !== note.slug)
+    .map((candidate) => {
+      const overlap = candidate.topic_tags.filter((tag) => topicSet.has(tag.toLowerCase())).length;
+      return { candidate, overlap };
     })
-    .filter((x) => x.score > 0)
-    .sort((a, b) => b.score - a.score)
-    .slice(0, limit)
-    .map((x) => x.n);
+    .filter(({ overlap, candidate }) => overlap > 0 && candidate.content_kind !== "news")
+    .sort((a, b) => b.overlap - a.overlap || (a.candidate.content_kind === "guide" ? -1 : 1));
+  return candidates.slice(0, limit).map(({ candidate }) => candidate);
 }
