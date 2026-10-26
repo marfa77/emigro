@@ -96,14 +96,14 @@ export function SatelliteHubDepth({
         {countryKey === "portugal" ? (
           <>
             {" · "}
-            CIPLE A2 Anki + mock —{" "}
+            CIPLE A2 Anki (RU) —{" "}
             <a
-              href="https://www.prep2go.study/shop/ciple-a2-anki-deck?utm_source=emigro&utm_medium=satellite&utm_campaign=portugal_hub&utm_content=depth_deck"
+              href="https://pixidstudio.gumroad.com/l/ciple-a2-for-russian-speakers-anki-deck?utm_source=emigro&utm_medium=satellite&utm_campaign=portugal_hub&utm_content=depth_deck"
               target="_blank"
-              rel={PARTNER_LINK_REL}
+              rel="noopener noreferrer sponsored"
               className={`font-medium underline ${link}`}
             >
-              Prep2Go
+              Gumroad
             </a>
           </>
         ) : null}

@@ -79,6 +79,10 @@ const PREP2GO_BASE = "https://www.prep2go.study";
 export const UNIPREP2GO_BASE = BASE;
 export const PREP2GO_BASE_URL = PREP2GO_BASE;
 
+/** CIPLE A2 Anki for Russian speakers — live Gumroad checkout (UniPrep deck page retired). */
+export const CIPLE_A2_RU_GUMROAD_URL =
+  "https://pixidstudio.gumroad.com/l/ciple-a2-for-russian-speakers-anki-deck";
+
 /** Hub catalog for citizenship vertical (multi-country). */
 export const UNIPREP_CITIZENSHIP_HUB: UniPrepLink = {
   path: "/mock-exams/v/citizenship",
@@ -110,16 +114,16 @@ export const UNIPREP_OFFERS_BY_TOPIC: Record<string, UniPrepOffer> = {
     headlineRu: "CIPLE A2 для русскоязычных: Anki + timed mock",
     headlineEs: "CIPLE A2: mazo Anki + mock en Prep2Go",
     bodyRu:
-      "Для гражданства PT нужен португальский A2 — языковую часть закрывает CIPLE. С 19.05.2026 закон требует ещё знания культуры, истории и устройства государства; формат этой проверки пока не утверждён. Anki-колода CIPLE (бывшая UniPrep «for Russian speakers») и timed mock — на Prep2Go: сначала mock, потом словарный ремонт в Anki, затем retest.",
+      "Для гражданства PT нужен португальский A2 — языковую часть закрывает CIPLE. С 19.05.2026 закон требует ещё знания культуры, истории и устройства государства; формат этой проверки пока не утверждён. Anki-колода Portuguese A2 (CIPLE) for Russian speakers — на Gumroad; timed mock — на Prep2Go: сначала mock, потом словарный ремонт в Anki, затем retest.",
     bodyEs:
-      "Para la nacionalidad portuguesa hace falta portugués A2 (CIPLE cubre la parte lingüística). Desde el 19.05.2026 la ley exige además conocer la cultura, la historia y la organización del Estado; el formato de esa prueba aún no está regulado. En Prep2Go: mazo Anki CIPLE A2 + mock timed. Plazos PT (7/10 años) ≠ art. 22 España (~2 años).",
-    /** Live shop on Prep2Go (UniPrep `/decks/ciple-a2-for-russian-speakers-anki-deck` 301s here). */
+      "Para la nacionalidad portuguesa hace falta portugués A2 (CIPLE cubre la parte lingüística). Desde el 19.05.2026 la ley exige además conocer la cultura, la historia y la organización del Estado; el formato de esa prueba aún no está regulado. Mazo CIPLE for Russian speakers en Gumroad + mock timed en Prep2Go. Plazos PT (7/10 años) ≠ art. 22 España (~2 años).",
+    /** Live Gumroad SKU — not the generic Prep2Go /shop/ciple-a2-anki-deck. */
     deck: {
-      path: "/shop/ciple-a2-anki-deck",
-      titleRu: "CIPLE A2 Anki — для русскоязычных",
-      blurbRu: "2 000 слов PT-PT · темы CAPLE · после mock → Anki → retest",
-      titleEs: "Mazo Anki CIPLE A2",
-      blurbEs: "European Portuguese · temas CAPLE",
+      path: CIPLE_A2_RU_GUMROAD_URL,
+      titleRu: "CIPLE A2 Anki — for Russian speakers",
+      blurbRu: "Gumroad · PT-PT с опорой на русскоязычных · темы CAPLE",
+      titleEs: "Mazo Anki CIPLE A2 (RU)",
+      blurbEs: "Gumroad · European Portuguese for Russian speakers",
     },
     prep2goMock: {
       path: "/ciple-a2-mock-test",

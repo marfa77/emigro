@@ -2,9 +2,13 @@
 
 import { BookOpen, ExternalLink, FlaskConical } from "lucide-react";
 import { trackEvent } from "@/lib/analytics/client";
-import { PARTNER_LINK_REL } from "@/lib/partners/link";
+import { externalLinkRel, PARTNER_LINK_REL } from "@/lib/partners/link";
 import { tapTarget } from "@/lib/ui/mobile";
-import { withPrep2GoUtm } from "@/lib/uniprep2go/catalog";
+import {
+  CIPLE_A2_RU_GUMROAD_URL,
+  withPrep2GoUtm,
+  withUniPrepUtm,
+} from "@/lib/uniprep2go/catalog";
 
 type Props = {
   /** Hub vs note placement for UTM / analytics */
@@ -15,7 +19,7 @@ type Props = {
 
 /**
  * Organic CIPLE conversion tile for portugal.emigro.online —
- * Anki deck (RU relocants) + timed mock on Prep2Go, not a thin satellite landing.
+ * Gumroad Anki (RU speakers) + Prep2Go timed mock.
  */
 export function CiplePrepTile({
   placement = "satellite_hub",
@@ -23,7 +27,7 @@ export function CiplePrepTile({
   className = "",
 }: Props) {
   const content = noteSlug ?? "hub";
-  const deckHref = withPrep2GoUtm("/shop/ciple-a2-anki-deck", {
+  const deckHref = withUniPrepUtm(CIPLE_A2_RU_GUMROAD_URL, {
     medium: "satellite",
     campaign: "ciple_ru_deck",
     content: `${placement}_${content}_deck`,
@@ -33,14 +37,15 @@ export function CiplePrepTile({
     campaign: "ciple_ru_deck",
     content: `${placement}_${content}_mock`,
   });
+  const deckRel = externalLinkRel(deckHref, { sponsored: true });
 
   function track(product: "deck" | "mock") {
     trackEvent("provider_click", {
-      provider_id: "prep2go",
+      provider_id: product === "deck" ? "gumroad_ciple_ru" : "prep2go",
       placement,
       topic_key: "portugal",
       note_slug: noteSlug ?? null,
-      product: product === "deck" ? "ciple_anki_deck" : "ciple_mock",
+      product: product === "deck" ? "ciple_anki_ru_gumroad" : "ciple_mock",
     });
   }
 
@@ -51,28 +56,27 @@ export function CiplePrepTile({
     >
       <div className="border-b border-teal-100/80 px-4 py-3 sm:px-5">
         <p className="text-xs font-bold uppercase tracking-wider text-teal-800">
-          Подготовка к гражданству · Prep2Go
+          Подготовка к гражданству · PixID Studio
         </p>
         <h2 id="ciple-prep-tile-heading" className="mt-1 text-lg font-semibold text-slate-900">
-          CIPLE A2 Anki для русскоязычных
+          CIPLE A2 Anki for Russian speakers
         </h2>
       </div>
       <div className="px-4 py-4 sm:px-5">
         <p className="text-sm leading-relaxed text-slate-700">
-          Языковая часть натурализации PT — экзамен CIPLE (A2 CAPLE). Колода Anki с опорой на русскоязычных
-          релокантов (темы AIMA, Finanças, жильё, SNS) живёт на Prep2Go рядом с timed mock: mock → Anki → retest.
-          Это не запись Agora и не юрконсультация.
+          Языковая часть натурализации PT — экзамен CIPLE (A2 CAPLE). Колода Anki Portuguese A2 (CIPLE) for Russian
+          speakers — на Gumroad; timed mock — на Prep2Go: mock → Anki → retest. Это не запись Agora и не юрконсультация.
         </p>
         <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
           <a
             href={deckHref}
             target="_blank"
-            rel={PARTNER_LINK_REL}
+            rel={deckRel}
             onClick={() => track("deck")}
             className={`inline-flex ${tapTarget} items-center justify-center gap-2 rounded-lg bg-teal-700 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-teal-800`}
           >
             <BookOpen className="h-4 w-4" aria-hidden="true" />
-            Открыть Anki-колоду CIPLE
+            Купить Anki-колоду на Gumroad
             <ExternalLink className="h-3.5 w-3.5 opacity-80" aria-hidden="true" />
           </a>
           <a
@@ -88,7 +92,7 @@ export function CiplePrepTile({
           </a>
         </div>
         <p className="mt-3 text-xs leading-relaxed text-slate-500">
-          prep2go.study · семейство PixID Studio · учебные материалы, не официальная запись на CAPLE
+          gumroad.com/l/ciple-a2-for-russian-speakers-anki-deck · prep2go.study mock · не официальная запись на CAPLE
         </p>
       </div>
     </section>

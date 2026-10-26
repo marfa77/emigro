@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 import { BookOpen, ExternalLink, FlaskConical } from "lucide-react";
 import { trackEvent } from "@/lib/analytics/client";
 import { tapTarget } from "@/lib/ui/mobile";
-import { PARTNER_LINK_REL } from "@/lib/partners/link";
+import { externalLinkRel, PARTNER_LINK_REL } from "@/lib/partners/link";
 import {
   type UniPrepLocale,
   type UniPrepOffer,
@@ -77,11 +77,12 @@ function CtaLink({
     variant === "primary"
       ? "bg-teal-700 text-white hover:bg-teal-800"
       : "border border-teal-300 bg-white text-teal-900 hover:bg-teal-50";
+  const sponsored = href.includes("gumroad.com");
   return (
     <a
       href={href}
       target="_blank"
-      rel={PARTNER_LINK_REL}
+      rel={externalLinkRel(href, { sponsored })}
       onClick={onClick}
       className={`inline-flex ${tapTarget} items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition ${base}`}
     >
@@ -214,10 +215,17 @@ export function UniPrep2GoPromo({
   const mockHref = offer.mock
     ? withUniPrepUtm(offer.mock.path, { medium: placement, campaign, content: `${content}_mock` })
     : null;
-  const deckOnPrep2Go = Boolean(offer.deck?.path.startsWith("/shop/") || offer.deck?.path.includes("prep2go.study"));
+  const deckOnPrep2Go = Boolean(
+    offer.deck?.path.startsWith("/shop/") || offer.deck?.path.includes("prep2go.study"),
+  );
+  const deckOnGumroad = Boolean(offer.deck?.path.includes("gumroad.com"));
   const deckHref = offer.deck
     ? deckOnPrep2Go
-      ? withPrep2GoUtm(offer.deck.path, { medium: placement, campaign: `prep2go_${offer.topicKey}`, content: `${content}_deck` })
+      ? withPrep2GoUtm(offer.deck.path, {
+          medium: placement,
+          campaign: `prep2go_${offer.topicKey}`,
+          content: `${content}_deck`,
+        })
       : withUniPrepUtm(offer.deck.path, { medium: placement, campaign, content: `${content}_deck` })
     : null;
   const prep2goHref = offer.prep2goMock
@@ -365,17 +373,23 @@ export function UniPrep2GoPromo({
         )}
       </div>
       <p className="mt-3 text-xs text-slate-500">
-        {deckOnPrep2Go || prep2goHref
+        {deckOnGumroad
           ? isEs
-            ? "prep2go.study / uniprep2go.study · familia PixID Studio · material de estudio, no examen oficial"
+            ? "Gumroad · Prep2Go · familia PixID Studio · material de estudio, no examen oficial"
             : isFr
-              ? "prep2go.study / uniprep2go.study · famille PixID Studio · matériel d'étude, pas un examen officiel"
-              : "prep2go.study / uniprep2go.study · семейство PixID Studio · учебные материалы, не официальный экзамен"
-          : isEs
-            ? "uniprep2go.study · familia PixID Studio · material de estudio, no examen oficial"
-            : isFr
-              ? "uniprep2go.study · famille PixID Studio · matériel d'étude, pas un examen officiel"
-              : "uniprep2go.study · семейство PixID Studio · учебные материалы, не официальный экзамен"}
+              ? "Gumroad · Prep2Go · famille PixID Studio · matériel d'étude, pas un examen officiel"
+              : "Gumroad · Prep2Go · семейство PixID Studio · учебные материалы, не официальный экзамен"
+          : deckOnPrep2Go || prep2goHref
+            ? isEs
+              ? "prep2go.study / uniprep2go.study · familia PixID Studio · material de estudio, no examen oficial"
+              : isFr
+                ? "prep2go.study / uniprep2go.study · famille PixID Studio · matériel d'étude, pas un examen officiel"
+                : "prep2go.study / uniprep2go.study · семейство PixID Studio · учебные материалы, не официальный экзамен"
+            : isEs
+              ? "uniprep2go.study · familia PixID Studio · material de estudio, no examen oficial"
+              : isFr
+                ? "uniprep2go.study · famille PixID Studio · matériel d'étude, pas un examen officiel"
+                : "uniprep2go.study · семейство PixID Studio · учебные материалы, не официальный экзамен"}
       </p>
     </section>
   );
