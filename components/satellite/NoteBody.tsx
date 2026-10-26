@@ -29,6 +29,9 @@ type NoteBodyProps = {
 const SECTION_HEADING =
   "text-lg font-semibold tracking-tight text-slate-900 sm:text-xl";
 
+const ACTION_HEADING =
+  /^(?:(?:официально|на практике)\s*:\s*)?(?:как (?:выбрать|проверить|оформить|подать|записаться|спланировать|добраться)|что (?:подготовить|проверить|делать|сохранить)|первые (?:часы|шаги)|шаг(?:\s+\d|и\b)|пошагово|таймлайн|после (?:подписания|подачи)|перед (?:оплатой|задатком|выходом)|план действий)/i;
+
 function SectionBadge({ className, label }: { className: string; label: string }) {
   return (
     <span
@@ -215,6 +218,7 @@ async function SectionContent({
 }) {
   const ranking = isRankingSection(section);
   const bullets = section.bullets ?? [];
+  const actionSection = section.section_kind === "action_guide" || ACTION_HEADING.test(section.heading);
   const images = section.images ?? [];
   const paragraphs = section.paragraphs ?? [];
   const cards = section.cards ?? [];
@@ -284,7 +288,7 @@ async function SectionContent({
       {bullets.length > 0 &&
         (ranking ? (
           <RankingBulletsWithPreviews bullets={bullets} />
-        ) : section.section_kind === "action_guide" && !checklist && bullets.length >= 2 ? (
+        ) : actionSection && !checklist && bullets.length >= 2 ? (
           <ActionTiles items={bullets} />
         ) : (
           <SectionBullets bullets={bullets} checklist={checklist} />
