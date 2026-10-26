@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { BookOpen } from "lucide-react";
 import type { DigestItem } from "@/lib/types";
+import { inlineMarkdownWithBreaks } from "@/lib/markdown/inline";
 
 type Props = {
   items: DigestItem[];
@@ -29,7 +30,10 @@ export function GuideDigestPreview({ items, guideHref, countryRu, limit = 3 }: P
           <li key={item.id} className="border-b border-slate-100 pb-4 last:border-0 last:pb-0">
             <p className="text-xs font-medium uppercase text-slate-500">{item.category}</p>
             <p className="mt-1 font-medium text-slate-900">{item.title_ru}</p>
-            <p className="mt-1 line-clamp-2 text-sm text-slate-600">{item.body_ru}</p>
+            <p
+              className="mt-1 line-clamp-2 text-sm text-slate-600 [&_strong]:font-semibold [&_strong]:text-slate-900"
+              dangerouslySetInnerHTML={{ __html: inlineMarkdownWithBreaks(item.body_ru) }}
+            />
           </li>
         ))}
       </ul>

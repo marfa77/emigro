@@ -29,6 +29,7 @@ import {
   digestPagePath,
 } from "@/lib/seo/corridor-page-seo";
 import { pageUrl } from "@/lib/seo";
+import { inlineMarkdownWithBreaks } from "@/lib/markdown/inline";
 
 export const revalidate = 3600;
 
@@ -129,7 +130,10 @@ export default async function CountryDigestPage({ params }: { params: { country:
             <article key={item.id} className="rounded-xl border border-slate-200 bg-white p-6">
               <p className="text-xs font-medium uppercase text-corridor-600">{item.category}</p>
               <h2 className="mt-2 text-xl font-semibold">{item.title_ru}</h2>
-              <p className="mt-3 whitespace-pre-line text-slate-700">{item.body_ru}</p>
+              <p
+                className="mt-3 text-slate-700 [&_strong]:font-semibold [&_strong]:text-slate-950"
+                dangerouslySetInnerHTML={{ __html: inlineMarkdownWithBreaks(item.body_ru) }}
+              />
               {(item.last_verified || item.source_url) && (
                 <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm">
                   {item.last_verified && (

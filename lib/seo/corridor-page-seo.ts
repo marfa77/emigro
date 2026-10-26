@@ -5,6 +5,7 @@ import { countryCardImage, countryOgImage } from "@/lib/brand/country-accents";
 import { fitMetaDescription, fitSeoTitlePart, hreflangAlternates, pageMetadata, pageUrl } from "@/lib/seo";
 import { getLongTailByProgramSlug } from "@/lib/seo/query-longtail";
 import { EMIGRO_PUBLISHER, emigroAuthorOrg, schemaImage } from "@/lib/seo/schema";
+import { stripInlineMarkdown } from "@/lib/markdown/inline";
 import { ruCountryDative, ruCountryGenitive, ruCountryIn, ruCountryTo } from "@/lib/ru-country-cases";
 
 const SCHEMA_DATE_FALLBACK = "2026-06-01T00:00:00.000Z";
@@ -244,7 +245,7 @@ export function buildDigestQuickAnswer(topic: NewsTopicConfig, corridor: Corrido
   const programs = corridor.programs.map((p) => p.title_ru).slice(0, 3).join(", ");
   return [
     `Справочник Emigro по коридору ${topic.countryRu}: проверенные факты о ВНЖ, гражданстве, языке и административных шагах для русскоязычных (RU/BY/UA/KZ).`,
-    citizenship ? citizenship.body_ru.split("\n")[0] : topic.focusHintRu,
+    citizenship ? stripInlineMarkdown(citizenship.body_ru.split("\n")[0]) : topic.focusHintRu,
     programs ? `Программы коридора: ${programs}.` : null,
     "Актуальные изменения законов — в еженедельных новостях Emigro; подбор маршрута — через wizard.",
   ]
@@ -273,7 +274,7 @@ export function buildDigestFaq(topic: NewsTopicConfig, corridor: Corridor): FaqI
       question: `Какой язык нужен для ВНЖ и гражданства ${ruCountryIn(topic.countryRu)}?`,
       answer:
         language?.body_ru ??
-        `Требования к языку различаются по этапу (ВНЖ vs гражданство); проверьте экзамены и уровни в справочнике и на сайтах миграционных служб.`,
+        `Требования к языку различаются по этапу (ВНЖ vs гражданство); проверьте экзамены и уровли в справочнике и на сайтах миграционных служб.`,
     },
     {
       question: `Какие налоги учитывать при релокации ${ruCountryTo(topic.countryRu)}?`,
@@ -307,7 +308,10 @@ export function buildDigestLlmFacts(topic: NewsTopicConfig, corridor: Corridor):
     corridor.programs.length > 0
       ? `Программы: ${corridor.programs.map((p) => p.title_ru).join("; ")}.`
       : null,
-    ...corridor.digest.slice(0, 5).map((item) => `${item.title_ru}: ${item.body_ru.replace(/\s+/g, " ").slice(0, 200)}`),
+    ...corridor.digest.slice(0, 5).map(
+      (item) =>
+        `${item.title_ru}: ${stripInlineMarkdown(item.body_ru).replace(/\s+/g, " ").slice(0, 200)}`,
+    ),
     "Emigro: hub wizard /ru/wizard и коридорный wizard для подбора маршрута ВНЖ.",
   ].filter((f): f is string => Boolean(f));
 }
@@ -410,7 +414,7 @@ export function buildFaqSchema(faq: FaqItem[]): Record<string, unknown> | null {
     mainEntity: faq.map((item) => ({
       "@type": "Question",
       name: item.question,
-      acceptedAnswer: { "@type": "Answer", text: item.answer },
+      acceptedAnswer: { "@type": "Answer", text: stripInlineMarkdown(item.answer) },
     })),
   };
 }
@@ -481,7 +485,7 @@ export function buildDigestItemListSchema(
       "@type": "ListItem",
       position: index + 1,
       name: item.title_ru,
-      description: item.body_ru.slice(0, 300),
+      description: stripInlineMarkdown(item.body_ru).slice(0, 300),
       url,
     })),
   };

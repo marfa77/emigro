@@ -1,5 +1,6 @@
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { getCorridorBySlug } from "@/lib/corridor/queries";
+import { inlineMarkdownWithBreaks } from "@/lib/markdown/inline";
 
 export default async function AdminDigestPage() {
   const corridor = await getCorridorBySlug("ru-speaking-to-portugal");
@@ -21,7 +22,12 @@ export default async function AdminDigestPage() {
               <article key={item.id} className="rounded-xl border border-slate-200 bg-white p-5">
                 <p className="text-xs font-medium uppercase text-corridor-600">{item.category}</p>
                 <h2 className="mt-1 font-semibold">{item.title_ru}</h2>
-                <p className="mt-2 line-clamp-3 text-sm text-slate-600">{item.body_ru}</p>
+                <p
+                  className="mt-2 line-clamp-3 text-sm text-slate-600 [&_strong]:font-semibold"
+                  dangerouslySetInnerHTML={{
+                    __html: inlineMarkdownWithBreaks(item.body_ru),
+                  }}
+                />
                 <p className="mt-2 font-mono text-xs text-slate-400">{item.id}</p>
               </article>
             ))}

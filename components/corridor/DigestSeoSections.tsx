@@ -10,6 +10,7 @@ import {
   buildDigestQuickAnswer,
   type FaqItem,
 } from "@/lib/seo/corridor-page-seo";
+import { inlineMarkdownWithBreaks } from "@/lib/markdown/inline";
 
 function FaqBlock({ items }: { items: FaqItem[] }) {
   return (
@@ -19,7 +20,10 @@ function FaqBlock({ items }: { items: FaqItem[] }) {
         {items.map((item) => (
           <div key={item.question}>
             <h3 className="font-medium text-slate-900">{item.question}</h3>
-            <p className="mt-2 text-sm leading-relaxed text-slate-600">{item.answer}</p>
+            <p
+              className="mt-2 text-sm leading-relaxed text-slate-600 [&_strong]:font-semibold [&_strong]:text-slate-900"
+              dangerouslySetInnerHTML={{ __html: inlineMarkdownWithBreaks(item.answer) }}
+            />
           </div>
         ))}
       </div>
@@ -54,7 +58,10 @@ export function DigestSeoSections({
           <Sparkles className="h-4 w-4" />
           Короткий ответ
         </p>
-        <p className="mt-3 text-lg leading-relaxed text-slate-800">{quickAnswer}</p>
+        <p
+          className="mt-3 text-lg leading-relaxed text-slate-800 [&_strong]:font-semibold [&_strong]:text-slate-950"
+          dangerouslySetInnerHTML={{ __html: inlineMarkdownWithBreaks(quickAnswer) }}
+        />
       </section>
 
       <FaqBlock items={faq} />

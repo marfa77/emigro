@@ -19,6 +19,11 @@ export function inlineMarkdown(text: string): string {
     .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
 }
 
+/** Inline markdown + soft line breaks for digest / DB body fields shown as HTML. */
+export function inlineMarkdownWithBreaks(text: string): string {
+  return inlineMarkdown(text).replace(/\n/g, "<br />");
+}
+
 /** Plain text for meta, share, JSON-LD — drop bold/link markers. */
 export function stripInlineMarkdown(text: string): string {
   return text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, "$1").replace(/\*\*([^*]+)\*\*/g, "$1");
