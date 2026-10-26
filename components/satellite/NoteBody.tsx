@@ -202,11 +202,16 @@ async function SectionContent({
     .replace(/[.!?…]+$/, "")
     .trim()
     .toLocaleLowerCase("ru");
-  const visibleParagraphs = paragraphs.filter((paragraph) => {
-    if (!/^\s*Главное:/i.test(paragraph)) return true;
-    const key = normalizeForCompare(paragraph);
-    return !bullets.some((bullet) => normalizeForCompare(bullet) === key);
-  });
+  const visibleParagraphs = paragraphs
+    .map((paragraph) => {
+      const takeaway = paragraph.match(/(?:^|\s)Главное:\s*(.+)$/i);
+      if (!takeaway) return paragraph;
+      const key = normalizeForCompare(takeaway[1]);
+      if (!bullets.some((bullet) => normalizeForCompare(bullet) === key)) return paragraph;
+      const takeawayStart = paragraph.lastIndexOf(takeaway[0]);
+      return paragraph.slice(0, takeawayStart).trim();
+    })
+    .filter(Boolean);
   /** Full figures after the lead — not a tiny strip before the prose. */
   const imageAfterLead = images.length > 0 && visibleParagraphs.length >= 2;
   const imageAtEnd = images.length > 0 && !imageAfterLead;
