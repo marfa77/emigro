@@ -52,6 +52,9 @@ const PORTUGAL_ARCHIVED_NOTE_REDIRECTS = {
   "maternity-care-law-change-portugal-2026": "meditsina-norte-sns-chastnaya-stomatologiya-2026",
   "abono-prenatal-automatico-portugal-2026": "meditsina-norte-sns-chastnaya-stomatologiya-2026",
   "pets-civil-protection-portugal-2026": "poterya-pitomtsa-portugaliya-gid-2026",
+  "sns-registration-changes-2026": "meditsina-norte-sns-chastnaya-stomatologiya-2026",
+  "aima-centro-aristides-de-sousa-mendes-porto-2026": "aima-agora-zapis-2026",
+  "festivali-portugalii-2026-muzyka-porto-norte": "turizm-vnutri-portugalii-norte-2026",
   "portuguese-passport-ranking-2026":
     "https://www.emigro.online/ru/guides/vnj-portugaliya-d8-d7-grazhdanstvo-2026",
   // Same topic as the www pillar — one URL per intent.

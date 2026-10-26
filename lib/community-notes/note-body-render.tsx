@@ -159,8 +159,10 @@ export function sectionStartsCollapsed(
   if (isChecklistSection(section)) return false;
   if (isRankingSection(section)) return false;
   const bullets = section.bullets?.length ?? 0;
-  if (bullets >= COLLAPSE_BULLET_THRESHOLD) return indexAmongContent >= 2;
-  return indexAmongContent >= 4;
+  // Keep the main process visible. Collapse only later reference material so
+  // readers do not have to open several accordions just to follow the steps.
+  if (bullets >= COLLAPSE_BULLET_THRESHOLD) return indexAmongContent >= 5;
+  return indexAmongContent >= 6;
 }
 
 export function isChecklistSection(section: NoteBodySection): boolean {

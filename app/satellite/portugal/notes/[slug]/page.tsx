@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { ContentKindBadge, NoteHashtags } from "@/components/satellite/HashtagNav";
 import { OfficialLinksPreview } from "@/components/satellite/OfficialLinksPreview";
-import { KeyTakeaways, NoteBody } from "@/components/satellite/NoteBody";
+import { NoteBody } from "@/components/satellite/NoteBody";
 import { NoteFaq } from "@/components/satellite/NoteFaq";
 import { NoteReadingProgress } from "@/components/satellite/NoteReadingProgress";
 import { NoteToc } from "@/components/satellite/NoteToc";
@@ -64,6 +64,25 @@ function formatDate(iso: string | null): string {
   }).format(new Date(iso));
 }
 
+function sameCalendarDay(a: string | null, b: string | null): boolean {
+  if (!a || !b) return true;
+  return new Date(a).toLocaleDateString("en-CA", { timeZone: "Europe/Lisbon" }) ===
+    new Date(b).toLocaleDateString("en-CA", { timeZone: "Europe/Lisbon" });
+}
+
+function formatPlace(city: string): string {
+  const names: Record<string, string> = {
+    portugal: "Португалия",
+    porto: "Порту и Север Португалии",
+    lisbon: "Лиссабон",
+    braga: "Брага",
+    algarve: "Алгарве",
+    coimbra: "Коимбра",
+    madeira: "Мадейра",
+  };
+  return names[city.toLowerCase()] ?? "Португалия";
+}
+
 export default async function PortugalNotePage({ params }: { params: { slug: string } }) {
   const [note, allNotes, revolutPromo, wisePromo] = await Promise.all([
     getPublishedCommunityNoteBySlug(params.slug, "portugal"),
@@ -115,7 +134,7 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
       </section>
       <nav className="text-sm text-slate-500" aria-label="Breadcrumb">
         <Link href={portugalHubPath()} className="hover:text-teal-700">
-          {PORTUGAL_SATELLITE.cityRu}
+          {PORTUGAL_SATELLITE.countryRu}
         </Link>
         <span aria-hidden="true"> › </span>
         <span>{note.category}</span>
@@ -127,25 +146,26 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
           <ContentKindBadge kind={note.content_kind} />
         </div>
         <h1 className={`mt-2 ${heroTitle} leading-tight text-slate-900`}>{note.title}</h1>
-        <p className="mt-2 text-sm text-slate-600">
-          {PORTUGAL_SATELLITE.cityRu}, Португалия · для релокантов RU/BY/UA/KZ
-        </p>
+        <p className="mt-2 text-sm text-slate-600">Практический материал · {formatPlace(note.city)}</p>
         {note.published_at && (
-          <p className="mt-3 text-sm text-slate-500">
-            <time dateTime={note.published_at}>{formatDate(note.published_at)}</time>
-            {note.updated_at !== note.published_at && (
+          <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 border-y border-slate-200 py-3 text-sm text-slate-600">
+            <span className="font-medium text-slate-800">Редактор Emigro</span>
+            <span aria-hidden="true" className="text-slate-300">·</span>
+            <span>Португалия</span>
+            <span aria-hidden="true" className="text-slate-300">·</span>
+            <span><time dateTime={note.published_at}>{formatDate(note.published_at)}</time></span>
+            {!sameCalendarDay(note.updated_at, note.published_at) && (
               <>
-                {" · "}
-                <span>обновлено {formatDate(note.updated_at)}</span>
+                <span aria-hidden="true" className="text-slate-300">·</span>
+                <span>Обновлено {formatDate(note.updated_at)}</span>
               </>
             )}
             {note.content_kind === "guide" && (
               <>
-                {" · "}
                 <span>{formatReadTime(readMinutes)}</span>
               </>
             )}
-          </p>
+          </div>
         )}
       </header>
 
@@ -164,8 +184,8 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
       )}
 
       <ReferralInlineRoot contentId={note.slug} placement="satellite_note_inline" live={inlineLive}>
-      <div className="community-quick-answer mt-8 rounded-xl border border-emerald-100 bg-emerald-50/70 p-5">
-        <p className="text-xs font-bold uppercase tracking-wide text-emerald-800">Короткий ответ</p>
+      <div className="community-quick-answer mt-7 rounded-2xl border border-teal-200 bg-gradient-to-br from-teal-50 to-white p-5 shadow-sm sm:p-6">
+        <p className="text-xs font-bold uppercase tracking-wide text-teal-800">Короткий ответ</p>
         <p
           className="mt-2 leading-relaxed text-slate-800 [&_strong]:font-semibold [&_strong]:text-slate-950"
           dangerouslySetInnerHTML={{ __html: inlineMarkdown(linked.quick_answer) }}
@@ -173,8 +193,6 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
       </div>
 
       <NoteHashtags tags={note.hashtags} className="mt-6" />
-
-      <KeyTakeaways items={linked.key_takeaways} />
 
       {showToc && <NoteToc sections={note.body_sections} hasFaq={note.faq.length > 0} />}
 
@@ -184,6 +202,8 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
 
       <NoteFaq items={linked.faq} />
       </ReferralInlineRoot>
+
+      <RelatedNotes notes={related} />
 
       <PortoChatCta source="portugal_satellite_note" noteSlug={note.slug} />
 
@@ -216,11 +236,10 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
         />
       )}
 
-      <RelatedNotes notes={related} />
-
-      <p className="mt-12 rounded-lg border border-amber-100 bg-amber-50/80 p-4 text-sm text-amber-950">
-        Не юридическая консультация. Секции «Официально» — формальные требования порталов; «На практике» — опыт
-        релокантов из чатов и может отличаться от правил. Перед подачей документов сверяйтесь с gov.pt, AIMA и Finanças.
+      <p className="mt-12 rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm leading-relaxed text-slate-700">
+        Редакционный материал Emigro, не индивидуальная юридическая или налоговая консультация. Там, где описана практика,
+        она может отличаться от требований ведомства и меняться со временем. Перед действием проверьте первоисточники,
+        перечисленные в статье.
       </p>
 
       <p className="mt-8 text-center">

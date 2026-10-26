@@ -134,6 +134,11 @@ export const ARCHIVE_SLUGS = new Set([
   "abono-prenatal-automatico-portugal-2026",
   "pets-civil-protection-portugal-2026",
   "portuguese-passport-ranking-2026",
+  // Misleading one-shot claims / polluted copy — fold into the maintained guides
+  "sns-registration-changes-2026",
+  "aima-centro-aristides-de-sousa-mendes-porto-2026",
+  "social-security-contributions-portugal-risk-2026",
+  "festivali-portugalii-2026-muzyka-porto-norte",
   // Same intent as www /ru/guides/prodlenie-vnzh-portugaliya-aima-2026
   "prodlenie-vnzh-portugaliya-aima-2026",
 ]);
