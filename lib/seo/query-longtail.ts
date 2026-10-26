@@ -348,11 +348,11 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "aima продление d7 d8 сколько стоит",
       "просроченный título португалия летать",
       "agora imigrante renovação",
-      "duc aima 24 часа",
+      "как проверить срок оплаты DUC AIMA",
     ],
     seoTitle: "Продление ВНЖ Португалия 2026 — AIMA renovação",
     seoDescription:
-      "Продление ВНЖ в Португалии 2026: renovação на портале AIMA до 31.10.2026, оплата DUC за 24 часа, сборы ~€440 (€133 + €307). Что делать, если карта caducado.",
+      "Как продлить ВНЖ в Португалии через Portal das Renovações AIMA: проверить доступность для своей категории, подготовить документы, оплатить DUC в указанный срок и разобраться с истёкшей картой и поездками.",
   },
   {
     path: "/ru/guides/kazahstantsy-v-evropu-vnj-2026",

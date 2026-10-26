@@ -440,7 +440,7 @@ export const SEED_FACTCHECK_SIGNALS: SeedFactcheckSignal[] = [
   {
     channel_username: "chatlisboa",
     posted_at: "2026-06-01T10:00:00Z",
-    text: "portal-renovacoes.aima.gov.pt: DUC оплатить за 24 часа; без оплаты pedido renovação не идёт в análise.",
+    text: "Неофициальное наблюдение из чата о сроке оплаты DUC; не использовать как правило. Срок оплаты проверяйте в собственном DUC и уведомлении AIMA.",
     topic_id: "renovacao-portal",
     guide_slug: "prodlenie-vnzh-portugaliya-aima-2026",
     suggested_section: "## Куда подавать: три канала",
@@ -448,7 +448,7 @@ export const SEED_FACTCHECK_SIGNALS: SeedFactcheckSignal[] = [
   {
     channel_username: "por_tugal",
     posted_at: "2026-03-05T09:00:00Z",
-    text: "Taxas AIMA с 1 марта 2026 — temporary renovação ≈ €440,20 (€133 + €307,20); ARI renovação ≈ €4 210,30. Не ориентируйтесь на «€99,80 за всё».",
+    text: "Неофициальное обсуждение тарифов; отдельные суммы нельзя складывать или считать универсальной стоимостью продления. Проверяйте актуальную таблицу AIMA и свой DUC.",
     topic_id: "renovacao-portal",
     guide_slug: "prodlenie-vnzh-portugaliya-aima-2026",
     suggested_section: "## Пошлины (taxas) — по состоянию на август 2026",
