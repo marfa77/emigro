@@ -1,0 +1,12 @@
+[Unit]
+Description=Emigro Geo2Go events (Europe/Lisbon) — daily outdoor agenda
+
+[Timer]
+OnCalendar=*-*-* 11:30:00
+Timezone=Europe/Lisbon
+Persistent=true
+AccuracySec=1min
+Unit=emigro-geo2go-events.service
+
+[Install]
+WantedBy=timers.target

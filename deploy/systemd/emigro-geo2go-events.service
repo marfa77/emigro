@@ -1,0 +1,19 @@
+[Unit]
+Description=Emigro Geo2Go events — one post to @emigro_portugal
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/emigro
+PermissionsStartOnly=true
+ExecStartPre=/bin/mkdir -p /opt/emigro/deploy/geo2go-events/logs /opt/emigro/deploy/geo2go-events/state
+ExecStartPre=/bin/chown -R www-data:www-data /opt/emigro/deploy/geo2go-events
+ExecStart=/bin/bash /opt/emigro/deploy/geo2go-events/run_scheduled.sh
+User=www-data
+EnvironmentFile=-/opt/emigro/.env
+StandardOutput=append:/opt/emigro/deploy/geo2go-events/logs/scheduled.log
+StandardError=append:/opt/emigro/deploy/geo2go-events/logs/scheduled.log
+
+[Install]
+WantedBy=multi-user.target
