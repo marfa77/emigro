@@ -392,44 +392,69 @@ async function publishPhoto(caption: string, image: Buffer): Promise<number> {
   return json.result?.message_id ?? 0;
 }
 
-export async function runGeo2goEventsChannel(options?: { dryRun?: boolean }): Promise<{
+async function publishEvent(
+  ev: Geo2goEvent,
+  options?: { dryRun?: boolean }
+): Promise<{
   published: boolean;
   reason?: string;
   messageId?: number;
   title?: string;
   url?: string;
 }> {
+  console.log(`[geo2go] try ${ev.startIso} ${ev.title}`);
+  if (!ev.imageUrl) {
+    console.log(`[geo2go] no image ${ev.url}`);
+    return { published: false, reason: "no-image", url: ev.url };
+  }
+  const photo = await downloadImage(ev.imageUrl);
+  if (!photo) {
+    console.log(`[geo2go] image download failed ${ev.imageUrl}`);
+    return { published: false, reason: "image-download-failed", url: ev.url };
+  }
+  const draft = await writeDraft(ev, photo);
+  if (!draft) {
+    console.log(`[geo2go] draft skip ${ev.title}`);
+    return { published: false, reason: "draft-skip", url: ev.url };
+  }
+  const card = await renderCard(draft.image, draft.cardLines);
+  const caption = buildCaption(draft);
+  if (options?.dryRun) {
+    console.log(`[geo2go] dry-run ${draft.title}\n${caption}`);
+    return { published: false, reason: "dry-run", title: draft.title, url: ev.url };
+  }
+  const messageId = await publishPhoto(caption, card);
+  remember(ev.key);
+  console.log(`[geo2go] published ${messageId} ${draft.title}`);
+  return { published: true, messageId, title: draft.title, url: ev.url };
+}
+
+export async function runGeo2goEventsChannel(options?: {
+  dryRun?: boolean;
+  /** Force one event-details URL (ignores seen + soonest pick). */
+  forceUrl?: string;
+}): Promise<{
+  published: boolean;
+  reason?: string;
+  messageId?: number;
+  title?: string;
+  url?: string;
+}> {
+  if (options?.forceUrl) {
+    const url = options.forceUrl.trim();
+    const ev = await fetchGeo2goEvent(url);
+    if (!ev) return { published: false, reason: "force-url-fetch-failed", url };
+    return publishEvent(ev, options);
+  }
+
   const seen = loadSeen();
   const events = await loadUpcomingGeo2goEvents(seen);
   console.log(`[geo2go] upcoming unseen ${events.length}`);
   if (events.length === 0) return { published: false, reason: "no-fresh-event" };
 
   for (const ev of events) {
-    console.log(`[geo2go] try ${ev.startIso} ${ev.title}`);
-    if (!ev.imageUrl) {
-      console.log(`[geo2go] no image ${ev.url}`);
-      continue;
-    }
-    const photo = await downloadImage(ev.imageUrl);
-    if (!photo) {
-      console.log(`[geo2go] image download failed ${ev.imageUrl}`);
-      continue;
-    }
-    const draft = await writeDraft(ev, photo);
-    if (!draft) {
-      console.log(`[geo2go] draft skip ${ev.title}`);
-      continue;
-    }
-    const card = await renderCard(draft.image, draft.cardLines);
-    const caption = buildCaption(draft);
-    if (options?.dryRun) {
-      console.log(`[geo2go] dry-run ${draft.title}\n${caption}`);
-      return { published: false, reason: "dry-run", title: draft.title, url: ev.url };
-    }
-    const messageId = await publishPhoto(caption, card);
-    remember(ev.key);
-    console.log(`[geo2go] published ${messageId} ${draft.title}`);
-    return { published: true, messageId, title: draft.title, url: ev.url };
+    const result = await publishEvent(ev, options);
+    if (result.published || result.reason === "dry-run") return result;
   }
   return { published: false, reason: "no-draftable-event" };
 }
