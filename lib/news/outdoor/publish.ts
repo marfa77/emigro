@@ -16,11 +16,12 @@ const SCHEMA = {
     skip: { type: "BOOLEAN" },
     title: { type: "STRING" },
     lead: { type: "STRING" },
-    paragraphs: { type: "ARRAY", items: { type: "STRING" } },
-    tip: { type: "STRING" },
+    who: { type: "STRING" },
+    outcome: { type: "STRING" },
+    bring: { type: "STRING" },
     includes_ru: { type: "STRING" },
   },
-  required: ["skip", "title", "lead", "paragraphs", "tip", "includes_ru"],
+  required: ["skip", "title", "lead", "who", "outcome", "bring", "includes_ru"],
 };
 
 function esc(text: string): string {
@@ -126,40 +127,51 @@ export async function renderOutdoorCard(photo: Buffer, cardLines: string[]): Pro
   return sharp(base).composite([{ input: overlay, top: 0, left: 0 }]).jpeg({ quality: 88 }).toBuffer();
 }
 
-function formatInlineHtml(paragraph: string): string {
-  const escaped = esc(paragraph);
-  return escaped.replace(
-    /\b([A-Za-zÀ-ÿ][A-Za-zÀ-ÿ'’\-]{1,40})\s*\(([^)]{1,28})\)/g,
-    "<i>$1</i> ($2)"
-  );
+function oneLine(text: string, max: number): string {
+  const t = text.replace(/\s+/g, " ").trim();
+  if (t.length <= max) return t;
+  return t.slice(0, max - 1).replace(/\s+\S*$/, "") + "…";
 }
 
 export function buildOutdoorCaption(draft: OutdoorDraft): string {
+  const footer =
+    `<a href="${esc(draft.mapsUrl)}">Карта</a> · ` +
+    `<a href="${esc(draft.sourceUrl)}">Запись и оплата</a>`;
   const facts = [
     `📅 ${esc(draft.whenLine)}`,
     `📍 <a href="${esc(draft.mapsUrl)}">${esc(draft.locationLine)}</a>`,
     `👤 ${esc(draft.organizer)}`,
-    draft.priceLine ? `💶 Стоимость: ${esc(draft.priceLine)}` : null,
-    draft.includesRu ? `🍽 Включено: ${esc(draft.includesRu)}` : null,
+    draft.priceLine ? `💶 ${esc(draft.priceLine)}` : null,
   ]
     .filter(Boolean)
     .join("\n");
-  const tipBlock = draft.tip ? `\n\nНа практике: ${esc(draft.tip)}` : "";
-  const footer = `<a href="${esc(draft.sourceUrl)}">Запись · ${esc(draft.organizer)}</a>`;
+  const brief = [
+    draft.who ? `<b>Кому:</b> ${esc(oneLine(draft.who, 180))}` : null,
+    draft.outcome ? `<b>На выходе:</b> ${esc(oneLine(draft.outcome, 220))}` : null,
+    draft.includesRu ? `<b>Включено:</b> ${esc(oneLine(draft.includesRu, 220))}` : null,
+    draft.bring ? `<b>Взять:</b> ${esc(oneLine(draft.bring, 160))}` : null,
+  ]
+    .filter(Boolean)
+    .join("\n");
   const head =
     `<b>${esc(draft.title.replace(/\.+$/, ""))}</b>\n\n` +
-    `<i>${esc(draft.lead)}</i>\n\n` +
+    `${esc(oneLine(draft.lead, 180))}\n\n` +
     `${facts}\n\n`;
-  const paras = [...draft.paragraphs];
-  let body = paras.map((p) => formatInlineHtml(p)).join("\n\n");
-  let caption = `${head}${body}${tipBlock}\n\n${footer}`;
-  while (caption.length > CAPTION_MAX && paras.length > 0) {
-    paras.pop();
-    body = paras.map((p) => formatInlineHtml(p)).join("\n\n");
-    caption = body ? `${head}${body}${tipBlock}\n\n${footer}` : `${head}${tipBlock}\n\n${footer}`;
+  let caption = `${head}${brief}\n\n${footer}`;
+  if (caption.length > CAPTION_MAX) {
+    const short = [
+      draft.who ? `<b>Кому:</b> ${esc(oneLine(draft.who, 120))}` : null,
+      draft.outcome ? `<b>На выходе:</b> ${esc(oneLine(draft.outcome, 140))}` : null,
+      draft.includesRu ? `<b>Включено:</b> ${esc(oneLine(draft.includesRu, 140))}` : null,
+      draft.bring ? `<b>Взять:</b> ${esc(oneLine(draft.bring, 100))}` : null,
+    ]
+      .filter(Boolean)
+      .join("\n");
+    caption = `${head}${short}\n\n${footer}`;
   }
-  if (caption.length > CAPTION_MAX && tipBlock) caption = `${head}${body}\n\n${footer}`;
-  if (caption.length > CAPTION_MAX) caption = `${head}\n\n${footer}`.slice(0, CAPTION_MAX);
+  if (caption.length > CAPTION_MAX) {
+    caption = `${head}${footer}`;
+  }
   return caption.slice(0, CAPTION_MAX);
 }
 
@@ -175,16 +187,16 @@ export async function writeOutdoorDraft(
     skip?: boolean;
     title?: string;
     lead?: string;
-    paragraphs?: string[];
-    tip?: string;
+    who?: string;
+    outcome?: string;
+    bring?: string;
     includes_ru?: string;
   }>(
-    `Ты редактор Telegram @emigro_portugal (русскоязычные в Португалии).
-Outdoor / caminhadas / опыты на севере и рядом (Gerês, Minho, Douro, Arouca, Bussaco…).
-Пиши по-русски. Можно 1–2 PT-gloss: слово (перевод).
-Не дублируй дату/место/тарифы — их добавим отдельно.
-includes_ru: что входит (гид, обед, страховка…) — только из фактов. Пустая строка если неизвестно.
-Без Emigro-питча. skip=true если нет даты или это не событие.`,
+    `Ты пишешь пост в @emigro_portugal так, будто сам уже сходил и кидаешь друзьям в чат: коротко, по делу, без брошюры.
+Русский. Можно 1 PT-слово с переводом в скобках, если оно реально на странице.
+Не выдумывай километры, сложность, обед и страховку — только если это есть во входе. Если факта нет, поле короткое и честное («гид на маршруте» / «уточняется на странице записи»).
+Дата, место, цена и ссылки добавим сами — не повторяй их.
+skip=true только если это не живое событие.`,
     `SOURCE: ${ev.sourceId}
 TITLE: ${ev.title}
 WHEN: ${whenLine}
@@ -193,10 +205,15 @@ ORGANIZER: ${ev.organizer}
 TICKETS: ${ticketsBlob}
 PRICE: ${ev.priceLabel || "—"}
 INCLUI_PT: ${ev.includesPt || "—"}
-ABOUT_PT: ${(ev.aboutPt || ev.description).slice(0, 900)}
-URL: ${ev.url}
+ABOUT_PT: ${(ev.aboutPt || ev.description).slice(0, 1100)}
 
-Нужно: title (~90), lead (1 предл.), paragraphs (1 абзац), includes_ru, tip.`,
+Поля:
+- title: до 70 знаков, суть + место
+- lead: зачем ехать, 1 фраза, без «погрузитесь»
+- who: кому зайдёт (новичок / семья / кто уже ходит / возраст), 1 фраза
+- outcome: что человек получит к концу (вид, навык, еда, маршрут) — конкретно
+- includes_ru: что входит в цену; пусто если на странице нет
+- bring: что взять (обувь, вода, слои, наличные) под этот формат`,
     SCHEMA,
     2048
   );
@@ -204,15 +221,17 @@ URL: ${ev.url}
   if (!raw || raw.skip) return null;
   const title = (raw.title || "").trim();
   const lead = (raw.lead || "").trim();
-  const paragraphs = (raw.paragraphs || []).map((p) => p.trim()).filter(Boolean).slice(0, 2);
-  const tip = (raw.tip || "").trim();
+  const who = (raw.who || "").trim();
+  const outcome = (raw.outcome || "").trim();
+  const bring = (raw.bring || "").trim();
   const includesRu = (raw.includes_ru || "").trim() || null;
-  if (!title || !lead || paragraphs.length < 1) return null;
+  if (!title || !lead || !who || !outcome) return null;
   return {
     title,
     lead,
-    paragraphs,
-    tip,
+    who,
+    outcome,
+    bring,
     includesRu,
     cardLines: factCardLines(ev),
     sourceUrl: ev.url,

@@ -25,9 +25,14 @@ export type OutdoorEvent = {
 
 export type OutdoorDraft = {
   title: string;
+  /** Зачем идти — одна фраза. */
   lead: string;
-  paragraphs: string[];
-  tip: string;
+  /** Кому подойдёт. */
+  who: string;
+  /** Что получите к концу дня. */
+  outcome: string;
+  /** Что взять с собой. */
+  bring: string;
   includesRu: string | null;
   cardLines: string[];
   sourceUrl: string;
