@@ -135,6 +135,7 @@
     "italy:education": "tsx scripts/italy-education-channel.ts",
     "portugal:porto": "tsx scripts/portugal-porto-channel.ts",
     "portugal:geo2go": "tsx scripts/geo2go-events-channel.ts",
+    "portugal:outdoor": "tsx scripts/portugal-outdoor-channel.ts",
 
     "italy:daily": "tsx scripts/italy-community-daily.ts",
     "italy:post-group": "tsx scripts/italy-post-group-note.ts",
