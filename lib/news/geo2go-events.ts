@@ -15,6 +15,7 @@ const CHANNEL_URL = "https://t.me/emigro_portugal";
 const CAPTION_MAX = 1024;
 const UA =
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36";
+const ORGANIZER = "Geo2Go";
 
 export type Geo2goEvent = {
   key: string;
@@ -24,9 +25,14 @@ export type Geo2goEvent = {
   startIso: string;
   endIso: string | null;
   location: string;
+  address: string | null;
+  lat: number | null;
+  lng: number | null;
+  mapsUrl: string;
+  organizer: string;
+  priceLabel: string | null;
   url: string;
   imageUrl: string | null;
-  priceHint: string | null;
 };
 
 export type Geo2goDraft = {
@@ -36,6 +42,11 @@ export type Geo2goDraft = {
   tip: string;
   cardLines: string[];
   sourceUrl: string;
+  mapsUrl: string;
+  locationLine: string;
+  organizer: string;
+  priceLabel: string | null;
+  whenLine: string;
   image: Buffer;
   eventKey: string;
 };
@@ -48,9 +59,8 @@ const SCHEMA = {
     lead: { type: "STRING" },
     paragraphs: { type: "ARRAY", items: { type: "STRING" } },
     tip: { type: "STRING" },
-    card_lines: { type: "ARRAY", items: { type: "STRING" } },
   },
-  required: ["skip", "title", "lead", "paragraphs", "tip", "card_lines"],
+  required: ["skip", "title", "lead", "paragraphs", "tip"],
 };
 
 function seenPath(): string {
@@ -136,21 +146,55 @@ async function downloadImage(url: string): Promise<Buffer | null> {
   }
 }
 
-function stripTags(html: string): string {
-  return html
-    .replace(/<script[\s\S]*?<\/script>/gi, " ")
-    .replace(/<style[\s\S]*?<\/style>/gi, " ")
-    .replace(/<[^>]+>/g, " ")
-    .replace(/&nbsp;/g, " ")
-    .replace(/&amp;/g, "&")
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">")
-    .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(Number(n)))
-    .replace(/\s+/g, " ")
-    .trim();
+function parseCoords(html: string): { lat: number | null; lng: number | null } {
+  const lat = Number(html.match(/"latitude"\s*:\s*([-\d.]+)/)?.[1]);
+  const lng = Number(html.match(/"longitude"\s*:\s*([-\d.]+)/)?.[1]);
+  return {
+    lat: Number.isFinite(lat) ? lat : null,
+    lng: Number.isFinite(lng) ? lng : null,
+  };
+}
+
+function mapsUrlFor(params: {
+  lat: number | null;
+  lng: number | null;
+  address: string | null;
+  location: string;
+}): string {
+  if (params.lat != null && params.lng != null) {
+    return `https://www.google.com/maps/search/?api=1&query=${params.lat},${params.lng}`;
+  }
+  const q = encodeURIComponent(params.address || params.location || "Portugal");
+  return `https://www.google.com/maps/search/?api=1&query=${q}`;
+}
+
+function euroLabel(n: number): string {
+  return n % 1 === 0 ? `€${n}` : `€${n.toFixed(2)}`;
+}
+
+function priceFromOffers(node: Record<string, unknown>): string | null {
+  const offers = node.offers as
+    | {
+        highPrice?: string | number;
+        offers?: Array<{ price?: string | number }>;
+      }
+    | undefined;
+  if (!offers || typeof offers !== "object") return null;
+  const ticketPrices = (offers.offers || [])
+    .map((o) => Number(o.price))
+    .filter((n) => Number.isFinite(n) && n > 0);
+  if (ticketPrices.length > 0) {
+    const min = Math.min(...ticketPrices);
+    const max = Math.max(...ticketPrices);
+    return min === max ? euroLabel(min) : `от ${euroLabel(min)}`;
+  }
+  const high = Number(offers.highPrice);
+  if (Number.isFinite(high) && high > 0) return euroLabel(high);
+  return null;
 }
 
 function parseJsonLdEvent(html: string, fallbackUrl: string): Geo2goEvent | null {
+  const { lat, lng } = parseCoords(html);
   const blocks = [...html.matchAll(/<script[^>]+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)];
   for (const m of blocks) {
     try {
@@ -167,29 +211,37 @@ function parseJsonLdEvent(html: string, fallbackUrl: string): Geo2goEvent | null
         const description = String((node as { description?: string }).description || "").trim();
         const locRaw = (node as { location?: { name?: string; address?: unknown } }).location;
         let location = "";
+        let address: string | null = null;
         if (locRaw && typeof locRaw === "object") {
           location = String(locRaw.name || "").trim();
-          if (!location && locRaw.address) {
-            location =
-              typeof locRaw.address === "string"
-                ? locRaw.address
-                : String((locRaw.address as { streetAddress?: string }).streetAddress || "").trim();
+          if (typeof locRaw.address === "string" && locRaw.address.trim()) {
+            address = locRaw.address.trim();
+          } else if (locRaw.address && typeof locRaw.address === "object") {
+            address =
+              String((locRaw.address as { streetAddress?: string }).streetAddress || "").trim() || null;
           }
         }
         const url = String((node as { url?: string }).url || fallbackUrl).trim() || fallbackUrl;
         const slug = url.split("/").filter(Boolean).pop() || name;
-        const imageField = (node as { image?: string | string[] }).image;
+        const imageField = (node as { image?: string | string[] | { url?: string } }).image;
         let imageUrl: string | null = null;
         if (typeof imageField === "string") imageUrl = imageField;
-        else if (Array.isArray(imageField) && typeof imageField[0] === "string") imageUrl = imageField[0];
+        else if (Array.isArray(imageField)) {
+          const first = imageField[0];
+          if (typeof first === "string") imageUrl = first;
+          else if (first && typeof first === "object" && typeof (first as { url?: string }).url === "string") {
+            imageUrl = (first as { url: string }).url;
+          }
+        } else if (imageField && typeof imageField === "object" && typeof imageField.url === "string") {
+          imageUrl = imageField.url;
+        }
         if (!imageUrl) {
           const og =
             html.match(/property=["']og:image["'][^>]+content=["']([^"']+)["']/i)?.[1] ||
             html.match(/content=["']([^"']+)["'][^>]+property=["']og:image["']/i)?.[1];
           imageUrl = og?.trim() || null;
         }
-        const priceHits = html.match(/€\s?\d[\d.,]*/g) || [];
-        const priceHint = priceHits[0]?.replace(/\s+/g, "") || null;
+        const place = location || address || "Portugal";
         return {
           key: `geo2go:${slug}`,
           slug,
@@ -197,10 +249,15 @@ function parseJsonLdEvent(html: string, fallbackUrl: string): Geo2goEvent | null
           description,
           startIso,
           endIso,
-          location: location || "Portugal",
+          location: place,
+          address,
+          lat,
+          lng,
+          mapsUrl: mapsUrlFor({ lat, lng, address, location: place }),
+          organizer: ORGANIZER,
+          priceLabel: priceFromOffers(node as Record<string, unknown>),
           url,
           imageUrl,
-          priceHint,
         };
       }
     } catch {
@@ -214,12 +271,11 @@ function parseJsonLdEvent(html: string, fallbackUrl: string): Geo2goEvent | null
 export async function listGeo2goAgendaUrls(): Promise<string[]> {
   const html = await fetchText(AGENDA_URL);
   if (!html) return [];
-  const urls = [
+  return [
     ...new Set(
       [...html.matchAll(/https:\/\/www\.geo2go\.pt\/event-details\/[a-z0-9\-]+/gi)].map((m) => m[0])
     ),
   ];
-  return urls;
 }
 
 export async function fetchGeo2goEvent(url: string): Promise<Geo2goEvent | null> {
@@ -244,29 +300,59 @@ export async function loadUpcomingGeo2goEvents(seen: Set<string>): Promise<Geo2g
   return out;
 }
 
-function formatWhen(iso: string): string {
-  const d = new Date(iso);
-  if (!Number.isFinite(d.getTime())) return iso;
-  return new Intl.DateTimeFormat("ru-RU", {
+function formatWhen(iso: string, endIso?: string | null): string {
+  const start = new Date(iso);
+  if (!Number.isFinite(start.getTime())) return iso;
+  const day = new Intl.DateTimeFormat("ru-RU", {
     timeZone: "Europe/Lisbon",
     weekday: "short",
     day: "numeric",
     month: "short",
+  }).format(start);
+  const t0 = new Intl.DateTimeFormat("ru-RU", {
+    timeZone: "Europe/Lisbon",
     hour: "2-digit",
     minute: "2-digit",
-  }).format(d);
+  }).format(start);
+  if (endIso) {
+    const end = new Date(endIso);
+    if (Number.isFinite(end.getTime())) {
+      const t1 = new Intl.DateTimeFormat("ru-RU", {
+        timeZone: "Europe/Lisbon",
+        hour: "2-digit",
+        minute: "2-digit",
+      }).format(end);
+      return `${day}, ${t0}–${t1}`;
+    }
+  }
+  return `${day}, ${t0}`;
+}
+
+function clip(text: string, max: number): string {
+  const t = text.trim();
+  if (t.length <= max) return t;
+  return t.slice(0, max - 1).replace(/\s+\S*$/, "") + "…";
+}
+
+/** Fact lines on the card — date, place, organizer, price (not LLM). */
+function factCardLines(ev: Geo2goEvent): string[] {
+  const when = formatWhen(ev.startIso, ev.endIso);
+  const place = clip(ev.location, 36);
+  const lines = [when, place, `Организатор: ${ev.organizer}`];
+  if (ev.priceLabel) lines.push(`Цена: ${ev.priceLabel}`);
+  return lines;
 }
 
 function cardSvg(lines: string[]): string {
   const bold = boldFont();
   const face = bold ? `@font-face { font-family: 'CardBold'; src: url('${bold}'); }` : "";
   const boldFamily = bold ? "CardBold" : "DejaVu Sans, Liberation Sans, Arial, sans-serif";
-  const y0 = 560;
-  const headlines = lines
-    .slice(0, 2)
+  const rows = lines.slice(0, 4);
+  const y0 = 760 - rows.length * 40 - 24;
+  const headlines = rows
     .map(
       (line, i) =>
-        `<text x="48" y="${y0 + i * 48}" font-family="${boldFamily}" font-size="34" fill="#ffffff">${xml(line)}</text>`
+        `<text x="48" y="${y0 + i * 40}" font-family="${boldFamily}" font-size="${i === 0 ? 30 : 26}" fill="#ffffff">${xml(line)}</text>`
     )
     .join("\n");
   return `<?xml version="1.0" encoding="UTF-8"?>
@@ -275,15 +361,15 @@ function cardSvg(lines: string[]): string {
     <style>${face}</style>
     <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#062a2e" stop-opacity="0"/>
-      <stop offset="45%" stop-color="#062a2e" stop-opacity="0.25"/>
-      <stop offset="100%" stop-color="#062a2e" stop-opacity="0.88"/>
+      <stop offset="40%" stop-color="#062a2e" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#062a2e" stop-opacity="0.92"/>
     </linearGradient>
   </defs>
   <rect width="800" height="800" fill="url(#fade)"/>
   <rect x="0" y="0" width="10" height="800" fill="#1fa8a0"/>
   <text x="48" y="56" font-family="${boldFamily}" font-size="22" fill="#1fa8a0">EMIGRO · EVENTOS</text>
   ${headlines}
-  <text x="48" y="760" font-family="${boldFamily}" font-size="16" fill="#c8e6e3">${CHANNEL_URL.replace("https://t.me/", "@")}</text>
+  <text x="48" y="780" font-family="${boldFamily}" font-size="15" fill="#c8e6e3">${CHANNEL_URL.replace("https://t.me/", "@")}</text>
 </svg>`;
 }
 
@@ -306,11 +392,21 @@ function formatInlineHtml(paragraph: string): string {
   );
 }
 
-function buildCaption(draft: Pick<Geo2goDraft, "title" | "lead" | "paragraphs" | "tip" | "sourceUrl">): string {
+function buildCaption(draft: Geo2goDraft): string {
+  const facts = [
+    `📅 ${esc(draft.whenLine)}`,
+    `📍 <a href="${esc(draft.mapsUrl)}">${esc(draft.locationLine)}</a>`,
+    `👤 ${esc(draft.organizer)}`,
+    draft.priceLabel ? `💶 ${esc(draft.priceLabel)}` : null,
+  ]
+    .filter(Boolean)
+    .join("\n");
   const tipBlock = draft.tip ? `\n\nНа практике: ${esc(draft.tip)}` : "";
-  const footer = `<a href="${esc(draft.sourceUrl)}">Geo2Go · запись</a>`;
+  const footer = `<a href="${esc(draft.sourceUrl)}">Запись на Geo2Go</a>`;
   const head =
-    `<b>${esc(draft.title.replace(/\.+$/, ""))}</b>\n\n` + `<i>${esc(draft.lead)}</i>\n\n`;
+    `<b>${esc(draft.title.replace(/\.+$/, ""))}</b>\n\n` +
+    `<i>${esc(draft.lead)}</i>\n\n` +
+    `${facts}\n\n`;
   const paras = [...draft.paragraphs];
   let body = paras.map((p) => formatInlineHtml(p)).join("\n\n");
   let caption = `${head}${body}${tipBlock}\n\n${footer}`;
@@ -326,33 +422,33 @@ function buildCaption(draft: Pick<Geo2goDraft, "title" | "lead" | "paragraphs" |
 }
 
 async function writeDraft(ev: Geo2goEvent, image: Buffer): Promise<Geo2goDraft | null> {
-  const when = formatWhen(ev.startIso);
+  const whenLine = formatWhen(ev.startIso, ev.endIso);
+  const locationLine = ev.address || ev.location;
   const raw = await geminiFastJson<{
     skip?: boolean;
     title?: string;
     lead?: string;
     paragraphs?: string[];
     tip?: string;
-    card_lines?: string[];
   }>(
     `Ты редактор Telegram @emigro_portugal (русскоязычные в Португалии).
-Формат как Porto-канал: title, lead, 1–2 абзаца, tip, card_lines.
-События outdoor Geo2Go (Bussaco / Caramulo / Mortágua — Centro, не Lisboa и не центр Porto).
-Пиши конкретно место. Можно 1–2 PT-gloss: слово (перевод). Только факты из входа. Без Emigro-питча и эмодзи.
-skip=true если нет даты или это не событие.`,
+События outdoor Geo2Go (Bussaco / Caramulo / Mortágua — Centro).
+Пиши title/lead/paragraphs/tip по-русски. Можно 1–2 PT-gloss: слово (перевод).
+Не дублируй блок дата/место/цена/организатор — его добавим отдельно.
+Только факты из входа. Без Emigro-питча. skip=true если нет даты.`,
     `TITLE: ${ev.title}
-WHEN: ${when} (Europe/Lisbon)
-WHERE: ${ev.location}
-PRICE_HINT: ${ev.priceHint || "не указана на странице"}
+WHEN: ${whenLine}
+WHERE: ${locationLine}
+ORGANIZER: ${ev.organizer}
+PRICE: ${ev.priceLabel || "не указана"}
 DESC: ${ev.description.slice(0, 600)}
 URL: ${ev.url}
 
 Нужно:
-- title по-русски до ~90 знаков
+- title до ~90 знаков
 - lead — 1 предложение
-- paragraphs — 1–2 абзаца
-- tip — одна практика (запись / дорога / что взять)
-- card_lines — 2 строки до ~28 символов (дата·место / суть)`,
+- paragraphs — 1–2 абзаца про суть опыта
+- tip — одна практика (запись / машина / что взять)`,
     SCHEMA,
     2048
   );
@@ -362,15 +458,19 @@ URL: ${ev.url}
   const lead = (raw.lead || "").trim();
   const paragraphs = (raw.paragraphs || []).map((p) => p.trim()).filter(Boolean).slice(0, 3);
   const tip = (raw.tip || "").trim();
-  const cardLines = (raw.card_lines || []).map((l) => l.trim()).filter(Boolean).slice(0, 2);
-  if (!title || !lead || paragraphs.length < 1 || cardLines.length < 1) return null;
+  if (!title || !lead || paragraphs.length < 1) return null;
   return {
     title,
     lead,
     paragraphs,
     tip,
-    cardLines,
+    cardLines: factCardLines(ev),
     sourceUrl: ev.url,
+    mapsUrl: ev.mapsUrl,
+    locationLine,
+    organizer: ev.organizer,
+    priceLabel: ev.priceLabel,
+    whenLine,
     image,
     eventKey: ev.key,
   };
@@ -402,7 +502,7 @@ async function publishEvent(
   title?: string;
   url?: string;
 }> {
-  console.log(`[geo2go] try ${ev.startIso} ${ev.title}`);
+  console.log(`[geo2go] try ${ev.startIso} ${ev.title} · ${ev.priceLabel || "?"} · ${ev.location}`);
   if (!ev.imageUrl) {
     console.log(`[geo2go] no image ${ev.url}`);
     return { published: false, reason: "no-image", url: ev.url };
@@ -431,7 +531,6 @@ async function publishEvent(
 
 export async function runGeo2goEventsChannel(options?: {
   dryRun?: boolean;
-  /** Force one event-details URL (ignores seen + soonest pick). */
   forceUrl?: string;
 }): Promise<{
   published: boolean;
