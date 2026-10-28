@@ -17,11 +17,15 @@ const UA =
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36";
 const ORGANIZER = "Geo2Go";
 
+export type Geo2goTicket = { name: string; price: number };
+
 export type Geo2goEvent = {
   key: string;
   slug: string;
   title: string;
   description: string;
+  aboutPt: string | null;
+  includesPt: string | null;
   startIso: string;
   endIso: string | null;
   location: string;
@@ -30,6 +34,8 @@ export type Geo2goEvent = {
   lng: number | null;
   mapsUrl: string;
   organizer: string;
+  tickets: Geo2goTicket[];
+  /** Short card summary e.g. "€13–29". */
   priceLabel: string | null;
   url: string;
   imageUrl: string | null;
@@ -40,11 +46,13 @@ export type Geo2goDraft = {
   lead: string;
   paragraphs: string[];
   tip: string;
+  includesRu: string | null;
   cardLines: string[];
   sourceUrl: string;
   mapsUrl: string;
   locationLine: string;
   organizer: string;
+  priceLine: string | null;
   priceLabel: string | null;
   whenLine: string;
   image: Buffer;
@@ -59,8 +67,9 @@ const SCHEMA = {
     lead: { type: "STRING" },
     paragraphs: { type: "ARRAY", items: { type: "STRING" } },
     tip: { type: "STRING" },
+    includes_ru: { type: "STRING" },
   },
-  required: ["skip", "title", "lead", "paragraphs", "tip"],
+  required: ["skip", "title", "lead", "paragraphs", "tip", "includes_ru"],
 };
 
 function seenPath(): string {
@@ -172,29 +181,92 @@ function euroLabel(n: number): string {
   return n % 1 === 0 ? `€${n}` : `€${n.toFixed(2)}`;
 }
 
-function priceFromOffers(node: Record<string, unknown>): string | null {
-  const offers = node.offers as
-    | {
-        highPrice?: string | number;
-        offers?: Array<{ price?: string | number }>;
-      }
-    | undefined;
-  if (!offers || typeof offers !== "object") return null;
-  const ticketPrices = (offers.offers || [])
-    .map((o) => Number(o.price))
-    .filter((n) => Number.isFinite(n) && n > 0);
-  if (ticketPrices.length > 0) {
-    const min = Math.min(...ticketPrices);
-    const max = Math.max(...ticketPrices);
-    return min === max ? euroLabel(min) : `от ${euroLabel(min)}`;
+function parseTickets(html: string): Geo2goTicket[] {
+  const tickets: Geo2goTicket[] = [];
+  const seen = new Set<string>();
+  for (const m of html.matchAll(
+    /"name"\s*:\s*"([^"]+)"\s*,\s*"price"\s*:\s*\{[^}]*?"value"\s*:\s*"([\d.]+)"/g
+  )) {
+    const name = m[1]!.trim();
+    const price = Number(m[2]);
+    if (!name || !Number.isFinite(price)) continue;
+    if (/cogumelos do bussaco|trilho|experienc/i.test(name) && !/adulto|anos|crian/i.test(name)) {
+      continue; // package title, not a tier
+    }
+    const key = `${name}|${price}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    tickets.push({ name, price });
   }
-  const high = Number(offers.highPrice);
+  return tickets;
+}
+
+function priceLabelFromTickets(tickets: Geo2goTicket[], node?: Record<string, unknown>): string | null {
+  const paid = tickets.map((t) => t.price).filter((n) => n > 0);
+  if (paid.length > 0) {
+    const min = Math.min(...paid);
+    const max = Math.max(...paid);
+    return min === max ? euroLabel(min) : `${euroLabel(min)}–${euroLabel(max).replace("€", "")}`;
+  }
+  const offers = node?.offers as { highPrice?: string | number } | undefined;
+  const high = Number(offers?.highPrice);
   if (Number.isFinite(high) && high > 0) return euroLabel(high);
   return null;
 }
 
+function ticketTierRu(name: string, price: number): string {
+  const n = name.trim();
+  if (/^adulto$/i.test(n)) return price > 0 ? `${euroLabel(price)} взрослый` : "взрослый — бесплатно";
+  if (/12\s*aos?\s*16/i.test(n)) {
+    return price > 0
+      ? `${euroLabel(price)} подросток 12–16 лет`
+      : "подросток 12–16 лет — бесплатно";
+  }
+  if (/6\s*aos?\s*11/i.test(n)) {
+    return price > 0 ? `${euroLabel(price)} ребёнок 6–11 лет` : "ребёнок 6–11 лет — бесплатно";
+  }
+  if (/<\s*6|menor\s*de\s*6|até\s*5/i.test(n)) {
+    return price > 0 ? `${euroLabel(price)} младше 6 лет` : "младше 6 лет — бесплатно";
+  }
+  return price > 0 ? `${euroLabel(price)} (${n})` : `${n} — бесплатно`;
+}
+
+/** Full cost line for caption. */
+function formatPriceLine(tickets: Geo2goTicket[]): string | null {
+  if (tickets.length === 0) return null;
+  const paid = tickets.filter((t) => t.price > 0).map((t) => ticketTierRu(t.name, t.price));
+  const free = tickets.filter((t) => t.price === 0).map((t) => ticketTierRu(t.name, t.price));
+  const parts = [...paid];
+  if (free.length) parts.push(free.join("; "));
+  return parts.join(", ");
+}
+
+function parseAboutAndIncludes(html: string): { aboutPt: string | null; includesPt: string | null } {
+  let aboutPt: string | null = null;
+  const aboutMatch = html.match(/data-hook="about-section"[^>]*>([\s\S]{0,4000}?)<\/(?:div|section|span)>/i);
+  if (aboutMatch) {
+    aboutPt = aboutMatch[1]!
+      .replace(/<[^>]+>/g, " ")
+      .replace(/Sobre o evento/gi, " ")
+      .replace(/&gt;/g, ">")
+      .replace(/\s+/g, " ")
+      .trim()
+      .slice(0, 1200) || null;
+  }
+  const inclui = html.match(/INCLUI:\s*([^<]{10,500})/i);
+  let includesPt = inclui?.[1]?.replace(/&gt;/g, ">").replace(/\s+/g, " ").trim() || null;
+  if (!includesPt && aboutPt) {
+    // fallback: first sentence after "programa"
+    const prog = aboutPt.match(/(?:Do programa consta|programa)[^.!]{10,280}/i);
+    if (prog) includesPt = prog[0]!.trim();
+  }
+  return { aboutPt, includesPt };
+}
+
 function parseJsonLdEvent(html: string, fallbackUrl: string): Geo2goEvent | null {
   const { lat, lng } = parseCoords(html);
+  const tickets = parseTickets(html);
+  const { aboutPt, includesPt } = parseAboutAndIncludes(html);
   const blocks = [...html.matchAll(/<script[^>]+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)];
   for (const m of blocks) {
     try {
@@ -247,6 +319,8 @@ function parseJsonLdEvent(html: string, fallbackUrl: string): Geo2goEvent | null
           slug,
           title: name,
           description,
+          aboutPt,
+          includesPt,
           startIso,
           endIso,
           location: place,
@@ -255,7 +329,8 @@ function parseJsonLdEvent(html: string, fallbackUrl: string): Geo2goEvent | null
           lng,
           mapsUrl: mapsUrlFor({ lat, lng, address, location: place }),
           organizer: ORGANIZER,
-          priceLabel: priceFromOffers(node as Record<string, unknown>),
+          tickets,
+          priceLabel: priceLabelFromTickets(tickets, node as Record<string, unknown>),
           url,
           imageUrl,
         };
@@ -339,7 +414,7 @@ function factCardLines(ev: Geo2goEvent): string[] {
   const when = formatWhen(ev.startIso, ev.endIso);
   const place = clip(ev.location, 36);
   const lines = [when, place, `Организатор: ${ev.organizer}`];
-  if (ev.priceLabel) lines.push(`Цена: ${ev.priceLabel}`);
+  if (ev.priceLabel) lines.push(`Стоимость: ${ev.priceLabel}`);
   return lines;
 }
 
@@ -397,7 +472,8 @@ function buildCaption(draft: Geo2goDraft): string {
     `📅 ${esc(draft.whenLine)}`,
     `📍 <a href="${esc(draft.mapsUrl)}">${esc(draft.locationLine)}</a>`,
     `👤 ${esc(draft.organizer)}`,
-    draft.priceLabel ? `💶 ${esc(draft.priceLabel)}` : null,
+    draft.priceLine ? `💶 Стоимость: ${esc(draft.priceLine)}` : null,
+    draft.includesRu ? `🍽 Включено: ${esc(draft.includesRu)}` : null,
   ]
     .filter(Boolean)
     .join("\n");
@@ -418,37 +494,48 @@ function buildCaption(draft: Geo2goDraft): string {
   if (caption.length > CAPTION_MAX && tipBlock) {
     caption = `${head}${body}\n\n${footer}`;
   }
+  // Prefer keeping price+includes over long body if still over limit
+  if (caption.length > CAPTION_MAX) {
+    caption = `${head}${tipBlock}\n\n${footer}`.slice(0, CAPTION_MAX);
+  }
   return caption.slice(0, CAPTION_MAX);
 }
 
 async function writeDraft(ev: Geo2goEvent, image: Buffer): Promise<Geo2goDraft | null> {
   const whenLine = formatWhen(ev.startIso, ev.endIso);
   const locationLine = ev.address || ev.location;
+  const priceLine = formatPriceLine(ev.tickets);
+  const ticketsBlob = ev.tickets.map((t) => `${t.name}=${t.price}`).join("; ") || "нет";
   const raw = await geminiFastJson<{
     skip?: boolean;
     title?: string;
     lead?: string;
     paragraphs?: string[];
     tip?: string;
+    includes_ru?: string;
   }>(
     `Ты редактор Telegram @emigro_portugal (русскоязычные в Португалии).
 События outdoor Geo2Go (Bussaco / Caramulo / Mortágua — Centro).
-Пиши title/lead/paragraphs/tip по-русски. Можно 1–2 PT-gloss: слово (перевод).
-Не дублируй блок дата/место/цена/организатор — его добавим отдельно.
-Только факты из входа. Без Emigro-питча. skip=true если нет даты.`,
+Пиши по-русски. Можно 1–2 PT-gloss: слово (перевод).
+Не дублируй дату/место/тарифы — их добавим отдельно.
+includes_ru: одна плотная фраза «что включено» по фактам INCLUI/ABOUT (сбор, обучение, обед…), без воды.
+paragraphs: суть опыта (не прайс). Без Emigro-питча. skip=true если нет даты.`,
     `TITLE: ${ev.title}
 WHEN: ${whenLine}
 WHERE: ${locationLine}
 ORGANIZER: ${ev.organizer}
-PRICE: ${ev.priceLabel || "не указана"}
-DESC: ${ev.description.slice(0, 600)}
+TICKETS: ${ticketsBlob}
+PRICE_LINE_RU_HINT: ${priceLine || "—"}
+INCLUI_PT: ${ev.includesPt || "—"}
+ABOUT_PT: ${(ev.aboutPt || ev.description).slice(0, 900)}
 URL: ${ev.url}
 
 Нужно:
 - title до ~90 знаков
-- lead — 1 предложение
-- paragraphs — 1–2 абзаца про суть опыта
-- tip — одна практика (запись / машина / что взять)`,
+- lead — 1 предложение (что это за формат дня)
+- paragraphs — 1 абзац про опыт
+- includes_ru — что входит в билет
+- tip — запись / машина / что взять`,
     SCHEMA,
     2048
   );
@@ -456,19 +543,22 @@ URL: ${ev.url}
   if (!raw || raw.skip) return null;
   const title = (raw.title || "").trim();
   const lead = (raw.lead || "").trim();
-  const paragraphs = (raw.paragraphs || []).map((p) => p.trim()).filter(Boolean).slice(0, 3);
+  const paragraphs = (raw.paragraphs || []).map((p) => p.trim()).filter(Boolean).slice(0, 2);
   const tip = (raw.tip || "").trim();
+  const includesRu = (raw.includes_ru || "").trim() || null;
   if (!title || !lead || paragraphs.length < 1) return null;
   return {
     title,
     lead,
     paragraphs,
     tip,
+    includesRu,
     cardLines: factCardLines(ev),
     sourceUrl: ev.url,
     mapsUrl: ev.mapsUrl,
     locationLine,
     organizer: ev.organizer,
+    priceLine,
     priceLabel: ev.priceLabel,
     whenLine,
     image,
