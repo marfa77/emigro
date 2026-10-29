@@ -48,7 +48,7 @@ function remember(key: string): void {
 export async function collectOutdoorEvents(options?: {
   sources?: string[];
 }): Promise<OutdoorEvent[]> {
-  const allow = options?.sources?.length ? new Set(options.sources) : null;
+  const allow = options?.sources?.length ? new Set(options?.sources) : null;
   const all: OutdoorEvent[] = [];
   for (const src of OUTDOOR_SOURCES) {
     if (allow && !allow.has(src.id)) continue;
@@ -129,14 +129,14 @@ export async function runPortugalOutdoorChannel(options?: {
       return publishOne(ev, options);
     }
     // Generic: try collecting and matching URL
-    const all = await collectOutdoorEvents({ sources: options.sources });
+    const all = await collectOutdoorEvents({ sources: options?.sources });
     const hit = all.find((e) => e.url.replace(/\/$/, "") === url.replace(/\/$/, ""));
     if (hit) return publishOne(hit, options);
     return { published: false, reason: "force-url-not-in-sources", url };
   }
 
   const seen = loadSeen();
-  const events = (await collectOutdoorEvents({ sources: options.sources })).filter(
+  const events = (await collectOutdoorEvents({ sources: options?.sources })).filter(
     (e) => !seen.has(e.key) && !seen.has(e.url)
   );
   console.log(`[outdoor] upcoming unseen ${events.length}`);
