@@ -1,14 +1,17 @@
 /**
  * Multi-source outdoor experiences → @emigro_portugal.
  */
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
-import { dirname, resolve } from "node:path";
+import { resolve } from "node:path";
 import {
   buildOutdoorCaption,
   materializeEvent,
   publishOutdoorPhoto,
   renderOutdoorCard,
 } from "@/lib/news/outdoor/publish";
+import { fingerprint, uniqueByFingerprint } from "@/lib/news/outdoor/due";
+import { appendPosted, loadPosted, seenSets } from "@/lib/news/outdoor/posted";
+import { eventTheme, isEventTheme, nextPosts } from "@/lib/news/outdoor/themes";
+import { publishDue } from "@/lib/news/outdoor/publish-batch";
 import { OUTDOOR_SOURCES, parseGeo2goEventHtml } from "@/lib/news/outdoor/sources";
 import type { OutdoorEvent } from "@/lib/news/outdoor/types";
 import { fetchText } from "@/lib/news/outdoor/util";
@@ -17,32 +20,22 @@ function seenPath(): string {
   return resolve(process.cwd(), "deploy/portugal-outdoor/state/seen.json");
 }
 
-function loadSeen(): Set<string> {
-  // Merge legacy geo2go seen keys so we don't re-post those.
-  const keys = new Set<string>();
-  for (const path of [
-    seenPath(),
-    resolve(process.cwd(), "deploy/geo2go-events/state/seen.json"),
-  ]) {
-    if (!existsSync(path)) continue;
-    try {
-      const parsed = JSON.parse(readFileSync(path, "utf8")) as unknown;
-      if (Array.isArray(parsed)) {
-        for (const x of parsed) if (typeof x === "string") keys.add(x);
-      }
-    } catch {
-      /* ignore */
-    }
-  }
-  return keys;
+function seenPaths(): string[] {
+  return [seenPath(), resolve(process.cwd(), "deploy/geo2go-events/state/seen.json")];
 }
 
-function remember(key: string): void {
-  const path = seenPath();
-  mkdirSync(dirname(path), { recursive: true });
-  const prev = loadSeen();
-  prev.add(key);
-  writeFileSync(path, JSON.stringify([...prev].slice(-800), null, 2) + "\n");
+function remember(ev: OutdoorEvent, messageId: number): void {
+  appendPosted(seenPath(), {
+    key: ev.key,
+    fingerprint: fingerprint(ev, "Europe/Lisbon"),
+    messageId,
+    startIso: ev.startIso,
+    title: ev.title,
+    location: ev.location,
+    priceLabel: ev.priceLabel,
+    url: ev.url,
+    theme: eventTheme(ev),
+  });
 }
 
 export async function collectOutdoorEvents(options?: {
@@ -96,7 +89,7 @@ async function publishOne(
     };
   }
   const messageId = await publishOutdoorPhoto(caption, card);
-  remember(ev.key);
+  remember(ev, messageId);
   console.log(`[outdoor] published ${messageId} ${draft.title} (${ev.sourceId})`);
   return {
     published: true,
@@ -135,16 +128,20 @@ export async function runPortugalOutdoorChannel(options?: {
     return { published: false, reason: "force-url-not-in-sources", url };
   }
 
-  const seen = loadSeen();
-  const events = (await collectOutdoorEvents({ sources: options.sources })).filter(
-    (e) => !seen.has(e.key) && !seen.has(e.url)
+  const seen = seenSets(seenPaths());
+  const events = uniqueByFingerprint(
+    (await collectOutdoorEvents({ sources: options?.sources })).filter(
+      (e) => !seen.keys.has(e.key) && !seen.fingerprints.has(fingerprint(e, "Europe/Lisbon"))
+    ),
+    "Europe/Lisbon"
   );
-  console.log(`[outdoor] upcoming unseen ${events.length}`);
-  if (events.length === 0) return { published: false, reason: "no-fresh-event" };
-
-  for (const ev of events) {
-    const result = await publishOne(ev, options);
-    if (result.published || result.reason === "dry-run") return result;
-  }
-  return { published: false, reason: "no-draftable-event" };
+  const recent = loadPosted(seenPath()).posts.slice(-6).map((post) =>
+    isEventTheme(post.theme) ? post.theme : eventTheme(post)
+  );
+  const batch = nextPosts(events, 3, recent);
+  console.log(
+    `[outdoor] unseen ${events.length}, posting ${batch.map((ev) => eventTheme(ev)).join(",") || "none"}`
+  );
+  if (batch.length === 0) return { published: false, reason: "no-fresh-event" };
+  return publishDue(batch, options, publishOne);
 }
