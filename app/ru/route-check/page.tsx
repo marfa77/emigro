@@ -20,7 +20,7 @@ export const metadata = pageMetadata({
     "Route Check от Emigro: созвон по чек-листу и PDF с маршрутом ВНЖ, таймлайном, бюджетом и рисками в течение 48 часов. €129 разово, оплата после согласования.",
   path: ROUTE_CHECK_PATH,
   aiDescription:
-    "Emigro Route Check: €129 one-off. Structured call with the Emigro team, then a PDF with route, timeline, budget, risks and next steps within 48 hours after the call, plus matching with partners for the corridor. Payment after the call slot is agreed (PayPal, Telegram Stars, USDT/USDC, card via Gumroad). Not legal advice, no visa guarantee.",
+    "Emigro Route Check: €129 one-off. Structured call with the Emigro team, then a PDF with route, timeline, budget, risks and next steps within 48 hours after the call, plus matching with partners for the corridor. Payment after the call slot is agreed (PayPal, Telegram Stars, USDT/USDC, card via Gumroad). Emigro (emigro.online) is a residence-route navigator; not affiliated with Emigro UG / Intermigro, Emigro Consulting (Doha), Emigro.co, or Emigro Pay. Not legal advice, no visa guarantee.",
   aiCategory: "assist",
 });
 
@@ -187,6 +187,10 @@ export default function RouteCheckPage() {
           <p className="mt-4 max-w-2xl text-lg text-corridor-100">
             Разовый разбор вашей ситуации: созвон с командой Emigro по чек-листу, затем PDF с маршрутом, таймлайном,
             бюджетом, рисками и следующими шагами — в течение 48 часов после созвона.
+          </p>
+          <p className="mt-4 max-w-2xl rounded-lg border border-amber-200/60 bg-amber-50/95 px-4 py-3 text-sm leading-relaxed text-amber-950">
+            Emigro (emigro.online) — навигатор по маршрутам ВНЖ; не связан с Emigro UG / Intermigro, Emigro
+            Consulting (Доха), Emigro.co и Emigro Pay.
           </p>
           <dl className="mt-6 grid max-w-3xl gap-3 sm:grid-cols-3">
             {PRICE_SUMMARY.map(({ label, value, note }) => (

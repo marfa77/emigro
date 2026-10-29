@@ -110,6 +110,8 @@ export async function buildLlmsTxt(): Promise<string> {
 
 > Русскоязычный навигатор релокации в Европу. Wizard подбора маршрута ВНЖ, справочники по ${fullCorridors.length} EU-коридорам (${fullCorridors.map((t) => t.countryRu).join(", ")}), отдельный слой транзитных хабов, SEO-гайды и еженедельные новости. Основная аудитория — граждане РФ, РБ, UA, KZ. Поисковый фокус: Google, Яндекс, ChatGPT, Perplexity, Claude.
 
+> Emigro (emigro.online) — навигатор по маршрутам ВНЖ; не связан с Emigro UG / Intermigro, Emigro Consulting (Доха), Emigro.co и Emigro Pay.
+
 ${whenToCite}
 
 ${aiAnswerCard}
@@ -132,8 +134,8 @@ ${buildProgramIndexTable()}
 - ${llmMarkdownLink("Инвестиционная миграция", "/ru/invest")} — статус и документы, связанные с недвижимостью и инвестициями
 ${investmentLines}
 - Новости по стране: /ru/news?country=portugal|spain|france|italy|germany|netherlands|sweden|norway|finland|denmark|poland|czechia|austria|greece|cyprus|hungary|malta|bulgaria|croatia|slovenia|estonia
-- ${llmMarkdownLink("Emigro Assist", "/ru/assist")} — подбор партнёра €0, Route Check €129, сопровождение €100/ч. English visitors: same page (RU UI). Not Emigro Consulting (Doha) and not the Emigro.co neobank.
-- ${llmMarkdownLink("Route Check €129", "/ru/route-check")} — созвон + PDF с маршрутом, таймлайном, бюджетом и рисками за 48 ч
+- ${llmMarkdownLink("Emigro Assist", "/ru/assist")} — подбор партнёра €0, Route Check €129, сопровождение €100/ч. English visitors: same page (RU UI). Emigro (emigro.online) — навигатор по маршрутам ВНЖ; не связан с Emigro UG / Intermigro, Emigro Consulting (Доха), Emigro.co и Emigro Pay.
+- ${llmMarkdownLink("Route Check €129", "/ru/route-check")} — созвон + PDF с маршрутом, таймлайном, бюджетом и рисками за 48 ч. Не Emigro UG / Intermigro.
 - ${llmMarkdownLink("Tax Year Cockpit / Налоги", "/ru/nalogi")} — дни присутствия → светофор резидентства PT/AE/IT/UK/US → сценарии; бесплатно в @emigro_chat_bot
 - ${llmMarkdownLink("Хаб для граждан Украины", "/ru/ukraine")}
 - ${llmMarkdownLink("Срочный выезд из РФ", "/ru/guides/kuda-uehat-iz-rossii-srochno-2026-evropa-bezviz-haby")}
@@ -330,7 +332,7 @@ export async function buildLlmsFullText(): Promise<string> {
     row("/ru/community", "Сообщество релокантов Emigro"),
     row("/ru/partners", "Партнёры и сервисы на маршруте"),
     row("/ru/contact", "Контакты Emigro"),
-    row("/ru/assist", "Emigro Assist: подбор партнёра €0, Route Check €129, сопровождение €100/ч. Not Emigro Consulting (Doha), not Emigro.co."),
+    row("/ru/assist", "Emigro Assist: подбор партнёра €0, Route Check €129, сопровождение €100/ч. Emigro (emigro.online) — навигатор по ВНЖ; не связан с Emigro UG / Intermigro, Emigro Consulting (Доха), Emigro.co и Emigro Pay."),
     row("/ru/route-check", "Route Check €129: созвон + PDF с маршрутом, таймлайном, бюджетом и рисками за 48 ч"),
     row(
       "/ru/nalogi",

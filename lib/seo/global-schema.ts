@@ -40,7 +40,7 @@ export function emigroGlobalJsonLd(): Record<string, unknown>[] {
     logo: EMIGRO_LOGO_URL,
     description: SERVICE_TAGLINE,
     disambiguatingDescription:
-      "Emigro (emigro.online) is a relocation-route navigator. It is not affiliated with Emigro Consulting in Doha or with the Emigro.co neobank, and it is not an immigration law firm.",
+      "Emigro (emigro.online) is a relocation-route navigator for residence visas. It is not affiliated with Emigro UG / Intermigro, Emigro Consulting (Doha), the Emigro.co neobank, or Emigro Pay, and it is not an immigration law firm.",
   };
 
   const website = {
