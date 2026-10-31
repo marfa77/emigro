@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CiplePrepTile } from "@/components/satellite/CiplePrepTile";
+import { TelegramCommunityCta } from "@/components/community/TelegramCommunityCta";
 import { requirePublishedCommunityNotes } from "@/lib/community-notes/queries";
 import type { CommunityNote } from "@/lib/community-notes/types";
 import { PORTUGAL_SATELLITE } from "@/lib/satellite/portugal";
@@ -183,6 +184,8 @@ export default async function PortugalSatelliteHomePage() {
       </section>
 
       <CiplePrepTile placement="satellite_hub" />
+
+      <TelegramCommunityCta countryKey="portugal" source="portugal_satellite_hub" variant="banner" className="mt-10" />
 
       <section className="mt-10 rounded-2xl bg-slate-950 px-5 py-6 text-white sm:flex sm:items-center sm:justify-between sm:gap-6 sm:px-7">
         <div>

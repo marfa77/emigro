@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, Clock, PenLine } from "lucide-react";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { RelocatorChatPromo } from "@/components/community/RelocatorChatPromo";
+import { TelegramCommunityCta } from "@/components/community/TelegramCommunityCta";
 import { NewsBotSubscribeCta } from "@/components/news/NewsBotSubscribeCta";
 import { StoryGenreBadge } from "@/components/stories/StoryGenreBadge";
 import { GuideStoriesCta } from "@/components/stories/GuideStoriesCta";
@@ -20,6 +21,7 @@ import { storyPath, STORIES_INDEX_PATH, STORIES_SUBMIT_PATH } from "@/lib/storie
 import { DEFAULT_OG_IMAGE, pageMetadata, pageUrl } from "@/lib/seo";
 import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
 import { EMIGRO_PUBLISHER, emigroAuthorOrg, schemaImage } from "@/lib/seo/schema";
+import { publicTelegramCountryFromStoryCountry, isPublicTelegramCommunityCountry } from "@/lib/telegram/public-communities";
 
 export const revalidate = 3600;
 
@@ -79,6 +81,7 @@ export default function StoryPage({ params }: { params: { slug: string } }) {
   };
 
   const primaryGuideSlug = story.related_guide_slugs?.[0];
+  const telegramStoryCountry = publicTelegramCountryFromStoryCountry(story.country);
 
   return (
     <>
@@ -173,7 +176,15 @@ export default function StoryPage({ params }: { params: { slug: string } }) {
         {primaryGuideSlug ? <GuideStoriesCta guideSlug={primaryGuideSlug} className="mt-8" /> : null}
 
         <NewsBotSubscribeCta source={`story_${story.slug}`} className="mt-8" />
-        <RelocatorChatPromo variant="inline" source={`story_${story.slug}`} className="mt-6" />
+        <TelegramCommunityCta
+          countryKey={telegramStoryCountry}
+          source={`story_${story.slug}`}
+          variant="inline"
+          className="mt-6"
+        />
+        {!isPublicTelegramCommunityCountry(telegramStoryCountry) ? (
+          <RelocatorChatPromo variant="inline" source={`story_${story.slug}`} className="mt-6" />
+        ) : null}
       </main>
       <SiteFooter />
     </>

@@ -16,6 +16,8 @@ import { GuideDigestPreview } from "@/components/corridor/GuideDigestPreview";
 import { LatestNewsTeaserSuspense } from "@/components/news/LatestNewsTeaser";
 import { ServiceProvidersSection } from "@/components/providers/ServiceProvidersSection";
 import { RelocatorChatPromo } from "@/components/community/RelocatorChatPromo";
+import { TelegramCommunityCta } from "@/components/community/TelegramCommunityCta";
+import { isPublicTelegramCommunityCountry } from "@/lib/telegram/public-communities";
 import { NewsBotSubscribeCta } from "@/components/news/NewsBotSubscribeCta";
 import { UniPrep2GoPromo } from "@/components/sponsors/UniPrep2GoPromo";
 import { RoleRadarPromo } from "@/components/sponsors/RoleRadarPromo";
@@ -134,11 +136,20 @@ export async function CorridorLanding({ country }: { country: string }) {
           source={`corridor_${topic.urlSegment}`}
           className="mt-8"
         />
-        <RelocatorChatPromo
-          source={`corridor_${topic.urlSegment}`}
-          countryKey={topic.urlSegment}
-          className="mt-8"
-        />
+        {isPublicTelegramCommunityCountry(topic.urlSegment) ? (
+          <TelegramCommunityCta
+            countryKey={topic.urlSegment}
+            source={`corridor_${topic.urlSegment}`}
+            variant="banner"
+            className="mt-8"
+          />
+        ) : (
+          <RelocatorChatPromo
+            source={`corridor_${topic.urlSegment}`}
+            countryKey={topic.urlSegment}
+            className="mt-8"
+          />
+        )}
 
         {showHub && <CorridorHubStackSectionSuspense topic={topic} corridor={corridor} />}
 

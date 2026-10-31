@@ -184,7 +184,7 @@ async function main() {
     if (!hub.includes("SatelliteHubDepth")) {
       errors.push(`${hubPage}: missing SatelliteHubDepth (thin-hub signal)`);
     }
-    if (!hub.includes("SatelliteCityChatCta") && !hub.includes("PortoChatCta")) {
+    if (!hub.includes("SatelliteCityChatCta") && !hub.includes("PortoChatCta") && !hub.includes("TelegramCommunityCta")) {
       errors.push(`${hubPage}: missing city chat CTA`);
     }
   }
@@ -192,7 +192,7 @@ async function main() {
   const notesPage = `app/satellite/${country}/notes/[slug]/page.tsx`;
   if (existsSync(resolve(ROOT, notesPage))) {
     const note = read(notesPage);
-    if (!note.includes("SatelliteCityChatCta") && !note.includes("PortoChatCta")) {
+    if (!note.includes("SatelliteCityChatCta") && !note.includes("PortoChatCta") && !note.includes("TelegramCommunityCta")) {
       errors.push(`${notesPage}: missing city chat CTA`);
     }
   }

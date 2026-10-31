@@ -329,7 +329,7 @@ export async function buildLlmsFullText(): Promise<string> {
     ...INVESTMENT_ROUTES.map((route) =>
       row(`/ru/invest/${route.country}#${routeKey(route)}`, `${route.countryRu}: ${route.title}. ${route.caveat}`)
     ),
-    row("/ru/community", "Сообщество релокантов Emigro"),
+    row("/ru/community", "Сообщества Emigro в Telegram — PT, ES, IT каналы и чаты"),
     row("/ru/partners", "Партнёры и сервисы на маршруте"),
     row("/ru/contact", "Контакты Emigro"),
     row("/ru/assist", "Emigro Assist: подбор партнёра €0, Route Check €129, сопровождение €100/ч. Emigro (emigro.online) — навигатор по ВНЖ; не связан с Emigro UG / Intermigro, Emigro Consulting (Доха), Emigro.co и Emigro Pay."),

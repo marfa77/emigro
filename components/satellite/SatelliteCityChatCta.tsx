@@ -1,13 +1,8 @@
 "use client";
 
-import { ArrowRight, MessageCircle } from "lucide-react";
 import { NewsBotSubscribeCta } from "@/components/news/NewsBotSubscribeCta";
-import { CityChatPitch } from "@/components/satellite/CityChatPitch";
-import { trackEvent } from "@/lib/analytics/client";
-import { liveCityChatForCountry } from "@/lib/satellite/city-chats";
-import { cityChatCtaLabel } from "@/lib/satellite/city-chat-copy";
-import { cityChatDeepLink } from "@/lib/telegram/deep-link";
-import { tapTarget } from "@/lib/ui/mobile";
+import { TelegramCommunityCta } from "@/components/community/TelegramCommunityCta";
+import { isPublicTelegramCommunityCountry } from "@/lib/telegram/public-communities";
 
 type Props = {
   countryKey: string;
@@ -17,37 +12,19 @@ type Props = {
   includeNews?: boolean;
 };
 
-/** Hub/note CTA: city chat (if live) + news-in-bot pitch. */
+/** Hub/note CTA: public Telegram communities (PT/ES/IT) + news-in-bot pitch. */
 export function SatelliteCityChatCta({ countryKey, source, noteSlug, includeNews = true }: Props) {
-  const chat = liveCityChatForCountry(countryKey);
-  const href = chat ? cityChatDeepLink(chat, source.replace(/[^a-z0-9_]/gi, "").slice(0, 24)) : null;
+  const showPublic = isPublicTelegramCommunityCountry(countryKey);
 
   return (
     <>
-      {chat && href ? (
-        <aside
-          className="mt-8 rounded-xl border border-sky-200 bg-sky-50/80 p-5"
-          aria-label={`Для своих · ${chat.chatTitleRu}`}
-        >
-          <CityChatPitch chat={chat} compact />
-          <a
-            href={href}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() =>
-              trackEvent("community_join_click", {
-                source,
-                note_slug: noteSlug ?? "",
-                country: chat.countryKey,
-              })
-            }
-            className={`mt-4 inline-flex ${tapTarget} items-center justify-center gap-2 rounded-lg bg-sky-700 px-4 py-2.5 text-sm font-semibold text-white hover:bg-sky-800`}
-          >
-            <MessageCircle className="h-4 w-4" aria-hidden />
-            {cityChatCtaLabel(chat)}
-            <ArrowRight className="h-4 w-4" aria-hidden />
-          </a>
-        </aside>
+      {showPublic ? (
+        <TelegramCommunityCta
+          countryKey={countryKey}
+          source={noteSlug ? `${source}_${noteSlug}` : source}
+          variant="inline"
+          className="mt-8"
+        />
       ) : null}
       {includeNews ? (
         <NewsBotSubscribeCta
