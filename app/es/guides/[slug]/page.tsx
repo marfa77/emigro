@@ -267,6 +267,22 @@ export default function EsGuidePage({ params }: { params: { slug: string } }) {
           </aside>
         ) : null}
 
+        <div className="mt-6 flex flex-wrap gap-3">
+          <Link
+            href={ES_PATHS.wizard}
+            className="inline-flex items-center gap-2 rounded-lg bg-corridor-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-corridor-700"
+          >
+            Evaluar mi ruta
+            <ArrowRight className="h-4 w-4" />
+          </Link>
+          <Link
+            href={ES_PATHS.assist}
+            className="inline-flex items-center gap-2 rounded-lg border border-corridor-300 bg-corridor-50 px-4 py-2.5 text-sm font-medium text-corridor-900 hover:border-corridor-500"
+          >
+            Encontrar especialista
+          </Link>
+        </div>
+
         <article
           className="prose-emigro mt-8"
           dangerouslySetInnerHTML={{ __html: guide.bodyHtml }}
