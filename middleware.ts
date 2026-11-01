@@ -237,6 +237,10 @@ function rewritePortugalSatellite(request: NextRequest): NextResponse | null {
   if (pathname.startsWith("/satellite/portugal")) {
     return NextResponse.next();
   }
+  // Host-scoped Next routes — do not rewrite under /satellite/portugal/…
+  if (pathname === "/sitemap.xml" || pathname === "/robots.txt") {
+    return NextResponse.next();
+  }
 
   // porto.emigro.online — full satellite (hub + notes + calendar + tags).
   if (pathname === "/llms.txt") {
