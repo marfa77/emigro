@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
@@ -62,6 +63,7 @@ import { HUB_WIZARD_PATH } from "@/lib/corridor/paths";
 import { resolveGuideWizardHref } from "@/lib/wizard/resolve-href";
 import { buildFaqPageSchema, extractGuideFaq } from "@/lib/guides/extract-faq";
 import { resolvePublicTelegramCountryFromGuide, isPublicTelegramCommunityCountry } from "@/lib/telegram/public-communities";
+import { BankAccountStatusPicker } from "@/components/guides/BankAccountStatusPicker";
 
 export const revalidate = 3600;
 
@@ -152,9 +154,11 @@ function extractToc(bodyHtml: string) {
 function GuideProseBody({
   quickAnswerBlocks,
   articleHtml,
+  afterQuickAnswer,
 }: {
   quickAnswerBlocks: string[];
   articleHtml: string;
+  afterQuickAnswer?: ReactNode;
 }) {
   return (
     <>
@@ -173,6 +177,7 @@ function GuideProseBody({
           ))}
         </section>
       )}
+      {afterQuickAnswer}
       <article
         className="guide-article prose prose-lg prose-slate mt-8 max-w-none rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm ring-1 ring-slate-950/5 prose-a:font-semibold prose-strong:text-slate-950 sm:p-8 lg:p-10"
         dangerouslySetInnerHTML={{ __html: articleHtml }}
@@ -238,6 +243,9 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
     <GuideProseBody
       quickAnswerBlocks={quickAnswerBlocks}
       articleHtml={articleHtml}
+      afterQuickAnswer={
+        guide.slug === "bank-i-iban-dlya-rossiyan-v-evrope-2026" ? <BankAccountStatusPicker /> : null
+      }
     />
   );
   const editorialBlocks = (

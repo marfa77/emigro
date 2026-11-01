@@ -14,6 +14,7 @@ export { guidePath };
 
 import type { GuideOfficialSource, GuideFrontmatter, GuideArticle } from "@/lib/guides/types";
 import type { GuideLocale } from "@/lib/locale";
+import { guideHeadingId } from "@/lib/guides/heading-id";
 import { inlineMarkdown } from "@/lib/markdown/inline";
 
 function guidesDir(locale: GuideLocale = "ru"): string {
@@ -231,7 +232,7 @@ function markdownToHtml(markdown: string): string {
     if (trimmed.startsWith("## ")) {
       closeList();
       closeTable();
-      html.push(`<h2 class="mt-12 flex items-start gap-3 text-2xl font-bold tracking-tight text-slate-950"><span class="mt-2 h-2.5 w-2.5 flex-none rounded-full bg-corridor-500 shadow-[0_0_0_6px_rgba(37,99,235,0.10)]"></span><span>${inlineMarkdown(trimmed.slice(3))}</span></h2>`);
+      html.push(`<h2 id="${guideHeadingId(trimmed.slice(3))}" class="mt-12 flex items-start gap-3 scroll-mt-24 text-2xl font-bold tracking-tight text-slate-950"><span class="mt-2 h-2.5 w-2.5 flex-none rounded-full bg-corridor-500 shadow-[0_0_0_6px_rgba(37,99,235,0.10)]"></span><span>${inlineMarkdown(trimmed.slice(3))}</span></h2>`);
       continue;
     }
 
