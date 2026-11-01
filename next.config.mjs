@@ -160,6 +160,7 @@ const nextConfig = {
         source: "/",
         missing: [
           { type: "host", value: "portugal.emigro.online" },
+          { type: "host", value: "porto.emigro.online" },
           { type: "host", value: "spain.emigro.online" },
           { type: "host", value: "italy.emigro.online" },
           { type: "host", value: "thailand.emigro.online" },
@@ -187,6 +188,7 @@ const nextConfig = {
         source,
         missing: [
           { type: "host", value: "portugal.emigro.online" },
+          { type: "host", value: "porto.emigro.online" },
           { type: "host", value: "spain.emigro.online" },
           { type: "host", value: "italy.emigro.online" },
           { type: "host", value: "thailand.emigro.online" },
