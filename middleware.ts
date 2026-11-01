@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { PORTUGAL_SATELLITE_HOST } from "@/lib/satellite/portugal";
+import { PORTUGAL_HUB_HOST, PORTUGAL_SATELLITE_HOST } from "@/lib/satellite/portugal";
 import { SPAIN_SATELLITE_HOST } from "@/lib/satellite/spain";
 import { ITALY_SATELLITE_HOST } from "@/lib/satellite/italy";
 import { THAILAND_SATELLITE_HOST } from "@/lib/satellite/thailand";
@@ -13,6 +13,7 @@ import {
 
 const CANONICAL_HOST = "www.emigro.online";
 const PORTUGAL_SATELLITE_ORIGIN = `https://${PORTUGAL_SATELLITE_HOST}`;
+const PORTUGAL_HUB_ORIGIN = `https://${PORTUGAL_HUB_HOST}`;
 const SPAIN_SATELLITE_ORIGIN = `https://${SPAIN_SATELLITE_HOST}`;
 const ITALY_SATELLITE_ORIGIN = `https://${ITALY_SATELLITE_HOST}`;
 const THAILAND_SATELLITE_ORIGIN = `https://${THAILAND_SATELLITE_HOST}`;
@@ -29,8 +30,18 @@ function isPreviewHost(host: string): boolean {
   return host.endsWith(".vercel.app");
 }
 
-function isPortugalSatelliteHost(host: string): boolean {
+/** Notes / calendar host. */
+function isPortugalNotesHost(host: string): boolean {
   return host === PORTUGAL_SATELLITE_HOST;
+}
+
+/** Hub-only experiment host (porto.emigro.online). */
+function isPortugalHubHost(host: string): boolean {
+  return host === PORTUGAL_HUB_HOST;
+}
+
+function isPortugalSatelliteHost(host: string): boolean {
+  return isPortugalNotesHost(host) || isPortugalHubHost(host);
 }
 
 function isSpainSatelliteHost(host: string): boolean {
@@ -69,7 +80,9 @@ function redirectWwwSatelliteToSubdomain(request: NextRequest): NextResponse | n
 
   if (pathname.startsWith("/satellite/portugal") && portugalSatelliteSubdomainEnabled()) {
     const subpath = pathname.slice("/satellite/portugal".length) || "/";
-    const destination = `${PORTUGAL_SATELLITE_ORIGIN}${subpath === "/" ? "" : subpath}${search}`;
+    // Hub → porto; everything else → portugal notes host
+    const origin = subpath === "/" ? PORTUGAL_HUB_ORIGIN : PORTUGAL_SATELLITE_ORIGIN;
+    const destination = `${origin}${subpath === "/" ? "" : subpath}${search}`;
     return NextResponse.redirect(destination, 301);
   }
 
@@ -216,12 +229,31 @@ function rewritePortugalSatellite(request: NextRequest): NextResponse | null {
   const host = hostName(request);
   if (!isPortugalSatelliteHost(host)) return null;
 
-  const { pathname } = request.nextUrl;
+  const { pathname, search } = request.nextUrl;
   if (isSatelliteSharedPath(pathname)) return NextResponse.next();
   if (pathname.startsWith("/satellite/portugal")) {
     return NextResponse.next();
   }
 
+  // porto.emigro.online — hub only; notes/calendar/tags stay on portugal.*
+  if (isPortugalHubHost(host)) {
+    if (pathname === "/" || pathname === "") {
+      const url = request.nextUrl.clone();
+      url.pathname = "/satellite/portugal";
+      const res = NextResponse.rewrite(url);
+      res.headers.set("Link", `<${PORTUGAL_HUB_ORIGIN}>; rel="canonical"`);
+      return res;
+    }
+    // Allow sitemap/robots on the hub host (Next serves via host kind)
+    if (pathname === "/sitemap.xml" || pathname === "/robots.txt") {
+      return NextResponse.next();
+    }
+    return NextResponse.redirect(`${PORTUGAL_SATELLITE_ORIGIN}${pathname}${search}`, 301);
+  }
+
+  // portugal.emigro.online — notes host. Hub HTML still renders at `/` with
+  // canonical → porto (see page metadata). Hard 301 of `/` waits until porto
+  // is live in DNS/Vercel and shows in GSC; then flip to redirect.
   if (pathname === "/llms.txt") {
     const url = request.nextUrl.clone();
     url.pathname = "/satellite/portugal/llms";
@@ -231,8 +263,8 @@ function rewritePortugalSatellite(request: NextRequest): NextResponse | null {
   const url = request.nextUrl.clone();
   url.pathname = `/satellite/portugal${pathname === "/" ? "" : pathname}`;
   const res = NextResponse.rewrite(url);
-  if (pathname === "/") {
-    res.headers.set("Link", `<https://${PORTUGAL_SATELLITE_HOST}>; rel="canonical"`);
+  if (pathname === "/" || pathname === "") {
+    res.headers.set("Link", `<${PORTUGAL_HUB_ORIGIN}>; rel="canonical"`);
   }
   return res;
 }

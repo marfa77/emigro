@@ -1,11 +1,12 @@
 import { headers } from "next/headers";
-import { PORTUGAL_SATELLITE_HOST } from "@/lib/satellite/portugal";
+import { PORTUGAL_HUB_HOST, PORTUGAL_SATELLITE_HOST } from "@/lib/satellite/portugal";
 import { SPAIN_SATELLITE_HOST } from "@/lib/satellite/spain";
 import { ITALY_SATELLITE_HOST } from "@/lib/satellite/italy";
 import { THAILAND_SATELLITE_HOST } from "@/lib/satellite/thailand";
 
 export type PublicHostKind =
   | "www"
+  | "portugal-hub"
   | "portugal-satellite"
   | "spain-satellite"
   | "italy-satellite"
@@ -15,6 +16,7 @@ export type PublicHostKind =
 export function publicHostKind(): PublicHostKind {
   try {
     const host = headers().get("host")?.split(":")[0]?.toLowerCase() ?? "";
+    if (host === PORTUGAL_HUB_HOST) return "portugal-hub";
     if (host === PORTUGAL_SATELLITE_HOST) return "portugal-satellite";
     if (host === SPAIN_SATELLITE_HOST) return "spain-satellite";
     if (host === ITALY_SATELLITE_HOST) return "italy-satellite";

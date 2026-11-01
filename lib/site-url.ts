@@ -56,6 +56,7 @@ export function newsFeedUrl(country?: string): string {
 }
 
 const PORTUGAL_SATELLITE_SUBDOMAIN = "https://portugal.emigro.online";
+const PORTUGAL_HUB_SUBDOMAIN = "https://porto.emigro.online";
 const PORTUGAL_SATELLITE_PATH = "/satellite/portugal";
 
 /** Subdomain is live; opt out with PORTUGAL_SATELLITE_USE_SUBDOMAIN=false. */
@@ -84,28 +85,57 @@ function portugalSatelliteOrigin(): string {
   return `${LOCALHOST_FALLBACK}${PORTUGAL_SATELLITE_PATH}`;
 }
 
-/** Canonical URL for Portugal satellite — never localhost (Threads, DB, SEO). */
-export function portugalSatellitePublicUrl(path = ""): string {
-  const normalized = path.startsWith("/") ? path : path ? `/${path}` : "";
-  // Hub without trailing slash — Next metadata strips `/` when trailingSlash:false;
-  // keep sitemap/canonical aligned and 301 `…online/` → `…online` in middleware.
+/**
+ * Hub-only public URL (porto.emigro.online).
+ * Notes/calendar stay on portugal.emigro.online until the hub indexes.
+ */
+export function portugalSatelliteHubPublicUrl(): string {
   if (portugalSatelliteSubdomainEnabled()) {
-    return `${PORTUGAL_SATELLITE_SUBDOMAIN}${normalized === "/" ? "" : normalized}`;
+    return PORTUGAL_HUB_SUBDOMAIN;
   }
   const publicEnv = process.env.EMIGRO_PUBLIC_SITE_URL?.trim();
   if (publicEnv && !isLocalhostUrl(publicEnv)) {
-    return `${stripTrailingSlash(publicEnv)}${PORTUGAL_SATELLITE_PATH}${normalized === "/" ? "" : normalized}`;
+    return `${stripTrailingSlash(publicEnv)}${PORTUGAL_SATELLITE_PATH}`;
   }
   const site = process.env.NEXT_PUBLIC_SITE_URL?.trim();
   if (site && !isLocalhostUrl(site)) {
-    return `${stripTrailingSlash(site)}${PORTUGAL_SATELLITE_PATH}${normalized === "/" ? "" : normalized}`;
+    return `${stripTrailingSlash(site)}${PORTUGAL_SATELLITE_PATH}`;
   }
-  return `${PORTUGAL_SATELLITE_SUBDOMAIN}${normalized === "/" ? "" : normalized}`;
+  if (process.env.NODE_ENV === "production") {
+    return `${publicSiteUrl()}${PORTUGAL_SATELLITE_PATH}`;
+  }
+  return `${LOCALHOST_FALLBACK}${PORTUGAL_SATELLITE_PATH}`;
+}
+
+/** Canonical URL for Portugal satellite — never localhost (Threads, DB, SEO). */
+export function portugalSatellitePublicUrl(path = ""): string {
+  const normalized = path.startsWith("/") ? path : path ? `/${path}` : "";
+  // Hub lives on porto — keep note/calendar URLs on portugal.*
+  if (normalized === "" || normalized === "/") {
+    return portugalSatelliteHubPublicUrl();
+  }
+  if (portugalSatelliteSubdomainEnabled()) {
+    return `${PORTUGAL_SATELLITE_SUBDOMAIN}${normalized}`;
+  }
+  const publicEnv = process.env.EMIGRO_PUBLIC_SITE_URL?.trim();
+  if (publicEnv && !isLocalhostUrl(publicEnv)) {
+    return `${stripTrailingSlash(publicEnv)}${PORTUGAL_SATELLITE_PATH}${normalized}`;
+  }
+  const site = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+  if (site && !isLocalhostUrl(site)) {
+    return `${stripTrailingSlash(site)}${PORTUGAL_SATELLITE_PATH}${normalized}`;
+  }
+  return `${PORTUGAL_SATELLITE_SUBDOMAIN}${normalized}`;
 }
 
 /** Runtime URL for Portugal satellite pages (localhost in local dev). */
 export function portugalSatelliteUrl(path = ""): string {
   const normalized = path.startsWith("/") ? path : path ? `/${path}` : "";
+  if (normalized === "" || normalized === "/") {
+    if (portugalSatelliteSubdomainEnabled()) {
+      return PORTUGAL_HUB_SUBDOMAIN;
+    }
+  }
   const origin = portugalSatelliteOrigin();
   if (origin.endsWith(PORTUGAL_SATELLITE_PATH)) {
     return `${origin}${normalized === "/" ? "" : normalized}`;

@@ -1,9 +1,19 @@
 import type { CommunityNote } from "@/lib/community-notes/types";
 
+/** Notes / calendar / tags stay here until the hub experiment proves indexable. */
 export const PORTUGAL_SATELLITE_HOST = "portugal.emigro.online";
+
+/**
+ * Hub-only experiment host (Nov 2026).
+ * Google held portugal.emigro.online at "Crawled – not indexed" with 0 Indexed URLs.
+ * Only `/` lives on porto; `/notes/*` 301 back to PORTUGAL_SATELLITE_HOST.
+ * If porto indexes, migrate the rest and 301 the old host wholesale.
+ */
+export const PORTUGAL_HUB_HOST = "porto.emigro.online";
 
 export const PORTUGAL_SATELLITE = {
   host: PORTUGAL_SATELLITE_HOST,
+  hubHost: PORTUGAL_HUB_HOST,
   countryKey: "portugal",
   city: "porto",
   countryRu: "Португалия",

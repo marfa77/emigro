@@ -77,7 +77,7 @@ export const SEO_CLUSTERS: Record<string, SeoCluster> = {
       },
       {
         href: portugalSatelliteUrl(),
-        label: "Практика — portugal.emigro.online",
+        label: "Практика — porto.emigro.online",
         description: "NIF, AIMA, аренда из Telegram-сигналов",
         external: true,
       },

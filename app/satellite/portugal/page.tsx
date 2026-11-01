@@ -8,8 +8,8 @@ import { PORTUGAL_SATELLITE } from "@/lib/satellite/portugal";
 import { buildSatelliteHubPlace, withSatelliteAiMetadata } from "@/lib/community-notes/seo-page";
 import { fitMetaDescription } from "@/lib/seo";
 import { DEFAULT_OG_IMAGE, socialImageMetadata } from "@/lib/seo";
-import { portugalCalendarPath } from "@/lib/satellite/paths";
-import { portugalSatelliteUrl } from "@/lib/site-url";
+import { portugalCalendarPath, portugalNotePath } from "@/lib/satellite/paths";
+import { portugalSatelliteHubPublicUrl, portugalSatelliteUrl } from "@/lib/site-url";
 import { heroTitle, satelliteMain } from "@/lib/ui/mobile";
 
 export const revalidate = 300;
@@ -77,17 +77,17 @@ export async function generateMetadata(): Promise<Metadata> {
       title,
       description,
       alternates: {
-        canonical: portugalSatelliteUrl("/"),
+        canonical: portugalSatelliteHubPublicUrl(),
         languages: {
-          "ru-RU": portugalSatelliteUrl("/"),
-          ru: portugalSatelliteUrl("/"),
-          "x-default": portugalSatelliteUrl("/"),
+          "ru-RU": portugalSatelliteHubPublicUrl(),
+          ru: portugalSatelliteHubPublicUrl(),
+          "x-default": portugalSatelliteHubPublicUrl(),
         },
       },
       openGraph: {
         title,
         description,
-        url: portugalSatelliteUrl("/"),
+        url: portugalSatelliteHubPublicUrl(),
         siteName: "Emigro Portugal",
         locale: "ru_RU",
         type: "website",
@@ -109,7 +109,7 @@ export default async function PortugalSatelliteHomePage() {
   const notes = await requirePublishedCommunityNotes("portugal");
   const journeys = JOURNEYS.map((journey) => ({ ...journey, notes: selectBySlugs(notes, journey.slugs) }));
   const featured = journeys.flatMap(({ notes: journeyNotes }) => journeyNotes);
-  const hubUrl = portugalSatelliteUrl("/");
+  const hubUrl = portugalSatelliteHubPublicUrl();
   const items = featured.map((note, index) => ({
     "@type": "ListItem" as const,
     position: index + 1,
@@ -182,7 +182,7 @@ export default async function PortugalSatelliteHomePage() {
                 <ol className="mt-4 space-y-2 border-l border-slate-300/80 pl-4">
                   {journey.notes.map((note, index) => (
                     <li key={note.slug}>
-                      <Link href={`/notes/${note.slug}`} className="group inline-flex items-start gap-2 text-sm font-medium leading-relaxed text-slate-800 hover:text-teal-900">
+                      <Link href={portugalNotePath(note.slug)} className="group inline-flex items-start gap-2 text-sm font-medium leading-relaxed text-slate-800 hover:text-teal-900">
                         <span className="mt-0.5 text-teal-800" aria-hidden="true">{index === 0 ? "↗" : "→"}</span>
                         <span className="underline decoration-slate-300 underline-offset-4 group-hover:decoration-teal-700">{note.title}</span>
                       </Link>

@@ -5,6 +5,7 @@ import { classifyThreadsAccount } from "@/lib/analytics/dashboard/portfolio";
 import { percentDelta } from "@/components/admin/stats/DashboardVisuals";
 
 assert.equal(classifyDashboardSurface("portugal.emigro.online", "/"), "portugal");
+assert.equal(classifyDashboardSurface("porto.emigro.online", "/"), "portugal");
 assert.equal(classifyDashboardSurface("spain.emigro.online", "/notes/x"), "spain");
 assert.equal(classifyDashboardSurface("www.emigro.online", "/satellite/italy/notes/x"), "italy");
 assert.equal(classifyDashboardSurface("www.emigro.online", "/ru/invest"), "core");
