@@ -7,6 +7,11 @@ import { getLongTailByProgramSlug } from "@/lib/seo/query-longtail";
 import { EMIGRO_PUBLISHER, emigroAuthorOrg, schemaImage } from "@/lib/seo/schema";
 import { stripInlineMarkdown } from "@/lib/markdown/inline";
 import { ruCountryDative, ruCountryGenitive, ruCountryIn, ruCountryTo } from "@/lib/ru-country-cases";
+import {
+  DENMARK_WORK_BADGE,
+  PAY_LIMIT_QUICK_LEAD,
+  isDenmarkEmploymentSlug,
+} from "@/lib/corridor/denmark-siri";
 
 const SCHEMA_DATE_FALLBACK = "2026-06-01T00:00:00.000Z";
 
@@ -63,7 +68,8 @@ function fitTitle(text: string, max = 52): string {
   return fitSeoTitlePart(text, max);
 }
 
-function programTypeLabel(type: string): string {
+function programTypeLabel(type: string, slug?: string): string {
+  if (slug && isDenmarkEmploymentSlug(slug)) return DENMARK_WORK_BADGE;
   return PROGRAM_TYPE_LABELS[type] ?? type.toLowerCase();
 }
 
@@ -80,6 +86,11 @@ export function keyRequirement(program: ProgramDetail): string | null {
 
 function timelineSummary(program: ProgramDetail): string | null {
   if (program.timeline.length === 0) return null;
+  if (isDenmarkEmploymentSlug(program.slug)) {
+    return program.timeline
+      .map((step) => (step.duration_text ? `${step.title_ru}: ${step.duration_text}` : step.title_ru))
+      .join(" → ");
+  }
   const parts = program.timeline
     .map((s) => s.duration_text)
     .filter(Boolean)
@@ -102,7 +113,11 @@ function passportSummary(program: ProgramDetail): string {
   const verification = lastVerified
     ? ` Проверено по официальным требованиям: ${lastVerified}; консульская юрисдикция остаётся операционным ограничением.`
     : " Проверено по официальным требованиям программы; консульская юрисдикция остаётся операционным ограничением.";
-  return `${statuses}.${verification}`;
+  const denmark =
+    isDenmarkEmploymentSlug(program.slug)
+      ? " Заявление в SIRI, биометрия, консульство по месту законного проживания и въезд проверяют отдельно."
+      : "";
+  return `${statuses}.${verification}${denmark}`;
 }
 
 export function programPagePath(topic: NewsTopicConfig, programSlug: string): string {
@@ -114,8 +129,21 @@ export function digestPagePath(topic: NewsTopicConfig): string {
 }
 
 export function buildProgramQuickAnswer(program: ProgramDetail, topic: NewsTopicConfig): string {
+  if (isDenmarkEmploymentSlug(program.slug)) {
+    const lead = program.slug === "denmark-work-permit" ? PAY_LIMIT_QUICK_LEAD : program.summary_ru;
+    const siblings =
+      program.slug === "denmark-work-permit"
+        ? "Рядом смотрите Supplementary Pay Limit (DKK 446 000), Positive List и Fast-track: зарплата ниже DKK 552 000 не закрывает Данию сама по себе."
+        : "Pay Limit (DKK 552 000), Supplementary Pay Limit, Positive List и Fast-track — разные схемы SIRI.";
+    return [
+      lead,
+      "Для паспортов RU, BY, UA и KZ заявление в SIRI, биометрия, консульство по месту законного проживания и въезд — отдельные шаги.",
+      siblings,
+      `Проверьте оффер в wizard коридора ${topic.countryRu}.`,
+    ].join(" ");
+  }
   const threshold = keyRequirement(program);
-  const type = programTypeLabel(program.program_type);
+  const type = programTypeLabel(program.program_type, program.slug);
   const parts = [
     `${program.title_ru} — маршрут ВНЖ ${ruCountryTo(topic.countryRu)} для русскоязычных с паспортами RU/BY/UA/KZ (${type}).`,
     threshold ? `Ключевой порог: ${threshold}.` : program.summary_ru,
@@ -139,7 +167,7 @@ export function buildProgramFaq(program: ProgramDetail, topic: NewsTopicConfig):
   const items: FaqItem[] = [
     {
       question: `Кому подходит ${program.title_ru}?`,
-      answer: `${program.summary_ru} Программа относится к типу «${programTypeLabel(program.program_type)}» в коридоре ${topic.countryRu}.`,
+      answer: `${program.summary_ru} Программа относится к типу «${programTypeLabel(program.program_type, program.slug)}» в коридоре ${topic.countryRu}.`,
     },
     {
       question: `Какой финансовый порог для ${ruCountryGenitive(topic.countryRu)} в 2026?`,
@@ -150,7 +178,9 @@ export function buildProgramFaq(program: ProgramDetail, topic: NewsTopicConfig):
     {
       question: `Сколько занимает оформление ВНЖ по этой программе?`,
       answer: timeline
-        ? `Типичные этапы: ${timeline}. Сроки консульства и выдачи карты резидента добавляют 1–6 месяцев.`
+        ? isDenmarkEmploymentSlug(program.slug)
+          ? `${timeline}. Это сроки решения SIRI и отдельные шаги после него. Подготовка досье зависит от кейса. Биометрия, виза и карта в срок рассмотрения SIRI не входят.`
+          : `Типичные этапы: ${timeline}. Сроки консульства и выдачи карты резидента добавляют 1–6 месяцев.`
         : `Срок зависит от подготовки досье и очереди консульства; закладывайте от 3 до 9 месяцев на первичный маршрут.`,
     },
     {
@@ -158,9 +188,11 @@ export function buildProgramFaq(program: ProgramDetail, topic: NewsTopicConfig):
       answer: passportSummary(program),
     },
     {
-      question: employmentRule
-        ? `Можно ли работать или удалённо по этому маршруту?`
-        : `Какие ограничения по деятельности ${ruCountryIn(topic.countryRu)}?`,
+      question: isDenmarkEmploymentSlug(program.slug)
+        ? "Это виза для удалённой работы на иностранную компанию?"
+        : employmentRule
+          ? `Можно ли работать или удалённо по этому маршруту?`
+          : `Какие ограничения по деятельности ${ruCountryIn(topic.countryRu)}?`,
       answer: employmentRule?.value_text
         ? `${employmentRule.label_ru}: ${employmentRule.value_text}`
         : `Смотрите требования программы и официальные источники — ограничения по работе различаются по типу ВНЖ.`,
@@ -177,7 +209,7 @@ export function buildProgramFaq(program: ProgramDetail, topic: NewsTopicConfig):
 export function buildProgramLlmFacts(program: ProgramDetail, topic: NewsTopicConfig): string[] {
   const facts = [
     `Программа: ${program.title_ru} (${topic.countryRu}, 2026).`,
-    `Тип маршрута: ${programTypeLabel(program.program_type)}.`,
+    `Тип маршрута: ${programTypeLabel(program.program_type, program.slug)}.`,
     program.summary_ru,
     keyRequirement(program) ? `Порог: ${keyRequirement(program)}.` : null,
     timelineSummary(program) ? `Этапы: ${timelineSummary(program)}.` : null,
@@ -214,7 +246,7 @@ export function buildProgramMetadata(
   const keywords = [
     `ВНЖ ${topic.countryRu}`,
     program.title_ru,
-    programTypeLabel(program.program_type),
+    programTypeLabel(program.program_type, program.slug),
     "русскоязычные",
     "паспорт RU",
     "релокация 2026",

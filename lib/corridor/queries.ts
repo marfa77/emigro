@@ -3,6 +3,11 @@ import { createServerClient } from "@/lib/supabase/server";
 import { CACHE_REVALIDATE, CACHE_TAGS } from "@/lib/cache/tags";
 import { overlayInvestmentPassportEligibility } from "@/lib/investment/passport-overlay";
 import { localizeProgramRu } from "@/lib/corridor/program-ru-copy";
+import {
+  ensureDenmarkPrograms,
+  overlayDenmarkWizard,
+  withDenmarkWorkCards,
+} from "@/lib/corridor/denmark-siri";
 import type { Corridor, ProgramDetail, WizardDefinition } from "@/lib/types";
 
 export const CORRIDOR_SLUG = "ru-speaking-to-portugal";
@@ -88,11 +93,12 @@ async function fetchCorridorBySlugUncached(slug: string): Promise<Corridor | nul
 }
 
 export async function getCorridorBySlug(slug: string): Promise<Corridor | null> {
-  return unstable_cache(
+  const corridor = await unstable_cache(
     () => fetchCorridorBySlugUncached(slug),
     ["corridor-by-slug", slug],
     { revalidate: CACHE_REVALIDATE.corridors, tags: [CACHE_TAGS.corridors, `corridor-${slug}`] },
   )();
+  return corridor ? withDenmarkWorkCards(corridor) : null;
 }
 
 async function fetchPublishedCorridorSummaryUncached(slug: string): Promise<CorridorSummary | null> {
@@ -263,7 +269,8 @@ export async function getProgramsBySlugs(slugs: string[]): Promise<Map<string, P
     { revalidate: CACHE_REVALIDATE.programs, tags: [CACHE_TAGS.programs] },
   )();
 
-  return new Map(Object.entries(record).map(([slug, program]) => [slug, localizeProgramRu(program)]));
+  const localized = new Map(Object.entries(record).map(([slug, program]) => [slug, localizeProgramRu(program)]));
+  return ensureDenmarkPrograms(localized, uniqueSlugs);
 }
 
 export async function getProgramBySlug(slug: string): Promise<ProgramDetail | null> {
@@ -304,9 +311,10 @@ async function fetchWizardForCorridorUncached(corridorId: string): Promise<Wizar
 }
 
 export async function getWizardForCorridor(corridorId: string): Promise<WizardDefinition | null> {
-  return unstable_cache(
+  const wizard = await unstable_cache(
     () => fetchWizardForCorridorUncached(corridorId),
     ["wizard-for-corridor", corridorId],
     { revalidate: CACHE_REVALIDATE.corridors, tags: [CACHE_TAGS.wizards, CACHE_TAGS.corridors] },
   )();
+  return wizard ? overlayDenmarkWizard(wizard) : null;
 }

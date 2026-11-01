@@ -84,7 +84,7 @@ export async function buildLlmsTxt(): Promise<string> {
         "work permit / Blue Card SE",
         "skilled worker / Blue Card NO",
         "work / specialist / startup FI",
-        "pay limit / Fast-track DK",
+        "Pay Limit, Supplementary Pay Limit, Positive List, Fast-track",
         "work permit, EU Blue Card, B2B IT",
         "employee card, EU Blue Card, živnost IT",
         "RWR Card, EU Blue Card, самозанятость",

@@ -1600,6 +1600,47 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     seoDescription:
       "E-residency Эстонии 2026: цифровая ID для компании и подписи, не ВНЖ и не право жить в ЕС. Что даёт, как оформить, где забрать карту.",
   },
+  {
+    path: "/ru/denmark/programs/denmark-work-permit",
+    programSlug: "denmark-work-permit",
+    primaryQuery: "рабочая виза в данию 2026",
+    queries: [
+      "рабочая виза в данию 2026",
+      "pay limit scheme дания зарплата",
+      "рабочий внж дании 2026",
+      "siri pay limit dkk 552000",
+    ],
+    seoTitle: "Рабочая виза в Данию 2026: Pay Limit и зарплата",
+    seoDescription:
+      "Как получить рабочий ВНЖ Дании в 2026 году: Pay Limit Scheme, зарплата от DKK 552 000, Supplementary Pay Limit, требования SIRI, расходы и сроки оформления.",
+  },
+  {
+    path: "/ru/denmark/programs/denmark-supplementary-pay-limit",
+    programSlug: "denmark-supplementary-pay-limit",
+    primaryQuery: "supplementary pay limit дания 2026",
+    queries: ["supplementary pay limit дания", "дания внж зарплата 446000", "pay limit ниже 552000"],
+    seoTitle: "Supplementary Pay Limit Дания 2026: DKK 446 000",
+    seoDescription:
+      "Supplementary Pay Limit Дании 2026: от DKK 446 000 в год, Jobnet и EURES, полная занятость. Сбор SIRI DKK 6 810. Отдельная схема со своими условиями.",
+  },
+  {
+    path: "/ru/denmark/programs/denmark-positive-list",
+    programSlug: "denmark-positive-list",
+    primaryQuery: "positive list дания 2026",
+    queries: ["positive list дания", "дефицитные профессии дания внж", "skilled work дания siri"],
+    seoTitle: "Positive List Дания 2026: два списка SIRI",
+    seoDescription:
+      "Positive List Дании 2026: рабочий ВНЖ, если должность в списке SIRI. Высшее образование обычно 1 месяц, skilled work обычно 3 месяца, сбор DKK 6 810.",
+  },
+  {
+    path: "/ru/denmark/programs/denmark-fast-track",
+    programSlug: "denmark-fast-track",
+    primaryQuery: "fast-track дания siri",
+    queries: ["fast-track дания", "сертифицированный работодатель siri", "fast track scheme denmark"],
+    seoTitle: "Fast-track Дания 2026: работодатель SIRI",
+    seoDescription:
+      "Fast-track Дании 2026: ВНЖ через работодателя, сертифицированного SIRI. Pay limit track обычно 1 месяц, supplementary track 2 месяца, сбор DKK 6 810.",
+  },
 ];
 
 export function getLongTailByGuideSlug(slug: string): QueryLongTailTarget | undefined {

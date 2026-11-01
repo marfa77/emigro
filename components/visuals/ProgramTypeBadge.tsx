@@ -23,13 +23,14 @@ const CONFIG: Record<string, { label: string; Icon: typeof Briefcase; className:
   },
 };
 
-export function ProgramTypeBadge({ type }: { type: string }) {
+export function ProgramTypeBadge({ type, label: labelOverride }: { type: string; label?: string }) {
   const cfg = CONFIG[type] ?? {
     label: type,
     Icon: Briefcase,
     className: "bg-slate-50 text-slate-700 border-slate-200",
   };
-  const { Icon, label, className } = cfg;
+  const { Icon, className } = cfg;
+  const label = labelOverride ?? cfg.label;
 
   return (
     <span

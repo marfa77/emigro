@@ -5,7 +5,7 @@ seo_title: "ВНЖ в Скандинавии 2026: Швеция, Дания, Н�
 seo_description: "Швеция: work permit от SEK 34 470 (90% медианы), Дания: pay limit ~DKK 552 000/год, Норвегия, Финляндия, семья и ПМЖ. Сравнение для RU/BY/UA/KZ, 2026."
 excerpt: "Сравнение Скандинавии 2026: work permit в Швеции от SEK 34 470, датский pay limit ~DKK 552 000, семья и ПМЖ. Подробности по Швеции и Норвегии — в отдельных гайдах."
 quick_answer: |-
-  Скандинавия на Emigro — четыре коридора: Швеция, Дания, Норвегия и Финляндия. В Швеции work permit от SEK 34 470 в месяц, Blue Card от SEK 53 625 с 15 июля 2026. Датский pay limit около DKK 552 000 в год.
+  Скандинавия на Emigro — четыре коридора: Швеция, Дания, Норвегия и Финляндия. В Швеции work permit от SEK 34 470 в месяц, Blue Card от SEK 53 625 с 15 июля 2026. Датский Pay Limit — DKK 552 000 в год при оффере датского работодателя. Сбор SIRI — DKK 6 810. Supplementary Pay Limit — отдельная схема от DKK 446 000.
 
   Гражданство: Швеция 8 лет с 6 июня 2026; Норвегия обычно 8 из последних 11; Финляндия 8 лет с 1 октября 2024; Дания около 9 лет. Двойное гражданство в Дании разрешено с 1 сентября 2015, не «с 2024».
 
@@ -25,8 +25,12 @@ official_sources:
     label: Migrationsverket — reform from 1 June 2026
   - url: https://www.migrationsverket.se/en/news-archive/news/2026-05-06-new-rules-for-swedish-citizenship-from-6-june-2026.html
     label: Migrationsverket — citizenship from 6 June 2026
-  - url: https://nyidanmark.dk/en-GB/You-want-to-apply/Work/Pay-limit-scheme
-    label: SIRI — Denmark pay limit scheme
+  - url: https://www.nyidanmark.dk/en-GB/You-want-to-apply/Work/Pay-limit-scheme
+    label: SIRI — Pay Limit Scheme
+  - url: https://www.nyidanmark.dk/en-GB/You-want-to-apply/Work/The-Pay-Limit-Schemes/Supplementary-Pay-Limit-scheme
+    label: SIRI — Supplementary Pay Limit Scheme
+  - url: https://www.nyidanmark.dk/en-GB/Words-and-concepts/SIRI/Case-processing-times-in-SIRI
+    label: SIRI — case processing times
   - url: https://www.migrationsverket.se/English/Private-individuals/Moving-to-a-close-relative-in-Sweden.html
     label: Migrationsverket — family reunification
   - url: https://nyidanmark.dk/en-GB/You-want-to-apply/Family
@@ -41,12 +45,14 @@ official_sources:
     label: Migri Finland
 estimated_minutes: 18
 date_published: 2026-07-01
-date_modified: 2026-09-29
+date_modified: 2026-11-01
 ---
 
 ## Кому подходит этот гайд
 
 Nordics — это четыре разных миграционных режима, не «один Шенген с высокой зарплатой». Пороги и семья считаются по стране, не «как во Франции».
+
+> **Nota Emigro (fact-check, 1 ноября 2026).** **Fixed:** сбор Pay Limit, Supplementary Pay Limit, Fast-track и Positive List — **DKK 6 810** (~€912; в таблице SIRI Euro 912.87 на 01.01.2026), не DKK 4 405. Срок решения SIRI по Pay Limit — обычно **1 месяц**, до **3 месяцев**, если нужны дополнительные сведения. Это не срок «3–7 месяцев» на весь переезд. Pay Limit — оффер **датского** работодателя, не виза удалённой работы. Supplementary Pay Limit 2026: **DKK 446 000** (DKK 37 166,67 в месяц), со своими условиями. Источники: [Pay Limit](https://www.nyidanmark.dk/en-GB/You-want-to-apply/Work/Pay-limit-scheme), [Supplementary](https://www.nyidanmark.dk/en-GB/You-want-to-apply/Work/The-Pay-Limit-Schemes/Supplementary-Pay-Limit-scheme), [сроки SIRI](https://www.nyidanmark.dk/en-GB/Words-and-concepts/SIRI/Case-processing-times-in-SIRI).
 
 > **Nota Emigro (fact-check, сентябрь 2026).** **OK:** SE work permit **SEK 34 470**; Blue Card **SEK 53 625** с 15.07.2026. DK pay limit ~**DKK 552 000**/год. Гражданство: SE **8 лет** с 06.06.2026; NO **8/11**; FI **8 лет** с 01.10.2024; DK ~**9 лет**. Dual DK с **01.09.2015**, не «с 2024». **Fixed overlay:** датская семья на pay-limit — **accompanying family** (совместный адрес; зарплата → без отдельного proof of support). 24-årreglen / залог = трек гражданина/ПМЖ, не work. Источник: [SIRI accompanying family — work](https://nyidanmark.dk/en-GB/You-want-to-apply/Family/Accompanying-family-members/Accompanying-family---work).
 
@@ -144,18 +150,22 @@ Emigro разделил Nordics на **четыре коридора** ([Шве�
 
 ## Denmark pay limit scheme: для высоких зарплат
 
-**Pay Limit Scheme** — датский аналог «премиального» work permit. Порог **значительно выше**, чем в Швеции, но процедура предсказуема при сильном оффере.
+**Pay Limit Scheme** — рабочий ВНЖ при оффере датского работодателя и зарплате не ниже порога. Удалённая работа на иностранную компанию этот маршрут не открывает. Порог **значительно выше**, чем у шведского work permit.
 
 ### Требования 2026
 
 | Параметр | Значение |
 |----------|----------|
-| Минимальная зарплата | **DKK 552 000/год** брутто (~€74 000) |
-| Работодатель | Датская компания |
-| Контракт | Соответствие критериям **SIRI** (Styrelsen for International Rekruttering og Integration) |
-| Сбор | **DKK 4 405** (~€590) |
+| Минимальная зарплата | **DKK 552 000/год** брутто (~€74 000). Не менее 30 часов в неделю |
+| Что входит в порог | Гарантированная денежная зарплата, пенсионные взносы и оплачиваемые отпускные. Жильё, автомобиль, телефон и похожие льготы не входят |
+| Работодатель | Датская компания, условия не ниже датских стандартов |
+| Счёт | Зарплата на счёт в датском банке, открыть в течение 180 дней |
+| Рассмотрение SIRI | Обычно **1 месяц**; до **3 месяцев**, если нужны дополнительные сведения |
+| Сбор | **DKK 6 810** (~€912) |
 
-*Источник: [SIRI — pay limit scheme](https://nyidanmark.dk/en-GB/You-want-to-apply/Work/Pay-limit-scheme).*
+*Источник: [SIRI — Pay Limit Scheme](https://www.nyidanmark.dk/en-GB/You-want-to-apply/Work/Pay-limit-scheme).*
+
+**Supplementary Pay Limit Scheme** — отдельная карточка, не скидка к Pay Limit. В 2026 году порог **DKK 446 000** в год (DKK 37 166,67 в месяц). Вакансию публикуют на Jobnet и в EURES, занятость по общему правилу полная (37–40 часов). Срок SIRI: обычно **2 месяца**, до **5 месяцев**. Сбор тот же, **DKK 6 810**. Если должность в списке дефицита, смотрите Positive List; если работодатель сертифицирован SIRI — Fast-track. Карточки: [Pay Limit](/ru/denmark/programs/denmark-work-permit), [Supplementary](/ru/denmark/programs/denmark-supplementary-pay-limit), [Positive List](/ru/denmark/programs/denmark-positive-list), [Fast-track](/ru/denmark/programs/denmark-fast-track).
 
 ### Плюсы и минусы DK vs SE
 

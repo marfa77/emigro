@@ -41,6 +41,10 @@ export const ROLE_RADAR_HUB_SLUGS = new Set([
 export const ROLE_RADAR_PROGRAM_SLUGS = new Set([
   "germany-eu-blue-card",
   "germany-chancenkarte",
+  "denmark-work-permit",
+  "denmark-supplementary-pay-limit",
+  "denmark-positive-list",
+  "denmark-fast-track",
 ]);
 
 export function roleRadarBotHref(start = "web"): string {

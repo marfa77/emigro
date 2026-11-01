@@ -25,6 +25,8 @@ import { shouldShowRoleRadarOnProgram } from "@/lib/role-radar";
 import { CorridorHeroVisual } from "@/components/visuals/CorridorHeroVisual";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { ProgramTypeBadge } from "@/components/visuals/ProgramTypeBadge";
+import { DenmarkWorkScheme } from "@/components/corridor/DenmarkWorkScheme";
+import { DENMARK_WORK_BADGE, isDenmarkEmploymentSlug } from "@/lib/corridor/denmark-siri";
 import { getProgramBySlug, getCorridorBySlug } from "@/lib/corridor/queries";
 import { getTopicByCountrySegment } from "@/lib/corridor/resolve-topic";
 import { isCorridorFull } from "@/lib/corridor/publish";
@@ -278,7 +280,10 @@ export default async function CountryProgramPage({
 
         <HeroShell className="mt-5" visual={<CorridorHeroVisual segment={topic.urlSegment} />}>
           <div className="flex flex-wrap items-center gap-2">
-            <ProgramTypeBadge type={program.program_type} />
+            <ProgramTypeBadge
+              type={program.program_type}
+              label={isDenmarkEmploymentSlug(program.slug) ? DENMARK_WORK_BADGE : undefined}
+            />
             <span
               className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wide ${statusChip.className}`}
             >
@@ -472,7 +477,11 @@ export default async function CountryProgramPage({
             <Clock3 className="h-5 w-5 text-corridor-600" aria-hidden />
             <h2 className="mt-4 text-sm font-semibold uppercase tracking-wide text-slate-500">Ориентир по срокам</h2>
             <p className="mt-2 text-2xl font-bold text-slate-900">{timelinePreview(program)}</p>
-            <p className="mt-2 text-sm text-slate-600">Плюс очередь на запись и выдачу карты резидента.</p>
+            <p className="mt-2 text-sm text-slate-600">
+              {isDenmarkEmploymentSlug(program.slug)
+                ? "Биометрия, виза и карта идут отдельно и в срок решения SIRI не входят."
+                : "Плюс очередь на запись и выдачу карты резидента."}
+            </p>
           </article>
         </section>
 
@@ -504,6 +513,8 @@ export default async function CountryProgramPage({
             ))}
           </div>
         </section>
+
+        <DenmarkWorkScheme slug={program.slug} />
 
         <section className="mt-12 rounded-3xl border border-slate-200 bg-slate-950 p-6 text-white shadow-sm sm:p-8">
           <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">

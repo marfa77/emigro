@@ -83,6 +83,8 @@ const SITEMAP_PRIORITY_BOOST: Record<string, number> = {
   "/ru/malta/programs/malta-mprp": 0.88,
   "/ru/malta/programs/malta-nrp": 0.88,
   "/ru/denmark/programs/denmark-work-permit": 0.88,
+  "/ru/denmark/programs/denmark-supplementary-pay-limit": 0.88,
+  "/ru/denmark/programs/denmark-positive-list": 0.88,
   "/ru/denmark/programs/denmark-fast-track": 0.88,
   "/ru/finland/programs/finland-startup": 0.88,
   "/ru/finland/programs/finland-work-permit": 0.88,

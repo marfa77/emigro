@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ProgramTypeBadge } from "@/components/visuals/ProgramTypeBadge";
 import { getProgramCardImage } from "@/lib/corridor/program-images";
+import { DENMARK_WORK_BADGE, isDenmarkEmploymentSlug } from "@/lib/corridor/denmark-siri";
 
 type Props = {
   slug: string;
@@ -35,7 +36,10 @@ function CardBody({
         <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" aria-hidden />
       </div>
       <div className="p-5">
-        <ProgramTypeBadge type={programType} />
+        <ProgramTypeBadge
+          type={programType}
+          label={isDenmarkEmploymentSlug(slug) ? DENMARK_WORK_BADGE : undefined}
+        />
         <h3 className="mt-3 text-lg font-semibold text-slate-900">{title}</h3>
         <p className="mt-2 text-sm leading-relaxed text-slate-600">{summary}</p>
       </div>

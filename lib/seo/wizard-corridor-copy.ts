@@ -41,7 +41,7 @@ export const WIZARD_CORRIDOR_DESCRIPTIONS: Record<string, string> = {
   finland:
     "Wizard Emigro по Финляндии: Migri work/specialist, startup residence, воссоединение семьи. Soft-пороги migri.fi для паспортов RU/BY/UA/KZ.",
   denmark:
-    "Wizard Emigro по Дании: pay limit DKK 552 000/год, Fast-track, воссоединение семьи. Пороги SIRI и сроки для паспортов RU/BY/UA/KZ.",
+    "Wizard Дании: Pay Limit DKK 552 000, Supplementary DKK 446 000, Positive List и Fast-track. Нужен оффер датского работодателя. Сбор SIRI DKK 6 810.",
 };
 
 export function wizardCorridorDescription(countrySegment: string, countryRu: string): string {

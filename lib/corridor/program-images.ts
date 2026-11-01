@@ -149,6 +149,8 @@ export const PROGRAM_SLUG_TO_IMAGE_TYPE: Record<string, ProgramCardImageType> = 
   "finland-family-reunification": "family-reunification",
   "finland-startup": "startup",
   "denmark-work-permit": "work-permit",
+  "denmark-supplementary-pay-limit": "work-permit",
+  "denmark-positive-list": "work-permit",
   "denmark-family-reunification": "family-reunification",
   "denmark-fast-track": "work-permit",
   "nordic-family-reunification": "family-reunification",
