@@ -157,7 +157,7 @@ export async function getPublishedCommunityNotes(countryKey = "portugal"): Promi
   try {
     return await unstable_cache(
       () => fetchPublishedCommunityNotesFromDb(countryKey),
-      ["community-notes-v2026-11-01-clubs-editorial", countryKey],
+      ["community-notes-v2026-11-01-clubs-voice", countryKey],
       {
         revalidate: CACHE_REVALIDATE.communityNotes,
         tags: [CACHE_TAGS.communityNotes, `${CACHE_TAGS.communityNotes}-${countryKey}`],
@@ -237,7 +237,7 @@ export async function getPublishedCommunityNoteBySlug(
 ): Promise<CommunityNote | null> {
   return unstable_cache(
     () => fetchPublishedCommunityNoteBySlugUncached(slug, countryKey),
-    ["community-note-by-slug-v2026-11-01-clubs-editorial", countryKey, slug],
+    ["community-note-by-slug-v2026-11-01-clubs-voice", countryKey, slug],
     {
       revalidate: CACHE_REVALIDATE.communityNotes,
       tags: [CACHE_TAGS.communityNotes, `${CACHE_TAGS.communityNotes}-${countryKey}`, `community-note-${slug}`],

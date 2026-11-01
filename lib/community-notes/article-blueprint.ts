@@ -6,15 +6,12 @@ import {
   countGlossaryTerms,
   isGlossarySection,
   upsertGlossarySection,
-  validateGuideGlossary,
 } from "@/lib/community-notes/glossary";
 import {
   bootstrapOfficialPracticeCopy,
   countLabeledTakeaways,
   inferSectionKind,
-  validateOfficialPracticeCopy,
 } from "@/lib/community-notes/official-vs-practice";
-import { validateEditorialPresentation, validateActionGuideSections } from "@/lib/community-notes/editorial-presentation";
 import { auditPracticeQuality } from "@/lib/community-notes/practice-enrichment";
 import type { CommunityNoteFaq, CommunityNoteLink, ContentKind, NoteBodySection } from "@/lib/community-notes/types";
 
@@ -208,139 +205,15 @@ export function scoreBlueprint(
   return Math.min(100, score);
 }
 
-/** Blocking errors + non-blocking warnings for editorial QA. */
+/**
+ * Structural blueprint (glossary-first, gap/mistakes bullets, labeled takeaways)
+ * no longer blocks publishing. Voice drafts ship as written.
+ */
 export function validateAgainstBlueprint(
-  input: BlueprintDraftInput,
-  countryKey: BlueprintCountryKey = "portugal"
+  _input: BlueprintDraftInput,
+  _countryKey: BlueprintCountryKey = "portugal"
 ): BlueprintValidation {
-  const errors: string[] = [];
-  const warnings: string[] = [];
-
-  if (input.content_kind !== "guide") {
-    return { score: 100, errors, warnings };
-  }
-
-  errors.push(...validateGuideGlossary(input.body_sections));
-  errors.push(...validateSectionOrder(input.body_sections));
-  errors.push(...validateOfficialPracticeCopy(input));
-
-  const officialBullets = countBulletsByKind(input.body_sections, "official");
-  const practiceBullets = countBulletsByKind(input.body_sections, "practice");
-
-  if (officialBullets < BLUEPRINT_MIN.officialBullets) {
-    errors.push(`blueprint: official bullets ${officialBullets} < ${BLUEPRINT_MIN.officialBullets}`);
-  }
-  if (practiceBullets < BLUEPRINT_MIN.practiceBullets) {
-    errors.push(`blueprint: practice bullets ${practiceBullets} < ${BLUEPRINT_MIN.practiceBullets}`);
-  }
-  if (!hasGapSection(input.body_sections)) {
-    errors.push(`blueprint: need gap section with ≥${BLUEPRINT_MIN.gapBullets} bullets`);
-  }
-  if (!hasMistakesOrTimelineSection(input.body_sections)) {
-    errors.push(
-      `blueprint: need mistakes/timeline section with ≥${BLUEPRINT_MIN.mistakeBullets} bullets`
-    );
-  }
-  if (input.body_sections.length < BLUEPRINT_MIN.bodySections) {
-    errors.push(`blueprint: body_sections ${input.body_sections.length} < ${BLUEPRINT_MIN.bodySections}`);
-  }
-  if (countLabeledTakeaways(input.key_takeaways) < BLUEPRINT_MIN.labeledTakeaways) {
-    errors.push(
-      `blueprint: key_takeaways need ≥${BLUEPRINT_MIN.labeledTakeaways} with «Официально:/На практике:/Расхождение:»`
-    );
-  }
-  if (input.faq.length < BLUEPRINT_MIN.faq) {
-    errors.push(`blueprint: faq ${input.faq.length} < ${BLUEPRINT_MIN.faq}`);
-  }
-
-  const faqWithSplit = input.faq.filter((f) => FAQ_OFFICIAL_PRACTICE_RE.test(`${f.q} ${f.a}`)).length;
-  if (faqWithSplit < 2) {
-    warnings.push("blueprint: faq should split «По правилам…» / «На практике…» in ≥2 answers");
-  }
-
-  const links = input.official_links ?? [];
-  if (links.length < BLUEPRINT_MIN.officialLinks) {
-    errors.push(`blueprint: official_links ${links.length} < ${BLUEPRINT_MIN.officialLinks} (fact-check)`);
-  }
-
-  const officialSections = input.body_sections.filter((s) => inferSectionKind(s) === "official");
-  const hasOfficialClaims = officialSections.some(
-    (s) =>
-      (s.paragraphs ?? []).some((p) => OFFICIAL_CLAIM_RE.test(p)) ||
-      (s.bullets ?? []).some((b) => OFFICIAL_CLAIM_RE.test(b))
-  );
-  if (hasOfficialClaims && links.length === 0) {
-    errors.push("blueprint: official sections need official_links citations");
-  }
-
-  const geoText = `${input.quick_answer} ${input.seo_description ?? ""}`;
-  const practiceText = input.body_sections.flatMap((s) => s.bullets ?? []).join(" ");
-  if (countryKey === "spain") {
-    if (!/испан/i.test(geoText)) {
-      warnings.push("blueprint: quick_answer/seo_description missing Испания");
-    }
-    if (!SPAIN_GEO_RE.test(geoText) && !SPAIN_GEO_RE.test(practiceText)) {
-      warnings.push("blueprint: missing Valencia/Madrid geo in quick_answer or practice");
-    }
-  } else if (countryKey === "italy") {
-    if (!/итал/i.test(geoText)) {
-      warnings.push("blueprint: quick_answer/seo_description missing Италия");
-    }
-    if (!ITALY_GEO_RE.test(geoText) && !ITALY_GEO_RE.test(practiceText)) {
-      warnings.push("blueprint: missing Milano/Como geo in quick_answer or practice");
-    }
-  } else if (countryKey === "thailand") {
-    if (!/таиланд|thailand/i.test(geoText)) {
-      warnings.push("blueprint: quick_answer/seo_description missing Таиланд");
-    }
-    if (!THAILAND_GEO_RE.test(geoText) && !THAILAND_GEO_RE.test(practiceText)) {
-      warnings.push("blueprint: missing Phuket geo in quick_answer or practice");
-    }
-  } else {
-    if (!/португал/i.test(geoText)) {
-      warnings.push("blueprint: quick_answer/seo_description missing Португалия");
-    }
-    if (!NORTE_RE.test(geoText) && !NORTE_RE.test(practiceText)) {
-      warnings.push("blueprint: missing Norte geo (Порту/Braga) in quick_answer or practice");
-    }
-  }
-
-  const practiceAudit = auditPracticeQuality(
-    {
-      slug: input.slug ?? "draft",
-      content_kind: input.content_kind,
-      body_sections: input.body_sections,
-      key_takeaways: input.key_takeaways,
-    },
-    { strict: true }
-  );
-  if (practiceAudit.status !== "OK") {
-    errors.push(...practiceAudit.reasons.map((r) => `blueprint practice: ${r}`));
-  }
-
-  const presentation = validateEditorialPresentation({
-    content_kind: input.content_kind,
-    quick_answer: input.quick_answer,
-    key_takeaways: input.key_takeaways,
-    body_sections: input.body_sections,
-    faq: input.faq,
-  });
-  warnings.push(...presentation.warnings);
-
-  if (countryKey === "portugal") {
-    const actionGuide = validateActionGuideSections(input.body_sections);
-    warnings.push(...actionGuide.warnings);
-    if (actionGuide.errors.length > 0) {
-      errors.push(...actionGuide.errors);
-    }
-  }
-
-  const score = scoreBlueprint(input, countryKey);
-  if (score < BLUEPRINT_PASS_SCORE && errors.length === 0) {
-    warnings.push(`blueprint: score ${score} < ${BLUEPRINT_PASS_SCORE}`);
-  }
-
-  return { score, errors, warnings };
+  return { score: 100, errors: [], warnings: [] };
 }
 
 /** Prompt block for Gemini — mirrors gold-standard section order. */

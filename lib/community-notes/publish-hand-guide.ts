@@ -11,13 +11,12 @@ import {
   hasNoteOgImage,
 } from "@/lib/community-notes/note-og-image";
 import { communityNotePublicUrl } from "@/lib/community-notes/note-url";
-import { ensureSectionVoiceClose } from "@/lib/community-notes/voice-transforms";
 import { createServerClient } from "@/lib/supabase/server";
 import type { CommunityNote } from "@/lib/community-notes/types";
 
 export async function publishHandGuide(raw: Omit<CommunityNote, "id" | "created_at" | "updated_at">) {
   const readable = applyReadabilityToDraft(raw);
-  const body_sections = (readable.body_sections ?? []).map(ensureSectionVoiceClose);
+  const body_sections = readable.body_sections ?? [];
   const guide = {
     ...readable,
     body_sections,

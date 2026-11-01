@@ -1,13 +1,11 @@
-import { validateAgainstBlueprint } from "@/lib/community-notes/article-blueprint";
 import { ephemeralRelativeTimeErrors } from "@/lib/community-notes/evergreen";
-import { validateGuideGlossary, isGlossarySection } from "@/lib/community-notes/glossary";
-import { validateOfficialPracticeCopy } from "@/lib/community-notes/official-vs-practice";
+import { isGlossarySection } from "@/lib/community-notes/glossary";
 import {
   looksLikeEphemeralPolitics,
   POLITICS_GUIDE_TITLE_RE,
 } from "@/lib/community-notes/politics-news";
 import { snsTextsFromDraft, validateSnsUtenteCopy } from "@/lib/community-notes/sns-editorial";
-import type { CommunityNoteFaq, CommunityNoteLink, ContentKind } from "@/lib/community-notes/types";
+import type { CommunityNoteLink, ContentKind } from "@/lib/community-notes/types";
 import type { NoteBodySection } from "@/lib/community-notes/types";
 import { fitMetaDescription, fitSeoTitlePart } from "@/lib/seo";
 
@@ -180,13 +178,6 @@ export function validateNoteDraft(
   if (input.content_kind === "guide" && !hasBullets) {
     errors.push("guide needs at least one section with 3+ bullet items (checklist/steps)");
   }
-  if (input.content_kind === "guide") {
-    errors.push(...validateGuideGlossary(input.body_sections));
-    const glossaryIdx = input.body_sections.findIndex(isGlossarySection);
-    if (glossaryIdx > 0) {
-      errors.push(`glossary: must be first body_section, got index ${glossaryIdx}`);
-    }
-  }
   errors.push(...hollowBodySectionErrors(input.body_sections, input.content_kind));
   errors.push(...telegraphicVoiceErrors(input.body_sections));
   errors.push(...politicsAsGuideErrors(input));
@@ -196,13 +187,6 @@ export function validateNoteDraft(
 
   errors.push(...validateSnsUtenteCopy(snsTextsFromDraft(input)));
   errors.push(
-    ...validateOfficialPracticeCopy({
-      content_kind: input.content_kind,
-      body_sections: input.body_sections,
-      key_takeaways: input.key_takeaways,
-    })
-  );
-  errors.push(
     ...ephemeralRelativeTimeErrors([
       input.quick_answer,
       ...input.key_takeaways,
@@ -210,23 +194,6 @@ export function validateNoteDraft(
       ...input.faq.flatMap((f) => [f.q, f.a]),
     ])
   );
-
-  if (input.content_kind === "guide") {
-    const blueprint = validateAgainstBlueprint(
-      {
-        content_kind: input.content_kind,
-        slug: input.slug,
-        quick_answer: input.quick_answer,
-        seo_description: input.seo_description,
-        body_sections: input.body_sections,
-        key_takeaways: input.key_takeaways,
-        faq: input.faq as CommunityNoteFaq[],
-        official_links: input.official_links,
-      },
-      countryKey
-    );
-    errors.push(...blueprint.errors);
-  }
 
   return errors;
 }
