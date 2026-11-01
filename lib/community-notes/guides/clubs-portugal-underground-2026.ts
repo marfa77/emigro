@@ -78,6 +78,15 @@ const bodySections: NoteBodySection[] = [
       "**Ministerium Club** — электронная программа в центре; следите за тематическими сериями и приглашёнными артистами. [ministerium.pt](https://www.ministerium.pt/). **Temple** — смотрите конкретные события, а не «один жанр навсегда». **Musicbox** — live, электроника и более камерные форматы, если большой клубный зал не ваш формат.",
       "**Planeta Manas** — LGBTQ+-ориентированная электронная программа; queer-friendly площадки — полноценная часть сцены, а не «отдельная экзотика». Следите за конкретными ивентами и организаторами.",
     ],
+    images: [
+      {
+        src: "/images/community-notes/clubs-lisbon.webp",
+        alt: "Лиссабон: техно, хаус и клубная культура",
+        caption: "Лиссабон — основная точка электронной сцены. Клуб всё равно выбирают по конкретной ночи, не по городу.",
+        credit: "Emigro",
+        fit: "cover",
+      },
+    ],
   },
   {
     heading: "Порту: Gare, Industria и события вне столиц",
@@ -100,6 +109,15 @@ const bodySections: NoteBodySection[] = [
       "Летние open-air — отдельно от еженедельного клуба; см. фестивальный гайд.",
       "Оценивайте вечер по music / sound / crowd / venue / value — не по одному имени в афише.",
     ],
+    images: [
+      {
+        src: "/images/community-notes/clubs-porto.webp",
+        alt: "Порту: индустриальный андеграунд и сильные вечеринки",
+        caption: "Порту — своя сцена: Gare и Industria закрывают обычные субботы без поездки в Лиссабон.",
+        credit: "Emigro",
+        fit: "cover",
+      },
+    ],
   },
   {
     heading: "Adult, fetish и sex-positive",
@@ -110,6 +128,15 @@ const bodySections: NoteBodySection[] = [
       "**The Shameless Society** — sex-positive коллектив в Лиссабоне; часть мероприятий — заявка или знакомство с правилами. Не рассчитывайте на обычный walk-in без изучения условий.",
       "**Divalicious** и другие femdom-проекты — тематика и культура важнее «красивой афиши». **Munch**, Kinky Market и образовательные форматы — не play-party: другие правила и темп.",
       "Перед любым закрытым ивентом читайте house rules: возраст, дресс-код, съёмка, согласие. Emigro не учит BDSM-практикам и не помогает искать play-партнёров — только ориентиры входа и этики.",
+    ],
+    images: [
+      {
+        src: "/images/community-notes/clubs-fetish.webp",
+        alt: "Fetish и sex-positive: вечеринки, комьюнити и закрытые события",
+        caption: "18+. Закрытые fetish и sex-positive события — заявка и правила организатора, не обычный вход с улицы.",
+        credit: "Emigro",
+        fit: "contain",
+      },
     ],
   },
   {
@@ -147,6 +174,22 @@ const bodySections: NoteBodySection[] = [
       "В Emigro удобно оценивать **конкретное мероприятие** по пяти критериям (шкала 1–5 для себя). Это не вечный рейтинг клуба: в одном заведении две соседние субботы могут быть разными.",
     ],
     table: EMIGRO_RATING_TABLE,
+    images: [
+      {
+        src: "/images/community-notes/clubs-lineup.webp",
+        alt: "Музыка и диджеи: как выбрать вечеринку по лайнапу",
+        caption: "Сначала lineup и сеты, потом билет. Имя клуба само по себе вечер не делает.",
+        credit: "Emigro",
+        fit: "contain",
+      },
+      {
+        src: "/images/community-notes/clubs-rating.webp",
+        alt: "Как выбрать хорошую вечеринку: музыка, звук, публика, пространство, цена",
+        caption: "Пять критериев Emigro — оценка конкретной ночи, не постоянный рейтинг клуба.",
+        credit: "Emigro",
+        fit: "contain",
+      },
+    ],
     bullets: [
       "Music — lineup; Sound — акустика и mix; Crowd — танцуют или снимают stories?",
       "Venue — место на полу и выход «передохнуть»; Value — билет vs программа.",
