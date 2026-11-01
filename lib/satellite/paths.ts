@@ -87,6 +87,12 @@ export function portugalTagPath(tag: string): string {
   return satelliteTagPath(tag, "portugal");
 }
 
+/** Event calendar — short path on the Portugal satellite, full path on www. */
+export function portugalCalendarPath(slug?: string): string {
+  const base = onPortugalSatelliteHost() ? "/calendar" : "/satellite/portugal/calendar";
+  return slug ? `${base}/${slug}` : base;
+}
+
 export function spainHubPath(): string {
   return satelliteHubPath("spain");
 }

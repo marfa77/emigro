@@ -4,6 +4,7 @@ import { ARCHIVE_SLUGS } from "@/lib/community-notes/editorial-filter";
 import { normalizeHashtag } from "@/lib/community-notes/hashtags";
 import { MIN_TAG_NOTES_INDEXABLE } from "@/lib/seo/thin-content";
 import { COMO_GUIDES } from "@/lib/italy/como-guides";
+import { listPortugalEvents } from "@/lib/events/portugal-calendar";
 import {
   portugalSatellitePublicUrl,
   spainSatellitePublicUrl,
@@ -44,6 +45,16 @@ export async function buildSatelliteSitemapEntries(
     return Date.parse(candidate) > Date.parse(latest) ? candidate : latest;
   }, undefined);
 
+  const calendarEntries: MetadataRoute.Sitemap =
+    country === "portugal"
+      ? [
+          { url: publicUrl(country, "/calendar"), changeFrequency: "daily", priority: 0.9 },
+          { url: publicUrl(country, "/calendar/porto"), changeFrequency: "daily", priority: 0.85 },
+          { url: publicUrl(country, "/calendar/lisboa"), changeFrequency: "daily", priority: 0.85 },
+          ...(await upcomingCalendarUrls()),
+        ]
+      : [];
+
   return [
     {
       url: publicUrl(country, "/"),
@@ -51,6 +62,7 @@ export async function buildSatelliteSitemapEntries(
       changeFrequency: "daily",
       priority: 0.9,
     },
+    ...calendarEntries,
     // Do not list /llms in the Google sitemap — plain-text LLM index lives at
     // /llms.txt (and llm-sitemap.xml). Submitting /llms as an HTML-less URL
     // wastes crawl budget on a new subdomain.
@@ -85,4 +97,16 @@ export async function buildSatelliteSitemapEntries(
         priority: 0.65,
       })),
   ];
+}
+
+async function upcomingCalendarUrls(): Promise<MetadataRoute.Sitemap> {
+  const events = await listPortugalEvents();
+  const fresh = Date.now() - 6 * 60 * 60 * 1000;
+  return events
+    .filter((event) => Date.parse(event.start_at) >= fresh)
+    .map((event) => ({
+      url: portugalSatellitePublicUrl(`/calendar/${event.slug}`),
+      changeFrequency: "weekly" as const,
+      priority: 0.6,
+    }));
 }

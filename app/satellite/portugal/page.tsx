@@ -8,6 +8,7 @@ import { PORTUGAL_SATELLITE } from "@/lib/satellite/portugal";
 import { buildSatelliteHubPlace, withSatelliteAiMetadata } from "@/lib/community-notes/seo-page";
 import { fitMetaDescription } from "@/lib/seo";
 import { DEFAULT_OG_IMAGE, socialImageMetadata } from "@/lib/seo";
+import { portugalCalendarPath } from "@/lib/satellite/paths";
 import { portugalSatelliteUrl } from "@/lib/site-url";
 import { heroTitle, satelliteMain } from "@/lib/ui/mobile";
 
@@ -144,6 +145,19 @@ export default async function PortugalSatelliteHomePage() {
         </p>
         <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-slate-600">
           <span>Редактор Emigro</span><span aria-hidden="true">·</span><span>Проверяйте дату и источники в каждом руководстве</span>
+        </div>
+      </section>
+
+      <section className="mt-6 rounded-2xl border border-slate-200 px-5 py-5">
+        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-teal-800">Куда пойти</p>
+        <h2 className="mt-1 text-xl font-semibold text-slate-950">Календарь Порту и Лиссабона</h2>
+        <p className="mt-2 text-sm leading-relaxed text-slate-600">
+          Походы севера, концерты, ночи, театр и матчи на выходные.
+        </p>
+        <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-sm">
+          <Link href={portugalCalendarPath()} className="font-medium text-teal-800 underline">Все города</Link>
+          <Link href={`${portugalCalendarPath()}/porto`} className="font-medium text-teal-800 underline">Порту и север</Link>
+          <Link href={`${portugalCalendarPath()}/lisboa`} className="font-medium text-teal-800 underline">Афиша Лиссабона</Link>
         </div>
       </section>
 

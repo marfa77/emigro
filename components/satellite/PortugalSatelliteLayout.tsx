@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { PORTUGAL_SATELLITE } from "@/lib/satellite/portugal";
-import { mainSiteUrl, portugalHubPath } from "@/lib/satellite/paths";
+import { mainSiteUrl, portugalCalendarPath, portugalHubPath } from "@/lib/satellite/paths";
 import { spainHubPaths } from "@/lib/spain/hub";
 import { PortugalHubShell } from "@/components/portugal/PortugalHubShell";
 import { portugalHubPaths } from "@/lib/portugal/hub";
@@ -23,12 +23,14 @@ export function PortugalSatelliteHeader() {
               {PORTUGAL_SATELLITE.title}
             </Link>
           </div>
-          <a
-            href={MAIN_HUB_URL}
-            className="shrink-0 text-xs text-slate-600 hover:text-teal-700 sm:text-sm"
-          >
-            emigro.online/ru/portugal
-          </a>
+          <div className="flex min-w-0 items-center gap-3">
+            <Link href={portugalCalendarPath()} className="shrink-0 text-sm font-medium text-teal-800 hover:underline">
+              Календарь
+            </Link>
+            <a href={MAIN_HUB_URL} className="min-w-0 truncate text-xs text-slate-600 hover:text-teal-700 sm:text-sm">
+              emigro.online/ru/portugal
+            </a>
+          </div>
         </div>
         <div className={layoutContain}>
           <PortugalHubShell active="practice" variant="satellite" className="mt-0 border-0 bg-transparent p-0" />

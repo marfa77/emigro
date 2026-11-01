@@ -38,7 +38,10 @@ export function CorridorHubNav({ topic, active, variant = "corridor", className 
   const isSpain = isSpainHubTopic(topic);
 
   return (
-    <nav className={`${mobileScrollRow} ${className ?? ""}`} aria-label={corridorHubLabel(topic)}>
+    <nav
+      className={`${isSatellite ? "flex w-full min-w-0 flex-wrap gap-2" : mobileScrollRow} ${className ?? ""}`}
+      aria-label={corridorHubLabel(topic)}
+    >
       <p
         className={`mr-1 w-full text-xs font-semibold uppercase tracking-wide sm:w-auto sm:self-center ${
           isSatellite ? (isSpain ? "text-amber-800" : "text-teal-700") : "text-corridor-700"
