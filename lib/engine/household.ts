@@ -22,6 +22,8 @@ type ThresholdSpec = {
   solo: number;
   adultAddon: number;
   childAddon: number;
+  /** First dependant uses adultAddon; each further dependant uses childAddon. */
+  firstThenRest?: boolean;
   labelRu: string;
   savingsAlt?: {
     field: "savings_eur";
@@ -56,9 +58,10 @@ const INCOME_THRESHOLDS: Record<string, ThresholdSpec> = {
   },
   "spain-digital-nomad": {
     field: "monthly_income_eur",
-    solo: 2849,
-    adultAddon: 1068, // 75% SMI 2026 (RD 126/2026); do not use 2025 +€916
-    childAddon: 356, // 25% SMI 2026; do not use 2025 +€305
+    solo: 2442, // 200% of monthly SMI €1,221 (UGE); not €1,221 × 14 / 12 × 2
+    adultAddon: 915.75, // 75% of monthly SMI — first family member
+    childAddon: 305.25, // 25% of monthly SMI — each further family member
+    firstThenRest: true,
     labelRu: "месячный доход digital nomad",
   },
   "spain-non-lucrative": {
@@ -273,10 +276,24 @@ function childWord(n: number): string {
   return "детей";
 }
 
+function formatEurAmount(amount: number): string {
+  const rounded = Math.round(amount * 100) / 100;
+  const isInt = Math.abs(rounded - Math.round(rounded)) < 1e-9;
+  return rounded.toLocaleString("ru-RU", {
+    minimumFractionDigits: isInt ? 0 : 2,
+    maximumFractionDigits: 2,
+  });
+}
+
 export function householdRequiredAmount(
-  spec: Pick<ThresholdSpec, "solo" | "adultAddon" | "childAddon">,
+  spec: Pick<ThresholdSpec, "solo" | "adultAddon" | "childAddon" | "firstThenRest">,
   profile: HouseholdProfile
 ): number {
+  if (spec.firstThenRest) {
+    const dependants = profile.adultDependants + profile.children;
+    if (dependants <= 0) return spec.solo;
+    return spec.solo + spec.adultAddon + spec.childAddon * (dependants - 1);
+  }
   return (
     spec.solo +
     spec.adultAddon * profile.adultDependants +
@@ -357,8 +374,8 @@ export function adjustEvaluationForHousehold(
     const nextReasons = [
       ...reasons.filter((r) => !/критерии|criteria/i.test(r)),
       viaSavings
-        ? `Порог сбережений для семьи (${profile.size} чел.): ~€${Math.round(savingsRequired).toLocaleString("ru-RU")} (${savingsSpec!.labelRu})`
-        : `Порог для семьи (${profile.size} чел.): ~€${Math.round(required).toLocaleString("ru-RU")} (${spec.labelRu})`,
+        ? `Порог сбережений для семьи (${profile.size} чел.): ~€${formatEurAmount(savingsRequired)} (${savingsSpec!.labelRu})`
+        : `Порог для семьи (${profile.size} чел.): ~€${formatEurAmount(required)} (${spec.labelRu})`,
       viaSavings
         ? "Сбережения покрывают семейный порог по ориентиру 2026"
         : "Доход покрывает семейный порог по ориентиру 2026",
@@ -373,16 +390,16 @@ export function adjustEvaluationForHousehold(
 
   const gap = Math.min(required - actual, savingsSpec ? savingsRequired - savingsActual : Infinity);
   const gapLabel = savingsSpec
-    ? `доход ~€${Math.round(required).toLocaleString("ru-RU")} или сбережения ~€${Math.round(savingsRequired).toLocaleString("ru-RU")}`
-    : `~€${Math.round(required).toLocaleString("ru-RU")} (${spec.labelRu})`;
+    ? `доход ~€${formatEurAmount(required)} или сбережения ~€${formatEurAmount(savingsRequired)}`
+    : `~€${formatEurAmount(required)} (${spec.labelRu})`;
   return {
     ...base,
     outcome: "unlikely",
     score: 0.12,
     reasons: [
       ...reasons,
-      `Для семьи из ${profile.size} чел. нужно ${gapLabel}, у вас доход ~€${Math.round(actual).toLocaleString("ru-RU")}${savingsSpec ? `, сбережения ~€${Math.round(savingsActual).toLocaleString("ru-RU")}` : ""}`,
-      `Не хватает ~€${Math.round(gap).toLocaleString("ru-RU")} — или рассмотрите поэтапный переезд (сначала основной заявитель)`,
+      `Для семьи из ${profile.size} чел. нужно ${gapLabel}, у вас доход ~€${formatEurAmount(actual)}${savingsSpec ? `, сбережения ~€${formatEurAmount(savingsActual)}` : ""}`,
+      `Не хватает ~€${formatEurAmount(gap)} — или рассмотрите поэтапный переезд (сначала основной заявитель)`,
     ],
   };
 }

@@ -65,7 +65,7 @@ export function buildEsOriginHubFaq(iso: EsOriginIso): FaqItem[] {
     {
       question: "¿Cuánto hay que ingresar para nómada digital en 2026?",
       answer:
-        "Umbral orientativo ~€2.849/mes del titular (200% SMI, RD 126/2026, cálculo anual/12). Familia: +~€1.068 el primero y +~€356 cada siguiente (75%/25% SMI). No use cifras 2025 €916/€305.",
+        "Umbral UGE 2026: €2.442/mes del titular (200% del SMI mensual €1.221, RD 126/2026). Familia: +€915,75 el primero y +€305,25 cada siguiente. No anualice las 14 pagas (€2.849 no es el criterio UGE).",
     },
     {
       question: "¿La no lucrativa se pide ya en España de turista?",
@@ -74,7 +74,7 @@ export function buildEsOriginHubFaq(iso: EsOriginIso): FaqItem[] {
     {
       question: `¿Los ${o.demonym} obtienen nacionalidad española en 2 años?`,
       answer:
-        "Art. 22 CC: plazo reducido ~2 años de residencia legal para nacionales de Iberoamérica (entre otros). No cuenta la estancia por estudios (0% hacia art. 22). 50% = larga duración-UE, no un máster. CCSE (y DELE si aplica) por separado.",
+        "Art. 22 CC: dos años de residencia legal y continuada para nacionales de origen de países iberoamericanos (también Andorra, Filipinas, Guinea Ecuatorial, Portugal o sefardíes). No es automático con el visado de nómada digital, y no cubre toda América Latina. No cuenta la estancia por estudios (0% hacia art. 22). CCSE (y DELE si aplica) por separado.",
     },
     {
       question: "¿Emigro sustituye a un abogado?",

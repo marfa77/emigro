@@ -102,7 +102,7 @@ export const SEO_CLUSTERS: Record<string, SeoCluster> = {
       {
         href: guidePath("vnj-ispaniya-2026"),
         label: "Digital nomad Испания 2026",
-        description: "Pillar-гид: €2 849/мес, teletrabajo, Beckham",
+        description: "Pillar-гид: €2 442/мес, teletrabajo, Beckham",
       },
       {
         href: guidePath("pervye-30-dnej-v-ispanii-2026"),

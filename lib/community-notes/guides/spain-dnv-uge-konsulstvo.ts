@@ -36,13 +36,13 @@ const bodySections: NoteBodySection[] = [
       "OK: из third country — visado D teletrabajo в **consulado** demarcación residencia ([exteriores — visado teletrabajo](https://www.exteriores.gob.es/Consulados/moscu/es/Comunicacion/Noticias/Paginas/Articulos/20230502_NOT1.aspx)).",
       "OK: уже **legal stay** в ES — autorización residencia через **UGE-CE** (hasta 3 años), sin visado previo; plazo resolución 20 días (та же noticia consulado).",
       "OK: visado consulado — validez **hasta 1 año**; autorización UGE inicial — **3 años** (exteriores / one.gob.es).",
-      "OK: доход titular — **200% SMI**; SMI 2026 = **1 221 €/mes** ([BOE RD 126/2026](https://www.boe.es/buscar/doc.php?id=BOE-A-2026-3815)) → umbral **≈ 2 849 €/mes** en cómputo mensual 12 pagas (one.gob.es).",
+      "OK: доход titular — **200% SMI**; SMI 2026 = **1 221 €/mes** ([BOE RD 126/2026](https://www.boe.es/buscar/doc.php?id=BOE-A-2026-3815)) → umbral **≈ 2 442 €/mes** en SMI mensual vigente, criterios UGE (one.gob.es).",
       "OK: autónomo teletrabajo — max **20%** ingresos de clientes ES ([one.gob.es — requisitos nómada digital](https://www.one.gob.es/es/tramites/solicitud-del-visado-de-nomada-digital)).",
       "OK: familia — +**75% SMI** primer reagrupado, +**25% SMI** cada miembro adicional (one.gob.es / exteriores).",
       "Fixed: «UGE из туриста» → turismo Schengen **≠ legal stay**; UGE no sustituye visado de entrada.",
       "Fixed: «estancia por estudios = camino a nacionalidad 2 años» → estancia estudios **0%** para cómputo art. 22 CC — миф для nacionalidad, не для DNV.",
       "Soft: сроки consulado 2–4 meses — поле @spain_granitsa, no plazo legal fijo.",
-      "UNCHECKED: PDF FAQ inclusion.gob.es nomadas-digitales — timeout al fetch; cifras familiares alternativas en blogs no copiadas.",
+      "Fixed 01.11.2026: umbral = 200% del SMI **mensual** (2 442 €), no el prorrateo de 14 pagas (~2 849 €). Familia +915,75 € / +305,25 €. FAQ UGE: empleado solo empresa extranjera; 20% es actividad profesional del autónomo.",
     ],
   },
   {
@@ -107,12 +107,12 @@ const bodySections: NoteBodySection[] = [
     heading: "Пакет в консульство: доход, правило 20%, семья",
     section_kind: "practice",
     paragraphs: [
-      "Medios económicos — **200% SMI** mensual titular (2026: **2 849 €** sobre base SMI 1 221 € BOE). Familia: +75% SMI primer dependiente, +25% cada adicional (one.gob.es). Acreditar con contrato, nóminas, facturas autónomo, extractos bancarios coincidentes.",
+      "Medios económicos — **200% SMI** mensual titular (2026: **2 442 €** sobre base SMI 1 221 € BOE). Familia: +75% SMI primer dependiente, +25% cada adicional (one.gob.es). Acreditar con contrato, nóminas, facturas autónomo, extractos bancarios coincidentes.",
       "Autónomo teletrabajo: relación contractual ≥3 meses; actividad con empresas ES permitida si **≤20%** del total (one.gob.es). Declaración responsable SS — alta RETA o importación legislación origen si convenio internacional.",
       "Titulación universitaria o **3 años** experiencia profesional analogable (one.gob.es). Antecedentes penales 2 años residencia + declaración 5 años.",
     ],
     bullets: [
-      "200% SMI — OK BOE + one.gob.es; no redondear «2 800» en contrato si umbral 2 849.",
+      "200% SMI — OK BOE + one.gob.es; no redondear «2 800» en contrato si umbral 2 442.",
       "20% ES clients — contabilizar antes de solicitud; gestoría puede reestructurar facturación.",
       "Empresa extranjera — certificado registro mercantil ≥1 año actividad.",
       "Cuenta ajena — carta employer autorizando remote desde ES.",
@@ -192,7 +192,7 @@ const bodySections: NoteBodySection[] = [
 
 const keyTakeaways = [
   "Официально: DNV из третьей страны — виза D в консульстве вашей зоны; UGE только при легальном пребывании в ES; extranjería/ICPPlus — TIE и последующие trámites, не первичная заявка из РФ.",
-  "Официально: 200% SMI 2026 ≈ 2 849 €/мес (SMI 1 221 €, BOE RD 126/2026); семья +75%/+25% SMI; autónomo — не больше 20% дохода от клиентов в Испании (one.gob.es).",
+  "Официально: 200% SMI 2026 ≈ 2 442 €/мес (SMI 1 221 €, BOE RD 126/2026); семья +75%/+25% SMI; autónomo — не больше 20% дохода от клиентов в Испании (one.gob.es).",
   formatPracticeTakeaway({
     channels: ["spain_granitsa", "spainchats"],
     period: "2025–2026",
@@ -215,7 +215,7 @@ const faq: CommunityNoteFaq[] = [
   },
   {
     q: "Сколько дохода нужно в 2026?",
-    a: "По правилам — 200% SMI: **2 849 €/mes** titular (SMI 1 221 € BOE 2026). Familia: +75% SMI primer miembro, +25% adicionales. На практике conviene margen sobre umbral por tipo de cambio.",
+    a: "По правилам — 200% SMI: **2 442 €/mes** titular (SMI 1 221 € BOE 2026). Familia: +75% SMI primer miembro, +25% adicionales. На практике conviene margen sobre umbral por tipo de cambio.",
   },
   {
     q: "Можно работать на испанского клиента?",
@@ -233,12 +233,12 @@ export const DNV_UGE_GUIDE = {
   content_kind: "guide" as ContentKind,
   title: "DNV Испания: consulado vs UGE — маршрут Valencia 2026",
   excerpt:
-    "Teletrabajo internacional: consulado o UGE, umbral 2 849 €/mes, regla 20% y qué no es residencia — guía práctica para RU/BY antes del visado D y TIE en Valencia.",
+    "Teletrabajo internacional: consulado o UGE, umbral 2 442 €/mes, regla 20% y qué no es residencia — guía práctica para RU/BY antes del visado D y TIE en Valencia.",
   seo_title: "DNV Valencia 2026 — consulado vs UGE teletrabajo",
   seo_description:
-    "Digital nomad España 2026: consulado vs UGE, 2 849 €/mes (200% SMI), 20% clientes ES. Visado D, TIE Valencia, mitos estudios y Schengen — guía RU/BY.",
+    "Digital nomad España 2026: consulado vs UGE, 2 442 €/mes (200% SMI), 20% clientes ES. Visado D, TIE Valencia, mitos estudios y Schengen — guía RU/BY.",
   quick_answer:
-    "Desde fuera de España el teletrabajo (DNV) se tramita en el **consulado** de su demarcación: visado D hasta 1 año, umbral **≈2 849 €/mes** (200% SMI 2026, BOE 1 221 €). **UGE** solo si ya está en **estancia legal** en ES — no sustituye visado ni sirve al turista Schengen. Extranjería/ICPPlus en Valencia es para **TIE** después del visado, no la solicitud inicial. Autónomo: máx. **20%** ingresos de clientes españoles. Pillar completo en emigro.online/ru/guides/vnj-ispaniya-2026; aquí canal, paquete y mes 4–6 (SS/Hacienda).",
+    "Desde fuera de España el teletrabajo (DNV) se tramita en el **consulado** de su demarcación: visado D hasta 1 año, umbral **≈2 442 €/mes** (200% SMI 2026, BOE 1 221 €). **UGE** solo si ya está en **estancia legal** en ES — no sustituye visado ni sirve al turista Schengen. Extranjería/ICPPlus en Valencia es para **TIE** después del visado, no la solicitud inicial. Autónomo: máx. **20%** ingresos de clientes españoles. Pillar completo en emigro.online/ru/guides/vnj-ispaniya-2026; aquí canal, paquete y mes 4–6 (SS/Hacienda).",
   body_sections: bodySections,
   body_paragraphs: flattenBodySections(bodySections),
   key_takeaways: keyTakeaways,

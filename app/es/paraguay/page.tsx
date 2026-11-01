@@ -19,7 +19,7 @@ export const revalidate = 3600;
 export const metadata: Metadata = pageMetadata({
   title: "Residencia en España para paraguayos 2026",
   description:
-    "Cómo emigrar a España desde Paraguay 2026: Schengen corto ≠ residencia. Nómada digital (~€2.849), no lucrativa y nacionalidad en 2 años (art. 22).",
+    "Cómo emigrar a España desde Paraguay 2026: Schengen corto ≠ residencia. Nómada digital (~€2.442), no lucrativa y nacionalidad en 2 años (art. 22).",
   path: ES_PATHS.paraguay,
   locale: "es",
   esHreflang: { originIso: "PY", destinationIso: "ES" },

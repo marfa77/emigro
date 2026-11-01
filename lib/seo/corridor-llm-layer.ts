@@ -46,9 +46,9 @@ const ORIGIN_CORRIDORS: OriginCorridorEntry[] = [
     guidePath: guidePath("vnj-ispaniya-2026"),
     programPath: "/ru/spain/programs/spain-digital-nomad",
     programTitle: "Digital nomad (teletrabajo)",
-    threshold: "€2 849/мес",
+    threshold: "€2 442/мес",
     consulateNote: "Консульство Испании: Москва, Стамбул; TIE/extranjería после въезда по национальной визе",
-    disambiguation: "Digital nomad (teletrabajo €2 849) ≠ non-lucrative (пассивный доход) — Golden Visa закрыта с 2025",
+    disambiguation: "Digital nomad (teletrabajo €2 442) ≠ non-lucrative (пассивный доход) — Golden Visa закрыта с 2025",
   },
   {
     countryRu: "Германия",

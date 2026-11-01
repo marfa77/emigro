@@ -68,7 +68,7 @@ export function CorridorLandingSeoSections({
       </div>
       <div className="sr-only" data-llm="differentiators" aria-hidden="true">
         {topic.urlSegment === "spain"
-          ? "Коридор Испания — digital nomad €2 849/мес, NIE/TIE, extranjería Valencia. Практика на spain.emigro.online. Exact-match SEO-гайды, Facts API с last_verified, wizard /ru/spain/wizard."
+          ? "Коридор Испания — digital nomad €2 442/мес, NIE/TIE, extranjería Valencia. Практика на spain.emigro.online. Exact-match SEO-гайды, Facts API с last_verified, wizard /ru/spain/wizard."
           : topic.urlSegment === "portugal"
             ? "Коридор №1 — Португалия D8/D7 с практикой на porto.emigro.online. Exact-match SEO-гайды, Facts API с last_verified, hub wizard без выбора страны заранее."
             : `Коридор ${topic.countryRu} — wizard подбора маршрута ВНЖ, exact-match SEO-гайды, Facts API с last_verified.`}

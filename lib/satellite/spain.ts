@@ -8,7 +8,7 @@ export const SPAIN_SATELLITE = {
   cityRu: "Валенсия",
   title: "Испания — практика для релокантов",
   tagline:
-    "Практика для релокантов в Испании (Valencia, Madrid, Barcelona): NIE, TIE, digital nomad €2 849/мес, аренда. Короткие материалы редакции Emigro — навигация по #хэштегам.",
+    "Практика для релокантов в Испании (Valencia, Madrid, Barcelona): NIE, TIE, digital nomad €2 442/мес, аренда. Короткие материалы редакции Emigro — навигация по #хэштегам.",
   sourceChannel: "spain_granitsa",
   /** Third-party relocant chats — sole sources for field-practice signals. */
   sourceChannels: [

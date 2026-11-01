@@ -2,9 +2,9 @@
 slug: residencia-espana-desde-colombia-2026
 title: "Residencia en España para colombianos 2026"
 seo_title: "Residencia España colombianos 2026 — 2 años"
-seo_description: "Colombianos en España 2026: Schengen 90 días ≠ residencia. Nómada digital (~€2.849), no lucrativa, Bogotá/BLS, apostilla y nacionalidad en 2 años (art. 22)."
+seo_description: "Colombianos en España 2026: Schengen 90 días ≠ residencia. Nómada digital (~€2.442), no lucrativa, Bogotá/BLS, apostilla y nacionalidad en 2 años (art. 22)."
 excerpt: "Guía pillar: turista Schengen vs vivir en España con pasaporte CO. Rutas 2026, documentos desde Colombia y horizonte de nacionalidad española a 2 años."
-quick_answer: "Colombia suele entrar a Schengen sin visado (90/180), pero residir exige vía nacional: nómada digital (~€2.849/mes 2026), no lucrativa, trabajo, estudios o reagrupación. Art. 22 CC: ~2 años de residencia legal continua para nacionalidad (CCSE; DELE suele exento por español oficial). NL se tramita en consulado/BLS — no planifique turista→NL. Emigro: rutas + fuentes oficiales + evaluador /es/wizard."
+quick_answer: "Colombia suele entrar a Schengen sin visado (90/180), pero residir exige vía nacional: nómada digital (~€2.442/mes 2026), no lucrativa, trabajo, estudios o reagrupación. Art. 22 CC: ~2 años de residencia legal continua para nacionalidad (CCSE; DELE suele exento por español oficial). NL se tramita en consulado/BLS — no planifique turista→NL. Emigro: rutas + fuentes oficiales + evaluador /es/wizard."
 corridor_slugs: [es-speaking-colombia-to-spain, es-speaking-latam-to-europe]
 topic_keys: [spain, colombia, visa, residence]
 tags: [España, Colombia, residencia, nómada digital, no lucrativa, nacionalidad, 2026, co]
@@ -90,7 +90,7 @@ El **Artículo 22.1 del Código Civil español** reduce a **2 años** el plazo d
 | Aspecto | Detalle |
 |---|---|
 | ¿Para quién? | Trabajadores remotos para empresas **fuera de España** |
-| Ingresos mínimos | **€2,849/mes** (200% del SMI prorrateado) |
+| Ingresos mínimos | **€2,442/mes** (200% del SMI mensual €1.221, criterios UGE). Familia: +€915,75 el primero y +€305,25 cada siguiente |
 | ¿Puedo trabajar en España? | No. Solo remoto para el extranjero |
 | ¿Cuenta para los 2 años de nacionalidad? | Sí |
 | Duración | 1 año, renovable por 2 años |
@@ -246,7 +246,7 @@ El CCSE tiene 25 preguntas y necesitas 15 aciertos. No es difícil, pero requier
 | Aspecto | España | Portugal |
 |---|---|---|
 | Sin visado Schengen | ✅ 90 días | ✅ 90 días |
-| Nómada digital | €2,849/mes | €3,680/mes |
+| Nómada digital | €2,442/mes | €3,680/mes |
 | No lucrativa / rentista | €2,400/mes | €920/mes |
 | Nacionalidad | **2 años** | 10 años |
 | Idioma para nacionalidad | Exento DELE (CCSE sí) | A2 portugués |
@@ -268,7 +268,7 @@ No. España acepta la doble nacionalidad con Colombia (convenio bilateral). Cons
 
 ### ¿Puedo traer a mi familia desde el inicio?
 
-Sí. Con la Nómada Digital o la No Lucrativa puedes solicitar reagrupación familiar para cónyuge e hijos menores. Necesitas acreditar ingresos adicionales (+€600/mes por familiar).
+Sí, con ingresos adicionales. En no lucrativa el orientativo habitual es +€600/mes por familiar (100% IPREM). En nómada digital la UGE suma €915,75 por el primer familiar y €305,25 por cada siguiente (75% y 25% del SMI mensual).
 
 ### ¿Cuánto tarda el trámite de nacionalidad después de los 2 años?
 

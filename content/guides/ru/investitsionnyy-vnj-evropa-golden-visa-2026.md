@@ -152,7 +152,7 @@ Transactional shortlist Emigro: [/ru/invest/portugal](/ru/invest/portugal).
 
 ### Куда смотреть вместо инвестиций в ES
 
-- **Digital Nomad Visa** — удалённая работа, порог ~€2 849/мес ([Digital nomad Испания 2026](/ru/guides/vnj-ispaniya-2026)).
+- **Digital Nomad Visa** — удалённая работа, порог ~€2 442/мес ([Digital nomad Испания 2026](/ru/guides/vnj-ispaniya-2026)).
 - **Non-lucrative** — пассивный доход ~€2 400+/мес без права работать; **начальная** подача — в **консульстве**, не «с туриста внутри страны» ([сравнение пассивных маршрутов](/ru/guides/vnj-bez-raboty-passivnyy-dohod-sberezheniya-2026)).
 - **Entrepreneur / autónomo** — отдельные маршруты с бизнес-планом, не путать с закрытым GV.
 
@@ -168,7 +168,7 @@ Transactional shortlist Emigro: [/ru/invest/portugal](/ru/invest/portugal).
 | **Elective Residency** | Италия | ~€31 000/год | Финансовая независимость |
 | **Non-lucrativa** | Испания | ~€2 400+/мес | Пассив, без работы в ES; старт с консульства |
 | **D8** | Португалия | ~€3 680/мес | Удалённая работа |
-| **Digital nomad** | Испания | ~€2 849/мес | Удалёнка, 200% SMI |
+| **Digital nomad** | Испания | ~€2 442/мес | Удалёнка, 200% SMI |
 | **Digital nomad** | Италия | ~€24 789/год (часто €28k+ в консульстве) | Формула 3× esenzione; практика консульств выше |
 
 **ОАЭ:** резиденция через недвижимость от ~**AED 2M** или фризону — **не EU**, но популярный хаб перед европейской подачей. См. [ОАЭ для россиян 2026](/ru/guides/oae-dlya-rossiyan-2026).

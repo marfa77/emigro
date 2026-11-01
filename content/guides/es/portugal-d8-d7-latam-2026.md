@@ -143,7 +143,7 @@ Igual que la D8: **visto D en consulado** → AIMA. No use turista como vía por
 
 | Aspecto | Portugal D8 | España DN | Portugal D7 | España NL |
 |---|---|---|---|---|
-| **Ingresos mínimos** | €3,680/mes | €2,849/mes | €920/mes | €2,400/mes |
+| **Ingresos mínimos** | €3,680/mes | €2,442/mes | €920/mes | €2,400/mes |
 | **Duración (orientativo)** | Visto D + TAR (confirme AIMA) | ~1 año tip. DN | Visto D + TAR | ~1 año tip. NL |
 | **Total hasta PMP** | 5 años | 5 años | 5 años | 5 años |
 | **Nacionalidad** | **7 años** (CPLP/BR) / **10** (resto LATAM) | **2 años** (iberoamericanos) | **7 / 10** | **2 años** (iberoamericanos) |

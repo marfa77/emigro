@@ -10,7 +10,7 @@
 | **Cluster internal linking** (PT / ES / BY) | Implemented | Narrows crawl paths from corridor → pillar → checklist → satellite → Barakhlo |
 | **CTR title/meta** (top-10 long-tail URLs) | Implemented | Hooks with 2026 numbers + RU/BY intent in `query-longtail.ts` + guide frontmatter |
 | **Spain satellite parity** | Implemented | Homepage block, pillar links on notes, enriched hub meta |
-| **Corridor FAQ 2026 numbers** | Implemented | PT (D8 €3 680 / D7 €920) and ES (DNV €2 849) on landing pages |
+| **Corridor FAQ 2026 numbers** | Implemented | PT (D8 €3 680 / D7 €920) and ES (DNV €2 442) on landing pages |
 
 ## Cluster map
 

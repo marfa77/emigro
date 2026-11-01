@@ -52,7 +52,7 @@ Diferencia clave con otras vías:
 | Vía | ¿Trabajo en España? | ¿Trabajo remoto para el extranjero? | Ingresos mínimos 2026 |
 |---|---|---|---|
 | **No lucrativa (NL)** | ❌ No | ❌ No (no es la vía; use DN) | €2,400/mes titular |
-| Nómada digital (DN) | ❌ No | ✅ Sí, es el propósito | €2,849/mes titular |
+| Nómada digital (DN) | ❌ No | ✅ Sí, es el propósito | €2,442/mes titular |
 | Trabajo por cuenta ajena | ✅ Sí, con contrato español | No aplica | Según convenio colectivo |
 | Trabajo autónomo | ✅ Sí, alta en RETA | Depende | Según actividad |
 

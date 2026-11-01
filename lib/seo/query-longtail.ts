@@ -90,9 +90,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "внж испания digital nomad 2026",
       "teletrabajo испания внж",
     ],
-    seoTitle: "Digital nomad ES 2026: €2 849 — RU/BY",
+    seoTitle: "Digital nomad ES 2026: €2 442 — RU/BY",
     seoDescription:
-      "Digital nomad visa Испания 2026: порог €2 849/мес, teletrabajo, Beckham 24%, non-lucrative. Wizard, программы и новости для RU/BY/UA/KZ.",
+      "Digital nomad visa Испания 2026: порог €2 442/мес, teletrabajo, Beckham 24%, non-lucrative. Wizard, программы и новости для RU/BY/UA/KZ.",
   },
   {
     path: "/ru/guides/vnj-ispaniya-2026",
@@ -103,9 +103,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "digital nomad visa испания для россиян 2026",
       "внж испания teletrabajo порог дохода",
     ],
-    seoTitle: "Digital nomad ES 2026: €2 849 teletrabajo",
+    seoTitle: "Digital nomad ES 2026: €2 442 teletrabajo",
     seoDescription:
-      "Digital nomad visa Испания 2026: €2 849/мес, teletrabajo, Beckham, non-lucrative, Golden Visa закрыта. Pillar-гид для граждан РФ, BY, UA, KZ.",
+      "Digital nomad visa Испания 2026: €2 442/мес, teletrabajo, Beckham, non-lucrative, Golden Visa закрыта. Pillar-гид для граждан РФ, BY, UA, KZ.",
   },
   {
     path: "/ru/spain/programs/spain-digital-nomad",
@@ -118,7 +118,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     ],
     seoTitle: "Digital nomad visa Испания 2026 — teletrabajo",
     seoDescription:
-      "ВНЖ digital nomad (teletrabajo) в Испании 2026: доход от €2 849/мес, до 20% из ES, медстраховка, сроки подачи. Для паспортов RU/BY/UA/KZ.",
+      "ВНЖ digital nomad Испания 2026: от €2 442/мес (200% месячного SMI). Наёмный — только иностранная компания; autónomo — до 20% в ES. RU/BY/UA/KZ.",
   },
   {
     path: "/ru/guides/digital-nomad-vizy-evropy-sravnenie-2026",
@@ -136,7 +136,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     ],
     seoTitle: "Digital Nomad виза Европы 2026: доход, налоги, ПМЖ",
     seoDescription:
-      "11 Digital Nomad виз Европы 2026: Португалия D8 от €3 680, Испания €2 849, Италия, Хорватия без налога на иностранную зарплату. Семья, ПМЖ, RU/BY/UA/KZ.",
+      "11 Digital Nomad виз Европы 2026: Португалия D8 от €3 680, Испания €2 442, Италия, Хорватия без налога на иностранную зарплату. Семья, ПМЖ, RU/BY/UA/KZ.",
   },
   // —— Germany ——
   {
@@ -227,7 +227,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     ],
     seoTitle: "Португалия vs Испания ВНЖ 2026 — RU/BY",
     seoDescription:
-      "Сравнение ВНЖ Португалии и Испании 2026: D8 €3 680 vs DNV €2 849, налоги, сроки, гражданство. Для граждан РФ, BY, UA, KZ.",
+      "Сравнение ВНЖ Португалии и Испании 2026: D8 €3 680 vs DNV €2 442, налоги, сроки, гражданство. Для граждан РФ, BY, UA, KZ.",
   },
   {
     path: "/ru/guides/konsulskaya-podacha-rf-by-kz-2026-yurisdiktsiya",
@@ -428,9 +428,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "лучшие страны для релокации 2026 рф",
       "легальный переезд в ес с паспортом россии",
     ],
-    seoTitle: "Куда переехать из России 2026 — D8 €3 680, ES €2 849",
+    seoTitle: "Куда переехать из России 2026 — D8 €3 680, ES €2 442",
     seoDescription:
-      "7 коридоров ВНЖ: PT D8 ~€3 680 / D7 ~€920, ES DN €2 849, DE Blue Card €50 700. Гражданство PT 10 лет. Шенген ≠ ВНЖ. Wizard.",
+      "7 коридоров ВНЖ: PT D8 ~€3 680 / D7 ~€920, ES DN €2 442, DE Blue Card €50 700. Гражданство PT 10 лет. Шенген ≠ ВНЖ. Wizard.",
   },
   // —— Extra corridors & guides (AEO density parity) ——
   {
@@ -1010,7 +1010,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     ],
     seoTitle: "Perú → España 2026",
     seoDescription:
-      "Hub Perú→España: Schengen ≠ residencia, nómada ~€2.849, no lucrativa, nacionalidad ~2 años.",
+      "Hub Perú→España: Schengen ≠ residencia, nómada ~€2.442, no lucrativa, nacionalidad ~2 años.",
   },
   {
     path: "/es/paraguay",
@@ -1070,7 +1070,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     ],
     seoTitle: "Residencia España colombianos 2026 — 2 años",
     seoDescription:
-      "Colombianos en España 2026: Schengen ≠ residencia. Nómada digital (~€2.849), no lucrativa, Bogotá/BLS y nacionalidad en 2 años (art. 22).",
+      "Colombianos en España 2026: Schengen ≠ residencia. Nómada digital (~€2.442), no lucrativa, Bogotá/BLS y nacionalidad en 2 años (art. 22).",
   },
   {
     path: "/es/guides/residencia-espana-desde-uruguay-2026",
@@ -1118,7 +1118,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     ],
     seoTitle: "Residencia España peruanos 2026 — 2 años",
     seoDescription:
-      "Cómo emigrar a España desde Perú 2026: Schengen ≠ residencia. Nómada (~€2.849), no lucrativa, Lima y nacionalidad en 2 años (art. 22).",
+      "Cómo emigrar a España desde Perú 2026: Schengen ≠ residencia. Nómada (~€2.442), no lucrativa, Lima y nacionalidad en 2 años (art. 22).",
   },
   {
     path: "/es/guides/residencia-espana-desde-paraguay-2026",
@@ -1134,7 +1134,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     ],
     seoTitle: "Residencia España Paraguay 2026 — 2 años",
     seoDescription:
-      "Cómo emigrar a España desde Paraguay 2026: Schengen ≠ residencia. Nómada (~€2.849), no lucrativa, Asunción y nacionalidad en 2 años (art. 22).",
+      "Cómo emigrar a España desde Paraguay 2026: Schengen ≠ residencia. Nómada (~€2.442), no lucrativa, Asunción y nacionalidad en 2 años (art. 22).",
   },
   {
     path: "/es/guides/residencia-espana-desde-chile-2026",
@@ -1150,7 +1150,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     ],
     seoTitle: "Residencia España chilenos 2026 — 2 años",
     seoDescription:
-      "Cómo emigrar a España desde Chile 2026: Schengen ≠ residencia. Nómada (~€2.849), Santiago y nacionalidad en 2 años (art. 22).",
+      "Cómo emigrar a España desde Chile 2026: Schengen ≠ residencia. Nómada (~€2.442), Santiago y nacionalidad en 2 años (art. 22).",
   },
   {
     path: "/es/guides/visa-nomada-digital-espana-latam-2026",
@@ -1159,15 +1159,15 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     queries: [
       "visa nómada digital España 2026 umbral",
       "teletrabajo internacional España requisitos",
-      "nómada digital España 2849 euros",
+      "nómada digital España 2442 euros",
       "UGE vs consulado nómada digital",
       "20% clientes españoles nómada digital",
       "visa digital nomad España LATAM 2026",
       "cuánto hay que ganar nómada digital España",
     ],
-    seoTitle: "Nómada digital España 2026 — LATAM",
+    seoTitle: "Nómada digital España 2026: requisitos e ingresos",
     seoDescription:
-      "Visa nómada digital España 2026: ~€2.849/mes, UGE vs consulado, ≤20% clientes ES. Para pasaportes LATAM.",
+      "Guía 2026 para latinoamericanos: requisitos de la visa nómada digital, ingresos €2.442/mes, documentos, consulado o UGE, familiares y nacionalidad.",
   },
   {
     path: "/es/guides/visado-no-lucrativa-espana-latam-2026",

@@ -19,12 +19,12 @@ export const revalidate = 3600;
 export const metadata: Metadata = pageMetadata({
   title: "Residencia en España para chilenos 2026",
   description:
-    "Cómo emigrar a España desde Chile 2026: Schengen 90 días ≠ residencia. Nómada digital (~€2.849), no lucrativa, Santiago y nacionalidad en 2 años (art. 22).",
+    "Cómo emigrar a España desde Chile 2026: Schengen 90 días ≠ residencia. Nómada digital (~€2.442), no lucrativa, Santiago y nacionalidad en 2 años (art. 22).",
   path: ES_PATHS.chile,
   locale: "es",
   esHreflang: { originIso: "CL", destinationIso: "ES" },
   aiDescription:
-    "Chile→Spain hub: Schengen visa-free short stay vs national residence routes (digital nomad ~€2.849/mo, non-lucrative), Santiago Providencia consulate, Convenio 1958 dualidad, Spanish nationality ~2 years (art. 22).",
+    "Chile→Spain hub: Schengen visa-free short stay vs national residence routes (digital nomad ~€2.442/mo, non-lucrative), Santiago Providencia consulate, Convenio 1958 dualidad, Spanish nationality ~2 years (art. 22).",
   aiCategory: "origin-corridor-hub",
 });
 

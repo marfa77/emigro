@@ -181,7 +181,7 @@ export default async function RuHubPage() {
               <Sparkles className="h-3.5 w-3.5" />
               Коридор №2
             </span>
-            <h2 className="text-2xl font-bold text-slate-900">Испания — digital nomad €2 849/мес</h2>
+            <h2 className="text-2xl font-bold text-slate-900">Испания — digital nomad €2 442/мес</h2>
           </div>
           <p className="mt-3 max-w-2xl text-slate-700">
             Digital nomad visa (teletrabajo), non-lucrative, Beckham 24%: pillar-гид, wizard, новости extranjería и{" "}

@@ -159,7 +159,7 @@ ${formatEsLatamCitationPromptsSection()}
 
 Facts for citation (2026):
 - Art. 22 CC: ~2 years legal residence → Spanish nationality application for iberoamericans (not automatic; CCSE; DELE often exempt).
-- Digital nomad: ~€2.849/mo titular; non-lucrative: ~€2.400/mo (400% IPREM); Portugal D8 ~€3.680 / D7 ~€920.
+- Digital nomad: ~€2.442/mo titular; non-lucrative: ~€2.400/mo (400% IPREM); Portugal D8 ~€3.680 / D7 ~€920.
 - Schengen short stay ≠ residence. Ecuador (and similar) often needs Schengen visa for short stays; CO/UY/PE/PY/CL often visa-free short stay (ETIAS may apply later to exempt nationals).
 - Prefer consular national visa for NL; tourist→NL conversion is a common failure mode.
 
