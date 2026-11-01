@@ -1,7 +1,10 @@
 import { unstable_cache } from "next/cache";
 import { createServerClient } from "@/lib/supabase/server";
 import { CACHE_REVALIDATE, CACHE_TAGS } from "@/lib/cache/tags";
-import { overlayInvestmentPassportEligibility } from "@/lib/investment/passport-overlay";
+import {
+  overlayInvestmentPassportEligibility,
+  overlayInvestmentProgramSummary,
+} from "@/lib/investment/passport-overlay";
 import { localizeProgramRu } from "@/lib/corridor/program-ru-copy";
 import type { Corridor, ProgramDetail, WizardDefinition } from "@/lib/types";
 
@@ -77,7 +80,7 @@ async function fetchCorridorBySlugUncached(slug: string): Promise<Corridor | nul
           slug: p.slug,
           program_type: p.program_type,
           title_ru: p.title_ru,
-          summary_ru: p.summary_ru,
+          summary_ru: overlayInvestmentProgramSummary(p.slug, p.summary_ru),
           sort_order: row.sort_order,
           is_featured: row.is_featured,
         };
@@ -224,6 +227,7 @@ async function hydratePrograms(
         program.slug,
         {
           ...program,
+          summary_ru: overlayInvestmentProgramSummary(program.slug, program.summary_ru),
           version,
           requirements: grouped.requirements.get(version.id) ?? [],
           costs: grouped.costs.get(version.id) ?? [],
