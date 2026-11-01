@@ -1,468 +1,799 @@
 /**
- * Full Portugal destination atlas from user travel notes (Aug 2026).
- * Keep all regions, food notes, combinations and link lists — overlays only.
+ * Day trips and longer routes from Porto — published from the editorial draft.
+ * Weekday of Feira de Espinho corrected to Monday (Turismo de Espinho); the rest is the draft.
  */
 import { flattenBodySections } from "@/lib/community-notes/editorial-quality";
-import { glossaryForSlug } from "@/lib/community-notes/editorial-glossaries";
-import { buildGlossarySection } from "@/lib/community-notes/glossary";
 import { buildNoteHashtags } from "@/lib/community-notes/hashtags";
-import { formatPracticeTakeaway } from "@/lib/community-notes/practice-format";
-import { CAR_PORTUGAL_GUIDE_SLUG } from "@/lib/community-notes/guides/car-portugal-buy-rent-import";
-import { DOMESTIC_TOURISM_NORTE_SLUG } from "@/lib/community-notes/guides/domestic-tourism-portugal-norte";
-import { FESTIVALS_PORTUGAL_2026_SLUG } from "@/lib/community-notes/guides/festivals-portugal-2026";
-import { GASTRONOMY_NORTE_SLUG } from "@/lib/community-notes/guides/gastronomy-norte-portugal";
-import { PORTUGAL_REGIONS_EXPAT_GUIDE_SLUG } from "@/lib/community-notes/guides/portugal-regions-expat-guide";
-import { TOLLS_FINES_ACCIDENTS_GUIDE_SLUG } from "@/lib/community-notes/guides/tolls-fines-accidents-norte-portugal";
-import { PORTO_VS_BRAGA_FAMILY_SCHOOLS_SLUG } from "@/lib/community-notes/guides/porto-vs-braga-family-schools";
-import { WINES_WINERIES_NORTE_SLUG } from "@/lib/community-notes/guides/wines-wineries-norte-portugal";
-import { ROLE_RADAR_LANDING_PATH } from "@/lib/role-radar";
-import type {
-  CommunityNoteFaq,
-  ContentKind,
-  NoteBodySection,
-  NoteBodyTable,
-} from "@/lib/community-notes/types";
+import type { CommunityNoteFaq, ContentKind, NoteBodyImage, NoteBodySection } from "@/lib/community-notes/types";
 
 export const PORTUGAL_DESTINATION_TIPS_SLUG = "portugal-destination-tips-regiony-2026";
 
-const LGOTY_SLUG = "lgoty-s-vnj-kulturnye-mesta-2026";
-
-const GLOSSARY_INTRO =
-  "Слова с ementa, с билета Parques de Sintra и с табло Linha do Douro — чтобы bica, traveseiro и Acesso 52 не путались, пока вы уже живёте в Norte и собираете поездку, а не «три дня через Лиссабон».";
-
-function trio(character: string, bestFor: string, combine: string): NoteBodyTable {
+function shot(
+  file: string,
+  alt: string,
+  caption: string,
+  credit: string,
+  creditUrl: string,
+): NoteBodyImage {
   return {
-    columns: ["Характер", "Для кого", "С чем сочетать"],
-    rows: [[character, bestFor, combine]],
+    src: `/images/community-notes/${file}`,
+    alt,
+    caption,
+    credit,
+    creditUrl,
+    fit: "cover",
   };
 }
 
 const bodySections: NoteBodySection[] = [
   {
-    ...buildGlossarySection(glossaryForSlug(PORTUGAL_DESTINATION_TIPS_SLUG)!, GLOSSARY_INTRO),
-  },
-  {
-    heading: "Nota Emigro (fact-check)",
-    section_kind: "official",
+    heading: "Порту — отличная база для путешествий по Португалии",
     paragraphs: [
-      "Ниже — полный атлас личных travel notes (обзор август 2026): места, еда, дневные петли и ссылки. Это не юридическая консультация и не обещание часов работы. Даты фестивалей и билеты перепроверяйте на официальных страницах перед выездом.",
-      "OK: Feira Nacional do Cavalo в Golegã на 2026 VisitPortugal ставит **6–15 ноября** (feiranacionaldocavalo.com). Acesso 52 — программа Museus e Monumentos de Portugal: до **52 бесплатных дней в год** в участвующих музеях/дворцах для residentes с NIF; правила и список объектов — museusemonumentos.pt / gov.pt, не блог. Soft: «вторая в мире коллекция меди» на кухнях Palácio da Vila и «здесь всегда пил Байрон» — легенды гидов, не hard-факт. История Педру и Инеш (в т.ч. коронация тела) — средневековая традиция/хроника, не инструкция к визиту. Caretos de Podence — живой Entrudo, не отдельная «языческая религия». Список вакансий в конце PDF — не подбор работы Emigro.",
-      "Главное: часы, слоты и льготы residente сверяйте в день поездки; этот текст держит карту мест, а не кассу.",
-    ],
-    bullets: [
-      "Откройте Visit Portugal как национальную точку входа: visitportugal.com.",
-      "Для дворцов Sintra/Queluz — parquesdesintra.pt, не только TripAdvisor.",
-      "Acesso 52: museusemonumentos.pt (bilhetes) + [льготы с ВНЖ](/notes/" + LGOTY_SLUG + ").",
-      "Golegã 2026: 6–15 ноября на странице VisitPortugal события.",
-      "Выходные из Porto на 1–2 дня — отдельный гайд [внутренний туризм Norte](/notes/" + DOMESTIC_TOURISM_NORTE_SLUG + ").",
+      "Порту — отличная база для путешествий по Португалии. За час можно оказаться в средневековом городе, за полтора — среди виноградников долины Дору, а за два — в горах национального парка Peneda-Gerês. Если есть машина и свободные выходные, выбор становится ещё интереснее.",
+      "Мы собрали маршруты, которые действительно хочется проехать: рыбацкие города, старинные мосты, дворцы, винодельни, горные деревни, океанские пляжи и места, где туристов заметно меньше, чем в центре Порту.",
+      "Это не рейтинг достопримечательностей и не список из сотни точек на карте. Это путеводитель для тех, кто живёт в Порту или приехал сюда надолго и хочет постепенно открыть для себя страну.",
+      "Для каждого маршрута мы указали, сколько времени закладывать, нужен ли автомобиль, что посмотреть, где остановиться и какие точки добавить в Google Maps.",
     ],
   },
   {
-    heading: "Как читать этот атлас, если вы уже в Porto",
-    section_kind: "action_guide",
-    paragraphs: [
-      "Заметки собраны как личный справочник: не энциклопедия всех памятников, а характер регионов и рабочие связки. Lisbon + Sintra сидят рядом. Sesimbra–Arrábida–Setúbal–Palmela — прибрежный кластер южнее Лиссабона. Tomar, Almourol и Constância — тамплиерская/речная петля. Coimbra хорошо стыкуется с Conímbriga, Buçaco и Luso. Nazaré, Batalha, Alcobaça и Óbidos — западный Centro на машине. Guimarães, Braga и Barcelos легко из Porto; Peneda-Gerês просит больше времени. Верхний Douro: scenic train до Pocinho, последние ~7 км до Vila Nova de Foz Côa по дороге.",
-      "Если цель — суббота без отпуска, сначала [выходные из Porto](/notes/" +
-        DOMESTIC_TOURISM_NORTE_SLUG +
-        "). Этот текст — когда хотите карту всей страны: Лиссабон, Ribatejo, Centro, Alentejo, Madeira. Климат и «где жить» — [регионы для экспатов](/notes/" +
-        PORTUGAL_REGIONS_EXPAT_GUIDE_SLUG +
-        "). Машина и portagens — [авто](/notes/" +
-        CAR_PORTUGAL_GUIDE_SLUG +
-        ") и [tolls](/notes/" +
-        TOLLS_FINES_ACCIDENTS_GUIDE_SLUG +
-        ").",
-      "Главное: из Norte на 1–2 дня берите Minho/Douro/Gerês; этот атлас — для петель на 2–5 дней и «куда ещё», когда карта Porto уже знакома.",
-    ],
+    heading: "Сначала выберите направление",
+    table: {
+      columns: ["Если у вас есть", "Куда ехать"],
+      rows: [
+        ["Полдня", "Vila do Conde, Espinho, Afurada"],
+        ["Один день", "Braga, Guimarães, Aveiro, Amarante"],
+        ["Полный день на природе", "Arouca, Gerês"],
+        ["Выходные", "Douro, Viana do Castelo, Minho"],
+        ["2–3 дня", "Serra da Estrela, Coimbra, Trás-os-Montes"],
+        ["3–5 дней", "Silver Coast, Tomar, Alentejo"],
+        ["Неделя", "Lisbon, Sintra и южное побережье"],
+        ["Отдельный отпуск", "Madeira"],
+      ],
+    },
     bullets: [
-      "Решите заранее: это суббота из Porto или мини-отпуск 3–5 дней.",
-      "Выберите один кластер ниже — не три региона за выходные.",
-      "Сверьте CP, паром и слот дворца на официальном сайте в день выезда.",
-      "Закройте portagem и парковку до выезда, не на шлагбауме.",
-      "Еду региона читайте как характер места, не как рейтинг Michelin.",
+      "Маленькое правило: не пытайтесь посмотреть всю Португалию за один уикенд. Здесь гораздо интереснее ехать медленно, останавливаться в небольших городах и обедать там, где меню написано от руки.",
     ],
   },
   {
-    heading: "Кофе и еда: café, cheirinho, bolo de mel",
-    section_kind: "practice",
+    heading: "Vila do Conde и Póvoa de Varzim — океан, старые улочки и рыбацкий север",
     paragraphs: [
-      "Чёрный кофе по умолчанию — **um café** (в Лиссабоне часто **uma bica**): это эспрессо. Если нужен длиннее и больше воды — **um abatanado**. После кофе **café com cheirinho** — глоток крепкого (часто aguardente). Шутливая фраза «Tem alguma coisa para lavar a chávena?» («есть чем сполоснуть чашку?») — способ спросить про дижестив; иногда нальют «от заведения», рассчитывать на это нельзя.",
-      "**Bolo de mel** особенно стоит попробовать на Madeira: классика — bolo de mel de cana, тёмный пряный кекс на тростниковом сиропе, орехи и специи, хорошо хранится, связан с рождественской традицией острова, но продаётся весь год. Северная кухня Porto/Braga — в [гастрономии Norte](/notes/" +
-        GASTRONOMY_NORTE_SLUG +
-        ").",
-      "Главное: um café = эспрессо; abatanado — длиннее; cheirinho не входит в счёт по умолчанию.",
+      "Если хочется просто сесть в машину или метро и провести несколько часов у океана, отправляйтесь на север от Порту.",
+      "Vila do Conde — симпатичный исторический город у устья реки Ave. Здесь есть старый акведук, монастырь Santa Clara, небольшие площади и набережная, по которой приятно гулять без конкретной цели.",
+      "Обязательно загляните к Mosteiro de Santa Clara. Даже если вы не любитель религиозной архитектуры, силуэт монастыря и акведука стоит увидеть.",
+      "Дальше — Póvoa de Varzim. Это уже более выраженный курортный город с длинной набережной, казино, пляжами и ресторанами.",
+      "**Транспорт:** метро Porto до Vila do Conde / Póvoa de Varzim или автомобиль.",
+      "**Время:** полдня или неспешный день.",
+      "Google Maps: [Vila do Conde](https://www.google.com/maps/search/?api=1&query=Vila+do+Conde+Portugal) · [Mosteiro de Santa Clara](https://www.google.com/maps/search/?api=1&query=Mosteiro+de+Santa+Clara+Vila+do+Conde) · [Póvoa de Varzim](https://www.google.com/maps/search/?api=1&query=Povoa+de+Varzim+Portugal)",
     ],
     bullets: [
-      "Закажите um café / uma bica, если хотите стандартный эспрессо.",
-      "Скажите um abatanado, если нужен более длинный чёрный.",
-      "Не ждите бесплатный cheirinho — это жест, не правило.",
-      "Попробуйте bolo de mel de cana на Madeira, не путайте с обычным «медовым тортом».",
-      "Для Porto/Braga откройте отдельный гайд по кухне Norte.",
+      "Утро — прогулка по историческому центру Vila do Conde.",
+      "Кофе на берегу реки Ave.",
+      "Обед с рыбой или морепродуктами.",
+      "После обеда — пляж и набережная Póvoa de Varzim.",
+      "Если погода хорошая — задержитесь до заката.",
+    ],
+    images: [
+      shot(
+        "dest-vila-do-conde.webp",
+        "Акведук в Vila do Conde",
+        "Акведук Vila do Conde.",
+        "Nmmacedo, CC BY-SA 3.0, Wikimedia Commons",
+        "https://commons.wikimedia.org/wiki/File:Aqueduto_de_Vila_do_Conde.jpg",
+      ),
     ],
   },
   {
-    heading: "Lisbon и Sintra: дворцы, сады, бары с характером",
-    section_kind: "practice",
+    heading: "Espinho — пляж, океан и свежая рыба",
     paragraphs: [
-      "**Palácio dos Marqueses da Fronteira** (São Domingos de Benfica, XVII в.) — менее очевидный лиссабонский визит: изразцовые интерьеры и формальные сады, фонтаны, статуи, большие панели azulejos XVII века. Хороший выбор, если любите дома и сады без толпы у «главных» памятников. **Casa do Alentejo** у Rossio — культурный центр и ресторан в бывшем дворце (позже Majestic Club): неомавританский двор и комнаты в revival-стилях; архитектура — половина причины зайти, даже без полного обеда. **Palácio Nacional da Ajuda** — официальная королевская резиденция со времён D. Luís I до конца монархии: парадные залы XIX в., тронный зал; рядом Museu do Tesouro Real (регалии и золото).",
-      "Ещё по Лиссабону из заметок: Planetário de Marinha в Belém (семейный стоп к памятникам); Oceanário в Parque das Nações; Museu de Marinha («музей лодок») в Belém; реплика каравеллы **Vera Cruz** (APORVELA) — ходит между портами, проверяйте текущую стоянку; Museu Nacional de Arte Antiga; Quinta Pedagógica dos Olivais — муниципальная ферма, спокойный семейный выход. Рестораны и интерьеры: The Fifties (1950s diner в Oriente, скорее тема, чем португальский стол); Cervejaria Trindade (бывший Convento da Santíssima Trindade — зал и azulejos важнее меню). Бары: Pavilhão Chinês (бар-музей с тысячами курьёзов); Foxtrot; Procópio у Amoreiras (живое пианино бывает — смотрите афишу).",
-      "**Queluz** — дворец между Лиссабоном и Синтрой, часто сравнивают с Версалем из‑за рококо и партера; канал с изразцами, связь с королевской семьёй. **Sintra** не умещается в один день: пару «громких» точек плюс тихий Convento dos Capuchos или Monserrate. Capuchos — маленький францисканский монастырь XVI в. в пробке и камне, не дворец. Palácio Nacional de Sintra (два конических дымохода) — королевская резиденция, кухни с медной посудой; утверждение «вторая коллекция меди в мире» не подтверждаем — смотрите как местный колорит. Quinta da Regaleira — романтический парк, гроты, Initiation Well. Monserrate — дворец и ботанический сад без обязательного Pena. **Plataforma** — Harry Potter-атмосфера и pizza rodízio; отзывы на еду смешанные, смысл — тема, особенно с детьми. **Casa Piriquita** — travesseiro и queijadas. **Cantinho do Lord Byron** — имя Байрона (Sintra, 1809); «здесь он всегда пил» — легенда заведения, не архивная справка.",
-      "Главное: Sintra — не чеклист Pena+Regaleira за три часа; заложите тихий стоп и официальные слоты Parques de Sintra.",
-    ],
-    table: trio(
-      "Исторические дворцы, сады, old-world атмосфера",
-      "Архитектура, сады, еда, лёгкий day trip",
-      "Центр Лиссабона, Cascais или длинный Lisbon-area stay"
-    ),
-    bullets: [
-      "Заложите Fronteira или Ajuda, если не хотите только Belém-очередь.",
-      "Зайдите в Casa do Alentejo хотя бы посмотреть двор.",
-      "Купите Sintra на parquesdesintra.pt, не с уличного перекупа.",
-      "Добавьте Capuchos или Monserrate к одной «громкой» точке.",
-      "С Acesso 52 сверяйте, входит ли конкретный дворец в список MMP.",
+      "Espinho не пытается изображать старинную португальскую сказку. Это простой прибрежный город, куда едут ради широкого пляжа, океана и обеда.",
+      "Здесь можно провести совершенно незапланированный день: прогуляться вдоль воды, посидеть в кафе, поесть grilled fish и посмотреть, как местные серферы ловят волны.",
+      "Feira de Espinho — одна из интересных местных традиций города. По [Turismo de Espinho](https://www.turismo.espinho.pt/pt/turismo/feira-semanal/) большая еженедельная ярмарка проходит по понедельникам, обычно с 7:00 до 19:00.",
+      "**Как провести день:** рынок, пляж, обед, прогулка по набережной.",
+      "**Транспорт:** удобнее всего поездом из Porto.",
+      "**Время:** 3–5 часов.",
+      "Google Maps: [Feira de Espinho](https://www.google.com/maps/search/?api=1&query=Feira+de+Espinho) · [Praia de Espinho](https://www.google.com/maps/search/?api=1&query=Praia+de+Espinho) · [Маршрут Porto — Espinho](https://www.google.com/maps/dir/?api=1&origin=Porto+Portugal&destination=Espinho+Portugal)",
     ],
   },
   {
-    heading: "Sesimbra, Setúbal, Arrábida, Tróia и Palmela",
-    section_kind: "practice",
+    heading: "Afurada — маленькая рыбацкая Португалия напротив города",
     paragraphs: [
-      "**Sesimbra** — рыбацкий городок в бухте: пляж у центра, Castelo de Sesimbra сверху. Атлантика даже летом прохладная: VisitPortugal даёт ориентир средней летней температуры воды около **17–18 °C**. **Parque Natural da Arrábida** — зелёные холмы, известняковые обрывы, бухты (Portinho, Galapos, Figueirinha). В высокий сезон доступ и парковка у пляжей меняются — смотрите актуальные ограничения до поездки на машине. **Setúbal** — город, не курорт: choco frito, рынок Mercado do Livramento, эстуарий Саду. **Tróia** — узкий полуостров напротив Setúbal (не остров): длинные пляжи, курорт, гольф, казино; паром из Setúbal часто удобнее объезда. **Palmela** — холм и замок, виды на полуостров и винодельческий край Setúbal.",
-      "Почему кластер работает: Sesimbra даёт рыбацкий ритм, Arrábida — берег, Setúbal — еду, Palmela — вид, паром — Tróia. Простая форма дня: утро Sesimbra → дорога через Arrábida → обед choco frito в Setúbal → вечер в замке Palmela. Tróia лучше как отдельный полдень, если паром и пляж — цель, а не добавка.",
-      "Главное: это 1–2 дня южнее Лиссабона, не «заехать по пути из Porto на часок».",
-    ],
-    table: trio(
-      "Прибрежный кластер южнее Лиссабона: рыбацкие города, бухты, холмы",
-      "Морепродукты, купание, scenic drive, побег на 1–2 дня",
-      "Лиссабон, Azeitão, Cabo Espichel или длинный Setúbal Peninsula"
-    ),
-    bullets: [
-      "Не ждите тёплого моря: 17–18 °C летом — норма VisitPortugal, не «плохой год».",
-      "Перед Arrábida проверьте, не закрыли ли доступ к пляжам в сезон.",
-      "Ешьте choco frito в Setúbal, не только «вид с трассы».",
-      "Tróia считайте паромным полуднём, не третьей точкой того же утра.",
-      "Palmela закрывает день видом, когда пляж уже полный.",
+      "Это не совсем поездка за город, но Afurada заслуживает отдельного упоминания.",
+      "На другом берегу Douro, напротив Porto, сохранилась настоящая рыбацкая атмосфера: небольшие дома, лодки, сети, запах жареной рыбы и рестораны, где никто не пытается сделать из обеда гастрономическое шоу.",
+      "Лучше приезжать ближе к обеду. Выбирайте ресторан с рыбой на гриле и не торопитесь.",
+      "Google Maps: [Afurada](https://www.google.com/maps/search/?api=1&query=Afurada+Vila+Nova+de+Gaia) · [Маршрут Porto — Afurada](https://www.google.com/maps/dir/?api=1&origin=Porto+Portugal&destination=Afurada+Portugal)",
     ],
   },
   {
-    heading: "Golegã — национальная конная ярмарка",
-    section_kind: "practice",
+    heading: "Guimarães — место, где начиналась Португалия",
     paragraphs: [
-      "Golegã называют «конной столицей» Португалии. **Feira Nacional do Cavalo** — повод ехать специально: лузитано, всадники, экипажи, конкурсы, каштаны, молодое вино. Лошади ходят по городу; часть баров устроена так, что можно остановиться не спешиваясь. На 2026 VisitPortugal указывает **6–15 ноября**. Жильё в самой Golegã бронируйте рано. Календарь других фестов — [фестивали 2026](/notes/" +
-        FESTIVALS_PORTUGAL_2026_SLUG +
-        ").",
-      "Главное: это ноябрьская поездка под даты ярмарки, не «заедем как-нибудь в Ribatejo».",
+      "Если выбрать только один исторический город для первой поездки из Porto, я бы начал с Guimarães.",
+      "Здесь находится один из важнейших символов португальской государственности. Именно с этим регионом связана история Afonso Henriques — первого короля Португалии.",
+      "Но Guimarães интересен не только историей. Старый центр очень цельный: каменные дома, аркады, небольшие площади, балконы, кафе и рестораны.",
+      "Не ограничивайтесь замком. Настоящее удовольствие — просто пройтись по старому центру, заглянуть в небольшие магазины и найти террасу для обеда.",
+      "**Где поесть:** выбирайте традиционную кухню Minho, особенно rojões, arroz de pica no chão и региональные вина.",
+      "**Транспорт:** прямой поезд из Porto, автомобиль тоже удобен.",
+      "**Время:** полный день.",
+      "Google Maps: [Castelo de Guimarães](https://www.google.com/maps/search/?api=1&query=Castelo+de+Guimaraes) · [Paço dos Duques](https://www.google.com/maps/search/?api=1&query=Paco+dos+Duques+de+Braganca) · [Largo da Oliveira](https://www.google.com/maps/search/?api=1&query=Largo+da+Oliveira+Guimaraes) · [Monte da Penha](https://www.google.com/maps/search/?api=1&query=Santuario+da+Penha+Guimaraes) · [Маршрут Porto — Guimarães](https://www.google.com/maps/dir/?api=1&origin=Porto+Portugal&destination=Guimaraes+Portugal)",
     ],
-    table: trio(
-      "Маленький Ribatejo, который на дни ярмарки становится национальной сценой",
-      "Лошади, лузитано, традиционный костюм, атмосфера феста",
-      "Tomar, Santarém или центральный road trip"
-    ),
     bullets: [
-      "Сверьте 6–15 ноября 2026 на visitportugal.com и feiranacionaldocavalo.com.",
-      "Бронируйте ночь в Golegã или рядом до заполнения ноября.",
-      "Не путайте с обычным рынком четверга — это десятидневный национальный фест.",
-      "Сочетайте с Tomar, если уже в Centro на машине.",
+      "Castelo de Guimarães — средневековая крепость.",
+      "Paço dos Duques de Bragança — дворец XV века.",
+      "Largo da Oliveira — одна из самых красивых площадей города.",
+      "Praça de Santiago — место для кофе и обеда.",
+      "Monte da Penha — панорамные виды на город и окрестности.",
+    ],
+    images: [
+      shot(
+        "dest-guimaraes-castle.webp",
+        "Замок Guimarães",
+        "Castelo de Guimarães.",
+        "David Stanley, CC BY 4.0, Wikimedia Commons",
+        "https://commons.wikimedia.org/wiki/File:Guimaraes_Castle_(55226526419).jpg",
+      ),
     ],
   },
   {
-    heading: "Tomar, Almourol и Constância",
-    section_kind: "practice",
+    heading: "Braga — церкви, лестницы и совершенно другой ритм",
     paragraphs: [
-      "**Tomar** — город тамплиеров и позже Ордена Христа. Главное — Convento de Cristo и замок над городом: средневековье, мануэлино, ренессанс. Внизу река Nabão и Jardim do Mouchão. **Taverna Antiqua** — средневековый антураж, свечи; бронь имеет смысл. **Festa dos Tabuleiros** — огромные «подносы» из цветов и хлеба, раз в четыре года; в заметках следующая — **2027** (сверьте на turismo.tomar.pt). **Castelo de Almourol** — замок на островке в Тежу, короткая лодка, тамплиерская линия XII в. **Constância** — белый городок у слияния Тежу и Zêzere, спокойный финиш; местная память о Luís de Camões.",
-      "Маршрут: утро Tomar (не сжимайте Convento) → Almourol после полудня → Constância к реке. Если цель — только монастырь, не натягивайте все три точки.",
-      "Главное: Convento de Cristo ест время; Almourol и Constância — добавка, не три «галочки» за утро.",
+      "Braga часто недооценивают, считая её просто ещё одним старым португальским городом. На самом деле это один из самых интересных исторических центров севера.",
+      "Главная причина приехать сюда — Bom Jesus do Monte.",
+      "Представьте огромную барочную лестницу, которая поднимается по склону холма к святилищу. Сверху открывается впечатляющий вид на город и окрестности.",
+      "Можно подняться пешком или воспользоваться историческим фуникулёром.",
+      "В самом Braga стоит пройтись по старому центру, посмотреть Sé de Braga, Praça da República и Jardim de Santa Bárbara.",
+      "Braga и Guimarães можно объединить в одну поездку, но это получится насыщенный день. Если любите гулять без спешки, лучше разделить их.",
+      "**Транспорт:** поезд из Porto.",
+      "**Время:** полный день или половина дня при сочетании с Guimarães.",
+      "Google Maps: [Sé de Braga](https://www.google.com/maps/search/?api=1&query=Se+de+Braga) · [Bom Jesus do Monte](https://www.google.com/maps/search/?api=1&query=Bom+Jesus+do+Monte+Braga) · [Elevador do Bom Jesus](https://www.google.com/maps/search/?api=1&query=Elevador+do+Bom+Jesus+Braga) · [Santuário do Sameiro](https://www.google.com/maps/search/?api=1&query=Santuario+do+Sameiro+Braga) · [Маршрут Porto — Braga](https://www.google.com/maps/dir/?api=1&origin=Porto+Portugal&destination=Braga+Portugal)",
     ],
-    table: trio(
-      "Тамплиеры, речные крепости, маленький Centro",
-      "Крупные памятники, средневековая атмосфера, лёгкий кластер на машине",
-      "Golegã, Santarém, Castelo de Bode, Coimbra"
-    ),
     bullets: [
-      "Отведите Convento de Cristo отдельный слот, не «на полчаса с парковки».",
-      "Проверьте лодку на Almourol в день визита (сезон/вода).",
-      "Tabuleiros — 2027 по заметкам; подтвердите на turismo.tomar.pt.",
-      "Constância — обед и река, не третий замок.",
-      "Бронь Taverna Antiqua, если едете вечером в сезон.",
+      "Утро — исторический центр и собор.",
+      "Кофе в центре.",
+      "Обед.",
+      "После обеда — Bom Jesus do Monte.",
+      "Если останутся силы — Santuário do Sameiro.",
+    ],
+    images: [
+      shot(
+        "dest-braga-bom-jesus.webp",
+        "Лестница Bom Jesus do Monte в Braga",
+        "Bom Jesus do Monte, Braga.",
+        "lumoplank, CC0, Wikimedia Commons",
+        "https://commons.wikimedia.org/wiki/File:Braga,_sanctuaries_-_BragaSanctuaries5906.jpg",
+      ),
     ],
   },
   {
-    heading: "Centro: Aveiro, Coimbra, Buçaco, Guarda, Serra da Estrela",
-    section_kind: "practice",
+    heading: "Barcelos — португальский петушок и настоящий рынок",
     paragraphs: [
-      "**Aveiro** — Ria и каналы, moliceiro (когда-то водоросли, теперь гости), ар-нуво в центре, **ovos moles**. **Costa Nova** — полосатые дома рыбаков и атлантический пляж. **Coimbra** — средневековая столица и один из старейших университетов Европы: Paço das Escolas и библиотека Joanina (десятки тысяч ранних книг) — бронируйте время, не фотостоп. **Portugal dos Pequenitos** — мини-Португалия, сильный семейный стоп. **Conímbriga** южнее Coimbra — римский город с мозаиками in situ и музеем. **Quinta das Lágrimas** — усадьба и сад, связанные с историей Педру и Инеш (тайный брак, убийство 1355, позднейшая легенда о коронации тела); сейчас отель и парк. **Guarda** (~1056 м) — самый высокий город материковой PT, гранит, Sé. **Mata Nacional do Buçaco** у Luso — лес, тропы, Palace Hotel do Bussaco (неомануэлино конца XIX в. для королевской семьи, затем отель). **Termas de Luso** и Grande Hotel de Luso — термальная база рядом с лесом. **Aldeias do Xisto** — сланцевые деревни Centro. **Serra da Estrela** — высочайший хребет материка, Torre, ледниковая долина Zêzere; зима — снег, лето — трек и речные пляжи; сыр **Queijo Serra da Estrela**; база Manteigas, рядом Belmonte и Linhares da Beira. **Piódão** — тёмный сланец и синие двери; **Sortelha** — гранит и цельные стены. Сеть: Aldeias Históricas de Portugal.",
-      "Главное: Coimbra + Conímbriga или Buçaco+Luso закрывают день; Estrela и aldeias — уже ночёвка, не «заедем с Joanina».",
-    ],
-    table: trio(
-      "Каналы и океан, университет, Рим, лес, термы, горы материка",
-      "Архитектура, семья, руины, хайк, прохладный сезон, медленный road trip",
-      "Porto, Tomar, Silver Coast, Bairrada, исторические деревни Beiras"
-    ),
-    bullets: [
-      "Купите Joanina заранее — это не «зайдём без очереди».",
-      "Свяжите Coimbra с Conímbriga на машине, не вторым поездом вслепую.",
-      "Buçaco — день леса и дворца, Luso — ночь в термах.",
-      "Estrela зимой — отдельный климат, не пикник из Porto «как в Gerês».",
-      "Сеть aldeiasdoxisto.pt — для ночёвок в камне, не только для фото.",
+      "Знакомый всем Galo de Barcelos родом именно отсюда.",
+      "Но ехать стоит не только за сувениром. Barcelos — хороший пример небольшого северного города, в котором до сих пор живёт традиционная торговля.",
+      "Главная точка — еженедельный рынок Feira de Barcelos, который обычно проходит по четвергам. Здесь продают керамику, продукты, текстиль, растения, предметы быта и многое другое.",
+      "Добавьте к этому исторический центр, мост через реку Cávado и старые церкви.",
+      "**Совет:** если любите блошиные рынки, винтаж и местные товары, четверг — лучший день для поездки.",
+      "Google Maps: [Feira de Barcelos](https://www.google.com/maps/search/?api=1&query=Feira+de+Barcelos) · [Ponte Medieval de Barcelos](https://www.google.com/maps/search/?api=1&query=Ponte+Medieval+de+Barcelos) · [Galo de Barcelos](https://www.google.com/maps/search/?api=1&query=Galo+de+Barcelos) · [Маршрут Porto — Barcelos](https://www.google.com/maps/dir/?api=1&origin=Porto+Portugal&destination=Barcelos+Portugal)",
     ],
   },
   {
-    heading: "Серебряный берег: Nazaré, Batalha, Alcobaça, Óbidos, Buddha Eden",
-    section_kind: "practice",
+    heading: "Viana do Castelo и Ponte de Lima — один из лучших маршрутов Minho",
     paragraphs: [
-      "**Nazaré** — рыбацкий нижний город и волны Praia do Norte; сверху Sítio и Forte de São Miguel Arcanjo; семислойные юбки ещё встречаются вокруг туристической зоны. **Mosteiro da Batalha** — готика в память Aljubarrota 1385, UNESCO; капелла основателя и недостроенные капеллы — зайдите внутрь. **Mosteiro de Alcobaça** — цистерцианцы XII в., гробницы Педру и Инеш, масштаб и более строгая церковь рядом с Batalha. **Óbidos** — стены, белые дома, ginjinha в шоколадной чашке; сезонно Medieval Market, шоколад, Рождество. **Buddha Eden** (Bombarral, Bacalhôa) — сад скульптур, терракотовые воины, озёра — нарочито эклектичный контраст монастырям.",
-      "Связка: Batalha + Alcobaça — самая лёгкая пара. Óbidos — если день ещё тянет. Nazaré заслуживает отдельного времени, если цель — океан и рыбацкая культура, не «вид с парковки».",
-      "Главное: два монастыря UNESCO плюс один характерный стоп; не четыре «must» без обеда.",
+      "Если хочется увидеть более спокойную, зелёную и аутентичную Португалию, отправляйтесь на север.",
+      "Viana do Castelo — красивый город у океана, известный архитектурой, традиционными украшениями и панорамой с холма Santa Luzia.",
+      "Сверху открывается один из самых эффектных видов на побережье северной Португалии.",
+      "После города можно продолжить поездку в Ponte de Lima — один из старейших городов страны.",
+      "Здесь стоит прогуляться по старому мосту через реку Lima, пройтись по набережной и пообедать в одном из местных ресторанов.",
+      "**Маршрут:** Porto → Viana do Castelo → Santa Luzia → Ponte de Lima → Porto.",
+      "**Время:** полный день, лучше на автомобиле.",
+      "Google Maps: [Viana do Castelo](https://www.google.com/maps/search/?api=1&query=Viana+do+Castelo) · [Santuário de Santa Luzia](https://www.google.com/maps/search/?api=1&query=Santuario+de+Santa+Luzia+Viana) · [Ponte de Lima](https://www.google.com/maps/search/?api=1&query=Ponte+de+Lima) · [Ponte Romana e Medieval](https://www.google.com/maps/search/?api=1&query=Ponte+Romana+e+Medieval+Ponte+de+Lima) · [Полный маршрут Porto — Viana — Ponte de Lima](https://www.google.com/maps/dir/?api=1&origin=Porto+Portugal&destination=Porto+Portugal&waypoints=Viana+do+Castelo+Portugal%7CPonte+de+Lima+Portugal)",
     ],
-    table: trio(
-      "Атлантика, UNESCO-монастыри, классический walled town",
-      "Берег, средневековье, монументальная архитектура, разнообразие на машине",
-      "Лиссабон, Tomar, Coimbra, Fátima или петля Centro"
-    ),
-    bullets: [
-      "Batalha и Alcobaça берите парой — они рядом и разные по тону.",
-      "Óbidos — стены и ginjinha, не три часа сувениров.",
-      "Nazaré: Sítio отдельно от нижней набережной.",
-      "Buddha Eden — смена ритма, не «ещё один монастырь».",
-      "Fátima в заметках как стыковка — только если вам нужен паломнический слой.",
+    images: [
+      shot(
+        "dest-viana-santa-luzia.webp",
+        "Святилище Santa Luzia над Viana do Castelo",
+        "Santuário de Santa Luzia, Viana do Castelo.",
+        "Krzysztof Golik, CC BY-SA 4.0, Wikimedia Commons",
+        "https://commons.wikimedia.org/wiki/File:Monte_de_Santa_Luzia_sanctuary_in_Viana_do_Castelo_05.jpg",
+      ),
+      shot(
+        "dest-ponte-de-lima.webp",
+        "Средневековый мост в Ponte de Lima",
+        "Мост через Lima в Ponte de Lima.",
+        "Håkan Svensson, CC BY-SA 3.0, Wikimedia Commons",
+        "https://commons.wikimedia.org/wiki/File:Ponte_de_Lima-Ponte_Medieval_e_Romana-View_towards_town_center.jpg",
+      ),
     ],
   },
   {
-    heading: "Guimarães, Braga, Barcelos и Peneda-Gerês",
-    section_kind: "practice",
+    heading: "Peso da Régua и Pinhão — виноградники, река и лучшие виды",
     paragraphs: [
-      "Это уже **домашний север** для жителя Porto. **Guimarães** связан с рождением Португалии и Afonso Henriques: замок — символ, UNESCO-центр — зачем оставлять время. Рядом **Paço dos Duques de Bragança** (XV в.): мебель, гобелены, оружие. **Braga** — концентрация церквей: Sé в центре, Bom Jesus do Monte с лестницей, Sameiro. **Barcelos** — Galo de Barcelos, керамика, мост через Cávado; **четверговый рынок** — повод выбрать день. **Peneda-Gerês** — единственный национальный парк PT: горы, реки, водопады, деревни Soajo и Lindoso; Cascata do Alado и «Tahiti» популярны, доступ зависит от погоды. Сравнение городов для жизни — [Porto vs Braga](/notes/" +
-        PORTO_VS_BRAGA_FAMILY_SCHOOLS_SLUG +
-        "). Вино Douro/Vinho Verde — [винный гайд](/notes/" +
-        WINES_WINERIES_NORTE_SLUG +
-        "). Логистика 1–2 дней — [внутренний туризм](/notes/" +
-        DOMESTIC_TOURISM_NORTE_SLUG +
-        ").",
-      "Главное: Minho закрывает субботу из Porto; Gerês просит ночь, не «водопад после Braga к ужину в Foz».",
+      "Долина Douro — одно из тех мест, которые сложно передать фотографиями.",
+      "Крутые склоны, виноградники террасами, небольшие quintas, белые дома и река, которая извивается между холмами.",
+      "Это не просто винодельческий регион. Это целый ландшафт, сформированный человеком на протяжении столетий.",
+      "Самый простой вариант — доехать до Peso da Régua, а затем продолжить путь в Pinhão.",
+      "В Régua можно посетить Museu do Douro и познакомиться с историей производства портвейна.",
+      "Pinhão — пожалуй, один из самых красивых небольших городков долины. Железнодорожная станция известна своими азулежу, изображающими сцены сбора винограда.",
+      "Если собираетесь на дегустацию, лучше воспользоваться организованным туром или поездом, а не садиться за руль после вина.",
+      "Linha do Douro — самостоятельное путешествие. Поезд идёт вдоль реки и постепенно уводит вас из городской Португалии в виноградные долины.",
+      "Можно ехать из Porto через Régua до Pinhão, а при желании продолжить до Pocinho.",
+      "Не путайте Pocinho с Vila Nova de Foz Côa: до археологического парка от станции потребуется дополнительный автомобильный трансфер.",
+      "Google Maps: [Peso da Régua](https://www.google.com/maps/search/?api=1&query=Peso+da+Regua) · [Museu do Douro](https://www.google.com/maps/search/?api=1&query=Museu+do+Douro) · [Pinhão](https://www.google.com/maps/search/?api=1&query=Pinhao+Portugal) · [Estação de Pinhão](https://www.google.com/maps/search/?api=1&query=Estacao+de+Pinhao) · [Miradouro de Casal de Loivos](https://www.google.com/maps/search/?api=1&query=Miradouro+de+Casal+de+Loivos) · [Маршрут Porto — Régua — Pinhão](https://www.google.com/maps/dir/?api=1&origin=Porto+Portugal&destination=Pinhao+Portugal&waypoints=Peso+da+Regua+Portugal)",
     ],
-    table: trio(
-      "Исторический Minho, памятники происхождения, ремёсла, горы",
-      "Средневековые центры, церкви, рынок, хайк, водопады",
-      "Porto, Viana do Castelo, долина Lima, длинный северный road trip"
-    ),
     bullets: [
-      "Guimarães: центр важнее, чем только фото замка.",
-      "Braga: Bom Jesus — отдельный подъём, не «ещё одна церковь в Baixa».",
-      "Barcelos планируйте на четверг, если нужен рынок.",
-      "Gerês — два дня и проверка доступа к cascatas.",
-      "Не смешивайте Gerês с «быстрым Minho» в одну субботу.",
+      "Проехать вдоль реки.",
+      "Посмотреть виноградные террасы.",
+      "Зайти на винодельню.",
+      "Попробовать местные вина.",
+      "Прогуляться по Pinhão.",
+      "Устроить обед с видом на Douro.",
+    ],
+    images: [
+      shot(
+        "dest-douro-terraces.webp",
+        "Виноградные террасы долины Дору у реки",
+        "Террасы долины Douro.",
+        "Feliciano Guimarães, CC BY 2.0, Wikimedia Commons",
+        "https://commons.wikimedia.org/wiki/File:Terras_do_Douro.jpg",
+      ),
     ],
   },
   {
-    heading: "Douro и Vila Nova de Foz Côa",
-    section_kind: "practice",
+    heading: "Vila Nova de Foz Côa — древнее искусство под открытым небом",
     paragraphs: [
-      "**Vila Nova de Foz Côa** — Douro Superior: суше и дальше, чем нижняя долина у Porto. Ядро — Parque Arqueológico do Vale do Côa и музей (открытое палеолитическое искусство). База для виноградников и смотровых. **Linha do Douro Porto → Pocinho**: для любителей железной дороги — один из самых красивых длинных маршрутов PT; река и террасы особенно после Régua/Pinhão. Scenic train **не заходит** в сам Foz Côa: конечная **Pocinho**, дальше ~**7 км** по дороге. Сидите у реки, где возможно; расписание — cp.pt. Винодельни — [гайд по quinta](/notes/" +
-        WINES_WINERIES_NORTE_SLUG +
-        ").",
-      "Главное: поезд — до Pocinho; Foz Côa — последняя дорога, иначе останетесь на перроне без скал Côa.",
-    ],
-    table: trio(
-      "Верхний Douro, великий train ride, наскальное искусство",
-      "Scenic rail, вино, археология, медленный восток",
-      "Régua, Pinhão, Pocinho, Trás-os-Montes"
-    ),
-    bullets: [
-      "Купите Linha do Douro как цель дня, не «доедем как электричка».",
-      "Закладывайте трансфер Pocinho → Foz Côa (~7 км).",
-      "Музей Côa и полевые выезды бронируйте отдельно от поезда.",
-      "Не путайте нижний Douro у Porto с Douro Superior.",
+      "Это уже более дальняя поездка, но она совершенно особенная.",
+      "В долине Côa находятся тысячи наскальных изображений, созданных ещё в доисторические времена. Это один из важнейших археологических комплексов такого рода в Европе.",
+      "Здесь стоит посетить Museu do Côa и организованную экскурсию к наскальным рисункам.",
+      "Это не обычный музейный визит: часть впечатления — сама дорога через сухие холмы и долины северо-востока Португалии.",
+      "**Время:** 1–2 дня.",
+      "**Транспорт:** автомобиль предпочтителен. Можно доехать поездом до Pocinho, но последнюю часть маршрута нужно организовать отдельно.",
+      "Google Maps: [Museu do Côa](https://www.google.com/maps/search/?api=1&query=Museu+do+Coa) · [Parque Arqueológico do Vale do Côa](https://www.google.com/maps/search/?api=1&query=Parque+Arqueologico+do+Vale+do+Coa) · [Pocinho](https://www.google.com/maps/search/?api=1&query=Pocinho+Portugal) · [Маршрут Porto — Foz Côa](https://www.google.com/maps/dir/?api=1&origin=Porto+Portugal&destination=Museu+do+Coa)",
     ],
   },
   {
-    heading: "Trás-os-Montes: «за горами»",
-    section_kind: "practice",
+    heading: "Peneda-Gerês — горы, водопады и другая Португалия",
     paragraphs: [
-      "Trás-os-Montes — историко-культурный край, не одна административная единица. Два главных города — **Vila Real** и **Bragança**; «столица края» для Vila Real — привычное сокращение, лучше держать два центра. Vila Real — ворота между Douro и северо-востоком, рядом **Mateus**. Bragança — цитадель и каменный центр. **Mirandela** связана с **alheira**. **Miranda do Douro** — обрыв над Дуэро, граница с Испанией; **мирандский** признан языком Португалии в регионе. **Macedo de Cavaleiros** и **Caretos de Podence** (Entrudo Chocalheiro, карнавал): маски и бубенцы, живая традиция, часто с доримскими корнями в описаниях, но это не отдельный культ. Рядом водохранилище Azibo.",
-      "Главное: это road trip на северо-восток, не пригород Porto; еда и карнавал — повод выбрать неделю, не «заедем с Douro за час».",
+      "Если вы устали от городов и хотите настоящей природы, отправляйтесь в единственный национальный парк Португалии.",
+      "Peneda-Gerês — это горы, гранитные деревни, водопады, реки, леса и дороги, на которых хочется останавливаться через каждые несколько километров.",
+      "Здесь совсем другая Португалия: меньше туристических витрин, больше тишины и пространства.",
+      "Не пытайтесь охватить всё за один день. Для Gerês лучше выделить хотя бы два дня.",
+      "Летом здесь можно купаться в природных водоёмах, но популярные места бывают переполнены. Осенью и весной парк особенно красив, хотя погода может быстро меняться.",
+      "**Транспорт:** автомобиль практически необходим.",
+      "Google Maps: [Parque Nacional da Peneda-Gerês](https://www.google.com/maps/search/?api=1&query=Parque+Nacional+da+Peneda+Geres) · [Cascata do Arado](https://www.google.com/maps/search/?api=1&query=Cascata+do+Arado) · [Miradouro da Pedra Bela](https://www.google.com/maps/search/?api=1&query=Miradouro+da+Pedra+Bela) · [Soajo](https://www.google.com/maps/search/?api=1&query=Soajo+Portugal) · [Lindoso](https://www.google.com/maps/search/?api=1&query=Lindoso+Portugal) · [Маршрут Porto — Gerês — Soajo — Lindoso](https://www.google.com/maps/dir/?api=1&origin=Porto+Portugal&destination=Porto+Portugal&waypoints=Miradouro+da+Pedra+Bela%7CSoajo+Portugal%7CLindoso+Portugal)",
     ],
-    table: trio(
-      "Дальний северо-восток: жёстче, традиционнее, меньше туристического шума",
-      "Road trip, исторические города, еда, зима, локальные традиции",
-      "Douro Superior, испанская граница, север PT"
-    ),
     bullets: [
-      "Не называйте Vila Real единственной «столицей» края — держите Bragança.",
-      "Alheira в Mirandela — региональный стол, не «любая колбаса с рынка».",
-      "Miranda do Douro — язык и каньон, не только смотровая.",
-      "Caretos — даты Entrudo; не путайте с летним фестом Minho.",
-      "Зимой в горах другой климат, чем на Foz.",
+      "Lindoso — деревня с традиционными каменными зернохранилищами espigueiros и замком.",
+      "Soajo — ещё одна знаменитая деревня с гранитными espigueiros.",
+      "Cascata do Arado — один из популярных водопадов парка.",
+      "Miradouro da Pedra Bela — впечатляющая панорама гор и долины.",
+      "Vila do Gerês — удобная база для ночёвки.",
+    ],
+    images: [
+      shot(
+        "dest-geres.webp",
+        "Водопад и гранитные ванны в Peneda-Gerês",
+        "Вода и гранит в Peneda-Gerês.",
+        "Nivasbabus, CC BY-SA 3.0, Wikimedia Commons",
+        "https://commons.wikimedia.org/wiki/File:Geres,_Portugal.jpg",
+      ),
+      shot(
+        "dest-soajo-espigueiros.webp",
+        "Каменные espigueiros в деревне Soajo",
+        "Espigueiros в Soajo.",
+        "Krzysztof Golik, CC BY-SA 4.0, Wikimedia Commons",
+        "https://commons.wikimedia.org/wiki/File:Granaries_in_Soajo_07.jpg",
+      ),
     ],
   },
   {
-    heading: "Alentejo: Évora, мрамор, крепости, Marvão",
-    section_kind: "practice",
+    heading: "Arouca — подвесной мост над рекой и Paiva Walkways",
     paragraphs: [
-      "Регион лучше как **road trip**, не набор разрозненных day trip из Porto. **Évora** — UNESCO: римский храм, собор, **Capela dos Ossos**, еда и вино. **Estremoz** — белый мрамор, замок, субботний рынок, глиняные фигурки. **Vila Viçosa** — дом Браганса, Paço Ducal, кареты; тоже мраморный край. **Elvas** — звёздные укрепления у Испании, акведук Amoreira, UNESCO. **Monsaraz** — деревня над Alqueva, тёмное небо. **Marvão** — крепость в Serra de São Mamede у испанской границы.",
-      "Главное: из Porto это 3+ дня; не «Évora в воскресенье и домой к ужину в Matosinhos».",
+      "Одна из самых интересных поездок для тех, кто любит активный отдых.",
+      "Главная достопримечательность — 516 Arouca, пешеходный подвесной мост длиной 516 метров, расположенный на высоте около 175 метров над рекой Paiva.",
+      "Он соединяет берега над глубоким речным ущельем. Если высота вас не пугает, впечатления будут незабываемые.",
+      "Рядом находятся Passadiços do Paiva — деревянные дорожки вдоль реки. Это примерно восьмикилометровый маршрут через красивые природные участки.",
+      "Важно: мост и дорожки требуют предварительного планирования. Билет на мост приобретается онлайн, а доступ зависит от погодных условий.",
+      "**Время:** полный день.",
+      "Google Maps: [516 Arouca](https://www.google.com/maps/search/?api=1&query=516+Arouca) · [Passadiços do Paiva — Areinho](https://www.google.com/maps/search/?api=1&query=Passadicos+do+Paiva+Areinho) · [Passadiços do Paiva — Espiunca](https://www.google.com/maps/search/?api=1&query=Passadicos+do+Paiva+Espiunca) · [Mosteiro de Arouca](https://www.google.com/maps/search/?api=1&query=Mosteiro+de+Arouca) · [Маршрут Porto — Arouca](https://www.google.com/maps/dir/?api=1&origin=Porto+Portugal&destination=516+Arouca)",
+      "Билеты: [516arouca.pt](https://516arouca.pt/)",
     ],
-    table: trio(
-      "Равнины Alentejo, Рим и короли, мрамор, холмы-крепости",
-      "Машина, архитектура, вино, замки, звёзды, медленный юг",
-      "Mérida (ES), Alqueva, Portalegre, длинный южный маршрут"
-    ),
     bullets: [
-      "Évora — якорь; остальное — кольцо на машине.",
-      "Estremoz имеет смысл в субботу из‑за рынка.",
-      "Elvas — фортификация, не «ещё одна белая деревня».",
-      "Monsaraz вечером — тёмное небо Alqueva, не только закат Instagram.",
-      "Marvão — высота и вид, закладывайте крутые подъезды.",
+      "Приехать к забронированному времени на мост.",
+      "Перейти 516 Arouca.",
+      "Пройти часть или весь маршрут Passadiços do Paiva.",
+      "Пообедать в Arouca.",
+      "Посетить Mosteiro de Arouca, если останутся силы.",
+    ],
+    images: [
+      shot(
+        "dest-arouca-516.webp",
+        "Пешеходный подвесной мост 516 Arouca",
+        "516 Arouca над рекой Paiva.",
+        "Hyméros, CC BY-SA 4.0, Wikimedia Commons",
+        "https://commons.wikimedia.org/wiki/File:516_Arouca_access.jpg",
+      ),
     ],
   },
   {
-    heading: "Madeira: Funchal, Santa María, Новый год, bolo de mel",
-    section_kind: "practice",
+    heading: "Aveiro и Costa Nova — португальская Венеция, но не совсем",
     paragraphs: [
-      "Madeira — **отдельное направление**, не «ещё один район PT». В заметках акцент на Funchal: реплика **Santa María de Colombo** (морская прогулка, удобно с детьми); **Новый год** — фейерверк над бухтой, с воды нужно бронировать круиз заранее; **bolo de mel de cana** на месте, к мадере или ликёру. Перелёт и 4–5 дней — в [внутреннем туризме](/notes/" +
-        DOMESTIC_TOURISM_NORTE_SLUG +
-        "), не в воскресном ритме Campanhã.",
-      "Главное: остров требует слота и билета; не смешивайте с weekend Minho.",
+      "Aveiro — очень удобное направление из Porto. Поездка на поезде занимает около часа в зависимости от станции и рейса.",
+      "В центре города проходят каналы, по которым ходят традиционные лодки moliceiros. Вдоль воды стоят красивые дома в стиле Art Nouveau, есть небольшие музеи, кафе и кондитерские.",
+      "Обязательно попробуйте ovos moles — местные сладости из яичного желтка и сахара.",
+      "Но не ограничивайтесь каналами. Если приехали на машине, продолжайте путь к Costa Nova.",
+      "Здесь стоят знаменитые полосатые дома, когда-то связанные с рыбацкой жизнью побережья. Рядом — длинные пляжи Атлантики.",
+      "**Маршрут:** Aveiro → Costa Nova → Praia da Barra → Porto.",
+      "**Время:** полный день.",
+      "Google Maps: [Canais de Aveiro](https://www.google.com/maps/search/?api=1&query=Canais+de+Aveiro) · [Museu de Arte Nova](https://www.google.com/maps/search/?api=1&query=Museu+Arte+Nova+Aveiro) · [Costa Nova](https://www.google.com/maps/search/?api=1&query=Costa+Nova+Ilhavo) · [Farol da Barra](https://www.google.com/maps/search/?api=1&query=Farol+da+Barra+Aveiro) · [Полный маршрут Porto — Aveiro — Costa Nova](https://www.google.com/maps/dir/?api=1&origin=Porto+Portugal&destination=Porto+Portugal&waypoints=Aveiro+Portugal%7CCosta+Nova+Portugal%7CPraia+da+Barra+Portugal)",
     ],
-    bullets: [
-      "Бронируйте NYE-круиз в Funchal задолго, если фейерверк — цель поездки.",
-      "Santa María — смотрите расписание прогулок, не «всегда у причала».",
-      "Bolo de mel de cana пробуйте на острове, не только сувенир в LIS.",
-      "4–5 дней minimum, как в гайде выходных Norte.",
+    images: [
+      shot(
+        "dest-aveiro-canal.webp",
+        "Лодки moliceiro на канале Aveiro",
+        "Канал и moliceiros в Aveiro.",
+        "John Samuel, CC BY-SA 4.0, Wikimedia Commons",
+        "https://commons.wikimedia.org/wiki/File:Canal_in_Aveiro_02.jpg",
+      ),
+      shot(
+        "dest-costa-nova.webp",
+        "Полосатые рыбацкие дома Costa Nova",
+        "Полосатые дома Costa Nova.",
+        "Einaz80, CC BY-SA 4.0, Wikimedia Commons",
+        "https://commons.wikimedia.org/wiki/File:Costa_Nova_-_Colorful_houses_01.jpg",
+      ),
     ],
   },
   {
-    heading: "Официальные сайты и планирование",
-    section_kind: "official",
+    heading: "Coimbra и Conímbriga — университет, книги и Римская империя",
     paragraphs: [
-      "Национальный вход — **Visit Portugal**. **Turismo de Portugal** — скорее ведомство, чем витрина. Centro: turismocentro.pt. Сланцевые деревни: aldeiasdoxisto.pt. Foz Côa: explore.cm-fozcoa.pt и муниципалитет. Setúbal/Arrábida: visitsetubal.com. Термы: termasdeportugal.pt, Termas de Luso. Cork/фермы: Portugal Farm Experience. Речные пляжи Setúbal — каталоги вроде Praia Fluvial (проверяйте сезон). Независимые подборки городов (Viagens e Caminhos, VagaMundos) — идеи, не касса и не льготы residente.",
-      "**Acesso 52:** residentes в PT с NIF — до 52 бесплатных дней в год в объектах MMP (список и регистрация на кассе: документ + NIF). Режим менялся и обсуждался на уровне ЕС — перед поездкой откройте museusemonumentos.pt. Не путать с «все музеи страны бесплатны всегда». Подробнее льготы — [гайд](/notes/" +
-        LGOTY_SLUG +
-        ").",
-      "Главное: Visit Portugal + сайт объекта + Acesso 52 на кассе; независимые блоги не заменяют слот и льготу.",
+      "Coimbra — город, который стоит посетить хотя бы раз.",
+      "В течение столетий он был одним из важнейших центров португальской истории, а его университет входит в число старейших в Европе.",
+      "Главная точка — Paço das Escolas и Biblioteca Joanina. Это одна из самых впечатляющих исторических библиотек Европы: резные интерьеры, позолота, деревянные шкафы и старинные книги.",
+      "После университета прогуляйтесь по старому городу и спуститесь к реке Mondego.",
+      "Если у вас автомобиль, добавьте Conímbriga — большой римский археологический комплекс с мозаиками и остатками древнего города.",
+      "**Маршрут:** Coimbra → Conímbriga → Porto.",
+      "**Время:** полный день, лучше два дня, если хотите спокойно всё посмотреть.",
+      "**Важно:** посещение Biblioteca Joanina требует планирования по времени и билетам.",
+      "Google Maps: [Universidade de Coimbra](https://www.google.com/maps/search/?api=1&query=Universidade+de+Coimbra) · [Biblioteca Joanina](https://www.google.com/maps/search/?api=1&query=Biblioteca+Joanina) · [Sé Velha de Coimbra](https://www.google.com/maps/search/?api=1&query=Se+Velha+Coimbra) · [Conímbriga](https://www.google.com/maps/search/?api=1&query=Ruinas+de+Conimbriga) · [Маршрут Porto — Coimbra — Conímbriga](https://www.google.com/maps/dir/?api=1&origin=Porto+Portugal&destination=Porto+Portugal&waypoints=Universidade+de+Coimbra%7CRuinas+de+Conimbriga)",
     ],
-    bullets: [
-      "visitportugal.com — старт по стране.",
-      "parquesdesintra.pt — Sintra/Queluz.",
-      "cp.pt — Linha do Douro и Intercidades.",
-      "museusemonumentos.pt — Acesso 52 и билеты MMP.",
-      "icnf.pt — национальный парк и правила троп.",
+    images: [
+      shot(
+        "dest-coimbra-university.webp",
+        "Двор Paço das Escolas в университете Coimbra",
+        "Paço das Escolas, Universidade de Coimbra.",
+        "Daniel Villafruela, CC BY-SA 4.0, Wikimedia Commons",
+        "https://commons.wikimedia.org/wiki/File:Coimbra-Pa%C3%A7o_das_Escolas-Vista_da_biblioteca-20140914.jpg",
+      ),
     ],
   },
   {
-    heading: "Где расходится «сайт / гид / касса»",
-    section_kind: "gap",
+    heading: "Buçaco и Luso — дворец посреди сказочного леса",
     paragraphs: [
-      "Заметки честно говорят: даты событий и часы меняются. TripAdvisor в исходнике часто стоит рядом с official — для Emigro secondary: сначала оператор памятника, потом отзывы. «Вторая коллекция меди в мире», «Байрон всегда пил здесь», смешанные отзывы Plataforma — это характер стопа, не факт для карточки. Acesso 52 не покрывает все частные дворцы и не гарантирован на любой день без регистрации. Паром Tróia и лодка Almourol зависят от сезона. Поезд в Foz Côa «до города» — частая ошибка чтения карты.",
-      "Главное: расхождение почти всегда в часах, льготах и последней миле транспорта, не в «существует ли дворец».",
-    ],
-    bullets: [
-      "На сайте Visit Portugal и у оператора дворец «открыт». На деле слот закончился или объект выпал из списка MMP на этот день.",
-      "В чатах пишут «scenic train на Foz Côa». На сайте CP конечная — Pocinho, дальше ~7 км по дороге.",
-      "На портале MMP — Acesso 52. На деле только участвующие объекты, NIF на кассе и счётчик дней, не «все музеи страны».",
-      "В отзывах «обязательный обед в Casa do Alentejo». На деле интерьер можно посмотреть без полного стола.",
-      "Гиды пишут «вторая коллекция меди в мире». На деле это superlative без источника — смотрите кухни Palácio da Vila как есть.",
+      "Это направление для тех, кто любит не только города, но и необычные места.",
+      "Mata Nacional do Buçaco — огромный исторический лес с дорожками, старинными деревьями, фонтанами и небольшими религиозными сооружениями.",
+      "В центре находится Palace Hotel do Bussaco — дворец с впечатляющей архитектурой конца XIX века.",
+      "Даже если вы не останавливаетесь в отеле, поездка ради самого места уже оправданна.",
+      "Рядом находится Luso — небольшой курортный город, известный термальными водами.",
+      "**Маршрут:** Buçaco Forest → Palace Hotel → Luso.",
+      "**Время:** полный день, можно совместить с Coimbra, если выезжать рано, но лучше не спешить.",
+      "Google Maps: [Mata Nacional do Buçaco](https://www.google.com/maps/search/?api=1&query=Mata+Nacional+do+Bucaco) · [Palace Hotel do Bussaco](https://www.google.com/maps/search/?api=1&query=Palace+Hotel+do+Bussaco) · [Luso](https://www.google.com/maps/search/?api=1&query=Luso+Portugal) · [Маршрут Porto — Buçaco — Luso](https://www.google.com/maps/dir/?api=1&origin=Porto+Portugal&destination=Porto+Portugal&waypoints=Palace+Hotel+do+Bussaco%7CLuso+Portugal)",
     ],
   },
   {
-    heading: "Типичные ошибки релоканта с этой картой",
-    section_kind: "practice",
+    heading: "Nazaré — город, где океан показывает характер",
     paragraphs: [
-      "Сжать Lisbon+Sintra+Arrábida в один день из Porto. Ехать в Gerês «после Braga к ночи». Строить Foz Côa без Pocinho. Ловить Golegã без ноябрьских дат. Путать туристический билет Sintra с Acesso 52. Верить часам TripAdvisor. Вести себя в parque natural как на городском пляже Porto. В исходных заметках в конце ещё лежат job boards Net-Empregos и Expresso Emprego — это архив ссылок автора, не подбор работы Emigro; роли под CV — [Role Radar](" +
-        ROLE_RADAR_LANDING_PATH +
-        ").",
-      "Главное: один кластер на выезд; официальный сайт в день выезда; северные парки — не декорация к Instagram.",
+      "Nazaré известна гигантскими волнами Praia do Norte. Именно здесь серферы пытаются покорять волны высотой с многоэтажный дом.",
+      "Но Nazaré интересна и без экстремального серфинга.",
+      "Нижняя часть города — рыбацкая набережная, рестораны и пляж. Верхняя — Sítio, куда можно подняться на фуникулёре и посмотреть на океан с высоты.",
+      "Обязательно загляните к Forte de São Miguel Arcanjo. Отсюда открывается вид на место, где формируются знаменитые волны.",
+      "**Совет:** если хотите увидеть гигантские волны, не приезжайте наугад. Их появление зависит от океанских условий. Проверяйте прогнозы и местные сообщения.",
+      "Google Maps: [Praia do Norte](https://www.google.com/maps/search/?api=1&query=Praia+do+Norte+Nazare) · [Forte de São Miguel Arcanjo](https://www.google.com/maps/search/?api=1&query=Forte+de+Sao+Miguel+Arcanjo) · [Sítio da Nazaré](https://www.google.com/maps/search/?api=1&query=S%C3%ADtio+da+Nazare) · [Маршрут Porto — Nazaré](https://www.google.com/maps/dir/?api=1&origin=Porto+Portugal&destination=Nazare+Portugal)",
     ],
-    bullets: [
-      "Не ставьте Sintra и Arrábida в одну субботу из Campanhã.",
-      "Не едьте в Gerês без ночёвки, если цель — водопады, не фото с трассы.",
-      "Не планируйте «поезд до Foz Côa» без пересадки на дорогу.",
-      "Не путайте Acesso 52 с бесплатным воскресеньем «как раньше».",
-      "Не бронируйте Golegã «когда-нибудь осенью» без 6–15 ноября.",
+    images: [
+      shot(
+        "dest-nazare-waves.webp",
+        "Гигантская волна у форта São Miguel Arcanjo в Nazaré",
+        "Praia do Norte и Forte de São Miguel Arcanjo.",
+        "Luís Ascenso, CC BY 3.0, Wikimedia Commons",
+        "https://commons.wikimedia.org/wiki/File:Praia_Do_Norte_Nazar%C3%A9_High_Waves_(205617995).jpeg",
+      ),
     ],
   },
-];
-
-const keyTakeaways = [
-  "Официально: Visit Portugal, сайты операторов (Parques de Sintra, MMP/Acesso 52, CP, ICNF) — касса и часы; льготы residente не равны туристическому билету.",
-  formatPracticeTakeaway({
-    claim:
-      "атлас закрывает кластеры всей страны: Lisbon/Sintra, Arrábida, Golegã, Tomar, Centro, Silver Coast, Minho/Gerês, Douro Superior, Trás-os-Montes, Alentejo, Madeira",
-    forReader:
-      "из Porto на 1–2 дня сначала берите [выходные Norte](/notes/" +
-      DOMESTIC_TOURISM_NORTE_SLUG +
-      "), а этот текст — когда нужны 2–5 дней и «куда ещё»",
-  }),
-  "Golegã 2026: 6–15 ноября (VisitPortugal). Поезд Douro scenic — до Pocinho, не до Foz Côa.",
-  "Расхождение: TripAdvisor и легенды (медь, Байрон, «бесплатный cheirinho») не заменяют слот и NIF на кассе Acesso 52.",
+  {
+    heading: "Óbidos — город внутри средневековых стен",
+    paragraphs: [
+      "Óbidos — одна из самых фотогеничных исторических деревень страны.",
+      "Белые дома с цветными окантовками, цветы на стенах, узкие улицы и средневековая крепость создают почти театральную атмосферу.",
+      "Здесь стоит попробовать ginjinha — вишнёвый ликёр, который часто подают в маленькой шоколадной чашечке.",
+      "Но главное удовольствие — гулять по городу, не пытаясь успеть всё.",
+      "**Время:** 2–4 часа. Лучше объединить с Batalha или Alcobaça в двухдневной поездке.",
+      "Google Maps: [Óbidos](https://www.google.com/maps/search/?api=1&query=Obidos+Portugal) · [Castelo de Óbidos](https://www.google.com/maps/search/?api=1&query=Castelo+de+Obidos) · [Маршрут Porto — Óbidos](https://www.google.com/maps/dir/?api=1&origin=Porto+Portugal&destination=Obidos+Portugal)",
+    ],
+    images: [
+      shot(
+        "dest-obidos.webp",
+        "Средневековые стены и белые дома Óbidos",
+        "Стены и замок Óbidos.",
+        "Pedro Ribeiro Simões, CC BY 2.0, Wikimedia Commons",
+        "https://commons.wikimedia.org/wiki/File:The_%C3%93bidos%27_Castle_(4017081137).jpg",
+      ),
+    ],
+  },
+  {
+    heading: "Batalha и Alcobaça — два великих монастыря",
+    paragraphs: [
+      "Если вам интересна архитектура, это обязательная поездка.",
+      "Mosteiro da Batalha — один из самых впечатляющих готических памятников Португалии. Его строительство началось после победы португальцев в битве при Aljubarrota в 1385 году.",
+      "Mosteiro de Alcobaça — другой характер: масштаб, строгая архитектура и знаменитая история Педру и Инеш.",
+      "Оба монастыря входят в список Всемирного наследия UNESCO.",
+      "Не нужно пытаться пробежать их за час. Это места, где стоит задержаться.",
+      "**Маршрут:** Batalha → Alcobaça → Porto.",
+      "**Время:** полный день, но комфортнее с ночёвкой на Silver Coast.",
+      "Google Maps: [Mosteiro da Batalha](https://www.google.com/maps/search/?api=1&query=Mosteiro+da+Batalha) · [Mosteiro de Alcobaça](https://www.google.com/maps/search/?api=1&query=Mosteiro+de+Alcobaca) · [Маршрут Porto — Batalha — Alcobaça](https://www.google.com/maps/dir/?api=1&origin=Porto+Portugal&destination=Porto+Portugal&waypoints=Mosteiro+da+Batalha%7CMosteiro+de+Alcobaca)",
+    ],
+    images: [
+      shot(
+        "dest-batalha.webp",
+        "Готический фасад монастыря Batalha",
+        "Mosteiro da Batalha.",
+        "Alvesgaspar, CC BY-SA 4.0, Wikimedia Commons",
+        "https://commons.wikimedia.org/wiki/File:Batalha_September_2021-2.jpg",
+      ),
+    ],
+  },
+  {
+    heading: "Tomar — город тамплиеров",
+    paragraphs: [
+      "Tomar — один из самых интересных исторических городов центральной Португалии.",
+      "Главная достопримечательность — Convento de Cristo, огромный монастырско-замковый комплекс, связанный с орденом тамплиеров и позднее Орденом Христа.",
+      "Здесь можно провести несколько часов, изучая архитектуру, внутренние дворы, знаменитое окно в стиле мануэлино и монастырские пространства.",
+      "После посещения замка спуститесь в центр города, прогуляйтесь вдоль реки Nabão и зайдите в Jardim do Mouchão.",
+      "**Время:** полный день, лучше с ночёвкой, если планируете продолжить маршрут.",
+      "Google Maps: [Convento de Cristo](https://www.google.com/maps/search/?api=1&query=Convento+de+Cristo+Tomar) · [Castelo de Tomar](https://www.google.com/maps/search/?api=1&query=Castelo+de+Tomar) · [Jardim do Mouchão](https://www.google.com/maps/search/?api=1&query=Jardim+do+Mouchao+Tomar) · [Маршрут Porto — Tomar](https://www.google.com/maps/dir/?api=1&origin=Porto+Portugal&destination=Tomar+Portugal)",
+    ],
+    images: [
+      shot(
+        "dest-tomar-convent.webp",
+        "Свод церкви Convento de Cristo в Tomar",
+        "Церковь Convento de Cristo, Tomar.",
+        "Jules Verne Times Two, CC BY-SA 4.0, Wikimedia Commons",
+        "https://commons.wikimedia.org/wiki/File:Upper_Choir_of_the_Church_of_Convento_de_Cristo,_Tomar,_Portugal_julesvernex2.jpg",
+      ),
+    ],
+  },
+  {
+    heading: "Castelo de Almourol — замок на острове",
+    paragraphs: [
+      "Недалеко от Tomar находится одно из самых необычных мест Португалии.",
+      "Castelo de Almourol стоит на небольшом скалистом острове посреди реки Tejo.",
+      "К замку добираются на лодке. Именно эта короткая переправа и делает визит особенно интересным.",
+      "Проверьте расписание лодок и условия посещения перед выездом.",
+      "**Маршрут:** Tomar → Almourol → Constância.",
+      "Google Maps: [Castelo de Almourol](https://www.google.com/maps/search/?api=1&query=Castelo+de+Almourol) · [Constância](https://www.google.com/maps/search/?api=1&query=Constancia+Portugal) · [Маршрут Porto — Tomar — Almourol — Constância](https://www.google.com/maps/dir/?api=1&origin=Porto+Portugal&destination=Porto+Portugal&waypoints=Tomar+Portugal%7CCastelo+de+Almourol%7CConstancia+Portugal)",
+    ],
+    images: [
+      shot(
+        "dest-almourol.webp",
+        "Замок Almourol на скале посреди реки Тежу",
+        "Castelo de Almourol на Tejo.",
+        "Luís Ascenso, CC BY 3.0, Wikimedia Commons",
+        "https://commons.wikimedia.org/wiki/File:Almourol_Castle_(152955943).jpeg",
+      ),
+    ],
+  },
+  {
+    heading: "Bragança и Miranda do Douro",
+    paragraphs: [
+      "Если хочется увидеть другую страну, отправляйтесь на северо-восток.",
+      "Trás-os-Montes буквально означает «за горами». Это более суровый и менее туристический регион, где сильнее чувствуется сельская Португалия.",
+      "Bragança — город с великолепной средневековой цитаделью, каменными улицами и замком.",
+      "Miranda do Douro — совсем другая история. Город расположен над глубоким каньоном реки Douro, на границе с Испанией. Здесь сохранился мирандский язык, признанный региональным языком Португалии.",
+      "Если повезёт с погодой, виды на каньон будут одним из самых сильных впечатлений поездки.",
+      "**Время:** минимум два дня.",
+      "Google Maps: [Bragança](https://www.google.com/maps/search/?api=1&query=Braganca+Portugal) · [Castelo de Bragança](https://www.google.com/maps/search/?api=1&query=Castelo+de+Braganca) · [Miranda do Douro](https://www.google.com/maps/search/?api=1&query=Miranda+do+Douro) · [Miradouro Fraga do Puio](https://www.google.com/maps/search/?api=1&query=Miradouro+Fraga+do+Puio) · [Маршрут Porto — Bragança — Miranda do Douro](https://www.google.com/maps/dir/?api=1&origin=Porto+Portugal&destination=Porto+Portugal&waypoints=Braganca+Portugal%7CMiranda+do+Douro+Portugal)",
+    ],
+    bullets: [
+      "Castelo de Bragança.",
+      "Cidadela de Bragança.",
+      "Museu Ibérico da Máscara e do Traje.",
+      "Miranda do Douro.",
+      "Miradouro Fraga do Puio.",
+    ],
+  },
+  {
+    heading: "Vila Real и Mateus Palace",
+    paragraphs: [
+      "Vila Real — удобная остановка на пути в Douro и Trás-os-Montes.",
+      "Главная достопримечательность — Palácio de Mateus, один из самых узнаваемых дворцов Португалии.",
+      "Его фасад с отражением в воде — почти готовая открытка.",
+      "Но внутри тоже есть что посмотреть: исторические интерьеры, сад и винодельческое наследие.",
+      "**Время:** полдня или остановка на пути в Douro.",
+      "Google Maps: [Palácio de Mateus](https://www.google.com/maps/search/?api=1&query=Casa+de+Mateus+Vila+Real) · [Vila Real](https://www.google.com/maps/search/?api=1&query=Vila+Real+Portugal) · [Маршрут Porto — Vila Real](https://www.google.com/maps/dir/?api=1&origin=Porto+Portugal&destination=Vila+Real+Portugal)",
+    ],
+  },
+  {
+    heading: "Alentejo — совсем другая Португалия",
+    paragraphs: [
+      "Alentejo лучше не пытаться смотреть за один день из Porto. Это направление для поездки на 3–5 дней.",
+      "Здесь нет зелёных гор Minho. Вместо них — широкие равнины, оливковые деревья, пробковые дубы, белые деревни, винодельни и крепости на холмах.",
+      "Это Португалия с другим ритмом: длинные обеды, жаркие дни и очень красивые закаты.",
+    ],
+  },
+  {
+    heading: "Évora — римская история и белые улицы",
+    paragraphs: [
+      "Évora — исторический центр региона и объект Всемирного наследия UNESCO.",
+      "Здесь можно увидеть римский храм, средневековый собор, площадь Giraldo и знаменитую Capela dos Ossos.",
+      "Сам город очень приятен для пеших прогулок. Белые дома, узкие улицы и небольшие рестораны создают совершенно другой образ страны.",
+      "Google Maps: [Templo Romano de Évora](https://www.google.com/maps/search/?api=1&query=Templo+Romano+de+Evora) · [Capela dos Ossos](https://www.google.com/maps/search/?api=1&query=Capela+dos+Ossos+Evora) · [Praça do Giraldo](https://www.google.com/maps/search/?api=1&query=Praca+do+Giraldo+Evora)",
+    ],
+    images: [
+      shot(
+        "dest-evora-temple.webp",
+        "Римский храм в Évora",
+        "Templo Romano de Évora.",
+        "Norbert Nagel, CC BY-SA 3.0, Wikimedia Commons",
+        "https://commons.wikimedia.org/wiki/File:Roman_Temple_Evora_Portugal_01.jpg",
+      ),
+    ],
+  },
+  {
+    heading: "Monsaraz и озеро Alqueva",
+    paragraphs: [
+      "Monsaraz — маленький белый город на холме, откуда открываются виды на огромное водохранилище Alqueva.",
+      "Это одно из тех мест, куда хочется приехать ближе к вечеру и остаться до темноты.",
+      "Регион Alqueva известен низким уровнем светового загрязнения и возможностями для наблюдения за звёздами.",
+      "Google Maps: [Monsaraz](https://www.google.com/maps/search/?api=1&query=Monsaraz+Portugal) · [Lago Alqueva](https://www.google.com/maps/search/?api=1&query=Alqueva+Lake+Portugal) · [Observatório do Lago Alqueva](https://www.google.com/maps/search/?api=1&query=Observatorio+do+Lago+Alqueva)",
+    ],
+    images: [
+      shot(
+        "dest-monsaraz.webp",
+        "Белые улицы Monsaraz в Alentejo",
+        "Улицы Monsaraz.",
+        "Guy Moll, CC BY 2.0, Wikimedia Commons",
+        "https://commons.wikimedia.org/wiki/File:Monsaraz_-_Alentejo_(383570557).jpg",
+      ),
+    ],
+  },
+  {
+    heading: "Estremoz, Vila Viçosa и Marvão",
+    paragraphs: [
+      "Это маршрут для любителей замков, мраморной архитектуры и небольших исторических городов.",
+      "Estremoz известен белым мрамором и рынком по субботам.",
+      "Vila Viçosa — дворцом Paço Ducal и историей династии Bragança.",
+      "Marvão — крепостью на вершине горы, практически у испанской границы.",
+      "**Время:** 3–5 дней на весь регион.",
+      "Google Maps: [Estremoz](https://www.google.com/maps/search/?api=1&query=Estremoz+Portugal) · [Paço Ducal de Vila Viçosa](https://www.google.com/maps/search/?api=1&query=Paco+Ducal+Vila+Vicosa) · [Marvão](https://www.google.com/maps/search/?api=1&query=Marvao+Portugal) · [Маршрут Porto — Évora — Monsaraz — Marvão](https://www.google.com/maps/dir/?api=1&origin=Porto+Portugal&destination=Porto+Portugal&waypoints=Evora+Portugal%7CMonsaraz+Portugal%7CMarvao+Portugal)",
+    ],
+  },
+  {
+    heading: "Lisbon и Sintra — отдельное путешествие",
+    paragraphs: [
+      "Лиссабон не стоит воспринимать как поездку на несколько часов из Porto.",
+      "Да, скоростной поезд позволяет добраться достаточно быстро, но столица заслуживает как минимум двух дней.",
+      "Сюда стоит ехать ради исторических районов, смотровых площадок, ресторанов, музеев, набережной и совершенно особой городской атмосферы.",
+      "Google Maps: [Alfama](https://www.google.com/maps/search/?api=1&query=Alfama+Lisbon) · [Praça do Comércio](https://www.google.com/maps/search/?api=1&query=Praca+do+Comercio+Lisbon) · [Mosteiro dos Jerónimos](https://www.google.com/maps/search/?api=1&query=Mosteiro+dos+Jeronimos) · [LX Factory](https://www.google.com/maps/search/?api=1&query=LX+Factory+Lisbon) · [Oceanário de Lisboa](https://www.google.com/maps/search/?api=1&query=Oceanario+de+Lisboa)",
+    ],
+    bullets: [
+      "Alfama — старые улицы и Fado.",
+      "Praça do Comércio — главная площадь у реки.",
+      "Belém — монастырь Jerónimos, башня и Pastéis de Belém.",
+      "LX Factory — магазины, рестораны и творческое пространство.",
+      "Oceanário — особенно если путешествуете с детьми.",
+    ],
+  },
+  {
+    heading: "Sintra — дворцы, сады и туманные холмы",
+    paragraphs: [
+      "Sintra — одно из самых необычных мест страны.",
+      "Здесь можно провести целый день среди дворцов, романтических парков и лесных дорожек.",
+      "Не пытайтесь увидеть всё за один день. Выберите две основные точки и оставьте время для прогулки.",
+      "Важная логистика: в Sintra действуют ограничения для частных автомобилей, в том числе к Pena и Castelo dos Mouros. Посещение Pena требует предварительного бронирования времени. Планируйте перемещение общественным транспортом и шаттлами.",
+      "Официальные билеты и часы: [parquesdesintra.pt](https://www.parquesdesintra.pt/)",
+      "Google Maps: [Palácio da Pena](https://www.google.com/maps/search/?api=1&query=Palacio+da+Pena+Sintra) · [Quinta da Regaleira](https://www.google.com/maps/search/?api=1&query=Quinta+da+Regaleira) · [Monserrate](https://www.google.com/maps/search/?api=1&query=Palacio+de+Monserrate) · [Castelo dos Mouros](https://www.google.com/maps/search/?api=1&query=Castelo+dos+Mouros) · [Convento dos Capuchos](https://www.google.com/maps/search/?api=1&query=Convento+dos+Capuchos) · [Маршрут Lisbon — Sintra](https://www.google.com/maps/dir/?api=1&origin=Lisbon+Portugal&destination=Sintra+Portugal)",
+    ],
+    bullets: [
+      "Palácio da Pena — яркий дворец на вершине холма.",
+      "Quinta da Regaleira — загадочный парк, гроты и Initiation Well.",
+      "Monserrate — дворец и ботанический сад.",
+      "Castelo dos Mouros — средневековая крепость.",
+      "Convento dos Capuchos — крошечный монастырь среди леса.",
+    ],
+    images: [
+      shot(
+        "dest-sintra-pena.webp",
+        "Дворец Pena на холме в Sintra",
+        "Palácio da Pena, Sintra.",
+        "Jakub Hałun, CC BY 4.0, Wikimedia Commons",
+        "https://commons.wikimedia.org/wiki/File:Pal%C3%A1cio_Nacional_da_Pena,_Sintra,_Portugal,_20250606_1155_0102.jpg",
+      ),
+    ],
+  },
+  {
+    heading: "Южное побережье: Arrábida, Setúbal и Tróia",
+    paragraphs: [
+      "Это уже не короткая поездка из Porto, а хороший маршрут на несколько дней.",
+      "Arrábida — один из самых красивых прибрежных природных парков страны. Зелёные холмы спускаются к прозрачной воде, а между ними прячутся небольшие бухты.",
+      "Setúbal стоит посетить ради морепродуктов, особенно choco frito — жареной каракатицы.",
+      "Tróia — длинный песчаный полуостров напротив Setúbal. До него можно добраться на пароме.",
+      "Google Maps: [Parque Natural da Arrábida](https://www.google.com/maps/search/?api=1&query=Parque+Natural+da+Arrabida) · [Praia de Galapinhos](https://www.google.com/maps/search/?api=1&query=Praia+de+Galapinhos) · [Portinho da Arrábida](https://www.google.com/maps/search/?api=1&query=Portinho+da+Arrabida) · [Sesimbra](https://www.google.com/maps/search/?api=1&query=Sesimbra+Portugal) · [Mercado do Livramento](https://www.google.com/maps/search/?api=1&query=Mercado+do+Livramento+Setubal) · [Tróia](https://www.google.com/maps/search/?api=1&query=Troia+Portugal) · [Маршрут Porto — Arrábida — Setúbal](https://www.google.com/maps/dir/?api=1&origin=Porto+Portugal&destination=Porto+Portugal&waypoints=Sesimbra+Portugal%7CPortinho+da+Arrabida%7CSetubal+Portugal)",
+    ],
+    bullets: [
+      "Praia de Galapinhos.",
+      "Praia da Figueirinha.",
+      "Portinho da Arrábida.",
+      "Sesimbra.",
+      "Castelo de Palmela.",
+      "Setúbal и Mercado do Livramento.",
+      "Tróia.",
+    ],
+  },
+  {
+    heading: "Madeira — когда хочется совсем другой Португалии",
+    paragraphs: [
+      "Madeira не подходит для автомобильного путешествия из Porto: это остров, и сюда нужно лететь.",
+      "Но если вы уже живёте в Португалии, стоит выделить на Madeira отдельный отпуск.",
+      "Фуншал, горные дороги, левады, лавровые леса, вулканические бассейны Porto Moniz и невероятные виды с Cabo Girão — это совсем другой мир.",
+      "**На остров стоит заложить 4–7 дней.**",
+      "Проверьте актуальные правила посещения пешеходных маршрутов и необходимость бронирования слотов на официальном портале Madeira.",
+      "Google Maps: [Funchal](https://www.google.com/maps/search/?api=1&query=Funchal+Madeira) · [Cabo Girão](https://www.google.com/maps/search/?api=1&query=Cabo+Girao) · [Porto Moniz](https://www.google.com/maps/search/?api=1&query=Porto+Moniz) · [Santana](https://www.google.com/maps/search/?api=1&query=Santana+Madeira) · [Ponta de São Lourenço](https://www.google.com/maps/search/?api=1&query=Ponta+de+Sao+Lourenco) · [Pico do Arieiro](https://www.google.com/maps/search/?api=1&query=Pico+do+Arieiro)",
+    ],
+    bullets: [
+      "Funchal Old Town.",
+      "Mercado dos Lavradores.",
+      "Cabo Girão.",
+      "Porto Moniz.",
+      "Santana.",
+      "Ponta de São Lourenço.",
+      "Pico do Arieiro.",
+    ],
+    images: [
+      shot(
+        "dest-madeira-cabo-girao.webp",
+        "Вид на Фуншал и океан с Cabo Girão на Мадейре",
+        "Фуншал с Cabo Girão.",
+        "Diego Delso, CC BY-SA 4.0, Wikimedia Commons",
+        "https://commons.wikimedia.org/wiki/File:Vista_de_Funchal_desde_Cabo_Gir%C3%A3o,_Madeira,_Portugal,_2019-05-30,_DD_59.jpg",
+      ),
+    ],
+  },
+  {
+    heading: "Календарь поездок: когда куда ехать",
+    paragraphs: [
+      "Португалия хороша круглый год, но направления сильно зависят от сезона.",
+    ],
+    table: {
+      columns: ["Сезон", "Лучшие направления"],
+      rows: [
+        ["Январь–февраль", "Braga, Guimarães, Coimbra, исторические города"],
+        ["Март–апрель", "Minho, Gerês, Douro, Arouca"],
+        ["Май–июнь", "Gerês, Viana, Douro, побережье"],
+        ["Июль–август", "океан, северное побережье, горные районы"],
+        ["Сентябрь–октябрь", "Douro, виноградники, Alentejo"],
+        ["Ноябрь–декабрь", "города, гастрономия, Golegã, рождественские рынки"],
+      ],
+    },
+    bullets: [
+      "Feira Nacional do Cavalo в Golegã — в 2026 году 6–15 ноября ([feiranacionaldocavalo.com](https://feiranacionaldocavalo.com/fnc-2026-2/)).",
+      "Виноградный сезон Douro — конец лета и начало осени.",
+      "São João в Porto — ночь с 23 на 24 июня.",
+      "Рождественские рынки — декабрь, даты уточняйте по городам.",
+    ],
+  },
+  {
+    heading: "Машина или поезд?",
+    paragraphs: [
+      "Для Guimarães, Braga, Aveiro и Coimbra поезд часто удобнее автомобиля. Не нужно думать о парковке, а железнодорожные станции находятся достаточно близко к центрам.",
+      "Для Gerês, Arouca, деревень Minho, Douro Superior и Trás-os-Montes машина даёт гораздо больше свободы.",
+    ],
+    table: {
+      columns: ["Направление", "Лучший транспорт"],
+      rows: [
+        ["Braga", "Поезд"],
+        ["Guimarães", "Поезд"],
+        ["Barcelos", "Поезд"],
+        ["Aveiro", "Поезд"],
+        ["Coimbra", "Поезд"],
+        ["Douro", "Поезд или автомобиль"],
+        ["Gerês", "Автомобиль"],
+        ["Arouca", "Автомобиль"],
+        ["Viana do Castelo", "Поезд или автомобиль"],
+        ["Ponte de Lima", "Автомобиль"],
+        ["Alentejo", "Автомобиль"],
+        ["Silver Coast", "Автомобиль"],
+      ],
+    },
+  },
+  {
+    heading: "Что учитывать перед выездом",
+    paragraphs: [
+      "**Платные дороги.** В Португалии есть обычные portagens и электронные участки. Перед поездкой проверьте способ оплаты и маршрут.",
+      "**Парковка.** В старых центрах городов улицы узкие. Лучше заранее найти парковку на Google Maps, а не пытаться заехать в исторический центр.",
+      "**Погода.** Север страны значительно влажнее юга. Для Gerês и горных маршрутов проверяйте прогноз в день поездки.",
+      "**Билеты.** Pena, Biblioteca Joanina, 516 Arouca и некоторые винодельни требуют предварительного бронирования.",
+      "**Время.** Не доверяйте только Google Maps: время в пути не учитывает остановки, парковку, обед и очереди.",
+      "Полезные официальные ресурсы: [CP — железные дороги Португалии](https://www.cp.pt/) · [Visit Portugal](https://www.visitportugal.com/) · [Parques de Sintra](https://www.parquesdesintra.pt/) · [516 Arouca](https://516arouca.pt/) · [ICNF — природные парки и охраняемые территории](https://www.icnf.pt/) · [Arouca Geopark](https://aroucageopark.pt/)",
+    ],
+  },
+  {
+    heading: "Пять поездок, с которых стоит начать",
+    paragraphs: [
+      "Если вы только начинаете исследовать Португалию из Porto, я бы расставил приоритеты так:",
+      "**1. Douro Valley.** Ради пейзажей, виноградников и одной из самых красивых железнодорожных поездок страны.",
+      "**2. Guimarães.** Ради истории, старого города и настоящей северной Португалии.",
+      "**3. Peneda-Gerês.** Ради гор, водопадов и природы. Лучше с ночёвкой.",
+      "**4. Aveiro и Costa Nova.** Лёгкая и красивая поездка, которую можно организовать без автомобиля.",
+      "**5. Arouca.** Ради моста 516 и прогулки вдоль реки Paiva.",
+      "Но не ограничивайтесь этими пятью. Португалия особенно интересна там, где заканчиваются стандартные туристические маршруты.",
+      "Иногда лучший день — это не посещение очередного объекта UNESCO, а дорога через маленькие деревни, остановка у семейной pastelaria и обед в ресторане, который вы нашли случайно.",
+      "**Берите машину, выбирайте направление и оставляйте немного места для спонтанности. Португалия лучше всего открывается не по списку достопримечательностей, а в дороге.**",
+      "Редакция Emigro. Время в пути, расписания, доступ к природным объектам и условия посещения могут меняться. Проверяйте информацию у перевозчиков и организаторов перед выездом.",
+    ],
+  },
 ];
 
 const faq: CommunityNoteFaq[] = [
   {
-    q: "Это вместо гайда «выходные из Porto»?",
-    a: "Нет. [Внутренний туризм Norte](/notes/" +
-      DOMESTIC_TOURISM_NORTE_SLUG +
-      ") — суббота–воскресенье в радиусе работы. Этот атлас — полная карта регионов из личных notes: Лиссабон, Ribatejo, Alentejo, Madeira. Читайте оба.",
+    q: "Куда поехать из Порту на полдня?",
+    a: "Vila do Conde, Espinho и Afurada. Метро Porto доходит до Vila do Conde и Póvoa de Varzim, в Espinho удобнее поезд. На Feira de Espinho закладывайте понедельник.",
   },
   {
-    q: "Как работает Acesso 52?",
-    a: "До 52 дней в год по правилам MMP для residentes с NIF в участвующих музеях и дворцах, регистрация на кассе. На практике список не равен «все музеи страны» — сверяйте museusemonumentos.pt. Подробнее — [льготы с ВНЖ](/notes/" +
-      LGOTY_SLUG +
-      ").",
+    q: "Где хватит поезда, а где нужна машина?",
+    a: "Поезд удобен в Guimarães, Braga, Barcelos, Aveiro и Coimbra. Для Gerês, Arouca, деревень Minho, Douro Superior, Trás-os-Montes, Alentejo и Silver Coast машина даёт больше свободы.",
   },
   {
-    q: "Когда Feira do Cavalo в Golegã в 2026?",
-    a: "По правилам календаря VisitPortugal на 2026: **6–15 ноября**. На практике жильё в самой Golegã разбирают рано — сверьте feiranacionaldocavalo.com до брони.",
+    q: "Поезд по Douro доезжает до наскальных рисунков?",
+    a: "Linha do Douro идёт из Porto через Régua до Pinhão и при желании до Pocinho. До археологического парка Vila Nova de Foz Côa от станции нужен отдельный трансфер. После дегустации лучше не садиться за руль.",
   },
   {
-    q: "Поезд по Douro идёт в Vila Nova de Foz Côa?",
-    a: "Linha do Douro идёт до **Pocinho**. До Foz Côa ещё около 7 км по дороге. Иначе останетесь на конечной без парка Côa.",
+    q: "Сколько времени закладывать на Lisbon и Sintra?",
+    a: "Лиссабон — минимум два дня, это не поездка на несколько часов из Porto. В Sintra выберите две точки: к Pena и Castelo dos Mouros есть ограничения для частных автомобилей, слот на Pena бронируют на parquesdesintra.pt.",
   },
   {
-    q: "Стоит ли Sintra за один день с детьми?",
-    a: "Одна–две точки плюс тихий стоп (Capuchos/Monserrate) лучше, чем Pena+Regaleira+центр без обеда. Oceanário и planetarium — лиссабонские семейные стопы из тех же notes.",
-  },
-  {
-    q: "Это вакансии в конце PDF?",
-    a: "Нет, архив ссылок автора (Net-Empregos, Expresso Emprego). Подбор ролей — [Role Radar](" +
-      ROLE_RADAR_LANDING_PATH +
-      "), не этот гайд.",
+    q: "Когда ехать в Gerês и на ярмарку в Golegã?",
+    a: "Для Gerês лучше хотя бы два дня: летом популярные водоёмы переполнены, осенью и весной парк особенно красив. Feira Nacional do Cavalo в Golegã в 2026 году — 6–15 ноября.",
   },
 ];
+
+const quickAnswer =
+  "Порту — отличная база для путешествий по Португалии. За час можно оказаться в средневековом городе, за полтора — среди виноградников долины Дору, а за два — в горах национального парка Peneda-Gerês. На полдня хватит Vila do Conde, Espinho и Afurada. На день — Braga, Guimarães, Aveiro. Gerês, Arouca и Alentejo просят машину и больше времени. Лиссабон и Sintra — отдельная поездка, не вечер из Porto.";
+
+const seoDescription =
+  "Из Порту за час — средневековый город, за полтора — виноградники Дору, за два — горы Gerês. 20 маршрутов по Португалии: океан, Minho, Alentejo.";
 
 export const PORTUGAL_DESTINATION_TIPS_GUIDE = {
   slug: PORTUGAL_DESTINATION_TIPS_SLUG,
   category: "Досуг",
   content_kind: "guide" as ContentKind,
-  title: "Куда поехать в Португалии: регионы, еда, петли — атлас 2026",
+  title: "Куда поехать из Порту: 20 маршрутов по Португалии от океана до виноградников",
   excerpt:
-    "Полный travel atlas: Lisbon и Sintra, Arrábida, Golegã, Tomar, Centro, Silver Coast, Minho и Gerês, Douro Superior, Trás-os-Montes, Alentejo, Madeira — плюс кофе, Acesso 52 и официальные ссылки. Для тех, кто уже живёт в Norte, не для трёхдневного трансфера через LIS.",
-  seo_title: "Куда поехать в Португалии 2026 из Porto",
-  seo_description:
-    "Куда поехать в Португалии 2026 из Porto: Lisbon, Sintra, Arrábida, Golegã 6–15 ноя, Douro, Alentejo, Madeira. Acesso 52 и Visit Portugal — не тур через LIS.",
-  quick_answer:
-    "Если вы уже в Porto, субботу закрывают Minho, Douro и Gerês. Этот атлас — когда нужны остальные кластеры страны: дворцы Lisbon/Sintra, бухты Arrábida, кони Golegã 6–15 ноября 2026, тамплиеры Tomar, UNESCO западного Centro, Côa после поезда до Pocinho, Alentejo и Madeira. Часы и Acesso 52 — на официальных сайтах; легенды гидов не билет.",
+    "Путеводитель для тех, кто живёт в Порту или приехал надолго: маршруты от океана и Minho до Дору, Gerês, Silver Coast, Alentejo и Мадейры.",
+  seo_title: "Куда поехать из Порту: 20 маршрутов 2026",
+  seo_description: seoDescription,
+  quick_answer: quickAnswer,
   city: "porto",
   body_sections: bodySections,
   body_paragraphs: flattenBodySections(bodySections),
-  key_takeaways: keyTakeaways,
+  key_takeaways: [
+    "Не пытайтесь посмотреть всю Португалию за один уикенд: интереснее ехать медленно и обедать там, где меню написано от руки.",
+    "С чего начать: Douro, Guimarães, Peneda-Gerês с ночёвкой, Aveiro и Costa Nova, Arouca.",
+    "Поезд удобен в Guimarães, Braga, Aveiro и Coimbra. Для Gerês, Arouca, Alentejo и Silver Coast нужна машина.",
+    "Pena, Biblioteca Joanina, 516 Arouca и часть виноделен бронируйте заранее. Feira de Espinho — по понедельникам, Feira de Barcelos — по четвергам, Golegã 2026 — 6–15 ноября.",
+  ],
   faq,
   official_links: [
-    { title: "Visit Portugal", url: "https://www.visitportugal.com/" },
-    { title: "VisitPortugal — Feira Nacional do Cavalo", url: "https://www.visitportugal.com/pt-pt/content/feira-nacional-do-cavalo" },
-    { title: "Feira Nacional do Cavalo", url: "https://feiranacionaldocavalo.com/" },
-    { title: "Parques de Sintra", url: "https://www.parquesdesintra.pt/" },
-    { title: "Museus e Monumentos — bilhetes / Acesso 52", url: "https://www.museusemonumentos.pt/pt/pagina/bilhetes" },
-    { title: "gov.pt — museus 52 dias", url: "https://www2.gov.pt/pt/noticias/museus-monumentos-e-palacios-com-entrada-gratis-52-dias-por-ano" },
     { title: "CP — Comboios de Portugal", url: "https://www.cp.pt/" },
+    { title: "Visit Portugal", url: "https://www.visitportugal.com/" },
+    { title: "Parques de Sintra", url: "https://www.parquesdesintra.pt/" },
+    { title: "516 Arouca", url: "https://516arouca.pt/" },
     { title: "ICNF", url: "https://www.icnf.pt/" },
-    { title: "Aldeias do Xisto", url: "https://aldeiasdoxisto.pt/" },
-    { title: "Visit Setúbal", url: "https://www.visitsetubal.com/" },
-    { title: "Turismo de Portugal", url: "https://www.turismodeportugal.pt/" },
+    { title: "Arouca Geopark", url: "https://aroucageopark.pt/" },
+    { title: "Turismo de Espinho — Feira Semanal", url: "https://www.turismo.espinho.pt/pt/turismo/feira-semanal/" },
+    { title: "Feira Nacional do Cavalo 2026", url: "https://feiranacionaldocavalo.com/fnc-2026-2/" },
   ],
-  topic_tags: ["turismo", "portugal"],
+  topic_tags: ["turismo", "portugal", "porto"],
   hashtags: buildNoteHashtags({
-    topicTags: ["turismo", "portugal"],
+    topicTags: ["turismo", "portugal", "porto"],
     contentKind: "guide",
-    extra: ["porto", "norte", "lisboa", "douro", "sintra", "alentejo", "madeira", "выходные"],
+    extra: ["douro", "geres", "minho", "sintra", "alentejo", "madeira", "aveiro"],
   }),
-  source_channel: null,
-  source_label: "user-pdf:portugal-destination-tips-aug-2026+emigro-factcheck",
+  source_channel: "editorial",
+  source_label: "editorial:porto-routes-2026-voice",
 };
