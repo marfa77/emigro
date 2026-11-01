@@ -6,6 +6,7 @@ import { Clock, Compass, Sparkles } from "lucide-react";
 import { ShareButtons } from "@/components/share/ShareButtons";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { RelocatorChatPromo } from "@/components/community/RelocatorChatPromo";
+import { TelegramCommunityCta } from "@/components/community/TelegramCommunityCta";
 import { NewsBotSubscribeCta } from "@/components/news/NewsBotSubscribeCta";
 import { TrackedAssistLink } from "@/components/assist/TrackedAssistLink";
 import { RouteNextStep } from "@/components/assist/RouteNextStep";
@@ -60,6 +61,7 @@ import { getClusterForGuide, getComparisonCrossLinks } from "@/lib/seo/cluster-l
 import { HUB_WIZARD_PATH } from "@/lib/corridor/paths";
 import { resolveGuideWizardHref } from "@/lib/wizard/resolve-href";
 import { buildFaqPageSchema, extractGuideFaq } from "@/lib/guides/extract-faq";
+import { resolvePublicTelegramCountryFromGuide, isPublicTelegramCommunityCountry } from "@/lib/telegram/public-communities";
 
 export const revalidate = 3600;
 
@@ -197,6 +199,7 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
   const cluster = getClusterForGuide(guide.slug);
   const comparisonCrossLinks = getComparisonCrossLinks(guide.slug);
   const providerTopicKey = getGuideProviderTopicKey(guide);
+  const telegramCommunityCountry = resolvePublicTelegramCountryFromGuide(guide) ?? providerTopicKey;
   const showUniPrep = shouldShowUniPrepOnGuide(guide) || shouldShowPrep2GoOnGuide(guide);
   const showRoleRadar = shouldShowRoleRadarOnGuide(guide.slug);
   const showUaeProperty = (guide.topic_keys ?? []).some((key) => key.toLowerCase() === "uae");
@@ -442,12 +445,20 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
               source={`guide_${guide.slug}`}
               className="mt-8"
             />
-            <RelocatorChatPromo
-              variant="inline"
+            <TelegramCommunityCta
+              countryKey={telegramCommunityCountry}
               source={`guide_${guide.slug}`}
-              countryKey={providerTopicKey}
+              variant="inline"
               className="mt-6"
             />
+            {!isPublicTelegramCommunityCountry(telegramCommunityCountry) ? (
+              <RelocatorChatPromo
+                variant="inline"
+                source={`guide_${guide.slug}`}
+                countryKey={providerTopicKey}
+                className="mt-6"
+              />
+            ) : null}
 
             {relatedGuides.length > 0 && (
               <section className="mt-8 rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm ring-1 ring-slate-950/5 sm:p-8">

@@ -9,6 +9,7 @@ import { FR_PATHS } from "@/lib/fr/corridor";
 import type { UiLocale } from "@/lib/locale";
 import { CONTACT_EMAIL, MAILTO_CONTACT } from "@/lib/site-contact";
 import { getHeaderNavLinks } from "@/lib/site-nav";
+import { COMMUNITY_PATH } from "@/lib/community";
 import { portoChatDeepLink } from "@/lib/telegram/deep-link";
 import { safeAreaTopStyle } from "@/lib/ui/mobile";
 
@@ -133,6 +134,9 @@ function EsSiteFooter() {
           </Link>
           <Link href="/ru" className="hover:text-corridor-600">
             Versión en ruso
+          </Link>
+          <Link href="/ru/community" className="hover:text-corridor-600">
+            Comunidades Telegram
           </Link>
         </nav>
         <Disclaimer locale="es" />
@@ -268,6 +272,9 @@ export function SiteFooter({ locale = "ru" }: { locale?: UiLocale }) {
           </Link>
           <Link href="/ru/stories" className="hover:text-corridor-600">
             {locale === "ru" ? "Истории" : "Stories"}
+          </Link>
+          <Link href={COMMUNITY_PATH} className="hover:text-corridor-600">
+            {locale === "ru" ? "Сообщества Telegram" : "Telegram communities"}
           </Link>
           <Link href="/ru/partners" className="hover:text-corridor-600">
             {locale === "ru" ? "Партнёрам" : "Partners"}

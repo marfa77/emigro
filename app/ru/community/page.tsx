@@ -1,57 +1,26 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, MessageCircle, Shield, Users, Zap, BookOpen } from "lucide-react";
-import { CommunityJoinButton } from "@/components/community/CommunityJoinButton";
-import { SatelliteCityChatCta } from "@/components/satellite/SatelliteCityChatCta";
+import { ArrowRight, MessageCircle, Shield } from "lucide-react";
+import { TelegramCommunityDirectory } from "@/components/community/TelegramCommunityDirectory";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { HeroShell } from "@/components/visuals/HeroShell";
-import { CONTACT_EMAIL } from "@/lib/site-contact";
-import { DISCUSSION_ACCESS_HINT, DISCUSSION_GROUP_HANDLE, NEWS_TELEGRAM_URL } from "@/lib/community";
+import { NewsBotSubscribeCta } from "@/components/news/NewsBotSubscribeCta";
 import { guidePath } from "@/lib/guides/load";
 import { listPillarGuides } from "@/lib/guides/pillar-guides";
 import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
 import { buildCommunityPageSchema } from "@/lib/seo/community-page-seo";
 import { pageMetadata, pageUrl } from "@/lib/seo";
-import { NewsBotSubscribeCta } from "@/components/news/NewsBotSubscribeCta";
-import { portoChatDeepLink } from "@/lib/telegram/deep-link";
+import { NEWS_TELEGRAM_URL } from "@/lib/community";
 
 export const revalidate = 86400;
 
 export const metadata: Metadata = pageMetadata({
-  title: "Для своих в Порту — закрытый чат Emigro",
+  title: "Сообщества Emigro в Telegram — Португалия, Испания, Италия",
   description:
-    "Закрытый чат Emigro «Порту и вокруг»: для своих публикуем важное, общаемся, эксперты отвечают. Новости страны в личку — только в боте («новости Португалия» / Испания / Италия / Таиланд). Канал @Emigro_news — отдельно.",
+    "Пять Telegram-сообществ Emigro: @emigro_portugal, чат @valencia_echat, @emigro_Italy, @milan_echat и барахолка @comomercatino. Новости региона и чаты релокантов на русском.",
   path: "/ru/community",
-  ogImageAlt: "Для своих · Порту и вокруг · Emigro",
+  ogImageAlt: "Сообщества Emigro в Telegram",
 });
-
-const BENEFITS = [
-  {
-    icon: Zap,
-    title: "Важное для своих",
-    text: "Публикуем гайды и городскую практику — не стена объявлений. Национальные новости страны — в личку бота: напишите «новости Португалия» (или другую страну). Канал @Emigro_news — отдельно.",
-  },
-  {
-    icon: Users,
-    title: "Общение",
-    text: "Быт, жильё, встречи в Порту и вокруг. Закрытая группа без публичного @ — попасть можно только через бота.",
-  },
-  {
-    icon: MessageCircle,
-    title: "Эксперты отвечают",
-    text: "Команда Emigro отвечает на вопросы, пока сообщество не заговорит само. Это не юридическая консультация.",
-  },
-  {
-    icon: BookOpen,
-    title: "Pillar-гайды",
-    text: "Делитесь ссылками на гайды Emigro — digital nomad Испания, D8 Португалия, Blue Card. Документы и Route Check — на сайте, не стеной в чате.",
-  },
-  {
-    icon: Shield,
-    title: "Без спама",
-    text: "Модерация, без рекламы и «гарантированных ВНЖ». Только полезный контент для релокантов.",
-  },
-] as const;
 
 const RULES = [
   "Это не юридическая консультация — для официальных решений обращайтесь к лицензированным специалистам.",
@@ -62,10 +31,10 @@ const RULES = [
 
 export default function CommunityPage() {
   const communityUrl = pageUrl("/ru/community");
-  const pillarGuides = listPillarGuides().slice(0, 8);
+  const pillarGuides = listPillarGuides().slice(0, 6);
   const breadcrumbSchema = buildBreadcrumbSchema([
     { name: "Все направления", item: pageUrl("/ru") },
-    { name: "Чат Порту и вокруг", item: communityUrl },
+    { name: "Сообщества Emigro", item: communityUrl },
   ]);
   const structuredData = buildCommunityPageSchema();
 
@@ -86,79 +55,44 @@ export default function CommunityPage() {
             Emigro
           </Link>
           <span className="mx-2">/</span>
-          <span>Чат Порту и вокруг</span>
+          <span>Сообщества Emigro</span>
         </nav>
 
         <HeroShell className="mt-6">
           <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-sm text-corridor-100">
-            <MessageCircle className="h-4 w-4" />
-            Для своих · Порту
+            <MessageCircle className="h-4 w-4" aria-hidden />
+            Telegram
           </span>
-          <h1 className="mt-4 text-3xl font-bold sm:text-4xl">Порту и вокруг · Emigro</h1>
+          <h1 className="mt-4 text-3xl font-bold sm:text-4xl">Сообщества Emigro</h1>
           <p className="mt-4 max-w-2xl text-lg text-corridor-100">
-            Закрытый чат для своих: публикуем важное, общаемся, эксперты отвечают на вопросы. Без публичного @. Одна
-            кнопка — бот сразу пришлёт ссылку в личку.
+            Каналы и чаты для релокантов на русском: новости региона, быт и обмен опытом по Португалии, Valenciana и
+            северу Италии. Прямые ссылки — без бота.
           </p>
-          <div className="mt-8">
-            <a
-              href={portoChatDeepLink("community")}
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3 text-base font-medium text-corridor-900 hover:bg-corridor-50"
-            >
-              <MessageCircle className="h-5 w-5" />
-              Войти в чат «Порту и вокруг»
-              <ArrowRight className="h-4 w-4" />
+          <p className="mt-4 max-w-2xl text-sm text-corridor-200">
+            Общая лента Emigro —{" "}
+            <a href={NEWS_TELEGRAM_URL} target="_blank" rel="noopener noreferrer" className="underline hover:text-white">
+              @Emigro_news
             </a>
-          </div>
-          <p className="mt-6 max-w-2xl text-sm text-corridor-200">
-            Канал <strong>@Emigro_news</strong> и комментарии {DISCUSSION_GROUP_HANDLE} — отдельно. Новости страны в
-            личку — только через бота: напишите «новости Португалия» (или другую страну). Это не городской чат Порту.
+            . Персональные дайджесты страны в личку — в боте @emigro_chat_bot («новости Португалия» и др.).
           </p>
-          <div className="mt-3">
-            <CommunityJoinButton source="community_landing_news" size="md" className="bg-white/15 text-white hover:bg-white/25" />
-          </div>
         </HeroShell>
 
         <NewsBotSubscribeCta source="community_landing" className="mt-8" />
 
-        <section className="mt-10" aria-labelledby="other-city-chats-heading">
-          <h2 id="other-city-chats-heading" className="text-2xl font-semibold text-slate-900">
-            Другие локальные чаты Emigro
+        <section className="mt-12" aria-labelledby="communities-list-heading">
+          <h2 id="communities-list-heading" className="text-2xl font-semibold text-slate-900">
+            Куда зайти
           </h2>
-          <p className="mt-2 max-w-2xl text-sm leading-relaxed text-slate-600">
-            Выберите чат по стране — бот выдаст приглашение именно в нужное сообщество, без переадресации в Порту.
-          </p>
-          <div className="grid gap-4 sm:grid-cols-2">
-            <SatelliteCityChatCta countryKey="spain" source="community_valencia" includeNews={false} />
-            <SatelliteCityChatCta countryKey="italy" source="community_milan" includeNews={false} />
-            <SatelliteCityChatCta countryKey="thailand" source="community_phuket" includeNews={false} />
-          </div>
-        </section>
-
-        <section className="mt-14">
-          <h2 className="text-2xl font-semibold text-slate-900">Что внутри для своих</h2>
-          <div className="mt-6 grid gap-4 sm:grid-cols-2">
-            {BENEFITS.map(({ icon: Icon, title, text }) => (
-              <article
-                key={title}
-                className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm"
-              >
-                <div className="flex items-start gap-3">
-                  <span className="rounded-lg bg-corridor-100 p-2 text-corridor-700">
-                    <Icon className="h-5 w-5" />
-                  </span>
-                  <div>
-                    <h3 className="font-semibold text-slate-900">{title}</h3>
-                    <p className="mt-1 text-sm leading-relaxed text-slate-600">{text}</p>
-                  </div>
-                </div>
-              </article>
-            ))}
+          <div className="mt-6">
+            <TelegramCommunityDirectory />
           </div>
         </section>
 
         <section className="mt-14 rounded-2xl border border-amber-200 bg-amber-50/60 p-6 sm:p-8">
-          <h2 className="text-xl font-semibold text-slate-900">Правила сообщества</h2>
+          <h2 className="flex items-center gap-2 text-xl font-semibold text-slate-900">
+            <Shield className="h-5 w-5 text-amber-700" aria-hidden />
+            Правила
+          </h2>
           <ul className="mt-4 space-y-3 text-sm leading-relaxed text-slate-700">
             {RULES.map((rule) => (
               <li key={rule} className="flex gap-2">
@@ -169,80 +103,10 @@ export default function CommunityPage() {
           </ul>
         </section>
 
-        <section className="mt-14 rounded-2xl border border-slate-200 bg-white p-6 sm:p-8">
-          <h2 className="text-xl font-semibold text-slate-900">Частые вопросы</h2>
-          <dl className="mt-4 space-y-5">
-            <div>
-              <dt className="font-medium text-slate-900">Как попасть в чат «Порту и вокруг»?</dt>
-              <dd className="mt-1 text-sm leading-relaxed text-slate-600">
-                Кнопка выше или «Чат» в меню сайта открывает бота. Он сразу присылает ссылку в личку — нажмите её. Если вы
-                уже в группе, та же кнопка открывает чат, без поиска в списке.
-              </dd>
-            </div>
-            <div>
-              <dt className="font-medium text-slate-900">Как получать новости страны в личку?</dt>
-              <dd className="mt-1 text-sm leading-relaxed text-slate-600">
-                Только в боте, не на сайте: напишите «новости Португалия», «новости Испания», «новости Италия» или
-                «новости Таиланд». Карточка придёт сюда, как только выпуск появляется на /ru/news. Отписка: «отписка».
-                Канал @Emigro_news — общая лента, это другая подписка.
-              </dd>
-            </div>
-            <div>
-              <dt className="font-medium text-slate-900">А комментарии у канала?</dt>
-              <dd className="mt-1 text-sm leading-relaxed text-slate-600">
-                {DISCUSSION_ACCESS_HINT} Это не чат Порту.
-              </dd>
-            </div>
-            <div>
-              <dt className="font-medium text-slate-900">Чем это отличается от wizard на сайте?</dt>
-              <dd className="mt-1 text-sm leading-relaxed text-slate-600">
-                Wizard подбирает маршруты ВНЖ по анкете. Чат — для своих: важное, общение и ответы экспертов по быту в
-                Порту. Документы и Route Check остаются на сайте, не стеной в группе.
-              </dd>
-            </div>
-            <div>
-              <dt className="font-medium text-slate-900">Это юридическая консультация?</dt>
-              <dd className="mt-1 text-sm leading-relaxed text-slate-600">
-                Нет. Для официальных решений используйте{" "}
-                <Link href="/ru/partners" className="text-corridor-600 hover:underline">
-                  справочник провайдеров
-                </Link>{" "}
-                или{" "}
-                <Link href="/ru/assist" className="text-corridor-600 hover:underline">
-                  Emigro Assist
-                </Link>
-                .
-              </dd>
-            </div>
-          </dl>
-        </section>
-
-        <section className="mt-14 rounded-2xl border border-corridor-200 bg-gradient-to-br from-white via-corridor-50 to-sky-50 p-6 sm:p-8">
-          <h2 className="text-xl font-semibold text-slate-900">Истории на сайте</h2>
-          <p className="mt-2 text-sm leading-relaxed text-slate-600">
-            Короткий кейс или контрапункт к гайду — публикуем после модерации с вашим именем и ссылкой. Уже есть четыре
-            затравки: успех, провал, спор и лайфхак.
-          </p>
-          <div className="mt-4 flex flex-wrap gap-2">
-            <Link
-              href="/ru/stories"
-              className="inline-flex rounded-full bg-corridor-700 px-4 py-2.5 text-sm font-medium text-white hover:bg-corridor-800"
-            >
-              Читать истории
-            </Link>
-            <Link
-              href="/ru/stories/submit"
-              className="inline-flex rounded-full border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-slate-800 hover:bg-slate-50"
-            >
-              Отправить свою
-            </Link>
-          </div>
-        </section>
-
         <section className="mt-14">
-          <h2 className="text-2xl font-semibold text-slate-900">Гайды для шаринга в Telegram</h2>
+          <h2 className="text-2xl font-semibold text-slate-900">Гайды для шаринга</h2>
           <p className="mt-2 max-w-2xl text-sm leading-relaxed text-slate-600">
-            Если гайд помог — отправьте ссылку в комментарии @Emigro_news или в чат релокантов. Это основной канал распространения Emigro (без Дзена и агрегаторов).
+            Если материал на сайте помог — отправьте ссылку в чат или канал по стране.
           </p>
           <ul className="mt-5 grid gap-2 sm:grid-cols-2">
             {pillarGuides.map((guide) => (
@@ -257,7 +121,7 @@ export default function CommunityPage() {
             ))}
           </ul>
           <p className="mt-4 text-sm text-slate-500">
-            Все pillar-гайды:{" "}
+            Все гайды:{" "}
             <Link href="/ru/guides" className="text-corridor-600 hover:underline">
               /ru/guides
             </Link>
@@ -265,32 +129,18 @@ export default function CommunityPage() {
         </section>
 
         <section className="mt-14 rounded-2xl border border-corridor-200 bg-gradient-to-br from-corridor-50 to-white p-6 text-center sm:p-10">
-          <h2 className="text-2xl font-bold text-slate-900">Как попасть в обсуждения</h2>
+          <h2 className="text-2xl font-bold text-slate-900">Подобрать маршрут на сайте</h2>
           <p className="mx-auto mt-3 max-w-lg text-slate-600">
-            Подпишитесь на канал{" "}
-            <a href={NEWS_TELEGRAM_URL} target="_blank" rel="noopener noreferrer" className="text-sky-700 hover:underline">
-              @Emigro_news
-            </a>{" "}
-            и пишите в комментариях к постам — там открывается чат {DISCUSSION_GROUP_HANDLE}. Новости страны в личку — в
-            том же боте: «новости Португалия» (или Испания / Италия / Таиланд).
+            Wizard сопоставит профиль с программами ВНЖ. Telegram — для новостей и живого опыта, не вместо проверки
+            документов.
           </p>
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
-            <CommunityJoinButton source="community_landing_footer" size="lg" />
-            <Link
-              href="/ru/wizard"
-              className="inline-flex items-center gap-2 rounded-lg border border-corridor-300 px-5 py-3 font-medium text-corridor-700 hover:bg-corridor-50"
-            >
-              Подобрать маршрут
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-          </div>
-          <p className="mx-auto mt-4 max-w-lg text-sm text-slate-500">
-            Истории переезда и фидбек по гайдам — в комментариях к постам канала или на{" "}
-            <a href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("Фидбек по гайду Emigro")}`} className="text-sky-700 hover:underline">
-              {CONTACT_EMAIL}
-            </a>
-            .
-          </p>
+          <Link
+            href="/ru/wizard"
+            className="mt-6 inline-flex items-center gap-2 rounded-lg bg-corridor-700 px-5 py-3 font-medium text-white hover:bg-corridor-800"
+          >
+            Подбор маршрута
+            <ArrowRight className="h-4 w-4" aria-hidden />
+          </Link>
         </section>
       </main>
       <SiteFooter />
