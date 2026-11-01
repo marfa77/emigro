@@ -6,7 +6,6 @@ import { MIN_TAG_NOTES_INDEXABLE } from "@/lib/seo/thin-content";
 import { COMO_GUIDES } from "@/lib/italy/como-guides";
 import { listPortugalEvents } from "@/lib/events/portugal-calendar";
 import {
-  portugalSatelliteHubPublicUrl,
   portugalSatellitePublicUrl,
   spainSatellitePublicUrl,
   italySatellitePublicUrl,
@@ -56,19 +55,14 @@ export async function buildSatelliteSitemapEntries(
         ]
       : [];
 
-  // Portugal hub is on porto.emigro.online — listed only in that host's sitemap
-  // (see buildPortugalHubSitemapEntries). Keep this host same-origin only.
-  const hubEntries: MetadataRoute.Sitemap =
-    country === "portugal"
-      ? []
-      : [
-          {
-            url: publicUrl(country, "/"),
-            ...(newestNoteDate ? { lastModified: newestNoteDate } : {}),
-            changeFrequency: "daily",
-            priority: 0.9,
-          },
-        ];
+  const hubEntries: MetadataRoute.Sitemap = [
+    {
+      url: publicUrl(country, "/"),
+      ...(newestNoteDate ? { lastModified: newestNoteDate } : {}),
+      changeFrequency: "daily",
+      priority: country === "portugal" ? 1 : 0.9,
+    },
+  ];
 
   return [
     ...hubEntries,
@@ -106,17 +100,6 @@ export async function buildSatelliteSitemapEntries(
         changeFrequency: "weekly" as const,
         priority: 0.65,
       })),
-  ];
-}
-
-/** Hub-only sitemap for porto.emigro.online (index experiment). */
-export function buildPortugalHubSitemapEntries(): MetadataRoute.Sitemap {
-  return [
-    {
-      url: portugalSatelliteHubPublicUrl(),
-      changeFrequency: "daily",
-      priority: 1,
-    },
   ];
 }
 

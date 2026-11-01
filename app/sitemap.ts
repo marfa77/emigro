@@ -24,10 +24,7 @@ import { newsArticleUrl, newsHubUrl, publicSiteUrl } from "@/lib/site-url";
 import { TRANSIT_HUBS } from "@/lib/transit-hubs";
 import { ORIGIN_HUB_PATH } from "@/lib/seo/corridor-llm-layer";
 import { publicHostKind } from "@/lib/seo/request-host";
-import {
-  buildPortugalHubSitemapEntries,
-  buildSatelliteSitemapEntries,
-} from "@/lib/seo/satellite-sitemap-entries";
+import { buildSatelliteSitemapEntries } from "@/lib/seo/satellite-sitemap-entries";
 
 export const revalidate = 3600;
 
@@ -354,9 +351,6 @@ async function buildWwwSitemap(): Promise<MetadataRoute.Sitemap> {
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const kind = publicHostKind();
-  if (kind === "portugal-hub") {
-    return buildPortugalHubSitemapEntries();
-  }
   if (kind === "portugal-satellite") {
     return buildSatelliteSitemapEntries("portugal");
   }

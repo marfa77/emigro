@@ -56,7 +56,7 @@ assert.match(sns.question, /SNS|utente|частн/i);
 
 const html = formatPortoGroupHtml(
   note({ slug: "porto-rajony-arenda-shkoly-parki-sport-2026", title: "Районы Порту" }),
-  "https://portugal.emigro.online/notes/porto-rajony-arenda-shkoly-parki-sport-2026"
+  "https://porto.emigro.online/notes/porto-rajony-arenda-shkoly-parki-sport-2026"
 );
 assert.match(html, /<b>Районы Порту<\/b>/);
 assert.match(html, /<b>Кто где живёт/);

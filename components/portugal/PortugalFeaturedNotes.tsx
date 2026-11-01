@@ -20,7 +20,7 @@ export function PortugalFeaturedNotes({ limit, className = "mt-12" }: Props = {}
       <p className="mt-2 max-w-2xl text-sm leading-relaxed text-slate-600">
         Гайды из Telegram-сигналов релокантов на{" "}
         <a href={portugalSatelliteHubUrl()} className="font-medium text-teal-800 underline hover:text-teal-950">
-          portugal.emigro.online
+          porto.emigro.online
         </a>
         — NIF, аренда, климат Norte, AIMA и быт.
       </p>
@@ -39,7 +39,7 @@ export function PortugalFeaturedNotes({ limit, className = "mt-12" }: Props = {}
       </ul>
       <p className="mt-4 text-sm">
         <a href={portugalSatelliteHubUrl()} className="font-medium text-teal-800 underline hover:text-teal-950">
-          Все заметки на portugal.emigro.online →
+          Все заметки на porto.emigro.online →
         </a>
       </p>
     </section>

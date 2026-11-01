@@ -1,23 +1,23 @@
-# Portugal satellite — porto + portugal.emigro.online
+# Portugal satellite — porto.emigro.online
 
 Сателлит Emigro для практических заметок (Porto / Norte). Контент **не копируется** из Telegram — парсер собирает **сигналы**, редакция пишет текст.
 
-## Хосты (эксперимент Nov 2026)
+## Хосты (после индекса Nov 2026)
 
 | Host | Что |
 |------|-----|
-| **`porto.emigro.online`** | Только **хаб** (`/`). Canonical корня. Sitemap = 1 URL. |
-| **`portugal.emigro.online`** | Заметки `/notes/*`, теги, календарь. Корень `/` пока отдаёт тот же хаб с `rel=canonical` → porto (без 301, пока DNS porto не подтверждён). |
+| **`porto.emigro.online`** | **Канон:** хаб + `/notes/*` + теги + календарь. Полный sitemap. |
+| **`portugal.emigro.online`** | Legacy — **301** на тот же path на `porto.emigro.online`. |
 
-После индекса porto: 301 `portugal…/` → `porto…/`, затем перенос заметок.
+Эксперимент: Google держал `portugal.*` в «Crawled – not indexed»; корень `porto` проиндексировался → перенесли весь сателлит.
 
 ## Деплой субдомена (Vercel)
 
 Перед любым prod-деплоем: `npm run build` должен пройти локально. Чеклист: [DEPLOY.md](./DEPLOY.md).
 
-1. Vercel → Project **emigro** → Settings → Domains → Add `portugal.emigro.online` **и** `porto.emigro.online`
-2. DNS: `CNAME portugal` + `CNAME porto` → `cname.vercel-dns.com`
-3. `middleware.ts`: porto → hub rewrite; portugal → notes; portugal `/` → 301 porto
+1. Vercel → Project **emigro** → Settings → Domains → Add `porto.emigro.online` **и** `portugal.emigro.online` (legacy 301)
+2. DNS: `CNAME porto` + `CNAME portugal` → `cname.vercel-dns.com`
+3. `middleware.ts`: porto → full satellite rewrite; portugal → 301 porto
 
 Локально без DNS: `http://localhost:3000/satellite/portugal`
 
@@ -102,10 +102,11 @@ npm run portugal:backfill-month  # 30 дней истории
 
 ## DNS / субдомен
 
-- CNAME `portugal` → `cname.vercel-dns.com` (Namecheap)
-- **Canonical URL:** `https://portugal.emigro.online` (production по умолчанию)
+- CNAME `porto` + `portugal` → `cname.vercel-dns.com`
+- **Canonical URL:** `https://porto.emigro.online`
+- `portugal.emigro.online/*` → **301** на тот же path на porto
 - `PORTUGAL_SATELLITE_USE_SUBDOMAIN=false` — только для локальной разработки без DNS
-- `www.emigro.online/satellite/portugal/*` → **301** на subdomain
+- `www.emigro.online/satellite/portugal/*` → **301** на porto
 - Локально: `http://localhost:3000/satellite/portugal`
 
 ## Ремонт данных

@@ -543,7 +543,7 @@ export function buildCorridorLandingFaq(topic: NewsTopicConfig, corridor: Corrid
           {
             question: "Какой порог дохода D8 и D7 Португалия в 2026?",
             answer:
-              "D8 digital nomad — ~€3 680/мес (4× RMMG €920). D7 пассивный доход — ~€920/мес + сбережения. После визы D — подача в AIMA для карты Título de Residência. Практика NIF/банк — на portugal.emigro.online.",
+              "D8 digital nomad — ~€3 680/мес (4× RMMG €920). D7 пассивный доход — ~€920/мес + сбережения. После визы D — подача в AIMA для карты Título de Residência. Практика NIF/банк — на porto.emigro.online.",
           },
         ]
       : topic.urlSegment === "spain"

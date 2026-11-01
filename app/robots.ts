@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { PORTUGAL_HUB_HOST, PORTUGAL_SATELLITE_HOST } from "@/lib/satellite/portugal";
+import { PORTUGAL_HUB_HOST } from "@/lib/satellite/portugal";
 import { SPAIN_SATELLITE_HOST } from "@/lib/satellite/spain";
 import { ITALY_SATELLITE_HOST } from "@/lib/satellite/italy";
 import { THAILAND_SATELLITE_HOST } from "@/lib/satellite/thailand";
@@ -40,21 +40,12 @@ function sharedRules(): MetadataRoute.Robots["rules"] {
 export default function robots(): MetadataRoute.Robots {
   const kind = publicHostKind();
 
-  if (kind === "portugal-hub") {
+  if (kind === "portugal-satellite") {
     const origin = `https://${PORTUGAL_HUB_HOST}`;
     return {
       rules: sharedRules(),
       sitemap: `${origin}/sitemap.xml`,
       host: PORTUGAL_HUB_HOST,
-    };
-  }
-
-  if (kind === "portugal-satellite") {
-    const origin = `https://${PORTUGAL_SATELLITE_HOST}`;
-    return {
-      rules: sharedRules(),
-      sitemap: `${origin}/sitemap.xml`,
-      host: PORTUGAL_SATELLITE_HOST,
     };
   }
 
@@ -94,7 +85,6 @@ export default function robots(): MetadataRoute.Robots {
       `${origin}/sitemap.xml`,
       `${origin}/sitemap/recent.xml`,
       `https://${PORTUGAL_HUB_HOST}/sitemap.xml`,
-      `https://${PORTUGAL_SATELLITE_HOST}/sitemap.xml`,
       `https://${SPAIN_SATELLITE_HOST}/sitemap.xml`,
       `https://${ITALY_SATELLITE_HOST}/sitemap.xml`,
       `https://${THAILAND_SATELLITE_HOST}/sitemap.xml`,

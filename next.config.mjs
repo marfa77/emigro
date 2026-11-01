@@ -65,19 +65,21 @@ const PORTUGAL_ARCHIVED_NOTE_REDIRECTS = {
 function portugalArchivedNoteRedirects() {
   return Object.entries(PORTUGAL_ARCHIVED_NOTE_REDIRECTS).flatMap(([from, to]) => {
     const external = to.startsWith("https://");
-    return [
+    const noteDest = external ? to : `/notes/${to}`;
+    return ["porto.emigro.online", "portugal.emigro.online"].flatMap((host) => [
       {
         source: `/notes/${from}`,
-        has: [{ type: "host", value: "portugal.emigro.online" }],
-        destination: external ? to : `/notes/${to}`,
+        has: [{ type: "host", value: host }],
+        destination: noteDest,
         permanent: true,
       },
+    ]).concat([
       {
         source: `/satellite/portugal/notes/${from}`,
         destination: external ? to : `/satellite/portugal/notes/${to}`,
         permanent: true,
       },
-    ];
+    ]);
   });
 }
 
@@ -106,10 +108,10 @@ const nextConfig = {
   },
   async redirects() {
     const satelliteNotes = usePortugalSubdomain
-      ? "https://portugal.emigro.online/notes/:slug"
+      ? "https://porto.emigro.online/notes/:slug"
       : "/satellite/portugal/notes/:slug";
     const satelliteTag = usePortugalSubdomain
-      ? "https://portugal.emigro.online/tag/:tag"
+      ? "https://porto.emigro.online/tag/:tag"
       : "/satellite/portugal/tag/:tag";
 
     return [
@@ -132,7 +134,7 @@ const nextConfig = {
         source: "/notes/:slug",
         has: [{ type: "host", value: "emigro.online" }],
         destination: usePortugalSubdomain
-          ? "https://portugal.emigro.online/notes/:slug"
+          ? "https://porto.emigro.online/notes/:slug"
           : "https://www.emigro.online/satellite/portugal/notes/:slug",
         permanent: true,
       },
@@ -146,7 +148,7 @@ const nextConfig = {
         source: "/tag/:tag",
         has: [{ type: "host", value: "emigro.online" }],
         destination: usePortugalSubdomain
-          ? "https://portugal.emigro.online/tag/:tag"
+          ? "https://porto.emigro.online/tag/:tag"
           : "https://www.emigro.online/satellite/portugal/tag/:tag",
         permanent: true,
       },
@@ -219,7 +221,7 @@ const nextConfig = {
       // Merged into kak-otkryt-bankovskiy-schet-portugalia-2026
       {
         source: "/notes/otkrytie-scheta-kreditnaya-karta-portugaliya-2026",
-        has: [{ type: "host", value: "portugal.emigro.online" }],
+        has: [{ type: "host", value: "porto.emigro.online" }],
         destination: "/notes/kak-otkryt-bankovskiy-schet-portugalia-2026",
         permanent: true,
       },
@@ -236,7 +238,7 @@ const nextConfig = {
       // Thin household notes archived Sep 2026 — redirect to system guides / hub
       {
         source: "/notes/via-verde-transponder-replacement-portugal",
-        has: [{ type: "host", value: "portugal.emigro.online" }],
+        has: [{ type: "host", value: "porto.emigro.online" }],
         destination: "/notes/platnye-dorogi-shtrafy-avariya-portugaliya-norte-2026",
         permanent: true,
       },
@@ -247,7 +249,7 @@ const nextConfig = {
       },
       {
         source: "/notes/porto-free-public-transport-guide",
-        has: [{ type: "host", value: "portugal.emigro.online" }],
+        has: [{ type: "host", value: "porto.emigro.online" }],
         destination: "/notes/turizm-vnutri-portugalii-norte-2026",
         permanent: true,
       },
@@ -258,7 +260,7 @@ const nextConfig = {
       },
       {
         source: "/notes/vozvrat-remont-tovarov-portugaliya-2026",
-        has: [{ type: "host", value: "portugal.emigro.online" }],
+        has: [{ type: "host", value: "porto.emigro.online" }],
         destination: "/",
         permanent: true,
       },
@@ -269,7 +271,7 @@ const nextConfig = {
       },
       {
         source: "/notes/smena-adresa-nif-financas-2026",
-        has: [{ type: "host", value: "portugal.emigro.online" }],
+        has: [{ type: "host", value: "porto.emigro.online" }],
         destination: "/notes/prodlenie-vnzh-portugaliya-aima-2026",
         permanent: true,
       },
@@ -281,14 +283,14 @@ const nextConfig = {
       // Soft-duplicate hub URL on sat host → public canonical /
       {
         source: "/satellite/portugal",
-        has: [{ type: "host", value: "portugal.emigro.online" }],
+        has: [{ type: "host", value: "porto.emigro.online" }],
         destination: "/",
         permanent: true,
       },
       // Lisboa-centric NIF note → Porto / Norte hand guide
       {
         source: "/notes/nif-lissabon-chto-puutayut",
-        has: [{ type: "host", value: "portugal.emigro.online" }],
+        has: [{ type: "host", value: "porto.emigro.online" }],
         destination: "/notes/nif-porto-kak-poluchit-2026",
         permanent: true,
       },

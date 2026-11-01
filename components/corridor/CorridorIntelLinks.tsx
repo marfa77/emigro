@@ -240,7 +240,7 @@ export function CorridorIntelLinks({ topic, variant = "full", layout = "grid" }:
             <StickyNote className="h-5 w-5 text-teal-700" />
             <p className="mt-2 font-medium text-slate-900 group-hover:text-teal-800">Практика в Португалии</p>
             <p className="mt-1 text-sm text-slate-600">
-              NIF, AIMA, аренда — заметки из Telegram-сигналов на portugal.emigro.online.
+              NIF, AIMA, аренда — заметки из Telegram-сигналов на porto.emigro.online.
             </p>
           </a>
         )}

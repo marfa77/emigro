@@ -12,7 +12,6 @@ import {
 } from "@/lib/site-url";
 
 const CANONICAL_HOST = "www.emigro.online";
-const PORTUGAL_SATELLITE_ORIGIN = `https://${PORTUGAL_SATELLITE_HOST}`;
 const PORTUGAL_HUB_ORIGIN = `https://${PORTUGAL_HUB_HOST}`;
 const SPAIN_SATELLITE_ORIGIN = `https://${SPAIN_SATELLITE_HOST}`;
 const ITALY_SATELLITE_ORIGIN = `https://${ITALY_SATELLITE_HOST}`;
@@ -30,18 +29,18 @@ function isPreviewHost(host: string): boolean {
   return host.endsWith(".vercel.app");
 }
 
-/** Notes / calendar host. */
-function isPortugalNotesHost(host: string): boolean {
-  return host === PORTUGAL_SATELLITE_HOST;
-}
-
-/** Hub-only experiment host (porto.emigro.online). */
-function isPortugalHubHost(host: string): boolean {
+/** Canonical Portugal satellite (porto.emigro.online). */
+function isPortugalCanonicalHost(host: string): boolean {
   return host === PORTUGAL_HUB_HOST;
 }
 
+/** Legacy portugal.emigro.online — wholesale 301 → porto. */
+function isPortugalLegacyHost(host: string): boolean {
+  return host === PORTUGAL_SATELLITE_HOST;
+}
+
 function isPortugalSatelliteHost(host: string): boolean {
-  return isPortugalNotesHost(host) || isPortugalHubHost(host);
+  return isPortugalCanonicalHost(host) || isPortugalLegacyHost(host);
 }
 
 function isSpainSatelliteHost(host: string): boolean {
@@ -80,9 +79,7 @@ function redirectWwwSatelliteToSubdomain(request: NextRequest): NextResponse | n
 
   if (pathname.startsWith("/satellite/portugal") && portugalSatelliteSubdomainEnabled()) {
     const subpath = pathname.slice("/satellite/portugal".length) || "/";
-    // Hub → porto; everything else → portugal notes host
-    const origin = subpath === "/" ? PORTUGAL_HUB_ORIGIN : PORTUGAL_SATELLITE_ORIGIN;
-    const destination = `${origin}${subpath === "/" ? "" : subpath}${search}`;
+    const destination = `${PORTUGAL_HUB_ORIGIN}${subpath === "/" ? "" : subpath}${search}`;
     return NextResponse.redirect(destination, 301);
   }
 
@@ -116,14 +113,14 @@ function redirectMisplacedSatellitePaths(request: NextRequest): NextResponse | n
   if (pathname.startsWith("/notes/")) {
     const subpath = pathname;
     const destination = portugalSatelliteSubdomainEnabled()
-      ? `${PORTUGAL_SATELLITE_ORIGIN}${subpath}${search}`
+      ? `${PORTUGAL_HUB_ORIGIN}${subpath}${search}`
       : `https://${CANONICAL_HOST}/satellite/portugal${subpath}${search}`;
     return NextResponse.redirect(destination, 301);
   }
   if (pathname.startsWith("/tag/")) {
     const subpath = pathname;
     const destination = portugalSatelliteSubdomainEnabled()
-      ? `${PORTUGAL_SATELLITE_ORIGIN}${subpath}${search}`
+      ? `${PORTUGAL_HUB_ORIGIN}${subpath}${search}`
       : `https://${CANONICAL_HOST}/satellite/portugal${subpath}${search}`;
     return NextResponse.redirect(destination, 301);
   }
@@ -230,30 +227,18 @@ function rewritePortugalSatellite(request: NextRequest): NextResponse | null {
   if (!isPortugalSatelliteHost(host)) return null;
 
   const { pathname, search } = request.nextUrl;
+
+  // Legacy portugal.* → canonical porto.* (hub indexed Nov 2026).
+  if (isPortugalLegacyHost(host)) {
+    return NextResponse.redirect(`${PORTUGAL_HUB_ORIGIN}${pathname}${search}`, 301);
+  }
+
   if (isSatelliteSharedPath(pathname)) return NextResponse.next();
   if (pathname.startsWith("/satellite/portugal")) {
     return NextResponse.next();
   }
 
-  // porto.emigro.online — hub only; notes/calendar/tags stay on portugal.*
-  if (isPortugalHubHost(host)) {
-    if (pathname === "/" || pathname === "") {
-      const url = request.nextUrl.clone();
-      url.pathname = "/satellite/portugal";
-      const res = NextResponse.rewrite(url);
-      res.headers.set("Link", `<${PORTUGAL_HUB_ORIGIN}>; rel="canonical"`);
-      return res;
-    }
-    // Allow sitemap/robots on the hub host (Next serves via host kind)
-    if (pathname === "/sitemap.xml" || pathname === "/robots.txt") {
-      return NextResponse.next();
-    }
-    return NextResponse.redirect(`${PORTUGAL_SATELLITE_ORIGIN}${pathname}${search}`, 301);
-  }
-
-  // portugal.emigro.online — notes host. Hub HTML still renders at `/` with
-  // canonical → porto (see page metadata). Hard 301 of `/` waits until porto
-  // is live in DNS/Vercel and shows in GSC; then flip to redirect.
+  // porto.emigro.online — full satellite (hub + notes + calendar + tags).
   if (pathname === "/llms.txt") {
     const url = request.nextUrl.clone();
     url.pathname = "/satellite/portugal/llms";

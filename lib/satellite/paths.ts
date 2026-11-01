@@ -12,15 +12,8 @@ function requestHost(): string {
 
 function onPortugalSatelliteHost(): boolean {
   const host = requestHost();
-  return host === PORTUGAL_SATELLITE_HOST || host === PORTUGAL_HUB_HOST;
-}
-
-function onPortugalHubHost(): boolean {
-  return requestHost() === PORTUGAL_HUB_HOST;
-}
-
-function onPortugalNotesHost(): boolean {
-  return requestHost() === PORTUGAL_SATELLITE_HOST;
+  // porto = canonical; portugal = legacy (should 301, but keep relative if hit)
+  return host === PORTUGAL_HUB_HOST || host === PORTUGAL_SATELLITE_HOST;
 }
 
 function onSpainSatelliteHost(): boolean {
@@ -52,10 +45,7 @@ export function satelliteHubPath(countryKey: SatelliteCountryKey = "portugal"): 
     return onThailandSatelliteHost() ? "/" : "/satellite/thailand";
   }
   if (countryKey === "portugal") {
-    if (onPortugalHubHost()) return "/";
-    // From notes host or www — absolute hub (porto) so we don't bounce portugal `/` → porto.
-    if (onPortugalNotesHost()) return portugalSatelliteHubPublicUrl();
-    return portugalSatelliteHubPublicUrl();
+    return onPortugalSatelliteHost() ? "/" : portugalSatelliteHubPublicUrl();
   }
   return "/satellite/portugal";
 }
@@ -70,9 +60,7 @@ export function satelliteNotePath(slug: string, countryKey: SatelliteCountryKey 
   if (countryKey === "thailand") {
     return onThailandSatelliteHost() ? `/notes/${slug}` : `/satellite/thailand/notes/${slug}`;
   }
-  // Always absolute on portugal notes host — hub (porto) must not serve /notes without 301.
-  if (onPortugalHubHost()) return portugalSatellitePublicUrl(`/notes/${slug}`);
-  if (onPortugalNotesHost()) return `/notes/${slug}`;
+  if (onPortugalSatelliteHost()) return `/notes/${slug}`;
   return portugalSatellitePublicUrl(`/notes/${slug}`);
 }
 
@@ -88,7 +76,7 @@ export function satelliteTagPath(tag: string, countryKey: SatelliteCountryKey = 
     return onThailandSatelliteHost() ? `/tag/${encoded}` : `/satellite/thailand/tag/${encoded}`;
   }
   if (countryKey === "portugal") {
-    if (onPortugalNotesHost()) return `/tag/${encoded}`;
+    if (onPortugalSatelliteHost()) return `/tag/${encoded}`;
     return portugalSatellitePublicUrl(`/tag/${encoded}`);
   }
   return `/satellite/portugal/tag/${encoded}`;
@@ -109,14 +97,13 @@ export function portugalTagPath(tag: string): string {
   return satelliteTagPath(tag, "portugal");
 }
 
-/** Event calendar — short path on the Portugal notes host, absolute from hub/www. */
+/** Event calendar — short path on the Portugal satellite host, absolute from www. */
 export function portugalCalendarPath(slug?: string): string {
-  if (onPortugalNotesHost()) {
+  if (onPortugalSatelliteHost()) {
     const base = "/calendar";
     return slug ? `${base}/${slug}` : base;
   }
-  const abs = portugalSatellitePublicUrl(slug ? `/calendar/${slug}` : "/calendar");
-  return abs;
+  return portugalSatellitePublicUrl(slug ? `/calendar/${slug}` : "/calendar");
 }
 
 export function spainHubPath(): string {

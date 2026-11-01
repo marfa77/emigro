@@ -120,7 +120,7 @@ export default async function RuHubPage() {
           </div>
           <p className="mt-3 max-w-2xl text-slate-700">
             D8 digital nomad и D7 пассивный доход: pillar-гид, wizard, новости AIMA и{" "}
-            <strong>живая практика</strong> (NIF, банк, аренда, биометрия) на portugal.emigro.online — то, чего нет
+            <strong>живая практика</strong> (NIF, банк, аренда, биометрия) на porto.emigro.online — то, чего нет
             у других коридоров.
           </p>
           <ul className="mt-5 grid gap-2 sm:grid-cols-2">
@@ -147,7 +147,7 @@ export default async function RuHubPage() {
                 rel="noopener noreferrer"
                 className="block rounded-lg border border-teal-200 bg-teal-50 px-4 py-3 text-sm font-medium text-teal-900 hover:border-teal-400"
               >
-                Практика — portugal.emigro.online
+                Практика — porto.emigro.online
               </a>
             </li>
             <li>

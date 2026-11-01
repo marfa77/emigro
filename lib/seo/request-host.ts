@@ -6,7 +6,6 @@ import { THAILAND_SATELLITE_HOST } from "@/lib/satellite/thailand";
 
 export type PublicHostKind =
   | "www"
-  | "portugal-hub"
   | "portugal-satellite"
   | "spain-satellite"
   | "italy-satellite"
@@ -16,8 +15,10 @@ export type PublicHostKind =
 export function publicHostKind(): PublicHostKind {
   try {
     const host = headers().get("host")?.split(":")[0]?.toLowerCase() ?? "";
-    if (host === PORTUGAL_HUB_HOST) return "portugal-hub";
-    if (host === PORTUGAL_SATELLITE_HOST) return "portugal-satellite";
+    // porto = canonical; portugal.* 301s before sitemap, but keep mapping if hit
+    if (host === PORTUGAL_HUB_HOST || host === PORTUGAL_SATELLITE_HOST) {
+      return "portugal-satellite";
+    }
     if (host === SPAIN_SATELLITE_HOST) return "spain-satellite";
     if (host === ITALY_SATELLITE_HOST) return "italy-satellite";
     if (host === THAILAND_SATELLITE_HOST) return "thailand-satellite";

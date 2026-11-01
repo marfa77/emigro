@@ -27,7 +27,7 @@ export function matchChatportoTopics(question: string): ChatportoMatch[] {
 
 export function chatportoNoteUrl(slug: string): string {
   // Always public satellite host — CLI on VPS is not Next production NODE_ENV.
-  const base = `https://portugal.emigro.online/notes/${slug}`;
+  const base = `https://porto.emigro.online/notes/${slug}`;
   const u = new URL(base);
   u.searchParams.set("utm_source", "chatporto");
   u.searchParams.set("utm_medium", "community_reply");

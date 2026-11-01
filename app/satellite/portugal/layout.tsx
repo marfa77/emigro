@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
-import { PORTUGAL_SATELLITE, PORTUGAL_SATELLITE_HOST } from "@/lib/satellite/portugal";
+import { PORTUGAL_HUB_HOST, PORTUGAL_SATELLITE } from "@/lib/satellite/portugal";
 import { PortugalSatelliteFooter, PortugalSatelliteHeader } from "@/components/satellite/PortugalSatelliteLayout";
 
 export const metadata: Metadata = {
-  // Notes host — hub canonical is overridden on the hub page (porto.emigro.online).
-  metadataBase: new URL(`https://${PORTUGAL_SATELLITE_HOST}`),
+  metadataBase: new URL(`https://${PORTUGAL_HUB_HOST}`),
   title: {
     default: `${PORTUGAL_SATELLITE.title} | Emigro`,
     template: `%s | Emigro PT`,
