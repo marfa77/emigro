@@ -12,6 +12,7 @@ import { isRelocantSignalChannel as isPortugalRelocantChannel } from "@/lib/sate
 import { isRelocantSignalChannel as isSpainRelocantChannel } from "@/lib/satellite/spain";
 import { isRelocantSignalChannel as isItalyRelocantChannel } from "@/lib/satellite/italy";
 import { isRelocantSignalChannel as isThailandRelocantChannel } from "@/lib/satellite/thailand";
+import { CLUBS_PORTUGAL_UNDERGROUND_GUIDE } from "@/lib/community-notes/guides/clubs-portugal-underground-2026";
 
 /** Ingest allowlist — third-party chats only (never owned Emigro surfaces). */
 function filterRelocantSignals<T extends { channel_username: string }>(signals: T[]): T[] {
@@ -31,6 +32,31 @@ const EDITORIAL_SCAFFOLDING = [
   /^Зачем: (?:полевой опыт из чатов экономит итерации|без hard-правил следующий шаг|типичные расхождения «сайт vs чат» съедают недели)/i,
   /^Главное: (?:разберитесь с «[^»]+» до следующего шага — ошибка здесь обычно стоит недель|сверьте этот блок с официальным источником перед действием)/i,
 ];
+
+/** Repo source of truth until the hand-guide publish script can write Supabase. */
+function applyRepoHandGuides(note: CommunityNote): CommunityNote {
+  if (note.slug !== CLUBS_PORTUGAL_UNDERGROUND_GUIDE.slug) return note;
+  const guide = CLUBS_PORTUGAL_UNDERGROUND_GUIDE;
+  return {
+    ...note,
+    category: guide.category,
+    content_kind: guide.content_kind,
+    title: guide.title,
+    excerpt: guide.excerpt,
+    seo_title: guide.seo_title,
+    seo_description: guide.seo_description,
+    quick_answer: guide.quick_answer,
+    body_sections: guide.body_sections,
+    body_paragraphs: guide.body_paragraphs,
+    key_takeaways: guide.key_takeaways,
+    faq: guide.faq,
+    official_links: guide.official_links,
+    topic_tags: guide.topic_tags,
+    hashtags: guide.hashtags,
+    source_channel: guide.source_channel,
+    source_label: guide.source_label,
+  };
+}
 
 function removeEditorialScaffolding(note: CommunityNote): CommunityNote {
   if (note.country_key !== "portugal") return note;
@@ -99,7 +125,9 @@ async function fetchPublishedCommunityNotesFromDb(countryKey: string): Promise<C
     throw new Error(`community_notes empty for ${countryKey}`);
   }
 
-  const notes = rows.map((row) => removeEditorialScaffolding(finalizeCommunityNote(row, countryKey)));
+  const notes = rows.map((row) =>
+    applyRepoHandGuides(removeEditorialScaffolding(finalizeCommunityNote(row, countryKey))),
+  );
   const merged = mergePublishedNotesWithSeed(notes, countryKey);
   if (isCommunityNotesSeedOnly(merged)) {
     throw new Error(`community_notes seed-only for ${countryKey}`);
@@ -129,7 +157,7 @@ export async function getPublishedCommunityNotes(countryKey = "portugal"): Promi
   try {
     return await unstable_cache(
       () => fetchPublishedCommunityNotesFromDb(countryKey),
-      ["community-notes-v2026-10-26-editorial-refresh-final", countryKey],
+      ["community-notes-v2026-11-01-clubs-editorial", countryKey],
       {
         revalidate: CACHE_REVALIDATE.communityNotes,
         tags: [CACHE_TAGS.communityNotes, `${CACHE_TAGS.communityNotes}-${countryKey}`],
@@ -190,7 +218,7 @@ async function fetchPublishedCommunityNoteBySlugUncached(
     if (error || !data) {
       return noteSeedFallback(countryKey).find((n) => n.slug === slug) ?? null;
     }
-    return removeEditorialScaffolding(finalizeCommunityNote(data, countryKey));
+    return applyRepoHandGuides(removeEditorialScaffolding(finalizeCommunityNote(data, countryKey)));
   } catch {
     return noteSeedFallback(countryKey).find((n) => n.slug === slug) ?? null;
   }
@@ -209,7 +237,7 @@ export async function getPublishedCommunityNoteBySlug(
 ): Promise<CommunityNote | null> {
   return unstable_cache(
     () => fetchPublishedCommunityNoteBySlugUncached(slug, countryKey),
-    ["community-note-by-slug-v2026-10-26-editorial-refresh-final", countryKey, slug],
+    ["community-note-by-slug-v2026-11-01-clubs-editorial", countryKey, slug],
     {
       revalidate: CACHE_REVALIDATE.communityNotes,
       tags: [CACHE_TAGS.communityNotes, `${CACHE_TAGS.communityNotes}-${countryKey}`, `community-note-${slug}`],
