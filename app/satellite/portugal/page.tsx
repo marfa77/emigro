@@ -46,7 +46,7 @@ const JOURNEYS = [
     eyebrow: "Жизнь на месте",
     title: "Настраиваете повседневную жизнь",
     description: "Медицина, связь и базовые услуги — выбирайте тему, которая актуальна сейчас.",
-    slugs: ["meditsina-norte-sns-chastnaya-stomatologiya-2026", "vybor-internet-provaydera-portugaliya-2026", "zheltye-stranitsy-relokanta-portugaliya-2026"],
+    slugs: ["meditsina-norte-sns-chastnaya-stomatologiya-2026", "vybor-internet-provaydera-portugaliya-2026", "zheltye-stranitsy-relokanta-portugaliya-2026", "kluby-portugalii-tehno-underground-2026"],
     accent: "border-sky-200 bg-sky-50/70",
   },
   {
