@@ -17,6 +17,7 @@ import {
   liquidityLabel,
   outcomeLabel,
   passportRestrictionLabel,
+  ruByRouteBadge,
   routeKey,
   routeStatusLabel,
   uniqueInvestmentCountries,
@@ -149,6 +150,13 @@ export default function InvestmentCountryPage({ params }: { params: { country: s
         "Разбор маршрута по ссылке программы, официальный портал, при недвижимости — qualifier. Не переводите деньги по скринингу чата.",
     },
   ];
+  if (route.programSlug === "italy-investor-visa") {
+    faq.unshift({
+      question: "Можно ли гражданину РФ или РБ подать на инвесторскую визу Италии?",
+      answer:
+        "Нет. Программа приостановлена для граждан РФ и РБ с 14.07.2023 и для неграждан ЕС со вторым паспортом РФ или РБ с 20.03.2024 (портал Investor Visa). ВНЖ другой страны, например Португалии, это право не возвращает.",
+    });
+  }
   if (route.country === "portugal") {
     faq.splice(1, 0, {
       question: "Сколько лет до гражданства Португалии по Golden Visa в 2026?",
@@ -185,8 +193,12 @@ export default function InvestmentCountryPage({ params }: { params: { country: s
           />
           <div className="relative hidden flex-wrap items-center gap-3 sm:flex">
             <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-white/10 text-2xl ring-1 ring-white/15 backdrop-blur sm:h-14 sm:w-14 sm:rounded-2xl sm:text-3xl" aria-hidden>{route.flag}</span>
-            <span className={`rounded-full px-3 py-1 text-xs font-semibold ${route.status === "active" && routes.length === 1 ? "bg-emerald-300/20 text-emerald-100 ring-1 ring-emerald-300/30" : route.status === "closed" ? "bg-rose-300/20 text-rose-100 ring-1 ring-rose-300/30" : "bg-amber-300/20 text-amber-100 ring-1 ring-amber-300/30"}`}>
-              {routes.length > 1 ? `${routes.length} программы, проверяются раздельно` : routeStatusLabel(route.status)}
+            <span className={`rounded-full px-3 py-1 text-xs font-semibold ${hasRuByPassportRestriction(route) && routes.length === 1 ? "bg-rose-300/20 text-rose-50 ring-1 ring-rose-300/40" : route.status === "active" && routes.length === 1 ? "bg-emerald-300/20 text-emerald-100 ring-1 ring-emerald-300/30" : route.status === "closed" ? "bg-rose-300/20 text-rose-100 ring-1 ring-rose-300/30" : "bg-amber-300/20 text-amber-100 ring-1 ring-amber-300/30"}`}>
+              {routes.length > 1
+                ? `${routes.length} программы, проверяются раздельно`
+                : hasRuByPassportRestriction(route)
+                  ? ruByRouteBadge(route)
+                  : routeStatusLabel(route.status)}
             </span>
           </div>
           <h1 className="relative max-w-3xl text-2xl font-bold leading-tight tracking-tight sm:mt-5 sm:text-4xl">
@@ -266,7 +278,7 @@ export default function InvestmentCountryPage({ params }: { params: { country: s
                 {item.status === "closed"
                   ? routeStatusLabel(item.status)
                   : ruByBlocked
-                    ? "RU/BY: ограничено"
+                    ? ruByRouteBadge(item)
                     : routeStatusLabel(item.status)}
               </span>
             </div>

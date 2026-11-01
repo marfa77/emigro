@@ -36,13 +36,13 @@ const RESTRICTION_NOTES: Record<
       notes_en:
         "Investor Visa Italy: programme suspended for Russian nationals (including dual nationality where one passport is RU).",
       notes_ru:
-        "Italy Investor Visa: программа приостановлена для граждан РФ (включая двойное гражданство с паспортом РФ).",
+        "Italy Investor Visa: программа приостановлена для граждан РФ (включая неграждан ЕС со вторым паспортом РФ). ВНЖ другой страны это право не возвращает.",
     },
     BY: {
       notes_en:
         "Investor Visa Italy: programme suspended for Belarusian nationals (including dual nationality where one passport is BY).",
       notes_ru:
-        "Italy Investor Visa: программа приостановлена для граждан BY (включая двойное гражданство с паспортом BY).",
+        "Italy Investor Visa: программа приостановлена для граждан BY (включая неграждан ЕС со вторым паспортом BY). ВНЖ другой страны это право не возвращает.",
     },
   },
 };
@@ -52,6 +52,31 @@ const RESTRICTION_NOTES: Record<
  * lib/investment/registry.ts → overlays corridor program pages / Facts API
  * even if a DB seed is stale. DB migration keeps wizard evaluator in sync.
  */
+const ITALY_INVESTOR_SLUG = "italy-investor-visa";
+
+/** Hub and program cards keep the thresholds and add the citizenship block the DB summary omits. */
+export function overlayInvestmentProgramSummary(programSlug: string, summary: string): string {
+  if (programSlug !== ITALY_INVESTOR_SLUG) return summary;
+  if (/приостановлен/i.test(summary)) return summary;
+  return `${summary} Для граждан РФ и РБ программа приостановлена (14.07.2023; неграждане ЕС со вторым паспортом РФ или РБ — с 20.03.2024). ВНЖ другой страны, например Португалии, это право не возвращает.`;
+}
+
+/**
+ * Wizard reads passport rows from the database. A stale «eligible» row must not
+ * put Italy Investor Visa back into the RU/BY shortlist. Residence in another
+ * country is not an input here: the block is the passport.
+ */
+export function investmentPassportStatus(
+  programSlug: string,
+  passportIso2: string | undefined,
+  dbStatus: string | undefined
+): string | undefined {
+  const iso = passportIso2?.trim().toUpperCase();
+  const route = INVESTMENT_ROUTES.find((item) => item.programSlug === programSlug);
+  if (iso && route?.restrictedPassports?.includes(iso)) return "ineligible";
+  return dbStatus;
+}
+
 export function overlayInvestmentPassportEligibility(
   programSlug: string,
   entries: ProgramPassportEligibility[]

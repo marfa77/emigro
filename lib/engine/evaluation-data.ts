@@ -1,3 +1,4 @@
+import { investmentPassportStatus } from "@/lib/investment/passport-overlay";
 import { createServerClient } from "@/lib/supabase/server";
 
 const CACHE_TTL_MS = 5 * 60 * 1000;
@@ -187,7 +188,11 @@ export async function getCorridorEvaluationProgramData(
           programTitleRu: program.title_ru,
           programType: program.program_type,
           eligibilityRule: version.eligibility_rule,
-          passportStatus: statusByVersion.get(version.id),
+          passportStatus: investmentPassportStatus(
+            program.slug,
+            passportIso2,
+            statusByVersion.get(version.id)
+          ),
           requirements: requirementsByVersionId.get(version.id) ?? [],
           sourceUrl: source?.sourceUrl ?? null,
           sourceLabelRu: source?.sourceLabelRu ?? null,
@@ -301,7 +306,11 @@ export async function getGlobalEvaluationData(
               programTitleRu: program.title_ru,
               programType: program.program_type,
               eligibilityRule: version.eligibility_rule,
-              passportStatus: statusByVersion.get(version.id),
+              passportStatus: investmentPassportStatus(
+                program.slug,
+                passportIso2,
+                statusByVersion.get(version.id)
+              ),
               requirements: requirementsByVersionId.get(version.id) ?? [],
               sourceUrl: source?.sourceUrl ?? null,
               sourceLabelRu: source?.sourceLabelRu ?? null,

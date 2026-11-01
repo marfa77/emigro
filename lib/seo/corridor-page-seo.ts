@@ -114,6 +114,13 @@ export function digestPagePath(topic: NewsTopicConfig): string {
 }
 
 export function buildProgramQuickAnswer(program: ProgramDetail, topic: NewsTopicConfig): string {
+  if (program.slug === "italy-investor-visa") {
+    return [
+      "Италия — инвесторская виза: €250 000 в стартап, €500 000 в компанию, €1 млн благотворительность или €2 млн гособлигации.",
+      "Для граждан РФ и РБ программа приостановлена с 14.07.2023; для неграждан ЕС со вторым паспортом РФ или РБ — с 20.03.2024.",
+      "ВНЖ другой страны, например Португалии, это ограничение не снимает. Для паспортов RU/BY wizard этот маршрут не предлагает.",
+    ].join(" ");
+  }
   const threshold = keyRequirement(program);
   const type = programTypeLabel(program.program_type);
   const parts = [
@@ -525,6 +532,9 @@ export function buildCorridorLandingQuickAnswer(topic: NewsTopicConfig, corridor
     corridor.audience_description_ru,
     topic.focusHintRu,
     programs,
+    corridor.programs.some((program) => program.slug === "italy-investor-visa")
+      ? "Investor Visa для граждан РФ и РБ приостановлена; ВНЖ другой страны ЕС это ограничение не снимает."
+      : null,
     "Подбор маршрута — wizard коридора или hub wizard /ru/wizard; факты — в справочнике, изменения — в новостях.",
   ]
     .filter(Boolean)
@@ -536,6 +546,9 @@ export function buildCorridorLandingFaq(topic: NewsTopicConfig, corridor: Corrid
     corridor.programs.length > 0
       ? corridor.programs.map((p) => p.title_ru).join(", ")
       : `программы коридора ${topic.countryRu} в разработке`;
+  const italyInvestorSentence = corridor.programs.some((program) => program.slug === "italy-investor-visa")
+    ? " Investor Visa остаётся в списке программ Италии, но для граждан РФ и РБ она приостановлена. ВНЖ другой страны ЕС, например Португалии, это ограничение не снимает."
+    : "";
 
   const countrySpecific: FaqItem[] =
     topic.urlSegment === "portugal"
@@ -559,15 +572,15 @@ export function buildCorridorLandingFaq(topic: NewsTopicConfig, corridor: Corrid
   const baseFaq: FaqItem[] = [
     {
       question: `Кому подходит коридор ${topic.countryRu} на Emigro?`,
-      answer: `${corridor.audience_description_ru} Коридор ориентирован на паспорта RU/BY/UA/KZ и русскоязычную аудиторию — в том числе тех, кто уже живёт за границей.`,
+      answer: `${corridor.audience_description_ru} Коридор ориентирован на паспорта RU/BY/UA/KZ и русскоязычную аудиторию — в том числе тех, кто уже живёт за границей.${italyInvestorSentence}`,
     },
     {
       question: `Я уже живу в ЕС. Подойдёт ли коридор ${topic.countryRu}?`,
-      answer: `Wizard и справочник показывают классические маршруты первичной подачи. Если вы уже в Европе, часто актуальны смена основания, переход ${ruCountryTo(topic.countryRu)}, продление или воссоединение семьи — сверяйте место подачи с официальными источниками или Emigro Assist.`,
+      answer: `Wizard и справочник показывают классические маршруты первичной подачи. Если вы уже в Европе, часто актуальны смена основания, переход ${ruCountryTo(topic.countryRu)}, продление или воссоединение семьи — сверяйте место подачи с официальными источниками или Emigro Assist.${italyInvestorSentence}`,
     },
     {
       question: `Какие программы ВНЖ есть ${ruCountryIn(topic.countryRu)}?`,
-      answer: `${programList}. Детальные требования, пороги и официальные источники — на страницах программ и в wizard коридора.`,
+      answer: `${programList}. Детальные требования, пороги и официальные источники — на страницах программ и в wizard коридора.${italyInvestorSentence}`,
     },
     {
       question: `Чем коридор ${topic.countryRu} отличается от транзитного хаба?`,

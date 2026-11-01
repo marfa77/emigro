@@ -1,5 +1,9 @@
 import assert from "node:assert/strict";
 import { qualifyInvestmentRoutes } from "@/lib/investment/registry";
+import {
+  investmentPassportStatus,
+  overlayInvestmentProgramSummary,
+} from "@/lib/investment/passport-overlay";
 import { partnerDemandState } from "@/lib/investment/partners";
 import { signInvestmentResultToken, verifyInvestmentResultToken } from "@/lib/investment/result-token";
 import { showsDubaiOfferVerdict } from "@/lib/investment/uae-offer-verdict";
@@ -17,6 +21,42 @@ assert.equal(property.find((route) => route.slug === "thailand-property-stay")?.
 assert.equal(property.find((route) => route.slug === "thailand-ltr")?.match, "budget_gap");
 assert.equal(property.find((route) => route.slug === "thailand-privilege")?.match, "not_property");
 assert.equal(property.find((route) => route.country === "spain")?.match, "closed");
+
+const italyForRussian = qualifyInvestmentRoutes({
+  budgetEur: 300_000,
+  asset: "business",
+  outcome: "residence",
+  passportIso2: "RU",
+}).find((route) => route.programSlug === "italy-investor-visa");
+assert.equal(italyForRussian?.match, "blocked");
+assert.match(italyForRussian?.reason ?? "", /приостановлена/);
+assert.match(italyForRussian?.reason ?? "", /Португал/);
+
+const italyForUkrainian = qualifyInvestmentRoutes({
+  budgetEur: 300_000,
+  asset: "business",
+  outcome: "residence",
+  passportIso2: "UA",
+}).find((route) => route.programSlug === "italy-investor-visa");
+assert.equal(italyForUkrainian?.match, "likely");
+
+assert.equal(investmentPassportStatus("italy-investor-visa", "RU", "eligible"), "ineligible");
+assert.equal(investmentPassportStatus("italy-investor-visa", "BY", "partial"), "ineligible");
+assert.equal(investmentPassportStatus("italy-investor-visa", "UA", "partial"), "partial");
+assert.match(
+  overlayInvestmentProgramSummary(
+    "italy-investor-visa",
+    "Инвесторский ВНЖ на 2 года: €250k в инновационный стартап, €500k в компанию, €1M благотворительность или €2M гособлигации."
+  ),
+  /приостановлена/
+);
+assert.match(
+  overlayInvestmentProgramSummary(
+    "italy-investor-visa",
+    "Уже написано, что программа приостановлена."
+  ),
+  /^Уже написано/
+);
 assert.equal(property.find((route) => route.country === "uae")?.match, "budget_gap");
 assert.notEqual(property[0]?.match, "likely");
 

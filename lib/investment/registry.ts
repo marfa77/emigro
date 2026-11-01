@@ -44,6 +44,10 @@ export type InvestmentRoute = {
   screeningSecondaryLabel?: string;
   /** Extra line under screening amount (special-case floors, package cost). */
   screeningFloorNote?: string;
+  /** Short badge when RU/BY are blocked. Falls back to a generic label. */
+  ruByBadge?: string;
+  /** Visible warning on the invest card. Falls back to the generic RU/BY line. */
+  ruByWarning?: string;
   /** Holding / lock-up hint for cards. */
   lockupNote?: string;
   /** Semantic route class when not classic investment residence. */
@@ -270,9 +274,13 @@ export const INVESTMENT_ROUTES: readonly InvestmentRoute[] = [
     publicPath: "/ru/italy/programs/italy-investor-visa",
     summary: "Стартап, итальянская компания, государственные облигации или пожертвование.",
     caveat:
-      "Минимальный уровень относится к категории стартапа; у остальных активов пороги выше. Программа официально приостановлена для граждан РФ/РБ, включая затронутое двойное гражданство.",
+      "Минимальный уровень относится к категории стартапа; у остальных активов пороги выше. Программа официально приостановлена для граждан РФ/РБ. ВНЖ другой страны это право не возвращает.",
     officialUrl: "https://investorvisa.mise.gov.it/index.php/en/",
     restrictedPassports: ["RU", "BY"],
+    ruByBadge: "Для РФ/РБ приостановлена",
+    ruByWarning:
+      "Нет — программа приостановлена для граждан РФ и РБ, включая неграждан ЕС со вторым паспортом РФ или РБ. ВНЖ другой страны, например Португалии, само по себе это право не возвращает.",
+    screeningFloorNote: "Для граждан РФ и РБ новые заявки приостановлены",
     propertyLinked: false,
     capitalFate: "at_risk",
     expenseKind: "investment",
@@ -339,7 +347,7 @@ export const INVESTMENT_PROGRAM_NOTES: Record<string, readonly string[]> = {
   ],
   italy: [
     "Недвижимость не является основанием Investor Visa. Активы: стартап, компания, гособлигации или пожертвование.",
-    "€250k — ориентир категории стартапа; у остальных активов пороги выше. Для граждан РФ/РБ программа приостановлена.",
+    "Для граждан РФ и РБ программа приостановлена с 14.07.2023 (портал Investor Visa; рекомендация ЕС C(2022) 2028). С 20.03.2024 то же для неграждан ЕС со вторым паспортом РФ или РБ. ВНЖ Португалии или другой страны ЕС гражданство не заменяет и право на визу не возвращает.",
   ],
   spain: [
     "С 3 апреля 2025 новые визы и ВНЖ инвестора не выдаются: LO 1/2025 (BOE-A-2025-76) опустошила статьи 63–67 Ley 14/2013.",
@@ -375,7 +383,17 @@ export function routeStatusLabel(status: InvestmentRouteStatus): string {
   return "Нужен ручной review";
 }
 
-export function passportRestrictionLabel(route: Pick<InvestmentRoute, "restrictedPassports">): string | null {
+export function ruByRouteBadge(
+  route: Pick<InvestmentRoute, "restrictedPassports" | "ruByBadge">
+): string | null {
+  if (!hasRuByPassportRestriction(route)) return null;
+  return route.ruByBadge ?? "RU/BY: ограничено";
+}
+
+export function passportRestrictionLabel(
+  route: Pick<InvestmentRoute, "restrictedPassports" | "ruByWarning">
+): string | null {
+  if (route.ruByWarning) return route.ruByWarning;
   const passports = route.restrictedPassports ?? [];
   if (passports.includes("RU") && passports.includes("BY")) {
     return "RU/BY: новые заявки ограничены или приостановлены — порог € ниже не означает доступность.";
@@ -499,7 +517,10 @@ export function qualifyInvestmentRoutes(input: {
       return {
         ...route,
         match: "blocked" as const,
-        reason: "Для указанного паспорта программа ограничена или приостановлена.",
+        reason:
+          route.programSlug === "italy-investor-visa"
+            ? "Investor Visa Италии приостановлена для этого гражданства. ВНЖ другой страны, например Португалии, право не возвращает."
+            : "Для указанного паспорта программа ограничена или приостановлена.",
       };
     }
     if (!budgetMatches) {
