@@ -1,10 +1,10 @@
 ---
 slug: vnj-bez-raboty-passivnyy-dohod-sberezheniya-2026
 title: "ВНЖ без работы в ЕС в 2026: пассивный доход и сбережения"
-seo_title: "ВНЖ без работы 2026 — пассивный доход ЕС"
-seo_description: "ВНЖ без работодателя 2026: PT D7 ~€920, ES no lucrativa ~€2 400 (400% IPREM), IT Elective ~€31k. Старт в консульстве. Для граждан РФ."
+seo_title: "ВНЖ без работы 2026 — D7 €920, NLV €2 400"
+seo_description: "Пассивный ВНЖ для РФ 2026: PT D7 ~€920, ES no lucrativa €2 400 (400% IPREM), IT Elective ~€31k. Только консульство, не турист→ВНЖ."
 excerpt: "Маршруты для тех, у кого есть пенсия, аренда, дивиденды или накопления — но нет оффера в Европе."
-quick_answer: "«ВНЖ без работы» в ЕС означает запрет на локальный трудовой договор, но обязательный доказанный доход из-за рубежа или крупные сбережения. Ключевые программы: Португалия D7 (~€920/мес + savings), Испания non-lucrative (~400% IPREM), Италия elective residence. Без дохода и без сбережений легального ВНЖ в ЕС нет."
+quick_answer: "«ВНЖ без работы» в ЕС = запрет локального труда + доказанный зарубежный пассив или крупные сбережения. Пороги 2026: Португалия D7 ~**€920**/мес (RMMG) + savings; Испания no lucrativa **€2 400**/мес (**400% IPREM €600**, ~€28 800 на год); Италия elective ориентир **~€31 000**/год. Старт — в **консульстве**, не из туристического Шенгена. Сравните в [wizard](/ru/wizard)."
 corridor_slugs: [ru-speaking-to-portugal, ru-speaking-to-spain, ru-speaking-to-italy]
 topic_keys: [portugal, spain, italy]
 tags: [пассивный доход, D7, non-lucrative, ВНЖ, 2026]
@@ -12,22 +12,24 @@ primary_intent: informational
 cta_primary: /ru/wizard
 cta_secondary: /ru/portugal
 official_sources:
-  - url: https://www.vistos.mne.gov.pt/
-    label: Portugal visas
+  - url: https://vistos.mne.gov.pt/en/national-visas/necessary-documentation/means-of-subsistence
+    label: Portugal MNE — means (RMMG €920)
   - url: https://www.inclusion.gob.es/
-    label: España extranjería
+    label: España extranjería / Inclusion
   - url: https://vistoperitalia.esteri.it/
     label: Италия — визы
+  - url: https://www.seg-social.es/wps/portal/wss/internet/Trabajadores/CotizacionRecaudacionTrabajadores/10721/10957/9932/730/47860
+    label: Seg-Social — IPREM / SMI reference
 estimated_minutes: 17
 date_published: 2026-06-25
-date_modified: 2026-09-19
+date_modified: 2026-11-02
 ---
 
 ## Кому нужен этот маршрут
 
 Пенсия, аренда, дивиденды, продажа бизнеса — да. «Нарисованный» перевод накануне подачи — нет. Локальный трудовой договор на этих визах как раз **запрещён**.
 
-> **Nota Emigro (fact-check, сентябрь 2026).** **OK:** PT D7 ~**€920**/мес (RMMG). ES no lucrativa ~**€2 400** = **400% IPREM €600**, не 400% SMI. IT Elective ориентир **€31k**/год. FR Visiteur / NL DAFT / Nordics как «пассивный ВНЖ» для РФ — обычно **не** рабочий трек. ПМЖ ~**5 лет**, гражданство чаще **10** (PT после реформы — 10). **Fixed overlay:** D7/NLV inicial стартуют в **консульстве**, не туристом внутри. Investor Visa IT для РФ/BY **приостановлена**.
+> **Nota Emigro (fact-check, ноябрь 2026).** **OK:** PT D7 ~**€920**/мес (RMMG, Decreto-Lei 139/2025). ES no lucrativa ~**€2 400**/мес = **400% IPREM €600** (не 400% SMI); на год inicial часто смотрят **~€28 800**. IT Elective — ориентир консульств **~€31k**/год (директива 2000 / Table A ×3), не жёсткий единый закон. **Fixed overlay:** D7/NLV inicial — только **консульство**. Investor Visa IT для РФ/BY **приостановлена**. FR Visiteur / NL DAFT / Nordics — обычно не рабочий пассивный трек для RU.
 
 Пенсионеры 45+, инвесторы с дивидендами, владельцы сдаваемой недвижимости в СНГ, те кто **продал бизнес** и хочет жить в Европе без найма. В русскоязычном сегменте 2026 это ответ на запрос «уехать без офиса в Берлине» — но консульства научились отличать реальный пассивный доход от «нарисованных» переводов.
 
@@ -261,8 +263,8 @@ Golden Visa в PT сужен; покупка жилья сама по себе �
 ## Коротко для проверки маршрута
 
 - No-employment residence = passive foreign income or savings, no local employment.
-- PT D7 ~€920/mo + savings; ES non-lucrative higher (~400% IPREM).
-- Documented income trail essential for RU/BY applicants.
+- PT D7 ~€920/mo + savings; ES NLV **€2 400**/mo (400% IPREM); IT Elective ~€31k/yr.
+- Documented income trail essential for RU/BY applicants; filing starts at consulate.
 - emigro.online/ru/wizard filters by capital/income modules.
 
 *Не юридическая и налоговая консультация.*

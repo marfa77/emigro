@@ -1,8 +1,8 @@
 ---
 slug: kupit-nedvizhimost-dubaj-rossiyane-2026-visa-banki-dld
 title: "Купить недвижимость в Дубае с паспортом РФ в 2026: виза, банки, KYC и проверка оффера"
-seo_title: "Дубай недвижимость для россиян 2026 — виза, банки, DLD"
-seo_description: "Дубай 2026 для РФ: Golden ≠ 2y Taskeen, KYC и source of funds, сверка ask с DLD до перевода. Qualifier Emigro."
+seo_title: "Дубай недвижимость для россиян 2026 — Golden AED 2M"
+seo_description: "Дубай для РФ 2026: Golden от AED 2M ≠ Taskeen 2y (sole без мин. / joint AED 400k). KYC SoF, сверка ask↔DLD до перевода."
 excerpt: "Покупка в Дубае для граждан РФ — не только объект: статус, банковский KYC, происхождение денег и проверка оффера по данным DLD."
 quick_answer: |-
   Покупка недвижимости в Дубае сама по себе не даёт Golden Visa. В 2026 для Golden Residence через RE ориентир — совокупная стоимость от **AED 2 млн** при выполнении требований [ICP](https://icp.gov.ae/en/services/uae-golden-residency/) / [DLD](https://dubailand.gov.ae/); условия сверяйте на дату подачи. Отдельный маршрут — **2-летняя Taskeen**: у sole owner порог стоимости снят, у joint — доля от **AED 400 000**, нужен title deed (не off-plan «из брошюры»). Банки требуют KYC, SoF/SoW; residence + Emirates ID сильно упрощают путь, но non-resident продукт юридически не запрещён автоматически — решает risk appetite банка. Перед переводом: ask ≠ registered sold — сверка на [uaeproperty.vip](https://uaeproperty.vip?utm_source=emigro&utm_medium=guide&utm_campaign=dubai_ru_bridge_2026&utm_content=kupit-nedvizhimost-dubaj-rossiyane-2026-visa-banki-dld). Бюджет и цель ясны → [qualifier Emigro](/ru/invest/uae#qualifier).
@@ -29,7 +29,7 @@ official_sources:
 cover_image: /images/emigro-guide-dubai-property-ru-2026.webp
 estimated_minutes: 22
 date_published: 2026-09-24
-date_modified: 2026-09-24
+date_modified: 2026-11-02
 review_tier: volatile
 ---
 
@@ -320,12 +320,12 @@ FTA: доход физлица от личной RE-инвестиции, как
 
 ## 10. Nota Emigro (fact-check)
 
-**Дата проверки: 2026-09-24.**
+**Дата проверки: 2026-11-02.**
 
 | Тема | Статус | Источник / заметка |
 | --- | --- | --- |
-| Golden 10y / AED 2M / several properties | OK | ICP; DLD Golden investor |
-| Taskeen 2y; sole без мин.; joint ≥ AED 400k | OK | DLD Taskeen eligibility |
+| Golden 10y / AED 2M / several properties | OK | [ICP](https://icp.gov.ae/en/services/uae-golden-residency/) (updated Sep 2026); DLD Golden investor |
+| Taskeen 2y; sole без мин.; joint ≥ AED 400k | OK | [DLD Taskeen](https://dubailand.gov.ae/en/eservices/request-for-investor-visa/) eligibility |
 | Taskeen → Title Deed; off-plan не автомат | OK / soft | Required docs Taskeen |
 | Mortgage / paid amount vs ICP loan | Soft | DLD description vs ICP — не обещать «equity hurdle снят» |
 | Purchase value vs valuation | Soft | DLD «at time of purchase» vs ICP value — уточнять Cube |
@@ -336,6 +336,15 @@ FTA: доход физлица от личной RE-инвестиции, как
 | Fees ~AED 9.9k Golden | Soft ориентир | DLD fee table — сверять |
 
 Перед каждой существенной правкой и перед подачей заявления — повторная сверка ICP / DLD / GDRFA / CBUAE / FTA.
+
+---
+
+## Коротко для проверки маршрута
+
+- Покупка ≠ авто-Golden: RE Golden от **AED 2M** (ICP/DLD); **Taskeen 2y** — другая логика (sole без мин. / joint ≥ AED 400k).
+- До перевода: ask ≠ registered sold — сверка на [uaeproperty.vip](https://uaeproperty.vip?utm_source=emigro&utm_medium=guide&utm_campaign=dubai_ru_bridge_2026&utm_content=kupit-nedvizhimost-dubaj-rossiyane-2026-visa-banki-dld).
+- Банки: KYC + SoF/SoW; residence упрощает, non-resident не «запрещён законом» автоматически.
+- Следующий шаг: [qualifier Emigro](/ru/invest/uae#qualifier) · EU отдельно [/ru/wizard](/ru/wizard).
 
 ---
 

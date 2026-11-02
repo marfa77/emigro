@@ -1,11 +1,11 @@
 ---
 slug: uchebnaya-viza-v-evropu-2026-student-visa
 title: "Учебная виза в Европу 2026: Португалия D4, Испания, Германия, Франция, Италия"
-seo_title: "Учебная виза в Европу 2026 — D4, estudios, Campus France"
-seo_description: "Студенческая виза для РФ/BY/KZ: D4, Испания estudios, Германия, VLS-TS, Италия studio. Реальное зачисление, деньги, лимит работы. Учёба ≠ гражданство ES."
+seo_title: "Учебная виза в Европу 2026 — D4, €920, Sperrkonto"
+seo_description: "Студенческая виза РФ/BY/KZ 2026: PT D4 ~€920, ES 100% IPREM €600, DE Sperrkonto €11 904. Учёба ≠ гражданство ES ст. 22."
 excerpt: "Пошаговый разбор студенческих виз: кого берут, какие страны смотреть, что показать по деньгам и почему «курсы для визы» ломают следующую подачу."
 quick_answer: |-
-  Учебная виза подходит, если нет оффера или высокого пассивного дохода, но есть реальное зачисление и бюджет на обучение и жизнь. В 2026 понятные маршруты: Португалия D4, Испания student, Германия student, Франция VLS-TS étudiant и Италия studio.
+  Учебная виза подходит, если нет оффера или высокого пассивного дохода, но есть реальное зачисление и бюджет на обучение и жизнь. Ориентиры средств 2026: Португалия D4 ~**€920**/мес (1× RMMG), Испания estudios **100% IPREM ~€600**/мес (tuition отдельно), Германия Sperrkonto **€992**/мес → **€11 904**/год. Маршруты: D4, Spain student, Germany student, France VLS-TS étudiant, Italy studio.
 
   Это не «дешёвый ВНЖ под видом курсов». Консульство проверяет зачисление, аккредитацию, оплату, деньги на жизнь, жильё, страховку и зачем вам эта программа. В Испании годы estancia por estudios не идут в срок гражданства по статье 22.
 corridor_slugs: [ru-speaking-to-portugal, ru-speaking-to-spain, ru-speaking-to-germany, ru-speaking-to-france, ru-speaking-to-italy]
@@ -15,19 +15,19 @@ primary_intent: comparison
 cta_primary: /ru/wizard
 cta_secondary: /ru/portugal/programs/portugal-student-visa-d4
 official_sources:
-  - url: https://www.vistos.mne.gov.pt/
-    label: Portugal visas — D4
-  - url: https://www.exteriores.gob.es/
-    label: Spain MAEC — visas
-  - url: https://www.auswaertiges-amt.de/
-    label: German Federal Foreign Office
+  - url: https://vistos.mne.gov.pt/en/national-visas/necessary-documentation/means-of-subsistence
+    label: Portugal MNE — means of subsistence (RMMG €920)
+  - url: https://inclusion.gob.es/web/migraciones/w/estancia-por-estudios
+    label: España — estancia por estudios (medios)
+  - url: https://www.auswaertiges-amt.de/en/visa-service/visabestimmungen-node/sperrkonto-seite
+    label: Germany AA — Sperrkonto
   - url: https://france-visas.gouv.fr/
     label: France-Visas
   - url: https://vistoperitalia.esteri.it/
     label: Italy visa portal
 estimated_minutes: 18
 date_published: 2026-06-25
-date_modified: 2026-09-19
+date_modified: 2026-11-02
 ---
 
 ## С чего начать: учёба — вход, если вы реально будете учиться
@@ -46,7 +46,7 @@ date_modified: 2026-09-19
 - [Франция VLS-TS étudiant](/ru/france/programs/france-student-visa)
 - [Италия Student Visa](/ru/italy/programs/italy-student-visa)
 
-> **Nota Emigro (fact-check, сентябрь 2026).** **OK:** студенческий вход — национальная виза / student residence, не шенген C. D4 Португалии — консульство, затем AIMA. Франция для высшего образования часто идёт через Campus France. Германия типично просит blocked account или стипендию. **OK / Fixed:** годы **estancia por estudios** в Испании **не считают** к гражданству по [ст. 22](https://www.boe.es/buscar/act.php?id=BOE-A-2002-20608) (льгота 2 года / 50% — не этот статус; 50% = larga duración-UE). **Soft:** лимиты работы (часы в неделю / 140 полных дней в DE / APS во Франции) задаёт страна и год — не стройте бюджет на full-time с первого дня. Языковые курсы принимают не все посты.
+> **Nota Emigro (fact-check, ноябрь 2026).** **OK / Fixed floors:** PT D4 means — ориентир **1× RMMG €920**/мес ([vistos.mne means](https://vistos.mne.gov.pt/en/national-visas/necessary-documentation/means-of-subsistence); у admitted HE / scholarship возможны exemptions). ES estudios — **100% IPREM €600**/мес, tuition не в зачёт ([hoja estudios](https://inclusion.gob.es/web/migraciones/w/estancia-por-estudios)). DE — Sperrkonto **€992**/мес → **€11 904**/год (BMI Bekanntmachung 2026 / AA). **OK:** студенческий вход — национальная виза, не шенген C; годы **estancia por estudios** в ES **не считают** к гражданству по [ст. 22](https://www.boe.es/buscar/act.php?id=BOE-A-2002-20608). **Soft:** лимиты работы и language-only курсы — по посту и году.
 
 ---
 
@@ -134,6 +134,15 @@ D4 — национальная учебная виза для универси�
 
 Студенческая виза требует доказать, что вы проживёте без нелегальной работы.
 
+**Ориентиры средств на жизнь (tuition отдельно), 2026:**
+
+| Страна | Floor (ориентир) | Источник |
+|--------|------------------|----------|
+| Португалия D4 | ~**€920**/мес (1× RMMG); HE admitted / scholarship — часто exemption | [vistos.mne means](https://vistos.mne.gov.pt/en/national-visas/necessary-documentation/means-of-subsistence) |
+| Испания estudios | **100% IPREM ~€600**/мес; жильё prepaid может снизить; tuition не считается | [inclusion.gob.es hoja](https://inclusion.gob.es/web/migraciones/w/estancia-por-estudios) |
+| Германия student | Sperrkonto **€992**/мес → **€11 904**/год (или стипендия) | [AA Sperrkonto](https://www.auswaertiges-amt.de/en/visa-service/visabestimmungen-node/sperrkonto-seite) |
+| Франция / Италия | Пост и программа; часто attestation + банковская история | France-Visas / consolato |
+
 | Документ | Зачем нужен |
 |----------|-------------|
 | Банковская выписка | Остаток и движение средств |
@@ -206,9 +215,10 @@ D4 — национальная учебная виза для универси�
 
 ---
 
-## Короткий маршрут: что делать по порядку
+## Коротко для проверки маршрута
 
 - Учебная виза работает при реальном зачислении, бюджете и мотивации учиться.
+- Floors 2026: PT ~€920/мес; ES ~€600 IPREM; DE €11 904 Sperrkonto.
 - Основные маршруты: D4, Spain student, Germany student, France VLS-TS étudiant, Italy studio.
 - Консульства смотрят admission, деньги, жильё, страховку, несудимость и связь программы с вашим планом.
 - Student visa не заменяет D8, Blue Card или passive income. В Испании учёба не считает годы к гражданству по ст. 22.

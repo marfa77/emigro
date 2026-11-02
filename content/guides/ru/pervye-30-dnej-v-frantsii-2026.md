@@ -1,13 +1,13 @@
 ---
 slug: pervye-30-dnej-v-frantsii-2026
 title: "Первые 30 дней во Франции 2026: чек-лист после прилёта"
-seo_title: "Первые 30 дней во Франции 2026 — titre de séjour, CAF, CPAM, préfecture"
-seo_description: "Практический чек-лист для RU/BY/UA/KZ после прилёта во Францию: titre de séjour, OFII, CAF, банк, CPAM/Sécu, préfecture. 2026."
-excerpt: "Вы получили VLS-TS / Passeport Talent или прилетели на подачу — что делать в первый месяц: OFII, банк, CPAM и préfecture."
+seo_title: "Первые 30 дней во Франции 2026 — VLS-TS ANEF, CAF, CPAM"
+seo_description: "Чек-лист RU/BY/UA/KZ после прилёта: валидация VLS-TS на ANEF за 3 мес., taxe €300, OFII-медосмотр, банк, CPAM, CAF, préfecture."
+excerpt: "Вы получили VLS-TS / Passeport Talent или прилетели на подачу — что делать в первый месяц: ANEF, OFII, банк, CPAM и préfecture."
 quick_answer: |-
-  В первые 30 дней запустите валидацию VLS-TS через OFII: на это есть 3 месяца, online плюс медосмотр. Возьмите французскую SIM и счёт BNP, Société Générale или N26 с titre.
+  В первые 30 дней запустите **онлайн-валидацию VLS-TS на ANEF** (срок — **3 месяца** с въезда): [administration-etrangers-en-france](https://administration-etrangers-en-france.interieur.gouv.fr/). Taxe VLS-TS с **01.05.2026** обычно **€300** (minoré étudiant/etc. **€100**). OFII может вызвать на медосмотр / CIR. Возьмите французскую SIM и счёт с validated titre.
 
-  После OFII — CPAM / Sécurité sociale, при праве — CAF на жильё, и запись в préfecture на carte de séjour. Без валидированного VLS-TS статус нелегален.
+  Дальше — CPAM / Sécurité sociale, при праве CAF на жильё, и к концу VLS-TS — demande de titre на ANEF/préfecture. Без валидации статус нелегален. Сравнить маршрут: [/ru/wizard](/ru/wizard) · [/ru/france/wizard](/ru/france/wizard).
 corridor_slugs: [ru-speaking-to-france]
 topic_keys: [france, checklist, arrival]
 tags: [Франция, чеклист, 2026, OFII, CPAM, préfecture, titre de séjour]
@@ -17,15 +17,17 @@ cta_secondary: /ru/guides/vnj-frantsiya-2026-passeport-talent
 official_sources:
   - url: https://administration-etrangers-en-france.interieur.gouv.fr/
     label: ANEF — administration étrangers
+  - url: https://france-visas.gouv.fr/votre-arrivee-en-france
+    label: France-Visas — arrivée / VLS-TS
+  - url: https://www.service-public.gouv.fr/particuliers/actualites/A18881
+    label: Service-Public — taxes titres 01.05.2026
   - url: https://www.ofii.fr/
     label: OFII — интеграция и медосмотр
   - url: https://www.ameli.fr/
     label: Ameli — CPAM / Sécurité sociale
-  - url: https://www.caf.fr/
-    label: CAF — housing benefits
 estimated_minutes: 12
 date_published: 2026-06-27
-date_modified: 2026-08-07
+date_modified: 2026-11-02
 ---
 
 ## Кому этот чек-лист
@@ -37,6 +39,8 @@ date_modified: 2026-08-07
 - переехали по **temporary protection** (UA) и планируют отдельный residency route.
 
 Это **не** гайд по получению визы — см. [ВНЖ Франция 2026](/ru/guides/vnj-frantsiya-2026-passeport-talent).
+
+> **Nota Emigro (fact-check, ноябрь 2026).** **OK / Fixed wording:** валидация VLS-TS — **онлайн на ANEF** в течение **3 месяцев** с въезда ([France-Visas](https://france-visas.gouv.fr/votre-arrivee-en-france), [service-public F16162](https://www.service-public.gouv.fr/particuliers/vosdroits/F16162)); OFII — медосмотр / CIR по вызову, не «офис вместо ANEF». **OK taxes с 01.05.2026** ([A18881](https://www.service-public.gouv.fr/particuliers/actualites/A18881)): VLS-TS taxe **€300** (minoré **€100**); 1re délivrance carte часто **€300 taxe + €50 timbre = €350**. **Soft:** CAF eligibility зависит от категории и ресурсов.
 
 ---
 
@@ -52,27 +56,27 @@ date_modified: 2026-08-07
 
 ### День 3–7: attestation de domicile
 
-Для OFII и préfecture нужен **proof of address**:
+Для ANEF / OFII и préfecture нужен **proof of address**:
 
 - **Bail** (contrat de location) — долгосрочная аренда
 - **Attestation d'hébergement** — если живёте у друзей/родственников (с копией ID хозяина)
 
 ---
 
-## Неделя 2: OFII — валидация VLS-TS
+## Неделя 2: ANEF — валидация VLS-TS (+ OFII по вызову)
 
-**VLS-TS** (visa long séjour valant titre de séjour) нужно **валидировать** в OFII в течение **3 месяцев** после въезда.
+**VLS-TS** (visa long séjour valant titre de séjour) нужно **валидировать онлайн на ANEF** в течение **3 месяцев** после въезда. Без этого вы не в séjour régulier и не сможете нормально пересекать границу Schengen.
 
 **Шаги:**
 
-1. Онлайн на [administration-etrangers-en-france.interieur.gouv.fr](https://administration-etrangers-en-france.interieur.gouv.fr/) — подать данные VLS-TS.
-2. Оплатить taxe / timbres (с **01.05.2026** нормальный тариф 1re délivrance часто **€300 + €50 = €350**; VLS-TS taxe **€300** — сверяйте SMS/ANEF).
-3. **Visite médicale OFII** — назначение по SMS/email.
-4. **Cours civique** (если требуется по категории).
+1. Онлайн на [administration-etrangers-en-france.interieur.gouv.fr](https://administration-etrangers-en-france.interieur.gouv.fr/) — данные VLS-TS, дата въезда, адрес во Франции.
+2. Оплатить taxe: для **валидации VLS-TS** с **01.05.2026** обычно **€300** (minoré étudiant / regroupement / saisonnier и др. — **€100**). Отдельно: при **1re délivrance** carte de séjour часто **€300 + €50 timbre = €350** — сумму подтверждает SMS/ANEF ([Service-Public A18881](https://www.service-public.gouv.fr/particuliers/actualites/A18881)).
+3. **Visite médicale / CIR у OFII** — только если вас вызвали (SMS/email).
+4. **Cours civique** — если требуется по категории.
 
-**Результат:** validated VLS-TS = legal residence до получения carte de séjour.
+**Результат:** validated VLS-TS = legal residence на срок визы; дальше — demande de titre до истечения.
 
-Официально: [ofii.fr](https://www.ofii.fr/)
+Официально: [France-Visas arrivée](https://france-visas.gouv.fr/votre-arrivee-en-france) · [ofii.fr](https://www.ofii.fr/)
 
 ---
 
@@ -90,7 +94,7 @@ date_modified: 2026-08-07
 
 ### CPAM / Sécurité sociale
 
-После OFII регистрация в **Assurance Maladie**:
+После валидации VLS-TS — регистрация в **Assurance Maladie**:
 
 1. Создать account на [ameli.fr](https://www.ameli.fr/)
 2. Получить **numéro de sécurité sociale** (может занять 2–8 недель)
@@ -146,8 +150,8 @@ date_modified: 2026-08-07
 
 - [ ] SIM-карта FR
 - [ ] Proof of address (bail / attestation)
-- [ ] VLS-TS validated через OFII
-- [ ] Visite médicale OFII пройдена
+- [ ] VLS-TS validated на ANEF
+- [ ] Visite médicale OFII пройдена (если вызвали)
 - [ ] Банковский счёт (RIB FR)
 - [ ] Ameli / CPAM registration
 - [ ] CAF account (если applicable)
@@ -158,7 +162,7 @@ date_modified: 2026-08-07
 
 ## Частые ошибки
 
-1. **Пропуск OFII validation** — штраф и потеря legal status.
+1. **Пропуск ANEF validation VLS-TS** — штраф и потеря legal status.
 2. **Аренда без bail** — attestation d'hébergement сложнее для CAF и préfecture.
 3. **Ждать carte, чтобы открыть банк** — validated VLS-TS достаточно для многих banques.
 4. **Игнорировать mutuelle** — до Carte Vitale нужна interim coverage.
@@ -168,13 +172,31 @@ date_modified: 2026-08-07
 ## FAQ
 
 **Passeport Talent — нужен ли OFII?**  
-Да. Любой VLS-TS требует validation + медосмотр.
+Нужна **валидация VLS-TS на ANEF** в течение 3 месяцев. OFII вызывает на медосмотр / CIR по категории — не заменяет онлайн-шаг.
+
+**Сколько стоит валидация VLS-TS с мая 2026?**  
+Обычно **€300** taxe (minoré **€100** для étudiant и ряда категорий). Карта при 1re délivrance часто **€350** (€300+€50) — смотрите SMS.
+
+**Можно ли открыть банк до carte de séjour?**  
+Часто да с **validated VLS-TS** + proof of address; банки смотрят KYC индивидуально (особенно RU).
 
 **UA с temporary protection — этот чек-лист?**  
 Нет. TP (dispositif temporaire) — отдельная процедура через préfecture. См. [TP vs ВНЖ](/ru/guides/ukraintsy-belorusy-vremennaya-zashchita-vs-vnj-2026).
 
-**BY/UA/KZ — отличия?**  
-Процедуры после прилёта **одинаковы**; консульская подача VLS-TS до въезда отличается.
+**BY/UA/KZ — отличия после прилёта?**  
+Процедуры ANEF/OFII/CPAM **одинаковы**; отличается консульская подача VLS-TS до въезда.
+
+**Когда подавать на carte de séjour?**  
+До окончания VLS-TS (часто в последние месяцы) через ANEF или по инструкции préfecture — не ждите последнего дня.
+
+---
+
+## Коротко для проверки маршрута
+
+- VLS-TS → валидация на **ANEF ≤3 мес.** с въезда; OFII = медосмотр/CIR по вызову.
+- Taxe 2026: VLS-TS **€300** (minoré €100); carte 1re часто **€350**.
+- Параллельно: SIM, bail/attestation, банк, CPAM, при праве CAF.
+- Следующий шаг: [/ru/france/wizard](/ru/france/wizard) · хаб [/ru/wizard](/ru/wizard).
 
 ---
 
@@ -182,7 +204,7 @@ date_modified: 2026-08-07
 
 - [Passeport Talent 2026](/ru/guides/vnj-frantsiya-2026-passeport-talent)
 - [DELF B2 mock на Prep2Go](https://www.prep2go.study/delf-b2-mock-test?utm_source=emigro&utm_medium=guide&utm_campaign=prep2go_france&utm_content=pervye-30-dnej-v-frantsii-2026)
-- [Коридор Франция](/ru/france) · [wizard](/ru/france/wizard)
+- [Коридор Франция](/ru/france) · [wizard Франции](/ru/france/wizard) · [hub wizard](/ru/wizard)
 - [TP vs ВНЖ для UA](/ru/guides/ukraintsy-belorusy-vremennaya-zashchita-vs-vnj-2026)
 
 *Не юридическая консультация. Процедуры ANEF/OFII меняются — проверяйте administration-etrangers-en-france.interieur.gouv.fr.*
