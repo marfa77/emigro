@@ -9,6 +9,7 @@ import {
   interestIso2ToSegments,
   parseInterestParam,
 } from "@/lib/wizard/interest-prefill";
+import { draftStorageKey } from "@/lib/wizard/draft-key";
 import {
   clearDependentAnswers,
   isQuestionRequired,
@@ -39,10 +40,6 @@ type DraftPayload = {
   answers: Record<string, string>;
   savedAt: number;
 };
-
-function draftStorageKey(mode: string, corridorSlug: string, wizardId: string) {
-  return `emigro-wizard-draft:v1:${mode}:${corridorSlug}:${wizardId}`;
-}
 
 export function WizardForm({
   corridorSlug,
@@ -197,8 +194,11 @@ export function WizardForm({
     hydratedRef.current = true;
 
     const search = typeof window !== "undefined" ? window.location.search : "";
+    const params = new URLSearchParams(search);
     const interest = parseInterestParam(search);
     setInterestLabels(interest.labelsRu);
+    const passportParam = params.get("passport") ?? "";
+    const passportFromGuide = /^(RU|BY|UA|KZ)$/.test(passportParam) ? passportParam : "";
 
     let initial: Record<string, string> = {};
     if (interest.iso2.length > 0) {
@@ -219,12 +219,19 @@ export function WizardForm({
         ) {
           initial = { ...draft.answers, ...initial };
           if (initial.relocation_goal === "study") initial.wants_study_route = "yes";
-          setStep(Math.min(Math.max(0, draft.step), modules.length - 1));
-          setDraftRestored(true);
+          if (!passportFromGuide) {
+            setStep(Math.min(Math.max(0, draft.step), modules.length - 1));
+            setDraftRestored(true);
+          }
         }
       }
     } catch {
       // ignore corrupt draft
+    }
+
+    if (passportFromGuide) {
+      initial.passport_iso2 = passportFromGuide;
+      setStep(1);
     }
 
     if (Object.keys(initial).length > 0) {

@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
@@ -10,6 +11,8 @@ import { TelegramCommunityCta } from "@/components/community/TelegramCommunityCt
 import { NewsBotSubscribeCta } from "@/components/news/NewsBotSubscribeCta";
 import { TrackedAssistLink } from "@/components/assist/TrackedAssistLink";
 import { RouteNextStep } from "@/components/assist/RouteNextStep";
+import { GuideWizardStart } from "@/components/wizard/GuideWizardStart";
+import { getGuideWizardEmbed, ITALY_ROUTE_CHECK_GUIDE_SLUGS } from "@/lib/guides/wizard-embed";
 import { UniPrep2GoPromo, UniPrepCitizenshipHubPromo } from "@/components/sponsors/UniPrep2GoPromo";
 import { RoleRadarPromo } from "@/components/sponsors/RoleRadarPromo";
 import { RevolutReferralPromo } from "@/components/sponsors/RevolutReferralPromo";
@@ -152,9 +155,11 @@ function extractToc(bodyHtml: string) {
 function GuideProseBody({
   quickAnswerBlocks,
   articleHtml,
+  afterQuickAnswer,
 }: {
   quickAnswerBlocks: string[];
   articleHtml: string;
+  afterQuickAnswer?: ReactNode;
 }) {
   return (
     <>
@@ -173,6 +178,7 @@ function GuideProseBody({
           ))}
         </section>
       )}
+      {afterQuickAnswer}
       <article
         className="guide-article prose prose-lg prose-slate mt-8 max-w-none rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm ring-1 ring-slate-950/5 prose-a:font-semibold prose-strong:text-slate-950 sm:p-8 lg:p-10"
         dangerouslySetInnerHTML={{ __html: articleHtml }}
@@ -234,10 +240,20 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
     .map((block) => injectReferralInlineLinks(inlineMarkdown(block), inlineTargets));
   const relatedStories = listStoriesForGuide(guide.slug, 3);
   const relatedStoryCount = countStoriesForGuide(guide.slug);
+  const wizardEmbed = getGuideWizardEmbed(guide.slug);
   const guideProse = (
     <GuideProseBody
       quickAnswerBlocks={quickAnswerBlocks}
       articleHtml={articleHtml}
+      afterQuickAnswer={
+        wizardEmbed ? (
+          <GuideWizardStart
+            title={wizardEmbed.title}
+            body={wizardEmbed.body}
+            interest={wizardEmbed.interest}
+          />
+        ) : null
+      }
     />
   );
   const editorialBlocks = (
@@ -338,6 +354,7 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
               source={`guide_${guide.slug}`}
               countrySegment={guideAssistCountry}
               variant="hero"
+              lead={ITALY_ROUTE_CHECK_GUIDE_SLUGS.has(guide.slug) ? "route-check" : undefined}
               className="mt-5 max-w-3xl 2xl:max-w-4xl"
             />
           )}

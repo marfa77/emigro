@@ -33,7 +33,7 @@ export function AssistPricingCards({
       </p>
 
       <div className="mt-6 grid gap-6 lg:grid-cols-3">
-        <article className="relative flex flex-col rounded-2xl border-2 border-green-600 bg-green-50/40 p-6 shadow-md">
+        <article className="relative flex flex-col rounded-2xl border border-green-200 bg-white p-6 shadow-sm">
           <span className="absolute -top-3 left-5 rounded-full bg-green-700 px-3 py-0.5 text-xs font-semibold uppercase tracking-wide text-white">
             Бесплатно
           </span>
@@ -66,14 +66,14 @@ export function AssistPricingCards({
 
         <article
           id="assist-route-check"
-          className="relative flex flex-col scroll-mt-24 rounded-2xl border border-corridor-300 bg-white p-6 shadow-sm"
+          className="relative order-first flex flex-col scroll-mt-24 rounded-2xl border-2 border-corridor-600 bg-corridor-50/40 p-6 shadow-md"
         >
           <span className="absolute -top-3 left-5 rounded-full bg-corridor-600 px-3 py-0.5 text-xs font-semibold uppercase tracking-wide text-white">
             Route Check
           </span>
           <PricingCardHeader
             title="Route Check"
-            subtitle="Созвон с командой Emigro + PDF с разбором кейса"
+            subtitle="Аудит отказа или выбор типа визы за 48 часов"
             price={<span className="text-3xl font-bold text-corridor-700">€129</span>}
           />
 
@@ -114,7 +114,7 @@ export function AssistPricingCards({
             href={routeCheckFormAnchor}
             placement="ru_assist_pricing"
             linkLabel="Запросить Route Check — €129"
-            className="mt-6 block rounded-lg border border-corridor-300 bg-white px-5 py-3 text-center font-medium text-corridor-800 hover:bg-corridor-50"
+            className="mt-6 block rounded-lg bg-corridor-600 px-5 py-3 text-center font-medium text-white hover:bg-corridor-700"
           >
             Запросить Route Check — €129
           </TrackedAssistLink>

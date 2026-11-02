@@ -16,19 +16,19 @@ import { assistBotDeepLink } from "@/lib/telegram/deep-link";
 export const revalidate = 3600;
 
 export const metadata = pageMetadata({
-  title: "Помощь с ВНЖ 2026: подбор €0, Route Check €129",
+  title: "Route Check €129 — аудит отказа и виза за 48 ч",
   description:
-    "Emigro Assist: подбор юриста или агентства по ВНЖ — €0, Route Check €129 (созвон + PDF за 48 ч), сопровождение €100/ч. Без пакета «под ключ» за весь процесс.",
+    "Аудит отказа или выбор типа визы за 48 часов: созвон и PDF за €129. Подбор партнёра €0, сопровождение €100/ч. Оплата после слота. Паспорта RU/BY/UA/KZ.",
   path: "/ru/assist",
   aiDescription:
-    "Emigro Assist (emigro.online): partner matching €0; Route Check €129; accompaniment €100/hour. Emigro (emigro.online) is a residence-route navigator; not affiliated with Emigro UG / Intermigro, Emigro Consulting (Doha), Emigro.co, or Emigro Pay. Not a law firm.",
+    "Emigro Assist Route Check €129: audit of a refusal or visa-type choice within 48 hours (call + PDF). Partner matching €0; accompaniment €100/hour. Passports RU/BY/UA/KZ. Emigro (emigro.online) is a residence-route navigator; not affiliated with Emigro UG / Intermigro, Emigro Consulting (Doha), Emigro.co, or Emigro Pay. Not a law firm.",
   aiCategory: "assist",
 });
 
 const PRICE_SUMMARY = [
-  { label: "Подбор партнёра", price: "€0", note: "юрист или агентство по стране и задаче" },
-  { label: "Route Check", price: "€129", note: "разово: созвон + PDF-маршрут за 48 часов" },
-  { label: "Сопровождение", price: "€100/час", note: "переписка, письма, формы, разбор отказов" },
+  { label: "Route Check", price: "€129", note: "аудит отказа или выбор типа визы за 48 часов", lead: true },
+  { label: "Подбор партнёра", price: "€0", note: "юрист или агентство по стране и задаче", lead: false },
+  { label: "Сопровождение", price: "€100/час", note: "переписка, письма, формы, разбор отказов", lead: false },
 ] as const;
 
 const AGENCY_COMPARISON = [
@@ -96,7 +96,7 @@ const FAQ_ITEMS = [
   {
     question: "Сколько стоит помощь с ВНЖ через Emigro?",
     answer:
-      "Подбор профильного партнёра — €0. Route Check — €129 разово: созвон по чек-листу и PDF с маршрутом, таймлайном, бюджетом и рисками в течение 48 часов. Сопровождение — €100 в час, только за нужные часы. Услуги юриста или агентства, которого вы выберете, оплачиваются отдельно по его условиям.",
+      "Подбор профильного партнёра — €0. Route Check — €129 разово: аудит отказа или выбор типа визы за 48 часов (созвон по чек-листу и PDF с маршрутом, таймлайном, бюджетом и рисками). Сопровождение — €100 в час, только за нужные часы. Услуги юриста или агентства, которого вы выберете, оплачиваются отдельно по его условиям.",
   },
   {
     question: "Чем Emigro Assist отличается от агентства «под ключ»?",
@@ -232,11 +232,13 @@ export default function AssistPage({
         </nav>
 
         <HeroShell className="mt-8">
-          <p className="text-sm uppercase tracking-wide text-corridor-100">Сервис Emigro</p>
-          <h1 className="mt-2 text-3xl font-bold sm:text-4xl">Нужна помощь с ВНЖ или визой?</h1>
+          <p className="text-sm uppercase tracking-wide text-corridor-100">Route Check · €129</p>
+          <h1 className="mt-2 text-3xl font-bold sm:text-4xl">
+            Аудит отказа / выбор типа визы за 48 часов
+          </h1>
           <p className="mt-4 max-w-2xl text-lg text-corridor-100">
-            Опишите ситуацию — Emigro бесплатно найдёт профильного партнёра по вашей стране и задаче. Контакт передаём
-            только с вашего согласия.
+            Созвон по чек-листу и PDF: маршрут, таймлайн, бюджет и риски. Слот согласуем до оплаты. Если маршрут уже
+            ясен — подбор партнёра остаётся €0, контакт передаём только с вашего согласия.
           </p>
           <p className="mt-4 max-w-2xl rounded-lg border border-amber-200/60 bg-amber-50/95 px-4 py-3 text-sm leading-relaxed text-amber-950">
             Emigro (emigro.online) — навигатор по маршрутам ВНЖ; не связан с Emigro UG / Intermigro, Emigro
@@ -244,8 +246,13 @@ export default function AssistPage({
             гражданство.
           </p>
           <dl className="mt-6 grid max-w-3xl gap-3 sm:grid-cols-3">
-            {PRICE_SUMMARY.map(({ label, price, note }) => (
-              <div key={label} className="rounded-xl border border-white/20 bg-white/10 px-4 py-3">
+            {PRICE_SUMMARY.map(({ label, price, note, lead }) => (
+              <div
+                key={label}
+                className={`rounded-xl px-4 py-3 ${
+                  lead ? "border border-white bg-white/20 ring-2 ring-white/70" : "border border-white/20 bg-white/10"
+                }`}
+              >
                 <dt className="text-xs uppercase tracking-wide text-corridor-100">{label}</dt>
                 <dd className="mt-1 text-2xl font-bold text-white">{price}</dd>
                 <dd className="mt-1 text-xs leading-snug text-corridor-100">{note}</dd>
@@ -254,20 +261,21 @@ export default function AssistPage({
           </dl>
           <div className="mt-8 flex flex-wrap gap-3">
             <TrackedAssistLink
-              href={assistBotDeepLink()}
-              placement="ru_assist_hero"
-              linkLabel="Описать задачу"
-              className="inline-flex items-center gap-2 rounded-lg bg-white px-5 py-3 font-medium text-corridor-900 hover:bg-corridor-50"
-            >
-              Описать задачу
-            </TrackedAssistLink>
-            <TrackedAssistLink
               href={assistBotDeepLink({ tier: "route-check" })}
               placement="ru_assist_hero_route_check"
-              linkLabel="Route Check — €129"
+              linkLabel="Route Check €129 — за 48 часов"
+              className="inline-flex items-center gap-2 rounded-lg bg-white px-5 py-3 font-medium text-corridor-900 hover:bg-corridor-50"
+            >
+              Route Check €129 — за 48 часов
+              <ArrowRight className="h-4 w-4" aria-hidden />
+            </TrackedAssistLink>
+            <TrackedAssistLink
+              href={assistBotDeepLink()}
+              placement="ru_assist_hero"
+              linkLabel="Подбор партнёра — €0"
               className="inline-flex items-center gap-2 rounded-lg border border-white/40 px-5 py-3 font-medium text-white hover:bg-white/10"
             >
-              Route Check — €129
+              Подбор партнёра — €0
             </TrackedAssistLink>
             <Link
               href="/ru/route-check"

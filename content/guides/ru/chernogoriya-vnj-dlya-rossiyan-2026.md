@@ -39,7 +39,7 @@ date_modified: 2026-09-19
 
 Черногория закрывает «эпоху безвиза» для части русскоязычных. С **1 ноября 2026** граждане **России и Беларуси** теряют безвизовый въезд. **Украинцы** сохраняют **90/180**; у **казахстанцев** — сезонное окно до **01.10.2026**. Digital Nomad — единый маршрут, но sunset **31.12.2026** и практический дедлайн **октябрь 2026**. DOO и недвижимость с **17.01.2026** дороже для всех non-EU.
 
-Хаб: [/ru/montenegro](/ru/montenegro). EU: [wizard](/ru/wizard). Оффер: [Role Radar](/ru/role-radar). Сравните [Сербию](/ru/guides/vnj-serbiya-dlya-rossiyan-2026), [Грузию](/ru/guides/gruziya-dlya-rossiyan-2026), [Армению](/ru/guides/armeniya-dlya-rossiyan-2026).
+Хаб: [/ru/montenegro](/ru/montenegro). EU: [подбор по паспорту](#guide-wizard). Оффер: [Role Radar](/ru/role-radar). Сравните [Сербию](/ru/guides/vnj-serbiya-dlya-rossiyan-2026), [Грузию](/ru/guides/gruziya-dlya-rossiyan-2026), [Армению](/ru/guides/armeniya-dlya-rossiyan-2026).
 
 > **Дисклеймер.** Не юридическая, налоговая или военная консультация. Визы, пороги DOO/RE и практика MUP меняются — сверяйте gov.me / digitalnomads.gov.me / mup.gov.me и лицензированного юриста в Черногории.
 

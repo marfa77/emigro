@@ -41,6 +41,7 @@ D8 — удалёнка. D7 — пассив. Оба стартуют с **ко�
 - [D8 digital nomad — программа](/ru/portugal/programs/portugal-d8-digital-nomad)
 - [D7 пассивный доход — программа](/ru/portugal/programs/portugal-d7-passive-income)
 - [Первые 30 дней: NIF, банк, AIMA](/ru/guides/pervye-30-dnej-v-portugalii-2026)
+- [Проверить D8 или D7 по паспорту](#guide-wizard)
 - [Wizard Португалия](/ru/portugal/wizard)
 - [Origin hub — все EU-коридоры для россиян](/ru/rossiyane)
 
