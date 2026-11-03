@@ -1,5 +1,5 @@
 /**
- * Multi-source outdoor experiences → @emigro_portugal.
+ * Multi-source outdoor experiences → public Porto chat @emigro_portugal («Порту и вокруг»).
  */
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";

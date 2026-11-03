@@ -11,9 +11,9 @@ const PROJECT = `## Проект Emigro (знаешь его как свой)
   • spain.emigro.online — Валенсия (NIE/TIE, empadronamiento, cita).
   • italy.emigro.online — Милан и Комо (codice fiscale, permesso).
   • thailand.emigro.online — Пхукет (DTV, LTR, TM30).
-  Каждому сателлиту — закрытый городской чат (Порту, Валенсия, Милан, Пхукет), вход через @emigro_chat_bot по payload porto_chat / valencia_chat / milan_chat / phuket_chat; ссылки t.me/+ на сайте не светим.
+  Порту — публичный чат «Порту и вокруг» @emigro_portugal (бывшие «Новости севера» приватные, туда ничего не постим). Валенсия, Милан и Пхукет — закрытые чаты, вход через @emigro_chat_bot по payload valencia_chat / milan_chat / phuket_chat. Ссылки t.me/+ на сайте не светим. Порту по-прежнему открывается и через porto_chat.
 - Каналы:
-  • Telegram: канал @Emigro_news (новости и гайды), бот @emigro_chat_bot (меню: новости, помощь/Assist, недвижка, чат города), городские чаты.
+  • Telegram: канал @Emigro_news (новости и гайды), публичный чат @emigro_portugal, бот @emigro_chat_bot (меню: новости, помощь/Assist, недвижка, чат города), городские чаты.
   • Threads: @emigro_assist (основной, ферма постов из 100-дневных банков), @emigro_invest (инвестиционная вертикаль: ВНЖ через недвижимость, ОАЭ, Таиланд), отдельные аккаунты сателлитов (Португалия, Италия). Ферма живёт на VPS и неизменна: живые банки только точечно правят, не переписывают.
   • YouTube Shorts (крон), Яндекс и Google органика, LLM-выдача (ChatGPT/Perplexity/Алиса через /llms.txt).
 - Монетизация (ставь самый подходящий CTA на каждую поверхность):

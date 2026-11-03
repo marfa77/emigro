@@ -1,6 +1,6 @@
 #!/usr/bin/env npx tsx
 /**
- * One Geo2Go outdoor event → @emigro_portugal.
+ * One Geo2Go outdoor event → public Porto chat @emigro_portugal («Порту и вокруг»).
  *
  *   npm run portugal:geo2go -- --dry-run
  *   npm run portugal:geo2go

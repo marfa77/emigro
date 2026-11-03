@@ -151,7 +151,7 @@ export default async function PortugalEventPage({ params }: Params) {
             href={`https://t.me/emigro_portugal/${event.telegram_message_id}`}
             className="inline-flex min-h-[44px] items-center rounded-full border border-slate-300 px-3 text-sm text-slate-700"
           >
-            Пост в канале
+            Пост в чате
           </a>
         ) : null}
       </div>

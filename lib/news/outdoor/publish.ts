@@ -3,11 +3,12 @@ import sharp from "sharp";
 import { geminiFastJson } from "@/lib/news/gemini";
 import type { OutdoorDraft, OutdoorEvent } from "@/lib/news/outdoor/types";
 import { downloadImage, formatPriceLine } from "@/lib/news/outdoor/util";
+import { PORTO_PUBLIC_CHAT_ID, PORTO_PUBLIC_CHAT_URL } from "@/lib/telegram/public-communities";
 
-export const OUTDOOR_CHANNEL = () =>
-  (process.env.EMIGRO_PORTUGAL_NEWS_CHANNEL || "@emigro_portugal").trim();
+/** Always the public Porto chat. A leftover north-news channel id in env is ignored. */
+export const OUTDOOR_CHANNEL = () => PORTO_PUBLIC_CHAT_ID;
 
-const CHANNEL_URL = "https://t.me/emigro_portugal";
+const CHAT_FOOTER = "Порту и вокруг";
 const CAPTION_MAX = 1024;
 
 const SCHEMA = {
@@ -112,7 +113,7 @@ function cardSvg(lines: string[]): string {
   <rect x="0" y="0" width="10" height="800" fill="#1fa8a0"/>
   <text x="48" y="56" font-family="${boldFamily}" font-size="22" fill="#1fa8a0">EMIGRO · EVENTOS</text>
   ${headlines}
-  <text x="48" y="780" font-family="${boldFamily}" font-size="15" fill="#c8e6e3">${CHANNEL_URL.replace("https://t.me/", "@")}</text>
+  <text x="48" y="780" font-family="${boldFamily}" font-size="15" fill="#c8e6e3">${xml(CHAT_FOOTER)}</text>
 </svg>`;
 }
 
@@ -193,7 +194,7 @@ export async function writeOutdoorDraft(
     bring?: string;
     includes_ru?: string;
   }>(
-    `Ты пишешь пост в @emigro_portugal так, будто сам уже сходил и кидаешь друзьям в чат: коротко, по делу, без брошюры.
+    `Ты пишешь пост в публичный чат «Порту и вокруг» так, будто сам уже сходил и кидаешь друзьям: коротко, по делу, без брошюры.
 Канал ещё и учит португальский. В тексте обязательно 4–6 слов СТРОГО так: cogumelo (гриб).
 Португальское слово снаружи, русский перевод в скобках.
 Плохо: «гриб (cogumelo)», «пообедаете (almoço)».
@@ -267,10 +268,21 @@ ABOUT_PT: ${(ev.aboutPt || ev.description).slice(0, 1100)}
 }
 
 export async function publishOutdoorPhoto(caption: string, image: Buffer): Promise<number> {
-  const token = (process.env.EMIGRO_NEWS_BOT_TOKEN || process.env.TELEGRAM_BOT_TOKEN || "").trim();
-  if (!token) throw new Error("EMIGRO_NEWS_BOT_TOKEN missing");
+  const chatToken = process.env.EMIGRO_CHAT_BOT_TOKEN?.trim();
+  const token = (
+    chatToken ||
+    process.env.EMIGRO_NEWS_BOT_TOKEN ||
+    process.env.TELEGRAM_BOT_TOKEN ||
+    ""
+  ).trim();
+  if (!token) throw new Error("EMIGRO_CHAT_BOT_TOKEN missing — Porto posts use @emigro_chat_bot");
+  const chatId = OUTDOOR_CHANNEL();
+  if (chatId !== PORTO_PUBLIC_CHAT_ID) {
+    throw new Error("refusing to publish outside the public Porto chat");
+  }
+  console.log(`[outdoor] sendPhoto ${chatId} via ${chatToken ? "@emigro_chat_bot" : "news-bot"} ${PORTO_PUBLIC_CHAT_URL}`);
   const form = new FormData();
-  form.set("chat_id", OUTDOOR_CHANNEL());
+  form.set("chat_id", chatId);
   form.set("caption", caption);
   form.set("parse_mode", "HTML");
   form.set("photo", new Blob([new Uint8Array(image)], { type: "image/jpeg" }), "event.jpg");

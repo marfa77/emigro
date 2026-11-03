@@ -1,4 +1,4 @@
-/** Normalized outdoor experience for @emigro_portugal. */
+/** Normalized outdoor experience for the public Porto chat @emigro_portugal. */
 
 export type OutdoorTicket = { name: string; price: number };
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# One outdoor experience from aggregated Norte sources → @emigro_portugal.
+# One outdoor experience from aggregated Norte sources → public Porto chat @emigro_portugal.
 # Timer: emigro-portugal-outdoor.timer (Europe/Lisbon).
 
 set -euo pipefail

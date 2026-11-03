@@ -20,7 +20,7 @@ Use this as the **quality bar and definition of launched**. Clone **Spain routes
 |---------|------|--------|
 | `@Emigro_news` | National news + lightning | New per-country news channel |
 | `@emigro_chat` | Comments linked to the channel | Parse as practice; public join CTA |
-| **Порту и вокруг** | Private group, no public @ | `t.me/+` on site |
+| **Порту и вокруг** | Public chat @emigro_portugal | `t.me/+` on site; the private «Новости севера» channel |
 | Join | `@emigro_chat_bot?start={city}_chat` — wizard results + after TG report | Invite hash in HTML |
 | Env | `EMIGRO_PORTO_CHAT_ID`, `EMIGRO_CHAT_BOT_TOKEN` | — |
 | Group bank | `lib/community-notes/porto-group-bank.json` — 1 discussion / 3 days; recycle 45d | Auto-refill from new drafts; daily dumps |

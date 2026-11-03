@@ -17,7 +17,7 @@ export const revalidate = 86400;
 export const metadata: Metadata = pageMetadata({
   title: "Сообщества Emigro в Telegram — Португалия, Испания, Италия",
   description:
-    "Пять Telegram-сообществ Emigro: @emigro_portugal, чат @valencia_echat, @emigro_Italy, @milan_echat и барахолка @comomercatino. Новости региона и чаты релокантов на русском.",
+    "Пять сообществ Emigro: «Порту и вокруг» @emigro_portugal, @valencia_echat, @emigro_Italy, @milan_echat, @comomercatino. Новости региона и быт релокантов.",
   path: "/ru/community",
   ogImageAlt: "Сообщества Emigro в Telegram",
 });

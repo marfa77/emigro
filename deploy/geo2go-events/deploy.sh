@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Install Geo2Go → @emigro_portugal timer on the Emigro VPS.
+# Install Geo2Go → public Porto chat @emigro_portugal on the Emigro VPS.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"

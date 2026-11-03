@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Install multi-source outdoor → @emigro_portugal timer on the Emigro VPS.
+# Install multi-source outdoor → public Porto chat @emigro_portugal on the Emigro VPS.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"

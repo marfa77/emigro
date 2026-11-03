@@ -358,9 +358,9 @@ export async function PortugalCalendarPage({
       </section>
 
       <p className="mt-8 text-sm text-slate-500">
-        Три карточки в день уходят в{" "}
+        Три карточки в день уходят в чат{" "}
         <a className="text-teal-800 underline" href="https://t.me/emigro_portugal">
-          @emigro_portugal
+          Порту и вокруг
         </a>
         . Здесь весь список.
       </p>
