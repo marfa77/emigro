@@ -27,6 +27,8 @@ import {
 import Link from "next/link";
 import { pageUrl } from "@/lib/seo";
 import { investPagePath } from "@/lib/investment/golden-visa-2026";
+import { investBotDeepLink } from "@/lib/telegram/deep-link";
+import { InvestTelegramMatch } from "@/components/investment/InvestTelegramMatch";
 import { investMetadata, investServiceSchema } from "@/lib/investment/invest-seo";
 import { InvestQuickLead } from "@/components/investment/InvestQuickLead";
 import { GoldenVisaSummaryTable, InvestAssistOffers } from "@/components/investment/InvestPageBlocks";
@@ -91,7 +93,7 @@ export default function InvestmentHubPage() {
                 Private Capital · Investment Migration
               </p>
               <h1 className="text-2xl font-bold leading-[1.12] tracking-tight sm:mt-4 sm:text-4xl lg:text-5xl">
-                Инвестиционная миграция:
+                Инвестиционная миграция 2026:
                 <br className="hidden sm:block" /> сначала{" "}
                 <span className="bg-gradient-to-r from-amber-200 via-amber-300 to-amber-400 bg-clip-text text-transparent">
                   профиль
@@ -122,6 +124,12 @@ export default function InvestmentHubPage() {
                 >
                   Сравнить все программы →
                 </Link>
+                <a
+                  href={investBotDeepLink("hub", "ru")}
+                  className="inline-flex min-h-12 items-center rounded-xl bg-amber-300 px-5 py-3 font-semibold text-slate-950 transition hover:bg-amber-200"
+                >
+                  Бесплатный подбор в Telegram
+                </a>
                 <a
                   href="#routes"
                   className="inline-flex min-h-12 items-center rounded-xl border border-white/20 bg-white/5 px-5 py-3 font-medium text-white backdrop-blur transition hover:border-white/40 hover:bg-white/10"

@@ -15,10 +15,10 @@ export const COMPARE_COPY = {
   ru: {
     title: "Сравнение Golden Visa 2026: Португалия, Италия, Греция и др. | Emigro",
     description:
-      "Минимальные инвестиции, маршруты, срок до гражданства и доступность для паспортов РФ/РБ — с официальными источниками. Проверено 14.10.2026.",
+      "8 программ: порог, гражданство и паспорта РФ/РБ. Венгрия и ОАЭ открыты (OIF, ICP, DLD), сверка 03.11.2026. Остальные строки — 14.10.2026.",
     h1: "Golden Visa 2026: сравнение программ ВНЖ за инвестиции",
     intro:
-      "8 программ в одной таблице: минимальная инвестиция, допустимые маршруты, срок до гражданства и что с паспортами РФ/РБ. У каждой строки — официальный источник и дата проверки; строки, которые ещё сверяются с первоисточником, помечены «уточняется».",
+      "8 программ в одной таблице: минимальная инвестиция, допустимые маршруты, срок до гражданства и что с паспортами РФ/РБ. У каждой строки — официальный источник и дата проверки. Венгрия и ОАЭ сверены 03.11.2026: опубликованные правила OIF, ICP и DLD гражданство не исключают. Строки, которые ещё сверяются с первоисточником, помечены «уточняется».",
     aiDescription:
       "Golden Visa 2026 comparison (checked 2026-10-14): Portugal ARI €500K funds, citizenship 10y since 19.05.2026; Italy €250K–€2M, suspended for RU/BY; Greece €250K/€400K/€800K, RU/BY suspended (verify); Spain closed 03.04.2025; Thailand LTR US$500K + US$1M; UAE AED 2M property; Hungary €250K fund / €1M donation; Malta MPRP. Official sources per row.",
     back: "← Все инвестиционные маршруты",
@@ -29,7 +29,7 @@ export const COMPARE_COPY = {
   en: {
     title: "Golden Visa 2026 Comparison: Portugal, Italy, Greece & more | Emigro",
     description:
-      "Minimum investment, routes, time to citizenship and RU/BY eligibility for 8 programmes — with official sources. Checked 14 Oct 2026.",
+      "8 programmes: threshold, citizenship and RU/BY passports. Hungary and the UAE stay open (OIF, ICP, DLD), checked 3 Nov 2026. Other rows: 14 Oct 2026.",
     h1: "Golden Visa 2026: investment residency programmes compared",
     intro:
       "Eight programmes in one table: minimum investment, qualifying routes, time to citizenship and what applies to Russian and Belarusian passports. Every row links to the official source and shows when it was checked; rows still being matched against the primary text are marked “being verified”.",
@@ -57,7 +57,7 @@ export const COMPARE_FAQ: Record<InvestLocale, InvestFaqItem[]> = {
     {
       question: "Какие Golden Visa доступны с паспортом РФ?",
       answer:
-        "Португалия (ARI) и Таиланд (LTR) граждан РФ/РБ законом не исключают, но банки и фонды проводят усиленную проверку происхождения средств. Италия приостановила Investor Visa для РФ/РБ; Греция и Мальта сейчас не принимают новые заявки РФ/РБ (циркуляр Минмиграции Греции от 21.04.2026; FAQ Residency Malta). По ОАЭ и Венгрии — уточняется.",
+        "Опубликованные правила не исключают паспорта РФ и РБ в Венгрии (OIF, Guest Investor) и в ОАЭ (ICP и DLD, недвижимость от AED 2 млн). Одобрение и банк — отдельно. Португалия (ARI) и Таиланд (LTR) тоже не исключают гражданство законом, но банки и фонды проводят усиленную проверку. Италия приостановила Investor Visa для РФ/РБ; Греция и Мальта сейчас не принимают новые заявки РФ/РБ (циркуляр Минмиграции Греции от 21.04.2026; FAQ Residency Malta).",
     },
     {
       question: "Какая Golden Visa самая дешёвая в 2026?",
@@ -84,7 +84,7 @@ export const COMPARE_FAQ: Record<InvestLocale, InvestFaqItem[]> = {
     {
       question: "Which golden visas are open to Russian passports?",
       answer:
-        "Portugal (ARI) and Thailand (LTR) do not exclude RU/BY citizens by law, though banks and funds run enhanced source-of-funds checks. Italy suspended its Investor Visa for RU/BY; Greece and Malta currently do not accept new RU/BY applications (Greek ministry circular of 21.04.2026; Residency Malta FAQ). The UAE and Hungary are being verified.",
+        "Published rules do not exclude RU or BY passports in Hungary (OIF Guest Investor) or the UAE (ICP and DLD, property from AED 2M). Approval and the bank are separate. Portugal (ARI) and Thailand (LTR) also do not exclude nationality by law, though banks and funds run enhanced source-of-funds checks. Italy suspended its Investor Visa for RU/BY; Greece and Malta currently do not accept new RU/BY applications (Greek ministry circular of 21.04.2026; Residency Malta FAQ).",
     },
     {
       question: "What is the cheapest golden visa in 2026?",

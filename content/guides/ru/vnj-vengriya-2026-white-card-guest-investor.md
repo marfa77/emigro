@@ -31,7 +31,7 @@ official_sources:
     label: OIF — National Residence Card (exclusions)
 estimated_minutes: 22
 date_published: 2026-07-28
-date_modified: 2026-09-19
+date_modified: 2026-11-03
 ---
 
 ## С чего начать: White Card или Guest Investor
@@ -125,7 +125,9 @@ White Card (Fehér Kártya) — виза/permit для удалённых раб
 
 ### Общая информация
 
-Guest Investor Program (GIP) — венгерский аналог Golden Visa. Даёт **10-летний ВНЖ**, продлеваемый ещё на 10 лет. **Нет требования по минимальному проживанию** — можно получить карту и не жить в Венгрии. Ведёт к ПМЖ через 3 года и гражданству через 8 лет. 
+Guest Investor Program (GIP) — венгерский аналог Golden Visa. Даёт **10-летний ВНЖ**, продлеваемый ещё на 10 лет. **Нет требования по минимальному проживанию** — можно получить карту и не жить в Венгрии. Ведёт к ПМЖ через 3 года и гражданству через 8 лет.
+
+> **Nota Emigro (03.11.2026).** OIF не публикует запрет для паспортов РФ и РБ. «8 лет» — срок натурализации в Act LV/1993, §4. §23 считает его с регистрации адреса при ПМЖ, а не с временной карты Guest Investor. Сама карта паспорт не даёт. Сверка: [oif.gov.hu](https://oif.gov.hu/factsheets/residence-permit-for-guest-investor), [Act LV/1993](https://njt.jog.gov.hu/jogszabaly/en/1993-55-00-00). 
 
 ### Инвестиционные опции (2026)
 

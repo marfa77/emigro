@@ -202,9 +202,19 @@ export const GOLDEN_VISA_ROWS: readonly GoldenVisaRow[] = [
       en: "Property (registered ownership from AED 2M; approved-bank mortgage allowed); other categories exist",
     },
     citizenship: { ru: "Не путь к гражданству", en: "Not a citizenship route" },
-    ruBy: { status: "verify", ru: "Уточняется", en: "Being verified", verify: true },
-    sources: [{ label: "icp.gov.ae — UAE Golden Residency", url: "https://icp.gov.ae/en/services/uae-golden-residency/" }],
-    lastChecked: null,
+    ruBy: {
+      status: "open",
+      ru: "В условиях ICP и DLD гражданство подачу не ограничивает. Одобрение и банк — отдельно",
+      en: "ICP and DLD property rules do not exclude a nationality. Approval and the bank are separate",
+    },
+    sources: [
+      { label: "icp.gov.ae — UAE Golden Residency", url: "https://icp.gov.ae/en/services/uae-golden-residency/" },
+      {
+        label: "dubailand.gov.ae — Golden Visa investor",
+        url: "https://dubailand.gov.ae/en/eservices/request-for-golden-visa-investor/",
+      },
+    ],
+    lastChecked: "2026-11-03",
   },
   {
     slug: "hungary",
@@ -218,10 +228,23 @@ export const GOLDEN_VISA_ROWS: readonly GoldenVisaRow[] = [
       ru: "Паи фонда недвижимости MNB от €250 тыс. (≥5 лет) или пожертвование €1 млн вузу. Вариант «квартира €500 тыс.» отменён до запуска (MK 20.12.2024)",
       en: "MNB real-estate fund units from €250K (≥5 yrs) or a €1M donation to a university. The €500K property option was withdrawn before launch (Gazette 20.12.2024)",
     },
-    citizenship: { ru: "Уточняется", en: "Being verified", verify: true },
-    ruBy: { status: "verify", ru: "Уточняется", en: "Being verified", verify: true },
-    sources: [{ label: "oif.gov.hu — Guest Investor", url: "https://oif.gov.hu/factsheets/residence-permit-for-guest-investor" }],
-    lastChecked: null,
+    citizenship: {
+      ru: "8 лет непрерывного проживания, срок идёт с ПМЖ (Act LV/1993, §4 и §23), не с карты Guest Investor",
+      en: "8 years of continuous residence, counted from permanent residence (Act LV/1993, §4 and §23), not from the Guest Investor permit",
+    },
+    ruBy: {
+      status: "open",
+      ru: "OIF не исключает граждан РФ и РБ: программа для third-country nationals. Санкции ЕС на отдельных лиц остаются",
+      en: "OIF does not exclude RU or BY citizens: the permit is for third-country nationals. EU sanctions on listed persons still apply",
+    },
+    sources: [
+      { label: "oif.gov.hu — Guest Investor", url: "https://oif.gov.hu/factsheets/residence-permit-for-guest-investor" },
+      {
+        label: "Act LV of 1993 — Hungarian citizenship",
+        url: "https://njt.jog.gov.hu/jogszabaly/en/1993-55-00-00",
+      },
+    ],
+    lastChecked: "2026-11-03",
   },
   {
     slug: "malta",

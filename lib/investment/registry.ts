@@ -260,7 +260,7 @@ export const INVESTMENT_ROUTES: readonly InvestmentRoute[] = [
     countryRu: "Италия",
     destinationIso2: "IT",
     flag: "🇮🇹",
-    title: "Italy Investor Visa",
+    title: "Инвесторская виза Италии 2026",
     status: "active",
     outcome: "residence",
     screeningFloorEur: 250_000,

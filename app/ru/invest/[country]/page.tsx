@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowRight, ExternalLink, Scale } from "lucide-react";
+import { ArrowRight, CheckCircle2, ExternalLink, Scale, ShieldAlert, XCircle } from "lucide-react";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { DubaiOfferVerdictPromo } from "@/components/investment/DubaiOfferVerdictPromo";
 import { InvestmentViewTracker } from "@/components/investment/InvestmentAnalytics";
@@ -30,6 +30,8 @@ import {
 } from "@/lib/investment/golden-visa-2026";
 import { investMetadata, investServiceSchema } from "@/lib/investment/invest-seo";
 import { InvestQuickLead } from "@/components/investment/InvestQuickLead";
+import { InvestTelegramMatch } from "@/components/investment/InvestTelegramMatch";
+import { INVEST_RU_COUNTRY } from "@/lib/investment/invest-ru-copy";
 import {
   GoldenVisaFactTable,
   InvestAssistOffers,
@@ -48,7 +50,7 @@ const RU_COUNTRY_SEO: Record<InvestCountrySlug, { title: string; description: st
   italy: {
     title: "Инвесторская виза Италии 2026: €250K/€500K/€2M",
     description:
-      "Инвесторская виза Италии: стартап €250K, компания €500K, облигации €2M, пожертвование €1M. Порядок подачи и приостановка для РФ/РБ по официальным источникам.",
+      "Инвесторская виза Италии 2026: стартап €250K, компания €500K, облигации €2M. Для паспортов РФ и РБ программа приостановлена.",
     passportQuestion: "Даёт ли инвесторская виза Италии гражданство?",
   },
   spain: {
@@ -76,9 +78,9 @@ const RU_COUNTRY_SEO: Record<InvestCountrySlug, { title: string; description: st
     passportQuestion: "Даёт ли Golden Visa ОАЭ гражданство?",
   },
   hungary: {
-    title: "Guest Investor Венгрия 2026",
+    title: "Guest Investor Венгрия 2026: €250 тыс., 8 лет с ПМЖ",
     description:
-      "Guest Investor Венгрии: паи фонда от €250 000 или пожертвование €1 млн, и почему вариант с квартирой за €500 000 отменили. Бесплатный подбор маршрута.",
+      "Венгрия 2026: фонд от €250 000 или донейшн €1 млн. OIF не исключает паспорта РФ и РБ. Натурализация — 8 лет с ПМЖ, не с карты Guest Investor.",
     passportQuestion: "Даёт ли программа Guest Investor Венгрии гражданство?",
   },
   malta: {
@@ -159,6 +161,13 @@ export default function InvestmentCountryPage({ params }: { params: { country: s
   const faqSchema = buildFaqSchema(faq);
   const factRow = goldenVisaRow(route.country);
   const pageKey = isInvestCountrySlug(route.country) ? route.country : "hub";
+  const pageCopy = isInvestCountrySlug(route.country) ? INVEST_RU_COUNTRY[route.country] : null;
+  const showTelegramMatch =
+    route.country === "hungary" ||
+    route.country === "italy" ||
+    route.country === "greece" ||
+    route.country === "malta" ||
+    route.country === "thailand";
 
   return (
     <>
@@ -190,7 +199,7 @@ export default function InvestmentCountryPage({ params }: { params: { country: s
             </span>
           </div>
           <h1 className="relative max-w-3xl text-2xl font-bold leading-tight tracking-tight sm:mt-5 sm:text-4xl">
-            {routes.length > 1 ? `${route.countryRu}: программы не взаимозаменяемы` : route.title}
+            {pageCopy?.h1 ?? (routes.length > 1 ? `${route.countryRu}: программы не взаимозаменяемы` : route.title)}
           </h1>
           <p className="relative mt-3 line-clamp-4 max-w-3xl text-sm leading-relaxed text-slate-200/90 sm:mt-4 sm:line-clamp-none sm:text-lg">
             {routes.length > 1
@@ -238,6 +247,51 @@ export default function InvestmentCountryPage({ params }: { params: { country: s
             <GoldenVisaFactTable row={factRow} locale="ru" />
           </div>
         ) : null}
+
+        {pageCopy ? (
+          <>
+            <section className="mt-8 grid gap-4 md:grid-cols-2">
+              <div className="rounded-2xl border border-slate-200 bg-white p-5 sm:p-6">
+                <h2 className="text-lg font-bold text-slate-950">Кому подходит</h2>
+                <ul className="mt-3 space-y-2.5 text-sm leading-relaxed text-slate-700">
+                  {pageCopy.suits.map((item) => (
+                    <li key={item} className="flex gap-2.5">
+                      <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="rounded-2xl border border-slate-200 bg-white p-5 sm:p-6">
+                <h2 className="text-lg font-bold text-slate-950">Кому не подходит</h2>
+                <ul className="mt-3 space-y-2.5 text-sm leading-relaxed text-slate-700">
+                  {pageCopy.notSuits.map((item) => (
+                    <li key={item} className="flex gap-2.5">
+                      <XCircle className="mt-0.5 h-4 w-4 shrink-0 text-rose-500" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </section>
+            <section className="mt-8 rounded-2xl border border-rose-200 bg-rose-50 p-5 sm:p-6">
+              <h2 className="flex items-center gap-2 text-lg font-bold text-rose-950">
+                <ShieldAlert className="h-5 w-5 text-rose-600" /> Паспорта РФ и РБ
+              </h2>
+              <p className="mt-2 text-sm leading-relaxed text-rose-950">{pageCopy.ruByNote}</p>
+            </section>
+            <section className="mt-8 rounded-2xl border border-slate-200 bg-white p-5 sm:p-6">
+              <h2 className="text-lg font-bold text-slate-950">Шаги</h2>
+              <ol className="mt-3 list-decimal space-y-2 pl-5 text-sm leading-relaxed text-slate-700">
+                {pageCopy.steps.map((step) => (
+                  <li key={step}>{step}</li>
+                ))}
+              </ol>
+            </section>
+          </>
+        ) : null}
+
+        {showTelegramMatch ? <InvestTelegramMatch pageKey={pageKey} /> : null}
 
         {route.country === "spain" ? (
           <div className="mt-8">

@@ -29,7 +29,7 @@ official_sources:
     label: МИД Греции — визы
 estimated_minutes: 22
 date_published: 2026-07-28
-date_modified: 2026-09-19
+date_modified: 2026-11-03
 ---
 
 ## С чего начать: три маршрута, три разных пакета
@@ -198,6 +198,8 @@ Golden Visa Греции даёт **5-летний** ВНЖ с продлени�
 **Уточнение по крупным островам:** по формуле закона острова с населением **>3 100** входят в порог **€800 000**. Крит, Родос, Корфу, Закинф и др. крупные острова обычно попадают сюда — **перед сделкой сверяйте объект с актуальной картой Enterprise Greece / migration.gov.gr**, а не с маркетинговыми «зонами агентства».
 
 **Важно:** short-term rental (Airbnb и аналоги) на объекты, участвующие в классической Golden Visa по недвижимости, **запрещён**. Доход от краткосрочной аренды — только с отдельного объекта вне программы.
+
+> **Nota Emigro (03.11.2026).** 15 октября 2026 министр миграции Танос Плеврис (Prodexpo, [ERT](https://www.ertnews.gr/eidiseis/th-pleyris-tha-afaireitai-i-golden-visa-an-diapistonontai-symfonies-ekptosis-kai-paraviasi-tis-apagoreysis-vraxyxronias-misthosis/)) заявил, что ВНЖ будут отзывать, если скрытый откат застройщика опускает цену ниже порога, и если жильё сдают посуточно через субаренду. Штраф **€50 000** и сам запрет краткосрочной аренды уже в законе 5100/2024, статья 64 ([stegasi.gov.gr](https://stegasi.gov.gr/programs/apagorefsi-vrachychronias-ekmisthosis-ton-akiniton-pou-apoktithikan-meso-tou-programmatos-golden-visa/)). Это не новый порог. Долгосрочная аренда по правилам программы остаётся.
 
 Актуальные карты зон и исключения — на [Enterprise Greece](https://www.enterprisegreece.gov.gr/) и [migration.gov.gr](https://migration.gov.gr/).
 

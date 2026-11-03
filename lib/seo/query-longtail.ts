@@ -816,14 +816,27 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "Австрия 2026: RWR Card (баллы), Blue Card — гайд Emigro для RU/BY/UA/KZ.",
   },
   {
-    path: "/ru/guides/investitsionnyy-vnj-evropa-golden-visa-2026",
-    guideSlug: "investitsionnyy-vnj-evropa-golden-visa-2026",
-    primaryQuery: "golden visa европа 2026 сравнение",
+    path: "/ru/invest/compare",
+    primaryQuery: "сравнение golden visa 2026",
     queries: [
+      "сравнение golden visa 2026",
       "golden visa европа 2026 сравнение",
-      "инвестиционный внж португалия греция",
       "golden visa пороги 2026",
       "где купить внж за инвестиции ес",
+    ],
+    seoTitle: "Сравнение Golden Visa 2026 — 8 программ, РФ и РБ",
+    seoDescription:
+      "Таблица 8 программ: порог, гражданство и паспорта РФ/РБ. Венгрия и ОАЭ открыты по OIF, ICP и DLD. Сверка 03.11.2026.",
+  },
+  {
+    path: "/ru/guides/investitsionnyy-vnj-evropa-golden-visa-2026",
+    guideSlug: "investitsionnyy-vnj-evropa-golden-visa-2026",
+    primaryQuery: "инвестиционный внж европа 2026",
+    queries: [
+      "инвестиционный внж европа 2026",
+      "инвестиционный внж португалия греция",
+      "golden visa португалия италия испания 2026",
+      "что осталось от golden visa в европе",
     ],
     seoTitle: "Golden Visa Европа 2026 — сравнение",
     seoDescription:
