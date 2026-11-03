@@ -10,12 +10,20 @@ export type PublicTelegramCommunityLink = {
   kind: "channel" | "chat";
 };
 
+/**
+ * Public Porto chat «Порту и вокруг · Emigro 🇵🇹».
+ * The old «Новости севера» channel is private and is not a send target.
+ * Publishers must use this @, never EMIGRO_PORTUGAL_NEWS_CHANNEL.
+ */
+export const PORTO_PUBLIC_CHAT_ID = "@emigro_portugal";
+export const PORTO_PUBLIC_CHAT_URL = "https://t.me/emigro_portugal";
+
 const PORTUGAL_LINKS: readonly PublicTelegramCommunityLink[] = [
   {
-    url: "https://t.me/emigro_portugal",
-    title: "Новости севера Португалии",
-    description: "Канал @emigro_portugal: события, практика и заметки по Norte и Португалии.",
-    kind: "channel",
+    url: PORTO_PUBLIC_CHAT_URL,
+    title: "Порту и вокруг",
+    description: "Публичный чат @emigro_portugal: быт, встречи и события севера Португалии.",
+    kind: "chat",
   },
 ];
 

@@ -1,5 +1,5 @@
 /**
- * Outdoor experience sources for @emigro_portugal.
+ * Outdoor experience sources for the public Porto chat @emigro_portugal.
  */
 import type { OutdoorEvent, OutdoorTicket } from "@/lib/news/outdoor/types";
 import {

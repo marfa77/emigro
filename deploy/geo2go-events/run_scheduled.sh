@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# One Geo2Go agenda event → @emigro_portugal.
+# One Geo2Go agenda event → public Porto chat @emigro_portugal.
 # Timer: emigro-geo2go-events.timer (Europe/Lisbon).
 
 set -euo pipefail

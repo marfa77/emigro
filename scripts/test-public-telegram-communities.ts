@@ -12,6 +12,9 @@ import {
 
 assert.equal(publicTelegramLinksForCountry("portugal").length, 1);
 assert.equal(publicTelegramLinksForCountry("portugal")[0].url, "https://t.me/emigro_portugal");
+assert.equal(publicTelegramLinksForCountry("portugal")[0].title, "Порту и вокруг");
+assert.equal(publicTelegramLinksForCountry("portugal")[0].kind, "chat");
+assert.equal(publicTelegramLinksForCountry("portugal")[0].description.includes("Новости севера"), false);
 assert.equal(publicTelegramLinksForCountry("spain")[0].url, "https://t.me/valencia_echat");
 assert.equal(publicTelegramLinksForCountry("italy").length, 3);
 assert.equal(allPublicTelegramCommunityLinks().length, 5);

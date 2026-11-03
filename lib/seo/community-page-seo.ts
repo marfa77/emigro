@@ -13,7 +13,7 @@ export function buildCommunityPageSchema(): Record<string, unknown>[] {
     url,
     name: "Сообщества Emigro в Telegram",
     description:
-      "Каналы и чаты Emigro: @emigro_portugal, @valencia_echat, @emigro_Italy, @milan_echat, @comomercatino — новости региона и общение релокантов.",
+      "Каналы и чаты Emigro: «Порту и вокруг» @emigro_portugal, @valencia_echat, @emigro_Italy, @milan_echat, @comomercatino — новости региона и общение релокантов.",
     inLanguage: "ru-RU",
     isPartOf: {
       "@type": "WebSite",
@@ -45,7 +45,7 @@ export function buildCommunityPageSchema(): Record<string, unknown>[] {
         name: "Чем канал @Emigro_news отличается от региональных?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "@Emigro_news — общая лента Emigro. @emigro_portugal, @emigro_Italy и городские чаты — локальные новости и быт по стране или региону.",
+          text: "@Emigro_news — общая лента Emigro. @emigro_portugal — публичный чат «Порту и вокруг». @emigro_Italy и городские чаты — локальные новости и быт.",
         },
       },
       {

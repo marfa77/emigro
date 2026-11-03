@@ -1,5 +1,5 @@
 [Unit]
-Description=Emigro Geo2Go events — one post to @emigro_portugal
+Description=Emigro Geo2Go events — one post to public Porto chat @emigro_portugal
 After=network-online.target
 Wants=network-online.target
 

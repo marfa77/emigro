@@ -1,7 +1,7 @@
 #!/usr/bin/env npx tsx
 /**
  * Outdoor experiences (Geo2Go, Hike Land, Trekking Roots, Montanhas,
- * Trekkin, Arouca, Gerês) → @emigro_portugal.
+ * Trekkin, Arouca, Gerês) → public Porto chat @emigro_portugal («Порту и вокруг»).
  *
  *   npm run portugal:outdoor -- --dry-run
  *   npm run portugal:outdoor
