@@ -534,7 +534,7 @@ export const EDITORIAL_GLOSSARIES: Record<string, GlossaryTerm[]> = {
     { pt: "consulado", ru: "консульство Испании для visado D desde third country" },
     { pt: "extranjería", ru: "иммиграционная служба; TIE/renovación, no solicitud inicial DNV desde RU" },
     { pt: "autónomo", ru: "самозанятый; max 20% ingresos clientes ES en teletrabajo" },
-    { pt: "SMI", context: "Salario Mínimo Interprofesional", ru: "МРОТ; 200% SMI ≈ 2 849 €/mes 2026" },
+    { pt: "SMI", context: "Salario Mínimo Interprofesional", ru: "МРОТ; 200% SMI ≈ 2 442 €/mes 2026" },
     { pt: "legal stay", ru: "легальное пребывание; turismo Schengen ≠ legal stay para UGE" },
   ],
   "alta-ss-hacienda-valencia-2026": [

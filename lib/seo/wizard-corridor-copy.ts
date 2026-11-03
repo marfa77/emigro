@@ -3,7 +3,7 @@ export const WIZARD_CORRIDOR_DESCRIPTIONS: Record<string, string> = {
   portugal:
     "Wizard Emigro по Португалии: D7, D8 digital nomad, Golden Visa ARI, семья. Сравнение программ ВНЖ с порогами дохода и сроками для паспортов RU/BY/UA/KZ.",
   spain:
-    "Wizard Emigro по Испании: digital nomad teletrabajo, non-lucrative, студенческая виза, воссоединение семьи. Пороги €2 849+/мес и сроки для паспортов RU/BY/UA/KZ.",
+    "Wizard Emigro по Испании: digital nomad teletrabajo, non-lucrative, студенческая виза, воссоединение семьи. Пороги €2 442+/мес и сроки для паспортов RU/BY/UA/KZ.",
   germany:
     "Wizard Emigro по Германии: EU Blue Card, Chancenkarte, work permit, воссоединение. Пороги зарплаты 2026 и сроки ВНЖ для паспортов RU/BY/UA/KZ.",
   france:

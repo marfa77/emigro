@@ -583,7 +583,7 @@ export function buildCorridorLandingFaq(topic: NewsTopicConfig, corridor: Corrid
             {
               question: "Какой порог digital nomad Испания в 2026?",
               answer:
-                "Digital nomad visa (teletrabajo) — от €2 849/мес (200% SMI 2026). До 20% дохода может быть от испанских клиентов. Non-lucrative — ~€2 400+/мес без права работать. Практика NIE/TIE — на spain.emigro.online.",
+                "Digital nomad visa (teletrabajo) — от €2 442/мес (200% месячного SMI €1 221, критерии UGE). Наёмный — только иностранная компания; autónomo — до 20% профессиональной деятельности с компаниями в Испании. Non-lucrative — ~€2 400+/мес без права работать. Практика NIE/TIE — на spain.emigro.online.",
             },
           ]
         : [];

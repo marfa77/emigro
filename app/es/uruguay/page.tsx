@@ -19,7 +19,7 @@ export const revalidate = 3600;
 export const metadata: Metadata = pageMetadata({
   title: "Residencia en España para uruguayos 2026",
   description:
-    "Cómo emigrar a España desde Uruguay 2026: Schengen corto ≠ residencia. Nómada digital (~€2.849), no lucrativa y nacionalidad en 2 años (art. 22).",
+    "Cómo emigrar a España desde Uruguay 2026: Schengen corto ≠ residencia. Nómada digital (~€2.442), no lucrativa y nacionalidad en 2 años (art. 22).",
   path: ES_PATHS.uruguay,
   locale: "es",
   esHreflang: { originIso: "UY", destinationIso: "ES" },

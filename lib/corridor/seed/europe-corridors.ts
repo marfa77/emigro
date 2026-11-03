@@ -236,18 +236,18 @@ export const EUROPE_CORRIDORS: CorridorSeed[] = [
         titleEn: "Spain Digital Nomad (teletrabajo internacional)",
         titleRu: "Испания — digital nomad (teletrabajo)",
         summaryEn:
-          "Residence for remote workers with foreign income (Ley 28/2022 teletrabajo); max 20% income from Spain; consulate or UGE route.",
+          "Residence for remote workers with foreign income (Ley 28/2022). Employees work only for the foreign company; freelancers may put up to 20% of professional activity with Spanish companies, never as Spanish employment. Consulate or UGE if already legal in Spain.",
         summaryRu:
-          "ВНЖ для удалённых работников с зарубежным доходом (Ley 28/2022 teletrabajo); не более 20% дохода из Испании; подача через консульство за рубежом или UGE в Испании.",
+          "ВНЖ для удалённых работников с зарубежным доходом (Ley 28/2022). Наёмный — только иностранная компания; autónomo — до 20% профессиональной деятельности с компаниями в Испании, не трудовой договор. Подача: консульство или UGE, если уже легально в Испании.",
         rule: {
           and: [
             { "==": [{ var: "passport_iso2" }, "RU"] },
             { "==": [{ var: "remote_income" }, "yes"] },
-            { ">=": [{ var: "monthly_income_eur" }, 2849] },
+            { ">=": [{ var: "monthly_income_eur" }, 2442] },
           ],
         },
         requirements: [
-          { type: "income", labelEn: "Minimum monthly income", labelRu: "Минимальный месячный доход", value: "€2,849 (200% SMI 2026, расчёт UGE по 14 платежам SMI)" },
+          { type: "income", labelEn: "Minimum monthly income", labelRu: "Минимальный месячный доход", value: "€2 442 (200% месячного SMI €1 221, критерии UGE 2026; не prorrateo de 14 pagas)" },
           {
             type: "documents",
             labelEn: "Remote work proof",
@@ -259,13 +259,13 @@ export const EUROPE_CORRIDORS: CorridorSeed[] = [
             type: "income",
             labelEn: "Family income add-on",
             labelRu: "Доплата за членов семьи",
-            value: "+€1 068/мес. за первого иждивенца, +€356/мес. за каждого следующего (75%/25% SMI 2026, RD 126/2026)",
+            value: "+€915,75/мес. за первого члена семьи, +€305,25/мес. за каждого следующего (75%/25% месячного SMI €1 221)",
           },
           {
             type: "documents",
             labelEn: "Spain income cap",
             labelRu: "Лимит дохода из Испании",
-            value: "Не более 20% дохода от испанских клиентов или работодателя",
+            value: "Наёмный: только иностранный работодатель. Autónomo: до 20% профессиональной деятельности с испанскими компаниями, никогда трудовой договор с компанией в Испании",
           },
           {
             type: "documents",
@@ -306,7 +306,7 @@ export const EUROPE_CORRIDORS: CorridorSeed[] = [
           },
           {
             url: "https://www.boe.es/eli/es/rd/2026/02/18/126/con",
-            excerpt: "Real Decreto 126/2026 — SMI 2026 €1 221/мес (14 pagas). DNV threshold: €1 221 × 14 ÷ 12 × 2 = €2 849/мес.",
+            excerpt: "RD 126/2026: SMI mensual €1 221. UGE: 200% de ese SMI = €2 442/mes (FAQ teletrabajo). No el prorrateo de 14 pagas.",
             labelEn: "BOE — SMI 2026",
             labelRu: "BOE — SMI 2026",
           },

@@ -14,7 +14,7 @@ export const revalidate = 3600;
 export const metadata: Metadata = pageMetadata({
   title: "España para latinoamericanos 2026 — residencia",
   description:
-    "Vivir en España siendo latinoamericano 2026: nómada digital (~€2.849), no lucrativa, trabajo, llegada NIE/TIE y nacionalidad en 2 años (art. 22).",
+    "Vivir en España siendo latinoamericano 2026: nómada digital (~€2.442), no lucrativa, trabajo, llegada NIE/TIE y nacionalidad en 2 años (art. 22).",
   path: ES_PATHS.spain,
   locale: "es",
   esHreflang: { destinationIso: "ES" },
@@ -26,7 +26,7 @@ export const metadata: Metadata = pageMetadata({
 const ROUTES = [
   {
     title: "Nómada digital (teletrabajo)",
-    body: "Ingresos remotos desde fuera de España; umbral ~€2.849/mes (200% SMI 2026). Pilar LATAM compartido (UY/EC/PE/PY/CO/CL).",
+    body: "Ingresos remotos desde fuera de España; umbral ~€2.442/mes (200% SMI 2026). Pilar LATAM compartido (UY/EC/PE/PY/CO/CL).",
     href: esGuidePath("visa-nomada-digital-espana-latam-2026"),
   },
   {

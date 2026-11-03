@@ -19,12 +19,12 @@ export const revalidate = 3600;
 export const metadata: Metadata = pageMetadata({
   title: "Residencia en España para ecuatorianos 2026",
   description:
-    "Cómo emigrar a España desde Ecuador 2026: visado Schengen vs residencia. Nómada digital (~€2.849), no lucrativa y nacionalidad en 2 años (art. 22).",
+    "Cómo emigrar a España desde Ecuador 2026: visado Schengen vs residencia. Nómada digital (~€2.442), no lucrativa y nacionalidad en 2 años (art. 22).",
   path: ES_PATHS.ecuador,
   locale: "es",
   esHreflang: { originIso: "EC", destinationIso: "ES" },
   aiDescription:
-    "Ecuador→Spain hub: short-stay Schengen visa often required vs national residence routes (digital nomad ~€2.849/mo, non-lucrative), nationality ~2 years (art. 22).",
+    "Ecuador→Spain hub: short-stay Schengen visa often required vs national residence routes (digital nomad ~€2.442/mo, non-lucrative), nationality ~2 years (art. 22).",
   aiCategory: "origin-corridor-hub",
 });
 

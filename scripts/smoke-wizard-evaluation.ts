@@ -1,6 +1,7 @@
 import { performance } from "node:perf_hooks";
 import assert from "node:assert/strict";
 import { evaluateProgram, normalizeFacts } from "../lib/engine/evaluator";
+import { householdRequiredAmount, parseHousehold } from "../lib/engine/household";
 import { expandHubFacts } from "../lib/wizard/expand-facts";
 
 const facts = normalizeFacts({
@@ -137,13 +138,13 @@ const spainDnv = evaluateProgram(
     and: [
       { "==": [{ var: "passport_iso2" }, "RU"] },
       { "==": [{ var: "remote_income" }, "yes"] },
-      { ">=": [{ var: "monthly_income_eur" }, 2849] },
+      { ">=": [{ var: "monthly_income_eur" }, 2442] },
     ],
   },
   spainDnvFacts,
   undefined,
   [
-    { requirementType: "income", labelRu: "Доход", valueText: "€2 849/мес" },
+    { requirementType: "income", labelRu: "Доход", valueText: "€2 442/мес" },
     { requirementType: "insurance", labelRu: "Медстраховка", valueText: "Полное покрытие в Испании" },
   ],
   { answeredKeys: ["remote_income", "monthly_income_eur"] }
@@ -162,3 +163,33 @@ const neutralInsurance = evaluateProgram(
 );
 assert(neutralInsurance.reasons.some((reason) => reason.includes("Нужно будет подготовить/оформить отдельно")));
 assert(!neutralInsurance.reasons.some((reason) => reason.includes("не подтверждено")));
+
+const spainDn = {
+  solo: 2442,
+  adultAddon: 915.75,
+  childAddon: 305.25,
+  firstThenRest: true as const,
+};
+assert.equal(householdRequiredAmount(spainDn, parseHousehold({})), 2442);
+assert.equal(
+  householdRequiredAmount(spainDn, parseHousehold({ relocating_with_spouse: "yes" })),
+  3357.75
+);
+assert.equal(
+  householdRequiredAmount(
+    spainDn,
+    parseHousehold({ relocating_with_spouse: "yes", relocating_children_count: 1 })
+  ),
+  3663
+);
+assert.equal(
+  householdRequiredAmount(
+    spainDn,
+    parseHousehold({ relocating_with_spouse: "yes", relocating_children_count: 2 })
+  ),
+  3968.25
+);
+assert.equal(
+  householdRequiredAmount(spainDn, parseHousehold({ relocating_children_count: 1 })),
+  3357.75
+);
