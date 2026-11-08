@@ -198,7 +198,8 @@ export function WizardForm({
     const interest = parseInterestParam(search);
     setInterestLabels(interest.labelsRu);
     const passportParam = params.get("passport") ?? "";
-    const passportFromGuide = /^(RU|BY|UA|KZ)$/.test(passportParam) ? passportParam : "";
+    const passportPattern = locale === "es" ? /^(UY|EC|PE|PY|CO|CL)$/ : /^(RU|BY|UA|KZ)$/;
+    const passportFromGuide = passportPattern.test(passportParam) ? passportParam : "";
 
     let initial: Record<string, string> = {};
     if (interest.iso2.length > 0) {

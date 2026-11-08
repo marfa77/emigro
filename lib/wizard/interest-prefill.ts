@@ -24,6 +24,7 @@ const INTEREST_KEY_TO_ISO2: Record<string, string> = {
   croatia: "HR",
   slovenia: "SI",
   estonia: "EE",
+  thailand: "TH",
 };
 
 export function interestKeysToIso2(keys: string[]): string[] {
@@ -85,6 +86,7 @@ export function interestIso2ToSegments(iso2List: string[]): string[] {
     HR: "croatia",
     SI: "slovenia",
     EE: "estonia",
+    TH: "thailand",
   };
   return iso2List.map((iso) => map[iso]).filter(Boolean) as string[];
 }

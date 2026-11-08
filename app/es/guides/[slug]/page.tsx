@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import { ArrowRight, Clock } from "lucide-react";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { GuideOfficialSources } from "@/components/guides/GuideOfficialSources";
+import { GuideWizardStart } from "@/components/wizard/GuideWizardStart";
 import { Disclaimer } from "@/components/Disclaimer";
 import { UniPrep2GoPromo } from "@/components/sponsors/UniPrep2GoPromo";
 import { RoleRadarPromo } from "@/components/sponsors/RoleRadarPromo";
@@ -20,6 +21,7 @@ import {
   esGuidePath,
 } from "@/lib/es/corridor";
 import { getRelatedGuides, listGuides, loadGuide } from "@/lib/guides/load";
+import { getEsGuideWizardEmbed } from "@/lib/guides/wizard-embed";
 import { stripInlineMarkdown } from "@/lib/markdown/inline";
 import { shouldShowRoleRadarOnGuide } from "@/lib/role-radar";
 import { buildGuideArticleMetadata, pageUrl } from "@/lib/seo";
@@ -142,6 +144,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 export default function EsGuidePage({ params }: { params: { slug: string } }) {
   const guide = loadGuide(params.slug, "es");
   if (!guide) notFound();
+  const esWizard = getEsGuideWizardEmbed(guide.slug);
 
   const related = getRelatedGuides(
     guide.slug,
@@ -265,6 +268,10 @@ export default function EsGuidePage({ params }: { params: { slug: string } }) {
             <p className="text-xs font-semibold uppercase tracking-wide text-corridor-700">Respuesta rápida</p>
             <p className="mt-2 text-slate-800 leading-relaxed">{stripInlineMarkdown(guide.quick_answer)}</p>
           </aside>
+        ) : null}
+
+        {esWizard ? (
+          <GuideWizardStart locale="es" title={esWizard.title} body={esWizard.body} interest={esWizard.interest} />
         ) : null}
 
         <div className="mt-6 flex flex-wrap gap-3">
