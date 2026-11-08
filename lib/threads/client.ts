@@ -170,6 +170,7 @@ export async function createMediaContainer(params: {
   replyToId?: string;
   enableReplyApprovals?: boolean;
   replyControl?: string;
+  poll?: string[];
 }): Promise<string> {
   const env = loadThreadsEnv();
   const text = params.text;
@@ -188,6 +189,15 @@ export async function createMediaContainer(params: {
     body.image_url = params.imageUrl.trim();
   } else {
     body.media_type = "TEXT";
+    const opts = (params.poll ?? []).map((o) => o.trim()).filter(Boolean);
+    if (opts.length) {
+      if (opts.length < 2 || opts.length > 4 || opts.some((o) => o.length > 25)) {
+        throw new Error(`Threads poll needs 2–4 options of 1–25 chars: ${opts.join(" / ")}`);
+      }
+      body.poll_attachment = JSON.stringify(
+        Object.fromEntries(opts.map((o, i) => [`option_${"abcd"[i]}`, o]))
+      );
+    }
   }
   if (params.topicTag?.trim()) {
     body.topic_tag = params.topicTag.trim().slice(0, 50);
@@ -213,6 +223,39 @@ export async function createMediaContainer(params: {
     }
     throw e;
   }
+}
+
+/** HQ 2026-11-08: CAROUSEL container (2–20 images). Children are created and awaited first. */
+export async function createCarouselContainer(params: {
+  text: string;
+  imageUrls: string[];
+  topicTag?: string;
+  replyToId?: string;
+}): Promise<string> {
+  const env = loadThreadsEnv();
+  const urls = params.imageUrls.map((u) => u.trim()).filter(Boolean);
+  if (urls.length < 2 || urls.length > 20) throw new Error(`carousel needs 2–20 images, got ${urls.length}`);
+  const children: string[] = [];
+  for (const url of urls) {
+    await warmPublicImageUrl(url);
+    const child = await postParams(`${env.userId}/threads`, {
+      media_type: "IMAGE",
+      image_url: url,
+      is_carousel_item: "true",
+    });
+    await waitForContainerFinished(child.id!, { timeoutMs: 90_000 });
+    children.push(child.id!);
+  }
+  const body: Record<string, string> = {
+    media_type: "CAROUSEL",
+    children: children.join(","),
+    text: params.text,
+    reply_control: env.replyControl,
+  };
+  if (params.topicTag?.trim()) body.topic_tag = params.topicTag.trim().slice(0, 50);
+  if (params.replyToId) body.reply_to_id = params.replyToId;
+  const data = await postParams(`${env.userId}/threads`, body);
+  return data.id!;
 }
 
 /** @deprecated use createMediaContainer */
@@ -294,15 +337,36 @@ export async function publishThreadsChain(params: {
     if (item.imageUrl) {
       await warmPublicImageUrl(item.imageUrl);
     }
-    const creationId = await createMediaContainer({
-      text: stripThreadsMarkdown(item.text),
-      imageUrl: item.imageUrl,
-      topicTag: item.topicTag,
-      replyToId: replyTo,
-    });
+    let creationId: string;
+    if (item.carousel && item.carousel.length >= 2) {
+      try {
+        creationId = await createCarouselContainer({
+          text: stripThreadsMarkdown(item.text),
+          imageUrls: item.carousel,
+          topicTag: item.topicTag,
+          replyToId: replyTo,
+        });
+      } catch (e) {
+        // Never lose the post: fall back to the same text without images.
+        console.warn("[threads] CAROUSEL failed, falling back to TEXT:", e instanceof Error ? e.message : e);
+        creationId = await createMediaContainer({
+          text: stripThreadsMarkdown(item.text),
+          topicTag: item.topicTag,
+          replyToId: replyTo,
+        });
+      }
+    } else {
+      creationId = await createMediaContainer({
+        text: stripThreadsMarkdown(item.text),
+        imageUrl: item.imageUrl,
+        topicTag: item.topicTag,
+        replyToId: replyTo,
+        poll: item.poll,
+      });
+    }
     containerIds.push(creationId);
     await waitForContainerFinished(creationId, {
-      timeoutMs: item.imageUrl ? 90_000 : 60_000,
+      timeoutMs: item.imageUrl || item.carousel ? 90_000 : 60_000,
     });
     const postId = await publishContainer(creationId);
     publishedIds.push(postId);

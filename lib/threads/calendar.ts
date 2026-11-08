@@ -44,3 +44,13 @@ export function guideCtaForDate(_isoDate: string): "wizard" | "assist" {
 
 /** Satellite stream: default gap between Portugal-on-top posts. */
 export const SATELLITE_GAP_DAYS = 2;
+
+/** One root per stream waits this many calendar days (user, 2026-11-03). */
+export const EMIGRO_ROOT_GAP_DAYS = 2;
+
+export function daysBetweenIso(from: string, to: string): number {
+  return Math.round(
+    (new Date(`${to}T12:00:00.000Z`).getTime() - new Date(`${from}T12:00:00.000Z`).getTime()) /
+      86_400_000
+  );
+}

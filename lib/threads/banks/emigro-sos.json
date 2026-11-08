@@ -42,7 +42,7 @@
     "country": "france",
     "topic_tag": "France",
     "situation": "114-silent-sms",
-    "p1": "Во Франции можно вызвать помощь, не произнося ни слова.\n\nЕсли рядом человек, из-за которого опасно говорить вслух, отправьте SMS на 114. Операторы сами свяжутся с ближайшей экстренной службой. Бесплатно, круглосуточно.\n\nВ сообщении сразу три вещи: имя, точный адрес, что происходит. Коротко — этого достаточно, чтобы к вам выехали.\n\nСохраните в галерею.",
+    "p1": "Во Франции можно вызвать помощь, не произнося ни слова.\n\nЕсли рядом человек, из-за которого опасно говорить вслух, отправьте SMS на 114. Операторы сами свяжутся с ближайшей экстренной службой. Бесплатно, круглосуточно.\n\nВ сообщении сразу три вещи: точный адрес (первым — на случай, если связь оборвётся), что происходит, кто вы. Коротко — этого достаточно, чтобы к вам выехали.\n\nСохраните в галерею.",
     "p2": "Service-Public: SMS на 114, если говорить вслух невозможно. https://www.service-public.fr/particuliers/vosdroits/F33953",
     "source_url": "https://www.service-public.fr/particuliers/vosdroits/F33953",
     "evidence": "«Si vous êtes dans l'impossibilité de parler à voix haute (par exemple, l'auteur des violences est dans la même pièce que vous), vous pouvez envoyer un SMS au 114 … gratuit et fonctionne 24 heures sur 24 … a besoin : De votre nom, De votre adresse précise, Du motif de l'appel»",
@@ -64,7 +64,14 @@
     "id": 5,
     "week": 5,
     "verified_on": "2026-09-30",
-    "imageUrl": "https://www.emigro.online/images/threads-cards/sos-05.jpg"
+    "imageUrl": "https://www.emigro.online/images/threads-cards/sos-05.jpg",
+    "writer": "emigro-bank-author-2026-10",
+    "viral": {
+      "ok": true,
+      "by": "pavel-owner",
+      "at": "2026-11-08",
+      "why": "Owner approved weekly SOS in farm HQ chat 2026-11-08 ('Да, включай SOS'); numbers official-verified; each post still goes through Telegram owner approval."
+    }
   },
   {
     "country": "italy",
@@ -78,7 +85,14 @@
     "id": 6,
     "week": 6,
     "verified_on": "2026-09-30",
-    "imageUrl": "https://www.emigro.online/images/threads-cards/sos-06.jpg"
+    "imageUrl": "https://www.emigro.online/images/threads-cards/sos-06.jpg",
+    "writer": "emigro-bank-author-2026-10",
+    "viral": {
+      "ok": true,
+      "by": "pavel-owner",
+      "at": "2026-11-08",
+      "why": "Owner approved weekly SOS in farm HQ chat 2026-11-08 ('Да, включай SOS'); numbers official-verified; each post still goes through Telegram owner approval."
+    }
   },
   {
     "country": "portugal",
@@ -92,7 +106,14 @@
     "id": 7,
     "week": 7,
     "verified_on": "2026-09-30",
-    "imageUrl": "https://www.emigro.online/images/threads-cards/sos-07.jpg"
+    "imageUrl": "https://www.emigro.online/images/threads-cards/sos-07.jpg",
+    "writer": "emigro-bank-author-2026-10",
+    "viral": {
+      "ok": true,
+      "by": "pavel-owner",
+      "at": "2026-11-08",
+      "why": "Owner approved weekly SOS in farm HQ chat 2026-11-08 ('Да, включай SOS'); numbers official-verified; each post still goes through Telegram owner approval."
+    }
   },
   {
     "country": "netherlands",
@@ -106,7 +127,14 @@
     "id": 8,
     "week": 8,
     "verified_on": "2026-09-30",
-    "imageUrl": "https://www.emigro.online/images/threads-cards/sos-08.jpg"
+    "imageUrl": "https://www.emigro.online/images/threads-cards/sos-08.jpg",
+    "writer": "emigro-bank-author-2026-10",
+    "viral": {
+      "ok": true,
+      "by": "pavel-owner",
+      "at": "2026-11-08",
+      "why": "Owner approved weekly SOS in farm HQ chat 2026-11-08 ('Да, включай SOS'); numbers official-verified; each post still goes through Telegram owner approval."
+    }
   },
   {
     "country": "greece",
@@ -120,7 +148,14 @@
     "id": 9,
     "week": 9,
     "verified_on": "2026-09-30",
-    "imageUrl": "https://www.emigro.online/images/threads-cards/sos-09.jpg"
+    "imageUrl": "https://www.emigro.online/images/threads-cards/sos-09.jpg",
+    "writer": "emigro-bank-author-2026-10",
+    "viral": {
+      "ok": true,
+      "by": "pavel-owner",
+      "at": "2026-11-08",
+      "why": "Owner approved weekly SOS in farm HQ chat 2026-11-08 ('Да, включай SOS'); numbers official-verified; each post still goes through Telegram owner approval."
+    }
   },
   {
     "country": "spain",
@@ -134,7 +169,14 @@
     "id": 10,
     "week": 10,
     "verified_on": "2026-09-30",
-    "imageUrl": "https://www.emigro.online/images/threads-cards/sos-10.jpg"
+    "imageUrl": "https://www.emigro.online/images/threads-cards/sos-10.jpg",
+    "writer": "emigro-bank-author-2026-10",
+    "viral": {
+      "ok": true,
+      "by": "pavel-owner",
+      "at": "2026-11-08",
+      "why": "Owner approved weekly SOS in farm HQ chat 2026-11-08 ('Да, включай SOS'); numbers official-verified; each post still goes through Telegram owner approval."
+    }
   },
   {
     "country": "germany",
@@ -148,7 +190,14 @@
     "id": 11,
     "week": 11,
     "verified_on": "2026-09-30",
-    "imageUrl": "https://www.emigro.online/images/threads-cards/sos-11.jpg"
+    "imageUrl": "https://www.emigro.online/images/threads-cards/sos-11.jpg",
+    "writer": "emigro-bank-author-2026-10",
+    "viral": {
+      "ok": true,
+      "by": "pavel-owner",
+      "at": "2026-11-08",
+      "why": "Owner approved weekly SOS in farm HQ chat 2026-11-08 ('Да, включай SOS'); numbers official-verified; each post still goes through Telegram owner approval."
+    }
   },
   {
     "country": "italy",
@@ -162,7 +211,14 @@
     "id": 12,
     "week": 12,
     "verified_on": "2026-09-30",
-    "imageUrl": "https://www.emigro.online/images/threads-cards/sos-12.jpg"
+    "imageUrl": "https://www.emigro.online/images/threads-cards/sos-12.jpg",
+    "writer": "emigro-bank-author-2026-10",
+    "viral": {
+      "ok": true,
+      "by": "pavel-owner",
+      "at": "2026-11-08",
+      "why": "Owner approved weekly SOS in farm HQ chat 2026-11-08 ('Да, включай SOS'); numbers official-verified; each post still goes through Telegram owner approval."
+    }
   },
   {
     "country": "portugal",
@@ -176,7 +232,14 @@
     "id": 13,
     "week": 13,
     "verified_on": "2026-09-30",
-    "imageUrl": "https://www.emigro.online/images/threads-cards/sos-13.jpg"
+    "imageUrl": "https://www.emigro.online/images/threads-cards/sos-13.jpg",
+    "writer": "emigro-bank-author-2026-10",
+    "viral": {
+      "ok": true,
+      "by": "pavel-owner",
+      "at": "2026-11-08",
+      "why": "Owner approved weekly SOS in farm HQ chat 2026-11-08 ('Да, включай SOS'); numbers official-verified; each post still goes through Telegram owner approval."
+    }
   },
   {
     "country": "france",
@@ -190,7 +253,14 @@
     "id": 14,
     "week": 14,
     "verified_on": "2026-09-30",
-    "imageUrl": "https://www.emigro.online/images/threads-cards/sos-14.jpg"
+    "imageUrl": "https://www.emigro.online/images/threads-cards/sos-14.jpg",
+    "writer": "emigro-bank-author-2026-10",
+    "viral": {
+      "ok": true,
+      "by": "pavel-owner",
+      "at": "2026-11-08",
+      "why": "Owner approved weekly SOS in farm HQ chat 2026-11-08 ('Да, включай SOS'); numbers official-verified; each post still goes through Telegram owner approval."
+    }
   },
   {
     "country": "germany",
@@ -204,7 +274,14 @@
     "id": 15,
     "week": 15,
     "verified_on": "2026-09-30",
-    "imageUrl": "https://www.emigro.online/images/threads-cards/sos-15.jpg"
+    "imageUrl": "https://www.emigro.online/images/threads-cards/sos-15.jpg",
+    "writer": "emigro-bank-author-2026-10",
+    "viral": {
+      "ok": true,
+      "by": "pavel-owner",
+      "at": "2026-11-08",
+      "why": "Owner approved weekly SOS in farm HQ chat 2026-11-08 ('Да, включай SOS'); numbers official-verified; each post still goes through Telegram owner approval."
+    }
   },
   {
     "country": "greece",
@@ -218,6 +295,13 @@
     "id": 16,
     "week": 16,
     "verified_on": "2026-09-30",
-    "imageUrl": "https://www.emigro.online/images/threads-cards/sos-16.jpg"
+    "imageUrl": "https://www.emigro.online/images/threads-cards/sos-16.jpg",
+    "writer": "emigro-bank-author-2026-10",
+    "viral": {
+      "ok": true,
+      "by": "pavel-owner",
+      "at": "2026-11-08",
+      "why": "Owner approved weekly SOS in farm HQ chat 2026-11-08 ('Да, включай SOS'); numbers official-verified; each post still goes through Telegram owner approval."
+    }
   }
 ]

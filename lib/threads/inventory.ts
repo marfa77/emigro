@@ -32,31 +32,7 @@ import {
   threadsDaysForCta,
   type ThreadsBankCta,
 } from "@/lib/threads/banks";
-import { formatThreadsChainPreview, type ThreadsChainItem } from "@/lib/threads/compose";
-import {
-  assistCorridorImageUrl,
-  portugalSatelliteImageExperimentActive,
-} from "@/lib/threads/portugal-satellite";
-
-function lisbonTodayIso(now = new Date()): string {
-  return new Intl.DateTimeFormat("en-CA", {
-    timeZone: "Europe/Lisbon",
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  }).format(now);
-}
-
-function withAssistImage(
-  items: ThreadsChainItem[],
-  countryKey: string,
-  today = lisbonTodayIso()
-): ThreadsChainItem[] {
-  if (!portugalSatelliteImageExperimentActive(today) || items.length === 0) return items;
-  const root = items[0]!;
-  if (root.imageUrl) return items;
-  return [{ ...root, imageUrl: assistCorridorImageUrl(countryKey) }, ...items.slice(1)];
-}
+import { clipThreadsText, formatThreadsChainPreview, type ThreadsChainItem } from "@/lib/threads/compose";
 
 export type ThreadsSlotPlan = {
   kind: "guide" | "wizard" | "city" | "assist" | "news";
@@ -149,7 +125,7 @@ export function pickWizardPlan(state: ThreadsInventoryState): ThreadsSlotPlan | 
   if (!cycled) return null;
   const items = composeWizardChain(cycled.row);
   return {
-    ...planOf("wizard", `wizard-${cycled.row.d}`, "Португалия", "wizard", items),
+    ...planOf("wizard", `wizard-${cycled.row.d}`, "Визард", "wizard", items),
     preview: previewWizard(cycled.row),
     cursor: cycled.nextCursor,
   };
@@ -158,10 +134,10 @@ export function pickWizardPlan(state: ThreadsInventoryState): ThreadsSlotPlan | 
 export function pickAssistBankPlan(state: ThreadsInventoryState): ThreadsSlotPlan | null {
   const cycled = nextCycledRow(threadsDaysForCta("assist"), state.assist_cursor || 0);
   if (!cycled) return null;
-  const items = withAssistImage(composeDayChain(cycled.row), "portugal");
+  const items = composeDayChain(cycled.row);
   return {
     ...planOf("assist", `assist-${cycled.row.d}`, "ВНЖ", "assist", items),
-    preview: formatThreadsChainPreview(items),
+    preview: previewDay(cycled.row),
     cursor: cycled.nextCursor,
   };
 }
@@ -185,7 +161,7 @@ export function pickDaysBankPlan(state: Pick<ThreadsInventoryState, "chat_cursor
   if (days.length === 0) return null;
   const next = (Number(state.last_day || 0) % days.length) + 1;
   const row = days.find((item) => item.d === next) || days[0]!;
-  const items = withAssistImage(composeDaysReachChain(row), "portugal");
+  const items = composeDaysReachChain(row);
   const kind = row.cta === "assist" ? "assist" : "city";
   const countryRu = row.cta === "porto_chat" ? "Порту" : "ВНЖ";
   return {
@@ -240,16 +216,45 @@ export function pickLiveGuidePlan(
   // some linked to the source only at the end. Never attach a sales reply here.
   const attachSource = (state.guides_used.length + 1) % 3 === 0;
   const content = `gde-${pick.guide.slug}`.slice(0, 40);
-  const items = withAssistImage(
-    composeReachGuideThread({
-      p1,
-      slides: slide && slide !== p1 ? [slide] : [],
-      topic: countryRuFromKey(pick.country),
-      sourceUrl: attachSource ? threadsGuidePageUrl(pick.guide.slug, content) : undefined,
-    }),
-    pick.country
-  );
+  const items = composeReachGuideThread({
+    p1,
+    slides: slide && slide !== p1 ? [slide] : [],
+    topic: countryRuFromKey(pick.country),
+    sourceUrl: attachSource ? threadsGuidePageUrl(pick.guide.slug, content) : undefined,
+  });
   return planOf("guide", pick.guide.slug, countryRuFromKey(pick.country), cta, items);
+}
+
+/**
+ * HQ 2026-11-08: the personal-account winners (6–7K views each: Чехия, Польша, Грузия)
+ * were the @Emigro_news guide-promo house style — thesis headline with numbers →
+ * dense facts → link → human ask. Same LLM draft as Telegram, packed as a Threads chain.
+ */
+export async function pickLlmGuidePlan(
+  state: ThreadsInventoryState,
+  _preferAssist: boolean
+): Promise<ThreadsSlotPlan | null> {
+  // HQ 2026-11-08: hand-written, fact-checked bank (no LLM at runtime). Name kept for the pipeline call.
+  const { readFileSync } = await import("fs");
+  const { resolve } = await import("path");
+  type Promo = { slug: string; topic: string; root: string; slides: string[]; carousel?: string[] };
+  const rows = JSON.parse(
+    readFileSync(resolve(process.cwd(), "lib/threads/banks/emigro-guide-promos.json"), "utf8")
+  ) as Promo[];
+  const used = new Set(state.guides_used);
+  const row = rows.find((r) => !used.has(r.slug));
+  if (!row) return null;
+  const content = `gp-${row.slug}`.slice(0, 40);
+  const items = composeReachGuideThread({ p1: row.root, slides: row.slides, topic: row.topic });
+  if (row.carousel && row.carousel.length >= 2) items[0] = { ...items[0], carousel: row.carousel };
+  items.push({
+    text: clipThreadsText(
+      `детали и источники тут ${threadsGuidePageUrl(row.slug, content)}\n\n` +
+        "Если видите неточность — напишите, исправим. А если пригодилось, поддержите лайком или подпиской."
+    ),
+    role: "cta",
+  });
+  return planOf("guide", row.slug, row.topic, "wizard", items);
 }
 
 function noteCta(note: CommunityNote): ThreadsBankCta {

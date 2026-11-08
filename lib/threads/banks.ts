@@ -28,6 +28,8 @@ export type ThreadsDayRow = {
   cta: ThreadsBankCta;
   p1: string;
   p2: string;
+  /** HQ 2026-11-08: optional poll on the root. */
+  poll?: string[];
 };
 
 export type ThreadsGuideRow = {
@@ -159,21 +161,16 @@ export function composeBankP2(
   return clipThreadsText(text, THREADS_TEXT_MAX_CHARS);
 }
 
-function topicFor(pillar: ThreadsBankPillar | string, day = 1): string | undefined {
-  const pools: Record<string, readonly string[]> = {
-    porto_chat: ["Порту", "Португалия"],
-    mix: ["Португалия", "Лиссабон", "Порту"],
-    wizard: ["Португалия", "Визы", "Лиссабон"],
-    default: ["ВНЖ", "Португалия", "Релокация"],
-  };
-  const pool = pools[pillar] ?? pools.default;
-  const tag = pool[(Math.max(1, day) - 1) % pool.length]!;
-  return sanitizeThreadsTopicTag(tag);
+function topicFor(pillar: ThreadsBankPillar | string): string | undefined {
+  if (pillar === "porto_chat") return sanitizeThreadsTopicTag("Порту");
+  if (pillar === "mix") return sanitizeThreadsTopicTag("Португалия");
+  if (pillar === "wizard") return sanitizeThreadsTopicTag("Визард");
+  return sanitizeThreadsTopicTag("ВНЖ");
 }
 
 export function composeDayChain(row: ThreadsDayRow): ThreadsChainItem[] {
   const content = `d${String(row.d).padStart(3, "0")}`;
-  const topicTag = topicFor(row.pillar, row.d);
+  const topicTag = topicFor(row.pillar);
   return [
     { text: row.p1.trim(), role: "root", ...(topicTag ? { topicTag } : {}) },
     { text: composeBankP2(row.p2, row.cta, content), role: "cta" },
@@ -188,9 +185,14 @@ export function composeDaysReachChain(
   linkStride = DAYS_LINK_STRIDE
 ): ThreadsChainItem[] {
   const content = `d${String(row.d).padStart(3, "0")}`;
-  const topicTag = topicFor(row.pillar, row.d);
+  const topicTag = topicFor(row.pillar);
   const items: ThreadsChainItem[] = [
-    { text: row.p1.trim(), role: "root", ...(topicTag ? { topicTag } : {}) },
+    {
+      text: row.p1.trim(),
+      role: "root",
+      ...(topicTag ? { topicTag } : {}),
+      ...(row.poll?.length ? { poll: row.poll } : {}),
+    },
   ];
   if (linkStride > 0 && row.d % linkStride === 0) {
     items.push({ text: composeBankP2(row.p2, row.cta, content), role: "cta" });
@@ -205,7 +207,7 @@ export function composeDaysReachChain(
 export function composeGuideChain(row: ThreadsGuideRow): ThreadsChainItem[] {
   const content = `gde${String(row.id).padStart(3, "0")}`;
   const pillar: ThreadsBankPillar = row.cta === "porto_chat" ? "porto_chat" : "assist";
-  const topicTag = topicFor(pillar, row.id);
+  const topicTag = topicFor(pillar);
   const withGuide = `${row.p2.trim()}\n${threadsGuidePageUrl(row.guide, content)}\n${threadsCtaUrl(row.cta, content)}`;
   const p2 =
     threadsTextCost(withGuide) <= THREADS_TEXT_MAX_CHARS
@@ -286,7 +288,7 @@ export function composeReachGuideThread(opts: {
 
 export function composeWizardChain(row: ThreadsWizardRow): ThreadsChainItem[] {
   const content = `wiz${String(row.d).padStart(3, "0")}`;
-  const topicTag = topicFor("wizard", row.d);
+  const topicTag = topicFor("wizard");
   return [
     { text: row.p1.trim(), role: "root", ...(topicTag ? { topicTag } : {}) },
     { text: composeBankP2(row.p2, "wizard", content), role: "cta" },

@@ -1,15 +1,10 @@
 [Unit]
-Description=Emigro Threads Portugal satellite — daily post (Europe/Lisbon)
+Description=Emigro Threads Portugal satellite — one post every 2 days, random daytime (Europe/Lisbon)
 
 [Timer]
-OnCalendar=Mon *-*-* 10:40:00 Europe/Lisbon
-OnCalendar=Tue *-*-* 11:00:00 Europe/Lisbon
-OnCalendar=Wed *-*-* 11:10:00 Europe/Lisbon
-OnCalendar=Thu *-*-* 10:50:00 Europe/Lisbon
-OnCalendar=Fri *-*-* 10:40:00 Europe/Lisbon
-OnCalendar=Sat *-*-* 11:00:00 Europe/Lisbon
-OnCalendar=Sun *-*-* 11:20:00 Europe/Lisbon
-RandomizedDelaySec=25min
+# Code keeps a 2-day gap. Clock is a new random minute between 08:20 and 19:20 Lisbon.
+OnCalendar=*-*-* 08:20:00 Europe/Lisbon
+RandomizedDelaySec=11h
 AccuracySec=1min
 Persistent=true
 

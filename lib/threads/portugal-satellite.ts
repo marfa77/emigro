@@ -10,6 +10,7 @@ import {
   formatThreadsChainPreview,
   type ThreadsChainItem,
 } from "@/lib/threads/compose";
+import { daysBetweenIso, EMIGRO_ROOT_GAP_DAYS } from "@/lib/threads/calendar";
 import { normalizeThreadsUsername } from "@/lib/threads/config";
 
 export const THREADS_PT_SAT_USERNAME = "emigro_portugal";
@@ -234,7 +235,15 @@ export function planPortugalSatellitePost(opts: {
   const today = opts.today || lisbonDateIso();
   const state = opts.state || loadPortugalSatelliteState();
   if (!portugalSatelliteDueOn(today)) return { skip: "off_weekday", today };
-  if (state.last_posted_on === today) return { skip: "already_posted", today };
+  if (
+    state.last_posted_on &&
+    daysBetweenIso(state.last_posted_on, today) < EMIGRO_ROOT_GAP_DAYS
+  ) {
+    return {
+      skip: state.last_posted_on === today ? "already_posted" : "gap_not_elapsed",
+      today,
+    };
+  }
   const rows = loadPortugalSatelliteDays();
   const next = rows.find((row) => row.d === state.last_day + 1) || rows[0];
   if (!next) return { skip: "empty_bank", today };

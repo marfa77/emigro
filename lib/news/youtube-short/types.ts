@@ -18,6 +18,8 @@ export type CaptionFrame = {
   duration: number;
   segment: ScriptSegment;
   caption: string;
+  /** 0–1 share of the short elapsed when this frame starts (progress bar). */
+  progress?: number;
 };
 
 export type YoutubeShortMetadata = {

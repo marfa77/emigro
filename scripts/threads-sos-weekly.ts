@@ -13,6 +13,7 @@ import {
   previewThreadsSos,
   saveThreadsSosState,
 } from "../lib/threads/sos";
+import { viralRefusal } from "../lib/threads/viral-gate";
 
 config({ path: resolve(process.cwd(), ".env.local") });
 config({ path: resolve(process.cwd(), ".env") });
@@ -40,16 +41,29 @@ async function main() {
     console.log("[threads-sos] DRY-RUN: no API write.");
     return;
   }
-
-  const { fetchThreadsPermalink, publishThreadsChain } = await import("../lib/threads/client");
-  const result = await publishThreadsChain({ items: composeThreadsSosChain(row), forcePublish: true });
-  state.last_id = row.id;
-  state.last_posted_on = planned.today;
-  state.posts[`sos-${row.id}`] = { at: new Date().toISOString(), ids: result.publishedIds };
-  saveThreadsSosState(state);
-  for (const id of result.publishedIds) {
-    console.log("published", (await fetchThreadsPermalink(id)) || id);
+  const viralBlock = viralRefusal(row, `sos-${row.id}`);
+  if (viralBlock) {
+    console.log("[threads-sos] held:", viralBlock);
+    return;
   }
+
+  const items = composeThreadsSosChain(row);
+  const { holdForOwnerApproval } = await import("../lib/threads/owner-approval");
+  const gate = holdForOwnerApproval({
+    accountId: "emigro",
+    handle: "emigro_assist",
+    title: `sos-${row.id}`,
+    texts: items.map((item) => item.text),
+    topicTag: items[0]?.topicTag,
+    key: `sos:${row.id}`,
+    resume: { stream: "sos", rowId: row.id, today: planned.today, items },
+  });
+  if (gate.status === "rejected" || gate.status === "published") {
+    console.log("[threads-sos]", gate.status);
+    return;
+  }
+  console.log("[threads-sos] awaiting approval", gate.id);
+  return;
 }
 
 main().catch((error) => {

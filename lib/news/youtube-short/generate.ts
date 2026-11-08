@@ -46,6 +46,7 @@ import type { TipShortTopic } from "./topics";
 import { uploadShortToYoutube } from "./youtube-upload";
 import { acquirePipelineLock } from "./pipeline-lock";
 import { composeDynamicVideo } from "./video-compose";
+import { composeRemotionVideo, isRemotionEngineEnabled } from "./remotion-render";
 
 export type GenerateTipShortOptions = {
   topicId?: string;
@@ -212,16 +213,27 @@ async function generateTipYoutubeShortLocked(
 
   const shortVideoPath = path.join(outputDir, "short.mp4");
   try {
-    if (isDynamicVideoEnabled()) {
-      await composeDynamicVideo({
-        topic,
-        frames: shortFrames,
-        segments: timedSegments,
-        segmentDurations: scaledSegmentDurations,
-        audioPath,
-        outputPath: shortVideoPath,
-        outputDir,
-      });
+    const composeOpts = {
+      topic,
+      frames: shortFrames,
+      segments: timedSegments,
+      segmentDurations: scaledSegmentDurations,
+      audioPath,
+      outputPath: shortVideoPath,
+      outputDir,
+    };
+    if (isDynamicVideoEnabled() && isRemotionEngineEnabled()) {
+      try {
+        await composeRemotionVideo(composeOpts);
+      } catch (error) {
+        // Never lose the day's short: fall back to the ffmpeg engine.
+        console.warn(
+          `[youtube-short] Remotion render failed, falling back to ffmpeg: ${error instanceof Error ? error.message : error}`
+        );
+        await composeDynamicVideo(composeOpts);
+      }
+    } else if (isDynamicVideoEnabled()) {
+      await composeDynamicVideo(composeOpts);
     } else {
       const framesConcatPath = writeFrameConcat(shortFrames, outputDir);
       renderVideo(framesConcatPath, audioPath, shortVideoPath);

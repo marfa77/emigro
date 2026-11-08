@@ -67,7 +67,7 @@ function assertReadableBroll(brollPath: string, segmentLabel: string): void {
 }
 
 /** Downscale 4K Pexels clips to 1080p proxy — avoids OOM on 4GB VPS during Ken Burns. */
-function ensureBroll1080Proxy(sourcePath: string, workDir: string, segmentLabel: string): string {
+export function ensureBroll1080Proxy(sourcePath: string, workDir: string, segmentLabel: string): string {
   const { width, height } = ffprobeVideoSize(sourcePath);
   if (width <= 1080 && height <= 1920) return sourcePath;
 
@@ -107,6 +107,74 @@ function ensureBroll1080Proxy(sourcePath: string, workDir: string, segmentLabel:
     `B-roll proxy (${segmentLabel})`
   );
   return proxyPath;
+}
+
+/** Target length of one b-roll shot. Shorts retention drops when a frame holds > ~3–4s. */
+const SHOT_SECONDS = Number(process.env.EMIGRO_YOUTUBE_SHORTS_SHOT_SECONDS || "3.2");
+
+/**
+ * Build one b-roll track for a segment out of several clips with hard cuts.
+ * The segment render then treats it like a single clip (offset 0), so overlay
+ * timing, xfade and audio sync stay exactly as before.
+ */
+function buildShotReel(opts: {
+  clips: string[];
+  startIndex: number;
+  duration: number;
+  workDir: string;
+  segmentLabel: string;
+}): { path: string; offset: number } | null {
+  const { clips, startIndex, duration, workDir, segmentLabel } = opts;
+  const shotCount = Math.max(1, Math.round(duration / SHOT_SECONDS));
+  if (shotCount < 2 || clips.length < 2) return null;
+
+  const shotLen = duration / shotCount + 0.15; // small overrun, trimmed by -t in segment render
+  const inputs: string[] = [];
+  const chains: string[] = [];
+  for (let i = 0; i < shotCount; i++) {
+    const clip = ensureBroll1080Proxy(clips[(startIndex + i) % clips.length], workDir, `${segmentLabel}-shot${i + 1}`);
+    const offset = randomBrollOffset(clip, 10);
+    inputs.push("-ss", offset.toFixed(2), "-stream_loop", "-1", "-t", shotLen.toFixed(3), "-i", clip);
+    chains.push(
+      `[${i}:v]fps=${FPS},scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,setsar=1,format=yuv420p,trim=duration=${shotLen.toFixed(3)},setpts=PTS-STARTPTS[c${i}]`
+    );
+  }
+  const filter = `${chains.join(";")};${Array.from({ length: shotCount }, (_, i) => `[c${i}]`).join("")}concat=n=${shotCount}:v=1:a=0[reel]`;
+  const reelPath = path.join(workDir, `reel-${segmentLabel}.mp4`);
+  try {
+    runFfmpeg(
+      [
+        "-y",
+        "-threads",
+        FFMPEG_THREADS,
+        "-filter_threads",
+        "1",
+        ...inputs,
+        "-filter_complex",
+        filter,
+        "-map",
+        "[reel]",
+        "-an",
+        "-c:v",
+        "libx264",
+        "-preset",
+        "ultrafast",
+        "-crf",
+        "20",
+        "-pix_fmt",
+        "yuv420p",
+        reelPath,
+      ],
+      `Shot reel (${segmentLabel}, ${shotCount} shots)`
+    );
+    assertReadableVideoFile(reelPath, `reel-${segmentLabel}`, { minDuration: 1 });
+    return { path: reelPath, offset: 0 };
+  } catch (error) {
+    console.warn(
+      `[video-compose] Shot reel ${segmentLabel} failed (${error instanceof Error ? error.message : error}); single clip fallback`
+    );
+    return null;
+  }
 }
 
 function buildSegmentFilter(opts: { duration: number; kenBurns: boolean }): string {
@@ -336,21 +404,33 @@ export async function composeDynamicVideo(opts: {
   fs.mkdirSync(workDir, { recursive: true });
 
   console.log("[video-compose] Fetching B-roll clips...");
-  const brollClips = await ensureBrollClips(opts.topic, opts.outputDir);
+  const brollClips = await ensureBrollClips(opts.topic, opts.outputDir, 6);
 
   const frameGroups = groupFramesBySegment(opts.frames, opts.segments);
   const segmentPaths: string[] = [];
+  let shotCursor = 0;
 
   for (let i = 0; i < frameGroups.length; i++) {
     const group = frameGroups[i];
     if (group.length === 0) continue;
 
     const segment = opts.segments[i];
-    const broll = pickBrollForSegment(brollClips, segment.kind, i);
-    const offset = randomBrollOffset(broll);
+    const segLabel = `${i + 1}-${segment.kind}`;
+    const reel = buildShotReel({
+      clips: brollClips,
+      startIndex: shotCursor,
+      duration: segmentDuration(group),
+      workDir,
+      segmentLabel: segLabel,
+    });
+    shotCursor += Math.max(1, Math.round(segmentDuration(group) / SHOT_SECONDS));
+    const broll = reel?.path ?? pickBrollForSegment(brollClips, segment.kind, i);
+    const offset = reel ? reel.offset : randomBrollOffset(broll);
     const segOut = path.join(workDir, `segment-${i + 1}-${segment.kind}.mp4`);
 
-    console.log(`[video-compose] Segment ${segment.kind}: ${segmentDuration(group).toFixed(1)}s, B-roll offset ${offset.toFixed(1)}s`);
+    console.log(
+      `[video-compose] Segment ${segment.kind}: ${segmentDuration(group).toFixed(1)}s, ${reel ? "shot reel" : `B-roll offset ${offset.toFixed(1)}s`}`
+    );
     renderSegmentVideo({
       brollPath: broll,
       brollOffset: offset,

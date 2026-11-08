@@ -19,7 +19,7 @@ async function main() {
     forcePublish: process.argv.includes("--force-publish"),
   });
   if (result.skip) {
-    const soft = new Set(["already_posted_today", "daily_budget_exhausted", "not_due"]);
+    const soft = new Set(["already_posted_today", "daily_budget_exhausted", "not_due", "awaiting_approval", "rejected", "gap_not_elapsed"]);
     if (process.argv.includes("--force-publish") && !soft.has(result.skip)) {
       throw new Error(`threads-satellites soft-fail: ${result.skip}`);
     }

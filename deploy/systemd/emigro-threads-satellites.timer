@@ -1,10 +1,11 @@
 [Unit]
-Description=Emigro Threads satellites — every 2 days, afternoon after morning guides (Asia/Dubai)
+Description=Emigro Threads satellites — every 2 days, after the daily window (Europe/Lisbon)
 
 [Timer]
-# On top of daily guides. Script enforces next_on gap (default 2 days).
-OnCalendar=*-*-* 14:30:00 Asia/Dubai
-RandomizedDelaySec=35min
+# Same @emigro_assist gap as the daily bank. Runs after that window closes so it
+# does not take the root when the daily post is the one due. Off days exit 0.
+OnCalendar=*-*-* 19:30:00 Europe/Lisbon
+RandomizedDelaySec=30min
 AccuracySec=1min
 Persistent=true
 

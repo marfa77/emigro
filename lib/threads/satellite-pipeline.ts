@@ -4,12 +4,12 @@
  */
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
 import { dirname, resolve } from "path";
-import { SATELLITE_GAP_DAYS } from "@/lib/threads/calendar";
-import { publishThreadsChain } from "@/lib/threads/client";
+import { daysBetweenIso, EMIGRO_ROOT_GAP_DAYS, SATELLITE_GAP_DAYS } from "@/lib/threads/calendar";
 import { loadThreadsEnv } from "@/lib/threads/config";
 import {
   confirmThreadsRootSlot,
   releaseThreadsRootSlot,
+  lastAssistRootOn,
   todayLisbon,
   tryClaimThreadsRootSlot,
 } from "@/lib/threads/day-budget";
@@ -113,8 +113,12 @@ export async function planThreadsSatellitePost(opts?: {
   const today = opts?.today || todayLisbon();
   const state = loadThreadsSatelliteState();
 
-  if (state.last_posted_on === today) {
-    return { today, skip: "already_posted_today" };
+  const last = lastAssistRootOn();
+  if (last && daysBetweenIso(last, today) < EMIGRO_ROOT_GAP_DAYS) {
+    return {
+      today,
+      skip: last === today ? "already_posted_today" : "gap_not_elapsed",
+    };
   }
   if (!satelliteDue(state, today)) {
     return { today, skip: "not_due", plan: undefined };
@@ -123,6 +127,27 @@ export async function planThreadsSatellitePost(opts?: {
   const plan = await pickPortugalSatellitePlan(state);
   if (!plan) return { today, skip: "queue_empty" };
   return { today, plan };
+}
+
+export function commitThreadsSatellitePublished(
+  slug: string,
+  cursor: number | undefined,
+  today: string,
+  ids: string[]
+): void {
+  const state = loadThreadsSatelliteState();
+  if (!state.notes_used.includes(slug) && !slug.startsWith("chat-")) {
+    state.notes_used.push(slug);
+  }
+  if (slug.startsWith("chat-")) {
+    state.chat_cursor = cursor ?? state.chat_cursor + 1;
+  }
+  state.city_cursor = cursor ?? (state.city_cursor || 0) + 1;
+  state.last_posted_on = today;
+  scheduleNextSatellite(state, today);
+  state.posts[slug] = { kind: "city", ids, at: today };
+  saveThreadsSatelliteState(state);
+  confirmThreadsRootSlot({ today });
 }
 
 export async function runThreadsSatellites(opts?: {
@@ -160,24 +185,29 @@ export async function runThreadsSatellites(opts?: {
   }
 
   try {
-    const result = await publishThreadsChain({ items: job.items, forcePublish: true });
-    const state = loadThreadsSatelliteState();
-    if (!state.notes_used.includes(job.slug) && !job.slug.startsWith("chat-")) {
-      state.notes_used.push(job.slug);
+    const { holdForOwnerApproval } = await import("@/lib/threads/owner-approval");
+    const gate = holdForOwnerApproval({
+      accountId: "emigro",
+      handle: "emigro_assist",
+      title: `satellite ${job.slug}`,
+      texts: job.items.map((item) => item.text),
+      topicTag: job.items[0]?.topicTag,
+      key: `satellite:${job.slug}`,
+      resume: {
+        stream: "satellite",
+        slug: job.slug,
+        today: planned.today,
+        cursor: job.cursor ?? null,
+        items: job.items,
+      },
+    });
+    if (gate.status === "rejected") {
+      releaseThreadsRootSlot({ stream: "satellite", today: planned.today });
+      console.log("[threads-satellites] owner rejected", job.slug);
+      return { skip: "rejected" };
     }
-    if (job.slug.startsWith("chat-")) {
-      state.chat_cursor = job.cursor ?? state.chat_cursor + 1;
-    }
-    state.city_cursor = job.cursor ?? (state.city_cursor || 0) + 1;
-    state.last_posted_on = planned.today;
-    scheduleNextSatellite(state, planned.today);
-    state.posts[job.slug] = { kind: "city", ids: result.publishedIds, at: planned.today };
-    saveThreadsSatelliteState(state);
-    confirmThreadsRootSlot({ today: planned.today });
-
-    return {
-      published: [{ kind: "city", slug: job.slug, ids: result.publishedIds }],
-    };
+    console.log(`[threads-satellites] awaiting approval ${gate.id} (${gate.status})`);
+    return { skip: "awaiting_approval" };
   } catch (e) {
     releaseThreadsRootSlot({ stream: "satellite", today: planned.today });
     throw e;

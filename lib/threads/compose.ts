@@ -28,6 +28,10 @@ export type ThreadsChainItem = {
   imageUrl?: string;
   /** Threads header “Community or topic” (no emoji/flag). */
   topicTag?: string;
+  /** HQ 2026-11-08: poll on a TEXT root, 2–4 options of 1–25 chars. */
+  poll?: string[];
+  /** HQ 2026-11-08: 2–20 public image URLs -> CAROUSEL root (text becomes the caption). */
+  carousel?: string[];
 };
 
 export type ComposeThreadsChainParams = {
@@ -297,8 +301,10 @@ export function formatThreadsChainPreview(items: ThreadsChainItem[]): string {
       const n = `${i + 1}/${items.length}`;
       const cost = threadsTextCost(item.text);
       const img = item.imageUrl ? `\n[image] ${item.imageUrl}` : "";
+      const pollLine = item.poll?.length ? `\n[poll] ${item.poll.join(" / ")}` : "";
+      const carLine = item.carousel?.length ? `\n[carousel ${item.carousel.length}] ${item.carousel[0]}` : "";
       const topic = item.topicTag ? `\n[topic] ${item.topicTag}` : "";
-      return `—— ${n} (${item.role}, ${cost}/${THREADS_TEXT_MAX_CHARS}) ——${img}${topic}\n${item.text}`;
+      return `—— ${n} (${item.role}, ${cost}/${THREADS_TEXT_MAX_CHARS}) ——${img}${carLine}${topic}${pollLine}\n${item.text}`;
     })
     .join("\n\n");
 }

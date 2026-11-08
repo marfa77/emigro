@@ -1,7 +1,6 @@
 #!/usr/bin/env npx tsx
 /**
- * Daily publisher for the Italy satellite account.
- * Dry-run unless THREADS_IT_SAT_AUTO_PUBLISH=1 and --force-publish.
+ * @emigro_italy — bank days, direct publish (no owner / viral wait).
  */
 import { config } from "dotenv";
 import { resolve } from "node:path";
@@ -33,7 +32,7 @@ async function main() {
   }
   const row = planned.row;
   console.log(
-    `[threads-it-sat] day-${row.d} ${planned.today}\n${previewItalySatellite(row, planned.today)}`
+    `[threads-it-sat] day-${row.d} ${planned.today}\n${previewItalySatellite(row)}`
   );
   if (!forcePublish) {
     console.log("[threads-it-sat] DRY-RUN: no API write.");

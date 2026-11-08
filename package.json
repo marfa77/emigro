@@ -136,7 +136,6 @@
     "portugal:porto": "tsx scripts/portugal-porto-channel.ts",
     "portugal:geo2go": "tsx scripts/geo2go-events-channel.ts",
     "portugal:outdoor": "tsx scripts/portugal-outdoor-channel.ts",
-
     "italy:daily": "tsx scripts/italy-community-daily.ts",
     "italy:post-group": "tsx scripts/italy-post-group-note.ts",
     "italy:generate-note-images": "tsx scripts/italy-generate-note-images.ts",
@@ -172,6 +171,9 @@
     "youtube-short:notify-cron": "tsx scripts/youtube-short-cron-notify.ts"
   },
   "dependencies": {
+    "@remotion/bundler": "4.0.536",
+    "@remotion/google-fonts": "4.0.536",
+    "@remotion/renderer": "4.0.536",
     "@supabase/ssr": "^0.12.0",
     "@supabase/supabase-js": "^2.108.1",
     "@vercel/analytics": "^2.0.1",
@@ -184,6 +186,7 @@
     "next": "14.2.35",
     "react": "^18",
     "react-dom": "^18",
+    "remotion": "4.0.536",
     "rss-parser": "^3.13.0",
     "sharp": "^0.35.3"
   },

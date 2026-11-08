@@ -1,6 +1,7 @@
 /**
  * Isolated Italy satellite Threads pipeline (italy.emigro.online).
- * Never reuse Assist THREADS_*, Invest THREADS_INVESTMENT_*, or Portugal THREADS_PT_SAT_* tokens.
+ * Never reuse Assist, Invest, or Portugal satellite tokens.
+ * Text-only — no IMAGE experiment (PT observation window is closed and must not extend here).
  */
 import { existsSync, mkdirSync, readFileSync, renameSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
@@ -10,6 +11,7 @@ import {
   formatThreadsChainPreview,
   type ThreadsChainItem,
 } from "@/lib/threads/compose";
+import { daysBetweenIso, EMIGRO_ROOT_GAP_DAYS } from "@/lib/threads/calendar";
 import { normalizeThreadsUsername } from "@/lib/threads/config";
 
 export const THREADS_IT_SAT_USERNAME = "emigro_italy";
@@ -33,12 +35,10 @@ export type ItalySatelliteRow = {
   imageUrl?: string;
 };
 
-export type ItalySatellitePostFormat = "TEXT";
-
 export type ItalySatelliteState = {
   last_day: number;
   last_posted_on: string;
-  posts: Record<string, { at: string; ids?: string[]; format?: ItalySatellitePostFormat }>;
+  posts: Record<string, { at: string; ids?: string[]; format?: "TEXT" }>;
 };
 
 const BANK_PATH = resolve(
@@ -110,12 +110,7 @@ export function satelliteNoteUrl(dest: string, content: string): string {
   return url.toString();
 }
 
-export function composeItalySatelliteChain(
-  row: ItalySatelliteRow,
-  opts?: { today?: string }
-): ThreadsChainItem[] {
-  const today = opts?.today || romeDateIso();
-  void today;
+export function composeItalySatelliteChain(row: ItalySatelliteRow): ThreadsChainItem[] {
   const content = `sat${String(row.d).padStart(3, "0")}`;
   const imageUrl = row.imageUrl?.trim();
   const items: ThreadsChainItem[] = [
@@ -137,9 +132,7 @@ export function composeItalySatelliteChain(
   return items;
 }
 
-export function loadItalySatelliteState(
-  path = THREADS_IT_SAT_STATE_PATH
-): ItalySatelliteState {
+export function loadItalySatelliteState(path = THREADS_IT_SAT_STATE_PATH): ItalySatelliteState {
   if (!existsSync(path)) return { last_day: 0, last_posted_on: "", posts: {} };
   const raw = JSON.parse(readFileSync(path, "utf8")) as Partial<ItalySatelliteState>;
   return {
@@ -181,13 +174,21 @@ export function planItalySatellitePost(opts: {
   const today = opts.today || romeDateIso();
   const state = opts.state || loadItalySatelliteState();
   if (!italySatelliteDueOn(today)) return { skip: "off_weekday", today };
-  if (state.last_posted_on === today) return { skip: "already_posted", today };
+  if (
+    state.last_posted_on &&
+    daysBetweenIso(state.last_posted_on, today) < EMIGRO_ROOT_GAP_DAYS
+  ) {
+    return {
+      skip: state.last_posted_on === today ? "already_posted" : "gap_not_elapsed",
+      today,
+    };
+  }
   const rows = loadItalySatelliteDays();
   const next = rows.find((row) => row.d === state.last_day + 1) || rows[0];
   if (!next) return { skip: "empty_bank", today };
   return { row: next, today };
 }
 
-export function previewItalySatellite(row: ItalySatelliteRow, today?: string): string {
-  return formatThreadsChainPreview(composeItalySatelliteChain(row, { today }));
+export function previewItalySatellite(row: ItalySatelliteRow): string {
+  return formatThreadsChainPreview(composeItalySatelliteChain(row));
 }

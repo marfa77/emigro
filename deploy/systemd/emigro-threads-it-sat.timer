@@ -1,15 +1,10 @@
 [Unit]
-Description=Emigro Threads Italy satellite — daily post (Europe/Rome)
+Description=Emigro Threads Italy satellite — one post every 2 days, random daytime (Europe/Rome)
 
 [Timer]
-OnCalendar=Mon *-*-* 11:40:00 Europe/Rome
-OnCalendar=Tue *-*-* 12:00:00 Europe/Rome
-OnCalendar=Wed *-*-* 12:10:00 Europe/Rome
-OnCalendar=Thu *-*-* 11:50:00 Europe/Rome
-OnCalendar=Fri *-*-* 11:40:00 Europe/Rome
-OnCalendar=Sat *-*-* 12:00:00 Europe/Rome
-OnCalendar=Sun *-*-* 12:20:00 Europe/Rome
-RandomizedDelaySec=25min
+# Code keeps a 2-day gap. Clock is a new random minute between 08:40 and 19:40 Rome.
+OnCalendar=*-*-* 08:40:00 Europe/Rome
+RandomizedDelaySec=11h
 AccuracySec=1min
 Persistent=true
 

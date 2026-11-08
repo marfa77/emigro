@@ -1,20 +1,12 @@
 [Unit]
-Description=Emigro Threads daily — main stream: SEO guides (Asia/Dubai morning like Barakhlo)
+Description=Emigro Threads daily — one root every 2 days, random daytime (Europe/Lisbon)
 
 [Timer]
-# Match Barakhlo UAE morning peaks so the post sits in feed all day.
-# +15–25 min offset avoids colliding with barakhlo-threads-post on the same VPS.
-# Content calendar day still uses Europe/Lisbon in code (same date in this window).
-OnCalendar=Mon *-*-* 12:20:00 Asia/Dubai
-OnCalendar=Tue *-*-* 10:20:00 Asia/Dubai
-OnCalendar=Wed *-*-* 12:20:00 Asia/Dubai
-OnCalendar=Thu *-*-* 09:20:00 Asia/Dubai
-OnCalendar=Fri *-*-* 10:20:00 Asia/Dubai
-OnCalendar=Sat *-*-* 10:20:00 Asia/Dubai
-OnCalendar=Sun *-*-* 11:20:00 Asia/Dubai
-RandomizedDelaySec=25min
+# Code keeps a 2-day gap (gap_not_elapsed exits 0). The clock is a new random
+# minute between 08:00 and 19:00 Lisbon. Daily and the shared satellite share that gap.
+OnCalendar=*-*-* 08:00:00 Europe/Lisbon
+RandomizedDelaySec=11h
 AccuracySec=1min
-# Catch a missed morning window (same-day skip in pipeline prevents double-post).
 Persistent=true
 
 [Install]

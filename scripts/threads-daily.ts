@@ -31,7 +31,7 @@ async function main() {
     forceKind,
   });
   if (result.skip) {
-    const soft = new Set(["already_posted_today", "daily_budget_exhausted"]);
+    const soft = new Set(["already_posted_today", "daily_budget_exhausted", "awaiting_approval", "rejected", "gap_not_elapsed"]);
     if (process.argv.includes("--force-publish") && !soft.has(result.skip)) {
       throw new Error(`threads-daily soft-fail: ${result.skip}`);
     }

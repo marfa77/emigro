@@ -1,10 +1,11 @@
 [Unit]
-Description=Emigro Invest Threads — daily calendar (@emigro_invest)
+Description=Emigro Invest Threads — one post every 2 days, random daytime (Asia/Dubai)
 
 [Timer]
-# One check per Dubai day; bank has a row every day from 2026-09-26.
-OnCalendar=*-*-* 12:00:00 Asia/Dubai
-RandomizedDelaySec=20min
+# Code keeps a 2-day gap from the last real post and takes the next unpublished row.
+# Missed earlier dates stay missed. Clock is a new random minute, 08:30–19:30 Dubai.
+OnCalendar=*-*-* 08:30:00 Asia/Dubai
+RandomizedDelaySec=11h
 AccuracySec=1min
 Persistent=true
 

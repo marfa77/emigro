@@ -1,7 +1,6 @@
 #!/usr/bin/env npx tsx
 /**
- * Soft M/W/F publisher for the Portugal satellite account.
- * Dry-run unless THREADS_PT_SAT_AUTO_PUBLISH=1 and --force-publish.
+ * @emigro_portugal — bank days, direct publish (no owner / viral wait).
  */
 import { config } from "dotenv";
 import { resolve } from "node:path";

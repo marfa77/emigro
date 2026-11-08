@@ -2,7 +2,7 @@ import path from "path";
 
 /** Fixed OpenAI TTS voice for all Emigro Shorts — no rotation. */
 export const RU_TTS_VOICE = "onyx" as const;
-export const RU_TTS_SPEED = 1.06;
+export const RU_TTS_SPEED = 1.12;
 
 export const SHORT_WIDTH = 1080;
 export const SHORT_HEIGHT = 1920;

@@ -1,14 +1,6 @@
 #!/usr/bin/env npx tsx
 /**
- * Dated publisher for @emigro_invest.
- *
- * Dry-run:
- *   npm run threads:investment:daily -- --phase=seed --today=2026-09-19
- *
- * Live requires all three:
- *   THREADS_INVESTMENT_PHASE=seed
- *   THREADS_INVESTMENT_AUTO_PUBLISH=1
- *   --force-publish
+ * @emigro_invest — bank calendar, direct publish (no owner wait / no viral wait).
  */
 import { config } from "dotenv";
 import { resolve } from "node:path";

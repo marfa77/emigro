@@ -72,14 +72,17 @@ export async function geminiJson<T>(
 
   for (let attempt = 0; attempt < 5; attempt += 1) {
     try {
+      // gemini-2.5-flash otherwise burns maxOutputTokens on thinking and returns truncated JSON
+      const thinkingBudget =
+        opts?.thinkingBudget ?? (model.includes("2.5-flash") || model.includes("flash-lite") ? 0 : undefined);
       const generationConfig: Record<string, unknown> = {
         temperature: 0.2,
         maxOutputTokens,
         responseMimeType: "application/json",
         responseSchema: schema,
       };
-      if (opts?.thinkingBudget != null) {
-        generationConfig.thinkingConfig = { thinkingBudget: opts.thinkingBudget };
+      if (thinkingBudget != null) {
+        generationConfig.thinkingConfig = { thinkingBudget };
       }
 
       const res = await fetch(url, {

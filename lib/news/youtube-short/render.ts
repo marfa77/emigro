@@ -230,11 +230,15 @@ function splitCaptionWords(words: string[], maxWords: number): string[] {
   return [...splitCaptionWords(words.slice(0, splitAt), maxWords), ...splitCaptionWords(words.slice(splitAt), maxWords)];
 }
 
+/** Dynamic shorts read as kinetic captions: 2–4 words per beat. Static slides keep long lines. */
+const DYNAMIC_CAPTION_MAX_WORDS = 4;
+
 function chunkShortCaption(text: string): string[] {
+  const maxWords = isDynamicVideoEnabled() ? DYNAMIC_CAPTION_MAX_WORDS : 11;
   const chunks: string[] = [];
   for (const sentence of chunkCaption(text)) {
     const words = sentence.split(/\s+/).filter(Boolean);
-    chunks.push(...splitCaptionWords(words, 11));
+    chunks.push(...splitCaptionWords(words, maxWords));
   }
   return chunks.map(compact).filter(Boolean);
 }
@@ -318,57 +322,127 @@ function kindLabel(kind: ScriptSegment["kind"]): string {
   return "ДАЛЬШЕ";
 }
 
-function overlayCaptionSvg(caption: string, fontSize: number): string {
-  const lines = wrapText(caption, 24, 3);
-  const lineHeight = fontSize + 14;
-  const startY = 1480 - ((lines.length - 1) * lineHeight) / 2;
-  return lines
-    .map(
-      (line, idx) =>
-        `<text x="540" y="${startY + idx * lineHeight}" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="${fontSize}" font-weight="950" fill="#ffffff">${xml(line)}</text>`
-    )
-    .join("\n");
+const KINETIC_FONT = "Arial Black, Arial, Helvetica, sans-serif";
+const HIGHLIGHT_YELLOW = "#FFD400";
+
+/** Numbers, €, %, and acronyms (NIF, AIMA, D7) pop in yellow — the eye locks onto them. */
+function isHighlightWord(word: string): boolean {
+  const bare = word.replace(/[«»"',.!?:;…()]/g, "");
+  if (!bare) return false;
+  if (/[0-9€%$]/.test(bare)) return true;
+  if (/^[A-ZА-ЯЁ]{2,}[0-9]*$/.test(bare) && bare.length <= 8) return true;
+  return false;
+}
+
+function kineticLineSvg(line: string, x: number, y: number, fontSize: number, anchor: "middle" | "start"): string {
+  const tspans = line
+    .split(/\s+/)
+    .filter(Boolean)
+    .map((word, idx) => {
+      const fill = isHighlightWord(word) ? HIGHLIGHT_YELLOW : "#ffffff";
+      return `${idx > 0 ? " " : ""}<tspan fill="${fill}">${xml(word)}</tspan>`;
+    })
+    .join("");
+  return `<text x="${x}" y="${y}" text-anchor="${anchor}" font-family="${KINETIC_FONT}" font-size="${fontSize}" font-weight="900" stroke="#000000" stroke-width="${Math.round(fontSize * 0.14)}" stroke-linejoin="round" paint-order="stroke fill">${tspans}</text>`;
+}
+
+/** Fit text into maxLines without ever cutting words off: shrink the font instead. */
+function fitLines(text: string, sizes: Array<{ fontSize: number; maxChars: number }>, maxLines: number) {
+  const clean = compact(text);
+  for (const { fontSize, maxChars } of sizes) {
+    const lines = wrapText(clean, maxChars, 99);
+    if (lines.length <= maxLines) return { lines, fontSize };
+  }
+  const last = sizes[sizes.length - 1];
+  return { lines: wrapText(clean, last.maxChars, 99), fontSize: last.fontSize };
+}
+
+function statForCaption(frame: CaptionFrame): { value: string; label: string } | null {
+  const stats = frame.segment.highlightStats ?? [];
+  const caption = frame.caption.toLowerCase();
+  for (const stat of stats) {
+    const value = stat.value.trim();
+    if (!value) continue;
+    const digits = value.replace(/[^0-9]/g, "");
+    if (caption.includes(value.toLowerCase()) || (digits.length >= 2 && caption.replace(/[^0-9]/g, "").includes(digits))) {
+      return stat;
+    }
+  }
+  return null;
 }
 
 async function renderOverlayFrame(frame: CaptionFrame, topic: TipShortTopic): Promise<void> {
   const theme = themeForTopic(topic);
   const accent = visualAccent(theme, frame.segment.kind);
-  const titleLines = wrapText(frame.segment.visualTitle, 16, 2);
-  const captionText = frame.caption || frame.segment.visualTitle;
-  const captionFontSize = captionText.length > 72 ? 46 : captionText.length > 48 ? 52 : 58;
-  const flag = countryFlagSvg(topic.topic_key, 860, 118, 1.35);
-  const captionBlock = overlayCaptionSvg(captionText, captionFontSize);
+  const isHook = frame.segment.kind === "hook";
+  const captionText = frame.caption || (isHook ? "" : frame.segment.visualTitle);
+  const progress = Math.max(0, Math.min(1, frame.progress ?? 0));
+  const flag = countryFlagSvg(topic.topic_key, 72, 96, 0.42);
+
+  // Hook: the promise of the video, huge, in the upper-middle (clear of Shorts UI).
+  let headline = "";
+  if (isHook && frame.segment.visualTitle) {
+    const fit = fitLines(
+      frame.segment.visualTitle,
+      [
+        { fontSize: 112, maxChars: 13 },
+        { fontSize: 96, maxChars: 15 },
+        { fontSize: 82, maxChars: 18 },
+        { fontSize: 70, maxChars: 21 },
+      ],
+      4
+    );
+    const lineHeight = Math.round(fit.fontSize * 1.08);
+    const top = 470 - ((fit.lines.length - 1) * lineHeight) / 2;
+    headline = fit.lines.map((line, idx) => kineticLineSvg(line, 540, top + idx * lineHeight, fit.fontSize, "middle")).join("\n");
+  }
+
+  // Big number card when the voice says the stat.
+  const stat = !isHook ? statForCaption(frame) : null;
+  const statBlock = stat
+    ? `<text x="540" y="640" text-anchor="middle" font-family="${KINETIC_FONT}" font-size="210" font-weight="900" fill="${HIGHLIGHT_YELLOW}" stroke="#000000" stroke-width="22" stroke-linejoin="round" paint-order="stroke fill">${xml(stat.value)}</text>
+  <text x="540" y="730" text-anchor="middle" font-family="${KINETIC_FONT}" font-size="52" font-weight="900" fill="#ffffff" stroke="#000000" stroke-width="10" stroke-linejoin="round" paint-order="stroke fill">${xml(stat.label)}</text>`
+    : "";
+
+  // Kinetic caption: 2–4 words, centre of the safe zone.
+  let captionBlock = "";
+  if (captionText) {
+    const fit = fitLines(
+      captionText,
+      [
+        { fontSize: 92, maxChars: 14 },
+        { fontSize: 80, maxChars: 17 },
+        { fontSize: 68, maxChars: 20 },
+      ],
+      3
+    );
+    const lineHeight = Math.round(fit.fontSize * 1.12);
+    const centerY = isHook ? 1080 : 1010;
+    const top = centerY - ((fit.lines.length - 1) * lineHeight) / 2;
+    captionBlock = fit.lines.map((line, idx) => kineticLineSvg(line, 540, top + idx * lineHeight, fit.fontSize, "middle")).join("\n");
+  }
 
   const svg = `
 <svg width="${SHORT_WIDTH}" height="${SHORT_HEIGHT}" viewBox="0 0 ${SHORT_WIDTH} ${SHORT_HEIGHT}" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <linearGradient id="topScrim" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#020617" stop-opacity="0.82"/>
-      <stop offset="100%" stop-color="#020617" stop-opacity="0"/>
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.62"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
     </linearGradient>
-    <linearGradient id="bottomScrim" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#020617" stop-opacity="0"/>
-      <stop offset="40%" stop-color="#020617" stop-opacity="0.78"/>
-      <stop offset="100%" stop-color="#020617" stop-opacity="0.92"/>
-    </linearGradient>
-    <filter id="shortShadow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="10" stdDeviation="16" flood-color="#000000" flood-opacity="0.45"/>
-    </filter>
+    <radialGradient id="centerScrim" cx="0.5" cy="0.45" r="0.6">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.38"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.12"/>
+    </radialGradient>
   </defs>
-  <rect width="${SHORT_WIDTH}" height="760" fill="url(#topScrim)"/>
-  <rect y="880" width="${SHORT_WIDTH}" height="1040" fill="url(#bottomScrim)"/>
-  <text x="72" y="118" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="900" letter-spacing="3" fill="${theme.label}">EMIGRO · ЛАЙФХАК</text>
-  <text x="72" y="168" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="800" fill="#ffffff">${xml(topic.country)}</text>
-  <g filter="url(#shortShadow)">${flag}</g>
-  <text x="72" y="268" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="950" letter-spacing="4" fill="${accent}">${kindLabel(frame.segment.kind)}</text>
-  ${titleLines
-    .map(
-      (line, idx) =>
-        `<text x="72" y="${360 + idx * 78}" font-family="Arial, Helvetica, sans-serif" font-size="68" font-weight="950" fill="#ffffff">${xml(line)}</text>`
-    )
-    .join("\n")}
-  <g filter="url(#shortShadow)">${captionBlock}</g>
-  <text x="540" y="1820" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="900" fill="#ffffff">@Emigro_news · emigro.online</text>
+  <rect width="${SHORT_WIDTH}" height="${SHORT_HEIGHT}" fill="url(#centerScrim)"/>
+  <rect width="${SHORT_WIDTH}" height="300" fill="url(#topScrim)"/>
+  <rect x="0" y="0" width="${SHORT_WIDTH}" height="12" fill="#ffffff" opacity="0.22"/>
+  <rect x="0" y="0" width="${(SHORT_WIDTH * progress).toFixed(1)}" height="12" fill="${accent}"/>
+  ${flag}
+  <text x="${72 + 130 * 0.42 + 18}" y="126" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="900" letter-spacing="2" fill="#ffffff" opacity="0.92">EMIGRO</text>
+  ${headline}
+  ${statBlock}
+  ${captionBlock}
 </svg>`;
 
   await sharp(Buffer.from(svg)).ensureAlpha().png().toFile(frame.imagePath);
@@ -504,7 +578,7 @@ async function openAiTts(text: string, outputPath: string, force = false): Promi
       speed: RU_TTS_SPEED,
       response_format: "mp3",
       instructions:
-        "Говори по-русски как автор YouTube-канала про релокацию. Крючок — быстро и уверенно, суть — чётко, без рекламного тона. Естественный разговорный русский. Числа и даты произноси полностью словами; в сложных словах сохраняй букву ё (трёхлетняя, четырёхмесячная).",
+        "Ты автор топового YouTube-канала про релокацию. Энергично, уверенно, как будто делишься секретом с другом. Крючок — с напором и короткой паузой после. Шаги — чётко и бодро, без лекторского тона и без рекламы. Вопрос в конце — живо, с интонацией вопроса. Числа и даты произноси полностью словами; сохраняй букву ё.",
     }),
   });
   if (!response.ok) {
@@ -641,6 +715,11 @@ export async function renderShortFrames(
   fs.mkdirSync(frameDir, { recursive: true });
   const frames: CaptionFrame[] = [];
   let frameIndex = 0;
+  const totalDuration = Math.max(
+    1,
+    segmentDurations.reduce((sum, d) => sum + d, 0) + segments.reduce((sum, s) => sum + s.pauseAfter, 0)
+  );
+  const elapsed = () => frames.reduce((sum, f) => sum + f.duration, 0) / totalDuration;
 
   for (let segmentIndex = 0; segmentIndex < segments.length; segmentIndex++) {
     const segment = segments[segmentIndex];
@@ -660,6 +739,7 @@ export async function renderShortFrames(
         segment,
         caption: chunk,
         duration: chunkDuration,
+        progress: elapsed(),
         imagePath: path.join(frameDir, `short-frame-${String(++frameIndex).padStart(4, "0")}.png`),
       };
       await renderShortFrame(frame, topic);
@@ -671,9 +751,16 @@ export async function renderShortFrames(
         segment,
         caption: "",
         duration: segment.pauseAfter,
+        progress: elapsed(),
         imagePath: path.join(frameDir, `short-frame-${String(++frameIndex).padStart(4, "0")}.png`),
       };
-      await renderShortFrame({ ...frame, caption: segment.visualTitle }, topic);
+      // Dynamic: hold the last spoken beat through the pause (no "Суть"/"Подробнее" placeholder cards).
+      const holdCaption = isDynamicVideoEnabled()
+        ? segment.kind === "hook"
+          ? ""
+          : chunks[chunks.length - 1] ?? ""
+        : segment.visualTitle;
+      await renderShortFrame({ ...frame, caption: holdCaption }, topic);
       frames.push(frame);
     }
   }

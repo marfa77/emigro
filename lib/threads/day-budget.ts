@@ -26,6 +26,25 @@ export function todayLisbon(date = new Date()): string {
   return date.toLocaleDateString("en-CA", { timeZone: "Europe/Lisbon" });
 }
 
+function readLastPostedOn(path: string): string {
+  if (!existsSync(path)) return "";
+  try {
+    const raw = JSON.parse(readFileSync(path, "utf8")) as { last_posted_on?: string };
+    return String(raw.last_posted_on || "");
+  } catch {
+    return "";
+  }
+}
+
+/** Later of the daily bank and the shared satellite. Both post as @emigro_assist. */
+export function lastAssistRootOn(): string {
+  const daily = readLastPostedOn(resolve(process.cwd(), "parser/out/emigro-threads-posted.json"));
+  const satellite = readLastPostedOn(
+    resolve(process.cwd(), "parser/out/emigro-threads-satellites.json")
+  );
+  return [daily, satellite].filter(Boolean).sort().at(-1) || "";
+}
+
 function emptyState(): ThreadsDayBudgetState {
   return {
     last_on: "",

@@ -5,12 +5,13 @@
  */
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
 import { dirname, resolve } from "path";
-import { guideCtaForDate, type ThreadsSlot } from "@/lib/threads/calendar";
+import { daysBetweenIso, EMIGRO_ROOT_GAP_DAYS, guideCtaForDate, type ThreadsSlot } from "@/lib/threads/calendar";
 import { publishThreadsChain } from "@/lib/threads/client";
 import { loadThreadsEnv, THREADS_CAMPAIGN } from "@/lib/threads/config";
 import {
   confirmThreadsRootSlot,
   releaseThreadsRootSlot,
+  lastAssistRootOn,
   todayLisbon,
   tryClaimThreadsRootSlot,
 } from "@/lib/threads/day-budget";
@@ -25,6 +26,8 @@ import {
   type ThreadsSlotPlan,
 } from "@/lib/threads/inventory";
 import { listGuides } from "@/lib/guides/load";
+import { loadThreadsDays, loadThreadsGuides, loadThreadsWizard } from "@/lib/threads/banks";
+import { viralRefusal } from "@/lib/threads/viral-gate";
 
 export { THREADS_CAMPAIGN };
 
@@ -122,8 +125,14 @@ export async function planThreadsDailyPost(opts?: {
   const state = loadThreadsDailyState();
   const forceKind = opts?.forceKind;
 
-  if (state.last_posted_on === today && !forceKind) {
-    return { today, skip: "already_posted_today" };
+  if (!forceKind) {
+    const last = lastAssistRootOn();
+    if (last && daysBetweenIso(last, today) < EMIGRO_ROOT_GAP_DAYS) {
+      return {
+        today,
+        skip: last === today ? "already_posted_today" : "gap_not_elapsed",
+      };
+    }
   }
 
   if (forceKind && forceKind !== "day") {
@@ -132,9 +141,36 @@ export async function planThreadsDailyPost(opts?: {
     return { today, plan, slot: forceKind };
   }
 
+  if (!forceKind && guidePromoDue(state, today)) {
+    try {
+      const { pickLlmGuidePlan } = await import("@/lib/threads/inventory");
+      const guidePlan = await pickLlmGuidePlan(state, guideCtaForDate(today) === "assist");
+      if (guidePlan) return { today, plan: guidePlan, slot: "guide" };
+    } catch (error) {
+      console.log("[threads-daily] guide promo draft failed, bank fallback:", String(error).slice(0, 200));
+    }
+  }
+
   const plan = pickDaysBankPlan(state);
   if (!plan) return { today, skip: "queue_empty", slot: "day" };
   return { today, plan, slot: "day" };
+}
+
+/** HQ 2026-11-08: LLM guide promo slot cadence (days); 0 disables. */
+function guidePromoEveryDays(): number {
+  const raw = Number(process.env.EMIGRO_THREADS_GUIDE_EVERY_DAYS ?? 4);
+  return Number.isFinite(raw) ? raw : 4;
+}
+
+function guidePromoDue(state: ThreadsDailyState, today: string): boolean {
+  if (guidePromoEveryDays() <= 0) return false;
+  return !state.next_guide_on || state.next_guide_on <= today;
+}
+
+function addDaysIso(iso: string, days: number): string {
+  const d = new Date(`${iso}T12:00:00Z`);
+  d.setUTCDate(d.getUTCDate() + days);
+  return d.toISOString().slice(0, 10);
 }
 
 function rememberPlan(state: ThreadsDailyState, job: ThreadsDailyPlan, today: string): void {
@@ -152,6 +188,8 @@ function rememberPlan(state: ThreadsDailyState, job: ThreadsDailyPlan, today: st
     const guide = inventory.find((g) => g.slug === job.slug);
     const country = guide ? countryKeyFromGuide(guide) : "europe";
     state.last_guide_countries = [...state.last_guide_countries, country].slice(-8);
+    state.next_guide_gap = guidePromoEveryDays();
+    state.next_guide_on = addDaysIso(today, Math.max(1, state.next_guide_gap));
   } else if (job.kind === "news") {
     if (!state.news_used.includes(job.slug)) state.news_used.push(job.slug);
   } else if (job.kind === "city" && !job.slug.startsWith("chat-")) {
@@ -166,6 +204,42 @@ function rememberPlan(state: ThreadsDailyState, job: ThreadsDailyPlan, today: st
     state.assist_cursor = job.cursor ?? state.assist_cursor + 1;
   }
   state.posts[job.slug] = { kind: job.kind, ids: [], at: today };
+}
+
+export function commitThreadsDailyPublished(
+  job: { slug: string; kind: string; cursor?: number },
+  today: string,
+  ids: string[]
+): void {
+  const state = loadThreadsDailyState();
+  const plan = {
+    slug: job.slug,
+    kind: job.kind,
+    cursor: job.cursor,
+    countryRu: "",
+    cta: "",
+    preview: "",
+    items: [],
+  } as unknown as ThreadsDailyPlan;
+  rememberPlan(state, plan, today);
+  state.posts[job.slug] = { kind: job.kind as ThreadsDailyKind, ids, at: today };
+  state.last_posted_on = today;
+  saveThreadsDailyState(state);
+  confirmThreadsRootSlot({ today });
+}
+
+function viralRowForJob(job: ThreadsSlotPlan) {
+  const day = job.cursor ?? Number(job.slug.split("-").pop());
+  if (job.slug.startsWith("day-") || job.slug.startsWith("assist-") || job.slug.startsWith("chat-")) {
+    return loadThreadsDays().find((item) => item.d === day);
+  }
+  if (job.kind === "wizard") {
+    return loadThreadsWizard().find((item) => item.d === day);
+  }
+  if (job.kind === "guide" || job.kind === "news") {
+    return loadThreadsGuides().find((item) => item.guide === job.slug);
+  }
+  return undefined;
 }
 
 export async function runThreadsDaily(opts?: {
@@ -193,6 +267,7 @@ export async function runThreadsDaily(opts?: {
     return {};
   }
 
+  // User 2026-11-07: publish from bank — no viral wait, no owner DM card.
   const claim = tryClaimThreadsRootSlot({
     stream: "guide",
     today: planned.today,

@@ -12,6 +12,7 @@ import {
   threadsTextCost,
   type ThreadsChainItem,
 } from "@/lib/threads/compose";
+import { daysBetweenIso, EMIGRO_ROOT_GAP_DAYS } from "@/lib/threads/calendar";
 
 export type InvestmentPhase = "seed" | "traffic" | "lead";
 export type InvestmentPublicationMode = "auto" | "manual_review";
@@ -159,15 +160,40 @@ export function planInvestmentPost(params?: {
   if (phase === "off") return { skip: "phase_off" };
 
   const state = params?.state ?? loadInvestmentPostState();
-  const row = params?.id
-    ? rows.find((candidate) => candidate.id === params.id)
-    : rows.find((candidate) => candidate.publishOn === (params?.today || todayDubai()));
+  const today = params?.today || todayDubai();
+  if (params?.id) {
+    const row = rows.find((candidate) => candidate.id === params.id);
+    if (!row) return { skip: "unknown_id" };
+    if (state.posts[row.id]) return { skip: "already_published" };
+    if (PHASE_RANK[row.phase] > PHASE_RANK[phase]) return { skip: `phase_${row.phase}_locked` };
+    if (row.publicationMode !== "auto") return { skip: "manual_review_required" };
+    return { row };
+  }
 
-  if (!row) return { skip: params?.id ? "unknown_id" : "not_scheduled_today" };
-  if (state.posts[row.id]) return { skip: "already_published" };
-  if (PHASE_RANK[row.phase] > PHASE_RANK[phase]) return { skip: `phase_${row.phase}_locked` };
-  if (row.publicationMode !== "auto") return { skip: "manual_review_required" };
+  const posted = rows
+    .filter((candidate) => state.posts[candidate.id])
+    .sort((a, b) => a.publishOn.localeCompare(b.publishOn));
+  const last = posted.at(-1);
+  if (last) {
+    const postedOn = dubaiDay(state.posts[last.id]?.at) || last.publishOn;
+    if (daysBetweenIso(postedOn, today) < EMIGRO_ROOT_GAP_DAYS) return { skip: "gap_not_elapsed" };
+  }
+  const row = rows.find(
+    (candidate) =>
+      !state.posts[candidate.id] &&
+      (!last || candidate.publishOn > last.publishOn) &&
+      candidate.publishOn <= today &&
+      PHASE_RANK[candidate.phase] <= PHASE_RANK[phase] &&
+      candidate.publicationMode === "auto"
+  );
+  if (!row) return { skip: "not_scheduled_today" };
   return { row };
+}
+
+function dubaiDay(iso: string | undefined): string {
+  if (!iso) return "";
+  const day = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Dubai" }).format(new Date(iso));
+  return /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(day) ? day : "";
 }
 
 export function investmentDestinationUrl(
