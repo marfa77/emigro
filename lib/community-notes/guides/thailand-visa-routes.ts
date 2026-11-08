@@ -16,7 +16,7 @@ import type { CommunityNoteFaq, ContentKind, GlossaryTerm, NoteBodySection } fro
 export const VIZA_DTV_LTR_SLUG = "viza-dtv-ltr-thailand-2026";
 
 const PERVYE_30_SLUG = "pervye-30-dnej-phuket-2026";
-const IMMIGRATION_SLUG = "immigration-phuket-chalermprakiat-2026";
+const IMMIGRATION_SLUG = "immigration-phuket-tm30-90-days-2026";
 const PILLAR_SLUG = "tailand-dlya-rossiyan-2026";
 
 const WWW_PILLAR = "/ru/guides/" + PILLAR_SLUG;
