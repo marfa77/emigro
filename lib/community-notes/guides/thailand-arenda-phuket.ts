@@ -101,7 +101,7 @@ const bodySections: NoteBodySection[] = [
     paragraphs: [
       "**TM30** — это не «виза арендатора», а **immigration notification of residence**. По **Section 38 Immigration Act 1979** владелец дома, head of household, **landlord** или manager licensed hotel/guesthouse обязан уведомить immigration **within 24 hours** с момента, когда foreign national **легально** проживает у них. На Пхукете это часто Bangkok Immigration Bureau jurisdiction для онлайн-системы; в province without immigration office — local police (см. [Immigration Bureau](https://www.immigration.go.th/en/?p=14721)).",
       "Landlord регистрируется на [tm30.immigration.go.th](https://tm30.immigration.go.th/TM30/Foreigner/TM30EN/Home.html), добавляет address (house registration / business license / condo docs), затем подаёт stay foreign tenant. Tenant должен дать **копию passport**, дату въезда, **TM6 arrival card number** — данные должны совпадать с штампом. Нижняя часть формы TM30 остаётся у notifying person — попросите **копию/скрин** для своего файла (soft: при 90-day report и продлении статуса спрашивают morada).",
-      "**12-month lease ≠ право пребывания**: DTV, безвиз 30 дней, LTR и Thailand Privilege решаются отдельно. Можно подписать годовой контракт на DTV, но если immigration status не покрывает даты — проблема не в lease, а в visa/tax. См. [pillar Таиланд](/guides/" +
+      "**12-month lease ≠ право пребывания**: DTV, безвиз 30 дней, LTR и Thailand Privilege решаются отдельно. Можно подписать годовой контракт на DTV, но если immigration status не покрывает даты — проблема не в lease, а в visa/tax. См. [pillar Таиланд](https://www.emigro.online/ru/guides/" +
         THAILAND_PILLAR_SLUG +
         ") и [Assist Route Check](https://www.emigro.online/ru/assist?country=thailand&utm_source=emigro&utm_medium=guide&utm_campaign=phuket_rent).",
     ],
@@ -196,7 +196,7 @@ const bodySections: NoteBodySection[] = [
     section_kind: "practice",
     paragraphs: [
       "К **4–6 месяцу** всплывают темы, которые на check-in кажутся мелочами: **продление visa** (DTV entry days, 90-day report, TM30 history), **seasonal rent renewal** (landlord поднимает rent или предлагает только 6-month renewal), **кондиционеры** (сервис фильтров = ваш comfort bill), **мold после rainy season**, споры о **deposit refund** при досрочном выезде.",
-      "Если приехали на **безвиз/коротком статусе**, а контракт на 12 месяцев — к 4-му месяцу должна быть ясность: **visa run / extension / смена статуса** (см. [pillar Таиланд](/guides/" +
+      "Если приехали на **безвиз/коротком статусе**, а контракт на 12 месяцев — к 4-му месяцу должна быть ясность: **visa run / extension / смена статуса** (см. [pillar Таиланд](https://www.emigro.online/ru/guides/" +
         THAILAND_PILLAR_SLUG +
         ")). Если планируете **смену района** (Rawai → Bang Tao) — закладывайте overlap 1 week + новый TM30.",
       "Tax: remote work income in Thailand — отдельная тема; lease itself не создаёт tax residency (soft; не tax advice).",

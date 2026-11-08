@@ -5,6 +5,7 @@ import { DEFAULT_EXTERNAL_AD_REL } from "@/lib/partners/link";
 import { classifyReferralUrl } from "@/lib/partners/referral-inline";
 import { noteLinkLabel } from "@/lib/community-notes/note-link-labels";
 import type { NoteBodySection } from "@/lib/community-notes/types";
+import { publicSiteUrl } from "@/lib/site-url";
 import {
   inferSectionKind,
   SECTION_KIND_LABELS,
@@ -83,6 +84,15 @@ function renderInlineSegment(part: string, key: number): ReactNode | ReactNode[]
               }
             : {})}
         >
+          {label}
+        </a>
+      );
+    }
+    // Notes render on satellite hosts; /ru|es|fr|en/… belong to www. Link there directly
+    // instead of bouncing every CTA click through a host-level 301.
+    if (/^\/(ru|es|fr|en)(\/|\?|$)/.test(href)) {
+      return (
+        <a key={key} href={`${publicSiteUrl()}${href}`} className={LINK_CLASS}>
           {label}
         </a>
       );

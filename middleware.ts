@@ -68,6 +68,10 @@ function isSatelliteHost(host: string): boolean {
 function isSatelliteSharedPath(pathname: string): boolean {
   if (pathname === "/icon" || pathname === "/apple-icon") return true;
   if (pathname.startsWith("/api/")) return true;
+  // Host-aware app/sitemap.ts + app/robots.ts. Since the matcher started sending these
+  // through middleware (2026-11-01), rewriting them under /satellite/{country} 404'd
+  // spain/italy/thailand robots.txt and sitemap.xml.
+  if (pathname === "/sitemap.xml" || pathname === "/robots.txt") return true;
   return false;
 }
 

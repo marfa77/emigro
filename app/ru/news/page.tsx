@@ -19,8 +19,7 @@ import { newsArticleUrl, newsFeedUrl } from "@/lib/site-url";
 
 export const revalidate = 300;
 
-export const metadata: Metadata = {
-  ...pageMetadata({
+const baseMetadata = pageMetadata({
     title: "Новости релокации в Европу",
     titleAbsolute: true,
     description:
@@ -30,8 +29,13 @@ export const metadata: Metadata = {
     ogImageAlt: "Новости релокации Emigro",
     aiDescription: buildNewsIndexAiDescription(null),
     aiCategory: "relocation-news-index",
-  }),
+});
+
+// Merge, don't replace: a bare `alternates` here used to drop the canonical + hreflang from pageMetadata.
+export const metadata: Metadata = {
+  ...baseMetadata,
   alternates: {
+    ...baseMetadata.alternates,
     types: { "application/rss+xml": newsFeedUrl() },
   },
 };

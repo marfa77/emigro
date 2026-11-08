@@ -203,11 +203,11 @@ async function buildWwwSitemap(): Promise<MetadataRoute.Sitemap> {
     })),
   ];
 
-  const countryNewsRoutes: MetadataRoute.Sitemap = topics.map((t) => ({
-    url: `${origin}${newsIndexPath(t.urlSegment)}`,
-    changeFrequency: "daily" as const,
-    priority: 0.85,
-  }));
+  // /ru/news?country=… is the same static page filtered client-side (canonical /ru/news),
+  // so listing those URLs only fed Google 20 duplicates. Individual digests stay below.
+  const countryNewsRoutes: MetadataRoute.Sitemap = [];
+  void topics;
+  void newsIndexPath;
 
   const corridorRoutes: MetadataRoute.Sitemap = [];
   const programRoutes: MetadataRoute.Sitemap = [];

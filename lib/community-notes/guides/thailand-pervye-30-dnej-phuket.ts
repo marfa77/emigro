@@ -14,13 +14,13 @@ import type { CommunityNoteFaq, ContentKind, GlossaryTerm, NoteBodySection } fro
 
 export const PERVYE_30_PHUKET_SLUG = "pervye-30-dnej-phuket-2026";
 
-const TIN_PHUKET_SLUG = "tin-thailand-phuket-2026";
-const SIM_UTILITIES_SLUG = "sim-internet-utilities-phuket-2026";
+const TIN_PHUKET_SLUG = "tax-id-tin-phuket-2026";
+const SIM_UTILITIES_SLUG = "sim-internet-svet-voda-phuket-2026";
 const ARENDA_SLUG = "arenda-phuket-dolgosrok-2026";
-const IMMIGRATION_SLUG = "immigration-phuket-chalermprakiat-2026";
-const BANK_SLUG = "bank-schet-phuket-nerezident-2026";
-const HEALTH_SLUG = "meditsina-phuket-strahovka-kliniki-2026";
-const RAJONY_SLUG = "phuket-rajony-bangtao-rawai-2026";
+const IMMIGRATION_SLUG = "immigration-phuket-tm30-90-days-2026";
+const BANK_SLUG = "bank-schet-phuket-inostrancu-2026";
+const HEALTH_SLUG = "meditsina-phuket-strahovka-bolnicy-2026";
+const RAJONY_SLUG = "phuket-rajony-arenda-shkoly-bolnicy-2026";
 
 const GLOSSARY: GlossaryTerm[] = [
   { pt: "Visa exemption (30 days)", ru: "безвиз по соглашению; штамп на въезде, не «виза навсегда»" },

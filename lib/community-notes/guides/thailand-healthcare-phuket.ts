@@ -85,7 +85,7 @@ const bodySections: NoteBodySection[] = [
       "Inpatient guarantee letter — запрашивайте до плановой госпитализации; emergency — stabilisation first, paperwork after.",
       "Travel insurance ≤90 days ≠ long-stay expat product; renewal и **continuous coverage** критичны для pre-existing disputes.",
       "Telemedicine и second opinion — часто **исключены** или лимитированы; читать Schedule.",
-      "Связка со статусом: [pillar Таиланд 2026](/notes/" + PILLAR_SLUG + ") — LTR/DTV/Privilege; медполис не подменяет TM30 и visa conditions.",
+      "Связка со статусом: [pillar Таиланд 2026](https://www.emigro.online/ru/guides/" + PILLAR_SLUG + ") — LTR/DTV/Privilege; медполис не подменяет TM30 и visa conditions.",
     ],
   },
   {
