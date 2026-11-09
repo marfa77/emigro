@@ -1,0 +1,20 @@
+[Unit]
+Description=Emigro Friday weekend digest for outdoor events
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/emigro
+PermissionsStartOnly=true
+ExecStartPre=/bin/mkdir -p /opt/emigro/deploy/outdoor-digest/logs
+ExecStartPre=/bin/chown -R www-data:www-data /opt/emigro/deploy/outdoor-digest
+ExecStart=/bin/bash /opt/emigro/deploy/outdoor-digest/run_scheduled.sh
+User=www-data
+EnvironmentFile=-/opt/emigro/.env
+TimeoutStartSec=infinity
+StandardOutput=append:/opt/emigro/deploy/outdoor-digest/logs/scheduled.log
+StandardError=append:/opt/emigro/deploy/outdoor-digest/logs/scheduled.log
+
+[Install]
+WantedBy=multi-user.target

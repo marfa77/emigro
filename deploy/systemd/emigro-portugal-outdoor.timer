@@ -2,9 +2,16 @@
 Description=Emigro Portugal outdoor events (Europe/Lisbon) — daily
 
 [Timer]
+# Host clock is UTC (Timezone= is ignored). Slots are 11:30, 15:30 and 19:30
+# in Europe/Lisbon. Winter is UTC, summer is UTC+1, so each slot has both hours.
+# The runner posts only when Lisbon is inside the slot, one card each.
+OnCalendar=*-*-* 10:30:00
 OnCalendar=*-*-* 11:30:00
-Timezone=Europe/Lisbon
-Persistent=true
+OnCalendar=*-*-* 14:30:00
+OnCalendar=*-*-* 15:30:00
+OnCalendar=*-*-* 18:30:00
+OnCalendar=*-*-* 19:30:00
+Persistent=false
 AccuracySec=1min
 Unit=emigro-portugal-outdoor.service
 

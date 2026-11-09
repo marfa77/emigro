@@ -20,7 +20,9 @@ import {
   type CalendarEvent,
 } from "@/lib/events/calendar-types";
 import { listPortugalEvents } from "@/lib/events/portugal-calendar";
-import { portugalCalendarPath } from "@/lib/satellite/paths";
+import { portugalCalendarPath, portugalNotePath, mainSiteUrl } from "@/lib/satellite/paths";
+import { cityChatForCountry } from "@/lib/satellite/city-chats";
+import { cityChatDeepLink } from "@/lib/telegram/deep-link";
 import { fitMetaDescription, fitSeoTitlePart, socialImageMetadata, DEFAULT_OG_IMAGE } from "@/lib/seo";
 import { portugalSatelliteUrl } from "@/lib/site-url";
 import { heroTitle, satelliteMain } from "@/lib/ui/mobile";
@@ -212,6 +214,41 @@ function eventsForPlace(events: CalendarEvent[], place?: CalendarPlace): Calenda
   return events;
 }
 
+function CalendarFunnel() {
+  const chat = cityChatForCountry("portugal");
+  const chatHref = chat ? cityChatDeepLink(chat, "calendar") : null;
+  return (
+    <section className="mt-4 rounded-2xl border border-teal-200 bg-teal-50 p-4 sm:p-5">
+      <h2 className="text-base font-bold text-slate-950">Дальше по Португалии</h2>
+      <p className="mt-1 text-sm leading-relaxed text-slate-700">
+        Календарь для тех, кто уже в Порту или Лиссабоне. Если карты ВНЖ ещё нет, подбор D8 или D7 занимает около двух минут.
+      </p>
+      <div className="mt-3 flex flex-wrap gap-2">
+        {chatHref ? (
+          <a
+            href={chatHref}
+            className="inline-flex min-h-11 items-center rounded-lg bg-teal-700 px-4 py-2 text-sm font-semibold text-white hover:bg-teal-800"
+          >
+            Чат Порту в Telegram
+          </a>
+        ) : null}
+        <a
+          href={mainSiteUrl("/ru/portugal/wizard")}
+          className="inline-flex min-h-11 items-center rounded-lg border border-teal-300 bg-white px-4 py-2 text-sm font-semibold text-teal-900 hover:border-teal-500"
+        >
+          Подобрать D8 или D7
+        </a>
+        <Link
+          href={portugalNotePath("nif-porto-kak-poluchit-2026")}
+          className="inline-flex min-h-11 items-center rounded-lg border border-teal-300 bg-white px-4 py-2 text-sm font-medium text-teal-900 hover:border-teal-500"
+        >
+          NIF в Порту
+        </Link>
+      </div>
+    </section>
+  );
+}
+
 export async function PortugalCalendarPage({
   searchParams,
   place,
@@ -269,6 +306,7 @@ export async function PortugalCalendarPage({
       <p className="text-sm font-medium text-teal-800">Порту · Лиссабон · север</p>
       <h1 className={`${heroTitle} mt-2`}>{copy.h1}</h1>
       <p className="mt-3 text-lg text-slate-800">{copy.lede}</p>
+      <CalendarFunnel />
       <p className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-sm">
         <Link href={portugalCalendarPath()} className={place ? "text-teal-800 underline" : "font-medium text-slate-900"}>
           Все города

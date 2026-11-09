@@ -1,0 +1,12 @@
+[Unit]
+Description=Emigro weekend event digest — Friday morning (UTC clock, 09:00 Madrid/Rome)
+
+[Timer]
+OnCalendar=Fri *-*-* 08:00:00
+Timezone=UTC
+Persistent=true
+AccuracySec=1min
+Unit=emigro-outdoor-digest.service
+
+[Install]
+WantedBy=timers.target

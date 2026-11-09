@@ -1,0 +1,12 @@
+[Unit]
+Description=Emigro Valencia outdoor events — daily
+
+[Timer]
+OnCalendar=*-*-* 12:30:00
+Timezone=Europe/Madrid
+Persistent=true
+AccuracySec=1min
+Unit=emigro-valencia-outdoor.service
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,20 @@
+[Unit]
+Description=Emigro Valencia outdoor events — every new event to @valencia_echat
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/emigro
+PermissionsStartOnly=true
+ExecStartPre=/bin/mkdir -p /opt/emigro/deploy/valencia-outdoor/logs /opt/emigro/deploy/valencia-outdoor/state
+ExecStartPre=/bin/chown -R www-data:www-data /opt/emigro/deploy/valencia-outdoor
+ExecStart=/bin/bash /opt/emigro/deploy/valencia-outdoor/run_scheduled.sh
+User=www-data
+EnvironmentFile=-/opt/emigro/.env
+TimeoutStartSec=infinity
+StandardOutput=append:/opt/emigro/deploy/valencia-outdoor/logs/scheduled.log
+StandardError=append:/opt/emigro/deploy/valencia-outdoor/logs/scheduled.log
+
+[Install]
+WantedBy=multi-user.target

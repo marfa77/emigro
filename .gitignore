@@ -48,3 +48,7 @@ parser/.venv/
 parser/out/
 tg.session
 *.session
+
+# Cron runtime state (seen ids, recent themes) lives on the VPS, not in git.
+deploy/*/state/
+tmp/

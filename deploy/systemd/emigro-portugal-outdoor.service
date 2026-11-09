@@ -1,5 +1,5 @@
 [Unit]
-Description=Emigro Portugal outdoor events — one post to @emigro_portugal
+Description=Emigro Portugal outdoor events — every new event to @emigro_portugal
 After=network-online.target
 Wants=network-online.target
 
@@ -12,6 +12,7 @@ ExecStartPre=/bin/chown -R www-data:www-data /opt/emigro/deploy/portugal-outdoor
 ExecStart=/bin/bash /opt/emigro/deploy/portugal-outdoor/run_scheduled.sh
 User=www-data
 EnvironmentFile=-/opt/emigro/.env
+TimeoutStartSec=infinity
 StandardOutput=append:/opt/emigro/deploy/portugal-outdoor/logs/scheduled.log
 StandardError=append:/opt/emigro/deploy/portugal-outdoor/logs/scheduled.log
 

@@ -136,6 +136,17 @@ export function parsePtDateTime(raw: string): string | null {
   return Number.isFinite(provisional.getTime()) ? provisional.toISOString() : null;
 }
 
+/** Reject markup that a loose "Local…" regex pulls out of og:locale. */
+export function cleanPlace(value: string | null | undefined): string | null {
+  if (!value) return null;
+  let text = value.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+  text = text.replace(/\s*\(\s*/g, " (").replace(/\s*\)/g, ")");
+  if (text.length < 3 || text.length > 110) return null;
+  if (/content\s*=|og:|locale|pt_PT|<|>|"|'|\{|\}|https?:/i.test(text)) return null;
+  if (!/[A-Za-zÀ-ÿ]{3}/.test(text)) return null;
+  return text;
+}
+
 export function stripTags(html: string): string {
   return html
     .replace(/<script[\s\S]*?<\/script>/gi, " ")

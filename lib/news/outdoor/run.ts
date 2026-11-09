@@ -1,14 +1,19 @@
 /**
  * Multi-source outdoor experiences → @emigro_portugal.
  */
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
-import { dirname, resolve } from "node:path";
+import { resolve } from "node:path";
 import {
   buildOutdoorCaption,
+  calendarPageIsLive,
   materializeEvent,
   publishOutdoorPhoto,
   renderOutdoorCard,
 } from "@/lib/news/outdoor/publish";
+import { fingerprint, uniqueByFingerprint } from "@/lib/news/outdoor/due";
+import { appendPosted, seenSets } from "@/lib/news/outdoor/posted";
+import { channelPicks, eventTheme } from "@/lib/news/outdoor/themes";
+import { activeSlot, markSlot, slotTaken, themesPostedToday } from "@/lib/news/outdoor/slots";
+import { listUpcomingOutdoorEvents, markOutdoorTelegram, upsertOutdoorEvents } from "@/lib/news/outdoor/store";
 import { OUTDOOR_SOURCES, parseGeo2goEventHtml } from "@/lib/news/outdoor/sources";
 import type { OutdoorEvent } from "@/lib/news/outdoor/types";
 import { fetchText } from "@/lib/news/outdoor/util";
@@ -17,38 +22,32 @@ function seenPath(): string {
   return resolve(process.cwd(), "deploy/portugal-outdoor/state/seen.json");
 }
 
-function loadSeen(): Set<string> {
-  // Merge legacy geo2go seen keys so we don't re-post those.
-  const keys = new Set<string>();
-  for (const path of [
-    seenPath(),
-    resolve(process.cwd(), "deploy/geo2go-events/state/seen.json"),
-  ]) {
-    if (!existsSync(path)) continue;
-    try {
-      const parsed = JSON.parse(readFileSync(path, "utf8")) as unknown;
-      if (Array.isArray(parsed)) {
-        for (const x of parsed) if (typeof x === "string") keys.add(x);
-      }
-    } catch {
-      /* ignore */
-    }
-  }
-  return keys;
+function seenPaths(): string[] {
+  return [seenPath(), resolve(process.cwd(), "deploy/geo2go-events/state/seen.json")];
 }
 
-function remember(key: string): void {
-  const path = seenPath();
-  mkdirSync(dirname(path), { recursive: true });
-  const prev = loadSeen();
-  prev.add(key);
-  writeFileSync(path, JSON.stringify([...prev].slice(-800), null, 2) + "\n");
+function slotsPath(): string {
+  return resolve(process.cwd(), "deploy/portugal-outdoor/state/channel-slots.json");
+}
+
+function remember(ev: OutdoorEvent, messageId: number): void {
+  appendPosted(seenPath(), {
+    key: ev.key,
+    fingerprint: fingerprint(ev, "Europe/Lisbon"),
+    messageId,
+    startIso: ev.startIso,
+    title: ev.title,
+    location: ev.location,
+    priceLabel: ev.priceLabel,
+    url: ev.url,
+    theme: eventTheme(ev),
+  });
 }
 
 export async function collectOutdoorEvents(options?: {
   sources?: string[];
 }): Promise<OutdoorEvent[]> {
-  const allow = options?.sources?.length ? new Set(options?.sources) : null;
+  const allow = options?.sources?.length ? new Set(options.sources) : null;
   const all: OutdoorEvent[] = [];
   for (const src of OUTDOOR_SOURCES) {
     if (allow && !allow.has(src.id)) continue;
@@ -66,7 +65,7 @@ export async function collectOutdoorEvents(options?: {
 
 async function publishOne(
   ev: OutdoorEvent,
-  options?: { dryRun?: boolean }
+  options?: { dryRun?: boolean; mentionSite?: boolean }
 ): Promise<{
   published: boolean;
   reason?: string;
@@ -84,7 +83,7 @@ async function publishOne(
     return { published: false, reason: "draft-skip", url: ev.url, sourceId: ev.sourceId };
   }
   const card = await renderOutdoorCard(draft.image, draft.cardLines);
-  const caption = buildOutdoorCaption(draft);
+  const caption = buildOutdoorCaption(draft, { mentionSite: options?.mentionSite });
   if (options?.dryRun) {
     console.log(`[outdoor] dry-run ${draft.title}\n${caption}`);
     return {
@@ -96,7 +95,8 @@ async function publishOne(
     };
   }
   const messageId = await publishOutdoorPhoto(caption, card);
-  remember(ev.key);
+  remember(ev, messageId);
+  await markOutdoorTelegram(ev.key, messageId);
   console.log(`[outdoor] published ${messageId} ${draft.title} (${ev.sourceId})`);
   return {
     published: true,
@@ -111,6 +111,8 @@ export async function runPortugalOutdoorChannel(options?: {
   dryRun?: boolean;
   forceUrl?: string;
   sources?: string[];
+  /** Write the full list and do not post. */
+  storeOnly?: boolean;
 }): Promise<{
   published: boolean;
   reason?: string;
@@ -129,22 +131,42 @@ export async function runPortugalOutdoorChannel(options?: {
       return publishOne(ev, options);
     }
     // Generic: try collecting and matching URL
-    const all = await collectOutdoorEvents({ sources: options?.sources });
+    const all = await collectOutdoorEvents({ sources: options.sources });
     const hit = all.find((e) => e.url.replace(/\/$/, "") === url.replace(/\/$/, ""));
     if (hit) return publishOne(hit, options);
     return { published: false, reason: "force-url-not-in-sources", url };
   }
 
-  const seen = loadSeen();
-  const events = (await collectOutdoorEvents({ sources: options?.sources })).filter(
-    (e) => !seen.has(e.key) && !seen.has(e.url)
-  );
-  console.log(`[outdoor] upcoming unseen ${events.length}`);
-  if (events.length === 0) return { published: false, reason: "no-fresh-event" };
-
-  for (const ev of events) {
-    const result = await publishOne(ev, options);
-    if (result.published || result.reason === "dry-run") return result;
+  const slot = activeSlot();
+  if (!options?.dryRun && !options?.storeOnly && !slot) {
+    return { published: false, reason: "outside-slot" };
   }
-  return { published: false, reason: "no-draftable-event" };
+  if (!options?.dryRun && !options?.storeOnly && slotTaken(slotsPath())) {
+    return { published: false, reason: "slot-used" };
+  }
+
+  const seen = seenSets(seenPaths());
+  const collected = await collectOutdoorEvents({ sources: options?.sources });
+  if (!options?.dryRun) await upsertOutdoorEvents(collected);
+  if (options?.storeOnly) return { published: false, reason: "stored" };
+
+  const stored = await listUpcomingOutdoorEvents();
+  const pool = stored.length ? stored : collected;
+  const events = uniqueByFingerprint(
+    pool.filter((e) => !seen.keys.has(e.key) && !seen.fingerprints.has(fingerprint(e, "Europe/Lisbon"))),
+    "Europe/Lisbon"
+  );
+  const recent = themesPostedToday(slotsPath());
+  const batch = channelPicks(events, 3, recent);
+  const next = batch[0];
+  const wantSiteLine = slot === "19:30" || recent.length >= 2 || batch.length <= 1;
+  const mentionSite = wantSiteLine && (await calendarPageIsLive());
+  if (wantSiteLine && !mentionSite) console.log("[outdoor] calendar page is not live, site line skipped");
+  console.log(
+    `[outdoor] stored-pool ${pool.length}, unseen ${events.length}, slot ${slot ?? "dry"}, site-line ${mentionSite}, queue ${batch.map((ev) => `${eventTheme(ev)}:${ev.title}`).join(" | ") || "none"}`
+  );
+  if (!next) return { published: false, reason: "no-fresh-event" };
+  const result = await publishOne(next, { ...options, mentionSite });
+  if (result.published && next) markSlot(slotsPath(), next.key, eventTheme(next));
+  return result;
 }

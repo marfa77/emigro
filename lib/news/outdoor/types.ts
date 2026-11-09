@@ -21,6 +21,8 @@ export type OutdoorEvent = {
   priceLabel: string | null;
   url: string;
   imageUrl: string | null;
+  /** Known at fetch time. Store adds the rest. An event can carry several. */
+  tags?: string[];
 };
 
 export type OutdoorDraft = {

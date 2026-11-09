@@ -22,7 +22,7 @@ import { getRelatedNotes } from "@/lib/community-notes/repair-note";
 import { resolveNoteOgImage } from "@/lib/community-notes/note-og-image";
 import { THAILAND_SATELLITE } from "@/lib/satellite/thailand";
 import { satelliteHubUrl, satellitePillarUrl } from "@/lib/satellite/funnel-urls";
-import { thailandHubPath } from "@/lib/satellite/paths";
+import { mainSiteUrl, thailandHubPath } from "@/lib/satellite/paths";
 import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 import { thailandSatelliteUrl } from "@/lib/site-url";
 import { estimateNoteReadMinutes, formatReadTime } from "@/lib/community-notes/read-time";
@@ -117,6 +117,38 @@ export default async function ThailandNotePage({ params }: { params: { slug: str
           dangerouslySetInnerHTML={{ __html: inlineMarkdown(note.quick_answer) }}
         />
       </div>
+      {note.slug === "bank-schet-phuket-inostrancu-2026" ? (
+        <section className="mt-6 rounded-2xl border border-indigo-200 bg-indigo-50 p-4 sm:p-5">
+          <h2 className="text-base font-bold text-slate-950">Счёт не открывает визу</h2>
+          <p className="mt-1 text-sm leading-relaxed text-slate-700">
+            Если статуса ещё нет, начните с маршрута, а не с банка. Подбор по паспорту занимает около двух минут.
+          </p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {(
+              [
+                ["RU", "Россия"],
+                ["BY", "Беларусь"],
+                ["UA", "Украина"],
+                ["KZ", "Казахстан"],
+              ] as const
+            ).map(([code, label]) => (
+              <a
+                key={code}
+                href={mainSiteUrl(`/ru/wizard?passport=${code}&interest=thailand`)}
+                className="inline-flex min-h-11 items-center rounded-lg border border-indigo-300 bg-white px-4 py-2 text-sm font-semibold text-indigo-950 hover:border-indigo-500"
+              >
+                {label}
+              </a>
+            ))}
+            <a
+              href={mainSiteUrl("/ru/guides/tailand-dlya-rossiyan-2026")}
+              className="inline-flex min-h-11 items-center rounded-lg bg-indigo-800 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-900"
+            >
+              Гайд по Таиланду
+            </a>
+          </div>
+        </section>
+      ) : null}
       <NoteHashtags tags={note.hashtags} className="mt-6" countryKey="thailand" />
       <KeyTakeaways items={note.key_takeaways} />
       {note.content_kind === "guide" && <NoteToc sections={note.body_sections} hasFaq={note.faq.length > 0} />}

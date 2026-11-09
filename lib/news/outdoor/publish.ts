@@ -2,13 +2,24 @@ import { existsSync } from "node:fs";
 import sharp from "sharp";
 import { geminiFastJson } from "@/lib/news/gemini";
 import type { OutdoorDraft, OutdoorEvent } from "@/lib/news/outdoor/types";
+import { captionThemeHint } from "@/lib/news/outdoor/themes";
 import { downloadImage, formatPriceLine } from "@/lib/news/outdoor/util";
 
 export const OUTDOOR_CHANNEL = () =>
   (process.env.EMIGRO_PORTUGAL_NEWS_CHANNEL || "@emigro_portugal").trim();
 
 const CHANNEL_URL = "https://t.me/emigro_portugal";
+const CALENDAR_URL = "https://porto.emigro.online/calendar";
 const CAPTION_MAX = 1024;
+
+export async function calendarPageIsLive(): Promise<boolean> {
+  try {
+    const res = await fetch(CALENDAR_URL, { method: "GET", redirect: "follow" });
+    return res.ok;
+  } catch {
+    return false;
+  }
+}
 
 const SCHEMA = {
   type: "OBJECT",
@@ -58,6 +69,7 @@ export function formatWhen(iso: string, endIso?: string | null): string {
     hour: "2-digit",
     minute: "2-digit",
   }).format(start);
+  if (/00:00|23:59/.test(t0) && !endIso) return day;
   if (endIso) {
     const end = new Date(endIso);
     if (Number.isFinite(end.getTime())) {
@@ -127,6 +139,12 @@ export async function renderOutdoorCard(photo: Buffer, cardLines: string[]): Pro
   return sharp(base).composite([{ input: overlay, top: 0, left: 0 }]).jpeg({ quality: 88 }).toBuffer();
 }
 
+function usefulDetail(text: string | null | undefined): boolean {
+  const t = (text || "").trim();
+  if (t.length < 4) return false;
+  return !/^(нет|пусто|—|-|ничего|не указан|вход на)|ничего особенного/i.test(t);
+}
+
 function oneLine(text: string, max: number): string {
   const t = text.replace(/\s+/g, " ").trim();
   if (t.length <= max) return t;
@@ -144,33 +162,32 @@ function glossCount(text: string): number {
   return (text.match(new RegExp(GLOSS_SRC, "g")) || []).length;
 }
 
-export function buildOutdoorCaption(draft: OutdoorDraft): string {
+export function buildOutdoorCaption(draft: OutdoorDraft, options?: { mentionSite?: boolean }): string {
   const footer =
     `<a href="${esc(draft.mapsUrl)}">Карта</a> · ` +
     `<a href="${esc(draft.sourceUrl)}">Запись и оплата</a>`;
+  const site = options?.mentionSite
+    ? `\n\nЕщё события Порту и севера — <a href="${CALENDAR_URL}">в календаре</a>`
+    : "";
   const facts = [
     `📅 ${esc(draft.whenLine)}`,
     `📍 <a href="${esc(draft.mapsUrl)}">${esc(draft.locationLine)}</a>`,
-    `👤 ${esc(draft.organizer)}`,
     draft.priceLine ? `💶 ${esc(draft.priceLine)}` : null,
+    draft.organizer ? `👤 ${esc(draft.organizer)}` : null,
   ]
     .filter(Boolean)
     .join("\n");
-  const head =
-    `<b>${esc(draft.title.replace(/\.+$/, ""))}</b>\n\n` +
-    `${glossHtml(oneLine(draft.lead, 160))}\n\n` +
-    `${facts}\n\n`;
-  const rows = [
-    draft.who ? { label: "Кому", text: draft.who } : null,
-    draft.outcome ? { label: "На выходе", text: draft.outcome } : null,
-    draft.includesRu ? { label: "Включено", text: draft.includesRu } : null,
-    draft.bring ? { label: "Взять", text: draft.bring } : null,
-  ].filter((row): row is { label: string; text: string } => Boolean(row));
-  const limits = [170, 140, 120, 90];
+  const extra = [
+    usefulDetail(draft.includesRu) ? `<b>В цене:</b> ${glossHtml(oneLine(draft.includesRu || "", 180))}` : "",
+    usefulDetail(draft.bring) ? `<b>С собой:</b> ${glossHtml(oneLine(draft.bring, 160))}` : "",
+  ]
+    .filter(Boolean)
+    .join("\n");
+  const leadLimits = [520, 380, 240];
   let caption = "";
-  for (const max of limits) {
-    const brief = rows.map((row) => `<b>${row.label}:</b> ${glossHtml(oneLine(row.text, max))}`).join("\n");
-    caption = `${head}${brief}\n\n${footer}`;
+  for (const max of leadLimits) {
+    const story = draft.lead.trim() ? glossHtml(oneLine(draft.lead, max)) : "";
+    caption = `<b>${esc(draft.title.replace(/\.+$/, ""))}</b>${story ? `\n\n${story}` : ""}\n\n${facts}${extra ? `\n${extra}` : ""}\n\n${footer}${site}`;
     if (caption.length <= CAPTION_MAX) return caption;
   }
   return caption.slice(0, CAPTION_MAX);
@@ -181,8 +198,30 @@ export async function writeOutdoorDraft(
   image: Buffer
 ): Promise<OutdoorDraft | null> {
   const whenLine = formatWhen(ev.startIso, ev.endIso);
-  const locationLine = ev.address || ev.location;
+  const locationLine = ev.location || ev.address || "";
   const priceLine = formatPriceLine(ev.tickets) || (ev.priceLabel ? ev.priceLabel : null);
+  const about = (ev.aboutPt || ev.description || "").trim();
+  if (about.length < 80) {
+    return {
+      title: ev.title,
+      lead: "",
+      who: "",
+      outcome: "",
+      bring: "",
+      includesRu: null,
+      cardLines: factCardLines(ev),
+      sourceUrl: ev.url,
+      mapsUrl: ev.mapsUrl,
+      locationLine,
+      organizer: ev.organizer,
+      priceLine,
+      priceLabel: ev.priceLabel,
+      whenLine,
+      image,
+      eventKey: ev.key,
+      sourceId: ev.sourceId,
+    };
+  }
   const ticketsBlob = ev.tickets.map((t) => `${t.name}=${t.price}`).join("; ") || "нет";
   const raw = await geminiFastJson<{
     skip?: boolean;
@@ -193,16 +232,17 @@ export async function writeOutdoorDraft(
     bring?: string;
     includes_ru?: string;
   }>(
-    `Ты пишешь пост в @emigro_portugal так, будто сам уже сходил и кидаешь друзьям в чат: коротко, по делу, без брошюры.
-Канал ещё и учит португальский. В тексте обязательно 4–6 слов СТРОГО так: cogumelo (гриб).
+    `Ты пишешь пост в @emigro_portugal так, будто зовёшь друга провести этот вечер или выходной. Тепло, конкретно, приятно читать. Не брошюра и не реклама.
+Канал ещё и учит португальский. ${captionThemeHint(ev, "pt")}
 Португальское слово снаружи, русский перевод в скобках.
 Плохо: «гриб (cogumelo)», «пообедаете (almoço)».
-Хорошо: «соберём cogumelos (грибы) и останемся на almoço (обед)».
 Число совпадает: не «cogumelo (грибов)». Не начинай поле словом «включено».
-Разбросай по lead, who, outcome, includes_ru и bring.
-Бери слова события: caminhada, trilho, cogumelo, guia, serra, almoço, inscrição, encontro, floresta.
-Не переводи целое предложение. Подписи «Кому» / «На выходе» не трогай.
-Не выдумывай километры, сложность, обед и страховку — только если это есть во входе.
+lead — это весь рассказ. who и outcome короткие, их в пост отдельно не ставим.
+Не переводи целое предложение.
+Правило глосс выше (4–6 и список слов темы) не действует: здесь 2–4 глоссы, и только слова из TITLE или ABOUT.
+Не выдумывай очередь, прогулку после, километры, вкус и вид.
+Без «погрузитесь», «уникальный», «незабываемый», «атмосфер», «прекрасный повод», «отличный повод», «привет», «как насчёт», «представь», «давай сходим».
+Первая фраза — что это за событие. Не вопрос и не приветствие.
 Дата, место, цена и ссылки добавим сами — не повторяй их.
 skip=true только если это не живое событие.`,
     `SOURCE: ${ev.sourceId}
@@ -217,31 +257,35 @@ ABOUT_PT: ${(ev.aboutPt || ev.description).slice(0, 1100)}
 
 Поля:
 - title: до 70 знаков, суть + место
-- lead: зачем ехать, 1 фраза, без «погрузитесь»
-- who: кому зайдёт (новичок / семья / кто уже ходит / возраст), 1 фраза
-- outcome: что человек получит к концу (вид, навык, еда, маршрут) — конкретно
+- lead: 2–3 фразы, до 420 знаков. Что это за выход и чем он хорош. Только факты со страницы. Если фактов мало — две фразы, без дописывания
+- who: кому зайдёт, 1 короткая фраза, или пусто
+- outcome: что будет к концу, 1 короткая фраза, или пусто
 - includes_ru: что входит в цену; пусто если на странице нет
-- bring: что взять (обувь, вода, слои) под этот формат
-В сумме по всем полям ровно 4–6 конструкций «palavra (перевод)».`,
+- bring: что взять; пусто если на странице нет
+Глоссы: 2–4 штуки, и только португальские слова, которые уже есть в TITLE или ABOUT. Не придумывай слово ради скобок.`,
     SCHEMA,
-    2048
+    4096,
+    { thinkingBudget: 0 }
   );
 
   if (!raw || raw.skip) return null;
   const title = (raw.title || "").trim();
-  const lead = (raw.lead || "").trim();
+  let lead = (raw.lead || "").trim();
+  if (/^(привет|как насч[её]т|представь|друзья)/i.test(lead)) {
+    lead = lead.replace(/^(привет[!.,\s]*)/i, "").replace(/^(как насч[её]т[^?]{0,80}\?\s*)/i, "").trim();
+  }
   const who = (raw.who || "").trim();
   const outcome = (raw.outcome || "").trim();
   const bring = (raw.bring || "").trim();
   const includesRu = (raw.includes_ru || "").trim() || null;
   const blob = [lead, who, outcome, bring, includesRu || ""].join(" ");
   const glosses = glossCount(blob);
-  if (!title || !lead || !who || !outcome) return null;
+  if (!title || !lead) return null;
   if (/[А-Яа-яЁё][А-Яа-яЁё\-]{2,}\s*\([A-Za-zÀ-ÿ]/.test(blob)) {
     console.log(`[outdoor] reversed gloss — ${title}`);
     return null;
   }
-  if (glosses < 3) {
+  if (glosses < 2) {
     console.log(`[outdoor] few glosses (${glosses}) — ${title}`);
     return null;
   }

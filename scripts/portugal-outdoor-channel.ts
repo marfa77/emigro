@@ -25,17 +25,21 @@ function argValue(flag: string): string | undefined {
 
 async function main() {
   const dryRun = process.argv.includes("--dry-run");
+  const storeOnly = process.argv.includes("--store-only");
   const forceUrl = argValue("--url");
   const sourcesRaw = argValue("--sources");
   const sources = sourcesRaw
     ? sourcesRaw.split(",").map((s) => s.trim()).filter(Boolean)
     : undefined;
-  const result = await runPortugalOutdoorChannel({ dryRun, forceUrl, sources });
+  const result = await runPortugalOutdoorChannel({ dryRun, forceUrl, sources, storeOnly });
   console.log(JSON.stringify(result));
   if (
     !result.published &&
     result.reason !== "dry-run" &&
-    result.reason !== "no-fresh-event"
+    result.reason !== "no-fresh-event" &&
+    result.reason !== "stored" &&
+    result.reason !== "outside-slot" &&
+    result.reason !== "slot-used"
   ) {
     process.exit(1);
   }

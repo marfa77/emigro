@@ -1,0 +1,12 @@
+[Unit]
+Description=Emigro Italy outdoor events (Europe/Rome) — daily
+
+[Timer]
+OnCalendar=*-*-* 10:30:00
+Timezone=Europe/Rome
+Persistent=true
+AccuracySec=1min
+Unit=emigro-italy-outdoor.service
+
+[Install]
+WantedBy=timers.target

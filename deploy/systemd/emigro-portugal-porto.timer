@@ -1,0 +1,12 @@
+[Unit]
+Description=Emigro Portugal Porto channel slots (Europe/Lisbon)
+
+[Timer]
+OnCalendar=*-*-* 10,14,18:00:00
+Timezone=Europe/Lisbon
+Persistent=false
+AccuracySec=1min
+Unit=emigro-portugal-porto.service
+
+[Install]
+WantedBy=timers.target

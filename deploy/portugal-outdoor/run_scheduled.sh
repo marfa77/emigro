@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
-# One outdoor experience from aggregated Norte sources → @emigro_portugal.
-# Timer: emigro-portugal-outdoor.timer (Europe/Lisbon).
+# One outdoor card per Lisbon slot (11:30, 15:30, 19:30) → @emigro_portugal.
+# The same run stores the full upcoming list for the calendar.
+# Timer: emigro-portugal-outdoor.timer (UTC fires; slot check is Europe/Lisbon).
 
 set -euo pipefail
 
