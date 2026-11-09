@@ -18,7 +18,10 @@ const QUIET = new Set(["not-friday", "already", "no-weekend", "dry-run"]);
 
 async function main() {
   const dryRun = process.argv.includes("--dry-run");
-  const targets = [
+  // Milan and Valencia chats are off (2026-11-09, Pavel): the bot cannot reach them and
+  // nothing is published there. Set OUTDOOR_DIGEST_ALL=1 to send to all three again.
+  const all = process.env.OUTDOOR_DIGEST_ALL === "1";
+  const allTargets = [
     {
       label: "portugal",
       storePath: resolve(process.cwd(), "deploy/portugal-outdoor/state/seen.json"),
@@ -41,6 +44,7 @@ async function main() {
       chatId: VALENCIA_OUTDOOR_CHAT(),
     },
   ];
+  const targets = all ? allTargets : allTargets.filter((t) => t.label === "portugal");
   let failed = false;
   for (const target of targets) {
     try {

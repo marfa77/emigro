@@ -371,11 +371,11 @@ Prep2Go-импорт **убран** из Vercel cron, чтобы не было �
 | `emigro-portugal-porto` | 10, 14, 18 Lisbon | Канал Порту |
 | `emigro-portugal-outdoor` | несколько слотов Lisbon | Ивенты |
 | `emigro-geo2go-events` | 11:30 Lisbon | **Таймер disabled** на VPS (2026-11-09) |
-| `emigro-valencia-outdoor` | 12:30 | Падает с `chat not found`: бот не видит @valencia_echat. Не отключать (решение Павла 2026-11-08) |
-| `emigro-italy-lepta` | будни 09–17:30, выходные 11 и 16:30 Rome | |
+| `emigro-valencia-outdoor` | 12:30 | **Таймер disabled 2026-11-09** (Павел): в чат Валенсии не публикуем, бот его не видит |
+| `emigro-italy-lepta` | будни 09–17:30, выходные 11 и 16:30 Rome | **Таймер disabled 2026-11-09** (Павел): в чат Милана не публикуем |
 | `emigro-italy-education` | 09, 13, 17:30 Rome | **Таймер disabled** на VPS (2026-11-09) |
-| `emigro-italy-outdoor` | 10:30 Rome | Падает с `chat not found`: бот не видит @milan_echat. Не отключать (решение Павла 2026-11-08) |
-| `emigro-outdoor-digest` | Пт 08:00 | Дайджест выходных |
+| `emigro-italy-outdoor` | 10:30 Rome | **Таймер disabled 2026-11-09** (Павел): в чат Милана не публикуем, бот его не видит |
+| `emigro-outdoor-digest` | Пт 08:00 | Дайджест выходных. С 2026-11-09 только Португалия; `OUTDOOR_DIGEST_ALL=1` вернёт Милан и Валенсию |
 | `emigro-threads-daily` | разное утро Asia/Dubai, см. unit | Бренд `@emigro_assist`. Ферма. Не переписывать |
 | `emigro-threads-satellites` | 14:30 Asia/Dubai | **Таймер disabled** на VPS (2026-11-09); PT/IT идут через `threads-pt-sat` / `threads-it-sat` |
 | `emigro-threads-pt-sat` | ~11:00 Lisbon | `@emigro_portugal` |

@@ -1,31 +1,35 @@
-import { headers } from "next/headers";
-import { PORTUGAL_HUB_HOST, PORTUGAL_SATELLITE_HOST } from "@/lib/satellite/portugal";
-import { SPAIN_SATELLITE_HOST } from "@/lib/satellite/spain";
-import { ITALY_SATELLITE_HOST } from "@/lib/satellite/italy";
-import { THAILAND_SATELLITE_HOST } from "@/lib/satellite/thailand";
-import { portugalSatelliteHubPublicUrl, portugalSatellitePublicUrl, publicSiteUrl } from "@/lib/site-url";
+import {
+  italySatelliteSubdomainEnabled,
+  portugalSatelliteHubPublicUrl,
+  portugalSatellitePublicUrl,
+  portugalSatelliteSubdomainEnabled,
+  publicSiteUrl,
+  spainSatelliteSubdomainEnabled,
+  thailandSatelliteSubdomainEnabled,
+} from "@/lib/site-url";
 import type { SatelliteCountryKey } from "@/lib/community-notes/seed";
 
-function requestHost(): string {
-  return headers().get("host")?.split(":")[0] ?? "";
-}
-
+/*
+ * These helpers are only called from satellite routes/components (app/satellite/**,
+ * components/satellite/**), which in production render only on their own subdomain
+ * (www /satellite/* 301s there). So "subdomain mode on" == "we are on the satellite
+ * host", and short paths are correct. Reading headers() here instead made every page
+ * that imported them render per request and skip the CDN cache.
+ */
 function onPortugalSatelliteHost(): boolean {
-  const host = requestHost();
-  // porto = canonical; portugal = legacy (should 301, but keep relative if hit)
-  return host === PORTUGAL_HUB_HOST || host === PORTUGAL_SATELLITE_HOST;
+  return portugalSatelliteSubdomainEnabled();
 }
 
 function onSpainSatelliteHost(): boolean {
-  return requestHost() === SPAIN_SATELLITE_HOST;
+  return spainSatelliteSubdomainEnabled();
 }
 
 function onItalySatelliteHost(): boolean {
-  return requestHost() === ITALY_SATELLITE_HOST;
+  return italySatelliteSubdomainEnabled();
 }
 
 function onThailandSatelliteHost(): boolean {
-  return requestHost() === THAILAND_SATELLITE_HOST;
+  return thailandSatelliteSubdomainEnabled();
 }
 
 /** Absolute URL on www.emigro.online — use for links from satellite subdomains. */
