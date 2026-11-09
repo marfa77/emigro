@@ -37,7 +37,9 @@ fi
 
 log "=== Emigro Prep2Go news daily ==="
 
-RUN_DAILY="cd '$REPO_ROOT' && npm run news:import-prep2go -- --daily"
+# 2026-11-09 (Pavel): Telegram news is off — @Emigro_news no longer exists. Keep importing
+# news onto the site (/ru/news), but send no owner drafts and publish nothing to Telegram.
+RUN_DAILY="cd '$REPO_ROOT' && npm run news:import-prep2go -- --daily --skip-telegram"
 
 if ! command -v flock >/dev/null 2>&1; then
   RUN=(bash -c "$RUN_DAILY")

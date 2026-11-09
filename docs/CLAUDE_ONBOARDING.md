@@ -360,7 +360,7 @@ Prep2Go-импорт **убран** из Vercel cron, чтобы не было �
 | `emigro-spain-community` | 07:30 UTC | Испания |
 | `emigro-italy-community` | 06:30 UTC | Италия |
 | `emigro-thailand-community` | — | Таиланд. **Юнит на VPS не установлен** (сверено 2026-11-09) |
-| `emigro-prep2go-news` | 09:00 UTC | Импорт новости Prep2Go → Gemini → черновик владельцу → `@Emigro_news` после ✅ |
+| `emigro-prep2go-news` | 09:00 UTC | Импорт новости Prep2Go → Gemini → страница на сайте `/ru/news`. **С 2026-11-09 запускается с `--skip-telegram`** (Павел): канала `@Emigro_news` больше нет, черновиков в личку и публикаций в Telegram нет |
 | `emigro-youtube-shorts` | 09:15 UTC | Shorts (Remotion). **Таймер выключен 2026-11-09** по решению Павла: нет OAuth-токена YouTube и рабочего ключа GCS. Включать: `systemctl enable --now emigro-youtube-shorts.timer` |
 | `emigro-portugal-news-stories` | 10:00 UTC | Сториз |
 | `emigro-news-lightning` | 11, 13, 15, 17, 19 UTC | `#молния`. **Таймер disabled** на VPS (2026-11-09) |
@@ -452,7 +452,7 @@ Ingest сигналов: `POST /api/v1/ingest/community-signals` с `COMMUNITY_I
 
 | Имя | Роль |
 |-----|------|
-| `@Emigro_news` | Канал новостей |
+| `@Emigro_news` | **Канала больше нет** (сверено 2026-11-09). Telegram-новости выключены, `EMIGRO_NEWS_TELEGRAM_CHANNEL` указывает в пустоту |
 | `@emigro_chat` | Обсуждение, привязано к каналу. Онбординг требует вести CTA сюда, **но пункт «Чат» в меню сайта сейчас ведёт в бота с `start=porto_chat_nav` → чат Порту** (коммит 80aed98). Решение за Павлом |
 | `@emigro_chat_bot` | Визард deep link, не URL дискуссии |
 | `@emigro_assist` | Threads бренда |
