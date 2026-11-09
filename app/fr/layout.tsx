@@ -10,7 +10,10 @@ export default function FrLayout({ children }: { children: ReactNode }) {
         }}
       />
       <FrDocumentLang />
-      {children}
+      {/* Raw HTML carries the language too (root <html> stays ru): crawlers and screen readers use the nearest lang. */}
+      <div lang="fr" className="contents">
+        {children}
+      </div>
     </>
   );
 }

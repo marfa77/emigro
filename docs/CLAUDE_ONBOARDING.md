@@ -359,25 +359,25 @@ Prep2Go-импорт **убран** из Vercel cron, чтобы не было �
 | `emigro-portugal-community` | 07:00 UTC | Заметки Португалии |
 | `emigro-spain-community` | 07:30 UTC | Испания |
 | `emigro-italy-community` | 06:30 UTC | Италия |
-| `emigro-thailand-community` | 06:00 UTC | Таиланд |
+| `emigro-thailand-community` | — | Таиланд. **Юнит на VPS не установлен** (сверено 2026-11-09) |
 | `emigro-prep2go-news` | 09:00 UTC | Импорт новости Prep2Go → Gemini → черновик владельцу → `@Emigro_news` после ✅ |
-| `emigro-youtube-shorts` | 09:15 UTC | Shorts после импорта новостей |
+| `emigro-youtube-shorts` | 09:15 UTC | Shorts (Remotion). **Таймер выключен 2026-11-09** по решению Павла: нет OAuth-токена YouTube и рабочего ключа GCS. Включать: `systemctl enable --now emigro-youtube-shorts.timer` |
 | `emigro-portugal-news-stories` | 10:00 UTC | Сториз |
-| `emigro-news-lightning` | 11, 13, 15, 17, 19 UTC | `#молния`, если флаг включён. Не сваливать пачкой в 10:00 |
-| `emigro-news-soft-promo` | Пн–Пт 09:00 UTC | Скрипт сам держит ≤1 пост в неделю |
-| `emigro-news-guide-promo` | 12:30 UTC | Промо гайда |
+| `emigro-news-lightning` | 11, 13, 15, 17, 19 UTC | `#молния`. **Таймер disabled** на VPS (2026-11-09) |
+| `emigro-news-soft-promo` | Пн–Пт 09:00 UTC | ≤1 пост в неделю. **Таймер disabled** на VPS (2026-11-09) |
+| `emigro-news-guide-promo` | 12:30 UTC | Промо гайда. **Таймер disabled** на VPS (2026-11-09) |
 | `emigro-chatporto-scan` | 10:00 UTC | Скан `@chatporto` → черновик в личку, в группу не постит |
-| `emigro-milan4at-scan` | 07:00 и 19:00 UTC | Скан Milan/Como |
+| `emigro-milan4at-scan` | 07:00 и 19:00 UTC | Скан Milan/Como. **Таймер disabled** на VPS (2026-11-09) |
 | `emigro-portugal-porto` | 10, 14, 18 Lisbon | Канал Порту |
 | `emigro-portugal-outdoor` | несколько слотов Lisbon | Ивенты |
-| `emigro-geo2go-events` | 11:30 Lisbon | |
-| `emigro-valencia-outdoor` | 12:30 | |
+| `emigro-geo2go-events` | 11:30 Lisbon | **Таймер disabled** на VPS (2026-11-09) |
+| `emigro-valencia-outdoor` | 12:30 | Падает с `chat not found`: бот не видит @valencia_echat. Не отключать (решение Павла 2026-11-08) |
 | `emigro-italy-lepta` | будни 09–17:30, выходные 11 и 16:30 Rome | |
-| `emigro-italy-education` | 09, 13, 17:30 Rome | |
-| `emigro-italy-outdoor` | 10:30 Rome | |
+| `emigro-italy-education` | 09, 13, 17:30 Rome | **Таймер disabled** на VPS (2026-11-09) |
+| `emigro-italy-outdoor` | 10:30 Rome | Падает с `chat not found`: бот не видит @milan_echat. Не отключать (решение Павла 2026-11-08) |
 | `emigro-outdoor-digest` | Пт 08:00 | Дайджест выходных |
 | `emigro-threads-daily` | разное утро Asia/Dubai, см. unit | Бренд `@emigro_assist`. Ферма. Не переписывать |
-| `emigro-threads-satellites` | 14:30 Asia/Dubai | |
+| `emigro-threads-satellites` | 14:30 Asia/Dubai | **Таймер disabled** на VPS (2026-11-09); PT/IT идут через `threads-pt-sat` / `threads-it-sat` |
 | `emigro-threads-pt-sat` | ~11:00 Lisbon | `@emigro_portugal` |
 | `emigro-threads-it-sat` | ~12:00 Rome | `@emigro_italy` |
 | `emigro-threads-investment` | 12:00 Asia/Dubai | `@emigro_invest` |
@@ -453,7 +453,7 @@ Ingest сигналов: `POST /api/v1/ingest/community-signals` с `COMMUNITY_I
 | Имя | Роль |
 |-----|------|
 | `@Emigro_news` | Канал новостей |
-| `@emigro_chat` | Обсуждение, привязано к каналу. CTA ведут сюда. Отдельной «вступай в группу» ссылкой не подменять |
+| `@emigro_chat` | Обсуждение, привязано к каналу. Онбординг требует вести CTA сюда, **но пункт «Чат» в меню сайта сейчас ведёт в бота с `start=porto_chat_nav` → чат Порту** (коммит 80aed98). Решение за Павлом |
 | `@emigro_chat_bot` | Визард deep link, не URL дискуссии |
 | `@emigro_assist` | Threads бренда |
 | `@emigro_invest` | Threads инвестиций |

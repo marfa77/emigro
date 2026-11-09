@@ -344,7 +344,7 @@ export async function fetchLanzoEvents(): Promise<OutdoorEvent[]> {
   const seen = new Set<string>();
   let url: string | null = "https://www.lanzotrekking.it/calendario?format=json";
   for (let page = 0; page < 6 && url; page++) {
-    const data = await fetchJson<LanzoPage>(url);
+    const data: LanzoPage | null = await fetchJson<LanzoPage>(url);
     if (!data) break;
     for (const item of [...(data.upcoming || []), ...(data.past || [])]) {
       const id = item.id || item.fullUrl || "";
@@ -380,7 +380,7 @@ export async function fetchLanzoEvents(): Promise<OutdoorEvent[]> {
       });
       if (ev) out.push(ev);
     }
-    const next = data.pagination?.nextPage ? data.pagination.nextPageUrl : "";
+    const next: string = (data.pagination?.nextPage ? data.pagination.nextPageUrl : "") || "";
     url = next
       ? `https://www.lanzotrekking.it${next}${next.includes("?") ? "&" : "?"}format=json`
       : null;

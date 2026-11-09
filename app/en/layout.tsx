@@ -11,7 +11,10 @@ export default function EnLayout({ children }: { children: ReactNode }) {
         }}
       />
       <EnDocumentLang />
-      {children}
+      {/* Raw HTML carries the language too (root <html> stays ru): crawlers and screen readers use the nearest lang. */}
+      <div lang="en" className="contents">
+        {children}
+      </div>
     </>
   );
 }

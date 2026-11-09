@@ -15,7 +15,10 @@ export default function EsLayout({ children }: { children: ReactNode }) {
         }}
       />
       <EsDocumentLang />
-      {children}
+      {/* Raw HTML carries the language too (root <html> stays ru): crawlers and screen readers use the nearest lang. */}
+      <div lang="es" className="contents">
+        {children}
+      </div>
     </>
   );
 }

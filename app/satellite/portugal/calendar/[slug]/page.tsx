@@ -5,7 +5,7 @@ import { EventSaveButton } from "@/components/satellite/EventSaveButton";
 import { EventTypeIcon } from "@/components/satellite/EventTypeIcon";
 import { withSatelliteAiMetadata } from "@/lib/community-notes/seo-page";
 import { displayTags, eventKind, eventMeta, formatClock, formatEventWhen, tagLabel, venueName } from "@/lib/events/calendar-types";
-import { portugalCalendarPath } from "@/lib/satellite/paths";
+import { mainSiteUrl, portugalCalendarPath } from "@/lib/satellite/paths";
 import { getPortugalEvent, themeChip } from "@/lib/events/portugal-calendar";
 import { fitMetaDescription, fitSeoTitlePart, socialImageMetadata } from "@/lib/seo";
 import { portugalSatelliteUrl } from "@/lib/site-url";
@@ -35,7 +35,10 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
         description,
         url,
         type: "article",
-        ...(event.image_url ? { images: [socialImageMetadata(event.image_url, event.title)] } : {}),
+        // Football fixtures and some listings carry no image; fall back to the Portugal card so shares never go blank.
+        images: [
+          socialImageMetadata(event.image_url || mainSiteUrl("/images/og/corridor-portugal.jpg"), event.title),
+        ],
       },
     },
     "portugal",
