@@ -2,14 +2,14 @@
 slug: vnj-shvetsiya-2026-work-permit-grazhdanstvo
 title: "ВНЖ Швеция 2026: work permit, Blue Card, семья и гражданство за 8 лет"
 seo_title: "ВНЖ Швеция 2026 — work permit SEK 34 470, гражданство 8 лет"
-seo_description: "Швеция 2026 для RU/UA/BY/KZ: work permit от SEK 34 470 (90% медианы), Blue Card SEK 53 625, self-employed, учёба, семья. ПМЖ ~4 года, гражданство 8 лет с 06.06.2026."
+seo_description: "Швеция 2026 для RU/UA/BY/KZ: work permit от SEK 34 470 (90% медианы), Blue Card SEK 53 625, гражданство 8 лет + самообеспечение SEK 20 850 с 06.06.2026."
 excerpt: "Коридор для высокооплачиваемых специалистов: без квот на work permit, но с растущим зарплатным порогом и 8 годами до паспорта после реформы июня 2026."
 quick_answer: |-
   Основной маршрут — work permit с оффером: зарплата от SEK 34 470 в месяц (90% медианы SCB с 16 июня 2026) и условия не хуже kollektivavtal. Льготные 75% (SEK 28 725) — для дефицитных профессий, бывших студентов и исследователей, TPD, части медиков и сотрудников young tech / life-science.
 
   EU Blue Card до 4 лет, порог SEK 53 625 в месяц с 15 июля 2026. Отдельной digital nomad visa нет. ПМЖ после работы: обычно 4 из последних 7 лет по permit.
 
-  Гражданство с 6 июня 2026: 8 лет по общему правилу, самообеспечение около SEK 20 000 в месяц и знания языка и общества (тесты вводят поэтапно).
+  Гражданство с 6 июня 2026: 8 лет по общему правилу, самообеспечение **SEK 20 850**/мес (3 inkomstbasbelopp = SEK 250 200/год) и знания языка и общества (тесты вводят поэтапно).
 corridor_slugs: [ru-speaking-to-sweden]
 topic_keys: [sweden, work, visa]
 tags: [Швеция, ВНЖ, work permit, гражданство, Migrationsverket, 2026, Скандинавия]
@@ -25,6 +25,8 @@ official_sources:
     label: Migrationsverket — work permit employees
   - url: https://www.migrationsverket.se/en/you-want-to-apply/work/employee-or-self-employed/eu-blue-cards.html
     label: Migrationsverket — EU Blue Card
+  - url: https://www.migrationsverket.se/en/you-want-to-apply/swedish-citizenship/citizenship-for-adults/citizenship-for-adults.html
+    label: Migrationsverket — citizenship adults / maintenance SEK 20 850
   - url: https://www.migrationsverket.se/en/news-archive/news/2026-05-06-new-rules-for-swedish-citizenship-from-6-june-2026.html
     label: Migrationsverket — citizenship from 6 June 2026
   - url: https://www.migrationsverket.se/en/you-want-to-extend/work/employee-or-self-employed/employees.html
@@ -33,14 +35,14 @@ official_sources:
     label: Skatteverket — personnummer
 estimated_minutes: 24
 date_published: 2026-07-30
-date_modified: 2026-09-19
+date_modified: 2026-11-09
 ---
 
 ## Обзор коридора
 
 Швеция — EU-коридор **без годовых квот** на рабочие визы. В 2026 порог входа и горизонт паспорта стали жёстче: зарплата привязана к **90% медианы**, гражданство — **8 лет**.
 
-> **Nota Emigro (fact-check, сентябрь 2026).** **OK:** work permit **SEK 34 470**/мес с **16.06.2026** (90% медианы SEK 38 300). Льготные **75% / SEK 28 725** — дефицит, студенты, TPD, часть медиков, young tech. Blue Card **SEK 53 625**/мес, макс. **4 года** с **15.07.2026**. ПМЖ после работы: **4 из 7 лет**. Гражданство с **06.06.2026**: **8 лет**, самообеспечение ~**SEK 20 000**/мес, тесты языка/общества поэтапно. DNV **нет**. Источники: [Migrationsverket salary](https://www.migrationsverket.se/en/word-explanations/salary-requirements-for-a-work-permit.html), [гражданство](https://www.migrationsverket.se/en/news-archive/news/2026-05-06-new-rules-for-swedish-citizenship-from-6-june-2026.html). **Soft:** «152 профессии» — не закрытый список.
+> **Nota Emigro (fact-check, ноябрь 2026).** **OK:** work permit **SEK 34 470**/мес с **16.06.2026** (90% медианы SEK 38 300). Льготные **75% / SEK 28 725** — дефицит, студенты, TPD, часть медиков, young tech. Blue Card **SEK 53 625**/мес, макс. **4 года** с **15.07.2026**. ПМЖ после работы: **4 из 7 лет**. Гражданство с **06.06.2026**: **8 лет**, самообеспечение **SEK 20 850**/мес (**SEK 250 200**/год = 3 inkomstbasbelopp) — не округлять до «~20 000» ([MV adults](https://www.migrationsverket.se/en/you-want-to-apply/swedish-citizenship/citizenship-for-adults/citizenship-for-adults.html)); тесты языка/общества поэтапно. DNV **нет**. Источники: [salary](https://www.migrationsverket.se/en/word-explanations/salary-requirements-for-a-work-permit.html), [гражданство 06.06](https://www.migrationsverket.se/en/news-archive/news/2026-05-06-new-rules-for-swedish-citizenship-from-6-june-2026.html). **Soft:** «152 профессии» — не закрытый список.
 
 **Ключевые факты на сегодня:**
 - Work permit: **SEK 34 470/мес** (90% медианы SEK 38 300) для заявок с **16 июня 2026** ([Migrationsverket](https://www.migrationsverket.se/en/word-explanations/salary-requirements-for-a-work-permit.html))
@@ -157,7 +159,7 @@ date_modified: 2026-09-19
 | Stateless | короче | **5 лет** |
 | Nordic citizens | 2 года | **2 года** (без изменений) |
 | Язык + общество | фактически мягко | **обязательно** 16–66 лет |
-| Доход | нет | **~SEK 20 000/мес** (3 inkomstbasbelopp/год) |
+| Доход | нет | **SEK 20 850/мес** (3 inkomstbasbelopp = **SEK 250 200**/год) |
 
 **Тесты:** обществознание — с **августа 2026**; языковой citizenship-тест — позже (ориентир не раньше осени **2027**). До введения теста язык можно подтверждать квалификацией (SFI D, школьные оценки, Tisus и др. — список MV).
 
@@ -281,6 +283,10 @@ date_modified: 2026-09-19
 
 Нет. Сверяйте Migrationsverket; не копируйте StAG.
 
+### Сколько доход для гражданства с 06.06.2026?
+
+**SEK 20 850**/мес брутто (**SEK 250 200**/год = 3 inkomstbasbelopp) — свой durable income; партнёр/сбережения не засчитываются. Источник: [MV citizenship adults](https://www.migrationsverket.se/en/you-want-to-apply/swedish-citizenship/citizenship-for-adults/citizenship-for-adults.html).
+
 ### Это юридическая консультация?
 
-Нет. [/ru/sweden](/ru/sweden).
+Нет. [/ru/sweden/wizard](/ru/sweden/wizard) · [/ru/sweden](/ru/sweden).

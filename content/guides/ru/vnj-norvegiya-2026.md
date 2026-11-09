@@ -1,11 +1,11 @@
 ---
 slug: vnj-norvegiya-2026
 title: "ВНЖ Норвегия 2026: Skilled Worker, семья, ПМЖ за 3 года"
-seo_title: "ВНЖ в Норвегии 2026: требования к работе и ПМЖ"
-seo_description: "ВНЖ в Норвегии 2026: Skilled Worker с оффером, семья, ПМЖ ориентир ~3 года по UDI. Не юридическая консультация. Подбор маршрута — в Assist Emigro."
+seo_title: "ВНЖ Норвегия 2026 — Skilled Worker NOK 545 400 / 624 700"
+seo_description: "Норвегия 2026 для RU/UA/BY/KZ: Skilled Worker NOK 545 400 (bachelor) / 624 700 (master) с 01.05, ПМЖ ~3 года + NOK 341 373, семья 3,2 G — UDI/Emigro."
 excerpt: "Коридор EEA/Schengen для специалистов с оффером: высокие пороги зарплаты, ПМЖ за 3 года, гражданство обычно 8 из 11 лет и wealth tax с NOK 1.9M."
 quick_answer: |-
-  Норвегия не в ЕС, но в ЕЭЗ и Шенгене. Отдельной digital nomad visa нет. Основной маршрут — Skilled Worker с оффером. Без kollektivavtal с 1 мая 2026: NOK 545 400 в год с бакалавриатом и NOK 624 700 с магистратурой.
+  Норвегия не в ЕС, но в ЕЭЗ и Шенгене. Отдельной digital nomad visa нет. Основной маршрут — Skilled Worker с оффером. Без kollektivavtal с 1 мая 2026: NOK 545 400 в год с бакалавриатом и NOK 624 700 с магистратурой ([UDI pay](https://www.udi.no/en/word-definitions/pay-and-working-conditions-in-norway/)).
 
   ПМЖ ориентир 3 года плюс доход NOK 341 373 за 12 месяцев (2,5 G). Гражданство обычно 8 из последних 11 лет, иногда 6 из 10 при достаточном доходе. Для семьи будущий доход спонсора — NOK 436 957 (3,2 G).
 
@@ -37,10 +37,10 @@ official_sources:
     label: UDI — Norwegian Directorate of Immigration
 estimated_minutes: 22
 date_published: 2026-07-31
-date_modified: 2026-09-30
+date_modified: 2026-11-09
 ---
 
-> **Nota Emigro (fact-check, сентябрь 2026).** **OK:** без kollektivavtal с **01.05.2026** — **NOK 545 400** (bachelor) / **NOK 624 700** (master). Self-employed / ПМЖ / Job Seeker — **NOK 341 373** (2,5 G). Family future income **NOK 436 957** (3,2 G). Student 2026/27 **NOK 170 368**/год. Гражданство обычно **8/11**, сокращение **6/10** при доходе. Wealth tax порог **NOK 1 900 000**. Dedicated DNV **нет**. Источники: [UDI](https://www.udi.no/en/want-to-apply/work-immigration/skilled-workers/), [Skatteetaten](https://www.skatteetaten.no/en/rates/wealth-tax/). **Soft:** сроки UDI — поле.
+> **Nota Emigro (fact-check, ноябрь 2026).** **OK:** без kollektivavtal с **01.05.2026** — **NOK 545 400** (bachelor) / **NOK 624 700** (master) ([UDI pay](https://www.udi.no/en/word-definitions/pay-and-working-conditions-in-norway/)). Self-employed / ПМЖ / Job Seeker year — **NOK 341 373** (2,5 G). Family future income **NOK 436 957** (3,2 G); prior-year для семьи часто **NOK 409 972** (3,2 avg G за 2025) — сверяйте [UDI family income](https://www.udi.no/en/word-definitions/income-requirement-in-family-immigration-cases-/). Student 2026/27 **NOK 170 368**/год. Гражданство обычно **8/11**, сокращение **6/10** при доходе. Wealth tax порог **NOK 1 900 000**. Dedicated DNV **нет**. Семейный трек — **UDI/полиция**, не SIRI (Дания). Источники: [UDI skilled](https://www.udi.no/en/want-to-apply/work-immigration/skilled-workers/), [Skatteetaten](https://www.skatteetaten.no/en/rates/wealth-tax/). **Soft:** сроки UDI — поле.
 
 Смежные: [ВНЖ Швеция](/ru/guides/vnj-shvetsiya-2026-work-permit-grazhdanstvo) · [Скандинавия обзор](/ru/guides/vnj-skandinaviya-2026) · [первые 30 дней Nordics](/ru/guides/pervye-30-dnej-v-skandinavii-2026) · [коридор](/ru/norway) · [wizard](/ru/norway/wizard).
 
@@ -283,7 +283,7 @@ Wizard: [/ru/norway/wizard](/ru/norway/wizard) · коридор [/ru/norway](/r
 
 ### Семья едет на тот же оффер?
 
-Сопровождающие — отдельный трек SIRI (co-address; salaried sponsor часто без отдельного proof of means). Не копируйте правила FR.
+Сопровождающие — отдельный трек **UDI** (family immigration): спонсор обычно должен показать future income **NOK 436 957** (3,2 G) + prior-year по правилам UDI. Не путать с **SIRI** (Дания) и не копировать FR.
 
 ### Гражданство за 5 лет как в DE?
 
@@ -291,4 +291,4 @@ Wizard: [/ru/norway/wizard](/ru/norway/wizard) · коридор [/ru/norway](/r
 
 ### Это юридическая консультация?
 
-Нет. UDI / [/ru/norway](/ru/norway).
+Нет. UDI / [/ru/norway/wizard](/ru/norway/wizard) · [/ru/norway](/ru/norway).

@@ -1,15 +1,15 @@
 ---
 slug: gde-rozhat-rebenka-dlya-pasporta-2026
 title: "Где рожать ребёнка ради паспорта и бенефитов в 2026"
-seo_title: "Где рожать для паспорта 2026 — jus soli США, Канада, LATAM"
-seo_description: "Jus soli 2026 для RU/UA/BY/KZ: США, Канада, Мексика, Аргентина, Бразилия, Чили. Гражданство ребёнку, ВНЖ родителям, визовые риски и birth tourism."
+seo_title: "Где рожать для паспорта 2026 — MX/AR/BR vs США и PT 5 лет"
+seo_description: "Jus soli 2026 для RU/UA/BY/KZ: Мексика, Аргентина, Бразилия vs США/Канада; PT с 19.05 — ≥5 лет ВНЖ родителя + declaração. Без birth-tourism фрода."
 excerpt: "Сравнение unconditional / conditional jus soli: где рождение даёт паспорт ребёнку и когда открывает ВНЖ родителям — с рисками визы, границами и налогами."
 quick_answer: |-
   Безусловное jus soli — в основном Америка и Карибы, около 33 стран (Pew / GLOBALCIT). Для RU, BY, UA и KZ практичнее безвизовые страны Латинской Америки: Мексика даёт родителям временный ВНЖ, Аргентина и Бразилия — ВНЖ и более короткий путь к паспорту родителей.
 
-  США и Канада дают более сильный паспорт, но нужны виза и прохождение CBP/DOJ; автоматического статуса родителям нет. В Европе чистого jus soli почти нет: нужны годы ВНЖ родителя (Германия 5 лет, Португалия с мая 2026 тоже не меньше 5 лет плюс заявление).
+  США и Канада дают более сильный паспорт, но нужны виза и прохождение CBP/DOJ; автоматического статуса родителям нет. В Европе чистого jus soli почти нет: нужны годы ВНЖ родителя (Германия 5 лет, Португалия с 19 мая 2026 — тоже ≥5 лет legal residence плюс заявление, LO 1/2026).
 
-  Birth tourism с визовым фродом незаконен.
+  Birth tourism с визовым фродом незаконен. EU-маршрут семьи — в [wizard](/ru/wizard).
 topic_keys: [citizenship, family, mexico, argentina, brazil]
 tags: [семья, дети, гражданство, jus soli, паспорт, Мексика, Аргентина, Бразилия, США, Канада, 2026]
 primary_intent: comparison
@@ -34,7 +34,7 @@ official_sources:
     label: IRCC Canada
 estimated_minutes: 28
 date_published: 2026-07-30
-date_modified: 2026-09-19
+date_modified: 2026-11-09
 ---
 
 ## Дисклеймер
@@ -42,6 +42,17 @@ date_modified: 2026-09-19
 Этот гайд — **юридический и миграционный анализ**, не инструкция к действию. **Рождение ребёнка за границей само по себе законно.** Незаконно — визовый фрод (сокрытие цели поездки, поддельные документы, неоплата медицинских счетов). В 2026 году многие страны усилили контроль за «birth tourism». Любое решение — с иммиграционным юристом конкретной страны.
 
 Смежные гайды Emigro: [релокация с детьми в ЕС](/ru/guides/relokatsiya-s-detmi-evropa-shkoly-vnj-2026) · [воссоединение семьи](/ru/guides/vossoedinenie-semi-evropa-2026) · [гражданство PT/ES](/ru/guides/grazhdanstvo-portugaliya-ispaniya-2026) · [гражданство DE/PL](/ru/guides/grazhdanstvo-germaniya-polsha-2026) · [Golden Visa PT + рождение](/ru/guides/golden-visa-portugal-rozhdenie-rebenka-grazhdanstvo-2026).
+
+> **Nota Emigro (fact-check, ноябрь 2026).** **OK / Soft:** PT birth nationality — **≥5 лет** legal residence родителя + declaração с **19.05.2026** (LO 1/2026); не «1 год ARI». AR после Decreto **366/2025** — не «permanente в день родов». Чили tourist ≠ автомат. US birthright подтверждён SCOTUS 2026, но birth-tourism enforcement — приоритет DOJ. Цифры «~33 стран» jus soli — Pew/GLOBALCIT ориентир, не закон. Источники в `official_sources`.
+
+---
+
+## Коротко для RU / UA / BY / KZ
+
+- Практичный jus soli без визы США: чаще **MX / AR / BR** (паспорт ребёнку + отдельный миграционный путь родителям).
+- **США / Канада** — сильный паспорт ребёнка, **нет** авто-статуса родителям; виза и граница решают.
+- **Европа** почти никогда не даёт гражданство «приехал — родил»: PT с мая 2026 — **≥5 лет** ВНЖ родителя ([гайд GV + ребёнок](/ru/guides/golden-visa-portugal-rozhdenie-rebenka-grazhdanstvo-2026)).
+- EU-семья / ВНЖ: [wizard](/ru/wizard).
 
 ---
 
