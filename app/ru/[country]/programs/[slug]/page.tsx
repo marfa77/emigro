@@ -26,6 +26,7 @@ import { CorridorHeroVisual } from "@/components/visuals/CorridorHeroVisual";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { ProgramTypeBadge } from "@/components/visuals/ProgramTypeBadge";
 import { DenmarkWorkScheme } from "@/components/corridor/DenmarkWorkScheme";
+import { SpainFamilyReunificationRu } from "@/components/corridor/SpainFamilyReunificationRu";
 import { DENMARK_WORK_BADGE, isDenmarkEmploymentSlug } from "@/lib/corridor/denmark-siri";
 import { getProgramBySlug, getCorridorBySlug } from "@/lib/corridor/queries";
 import { getTopicByCountrySegment } from "@/lib/corridor/resolve-topic";
@@ -515,6 +516,7 @@ export default async function CountryProgramPage({
         </section>
 
         <DenmarkWorkScheme slug={program.slug} />
+        <SpainFamilyReunificationRu slug={program.slug} />
 
         <section className="mt-12 rounded-3xl border border-slate-200 bg-slate-950 p-6 text-white shadow-sm sm:p-8">
           <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
