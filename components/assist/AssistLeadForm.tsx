@@ -330,6 +330,20 @@ export function AssistLeadForm({
     [providers, corridorSlug]
   );
 
+  // Content above the form collapses after load, which left visitors from
+  // "#assist-form" CTAs ~750px below the form start (only the submit button visible).
+  // Re-align once the page has settled.
+  useEffect(() => {
+    if (!/^#assist/.test(window.location.hash)) return;
+    const realign = () => document.getElementById("assist-form")?.scrollIntoView({ block: "start" });
+    const t1 = window.setTimeout(realign, 150);
+    const t2 = window.setTimeout(realign, 900);
+    return () => {
+      window.clearTimeout(t1);
+      window.clearTimeout(t2);
+    };
+  }, []);
+
   useEffect(() => {
     const applyHash = () => {
       const tier = tierFromHash(window.location.hash);
@@ -551,7 +565,6 @@ export function AssistLeadForm({
         </label>
         <input
           id="assist-route"
-          required
           value={programRoute}
           onChange={(e) => setProgramRoute(e.target.value)}
           placeholder={
@@ -646,11 +659,16 @@ export function AssistLeadForm({
 
       <div>
         <label className="text-sm font-medium text-slate-800" htmlFor="assist-message">
-          {isEn ? "Tell us more" : isEs ? "Cuéntenos más" : isFr ? "Dites-nous en plus" : "Расскажите подробнее"}
+          {isEn
+            ? "Tell us more (optional)"
+            : isEs
+              ? "Cuéntenos más (opcional)"
+              : isFr
+                ? "Dites-nous en plus (facultatif)"
+                : "Расскажите подробнее (необязательно)"}
         </label>
         <textarea
           id="assist-message"
-          required
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           rows={5}

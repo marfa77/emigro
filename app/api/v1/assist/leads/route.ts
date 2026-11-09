@@ -69,11 +69,10 @@ export async function POST(request: Request) {
         ? "emigro_assist_fr"
         : "emigro_assist");
 
-  if (!country || !programRoute || !name || !contact || !message) {
-    return NextResponse.json(
-      { error: "country, program_route, name, contact, message required" },
-      { status: 400 }
-    );
+  // Only what we need to reply is required. Route and details are optional: a long
+  // mandatory form lost real visitors (2026-11-09, a Threads click from Germany).
+  if (!country || !name || !contact) {
+    return NextResponse.json({ error: "country, name, contact required" }, { status: 400 });
   }
   if (!body.consent) {
     return NextResponse.json({ error: "consent required" }, { status: 400 });
@@ -83,13 +82,13 @@ export async function POST(request: Request) {
     country,
     corridorSlug: corridorSlug || undefined,
     destinationIso2: destinationIso2 || undefined,
-    programRoute,
+    programRoute: programRoute || "не указано",
     planTier: planTier || undefined,
     paymentMethod: paymentMethod || undefined,
     selectedProviders: providers,
     name,
     contact,
-    message,
+    message: message || "(без описания)",
     source: assistSource,
     sessionId,
     preferredLanguage,
