@@ -38,6 +38,16 @@ type Props = { params: { slug: string } };
 
 export const revalidate = 60;
 
+/**
+ * Empty list on purpose: nothing is prerendered at build, but declaring static params
+ * makes this an ISR route. Without it Vercel deployed the page as a plain function and
+ * rendered every hit (cache-control: private, x-vercel-cache MISS); now the first hit
+ * renders and the CDN serves the rest until `revalidate` expires.
+ */
+export function generateStaticParams() {
+  return [];
+}
+
 function formatDateRu(dateString: string) {
   return new Date(dateString).toLocaleDateString("ru-RU", {
     day: "numeric",
