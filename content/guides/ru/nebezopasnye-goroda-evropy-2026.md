@@ -1,15 +1,15 @@
 ---
 slug: nebezopasnye-goroda-evropy-2026
 title: "Небезопасные города Европы 2026: Numbeo, риски и кварталы для релокации"
-seo_title: "Небезопасные города Европы 2026 — риски для релокации"
-seo_description: "Где в Европе выше риск для релокации 2026: Марсель, UK, Неаполь, Швеция, Берлин. Numbeo vs полицейская статистика, кварталы и советы для RU/BY/UA/KZ."
+seo_title: "Небезопасные города Европы 2026 — квартал важнее Crime Index"
+seo_description: "Релокация RU/BY/UA/KZ 2026: Марсель, UK, Napoli, SE, Berlin — Numbeo ≠ полиция. Сначала легальный ВНЖ в wizard Emigro, затем postcode квартала."
 excerpt: "Не «страна плохая», а квартал: Crime Index, нарко-бандитизм, карманники и что реально важно мигранту при выборе города."
 quick_answer: |-
   Самые высокие Crime Index Numbeo (это восприятие, не полицейская сводка) в 2025–2026 часто у Марселя, британских городов вроде Брэдфорда, Бирмингема и Ковентри, у Неаполя и Катании, Гренобля, Монпелье и Льежа.
 
   Это не значит, что «весь город опасен»: туристический центр и 15-й округ Марселя — разные миры. Для переезда важнее район жилья, ночь и тип риска, чем средний индекс по городу.
 
-  Сверяйте Numbeo с полицейской статистикой и консульскими советами на дату поездки.
+  Сначала легальный маршрут в [wizard](/ru/wizard), затем crime map квартала; сверяйте Numbeo с ONS/BKA/Brå/Eurostat и MFA на дату поездки.
 corridor_slugs: [ru-speaking-to-france, ru-speaking-to-germany, ru-speaking-to-italy, ru-speaking-to-sweden, ru-speaking-to-portugal, ru-speaking-to-spain]
 topic_keys: [europe, france, germany, italy, sweden, safety]
 tags: [безопасность, города, Европа, релокация, Numbeo, 2026]
@@ -29,8 +29,10 @@ official_sources:
     label: Brå — Swedish National Council for Crime Prevention
 estimated_minutes: 20
 date_published: 2026-08-06
-date_modified: 2026-08-06
+date_modified: 2026-11-09
 ---
+
+> **Nota Emigro (fact-check, ноябрь 2026).** **Soft:** таблица топ-10 — **ориентир восприятия** Numbeo / вторичных сводок 2025–2026, не официальный «закон» и не приговор городу. Индексы прыгают между срезами; UK homicide ≠ Crime Index. Перед арендой сверяйте [Numbeo rankings](https://www.numbeo.com/crime/rankings.jsp), [Eurostat](https://ec.europa.eu/eurostat), [ONS](https://www.ons.gov.uk/), [BKA](https://www.bka.de/), [Brå](https://bra.se/) и MFA вашей страны. Легальный маршрут важнее crime map: [куда переехать](/ru/guides/kuda-pereehat-iz-rossii-2026-evropa-vnj) · [wizard](/ru/wizard).
 
 ## Коротко для релокации
 

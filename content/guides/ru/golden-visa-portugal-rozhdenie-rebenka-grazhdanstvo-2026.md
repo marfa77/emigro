@@ -1,8 +1,8 @@
 ---
 slug: golden-visa-portugal-rozhdenie-rebenka-grazhdanstvo-2026
 title: "Golden Visa Португалии и рождение ребёнка: гражданство после Lei Orgânica 1/2026"
-seo_title: "Golden Visa PT + ребёнок 2026 — гражданство не за 1 год"
-seo_description: "ARI <5 лет: ребёнок не получает PT-паспорт при рождении (нужно 5 лет legal residence родителя). Натурализация родителей 10 лет."
+seo_title: "Golden Visa PT + ребёнок 2026 — нужно 5 лет ВНЖ родителя"
+seo_description: "LO 1/2026 с 19.05: ребёнок в PT — паспорт только при ≥5 лет legal residence родителя + declaração. ARI <5 лет не даёт; родители RU/BY/UA/KZ — 10 лет."
 excerpt: "Разбор для держателей Golden Visa с ВНЖ меньше 5 лет: что даёт рождение в Португалии после реформы мая 2026 — и чего не даёт."
 quick_answer: |-
   С 19 мая 2026 (Lei Orgânica n.º 1/2026) ребёнок, рождённый в Португалии у иностранцев, получает гражданство по рождению только если хотя бы один родитель к этому моменту имел не меньше 5 лет легального ВНЖ и подал заявление.
@@ -29,16 +29,23 @@ official_sources:
     label: AIMA — residence / family
 estimated_minutes: 12
 date_published: 2026-07-30
-date_modified: 2026-09-19
+date_modified: 2026-11-09
 ---
+
+## Коротко для держателей ARI
+
+- **≥5 лет** legal residence родителя на дату рождения + **declaração** → возможен PT-паспорт ребёнку (art. 1.º/1(f) после LO 1/2026).
+- ARI **&lt;5 лет** → ребёнок **не** гражданин PT при рождении; можно добавить в ARI через AIMA (семья), не путать с паспортом.
+- Натурализация родителей RU/UA/BY/KZ — обычно **10 лет**; рождение **не** ускоряет.
+- Дальше: [wizard Португалии](/ru/portugal/wizard) · [коридор](/ru/portugal).
 
 ## С чего начать: рождение не даёт паспорт, если ARI младше 5 лет
 
 **Нет** — при текущих правилах 2026, если у вас Golden Visa / ARI **меньше 5 лет** legal residence, ребёнок **не получит** португальское гражданство при рождении «автоматически». И рождение ребёнка в Португалии **не ускоряет** вашу натурализацию.
 
-Смежные гайды: [ARI / гражданство инвесторов](/ru/guides/grazhdanstvo-portugalii-golden-visa-ari-2021-2022-2026) · [PT vs ES](/ru/guides/grazhdanstvo-portugaliya-ispaniya-2026) · [где рожать ради паспорта](/ru/guides/gde-rozhat-rebenka-dlya-pasporta-2026) · [воссоединение семьи](/ru/guides/vossoedinenie-semi-evropa-2026).
+Смежные гайды: [ARI / гражданство инвесторов](/ru/guides/grazhdanstvo-portugalii-golden-visa-ari-2021-2022-2026) · [PT vs ES](/ru/guides/grazhdanstvo-portugaliya-ispaniya-2026) · [где рожать ради паспорта](/ru/guides/gde-rozhat-rebenka-dlya-pasporta-2026) · [воссоединение семьи](/ru/guides/vossoedinenie-semi-evropa-2026) · [D8/D7 pillar](/ru/guides/vnj-portugaliya-d8-d7-grazhdanstvo-2026).
 
-> **Nota Emigro (fact-check, сентябрь 2026).** **OK:** Lei Orgânica n.º 1/2026 с **19.05.2026** — ребёнок, рождённый в PT, может претендовать на гражданство по рождению только если родитель имел **≥5 лет** legal residence и подано заявление ([DR PDF](https://files.diariodarepublica.pt/1s/2026/05/09500/0000200020.pdf); [Justiça](https://justica.gov.pt/en-gb/Noticias/Lei-da-Nacionalidade-novas-regras-entram-em-vigor-a-19-de-maio)). Натурализация родителей — обычно **10 лет** вне EU/CPLP, GV не ускоряет. Переходный ориентир nationality-файла — **до 18.05.2026**, не «январь 2026». **Soft:** 7 дней/год ARI — присутствие для продления карты, не замена 5 лет legal residence для ребёнка.
+> **Nota Emigro (fact-check, ноябрь 2026).** **OK:** Lei Orgânica n.º 1/2026 с **19.05.2026** — ребёнок, рождённый в PT, может претендовать на гражданство по рождению только если родитель имел **≥5 лет** legal residence и подано заявление ([DR](https://diariodarepublica.pt/dr/detalhe/lei-organica/1-2026-1123539996); [Justiça](https://justica.gov.pt/Noticias/Lei-da-Nacionalidade-novas-regras-entram-em-vigor-a-19-de-maio)). Натурализация родителей — обычно **10 лет** вне EU/CPLP, GV не ускоряет. Переходный ориентир nationality-файла — **до 18.05.2026**, не «январь 2026». **Soft:** 7 дней/год ARI — присутствие для продления карты, не замена 5 лет legal residence для ребёнка.
 
 *Не юридическая консультация. Сверяйте текст Lei Orgânica 1/2026, Regulamento da Nacionalidade и своего юриста.*
 
