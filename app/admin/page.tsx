@@ -7,6 +7,7 @@ const sections = [
     links: [
       { href: "/admin/referrals", label: "Referral URLs (Revolut, Wise)" },
       { href: "/admin/leads", label: "Manual leads" },
+      { href: "/admin/screening", label: "Анкеты скрининга" },
       { href: "/admin/corridors", label: "Corridor publish status" },
       { href: "/admin/topics", label: "News destinations (DB)" },
       { href: "/admin/digest", label: "Corridor digest (DB)" },
