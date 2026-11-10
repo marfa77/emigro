@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, CheckCircle2, ShieldCheck } from "lucide-react";
-import { AssistLeadForm, type AssistProviderOption } from "@/components/assist/AssistLeadForm";
+import { type AssistProviderOption } from "@/components/assist/AssistLeadForm";
+import { QuickRequestForm } from "@/components/assist/QuickRequestForm";
 import { AssistPaymentMethods } from "@/components/assist/AssistPaymentMethods";
 import { AssistPricingCards } from "@/components/assist/AssistPricingCards";
 import { TrackedAssistLink } from "@/components/assist/TrackedAssistLink";
@@ -232,13 +233,11 @@ export default function AssistPage({
         </nav>
 
         <HeroShell className="mt-8">
-          <p className="text-sm uppercase tracking-wide text-corridor-100">Route Check · €129</p>
-          <h1 className="mt-2 text-3xl font-bold sm:text-4xl">
-            Аудит отказа / выбор типа визы за 48 часов
-          </h1>
+          <p className="text-sm uppercase tracking-wide text-corridor-100">Emigro Assist</p>
+          <h1 className="mt-2 text-3xl font-bold sm:text-4xl">Подберём специалиста по вашему переезду — бесплатно</h1>
           <p className="mt-4 max-w-2xl text-lg text-corridor-100">
-            Созвон по чек-листу и PDF: маршрут, таймлайн, бюджет и риски. Слот согласуем до оплаты. Если маршрут уже
-            ясен — подбор партнёра остаётся €0, контакт передаём только с вашего согласия.
+            Оставьте имя и контакт: найдём юриста или агентство по стране и задаче и передадим запрос только с вашего
+            согласия. Нужен независимый разбор маршрута — Route Check с PDF за €129.
           </p>
           <p className="mt-4 max-w-2xl rounded-lg border border-amber-200/60 bg-amber-50/95 px-4 py-3 text-sm leading-relaxed text-amber-950">
             Emigro (emigro.online) — навигатор по маршрутам ВНЖ; не связан с Emigro UG / Intermigro, Emigro
@@ -259,44 +258,58 @@ export default function AssistPage({
               </div>
             ))}
           </dl>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <TrackedAssistLink
-              href={assistBotDeepLink({ tier: "route-check" })}
-              placement="ru_assist_hero_route_check"
-              linkLabel="Route Check €129 — за 48 часов"
-              className="inline-flex items-center gap-2 rounded-lg bg-white px-5 py-3 font-medium text-corridor-900 hover:bg-corridor-50"
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <a
+              href="#assist-form"
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-lg bg-white px-5 py-3 font-semibold text-corridor-900 hover:bg-corridor-50"
             >
-              Route Check €129 — за 48 часов
+              Оставить заявку — бесплатно
               <ArrowRight className="h-4 w-4" aria-hidden />
-            </TrackedAssistLink>
-            <TrackedAssistLink
-              href={assistBotDeepLink()}
-              placement="ru_assist_hero"
-              linkLabel="Подбор партнёра — €0"
-              className="inline-flex items-center gap-2 rounded-lg border border-white/40 px-5 py-3 font-medium text-white hover:bg-white/10"
+            </a>
+            <a
+              href="#assist-form-route-check"
+              className="inline-flex min-h-12 items-center justify-center rounded-lg border border-white/40 px-5 py-3 font-medium text-white hover:bg-white/10"
             >
-              Подбор партнёра — €0
-            </TrackedAssistLink>
-            <Link
-              href="/ru/route-check"
-              className="inline-flex items-center gap-2 rounded-lg border border-white/40 px-5 py-3 font-medium text-white hover:bg-white/10"
-            >
-              Что входит в Route Check
-            </Link>
-            <Link
-              href="/ru/wizard"
-              className="inline-flex items-center gap-2 rounded-lg border border-white/40 px-5 py-3 font-medium text-white hover:bg-white/10"
-            >
-              Сначала подобрать маршрут
-            </Link>
-            <Link
-              href="/ru/press"
-              className="inline-flex items-center gap-2 rounded-lg border border-white/40 px-5 py-3 font-medium text-white hover:bg-white/10"
-            >
-              Press &amp; citations
-            </Link>
+              Route Check — €129
+            </a>
           </div>
         </HeroShell>
+
+        {/* Form right under the hero: on mobile it sat ~11 screens down, after pricing and FAQ, and
+            visitors from «Найти специалиста» CTAs left before reaching it (2026-11-10). */}
+        <section id="assist-form" className="mt-10 scroll-mt-24">
+          <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <h2 className="text-2xl font-bold text-slate-950">Оставить заявку</h2>
+              <p className="mt-2 max-w-xl text-sm text-slate-600">
+                Страна, имя и контакт — этого достаточно. Подберём специалиста бесплатно; контакт передаём только с
+                вашего согласия.
+              </p>
+            </div>
+            <Link
+              href="/ru/assist/sample-plan"
+              className="inline-flex shrink-0 items-center gap-2 text-sm font-medium text-corridor-700 hover:underline"
+            >
+              Пример PDF после Route Check
+              <ArrowRight className="h-4 w-4" aria-hidden />
+            </Link>
+          </div>
+          <span id="assist-form-accompaniment" className="sr-only">
+            Форма с предвыбором сопровождения
+          </span>
+          <span id="assist-form-route-check" className="sr-only">
+            Форма с предвыбором Route Check
+          </span>
+          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+            <QuickRequestForm
+              source={attributedSource ?? "emigro_assist"}
+              countries={COUNTRY_OPTIONS}
+              initialCountry={searchParams.country}
+              programRoute={searchParams.program}
+              sessionId={searchParams.session}
+            />
+          </div>
+        </section>
 
         <section aria-labelledby="assist-audience-heading" className="mt-10 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
           <h2 id="assist-audience-heading" className="text-2xl font-bold text-slate-950">
@@ -409,43 +422,6 @@ export default function AssistPage({
           </dl>
         </section>
 
-        <section id="assist-form" className="mt-12 scroll-mt-24">
-          <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <h2 className="text-2xl font-bold text-slate-950">Расскажите, какая помощь нужна</h2>
-              <p className="mt-2 max-w-xl text-sm text-slate-600">
-                Заявка быстрее в Telegram:{" "}
-                <a href={assistBotDeepLink()} className="font-medium text-corridor-700 hover:underline">
-                  @emigro_chat_bot
-                </a>
-                . Форма ниже — запасной HTML, если бот недоступен.
-              </p>
-            </div>
-            <Link
-              href="/ru/assist/sample-plan"
-              className="inline-flex shrink-0 items-center gap-2 text-sm font-medium text-corridor-700 hover:underline"
-            >
-              Пример PDF после Route Check
-              <ArrowRight className="h-4 w-4" aria-hidden />
-            </Link>
-          </div>
-          <span id="assist-form-accompaniment" className="sr-only">
-            Форма с предвыбором сопровождения
-          </span>
-          <span id="assist-form-route-check" className="sr-only">
-            Форма с предвыбором Route Check
-          </span>
-          <AssistLeadForm
-            countries={COUNTRY_OPTIONS}
-            providers={providers}
-            defaultPlanTier="partner-match"
-            initialSessionId={searchParams.session}
-            initialCountry={searchParams.country}
-            initialProgramRoute={searchParams.program}
-            initialProviderId={searchParams.provider}
-            leadSource={attributedSource}
-          />
-        </section>
       </main>
       <SiteFooter />
     </>

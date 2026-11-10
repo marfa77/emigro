@@ -327,7 +327,7 @@ export function adjustEvaluationForHousehold(
         ...base,
         reasons: [
           ...reasons,
-          "Инвестиционные программы обычно включают супруга и детей в одну заявку",
+          "Супруга и детей обычно можно включить в заявку как членов семьи — уточните условия программы",
         ],
       };
     }
@@ -359,9 +359,12 @@ export function adjustEvaluationForHousehold(
       viaSavings
         ? `Порог сбережений для семьи (${profile.size} чел.): ~€${Math.round(savingsRequired).toLocaleString("ru-RU")} (${savingsSpec!.labelRu})`
         : `Порог для семьи (${profile.size} чел.): ~€${Math.round(required).toLocaleString("ru-RU")} (${spec.labelRu})`,
-      viaSavings
-        ? "Сбережения покрывают семейный порог по ориентиру 2026"
-        : "Доход покрывает семейный порог по ориентиру 2026",
+      // A failed base criterion (e.g. remote income «Нет» for a nomad visa) must not read as a pass.
+      reasons.some((r) => /выбрано «Нет»/.test(r))
+        ? "Сумма выше семейного порога, но другое обязательное условие программы не выполнено (см. выше)"
+        : viaSavings
+          ? "Сбережения покрывают семейный порог по ориентиру 2026"
+          : "Доход покрывает семейный порог по ориентиру 2026",
     ];
     return {
       ...base,

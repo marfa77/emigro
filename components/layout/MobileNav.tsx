@@ -175,9 +175,12 @@ type MobileBottomBarProps = {
   locale?: UiLocale;
 };
 
-/** Questionnaire pages own the bottom edge (sticky «Далее»); results pages keep the bar. */
+/**
+ * Questionnaire pages own the bottom edge (sticky «Далее»). The hub results page renders its own
+ * session-aware bar (Telegram report), so the generic «Подбор маршрута» bar would only duplicate it.
+ */
 function isWizardFormPath(pathname: string | null): boolean {
-  return Boolean(pathname && /\/wizard\/?$/.test(pathname));
+  return Boolean(pathname && (/\/wizard\/?$/.test(pathname) || /^\/ru\/wizard\/results\/?$/.test(pathname)));
 }
 
 export function MobileBottomBar({ locale = "ru" }: MobileBottomBarProps) {
@@ -219,8 +222,15 @@ export function MobileBottomBar({ locale = "ru" }: MobileBottomBarProps) {
         : locale === "ru"
           ? "Подбор маршрута"
           : "Investment routes";
+  // Land on the form itself: on mobile it is far below the pricing and FAQ (2026-11-10 drop-offs).
   const secondaryHref =
-    locale === "es" ? ES_PATHS.assist : locale === "fr" ? FR_PATHS.assist : locale === "en" ? "/en/assist" : "/ru/assist";
+    locale === "es"
+      ? `${ES_PATHS.assist}#assist-form`
+      : locale === "fr"
+        ? `${FR_PATHS.assist}#assist-form`
+        : locale === "en"
+          ? "/en/assist"
+          : "/ru/assist#assist-form";
 
   return (
     <div className="fixed inset-x-0 bottom-0 z-30 border-t border-slate-200 bg-white/95 backdrop-blur md:hidden">
