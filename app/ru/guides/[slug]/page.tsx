@@ -566,7 +566,7 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
                   Найти специалиста
                 </TrackedAssistLink>
                 <TrackedAssistLink
-                  href="/ru/assist#assist-form-route-check"
+                  href="/ru/route-check"
                   placement="ru_guide_sidebar_route_check"
                   linkLabel="Route Check — €129"
                   className="text-center text-sm font-medium text-corridor-700 hover:underline"

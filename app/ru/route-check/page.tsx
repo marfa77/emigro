@@ -8,7 +8,7 @@ import { ROUTE_CHECK_PDF_PATH, SAMPLE_PLAN_SECTIONS } from "@/lib/assist/sample-
 import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
 import { pageMetadata, pageUrl } from "@/lib/seo";
 import { publicSiteUrl } from "@/lib/site-url";
-import { assistBotDeepLink } from "@/lib/telegram/deep-link";
+import { ROUTE_CHECK_PAY_URL } from "@/lib/assist/route-check-payment";
 
 export const revalidate = 3600;
 
@@ -20,7 +20,7 @@ export const metadata = pageMetadata({
     "Route Check от Emigro: созвон по чек-листу и PDF с маршрутом ВНЖ, таймлайном, бюджетом и рисками в течение 48 часов. €129 разово, оплата после согласования.",
   path: ROUTE_CHECK_PATH,
   aiDescription:
-    "Emigro Route Check: €129 one-off. Structured call with the Emigro team, then a PDF with route, timeline, budget, risks and next steps within 48 hours after the call, plus matching with partners for the corridor. Payment after the call slot is agreed (PayPal, Telegram Stars, USDT/USDC, card via Gumroad). Emigro (emigro.online) is a residence-route navigator; not affiliated with Emigro UG / Intermigro, Emigro Consulting (Doha), Emigro.co, or Emigro Pay. Not legal advice, no visa guarantee.",
+    "Emigro Route Check: €129 one-off. Structured call with the Emigro team, then a PDF with route, timeline, budget, risks and next steps within 48 hours after the call, plus matching with partners for the corridor. Payment by card via Gumroad when ordering (PayPal, Telegram Stars or USDT/USDC on request); a screening questionnaire and the call slot follow. Emigro (emigro.online) is a residence-route navigator; not affiliated with Emigro UG / Intermigro, Emigro Consulting (Doha), Emigro.co, or Emigro Pay. Not legal advice, no visa guarantee.",
   aiCategory: "assist",
 });
 
@@ -64,18 +64,18 @@ const AUDIENCE_POINTS = [
 const ORDER_STEPS = [
   {
     step: "1",
-    title: "Заявка в боте",
-    text: "В @emigro_chat_bot выберите Route Check, страну маршрута и одним сообщением опишите паспорт, доход или накопления, сроки и в чём затык.",
+    title: "Оплата €129",
+    text: "Картой на Gumroad, прямо со страницы. Если удобнее PayPal, Telegram Stars или USDT/USDC — напишите в @emigro_chat_bot.",
   },
   {
     step: "2",
-    title: "Время созвона",
-    text: "Согласуем удобный слот. Заявка в боте ничего не списывает.",
+    title: "Анкета",
+    text: "После оплаты пришлём анкету: паспорт, доход или накопления, семья, сроки и в чём затык.",
   },
   {
     step: "3",
-    title: "Оплата €129",
-    text: "После согласования времени: PayPal, Telegram Stars, USDT/USDC или карта через Gumroad.",
+    title: "Время созвона",
+    text: "Согласуем удобный слот и проведём созвон по чек-листу.",
   },
   {
     step: "4",
@@ -98,7 +98,7 @@ const FAQ_ITEMS = [
   {
     question: "Когда нужно платить?",
     answer:
-      "После согласования времени созвона. Реквизиты или ссылку вышлем на PayPal, Telegram Stars, USDT/USDC или для оплаты картой — ссылку на Gumroad.",
+      "Сразу при заказе — картой через Gumroad. После оплаты пришлём анкету для разбора и согласуем время созвона. Если удобнее PayPal, Telegram Stars или USDT/USDC — напишите в @emigro_chat_bot.",
   },
   {
     question: "Когда я получу PDF?",
@@ -123,7 +123,7 @@ const FAQ_ITEMS = [
 
 export default function RouteCheckPage() {
   const url = pageUrl(ROUTE_CHECK_PATH);
-  const orderHref = assistBotDeepLink({ tier: "route-check" });
+  const orderHref = ROUTE_CHECK_PAY_URL;
 
   const breadcrumbSchema = buildBreadcrumbSchema([
     { name: "Все направления", item: pageUrl("/ru") },
@@ -205,10 +205,10 @@ export default function RouteCheckPage() {
             <TrackedAssistLink
               href={orderHref}
               placement="ru_route_check_hero"
-              linkLabel="Заказать Route Check — €129"
+              linkLabel="Оплатить Route Check — €129"
               className="inline-flex items-center gap-2 rounded-lg bg-white px-5 py-3 font-medium text-corridor-900 hover:bg-corridor-50"
             >
-              Заказать Route Check — €129
+              Оплатить Route Check — €129
             </TrackedAssistLink>
             <Link
               href="/ru/assist/sample-plan"
@@ -316,19 +316,11 @@ export default function RouteCheckPage() {
             <TrackedAssistLink
               href={orderHref}
               placement="ru_route_check_steps"
-              linkLabel="Открыть бота — Route Check"
+              linkLabel="Оплатить Route Check — €129"
               className="inline-flex items-center gap-2 rounded-lg bg-corridor-600 px-5 py-3 font-medium text-white hover:bg-corridor-700"
             >
               <Clock className="h-4 w-4" aria-hidden />
-              Открыть бота — Route Check
-            </TrackedAssistLink>
-            <TrackedAssistLink
-              href="/ru/assist#assist-form-route-check"
-              placement="ru_route_check_form"
-              linkLabel="Форма на сайте"
-              className="text-sm font-medium text-corridor-700 hover:underline"
-            >
-              Форма на сайте, если бот недоступен
+              Оплатить Route Check — €129
             </TrackedAssistLink>
           </div>
         </section>

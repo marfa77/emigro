@@ -257,7 +257,7 @@ export default function InvestmentResultsPage({
                   </Link>
                 ) : (
                   <Link
-                    href="/ru/assist#assist-form-route-check"
+                    href="/ru/route-check"
                     className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-corridor-700 px-5 py-3 font-semibold text-white hover:bg-corridor-800"
                   >
                     Заказать Route Check <ArrowRight className="h-4 w-4" />

@@ -5,7 +5,6 @@ import Link from "next/link";
 import { trackEvent } from "@/lib/analytics/client";
 import { assistBotDeepLink } from "@/lib/telegram/deep-link";
 import type { AssistCountryOption } from "@/components/assist/AssistLeadForm";
-import { ROUTE_CHECK_PAY_URL } from "@/lib/assist/route-check-payment";
 
 type Props = {
   /** Lead source tag stored with the request (e.g. "wizard_hub_results", "emigro_assist"). */
@@ -51,25 +50,16 @@ export function QuickRequestForm({
   const [contact, setContact] = useState("");
   const [message, setMessage] = useState("");
   const [consent, setConsent] = useState(false);
-  const [routeCheck, setRouteCheck] = useState(false);
   const [status, setStatus] = useState<"idle" | "loading" | "done" | "error">("idle");
   const [error, setError] = useState("");
 
   useEffect(() => {
-    // Paid CTAs link to #assist-form-route-check: keep the single form, just tag the request.
-    // Same-page anchor clicks only change the hash, so listen for that too.
-    const applyHash = () => {
-      if (/route-check/.test(window.location.hash)) setRouteCheck(true);
-    };
-    applyHash();
-    window.addEventListener("hashchange", applyHash);
     // Arriving from another page with #assist…: re-align once layout settles (content above can shift).
     let timer: number | undefined;
     if (/^#assist/.test(window.location.hash)) {
       timer = window.setTimeout(() => document.getElementById("assist-form")?.scrollIntoView({ block: "start" }), 400);
     }
     return () => {
-      window.removeEventListener("hashchange", applyHash);
       if (timer) window.clearTimeout(timer);
     };
   }, []);
@@ -92,7 +82,7 @@ export function QuickRequestForm({
           corridor_slug: corridorSlug ?? selected?.corridorSlug ?? undefined,
           destination_iso2: selected?.destinationIso2,
           program_route: programRoute || "",
-          plan_tier: routeCheck ? "route-check" : "partner-match",
+          plan_tier: "partner-match",
           name,
           contact,
           message: note,
@@ -108,7 +98,7 @@ export function QuickRequestForm({
       trackEvent("assist_lead_submitted", {
         source,
         country: countrySegment ?? selected?.value ?? "",
-        plan_tier: routeCheck ? "route-check" : "partner-match",
+        plan_tier: "partner-match",
         session_id: sessionId ?? "",
         locale: "ru",
       });
@@ -125,34 +115,13 @@ export function QuickRequestForm({
     return (
       <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-900" role="status">
         <p className="font-semibold">Заявка отправлена.</p>
-        {routeCheck ? (
-          <>
-            <p className="mt-1">Остался один шаг — оплата Route Check. После оплаты пришлём анкету и согласуем время созвона: {contact}.</p>
-            <a
-              href={ROUTE_CHECK_PAY_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => trackEvent("route_check_pay_click", { source, session_id: sessionId ?? "" })}
-              className="mt-3 inline-flex min-h-12 w-full items-center justify-center rounded-xl bg-corridor-600 px-5 py-3 text-base font-semibold text-white hover:bg-corridor-700 sm:w-auto"
-            >
-              Оплатить Route Check — €129
-            </a>
-          </>
-        ) : (
-          <p className="mt-1">Свяжемся с вами: {contact}.</p>
-        )}
+        <p className="mt-1">Свяжемся с вами: {contact}.</p>
       </div>
     );
   }
 
   return (
     <form onSubmit={submit} className="space-y-3">
-      {routeCheck ? (
-        <p className="rounded-lg bg-corridor-100 px-3 py-2 text-sm text-corridor-900">
-          Route Check — €129: созвон и PDF с маршрутом, сроками и рисками. Оставьте контакт — на следующем шаге
-          оплата, время созвона согласуем после неё.
-        </p>
-      ) : null}
       {!countryLabel && pickerOptions.length > 0 ? (
         <label className="block text-sm font-medium text-slate-800">
           Куда переезжаете
@@ -211,7 +180,7 @@ export function QuickRequestForm({
         disabled={status === "loading"}
         className="inline-flex min-h-12 w-full items-center justify-center rounded-xl bg-corridor-600 px-5 py-3 text-base font-semibold text-white shadow-sm hover:bg-corridor-700 disabled:opacity-60 sm:w-auto"
       >
-        {status === "loading" ? "Отправляем…" : routeCheck ? "Дальше — к оплате" : submitLabel}
+        {status === "loading" ? "Отправляем…" : submitLabel}
       </button>
       <p className="text-sm text-slate-600">
         Удобнее в Telegram?{" "}

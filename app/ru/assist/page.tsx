@@ -12,7 +12,6 @@ import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
 import { pageMetadata, pageUrl } from "@/lib/seo";
 import { getAssistCountryOptions } from "@/lib/corridor/registry";
 import { publicSiteUrl } from "@/lib/site-url";
-import { assistBotDeepLink } from "@/lib/telegram/deep-link";
 
 export const revalidate = 3600;
 
@@ -266,12 +265,12 @@ export default function AssistPage({
               Оставить заявку — бесплатно
               <ArrowRight className="h-4 w-4" aria-hidden />
             </a>
-            <a
-              href="#assist-form-route-check"
+            <Link
+              href="/ru/route-check"
               className="inline-flex min-h-12 items-center justify-center rounded-lg border border-white/40 px-5 py-3 font-medium text-white hover:bg-white/10"
             >
-              Route Check — €129
-            </a>
+              Платный разбор маршрута — €129
+            </Link>
           </div>
         </HeroShell>
 
@@ -294,12 +293,6 @@ export default function AssistPage({
               <ArrowRight className="h-4 w-4" aria-hidden />
             </Link>
           </div>
-          <span id="assist-form-accompaniment" className="sr-only">
-            Форма с предвыбором сопровождения
-          </span>
-          <span id="assist-form-route-check" className="sr-only">
-            Форма с предвыбором Route Check
-          </span>
           <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
             <QuickRequestForm
               source={attributedSource ?? "emigro_assist"}
