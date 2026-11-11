@@ -1,3 +1,4 @@
+import { withPeriod } from "@/lib/text/sentence";
 import { corridorLandingPath, corridorWizardPath, programPath } from "@/lib/corridor/paths";
 import { CORRIDOR_REGISTRY } from "@/lib/corridor/registry";
 import { guidePath, resolveGuidePath } from "@/lib/guides/load";
@@ -265,7 +266,7 @@ export function buildProgramDataLlmFacts(
   return [
     `${program.title_ru} — ${topic.countryRu} 2026 для RU/BY/UA/KZ.`,
     longTail?.seoDescription ?? buildProgramQuickAnswer(program, topic).slice(0, 180),
-    threshold ? `Порог: ${threshold}.` : entry?.threshold ? `Ориентир: ${entry.threshold}.` : null,
+    threshold ? withPeriod(`Порог: ${threshold}`) : entry?.threshold ? withPeriod(`Ориентир: ${entry.threshold}`) : null,
     entry?.consulateNote ?? null,
     entry?.disambiguation ?? null,
     `Программа: ${llmUtmUrl(pagePath)}`,

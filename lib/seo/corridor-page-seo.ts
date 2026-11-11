@@ -1,3 +1,4 @@
+import { withPeriod } from "@/lib/text/sentence";
 import type { Metadata } from "next";
 import type { Corridor, DigestItem, ProgramDetail } from "@/lib/types";
 import type { NewsTopicConfig } from "@/lib/news/topics";
@@ -146,7 +147,7 @@ export function buildProgramQuickAnswer(program: ProgramDetail, topic: NewsTopic
   const type = programTypeLabel(program.program_type, program.slug);
   const parts = [
     `${program.title_ru} — маршрут ВНЖ ${ruCountryTo(topic.countryRu)} для русскоязычных с паспортами RU/BY/UA/KZ (${type}).`,
-    threshold ? `Ключевой порог: ${threshold}.` : program.summary_ru,
+    threshold ? withPeriod(`Ключевой порог: ${threshold}`) : program.summary_ru,
     `Проверьте свой профиль в wizard коридора ${topic.countryRu} или hub wizard Emigro.`,
   ];
   return parts.join(" ");
@@ -172,15 +173,15 @@ export function buildProgramFaq(program: ProgramDetail, topic: NewsTopicConfig):
     {
       question: `Какой финансовый порог для ${ruCountryGenitive(topic.countryRu)} в 2026?`,
       answer: threshold
-        ? `${threshold}. Точные расчёты зависят от состава семьи и требований консульства — сверяйте с официальными источниками на странице.`
+        ? `${withPeriod(threshold)} Точные расчёты зависят от состава семьи и требований консульства — сверяйте с официальными источниками на странице.`
         : `Смотрите блок «Требования» и официальные источники — пороги обновляются индексами и правилами ${ruCountryGenitive(topic.countryRu)}.`,
     },
     {
       question: `Сколько занимает оформление ВНЖ по этой программе?`,
       answer: timeline
         ? isDenmarkEmploymentSlug(program.slug)
-          ? `${timeline}. Это сроки решения SIRI и отдельные шаги после него. Подготовка досье зависит от кейса. Биометрия, виза и карта в срок рассмотрения SIRI не входят.`
-          : `Типичные этапы: ${timeline}. Сроки консульства и выдачи карты резидента добавляют 1–6 месяцев.`
+          ? `${withPeriod(timeline)} Это сроки решения SIRI и отдельные шаги после него. Подготовка досье зависит от кейса. Биометрия, виза и карта в срок рассмотрения SIRI не входят.`
+          : `Типичные этапы: ${withPeriod(timeline)} Сроки консульства и выдачи карты резидента добавляют 1–6 месяцев.`
         : `Срок зависит от подготовки досье и очереди консульства; закладывайте от 3 до 9 месяцев на первичный маршрут.`,
     },
     {

@@ -1,3 +1,4 @@
+import { withPeriod } from "@/lib/text/sentence";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
@@ -207,12 +208,6 @@ export async function generateMetadata({
   ]);
   if (!program || !topic?.sitePaths) return {};
   return buildProgramMetadata(program, topic);
-}
-
-/** End a sentence with one period: requirement texts often already end with one. */
-function withPeriod(text: string): string {
-  const trimmed = text.trimEnd();
-  return /[.!?…]$/.test(trimmed) ? trimmed : `${trimmed}.`;
 }
 
 export default async function CountryProgramPage({
