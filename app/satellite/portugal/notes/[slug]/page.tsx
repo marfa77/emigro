@@ -1,3 +1,4 @@
+import { SatelliteEarlyCta } from "@/components/satellite/SatelliteEarlyCta";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
@@ -191,6 +192,8 @@ export default async function PortugalNotePage({ params }: { params: { slug: str
           dangerouslySetInnerHTML={{ __html: inlineMarkdown(linked.quick_answer) }}
         />
       </div>
+
+      <SatelliteEarlyCta countryKey="portugal" noteSlug={note.slug} />
 
       <NoteHashtags tags={note.hashtags} className="mt-6" />
 

@@ -1,3 +1,4 @@
+import { SatelliteEarlyCta } from "@/components/satellite/SatelliteEarlyCta";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -149,6 +150,8 @@ export default async function ThailandNotePage({ params }: { params: { slug: str
           </div>
         </section>
       ) : null}
+      <SatelliteEarlyCta countryKey="thailand" noteSlug={note.slug} />
+
       <NoteHashtags tags={note.hashtags} className="mt-6" countryKey="thailand" />
       <KeyTakeaways items={note.key_takeaways} />
       {note.content_kind === "guide" && <NoteToc sections={note.body_sections} hasFaq={note.faq.length > 0} />}

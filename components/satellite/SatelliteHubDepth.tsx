@@ -77,7 +77,7 @@ export function SatelliteHubDepth({
             · <strong>{topicCount} тем</strong> ({destinationsLabel})
           </>
         ) : null}
-        . Pillar ВНЖ и wizard — на{" "}
+        . Подробные гиды по ВНЖ и подбор программы — на{" "}
         <a href={pillarHref} className={`font-medium underline ${link}`}>
           emigro.online
         </a>

@@ -105,7 +105,7 @@ export function DigestSeoSections({
           >
             <BookOpen className="h-5 w-5 text-corridor-600" />
             <p className="mt-2 font-medium text-slate-900">Гайды Emigro</p>
-            <p className="mt-1 text-sm text-slate-600">Pillar-материалы по ВНЖ, бюджету и сравнению стран.</p>
+            <p className="mt-1 text-sm text-slate-600">Подробные гиды по ВНЖ, бюджету и сравнению стран.</p>
           </Link>
         </div>
       </section>

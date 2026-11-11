@@ -102,7 +102,7 @@ function NewsIndexBody({ allTopics, digests, pillarGuides }: Props) {
 
       {!topic && pillarGuides.length > 0 && (
         <section className="mt-12 rounded-2xl border border-slate-200 bg-slate-50 p-6">
-          <h2 className="text-lg font-semibold text-slate-900">Pillar-гайды Emigro</h2>
+          <h2 className="text-lg font-semibold text-slate-900">Подробные гиды Emigro</h2>
           <p className="mt-1 text-sm text-slate-600">
             Подробные разборы маршрутов ВНЖ — дополнение к еженедельным новостям.
           </p>

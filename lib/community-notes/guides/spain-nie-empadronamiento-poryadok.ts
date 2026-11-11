@@ -281,7 +281,7 @@ const bodySections: NoteBodySection[] = [
       "[Банк и IBAN](/notes/bank-iban-nerezident-ispaniya-2026) — после NIE + padrón.",
       "[TIE cita extranjería Valencia](/notes/tie-cita-extranjeria-valencia-2026) — resguardo + certificado empadronamiento.",
       "[Аренда Idealista Valencia](/notes/arenda-valencia-idealista-2026) — clause empadronamiento до fianza.",
-      "[Первые 30 дней satellite](/notes/pervye-30-dnej-v-ispanii-satelit-2026) — полный orchestrator.",
+      "[Первые 30 дней в Валенсии](/notes/pervye-30-dnej-v-ispanii-satelit-2026) — весь порядок действий первого месяца.",
       "Pillar: [ВНЖ Испания 2026](/ru/guides/vnj-ispaniya-2026) — visado и основания.",
     ],
   },

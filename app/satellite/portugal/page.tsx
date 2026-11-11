@@ -1,3 +1,4 @@
+import { SatelliteEarlyCta } from "@/components/satellite/SatelliteEarlyCta";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CiplePrepTile } from "@/components/satellite/CiplePrepTile";
@@ -147,6 +148,8 @@ export default async function PortugalSatelliteHomePage() {
           <span>Редактор Emigro</span><span aria-hidden="true">·</span><span>Проверяйте дату и источники в каждом руководстве</span>
         </div>
       </section>
+
+      <SatelliteEarlyCta countryKey="portugal" noteSlug="hub" />
 
       <section className="mt-6 rounded-2xl border border-slate-200 px-5 py-5">
         <p className="text-xs font-semibold uppercase tracking-[0.14em] text-teal-800">Куда пойти</p>

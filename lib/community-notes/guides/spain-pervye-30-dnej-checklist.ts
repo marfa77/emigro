@@ -254,7 +254,7 @@ const faq: CommunityNoteFaq[] = [
   },
   {
     q: "Где полный чеклист?",
-    a: "Pillar [30 dней ES](/ru/guides/pervye-30-dnej-v-ispanii-2026) на emigro.online; этот note — satellite orchestrator Valencia.",
+    a: "Полный разбор — [Первые 30 дней в Испании](/ru/guides/pervye-30-dnej-v-ispanii-2026) на emigro.online; эта заметка — короткий порядок действий для Валенсии.",
   },
   {
     q: "Что если пропустил NIE в mes 1?",
@@ -266,9 +266,9 @@ export const PERVYE_30_GUIDE = {
   slug: PERVYE_30_SLUG,
   category: "Первый месяц",
   content_kind: "guide" as ContentKind,
-  title: "Первые 30 дней в Valencia: чеклист satellite 2026",
+  title: "Первые 30 дней в Валенсии: чеклист 2026",
   excerpt:
-    "72h → semana 4: SIM, NIE, padrón, IBAN, SIP, TIE cita — orchestrator Valencia с семью core guides. Пропуск mes 1 бьёт renta и Hacienda к 4–6 месяцу. Не копируйте Portugal checklist. Wizard y Assist для audit маршрута и visado plazo.",
+    "От первых 72 часов до 4-й недели в Валенсии: SIM, NIE, padrón, банковский счёт, SIP и запись на TIE — по порядку, со ссылками на семь подробных гидов. Если пропустить первый месяц, к 4–6 месяцу всплывут проблемы с арендой и налоговой (Hacienda). Чеклист Португалии сюда не подходит.",
   seo_title: "Первые 30 дней Испания 2026 — Valencia checklist",
   seo_description:
     "Первые 30 дней Valencia 2026: SIM, NIE, padrón, банк, TIE huellas и SIP. Порядок 72 часа → 4-я неделя для RU/BY после visado D без копипасты PT.",

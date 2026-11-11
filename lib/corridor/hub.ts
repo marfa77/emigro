@@ -330,7 +330,7 @@ export function resolveCorridorHubTiles(
           topLeft: stats.guideCount ? String(stats.guideCount) : "—",
           topLeftHint: "гайдов",
           topRightIcon: "book",
-          topRightLabel: "Pillar",
+          topRightLabel: "Гид",
           bottomLeft:
             stats.digestCount > 0
               ? `справочник · ${stats.digestCount} фактов`
@@ -352,7 +352,7 @@ export function resolveCorridorHubTiles(
           topLeft: "Скоро",
           topLeftHint: "pillar",
           topRightIcon: "book",
-          topRightLabel: "Pillar",
+          topRightLabel: "Гид",
           bottomLeft: "разборы маршрутов",
           bottomRight: "Coming soon",
           ratings: [],

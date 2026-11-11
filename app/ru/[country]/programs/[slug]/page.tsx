@@ -209,6 +209,12 @@ export async function generateMetadata({
   return buildProgramMetadata(program, topic);
 }
 
+/** End a sentence with one period: requirement texts often already end with one. */
+function withPeriod(text: string): string {
+  const trimmed = text.trimEnd();
+  return /[.!?…]$/.test(trimmed) ? trimmed : `${trimmed}.`;
+}
+
 export default async function CountryProgramPage({
   params,
 }: {
@@ -254,10 +260,10 @@ export default async function CountryProgramPage({
   const checklist = [
     "Проверить, где именно можно подать заявление с вашим паспортом.",
     incomeRequirement
-      ? `Подтвердить критерий: ${incomeRequirement.label_ru}${incomeRequirement.value_text ? ` — ${incomeRequirement.value_text}` : ""}.`
+      ? withPeriod(`Подтвердить критерий: ${incomeRequirement.label_ru}${incomeRequirement.value_text ? ` — ${incomeRequirement.value_text}` : ""}`)
       : "Подтвердить доход, накопления или основание программы документами.",
     documentRequirement
-      ? `Подготовить документ: ${documentRequirement.label_ru}${documentRequirement.value_text ? ` — ${documentRequirement.value_text}` : ""}.`
+      ? withPeriod(`Подготовить документ: ${documentRequirement.label_ru}${documentRequirement.value_text ? ` — ${documentRequirement.value_text}` : ""}`)
       : "Собрать переводы, апостили, страховку и подтверждение жилья.",
     "Заложить буфер на запись в консульство, выпуск карты и продление.",
   ];

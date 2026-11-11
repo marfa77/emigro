@@ -277,9 +277,9 @@ export const PERVYE_30_PHUKET_GUIDE: ThailandEditorialGuide = {
   slug: PERVYE_30_PHUKET_SLUG,
   category: "Первый месяц",
   content_kind: "guide" as ContentKind,
-  title: "Первые 30 дней на Phuket: чеклист satellite 2026",
+  title: "Первые 30 дней на Пхукете: чеклист 2026",
   excerpt:
-    "72h → неделя 4: SIM, TM30, Thai bank, страховка, visa runway — orchestrator Phuket с seven core guides. Безвиз 30 дней с 15.09.2026 для РФ. Пропуск mes 1 бьёт overstayer и renta к 4–6 месяцу. Condo ≠ автовиза. Wizard и Assist.",
+    "От первых 72 часов до 4-й недели на Пхукете: SIM, TM30, тайский банк, страховка и запас по визе — по порядку, со ссылками на семь подробных гидов. Безвиз 30 дней с 15.09.2026 для РФ. Если пропустить первый месяц, к 4–6 месяцу грозят оверстей и проблемы с арендой. Покупка кондо не даёт визу автоматически.",
   seo_title: "Первые 30 дней Пхукет 2026 — checklist переезд",
   seo_description:
     "Первые 30 дней Пхукет 2026: SIM, TM30, аренда, банк, Immigration. Порядок 72 ч → 4-я неделя для RU; безвиз 30 дней с 15.09.2026. Не копируйте EU-чеклист.",

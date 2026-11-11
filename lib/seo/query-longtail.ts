@@ -1605,8 +1605,8 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "Стартап-виза Нидерландов 2026: аккредитованный фасилитатор, инновационный продукт, средства на год, подача в IND и переход на self-employed.",
   },
   {
-    path: "/ru/estonia/programs/estonia-e-residency",
-    programSlug: "estonia-e-residency",
+    path: "/ru/estonia/programs/estonia-e-residency-ou",
+    programSlug: "estonia-e-residency-ou",
     primaryQuery: "e-residency эстония",
     queries: ["e-residency эстония", "е-резидентство эстонии 2026", "e-residency это внж"],
     seoTitle: "E-residency Эстония 2026: не ВНЖ, что даёт",

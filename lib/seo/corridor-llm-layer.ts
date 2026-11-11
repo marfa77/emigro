@@ -331,7 +331,11 @@ export function buildHighIntentSection(): string {
         programPath: target.programSlug && entry
           ? programPath(corridorSlugForSegment(entry.countrySegment), target.programSlug)
           : entry?.programPath,
-        programTitle: entry?.programTitle,
+        // The corridor's headline program title only fits when the target points at that program.
+        programTitle:
+          target.programSlug && entry?.programPath && !entry.programPath.endsWith(`/${target.programSlug}`)
+            ? target.seoTitle?.split(":")[0]
+            : entry?.programTitle,
         wizardPath: entry?.wizardPath,
       })
     );

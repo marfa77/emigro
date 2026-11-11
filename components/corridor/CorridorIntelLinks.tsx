@@ -165,7 +165,7 @@ export function CorridorIntelLinks({ topic, variant = "full", layout = "grid" }:
             className="group rounded-lg border border-corridor-200 bg-corridor-50/80 p-4 transition hover:border-corridor-400 hover:shadow-sm"
           >
             <BookOpen className="h-5 w-5 text-corridor-700" />
-            <p className="mt-2 font-medium text-corridor-900 group-hover:text-corridor-700">Pillar-гайд</p>
+            <p className="mt-2 font-medium text-corridor-900 group-hover:text-corridor-700">Подробный гид</p>
             <p className="mt-1 text-sm text-corridor-900/80">{pillarGuideAnchor}</p>
           </Link>
         )}
@@ -200,7 +200,7 @@ export function CorridorIntelLinks({ topic, variant = "full", layout = "grid" }:
         >
           <BookOpen className="h-5 w-5 text-corridor-600" />
           <p className="mt-2 font-medium text-slate-900 group-hover:text-corridor-700">Гайды Emigro</p>
-          <p className="mt-1 text-sm text-slate-600">Pillar-разборы: digital nomad, семья, отказы, бюджет.</p>
+          <p className="mt-1 text-sm text-slate-600">Подробные гиды: digital nomad, семья, отказы, бюджет.</p>
         </Link>
 
         {showHub && !isPortugalHub && !isSpainHub && (
