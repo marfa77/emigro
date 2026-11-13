@@ -65,6 +65,14 @@ export function QuickRequestForm({
   }, []);
 
   const selected = pickerOptions.find((option) => option.value === country);
+  const [started, setStarted] = useState(false);
+
+  function markStarted() {
+    // First interaction with the form: tells a drop-off before typing from one after it.
+    if (started) return;
+    setStarted(true);
+    trackEvent("assist_form_start", { source });
+  }
 
   async function submit(event: React.FormEvent) {
     event.preventDefault();
@@ -121,14 +129,12 @@ export function QuickRequestForm({
   }
 
   return (
-    <form onSubmit={submit} className="space-y-3">
+    <form onSubmit={submit} onFocus={markStarted} className="space-y-3">
       {!countryLabel && pickerOptions.length > 0 ? (
         <label className="block text-sm font-medium text-slate-800">
-          Куда переезжаете
-          <select required value={country} onChange={(e) => setCountry(e.target.value)} className={`mt-1 ${field}`}>
-            <option value="" disabled>
-              Выберите страну
-            </option>
+          Страна <span className="font-normal text-slate-500">(если уже знаете)</span>
+          <select value={country} onChange={(e) => setCountry(e.target.value)} className={`mt-1 ${field}`}>
+            <option value="">Пока не знаю или другое</option>
             {pickerOptions.map((option) => (
               <option key={option.value} value={option.value}>
                 {option.label}

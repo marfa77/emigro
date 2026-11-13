@@ -16,12 +16,12 @@ import { publicSiteUrl } from "@/lib/site-url";
 export const revalidate = 3600;
 
 export const metadata = pageMetadata({
-  title: "Route Check €129 — аудит отказа и виза за 48 ч",
+  title: "Подбор специалиста по переезду — бесплатно",
   description:
-    "Аудит отказа или выбор типа визы за 48 часов: созвон и PDF за €129. Подбор партнёра €0, сопровождение €100/ч. Оплата после слота. Паспорта RU/BY/UA/KZ.",
+    "Оставьте имя и контакт — бесплатно подберём юриста или агентство под ваш случай: ВНЖ, виза, документы, сложные ситуации за границей. Паспорта RU/BY/UA/KZ.",
   path: "/ru/assist",
   aiDescription:
-    "Emigro Assist Route Check €129: audit of a refusal or visa-type choice within 48 hours (call + PDF). Partner matching €0; accompaniment €100/hour. Passports RU/BY/UA/KZ. Emigro (emigro.online) is a residence-route navigator; not affiliated with Emigro UG / Intermigro, Emigro Consulting (Doha), Emigro.co, or Emigro Pay. Not a law firm.",
+    "Emigro Assist: free matching with an immigration lawyer or agency for RU/BY/UA/KZ passport holders (name + contact is enough). Paid Route Check €129 is a separate page (/ru/route-check). Emigro (emigro.online) is a residence-route navigator; not affiliated with Emigro UG / Intermigro, Emigro Consulting (Doha), Emigro.co, or Emigro Pay. Not a law firm.",
   aiCategory: "assist",
 });
 
@@ -149,10 +149,9 @@ export default function AssistPage({
 
   const origin = publicSiteUrl();
   const assistUrl = pageUrl("/ru/assist");
+  // Keep where the visitor came from (guide, satellite, program) on the lead: "guide_<slug>" etc.
   const attributedSource =
-    searchParams.country && searchParams.source === `${searchParams.country}_satellite`
-      ? searchParams.source
-      : undefined;
+    searchParams.source && /^[a-z0-9_.-]{1,140}$/i.test(searchParams.source) ? searchParams.source : undefined;
 
   const breadcrumbSchema = buildBreadcrumbSchema([
     { name: "Все направления", item: pageUrl("/ru") },
@@ -281,17 +280,10 @@ export default function AssistPage({
             <div>
               <h2 className="text-2xl font-bold text-slate-950">Оставить заявку</h2>
               <p className="mt-2 max-w-xl text-sm text-slate-600">
-                Страна, имя и контакт — этого достаточно. Подберём специалиста бесплатно; контакт передаём только с
-                вашего согласия.
+                Имя и контакт — этого достаточно. Подберём специалиста бесплатно; контакт передаём только с вашего
+                согласия.
               </p>
             </div>
-            <Link
-              href="/ru/assist/sample-plan"
-              className="inline-flex shrink-0 items-center gap-2 text-sm font-medium text-corridor-700 hover:underline"
-            >
-              Пример PDF после Route Check
-              <ArrowRight className="h-4 w-4" aria-hidden />
-            </Link>
           </div>
           <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
             <QuickRequestForm

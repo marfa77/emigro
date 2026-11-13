@@ -180,7 +180,14 @@ type MobileBottomBarProps = {
  * session-aware bar (Telegram report), so the generic «Подбор маршрута» bar would only duplicate it.
  */
 function isWizardFormPath(pathname: string | null): boolean {
-  return Boolean(pathname && (/\/wizard\/?$/.test(pathname) || /^\/ru\/wizard\/results\/?$/.test(pathname)));
+  // Pages that are themselves the request form: the global bar only covers their submit button.
+  return Boolean(
+    pathname &&
+      (/\/wizard\/?$/.test(pathname) ||
+        /^\/ru\/wizard\/results\/?$/.test(pathname) ||
+        /^\/ru\/assist\/?$/.test(pathname) ||
+        /^\/ru\/anketa\/?$/.test(pathname))
+  );
 }
 
 export function MobileBottomBar({ locale = "ru" }: MobileBottomBarProps) {
