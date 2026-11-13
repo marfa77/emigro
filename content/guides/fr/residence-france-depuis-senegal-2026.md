@@ -1,8 +1,8 @@
 ---
 slug: residence-france-depuis-senegal-2026
 title: "Résidence en France depuis le Sénégal 2026"
-seo_title: "Résidence France Sénégalais 2026 — VLS-TS, Talent"
-seo_description: "Sénégal → France 2026 : visa, VLS-TS, Talent, naturalisation ~5 ans + B2/civique. Pas un raccourci Maghreb 2 ans."
+seo_title: "Résidence en France depuis le Sénégal 2026"
+seo_description: "Visa et VLS-TS pour vivre en France depuis le Sénégal: Talent, salarié, étudiant. Naturalisation ~5 ans + B2, sources service-public."
 excerpt: "Guide pillar : visa ≠ résidence pour passeport SN."
 quick_answer: "Visa généralement requis. VLS-TS pour résider (Talent, salarié, études…). Naturalisation ~5 ans + B2 + examen civique. Emigro : /fr."
 corridor_slugs: [fr-speaking-senegal-to-france, fr-speaking-africa-to-europe]

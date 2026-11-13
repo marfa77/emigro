@@ -78,14 +78,11 @@ function hubCtaForGuide(corridorSlugs?: string[]): string {
   return ES_PATHS.spain;
 }
 
-function GuideHeroVisual({ visualPath }: { visualPath: string }) {
+function GuideHeroVisual({ visualPath, alt }: { visualPath: string; alt: string }) {
   return (
-    <div
-      className="relative aspect-[16/10] w-full max-w-[380px] overflow-hidden rounded-[2rem] border border-white/30 bg-white shadow-2xl ring-1 ring-white/20"
-      aria-hidden
-    >
+    <div className="relative aspect-[16/10] w-full max-w-[380px] overflow-hidden rounded-[2rem] border border-white/30 bg-white shadow-2xl ring-1 ring-white/20">
       {/* Corridor photo only — OG cards bake the title into the bitmap. */}
-      <Image src={visualPath} alt="" fill sizes="360px" priority className="object-cover" />
+      <Image src={visualPath} alt={alt} fill sizes="360px" priority className="object-cover" />
     </div>
   );
 }
@@ -244,7 +241,7 @@ export default function EsGuidePage({ params }: { params: { slug: string } }) {
         </nav>
 
         <div className="mt-6">
-          <HeroShell visual={<GuideHeroVisual visualPath={heroVisualForEsGuide(guide.slug)} />}>
+          <HeroShell visual={<GuideHeroVisual visualPath={heroVisualForEsGuide(guide.slug)} alt={guide.title} />}>
             <p className="text-xs font-semibold uppercase tracking-wide text-corridor-100">
               {corridorBadge(guide.corridor_slugs)}
             </p>

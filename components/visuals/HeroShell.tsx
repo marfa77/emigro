@@ -24,11 +24,7 @@ export function HeroShell({
 
       <div className={`relative ${visual ? "grid items-center gap-8 md:grid-cols-[1fr_240px] lg:grid-cols-[1fr_280px] xl:grid-cols-[1fr_320px]" : ""}`}>
         <div>{children}</div>
-        {visual && (
-          <div className="flex justify-center md:flex" aria-hidden>
-            {visual}
-          </div>
-        )}
+        {visual && <div className="flex justify-center md:flex">{visual}</div>}
       </div>
     </section>
   );

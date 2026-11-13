@@ -1,7 +1,7 @@
 ---
 slug: vnj-niderlandy-2026-highly-skilled
 title: "ВНЖ Нидерланды 2026: Highly Skilled Migrant, IND и путь к ПМЖ"
-seo_title: "ВНЖ Нидерланды 2026 — Highly Skilled Migrant для граждан СНГ"
+seo_title: "ВНЖ Нидерланды из России 2026 — HSM"
 seo_description: "Highly Skilled Migrant Нидерланды 2026: зарплатные пороги €4 357/€5 942, IND 2 недели, 30% ruling, стоимость жизни Амстердам, путь к ПМЖ. Для граждан РФ и СНГ."
 excerpt: "Нидерланды — один из самых быстрых путей к ВНЖ для IT-специалистов в ЕС: 2 недели через IND, 30% налоговая льгота и реалистичный ПМЖ через 5 лет. Полный разбор 2026."
 quick_answer: |-

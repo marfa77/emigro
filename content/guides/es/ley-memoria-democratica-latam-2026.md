@@ -2,7 +2,7 @@
 slug: ley-memoria-democratica-latam-2026
 title: "Ley de Memoria Democrática 2026: estado para LATAM"
 seo_title: "LMD España 2026: plazo cerrado — qué sigue"
-seo_description: "Ley de Memoria Democrática 2026: plazo cerrado el 22 oct 2025. Quién sigue con CSV y alternativas: residencia + nacionalidad art. 22 (~2 años) para LATAM."
+seo_description: "LMD 2026: nacionalidad por ascendencia española para LATAM — plazos, quién califica y en qué se diferencia de la residencia (art. 22)."
 excerpt: "Estado LMD tras el cierre de octubre 2025: CSV vivos vs vías abiertas (residencia + art. 22)."
 quick_answer: "Nuevas citas/solicitudes LMD (DA 8ª Ley 20/2022) cerraron el 22 de octubre de 2025. Quien pidió cita antes y tiene justificante CSV sigue el proceso. Sin CSV: use residencia legal + nacionalidad art. 22 (~2 años para iberoamericanos) u otras vías abiertas. Emigro no gestiona expedientes LMD."
 corridor_slugs:

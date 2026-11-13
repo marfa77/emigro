@@ -1,8 +1,8 @@
 ---
 slug: residence-france-depuis-algerie-2026
 title: "Résidence en France depuis l'Algérie 2026"
-seo_title: "Résidence France Algériens 2026 — VLS-TS, Talent"
-seo_description: "Algérie → France 2026 : visa, VLS-TS, Talent, naturalisation ~5 ans + B2/civique. Apostille DZ depuis juil. 2026. Sources officielles."
+seo_title: "Résidence en France depuis l'Algérie 2026"
+seo_description: "Algérie → France 2026: VLS-TS, Passeport Talent, apostille. Naturalisation ~5 ans + B2 — pas un raccourci de 2 ans. Sources service-public."
 excerpt: "Guide pillar : visa ≠ résidence pour passeport DZ. VLS-TS, Talent et naturalisation."
 quick_answer: "Les Algériens ont généralement besoin d'un visa. Résider exige un titre (VLS-TS / procédures adaptées). Naturalisation : ~5 ans + B2 + examen civique. Emigro : /fr."
 corridor_slugs: [fr-speaking-algerie-to-france, fr-speaking-africa-to-europe]

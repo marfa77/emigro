@@ -233,6 +233,16 @@ export function buildProgramAiDescription(program: ProgramDetail, topic: NewsTop
   ].join(" ");
 }
 
+function buildProgramDescriptionFallback(program: ProgramDetail, topic: NewsTopicConfig): string {
+  const threshold = keyRequirement(program);
+  const timeline = timelineSummary(program);
+  const parts = [program.summary_ru];
+  if (threshold) parts.push(`Ключевой порог: ${threshold}.`);
+  if (timeline) parts.push(`Ориентир по срокам: ${timeline}.`);
+  parts.push(`Официальные источники на странице; wizard коридора ${topic.countryRu} для паспортов RU/BY/UA/KZ.`);
+  return parts.join(" ");
+}
+
 export function buildProgramMetadata(
   program: ProgramDetail,
   topic: NewsTopicConfig
@@ -241,8 +251,7 @@ export function buildProgramMetadata(
   const longTail = getLongTailByProgramSlug(program.slug);
   const seoTitle = longTail?.seoTitle ?? fitTitle(`${program.title_ru} — ВНЖ ${topic.countryRu} 2026`);
   const description = fitDescription(
-    longTail?.seoDescription ??
-      `${program.summary_ru} Требования, сроки, пороги 2026 и официальные источники для паспортов RU/BY/UA/KZ. Wizard Emigro.`
+    longTail?.seoDescription ?? buildProgramDescriptionFallback(program, topic),
   );
   const keywords = [
     `ВНЖ ${topic.countryRu}`,

@@ -1,8 +1,8 @@
 ---
 slug: residence-france-depuis-maroc-2026
 title: "Résidence en France depuis le Maroc 2026"
-seo_title: "Résidence France Marocains 2026 — VLS-TS, Talent"
-seo_description: "Maroc → France 2026 : visa obligatoire, VLS-TS, Talent ~€39.582, naturalisation 5 ans + B2/civique. Pas Schengen = résidence."
+seo_title: "Résidence en France depuis le Maroc 2026"
+seo_description: "Visa et VLS-TS pour vivre en France depuis le Maroc: Talent, salarié, étudiant. Naturalisation ~5 ans + B2, pas un raccourci 2 ans."
 excerpt: "Guide pillar : visa ≠ résidence. VLS-TS, Talent, salarié, légalisation/apostille et horizon naturalisation."
 quick_answer: "Les Marocains ont généralement besoin d'un visa pour la France. Résider exige un VLS-TS (consulat) : Passeport Talent, salarié, étudiant, visiteur… Naturalisation : ~5 ans + B2 + examen civique (pas un 2 ans Maghreb). Emigro : /fr."
 corridor_slugs: [fr-speaking-maroc-to-france, fr-speaking-africa-to-europe]

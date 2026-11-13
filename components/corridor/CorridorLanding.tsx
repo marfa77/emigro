@@ -86,7 +86,7 @@ export async function CorridorLanding({ country }: { country: string }) {
           </div>
         )}
 
-        <HeroShell visual={<CorridorHeroVisual segment={topic.urlSegment} />}>
+        <HeroShell visual={<CorridorHeroVisual segment={topic.urlSegment} alt={corridor.title_ru} />}>
           <p className="text-sm uppercase tracking-wide text-corridor-100">
             {isFull ? "Полный коридор Emigro" : "Коридор в разработке"}
           </p>

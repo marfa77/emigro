@@ -20,10 +20,10 @@ import { heroTitle } from "@/lib/ui/mobile";
 export const revalidate = 3600;
 
 export const metadata: Metadata = pageMetadata({
-  title: "Emigro — LATAM → España y Portugal 2026",
+  title: "Emigrar a España o Portugal 2026",
   titleAbsolute: true,
   description:
-    "Emigrar a España o Portugal desde Latinoamérica 2026: nómada digital, no lucrativa, D8/D7. UY/EC/PE/PY/CO/CL + nacionalidad española ~2 años (art. 22). Evaluador gratis.",
+    "Emigrar a España o Portugal desde LATAM 2026: nómada digital, no lucrativa, D8/D7. UY, EC, PE, PY, CO, CL y nacionalidad en ~2 años (art. 22).",
   path: ES_PATHS.home,
   locale: "es",
   esHreflang: { destinationIso: "ES" },

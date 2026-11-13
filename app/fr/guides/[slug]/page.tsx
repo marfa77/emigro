@@ -56,16 +56,13 @@ function hubCtaForGuide(corridorSlugs?: string[]): string {
   return FR_PATHS.france;
 }
 
-function GuideHeroVisual() {
+function GuideHeroVisual({ alt }: { alt: string }) {
   return (
-    <div
-      className="relative aspect-[16/10] w-full max-w-[380px] overflow-hidden rounded-[2rem] border border-white/30 bg-white shadow-2xl ring-1 ring-white/20"
-      aria-hidden
-    >
+    <div className="relative aspect-[16/10] w-full max-w-[380px] overflow-hidden rounded-[2rem] border border-white/30 bg-white shadow-2xl ring-1 ring-white/20">
       {/* Corridor photo only — OG cards bake the title into the bitmap. */}
       <Image
         src="/images/corridor-france.webp"
-        alt=""
+        alt={alt}
         fill
         sizes="360px"
         priority
@@ -219,7 +216,7 @@ export default function FrGuidePage({ params }: { params: { slug: string } }) {
         </nav>
 
         <div className="mt-6">
-          <HeroShell visual={<GuideHeroVisual />}>
+          <HeroShell visual={<GuideHeroVisual alt={guide.title} />}>
             <p className="text-xs font-semibold uppercase tracking-wide text-corridor-100">
               {corridorBadge(guide.corridor_slugs)}
             </p>

@@ -280,7 +280,7 @@ export default async function CountryProgramPage({
       <main className="mx-auto max-w-6xl px-4 py-10">
         <CorridorBreadcrumb topic={topic} current={program.title_ru} />
 
-        <HeroShell className="mt-5" visual={<CorridorHeroVisual segment={topic.urlSegment} />}>
+        <HeroShell className="mt-5" visual={<CorridorHeroVisual segment={topic.urlSegment} alt={program.title_ru} />}>
           <div className="flex flex-wrap items-center gap-2">
             <ProgramTypeBadge
               type={program.program_type}

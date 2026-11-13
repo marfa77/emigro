@@ -129,8 +129,6 @@ async function buildWwwSitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${origin}/ru`, changeFrequency: "weekly", priority: 1 },
     { url: `${origin}${ES_PATHS.home}`, changeFrequency: "weekly", priority: 0.95 },
     { url: `${origin}${FR_PATHS.home}`, changeFrequency: "weekly", priority: 0.94 },
-    { url: `${origin}/llms.txt`, changeFrequency: "weekly", priority: 0.4 },
-    { url: `${origin}/llms-full.txt`, changeFrequency: "weekly", priority: 0.4 },
     { url: `${origin}/ru/wizard`, changeFrequency: "monthly", priority: 0.95 },
     { url: `${origin}${ORIGIN_HUB_PATH}`, changeFrequency: "weekly", priority: 0.92 },
     { url: `${origin}/ru/guides`, changeFrequency: "weekly", priority: 0.9 },
