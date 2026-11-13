@@ -1,7 +1,7 @@
 ---
 slug: vnj-vengriya-2026-white-card-guest-investor
 title: "ВНЖ Венгрия 2026: White Card и Guest Investor"
-seo_title: "ВНЖ Венгрия 2026 — White Card + Guest Investor"
+seo_title: "Guest Investor Венгрия 2026 — €250 000"
 seo_description: "ВНЖ Венгрия 2026: White Card €3 000/мес net (макс. 2 года, без семьи и ПМЖ), Guest Investor €250k фонд / €1M донейшн. Enter Hungary, OIF. Для RU/BY/UA/KZ."
 excerpt: "Два венгерских маршрута 2026: White Card для удалёнки и Guest Investor (€250k фонд) — цифры OIF, ограничения по семье/статусу и практика первых 30 дней в Будапеште."
 quick_answer: |-

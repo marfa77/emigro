@@ -85,7 +85,10 @@ export default async function CountryDigestPage({ params }: { params: { country:
 
         {topicHasLanding(topic) && <CorridorHubShell topic={topic} active="digest" />}
 
-        <HeroShell visual={<CorridorHeroVisual segment={topic.urlSegment} />} className={heroClass}>
+        <HeroShell
+          visual={<CorridorHeroVisual segment={topic.urlSegment} alt={`Справочник Emigro: ${topic.countryRu}`} />}
+          className={heroClass}
+        >
           <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-sm text-corridor-50">
             <BookOpen className="h-4 w-4" />
             Справочник коридора

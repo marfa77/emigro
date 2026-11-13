@@ -1,7 +1,7 @@
 ---
 slug: prodlenie-vnzh-portugaliya-aima-2026
 title: "Продление ВНЖ в Португалии: портал AIMA, документы и сроки"
-seo_title: "Продление ВНЖ в Португалии — Portal das Renovações AIMA"
+seo_title: "Продление ВНЖ Португалия 2026 — AIMA"
 seo_description: "Как проверить доступность Portal das Renovações, подать документы, оплатить DUC и обновить данные. Что говорит AIMA об истёкшей карте и поездках."
 date_modified: 2026-10-26
 review_tier: volatile

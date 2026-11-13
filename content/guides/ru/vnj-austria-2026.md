@@ -1,7 +1,7 @@
 ---
 slug: vnj-austria-2026
 title: "ВНЖ Австрия 2026: RWR Card, Blue Card — без digital nomad"
-seo_title: "ВНЖ Австрия 2026 — RWR €3465, Blue Card, без DNV"
+seo_title: "ВНЖ Австрия 2026: RWR, семья, MA 35"
 seo_description: "Австрия 2026: нет DNV. RWR Other Key Workers €3 465/мес, Blue Card €55 678/год. Self-Employed Key Worker ≠ фриланс (€100k/макропольза). SVS, 45+, RWR Plus."
 excerpt: "Честный гайд: Австрия без digital nomad визы. RWR/Blue Card с оффером; самозанятость — только Key Worker/стартап с капиталом. Налоги SVS+PIT, не «открой ИП»."
 quick_answer: |-

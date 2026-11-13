@@ -116,12 +116,12 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   });
 }
 
-function GuideHeroVisual({ coverPath }: { coverPath: string }) {
+function GuideHeroVisual({ coverPath, alt }: { coverPath: string; alt: string }) {
   return (
-    <div className="relative aspect-[16/10] w-full max-w-[380px] overflow-hidden rounded-[2rem] border border-white/30 bg-white shadow-2xl ring-1 ring-white/20" aria-hidden>
+    <div className="relative aspect-[16/10] w-full max-w-[380px] overflow-hidden rounded-[2rem] border border-white/30 bg-white shadow-2xl ring-1 ring-white/20">
       <Image
         src={coverPath}
-        alt=""
+        alt={alt}
         fill
         sizes="360px"
         priority
@@ -330,7 +330,10 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
       </div>
       <main className="bg-[radial-gradient(circle_at_top_left,rgba(37,99,235,0.12),transparent_32rem)]">
         <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 2xl:max-w-[1360px]">
-        <HeroShell visual={<GuideHeroVisual coverPath={guide.cover_path} />} className="from-slate-950 via-corridor-800 to-sky-800">
+        <HeroShell
+          visual={<GuideHeroVisual coverPath={guide.cover_path} alt={guide.title} />}
+          className="from-slate-950 via-corridor-800 to-sky-800"
+        >
           <Link href="/ru/guides" className="text-sm font-medium text-corridor-100 hover:text-white">
             ← Все гайды
           </Link>
@@ -485,7 +488,13 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
                     <article key={related.slug} className="group overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 transition hover:-translate-y-0.5 hover:border-corridor-300 hover:shadow-md">
                       <Link href={guidePath(related.slug)} className="block">
                         <div className="relative aspect-[16/9] bg-slate-100">
-                          <Image src={related.cover_path} alt="" fill sizes="(max-width: 768px) 100vw, 360px" className="object-cover transition group-hover:scale-105" />
+                          <Image
+                            src={related.cover_path}
+                            alt={related.seo_title ?? related.title}
+                            fill
+                            sizes="(max-width: 768px) 100vw, 360px"
+                            className="object-cover transition group-hover:scale-105"
+                          />
                           <div className="absolute inset-0 bg-gradient-to-t from-slate-950/55 to-transparent" />
                         </div>
                         <div className="p-4">

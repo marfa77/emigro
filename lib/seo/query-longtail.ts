@@ -37,9 +37,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "закон о гражданстве португалия 10 лет d8",
       "aima португалия запись 2026",
     ],
-    seoTitle: "D8 Португалия 2026: €3 680 + AIMA — RU/BY/UA",
+    seoTitle: "D8 Португалия 2026: доход €3 680, AIMA",
     seoDescription:
-      "D8 digital nomad и D7 Португалия 2026: €3 680 / €920, AIMA, NIF, гражданство 10 лет. Pillar-гид + практика для RU/BY/UA/KZ.",
+      "D8 Португалия 2026: удалённая работа от €3 680/мес; D7 — от €920 плюс сбережения. После въезда подача в AIMA; гражданство для большинства — 10 лет.",
   },
   {
     path: "/ru/portugal/programs/portugal-d8-digital-nomad",
@@ -157,9 +157,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "chancenkarte германия 2026",
       "миграция через blue card eu",
     ],
-    seoTitle: "ВНЖ Германии 2026 для россиян: все способы",
+    seoTitle: "ВНЖ Германии 2026 для россиян: пути",
     seoDescription:
-      "ВНЖ Германии 2026: Blue Card (€50 700 / €45 934), Chancenkarte, фриланс §21, семья, ПМЖ. Подбор специалиста — €0, Route Check — €129.",
+      "ВНЖ Германии 2026: Blue Card (€50 700 / €45 934), Chancenkarte, фриланс §21, семья и ПМЖ. Подбор маршрута бесплатный.",
   },
   {
     path: "/ru/germany/programs/germany-eu-blue-card",
@@ -185,9 +185,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "edoręczenia польша иностранец",
       "банк после 19 пакета белорусы ес",
     ],
-    seoTitle: "Белорусы в ЕС 2026: ВНЖ без временной защиты",
+    seoTitle: "ВНЖ в Европе для белорусов 2026",
     seoDescription:
-      "ВНЖ в Европе для белорусов 2026 без временной защиты: Польша (oświadczenie, Type A, Blue Card), Чехия, D7/D8, консульства PL/LT и банковские карты по статусу.",
+      "ВНЖ в Европе для белорусов 2026 без временной защиты: Польша (oświadczenie, Type A, Blue Card), Чехия, D7/D8 и консульства PL/LT.",
   },
   {
     path: "/ru/guides/podtverdit-dohod-dengi-dlya-vnj-esli-dohod-iz-rossii-2026",
@@ -350,9 +350,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "agora imigrante renovação",
       "как проверить срок оплаты DUC AIMA",
     ],
-    seoTitle: "Продление ВНЖ Португалия 2026 — AIMA renovação",
+    seoTitle: "Продление ВНЖ Португалия 2026 — AIMA",
     seoDescription:
-      "Как продлить ВНЖ в Португалии через Portal das Renovações AIMA: проверить доступность для своей категории, подготовить документы, оплатить DUC в указанный срок и разобраться с истёкшей картой и поездками.",
+      "Как продлить ВНЖ в Португалии через Portal das Renovações AIMA: проверить категорию, собрать документы, оплатить DUC в срок и пройти биометрию при вызове.",
   },
   {
     path: "/ru/guides/kazahstantsy-v-evropu-vnj-2026",
@@ -367,9 +367,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "facilitation казахстан ес 2026",
       "национальная виза pt из казахстана",
     ],
-    seoTitle: "ВНЖ Казахстан 2026: виза, подбор €0",
+    seoTitle: "ВНЖ в Европе для казахстанцев 2026",
     seoDescription:
-      "Граждане KZ: Шенген только по визе, безвиза нет. DE и PL из Алматы, национальная D Португалии — через Москву. Подбор маршрута €0, Route Check €129.",
+      "ВНЖ в Европе для граждан Казахстана 2026: безвизового Шенгена нет. Германия и Польша — из Алматы; национальная виза D Португалии обычно через Москву.",
   },
   {
     path: "/ru/guides/vnj-serbiya-dlya-rossiyan-2026",
@@ -384,9 +384,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "пмж сербия 3 года",
       "white card сербия банк",
     ],
-    seoTitle: "ВНЖ Сербии для россиян 2026: ИП, DOO, работа",
+    seoTitle: "ВНЖ Сербии для россиян 2026: ИП, DOO",
     seoDescription:
-      "ВНЖ Сербии 2026 для россиян: через ИП-паушал, DOO или работу, подача в eStranci, ПМЖ через 3 года. Подбор специалиста — €0.",
+      "ВНЖ Сербии 2026 для россиян: через ИП-паушал, DOO или работу, подача в eStranci, ПМЖ через 3 года. Подбор маршрута бесплатный.",
   },
   {
     path: "/ru/netherlands",
@@ -582,9 +582,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "kennismigrant через агентство",
       "нидерланды внж без офера невозможно",
     ],
-    seoTitle: "Нидерланды HSM 2026 — гайд",
+    seoTitle: "ВНЖ Нидерланды из России 2026 — HSM",
     seoDescription:
-      "Highly Skilled Migrant NL: erkend referent, пороги IND, 30% ruling. Офер обязателен.",
+      "Как переехать в Нидерланды из России в 2026: нужен офер и HSM. Порог IND €4 357/мес до 30 лет или €5 942 после; 30% ruling. Без офера маршрута нет.",
   },
   {
     path: "/ru/greece",
@@ -636,9 +636,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "guest investor program hungary",
       "внж венгрия удалёнка",
     ],
-    seoTitle: "Венгрия White Card / Guest Investor 2026",
+    seoTitle: "Guest Investor Венгрия 2026 — €250 000",
     seoDescription:
-      "White Card и Guest Investor Венгрия 2026: доход, инвестиции, документы. Гайд Emigro.",
+      "Guest Investor Венгрия 2026: фонд MNB от €250 000 от 5 лет или донейшн €1 млн, карта 10+10 лет. White Card: удалёнка от €3 000 чистыми за 6 месяцев.",
   },
   {
     path: "/ru/cyprus",
@@ -811,9 +811,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "австрия blue card порог",
       "внж австрия без работы сложно",
     ],
-    seoTitle: "ВНЖ Австрия 2026 — RWR / Blue Card",
+    seoTitle: "ВНЖ Австрия 2026: RWR, семья, MA 35",
     seoDescription:
-      "Австрия 2026: RWR Card (баллы), Blue Card — гайд Emigro для RU/BY/UA/KZ.",
+      "ВНЖ Австрия 2026: RWR Card (оффер, AMS, баллы) и Blue Card. Воссоединение семьи: доход, жильё, сроки часто 4–9 мес. В Вене — MA 35, в землях — BH.",
   },
   {
     path: "/ru/invest/compare",
@@ -1097,9 +1097,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "no lucrativa España uruguayos",
       "Montevideo consulado visa España",
     ],
-    seoTitle: "Residencia España Uruguay 2026 — rutas UY",
+    seoTitle: "Emigrar a España desde Uruguay 2026",
     seoDescription:
-      "Uruguayos en España 2026: Schengen corto ≠ residencia. Nómada digital, no lucrativa y nacionalidad en 2 años (art. 22).",
+      "Cómo emigrar a España desde Uruguay 2026: el Schengen corto no es residencia. Vías: nómada digital, no lucrativa y nacionalidad en 2 años (art. 22).",
   },
   {
     path: "/es/guides/residencia-espana-desde-ecuador-2026",
@@ -1129,9 +1129,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "no lucrativa España Perú umbral",
       "Lima consulado residencia España",
     ],
-    seoTitle: "Residencia España peruanos 2026 — 2 años",
+    seoTitle: "Emigrar a España desde Perú 2026",
     seoDescription:
-      "Cómo emigrar a España desde Perú 2026: Schengen ≠ residencia. Nómada (~€2.849), no lucrativa, Lima y nacionalidad en 2 años (art. 22).",
+      "Cómo emigrar a España desde Perú 2026: Schengen no es residencia. Nómada (~€2.849), no lucrativa, Lima y nacionalidad en 2 años (art. 22).",
   },
   {
     path: "/es/guides/residencia-espana-desde-paraguay-2026",
@@ -1161,9 +1161,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "no lucrativa España Chile",
       "Santiago BLS visa España",
     ],
-    seoTitle: "Residencia España chilenos 2026 — 2 años",
+    seoTitle: "Emigrar a España desde Chile 2026",
     seoDescription:
-      "Cómo emigrar a España desde Chile 2026: Schengen ≠ residencia. Nómada (~€2.849), Santiago y nacionalidad en 2 años (art. 22).",
+      "Cómo emigrar a España desde Chile 2026: Schengen no es residencia. Nómada digital (~€2.849), no lucrativa, Santiago y nacionalidad en 2 años (art. 22).",
   },
   {
     path: "/es/guides/visa-nomada-digital-espana-latam-2026",
@@ -1227,7 +1227,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     ],
     seoTitle: "Ley Memoria Democrática 2026 — LATAM",
     seoDescription:
-      "LMD / nacionalidad por ascendencia española: plazos, quién califica, vs ruta residencia art. 22.",
+      "LMD 2026: nacionalidad por ascendencia española para LATAM — plazos, quién califica y en qué se diferencia de la residencia (art. 22).",
   },
   {
     path: "/es/guides/impuestos-beckham-espana-latam-2026",
@@ -1403,9 +1403,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "consulat France Maroc résidence",
       "visa court séjour vs VLS-TS Maroc",
     ],
-    seoTitle: "Résidence France Marocains 2026 — VLS-TS",
+    seoTitle: "Résidence en France depuis le Maroc 2026",
     seoDescription:
-      "Émigrer en France depuis le Maroc 2026 : visa obligatoire, VLS-TS, Talent, naturalisation ~5 ans.",
+      "Visa et VLS-TS pour vivre en France depuis le Maroc: Talent, salarié, étudiant. Naturalisation ~5 ans + B2, pas un raccourci 2 ans.",
   },
   {
     path: "/fr/guides/residence-france-depuis-algerie-2026",
@@ -1419,9 +1419,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "apostille documents Algérie France",
       "visa long séjour Algériens",
     ],
-    seoTitle: "Résidence France Algériens 2026",
+    seoTitle: "Résidence en France depuis l'Algérie 2026",
     seoDescription:
-      "Algérie → France 2026: VLS-TS, Talent, apostille. Naturalisation ~5 ans — pas un raccourci 2 ans.",
+      "Algérie → France 2026: VLS-TS, Passeport Talent, apostille. Naturalisation ~5 ans + B2 — pas un raccourci de 2 ans. Sources service-public.",
   },
   {
     path: "/fr/guides/residence-france-depuis-tunisie-2026",
@@ -1435,9 +1435,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "visa long séjour Tunisiens 2026",
       "consulat France Tunisie résidence",
     ],
-    seoTitle: "Résidence France Tunisiens 2026",
+    seoTitle: "Résidence en France depuis la Tunisie 2026",
     seoDescription:
-      "Tunisie → France 2026: VLS-TS, Passeport Talent, naturalisation ~5 ans.",
+      "Visa et VLS-TS pour vivre en France depuis la Tunisie: Passeport Talent, salarié, étudiant. Naturalisation ~5 ans + B2 (service-public).",
   },
   {
     path: "/fr/guides/residence-france-depuis-senegal-2026",
@@ -1451,9 +1451,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "visa long séjour Sénégalais 2026",
       "consulat France Sénégal résidence",
     ],
-    seoTitle: "Résidence France Sénégalais 2026",
+    seoTitle: "Résidence en France depuis le Sénégal 2026",
     seoDescription:
-      "Sénégal → France 2026: VLS-TS, Talent, naturalisation ~5 ans — sources service-public.",
+      "Visa et VLS-TS pour vivre en France depuis le Sénégal: Talent, salarié, étudiant. Naturalisation ~5 ans + B2, sources service-public.",
   },
   {
     path: "/fr/guides/residence-france-afrique-francophone-2026",
@@ -1653,6 +1653,69 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     seoTitle: "Fast-track Дания 2026: работодатель SIRI",
     seoDescription:
       "Fast-track Дании 2026: ВНЖ через работодателя, сертифицированного SIRI. Pay limit track обычно 1 месяц, supplementary track 2 месяца, сбор DKK 6 810.",
+  },
+  {
+    path: "/ru/poland/programs/poland-eu-blue-card",
+    programSlug: "poland-eu-blue-card",
+    primaryQuery: "eu blue card польша 2026",
+    queries: ["eu blue card польша 2026", "blue card зарплата польша pln"],
+    seoTitle: "EU Blue Card Польша 2026 — порог PLN",
+    seoDescription:
+      "EU Blue Card Польша 2026: выпускник вуза, квалифицированная работа, порог 150% средней GUS (ориентир PLN 13 041/мес на странице). Виза D + karta pobytu.",
+  },
+  {
+    path: "/ru/czechia/programs/czechia-eu-blue-card",
+    programSlug: "czechia-eu-blue-card",
+    primaryQuery: "eu blue card чехия 2026",
+    queries: ["eu blue card чехия 2026", "blue card зарплата чехия czk"],
+    seoTitle: "EU Blue Card Чехия 2026 — порог CZK",
+    seoDescription:
+      "EU Blue Card Чехия 2026: диплом, pracovní smlouva, порог ~150% средней (~CZK 67 500/мес брутто на странице). Zaměstnanecká karta + pobyt.",
+  },
+  {
+    path: "/ru/austria/programs/austria-eu-blue-card",
+    programSlug: "austria-eu-blue-card",
+    primaryQuery: "eu blue card австрия 2026",
+    queries: ["eu blue card австрия 2026", "blue card зарплата австрия"],
+    seoTitle: "EU Blue Card Австрия 2026 — порог €",
+    seoDescription:
+      "EU Blue Card Австрия 2026: диплом, Arbeitsvertrag, порог зарплаты на странице (ориентир €58 000/год брутто). RWR-альтернатива от €2 835/мес.",
+  },
+  {
+    path: "/ru/slovenia/programs/slovenia-family-reunification",
+    programSlug: "slovenia-family-reunification",
+    primaryQuery: "воссоединение семьи словения 2026",
+    queries: ["воссоединение семьи словения 2026", "семья digital nomad словения"],
+    seoTitle: "Воссоединение семьи в Словении 2026",
+    seoDescription:
+      "Воссоединение семьи в Словении 2026: к DN или иному резиденту. Для digital nomads GOV.SI отмечает облегчённый режим, без ожидания стажа спонсора.",
+  },
+  {
+    path: "/ru/slovenia/programs/slovenia-self-employed-sp",
+    programSlug: "slovenia-self-employed-sp",
+    primaryQuery: "словения внж самозанятость s.p. 2026",
+    queries: ["словения внж самозанятость s.p.", "s.p. словения внж 2026"],
+    seoTitle: "ВНЖ Словения s.p. самозанятость 2026",
+    seoDescription:
+      "ВНЖ Словении через s.p. (самозанятость) 2026: регистрация s.p. и temporary residence. Normirani ≈ 4% PIT, взносы ZZZS отдельно. Сроки ориентир 1–3 месяца.",
+  },
+  {
+    path: "/ru/austria/programs/austria-family-reunification",
+    programSlug: "austria-family-reunification",
+    primaryQuery: "воссоединение семьи австрия 2026",
+    queries: ["воссоединение семьи австрия 2026", "семья австрия сроки виза"],
+    seoTitle: "Воссоединение семьи в Австрии 2026",
+    seoDescription:
+      "Воссоединение семьи в Австрии 2026: спонсор с легальным статусом, достаточный доход и жильё. Ориентир по срокам: 2–6 недель на визу плюс 5–12 месяцев.",
+  },
+  {
+    path: "/ru/portugal/programs/portugal-family-reunification",
+    programSlug: "portugal-family-reunification",
+    primaryQuery: "aima воссоединение семьи португалия",
+    queries: ["aima воссоединение семьи", "воссоединение семьи португалия 2026"],
+    seoTitle: "Воссоединение семьи в Португалии — AIMA",
+    seoDescription:
+      "Воссоединение семьи в Португалии 2026: к резиденту или гражданину. После визы D — запись в AIMA; ориентир 2–6 недель + 2–4 месяца, карта 3–6 месяцев.",
   },
 ];
 

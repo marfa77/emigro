@@ -1,7 +1,7 @@
 ---
 slug: residencia-espana-desde-uruguay-2026
 title: "Residencia en España para uruguayos 2026"
-seo_title: "Residencia España uruguayos 2026 — 2 años"
+seo_title: "Emigrar a España desde Uruguay 2026"
 seo_description: "Cómo emigrar a España desde Uruguay 2026: Schengen 90 días ≠ residencia. Nómada digital (~€2.849), no lucrativa, Montevideo y nacionalidad en 2 años (art. 22)."
 excerpt: "Guía pillar: turista Schengen vs vivir en España con pasaporte UY. Rutas 2026, documentos desde Uruguay y horizonte de nacionalidad española a 2 años."
 quick_answer: "Uruguay suele entrar a Schengen sin visado (90/180), pero residir exige vía nacional: nómada digital (~€2.849/mes 2026; UGE o consulado Montevideo), no lucrativa (consulado primero), trabajo, estudios o reagrupación. Art. 22: ~2 años de residencia legal para nacionalidad (CCSE; DELE suele exento). Emigro: pilares + evaluador /es/wizard."

@@ -6,7 +6,7 @@ export function HubHeroVisual() {
     <div className="relative aspect-[16/10] w-full max-w-[360px] overflow-hidden rounded-3xl border-2 border-white/30 bg-white shadow-2xl">
       <Image
         src="/images/emigro-main-hero.webp"
-        alt=""
+        alt="Emigro — navigador de residencia en Europa"
         fill
         sizes="360px"
         priority
