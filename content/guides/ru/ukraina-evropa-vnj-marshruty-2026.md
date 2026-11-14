@@ -263,7 +263,7 @@ Work permit + pobyt ~PLN 390; бухгалтер B2B PLN 200–800/мес. См.
 - **[EU — displaced people from Ukraine](https://home-affairs.ec.europa.eu/policies/migration-and-asylum/migration-management/welcoming-displaced-people-ukraine_en)** — права и регистрация
 - **[gov.pl / UDSC](https://www.gov.pl/web/udsc-en)** — pobyt в Польше
 - **[IPC Czechia](https://ipc.gov.cz/en/)** — обзор маршрутов для иностранцев
-- **[MOI Czechia](https://imigration.gov.cz/en/)** — employee card / živnost
+- **[MOI Czechia](https://ipc.gov.cz/en/)** — employee card / živnost
 - **[BAMF](https://www.bamf.de/)** — статус и интеграция в Германии
 
 ---
@@ -278,7 +278,7 @@ Work permit + pobyt ~PLN 390; бухгалтер B2B PLN 200–800/мес. См.
 
 ## Дисклеймер
 
-Материал подготовлен редакцией Emigro. Это **не** юридическая консультация. Статус TP и национальные правила меняются — сверяйтесь с [gov.pl/udsc](https://www.gov.pl/web/udsc-en), [MOI CZ](https://imigration.gov.cz/en/), [BAMF](https://www.bamf.de/) и [EU Temporary Protection](https://home-affairs.ec.europa.eu/policies/migration-and-asylum/asylum-eu/temporary-protection_en) на дату подачи.
+Материал подготовлен редакцией Emigro. Это **не** юридическая консультация. Статус TP и национальные правила меняются — сверяйтесь с [gov.pl/udsc](https://www.gov.pl/web/udsc-en), [MOI CZ](https://ipc.gov.cz/en/), [BAMF](https://www.bamf.de/) и [EU Temporary Protection](https://home-affairs.ec.europa.eu/policies/migration-and-asylum/asylum-eu/temporary-protection_en) на дату подачи.
 
 ## Связанные гайды
 

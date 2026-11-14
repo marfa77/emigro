@@ -19,7 +19,7 @@ cta_secondary: /ru/poland/wizard
 official_sources:
   - url: https://www.gov.pl/web/udsc-en
     label: Польша — Office for Foreigners
-  - url: https://imigration.gov.cz/
+  - url: https://ipc.gov.cz/en/
     label: Чехия — Ministry of Interior
   - url: https://www.make-it-in-germany.com/
     label: Germany EU Blue Card

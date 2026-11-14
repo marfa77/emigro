@@ -17,11 +17,11 @@ primary_intent: informational
 cta_primary: /ru/czechia/wizard
 cta_secondary: /ru/wizard
 official_sources:
-  - url: https://imigration.gov.cz/en/third-country-nationals/employment/employee-card/
+  - url: https://ipc.gov.cz/en/visa-and-residence-permit-types/third-country-nationals/long-term-residence-permits/employee-card/
     label: MOI — employee card
-  - url: https://imigration.gov.cz/en/third-country-nationals/employment/eu-blue-card/
+  - url: https://ipc.gov.cz/en/
     label: MOI — EU Blue Card
-  - url: https://imigration.gov.cz/en/third-country-nationals/business/
+  - url: https://ipc.gov.cz/en/
     label: MOI — živnost / business
   - url: https://ipc.gov.cz/en/
     label: IPC — portal for foreigners (CZ)
@@ -80,7 +80,7 @@ date_modified: 2026-10-19
 | Реальный оффер IT Prague | CZK 45 000–80 000+ брутто |
 | Blue Card (150% средней) | **CZK 73 823/мес** (~€2 900, с 01.05.2026) |
 
-*Источник: [MOI — EU Blue Card](https://imigration.gov.cz/en/third-country-nationals/employment/eu-blue-card/), [MPSV](https://www.mpsv.cz/en/).*
+*Источник: [MOI — EU Blue Card](https://ipc.gov.cz/en/), [MPSV](https://www.mpsv.cz/en/).*
 
 ### Кто может подать
 - Граждане стран, требующих визы для long-term stay
@@ -279,10 +279,10 @@ CZ — ниже порог Blue Card (~€2 900 vs ~PLN 13 355 / €3 110 в PL)
 
 ## Официальные источники
 
-- **[MOI — employee card](https://imigration.gov.cz/en/third-country-nationals/employment/employee-card/)** — zaměstnanecká karta
-- **[MOI — EU Blue Card](https://imigration.gov.cz/en/third-country-nationals/employment/eu-blue-card/)** — Blue Card
-- **[MOI — živnost / business](https://imigration.gov.cz/en/third-country-nationals/business/)** — OSVČ-маршрут
-- **[MOI — family reunification](https://imigration.gov.cz/en/third-country-nationals/family-reunification/)** — воссоединение
+- **[MOI — employee card](https://ipc.gov.cz/en/visa-and-residence-permit-types/third-country-nationals/long-term-residence-permits/employee-card/)** — zaměstnanecká karta
+- **[MOI — EU Blue Card](https://ipc.gov.cz/en/)** — Blue Card
+- **[MOI — živnost / business](https://ipc.gov.cz/en/)** — OSVČ-маршрут
+- **[MOI — family reunification](https://ipc.gov.cz/en/visa-and-residence-permit-types/third-country-nationals/long-term-residence-permits/long-term-residence-permit-for-the-purpose-of-family-reunification/)** — воссоединение
 - **[IPC — portal for foreigners](https://ipc.gov.cz/en/)** — обзор маршрутов (дублирует MOI)
 - **[MPSV](https://www.mpsv.cz/en/)** — рынок труда и пороги
 
@@ -298,7 +298,7 @@ Hub wizard: [/ru/wizard](/ru/wizard).
 
 ## Дисклеймер
 
-Материал подготовлен редакцией Emigro. Это **не** юридическая консультация. Пороги MOI/MPSV меняются — сверяйтесь с [imigration.gov.cz](https://imigration.gov.cz/en/) на дату подачи.
+Материал подготовлен редакцией Emigro. Это **не** юридическая консультация. Пороги MOI/MPSV меняются — сверяйтесь с [ipc.gov.cz](https://ipc.gov.cz/en/) на дату подачи.
 
 ## Связанные гайды (кластер CZ / CEE)
 
