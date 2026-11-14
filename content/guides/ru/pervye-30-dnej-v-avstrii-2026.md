@@ -1,10 +1,13 @@
 ---
 slug: pervye-30-dnej-v-avstrii-2026
-title: "Первые 30 дней в Австрии 2026: Meldezettel, SVNR, банк, Krankenkasse"
-seo_title: "Первые 30 дней в Австрии 2026 — Meldezettel, SVNR, банк"
-seo_description: "Чек-лист после прилёта в Австрию: Meldezettel, SVNR, банк Erste/Bank Austria, Krankenkasse, SIM. RWR Card / Blue Card. RU/UA/BY/KZ. 2026."
-excerpt: "RWR Card или Blue Card — первый месяц: Meldezettel, SVNR, банк, Krankenkasse и Ausländerbehörde."
-quick_answer: "Первые 30 дней: (1) Meldezettel в Gemeinde в 3 дня, (2) SVNR (Sozialversicherungsnummer) через employer/Krankenkasse, (3) SIM (A1/Magenta/Drei), (4) банк Erste/Bank Austria/Raiffeisen, (5) Krankenkasse обязательна, (6) Ausländerbehörde / MA35 для Aufenthaltstitel. Без Meldezettel не получите SVNR."
+title: "Первые 30 дней в Австрии 2026: регистрация, соцномер, банк, страховка"
+seo_title: "Первые 30 дней в Австрии 2026: Meldezettel, банк, ВНЖ"
+seo_description: "Первый месяц в Австрии: регистрация адреса за 3 дня, соцномер, медстраховка, банк и получение карты Red-White-Red в ведомстве. Для RU/BY/UA/KZ, 2026."
+excerpt: "Приехали по визе D за картой Red-White-Red или Blue Card — что сделать в первый месяц: регистрация адреса, соцномер, медстраховка, банк и получение карты ВНЖ."
+quick_answer: |-
+  В течение 3 дней после заселения зарегистрируйте адрес (Meldezettel) в бюро регистрации — бланк подписывает тот, кто вас поселил. За опоздание штраф до €726.
+
+  Карту Red-White-Red или Blue Card после визы D обычно не «подают заново», а забирают: сразу после въезда свяжитесь с ведомством (в Вене — MA 35) и возьмите запись на выдачу, пока действует виза. Работающих по найму работодатель регистрирует в медстраховке — соцномер приходит по почте. Комиссию агенту за квартиру с июля 2023 года платит тот, кто его нанял, — обычно арендодатель.
 corridor_slugs: [ru-speaking-to-austria]
 topic_keys: [austria, checklist, arrival]
 tags: [Австрия, чеклист, 2026, Meldezettel, SVNR, RWR Card]
@@ -12,93 +15,100 @@ primary_intent: how-to
 cta_primary: /ru/austria/wizard
 cta_secondary: /ru/austria
 official_sources:
-  - url: https://www.migration.gv.at/en/types-of-residence/all-types-of-residence/red-white-red-card/
-    label: migration.gv.at — RWR Card
-  - url: https://www.migration.gv.at/en/types-of-residence/all-types-of-residence/eu-blue-card/
-    label: migration.gv.at — EU Blue Card
-  - url: https://www.oesterreich.gv.at/
-    label: oesterreich.gv.at — Meldezettel
+  - url: https://www.migration.gv.at/en/types-of-immigration/permanent-immigration/
+    label: migration.gv.at — карта Red-White-Red и Blue Card
+  - url: https://www.oesterreich.gv.at/themen/persoenliche_dokumente_und_bestaetigungen/an__abmeldung_des_wohnsitzes/Seite.1180200.html
+    label: oesterreich.gv.at — регистрация места жительства
+  - url: https://www.wien.gv.at/amtshelfer/dokumente/aufenthalt/drittstaaten/bescheinigungen/rwr-karte-schluesselkraft-selbstaendig.html
+    label: Город Вена (MA 35) — получение карты Red-White-Red
+  - url: https://www.oesterreich.gv.at/themen/bauen_und_wohnen/wohnen/3/1/Seite.210222.html
+    label: oesterreich.gv.at — комиссия агента при аренде (платит заказчик)
   - url: https://www.sozialversicherung.at/
-    label: Sozialversicherung
-estimated_minutes: 12
+    label: Sozialversicherung — соцстрах и медстраховка
+estimated_minutes: 14
 date_published: 2026-06-29
-date_modified: 2026-09-19
+date_modified: 2026-11-14
 ---
 
 ## Кому этот чек-лист
 
-Для граждан **РФ, Беларуси, Украины, Казахстана**, которые прилетели по **national visa D** (RWR / Blue Card / учёба / семья) и ждут Aufenthaltstitel.
+Для граждан **России, Беларуси, Украины и Казахстана**, которые:
 
-> **Nota Emigro (fact-check, сентябрь 2026).** **OK:** Meldezettel в Gemeinde ориентир **3 дня**; без него SVNR обычно не дают. Dedicated DNV **нет** — этот чек-лист про work title, не про «ноутбук туристом». Маршруты: [ВНЖ Австрия](/ru/guides/vnj-austria-2026). **Soft:** очередь MA35 / Landesbehörde — поле.
+- приехали по **визе D** за картой **Red-White-Red** (RWR, ВНЖ для квалифицированных специалистов), **EU Blue Card**, на учёбу или к семье;
+- ждут выдачи **карты ВНЖ** (Aufenthaltstitel);
+- переезжают в **Вену, Зальцбург, Грац или Линц** по трудовому договору.
 
-Для граждан **РФ, Беларуси, Украины, Казахстана**, которые:
+Программы: [коридор Австрия](/ru/austria) · [подбор маршрута](/ru/austria/wizard). Полный разбор маршрутов: [ВНЖ Австрия 2026](/ru/guides/vnj-austria-2026).
 
-- прилетели по **national visa D** (RWR Card, EU Blue Card, student, family);
-- ждут **Aufenthaltstitel** после подачи в MA35 / Landesausländerbehörde;
-- переезжают в **Vienna, Salzburg, Graz, Linz** по work contract.
-
-Программы: [коридор Австрия](/ru/austria) · [wizard](/ru/austria/wizard). Полный разбор маршрутов: [ВНЖ Австрия 2026](/ru/guides/vnj-austria-2026).
+> **Nota Emigro (fact-check, ноябрь 2026).** **OK:** регистрация места жительства — **3 дня** (§3 закона о регистрации), штраф до **€726**. Отдельной визы цифрового кочевника в Австрии **нет** — этот чек-лист про рабочие ВНЖ. **Fixed:** для RWR и Blue Card виза D выдаётся, чтобы **въехать и забрать карту** — после въезда берут запись на выдачу в ведомстве (в Вене MA 35), а не подают заявление заново. С **1 июля 2023** действует принцип «платит заказчик»: комиссию агента платит тот, кто его нанял, — арендатор платит, только если сам заказал агента. Бланк регистрации подписывает **тот, кто вас поселил** (Unterkunftgeber) — немецкий термин Wohnungsgeberbestätigung к Австрии не относится. Венский годовой проездной с 2026 — **€467** (онлайн €461), месячный — **€75**. **Soft:** сроки записи в MA 35 зависят от загрузки.
 
 ---
 
-## Неделя 1: жильё и связь
+## Неделя 1: жильё, связь и регистрация
 
 ### День 1–3: SIM и транспорт
 
-| Шаг | Действие | Детали |
-|-----|----------|--------|
-| SIM | A1, Magenta (T-Mobile), Drei | Prepaid от €10 |
-| **Wiener Linien** | Jahreskarte / 30-Tage | Vienna: ~€51/мес |
-| Жильё | Airbnb / coliving | Временно — для Meldezettel нужен Mietvertrag |
+| Шаг | Что сделать | Детали |
+|-----|-------------|--------|
+| SIM-карта | A1, Magenta, Drei или их дешёвые бренды | Предоплата от ~€10 |
+| Транспорт в Вене | Wiener Linien — годовой или месячный проездной | **2026:** годовой €467 (онлайн €461), месячный €75 |
+| Жильё | Временное жильё или коливинг | Для регистрации нужно, чтобы тот, кто вас поселил, подписал бланк |
 
-### День 3–7: Mietvertrag
+### День 1–3: сразу свяжитесь с ведомством по выдаче карты
 
-- **Willhaben / ImmobilienScout24 / Facebook** — основные площадки.
-- Депозит: **3 Kautionen** (3 месяца) + первый месяц + Maklerprovision (часто 2 BMM).
-- **Wohnungsgeberbestätigung** — подтверждение от арендодателя для Meldezettel.
-- Vienna 1-bed: €900–1 400/мес; Salzburg/Graz: €700–1 100.
+Если вы приехали по визе D за картой RWR или Blue Card, решение по ВНЖ обычно уже принято — виза нужна, чтобы въехать и **забрать карту**. В Вене это **MA 35**, в других землях — районная администрация (Bezirkshauptmannschaft) или магистрат.
 
-**Совет:** без **Wohnungsgeberbestätigung** Gemeinde откажет в Meldezettel.
+Как можно скорее после въезда свяжитесь с ведомством и возьмите **запись на выдачу**. Карту нужно забрать, пока действует виза.
+
+### День 3–7: договор аренды
+
+- Где искать: **Willhaben, ImmobilienScout24**, группы в Facebook.
+- Залог (Kaution): обычно до **3 месячных платежей**.
+- **Комиссия агента:** с 1 июля 2023 года её платит тот, кто нанял агента. Если квартиру выставил арендодатель через агента, арендатор комиссию не платит.
+- Квартира с 1 спальней: Вена — €900–1 400 в месяц; Зальцбург и Грац — €700–1 100.
 
 ---
 
-## Неделя 1: Meldezettel (критично!)
+## Неделя 1: регистрация адреса (Meldezettel)
 
-**Meldezettel** — регистрация адреса в **Gemeinde / Magistrat**.
+**Meldezettel** — регистрация места жительства в бюро регистрации (Meldeamt) при магистрате или общине (Gemeinde).
 
 **Срок:** **3 дня** после заселения.
 
-**Документы:** Reisepass, Mietvertrag, **Wohnungsgeberbestätigung** (Formular от Vermieter).
+**Документы:**
 
-**Штраф** за просрочку — до €726.
+1. Паспорт
+2. Заполненный бланк регистрации, подписанный **тем, кто вас поселил** (Unterkunftgeber) — арендодателем или хозяином жилья
+3. Иногда — договор аренды
 
-| Без Meldezettel | С Meldezettel |
-|-----------------|---------------|
-| Нет SVNR | Sozialversicherung |
-| Нет банка AT | IBAN, Online-Banking |
-| Нет Krankenkasse | Обязательная медстраховка |
+**Штраф** за опоздание — до €726.
 
-Официально: [oesterreich.gv.at](https://www.oesterreich.gv.at/) · [migration.gv.at — RWR](https://www.migration.gv.at/en/types-of-residence/all-types-of-residence/red-white-red-card/)
+| Без регистрации | С регистрацией |
+|-----------------|----------------|
+| Сложно открыть австрийский счёт | Банк, онлайн-сервисы |
+| Ведомство не выдаст карту ВНЖ | Можно забрать карту |
+| Нет подтверждения адреса для работодателя | Работодатель оформляет соцстрах |
+
+Официально: [oesterreich.gv.at — регистрация](https://www.oesterreich.gv.at/themen/persoenliche_dokumente_und_bestaetigungen/an__abmeldung_des_wohnsitzes/Seite.1180200.html)
 
 ---
 
-## Неделя 2: SVNR и Krankenkasse
+## Неделя 2: соцномер и медстраховка
 
-### SVNR (Sozialversicherungsnummer)
+### Соцномер (SVNR)
 
-**SVNR** — социальный номер (10 цифр). Нужен для банка, налогов, Krankenkasse.
+**SVNR** (Sozialversicherungsnummer) — номер социального страхования из 10 цифр. Нужен для врачей, налогов и банка.
 
-**Как получить:**
-1. Работодатель подаёт **Anmeldung** в **ÖGK** (Österreichische Gesundheitskasse) или другую Krankenkasse.
-2. SVNR приходит по почте за **2–4 недели**.
-3. Студенты — через Universität или коммерческая страховка до enrollment.
+1. Работодатель регистрирует вас в соцстрахе — обычно в **ÖGK** (государственная медстраховка).
+2. Номер и карта **e-card** приходят по почте, как правило, через несколько недель.
+3. Студенты — через самостоятельное страхование или коммерческую страховку.
 
-### Krankenkasse (медстраховка)
+### Медстраховка
 
-- При **employment** — **обязательна** с первого дня (работодатель регистрирует).
-- Основные: **ÖGK**, SVS (self-employed), BVAEB.
-- Студенты — studierendengebundene или коммерческая (~€60–120/мес).
-- До enrollment — **private Krankenversicherung** (Allianz, UNIQA) €80–200/мес.
+- При **работе по найму** — обязательна с первого дня, работодатель регистрирует вас сам.
+- Основные кассы: **ÖGK** (работники), **SVS** (самозанятые), **BVAEB** (госслужащие).
+- Студенты — самостоятельное страхование в ÖGK или коммерческая страховка.
+- До начала работы — частная страховка (Allianz, UNIQA и др.); цена зависит от возраста и полиса.
 
 Официально: [sozialversicherung.at](https://www.sozialversicherung.at/)
 
@@ -106,51 +116,53 @@ date_modified: 2026-09-19
 
 ## Неделя 2–3: банк
 
-| Bank | Плюсы | Минусы |
+| Банк | Плюсы | Минусы |
 |------|-------|--------|
-| **Erste Bank / Bank Austria** | Крупнейшие, полный сервис | Нужен Meldezettel + SVNR |
-| **Raiffeisen** | Региональные отделения | Строже KYC |
-| **Revolut / N26** | Быстрый старт | Не заменяют AT-счёт для Gehalt |
+| **Erste Bank, Bank Austria** | Крупнейшие, полный сервис | Нужна регистрация адреса |
+| **Raiffeisen** | Отделения по всей стране | Проверка (KYC) строже |
+| **Revolut / N26** | Быстрый старт | Работодатели часто просят австрийский счёт для зарплаты |
 
-**Документы:** Reisepass, Meldezettel, SVNR (или Bestätigung от employer), Dienstvertrag.
+**Документы:** паспорт, справка о регистрации, трудовой договор (Dienstvertrag), иногда соцномер или подтверждение от работодателя.
 
-**Срок открытия:** 1–2 недели после Meldezettel.
+**Срок открытия:** от нескольких дней до 2 недель.
 
-**Gehaltskonto** — зарплатный счёт, часто требуется работодателем.
+Работодатель обычно ждёт **зарплатный счёт** (Gehaltskonto) в австрийском банке.
 
 ---
 
-## Неделя 3–4: Aufenthaltstitel (MA35)
+## Неделя 3–4: выдача карты ВНЖ
 
-После entry с **visa D**:
+**Если приехали по визе D за готовой картой (RWR, Blue Card):**
 
-1. **Termin** в **MA35** (Vienna) или **Landesausländerbehörde** (другие земли) — очереди **3–6 месяца** (Vienna).
-2. Подача: Reisepass, visa, Meldezettel, Dienstvertrag, Krankenkasse, фото, сбор ~€160.
-3. **Biometrie** → **Aufenthaltstitel** (Red-White-Red / Blue Card).
-4. Сроки: **4–12 нед.** после appointment.
+1. Придите по записи в ведомство (в Вене — MA 35).
+2. Возьмите паспорт с визой, справку о регистрации, при необходимости — подтверждение медстраховки и биометрическое фото.
+3. Сдайте отпечатки пальцев, если их ещё не брали, и получите карту.
 
-### Пока ждёте titel
+**Если подаёте заявление уже в Австрии** (например, продление или смена основания) — подаёте полный пакет в то же ведомство и храните подтверждение о подаче.
 
-- Храните **Bestätigung** подачи — legal stay.
-- Не нарушайте срок Meldezettel при переезде — **3 дня** на новую регистрацию.
-- RWR: интеграция **B1 Deutsch** может потребоваться при продлении.
+### Пока ждёте карту
 
-Официально: [migration.gv.at](https://www.migration.gv.at/)
+- Храните подтверждение о записи или подаче.
+- При переезде на новый адрес — снова зарегистрируйтесь в течение **3 дней**.
+- Для продления RWR и долгосрочного проживания понадобится немецкий: требования проверяйте на migration.gv.at.
+
+Официально: [migration.gv.at](https://www.migration.gv.at/en/types-of-immigration/permanent-immigration/)
 
 ---
 
 ## Бюджет первого месяца (ориентир 2026)
 
-| Статья | Vienna | Salzburg / Graz |
-|--------|--------|-----------------|
-| Аренда 1-bed | €900–1 400 | €700–1 100 |
-| Kaution + Makler | €2 700–5 600 | €2 100–4 400 |
-| SIM + internet | €40–70 | €35–60 |
+| Статья | Вена | Зальцбург / Грац |
+|--------|------|-------------------|
+| Аренда квартиры с 1 спальней | €900–1 400 | €700–1 100 |
+| Залог | до 3 месячных платежей | до 3 месячных платежей |
+| Комиссия агента | обычно €0, если агента нанял арендодатель | то же |
+| SIM + домашний интернет | €40–70 | €35–60 |
 | Продукты | €300–450 | €250–380 |
-| Transport | €51 (Wiener Linien) | €40–50 |
-| Insurance (private) | €80–200 | €80–200 |
+| Транспорт | €75 месячный (или €467 в год) | местный проездной |
+| Частная страховка до работы | зависит от полиса | то же |
 
-**Итого первый месяц (solo):** €4 000–7 500 в Vienna.
+**Итого первый месяц (один человек):** около €3 500–6 500 в Вене — с учётом залога и первой аренды.
 
 Подробнее: [бюджет релокации](/ru/guides/byudzhet-relokatsii-evropa-2026-po-stranam).
 
@@ -158,25 +170,25 @@ date_modified: 2026-09-19
 
 ## Чек-лист «30 дней» (копируйте)
 
-- [ ] SIM-карта AT
-- [ ] Mietvertrag + Wohnungsgeberbestätigung
-- [ ] Meldezettel в Gemeinde (3 дня!)
-- [ ] SVNR получен (или Anmeldung подана)
-- [ ] Krankenkasse / private insurance активна
-- [ ] Банковский счёт (IBAN AT)
-- [ ] Termin MA35 / biometrics submitted
-- [ ] Bestätigung подачи Aufenthaltstitel
+- [ ] Австрийская SIM-карта
+- [ ] Запись на выдачу карты ВНЖ взята в первые дни
+- [ ] Договор аренды, бланк регистрации подписан хозяином жилья
+- [ ] Регистрация адреса (3 дня)
+- [ ] Соцномер получен или регистрация у работодателя подана
+- [ ] Медстраховка активна (через работодателя или частная)
+- [ ] Банковский счёт с австрийским IBAN
+- [ ] Карта ВНЖ получена до окончания визы
 - [ ] Копии документов в облаке
 
 ---
 
 ## Частые ошибки
 
-1. **Пропуск Meldezettel (3 дня)** — блок SVNR, банка, Krankenkasse.
-2. **Ждать Aufenthaltstitel для банка** — Meldezettel → SVNR → bank.
-3. **Только Revolut** — Gehalt требует **Austrian IBAN**.
-4. **MA35 без Termin** — в Vienna очереди на **3–6 месяца**; бронируйте сразу после visa.
-5. **Игнорирование B1** — RWR продление может требовать немецкий.
+1. **Пропуск 3 дней на регистрацию** — штраф и задержка с банком и картой.
+2. **Подавать заявление заново вместо записи на выдачу** — для RWR и Blue Card карту забирают по визе D.
+3. **Не забрать карту до окончания визы** — придётся решать вопрос отдельно.
+4. **Платить агенту, которого нанял арендодатель** — с июля 2023 года это не обязанность арендатора.
+5. **Только Revolut** — для зарплаты нужен **австрийский IBAN**.
 
 ---
 
@@ -184,40 +196,37 @@ date_modified: 2026-09-19
 
 ### Нужен ли немецкий?
 
-Для RWR/Blue Card при подаче — часто **нет**; для интеграции и продления — **B1**; для гражданства AT — **B2**.
+Для получения RWR или Blue Card — зависит от категории и баллов. Для продления и долгосрочного проживания — обычно нужен немецкий; для гражданства — уровень B1 и выше по требованиям закона о гражданстве. Проверяйте на migration.gv.at.
 
-### Vienna vs другие земли?
+### Вена или другие земли?
 
-MA35 перегружен — Termin за **месяцы**. Salzburg, Graz, Linz — быстрее, но меньше IT-вакансий.
+В Вене больше вакансий, но MA 35 сильно загружено. В Зальцбурге, Граце и Линце записи обычно проще, но вакансий в IT меньше.
 
-### UA с TP в AT?
+### Украинцы с временной защитой?
 
-TP возможна; переход на RWR/Blue Card — отдельная подача. См. [UA маршруты](/ru/guides/ukraina-evropa-vnj-marshruty-2026).
+Временная защита возможна. Переход на RWR или Blue Card — отдельная подача. См. [маршруты для украинцев](/ru/guides/ukraina-evropa-vnj-marshruty-2026).
 
-### Сколько ждать Aufenthaltstitel?
+### Есть ли отличия для граждан Беларуси, Украины, Казахстана?
 
-После Termin: **4–12 нед.** Vienna MA35 — дольше.
-
-### BY/UA/KZ — отличия?
-
-Процедуры **одинаковы**; консульская подaча до прилёта отличается.
+После въезда процедуры **одинаковы**; отличается консульская подача до прилёта.
 
 ---
 
 ## Официальные источники
 
-- [migration.gv.at — RWR Card](https://www.migration.gv.at/en/types-of-residence/all-types-of-residence/red-white-red-card/)
-- [migration.gv.at — EU Blue Card](https://www.migration.gv.at/en/types-of-residence/all-types-of-residence/eu-blue-card/)
-- [oesterreich.gv.at](https://www.oesterreich.gv.at/) — Meldezettel
-- [sozialversicherung.at](https://www.sozialversicherung.at/) — SVNR / Krankenkasse
+- [migration.gv.at — постоянная иммиграция (RWR, Blue Card)](https://www.migration.gv.at/en/types-of-immigration/permanent-immigration/)
+- [Город Вена — получение карты RWR](https://www.wien.gv.at/amtshelfer/dokumente/aufenthalt/drittstaaten/bescheinigungen/rwr-karte-schluesselkraft-selbstaendig.html)
+- [oesterreich.gv.at — регистрация места жительства](https://www.oesterreich.gv.at/themen/persoenliche_dokumente_und_bestaetigungen/an__abmeldung_des_wohnsitzes/Seite.1180200.html)
+- [oesterreich.gv.at — комиссия агента](https://www.oesterreich.gv.at/themen/bauen_und_wohnen/wohnen/3/1/Seite.210222.html)
+- [sozialversicherung.at](https://www.sozialversicherung.at/) — соцстрах и медстраховка
 
 ---
 
 ## Связанные материалы
 
 - [ВНЖ Австрия 2026 — RWR, Blue Card, семья](/ru/guides/vnj-austria-2026)
-- [Wizard Австрия](/ru/austria/wizard)
+- [Подбор маршрута: Австрия](/ru/austria/wizard)
 - [Справочник коридора](/ru/austria/digest)
-- [Первые 30 дней DE](/ru/guides/pervye-30-dnej-v-germanii-2026) — сравнение соседней страны
+- [Первые 30 дней в Германии](/ru/guides/pervye-30-dnej-v-germanii-2026) — сравнение с соседней страной
 
-*Не юридическая консультация. Сверяйтесь с [migration.gv.at](https://www.migration.gv.at/) и MA35.*
+*Не юридическая консультация. Сверяйтесь с [migration.gv.at](https://www.migration.gv.at/) и ведомством вашей земли.*
