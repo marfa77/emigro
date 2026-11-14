@@ -29,8 +29,10 @@ official_sources:
     label: Brå — Swedish National Council for Crime Prevention
 estimated_minutes: 20
 date_published: 2026-08-06
-date_modified: 2026-08-06
+date_modified: 2026-11-14
 ---
+
+> **Nota Emigro (fact-check, ноябрь 2026).** **OK:** Crime Index Numbeo — показатель восприятия по опросам, а не полицейская статистика; гид прямо это оговаривает. **Soft:** значения индекса и места в рейтинге меняются несколько раз в год, а вторичные сводки расходятся — перед решением о жилье сверяйте актуальный срез на numbeo.com, данные Eurostat и полиции страны, а также советы своего консульства.
 
 ## Коротко для релокации
 
