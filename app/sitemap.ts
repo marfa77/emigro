@@ -268,13 +268,17 @@ async function buildWwwSitemap(): Promise<MetadataRoute.Sitemap> {
         priority: sitemapPriority(wizard, 0.85),
         ...(digestModified ? { lastModified: digestModified } : {}),
       },
-      {
+    );
+    // The digest page's canonical is topic.sitePaths.guide; list it only when that is the digest itself
+    // (Estonia's digest canonicalises to its pillar guide, so listing it fed Google a non-canonical URL).
+    if (topic.sitePaths?.guide === corridorDigestPath(slug)) {
+      corridorRoutes.push({
         url: `${origin}${corridorDigestPath(slug)}`,
         changeFrequency: "weekly",
         priority: 0.8,
         ...(digestModified ? { lastModified: digestModified } : {}),
-      },
-    );
+      });
+    }
 
     for (const p of corridor?.programs ?? []) {
       const program = programsBySlug.get(p.slug);
