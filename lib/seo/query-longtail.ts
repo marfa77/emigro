@@ -103,9 +103,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "digital nomad visa испания для россиян 2026",
       "внж испания teletrabajo порог дохода",
     ],
-    seoTitle: "Digital nomad ES 2026: €2 849 teletrabajo",
+    seoTitle: "Digital nomad ES 2026: 200% SMI teletrabajo",
     seoDescription:
-      "Digital nomad visa Испания 2026: €2 849/мес, teletrabajo, Beckham, non-lucrative, Golden Visa закрыта. Pillar-гид для граждан РФ, BY, UA, KZ.",
+      "Digital nomad visa Испания 2026: 200% SMI mensual (≈ €2.442/мес, RD 126/2026), teletrabajo, Beckham, non-lucrative. Pillar для RU/BY/UA/KZ.",
   },
   {
     path: "/ru/spain/programs/spain-digital-nomad",

@@ -306,7 +306,7 @@ export const EUROPE_CORRIDORS: CorridorSeed[] = [
           },
           {
             url: "https://www.boe.es/eli/es/rd/2026/02/18/126/con",
-            excerpt: "Real Decreto 126/2026 — SMI 2026 €1 221/мес (14 pagas). DNV threshold: €1 221 × 14 ÷ 12 × 2 = €2 849/мес.",
+            excerpt: "Real Decreto 126/2026 — SMI 2026 €1.221/mes. Art. 74 bis: titular 200% SMI mensual = €2.442/mes.",
             labelEn: "BOE — SMI 2026",
             labelRu: "BOE — SMI 2026",
           },

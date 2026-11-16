@@ -143,7 +143,7 @@ const spainDnv = evaluateProgram(
   spainDnvFacts,
   undefined,
   [
-    { requirementType: "income", labelRu: "Доход", valueText: "€2 849/мес" },
+    { requirementType: "income", labelRu: "Доход", valueText: "≈ €2.442/мес (200% SMI mensual)" },
     { requirementType: "insurance", labelRu: "Медстраховка", valueText: "Полное покрытие в Испании" },
   ],
   { answeredKeys: ["remote_income", "monthly_income_eur"] }
