@@ -322,4 +322,4 @@ PIT прогрессивный до **15%**; CIT DOO **9%**; резидентс�
 
 ### Это юридическая консультация?
 
-Нет. Хаб [/ru/montenegro](/ru/montenegro). Сверяйте gov.me / MUP.
+Нет. Хаб [/ru/montenegro](/ru/montenegro). Сверяйте gov.me / MUP. Перед ЕС: [работа в Европе](/ru/guides/rabota-v-evrope-dlya-rossiyan-2026) · [банк и IBAN](/ru/guides/bank-i-iban-dlya-rossiyan-v-evrope-2026).

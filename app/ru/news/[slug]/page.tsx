@@ -19,12 +19,13 @@ import {
   getPublishedNewsDigestBySlug,
   isNewsStory,
 } from "@/lib/news/digests";
+import { applyNewsSeoOverrides } from "@/lib/news/seo-overrides";
 import { getNewsTopic, newsIndexPath } from "@/lib/news/topics";
 import {
   buildNewsArticleMetadata,
   DEFAULT_OG_IMAGE,
   fitMetaDescription,
-  fitSeoTitleAbsolute,
+  fitNewsSeoTitleAbsolute,
 } from "@/lib/seo";
 import {
   buildNewsArticleAiDescription,
@@ -57,11 +58,12 @@ function formatDateRu(dateString: string) {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const digest = await getPublishedNewsDigestBySlug(params.slug);
-  if (!digest) return {};
+  const raw = await getPublishedNewsDigestBySlug(params.slug);
+  if (!raw) return {};
+  const digest = applyNewsSeoOverrides(raw);
 
   const topic = await getNewsTopic(digest.topic_key);
-  const title = fitSeoTitleAbsolute(getNewsDisplaySeoTitle(digest, topic?.countryRu));
+  const title = fitNewsSeoTitleAbsolute(getNewsDisplaySeoTitle(digest, topic?.countryRu));
   const description = fitMetaDescription(digest.seo_description || digest.excerpt);
   const story = isNewsStory(digest);
   // Stories: dynamic opengraph-image (per-country accent + title). Digests: static corridor JPG.
@@ -85,8 +87,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function NewsArticlePage({ params }: Props) {
-  const digest = await getPublishedNewsDigestBySlug(params.slug);
-  if (!digest) notFound();
+  const raw = await getPublishedNewsDigestBySlug(params.slug);
+  if (!raw) notFound();
+  const digest = applyNewsSeoOverrides(raw);
 
   const topic = await getNewsTopic(digest.topic_key);
   const flag = topic?.flag ?? "🌍";

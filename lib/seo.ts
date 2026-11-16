@@ -118,6 +118,11 @@ export function fitSeoTitleAbsolute(text: string, max = MAX_TITLE_ABSOLUTE): str
   return truncateAtWord(text.trim(), max);
 }
 
+/** News articles: cut at phrase boundaries without a trailing ellipsis in SERP HTML. */
+export function fitNewsSeoTitleAbsolute(text: string, max = MAX_TITLE_ABSOLUTE): string {
+  return truncateAtPhrase(text.trim(), max);
+}
+
 export function pageUrl(path: string): string {
   const origin = publicSiteUrl();
   return `${origin}${path.startsWith("/") ? path : `/${path}`}`;

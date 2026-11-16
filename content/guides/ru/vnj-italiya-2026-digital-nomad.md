@@ -477,4 +477,4 @@ date_modified: 2026-09-19
 
 ### Это юридическая консультация?
 
-Нет. Хаб [/ru/italy](/ru/italy).
+Нет. Хаб [/ru/italy](/ru/italy). Карточка программы: [/ru/italy/programs/italy-digital-nomad](/ru/italy/programs/italy-digital-nomad). Сравнение ЕС: [работа в Европе](/ru/guides/rabota-v-evrope-dlya-rossiyan-2026).

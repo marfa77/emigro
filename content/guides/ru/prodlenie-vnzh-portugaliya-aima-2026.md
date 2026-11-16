@@ -116,4 +116,4 @@ AIMA указывает, что recibo о заявлении на ВНЖ не з
 
 ---
 
-Продолжайте: [гайд по записи в AIMA / Agora](https://portugal.emigro.online/notes/aima-agora-zapis-2026) · [гайд NIF](https://portugal.emigro.online/notes/nif-porto-kak-poluchit-2026) · [первые 30 дней в Португалии](/ru/guides/pervye-30-dnej-v-portugalii-2026).
+Продолжайте: [гайд по записи в AIMA / Agora](https://portugal.emigro.online/notes/aima-agora-zapis-2026) · [гайд NIF](https://portugal.emigro.online/notes/nif-porto-kak-poluchit-2026) · [первые 30 дней в Португалии](/ru/guides/pervye-30-dnej-v-portugalii-2026) · [воссоединение семьи в Европе](/ru/guides/vossoedinenie-semi-evropa-2026) · [программа AIMA — family reunification](/ru/portugal/programs/portugal-family-reunification).

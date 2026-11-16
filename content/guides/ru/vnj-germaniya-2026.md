@@ -417,6 +417,8 @@ date_modified: 2026-09-19
 
 ---
 
+Смежные гайды: [работа в Европе для россиян](/ru/guides/rabota-v-evrope-dlya-rossiyan-2026) · [банк и IBAN в ЕС](/ru/guides/bank-i-iban-dlya-rossiyan-v-evrope-2026) · [воссоединение семьи](/ru/guides/vossoedinenie-semi-evropa-2026) · [wizard Германии](/ru/germany/wizard).
+
 ## Официальные источники
 
 - **[Make it in Germany](https://www.make-it-in-germany.com/)** — официальный правительственный портал для квалифицированных иностранцев
