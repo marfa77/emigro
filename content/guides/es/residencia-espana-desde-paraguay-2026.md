@@ -2,7 +2,7 @@
 slug: residencia-espana-desde-paraguay-2026
 title: "Residencia en España para paraguayos 2026"
 seo_title: "Emigrar a España desde Paraguay 2026"
-seo_description: "Cómo emigrar a España desde Paraguay 2026: Schengen 90/180 no es residencia. Nómada (~€2.849/mes), no lucrativa en Asunción y nacionalidad en 2 años (art. 22)."
+seo_description: "Cómo emigrar a España desde Paraguay 2026: Schengen 90/180 no es residencia. Nómada (200% SMI), no lucrativa en Asunción y nacionalidad en 2 años (art. 22)."
 excerpt: "Guía pillar: turista Schengen vs vivir en España con pasaporte PY. Rutas 2026, documentos desde Paraguay y horizonte de nacionalidad española a 2 años."
 quick_answer: "Paraguay suele entrar a Schengen sin visado (90/180), pero residir exige vía nacional: nómada digital (~€2.849/mes 2026; UGE o consulado Asunción), no lucrativa (consulado primero), trabajo, estudios o reagrupación. Art. 22: ~2 años de residencia legal para nacionalidad (CCSE; DELE suele exento). Dualidad: iberoamericano art. 23 — confirme bilateral. Emigro: pilares + evaluador /es/wizard."
 corridor_slugs: [es-speaking-paraguay-to-spain, es-speaking-latam-to-europe]
