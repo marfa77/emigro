@@ -41,7 +41,7 @@ function clampVoiceFields(rewritten: StoryVoiceFields, fallbackTags: string[]): 
   return {
     title: rewritten.title.trim().slice(0, 120),
     excerpt: rewritten.excerpt.trim().slice(0, 320),
-    seo_title: (rewritten.seo_title || rewritten.title).trim().slice(0, 70),
+    seo_title: (rewritten.seo_title || rewritten.title).trim().slice(0, 55),
     seo_description: (rewritten.seo_description || rewritten.excerpt).trim().slice(0, 155),
     paragraphs: rewritten.paragraphs.map((p) => p.trim()).filter(Boolean).slice(0, 4),
     key_takeaways: (rewritten.key_takeaways ?? []).map((t) => t.trim()).filter(Boolean).slice(0, 3),

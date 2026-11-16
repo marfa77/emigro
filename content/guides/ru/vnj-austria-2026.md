@@ -290,6 +290,6 @@ Wizard: [AT](/ru/austria/wizard) · [CZ](/ru/czechia/wizard) · [PL](/ru/poland/
 - RWR **24 мес** → затем **Plus**.
 - Налоги: **SVS ~27%** + PIT + VAT; Kleinunternehmer ~€55k; Gewinnfreibetrag 15%.
 - MA35 / полный цикл: **месяцы**, не «пара недель».
-- Wizard: [/ru/austria/wizard](/ru/austria/wizard) · хаб [/ru/austria](/ru/austria).
+- Wizard: [/ru/austria/wizard](/ru/austria/wizard) · хаб [/ru/austria](/ru/austria) · [RWR Other Key Workers](/ru/austria/programs/austria-rwr-card) · [воссоединение семьи в Европе](/ru/guides/vossoedinenie-semi-evropa-2026).
 
 *Не юридическая и налоговая консультация. Пороги AMS и практика MA35 меняются — сверяйте migration.gv.at на дату подачи.*

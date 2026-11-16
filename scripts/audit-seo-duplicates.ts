@@ -4,6 +4,7 @@
  */
 import {
   fitMetaDescription,
+  fitNewsSeoTitleAbsolute,
   fitSeoTitleAbsolute,
   pageMetadata,
   SITE_NAME,
@@ -214,7 +215,9 @@ async function main() {
       .select("slug, title, seo_title, seo_description, excerpt, week_end, country, topic_key")
       .eq("status", "published");
     for (const digest of digests ?? []) {
-      const title = fitSeoTitleAbsolute(getNewsDisplaySeoTitle(digest as never, digest.country as string));
+      const title = fitNewsSeoTitleAbsolute(
+        getNewsDisplaySeoTitle(digest as never, digest.country as string),
+      );
       const description = fitMetaDescription((digest.seo_description as string) || (digest.excerpt as string));
       pages.push({
         url: `/ru/news/${digest.slug}`,

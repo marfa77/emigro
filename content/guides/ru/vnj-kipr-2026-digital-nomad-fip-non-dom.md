@@ -300,7 +300,7 @@ CoL: Лимассол **€1 200–1 800+**/мес на одного реа�
 - **Капитал + доход** → Fast Track (€300k + €50k/год) = **PR**, не паспорт.
 - **Дивиденды/проценты** → Non-Dom (17 лет + **2×5** за €250k); **CIT 15%** на CY Co.
 - **Паспорт** → ordinary **7/10 + 12 мес** (B1) или HS **≈4 (B1) / ≈5 (A2)**.
-- Wizard: [/ru/cyprus/wizard](/ru/cyprus/wizard) · хаб [/ru/cyprus](/ru/cyprus).
+- Wizard: [/ru/cyprus/wizard](/ru/cyprus/wizard) · хаб [/ru/cyprus](/ru/cyprus) · [работа в Европе — сравнение DN](/ru/guides/rabota-v-evrope-dlya-rossiyan-2026).
 
 *Август 2026. Не юридическая консультация. Primary: Migration Department + Tax Department (gov.cy).*
 

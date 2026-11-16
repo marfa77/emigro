@@ -5,7 +5,7 @@ import {
   getPublishedNewsDigests,
   NEWS_INDEX_POOL_LIMIT,
 } from "@/lib/news/digests";
-import { getActiveNewsTopics } from "@/lib/news/topics";
+import { getActiveNewsTopics, resolveNewsTopicFromParam } from "@/lib/news/topics";
 import { listPillarGuides } from "@/lib/guides/pillar-guides";
 import { pageMetadata, pageUrl } from "@/lib/seo";
 import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
@@ -19,26 +19,42 @@ import { newsArticleUrl, newsFeedUrl } from "@/lib/site-url";
 
 export const revalidate = 300;
 
-const baseMetadata = pageMetadata({
-    title: "Новости релокации в Европу",
+const NEWS_INDEX_TITLE = "Новости релокации в Европу";
+const NEWS_INDEX_DESCRIPTION =
+  "Еженедельные обзоры по ВНЖ, визам и гражданству в Португалии, Испании, Франции, Италии, Германии, Нидерландах и Скандинавии для русскоязычных заявителей.";
+
+function buildIndexMetadata(topic: Awaited<ReturnType<typeof resolveNewsTopicFromParam>>): Metadata {
+  const baseMetadata = pageMetadata({
+    title: topic ? `Новости ${topic.countryRu} — ВНЖ и гражданство` : NEWS_INDEX_TITLE,
     titleAbsolute: true,
-    description:
-      "Еженедельные обзоры по ВНЖ, визам и гражданству в Португалии, Испании, Франции, Италии, Германии, Нидерландах и Скандинавии для русскоязычных заявителей.",
+    description: topic
+      ? `Еженедельные обзоры по релокации в ${topic.countryInRu}. Не юридическая консультация — ориентиры с источниками.`
+      : NEWS_INDEX_DESCRIPTION,
     path: "/ru/news",
     ogImage: "/images/og/news-digest.jpg",
-    ogImageAlt: "Новости релокации Emigro",
-    aiDescription: buildNewsIndexAiDescription(null),
+    ogImageAlt: topic ? `Новости ${topic.countryRu} — Emigro` : "Новости релокации Emigro",
+    aiDescription: buildNewsIndexAiDescription(topic),
     aiCategory: "relocation-news-index",
-});
+  });
 
-// Merge, don't replace: a bare `alternates` here used to drop the canonical + hreflang from pageMetadata.
-export const metadata: Metadata = {
-  ...baseMetadata,
-  alternates: {
-    ...baseMetadata.alternates,
-    types: { "application/rss+xml": newsFeedUrl() },
-  },
-};
+  return {
+    ...baseMetadata,
+    alternates: {
+      ...baseMetadata.alternates,
+      canonical: pageUrl("/ru/news"),
+      types: { "application/rss+xml": newsFeedUrl(topic?.urlSegment) },
+    },
+  };
+}
+
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: { country?: string };
+}): Promise<Metadata> {
+  const topic = await resolveNewsTopicFromParam(searchParams.country);
+  return buildIndexMetadata(topic);
+}
 
 export default async function NewsIndexPage() {
   const [allTopics, digests] = await Promise.all([
@@ -53,10 +69,9 @@ export default async function NewsIndexPage() {
   const indexUrl = pageUrl("/ru/news");
 
   const collectionSchema = buildCollectionPageItemListSchema({
-    name: "Новости релокации в Европу",
+    name: NEWS_INDEX_TITLE,
     url: indexUrl,
-    description:
-      "Еженедельные обзоры по ВНЖ, визам и гражданству в Португалии, Испании, Франции, Италии, Германии, Нидерландах и Скандинавии для русскоязычных заявителей.",
+    description: NEWS_INDEX_DESCRIPTION,
     inLanguage: "ru-RU",
     items: digests.slice(0, 20).map((d) => ({
       url: newsArticleUrl(d.slug),

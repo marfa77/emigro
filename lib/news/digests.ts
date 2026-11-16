@@ -86,12 +86,34 @@ export function getNewsDisplayTitle(
   return `Еженедельный обзор за ${formatNewsWeekEndRu(digest.week_end)}: ${t}`;
 }
 
+function storyTitleMentionsCountry(lowerTitle: string, country: string): boolean {
+  if (lowerTitle.includes(country.toLowerCase())) return true;
+  if (country === "Нидерланды" && lowerTitle.includes("голланд")) return true;
+  if (country === "Чехия" && lowerTitle.includes("чех")) return true;
+  if (country === "США" && lowerTitle.includes("америк")) return true;
+  return false;
+}
+
+function disambiguateStorySeoTitle(raw: string, countryRu?: string): string {
+  const country = countryRu?.trim();
+  if (!country) return raw;
+  const lower = raw.toLowerCase();
+  if (lower.startsWith("пересмотр шенгенских виз") && !storyTitleMentionsCountry(lower, country)) {
+    return `Пересмотр шенгенских виз: ${country}`;
+  }
+  return raw;
+}
+
 export function getNewsDisplaySeoTitle(
   digest: Pick<NewsDigest, "seo_title" | "title" | "week_end" | "country" | "format" | "slug">,
   countryRu?: string
 ): string {
   if (isNewsStory(digest)) {
-    return (digest.seo_title.trim() || digest.title.trim()).slice(0, 70);
+    const raw = disambiguateStorySeoTitle(
+      (digest.seo_title.trim() || digest.title.trim()).slice(0, 70),
+      countryRu,
+    );
+    return raw.slice(0, 70);
   }
   const raw = digest.seo_title.trim() || digest.title.trim();
   const weekLabel = formatNewsWeekEndRu(digest.week_end);
