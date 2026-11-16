@@ -128,7 +128,7 @@ Si tienes ingresos pasivos y quieres vivir en España, la **visa no lucrativa** 
 
 Si trabajas en remoto para empresas fuera de España, la **visa de nómada digital** te permite residir y, tras 2 años, pedir nacionalidad.
 
-- Umbral: €2,849/mes (titular).
+- Umbral titular: 200% SMI mensual (≈ €2.442/mes, RD 126/2026).
 - Puedes trabajar en remoto (máximo ~20% de clientes españoles).
 - Ver guía: [Visa nómada digital España LATAM](/es/guides/visa-nomada-digital-espana-latam-2026)
 

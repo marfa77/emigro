@@ -4,7 +4,7 @@ title: "Residencia en España para paraguayos 2026"
 seo_title: "Emigrar a España desde Paraguay 2026"
 seo_description: "Cómo emigrar a España desde Paraguay 2026: Schengen 90/180 no es residencia. Nómada (200% SMI), no lucrativa en Asunción y nacionalidad en 2 años (art. 22)."
 excerpt: "Guía pillar: turista Schengen vs vivir en España con pasaporte PY. Rutas 2026, documentos desde Paraguay y horizonte de nacionalidad española a 2 años."
-quick_answer: "Paraguay suele entrar a Schengen sin visado (90/180), pero residir exige vía nacional: nómada digital (~€2.849/mes 2026; UGE o consulado Asunción), no lucrativa (consulado primero), trabajo, estudios o reagrupación. Art. 22: ~2 años de residencia legal para nacionalidad (CCSE; DELE suele exento). Dualidad: iberoamericano art. 23 — confirme bilateral. Emigro: pilares + evaluador /es/wizard."
+quick_answer: "Paraguay suele entrar a Schengen sin visado (90/180), pero residir exige vía nacional: nómada digital (200% SMI mensual, ≈ €2.442/mes en 2026; UGE o consulado Asunción), no lucrativa (consulado primero), trabajo, estudios o reagrupación. Art. 22: ~2 años de residencia legal para nacionalidad (CCSE; DELE suele exento). Dualidad: iberoamericano art. 23 — confirme bilateral. Emigro: pilares + evaluador /es/wizard."
 corridor_slugs: [es-speaking-paraguay-to-spain, es-speaking-latam-to-europe]
 topic_keys: [spain, paraguay, visa, residence]
 tags: [España, Paraguay, residencia, nómada digital, no lucrativa, nacionalidad, 2026, py]
@@ -38,7 +38,7 @@ Tabla de verificación (oficial primero; overlays en el cuerpo):
 | Claim | Status | Fuente / corrección |
 |-------|--------|---------------------|
 | Exención Schengen PY 90/180 | **OK soft** | Anexo II UE — **no** residir ni trabajar; ETIAS puede llegar |
-| DN ~**€2.849**/mes (200% SMI) | **OK** | SMI 2026 **€1.221×14** (RD 126/2026) → 200% ≈ €2.849/mes |
+| DN **200% SMI mensual** | **fixed** | RD 126/2026: SMI **€1.221/mes**; art. 74 bis → titular **≈ €2.442/mes** |
 | Familia DN: no uses solo «+€600» | **Soft** | Orientativo DN: **+75% SMI** 1.º familiar (~€916) y **+25%** siguientes (~€305) — confirme UGE |
 | NL ~**€2.400**/mes (400% IPREM) + €600 familiar | **OK** | IPREM 2026 **€600**/mes → 400% = €2.400; +100% = €600/familiar |
 | NL inicial desde turista / Extranjería | **FAIL → overlay** | **Consulado Asunción** primero — no turista→NL |
@@ -107,7 +107,7 @@ Detalle: [Nacionalidad española LATAM](/es/guides/nacionalidad-espanola-latam-2
 | Aspecto | Detalle |
 |---|---|
 | ¿Para quién? | Trabajadores remotos para empresas **fuera de España** |
-| Ingresos mínimos | **€2,849/mes** titular (200% SMI 2026). Familia: ~**+€916** 1.º / ~**+€305** siguientes (75%/25% SMI) |
+| Ingresos mínimos | **≈ €2.442/mes** (200% SMI mensual) titular (200% SMI 2026). Familia: ~**+€916** 1.º / ~**+€305** siguientes (75%/25% SMI) |
 | ¿Podés trabajar en España? | Teletrabajo para el extranjero; límite habitual ≤**20%** ingresos de clientes españoles |
 | ¿Cuenta para los 2 años de nacionalidad? | **Sí** |
 | Duración | Consulado: ~**1 año**. UGE (desde España): a menudo hasta **3 años** |
@@ -274,7 +274,7 @@ El CCSE tiene 25 preguntas y necesitás 15 aciertos. No es difícil, pero requie
 | Aspecto | España | Portugal |
 |---|---|---|
 | Sin visado Schengen | ✅ 90 días (orientativo) | ✅ 90 días (orientativo) |
-| Nómada digital | €2,849/mes | €3,680/mes (D8) |
+| Nómada digital | ≈ €2.442/mes (200% SMI mensual) | €3,680/mes (D8) |
 | No lucrativa / rentista | €2,400/mes | €920/mes (D7) |
 | Nacionalidad | **~2 años** (art. 22) | ~10 años (PY no CPLP) |
 | Idioma para nacionalidad | Exento DELE (CCSE sí) | A2 portugués |

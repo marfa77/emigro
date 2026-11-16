@@ -1,10 +1,10 @@
 ---
 slug: visa-nomada-digital-espana-latam-2026
 title: "Visa nómada digital España 2026 para latinoamericanos"
-seo_title: "Nómada digital España LATAM 2026 — €2.849"
-seo_description: "Nómada digital / teletrabajo España 2026 para LATAM: ~€2.849/mes (200% SMI), UGE vs consulado, ≤20% clientes ES y cómputo hacia nacionalidad en 2 años."
+seo_title: "Nómada digital España LATAM 2026 — 200% SMI"
+seo_description: "Nómada digital / teletrabajo España 2026 para LATAM: 200% SMI mensual, UGE vs consulado, ≤20% clientes ES y cómputo hacia nacionalidad en 2 años."
 excerpt: "Pillar canónico Ley de Startups para hispanohablantes LATAM: umbrales 2026, documentos, consulado/UGE y errores frecuentes."
-quick_answer: "Encaja si teletrabaja para empleador/clientes fuera de España, con ingresos del titular ~€2.849/mes en 2026 (200% SMI) y normalmente ≤20% de ingresos de clientes españoles. Consulado: visado ~1 año; desde España (UGE, situación regular): autorización hasta 3 años. Computa para nacionalidad art. 22 (~2 años iberoamericanos). Confirme canal oficial por país."
+quick_answer: "Encaja si teletrabaja para empleador/clientes fuera de España, con ingresos del titular ≈ €2.442/mes (200% SMI mensual) en 2026 (200% SMI) y normalmente ≤20% de ingresos de clientes españoles. Consulado: visado ~1 año; desde España (UGE, situación regular): autorización hasta 3 años. Computa para nacionalidad art. 22 (~2 años iberoamericanos). Confirme canal oficial por país."
 corridor_slugs: [es-speaking-uruguay-to-spain, es-speaking-ecuador-to-spain, es-speaking-peru-to-spain, es-speaking-paraguay-to-spain, es-speaking-latam-to-europe]
 topic_keys: [spain, uruguay, ecuador, peru, paraguay, work, visa, digital-nomad]
 tags: [España, LATAM, Uruguay, Ecuador, Perú, Paraguay, nómada digital, teletrabajo, 2026]
@@ -67,15 +67,15 @@ No confunda un viaje corto con permiso para **vivir y teletrabajar**.
 
 ## Umbral económico 2026 (orientativo)
 
-Base SMI 2026 (RD 126/2026): **€1 221 × 14 = €17 094/año** → equivalente mensual **€1 424,50** (€17 094÷12).
+SMI mensual 2026 (RD 126/2026 / [BOE](https://www.boe.es/eli/es/rd/2026/02/18/126/con)): **€1.221/mes**. Ley 14/2013 art. 74 bis aplica **200% del SMI mensual** al titular (no el prorrateo anual ÷12 de las 14 pagas).
 
 | Concepto | Orientación 2026 |
 |----------|------------------|
-| Titular | **200%** × €1 424,50 ≈ **€2 849**/mes |
-| Primer familiar | +75% del equivalente ≈ **+€1 068**/mes |
-| Familiar adicional | +25% ≈ **+€356**/mes |
+| Titular | **200%** × €1.221 ≈ **€2.442**/mes |
+| Primer familiar | +75% SMI mensual ≈ **+€916**/mes |
+| Familiar adicional | +25% SMI mensual ≈ **+€305**/mes |
 
-Ejemplos: pareja ≈ **€3 917**/mes; pareja + hijo ≈ **€4 273**/mes.
+Ejemplos: pareja ≈ **€3.358**/mes; pareja + hijo ≈ **€3.663**/mes.
 
 El consulado o la UGE pueden pedir **margen**. Confirme en la instrucción vigente el día de la cita.
 
@@ -143,7 +143,7 @@ Vea [no lucrativa LATAM](/es/guides/visado-no-lucrativa-espana-latam-2026) (soli
 ## Corto para verificar
 
 - Remoto + clientes fuera de ES
-- ~€2 849/mes titular (2026) + margen
+- 200% SMI mensual titular (≈ €2.442/mes, 2026) + margen
 - ≤~20% ingresos de clientes españoles
 - Apostilla + seguro + cita en su consulado
 - Tras llegada: NIE / padrón / TIE

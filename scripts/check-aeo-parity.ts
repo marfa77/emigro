@@ -127,11 +127,11 @@ ok =
 ok =
   check("ES DN household add-ons match SMI 2026", () => {
     const src = read("lib/engine/household.ts");
-    if (!src.includes("adultAddon: 1068") || !src.includes("childAddon: 356")) {
-      throw new Error("spain-digital-nomad family add-ons must be +€1068 / +€356 (SMI 2026)");
+    if (!src.includes("SPAIN_DN_TITULAR_MONTHLY_EUR_2026") || !src.includes("solo: SPAIN_DN_TITULAR_MONTHLY_EUR_2026")) {
+      throw new Error("spain-digital-nomad solo must use SPAIN_DN_TITULAR_MONTHLY_EUR_2026 (€2.442)");
     }
-    if (src.includes("adultAddon: 916")) {
-      throw new Error("stale ES DN +€916 family add-on");
+    if (!src.includes("SPAIN_DN_FAMILY_FIRST_MONTHLY_EUR_2026") || !src.includes("SPAIN_DN_FAMILY_NEXT_MONTHLY_EUR_2026")) {
+      throw new Error("spain-digital-nomad family add-ons must be 75%/25% monthly SMI (€916 / €305)");
     }
     if (!src.includes("solo: 2334")) {
       throw new Error("italy-digital-nomad wizard floor must be consular ~€28k/12");

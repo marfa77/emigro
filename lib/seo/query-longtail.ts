@@ -1023,7 +1023,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     ],
     seoTitle: "Perú → España 2026",
     seoDescription:
-      "Hub Perú→España: Schengen ≠ residencia, nómada ~€2.849, no lucrativa, nacionalidad ~2 años.",
+      "Hub Perú→España: Schengen ≠ residencia, nómada 200% SMI, no lucrativa, nacionalidad ~2 años.",
   },
   {
     path: "/es/paraguay",
@@ -1083,7 +1083,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     ],
     seoTitle: "Residencia España colombianos 2026 — 2 años",
     seoDescription:
-      "Colombianos en España 2026: Schengen ≠ residencia. Nómada digital (~€2.849), no lucrativa, Bogotá/BLS y nacionalidad en 2 años (art. 22).",
+      "Colombianos en España 2026: Schengen ≠ residencia. Nómada digital (200% SMI), no lucrativa, Bogotá/BLS y nacionalidad en 2 años (art. 22).",
   },
   {
     path: "/es/guides/residencia-espana-desde-uruguay-2026",
@@ -1131,7 +1131,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     ],
     seoTitle: "Emigrar a España desde Perú 2026",
     seoDescription:
-      "Cómo emigrar a España desde Perú 2026: Schengen no es residencia. Nómada (~€2.849), no lucrativa, Lima y nacionalidad en 2 años (art. 22).",
+      "Cómo emigrar a España desde Perú 2026: Schengen no es residencia. Nómada (200% SMI), no lucrativa, Lima y nacionalidad en 2 años (art. 22).",
   },
   {
     path: "/es/guides/residencia-espana-desde-paraguay-2026",
@@ -1163,7 +1163,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     ],
     seoTitle: "Emigrar a España desde Chile 2026",
     seoDescription:
-      "Cómo emigrar a España desde Chile 2026: Schengen no es residencia. Nómada digital (~€2.849), no lucrativa, Santiago y nacionalidad en 2 años (art. 22).",
+      "Cómo emigrar a España desde Chile 2026: Schengen no es residencia. Nómada digital (200% SMI), no lucrativa, Santiago y nacionalidad en 2 años (art. 22).",
   },
   {
     path: "/es/guides/visa-nomada-digital-espana-latam-2026",
@@ -1172,7 +1172,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     queries: [
       "visa nómada digital España 2026 umbral",
       "teletrabajo internacional España requisitos",
-      "nómada digital España 2849 euros",
+      "nómada digital España 200% SMI 2442",
       "UGE vs consulado nómada digital",
       "20% clientes españoles nómada digital",
       "visa digital nomad España LATAM 2026",
@@ -1180,7 +1180,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     ],
     seoTitle: "Nómada digital España 2026 — LATAM",
     seoDescription:
-      "Visa nómada digital España 2026: ~€2.849/mes, UGE vs consulado, ≤20% clientes ES. Para pasaportes LATAM.",
+      "Visa nómada digital España 2026: 200% SMI mensual, UGE vs consulado, ≤20% clientes ES. Para pasaportes LATAM.",
   },
   {
     path: "/es/guides/visado-no-lucrativa-espana-latam-2026",

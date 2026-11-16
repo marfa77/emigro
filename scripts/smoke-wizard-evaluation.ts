@@ -137,7 +137,7 @@ const spainDnv = evaluateProgram(
     and: [
       { "==": [{ var: "passport_iso2" }, "RU"] },
       { "==": [{ var: "remote_income" }, "yes"] },
-      { ">=": [{ var: "monthly_income_eur" }, 2849] },
+      { ">=": [{ var: "monthly_income_eur" }, 2442] },
     ],
   },
   spainDnvFacts,

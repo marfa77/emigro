@@ -56,7 +56,7 @@ const EMBEDS: Record<string, GuideWizardEmbed> = {
 const ES_EMBEDS: Record<string, GuideWizardEmbed> = {
   "visa-nomada-digital-espana-latam-2026": {
     title: "¿Su ingreso llega al umbral?",
-    body: "Nómada digital pide ~€2.849/mes del titular en 2026 (200% SMI). Elija su pasaporte: el evaluador compara su caso con nómada, no lucrativa y Portugal. Verifique el umbral con el consulado o la UGE.",
+    body: "Nómada digital pide 200% SMI mensual del titular en 2026 (≈ €2.442/mes, RD 126/2026). Elija su pasaporte: el evaluador compara su caso con nómada, no lucrativa y Portugal. Verifique el umbral con el consulado o la UGE.",
     interest: "spain,portugal",
   },
   "visado-no-lucrativa-espana-latam-2026": {
