@@ -1115,7 +1115,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     ],
     seoTitle: "Emigrar a España desde Ecuador 2026",
     seoDescription:
-      "Ecuador necesita visado Schengen o nacional para España. Residencia 2026: nómada digital (~€2.849/mes), no lucrativa y nacionalidad en 2 años (art. 22).",
+      "Ecuador necesita visado Schengen o nacional para España. Residencia 2026: nómada digital (200% SMI), no lucrativa y nacionalidad en 2 años (art. 22).",
   },
   {
     path: "/es/guides/residencia-espana-desde-peru-2026",
@@ -1147,7 +1147,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     ],
     seoTitle: "Emigrar a España desde Paraguay 2026",
     seoDescription:
-      "Cómo emigrar a España desde Paraguay 2026: Schengen 90/180 no es residencia. Nómada (~€2.849/mes), no lucrativa en Asunción y nacionalidad en 2 años (art. 22).",
+      "Cómo emigrar a España desde Paraguay 2026: Schengen 90/180 no es residencia. Nómada (200% SMI), no lucrativa en Asunción y nacionalidad en 2 años (art. 22).",
   },
   {
     path: "/es/guides/residencia-espana-desde-chile-2026",

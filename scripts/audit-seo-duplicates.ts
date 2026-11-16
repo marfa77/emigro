@@ -129,10 +129,7 @@ async function main() {
         url: `/ru/news?country=${segment}`,
         title: `Новости ${topic.country_ru} — ВНЖ и гражданство`,
         titleAbsolute: true,
-        description: newsCountryFilterDescription({
-          country_ru: topic.country_ru as string,
-          audience_ru: topic.audience_ru as string,
-        }),
+        description: newsCountryFilterDescription(topic.country_ru as string),
         source: "news-filter",
       });
 

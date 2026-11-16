@@ -12,8 +12,8 @@
 |-----|---------------------------------------------|------------------|
 | https://www.emigro.online/ru/guides/gruziya-dlya-rossiyan-2026 | Грузия для россиян 2026: безвиз 365 дней \| Emigro | Грузия 2026: безвиз для РФ до 365 дней, медстраховка от 30 000 лари, Right to Work с 1 марта, ВНЖ за недвижимость от $150 000. СИДН с РФ нет. |
 | https://www.emigro.online/es/guides/nacionalidad-espanola-latam-2026 | Nacionalidad española LATAM: 2 años, art. 22 \| Emigro | Nacionalidad española para iberoamericanos: 2 años de residencia legal continuada (art. 22). CCSE; DELE A2 suele no exigirse. Los estudios no computan. |
-| https://www.emigro.online/es/guides/residencia-espana-desde-paraguay-2026 | Emigrar a España desde Paraguay 2026 \| Emigro | Cómo emigrar a España desde Paraguay 2026: Schengen 90/180 no es residencia. Nómada (~€2.849/mes), no lucrativa en Asunción y nacionalidad en 2 años (art. 22). |
-| https://www.emigro.online/es/guides/residencia-espana-desde-ecuador-2026 | Emigrar a España desde Ecuador 2026 \| Emigro | Ecuador necesita visado Schengen o nacional para España. Residencia 2026: nómada digital (~€2.849/mes), no lucrativa y nacionalidad en 2 años (art. 22). |
+| https://www.emigro.online/es/guides/residencia-espana-desde-paraguay-2026 | Emigrar a España desde Paraguay 2026 \| Emigro | Cómo emigrar a España desde Paraguay 2026: Schengen 90/180 no es residencia. Nómada (200% SMI), no lucrativa en Asunción y nacionalidad en 2 años (art. 22). |
+| https://www.emigro.online/es/guides/residencia-espana-desde-ecuador-2026 | Emigrar a España desde Ecuador 2026 \| Emigro | Ecuador necesita visado Schengen o nacional para España. Residencia 2026: nómada digital (200% SMI), no lucrativa y nacionalidad en 2 años (art. 22). |
 | https://www.emigro.online/fr/guides/passeport-talent-france-afrique-2026 | Passeport Talent France 2026: seuil €39.582 \| Emigro | Passeport Talent France 2026 pour le Maghreb et le Sénégal: salarié qualifié souvent ≥ 39 582 € brut/an, catégories et VLS-TS. Confirmez sur service-public. |
 
 ## Live-expected news filter meta (all active `?country=`)
