@@ -136,7 +136,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     ],
     seoTitle: "Digital Nomad виза Европы 2026: доход, налоги, ПМЖ",
     seoDescription:
-      "11 Digital Nomad виз Европы 2026: Португалия D8 от €3 680, Испания ≈ €2.442/мес (200% SMI), Италия, Хорватия без налога на иностранную зарплату. Семья, ПМЖ, RU/BY/UA/KZ.",
+      "11 DN виз Европы 2026: PT D8 €3 680, ES ≈ €2.442/мес (200% SMI), IT, HR 0% на зарубежный доход. Семья, ПМЖ, RU/BY/UA/KZ.",
   },
   // —— Germany ——
   {
