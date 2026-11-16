@@ -137,13 +137,13 @@ const spainDnv = evaluateProgram(
     and: [
       { "==": [{ var: "passport_iso2" }, "RU"] },
       { "==": [{ var: "remote_income" }, "yes"] },
-      { ">=": [{ var: "monthly_income_eur" }, 2849] },
+      { ">=": [{ var: "monthly_income_eur" }, 2442] },
     ],
   },
   spainDnvFacts,
   undefined,
   [
-    { requirementType: "income", labelRu: "Доход", valueText: "€2 849/мес" },
+    { requirementType: "income", labelRu: "Доход", valueText: "≈ €2.442/мес (200% SMI mensual)" },
     { requirementType: "insurance", labelRu: "Медстраховка", valueText: "Полное покрытие в Испании" },
   ],
   { answeredKeys: ["remote_income", "monthly_income_eur"] }

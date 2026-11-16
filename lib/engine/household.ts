@@ -1,5 +1,10 @@
 import type { EvaluationResult, OutcomeCode } from "@/lib/engine/evaluator";
 import { INVESTOR_PROGRAM_SLUGS } from "@/lib/engine/constants";
+import {
+  SPAIN_DN_FAMILY_FIRST_MONTHLY_EUR_2026,
+  SPAIN_DN_FAMILY_NEXT_MONTHLY_EUR_2026,
+  SPAIN_DN_TITULAR_MONTHLY_EUR_2026,
+} from "@/lib/es/spain-digital-nomad-2026";
 
 export type HouseholdProfile = {
   spouse: boolean;
@@ -56,9 +61,9 @@ const INCOME_THRESHOLDS: Record<string, ThresholdSpec> = {
   },
   "spain-digital-nomad": {
     field: "monthly_income_eur",
-    solo: 2849,
-    adultAddon: 1068, // 75% SMI 2026 (RD 126/2026); do not use 2025 +€916
-    childAddon: 356, // 25% SMI 2026; do not use 2025 +€305
+    solo: SPAIN_DN_TITULAR_MONTHLY_EUR_2026,
+    adultAddon: SPAIN_DN_FAMILY_FIRST_MONTHLY_EUR_2026,
+    childAddon: SPAIN_DN_FAMILY_NEXT_MONTHLY_EUR_2026,
     labelRu: "месячный доход digital nomad",
   },
   "spain-non-lucrative": {

@@ -27,7 +27,7 @@ const EMBEDS: Record<string, GuideWizardEmbed> = {
   // GSC top-impression guides (Oct–Nov 2026): start the wizard where readers already are.
   "digital-nomad-vizy-evropy-sravnenie-2026": {
     title: "D8 Португалии или DN Испании",
-    body: "Порог около €3 680 в Португалии против около €2 849 в Испании. Выберите паспорт: подбор сравнит обе визы с вашим доходом и семьёй. Порог на дату подачи сверяйте в консульстве.",
+    body: "Порог около €3 680 в Португалии против 200% SMI mensual в Испании (≈ €2.442/мес, RD 126/2026). Выберите паспорт: подбор сравнит обе визы с вашим доходом и семьёй. Порог на дату подачи сверяйте в консульстве.",
     interest: "portugal,spain",
   },
   "nalogi-pri-pereezde-v-evropu-2026": {
@@ -56,7 +56,7 @@ const EMBEDS: Record<string, GuideWizardEmbed> = {
 const ES_EMBEDS: Record<string, GuideWizardEmbed> = {
   "visa-nomada-digital-espana-latam-2026": {
     title: "¿Su ingreso llega al umbral?",
-    body: "Nómada digital pide ~€2.849/mes del titular en 2026 (200% SMI). Elija su pasaporte: el evaluador compara su caso con nómada, no lucrativa y Portugal. Verifique el umbral con el consulado o la UGE.",
+    body: "Nómada digital: criterio UGE/consulados — 200% SMI mensual del titular en 2026 (≈ €2.442/mes, SMI RD 126/2026). Elija su pasaporte: el evaluador compara su caso con nómada, no lucrativa y Portugal. Verifique el umbral con el consulado o la UGE.",
     interest: "spain,portugal",
   },
   "visado-no-lucrativa-espana-latam-2026": {

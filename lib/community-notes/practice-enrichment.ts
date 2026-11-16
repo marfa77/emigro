@@ -30,7 +30,7 @@ export type PracticeAuditResult = {
 };
 
 const SPECIFIC_RE =
-  /€|\d+\s*(€|мес|месяц|дн|дней|нед|час|часов|год|лет|%|гб|gb|mb|мб)|Porto|Порту|Braga|Брага|Matosinhos|Guimarães|Viana|Norte|OPO|LIS|Valencia|Валенс|Barcelona|Madrid|NIE|TIE|extranjer[ií]a|IBAN|CaixaBank|Santander|Idealista|IVAMA|Seguridad Social|gestor[ií]a|€2\s*849|Millennium|ActivoBank|Caixa|MEO|NOS|Vodafone|Nowo|WTF|Amigo|AIMA|Finanças|SNS|Junta|IMT|CIAB|ANACOM|Agora|Cascais|Sintra|Coimbra|Évora|\d{4}/i;
+  /€|\d+\s*(€|мес|месяц|дн|дней|нед|час|часов|год|лет|%|гб|gb|mb|мб)|Porto|Порту|Braga|Брага|Matosinhos|Guimarães|Viana|Norte|OPO|LIS|Valencia|Валенс|Barcelona|Madrid|NIE|TIE|extranjer[ií]a|IBAN|CaixaBank|Santander|Idealista|IVAMA|Seguridad Social|gestor[ií]a|€2\s*442|€2\s*849|Millennium|ActivoBank|Caixa|MEO|NOS|Vodafone|Nowo|WTF|Amigo|AIMA|Finanças|SNS|Junta|IMT|CIAB|ANACOM|Agora|Cascais|Sintra|Coimbra|Évora|\d{4}/i;
 
 const GENERIC_RE =
   /^(Проверьте|Сравните|Изучите|Уточните|Спросите|Почитайте|Не провер|Не читай|Не сравн|Соглашайтесь|Игнорируйте|Подключайте)/i;

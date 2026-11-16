@@ -243,11 +243,11 @@ export const EUROPE_CORRIDORS: CorridorSeed[] = [
           and: [
             { "==": [{ var: "passport_iso2" }, "RU"] },
             { "==": [{ var: "remote_income" }, "yes"] },
-            { ">=": [{ var: "monthly_income_eur" }, 2849] },
+            { ">=": [{ var: "monthly_income_eur" }, 2442] },
           ],
         },
         requirements: [
-          { type: "income", labelEn: "Minimum monthly income", labelRu: "Минимальный месячный доход", value: "€2,849 (200% SMI 2026, расчёт UGE по 14 платежам SMI)" },
+          { type: "income", labelEn: "Minimum monthly income", labelRu: "Минимальный месячный доход", value: "€2.442 (200% SMI mensual 2026, RD 126/2026; requisitos UGE/consulados)" },
           {
             type: "documents",
             labelEn: "Remote work proof",
@@ -259,7 +259,7 @@ export const EUROPE_CORRIDORS: CorridorSeed[] = [
             type: "income",
             labelEn: "Family income add-on",
             labelRu: "Доплата за членов семьи",
-            value: "+€1 068/мес. за первого иждивенца, +€356/мес. за каждого следующего (75%/25% SMI 2026, RD 126/2026)",
+            value: "+€916/мес. за первого иждивенца, +€305/мес. за каждого следующего (75%/25% SMI mensual 2026, RD 126/2026)",
           },
           {
             type: "documents",
@@ -306,7 +306,7 @@ export const EUROPE_CORRIDORS: CorridorSeed[] = [
           },
           {
             url: "https://www.boe.es/eli/es/rd/2026/02/18/126/con",
-            excerpt: "Real Decreto 126/2026 — SMI 2026 €1 221/мес (14 pagas). DNV threshold: €1 221 × 14 ÷ 12 × 2 = €2 849/мес.",
+            excerpt: "Real Decreto 126/2026 — SMI 2026 €1.221/mes. UGE/consulados: titular 200% SMI mensual = €2.442/mes.",
             labelEn: "BOE — SMI 2026",
             labelRu: "BOE — SMI 2026",
           },

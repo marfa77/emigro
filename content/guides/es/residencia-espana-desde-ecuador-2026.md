@@ -4,7 +4,7 @@ title: "Residencia en España para ecuatorianos 2026"
 seo_title: "Emigrar a España desde Ecuador 2026"
 seo_description: "Ecuador necesita visado Schengen o nacional para España. Residencia 2026: nómada digital (200% SMI), no lucrativa y nacionalidad en 2 años (art. 22)."
 excerpt: "Guía pillar: pasaporte EC necesita visado Schengen corto. Rutas 2026 de residencia, documentos desde Ecuador y horizonte de nacionalidad española a 2 años."
-quick_answer: "Ecuador está en Anexo I: para entrar a Schengen suele necesitar visado C (corta) o, para residir, visado nacional D. No asuma entrada como turista sin visado. Residencia: nómada digital (~€2.849/mes 2026; UGE si ya legal en ES, o consulado), no lucrativa (consulado primero), trabajo, estudios o reagrupación. Art. 22: ~2 años. Emigro: pilares + evaluador /es/wizard."
+quick_answer: "Ecuador está en Anexo I: para entrar a Schengen suele necesitar visado C (corta) o, para residir, visado nacional D. No asuma entrada como turista sin visado. Residencia: nómada digital (200% SMI mensual, ≈ €2.442/mes en 2026; UGE si ya legal en ES, o consulado), no lucrativa (consulado primero), trabajo, estudios o reagrupación. Art. 22: ~2 años. Emigro: pilares + evaluador /es/wizard."
 corridor_slugs: [es-speaking-ecuador-to-spain, es-speaking-latam-to-europe]
 topic_keys: [spain, ecuador, visa, residence]
 tags: [España, Ecuador, residencia, nómada digital, no lucrativa, nacionalidad, 2026, ec, Schengen]
@@ -41,7 +41,7 @@ Tabla de verificación (oficial primero; overlays en el cuerpo):
 |-------|--------|---------------------|
 | «Sin visado» Schengen para EC | **FAIL → FIXED** | **Anexo I**: ciudadanos EC suelen **necesitar visado Schengen C** para corta estancia — no planifique turista visa-free |
 | Residencia = visado nacional D | **OK** | DN/NL/trabajo/estudios: vía D / autorización; no confundir con C |
-| DN ~**€2.849**/mes (200% SMI) | **OK** | SMI 2026 **€1.221×14** (RD 126/2026) → 200% ≈ €2.849/mes |
+| DN **200% SMI mensual** | **fixed** | RD 126/2026: SMI **€1.221/mes**; UGE/consulados: 200% SMI → titular **≈ €2.442/mes** |
 | Familia DN: no uses solo «+€600» | **Soft** | Orientativo DN: **+75% SMI** 1.º familiar (~€916) y **+25%** siguientes (~€305) — confirme UGE |
 | NL ~**€2.400**/mes (400% IPREM) + €600 familiar | **OK** | IPREM 2026 **€600**/mes → 400% = €2.400; +100% = €600/familiar |
 | NL inicial desde turista / Extranjería | **FAIL → overlay** | **Consulado Quito/Guayaquil** (o BLS) primero — no turista→NL |
@@ -112,7 +112,7 @@ Detalle: [Nacionalidad española LATAM](/es/guides/nacionalidad-espanola-latam-2
 | Aspecto | Detalle |
 |---|---|
 | ¿Para quién? | Trabajadores remotos para empresas **fuera de España** |
-| Ingresos mínimos | **€2,849/mes** titular (200% SMI 2026). Familia: ~**+€916** 1.º / ~**+€305** siguientes (75%/25% SMI) |
+| Ingresos mínimos | **≈ €2.442/mes** (200% SMI mensual) titular (200% SMI 2026). Familia: ~**+€916** 1.º / ~**+€305** siguientes (75%/25% SMI) |
 | ¿Puedes trabajar en España? | Teletrabajo para el extranjero; límite habitual ≤**20%** ingresos de clientes españoles |
 | ¿Cuenta para los 2 años de nacionalidad? | **Sí** |
 | Duración | Consulado: ~**1 año**. UGE (desde España): a menudo hasta **3 años** |
@@ -285,7 +285,7 @@ El CCSE tiene 25 preguntas y necesitas 15 aciertos. No es difícil, pero requier
 | Aspecto | España | Portugal |
 |---|---|---|
 | Entrada corta Schengen | Suele exigir **visado C** | Suele exigir **visado** (confirme AIMA/consulado) |
-| Nómada digital | €2,849/mes | €3,680/mes (D8) |
+| Nómada digital | ≈ €2.442/mes (200% SMI mensual) | €3,680/mes (D8) |
 | No lucrativa / rentista | €2,400/mes | €920/mes (D7) |
 | Nacionalidad | **~2 años** (art. 22) | ~10 años (EC no CPLP) |
 | Idioma para nacionalidad | Exento DELE (CCSE sí) | A2 portugués |
