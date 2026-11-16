@@ -4,7 +4,7 @@ title: "Visa nómada digital España 2026 para latinoamericanos"
 seo_title: "Nómada digital España LATAM 2026 — 200% SMI"
 seo_description: "Nómada digital / teletrabajo España 2026 para LATAM: 200% SMI mensual, UGE vs consulado, ≤20% clientes ES y cómputo hacia nacionalidad en 2 años."
 excerpt: "Pillar canónico Ley de Startups para hispanohablantes LATAM: umbrales 2026, documentos, consulado/UGE y errores frecuentes."
-quick_answer: "Encaja si teletrabaja para empleador/clientes fuera de España, con ingresos del titular ≈ €2.442/mes (200% SMI mensual) en 2026 (200% SMI) y normalmente ≤20% de ingresos de clientes españoles. Consulado: visado ~1 año; desde España (UGE, situación regular): autorización hasta 3 años. Computa para nacionalidad art. 22 (~2 años iberoamericanos). Confirme canal oficial por país."
+quick_answer: "Encaja si teletrabaja para empleador/clientes fuera de España, con ingresos del titular 200% SMI mensual (≈ €2.442/mes en 2026, RD 126/2026) y normalmente ≤20% de ingresos de clientes españoles. Consulado: visado ~1 año; desde España (UGE, situación regular): autorización hasta 3 años. Computa para nacionalidad art. 22 (~2 años iberoamericanos). Confirme canal oficial por país."
 corridor_slugs: [es-speaking-uruguay-to-spain, es-speaking-ecuador-to-spain, es-speaking-peru-to-spain, es-speaking-paraguay-to-spain, es-speaking-latam-to-europe]
 topic_keys: [spain, uruguay, ecuador, peru, paraguay, work, visa, digital-nomad]
 tags: [España, LATAM, Uruguay, Ecuador, Perú, Paraguay, nómada digital, teletrabajo, 2026]
@@ -67,7 +67,7 @@ No confunda un viaje corto con permiso para **vivir y teletrabajar**.
 
 ## Umbral económico 2026 (orientativo)
 
-SMI mensual 2026 (RD 126/2026 / [BOE](https://www.boe.es/eli/es/rd/2026/02/18/126/con)): **€1.221/mes**. Ley 14/2013 art. 74 bis aplica **200% del SMI mensual** al titular (no el prorrateo anual ÷12 de las 14 pagas).
+SMI mensual 2026 (RD 126/2026 / [BOE](https://www.boe.es/eli/es/rd/2026/02/18/126/con)): **€1.221/mes**. **Criterio oficial UGE/consulados:** **200% del SMI mensual** al titular (marco teletrabajo Ley 14/2013 art. 74 bis; SMI RD 126/2026 — sin prorrateo 14 pagas ÷12).
 
 | Concepto | Orientación 2026 |
 |----------|------------------|

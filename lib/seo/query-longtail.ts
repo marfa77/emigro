@@ -90,9 +90,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "внж испания digital nomad 2026",
       "teletrabajo испания внж",
     ],
-    seoTitle: "Digital nomad ES 2026: €2 849 — RU/BY",
+    seoTitle: "Digital nomad ES 2026: 200% SMI — RU/BY",
     seoDescription:
-      "Digital nomad visa Испания 2026: порог €2 849/мес, teletrabajo, Beckham 24%, non-lucrative. Wizard, программы и новости для RU/BY/UA/KZ.",
+      "Digital nomad visa Испания 2026: порог ≈ €2.442/мес (200% SMI mensual), teletrabajo, Beckham 24%, non-lucrative. Wizard, программы и новости для RU/BY/UA/KZ.",
   },
   {
     path: "/ru/guides/vnj-ispaniya-2026",
@@ -118,7 +118,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     ],
     seoTitle: "Digital nomad visa Испания 2026 — teletrabajo",
     seoDescription:
-      "ВНЖ digital nomad (teletrabajo) в Испании 2026: доход от €2 849/мес, до 20% из ES, медстраховка, сроки подачи. Для паспортов RU/BY/UA/KZ.",
+      "ВНЖ digital nomad (teletrabajo) в Испании 2026: доход от ≈ €2.442/мес (200% SMI mensual), до 20% из ES, медстраховка, сроки подачи. Для паспортов RU/BY/UA/KZ.",
   },
   {
     path: "/ru/guides/digital-nomad-vizy-evropy-sravnenie-2026",
@@ -136,7 +136,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     ],
     seoTitle: "Digital Nomad виза Европы 2026: доход, налоги, ПМЖ",
     seoDescription:
-      "11 Digital Nomad виз Европы 2026: Португалия D8 от €3 680, Испания €2 849, Италия, Хорватия без налога на иностранную зарплату. Семья, ПМЖ, RU/BY/UA/KZ.",
+      "11 Digital Nomad виз Европы 2026: Португалия D8 от €3 680, Испания ≈ €2.442/мес (200% SMI), Италия, Хорватия без налога на иностранную зарплату. Семья, ПМЖ, RU/BY/UA/KZ.",
   },
   // —— Germany ——
   {
@@ -227,7 +227,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     ],
     seoTitle: "Португалия vs Испания ВНЖ 2026 — RU/BY",
     seoDescription:
-      "Сравнение ВНЖ Португалии и Испании 2026: D8 €3 680 vs DNV €2 849, налоги, сроки, гражданство. Для граждан РФ, BY, UA, KZ.",
+      "Сравнение ВНЖ Португалии и Испании 2026: D8 €3 680 vs DNV ≈ €2.442/мес (200% SMI), налоги, сроки, гражданство. Для граждан РФ, BY, UA, KZ.",
   },
   {
     path: "/ru/guides/konsulskaya-podacha-rf-by-kz-2026-yurisdiktsiya",
@@ -428,9 +428,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "лучшие страны для релокации 2026 рф",
       "легальный переезд в ес с паспортом россии",
     ],
-    seoTitle: "Куда переехать из России 2026 — D8 €3 680, ES €2 849",
+    seoTitle: "Куда переехать 2026: D8, ES DN, Blue Card",
     seoDescription:
-      "7 коридоров ВНЖ: PT D8 ~€3 680 / D7 ~€920, ES DN €2 849, DE Blue Card €50 700. Гражданство PT 10 лет. Шенген ≠ ВНЖ. Wizard.",
+      "7 коридоров ВНЖ: PT D8 ~€3 680 / D7 ~€920, ES DN ≈ €2.442/мес (200% SMI), DE Blue Card €50 700. Гражданство PT 10 лет. Шенген ≠ ВНЖ. Wizard.",
   },
   // —— Extra corridors & guides (AEO density parity) ——
   {

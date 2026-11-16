@@ -19,7 +19,7 @@ export const revalidate = 3600;
 export const metadata: Metadata = pageMetadata({
   title: "Residencia en España para colombianos 2026",
   description:
-    "Cómo emigrar a España desde Colombia 2026: Schengen 90 días ≠ residencia. Nómada digital (200% SMI), no lucrativa, Bogotá/BLS y nacionalidad en 2 años (art. 22).",
+    "Cómo emigrar a España desde Colombia 2026: Schengen ≠ residencia. Nómada digital (200% SMI), no lucrativa, Bogotá/BLS y nacionalidad en 2 años (art. 22).",
   path: ES_PATHS.colombia,
   locale: "es",
   esHreflang: { originIso: "CO", destinationIso: "ES" },

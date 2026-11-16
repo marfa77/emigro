@@ -65,7 +65,7 @@ export function buildEsOriginHubFaq(iso: EsOriginIso): FaqItem[] {
     {
       question: "¿Cuánto hay que ingresar para nómada digital en 2026?",
       answer:
-        "Umbral orientativo del titular: 200% SMI mensual (≈ €2.442/mes con SMI €1.221, RD 126/2026 / art. 74 bis). Familia: +≈ €916 el primero y +≈ €305 cada siguiente (75%/25% SMI mensual). Confirme en consulado o UGE.",
+        "Umbral orientativo del titular: 200% SMI mensual (≈ €2.442/mes con SMI €1.221, RD 126/2026; UGE/consulados). Familia: +≈ €916 el primero y +≈ €305 cada siguiente (75%/25% SMI mensual). Confirme en consulado o UGE.",
     },
     {
       question: "¿La no lucrativa se pide ya en España de turista?",

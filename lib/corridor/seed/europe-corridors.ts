@@ -247,7 +247,7 @@ export const EUROPE_CORRIDORS: CorridorSeed[] = [
           ],
         },
         requirements: [
-          { type: "income", labelEn: "Minimum monthly income", labelRu: "Минимальный месячный доход", value: "€2.442 (200% SMI mensual 2026, RD 126/2026 / art. 74 bis)" },
+          { type: "income", labelEn: "Minimum monthly income", labelRu: "Минимальный месячный доход", value: "€2.442 (200% SMI mensual 2026, RD 126/2026; requisitos UGE/consulados)" },
           {
             type: "documents",
             labelEn: "Remote work proof",
@@ -306,7 +306,7 @@ export const EUROPE_CORRIDORS: CorridorSeed[] = [
           },
           {
             url: "https://www.boe.es/eli/es/rd/2026/02/18/126/con",
-            excerpt: "Real Decreto 126/2026 — SMI 2026 €1.221/mes. Art. 74 bis: titular 200% SMI mensual = €2.442/mes.",
+            excerpt: "Real Decreto 126/2026 — SMI 2026 €1.221/mes. UGE/consulados: titular 200% SMI mensual = €2.442/mes.",
             labelEn: "BOE — SMI 2026",
             labelRu: "BOE — SMI 2026",
           },

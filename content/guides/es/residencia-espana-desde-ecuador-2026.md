@@ -41,7 +41,7 @@ Tabla de verificación (oficial primero; overlays en el cuerpo):
 |-------|--------|---------------------|
 | «Sin visado» Schengen para EC | **FAIL → FIXED** | **Anexo I**: ciudadanos EC suelen **necesitar visado Schengen C** para corta estancia — no planifique turista visa-free |
 | Residencia = visado nacional D | **OK** | DN/NL/trabajo/estudios: vía D / autorización; no confundir con C |
-| DN **200% SMI mensual** | **fixed** | RD 126/2026: SMI **€1.221/mes**; art. 74 bis → titular **≈ €2.442/mes** |
+| DN **200% SMI mensual** | **fixed** | RD 126/2026: SMI **€1.221/mes**; UGE/consulados: 200% SMI → titular **≈ €2.442/mes** |
 | Familia DN: no uses solo «+€600» | **Soft** | Orientativo DN: **+75% SMI** 1.º familiar (~€916) y **+25%** siguientes (~€305) — confirme UGE |
 | NL ~**€2.400**/mes (400% IPREM) + €600 familiar | **OK** | IPREM 2026 **€600**/mes → 400% = €2.400; +100% = €600/familiar |
 | NL inicial desde turista / Extranjería | **FAIL → overlay** | **Consulado Quito/Guayaquil** (o BLS) primero — no turista→NL |

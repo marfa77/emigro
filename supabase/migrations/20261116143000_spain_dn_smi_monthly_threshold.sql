@@ -6,7 +6,7 @@ SET rule_json = '{"and":[{"==":[{"var":"passport_iso2"},"RU"]},{"==":[{"var":"re
 WHERE id = 'c0000000-0000-4000-8000-000000000007';
 
 UPDATE emigro_program_requirements
-SET value_text = '€2.442 (200% SMI mensual 2026, RD 126/2026 / Ley 14/2013 art. 74 bis)'
+SET value_text = '€2.442 (200% SMI mensual 2026, RD 126/2026 / requisitos UGE/consulados (marco art. 74 bis))'
 WHERE program_version_id = 'c0000000-0000-4000-8000-000000000007'
   AND requirement_type = 'income'
   AND label_en = 'Minimum monthly income';
@@ -20,14 +20,14 @@ WHERE program_version_id = 'c0000000-0000-4000-8000-000000000007'
 UPDATE emigro_program_sources
 SET
   source_url = 'https://www.boe.es/eli/es/rd/2026/02/18/126/con',
-  raw_excerpt = 'Real Decreto 126/2026: SMI €1.221/mes. Ley 14/2013 art. 74 bis teletrabajo: titular 200% SMI mensual = €2.442/mes; familiares 75%/25% SMI mensual.',
+  raw_excerpt = 'Real Decreto 126/2026: SMI €1.221/mes. requisitos UGE/consulados (marco art. 74 bis) teletrabajo: titular 200% SMI mensual = €2.442/mes; familiares 75%/25% SMI mensual.',
   last_verified = '2026-11-16'
 WHERE program_version_id = 'c0000000-0000-4000-8000-000000000007'
   AND (source_url LIKE '%boe.es%' OR source_url LIKE '%thelocal%');
 
 UPDATE emigro_program_sources
 SET
-  raw_excerpt = 'Real Decreto 126/2026: SMI €1.221/mes. Ley 14/2013 art. 74 bis: titular 200% SMI mensual = €2.442/mes.',
+  raw_excerpt = 'Real Decreto 126/2026: SMI €1.221/mes. requisitos UGE/consulados (marco art. 74 bis): titular 200% SMI mensual = €2.442/mes.',
   last_verified = '2026-11-16'
 WHERE program_version_id = 'c0000000-0000-4000-8000-000000000007'
   AND raw_excerpt LIKE '%2 849%';

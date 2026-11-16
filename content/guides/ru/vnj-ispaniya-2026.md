@@ -32,7 +32,7 @@ date_published: 2026-06-27
 
 Teletrabajo — отдельный маршрут от no lucrativa. Golden Visa закрыта. Для паспорта РФ гражданство — обычно **10 лет + A2**, не «2 года как LATAM».
 
-> **Nota Emigro (fact-check, ноябрь 2026).** **Fixed:** DN titular **200% SMI mensual** (SMI **€1.221/мес**, RD 126/2026 / art. 74 bis → **≈ €2.442/мес**; семья **+€916** / **+€305**, не prorrate 14 pagas ÷12). NLV ~**€2 400** (400% IPREM €600). Golden Visa закрыта **03.04.2025** (LO 1/2025, [BOE-A-2025-76](https://www.boe.es/buscar/doc.php?id=BOE-A-2025-76)). ПМЖ **5 лет**. **Overlay:** no lucrativa **inicial = consulado**, не tourist→NL. Estancia por estudios = **0%** к nacionalidad art. 22. Beckham — налог, не виза. DELE A2: [Prep2Go](https://www.prep2go.study/dele-a2-mock-test?utm_source=emigro&utm_medium=guide&utm_campaign=prep2go_spain&utm_content=vnj-ispaniya-2026). **Soft:** 20% испанских клиентов и сроки консульства 2–4 мес. — поле.
+> **Nota Emigro (fact-check, ноябрь 2026).** **Fixed:** DN titular **200% SMI mensual** (критерий UGE/консульств; SMI **€1.221/мес**, RD 126/2026 → **≈ €2.442/мес**; marco teletrabajo — art. 74 bis Ley 14/2013). Семья **+€916** / **+€305** (75%/25% месячного SMI). Не путать с prorrateo 14 pagas ÷12. NLV ~**€2 400** (400% IPREM €600). Golden Visa закрыта **03.04.2025** (LO 1/2025, [BOE-A-2025-76](https://www.boe.es/buscar/doc.php?id=BOE-A-2025-76)). ПМЖ **5 лет**. **Overlay:** no lucrativa **inicial = consulado**, не tourist→NL. Estancia por estudios = **0%** к nacionalidad art. 22. Beckham — налог, не виза. DELE A2: [Prep2Go](https://www.prep2go.study/dele-a2-mock-test?utm_source=emigro&utm_medium=guide&utm_campaign=prep2go_spain&utm_content=vnj-ispaniya-2026). **Soft:** 20% испанских клиентов и сроки консульства 2–4 мес. — поле.
 
 Если вы ищете **digital nomad visa Испания 2026** (teletrabajo / Ley de Startups), это pillar-гид Emigro: порог **200% SMI mensual (≈ €2.442/мес)**, до **20% дохода** от испанских клиентов, срок рассмотрения консульства **2–4 месяца** в 2026. Сравнение с Португалией D8: [Digital Nomad визы Европы](/ru/guides/digital-nomad-vizy-evropy-sravnenie-2026). Программа коридора: [digital nomad teletrabajo](/ru/spain/programs/spain-digital-nomad). Все EU-коридоры для граждан РФ: [origin hub Emigro](/ru/rossiyane).
 
@@ -80,7 +80,7 @@ Teletrabajo — отдельный маршрут от no lucrativa. Golden Visa
 | Первый член семьи | +75% SMI mensual ≈ **+€916/мес** |
 | Каждый следующий | +25% SMI mensual ≈ **+€305/мес** |
 
-*Базис Ley 14/2013 art. 74 bis: SMI **€1.221/мес** ([BOE RD 126/2026](https://www.boe.es/eli/es/rd/2026/02/18/126/con)) → titular **200% = €2.442/мес**; семья **75%/25% от месячного SMI** → **+€916 / +€305**. Не используйте prorrate «14 pagas ÷ 12» (старая ошибка **€2.849**). Примеры: пара ≈ **€3.358**/мес; пара + ребёнок ≈ **€3.663**/мес. Консульство/UGE могут просить буфер — сверяйте на дату подачи.*
+*Критерий **UGE/консульств:** titular **200% SMI mensual** (SMI **€1.221/мес**, [BOE RD 126/2026](https://www.boe.es/eli/es/rd/2026/02/18/126/con)) → **≈ €2.442/мес**; семья **75%/25% от месячного SMI** → **+€916 / +€305**. Visado teletrabajo — marco **Ley 14/2013 art. 74 bis**; не используйте prorrateo anual 14 pagas ÷12. Примеры: пара ≈ **€3.358**/мес; пара + ребёнок ≈ **€3.663**/мес. Консульство/UGE могут просить буфер — сверяйте на дату подачи.*
 
 *Источник SMI: [BOE RD 126/2026](https://www.boe.es/eli/es/rd/2026/02/18/126/con).*
 
@@ -318,7 +318,7 @@ Arraigo social — не путь для «первого» переезда. Э�
 
 ### Сколько дохода нужно семье по Digital Nomad Visa?
 
-Для **DNV** иждивенцы от **месячного SMI** (75%/25%): +**€916**/мес на первого, +**€305**/мес на каждого следующего. Семья из 3: €2.442 + €916 + €305 ≈ **€3.663**/мес. Не используйте prorrate **€2.849** / **+€1.068**.
+Для **DNV** иждивенцы от **месячного SMI** (75%/25%): +**€916**/мес на первого, +**€305**/мес на каждого следующего. Семья из 3: €2.442 + €916 + €305 ≈ **€3.663**/мес. Не используйте prorrateo anual 14 pagas ÷12 — он завышает порог titular и семьи.
 
 ### В каком городе Испании лучше всего осесть для DNV?
 

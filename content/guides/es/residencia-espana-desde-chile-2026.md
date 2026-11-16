@@ -40,7 +40,7 @@ Tabla de verificación (oficial primero; overlays en el cuerpo):
 | Claim | Status | Fuente / corrección |
 |-------|--------|---------------------|
 | Exención Schengen CL 90/180 | **OK soft** | Exención vigente desde ~años 2000s (a veces se cita 2011) — **no** residir ni trabajar; ETIAS puede llegar |
-| DN **200% SMI mensual** | **fixed** | RD 126/2026: SMI **€1.221/mes**; art. 74 bis → titular **≈ €2.442/mes** |
+| DN **200% SMI mensual** | **fixed** | RD 126/2026: SMI **€1.221/mes**; UGE/consulados: 200% SMI → titular **≈ €2.442/mes** |
 | Familia DN: no uses solo «+€600» | **Soft** | Orientativo DN: **+75% SMI** 1.º familiar (~€916) y **+25%** siguientes (~€305) — confirme UGE |
 | NL ~**€2.400**/mes (400% IPREM) + €600 familiar | **OK** | IPREM 2026 **€600**/mes → 400% = €2.400; +100% = €600/familiar |
 | NL inicial desde turista / Extranjería | **FAIL → overlay** | **Consulado Santiago** primero — no turista→NL |
