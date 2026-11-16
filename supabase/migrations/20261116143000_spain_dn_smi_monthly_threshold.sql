@@ -1,9 +1,16 @@
 -- Spain digital nomad: 200% of monthly SMI (art. 74 bis), not 14-paga prorated monthly.
 -- SMI 2026: RD 126/2026 / BOE-A-2026-3815 — €1.221/month → titular €2.442/month.
+-- Idempotent on prod (already patched via REST): only rows that still differ are updated.
 
 UPDATE emigro_program_versions
-SET rule_json = '{"and":[{"==":[{"var":"passport_iso2"},"RU"]},{"==":[{"var":"remote_income"},"yes"]},{">=":[{"var":"monthly_income_eur"},2442]}]}'
-WHERE id = 'c0000000-0000-4000-8000-000000000007';
+SET eligibility_rule = jsonb_set(
+  eligibility_rule,
+  '{and,2,>=,1}',
+  '2442'::jsonb,
+  false
+)
+WHERE id = 'c0000000-0000-4000-8000-000000000007'
+  AND eligibility_rule #>> '{and,2,>=,1}' IS DISTINCT FROM '2442';
 
 UPDATE emigro_program_requirements
 SET value_text = '€2.442 (200% SMI mensual 2026, RD 126/2026 / requisitos UGE/consulados (marco art. 74 bis))'
@@ -23,11 +30,18 @@ SET
   raw_excerpt = 'Real Decreto 126/2026: SMI €1.221/mes. requisitos UGE/consulados (marco art. 74 bis) teletrabajo: titular 200% SMI mensual = €2.442/mes; familiares 75%/25% SMI mensual.',
   last_verified = '2026-11-16'
 WHERE program_version_id = 'c0000000-0000-4000-8000-000000000007'
-  AND (source_url LIKE '%boe.es%' OR source_url LIKE '%thelocal%');
+  AND (
+    source_url LIKE '%BOE-A-2026-3815%'
+    OR source_url LIKE '%/eli/es/rd/2026/02/18/126%'
+  );
 
 UPDATE emigro_program_sources
 SET
   raw_excerpt = 'Real Decreto 126/2026: SMI €1.221/mes. requisitos UGE/consulados (marco art. 74 bis): titular 200% SMI mensual = €2.442/mes.',
   last_verified = '2026-11-16'
 WHERE program_version_id = 'c0000000-0000-4000-8000-000000000007'
-  AND raw_excerpt LIKE '%2 849%';
+  AND (
+    raw_excerpt LIKE '%2 849%'
+    OR raw_excerpt LIKE '%2,849%'
+    OR raw_excerpt LIKE '%2.849%'
+  );
