@@ -25,6 +25,10 @@ import { createServerClient } from "../lib/supabase/server";
 
 const TITLE_SUFFIX = ` | ${SITE_NAME}`;
 
+function newsCountryFilterDescription(countryRu: string) {
+  return `Еженедельные обзоры по релокации ${ruCountryIn(countryRu)}. Не юридическая консультация — ориентиры с источниками.`;
+}
+
 type PageMeta = { url: string; title: string; description: string; source: string };
 
 function resolveTitle(metadata: ReturnType<typeof pageMetadata>): string {
@@ -125,7 +129,10 @@ async function main() {
         url: `/ru/news?country=${segment}`,
         title: `Новости ${topic.country_ru} — ВНЖ и гражданство`,
         titleAbsolute: true,
-        description: `Еженедельные обзоры по релокации в ${topic.country_ru} для ${topic.audience_ru}: изменения законов, консульства, пороги ВНЖ и практика подачи с проверенными источниками.`,
+        description: newsCountryFilterDescription({
+          country_ru: topic.country_ru as string,
+          audience_ru: topic.audience_ru as string,
+        }),
         source: "news-filter",
       });
 

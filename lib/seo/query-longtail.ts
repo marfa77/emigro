@@ -313,9 +313,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "внж грузия недвижимость 150000",
       "it residence permit грузия",
     ],
-    seoTitle: "Грузия для россиян 2026 — ВНЖ $150k, IT permit, СИДН",
+    seoTitle: "Грузия для россиян 2026: безвиз 365 дней",
     seoDescription:
-      "Грузия 2026: медстраховка на въезд, work permit с 1.03, ВНЖ по недвижимости от $150 000, IT Residence Permit $25k/год. СИДН с РФ не действует.",
+      "Грузия 2026: безвиз для РФ до 365 дней, медстраховка от 30 000 лари, Right to Work с 1 марта, ВНЖ за недвижимость от $150 000. СИДН с РФ нет.",
   },
   // —— Top discovery (search+LLM) ——
   {
@@ -1113,9 +1113,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "no lucrativa España Ecuador",
       "visa corta Ecuador vs residencia España",
     ],
-    seoTitle: "Residencia España Ecuador 2026 — Schengen",
+    seoTitle: "Emigrar a España desde Ecuador 2026",
     seoDescription:
-      "Ecuatorianos en España 2026: visado Schengen vs residencia. Nómada digital, no lucrativa y nacionalidad en 2 años (art. 22).",
+      "Ecuador necesita visado Schengen o nacional para España. Residencia 2026: nómada digital (~€2.849/mes), no lucrativa y nacionalidad en 2 años (art. 22).",
   },
   {
     path: "/es/guides/residencia-espana-desde-peru-2026",
@@ -1145,9 +1145,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "no lucrativa España Paraguay",
       "Asunción visa nacional España",
     ],
-    seoTitle: "Residencia España Paraguay 2026 — 2 años",
+    seoTitle: "Emigrar a España desde Paraguay 2026",
     seoDescription:
-      "Cómo emigrar a España desde Paraguay 2026: Schengen ≠ residencia. Nómada (~€2.849), no lucrativa, Asunción y nacionalidad en 2 años (art. 22).",
+      "Cómo emigrar a España desde Paraguay 2026: Schengen 90/180 no es residencia. Nómada (~€2.849/mes), no lucrativa en Asunción y nacionalidad en 2 años (art. 22).",
   },
   {
     path: "/es/guides/residencia-espana-desde-chile-2026",
@@ -1210,9 +1210,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "estudios cuentan para nacionalidad española",
       "cuántos años para nacionalidad española colombianos",
     ],
-    seoTitle: "Nacionalidad española LATAM 2026 — 2 años",
+    seoTitle: "Nacionalidad española LATAM: 2 años, art. 22",
     seoDescription:
-      "Nacionalidad española ~2 años (art. 22) para iberoamericanos: CCSE, DELE a menudo exento, estudios suelen no contar.",
+      "Nacionalidad española para iberoamericanos: 2 años de residencia legal continuada (art. 22). CCSE; DELE A2 suele no exigirse. Los estudios no computan.",
   },
   {
     path: "/es/guides/ley-memoria-democratica-latam-2026",
@@ -1483,9 +1483,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "VLS-TS Passeport Talent consulat",
       "Talent passport France from Morocco Algeria",
     ],
-    seoTitle: "Passeport Talent France 2026 — Afrique",
+    seoTitle: "Passeport Talent France 2026: seuil €39.582",
     seoDescription:
-      "Passeport Talent pour Maghreb/Sénégal : seuils ~€39.582, catégories, VLS-TS — confirmez service-public.",
+      "Passeport Talent France 2026 pour le Maghreb et le Sénégal: salarié qualifié souvent ≥ 39 582 € brut/an, catégories et VLS-TS. Confirmez sur service-public.",
   },
   {
     path: "/fr/guides/naturalisation-france-afrique-2026",

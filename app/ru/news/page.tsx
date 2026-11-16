@@ -28,7 +28,7 @@ function buildIndexMetadata(topic: Awaited<ReturnType<typeof resolveNewsTopicFro
     title: topic ? `Новости ${topic.countryRu} — ВНЖ и гражданство` : NEWS_INDEX_TITLE,
     titleAbsolute: true,
     description: topic
-      ? `Еженедельные обзоры по релокации в ${topic.countryInRu}. Не юридическая консультация — ориентиры с источниками.`
+      ? `Еженедельные обзоры по релокации ${topic.countryInRu}. Не юридическая консультация — ориентиры с источниками.`
       : NEWS_INDEX_DESCRIPTION,
     path: "/ru/news",
     ogImage: "/images/og/news-digest.jpg",
