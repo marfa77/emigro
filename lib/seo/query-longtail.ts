@@ -786,7 +786,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     ],
     seoTitle: "ВНЖ Чехия 2026: Employee Card CZK 22 400",
     seoDescription:
-      "Employee Card от CZK 22 400 брутто; Blue Card CZK 73 823 с 01.05.2026; živnost IT ~€2 500. MOI, сроки для RU/BY/UA/KZ.",
+      "Employee Card от CZK 22 400 брутто; Blue Card CZK 73 823 с 01.05.2026. MOI, сроки для RU/BY/UA/KZ.",
   },
   {
     path: "/ru/austria",
@@ -1537,9 +1537,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     programSlug: "italy-student-visa",
     primaryQuery: "студенческая виза в италию",
     queries: ["студенческая виза в италию", "студенческая виза италия 2026", "universitaly виза"],
-    seoTitle: "Студенческая виза Италия 2026: от €848/мес",
+    seoTitle: "Студенческая виза Италия 2026: €10 179,85/год",
     seoDescription:
-      "Виза D при зачислении: Universitaly, dichiarazione di valore, средства €10 179,85/год (≈€848/мес, MUR 2026/27); permesso per studio.",
+      "Виза D при зачислении: Universitaly, dichiarazione di valore, средства €10 179,85/год (MUR 2026/27); permesso per studio после въезда.",
   },
   {
     path: "/ru/germany/programs/germany-family-reunification",
@@ -1679,7 +1679,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     queries: ["eu blue card австрия 2026", "blue card зарплата австрия"],
     seoTitle: "EU Blue Card Австрия 2026 — порог €",
     seoDescription:
-      "EU Blue Card Австрия 2026: диплом, Arbeitsvertrag, порог зарплаты на странице (ориентир €58 000/год брутто). RWR-альтернатива от €2 835/мес.",
+      "EU Blue Card Австрия 2026: диплом, Arbeitsvertrag, порог зарплаты на странице (ориентир €58 000/год брутто). RWR-альтернатива от €3 465/мес.",
   },
   {
     path: "/ru/slovenia/programs/slovenia-family-reunification",
@@ -1718,9 +1718,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "внж австрия other key workers",
       "rwr card порог 2026",
     ],
-    seoTitle: "RWR Card Австрия 2026: от €2 835/мес",
+    seoTitle: "RWR Card Австрия 2026: от €3 465/мес",
     seoDescription:
-      "Red-White-Red Card Австрия 2026: оффер, AMS, категория Other Key Workers от €2 835/мес брутто. Трудовой договор для RU/BY/UA/KZ.",
+      "Red-White-Red Card Австрия 2026: оффер, AMS, категория Other Key Workers от €3 465/мес брутто. Трудовой договор для RU/BY/UA/KZ.",
   },
   {
     path: "/ru/portugal/programs/portugal-family-reunification",
