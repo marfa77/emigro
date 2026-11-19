@@ -5,15 +5,13 @@ const TTL_MS = 30 * 60 * 1000;
 export const REQUEST_TTL_MS = 48 * 60 * 60 * 1000;
 
 /**
- * The DB check constraint on emigro_bot_sessions.app predates the request flow (2026-11-19) and the
- * migration history cannot be pushed from here, so the request dialogue is stored under the retired
- * "assist" value. The old assist app no longer exists, so the mapping is unambiguous.
+ * Until migration 20261119120000 the request dialogue was stored as app "assist" (retired app name).
+ * Writes now use "request"; reads still map "assist" so sessions started before the switch keep working.
  */
-const DB_APP: Partial<Record<BotApp, string>> = { request: "assist" };
-export const REQUEST_DB_APP = "assist";
+export const REQUEST_DB_APPS = ["request", "assist"] as const;
 
 function toDbApp(app: BotApp): string {
-  return DB_APP[app] ?? app;
+  return app;
 }
 
 function fromDbApp(app: string): BotApp {

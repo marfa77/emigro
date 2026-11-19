@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/admin/supabase";
 import { sendStatsBotMessage } from "@/lib/telegram/admin-bot";
 import { inlineRows } from "@/lib/telegram/bot/markup";
-import { REQUEST_DB_APP, REQUEST_TTL_MS } from "@/lib/telegram/bot/session";
+import { REQUEST_DB_APPS, REQUEST_TTL_MS } from "@/lib/telegram/bot/session";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -23,7 +23,7 @@ export async function GET(request: Request) {
   const { data, error } = await supabase
     .from("emigro_bot_sessions")
     .select("telegram_user_id, step, payload, updated_at, expires_at")
-    .eq("app", REQUEST_DB_APP)
+    .in("app", [...REQUEST_DB_APPS])
     .lt("updated_at", new Date(now - IDLE_MS).toISOString())
     .gt("expires_at", new Date(now).toISOString());
   if (error) return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
