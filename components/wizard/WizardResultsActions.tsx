@@ -59,8 +59,9 @@ export function WizardResultsActions({
           {pickLabel ?? "Подскажем, что можно сделать"}
         </h2>
         <p className="mt-2 mb-4 max-w-2xl text-sm leading-relaxed text-slate-700">
-          Оставьте контакт — разберём ваш профиль и подберём специалиста по маршруту. Бесплатно; контакт передаём
-          партнёру только с вашего согласия.
+          Оставьте контакт — зададим пару вопросов о вашем случае и передадим его специалисту по этому маршруту. Он
+          свяжется с вами сам. Для вас бесплатно: комиссию Emigro платит специалист, цена его услуг для вас не меняется.
+          Контакт передаём только с вашего согласия.
         </p>
         <QuickRequestForm
           source="wizard_hub_results"
@@ -70,7 +71,7 @@ export function WizardResultsActions({
           programRoute={programTitle}
           sessionId={sessionId}
           contextNote={contextNote}
-          submitLabel="Получить разбор и специалиста"
+          submitLabel="Подобрать консультанта — бесплатно"
         />
       </section>
 
@@ -86,7 +87,7 @@ export function WizardResultsActions({
             tabIndex={showBar ? 0 : -1}
             className="flex w-full items-center justify-center rounded-lg bg-corridor-600 px-3 py-3 text-center text-sm font-semibold text-white"
           >
-            Оставить заявку — бесплатно
+            Подобрать консультанта — бесплатно
           </a>
         </div>
       </div>
