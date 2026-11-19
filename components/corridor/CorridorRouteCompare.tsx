@@ -14,8 +14,8 @@ function brief(text: string | null, max: number): string | null {
 /** «Португалия D8 — цифровой кочевник» → «D8 · цифровой кочевник». */
 function cardTitle(title: string, countryRu: string): string {
   const stripped = title.replace(new RegExp(`^${countryRu}\\s*(?:—\\s*)?`, "i"), "").trim() || title;
-  const title = stripped.replace(/\s+—\s+/, " · ");
-  return title.charAt(0).toUpperCase() + title.slice(1);
+  const label = stripped.replace(/\s+—\s+/, " · ");
+  return label.charAt(0).toUpperCase() + label.slice(1);
 }
 
 /** Corridor programs as a compact comparison: who it is for, the money bar, how long it takes. */
