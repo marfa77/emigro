@@ -584,20 +584,29 @@ export function buildDigestArticleSchema(
 
 export { PASSPORT_LABELS, PASSPORT_STATUS_LABELS, passportLabel };
 
+/** Program title without the leading country name: «Португалия D8 — цифровой кочевник» → «D8 — цифровой кочевник». */
+function shortProgramTitle(title: string, countryRu: string): string {
+  const stripped = title.replace(new RegExp(`^${countryRu}\\s*(?:—\\s*)?`, "i"), "").trim();
+  return stripped || title;
+}
+
+/**
+ * Corridor landing «Короткий ответ»: three plain sentences a person can read in five seconds.
+ * Do not add topic.focusHintRu here — it is an editorial prompt for the news generator, not reader copy.
+ */
 export function buildCorridorLandingQuickAnswer(topic: NewsTopicConfig, corridor: Corridor): string {
+  const country = topic.countryRu;
+  const titles = corridor.programs.map((p) => shortProgramTitle(p.title_ru, country));
+  const shown = titles.slice(0, 4);
+  const more = titles.length > shown.length ? ` и ещё ${titles.length - shown.length}` : "";
   const programs =
-    corridor.programs.length > 0
-      ? `Программы коридора: ${corridor.programs.map((p) => p.title_ru).join(", ")}.`
-      : null;
+    titles.length > 0
+      ? `${country}: ${titles.length} ${titles.length === 1 ? "маршрут" : titles.length < 5 ? "маршрута" : "маршрутов"} ВНЖ для паспортов RU/BY/UA/KZ — ${shown.join(", ")}${more}.`
+      : `${country}: маршруты ВНЖ для паспортов RU/BY/UA/KZ готовим — следите за новостями.`;
   return [
-    topic.urlSegment === "portugal"
-      ? "D7 от €920/мес, D8 €3 680/мес, подбор специалиста — бесплатно."
-      : null,
-    `${corridor.title_ru} — коридор Emigro для русскоязычных за рубежом и в СНГ с паспортами RU/BY/UA/KZ.`,
-    corridor.audience_description_ru,
-    topic.focusHintRu,
     programs,
-    "Подбор маршрута — wizard коридора или hub wizard /ru/wizard; факты — в справочнике, изменения — в новостях.",
+    topic.urlSegment === "portugal" ? "Пороги дохода: D7 — от €920 в месяц, D8 — от €3 680 в месяц." : null,
+    "Подбор маршрута за 2 минуты покажет, что подходит именно вам, а специалиста под ваш случай подберём бесплатно.",
   ]
     .filter(Boolean)
     .join(" ");
