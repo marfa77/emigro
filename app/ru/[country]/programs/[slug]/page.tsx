@@ -373,7 +373,8 @@ export default async function CountryProgramPage({
                 Decreto-Lei 139/2025
               </a>
               ). Для семьи — шкала{" "}
-              <strong>Portaria 1563/2007</strong>, art. 2.º(2): +50% (**€460**) на второго взрослого, +30% (**€276**) на
+              <strong>Portaria 1563/2007</strong>, art. 2.º(2): +50% (<strong>€460</strong>) на второго взрослого, +30% (
+              <strong>€276</strong>) на
               ребёнка; средства на <strong>≥12 месяцев</strong> (art. 5.º(6)) — ориентир <strong>€11 040</strong> для
               одного взрослого. Это минимум консульства, не бюджет жизни в Лиссабоне.
             </p>

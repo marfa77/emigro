@@ -882,7 +882,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     ],
     seoTitle: "Срочный выезд РФ 2026: Сербия, Турция, 90/180",
     seoDescription:
-      "Безвиз: Черногория до 31.10.2026, Сербия, Турция, KZ. Шенген 90/180 ≠ ВНЖ; хаб → консульство → виза D. Wizard Emigro.",
+      "Безвиз: Сербия, Турция, KZ; Черногория — виза с 01.11.2026. Шенген 90/180 ≠ ВНЖ; хаб → консульство → виза D.",
   },
   {
     path: "/ru/guides/vnj-bez-raboty-passivnyy-dohod-sberezheniya-2026",
@@ -1537,9 +1537,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     programSlug: "italy-student-visa",
     primaryQuery: "студенческая виза в италию",
     queries: ["студенческая виза в италию", "студенческая виза италия 2026", "universitaly виза"],
-    seoTitle: "Студенческая виза Италия 2026: от €460/мес",
+    seoTitle: "Студенческая виза Италия 2026: от €848/мес",
     seoDescription:
-      "Виза D при зачислении: Universitaly, dichiarazione di valore, средства от ≈€460/мес; permesso per studio после въезда. RU/BY/UA/KZ.",
+      "Виза D при зачислении: Universitaly, dichiarazione di valore, средства €10 179,85/год (≈€848/мес, MUR 2026/27); permesso per studio.",
   },
   {
     path: "/ru/germany/programs/germany-family-reunification",
