@@ -53,7 +53,7 @@ INSERT INTO emigro_corridor_programs (corridor_id, program_id, sort_order, is_fe
 ON CONFLICT DO NOTHING;
 
 INSERT INTO emigro_program_versions (id, program_id, version_label, eligibility_rule) VALUES
-  ('c0000000-0000-4000-8000-000000000043', 'b0000000-0000-4000-8000-000000000040', '2026-01', '{"and":[{"==":[{"var":"passport_iso2"},"RU"]},{"==":[{"var":"has_job_offer"},"yes"]},{">=":[{"var":"monthly_income_eur"},2835]}]}'),
+  ('c0000000-0000-4000-8000-000000000043', 'b0000000-0000-4000-8000-000000000040', '2026-01', '{"and":[{"==":[{"var":"passport_iso2"},"RU"]},{"==":[{"var":"has_job_offer"},"yes"]},{">=":[{"var":"monthly_income_eur"},3465]}]}'),
   ('c0000000-0000-4000-8000-000000000044', 'b0000000-0000-4000-8000-000000000041', '2026-01', '{"and":[{"==":[{"var":"passport_iso2"},"RU"]},{"==":[{"var":"has_job_offer"},"yes"]},{">=":[{"var":"annual_salary_eur"},58000]}]}'),
   ('c0000000-0000-4000-8000-000000000045', 'b0000000-0000-4000-8000-000000000042', '2026-01', '{"and":[{"==":[{"var":"passport_iso2"},"RU"]},{"==":[{"var":"has_family_in_at"},"yes"]}]}'),
   ('c0000000-0000-4000-8000-000000000046', 'b0000000-0000-4000-8000-000000000043', '2026-01', '{"and":[{"==":[{"var":"passport_iso2"},"RU"]},{"==":[{"var":"wants_study_route"},"yes"]},{"==":[{"var":"has_university_admission"},"yes"]},{"or":[{">=":[{"var":"study_budget_eur"},12000]},{"==":[{"var":"can_show_study_funds"},"yes"]}]}]}'),
@@ -62,7 +62,7 @@ ON CONFLICT DO NOTHING;
 
 INSERT INTO emigro_program_requirements (program_version_id, requirement_type, label_en, label_ru, value_text, sort_order) VALUES
   ('c0000000-0000-4000-8000-000000000043', 'documents', 'RWR Card approval', 'Одобрение RWR Card', 'Antrag beim AMS / migration.gv.at — points-based or shortage occupation route', 1),
-  ('c0000000-0000-4000-8000-000000000043', 'income', 'Minimum salary (Other Key Workers)', 'Минимальная зарплата (Other Key Workers)', '€2 835/мес брутто (2026 ориентир для категории Other Key Workers)', 2),
+  ('c0000000-0000-4000-8000-000000000043', 'income', 'Minimum salary (Other Key Workers)', 'Минимальная зарплата (Other Key Workers)', '€3 465/мес брутто (2026, категория Other Key Workers)', 2),
   ('c0000000-0000-4000-8000-000000000043', 'documents', 'Employment contract', 'Трудовой договор', 'Dienstverhältnis с австрийским работодателем', 3),
   ('c0000000-0000-4000-8000-000000000044', 'income', 'Blue Card salary threshold', 'Порог зарплаты Blue Card', '€58 000/год брутто (~€4 833/мес, 2026 ориентир; shortage occupations ниже)', 1),
   ('c0000000-0000-4000-8000-000000000044', 'documents', 'University degree', 'Диплом вуза', 'Higher education required for EU Blue Card route', 2),
