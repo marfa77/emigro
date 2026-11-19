@@ -1,11 +1,9 @@
 import Link from "next/link";
-import { Construction } from "lucide-react";
+import { ArrowRight, Construction, UserCheck } from "lucide-react";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
-import { CorridorIntelLinks } from "@/components/corridor/CorridorIntelLinks";
 import { CorridorHubShell } from "@/components/corridor/hub/CorridorHubShell";
-import { CorridorHubStackSectionSuspense } from "@/components/corridor/hub/CorridorHubStack";
 import { CorridorLandingSeoSections } from "@/components/corridor/CorridorLandingSeoSections";
-import { CorridorWizardPulseSectionSuspense } from "@/components/wizard/CorridorWizardPulseSection";
+import { CorridorRouteCompare } from "@/components/corridor/CorridorRouteCompare";
 import { PortugalFeaturedNotes } from "@/components/portugal/PortugalFeaturedNotes";
 import { SpainFeaturedNotes } from "@/components/spain/SpainFeaturedNotes";
 import { ItalyFeaturedNotes } from "@/components/italy/ItalyFeaturedNotes";
@@ -14,16 +12,10 @@ import { isSpainHubTopic } from "@/lib/spain/hub";
 import { isItalyHubTopic } from "@/lib/italy/hub";
 import { GuideDigestPreview } from "@/components/corridor/GuideDigestPreview";
 import { LatestNewsTeaserSuspense } from "@/components/news/LatestNewsTeaser";
-import { ServiceProvidersSection } from "@/components/providers/ServiceProvidersSection";
-import { RelocatorChatPromo } from "@/components/community/RelocatorChatPromo";
 import { TelegramCommunityCta } from "@/components/community/TelegramCommunityCta";
 import { isPublicTelegramCommunityCountry } from "@/lib/telegram/public-communities";
-import { NewsBotSubscribeCta } from "@/components/news/NewsBotSubscribeCta";
-import { UniPrep2GoPromo } from "@/components/sponsors/UniPrep2GoPromo";
-import { RoleRadarPromo } from "@/components/sponsors/RoleRadarPromo";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { CorridorHeroVisual } from "@/components/visuals/CorridorHeroVisual";
-import { ProgramRouteCard } from "@/components/corridor/ProgramRouteCard";
 import { isCorridorFull, topicHasLanding } from "@/lib/corridor/publish";
 import { getCorridorBySlug } from "@/lib/corridor/queries";
 import { requirePublishedCorridorTopic } from "@/lib/corridor/resolve-topic";
@@ -32,9 +24,16 @@ import { buildCorridorBreadcrumbSchema, buildCorridorLandingArticleSchema, build
 import { pageUrl } from "@/lib/seo";
 import { heroTitle } from "@/lib/ui/mobile";
 import { getUniPrepOfferForTopic } from "@/lib/uniprep2go/catalog";
-import { shouldShowRoleRadarOnCorridor } from "@/lib/role-radar";
-import { ruCountryTo } from "@/lib/ru-country-cases";
+import { ruCountryGenitive, ruCountryIn, ruCountryTo } from "@/lib/ru-country-cases";
 
+/** Visible FAQ and FAQPage schema stay identical. */
+const FAQ_LIMIT = 6;
+
+/**
+ * Country corridor landing, rebuilt 2026-11-19 after a layout audit (20 phone screens → ~7):
+ * hero with two actions → route comparison → what changed → practice → free specialist → FAQ → links.
+ * Removed: duplicate nav blocks, Emigro Score tiles, sister-product ads, provider directory, hidden text.
+ */
 export async function CorridorLanding({ country }: { country: string }) {
   const topic = await requirePublishedCorridorTopic(country);
   const corridor = await getCorridorBySlug(topic.corridorSlug!);
@@ -55,12 +54,14 @@ export async function CorridorLanding({ country }: { country: string }) {
 
   const base = topic.sitePaths!.landing;
   const url = pageUrl(base);
-  const faq = buildCorridorLandingFaq(topic, corridor);
+  const faq = buildCorridorLandingFaq(topic, corridor).slice(0, FAQ_LIMIT);
   const breadcrumbSchema = buildCorridorBreadcrumbSchema(topic, "Коридор");
   const articleSchema = buildCorridorLandingArticleSchema(topic, corridor, url);
   const faqSchema = buildFaqSchema(faq);
   const showHub = topicHasLanding(topic);
   const uniPrepOffer = getUniPrepOfferForTopic(topic.key);
+  const assistHref = `/ru/assist?country=${topic.urlSegment}&source=corridor_${topic.urlSegment}#assist-form`;
+  const prepHref = uniPrepOffer?.mock?.path ?? uniPrepOffer?.deck?.path;
 
   return (
     <>
@@ -77,164 +78,121 @@ export async function CorridorLanding({ country }: { country: string }) {
           <div className="mt-4 flex items-start gap-3 rounded-xl border border-amber-200 bg-amber-50 px-5 py-4 text-amber-950">
             <Construction className="mt-0.5 h-5 w-5 shrink-0" />
             <div>
-              <p className="font-semibold">Коридор в разработке</p>
+              <p className="font-semibold">Направление в разработке</p>
               <p className="mt-1 text-sm text-amber-900/90">
-                Мы наполняем программы, wizard и справочник. Пока доступны новости и частичный справочник — полный
-                подбор маршрута появится после завершения наполнения.
+                Мы наполняем программы и справочник. Подбор маршрута появится после завершения наполнения.
               </p>
             </div>
           </div>
         )}
 
         <HeroShell visual={<CorridorHeroVisual segment={topic.urlSegment} alt={corridor.title_ru} />}>
-          <p className="text-sm uppercase tracking-wide text-corridor-100">
-            {isFull ? "Полный коридор Emigro" : "Коридор в разработке"}
+          <p className="text-sm uppercase tracking-wide text-corridor-100">ВНЖ · {topic.countryRu} · 2026</p>
+          <h1 className={`mt-2 ${heroTitle}`}>
+            ВНЖ {ruCountryIn(topic.countryRu)} для граждан России, Беларуси, Украины и Казахстана
+          </h1>
+          <p className="mt-4 max-w-2xl text-base leading-relaxed text-corridor-50 sm:text-lg">
+            {buildCorridorLandingQuickAnswer(topic, corridor)}
           </p>
-          <h1 className={`mt-2 ${heroTitle}`}>{corridor.title_ru}</h1>
-          <p className="mt-4 max-w-2xl text-lg text-corridor-100">{corridor.audience_description_ru}</p>
-          <p className="mt-3 max-w-2xl text-sm text-corridor-100/90">
-            Для русскоязычных за рубежом и в СНГ — в том числе если вы уже в ЕС и ищете смену статуса, переход{" "}
-            {ruCountryTo(topic.countryRu)} или продление.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             {isFull && topic.sitePaths?.wizard && (
               <Link
                 href={topic.sitePaths.wizard}
-                className="rounded-lg bg-white px-5 py-3 font-medium text-corridor-900 hover:bg-corridor-50"
+                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-lg bg-white px-5 py-3 font-semibold text-corridor-900 hover:bg-corridor-50"
               >
-                Подобрать маршрут
+                Подобрать маршрут за 2 минуты
+                <ArrowRight className="h-4 w-4" aria-hidden />
               </Link>
             )}
             <Link
-              href={`/ru/news?country=${topic.key}`}
-              className="rounded-lg border border-white/40 px-5 py-3 font-medium text-white hover:bg-white/10"
+              href={assistHref}
+              className="inline-flex min-h-12 items-center justify-center rounded-lg border border-white/50 px-5 py-3 font-medium text-white hover:bg-white/10"
             >
-              Новости недели
+              Подобрать специалиста — бесплатно
             </Link>
-            {topic.sitePaths?.guide && (
-              <Link
-                href={topic.sitePaths.guide}
-                className="rounded-lg border border-white/40 px-5 py-3 font-medium text-white hover:bg-white/10"
-              >
-                Справочник коридора
-              </Link>
-            )}
           </div>
         </HeroShell>
 
-        {topic.urlSegment === "portugal" && (
-          <section className="mt-8 rounded-2xl border border-corridor-200 bg-white p-6 shadow-sm">
-            <p className="text-sm font-semibold uppercase tracking-wide text-corridor-700">Короткий ответ</p>
-            <p className="mt-3 text-lg leading-relaxed text-slate-800">
-              {buildCorridorLandingQuickAnswer(topic, corridor)}
-            </p>
-          </section>
-        )}
-
-        <NewsBotSubscribeCta
-          topicKey={topic.key}
-          source={`corridor_${topic.urlSegment}`}
-          className="mt-8"
-        />
-        {isPublicTelegramCommunityCountry(topic.urlSegment) ? (
-          <TelegramCommunityCta
-            countryKey={topic.urlSegment}
-            source={`corridor_${topic.urlSegment}`}
-            variant="banner"
-            className="mt-8"
-          />
-        ) : (
-          <RelocatorChatPromo
-            source={`corridor_${topic.urlSegment}`}
-            countryKey={topic.urlSegment}
-            className="mt-8"
-          />
-        )}
-
-        {showHub && <CorridorHubStackSectionSuspense topic={topic} corridor={corridor} />}
-
-        {isFull && <CorridorWizardPulseSectionSuspense topic={topic} />}
-
         {corridor.programs.length > 0 && (
-          <section id="programs" className="mt-12">
-            <h2 className="text-2xl font-semibold">Маршруты в коридоре</h2>
-            {!isFull && (
-              <p className="mt-2 text-sm text-slate-500">Карточки программ — превью; wizard и детальные страницы после запуска.</p>
-            )}
-            <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-              {corridor.programs.map((program) => (
-                <ProgramRouteCard
-                  key={String(program.id)}
-                  slug={program.slug}
-                  programType={program.program_type}
-                  title={program.title_ru}
-                  summary={program.summary_ru}
-                  href={`${base}/programs/${program.slug}`}
-                  countrySegment={topic.urlSegment}
-                  interactive={isFull}
-                />
-              ))}
-            </div>
-          </section>
+          <CorridorRouteCompare
+            programs={corridor.programs}
+            countryRu={topic.countryRu}
+            landingPath={base}
+            interactive={isFull}
+          />
         )}
 
         <section className="mt-12">
-          <h2 className="text-2xl font-semibold">Интеллект коридора</h2>
-          {!showHub && (
-            <p className="mt-2 max-w-2xl text-slate-600">
-              {`Справочник с проверенными фактами и еженедельные новости — два дополняющих слоя.${isFull ? " Wizard опирается на оба." : ""}`}
-            </p>
-          )}
-          <div className="mt-6 grid gap-4 lg:grid-cols-2">
+          <h2 className="text-2xl font-semibold text-slate-950">Что изменилось и что проверено</h2>
+          <div className="mt-5 grid gap-4 lg:grid-cols-2">
             <LatestNewsTeaserSuspense topicKey={topic.key} />
             {topic.sitePaths?.guide && (
-              <GuideDigestPreview
-                items={corridor.digest}
-                guideHref={topic.sitePaths.guide}
-                countryRu={topic.countryRu}
-              />
+              <GuideDigestPreview items={corridor.digest} guideHref={topic.sitePaths.guide} countryRu={topic.countryRu} />
             )}
           </div>
         </section>
-
-        {uniPrepOffer && (
-          <UniPrep2GoPromo
-            placement="corridor_landing"
-            offer={uniPrepOffer}
-            contentId={topic.key}
-            className="mt-12"
-          />
-        )}
-
-        {shouldShowRoleRadarOnCorridor(topic.key) && (
-          <RoleRadarPromo
-            medium="corridor_landing"
-            content={topic.key}
-            className="mt-12"
-          />
-        )}
-
-        <ServiceProvidersSection
-          className="mt-12"
-          corridorSlug={topic.corridorSlug ?? undefined}
-          topicKey={topic.key}
-          placement="corridor_landing"
-        />
-
-        <div className="mt-12">
-          <CorridorIntelLinks topic={topic} />
-        </div>
 
         {isPortugalHubTopic(topic) && <PortugalFeaturedNotes />}
         {isSpainHubTopic(topic) && <SpainFeaturedNotes />}
         {isItalyHubTopic(topic) && <ItalyFeaturedNotes />}
 
-        <CorridorLandingSeoSections
-          topic={topic}
-          corridor={corridor}
-          landingPath={base}
-          hideQuickAnswer={topic.urlSegment === "portugal"}
-        />
+        <section className="mt-12 flex flex-col gap-4 rounded-2xl border border-corridor-200 bg-corridor-50 p-6 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-start gap-3">
+            <UserCheck className="mt-1 h-6 w-6 shrink-0 text-corridor-700" aria-hidden />
+            <div>
+              <h2 className="text-xl font-semibold text-slate-950">Нужна помощь с переездом {ruCountryTo(topic.countryRu)}?</h2>
+              <p className="mt-1 max-w-xl text-sm leading-relaxed text-slate-700">
+                Оставьте имя и контакт — бесплатно подберём юриста или агентство под ваш случай. Комиссию Emigro платит
+                специалист, цена для вас не меняется.
+              </p>
+            </div>
+          </div>
+          <Link
+            href={assistHref}
+            className="inline-flex min-h-12 shrink-0 items-center justify-center rounded-lg bg-corridor-600 px-5 py-3 font-semibold text-white hover:bg-corridor-700"
+          >
+            Подобрать специалиста
+          </Link>
+        </section>
+
+        <CorridorLandingSeoSections topic={topic} faq={faq} />
+
+        <section className="mt-10 border-t border-slate-200 pt-6 text-sm text-slate-600">
+          <p className="font-medium text-slate-900">Ещё по направлению</p>
+          <ul className="mt-2 flex flex-wrap gap-x-5 gap-y-2">
+            {topic.sitePaths?.guide && (
+              <li>
+                <Link href={topic.sitePaths.guide} className="text-corridor-700 hover:underline">
+                  Справочник: факты с источниками
+                </Link>
+              </li>
+            )}
+            <li>
+              <Link href={`/ru/news?country=${topic.key}`} className="text-corridor-700 hover:underline">
+                Новости {ruCountryGenitive(topic.countryRu)}
+              </Link>
+            </li>
+            {prepHref && (
+              <li>
+                <a href={prepHref} className="text-corridor-700 hover:underline">
+                  Подготовка к экзамену {uniPrepOffer?.examLabelRu}
+                </a>
+              </li>
+            )}
+            <li>
+              <a href="https://www.pixid.studio/idphoto" className="text-corridor-700 hover:underline">
+                Фото на визу и ВНЖ (PixID)
+              </a>
+            </li>
+          </ul>
+          {isPublicTelegramCommunityCountry(topic.urlSegment) ? (
+            <TelegramCommunityCta countryKey={topic.urlSegment} source={`corridor_${topic.urlSegment}`} className="mt-4" />
+          ) : null}
+          <p className="mt-4 text-xs text-slate-500">
+            Emigro — навигатор по маршрутам ВНЖ, не юридическая консультация. Перед подачей сверяйтесь с официальными
+            источниками на страницах программ.
+          </p>
+        </section>
       </main>
       <SiteFooter />
     </>

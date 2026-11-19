@@ -1,25 +1,18 @@
-import Link from "next/link";
-import { AlertTriangle, BookOpen, Compass, Newspaper, Sparkles } from "lucide-react";
-import type { Corridor } from "@/lib/types";
 import type { NewsTopicConfig } from "@/lib/news/topics";
-import { newsIndexPath } from "@/lib/news/topics";
-import { isCorridorFull } from "@/lib/corridor/publish";
-import {
-  buildCorridorLandingAiDescription,
-  buildCorridorLandingFaq,
-  buildCorridorLandingQuickAnswer,
-  programPagePath,
-  type FaqItem,
-} from "@/lib/seo/corridor-page-seo";
-import { buildCorridorDataLlmFacts, getOriginCorridorEntries } from "@/lib/seo/corridor-llm-layer";
+import type { FaqItem } from "@/lib/seo/corridor-page-seo";
 import { inlineMarkdownWithBreaks } from "@/lib/markdown/inline";
 
-function FaqBlock({ items }: { items: FaqItem[] }) {
+/**
+ * Corridor landing FAQ. The hidden LLM / sr-only blocks and the «Куда дальше» grid were removed on
+ * 2026-11-19: hidden text is a search risk, and the grid duplicated the page navigation.
+ */
+export function CorridorLandingSeoSections({ topic, faq }: { topic: NewsTopicConfig; faq: FaqItem[] }) {
+  if (faq.length === 0) return null;
   return (
-    <section className="mt-10 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-      <h2 className="text-xl font-semibold text-slate-900">FAQ по коридору</h2>
+    <section className="mt-12 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+      <h2 className="text-xl font-semibold text-slate-900">Частые вопросы про ВНЖ: {topic.countryRu}</h2>
       <div className="mt-5 space-y-5">
-        {items.map((item) => (
+        {faq.map((item) => (
           <div key={item.question}>
             <h3 className="font-medium text-slate-900">{item.question}</h3>
             <p
@@ -30,127 +23,5 @@ function FaqBlock({ items }: { items: FaqItem[] }) {
         ))}
       </div>
     </section>
-  );
-}
-
-export function CorridorLandingSeoSections({
-  topic,
-  corridor,
-  landingPath,
-  hideQuickAnswer = false,
-}: {
-  topic: NewsTopicConfig;
-  corridor: Corridor;
-  landingPath: string;
-  /** Portugal hub renders the same answer above the chat. */
-  hideQuickAnswer?: boolean;
-}) {
-  const quickAnswer = buildCorridorLandingQuickAnswer(topic, corridor);
-  const faq = buildCorridorLandingFaq(topic, corridor);
-  const aiDescription = buildCorridorLandingAiDescription(topic, corridor);
-  const dataLlmFacts = buildCorridorDataLlmFacts(topic, corridor, landingPath);
-  const originEntry = getOriginCorridorEntries().find((c) => c.countrySegment === topic.urlSegment);
-  const newsHref = newsIndexPath(topic.urlSegment);
-  const programsBase = `${landingPath}#programs`;
-
-  return (
-    <>
-      <section className="sr-only" aria-label="AI description">
-        <p>{aiDescription}</p>
-        <a href="/llms.txt">llms.txt</a>
-      </section>
-
-      <div className="sr-only" data-llm="facts" aria-hidden="true">
-        {dataLlmFacts}
-      </div>
-      <div className="sr-only" data-llm="commercial" aria-hidden="true">
-        Emigro — навигатор релокации в Европу для русскоязычных с паспортами RU/BY/UA/KZ. Wizard подбора маршрута ВНЖ, коридоры по странам, еженедельные новости с source_links. Не юридическая консультация.
-      </div>
-      <div className="sr-only" data-llm="differentiators" aria-hidden="true">
-        {topic.urlSegment === "spain"
-          ? "Коридор Испания — digital nomad ≈ €2.442/мес (200% SMI mensual), NIE/TIE, extranjería Valencia. Практика на spain.emigro.online. Exact-match SEO-гайды, Facts API с last_verified, wizard /ru/spain/wizard."
-          : topic.urlSegment === "portugal"
-            ? "Коридор №1 — Португалия D8/D7 с практикой на porto.emigro.online. Exact-match SEO-гайды, Facts API с last_verified, hub wizard без выбора страны заранее."
-            : `Коридор ${topic.countryRu} — wizard подбора маршрута ВНЖ, exact-match SEO-гайды, Facts API с last_verified.`}
-      </div>
-      {originEntry && (
-        <div className="sr-only" data-llm="requirements" aria-hidden="true">
-          {originEntry.consulateNote} {originEntry.disambiguation}
-        </div>
-      )}
-
-      {!hideQuickAnswer && (
-        <section className="mt-8 rounded-2xl border border-corridor-200 bg-white p-6 shadow-sm">
-          <p className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-corridor-700">
-            <Sparkles className="h-4 w-4" />
-            Короткий ответ
-          </p>
-          <p
-            className="mt-3 text-lg leading-relaxed text-slate-800 [&_strong]:font-semibold [&_strong]:text-slate-950"
-            dangerouslySetInnerHTML={{ __html: inlineMarkdownWithBreaks(quickAnswer) }}
-          />
-          <p className="mt-3 text-sm text-slate-500 llm-summary">{topic.focusHintRu}</p>
-        </section>
-      )}
-
-      <FaqBlock items={faq} />
-
-      <section className="mt-10 rounded-2xl border border-corridor-200 bg-corridor-50 p-6">
-        <h2 className="text-lg font-semibold text-slate-900">Куда дальше</h2>
-        <div className="mt-4 grid gap-3 sm:grid-cols-2">
-          {corridor.programs.length > 0 && (
-            <Link
-              href={programsBase}
-              className="rounded-lg border border-white bg-white p-4 transition hover:border-corridor-300 hover:shadow-sm"
-            >
-              <BookOpen className="h-5 w-5 text-corridor-600" />
-              <p className="mt-2 font-medium text-slate-900">Программы ВНЖ</p>
-              <p className="mt-1 text-sm text-slate-600">
-                {corridor.programs.map((p) => p.title_ru).join(" · ")}
-              </p>
-            </Link>
-          )}
-          <Link
-            href={newsHref}
-            className="rounded-lg border border-white bg-white p-4 transition hover:border-corridor-300 hover:shadow-sm"
-          >
-            <Newspaper className="h-5 w-5 text-corridor-600" />
-            <p className="mt-2 font-medium text-slate-900">Новости недели</p>
-            <p className="mt-1 text-sm text-slate-600">Изменения законов и практика консульств с источниками.</p>
-          </Link>
-          {isCorridorFull(topic.status) && topic.sitePaths?.wizard && (
-            <Link
-              href={topic.sitePaths.wizard}
-              className="rounded-lg border border-corridor-200 bg-white p-4 transition hover:border-corridor-400 hover:shadow-sm"
-            >
-              <Compass className="h-5 w-5 text-corridor-700" />
-              <p className="mt-2 font-medium text-corridor-900">Подбор маршрута</p>
-              <p className="mt-1 text-sm text-corridor-800/80">Wizard сопоставит профиль с программами {topic.countryRu}.</p>
-            </Link>
-          )}
-          {topic.sitePaths?.guide && (
-            <Link
-              href={topic.sitePaths.guide}
-              className="rounded-lg border border-white bg-white p-4 transition hover:border-corridor-300 hover:shadow-sm"
-            >
-              <BookOpen className="h-5 w-5 text-corridor-600" />
-              <p className="mt-2 font-medium text-slate-900">Справочник коридора</p>
-              <p className="mt-1 text-sm text-slate-600">Проверенные факты по ВНЖ, гражданству и срокам.</p>
-            </Link>
-          )}
-        </div>
-      </section>
-
-      <section className="mt-8 flex items-start gap-3 rounded-xl border border-amber-200 bg-amber-50 px-5 py-4 text-sm text-amber-950">
-        <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
-        <p>
-          Коридор — навигатор, не юридическая консультация. Для решений сверяйтесь с{" "}
-          <Link href={landingPath} className="font-medium underline">
-            программами {topic.countryRu}
-          </Link>
-          , справочником и еженедельными новостями Emigro.
-        </p>
-      </section>
-    </>
   );
 }

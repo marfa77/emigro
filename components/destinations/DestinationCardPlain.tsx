@@ -54,7 +54,6 @@ export function DestinationCardPlain({ topic }: { topic: NewsTopicConfig }) {
         </div>
 
         <p className="mt-3 flex-1 text-sm text-slate-600">{score?.summary ?? topic.audienceRu}</p>
-        <p className="mt-2 text-xs text-slate-500">{topic.focusHintRu}</p>
 
         <div className="mt-5 flex flex-wrap gap-2">
           <Link

@@ -85,7 +85,7 @@ export function keyRequirement(program: ProgramDetail): string | null {
   return income?.value_text ?? income?.label_ru ?? program.requirements[0]?.value_text ?? null;
 }
 
-function timelineSummary(program: ProgramDetail): string | null {
+export function timelineSummary(program: ProgramDetail): string | null {
   if (program.timeline.length === 0) return null;
   if (isDenmarkEmploymentSlug(program.slug)) {
     return program.timeline

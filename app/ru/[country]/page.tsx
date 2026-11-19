@@ -8,7 +8,7 @@ import { isCorridorOnSite } from "@/lib/corridor/publish";
 import { countryOgImage } from "@/lib/brand/country-accents";
 import { pageMetadata, socialImageMetadata } from "@/lib/seo";
 import { getLongTailByPath } from "@/lib/seo/query-longtail";
-import { buildCorridorLandingAiDescription } from "@/lib/seo/corridor-page-seo";
+import { buildCorridorLandingAiDescription, buildCorridorLandingQuickAnswer } from "@/lib/seo/corridor-page-seo";
 import { getCorridorBySlug } from "@/lib/corridor/queries";
 import { TRANSIT_HUBS, getTransitHub, hubKindLabel } from "@/lib/transit-hubs";
 
@@ -50,13 +50,15 @@ export async function generateMetadata({ params }: { params: { country: string }
   const topic = await getTopicByCountrySegment(params.country);
   if (!topic?.sitePaths) return {};
   const ogImage = countryOgImage(topic.urlSegment);
-  const longTail = getLongTailByPath(topic.sitePaths.landing);
   const corridor = topic.corridorSlug ? await getCorridorBySlug(topic.corridorSlug) : null;
+  const longTail = getLongTailByPath(topic.sitePaths.landing);
 
   const landingTitle = longTail?.seoTitle ?? `${topic.countryRu} — коридор релокации`;
   const landingDescription =
     longTail?.seoDescription ??
-    `${topic.focusHintRu}. Wizard подбора маршрута ВНЖ, справочник коридора с проверенными фактами, программы и еженедельные новости для паспортов RU/BY/UA/KZ. Emigro.`;
+    (corridor
+      ? buildCorridorLandingQuickAnswer(topic, corridor).slice(0, 158)
+      : `ВНЖ ${topic.countryRu} 2026 для паспортов RU/BY/UA/KZ: программы, пороги дохода, сроки и бесплатный подбор специалиста. Emigro.`);
 
   const aiDescription =
     corridor != null
