@@ -11,25 +11,25 @@ import { publicSiteUrl } from "@/lib/site-url";
 export const revalidate = 3600;
 
 export const metadata = pageMetadata({
-  title: "Ayuda con residencia 2026: €0, Route Check €129",
+  title: "Ayuda con residencia 2026: especialista gratis",
   description:
-    "Emigro Assist LATAM: partner para España o Portugal €0, Route Check €129 (llamada + PDF en 48 h), acompañamiento €100/h. Sin paquete «llave en mano».",
+    "Emigro Assist LATAM: le presentamos gratis un abogado o agencia para España o Portugal. El especialista paga la comisión a Emigro, no usted.",
   path: ES_PATHS.assist,
   locale: "es",
   aiDescription:
-    "Emigro Assist pricing for LATAM → Spain/Portugal: partner matching €0; Route Check €129 one-off (call + PDF route within 48 h); accompaniment €100/hour. No bundled end-to-end package; legal work is done and billed by the chosen partner.",
+    "Emigro Assist for LATAM → Spain/Portugal is free for users: Emigro matches the client with a lawyer or agency; the specialist pays Emigro a referral commission and bills the client directly under their own terms.",
   aiCategory: "assist",
 });
 
 const AGENCY_COMPARISON = [
   {
     aspect: "Cómo paga",
-    assist: "Por paso concreto: selección gratis, análisis de ruta €129 y, si hace falta, horas sueltas.",
+    assist: "Emigro es gratis para usted. Solo paga al especialista elegido, según su presupuesto, si decide trabajar con él.",
     agency: "Suele ser un paquete cerrado por todo el trámite, a menudo con pago previo a elegir la ruta.",
   },
   {
     aspect: "Elección de visa",
-    assist: "Primero un análisis independiente según pasaporte, ingresos y familia.",
+    assist: "Primero la ruta según pasaporte, ingresos y familia; luego un especialista para esa ruta.",
     agency: "El paquete se vende para el programa con el que trabaja la agencia.",
   },
   {
@@ -43,27 +43,22 @@ const FAQ_ITEMS = [
   {
     question: "¿Cuánto cuesta Emigro Assist?",
     answer:
-      "La selección de partner es gratuita (€0). Route Check cuesta €129 una sola vez: llamada con checklist y PDF con ruta, plazos, presupuesto y riesgos en 48 horas. El acompañamiento cuesta €100 por hora, solo las horas que necesite. Los servicios del abogado o agencia que elija se pagan aparte según sus condiciones.",
+      "Para usted es gratis. Emigro recibe su solicitud, aclara los detalles y le presenta un abogado o agencia. Los servicios del especialista se pagan directamente a él, según su presupuesto y solo si decide trabajar con él.",
+  },
+  {
+    question: "¿Cómo gana dinero Emigro?",
+    answer:
+      "Si empieza a trabajar con el especialista, él paga a Emigro una comisión de sus honorarios. El precio para usted no cambia.",
   },
   {
     question: "¿En qué se diferencia de una agencia «llave en mano»?",
     answer:
-      "Una agencia suele vender un paquete cerrado para su programa. Emigro primero le ayuda a elegir la ruta según su pasaporte, ingresos y familia, y usted paga solo por el paso concreto. Si tras el Route Check necesita un paquete completo, le presentamos un partner que lo lleve; pida un presupuesto desglosado antes de pagar.",
-  },
-  {
-    question: "¿Qué incluye el Route Check?",
-    answer:
-      "Una llamada estructurada con el equipo de Emigro y, en 48 horas, un PDF con la ruta recomendada (por ejemplo nómada digital, no lucrativa o D8/D7), cronograma, presupuesto, riesgos y siguientes pasos, más la selección de partners para su caso.",
-  },
-  {
-    question: "¿Qué incluye el acompañamiento de €100/h?",
-    answer:
-      "Apoyo de comunicación: correspondencia con consulado, abogado o agencia, preparación de cartas y formularios y análisis de denegaciones. No es representación jurídica ni garantía de aprobación.",
+      "Una agencia suele vender un paquete cerrado para su programa. Emigro primero le ayuda a ver la ruta adecuada y luego le presenta a un especialista que trabaja en ella. Pida un presupuesto desglosado antes de pagar.",
   },
   {
     question: "¿Emigro garantiza la visa o la nacionalidad?",
     answer:
-      "No. Emigro no es un bufete ni una agencia de inmigración y no responde por las decisiones del consulado o de Extranjería. Los servicios jurídicos los presta el partner que usted elija.",
+      "No. Emigro no es un bufete ni una agencia de inmigración y no responde por las decisiones del consulado o de Extranjería. Los servicios jurídicos los presta el especialista que usted elija.",
   },
 ] as const;
 
@@ -102,11 +97,6 @@ const FLOW_STEPS = [
     title: "Trabajo",
     text: "Usted acuerda directamente con el partner el alcance y precio de sus servicios.",
   },
-  {
-    step: "5",
-    title: "Caso complejo",
-    text: "Si primero necesita analizar la ruta y riesgos, puede pedir Route Check con PDF por €129.",
-  },
 ] as const;
 
 export default function EsAssistPage({
@@ -137,35 +127,16 @@ export default function EsAssistPage({
     "@context": "https://schema.org",
     "@type": "Service",
     name: "Emigro Assist",
-    description:
-      "Selección gratuita de partners de residencia; Route Check y acompañamiento opcionales para LATAM → España / Portugal.",
+    description: "Selección gratuita de especialistas de residencia para LATAM → España / Portugal.",
     url: assistUrl,
     provider: { "@type": "Organization", name: "Emigro", url: origin },
     areaServed: { "@type": "Place", name: "Spain and Portugal" },
     offers: [
       {
         "@type": "Offer",
-        name: "Selección de partner",
+        name: "Selección de especialista",
         price: "0",
         priceCurrency: "EUR",
-      },
-      {
-        "@type": "Offer",
-        name: "Route Check",
-        price: "129",
-        priceCurrency: "EUR",
-      },
-      {
-        "@type": "Offer",
-        name: "Acompañamiento",
-        price: "100",
-        priceCurrency: "EUR",
-        priceSpecification: {
-          "@type": "UnitPriceSpecification",
-          price: "100",
-          priceCurrency: "EUR",
-          unitText: "HUR",
-        },
       },
     ],
     inLanguage: "es",
@@ -204,11 +175,11 @@ export default function EsAssistPage({
         </h1>
         <p className="mt-4 text-lg text-slate-700">
           Describa su necesidad: Emigro seleccionará gratuitamente un partner para <strong>España</strong> o{" "}
-          <strong>Portugal</strong>. Para casos complejos ofrecemos Route Check con PDF. No somos un bufete.
+          <strong>Portugal</strong>. Gratis para usted. No somos un bufete.
         </p>
         <p className="mt-3 rounded-xl border border-corridor-200 bg-corridor-50/60 px-4 py-3 text-sm text-slate-800">
-          <strong>Precios:</strong> selección de partner <strong>€0</strong> · Route Check <strong>€129</strong> (llamada
-          + PDF en 48 h) · acompañamiento <strong>€100/h</strong>. Sin paquete cerrado: paga solo el paso que necesita.
+          <strong>Gratis para usted:</strong> el especialista paga la comisión a Emigro y su precio para usted no cambia.
+          Usted acuerda sus servicios directamente con él.
         </p>
 
         <ul className="mt-6 space-y-2 text-sm text-slate-700">
@@ -220,7 +191,7 @@ export default function EsAssistPage({
           ))}
         </ul>
 
-        <section className="mt-10 grid gap-4 sm:grid-cols-3">
+        <section className="mt-10 grid gap-4 sm:grid-cols-1">
           <div className="rounded-2xl border-2 border-green-600 bg-green-50/50 p-5 shadow-sm">
             <p className="text-xs font-semibold uppercase text-green-700">Encontrar especialista</p>
             <p className="mt-1 text-3xl font-bold text-green-800">Gratis</p>
@@ -230,28 +201,6 @@ export default function EsAssistPage({
               className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-green-800 hover:underline"
             >
               Describir mi caso <ArrowRight className="h-4 w-4" />
-            </a>
-          </div>
-          <div className="rounded-2xl border border-corridor-300 bg-white p-5 shadow-sm">
-            <p className="text-xs font-semibold uppercase text-corridor-700">Route Check</p>
-            <p className="mt-1 text-3xl font-bold text-corridor-800">€129</p>
-            <p className="mt-2 text-sm text-slate-600">Llamada + PDF en 48 h + partners</p>
-            <a
-              href="#assist-form-route-check"
-              className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-corridor-800 hover:underline"
-            >
-              Solicitar <ArrowRight className="h-4 w-4" />
-            </a>
-          </div>
-          <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
-            <p className="text-xs font-semibold uppercase text-slate-600">Acompañamiento</p>
-            <p className="mt-1 text-3xl font-bold text-slate-900">€100/h</p>
-            <p className="mt-2 text-sm text-slate-600">Comunicación con consulado / partners</p>
-            <a
-              href="#assist-form-accompaniment"
-              className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-slate-800 hover:underline"
-            >
-              Solicitar <ArrowRight className="h-4 w-4" />
             </a>
           </div>
         </section>
@@ -312,22 +261,15 @@ export default function EsAssistPage({
         </section>
 
         <div className="sr-only" data-llm="commercial" aria-hidden="true">
-          Emigro Assist pricing 2026 (LATAM → Spain/Portugal): partner matching €0; Route Check €129 one-off (call + PDF
-          route within 48 hours); accompaniment €100 per hour. No bundled end-to-end package. Legal services are
-          provided and billed by the partner the client chooses. Emigro is not a law firm.
+          Emigro Assist 2026 (LATAM → Spain/Portugal) is free for users. The chosen specialist pays Emigro a referral
+          commission and bills the client directly. Emigro sells no paid services to users and is not a law firm.
         </div>
 
         <section id="assist-form" className="mt-10 scroll-mt-24">
           <h2 className="text-xl font-semibold text-slate-950">Solicitud</h2>
           <p className="mt-2 text-sm text-slate-600">
-            La selección de partner es gratuita. El pago solo se aplica si elige Route Check o acompañamiento.
+            Gratis para usted. Compartimos su solicitud solo con su consentimiento.
           </p>
-          <span id="assist-form-route-check" className="sr-only">
-            Formulario Route Check
-          </span>
-          <span id="assist-form-accompaniment" className="sr-only">
-            Formulario de acompañamiento
-          </span>
           <div className="mt-4">
             <AssistLeadForm
               countries={[...ES_ASSIST_COUNTRIES]}

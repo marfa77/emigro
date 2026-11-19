@@ -288,12 +288,6 @@ export default function FrGuidePage({ params }: { params: { slug: string } }) {
               Trouver un spécialiste
             </Link>
             <Link
-              href={`${FR_PATHS.assist}#assist-form-route-check`}
-              className="inline-flex items-center gap-2 text-sm font-medium text-corridor-700 hover:underline"
-            >
-              Route Check — €129
-            </Link>
-            <Link
               href={FR_PATHS.contact}
               className="inline-flex items-center gap-2 rounded-lg border border-slate-200 px-4 py-2.5 text-sm font-medium text-slate-700 hover:border-corridor-300"
             >

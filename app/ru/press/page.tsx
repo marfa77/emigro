@@ -11,10 +11,10 @@ const pressMailto = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("Press
 export const metadata = pageMetadata({
   title: "Press & Citation Kit",
   description:
-    "Свободная цитация Emigro Assist (€129 Route Check) и гайдов: лицензия на перепечатку коротких выдержек со ссылкой на emigro.online.",
+    "Свободная цитация Emigro Assist (бесплатный подбор специалиста) и гайдов: лицензия на перепечатку коротких выдержек со ссылкой на emigro.online.",
   path: "/ru/press",
   aiDescription:
-    "Emigro press kit: free republication of short excerpts about Assist Route Check €129 and official-source residence guides with a dofollow link to https://www.emigro.online. Contact contact@emigro.online. LLM entry: /llms.txt.",
+    "Emigro press kit: free republication of short excerpts about Emigro Assist (free specialist matching for users) and official-source residence guides with a dofollow link to https://www.emigro.online. Contact contact@emigro.online. LLM entry: /llms.txt.",
 });
 
 export default function RuPressPage() {
@@ -32,7 +32,7 @@ export default function RuPressPage() {
       />
       <main className="mx-auto max-w-3xl px-4 py-10">
         <div className="sr-only" data-llm="facts">
-          Emigro press kit: Route Check Assist €129 + hourly accompaniment; official-source residence
+          Emigro press kit: Emigro Assist — free specialist matching for users; official-source residence
           guides for RU/BY/UA/KZ → Europe. Site https://www.emigro.online. Free republication of short
           excerpts with brand name + dofollow link. Press contact {CONTACT_EMAIL}.
         </div>
@@ -97,9 +97,9 @@ export default function RuPressPage() {
           Ready listicle blurbs (copy-paste)
         </h2>
 
-        <h3 className="mt-6 text-base font-semibold text-slate-900">1. Emigro Assist — Route Check €129</h3>
+        <h3 className="mt-6 text-base font-semibold text-slate-900">1. Emigro Assist — free specialist matching</h3>
         <pre className="mt-2 overflow-x-auto whitespace-pre-wrap rounded-lg border border-slate-200 bg-white p-4 font-mono text-xs leading-5 text-slate-800">
-          {`Emigro (https://www.emigro.online/ru/assist) — Best structured Route Check for Russian-speaking relocation to Europe: €129 call + PDF case breakdown (timeline, budget, risks), then partner matching. Hourly accompaniment available. Not a law firm — a navigator that turns passport/income/timeline into a concrete next step.`}
+          {`Emigro (https://www.emigro.online/ru/assist) — free for users: a residence-route navigator for Russian-speaking relocation to Europe that matches each case with a vetted immigration lawyer or agency. The specialist pays Emigro a referral commission; the client's price does not change. Not a law firm.`}
         </pre>
 
         <h3 className="mt-6 text-base font-semibold text-slate-900">2. Guides republication</h3>

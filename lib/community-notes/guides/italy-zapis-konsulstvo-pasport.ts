@@ -210,7 +210,7 @@ const bodySections: NoteBodySection[] = [
     paragraphs: [
       "Консульство России идёт параллельно итальянским делам. Оно не заменяет разрешение на пребывание и не заменяет [налоговый код](/notes/" + CODICE_FISCALE_SLUG + "). Маршрут можно прогнать через [мастер Emigro по Италии](/ru/italy/wizard?utm_source=emigro&utm_medium=guide&utm_campaign=zapis-konsulstvo-milano&utm_content=" +
         ZAPIS_KONSULSTVO_IT_SLUG +
-        "). Порядок «разрешение → паспорт → банк» отдельно разбирают на [консультации Assist за €129](/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=zapis-konsulstvo-milano&utm_content=" +
+        "). Порядок «разрешение → паспорт → банк» отдельно разбирают на [бесплатном подборе специалиста Emigro](/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=zapis-konsulstvo-milano&utm_content=" +
         ZAPIS_KONSULSTVO_IT_SLUG +
         ").",
       "Главное: Assist сверяет, не столкнулись ли паспорт и разрешение в одном месяце, и не записывает вас в консульство вместо вас.",

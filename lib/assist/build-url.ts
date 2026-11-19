@@ -17,12 +17,9 @@ export function buildAssistUrl(params: AssistUrlParams = {}): string {
   if (params.providerId) search.set("provider", params.providerId);
   if (params.source) search.set("source", params.source);
   const qs = search.toString();
-  const hash = params.hash ?? "assist-form";
-  // RU paid Route Check lives on its own page (Gumroad checkout), apart from the free partner
-  // request form, so payment never sits in the path of leads that go to partners (2026-11-10).
-  if (hash === "assist-form-route-check" && params.locale !== "es" && params.locale !== "fr") {
-    return `/ru/route-check${qs ? `?${qs}` : ""}`;
-  }
+  // Emigro is free for users (2026-11-19): every Assist link, including old paid hashes
+  // (route-check / accompaniment), lands on the free request form.
+  const hash = params.hash && !/route-check|accompaniment/.test(params.hash) ? params.hash : "assist-form";
   const base =
     params.locale === "es" ? "/es/assist" : params.locale === "fr" ? "/fr/assist" : "/ru/assist";
   return `${base}${qs ? `?${qs}` : ""}#${hash}`;

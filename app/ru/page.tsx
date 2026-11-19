@@ -319,13 +319,13 @@ export default async function RuHubPage() {
         <section className="mt-14 rounded-2xl border border-corridor-200 bg-white p-6 shadow-sm">
           <p className="text-sm font-semibold uppercase tracking-wide text-corridor-700">Короткий ответ</p>
           <p className="mt-3 text-lg leading-relaxed text-slate-800">
-            D7 от €920/мес, D8 €3 680/мес, Route Check €129.{" "}
+            D7 от €920/мес, D8 €3 680/мес, подбор специалиста — бесплатно.{" "}
             <Link href="/ru/portugal" className="font-medium text-corridor-700 hover:underline">
               Коридор Португалии
             </Link>
             {" · "}
-            <Link href="/ru/route-check" className="font-medium text-corridor-700 hover:underline">
-              Route Check
+            <Link href="/ru/assist" className="font-medium text-corridor-700 hover:underline">
+              Подбор специалиста
             </Link>
             {" · "}
             <Link href="/ru/nalogi" className="font-medium text-corridor-700 hover:underline">
@@ -380,14 +380,6 @@ export default async function RuHubPage() {
               >
                 Найти специалиста
                 <ArrowRight className="h-4 w-4" />
-              </TrackedAssistLink>
-              <TrackedAssistLink
-                href={assistBotDeepLink({ tier: "route-check" })}
-                placement="ru_homepage_route_check"
-                linkLabel="Route Check — €129"
-                className="text-sm font-medium text-corridor-700 hover:underline"
-              >
-                Route Check — €129
               </TrackedAssistLink>
             </div>
           </div>

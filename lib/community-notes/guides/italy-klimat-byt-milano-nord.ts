@@ -211,7 +211,7 @@ const bodySections: NoteBodySection[] = [
         PERVYE_30_SLUG +
         "). Маршрут визы и бюджет можно собрать в [мастере Emigro по Италии](/ru/italy/wizard?utm_source=emigro&utm_medium=guide&utm_campaign=klimat-byt-milano&utm_content=" +
         KLIMAT_MILANO_SLUG +
-        "). Если спор с арендодателем уже идёт про плесень или квитанции дома, есть [проверка маршрута Assist за €129](/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=klimat-byt-milano&utm_content=" +
+        "). Если спор с арендодателем уже идёт про плесень или квитанции дома, есть [бесплатный подбор специалиста Emigro](/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=klimat-byt-milano&utm_content=" +
         KLIMAT_MILANO_SLUG +
         "). Главное: сначала календарь отопления и класс APE, потом спор о квитанции.",
     ],

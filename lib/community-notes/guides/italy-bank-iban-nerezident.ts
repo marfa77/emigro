@@ -209,7 +209,7 @@ const bodySections: NoteBodySection[] = [
     paragraphs: [
       "Если проверка банка рвёт цепочку «налоговый код → разрешение → аренда», начните с [мастера Emigro по Италии](/ru/italy/wizard?utm_source=emigro&utm_medium=guide&utm_campaign=bank-iban-italy&utm_content=" +
         BANK_IBAN_IT_SLUG +
-        "). [Сопровождение Assist за €129](/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=bank-iban-italy&utm_content=" +
+        "). [Бесплатный подбор специалиста Emigro](/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=bank-iban-italy&utm_content=" +
         BANK_IBAN_IT_SLUG +
         ") разбирает отказ отделения.",
       "Главное: отказ одного окна — повод сменить отделение и сверить пакет, а не признак, что счёт в Италии закрыт.",

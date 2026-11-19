@@ -186,7 +186,7 @@ const bodySections: NoteBodySection[] = [
       "EHIC / GHIC (EU passport holders): краткий визit — не заменяет SIP при relocación; desplazamiento ≠ residencia.",
       "Reembolso: частные polizas требуют autorización prévia на RMN/TAC — 24–72 ч; без неё отказ в оплате.",
       "Telemedicina в poliza — удобна для receta повторная, не для urgencias с triaje.",
-      "Assist / gestoría: при спорном статусе (estancia vs residencia) не угадывайте право — [Route Check Emigro Assist](https://www.emigro.online/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=meditsina-valencia).",
+      "Assist / gestoría: при спорном статусе (estancia vs residencia) не угадывайте право — [бесплатный подбор специалиста Emigro](https://www.emigro.online/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=meditsina-valencia).",
     ],
   },
   {

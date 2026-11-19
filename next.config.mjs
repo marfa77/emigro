@@ -184,8 +184,11 @@ const nextConfig = {
         // send English visitors to the live RU money page (same product).
         { source: "/en/assist", destination: "/ru/assist" },
         { source: "/en/assist/:path*", destination: "/ru/assist/:path*" },
-        { source: "/check", destination: "/ru/route-check" },
-        { source: "/pricing", destination: "/ru/route-check" },
+        { source: "/check", destination: "/ru/assist" },
+        { source: "/pricing", destination: "/ru/assist" },
+        // Emigro is free for users since 2026-11-19: the paid Route Check and its sample PDF are gone.
+        { source: "/ru/route-check", destination: "/ru/assist" },
+        { source: "/ru/assist/sample-plan", destination: "/ru/assist" },
       ].map(({ source, destination }) => ({
         source,
         missing: [

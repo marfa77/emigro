@@ -131,7 +131,7 @@ const bodySections: NoteBodySection[] = [
       "Thai payroll — другой visa + WP.",
       "Family DTV — secondary после primary holder.",
       "Insurance LTR — **USD 50k** min (BOI).",
-      "Assist Route Check — audit **категории** до оплаты fee.",
+      "бесплатный подбор специалиста Emigro — audit **категории** до оплаты fee.",
     ],
   },
   {
@@ -176,9 +176,9 @@ const bodySections: NoteBodySection[] = [
       "Wizard — [/ru/wizard?country=thailand](/ru/wizard?country=thailand&utm_source=emigro&utm_medium=guide&utm_campaign=viza-dtv-ltr&utm_content=" +
         VIZA_DTV_LTR_SLUG +
         ").",
-      "[Assist €129](/ru/assist?country=thailand&utm_source=emigro&utm_medium=guide&utm_campaign=viza-dtv-ltr&utm_content=" +
+      "[Emigro Assist — бесплатно](/ru/assist?country=thailand&utm_source=emigro&utm_medium=guide&utm_campaign=viza-dtv-ltr&utm_content=" +
         VIZA_DTV_LTR_SLUG +
-        ") — Route Check категории.",
+        ") — бесплатный подбор специалиста по категории.",
     ],
   },
   {

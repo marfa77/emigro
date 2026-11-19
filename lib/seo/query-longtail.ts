@@ -456,9 +456,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "emigro assist сколько стоит",
       "помощь с документами внж европа",
     ],
-    seoTitle: "Помощь с ВНЖ 2026: подбор €0, Route Check €129",
+    seoTitle: "Помощь с ВНЖ 2026: подбор специалиста бесплатно",
     seoDescription:
-      "Emigro Assist: подбор юриста или агентства по ВНЖ — €0, Route Check €129 (созвон + PDF за 48 ч), сопровождение €100/ч. Без пакета «под ключ» за весь процесс.",
+      "Emigro Assist: бесплатно подберём юриста или агентство по ВНЖ под ваш случай. Комиссию Emigro платит специалист, цена для вас не меняется.",
   },
   {
     path: "/ru/nalogi",
@@ -953,9 +953,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "ayuda documentos visa España latinoamericanos",
       "revisión ruta nómada digital España",
     ],
-    seoTitle: "Ayuda con residencia 2026: €0, Route Check €129",
+    seoTitle: "Ayuda con residencia 2026: especialista gratis",
     seoDescription:
-      "Emigro Assist LATAM: partner para España o Portugal €0, Route Check €129 (llamada + PDF en 48 h), acompañamiento €100/h. Sin paquete «llave en mano».",
+      "Emigro Assist LATAM: le presentamos gratis un abogado o agencia para España o Portugal. La comisión la paga el especialista, no usted.",
   },
   {
     path: "/es/spain",
@@ -1309,16 +1309,16 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
   },
   {
     path: "/fr/assist",
-    primaryQuery: "assist Emigro France Route Check",
+    primaryQuery: "assist Emigro France spécialiste",
     queries: [
-      "assist Emigro France Route Check",
+      "assist Emigro France spécialiste",
       "vérification dossier VLS-TS France",
       "consultation résidence France Maghreb",
       "aide Passeport Talent dossier",
     ],
-    seoTitle: "Emigro Assist FR — Route Check",
+    seoTitle: "Emigro Assist FR — spécialiste gratuit",
     seoDescription:
-      "Route Check / Assist FR: revue de parcours résidence France. Pas un cabinet d’avocats.",
+      "Emigro Assist FR : mise en relation gratuite avec un spécialiste du séjour en France. Pas un cabinet d’avocats.",
   },
   {
     path: "/fr/france",

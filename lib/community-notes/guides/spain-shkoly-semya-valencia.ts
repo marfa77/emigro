@@ -157,7 +157,7 @@ const bodySections: NoteBodySection[] = [
       "Actividades extraescolares — plazas en septiembre; mid-year limitadas.",
       "Comedor escolar — lista espera si no solicitó en matrícula.",
       "Wizard familia — [Emigro wizard](/ru/wizard?utm_source=emigro&utm_medium=guide&utm_campaign=shkoly-valencia&utm_content=shkoly-semya-valencia-2026).",
-      "Assist si visado familiar depende de empadronamiento colegio — [Route Check](/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=shkoly-valencia&utm_content=shkoly-semya-valencia-2026).",
+      "Assist si visado familiar depende de empadronamiento colegio — [подбор специалиста](/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=shkoly-valencia&utm_content=shkoly-semya-valencia-2026).",
     ],
   },
 ];

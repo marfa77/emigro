@@ -32,18 +32,6 @@ export function softPromoProducts(): SoftPromoProduct[] {
   const site = publicSiteUrl();
   return [
     {
-      id: "route_check",
-      labelRu: "Route Check (Emigro Assist)",
-      factsRu: [
-        "Route Check — структурированный разбор кейса: созвон с командой Emigro + PDF (маршрут, таймлайн, бюджет, риски).",
-        "Цена Route Check: €129.",
-        "Это не юрконсультация и не гарантия визы; юридические услуги — у партнёра, которого вы выбираете.",
-        "Оплата после согласования слота (PayPal, Stars, USDT/USDC, карта).",
-      ],
-      url: utm(`${site}/ru/assist`, "route_check"),
-      linkLabelRu: "Route Check на Emigro",
-    },
-    {
       id: "job_bot",
       labelRu: "джоб-бот Role Radar",
       factsRu: [
@@ -58,8 +46,8 @@ export function softPromoProducts(): SoftPromoProduct[] {
       id: "assist",
       labelRu: "Emigro Assist",
       factsRu: [
-        "Помощь с навигацией по маршруту: Route Check €129 или сопровождение переписки €100/час.",
-        "Подбор профильных партнёров под кейс.",
+        "Бесплатно для пользователя: подбор профильного юриста или агентства под кейс.",
+        "Комиссию Emigro платит специалист; цена его услуг для человека не меняется.",
         "Не юридическая фирма Emigro; без обещаний одобрения визы.",
       ],
       url: utm(`${site}/ru/assist`, "assist"),

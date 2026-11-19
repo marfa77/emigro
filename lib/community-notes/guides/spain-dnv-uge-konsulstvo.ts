@@ -171,7 +171,7 @@ const bodySections: NoteBodySection[] = [
       "Modelo 149 — 6 meses desde alta SS si opta impatriados; no automático DNV.",
       "Renovación teletrabajo — UGE en ES, ~60 días antes expiry (soft blogs; confirmar sede).",
       "Empadronamiento historial — TIE y SIP a mes 4–6.",
-      "Assist Route Check — si canal equivocado o denegación: [/ru/assist](/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=dnv-valencia&utm_content=dnv-uge-konsulstvo-2026).",
+      "бесплатный подбор специалиста Emigro — si canal equivocado o denegación: [/ru/assist](/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=dnv-valencia&utm_content=dnv-uge-konsulstvo-2026).",
     ],
   },
   {

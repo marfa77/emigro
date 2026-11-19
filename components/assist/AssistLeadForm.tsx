@@ -65,87 +65,39 @@ const PAYMENT_OPTIONS_FR: { value: AssistPaymentMethod; label: string }[] = [
   { value: "card", label: "Carte (nous enverrons un lien Gumroad)" },
 ];
 
-const PLAN_TIER_OPTIONS_RU: { value: AssistPlanTier; label: string; summary: string }[] = [
+const PLAN_TIER_OPTIONS_RU_ALL: { value: AssistPlanTier; label: string; summary: string }[] = [
   {
     value: "partner-match",
     label: "Найти специалиста — бесплатно",
     summary:
       "Опишите задачу — Emigro подберёт подходящих партнёров по стране и передаст им ваш запрос только с вашего согласия.",
   },
-  {
-    value: "route-check",
-    label: "Route Check — €129",
-    summary:
-      "Созвон с командой Emigro по чек-листу, PDF с разбором кейса в течение 48 часов, подбор партнёров. Оплата — после согласования слота.",
-  },
-  {
-    value: "accompaniment",
-    label: "Сопровождение — €100/час",
-    summary:
-      "Коммуникационная поддержка: переписка с консульством, юристом или агентством, письма, формы, разбор отказов. Оплата — после согласования формата работы.",
-  },
 ];
 
-const PLAN_TIER_OPTIONS_ES: { value: AssistPlanTier; label: string; summary: string }[] = [
+const PLAN_TIER_OPTIONS_ES_ALL: { value: AssistPlanTier; label: string; summary: string }[] = [
   {
     value: "partner-match",
     label: "Encontrar especialista — gratis",
     summary:
       "Describa su caso: Emigro seleccionará partners por país y compartirá su solicitud solo con su consentimiento.",
   },
-  {
-    value: "route-check",
-    label: "Route Check — €129",
-    summary:
-      "Llamada con el equipo Emigro según checklist, PDF del caso en 48 h y selección de partners. Pago tras confirmar el slot.",
-  },
-  {
-    value: "accompaniment",
-    label: "Acompañamiento — €100/hora",
-    summary:
-      "Apoyo de comunicación: correo con consulado, abogado o agencia, cartas, formularios, análisis de denegaciones. Pago tras acordar el formato.",
-  },
 ];
 
-const PLAN_TIER_OPTIONS_EN: { value: AssistPlanTier; label: string; summary: string }[] = [
+const PLAN_TIER_OPTIONS_EN_ALL: { value: AssistPlanTier; label: string; summary: string }[] = [
   {
     value: "partner-match",
     label: "Find a specialist — free",
     summary:
       "Describe the case. Emigro picks partners for that country and shares your request only with your consent.",
   },
-  {
-    value: "route-check",
-    label: "Route Check — €129",
-    summary:
-      "A call with the Emigro team against a checklist, a PDF of the case within 48 hours, and partner options. You pay after the time slot is confirmed.",
-  },
-  {
-    value: "accompaniment",
-    label: "Accompaniment — €100/hour",
-    summary:
-      "Communication support: letters to a consulate, lawyer or agency, forms, and a read of a refusal. You pay after the format is agreed.",
-  },
 ];
 
-const PLAN_TIER_OPTIONS_FR: { value: AssistPlanTier; label: string; summary: string }[] = [
+const PLAN_TIER_OPTIONS_FR_ALL: { value: AssistPlanTier; label: string; summary: string }[] = [
   {
     value: "partner-match",
     label: "Trouver un spécialiste — gratuit",
     summary:
       "Décrivez votre besoin : Emigro sélectionnera des partenaires par pays et transmettra votre demande avec votre accord.",
-  },
-  {
-    value: "route-check",
-    label: "Route Check — €129",
-    summary:
-      "Appel avec l'équipe Emigro selon checklist, PDF du cas sous 48 h et sélection de partenaires. Paiement après confirmation du créneau.",
-  },
-  {
-    value: "accompaniment",
-    label: "Accompagnement — €100/heure",
-    summary:
-      "Soutien de communication : courrier avec consulat, avocat ou agence, lettres, formulaires, analyse de refus. Paiement après accord sur le format.",
   },
 ];
 
@@ -153,72 +105,74 @@ const SUCCESS_MESSAGES_RU: Record<AssistPlanTier, string> = {
   "partner-match":
     "Запрос отправлен. Emigro посмотрит задачу и свяжет вас с подходящим партнёром, если такой есть по выбранному направлению. Это бесплатно.",
   "route-check":
-    "Заявка отправлена. Emigro согласует время созвона с командой. После подтверждения слота вышлем реквизиты (€129). Команда Emigro проведёт встречу и пришлёт PDF с разбором кейса и контактами партнёров в течение 48 часов.",
+    "Заявка отправлена. Emigro свяжется с вами и подберёт специалиста — это бесплатно.",
   accompaniment:
-    "Заявка отправлена. Emigro свяжется с вами, уточнит задачу и согласует формат работы. Оплата €100/час — после согласования.",
+    "Заявка отправлена. Emigro свяжется с вами и подберёт специалиста — это бесплатно.",
 };
 
 const SUCCESS_MESSAGES_ES: Record<AssistPlanTier, string> = {
   "partner-match":
     "Solicitud enviada. Emigro revisará su caso y le conectará con un partner adecuado si lo tenemos para este destino. Es gratuito.",
   "route-check":
-    "Solicitud enviada. Emigro acordará la hora de la llamada. Tras confirmar el slot, enviaremos los datos de pago (€129). Tras la reunión recibirá el PDF y contactos de partners en 48 h.",
+    "Solicitud enviada. Emigro le contactará y seleccionará un especialista — es gratis.",
   accompaniment:
-    "Solicitud enviada. Emigro contactará para aclarar la tarea y el formato. Pago €100/hora tras el acuerdo.",
+    "Solicitud enviada. Emigro le contactará y seleccionará un especialista — es gratis.",
 };
 
 const SUCCESS_MESSAGES_EN: Record<AssistPlanTier, string> = {
   "partner-match":
     "Request sent. Emigro will look at the case and introduce a suitable partner if we have one for this destination. This is free.",
   "route-check":
-    "Request sent. Emigro will agree a call time. After the slot is confirmed we send payment details (€129). You get the PDF and partner contacts within 48 hours of the call.",
+    "Request sent. Emigro will contact you and match a specialist — free of charge.",
   accompaniment:
-    "Request sent. Emigro will contact you to agree the task and the format. €100/hour is charged after that agreement.",
+    "Request sent. Emigro will contact you and match a specialist — free of charge.",
 };
 
 const SUCCESS_MESSAGES_FR: Record<AssistPlanTier, string> = {
   "partner-match":
     "Demande envoyée. Emigro examinera votre besoin et vous mettra en relation avec un partenaire adapté si disponible. C’est gratuit.",
   "route-check":
-    "Demande envoyée. Emigro conviendra de l'heure de l'appel. Après confirmation du créneau, nous enverrons les coordonnées de paiement (€129). Après la réunion vous recevrez le PDF et les contacts partenaires sous 48 h.",
+    "Demande envoyée. Emigro vous contactera et sélectionnera un spécialiste — c'est gratuit.",
   accompaniment:
-    "Demande envoyée. Emigro vous contactera pour clarifier la tâche et le format. Paiement €100/heure après accord.",
+    "Demande envoyée. Emigro vous contactera et sélectionnera un spécialiste — c'est gratuit.",
 };
 
 const SUBMIT_LABELS_RU: Record<AssistPlanTier, string> = {
   "partner-match": "Отправить бесплатный запрос",
-  "route-check": "Запросить Route Check — €129",
-  accompaniment: "Запросить сопровождение",
+  "route-check": "Подобрать специалиста",
+  accompaniment: "Подобрать специалиста",
 };
 
 const SUBMIT_LABELS_ES: Record<AssistPlanTier, string> = {
   "partner-match": "Enviar solicitud gratuita",
-  "route-check": "Solicitar Route Check — €129",
-  accompaniment: "Solicitar acompañamiento",
+  "route-check": "Encontrar especialista",
+  accompaniment: "Encontrar especialista",
 };
 
 const SUBMIT_LABELS_EN: Record<AssistPlanTier, string> = {
   "partner-match": "Send the free request",
-  "route-check": "Request Route Check — €129",
-  accompaniment: "Request accompaniment",
+  "route-check": "Find a specialist",
+  accompaniment: "Find a specialist",
 };
 
 const SUBMIT_LABELS_FR: Record<AssistPlanTier, string> = {
   "partner-match": "Envoyer la demande gratuite",
-  "route-check": "Demander Route Check — €129",
-  accompaniment: "Demander l'accompagnement",
+  "route-check": "Trouver un spécialiste",
+  accompaniment: "Trouver un spécialiste",
 };
+
+// Emigro is free for users since 2026-11-19: only the free partner match is offered.
+const PLAN_TIER_OPTIONS_RU = PLAN_TIER_OPTIONS_RU_ALL.filter((option) => option.value === "partner-match");
+const PLAN_TIER_OPTIONS_ES = PLAN_TIER_OPTIONS_ES_ALL.filter((option) => option.value === "partner-match");
+const PLAN_TIER_OPTIONS_EN = PLAN_TIER_OPTIONS_EN_ALL.filter((option) => option.value === "partner-match");
+const PLAN_TIER_OPTIONS_FR = PLAN_TIER_OPTIONS_FR_ALL.filter((option) => option.value === "partner-match");
 
 function tierFromHash(hash: string): AssistPlanTier | null {
   if (hash === "#assist-form" || hash === "#assist-partner-match") {
     return "partner-match";
   }
-  if (hash === "#assist-form-route-check" || hash === "#assist-route-check") {
-    return "route-check";
-  }
-  if (hash === "#assist-form-accompaniment" || hash === "#assist-accompaniment") {
-    return "accompaniment";
-  }
+  // Free for users since 2026-11-19: old paid hashes land on the free partner match.
+  if (/route-check|accompaniment/.test(hash)) return "partner-match";
   return null;
 }
 
@@ -310,7 +264,7 @@ export function AssistLeadForm({
       ? [initialProviderId]
       : []
   );
-  const [planTier, setPlanTier] = useState<AssistPlanTier>(defaultPlanTier);
+  const [planTier, setPlanTier] = useState<AssistPlanTier>(defaultPlanTier === "partner-match" ? defaultPlanTier : "partner-match");
   const [paymentMethod, setPaymentMethod] = useState<AssistPaymentMethod>("paypal");
   const [name, setName] = useState("");
   const [contact, setContact] = useState("");
@@ -457,7 +411,7 @@ export function AssistLeadForm({
 
   return (
     <form onSubmit={submit} className="space-y-5 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-      <fieldset>
+      <fieldset className={PLAN_TIER_OPTIONS.length > 1 ? undefined : "hidden"}>
         <legend className="text-sm font-medium text-slate-800">
           {isEn ? "What you need" : isEs ? "Qué le interesa" : isFr ? "Ce qui vous intéresse" : "Что вас интересует"}
         </legend>
@@ -719,9 +673,8 @@ export function AssistLeadForm({
               <Link href="/es/privacy" className="text-corridor-600 hover:underline">
                 política de privacidad
               </Link>{" "}
-              y autorizo a Emigro a contactarme y compartir mi solicitud con un partner adecuado. Emigro no es un
-              bufete: la selección gratuita es una introducción; Route Check es un análisis estructurado y el
-              acompañamiento es apoyo de comunicación. La responsabilidad jurídica es del partner elegido.
+              y autorizo a Emigro a contactarme y compartir mi solicitud con un especialista adecuado. Emigro no es un
+              bufete: la selección gratuita es una introducción. La responsabilidad jurídica es del especialista elegido.
             </>
           ) : isFr ? (
             <>
@@ -729,10 +682,9 @@ export function AssistLeadForm({
               <Link href="/fr/privacy" className="text-corridor-600 hover:underline">
                 politique de confidentialité
               </Link>{" "}
-              et autorise Emigro à me contacter et à transmettre ma demande à un partenaire adapté. Emigro
-              n&apos;est pas un cabinet : la sélection gratuite est une mise en relation ; Route Check est une analyse
-              structurée et l&apos;accompagnement un soutien de communication. La responsabilité juridique incombe au
-              partenaire choisi.
+              et autorise Emigro à me contacter et à transmettre ma demande à un spécialiste adapté. Emigro
+              n&apos;est pas un cabinet : la sélection gratuite est une mise en relation. La responsabilité juridique
+              incombe au spécialiste choisi.
             </>
           ) : (
             <>
@@ -740,10 +692,9 @@ export function AssistLeadForm({
               <Link href="/ru/privacy" className="text-corridor-600 hover:underline">
                 политикой конфиденциальности
               </Link>{" "}
-              и разрешаю Emigro связаться со мной и передать мой запрос выбранному профильному партнёру. Emigro не
-              юридическая фирма: бесплатный подбор — это знакомство со специалистом, Route Check — структурированный
-              разбор ситуации, сопровождение — коммуникационная поддержка. Юридическую ответственность несёт выбранный
-              партнёр.
+              и разрешаю Emigro связаться со мной и передать мой запрос подходящему специалисту. Emigro не
+              юридическая фирма: бесплатный подбор — это знакомство со специалистом. Юридическую ответственность несёт
+              выбранный специалист.
             </>
           )}
         </span>

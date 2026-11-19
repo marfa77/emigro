@@ -1,3 +1,4 @@
+import { stripPaidAssist } from "@/lib/community-notes/strip-paid-assist";
 import { unstable_cache } from "next/cache";
 import { createServerClient } from "@/lib/supabase/server";
 import { CACHE_REVALIDATE, CACHE_TAGS } from "@/lib/cache/tags";
@@ -126,7 +127,7 @@ async function fetchPublishedCommunityNotesFromDb(countryKey: string): Promise<C
   }
 
   const notes = rows.map((row) =>
-    applyRepoHandGuides(removeEditorialScaffolding(finalizeCommunityNote(row, countryKey))),
+    stripPaidAssist(applyRepoHandGuides(removeEditorialScaffolding(finalizeCommunityNote(row, countryKey)))),
   );
   const merged = mergePublishedNotesWithSeed(notes, countryKey);
   if (isCommunityNotesSeedOnly(merged)) {
@@ -218,7 +219,7 @@ async function fetchPublishedCommunityNoteBySlugUncached(
     if (error || !data) {
       return noteSeedFallback(countryKey).find((n) => n.slug === slug) ?? null;
     }
-    return applyRepoHandGuides(removeEditorialScaffolding(finalizeCommunityNote(data, countryKey)));
+    return stripPaidAssist(applyRepoHandGuides(removeEditorialScaffolding(finalizeCommunityNote(data, countryKey))));
   } catch {
     return noteSeedFallback(countryKey).find((n) => n.slug === slug) ?? null;
   }

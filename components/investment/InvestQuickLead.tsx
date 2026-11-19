@@ -77,7 +77,7 @@ const COPY = {
     step2: "Заполнить полный профиль (шаг 2)",
     pdf: "Скачать сравнение Golden Visa 2026 (PDF)",
     pdfTg: "Получить PDF в Telegram",
-    routeCheck: "Нужна проверка документов? Route Check — €129",
+    routeCheck: "Нужна помощь с документами? Подберём специалиста — бесплатно",
     error: "Не удалось отправить. Напишите нам в Telegram — ответим быстрее.",
     honeypot: "Не заполняйте это поле",
   },
@@ -131,14 +131,14 @@ const COPY = {
     step2: "Complete full profile (step 2)",
     pdf: "Download Golden Visa 2026 comparison (PDF)",
     pdfTg: "Get the PDF in Telegram",
-    routeCheck: "Need a document check? Route Check — €129",
+    routeCheck: "Need help with documents? We match a specialist for free",
     error: "Couldn't send. Message us on Telegram — we'll reply faster.",
     honeypot: "Leave this field empty",
   },
 } as const;
 
 const PRIVACY_PATH: Record<InvestLocale, string> = { ru: "/ru/privacy", en: "/ru/privacy" };
-const ROUTE_CHECK_PATH = "/ru/route-check";
+const ROUTE_CHECK_PATH = "/ru/assist#assist-form";
 
 export function InvestQuickLead({
   locale,

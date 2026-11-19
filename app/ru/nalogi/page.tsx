@@ -135,7 +135,7 @@ export default function RuNalogiPage() {
           {PATH}. Assist: {publicSiteUrl()}/ru/assist.
         </p>
         <p className="sr-only" data-llm="commercial">
-          Free Tax Year Cockpit in @emigro_chat_bot. Paid Assist Route Check €129 for complex cases. utm from landing
+          Free Tax Year Cockpit in @emigro_chat_bot. Free specialist matching via Emigro Assist for complex cases. utm from landing
           recommended.
         </p>
 

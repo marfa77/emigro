@@ -38,7 +38,7 @@ export const SATELLITE_CITY_CHATS: readonly SatelliteCityChat[] = [
     keywords: ["порту", "porto", "порто"],
     kicker: "Для своих",
     blurb:
-      "Для своих в Порту: публикуем важное, общаемся, эксперты отвечают на вопросы. Бот сразу пришлёт ссылку в личку. Документы и AIMA — в Route Check, не стеной в чате.",
+      "Для своих в Порту: публикуем важное, общаемся, эксперты отвечают на вопросы. Бот сразу пришлёт ссылку в личку. Сложный вопрос по документам и AIMA — бесплатно подберём специалиста, не стеной в чате.",
     featuredNoteSlug: "nif-porto-kak-poluchit-2026",
     featuredNoteLabel: "NIF в Porto",
   },
@@ -53,7 +53,7 @@ export const SATELLITE_CITY_CHATS: readonly SatelliteCityChat[] = [
     keywords: ["валенсия", "valencia"],
     kicker: "Для своих",
     blurb:
-      "Для своих в Валенсии: публикуем важное, общаемся, эксперты отвечают на вопросы. Бот пришлёт ссылку в личку. NIE/TIE и cita — в гайдах и Route Check, не стеной в чате.",
+      "Для своих в Валенсии: публикуем важное, общаемся, эксперты отвечают на вопросы. Бот пришлёт ссылку в личку. NIE/TIE и cita — в гайдах и через бесплатный подбор специалиста, не стеной в чате.",
     featuredNoteSlug: "nie-empadronamiento-poryadok-2026",
     featuredNoteLabel: "NIE и empadronamiento",
   },
@@ -68,7 +68,7 @@ export const SATELLITE_CITY_CHATS: readonly SatelliteCityChat[] = [
     keywords: ["милан", "milan", "milano", "комо", "como"],
     kicker: "Для своих",
     blurb:
-      "Для своих в Милане и вокруг (север, включая Комо): публикуем важное, общаемся, эксперты отвечают на вопросы. Бот пришлёт ссылку в личку. Codice fiscale и permesso — в гайдах и Route Check, не стеной в чате.",
+      "Для своих в Милане и вокруг (север, включая Комо): публикуем важное, общаемся, эксперты отвечают на вопросы. Бот пришлёт ссылку в личку. Codice fiscale и permesso — в гайдах и через бесплатный подбор специалиста, не стеной в чате.",
     featuredNoteSlug: "codice-fiscale-milano-2026",
     featuredNoteLabel: "Codice fiscale в Milano",
   },
@@ -83,7 +83,7 @@ export const SATELLITE_CITY_CHATS: readonly SatelliteCityChat[] = [
     keywords: ["пхукет", "phuket", "ภูเก็ต"],
     kicker: "Для своих",
     blurb:
-      "Для своих на Пхукете и вокруг: публикуем важное, общаемся, эксперты отвечают на вопросы. Бот пришлёт ссылку в личку. DTV, LTR и TM30 — в гайдах и Route Check, не стеной в чате.",
+      "Для своих на Пхукете и вокруг: публикуем важное, общаемся, эксперты отвечают на вопросы. Бот пришлёт ссылку в личку. DTV, LTR и TM30 — в гайдах и через бесплатный подбор специалиста, не стеной в чате.",
   },
 ];
 

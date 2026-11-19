@@ -209,7 +209,7 @@ const bodySections: NoteBodySection[] = [
     paragraphs: [
       "Виза D, цифровой кочевник, найм и семья — это разные комплекты и разные приложения. [Мастер маршрута по Италии](/ru/italy/wizard?utm_source=emigro&utm_medium=guide&utm_campaign=permesso-questura-milano&utm_content=" +
         PERMESSO_QUESTURA_SLUG +
-        ") сопоставит путь. [Проверка маршрута Assist за €129](/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=permesso-questura-milano&utm_content=" +
+        ") сопоставит путь. [Бесплатный подбор специалиста Emigro](/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=permesso-questura-milano&utm_content=" +
         PERMESSO_QUESTURA_SLUG +
         ") разбирает восьмидневный срок и код основания.",
       "Рядом лежат налоговый код, календарь первого месяца и банк, которому часто показывают квитанцию. Главное: мастер не заменяет гид почты, но не даёт смешать четыре основания в один конверт.",

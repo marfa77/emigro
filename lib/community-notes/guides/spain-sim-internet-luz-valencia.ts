@@ -173,7 +173,7 @@ const bodySections: NoteBodySection[] = [
     paragraphs: [
       "К 4–6 месяцу в Valencia у релоканта уже TIE/resguardo, работа или autónomo, и привычка платить luz/agua/fibra. Именно тогда всплывает то, что в месяц 1 казалось «мелочью»: luz осталась на propietario, prepago не portado, tarifa luz с permanencia, agua EMIVASA на nombre anterior.",
       "К 4–6 месяцу банк и nómina требуют domiciliación с ES IBAN; Revolut-only сценарий ломается на utilities и некоторых seguros. Переоформление titularidades — снова expediente, иногда visita técnico.",
-      "Если маршрут визы или autónomo не сходится с фактическими suministros — проверьте [Emigro wizard](https://www.emigro.online/ru/spain/wizard) и при необходимости [Assist Route Check](https://www.emigro.online/ru/assist): не для выбора tarifa Digi, а чтобы связать статус, адрес и бюджет domicilio.",
+      "Если маршрут визы или autónomo не сходится с фактическими suministros — проверьте [Emigro wizard](https://www.emigro.online/ru/spain/wizard) и при необходимости [бесплатный подбор специалиста Emigro](https://www.emigro.online/ru/assist): не для выбора tarifa Digi, а чтобы связать статус, адрес и бюджет domicilio.",
     ],
     bullets: [
       "К 4–6 месяцу: luz на propietario — сложнее доказать domicilio habitual para trámites.",

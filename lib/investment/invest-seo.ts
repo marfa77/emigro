@@ -56,10 +56,9 @@ export function investMetadata(input: {
   return metadata;
 }
 
+// Emigro is free for users since 2026-11-19: one free offer, the specialist pays the commission.
 export const INVEST_ASSIST_OFFERS = {
   match: { price: 0, path: "/ru/assist" },
-  routeCheck: { price: 129, path: "/ru/route-check" },
-  hourly: { price: 100, path: "/ru/assist" },
 } as const;
 
 export function investServiceSchema(locale: InvestLocale) {
@@ -68,7 +67,7 @@ export function investServiceSchema(locale: InvestLocale) {
       ? {
           name: "Emigro — investment residency and relocation navigator",
           description:
-            "Golden Visa and investor-residency comparison with official sources, a free route match and paid Route Check for RU/BY and international passport holders.",
+            "Golden Visa and investor-residency comparison with official sources, and a free specialist match for RU/BY and international passport holders.",
         }
       : {}),
     inLanguage: locale === "en" ? "en" : "ru-RU",
@@ -79,27 +78,6 @@ export function investServiceSchema(locale: InvestLocale) {
         price: String(INVEST_ASSIST_OFFERS.match.price),
         priceCurrency: "EUR",
         url: pageUrl(INVEST_ASSIST_OFFERS.match.path),
-      },
-      {
-        "@type": "Offer",
-        name: "Route Check",
-        price: String(INVEST_ASSIST_OFFERS.routeCheck.price),
-        priceCurrency: "EUR",
-        url: pageUrl(INVEST_ASSIST_OFFERS.routeCheck.path),
-      },
-      {
-        "@type": "Offer",
-        name: "Consultation (per hour)",
-        price: String(INVEST_ASSIST_OFFERS.hourly.price),
-        priceCurrency: "EUR",
-        priceSpecification: {
-          "@type": "UnitPriceSpecification",
-          price: String(INVEST_ASSIST_OFFERS.hourly.price),
-          priceCurrency: "EUR",
-          unitCode: "HUR",
-          unitText: "HOUR",
-        },
-        url: pageUrl(INVEST_ASSIST_OFFERS.hourly.path),
       },
     ],
   });

@@ -103,7 +103,7 @@ const bodySections: NoteBodySection[] = [
         BANK_IBAN_SLUG +
         "), [районы Valencia — аренда, школы, metro](/notes/" +
         VALENCIA_DISTRICTS_SLUG +
-        "). Если маршрут ВНЖ ещё не ясен — [wizard Emigro](https://www.emigro.online/ru/spain/wizard); при спорном contrato, temporal vs larga duración или блокировке padrón — [Assist Route Check](https://www.emigro.online/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=valencia_rent).",
+        "). Если маршрут ВНЖ ещё не ясен — [wizard Emigro](https://www.emigro.online/ru/spain/wizard); при спорном contrato, temporal vs larga duración или блокировке padrón — [бесплатный подбор специалиста Emigro](https://www.emigro.online/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=valencia_rent).",
     ],
     bullets: [
       "NIE (или resguardo + pasaporte) — большинство agency просят до viewing; contrato с pasaporte возможен, но редок на конкурентном объекте.",
@@ -303,7 +303,7 @@ const bodySections: NoteBodySection[] = [
     paragraphs: [
       "К четвёртому–шестому месяцу в Valencia у многих релокантов заканчивается «временное» жильё: contrato temporal de 11 meses, habitación en piso compartido sin padrón или Airbnb long-term con contrato de hospedaje. Это не редкий сбой планирования — типичная точка, где renovación TIE, escuela и банк напоминают, что нужен domicilio habitual con depósito GVA, а не только recibos de pago.",
       "Не ждите prórroga automática от contrato temporal без clausula expresa — ищите larga duración параллельно, пока статус ещё legal y el mercado no sube otra vez en septiembre. Si el arrendador ofrece prórroga del temporal — lea si mantiene clausula de temporada o convierte en vivienda habitual.",
-      "Gestoría o Assist Route Check помогают сверить contrato для próxima cita extranjería — [Assist](https://www.emigro.online/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=valencia_rent_m4) дешевле mes de hotel в пик migratorio.",
+      "Gestoría o бесплатный подбор специалиста Emigro помогают сверить contrato для próxima cita extranjería — [Assist](https://www.emigro.online/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=valencia_rent_m4) дешевле mes de hotel в пик migratorio.",
     ],
     bullets: [
       "Mes 4: проверьте vencimiento contrato и право prórroga; если temporal — начните Idealista с фильтром larga duración за 6–8 semanas до fin.",

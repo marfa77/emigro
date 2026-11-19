@@ -216,7 +216,7 @@ const bodySections: NoteBodySection[] = [
     heading: "Wizard y Assist",
     section_kind: "practice",
     paragraphs: [
-      "Если visado D, DNV или autónomo переплетены, прогоните факты через [Emigro Wizard](/ru/wizard?utm_source=emigro&utm_medium=guide&utm_campaign=30days-valencia&utm_content=pervye-30-dnej-v-ispanii-satelit-2026). Для аудита порядка шагов и риска просрочки visado — [Route Check Assist €129](/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=30days-valencia&utm_content=pervye-30-dnej-v-ispanii-satelit-2026).",
+      "Если visado D, DNV или autónomo переплетены, прогоните факты через [Emigro Wizard](/ru/wizard?utm_source=emigro&utm_medium=guide&utm_campaign=30days-valencia&utm_content=pervye-30-dnej-v-ispanii-satelit-2026). Для аудита порядка шагов и риска просрочки visado — [бесплатный подбор специалиста Emigro](/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=30days-valencia&utm_content=pervye-30-dnej-v-ispanii-satelit-2026).",
     ],
     bullets: [
       "Wizard — сопоставление маршрута без выбора страны заранее.",

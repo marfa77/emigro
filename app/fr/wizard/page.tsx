@@ -55,7 +55,7 @@ export default function FrHubWizardPage() {
             <Link href={FR_PATHS.assist} className="font-medium text-corridor-700 hover:underline">
               une mise en relation gratuite avec un spécialiste
             </Link>{" "}
-            ou un Route Check avec PDF pour un cas complexe.
+            — gratuite pour vous.
           </p>
         </header>
 

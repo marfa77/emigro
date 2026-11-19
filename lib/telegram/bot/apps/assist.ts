@@ -6,11 +6,11 @@ import { sendHome } from "@/lib/telegram/bot/home";
 import { clearSession, setSession } from "@/lib/telegram/bot/session";
 import type { AssistPlanTier, BotIncoming, BotUserCtx } from "@/lib/telegram/bot/types";
 
-const TIERS: Array<{ id: AssistPlanTier; label: string }> = [
-  { id: "partner-match", label: "Партнёр · бесплатно" },
-  { id: "route-check", label: "Route Check · €129" },
-  { id: "accompaniment", label: "Сопровождение · €100/ч" },
-];
+// Emigro is free for users since 2026-11-19: one free tier; old paid tiers fall back to it.
+const TIERS: Array<{ id: AssistPlanTier; label: string }> = [{ id: "partner-match", label: "Подбор специалиста · бесплатно" }];
+
+const FREE_SUCCESS =
+  "Запрос отправлен. Emigro посмотрит задачу и подберёт специалиста по направлению — это бесплатно. Контакт передаём только с вашего согласия.";
 
 const COUNTRIES: Array<{ key: string; label: string; iso2: string }> = [
   { key: "portugal", label: "Португалия", iso2: "PT" },
@@ -20,12 +20,9 @@ const COUNTRIES: Array<{ key: string; label: string; iso2: string }> = [
 ];
 
 const SUCCESS: Record<AssistPlanTier, string> = {
-  "partner-match":
-    "Запрос отправлен. Emigro посмотрит задачу и свяжет с партнёром, если есть по направлению. Это бесплатно.",
-  "route-check":
-    "Заявка отправлена. Слот и оплата €129 — после согласования. В боте деньги не берём. PDF с разбором — в течение 48 часов после созвона.",
-  accompaniment:
-    "Заявка отправлена. Уточним задачу и формат. Оплата €100/час — после согласования, не в этом чате.",
+  "partner-match": FREE_SUCCESS,
+  "route-check": FREE_SUCCESS,
+  accompaniment: FREE_SUCCESS,
 };
 
 export type AssistPayload = {
@@ -53,7 +50,6 @@ function displayName(ctx: BotUserCtx, payload: AssistPayload): string {
 }
 
 function nextAssistStep(payload: AssistPayload, ctx: BotUserCtx): string {
-  if (!payload.tier) return "plan";
   if (!payload.country) return "country";
   if (payload.country === "other" && !payload.countryLabel) return "country_other";
   if (!displayName(ctx, payload)) return "name";
@@ -66,11 +62,7 @@ async function promptPlan(ctx: BotUserCtx): Promise<void> {
     ctx.chatId,
     [
       "<b>Помощь Emigro Assist</b>",
-      "Не юридическая консультация. Три тарифа — те же, что на сайте.",
-      "",
-      "1) Партнёр бесплатно — подберём специалиста и передадим контакт только с вашего согласия.",
-      "2) Route Check €129 — созвон + PDF. Оплата после слота.",
-      "3) Сопровождение €100/ч — письма, формы, консульство. Оплата после формата.",
+      "Не юридическая консультация. Для вас бесплатно: подберём юриста или агентство по стране и задаче и передадим контакт только с вашего согласия.",
     ].join("\n"),
     {
       parseMode: "HTML",
@@ -104,19 +96,18 @@ async function promptBrief(ctx: BotUserCtx): Promise<void> {
 }
 
 async function promptConsent(ctx: BotUserCtx, payload: AssistPayload): Promise<void> {
-  const tier = payload.tier ? TIERS.find((t) => t.id === payload.tier)?.label : "тариф";
   const country = payload.countryLabel || payload.country || "страна";
   await sendStatsBotMessage(
     ctx.chatId,
     [
       "<b>Проверьте заявку</b>",
-      `Тариф: ${tier}`,
+      "Подбор специалиста — бесплатно",
       `Страна: ${country}`,
       `Имя: ${displayName(ctx, payload) || "—"}`,
       "",
       payload.brief || "",
       "",
-      "Отправить? Контакт из этого чата: username и Telegram id. Деньги в боте не берём.",
+      "Отправить? Контакт из этого чата: username и Telegram id. Для вас это бесплатно.",
     ].join("\n"),
     {
       parseMode: "HTML",
@@ -166,14 +157,14 @@ export async function startAssist(
   seed?: { country?: string; tier?: AssistPlanTier; sessionId?: string; programRoute?: string }
 ): Promise<void> {
   const payload: AssistPayload = { sessionId: seed?.sessionId, programRoute: seed?.programRoute };
-  if (seed?.tier) payload.tier = seed.tier;
+  if (seed?.tier) payload.tier = "partner-match";
   if (seed?.country) Object.assign(payload, applyCountry(payload, seed.country));
   if (!payload.name && ctx.firstName) payload.name = ctx.firstName;
   await showStep(ctx, payload);
 }
 
 async function submit(ctx: BotUserCtx, payload: AssistPayload): Promise<void> {
-  const tier = payload.tier || "partner-match";
+  const tier: AssistPlanTier = "partner-match";
   const name = displayName(ctx, payload) || "Telegram";
   const country = payload.countryLabel || payload.country || "не указана";
   const result = await submitAssistLead({
@@ -212,7 +203,7 @@ export async function continueAssist(
     if (incoming.data.startsWith("as:plan:")) {
       const tier = incoming.data.slice("as:plan:".length) as AssistPlanTier;
       if (tier === "partner-match" || tier === "route-check" || tier === "accompaniment") {
-        await showStep(ctx, { ...payload, tier });
+        await showStep(ctx, { ...payload, tier: "partner-match" });
       }
       return;
     }

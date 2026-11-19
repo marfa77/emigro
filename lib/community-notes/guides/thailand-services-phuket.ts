@@ -189,7 +189,7 @@ const bodySections: NoteBodySection[] = [
       "School mid-year — registrar, не visa agent.",
       "Consulate RF — Bangkok trip plan ([consulate slot](/notes/konsulstvo-rf-bangkok-dokumenty-2026)).",
       "Second opinion lawyer — before signing SPA.",
-      "Assist Route Check — document order audit €129.",
+      "Emigro Assist — бесплатный подбор специалиста по порядку документов.",
     ],
   },
   {
@@ -213,7 +213,7 @@ const bodySections: NoteBodySection[] = [
     section_kind: "official",
     paragraphs: [
       "**Официально / бесплатно или gov fee:** Immigration forms, TM30 portal, DBD lookup, OCPB complaint, hospital emergency triage.",
-      "**Assist Emigro (Route Check €129):** аудит **вашего** порядка visa→TM30→bank→rent; **не** подаёт за вас в Immigration и **не** vouches за частного master. Wizard — [/ru/wizard?utm_source=emigro&utm_medium=guide&utm_campaign=yellow-pages&utm_content=" +
+      "**Emigro Assist (бесплатный подбор специалиста):** разбор **вашего** порядка visa→TM30→bank→rent; **не** подаёт за вас в Immigration и **не** vouches за частного master. Wizard — [/ru/wizard?utm_source=emigro&utm_medium=guide&utm_campaign=yellow-pages&utm_content=" +
         SERVISY_PHUKET_SLUG +
         "](/ru/wizard?utm_source=emigro&utm_medium=guide&utm_campaign=yellow-pages&utm_content=" +
         SERVISY_PHUKET_SLUG +

@@ -248,7 +248,7 @@ const bodySections: NoteBodySection[] = [
       "Postcard / tourist life → Ciutat Vella — max 1–2 года без burnout.",
       "Перед viewing: [чеклист аренды](/notes/" + ARENDA_VALENCIA_SLUG + ").",
       "Первые документы: [30 дней](/notes/" + PERVYE_30_SLUG + ").",
-      "Не sure в визовом треке → [wizard](/ru/spain/wizard) или [Assist Route Check](/ru/assist) — разбор маршрута до fianza.",
+      "Не sure в визовом треке → [wizard](/ru/spain/wizard) или [бесплатный подбор специалиста Emigro](/ru/assist) — разбор маршрута до fianza.",
     ],
   },
   {

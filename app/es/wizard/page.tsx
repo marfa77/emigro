@@ -54,7 +54,7 @@ export default function EsHubWizardPage() {
             <Link href={ES_PATHS.assist} className="font-medium text-corridor-700 hover:underline">
               encontrar un especialista
             </Link>{" "}
-            o un Route Check con PDF para un caso complejo.
+            — gratis para usted.
           </p>
         </header>
 

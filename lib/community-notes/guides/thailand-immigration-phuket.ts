@@ -215,7 +215,7 @@ const bodySections: NoteBodySection[] = [
         "); wizard — [Emigro Wizard](/ru/wizard?utm_source=emigro&utm_medium=guide&utm_campaign=immigration-phuket&utm_content=" +
         IMMIGRATION_PHUKET_SLUG +
         ").",
-      "Если permit истекает, семья на разных штампах или marketing «виза с condo» не сходится с e-Visa — [Route Check Assist](/ru/assist?country=thailand&utm_source=emigro&utm_medium=guide&utm_campaign=immigration-phuket&utm_content=" +
+      "Если permit истекает, семья на разных штампах или marketing «виза с condo» не сходится с e-Visa — [бесплатный подбор специалиста Emigro](/ru/assist?country=thailand&utm_source=emigro&utm_medium=guide&utm_campaign=immigration-phuket&utm_content=" +
         IMMIGRATION_PHUKET_SLUG +
         "#assist-form).",
     ],

@@ -192,7 +192,7 @@ const bodySections: NoteBodySection[] = [
     paragraphs: [
       "Если неясно, кочевник это, пассивный доход или найм, разложите развилку в [мастере маршрута по Италии](/ru/italy/wizard?utm_source=emigro&utm_medium=guide&utm_campaign=vnj-nomade-elective&utm_content=" +
         VNJ_IT_SLUG +
-        "). Сложное дело — семья, смена основания, продление — разбирает [проверка маршрута Assist за €129](/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=vnj-nomade-elective&utm_content=" +
+        "). Сложное дело — семья, смена основания, продление — разбирает [бесплатный подбор специалиста Emigro](/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=vnj-nomade-elective&utm_content=" +
         VNJ_IT_SLUG +
         "). Это порядок документов, не «адвокат по гражданству».",
       "Правовая глубина по визе — на странице [ВНЖ Италии 2026, цифровой кочевник](" +

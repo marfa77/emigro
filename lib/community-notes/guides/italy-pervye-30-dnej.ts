@@ -256,7 +256,7 @@ const bodySections: NoteBodySection[] = [
       "Если виза D, маршрут цифрового кочевника, работа и семья сплетаются в одну папку, разложите их в [мастере маршрута по Италии](/ru/italy/wizard?utm_source=emigro&utm_medium=guide&utm_campaign=30days-milano&utm_content=" +
         PERVYE_30_IT_SLUG +
         "). Он сравнивает пути, не заставляя заранее выбрать страну.",
-      "Если нужно разобрать порядок шагов и риск восьми дней, закажите [проверку маршрута Assist за €129](/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=30days-milano&utm_content=" +
+      "Если нужно разобрать порядок шагов и риск восьми дней, закажите [бесплатный подбор специалиста Emigro](/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=30days-milano&utm_content=" +
         PERVYE_30_IT_SLUG +
         "). Это разбор вашего дела в PDF, а не замена адвокату. В сателлите восемь основных заметок по Италии, и этот файл их связывает. Главное: мастер показывает развилку, а Assist смотрит, не выпал ли у вас срок комплекта.",
     ],

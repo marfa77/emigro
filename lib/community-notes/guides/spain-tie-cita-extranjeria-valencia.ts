@@ -183,7 +183,7 @@ const bodySections: NoteBodySection[] = [
     heading: "Связанные шаги и Assist",
     section_kind: "practice",
     paragraphs: [
-      "TIE cierra el arco migratorio post-visado; NIE y padrón deben estar cerrados antes. Ruta completa visado → TIE → SS en [Emigro Wizard](/ru/wizard?utm_source=emigro&utm_medium=guide&utm_campaign=tie-cita-valencia&utm_content=tie-cita-extranjeria-valencia-2026). Si visado caduca o rechazan huellas — [Route Check Assist](/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=tie-cita-valencia&utm_content=tie-cita-extranjeria-valencia-2026).",
+      "TIE cierra el arco migratorio post-visado; NIE y padrón deben estar cerrados antes. Ruta completa visado → TIE → SS en [Emigro Wizard](/ru/wizard?utm_source=emigro&utm_medium=guide&utm_campaign=tie-cita-valencia&utm_content=tie-cita-extranjeria-valencia-2026). Si visado caduca o rechazan huellas — [бесплатный подбор специалиста Emigro](/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=tie-cita-valencia&utm_content=tie-cita-extranjeria-valencia-2026).",
     ],
     bullets: [
       "[NIE и empadronamiento](/notes/" + NIE_EMPADRONAMIENTO_SLUG + ") — до huellas.",

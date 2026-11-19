@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 /**
  * Screening questionnaire. Pavel sends this link to people who asked for a consultation
- * (free or Route Check). Optional ?ref= tags the submission, e.g. ?ref=ivan-route-check.
+ * before a hand-off to a specialist. Optional ?ref= tags the submission, e.g. ?ref=ivan-portugal.
  */
 export default function ScreeningPage({ searchParams }: { searchParams: { ref?: string } }) {
   const refTag = (searchParams.ref ?? "").replace(/[^a-zA-Z0-9_\-.@]/g, "").slice(0, 80);

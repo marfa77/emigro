@@ -1,7 +1,6 @@
 "use client";
 
-import Link from "next/link";
-import { ArrowRight, FileText, UserCheck } from "lucide-react";
+import { ArrowRight, UserCheck } from "lucide-react";
 import { trackEvent } from "@/lib/analytics/client";
 import { buildAssistUrl } from "@/lib/assist/build-url";
 import { assistBotDeepLink } from "@/lib/telegram/deep-link";
@@ -22,10 +21,7 @@ type Props = {
   /** likely_eligible count. */
   strongMatchCount?: number;
   pickOutcome?: string;
-  /**
-   * When true (ambiguous / no strong match), Route Check is the primary CTA —
-   * monetize uncertainty, not just traffic.
-   */
+  /** Ambiguous / no strong match: changes the heading only (no paid CTA since 2026-11-19). */
   preferRouteCheck?: boolean;
 };
 
@@ -51,20 +47,9 @@ export function AssistResultsCta({
           program: programTitle,
           locale,
         });
-  const routeCheckHref =
-    locale === "ru"
-      ? assistBotDeepLink({ country, tier: "route-check" })
-      : buildAssistUrl({
-          sessionId,
-          country,
-          program: programTitle,
-          locale,
-          hash: "assist-form-route-check",
-        });
-  /** Sample PDF page exists only under /ru for now — hide for es/fr to avoid locale leak. */
-  const samplePlanHref = locale === "ru" ? "/ru/assist/sample-plan" : null;
   const label = countryLabel ?? countryRu;
-  const ctaVariant = preferRouteCheck ? "route_check_primary" : "partner_primary";
+  // Free for users since 2026-11-19: one free CTA; preferRouteCheck only changes the heading.
+  const ctaVariant = "partner_primary";
 
   function trackAssistClick(linkLabel: string, targetPath: string) {
     trackEvent("assist_cta_click", {
@@ -95,15 +80,9 @@ export function AssistResultsCta({
               : label
                 ? `Corredor: ${label}.`
                 : "Con el resultado del evaluador, Emigro puede encontrar un especialista para su caso.",
-          body: preferRouteCheck
-            ? "Route Check (€129) es un análisis independiente con PDF cuando el shortlist no es obvio."
-            : "Describa su necesidad: seleccionaremos un partner por país y ruta y compartiremos la solicitud solo con su consentimiento.",
-          call: "Selección e introducción gratuitas; los servicios del partner se acuerdan directamente",
-          pdfPrefix: "Para un análisis independiente con PDF — ",
-          sample: "ver muestra",
-          sampleTrack: "Ver muestra PDF",
-          cta: "Encontrar especialista",
-          paidCta: "Route Check con PDF — €129",
+          body: "Describa su necesidad: seleccionaremos un especialista por país y ruta y compartiremos la solicitud solo con su consentimiento.",
+          call: "Gratis para usted: el especialista paga la comisión a Emigro; sus servicios se acuerdan directamente",
+          cta: "Encontrar especialista — gratis",
         }
       : locale === "fr"
         ? {
@@ -117,16 +96,10 @@ export function AssistResultsCta({
                 : label
                   ? `Corridor : ${label}.`
                   : "Avec le résultat de l’évaluateur, Emigro peut trouver un spécialiste pour votre cas.",
-            body: preferRouteCheck
-              ? "Route Check (€129) = analyse indépendante avec PDF lorsque le shortlist n’est pas évident."
-              : "Décrivez votre besoin : nous sélectionnerons un partenaire par pays et voie, puis transmettrons la demande avec votre accord.",
-            call: "Sélection et mise en relation gratuites ; services du partenaire convenus directement",
-            pdfPrefix: "Pour une analyse indépendante avec PDF — ",
-            sample: "voir un exemple",
-            sampleTrack: "Voir exemple PDF",
-            cta: "Trouver un spécialiste",
-            paidCta: "Route Check avec PDF — €129",
-          }
+            body: "Décrivez votre besoin : nous sélectionnerons un spécialiste par pays et voie, puis transmettrons la demande avec votre accord.",
+            call: "Gratuit pour vous : le spécialiste verse la commission à Emigro ; ses services se négocient directement",
+                  cta: "Trouver un spécialiste — gratuit",
+            }
         : {
             eyebrow: preferRouteCheck ? "Неочевидный shortlist" : "Следующий шаг",
             title: preferRouteCheck
@@ -138,21 +111,10 @@ export function AssistResultsCta({
                 : label
                   ? `Коридор: ${label}.`
                   : "По результатам wizard Emigro может найти специалиста под ваш кейс.",
-            body: preferRouteCheck
-              ? "Route Check (€129) — независимый разбор с PDF, когда shortlist не даёт одного очевидного шага."
-              : "Опишите задачу — подберём партнёра по стране и маршруту и передадим запрос только с вашего согласия.",
-            call: "Подбор и знакомство бесплатно; услуги партнёра обсуждаются напрямую",
-            pdfPrefix: "Для независимого разбора с PDF — ",
-            sample: "посмотреть образец",
-            sampleTrack: "Образец PDF",
-            cta: "Найти специалиста",
-            paidCta: "Route Check с PDF — €129",
-          };
-
-  const primaryHref = preferRouteCheck ? routeCheckHref : assistHref;
-  const primaryLabel = preferRouteCheck ? copy.paidCta : copy.cta;
-  const secondaryHref = preferRouteCheck ? assistHref : routeCheckHref;
-  const secondaryLabel = preferRouteCheck ? copy.cta : copy.paidCta;
+            body: "Опишите задачу — подберём специалиста по стране и маршруту и передадим запрос только с вашего согласия.",
+            call: "Для вас бесплатно: комиссию Emigro платит специалист; его услуги обсуждаете напрямую",
+                  cta: "Подобрать специалиста — бесплатно",
+            };
 
   return (
     <section className="mt-8 rounded-2xl border-2 border-corridor-600 bg-gradient-to-br from-corridor-50 to-white p-5 sm:p-6">
@@ -170,48 +132,19 @@ export function AssistResultsCta({
               <UserCheck className="mt-0.5 h-4 w-4 shrink-0 text-corridor-600" aria-hidden />
               <span>{copy.call}</span>
             </li>
-            <li className="flex items-start gap-2">
-              <FileText className="mt-0.5 h-4 w-4 shrink-0 text-corridor-600" aria-hidden />
-              <span>
-                {copy.pdfPrefix}
-                {samplePlanHref ? (
-                  <Link
-                    href={samplePlanHref}
-                    data-assist-tracked="true"
-                    onClick={() => trackAssistClick(copy.sampleTrack, samplePlanHref)}
-                    className="font-medium text-corridor-700 hover:underline"
-                  >
-                    {copy.sample}
-                  </Link>
-                ) : (
-                  <span className="text-slate-600">
-                    {locale === "es" ? "plan de caso" : locale === "fr" ? "plan de cas" : "план кейса"}
-                  </span>
-                )}
-              </span>
-            </li>
           </ul>
         </div>
 
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
           <a
-            href={primaryHref}
+            href={assistHref}
             data-assist-tracked="true"
-            onClick={() => trackAssistClick(primaryLabel, primaryHref)}
+            onClick={() => trackAssistClick(copy.cta, assistHref)}
             className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-corridor-600 px-5 py-3.5 text-sm font-semibold text-white shadow-sm transition hover:bg-corridor-700 sm:w-auto"
-            {...(primaryHref.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+            {...(assistHref.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
           >
-            {primaryLabel}
+            {copy.cta}
             <ArrowRight className="h-4 w-4" aria-hidden />
-          </a>
-          <a
-            href={secondaryHref}
-            data-assist-tracked="true"
-            onClick={() => trackAssistClick(secondaryLabel, secondaryHref)}
-            className="text-center text-sm font-medium text-corridor-700 hover:underline"
-            {...(secondaryHref.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-          >
-            {secondaryLabel}
           </a>
         </div>
       </div>

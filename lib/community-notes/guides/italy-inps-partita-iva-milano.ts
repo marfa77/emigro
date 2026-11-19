@@ -207,7 +207,7 @@ const bodySections: NoteBodySection[] = [
     paragraphs: [
       "Найм, упрощённая Partita IVA и удалёнка через границу — три разных маршрута. Свой можно прогнать через [мастер Emigro по Италии](/ru/italy/wizard?utm_source=emigro&utm_medium=guide&utm_campaign=inps-piva-milano&utm_content=" +
         INPS_PIVA_SLUG +
-        "). Порядок «налоговый код → договор → INPS» разбирают на [консультации Assist за €129](/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=inps-piva-milano&utm_content=" +
+        "). Порядок «налоговый код → договор → INPS» разбирают на [бесплатном подборе специалиста Emigro](/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=inps-piva-milano&utm_content=" +
         INPS_PIVA_SLUG +
         ").",
       "Главное: мастер показывает, какая из трёх линий ваша, и не подаёт за вас ни форму AA9/12, ни платёжку F24.",

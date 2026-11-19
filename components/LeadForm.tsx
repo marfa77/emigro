@@ -64,9 +64,9 @@ export function LeadForm({ corridorSlug, sessionId, programSlugs, defaultPasspor
     <form onSubmit={submit} className="space-y-4 rounded-xl border border-slate-200 bg-white p-6">
       <h3 className="text-lg font-semibold">Запросить контакты из справочника</h3>
       <p className="text-sm text-slate-600">
-        Список фирм из справочника после wizard. Детальный разбор маршрута —{" "}
+        Список фирм из справочника после подбора маршрута. Нужен специалист под ваш случай —{" "}
         <Link href="/ru/assist" className="text-corridor-600 hover:underline">
-          Route Check (€129)
+          подберём бесплатно
         </Link>
         .
       </p>

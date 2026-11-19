@@ -251,17 +251,6 @@ export default async function CountryResultsPage({
             >
               Найти специалиста
             </TrackedAssistLink>
-            <TrackedAssistLink
-              href={assistBotDeepLink({ country: topic.urlSegment, tier: "route-check" })}
-              placement="wizard_corridor_next_steps_route_check"
-              linkLabel="Route Check — €129"
-              sessionId={sessionId}
-              country={topic.urlSegment}
-              program={topResult?.title_ru}
-              className="inline-flex min-h-11 items-center text-sm font-medium text-corridor-700 hover:underline"
-            >
-              Route Check — €129
-            </TrackedAssistLink>
           </div>
         </section>
 

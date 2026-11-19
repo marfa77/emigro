@@ -167,7 +167,7 @@ const bodySections: NoteBodySection[] = [
     paragraphs: [
       "**Portal oficial** — cuando existe formulario, plazo legal y competencia clara (ICPPlus, padrón, SS, SIP).",
       "**DIY + este directorio** — averías hogar, elección gestoría transparente, traductor jurado listado.",
-      "**Emigro Assist** — Route Check cuando visado plazo, denegación, estructura autónomo/Beckham dudosa, o pánico mes 4 con multas+citas mezcladas — [Assist](/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=yellow-pages-valencia&utm_content=zheltye-stranitsy-relokanta-valencia-2026).",
+      "**Emigro Assist** — selección gratuita de especialista cuando visado plazo, denegación, estructura autónomo/Beckham dudosa, o pánico mes 4 con multas+citas mezcladas — [Assist](/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=yellow-pages-valencia&utm_content=zheltye-stranitsy-relokanta-valencia-2026).",
       "No es página Beckham/DNV: nacionalidad 2 años y UGE tienen guías propias; aquí **operativa Valencia semestre 1**.",
     ],
     bullets: [
@@ -229,7 +229,7 @@ const faq: CommunityNoteFaq[] = [
   },
   {
     q: "Cuándo Emigro Assist vs DIY?",
-    a: "По правилам — trámites estándar DIY en sede. На практике: Assist Route Check si plazos visado, denegación, autónomo+impuestos dudosos mes 4–6.",
+    a: "По правилам — trámites estándar DIY en sede. На практике: бесплатный подбор специалиста Emigro si plazos visado, denegación, autónomo+impuestos dudosos mes 4–6.",
   },
 ];
 

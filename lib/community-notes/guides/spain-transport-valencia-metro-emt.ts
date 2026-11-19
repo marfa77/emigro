@@ -188,7 +188,7 @@ const bodySections: NoteBodySection[] = [
       "ITV próxima en coche comprado — calendario en ficha técnica; olvidar ITV — multa fija.",
       "Actualice domicilio DGT y aseguradora tras mudanza — multas al antiguo padrón.",
       "Valide reducciones tarifarias 2027 en enero — canje títulos no consumidos hasta 31/03/2027 (metrovalencia.es).",
-      "Route Check [Emigro Assist](/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=transport-valencia&utm_content=transport-valencia-metro-emt-coche-2026) si multas impugnación o residencia afecta canje.",
+      "Подбор специалиста [Emigro Assist](/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=transport-valencia&utm_content=transport-valencia-metro-emt-coche-2026) si multas impugnación o residencia afecta canje.",
     ],
   },
 ];

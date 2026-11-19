@@ -86,12 +86,6 @@ export function SatelliteFunnelCta({
           : "Португалия";
 
   const assistHref = satelliteAssistUrl({ countryKey, placement, content });
-  const routeCheckHref = satelliteAssistUrl({
-    countryKey,
-    placement,
-    content,
-    hash: "assist-form-route-check",
-  });
   const propertyHref = countryKey === "thailand" ? propertyBotDeepLink("thailand") : null;
   const wizardHref = satelliteWizardUrl({ countryKey, placement, content });
   const hubHref = satelliteHubUrl({ countryKey, placement, content });
@@ -127,7 +121,6 @@ export function SatelliteFunnelCta({
   }
 
   const assistCta = "Найти специалиста";
-  const routeCheckCta = "Route Check — €129";
   const wizardCta = `Визард ${countryLabel}`;
 
   return (
@@ -214,13 +207,6 @@ export function SatelliteFunnelCta({
             Подобрать недвижимость на Пхукете
           </a>
         )}
-        <a
-          href={routeCheckHref}
-          onClick={() => trackAssist(routeCheckCta, routeCheckHref)}
-          className={`inline-flex ${tapTarget} items-center justify-center rounded-lg px-4 py-2.5 text-sm font-semibold underline ${a.link}`}
-        >
-          {routeCheckCta}
-        </a>
       </div>
 
       <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-1.5 text-sm">

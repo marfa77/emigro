@@ -215,7 +215,7 @@ const bodySections: NoteBodySection[] = [
         PILLAR_THAILAND_SLUG +
         "). Оценка «bus vs bike vs car» для вашей семьи — [Wizard](/ru/wizard?utm_source=emigro&utm_medium=guide&utm_campaign=transport-phuket&utm_content=" +
         TRANSPORT_PHUKET_SLUG +
-        "). Спор после ДТП или блок deposit — [Assist Route Check](/ru/assist?country=thailand&utm_source=emigro&utm_medium=guide&utm_campaign=transport-phuket&utm_content=" +
+        "). Спор после ДТП или блок deposit — [бесплатный подбор специалиста Emigro](/ru/assist?country=thailand&utm_source=emigro&utm_medium=guide&utm_campaign=transport-phuket&utm_content=" +
         TRANSPORT_PHUKET_SLUG +
         ").",
     ],

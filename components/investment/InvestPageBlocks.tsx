@@ -397,17 +397,17 @@ const ASSIST = {
   ru: {
     title: "Нужна помощь с маршрутом?",
     offers: [
-      { name: "Подбор партнёра", price: "€0", note: "юрист или агентство по стране и задаче", href: INVEST_ASSIST_OFFERS.match.path },
-      { name: "Route Check", price: "€129", note: "разово: созвон + PDF-маршрут за 48 часов", href: INVEST_ASSIST_OFFERS.routeCheck.path },
-      { name: "Сопровождение", price: "€100/час", note: "переписка, письма, формы, разбор отказов", href: INVEST_ASSIST_OFFERS.hourly.path },
+      { name: "Подбор специалиста", price: "€0", note: "юрист или агентство по стране и задаче", href: INVEST_ASSIST_OFFERS.match.path },
+      { name: "Для вас", price: "Бесплатно", note: "комиссию Emigro платит специалист, не вы", href: INVEST_ASSIST_OFFERS.match.path },
+      { name: "Контакт", price: "С согласия", note: "передаём только выбранному специалисту", href: INVEST_ASSIST_OFFERS.match.path },
     ],
   },
   en: {
     title: "Need help with your route?",
     offers: [
-      { name: "Partner match", price: "€0", note: "a lawyer or agency for your country and task", href: INVEST_ASSIST_OFFERS.match.path },
-      { name: "Route Check", price: "€129", note: "one-off: call + PDF route within 48 hours", href: INVEST_ASSIST_OFFERS.routeCheck.path },
-      { name: "Accompaniment", price: "€100/hour", note: "emails, letters, forms, refusal reviews", href: INVEST_ASSIST_OFFERS.hourly.path },
+      { name: "Specialist match", price: "€0", note: "a lawyer or agency for your country and task", href: INVEST_ASSIST_OFFERS.match.path },
+      { name: "For you", price: "Free", note: "the specialist pays Emigro's commission, not you", href: INVEST_ASSIST_OFFERS.match.path },
+      { name: "Contact", price: "With consent", note: "shared only with the specialist you choose", href: INVEST_ASSIST_OFFERS.match.path },
     ],
   },
 } as const;

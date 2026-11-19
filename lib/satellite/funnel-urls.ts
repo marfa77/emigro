@@ -42,13 +42,8 @@ function satelliteConfig(countryKey: SatelliteCountryKey) {
 
 /** RU conversion closes in @emigro_chat_bot — same deep link as news. */
 export function satelliteAssistUrl(opts: UtmOpts & { countrySegment?: string; hash?: string }): string {
-  const hash = opts.hash ?? "assist-form";
-  const tier: AssistPlanTier =
-    hash.includes("route-check")
-      ? "route-check"
-      : hash.includes("accompaniment")
-        ? "accompaniment"
-        : "partner-match";
+  // Free for users since 2026-11-19: paid tiers are gone, every satellite CTA is a free partner match.
+  const tier: AssistPlanTier = "partner-match";
   return assistBotDeepLink({ country: opts.countrySegment ?? opts.countryKey, tier });
 }
 

@@ -209,7 +209,7 @@ const bodySections: NoteBodySection[] = [
     heading: "Следующий шаг Emigro",
     section_kind: "practice",
     paragraphs: [
-      "Если виза, TM30 и банк блокируют друг друга, сверьте маршрут на [Emigro Wizard](/ru/wizard?utm_source=emigro&utm_medium=guide&utm_campaign=bank-phuket&utm_content=bank-schet-phuket-inostrancu-2026). Для разбора отказа филиала и plan B по статусу — [Route Check Assist](/ru/assist?country=thailand&utm_source=emigro&utm_medium=guide&utm_campaign=bank-phuket&utm_content=bank-schet-phuket-inostrancu-2026). Pillar: [Таиланд для россиян 2026](/ru/guides/tailand-dlya-rossiyan-2026).",
+      "Если виза, TM30 и банк блокируют друг друга, сверьте маршрут на [Emigro Wizard](/ru/wizard?utm_source=emigro&utm_medium=guide&utm_campaign=bank-phuket&utm_content=bank-schet-phuket-inostrancu-2026). Для разбора отказа филиала и plan B по статусу — [бесплатный подбор специалиста Emigro](/ru/assist?country=thailand&utm_source=emigro&utm_medium=guide&utm_campaign=bank-phuket&utm_content=bank-schet-phuket-inostrancu-2026). Pillar: [Таиланд для россиян 2026](/ru/guides/tailand-dlya-rossiyan-2026).",
     ],
     bullets: [
       "Не начинайте с посредника, пока не собрали lease и long-stay основание.",

@@ -275,7 +275,7 @@ const bodySections: NoteBodySection[] = [
     heading: "Связанные шаги и следующий маршрут",
     section_kind: "practice",
     paragraphs: [
-      "NIE и padrón — середина цепочки, не финал. После certificado открывайте cuenta, бронируйте huellas и подключайте suministros. Если visado D или DNV — сверьте маршрут на [Emigro Wizard](/ru/wizard?utm_source=emigro&utm_medium=guide&utm_campaign=nie-padron-valencia&utm_content=nie-empadronamiento-poryadok-2026) и при спорных casos возьмите [Route Check Assist](/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=nie-padron-valencia&utm_content=nie-empadronamiento-poryadok-2026) — €129 разбор вашего пакета и порядка шагов, не замена abogado.",
+      "NIE и padrón — середина цепочки, не финал. После certificado открывайте cuenta, бронируйте huellas и подключайте suministros. Если visado D или DNV — сверьте маршрут на [Emigro Wizard](/ru/wizard?utm_source=emigro&utm_medium=guide&utm_campaign=nie-padron-valencia&utm_content=nie-empadronamiento-poryadok-2026) и при спорных casos возьмите [бесплатный подбор специалиста Emigro](/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=nie-padron-valencia&utm_content=nie-empadronamiento-poryadok-2026) — бесплатный подбор специалиста по вашему пакету и порядку шагов.",
     ],
     bullets: [
       "[Банк и IBAN](/notes/bank-iban-nerezident-ispaniya-2026) — после NIE + padrón.",

@@ -246,12 +246,6 @@ export default async function CountryProgramPage({
     program: program.title_ru,
     source: `program_${program.slug}`,
   });
-  const routeCheckHref = buildAssistUrl({
-    country: topic.urlSegment,
-    program: program.title_ru,
-    source: `program_${program.slug}`,
-    hash: "assist-form-route-check",
-  });
   const checklist = [
     "Проверить, где именно можно подать заявление с вашим паспортом.",
     incomeRequirement
@@ -623,8 +617,8 @@ export default async function CountryProgramPage({
             Следующий шаг
           </h2>
           <p className="mt-2 text-sm text-slate-600">
-            Сначала профиль в wizard. Если кейс неочевиден — Route Check (€129). Если маршрут ясен — бесплатный
-            подбор специалиста через Assist.
+            Сначала проверьте профиль в подборе маршрута. Нужна помощь — бесплатно подберём специалиста по этой
+            программе.
           </p>
           <div className="mt-4 flex flex-wrap gap-3">
             {topic.sitePaths.wizard && (
@@ -635,16 +629,6 @@ export default async function CountryProgramPage({
                 Проверить мой профиль
               </Link>
             )}
-            <TrackedAssistLink
-              href={routeCheckHref}
-              placement="program_page_route_check"
-              linkLabel="Route Check — €129"
-              country={topic.urlSegment}
-              program={program.title_ru}
-              className="inline-flex rounded-lg border border-corridor-300 bg-white px-5 py-3 font-medium text-corridor-800 hover:bg-corridor-50"
-            >
-              Route Check — €129
-            </TrackedAssistLink>
             <TrackedAssistLink
               href={assistHref}
               placement="program_page_assist"

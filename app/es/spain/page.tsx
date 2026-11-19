@@ -113,12 +113,6 @@ export default function EsSpainHubPage() {
           >
             Encontrar especialista
           </Link>
-          <Link
-            href={`${ES_PATHS.assist}#assist-form-route-check`}
-            className="inline-flex items-center gap-2 rounded-lg border border-corridor-300 px-5 py-3 text-sm font-medium text-corridor-800 hover:bg-corridor-50"
-          >
-            Route Check — €129
-          </Link>
         </div>
 
         <div className="mt-8">

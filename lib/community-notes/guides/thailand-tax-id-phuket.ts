@@ -120,7 +120,7 @@ const bodySections: NoteBodySection[] = [
     section_kind: "practice",
     paragraphs: [
       "Отложили TIN в month 1 — к **4–6 месяцу** часто уже **long-term lease**, банк, **180-day** projection и remittance под правила **2024**. Хвост: нет withholding, нет **P.N.D.90**, слабый income proof на visa renewal.",
-      "Закройте TIN до первого дохода или в month 2–3, если bank/payroll на горизонте. Считайте дни в TH; mixed income — [Route Check](/ru/assist). Pillar: [Таиланд для россиян](https://www.emigro.online/ru/guides/tailand-dlya-rossiyan-2026), [wizard](https://www.emigro.online/ru/wizard).",
+      "Закройте TIN до первого дохода или в month 2–3, если bank/payroll на горизонте. Считайте дни в TH; mixed income — [подбор специалиста](/ru/assist). Pillar: [Таиланд для россиян](https://www.emigro.online/ru/guides/tailand-dlya-rossiyan-2026), [wizard](https://www.emigro.online/ru/wizard).",
     ],
     bullets: [
       "Projection 180 days до 31 декабря.",

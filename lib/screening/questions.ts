@@ -158,7 +158,7 @@ export const SCREENING_SECTIONS: readonly ScreeningSection[] = [
         label: "Какая помощь нужна",
         type: "select",
         required: true,
-        options: ["Бесплатный подбор специалиста", "Route Check (оплачен)", "Пока не знаю"],
+        options: ["Подбор специалиста (юрист или агентство)", "Пока не знаю"],
       },
       {
         id: "budget",

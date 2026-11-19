@@ -103,7 +103,7 @@ const bodySections: NoteBodySection[] = [
       "Landlord регистрируется на [tm30.immigration.go.th](https://tm30.immigration.go.th/TM30/Foreigner/TM30EN/Home.html), добавляет address (house registration / business license / condo docs), затем подаёт stay foreign tenant. Tenant должен дать **копию passport**, дату въезда, **TM6 arrival card number** — данные должны совпадать с штампом. Нижняя часть формы TM30 остаётся у notifying person — попросите **копию/скрин** для своего файла (soft: при 90-day report и продлении статуса спрашивают morada).",
       "**12-month lease ≠ право пребывания**: DTV, безвиз 30 дней, LTR и Thailand Privilege решаются отдельно. Можно подписать годовой контракт на DTV, но если immigration status не покрывает даты — проблема не в lease, а в visa/tax. См. [pillar Таиланд](https://www.emigro.online/ru/guides/" +
         THAILAND_PILLAR_SLUG +
-        ") и [Assist Route Check](https://www.emigro.online/ru/assist?country=thailand&utm_source=emigro&utm_medium=guide&utm_campaign=phuket_rent).",
+        ") и [бесплатный подбор специалиста Emigro](https://www.emigro.online/ru/assist?country=thailand&utm_source=emigro&utm_medium=guide&utm_campaign=phuket_rent).",
     ],
     bullets: [
       "До подписи спросите: «Who files TM30?» — если landlord отказывается, это red flag для long-term.",
@@ -208,7 +208,7 @@ const bodySections: NoteBodySection[] = [
       "Month 5 (rain): inspect wardrobes/walls; document to landlord.",
       "Month 6: renewal negotiation — сравните market, не только landlord offer.",
       "Exit plan: written notice per contract; pre-exit inspection with photos.",
-      "Assist: спорный deposit или illegal sublet — [Route Check](https://www.emigro.online/ru/assist?country=thailand&utm_source=emigro&utm_medium=guide&utm_campaign=phuket_rent_m4).",
+      "Assist: спорный deposit или illegal sublet — [подбор специалиста](https://www.emigro.online/ru/assist?country=thailand&utm_source=emigro&utm_medium=guide&utm_campaign=phuket_rent_m4).",
     ],
   },
   {

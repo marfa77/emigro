@@ -176,7 +176,7 @@ const bodySections: NoteBodySection[] = [
     paragraphs: [
       "Если виза D, маршрут цифрового кочевника и работа по найму лежат в одной папке, прогоните порядок через [мастер маршрута по Италии](/ru/italy/wizard?utm_source=emigro&utm_medium=guide&utm_campaign=codice-fiscale-milano&utm_content=" +
         CODICE_FISCALE_SLUG +
-        "). Для разбора цепочки «код, затем комплект, затем банк» есть [проверка маршрута Assist за €129](/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=codice-fiscale-milano&utm_content=" +
+        "). Для разбора цепочки «код, затем комплект, затем банк» есть [бесплатный подбор специалиста Emigro](/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=codice-fiscale-milano&utm_content=" +
         CODICE_FISCALE_SLUG +
         ").",
       "Соседние страницы закрывают срок первого месяца, восьмидневный комплект и счёт. Главное: код — развилка, от которой эти три шага вообще начинаются.",

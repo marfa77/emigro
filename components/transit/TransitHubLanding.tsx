@@ -194,15 +194,6 @@ export function TransitHubLanding({ hub }: Props) {
                 >
                   Найти специалиста
                 </TrackedAssistLink>
-                <TrackedAssistLink
-                  href={buildAssistUrl({ country: hub.slug, hash: "assist-form-route-check" })}
-                  placement={`${hub.slug}_hub_hero_route_check`}
-                  linkLabel="Route Check — €129"
-                  country={hub.slug}
-                  className="rounded-lg border border-white/40 px-5 py-3 font-medium text-white hover:bg-white/10"
-                >
-                  Route Check — €129
-                </TrackedAssistLink>
               </>
             )}
           </div>
@@ -270,20 +261,6 @@ export function TransitHubLanding({ hub }: Props) {
                   className="rounded-lg bg-emerald-700 px-5 py-3 font-medium text-white hover:bg-emerald-800"
                 >
                   Найти специалиста
-                </TrackedAssistLink>
-                <TrackedAssistLink
-                  href={buildAssistUrl({
-                    country: "thailand",
-                    program: "Переезд и обустройство в Таиланде",
-                    hash: "assist-form-route-check",
-                  })}
-                  placement="thailand_hub_route_check"
-                  linkLabel="Route Check — €129"
-                  country="thailand"
-                  program="Переезд и обустройство в Таиланде"
-                  className="rounded-lg border border-emerald-300 bg-white px-5 py-3 font-medium text-emerald-900 hover:bg-emerald-100"
-                >
-                  Route Check — €129
                 </TrackedAssistLink>
                 <TrackedAssistLink
                   href={buildAssistUrl({

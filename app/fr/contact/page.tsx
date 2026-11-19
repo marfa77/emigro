@@ -39,7 +39,7 @@ export default function FrContactPage() {
         <h1 className="mt-4 text-3xl font-bold">Contact</h1>
         <p className="mt-3 text-slate-600">
           Pour des questions sur le service, un partnership ou un feedback — écrivez-nous. Réponse habituelle sous
-          1–2 jours ouvrés. Pour un Route Check payant, utilisez aussi{" "}
+          1–2 jours ouvrés. Pour trouver un spécialiste gratuitement, utilisez aussi{" "}
           <Link href={FR_PATHS.assist} className="font-medium text-corridor-700 hover:underline">
             Emigro Assist
           </Link>

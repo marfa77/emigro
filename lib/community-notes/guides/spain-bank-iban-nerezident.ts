@@ -199,7 +199,7 @@ const bodySections: NoteBodySection[] = [
     heading: "Связанные шаги и Assist",
     section_kind: "practice",
     paragraphs: [
-      "Банк — звено между padrón, renta y TIE. Если KYC блокирует цепочку, сверьте маршрут на [Emigro Wizard](/ru/wizard?utm_source=emigro&utm_medium=guide&utm_campaign=bank-iban-valencia&utm_content=bank-iban-nerezident-ispaniya-2026). Для разбора отказа sucursal и plan B — [Route Check Assist](/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=bank-iban-valencia&utm_content=bank-iban-nerezident-ispaniya-2026).",
+      "Банк — звено между padrón, renta y TIE. Если KYC блокирует цепочку, сверьте маршрут на [Emigro Wizard](/ru/wizard?utm_source=emigro&utm_medium=guide&utm_campaign=bank-iban-valencia&utm_content=bank-iban-nerezident-ispaniya-2026). Для разбора отказа sucursal и plan B — [бесплатный подбор специалиста Emigro](/ru/assist?utm_source=emigro&utm_medium=guide&utm_campaign=bank-iban-valencia&utm_content=bank-iban-nerezident-ispaniya-2026).",
     ],
     bullets: [
       "[NIE и padrón](/notes/" + NIE_EMPADRONAMIENTO_SLUG + ").",

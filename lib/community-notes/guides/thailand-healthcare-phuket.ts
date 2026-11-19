@@ -182,7 +182,7 @@ const bodySections: NoteBodySection[] = [
     section_kind: "action_guide",
     paragraphs: [
       "Зачем читать: к этому моменту статус (DTV/LTR/work) и полис уже должны совпадать с реальной жизнью на острове — иначе один ER съедает депозит condo.",
-      "Если вы на **employment + work permit** — проверьте SSO portal: правильный hospital, contributions идут, card активна. Если **remote DTV** — annual policy renewal, copy в cloud, добавьте **Assist Route Check** при смене visa track: [Emigro Assist Таиланд](https://www.emigro.online/ru/assist?country=thailand).",
+      "Если вы на **employment + work permit** — проверьте SSO portal: правильный hospital, contributions идут, card активна. Если **remote DTV** — annual policy renewal, copy в cloud, добавьте **бесплатный подбор специалиста Emigro** при смене visa track: [Emigro Assist Таиланд](https://www.emigro.online/ru/assist?country=thailand).",
     ],
     bullets: [
       "Неделя 1 (месяц 4): audit policy PDF — inpatient limit, evacuation, dental, deductible, Thailand territory.",
