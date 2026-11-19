@@ -25,7 +25,8 @@ export async function processTelegramUpdate(update: TelegramUpdate): Promise<voi
   const userId = telegramUserIdFromUpdate(update);
   if (userId != null) {
     const session = await getLiveSession(userId);
-    if (session?.app === "tax") {
+    // Owner messages normally go to the owner agent; an open user flow (request dialogue, tax) wins so the owner can test it.
+    if (session?.app === "tax" || session?.app === "request") {
       await routeTelegramUpdate(update);
       return;
     }

@@ -3,13 +3,10 @@ import { decideUserRoute } from "@/lib/telegram/bot/decide";
 import { sendHome } from "@/lib/telegram/bot/home";
 import { clearSession, getLiveSession } from "@/lib/telegram/bot/session";
 import { upsertBotUser } from "@/lib/telegram/bot/users";
-import { continueAssist, startAssist } from "@/lib/telegram/bot/apps/assist";
 import { continueCity, startCity } from "@/lib/telegram/bot/apps/city";
-import { continueInvest, startInvest } from "@/lib/telegram/bot/apps/invest";
-import { continueNews, startNews } from "@/lib/telegram/bot/apps/news";
-import { continueProperty, startProperty } from "@/lib/telegram/bot/apps/property";
+import { continueRequest, startRequest } from "@/lib/telegram/bot/apps/request";
 import { continueTax, startTax } from "@/lib/telegram/bot/apps/tax";
-import { continueWizardHomeAssist, startWizard } from "@/lib/telegram/bot/apps/wizard";
+import { sendMyRequestStatus } from "@/lib/telegram/bot/request-owner";
 import type { BotDeepLink, BotIncoming, BotUserCtx, TelegramUpdate } from "@/lib/telegram/bot/types";
 
 function toCtx(update: TelegramUpdate): BotUserCtx | null {
@@ -87,42 +84,41 @@ function isPrivate(update: TelegramUpdate): boolean {
   return (type || "private") === "private";
 }
 
-async function openApp(ctx: BotUserCtx, link: BotDeepLink, incoming: BotIncoming): Promise<void> {
+async function openApp(ctx: BotUserCtx, link: BotDeepLink): Promise<void> {
   await clearSession(ctx.userId);
-  if (link.app === "home") {
-    await sendHome(ctx);
-    return;
-  }
-  if (link.app === "news") {
-    await startNews(ctx, link.topicKey);
-    return;
-  }
-  if (link.app === "city") {
-    await startCity(ctx, link.countryKey);
-    return;
-  }
-  if (link.app === "wizard") {
-    await startWizard(ctx, { mode: link.mode, sessionId: link.sessionId });
-    return;
-  }
-  if (link.app === "assist") {
-    if (incoming.kind === "callback" && incoming.data.startsWith("home:assist")) {
-      await startAssist(ctx, { country: link.country });
+  // Since 2026-11-19 every help / property / invest / wizard entry from the site opens the specialist request.
+  switch (link.app) {
+    case "home":
+      await sendHome(ctx);
       return;
-    }
-    await startAssist(ctx, { country: link.country, tier: link.tier });
-    return;
-  }
-  if (link.app === "property") {
-    await startProperty(ctx, link.dest);
-    return;
-  }
-  if (link.app === "invest") {
-    await startInvest(ctx, link.key, link.locale);
-    return;
-  }
-  if (link.app === "tax") {
-    await startTax(ctx, link.year);
+    case "status":
+      await sendMyRequestStatus(ctx.chatId, ctx.userId);
+      return;
+    case "city":
+      await startCity(ctx, link.countryKey);
+      return;
+    case "tax":
+      // Not in the menu any more; still reachable from /ru/nalogi.
+      await startTax(ctx, link.year);
+      return;
+    case "news":
+      await sendHome(ctx, "Новостную рассылку в боте мы приостановили — новости по странам выходят на emigro.online.");
+      return;
+    case "request":
+      await startRequest(ctx, { country: link.country, source: link.source, goal: link.goal });
+      return;
+    case "assist":
+      await startRequest(ctx, { country: link.country, source: link.country ? `assist_${link.country}` : "assist" });
+      return;
+    case "property":
+      await startRequest(ctx, { country: link.dest, source: `property_${link.dest ?? "any"}`, goal: "property" });
+      return;
+    case "invest":
+      await startRequest(ctx, { source: `invest_${link.key}`, goal: "invest" });
+      return;
+    case "wizard":
+      await startRequest(ctx, { source: `wizard_${link.mode}_${link.sessionId}`.slice(0, 80) });
+      return;
   }
 }
 
@@ -132,26 +128,20 @@ async function continueApp(ctx: BotUserCtx, incoming: BotIncoming): Promise<void
     await sendHome(ctx, "Сессия истекла. Выберите пункт меню.");
     return;
   }
-  if (session.app === "assist") {
-    await continueAssist(ctx, incoming, session.payload);
-    return;
-  }
-  if (session.app === "property") {
-    await continueProperty(ctx, incoming, session.payload);
+  if (session.app === "request") {
+    await continueRequest(ctx, incoming, session.payload, session.step);
     return;
   }
   if (session.app === "city") {
     await continueCity(ctx, incoming);
     return;
   }
-  if (session.app === "news") {
-    const handled = await continueNews(ctx, incoming);
-    if (!handled) await startNews(ctx);
-    return;
-  }
   if (session.app === "tax") {
     await continueTax(ctx, incoming, session.payload, session.step);
+    return;
   }
+  // Sessions of retired apps (assist, property, news) fall back to the new flow.
+  await sendHome(ctx);
 }
 
 export async function routeTelegramUpdate(update: TelegramUpdate): Promise<void> {
@@ -169,7 +159,7 @@ export async function routeTelegramUpdate(update: TelegramUpdate): Promise<void>
       await continueApp(ctx, incoming);
       return;
     }
-    await sendHome(ctx, "Отправьте фото или документ внутри «Налоги» — откройте пункт меню.");
+    await sendHome(ctx, "Файлы принимаем только внутри заявки — нажмите «Подобрать специалиста».");
     return;
   }
 
@@ -185,22 +175,11 @@ export async function routeTelegramUpdate(update: TelegramUpdate): Promise<void>
     return;
   }
   if (action.type === "open") {
-    await openApp(ctx, action.link, incoming);
+    await openApp(ctx, action.link);
     return;
   }
   if (action.type === "continue-session") {
     await continueApp(ctx, incoming);
-    return;
-  }
-  if (action.type === "dispatch") {
-    if (action.app === "assist") await continueAssist(ctx, incoming, {});
-    else if (action.app === "invest") await continueInvest(ctx, incoming);
-    else await continueProperty(ctx, incoming, {});
-    return;
-  }
-  if (action.type === "news") {
-    const handled = await continueNews(ctx, incoming);
-    if (!handled) await startNews(ctx);
     return;
   }
   if (action.type === "city-keyword") {
@@ -208,9 +187,6 @@ export async function routeTelegramUpdate(update: TelegramUpdate): Promise<void>
     return;
   }
 
-  if (incoming.kind === "callback") {
-    if (await continueWizardHomeAssist(ctx, incoming)) return;
-    await answerStatsBotCallback(incoming.id);
-  }
+  if (incoming.kind === "callback") await answerStatsBotCallback(incoming.id);
   await sendHome(ctx);
 }

@@ -1,6 +1,6 @@
 import type { InvestLocale, InvestPageKey } from "@/lib/investment/golden-visa-2026";
 
-export type BotApp = "assist" | "property" | "news" | "city" | "tax";
+export type BotApp = "request" | "assist" | "property" | "news" | "city" | "tax";
 
 export type AssistPlanTier = "partner-match" | "route-check" | "accompaniment";
 
@@ -36,6 +36,8 @@ export type BotDeepLink =
   | { app: "home" }
   | { app: "news"; topicKey?: string }
   | { app: "assist"; country?: string; tier?: AssistPlanTier }
+  | { app: "request"; country?: string; source?: string; goal?: string }
+  | { app: "status" }
   | { app: "property"; dest?: "uae" | "thailand" }
   | { app: "city"; countryKey?: string }
   | { app: "invest"; key: InvestPageKey; locale: InvestLocale }

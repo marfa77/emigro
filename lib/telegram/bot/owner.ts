@@ -15,6 +15,7 @@ import {
   isStatsCommand,
   isStatsDemoCommand,
 } from "@/lib/telegram/commands";
+import { handleRequestOwnerCallback, isRequestOwnerCallback } from "@/lib/telegram/bot/request-owner";
 import type { TelegramMessage, TelegramUpdate } from "@/lib/telegram/bot/types";
 
 const recentStatsReplies = new Map<string, number>();
@@ -27,7 +28,8 @@ export function isOwnerCallbackData(data: string): boolean {
     d.startsWith("gd:ok:") ||
     d.startsWith("gd:no:") ||
     d.startsWith("tr:ok:") ||
-    d.startsWith("tr:no:")
+    d.startsWith("tr:no:") ||
+    isRequestOwnerCallback(d)
   );
 }
 
@@ -121,6 +123,7 @@ export async function tryHandleOwnerUpdate(update: TelegramUpdate): Promise<bool
       callbackQueryId: cb.id,
       messageId: cb.message?.message_id,
     };
+    if (await handleRequestOwnerCallback(args)) return true;
     if (await handleGuideApprovalCallback(args)) return true;
     if (await handleThreadsReplyCallback({ ...args, messageText: cb.message?.text })) return true;
     if (await handleLightningApprovalCallback(args)) return true;

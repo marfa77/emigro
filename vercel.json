@@ -22,6 +22,10 @@
     {
       "path": "/api/cron/stats-snapshot",
       "schedule": "20 6 * * *"
+    },
+    {
+      "path": "/api/cron/bot-request-reminders",
+      "schedule": "35 * * * *"
     }
   ],
   "env": {

@@ -14,7 +14,11 @@ type Props = {
   compact?: boolean;
 };
 
+const NEWS_BOT_SUBSCRIBE_PAUSED = true;
+
 export function NewsBotSubscribeCta({ topicKey, source, className = "", compact = false }: Props) {
+  // News delivery in @emigro_chat_bot is paused (2026-11-19 bot redesign) — don't invite people to subscribe.
+  if (NEWS_BOT_SUBSCRIBE_PAUSED) return null;
   const topic = newsBotTopicByKey(topicKey);
   const href = newsBotDeepLink(topic?.key);
   const country = topic?.countryRu ?? "страны";
