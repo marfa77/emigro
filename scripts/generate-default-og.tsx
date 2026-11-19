@@ -1,11 +1,12 @@
 /**
- * Default share card (public/images/og/og-default.jpg) for pages without their own image.
+ * Default share card for pages without their own image. Served as /images/og/emigro-card-2026-11.jpg
+ * (og-default.jpg keeps the same content for code that reads the file by its old name).
  * Plain typographic card in Emigro colours — replaced the AI "dashboard" render on 2026-11-19.
  *
  *   npx tsx scripts/generate-default-og.tsx
  */
 import { execFileSync } from "node:child_process";
-import { rmSync, writeFileSync } from "node:fs";
+import { copyFileSync, rmSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import React from "react";
 import { ImageResponse } from "next/og";
@@ -63,7 +64,9 @@ async function main() {
   writeFileSync(png, Buffer.from(await res.arrayBuffer()));
   execFileSync("sips", ["-s", "format", "jpeg", "-s", "formatOptions", "90", png, "--out", out]);
   rmSync(png);
-  console.log(`Wrote ${out}`);
+  // New file name = new URL, so Telegram/Threads re-fetch instead of serving their cached old image.
+  copyFileSync(out, path.join(process.cwd(), "public/images/og/emigro-card-2026-11.jpg"));
+  console.log(`Wrote ${out} and emigro-card-2026-11.jpg`);
 }
 
 main().catch((err) => {

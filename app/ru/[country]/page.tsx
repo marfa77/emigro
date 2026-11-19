@@ -40,7 +40,7 @@ export async function generateMetadata({ params }: { params: { country: string }
         title,
         description,
         path: hub.path,
-        ogImage: "/images/og/og-default.jpg",
+        ogImage: "/images/og/emigro-card-2026-11.jpg",
         ogImageAlt: `${hub.countryRu} — ${hubKindLabel(hub.kind)} Emigro`,
         countrySegment: hub.slug,
       }),

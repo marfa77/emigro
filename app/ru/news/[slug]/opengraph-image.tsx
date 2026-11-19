@@ -32,7 +32,7 @@ export default async function NewsOpengraphImage({ params }: Props) {
 
   if (!digest || !isNewsStory(digest)) {
     const topic = digest ? await getNewsTopic(digest.topic_key) : null;
-    const ogPath = topic?.urlSegment ? countryOgImage(topic.urlSegment) : "/images/og/og-default.jpg";
+    const ogPath = topic?.urlSegment ? countryOgImage(topic.urlSegment) : "/images/og/emigro-card-2026-11.jpg";
     const relative = ogPath.replace(/^\/images\/og\//, "");
     const backgroundDataUrl = loadOgBackgroundDataUrl(relative);
     return new ImageResponse(

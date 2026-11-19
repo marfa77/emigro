@@ -96,9 +96,9 @@ export function countryCardImage(segment?: string) {
 
 /** 1200×630 JPG for Open Graph / Twitter Cards (not the UI card webp). */
 export function countryOgImage(segment?: string) {
-  if (!segment) return "/images/og/og-default.jpg";
+  if (!segment) return "/images/og/emigro-card-2026-11.jpg";
   const accent = COUNTRY_ACCENTS[segment];
-  if (!accent) return "/images/og/og-default.jpg";
+  if (!accent) return "/images/og/emigro-card-2026-11.jpg";
 
   // Keep OG image aligned with the actual chosen `cardImage` (in case a segment uses a placeholder from
   // another corridor image file).

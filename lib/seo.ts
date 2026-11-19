@@ -13,7 +13,7 @@ export {
 } from "@/lib/seo/hreflang";
 
 /** 1200×630 JPG — supported by Twitter/X, Threads, Facebook (not SVG). */
-export const DEFAULT_OG_IMAGE = "/images/og/og-default.jpg";
+export const DEFAULT_OG_IMAGE = "/images/og/emigro-card-2026-11.jpg";
 export const SITE_NAME = "Emigro";
 const TITLE_SUFFIX = ` | ${SITE_NAME}`;
 /** Visible title budget before Next.js appends ` | Emigro`. 51 + 9 (" | Emigro") = 60 chars total. */
@@ -23,6 +23,7 @@ export const MAX_TITLE_ABSOLUTE = 60;
 type SocialImageSize = { width: number; height: number };
 
 const SOCIAL_IMAGE_SIZES: Record<string, SocialImageSize> = {
+  "/images/og/emigro-card-2026-11.jpg": { width: 1200, height: 630 },
   "/images/og/og-default.jpg": { width: 1200, height: 630 },
   "/images/og/news-digest.jpg": { width: 1200, height: 630 },
   "/images/og/guides-index.jpg": { width: 1200, height: 630 },
