@@ -7,7 +7,11 @@ import { keyRequirement, timelineSummary } from "@/lib/seo/corridor-page-seo";
 /** First sentence, capped: requirement texts can run for a paragraph. */
 function brief(text: string | null, max: number): string | null {
   if (!text) return null;
-  const first = text.replace(/\s+/g, " ").trim().split(/(?<=[.;])\s/)[0];
+  let first = text.replace(/\s+/g, " ").trim().split(/(?<=[.;])\s/)[0];
+  // Don't leave a bracket open: «8–24 месяца (задержки AIMA ARI;» → «8–24 месяца».
+  if ((first.match(/\(/g)?.length ?? 0) > (first.match(/\)/g)?.length ?? 0)) {
+    first = first.slice(0, first.lastIndexOf("(")).trim().replace(/[;,]$/, "");
+  }
   return first.length > max ? `${first.slice(0, max - 1).trim()}…` : first;
 }
 
