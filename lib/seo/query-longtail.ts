@@ -50,9 +50,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "d8 португалия минимальный доход 2026",
       "внж португалия удалённая работа",
     ],
-    seoTitle: "D8 digital nomad Португалия 2026 — доход и документы",
+    seoTitle: "Виза D8 Португалия 2026: доход от €3 680/мес",
     seoDescription:
-      "D8 digital nomad Португалия 2026: ~€3 680/мес, доход из-за рубежа, виза D + AIMA. Для паспортов RU/BY/UA/KZ.",
+      "€3 680 = 4× МРОТ €920: средний доход за 3 мес.; подача в консульстве → виза D → AIMA. Семья: Portaria 1563/2007.",
   },
   {
     path: "/ru/portugal/programs/portugal-d7-passive-income",
@@ -63,9 +63,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "d7 португалия сбережения 2026",
       "внж португалия пенсия россиян",
     ],
-    seoTitle: "D7 Португалия 2026 — пассивный доход и сбережения",
+    seoTitle: "D7 Португалия 2026: от €920/мес + сбережения",
     seoDescription:
-      "D7 Португалия 2026: ~€920/мес + сбережения, без работы в PT. Виза D, AIMA для RU/BY/UA/KZ.",
+      "€920 (1× МРОТ 2026), +€460 второй взрослый, +€276 ребёнок; средства минимум на 12 мес. (€11 040 для одного). Консульство → AIMA.",
   },
   {
     path: "/ru/guides/pervye-30-dnej-v-portugalii-2026",
@@ -784,9 +784,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "živnostenský list иностранец",
       "чехия blue card зарплата",
     ],
-    seoTitle: "ВНЖ Чехия 2026 — гайд",
+    seoTitle: "ВНЖ Чехия 2026: Employee Card CZK 22 400",
     seoDescription:
-      "Чехия 2026: Employee Card, Blue Card, živnost — документы и консульская практика.",
+      "Employee Card от CZK 22 400 брутто; Blue Card CZK 73 823 с 01.05.2026; živnost IT ~€2 500. MOI, сроки для RU/BY/UA/KZ.",
   },
   {
     path: "/ru/austria",
@@ -880,9 +880,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "срочный выезд сербия грузия армения",
       "легализация после выезда из рф",
     ],
-    seoTitle: "Срочный выезд из РФ 2026 — хабы",
+    seoTitle: "Срочный выезд РФ 2026: Сербия, Турция, 90/180",
     seoDescription:
-      "Срочный выезд: безвизовые хабы, затем легализация в EU. Не обход санкций — честный маршрут.",
+      "Безвиз: Сербия, Турция, KZ; Черногория — виза с 01.11.2026. Шенген 90/180 ≠ ВНЖ; хаб → консульство → виза D.",
   },
   {
     path: "/ru/guides/vnj-bez-raboty-passivnyy-dohod-sberezheniya-2026",
@@ -1537,9 +1537,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     programSlug: "italy-student-visa",
     primaryQuery: "студенческая виза в италию",
     queries: ["студенческая виза в италию", "студенческая виза италия 2026", "universitaly виза"],
-    seoTitle: "Студенческая виза в Италию 2026: документы, сроки",
+    seoTitle: "Студенческая виза Италия 2026: от €848/мес",
     seoDescription:
-      "Студенческая виза в Италию 2026: предзачисление через Universitaly, средства, жильё, подача в консульстве, permesso di soggiorno per studio после въезда.",
+      "Виза D при зачислении: Universitaly, dichiarazione di valore, средства €10 179,85/год (≈€848/мес, MUR 2026/27); permesso per studio.",
   },
   {
     path: "/ru/germany/programs/germany-family-reunification",
@@ -1707,6 +1707,20 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     seoTitle: "Воссоединение семьи в Австрии 2026",
     seoDescription:
       "Воссоединение семьи в Австрии 2026: спонсор с легальным статусом, достаточный доход и жильё. Ориентир по срокам: 2–6 недель на визу плюс 5–12 месяцев.",
+  },
+  {
+    path: "/ru/austria/programs/austria-rwr-card",
+    programSlug: "austria-rwr-card",
+    primaryQuery: "rwr card австрия 2026 зарплата",
+    queries: [
+      "rwr card австрия 2026",
+      "red white red card зарплата",
+      "внж австрия other key workers",
+      "rwr card порог 2026",
+    ],
+    seoTitle: "RWR Card Австрия 2026: от €2 835/мес",
+    seoDescription:
+      "Red-White-Red Card Австрия 2026: оффер, AMS, категория Other Key Workers от €2 835/мес брутто. Трудовой договор для RU/BY/UA/KZ.",
   },
   {
     path: "/ru/portugal/programs/portugal-family-reunification",

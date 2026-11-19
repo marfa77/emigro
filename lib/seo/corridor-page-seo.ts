@@ -204,6 +204,36 @@ export function buildProgramFaq(program: ProgramDetail, topic: NewsTopicConfig):
     },
   ];
 
+  if (program.slug === "portugal-d8-digital-nomad") {
+    const d8Extras: FaqItem[] = [
+      {
+        question: "Какой доход нужен для D8 в 2026?",
+        answer:
+          "Средний ежемесячный доход за последние 3 месяца не ниже 4× RMMG. RMMG 2026 = €920 (Decreto-Lei 139/2025) → минимум €3 680/мес (Decreto Regulamentar 84/2007, art. 31.º-A, в ред. DR 4/2022).",
+      },
+      {
+        question: "Считается ли доход до или после налогов?",
+        answer:
+          "В опубликованных текстах MNE и Diário da República не указано, gross или net. Уточняйте в консульстве подачи по чек-листу на vistos.mne.gov.pt.",
+      },
+      {
+        question: "Можно ли оформить D8 с семьёй?",
+        answer:
+          "Члены семьи подтверждают средства по шкале Portaria 1563/2007: +50% = €460 на второго взрослого, +30% = €276 на ребёнка. Тексты не уточняют, суммируются ли доли с 4× €920 — сверьте с консульством.",
+      },
+    ];
+    return [...d8Extras, ...items].slice(0, 8);
+  }
+
+  if (program.slug === "portugal-d7-passive-income") {
+    const d7Savings: FaqItem = {
+      question: "Сколько сбережений нужно для D7?",
+      answer:
+        "Отдельной нормы «сбережений» нет: средства должны покрывать ≥12 месяцев (Portaria 1563/2007, art. 5.º(6)). Ориентир для одного взрослого: 12× €920 = €11 040 при RMMG 2026 (Decreto-Lei 139/2025).",
+    };
+    return [d7Savings, ...items].slice(0, 7);
+  }
+
   return items.slice(0, 6);
 }
 

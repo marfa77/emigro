@@ -181,6 +181,13 @@ function mainBarrier(
   return "Сверить право на программу и место подачи с официальным источником.";
 }
 
+function programSummaryRu(program: ProgramDetail): string {
+  if (program.slug === "austria-rwr-card") {
+    return "RWR Card для квалифицированных специалистов с работой и порогом зарплаты по категории RWR.";
+  }
+  return program.summary_ru;
+}
+
 function formatVerifiedChip(program: ProgramDetail): string | null {
   const modified = verifiedDateToLastModified(programLastModified(program));
   if (!modified) return null;
@@ -292,7 +299,7 @@ export default async function CountryProgramPage({
             )}
           </div>
           <h1 className="mt-4 max-w-3xl text-3xl font-bold sm:text-4xl lg:text-5xl">{program.title_ru}</h1>
-          <p className="mt-4 max-w-2xl text-lg leading-relaxed text-corridor-100">{program.summary_ru}</p>
+          <p className="mt-4 max-w-2xl text-lg leading-relaxed text-corridor-100">{programSummaryRu(program)}</p>
           <div className="mt-8 flex flex-wrap gap-3">
             {topic.sitePaths.wizard && (
               <Link
@@ -356,8 +363,20 @@ export default async function CountryProgramPage({
           <section className="mt-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
             <h2 className="text-lg font-semibold text-slate-900">Короткий ответ: порог D7 для семьи (2026)</h2>
             <p className="mt-2 text-sm leading-relaxed text-slate-700">
-              База — RMMG €920/мес на титуляра (Decreto-Lei 139/2025). Для семьи обычно: +50% супруг/а, +30% каждый
-              ребёнок до 18. Это минимум консульства, не бюджет жизни в Лиссабоне.
+              База — RMMG <strong>€920/мес</strong> на титуляра ({" "}
+              <a
+                href="https://diariodarepublica.pt/dr/detalhe/decreto-lei/139-2025-992879809"
+                className="font-semibold text-corridor-700 underline"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Decreto-Lei 139/2025
+              </a>
+              ). Для семьи — шкала{" "}
+              <strong>Portaria 1563/2007</strong>, art. 2.º(2): +50% (<strong>€460</strong>) на второго взрослого, +30% (
+              <strong>€276</strong>) на
+              ребёнка; средства на <strong>≥12 месяцев</strong> (art. 5.º(6)) — ориентир <strong>€11 040</strong> для
+              одного взрослого. Это минимум консульства, не бюджет жизни в Лиссабоне.
             </p>
             <div className="mt-4 overflow-x-auto">
               <table className="w-full min-w-[28rem] border-collapse text-left text-sm">
@@ -395,18 +414,63 @@ export default async function CountryProgramPage({
               >
                 D8 digital nomad — €3 680/мес
               </Link>
+              . Полный разбор D8/D7 и гражданства:{" "}
+              <Link
+                href="/ru/guides/vnj-portugaliya-d8-d7-grazhdanstvo-2026"
+                className="font-semibold text-corridor-700 hover:underline"
+              >
+                pillar-гайд
+              </Link>
               .
             </p>
           </section>
         )}
         {program.slug === "portugal-d8-digital-nomad" && (
-          <p className="mt-4 text-sm text-slate-700">
-            Пассивный доход или пенсия:{" "}
-            <Link href="/ru/portugal/programs/portugal-d7-passive-income" className="font-semibold text-corridor-700 hover:underline">
-              D7 — от €920/мес
-            </Link>
-            .
-          </p>
+          <section className="mt-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+            <h2 className="text-lg font-semibold text-slate-900">Порог дохода D8 в 2026: 4 × €920 = €3 680</h2>
+            <p className="mt-2 text-sm leading-relaxed text-slate-700">
+              Средний ежемесячный доход за <strong>последние 3 месяца</strong> не ниже <strong>4× RMMG</strong> (
+              Decreto Regulamentar 84/2007, art. 31.º-A, в ред. DR 4/2022). RMMG 2026 = <strong>€920</strong> (
+              <a
+                href="https://diariodarepublica.pt/dr/detalhe/decreto-lei/139-2025-992879809"
+                className="font-semibold text-corridor-700 underline"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Decreto-Lei 139/2025
+              </a>
+              ). Подача — в <strong>консульстве</strong> на национальную визу D, затем <strong>AIMA</strong> после
+              въезда. Портал MNE:{" "}
+              <a
+                href="https://vistos.mne.gov.pt"
+                className="font-semibold text-corridor-700 underline"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                vistos.mne.gov.pt
+              </a>
+              .
+            </p>
+            <p className="mt-3 text-sm leading-relaxed text-slate-700">
+              Для семьи — шкала <strong>Portaria 1563/2007</strong>: +50% = <strong>€460</strong> на второго взрослого,
+              +30% = <strong>€276</strong> на ребёнка. В официальных текстах <strong>не уточняется</strong>, суммируются
+              ли семейные доли поверх 4× €920 — уточняйте в консульстве подачи.
+            </p>
+            <p className="mt-4 text-sm text-slate-700">
+              Пассивный доход:{" "}
+              <Link href="/ru/portugal/programs/portugal-d7-passive-income" className="font-semibold text-corridor-700 hover:underline">
+                D7 — от €920/мес
+              </Link>
+              . Pillar-гайд D8/D7, AIMA и гражданство:{" "}
+              <Link
+                href="/ru/guides/vnj-portugaliya-d8-d7-grazhdanstvo-2026"
+                className="font-semibold text-corridor-700 hover:underline"
+              >
+                полный разбор
+              </Link>
+              .
+            </p>
+          </section>
         )}
 
         {pillarGuide && (
