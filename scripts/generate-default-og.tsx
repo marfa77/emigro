@@ -4,7 +4,8 @@
  *
  *   npx tsx scripts/generate-default-og.tsx
  */
-import { writeFileSync } from "node:fs";
+import { execFileSync } from "node:child_process";
+import { rmSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import React from "react";
 import { ImageResponse } from "next/og";
@@ -56,8 +57,12 @@ function Card() {
 
 async function main() {
   const res = new ImageResponse(<Card />, { width: 1200, height: 630 });
+  // ImageResponse renders PNG; OG routes embed this file as image/jpeg, so convert to a real JPEG.
   const out = path.join(process.cwd(), "public/images/og/og-default.jpg");
-  writeFileSync(out, Buffer.from(await res.arrayBuffer()));
+  const png = path.join(process.cwd(), "public/images/og/.og-default.png");
+  writeFileSync(png, Buffer.from(await res.arrayBuffer()));
+  execFileSync("sips", ["-s", "format", "jpeg", "-s", "formatOptions", "90", png, "--out", out]);
+  rmSync(png);
   console.log(`Wrote ${out}`);
 }
 
