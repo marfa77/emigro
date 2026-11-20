@@ -82,7 +82,7 @@ export const PORTUGAL_EDITORIAL_SEED: SeedNote[] = [
     title: "Аренда в Лиссабоне: вопросы из чата до подписи",
     excerpt:
       "Caução, fiador, NIF в договоре и регистрация arrendamento — что обсудить до перевода денег.",
-    seo_title: "Аренда Лиссабон 2026 — до подписи договора",
+    seo_title: "Аренда Лиссабон 2027 — до подписи договора",
     seo_description:
       "Аренда в Лиссабоне: caução, fiador, NIF, регистрация arrendamento. Что проверить до подписи — для русскоязычных релокантов.",
     quick_answer:

@@ -1,9 +1,9 @@
 ---
 slug: residencia-espana-desde-chile-2026
-title: "Residencia en España para chilenos 2026"
-seo_title: "Emigrar a España desde Chile 2026"
+title: "Residencia en España para chilenos 2027"
+seo_title: "Emigrar a España desde Chile 2027"
 seo_description: "Cómo emigrar a España desde Chile 2026: Schengen 90 días ≠ residencia. Nómada digital (200% SMI), no lucrativa, Santiago y nacionalidad en 2 años (art. 22)."
-excerpt: "Guía pillar: turista Schengen vs vivir en España con pasaporte CL. Rutas 2026, documentos desde Chile y horizonte de nacionalidad española a 2 años."
+excerpt: "Guía pillar: turista Schengen vs vivir en España con pasaporte CL. Rutas 2027, documentos desde Chile y horizonte de nacionalidad española a 2 años."
 quick_answer: "Chile suele entrar a Schengen sin visado (90/180), pero residir exige vía nacional: nómada digital (200% SMI mensual, ≈ €2.442/mes en 2026; UGE o consulado Santiago), no lucrativa (consulado primero), trabajo, estudios o reagrupación. Art. 22: ~2 años de residencia legal para nacionalidad (CCSE; DELE suele exento). Dualidad: Convenio 1958 o art. 23 CC — suele conservar chilena. Emigro: pilares + evaluador /es/wizard."
 corridor_slugs: [es-speaking-chile-to-spain, es-speaking-latam-to-europe]
 topic_keys: [spain, chile, visa, residence]

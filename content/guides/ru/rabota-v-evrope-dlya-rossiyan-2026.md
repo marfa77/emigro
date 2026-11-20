@@ -1,7 +1,7 @@
 ---
 slug: rabota-v-evrope-dlya-rossiyan-2026
-title: "Работа в Европе для россиян в 2026: Blue Card, Chancenkarte и где реально найти оффер"
-seo_title: "Работа в Европе для россиян 2026"
+title: "Работа в Европе для россиян в 2027: Blue Card, Chancenkarte и где реально найти оффер"
+seo_title: "Работа в Европе для россиян 2027"
 seo_description: "Работа в Европе для россиян 2026: Blue Card DE €50 700, HSM NL €4 357/€5 942, PL PLN 13 355/мес, FR Talent €39 582. Chancenkarte и поиск офера."
 excerpt: "Рабочий ВНЖ в ЕС начинается с оффера. Маршрут под вашу цель, где искать вакансии, пороги Blue Card / HSM / Talent со сверкой по официальным источникам, страны и playbook поиска на 30–60 дней."
 quick_answer: |-

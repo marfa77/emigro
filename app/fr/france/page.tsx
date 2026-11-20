@@ -13,7 +13,7 @@ import { getUniPrepOfferForTopic } from "@/lib/uniprep2go/catalog";
 export const revalidate = 3600;
 
 export const metadata: Metadata = pageMetadata({
-  title: "France pour Afrique francophone 2026 — résidence",
+  title: "France pour Afrique francophone 2027 — résidence",
   description:
     "Vivre en France depuis le Maghreb ou le Sénégal 2026 : VLS-TS, Passeport Talent (~€39.582), naturalisation ~5 ans + B2/civique. Hubs MA/DZ/TN/SN.",
   path: FR_PATHS.france,

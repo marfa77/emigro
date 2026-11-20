@@ -1,8 +1,8 @@
 ---
 slug: residence-france-afrique-francophone-2026
-title: "Résidence en France depuis l'Afrique francophone 2026"
-seo_title: "Résidence France Afrique francophone 2026 — VLS-TS"
-seo_description: "MA/DZ/TN/SN → France 2026 : VLS-TS, Talent ~€39.582, naturalisation 5 ans + B2/civique. Visa court ≠ titre de séjour."
+title: "Résidence en France depuis l'Afrique francophone 2027"
+seo_title: "Résidence France Afrique francophone 2027 — VLS-TS"
+seo_description: "MA/DZ/TN/SN → France 2027 : VLS-TS, Talent ~€39.582, naturalisation 5 ans + B2/civique. Visa court ≠ titre de séjour."
 excerpt: "Overview Emigro FR : origines Maghreb + Sénégal, destination France."
 quick_answer: "Cadre partagé Afrique francophone → France : visa court ≠ titre. Piliers origin + Talent + naturalisation (~5 ans, B2, civique). Emigro : /fr."
 corridor_slugs: [fr-speaking-africa-to-europe, fr-speaking-africa-to-europe]

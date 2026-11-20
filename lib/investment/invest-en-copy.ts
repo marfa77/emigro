@@ -18,10 +18,10 @@ export type InvestEnCountryCopy = {
 };
 
 export const INVEST_EN_HUB = {
-  title: "Investment Residency 2026: Golden Visas Compared | Emigro",
+  title: "Investment Residency 2027: Golden Visas Compared | Emigro",
   description:
     "Which golden visa fits your passport and budget? Portugal, Italy, Greece, UAE, Thailand & more — official rules, checked Oct 2026. Free route match.",
-  h1: "Investment residency in 2026: profile first, programme second",
+  h1: "Investment residency in 2027: profile first, programme second",
   intro:
     "Eight investment-residence programmes, one dated table and official sources. Tell us your budget, passport and goal — we show which programmes are actually open to you before you talk to a fund or a broker.",
   aiDescription:
@@ -30,10 +30,10 @@ export const INVEST_EN_HUB = {
 
 export const INVEST_EN_COUNTRY: Record<InvestCountrySlug, InvestEnCountryCopy> = {
   portugal: {
-    title: "Portugal Golden Visa 2026: €500K Funds, 10-Year Rule",
+    title: "Portugal Golden Visa 2027: €500K Funds, 10-Year Rule",
     description:
       "The fund route from €500,000, what was abolished, and the new 10-year citizenship rule (Lei Orgânica 1/2026). Official sources. Free route match.",
-    h1: "Portugal Golden Visa (ARI) 2026: €500K fund route",
+    h1: "Portugal Golden Visa (ARI) 2027: €500K fund route",
     intro:
       "Portugal's ARI is still open, but it is no longer a property visa. Since October 2023 the realistic route for most families is €500,000 in qualifying Portuguese funds — and since 19 May 2026 citizenship takes 10 years for non-EU/CPLP nationals.",
     aiDescription:
@@ -92,10 +92,10 @@ export const INVEST_EN_COUNTRY: Record<InvestCountrySlug, InvestEnCountryCopy> =
     ruGuidePath: "/ru/portugal/programs/portugal-golden-visa",
   },
   italy: {
-    title: "Italy Investor Visa 2026: €250K, €500K, €2M Routes",
+    title: "Italy Investor Visa 2027: €250K, €500K, €2M Routes",
     description:
       "Startup €250K, company €500K, bonds €2M, donation €1M. Process and RU/BY suspension explained with official sources. Free route match.",
-    h1: "Italy Investor Visa 2026: thresholds and eligibility",
+    h1: "Italy Investor Visa 2027: thresholds and eligibility",
     intro:
       "Italy's Investor Visa is not a property programme: it rewards capital put into Italian startups, companies, government bonds or philanthropy. The visa is issued after a ministry committee approves the investment plan — and it is suspended for Russian and Belarusian citizens.",
     aiDescription:
@@ -209,10 +209,10 @@ export const INVEST_EN_COUNTRY: Record<InvestCountrySlug, InvestEnCountryCopy> =
     ruGuidePath: "/ru/guides/vnj-ispaniya-2026",
   },
   greece: {
-    title: "Greece Golden Visa 2026: €250K, €400K, €800K Rules",
+    title: "Greece Golden Visa 2027: €250K, €400K, €800K Rules",
     description:
       "Location-based thresholds and the €250K conversion exception explained. Checked Oct 2026. Free route match.",
-    h1: "Greece Golden Visa 2026: thresholds by area",
+    h1: "Greece Golden Visa 2027: thresholds by area",
     intro:
       "Greece still sells residence through real estate, but €250,000 is now the exception, not the rule. Most buyers face €400,000 or €800,000 depending on the area — and new applications by Russian and Belarusian nationals remain suspended.",
     aiDescription:
@@ -266,7 +266,7 @@ export const INVEST_EN_COUNTRY: Record<InvestCountrySlug, InvestEnCountryCopy> =
     ruGuidePath: "/ru/greece/programs/greece-golden-visa",
   },
   thailand: {
-    title: "Thailand LTR Visa 2026: Wealthy Global Citizen ($500K)",
+    title: "Thailand LTR Visa 2027: Wealthy Global Citizen ($500K)",
     description:
       "$500K Thai investment + $1M assets, 10-year visa. How LTR differs from Thailand Privilege. Official BOI source.",
     h1: "Thailand LTR & Privilege: programmes aren't interchangeable",
@@ -322,7 +322,7 @@ export const INVEST_EN_COUNTRY: Record<InvestCountrySlug, InvestEnCountryCopy> =
     ruGuidePath: "/ru/thailand",
   },
   uae: {
-    title: "UAE Golden Visa via Property (AED 2M) in 2026",
+    title: "UAE Golden Visa via Property (AED 2M) in 2027",
     description:
       "10-year UAE residence through AED 2M property: rules, off-plan, mortgages. Free route match.",
     h1: "UAE Golden Visa through property (AED 2M)",
@@ -374,7 +374,7 @@ export const INVEST_EN_COUNTRY: Record<InvestCountrySlug, InvestEnCountryCopy> =
     ruGuidePath: "/ru/guides/kupit-nedvizhimost-dubaj-rossiyane-2026-visa-banki-dld",
   },
   hungary: {
-    title: "Hungary Guest Investor Programme 2026",
+    title: "Hungary Guest Investor Programme 2027",
     description:
       "Hungary's guest investor residence: €250K fund or €1M donation, and why the €500K property option was withdrawn. Free route match.",
     h1: "Hungary Guest Investor programme",
@@ -426,7 +426,7 @@ export const INVEST_EN_COUNTRY: Record<InvestCountrySlug, InvestEnCountryCopy> =
     ruGuidePath: "/ru/hungary/programs/hungary-guest-investor",
   },
   malta: {
-    title: "Malta Permanent Residence (MPRP) 2026",
+    title: "Malta Permanent Residence (MPRP) 2027",
     description: "Malta MPRP: property, contribution and timeline explained. Free route match.",
     h1: "Malta Permanent Residence Programme (MPRP)",
     intro:

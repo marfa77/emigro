@@ -1,8 +1,8 @@
 ---
 slug: pervye-30-dnej-v-italii-2026
-title: "Первые 30 дней в Италии 2026: Codice Fiscale, Permesso, банк, аренда"
-seo_title: "Первые 30 дней в Италии 2026 — Codice Fiscale, Permesso, SSN"
-seo_description: "Чек-лист после прилёта в Италию 2026: Codice Fiscale, Kit Giallo / Permesso за 8 дней, Questura, банк, Anagrafe, SSN. Для Digital Nomad и Elective Residence. RU/BY/UA/KZ."
+title: "Первые 30 дней в Италии 2027: Codice Fiscale, Permesso, банк, аренда"
+seo_title: "Первые 30 дней в Италии 2027 — Codice Fiscale, Permesso, SSN"
+seo_description: "Чек-лист после прилёта в Италию 2027: Codice Fiscale, Kit Giallo / Permesso за 8 дней, Questura, банк, Anagrafe, SSN. Для Digital Nomad и Elective Residence. RU/BY/UA/KZ."
 excerpt: "Практический месяц после Type D: Codice Fiscale, Kit Giallo в Poste, биометрия в Questura, банк, аренда и healthcare для DN и Elective Residence."
 quick_answer: |-
   В первые 8 рабочих дней после въезда подайте Kit Giallo на permesso di soggiorno в Poste Italiane (Sportello Amico). Codice Fiscale лучше взять сразу в Agenzia delle Entrate.

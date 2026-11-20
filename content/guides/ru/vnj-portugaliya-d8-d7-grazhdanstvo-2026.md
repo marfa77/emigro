@@ -1,6 +1,6 @@
 ---
 slug: vnj-portugaliya-d8-d7-grazhdanstvo-2026
-title: "D8 и D7 Португалия 2026 — ВНЖ, AIMA и гражданство"
+title: "D8 и D7 Португалия 2027 — ВНЖ, AIMA и гражданство"
 seo_title: "D8 Португалия 2026: доход €3 680, AIMA"
 seo_description: "D8 digital nomad и D7 Португалия 2026: €3 680 / €920, AIMA, NIF, гражданство 10 лет. Pillar-гид + практика для RU/BY/UA/KZ."
 date_modified: 2026-10-29

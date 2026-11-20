@@ -1,7 +1,7 @@
 ---
 slug: grazhdanstvo-portugalii-golden-visa-ari-2021-2022-2026
-title: "Гражданство Португалии через Golden Visa (ARI): инвесторы 2021–2022 в 2026"
-seo_title: "Гражданство PT через Golden Visa ARI 2026 — 3 когорты, не автомат"
+title: "Гражданство Португалии через Golden Visa (ARI): инвесторы 2021–2022 в 2027"
+seo_title: "Гражданство PT через Golden Visa ARI 2027 — 3 когорты, не автомат"
 seo_description: "ARI 2021–22: подача nationality до 18.05.2026 ≈ 5 лет; без файла — серая зона; новые — 10 лет. CIPLE A2. Не «ноябрь 2026 = паспорт»."
 excerpt: "Три когорты после Lei Orgânica 1/2026: кто ещё под 5 лет, кто в серой зоне residency-stage, что собирать удалённо."
 quick_answer: |-

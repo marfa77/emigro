@@ -1,9 +1,9 @@
 ---
 slug: visa-nomada-digital-espana-latam-2026
-title: "Visa nómada digital España 2026 para latinoamericanos"
+title: "Visa nómada digital España 2027 para latinoamericanos"
 seo_title: "Nómada digital España LATAM 2026 — 200% SMI"
 seo_description: "Nómada digital / teletrabajo España 2026 para LATAM: 200% SMI mensual, UGE vs consulado, ≤20% clientes ES y cómputo hacia nacionalidad en 2 años."
-excerpt: "Pillar canónico Ley de Startups para hispanohablantes LATAM: umbrales 2026, documentos, consulado/UGE y errores frecuentes."
+excerpt: "Pillar canónico Ley de Startups para hispanohablantes LATAM: umbrales 2027, documentos, consulado/UGE y errores frecuentes."
 quick_answer: "Encaja si teletrabaja para empleador/clientes fuera de España, con ingresos del titular 200% SMI mensual (≈ €2.442/mes en 2026, RD 126/2026) y normalmente ≤20% de ingresos de clientes españoles. Consulado: visado ~1 año; desde España (UGE, situación regular): autorización hasta 3 años. Computa para nacionalidad art. 22 (~2 años iberoamericanos). Confirme canal oficial por país."
 corridor_slugs: [es-speaking-uruguay-to-spain, es-speaking-ecuador-to-spain, es-speaking-peru-to-spain, es-speaking-paraguay-to-spain, es-speaking-latam-to-europe]
 topic_keys: [spain, uruguay, ecuador, peru, paraguay, work, visa, digital-nomad]

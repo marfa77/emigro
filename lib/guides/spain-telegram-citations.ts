@@ -73,7 +73,7 @@ export const SPAIN_GUIDE_FACTCHECK: GuideFactcheckConfigInput[] = [
   {
     slug: "vnj-ispaniya-2026",
     file: "content/guides/ru/vnj-ispaniya-2026.md",
-    title: "Digital nomad Испания 2026",
+    title: "Digital nomad Испания 2027",
     aliases: ["vnj-ispaniya", "ispaniya-2026", "spain-dnv"],
     topics: [
       {
@@ -163,7 +163,7 @@ export const SPAIN_GUIDE_FACTCHECK: GuideFactcheckConfigInput[] = [
   {
     slug: "portugaliya-vs-ispaniya-vnj-2026",
     file: "content/guides/ru/portugaliya-vs-ispaniya-vnj-2026.md",
-    title: "Португалия vs Испания ВНЖ 2026",
+    title: "Португалия vs Испания ВНЖ 2027",
     aliases: ["portugaliya-vs-ispaniya", "pt-vs-es", "portugal-vs-spain"],
     topics: [
       {
@@ -203,7 +203,7 @@ export const SPAIN_GUIDE_FACTCHECK: GuideFactcheckConfigInput[] = [
   {
     slug: "digital-nomad-vizy-evropy-sravnenie-2026",
     file: "content/guides/ru/digital-nomad-vizy-evropy-sravnenie-2026.md",
-    title: "Digital Nomad визы Европы 2026",
+    title: "Digital Nomad визы Европы 2027",
     aliases: ["digital-nomad-portugaliya", "nomad-pt-es-it", "dnv-comparison", "digital-nomad-portugaliya-ispaniya-italiya"],
     topics: [
       {
@@ -243,7 +243,7 @@ export const SPAIN_GUIDE_FACTCHECK: GuideFactcheckConfigInput[] = [
   {
     slug: "grazhdanstvo-portugaliya-ispaniya-2026",
     file: "content/guides/ru/grazhdanstvo-portugaliya-ispaniya-2026.md",
-    title: "Гражданство PT vs ES 2026",
+    title: "Гражданство PT vs ES 2027",
     aliases: ["grazhdanstvo-portugaliya", "citizenship-pt-es", "grazhdanstvo-ispaniya"],
     topics: [
       {

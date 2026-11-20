@@ -10,7 +10,7 @@ import { pageMetadata, pageUrl } from "@/lib/seo";
 export const revalidate = 3600;
 
 export const metadata: Metadata = pageMetadata({
-  title: "Украина → ЕС: временная защита и маршруты ВНЖ 2026",
+  title: "Украина → ЕС: временная защита и маршруты ВНЖ 2027",
   description:
     "Хаб для граждан Украины: Temporary Protection vs классический ВНЖ, коридоры Польша/Чехия/Германия, wizard подбора маршрута с учётом UA-паспорта. Emigro.",
   path: "/ru/ukraine",

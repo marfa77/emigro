@@ -1,7 +1,7 @@
 ---
 slug: golden-visa-portugal-rozhdenie-rebenka-grazhdanstvo-2026
 title: "Golden Visa Португалии и рождение ребёнка: гражданство после Lei Orgânica 1/2026"
-seo_title: "Golden Visa PT + ребёнок 2026 — гражданство не за 1 год"
+seo_title: "Golden Visa PT + ребёнок 2027 — гражданство не за 1 год"
 seo_description: "ARI <5 лет: ребёнок не получает PT-паспорт при рождении (нужно 5 лет legal residence родителя). Натурализация родителей 10 лет."
 excerpt: "Разбор для держателей Golden Visa с ВНЖ меньше 5 лет: что даёт рождение в Португалии после реформы мая 2026 — и чего не даёт."
 quick_answer: |-

@@ -1,7 +1,7 @@
 ---
 slug: vnj-kipr-2026-digital-nomad-fip-non-dom
-title: "ВНЖ Кипр 2026: Digital Nomad, Pink Slip, Category F, Fast Track и Non-Dom"
-seo_title: "ВНЖ Кипр 2026 — DN €3500, Pink Slip, Fast Track €300k"
+title: "ВНЖ Кипр 2027: Digital Nomad, Pink Slip, Category F, Fast Track и Non-Dom"
+seo_title: "ВНЖ Кипр 2027 — DN €3500, Pink Slip, Fast Track €300k"
 seo_description: "Кипр 2026: DN €3 500 net (max 3г), Fast Track €300k, Non-Dom 17+5+5, CIT 15%, PIT 0% до €22k, SDC дивиденды domiciled 5%. Гражданство 7+1 / highly skilled 4–5г."
 excerpt: "Маршруты Кипра для RU/BY/UA/KZ: Digital Nomad vs Pink Slip vs Category F vs Fast Track; Non-Dom как налог (не ВНЖ); налоговая реформа 2026 (CIT 15%, SDC 5%, 60-day)."
 quick_answer: |-

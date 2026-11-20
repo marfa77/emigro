@@ -1,7 +1,7 @@
 ---
 slug: vnj-estoniya-2026-digital-nomad-e-residency
-title: "Эстония 2026: Digital Nomad Visa и e-Residency"
-seo_title: "Эстония 2026 — Digital Nomad Visa + e-Residency / OÜ"
+title: "Эстония 2027: Digital Nomad Visa и e-Residency"
+seo_title: "Эстония 2027 — Digital Nomad Visa + e-Residency / OÜ"
 seo_description: "Эстония 2026: DNV €4 500/мес, D €120 / C €90, макс. 548/730. РФ/BY почти закрыт. e-Residency €150. CIT 22% дивиденды. 183 дня = tax resident."
 excerpt: "Два разных продукта: Digital Nomad Visa (жить и работать удалённо) и e-Residency (управлять OÜ онлайн). Для паспортов РФ/BY — жёсткие визовые ограничения; e-Residency ≠ ВНЖ."
 quick_answer: |-

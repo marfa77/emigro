@@ -55,6 +55,7 @@ import { GuideClusterLinks } from "@/components/guides/GuideClusterLinks";
 import { GuideCorridorLiveData } from "@/components/guides/GuideCorridorLiveData";
 import { GuideOfficialSources } from "@/components/guides/GuideOfficialSources";
 import { GuideAsOfBadge } from "@/components/guides/GuideAsOfBadge";
+import { YearTransitionNote } from "@/components/guides/YearTransitionNote";
 import { GuideFeedbackButtons } from "@/components/guides/GuideFeedbackButtons";
 import { formatGuideAsOfDateRu, guideAsOfIso } from "@/lib/guides/guide-dates";
 import { GuideRelatedStories } from "@/components/stories/GuideRelatedStories";
@@ -362,6 +363,7 @@ export default async function GuideArticlePage({ params }: { params: { slug: str
             />
           )}
           {asOfIso ? <GuideAsOfBadge dateIso={asOfIso} variant="hero" /> : null}
+          <YearTransitionNote title={guide.title} className="mt-4 max-w-3xl" />
           {guide.excerpt && <p className="mt-5 max-w-2xl text-lg leading-relaxed text-corridor-100 2xl:max-w-3xl">{guide.excerpt}</p>}
         </HeroShell>
 

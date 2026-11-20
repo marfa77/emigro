@@ -36,7 +36,7 @@ import { GoldenVisaSummaryTable, InvestAssistOffers } from "@/components/investm
 export const metadata: Metadata = investMetadata({
   locale: "ru",
   key: "hub",
-  title: "ВНЖ за инвестиции 2026: сравнение Golden Visa | Emigro",
+  title: "ВНЖ за инвестиции 2027: сравнение Golden Visa | Emigro",
   description:
     "Какие Golden Visa открыты для РФ/РБ в 2026, а какие закрыты: Португалия, Италия, Греция, ОАЭ, Таиланд, Венгрия, Мальта. Пороги, сроки, бесплатный подбор.",
   aiDescription:

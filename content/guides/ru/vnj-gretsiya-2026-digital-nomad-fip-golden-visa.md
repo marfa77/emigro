@@ -1,7 +1,7 @@
 ---
 slug: vnj-gretsiya-2026-digital-nomad-fip-golden-visa
-title: "ВНЖ Греция 2026: Digital Nomad, FIP и Golden Visa"
-seo_title: "ВНЖ Греция 2026 — Digital Nomad, FIP, Golden Visa"
+title: "ВНЖ Греция 2027: Digital Nomad, FIP и Golden Visa"
+seo_title: "ВНЖ Греция 2027 — Digital Nomad, FIP, Golden Visa"
 seo_description: "ВНЖ Греция 2026: Digital Nomad €3 500/мес, FIP, Golden Visa €250k/€400k/€800k. Консульская подача после Law 5275/2026. Для RU/UA/BY/KZ."
 excerpt: "Три рабочих маршрута ВНЖ в Греции для русскоязычных: удалёнка (Digital Nomad), пассивный доход (FIP) и инвестиции (Golden Visa) — цифры, документы и практика после прилёта 2026."
 quick_answer: |-

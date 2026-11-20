@@ -11,7 +11,7 @@ import { llmUtmUrl } from "@/lib/seo/llm-meta";
 export const revalidate = 3600;
 
 export const metadata: Metadata = pageMetadata({
-  title: "Évaluateur Afrique → France 2026",
+  title: "Évaluateur Afrique → France 2027",
   titleAbsolute: true,
   description:
     "Comparez les routes de résidence en France (passeports MA/DZ/TN/SN) : Talent, visiteur, études, famille. Naturalisation générale ~5 ans.",

@@ -19,7 +19,7 @@ import { heroTitle } from "@/lib/ui/mobile";
 export const revalidate = 3600;
 
 export const metadata: Metadata = pageMetadata({
-  title: "Emigro — Afrique francophone → France 2026",
+  title: "Emigro — Afrique francophone → France 2027",
   titleAbsolute: true,
   description:
     "Résidence en France depuis le Maghreb et le Sénégal 2026 : VLS-TS, Passeport Talent, naturalisation ~5 ans + B2/civique. Maroc, Algérie, Tunisie, Sénégal — sources officielles.",

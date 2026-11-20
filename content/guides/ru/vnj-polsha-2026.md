@@ -1,7 +1,7 @@
 ---
 slug: vnj-polsha-2026
-title: "ВНЖ Польша 2026: work permit, Blue Card и B2B для RU/UA/BY/KZ"
-seo_title: "ВНЖ Польша 2026 — work permit, Blue Card, сроки"
+title: "ВНЖ Польша 2027: work permit, Blue Card и B2B для RU/UA/BY/KZ"
+seo_title: "ВНЖ Польша 2027 — work permit, Blue Card, сроки"
 seo_description: "ВНЖ Польша 2026 для RU/UA/BY/KZ: Type A от PLN 4 806, Blue Card PLN 13 355,34/мес, B2B IT. Сроки по этапам: консульство, карта pobytu, Варшава."
 excerpt: "Польша — главный коридор для русскоязычных в Центральную Европу: work permit, Blue Card, B2B IT, учёба и воссоединение семьи — с порогами и сроками 2026."
 quick_answer: |-

@@ -8,7 +8,7 @@ export const NEWS_SEO_OVERRIDES: Partial<
   Record<string, Pick<NewsDigest, "seo_title" | "seo_description">>
 > = {
   "sweden-story-2026-08-31-ea8jvq": {
-    seo_title: "Выборы в Швеции 2026: 31 августа",
+    seo_title: "Выборы в Швеции 2027: 31 августа",
     seo_description:
       "Выборы в Швеции 31 августа 2026: что партии обещают иностранцам по иммиграции, разрешениям на работу, налогам и социальным выплатам.",
   },

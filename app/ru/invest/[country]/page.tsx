@@ -36,13 +36,13 @@ import { buildFaqSchema } from "@/lib/seo/corridor-page-seo";
 
 const RU_COUNTRY_SEO: Record<InvestCountrySlug, { title: string; description: string; passportQuestion: string }> = {
   portugal: {
-    title: "Golden Visa Португалии 2026: фонды от €500 000, правило 10 лет",
+    title: "Golden Visa Португалии 2027: фонды от €500 000, правило 10 лет",
     description:
       "ARI Португалии 2026: фонды от €500 000, что отменено и правило 10 лет до гражданства (Lei Orgânica 1/2026). Официальные источники и бесплатный подбор.",
     passportQuestion: "Даёт ли Golden Visa Португалии гражданство?",
   },
   italy: {
-    title: "Инвесторская виза Италии 2026: €250K/€500K/€2M",
+    title: "Инвесторская виза Италии 2027: €250K/€500K/€2M",
     description:
       "Инвесторская виза Италии 2026: стартап €250K, компания €500K, облигации €2M. Для паспортов РФ и РБ программа приостановлена.",
     passportQuestion: "Даёт ли инвесторская виза Италии гражданство?",
@@ -54,31 +54,31 @@ const RU_COUNTRY_SEO: Record<InvestCountrySlug, { title: string; description: st
     passportQuestion: "Давала ли Golden Visa Испании гражданство?",
   },
   greece: {
-    title: "Golden Visa Греции 2026: €250K/€400K/€800K",
+    title: "Golden Visa Греции 2027: €250K/€400K/€800K",
     description:
       "Golden Visa Греции 2026: пороги €800K и €400K по районам, исключение €250K для перевода в жильё. Статус для РФ/РБ, проверено в октябре 2026. Бесплатный подбор.",
     passportQuestion: "Даёт ли Golden Visa Греции гражданство?",
   },
   thailand: {
-    title: "LTR Таиланда 2026: Wealthy Global Citizen ($500K)",
+    title: "LTR Таиланда 2027: Wealthy Global Citizen ($500K)",
     description:
       "LTR Таиланда: $500K инвестиций в стране и $1M активов, виза на 10 лет. Чем LTR отличается от Thailand Privilege. Официальный источник BOI и бесплатный подбор.",
     passportQuestion: "Даёт ли LTR Таиланда гражданство?",
   },
   uae: {
-    title: "Golden Visa ОАЭ через недвижимость (AED 2M) 2026",
+    title: "Golden Visa ОАЭ через недвижимость (AED 2M) 2027",
     description:
       "Golden Visa ОАЭ на 10 лет через недвижимость от AED 2 млн: правила, off-plan, ипотека. Бесплатный подбор маршрута и проверка бюджета до разговора с брокером.",
     passportQuestion: "Даёт ли Golden Visa ОАЭ гражданство?",
   },
   hungary: {
-    title: "Guest Investor Венгрия 2026: €250 тыс., 8 лет с ПМЖ",
+    title: "Guest Investor Венгрия 2027: €250 тыс., 8 лет с ПМЖ",
     description:
       "Венгрия 2026: фонд от €250 000 или донейшн €1 млн. OIF не исключает паспорта РФ и РБ. Натурализация — 8 лет с ПМЖ, не с карты Guest Investor.",
     passportQuestion: "Даёт ли программа Guest Investor Венгрии гражданство?",
   },
   malta: {
-    title: "ПМЖ Мальты (MPRP) 2026",
+    title: "ПМЖ Мальты (MPRP) 2027",
     description:
       "ПМЖ Мальты (MPRP) 2026: покупка или аренда жилья, взносы и сроки по L.N. 146/2025. Ограничения для паспортов РФ/РБ и бесплатный подбор маршрута.",
     passportQuestion: "Даёт ли ПМЖ Мальты (MPRP) гражданство?",

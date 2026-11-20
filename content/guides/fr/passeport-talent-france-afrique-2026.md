@@ -1,8 +1,8 @@
 ---
 slug: passeport-talent-france-afrique-2026
-title: "Passeport Talent France pour Africains francophones 2026"
-seo_title: "Passeport Talent France 2026: seuil €39.582"
-seo_description: "Passeport Talent France 2026 pour le Maghreb et le Sénégal: salarié qualifié souvent ≥ 39 582 € brut/an, catégories et VLS-TS. Confirmez sur service-public."
+title: "Passeport Talent France pour Africains francophones 2027"
+seo_title: "Passeport Talent France 2027: seuil €39.582"
+seo_description: "Passeport Talent France 2027 pour le Maghreb et le Sénégal: salarié qualifié souvent ≥ 39 582 € brut/an, catégories et VLS-TS. Confirmez sur service-public."
 excerpt: "Pilar partagé : 11 catégories Talent, process employeur + consulat."
 quick_answer: "Passeport Talent = carte pluriannuelle pour profils qualifiés. Seuil salarié qualifié souvent ~€39.582 brut/an — confirmez service-public. Compte pour la résidence vers naturalisation (~5 ans + B2 + civique). Emigro : /fr."
 corridor_slugs: [fr-speaking-africa-to-europe, fr-speaking-africa-to-europe]

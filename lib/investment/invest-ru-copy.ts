@@ -13,7 +13,7 @@ export const GREECE_OCT_2026_WARNING =
 
 export const INVEST_RU_COUNTRY: Record<InvestCountrySlug, InvestRuCountryCopy> = {
   portugal: {
-    h1: "Golden Visa Португалии 2026: фонды от €500 000",
+    h1: "Golden Visa Португалии 2027: фонды от €500 000",
     suits: [
       "Нужен ВНЖ ЕС без переезда на полный год в первый сезон.",
       "Можно держать €500 000 в регулируемом фонде не меньше пяти лет.",
@@ -35,7 +35,7 @@ export const INVEST_RU_COUNTRY: Record<InvestCountrySlug, InvestRuCountryCopy> =
     ],
   },
   italy: {
-    h1: "Инвесторская виза Италии 2026: от €250 000 до €2 млн",
+    h1: "Инвесторская виза Италии 2027: от €250 000 до €2 млн",
     suits: [
       "Готовы вложить деньги в итальянский стартап, компанию, облигации или культуру.",
       "Паспорт не российский и не белорусский.",
@@ -75,7 +75,7 @@ export const INVEST_RU_COUNTRY: Record<InvestCountrySlug, InvestRuCountryCopy> =
     ],
   },
   greece: {
-    h1: "Golden Visa Греции 2026: €250 / €400 / €800 тыс.",
+    h1: "Golden Visa Греции 2027: €250 / €400 / €800 тыс.",
     suits: [
       "Нужен ВНЖ ЕС через недвижимость, и бюджет закрывает порог района.",
       "Не нужно жить в Греции полный год.",
@@ -96,7 +96,7 @@ export const INVEST_RU_COUNTRY: Record<InvestCountrySlug, InvestRuCountryCopy> =
     ],
   },
   thailand: {
-    h1: "LTR Таиланда 2026: Wealthy Global Citizen",
+    h1: "LTR Таиланда 2027: Wealthy Global Citizen",
     suits: [
       "Есть $500 000 инвестиций в Таиланде и $1 млн активов.",
       "Нужна виза на 10 лет, а не членство Thailand Privilege.",
@@ -115,7 +115,7 @@ export const INVEST_RU_COUNTRY: Record<InvestCountrySlug, InvestRuCountryCopy> =
     ],
   },
   uae: {
-    h1: "Golden Visa ОАЭ 2026: недвижимость от AED 2 млн",
+    h1: "Golden Visa ОАЭ 2027: недвижимость от AED 2 млн",
     suits: [
       "Есть зарегистрированная недвижимость от AED 2 000 000 на ваше имя.",
       "Нужен десятилетний ВНЖ, а не паспорт.",
@@ -134,7 +134,7 @@ export const INVEST_RU_COUNTRY: Record<InvestCountrySlug, InvestRuCountryCopy> =
     ],
   },
   hungary: {
-    h1: "Guest Investor Венгрии 2026: фонд от €250 000",
+    h1: "Guest Investor Венгрии 2027: фонд от €250 000",
     suits: [
       "Можно вложить €250 000 в паи фонда недвижимости MNB на срок от 5 лет или пожертвовать €1 млн вузу.",
       "Нужен десятилетний ВНЖ без обязанности жить в Венгрии.",
@@ -154,7 +154,7 @@ export const INVEST_RU_COUNTRY: Record<InvestCountrySlug, InvestRuCountryCopy> =
     ],
   },
   malta: {
-    h1: "ПМЖ Мальты (MPRP) 2026: жильё и взносы",
+    h1: "ПМЖ Мальты (MPRP) 2027: жильё и взносы",
     suits: [
       "Есть активы от €500 000, из них €150 000 ликвидных, и бюджет на жильё плюс взносы.",
       "Нужен статус ПМЖ, а не паспорт за взнос.",

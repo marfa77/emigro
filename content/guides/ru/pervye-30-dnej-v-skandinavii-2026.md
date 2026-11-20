@@ -1,7 +1,7 @@
 ---
 slug: pervye-30-dnej-v-skandinavii-2026
-title: "Первые 30 дней в Скандинавии 2026: personnummer, CPR, банк, регистрация"
-seo_title: "Первые 30 дней в Швеции и Дании 2026: personnummer, CPR"
+title: "Первые 30 дней в Скандинавии 2027: personnummer, CPR, банк, регистрация"
+seo_title: "Первые 30 дней в Швеции и Дании 2027: personnummer, CPR"
 seo_description: "Первый месяц в Швеции и Дании: карта ВНЖ, регистрация в Skatteverket или коммуне, personnummer и CPR, банк, медицина. Чек-лист для RU/BY/UA/KZ, 2026."
 excerpt: "Получили разрешение на работу и приехали в Стокгольм или Копенгаген — что сделать в первый месяц и в каком порядке: карта ВНЖ, регистрация, personnummer или CPR, банк, медицина."
 quick_answer: |-

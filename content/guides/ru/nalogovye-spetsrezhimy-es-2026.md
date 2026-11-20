@@ -1,7 +1,7 @@
 ---
 slug: nalogovye-spetsrezhimy-es-2026
-title: "Налоговые спецрежимы ЕС 2026: Beckham, IFICI, 30% ruling, Non-Dom, Impatriati"
-seo_title: "Налоговые спецрежимы ЕС 2026 — Beckham 24%, IFICI, 30%"
+title: "Налоговые спецрежимы ЕС 2027: Beckham, IFICI, 30% ruling, Non-Dom, Impatriati"
+seo_title: "Налоговые спецрежимы ЕС 2027 — Beckham 24%, IFICI, 30%"
 seo_description: "Льгота ≠ виза. Beckham 24% до €600k затем 47%. IFICI 20% узкий, не старый NHR. NL 30% в 2026, 27% с 2027. HR 0% только DN до 18 мес."
 excerpt: "Как устроены спецрежимы ЕС и чем «эффективная ставка» в таблице отличается от налога, который вы реально заплатите. ВНЖ сам по себе льготу не включает."
 quick_answer: |-

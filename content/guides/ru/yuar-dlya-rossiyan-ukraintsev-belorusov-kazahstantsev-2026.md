@@ -1,7 +1,7 @@
 ---
 slug: yuar-dlya-rossiyan-ukraintsev-belorusov-kazahstantsev-2026
-title: "ЮАР 2026: Critical Skills, пенсия, школы Кейптауна и MBA UCT GSB"
-seo_title: "ЮАР для россиян и СНГ 2026 — визы, Critical Skills, школы, MBA"
+title: "ЮАР 2027: Critical Skills, пенсия, школы Кейптауна и MBA UCT GSB"
+seo_title: "ЮАР для россиян и СНГ 2027 — визы, Critical Skills, школы, MBA"
 seo_description: "Релокация в ЮАР 2026 для RU/UA/BY/KZ: безвиз 90 дней для РФ, Critical Skills, Retirement R37k/мес, школы Кейптауна, университеты и MBA UCT GSB. Не EU-коридор Emigro."
 excerpt: "Южно-Африканская Республика вне EU-коридоров Emigro, но рабочий маршрут для Critical Skills, retirement и учёбы: визы по 4 паспортам, практика первых 30 дней, школы Кейптауна и MBA UCT GSB."
 quick_answer: |-

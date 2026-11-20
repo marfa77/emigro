@@ -1,7 +1,7 @@
 ---
 slug: d7-vs-digital-nomad-visa-sravnenie
-title: "D7 vs Digital Nomad Visa: что выбрать в 2026"
-seo_title: "D7 vs D8 Португалия 2026 — что выбрать"
+title: "D7 vs Digital Nomad Visa: что выбрать в 2027"
+seo_title: "D7 vs D8 Португалия 2027 — что выбрать"
 seo_description: "D7 (~€920/мес) или D8 (~€3 680/мес): чем отличаются, кому подходит каждый маршрут. Налоги, право на работу — для граждан РФ, BY, KZ в 2026."
 excerpt: "Самый частый вопрос при выборе Португалии: D7 или D8 (digital nomad)? Разбираем разницу по всем параметрам — доход, налоги, статус, ограничения."
 quick_answer: |-

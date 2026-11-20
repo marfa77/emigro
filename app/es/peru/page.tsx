@@ -17,7 +17,7 @@ import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
 export const revalidate = 3600;
 
 export const metadata: Metadata = pageMetadata({
-  title: "Residencia en España para peruanos 2026",
+  title: "Residencia en España para peruanos 2027",
   description:
     "Cómo emigrar a España desde Perú 2026: Schengen ≠ residencia. Nómada digital (200% SMI), no lucrativa, Lima/apostilla y nacionalidad en 2 años (art. 22).",
   path: ES_PATHS.peru,

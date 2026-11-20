@@ -13,7 +13,7 @@ const DESCRIPTION =
   "Guías pillar Emigro en español 2026: residencia España desde UY/EC/PE/PY/CO/CL, nómada digital, no lucrativa, nacionalidad art. 22, Beckham, Portugal D8/D7 — fuentes oficiales.";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Guías residencia España LATAM 2026",
+  title: "Guías residencia España LATAM 2027",
   description: DESCRIPTION,
   path: ES_PATHS.guides,
   locale: "es",

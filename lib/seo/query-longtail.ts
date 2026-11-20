@@ -77,7 +77,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "activobank португалия счёт для иностранца",
       "aima биометрия после прилёта",
     ],
-    seoTitle: "NIF Португалия 2026 — 30 дней для RU/BY",
+    seoTitle: "NIF Португалия 2027 — 30 дней для RU/BY",
     seoDescription:
       "NIF за 7 дней, банк, SIM, SNS и AIMA после прилёта: пошаговый чек-лист для граждан RU/BY/UA/KZ с D7 или D8 в 2026 году.",
   },
@@ -116,7 +116,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "виза цифрового кочевника испания 2026",
       "teletrabajo внж испания требования",
     ],
-    seoTitle: "Digital nomad visa Испания 2026 — teletrabajo",
+    seoTitle: "Digital nomad visa Испания 2027 — teletrabajo",
     seoDescription:
       "ВНЖ digital nomad (teletrabajo) в Испании 2026: доход от ≈ €2.442/мес (200% SMI mensual), до 20% из ES, медстраховка, сроки подачи. Для паспортов RU/BY/UA/KZ.",
   },
@@ -134,7 +134,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "digital nomad виза европа 2026 доход налоги пмж",
       "какие digital nomad визы ведут к пмж",
     ],
-    seoTitle: "Digital Nomad виза Европы 2026: доход, налоги, ПМЖ",
+    seoTitle: "Digital Nomad виза Европы 2027: доход, налоги, ПМЖ",
     seoDescription:
       "11 DN виз Европы 2026: PT D8 €3 680, ES ≈ €2.442/мес (200% SMI), IT, HR 0% на зарубежный доход. Семья, ПМЖ, RU/BY/UA/KZ.",
   },
@@ -143,7 +143,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     path: "/ru/germany",
     primaryQuery: "blue card германия 2026",
     queries: ["blue card германия 2026", "eu blue card germany 2026", "миграция через blue card eu"],
-    seoTitle: "EU Blue Card Германия 2026 — коридор релокации",
+    seoTitle: "EU Blue Card Германия 2027 — коридор релокации",
     seoDescription:
       "Blue Card и Chancenkarte Германия 2026: пороги €50 700 / €45 934, документы, ПМЖ за 21–27 мес. Wizard и программы для паспортов RU/BY/UA/KZ.",
   },
@@ -157,7 +157,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "chancenkarte германия 2026",
       "миграция через blue card eu",
     ],
-    seoTitle: "ВНЖ Германии 2026 для россиян: пути",
+    seoTitle: "ВНЖ Германии 2027 для россиян: пути",
     seoDescription:
       "ВНЖ Германии 2026: Blue Card (€50 700 / €45 934), Chancenkarte, фриланс §21, семья и ПМЖ. Подбор маршрута бесплатный.",
   },
@@ -166,7 +166,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     programSlug: "germany-eu-blue-card",
     primaryQuery: "eu blue card германия 2026",
     queries: ["eu blue card германия 2026", "blue card germany salary threshold 2026"],
-    seoTitle: "EU Blue Card Германия 2026 — пороги и документы",
+    seoTitle: "EU Blue Card Германия 2027 — пороги и документы",
     seoDescription:
       "EU Blue Card Германия 2026: зарплата от €50 700 (общий) или €45 934 (shortage/IT), оффер, диплом. Требования для паспортов RU/BY/UA/KZ.",
   },
@@ -185,7 +185,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "edoręczenia польша иностранец",
       "банк после 19 пакета белорусы ес",
     ],
-    seoTitle: "ВНЖ в Европе для белорусов 2026",
+    seoTitle: "ВНЖ в Европе для белорусов 2027",
     seoDescription:
       "ВНЖ в Европе для белорусов 2026 без временной защиты: Польша (oświadczenie, Type A, Blue Card), Чехия, D7/D8 и консульства PL/LT.",
   },
@@ -199,7 +199,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "выписки банка для внж европа",
       "санкции доход россия внж",
     ],
-    seoTitle: "Доход из РФ для D8/D7 2026 — документы",
+    seoTitle: "Доход из РФ для D8/D7 2027 — документы",
     seoDescription:
       "Как подтвердить доход и сбережения из РФ для D8/D7 Португалия: выписки, договоры, санкции, типовые ошибки консульства. Для граждан РФ и СНГ.",
   },
@@ -212,7 +212,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "d7 или digital nomad португалия",
       "d7 vs digital nomad visa сравнение",
     ],
-    seoTitle: "D7 vs D8 Португалия 2026 — что выбрать",
+    seoTitle: "D7 vs D8 Португалия 2027 — что выбрать",
     seoDescription:
       "D7 (~€920/мес) или D8 (~€3 680/мес): чем отличаются, кому подходит каждый маршрут. Налоги, право на работу — для граждан РФ, BY, KZ в 2026.",
   },
@@ -225,7 +225,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "куда переехать португалия или испания 2026",
       "d8 vs digital nomad испания",
     ],
-    seoTitle: "Португалия vs Испания ВНЖ 2026 — RU/BY",
+    seoTitle: "Португалия vs Испания ВНЖ 2027 — RU/BY",
     seoDescription:
       "Сравнение ВНЖ Португалии и Испании 2026: D8 €3 680 vs DNV ≈ €2.442/мес (200% SMI), налоги, сроки, гражданство. Для граждан РФ, BY, UA, KZ.",
   },
@@ -238,7 +238,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "где подавать d8 португалия гражданин россии",
       "консульская юрисдикция беларусь внж",
     ],
-    seoTitle: "Консульская подача RU/BY/KZ 2026 — D-виза",
+    seoTitle: "Консульская подача RU/BY/KZ 2027 — D-виза",
     seoDescription:
       "Консульская юрисдикция для D8/D7 Португалия: где граждане РФ, Беларуси и Казахстана могут подаваться в 2026, резиденция и типовые ошибки.",
   },
@@ -251,7 +251,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "справка о несудимости для внж европа",
       "апостиль свидетельство о рождении внж",
     ],
-    seoTitle: "Документы переезд РФ 2026 — апостиль, ВНЖ",
+    seoTitle: "Документы переезд РФ 2027 — апостиль, ВНЖ",
     seoDescription:
       "Какие документы подготовить для переезда из России в Европу: апостиль, справка о несудимости, доверенности, переводы, дети, дипломы, сроки.",
   },
@@ -264,7 +264,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "nie испания гражданин россии как получить",
       "empadronamiento tie extranjería 2026",
     ],
-    seoTitle: "NIE Испания 2026 — 30 дней для RU/BY",
+    seoTitle: "NIE Испания 2027 — 30 дней для RU/BY",
     seoDescription:
       "NIE, empadronamiento, банк, SIM и extranjería после прилёта: пошаговый чек-лист для граждан RU/BY/UA/KZ с DNV в 2026 году.",
   },
@@ -280,7 +280,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "виза бали россияне 2026",
       "second home индонезия vs e33g",
     ],
-    seoTitle: "Бали для россиян 2026 — E33G Remote Worker, B211A",
+    seoTitle: "Бали для россиян 2027 — E33G Remote Worker, B211A",
     seoDescription:
       "Бали для россиян 2026: E33G Remote Worker ($60k/год), B211A, Second Home отдельно. Стоимость жизни, налоги и подготовка EU-маршрута.",
   },
@@ -313,7 +313,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "внж грузия недвижимость 150000",
       "it residence permit грузия",
     ],
-    seoTitle: "Грузия для россиян 2026: безвиз 365 дней",
+    seoTitle: "Грузия для россиян 2027: безвиз 365 дней",
     seoDescription:
       "Грузия 2026: безвиз для РФ до 365 дней, медстраховка от 30 000 лари, Right to Work с 1 марта, ВНЖ за недвижимость от $150 000. СИДН с РФ нет.",
   },
@@ -333,7 +333,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "виза d wise revolut россиянам",
       "article 5b санкции платёжные услуги россияне",
     ],
-    seoTitle: "Счёт в банке ЕС для россиян 2026: где открыть IBAN",
+    seoTitle: "Счёт в банке ЕС для россиян 2027: где открыть IBAN",
     seoDescription:
       "Как россиянину открыть счёт и IBAN в ЕС в 2026: что запрещает Article 5b, когда помогает ВНЖ или виза D, Wise, Revolut, Paysera и местные банки.",
   },
@@ -350,7 +350,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "agora imigrante renovação",
       "как проверить срок оплаты DUC AIMA",
     ],
-    seoTitle: "Продление ВНЖ Португалия 2026 — AIMA",
+    seoTitle: "Продление ВНЖ Португалия 2027 — AIMA",
     seoDescription:
       "Как продлить ВНЖ в Португалии через Portal das Renovações AIMA: проверить категорию, собрать документы, оплатить DUC в срок и пройти биометрию при вызове.",
   },
@@ -367,7 +367,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "facilitation казахстан ес 2026",
       "национальная виза pt из казахстана",
     ],
-    seoTitle: "ВНЖ в Европе для казахстанцев 2026",
+    seoTitle: "ВНЖ в Европе для казахстанцев 2027",
     seoDescription:
       "ВНЖ в Европе для граждан Казахстана 2026: безвизового Шенгена нет. Германия и Польша — из Алматы; национальная виза D Португалии обычно через Москву.",
   },
@@ -384,7 +384,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "пмж сербия 3 года",
       "white card сербия банк",
     ],
-    seoTitle: "ВНЖ Сербии для россиян 2026: ИП, DOO",
+    seoTitle: "ВНЖ Сербии для россиян 2027: ИП, DOO",
     seoDescription:
       "ВНЖ Сербии 2026 для россиян: через ИП-паушал, DOO или работу, подача в eStranci, ПМЖ через 3 года. Подбор маршрута бесплатный.",
   },
@@ -399,7 +399,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "erkend referent нидерланды",
       "30% ruling нидерланды 2026",
     ],
-    seoTitle: "Нидерланды HSM 2026 — коридор Emigro",
+    seoTitle: "Нидерланды HSM 2027 — коридор Emigro",
     seoDescription:
       "Highly Skilled Migrant NL: пороги IND 2026, erkend referent, офер обязателен. Wizard и программы для RU/BY/UA/KZ.",
   },
@@ -428,7 +428,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "лучшие страны для релокации 2026 рф",
       "легальный переезд в ес с паспортом россии",
     ],
-    seoTitle: "Куда переехать 2026: D8, ES DN, Blue Card",
+    seoTitle: "Куда переехать 2027: D8, ES DN, Blue Card",
     seoDescription:
       "7 коридоров ВНЖ: PT D8 ~€3 680 / D7 ~€920, ES DN ≈ €2.442/мес (200% SMI), DE Blue Card €50 700. Гражданство PT 10 лет. Шенген ≠ ВНЖ. Wizard.",
   },
@@ -456,7 +456,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "emigro assist сколько стоит",
       "помощь с документами внж европа",
     ],
-    seoTitle: "Помощь с ВНЖ 2026: подбор специалиста бесплатно",
+    seoTitle: "Помощь с ВНЖ 2027: подбор специалиста бесплатно",
     seoDescription:
       "Emigro Assist: бесплатно подберём юриста или агентство по ВНЖ под ваш случай. Комиссию Emigro платит специалист, цена для вас не меняется.",
   },
@@ -470,7 +470,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "светофор налогового резидентства релокант",
       "двойное налогообложение релокант tie-breaker",
     ],
-    seoTitle: "Налоговый резидент 2026: дни, светофор, сценарии",
+    seoTitle: "Налоговый резидент 2027: дни, светофор, сценарии",
     seoDescription:
       "Налоговый резидент 2026: дни по билетам, светофор PT/AE/IT/UK/US, сценарии. Бесплатно в @emigro_chat_bot — не замена бухгалтеру.",
   },
@@ -484,7 +484,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "b2b it польша иностранец",
       "освядчение польша россияне",
     ],
-    seoTitle: "Польша ВНЖ 2026 — work / Blue Card / B2B",
+    seoTitle: "Польша ВНЖ 2027 — work / Blue Card / B2B",
     seoDescription:
       "Коридор Польша: work permit, EU Blue Card, B2B IT, oświadczenie. Практика для RU/BY/UA/KZ 2026.",
   },
@@ -499,7 +499,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "польша it b2b внж",
       "очередь urzędu mazowieckie",
     ],
-    seoTitle: "ВНЖ Польша 2026 — гайд Emigro",
+    seoTitle: "ВНЖ Польша 2027 — гайд Emigro",
     seoDescription:
       "Польша 2026: Type A, oświadczenie, Blue Card, карта побыту, очереди Mazowieckie. Для RU/BY/UA/KZ.",
   },
@@ -512,7 +512,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "italy digital nomad visa порог",
       "lavoro subordinato италия россияне",
     ],
-    seoTitle: "Италия ВНЖ 2026 — DN / elective",
+    seoTitle: "Италия ВНЖ 2027 — DN / elective",
     seoDescription:
       "Коридор Италия: digital nomad, elective residency, lavoro. Пороги и консульская практика 2026.",
   },
@@ -527,7 +527,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "внж италия удалённая работа",
       "италия дн виза из россии",
     ],
-    seoTitle: "Италия Digital Nomad 2026",
+    seoTitle: "Италия Digital Nomad 2027",
     seoDescription:
       "Italian Digital Nomad Visa 2026: порог дохода, документы, консульство. Для паспортов RU/BY/UA/KZ.",
   },
@@ -541,7 +541,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "италия внж без работы пассивный доход",
       "visto residenza elettiva россияне",
     ],
-    seoTitle: "Италия Elective Residency 2026 — €31k, не Golden Visa",
+    seoTitle: "Италия Elective Residency 2027 — €31k, не Golden Visa",
     seoDescription:
       "Residenza elettiva ~€31k/год, без локальной работы. Investor Visa для РФ/РБ приостановлена. ПМЖ 5 лет, паспорт 10. Для RU/BY.",
   },
@@ -554,7 +554,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "vls-ts франция национальная виза",
       "talent passport salary threshold",
     ],
-    seoTitle: "Франция ВНЖ 2026 — Passeport Talent",
+    seoTitle: "Франция ВНЖ 2027 — Passeport Talent",
     seoDescription:
       "Коридор Франция: Passeport Talent, VLS-TS, пороги 2026. Для RU/BY/UA/KZ — wizard и гайды.",
   },
@@ -568,7 +568,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "внж франция через работу офер",
       "carte de séjour talent salarié",
     ],
-    seoTitle: "Passeport Talent Франция 2026",
+    seoTitle: "Passeport Talent Франция 2027",
     seoDescription:
       "Passeport Talent / salarié qualifié Франция 2026: зарплата, офер, VLS-TS. Гайд Emigro.",
   },
@@ -582,7 +582,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "kennismigrant через агентство",
       "нидерланды внж без офера невозможно",
     ],
-    seoTitle: "ВНЖ Нидерланды из России 2026 — HSM",
+    seoTitle: "ВНЖ Нидерланды из России 2027 — HSM",
     seoDescription:
       "Как переехать в Нидерланды из России в 2026: нужен офер и HSM. Порог IND €4 357/мес до 30 лет или €5 942 после; 30% ruling. Без офера маршрута нет.",
   },
@@ -595,7 +595,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "golden visa греция 2026 порог",
       "внж греция для россиян",
     ],
-    seoTitle: "Греция ВНЖ 2026 — DN / FIP / GV",
+    seoTitle: "Греция ВНЖ 2027 — DN / FIP / GV",
     seoDescription:
       "Коридор Греция: Digital Nomad, FIP, Golden Visa. Пороги и практика 2026 для RU/BY/UA/KZ.",
   },
@@ -609,7 +609,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "financially independent person греция",
       "golden visa афины порог недвижимости",
     ],
-    seoTitle: "Греция DN / FIP / Golden Visa 2026",
+    seoTitle: "Греция DN / FIP / Golden Visa 2027",
     seoDescription:
       "Греция 2026: Digital Nomad, FIP, Golden Visa — пороги, документы, консульство для RU/BY.",
   },
@@ -622,7 +622,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "внж венгрия digital nomad",
       "венгрия white card порог",
     ],
-    seoTitle: "Венгрия White Card 2026",
+    seoTitle: "Венгрия White Card 2027",
     seoDescription:
       "Коридор Венгрия: White Card, Guest Investor. Пороги 2026 для паспортов RU/BY/UA/KZ.",
   },
@@ -636,7 +636,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "guest investor program hungary",
       "внж венгрия удалёнка",
     ],
-    seoTitle: "Guest Investor Венгрия 2026 — €250 000",
+    seoTitle: "Guest Investor Венгрия 2027 — €250 000",
     seoDescription:
       "Guest Investor Венгрия 2026: фонд MNB от €250 000 от 5 лет или донейшн €1 млн, карта 10+10 лет. White Card: удалёнка от €3 000 чистыми за 6 месяцев.",
   },
@@ -649,7 +649,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "non-dom кипр налоги",
       "внж кипр для россиян",
     ],
-    seoTitle: "Кипр ВНЖ 2026 — DN / FIP / Non-Dom",
+    seoTitle: "Кипр ВНЖ 2027 — DN / FIP / Non-Dom",
     seoDescription:
       "Коридор Кипр: Digital Nomad, Category F, Non-Dom. Практика 2026 для RU/BY/UA/KZ.",
   },
@@ -663,7 +663,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "внж кипр для супруга спонсор 2 года",
       "кипр внж не шенген семья",
     ],
-    seoTitle: "Воссоединение семьи Кипр 2026 — FR / MD",
+    seoTitle: "Воссоединение семьи Кипр 2027 — FR / MD",
     seoDescription:
       "Кипр FR 2026: спонсор обычно ≥2 года ВНЖ, супруг 21+, брак ≥1 год; подача Migration Department (Никосия). ВНЖ CY ≠ Шенген. Emigro + gov.cy.",
   },
@@ -677,7 +677,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "non dom cyprus 17 years",
       "внж кипр удалённая работа",
     ],
-    seoTitle: "Кипр DN / FIP / Non-Dom 2026",
+    seoTitle: "Кипр DN / FIP / Non-Dom 2027",
     seoDescription:
       "Кипр 2026: Digital Nomad, FIP/Category F, Non-Dom — пороги и налоговая рамка.",
   },
@@ -690,7 +690,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "non-dom мальта налоги",
       "внж мальта для россиян",
     ],
-    seoTitle: "Мальта ВНЖ 2026 — Nomad / MPRP",
+    seoTitle: "Мальта ВНЖ 2027 — Nomad / MPRP",
     seoDescription:
       "Коридор Мальта: Nomad Residence, MPRP, Non-Dom. Пороги 2026 для RU/BY/UA/KZ.",
   },
@@ -704,7 +704,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "mprp malta investment",
       "внж мальта digital nomad",
     ],
-    seoTitle: "Мальта Nomad / MPRP / Non-Dom 2026",
+    seoTitle: "Мальта Nomad / MPRP / Non-Dom 2027",
     seoDescription:
       "Мальта 2026: Nomad Residence, MPRP, Non-Dom — доход, инвестиции, документы.",
   },
@@ -716,7 +716,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "внж хорватия удалёнка",
       "croatia digital nomad visa порог",
     ],
-    seoTitle: "Хорватия Digital Nomad 2026",
+    seoTitle: "Хорватия Digital Nomad 2027",
     seoDescription:
       "Коридор Хорватия: Digital Nomad (временный). Пороги и практика для RU/BY 2026.",
   },
@@ -743,7 +743,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "type d болгария виза",
       "внж болгария для россиян",
     ],
-    seoTitle: "Болгария ВНЖ 2026 — DN / EOOD",
+    seoTitle: "Болгария ВНЖ 2027 — DN / EOOD",
     seoDescription:
       "Коридор Болгария: Type D, Digital Nomad, EOOD. Практика 2026 для RU/BY/UA/KZ.",
   },
@@ -757,7 +757,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "открыть eood болгария россияне",
       "внж болгария удалённая работа",
     ],
-    seoTitle: "Болгария Type D / DN / EOOD 2026",
+    seoTitle: "Болгария Type D / DN / EOOD 2027",
     seoDescription:
       "Болгария 2026: Type D, Digital Nomad, EOOD — пороги, компания, документы.",
   },
@@ -770,7 +770,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "živnost чехия ит",
       "blue card чехия порог",
     ],
-    seoTitle: "Чехия ВНЖ 2026 — Employee Card / živnost",
+    seoTitle: "Чехия ВНЖ 2027 — Employee Card / živnost",
     seoDescription:
       "Коридор Чехия: Employee Card, EU Blue Card, živnost IT. Для RU/BY/UA/KZ 2026.",
   },
@@ -784,7 +784,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "živnostenský list иностранец",
       "чехия blue card зарплата",
     ],
-    seoTitle: "ВНЖ Чехия 2026: Employee Card CZK 22 400",
+    seoTitle: "ВНЖ Чехия 2027: Employee Card CZK 22 400",
     seoDescription:
       "Employee Card от CZK 22 400 брутто; Blue Card CZK 73 823 с 01.05.2026. MOI, сроки для RU/BY/UA/KZ.",
   },
@@ -797,7 +797,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "eu blue card австрия",
       "red white red card points",
     ],
-    seoTitle: "Австрия RWR Card 2026",
+    seoTitle: "Австрия RWR Card 2027",
     seoDescription:
       "Коридор Австрия: RWR Card, EU Blue Card, самозанятость. Пороги 2026.",
   },
@@ -811,7 +811,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "австрия blue card порог",
       "внж австрия без работы сложно",
     ],
-    seoTitle: "ВНЖ Австрия 2026: RWR, семья, MA 35",
+    seoTitle: "ВНЖ Австрия 2027: RWR, семья, MA 35",
     seoDescription:
       "ВНЖ Австрия 2026: RWR Card (оффер, AMS, баллы) и Blue Card. Воссоединение семьи: доход, жильё, сроки часто 4–9 мес. В Вене — MA 35, в землях — BH.",
   },
@@ -824,7 +824,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "golden visa пороги 2026",
       "где купить внж за инвестиции ес",
     ],
-    seoTitle: "Сравнение Golden Visa 2026 — 8 программ, РФ и РБ",
+    seoTitle: "Сравнение Golden Visa 2027 — 8 программ, РФ и РБ",
     seoDescription:
       "Таблица 8 программ: порог, гражданство и паспорта РФ/РБ. Венгрия и ОАЭ открыты по OIF, ICP и DLD. Сверка 03.11.2026.",
   },
@@ -838,7 +838,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "golden visa португалия италия испания 2026",
       "что осталось от golden visa в европе",
     ],
-    seoTitle: "Golden Visa Европа 2026 — сравнение",
+    seoTitle: "Golden Visa Европа 2027 — сравнение",
     seoDescription:
       "Инвестиционный ВНЖ ЕС 2026: Греция, Кипр, Мальта, Венгрия… Португалия ARI закрыт по недвижимости.",
   },
@@ -852,7 +852,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "натурализация после внж pt es",
       "язык a2 ciple португалия",
     ],
-    seoTitle: "Гражданство PT/ES 2026 — 10 лет, CIPLE, DELE+CCSE",
+    seoTitle: "Гражданство PT/ES 2027 — 10 лет, CIPLE, DELE+CCSE",
     seoDescription:
       "Португалия: 10 лет, CIPLE A2 и знание культуры и устройства государства (с 19.05.2026), двойное гражданство — да. Испания: 10 лет, DELE A2 + CCSE, отказ от РФ.",
   },
@@ -866,7 +866,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "90/180 правило шенген",
       "туристическая виза не даёт работу ес",
     ],
-    seoTitle: "Шенген vs ВНЖ 2026",
+    seoTitle: "Шенген vs ВНЖ 2027",
     seoDescription:
       "Почему шенген-турист ≠ ВНЖ: 90/180, работа, банки, консульский риск. Emigro 2026.",
   },
@@ -880,7 +880,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "срочный выезд сербия грузия армения",
       "легализация после выезда из рф",
     ],
-    seoTitle: "Срочный выезд РФ 2026: Сербия, Турция, 90/180",
+    seoTitle: "Срочный выезд РФ 2027: Сербия, Турция, 90/180",
     seoDescription:
       "Безвиз: Сербия, Турция, KZ; Черногория — виза с 01.11.2026. Шенген 90/180 ≠ ВНЖ; хаб → консульство → виза D.",
   },
@@ -894,7 +894,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "внж на сбережениях европа 2026",
       "пассивный доход для внж пороги",
     ],
-    seoTitle: "ВНЖ без работы 2026 — пассивный доход",
+    seoTitle: "ВНЖ без работы 2027 — пассивный доход",
     seoDescription:
       "D7, non-lucrative, FIP, elective: ВНЖ на пассиве/сбережениях. Сравнение порогов 2026.",
   },
@@ -925,7 +925,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "residencia España vs Portugal LATAM",
       "art 22 codigo civil nacionalidad española",
     ],
-    seoTitle: "LATAM → España y Portugal 2026 — Emigro",
+    seoTitle: "LATAM → España y Portugal 2027 — Emigro",
     seoDescription:
       "Residencia para hispanohablantes LATAM: UY/EC/PE/PY/CO/CL → España y Portugal. Evaluador, pilares y nacionalidad española ~2 años (art. 22).",
   },
@@ -953,7 +953,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "ayuda documentos visa España latinoamericanos",
       "revisión ruta nómada digital España",
     ],
-    seoTitle: "Ayuda con residencia 2026: especialista gratis",
+    seoTitle: "Ayuda con residencia 2027: especialista gratis",
     seoDescription:
       "Emigro Assist LATAM: le presentamos gratis un abogado o agencia para España o Portugal. La comisión la paga el especialista, no usted.",
   },
@@ -993,7 +993,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "nacionalidad española uruguayos 2 años",
       "hub Uruguay Emigro España",
     ],
-    seoTitle: "Uruguay → España 2026",
+    seoTitle: "Uruguay → España 2027",
     seoDescription:
       "Hub Uruguay→España: Schengen corto ≠ residencia, nómada, no lucrativa, nacionalidad ~2 años.",
   },
@@ -1007,7 +1007,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "nacionalidad española ecuatorianos 2 años",
       "emigrar a España desde Ecuador visa",
     ],
-    seoTitle: "Ecuador → España 2026",
+    seoTitle: "Ecuador → España 2027",
     seoDescription:
       "Hub Ecuador→España: Schengen a menudo obligatorio; nómada/no lucrativa; nacionalidad ~2 años.",
   },
@@ -1021,7 +1021,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "nacionalidad española peruanos 2 años",
       "hub Perú Emigro España",
     ],
-    seoTitle: "Perú → España 2026",
+    seoTitle: "Perú → España 2027",
     seoDescription:
       "Hub Perú→España: Schengen ≠ residencia, nómada 200% SMI, no lucrativa, nacionalidad ~2 años.",
   },
@@ -1035,7 +1035,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "nacionalidad española paraguayos 2 años",
       "hub Paraguay Emigro España",
     ],
-    seoTitle: "Paraguay → España 2026",
+    seoTitle: "Paraguay → España 2027",
     seoDescription:
       "Hub Paraguay→España: rutas de residencia y nacionalidad ~2 años (art. 22).",
   },
@@ -1050,7 +1050,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "BLS Bogotá visa nacional España",
       "hub Colombia Emigro España",
     ],
-    seoTitle: "Colombia → España 2026",
+    seoTitle: "Colombia → España 2027",
     seoDescription:
       "Hub Colombia→España: nómada, no lucrativa, BLS/consulado, nacionalidad ~2 años.",
   },
@@ -1064,7 +1064,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "nacionalidad española chilenos 2 años",
       "hub Chile Emigro España",
     ],
-    seoTitle: "Chile → España residencia 2026",
+    seoTitle: "Chile → España residencia 2027",
     seoDescription:
       "Hub Chile→España: Schengen 90 días ≠ residencia, nómada digital, no lucrativa y nacionalidad en 2 años (art. 22).",
   },
@@ -1081,7 +1081,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "Schengen vs residencia Colombia España",
       "cuánto se gana para nómada digital España Colombia",
     ],
-    seoTitle: "Residencia España colombianos 2026 — 2 años",
+    seoTitle: "Residencia España colombianos 2027 — 2 años",
     seoDescription:
       "Colombianos en España 2026: Schengen ≠ residencia. Nómada digital (200% SMI), no lucrativa, Bogotá/BLS y nacionalidad en 2 años (art. 22).",
   },
@@ -1097,7 +1097,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "no lucrativa España uruguayos",
       "Montevideo consulado visa España",
     ],
-    seoTitle: "Emigrar a España desde Uruguay 2026",
+    seoTitle: "Emigrar a España desde Uruguay 2027",
     seoDescription:
       "Cómo emigrar a España desde Uruguay 2026: el Schengen corto no es residencia. Vías: nómada digital, no lucrativa y nacionalidad en 2 años (art. 22).",
   },
@@ -1113,7 +1113,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "no lucrativa España Ecuador",
       "visa corta Ecuador vs residencia España",
     ],
-    seoTitle: "Emigrar a España desde Ecuador 2026",
+    seoTitle: "Emigrar a España desde Ecuador 2027",
     seoDescription:
       "Ecuador necesita visado Schengen o nacional para España. Residencia 2026: nómada digital (200% SMI), no lucrativa y nacionalidad en 2 años (art. 22).",
   },
@@ -1129,7 +1129,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "no lucrativa España Perú umbral",
       "Lima consulado residencia España",
     ],
-    seoTitle: "Emigrar a España desde Perú 2026",
+    seoTitle: "Emigrar a España desde Perú 2027",
     seoDescription:
       "Cómo emigrar a España desde Perú 2026: Schengen no es residencia. Nómada (200% SMI), no lucrativa, Lima y nacionalidad en 2 años (art. 22).",
   },
@@ -1145,7 +1145,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "no lucrativa España Paraguay",
       "Asunción visa nacional España",
     ],
-    seoTitle: "Emigrar a España desde Paraguay 2026",
+    seoTitle: "Emigrar a España desde Paraguay 2027",
     seoDescription:
       "Cómo emigrar a España desde Paraguay 2026: Schengen 90/180 no es residencia. Nómada (200% SMI), no lucrativa en Asunción y nacionalidad en 2 años (art. 22).",
   },
@@ -1161,7 +1161,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "no lucrativa España Chile",
       "Santiago BLS visa España",
     ],
-    seoTitle: "Emigrar a España desde Chile 2026",
+    seoTitle: "Emigrar a España desde Chile 2027",
     seoDescription:
       "Cómo emigrar a España desde Chile 2026: Schengen no es residencia. Nómada digital (200% SMI), no lucrativa, Santiago y nacionalidad en 2 años (art. 22).",
   },
@@ -1178,7 +1178,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "visa digital nomad España LATAM 2026",
       "cuánto hay que ganar nómada digital España",
     ],
-    seoTitle: "Nómada digital España 2026 — LATAM",
+    seoTitle: "Nómada digital España 2027 — LATAM",
     seoDescription:
       "Visa nómada digital España 2026: 200% SMI mensual, UGE vs consulado, ≤20% clientes ES. Para pasaportes LATAM.",
   },
@@ -1194,7 +1194,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "medios económicos no lucrativa LATAM",
       "visa no lucrativa consulado primero",
     ],
-    seoTitle: "No lucrativa España 2026 — LATAM",
+    seoTitle: "No lucrativa España 2027 — LATAM",
     seoDescription:
       "Residencia no lucrativa España 2026: ~€2.400/mes (400% IPREM). Consulado primero — no planificar turista→NL.",
   },
@@ -1225,7 +1225,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "memoria democrática vs art 22 residencia",
       "quién puede pedir nacionalidad LMD 2026",
     ],
-    seoTitle: "Ley Memoria Democrática 2026 — LATAM",
+    seoTitle: "Ley Memoria Democrática 2027 — LATAM",
     seoDescription:
       "LMD 2026: nacionalidad por ascendencia española para LATAM — plazos, quién califica y en qué se diferencia de la residencia (art. 22).",
   },
@@ -1240,7 +1240,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "impuestos nómada digital España",
       "IRNR vs residente fiscal España",
     ],
-    seoTitle: "Impuestos Beckham España 2026 — LATAM",
+    seoTitle: "Impuestos Beckham España 2027 — LATAM",
     seoDescription:
       "Régimen de impatriados (Beckham) España 2026: quién califica, plazos, interacción con nómada digital.",
   },
@@ -1256,7 +1256,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "digital nomad Portugal colombianos chilenos",
       "cuándo elegir Portugal en vez de España",
     ],
-    seoTitle: "Portugal D8/D7 LATAM 2026",
+    seoTitle: "Portugal D8/D7 LATAM 2027",
     seoDescription:
       "D8/D7 Portugal para LATAM vs España: umbrales, nacionalidad 7–10 años PT vs ~2 años ES art. 22.",
   },
@@ -1272,7 +1272,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "seguro médico residencia España",
       "empadronamiento obligatorio España",
     ],
-    seoTitle: "Primeros 30 días en España 2026",
+    seoTitle: "Primeros 30 días en España 2027",
     seoDescription:
       "Checklist post-llegada: NIE, empadronamiento, TIE, banco, SIM. Para titulares de residencia LATAM.",
   },
@@ -1289,7 +1289,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "naturalisation France 5 ans Maghreb",
       "visa long séjour France Sénégal",
     ],
-    seoTitle: "Afrique francophone → France 2026",
+    seoTitle: "Afrique francophone → France 2027",
     seoDescription:
       "Hub Emigro FR: VLS-TS, Passeport Talent, naturalisation ~5 ans pour MA/DZ/TN/SN — sources officielles.",
   },
@@ -1343,7 +1343,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "Passeport Talent depuis Maroc",
       "hub Maroc Emigro France",
     ],
-    seoTitle: "Maroc → France 2026",
+    seoTitle: "Maroc → France 2027",
     seoDescription:
       "Hub Maroc→France: visa court ≠ résidence, VLS-TS, Talent, naturalisation ~5 ans.",
   },
@@ -1358,7 +1358,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "apostille Algérie 2026 France",
       "hub Algérie Emigro France",
     ],
-    seoTitle: "Algérie → France 2026",
+    seoTitle: "Algérie → France 2027",
     seoDescription:
       "Hub Algérie→France: VLS-TS, Talent, apostille (HCCH 2026). Naturalisation ~5 ans.",
   },
@@ -1372,7 +1372,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "Passeport Talent Tunisiens",
       "hub Tunisie Emigro France",
     ],
-    seoTitle: "Tunisie → France 2026",
+    seoTitle: "Tunisie → France 2027",
     seoDescription:
       "Hub Tunisie→France: VLS-TS, Passeport Talent, naturalisation ~5 ans.",
   },
@@ -1386,7 +1386,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "Passeport Talent Sénégalais",
       "hub Sénégal Emigro France",
     ],
-    seoTitle: "Sénégal → France 2026",
+    seoTitle: "Sénégal → France 2027",
     seoDescription:
       "Hub Sénégal→France: VLS-TS, Talent, naturalisation ~5 ans — sources officielles.",
   },
@@ -1403,7 +1403,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "consulat France Maroc résidence",
       "visa court séjour vs VLS-TS Maroc",
     ],
-    seoTitle: "Résidence en France depuis le Maroc 2026",
+    seoTitle: "Résidence en France depuis le Maroc 2027",
     seoDescription:
       "Visa et VLS-TS pour vivre en France depuis le Maroc: Talent, salarié, étudiant. Naturalisation ~5 ans + B2, pas un raccourci 2 ans.",
   },
@@ -1419,7 +1419,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "apostille documents Algérie France",
       "visa long séjour Algériens",
     ],
-    seoTitle: "Résidence en France depuis l'Algérie 2026",
+    seoTitle: "Résidence en France depuis l'Algérie 2027",
     seoDescription:
       "Algérie → France 2026: VLS-TS, Passeport Talent, apostille. Naturalisation ~5 ans + B2 — pas un raccourci de 2 ans. Sources service-public.",
   },
@@ -1435,7 +1435,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "visa long séjour Tunisiens 2026",
       "consulat France Tunisie résidence",
     ],
-    seoTitle: "Résidence en France depuis la Tunisie 2026",
+    seoTitle: "Résidence en France depuis la Tunisie 2027",
     seoDescription:
       "Visa et VLS-TS pour vivre en France depuis la Tunisie: Passeport Talent, salarié, étudiant. Naturalisation ~5 ans + B2 (service-public).",
   },
@@ -1451,7 +1451,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "visa long séjour Sénégalais 2026",
       "consulat France Sénégal résidence",
     ],
-    seoTitle: "Résidence en France depuis le Sénégal 2026",
+    seoTitle: "Résidence en France depuis le Sénégal 2027",
     seoDescription:
       "Visa et VLS-TS pour vivre en France depuis le Sénégal: Talent, salarié, étudiant. Naturalisation ~5 ans + B2, sources service-public.",
   },
@@ -1466,7 +1466,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "quelle voie résidence France MA DZ TN SN",
       "émigrer France depuis Afrique francophone",
     ],
-    seoTitle: "Résidence France Afrique francophone 2026",
+    seoTitle: "Résidence France Afrique francophone 2027",
     seoDescription:
       "Pilier: résidence France pour MA/DZ/TN/SN — VLS-TS, Talent, naturalisation. Matrice origines.",
   },
@@ -1483,7 +1483,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "VLS-TS Passeport Talent consulat",
       "Talent passport France from Morocco Algeria",
     ],
-    seoTitle: "Passeport Talent France 2026: seuil €39.582",
+    seoTitle: "Passeport Talent France 2027: seuil €39.582",
     seoDescription:
       "Passeport Talent France 2026 pour le Maghreb et le Sénégal: salarié qualifié souvent ≥ 39 582 € brut/an, catégories et VLS-TS. Confirmez sur service-public.",
   },
@@ -1500,7 +1500,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "naturalisation France pas 2 ans Maghreb",
       "délai naturalisation décret France 2026",
     ],
-    seoTitle: "Naturalisation France 2026 — 5 ans, B2, civique",
+    seoTitle: "Naturalisation France 2027 — 5 ans, B2, civique",
     seoDescription:
       "Naturalisation FR 2026 : 5 ans, B2, examen civique, timbre €255. Pas un « 2 ans Maghreb ». Sources F2213 / F11926.",
   },
@@ -1510,7 +1510,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     programSlug: "cyprus-digital-nomad",
     primaryQuery: "виза цифрового кочевника кипр",
     queries: ["виза цифрового кочевника кипр", "digital nomad кипр 2026", "кипр digital nomad доход"],
-    seoTitle: "Виза цифрового кочевника Кипр 2026: доход, сроки",
+    seoTitle: "Виза цифрового кочевника Кипр 2027: доход, сроки",
     seoDescription:
       "Виза цифрового кочевника на Кипре 2026: порог дохода, документы, подача через CRMD, сроки и продление. Разбор для паспортов RU/BY/UA/KZ.",
   },
@@ -1519,7 +1519,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     programSlug: "cyprus-category-f",
     primaryQuery: "категория f кипр",
     queries: ["категория f кипр", "внж кипр категория f 2026", "категория f кипр доход"],
-    seoTitle: "Категория F Кипр 2026: доход, документы, ПМЖ",
+    seoTitle: "Категория F Кипр 2027: доход, документы, ПМЖ",
     seoDescription:
       "Категория F на Кипре 2026: доход из-за рубежа без права работы, документы, подача в CRMD, продление и путь к ПМЖ. Для паспортов RU/BY/UA/KZ.",
   },
@@ -1528,7 +1528,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     programSlug: "spain-student-visa",
     primaryQuery: "студенческая виза испания",
     queries: ["студенческая виза испания", "студенческая виза в испанию 2026", "учёба в испании внж"],
-    seoTitle: "Студенческая виза Испания 2026: документы, сроки",
+    seoTitle: "Студенческая виза Испания 2027: документы, сроки",
     seoDescription:
       "Студенческая виза в Испанию 2026: зачисление, подтверждение средств, страховка, подача в консульстве, работа во время учёбы и переход на ВНЖ.",
   },
@@ -1546,7 +1546,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     programSlug: "germany-family-reunification",
     primaryQuery: "воссоединение семьи германия",
     queries: ["воссоединение семьи германия", "воссоединение семьи в германии 2026", "виза жены в германию"],
-    seoTitle: "Воссоединение семьи Германия 2026: документы",
+    seoTitle: "Воссоединение семьи Германия 2027: документы",
     seoDescription:
       "Воссоединение семьи в Германии 2026: кто может приехать, язык, жильё и доход, документы, подача в посольстве и Ausländerbehörde. Для RU/BY/UA/KZ.",
   },
@@ -1555,7 +1555,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     programSlug: "germany-student-visa",
     primaryQuery: "студенческая виза германия",
     queries: ["студенческая виза германия", "студенческая виза в германию 2026", "блокированный счёт германия"],
-    seoTitle: "Студенческая виза Германия 2026: блок-счёт, сроки",
+    seoTitle: "Студенческая виза Германия 2027: блок-счёт, сроки",
     seoDescription:
       "Студенческая виза в Германию 2026: зачисление, блокированный счёт (Sperrkonto), страховка, запись в посольство, работа во время учёбы.",
   },
@@ -1564,7 +1564,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     programSlug: "hungary-white-card",
     primaryQuery: "white card венгрия",
     queries: ["white card венгрия", "венгрия digital nomad 2026", "внж венгрии для удалёнщиков"],
-    seoTitle: "White Card Венгрия 2026: ВНЖ для удалёнщиков",
+    seoTitle: "White Card Венгрия 2027: ВНЖ для удалёнщиков",
     seoDescription:
       "White Card Венгрии 2026: ВНЖ для удалённой работы на иностранного работодателя, порог дохода, документы, подача в OIF, продление.",
   },
@@ -1573,7 +1573,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     programSlug: "greece-fip",
     primaryQuery: "внж греции пассивный доход",
     queries: ["внж греции пассивный доход", "fip греция 2026", "financially independent person греция"],
-    seoTitle: "ВНЖ Греции FIP 2026: пассивный доход, документы",
+    seoTitle: "ВНЖ Греции FIP 2027: пассивный доход, документы",
     seoDescription:
       "ВНЖ Греции для финансово независимых (FIP) 2026: пассивный доход, страховка, документы, национальная виза D и ВНЖ (migration.gov.gr).",
   },
@@ -1582,7 +1582,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     programSlug: "estonia-digital-nomad",
     primaryQuery: "виза цифрового кочевника эстония",
     queries: ["виза цифрового кочевника эстония", "digital nomad эстония 2026", "эстония d-виза удалённая работа"],
-    seoTitle: "Виза цифрового кочевника Эстония 2026: доход, сроки",
+    seoTitle: "Виза цифрового кочевника Эстония 2027: доход, сроки",
     seoDescription:
       "Виза цифрового кочевника Эстонии 2026: порог дохода, удалённая работа, документы, подача через politsei.ee и консульства. Разбор для RU/BY/UA/KZ.",
   },
@@ -1591,7 +1591,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     programSlug: "spain-family-reunification",
     primaryQuery: "воссоединение семьи испания",
     queries: ["воссоединение семьи испания", "reagrupación familiar испания 2026", "воссоединение семьи в испании документы"],
-    seoTitle: "Воссоединение семьи Испания 2026: документы",
+    seoTitle: "Воссоединение семьи Испания 2027: документы",
     seoDescription:
       "Воссоединение семьи в Испании (reagrupación familiar) 2026: кто может подать, средства и жильё, документы, сроки, подача в extranjería.",
   },
@@ -1600,7 +1600,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     programSlug: "netherlands-startup-facilitator",
     primaryQuery: "стартап виза нидерланды",
     queries: ["стартап виза нидерланды", "startup visa нидерланды 2026", "фасилитатор нидерланды ind"],
-    seoTitle: "Стартап-виза Нидерланды 2026: фасилитатор, сроки",
+    seoTitle: "Стартап-виза Нидерланды 2027: фасилитатор, сроки",
     seoDescription:
       "Стартап-виза Нидерландов 2026: аккредитованный фасилитатор, инновационный продукт, средства на год, подача в IND и переход на self-employed.",
   },
@@ -1609,7 +1609,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     programSlug: "estonia-e-residency-ou",
     primaryQuery: "e-residency эстония",
     queries: ["e-residency эстония", "е-резидентство эстонии 2026", "e-residency это внж"],
-    seoTitle: "E-residency Эстония 2026: не ВНЖ, что даёт",
+    seoTitle: "E-residency Эстония 2027: не ВНЖ, что даёт",
     seoDescription:
       "E-residency Эстонии 2026: цифровая ID для компании и подписи, не ВНЖ и не право жить в ЕС. Что даёт, как оформить, где забрать карту.",
   },
@@ -1623,7 +1623,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "рабочий внж дании 2026",
       "siri pay limit dkk 552000",
     ],
-    seoTitle: "Рабочая виза в Данию 2026: Pay Limit и зарплата",
+    seoTitle: "Рабочая виза в Данию 2027: Pay Limit и зарплата",
     seoDescription:
       "Как получить рабочий ВНЖ Дании в 2026 году: Pay Limit Scheme, зарплата от DKK 552 000, Supplementary Pay Limit, требования SIRI, расходы и сроки оформления.",
   },
@@ -1641,7 +1641,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     programSlug: "denmark-positive-list",
     primaryQuery: "positive list дания 2026",
     queries: ["positive list дания", "дефицитные профессии дания внж", "skilled work дания siri"],
-    seoTitle: "Positive List Дания 2026: два списка SIRI",
+    seoTitle: "Positive List Дания 2027: два списка SIRI",
     seoDescription:
       "Positive List Дании 2026: рабочий ВНЖ, если должность в списке SIRI. Высшее образование обычно 1 месяц, skilled work обычно 3 месяца, сбор DKK 6 810.",
   },
@@ -1650,7 +1650,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     programSlug: "denmark-fast-track",
     primaryQuery: "fast-track дания siri",
     queries: ["fast-track дания", "сертифицированный работодатель siri", "fast track scheme denmark"],
-    seoTitle: "Fast-track Дания 2026: работодатель SIRI",
+    seoTitle: "Fast-track Дания 2027: работодатель SIRI",
     seoDescription:
       "Fast-track Дании 2026: ВНЖ через работодателя, сертифицированного SIRI. Pay limit track обычно 1 месяц, supplementary track 2 месяца, сбор DKK 6 810.",
   },
@@ -1659,7 +1659,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     programSlug: "poland-eu-blue-card",
     primaryQuery: "eu blue card польша 2026",
     queries: ["eu blue card польша 2026", "blue card зарплата польша pln"],
-    seoTitle: "EU Blue Card Польша 2026 — порог PLN",
+    seoTitle: "EU Blue Card Польша 2027 — порог PLN",
     seoDescription:
       "EU Blue Card Польша 2026: выпускник вуза, квалифицированная работа, порог 150% средней GUS (ориентир PLN 13 041/мес на странице). Виза D + karta pobytu.",
   },
@@ -1668,7 +1668,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     programSlug: "czechia-eu-blue-card",
     primaryQuery: "eu blue card чехия 2026",
     queries: ["eu blue card чехия 2026", "blue card зарплата чехия czk"],
-    seoTitle: "EU Blue Card Чехия 2026 — порог CZK",
+    seoTitle: "EU Blue Card Чехия 2027 — порог CZK",
     seoDescription:
       "EU Blue Card Чехия 2026: диплом, pracovní smlouva, порог ~150% средней (~CZK 67 500/мес брутто на странице). Zaměstnanecká karta + pobyt.",
   },
@@ -1677,7 +1677,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     programSlug: "austria-eu-blue-card",
     primaryQuery: "eu blue card австрия 2026",
     queries: ["eu blue card австрия 2026", "blue card зарплата австрия"],
-    seoTitle: "EU Blue Card Австрия 2026 — порог €",
+    seoTitle: "EU Blue Card Австрия 2027 — порог €",
     seoDescription:
       "EU Blue Card Австрия 2026: диплом, Arbeitsvertrag, порог зарплаты на странице (ориентир €58 000/год брутто). RWR-альтернатива от €3 465/мес.",
   },
@@ -1686,7 +1686,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     programSlug: "slovenia-family-reunification",
     primaryQuery: "воссоединение семьи словения 2026",
     queries: ["воссоединение семьи словения 2026", "семья digital nomad словения"],
-    seoTitle: "Воссоединение семьи в Словении 2026",
+    seoTitle: "Воссоединение семьи в Словении 2027",
     seoDescription:
       "Воссоединение семьи в Словении 2026: к DN или иному резиденту. Для digital nomads GOV.SI отмечает облегчённый режим, без ожидания стажа спонсора.",
   },
@@ -1695,7 +1695,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     programSlug: "slovenia-self-employed-sp",
     primaryQuery: "словения внж самозанятость s.p. 2026",
     queries: ["словения внж самозанятость s.p.", "s.p. словения внж 2026"],
-    seoTitle: "ВНЖ Словения s.p. самозанятость 2026",
+    seoTitle: "ВНЖ Словения s.p. самозанятость 2027",
     seoDescription:
       "ВНЖ Словении через s.p. (самозанятость) 2026: регистрация s.p. и temporary residence. Normirani ≈ 4% PIT, взносы ZZZS отдельно. Сроки ориентир 1–3 месяца.",
   },
@@ -1704,7 +1704,7 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
     programSlug: "austria-family-reunification",
     primaryQuery: "воссоединение семьи австрия 2026",
     queries: ["воссоединение семьи австрия 2026", "семья австрия сроки виза"],
-    seoTitle: "Воссоединение семьи в Австрии 2026",
+    seoTitle: "Воссоединение семьи в Австрии 2027",
     seoDescription:
       "Воссоединение семьи в Австрии 2026: спонсор с легальным статусом, достаточный доход и жильё. Ориентир по срокам: 2–6 недель на визу плюс 5–12 месяцев.",
   },

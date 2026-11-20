@@ -11,14 +11,14 @@ const description =
 const hubHero = getComoGuideMedia("best-things-to-do-lake-como-tremezzo")?.photos[0];
 
 export const metadata: Metadata = {
-  title: "Lake Como 2026: practical guides from Tremezzo",
+  title: "Lake Como 2027: practical guides from Tremezzo",
   description,
   alternates: {
     canonical: italySatelliteUrl("/en"),
     languages: { en: italySatelliteUrl("/en"), "x-default": italySatelliteUrl("/en") },
   },
   openGraph: {
-    title: "Lake Como 2026: practical guides from Tremezzo",
+    title: "Lake Como 2027: practical guides from Tremezzo",
     description,
     url: italySatelliteUrl("/en"),
     type: "website",

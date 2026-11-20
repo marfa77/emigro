@@ -1,8 +1,8 @@
 ---
 slug: pervye-30-dnej-v-gretsii-2026
-title: "Первые 30 дней в Греции 2026: AFM, AMKA, банк, residence"
-seo_title: "Первые 30 дней в Греции 2026 — AFM, AMKA, банк, ВНЖ"
-seo_description: "Чек-лист после прилёта в Грецию 2026: AFM, residence permit, банк, AMKA, DEI/EYDAP. DN только через консульство (Law 5275/2026). Для RU/BY/UA/KZ."
+title: "Первые 30 дней в Греции 2027: AFM, AMKA, банк, residence"
+seo_title: "Первые 30 дней в Греции 2027 — AFM, AMKA, банк, ВНЖ"
+seo_description: "Чек-лист после прилёта в Грецию 2027: AFM, residence permit, банк, AMKA, DEI/EYDAP. DN только через консульство (Law 5275/2026). Для RU/BY/UA/KZ."
 excerpt: "Практический месяц после въезда по Type D: AFM в KEP, миграция, греческий банк, AMKA, utilities. Скидка 50% (ст. 5C) не включается автоматически с DNV."
 quick_answer: |-
   AFM берите в первые дни в KEP или AADE. Digital nomad с 6 февраля 2026 (Law 5275/2026): визу Type D оформляют в консульстве до въезда, затем residence permit. Дальше банк, AMKA и utilities.

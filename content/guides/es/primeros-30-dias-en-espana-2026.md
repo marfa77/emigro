@@ -1,8 +1,8 @@
 ---
 slug: primeros-30-dias-en-espana-2026
-title: "Primeros 30 días en España 2026: checklist de llegada"
-seo_title: "NIE y TIE España 2026 — primeros 30 días"
-seo_description: "Checklist llegada España 2026 para LATAM con visado nacional: empadronamiento, NIE, SIM, banco, cita extranjería y TIE. Evite bloqueos de alquiler/banco."
+title: "Primeros 30 días en España 2027: checklist de llegada"
+seo_title: "NIE y TIE España 2027 — primeros 30 días"
+seo_description: "Checklist llegada España 2027 para LATAM con visado nacional: empadronamiento, NIE, SIM, banco, cita extranjería y TIE. Evite bloqueos de alquiler/banco."
 excerpt: "Qué hacer el primer mes tras llegar con visado de residencia: NIE, padrón, banco, SIM y TIE."
 quick_answer: "Priorice en ~30 días: (1) empadronamiento, (2) NIE/cita de extranjería según su caso, (3) SIM española, (4) cuenta bancaria, (5) huellas/TIE cuando corresponda. Sin padrón y NIE se atascan banco, alquiler y renovaciones. Aplica a UY/EC/PE/PY/CO y resto LATAM con visado nacional."
 corridor_slugs: [es-speaking-uruguay-to-spain, es-speaking-ecuador-to-spain, es-speaking-latam-to-europe]

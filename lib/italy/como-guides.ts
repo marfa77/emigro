@@ -105,8 +105,8 @@ const tulipaniImages: ComoGuideImage[] = [
 export const COMO_GUIDES: ComoGuide[] = [
   {
     slug: "lake-como-ferry-guide-timetables",
-    title: "Lake Como ferries: the practical 2026 guide from Tremezzo",
-    seoTitle: "Lake Como Ferry Timetable 2026: Tremezzo Guide",
+    title: "Lake Como ferries: the practical 2027 guide from Tremezzo",
+    seoTitle: "Lake Como Ferry Timetable 2027: Tremezzo Guide",
     description:
       "Lake Como ferry guide for 2026: seasonal timetables, Tremezzo routes, fast boats, car ferries, tickets and missed-last-boat backup plans.",
     excerpt:
@@ -212,7 +212,7 @@ export const COMO_GUIDES: ComoGuide[] = [
   {
     slug: "lake-como-hiking-best-trails",
     title: "Best Lake Como hikes: five real trails from Tremezzo",
-    seoTitle: "Best Lake Como Hikes 2026: 5 Trails from Tremezzo",
+    seoTitle: "Best Lake Como Hikes 2027: 5 Trails from Tremezzo",
     description:
       "Five real Lake Como hikes from Tremezzo: Greenway del Lario, San Martino, Monte Crocione, Monte Grona and Sentiero del Viandante.",
     excerpt:
@@ -322,8 +322,8 @@ export const COMO_GUIDES: ComoGuide[] = [
   },
   {
     slug: "madesimo-ski-trip-from-lake-como",
-    title: "Skiing in Madesimo from Lake Como: the complete 2026 trip plan",
-    seoTitle: "Madesimo Ski from Lake Como 2026: 40 km, Sky Express, RidottoDì",
+    title: "Skiing in Madesimo from Lake Como: the complete 2027 trip plan",
+    seoTitle: "Madesimo Ski from Lake Como 2027: 40 km, Sky Express, RidottoDì",
     description:
       "Deeper than the destination page: SS36 from Tremezzo, Campodolcino Sky Express PDF, Larici, MadePark, night ski €22, RidottoDì −30%, helmets D.L. 96/2025, Val di Lei status.",
     excerpt:
@@ -611,7 +611,7 @@ export const COMO_GUIDES: ComoGuide[] = [
   {
     slug: "lake-como-yellow-pages-transport-services",
     title: "Lake Como yellow pages: transport, help and useful services",
-    seoTitle: "Lake Como Yellow Pages 2026: Tremezzo Transport",
+    seoTitle: "Lake Como Yellow Pages 2027: Tremezzo Transport",
     description:
       "Lake Como practical directory for Tremezzo: bus, ferry, train links, pharmacies, tourist offices, emergency numbers and the local Telegram mercatino @comomercatino.",
     excerpt:
@@ -726,7 +726,7 @@ export const COMO_GUIDES: ComoGuide[] = [
   {
     slug: "best-things-to-do-lake-como-tremezzo",
     title: "Best things to do on Lake Como: 10 places from Tremezzo",
-    seoTitle: "10 Best Things to Do in Lake Como 2026 from Tremezzo",
+    seoTitle: "10 Best Things to Do in Lake Como 2027 from Tremezzo",
     description:
       "Ten top Lake Como attractions from Tremezzo with 2026 opening details, ferry logic, booking warnings and a realistic three-day itinerary.",
     excerpt:

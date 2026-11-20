@@ -13,7 +13,7 @@ const DESCRIPTION =
   "Guides pillar Emigro en français 2026 : résidence France depuis MA/DZ/TN/SN, Passeport Talent, naturalisation ~5 ans — sources officielles.";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Guides résidence France Afrique 2026",
+  title: "Guides résidence France Afrique 2027",
   description: DESCRIPTION,
   path: FR_PATHS.guides,
   locale: "fr",

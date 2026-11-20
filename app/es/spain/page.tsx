@@ -12,7 +12,7 @@ import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
 export const revalidate = 3600;
 
 export const metadata: Metadata = pageMetadata({
-  title: "España para latinoamericanos 2026 — residencia",
+  title: "España para latinoamericanos 2027 — residencia",
   description:
     "Vivir en España siendo latinoamericano 2026: nómada digital (200% SMI), no lucrativa, trabajo, llegada NIE/TIE y nacionalidad en 2 años (art. 22).",
   path: ES_PATHS.spain,

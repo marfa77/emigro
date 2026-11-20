@@ -1,9 +1,9 @@
 ---
 slug: vnj-malta-2026-nomad-mprp-non-dom
-title: "ВНЖ Мальта 2026: Nomad Residence Permit и MPRP"
-seo_title: "ВНЖ Мальта 2026 — NRP + MPRP + Non-Dom"
-seo_description: "Мальта 2026: NRP €42k gross (закрыт для РФ/BY), MPRP = PR не паспорт, Non-Dom ≠ ВНЖ. Residency Malta."
-excerpt: "Два мальтийских маршрута 2026: Nomad Residence Permit для удалёнки (не для паспортов РФ/BY) и MPRP — сразу permanent residence. Non-Dom, практика после прилёта и жёсткие оговорки по гражданству."
+title: "ВНЖ Мальта 2027: Nomad Residence Permit и MPRP"
+seo_title: "ВНЖ Мальта 2027 — NRP + MPRP + Non-Dom"
+seo_description: "Мальта 2027: NRP €42k gross (закрыт для РФ/BY), MPRP = PR не паспорт, Non-Dom ≠ ВНЖ. Residency Malta."
+excerpt: "Два мальтийских маршрута 2027: Nomad Residence Permit для удалёнки (не для паспортов РФ/BY) и MPRP — сразу permanent residence. Non-Dom, практика после прилёта и жёсткие оговорки по гражданству."
 quick_answer: |-
   Мальтийский NRP (digital nomad): валовой доход от €42 000 в год, карта на год, продление максимум до 4 лет. Работать можно только удалённо на нерезидентов Мальты. Заявки от граждан РФ и Беларуси сейчас не принимают (Residency Malta).
 

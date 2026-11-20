@@ -1,6 +1,6 @@
 ---
 slug: vnj-shvetsiya-2026-work-permit-grazhdanstvo
-title: "ВНЖ Швеция 2026: work permit, Blue Card, семья и гражданство за 8 лет"
+title: "ВНЖ Швеция 2027: work permit, Blue Card, семья и гражданство за 8 лет"
 seo_title: "ВНЖ Швеция 2026 — work permit SEK 34 470, гражданство 8 лет"
 seo_description: "Швеция 2026 для RU/UA/BY/KZ: work permit от SEK 34 470 (90% медианы), Blue Card SEK 53 625, self-employed, учёба, семья. ПМЖ ~4 года, гражданство 8 лет с 06.06.2026."
 excerpt: "Коридор для высокооплачиваемых специалистов: без квот на work permit, но с растущим зарплатным порогом и 8 годами до паспорта после реформы июня 2026."

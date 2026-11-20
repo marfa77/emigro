@@ -1,9 +1,9 @@
 ---
 slug: residencia-espana-desde-peru-2026
-title: "Residencia en España para peruanos 2026"
-seo_title: "Emigrar a España desde Perú 2026"
+title: "Residencia en España para peruanos 2027"
+seo_title: "Emigrar a España desde Perú 2027"
 seo_description: "Cómo emigrar a España desde Perú 2026: Schengen ≠ residencia. Nómada digital (200% SMI), no lucrativa, Lima, apostilla y nacionalidad en 2 años (art. 22)."
-excerpt: "Guía pillar: turista Schengen vs vivir en España con pasaporte PE. Rutas 2026, documentos desde Perú y horizonte de nacionalidad española a 2 años."
+excerpt: "Guía pillar: turista Schengen vs vivir en España con pasaporte PE. Rutas 2027, documentos desde Perú y horizonte de nacionalidad española a 2 años."
 quick_answer: "Perú suele entrar a Schengen sin visado (90/180), pero residir exige vía nacional: nómada digital (200% SMI mensual, ≈ €2.442/mes en 2026; UGE o consulado Lima), no lucrativa (consulado primero), trabajo, estudios o reagrupación. Art. 22: ~2 años de residencia legal para nacionalidad (CCSE; DELE suele exento). Convenio dualidad PE–ES 1960. Emigro: pilares + evaluador /es/wizard."
 corridor_slugs: [es-speaking-peru-to-spain, es-speaking-latam-to-europe]
 topic_keys: [spain, peru, visa, residence]

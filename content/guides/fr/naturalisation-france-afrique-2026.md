@@ -1,8 +1,8 @@
 ---
 slug: naturalisation-france-afrique-2026
-title: "Naturalisation française pour ressortissants africains 2026"
-seo_title: "Naturalisation France 2026 — 5 ans, B2, civique"
-seo_description: "Naturalisation FR 2026 : 5 ans, français B2, examen civique, timbre €255. Pas un « 2 ans Maghreb ». Sources service-public F2213 / F11926."
+title: "Naturalisation française pour ressortissants africains 2027"
+seo_title: "Naturalisation France 2027 — 5 ans, B2, civique"
+seo_description: "Naturalisation FR 2027 : 5 ans, français B2, examen civique, timbre €255. Pas un « 2 ans Maghreb ». Sources service-public F2213 / F11926."
 excerpt: "Pilar naturalisation : 5 ans, B2 + examen civique, réductions (études 21-18), process préfecture / ANEF."
 quick_answer: "Règle générale : 5 ans de résidence régulière et continue, français B2 (oral+écrit), examen civique, timbre €255 (métropole, depuis 01.05.2026). Pas un raccourci « 2 ans Maghreb ». Emigro + UniPrep civic mock FR."
 corridor_slugs: [fr-speaking-africa-to-europe, fr-speaking-africa-to-europe]

@@ -1,7 +1,7 @@
 ---
 slug: oae-dlya-rossiyan-2026
-title: "ОАЭ для россиян 2026: резиденция, бизнес, банки, налоги"
-seo_title: "ОАЭ для россиян 2026 — Golden Visa, фризоны, банки, QFZP"
+title: "ОАЭ для россиян 2027: резиденция, бизнес, банки, налоги"
+seo_title: "ОАЭ для россиян 2027 — Golden Visa, фризоны, банки, QFZP"
 seo_description: "ОАЭ 2026: безвиз 90 дней, Golden Visa AED 2M, property 2г, Green Visa AED 360k/год, Remote Work $3500, QFZP. Для РФ."
 excerpt: "Премиальный хаб settle/транзит: резиденция без «пустой фризоны», банки для RU, 0% НДФЛ физлиц и ловушка QFZP — с маршрутами в Европу отдельно."
 quick_answer: |-

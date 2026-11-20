@@ -11,7 +11,7 @@ import { llmUtmUrl } from "@/lib/seo/llm-meta";
 export const revalidate = 3600;
 
 export const metadata: Metadata = pageMetadata({
-  title: "Evaluador LATAM → España y Portugal 2026",
+  title: "Evaluador LATAM → España y Portugal 2027",
   titleAbsolute: true,
   description:
     "Compare rutas de residencia en España y Portugal con pasaporte UY/EC/PE/PY/CO/CL: nómada digital, no lucrativa, D8/D7 y horizonte de nacionalidad.",

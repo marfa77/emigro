@@ -1,9 +1,9 @@
 ---
 slug: velikobritaniya-2026-skilled-worker-global-talent-ilr
-title: "Великобритания 2026: Skilled Worker, Global Talent, Graduate, Family"
-seo_title: "Великобритания 2026 — Skilled Worker £41 700, Global Talent, ILR"
-seo_description: "UK 2026: Skilled Worker £41 700, Health & Care £25 000, HPI, Graduate 2г/18м, Family £29 000, ILR. Для RU/BY/UA/KZ."
-excerpt: "Pillar по UK points-based routes 2026: пороги зарплат, HPI/Graduate, семья, NHS/IHS, первые 30 дней и безопасные формулировки по ILR/гражданству."
+title: "Великобритания 2027: Skilled Worker, Global Talent, Graduate, Family"
+seo_title: "Великобритания 2027 — Skilled Worker £41 700, Global Talent, ILR"
+seo_description: "UK 2027: Skilled Worker £41 700, Health & Care £25 000, HPI, Graduate 2г/18м, Family £29 000, ILR. Для RU/BY/UA/KZ."
+excerpt: "Pillar по UK points-based routes 2027: пороги зарплат, HPI/Graduate, семья, NHS/IHS, первые 30 дней и безопасные формулировки по ILR/гражданству."
 quick_answer: |-
   Skilled Worker: £41 700 в год или going rate плюс спонсор. Сборы с 8 апреля 2026: £819 / £1 618 снаружи и £943 / £1 865 изнутри; Immigration Skills Charge £628 / £1 235.
 

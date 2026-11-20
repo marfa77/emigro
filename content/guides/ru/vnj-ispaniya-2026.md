@@ -1,10 +1,10 @@
 ---
 slug: vnj-ispaniya-2026
-title: "Digital nomad Испания 2026 — все пути ВНЖ"
+title: "Digital nomad Испания 2027 — все пути ВНЖ"
 seo_title: "Digital nomad ES 2026: 200% SMI teletrabajo"
 seo_description: "Digital nomad visa Испания 2026: 200% SMI mensual (≈ €2.442/мес, RD 126/2026), teletrabajo, Beckham, non-lucrative. Pillar для RU/BY/UA/KZ."
 date_modified: 2026-11-16
-excerpt: "Испания — популярное направление для релокации из СНГ: Digital Nomad Visa, Non-lucrative и другие пути. (Golden Visa полностью закрыта с апреля 2025.) Разбираем все маршруты на 2026 год."
+excerpt: "Испания — популярное направление для релокации из СНГ: Digital Nomad Visa, Non-lucrative и другие пути. (Golden Visa полностью закрыта с апреля 2025.) Разбираем все маршруты на 2027 год."
 quick_answer: |-
   В Испании для граждан СНГ чаще сравнивают digital nomad (удалённая работа, **200% SMI mensual**, ≈ **€2.442/мес** в 2026 по RD 126/2026) и non-lucrative (пассивный доход или накопления, около €2 400 в месяц, без права работать). Golden Visa полностью закрыта с 3 апреля 2025 — все инвестиционные пути отменены.
 

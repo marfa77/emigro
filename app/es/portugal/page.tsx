@@ -11,7 +11,7 @@ import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
 export const revalidate = 3600;
 
 export const metadata: Metadata = pageMetadata({
-  title: "Portugal para latinoamericanos 2026 — D8/D7",
+  title: "Portugal para latinoamericanos 2027 — D8/D7",
   description:
     "Portugal D8 (~€3.680) y D7 (~€920) para LATAM 2026: AIMA, familia y comparación con España (nacionalidad ~2 años art. 22).",
   path: ES_PATHS.portugal,

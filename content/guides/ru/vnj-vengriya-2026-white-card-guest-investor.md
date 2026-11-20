@@ -1,9 +1,9 @@
 ---
 slug: vnj-vengriya-2026-white-card-guest-investor
-title: "ВНЖ Венгрия 2026: White Card и Guest Investor"
-seo_title: "Guest Investor Венгрия 2026 — €250 000"
+title: "ВНЖ Венгрия 2027: White Card и Guest Investor"
+seo_title: "Guest Investor Венгрия 2027 — €250 000"
 seo_description: "ВНЖ Венгрия 2026: White Card €3 000/мес net (макс. 2 года, без семьи и ПМЖ), Guest Investor €250k фонд / €1M донейшн. Enter Hungary, OIF. Для RU/BY/UA/KZ."
-excerpt: "Два венгерских маршрута 2026: White Card для удалёнки и Guest Investor (€250k фонд) — цифры OIF, ограничения по семье/статусу и практика первых 30 дней в Будапеште."
+excerpt: "Два венгерских маршрута 2027: White Card для удалёнки и Guest Investor (€250k фонд) — цифры OIF, ограничения по семье/статусу и практика первых 30 дней в Будапеште."
 quick_answer: |-
   White Card — удалёнка от €3 000 чистыми в месяц за последние 6 месяцев, карта на год с одним продлением. Это не путь к национальному ПМЖ и воссоединению семьи (исключение OIF). Если стали налоговым резидентом (часто после 183 дней), платите 15% с мирового дохода — не «0% как у кочевника».
 

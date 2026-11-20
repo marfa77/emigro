@@ -1,9 +1,9 @@
 ---
 slug: vnj-bolgariya-2026-type-d-digital-nomad-eood
-title: "ВНЖ Болгария 2026: Type D, Digital Nomad, EOOD"
-seo_title: "ВНЖ Болгария 2026 — Type D, DN, EOOD, 10%"
+title: "ВНЖ Болгария 2027: Type D, Digital Nomad, EOOD"
+seo_title: "ВНЖ Болгария 2027 — Type D, DN, EOOD, 10%"
 seo_description: "ВНЖ Болгария 2026: Type D, Digital Nomad (~€31 010/год, макс. 1+1), EOOD (€1 капитал), 10% flat tax, евро с 01.01.2026. ПМЖ, гражданство с оговорками. Для RU/BY/UA/KZ."
-excerpt: "Болгария 2026: Type D → residence permit, новый Digital Nomad (короткий трек), EOOD для предпринимателей, 10% налог и евро. Практика после прилёта и реалистичный путь к ПМЖ/паспорту."
+excerpt: "Болгария 2027: Type D → residence permit, новый Digital Nomad (короткий трек), EOOD для предпринимателей, 10% налог и евро. Практика после прилёта и реалистичный путь к ПМЖ/паспорту."
 quick_answer: |-
   Сначала виза Type D (€100–120), затем residence в миграции: адрес за 5 дней, ВНЖ за 14. Digital nomad: доход не меньше 50 минимальных зарплат (BGN 1 213 / €620,20) — около €31 010 в год. Карта 1+1, примерно 2 года, потом нужна смена основания: с nomad в ПМЖ не переходят.
 

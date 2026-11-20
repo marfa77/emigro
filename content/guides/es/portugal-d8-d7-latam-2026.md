@@ -1,9 +1,9 @@
 ---
 slug: portugal-d8-d7-latam-2026
-title: "Portugal D8 y D7 para latinoamericanos 2026"
-seo_title: "Portugal D8/D7 LATAM 2026 vs España 2 años"
+title: "Portugal D8 y D7 para latinoamericanos 2027"
+seo_title: "Portugal D8/D7 LATAM 2027 vs España 2 años"
 seo_description: "D8 nómada (~€3.680) y D7 rentista (~€920) para LATAM 2026: RMMG, AIMA, familia. Nacionalidad PT 7/10 años vs España art. 22 (~2 años)."
-excerpt: "Pillar Portugal LATAM: D8 vs D7, umbrales 2026, consulado→AIMA y cuándo España gana por nacionalidad en 2 años."
+excerpt: "Pillar Portugal LATAM: D8 vs D7, umbrales 2027, consulado→AIMA y cuándo España gana por nacionalidad en 2 años."
 quick_answer: "D8 (remote): ~€3.680/mes (4× RMMG €920). D7 (pasivo): ~€920/mes + % familia. Vía: visto D consular → AIMA → TAR. Nacionalidad PT: 7 años CPLP/BR, 10 años resto LATAM. España art. 22 suele ser ~2 años para iberoamericanos — criterio clave al elegir destino."
 corridor_slugs:
   [

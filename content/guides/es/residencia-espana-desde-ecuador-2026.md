@@ -1,9 +1,9 @@
 ---
 slug: residencia-espana-desde-ecuador-2026
-title: "Residencia en España para ecuatorianos 2026"
-seo_title: "Emigrar a España desde Ecuador 2026"
+title: "Residencia en España para ecuatorianos 2027"
+seo_title: "Emigrar a España desde Ecuador 2027"
 seo_description: "Ecuador necesita visado Schengen o nacional para España. Residencia 2026: nómada digital (200% SMI), no lucrativa y nacionalidad en 2 años (art. 22)."
-excerpt: "Guía pillar: pasaporte EC necesita visado Schengen corto. Rutas 2026 de residencia, documentos desde Ecuador y horizonte de nacionalidad española a 2 años."
+excerpt: "Guía pillar: pasaporte EC necesita visado Schengen corto. Rutas 2027 de residencia, documentos desde Ecuador y horizonte de nacionalidad española a 2 años."
 quick_answer: "Ecuador está en Anexo I: para entrar a Schengen suele necesitar visado C (corta) o, para residir, visado nacional D. No asuma entrada como turista sin visado. Residencia: nómada digital (200% SMI mensual, ≈ €2.442/mes en 2026; UGE si ya legal en ES, o consulado), no lucrativa (consulado primero), trabajo, estudios o reagrupación. Art. 22: ~2 años. Emigro: pilares + evaluador /es/wizard."
 corridor_slugs: [es-speaking-ecuador-to-spain, es-speaking-latam-to-europe]
 topic_keys: [spain, ecuador, visa, residence]

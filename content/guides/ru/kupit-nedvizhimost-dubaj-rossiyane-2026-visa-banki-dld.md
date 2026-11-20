@@ -1,8 +1,8 @@
 ---
 slug: kupit-nedvizhimost-dubaj-rossiyane-2026-visa-banki-dld
-title: "Купить недвижимость в Дубае с паспортом РФ в 2026: виза, банки, KYC и проверка оффера"
-seo_title: "Дубай недвижимость для россиян 2026 — виза, банки, DLD"
-seo_description: "Недвижимость в Дубае с паспортом РФ в 2026: Golden Visa от AED 2 млн или 2-летняя виза, проверка банком и происхождения денег, сверка цены с реестром DLD."
+title: "Купить недвижимость в Дубае с паспортом РФ в 2027: виза, банки, KYC и проверка оффера"
+seo_title: "Дубай недвижимость для россиян 2027 — виза, банки, DLD"
+seo_description: "Недвижимость в Дубае с паспортом РФ в 2027: Golden Visa от AED 2 млн или 2-летняя виза, проверка банком и происхождения денег, сверка цены с реестром DLD."
 excerpt: "Покупка в Дубае для граждан РФ — не только объект: статус, банковский KYC, происхождение денег и проверка оффера по данным DLD."
 quick_answer: |-
   Покупка недвижимости в Дубае сама по себе не даёт Golden Visa. В 2026 для Golden Residence через RE ориентир — совокупная стоимость от **AED 2 млн** при выполнении требований [ICP](https://icp.gov.ae/en/services/uae-golden-residency/) / [DLD](https://dubailand.gov.ae/); условия сверяйте на дату подачи. Отдельный маршрут — **2-летняя Taskeen**: у sole owner порог стоимости снят, у joint — доля от **AED 400 000**, нужен title deed (не off-plan «из брошюры»). Банки требуют KYC, SoF/SoW; residence + Emirates ID сильно упрощают путь, но non-resident продукт юридически не запрещён автоматически — решает risk appetite банка. Перед переводом: ask ≠ registered sold — сверка на [uaeproperty.vip](https://uaeproperty.vip?utm_source=emigro&utm_medium=guide&utm_campaign=dubai_ru_bridge_2026&utm_content=kupit-nedvizhimost-dubaj-rossiyane-2026-visa-banki-dld). Бюджет и цель ясны → [qualifier Emigro](/ru/invest/uae#qualifier).

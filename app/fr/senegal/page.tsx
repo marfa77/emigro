@@ -16,7 +16,7 @@ import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
 export const revalidate = 3600;
 
 export const metadata: Metadata = pageMetadata({
-  title: "Résidence en France pour Sénégalais 2026",
+  title: "Résidence en France pour Sénégalais 2027",
   description:
     "Comment émigrer en France depuis le Sénégal 2026 : visa ≠ résidence, VLS-TS, Passeport Talent et naturalisation ~5 ans. Sources officielles.",
   path: FR_PATHS.senegal,

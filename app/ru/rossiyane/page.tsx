@@ -19,7 +19,7 @@ const HUB_DESCRIPTION =
   "Коридоры ВНЖ в Европу для граждан России и СНГ 2026: Португалия D8/D7, Испания digital nomad, Германия Blue Card, Франция, Италия. Консульская юрисдикция, пороги дохода, wizard Emigro.";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Релокация в Европу для граждан России — коридоры ВНЖ 2026",
+  title: "Релокация в Европу для граждан России — коридоры ВНЖ 2027",
   description: HUB_DESCRIPTION,
   path: ORIGIN_HUB_PATH,
   aiDescription: buildOriginHubDataLlmFacts(),

@@ -17,7 +17,7 @@ import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
 export const revalidate = 3600;
 
 export const metadata: Metadata = pageMetadata({
-  title: "Residencia en España para uruguayos 2026",
+  title: "Residencia en España para uruguayos 2027",
   description:
     "Cómo emigrar a España desde Uruguay 2026: Schengen corto ≠ residencia. Nómada digital (200% SMI), no lucrativa y nacionalidad en 2 años (art. 22).",
   path: ES_PATHS.uruguay,

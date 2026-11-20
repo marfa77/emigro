@@ -1,9 +1,9 @@
 ---
 slug: vnj-frantsiya-2026-passeport-talent
-title: "ВНЖ Франция для россиян 2026: Passeport Talent, VLS-TS и натурализация"
-seo_title: "ВНЖ Франция 2026 — Passeport Talent для граждан СНГ"
+title: "ВНЖ Франция для россиян 2027: Passeport Talent, VLS-TS и натурализация"
+seo_title: "ВНЖ Франция 2027 — Passeport Talent для граждан СНГ"
 seo_description: "Карта Talent (ex-Passeport Talent) и VLS-TS Франция 2026: SMIC €1 867, OFII €350, Carte de résident B1, IR, impatriés. Для RU/СНГ."
-excerpt: "Разбор маршрута Talent / VLS-TS 2026: пороги, OFII, налоги, ПМЖ (B1) и натурализация (B2 + examen civique)."
+excerpt: "Разбор маршрута Talent / VLS-TS 2027: пороги, OFII, налоги, ПМЖ (B1) и натурализация (B2 + examen civique)."
 quick_answer: |-
   Официально карта называется Talent: слово Passeport с реформы 2024 часто убрали с titre, «Passeport Talent» осталось привычным синонимом. Дальше VLS-TS и валидация в OFII. Salarié qualifié — от €39 582 в год по arrêté, не «два SMIC».
 

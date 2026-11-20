@@ -8,12 +8,12 @@ export type PortugalFeaturedNote = {
 export const PORTUGAL_FEATURED_NOTES: PortugalFeaturedNote[] = [
   {
     slug: "nif-porto-kak-poluchit-2026",
-    title: "NIF в Porto 2026",
+    title: "NIF в Porto 2027",
     description: "Finanças лично или через представителя — первый номер для банка, аренды и AIMA.",
   },
   {
     slug: "aima-agora-zapis-2026",
-    title: "AIMA 2026: Agora vs portal, слот",
+    title: "AIMA 2027: Agora vs portal, слот",
     description: "Agora ≠ portal-renovacoes · лог слотов Porto/Lisboa · день приёма.",
   },
   {

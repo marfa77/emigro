@@ -73,7 +73,7 @@ export const PORTUGAL_GUIDE_FACTCHECK: GuideFactcheckConfigInput[] = [
   {
     slug: "vnj-portugaliya-d8-d7-grazhdanstvo-2026",
     file: "content/guides/ru/vnj-portugaliya-d8-d7-grazhdanstvo-2026.md",
-    title: "D8 и D7 Португалия 2026",
+    title: "D8 и D7 Португалия 2027",
     aliases: ["vnj-portugaliya-d8-d7", "d8-d7", "vnj-portugaliya"],
     topics: [
       {
@@ -147,7 +147,7 @@ export const PORTUGAL_GUIDE_FACTCHECK: GuideFactcheckConfigInput[] = [
   {
     slug: "portugaliya-vs-ispaniya-vnj-2026",
     file: "content/guides/ru/portugaliya-vs-ispaniya-vnj-2026.md",
-    title: "Португалия vs Испания ВНЖ 2026",
+    title: "Португалия vs Испания ВНЖ 2027",
     aliases: ["portugaliya-vs-ispaniya", "pt-vs-es", "portugal-vs-spain"],
     topics: [
       {
@@ -179,7 +179,7 @@ export const PORTUGAL_GUIDE_FACTCHECK: GuideFactcheckConfigInput[] = [
   {
     slug: "d7-vs-digital-nomad-visa-sravnenie",
     file: "content/guides/ru/d7-vs-digital-nomad-visa-sravnenie.md",
-    title: "D7 vs Digital Nomad Visa 2026",
+    title: "D7 vs Digital Nomad Visa 2027",
     aliases: ["d7-vs-digital-nomad", "d7-vs-d8", "d7-d8-sravnenie"],
     topics: [
       {
@@ -230,7 +230,7 @@ export const PORTUGAL_GUIDE_FACTCHECK: GuideFactcheckConfigInput[] = [
   {
     slug: "prodlenie-vnzh-portugaliya-aima-2026",
     file: "content/guides/ru/prodlenie-vnzh-portugaliya-aima-2026.md",
-    title: "Продление ВНЖ Португалия 2026",
+    title: "Продление ВНЖ Португалия 2027",
     aliases: ["prodlenie-vnzh", "vnzh-renewal", "renovacao-aima"],
     topics: [
       {

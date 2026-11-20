@@ -1,7 +1,7 @@
 ---
 slug: vnj-chehiya-2026
-title: "ВНЖ Чехия 2026: employee card, Blue Card и živnost для RU/UA/BY/KZ"
-seo_title: "ВНЖ Чехия 2026 — employee card и Blue Card пороги"
+title: "ВНЖ Чехия 2027: employee card, Blue Card и živnost для RU/UA/BY/KZ"
+seo_title: "ВНЖ Чехия 2027 — employee card и Blue Card пороги"
 seo_description: "Employee Card от CZK 22 400 брутто; Blue Card CZK 73 823 с 01.05.2026. MOI, сроки для RU/BY/UA/KZ."
 excerpt: "Чехия — Prague и Brno для IT: employee card, Blue Card, živnost и учёба — с порогами зарплат и сроками MOI 2026."
 quick_answer: |-

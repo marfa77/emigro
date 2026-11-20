@@ -1,8 +1,8 @@
 ---
 slug: pervye-30-dnej-na-kipre-2026
-title: "Первые 30 дней на Кипре 2026: TIN, ARC, банк, GESY"
-seo_title: "Первые 30 дней на Кипре 2026 — TIN, банк, GESY, utilities"
-seo_description: "Чек-лист после прилёта на Кипр 2026: ARC/ВНЖ, TIN, банк, GESY. Digital Nomad (макс. 3 года), Category F, Fast Track 6(2). Кипр ≠ Шенген. Для RU/BY/UA/KZ."
+title: "Первые 30 дней на Кипре 2027: TIN, ARC, банк, GESY"
+seo_title: "Первые 30 дней на Кипре 2027 — TIN, банк, GESY, utilities"
+seo_description: "Чек-лист после прилёта на Кипр 2027: ARC/ВНЖ, TIN, банк, GESY. Digital Nomad (макс. 3 года), Category F, Fast Track 6(2). Кипр ≠ Шенген. Для RU/BY/UA/KZ."
 excerpt: "Практический месяц после въезда: миграция и ARC, TIN, банк, GESY, utilities и бюджет первого месяца в Лимассоле, Никосии, Ларнаке и Пафосе."
 quick_answer: |-
   После въезда: SIM и заселение, затем ARC / подача residence в District Immigration или CRMD, TIN в налоговой, кипрский банк, GESY и/или частная страховка (для digital nomad и FIP часто от €30 000) и utilities — EAC и вода.

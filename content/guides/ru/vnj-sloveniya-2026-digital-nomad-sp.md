@@ -1,6 +1,6 @@
 ---
 slug: vnj-sloveniya-2026-digital-nomad-sp
-title: "ВНЖ Словения 2026: Digital Nomad + s.p. (самозанятость)"
+title: "ВНЖ Словения 2027: Digital Nomad + s.p. (самозанятость)"
 seo_title: "Digital Nomad Словения 2026 — €3 200/мес, 12 мес + s.p."
 seo_description: "Digital Nomad Словения с 21.11.2025: 2× avg net (~€3 200/мес), до 12 мес без продления, 6 мес пауза. Альтернатива — s.p. + normiranec. Для RU/BY/UA/KZ."
 excerpt: "Новый DN temporary residence (нояб. 2025): порог 2× avg net, 12 месяцев без продления. Для settlement — смена статуса или s.p.; «~4%» — только PIT, не весь burden."

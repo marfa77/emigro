@@ -1,7 +1,7 @@
 ---
 slug: vnj-italiya-2026-elective-residency
-title: "ВНЖ Италия для россиян 2026: Elective Residency и Decreto Flussi"
-seo_title: "ВНЖ Италия 2026 — Elective €31k, Flussi; инвестор для РФ закрыт"
+title: "ВНЖ Италия для россиян 2027: Elective Residency и Decreto Flussi"
+seo_title: "ВНЖ Италия 2027 — Elective €31k, Flussi; инвестор для РФ закрыт"
 seo_description: "Elective Residency ~€31k/год без работы в IT. Decreto Flussi — квоты. Investor Visa для РФ/РБ приостановлена (14.07.2023). ПМЖ 5 лет, гражданство 10."
 excerpt: "Два рабочих маршрута для русскоязычных: пассив — Elective, оффер — Decreto Flussi. Investor Visa для паспортов РФ и РБ не вход. Цифры и бюрократия 2026."
 quick_answer: |-

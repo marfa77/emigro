@@ -1,7 +1,7 @@
 ---
 slug: residence-france-depuis-tunisie-2026
-title: "Résidence en France depuis la Tunisie 2026"
-seo_title: "Résidence en France depuis la Tunisie 2026"
+title: "Résidence en France depuis la Tunisie 2027"
+seo_title: "Résidence en France depuis la Tunisie 2027"
 seo_description: "Visa et VLS-TS pour vivre en France depuis la Tunisie: Passeport Talent, salarié, étudiant. Naturalisation ~5 ans + B2 (service-public)."
 excerpt: "Guide pillar : visa ≠ résidence pour passeport TN."
 quick_answer: "Visa généralement requis. Résidence via VLS-TS (Talent, salarié, études…). Naturalisation ~5 ans + B2 + civique. Emigro : /fr."

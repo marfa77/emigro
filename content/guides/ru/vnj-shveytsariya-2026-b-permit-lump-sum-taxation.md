@@ -1,8 +1,8 @@
 ---
 slug: vnj-shveytsariya-2026-b-permit-lump-sum-taxation
-title: "ВНЖ Швейцария 2026 — B-Permit, Lump-Sum Taxation, Self-Employed + Кантональные налоги"
-seo_title: "ВНЖ Швейцария 2026 — B-permit, lump-sum taxation, кантональные налоги"
-seo_description: "Швейцария 2026: B-permit (non-EU по квотам), L-permit, C-permit (ПМЖ), forfait fiscal (lump-sum) и кантональные налоги. Самая дорогая аренда в Европе."
+title: "ВНЖ Швейцария 2027 — B-Permit, Lump-Sum Taxation, Self-Employed + Кантональные налоги"
+seo_title: "ВНЖ Швейцария 2027 — B-permit, lump-sum taxation, кантональные налоги"
+seo_description: "Швейцария 2027: B-permit (non-EU по квотам), L-permit, C-permit (ПМЖ), forfait fiscal (lump-sum) и кантональные налоги. Самая дорогая аренда в Европе."
 excerpt: "B-permit, lump-sum (forfait fiscal), non-gainful residence и почему self-employed для non-EU почти недоступен. Как кантон (municipal + cantonal) меняет итоговую ставку и бюджет аренды."
 quick_answer: |-
   Швейцария — не страна digital nomad. Для non-EU обычно B-permit по квоте или lump-sum / статья 28.

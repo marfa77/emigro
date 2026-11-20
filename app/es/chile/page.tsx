@@ -17,7 +17,7 @@ import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
 export const revalidate = 3600;
 
 export const metadata: Metadata = pageMetadata({
-  title: "Residencia en España para chilenos 2026",
+  title: "Residencia en España para chilenos 2027",
   description:
     "Cómo emigrar a España desde Chile 2026: Schengen 90 días ≠ residencia. Nómada digital (200% SMI), no lucrativa, Santiago y nacionalidad en 2 años (art. 22).",
   path: ES_PATHS.chile,

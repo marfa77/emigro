@@ -11,7 +11,7 @@ import { publicSiteUrl } from "@/lib/site-url";
 export const revalidate = 3600;
 
 export const metadata = pageMetadata({
-  title: "Ayuda con residencia 2026: especialista gratis",
+  title: "Ayuda con residencia 2027: especialista gratis",
   description:
     "Emigro Assist LATAM: le presentamos gratis un abogado o agencia para España o Portugal. El especialista paga la comisión a Emigro, no usted.",
   path: ES_PATHS.assist,

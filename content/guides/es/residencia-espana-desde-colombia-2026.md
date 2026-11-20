@@ -1,9 +1,9 @@
 ---
 slug: residencia-espana-desde-colombia-2026
-title: "Residencia en España para colombianos 2026"
-seo_title: "Residencia España colombianos 2026 — 2 años"
+title: "Residencia en España para colombianos 2027"
+seo_title: "Residencia España colombianos 2027 — 2 años"
 seo_description: "Colombianos en España 2026: Schengen 90 días ≠ residencia. Nómada digital (200% SMI), no lucrativa, Bogotá/BLS, apostilla y nacionalidad en 2 años (art. 22)."
-excerpt: "Guía pillar: turista Schengen vs vivir en España con pasaporte CO. Rutas 2026, documentos desde Colombia y horizonte de nacionalidad española a 2 años."
+excerpt: "Guía pillar: turista Schengen vs vivir en España con pasaporte CO. Rutas 2027, documentos desde Colombia y horizonte de nacionalidad española a 2 años."
 quick_answer: "Colombia suele entrar a Schengen sin visado (90/180), pero residir exige vía nacional: nómada digital (200% SMI mensual, ≈ €2.442/mes en 2026), no lucrativa, trabajo, estudios o reagrupación. Art. 22 CC: ~2 años de residencia legal continua para nacionalidad (CCSE; DELE suele exento por español oficial). NL se tramita en consulado/BLS — no planifique turista→NL. Emigro: rutas + fuentes oficiales + evaluador /es/wizard."
 corridor_slugs: [es-speaking-colombia-to-spain, es-speaking-latam-to-europe]
 topic_keys: [spain, colombia, visa, residence]
