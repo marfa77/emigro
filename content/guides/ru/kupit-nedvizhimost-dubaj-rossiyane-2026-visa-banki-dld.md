@@ -2,7 +2,7 @@
 slug: kupit-nedvizhimost-dubaj-rossiyane-2026-visa-banki-dld
 title: "Купить недвижимость в Дубае с паспортом РФ в 2026: виза, банки, KYC и проверка оффера"
 seo_title: "Дубай недвижимость для россиян 2026 — виза, банки, DLD"
-seo_description: "Дубай 2026 для РФ: Golden ≠ 2y Taskeen, KYC и source of funds, сверка ask с DLD до перевода. Qualifier Emigro."
+seo_description: "Недвижимость в Дубае с паспортом РФ в 2026: Golden Visa от AED 2 млн или 2-летняя виза, проверка банком и происхождения денег, сверка цены с реестром DLD."
 excerpt: "Покупка в Дубае для граждан РФ — не только объект: статус, банковский KYC, происхождение денег и проверка оффера по данным DLD."
 quick_answer: |-
   Покупка недвижимости в Дубае сама по себе не даёт Golden Visa. В 2026 для Golden Residence через RE ориентир — совокупная стоимость от **AED 2 млн** при выполнении требований [ICP](https://icp.gov.ae/en/services/uae-golden-residency/) / [DLD](https://dubailand.gov.ae/); условия сверяйте на дату подачи. Отдельный маршрут — **2-летняя Taskeen**: у sole owner порог стоимости снят, у joint — доля от **AED 400 000**, нужен title deed (не off-plan «из брошюры»). Банки требуют KYC, SoF/SoW; residence + Emirates ID сильно упрощают путь, но non-resident продукт юридически не запрещён автоматически — решает risk appetite банка. Перед переводом: ask ≠ registered sold — сверка на [uaeproperty.vip](https://uaeproperty.vip?utm_source=emigro&utm_medium=guide&utm_campaign=dubai_ru_bridge_2026&utm_content=kupit-nedvizhimost-dubaj-rossiyane-2026-visa-banki-dld). Бюджет и цель ясны → [qualifier Emigro](/ru/invest/uae#qualifier).
@@ -29,17 +29,19 @@ official_sources:
 cover_image: /images/emigro-guide-dubai-property-ru-2026.webp
 estimated_minutes: 22
 date_published: 2026-09-24
-date_modified: 2026-09-24
+date_modified: 2026-11-20
 review_tier: volatile
 ---
+
+> **Nota Emigro (fact-check, ноябрь 2026).** **OK:** Golden Visa через недвижимость — от AED 2 000 000 на 10 лет, ипотека через одобренный банк допускается, строящийся объект — только у одобренного застройщика с регистрацией в Oqood. 2-летняя виза инвестора (Taskeen): весной 2026 года DLD снял минимальную стоимость для единственного владельца (раньше AED 750 000), у совладельцев — доля от AED 400 000, нужен готовый объект. **Soft:** точная дата отмены порога (конец апреля или май 2026) и размер сборов DLD — сверяйте на сайте DLD на дату подачи.
 
 ## С чего начать
 
 Покупка недвижимости в Дубае для гражданина России или Беларуси в 2026 году — это не только бюджет и выбор квартиры.
 
-После 2022 года **маршрут сделки** (статус → банк → происхождение денег → проверка цены → регистрация) важнее рекламного предложения конкретного объекта. Нужно заранее понимать: какой статус в ОАЭ вам нужен, как будет выглядеть KYC, сможете ли вы объяснить source of funds и что именно прислал брокер — рыночную цену, маркетинговый ask или ориентир.
+После 2022 года **маршрут сделки** (статус → банк → происхождение денег → проверка цены → регистрация) важнее рекламного предложения конкретного объекта. Нужно заранее понимать: какой статус в ОАЭ вам нужен, как будет выглядеть KYC, сможете ли вы объяснить source of funds и что именно прислал брокер — рыночную цену, маркетинговый цена продавца или ориентир.
 
-Этот гайд — **мост Emigro**: виза / KYC / handoff к брокеру. Здесь нет рейтинга районов, подборки башен и прогнозов yield. Анализ конкретного оффера — на сестринском [uaeproperty.vip](https://uaeproperty.vip?utm_source=emigro&utm_medium=guide&utm_campaign=dubai_ru_bridge_2026&utm_content=kupit-nedvizhimost-dubaj-rossiyane-2026-visa-banki-dld). Общий settle-контекст ОАЭ — в pillar [«ОАЭ для россиян 2026»](/ru/guides/oae-dlya-rossiyan-2026) и на хабе [/ru/uae](/ru/uae).
+Этот гайд — **мост Emigro**: виза, проверка банком и передача заявки брокеру. Здесь нет рейтинга районов, подборки башен и прогнозов yield. Анализ конкретного оффера — на сестринском [uaeproperty.vip](https://uaeproperty.vip?utm_source=emigro&utm_medium=guide&utm_campaign=dubai_ru_bridge_2026&utm_content=kupit-nedvizhimost-dubaj-rossiyane-2026-visa-banki-dld). Общий settle-контекст ОАЭ — в pillar [«ОАЭ для россиян 2026»](/ru/guides/oae-dlya-rossiyan-2026) и на хабе [/ru/uae](/ru/uae).
 
 ---
 
@@ -57,9 +59,9 @@ review_tier: volatile
 
 Отдельный маршрут — обычная property residence. [DLD Taskeen](https://dubailand.gov.ae/en/eservices/request-for-investor-visa/) выдаёт **2-летнюю** investor residence с **другими** критериями (см. таблицу ниже). Фраза брокера «купите — получите Golden» сама по себе ничего не гарантирует.
 
-Второй блок — **банк**. [CBUAE](https://rulebook.centralbank.ae/) требует CDD/KYC, понимание профиля клиента и при необходимости **source of funds (SoF)** / **source of wealth (SoW)**. Enhanced due diligence для повышенного риска — норма, не «придирка к паспорту».
+Второй блок — **банк**. [CBUAE](https://rulebook.centralbank.ae/) требует CDD/KYC, понимание профиля клиента и при необходимости **source of funds (SoF)** / **source of wealth (SoW)**. Enhanced проверка для повышенного риска — норма, не «придирка к паспорту».
 
-Перед крупным переводом: **ask брокера ≠ зарегистрированная сделка**. Уже есть оффер → [uaeproperty.vip](https://uaeproperty.vip?utm_source=emigro&utm_medium=guide&utm_campaign=dubai_ru_bridge_2026&utm_content=kupit-nedvizhimost-dubaj-rossiyane-2026-visa-banki-dld) (первый успешный verdict бесплатный). Emigro не передаёт ваш контакт на vip автоматически.
+Перед крупным переводом: **цена брокера ≠ цена зарегистрированной сделки**. Уже есть оффер → [uaeproperty.vip](https://uaeproperty.vip?utm_source=emigro&utm_medium=guide&utm_campaign=dubai_ru_bridge_2026&utm_content=kupit-nedvizhimost-dubaj-rossiyane-2026-visa-banki-dld) (первый успешный verdict бесплатный). Emigro не передаёт ваш контакт на vip автоматически.
 
 Бюджет и цель ясны → **[квалифицировать запрос → ручной контакт с брокером](/ru/invest/uae#qualifier)**.
 
@@ -79,7 +81,7 @@ review_tier: volatile
 
 ### Вариант 3. Резиденция через недвижимость
 
-Опасно начинать с «мне нужна квартира на AED 2M под Golden». Сначала актуальный eligibility route (Golden vs Taskeen vs другое), затем объект под него. Ready и off-plan проверяются по разным правилам.
+Опасно начинать с «мне нужна квартира на AED 2M под Golden». Сначала подходящий маршрут (Golden vs Taskeen vs другое), затем объект под него. Ready и off-plan проверяются по разным правилам.
 
 ### Когда путь не подходит первым шагом
 
@@ -88,7 +90,7 @@ review_tier: volatile
 - нужен банк раньше понятного резидентского статуса;
 - бюджет далеко ниже выбранного визового порога;
 - объект выбран только из‑за обещания визы;
-- ask ещё не сверен с рынком / DLD.
+- цена продавца ещё не сверена с рынком и DLD.
 
 Тогда сначала **статус + деньги + банковский маршрут**, потом объект.
 
@@ -102,8 +104,8 @@ review_tier: volatile
 | --- | --- | --- |
 | Смысл | Долгосрочная резиденция qualifying real estate investor | Резиденция, связанная с владением в Dubai |
 | Срок | **10 лет** (ICP / DLD) | **2 года** (Taskeen) |
-| Sole owner | Совокупно от **AED 2 000 000** | **Без мин. стоимости** (любая completed unit на title deed) |
-| Joint ownership | Доля/структура критичны: AED 2M на объект ≠ два независимых Golden | Доля заявителя **≥ AED 400 000** |
+| Единственный владелец | Совокупно от **AED 2 000 000** | **Без мин. стоимости** (любой готовый объект со свидетельством о собственности (title deed)) |
+| Совместная собственность | Доля/структура критичны: AED 2M на объект ≠ два независимых Golden | Доля заявителя **≥ AED 400 000** |
 | Несколько объектов | Могут суммироваться на одного заявителя | Зависит от маршрута; не копируйте логику Golden |
 | Mortgage | Возможен (ICP: approved local bank). DLD требует bank letter / NOC с paid amount и balance — **сверяйте формулировки на дату** | Обычно NOC; сверяйте сервис |
 | Off-plan | ICP: возможен от AED 2M у **approved** local company | Как правило **нет**: в списке docs — **Title Deed** |
@@ -122,19 +124,19 @@ review_tier: volatile
 1. кто собственник в реестре;
 2. что зарегистрировано (title / Oqood);
 3. какую стоимость принимают для маршрута: purchase value at purchase (формулировка DLD), registered value, valuation — **уточняйте в DLD Cube**;
-4. ready vs off-plan;
+4. готовый объект или строящийся (off-plan);
 5. при mortgage — paid amount, balance, NOC;
 6. health insurance и личное присутствие в UAE при подаче.
 
 **Ориентир 2026: AED 2M. Проверяйте ICP и DLD на дату подачи.**
 
-### Несколько объектов vs joint ownership
+### Несколько объектов vs совместная собственность
 
-Несколько объектов **на имя одного заявителя** могут суммироваться при выполнении условий Golden. Joint ownership — другая логика: один объект AED 2M на двоих **не** равен двум независимым Golden. Для Taskeen joint явно: доля **≥ AED 400 000**.
+Несколько объектов **на имя одного заявителя** могут суммироваться при выполнении условий Golden. Совместная собственность — другая логика: один объект AED 2M на двоих **не** равен двум независимым Golden. Для Taskeen совладельцы явно: доля **≥ AED 400 000**.
 
 ### Покупка ниже AED 2M
 
-AED 1.8M ≠ «90% Golden». Ниже порога Golden объект может подойти под **Taskeen** (sole без мин. на completed title deed) или под другой route — но не «почти Golden».
+AED 1.8M ≠ «90% Golden». Ниже порога Golden объект может подойти под **Taskeen** (единственный владелец — без минимума, нужен готовый объект со свидетельством о собственности) или под другой route — но не «почти Golden».
 
 ### Mortgage: важная оговорка
 
@@ -146,7 +148,7 @@ ICP допускает финансирование у approved local bank. Ст
 
 Для покупателей из России и Беларуси банковская часть часто сложнее регистрации.
 
-Причина — общий AML/KYC-режим, а не одна норма «для россиян». [CBUAE Rulebook](https://rulebook.centralbank.ae/) требует идентификации клиента, понимания характера отношений и операций, при необходимости — SoF/SoW; для высокого риска — enhanced due diligence.
+Причина — общий AML/KYC-режим, а не одна норма «для россиян». [CBUAE Rulebook](https://rulebook.centralbank.ae/) требует идентификации клиента, понимания характера отношений и операций, при необходимости — SoF/SoW; для высокого риска — enhanced проверка.
 
 ### Резидентство упрощает маршрут — без абсолютов
 
@@ -156,7 +158,7 @@ ICP допускает финансирование у approved local bank. Ст
 
 > «Без Emirates ID счёт открыть невозможно».
 
-В ОАЭ возможны отношения с нерезидентами, но продукт, risk appetite и документы зависят от банка. Для гражданина РФ вопрос:
+В ОАЭ возможны отношения с нерезидентами, но продукт, готовность банка рисковать и документы зависят от банка. Для гражданина РФ вопрос:
 
 > **Какой банковский маршрут соответствует моему статусу, происхождению денег и операциям?**
 
@@ -173,7 +175,7 @@ ICP допускает финансирование у approved local bank. Ст
 
 ### Нельзя строить маршрут вокруг «обхода KYC»
 
-Номиналы, бессмысленное дробление платежей, непрозрачные third-party transfers, крипта «только чтобы обойти банк» — типичные red flags для enhanced due diligence.
+Номиналы, бессмысленное дробление платежей, непрозрачные переводы от третьих лиц, крипта «только чтобы обойти банк» — типичные red flags для enhanced проверка.
 
 **Лучший KYC — способность ответить документами, а не отсутствие вопросов.**
 
@@ -201,11 +203,11 @@ ICP допускает финансирование у approved local bank. Ст
 
 ### Шаг 4–5. Offer и проверка цены
 
-Ask в WhatsApp ≠ ответ «за сколько реально закрывались аналоги».
+Цена в WhatsApp ≠ ответ «за сколько реально закрывались аналоги».
 
 ### Шаг 6. Регистрация и статус объекта
 
-Ready: что в title. Off-plan: developer, initial registration, escrow, Oqood, SPA, график платежей, assignment/resale, NOC. DLD описывает initial registration и escrow для off-plan — сверяйте актуальные FAQ DLD.
+Готовый объект: что в title. Off-plan: developer, initial registration, escrow, Oqood, SPA, график платежей, assignment/resale, NOC. DLD описывает initial registration и escrow для off-plan — сверяйте актуальные FAQ DLD.
 
 ### Шаг 7. Перевод существенной суммы
 
@@ -215,20 +217,20 @@ Ready: что в title. Off-plan: developer, initial registration, escrow, Oqood
 
 ## 6. Перед переводом денег: сверка оффера с DLD
 
-Emigro сознательно **не** смешивает due diligence цены с подбором брокера.
+Emigro сознательно **не** смешивает проверку цены с подбором брокера.
 
-**Asking price ≠ registered sold price.** Ask может быть ценой продавца, другого этажа, другой планировки или цифрой, которую рынок давно не подтверждает.
+**Цена в объявлении ≠ цена реальной сделки в реестре.** Цена в объявлении может относиться к другому этажу или другой планировке — или быть цифрой, которую рынок давно не подтверждает.
 
 ### Проверка через uaeproperty.vip
 
 [Проверить оффер на uaeproperty.vip](https://uaeproperty.vip?utm_source=emigro&utm_medium=guide&utm_campaign=dubai_ru_bridge_2026&utm_content=kupit-nedvizhimost-dubaj-rossiyane-2026-visa-banki-dld) — первый успешный verdict бесплатный.
 
-- **Emigro** — статус, бюджет, KYC-контекст, квалификация, handoff к брокеру.  
-- **uaeproperty.vip** — due diligence по цене и зарегистрированным данным.
+- **Emigro** — статус, бюджет, KYC-контекст, квалификация, передача заявки брокеру.  
+- **uaeproperty.vip** — проверка цены по зарегистрированным данным.
 
 Контакт на vip Emigro не передаёт.
 
-Что сохранить для проверки: проект, unit, площадь, bedrooms, этаж, ask, условия оплаты, ready/off-plan, документы к подписанию.
+Что сохранить для проверки: проект, unit, площадь, bedrooms, этаж, цена продавца, условия оплаты, готовый или строящийся, документы к подписанию.
 
 ---
 
@@ -236,8 +238,8 @@ Emigro сознательно **не** смешивает due diligence цены
 
 1. «Куплю на AED 2M — Golden появится сама».  
 2. Путать Golden 10y и Taskeen 2y.  
-3. Считать AED 2M ценой brochure / ask.  
-4. Joint ownership без проверки визовой логики долей.  
+3. Считать AED 2M ценой из брошюры или от продавца.  
+4. Совместная собственность без проверки визовой логики долей.  
 5. Откладывать KYC/SoF до дня перевода.  
 6. Third-party перевод без понятной причины.  
 7. «В ОАЭ нет налогов» = нет обязанностей нигде.  
@@ -249,7 +251,7 @@ Emigro сознательно **не** смешивает due diligence цены
 
 ## 8. Следующий шаг на Emigro
 
-Перед handoff достаточно понимать: бюджет (до 1M / 1–2M / 2M+), цель (жить / инвест / Golden / микс), срок, ready vs off-plan, cash vs mortgage, resident vs non-resident.
+Перед передачей заявки брокеру достаточно понимать: бюджет (до 1M / 1–2M / 2M+), цель (жить / инвест / Golden / микс), срок, готовый объект или строящийся (off-plan), cash vs mortgage, resident vs non-resident.
 
 ### Primary CTA
 
@@ -260,7 +262,7 @@ Emigro сознательно **не** смешивает due diligence цены
 ### Рядом
 
 - Хаб: [/ru/uae](/ru/uae)  
-- Pillar settle: [/ru/guides/oae-dlya-rossiyan-2026](/ru/guides/oae-dlya-rossiyan-2026)  
+- Основной гид по ОАЭ: [/ru/guides/oae-dlya-rossiyan-2026](/ru/guides/oae-dlya-rossiyan-2026)  
 - Уже есть оффер: [uaeproperty.vip](https://uaeproperty.vip?utm_source=emigro&utm_medium=guide&utm_campaign=dubai_ru_bridge_2026&utm_content=kupit-nedvizhimost-dubaj-rossiyane-2026-visa-banki-dld)  
 - EU-маршрут отдельно: [/ru/wizard](/ru/wizard)
 
@@ -290,19 +292,19 @@ ICP допускает off-plan от AED 2M у approved local company. Конк�
 
 ### Property residence дешевле AED 2M?
 
-Да: Taskeen 2y — sole без мин. стоимости на title deed; joint — доля ≥ AED 400 000. Не применяйте порог Golden ко всем property visas.
+Да: Taskeen на 2 года — для единственного владельца без минимума стоимости (нужно свидетельство о собственности); совладельцы — доля ≥ AED 400 000. Не применяйте порог Golden ко всем property visas.
 
 ### Откроют ли счёт гражданину РФ без UAE residence?
 
 Универсального «да/нет» нет. CBUAE требует KYC/SoF/SoW. Residence + Emirates ID делают resident-path понятнее; отсутствие резидентства — не автоматический юридический запрет любого продукта, но на практике для RU/BY личный счёт часто завязан на статус.
 
-### Брокер уже прислал ask — что делать?
+### Брокер уже прислал цену — что делать?
 
 Не переводить «потому что красиво». Сохраните offer → сверка на [uaeproperty.vip](https://uaeproperty.vip?utm_source=emigro&utm_medium=guide&utm_campaign=dubai_ru_bridge_2026&utm_content=kupit-nedvizhimost-dubaj-rossiyane-2026-visa-banki-dld) → при необходимости [qualifier Emigro](/ru/invest/uae#qualifier).
 
 ### Чем Emigro отличается от uaeproperty.vip?
 
-Emigro — маршрут покупателя (статус, бюджет, KYC, handoff). Vip — due diligence цены/DLD. Emigro не копирует районную аналитику vip.
+Emigro — маршрут покупателя (статус, бюджет, KYC, передача заявки). uaeproperty.vip — проверка цены по данным DLD. Emigro не копирует районную аналитику uaeproperty.vip.
 
 ### Нужен ли Emirates ID до покупки?
 
@@ -325,14 +327,14 @@ FTA: доход физлица от личной RE-инвестиции, как
 | Тема | Статус | Источник / заметка |
 | --- | --- | --- |
 | Golden 10y / AED 2M / several properties | OK | ICP; DLD Golden investor |
-| Taskeen 2y; sole без мин.; joint ≥ AED 400k | OK | DLD Taskeen eligibility |
+| Taskeen 2y; единственный владелец — без минимума; совладельцы ≥ AED 400k | OK | DLD Taskeen eligibility |
 | Taskeen → Title Deed; off-plan не автомат | OK / soft | Required docs Taskeen |
 | Mortgage / paid amount vs ICP loan | Soft | DLD description vs ICP — не обещать «equity hurdle снят» |
 | Purchase value vs valuation | Soft | DLD «at time of purchase» vs ICP value — уточнять Cube |
 | Health insurance + inside UAE | OK | ICP insurance; DLD applicant inside UAE |
 | ~180 дней для коротких property visas | Soft | Практика / GDRFA — не правило Golden |
 | Банки non-resident | OK soft | CBUAE KYC; без абсолюта «невозможно» |
-| Ask ≠ DLD sold; vip due diligence | OK | Продуктовое разделение Emigro / vip |
+| Цена продавца ≠ сделка в DLD; проверка цены на uaeproperty.vip | OK | Продуктовое разделение Emigro / vip |
 | Fees ~AED 9.9k Golden | Soft ориентир | DLD fee table — сверять |
 
 Перед каждой существенной правкой и перед подачей заявления — повторная сверка ICP / DLD / GDRFA / CBUAE / FTA.
