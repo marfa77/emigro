@@ -16,7 +16,7 @@ type Props = {
   compact?: boolean;
 };
 
-const QUALIFIER_HREF = "/ru/invest/uae#qualifier";
+const QUALIFIER_HREF = "/ru/invest/uae#invest-quick";
 
 export function UaePropertyLeadCta({
   placement,
@@ -76,18 +76,17 @@ export function UaePropertyLeadCta({
         id={`uae-property-lead-${placement}`}
         className="mt-2 text-xl font-bold text-slate-950 sm:text-2xl"
       >
-        Квалифицировать бюджет → свяжем с брокером
+        Покупаете недвижимость в Дубае? Свяжем с брокером
       </h2>
       <p className="mt-3 max-w-3xl text-sm leading-relaxed text-slate-700">
-        Golden от AED 2M, 2-летняя property-виза или покупка без визовой цели — сначала короткий
-        профиль (бюджет, срок, primary/secondary). Emigro свяжется в Telegram/WhatsApp и передаст
-        заявку брокеру вручную. Это не каталог объектов и не обещание визы «за покупку». Подробный
-        маршрут виза → KYC → DLD:{" "}
+        Под Golden Visa (от AED 2 млн), 2-летнюю визу инвестора или просто покупку — ответьте на 4 коротких
+        вопроса о бюджете и цели. Emigro свяжется в Telegram или WhatsApp и передаст заявку брокеру. Это не
+        каталог объектов и не обещание визы за покупку. Пошагово — виза, проверка банком, сделка:{" "}
         <Link
           href="/ru/guides/kupit-nedvizhimost-dubaj-rossiyane-2026-visa-banki-dld"
           className="font-medium text-corridor-800 underline hover:text-corridor-950"
         >
-          гайд для паспорта РФ
+          гид для паспорта РФ
         </Link>
         .
       </p>
@@ -97,7 +96,7 @@ export function UaePropertyLeadCta({
           onClick={trackPrimary}
           className={`inline-flex items-center justify-center gap-2 rounded-xl bg-corridor-700 px-5 py-3 font-semibold text-white hover:bg-corridor-800 ${tapTarget}`}
         >
-          Заполнить qualifier <ArrowRight className="h-4 w-4" />
+          Оставить заявку брокеру <ArrowRight className="h-4 w-4" />
         </Link>
         <a
           href={offerHref}

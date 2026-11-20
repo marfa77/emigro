@@ -5,12 +5,10 @@ import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { TrackedAssistLink } from "@/components/assist/TrackedAssistLink";
 import { ServiceProvidersSection } from "@/components/providers/ServiceProvidersSection";
 import { SatelliteCityChatCta } from "@/components/satellite/SatelliteCityChatCta";
-import { RoleRadarPromo } from "@/components/sponsors/RoleRadarPromo";
 import { UaePropertyLeadCta } from "@/components/investment/UaePropertyLeadCta";
 import { ThailandFeaturedNotes } from "@/components/thailand/ThailandFeaturedNotes";
 import { HeroShell } from "@/components/visuals/HeroShell";
 import { HubHeroVisual } from "@/components/visuals/HubHeroVisual";
-import { EmigroScoreAxes } from "@/components/emigro-score/EmigroScoreAxes";
 import { EmigroScoreFace } from "@/components/emigro-score/EmigroScoreFace";
 import {
   EMIGRO_SCORE_PATH,
@@ -18,7 +16,6 @@ import {
   sortByEmigroScoreDesc,
   toEmigroScoreView,
 } from "@/lib/emigro-score";
-import { shouldShowRoleRadarOnHub } from "@/lib/role-radar";
 import { buildAssistUrl } from "@/lib/assist/build-url";
 import { getHubsByKind, hubKindLabel, type TransitHub } from "@/lib/transit-hubs";
 import { buildBreadcrumbSchema } from "@/lib/seo/corridor-page-seo";
@@ -149,7 +146,12 @@ export function TransitHubLanding({ hub }: Props) {
           {emigroScore && (
             <div className="mt-6 inline-flex items-end gap-4 rounded-2xl border border-white/20 bg-black/25 px-5 py-4 backdrop-blur-sm">
               <EmigroScoreFace overall100={emigroScore.overall100} tone={emigroScore.tone} size="card" />
-              <p className="max-w-xs pb-1 text-sm leading-snug text-corridor-50/90">{emigroScore.summary}</p>
+              <p className="max-w-xs pb-1 text-sm leading-snug text-corridor-50/90">
+                {emigroScore.summary}{" "}
+                <Link href={EMIGRO_SCORE_PATH} className="underline">
+                  Как считаем
+                </Link>
+              </p>
             </div>
           )}
           <div className="mt-8 flex flex-wrap gap-3">
@@ -158,7 +160,7 @@ export function TransitHubLanding({ hub }: Props) {
                 href={hub.guideHref}
                 className="rounded-lg bg-white px-5 py-3 font-medium text-corridor-900 hover:bg-corridor-50"
               >
-                {isSettle ? "Читать pillar-гайд" : "Гайд по направлению"}
+                {isSettle ? "Полный гид по стране" : "Гид по направлению"}
               </Link>
             ) : (
               <Link
@@ -170,60 +172,30 @@ export function TransitHubLanding({ hub }: Props) {
             )}
             {isUae ? (
               <Link
-                href="/ru/invest/uae#qualifier"
+                href="/ru/invest/uae#invest-quick"
                 className="rounded-lg border border-white/40 px-5 py-3 font-medium text-white hover:bg-white/10"
               >
-                Недвижимость / брокер
+                Недвижимость: заявка брокеру
               </Link>
             ) : null}
-            {isSettle ? (
-              <Link
-                href="/ru/wizard"
-                className="rounded-lg border border-white/40 px-5 py-3 font-medium text-white hover:bg-white/10"
-              >
-                Опционально: EU wizard
-              </Link>
-            ) : (
-              <>
-                <TrackedAssistLink
-                  href={buildAssistUrl({ country: hub.slug })}
-                  placement={`${hub.slug}_hub_hero`}
-                  linkLabel="Найти специалиста"
-                  country={hub.slug}
-                  className="rounded-lg border border-white/40 px-5 py-3 font-medium text-white hover:bg-white/10"
-                >
-                  Найти специалиста
-                </TrackedAssistLink>
-              </>
-            )}
+            <TrackedAssistLink
+              href={buildAssistUrl({ country: hub.slug, source: `${hub.slug}_hub` })}
+              placement={`${hub.slug}_hub_hero`}
+              linkLabel="Подобрать специалиста — бесплатно"
+              country={hub.slug}
+              className="rounded-lg border border-white/40 px-5 py-3 font-medium text-white hover:bg-white/10"
+            >
+              Подобрать специалиста — бесплатно
+            </TrackedAssistLink>
           </div>
         </HeroShell>
-
-        {emigroScore && (
-          <section className="mt-8 overflow-hidden rounded-2xl border border-slate-800 bg-slate-950 p-6 text-white shadow-sm">
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <p className="text-sm font-semibold uppercase tracking-wide text-emerald-300/90">Emigro Score</p>
-              <Link href={EMIGRO_SCORE_PATH} className="text-xs font-medium text-emerald-300/80 hover:underline">
-                Методология
-              </Link>
-            </div>
-            <div className="mt-4 grid gap-6 md:grid-cols-[200px_1fr] md:items-start">
-              <EmigroScoreFace overall100={emigroScore.overall100} tone={emigroScore.tone} size="hero" />
-              <EmigroScoreAxes
-                axes={emigroScore.axes}
-                asOf={emigroScore.asOf}
-                summary={emigroScore.summary}
-              />
-            </div>
-          </section>
-        )}
 
         <section className="mt-8 rounded-2xl border border-corridor-200 bg-white p-6 shadow-sm">
           <p className="text-sm font-semibold uppercase tracking-wide text-corridor-700">Короткий ответ</p>
           <p className="mt-2 text-lg leading-relaxed text-slate-800">{hub.quickAnswer}</p>
           <p className="mt-3 text-sm text-slate-500">
             {isSettle
-              ? "Это не EU-коридор Emigro. Направление в категории «Страны для жизни»: долгий статус, быт и интеграция вне Европы. EU-маршрут — опция, не обязательная цель."
+              ? "Это страна для жизни вне ЕС: долгий статус, быт и интеграция. Если позже понадобится ВНЖ в Европе — это отдельный маршрут."
               : "Это не EU-коридор для ВНЖ или гражданства. Хаб нужен, чтобы спокойно закрыть первые бытовые, финансовые и документальные задачи перед отдельным европейским маршрутом."}
           </p>
           {hub.guideHref && hub.guideAnchor && (
@@ -308,7 +280,7 @@ export function TransitHubLanding({ hub }: Props) {
               <div className="flex items-center gap-2">
                 <Route className="h-5 w-5 text-corridor-600" />
                 <h2 className="text-2xl font-semibold text-slate-900">
-                  {isSettle ? "Если позже нужен Европа" : "Путь дальше в Европу"}
+                  {isSettle ? "Если позже нужна Европа" : "Путь дальше в Европу"}
                 </h2>
               </div>
               <p className="mt-4 text-sm leading-relaxed text-slate-700">{hub.onwardEu}</p>
@@ -316,7 +288,7 @@ export function TransitHubLanding({ hub }: Props) {
                 href="/ru/wizard"
                 className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-corridor-700 hover:underline"
               >
-                {isSettle ? "Опционально: программы EU в wizard" : "Проверить программы EU в wizard"}
+                Подобрать маршрут в Европу
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </section>
@@ -325,14 +297,15 @@ export function TransitHubLanding({ hub }: Props) {
               <div className="flex items-center gap-2">
                 <Globe2 className="h-5 w-5 text-corridor-600" />
                 <h2 className="text-2xl font-semibold text-slate-900">
-                  {isSettle ? "Сравните с EU-коридорами" : "Следующий шаг: выбери страну назначения"}
+                  {isSettle ? "Полезные гиды" : "Следующий шаг: выберите страну назначения"}
                 </h2>
               </div>
+              {!isSettle ? (
               <p className="mt-3 text-sm leading-relaxed text-slate-600">
-                {isSettle
-                  ? `${hub.countryRu} — страна для жизни вне ЕС. Если цель всё же европейский ВНЖ — сравните коридоры ниже.`
-                  : `${hub.countryRu} — транзитный хаб, а не финальная цель. Выберите EU-коридор для постоянного ВНЖ.`}
+                {`${hub.countryRu} — транзитный хаб, а не финальная цель. Выберите страну ЕС для постоянного ВНЖ.`}
               </p>
+              ) : null}
+              {!isSettle ? (
               <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3">
                 {EU_CORRIDORS.map((corridor) => (
                   <Link
@@ -345,10 +318,11 @@ export function TransitHubLanding({ hub }: Props) {
                   </Link>
                 ))}
               </div>
-              <div className="mt-5 border-t border-slate-100 pt-4">
+              ) : null}
+              <div className={isSettle ? "mt-2" : "mt-5 border-t border-slate-100 pt-4"}>
                 <div className="flex items-center gap-2 text-sm font-semibold text-slate-700">
                   <BookOpen className="h-4 w-4 text-corridor-600" />
-                  {isSettle ? "Гайды по странам для жизни и EU" : "Полезные гайды по выбору страны"}
+                  {isSettle ? "Другие страны для жизни и выбор страны" : "Полезные гиды по выбору страны"}
                 </div>
                 <div className="mt-2 space-y-1.5">
                   {relatedGuides.map((guide) => (
@@ -382,7 +356,7 @@ export function TransitHubLanding({ hub }: Props) {
             <section className="rounded-2xl border border-slate-200 bg-white p-5">
               <div className="flex items-center gap-2">
                 <FileText className="h-5 w-5 text-corridor-600" />
-                <h2 className="font-semibold text-slate-900">LLM-summary</h2>
+                <h2 className="font-semibold text-slate-900">Коротко</h2>
               </div>
               <p className="mt-3 text-sm leading-relaxed text-slate-700">{hub.llmSummary}</p>
             </section>
@@ -393,14 +367,6 @@ export function TransitHubLanding({ hub }: Props) {
               variant="compact"
               title="Проверенные сервисы"
             />
-
-            {shouldShowRoleRadarOnHub(hub.slug) ? (
-              <RoleRadarPromo
-                medium="transit_hub_landing"
-                content={hub.slug}
-                compact
-              />
-            ) : null}
 
             <section className="rounded-2xl border border-slate-200 bg-white p-5">
               <h2 className="font-semibold text-slate-900">

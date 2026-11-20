@@ -1,20 +1,15 @@
+import { INVEST_QUICK_ANCHOR } from "@/lib/investment/quick-lead";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowRight, CheckCircle2, ExternalLink, Scale, ShieldAlert, XCircle } from "lucide-react";
+import { ArrowRight, CheckCircle2, ExternalLink, ShieldAlert, XCircle } from "lucide-react";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
 import { DubaiOfferVerdictPromo } from "@/components/investment/DubaiOfferVerdictPromo";
 import { InvestmentViewTracker } from "@/components/investment/InvestmentAnalytics";
-import { InvestmentQualifier } from "@/components/investment/InvestmentQualifier";
-import { UaePropertyLeadCta } from "@/components/investment/UaePropertyLeadCta";
 import {
   INVESTMENT_PROGRAM_NOTES,
-  capitalFateLabel,
-  expenseKindLabel,
-  investmentAssetLabel,
   investmentCountryRoutes,
   hasRuByPassportRestriction,
-  liquidityLabel,
   outcomeLabel,
   passportRestrictionLabel,
   routeKey,
@@ -34,7 +29,6 @@ import { InvestTelegramMatch } from "@/components/investment/InvestTelegramMatch
 import { INVEST_RU_COUNTRY } from "@/lib/investment/invest-ru-copy";
 import {
   GoldenVisaFactTable,
-  InvestAssistOffers,
   PortugalCallout,
   SpainAlternatives,
 } from "@/components/investment/InvestPageBlocks";
@@ -125,7 +119,9 @@ export default function InvestmentCountryPage({ params }: { params: { country: s
         ? RU_COUNTRY_SEO[route.country].passportQuestion
         : `Даёт ли инвестиционный ВНЖ (${route.countryRu}) гражданство?`,
       answer:
-        "Нет автоматически. Большинство программ дают ВНЖ или ПМЖ; гражданство — отдельный срок и экзамены. Не путайте скрининг Emigro с обещанием паспорта.",
+        route.country === "uae"
+          ? "Нет. Golden Visa ОАЭ — это ВНЖ на 10 лет. Гражданство ОАЭ иностранцам выдают в исключительных случаях и не за покупку недвижимости."
+          : "Нет. Инвестиционная программа даёт ВНЖ; гражданство — отдельный путь со своими сроками и экзаменами.",
     },
     {
       question: "Можно ли переносить условия одной программы на другую?",
@@ -136,19 +132,20 @@ export default function InvestmentCountryPage({ params }: { params: { country: s
     },
     {
       question: "Что проверяет скрининг Emigro?",
-      answer: `Предварительный фильтр от €${route.screeningFloorEur.toLocaleString("ru-RU")} и типа актива. ${route.caveat} Это не юридическая и не инвестиционная консультация.`,
+      answer:
+        "Совпадение вашего бюджета, типа актива и цели с условиями программы. Это предварительный фильтр, а не юридическая или инвестиционная консультация.",
     },
     {
       question: "Закрытые программы ещё принимают заявки?",
       answer:
         route.status === "closed"
           ? "Эта программа закрыта для новых заявок. Смотрите актуальные маршруты в /ru/invest и официальный источник."
-          : "Статус на странице — ориентир Emigro. Перед деньгами сверяйте official URL и паспортные ограничения (часто RU/BY).",
+          : "Статус на странице — ориентир Emigro. Перед оплатой сверьте условия на официальном сайте программы и ограничения для паспортов РФ и РБ.",
     },
     {
       question: "Куда идти дальше?",
       answer:
-        "Разбор маршрута по ссылке программы, официальный портал, при недвижимости — qualifier. Не переводите деньги по скринингу чата.",
+        "Оставьте заявку в форме вверху страницы — бесплатно подберём специалиста или брокера под ваш бюджет. Не переводите деньги, пока не сверили условия с официальным источником.",
     },
   ];
   if (route.country === "portugal") {
@@ -214,10 +211,10 @@ export default function InvestmentCountryPage({ params }: { params: { country: s
           {showsDubaiOfferVerdict(route.country) ? (
             <div className="relative mt-6 hidden sm:block">
               <a
-                href="#qualifier"
+                href={`#${INVEST_QUICK_ANCHOR}`}
                 className="group inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-amber-300 to-amber-400 px-6 py-3 font-semibold text-slate-950 shadow-lg shadow-amber-500/25 transition hover:from-amber-200 hover:to-amber-300"
               >
-                Квалифицировать бюджет → брокер
+                Оставить заявку брокеру — бесплатно
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
               </a>
             </div>
@@ -228,6 +225,8 @@ export default function InvestmentCountryPage({ params }: { params: { country: s
             </Link>
           </p>
         </header>
+          {/* Old links (#qualifier from hubs and guides) land on the single form. */}
+          <span id="qualifier" className="sr-only" aria-hidden />
           <InvestQuickLead
             locale="ru"
             pageKey={pageKey}
@@ -299,9 +298,6 @@ export default function InvestmentCountryPage({ params }: { params: { country: s
           </div>
         ) : null}
 
-        {showsDubaiOfferVerdict(route.country) ? (
-          <UaePropertyLeadCta placement="invest_country" content={route.country} />
-        ) : null}
 
         {routes.map((item) => {
           const passportNote = passportRestrictionLabel(item);
@@ -345,7 +341,7 @@ export default function InvestmentCountryPage({ params }: { params: { country: s
               {item.screeningPrimaryLabel ?? `€${item.screeningFloorEur.toLocaleString("ru-RU")}`}
               {item.screeningSecondaryLabel ? ` · ${item.screeningSecondaryLabel}` : null}
               {" · "}
-              {item.assets.map(investmentAssetLabel).join(", ")} · {outcomeLabel(item.outcome)}
+              {outcomeLabel(item.outcome)}
             </p>
             {item.screeningFloorNote ? (
               <p className="mt-1 text-xs font-medium text-amber-900">{item.screeningFloorNote}</p>
@@ -353,12 +349,8 @@ export default function InvestmentCountryPage({ params }: { params: { country: s
             {item.routeKindLabel ? (
               <p className="mt-1 text-xs font-medium text-slate-700">Тип маршрута: {item.routeKindLabel}</p>
             ) : null}
-            <p className="mt-2 text-sm text-slate-600">
-              Капитал: {capitalFateLabel(item.capitalFate)} · {expenseKindLabel(item.expenseKind)} ·{" "}
-              {liquidityLabel(item.liquidity)}
-              {item.lockupNote ? ` · Lock-up: ${item.lockupNote}` : null}
-            </p>
-            <p className="mt-3 text-sm leading-relaxed text-amber-900">{item.caveat}</p>
+            {item.lockupNote ? <p className="mt-2 text-sm text-slate-600">Срок владения: {item.lockupNote}</p> : null}
+            {notes.length === 0 ? <p className="mt-3 text-sm leading-relaxed text-amber-900">{item.caveat}</p> : null}
             <div className="mt-4 flex flex-wrap gap-4 text-sm font-semibold">
               <Link href={item.publicPath} className="inline-flex min-h-11 items-center gap-2 text-corridor-700">
                 Разбор Emigro <ArrowRight className="h-4 w-4" />
@@ -394,41 +386,10 @@ export default function InvestmentCountryPage({ params }: { params: { country: s
           </div>
         </section>
 
-        <section className="mt-10 rounded-2xl border border-slate-200 bg-slate-50 p-6">
-          <div className="flex items-start gap-3">
-            <Scale className="mt-0.5 h-5 w-5 shrink-0 text-slate-600" />
-            <div>
-              <h2 className="font-bold text-slate-950">Что означает предварительное совпадение</h2>
-              <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                Оно означает только совпадение выбранного бюджета, типа актива и цели с данными реестра (shortlist для
-                проверки). Это не рейтинг «лучших программ», не подтверждение eligibility, одобрения, доходности
-                актива, срока выдачи статуса или будущего гражданства. Emigro сравнивает миграционные характеристики
-                маршрутов, а не инвестиционную доходность. До сделки нужны независимые legal, tax, sanctions и
-                source-of-funds проверки.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-          <a href="#qualifier" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-corridor-700 px-6 py-3 font-semibold text-white hover:bg-corridor-800">
-            {showsDubaiOfferVerdict(route.country)
-              ? "Заполнить qualifier — свяжем с брокером"
-              : "Проверить свой профиль по этой стране"}{" "}
-            <ArrowRight className="h-4 w-4" />
-          </a>
-          <Link href={investPagePath("ru", "compare")} className="inline-flex min-h-12 items-center justify-center rounded-xl border border-slate-300 px-6 py-3 font-medium text-slate-700 hover:bg-slate-50">
-            Сравнить все программы →
-          </Link>
-        </div>
-
-        <div className="mt-10">
-          <InvestmentQualifier id="qualifier" defaultPreferredCountry={route.country} locale="ru" />
-        </div>
-
-        <div className="mt-10">
-          <InvestAssistOffers locale="ru" />
-        </div>
+        <p className="mt-8 text-xs leading-relaxed text-slate-500">
+          Совпадение в форме — предварительный фильтр по бюджету, активу и цели, а не подтверждение права на программу,
+          одобрения или доходности. До сделки нужны независимые юридическая, налоговая и санкционная проверки.
+        </p>
 
         {showsDubaiOfferVerdict(route.country) ? (
           <DubaiOfferVerdictPromo placement="invest_country" content={route.country} />

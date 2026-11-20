@@ -93,14 +93,25 @@ function Sources({ row, locale }: { row: GoldenVisaRow; locale: InvestLocale }) 
   );
 }
 
-export function LastCheckedLine({ locale, className = "" }: { locale: InvestLocale; className?: string }) {
+export function LastCheckedLine({
+  locale,
+  className = "",
+  showDate = true,
+}: {
+  locale: InvestLocale;
+  className?: string;
+  /** Off where the row already shows its own «Проверено» date — two different dates confused readers. */
+  showDate?: boolean;
+}) {
   const t = L[locale];
   return (
     <div className={`flex flex-col gap-2 text-sm text-slate-600 sm:flex-row sm:items-center sm:gap-4 ${className}`}>
-      <p className="inline-flex items-center gap-1.5 font-medium text-slate-800">
-        <CalendarCheck className="h-4 w-4 text-corridor-600" />
-        {t.lastChecked}: <time dateTime={GOLDEN_VISA_LAST_CHECKED}>{GOLDEN_VISA_LAST_CHECKED}</time>
-      </p>
+      {showDate ? (
+        <p className="inline-flex items-center gap-1.5 font-medium text-slate-800">
+          <CalendarCheck className="h-4 w-4 text-corridor-600" />
+          {t.lastChecked}: <time dateTime={GOLDEN_VISA_LAST_CHECKED}>{GOLDEN_VISA_LAST_CHECKED}</time>
+        </p>
+      ) : null}
       <p className="inline-flex items-start gap-1.5">
         <Scale className="mt-0.5 h-4 w-4 shrink-0 text-slate-500" />
         {t.disclaimer}
@@ -143,7 +154,7 @@ export function GoldenVisaFactTable({ row, locale }: { row: GoldenVisaRow; local
           ))}
         </tbody>
       </table>
-      <LastCheckedLine locale={locale} className="mt-4 border-t border-slate-100 pt-4" />
+      <LastCheckedLine locale={locale} className="mt-4 border-t border-slate-100 pt-4" showDate={false} />
     </section>
   );
 }

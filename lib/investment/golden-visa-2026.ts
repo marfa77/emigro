@@ -198,13 +198,13 @@ export const GOLDEN_VISA_ROWS: readonly GoldenVisaRow[] = [
     status: "open",
     minInvestment: { ru: "AED 2 000 000", en: "AED 2,000,000" },
     routes: {
-      ru: "Недвижимость (зарегистрированная собственность от AED 2 млн; ипотека одобренного банка допускается); есть и другие категории",
+      ru: "Недвижимость на ваше имя от AED 2 млн (можно в ипотеку через одобренный банк); также бизнес, депозит, таланты",
       en: "Property (registered ownership from AED 2M; approved-bank mortgage allowed); other categories exist",
     },
     citizenship: { ru: "Не путь к гражданству", en: "Not a citizenship route" },
     ruBy: {
       status: "open",
-      ru: "В условиях ICP и DLD гражданство подачу не ограничивает. Одобрение и банк — отдельно",
+      ru: "Ограничений по гражданству в правилах нет. Одобрение заявки и проверку банка проходят отдельно",
       en: "ICP and DLD property rules do not exclude a nationality. Approval and the bank are separate",
     },
     sources: [
@@ -214,7 +214,7 @@ export const GOLDEN_VISA_ROWS: readonly GoldenVisaRow[] = [
         url: "https://dubailand.gov.ae/en/eservices/request-for-golden-visa-investor/",
       },
     ],
-    lastChecked: "2026-11-03",
+    lastChecked: "2026-11-20",
   },
   {
     slug: "hungary",

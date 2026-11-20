@@ -3,12 +3,10 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowRight, CheckCircle2, ShieldAlert, XCircle } from "lucide-react";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
-import { InvestmentQualifier } from "@/components/investment/InvestmentQualifier";
 import { InvestQuickLead } from "@/components/investment/InvestQuickLead";
 import {
   CompareAllLink,
   GoldenVisaFactTable,
-  InvestAssistOffers,
   PortugalCallout,
   SpainAlternatives,
 } from "@/components/investment/InvestPageBlocks";
@@ -96,6 +94,8 @@ export default function EnInvestCountryPage({ params }: { params: { country: str
               </Link>
             </p>
           </header>
+          {/* Old #qualifier links land on the single form. */}
+          <span id="qualifier" className="sr-only" aria-hidden />
           <InvestQuickLead
             locale="en"
             pageKey={slug}
@@ -180,13 +180,10 @@ export default function EnInvestCountryPage({ params }: { params: { country: str
           </Link>
         </div>
 
-        <div className="mt-10">
-          <InvestmentQualifier id="qualifier" defaultPreferredCountry={slug} locale="en" />
-        </div>
-
-        <div className="mt-10">
-          <InvestAssistOffers locale="en" />
-        </div>
+        <p className="mt-8 text-xs leading-relaxed text-slate-500">
+          A match in the form is a preliminary filter by budget, asset and goal — not confirmation of eligibility, approval
+          or returns. Independent legal, tax and sanctions checks are needed before any deal.
+        </p>
       </main>
       <SiteFooter locale="en" />
     </>
