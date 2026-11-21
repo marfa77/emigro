@@ -4,7 +4,13 @@ import { getCorridorBySlug } from "@/lib/corridor/queries";
 import { formatAssistLeadTelegramMessage } from "@/lib/leads/format-telegram";
 import { createAdminClient } from "@/lib/admin/supabase";
 import { looksLikeTelegramPublicContact } from "@/lib/telegram/public-url";
-import { sendOwnerTelegramDm } from "@/lib/telegram";
+import { sendOwnerTelegramDm, sendOwnerTelegramHtmlWithButtons } from "@/lib/telegram";
+import { requestOwnerKeyboard } from "@/lib/screening/save";
+import { publicSiteUrl } from "@/lib/site-url";
+
+function escapeHtml(text: string): string {
+  return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
 
 export const ASSIST_PLAN_TIER_LABELS: Record<string, string> = {
   "partner-match": "Бесплатный подбор партнёра",
@@ -33,6 +39,8 @@ export type SubmitAssistLeadInput = {
   source?: string;
   sessionId?: string | null;
   preferredLanguage?: "ru" | "es" | "fr";
+  /** Site path of the visitor's wizard results (`/ru/wizard/results?session=…`). */
+  resultsPath?: string | null;
 };
 
 export type SubmitAssistLeadResult = {
@@ -55,9 +63,12 @@ export async function submitAssistLead(input: SubmitAssistLeadInput): Promise<Su
     `Country: ${input.country}${input.destinationIso2 ? ` (${input.destinationIso2})` : ""}`,
     `Program/route: ${input.programRoute}`,
     providers.length ? `Selected providers: ${providers.join(", ")}` : "Selected providers: —",
+    input.resultsPath ? `Results: ${input.resultsPath}` : null,
     "",
     input.message,
-  ].join("\n");
+  ]
+    .filter((line): line is string => line !== null)
+    .join("\n");
 
   let leadId: string | null = null;
   let stored = false;
@@ -118,8 +129,7 @@ export async function submitAssistLead(input: SubmitAssistLeadInput): Promise<Su
     });
   }
 
-  const tg = await sendOwnerTelegramDm(
-    formatAssistLeadTelegramMessage({
+  const dmText = formatAssistLeadTelegramMessage({
       leadId,
       stored,
       country: input.country,
@@ -134,8 +144,13 @@ export async function submitAssistLead(input: SubmitAssistLeadInput): Promise<Su
       name: input.name,
       contact: input.contact,
       message: input.message,
-    })
-  );
+      resultsUrl: input.resultsPath ? `${publicSiteUrl()}${input.resultsPath}` : null,
+    });
+  // Same owner buttons as bot/questionnaire requests: hand off / ask for details / decline.
+  let tg = leadId
+    ? await sendOwnerTelegramHtmlWithButtons(escapeHtml(dmText), requestOwnerKeyboard(leadId))
+    : { success: false as boolean, error: "no lead id" as string | undefined };
+  if (!tg.success) tg = await sendOwnerTelegramDm(dmText);
   if (!tg.success) {
     console.warn("[assist-leads] Telegram DM failed:", tg.error);
   }

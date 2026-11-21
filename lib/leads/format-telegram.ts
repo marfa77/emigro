@@ -23,6 +23,8 @@ export type AssistLeadTelegramPayload = {
   name: string;
   contact: string;
   message: string;
+  /** Wizard results page of this visitor (absolute URL) — the case context for picking a partner. */
+  resultsUrl?: string | null;
 };
 
 export function formatLeadTelegramMessage(p: LeadTelegramPayload): string {
@@ -71,6 +73,7 @@ export function formatAssistLeadTelegramMessage(p: AssistLeadTelegramPayload): s
     providers,
     "",
     `Сообщение:\n${p.message}`,
+    p.resultsUrl ? `\nРезультаты квиза: ${p.resultsUrl}` : null,
   ];
 
   return lines.filter((line): line is string => line !== null).join("\n");

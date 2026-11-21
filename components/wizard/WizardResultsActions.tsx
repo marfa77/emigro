@@ -12,6 +12,10 @@ type Props = {
   programTitle?: string;
   matchCount: number;
   householdNote?: string;
+  /** Lead source tag; hub results by default. */
+  source?: string;
+  /** Results page path for the owner DM; hub results path by default. */
+  resultsPath?: string;
 };
 
 /**
@@ -27,6 +31,8 @@ export function WizardResultsActions({
   programTitle,
   matchCount,
   householdNote,
+  source = "wizard_hub_results",
+  resultsPath,
 }: Props) {
   const [showBar, setShowBar] = useState(false);
 
@@ -53,25 +59,27 @@ export function WizardResultsActions({
     <>
       <section id="results-request" className="mt-5 scroll-mt-24 rounded-2xl border border-corridor-200 bg-corridor-50 p-5 sm:p-6">
         <p className="text-sm font-semibold uppercase tracking-wide text-corridor-700">
-          {pickLabel ? "Лучшее совпадение" : "Явных совпадений нет"}
+          {pickLabel ? `Лучшее совпадение: ${pickLabel}` : "Явных совпадений нет"}
         </p>
         <h2 className="mt-1 text-xl font-bold text-slate-950 sm:text-2xl">
-          {pickLabel ?? "Подскажем, что можно сделать"}
+          {pickLabel ? "Получить помощь с этим маршрутом" : "Подскажем, что можно сделать"}
         </h2>
         <p className="mt-2 mb-4 max-w-2xl text-sm leading-relaxed text-slate-700">
-          Оставьте контакт — зададим пару вопросов о вашем случае и передадим его специалисту по этому маршруту. Он
-          свяжется с вами сам. Для вас бесплатно: комиссию Emigro платит специалист, цена его услуг для вас не меняется.
-          Контакт передаём только с вашего согласия.
+          Опишите коротко свою ситуацию и оставьте контакт. Мы посмотрим ваш случай вместе с результатами подбора и
+          передадим его специалисту, который ведёт такие маршруты, — он свяжется с вами сам. Для вас бесплатно:
+          комиссию Emigro платит специалист, цена его услуг для вас не меняется.
         </p>
         <QuickRequestForm
-          source="wizard_hub_results"
+          source={source}
+          resultsPath={resultsPath ?? `/ru/wizard/results?session=${sessionId}`}
           countryLabel={countryRu ?? "не указано"}
           countrySegment={country}
           corridorSlug={corridorSlug}
           programRoute={programTitle}
           sessionId={sessionId}
           contextNote={contextNote}
-          submitLabel="Подобрать консультанта — бесплатно"
+          submitLabel="Получить помощь — бесплатно"
+          situationFirst
         />
       </section>
 
@@ -87,7 +95,7 @@ export function WizardResultsActions({
             tabIndex={showBar ? 0 : -1}
             className="flex w-full items-center justify-center rounded-lg bg-corridor-600 px-3 py-3 text-center text-sm font-semibold text-white"
           >
-            Подобрать консультанта — бесплатно
+            Получить помощь — бесплатно
           </a>
         </div>
       </div>

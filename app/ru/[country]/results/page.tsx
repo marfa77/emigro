@@ -2,13 +2,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { SiteFooter, SiteHeader } from "@/components/SiteLayout";
-import { TrackedAssistLink } from "@/components/assist/TrackedAssistLink";
-import { ServiceProvidersSection } from "@/components/providers/ServiceProvidersSection";
-import { AssistResultsCta } from "@/components/wizard/AssistResultsCta";
 import { HouseholdBanner } from "@/components/wizard/HouseholdBanner";
-import { WizardTelegramDelivery } from "@/components/wizard/WizardTelegramDelivery";
+import { WizardResultsActions } from "@/components/wizard/WizardResultsActions";
 import { WizardOutcomeCard } from "@/components/wizard/WizardOutcomeCard";
-import { assistBotDeepLink } from "@/lib/telegram/deep-link";
 import { corridorWizardPath } from "@/lib/corridor/paths";
 import { getCorridorBySlug } from "@/lib/corridor/queries";
 import { describeHousehold, parseHousehold } from "@/lib/engine/household";
@@ -18,10 +14,6 @@ import { createServerClient } from "@/lib/supabase/server";
 import { pageMetadata } from "@/lib/seo";
 import { corridorStaticParamsFromSegments, getActiveCorridorSegments } from "@/lib/corridor/segments";
 import { newsIndexPath } from "@/lib/news/topics";
-import { PortugalHubNextSteps } from "@/components/portugal/PortugalHubNextSteps";
-import { WizardSatellitePracticeCta } from "@/components/wizard/WizardSatellitePracticeCta";
-import { isPortugalHubTopic } from "@/lib/portugal/hub";
-import { liveCityChatForCountry } from "@/lib/satellite/city-chats";
 import { formatCountryProgramLabel } from "@/lib/wizard/format-country-program-label";
 
 export async function generateStaticParams() {
@@ -53,7 +45,6 @@ export default async function CountryResultsPage({
   const corridorSlug = topic.corridorSlug;
   const base = topic.sitePaths.landing;
   const sessionId = searchParams.session;
-  const cityChat = liveCityChatForCountry(topic.urlSegment);
   const corridor = await getCorridorBySlug(corridorSlug);
 
   if (!sessionId) {
@@ -135,20 +126,18 @@ export default async function CountryResultsPage({
   const matchCount = results.filter((r) => r.outcome !== "unlikely").length;
   const strongMatchCount = results.filter((r) => r.outcome === "likely_eligible").length;
   const topOutcome = typeof results[0]?.outcome === "string" ? results[0].outcome : "";
-  const preferRouteCheck =
-    strongMatchCount === 0 || topOutcome === "needs_review" || matchCount <= 1;
 
   return (
     <>
       <SiteHeader />
       <main className="mx-auto max-w-5xl px-4 py-10">
         <p className="text-sm font-semibold uppercase tracking-wide text-corridor-700">
-          Предварительный shortlist
+          Предварительный подбор
         </p>
         <h1 className="mt-1 text-3xl font-bold">Ваши доступные маршруты — {topic.countryRu}</h1>
         <p className="mt-2 text-slate-600">
-          Сопоставление по вашим ответам ({matchCount} из {results.length} не «unlikely»). Emigro не ранжирует
-          «лучшую визу» — только eligibility. Это не юридическая гарантия.
+          Подходят {matchCount} из {results.length} программ по вашим ответам. Это предварительный подбор, не
+          юридическая гарантия.
         </p>
 
         <HouseholdBanner household={household} />
@@ -162,36 +151,17 @@ export default async function CountryResultsPage({
           data-pick-country={topic.urlSegment}
         />
 
-        {cityChat ? (
-          <WizardSatellitePracticeCta
-            sessionId={sessionId}
-            placement="wizard_corridor_results"
-            countryKey={cityChat.countryKey}
-            chat={cityChat}
-          />
-        ) : null}
-
-        <AssistResultsCta
+        <WizardResultsActions
           sessionId={sessionId}
-          placement="wizard_corridor_results"
+          pickLabel={topResult ? formatCountryProgramLabel(topic.countryRu, topResult.title_ru) : undefined}
           country={topic.urlSegment}
+          corridorSlug={corridorSlug}
           countryRu={topic.countryRu}
           programTitle={topResult?.title_ru}
           matchCount={matchCount}
-          strongMatchCount={strongMatchCount}
-          pickOutcome={topOutcome}
-          preferRouteCheck={preferRouteCheck}
-        />
-
-        <WizardTelegramDelivery
-          mode="corridor"
-          sessionId={sessionId}
-          topRecommendation={
-            topResult
-              ? formatCountryProgramLabel(topic.countryRu, topResult.title_ru)
-              : undefined
-          }
-          matchCount={matchCount}
+          householdNote={household && !household.isSolo ? `Семья: ${household.labelRu}.` : undefined}
+          source="wizard_corridor_results"
+          resultsPath={`${base}/results?session=${sessionId}`}
         />
 
         <div className="mt-8 grid w-full grid-cols-1 gap-4 sm:grid-cols-[repeat(auto-fit,minmax(min(100%,20rem),1fr))]">
@@ -214,14 +184,6 @@ export default async function CountryResultsPage({
           })}
         </div>
 
-        {isPortugalHubTopic(topic) && (
-          <PortugalHubNextSteps
-            className="mt-8"
-            guideHref={topic.sitePaths.guide}
-            placement="wizard_corridor_results"
-          />
-        )}
-
         <section className="mt-12 rounded-2xl border border-slate-200 bg-white p-6">
           <h2 className="text-xl font-semibold">Что делать дальше</h2>
           <ol className="mt-4 list-decimal space-y-2 pl-5 text-slate-700">
@@ -229,7 +191,7 @@ export default async function CountryResultsPage({
             <li>Сверьте требования с официальным источником: доход, деньги, семья, место подачи.</li>
             <li>Соберите документы, которые доказывают ваши ответы: выписки, оффер, договоры, справки.</li>
             <li>Проверьте консульство или миграционный орган, где именно можно подаваться.</li>
-            <li>Если есть сомнения, отправьте кейс Emigro Assist или профильному провайдеру.</li>
+            <li>Если есть сомнения, опишите свою ситуацию в форме выше — подберём специалиста бесплатно.</li>
           </ol>
           <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-sm font-medium">
             {topic.sitePaths.guide && (
@@ -240,27 +202,15 @@ export default async function CountryResultsPage({
             <Link href={newsIndexPath(topic.urlSegment)} className="text-corridor-600 underline">
               Новости недели →
             </Link>
-            <TrackedAssistLink
-              href={assistBotDeepLink({ country: topic.urlSegment })}
-              placement="wizard_corridor_next_steps"
-              linkLabel="Найти специалиста"
-              sessionId={sessionId}
-              country={topic.urlSegment}
-              program={topResult?.title_ru}
+            <a
+              href="#results-request"
               className="inline-flex min-h-11 items-center rounded-lg bg-corridor-600 px-4 py-2 text-white hover:bg-corridor-700"
             >
-              Найти специалиста
-            </TrackedAssistLink>
+              Получить помощь
+            </a>
           </div>
         </section>
 
-        <ServiceProvidersSection
-          className="mt-12"
-          corridorSlug={corridorSlug}
-          topicKey={topic.key}
-          placement="wizard_corridor_results"
-          title={`Провайдеры и сервисы — ${topic.countryRu}`}
-        />
       </main>
       <SiteFooter />
     </>

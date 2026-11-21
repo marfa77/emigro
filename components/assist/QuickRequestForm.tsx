@@ -21,6 +21,14 @@ type Props = {
   /** Prefilled context that goes into the request message (wizard top pick, match count). */
   contextNote?: string;
   submitLabel?: string;
+  /**
+   * Wizard results: the visitor already answered the quiz, so the form is only "describe your
+   * situation" (required — it decides which partner gets the case), contact and consent. No name
+   * field, no Telegram detour.
+   */
+  situationFirst?: boolean;
+  /** Path of the wizard results page this form sits on — sent so the owner can open the case. */
+  resultsPath?: string;
 };
 
 const field =
@@ -41,6 +49,8 @@ export function QuickRequestForm({
   sessionId,
   contextNote,
   submitLabel = "Отправить заявку",
+  situationFirst = false,
+  resultsPath,
 }: Props) {
   const pickerOptions = countryLabel ? [] : countries ?? [];
   const initialOption =
@@ -91,11 +101,12 @@ export function QuickRequestForm({
           destination_iso2: selected?.destinationIso2,
           program_route: programRoute || "",
           plan_tier: "partner-match",
-          name,
+          name: name.trim() || "Без имени",
           contact,
           message: note,
           consent,
           session_id: sessionId || undefined,
+          results_path: resultsPath,
           preferred_language: "ru",
           audience: "ru",
           source,
@@ -143,33 +154,66 @@ export function QuickRequestForm({
           </select>
         </label>
       ) : null}
-      <div className="grid gap-3 sm:grid-cols-2">
-        <label className="block text-sm font-medium text-slate-800">
-          Имя
-          <input required value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" className={`mt-1 ${field}`} />
-        </label>
-        <label className="block text-sm font-medium text-slate-800">
-          Email или Telegram
-          <input
-            required
-            value={contact}
-            onChange={(e) => setContact(e.target.value)}
-            placeholder="name@mail.com или @username"
-            autoComplete="email"
-            className={`mt-1 ${field}`}
-          />
-        </label>
-      </div>
-      <label className="block text-sm font-medium text-slate-800">
-        Коротко о задаче <span className="font-normal text-slate-500">(необязательно)</span>
-        <textarea
-          rows={2}
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          placeholder="Например: семья 4 человека, хотим переехать весной"
-          className={`mt-1 ${field}`}
-        />
-      </label>
+      {situationFirst ? (
+        <>
+          <label className="block text-sm font-medium text-slate-800">
+            Коротко опишите ситуацию
+            <textarea
+              required
+              minLength={15}
+              rows={4}
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              placeholder="Где живёте сейчас и по какому статусу, кто переезжает, на что планируете жить, когда хотите подаваться и что смущает"
+              className={`mt-1 ${field}`}
+            />
+            <span className="mt-1 block text-xs font-normal text-slate-500">
+              По этому описанию выберем специалиста, который ведёт именно такие случаи.
+            </span>
+          </label>
+          <label className="block text-sm font-medium text-slate-800">
+            Email или Telegram для связи
+            <input
+              required
+              value={contact}
+              onChange={(e) => setContact(e.target.value)}
+              placeholder="name@mail.com или @username"
+              autoComplete="email"
+              className={`mt-1 ${field}`}
+            />
+          </label>
+        </>
+      ) : (
+        <>
+          <div className="grid gap-3 sm:grid-cols-2">
+            <label className="block text-sm font-medium text-slate-800">
+              Имя
+              <input required value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" className={`mt-1 ${field}`} />
+            </label>
+            <label className="block text-sm font-medium text-slate-800">
+              Email или Telegram
+              <input
+                required
+                value={contact}
+                onChange={(e) => setContact(e.target.value)}
+                placeholder="name@mail.com или @username"
+                autoComplete="email"
+                className={`mt-1 ${field}`}
+              />
+            </label>
+          </div>
+          <label className="block text-sm font-medium text-slate-800">
+            Коротко о задаче <span className="font-normal text-slate-500">(необязательно)</span>
+            <textarea
+              rows={2}
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              placeholder="Например: семья 4 человека, хотим переехать весной"
+              className={`mt-1 ${field}`}
+            />
+          </label>
+        </>
+      )}
       <label className="flex items-start gap-2 text-xs leading-relaxed text-slate-600">
         <input required type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} className="mt-0.5 h-4 w-4" />
         <span>
@@ -188,12 +232,14 @@ export function QuickRequestForm({
       >
         {status === "loading" ? "Отправляем…" : submitLabel}
       </button>
+      {situationFirst ? null : (
       <p className="text-sm text-slate-600">
         Удобнее в Telegram?{" "}
         <a href={assistBotDeepLink()} target="_blank" rel="noopener noreferrer" className="font-medium text-corridor-700 underline">
           Напишите @emigro_chat_bot
         </a>
       </p>
+      )}
     </form>
   );
 }

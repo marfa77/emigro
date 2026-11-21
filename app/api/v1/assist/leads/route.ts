@@ -19,6 +19,7 @@ type AssistLeadBody = {
   preferred_language?: string;
   audience?: string;
   session_id?: string;
+  results_path?: string;
   source?: string;
 };
 
@@ -60,6 +61,10 @@ export async function POST(request: Request) {
   const audienceRaw = clean(body.audience);
   const audience =
     audienceRaw === "latam" ? "latam" : audienceRaw === "fr_africa" ? "fr_africa" : "ru";
+  const resultsPathRaw = clean(body.results_path);
+  const resultsPath = /^\/(ru|es|fr|en)\/[a-z0-9/-]*results\?session=[0-9a-f-]{36}$/i.test(resultsPathRaw)
+    ? resultsPathRaw
+    : null;
   const sourceRaw = clean(body.source);
   const assistSource =
     sourceRaw ||
@@ -92,6 +97,7 @@ export async function POST(request: Request) {
     source: assistSource,
     sessionId,
     preferredLanguage,
+    resultsPath,
   });
 
   return NextResponse.json({ id: result.leadId, status: "new", stored: result.stored });
