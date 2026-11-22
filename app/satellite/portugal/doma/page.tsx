@@ -127,8 +127,8 @@ export default function DomaPage() {
         <div className="rounded-3xl bg-sky-50 p-5">
           <p className="text-3xl font-bold text-sky-900">{gated.length}</p>
           <p className="mt-1 text-sm text-sky-950">
-            закрытых кондоминиума — ближе всего к посёлкам вроде Elan или Sea Glade. Больших посёлков на сотни домов у парка нет: здесь
-            за забором стоят 4–10 домов.
+            закрытых кондоминиума: дома за общей оградой, с общим садом или дорожками. Больших закрытых посёлков у парка нет — в
+            каждом 4–10 домов.
           </p>
         </div>
       </section>
