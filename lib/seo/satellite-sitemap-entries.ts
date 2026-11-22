@@ -5,6 +5,7 @@ import { normalizeHashtag } from "@/lib/community-notes/hashtags";
 import { MIN_TAG_NOTES_INDEXABLE } from "@/lib/seo/thin-content";
 import { COMO_GUIDES } from "@/lib/italy/como-guides";
 import { listPortugalEvents } from "@/lib/events/portugal-calendar";
+import { listParqueProjects } from "@/lib/properties/catalog";
 import {
   portugalSatellitePublicUrl,
   spainSatellitePublicUrl,
@@ -52,6 +53,13 @@ export async function buildSatelliteSitemapEntries(
           { url: publicUrl(country, "/calendar/porto"), changeFrequency: "daily", priority: 0.85 },
           { url: publicUrl(country, "/calendar/lisboa"), changeFrequency: "daily", priority: 0.85 },
           ...(await upcomingCalendarUrls()),
+          { url: publicUrl(country, "/novostroyki"), changeFrequency: "weekly", priority: 0.85 },
+          ...listParqueProjects().map((project) => ({
+            url: publicUrl(country, `/novostroyki/${project.slug}`),
+            lastModified: project.verified,
+            changeFrequency: "weekly" as const,
+            priority: 0.7,
+          })),
         ]
       : [];
 

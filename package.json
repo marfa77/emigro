@@ -185,6 +185,7 @@
     "google-news-url-decoder": "^1.2.2",
     "googleapis": "^144.0.0",
     "json-logic-js": "^2.0.5",
+    "leaflet": "^1.9.4",
     "lucide-react": "^0.511.0",
     "next": "14.2.35",
     "react": "^18",
@@ -195,6 +196,7 @@
   },
   "devDependencies": {
     "@types/json-logic-js": "^2.0.8",
+    "@types/leaflet": "^1.9.12",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

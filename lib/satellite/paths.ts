@@ -110,6 +110,12 @@ export function portugalCalendarPath(slug?: string): string {
   return portugalSatellitePublicUrl(slug ? `/calendar/${slug}` : "/calendar");
 }
 
+/** New-build catalog around Parque da Cidade — short path on porto.*, absolute from www. */
+export function portugalNovostroykiPath(slug?: string): string {
+  const path = slug ? `/novostroyki/${slug}` : "/novostroyki";
+  return onPortugalSatelliteHost() ? path : portugalSatellitePublicUrl(path);
+}
+
 export function spainHubPath(): string {
   return satelliteHubPath("spain");
 }
