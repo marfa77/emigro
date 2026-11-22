@@ -10,6 +10,7 @@ export type Typology = "T0" | "T1" | "T2" | "T3" | "T4" | "T5";
 
 export type ProjectStatus =
   | "selling" // on sale, under construction
+  | "building" // under construction, no public prices
   | "ready" // built, ready for escritura
   | "embargo" // works stopped by the Câmara
   | "sold_out";

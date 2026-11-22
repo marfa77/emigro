@@ -127,7 +127,14 @@ export default function NovostroykaPage({ params }: Params) {
     { label: "Архитектор", value: p.architect ?? <Unknown /> },
     { label: "Юнитов в проекте", value: p.units_total ?? <Unknown /> },
     { label: "Типологии", value: p.typologies.join(", ") || <Unknown /> },
-    { label: "Видно в продаже", value: p.onSale ? `${p.onSale} ${ruUnits(p.onSale)} с ценой` : <Unknown>цен нет</Unknown> },
+    {
+      label: "Свободно",
+      value: p.onSale ? (
+        `${p.onSale} ${ruUnits(p.onSale)}${p.units.some((u) => u.price_eur != null) ? "" : ", цены по запросу"}`
+      ) : (
+        <Unknown>нет данных</Unknown>
+      ),
+    },
     { label: "€ за м²", value: p.ppmMin != null ? ppmLabel(p) : <Unknown>—</Unknown> },
     { label: "Сдача", value: p.completion ?? <Unknown /> },
     { label: "Энергокласс", value: p.energy_class ?? <Unknown /> },
@@ -166,7 +173,8 @@ export default function NovostroykaPage({ params }: Params) {
         <p className="mt-1.5 text-xs text-slate-500">
           Фото:{" "}
           <a href={p.photo.url} target="_blank" rel="noopener noreferrer nofollow" className="underline">
-            {p.photo.credit}, объявление на Imovirtual
+            {p.photo.credit}
+            {p.photo.url.includes("imovirtual") ? ", объявление на Imovirtual" : ", сайт проекта"}
           </a>
         </p>
       ) : null}

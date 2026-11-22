@@ -23,6 +23,7 @@ export type CatalogProject = ParqueProject & {
 
 export const STATUS_LABEL: Record<ProjectStatus, string> = {
   selling: "Строится, продаётся",
+  building: "Строится, цен нет",
   ready: "Дом сдан",
   embargo: "Стройка остановлена",
   sold_out: "Всё продано",
@@ -30,6 +31,7 @@ export const STATUS_LABEL: Record<ProjectStatus, string> = {
 
 export const STATUS_TONE: Record<ProjectStatus, string> = {
   selling: "bg-sky-50 text-sky-900 ring-sky-200",
+  building: "bg-slate-100 text-slate-800 ring-slate-200",
   ready: "bg-emerald-50 text-emerald-900 ring-emerald-200",
   embargo: "bg-rose-50 text-rose-900 ring-rose-200",
   sold_out: "bg-slate-100 text-slate-700 ring-slate-200",

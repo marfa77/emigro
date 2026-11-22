@@ -9,6 +9,12 @@ export type ProjectPhoto = { src: string; credit: string; url: string; alt: stri
 const iv = (slug: string) => `https://www.imovirtual.com/pt/anuncio/${slug}`;
 
 export const PROJECT_PHOTOS: Record<string, ProjectPhoto> = {
+  "noble-boavista": {
+    src: "/properties/noble-boavista.webp",
+    credit: "Grupo MCaetano",
+    url: "https://nobleboavista.pt/",
+    alt: "NOBLE: рендер фасада со стороны Avenida da Boavista, живая изгородь и деревья перед домом",
+  },
   "boavista-5205": {
     src: "/properties/boavista-5205.webp",
     credit: "Dils",
