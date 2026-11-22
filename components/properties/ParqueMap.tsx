@@ -23,6 +23,8 @@ type Props = {
   active?: string | null;
   onSelect?: (slug: string) => void;
   className?: string;
+  /** Extra labelled markers, e.g. a school. */
+  landmarks?: { lat: number; lng: number; label: string; title: string }[];
 };
 
 /**
@@ -30,7 +32,7 @@ type Props = {
  * Tiles: OpenStreetMap standard, desaturated in CSS so pins and the park read first. Loaded client-side only; the list next to it is the
  * accessible version of the same data.
  */
-export function ParqueMap({ points, focus, active, onSelect, className }: Props) {
+export function ParqueMap({ points, focus, active, onSelect, className, landmarks }: Props) {
   const box = useRef<HTMLDivElement>(null);
   const markers = useRef(new Map<string, { el: HTMLElement }>());
   const selectRef = useRef(onSelect);
@@ -73,6 +75,21 @@ export function ParqueMap({ points, focus, active, onSelect, className }: Props)
           zIndexOffset: -500,
         })
           .bindTooltip(`${isBus ? "Метробус" : "Метро"}: ${stop.name}`, { direction: "top", offset: [0, -11] })
+          .addTo(map);
+      }
+
+      for (const lm of landmarks ?? []) {
+        L.marker([lm.lat, lm.lng], {
+          icon: L.divIcon({
+            className: "",
+            iconSize: [34, 22],
+            iconAnchor: [17, 11],
+            html: `<span class="parque-landmark">${lm.label}</span>`,
+          }),
+          keyboard: false,
+          zIndexOffset: -400,
+        })
+          .bindTooltip(lm.title, { direction: "top", offset: [0, -11] })
           .addTo(map);
       }
 
@@ -132,6 +149,7 @@ export function ParqueMap({ points, focus, active, onSelect, className }: Props)
         .parque-pin.is-dim{opacity:.55}
         .parque-stop{display:flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:6px;background:#dc2626;color:#fff;font:700 11px/1 ui-sans-serif,system-ui,sans-serif;border:2px solid #fff;box-shadow:0 1px 3px rgba(15,23,42,.3)}
         .parque-stop.is-bus{background:#7c3aed;font-size:9px}
+        .parque-landmark{display:flex;align-items:center;justify-content:center;width:34px;height:22px;border-radius:6px;background:#0369a1;color:#fff;font:700 10px/1 ui-sans-serif,system-ui,sans-serif;border:2px solid #fff;box-shadow:0 1px 3px rgba(15,23,42,.3)}
         .parque-map-label{background:transparent;border:0;box-shadow:none;color:#166534;font-weight:600;letter-spacing:.02em}
         .parque-map-label::before{display:none}
       `}</style>

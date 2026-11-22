@@ -37,5 +37,13 @@ export const TRANSIT_STOPS: TransitStop[] = [
   { name: "Senhor de Matosinhos", kind: "metro", lat: 41.188188, lng: -8.685203 },
   { name: "Estádio do Mar", kind: "metro", lat: 41.185742, lng: -8.661223 },
   { name: "Francos", kind: "metro", lat: 41.165486, lng: -8.636351 },
+  { name: "Ramalde", kind: "metro", lat: 41.172974, lng: -8.641849 },
+  { name: "Viso", kind: "metro", lat: 41.177236, lng: -8.646534 },
+  { name: "NorteShopping / Sete Bicas", kind: "metro", lat: 41.182413, lng: -8.652180 },
+  { name: "Senhora da Hora", kind: "metro", lat: 41.188078, lng: -8.654507 },
+  { name: "Vasco da Gama", kind: "metro", lat: 41.190304, lng: -8.661028 },
   { name: "Praça do Império", kind: "metrobus", lat: 41.155736, lng: -8.671292 },
+  { name: "Serralves (Museu)", kind: "metrobus", lat: 41.159692, lng: -8.660294 },
+  { name: "Serralves", kind: "metrobus", lat: 41.161677, lng: -8.657636 },
+  { name: "Pinheiro Manso", kind: "metrobus", lat: 41.162007, lng: -8.651512 },
 ];

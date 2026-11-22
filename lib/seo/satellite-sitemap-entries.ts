@@ -6,6 +6,7 @@ import { MIN_TAG_NOTES_INDEXABLE } from "@/lib/seo/thin-content";
 import { COMO_GUIDES } from "@/lib/italy/como-guides";
 import { listPortugalEvents } from "@/lib/events/portugal-calendar";
 import { listParqueProjects } from "@/lib/properties/catalog";
+import { listHouseQuarters } from "@/lib/properties/house-catalog";
 import {
   portugalSatellitePublicUrl,
   spainSatellitePublicUrl,
@@ -57,6 +58,13 @@ export async function buildSatelliteSitemapEntries(
           ...listParqueProjects().map((project) => ({
             url: publicUrl(country, `/novostroyki/${project.slug}`),
             lastModified: project.verified,
+            changeFrequency: "weekly" as const,
+            priority: 0.7,
+          })),
+          { url: publicUrl(country, "/doma"), changeFrequency: "weekly", priority: 0.85 },
+          ...listHouseQuarters().map((quarter) => ({
+            url: publicUrl(country, `/doma/${quarter.slug}`),
+            lastModified: quarter.verified,
             changeFrequency: "weekly" as const,
             priority: 0.7,
           })),

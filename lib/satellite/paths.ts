@@ -116,6 +116,12 @@ export function portugalNovostroykiPath(slug?: string): string {
   return onPortugalSatelliteHost() ? path : portugalSatellitePublicUrl(path);
 }
 
+/** House quarters (no neighbours above or below) — short path on porto.*, absolute from www. */
+export function portugalDomaPath(slug?: string): string {
+  const path = slug ? `/doma/${slug}` : "/doma";
+  return onPortugalSatelliteHost() ? path : portugalSatellitePublicUrl(path);
+}
+
 export function spainHubPath(): string {
   return satelliteHubPath("spain");
 }
