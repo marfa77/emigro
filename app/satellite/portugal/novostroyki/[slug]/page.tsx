@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ParqueMap } from "@/components/properties/ParqueMap";
-import { ProjectPlate } from "@/components/properties/ProjectPlate";
+import { ProjectCover } from "@/components/properties/ProjectCover";
 import { SatelliteAssistIntake } from "@/components/satellite/SatelliteAssistIntake";
 import { withSatelliteAiMetadata } from "@/lib/community-notes/seo-page";
 import {
@@ -18,7 +18,6 @@ import {
   type CatalogProject,
 } from "@/lib/properties/catalog";
 import { ppmLabel } from "@/lib/properties/explorer";
-import { BAND_COLOR, PARK_BAND_LABEL } from "@/lib/properties/park";
 import type { PropertyUnit, SourceKind, UnitStatus } from "@/lib/properties/types";
 import { portugalNovostroykiPath } from "@/lib/satellite/paths";
 import { fitMetaDescription, fitSeoTitlePart, socialImageMetadata, DEFAULT_OG_IMAGE } from "@/lib/seo";
@@ -54,7 +53,9 @@ function typologyRange(p: CatalogProject): string {
 function factLine(p: CatalogProject): string {
   const parts = [
     `${p.name}: ${typologyRange(p)}${p.units_total ? `, ${p.units_total} юнитов` : ""}`,
-    p.walkMin != null ? `≈ ${p.walkMin} мин пешком до Parque da Cidade (${p.parkM} м)` : "адрес не подтверждён",
+    p.dist
+      ? `пешком ≈ ${p.dist.park.min} мин до Parque da Cidade, ≈ ${p.dist.ocean.min} мин до океана, ≈ ${(p.dist.metrobus ?? p.dist.metro).min} мин до ${p.dist.metrobus ? "метробуса" : "метро"}`
+      : "адрес не подтверждён",
     p.priceFrom != null ? `в продаже от ${formatEur(p.priceFrom)}` : "",
     STATUS_LABEL[p.status].toLowerCase(),
   ].filter(Boolean);
@@ -101,11 +102,12 @@ export default function NovostroykaPage({ params }: Params) {
   if (!p) notFound();
   const all = listParqueProjects();
   const sourceNo = new Map(p.sources.map((s, i) => [s.id, i + 1]));
+  const km = (a: CatalogProject, b: CatalogProject) =>
+    a.lat != null && b.lat != null ? Math.hypot((a.lat - b.lat) * 111, (a.lng! - b.lng!) * 84) : Infinity;
   const neighbours = all
-    .filter((x) => x.slug !== p.slug && x.parkM != null)
-    .sort((a, b) => Math.abs((a.parkM ?? 0) - (p.parkM ?? 0)) - Math.abs((b.parkM ?? 0) - (p.parkM ?? 0)))
+    .filter((x) => x.slug !== p.slug && x.lat != null)
+    .sort((a, b) => km(a, p) - km(b, p))
     .slice(0, 3);
-  const color = p.band ? BAND_COLOR[p.band] : "#64748b";
   const units = [...p.units].sort((a, b) => a.typology.localeCompare(b.typology) || (a.price_eur ?? Infinity) - (b.price_eur ?? Infinity));
   const url = portugalSatelliteUrl(`/novostroyki/${p.slug}`);
   const ld = {
@@ -120,17 +122,6 @@ export default function NovostroykaPage({ params }: Params) {
   };
 
   const passport: { label: string; value: React.ReactNode }[] = [
-    {
-      label: "До парка",
-      value:
-        p.walkMin != null ? (
-          <span style={{ color }} className="font-semibold">
-            ≈ {p.walkMin} мин · {p.parkM} м
-          </span>
-        ) : (
-          <Unknown>адрес не подтверждён</Unknown>
-        ),
-    },
     { label: "Адрес", value: p.address },
     { label: "Застройщик", value: p.developer ?? <Unknown /> },
     { label: "Архитектор", value: p.architect ?? <Unknown /> },
@@ -153,8 +144,7 @@ export default function NovostroykaPage({ params }: Params) {
 
       <header className="mt-6 flex flex-wrap items-start gap-4">
         <span
-          className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-lg font-bold text-white shadow"
-          style={{ background: color }}
+          className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-slate-900 text-lg font-bold text-white shadow"
           aria-label={`Номер на карте ${p.pin}`}
         >
           {p.pin}
@@ -165,20 +155,41 @@ export default function NovostroykaPage({ params }: Params) {
           <div className="mt-3 flex flex-wrap gap-1.5 text-xs">
             <span className={`rounded-full px-2 py-0.5 ring-1 ${STATUS_TONE[p.status]}`}>{STATUS_LABEL[p.status]}</span>
             <span className="rounded-full bg-slate-100 px-2 py-0.5 text-slate-700">{SIDE_LABEL[p.side]}</span>
-            {p.band ? (
-              <span className="rounded-full px-2 py-0.5 text-white" style={{ background: color }}>
-                {PARK_BAND_LABEL[p.band]}
-              </span>
-            ) : null}
           </div>
         </div>
       </header>
 
-      <section className="mt-8 grid gap-6 lg:grid-cols-[1.1fr_1fr]">
-        <div className="overflow-hidden rounded-3xl ring-1 ring-slate-200">
-          <ProjectPlate project={p} className="h-auto w-full" />
-        </div>
-        <dl className="grid grid-cols-1 gap-x-6 gap-y-3 rounded-3xl bg-slate-50 p-5 text-sm sm:grid-cols-2">
+      <section className="mt-8 overflow-hidden rounded-3xl ring-1 ring-slate-200">
+        <ProjectCover project={p} sizes="(min-width: 1024px) 1024px, 100vw" priority className="aspect-[16/9] w-full sm:aspect-[21/9]" />
+      </section>
+      {p.photo ? (
+        <p className="mt-1.5 text-xs text-slate-500">
+          Фото:{" "}
+          <a href={p.photo.url} target="_blank" rel="noopener noreferrer nofollow" className="underline">
+            {p.photo.credit}, объявление на Imovirtual
+          </a>
+        </p>
+      ) : null}
+
+      <section className="mt-4 grid grid-cols-3 gap-2 sm:gap-3" aria-label="Пешком">
+        {[
+          { label: "Парк", sub: "Parque da Cidade", d: p.dist?.park },
+          { label: "Океан", sub: "линия берега", d: p.dist?.ocean },
+          p.dist?.metrobus
+            ? { label: "Метробус", sub: `${p.dist.metrobus.name}; метро ≈ ${p.dist.metro.min} мин`, d: p.dist.metrobus }
+            : { label: "Метро", sub: p.dist?.metro.name ?? "", d: p.dist?.metro },
+        ].map((w) => (
+          <div key={w.label} className="min-w-0 rounded-2xl bg-slate-50 p-3 sm:p-4">
+            <p className="text-xs uppercase tracking-wide text-slate-500">{w.label}</p>
+            <p className="mt-1 text-xl font-bold text-slate-900 sm:text-2xl">{w.d ? `≈ ${w.d.min} мин` : "—"}</p>
+            <p className="mt-0.5 text-xs text-slate-500">{w.d ? `${w.d.m} м по прямой` : "адрес не подтверждён"}</p>
+            {w.d && w.sub ? <p className="mt-0.5 break-words text-xs leading-snug text-slate-500">{w.sub}</p> : null}
+          </div>
+        ))}
+      </section>
+
+      <section className="mt-6">
+        <dl className="grid grid-cols-1 gap-x-6 gap-y-3 rounded-3xl bg-white p-5 text-sm ring-1 ring-slate-200 sm:grid-cols-3">
           {passport.map((row) => (
             <div key={row.label} className="min-w-0">
               <dt className="text-xs uppercase tracking-wide text-slate-500">{row.label}</dt>
@@ -287,7 +298,7 @@ export default function NovostroykaPage({ params }: Params) {
         ) : null}
       </section>
 
-      {p.lat != null && p.band ? (
+      {p.lat != null ? (
         <section className="mt-12">
           <h2 className="text-2xl font-semibold text-slate-900">На карте</h2>
           <p className="mt-1 text-sm text-slate-600">{p.location_basis}.</p>
@@ -296,16 +307,15 @@ export default function NovostroykaPage({ params }: Params) {
               focus={p.slug}
               className="h-[340px]"
               points={all
-                .filter((x) => x.lat != null && x.lng != null && x.band)
+                .filter((x) => x.lat != null && x.lng != null)
                 .map((x) => ({
                   slug: x.slug,
                   pin: x.pin,
                   name: x.name,
                   lat: x.lat!,
                   lng: x.lng!,
-                  band: x.band!,
                   href: portugalNovostroykiPath(x.slug),
-                  caption: x.walkMin != null ? `≈ ${x.walkMin} мин до парка` : "",
+                  caption: x.priceFrom != null ? `от ${formatEur(x.priceFrom)}` : "",
                 }))}
             />
           </div>
@@ -335,16 +345,17 @@ export default function NovostroykaPage({ params }: Params) {
 
       {neighbours.length ? (
         <section className="mt-12">
-          <h2 className="text-2xl font-semibold text-slate-900">Рядом по расстоянию до парка</h2>
+          <h2 className="text-2xl font-semibold text-slate-900">Ближайшие соседи</h2>
           <ul className="mt-4 grid gap-4 sm:grid-cols-3">
             {neighbours.map((n) => (
               <li key={n.slug} className="overflow-hidden rounded-3xl ring-1 ring-slate-200">
                 <Link href={portugalNovostroykiPath(n.slug)} className="block hover:bg-slate-50">
-                  <ProjectPlate project={n} compact className="h-auto w-full" />
+                  <ProjectCover project={n} sizes="(min-width: 640px) 320px, 100vw" className="aspect-[4/3] w-full" />
                   <div className="p-4">
                     <p className="font-semibold text-slate-900">{n.name}</p>
                     <p className="mt-1 text-sm text-slate-600">
-                      ≈ {n.walkMin} мин до парка · {n.priceFrom != null ? `от ${formatEur(n.priceFrom)}` : "цен нет"}
+                      {n.priceFrom != null ? `от ${formatEur(n.priceFrom)}` : "цен нет"}
+                      {n.dist ? ` · океан ≈ ${n.dist.ocean.min} мин · метро ≈ ${(n.dist.metrobus ?? n.dist.metro).min} мин` : ""}
                     </p>
                   </div>
                 </Link>

@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ProjectPlate } from "@/components/properties/ProjectPlate";
+import { ProjectCover } from "@/components/properties/ProjectCover";
 import { SIDE_LABEL, STATUS_LABEL, formatEur, listParqueProjects, type CatalogProject } from "@/lib/properties/catalog";
 import { ppmLabel } from "@/lib/properties/explorer";
-import { BAND_COLOR } from "@/lib/properties/park";
 import type { Typology } from "@/lib/properties/types";
 import { portugalNovostroykiPath } from "@/lib/satellite/paths";
 
@@ -34,8 +33,22 @@ const muted = (s: string) => <span className="italic text-slate-400">{s}</span>;
 const ROWS: Row[] = [
   {
     label: "До парка",
-    cell: (p) => (p.walkMin != null ? `≈ ${p.walkMin} мин · ${p.parkM} м` : muted("адрес не подтверждён")),
-    best: bestBy((p) => p.parkM),
+    cell: (p) => (p.dist ? `≈ ${p.dist.park.min} мин · ${p.dist.park.m} м` : muted("адрес не подтверждён")),
+    best: bestBy((p) => p.dist?.park.m ?? null),
+  },
+  {
+    label: "До океана",
+    cell: (p) => (p.dist ? `≈ ${p.dist.ocean.min} мин · ${p.dist.ocean.m} м` : muted("адрес не подтверждён")),
+    best: bestBy((p) => p.dist?.ocean.m ?? null),
+  },
+  {
+    label: "До метро",
+    cell: (p) => {
+      if (!p.dist) return muted("адрес не подтверждён");
+      const t = p.dist.metrobus ?? p.dist.metro;
+      return `≈ ${t.min} мин · ${p.dist.metrobus ? "метробус " : ""}${t.name}`;
+    },
+    best: bestBy((p) => (p.dist ? (p.dist.metrobus ?? p.dist.metro).m : null)),
   },
   { label: "Сторона", cell: (p) => SIDE_LABEL[p.side] },
   { label: "Статус", cell: (p) => STATUS_LABEL[p.status] },
@@ -98,12 +111,9 @@ export default function ComparePage({ searchParams }: { searchParams?: { p?: str
                 {picked.map((p) => (
                   <th key={p.slug} className="p-3 font-normal">
                     <Link href={portugalNovostroykiPath(p.slug)} className="block">
-                      <ProjectPlate project={p} compact className="h-auto w-full rounded-2xl ring-1 ring-slate-200" />
+                      <ProjectCover project={p} sizes="300px" className="aspect-[4/3] w-full rounded-2xl ring-1 ring-slate-200" />
                       <span className="mt-2 flex items-center gap-2 text-base font-semibold text-slate-900">
-                        <span
-                          className="flex h-6 w-6 items-center justify-center rounded-full text-xs text-white"
-                          style={{ background: p.band ? BAND_COLOR[p.band] : "#64748b" }}
-                        >
+                        <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-slate-900 text-xs text-white">
                           {p.pin}
                         </span>
                         {p.name}
@@ -133,7 +143,7 @@ export default function ComparePage({ searchParams }: { searchParams?: { p?: str
           </table>
         </div>
       )}
-      <p className="mt-4 text-xs text-slate-500">Зелёным — лучшее значение в строке: ближе к парку или дешевле.</p>
+      <p className="mt-4 text-xs text-slate-500">Зелёным — лучшее значение в строке: ближе или дешевле.</p>
     </main>
   );
 }

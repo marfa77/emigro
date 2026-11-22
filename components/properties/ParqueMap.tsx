@@ -2,7 +2,8 @@
 
 import { useEffect, useRef } from "react";
 import "leaflet/dist/leaflet.css";
-import { BAND_COLOR, PARK_CENTER, PARQUE_DA_CIDADE_RING, type ParkBand } from "@/lib/properties/park";
+import { TRANSIT_STOPS } from "@/lib/properties/geo-data";
+import { PARK_CENTER, PARQUE_DA_CIDADE_RING } from "@/lib/properties/park";
 
 export type MapPoint = {
   slug: string;
@@ -10,7 +11,6 @@ export type MapPoint = {
   name: string;
   lat: number;
   lng: number;
-  band: ParkBand;
   href: string;
   caption: string;
 };
@@ -26,7 +26,7 @@ type Props = {
 };
 
 /**
- * Leaflet map with the park outline and numbered project pins.
+ * Leaflet map with the park outline, metro / metrobus stops and numbered project pins.
  * Tiles: OpenStreetMap standard, desaturated in CSS so pins and the park read first. Loaded client-side only; the list next to it is the
  * accessible version of the same data.
  */
@@ -60,6 +60,22 @@ export function ParqueMap({ points, focus, active, onSelect, className }: Props)
         .bindTooltip("Parque da Cidade", { direction: "center", permanent: !focus, className: "parque-map-label" })
         .addTo(map);
 
+      for (const stop of TRANSIT_STOPS) {
+        const isBus = stop.kind === "metrobus";
+        L.marker([stop.lat, stop.lng], {
+          icon: L.divIcon({
+            className: "",
+            iconSize: [22, 22],
+            iconAnchor: [11, 11],
+            html: `<span class="parque-stop${isBus ? " is-bus" : ""}">${isBus ? "MB" : "M"}</span>`,
+          }),
+          keyboard: false,
+          zIndexOffset: -500,
+        })
+          .bindTooltip(`${isBus ? "Метробус" : "Метро"}: ${stop.name}`, { direction: "top", offset: [0, -11] })
+          .addTo(map);
+      }
+
       const bounds = L.latLngBounds(PARQUE_DA_CIDADE_RING.map(([lng, lat]) => [lat, lng] as [number, number]));
       markers.current.clear();
       for (const p of points) {
@@ -69,7 +85,7 @@ export function ParqueMap({ points, focus, active, onSelect, className }: Props)
           className: "",
           iconSize: [size, size],
           iconAnchor: [size / 2, size / 2],
-          html: `<span data-pin="${p.slug}" style="--pin:${BAND_COLOR[p.band]};width:${size}px;height:${size}px" class="parque-pin${isFocus ? " is-focus" : ""}${focus && !isFocus ? " is-dim" : ""}">${p.pin}</span>`,
+          html: `<span data-pin="${p.slug}" style="--pin:#0f172a;width:${size}px;height:${size}px" class="parque-pin${isFocus ? " is-focus" : ""}${focus && !isFocus ? " is-dim" : ""}">${p.pin}</span>`,
         });
         const marker = L.marker([p.lat, p.lng], { icon, title: p.name, riseOnHover: true }).addTo(map);
         marker.bindTooltip(`<strong>${p.name}</strong><br/>${p.caption}`, { direction: "top", offset: [0, -size / 2] });
@@ -114,6 +130,8 @@ export function ParqueMap({ points, focus, active, onSelect, className }: Props)
         .parque-pin.is-active,.parque-pin:hover{transform:scale(1.25)}
         .parque-pin.is-focus{font-size:16px;box-shadow:0 0 0 6px color-mix(in srgb,var(--pin) 25%,transparent),0 2px 8px rgba(15,23,42,.4)}
         .parque-pin.is-dim{opacity:.55}
+        .parque-stop{display:flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:6px;background:#dc2626;color:#fff;font:700 11px/1 ui-sans-serif,system-ui,sans-serif;border:2px solid #fff;box-shadow:0 1px 3px rgba(15,23,42,.3)}
+        .parque-stop.is-bus{background:#7c3aed;font-size:9px}
         .parque-map-label{background:transparent;border:0;box-shadow:none;color:#166534;font-weight:600;letter-spacing:.02em}
         .parque-map-label::before{display:none}
       `}</style>

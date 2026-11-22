@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useMemo, useState, type ReactNode } from "react";
 import { ParqueMap, type MapPoint } from "@/components/properties/ParqueMap";
-import { BAND_COLOR, PARK_BAND_LABEL, type ParkBand } from "@/lib/properties/park";
 import type { ProjectStatus, Side, Typology } from "@/lib/properties/types";
 
 export type ExplorerProject = {
@@ -19,9 +18,14 @@ export type ExplorerProject = {
   sideLabel: string;
   lat: number | null;
   lng: number | null;
-  parkM: number | null;
-  walkMin: number | null;
-  band: ParkBand | null;
+  walk: {
+    park: number;
+    ocean: number;
+    metro: { name: string; min: number };
+    metrobus: { name: string; min: number } | null;
+    /** Minutes to the nearer of metro and metrobus. */
+    transit: number;
+  } | null;
   completion: string | null;
   typologies: Typology[];
   fromByTypology: Partial<Record<Typology, number>>;
@@ -32,7 +36,13 @@ export type ExplorerProject = {
   conflictCount: number;
 };
 
-const BAND_ORDER: ParkBand[] = ["adjacent", "five", "ten"];
+type WalkKey = "park" | "ocean" | "transit";
+const WALK_FILTERS: { id: WalkKey; label: string; max: number }[] = [
+  { id: "park", label: "парк ≤ 5 мин", max: 5 },
+  { id: "ocean", label: "океан ≤ 10 мин", max: 10 },
+  { id: "transit", label: "метро ≤ 15 мин", max: 15 },
+];
+type SortKey = "price" | WalkKey;
 const TYPE_FILTERS: { id: string; label: string; match: Typology[] }[] = [
   { id: "any", label: "Любой", match: [] },
   { id: "t01", label: "T0–T1", match: ["T0", "T1"] },
@@ -47,6 +57,17 @@ const BUDGETS: { id: string; label: string; max: number | null }[] = [
   { id: "1200", label: "до 1,2 млн", max: 1_200_000 },
   { id: "2000", label: "до 2 млн", max: 2_000_000 },
 ];
+
+function Walk({ label, min, note, extra }: { label: string; min: number | null; note?: string; extra?: string }) {
+  return (
+    <div className="min-w-0 rounded-2xl bg-slate-50 px-3 py-2">
+      <dt className="text-xs text-slate-500">{label}</dt>
+      <dd className="font-semibold text-slate-900">{min != null ? `≈ ${min} мин` : "—"}</dd>
+      {note ? <dd className="truncate text-xs text-slate-500">{note}</dd> : null}
+      {extra ? <dd className="truncate text-xs text-slate-500">{extra}</dd> : null}
+    </div>
+  );
+}
 
 function Chip({ on, onClick, children, dot }: { on: boolean; onClick: () => void; children: ReactNode; dot?: string }) {
   return (
@@ -66,18 +87,18 @@ function Chip({ on, onClick, children, dot }: { on: boolean; onClick: () => void
 
 export function CatalogExplorer({
   projects,
-  plates,
+  covers,
   compareHref,
 }: {
   projects: ExplorerProject[];
-  plates: Record<string, ReactNode>;
+  covers: Record<string, ReactNode>;
   compareHref: string;
 }) {
-  const [band, setBand] = useState<ParkBand | "all">("all");
+  const [walk, setWalk] = useState<WalkKey[]>([]);
   const [type, setType] = useState("any");
   const [budget, setBudget] = useState("any");
   const [side, setSide] = useState<Side | "all">("all");
-  const [sort, setSort] = useState<"park" | "price">("park");
+  const [sort, setSort] = useState<SortKey>("price");
   const [active, setActive] = useState<string | null>(null);
   const [picked, setPicked] = useState<string[]>([]);
 
@@ -86,9 +107,9 @@ export function CatalogExplorer({
     const max = BUDGETS.find((b) => b.id === budget)!.max;
     const rows = projects.filter((p) => {
       if (side !== "all" && p.side !== side) return false;
-      if (band !== "all") {
-        if (!p.band) return false;
-        if (BAND_ORDER.indexOf(p.band) > BAND_ORDER.indexOf(band)) return false;
+      for (const key of walk) {
+        const f = WALK_FILTERS.find((w) => w.id === key)!;
+        if (!p.walk || p.walk[key] > f.max) return false;
       }
       const types = t.match.length ? t.match : p.typologies;
       if (t.match.length && !p.typologies.some((x) => t.match.includes(x))) return false;
@@ -104,28 +125,32 @@ export function CatalogExplorer({
         return v.length ? Math.min(...(v as number[])) : Infinity;
       };
       rows.sort((a, b) => key(a) - key(b));
+    } else {
+      const key = (p: ExplorerProject) => (p.walk ? p.walk[sort] : Infinity);
+      rows.sort((a, b) => key(a) - key(b));
     }
     return rows;
-  }, [projects, band, type, budget, side, sort]);
+  }, [projects, walk, type, budget, side, sort]);
 
   const points: MapPoint[] = projects
-    .filter((p) => p.lat != null && p.lng != null && p.band)
+    .filter((p) => p.lat != null && p.lng != null)
     .map((p) => ({
       slug: p.slug,
       pin: p.pin,
       name: p.name,
       lat: p.lat!,
       lng: p.lng!,
-      band: p.band!,
       href: p.href,
-      caption: p.walkMin != null ? `≈ ${p.walkMin} мин до парка` : "",
+      caption: p.walk
+        ? `пешком: парк ≈ ${p.walk.park} мин · океан ≈ ${p.walk.ocean} мин · метро ≈ ${p.walk.transit} мин`
+        : "",
     }));
 
   const toggle = (slug: string) =>
     setPicked((cur) => (cur.includes(slug) ? cur.filter((s) => s !== slug) : cur.length >= 3 ? cur : [...cur, slug]));
 
   const reset = () => {
-    setBand("all");
+    setWalk([]);
     setType("any");
     setBudget("any");
     setSide("all");
@@ -143,23 +168,29 @@ export function CatalogExplorer({
           }}
           className="h-[380px] sm:h-[460px]"
         />
-        <div className="pointer-events-none absolute bottom-3 left-3 z-[500] flex flex-wrap gap-2 rounded-2xl bg-white/90 px-3 py-2 text-xs text-slate-700 shadow-sm backdrop-blur">
-          {BAND_ORDER.map((b) => (
-            <span key={b} className="inline-flex items-center gap-1.5">
-              <span className="h-2.5 w-2.5 rounded-full" style={{ background: BAND_COLOR[b] }} />
-              {PARK_BAND_LABEL[b]}
-            </span>
-          ))}
+        <div className="pointer-events-none absolute bottom-3 left-3 z-[500] flex flex-wrap gap-3 rounded-2xl bg-white/90 px-3 py-2 text-xs text-slate-700 shadow-sm backdrop-blur">
+          <span className="inline-flex items-center gap-1.5">
+            <span className="h-3 w-3 rounded-full bg-slate-900 ring-2 ring-white" /> проект
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <span className="flex h-4 w-4 items-center justify-center rounded bg-red-600 text-[9px] font-bold text-white">M</span> метро
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <span className="flex h-4 w-4 items-center justify-center rounded bg-violet-600 text-[7px] font-bold text-white">MB</span> метробус
+          </span>
         </div>
       </div>
 
       <div className="-mx-4 mt-6 space-y-3 border-b border-slate-200 bg-white/95 px-4 py-3 backdrop-blur sm:sticky sm:top-0 sm:z-[600]">
         <div className="flex flex-wrap items-center gap-2">
-          <span className="w-24 shrink-0 text-xs font-medium uppercase tracking-wide text-slate-500">До парка</span>
-          <Chip on={band === "all"} onClick={() => setBand("all")}>Все</Chip>
-          {BAND_ORDER.map((b) => (
-            <Chip key={b} on={band === b} onClick={() => setBand(b)} dot={BAND_COLOR[b]}>
-              {PARK_BAND_LABEL[b]}
+          <span className="w-24 shrink-0 text-xs font-medium uppercase tracking-wide text-slate-500">Пешком</span>
+          {WALK_FILTERS.map((w) => (
+            <Chip
+              key={w.id}
+              on={walk.includes(w.id)}
+              onClick={() => setWalk((cur) => (cur.includes(w.id) ? cur.filter((x) => x !== w.id) : [...cur, w.id]))}
+            >
+              {w.label}
             </Chip>
           ))}
         </div>
@@ -189,11 +220,13 @@ export function CatalogExplorer({
             <select
               id="parque-sort"
               value={sort}
-              onChange={(e) => setSort(e.target.value as "park" | "price")}
+              onChange={(e) => setSort(e.target.value as SortKey)}
               className="min-h-[36px] rounded-full border border-slate-300 bg-white px-3 text-sm"
             >
-              <option value="park">ближе к парку</option>
               <option value="price">дешевле</option>
+              <option value="park">ближе к парку</option>
+              <option value="ocean">ближе к океану</option>
+              <option value="transit">ближе к метро</option>
             </select>
           </span>
         </div>
@@ -219,13 +252,10 @@ export function CatalogExplorer({
               active === p.slug ? "ring-2 ring-slate-900" : "ring-slate-200 hover:ring-slate-400"
             }`}
           >
-            <div className="grid gap-0 sm:grid-cols-[220px_1fr]">
-              <Link href={p.href} className="relative block h-40 bg-slate-50 sm:h-auto sm:min-h-[180px]" tabIndex={-1} aria-hidden>
-                <div className="absolute inset-0">{plates[p.slug]}</div>
-                <span
-                  className="absolute left-3 top-3 flex h-8 w-8 items-center justify-center rounded-full text-sm font-semibold text-white shadow"
-                  style={{ background: p.band ? BAND_COLOR[p.band] : "#64748b" }}
-                >
+            <div className="grid gap-0 sm:grid-cols-[300px_1fr]">
+              <Link href={p.href} className="relative block h-52 sm:h-auto sm:min-h-[220px]" tabIndex={-1} aria-hidden>
+                <div className="absolute inset-0">{covers[p.slug]}</div>
+                <span className="absolute left-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-slate-900 text-sm font-semibold text-white shadow ring-2 ring-white">
                   {p.pin}
                 </span>
               </Link>
@@ -259,14 +289,16 @@ export function CatalogExplorer({
                     </span>
                   ) : null}
                 </div>
-                <dl className="mt-4 grid grid-cols-2 gap-x-4 gap-y-3 text-sm sm:grid-cols-4">
-                  <div>
-                    <dt className="text-xs text-slate-500">До парка</dt>
-                    <dd className="font-semibold" style={{ color: p.band ? BAND_COLOR[p.band] : undefined }}>
-                      {p.walkMin != null ? `≈ ${p.walkMin} мин` : "адрес не подтверждён"}
-                      {p.parkM != null ? <span className="ml-1 font-normal text-slate-500">{p.parkM} м</span> : null}
-                    </dd>
-                  </div>
+                <dl className="mt-4 grid grid-cols-3 gap-2 text-sm">
+                  <Walk label="Парк" min={p.walk?.park ?? null} />
+                  <Walk label="Океан" min={p.walk?.ocean ?? null} />
+                  {p.walk?.metrobus ? (
+                    <Walk label="Метробус" min={p.walk.metrobus.min} note={p.walk.metrobus.name} extra={`метро ≈ ${p.walk.metro.min} мин`} />
+                  ) : (
+                    <Walk label="Метро" min={p.walk?.metro.min ?? null} note={p.walk?.metro.name ?? "адрес не подтверждён"} />
+                  )}
+                </dl>
+                <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-3 text-sm sm:grid-cols-4">
                   <div className="col-span-2">
                     <dt className="text-xs text-slate-500">В продаже от</dt>
                     <dd className="flex flex-wrap gap-x-3 text-slate-900">
@@ -296,7 +328,7 @@ export function CatalogExplorer({
 
       {visible.length === 0 ? (
         <p className="mt-6 rounded-2xl bg-slate-50 p-5 text-sm text-slate-700">
-          Под эти фильтры ничего нет. Чаще всего мешает бюджет: T2 в первой линии у парка стоит от 800 тыс. €.
+          Под эти фильтры ничего нет. Чаще всего мешает бюджет или сочетание «океан + метро»: рядом с пляжем и станцией одновременно стоят только дома в Матозиньюш Сул.
         </p>
       ) : null}
 

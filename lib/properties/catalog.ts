@@ -1,10 +1,15 @@
 import { PARQUE_PROJECTS } from "@/lib/properties/parque-da-cidade";
+import { distancesFrom, type Distances } from "@/lib/properties/distances";
 import { metresToPark, parkBand, walkMinutes, type ParkBand } from "@/lib/properties/park";
+import { PROJECT_PHOTOS, type ProjectPhoto } from "@/lib/properties/photos";
 import type { ParqueProject, ProjectStatus, Typology } from "@/lib/properties/types";
 
 export type CatalogProject = ParqueProject & {
-  /** 1-based pin number, ordered by distance. */
+  /** 1-based pin number, ordered by the cheapest listed price. */
   pin: number;
+  photo: ProjectPhoto | null;
+  /** Walking distances to the park, the ocean and rapid transit; null without a confirmed address. */
+  dist: Distances | null;
   parkM: number | null;
   walkMin: number | null;
   band: ParkBand | null;
@@ -32,6 +37,11 @@ export const STATUS_TONE: Record<ProjectStatus, string> = {
 
 export const SIDE_LABEL = { porto: "Порту · Foz / Nevogilde", matosinhos: "Матозиньюш Сул" } as const;
 
+/** Nearest of metro and metrobus — what «до метро» means in filters and sorting. */
+export function transitOf(d: Distances): { name: string; min: number; m: number; kind: "metro" | "metrobus" } {
+  return d.metrobus ?? d.metro;
+}
+
 function derive(project: ParqueProject): Omit<CatalogProject, "pin"> {
   const parkM = project.lat != null && project.lng != null ? metresToPark(project.lat, project.lng) : null;
   const live = project.units.filter((u) => u.status !== "sold" && u.price_eur != null);
@@ -43,6 +53,8 @@ function derive(project: ParqueProject): Omit<CatalogProject, "pin"> {
   const ppm = live.filter((u) => u.area_m2).map((u) => u.price_eur! / u.area_m2!);
   return {
     ...project,
+    photo: PROJECT_PHOTOS[project.slug] ?? null,
+    dist: project.lat != null && project.lng != null ? distancesFrom(project.lat, project.lng) : null,
     parkM,
     walkMin: parkM == null ? null : walkMinutes(parkM),
     band: parkM == null ? null : parkBand(parkM),
@@ -54,10 +66,10 @@ function derive(project: ParqueProject): Omit<CatalogProject, "pin"> {
   };
 }
 
-/** Projects ordered by distance to the park; projects without a pin go last. */
+/** Projects ordered by the cheapest listed price; projects without prices go last. */
 export function listParqueProjects(): CatalogProject[] {
   return PARQUE_PROJECTS.map(derive)
-    .sort((a, b) => (a.parkM ?? Infinity) - (b.parkM ?? Infinity))
+    .sort((a, b) => (a.priceFrom ?? Infinity) - (b.priceFrom ?? Infinity))
     .map((p, i) => ({ ...p, pin: i + 1 }));
 }
 

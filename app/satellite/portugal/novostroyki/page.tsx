@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CatalogExplorer } from "@/components/properties/CatalogExplorer";
-import { ProjectPlate } from "@/components/properties/ProjectPlate";
+import { ProjectCover } from "@/components/properties/ProjectCover";
 import { SatelliteAssistIntake } from "@/components/satellite/SatelliteAssistIntake";
 import { withSatelliteAiMetadata } from "@/lib/community-notes/seo-page";
 import { catalogVerifiedDate, formatEur, formatRuDate, listParqueProjects } from "@/lib/properties/catalog";
@@ -14,11 +14,21 @@ export const revalidate = 3600;
 
 const TITLE = "Новостройки у Parque da Cidade: Фож и Матозиньюш, цены за м²";
 const LEDE =
-  "Все новые дома в 10 минутах пешком от Parque da Cidade — со стороны Фож, Невожилде и Матозиньюш Сул. У каждого проекта одна и та же карточка: расстояние до парка, лэйауты, цены, сроки и чего застройщик не публикует.";
+  "Новые дома вокруг Parque da Cidade — со стороны Фож, Невожилде и Матозиньюш Сул. У каждого проекта одна и та же карточка: сколько идти пешком до парка, океана и метро, лэйауты, цены, сроки и чего застройщик не публикует.";
+
+function ruProjects(n: number): string {
+  const m10 = n % 10;
+  const m100 = n % 100;
+  if (m10 === 1 && m100 !== 11) return "проект";
+  if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return "проекта";
+  return "проектов";
+}
 
 function quickFacts() {
   const projects = listParqueProjects();
-  const adjacent = projects.filter((p) => p.band === "adjacent");
+  const nearOcean = projects
+    .filter((p) => p.dist && p.dist.ocean.min <= 10)
+    .sort((a, b) => a.dist!.ocean.m - b.dist!.ocean.m);
   const t2 = projects
     .filter((p) => p.fromByTypology.T2 != null)
     .sort((a, b) => a.fromByTypology.T2! - b.fromByTypology.T2!);
@@ -26,7 +36,7 @@ function quickFacts() {
   const t2Porto = t2.filter((p) => p.side === "porto");
   const t2Matosinhos = t2.filter((p) => p.side === "matosinhos");
   const embargo = projects.filter((p) => p.status === "embargo");
-  return { projects, adjacent, t2Under900, t2Porto, t2Matosinhos, embargo };
+  return { projects, nearOcean, t2Under900, t2Porto, t2Matosinhos, embargo };
 }
 
 export function generateMetadata(): Metadata {
@@ -48,10 +58,13 @@ export function generateMetadata(): Metadata {
 }
 
 export default function NovostroykiPage() {
-  const { projects, adjacent, t2Under900, t2Porto, t2Matosinhos, embargo } = quickFacts();
+  const { projects, nearOcean, t2Under900, t2Porto, t2Matosinhos, embargo } = quickFacts();
   const verified = catalogVerifiedDate(projects);
-  const plates = Object.fromEntries(
-    projects.map((p) => [p.slug, <ProjectPlate key={p.slug} project={p} compact className="h-full w-full" />])
+  const covers = Object.fromEntries(
+    projects.map((p, i) => [
+      p.slug,
+      <ProjectCover key={p.slug} project={p} sizes="(min-width: 640px) 300px, 100vw" priority={i < 2} className="h-full w-full" />,
+    ])
   );
   const url = portugalSatelliteUrl("/novostroyki");
   const ld = {
@@ -81,12 +94,6 @@ export default function NovostroykiPage() {
       <p className="mt-4 max-w-3xl text-lg leading-relaxed text-slate-700">{LEDE}</p>
 
       <section className="mt-8 grid gap-3 sm:grid-cols-3" aria-label="Коротко">
-        <div className="rounded-3xl bg-emerald-50 p-5">
-          <p className="text-3xl font-bold text-emerald-900">{adjacent.length}</p>
-          <p className="mt-1 text-sm text-emerald-950">
-            проектов вплотную к парку, до 3 минут пешком: {adjacent.map((p) => p.name).join(", ")}.
-          </p>
-        </div>
         <div className="rounded-3xl bg-white p-5 ring-1 ring-slate-200">
           <p className="text-3xl font-bold text-slate-900">
             {t2Porto.length ? formatEur(t2Porto[0]!.fromByTypology.T2) : "—"}
@@ -106,6 +113,13 @@ export default function NovostroykiPage() {
             самый дешёвый T2 в Матозиньюш Сул, через Circunvalação от парка. Квартиры там меньше, рядом метро и пляж.
           </p>
         </div>
+        <div className="rounded-3xl bg-cyan-50 p-5">
+          <p className="text-3xl font-bold text-cyan-900">{nearOcean.length}</p>
+          <p className="mt-1 text-sm text-cyan-950">
+            {ruProjects(nearOcean.length)} в 10 минутах пешком от океана:{" "}
+            {nearOcean.map((p) => `${p.name} (≈ ${p.dist!.ocean.min} мин)`).join(", ")}.
+          </p>
+        </div>
       </section>
       {embargo.length ? (
         <p className="mt-3 max-w-3xl text-sm text-rose-900">
@@ -116,7 +130,7 @@ export default function NovostroykiPage() {
       <section className="mt-10">
         <CatalogExplorer
           projects={projects.map(toExplorerProject)}
-          plates={plates}
+          covers={covers}
           compareHref={portugalNovostroykiPath("sravnit")}
         />
       </section>
@@ -126,8 +140,17 @@ export default function NovostroykiPage() {
           <h2 className="text-xl font-semibold text-slate-900">Как считаем</h2>
           <ul className="mt-3 space-y-2 text-sm leading-relaxed text-slate-700">
             <li>
-              <strong>До парка</strong> — прямая от дома до кромки парка по контуру OpenStreetMap. Минуты пешком: прямая плюс
-              35% на переходы и ворота, шаг 80 м в минуту. Значение приблизительное.
+              <strong>Пешком</strong> — прямая от дома до кромки парка, до линии берега и до ближайшей станции метро (все три —
+              по OpenStreetMap). К прямой добавляем 35% на улицы и переходы, шаг 80 м в минуту. Это оценка, не маршрут.
+            </li>
+            <li>
+              <strong>Метро и метробус</strong> — ближайшие станции Metro do Porto: линия A в Матозиньюше и Francos на
+              Boavista. Метробус по Boavista с апреля 2026 доходит до Praça do Império; если его остановка ближе метро, в
+              карточке стоит она. Продление метробуса к Castelo do Queijo ещё строится и не учитывается.
+            </li>
+            <li>
+              <strong>Фото</strong> — из объявления агентства, подпись на фото и ссылка в источниках проекта. Это рендеры
+              или снимки продавца, а не наши.
             </li>
             <li>
               <strong>Цены</strong> — запрашиваемые цены из объявления, на которое стоит ссылка в карточке. Торг, комиссия

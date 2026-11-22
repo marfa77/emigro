@@ -1,5 +1,5 @@
 import type { ExplorerProject } from "@/components/properties/CatalogExplorer";
-import { SIDE_LABEL, STATUS_LABEL, STATUS_TONE, formatEur, type CatalogProject } from "@/lib/properties/catalog";
+import { SIDE_LABEL, STATUS_LABEL, STATUS_TONE, formatEur, transitOf, type CatalogProject } from "@/lib/properties/catalog";
 import { portugalNovostroykiPath } from "@/lib/satellite/paths";
 import type { Typology } from "@/lib/properties/types";
 
@@ -27,9 +27,15 @@ export function toExplorerProject(p: CatalogProject): ExplorerProject {
     sideLabel: SIDE_LABEL[p.side],
     lat: p.lat,
     lng: p.lng,
-    parkM: p.parkM,
-    walkMin: p.walkMin,
-    band: p.band,
+    walk: p.dist
+      ? {
+          park: p.dist.park.min,
+          ocean: p.dist.ocean.min,
+          metro: { name: p.dist.metro.name, min: p.dist.metro.min },
+          metrobus: p.dist.metrobus ? { name: p.dist.metrobus.name, min: p.dist.metrobus.min } : null,
+          transit: transitOf(p.dist).min,
+        }
+      : null,
     completion: p.completion,
     typologies: p.typologies,
     fromByTypology: p.fromByTypology,
