@@ -116,6 +116,12 @@ export async function postNextValenciaGroupNote(options?: {
   countryKey?: string;
   force?: boolean;
 }): Promise<ValenciaGroupPostResult> {
+  // Pavel 2026-11-22: do not publish notes into the Valencia relocant chat.
+  // The Spain daily pipeline still writes site notes. Set EMIGRO_VALENCIA_GROUP_PUBLISH=1 to send again.
+  if (process.env.EMIGRO_VALENCIA_GROUP_PUBLISH?.trim() !== "1") {
+    return { skipped: "valencia group publish disabled" };
+  }
+
   const chatId = valenciaGroupChatId();
   if (!chatId) return { skipped: "EMIGRO_VALENCIA_CHAT_ID missing" };
   if (!process.env.EMIGRO_CHAT_BOT_TOKEN?.trim()) {

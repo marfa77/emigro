@@ -1,5 +1,6 @@
 /**
  * Post one Italy satellite note into the private Milan Telegram group.
+ * Off unless EMIGRO_MILAN_GROUP_PUBLISH=1 (Pavel, 2026-11-22).
  *
  *   npm run italy:post-group -- --dry-run
  *   npm run italy:post-group -- --slug=codice-fiscale-milano-2026

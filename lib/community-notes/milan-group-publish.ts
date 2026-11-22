@@ -116,6 +116,12 @@ export async function postNextMilanGroupNote(options?: {
   countryKey?: string;
   force?: boolean;
 }): Promise<MilanGroupPostResult> {
+  // Pavel 2026-11-22: do not publish notes into the Milan relocant chat.
+  // The Italy daily pipeline still writes site notes. Set EMIGRO_MILAN_GROUP_PUBLISH=1 to send again.
+  if (process.env.EMIGRO_MILAN_GROUP_PUBLISH?.trim() !== "1") {
+    return { skipped: "milan group publish disabled" };
+  }
+
   const chatId = milanGroupChatId();
   if (!chatId) return { skipped: "EMIGRO_MILAN_CHAT_ID missing" };
   if (!process.env.EMIGRO_CHAT_BOT_TOKEN?.trim()) {
