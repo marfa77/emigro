@@ -1616,16 +1616,32 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
   {
     path: "/ru/denmark/programs/denmark-work-permit",
     programSlug: "denmark-work-permit",
-    primaryQuery: "рабочая виза в данию 2026",
+    primaryQuery: "fast track scheme denmark",
     queries: [
-      "рабочая виза в данию 2026",
-      "pay limit scheme дания зарплата",
-      "рабочий внж дании 2026",
+      "fast track scheme denmark",
+      "fast track visa",
+      "work permit denmark",
+      "работа в дании от прямого работодателя",
+      "pay limit scheme дания",
       "siri pay limit dkk 552000",
     ],
-    seoTitle: "Рабочая виза в Данию 2027: Pay Limit и зарплата",
+    seoTitle: "Work permit Дания 2026: Pay Limit, Fast-track",
     seoDescription:
-      "Как получить рабочий ВНЖ Дании в 2026 году: Pay Limit Scheme, зарплата от DKK 552 000, Supplementary Pay Limit, требования SIRI, расходы и сроки оформления.",
+      "Рабочий ВНЖ Дании: Pay Limit от DKK 552 000, Fast-track SIRI у сертифицированного работодателя. Сбор DKK 6 810. Оффер от датской фирмы, не удалёнка в РФ.",
+  },
+  {
+    path: "/ru/norway/programs/norway-family-reunification",
+    programSlug: "norway-family-reunification",
+    primaryQuery: "воссоединение семьи норвегия udi",
+    queries: [
+      "norway family reunification",
+      "воссоединение семьи в норвегии",
+      "udi семейная иммиграция",
+      "присоединение к супругу норвегия",
+    ],
+    seoTitle: "Воссоединение семьи в Норвегии 2026 — UDI",
+    seoDescription:
+      "Семейная иммиграция UDI: супруг, партнёр, ребёнок или другой родственник с резидентом в Норвегии. Residence permit или registration scheme — правила на udi.no.",
   },
   {
     path: "/ru/denmark/programs/denmark-supplementary-pay-limit",

@@ -12,6 +12,21 @@ export const NEWS_SEO_OVERRIDES: Partial<
     seo_description:
       "Выборы в Швеции 31 августа 2026: что партии обещают иностранцам по иммиграции, разрешениям на работу, налогам и социальным выплатам.",
   },
+  "portugal-story-2026-09-07-k1b2yo": {
+    seo_title: "Регистрация компании в Португалии 2026: LDA, NIF",
+    seo_description:
+      "Как открыть фирму в Португалии: LDA/SA, NIF, банк и registo comercial. Empresa na Hora на justica.gov.pt — один balcão; ВНЖ только при критериях предпринимателя.",
+  },
+  "germany-story-2026-10-05-vn3nqp": {
+    seo_title: "Счётчики отопления в Германии: с 1 января 2027",
+    seo_description:
+      "HeizkostenV §5: до 31.12.2026 дооснастить счётчики отопления; с 01.01.2027 — дистанционное считывание. Арендатор вправе требовать учёт у Gebäudeeigentümer.",
+  },
+  "cyprus-story-2026-09-08-c48qw0": {
+    seo_title: "BrainRocket закрывает офисы в Лимассоле",
+    seo_description:
+      "BrainRocket сворачивает офисы в Лимассоле: сотрудникам предложили релокацию за границу, а не возврат на Кипр. Что это значит для tech-рынка острова.",
+  },
 };
 
 export function applyNewsSeoOverrides<T extends Pick<NewsDigest, "slug" | "seo_title" | "seo_description">>(

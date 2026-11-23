@@ -28,6 +28,30 @@ export function DenmarkWorkScheme({ slug }: { slug: string }) {
     <section className="mt-12 space-y-8">
       {slug === "denmark-work-permit" && (
         <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+          <p className="text-sm font-semibold uppercase tracking-wide text-corridor-700">Fast-track scheme</p>
+          <h2 className="mt-1 text-3xl font-bold text-slate-900">Fast-track и work permit от прямого работодателя</h2>
+          <p className="mt-3 max-w-3xl text-sm leading-relaxed text-slate-700">
+            Если оффер даёт датский работодатель, сертифицированный SIRI, маршрут идёт как Fast-track scheme: заявление
+            обычно подаёт работодатель, а не вы сами. Pay limit track требует ту же годовую зарплату, что Pay Limit
+            Scheme — DKK 552 000 в 2026 году. Supplementary pay limit track — от DKK 446 000 со своими условиями.
+          </p>
+          <ul className="mt-4 space-y-2 text-sm text-slate-700">
+            <li>Pay limit / short-term / researcher / educational tracks: обычно 1 месяц, до 2 месяцев.</li>
+            <li>Supplementary pay limit track: обычно 2 месяца, до 4 месяцев.</li>
+            <li>Сбор SIRI — DKK 6 810 (таблица сборов на 01.01.2026).</li>
+          </ul>
+          <p className="mt-4 text-sm text-slate-600">
+            Детали и список сертифицированных компаний — на nyidanmark.dk (Fast-track). Отдельная карточка:{" "}
+            <Link href="/ru/denmark/programs/denmark-fast-track" className="font-medium text-corridor-700 underline">
+              Fast-track — рабочий ВНЖ Дании
+            </Link>
+            .
+          </p>
+        </div>
+      )}
+
+      {slug === "denmark-work-permit" && (
+        <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
           <p className="text-sm font-semibold uppercase tracking-wide text-corridor-700">Зарплата</p>
           <h2 className="mt-1 text-3xl font-bold text-slate-900">Что именно засчитывается в зарплату DKK 552 000</h2>
           <p className="mt-3 max-w-3xl text-sm leading-relaxed text-slate-700">

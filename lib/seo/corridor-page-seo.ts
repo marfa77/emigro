@@ -130,11 +130,21 @@ export function digestPagePath(topic: NewsTopicConfig): string {
 }
 
 export function buildProgramQuickAnswer(program: ProgramDetail, topic: NewsTopicConfig): string {
+  if (program.slug === "norway-family-reunification") {
+    return [
+      "Воссоединение семьи в Норвегии (UDI family immigration): присоединение к супругу, партнёру, ребёнку или другому родственнику, который уже легально живёт в Норвегии. Категория заявителя и страна паспорта определяют, нужен residence permit или схема регистрации.",
+      "Пороги содержания, жильё и основания родства берутся из правил UDI по конкретному типу семьи — сверяйте страницу family immigration на udi.no.",
+      "Для сравнения с Данией и Швецией — гайд «ВНЖ Скандинавия 2026» и wizard коридора Норвегия на Emigro.",
+    ].join(" ");
+  }
   if (isDenmarkEmploymentSlug(program.slug)) {
-    const lead = program.slug === "denmark-work-permit" ? PAY_LIMIT_QUICK_LEAD : program.summary_ru;
+    const lead =
+      program.slug === "denmark-work-permit"
+        ? "Рабочий work permit в Дании при оффере от датского работодателя: Pay Limit Scheme — зарплата не ниже DKK 552 000 в 2026 году. При сертифицированном работодателе тот же порог возможен через Fast-track scheme SIRI."
+        : program.summary_ru;
     const siblings =
       program.slug === "denmark-work-permit"
-        ? "Рядом смотрите Supplementary Pay Limit (DKK 446 000), Positive List и Fast-track: зарплата ниже DKK 552 000 не закрывает Данию сама по себе."
+        ? "Fast-track, Supplementary Pay Limit (DKK 446 000) и Positive List — отдельные схемы SIRI; удалённая работа на иностранную компанию их не открывает."
         : "Pay Limit (DKK 552 000), Supplementary Pay Limit, Positive List и Fast-track — разные схемы SIRI.";
     return [
       lead,
@@ -203,6 +213,31 @@ export function buildProgramFaq(program: ProgramDetail, topic: NewsTopicConfig):
       answer: costs || `Смотрите блок «Ориентировочные расходы» — консульские сборы, страховка и продления зависят от семьи.`,
     },
   ];
+
+  if (program.slug === "denmark-work-permit") {
+    const fastTrack: FaqItem = {
+      question: "Что такое Fast-track scheme в Дании?",
+      answer:
+        "Fast-track — схема SIRI для работодателей, сертифицированных SIRI: заявление обычно подаёт работодатель. Pay limit track требует годовую зарплату не ниже DKK 552 000 (уровень 2026), как в Pay Limit Scheme; supplementary pay limit track — от DKK 446 000. Обычное рассмотрение pay limit track — 1 месяц, до 2 месяцев при запросе дополнительных сведений; supplementary track — обычно 2 месяца, до 4. Сбор DKK 6 810. Отдельная карточка Fast-track на Emigro.",
+    };
+    return [fastTrack, ...items].slice(0, 7);
+  }
+
+  if (program.slug === "norway-family-reunification") {
+    const familyFaq: FaqItem[] = [
+      {
+        question: "Кто может подать на воссоединение семьи в Норвегии?",
+        answer:
+          "UDI описывает family immigration для супруга/партнёра, ребёнка, родителей, помолвленных, приёмных детей и полнородных братьев/сестёр при законном пребывании спонсора в Норвегии. Категория родства и паспорт заявителя определяют permit или registration scheme.",
+      },
+      {
+        question: "Это тот же маршрут, что рабочий Skilled Worker?",
+        answer:
+          "Нет. Family immigration — отдельный трек UDI с правилами содержания, жилья и оснований. Skilled Worker требует оффер норвежского работодателя и зарплатных порогов UDI.",
+      },
+    ];
+    return [...familyFaq, ...items].slice(0, 7);
+  }
 
   if (program.slug === "portugal-d8-digital-nomad") {
     const d8Extras: FaqItem[] = [
