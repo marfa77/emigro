@@ -5,22 +5,22 @@ import { QuarterCover } from "@/components/properties/QuarterCover";
 import { SatelliteAssistIntake } from "@/components/satellite/SatelliteAssistIntake";
 import { withSatelliteAiMetadata } from "@/lib/community-notes/seo-page";
 import { formatEur, formatRuDate } from "@/lib/properties/catalog";
-import { CLIP, KIND_LABEL, housesVerifiedDate, listHouseQuarters, priceLine, transitLine, type CatalogQuarter } from "@/lib/properties/house-catalog";
+import { HOUSE_LANDMARKS, KIND_LABEL, housesVerifiedDate, indicators, listHouseQuarters, priceLine, type CatalogQuarter } from "@/lib/properties/house-catalog";
 import { portugalDomaPath, portugalHubPath, portugalNovostroykiPath } from "@/lib/satellite/paths";
 import { fitMetaDescription, socialImageMetadata, DEFAULT_OG_IMAGE } from "@/lib/seo";
 import { portugalSatelliteUrl } from "@/lib/site-url";
 
 export const revalidate = 3600;
 
-const TITLE = "Дома без соседей сверху и снизу у Parque da Cidade и CLIP";
+const TITLE = "Дома без соседей сверху и снизу: закрытые посёлки и кварталы в Порту";
 const LEDE =
-  "Кварталы таунхаусов и закрытые кондоминиумы в Aldoar, Ramalde, Nevogilde и Senhora da Hora. У каждого одна карточка: сколько ехать на велосипеде до школы CLIP, идти до парка, океана и метро, какие дома там стоят и что сейчас продаётся.";
+  "Закрытые посёлки и кварталы рядных домов в Порту, Gaia, Matosinhos и Maia. У каждого места одна карточка: как оно устроено, какие там дома, что сейчас продаётся и сколько оттуда до океана, Parque da Cidade, центра, NorteShopping и аэропорта.";
 
 export function generateMetadata(): Metadata {
   const quarters = listHouseQuarters();
   const url = portugalSatelliteUrl("/doma");
   const description = fitMetaDescription(
-    `${quarters.length} кварталов домов и кондоминиумов у Parque da Cidade в Порту: минуты на велосипеде до CLIP, пешком до парка, океана и метро, цены домов в продаже.`
+    `${quarters.length} закрытых посёлков и кварталов домов в Порту, Gaia, Matosinhos и Maia: описания, фото, цены домов в продаже и расстояния до океана, парка, центра и аэропорта.`
   );
   return withSatelliteAiMetadata(
     {
@@ -34,18 +34,17 @@ export function generateMetadata(): Metadata {
   );
 }
 
-function Tile({ label, value, note, good }: { label: string; value: string; note?: string; good?: boolean }) {
+function Tile({ label, value, note }: { label: string; value: string; note?: string }) {
   return (
-    <div className={`min-w-0 rounded-2xl px-3 py-2 ${good ? "bg-emerald-50" : "bg-slate-50"}`}>
+    <div className="min-w-0 rounded-2xl bg-slate-50 px-3 py-2">
       <dt className="text-xs text-slate-500">{label}</dt>
-      <dd className={`font-semibold ${good ? "text-emerald-900" : "text-slate-900"}`}>{value}</dd>
+      <dd className="font-semibold text-slate-900">{value}</dd>
       {note ? <dd className="break-words text-xs text-slate-500">{note}</dd> : null}
     </div>
   );
 }
 
 function QuarterCard({ q, priority }: { q: CatalogQuarter; priority: boolean }) {
-  const t = transitLine(q);
   return (
     <li className="overflow-hidden rounded-3xl bg-white ring-1 ring-slate-200">
       <Link href={portugalDomaPath(q.slug)} className="grid sm:grid-cols-[300px_1fr]">
@@ -62,11 +61,10 @@ function QuarterCard({ q, priority }: { q: CatalogQuarter; priority: boolean }) 
           </div>
           <h2 className="mt-2 text-xl font-semibold text-slate-900">{q.name}</h2>
           <p className="text-sm text-slate-600">{q.tagline}</p>
-          <dl className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
-            <Tile label="CLIP на велосипеде" value={`≈ ${q.clip.min} мин`} note={`${q.clip.km.toLocaleString("ru-RU")} км`} good={q.clip.min <= 15} />
-            <Tile label="Парк пешком" value={`≈ ${q.dist.park.min} мин`} good={q.dist.park.min <= 10} />
-            <Tile label="Океан пешком" value={`≈ ${q.dist.ocean.min} мин`} good={q.dist.ocean.min <= 15} />
-            <Tile label={t.label} value={`≈ ${t.min} мин`} note={t.name} good={t.min <= 10} />
+          <dl className="mt-4 grid grid-cols-2 gap-2 lg:grid-cols-5">
+            {indicators(q).map((x) => (
+              <Tile key={x.key} label={x.label} value={x.value} note={x.sub} />
+            ))}
           </dl>
           <p className="mt-4 text-sm font-medium text-slate-900">{priceLine(q)}</p>
         </div>
@@ -79,16 +77,16 @@ export default function DomaPage() {
   const quarters = listHouseQuarters();
   const verified = housesVerifiedDate(quarters);
   const url = portugalSatelliteUrl("/doma");
-  const fit = quarters.filter((q) => q.clip.min <= 15);
-  const cheapest = quarters
-    .flatMap((q) => q.active.map((l) => ({ q, l })))
-    .filter(({ q }) => q.clip.min <= 15)
-    .sort((a, b) => a.l.price_eur - b.l.price_eur)[0];
   const gated = quarters.filter((q) => q.kind === "gated");
+  const estates = quarters.filter((q) => q.kind === "estate");
+  const gatedPrices = gated.flatMap((q) => q.active.map((l) => l.price_eur)).sort((a, b) => a - b);
+  const cheapest = estates
+    .flatMap((q) => q.active.map((l) => ({ q, l })))
+    .sort((a, b) => a.l.price_eur - b.l.price_eur)[0];
   const ld = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "Дома без соседей сверху и снизу у Parque da Cidade",
+    name: "Дома без соседей сверху и снизу в Порту",
     url,
     numberOfItems: quarters.length,
     itemListElement: quarters.map((q) => ({
@@ -107,39 +105,39 @@ export default function DomaPage() {
         </Link>{" "}
         / Дома
       </nav>
-      <p className="mt-6 text-xs font-medium uppercase tracking-[0.18em] text-emerald-700">Porto · Matosinhos · CLIP · Parque da Cidade</p>
+      <p className="mt-6 text-xs font-medium uppercase tracking-[0.18em] text-emerald-700">Porto · Gaia · Matosinhos · Maia</p>
       <h1 className="mt-2 max-w-3xl text-3xl font-bold leading-tight text-slate-900 sm:text-5xl">Дома без соседей сверху и снизу</h1>
       <p className="mt-4 max-w-3xl text-lg leading-relaxed text-slate-700">{LEDE}</p>
 
       <section className="mt-8 grid gap-3 sm:grid-cols-3" aria-label="Коротко">
-        <div className="rounded-3xl bg-emerald-50 p-5">
-          <p className="text-3xl font-bold text-emerald-900">{fit.length}</p>
-          <p className="mt-1 text-sm text-emerald-950">
-            из {quarters.length} мест — в 15 минутах на велосипеде от CLIP: {fit.map((q) => q.name).join(", ")}.
-          </p>
-        </div>
-        <div className="rounded-3xl bg-white p-5 ring-1 ring-slate-200">
-          <p className="text-3xl font-bold text-slate-900">{cheapest ? formatEur(cheapest.l.price_eur) : "—"}</p>
-          <p className="mt-1 text-sm text-slate-800">
-            самый дешёвый дом в продаже в 15 минутах от CLIP{cheapest ? ` — ${cheapest.q.name}, ${cheapest.l.typology}, ${cheapest.l.area_m2 ?? "?"} м²` : ""}. Почти всё в этой цене — под ремонт.
-          </p>
-        </div>
         <div className="rounded-3xl bg-sky-50 p-5">
           <p className="text-3xl font-bold text-sky-900">{gated.length}</p>
           <p className="mt-1 text-sm text-sky-950">
-            закрытых кондоминиума: дома за общей оградой, с общим садом или дорожками. Больших закрытых посёлков у парка нет — в
-            каждом 4–10 домов.
+            закрытых посёлков и кондоминиумов: дома за общей оградой, с общим садом, у части — бассейн и охрана на въезде. Самый
+            большой — Quinta Marques Gomes в Gaia, 27 га.
+          </p>
+        </div>
+        <div className="rounded-3xl bg-white p-5 ring-1 ring-slate-200">
+          <p className="text-3xl font-bold text-slate-900">
+            {gatedPrices.length ? `${formatEur(gatedPrices[0])} – ${formatEur(gatedPrices[gatedPrices.length - 1])}` : "—"}
+          </p>
+          <p className="mt-1 text-sm text-slate-800">цены домов, которые сейчас продаются в закрытых посёлках.</p>
+        </div>
+        <div className="rounded-3xl bg-amber-50 p-5">
+          <p className="text-3xl font-bold text-amber-900">{estates.length}</p>
+          <p className="mt-1 text-sm text-amber-950">
+            кварталов рядных домов без ограды у Parque da Cidade. Дешевле всего здесь{cheapest ? `: ${cheapest.q.name}, ${cheapest.l.typology} за ${formatEur(cheapest.l.price_eur)}` : ""}, почти всегда под ремонт.
           </p>
         </div>
       </section>
 
       <section className="mt-10">
         <h2 className="text-2xl font-semibold text-slate-900">На карте</h2>
-        <p className="mt-1 text-sm text-slate-600">Номера — по времени на велосипеде до CLIP. Синяя метка — школа, M — метро, MB — метробус.</p>
+        <p className="mt-1 text-sm text-slate-600">Сначала закрытые посёлки, потом кварталы; внутри — по расстоянию до центра. Синие метки — аэропорт, NorteShopping и центр, M — метро, MB — метробус.</p>
         <div className="relative isolate mt-4 overflow-hidden rounded-3xl ring-1 ring-slate-200">
           <ParqueMap
             className="h-[420px]"
-            landmarks={[CLIP]}
+            landmarks={HOUSE_LANDMARKS}
             points={quarters.map((q) => ({
               slug: q.slug,
               pin: q.pin,
@@ -147,7 +145,7 @@ export default function DomaPage() {
               lat: q.lat,
               lng: q.lng,
               href: portugalDomaPath(q.slug),
-              caption: `CLIP ≈ ${q.clip.min} мин · ${priceLine(q)}`,
+              caption: `${KIND_LABEL[q.kind]} · ${priceLine(q)}`,
             }))}
           />
         </div>
@@ -164,16 +162,18 @@ export default function DomaPage() {
           <h2 className="text-xl font-semibold text-slate-900">Как считаем</h2>
           <ul className="mt-3 space-y-2 text-sm leading-relaxed text-slate-700">
             <li>
-              <strong>CLIP на велосипеде</strong> — маршрут по улицам от центра квартала до школы (OSRM, велосипедный профиль, по
-              данным OpenStreetMap). Время с запасом: взрослый доедет быстрее, ребёнок — примерно так.
+              <strong>Расстояния</strong> — маршруты по улицам от центра посёлка (OSRM по данным OpenStreetMap). До океана — до
+              ближайшего атлантического пляжа, до парка — до ближайшей точки Parque da Cidade. Если пешком меньше получаса,
+              показываем минуты пешком, иначе километры и минуты на машине без пробок.
             </li>
             <li>
-              <strong>Пешком</strong> до парка, океана и метро — прямая от центра квартала плюс 35% на улицы, 80 м в минуту. Это
-              оценка, не маршрут.
+              <strong>Ориентиры</strong> — одни для всех: океан, Parque da Cidade, центр (Avenida dos Aliados), NorteShopping и
+              терминал аэропорта.
             </li>
             <li>
-              <strong>Квартал</strong> — контур из OpenStreetMap, на обложке без фото нарисованы его дома. В продаже — только
-              объявления, которые точно внутри квартала: по точке продавца, по улице или по названию в тексте.
+              <strong>Место</strong> — контур из OpenStreetMap или точка по улице, если контура нет. Фото — из объявлений и прессы с
+              указанием источника; визуализации подписаны. В продаже — только объявления, которые точно относятся к месту: по точке
+              продавца, по улице или по названию в тексте.
             </li>
             <li>
               <strong>Цены</strong> — запрашиваемые, с датой, когда мы видели объявление. Один дом у нескольких агентств считаем один
@@ -198,6 +198,10 @@ export default function DomaPage() {
               для «bairros habitacionais»; Leão XIII и Telefonistas — нет.
             </li>
             <li>Шум: пройдите квартал вечером в час пик — у части домов рядом Circunvalação или A28.</li>
+            <li>
+              В закрытом посёлке попросите регламент кондоминиума и протоколы последних собраний (atas): что входит в condomínio, кто платит за
+              охрану и бассейн, какие стройки ещё впереди.
+            </li>
           </ul>
           <p className="mt-4 text-sm text-slate-700">
             Ищете квартиру в новом доме?{" "}

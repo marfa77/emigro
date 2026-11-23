@@ -149,7 +149,7 @@ export function ParqueMap({ points, focus, active, onSelect, className, landmark
         .parque-pin.is-dim{opacity:.55}
         .parque-stop{display:flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:6px;background:#dc2626;color:#fff;font:700 11px/1 ui-sans-serif,system-ui,sans-serif;border:2px solid #fff;box-shadow:0 1px 3px rgba(15,23,42,.3)}
         .parque-stop.is-bus{background:#7c3aed;font-size:9px}
-        .parque-landmark{display:flex;align-items:center;justify-content:center;width:34px;height:22px;border-radius:6px;background:#0369a1;color:#fff;font:700 10px/1 ui-sans-serif,system-ui,sans-serif;border:2px solid #fff;box-shadow:0 1px 3px rgba(15,23,42,.3)}
+        .parque-landmark{display:inline-flex;align-items:center;justify-content:center;min-width:34px;padding:0 6px;white-space:nowrap;transform:translateX(-50%);margin-left:17px;height:22px;border-radius:6px;background:#0369a1;color:#fff;font:700 10px/1 ui-sans-serif,system-ui,sans-serif;border:2px solid #fff;box-shadow:0 1px 3px rgba(15,23,42,.3)}
         .parque-map-label{background:transparent;border:0;box-shadow:none;color:#166534;font-weight:600;letter-spacing:.02em}
         .parque-map-label::before{display:none}
       `}</style>

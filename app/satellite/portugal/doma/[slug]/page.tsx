@@ -7,12 +7,12 @@ import { SatelliteAssistIntake } from "@/components/satellite/SatelliteAssistInt
 import { withSatelliteAiMetadata } from "@/lib/community-notes/seo-page";
 import { formatEur, formatEurExact, formatM2, formatRuDate } from "@/lib/properties/catalog";
 import {
-  CLIP,
+  HOUSE_LANDMARKS,
   KIND_LABEL,
   getHouseQuarter,
+  indicators,
   listHouseQuarters,
   priceLine,
-  transitLine,
   type CatalogQuarter,
 } from "@/lib/properties/house-catalog";
 import { QUARTER_GEO } from "@/lib/properties/house-geo";
@@ -44,11 +44,10 @@ const WHERE: Record<QuarterListing["where"], string> = {
 };
 
 function factLine(q: CatalogQuarter): string {
-  const t = transitLine(q);
+  const r = q.roads;
   return [
-    `${q.name} (${q.freguesia}): ${KIND_LABEL[q.kind].toLowerCase()}`,
-    `до CLIP ≈ ${q.clip.min} мин на велосипеде`,
-    `пешком ≈ ${q.dist.park.min} мин до Parque da Cidade, ≈ ${q.dist.ocean.min} мин до океана, ≈ ${t.min} мин до ${t.label === "Метро" ? "метро" : "метробуса"}`,
+    `${q.name} (${q.freguesia}, ${q.municipality}): ${KIND_LABEL[q.kind].toLowerCase()}`,
+    `до океана ${r.sea.km.toLocaleString("ru-RU")} км, до центра ${r.centre.km.toLocaleString("ru-RU")} км, до аэропорта ${r.airport.km.toLocaleString("ru-RU")} км`,
     priceLine(q).toLowerCase(),
   ].join("; ");
 }
@@ -57,7 +56,7 @@ export function generateMetadata({ params }: Params): Metadata {
   const q = getHouseQuarter(params.slug);
   if (!q) return {};
   const url = portugalSatelliteUrl(`/doma/${q.slug}`);
-  const title = fitSeoTitlePart(`${q.name}: дома в ${q.freguesia}, цены и минуты до CLIP`);
+  const title = fitSeoTitlePart(`${q.name}: фото, дома и цены`);
   const description = fitMetaDescription(`${factLine(q)}.`);
   return withSatelliteAiMetadata(
     {
@@ -77,11 +76,11 @@ export function generateMetadata({ params }: Params): Metadata {
   );
 }
 
-function Tile({ label, value, sub, good }: { label: string; value: string; sub?: string; good?: boolean }) {
+function Tile({ label, value, sub }: { label: string; value: string; sub?: string }) {
   return (
-    <div className={`min-w-0 rounded-2xl p-4 ${good ? "bg-emerald-50" : "bg-slate-50"}`}>
+    <div className="min-w-0 rounded-2xl bg-slate-50 p-4">
       <dt className="text-xs text-slate-500">{label}</dt>
-      <dd className={`text-2xl font-bold ${good ? "text-emerald-900" : "text-slate-900"}`}>{value}</dd>
+      <dd className="text-xl font-bold text-slate-900">{value}</dd>
       {sub ? <dd className="break-words text-xs text-slate-600">{sub}</dd> : null}
     </div>
   );
@@ -104,7 +103,6 @@ export default function QuarterPage({ params }: Params) {
   const q = getHouseQuarter(params.slug);
   if (!q) notFound();
   const all = listHouseQuarters();
-  const t = transitLine(q);
   const listings = [...q.listings].sort((a, b) => (a.status === b.status ? a.price_eur - b.price_eur : a.status === "active" ? -1 : 1));
   const hasPlan = Boolean(QUARTER_GEO[q.slug]);
   const url = portugalSatelliteUrl(`/doma/${q.slug}`);
@@ -150,24 +148,21 @@ export default function QuarterPage({ params }: Params) {
       <h1 className="mt-2 text-3xl font-bold leading-tight text-slate-900 sm:text-4xl">{q.name}</h1>
       <p className="mt-2 text-lg text-slate-700">{q.tagline}</p>
 
-      <dl className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
-        <Tile label="CLIP на велосипеде" value={`≈ ${q.clip.min} мин`} sub={`${q.clip.km.toLocaleString("ru-RU")} км по улицам`} good={q.clip.min <= 15} />
-        <Tile label="Parque da Cidade пешком" value={`≈ ${q.dist.park.min} мин`} sub={`${q.dist.park.m.toLocaleString("ru-RU")} м по прямой`} good={q.dist.park.min <= 10} />
-        <Tile label="Океан пешком" value={`≈ ${q.dist.ocean.min} мин`} sub={`${q.dist.ocean.m.toLocaleString("ru-RU")} м по прямой`} good={q.dist.ocean.min <= 15} />
-        <Tile
-          label={`${t.label} пешком`}
-          value={`≈ ${t.min} мин`}
-          sub={q.dist.metrobus ? `${t.name}; метро ${q.dist.metro.name} ≈ ${q.dist.metro.min} мин` : t.name}
-          good={t.min <= 10}
-        />
+      <dl className="mt-6 grid grid-cols-2 gap-3 lg:grid-cols-5">
+        {indicators(q).map((x) => (
+          <Tile key={x.key} label={x.label} value={x.value} sub={x.sub} />
+        ))}
       </dl>
-      {q.approx ? <p className="mt-2 text-xs text-slate-500">Точка примерная: контура кондоминиума на карте нет, считали от улицы.</p> : null}
+      <p className="mt-2 text-xs text-slate-500">
+        Маршруты по улицам (OSRM, OpenStreetMap); на машине — без пробок.
+        {q.approx ? " Точка примерная: контура на карте нет, считали от улицы." : ""}
+      </p>
 
       <p className="mt-8 max-w-3xl text-base leading-relaxed text-slate-800">{q.summary}</p>
 
       <section className="mt-10 grid gap-8 lg:grid-cols-[1fr_380px]">
         <div>
-          <h2 className="text-2xl font-semibold text-slate-900">Паспорт квартала</h2>
+          <h2 className="text-2xl font-semibold text-slate-900">{q.kind === "gated" ? "Паспорт посёлка" : "Паспорт квартала"}</h2>
           <dl className="mt-3">
             <Row k="Какие дома" v={q.houseType} />
             <Row k="Построен" v={q.built} />
@@ -187,7 +182,7 @@ export default function QuarterPage({ params }: Params) {
 
       <section className="mt-12">
         <h2 className="text-2xl font-semibold text-slate-900">Что продаётся</h2>
-        <p className="mt-1 text-sm text-slate-600">Объявления на Imovirtual внутри квартала, которые мы видели {formatRuDate(q.verified)}. Цены запрашиваемые.</p>
+        <p className="mt-1 text-sm text-slate-600">Объявления на Imovirtual, которые мы видели {formatRuDate(q.verified)}. Цены запрашиваемые.</p>
         {listings.length ? (
           <ul className="mt-4 space-y-3">
             {listings.map((l) => (
@@ -212,7 +207,7 @@ export default function QuarterPage({ params }: Params) {
             ))}
           </ul>
         ) : (
-          <p className="mt-4 text-sm text-slate-700">Сейчас ничего.</p>
+          <p className="mt-4 text-sm text-slate-700">Объявлений на Imovirtual сейчас нет.</p>
         )}
       </section>
 
@@ -246,7 +241,7 @@ export default function QuarterPage({ params }: Params) {
           <ParqueMap
             focus={q.slug}
             className="h-[360px]"
-            landmarks={[CLIP]}
+            landmarks={HOUSE_LANDMARKS}
             points={all.map((x) => ({
               slug: x.slug,
               pin: x.pin,
@@ -254,7 +249,7 @@ export default function QuarterPage({ params }: Params) {
               lat: x.lat,
               lng: x.lng,
               href: portugalDomaPath(x.slug),
-              caption: `CLIP ≈ ${x.clip.min} мин`,
+              caption: KIND_LABEL[x.kind],
             }))}
           />
         </div>
@@ -289,7 +284,7 @@ export default function QuarterPage({ params }: Params) {
                   <div className="p-3">
                     <p className="font-medium text-slate-900">{x.name}</p>
                     <p className="text-xs text-slate-600">
-                      CLIP ≈ {x.clip.min} мин · {x.priceFrom != null ? `от ${formatEur(x.priceFrom)}` : "сейчас в продаже нет"}
+                      {x.freguesia} · {x.priceFrom != null ? `от ${formatEur(x.priceFrom)}` : "сейчас в продаже нет"}
                     </p>
                   </div>
                 </Link>
