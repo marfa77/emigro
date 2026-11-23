@@ -18,6 +18,7 @@ Timer с **`Persistent=true`** — пропуск догоняется посл�
 3. Ingest в `community_signals` (direct Supabase, без Vercel HTTP)
 4. До **1** Gemini-черновика → `community_notes` (`published`)
 5. Обновление daily spotlight на hub
+6. Пост заметки в чат Валенсии — **выключен** с 2026-11-22. Отправка пропускается, пока в `.env` нет `EMIGRO_VALENCIA_GROUP_PUBLISH=1`. Сайт и черновики заметок этот шаг не трогает.
 
 ## Переменные на VPS
 

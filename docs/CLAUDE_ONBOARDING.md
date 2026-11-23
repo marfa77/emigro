@@ -357,8 +357,8 @@ Prep2Go-импорт **убран** из Vercel cron, чтобы не было �
 | Timer | Когда | Что |
 |-------|--------|-----|
 | `emigro-portugal-community` | 07:00 UTC | Заметки Португалии |
-| `emigro-spain-community` | 07:30 UTC | Испания |
-| `emigro-italy-community` | 06:30 UTC | Италия |
+| `emigro-spain-community` | 07:30 UTC | Заметки Испании на сайте. **С 2026-11-22 посты в чат Валенсии выключены** (Павел). Снова: `EMIGRO_VALENCIA_GROUP_PUBLISH=1` |
+| `emigro-italy-community` | 06:30 UTC | Заметки Италии на сайте. **С 2026-11-22 посты в чат Милана выключены** (Павел). Снова: `EMIGRO_MILAN_GROUP_PUBLISH=1` |
 | `emigro-thailand-community` | — | Таиланд. **Юнит на VPS не установлен** (сверено 2026-11-09) |
 | `emigro-prep2go-news` | 09:00 UTC | Импорт новости Prep2Go → Gemini → страница на сайте `/ru/news`. **С 2026-11-09 запускается с `--skip-telegram`** (Павел): канала `@Emigro_news` больше нет, черновиков в личку и публикаций в Telegram нет |
 | `emigro-youtube-shorts` | 09:15 UTC | Shorts (Remotion). **Таймер выключен 2026-11-09** по решению Павла: нет OAuth-токена YouTube и рабочего ключа GCS. Включать: `systemctl enable --now emigro-youtube-shorts.timer` |

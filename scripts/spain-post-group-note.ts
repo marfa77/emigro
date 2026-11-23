@@ -1,5 +1,6 @@
 /**
  * Post one Spain satellite note into the private Valencia Telegram group.
+ * Off unless EMIGRO_VALENCIA_GROUP_PUBLISH=1 (Pavel, 2026-11-22).
  *
  *   npm run spain:post-group -- --dry-run
  *   npm run spain:post-group -- --slug=nie-empadronamiento-poryadok-2026
