@@ -1,10 +1,10 @@
 ---
 slug: byudzhet-relokatsii-evropa-2026-po-stranam
 title: "Сколько денег нужно на релокацию в Европу в 2027: бюджет по странам"
-seo_title: "Бюджет релокации в Европу 2027 — по странам"
-seo_description: "Сколько денег нужно на переезд в ЕС в 2027: Португалия, Испания, Германия, стартовый капитал, жизнь в месяц, визовые расходы для семьи из СНГ."
+seo_title: "Бюджет релокации ЕС 2026 — D7 €920 / D8 €3 680 ≠ жизнь"
+seo_description: "Бюджет переезда 2026: PT/ES/DE стартовый капитал семьи, жизнь/мес; пороги D7 €920, D8 €3 680, ES DN €34 188/год ≠ COL. Wizard."
 excerpt: "Честные цифры: не только «порог визы», но и переезд, депозиты, первые 6 месяцев без стабильного дохода в новой валюте."
-quick_answer: "Стартовый капитал на семью из 3 человек: Португалия €25 000–40 000, Испания €30 000–50 000, Германия €35 000–55 000 (виза + 6 мес. жизни + депозиты). Месячные расходы: Лиссабон €2 500–4 000, Мадрид €3 000–5 000, Берлин €3 500–5 500. Порог визы D7/D8 — минимум, не реальный бюджет жизни."
+quick_answer: "Стартовый капитал на семью из 3: PT €25–40k, ES €30–50k, DE €35–55k (виза + 6 мес. + депозиты). Жизнь/мес ориентир: Лиссабон €2,5–4k, Мадрид €3–5k, Берлин €3,5–5,5k. Пороги визы — не COL: D7 ~€920, D8 ~€3 680 (RMMG), ES DN €34 188/год (200% SMI). Сверьте коридор в /ru/wizard."
 corridor_slugs: [ru-speaking-to-portugal, ru-speaking-to-spain, ru-speaking-to-germany, ru-speaking-to-italy, ru-speaking-to-france, ru-speaking-to-netherlands, ru-speaking-to-sweden, ru-speaking-to-norway, ru-speaking-to-finland, ru-speaking-to-denmark]
 topic_keys: [portugal, spain, germany, italy, france, netherlands, sweden, norway, finland, denmark, europe]
 tags: [бюджет, деньги, релокация, стоимость, 2026]
@@ -26,12 +26,16 @@ official_sources:
     label: Auswärtiges Amt — Lebensunterhalt 2026, Chancenkarte €1 091/мес
 estimated_minutes: 18
 date_published: 2026-06-25
-date_modified: 2026-10-19
+date_modified: 2026-11-23
 ---
 
 ## Почему «порог визы» обманывает
 
-> **Nota Emigro (fact-check, 19.10.2026).** **OK:** D7 ~**€920**/мес = RMMG ([DL 139/2025](https://diariodarepublica.pt/dr/detalhe/decreto-lei/139-2025-992879809)); D8 ~**€3 680** = 4×RMMG; ES nómada **≈ €2.442/мес** = 200% SMI mensual 2026 (SMI €1.221, [RD 126/2026](https://www.boe.es/buscar/act.php?id=BOE-A-2026-3815); критерий UGE/консульств); ES no lucrativa ~**€2 400** = 400% IPREM **€600** (Ley 31/2022, бюджеты продлены); Chancenkarte **€13 092** = **€1 091** нетто × 12 ([Auswärtiges Amt, 2026](https://jakarta.diplo.de/id-de/service/visa-und-einreise/2685160-2685160)). **Soft:** аренда и «стартовый капитал» — бытовые вилки, не закон.
+> **Nota Emigro (fact-check, 23.11.2026).** **OK:** D7 ~**€920**/мес = RMMG ([DL 139/2025](https://diariodarepublica.pt/dr/detalhe/decreto-lei/139-2025-992879809)); D8 ~**€3 680** = 4×RMMG.
+>
+> **OK:** ES nómada = **200% SMI** → **€34 188/год** (SMI €1 221 ×14, [RD 126/2026](https://www.boe.es/buscar/act.php?id=BOE-A-2026-3815)); те же деньги как **€2 849×12** или консульские **€2 442×14** — не **€2 442×12**. ES no lucrativa ~**€2 400** = 400% IPREM **€600**.
+>
+> **OK:** Chancenkarte **€13 092** = **€1 091** нетто × 12 ([Auswärtiges Amt, 2026](https://jakarta.diplo.de/id-de/service/visa-und-einreise/2685160-2685160)). **Soft:** аренда и «стартовый капитал» — бытовые вилки, не закон.
 
 D7 требует ~€920/мес. — это **не** значит, что в Лиссабоне можно жить на €920. Порог — фильтр консульства; реальность 2026: аренда 1-bed €1 200–1 800, продукты €400+, коммуналка €100–200. Семьи из СНГ, приезжающие с $20k «на всё», разочаровываются через 3 месяца.
 
@@ -274,9 +278,9 @@ D7 требует ~€920/мес. — это **не** значит, что в Л
 
 ## Коротко для проверки маршрута
 
-- Visa income threshold ≠ cost of living; Lisbon family ~€2.8–4.2k/month.
-- Starter capital family of 3: PT €30–45k, DE €35–55k including 6-month reserve.
-- D7 requires savings on top of monthly passive income.
-- emigro.online/ru/wizard evaluates affordability by corridor.
+- Порог визы ≠ стоимость жизни; семья в Лиссабоне ~€2,8–4,2k/мес.
+- Стартовый капитал семья 3: PT €25–40k, ES €30–50k, DE €35–55k (запас ~6 мес.).
+- Официальные floors: D7 ~**€920**, D8 ~**€3 680**, ES DN **€34 188**/год (200% SMI) — не COL.
+- [/ru/wizard](/ru/wizard) считает affordability по коридору.
 
-*Не финансовая консультация. Цифры — ориентиры июня 2026.*
+*Не финансовая консультация. Цифры — ориентиры ноября 2026.*

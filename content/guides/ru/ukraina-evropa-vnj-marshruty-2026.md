@@ -1,10 +1,10 @@
 ---
 slug: ukraina-evropa-vnj-marshruty-2026
 title: "Украина → ЕС 2027: temporary protection, ВНЖ и маршруты в PL/CZ/DE"
-seo_title: "Украина → ЕС 2027 — TP, ВНЖ, Польша, Чехия, Германия"
-seo_description: "Pillar-гайд для граждан Украины: temporary protection vs ВНЖ, коридоры Польша/Чехия/Германия, переход с TP, wizard с UA-паспортом. 2026."
+seo_title: "Украина → ЕС 2026 — TP до 4.03.2028, ВНЖ PL/CZ/DE"
+seo_description: "UA → ЕС 2026: TP до 4.03.2028 (2026/1912), art.2 с 5.08.2026, переход на ВНЖ в PL/CZ/DE, wizard с UA-паспортом."
 excerpt: "Отдельный pillar для UA-аудитории: temporary protection, когда переходить на ВНЖ, и три главных коридора — Польша, Чехия, Германия."
-quick_answer: "Temporary Protection (TP) даёт право жить и работать в EU, но не заменяет ВНЖ для ПМЖ/гражданства. Совет продлил TP до 4 марта 2028 (Decision 2026/1912 от 30.07.2026). Новым заявителям с 31.07.2026 нужен proof воинской обязанности в Украине; у кого TP уже была на 30.07.2026 в той же стране, статус сохраняется. Топ-коридоры: Польша, Чехия, Германия. Переход на ВНЖ закладывайте за 8–15 мес. до 4.03.2028."
+quick_answer: "Temporary Protection (TP) даёт право жить и работать в EU, но не заменяет ВНЖ для ПМЖ/гражданства. Совет продлил TP до 4 марта 2028 (Decision 2026/1912). Новым заявителям с 5.08.2026 (corrigendum) нужен proof воинской обязанности в Украине; у кого TP уже была на/до 4.08.2026 в той же стране, статус сохраняется. Топ-коридоры: Польша, Чехия, Германия. Переход на ВНЖ закладывайте за 8–15 мес. до 4.03.2028 → /ru/wizard."
 corridor_slugs: [ru-speaking-to-poland, ru-speaking-to-czechia, ru-speaking-to-germany]
 topic_keys: [ukraine, poland, czechia, germany, europe]
 tags: [Украина, UA, temporary protection, ВНЖ, 2026, Польша, Чехия]
@@ -16,6 +16,8 @@ official_sources:
     label: EU — Temporary Protection
   - url: https://eur-lex.europa.eu/eli/dec_impl/2026/1912/oj/eng
     label: Council Decision (EU) 2026/1912 — TP до 4.03.2028
+  - url: https://eur-lex.europa.eu/eli/dec_impl/2026/1912/corrigendum/2026-08-05/oj/eng
+    label: Corrigendum 2026/1912 — art.2 с 5.08.2026; exemption ≤4.08.2026
   - url: https://eur-lex.europa.eu/eli/dec_impl/2025/1460
     label: Council Decision (EU) 2025/1460 — предыдущий срок до 4.03.2027
   - url: https://home-affairs.ec.europa.eu/policies/migration-and-asylum/migration-management/welcoming-displaced-people-ukraine_en
@@ -28,7 +30,7 @@ official_sources:
     label: BAMF Germany
 estimated_minutes: 17
 date_published: 2026-06-29
-date_modified: 2026-10-19
+date_modified: 2026-11-23
 ---
 
 ## Кому этот гайд
@@ -57,7 +59,7 @@ date_modified: 2026-10-19
 
 **TP — временная мера ЕС** по Директиве 2001/55/EC (активирована [Implementing Decision (EU) 2022/382](https://eur-lex.europa.eu/eli/dec_impl/2022/382)).
 
-> **Nota Emigro (fact-check, 19.10.2026).** **Fixed:** конечный срок TP — **4 марта 2028**, [Council Implementing Decision (EU) 2026/1912](https://eur-lex.europa.eu/eli/dec_impl/2026/1912/oj/eng) от **30.07.2026** (применяется с **5.03.2027**). Предыдущее окно [2025/1460](https://eur-lex.europa.eu/eli/dec_impl/2025/1460) — **5.03.2026–4.03.2027**. **Fixed:** с **31.07.2026** новую TP дают при proof, что воинская обязанность в Украине соблюдена (легальный выезд / штамп или документ вроде Reserv+). У кого защита уже была **на 30.07.2026** и непрерывно сохраняется в той же стране ЕС, это условие не отзывает статус. **OK:** TP по-прежнему не ПМЖ и не гражданство.
+> **Nota Emigro (fact-check, 23.11.2026).** **OK:** конечный срок TP — **4 марта 2028**, [Council Implementing Decision (EU) 2026/1912](https://eur-lex.europa.eu/eli/dec_impl/2026/1912/oj/eng) от **30.07.2026** (основной режим с **5.03.2027**). Предыдущее окно [2025/1460](https://eur-lex.europa.eu/eli/dec_impl/2025/1460) — **5.03.2026–4.03.2027**. **Fixed (corrigendum 05.08.2026):** art. 2 применяется с **5 августа 2026** (не 31.07); исключение — кто уже имел TP в том же государстве **на/до 4 августа 2026** и сохраняет статус непрерывно ([corrigendum](https://eur-lex.europa.eu/eli/dec_impl/2026/1912/corrigendum/2026-08-05/oj/eng)). Proof: легальный выезд / штамп / Reserv+ где применимо. **OK:** TP по-прежнему не ПМЖ и не гражданство.
 
 **После 4.03.2028** отдельного решения о выходе из TP ещё нет. Подачу на pobyt не оставляйте на последний месяц действия защиты.
 
@@ -251,14 +253,24 @@ Work permit + pobyt ~PLN 390; бухгалтер B2B PLN 200–800/мес. См.
 
 ### До какого числа действует TP?
 
-До **4 марта 2028** — [Council Implementing Decision (EU) 2026/1912](https://eur-lex.europa.eu/eli/dec_impl/2026/1912/oj/eng) от 30.07.2026. Предыдущее продление [2025/1460](https://eur-lex.europa.eu/eli/dec_impl/2025/1460) покрывало **5.03.2026–4.03.2027**; новое решение продлевает режим ещё на год, с **5.03.2027**.
+До **4 марта 2028** — [Council Implementing Decision (EU) 2026/1912](https://eur-lex.europa.eu/eli/dec_impl/2026/1912/oj/eng) от 30.07.2026. Предыдущее продление [2025/1460](https://eur-lex.europa.eu/eli/dec_impl/2025/1460) покрывало **5.03.2026–4.03.2027**; новое решение продлевает режим ещё на год, с **5.03.2027**. Art. 2 (proof воинской обязанности) — с **5.08.2026**; exemption для уже-на-TP **на/до 4.08.2026** ([corrigendum](https://eur-lex.europa.eu/eli/dec_impl/2026/1912/corrigendum/2026-08-05/oj/eng)).
 
 ---
+
+## Коротко для проверки маршрута
+
+- TP ≠ ПМЖ/гражданство; дедлайн защиты **4.03.2028**.
+- Новые заявки с **5.08.2026**: proof воинской обязанности где применимо; уже-на-TP **≤4.08.2026** в той же стране — исключение.
+- Коридоры: PL / CZ / DE → переход на work pobyt за **8–15 мес.** до дедлайна.
+- Wizard с паспортом **UA**: [/ru/wizard](/ru/wizard) · хаб [/ru/ukraine](/ru/ukraine).
+
+*Ноябрь 2026. Не юридическая консультация. EUR-Lex / национальные органы на дату подачи.*
 
 ## Официальные источники
 
 - **[EU Temporary Protection](https://home-affairs.ec.europa.eu/policies/migration-and-asylum/asylum-eu/temporary-protection_en)** — директива TP
 - **[Decision (EU) 2026/1912](https://eur-lex.europa.eu/eli/dec_impl/2026/1912/oj/eng)** — продление TP до **4.03.2028**
+- **[Corrigendum 2026/1912](https://eur-lex.europa.eu/eli/dec_impl/2026/1912/corrigendum/2026-08-05/oj/eng)** — art.2 с **5.08.2026**; exemption ≤**4.08.2026**
 - **[Decision (EU) 2025/1460](https://eur-lex.europa.eu/eli/dec_impl/2025/1460)** — предыдущее окно до **4.03.2027**
 - **[EU — displaced people from Ukraine](https://home-affairs.ec.europa.eu/policies/migration-and-asylum/migration-management/welcoming-displaced-people-ukraine_en)** — права и регистрация
 - **[gov.pl / UDSC](https://www.gov.pl/web/udsc-en)** — pobyt в Польше

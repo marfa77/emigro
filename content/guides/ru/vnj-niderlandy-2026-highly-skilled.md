@@ -1,13 +1,13 @@
 ---
 slug: vnj-niderlandy-2026-highly-skilled
 title: "ВНЖ Нидерланды 2027: Highly Skilled Migrant, IND и путь к ПМЖ"
-seo_title: "ВНЖ Нидерланды из России 2027 — HSM"
-seo_description: "Highly Skilled Migrant Нидерланды 2026: зарплатные пороги €4 357/€5 942, IND 2 недели, 30% ruling, стоимость жизни Амстердам, путь к ПМЖ. Для граждан РФ и СНГ."
+seo_title: "HSM Нидерланды 2026: €4 357/€5 942 — RU/BY"
+seo_description: "Highly Skilled Migrant NL 2026: €4 357 (<30) / €5 942 (30+), IND ~2 нед., 30% ruling, ПМЖ A2. Для граждан РФ и СНГ → /ru/wizard."
 excerpt: "Нидерланды — один из самых быстрых путей к ВНЖ для IT-специалистов в ЕС: 2 недели через IND, 30% налоговая льгота и реалистичный ПМЖ через 5 лет. Полный разбор 2026."
 quick_answer: |-
-  Highly Skilled Migrant — виза для специалистов с оффером от нидерландского работодателя. Порог 2026: €4 357 брутто в месяц до 30 лет или €5 942 после 30. У recognized sponsor IND обычно решает за 2–4 недели.
+  Highly Skilled Migrant — виза для специалистов с оффером от нидерландского работодателя. Порог 2026 (IND): €4 357 брутто/мес до 30 лет или €5 942 после 30; reduced €3 122; Blue Card €5 942 / reduced €4 754. У recognized sponsor IND обычно решает за 2–4 недели.
 
-  30% ruling в 2026 остаётся плоскими 30% (не схема 30→20→10). С 2027 у большинства будет 27%. Для ПМЖ и натурализации нужен язык A2. Отказ от другого гражданства — правило с исключениями.
+  30% ruling в 2026 остаётся плоскими 30% (не схема 30→20→10). С 2027 у большинства будет 27%. Для ПМЖ и натурализации нужен язык A2. Отказ от другого гражданства — правило с исключениями. Дальше — /ru/wizard или /ru/netherlands.
 corridor_slugs: [ru-speaking-to-netherlands]
 topic_keys: [netherlands, work, visa]
 tags: [Нидерланды, Highly Skilled Migrant, IND, 30% ruling, ВНЖ, 2026]
@@ -27,12 +27,12 @@ official_sources:
     label: Werk.nl — рынок труда
 estimated_minutes: 16
 date_published: 2026-06-25
-date_modified: 2026-09-19
+date_modified: 2026-11-23
 ---
 
 ## Нидерланды: почему это недооценённый маршрут для IT
 
-> **Nota Emigro (fact-check, сентябрь 2026).** **OK:** HSM **€4 357**/мес <30 / **€5 942** ≥30. 30% ruling = **необлагаемая доля зарплаты 30%**, не «эффективная ставка ~30%»; в 2026 ещё плоские 30%, с **2027** у большинства **27%**. ПМЖ/натурализация: **A2**. Отказ от другого гражданства — правило с исключениями. Inburgering A2: [Prep2Go](https://inburgering.prep2go.study/inburgering-a2?utm_source=emigro&utm_medium=guide&utm_campaign=prep2go_netherlands&utm_content=vnj-niderlandy-2026-highly-skilled). **Soft:** «2 недели IND» — recognized sponsor, не любой работодатель.
+> **Nota Emigro (fact-check, 23.11.2026).** **OK:** HSM **€4 357**/мес <30 / **€5 942** ≥30; reduced **€3 122**; Blue Card **€5 942** / reduced **€4 754** ([IND required amounts 2026](https://ind.nl/en/required-amounts-income-requirements)). 30% ruling = **необлагаемая доля зарплаты 30%**, не «эффективная ставка ~30%»; в 2026 ещё плоские 30%, с **2027** у большинства **27%**. ПМЖ/натурализация: **A2**. Отказ от другого гражданства — правило с исключениями. Inburgering A2: [Prep2Go](https://inburgering.prep2go.study/inburgering-a2?utm_source=emigro&utm_medium=guide&utm_campaign=prep2go_netherlands&utm_content=vnj-niderlandy-2026-highly-skilled). **Soft:** «2 недели IND» — recognized sponsor, не любой работодатель.
 
 В русскоязычном сообществе Нидерланды часто остаются в тени Германии. Это несправедливо: нидерландский **Highly Skilled Migrant** (Kennismigrant) — один из **самых быстрых и предсказуемых** рабочих ВНЖ в Европе. Рассмотрение заявки в IND (Immigration and Naturalisation Service) занимает **около 2 рабочих недель** — вместо 1–3 месяцев в других странах. Плюс щедрая налоговая льгота 30% для экспатов.
 
@@ -228,9 +228,19 @@ Employer-driven процесс: **инициирует работодатель*
 
 **Банки:** ABN AMRO, ING принимают экспатов с BSN и разрешением на проживание. Bunq — открывается онлайн легче, полезен для старта.
 
-**Сравнение с Германией:** Нидерланды vs Германия — читайте подробный разбор в гиде [Германия vs Нидерланды: Blue Card](/ru/guides/rabota-v-evrope-dlya-rossiyan-2026). Ключевое: NL быстрее по IND, выгоднее по налогам (30% ruling), но требует отказа от РФ-гражданства при натурализации.
+**Сравнение с Германией:** Нидерланды vs Германия — читайте подробный разбор в гиде [Работа в Европе: Blue Card / HSM](/ru/guides/rabota-v-evrope-dlya-rossiyan-2026). Ключевое: NL быстрее по IND, выгоднее по налогам (30% ruling), но требует отказа от РФ-гражданства при натурализации. Кластер: [ВНЖ Германия](/ru/guides/vnj-germaniya-2026) · [коридор NL](/ru/netherlands).
 
 ---
+
+## Коротко для проверки маршрута
+
+- HSM 2026: **€4 357** (<30) / **€5 942** (≥30); reduced **€3 122**; Blue Card **€5 942** / **€4 754**.
+- Подаёт **recognized sponsor**; IND у спонсора часто **~2 недели**.
+- 30% ruling: в 2026 ещё **30%** flat; с 2027 у большинства **27%**.
+- ПМЖ / натурализация: язык **A2**; отказ от другого гражданства — правило с исключениями.
+- Wizard: [/ru/wizard](/ru/wizard) · [/ru/netherlands](/ru/netherlands).
+
+*Ноябрь 2026. Не юридическая консультация. IND / Belastingdienst на дату подачи.*
 
 ## FAQ
 
