@@ -277,6 +277,15 @@ date_modified: 2026-09-19
 
 ---
 
+## Смежные маршруты
+
+- [Регистрация компании в Португалии](/ru/news/portugal-story-2026-09-07-k1b2yo) — LDA, NIF, Empresa na Hora и банк под капитал
+- [Work permit Дания: Pay Limit](/ru/denmark/programs/denmark-work-permit) — зарплата на датский счёт
+- [ВНЖ Скандинавия 2026](/ru/guides/vnj-skandinaviya-2026) · [воссоединение семьи UDI](/ru/norway/programs/norway-family-reunification)
+- [Небезопасные города Европы](/ru/guides/nebezopasnye-goroda-evropy-2026) — район жилья при выборе страны
+
+---
+
 ## Короткий маршрут: что делать по порядку
 
 - Для ВНЖ Европы доход из России нужно подтверждать документами: выписки 6–12+ месяцев, договоры, налоги, источник средств. Крупным суммам дайте полежать на счёте.

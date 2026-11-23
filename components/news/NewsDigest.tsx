@@ -6,6 +6,7 @@ import type { NewsTopicConfig } from "@/lib/news/topics";
 import { newsArticlePath } from "@/lib/news/topics";
 import { isPublishableSourceLink, isBlockedSourceName } from "@/lib/news/article-resolve";
 import { sourceLinkRel } from "@/lib/partners/link";
+import { getNewsStoryIntro } from "@/lib/news/story-seo-intros";
 
 function formatDateRu(dateString: string) {
   return new Date(dateString).toLocaleDateString("ru-RU", {
@@ -84,10 +85,21 @@ export function NewsArticleBody({ digest }: { digest: NewsDigest }) {
 
   if (story) {
     const block = digest.content_blocks[0];
+    const intro = getNewsStoryIntro(digest.slug);
     return (
       <div>
+        {intro ? (
+          <section className="rounded-2xl border border-corridor-200 bg-corridor-50/60 p-6 sm:p-7">
+            <h2 className="text-xl font-bold text-slate-900">{intro.heading}</h2>
+            {intro.paragraphs.map((p) => (
+              <p key={p} className="mt-3 text-sm leading-relaxed text-slate-700 first:mt-3">
+                {p}
+              </p>
+            ))}
+          </section>
+        ) : null}
         {digest.key_takeaways.length > 0 && (
-          <section className="rounded-2xl border border-emerald-200 bg-emerald-50 p-6">
+          <section className={`rounded-2xl border border-emerald-200 bg-emerald-50 p-6${intro ? " mt-8" : ""}`}>
             <h2 className="text-lg font-semibold text-emerald-950">Для кого важно</h2>
             <ul className="mt-4 space-y-2 text-slate-700">
               {digest.key_takeaways.map((item) => (

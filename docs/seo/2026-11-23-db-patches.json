@@ -1,0 +1,72 @@
+{
+  "note": "Apply after deploy; git NEWS_SEO_OVERRIDES already ship meta for news. These rows sync Supabase with production overrides.",
+  "patches": [
+    {
+      "table": "emigro_news_digests",
+      "slug": "portugal-story-2026-09-07-k1b2yo",
+      "columns": [
+        {
+          "column": "seo_title",
+          "old_value": "(current DB) Регистрация компании в Португалии для иностранцев",
+          "new_value": "Регистрация компании в Португалии 2026: LDA, NIF"
+        },
+        {
+          "column": "seo_description",
+          "new_value": "Как открыть фирму в Португалии: LDA/SA, NIF, банк и registo comercial. Empresa na Hora на justica.gov.pt — один balcão; ВНЖ только при критериях предпринимателя."
+        },
+        {
+          "column": "source_links",
+          "action": "append_if_missing",
+          "entries": [
+            {
+              "title": "Empresa na Hora",
+              "url": "https://www.empresanahora.pt/"
+            },
+            {
+              "title": "Registo justiça — empresa",
+              "url": "https://registo.justica.gov.pt/"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "table": "emigro_news_digests",
+      "slug": "germany-story-2026-10-05-vn3nqp",
+      "columns": [
+        {
+          "column": "seo_title",
+          "new_value": "Счётчики отопления в Германии: с 1 января 2027"
+        },
+        {
+          "column": "seo_description",
+          "new_value": "HeizkostenV §5: до 31.12.2026 дооснастить счётчики отопления; с 01.01.2027 — дистанционное считывание. Арендатор вправе требовать учёт у Gebäudeeigentümer."
+        },
+        {
+          "column": "source_links",
+          "action": "append_if_missing",
+          "entries": [
+            {
+              "title": "HeizkostenV §5 — gesetze-im-internet.de",
+              "url": "https://www.gesetze-im-internet.de/heizkostenv/__5.html"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "table": "emigro_news_digests",
+      "slug": "cyprus-story-2026-09-08-c48qw0",
+      "columns": [
+        {
+          "column": "seo_title",
+          "new_value": "BrainRocket закрывает офисы в Лимассоле"
+        },
+        {
+          "column": "seo_description",
+          "new_value": "BrainRocket сворачивает офисы в Лимассоле: сотрудникам предложили релокацию за границу, а не возврат на Кипр. Что это значит для tech-рынка острова."
+        }
+      ]
+    }
+  ]
+}
