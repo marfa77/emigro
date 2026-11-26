@@ -292,15 +292,13 @@ export default async function CountryProgramPage({
           <h1 className="mt-4 max-w-3xl text-3xl font-bold sm:text-4xl lg:text-5xl">{program.title_ru}</h1>
           <p className="mt-4 max-w-2xl text-lg leading-relaxed text-corridor-100">{programSummaryRu(program)}</p>
           <div className="mt-8 flex flex-wrap gap-3">
-            {topic.sitePaths.wizard && (
-              <Link
-                href={topic.sitePaths.wizard}
-                className="inline-flex items-center gap-2 rounded-lg bg-white px-5 py-3 font-medium text-corridor-900 hover:bg-corridor-50"
-              >
-                Проверить мой профиль
-                <ArrowRight className="h-4 w-4" aria-hidden />
-              </Link>
-            )}
+            <a
+              href="#help"
+              className="inline-flex items-center gap-2 rounded-lg bg-white px-5 py-3 font-medium text-corridor-900 hover:bg-corridor-50"
+            >
+              Получить помощь — бесплатно
+              <ArrowRight className="h-4 w-4" aria-hidden />
+            </a>
             <Link
               href={base}
               className="rounded-lg border border-white/40 px-5 py-3 font-medium text-white hover:bg-white/10"

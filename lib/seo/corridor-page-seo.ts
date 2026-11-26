@@ -134,7 +134,7 @@ export function buildProgramQuickAnswer(program: ProgramDetail, topic: NewsTopic
     return [
       "Воссоединение семьи в Норвегии (UDI family immigration): присоединение к супругу, партнёру, ребёнку или другому родственнику, который уже легально живёт в Норвегии. Категория заявителя и страна паспорта определяют, нужен residence permit или схема регистрации.",
       "Пороги содержания, жильё и основания родства берутся из правил UDI по конкретному типу семьи — сверяйте страницу family immigration на udi.no.",
-      "Для сравнения с Данией и Швецией — гайд «ВНЖ Скандинавия 2026» и wizard коридора Норвегия на Emigro.",
+      "Для сравнения с Данией и Швецией — гайд «ВНЖ Скандинавия 2026» и подбор маршрута по Норвегии на Emigro.",
     ].join(" ");
   }
   if (isDenmarkEmploymentSlug(program.slug)) {
@@ -150,7 +150,7 @@ export function buildProgramQuickAnswer(program: ProgramDetail, topic: NewsTopic
       lead,
       "Для паспортов RU, BY, UA и KZ заявление в SIRI, биометрия, консульство по месту законного проживания и въезд — отдельные шаги.",
       siblings,
-      `Проверьте оффер в wizard коридора ${topic.countryRu}.`,
+      "Оффер работодателя проверяется отдельно: зарплата, должность и тип контракта.",
     ].join(" ");
   }
   const threshold = keyRequirement(program);
@@ -158,7 +158,6 @@ export function buildProgramQuickAnswer(program: ProgramDetail, topic: NewsTopic
   const parts = [
     `${program.title_ru} — маршрут ВНЖ ${ruCountryTo(topic.countryRu)} для русскоязычных с паспортами RU/BY/UA/KZ (${type}).`,
     threshold ? withPeriod(`Ключевой порог: ${threshold}`) : program.summary_ru,
-    `Проверьте свой профиль в wizard коридора ${topic.countryRu} или hub wizard Emigro.`,
   ];
   return parts.join(" ");
 }
@@ -286,7 +285,7 @@ export function buildProgramLlmFacts(program: ProgramDetail, topic: NewsTopicCon
           .join(", ")}.`
       : null,
     `Паспорта: ${passportSummary(program)}`,
-    `Emigro: wizard коридора ${topic.countryRu} и hub wizard /ru/wizard для сравнения маршрутов.`,
+    `На Emigro есть подбор маршрута ${ruCountryTo(topic.countryRu)} и общий подбор по всем странам.`,
   ];
   return facts.filter((f): f is string => Boolean(f));
 }
@@ -304,7 +303,7 @@ function buildProgramDescriptionFallback(program: ProgramDetail, topic: NewsTopi
   const parts = [program.summary_ru];
   if (threshold) parts.push(`Ключевой порог: ${threshold}.`);
   if (timeline) parts.push(`Ориентир по срокам: ${timeline}.`);
-  parts.push(`Официальные источники на странице; wizard коридора ${topic.countryRu} для паспортов RU/BY/UA/KZ.`);
+  parts.push(`Официальные источники на странице; подбор маршрута ${ruCountryTo(topic.countryRu)} для паспортов RU/BY/UA/KZ.`);
   return parts.join(" ");
 }
 
@@ -354,7 +353,7 @@ export function buildDigestQuickAnswer(topic: NewsTopicConfig, corridor: Corrido
     `Справочник Emigro по коридору ${topic.countryRu}: проверенные факты о ВНЖ, гражданстве, языке и административных шагах для русскоязычных (RU/BY/UA/KZ).`,
     citizenship ? stripInlineMarkdown(citizenship.body_ru.split("\n")[0]) : topic.focusHintRu,
     programs ? `Программы коридора: ${programs}.` : null,
-    "Актуальные изменения законов — в еженедельных новостях Emigro; подбор маршрута — через wizard.",
+    "Актуальные изменения законов — в еженедельных новостях Emigro; подбор маршрута — в квизе на сайте.",
   ]
     .filter(Boolean)
     .join(" ");
@@ -391,7 +390,7 @@ export function buildDigestFaq(topic: NewsTopicConfig, corridor: Corridor): FaqI
     },
     {
       question: `Какие программы ВНЖ есть в коридоре ${topic.countryRu}?`,
-      answer: `${programList}. Детальные требования, пороги и источники — на страницах программ и в wizard коридора.`,
+      answer: `${programList}. Детальные требования, пороги и источники — на страницах программ и в подборе маршрута.`,
     },
     {
       question: `Как отслеживать изменения миграционного законодательства ${ruCountryGenitive(topic.countryRu)}?`,
@@ -419,14 +418,14 @@ export function buildDigestLlmFacts(topic: NewsTopicConfig, corridor: Corridor):
       (item) =>
         `${item.title_ru}: ${stripInlineMarkdown(item.body_ru).replace(/\s+/g, " ").slice(0, 200)}`,
     ),
-    "Emigro: hub wizard /ru/wizard и коридорный wizard для подбора маршрута ВНЖ.",
+    "На Emigro есть подбор маршрута ВНЖ — общий по всем странам и по каждой стране отдельно.",
   ].filter((f): f is string => Boolean(f));
 }
 
 export function buildDigestAiDescription(topic: NewsTopicConfig, corridor: Corridor): string {
   return [
     buildDigestQuickAnswer(topic, corridor),
-    "Emigro объединяет справочник, программы ВНЖ, wizard и еженедельные новости для русскоязычных релокантов.",
+    "Emigro объединяет справочник, программы ВНЖ, подбор маршрута и еженедельные новости для русскоязычных релокантов.",
   ].join(" ");
 }
 
@@ -434,7 +433,7 @@ export function buildDigestMetadata(topic: NewsTopicConfig): Metadata {
   const path = digestPagePath(topic);
   const seoTitle = fitTitle(`Справочник ВНЖ ${topic.countryRu} — факты 2026`);
   const description = fitDescription(
-    `Проверенные факты по ВНЖ, гражданству, языку и срокам ${ruCountryIn(topic.countryRu)} для паспортов RU/BY/UA/KZ. Программы коридора, wizard подбора маршрута и еженедельные новости Emigro.`
+    `Проверенные факты по ВНЖ, гражданству, языку и срокам ${ruCountryIn(topic.countryRu)} для паспортов RU/BY/UA/KZ. Программы, подбор маршрута и еженедельные новости Emigro.`
   );
   const keywords = [
     `ВНЖ ${topic.countryRu}`,
@@ -683,15 +682,15 @@ export function buildCorridorLandingFaq(topic: NewsTopicConfig, corridor: Corrid
     },
     {
       question: `Какие программы ВНЖ есть ${ruCountryIn(topic.countryRu)}?`,
-      answer: `${programList}. Детальные требования, пороги и официальные источники — на страницах программ и в wizard коридора.`,
+      answer: `${programList}. Детальные требования, пороги и официальные источники — на страницах программ и в подборе маршрута.`,
     },
     {
       question: `Чем коридор ${topic.countryRu} отличается от транзитного хаба?`,
-      answer: `EU-коридор Emigro — это маршрут к ВНЖ и гражданству ${ruCountryIn(topic.countryRu)}: wizard, справочник, программы и новости. Транзитные хабы (Сербия, Армения и др.) — первый шаг на 3–12 месяцев без EU-статуса.`,
+      answer: `EU-коридор Emigro — это маршрут к ВНЖ и гражданству ${ruCountryIn(topic.countryRu)}: подбор маршрута, справочник, программы и новости. Транзитные хабы (Сербия, Армения и др.) — первый шаг на 3–12 месяцев без EU-статуса.`,
     },
     {
       question: `Как подобрать маршрут ${ruCountryTo(topic.countryRu)}?`,
-      answer: `Используйте wizard коридора ${topic.countryRu} или hub wizard /ru/wizard — Emigro сопоставит паспорт, доход, семью и сроки с программами без гарантии одобрения.`,
+      answer: `Пройдите подбор маршрута ${ruCountryTo(topic.countryRu)} или общий подбор по всем странам — Emigro сопоставит паспорт, доход, семью и сроки с программами без гарантии одобрения.`,
     },
     {
       question: `Где смотреть изменения законов по ${ruCountryDative(topic.countryRu)}?`,
@@ -715,7 +714,7 @@ export function buildCorridorLandingLlmFacts(topic: NewsTopicConfig, corridor: C
     corridor.programs.length > 0
       ? `Программы: ${corridor.programs.map((p) => p.title_ru).join("; ")}.`
       : "Программы коридора в разработке.",
-    "Emigro: hub wizard /ru/wizard и коридорный wizard для подбора маршрута ВНЖ.",
+    "На Emigro есть подбор маршрута ВНЖ — общий по всем странам и по каждой стране отдельно.",
     "Не юридическая консультация — сверяйте с официальными источниками.",
   ];
 }

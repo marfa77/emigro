@@ -185,6 +185,7 @@ function isWizardFormPath(pathname: string | null): boolean {
     pathname &&
       (/\/wizard\/?$/.test(pathname) ||
         /^\/ru\/wizard\/results\/?$/.test(pathname) ||
+        /^\/ru\/[a-z-]+\/results\/?$/.test(pathname) ||
         /^\/ru\/assist\/?$/.test(pathname) ||
         /^\/ru\/anketa\/?$/.test(pathname))
   );
@@ -193,6 +194,23 @@ function isWizardFormPath(pathname: string | null): boolean {
 export function MobileBottomBar({ locale = "ru" }: MobileBottomBarProps) {
   const pathname = usePathname();
   if (isWizardFormPath(pathname)) return null;
+
+  // RU program pages carry the help form inline (#help): one button straight to it.
+  if (pathname && /^\/ru\/[a-z-]+\/programs\/[^/]+\/?$/.test(pathname)) {
+    return (
+      <div className="fixed inset-x-0 bottom-0 z-30 border-t border-slate-200 bg-white/95 backdrop-blur md:hidden">
+        <div className="mx-auto max-w-5xl px-4 py-2" style={{ paddingBottom: "max(0.5rem, env(safe-area-inset-bottom))" }}>
+          <a
+            href="#help"
+            data-placement="mobile_bottom_bar"
+            className="flex w-full items-center justify-center rounded-lg bg-corridor-600 px-3 py-2.5 text-center text-sm font-semibold text-white hover:bg-corridor-700"
+          >
+            Получить помощь — бесплатно
+          </a>
+        </div>
+      </div>
+    );
+  }
 
   const investLocale = pathname?.startsWith("/en/invest") ? "en" : "ru";
   const isInvestPath = Boolean(pathname && /^\/(?:ru|en)\/invest(?:\/|$)/.test(pathname));
