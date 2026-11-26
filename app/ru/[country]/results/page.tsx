@@ -176,7 +176,7 @@ export default async function CountryResultsPage({
                 programType={program.program_type}
                 outcome={row.outcome}
                 reasons={Array.isArray(row.reasons) ? (row.reasons as string[]) : undefined}
-                href={`${base}/programs/${program.slug}`}
+                href={`${base}/programs/${program.slug}?session=${sessionId}&from=${base}/results`}
                 sourceUrl={source?.source_url}
                 sourceLabel={source?.label_ru}
               />

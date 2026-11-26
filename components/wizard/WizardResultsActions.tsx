@@ -59,7 +59,7 @@ export function WizardResultsActions({
     <>
       <section id="results-request" className="mt-5 scroll-mt-24 rounded-2xl border border-corridor-200 bg-corridor-50 p-5 sm:p-6">
         <p className="text-sm font-semibold uppercase tracking-wide text-corridor-700">
-          {pickLabel ? `Лучшее совпадение: ${pickLabel}` : "Явных совпадений нет"}
+          Бесплатно
         </p>
         <h2 className="mt-1 text-xl font-bold text-slate-950 sm:text-2xl">
           {pickLabel ? "Получить помощь с этим маршрутом" : "Подскажем, что можно сделать"}

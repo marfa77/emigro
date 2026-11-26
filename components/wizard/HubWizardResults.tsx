@@ -34,6 +34,34 @@ export function HubWizardResults({
         </p>
       </header>
 
+      {pick ? (
+        <section className="mt-6 rounded-2xl border border-corridor-200 bg-gradient-to-br from-corridor-50 to-white p-6">
+          <div className="flex items-start gap-3">
+            <div className="rounded-lg bg-corridor-600 p-2 text-white">
+              <ListChecks className="h-5 w-5" />
+            </div>
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-wide text-corridor-700">Лучшее совпадение</p>
+              <h2 className="mt-1 text-xl font-bold text-slate-900">{pickLabel}</h2>
+              <p className="mt-2 inline-flex rounded-full border border-corridor-200 bg-white px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wide text-corridor-800">
+                {OUTCOME_LABELS[pick.outcome] ?? pick.outcome}
+              </p>
+              {pick.reasons?.length > 0 && (
+                <ul className="mt-3 space-y-1 text-sm text-slate-700">
+                  {pick.reasons.slice(0, 3).map((reason) => (
+                    <li key={reason}>✓ {readableReason(reason)}</li>
+                  ))}
+                </ul>
+              )}
+              <p className="mt-3 text-sm text-slate-700">⚠ {wizardOutcomeBarrier(pick.outcome, pick.reasons)}</p>
+              <Link href={`${pick.programPath}?session=${sessionId}`} className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-corridor-700 hover:underline">
+                Подробнее о программе <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </div>
+        </section>
+      ) : null}
+
       <WizardResultsActions
         sessionId={sessionId}
         pickLabel={pickLabel}
@@ -83,33 +111,6 @@ export function HubWizardResults({
 
       <HouseholdBanner household={household} />
 
-      {pick ? (
-        <section className="mt-8 rounded-2xl border border-corridor-200 bg-gradient-to-br from-corridor-50 to-white p-6">
-          <div className="flex items-start gap-3">
-            <div className="rounded-lg bg-corridor-600 p-2 text-white">
-              <ListChecks className="h-5 w-5" />
-            </div>
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-wide text-corridor-700">Почему этот маршрут</p>
-              <h2 className="mt-1 text-xl font-bold text-slate-900">{pickLabel}</h2>
-              <p className="mt-2 inline-flex rounded-full border border-corridor-200 bg-white px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wide text-corridor-800">
-                {OUTCOME_LABELS[pick.outcome] ?? pick.outcome}
-              </p>
-              {pick.reasons?.length > 0 && (
-                <ul className="mt-3 space-y-1 text-sm text-slate-700">
-                  {pick.reasons.slice(0, 3).map((reason) => (
-                    <li key={reason}>✓ {readableReason(reason)}</li>
-                  ))}
-                </ul>
-              )}
-              <p className="mt-3 text-sm text-slate-700">⚠ {wizardOutcomeBarrier(pick.outcome, pick.reasons)}</p>
-              <Link href={pick.programPath} className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-corridor-700 hover:underline">
-                Подробнее о программе <ArrowRight className="h-4 w-4" />
-              </Link>
-            </div>
-          </div>
-        </section>
-      ) : null}
 
       {byCountry.length > 0 && (
         <section className="mt-12 space-y-10">
@@ -120,7 +121,7 @@ export function HubWizardResults({
             </p>
           </div>
           {byCountry.slice(0, 3).map((group) => (
-            <CountryGroup key={group.corridorSlug} group={group} />
+            <CountryGroup key={group.corridorSlug} group={group} sessionId={sessionId} />
           ))}
           {byCountry.length > 3 ? (
             <details className="rounded-2xl border border-slate-200 bg-white p-5">
@@ -130,7 +131,7 @@ export function HubWizardResults({
               </summary>
               <div className="mt-6 space-y-10">
                 {byCountry.slice(3).map((group) => (
-                  <CountryGroup key={group.corridorSlug} group={group} />
+                  <CountryGroup key={group.corridorSlug} group={group} sessionId={sessionId} />
                 ))}
               </div>
             </details>
@@ -141,7 +142,7 @@ export function HubWizardResults({
   );
 }
 
-function CountryGroup({ group }: { group: GlobalEvalPayload["byCountry"][number] }) {
+function CountryGroup({ group, sessionId }: { group: GlobalEvalPayload["byCountry"][number]; sessionId: string }) {
   return (
     <div className="w-full">
       <div className="flex w-full flex-wrap items-center justify-between gap-2">
@@ -158,7 +159,7 @@ function CountryGroup({ group }: { group: GlobalEvalPayload["byCountry"][number]
             programType={row.programType}
             outcome={row.outcome}
             reasons={row.reasons}
-            href={row.programPath}
+            href={`${row.programPath}?session=${sessionId}`}
             sourceUrl={row.sourceUrl}
             sourceLabel={row.sourceLabelRu}
           />

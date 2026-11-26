@@ -9,6 +9,7 @@ import {
 import { iso2ToCountryRu } from "@/lib/wizard/geo-country";
 import { inferEntryContext } from "@/lib/wizard/infer-entry-context";
 import { loadWizardSessionReport } from "@/lib/wizard/session-report";
+import { deviceLabel, loadVisitorTrail } from "@/lib/wizard/visitor-trail";
 
 const OWNER_DM_SENT_EVENT = "wizard_owner_dm_sent";
 const ASSIST_CTA_DM_SENT_EVENT = "assist_cta_owner_dm_sent";
@@ -98,11 +99,23 @@ export async function notifyWizardResultsView(
     return;
   }
 
-  const text = formatWizardCompletedTelegram({
-    ...loaded,
-    ctx,
-    headline: "📊 Emigro — пользователь увидел результаты wizard",
-  });
+  const trail = await loadVisitorTrail(props.analytics_session_id).catch(() => null);
+  const who = [
+    trail ? `Откуда: ${trail.source}` : ctx?.referer ? `Откуда: ${ctx.referer}` : null,
+    trail?.path.length ? `Путь: ${trail.path.join(" → ")}` : null,
+    [trail?.device ?? deviceLabel(ctx?.userAgent), ctx?.geoCountryRu, ctx?.ip ? `IP ${ctx.ip}` : null]
+      .filter(Boolean)
+      .join(" · ") || null,
+  ].filter((line): line is string => Boolean(line));
+
+  const text = [
+    formatWizardCompletedTelegram({
+      ...loaded,
+      ctx: ctx ? { ...ctx, entrySource: undefined } : ctx,
+      headline: "📊 Emigro — человек увидел результаты квиза",
+    }),
+    ...who,
+  ].join("\n");
 
   const result = await sendOwnerTelegramDm(text);
   if (!result.success) {

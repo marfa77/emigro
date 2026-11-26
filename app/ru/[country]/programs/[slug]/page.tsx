@@ -20,8 +20,6 @@ import { CorridorBreadcrumb } from "@/components/corridor/CorridorLanding";
 import { ProgramSeoSections } from "@/components/corridor/ProgramSeoSections";
 import { RoleRadarPromo } from "@/components/sponsors/RoleRadarPromo";
 import { ServiceProvidersSection } from "@/components/providers/ServiceProvidersSection";
-import { RelocatorChatPromo } from "@/components/community/RelocatorChatPromo";
-import { NewsBotSubscribeCta } from "@/components/news/NewsBotSubscribeCta";
 import { shouldShowRoleRadarOnProgram } from "@/lib/role-radar";
 import { CorridorHeroVisual } from "@/components/visuals/CorridorHeroVisual";
 import { HeroShell } from "@/components/visuals/HeroShell";
@@ -52,9 +50,7 @@ import {
 import { pageUrl } from "@/lib/seo";
 import { ISO2_TO_SEGMENT } from "@/lib/corridor/paths";
 import { createServerClient } from "@/lib/supabase/server";
-import { buildAssistUrl } from "@/lib/assist/build-url";
-import { TrackedAssistLink } from "@/components/assist/TrackedAssistLink";
-import { RouteNextStep } from "@/components/assist/RouteNextStep";
+import { InlineHelpForm } from "@/components/assist/InlineHelpForm";
 
 export const revalidate = 3600;
 export const dynamicParams = true;
@@ -248,11 +244,6 @@ export default async function CountryProgramPage({
   const statusChip = softProgramStatus(program);
   const barrier = mainBarrier(program, incomeRequirement);
   const verifiedLabel = formatVerifiedChip(program);
-  const assistHref = buildAssistUrl({
-    country: topic.urlSegment,
-    program: program.title_ru,
-    source: `program_${program.slug}`,
-  });
   const checklist = [
     "Проверить, где именно можно подать заявление с вашим паспортом.",
     incomeRequirement
@@ -319,18 +310,6 @@ export default async function CountryProgramPage({
           </div>
         </HeroShell>
 
-        <NewsBotSubscribeCta
-          topicKey={topic.key}
-          source={`program_${program.slug}`}
-          className="mt-8"
-        />
-        <RelocatorChatPromo
-          variant="inline"
-          source={`program_${program.slug}`}
-          countryKey={topic.urlSegment}
-          className="mt-6"
-        />
-
         <section className="mt-8 rounded-3xl border border-corridor-200 bg-white p-6 shadow-sm sm:p-8">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
             <div>
@@ -341,21 +320,21 @@ export default async function CountryProgramPage({
                 <p className="mt-1 text-sm font-medium leading-relaxed">{barrier}</p>
               </div>
             </div>
-            {topic.sitePaths.wizard && (
-              <Link
-                href={topic.sitePaths.wizard}
-                className="inline-flex shrink-0 items-center justify-center rounded-xl bg-corridor-600 px-5 py-3 font-medium text-white hover:bg-corridor-700"
-              >
-                Оценить маршрут
-              </Link>
-            )}
+            <a
+              href="#help"
+              className="inline-flex shrink-0 items-center justify-center rounded-xl bg-corridor-600 px-5 py-3 font-medium text-white hover:bg-corridor-700"
+            >
+              Получить помощь
+            </a>
           </div>
         </section>
 
-        <RouteNextStep
-          placement="program_page_top"
+        <InlineHelpForm
           source={`program_${program.slug}`}
+          countryLabel={topic.countryRu}
           countrySegment={topic.urlSegment}
+          corridorSlug={topic.corridorSlug}
+          programRoute={program.title_ru}
           className="mt-6"
         />
 
@@ -681,8 +660,7 @@ export default async function CountryProgramPage({
             Следующий шаг
           </h2>
           <p className="mt-2 text-sm text-slate-600">
-            Сначала проверьте профиль в подборе маршрута. Нужна помощь — бесплатно подберём специалиста по этой
-            программе.
+            Нужна помощь — опишите ситуацию в форме выше, бесплатно подберём специалиста по этой программе.
           </p>
           <div className="mt-4 flex flex-wrap gap-3">
             {topic.sitePaths.wizard && (
@@ -693,16 +671,12 @@ export default async function CountryProgramPage({
                 Проверить мой профиль
               </Link>
             )}
-            <TrackedAssistLink
-              href={assistHref}
-              placement="program_page_assist"
-              linkLabel="Найти специалиста"
-              country={topic.urlSegment}
-              program={program.title_ru}
+            <a
+              href="#help"
               className="inline-flex rounded-lg border border-slate-300 bg-white px-5 py-3 font-medium text-slate-700 hover:border-corridor-400"
             >
-              Найти специалиста
-            </TrackedAssistLink>
+              Получить помощь
+            </a>
             <Link
               href={base}
               className="inline-flex rounded-lg border border-slate-200 bg-white px-5 py-3 font-medium text-slate-700 hover:border-corridor-400"
