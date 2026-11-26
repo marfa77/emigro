@@ -48,6 +48,11 @@ export const SEO_CLUSTERS: Record<string, SeoCluster> = {
         description: "Москва, Стамбул, юрисдикция",
       },
       {
+        href: guidePath("uchebnaya-viza-v-evropu-2026-student-visa"),
+        label: "Student visa Europe 2026",
+        description: "D4, ES, DE, SK, AT — учебные маршруты",
+      },
+      {
         href: guidePath("podtverdit-dohod-dengi-dlya-vnj-esli-dohod-iz-rossii-2026"),
         label: "Доход из России для ВНЖ",
         description: "Выписки, санкции, типовые ошибки",
@@ -108,6 +113,16 @@ export const SEO_CLUSTERS: Record<string, SeoCluster> = {
         href: guidePath("pervye-30-dnej-v-ispanii-2026"),
         label: "Первые 30 дней: NIE, TIE",
         description: "Чек-лист после прилёта",
+      },
+      {
+        href: "/es/guides/residencia-espana-desde-chile-2026",
+        label: "Residencia España desde Chile 2026",
+        description: "Consulado Santiago, NIE, pasaporte CL",
+      },
+      {
+        href: "/es/guides/visa-nomada-digital-espana-latam-2026",
+        label: "Teletrabajo España — 200% SMI 2026",
+        description: "Pillar nómada digital LATAM",
       },
       {
         href: spainSatelliteUrl(),
@@ -382,6 +397,12 @@ export const COMPARISON_CROSS_LINKS: Record<string, ClusterLink[]> = {
     { href: guidePath("digital-nomad-vizy-evropy-sravnenie-2026"), label: "Digital Nomad визы Европы" },
     { href: "/ru/portugal/programs/portugal-d8-digital-nomad", label: "Программа D8" },
   ],
+  "uchebnaya-viza-v-evropu-2026-student-visa": [
+    { href: guidePath("vnj-austria-2026"), label: "ВНЖ Австрия 2026" },
+    { href: guidePath("vnj-chehiya-2026"), label: "ВНЖ Чехия 2026" },
+    { href: "/ru/portugal/programs/portugal-student-visa-d4", label: "Португалия D4 student" },
+    { href: guidePath("digital-nomad-vizy-evropy-sravnenie-2026"), label: "Сравнение DN vs study" },
+  ],
 };
 
 /** Map guide slug → cluster id for sidebar cluster navigation. */
@@ -397,6 +418,7 @@ export const GUIDE_CLUSTER_MAP: Record<string, string> = {
   "vnj-bez-raboty-passivnyy-dohod-sberezheniya-2026": "portugal",
   "vnj-ispaniya-2026": "spain",
   "pervye-30-dnej-v-ispanii-2026": "spain",
+  "uchebnaya-viza-v-evropu-2026-student-visa": "russia",
   "vnj-frantsiya-2026-passeport-talent": "france",
   "pervye-30-dnej-v-frantsii-2026": "france",
   "vnj-gretsiya-2026-digital-nomad-fip-golden-visa": "greece",

@@ -88,6 +88,24 @@ const bodySections: NoteBodySection[] = [
     ],
   },
   {
+    heading: "Appuntamento ASL Milano e tessera sanitaria (ATS / ASST)",
+    section_kind: "official",
+    paragraphs: [
+      "Per **richiesta tessera sanitaria Milano** e iscrizione SSR: aprite la pratica con documenti (permesso, codice fiscale, certificato di residenza) presso l’ASST del vostro comune — indicazioni su [ATS Milano](https://www.ats-milano.it/ats/carta-servizi/guida-servizi/assistenza-sociosanitaria/iscrizione-ssr-tessera-sanitaria/scelta-medico-pediatra/scelta-medico-pediatra).",
+      "**Scegli medico di base Milano:** elenco medici liberi + scelta/revoca su [sr.asst-fbf-sacco.it](https://sr.asst-fbf-sacco.it/) (comuni 1–9) o tramite Fascicolo Sanitario Lombardia con SPID/CIE/PIN.",
+      "**Medico temporaneo** e continuità assistenziale: in orari non di studio del MMG vale la **guardia medica** territoriale (ATS/ASST); pronto soccorso solo per urgenza vera (118).",
+    ],
+    bullets: [
+      "Prima del medico: codice fiscale + permesso — [codice fiscale](/notes/" +
+        CODICE_FISCALE_SLUG +
+        "), [permesso questura Milano](/notes/" +
+        PERMESSO_SLUG +
+        ").",
+      "Revoca medico Milano: stesso portale ASST (revoca online prima di scegliere il nuovo MMG).",
+      "Prenotazioni visite: CUP regionale / app «Prenota Online» Lombardia.",
+    ],
+  },
+  {
     heading: "Официально: государственная система, служба Ломбардии и медицинская карта",
     section_kind: "official",
     paragraphs: [
@@ -241,6 +259,18 @@ const keyTakeaways = [
 
 const faq: CommunityNoteFaq[] = [
   {
+    q: "Come prendere appuntamento ASL Milano per la tessera sanitaria?",
+    a: "Iscrizione SSR con permesso, codice fiscale e certificato di residenza presso l’ASST di competenza (linee guida ATS Milano). Dopo l’iscrizione si sceglie il medico di base su sr.asst-fbf-sacco.it o Fascicolo Sanitario.",
+  },
+  {
+    q: "Come scegliere o revocare il medico di base a Milano?",
+    a: "Scelta e revoca online su sr.asst-fbf-sacco.it per i comuni 1–9, oppure Fascicolo Sanitario con SPID. Dopo un trasloco, revocate il medico del distretto precedente.",
+  },
+  {
+    q: "Medico temporaneo Milano — quando usarlo?",
+    a: "La guardia medica copre le ore in cui il medico di base non è in ambulatorio; non sostituisce il 118 per emergenze vere. Per urgenze gravi: pronto soccorso.",
+  },
+  {
     q: "Медицинскую карту выдают сразу после разрешения на пребывание?",
     a: "Нет, не сразу. По правилам нужна запись в региональную службу с действующими документами: разрешение, налоговый код, регистрация. На практике окно ведёт дело неделями, пластик может идти ещё дольше, а на первые визиты хватает расписки о записи и уже выбранного врача.",
   },
@@ -269,11 +299,11 @@ export const MEDITSINA_MILANO_GUIDE = {
   title: "Медицина в Милане: SSN, медицинская карта и участковый врач",
   excerpt:
     "Как записаться в региональную службу здравоохранения Ломбардии, получить медицинскую карту и выбрать участкового врача через ASST Милана. Чем закрыть паузу частным полисом, что со стоматологом и когда ехать в приёмное отделение — без путаницы с картой SIP Испании.",
-  seo_title: "SSN и медицинская карта в Милане, 2026",
+  seo_title: "Tessera sanitaria Milano 2026: ASL, medico",
   seo_description:
-    "Медицина в Милане, 2026: карта SSN, участковый врач ASST, запись в службу региона, доплата и льготы. Частный врач и стоматолог без путаницы с SIP Испании.",
+    "ASL Milano: tessera sanitaria, appuntamento, scegli medico di base su sr.asst-fbf-sacco.it. Revoca MMG, medico temporaneo — guía RU 2026.",
   quick_answer:
-    "В Милане доступ к государственной медицине открывается записью в региональную службу Ломбардии и медицинской картой, а не фактом переезда. Участкового врача выбирают на портале ASST sr.asst-fbf-sacco.it или в электронной медкарте через SPID. Нужны разрешение на пребывание, налоговый код и регистрация. Первые один–три месяца паузу часто закрывает частный полис. Стоматолог почти всегда частный. Приёмное отделение — для неотложной помощи, дежурный врач — вне часов участкового. Это не испанская карта SIP Валенсии.",
+    "**Appuntamento ASL Milano / tessera sanitaria:** запись в SSR Lombardia через ATS Milano, затем выбор **medico di base** (MMG) на [sr.asst-fbf-sacco.it](https://sr.asst-fbf-sacco.it/) или Fascicolo Sanitario с SPID ([ATS Milano — scelta medico](https://www.ats-milano.it/ats/carta-servizi/guida-servizi/assistenza-sociosanitaria/iscrizione-ssr-tessera-sanitaria/scelta-medico-pediatra/scelta-medico-pediatra)). Нужны permesso, codice fiscale и residenza. Revoca/sostituzione medico — тот же портал. Это не SIP Испании.",
   body_sections: bodySections,
   body_paragraphs: flattenBodySections(bodySections),
   key_takeaways: keyTakeaways,

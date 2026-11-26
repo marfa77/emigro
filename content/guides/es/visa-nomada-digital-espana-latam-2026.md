@@ -1,10 +1,10 @@
 ---
 slug: visa-nomada-digital-espana-latam-2026
-title: "Visa nómada digital España 2027 para latinoamericanos"
-seo_title: "Nómada digital España LATAM 2026 — 200% SMI"
-seo_description: "Nómada digital / teletrabajo España 2026 para LATAM: 200% SMI mensual, UGE vs consulado, ≤20% clientes ES y cómputo hacia nacionalidad en 2 años."
-excerpt: "Pillar canónico Ley de Startups para hispanohablantes LATAM: umbrales 2027, documentos, consulado/UGE y errores frecuentes."
-quick_answer: "Encaja si teletrabaja para empleador/clientes fuera de España, con ingresos del titular 200% SMI mensual (≈ €2.442/mes en 2026, RD 126/2026) y normalmente ≤20% de ingresos de clientes españoles. Consulado: visado ~1 año; desde España (UGE, situación regular): autorización hasta 3 años. Computa para nacionalidad art. 22 (~2 años iberoamericanos). Confirme canal oficial por país."
+title: "Visa nómada digital España 2026 para latinoamericanos"
+seo_title: "Teletrabajo España 2026: 200% SMI = €2.442"
+seo_description: "Ingreso mínimo teletrabajo/nómada 2026: 200% SMI (€1.221/mes) = €2.442/mes titular, MAEC/UGE. No confundir con €2.849. UGE o consulado."
+excerpt: "Pillar canónico teletrabajo internacional LATAM: 200% SMI 2026, documentos, consulado/UGE y errores frecuentes."
+quick_answer: "Ingreso mínimo oficial del titular en 2026: 200% del SMI mensual (RD 126/2026: SMI €1.221/mes → ≈ €2.442/mes). No use la cifra antigua €2.849. Fuente: criterio MAEC/consulados (200% SMI) + [BOE RD 126/2026](https://www.boe.es/eli/es/rd/2026/02/18/126/con). Encaja si teletrabajas para clientes fuera de España y ≤20% ingresos de clientes españoles. Consulado: visado ~1 año; UGE in-country: hasta 3 años. Nacionalidad art. 22 (~2 años iberoamericanos)."
 corridor_slugs: [es-speaking-uruguay-to-spain, es-speaking-ecuador-to-spain, es-speaking-peru-to-spain, es-speaking-paraguay-to-spain, es-speaking-latam-to-europe]
 topic_keys: [spain, uruguay, ecuador, peru, paraguay, work, visa, digital-nomad]
 tags: [España, LATAM, Uruguay, Ecuador, Perú, Paraguay, nómada digital, teletrabajo, 2026]
@@ -22,7 +22,22 @@ official_sources:
     label: Ministerio de Inclusión, Seguridad Social y Migraciones
 estimated_minutes: 14
 date_published: 2026-08-10
-date_modified: 2026-08-10
+date_modified: 2026-11-26
+---
+
+## Ingreso mínimo teletrabajo 2026 (200% SMI oficial)
+
+| Concepto | Cifra oficial 2026 |
+|----------|-------------------|
+| SMI mensual | **€1.221/mes** ([BOE RD 126/2026](https://www.boe.es/eli/es/rd/2026/02/18/126/con)) |
+| Titular teletrabajo | **200% SMI = ≈ €2.442/mes** |
+| 1.er familiar | **+75%** del SMI mensual |
+| Familiar adicional | **+25%** del SMI mensual |
+
+Los consulados del [MAEC](https://www.exteriores.gob.es/) aplican el **200% del SMI** vigente; no confunda con importes antiguos (~**€2.849**) de años con otro SMI. Confirme la hoja del consulado competente el día de la cita.
+
+El texto consolidado del [BOE RD 126/2026](https://www.boe.es/eli/es/rd/2026/02/18/126/con) señala que el **RD 1013/2026 (BOE-A-2026-24189)** fija el SMI para **2027** con efectos desde el **1 de enero de 2027**; a partir de esa fecha el umbral **200% SMI** del teletrabajo cambiará — no anticipe importes en euros de 2027 hasta consultar el BOE vigente.
+
 ---
 
 ## Qué es la vía de nómada digital
@@ -72,14 +87,12 @@ SMI mensual 2026 (RD 126/2026 / [BOE](https://www.boe.es/eli/es/rd/2026/02/18/12
 | Concepto | Orientación 2026 |
 |----------|------------------|
 | Titular | **200%** × €1.221 ≈ **€2.442**/mes |
-| Primer familiar | +75% SMI mensual ≈ **+€916**/mes |
-| Familiar adicional | +25% SMI mensual ≈ **+€305**/mes |
-
-Ejemplos: pareja ≈ **€3.358**/mes; pareja + hijo ≈ **€3.663**/mes.
+| Primer familiar | **+75%** del SMI mensual |
+| Familiar adicional | **+25%** del SMI mensual |
 
 El consulado o la UGE pueden pedir **margen**. Confirme en la instrucción vigente el día de la cita.
 
-Fuente SMI: [BOE RD 126/2026](https://www.boe.es/eli/es/rd/2026/02/18/126/con).
+Fuente SMI: [BOE RD 126/2026](https://www.boe.es/eli/es/rd/2026/02/18/126/con). Desde **1 enero 2027** el SMI pasa al marco del **RD 1013/2026 (BOE-A-2026-24189)** según el aviso en el mismo BOE consolidado; recalcule el 200% con el SMI publicado para ese año.
 
 ---
 
@@ -137,6 +150,12 @@ Misma lógica de umbrales; hubs AR/MX/VE llegan después. Chile y Colombia ya ti
 
 **¿Y si tengo rentas pasivas, no remote?**  
 Vea [no lucrativa LATAM](/es/guides/visado-no-lucrativa-espana-latam-2026) (solicitud típica en consulado). Comparar Portugal: [D8/D7](/es/guides/portugal-d8-d7-latam-2026).
+
+**¿El ingreso mínimo es €2.849 al mes?**  
+No en 2026. El criterio oficial es **200% del SMI mensual** (RD 126/2026: **€1.221/mes** → **≈ €2.442/mes** titular). Cifras antiguas en foros suelen ser de otro año de SMI.
+
+**¿Dónde confirma exteriores el teletrabajo?**  
+En las fichas de **visado de residencia para teletrabajo** de cada consulado en [exteriores.gob.es](https://www.exteriores.gob.es/) (200% SMI; familiares +75% / +25%).
 
 ---
 
