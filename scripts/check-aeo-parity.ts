@@ -11,6 +11,8 @@
  */
 import { readFileSync, existsSync } from "node:fs";
 import path from "node:path";
+import { loadGuide } from "../lib/guides/load";
+import { getLongTailByGuideSlug } from "../lib/seo/query-longtail";
 
 const ROOT = path.join(__dirname, "..");
 
@@ -210,6 +212,28 @@ ok =
     }
     if (!satellite.includes("buildCommunityNoteMetadata") || !satellite.includes("withAiMetadata")) {
       throw new Error("satellite note metadata must delegate AI metadata to withAiMetadata");
+    }
+  }) && ok;
+
+ok =
+  check("GSC sprint ES guides: longtail matches frontmatter (not 2027)", () => {
+    for (const slug of [
+      "residencia-espana-desde-chile-2026",
+      "visa-nomada-digital-espana-latam-2026",
+    ] as const) {
+      const guide = loadGuide(slug, "es");
+      const longTail = getLongTailByGuideSlug(slug);
+      if (!guide?.seo_title || !longTail) {
+        throw new Error(`missing guide or longtail for ${slug}`);
+      }
+      if (longTail.seoTitle.includes("2027")) {
+        throw new Error(`${slug}: longtail seoTitle must not use 2027 (${longTail.seoTitle})`);
+      }
+      if (longTail.seoTitle !== guide.seo_title) {
+        throw new Error(
+          `${slug}: longtail seoTitle must match guide frontmatter (${longTail.seoTitle} vs ${guide.seo_title})`,
+        );
+      }
     }
   }) && ok;
 
