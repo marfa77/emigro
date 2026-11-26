@@ -7,7 +7,7 @@ excerpt: "Пошаговый разбор студенческих виз: ко�
 quick_answer: |-
   Student visa / студенческая виза в Европу в 2026 — это национальная виза D (или эквивалент), не шенген C для туризма. Подходит при реальном зачислении и бюджете на учёбу и жизнь: Portugal D4, Spain estudios, Germany, France VLS-TS, Italy studio, Slovakia type D, Austria student.
 
-  Консульства проверяют admission, деньги, жильё и страховку; в Испании estancia por estudios не идёт в срок гражданства по ст. 22. Возрастные лимиты (например, Словакия для full-time) смотрите на портале страны — не стройте маршрут на «курсах для визы».
+  Консульства проверяют admission, деньги, жильё и страховку. В Испании время в **estancia** (в т.ч. estudios) **не учитывается** для nacionalidad como **residencia** ([Inclusion — nota estancia vs residencia](https://www.inclusion.gob.es/documents/d/opi/indicadoresmigratorios_notaexplicativa_202610)). Возрастные лимиты (Словакия и др.) — на портале страны.
 corridor_slugs: [ru-speaking-to-portugal, ru-speaking-to-spain, ru-speaking-to-germany, ru-speaking-to-france, ru-speaking-to-italy]
 topic_keys: [portugal, spain, germany, france, italy, study]
 tags: [учебная виза, student visa, Европа, ВНЖ, 2026]
@@ -31,6 +31,8 @@ official_sources:
     label: EU Immigration Portal — student in Slovakia
   - url: https://www.bmeia.gv.at/en/travel-stay/entry-and-residence/visa
     label: Austria MFA — visa and residence
+  - url: https://www.inclusion.gob.es/documents/d/opi/indicadoresmigratorios_notaexplicativa_202610
+    label: Inclusion — estancia vs residencia y nacionalidad
 estimated_minutes: 18
 date_published: 2026-06-25
 date_modified: 2026-11-26
@@ -52,7 +54,7 @@ date_modified: 2026-11-26
 - [Франция VLS-TS étudiant](/ru/france/programs/france-student-visa)
 - [Италия Student Visa](/ru/italy/programs/italy-student-visa)
 
-> **Nota Emigro (fact-check, сентябрь 2026).** **OK:** студенческий вход — национальная виза / student residence, не шенген C. D4 Португалии — консульство, затем AIMA. Франция для высшего образования часто идёт через Campus France. Германия типично просит blocked account или стипендию. **OK / Fixed:** годы **estancia por estudios** в Испании **не считают** к гражданству по [ст. 22](https://www.boe.es/buscar/act.php?id=BOE-A-2002-20608) (льгота 2 года / 50% — не этот статус; 50% = larga duración-UE). **Soft:** лимиты работы (часы в неделю / 140 полных дней в DE / APS во Франции) задаёт страна и год — не стройте бюджет на full-time с первого дня. Языковые курсы принимают не все посты.
+> **Nota Emigro (fact-check, 26 ноября 2026).** **OK:** студенческий вход — национальная виза / student residence, не шенген C. D4 Португалии — консульство, затем AIMA. Франция для высшего образования часто идёт через Campus France. Германия типично просит blocked account или стипендию. **OK / Fixed (ES):** министерство Inclusion различает **estancia** y **residencia**; el tiempo en condición de **estancia** no cuenta hacia la nacionalidad como residente ([nota explicativa OPI 202610](https://www.inclusion.gob.es/documents/d/opi/indicadoresmigratorios_notaexplicativa_202610)). **Soft:** лимиты работы задаёт страна и год — не стройте бюджет на full-time с первого дня.
 
 ---
 
@@ -100,7 +102,7 @@ D4 — национальная учебная виза для универси�
 
 Не путайте student visa с digital nomad и no lucrativa. Если основная деятельность — удалёнка, смотрите [Digital Nomad Европы](/ru/guides/digital-nomad-vizy-evropy-sravnenie-2026). Если не собираетесь работать, но есть пассив — [ВНЖ без работы](/ru/guides/vnj-bez-raboty-passivnyy-dohod-sberezheniya-2026).
 
-Отдельно: **estancia por estudios не копит годы к гражданству** по статье 22, даже если вы прожили в Испании два года и больше.
+Отдельно (Испания): **autorización de estancia por estudios** — это **estancia**, не **residencia**; по [nota Inclusion](https://www.inclusion.gob.es/documents/d/opi/indicadoresmigratorios_notaexplicativa_202610) время в estancia **no** cuenta para la nacionalidad como tiempo de residente. Art. 22 CC exige **residencia legal** — не подменяйте estudios на путь к паспорту sin cambiar de estatus.
 
 Программа: [Испания — student visa](/ru/spain/programs/spain-student-visa).
 
@@ -252,7 +254,7 @@ D4 — национальная учебная виза для универси�
 - Учебная виза работает при реальном зачислении, бюджете и мотивации учиться.
 - Основные маршруты: D4, Spain student, Germany student, France VLS-TS étudiant, Italy studio.
 - Консульства смотрят admission, деньги, жильё, страховку, несудимость и связь программы с вашим планом.
-- Student visa не заменяет D8, Blue Card или passive income. В Испании учёба не считает годы к гражданству по ст. 22.
+- Student visa не заменяет D8, Blue Card или passive income. Испания: estancia por estudios ≠ tiempo como residente para nacionalidad (Inclusion OPI 202610).
 - Следующий шаг: [/ru/wizard](/ru/wizard).
 
 ---

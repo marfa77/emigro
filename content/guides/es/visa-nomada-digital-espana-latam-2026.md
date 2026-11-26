@@ -31,10 +31,12 @@ date_modified: 2026-11-26
 |----------|-------------------|
 | SMI mensual | **€1.221/mes** ([BOE RD 126/2026](https://www.boe.es/eli/es/rd/2026/02/18/126/con)) |
 | Titular teletrabajo | **200% SMI = ≈ €2.442/mes** |
-| 1.er familiar | +75% SMI ≈ **+€916/mes** |
-| Familiar adicional | +25% SMI ≈ **+€305/mes** |
+| 1.er familiar | **+75%** del SMI mensual |
+| Familiar adicional | **+25%** del SMI mensual |
 
 Los consulados del [MAEC](https://www.exteriores.gob.es/) aplican el **200% del SMI** vigente; no confunda con importes antiguos (~**€2.849**) de años con otro SMI. Confirme la hoja del consulado competente el día de la cita.
+
+El texto consolidado del [BOE RD 126/2026](https://www.boe.es/eli/es/rd/2026/02/18/126/con) señala que el **RD 1013/2026 (BOE-A-2026-24189)** fija el SMI para **2027** con efectos desde el **1 de enero de 2027**; a partir de esa fecha el umbral **200% SMI** del teletrabajo cambiará — no anticipe importes en euros de 2027 hasta consultar el BOE vigente.
 
 ---
 
@@ -85,14 +87,12 @@ SMI mensual 2026 (RD 126/2026 / [BOE](https://www.boe.es/eli/es/rd/2026/02/18/12
 | Concepto | Orientación 2026 |
 |----------|------------------|
 | Titular | **200%** × €1.221 ≈ **€2.442**/mes |
-| Primer familiar | +75% SMI mensual ≈ **+€916**/mes |
-| Familiar adicional | +25% SMI mensual ≈ **+€305**/mes |
-
-Ejemplos: pareja ≈ **€3.358**/mes; pareja + hijo ≈ **€3.663**/mes.
+| Primer familiar | **+75%** del SMI mensual |
+| Familiar adicional | **+25%** del SMI mensual |
 
 El consulado o la UGE pueden pedir **margen**. Confirme en la instrucción vigente el día de la cita.
 
-Fuente SMI: [BOE RD 126/2026](https://www.boe.es/eli/es/rd/2026/02/18/126/con).
+Fuente SMI: [BOE RD 126/2026](https://www.boe.es/eli/es/rd/2026/02/18/126/con). Desde **1 enero 2027** el SMI pasa al marco del **RD 1013/2026 (BOE-A-2026-24189)** según el aviso en el mismo BOE consolidado; recalcule el 200% con el SMI publicado para ese año.
 
 ---
 
