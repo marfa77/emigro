@@ -62,6 +62,32 @@ const bodySections: NoteBodySection[] = [
     ],
   },
   {
+    heading: "Kit postale (MOD.209) e Sportello Amico — ufficiale Poste",
+    section_kind: "official",
+    paragraphs: [
+      "**Kit permesso di soggiorno** (banda gialla): modulo MOD.209, busta aperta, Sportello Amico Poste. [Poste Italiane](https://www.poste.it/guida-rilascio-e-rinnovo-permesso-di-soggiorno) (agg. maggio 2024) elenca i codici motivo (lavoro subordinato 16, studio 31, famiglia 13…) che si presentano in posta; altri motivi vanno in Questura.",
+      "Costi indicati da Poste al momento della presentazione: **€16** marca da bollo, **€30** all’operatore postale, **€30,46** per produzione del permesso elettronico (più eventuale contributo). Dopo la consegna: ricevuta + lettera di convocazione Questura; stato pratica su [Portale Immigrazione](https://www.portaleimmigrazione.it/).",
+      "Non confondere con **carta di soggiorno UE**: cittadini UE non usano il kit giallo (regole diverse su Poste).",
+    ],
+    bullets: [
+      "Scaricate l’elenco uffici con Sportello Amico dal PDF linkato nella guida Poste.",
+      "Prenotazione su poste.it riduce il tempo allo sportello.",
+      "Rinnovo: almeno **60 giorni** prima della scadenza (stessa guida Poste).",
+    ],
+  },
+  {
+    heading: "Carta Blu UE a Milano — non è lo stesso kit",
+    section_kind: "official",
+    paragraphs: [
+      "Le query «**carta blu ue milano**» riguardano il **permesso di soggiorno CE per soggiornanti di lungo periodo — lavoro altamente qualificato** (Blue Card UE), non il kit turistico né il solo codice 16 generico. Di solito servono contratto/retribuzione, titolo accademico e **nulla osta** via Sportello Unico Immigrazione prima del kit postale.",
+      "Polizia di Stato descrive tipi di permesso su [poliziadistato.it](https://www.poliziadistato.it) (seguire «Stranieri / permesso di soggiorno»). Non presentate un kit «famiglia» se il visto era lavoro altamente qualificato.",
+    ],
+    bullets: [
+      "Blue Card = filiera lavoro + SUI, poi kit se previsto dalla tabella Poste.",
+      "Studio/ricerca: codici 30–33 in tabella Poste — pacchetti diversi dalla carta blu.",
+    ],
+  },
+  {
     heading: "Официально: разрешение, квестура и почтовый комплект",
     section_kind: "official",
     paragraphs: [
@@ -237,6 +263,18 @@ const keyTakeaways = [
 
 const faq: CommunityNoteFaq[] = [
   {
+    q: "Dove si ritira il kit per il permesso di soggiorno a Milano?",
+    a: "Nei Uffici Postali con Sportello Amico (elenco PDF nella guida Poste). Si compila il kit giallo MOD.209 e si consegna in busta aperta con documenti per il proprio codice motivo.",
+  },
+  {
+    q: "Quanto costa il kit postale per permesso di soggiorno?",
+    a: "Secondo Poste: marca da bollo €16, €30 allo sportello, €30,46 per produzione del permesso elettronico, più eventuale contributo. Verificare sulla guida ufficiale al momento della consegna.",
+  },
+  {
+    q: "Carta Blu UE Milano — si usa lo stesso kit giallo?",
+    a: "No necessariamente. La Blue Card UE è un permesso per lavoro altamente qualificato con filiera nulla osta/SUI. Il kit Poste si usa solo se il codice motivo è tra quelli ammessi in tabella Poste per la vostra categoria.",
+  },
+  {
     q: "Сколько дней есть на подачу разрешения после прилёта?",
     a: "8 рабочих дней со дня въезда, не календарных. По правилам отсчёт идёт от штампа. На практике комплект лучше сдать в первые 3–5 дней: у окна почты бывает очередь.",
   },
@@ -265,11 +303,11 @@ export const PERMESSO_QUESTURA_GUIDE = {
   title: "Разрешение на пребывание (permesso) в Милане: квестура и почтовый комплект, 2026",
   excerpt:
     "Разрешение на пребывание в Милане в 2026 году: жёлтый почтовый комплект, 8 рабочих дней, окно почты и вызов в миграционный отдел. Шенген — не это разрешение. Кочевник и пассивный доход различаются. Продление — за 60 дней.",
-  seo_title: "Permesso в Милане 2026: почта и квестура",
+  seo_title: "Kit permesso di soggiorno Milano 2026 | Poste",
   seo_description:
-    "Разрешение на пребывание в Милане 2026: квестура, жёлтый почтовый комплект, 8 рабочих дней, окно почты. Шенген 90/180 — не ВНЖ. Маршрут RU/BY для Комо и севера.",
+    "Kit postale MOD.209, Sportello Amico, 8 giorni: permesso di soggiorno Milano 2026. Rinnovo 60 giorni. Non è Schengen. Carta Blu UE — altro canale.",
   quick_answer:
-    "После въезда по национальной визе D гражданину вне ЕС нельзя жить «просто по Шенгену». Разрешение на пребывание просят у квестора в течение 8 рабочих дней: многие основания сдают жёлтым комплектом формы MOD.209 в окне почты Sportello Amico, конверт оставляют открытым, а квестура Милана затем вызывает на отпечатки. Квитанция подтверждает подачу до пластиковой карты, продление готовят за 60 дней до окончания, и схема зависит от основания.",
+    "Kit postale (banda gialla) MOD.209: после въезда по визе D подайте permesso di soggiorno в Sportello Amico Poste entro 8 giorni (портал [portaleimmigrazione.it](https://www.portaleimmigrazione.it/ITA/nuovaProcedura.html) — 8 рабочих дней). Квитанция + convocazione Questura Milano. Официальные сборы Poste (2026): marca da bollo €16, sportello €30, produzione €30,46 — [guida Poste](https://www.poste.it/guida-rilascio-e-rinnovo-permesso-di-soggiorno). Carta Blu UE / Blue Card — не этот жёлтый kit, а маршрут работы + nulla osta.",
   body_sections: bodySections,
   body_paragraphs: flattenBodySections(bodySections),
   key_takeaways: keyTakeaways,

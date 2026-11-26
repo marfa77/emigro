@@ -1,10 +1,10 @@
 ---
 slug: residencia-espana-desde-chile-2026
-title: "Residencia en España para chilenos 2027"
-seo_title: "Emigrar a España desde Chile 2027"
-seo_description: "Cómo emigrar a España desde Chile 2026: Schengen 90 días ≠ residencia. Nómada digital (200% SMI), no lucrativa, Santiago y nacionalidad en 2 años (art. 22)."
-excerpt: "Guía pillar: turista Schengen vs vivir en España con pasaporte CL. Rutas 2027, documentos desde Chile y horizonte de nacionalidad española a 2 años."
-quick_answer: "Chile suele entrar a Schengen sin visado (90/180), pero residir exige vía nacional: nómada digital (200% SMI mensual, ≈ €2.442/mes en 2026; UGE o consulado Santiago), no lucrativa (consulado primero), trabajo, estudios o reagrupación. Art. 22: ~2 años de residencia legal para nacionalidad (CCSE; DELE suele exento). Dualidad: Convenio 1958 o art. 23 CC — suele conservar chilena. Emigro: pilares + evaluador /es/wizard."
+title: "Residencia en España para chilenos 2026"
+seo_title: "Vivir en España siendo chileno 2026 | NIE"
+seo_description: "Pasaporte chileno: Schengen 90 días ≠ residir. Cita previa consulado Santiago, NIE/TIE, nómada 200% SMI y reagrupación. Emigración chilena, art. 22."
+excerpt: "Guía pillar: turista Schengen vs vivir en España con pasaporte CL. Rutas 2026, consulado español en Santiago, NIE y nacionalidad a 2 años."
+quick_answer: "Con pasaporte chileno puedes entrar sin visado Schengen (90/180), pero vivir legalmente exige visado nacional o autorización: nómada digital (200% SMI ≈ €2.442/mes en 2026), no lucrativa (consulado primero), trabajo, estudios o reagrupación familiar. Cita previa en el consulado general de España en Santiago para visados D. Tras el visado, el NIE y la TIE se tramitan en España (Policía/UGE). Art. 22: ~2 años de residencia legal para solicitar nacionalidad (CCSE; DELE exento). Evaluador: /es/wizard."
 corridor_slugs: [es-speaking-chile-to-spain, es-speaking-latam-to-europe]
 topic_keys: [spain, chile, visa, residence]
 tags: [España, Chile, residencia, nómada digital, no lucrativa, nacionalidad, 2026, cl]
@@ -30,7 +30,7 @@ official_sources:
     label: ChileAtiende — apostilla / trámites
 estimated_minutes: 20
 date_published: 2026-08-10
-date_modified: 2026-08-10
+date_modified: 2026-11-26
 ---
 
 ## Nota Emigro (fact-check agosto 2026)
@@ -73,6 +73,48 @@ Como chileno, tienes una ventaja clave: **2 años de residencia legal en España
 | ¿Cuánto tiempo hasta la nacionalidad? | **2 años** de residencia legal continuada (solicitud; no automática) |
 | ¿Necesito examen de español? | **No** (exento DELE A2). Sí necesitas **CCSE** |
 | ¿Dónde tramito? | Consulado General de España en **Santiago** (visto D) o **UGE**/extranjería solo si la norma de tu vía lo permite |
+| ¿Cómo saco el NIE? | Tras visado/autorización favorable: cita **Policía Nacional** o canal **UGE** para **TIE** (el NIE figura en la tarjeta) — ver [primeros 30 días](/es/guides/primeros-30-dias-en-espana-2026) |
+| ¿Cita previa consulado? | **Sí** para visados nacionales en [Consulado Santiago](https://www.exteriores.gob.es/Consulados/santiagodechile) |
+
+---
+
+## Cómo vivir en España siendo chileno
+
+Vivir en España con pasaporte chileno no es «quedarse de turista»: necesitas **residencia legal** (visado D, autorización UGE o tarjeta TIE según la vía). El **pasaporte chileno** suele permitir entrada Schengen sin visado corto, pero eso no autoriza trabajar ni superar 90/180 sin cambiar de estatus.
+
+Rutas habituales para **emigración chilena** hacia España: [nómada digital](/es/guides/visa-nomada-digital-espana-latam-2026) (teletrabajo, 200% SMI), [no lucrativa](/es/guides/visado-no-lucrativa-espana-latam-2026), trabajo con oferta, estudios o **reagrupación familiar** cuando un residente legal te reagrupa. Tras 2 años de residencia legal, muchos chilenos pueden **solicitar** nacionalidad (art. 22) — [pilar nacionalidad LATAM](/es/guides/nacionalidad-espanola-latam-2026).
+
+---
+
+## Cita previa en el consulado español (Santiago)
+
+Para la mayoría de **visados nacionales** (no lucrativa, nómada desde Chile, trabajo, estudios) la primera presentación es en el **Consulado General de España en Santiago de Chile** ([exteriores.gob.es/Consulados/santiagodechile](https://www.exteriores.gob.es/Consulados/santiagodechile)).
+
+- **Cita previa:** obligatoria para visados; gestión en el portal de servicios consulares del MAEC (sección del consulado de Santiago).
+- **Dirección actual:** Avda. Nueva Providencia 2353, Piso 9º, Providencia — confirme en la ficha oficial el día de la cita.
+- **Documentos:** pasaporte chileno válido, formulario nacional, tasas, seguro, prueba económica y apostillas según la vía.
+
+No confundas cita consular (Chile) con cita de **TIE/NIE** en España (Policía Nacional / extranjería tras resolución favorable).
+
+---
+
+## Cómo sacar el NIE en España
+
+El **NIE** (Número de Identidad de Extranjero) es tu identificación fiscal y administrativa. Con un **visado D** o autorización de residencia aprobada:
+
+1. Entras a España con el visado o presentas ante **UGE** si tu vía lo permite in-country.
+2. Tras resolución favorable, pides cita para **huellas y TIE** (tarjeta de extranjero) — el NIE aparece en la TIE.
+3. En paralelo: **empadronamiento** en el ayuntamiento (prueba de domicilio).
+
+Guía operativa: [Primeros 30 días en España](/es/guides/primeros-30-dias-en-espana-2026) (Policía, UGE, padrón). El consulado en Santiago no sustituye este paso in-country.
+
+---
+
+## Reagrupación familiar (arraigo familiar)
+
+Si tu cónyuge, pareja o familiar directo ya tiene **residencia legal** en España, puede iniciar **reagrupación familiar** (art. 16 y ss. Ley de Extranjería). No es el mismo trámite que nómada o no lucrativa: el residente en España solicita la autorización y el familiar en Chile suele pedir el **visado de reagrupación** en el consulado.
+
+Requisitos típicos: vivienda adecuada, medios económicos, seguro y vínculo acreditado. Los importes y plazos dependen de la norma vigente en [extranjeros.inclusion.gob.es](https://extranjeros.inclusion.gob.es/). Si aún no tienes base en España, empieza por una vía individual (DN, NL, trabajo) en esta guía o el [evaluador](/es/wizard).
 
 ---
 
@@ -155,6 +197,11 @@ Si tienes una oferta laboral de una empresa española, esta es la vía más segu
 
 - Proyecto de interés económico aprobado por ENISA o Dirección General de Comercio.
 - Requiere plan de negocio, inversión y creación de empleo.
+
+### 6. Reagrupación familiar
+
+- El residente legal en España inicia el procedimiento; el familiar en Chile tramita visado en Santiago.
+- Distinto de «arraigo social» (requiere años en situación irregular en España — no aplica a la mayoría de llegadas desde Chile con visado).
 
 ---
 
@@ -290,6 +337,22 @@ Pillar PT: [Portugal D8/D7 LATAM](/es/guides/portugal-d8-d7-latam-2026).
 
 ## Preguntas frecuentes
 
+### ¿El pasaporte chileno (chilean passport) permite vivir sin visado de residencia?
+
+No. La exención cubre **corta estancia** Schengen (90/180). Para **vivir** necesitas visado nacional o autorización y después **TIE/NIE**.
+
+### ¿Cómo saco cita previa en el consulado español en Santiago?
+
+En la web del [Consulado General de España en Santiago](https://www.exteriores.gob.es/Consulados/santiagodechile), sección de visados y **cita previa**. Es el canal para visados nacionales desde Chile.
+
+### ¿Cómo sacar el NIE en España siendo chileno?
+
+Tras visado D o autorización aprobada: cita en **Policía Nacional** / extranjería para huellas y **TIE** (el NIE va en la tarjeta). Guía: [primeros 30 días en España](/es/guides/primeros-30-dias-en-espana-2026).
+
+### ¿Qué es arraigo familiar para un chileno?
+
+Suele aludir a **reagrupación familiar**: un residente legal en España inicia el trámite y el familiar en Chile pide visado en el consulado — no es residir de turista.
+
 ### ¿Puedo pedir la nacionalidad después de 2 años de estudiante?
 
 **No** vía el mito del «50%». La estancia por estudios **no computa** para nacionalidad art. 22. El 50% aplica a **larga duración-UE**. Para nacionalidad en ~2 años necesita **residencia legal** (DN, NL, trabajo, etc.).
@@ -346,4 +409,4 @@ Consulta también:
 
 ---
 
-*Última actualización: agosto 2026. Verifica siempre con fuentes oficiales antes de tomar decisiones. Emigro no es asesoría jurídica.*
+*Última actualización: 26 de noviembre de 2026. Verifica siempre con fuentes oficiales antes de tomar decisiones. Emigro no es asesoría jurídica.*

@@ -314,11 +314,11 @@ export const PERVYE_30_IT_GUIDE = {
   title: "Первые 30 дней в Милане: маршрут на 2026 год",
   excerpt:
     "От 72 часов до четвёртой недели в Милане: связь, налоговый код, почтовый комплект, итальянский счёт и медицина. Страница связывает восемь гайдов севера. Пропуск первого месяца к 4–6-му бьёт по аренде и соцстраху.",
-  seo_title: "Первые 30 дней в Италии 2026 — Милан",
+  seo_title: "Первые 30 дней Италия 2026 — Милан",
   seo_description:
-    "Первые 30 дней в Милане 2026: связь, налоговый код, почтовый комплект на ВНЖ, счёт и медицина. От 72 часов до 4-й недели для RU/BY/UA/KZ. Комо и север.",
+    "Первый месяц Милан: codice fiscale, kit permesso 8 giorni, Portale Immigrazione, банк, tessera ASL. Чек-лист сателлита 2026 для RU/BY.",
   quick_answer:
-    "Первые тридцать дней в Милане лучше раскладывать по срокам, а не по настроению «разберёмся потом». За 72 часа после прилёта оформите связь, подготовьте почтовый комплект на разрешение на пребывание (срок — 8 рабочих дней со штампа) и запишитесь на налоговый код по форме AA4/8; недели 1–2 закрывают справку, окно почты и итальянский счёт, недели 3–4 — вызов в квестуру, медицину и регистрацию в муниципалитете. К 4–6-му месяцу без этих шагов встают аренда, соцстрах и счета за свет.",
+    "Первые 30 дней: за 72 ч — SIM и [kit permesso](/notes/" + PERMESSO_QUESTURA_SLUG + ") (8 рабочих дней, [Portale Immigrazione](https://www.portaleimmigrazione.it/ITA/nuovaProcedura.html)), [codice fiscale AA4/8](/notes/" + CODICE_FISCALE_SLUG + "); недели 1–2 — Poste Sportello Amico, банк; недели 3–4 — Questura, [tessera ASL](/notes/" + MEDITSINA_SLUG + "), anagrafe Comune Milano. Не ждите пластик permesso для старта налогового кода.",
   body_sections: bodySections,
   body_paragraphs: flattenBodySections(bodySections),
   key_takeaways: keyTakeaways,

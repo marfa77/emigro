@@ -20,10 +20,10 @@ import { heroTitle } from "@/lib/ui/mobile";
 export const revalidate = 3600;
 
 export const metadata: Metadata = pageMetadata({
-  title: "Emigrar a España o Portugal 2027",
+  title: "Emigro LATAM: residencia España y Portugal",
   titleAbsolute: true,
   description:
-    "Emigrar a España o Portugal desde LATAM 2026: nómada digital, no lucrativa, D8/D7. UY, EC, PE, PY, CO, CL y nacionalidad en ~2 años (art. 22).",
+    "Guías y evaluador para latinoamericanos: nómada digital (200% SMI), no lucrativa, D7/D8 Portugal, consulados y nacionalidad ~2 años (art. 22).",
   path: ES_PATHS.home,
   locale: "es",
   esHreflang: { destinationIso: "ES" },
@@ -144,9 +144,20 @@ export default function EsHubPage() {
             LATAM → España y Portugal
           </div>
           <h1 className={`mt-4 ${heroTitle}`}>Residencia en España y Portugal para hispanohablantes</h1>
-          <p className="mt-4 max-w-2xl text-lg text-corridor-100">
-            Orígenes activos: Uruguay, Ecuador, Perú, Paraguay, Colombia y Chile. Destinos profundos: España y
-            luego Portugal — no una mini-rejilla de 20 países UE.
+          <p className="mt-4 max-w-2xl text-lg font-medium text-white">
+            Emigro es el navegador de residencia para LATAM: pilares con fuentes oficiales, umbrales 2026 (nómada 200%
+            SMI, no lucrativa, Portugal D8/D7) y evaluador de ruta — Schengen 90 días no es vivir legalmente.
+          </p>
+          <p className="mt-3 max-w-2xl text-lg text-corridor-100">
+            Orígenes activos: Uruguay, Ecuador, Perú, Paraguay, Colombia y Chile. Pilares:{" "}
+            <Link href={esGuidePath("visa-nomada-digital-espana-latam-2026")} className="underline decoration-white/40">
+              teletrabajo
+            </Link>
+            ,{" "}
+            <Link href={esGuidePath("residencia-espana-desde-chile-2026")} className="underline decoration-white/40">
+              Chile→España
+            </Link>
+            , nacionalidad art. 22.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link
