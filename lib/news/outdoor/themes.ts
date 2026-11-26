@@ -14,6 +14,8 @@ const WATER = /kayak|paddle|snorkel|\bsurf\b|\bvela\b|\bbarco\b|\bbarca\b|\bprai
 const FAMILY = /famigl|famili|bambin|niñ|crianç|\bkids\b|infantil/i;
 const CITY = /urban|visita guiada|centro storic|centro hist|casco|roteiro|walking tour|museo|museu|\bborgo\b|borghi|patrimoni/i;
 const CULTURE = /mostra|exposi|concert|teatro|teatre|festival|música|musica|cinema|\bcine\b|feira|fiera/i;
+/** Language exchanges, expat socials, networking. Shown as «встречи». */
+const SOCIAL = /language exchange|tandem|conversation club|conversa[cç][aã]o|networking|expats?\b|internationals|meet ?up\b|speed friend/i;
 const HIKE = /escursion|trek|sender|caminhad|caminata|trilh|hike|hiking|trail|monta|\bmonte\b|\bcima\b|rifugio|ferrata|\bserra\b|malga|percurs|pedestre/i;
 
 const HIKE_SOURCES = new Set([
@@ -43,7 +45,8 @@ export type EventTag =
   | "cinema"
   | "dance"
   | "exhibition"
-  | "literature";
+  | "literature"
+  | "social";
 
 const TAG_IDS: EventTag[] = [
   ...THEME_IDS,
@@ -53,6 +56,7 @@ const TAG_IDS: EventTag[] = [
   "dance",
   "exhibition",
   "literature",
+  "social",
 ];
 
 export function isEventTag(value: string | undefined): value is EventTag {
@@ -80,6 +84,7 @@ export function eventTags(ev: {
   const source = ev.sourceId || "";
   if (FOOD.test(text)) tags.add("food");
   if (FAMILY.test(text)) tags.add("family");
+  if (SOCIAL.test(text)) tags.add("social");
   if (source === "shotgun" || source === "liga" || source === "agendalx" || source === "casamusica") {
     return [...tags];
   }

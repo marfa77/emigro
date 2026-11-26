@@ -84,6 +84,7 @@ const DOT: Record<string, string> = {
   literature: "bg-amber-700",
   bike: "bg-lime-600",
   wellness: "bg-teal-500",
+  social: "bg-cyan-600",
 };
 
 export function themeDot(theme: string): string {
@@ -111,6 +112,7 @@ const THEME_ORDER = [
 
 export const FILTER_TAGS = [
   "hike",
+  "social",
   "night",
   "food",
   "sport",
@@ -136,7 +138,7 @@ export const FILTER_TAGS = [
 export const CITY_TAGS = ["porto", "lisboa", "braga", "geres", "norte"] as const;
 
 /** Chips for a type. Culture is the parent of music, theatre, cinema and the rest. */
-export const TYPE_TAGS = ["hike", "night", "food", "sport", "music", "theatre", "cinema", "dance", "exhibition", "family"] as const;
+export const TYPE_TAGS = ["social", "hike", "night", "food", "sport", "music", "theatre", "cinema", "dance", "exhibition", "family"] as const;
 
 /** Cities a person can filter. "север" stays on the row data, not as a chip. */
 export const PLACE_TAGS = ["porto", "lisboa", "braga", "geres"] as const;
@@ -156,6 +158,7 @@ const TAG_LABEL: Record<string, string> = {
   sport: "спорт",
   bike: "велосипед",
   wellness: "спокойный день",
+  social: "встречи",
   music: "музыка",
   theatre: "театр",
   cinema: "кино",

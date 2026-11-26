@@ -280,7 +280,7 @@ export async function PortugalCalendarPage({
   const weekendEvents = onDays(events, plan.weekend);
   const todayIsWeekend = lisbonWeekIndex(plan.today) >= 5;
   const answer = weekendSentence(weekendEvents, todayIsWeekend);
-  const tiles = todayTiles(weekendEvents, path);
+  const tiles = todayTiles(weekendEvents, portugalCalendarPath());
 
   const inCity = city ? dated.filter((event) => eventTagsOf(event).includes(city)) : dated;
   const inType = type ? dated.filter((event) => eventTagsOf(event).includes(type)) : dated;
@@ -382,7 +382,7 @@ export async function PortugalCalendarPage({
       </div>
 
       <div className="mt-8">
-        <CalendarBoard sections={sections} savedPool={events} pathPrefix={path} />
+        <CalendarBoard sections={sections} savedPool={events} pathPrefix={portugalCalendarPath()} />
       </div>
 
       <section className="mt-12 space-y-3">
