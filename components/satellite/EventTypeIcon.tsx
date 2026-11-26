@@ -4,6 +4,7 @@ import {
   Clapperboard,
   Drama,
   Flower2,
+  GraduationCap,
   Handshake,
   MapPin,
   Moon,
@@ -38,6 +39,7 @@ const ICON: Record<string, LucideIcon> = {
   wellness: Flower2,
   city: MapPin,
   social: Handshake,
+  talk: GraduationCap,
 };
 
 const COLOR: Record<string, string> = {
@@ -58,6 +60,7 @@ const COLOR: Record<string, string> = {
   wellness: "text-teal-600",
   city: "text-stone-600",
   social: "text-cyan-700",
+  talk: "text-blue-700",
 };
 
 export function EventTypeIcon({
