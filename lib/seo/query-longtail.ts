@@ -1161,9 +1161,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "no lucrativa España Chile",
       "Santiago BLS visa España",
     ],
-    seoTitle: "Emigrar a España desde Chile 2027",
+    seoTitle: "Vivir en España siendo chileno 2026 | NIE",
     seoDescription:
-      "Cómo emigrar a España desde Chile 2026: Schengen no es residencia. Nómada digital (200% SMI), no lucrativa, Santiago y nacionalidad en 2 años (art. 22).",
+      "Pasaporte chileno: Schengen 90 días ≠ residir. Cita previa consulado Santiago, NIE/TIE, nómada 200% SMI y reagrupación. Emigración chilena, art. 22.",
   },
   {
     path: "/es/guides/visa-nomada-digital-espana-latam-2026",
@@ -1178,9 +1178,9 @@ export const QUERY_LONG_TAIL_TARGETS: QueryLongTailTarget[] = [
       "visa digital nomad España LATAM 2026",
       "cuánto hay que ganar nómada digital España",
     ],
-    seoTitle: "Nómada digital España 2027 — LATAM",
+    seoTitle: "Teletrabajo España 2026: 200% SMI = €2.442",
     seoDescription:
-      "Visa nómada digital España 2026: 200% SMI mensual, UGE vs consulado, ≤20% clientes ES. Para pasaportes LATAM.",
+      "Ingreso mínimo teletrabajo/nómada 2026: 200% SMI (€1.221/mes) = €2.442/mes titular, MAEC/UGE. No confundir con €2.849. UGE o consulado.",
   },
   {
     path: "/es/guides/visado-no-lucrativa-espana-latam-2026",

@@ -240,6 +240,24 @@ function pickText(current: string, seed: string): string {
   return current.trim().length > 0 ? current : seed;
 }
 
+/** Slug suffix -YYYY is the content year; stale DB rows may still say 2027 in SERP fields. */
+function pickSeoText(current: string, seed: string, slug: string): string {
+  const db = current.trim();
+  const editorial = seed.trim();
+  if (!editorial) return db;
+  if (!db) return editorial;
+  const slugYear = slug.match(/-(\d{4})$/i)?.[1];
+  if (
+    slugYear &&
+    editorial.includes(slugYear) &&
+    /\b2027\b/.test(db) &&
+    !db.includes(slugYear)
+  ) {
+    return editorial;
+  }
+  return db;
+}
+
 function pickArray<T>(current: T[], seed: T[]): T[] {
   return current.length > 0 ? current : seed;
 }
@@ -255,10 +273,10 @@ export function overlayEditorialSeed(note: CommunityNote, countryKey = note.coun
     city: pickText(note.city, seed.city),
     category: pickText(note.category, seed.category),
     content_kind: note.content_kind || seed.content_kind,
-    title: pickText(note.title, seed.title),
+    title: pickSeoText(note.title, seed.title, note.slug),
     excerpt: pickText(note.excerpt, seed.excerpt),
-    seo_title: pickText(note.seo_title, seed.seo_title),
-    seo_description: pickText(note.seo_description, seed.seo_description),
+    seo_title: pickSeoText(note.seo_title, seed.seo_title, note.slug),
+    seo_description: pickSeoText(note.seo_description, seed.seo_description, note.slug),
     quick_answer: pickText(note.quick_answer, seed.quick_answer),
     body_paragraphs: pickArray(note.body_paragraphs, seed.body_paragraphs),
     body_sections: pickArray(note.body_sections, seed.body_sections),
